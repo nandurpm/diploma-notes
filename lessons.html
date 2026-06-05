@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson and module access.">
+  <title>Lessons | Diploma Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html"><span>DN</span><strong>Diploma Notes</strong></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation">Menu</button>
+    <nav class="navlinks" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="departments.html">Departments</a>
+      <a href="first-year-materials.html">First Year Materials</a>
+      <a href="syllabus.html">Syllabus</a>
+      <a class="active" href="lessons.html">Lessons</a>
+      <a href="model-question-papers.html">Model Question Papers</a>
+      <a href="previous-question-papers.html">Previous Question Papers</a>
+      <a href="study-materials.html">Study Materials</a>
+      <a href="contact.html">Contact / Help</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero reveal"><div class="hero-copy"><p class="kicker">Lessons</p><h1>Lesson and module access for each subject.</h1><p>Lesson pages are structured for future short notes, lesson PDFs, and important questions without broken local downloads.</p></div><div class="hero-panel"><div class="orbit-card">REV 2021</div><div class="metric"><strong>22+</strong><span>Subject records</span></div><div class="metric"><strong>3</strong><span>Actions per card</span></div></div></section><section class="section" id="lessons"><div class="section-heading"><p class="kicker">Lesson Area</p><h2>Lesson details will be updated soon</h2><p>Use the subject cards below to navigate by course code. Local downloads can be added later without changing the data structure.</p></div></section>    <section class="section"><div class="section-heading"><p class="kicker">Browse</p><h2>Lesson-ready subjects</h2><p>Use View Lessons on any subject card to open the subject lesson area.</p></div><div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div><div class="subject-grid" id="subjectGrid"></div></section>
+  </main>
+  <footer class="footer">
+    <p>Diploma Notes is a student-friendly static study portal for Kerala Diploma learners.</p>
+    <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" target="_blank" rel="noopener">Official REV2021 model QP reference</a>
+  </footer>
+  <script src="assets/js/subjects.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/search.js"></script>
+</body>
+</html>
