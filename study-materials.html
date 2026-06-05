@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Diploma study materials.">
+  <meta name="description" content="Study material links and subject browser.">
   <title>Study Materials | Diploma Notes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/animations.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span>DN</span><strong>Diploma Notes</strong></a>
-    <button class="menu-toggle" type="button" aria-label="Toggle navigation">Menu</button>
-    <nav class="navlinks" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="first-year-materials.html">First Year Materials</a>
-      <a href="syllabus.html">Syllabus</a>
-      <a href="lessons.html">Lessons</a>
-      <a href="model-question-papers.html">Model Question Papers</a>
-      <a href="previous-question-papers.html">Previous Question Papers</a>
-      <a class="active" href="study-materials.html">Study Materials</a>
-      <a href="contact.html">Contact / Help</a>
+    <a class="brand" href="index.html" aria-label="Diploma Notes home"><span>DN</span><strong>Diploma Notes</strong></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="departments.html">Departments</a>
+        <a href="revision-2021.html">Revision 2021</a>
+        <a href="materials-2015.html">2015 Materials</a>
+        <a href="model-question-papers.html">Question Papers</a>
+        <a href="contact.html">Help</a>
     </nav>
   </header>
   <main>
-    <section class="hero reveal"><div class="hero-copy"><p class="kicker">Study Materials</p><h1>Notes, lab manuals, workshop materials, and resource collections.</h1><p>Useful materials are grouped into clean buttons for fast student access.</p></div><div class="hero-panel"><div class="orbit-card">REV 2021</div><div class="metric"><strong>22+</strong><span>Subject records</span></div><div class="metric"><strong>3</strong><span>Actions per card</span></div></div></section><section class="section link-cloud"><a class="material-link" href="https://drive.google.com/drive/u/0/mobile/folders/1-2gRIIqomlp6-OLYjTeJKaoVAZBzV8Lb" target="_blank" rel="noopener">Workshop Material</a><a class="material-link" href="https://drive.google.com/folderview?id=18Jp0qjhH-Oe_vKrMCbkeMPcwjEWwSqYH" target="_blank" rel="noopener">Lab Manual CE / EE / EL / ME</a><a class="material-link" href="https://polyndkm.blogspot.com/p/lab-manual.html?m=1" target="_blank" rel="noopener">Lab Manual Set 2</a><a class="material-link" href="https://drive.google.com/file/d/1pgfggWTCouquaTPglpK4FfgLTC_9bdYq/view?usp=drivesdk" target="_blank" rel="noopener">Question Paper Availability</a></section>    <section class="section"><div class="section-heading"><p class="kicker">Browse</p><h2>All study subjects</h2><p>Search subjects and open the right action button.</p></div><div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div><div class="subject-grid" id="subjectGrid"></div></section>
+<section class="page-title reveal"><p class="kicker">Study Materials</p><h1>Materials grouped by revision</h1><p>Use 2015 Materials for legacy links and Revision 2021 pages for current subject cards.</p></section><section class="section cards two"><a class="choice-card" href="materials-2015.html"><span>2015</span><h2>Open 2015 materials</h2><p>First year, department, workshop, lab manual, and question paper resource links.</p></a><a class="choice-card" href="revision-2021.html"><span>2021</span><h2>Open Revision 2021</h2><p>Department and semester-wise subject cards.</p></a></section><section class="section compact" id="subject-browser">
+  <div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Cards show only the selected revision and department.</p></div>
+  <div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="revisionFilter"><option value="all">All revisions</option></select><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div>
+  <div class="subject-grid" id="subjectGrid" data-revision="" data-department=""></div>
+</section>
   </main>
   <footer class="footer">
-    <p>Diploma Notes is a student-friendly static study portal for Kerala Diploma learners.</p>
+    <p>&copy; <span data-year></span> Diploma Notes. Static GitHub Pages study resource.</p>
     <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" target="_blank" rel="noopener">Official REV2021 model QP reference</a>
   </footer>
   <script src="assets/js/subjects.js"></script>
-  <script src="assets/js/main.js"></script>
   <script src="assets/js/search.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

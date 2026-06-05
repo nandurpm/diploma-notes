@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="SITTTR model question paper links.">
+  <meta name="description" content="Generated model question paper links by subject code.">
   <title>Model Question Papers | Diploma Notes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/animations.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span>DN</span><strong>Diploma Notes</strong></a>
-    <button class="menu-toggle" type="button" aria-label="Toggle navigation">Menu</button>
-    <nav class="navlinks" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="first-year-materials.html">First Year Materials</a>
-      <a href="syllabus.html">Syllabus</a>
-      <a href="lessons.html">Lessons</a>
-      <a class="active" href="model-question-papers.html">Model Question Papers</a>
-      <a href="previous-question-papers.html">Previous Question Papers</a>
-      <a href="study-materials.html">Study Materials</a>
-      <a href="contact.html">Contact / Help</a>
+    <a class="brand" href="index.html" aria-label="Diploma Notes home"><span>DN</span><strong>Diploma Notes</strong></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="departments.html">Departments</a>
+        <a href="revision-2021.html">Revision 2021</a>
+        <a href="materials-2015.html">2015 Materials</a>
+        <a class="active" href="model-question-papers.html">Question Papers</a>
+        <a href="contact.html">Help</a>
     </nav>
   </header>
   <main>
-    <section class="hero reveal"><div class="hero-copy"><p class="kicker">Model Question Papers</p><h1>Generated SITTTR model question paper links.</h1><p>Links use the exact pattern: index.php?r=site%2Fdiploma-modelqp-courses-show&course=SUBJECT_CODE.</p><div class="hero-actions"><a class="btn primary" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" target="_blank" rel="noopener">Official REV2021 Reference</a></div></div><div class="hero-panel"><div class="orbit-card">REV 2021</div><div class="metric"><strong>22+</strong><span>Subject records</span></div><div class="metric"><strong>3</strong><span>Actions per card</span></div></div></section>    <section class="section"><div class="section-heading"><p class="kicker">Browse</p><h2>Model question paper subjects</h2><p>Sample Question Paper buttons are generated from subject codes.</p></div><div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div><div class="subject-grid" id="subjectGrid"></div></section>
+<section class="page-title reveal"><p class="kicker">Model Question Papers</p><h1>Sample question papers by subject code</h1><p>Every Sample Question Paper button is generated with the requested SITTTR URL pattern and the subject code.</p></section><section class="section notice"><strong>URL pattern:</strong> https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&amp;course=SUBJECT_CODE</section><section class="section compact" id="subject-browser">
+  <div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Cards show only the selected revision and department.</p></div>
+  <div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="revisionFilter"><option value="all">All revisions</option></select><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div>
+  <div class="subject-grid" id="subjectGrid" data-revision="" data-department=""></div>
+</section>
   </main>
   <footer class="footer">
-    <p>Diploma Notes is a student-friendly static study portal for Kerala Diploma learners.</p>
+    <p>&copy; <span data-year></span> Diploma Notes. Static GitHub Pages study resource.</p>
     <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" target="_blank" rel="noopener">Official REV2021 model QP reference</a>
   </footer>
   <script src="assets/js/subjects.js"></script>
-  <script src="assets/js/main.js"></script>
   <script src="assets/js/search.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>

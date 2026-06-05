@@ -3,41 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kerala Diploma study portal.">
+  <meta name="description" content="Diploma Notes home page for Kerala Polytechnic students.">
   <title>Home | Diploma Notes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/animations.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="index.html"><span>DN</span><strong>Diploma Notes</strong></a>
-    <button class="menu-toggle" type="button" aria-label="Toggle navigation">Menu</button>
-    <nav class="navlinks" aria-label="Main navigation">
-      <a class="active" href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="departments.html">Departments</a>
-      <a href="first-year-materials.html">First Year Materials</a>
-      <a href="syllabus.html">Syllabus</a>
-      <a href="lessons.html">Lessons</a>
-      <a href="model-question-papers.html">Model Question Papers</a>
-      <a href="previous-question-papers.html">Previous Question Papers</a>
-      <a href="study-materials.html">Study Materials</a>
-      <a href="contact.html">Contact / Help</a>
+    <a class="brand" href="index.html" aria-label="Diploma Notes home"><span>DN</span><strong>Diploma Notes</strong></a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation">
+        <a class="active" href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="departments.html">Departments</a>
+        <a href="revision-2021.html">Revision 2021</a>
+        <a href="materials-2015.html">2015 Materials</a>
+        <a href="model-question-papers.html">Question Papers</a>
+        <a href="contact.html">Help</a>
     </nav>
   </header>
   <main>
-    <section class="hero reveal"><div class="hero-copy"><p class="kicker">Kerala Polytechnic Study Hub</p><h1>Study smarter with syllabus, lessons, and model question papers.</h1><p>A colorful, fast, GitHub Pages-ready Diploma Notes website for Kerala Polytechnic and Diploma students.</p><div class="hero-actions"><a class="btn primary" href="departments.html">Explore Departments</a><a class="btn ghost" href="model-question-papers.html">Model Question Papers</a></div></div><div class="hero-panel"><div class="orbit-card">REV 2021</div><div class="metric"><strong>22+</strong><span>Subject records</span></div><div class="metric"><strong>3</strong><span>Actions per card</span></div></div></section><section class="section cards three"><article class="info-card"><span>01</span><h3>Open Syllabus</h3><p>Official SITTTR syllabus links generated from each subject code.</p></article><article class="info-card"><span>02</span><h3>View Lessons</h3><p>Organized lesson areas for short notes, lesson notes, and important questions.</p></article><article class="info-card"><span>03</span><h3>Sample Question Paper</h3><p>Model paper links generated with the official course-code URL pattern.</p></article></section>    <section class="section"><div class="section-heading"><p class="kicker">Browse</p><h2>Featured subjects</h2><p>Use search and filters to find subjects quickly.</p></div><div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div><div class="subject-grid" id="subjectGrid"></div></section>
+<section class="hero reveal tight-hero"><div class="hero-copy"><p class="kicker">Kerala Polytechnic Study Hub</p><h1>Diploma Engineering Notes</h1><p>Clean access to revision-wise syllabus, lesson areas, sample question papers, previous papers, and study materials.</p><div class="hero-actions"><a class="btn primary" href="revision-2021.html">Open Revision 2021</a><a class="btn ghost" href="materials-2015.html">Open 2015 Materials</a></div></div><div class="hero-panel summary-panel"><div class="stat"><strong>2</strong><span>Separated revisions</span></div><div class="stat"><strong>3</strong><span>Actions per subject</span></div><div class="stat"><strong>0</strong><span>Mixed content areas</span></div></div></section><section class="section cards two selection-grid"><a class="choice-card" href="revision-2021.html"><span>REV 2021</span><h2>Revision 2021</h2><p>Department pages for Electrical and Electronics Engineering and Electronics Engineering with semester-wise subject cards.</p></a><a class="choice-card legacy" href="materials-2015.html"><span>2015</span><h2>2015 Materials</h2><p>Older scheme study-material links from the supplied 2015 reference file, kept separate from Revision 2021.</p></a></section><section class="section compact" id="subject-browser">
+  <div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Cards show only the selected revision and department.</p></div>
+  <div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="revisionFilter"><option value="all">All revisions</option></select><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div>
+  <div class="subject-grid" id="subjectGrid" data-revision="" data-department=""></div>
+</section>
   </main>
   <footer class="footer">
-    <p>Diploma Notes is a student-friendly static study portal for Kerala Diploma learners.</p>
+    <p>&copy; <span data-year></span> Diploma Notes. Static GitHub Pages study resource.</p>
     <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" target="_blank" rel="noopener">Official REV2021 model QP reference</a>
   </footer>
   <script src="assets/js/subjects.js"></script>
-  <script src="assets/js/main.js"></script>
   <script src="assets/js/search.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
