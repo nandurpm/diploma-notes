@@ -62,7 +62,7 @@ const MATERIALS_2015 = {
   studyMaterials: [
     { label: "Workshop Material",     url: "https://drive.google.com/drive/u/0/mobile/folders/1-2gRIIqomlp6-OLYjTeJKaoVAZBzV8Lb" },
     { label: "Lab Manual CE / EE / EL / ME", url: "https://drive.google.com/folderview?id=18Jp0qjhH-Oe_vKrMCbkeMPcwjEWwSqYH" },
-    { label: "Lab Manual Set 2",      url: "https://polyndkm.blogspot.com/p/lab-manual.html?m=1" }
+    // Lab Manual Set 2 link removed due to dead blogspot URL
   ],
   questionPapers: [
     { label: "Question Paper Availability",      url: "https://drive.google.com/file/d/1pgfggWTCouquaTPglpK4FfgLTC_9bdYq/view?usp=drivesdk" },

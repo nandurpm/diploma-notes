@@ -7,7 +7,7 @@ const SUBJECTS = {
       { code: "1001", name: "Communication Skills in English" },
       { code: "1002", name: "Mathematics I" },
       { code: "1003", name: "Applied Physics I" },
-      { code: "1004", name: "Applied Chemistry", hasLessons: true, lessonFile: "lessons/1004-applied-chemistry.html", notesFile: "notes/1004-applied-chemistry.pdf" },
+      { code: "1004", name: "Applied Chemistry", hasLessons: true, lessonFile: "lessons/lessons-1004.html", notesFile: "notes/downloadable-notes-1004.pdf" },
       { code: "1005", name: "Engineering Graphics" },
       { code: "1006", name: "Applied Physics Lab" },
       { code: "1007", name: "Applied Chemistry Lab" },
