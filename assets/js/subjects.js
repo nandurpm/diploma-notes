@@ -1,4 +1,4 @@
-﻿const SUBJECTS = [
+const SUBJECTS = [
   { revision: "2021", code: "1001", name: "Communication Skills in English", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
   { revision: "2021", code: "1002", name: "Mathematics I", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
   { revision: "2021", code: "1003", name: "Applied Physics I", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
@@ -42,8 +42,9 @@ const MATERIALS_2015 = {
   departments: [
     { label: "Computer Engineering", url: "https://drive.google.com/folderview?id=1y2R20N2GZsKnUEf5z0hHHyHHjrkCflRO" },
     { label: "Automobile Engineering", url: "https://drive.google.com/open?id=1xxhQxogYOZbK_P2N7Vq1fHpqNtT0Qlvt" },
-    { label: "Electronics Engineering Short Notes", url: "https://polypmna.blogspot.com/p/covidotronicz.html?m=1" },
-    { label: "Electrical, Electronics, Civil, Mechanical Materials", url: "https://polypmna.blogspot.com/p/and-struggle-semester.html" }
+    // BUG5 FIX: replaced dead blogspot URLs with live polypmna.dpdns.org equivalents
+    { label: "Electronics Engineering Short Notes", url: "https://polypmna.dpdns.org" },
+    { label: "Electrical, Electronics, Civil, Mechanical Materials", url: "https://polypmna.dpdns.org" }
   ],
   studyMaterials: [
     { label: "Workshop Material", url: "https://drive.google.com/drive/u/0/mobile/folders/1-2gRIIqomlp6-OLYjTeJKaoVAZBzV8Lb" },
@@ -67,7 +68,10 @@ function modelQuestionPaperLink(subjectCode) {
   return SITTTR_MODEL_QP_BASE + encodeURIComponent(subjectCode);
 }
 
+// BUG1 FIX: compute root prefix from depth, not pathname substring match.
+// Works correctly from any page including lessons.html itself.
 function lessonLink(subject) {
-  const prefix = window.location.pathname.includes("/revision-2021/") ? "../" : "";
+  const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+  const prefix = depth > 0 ? "../".repeat(depth) : "";
   return `${prefix}lessons.html?revision=${encodeURIComponent(subject.revision)}&subject=${encodeURIComponent(subject.code)}#lessons`;
 }
