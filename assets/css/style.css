@@ -16,14 +16,14 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--ink); background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 44%, #fff7ed 100%); }
 a { color: inherit; text-decoration: none; }
-.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 18px; width: min(1180px, calc(100% - 28px)); margin: 12px auto; padding: 10px 12px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255, 255, 255, 0.88); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
+.topbar { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; gap: 18px; width: min(1400px, calc(100% - 24px)); margin: 12px auto; padding: 10px 12px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255, 255, 255, 0.88); box-shadow: var(--shadow); backdrop-filter: blur(16px); }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 900; }
 .brand span { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 13px; color: #fff; background: linear-gradient(135deg, var(--blue), var(--cyan)); font-family: 'Space Grotesk', sans-serif; }
 .navlinks { margin-left: auto; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 4px; }
 .navlinks a { padding: 9px 11px; border-radius: 999px; color: var(--muted); font-weight: 800; font-size: 0.88rem; }
 .navlinks a:hover, .navlinks a.active { color: #fff; background: linear-gradient(135deg, var(--blue), var(--cyan)); }
 .menu-toggle { display: none; margin-left: auto; border: 0; border-radius: 999px; padding: 10px 14px; color: #fff; background: var(--blue); font-weight: 900; }
-main { width: min(1180px, calc(100% - 28px)); margin: 0 auto; }
+main { width: min(1400px, calc(100% - 24px)); margin: 0 auto; }
 .hero, .page-title { margin-top: 26px; }
 .hero { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; align-items: stretch; }
 .tight-hero { min-height: 430px; }
@@ -61,7 +61,7 @@ p { color: var(--muted); line-height: 1.65; }
 .choice-card.legacy span { background: linear-gradient(135deg, var(--green), var(--cyan)); }
 .filters { padding: 12px; margin: 14px 0; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,0.72); }
 .filters input, .filters select { flex: 1 1 190px; min-height: 46px; border: 1px solid var(--line); border-radius: 12px; padding: 0 12px; font: inherit; background: #fff; color: var(--ink); }
-.subject-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.subject-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .subject-card { padding: 18px; display: grid; gap: 10px; }
 .subject-top { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
 .subject-top span, .subject-top strong { padding: 7px 10px; border-radius: 999px; color: var(--blue); background: rgba(29,78,216,.08); font-weight: 900; }
@@ -70,10 +70,11 @@ p { color: var(--muted); line-height: 1.65; }
 .action.syllabus { background: linear-gradient(135deg, var(--blue), var(--cyan)); }
 .action.lessons { background: linear-gradient(135deg, var(--green), var(--cyan)); }
 .action.qp { background: linear-gradient(135deg, var(--orange), var(--pink)); }
+.action.download { background: linear-gradient(135deg, #059669, #0891b2); }
 .link-list { display: grid; gap: 10px; margin-top: 14px; }
 .link-list a { padding: 12px 14px; border-radius: 12px; background: var(--panel-soft); color: var(--blue); font-weight: 800; border: 1px solid rgba(29,78,216,.10); }
 .notice a { color: var(--blue); font-weight: 900; }
 .empty { grid-column: 1 / -1; text-align: center; padding: 24px; color: var(--muted); }
-.footer { width: min(1180px, calc(100% - 28px)); margin: 38px auto 18px; display: flex; justify-content: space-between; gap: 14px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,0.82); border: 1px solid var(--line); }
+.footer { width: min(1400px, calc(100% - 24px)); margin: 38px auto 18px; display: flex; justify-content: space-between; gap: 14px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,0.82); border: 1px solid var(--line); }
 .footer p { margin: 0; }
 .footer a { color: var(--blue); font-weight: 800; }

@@ -9,26 +9,29 @@ function escapeHtml(value) {
 
 function subjectCard(subject) {
   const searchText = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
+  const isMaterial = subject.type === "Material";
+  const dl = notesLink(subject);
+
   return `
     <article class="subject-card reveal" data-search="${escapeHtml(searchText)}">
       <div class="subject-top"><span>${escapeHtml(subject.revision)}</span><strong>${escapeHtml(subject.code)}</strong></div>
       <h3>${escapeHtml(subject.name)}</h3>
       <p>${escapeHtml(subject.department)} / ${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
       <div class="action-row">
-        <a class="action syllabus" href="${syllabusLink(subject.code)}" target="_blank" rel="noopener">Open Syllabus</a>
+        ${!isMaterial ? `<a class="action syllabus" href="${syllabusLink(subject.code)}" target="_blank" rel="noopener">Open Syllabus</a>` : ""}
         <a class="action lessons" href="${lessonLink(subject)}">View Lessons</a>
-        <a class="action qp" href="${modelQuestionPaperLink(subject.code)}" target="_blank" rel="noopener">Sample Question Paper</a>
+        ${dl ? `<a class="action download" href="${escapeHtml(dl)}" target="_blank" rel="noopener" download>Download Notes</a>` : ""}
+        ${!isMaterial ? `<a class="action qp" href="${modelQuestionPaperLink(subject.code)}" target="_blank" rel="noopener">Sample QP</a>` : ""}
       </div>
     </article>
   `;
 }
 
-// BUG3 FIX: accept a label param so "All revisions" / "All departments" etc. are preserved.
+// BUG3 FIX: accept descriptive allLabel.
 function fillSelect(select, values, selected, allLabel) {
   if (!select) return;
   const current = selected || select.value || "all";
-  // BUG6 FIX: sort semesters numerically when they follow "Semester N" pattern,
-  // otherwise fall back to locale string sort.
+  // BUG6 FIX: numeric sort for "Semester N", locale sort otherwise.
   const sorted = [...values].sort((a, b) => {
     const ma = a.match(/^Semester\s+(\d+)$/i);
     const mb = b.match(/^Semester\s+(\d+)$/i);
@@ -37,13 +40,33 @@ function fillSelect(select, values, selected, allLabel) {
   });
   select.innerHTML =
     `<option value="all">${escapeHtml(allLabel || "All")}</option>` +
-    sorted.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("");
+    sorted.map((v) => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
   select.value = sorted.includes(current) ? current : "all";
+}
+
+// Deduplicate subjects: same code within same revision → keep only first entry
+// and mark it as "First Year / Common". This handles subjects that appear in
+// multiple department lists with the same code.
+function dedupeSubjects(subjects) {
+  const seen = new Map(); // key: revision+code
+  const out = [];
+  for (const s of subjects) {
+    const key = s.revision + ":" + s.code;
+    if (!seen.has(key)) {
+      seen.set(key, true);
+      out.push(s);
+    }
+    // If same code seen again → already added; skip.
+  }
+  return out;
 }
 
 function setupSubjectBrowser() {
   const grid = document.querySelector("#subjectGrid");
   if (!grid || !Array.isArray(SUBJECTS)) return;
+
+  // Deduplicated master list
+  const ALL = dedupeSubjects(SUBJECTS);
 
   const params = new URLSearchParams(window.location.search);
   const search = document.querySelector("#subjectSearch");
@@ -53,33 +76,30 @@ function setupSubjectBrowser() {
   const fixedRevision = grid.dataset.revision || "";
   const fixedDepartment = grid.dataset.department || "";
 
-  // BUG3 FIX: pass descriptive all-labels to fillSelect.
-  fillSelect(revisionFilter, [...new Set(SUBJECTS.map((s) => s.revision))].sort(), fixedRevision || params.get("revision"), "All revisions");
+  const COMMON_DEPT = "First Year / Common";
 
-  // BUG4 FIX: helper to re-populate dept filter based on currently selected revision.
+  // BUG3 FIX: descriptive all-labels.
+  fillSelect(revisionFilter, [...new Set(ALL.map((s) => s.revision))].sort(), fixedRevision || params.get("revision"), "All revisions");
+
+  // BUG4 FIX: refresh dept filter when revision changes.
   function refreshDeptFilter() {
-    if (fixedDepartment) return; // locked by data attr — no need to refresh
+    if (fixedDepartment) return;
     const activeRevision = fixedRevision || revisionFilter?.value || "all";
     const depts = [
       ...new Set(
-        SUBJECTS
-          .filter((s) => activeRevision === "all" || s.revision === activeRevision)
-          .map((s) => s.department)
+        ALL.filter((s) => activeRevision === "all" || s.revision === activeRevision)
+           .map((s) => s.department)
       ),
     ];
     fillSelect(departmentFilter, depts, fixedDepartment || params.get("department"), "All departments");
   }
 
   refreshDeptFilter();
-  fillSelect(semesterFilter, [...new Set(SUBJECTS.map((s) => s.semester))], params.get("semester"), "All semesters");
+  fillSelect(semesterFilter, [...new Set(ALL.map((s) => s.semester))], params.get("semester"), "All semesters");
 
   if (fixedRevision && revisionFilter) revisionFilter.disabled = true;
   if (fixedDepartment && departmentFilter) departmentFilter.disabled = true;
   if (params.get("subject") && search) search.value = params.get("subject");
-
-  // BUG2 FIX: dept pages use data-department to lock ONE dept, but First Year / Common
-  // subjects belong to every dept. Include them when a specific dept is fixed.
-  const COMMON_DEPT = "First Year / Common";
 
   const render = () => {
     const query = (search?.value || "").trim().toLowerCase();
@@ -87,13 +107,12 @@ function setupSubjectBrowser() {
     const department = fixedDepartment || departmentFilter?.value || "all";
     const semester = semesterFilter?.value || "all";
 
-    const visible = SUBJECTS.filter((subject) => {
+    const visible = ALL.filter((subject) => {
       const text = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type]
-        .join(" ")
-        .toLowerCase();
+        .join(" ").toLowerCase();
 
-      // When a dept is fixed (dept page), also include First Year / Common subjects
-      // for the same revision so students see their common subjects too.
+      // BUG2 FIX: when a dept page is fixed, also show First Year / Common subjects
+      // for the same revision so students see all subjects they actually study.
       const deptMatch =
         department === "all" ||
         subject.department === department ||
@@ -112,18 +131,12 @@ function setupSubjectBrowser() {
       : '<p class="empty">No subjects match this filter.</p>';
   };
 
-  // BUG4 FIX: when revision changes, refresh dept options then re-render.
-  revisionFilter?.addEventListener("change", () => {
-    refreshDeptFilter();
-    render();
-  });
-  revisionFilter?.addEventListener("input", () => {
-    refreshDeptFilter();
-    render();
-  });
+  // BUG4 FIX: cascade dept when revision changes.
+  revisionFilter?.addEventListener("change", () => { refreshDeptFilter(); render(); });
+  revisionFilter?.addEventListener("input",  () => { refreshDeptFilter(); render(); });
 
-  [search, departmentFilter, semesterFilter].forEach((control) => control?.addEventListener("input", render));
-  [departmentFilter, semesterFilter].forEach((control) => control?.addEventListener("change", render));
+  [search, departmentFilter, semesterFilter].forEach((c) => c?.addEventListener("input", render));
+  [departmentFilter, semesterFilter].forEach((c) => c?.addEventListener("change", render));
   render();
 }
 
@@ -140,7 +153,6 @@ function setupMenu() {
   const toggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".navlinks");
   if (!toggle || !nav) return;
-
   toggle.addEventListener("click", () => {
     const open = nav.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(open));
@@ -148,8 +160,8 @@ function setupMenu() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("[data-year]").forEach((item) => {
-    item.textContent = new Date().getFullYear();
+  document.querySelectorAll("[data-year]").forEach((el) => {
+    el.textContent = new Date().getFullYear();
   });
   setupMenu();
   renderMaterialLinks();
