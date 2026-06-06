@@ -1,0 +1,105 @@
+// Kerala Polytechnic Study Hub — Subjects Data
+// Revision 2021
+
+const SUBJECTS = {
+  common: {
+    sem1: [
+      { code: "1001", name: "Communication Skills in English" },
+      { code: "1002", name: "Mathematics I" },
+      { code: "1003", name: "Applied Physics I" },
+      { code: "1004", name: "Applied Chemistry", hasLessons: true, lessonFile: "lessons/1004-applied-chemistry.html", notesFile: "notes/1004-applied-chemistry.pdf" },
+      { code: "1005", name: "Engineering Graphics" },
+      { code: "1006", name: "Applied Physics Lab" },
+      { code: "1007", name: "Applied Chemistry Lab" },
+      { code: "1008", name: "Introduction to IT Systems Lab" },
+      { code: "1009", name: "Sports and Yoga" },
+    ],
+    sem2: [
+      { code: "2001", name: "Environmental Science" },
+      { code: "2002", name: "Mathematics II" },
+      { code: "2003", name: "Applied Physics II" },
+      { code: "2006", name: "Applied Physics II Lab" },
+      { code: "2008", name: "Communication Skills in English Lab" },
+      { code: "2009", name: "Engineering Workshop Practice" },
+    ],
+  },
+  EE: {
+    sem2: [
+      { code: "2031", name: "Fundamentals of Electrical & Electronics Engineering" },
+      { code: "2032", name: "Elementary Concepts of Electrical Systems" },
+      { code: "2038", name: "Engineering Graphics Using CAD Software" },
+      { code: "2039", name: "Fundamentals of Electrical & Electronics Engineering Lab" },
+    ],
+    sem3: [
+      { code: "3031", name: "Analog and Digital Circuits" },
+      { code: "3032", name: "DC Machines and Transformers" },
+      { code: "3036", name: "DC Machine Lab" },
+      { code: "3037", name: "Electrical Measurements Lab" },
+      { code: "3038", name: "Electrical Workshop Practice Lab" },
+      { code: "3039", name: "Mechanical Engineering Lab" },
+    ],
+    sem4: [
+      { code: "4031", name: "Electrical Machines II" },
+      { code: "4032", name: "Electrical Installation Design and Estimation" },
+      { code: "4036", name: "Basic Electronics Lab" },
+      { code: "4037", name: "Induction Machines Lab" },
+      { code: "4038", name: "Domestic Appliances Repair and Maintenance Workshop" },
+      { code: "4039", name: "Professional Practice Lab" },
+    ],
+    sem5: [
+      { code: "5031", name: "Power Electronics" },
+      { code: "5032", name: "Electricity Generation, Transmission and Distribution" },
+      { code: "5036", name: "Power Electronics Lab" },
+      { code: "5037", name: "Synchronous Machines Lab" },
+      { code: "5038", name: "Industrial Electrical Engineering Lab" },
+      { code: "5039", name: "Applied Electronics Lab" },
+    ],
+    sem6: [
+      { code: "6031", name: "Electrical Energy Management" },
+      { code: "6032", name: "Industrial Drives and Control" },
+      { code: "6036", name: "Project & Seminar" },
+      { code: "6037", name: "Electrical CAD Lab" },
+      { code: "6038", name: "Industrial Automation Lab" },
+      { code: "6039", name: "Modelling and Simulation Lab" },
+    ],
+  },
+  EL: {
+    sem2: [
+      { code: "2031", name: "Fundamentals of Electrical & Electronics Engineering" },
+      { code: "2038", name: "Engineering Graphics Using CAD Software" },
+      { code: "2039", name: "Fundamentals of Electrical & Electronics Engineering Lab" },
+      { code: "2041", name: "Basic Electronics" },
+      { code: "2049", name: "Electronics Tinkering Workshop" },
+    ],
+    sem3: [
+      { code: "3041", name: "Electric Circuits and Networks" },
+      { code: "3042", name: "Principles of Electronic Communication" },
+      { code: "3043", name: "Electronic Devices and Circuits" },
+      { code: "3044", name: "Digital Electronics" },
+      { code: "3048", name: "Electronic Devices Lab" },
+      { code: "3049", name: "Digital Electronics Lab" },
+    ],
+    sem4: [
+      { code: "4041", name: "Microcontroller and Applications" },
+      { code: "4042", name: "Linear Integrated Circuits" },
+      { code: "4043", name: "Consumer Electronics" },
+      { code: "4048", name: "Microcontroller Lab" },
+      { code: "4049", name: "Linear IC Lab" },
+    ],
+    sem5: [
+      { code: "5041", name: "Embedded Systems" },
+      { code: "5042", name: "Communication Engineering" },
+      { code: "5043", name: "Industrial Electronics" },
+      { code: "5048", name: "Embedded Systems Lab" },
+      { code: "5049", name: "Communication Engineering Lab" },
+    ],
+    sem6: [
+      { code: "6041", name: "Computer Hardware and Networking" },
+      { code: "6042", name: "Optical Fiber Communication" },
+      { code: "6043", name: "VLSI and DSP Fundamentals" },
+      { code: "6046", name: "Project & Seminar" },
+      { code: "6048", name: "Computer Hardware and Data Communication Lab" },
+      { code: "6049", name: "Advanced Electronics Lab" },
+    ],
+  },
+};
