@@ -111,19 +111,32 @@ function setupSubjectBrowser() {
       const text = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type]
         .join(" ").toLowerCase();
 
-      // BUG2 FIX: when a dept page is fixed, also show First Year / Common subjects
-      // for the same revision so students see all subjects they actually study.
-      const deptMatch =
-        department === "all" ||
-        subject.department === department ||
-        (fixedDepartment && subject.department === COMMON_DEPT && subject.revision === revision);
+      // Ensure revision matches
+      if (revision !== "all" && subject.revision !== revision) return false;
 
-      return (
-        (!query || text.includes(query)) &&
-        (revision === "all" || subject.revision === revision) &&
-        deptMatch &&
-        (semester === "all" || subject.semester === semester)
-      );
+      // Ensure semester matches
+      if (semester !== "all" && subject.semester !== semester) return false;
+
+      // Ensure search query matches
+      if (query && !text.includes(query)) return false;
+
+      // Handle department matching
+      if (department !== "all") {
+        // If it's a direct match, show it
+        if (subject.department === department) return true;
+        
+        // Special case: if we are on a specific department page, also show "Common" subjects for that revision
+        if (fixedDepartment && subject.revision === revision) {
+           // For 2021, common subjects are marked "First Year / Common"
+           if (revision === "2021" && subject.department === "First Year / Common") return true;
+           // For 2015, common subjects are in "2015 First Year Materials" or "2015 Study Materials"
+           if (revision === "2015" && (subject.department === "2015 First Year Materials" || subject.department === "2015 Study Materials")) return true;
+        }
+        
+        return false;
+      }
+
+      return true;
     });
 
     grid.innerHTML = visible.length
