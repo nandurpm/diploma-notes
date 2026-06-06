@@ -1,44 +1,862 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzFkNGVkOCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ETjwvdGV4dD4KPC9zdmc+">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzFkNGVkOCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ETjwvdGV4dD4KPC9zdmc+">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Diploma Notes home page for Kerala Polytechnic students.">
-  <title>Home | Diploma Notes</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/animations.css">
-  <link rel="stylesheet" href="assets/css/responsive.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kerala Polytechnic Study Hub — Diploma Engineering Notes</title>
+<style>
+  /* ── Reset & Base ─────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --blue-light: #eff6ff;
+    --blue-mid: #dbeafe;
+    --teal: #0d9488;
+    --teal-light: #f0fdfa;
+    --red-bg: #ef4444;
+    --text: #0f172a;
+    --text-2: #334155;
+    --text-3: #64748b;
+    --border: #e2e8f0;
+    --bg: #f0f4f8;
+    --card: #ffffff;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.09);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* ── Layout — TIGHT SIDES ─────────────────────────────────────────── */
+  .wrap {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0 10px;          /* << minimal side padding */
+  }
+  @media (min-width: 640px)  { .wrap { padding: 0 14px; } }
+  @media (min-width: 1024px) { .wrap { padding: 0 18px; } }
+
+  /* ── Navbar ───────────────────────────────────────────────────────── */
+  .nav {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-brand {
+    font-size: 1rem; font-weight: 800; color: var(--blue);
+    display: flex; align-items: center; gap: 8px; text-decoration: none;
+  }
+  .nav-brand svg { flex-shrink: 0; }
+  .nav-actions { display: flex; gap: 8px; }
+
+  /* ── Buttons ──────────────────────────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 16px; border-radius: 8px; font-size: 0.83rem;
+    font-weight: 600; cursor: pointer; text-decoration: none;
+    border: none; transition: all 0.15s; white-space: nowrap;
+  }
+  .btn-primary   { background: var(--blue); color: #fff; }
+  .btn-primary:hover { background: var(--blue-dark); }
+  .btn-outline   { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
+  .btn-outline:hover { background: var(--blue-light); }
+  .btn-ghost     { background: transparent; color: var(--text-2); border: 1.5px solid var(--border); }
+  .btn-ghost:hover { background: #f8fafc; }
+  .btn-sm        { padding: 5px 11px; font-size: 0.78rem; }
+  .btn-teal      { background: var(--teal); color: #fff; }
+  .btn-teal:hover { background: #0f766e; }
+  .btn-red-close { background: transparent; color: #ef4444; border: 1.5px solid #fecaca; border-radius: 8px; padding: 5px 10px; cursor: pointer; display: inline-flex; align-items: center; }
+  .btn-red-close:hover { background: #fef2f2; }
+
+  /* ── Hero ─────────────────────────────────────────────────────────── */
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 16px;
+    margin: 18px 0;
+  }
+  @media (max-width: 700px) { .hero-grid { grid-template-columns: 1fr; } }
+  .hero-card {
+    background: var(--card); border-radius: var(--radius);
+    border: 1px solid var(--border); padding: 28px 32px;
+    box-shadow: var(--shadow);
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .hero-title {
+    font-size: clamp(1.9rem, 4vw, 2.6rem); font-weight: 900;
+    color: var(--text); line-height: 1.15; margin-bottom: 14px;
+  }
+  .hero-desc { color: var(--text-3); font-size: 0.9rem; margin-bottom: 20px; }
+  .hero-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .stats-col { display: flex; flex-direction: column; gap: 10px; }
+  .stat-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 18px 22px;
+    box-shadow: var(--shadow);
+  }
+  .stat-num  { font-size: 1.8rem; font-weight: 900; color: var(--blue); }
+  .stat-label { font-size: 0.8rem; color: var(--text-3); margin-top: 2px; }
+
+  /* ── Revision Cards ───────────────────────────────────────────────── */
+  .rev-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 600px) { .rev-grid { grid-template-columns: 1fr; } }
+  .rev-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 26px; box-shadow: var(--shadow);
+    cursor: pointer; transition: box-shadow 0.18s;
+  }
+  .rev-card:hover { box-shadow: var(--shadow-md); }
+  .rev-badge {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 0.72rem; font-weight: 800; color: #fff; margin-bottom: 10px;
+  }
+  .badge-red  { background: #ef4444; }
+  .badge-teal { background: var(--teal); }
+  .rev-title  { font-size: 1.3rem; font-weight: 800; margin-bottom: 6px; }
+  .rev-desc   { font-size: 0.85rem; color: var(--text-3); }
+
+  /* ── Section Header ───────────────────────────────────────────────── */
+  .section-header { margin: 24px 0 8px; }
+  .section-eyebrow {
+    font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 4px;
+  }
+  .section-title { font-size: 1.35rem; font-weight: 800; }
+  .section-sub   { font-size: 0.82rem; color: var(--text-3); }
+
+  /* ── Search/Filter Bar ────────────────────────────────────────────── */
+  .filter-bar {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 14px;
+    margin-bottom: 16px; box-shadow: var(--shadow);
+  }
+  .filter-bar input, .filter-bar select {
+    border: 1px solid var(--border); border-radius: 7px;
+    padding: 6px 11px; font-size: 0.83rem; background: #f8fafc;
+    color: var(--text); outline: none; transition: border-color 0.15s;
+  }
+  .filter-bar input { flex: 1; min-width: 160px; }
+  .filter-bar input:focus, .filter-bar select:focus { border-color: var(--blue); background: #fff; }
+  .filter-bar select { cursor: pointer; }
+
+  /* ── Subject Grid ─────────────────────────────────────────────────── */
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .subject-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px 18px;
+    display: flex; flex-direction: column; gap: 6px;
+    box-shadow: var(--shadow); transition: box-shadow 0.18s;
+  }
+  .subject-card:hover { box-shadow: var(--shadow-md); }
+  .subject-code {
+    font-size: 0.7rem; font-weight: 800; color: var(--blue);
+    background: var(--blue-light); padding: 2px 8px;
+    border-radius: 999px; display: inline-block; width: fit-content;
+  }
+  .subject-name { font-size: 0.92rem; font-weight: 700; color: var(--text); line-height: 1.35; }
+  .subject-actions { margin-top: 6px; display: flex; gap: 7px; flex-wrap: wrap; align-items: center; }
+  .updation-notice {
+    font-size: 0.76rem; color: var(--text-3); font-style: italic;
+  }
+  .updation-notice a { color: var(--blue); }
+
+  /* ── Semester Section ─────────────────────────────────────────────── */
+  .sem-label {
+    font-size: 0.75rem; font-weight: 700; color: var(--text-3);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 0 4px; border-bottom: 1px solid var(--border);
+    margin-bottom: 10px; margin-top: 18px;
+  }
+  .dept-header {
+    font-size: 0.95rem; font-weight: 800; color: var(--text);
+    padding: 10px 0 4px; display: flex; align-items: center; gap: 8px;
+  }
+  .dept-badge {
+    font-size: 0.7rem; font-weight: 700; padding: 2px 8px;
+    border-radius: 999px; color: #fff;
+  }
+  .dept-badge.ee { background: var(--blue); }
+  .dept-badge.el { background: var(--teal); }
+
+  /* ── Lessons Overlay ─────────────────────────────────────────────── */
+  .lessons-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #fff; display: flex; flex-direction: column;
+    animation: slideUp 0.22s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+  .lessons-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; background: #f8fafc;
+    border-bottom: 1px solid var(--border); flex-shrink: 0;
+    gap: 12px;
+  }
+  .lessons-title {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 0.92rem; color: var(--text);
+    min-width: 0;
+  }
+  .lessons-title span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lessons-header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .lessons-iframe { flex: 1; width: 100%; border: none; }
+
+  /* ── QP Modal ─────────────────────────────────────────────────────── */
+  .modal-backdrop {
+    position: fixed; inset: 0; z-index: 8000;
+    background: rgba(15,23,42,0.55); backdrop-filter: blur(2px);
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+    animation: fadeIn 0.18s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: var(--card); border-radius: 14px; border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    max-width: 520px; width: 100%;
+    animation: popIn 0.2s ease;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.96); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+  .modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 22px 14px; border-bottom: 1px solid var(--border);
+  }
+  .modal-title { font-size: 1.05rem; font-weight: 800; }
+  .modal-body  { padding: 18px 22px; }
+  .modal-footer { padding: 12px 22px 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .qp-notice {
+    background: #fefce8; border: 1px solid #fde047; border-radius: 8px;
+    padding: 10px 14px; font-size: 0.82rem; color: #854d0e; margin-bottom: 14px;
+  }
+  .qp-links { display: flex; flex-direction: column; gap: 8px; }
+  .qp-link-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #f8fafc; border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px;
+  }
+  .qp-link-label { font-size: 0.85rem; font-weight: 600; color: var(--text-2); }
+  .qp-link-sub   { font-size: 0.75rem; color: var(--text-3); margin-top: 1px; }
+
+  /* ── Page selector ───────────────────────────────────────────────── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── Footer ──────────────────────────────────────────────────────── */
+  .footer {
+    border-top: 1px solid var(--border); background: var(--card);
+    padding: 20px 0; margin-top: 32px;
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .footer-text { font-size: 0.8rem; color: var(--text-3); }
+  .footer-text a { color: var(--blue); }
+
+  /* ── Tabs ────────────────────────────────────────────────────────── */
+  .tabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+  .tab-btn {
+    padding: 7px 16px; border-radius: 8px; font-size: 0.82rem;
+    font-weight: 600; cursor: pointer; border: 1.5px solid var(--border);
+    background: var(--card); color: var(--text-3); transition: all 0.15s;
+  }
+  .tab-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .tab-btn:hover:not(.active) { background: var(--blue-light); color: var(--blue); border-color: var(--blue); }
+
+  /* ── Hidden utility ──────────────────────────────────────────────── */
+  .hidden { display: none !important; }
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Diploma Notes home"><span>DN</span><strong>Diploma Notes</strong></a>
-    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
-        <nav class="navlinks" aria-label="Primary navigation">
-        <a class="active" href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="revision-2021.html">Revision 2021</a>
-        <a href="materials-2015.html">2015 Materials</a>
-        <a href="contact.html">Help</a>
-    </nav>
-  </header>
-  <main>
-<section class="hero reveal tight-hero"><div class="hero-copy"><p class="kicker">Kerala Polytechnic Study Hub</p><h1>Diploma Engineering Notes</h1><p>Clean access to revision-wise syllabus, lesson areas, sample question papers, previous papers, and study materials.</p><div class="hero-actions"><a class="btn primary" href="revision-2021.html">Open Revision 2021</a><a class="btn ghost" href="materials-2015.html">Open 2015 Materials</a></div></div><div class="hero-panel summary-panel"><div class="stat"><strong>2</strong><span>Separated revisions</span></div><div class="stat"><strong>3</strong><span>Actions per subject</span></div><div class="stat"><strong>0</strong><span>Mixed content areas</span></div></div></section><section class="section cards two selection-grid"><a class="choice-card" href="revision-2021.html"><span>REV 2021</span><h2>Revision 2021</h2><p>Department pages for Electrical and Electronics Engineering and Electronics Engineering with semester-wise subject cards.</p></a><a class="choice-card legacy" href="materials-2015.html"><span>2015</span><h2>2015 Materials</h2><p>Older scheme study-material links from the supplied 2015 reference file, kept separate from Revision 2021.</p></a></section><section class="section compact" id="subject-browser">
-  <div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Cards show only the selected revision and department.</p></div>
-  <div class="filters"><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><select id="revisionFilter"><option value="all">All revisions</option></select><select id="departmentFilter"><option value="all">All departments</option></select><select id="semesterFilter"><option value="all">All semesters</option></select></div>
-  <div class="subject-grid" id="subjectGrid" data-revision="" data-department=""></div>
-</section>
-  </main>
-  <footer class="footer">
-    <p>&copy; <span data-year></span> Diploma Notes. Static GitHub Pages study resource.</p>
-    <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" target="_blank" rel="noopener">Official REV2021 model QP reference</a>
-  </footer>
-  <script src="assets/js/subjects.js"></script>
-  <script src="assets/js/search.js"></script>
-  <script src="assets/js/main.js"></script>
+
+<!-- ── Navbar ──────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <div class="wrap">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand" onclick="showPage('home')">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Kerala Polytechnic Study Hub
+      </a>
+      <div class="nav-actions">
+        <button class="btn btn-ghost btn-sm" onclick="showPage('home')">Home</button>
+        <button class="btn btn-ghost btn-sm" onclick="showPage('rev2021')">Rev 2021</button>
+        <button class="btn btn-ghost btn-sm" onclick="showPage('rev2015')">2015</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HOME PAGE ───────────────────────────────────────────────────────── -->
+<div id="page-home" class="page active">
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero-grid">
+    <div class="hero-card">
+      <div class="hero-eyebrow">Kerala Polytechnic Study Hub</div>
+      <h1 class="hero-title">Diploma Engineering Notes</h1>
+      <p class="hero-desc">Clean access to revision-wise syllabus, lesson areas, sample question papers, previous papers, and study materials.</p>
+      <div class="hero-btns">
+        <button class="btn btn-primary" onclick="showPage('rev2021')">Open Revision 2021</button>
+        <button class="btn btn-outline" onclick="showPage('rev2015')">Open 2015 Materials</button>
+      </div>
+    </div>
+    <div class="stats-col">
+      <div class="stat-card"><div class="stat-num">2</div><div class="stat-label">Separated revisions</div></div>
+      <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Actions per subject</div></div>
+      <div class="stat-card"><div class="stat-num">0</div><div class="stat-label">Mixed content areas</div></div>
+    </div>
+  </div>
+
+  <!-- Revision cards -->
+  <div class="rev-grid">
+    <div class="rev-card" onclick="showPage('rev2021')">
+      <span class="rev-badge badge-red">REV 2021</span>
+      <div class="rev-title">Revision 2021</div>
+      <div class="rev-desc">Department pages for Electrical and Electronics Engineering and Electronics Engineering with semester-wise subject cards.</div>
+    </div>
+    <div class="rev-card" onclick="showPage('rev2015')">
+      <span class="rev-badge badge-teal">2015</span>
+      <div class="rev-title">2015 Materials</div>
+      <div class="rev-desc">Older scheme study-material links from the supplied 2015 reference file, kept separate from Revision 2021.</div>
+    </div>
+  </div>
+
+  <!-- Subject Browser -->
+  <div class="section-header">
+    <div class="section-eyebrow">Subject Browser</div>
+    <div class="section-title">Find the right subject quickly</div>
+  </div>
+
+  <div class="filter-bar">
+    <input type="text" id="search-input" placeholder="Search subject, code, department, semester…" oninput="filterSubjects()">
+    <select id="filter-rev" onchange="filterSubjects()">
+      <option value="">All revisions</option>
+      <option value="2021">Revision 2021</option>
+      <option value="2015">2015</option>
+    </select>
+    <select id="filter-dept" onchange="filterSubjects()">
+      <option value="">All departments</option>
+      <option value="common">Common</option>
+      <option value="EE">Electrical & Electronics (EE)</option>
+      <option value="EL">Electronics (EL)</option>
+    </select>
+    <select id="filter-sem" onchange="filterSubjects()">
+      <option value="">All semesters</option>
+      <option value="1">Semester 1</option>
+      <option value="2">Semester 2</option>
+      <option value="3">Semester 3</option>
+      <option value="4">Semester 4</option>
+      <option value="5">Semester 5</option>
+      <option value="6">Semester 6</option>
+    </select>
+  </div>
+
+  <div id="browser-results" class="subjects-grid"></div>
+
+</div>
+</div>
+
+<!-- ── REVISION 2021 PAGE ──────────────────────────────────────────────── -->
+<div id="page-rev2021" class="page">
+<div class="wrap">
+  <div class="section-header" style="margin-top:18px">
+    <div class="section-eyebrow">Revision 2021</div>
+    <div class="section-title">Subjects & Study Materials</div>
+    <div class="section-sub" style="margin-top:4px">Select a department to browse semester-wise subjects</div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="setTab('common','rev2021')">Common (Sem 1–2)</button>
+    <button class="tab-btn" onclick="setTab('EE','rev2021')">Electrical & Electronics (EE)</button>
+    <button class="tab-btn" onclick="setTab('EL','rev2021')">Electronics Engineering (EL)</button>
+  </div>
+
+  <div id="rev2021-content"></div>
+</div>
+</div>
+
+<!-- ── 2015 PAGE ───────────────────────────────────────────────────────── -->
+<div id="page-rev2015" class="page">
+<div class="wrap">
+  <div class="section-header" style="margin-top:18px">
+    <div class="section-eyebrow">2015 Scheme</div>
+    <div class="section-title">2015 Study Materials</div>
+    <div class="section-sub" style="margin-top:4px">Older scheme materials kept separate from Revision 2021</div>
+  </div>
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;color:var(--text-3);">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;display:block"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <div style="font-weight:700;font-size:1rem;color:var(--text-2);margin-bottom:6px">2015 Materials — Uploading</div>
+    <div style="font-size:0.85rem">🔄 Site updation in progress. <a href="mailto:nandurpm@gmail.com" style="color:var(--blue)">Contact the author</a> for access.</div>
+  </div>
+</div>
+</div>
+
+<!-- ── LESSONS OVERLAY ─────────────────────────────────────────────────── -->
+<div id="lessons-overlay" class="lessons-overlay hidden">
+  <div class="lessons-header">
+    <div class="lessons-title">
+      <span id="lessons-code" class="subject-code"></span>
+      <span id="lessons-name"></span>
+    </div>
+    <div class="lessons-header-actions">
+      <a id="lessons-dl-btn" class="btn btn-primary btn-sm" href="#" download>
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </a>
+      <button class="btn-red-close" onclick="closeLesson()">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        &nbsp;Close
+      </button>
+    </div>
+  </div>
+  <iframe id="lessons-iframe" class="lessons-iframe" title="Lesson Viewer"></iframe>
+</div>
+
+<!-- ── QP MODAL ───────────────────────────────────────────────────────── -->
+<div id="qp-modal-backdrop" class="modal-backdrop hidden" onclick="closeQP(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title">📄 Sample Question Papers</div>
+      <button class="btn-red-close" onclick="closeQP()">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="qp-subject-info" style="margin-bottom:12px;font-weight:700;font-size:0.95rem;"></div>
+      <div class="qp-notice">
+        ⚠️ These links open the official SITTTR Kerala website. Some papers may not yet be uploaded by SITTTR. If the link shows "File not found", the paper isn't available on their server yet.
+      </div>
+      <div class="qp-links" id="qp-links-container"></div>
+    </div>
+    <div class="modal-footer">
+      <a id="qp-all-link" href="#" target="_blank" class="btn btn-outline btn-sm">Browse All QPs on SITTTR ↗</a>
+      <button class="btn btn-ghost btn-sm" onclick="closeQP()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ─────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-text">Kerala Polytechnic Study Hub · Rev 2021 · Built for students</div>
+      <div class="footer-text">
+        Issues? <a href="mailto:nandurpm@gmail.com">Contact the author</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════
+//  DATA
+// ══════════════════════════════════════════════════════════════════════════
+
+const SUBJECTS = {
+  common: {
+    sem1: [
+      { code:"1001", name:"Communication Skills in English" },
+      { code:"1002", name:"Mathematics I" },
+      { code:"1003", name:"Applied Physics I" },
+      { code:"1004", name:"Applied Chemistry", hasLessons:true,
+        lessonFile:"lessons/1004-applied-chemistry.html",
+        notesFile:"notes/1004-applied-chemistry.pdf" },
+      { code:"1005", name:"Engineering Graphics" },
+      { code:"1006", name:"Applied Physics Lab" },
+      { code:"1007", name:"Applied Chemistry Lab" },
+      { code:"1008", name:"Introduction to IT Systems Lab" },
+      { code:"1009", name:"Sports and Yoga" },
+    ],
+    sem2: [
+      { code:"2001", name:"Environmental Science" },
+      { code:"2002", name:"Mathematics II" },
+      { code:"2003", name:"Applied Physics II" },
+      { code:"2006", name:"Applied Physics II Lab" },
+      { code:"2008", name:"Communication Skills in English Lab" },
+      { code:"2009", name:"Engineering Workshop Practice" },
+    ],
+  },
+  EE: {
+    sem2: [
+      { code:"2031", name:"Fundamentals of Electrical & Electronics Engineering" },
+      { code:"2032", name:"Elementary Concepts of Electrical Systems" },
+      { code:"2038", name:"Engineering Graphics Using CAD Software" },
+      { code:"2039", name:"Fundamentals of Electrical & Electronics Engineering Lab" },
+    ],
+    sem3: [
+      { code:"3031", name:"Analog and Digital Circuits" },
+      { code:"3032", name:"DC Machines and Transformers" },
+      { code:"3036", name:"DC Machine Lab" },
+      { code:"3037", name:"Electrical Measurements Lab" },
+      { code:"3038", name:"Electrical Workshop Practice Lab" },
+      { code:"3039", name:"Mechanical Engineering Lab" },
+    ],
+    sem4: [
+      { code:"4031", name:"Electrical Machines II" },
+      { code:"4032", name:"Electrical Installation Design and Estimation" },
+      { code:"4036", name:"Basic Electronics Lab" },
+      { code:"4037", name:"Induction Machines Lab" },
+      { code:"4038", name:"Domestic Appliances Repair and Maintenance Workshop" },
+      { code:"4039", name:"Professional Practice Lab" },
+    ],
+    sem5: [
+      { code:"5031", name:"Power Electronics" },
+      { code:"5032", name:"Electricity Generation, Transmission and Distribution" },
+      { code:"5036", name:"Power Electronics Lab" },
+      { code:"5037", name:"Synchronous Machines Lab" },
+      { code:"5038", name:"Industrial Electrical Engineering Lab" },
+      { code:"5039", name:"Applied Electronics Lab" },
+    ],
+    sem6: [
+      { code:"6031", name:"Electrical Energy Management" },
+      { code:"6032", name:"Industrial Drives and Control" },
+      { code:"6036", name:"Project & Seminar" },
+      { code:"6037", name:"Electrical CAD Lab" },
+      { code:"6038", name:"Industrial Automation Lab" },
+      { code:"6039", name:"Modelling and Simulation Lab" },
+    ],
+  },
+  EL: {
+    sem2: [
+      { code:"2031", name:"Fundamentals of Electrical & Electronics Engineering" },
+      { code:"2038", name:"Engineering Graphics Using CAD Software" },
+      { code:"2039", name:"Fundamentals of Electrical & Electronics Engineering Lab" },
+      { code:"2041", name:"Basic Electronics" },
+      { code:"2049", name:"Electronics Tinkering Workshop" },
+    ],
+    sem3: [
+      { code:"3041", name:"Electric Circuits and Networks" },
+      { code:"3042", name:"Principles of Electronic Communication" },
+      { code:"3043", name:"Electronic Devices and Circuits" },
+      { code:"3044", name:"Digital Electronics" },
+      { code:"3048", name:"Electronic Devices Lab" },
+      { code:"3049", name:"Digital Electronics Lab" },
+    ],
+    sem4: [
+      { code:"4041", name:"Microcontroller and Applications" },
+      { code:"4042", name:"Linear Integrated Circuits" },
+      { code:"4043", name:"Consumer Electronics" },
+      { code:"4048", name:"Microcontroller Lab" },
+      { code:"4049", name:"Linear IC Lab" },
+    ],
+    sem5: [
+      { code:"5041", name:"Embedded Systems" },
+      { code:"5042", name:"Communication Engineering" },
+      { code:"5043", name:"Industrial Electronics" },
+      { code:"5048", name:"Embedded Systems Lab" },
+      { code:"5049", name:"Communication Engineering Lab" },
+    ],
+    sem6: [
+      { code:"6041", name:"Computer Hardware and Networking" },
+      { code:"6042", name:"Optical Fiber Communication" },
+      { code:"6043", name:"VLSI and DSP Fundamentals" },
+      { code:"6046", name:"Project & Seminar" },
+      { code:"6048", name:"Computer Hardware and Data Communication Lab" },
+      { code:"6049", name:"Advanced Electronics Lab" },
+    ],
+  },
+};
+
+// QP dept mapping: which SITTTR dept code to use for each of your departments
+const DEPT_PROG = { EE:"EE", EL:"EL", common:"EE" };
+
+// ══════════════════════════════════════════════════════════════════════════
+//  PAGE NAVIGATION
+// ══════════════════════════════════════════════════════════════════════════
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  window.scrollTo(0,0);
+  if (id === 'rev2021') renderRev2021('common');
+  if (id === 'home') renderBrowser();
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  SUBJECT CARD BUILDER
+// ══════════════════════════════════════════════════════════════════════════
+
+function buildCard(subject, dept) {
+  const card = document.createElement('div');
+  card.className = 'subject-card';
+  card.dataset.code = subject.code;
+  card.dataset.name = subject.name.toLowerCase();
+  card.dataset.dept = dept || '';
+  card.dataset.sem  = subject.code.charAt(0);
+
+  const codeEl = document.createElement('span');
+  codeEl.className = 'subject-code';
+  codeEl.textContent = subject.code;
+
+  const nameEl = document.createElement('div');
+  nameEl.className = 'subject-name';
+  nameEl.textContent = subject.name;
+
+  const actions = document.createElement('div');
+  actions.className = 'subject-actions';
+
+  if (subject.hasLessons) {
+    // View Lessons
+    const lb = document.createElement('button');
+    lb.className = 'btn btn-primary btn-sm';
+    lb.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg> View Lessons`;
+    lb.onclick = () => openLesson(subject);
+
+    // Download Notes
+    const db = document.createElement('a');
+    db.className = 'btn btn-outline btn-sm';
+    db.href = subject.notesFile;
+    db.download = '';
+    db.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Notes`;
+
+    // QP button
+    const qb = document.createElement('button');
+    qb.className = 'btn btn-ghost btn-sm';
+    qb.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Sample QP`;
+    qb.onclick = () => openQP(subject, dept);
+
+    actions.appendChild(lb);
+    actions.appendChild(db);
+    actions.appendChild(qb);
+  } else {
+    // QP always available (links to SITTTR)
+    const qb = document.createElement('button');
+    qb.className = 'btn btn-ghost btn-sm';
+    qb.innerHTML = `<svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg> Sample QP`;
+    qb.onclick = () => openQP(subject, dept);
+
+    const notice = document.createElement('span');
+    notice.className = 'updation-notice';
+    notice.innerHTML = `🔄 Notes uploading — <a href="mailto:nandurpm@gmail.com">contact author</a>`;
+
+    actions.appendChild(qb);
+    actions.appendChild(notice);
+  }
+
+  card.appendChild(codeEl);
+  card.appendChild(nameEl);
+  card.appendChild(actions);
+  return card;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  LESSON VIEWER
+// ══════════════════════════════════════════════════════════════════════════
+
+function openLesson(subject) {
+  document.getElementById('lessons-code').textContent = subject.code;
+  document.getElementById('lessons-name').textContent = subject.name;
+  document.getElementById('lessons-dl-btn').href = subject.notesFile;
+  document.getElementById('lessons-iframe').src  = subject.lessonFile;
+  document.getElementById('lessons-overlay').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLesson() {
+  document.getElementById('lessons-overlay').classList.add('hidden');
+  document.getElementById('lessons-iframe').src = '';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeLesson();
+    closeQP();
+  }
+});
+
+// ══════════════════════════════════════════════════════════════════════════
+//  QP MODAL — SITTTR links
+// ══════════════════════════════════════════════════════════════════════════
+
+function buildQPLinks(code, prog) {
+  // SITTTR URL pattern for model QPs per course code:
+  // https://www.sitttrkerala.ac.in/index.php?r=site/diploma-modelqp-courses-show&course=CODE
+  const base = 'https://www.sitttrkerala.ac.in/index.php';
+  const courseURL = `${base}?r=site%2Fdiploma-modelqp-courses-show&course=${code}`;
+  const deptURL   = `${base}?r=site%2Fdiploma-modelqp-courses&prog=${prog}`;
+  const allURL    = `${base}?r=site%2Fdiploma-modelqp&scheme=REV2021`;
+  return { courseURL, deptURL, allURL };
+}
+
+function openQP(subject, dept) {
+  const prog = DEPT_PROG[dept] || 'EE';
+  const { courseURL, deptURL, allURL } = buildQPLinks(subject.code, prog);
+
+  document.getElementById('qp-subject-info').innerHTML =
+    `<span class="subject-code" style="margin-right:8px">${subject.code}</span>${subject.name}`;
+
+  const container = document.getElementById('qp-links-container');
+  container.innerHTML = '';
+
+  // Row 1: direct course QP
+  const row1 = document.createElement('div');
+  row1.className = 'qp-link-row';
+  row1.innerHTML = `
+    <div>
+      <div class="qp-link-label">Model Question Paper — ${subject.code}</div>
+      <div class="qp-link-sub">Rev 2021 · Official SITTTR Kerala</div>
+    </div>
+    <a href="${courseURL}" target="_blank" class="btn btn-primary btn-sm">
+      Open ↗
+    </a>`;
+  container.appendChild(row1);
+
+  // Row 2: dept page
+  const row2 = document.createElement('div');
+  row2.className = 'qp-link-row';
+  row2.innerHTML = `
+    <div>
+      <div class="qp-link-label">All QPs for ${prog} Department</div>
+      <div class="qp-link-sub">Browse all subjects in this dept</div>
+    </div>
+    <a href="${deptURL}" target="_blank" class="btn btn-outline btn-sm">
+      Browse ↗
+    </a>`;
+  container.appendChild(row2);
+
+  document.getElementById('qp-all-link').href = allURL;
+  document.getElementById('qp-modal-backdrop').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQP(e) {
+  if (e && e.target !== document.getElementById('qp-modal-backdrop')) return;
+  document.getElementById('qp-modal-backdrop').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+// also close on button click (no event arg)
+const _closeQP = closeQP;
+window.closeQP = function(e) {
+  document.getElementById('qp-modal-backdrop').classList.add('hidden');
+  document.body.style.overflow = '';
+};
+
+// ══════════════════════════════════════════════════════════════════════════
+//  REV 2021 RENDERER
+// ══════════════════════════════════════════════════════════════════════════
+
+let currentTab = 'common';
+
+function setTab(tab, page) {
+  currentTab = tab;
+  document.querySelectorAll(`#page-${page} .tab-btn`).forEach((b,i) => {
+    b.classList.toggle('active', ['common','EE','EL'][i] === tab);
+  });
+  renderRev2021(tab);
+}
+
+function renderRev2021(tab) {
+  const container = document.getElementById('rev2021-content');
+  container.innerHTML = '';
+
+  const deptData = SUBJECTS[tab];
+  if (!deptData) return;
+
+  const semNames = {
+    sem1:'Semester 1 — Common',
+    sem2: tab==='common' ? 'Semester 2 — Common' : `Semester 2`,
+    sem3:'Semester 3', sem4:'Semester 4', sem5:'Semester 5', sem6:'Semester 6'
+  };
+
+  Object.keys(deptData).forEach(semKey => {
+    const subjects = deptData[semKey];
+
+    const label = document.createElement('div');
+    label.className = 'sem-label';
+    label.textContent = semNames[semKey] || semKey;
+    container.appendChild(label);
+
+    const grid = document.createElement('div');
+    grid.className = 'subjects-grid';
+    subjects.forEach(s => grid.appendChild(buildCard(s, tab)));
+    container.appendChild(grid);
+  });
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  BROWSER (home search)
+// ══════════════════════════════════════════════════════════════════════════
+
+// Flatten all subjects for search
+function getAllSubjects() {
+  const all = [];
+  Object.entries(SUBJECTS).forEach(([dept, sems]) => {
+    Object.entries(sems).forEach(([semKey, subjects]) => {
+      subjects.forEach(s => all.push({ ...s, dept, sem: semKey }));
+    });
+  });
+  return all;
+}
+
+function renderBrowser() {
+  filterSubjects();
+}
+
+function filterSubjects() {
+  const q    = document.getElementById('search-input').value.toLowerCase();
+  const rev  = document.getElementById('filter-rev').value;
+  const dept = document.getElementById('filter-dept').value;
+  const sem  = document.getElementById('filter-sem').value;
+
+  const container = document.getElementById('browser-results');
+  container.innerHTML = '';
+
+  let results = getAllSubjects();
+
+  if (dept)  results = results.filter(s => s.dept === dept);
+  if (sem)   results = results.filter(s => s.sem.replace('sem','') === sem);
+  if (q)     results = results.filter(s =>
+    s.code.includes(q) || s.name.toLowerCase().includes(q) || s.dept.toLowerCase().includes(q)
+  );
+  // rev filter: 2021 = all our subjects, 2015 = none (separate page)
+  if (rev === '2015') { results = []; }
+
+  if (results.length === 0) {
+    container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:32px;color:var(--text-3);font-size:0.88rem;">
+      ${rev==='2015' ? '2015 materials are on the <a href="#" onclick="showPage(\'rev2015\')" style="color:var(--blue)">2015 page</a>.' : 'No subjects match your filters.'}
+    </div>`;
+    return;
+  }
+
+  results.forEach(s => container.appendChild(buildCard(s, s.dept)));
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════════════════════════════════════
+
+renderBrowser();
+</script>
 </body>
 </html>
