@@ -15,9 +15,46 @@
   .footer { flex-direction: column; }
 }
 @media (max-width: 620px) {
-  main, .topbar, .footer { width: min(100% - 14px, 1400px); }
+  body { overflow-x: hidden; }
+  main, .topbar, .footer { width: calc(100% - 14px); }
+  .topbar { top: 6px; margin: 6px auto 10px; padding: 8px; border-radius: 16px; gap: 10px; }
+  .brand { min-width: 0; gap: 8px; font-size: 0.96rem; }
+  .brand span { width: 38px; height: 38px; border-radius: 12px; }
+  .menu-toggle { min-height: 38px; padding: 9px 12px; }
+  .navlinks.open { gap: 7px; }
+  .navlinks a { display: flex; justify-content: center; padding: 11px; border: 1px solid rgba(29,78,216,.10); background: rgba(255,255,255,.8); }
+  .hero, .page-title { margin-top: 12px; }
   .hero-copy, .hero-panel, .info-card, .subject-card, .choice-card, .notice, .page-title { border-radius: 17px; }
+  .page-title { padding: 20px 16px; }
+  h1 { font-size: 2rem; line-height: 1.04; }
+  h2 { font-size: 1.45rem; line-height: 1.12; }
+  p { line-height: 1.55; }
+  .hero-actions { display: grid; grid-template-columns: 1fr; }
+  .btn { width: 100%; min-height: 46px; }
+  .home-feature { margin: 14px 0; gap: 9px; }
+  .home-video-frame { border-radius: 17px; }
+  .home-video { max-height: 58svh; aspect-ratio: 16 / 10; object-fit: cover; }
+  .initiative-strip { padding: 14px; border-radius: 16px; text-align: center; }
+  .initiative-strip p { font-size: 0.9rem; line-height: 1.45; }
+  .section { margin: 16px 0; }
+  .section.compact { margin-top: 18px; }
+  .info-card, .choice-card, .notice, .subject-card { padding: 16px; }
+  .choice-card { min-height: 170px; }
+  .filters { display: grid; grid-template-columns: 1fr; gap: 8px; padding: 10px; border-radius: 16px; }
+  .filters input, .filters select { width: 100%; min-height: 48px; font-size: 1rem; }
   .summary-panel { grid-template-columns: 1fr; }
   .navlinks.open { grid-template-columns: 1fr; }
-  .action { flex-basis: 100%; }
+  .subject-grid { gap: 12px; }
+  .subject-card { gap: 8px; }
+  .subject-card h3 { line-height: 1.25; }
+  .subject-card p { margin-bottom: 4px; }
+  .action-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .action { width: 100%; min-width: 0; min-height: 46px; padding: 10px 8px; font-size: 0.8rem; line-height: 1.15; }
+  .footer { margin-top: 24px; padding: 16px; border-radius: 16px; }
+  .footer a, .footer p { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 380px) {
+  .brand strong { font-size: 0.9rem; }
+  .action-row { grid-template-columns: 1fr; }
 }
