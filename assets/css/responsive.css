@@ -10,6 +10,8 @@
   .summary-panel { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cards.two, .cards.three, .subject-grid { grid-template-columns: 1fr; }
   .inline-heading { display: block; }
+  .initiative-strip { align-items: stretch; flex-direction: column; }
+  .initiative-strip .btn { width: 100%; }
   .footer { flex-direction: column; }
 }
 @media (max-width: 620px) {
