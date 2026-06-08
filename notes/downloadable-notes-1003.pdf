@@ -1,0 +1,235 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 349 >>
+stream
+BT
+/F1 11 Tf
+50 790 Td
+14 TL
+(Applied Physics-I 1003) Tj
+T*
+(Semester 1 | Credits: 3 | Author: Nandakumar.M) Tj
+T*
+(This printable PDF is a compact revision copy. The full bilingual notebook page is) Tj
+T*
+(lessons/lessons-1003.html.) Tj
+T*
+(Study method: read concept, write formula, symbol meaning, SI unit, example and) Tj
+T*
+(application.) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Length 716 >>
+stream
+BT
+/F1 11 Tf
+50 790 Td
+14 TL
+(Module 1 - Measurements, Vectors and Motion) Tj
+T*
+(Physical quantity: measurable property. Fundamental quantities include length, mass and) Tj
+T*
+(time. Derived quantities include velocity, force and pressure.) Tj
+T*
+(Errors: absolute error = |measured - true|; relative error = absolute error / true) Tj
+T*
+(value; percentage error = relative error x 100.) Tj
+T*
+(Vectors: Ax = A cos theta, Ay = A sin theta, R = sqrt\(A^2 + B^2 + 2AB cos theta\).) Tj
+T*
+(Motion: v = u + at; s = ut + 1/2 at^2; v^2 = u^2 + 2as.) Tj
+T*
+(Newton laws: inertia, F = ma, action and reaction. Momentum p = mv. Impulse = Ft.) Tj
+T*
+(Momentum conservation explains recoil of gun and rocket propulsion.) Tj
+ET
+endstream
+endobj
+4 0 obj
+<< /Length 676 >>
+stream
+BT
+/F1 11 Tf
+50 790 Td
+14 TL
+(Module 2 - Circular Motion and Rotation) Tj
+T*
+(Angular quantities: omega = theta/t, alpha = change in omega/time. Relation: v = r omega) Tj
+T*
+(and a = r alpha.) Tj
+T*
+(Centripetal acceleration ac = v^2/r = r omega^2. Centripetal force Fc = mv^2/r.) Tj
+T*
+(Banking of roads: tan theta = v^2/rg. Banking reduces skidding on curves.) Tj
+T*
+(Moment of inertia: I = sum mr^2. Radius of gyration: I = Mk^2.) Tj
+T*
+(Common MI: rod centre ML^2/12, rod end ML^2/3, ring MR^2, disc MR^2/2, solid sphere) Tj
+T*
+(2MR^2/5.) Tj
+T*
+(Torque = rF sin theta. Angular momentum L = I omega. If external torque is zero, angular) Tj
+T*
+(momentum is conserved.) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Length 685 >>
+stream
+BT
+/F1 11 Tf
+50 790 Td
+14 TL
+(Module 3 - Work, Energy, Power and Heat) Tj
+T*
+(Work W = Fs cos theta. Work is zero if displacement is zero.) Tj
+T*
+(Friction f = mu R. Reduce friction using lubrication, polishing, ball bearings and) Tj
+T*
+(streamlining.) Tj
+T*
+(Kinetic energy KE = 1/2 mv^2. Potential energy PE = mgh. Energy is transformed, not) Tj
+T*
+(destroyed.) Tj
+T*
+(Power P = W/t = Fv. Unit is watt.) Tj
+T*
+(Temperature conversion: K = C + 273; F = 9C/5 + 32. Heat Q = mc Delta T.) Tj
+T*
+(Heat transfer: conduction in solids, convection in fluids and radiation without medium.) Tj
+T*
+(Mercury thermometer uses expansion; pyrometer measures high temperature without contact.) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Length 775 >>
+stream
+BT
+/F1 11 Tf
+50 790 Td
+14 TL
+(Module 4 - Elasticity, Pressure and Fluids) Tj
+T*
+(Elasticity: body regains original shape after removing deforming force. Stress = F/A.) Tj
+T*
+(Strain = change/original. Young modulus Y = stress/strain.) Tj
+T*
+(Pressure P = F/A. Absolute pressure = atmospheric pressure + gauge pressure.) Tj
+T*
+(Surface tension T = force/length. Capillary rise h = 2T cos theta/\(rho g r\). Detergents) Tj
+T*
+(reduce surface tension.) Tj
+T*
+(Viscosity is resistance between fluid layers. Stokes law: F = 6 pi eta r v.) Tj
+T*
+(Reynolds number Re = rho vD/eta. Low Re: streamline flow; high Re: turbulent flow.) Tj
+T*
+(Continuity equation: A1v1 = A2v2. Bernoulli: P + 1/2 rho v^2 + rho gh = constant.) Tj
+T*
+(Applications: airfoil, atomiser, venturimeter.) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Length 614 >>
+stream
+BT
+/F1 11 Tf
+50 790 Td
+14 TL
+(Solved Problems and Practice) Tj
+T*
+(1. Rod measured 2.04 m instead of 2.00 m: absolute error = 0.04 m, relative error =) Tj
+T*
+(0.02, percentage error = 2%.) Tj
+T*
+(2. Body from rest, a = 2 m/s^2, t = 5 s: v = 10 m/s, s = 25 m.) Tj
+T*
+(3. Wheel radius 0.5 m, omega = 20 rad/s: v = r omega = 10 m/s.) Tj
+T*
+(4. Force 20 N moves body 5 m: work = 100 J.) Tj
+T*
+(5. Stress for 100 N on 0.02 m^2: stress = 5000 Pa.) Tj
+T*
+(Expected questions: Newton laws, vector resolution, banking, MI, conservation of energy,) Tj
+T*
+(heat transfer, Hooke law, surface tension, Bernoulli theorem.) Tj
+ET
+endstream
+endobj
+8 0 obj
+<< /Length 201 >>
+stream
+BT
+/F1 11 Tf
+50 790 Td
+14 TL
+(Footer) Tj
+T*
+(Author: Nandakumar.M) Tj
+T*
+(visit : nandakumarm.dpdns.org) Tj
+T*
+(Expected questions are practice-focused, not a guarantee of actual exam questions.) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+10 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 3 0 R >>
+endobj
+11 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+12 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 5 0 R >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+14 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 7 0 R >>
+endobj
+15 0 obj
+<< /Type /Page /Parent 16 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+endobj
+16 0 obj
+<< /Type /Pages /Kids [9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R] /Count 7 >>
+endobj
+17 0 obj
+<< /Type /Catalog /Pages 16 0 R >>
+endobj
+xref
+0 18
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000000479 00000 n 
+0000001246 00000 n 
+0000001973 00000 n 
+0000002709 00000 n 
+0000003535 00000 n 
+0000004200 00000 n 
+0000004452 00000 n 
+0000004579 00000 n 
+0000004707 00000 n 
+0000004835 00000 n 
+0000004963 00000 n 
+0000005091 00000 n 
+0000005219 00000 n 
+0000005347 00000 n 
+0000005447 00000 n 
+trailer
+<< /Size 18 /Root 17 0 R >>
+startxref
+5498
+%%EOF
