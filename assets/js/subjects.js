@@ -1,8 +1,7 @@
 // SUBJECTS: REV2021 data is generated from the cleaned SITTTR source workbook.
 // Shared common subjects are listed once; department-specific duplicate codes stay with their departments.
-// Uploaded lessons/notes are listed in AVAILABLE_* below. Add new files using
-// lessons/lessons-CODE.html and notes/downloadable-notes-CODE.pdf, then add
-// the subject code to the matching set.
+// Uploaded lessons/notes are discovered from the standard file paths:
+// lessons/lessons-CODE.html and notes/downloadable-notes-CODE.pdf.
 const SUBJECTS = [
   // First Year / Common
   { revision: "2021", code: "1001", name: "Communication Skills in English", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
@@ -1902,8 +1901,6 @@ const MATERIALS_2015 = {
 
 const SITTTR_SYLLABUS_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=";
 const SITTTR_MODEL_QP_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=";
-const AVAILABLE_LESSON_FILES = new Set(["1004"]);
-const AVAILABLE_NOTE_FILES = new Set(["1004"]);
 
 function syllabusLink(subjectCode) {
   return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
@@ -1915,33 +1912,15 @@ function modelQuestionPaperLink(subjectCode) {
 
 // BUG1 FIX: compute root prefix from actual path depth — works from any page.
 function lessonLink(subject) {
-  // If subject has a dedicated lesson file, link directly to it.
-  if (subject.lessonFile) {
-    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
-    const prefix = depth > 0 ? "../".repeat(depth) : "";
-    return prefix + subject.lessonFile;
-  }
-  if (AVAILABLE_LESSON_FILES.has(String(subject.code))) {
-    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
-    const prefix = depth > 0 ? "../".repeat(depth) : "";
-    return `${prefix}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
-  }
-  // Fallback: generic lessons browser page
   const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
   const prefix = depth > 0 ? "../".repeat(depth) : "";
-  return `${prefix}lessons.html?revision=${encodeURIComponent(subject.revision)}&subject=${encodeURIComponent(subject.code)}#lessons`;
-}
-
-function hasNotesFile(subject) {
-  return Boolean(subject.notesFile) || AVAILABLE_NOTE_FILES.has(String(subject.code));
+  if (subject.lessonFile) return prefix + subject.lessonFile;
+  return `${prefix}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
 }
 
 function notesLink(subject) {
   const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
   const prefix = depth > 0 ? "../".repeat(depth) : "";
   if (subject.notesFile) return prefix + subject.notesFile;
-  if (AVAILABLE_NOTE_FILES.has(String(subject.code))) {
-    return `${prefix}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
-  }
-  return `${prefix}study-materials.html?revision=${encodeURIComponent(subject.revision)}&subject=${encodeURIComponent(subject.code)}#subject-browser`;
+  return `${prefix}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
 }

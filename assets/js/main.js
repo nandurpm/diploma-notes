@@ -11,7 +11,7 @@ function subjectCard(subject) {
   const searchText = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
   const isMaterial = subject.type === "Material";
   const dl = notesLink(subject);
-  const downloadAttrs = hasNotesFile(subject) ? ' target="_blank" rel="noopener" download' : "";
+  const lessonHref = lessonLink(subject);
 
   return `
     <article class="subject-card reveal" data-search="${escapeHtml(searchText)}">
@@ -20,12 +20,68 @@ function subjectCard(subject) {
       <p>${escapeHtml(subject.department)} / ${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
       <div class="action-row">
         ${!isMaterial ? `<a class="action syllabus" href="${syllabusLink(subject.code)}" target="_blank" rel="noopener">Open Syllabus</a>` : ""}
-        <a class="action lessons" href="${lessonLink(subject)}">View Lessons</a>
-        <a class="action download" href="${escapeHtml(dl)}"${downloadAttrs}>Download Notes</a>
+        <a class="action lessons unavailable asset-check" href="${escapeHtml(lessonHref)}" data-asset-url="${escapeHtml(lessonHref)}" aria-disabled="true" title="Lesson file not uploaded yet">View Lessons</a>
+        <a class="action download unavailable asset-check" href="${escapeHtml(dl)}" data-asset-url="${escapeHtml(dl)}" aria-disabled="true" title="Notes PDF not uploaded yet" target="_blank" rel="noopener" download>Download Notes</a>
         ${!isMaterial ? `<a class="action qp" href="${modelQuestionPaperLink(subject.code)}" target="_blank" rel="noopener">Sample QP</a>` : ""}
       </div>
     </article>
   `;
+}
+
+const assetAvailability = new Map();
+
+function resolveAssetUrl(url) {
+  return new URL(url, window.location.href).href;
+}
+
+async function assetExists(url) {
+  const absolute = resolveAssetUrl(url);
+  if (assetAvailability.has(absolute)) return assetAvailability.get(absolute);
+
+  const check = fetch(absolute, { method: "HEAD", cache: "no-store" })
+    .then((response) => response.ok)
+    .catch(() => fetch(absolute, { method: "GET", cache: "no-store" }).then((response) => response.ok).catch(() => false));
+
+  assetAvailability.set(absolute, check);
+  return check;
+}
+
+function setupAssetButtons(root) {
+  const buttons = [...root.querySelectorAll(".asset-check")];
+  const checkButton = (button) => {
+    const assetUrl = button.dataset.assetUrl;
+    if (!assetUrl) return;
+
+    const enable = () => {
+      button.classList.remove("unavailable");
+      button.removeAttribute("aria-disabled");
+      button.removeAttribute("title");
+    };
+
+    const disable = (event) => {
+      if (button.classList.contains("unavailable")) event.preventDefault();
+    };
+
+    button.addEventListener("click", disable);
+    assetExists(assetUrl).then((exists) => {
+      if (exists) enable();
+    });
+  };
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.unobserve(entry.target);
+        checkButton(entry.target);
+      });
+    }, { rootMargin: "300px" });
+
+    buttons.forEach((button) => observer.observe(button));
+    return;
+  }
+
+  buttons.forEach(checkButton);
 }
 
 // BUG3 FIX: accept descriptive allLabel.
@@ -141,6 +197,7 @@ function setupSubjectBrowser() {
     grid.innerHTML = visible.length
       ? visible.map(subjectCard).join("")
       : '<p class="empty">No subjects match this filter.</p>';
+    setupAssetButtons(grid);
   };
 
   // BUG4 FIX: cascade dept when revision changes.

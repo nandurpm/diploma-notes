@@ -39,6 +39,8 @@ p { color: var(--muted); line-height: 1.65; }
 .hero-actions, .action-row, .filters { display: flex; flex-wrap: wrap; gap: 10px; }
 .btn, .action { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 11px 15px; border-radius: 12px; font-weight: 900; transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease; }
 .btn:hover, .action:hover, .choice-card:hover { transform: translateY(-3px); }
+.action.unavailable { opacity: 0.34; cursor: not-allowed; filter: grayscale(0.35); box-shadow: none; }
+.action.unavailable:hover { transform: none; }
 .primary { color: #fff; background: linear-gradient(135deg, var(--blue), var(--cyan)); box-shadow: 0 12px 28px rgba(29, 78, 216, 0.22); }
 .ghost { color: var(--blue); background: rgba(29, 78, 216, 0.08); border: 1px solid rgba(29, 78, 216, 0.16); }
 .small { min-height: 40px; padding: 9px 13px; color: #fff; background: linear-gradient(135deg, var(--green), var(--cyan)); }
