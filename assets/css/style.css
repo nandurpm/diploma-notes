@@ -52,6 +52,13 @@ p { color: var(--muted); line-height: 1.65; }
 .stat span { color: var(--muted); font-weight: 800; }
 .page-title { padding: 30px; border-radius: 22px; background: linear-gradient(135deg, rgba(29,78,216,.09), rgba(234,88,12,.07)); border: 1px solid var(--line); }
 .page-title p { max-width: 760px; }
+.home-feature { margin: 22px 0; display: grid; gap: 12px; }
+.home-video-frame { overflow: hidden; border: 1px solid var(--line); border-radius: 22px; background: #0b1220; box-shadow: var(--shadow); }
+.home-video { display: block; width: 100%; max-height: min(72vh, 720px); aspect-ratio: 16 / 9; object-fit: contain; background: #0b1220; }
+.initiative-strip { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 18px; background: rgba(255,255,255,0.86); box-shadow: var(--shadow); }
+.initiative-strip p { margin: 0; color: var(--ink); font-weight: 900; letter-spacing: 0.04em; }
+.initiative-strip strong { color: var(--blue); }
+.btn.instagram { color: #fff; background: linear-gradient(135deg, #ea580c, #db2777 48%, #7c3aed); box-shadow: 0 12px 28px rgba(219, 39, 119, 0.22); }
 .section { margin: 22px 0; }
 .section.compact { margin-top: 24px; }
 .inline-heading { display: flex; justify-content: space-between; gap: 18px; align-items: end; }

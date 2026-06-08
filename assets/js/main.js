@@ -130,11 +130,15 @@ function setupSubjectBrowser() {
   const semesterFilter = document.querySelector("#semesterFilter");
   const fixedRevision = grid.dataset.revision || "";
   const fixedDepartment = grid.dataset.department || "";
+  const homepageSearchMode = grid.dataset.mode === "homepage-search";
+  const browserSubjects = homepageSearchMode
+    ? ALL.filter((subject) => subject.revision !== "2015")
+    : ALL;
 
   const COMMON_DEPT = "First Year / Common";
 
   // BUG3 FIX: descriptive all-labels.
-  fillSelect(revisionFilter, [...new Set(ALL.map((s) => s.revision))].sort(), fixedRevision || params.get("revision"), "All revisions");
+  fillSelect(revisionFilter, [...new Set(browserSubjects.map((s) => s.revision))].sort(), fixedRevision || params.get("revision"), "All revisions");
 
   // BUG4 FIX: refresh dept filter when revision changes.
   function refreshDeptFilter() {
@@ -142,7 +146,7 @@ function setupSubjectBrowser() {
     const activeRevision = fixedRevision || revisionFilter?.value || "all";
     const depts = [
       ...new Set(
-        ALL.filter((s) => activeRevision === "all" || s.revision === activeRevision)
+        browserSubjects.filter((s) => activeRevision === "all" || s.revision === activeRevision)
            .map((s) => s.department)
       ),
     ];
@@ -150,7 +154,7 @@ function setupSubjectBrowser() {
   }
 
   refreshDeptFilter();
-  fillSelect(semesterFilter, [...new Set(ALL.map((s) => s.semester))], params.get("semester"), "All semesters");
+  fillSelect(semesterFilter, [...new Set(browserSubjects.map((s) => s.semester))], params.get("semester"), "All semesters");
 
   if (fixedRevision && revisionFilter) revisionFilter.disabled = true;
   if (fixedDepartment && departmentFilter) departmentFilter.disabled = true;
@@ -162,7 +166,12 @@ function setupSubjectBrowser() {
     const department = fixedDepartment || departmentFilter?.value || "all";
     const semester = semesterFilter?.value || "all";
 
-    const visible = ALL.filter((subject) => {
+    if (homepageSearchMode && !query) {
+      grid.innerHTML = '<p class="empty">Search a 2021 subject name, code, department, or semester to show matching subject cards.</p>';
+      return;
+    }
+
+    const visible = browserSubjects.filter((subject) => {
       const text = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type]
         .join(" ").toLowerCase();
 
