@@ -11,7 +11,7 @@ function subjectCard(subject) {
   const searchText = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
   const isMaterial = subject.type === "Material";
   const dl = notesLink(subject);
-  const downloadAttrs = subject.notesFile ? ' target="_blank" rel="noopener" download' : "";
+  const downloadAttrs = hasNotesFile(subject) ? ' target="_blank" rel="noopener" download' : "";
 
   return `
     <article class="subject-card reveal" data-search="${escapeHtml(searchText)}">
