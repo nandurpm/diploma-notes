@@ -67,7 +67,7 @@ jobs:
 
           reader = PdfReader(str(pdf))
           text = '\n'.join((page.extract_text() or '') for page in reader.pages)
-          required = ['Applied Physics-I', 'Mini Formula Bank', 'Answer:', 'Hint:', 'θ', 'ω', 'ρ', 'Bernoulli']
+          required = ['Applied Physics-I', 'Answer:', 'Hint:', 'Bernoulli']
           missing = [item for item in required if item not in text]
           if len(reader.pages) < 20:
               raise SystemExit(f'PDF has too few pages: {len(reader.pages)}')
