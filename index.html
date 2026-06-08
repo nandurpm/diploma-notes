@@ -143,7 +143,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
       <div class="nav-r">
         <button class="btn bg bs" onclick="go('home')">Home</button>
         <button class="btn bg bs" onclick="go('rev2021')">Rev 2021</button>
-        <button class="btn bg bs" onclick="go('rev2015')">2015</button>
+        <button class="btn bg bs" onclick="location.href='materials-2015.html'">2015</button>
       </div>
     </div>
   </div>
@@ -160,7 +160,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
       <p class="hdesc">Clean access to revision-wise syllabus, lesson areas, sample question papers, previous papers, and study materials.</p>
       <div class="hbtns">
         <button class="btn bp" onclick="go('rev2021')">Open Revision 2021</button>
-        <button class="btn bo" onclick="go('rev2015')">Open 2015 Materials</button>
+        <button class="btn bo" onclick="location.href='materials-2015.html'">Open 2015 Materials</button>
       </div>
     </div>
     <div class="sc">
@@ -176,7 +176,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
       <div class="rtit">Revision 2021</div>
       <div class="rdesc">Department pages for Electrical and Electronics Engineering and Electronics Engineering with semester-wise subject cards.</div>
     </div>
-    <div class="rc" onclick="go('rev2015')">
+    <div class="rc" onclick="location.href='materials-2015.html'">
       <span class="rb rteal">2015</span>
       <div class="rtit">2015 Materials</div>
       <div class="rdesc">Older scheme study-material links from the supplied 2015 reference file, kept separate from Revision 2021.</div>
@@ -242,8 +242,8 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--
   </div>
   <div style="background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center;color:var(--text3)">
     <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;display:block"><path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-    <div style="font-weight:700;font-size:.97rem;color:var(--text2);margin-bottom:6px">2015 Materials — Uploading</div>
-    <div style="font-size:.84rem">🔄 Site updation in progress. <a href="mailto:nandurpm@gmail.com" style="color:var(--blue)">Contact the author</a> for access.</div>
+    <div style="font-weight:700;font-size:.97rem;color:var(--text2);margin-bottom:6px">2015 Materials</div>
+    <div style="font-size:.84rem"><a href="materials-2015.html" style="color:var(--blue);font-weight:700">Open the 2015 materials page</a></div>
   </div>
 </div>
 </div>
@@ -586,7 +586,7 @@ function doFilter(){
   el.innerHTML = '';
 
   if(rev==='2015'){
-    el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text3);font-size:.86rem">2015 materials are on the <a href="#" onclick="go(\'rev2015\')" style="color:var(--blue)">2015 page</a>.</div>';
+    el.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--text3);font-size:.86rem">2015 materials are on the <a href="materials-2015.html" style="color:var(--blue)">2015 page</a>.</div>';
     return;
   }
 
