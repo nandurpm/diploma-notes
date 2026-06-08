@@ -11,6 +11,7 @@ function subjectCard(subject) {
   const searchText = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
   const isMaterial = subject.type === "Material";
   const dl = notesLink(subject);
+  const downloadAttrs = subject.notesFile ? ' target="_blank" rel="noopener" download' : "";
 
   return `
     <article class="subject-card reveal" data-search="${escapeHtml(searchText)}">
@@ -20,7 +21,7 @@ function subjectCard(subject) {
       <div class="action-row">
         ${!isMaterial ? `<a class="action syllabus" href="${syllabusLink(subject.code)}" target="_blank" rel="noopener">Open Syllabus</a>` : ""}
         <a class="action lessons" href="${lessonLink(subject)}">View Lessons</a>
-        ${dl ? `<a class="action download" href="${escapeHtml(dl)}" target="_blank" rel="noopener" download>Download Notes</a>` : ""}
+        <a class="action download" href="${escapeHtml(dl)}"${downloadAttrs}>Download Notes</a>
         ${!isMaterial ? `<a class="action qp" href="${modelQuestionPaperLink(subject.code)}" target="_blank" rel="noopener">Sample QP</a>` : ""}
       </div>
     </article>
@@ -44,19 +45,17 @@ function fillSelect(select, values, selected, allLabel) {
   select.value = sorted.includes(current) ? current : "all";
 }
 
-// Deduplicate subjects: same code within same revision → keep only first entry
-// and mark it as "First Year / Common". This handles subjects that appear in
-// multiple department lists with the same code.
+// Deduplicate exact repeats only. Some REV2021 subject codes are reused by
+// more than one department, so department-specific copies must stay visible.
 function dedupeSubjects(subjects) {
-  const seen = new Map(); // key: revision+code
+  const seen = new Map();
   const out = [];
   for (const s of subjects) {
-    const key = s.revision + ":" + s.code;
+    const key = [s.revision, s.department, s.semester, s.code].join(":");
     if (!seen.has(key)) {
       seen.set(key, true);
       out.push(s);
     }
-    // If same code seen again → already added; skip.
   }
   return out;
 }
