@@ -292,31 +292,100 @@
 
 @media (max-width: 620px) {
   #polySiteAssistant {
-    right: 10px;
-    bottom: 10px;
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .poly-ai-button {
+    width: 54px;
+    height: 54px;
+    border-radius: 18px;
   }
 
   .poly-ai-panel {
     position: fixed;
-    left: 8px;
-    right: 8px;
-    bottom: 78px;
+    left: 10px;
+    right: 10px;
+    bottom: 74px;
     width: auto;
-    height: min(620px, calc(100vh - 92px));
+    height: min(560px, calc(100svh - 88px));
     border-radius: 20px;
   }
 
   .poly-ai-head {
-    grid-template-columns: auto 1fr auto auto auto;
-    padding: 12px;
+    grid-template-columns: auto 1fr repeat(3, 29px);
+    gap: 7px;
+    padding: 10px;
+  }
+
+  .poly-ai-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+
+  .poly-ai-title {
+    font-size: 0.95rem;
   }
 
   .poly-ai-subtitle {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
+    line-height: 1.25;
   }
 
   .poly-ai-icon {
     width: 29px;
     height: 29px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+  }
+
+  .poly-ai-tabs,
+  .poly-ai-quick {
+    gap: 6px;
+    padding: 8px 9px;
+  }
+
+  .poly-ai-tabs button,
+  .poly-ai-quick button {
+    padding: 7px 9px;
+    font-size: 0.72rem;
+  }
+
+  .poly-ai-body {
+    padding: 10px;
+  }
+
+  .poly-ai-msg {
+    max-width: 96%;
+    font-size: 0.82rem;
+  }
+
+  .poly-ai-card-top {
+    display: grid;
+    gap: 7px;
+  }
+
+  .poly-ai-pill {
+    width: fit-content;
+  }
+
+  .poly-ai-links {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .poly-ai-links a {
+    text-align: center;
+  }
+
+  .poly-ai-form {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 9px;
+  }
+
+  .poly-ai-send {
+    width: 100%;
   }
 }
