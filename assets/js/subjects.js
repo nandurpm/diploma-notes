@@ -1,13 +1,14 @@
 // SUBJECTS: REV2021 data is generated from the cleaned SITTTR source workbook.
 // Shared common subjects are listed once; department-specific duplicate codes stay with their departments.
-// Add lessonFile: "lessons/lessons-XXXX.html" to link the View Lessons button to a real page.
-// Add notesFile:  "notes/downloadable-notes-XXXX.pdf"  to link Download Notes to a real file.
+// Uploaded lessons/notes are listed in AVAILABLE_* below. Add new files using
+// lessons/lessons-CODE.html and notes/downloadable-notes-CODE.pdf, then add
+// the subject code to the matching set.
 const SUBJECTS = [
   // First Year / Common
   { revision: "2021", code: "1001", name: "Communication Skills in English", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
   { revision: "2021", code: "1002", name: "Mathematics I", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
   { revision: "2021", code: "1003", name: "Applied Physics I", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
-  { revision: "2021", code: "1004", name: "Applied Chemistry", department: "First Year / Common", semester: "Semester 1", type: "Theory", lessonFile: "lessons/lessons-1004.html", notesFile: "notes/downloadable-notes-1004.pdf" },
+  { revision: "2021", code: "1004", name: "Applied Chemistry", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
   { revision: "2021", code: "1005", name: "Engineering Graphics", department: "First Year / Common", semester: "Semester 1", type: "Drawing" },
   { revision: "2021", code: "1007", name: "Applied Chemistry Lab", department: "First Year / Common", semester: "Semester 1", type: "Lab" },
   { revision: "2021", code: "1008", name: "Introduction to IT systems Lab", department: "First Year / Common", semester: "Semester 1", type: "Lab" },
@@ -1901,6 +1902,8 @@ const MATERIALS_2015 = {
 
 const SITTTR_SYLLABUS_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=";
 const SITTTR_MODEL_QP_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=";
+const AVAILABLE_LESSON_FILES = new Set(["1004"]);
+const AVAILABLE_NOTE_FILES = new Set(["1004"]);
 
 function syllabusLink(subjectCode) {
   return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
@@ -1918,15 +1921,27 @@ function lessonLink(subject) {
     const prefix = depth > 0 ? "../".repeat(depth) : "";
     return prefix + subject.lessonFile;
   }
+  if (AVAILABLE_LESSON_FILES.has(String(subject.code))) {
+    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+    const prefix = depth > 0 ? "../".repeat(depth) : "";
+    return `${prefix}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
+  }
   // Fallback: generic lessons browser page
   const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
   const prefix = depth > 0 ? "../".repeat(depth) : "";
   return `${prefix}lessons.html?revision=${encodeURIComponent(subject.revision)}&subject=${encodeURIComponent(subject.code)}#lessons`;
 }
 
+function hasNotesFile(subject) {
+  return Boolean(subject.notesFile) || AVAILABLE_NOTE_FILES.has(String(subject.code));
+}
+
 function notesLink(subject) {
   const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
   const prefix = depth > 0 ? "../".repeat(depth) : "";
   if (subject.notesFile) return prefix + subject.notesFile;
+  if (AVAILABLE_NOTE_FILES.has(String(subject.code))) {
+    return `${prefix}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
+  }
   return `${prefix}study-materials.html?revision=${encodeURIComponent(subject.revision)}&subject=${encodeURIComponent(subject.code)}#subject-browser`;
 }
