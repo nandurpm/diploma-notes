@@ -48,9 +48,12 @@
   const button = el("button", {
     className: "poly-ai-button",
     type: "button",
-    text: "AI",
     attrs: { "aria-label": "Open Ask POLY PMNA assistant", "aria-expanded": "false" },
   });
+  button.append(
+    el("span", { className: "poly-ai-button-mark", text: "AI", attrs: { "aria-hidden": "true" } }),
+    el("span", { className: "poly-ai-button-text", text: "Ask" })
+  );
 
   const panel = el("section", {
     className: "poly-ai-panel",
