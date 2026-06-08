@@ -1,0 +1,90 @@
+name: Build Applied Physics 1003 PDF
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - lessons/lessons-1003.html
+      - .github/workflows/build-1003-pdf.yml
+
+permissions:
+  contents: write
+
+jobs:
+  build-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PDF tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright pypdf
+          python -m playwright install --with-deps chromium
+
+      - name: Render lessons-1003 HTML to PDF
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          html = Path('lessons/lessons-1003.html').resolve().as_uri()
+          out = Path('notes/downloadable-notes-1003.pdf')
+          out.parent.mkdir(parents=True, exist_ok=True)
+
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page(viewport={"width": 1240, "height": 1754}, device_scale_factor=1)
+              page.goto(html, wait_until='networkidle')
+              page.emulate_media(media='print')
+              page.pdf(
+                  path=str(out),
+                  format='A4',
+                  print_background=True,
+                  margin={"top": "10mm", "right": "9mm", "bottom": "12mm", "left": "9mm"},
+                  display_header_footer=True,
+                  header_template='<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm;font-family:Arial,sans-serif;">Applied Physics-I 1003</div>',
+                  footer_template='<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm;font-family:Arial,sans-serif;display:flex;justify-content:space-between;"><span>Author: Nandakumar.M</span><span>visit : nandakumarm.dpdns.org</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>',
+              )
+              browser.close()
+          PY
+
+      - name: Verify generated PDF
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+
+          pdf = Path('notes/downloadable-notes-1003.pdf')
+          if not pdf.exists() or pdf.stat().st_size < 50000:
+              raise SystemExit('PDF was not generated or is unexpectedly small')
+
+          reader = PdfReader(str(pdf))
+          text = '\n'.join((page.extract_text() or '') for page in reader.pages)
+          required = ['Applied Physics-I', 'Mini Formula Bank', 'Answer:', 'Hint:', 'θ', 'ω', 'ρ', 'Bernoulli']
+          missing = [item for item in required if item not in text]
+          if len(reader.pages) < 20:
+              raise SystemExit(f'PDF has too few pages: {len(reader.pages)}')
+          if missing:
+              raise SystemExit('Missing expected PDF text: ' + ', '.join(missing))
+
+          print(f'Generated {pdf} with {len(reader.pages)} pages and {pdf.stat().st_size} bytes')
+          PY
+
+      - name: Commit PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add notes/downloadable-notes-1003.pdf
+          if git diff --cached --quiet; then
+            echo "No PDF changes to commit"
+          else
+            git commit -m "Build Applied Physics downloadable notes PDF"
+            git push
+          fi
