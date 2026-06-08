@@ -237,6 +237,16 @@ function setupMenu() {
   });
 }
 
+function setupHomepageVideoPoster() {
+  document.querySelectorAll(".home-video[poster]").forEach((video) => {
+    video.addEventListener("ended", () => {
+      video.pause();
+      video.currentTime = 0;
+      video.load();
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
@@ -244,4 +254,5 @@ document.addEventListener("DOMContentLoaded", () => {
   setupMenu();
   renderMaterialLinks();
   setupSubjectBrowser();
+  setupHomepageVideoPoster();
 });
