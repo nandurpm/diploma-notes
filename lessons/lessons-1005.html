@@ -3,621 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Engineering Graphics 1005 Revision 2021 drawing-sheet style lesson notes for Kerala Polytechnic students." />
-  <title>Engineering Graphics 1005 | Kerala Polytechnic Study Hub</title>
+  <title>1005 Engineering Graphics - Kerala Polytechnic Revision 2021</title>
+  <meta name="description" content="Kerala Polytechnic Revision 2021 lesson HTML for Subject Code 1005 Engineering Graphics." />
   <style>
-    :root {
-      --bg:#f4f8fc;
-      --surface:#ffffff;
-      --soft:#f8fafc;
-      --ink:#0f172a;
-      --muted:#5d6a7d;
-      --line:rgba(15,23,42,.13);
-      --brand:#0369a1;
-      --cyan:#0891b2;
-      --green:#059669;
-      --orange:#ea580c;
-      --violet:#7c3aed;
-      --shadow:0 16px 46px rgba(15,23,42,.09);
-      --radius:24px;
-      --max:1700px;
-      --mal:"Noto Sans Malayalam","Nirmala UI","Manjari",system-ui,sans-serif;
+    :root{
+      --ink:#102033; --muted:#64748b; --line:#d7e2ef; --soft:#f5f9ff; --card:#ffffff;
+      --blue:#1f5fbf; --blue2:#0b3f88; --green:#0f9f6e; --orange:#f08a24; --shadow:0 16px 38px rgba(15,23,42,.10);
+      --radius:22px;
     }
-    * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
-    body {
-      margin:0;
-      color:var(--ink);
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:
-        radial-gradient(circle at 0 0,rgba(14,165,233,.16),transparent 28rem),
-        radial-gradient(circle at 90% 0,rgba(124,58,237,.10),transparent 26rem),
-        linear-gradient(180deg,#eef7fb 0%,var(--bg) 42%,#fff 100%);
-      overflow-x:hidden;
-    }
-    body:before {
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      opacity:.28;
-      background-image:linear-gradient(rgba(14,165,233,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.08) 1px,transparent 1px);
-      background-size:36px 36px;
-      mask-image:linear-gradient(to bottom,#000,transparent 88%);
-    }
-    a { color:inherit; text-decoration:none; }
-    button { cursor:pointer; font:inherit; }
-    .screen { width:min(var(--max),calc(100% - 28px)); margin-inline:auto; }
-    .progress { position:fixed; top:0; left:0; z-index:200; width:0; height:4px; background:linear-gradient(90deg,#06b6d4,#7c3aed,#ea580c,#059669); }
-    .topbar { position:sticky; top:0; z-index:100; border-bottom:1px solid var(--line); background:rgba(245,248,252,.96); backdrop-filter:blur(18px); overflow:hidden; }
-    .topbar-inner { width:min(var(--max),calc(100% - 24px)); margin-inline:auto; display:flex; align-items:center; gap:10px; padding:10px 0; flex-wrap:nowrap; overflow:hidden; }
-    .brand { flex:0 0 auto; display:grid; place-items:center; width:58px; height:58px; border:0; background:transparent; border-radius:18px; padding:0; }
-    .brand-mark { width:58px; height:58px; border-radius:18px; display:grid; place-items:center; color:#fff; font-weight:950; font-size:18px; background:linear-gradient(135deg,#083344,#0e7490,#2563eb); box-shadow:0 10px 28px rgba(3,105,161,.25); }
-    .selector { flex:1 1 auto; min-width:0; display:flex; gap:8px; justify-content:flex-start; align-items:center; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; padding:0 0 2px; scrollbar-width:none; }
-    .selector::-webkit-scrollbar { display:none; }
-    .view-btn,.download-pdf-btn { flex:0 0 auto; border:1px solid var(--line); background:rgba(255,255,255,.92); color:#334155; border-radius:999px; padding:13px 18px; white-space:nowrap; font-size:clamp(13px,.85vw,16px); font-weight:850; line-height:1; transition:.18s ease; }
-    .view-btn:hover,.download-pdf-btn:hover { transform:translateY(-1px); border-color:rgba(3,105,161,.38); color:var(--brand); box-shadow:0 10px 26px rgba(15,23,42,.08); }
-    .view-btn.active { background:#0f172a; color:#fff; border-color:#0f172a; box-shadow:0 12px 30px rgba(15,23,42,.16); }
-    .download-pdf-btn { margin-left:auto; background:linear-gradient(135deg,#0284c7,#0891b2); color:#fff; border-color:transparent; }
-    .download-pdf-btn:hover { color:#fff; background:linear-gradient(135deg,#0369a1,#0e7490); }
-    main { position:relative; z-index:1; padding:1.25rem 0 2.6rem; }
-    .view-section[hidden] { display:none!important; }
-    .hero-mini { position:relative; overflow:hidden; margin-bottom:1rem; border-radius:34px; padding:clamp(1.35rem,3.2vw,2.6rem); color:#fff; background:linear-gradient(135deg,#0f172a,#075985 50%,#2563eb); box-shadow:0 24px 70px rgba(15,23,42,.22); }
-    .hero-mini:after { content:""; position:absolute; width:25rem; height:25rem; right:-9rem; top:-12rem; border-radius:50%; background:rgba(255,255,255,.13); }
-    .hero-mini>* { position:relative; z-index:1; }
-    .hero-mini h1,.hero-mini h2 { margin:.8rem 0 .5rem; font-size:clamp(2rem,5vw,4.2rem); letter-spacing:-.055em; line-height:.95; }
-    .hero-mini p { margin:0; max-width:920px; color:rgba(255,255,255,.88); line-height:1.7; font-size:clamp(1rem,1.6vw,1.18rem); }
-    .pill,.badge { display:inline-flex; align-items:center; gap:.4rem; border-radius:999px; padding:.36rem .62rem; font-weight:900; font-size:.78rem; background:#e0f2fe; color:#0369a1; border:1px solid rgba(3,105,161,.12); }
-    .hero-mini .pill,.module-header .pill { background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.22); color:rgba(255,255,255,.94); }
-    .section-title { display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin:1.2rem 0 .9rem; }
-    .section-title h2 { margin:0; font-size:clamp(1.55rem,3vw,2.55rem); letter-spacing:-.035em; }
-    .section-title p { margin:.35rem 0 0; max-width:820px; color:var(--muted); line-height:1.6; }
-    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; }
-    .card { background:rgba(255,255,255,.94); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(1rem,2vw,1.35rem); box-shadow:var(--shadow); backdrop-filter:blur(16px); }
-    .col-3 { grid-column:span 3; } .col-4 { grid-column:span 4; } .col-6 { grid-column:span 6; } .col-12 { grid-column:span 12; }
-    .note-list { margin:.75rem 0 0; padding-left:1.2rem; color:#334155; line-height:1.78; }
-    .mal { font-family:var(--mal); line-height:1.9; }
-    .module-map,.drawing-bank { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.85rem; margin-top:.9rem; }
-    .map-card,.bank-card { position:relative; overflow:hidden; border:1px solid var(--line); border-radius:22px; background:#fff; padding:1rem; box-shadow:0 10px 28px rgba(15,23,42,.06); min-height:158px; }
-    .map-card:before,.bank-card:before { content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--accent,#0284c7); }
-    .map-card h3,.bank-card h3 { margin:.55rem 0 .35rem; font-size:1.06rem; line-height:1.25; }
-    .map-card p,.bank-card p { margin:0; color:var(--muted); line-height:1.55; font-size:.92rem; }
-    .module-header { position:relative; overflow:hidden; border-radius:30px; padding:clamp(1.2rem,3vw,2rem); color:#fff; background:linear-gradient(135deg,#0f172a,var(--moduleAccent,#0284c7)); box-shadow:var(--shadow); }
-    .module-header:after { content:""; position:absolute; right:-7rem; top:-10rem; width:25rem; height:25rem; border-radius:50%; background:rgba(255,255,255,.12); }
-    .module-header>* { position:relative; z-index:1; }
-    .module-header h2 { margin:.6rem 0 .45rem; font-size:clamp(1.75rem,4vw,3rem); letter-spacing:-.035em; line-height:1.02; }
-    .module-header p { margin:.25rem 0; color:rgba(255,255,255,.86); line-height:1.65; }
-    .drawing-board { border:1px solid var(--line); border-radius:22px; background:linear-gradient(135deg,#fff,#f8fbff); padding:1rem; box-shadow:0 10px 28px rgba(15,23,42,.06); overflow:hidden; }
-    .drawing-board svg { display:block; width:100%; max-height:360px; height:auto; }
-    .flow { display:flex; flex-wrap:wrap; gap:.55rem; margin-top:.8rem; align-items:center; }
-    .step { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:.5rem .7rem; border-radius:12px; background:#e0f2fe; color:#075985; font-weight:850; }
-    .arrow { color:#0f766e; font-weight:950; }
-    .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:18px; background:#fff; }
-    table { width:100%; border-collapse:collapse; min-width:620px; }
-    th,td { padding:.75rem .86rem; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
-    th { background:#e0f2fe; color:#0c4a6e; font-size:.88rem; }
-    tr:last-child td { border-bottom:0; }
-    .question-list { display:grid; gap:.65rem; margin:0; padding:0; list-style:none; counter-reset:q; }
-    .question-list li { counter-increment:q; border:1px solid var(--line); border-radius:16px; background:#fff; padding:.85rem .95rem; color:#1f2937; line-height:1.55; }
-    .question-list li:before { content:"Q" counter(q) ". "; font-weight:950; color:#0369a1; }
-    .answer-card { border:1px solid var(--line); border-radius:18px; background:#fff; padding:1rem; box-shadow:0 10px 28px rgba(15,23,42,.055); }
-    .answer-card h3 { margin:0 0 .55rem; color:#075985; }
-    .answer-card ol { margin:.5rem 0 0; padding-left:1.2rem; line-height:1.7; color:#334155; }
-    .check-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:.85rem; }
-    .footer { position:relative; z-index:1; color:#475569; padding:1rem 0 2.8rem; }
-    .footer-card { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:center; color:#e2e8f0; background:#0f172a; border-radius:24px; padding:1.1rem 1.25rem; }
-    .to-top { position:fixed; right:1rem; bottom:1rem; width:48px; height:48px; border:0; border-radius:50%; background:#0f172a; color:#fff; box-shadow:var(--shadow); cursor:pointer; opacity:0; transform:translateY(14px); transition:.2s; z-index:110; }
-    .to-top.show { opacity:1; transform:translateY(0); }
-    @media(max-width:1200px) {
-      .module-map,.drawing-bank { grid-template-columns:repeat(2,minmax(0,1fr)); }
-      .col-3,.col-4,.col-6 { grid-column:span 12; }
-    }
-    @media(max-width:760px) {
-      .screen,.topbar-inner { width:min(100% - 18px,var(--max)); }
-      .brand,.brand-mark { width:46px; height:46px; border-radius:15px; font-size:15px; }
-      .selector { gap:7px; padding-bottom:6px; }
-      .view-btn,.download-pdf-btn { padding:11px 15px; font-size:14px; }
-      .download-pdf-btn { margin-left:0; }
-      .hero-mini,.module-header { border-radius:24px; }
-      .module-map,.drawing-bank { grid-template-columns:1fr; }
-      table { min-width:560px; }
-      .section-title { display:block; }
-    }
-    @media print {
-      @page { size:A4; margin:8mm; }
-      * { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
-      body { background:#fff!important; color:#111827!important; font-size:10pt; line-height:1.35; }
-      body:before,.topbar,.to-top,.progress,.footer { display:none!important; }
-      .screen { width:100%!important; }
-      .view-section[hidden] { display:block!important; }
-      .hero-mini,.module-header,.card,.answer-card,.drawing-board,.question-list li { box-shadow:none!important; break-inside:avoid; page-break-inside:avoid; }
-      .hero-mini,.module-header { padding:7mm!important; border-radius:6mm!important; }
-      .grid,.module-map,.drawing-bank,.check-grid { gap:3mm!important; }
-      svg,img,table,.drawing-board { max-width:100%!important; height:auto; break-inside:avoid; page-break-inside:avoid; }
-      table { min-width:0!important; font-size:8.5pt; }
-      th,td { padding:4pt 5pt; }
-    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,#eef6ff 0,#ffffff 340px);color:var(--ink);line-height:1.62}
+    .topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .top-inner{max-width:1180px;margin:auto;display:flex;align-items:center;gap:14px;padding:10px 16px;overflow:hidden}
+    .code-brand{flex:0 0 auto;width:60px;height:42px;border-radius:15px;background:linear-gradient(135deg,var(--blue2),var(--blue));color:#fff;font-weight:950;display:grid;place-items:center;letter-spacing:.5px;box-shadow:0 8px 20px rgba(31,95,191,.25)}
+    .tabbar{display:flex;gap:8px;align-items:center;overflow-x:auto;white-space:nowrap;padding:3px 0;scrollbar-width:thin;flex:1}
+    .tabbar button,.download-pdf-btn{border:1px solid var(--line);background:#fff;color:#14345c;padding:10px 13px;border-radius:999px;font-weight:800;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;min-height:38px;box-shadow:0 3px 10px rgba(15,23,42,.04)}
+    .tabbar button.active{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 8px 18px rgba(31,95,191,.24)}
+    .download-pdf-btn{background:#0f9f6e;color:#fff;border-color:#0f9f6e;margin-left:3px}
+    .wrap{max-width:1180px;margin:auto;padding:24px 16px 40px}
+    .hero{background:radial-gradient(circle at 85% 12%,#dbeafe 0,#fff 38%,#f8fbff 100%);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow);padding:26px;margin:10px 0 20px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;right:-80px;bottom:-95px;width:260px;height:260px;border-radius:50%;background:rgba(31,95,191,.08)}
+    .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.chip{background:#e8f2ff;color:#0d4a96;border:1px solid #cde4ff;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:900}
+    h1{font-size:clamp(30px,5vw,56px);line-height:1.05;margin:8px 0 8px;color:#0f2d52;letter-spacing:-1.5px} h2{font-size:28px;margin:0 0 14px;color:#123a68} h3{font-size:20px;margin:0 0 10px;color:#143c69} h4{margin:10px 0 7px;color:#16446f}
+    .lead{font-size:17px;color:#475569;max-width:880px;margin:0}.ml{font-family:system-ui,Arial,sans-serif;color:#243b53}.muted{color:var(--muted)}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);padding:24px;margin-bottom:20px}.section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;border-bottom:1px dashed var(--line);padding-bottom:12px;margin-bottom:16px}.badge{display:inline-block;background:#fff7ed;color:#9a4b06;border:1px solid #fed7aa;border-radius:999px;padding:5px 10px;font-size:12px;font-weight:900}
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}.soft{background:var(--soft)}.green{background:#f0fdf7;border-color:#bbf7d0}.orange{background:#fff7ed;border-color:#fed7aa}.blue{background:#eff6ff;border-color:#bfdbfe}.mini{font-size:14px}.big-num{font-size:38px;font-weight:950;color:var(--blue);line-height:1}.flow{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.flow span{background:#eef6ff;border:1px solid #cfe2ff;border-radius:16px;padding:10px 12px;font-weight:900;color:#123a68}.flow b{color:var(--blue)}
+    table{width:100%;border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{background:#eef6ff;color:#143c69;font-size:13px}tr:last-child td{border-bottom:0}.q-list{counter-reset:q;margin:0;padding:0;display:grid;gap:10px}.q-list li{list-style:none;border:1px solid #dbe7f6;background:#fbfdff;border-radius:16px;padding:12px 12px 12px 46px;position:relative}.q-list li:before{counter-increment:q;content:counter(q);position:absolute;left:12px;top:12px;width:24px;height:24px;border-radius:8px;background:var(--blue);color:#fff;display:grid;place-items:center;font-weight:900;font-size:13px}.answer-block{border-left:5px solid var(--blue);background:#fbfdff;border-radius:16px;padding:14px;margin:12px 0;border-top:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .diagram{background:#fff;border:1px solid var(--line);border-radius:20px;padding:12px;overflow:hidden}.diagram svg{width:100%;height:auto;display:block}.caption{font-size:12px;color:var(--muted);text-align:center;margin-top:6px}.svg-title{font-weight:900;fill:#123a68}.label{font-size:15px;fill:#123a68;font-weight:800}.small-label{font-size:12px;fill:#475569}.rule-list li{margin:8px 0}.check li{list-style:none;margin:7px 0}.check li:before{content:"✓ ";font-weight:950;color:var(--green)}.warn li{list-style:none;margin:7px 0}.warn li:before{content:"✗ ";font-weight:950;color:#dc2626}.footer{padding:24px;text-align:center;color:#475569}.hidden{display:none!important}.source-note{font-size:12px;color:#64748b;margin-top:8px}
+    @media(max-width:900px){.grid2,.grid3{grid-template-columns:1fr}.top-inner{align-items:flex-start}.code-brand{height:38px;width:54px}.tabbar button,.download-pdf-btn{font-size:12px;padding:9px 11px}.panel{padding:18px}.hero{padding:20px}.section-title{display:block}}
+    @media print{.topbar{display:none}.wrap{max-width:none;padding:0}.panel,.hero{box-shadow:none;break-inside:avoid}body{background:#fff}.footer{border-top:1px solid #ddd}}
   </style>
 </head>
 <body>
-  <div class="progress" id="progress"></div>
   <header class="topbar">
-    <div class="topbar-inner">
-      <button class="brand" type="button" data-view="overview" aria-label="Go to Course Overview">
-        <span class="brand-mark">1005</span>
-      </button>
-      <nav class="selector" aria-label="Section selector">
-        <button class="view-btn active" type="button" data-view="overview">Course Overview</button>
-        <button class="view-btn" type="button" data-view="drawing-bank">Drawing Bank</button>
-        <button class="view-btn" type="button" data-view="module" data-module="0">Module 1</button>
-        <button class="view-btn" type="button" data-view="module" data-module="1">Module 2</button>
-        <button class="view-btn" type="button" data-view="module" data-module="2">Module 3</button>
-        <button class="view-btn" type="button" data-view="module" data-module="3">Module 4</button>
-        <button class="view-btn" type="button" data-view="revision">Revision</button>
-        <button class="view-btn" type="button" data-view="answer-key">Master Answer Key</button>
+    <div class="top-inner">
+      <div class="code-brand">1005</div>
+      <nav class="tabbar" aria-label="Lesson tabs">
+        <button class="active" data-view="overview">Course Overview</button>
+        <button data-view="bank">Drawing Bank</button>
+        <button data-view="module1">Module 1</button>
+        <button data-view="module2">Module 2</button>
+        <button data-view="module3">Module 3</button>
+        <button data-view="module4">Module 4</button>
+        <button data-view="revision">Revision</button>
+        <button data-view="answers">Master Answer Key</button>
         <a class="download-pdf-btn" href="downloadable-notes-1005.pdf" download>Download PDF</a>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-    <section class="view-section screen" data-view="overview">
-      <div class="hero-mini">
-        <span class="pill">REV2021 • Semester 1 • Drawing Subject</span>
-        <h1>Engineering Graphics<br>1005</h1>
-        <p>Drawing-sheet style notes for Engineering Graphics. This page follows the official SITTTR Revision 2021 syllabus: drawing instruments, BIS conventions, geometrical constructions, projections, orthographic and sectional views, isometric projections and introductory CADD commands.</p>
-      </div>
-
-      <div class="grid">
-        <article class="card col-3"><span class="badge">Course code</span><h2>1005</h2><p>Engineering Graphics</p></article>
-        <article class="card col-3"><span class="badge">Category</span><h2>Engineering Science</h2><p>Practical/drawing oriented course.</p></article>
-        <article class="card col-3"><span class="badge">Semester</span><h2>1</h2><p>Credits: 1.5</p></article>
-        <article class="card col-3"><span class="badge">Evaluation</span><h2>D / B</h2><p>Exam Type: D, Mode: B. Drawing examination, 75 ESA + 50 CA.</p></article>
-        <article class="card col-6">
-          <h2>Course Objectives</h2>
-          <ul class="note-list">
-            <li>Use graphics as an engineering language to express ideas and instructions.</li>
-            <li>Use drafting instruments, sketching skills and BIS drawing conventions.</li>
-            <li>Draw and read engineering curves, projections and dimensioning styles.</li>
-            <li>Develop projections of points and lines.</li>
-            <li>Understand orthographic projections and sectional views of objects.</li>
-            <li>Visualize actual objects from engineering drawings.</li>
-            <li>Experiment with simple CADD commands for two-dimensional plane figures.</li>
-          </ul>
-        </article>
-        <article class="card col-6">
-          <h2>Course Outcomes</h2>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>CO</th><th>Official outcome</th><th>Hours</th><th>Level</th></tr></thead>
-              <tbody>
-                <tr><td>CO1</td><td>Illustrate basic elements of Drawing</td><td>14</td><td>Understanding</td></tr>
-                <tr><td>CO2</td><td>Construct Projections of points and lines</td><td>12</td><td>Applying</td></tr>
-                <tr><td>CO3</td><td>Build Orthographic projections and Sectional views of object</td><td>9</td><td>Applying</td></tr>
-                <tr><td>CO4</td><td>Develop Isometric Projections</td><td>8</td><td>Applying</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-        <article class="card col-6">
-          <h2>English + Malayalam Support</h2>
-          <p>Engineering Graphics is a visual language. Marks depend on neat construction, correct projection method, line type, dimensioning and final presentation.</p>
-          <p class="mal">Engineering Graphics ഒരു visual language ആണ്. Drawing sheet-ൽ construction steps, projection method, line type, dimensioning, neatness എന്നിവ ശരിയാണെങ്കിൽ marks ലഭിക്കും. Technical terms English-ൽ തന്നെ ഓർമ്മിക്കുക: projection, dimensioning, section plane, isometric scale, CADD command.</p>
-        </article>
-        <article class="card col-6">
-          <h2>How to Study</h2>
-          <ul class="note-list">
-            <li>Keep one separate drawing notebook for construction steps.</li>
-            <li>Practise with instruments: mini drafter, set squares, compass and scale.</li>
-            <li>Write the given data first, then draw reference line XY.</li>
-            <li>Use thin construction lines and darken only final object lines.</li>
-            <li>Redraw each problem once without looking at the solved sheet.</li>
-          </ul>
-        </article>
-        <article class="card col-12">
-          <h2>Prerequisite and Official References</h2>
-          <p><b>Prerequisite:</b> Basic Geometry of Secondary school level.</p>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>Type</th><th>Reference</th></tr></thead>
-              <tbody>
-                <tr><td>Text</td><td>P. I. Varghese, Engineering Graphics - VIP Publishers</td></tr>
-                <tr><td>Text</td><td>K. C. John, Engineering Graphics - PHI Learning Private Limited</td></tr>
-                <tr><td>Text</td><td>K. N. Anilkumar, Engineering Graphics unique methods, easy solutions - Adhyuth Narayan Publishers, Kottayam</td></tr>
-                <tr><td>Reference</td><td>N. D. Bhatt, Engineering Drawing - Charotar Publishing House</td></tr>
-                <tr><td>Reference</td><td>D. M. Kulkarni, A. P. Rastogi, A. K. Sarkar, Engineering Graphics with AutoCAD - PHI Learning</td></tr>
-                <tr><td>Reference</td><td>M. B. Shah and B. C. Rana - Engineering Drawing - Pearson Publications</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
-      </div>
-
-      <div class="section-title">
-        <div><h2>Module Map</h2><p>Click a module button in the topbar to open only that module.</p></div>
-      </div>
-      <div class="module-map" id="moduleMap"></div>
+  <main class="wrap">
+    <section class="hero">
+      <div class="chips"><span class="chip">Kerala Polytechnic Revision 2021</span><span class="chip">Semester 1</span><span class="chip">Drawing / Graphics Subject</span><span class="chip">First Angle Projection</span></div>
+      <h1>Engineering Graphics</h1>
+      <p class="lead">Subject Code 1005 lesson HTML based on the official SITTTR Revision 2021 syllabus. It follows a drawing-sheet style with instruments, BIS conventions, dimensioning, engineering curves, projection methods, orthographic views, sectional views, isometric views and CADD basics.</p>
+      <p class="source-note">Author: Nandakumar.M | Visit: nandakumarm.dpdns.org</p>
     </section>
 
-    <section class="view-section screen" data-view="drawing-bank" hidden>
-      <div class="hero-mini">
-        <span class="pill">Drawing Bank</span>
-        <h2>Tools, Rules and Sheet Practice</h2>
-        <p>Use this tab as a quick drawing-sheet preparation area before attempting module problems.</p>
-      </div>
-      <div class="drawing-bank" id="drawingBank"></div>
-      <div class="section-title"><div><h2>Standard Sheet Workflow</h2><p>Follow this order for most Engineering Graphics problems.</p></div></div>
-      <div class="card">
-        <div class="flow">
-          <span class="step">Read given data</span><span class="arrow">→</span>
-          <span class="step">Choose scale</span><span class="arrow">→</span>
-          <span class="step">Draw XY / reference</span><span class="arrow">→</span>
-          <span class="step">Construct lightly</span><span class="arrow">→</span>
-          <span class="step">Darken final view</span><span class="arrow">→</span>
-          <span class="step">Dimension and label</span>
-        </div>
-      </div>
-    </section>
+    <section id="content" aria-live="polite"></section>
 
-    <section class="view-section screen" data-view="module" id="modules" hidden>
-      <div id="moduleContent"></div>
-    </section>
-
-    <section class="view-section screen" data-view="revision" hidden>
-      <div class="hero-mini">
-        <span class="pill">Revision</span>
-        <h2>One-page Quick Revision</h2>
-        <p>Last-minute Engineering Graphics checklist for the REV2021 1005 drawing examination.</p>
-      </div>
-      <div class="grid">
-        <article class="card col-4">
-          <h2>Important Definitions</h2>
-          <ul class="note-list">
-            <li><b>Projection:</b> representation of an object on a plane.</li>
-            <li><b>Orthographic view:</b> front, top or side view drawn on projection planes.</li>
-            <li><b>Sectional view:</b> view obtained after cutting an object by a section plane.</li>
-            <li><b>Isometric view:</b> pictorial view where three axes are equally inclined.</li>
-            <li><b>Dimensioning:</b> showing size and location details on a drawing.</li>
-          </ul>
-        </article>
-        <article class="card col-4">
-          <h2>Procedures to Remember</h2>
-          <ul class="note-list">
-            <li>Start projections with XY reference line.</li>
-            <li>Use first angle projection unless the question says otherwise.</li>
-            <li>Use hidden lines only where invisible edges must be shown.</li>
-            <li>In sectional views, hatch only the cut material area.</li>
-            <li>For isometric, keep vertical axis vertical and other two axes at 30°.</li>
-          </ul>
-        </article>
-        <article class="card col-4">
-          <h2>Common Exam Mistakes</h2>
-          <ul class="note-list">
-            <li>Using dark construction lines.</li>
-            <li>Forgetting projection symbols and view labels.</li>
-            <li>Mixing first angle and third angle placement.</li>
-            <li>Missing center lines for circles/cylinders.</li>
-            <li>Dimensioning inside the object when avoidable.</li>
-          </ul>
-        </article>
-        <article class="card col-12">
-          <h2>Last-minute Checklist</h2>
-          <div class="check-grid">
-            <div class="answer-card">Sharp pencils, eraser, compass, scale and set squares ready.</div>
-            <div class="answer-card">Object lines thick, construction lines thin, hidden lines dashed.</div>
-            <div class="answer-card">All views aligned with projectors and labelled properly.</div>
-            <div class="answer-card">Dimensions, arrows, extension lines and units are clear.</div>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="view-section screen" data-view="answer-key" hidden>
-      <div class="hero-mini">
-        <span class="pill">Master Answer Key</span>
-        <h2>Answer Hints and Construction Steps</h2>
-        <p>Every answer below matches the Expected Questions shown inside the four modules. Modules contain questions only; answers are kept here.</p>
-      </div>
-      <div id="answerKey" class="grid"></div>
-    </section>
+    <footer class="footer">
+      <b>Author:</b> Nandakumar.M &nbsp; | &nbsp; <b>Visit:</b> nandakumarm.dpdns.org
+    </footer>
   </main>
 
-  <footer class="footer screen">
-    <div class="footer-card">
-      <strong>Author: Nandakumar.M</strong>
-      <span>Visit: nandakumarm.dpdns.org</span>
-    </div>
-  </footer>
-  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
-
   <script>
-    const DATA = {
-      drawingBank: [
-        { title: "Drawing Instruments", accent: "#0284c7", body: "Mini drafter, set squares, compass, divider, drawing sheet, pencils, eraser and scale. Use each tool for accurate straight lines, arcs, circles and dimensions." },
-        { title: "Line Types", accent: "#059669", body: "Continuous thick for visible outlines, continuous thin for construction/dimension lines, dashed thin for hidden edges and chain thin for center lines." },
-        { title: "Dimensioning Rules", accent: "#ea580c", body: "Use clear arrowheads, extension lines and dimension figures. Avoid repeated dimensions and avoid placing dimensions inside the object when possible." },
-        { title: "Sheet Layout", accent: "#7c3aed", body: "Keep title block, border, neat spacing, proper labels and projection symbol. Draw lightly first and darken final views only after checking." },
-        { title: "Projection Symbols", accent: "#0f766e", body: "Know first angle and third angle symbols. REV2021 drawing questions specify first angle projection for orthographic view conversion." },
-        { title: "CADD Basics", accent: "#2563eb", body: "Important 2D commands: Line, Circle, Arc, Rectangle, Trim, Offset, Dimension, Move, Copy, Rotate and Mirror." }
-      ],
-      modules: [
-        {
-          no: "Module 1",
-          title: "Basic Elements of Drawing",
-          accent: "#0284c7",
-          outcome: "CO1: Illustrate basic elements of Drawing.",
-          hours: "14 hours",
-          outline: ["Importance of engineering graphics", "Drawing instruments, standards and symbols", "Dimensioning as per BIS", "Geometrical constructions, conic sections and engineering curves", "Plain, diagonal and vernier scales introduction"],
-          explanation: "This module builds the foundation for all drawing sheets. It covers instruments, line conventions, dimensioning methods, regular polygons, conic sections, helix, involute and the purpose of engineering scales.",
-          malayalam: "ഈ module drawing basics ആണ്. Instruments എങ്ങനെ ഉപയോഗിക്കണം, BIS line conventions, dimensioning methods, polygon construction, conic sections, helix, involute, scales എന്നിവ പഠിക്കുന്നു.",
-          definitions: [["Engineering Graphics", "Graphical language used to represent engineering ideas accurately."], ["Dimensioning", "Method of showing size and location details on a drawing."], ["Conic Section", "Curve obtained by cutting a cone using a plane."], ["Scale", "Ratio between drawing size and actual object size."]],
-          table: [["Continuous thick", "Visible outlines and final object lines"], ["Continuous thin", "Construction lines, projection lines, dimension lines"], ["Dashed thin", "Hidden edges"], ["Chain thin", "Center lines and axes"]],
-          visual: "curves",
-          questions: [
-            "List the common drawing instruments and state one use of each.",
-            "Differentiate continuous thick line, continuous thin line, dashed line and chain line.",
-            "Write the elements of dimensioning as per BIS practice.",
-            "Explain chain dimensioning, parallel dimensioning and coordinate dimensioning.",
-            "State the basic idea of ellipse, parabola, helix and involute.",
-            "Write the purpose of plain scale, diagonal scale and vernier scale in engineering practice."
-          ],
-          answers: [
-            "Mini drafter/T-square for straight parallel lines; set squares for standard angles; compass for circles/arcs; divider for transferring distance; scale for measuring/drawing lengths; pencil and eraser for neat construction.",
-            "Continuous thick line shows visible outlines; continuous thin line is used for construction, projection and dimension lines; dashed thin line shows hidden edges; chain thin line shows center lines and axes.",
-            "Dimensioning uses dimension line, extension line, arrowheads, dimension figure, leader line where needed, correct unit and clear placement outside the object when possible.",
-            "Chain dimensioning places dimensions one after another in a chain; parallel dimensioning gives all dimensions from a common datum; coordinate dimensioning locates points using coordinate distances from reference axes.",
-            "Ellipse and parabola are conic sections; helix is a curve traced by a point moving around and along a cylinder; involute is the curve traced by the end of a string unwound from a circle.",
-            "Plain scale reads units and subdivisions, diagonal scale gives finer readings and vernier scale gives still more accurate measurement; syllabus requires introduction only, not construction."
-          ]
-        },
-        {
-          no: "Module 2",
-          title: "Projection of Points and Lines",
-          accent: "#059669",
-          outcome: "CO2: Construct Projections of points and lines.",
-          hours: "12 hours",
-          outline: ["Theory of projection", "Projection of points in different quadrants", "Projection of straight lines in first quadrant", "Lines parallel/perpendicular/inclined to planes", "True length and inclination with reference planes"],
-          explanation: "Projection converts a three-dimensional position into two-dimensional views. Start with HP, VP and XY reference line. Points are placed according to quadrant rules; lines are projected to find top view, front view, true length and inclinations.",
-          malayalam: "Projection എന്നത് 3D position-നെ 2D views ആക്കി കാണിക്കുന്ന രീതിയാണ്. HP, VP, XY reference line, front view, top view, projector എന്നിവ ശരിയായി ഉപയോഗിക്കണം.",
-          definitions: [["HP", "Horizontal Plane used for top view projection."], ["VP", "Vertical Plane used for front view projection."], ["XY Line", "Reference line formed by the intersection of HP and VP."], ["True Length", "Actual length of a line, obtained when line is parallel to the projection plane."]],
-          table: [["Point above HP and in front of VP", "First quadrant"], ["Point above HP and behind VP", "Second quadrant"], ["Point below HP and behind VP", "Third quadrant"], ["Point below HP and in front of VP", "Fourth quadrant"]],
-          visual: "projection",
-          questions: [
-            "Define HP, VP and XY reference line.",
-            "Explain projection of a point in the first quadrant.",
-            "Write the quadrant positions of points with respect to HP and VP.",
-            "List the common positions of a straight line considered in projections.",
-            "Explain how true length and inclination of a line are found from projections.",
-            "Draw the construction sequence for a line inclined to one plane and parallel to the other."
-          ],
-          answers: [
-            "HP is the horizontal plane for top view; VP is the vertical plane for front view; XY is the reference line where HP and VP meet after rotation.",
-            "For a point in the first quadrant, front view is above XY because the point is above HP, and top view is below XY because the point is in front of VP.",
-            "First quadrant: above HP, in front of VP. Second: above HP, behind VP. Third: below HP, behind VP. Fourth: below HP, in front of VP.",
-            "Line parallel to both planes, perpendicular to one plane and parallel to the other, inclined to one plane and parallel to the other, and inclined to both planes.",
-            "True length is obtained by an auxiliary or rotation method so that the line becomes parallel to one reference plane; the angle made by the true length with XY gives inclination with HP or VP.",
-            "Draw XY, locate one end, draw the view parallel to the plane to which the line is parallel, set the given angle in the other view, project end points and complete front/top views with labels."
-          ]
-        },
-        {
-          no: "Module 3",
-          title: "Orthographic Projections and Sectional Views",
-          accent: "#ea580c",
-          outcome: "CO3: Build Orthographic projections and Sectional views of object.",
-          hours: "9 hours",
-          outline: ["Concepts of orthographic, isometric and oblique projections", "First angle and third angle methods and symbols", "Conversion of pictorial view into orthographic views", "Objects with plain surfaces, slots, ribs and cylindrical surfaces", "Full and half sectional views"],
-          explanation: "Orthographic projection represents an object using separate front, top and side views. Sectional views reveal hidden internal details by cutting the object with a section plane.",
-          malayalam: "Orthographic projection-ൽ object-ന്റെ front view, top view, side view എന്നിവ വേർതിരിച്ച് വരയ്ക്കുന്നു. Sectional view object cut ചെയ്ത് ഉള്ളിലെ details കാണിക്കാൻ ഉപയോഗിക്കുന്നു.",
-          definitions: [["Orthographic Projection", "Representation of an object using views on mutually perpendicular planes."], ["First Angle Projection", "Object is placed between observer and plane; used in this syllabus."], ["Section Plane", "Imaginary cutting plane used to expose internal details."], ["Hatching", "Thin inclined lines used to show cut material area."]],
-          table: [["Front view", "Shows height and width"], ["Top view", "Shows width and depth"], ["Side view", "Shows height and depth"], ["Sectional view", "Shows internal details after cutting"]],
-          visual: "orthographic",
-          questions: [
-            "Differentiate orthographic, isometric and oblique projections.",
-            "Explain first angle projection and third angle projection symbols.",
-            "Write the steps to convert a pictorial view into orthographic views using first angle projection.",
-            "How are slots, ribs and cylindrical surfaces represented in orthographic views?",
-            "Explain the need for sectional drawing of an engineering object.",
-            "Differentiate full section and half section."
-          ],
-          answers: [
-            "Orthographic projection uses separate 2D views; isometric projection shows a pictorial view with equal axes; oblique projection shows one face true shape with receding lines.",
-            "First angle places object between observer and plane; third angle places plane between observer and object. The standard symbols distinguish these methods and must be drawn correctly.",
-            "Study object, choose front view, draw front view, project top view below XY in first angle, project side view to the correct side, align all views and add center/hidden/dimension lines.",
-            "Slots are shown with visible and hidden edges as required; ribs are shown by their outline and thickness; cylindrical surfaces need center lines and circular/rectangular views depending on viewing direction.",
-            "Sectional drawing reveals hidden internal construction, reduces too many hidden lines and gives clearer manufacturing information.",
-            "Full section cuts the object completely by one section plane; half section removes one quarter of a symmetric object to show outside and inside in the same view."
-          ]
-        },
-        {
-          no: "Module 4",
-          title: "Isometric Projections and CADD Introduction",
-          accent: "#7c3aed",
-          outcome: "CO4: Develop Isometric Projections.",
-          hours: "8 hours",
-          outline: ["Isometric scale, isometric view and isometric projection", "Conversion of orthographic views into isometric views/projection", "Free hand sketching of real objects", "Conversion between orthographic and isometric views", "Introduction to CADD and 2D plane figure commands"],
-          explanation: "Isometric drawing helps visualize the complete object. The three isometric axes are equally inclined, usually with one vertical axis and two axes at 30°. CADD introduces digital construction of plane figures.",
-          malayalam: "Isometric drawing object-നെ pictorial ആയി കാണിക്കുന്നു. ഒരു vertical axis, രണ്ട് 30° axes എന്നിവ ഉപയോഗിക്കുന്നു. CADD-ൽ line, circle, trim, offset, dimension പോലുള്ള commands ഉപയോഗിച്ച് 2D figures വരയ്ക്കുന്നു.",
-          definitions: [["Isometric View", "Pictorial view drawn on isometric axes without applying isometric scale."], ["Isometric Projection", "Reduced-size pictorial projection drawn using isometric scale."], ["Freehand Sketch", "Neat approximate drawing without instruments."], ["CADD", "Computer Aided Drafting and Design for digital drawing."]],
-          table: [["Line", "Draw straight line segments"], ["Circle", "Draw circles"], ["Trim", "Remove unwanted parts"], ["Offset", "Create parallel curves/lines"], ["Dimension", "Add measurement details"]],
-          visual: "isometric",
-          questions: [
-            "Define isometric view, isometric projection and isometric scale.",
-            "Write the steps to convert orthographic views into an isometric view.",
-            "State the difference between isometric view and isometric projection.",
-            "Explain free hand sketching of a real object into isometric view.",
-            "List any five CADD commands used for two-dimensional plane figures.",
-            "Write the procedure to convert an isometric view back into orthographic views."
-          ],
-          answers: [
-            "Isometric view is a pictorial drawing on isometric axes using true lengths; isometric projection uses isometric scale, so lengths are reduced; isometric scale gives the reduced lengths for isometric projection.",
-            "Draw isometric axes, create an isometric box from maximum length/width/height, transfer visible features from orthographic views, draw circles as ellipses where needed, darken final edges and add labels/dimensions.",
-            "Isometric view uses actual dimensions along isometric axes; isometric projection uses reduced dimensions from isometric scale.",
-            "Observe the object, identify length/width/height directions, draw three isometric axes, sketch major block first, add visible details and keep proportions neat.",
-            "Line, Circle, Arc, Rectangle, Trim, Offset, Move, Copy, Rotate, Mirror and Dimension are common 2D CADD commands.",
-            "Identify front, top and side directions from the isometric view, draw front view first, project top and side views from it, align views, add hidden/center lines and dimension the final views."
-          ]
-        }
-      ]
-    };
-
-    const $ = (selector) => document.querySelector(selector);
-    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-    const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (ch) => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;" }[ch]));
-
-    function list(items) {
-      return `<ul class="note-list">${items.map((item) => `<li>${escapeHTML(item)}</li>`).join("")}</ul>`;
-    }
-
-    function tableRows(rows) {
-      return rows.map((row) => `<tr>${row.map((cell) => `<td>${escapeHTML(cell)}</td>`).join("")}</tr>`).join("");
-    }
-
-    function visual(type) {
-      const svgs = {
-        curves: `<svg viewBox="0 0 560 260" role="img" aria-label="Engineering curves and line types">
-          <rect x="20" y="24" width="520" height="210" rx="18" fill="#f8fbff" stroke="#bfdbfe"/>
-          <line x1="58" y1="70" x2="210" y2="70" stroke="#0f172a" stroke-width="7"/>
-          <line x1="58" y1="105" x2="210" y2="105" stroke="#0284c7" stroke-width="3"/>
-          <line x1="58" y1="140" x2="210" y2="140" stroke="#64748b" stroke-width="4" stroke-dasharray="14 10"/>
-          <path d="M290 170 C310 70 430 70 456 170 C424 132 326 132 290 170Z" fill="none" stroke="#059669" stroke-width="5"/>
-          <path d="M322 190 C368 98 456 105 488 188" fill="none" stroke="#ea580c" stroke-width="4"/>
-          <text x="58" y="190" fill="#334155" font-size="18" font-weight="700">Visible / thin / hidden / engineering curves</text>
-        </svg>`,
-        projection: `<svg viewBox="0 0 560 260" role="img" aria-label="Projection of point and line">
-          <rect x="22" y="24" width="516" height="210" rx="18" fill="#f8fbff" stroke="#bfdbfe"/>
-          <line x1="55" y1="128" x2="500" y2="128" stroke="#0f172a" stroke-width="4"/>
-          <text x="508" y="134" fill="#0f172a" font-size="16" font-weight="800">XY</text>
-          <circle cx="170" cy="78" r="7" fill="#0284c7"/><text x="184" y="83" font-size="16" fill="#334155">a'</text>
-          <circle cx="170" cy="178" r="7" fill="#059669"/><text x="184" y="183" font-size="16" fill="#334155">a</text>
-          <line x1="170" y1="78" x2="170" y2="178" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 8"/>
-          <line x1="300" y1="88" x2="430" y2="70" stroke="#ea580c" stroke-width="5"/>
-          <line x1="300" y1="170" x2="430" y2="188" stroke="#7c3aed" stroke-width="5"/>
-          <line x1="300" y1="88" x2="300" y2="170" stroke="#94a3b8" stroke-dasharray="8 8"/><line x1="430" y1="70" x2="430" y2="188" stroke="#94a3b8" stroke-dasharray="8 8"/>
-          <text x="70" y="52" font-size="16" fill="#334155">Front view above XY, top view below XY</text>
-        </svg>`,
-        orthographic: `<svg viewBox="0 0 560 260" role="img" aria-label="Orthographic views">
-          <rect x="24" y="24" width="512" height="212" rx="18" fill="#f8fbff" stroke="#bfdbfe"/>
-          <rect x="76" y="80" width="110" height="82" fill="#dbeafe" stroke="#075985" stroke-width="4"/>
-          <circle cx="132" cy="121" r="22" fill="none" stroke="#075985" stroke-width="4"/>
-          <rect x="250" y="72" width="122" height="60" fill="#ecfdf5" stroke="#059669" stroke-width="4"/>
-          <rect x="250" y="156" width="122" height="42" fill="#ecfdf5" stroke="#059669" stroke-width="4"/>
-          <rect x="420" y="86" width="72" height="96" fill="#fff7ed" stroke="#ea580c" stroke-width="4"/>
-          <line x1="456" y1="86" x2="456" y2="182" stroke="#ea580c" stroke-width="3" stroke-dasharray="12 8"/>
-          <text x="92" y="198" font-size="16" fill="#334155">Front</text><text x="282" y="222" font-size="16" fill="#334155">Top</text><text x="436" y="205" font-size="16" fill="#334155">Side</text>
-        </svg>`,
-        isometric: `<svg viewBox="0 0 560 260" role="img" aria-label="Isometric view">
-          <rect x="24" y="24" width="512" height="212" rx="18" fill="#f8fbff" stroke="#bfdbfe"/>
-          <polygon points="190,82 326,42 438,102 302,144" fill="#dbeafe" stroke="#075985" stroke-width="4"/>
-          <polygon points="190,82 302,144 302,205 190,142" fill="#e0f2fe" stroke="#075985" stroke-width="4"/>
-          <polygon points="302,144 438,102 438,164 302,205" fill="#ecfdf5" stroke="#075985" stroke-width="4"/>
-          <line x1="106" y1="198" x2="180" y2="156" stroke="#0f172a" stroke-width="3"/><line x1="106" y1="198" x2="106" y2="112" stroke="#0f172a" stroke-width="3"/><line x1="106" y1="198" x2="36" y2="158" stroke="#0f172a" stroke-width="3"/>
-          <text x="44" y="226" font-size="16" fill="#334155">30° axes + vertical axis</text>
-        </svg>`
-      };
-      return svgs[type] || svgs.curves;
-    }
-
-    function renderModuleMap() {
-      $("#moduleMap").innerHTML = DATA.modules.map((module, index) => `
-        <article class="map-card" style="--accent:${module.accent}">
-          <span class="badge">${module.no}</span>
-          <h3>${escapeHTML(module.title)}</h3>
-          <p>${escapeHTML(module.outcome)} ${escapeHTML(module.hours)}.</p>
-          <button class="view-btn" type="button" data-view="module" data-module="${index}" style="margin-top:.8rem">Open ${module.no}</button>
-        </article>
-      `).join("");
-    }
-
-    function renderDrawingBank() {
-      $("#drawingBank").innerHTML = DATA.drawingBank.map((item) => `
-        <article class="bank-card" style="--accent:${item.accent}">
-          <span class="badge">Bank</span>
-          <h3>${escapeHTML(item.title)}</h3>
-          <p>${escapeHTML(item.body)}</p>
-        </article>
-      `).join("");
-    }
-
-    function renderModule(index) {
-      const module = DATA.modules[index] || DATA.modules[0];
-      $("#moduleContent").innerHTML = `
-        <div class="module-header" style="--moduleAccent:${module.accent}">
-          <span class="pill">${escapeHTML(module.no)} • ${escapeHTML(module.hours)}</span>
-          <h2>${escapeHTML(module.title)}</h2>
-          <p>${escapeHTML(module.outcome)}</p>
+    const views = {};
+    views.overview = `
+      <article class="panel">
+        <div class="section-title"><div><span class="badge">Course Overview</span><h2>1005 - Engineering Graphics</h2><p class="muted">Engineering Graphics is the language used by engineers to represent shape, size, position and construction details clearly.</p></div></div>
+        <div class="grid3">
+          <div class="card blue"><div class="big-num">1005</div><b>Course Code</b><p>Engineering Graphics</p></div>
+          <div class="card green"><div class="big-num">1</div><b>Semester</b><p>Diploma in Engineering and Technology</p></div>
+          <div class="card orange"><div class="big-num">1.5</div><b>Credits</b><p>45 periods, 3 practical periods per week</p></div>
         </div>
-        <div class="grid" style="margin-top:1rem">
-          <article class="card col-6"><h2>Learning Outcomes</h2>${list(module.outline)}</article>
-          <article class="drawing-board col-6"><h2>Visual Block</h2>${visual(module.visual)}</article>
-          <article class="card col-6"><h2>Simple Explanation</h2><p>${escapeHTML(module.explanation)}</p><p class="mal">${escapeHTML(module.malayalam)}</p></article>
-          <article class="card col-6">
-            <h2>Important Definitions</h2>
-            <div class="table-wrap"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>${tableRows(module.definitions)}</tbody></table></div>
-          </article>
-          <article class="card col-12">
-            <h2>Useful Table</h2>
-            <div class="table-wrap"><table><thead><tr><th>Item</th><th>Use / Meaning</th></tr></thead><tbody>${tableRows(module.table)}</tbody></table></div>
-          </article>
-          <article class="card col-12">
-            <h2>Expected Questions</h2>
-            <ol class="question-list">${module.questions.map((question) => `<li>${escapeHTML(question)}</li>`).join("")}</ol>
-          </article>
+        <div class="grid2" style="margin-top:16px">
+          <div class="card"><h3>Course Category</h3><p>Engineering Science</p><h3>Subject Type</h3><p>Drawing / Graphics subject. So this lesson uses drawing-sheet style, construction steps, labelled visual blocks, drawing rules and answer hints only in the Master Answer Key.</p></div>
+          <div class="card soft"><h3>Malayalam Support</h3><p class="ml">Engineering Graphics engineers-ന്റെ drawing language ആണ്. Shape, size, location, construction details എന്നിവ standard drawing methods ഉപയോഗിച്ച് clear ആയി communicate ചെയ്യാൻ ഇത് സഹായിക്കുന്നു. Technical terms English-ൽ തന്നെ retain ചെയ്തിട്ടുണ്ട്.</p></div>
         </div>
-      `;
-    }
+      </article>
+      <article class="panel">
+        <h2>Course Objectives</h2>
+        <div class="grid2">
+          <div class="card"><ul class="rule-list"><li>Understand the language of graphics used to express engineering ideas and instructions.</li><li>Familiarize drawing instruments, drafting and sketching skills.</li><li>Use Indian Standards related to engineering drawings.</li><li>Draw and read engineering curves, projections and dimensioning styles.</li></ul></div>
+          <div class="card"><ul class="rule-list"><li>Develop projection of points and lines.</li><li>Understand orthographic and sectional views of objects.</li><li>Visualize actual objects from drawings.</li><li>Experiment with simple CADD commands for two-dimensional plane figures.</li></ul></div>
+        </div>
+      </article>
+      <article class="panel">
+        <h2>Course Outcomes and Module Map</h2>
+        <table><thead><tr><th>CO</th><th>Outcome</th><th>Duration</th><th>Cognitive Level</th></tr></thead><tbody><tr><td>CO1</td><td>Illustrate basic elements of Drawing</td><td>14 hours</td><td>Understanding</td></tr><tr><td>CO2</td><td>Construct Projections of points and lines</td><td>12 hours</td><td>Applying</td></tr><tr><td>CO3</td><td>Build Orthographic projections and Sectional views of object</td><td>9 hours</td><td>Applying</td></tr><tr><td>CO4</td><td>Develop Isometric Projections</td><td>8 hours</td><td>Applying</td></tr><tr><td>Series Tests</td><td>Series Test I and II</td><td>2 hours</td><td>Exam practice</td></tr></tbody></table>
+        <div class="flow" style="margin-top:16px"><span>Module 1<br><b>Drawing basics</b></span><span>Module 2<br><b>Points & Lines</b></span><span>Module 3<br><b>Orthographic & Section</b></span><span>Module 4<br><b>Isometric & CADD</b></span></div>
+      </article>
+      <article class="panel">
+        <h2>How to Study This Subject</h2>
+        <div class="grid2">
+          <div class="card green"><h3>Drawing Practice Method</h3><ol><li>Read the construction aim.</li><li>Draw a light reference line first.</li><li>Use correct line type and dimensioning rule.</li><li>Keep sheet neat; avoid overwriting.</li><li>Check projection relation before darkening final views.</li></ol></div>
+          <div class="card orange"><h3>Exam Preparation Method</h3><ol><li>Revise BIS line types, dimensioning, scale names and projection rules.</li><li>Practise one polygon, one ellipse/parabola, one point/line projection and one orthographic conversion.</li><li>For 8-mark and 15-mark drawing questions, write small labels and keep construction visible.</li><li>Use the Master Answer Key only after trying the expected questions.</li></ol></div>
+        </div>
+      </article>`;
 
-    function renderAnswerKey() {
-      $("#answerKey").innerHTML = DATA.modules.map((module) => `
-        <article class="answer-card col-6">
-          <h3>${escapeHTML(module.no)}: ${escapeHTML(module.title)}</h3>
-          <ol>${module.answers.map((answer) => `<li>${escapeHTML(answer)}</li>`).join("")}</ol>
-        </article>
-      `).join("");
-    }
+    views.bank = `
+      <article class="panel"><div class="section-title"><div><span class="badge">Drawing Bank</span><h2>Tools, Rules, Symbols and Sheet Memory</h2><p class="muted">Use this bank before entering modules. It replaces formula bank for this graphics subject.</p></div></div>
+        <div class="grid2">
+          <div class="card"><h3>Drawing Instruments</h3><table><thead><tr><th>Tool</th><th>Use</th></tr></thead><tbody><tr><td>Drawing board</td><td>Supports sheet and gives flat drawing surface.</td></tr><tr><td>Mini drafter / T-square</td><td>Draws horizontal, vertical and inclined lines.</td></tr><tr><td>Set squares</td><td>Draws 30°, 45°, 60°, 90° lines.</td></tr><tr><td>Compass</td><td>Draws arcs and circles.</td></tr><tr><td>Divider</td><td>Transfers distances accurately.</td></tr><tr><td>Scale</td><td>Measures and draws required length.</td></tr></tbody></table></div>
+          <div class="card soft"><h3>Malayalam Note</h3><p class="ml">Drawing instruments correct ആയി use ചെയ്താൽ drawing neat, accurate, standard ആയിരിക്കും. Pencil pressure light construction-നും dark final line-നും different ആയിരിക്കണം.</p></div>
+        </div>
+      </article>
+      <article class="panel"><h2>Line Types and Dimensioning Rules</h2><div class="grid2"><div class="diagram"><svg viewBox="0 0 720 300"><rect width="720" height="300" rx="22" fill="#f8fbff"/><text x="360" y="35" text-anchor="middle" class="svg-title">Common Engineering Line Types</text><line x1="80" y1="85" x2="330" y2="85" stroke="#111827" stroke-width="5"/><text x="370" y="91" class="label">Continuous thick - visible outline</text><line x1="80" y1="135" x2="330" y2="135" stroke="#111827" stroke-width="3" stroke-dasharray="18 10"/><text x="370" y="141" class="label">Dashed - hidden edge</text><line x1="80" y1="185" x2="330" y2="185" stroke="#111827" stroke-width="3" stroke-dasharray="28 9 6 9"/><text x="370" y="191" class="label">Chain - centre line</text><line x1="80" y1="235" x2="330" y2="235" stroke="#111827" stroke-width="2"/><path d="M96 225 L80 235 L96 245 M314 225 L330 235 L314 245" fill="none" stroke="#111827" stroke-width="2"/><text x="370" y="241" class="label">Dimension line with arrowheads</text></svg><div class="caption">Line meaning must be clear before drawing views.</div></div><div class="card"><h3>Dimensioning Rules</h3><ul class="check"><li>Show only necessary dimensions.</li><li>Place dimensions outside the view where possible.</li><li>Do not repeat the same dimension unnecessarily.</li><li>Use arrowheads, extension lines and dimension values neatly.</li><li>Chain, parallel and coordinate dimensioning are important methods.</li></ul></div></div></article>
+      <article class="panel"><h2>Projection and View Bank</h2><div class="grid2"><div class="card"><h3>Projection Memory</h3><ul><li><b>HP</b>: Horizontal Plane.</li><li><b>VP</b>: Vertical Plane.</li><li><b>XY line</b>: reference line between HP and VP.</li><li><b>First Angle Projection</b>: used for exam drawings here.</li><li><b>Orthographic views</b>: front view, top view and side view.</li><li><b>Sectional view</b>: view after imaginary cutting by section plane.</li><li><b>Isometric view</b>: pictorial view with three axes at 120°.</li></ul></div><div class="diagram"><svg viewBox="0 0 720 320"><rect width="720" height="320" rx="22" fill="#fff"/><text x="360" y="35" text-anchor="middle" class="svg-title">Orthographic to Isometric Idea</text><g transform="translate(70,85)"><rect x="0" y="0" width="110" height="75" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><rect x="0" y="105" width="110" height="75" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/><rect x="145" y="105" width="75" height="75" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/><text x="55" y="215" text-anchor="middle" class="small-label">Front + Top</text><text x="182" y="215" text-anchor="middle" class="small-label">Side</text></g><path d="M342 165 L407 165" stroke="#0f9f6e" stroke-width="6" marker-end="url(#arr1005)"/><defs><marker id="arr1005" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10Z" fill="#0f9f6e"/></marker></defs><g transform="translate(455,90)"><polygon points="95,0 190,55 95,110 0,55" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><polygon points="190,55 190,155 95,210 95,110" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/><polygon points="0,55 95,110 95,210 0,155" fill="#eff6ff" stroke="#2563eb" stroke-width="3"/><text x="95" y="245" text-anchor="middle" class="small-label">Isometric pictorial view</text></g></svg></div></div></article>`;
 
-    function verifyAnswerKey() {
-      const mismatches = DATA.modules.filter((module) => module.questions.length !== module.answers.length);
-      if (mismatches.length) {
-        console.error("Answer key mismatch", mismatches.map((module) => module.no));
-      }
-    }
+    views.module1 = `
+      <article class="panel"><div class="section-title"><div><span class="badge">Module 1 - CO1</span><h2>Drawing Instruments, Standards, Dimensioning, Curves and Scales</h2><p class="muted">Official focus: basic elements of drawing, instruments, standards, dimensioning, geometrical constructions, engineering curves and scale types.</p></div></div>
+        <div class="grid2"><div class="card"><h3>Learning Outcomes</h3><ul><li>Outline the importance of Engineering Graphics.</li><li>Recognize drawing instruments, standards and symbols.</li><li>Apply BIS dimensioning practices.</li><li>Construct regular polygons, conic sections and engineering curves.</li><li>Identify plain, diagonal and vernier scales.</li></ul></div><div class="card soft"><h3>Malayalam Support</h3><p class="ml">ഈ module drawing-ന്റെ foundation ആണ്. Instruments, line conventions, dimensioning, polygon construction, ellipse, parabola, helix, involute, scale types എന്നിവ neat ആയി practise ചെയ്യണം.</p></div></div>
+      </article>
+      <article class="panel"><h2>Simple Explanation and Important Definitions</h2><div class="grid2"><div class="card"><h3>Core Ideas</h3><ul><li><b>Engineering Graphics:</b> Standard drawing method used to communicate engineering objects.</li><li><b>Convention of lines:</b> Standard line types used for visible edges, hidden edges, centre lines, dimensions and cutting planes.</li><li><b>Dimensioning:</b> Method of showing sizes and locations on a drawing.</li><li><b>Conic sections:</b> Curves obtained by cutting a cone, such as ellipse and parabola.</li><li><b>Engineering curves:</b> Curves such as helix and involute used in springs, threads, gears and machine parts.</li></ul></div><div class="diagram"><svg viewBox="0 0 720 320"><rect width="720" height="320" rx="22" fill="#f8fbff"/><text x="360" y="35" text-anchor="middle" class="svg-title">Module 1 Visual Map</text><circle cx="130" cy="150" r="55" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><text x="130" y="145" text-anchor="middle" class="label">Tools</text><text x="130" y="166" text-anchor="middle" class="small-label">board, scale</text><circle cx="290" cy="150" r="55" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><text x="290" y="145" text-anchor="middle" class="label">Lines</text><text x="290" y="166" text-anchor="middle" class="small-label">BIS rules</text><circle cx="450" cy="150" r="55" fill="#fff7ed" stroke="#f59e0b" stroke-width="3"/><text x="450" y="145" text-anchor="middle" class="label">Curves</text><text x="450" y="166" text-anchor="middle" class="small-label">ellipse, helix</text><circle cx="610" cy="150" r="55" fill="#f1f5f9" stroke="#64748b" stroke-width="3"/><text x="610" y="145" text-anchor="middle" class="label">Scales</text><text x="610" y="166" text-anchor="middle" class="small-label">plain, vernier</text></svg></div></div>
+      </article>
+      <article class="panel"><h2>Construction Procedure Cards</h2><div class="grid3"><div class="card blue"><h3>Regular Polygon</h3><ol><li>Draw given side length.</li><li>Locate centre or use angle method.</li><li>Mark all vertices accurately.</li><li>Join vertices with continuous thick lines.</li></ol></div><div class="card green"><h3>Ellipse</h3><ol><li>Draw major and minor axes.</li><li>Use eccentricity / concentric circle / rectangular method as asked.</li><li>Plot points symmetrically.</li><li>Join points with smooth curve.</li></ol></div><div class="card orange"><h3>Parabola</h3><ol><li>Draw axis, directrix and focus if needed.</li><li>Use eccentricity or tangent method.</li><li>Locate equal-distance points.</li><li>Draw smooth parabola through points.</li></ol></div></div></article>
+      <article class="panel"><h2>Expected Questions - Module 1</h2><ol class="q-list"><li id="M1Q1">M1Q1. Explain the importance of Engineering Graphics in engineering practice.</li><li id="M1Q2">M1Q2. List the main drawing instruments and write their uses.</li><li id="M1Q3">M1Q3. Explain common line conventions used in engineering drawing.</li><li id="M1Q4">M1Q4. Define dimensioning and compare chain, parallel and coordinate dimensioning.</li><li id="M1Q5">M1Q5. Write the construction steps for a regular polygon when the side length is given.</li><li id="M1Q6">M1Q6. Explain any two methods used for constructing an ellipse.</li><li id="M1Q7">M1Q7. Write short notes on helix and involute with applications.</li><li id="M1Q8">M1Q8. Identify plain scale, diagonal scale and vernier scale and state where each is useful.</li></ol></article>`;
 
-    let activeView = "overview";
-    function showView(view = "overview", moduleIndex = null, shouldScroll = true) {
-      activeView = view;
-      if (view === "drawing-bank" && !$("#drawingBank").children.length) renderDrawingBank();
-      if (view === "module") renderModule(Number(moduleIndex || 0));
-      if (view === "answer-key" && !$("#answerKey").children.length) renderAnswerKey();
-      $$(".view-section").forEach((section) => { section.hidden = section.dataset.view !== view; });
-      $$(".selector .view-btn").forEach((button) => {
-        const sameView = button.dataset.view === view;
-        const sameModule = view !== "module" || String(button.dataset.module) === String(moduleIndex);
-        button.classList.toggle("active", sameView && sameModule);
-      });
-      const target = view === "module" ? $("#modules") : $(`.view-section[data-view="${view}"]`);
-      if (target && shouldScroll) target.scrollIntoView({ behavior:"smooth", block:"start" });
-    }
+    views.module2 = `
+      <article class="panel"><div class="section-title"><div><span class="badge">Module 2 - CO2</span><h2>Projection of Points and Lines</h2><p class="muted">Official focus: theory of projection, projection of points in different quadrants and projection of straight lines in first quadrant.</p></div></div><div class="grid2"><div class="card"><h3>Learning Outcomes</h3><ul><li>Outline the theory of projection.</li><li>Develop projections of points in different quadrants.</li><li>Develop projections of lines parallel or perpendicular to reference planes.</li><li>Draw line projections inclined to one or both planes.</li><li>Find true length and inclination with HP and VP.</li></ul></div><div class="card soft"><h3>Malayalam Support</h3><p class="ml">Projection-ൽ object-ന്റെ points അല്ലെങ്കിൽ lines HP, VP എന്നീ reference planes-ലേക്ക് project ചെയ്യുന്നു. XY line, front view, top view, quadrant position എന്നിവ carefully mark ചെയ്യണം.</p></div></div></article>
+      <article class="panel"><h2>Projection Theory Visual</h2><div class="grid2"><div class="diagram"><svg viewBox="0 0 720 350"><rect width="720" height="350" rx="22" fill="#f8fbff"/><text x="360" y="35" text-anchor="middle" class="svg-title">HP, VP and XY Reference</text><line x1="80" y1="175" x2="640" y2="175" stroke="#111827" stroke-width="4"/><text x="648" y="180" class="label">XY</text><rect x="170" y="55" width="380" height="110" fill="#dbeafe" stroke="#2563eb" stroke-width="3" opacity=".9"/><text x="360" y="110" text-anchor="middle" class="label">VP - front view plane</text><polygon points="170,190 550,190 650,310 70,310" fill="#dcfce7" stroke="#16a34a" stroke-width="3" opacity=".95"/><text x="360" y="270" text-anchor="middle" class="label">HP - top view plane</text><circle cx="290" cy="120" r="8" fill="#ef4444"/><circle cx="290" cy="235" r="8" fill="#ef4444"/><line x1="290" y1="120" x2="290" y2="235" stroke="#ef4444" stroke-width="2" stroke-dasharray="8 6"/><text x="310" y="123" class="small-label">front view</text><text x="310" y="240" class="small-label">top view</text></svg><div class="caption">Always keep vertical projectors light and aligned.</div></div><div class="card"><h3>Important Definitions</h3><ul><li><b>Projection:</b> Representation of an object on a plane using projectors.</li><li><b>Projector:</b> Imaginary line from object to projection plane.</li><li><b>Front view:</b> Projection on VP.</li><li><b>Top view:</b> Projection on HP.</li><li><b>True length:</b> Actual length of a line, seen when line is parallel to the projection plane.</li></ul></div></div></article>
+      <article class="panel"><h2>Line Position Quick Table</h2><table><thead><tr><th>Line Position</th><th>View Behaviour</th><th>Drawing Note</th></tr></thead><tbody><tr><td>Parallel to both HP and VP</td><td>Both views show true length.</td><td>Keep views parallel to XY.</td></tr><tr><td>Parallel to one plane and perpendicular to other</td><td>One view true length, other may appear as point/end view.</td><td>Check plane relation before drawing.</td></tr><tr><td>Inclined to one plane and parallel to other</td><td>One view true length, other view shortened.</td><td>Angle is visible in plane where true length appears.</td></tr><tr><td>Inclined to both HP and VP</td><td>Both views appear shorter than true length.</td><td>Use rotation / auxiliary method as instructed.</td></tr></tbody></table></article>
+      <article class="panel"><h2>Expected Questions - Module 2</h2><ol class="q-list"><li id="M2Q1">M2Q1. Explain the theory of projection using HP, VP and XY line.</li><li id="M2Q2">M2Q2. Draw and explain projection of a point placed in different quadrants.</li><li id="M2Q3">M2Q3. State the difference between front view and top view.</li><li id="M2Q4">M2Q4. Draw projections of a straight line parallel to both HP and VP.</li><li id="M2Q5">M2Q5. Draw projections of a line parallel to one plane and perpendicular to the other plane.</li><li id="M2Q6">M2Q6. Explain the procedure for a line inclined to one plane and parallel to the other plane.</li><li id="M2Q7">M2Q7. Explain how true length and inclination of a line are found from projections.</li><li id="M2Q8">M2Q8. List common mistakes made while drawing projections of points and lines.</li></ol></article>`;
 
-    function wireControls() {
-      document.addEventListener("click", (event) => {
-        const control = event.target.closest("[data-view]");
-        if (!control) return;
-        showView(control.dataset.view || "overview", control.dataset.module || null, true);
-      });
-      const topBtn = $("#toTop");
-      topBtn.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smooth" }));
-      window.addEventListener("scroll", () => {
-        const h = document.documentElement;
-        const percent = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)) * 100;
-        $("#progress").style.width = percent + "%";
-        topBtn.classList.toggle("show", h.scrollTop > 600);
-      }, { passive:true });
-    }
+    views.module3 = `
+      <article class="panel"><div class="section-title"><div><span class="badge">Module 3 - CO3</span><h2>Orthographic Projection and Sectional Views</h2><p class="muted">Official focus: orthographic projection, first angle and third angle methods, conversion of pictorial views into orthographic views and full/half sectional views.</p></div></div><div class="grid2"><div class="card"><h3>Learning Outcomes</h3><ul><li>Summarize orthographic, isometric and oblique projections.</li><li>Use first angle and third angle projection symbols.</li><li>Convert pictorial views into orthographic views.</li><li>Draw objects with plain, slanting, slotted, ribbed and cylindrical surfaces.</li><li>Develop full and half sectional views.</li></ul></div><div class="card soft"><h3>Malayalam Support</h3><p class="ml">Orthographic projection-ൽ object-നെ front, top, side views ആയി കാണിക്കുന്നു. ഈ syllabus-ൽ exam drawing first angle projection method ഉപയോഗിച്ചാണ് ചെയ്യേണ്ടത്.</p></div></div></article>
+      <article class="panel"><h2>Orthographic View Layout</h2><div class="grid2"><div class="diagram"><svg viewBox="0 0 720 360"><rect width="720" height="360" rx="22" fill="#f8fbff"/><text x="360" y="35" text-anchor="middle" class="svg-title">First Angle Projection Layout Idea</text><rect x="270" y="75" width="160" height="100" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/><text x="350" y="130" text-anchor="middle" class="label">Front View</text><rect x="270" y="220" width="160" height="90" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/><text x="350" y="270" text-anchor="middle" class="label">Top View</text><rect x="70" y="75" width="130" height="100" fill="#fff7ed" stroke="#f59e0b" stroke-width="3"/><text x="135" y="130" text-anchor="middle" class="label">Right Side View</text><line x1="350" y1="178" x2="350" y2="218" stroke="#64748b" stroke-width="2" stroke-dasharray="7 6"/><line x1="203" y1="125" x2="267" y2="125" stroke="#64748b" stroke-width="2" stroke-dasharray="7 6"/><text x="360" y="338" text-anchor="middle" class="small-label">In first angle, top view is usually placed below front view.</text></svg></div><div class="card"><h3>Sectional View Need</h3><p>Sectional views reveal internal details hidden by outside surfaces. A cutting plane is imagined through the object, the front portion is removed, and the remaining cut face is shown using hatching.</p><p class="ml">Internal details കാണിക്കാൻ object cut ചെയ്ത പോലെ കാണിക്കുന്ന drawing ആണ് sectional view. Cut surface-ൽ hatching lines വരയ്ക്കണം.</p></div></div></article>
+      <article class="panel"><h2>Projection Comparison</h2><table><thead><tr><th>Projection Type</th><th>Purpose</th><th>Important Note</th></tr></thead><tbody><tr><td>Orthographic</td><td>Shows exact front, top and side views.</td><td>Best for manufacturing and inspection.</td></tr><tr><td>Isometric</td><td>Shows pictorial 3D-like appearance.</td><td>Three axes are equally inclined.</td></tr><tr><td>Oblique</td><td>Shows front face true shape with depth drawn at an angle.</td><td>Concept and applications only here.</td></tr><tr><td>Sectional</td><td>Shows internal details.</td><td>Use correct section plane and hatching.</td></tr></tbody></table></article>
+      <article class="panel"><h2>Expected Questions - Module 3</h2><ol class="q-list"><li id="M3Q1">M3Q1. Define orthographic projection and state its engineering importance.</li><li id="M3Q2">M3Q2. Compare first angle projection and third angle projection.</li><li id="M3Q3">M3Q3. Draw the standard symbol of first angle projection and explain its meaning.</li><li id="M3Q4">M3Q4. Convert a simple pictorial object into front view, top view and side view using first angle projection.</li><li id="M3Q5">M3Q5. Explain how slanting surfaces, slots, ribs and cylindrical surfaces are represented in orthographic views.</li><li id="M3Q6">M3Q6. Explain the need for sectional views in engineering drawing.</li><li id="M3Q7">M3Q7. Differentiate full section and half section with suitable drawing situations.</li><li id="M3Q8">M3Q8. List the common mistakes to avoid while preparing orthographic and sectional drawings.</li></ol></article>`;
 
-    renderModuleMap();
-    verifyAnswerKey();
-    wireControls();
-    showView("overview", null, false);
+    views.module4 = `
+      <article class="panel"><div class="section-title"><div><span class="badge">Module 4 - CO4</span><h2>Isometric Projection, Freehand Sketching and CADD Basics</h2><p class="muted">Official focus: isometric scale, isometric view/projection, conversion between orthographic and isometric views, freehand sketching and CADD familiarization.</p></div></div><div class="grid2"><div class="card"><h3>Learning Outcomes</h3><ul><li>Develop isometric views of simple engineering objects.</li><li>Convert orthographic views into isometric views/projections.</li><li>Prepare freehand sketches of real objects.</li><li>Convert isometric view to orthographic view and vice versa.</li><li>Identify basic CADD commands for two-dimensional figures.</li></ul></div><div class="card soft"><h3>Malayalam Support</h3><p class="ml">Isometric drawing object-നെ 3D-like ആയി കാണിക്കാൻ ഉപയോഗിക്കുന്നു. Orthographic views-ൽ നിന്ന് height, width, depth identify ചെയ്ത് isometric axes-ൽ transfer ചെയ്യണം.</p></div></div></article>
+      <article class="panel"><h2>Isometric Axes and Conversion</h2><div class="grid2"><div class="diagram"><svg viewBox="0 0 720 330"><rect width="720" height="330" rx="22" fill="#f8fbff"/><text x="360" y="35" text-anchor="middle" class="svg-title">Isometric Axes</text><line x1="360" y1="170" x2="360" y2="65" stroke="#2563eb" stroke-width="6"/><line x1="360" y1="170" x2="190" y2="270" stroke="#16a34a" stroke-width="6"/><line x1="360" y1="170" x2="530" y2="270" stroke="#f59e0b" stroke-width="6"/><text x="375" y="80" class="label">Vertical axis</text><text x="135" y="288" class="label">30° axis</text><text x="535" y="288" class="label">30° axis</text><text x="360" y="315" text-anchor="middle" class="small-label">The three isometric axes are 120° apart.</text></svg></div><div class="card"><h3>Isometric Terms</h3><ul><li><b>Isometric view:</b> Drawn using true lengths along isometric axes.</li><li><b>Isometric projection:</b> Drawn using isometric scale, so size is reduced.</li><li><b>Isometric scale:</b> Scale used to convert true length to isometric length.</li><li><b>Freehand sketch:</b> Drawing without instruments, using proportion and observation.</li></ul></div></div></article>
+      <article class="panel"><h2>CADD Familiarization</h2><div class="grid2"><div class="card"><h3>Software Mentioned in Syllabus</h3><ul><li>AutoCAD</li><li>Electrical CAD</li><li>STAAD</li><li>Mechanical Desktop</li></ul></div><div class="card green"><h3>Basic 2D Commands</h3><div class="flow"><span>LINE</span><span>CIRCLE</span><span>ARC</span><span>OFFSET</span><span>TRIM</span><span>EXTEND</span><span>MOVE</span><span>COPY</span><span>DIMENSION</span></div><p class="mini ml">CADD commands drawing speed കൂട്ടുകയും accuracy improve ചെയ്യുകയും ചെയ്യുന്നു. എന്നാൽ basic manual drawing concepts അറിയണം.</p></div></div></article>
+      <article class="panel"><h2>Expected Questions - Module 4</h2><ol class="q-list"><li id="M4Q1">M4Q1. Define isometric view, isometric projection and isometric scale.</li><li id="M4Q2">M4Q2. Draw the isometric axes and explain the angle relation between them.</li><li id="M4Q3">M4Q3. Convert given orthographic views of a simple object into an isometric view.</li><li id="M4Q4">M4Q4. Explain the procedure for converting an isometric view into orthographic views.</li><li id="M4Q5">M4Q5. Write the importance of freehand sketching in engineering practice.</li><li id="M4Q6">M4Q6. Prepare a freehand isometric sketch of a simple real object such as a block, bracket or step block.</li><li id="M4Q7">M4Q7. List the software packages introduced under CADD familiarization.</li><li id="M4Q8">M4Q8. Identify any six basic CADD commands used for constructing two-dimensional plane figures.</li></ol></article>`;
+
+    views.revision = `
+      <article class="panel"><div class="section-title"><div><span class="badge">Quick Revision</span><h2>One-page Last-minute Revision Sheet</h2><p class="muted">Use this for final checking before drawing practice or exam.</p></div></div><div class="grid2"><div class="card blue"><h3>Important Definitions</h3><ul><li>Engineering Graphics: standard graphical language of engineering.</li><li>Dimensioning: method of showing size and location.</li><li>Projection: representation of an object on a plane.</li><li>Orthographic projection: exact front/top/side view method.</li><li>Sectional view: view showing internal details by cutting the object.</li><li>Isometric view: pictorial view along three isometric axes.</li></ul></div><div class="card green"><h3>Important Procedures</h3><ul><li>Draw construction lines light and final object lines dark.</li><li>Keep all projectors aligned in projection problems.</li><li>Use first angle projection for required exam drawings.</li><li>Place top view below front view in first angle layout.</li><li>Use hatching only on cut surfaces in sectional views.</li><li>Transfer width, height and depth carefully in isometric drawing.</li></ul></div></div></article>
+      <article class="panel"><h2>Common Exam Mistakes</h2><div class="grid2"><div class="card orange"><ul class="warn"><li>Using wrong line type for hidden edge or centre line.</li><li>Writing dimensions inside the object unnecessarily.</li><li>Confusing first angle and third angle view positions.</li><li>Not aligning front view and top view with projectors.</li><li>Darkening construction lines too early.</li><li>Forgetting hatching in sectional view.</li><li>Using true scale where isometric scale is specifically required.</li></ul></div><div class="card soft"><h3>Malayalam Checklist</h3><ul class="check ml"><li>Sheet clean ആണോ?</li><li>Line type correct ആണോ?</li><li>Dimension repeated അല്ലേ?</li><li>XY line clear ആണോ?</li><li>Front, top, side views aligned ആണോ?</li><li>Hatching correct direction and spacing ആണോ?</li></ul></div></div></article>`;
+
+    views.answers = `
+      <article class="panel"><div class="section-title"><div><span class="badge">Master Answer Key</span><h2>Answers / Hints Matched to Expected Questions</h2><p class="muted">Every answer below matches the same question number shown inside Module 1 to Module 4. No extra answer is added.</p></div></div></article>
+      <article class="panel"><h2>Module 1 Answer Key</h2>
+        <div class="answer-block"><h3>M1Q1</h3><p>Engineering Graphics is important because it communicates engineering shape, size, location, construction details and manufacturing instructions in a standard visual form. It avoids misunderstanding between designer, technician, fabricator and inspector. Add examples: machine part drawing, civil plan, electrical panel layout.</p></div>
+        <div class="answer-block"><h3>M1Q2</h3><p>Drawing board: support sheet; mini drafter/T-square: horizontal and vertical lines; set squares: 30°, 45°, 60°, 90° lines; compass: circles and arcs; divider: transfer distance; scale: measure length; pencil: construction and final lines; eraser/sharpener: correction and preparation.</p></div>
+        <div class="answer-block"><h3>M1Q3</h3><p>Continuous thick line shows visible outlines. Continuous thin line is used for construction/dimension/extension lines. Dashed line shows hidden edges. Chain thin line shows centre lines. Cutting plane line indicates section plane. Use a small labelled line sample in the answer.</p></div>
+        <div class="answer-block"><h3>M1Q4</h3><p>Dimensioning shows size and position of features using dimension lines, extension lines, arrowheads and values. Chain dimensioning places dimensions one after another. Parallel dimensioning gives dimensions from a common base line. Coordinate dimensioning gives positions using coordinates from a datum.</p></div>
+        <div class="answer-block"><h3>M1Q5</h3><p>Construction steps: draw the given side; choose suitable polygon construction method; locate centre/vertices accurately; mark all equal sides; join adjacent vertices; darken final polygon; add labels and required dimensions. Mention neat construction and equal side checking.</p></div>
+        <div class="answer-block"><h3>M1Q6</h3><p>Ellipse may be constructed by eccentricity method, concentric circle method or rectangular method. In concentric circle method, draw major/minor axes, draw two concentric circles, divide circles equally, project points and draw a smooth curve. In rectangular method, draw enclosing rectangle, divide sides equally and obtain points by intersection.</p></div>
+        <div class="answer-block"><h3>M1Q7</h3><p>Helix is a curve generated by a point moving around a cylinder/cone while also moving along its axis; applications include screw threads and springs. Involute is generated by unwinding a taut string from a circle or polygon; applications include gear tooth profile and cam mechanisms.</p></div>
+        <div class="answer-block"><h3>M1Q8</h3><p>Plain scale measures two units such as metre and decimetre. Diagonal scale measures three units more accurately, such as metre, decimetre and centimetre. Vernier scale gives fine measurement using vernier principle. In this syllabus, construction is not required; identification and purpose are important.</p></div>
+      </article>
+      <article class="panel"><h2>Module 2 Answer Key</h2>
+        <div class="answer-block"><h3>M2Q1</h3><p>Projection is obtained by drawing projectors from an object to a projection plane. VP gives front view and HP gives top view. The intersection of HP and VP is represented by XY line. The object position with respect to HP and VP decides the quadrant and view locations.</p></div>
+        <div class="answer-block"><h3>M2Q2</h3><p>In first quadrant, point is above HP and in front of VP; front view is above XY and top view below XY. In second quadrant, point is above HP and behind VP. In third quadrant, point is below HP and behind VP. In fourth quadrant, point is below HP and in front of VP. Draw XY line and mark views according to distances.</p></div>
+        <div class="answer-block"><h3>M2Q3</h3><p>Front view is projection on VP and shows height relation. Top view is projection on HP and shows plan/depth relation. Front view and top view should be aligned with the same projector.</p></div>
+        <div class="answer-block"><h3>M2Q4</h3><p>When a line is parallel to both HP and VP, both front view and top view show true length. Draw XY line, locate end projections, keep the two views parallel to XY, mark equal true lengths and label endpoints correctly.</p></div>
+        <div class="answer-block"><h3>M2Q5</h3><p>For a line parallel to one plane and perpendicular to the other, the plane to which it is parallel shows true length. The plane to which it is perpendicular shows an end view or reduced/point representation depending on position. Use projectors from both endpoints and label views.</p></div>
+        <div class="answer-block"><h3>M2Q6</h3><p>Procedure: draw reference XY; draw the view parallel to the plane where the line remains parallel; mark given inclination in the other view; project endpoints; transfer distances from HP/VP; complete corresponding view; label apparent length and true length if applicable.</p></div>
+        <div class="answer-block"><h3>M2Q7</h3><p>True length is seen when the line is parallel to the projection plane. If the line is inclined to both planes, use rotation or auxiliary construction to place one view parallel to XY/plane. The angle made by the true-length view with reference gives inclination with HP or VP as required.</p></div>
+        <div class="answer-block"><h3>M2Q8</h3><p>Common mistakes: wrong quadrant placement, missing XY line, unaligned projectors, confusing front view and top view, wrong distance transfer from HP/VP, not labelling endpoints, using dark lines for construction, and not showing true length clearly.</p></div>
+      </article>
+      <article class="panel"><h2>Module 3 Answer Key</h2>
+        <div class="answer-block"><h3>M3Q1</h3><p>Orthographic projection represents an object using separate views on mutually perpendicular planes, normally front, top and side views. It is important because it shows true shape and size needed for manufacturing, assembly and inspection.</p></div>
+        <div class="answer-block"><h3>M3Q2</h3><p>In first angle projection, the object is imagined between observer and plane; top view is placed below front view and right side view is placed on the left side. In third angle projection, the plane is between observer and object; top view is placed above front view and right side view on the right side.</p></div>
+        <div class="answer-block"><h3>M3Q3</h3><p>The first angle symbol uses the frustum of a cone with its circular end view placed on the left of the frustum view. Explain that the symbol identifies the projection system used in the drawing sheet. Draw the symbol neatly and label it as First Angle Projection.</p></div>
+        <div class="answer-block"><h3>M3Q4</h3><p>Procedure: study pictorial object; identify front direction; draw front view first; project downward to get top view; project sideward to get side view; transfer depths using 45° mitre line if needed; draw visible outlines thick, hidden lines dashed and centre lines chain; check alignment.</p></div>
+        <div class="answer-block"><h3>M3Q5</h3><p>Slanting surfaces appear as inclined edges or foreshortened surfaces in related views. Slots are shown by visible or hidden outlines depending on location. Ribs are represented by their outline and section convention. Cylindrical surfaces require centre lines and circular/rectangular appearance depending on viewing direction.</p></div>
+        <div class="answer-block"><h3>M3Q6</h3><p>Sectional views are needed to show internal holes, cavities, slots and hidden construction clearly. Instead of using many hidden lines, an imaginary cutting plane cuts the object and the cut surface is hatched. It improves clarity for manufacturing and inspection.</p></div>
+        <div class="answer-block"><h3>M3Q7</h3><p>Full section cuts the object completely through a cutting plane and shows the entire internal section. It is used for symmetrical or complex objects where full internal details are required. Half section shows one half outside view and one half sectional view, often used for symmetrical objects.</p></div>
+        <div class="answer-block"><h3>M3Q8</h3><p>Avoid wrong view placement, missing projectors, mismatched sizes between views, wrong hidden-line use, missing centre lines, incorrect hatching, hatching non-cut areas, poor selection of cutting plane, and mixing first angle and third angle conventions.</p></div>
+      </article>
+      <article class="panel"><h2>Module 4 Answer Key</h2>
+        <div class="answer-block"><h3>M4Q1</h3><p>Isometric view is a pictorial drawing made using true lengths along isometric axes. Isometric projection is made using isometric scale, so lengths are reduced. Isometric scale converts true length to isometric length for accurate isometric projection.</p></div>
+        <div class="answer-block"><h3>M4Q2</h3><p>Draw one vertical axis and two axes inclined at 30° to the horizontal on both sides. The three isometric axes are 120° apart. Width, height and depth are transferred along these axes.</p></div>
+        <div class="answer-block"><h3>M4Q3</h3><p>Procedure: read front, top and side views; identify overall length, width and height; draw isometric axes; make an isometric box; mark cuts, steps, holes or slots; complete visible edges; remove unnecessary construction; darken final object lines.</p></div>
+        <div class="answer-block"><h3>M4Q4</h3><p>To convert isometric to orthographic, choose front direction, read height, width and depth from isometric view, draw front view, project top view and side view, align all views, represent hidden edges if needed and add centre lines for cylindrical features.</p></div>
+        <div class="answer-block"><h3>M4Q5</h3><p>Freehand sketching is useful for quick communication of ideas, site notes, workshop explanation, design thinking and rough planning. It improves visualization and helps before preparing accurate instrument/CADD drawings.</p></div>
+        <div class="answer-block"><h3>M4Q6</h3><p>Hint: Choose a simple object such as a step block. Draw three isometric axes lightly, mark approximate proportions, draw main box, add step/cut details, keep vertical lines vertical and receding lines at about 30°, then darken final visible edges.</p></div>
+        <div class="answer-block"><h3>M4Q7</h3><p>Software packages introduced: AutoCAD, Electrical CAD, STAAD and Mechanical Desktop. Their purpose is to prepare accurate computer-aided drawings/models and improve drafting productivity.</p></div>
+        <div class="answer-block"><h3>M4Q8</h3><p>Any six basic CADD commands: LINE, CIRCLE, ARC, RECTANGLE, OFFSET, TRIM, EXTEND, MOVE, COPY, MIRROR, ROTATE, FILLET, CHAMFER, DIMENSION. State that these commands help construct and edit 2D plane figures.</p></div>
+      </article>`;
+
+    const content = document.getElementById('content');
+    const buttons = document.querySelectorAll('.tabbar button[data-view]');
+    function showView(name){
+      content.innerHTML = views[name] || views.overview;
+      buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.view === name));
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+    buttons.forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view)));
+    showView('overview');
   </script>
 </body>
 </html>
