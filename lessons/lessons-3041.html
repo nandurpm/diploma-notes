@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3041 | Electric Circuits & Networks</title>
+  <style>
+    :root{
+      --bg:#eef3ff;
+      --paper:#ffffff;
+      --paper-2:#f8fbff;
+      --ink:#132033;
+      --muted:#61708a;
+      --brand:#2346a0;
+      --brand-2:#0d9488;
+      --accent:#f59e0b;
+      --danger:#dc2626;
+      --line:#d8e2f1;
+      --soft:#e8efff;
+      --shadow:0 18px 45px rgba(19,32,51,.12);
+      --radius:22px;
+      --max:1760px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 4% 5%, rgba(35,70,160,.13), transparent 30%),
+        radial-gradient(circle at 95% 10%, rgba(13,148,136,.16), transparent 28%),
+        linear-gradient(180deg,#f7faff 0%, var(--bg) 44%, #f7faff 100%);
+      color:var(--ink);
+      min-height:100vh;
+    }
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,255,255,.92);
+      backdrop-filter: blur(16px);
+      border-bottom:1px solid rgba(216,226,241,.9);
+      box-shadow:0 10px 30px rgba(19,32,51,.08);
+    }
+    .topbar-inner{
+      width:min(98vw,var(--max));
+      margin:0 auto;
+      min-height:70px;
+      display:flex;
+      align-items:center;
+      gap:14px;
+      overflow:hidden;
+    }
+    .course-code{
+      flex:0 0 auto;
+      min-width:82px;
+      height:46px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      color:#fff;
+      font-weight:900;
+      letter-spacing:.08em;
+      background:linear-gradient(135deg,var(--brand),#172554);
+      box-shadow:0 10px 24px rgba(35,70,160,.25);
+    }
+    .tabs{
+      flex:1 1 auto;
+      min-width:0;
+      display:flex;
+      flex-wrap:nowrap;
+      gap:8px;
+      overflow-x:auto;
+      overflow-y:hidden;
+      padding:12px 2px;
+      scrollbar-width:thin;
+    }
+    .tab-btn,.download-pdf-btn{
+      white-space:nowrap;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--ink);
+      border-radius:999px;
+      padding:10px 15px;
+      font-weight:800;
+      font-size:14px;
+      cursor:pointer;
+      text-decoration:none;
+      box-shadow:0 6px 14px rgba(19,32,51,.06);
+      transition:.2s ease;
+      line-height:1;
+    }
+    .tab-btn:hover,.download-pdf-btn:hover{transform:translateY(-1px);border-color:#b9c9e5}
+    .tab-btn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+    .download-pdf-btn{background:var(--danger);color:#fff;border-color:var(--danger);display:inline-flex;align-items:center}
+    .hero{
+      width:min(98vw,var(--max));
+      margin:24px auto 0;
+      border-radius:30px;
+      overflow:hidden;
+      background:linear-gradient(135deg,#172554 0%,#2346a0 46%,#0f766e 100%);
+      color:#fff;
+      box-shadow:var(--shadow);
+      position:relative;
+    }
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(circle at 84% 22%,rgba(255,255,255,.18),transparent 24%),
+        linear-gradient(90deg,rgba(255,255,255,.08),transparent 40%);
+      pointer-events:none;
+    }
+    .hero-inner{
+      position:relative;
+      display:grid;
+      grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);
+      gap:22px;
+      padding:34px;
+      align-items:stretch;
+    }
+    .hero h1{margin:0;font-size:clamp(32px,4vw,58px);line-height:1.04;letter-spacing:-.04em}
+    .hero p{font-size:18px;line-height:1.65;color:rgba(255,255,255,.9);max-width:980px}
+    .hero-badges{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:9px 12px;border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.22);
+      font-weight:800;font-size:13px;color:#fff;
+    }
+    .hero-card{
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:24px;
+      padding:22px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-card h3{margin:0 0 14px;font-size:18px}
+    .mini-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:16px}
+    .stat b{display:block;font-size:28px;line-height:1}.stat span{display:block;margin-top:5px;color:rgba(255,255,255,.82);font-size:13px}
+    .shell{width:min(98vw,var(--max));margin:24px auto 34px}
+    .panel{display:none}.panel.active{display:block;animation:fade .22s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .lesson-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 380px;
+      gap:24px;
+      align-items:start;
+    }
+    .full-panel{display:block}
+    .card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:0 14px 34px rgba(19,32,51,.08);
+      padding:24px;
+      margin-bottom:22px;
+    }
+    .card.soft{background:linear-gradient(180deg,#fff,var(--paper-2))}
+    .card h2{font-size:clamp(25px,2vw,34px);margin:0 0 14px;letter-spacing:-.03em}
+    .card h3{font-size:22px;margin:24px 0 12px;letter-spacing:-.02em}
+    .card h4{font-size:18px;margin:18px 0 10px}
+    p,li{line-height:1.72}.muted{color:var(--muted)}
+    .ml{background:#fff8e6;border-left:5px solid var(--accent);padding:14px 16px;border-radius:15px;margin:14px 0;color:#422006}
+    .ml b{color:#713f12}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+    .info-box{background:#f8fbff;border:1px solid var(--line);border-radius:18px;padding:18px}
+    .info-box h4{margin-top:0;color:var(--brand)}
+    .pill-list{display:flex;gap:10px;flex-wrap:wrap}
+    .pill{background:var(--soft);border:1px solid #cfdbf0;color:#1e3a8a;border-radius:999px;padding:8px 11px;font-weight:800;font-size:13px}
+    .toc{position:sticky;top:92px}.toc ul{margin:0;padding-left:18px}.toc a{color:var(--brand);font-weight:800;text-decoration:none}
+    table{width:100%;border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:16px;border:1px solid var(--line);background:#fff;margin:14px 0}
+    th,td{padding:13px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+    th{background:#eef4ff;color:#1e3a8a;font-size:14px}tr:last-child td{border-bottom:0}
+    .formula-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+    .formula-card{background:linear-gradient(180deg,#ffffff,#f8fbff);border:1px solid var(--line);border-radius:18px;padding:16px;min-height:116px;box-shadow:0 8px 18px rgba(19,32,51,.05)}
+    .formula-card b{display:block;color:var(--brand);margin-bottom:7px}.formula{font-size:20px;font-weight:900;color:#111827}.note{font-size:13px;color:var(--muted);margin-top:8px}
+    .diagram{border:1px solid var(--line);background:#fff;border-radius:22px;padding:18px;margin:15px 0;box-shadow:inset 0 0 0 4px #f6f9ff}
+    .diagram svg{width:100%;height:auto;display:block}.caption{font-size:13px;color:var(--muted);text-align:center;margin-top:8px;font-weight:700}
+    .step-list{counter-reset:step;list-style:none;padding:0;margin:0}.step-list li{counter-increment:step;position:relative;margin:12px 0;padding:13px 14px 13px 54px;background:#f8fbff;border:1px solid var(--line);border-radius:16px}.step-list li:before{content:counter(step);position:absolute;left:14px;top:14px;width:28px;height:28px;display:grid;place-items:center;background:var(--brand);color:#fff;border-radius:50%;font-weight:900}
+    .question-list{counter-reset:q;list-style:none;margin:0;padding:0}.question-list li{counter-increment:q;margin:10px 0;padding:14px 16px;background:#fff;border:1px solid var(--line);border-left:5px solid var(--brand);border-radius:16px;line-height:1.65}.question-list li .qid{font-weight:900;color:var(--brand);margin-right:7px}
+    .answer-card{border:1px solid var(--line);background:#fff;border-radius:18px;padding:18px;margin:14px 0}.answer-card h4{margin:0 0 9px;color:var(--brand)}
+    .warning{background:#fff1f2;border:1px solid #fecdd3;border-left:5px solid #e11d48;color:#7f1d1d;border-radius:16px;padding:16px}
+    .success{background:#ecfdf5;border:1px solid #bbf7d0;border-left:5px solid #16a34a;color:#064e3b;border-radius:16px;padding:16px}
+    .footer{width:min(98vw,var(--max));margin:0 auto 28px;text-align:center;color:var(--muted);font-weight:800}.footer a{color:var(--brand);text-decoration:none}
+    .source-line{font-size:13px;color:#475569;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:14px;padding:12px 14px;margin-top:12px}
+    @media (max-width:1180px){.lesson-layout{grid-template-columns:1fr}.toc{position:static}.formula-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-inner{grid-template-columns:1fr}.grid-4{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:760px){.topbar-inner{width:100vw;padding:0 10px}.course-code{min-width:70px;height:42px}.tab-btn,.download-pdf-btn{font-size:13px;padding:9px 12px}.hero,.shell,.footer{width:94vw}.hero-inner{padding:22px}.card{padding:18px}.grid-2,.grid-3,.grid-4,.formula-grid{grid-template-columns:1fr}.mini-stats{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="course-code">3041</div>
+      <nav class="tabs" aria-label="Lesson sections">
+        <button class="tab-btn active" data-target="overview">Course Overview</button>
+        <button class="tab-btn" data-target="bank">Mini Formula Bank</button>
+        <button class="tab-btn" data-target="module1">Module 1</button>
+        <button class="tab-btn" data-target="module2">Module 2</button>
+        <button class="tab-btn" data-target="module3">Module 3</button>
+        <button class="tab-btn" data-target="module4">Module 4</button>
+        <button class="tab-btn" data-target="revision">Revision</button>
+        <button class="tab-btn" data-target="answers">Master Answer Key</button>
+        <a class="download-pdf-btn" href="downloadable-notes-3041.pdf" download>Download PDF</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="muted" style="color:rgba(255,255,255,.78);font-weight:800;margin:0 0 8px">Diploma in Electronics / Electronics & Communication Engineering • Semester 3</p>
+        <h1>Electric Circuits & Networks</h1>
+        <p>Full-width desktop lesson sample with textbook-style explanation, diagrams, formula cards, Malayalam support, module-wise questions, and a matching Master Answer Key. Only one selected section loads on screen.</p>
+        <div class="hero-badges">
+          <span class="badge">Course Code: 3041</span>
+          <span class="badge">Category: Program Core</span>
+          <span class="badge">Credits: 3</span>
+          <span class="badge">L:T:P = 2:1:0</span>
+          <span class="badge">Theory Subject</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>Lesson structure check</h3>
+        <div class="mini-stats">
+          <div class="stat"><b>4</b><span>Official modules</span></div>
+          <div class="stat"><b>45</b><span>Periods / semester</span></div>
+          <div class="stat"><b>0</b><span>PDF conversion scripts</span></div>
+          <div class="stat"><b>100%</b><span>Direct PDF link only</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="shell">
+    <section id="overview" class="panel active">
+      <div class="lesson-layout">
+        <div>
+          <div class="card soft">
+            <h2>Course Overview</h2>
+            <p><b>Subject title:</b> Electric Circuits & Networks</p>
+            <p><b>Semester:</b> 3 &nbsp; | &nbsp; <b>Course category:</b> Program Core &nbsp; | &nbsp; <b>Subject type:</b> Engineering Theory subject</p>
+            <p>This subject connects basic electrical laws, AC circuit behavior, network analysis, transformers, DC machines and AC machines. A student who studies this subject properly can read simple circuit diagrams, calculate circuit quantities, apply network theorems, and explain the working of common electrical machines used in electronics and industry.</p>
+            <div class="ml"><b>Malayalam support:</b> ഈ subject-ൽ electric circuit-ന്റെ behavior, AC signal, RLC circuit, network theorem, transformer, DC machine, AC machine എന്നിവ പഠിക്കുന്നു. Technical terms English-ൽ തന്നെ ഓർത്താൽ exam answer എഴുതാൻ എളുപ്പമാകും.</div>
+            <div class="source-line">Source basis: Official SITTTR Revision 2021 syllabus content for course code 3041.</div>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3>Course objective</h3>
+              <p>To develop the skill to diagnose and rectify electric circuit networks and understand the operations of electrical machines.</p>
+              <div class="ml"><b>Simple meaning:</b> Circuit fault എങ്ങനെ കണ്ടെത്താം, circuit values എങ്ങനെ calculate ചെയ്യാം, motor/transformer working എങ്ങനെ explain ചെയ്യാം — ഇതാണ് main aim.</div>
+            </div>
+            <div class="card">
+              <h3>Prerequisite knowledge</h3>
+              <ul>
+                <li>Basic Engineering Mathematics principles from Mathematics I & II.</li>
+                <li>Magnetism concepts from Applied Physics I & II.</li>
+                <li>Ohm’s law, units, algebra, trigonometry and simple vector/phasor idea.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>Course outcomes</h3>
+            <table>
+              <thead><tr><th>CO</th><th>Outcome</th><th>Duration</th><th>Level</th></tr></thead>
+              <tbody>
+                <tr><td><b>CO1</b></td><td>Solve a given AC circuit to find various parameters using AC signals and component behavior.</td><td>9 hours</td><td>Applying</td></tr>
+                <tr><td><b>CO2</b></td><td>Apply network theorems for simplifying circuits and illustrate transformer operation.</td><td>14 hours</td><td>Applying</td></tr>
+                <tr><td><b>CO3</b></td><td>Illustrate principles and operations of DC machines.</td><td>10 hours</td><td>Understanding</td></tr>
+                <tr><td><b>CO4</b></td><td>Illustrate principles and operations of AC machines.</td><td>10 hours</td><td>Understanding</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card">
+            <h3>Module map</h3>
+            <div class="grid-4">
+              <div class="info-box"><h4>Module 1</h4><p>AC signals, R-L-C behavior, phasor diagram, AC power, resonance, series and parallel RLC circuits.</p></div>
+              <div class="info-box"><h4>Module 2</h4><p>Ohm’s law, Kirchhoff’s laws, mesh and node analysis, network theorems, transformer principle and losses.</p></div>
+              <div class="info-box"><h4>Module 3</h4><p>DC generator, DC motor, back emf, starter, 3-point starter, DC motor comparison and characteristics.</p></div>
+              <div class="info-box"><h4>Module 4</h4><p>Alternator, AC motor classification, stepper motor, servo motor, universal motor, single-phase and three-phase induction motor.</p></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>How to study this subject</h3>
+            <ol class="step-list">
+              <li>First learn definitions and units: RMS value, average value, frequency, reactance, impedance, power factor, resonance.</li>
+              <li>Draw every circuit and machine diagram in a separate notebook. Label current direction, voltage, winding, core and load.</li>
+              <li>For numerical problems, always write Given → Formula → Substitution → Calculation → Final answer with unit.</li>
+              <li>For theorem questions, write statement, circuit before simplification, circuit after simplification, calculation steps and result.</li>
+              <li>For machine questions, write principle, construction, working, equation, characteristics and applications.</li>
+            </ol>
+          </div>
+
+          <div class="card">
+            <h3>Exam preparation method</h3>
+            <div class="grid-3">
+              <div class="info-box"><h4>Short answers</h4><p>Definitions, symbols, units, laws, types, applications and advantages.</p></div>
+              <div class="info-box"><h4>Problem solving</h4><p>Practice AC power, impedance, resonance, Thevenin equivalent, maximum power transfer and transformer ratio.</p></div>
+              <div class="info-box"><h4>Long answers</h4><p>Use diagram + working + equation + application format. This gives better marks.</p></div>
+            </div>
+            <div class="ml"><b>Malayalam tip:</b> Diagram ഉള്ള question ആണെങ്കിൽ diagram ആദ്യം വരയ്ക്കുക. പിന്നെ working principle എഴുതുക. Formula അവസാനം അല്ല, explanation-ന്റെ ഇടയിൽ കൊടുക്കുക.</div>
+          </div>
+        </div>
+        <aside class="card toc">
+          <h3>Quick navigation</h3>
+          <ul>
+            <li><a href="#" data-jump="bank">Mini Formula Bank</a></li>
+            <li><a href="#" data-jump="module1">AC signals and RLC circuits</a></li>
+            <li><a href="#" data-jump="module2">Network theorems and transformers</a></li>
+            <li><a href="#" data-jump="module3">DC machines</a></li>
+            <li><a href="#" data-jump="module4">AC machines</a></li>
+            <li><a href="#" data-jump="answers">Master Answer Key</a></li>
+          </ul>
+          <div class="success" style="margin-top:18px">Desktop layout uses 98vw up to 1760px, so it fills laptop/desktop screen instead of staying small.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="bank" class="panel">
+      <div class="card soft">
+        <h2>Mini Formula Bank</h2>
+        <p>Use this as the first revision page before solving problems. Formula meaning and unit are important for marks.</p>
+        <div class="formula-grid">
+          <div class="formula-card"><b>Frequency</b><div class="formula">f = 1/T</div><div class="note">f in Hz, T in seconds.</div></div>
+          <div class="formula-card"><b>Angular frequency</b><div class="formula">ω = 2πf</div><div class="note">Used in reactance formulas.</div></div>
+          <div class="formula-card"><b>RMS value</b><div class="formula">V<sub>rms</sub> = V<sub>m</sub>/√2</div><div class="note">For sinusoidal waveform.</div></div>
+          <div class="formula-card"><b>Average value</b><div class="formula">V<sub>avg</sub> = 0.637V<sub>m</sub></div><div class="note">Average of half cycle sine wave.</div></div>
+          <div class="formula-card"><b>Inductive reactance</b><div class="formula">X<sub>L</sub> = 2πfL</div><div class="note">Increases with frequency.</div></div>
+          <div class="formula-card"><b>Capacitive reactance</b><div class="formula">X<sub>C</sub> = 1/(2πfC)</div><div class="note">Decreases with frequency.</div></div>
+          <div class="formula-card"><b>Series RLC impedance</b><div class="formula">Z = √(R² + (X<sub>L</sub>-X<sub>C</sub>)²)</div><div class="note">Unit: ohm.</div></div>
+          <div class="formula-card"><b>Power factor</b><div class="formula">cosφ = R/Z</div><div class="note">Lagging for inductive circuit.</div></div>
+          <div class="formula-card"><b>Active power</b><div class="formula">P = VIcosφ</div><div class="note">Unit: watt.</div></div>
+          <div class="formula-card"><b>Reactive power</b><div class="formula">Q = VIsinφ</div><div class="note">Unit: VAR.</div></div>
+          <div class="formula-card"><b>Apparent power</b><div class="formula">S = VI</div><div class="note">Unit: VA.</div></div>
+          <div class="formula-card"><b>Resonant frequency</b><div class="formula">f<sub>r</sub> = 1/(2π√LC)</div><div class="note">At resonance X<sub>L</sub> = X<sub>C</sub>.</div></div>
+          <div class="formula-card"><b>Thevenin resistance</b><div class="formula">R<sub>th</sub></div><div class="note">Equivalent resistance seen from load terminals.</div></div>
+          <div class="formula-card"><b>Maximum power</b><div class="formula">R<sub>L</sub> = R<sub>th</sub></div><div class="note">Condition for maximum power transfer.</div></div>
+          <div class="formula-card"><b>Transformer ratio</b><div class="formula">V₁/V₂ = N₁/N₂</div><div class="note">Ideal transformer relation.</div></div>
+          <div class="formula-card"><b>Transformer EMF</b><div class="formula">E = 4.44 f N Φ<sub>m</sub></div><div class="note">RMS induced emf.</div></div>
+          <div class="formula-card"><b>DC generator EMF</b><div class="formula">E = PΦZN / 60A</div><div class="note">Generated emf equation.</div></div>
+          <div class="formula-card"><b>Back EMF</b><div class="formula">E<sub>b</sub> = V - I<sub>a</sub>R<sub>a</sub></div><div class="note">For DC motor.</div></div>
+          <div class="formula-card"><b>Alternator EMF</b><div class="formula">E = 4.44 k<sub>w</sub> f Φ T</div><div class="note">Per phase emf.</div></div>
+          <div class="formula-card"><b>Synchronous speed</b><div class="formula">N<sub>s</sub> = 120f/P</div><div class="note">rpm; P = number of poles.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="module1" class="panel">
+      <div class="lesson-layout">
+        <div>
+          <div class="card soft">
+            <h2>Module 1 — AC Signals and RLC Circuits</h2>
+            <p><b>Learning outcome:</b> Solve a given AC circuit to find various parameters using the concept of AC signals and the behavior of AC through different components.</p>
+            <div class="ml"><b>Malayalam support:</b> AC circuit problem ചെയ്യുമ്പോൾ waveform, RMS, average value, reactance, impedance, phase angle, power factor എന്നിവ clear ആയിരിക്കണം. R, L, C ഓരോന്നും current-നോട് വ്യത്യസ്തമായി പെരുമാറും.</div>
+          </div>
+          <div class="card">
+            <h3>1.1 Alternating quantities</h3>
+            <p>An alternating voltage or current changes its magnitude and direction periodically. A sine wave is the most common AC waveform because generation in alternators naturally gives sinusoidal voltage.</p>
+            <div class="grid-2">
+              <div class="diagram">
+                <svg viewBox="0 0 720 260" role="img" aria-label="AC sine wave diagram">
+                  <line x1="40" y1="130" x2="690" y2="130" stroke="#64748b" stroke-width="3"/>
+                  <line x1="70" y1="25" x2="70" y2="235" stroke="#64748b" stroke-width="3"/>
+                  <path d="M70 130 C130 30 190 30 250 130 S370 230 430 130 S550 30 610 130 S670 230 690 190" fill="none" stroke="#2346a0" stroke-width="6" stroke-linecap="round"/>
+                  <text x="76" y="38" font-size="20" fill="#132033" font-weight="800">+V</text>
+                  <text x="76" y="230" font-size="20" fill="#132033" font-weight="800">-V</text>
+                  <text x="560" y="118" font-size="18" fill="#132033" font-weight="800">time →</text>
+                  <text x="285" y="56" font-size="20" fill="#2346a0" font-weight="900">Sine wave</text>
+                  <line x1="250" y1="130" x2="430" y2="130" stroke="#f59e0b" stroke-width="4"/>
+                  <text x="295" y="116" font-size="18" fill="#92400e" font-weight="800">one half cycle</text>
+                </svg>
+                <div class="caption">AC sine waveform: one complete cycle repeats after time period T.</div>
+              </div>
+              <div class="info-box">
+                <h4>Important definitions</h4>
+                <ul>
+                  <li><b>Cycle:</b> One complete set of positive and negative values.</li>
+                  <li><b>Time period:</b> Time taken for one cycle.</li>
+                  <li><b>Frequency:</b> Number of cycles per second.</li>
+                  <li><b>Amplitude:</b> Maximum value of the alternating quantity.</li>
+                  <li><b>Phase:</b> Angular position of a waveform with respect to reference.</li>
+                  <li><b>Form factor:</b> RMS value divided by average value.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>1.2 AC through R, L and C</h3>
+            <table>
+              <thead><tr><th>Element</th><th>Current-voltage relation</th><th>Opposition</th><th>Power behavior</th></tr></thead>
+              <tbody>
+                <tr><td><b>Pure Resistance</b></td><td>Voltage and current are in phase.</td><td>R</td><td>Consumes active power.</td></tr>
+                <tr><td><b>Pure Inductance</b></td><td>Current lags voltage by 90°.</td><td>X<sub>L</sub> = 2πfL</td><td>Stores energy in magnetic field.</td></tr>
+                <tr><td><b>Pure Capacitance</b></td><td>Current leads voltage by 90°.</td><td>X<sub>C</sub> = 1/(2πfC)</td><td>Stores energy in electric field.</td></tr>
+              </tbody>
+            </table>
+            <div class="ml"><b>Memory trick:</b> Inductor-ൽ current പിന്നിൽ വരും: L = Lag. Capacitor-ൽ current മുന്നിൽ വരും: C = Current leads.</div>
+          </div>
+          <div class="card">
+            <h3>1.3 Series RLC circuit</h3>
+            <p>In a series RLC circuit, the same current flows through R, L and C. The total opposition is called impedance. The inductive and capacitive reactances oppose each other, so the net reactance is X<sub>L</sub> − X<sub>C</sub>.</p>
+            <div class="diagram">
+              <svg viewBox="0 0 980 250" role="img" aria-label="Series RLC circuit">
+                <line x1="70" y1="125" x2="160" y2="125" stroke="#132033" stroke-width="5"/>
+                <polyline points="160,125 180,95 205,155 230,95 255,155 280,95 305,155 330,125" fill="none" stroke="#2346a0" stroke-width="5"/>
+                <text x="225" y="70" font-size="22" fill="#2346a0" font-weight="900">R</text>
+                <line x1="330" y1="125" x2="415" y2="125" stroke="#132033" stroke-width="5"/>
+                <path d="M415 125 c15 -38 45 -38 60 0 c15 38 45 38 60 0 c15 -38 45 -38 60 0" fill="none" stroke="#0d9488" stroke-width="5"/>
+                <text x="500" y="70" font-size="22" fill="#0f766e" font-weight="900">L</text>
+                <line x1="595" y1="125" x2="680" y2="125" stroke="#132033" stroke-width="5"/>
+                <line x1="680" y1="85" x2="680" y2="165" stroke="#f59e0b" stroke-width="6"/>
+                <line x1="710" y1="85" x2="710" y2="165" stroke="#f59e0b" stroke-width="6"/>
+                <text x="687" y="70" font-size="22" fill="#92400e" font-weight="900">C</text>
+                <line x1="710" y1="125" x2="900" y2="125" stroke="#132033" stroke-width="5"/>
+                <text x="72" y="105" font-size="20" fill="#132033" font-weight="900">AC</text>
+                <path d="M820 105 l28 20 l-28 20" fill="none" stroke="#dc2626" stroke-width="5"/>
+                <text x="810" y="85" font-size="18" fill="#dc2626" font-weight="900">I</text>
+              </svg>
+              <div class="caption">Series RLC circuit: same current flows through all components.</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>1.4 Solved example format</h3>
+            <div class="info-box">
+              <h4>Example: Find impedance of a series RLC circuit</h4>
+              <p><b>Given:</b> R = 30 Ω, X<sub>L</sub> = 50 Ω, X<sub>C</sub> = 10 Ω.</p>
+              <p><b>Formula:</b> Z = √(R² + (X<sub>L</sub> − X<sub>C</sub>)²)</p>
+              <p><b>Substitution:</b> Z = √(30² + (50 − 10)²) = √(900 + 1600)</p>
+              <p><b>Calculation:</b> Z = √2500 = 50 Ω</p>
+              <p><b>Final answer:</b> Impedance = 50 Ω.</p>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Expected Questions — Module 1</h3>
+            <ol class="question-list">
+              <li><span class="qid">M1-Q1.</span> Define cycle, time period, frequency, amplitude and phase of an AC waveform.</li>
+              <li><span class="qid">M1-Q2.</span> Compare sine, square, triangular and sawtooth waveforms.</li>
+              <li><span class="qid">M1-Q3.</span> Explain AC through pure resistance, pure inductance and pure capacitance.</li>
+              <li><span class="qid">M1-Q4.</span> Draw and explain the phasor diagram of a series RLC circuit.</li>
+              <li><span class="qid">M1-Q5.</span> Define active power, reactive power, apparent power and power factor.</li>
+              <li><span class="qid">M1-Q6.</span> A series RLC circuit has R = 40 Ω, X<sub>L</sub> = 80 Ω and X<sub>C</sub> = 50 Ω. Find impedance and power factor.</li>
+              <li><span class="qid">M1-Q7.</span> Explain resonance and Q factor in an RLC circuit.</li>
+              <li><span class="qid">M1-Q8.</span> List the steps to solve a parallel AC circuit problem.</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="card toc">
+          <h3>Module 1 checklist</h3>
+          <div class="pill-list"><span class="pill">AC terms</span><span class="pill">RMS</span><span class="pill">Reactance</span><span class="pill">Impedance</span><span class="pill">Power factor</span><span class="pill">Resonance</span></div>
+          <div class="warning" style="margin-top:18px"><b>Common mistake:</b> Do not add X<sub>L</sub> and X<sub>C</sub> directly in series RLC. Use net reactance X<sub>L</sub> − X<sub>C</sub>.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="module2" class="panel">
+      <div class="lesson-layout">
+        <div>
+          <div class="card soft">
+            <h2>Module 2 — Network Theorems and Transformers</h2>
+            <p><b>Learning outcome:</b> Apply network theorems for simplifying electric circuits and illustrate transformer operation.</p>
+            <div class="ml"><b>Malayalam support:</b> വലിയ circuit ചെറിയ equivalent circuit ആക്കി solve ചെയ്യുന്നതാണ് network theorem-കളുടെ main use. Transformer AC voltage step-up/step-down ചെയ്യാൻ ഉപയോഗിക്കുന്നു.</div>
+          </div>
+          <div class="card">
+            <h3>2.1 Laws and analysis methods</h3>
+            <table>
+              <thead><tr><th>Method</th><th>Use</th><th>Exam writing point</th></tr></thead>
+              <tbody>
+                <tr><td><b>Ohm’s law</b></td><td>Relates voltage, current and resistance.</td><td>V = IR</td></tr>
+                <tr><td><b>Kirchhoff’s Current Law</b></td><td>Current relation at a node.</td><td>Sum of incoming currents = sum of outgoing currents.</td></tr>
+                <tr><td><b>Kirchhoff’s Voltage Law</b></td><td>Voltage relation in a closed loop.</td><td>Algebraic sum of voltages in a loop is zero.</td></tr>
+                <tr><td><b>Mesh analysis</b></td><td>Solves circuits by loop currents.</td><td>Best for planar circuits with loops.</td></tr>
+                <tr><td><b>Node analysis</b></td><td>Solves circuits by node voltages.</td><td>Best when many current sources are present.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>2.2 Network theorems</h3>
+            <div class="grid-3">
+              <div class="info-box"><h4>Superposition theorem</h4><p>In a linear bilateral network, current or voltage in an element is the algebraic sum of effects due to each independent source acting alone.</p></div>
+              <div class="info-box"><h4>Thevenin’s theorem</h4><p>Any linear two-terminal network can be replaced by a voltage source V<sub>th</sub> in series with resistance R<sub>th</sub>.</p></div>
+              <div class="info-box"><h4>Maximum power transfer</h4><p>Maximum power is transferred to the load when load resistance equals Thevenin resistance.</p></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>2.3 Thevenin equivalent visual</h3>
+            <div class="diagram">
+              <svg viewBox="0 0 1000 330" role="img" aria-label="Thevenin equivalent diagram">
+                <rect x="70" y="70" width="300" height="180" rx="22" fill="#eef4ff" stroke="#2346a0" stroke-width="4"/>
+                <text x="135" y="120" font-size="24" fill="#2346a0" font-weight="900">Original network</text>
+                <text x="126" y="160" font-size="18" fill="#132033">sources + resistors</text>
+                <circle cx="400" cy="120" r="8" fill="#132033"/><circle cx="400" cy="210" r="8" fill="#132033"/>
+                <line x1="400" y1="120" x2="500" y2="120" stroke="#132033" stroke-width="4"/><line x1="400" y1="210" x2="500" y2="210" stroke="#132033" stroke-width="4"/>
+                <text x="440" y="95" font-size="20" fill="#132033" font-weight="900">Load terminals</text>
+                <path d="M540 165 h80" stroke="#dc2626" stroke-width="6" marker-end="url(#arr)"/>
+                <defs><marker id="arr" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#dc2626"/></marker></defs>
+                <circle cx="700" cy="165" r="44" fill="#fff" stroke="#2346a0" stroke-width="5"/>
+                <text x="674" y="172" font-size="22" fill="#2346a0" font-weight="900">Vth</text>
+                <polyline points="745,165 770,135 795,195 820,135 845,195 870,165" fill="none" stroke="#0d9488" stroke-width="5"/>
+                <text x="790" y="115" font-size="21" fill="#0f766e" font-weight="900">Rth</text>
+                <line x1="870" y1="165" x2="940" y2="165" stroke="#132033" stroke-width="4"/>
+                <text x="700" y="245" font-size="20" fill="#132033" font-weight="900">Thevenin equivalent</text>
+              </svg>
+              <div class="caption">Thevenin theorem replaces a complex network with Vth and Rth.</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>2.4 Transformer basics</h3>
+            <p>A transformer is a static AC device that transfers electrical energy from one circuit to another by mutual induction. It can increase or decrease AC voltage without changing frequency.</p>
+            <div class="grid-2">
+              <div class="info-box"><h4>Construction</h4><ul><li>Laminated magnetic core</li><li>Primary winding</li><li>Secondary winding</li><li>Insulation and tank/cooling arrangement</li></ul></div>
+              <div class="info-box"><h4>Losses</h4><ul><li>Copper loss in windings</li><li>Hysteresis loss in core</li><li>Eddy current loss in core</li><li>Leakage flux related losses</li></ul></div>
+            </div>
+            <div class="ml"><b>Malayalam support:</b> Transformer DC-ൽ work ചെയ്യില്ല. കാരണം mutual induction ഉണ്ടാകാൻ changing flux വേണം. DC steady ആയാൽ changing flux ലഭിക്കില്ല.</div>
+          </div>
+          <div class="card">
+            <h3>Expected Questions — Module 2</h3>
+            <ol class="question-list">
+              <li><span class="qid">M2-Q1.</span> State Ohm’s law, Kirchhoff’s Current Law and Kirchhoff’s Voltage Law.</li>
+              <li><span class="qid">M2-Q2.</span> Compare mesh analysis and node analysis.</li>
+              <li><span class="qid">M2-Q3.</span> State and explain Superposition theorem.</li>
+              <li><span class="qid">M2-Q4.</span> State Thevenin’s theorem and write the steps to find Thevenin equivalent circuit.</li>
+              <li><span class="qid">M2-Q5.</span> State Maximum Power Transfer theorem and its condition.</li>
+              <li><span class="qid">M2-Q6.</span> Explain the working principle and construction of a transformer.</li>
+              <li><span class="qid">M2-Q7.</span> Derive the emf equation of a transformer.</li>
+              <li><span class="qid">M2-Q8.</span> List transformer losses, types and applications.</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="card toc">
+          <h3>Module 2 checklist</h3>
+          <div class="pill-list"><span class="pill">Ohm</span><span class="pill">KCL</span><span class="pill">KVL</span><span class="pill">Mesh</span><span class="pill">Node</span><span class="pill">Thevenin</span><span class="pill">Transformer</span></div>
+          <div class="success" style="margin-top:18px">For theorem answers: statement → circuit → steps → result → application.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="module3" class="panel">
+      <div class="lesson-layout">
+        <div>
+          <div class="card soft">
+            <h2>Module 3 — DC Machines</h2>
+            <p><b>Learning outcome:</b> Illustrate the principles and operations of DC generators and DC motors.</p>
+            <div class="ml"><b>Malayalam support:</b> DC generator mechanical energy-യെ DC electrical energy ആക്കുന്നു. DC motor DC electrical energy-യെ mechanical energy ആക്കുന്നു. രണ്ടിലും magnetic field + conductor + motion main idea ആണ്.</div>
+          </div>
+          <div class="card">
+            <h3>3.1 DC generator</h3>
+            <p>A DC generator works on Faraday’s law of electromagnetic induction. When an armature conductor cuts magnetic flux, emf is induced in the conductor. The commutator converts the internally generated alternating emf into unidirectional output at the brushes.</p>
+            <div class="diagram">
+              <svg viewBox="0 0 900 330" role="img" aria-label="DC generator block diagram">
+                <rect x="80" y="80" width="180" height="170" rx="22" fill="#eef4ff" stroke="#2346a0" stroke-width="4"/>
+                <text x="125" y="142" font-size="25" font-weight="900" fill="#2346a0">Field</text>
+                <text x="112" y="178" font-size="18" fill="#132033">N pole / S pole</text>
+                <circle cx="405" cy="165" r="80" fill="#fff7ed" stroke="#f59e0b" stroke-width="5"/>
+                <text x="356" y="160" font-size="22" font-weight="900" fill="#92400e">Armature</text>
+                <text x="365" y="190" font-size="18" fill="#132033">rotates</text>
+                <rect x="585" y="110" width="90" height="110" rx="16" fill="#ecfdf5" stroke="#0d9488" stroke-width="4"/>
+                <text x="595" y="160" font-size="18" font-weight="900" fill="#0f766e">Commutator</text>
+                <line x1="675" y1="145" x2="790" y2="105" stroke="#132033" stroke-width="5"/>
+                <line x1="675" y1="185" x2="790" y2="225" stroke="#132033" stroke-width="5"/>
+                <text x="742" y="84" font-size="18" font-weight="900" fill="#132033">Brushes</text>
+                <text x="290" y="290" font-size="19" font-weight="900" fill="#132033">Mechanical input → DC electrical output</text>
+              </svg>
+              <div class="caption">Basic blocks of a DC generator.</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>3.2 DC motor</h3>
+            <p>A DC motor works on the principle that a current-carrying conductor placed in a magnetic field experiences a mechanical force. Back emf is generated in the armature and opposes the applied voltage. At starting, back emf is zero, so starter resistance is required to limit armature current.</p>
+            <table>
+              <thead><tr><th>Motor type</th><th>Characteristic</th><th>Common application</th></tr></thead>
+              <tbody>
+                <tr><td><b>DC shunt motor</b></td><td>Nearly constant speed</td><td>Lathes, fans, blowers</td></tr>
+                <tr><td><b>DC series motor</b></td><td>High starting torque</td><td>Traction, cranes, hoists</td></tr>
+                <tr><td><b>DC compound motor</b></td><td>Good starting torque with better speed regulation</td><td>Presses, elevators, heavy machines</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>3.3 Starter in DC motor</h3>
+            <p>A starter is used to limit the high starting current of a DC motor. It also provides no-voltage protection and overload protection in practical systems. A 3-point starter has line, armature and field terminals.</p>
+            <div class="warning"><b>Common exam mistake:</b> Do not write that starter increases speed. The main purpose is to limit starting current and protect the motor.</div>
+          </div>
+          <div class="card">
+            <h3>Expected Questions — Module 3</h3>
+            <ol class="question-list">
+              <li><span class="qid">M3-Q1.</span> Explain the working principle of a DC generator.</li>
+              <li><span class="qid">M3-Q2.</span> Write the emf equation of a DC generator and explain each term.</li>
+              <li><span class="qid">M3-Q3.</span> Explain armature reaction in a DC generator.</li>
+              <li><span class="qid">M3-Q4.</span> Explain the working principle of a DC motor.</li>
+              <li><span class="qid">M3-Q5.</span> What is back emf? Explain its significance in a DC motor.</li>
+              <li><span class="qid">M3-Q6.</span> Why is a starter necessary in a DC motor?</li>
+              <li><span class="qid">M3-Q7.</span> Explain the working of a 3-point starter.</li>
+              <li><span class="qid">M3-Q8.</span> Compare DC shunt, series and compound motors with characteristics and applications.</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="card toc"><h3>Module 3 checklist</h3><div class="pill-list"><span class="pill">Generator</span><span class="pill">EMF equation</span><span class="pill">Armature reaction</span><span class="pill">Motor</span><span class="pill">Back EMF</span><span class="pill">Starter</span></div></aside>
+      </div>
+    </section>
+
+    <section id="module4" class="panel">
+      <div class="lesson-layout">
+        <div>
+          <div class="card soft">
+            <h2>Module 4 — AC Machines</h2>
+            <p><b>Learning outcome:</b> Illustrate the principles and operations of alternators and AC motors.</p>
+            <div class="ml"><b>Malayalam support:</b> Alternator AC generate ചെയ്യുന്നു. AC motors AC supply ഉപയോഗിച്ച് rotating magnetic field ഉണ്ടാക്കി mechanical output നൽകുന്നു.</div>
+          </div>
+          <div class="card">
+            <h3>4.1 Alternator</h3>
+            <p>An alternator converts mechanical energy into AC electrical energy. The rotor produces magnetic field and the stator contains armature windings. When the rotor rotates, the magnetic flux linking the stator conductors changes and emf is induced.</p>
+            <div class="grid-2">
+              <div class="info-box"><h4>Important equations</h4><ul><li>Frequency relation: f = PN / 120</li><li>Synchronous speed: N<sub>s</sub> = 120f / P</li><li>EMF equation: E = 4.44 k<sub>w</sub> f Φ T</li></ul></div>
+              <div class="info-box"><h4>Open circuit characteristic</h4><p>OCC shows the relation between generated emf and field current at constant speed. It is also called magnetization characteristic.</p></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>4.2 AC motors</h3>
+            <table>
+              <thead><tr><th>Motor</th><th>Working idea</th><th>Application</th></tr></thead>
+              <tbody>
+                <tr><td><b>Stepper motor</b></td><td>Moves in fixed angular steps.</td><td>Printers, CNC positioning, robotics.</td></tr>
+                <tr><td><b>Servo motor</b></td><td>Feedback-controlled motor for precise position or speed.</td><td>Automation, antenna control, robotics.</td></tr>
+                <tr><td><b>Universal motor</b></td><td>Can work on AC or DC; high speed.</td><td>Drills, mixers, vacuum cleaners.</td></tr>
+                <tr><td><b>Single-phase induction motor</b></td><td>Uses single-phase supply; needs starting arrangement.</td><td>Fans, pumps, small machines.</td></tr>
+                <tr><td><b>Three-phase induction motor</b></td><td>Uses rotating magnetic field produced by three-phase supply.</td><td>Industrial drives, compressors, conveyors.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>4.3 Three-phase induction motor principle</h3>
+            <p>When a balanced three-phase supply is given to the stator winding, a rotating magnetic field is produced. This rotating field cuts the rotor conductors and induces emf. Since the rotor circuit is closed, current flows in the rotor. Interaction between the rotating field and rotor current produces torque.</p>
+            <div class="diagram">
+              <svg viewBox="0 0 820 330" role="img" aria-label="Three phase motor concept">
+                <circle cx="410" cy="165" r="120" fill="#eef4ff" stroke="#2346a0" stroke-width="5"/>
+                <circle cx="410" cy="165" r="62" fill="#fff" stroke="#0d9488" stroke-width="5"/>
+                <text x="377" y="172" font-size="24" font-weight="900" fill="#0f766e">Rotor</text>
+                <text x="368" y="55" font-size="22" font-weight="900" fill="#2346a0">Stator</text>
+                <path d="M410 45 A120 120 0 0 1 530 165" fill="none" stroke="#f59e0b" stroke-width="7" marker-end="url(#arr2)"/>
+                <defs><marker id="arr2" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,6 L7,3 z" fill="#f59e0b"/></marker></defs>
+                <text x="548" y="140" font-size="18" font-weight="900" fill="#92400e">Rotating magnetic field</text>
+                <text x="92" y="280" font-size="19" font-weight="900" fill="#132033">3-phase AC supply → rotating field → rotor current → torque</text>
+              </svg>
+              <div class="caption">Working principle of a three-phase induction motor.</div>
+            </div>
+          </div>
+          <div class="card">
+            <h3>Expected Questions — Module 4</h3>
+            <ol class="question-list">
+              <li><span class="qid">M4-Q1.</span> Explain the working principle of an alternator.</li>
+              <li><span class="qid">M4-Q2.</span> Write the emf equation of an alternator and explain the terms.</li>
+              <li><span class="qid">M4-Q3.</span> Define synchronous speed and derive the relation N<sub>s</sub> = 120f/P.</li>
+              <li><span class="qid">M4-Q4.</span> What is open circuit characteristic of an alternator?</li>
+              <li><span class="qid">M4-Q5.</span> Classify AC motors.</li>
+              <li><span class="qid">M4-Q6.</span> Explain the working and applications of stepper motor, servo motor and universal motor.</li>
+              <li><span class="qid">M4-Q7.</span> Explain the working principle of a single-phase induction motor.</li>
+              <li><span class="qid">M4-Q8.</span> Explain the working principle and applications of a three-phase induction motor.</li>
+            </ol>
+          </div>
+        </div>
+        <aside class="card toc"><h3>Module 4 checklist</h3><div class="pill-list"><span class="pill">Alternator</span><span class="pill">EMF</span><span class="pill">Ns</span><span class="pill">OCC</span><span class="pill">Stepper</span><span class="pill">Servo</span><span class="pill">Induction motor</span></div></aside>
+      </div>
+    </section>
+
+    <section id="revision" class="panel">
+      <div class="card soft">
+        <h2>One-page Quick Revision</h2>
+        <div class="grid-2">
+          <div class="info-box"><h4>Module 1 must-know</h4><ul><li>AC terms and waveforms</li><li>RMS and average values</li><li>R, L and C behavior</li><li>Impedance, power factor and resonance</li></ul></div>
+          <div class="info-box"><h4>Module 2 must-know</h4><ul><li>Ohm’s law, KCL, KVL</li><li>Mesh and node analysis</li><li>Superposition, Thevenin, maximum power transfer</li><li>Transformer principle, emf equation, losses and applications</li></ul></div>
+          <div class="info-box"><h4>Module 3 must-know</h4><ul><li>DC generator principle and emf equation</li><li>Armature reaction</li><li>DC motor principle and back emf</li><li>Need of starter and 3-point starter</li></ul></div>
+          <div class="info-box"><h4>Module 4 must-know</h4><ul><li>Alternator principle and emf equation</li><li>Synchronous speed</li><li>AC motor classification</li><li>Single-phase and three-phase induction motor working</li></ul></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Important definitions</h3>
+        <table><thead><tr><th>Term</th><th>Quick meaning</th></tr></thead><tbody>
+          <tr><td>Impedance</td><td>Total opposition offered by an AC circuit.</td></tr>
+          <tr><td>Power factor</td><td>Cosine of phase angle between voltage and current.</td></tr>
+          <tr><td>Resonance</td><td>Condition in RLC circuit when X<sub>L</sub> = X<sub>C</sub>.</td></tr>
+          <tr><td>Thevenin equivalent</td><td>Voltage source V<sub>th</sub> in series with resistance R<sub>th</sub>.</td></tr>
+          <tr><td>Back emf</td><td>Emf induced in DC motor armature opposing applied voltage.</td></tr>
+          <tr><td>Synchronous speed</td><td>Speed of rotating magnetic field in an AC machine.</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <h3>Common exam mistakes</h3>
+        <ul>
+          <li>Writing only formula without explaining each symbol.</li>
+          <li>Forgetting units in numerical answers.</li>
+          <li>Confusing inductive and capacitive phase relation.</li>
+          <li>Writing theorem statement but not writing solving steps.</li>
+          <li>Drawing machine diagrams without labels.</li>
+          <li>Writing transformer works on DC supply. Transformer requires AC/changing flux.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Last-minute checklist</h3>
+        <ol class="step-list">
+          <li>Revise formula bank and write each formula once.</li>
+          <li>Practice one impedance problem and one Thevenin problem.</li>
+          <li>Redraw transformer, DC generator and three-phase induction motor diagrams.</li>
+          <li>Revise applications of all motors.</li>
+          <li>Read the Master Answer Key for exact answer point format.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="answers" class="panel">
+      <div class="card soft">
+        <h2>Master Answer Key</h2>
+        <p>Answers below match the Expected Questions shown in Module 1 to Module 4. The question numbering is kept exactly same.</p>
+      </div>
+
+      <div class="card">
+        <h3>Module 1 Answers</h3>
+        <div class="answer-card"><h4>M1-Q1.</h4><p><b>Cycle:</b> one complete positive and negative variation. <b>Time period:</b> time for one cycle. <b>Frequency:</b> cycles per second. <b>Amplitude:</b> maximum value. <b>Phase:</b> angular position of waveform with respect to reference.</p></div>
+        <div class="answer-card"><h4>M1-Q2.</h4><p>Sine wave changes smoothly and is common in AC generation. Square wave switches between two levels. Triangular wave rises and falls linearly. Sawtooth wave rises gradually and falls suddenly or vice versa. Mention shape, harmonic content and common use.</p></div>
+        <div class="answer-card"><h4>M1-Q3.</h4><p>In pure resistance, V and I are in phase and power is consumed. In pure inductance, current lags voltage by 90° and energy is stored in magnetic field. In pure capacitance, current leads voltage by 90° and energy is stored in electric field.</p></div>
+        <div class="answer-card"><h4>M1-Q4.</h4><p>Draw current as reference. Draw V<sub>R</sub> in phase with current, V<sub>L</sub> leading current by 90°, and V<sub>C</sub> lagging current by 90°. Resultant supply voltage is vector sum of V<sub>R</sub> and net reactive voltage.</p></div>
+        <div class="answer-card"><h4>M1-Q5.</h4><p>Active power P = VIcosφ in watts. Reactive power Q = VIsinφ in VAR. Apparent power S = VI in VA. Power factor is cosφ, the cosine of the angle between voltage and current.</p></div>
+        <div class="answer-card"><h4>M1-Q6.</h4><p><b>Given:</b> R = 40 Ω, X<sub>L</sub> = 80 Ω, X<sub>C</sub> = 50 Ω. Net reactance = 30 Ω. Z = √(40² + 30²) = √2500 = 50 Ω. Power factor = R/Z = 40/50 = 0.8. Since X<sub>L</sub> &gt; X<sub>C</sub>, power factor is lagging.</p></div>
+        <div class="answer-card"><h4>M1-Q7.</h4><p>Resonance is the condition in an RLC circuit when X<sub>L</sub> = X<sub>C</sub>. At resonance, impedance is minimum in a series circuit and current is maximum. Q factor indicates sharpness of resonance and voltage/current magnification.</p></div>
+        <div class="answer-card"><h4>M1-Q8.</h4><p>Steps: identify branches, find branch impedance/admittance, calculate branch currents, resolve currents into active and reactive components, add components, find total current, power factor and power.</p></div>
+      </div>
+
+      <div class="card">
+        <h3>Module 2 Answers</h3>
+        <div class="answer-card"><h4>M2-Q1.</h4><p>Ohm’s law: current through a conductor is directly proportional to voltage when physical conditions are constant, V = IR. KCL: algebraic sum of currents at a node is zero. KVL: algebraic sum of voltages around a closed loop is zero.</p></div>
+        <div class="answer-card"><h4>M2-Q2.</h4><p>Mesh analysis uses loop currents and KVL. It is suitable for planar circuits. Node analysis uses node voltages and KCL. It is useful when current sources are present and the circuit has fewer essential nodes.</p></div>
+        <div class="answer-card"><h4>M2-Q3.</h4><p>Superposition theorem states that in a linear bilateral network with multiple independent sources, current or voltage in an element is the algebraic sum of effects produced by each source acting alone. While considering one source, replace other voltage sources by short circuit and current sources by open circuit.</p></div>
+        <div class="answer-card"><h4>M2-Q4.</h4><p>Thevenin’s theorem: any linear two-terminal network can be replaced by an equivalent voltage source V<sub>th</sub> in series with resistance R<sub>th</sub>. Steps: remove load, find open-circuit voltage V<sub>th</sub>, deactivate independent sources and find R<sub>th</sub>, reconnect load to equivalent circuit and solve.</p></div>
+        <div class="answer-card"><h4>M2-Q5.</h4><p>Maximum Power Transfer theorem states that maximum power is delivered to load when load resistance equals internal/Thevenin resistance of source network. Condition: R<sub>L</sub> = R<sub>th</sub>.</p></div>
+        <div class="answer-card"><h4>M2-Q6.</h4><p>A transformer works on mutual induction. AC in primary creates alternating flux in core. This flux links secondary winding and induces emf. Construction includes laminated core, primary winding, secondary winding, insulation and cooling arrangement.</p></div>
+        <div class="answer-card"><h4>M2-Q7.</h4><p>For sinusoidal flux, RMS induced emf per winding is E = 4.44 f N Φ<sub>m</sub>. For primary, E<sub>1</sub> = 4.44 f N<sub>1</sub> Φ<sub>m</sub>. For secondary, E<sub>2</sub> = 4.44 f N<sub>2</sub> Φ<sub>m</sub>. Explain f = frequency, N = turns, Φ<sub>m</sub> = maximum flux.</p></div>
+        <div class="answer-card"><h4>M2-Q8.</h4><p>Losses: copper loss, hysteresis loss, eddy current loss and leakage losses. Types: step-up, step-down, isolation, core type, shell type, power and distribution transformers. Applications: power transmission, adapters, isolation, measurement and electronic power supplies.</p></div>
+      </div>
+
+      <div class="card">
+        <h3>Module 3 Answers</h3>
+        <div class="answer-card"><h4>M3-Q1.</h4><p>A DC generator works on Faraday’s law. When armature conductors rotate in a magnetic field, they cut magnetic flux and emf is induced. The commutator converts internally alternating emf into unidirectional DC at the brushes.</p></div>
+        <div class="answer-card"><h4>M3-Q2.</h4><p>Generated emf E = PΦZN / 60A, where P = number of poles, Φ = flux per pole, Z = total armature conductors, N = speed in rpm, A = number of parallel paths.</p></div>
+        <div class="answer-card"><h4>M3-Q3.</h4><p>Armature reaction is the effect of armature flux on the main field flux. It distorts and weakens main flux, shifts neutral plane and can cause sparking at brushes. It is reduced using interpoles or compensating windings.</p></div>
+        <div class="answer-card"><h4>M3-Q4.</h4><p>A DC motor works on the principle that a current-carrying conductor placed in a magnetic field experiences force. The direction of force is given by Fleming’s left-hand rule. This force produces torque and rotates the armature.</p></div>
+        <div class="answer-card"><h4>M3-Q5.</h4><p>Back emf is the emf induced in the rotating armature of a DC motor that opposes the applied voltage. Significance: it limits armature current during running and makes the motor self-regulating with load.</p></div>
+        <div class="answer-card"><h4>M3-Q6.</h4><p>At starting, back emf is zero, so armature current can become very high because armature resistance is small. A starter adds external resistance at starting to limit current and provides protection.</p></div>
+        <div class="answer-card"><h4>M3-Q7.</h4><p>A 3-point starter has line, armature and field terminals. Starting resistance is gradually cut out as motor speed and back emf increase. It includes no-voltage release and overload release for protection.</p></div>
+        <div class="answer-card"><h4>M3-Q8.</h4><p>DC shunt motor: nearly constant speed, used in fans and lathes. DC series motor: high starting torque, used in traction and cranes. DC compound motor: combines good torque and speed regulation, used in elevators and heavy machines.</p></div>
+      </div>
+
+      <div class="card">
+        <h3>Module 4 Answers</h3>
+        <div class="answer-card"><h4>M4-Q1.</h4><p>An alternator converts mechanical energy into AC electrical energy. The rotor field rotates and cuts stator conductors, inducing alternating emf in stator windings according to electromagnetic induction.</p></div>
+        <div class="answer-card"><h4>M4-Q2.</h4><p>Alternator emf per phase E = 4.44 k<sub>w</sub> f Φ T, where k<sub>w</sub> = winding factor, f = frequency, Φ = flux per pole and T = series turns per phase.</p></div>
+        <div class="answer-card"><h4>M4-Q3.</h4><p>Synchronous speed is the speed of rotating magnetic field. In one mechanical revolution, P/2 cycles are produced. Hence f = PN/120 and N<sub>s</sub> = 120f/P rpm.</p></div>
+        <div class="answer-card"><h4>M4-Q4.</h4><p>Open circuit characteristic of an alternator is the graph between generated emf and field current at constant speed with no load connected. It shows magnetization behavior and saturation.</p></div>
+        <div class="answer-card"><h4>M4-Q5.</h4><p>AC motors can be classified as synchronous motors and induction motors. Induction motors may be single-phase or three-phase. Special AC motors include stepper motor, servo motor and universal motor.</p></div>
+        <div class="answer-card"><h4>M4-Q6.</h4><p>Stepper motor moves in fixed angular steps and is used in positioning. Servo motor uses feedback for precise control and is used in automation. Universal motor works on AC or DC, has high speed and is used in portable tools and appliances.</p></div>
+        <div class="answer-card"><h4>M4-Q7.</h4><p>A single-phase induction motor works by induction but is not self-starting because single-phase supply produces pulsating magnetic field. Starting methods such as split-phase or capacitor start create phase difference to start rotation.</p></div>
+        <div class="answer-card"><h4>M4-Q8.</h4><p>A three-phase induction motor works on rotating magnetic field. Three-phase stator supply creates rotating field, which induces current in rotor conductors. Interaction of rotor current and rotating field produces torque. Applications include pumps, compressors, conveyors and industrial drives.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Electric Circuits & Networks 3041 • Author: Nandakumar.M • Visit: <a href="https://nandakumarm.dpdns.org">nandakumarm.dpdns.org</a>
+  </footer>
+
+  <script>
+    (function(){
+      const buttons = Array.from(document.querySelectorAll('.tab-btn'));
+      const panels = Array.from(document.querySelectorAll('.panel'));
+      function show(id){
+        panels.forEach(panel => panel.classList.toggle('active', panel.id === id));
+        buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.target === id));
+        window.scrollTo({top:0, behavior:'smooth'});
+      }
+      buttons.forEach(btn => btn.addEventListener('click', () => show(btn.dataset.target)));
+      document.querySelectorAll('[data-jump]').forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          show(link.dataset.jump);
+        });
+      });
+      show('overview');
+    })();
+  </script>
+</body>
+</html>
