@@ -43,6 +43,7 @@
   let knowledgeReady = Promise.resolve();
   let activeFilter = "All";
   let lastAnswer = "";
+  let lastQuery = "";
   let history = loadHistory();
 
   const button = el("button", {
@@ -52,7 +53,10 @@
   });
   button.append(
     el("span", { className: "poly-ai-button-mark", text: "AI", attrs: { "aria-hidden": "true" } }),
-    el("span", { className: "poly-ai-button-text", text: "Ask" })
+    node("span", { className: "poly-ai-button-copy" }, [
+      el("span", { className: "poly-ai-button-text", text: "Ask POLY" }),
+      el("span", { className: "poly-ai-button-subtext", text: "Local search" }),
+    ])
   );
 
   const panel = el("section", {
@@ -72,12 +76,13 @@
     ])
   );
 
-  const copyButton = iconButton("Copy last answer", "CP");
-  const clearButton = iconButton("Clear chat", "CL");
+  const copyButton = iconButton("Copy last answer", "Copy");
+  const clearButton = iconButton("Clear chat", "Clear");
   const closeButton = iconButton("Close assistant", "X");
   header.append(copyButton, clearButton, closeButton);
 
   const tabs = el("div", { className: "poly-ai-tabs", attrs: { "aria-label": "Assistant filters" } });
+  const status = el("div", { className: "poly-ai-status", text: "Local website search ready" });
   const body = el("div", { className: "poly-ai-body", attrs: { "aria-live": "polite" } });
   const quick = el("div", { className: "poly-ai-quick", attrs: { "aria-label": "Quick suggestions" } });
   const form = el("form", { className: "poly-ai-form" });
@@ -95,7 +100,7 @@
 
   inputWrap.append(suggestions, input);
   form.append(inputWrap, send);
-  panel.append(header, tabs, body, form);
+  panel.append(header, tabs, status, body, form);
   ROOT.append(panel, button);
 
   FILTERS.forEach((filter) => {
@@ -104,7 +109,9 @@
     item.addEventListener("click", () => {
       activeFilter = filter;
       [...tabs.children].forEach((child) => child.classList.toggle("active", child === item));
-      runSearch(input.value.trim(), false);
+      const query = input.value.trim() || lastQuery;
+      if (query) runSearch(query, false);
+      else setStatus(`Filter active: ${filter}`);
     });
     tabs.append(item);
   });
@@ -145,10 +152,13 @@
     }
 
     knowledgeReady = (async () => {
+      setStatus("Loading local website index...");
       const response = await fetch(KB_URL, { cache: "no-store" });
       knowledge = response.ok ? await response.json() : [];
+      setStatus(`${knowledge.length} local records ready`);
     })().catch(() => {
       knowledge = [];
+      setStatus("Local index could not be loaded");
     });
   }
 
@@ -176,13 +186,16 @@
     }
 
     addMessage("user", query, { save: true });
+    lastQuery = query;
+    setStatus("Searching local website data...");
     knowledgeReady.then(() => runSearch(query, true));
     input.value = "";
   }
 
   function runSearch(query, shouldRespond) {
-    if (!query || !shouldRespond) return;
+    if (!query) return;
 
+    lastQuery = query;
     const normalized = normalize(query);
     let answer = "";
     let matches = [];
@@ -195,14 +208,18 @@
 
     if (!matches.length) {
       answer = NO_RESULT;
-      addMessage("bot", answer, { save: true });
+      clearResultBlocks();
+      if (shouldRespond) addMessage("bot", answer, { save: true });
+      setStatus("No matching website record found");
       lastAnswer = answer;
       return;
     }
 
     answer = makeAnswer(matches[0]);
-    addMessage("bot", answer, { save: true });
+    clearResultBlocks();
+    if (shouldRespond) addMessage("bot", answer, { save: true });
     renderResults(matches.slice(0, 5));
+    setStatus(`${matches.length} local match${matches.length === 1 ? "" : "es"} found`);
     lastAnswer = answer;
   }
 
@@ -308,6 +325,10 @@
     scrollBottom();
   }
 
+  function clearResultBlocks() {
+    body.querySelectorAll(".poly-ai-results").forEach((block) => block.remove());
+  }
+
   function addLink(parent, label, href, className) {
     if (!href) return;
     const link = el("a", { text: label, className: className || "" });
@@ -358,11 +379,17 @@
     try {
       await navigator.clipboard.writeText(text);
       copyButton.textContent = "OK";
-      setTimeout(() => (copyButton.textContent = "CP"), 900);
+      setStatus("Last answer copied");
+      setTimeout(() => (copyButton.textContent = "Copy"), 900);
     } catch (error) {
       copyButton.textContent = "!";
-      setTimeout(() => (copyButton.textContent = "CP"), 900);
+      setStatus("Copy is not available in this browser");
+      setTimeout(() => (copyButton.textContent = "Copy"), 900);
     }
+  }
+
+  function setStatus(text) {
+    status.textContent = text;
   }
 
   function updateSuggestions() {
