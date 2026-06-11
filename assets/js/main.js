@@ -285,7 +285,7 @@ function rootPrefix() {
 
 function forcePremiumStylesheet() {
   const prefix = rootPrefix();
-  const versionedHref = `${prefix}assets/css/style.css?v=20260611-premium2`;
+  const versionedHref = `${prefix}assets/css/style.css?v=20260611-readable1`;
   document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
     const href = link.getAttribute("href") || "";
     if (href.endsWith("assets/css/style.css") || href.includes("assets/css/style.css?")) link.remove();
@@ -294,6 +294,20 @@ function forcePremiumStylesheet() {
   css.rel = "stylesheet";
   css.href = versionedHref;
   document.head.prepend(css);
+}
+
+function setupSiteNotice() {
+  if (document.querySelector(".site-notice")) return;
+  const brand = document.querySelector(".topbar .brand");
+  if (!brand) return;
+  const notice = document.createElement("a");
+  notice.className = "site-notice";
+  notice.href = "https://nandakumarm.dpdns.org/about.html#contact";
+  notice.target = "_blank";
+  notice.rel = "noopener";
+  notice.setAttribute("aria-label", "Contact developer for suggestions or content changes");
+  notice.innerHTML = '<span>This website is in its initial stage. For suggestions or content changes, please contact the developer.</span>';
+  brand.insertAdjacentElement("afterend", notice);
 }
 
 function setupSiteAssistant() {
@@ -325,6 +339,7 @@ function setupSiteAssistant() {
 
 document.addEventListener("DOMContentLoaded", () => {
   forcePremiumStylesheet();
+  setupSiteNotice();
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
