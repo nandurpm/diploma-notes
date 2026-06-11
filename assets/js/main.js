@@ -59,9 +59,7 @@ async function assetExists(url) {
 
 function printLessonFromButton(button) {
   const printUrl = button.dataset.printUrl;
-  if (!printUrl) return;
-
-  if (button.classList.contains("unavailable")) return;
+  if (!printUrl || button.classList.contains("unavailable")) return;
 
   if (activePrintFrame) activePrintFrame.remove();
   const frame = document.createElement("iframe");
@@ -280,6 +278,38 @@ function setupHomepageVideoPoster() {
   });
 }
 
+function rootPrefix() {
+  const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+  return depth > 0 ? "../".repeat(depth) : "";
+}
+
+function setupSiteAssistant() {
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes("/lessons/")) return;
+  if (document.querySelector(".poly-ai-button")) return;
+
+  const prefix = rootPrefix();
+  if (!document.querySelector('link[href$="assets/css/site-assistant.css"]')) {
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = `${prefix}assets/css/site-assistant.css`;
+    document.head.append(css);
+  }
+
+  if (!document.getElementById("polySiteAssistant")) {
+    const mount = document.createElement("div");
+    mount.id = "polySiteAssistant";
+    document.body.append(mount);
+  }
+
+  if (!document.querySelector('script[src$="assets/js/site-assistant.js"]')) {
+    const script = document.createElement("script");
+    script.src = `${prefix}assets/js/site-assistant.js`;
+    script.defer = true;
+    document.body.append(script);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
@@ -288,4 +318,5 @@ document.addEventListener("DOMContentLoaded", () => {
   renderMaterialLinks();
   setupSubjectBrowser();
   setupHomepageVideoPoster();
+  setupSiteAssistant();
 });
