@@ -283,6 +283,19 @@ function rootPrefix() {
   return depth > 0 ? "../".repeat(depth) : "";
 }
 
+function forcePremiumStylesheet() {
+  const prefix = rootPrefix();
+  const versionedHref = `${prefix}assets/css/style.css?v=20260611-premium2`;
+  document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
+    const href = link.getAttribute("href") || "";
+    if (href.endsWith("assets/css/style.css") || href.includes("assets/css/style.css?")) link.remove();
+  });
+  const css = document.createElement("link");
+  css.rel = "stylesheet";
+  css.href = versionedHref;
+  document.head.prepend(css);
+}
+
 function setupSiteAssistant() {
   const path = window.location.pathname.toLowerCase();
   if (path.includes("/lessons/")) return;
@@ -292,7 +305,7 @@ function setupSiteAssistant() {
   if (!document.querySelector('link[href$="assets/css/site-assistant.css"]')) {
     const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = `${prefix}assets/css/site-assistant.css`;
+    css.href = `${prefix}assets/css/site-assistant.css?v=20260611`;
     document.head.append(css);
   }
 
@@ -304,13 +317,14 @@ function setupSiteAssistant() {
 
   if (!document.querySelector('script[src$="assets/js/site-assistant.js"]')) {
     const script = document.createElement("script");
-    script.src = `${prefix}assets/js/site-assistant.js`;
+    script.src = `${prefix}assets/js/site-assistant.js?v=20260611`;
     script.defer = true;
     document.body.append(script);
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  forcePremiumStylesheet();
   document.querySelectorAll("[data-year]").forEach((el) => {
     el.textContent = new Date().getFullYear();
   });
