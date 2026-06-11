@@ -1,7 +1,8 @@
 // SUBJECTS: REV2021 data is generated from the cleaned SITTTR source workbook.
 // Shared common subjects are listed once; department-specific duplicate codes stay with their departments.
-// Uploaded lessons/notes are discovered from the standard file paths:
-// lessons/lessons-CODE.html and notes/downloadable-notes-CODE.pdf.
+// Uploaded lessons/notes are discovered from standard file paths.
+// 1003 and 1004 use the hand-uploaded notes/ PDFs. Other subjects use the
+// same lessons/downloadable-notes-CODE.pdf target as the lesson-page button.
 const SUBJECTS = [
   // First Year / Common
   { revision: "2021", code: "1001", name: "Communication Skills in English", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
@@ -1910,7 +1911,7 @@ function modelQuestionPaperLink(subjectCode) {
   return SITTTR_MODEL_QP_BASE + encodeURIComponent(subjectCode);
 }
 
-// BUG1 FIX: compute root prefix from actual path depth — works from any page.
+// Compute root prefix from actual path depth; works from any page.
 function lessonLink(subject) {
   const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
   const prefix = depth > 0 ? "../".repeat(depth) : "";
@@ -1922,5 +1923,9 @@ function notesLink(subject) {
   const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
   const prefix = depth > 0 ? "../".repeat(depth) : "";
   if (subject.notesFile) return prefix + subject.notesFile;
-  return `${prefix}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
+  const code = String(subject.code);
+  if (code === "1003" || code === "1004") {
+    return `${prefix}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+  }
+  return `${prefix}lessons/downloadable-notes-${encodeURIComponent(code)}.pdf`;
 }

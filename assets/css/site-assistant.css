@@ -11,12 +11,12 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  min-width: 94px;
-  height: 56px;
-  padding: 7px 14px 7px 8px;
+  gap: 10px;
+  min-width: 142px;
+  height: 60px;
+  padding: 8px 15px 8px 9px;
   border: 0;
-  border-radius: 999px;
+  border-radius: 18px;
   color: #fff;
   background:
     radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.36), transparent 26%),
@@ -56,17 +56,31 @@
 .poly-ai-button-mark {
   display: grid;
   place-items: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 16px;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.18);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
   font-size: 0.95rem;
 }
 
+.poly-ai-button-copy {
+  display: grid;
+  gap: 1px;
+  text-align: left;
+}
+
 .poly-ai-button-text {
   padding-right: 2px;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  line-height: 1.1;
+}
+
+.poly-ai-button-subtext {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .poly-ai-button:hover {
@@ -86,7 +100,7 @@
   width: min(430px, calc(100vw - 28px));
   height: min(680px, calc(100vh - 110px));
   display: grid;
-  grid-template-rows: auto auto 1fr auto;
+  grid-template-rows: auto auto auto 1fr auto;
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.36);
   border-radius: 24px;
@@ -140,14 +154,25 @@
 .poly-ai-icon {
   display: inline-grid;
   place-items: center;
-  width: 32px;
+  min-width: 32px;
   height: 32px;
+  padding: 0 8px;
   border: 1px solid rgba(255, 255, 255, 0.26);
   border-radius: 11px;
   color: #fff;
   background: rgba(255, 255, 255, 0.12);
   cursor: pointer;
   font-weight: 900;
+  font-size: 0.68rem;
+}
+
+.poly-ai-status {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #475569;
+  background: rgba(248, 250, 252, 0.92);
+  font-size: 0.76rem;
+  font-weight: 800;
 }
 
 .poly-ai-tabs,
@@ -366,6 +391,10 @@
     display: none;
   }
 
+  .poly-ai-button-copy {
+    display: none;
+  }
+
   .poly-ai-button::after {
     top: 5px;
     right: 5px;
@@ -384,7 +413,7 @@
   }
 
   .poly-ai-head {
-    grid-template-columns: auto 1fr repeat(3, 29px);
+    grid-template-columns: auto 1fr auto auto auto;
     gap: 7px;
     padding: 10px;
   }
@@ -405,10 +434,11 @@
   }
 
   .poly-ai-icon {
-    width: 29px;
+    min-width: 29px;
     height: 29px;
+    padding: 0 6px;
     border-radius: 10px;
-    font-size: 0.7rem;
+    font-size: 0.62rem;
   }
 
   .poly-ai-tabs,

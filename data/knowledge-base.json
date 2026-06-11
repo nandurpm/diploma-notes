@@ -286,7 +286,11 @@
       "Contact / Developer",
       "diploma",
       "polytechnic",
-      "ബന്ധപ്പെടുക"
+      "ബന്ധപ്പെടുക",
+      "Email me directly",
+      "nandakumarmkdpm@gmail.com",
+      "mail",
+      "email help"
     ],
     "summary": "Contact the developer or author for issues and updates.",
     "content": "Contact the developer or author for issues and updates.",
@@ -299,7 +303,7 @@
     "revision": "2021",
     "subjectCode": "1001",
     "subjectName": "Communication Skills in English",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-1001.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1001",
     "keywords": [
       "1001",
@@ -325,7 +329,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1001.pdf"
   },
   {
     "id": "subject-1002-mathematics-i",
@@ -334,7 +339,7 @@
     "revision": "2021",
     "subjectCode": "1002",
     "subjectName": "Mathematics I",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-1002.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1002",
     "keywords": [
       "1002",
@@ -363,7 +368,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1002.pdf"
   },
   {
     "id": "subject-1003-applied-physics-i",
@@ -457,7 +463,7 @@
     "revision": "2021",
     "subjectCode": "1005",
     "subjectName": "Engineering Graphics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-1005.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1005",
     "keywords": [
       "1005",
@@ -483,7 +489,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1005.pdf"
   },
   {
     "id": "subject-1007-applied-chemistry-lab",
@@ -492,7 +499,7 @@
     "revision": "2021",
     "subjectCode": "1007",
     "subjectName": "Applied Chemistry Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-1007.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1007",
     "keywords": [
       "1007",
@@ -527,7 +534,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1007.pdf"
   },
   {
     "id": "subject-1008-introduction-to-it-systems-lab",
@@ -536,7 +544,7 @@
     "revision": "2021",
     "subjectCode": "1008",
     "subjectName": "Introduction to IT systems Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-1008.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1008",
     "keywords": [
       "1008",
@@ -565,7 +573,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1008.pdf"
   },
   {
     "id": "subject-1009-sports-and-yoga",
@@ -574,7 +583,7 @@
     "revision": "2021",
     "subjectCode": "1009",
     "subjectName": "Sports and Yoga",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-1009.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1009",
     "keywords": [
       "1009",
@@ -598,7 +607,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1009.pdf"
   },
   {
     "id": "subject-2001-environmental-science",
@@ -607,7 +617,7 @@
     "revision": "2021",
     "subjectCode": "2001",
     "subjectName": "Environmental Science",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2001.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2001",
     "keywords": [
       "2001",
@@ -631,7 +641,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2001.pdf"
   },
   {
     "id": "subject-2002-mathematics-ii",
@@ -640,7 +651,7 @@
     "revision": "2021",
     "subjectCode": "2002",
     "subjectName": "Mathematics II",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2002.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2002",
     "keywords": [
       "2002",
@@ -669,7 +680,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2002.pdf"
   },
   {
     "id": "subject-2003-applied-physics-ii",
@@ -678,7 +690,7 @@
     "revision": "2021",
     "subjectCode": "2003",
     "subjectName": "Applied Physics II",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2003.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2003",
     "keywords": [
       "2003",
@@ -712,7 +724,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2003.pdf"
   },
   {
     "id": "subject-2006-applied-physics-lab",
@@ -721,7 +734,7 @@
     "revision": "2021",
     "subjectCode": "2006",
     "subjectName": "Applied Physics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2006.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2006",
     "keywords": [
       "2006",
@@ -758,7 +771,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2006.pdf"
   },
   {
     "id": "subject-2008-communication-skills-in-english-lab",
@@ -767,7 +781,7 @@
     "revision": "2021",
     "subjectCode": "2008",
     "subjectName": "Communication Skills in English Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2008.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2008",
     "keywords": [
       "2008",
@@ -797,7 +811,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2008.pdf"
   },
   {
     "id": "subject-2009-engineering-workshop-practice",
@@ -806,7 +821,7 @@
     "revision": "2021",
     "subjectCode": "2009",
     "subjectName": "Engineering Workshop Practice",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2009.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2009",
     "keywords": [
       "2009",
@@ -834,7 +849,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2009.pdf"
   },
   {
     "id": "subject-3009-internship-i",
@@ -843,7 +859,7 @@
     "revision": "2021",
     "subjectCode": "3009",
     "subjectName": "Internship I",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3009.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3009",
     "keywords": [
       "3009",
@@ -868,7 +884,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3009.pdf"
   },
   {
     "id": "subject-4001-community-skills-in-indian-knowledge-system",
@@ -877,7 +894,7 @@
     "revision": "2021",
     "subjectCode": "4001",
     "subjectName": "Community Skills in Indian knowledge system",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4001.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4001",
     "keywords": [
       "4001",
@@ -902,7 +919,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4001.pdf"
   },
   {
     "id": "subject-5008-seminar",
@@ -911,7 +929,7 @@
     "revision": "2021",
     "subjectCode": "5008",
     "subjectName": "Seminar",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5008.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5008",
     "keywords": [
       "5008",
@@ -934,7 +952,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5008.pdf"
   },
   {
     "id": "subject-5009-internship-ii",
@@ -943,7 +962,7 @@
     "revision": "2021",
     "subjectCode": "5009",
     "subjectName": "Internship II",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5009.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5009",
     "keywords": [
       "5009",
@@ -968,7 +987,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5009.pdf"
   },
   {
     "id": "subject-6001-entrepreneurship-and-startup",
@@ -977,7 +997,7 @@
     "revision": "2021",
     "subjectCode": "6001",
     "subjectName": "Entrepreneurship and Startup",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6001.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6001",
     "keywords": [
       "6001",
@@ -1001,7 +1021,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6001.pdf"
   },
   {
     "id": "subject-6002-indian-constitution",
@@ -1010,7 +1031,7 @@
     "revision": "2021",
     "subjectCode": "6002",
     "subjectName": "Indian Constitution",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6002.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6002",
     "keywords": [
       "6002",
@@ -1034,7 +1055,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6002.pdf"
   },
   {
     "id": "subject-6007-internship",
@@ -1043,7 +1065,7 @@
     "revision": "2021",
     "subjectCode": "6007",
     "subjectName": "Internship",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6007.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6007",
     "keywords": [
       "6007",
@@ -1066,7 +1088,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6007.pdf"
   },
   {
     "id": "subject-6009-major-project",
@@ -1075,7 +1098,7 @@
     "revision": "2021",
     "subjectCode": "6009",
     "subjectName": "Major Project",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6009.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6009",
     "keywords": [
       "6009",
@@ -1099,7 +1122,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6009.pdf"
   },
   {
     "id": "subject-2031-fundamentals-of-electrical-and-electronics-engineering",
@@ -1108,7 +1132,7 @@
     "revision": "2021",
     "subjectCode": "2031",
     "subjectName": "Fundamentals of Electrical and Electronics Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2031",
     "keywords": [
       "2031",
@@ -1134,7 +1158,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2031.pdf"
   },
   {
     "id": "subject-2032-elementary-concepts-of-electrical-systems",
@@ -1143,7 +1168,7 @@
     "revision": "2021",
     "subjectCode": "2032",
     "subjectName": "Elementary Concepts of Electrical Systems",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2032.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2032",
     "keywords": [
       "2032",
@@ -1169,7 +1194,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2032.pdf"
   },
   {
     "id": "subject-2038-engineering-graphics-using-cad-software",
@@ -1178,7 +1204,7 @@
     "revision": "2021",
     "subjectCode": "2038",
     "subjectName": "Engineering Graphics Using CAD Software",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2038",
     "keywords": [
       "2038",
@@ -1206,7 +1232,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2038.pdf"
   },
   {
     "id": "subject-2039-fundamentals-of-electrical-and-electronics-engineering-lab",
@@ -1215,7 +1242,7 @@
     "revision": "2021",
     "subjectCode": "2039",
     "subjectName": "Fundamentals of Electrical and Electronics Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2039.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2039",
     "keywords": [
       "2039",
@@ -1245,7 +1272,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2039.pdf"
   },
   {
     "id": "subject-3031-analog-and-digital-circuits",
@@ -1254,7 +1282,7 @@
     "revision": "2021",
     "subjectCode": "3031",
     "subjectName": "Analog and Digital Circuits",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3031",
     "keywords": [
       "3031",
@@ -1278,7 +1306,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3031.pdf"
   },
   {
     "id": "subject-3032-dc-machines-and-transformers",
@@ -1287,7 +1316,7 @@
     "revision": "2021",
     "subjectCode": "3032",
     "subjectName": "DC Machines and Transformers",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3032.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3032",
     "keywords": [
       "3032",
@@ -1311,7 +1340,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3032.pdf"
   },
   {
     "id": "subject-3036-dc-machine-lab",
@@ -1320,7 +1350,7 @@
     "revision": "2021",
     "subjectCode": "3036",
     "subjectName": "DC Machine Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3036.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3036",
     "keywords": [
       "3036",
@@ -1348,7 +1378,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3036.pdf"
   },
   {
     "id": "subject-3037-electrical-measurements-lab",
@@ -1357,7 +1388,7 @@
     "revision": "2021",
     "subjectCode": "3037",
     "subjectName": "Electrical Measurements Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3037.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3037",
     "keywords": [
       "3037",
@@ -1387,7 +1418,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3037.pdf"
   },
   {
     "id": "subject-3038-electrical-workshop-practice-lab",
@@ -1396,7 +1428,7 @@
     "revision": "2021",
     "subjectCode": "3038",
     "subjectName": "Electrical Workshop Practice Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3038",
     "keywords": [
       "3038",
@@ -1424,7 +1456,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3038.pdf"
   },
   {
     "id": "subject-3039-mechanical-engineering-lab",
@@ -1433,7 +1466,7 @@
     "revision": "2021",
     "subjectCode": "3039",
     "subjectName": "Mechanical Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3039.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3039",
     "keywords": [
       "3039",
@@ -1464,7 +1497,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3039.pdf"
   },
   {
     "id": "subject-4031-electrical-machines-ii",
@@ -1473,7 +1507,7 @@
     "revision": "2021",
     "subjectCode": "4031",
     "subjectName": "Electrical Machines II",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4031",
     "keywords": [
       "4031",
@@ -1498,7 +1532,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4031.pdf"
   },
   {
     "id": "subject-4032-electrical-installation-design-and-estimation",
@@ -1507,7 +1542,7 @@
     "revision": "2021",
     "subjectCode": "4032",
     "subjectName": "Electrical Installation Design and Estimation",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4032.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4032",
     "keywords": [
       "4032",
@@ -1532,7 +1567,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4032.pdf"
   },
   {
     "id": "subject-4036-basic-electronics-lab",
@@ -1541,7 +1577,7 @@
     "revision": "2021",
     "subjectCode": "4036",
     "subjectName": "Basic Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4036.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4036",
     "keywords": [
       "4036",
@@ -1569,7 +1605,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4036.pdf"
   },
   {
     "id": "subject-4037-induction-machines-lab",
@@ -1578,7 +1615,7 @@
     "revision": "2021",
     "subjectCode": "4037",
     "subjectName": "Induction Machines Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4037.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4037",
     "keywords": [
       "4037",
@@ -1608,7 +1645,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4037.pdf"
   },
   {
     "id": "subject-4038-domestic-appliances-repair-and-maintenance-workshop",
@@ -1617,7 +1655,7 @@
     "revision": "2021",
     "subjectCode": "4038",
     "subjectName": "Domestic Appliances Repair and Maintenance Workshop",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4038",
     "keywords": [
       "4038",
@@ -1645,7 +1683,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4038.pdf"
   },
   {
     "id": "subject-4039-professional-practice-lab",
@@ -1654,7 +1693,7 @@
     "revision": "2021",
     "subjectCode": "4039",
     "subjectName": "Professional Practice Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4039.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4039",
     "keywords": [
       "4039",
@@ -1684,7 +1723,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4039.pdf"
   },
   {
     "id": "subject-5031-power-electronics",
@@ -1693,7 +1733,7 @@
     "revision": "2021",
     "subjectCode": "5031",
     "subjectName": "Power Electronics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5031",
     "keywords": [
       "5031",
@@ -1717,7 +1757,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5031.pdf"
   },
   {
     "id": "subject-5032-electricity-generation-transmission-and-distribution",
@@ -1726,7 +1767,7 @@
     "revision": "2021",
     "subjectCode": "5032",
     "subjectName": "Electricity Generation, Transmission and Distribution",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5032.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5032",
     "keywords": [
       "5032",
@@ -1750,7 +1791,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5032.pdf"
   },
   {
     "id": "subject-5036-power-electronics-lab",
@@ -1759,7 +1801,7 @@
     "revision": "2021",
     "subjectCode": "5036",
     "subjectName": "Power Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5036.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5036",
     "keywords": [
       "5036",
@@ -1787,7 +1829,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5036.pdf"
   },
   {
     "id": "subject-5037-synchronous-machines-lab",
@@ -1796,7 +1839,7 @@
     "revision": "2021",
     "subjectCode": "5037",
     "subjectName": "Synchronous Machines Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5037.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5037",
     "keywords": [
       "5037",
@@ -1826,7 +1869,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5037.pdf"
   },
   {
     "id": "subject-5038-industrial-electrical-engineering-lab",
@@ -1835,7 +1879,7 @@
     "revision": "2021",
     "subjectCode": "5038",
     "subjectName": "Industrial Electrical Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5038",
     "keywords": [
       "5038",
@@ -1865,7 +1909,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5038.pdf"
   },
   {
     "id": "subject-5039-applied-electronics-lab",
@@ -1874,7 +1919,7 @@
     "revision": "2021",
     "subjectCode": "5039",
     "subjectName": "Applied Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5039.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5039",
     "keywords": [
       "5039",
@@ -1902,7 +1947,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5039.pdf"
   },
   {
     "id": "subject-6031-electrical-energy-management",
@@ -1911,7 +1957,7 @@
     "revision": "2021",
     "subjectCode": "6031",
     "subjectName": "Electrical Energy Management",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6031",
     "keywords": [
       "6031",
@@ -1935,7 +1981,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6031.pdf"
   },
   {
     "id": "subject-6032-industrial-drives-and-control",
@@ -1944,7 +1991,7 @@
     "revision": "2021",
     "subjectCode": "6032",
     "subjectName": "Industrial Drives and Control",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6032.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6032",
     "keywords": [
       "6032",
@@ -1968,7 +2015,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6032.pdf"
   },
   {
     "id": "subject-6036-project-and-seminar",
@@ -1977,7 +2025,7 @@
     "revision": "2021",
     "subjectCode": "6036",
     "subjectName": "Project and Seminar",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6036.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6036",
     "keywords": [
       "6036",
@@ -2001,7 +2049,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6036.pdf"
   },
   {
     "id": "subject-6037-electrical-cad-lab",
@@ -2010,7 +2059,7 @@
     "revision": "2021",
     "subjectCode": "6037",
     "subjectName": "Electrical CAD Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6037.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6037",
     "keywords": [
       "6037",
@@ -2038,7 +2087,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6037.pdf"
   },
   {
     "id": "subject-6038-industrial-automation-lab",
@@ -2047,7 +2097,7 @@
     "revision": "2021",
     "subjectCode": "6038",
     "subjectName": "Industrial Automation Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6038",
     "keywords": [
       "6038",
@@ -2075,7 +2125,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6038.pdf"
   },
   {
     "id": "subject-6039-modelling-and-simulation-lab",
@@ -2084,7 +2135,7 @@
     "revision": "2021",
     "subjectCode": "6039",
     "subjectName": "Modelling and Simulation Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6039.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6039",
     "keywords": [
       "6039",
@@ -2112,7 +2163,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6039.pdf"
   },
   {
     "id": "subject-2041-basic-electronics",
@@ -2121,7 +2173,7 @@
     "revision": "2021",
     "subjectCode": "2041",
     "subjectName": "Basic Electronics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2041.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2041",
     "keywords": [
       "2041",
@@ -2151,7 +2203,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2041.pdf"
   },
   {
     "id": "subject-2049-electronics-tinkering-workshop",
@@ -2160,7 +2213,7 @@
     "revision": "2021",
     "subjectCode": "2049",
     "subjectName": "Electronics Tinkering Workshop",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2049.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2049",
     "keywords": [
       "2049",
@@ -2195,7 +2248,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2049.pdf"
   },
   {
     "id": "subject-3041-electric-circuits-and-networks",
@@ -2204,7 +2258,7 @@
     "revision": "2021",
     "subjectCode": "3041",
     "subjectName": "Electric Circuits and Networks",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3041.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3041",
     "keywords": [
       "3041",
@@ -2228,7 +2282,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3041.pdf"
   },
   {
     "id": "subject-3042-principles-of-electronic-communication",
@@ -2237,7 +2292,7 @@
     "revision": "2021",
     "subjectCode": "3042",
     "subjectName": "Principles of Electronic Communication",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3042.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3042",
     "keywords": [
       "3042",
@@ -2263,7 +2318,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3042.pdf"
   },
   {
     "id": "subject-3043-electronic-devices-and-circuits",
@@ -2272,7 +2328,7 @@
     "revision": "2021",
     "subjectCode": "3043",
     "subjectName": "Electronic Devices and Circuits",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3043.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3043",
     "keywords": [
       "3043",
@@ -2296,7 +2352,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3043.pdf"
   },
   {
     "id": "subject-3044-digital-electronics",
@@ -2305,7 +2362,7 @@
     "revision": "2021",
     "subjectCode": "3044",
     "subjectName": "Digital Electronics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3044.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3044",
     "keywords": [
       "3044",
@@ -2335,7 +2392,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3044.pdf"
   },
   {
     "id": "subject-3048-electronic-devices-lab",
@@ -2344,7 +2402,7 @@
     "revision": "2021",
     "subjectCode": "3048",
     "subjectName": "Electronic Devices Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3048.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3048",
     "keywords": [
       "3048",
@@ -2372,7 +2430,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3048.pdf"
   },
   {
     "id": "subject-3049-digital-electronics-lab",
@@ -2381,7 +2440,7 @@
     "revision": "2021",
     "subjectCode": "3049",
     "subjectName": "Digital Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3049.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3049",
     "keywords": [
       "3049",
@@ -2409,7 +2468,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3049.pdf"
   },
   {
     "id": "subject-4041-microcontroller-and-applications",
@@ -2418,7 +2478,7 @@
     "revision": "2021",
     "subjectCode": "4041",
     "subjectName": "Microcontroller and Applications",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4041.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4041",
     "keywords": [
       "4041",
@@ -2447,7 +2507,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4041.pdf"
   },
   {
     "id": "subject-4042-linear-integrated-circuits",
@@ -2456,7 +2517,7 @@
     "revision": "2021",
     "subjectCode": "4042",
     "subjectName": "Linear Integrated Circuits",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4042.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4042",
     "keywords": [
       "4042",
@@ -2481,7 +2542,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4042.pdf"
   },
   {
     "id": "subject-4043-consumer-electronics",
@@ -2490,7 +2552,7 @@
     "revision": "2021",
     "subjectCode": "4043",
     "subjectName": "Consumer Electronics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4043.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4043",
     "keywords": [
       "4043",
@@ -2514,7 +2576,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4043.pdf"
   },
   {
     "id": "subject-4048-microcontroller-lab",
@@ -2523,7 +2586,7 @@
     "revision": "2021",
     "subjectCode": "4048",
     "subjectName": "Microcontroller Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4048.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4048",
     "keywords": [
       "4048",
@@ -2551,7 +2614,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4048.pdf"
   },
   {
     "id": "subject-4049-linear-ic-lab",
@@ -2560,7 +2624,7 @@
     "revision": "2021",
     "subjectCode": "4049",
     "subjectName": "Linear IC Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4049.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4049",
     "keywords": [
       "4049",
@@ -2589,7 +2653,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4049.pdf"
   },
   {
     "id": "subject-5041-embedded-systems",
@@ -2598,7 +2663,7 @@
     "revision": "2021",
     "subjectCode": "5041",
     "subjectName": "Embedded Systems",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5041.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5041",
     "keywords": [
       "5041",
@@ -2625,7 +2690,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5041.pdf"
   },
   {
     "id": "subject-5042-communication-engineering",
@@ -2634,7 +2700,7 @@
     "revision": "2021",
     "subjectCode": "5042",
     "subjectName": "Communication Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5042.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5042",
     "keywords": [
       "5042",
@@ -2658,7 +2724,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5042.pdf"
   },
   {
     "id": "subject-5043-industrial-electronics",
@@ -2667,7 +2734,7 @@
     "revision": "2021",
     "subjectCode": "5043",
     "subjectName": "Industrial Electronics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5043.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5043",
     "keywords": [
       "5043",
@@ -2691,7 +2758,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5043.pdf"
   },
   {
     "id": "subject-5048-embedded-systems-lab",
@@ -2700,7 +2768,7 @@
     "revision": "2021",
     "subjectCode": "5048",
     "subjectName": "Embedded Systems Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5048.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5048",
     "keywords": [
       "5048",
@@ -2728,7 +2796,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5048.pdf"
   },
   {
     "id": "subject-5049-communication-engineering-lab",
@@ -2737,7 +2806,7 @@
     "revision": "2021",
     "subjectCode": "5049",
     "subjectName": "Communication Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5049.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5049",
     "keywords": [
       "5049",
@@ -2765,7 +2834,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5049.pdf"
   },
   {
     "id": "subject-6041-computer-hardware-and-networking",
@@ -2774,7 +2844,7 @@
     "revision": "2021",
     "subjectCode": "6041",
     "subjectName": "Computer Hardware and Networking",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6041.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6041",
     "keywords": [
       "6041",
@@ -2798,7 +2868,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6041.pdf"
   },
   {
     "id": "subject-6042-optical-fiber-communication",
@@ -2807,7 +2878,7 @@
     "revision": "2021",
     "subjectCode": "6042",
     "subjectName": "Optical Fiber Communication",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6042.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6042",
     "keywords": [
       "6042",
@@ -2831,7 +2902,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6042.pdf"
   },
   {
     "id": "subject-6043-vlsi-and-dsp-fundamentals",
@@ -2840,7 +2912,7 @@
     "revision": "2021",
     "subjectCode": "6043",
     "subjectName": "VLSI and DSP Fundamentals",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6043.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6043",
     "keywords": [
       "6043",
@@ -2864,7 +2936,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6043.pdf"
   },
   {
     "id": "subject-6046-project-and-seminar",
@@ -2873,7 +2946,7 @@
     "revision": "2021",
     "subjectCode": "6046",
     "subjectName": "Project and Seminar",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6046.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6046",
     "keywords": [
       "6046",
@@ -2897,7 +2970,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6046.pdf"
   },
   {
     "id": "subject-6048-computer-hardware-and-data-communication-lab",
@@ -2906,7 +2980,7 @@
     "revision": "2021",
     "subjectCode": "6048",
     "subjectName": "Computer Hardware and Data Communication Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6048.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6048",
     "keywords": [
       "6048",
@@ -2938,7 +3012,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6048.pdf"
   },
   {
     "id": "subject-6049-advanced-electronics-lab",
@@ -2947,7 +3022,7 @@
     "revision": "2021",
     "subjectCode": "6049",
     "subjectName": "Advanced Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6049.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6049",
     "keywords": [
       "6049",
@@ -2975,7 +3050,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6049.pdf"
   },
   {
     "id": "subject-2021-engineering-mechanics",
@@ -2984,7 +3060,7 @@
     "revision": "2021",
     "subjectCode": "2021",
     "subjectName": "Engineering Mechanics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2021.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2021",
     "keywords": [
       "2021",
@@ -3020,7 +3096,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2021.pdf"
   },
   {
     "id": "subject-2182-fundamentals-of-architecture",
@@ -3095,7 +3172,7 @@
     "revision": "2021",
     "subjectCode": "2029",
     "subjectName": "Engineering Mechanics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2029.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2029",
     "keywords": [
       "2029",
@@ -3135,7 +3212,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2029.pdf"
   },
   {
     "id": "subject-3181-history-of-human-settlement",
@@ -3210,7 +3288,7 @@
     "revision": "2021",
     "subjectCode": "3013",
     "subjectName": "Building Construction and Construction Materials",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3013.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3013",
     "keywords": [
       "3013",
@@ -3237,7 +3315,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3013.pdf"
   },
   {
     "id": "subject-3014-theory-of-structures",
@@ -3246,7 +3325,7 @@
     "revision": "2021",
     "subjectCode": "3014",
     "subjectName": "Theory of Structures",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3014.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3014",
     "keywords": [
       "3014",
@@ -3275,7 +3354,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3014.pdf"
   },
   {
     "id": "subject-3183-architectural-drawing-i",
@@ -3700,7 +3780,7 @@
     "revision": "2021",
     "subjectCode": "4009",
     "subjectName": "Minor Project",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4009.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4009",
     "keywords": [
       "4009",
@@ -3750,7 +3830,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4009.pdf"
   },
   {
     "id": "subject-5011-construction-management-and-safety-engineering",
@@ -3759,7 +3840,7 @@
     "revision": "2021",
     "subjectCode": "5011",
     "subjectName": "Construction Management and Safety Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5011.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5011",
     "keywords": [
       "5011",
@@ -3787,7 +3868,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5011.pdf"
   },
   {
     "id": "subject-5012-design-of-steel-and-rcc-structures",
@@ -3796,7 +3878,7 @@
     "revision": "2021",
     "subjectCode": "5012",
     "subjectName": "Design of Steel and RCC Structures",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5012.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5012",
     "keywords": [
       "5012",
@@ -3825,7 +3907,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5012.pdf"
   },
   {
     "id": "subject-5181-town-planning",
@@ -4405,7 +4488,7 @@
     "revision": "2021",
     "subjectCode": "2031",
     "subjectName": "Fundamentals of Electrical & Electronics Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2031",
     "keywords": [
       "2031",
@@ -4453,7 +4536,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2031.pdf"
   },
   {
     "id": "subject-2131-problem-solving-and-programming",
@@ -4504,7 +4588,7 @@
     "revision": "2021",
     "subjectCode": "2039",
     "subjectName": "Fundamentals of Electrical & Electronics Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2039.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2039",
     "keywords": [
       "2039",
@@ -4556,7 +4640,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2039.pdf"
   },
   {
     "id": "subject-2139-problem-solving-and-programming-lab",
@@ -7071,7 +7156,7 @@
     "revision": "2021",
     "subjectCode": "5001",
     "subjectName": "Industrial Management and Safety",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5001.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5001",
     "keywords": [
       "5001",
@@ -7117,7 +7202,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5001.pdf"
   },
   {
     "id": "subject-5331-industrial-automation-control",
@@ -8133,7 +8219,7 @@
     "revision": "2021",
     "subjectCode": "3027",
     "subjectName": "Mechanical Workshop III",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3027.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3027",
     "keywords": [
       "3027",
@@ -8165,7 +8251,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3027.pdf"
   },
   {
     "id": "subject-3057-petrol-engine-service-lab",
@@ -8458,7 +8545,7 @@
     "revision": "2021",
     "subjectCode": "4029",
     "subjectName": "Mechanical Workshop IV",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4029.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4029",
     "keywords": [
       "4029",
@@ -8490,7 +8577,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4029.pdf"
   },
   {
     "id": "subject-4059-transport-management-practices",
@@ -8883,7 +8971,7 @@
     "revision": "2021",
     "subjectCode": "6051A",
     "subjectName": "Electric and Hybrid Vehicles",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6051A.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6051A",
     "keywords": [
       "6051A",
@@ -8909,7 +8997,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6051A.pdf"
   },
   {
     "id": "subject-6051B-automotive-vehicle-and-body-control-systems",
@@ -9368,7 +9457,7 @@
     "revision": "2021",
     "subjectCode": "3043",
     "subjectName": "Electronic Circuits",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3043.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3043",
     "keywords": [
       "3043",
@@ -9397,7 +9486,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3043.pdf"
   },
   {
     "id": "subject-3243-electronic-measurements-and-instrumentation",
@@ -9519,7 +9609,7 @@
     "revision": "2021",
     "subjectCode": "3048",
     "subjectName": "Digital Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3048.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3048",
     "keywords": [
       "3048",
@@ -9553,7 +9643,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3048.pdf"
   },
   {
     "id": "subject-3249-servicing-fundamentals-lab",
@@ -9599,7 +9690,7 @@
     "revision": "2021",
     "subjectCode": "4043",
     "subjectName": "Linear Integrated Circuits",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4043.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4043",
     "keywords": [
       "4043",
@@ -9627,7 +9718,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4043.pdf"
   },
   {
     "id": "subject-4241-therapeutic-equipment",
@@ -11838,7 +11930,7 @@
     "revision": "2021",
     "subjectCode": "2011",
     "subjectName": "Basic Surveying",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2011.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2011",
     "keywords": [
       "2011",
@@ -11867,7 +11959,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2011.pdf"
   },
   {
     "id": "subject-2019-basic-surveying-lab",
@@ -11876,7 +11969,7 @@
     "revision": "2021",
     "subjectCode": "2019",
     "subjectName": "Basic surveying Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2019.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2019",
     "keywords": [
       "2019",
@@ -11909,7 +12002,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2019.pdf"
   },
   {
     "id": "subject-3011-advanced-surveying",
@@ -11918,7 +12012,7 @@
     "revision": "2021",
     "subjectCode": "3011",
     "subjectName": "Advanced Surveying",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3011.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3011",
     "keywords": [
       "3011",
@@ -11946,7 +12040,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3011.pdf"
   },
   {
     "id": "subject-3351-building-materials-and-construction",
@@ -12132,7 +12227,7 @@
     "revision": "2021",
     "subjectCode": "3019",
     "subjectName": "CAD Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3019.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3019",
     "keywords": [
       "3019",
@@ -12164,7 +12259,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3019.pdf"
   },
   {
     "id": "subject-3359-fluid-mechanics-lab",
@@ -12678,7 +12774,7 @@
     "revision": "2021",
     "subjectCode": "5019",
     "subjectName": "Advanced CAD Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5019.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5019",
     "keywords": [
       "5019",
@@ -12709,7 +12805,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5019.pdf"
   },
   {
     "id": "subject-6351A-habitat-engineering",
@@ -12949,7 +13046,7 @@
     "revision": "2021",
     "subjectCode": "6017",
     "subjectName": "Computer Application Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6017.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6017",
     "keywords": [
       "6017",
@@ -12980,7 +13077,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6017.pdf"
   },
   {
     "id": "subject-6018-material-testing-lab-ce",
@@ -12989,7 +13087,7 @@
     "revision": "2021",
     "subjectCode": "6018",
     "subjectName": "Material Testing Lab (CE)",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6018.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6018",
     "keywords": [
       "6018",
@@ -13021,7 +13119,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6018.pdf"
   },
   {
     "id": "subject-6359-environmental-engineering-drawing-lab",
@@ -13282,7 +13381,7 @@
     "revision": "2021",
     "subjectCode": "4011",
     "subjectName": "Geotechnical Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4011.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4011",
     "keywords": [
       "4011",
@@ -13308,7 +13407,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4011.pdf"
   },
   {
     "id": "subject-4013-estimating-and-costing",
@@ -13317,7 +13417,7 @@
     "revision": "2021",
     "subjectCode": "4013",
     "subjectName": "Estimating & Costing",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4013.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4013",
     "keywords": [
       "4013",
@@ -13343,7 +13443,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4013.pdf"
   },
   {
     "id": "subject-4012-hydraulics-and-irrigation-engineering",
@@ -13352,7 +13453,7 @@
     "revision": "2021",
     "subjectCode": "4012",
     "subjectName": "Hydraulics and Irrigation Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4012.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4012",
     "keywords": [
       "4012",
@@ -13380,7 +13481,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4012.pdf"
   },
   {
     "id": "subject-4368-irrigation-and-drainage-engineering-drawing-lab",
@@ -13426,7 +13528,7 @@
     "revision": "2021",
     "subjectCode": "4018",
     "subjectName": "Estimating and Costing Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4018.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4018",
     "keywords": [
       "4018",
@@ -13456,7 +13558,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4018.pdf"
   },
   {
     "id": "subject-4369-hydraulics-lab",
@@ -13502,7 +13605,7 @@
     "revision": "2021",
     "subjectCode": "4019",
     "subjectName": "Geotechnical Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4019.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4019",
     "keywords": [
       "4019",
@@ -13532,7 +13635,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4019.pdf"
   },
   {
     "id": "subject-5017-transportation-engineering-lab",
@@ -13541,7 +13645,7 @@
     "revision": "2021",
     "subjectCode": "5017",
     "subjectName": "Transportation Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5017.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5017",
     "keywords": [
       "5017",
@@ -13572,7 +13676,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5017.pdf"
   },
   {
     "id": "subject-5018-structural-engineering-drawing-lab",
@@ -13581,7 +13686,7 @@
     "revision": "2021",
     "subjectCode": "5018",
     "subjectName": "Structural Engineering Drawing Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5018.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5018",
     "keywords": [
       "5018",
@@ -13612,7 +13717,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5018.pdf"
   },
   {
     "id": "subject-5013-transportation-engineering",
@@ -13621,7 +13727,7 @@
     "revision": "2021",
     "subjectCode": "5013",
     "subjectName": "Transportation Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5013.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5013",
     "keywords": [
       "5013",
@@ -13648,7 +13754,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5013.pdf"
   },
   {
     "id": "subject-5014A-habitat-technology",
@@ -13657,7 +13764,7 @@
     "revision": "2021",
     "subjectCode": "5014A",
     "subjectName": "Habitat Technology",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5014A.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5014A",
     "keywords": [
       "5014A",
@@ -13684,7 +13791,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5014A.pdf"
   },
   {
     "id": "subject-5014B-ground-improvement-techniques",
@@ -13693,7 +13801,7 @@
     "revision": "2021",
     "subjectCode": "5014B",
     "subjectName": "Ground Improvement Techniques",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5014B.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5014B",
     "keywords": [
       "5014B",
@@ -13721,7 +13829,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5014B.pdf"
   },
   {
     "id": "subject-5014C-precast-and-prestressed-concrete",
@@ -13730,7 +13839,7 @@
     "revision": "2021",
     "subjectCode": "5014C",
     "subjectName": "Precast and Prestressed Concrete",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5014C.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5014C",
     "keywords": [
       "5014C",
@@ -13757,7 +13866,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5014C.pdf"
   },
   {
     "id": "subject-6011B-building-maintenance-and-services",
@@ -13766,7 +13876,7 @@
     "revision": "2021",
     "subjectCode": "6011B",
     "subjectName": "Building Maintenance and Services",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6011B.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6011B",
     "keywords": [
       "6011B",
@@ -13793,7 +13903,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6011B.pdf"
   },
   {
     "id": "subject-6011C-pavement-design-and-maintenance",
@@ -13802,7 +13913,7 @@
     "revision": "2021",
     "subjectCode": "6011C",
     "subjectName": "Pavement Design and Maintenance",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6011C.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6011C",
     "keywords": [
       "6011C",
@@ -13828,7 +13939,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6011C.pdf"
   },
   {
     "id": "subject-6361A-water-supply-and-sanitation-engineering",
@@ -13870,7 +13982,7 @@
     "revision": "2021",
     "subjectCode": "6012A",
     "subjectName": "Renewable Energy and Environment",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6012A.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6012A",
     "keywords": [
       "6012A",
@@ -13897,7 +14009,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6012A.pdf"
   },
   {
     "id": "subject-6012B-sustainable-development",
@@ -13906,7 +14019,7 @@
     "revision": "2021",
     "subjectCode": "6012B",
     "subjectName": "Sustainable Development",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6012B.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6012B",
     "keywords": [
       "6012B",
@@ -13933,7 +14046,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6012B.pdf"
   },
   {
     "id": "subject-6012C-disaster-management-ce",
@@ -13942,7 +14056,7 @@
     "revision": "2021",
     "subjectCode": "6012C",
     "subjectName": "Disaster Management (CE)",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6012C.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6012C",
     "keywords": [
       "6012C",
@@ -13969,7 +14083,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6012C.pdf"
   },
   {
     "id": "subject-6012D-rural-technology",
@@ -13978,7 +14093,7 @@
     "revision": "2021",
     "subjectCode": "6012D",
     "subjectName": "Rural Technology",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6012D.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6012D",
     "keywords": [
       "6012D",
@@ -14005,7 +14120,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6012D.pdf"
   },
   {
     "id": "subject-6369-water-supply-and-sanitation-engineering-lab",
@@ -14051,7 +14167,7 @@
     "revision": "2021",
     "subjectCode": "3012",
     "subjectName": "Concrete Technology",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3012.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3012",
     "keywords": [
       "3012",
@@ -14077,7 +14193,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3012.pdf"
   },
   {
     "id": "subject-3015-concrete-technology-lab",
@@ -14086,7 +14203,7 @@
     "revision": "2021",
     "subjectCode": "3015",
     "subjectName": "Concrete Technology Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3015.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3015",
     "keywords": [
       "3015",
@@ -14116,7 +14233,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3015.pdf"
   },
   {
     "id": "subject-3016-surveying-lab",
@@ -14125,7 +14243,7 @@
     "revision": "2021",
     "subjectCode": "3016",
     "subjectName": "Surveying Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3016.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3016",
     "keywords": [
       "3016",
@@ -14155,7 +14273,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3016.pdf"
   },
   {
     "id": "subject-3017-construction-materials-lab",
@@ -14164,7 +14283,7 @@
     "revision": "2021",
     "subjectCode": "3017",
     "subjectName": "Construction Materials Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3017.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3017",
     "keywords": [
       "3017",
@@ -14194,7 +14313,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3017.pdf"
   },
   {
     "id": "subject-3018-building-drawing-and-estimation-lab",
@@ -14203,7 +14323,7 @@
     "revision": "2021",
     "subjectCode": "3018",
     "subjectName": "Building Drawing and Estimation Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3018.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3018",
     "keywords": [
       "3018",
@@ -14233,7 +14353,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3018.pdf"
   },
   {
     "id": "subject-4016-advanced-surveying-lab",
@@ -14242,7 +14363,7 @@
     "revision": "2021",
     "subjectCode": "4016",
     "subjectName": "Advanced Surveying Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4016.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4016",
     "keywords": [
       "4016",
@@ -14272,7 +14393,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4016.pdf"
   },
   {
     "id": "subject-4017-hydraulics-and-irrigation-engineering-lab",
@@ -14281,7 +14403,7 @@
     "revision": "2021",
     "subjectCode": "4017",
     "subjectName": "Hydraulics and Irrigation Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4017.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4017",
     "keywords": [
       "4017",
@@ -14312,7 +14434,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4017.pdf"
   },
   {
     "id": "subject-6011A-public-health-engineering",
@@ -14321,7 +14444,7 @@
     "revision": "2021",
     "subjectCode": "6011A",
     "subjectName": "Public Health Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6011A.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6011A",
     "keywords": [
       "6011A",
@@ -14345,7 +14468,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6011A.pdf"
   },
   {
     "id": "subject-6019-public-health-engineering-lab",
@@ -14354,7 +14478,7 @@
     "revision": "2021",
     "subjectCode": "6019",
     "subjectName": "Public Health Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6019.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6019",
     "keywords": [
       "6019",
@@ -14382,7 +14506,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6019.pdf"
   },
   {
     "id": "subject-4391-fundamentals-of-town-planning",
@@ -24093,7 +24218,7 @@
     "revision": "2021",
     "subjectCode": "2038",
     "subjectName": "Engineering Graphics using CAD software",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2038",
     "keywords": [
       "2038",
@@ -24122,7 +24247,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2038.pdf"
   },
   {
     "id": "subject-2411-introduction-to-electric-vehicles-and-elementary-theory",
@@ -24164,7 +24290,7 @@
     "revision": "2021",
     "subjectCode": "3031",
     "subjectName": "Analog & Digital Circuits",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3031",
     "keywords": [
       "3031",
@@ -24190,7 +24316,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3031.pdf"
   },
   {
     "id": "subject-3032-dc-machines-and-traction-motors",
@@ -24199,7 +24326,7 @@
     "revision": "2021",
     "subjectCode": "3032",
     "subjectName": "DC Machines & Traction Motors",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3032.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3032",
     "keywords": [
       "3032",
@@ -24223,7 +24350,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3032.pdf"
   },
   {
     "id": "subject-3033-fundamentals-of-electric-circuits",
@@ -24334,7 +24462,7 @@
     "revision": "2021",
     "subjectCode": "3036",
     "subjectName": "DC Machines Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3036.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3036",
     "keywords": [
       "3036",
@@ -24362,7 +24490,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3036.pdf"
   },
   {
     "id": "subject-3038-electrical-workshop-practice",
@@ -24371,7 +24500,7 @@
     "revision": "2021",
     "subjectCode": "3038",
     "subjectName": "Electrical Workshop Practice",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3038",
     "keywords": [
       "3038",
@@ -24399,7 +24528,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3038.pdf"
   },
   {
     "id": "subject-4031-power-electronics-devices-and-circuits",
@@ -24408,7 +24538,7 @@
     "revision": "2021",
     "subjectCode": "4031",
     "subjectName": "Power Electronics Devices and Circuits",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4031",
     "keywords": [
       "4031",
@@ -24432,7 +24562,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4031.pdf"
   },
   {
     "id": "subject-4411-vehicle-chasis-and-transmission-systems",
@@ -24507,7 +24638,7 @@
     "revision": "2021",
     "subjectCode": "4036",
     "subjectName": "Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4036.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4036",
     "keywords": [
       "4036",
@@ -24535,7 +24666,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4036.pdf"
   },
   {
     "id": "subject-4038-domestic-appliances-repair-and-maintenance-workshop-2",
@@ -24544,7 +24676,7 @@
     "revision": "2021",
     "subjectCode": "4038",
     "subjectName": "Domestic Appliances Repair & Maintenance Workshop",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4038.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4038",
     "keywords": [
       "4038",
@@ -24572,7 +24704,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4038.pdf"
   },
   {
     "id": "subject-5031-synchronous-machines-and-fhp-motors",
@@ -24581,7 +24714,7 @@
     "revision": "2021",
     "subjectCode": "5031",
     "subjectName": "Synchronous Machines & FHP Motors",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5031.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5031",
     "keywords": [
       "5031",
@@ -24605,7 +24738,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5031.pdf"
   },
   {
     "id": "subject-5411-electric-vehicle-technology-and-design-considerations",
@@ -25275,7 +25409,7 @@
     "revision": "2021",
     "subjectCode": "3041",
     "subjectName": "Electric Circuits & Networks",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3041.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3041",
     "keywords": [
       "3041",
@@ -25299,7 +25433,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3041.pdf"
   },
   {
     "id": "subject-3045-fundamentals-of-c-programming",
@@ -25380,7 +25515,7 @@
     "revision": "2021",
     "subjectCode": "3049",
     "subjectName": "Fundamentals of C Programming Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3049.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3049",
     "keywords": [
       "3049",
@@ -25410,7 +25545,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3049.pdf"
   },
   {
     "id": "subject-4042-electronic-measurements-and-instrumentation",
@@ -25419,7 +25555,7 @@
     "revision": "2021",
     "subjectCode": "4042",
     "subjectName": "Electronic Measurements and Instrumentation",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4042.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4042",
     "keywords": [
       "4042",
@@ -25444,7 +25580,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4042.pdf"
   },
   {
     "id": "subject-4048-pcb-and-prototyping-workshop",
@@ -25453,7 +25590,7 @@
     "revision": "2021",
     "subjectCode": "4048",
     "subjectName": "PCB and Prototyping Workshop",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4048.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4048",
     "keywords": [
       "4048",
@@ -25483,7 +25620,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4048.pdf"
   },
   {
     "id": "subject-4049-python-programming-lab",
@@ -25492,7 +25630,7 @@
     "revision": "2021",
     "subjectCode": "4049",
     "subjectName": "Python Programming Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4049.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4049",
     "keywords": [
       "4049",
@@ -25522,7 +25660,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4049.pdf"
   },
   {
     "id": "subject-5043D-digital-communication",
@@ -25597,7 +25736,7 @@
     "revision": "2021",
     "subjectCode": "5042",
     "subjectName": "Industrial Automation",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5042.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5042",
     "keywords": [
       "5042",
@@ -25621,7 +25760,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5042.pdf"
   },
   {
     "id": "subject-5043A-optical-communication-and-networking",
@@ -25840,7 +25980,7 @@
     "revision": "2021",
     "subjectCode": "5048",
     "subjectName": "Industrial Automation Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5048.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5048",
     "keywords": [
       "5048",
@@ -25868,7 +26008,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5048.pdf"
   },
   {
     "id": "subject-5049A-microwave-engineering-lab",
@@ -33915,7 +34056,7 @@
     "revision": "2021",
     "subjectCode": "6021A",
     "subjectName": "Mechatronics",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6021A.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6021A",
     "keywords": [
       "6021A",
@@ -33943,7 +34084,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6021A.pdf"
   },
   {
     "id": "subject-6022C-renewable-energy-technologies",
@@ -33952,7 +34094,7 @@
     "revision": "2021",
     "subjectCode": "6022C",
     "subjectName": "Renewable Energy Technologies",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6022C.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6022C",
     "keywords": [
       "6022C",
@@ -33982,7 +34124,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6022C.pdf"
   },
   {
     "id": "subject-6022D-product-design",
@@ -33991,7 +34134,7 @@
     "revision": "2021",
     "subjectCode": "6022D",
     "subjectName": "Product Design",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6022D.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6022D",
     "keywords": [
       "6022D",
@@ -34020,7 +34163,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6022D.pdf"
   },
   {
     "id": "subject-6377-computer-hardware-and-networks-lab",
@@ -34210,7 +34354,7 @@
     "revision": "2021",
     "subjectCode": "2028",
     "subjectName": "Basic CAD Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2028.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2028",
     "keywords": [
       "2028",
@@ -34241,7 +34385,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2028.pdf"
   },
   {
     "id": "subject-3021-strength-of-materials",
@@ -34250,7 +34395,7 @@
     "revision": "2021",
     "subjectCode": "3021",
     "subjectName": "Strength of Materials",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3021.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3021",
     "keywords": [
       "3021",
@@ -34277,7 +34422,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3021.pdf"
   },
   {
     "id": "subject-3022-material-science-and-metrology",
@@ -34286,7 +34432,7 @@
     "revision": "2021",
     "subjectCode": "3022",
     "subjectName": "Material Science and Metrology",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3022.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3022",
     "keywords": [
       "3022",
@@ -34313,7 +34459,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3022.pdf"
   },
   {
     "id": "subject-3023-machine-tools",
@@ -34322,7 +34469,7 @@
     "revision": "2021",
     "subjectCode": "3023",
     "subjectName": "Machine Tools",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3023.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3023",
     "keywords": [
       "3023",
@@ -34348,7 +34495,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3023.pdf"
   },
   {
     "id": "subject-3024-fundamentals-of-electrical-engineering",
@@ -34357,7 +34505,7 @@
     "revision": "2021",
     "subjectCode": "3024",
     "subjectName": "Fundamentals of Electrical Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3024.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3024",
     "keywords": [
       "3024",
@@ -34383,7 +34531,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3024.pdf"
   },
   {
     "id": "subject-3025-machine-drawing",
@@ -34392,7 +34541,7 @@
     "revision": "2021",
     "subjectCode": "3025",
     "subjectName": "Machine Drawing",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3025.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3025",
     "keywords": [
       "3025",
@@ -34418,7 +34567,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3025.pdf"
   },
   {
     "id": "subject-3026-material-testing-and-metallography-lab",
@@ -34427,7 +34577,7 @@
     "revision": "2021",
     "subjectCode": "3026",
     "subjectName": "Material Testing and Metallography Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3026.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3026",
     "keywords": [
       "3026",
@@ -34457,7 +34607,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3026.pdf"
   },
   {
     "id": "subject-3028-electrical-and-electronics-lab",
@@ -34466,7 +34617,7 @@
     "revision": "2021",
     "subjectCode": "3028",
     "subjectName": "Electrical and Electronics Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3028.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3028",
     "keywords": [
       "3028",
@@ -34496,7 +34647,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3028.pdf"
   },
   {
     "id": "subject-3029-advanced-cadd-lab",
@@ -34505,7 +34657,7 @@
     "revision": "2021",
     "subjectCode": "3029",
     "subjectName": "Advanced CADD Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-3029.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3029",
     "keywords": [
       "3029",
@@ -34535,7 +34687,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3029.pdf"
   },
   {
     "id": "subject-4701-mechanical-engineering",
@@ -34579,7 +34732,7 @@
     "revision": "2021",
     "subjectCode": "4022",
     "subjectName": "Fluid Mechanics and Hydraulic Machines",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4022.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4022",
     "keywords": [
       "4022",
@@ -34605,7 +34758,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4022.pdf"
   },
   {
     "id": "subject-4702-cnc-programming",
@@ -34647,7 +34801,7 @@
     "revision": "2021",
     "subjectCode": "4024",
     "subjectName": "Industrial Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4024.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4024",
     "keywords": [
       "4024",
@@ -34674,7 +34828,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4024.pdf"
   },
   {
     "id": "subject-4709-mechanical-engineering-lab",
@@ -34722,7 +34877,7 @@
     "revision": "2021",
     "subjectCode": "4028",
     "subjectName": "Fluid Mechanics Lab (Mechanical)",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4028.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4028",
     "keywords": [
       "4028",
@@ -34752,7 +34907,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4028.pdf"
   },
   {
     "id": "subject-5023A-modern-production-process",
@@ -34761,7 +34917,7 @@
     "revision": "2021",
     "subjectCode": "5023A",
     "subjectName": "Modern Production Process",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5023A.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5023A",
     "keywords": [
       "5023A",
@@ -34789,7 +34945,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5023A.pdf"
   },
   {
     "id": "subject-5022-refrigeration-and-air-conditioning",
@@ -34798,7 +34955,7 @@
     "revision": "2021",
     "subjectCode": "5022",
     "subjectName": "Refrigeration and Air conditioning",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5022.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5022",
     "keywords": [
       "5022",
@@ -34824,7 +34981,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5022.pdf"
   },
   {
     "id": "subject-5021-design-of-machine-elements",
@@ -34833,7 +34991,7 @@
     "revision": "2021",
     "subjectCode": "5021",
     "subjectName": "Design Of Machine Elements",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5021.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5021",
     "keywords": [
       "5021",
@@ -34859,7 +35017,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5021.pdf"
   },
   {
     "id": "subject-5023B-material-handling",
@@ -34868,7 +35027,7 @@
     "revision": "2021",
     "subjectCode": "5023B",
     "subjectName": "Material Handling",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5023B.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5023B",
     "keywords": [
       "5023B",
@@ -34895,7 +35054,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5023B.pdf"
   },
   {
     "id": "subject-5112A-jigs-fixtures-and-gauges",
@@ -34939,7 +35099,7 @@
     "revision": "2021",
     "subjectCode": "5027",
     "subjectName": "Machine Shop Practice",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5027.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5027",
     "keywords": [
       "5027",
@@ -34965,7 +35125,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5027.pdf"
   },
   {
     "id": "subject-5028-hydraulic-machines-lab",
@@ -34974,7 +35135,7 @@
     "revision": "2021",
     "subjectCode": "5028",
     "subjectName": "Hydraulic Machines Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5028.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5028",
     "keywords": [
       "5028",
@@ -35004,7 +35165,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5028.pdf"
   },
   {
     "id": "subject-5709-cnc-programming-lab",
@@ -35050,7 +35212,7 @@
     "revision": "2021",
     "subjectCode": "6021B",
     "subjectName": "Computer Integrated Manufacturing",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6021B.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6021B",
     "keywords": [
       "6021B",
@@ -35078,7 +35240,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6021B.pdf"
   },
   {
     "id": "subject-6701-theory-of-power-plants",
@@ -35120,7 +35283,7 @@
     "revision": "2021",
     "subjectCode": "6022A",
     "subjectName": "Computer Aided Design and Manufacturing",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6022A.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6022A",
     "keywords": [
       "6022A",
@@ -35146,7 +35309,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6022A.pdf"
   },
   {
     "id": "subject-6022B-operation-research",
@@ -35155,7 +35319,7 @@
     "revision": "2021",
     "subjectCode": "6022B",
     "subjectName": "Operation Research",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6022B.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6022B",
     "keywords": [
       "6022B",
@@ -35183,7 +35347,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6022B.pdf"
   },
   {
     "id": "subject-6027-production-software-lab",
@@ -35192,7 +35357,7 @@
     "revision": "2021",
     "subjectCode": "6027",
     "subjectName": "Production Software Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6027.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6027",
     "keywords": [
       "6027",
@@ -35223,7 +35388,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6027.pdf"
   },
   {
     "id": "subject-6028-refrigeration-and-airconditioning-lab",
@@ -35232,7 +35398,7 @@
     "revision": "2021",
     "subjectCode": "6028",
     "subjectName": "Refrigeration and Airconditioning Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6028.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6028",
     "keywords": [
       "6028",
@@ -35262,7 +35428,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6028.pdf"
   },
   {
     "id": "subject-6029-advanced-machine-tools-lab",
@@ -35271,7 +35438,7 @@
     "revision": "2021",
     "subjectCode": "6029",
     "subjectName": "Advanced Machine Tools Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6029.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6029",
     "keywords": [
       "6029",
@@ -35302,7 +35469,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6029.pdf"
   },
   {
     "id": "subject-2022-manufacturing-technology",
@@ -35311,7 +35479,7 @@
     "revision": "2021",
     "subjectCode": "2022",
     "subjectName": "Manufacturing Technology",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2022.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2022",
     "keywords": [
       "2022",
@@ -35337,7 +35505,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-2022.pdf"
   },
   {
     "id": "subject-4021-thermal-engineering",
@@ -35346,7 +35515,7 @@
     "revision": "2021",
     "subjectCode": "4021",
     "subjectName": "Thermal Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4021.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4021",
     "keywords": [
       "4021",
@@ -35370,7 +35539,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4021.pdf"
   },
   {
     "id": "subject-4023-automobile-engineering",
@@ -35379,7 +35549,7 @@
     "revision": "2021",
     "subjectCode": "4023",
     "subjectName": "Automobile Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4023.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4023",
     "keywords": [
       "4023",
@@ -35403,7 +35573,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4023.pdf"
   },
   {
     "id": "subject-4027-thermal-engineering-lab",
@@ -35412,7 +35583,7 @@
     "revision": "2021",
     "subjectCode": "4027",
     "subjectName": "Thermal Engineering Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-4027.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4027",
     "keywords": [
       "4027",
@@ -35440,7 +35611,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-4027.pdf"
   },
   {
     "id": "subject-5023C-power-plant-engineering",
@@ -35449,7 +35621,7 @@
     "revision": "2021",
     "subjectCode": "5023C",
     "subjectName": "Power Plant Engineering",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5023C.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5023C",
     "keywords": [
       "5023C",
@@ -35473,7 +35645,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5023C.pdf"
   },
   {
     "id": "subject-5029-automotive-lab",
@@ -35482,7 +35655,7 @@
     "revision": "2021",
     "subjectCode": "5029",
     "subjectName": "Automotive Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-5029.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=5029",
     "keywords": [
       "5029",
@@ -35510,7 +35683,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-5029.pdf"
   },
   {
     "id": "subject-6031D-electric-vehicles",
@@ -35519,7 +35693,7 @@
     "revision": "2021",
     "subjectCode": "6031D",
     "subjectName": "Electric Vehicles",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6031D.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6031D",
     "keywords": [
       "6031D",
@@ -35546,7 +35720,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6031D.pdf"
   },
   {
     "id": "subject-3431-engineering-materials-and-metrology",
@@ -40514,7 +40689,7 @@
     "revision": "2021",
     "subjectCode": "6037",
     "subjectName": "Electrical Computer Aided Drafting Lab",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-6037.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=6037",
     "keywords": [
       "6037",
@@ -40542,7 +40717,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-6037.pdf"
   },
   {
     "id": "subject-6298-simulation-lab",
@@ -45129,7 +45305,7 @@
     "revision": "2015",
     "subjectCode": "1001",
     "subjectName": "English and Communication Skills",
-    "url": "materials-2015.html",
+    "url": "lessons/lessons-1001.html",
     "keywords": [
       "1001",
       "2015 First Year Materials",
@@ -45154,7 +45330,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1001.pdf"
   },
   {
     "id": "subject-1002-mathematics",
@@ -45163,7 +45340,7 @@
     "revision": "2015",
     "subjectCode": "1002",
     "subjectName": "Mathematics",
-    "url": "materials-2015.html",
+    "url": "lessons/lessons-1002.html",
     "keywords": [
       "1002",
       "2015 First Year Materials",
@@ -45190,7 +45367,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1002.pdf"
   },
   {
     "id": "subject-1003-physics",
@@ -45281,7 +45459,7 @@
     "revision": "2015",
     "subjectCode": "1005",
     "subjectName": "Engineering Graphics",
-    "url": "materials-2015.html",
+    "url": "lessons/lessons-1005.html",
     "keywords": [
       "1005",
       "2015 First Year Materials",
@@ -45306,7 +45484,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-1005.pdf"
   },
   {
     "id": "subject-3031-electrical-and-electronics-materials",
@@ -45315,7 +45494,7 @@
     "revision": "2015",
     "subjectCode": "3031",
     "subjectName": "Electrical and Electronics Materials",
-    "url": "materials-2015.html",
+    "url": "lessons/lessons-3031.html",
     "keywords": [
       "2015 Department Materials",
       "3031",
@@ -45338,7 +45517,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3031.pdf"
   },
   {
     "id": "subject-3041-electronics-engineering-materials",
@@ -45347,7 +45527,7 @@
     "revision": "2015",
     "subjectCode": "3041",
     "subjectName": "Electronics Engineering Materials",
-    "url": "materials-2015.html",
+    "url": "lessons/lessons-3041.html",
     "keywords": [
       "2015 Department Materials",
       "3041",
@@ -45370,7 +45550,8 @@
       "Diploma Syllabus",
       "Model Question Papers",
       "Downloadable Notes"
-    ]
+    ],
+    "downloadUrl": "lessons/downloadable-notes-3041.pdf"
   },
   {
     "id": "subject-3001-workshop-and-lab-materials",
@@ -45452,7 +45633,6 @@
     "keywords": [
       "",
       "Contact | Diploma Notes",
-      "GitHub Pages ready",
       "Need a correction or missing subject added?",
       "Suggest a resource",
       "contact.html",
@@ -45473,9 +45653,13 @@
       "ബന്ധപ്പെടുക",
       "മോഡൽ ചോദ്യപേപ്പർ",
       "ലാബ്",
-      "സിലബസ്"
+      "സിലബസ്",
+      "Email me directly",
+      "nandakumarmkdpm@gmail.com",
+      "mail",
+      "email help"
     ],
-    "summary": "Contact | Diploma Notes / Need a correction or missing subject added? / Suggest a resource / GitHub Pages ready",
+    "summary": "Contact | Diploma Notes / Need a correction or missing subject added? / Suggest a resource / Email me directly",
     "content": "Contact | Diploma Notes DN Diploma Notes Menu Home About Revision 2021 2015 Materials Help Help Need a correction or missing subject added? Use the main portfolio contact route for now. A dedicated form can be connected later. 01 Suggest a resource Share missing subject codes, syllabus links, notes, or previous papers ",
     "answer": "Contact | Diploma Notes is available inside this website."
   },
@@ -45627,7 +45811,6 @@
       "2015",
       "2015 Materials | Diploma Notes",
       "Department materials",
-      "Find the right subject quickly",
       "First year materials",
       "Older scheme materials",
       "Question paper resources",
@@ -45731,7 +45914,7 @@
     "section": "Website Page",
     "revision": "2021",
     "subjectCode": "2021",
-    "url": "revision-2021.html",
+    "url": "lessons/lessons-2021.html",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=2021",
     "keywords": [
       "2021",
@@ -45766,7 +45949,8 @@
     ],
     "summary": "Revision 2021 | Diploma Notes / Choose your 2021 department / Electrical and Electronics Engineering / Electronics Engineering",
     "content": "Revision 2021 | Diploma Notes DN Diploma Notes Menu Home About Revision 2021 2015 Materials Help Revision 2021 Choose your 2021 department Only 2021 revision subjects and links are shown in this area. EEE Electrical and Electronics Engineering Open semesters, syllabus buttons, lesson access, and generated sample questi",
-    "answer": "Revision 2021 | Diploma Notes is available inside this website."
+    "answer": "Revision 2021 | Diploma Notes is available inside this website.",
+    "downloadUrl": "lessons/downloadable-notes-2021.pdf"
   },
   {
     "id": "page-study-materials-html",
@@ -45845,7 +46029,7 @@
     "revision": "2021",
     "subjectCode": "1003",
     "url": "lessons/lessons-1003.html",
-    "downloadUrl": "downloadable-notes-1003.pdf",
+    "downloadUrl": "notes/downloadable-notes-1003.pdf",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1003",
     "keywords": [
       "1003",
@@ -47437,7 +47621,7 @@
     "section": "Downloads",
     "revision": "2021",
     "subjectCode": "1003",
-    "url": "notes/downloadable-notes-1003.pdf",
+    "url": "lessons/lessons-1003.html",
     "downloadUrl": "notes/downloadable-notes-1003.pdf",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1003",
     "keywords": [
@@ -47460,7 +47644,7 @@
     "section": "Downloads",
     "revision": "2021",
     "subjectCode": "1004",
-    "url": "notes/downloadable-notes-1004.pdf",
+    "url": "lessons/lessons-1004.html",
     "downloadUrl": "notes/downloadable-notes-1004.pdf",
     "modelQuestionUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=1004",
     "keywords": [
