@@ -1,3 +1,4 @@
+.page-title,
 .home-compact-hero.page-title,
 .compact-page-title.page-title {
   min-height: 220px;
@@ -7,6 +8,7 @@
   margin-top: 12px;
 }
 
+.page-title::before,
 .home-compact-hero.page-title::before,
 .compact-page-title.page-title::before {
   position: static;
@@ -16,6 +18,7 @@
   font-size: 0.64rem;
 }
 
+.page-title::after,
 .home-compact-hero.page-title::after,
 .compact-page-title.page-title::after {
   width: clamp(54px, 7vw, 86px);
@@ -24,14 +27,16 @@
   bottom: clamp(12px, 3vw, 26px);
   border-radius: 22px;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  opacity: 0.64;
+  opacity: 0.52;
 }
 
+.page-title .kicker,
 .home-compact-hero .kicker,
 .compact-page-title .kicker {
   margin-bottom: 9px;
 }
 
+.page-title h1,
 .home-compact-hero h1,
 .compact-page-title h1 {
   max-width: 850px;
@@ -40,6 +45,7 @@
   line-height: 1.04;
 }
 
+.page-title p,
 .home-compact-hero p,
 .compact-page-title p {
   max-width: 720px;
@@ -48,11 +54,13 @@
   line-height: 1.5;
 }
 
+.page-title .hero-actions,
 .home-compact-hero .hero-actions,
 .compact-page-title .hero-actions {
   gap: 8px;
 }
 
+.page-title .btn,
 .home-compact-hero .btn,
 .compact-page-title .btn {
   min-height: 40px;
@@ -61,33 +69,50 @@
   font-size: 0.9rem;
 }
 
+.hero.compact-hero { margin-top: 12px; }
+.hero.compact-hero .hero-copy {
+  min-height: 220px;
+  padding: clamp(18px, 3vw, 34px);
+  border-radius: 28px;
+}
+.hero.compact-hero h1 {
+  font-size: clamp(1.75rem, 3.3vw, 3.15rem);
+  line-height: 1.05;
+  margin-bottom: 8px;
+}
+.hero.compact-hero p {
+  font-size: 0.98rem;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
 .about-compact .info-card,
 .materials-compact .info-card,
-.revision-compact .choice-card {
-  min-height: auto;
-}
+.choice-card { min-height: auto; }
 
-.revision-compact.selection-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
+.cards.two.selection-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cards.two.selection-grid .choice-card,
+.cards.three.selection-grid .choice-card,
 .revision-compact .choice-card {
   padding: 18px;
   border-radius: 22px;
   gap: 8px;
 }
-
+.cards.two.selection-grid .choice-card h2,
+.cards.three.selection-grid .choice-card h2,
 .revision-compact .choice-card h2 {
   font-size: 1.12rem;
   line-height: 1.2;
   letter-spacing: -0.025em;
 }
-
+.cards.two.selection-grid .choice-card p,
+.cards.three.selection-grid .choice-card p,
 .revision-compact .choice-card p {
   font-size: 0.88rem;
   line-height: 1.45;
 }
-
+.cards.two.selection-grid .choice-card span,
+.cards.three.selection-grid .choice-card span,
 .revision-compact .choice-card span {
   height: 34px;
   min-width: 44px;
@@ -95,52 +120,55 @@
   font-size: 0.84rem;
 }
 
+.materials-compact .info-card,
+.cards.two .info-card {
+  padding: 20px;
+  border-radius: 22px;
+}
+.materials-compact .info-card h3,
+.cards.two .info-card h3 { margin-bottom: 8px; }
+
 @media (max-width: 1100px) {
-  .revision-compact.selection-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+  .cards.two.selection-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-
 @media (max-width: 760px) {
-  .revision-compact.selection-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+  .cards.two.selection-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
-
 @media (max-width: 620px) {
+  .page-title,
   .home-compact-hero.page-title,
-  .compact-page-title.page-title {
-    min-height: 210px;
+  .compact-page-title.page-title,
+  .hero.compact-hero .hero-copy {
+    min-height: 190px;
     padding: 18px 13px;
     border-radius: 18px;
   }
-
+  .page-title h1,
   .home-compact-hero h1,
-  .compact-page-title h1 {
+  .compact-page-title h1,
+  .hero.compact-hero h1 {
     font-size: clamp(1.45rem, 6.4vw, 1.85rem);
     line-height: 1.1;
   }
-
+  .page-title p,
   .home-compact-hero p,
-  .compact-page-title p {
+  .compact-page-title p,
+  .hero.compact-hero p {
     font-size: 0.9rem;
     line-height: 1.45;
   }
-
+  .page-title .hero-actions,
   .home-compact-hero .hero-actions,
   .compact-page-title .hero-actions {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     display: grid;
   }
-
+  .page-title .btn,
   .home-compact-hero .btn,
   .compact-page-title .btn {
     min-height: 38px;
     padding: 8px 6px;
     font-size: 0.76rem;
   }
-
-  .revision-compact.selection-grid {
-    grid-template-columns: 1fr;
-  }
+  .cards.two.selection-grid { grid-template-columns: 1fr; }
 }
