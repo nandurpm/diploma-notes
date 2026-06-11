@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Introduction to IT Systems Lab 1008 premium Kerala Polytechnic lesson HTML notes, revision guide, workbook and answer key.">
+<title>Introduction to IT Systems Lab 1008 | Kerala Polytechnic Study Hub</title>
+<style>
+    :root{--bg:#eef5fb;--ink:#0f172a;--muted:#536175;--surface:#fff;--line:rgba(15,23,42,.12);--brand:#075985;--brand2:#0891b2;--accent:#f97316;--ok:#0f766e;--warn:#b45309;--shadow:0 18px 45px rgba(15,23,42,.10);--radius:24px;--max:1760px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(14,165,233,.20),transparent 30rem),radial-gradient(circle at 85% 12%,rgba(249,115,22,.13),transparent 34rem),linear-gradient(180deg,#f4fbff 0,#f8fafc 45%,#eef5fb 100%);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(8,145,178,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(8,145,178,.06) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,#000,transparent 90%);z-index:-1}
+    .shell{width:min(98vw,var(--max));margin-inline:auto}.topbar{position:sticky;top:0;z-index:50;background:rgba(239,247,252,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;gap:.7rem;overflow:auto;padding:.7rem 0}.nav::-webkit-scrollbar{height:0}.brand{flex:0 0 auto;width:62px;height:62px;border-radius:22px;background:linear-gradient(135deg,#0f172a,#0891b2);color:#fff;font-weight:950;display:grid;place-items:center;box-shadow:var(--shadow)}button{font:inherit}.tab-btn,.print-btn{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.92);padding:.82rem 1rem;font-weight:850;color:#334155;white-space:nowrap;cursor:pointer;box-shadow:0 8px 20px rgba(15,23,42,.04)}.tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a}.print-btn{background:#0891b2;color:#fff;border-color:#0891b2}
+    .panel{display:none;padding:1.5rem 0 2.5rem}.panel.active{display:block}.hero-card{min-height:430px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.55fr);gap:1.2rem;align-items:center;border-radius:42px;padding:clamp(1.4rem,4vw,3.4rem);color:#fff;background:linear-gradient(135deg,#0f172a 0%,#075985 52%,#0ea5e9 100%);box-shadow:0 28px 80px rgba(15,23,42,.25);position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;right:-8rem;top:-10rem;width:30rem;height:30rem;border-radius:50%;background:rgba(255,255,255,.12)}.hero-card>*{position:relative;z-index:1}.eyebrow{display:inline-flex;border-radius:999px;padding:.35rem .7rem;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);font-weight:850;font-size:.83rem;letter-spacing:.03em}.hero-card h1{font-size:clamp(2.2rem,5vw,5rem);line-height:.92;letter-spacing:-.06em;margin:.8rem 0}.hero-card p{font-size:clamp(1rem,1.2vw,1.25rem);color:rgba(255,255,255,.88);line-height:1.7}.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}.primary-action,.secondary-action{border:0;border-radius:999px;padding:.9rem 1.1rem;font-weight:900;cursor:pointer}.primary-action{background:#fff;color:#075985}.secondary-action{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)}.hero-panel{background:rgba(255,255,255,.94);color:#0f172a;border-radius:28px;padding:1.2rem;display:grid;gap:.65rem;box-shadow:0 18px 44px rgba(0,0,0,.16)}.hero-panel b{color:#64748b}.hero-panel strong{font-size:3.4rem;letter-spacing:-.06em;color:#075985}
+    .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:1rem;margin-top:1rem}.card{grid-column:span 6;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,1.8vw,1.45rem);backdrop-filter:blur(10px)}.card.wide,.diagram-card{grid-column:span 12}.meta-grid .card{grid-column:span 4}.card h2{margin:.1rem 0 .7rem;font-size:clamp(1.35rem,2vw,2rem);letter-spacing:-.035em}.card h3{margin:.15rem 0 .4rem}.card p,.card li{line-height:1.7;color:#334155}.label{display:inline-flex;font-size:.78rem;font-weight:950;color:#075985;background:#e0f2fe;border-radius:999px;padding:.32rem .58rem}.tip{margin-top:.9rem;padding:.85rem 1rem;border-radius:18px;background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;font-weight:650}.malayalam{font-family:"Nirmala UI","Noto Sans Malayalam",system-ui,sans-serif;color:#e0f2fe!important}.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.75rem}.quick-grid button{border:1px solid var(--line);background:#f8fafc;border-radius:18px;padding:1rem;text-align:left;font-weight:850;cursor:pointer}
+    .section-title{padding:1.2rem 0}.section-title h2{font-size:clamp(2rem,4vw,4rem);letter-spacing:-.06em;margin:.7rem 0 .4rem}.section-title p{color:var(--muted);line-height:1.7}.bank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:1rem}.bank-card,.topic-card,.example,.answer-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:1rem;box-shadow:0 12px 30px rgba(15,23,42,.07)}.bank-card h3{margin:.1rem 0}.bank-card code{display:block;background:#0f172a;color:#e0f2fe;border-radius:14px;padding:.75rem;margin:.65rem 0;font-weight:900;white-space:normal}.bank-card p{color:#475569;line-height:1.58}.module-hero{border-radius:34px;padding:clamp(1.2rem,3vw,2.5rem);background:linear-gradient(135deg,#0f172a,#0f766e);color:#fff;box-shadow:var(--shadow);margin:1rem 0}.module-hero h2{font-size:clamp(1.8rem,4vw,3.6rem);letter-spacing:-.05em;margin:.7rem 0}.module-hero p{color:rgba(255,255,255,.88);line-height:1.7}.diagram-card{display:grid;place-items:center}.diagram-card svg{width:100%;max-height:380px}.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1rem}.topic-card h3{color:#075985}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fff}table{width:100%;border-collapse:separate;border-spacing:0;min-width:720px}th,td{padding:.9rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.55}th{background:#e0f2fe;color:#075985;font-weight:950}tr:last-child td{border-bottom:0}.chips{display:flex;gap:.6rem;flex-wrap:wrap}.chips span{border-radius:999px;background:#f1f5f9;border:1px solid var(--line);padding:.55rem .75rem;font-weight:800;color:#334155}.question-list{display:grid;gap:.75rem;padding-left:1.3rem}.question-list li{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:.85rem}.answer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1rem}.answer-card h3{color:#075985;font-size:1.02rem}.footer{margin:2rem auto 3rem;background:#0f172a;color:#e5e7eb;border-radius:24px;padding:1rem 1.2rem;display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap}.footer details{width:100%;color:#cbd5e1}
+    @media(max-width:980px){.hero-card{grid-template-columns:1fr;min-height:auto}.meta-grid .card,.card{grid-column:span 12}.nav{gap:.45rem}.tab-btn,.print-btn{padding:.72rem .8rem;font-size:.92rem}.brand{width:54px;height:54px;border-radius:18px}}
+    @media print{@page{size:A4;margin:12mm}body{background:#fff!important;color:#000}.topbar,body:before,.hero-actions,.quick-grid button{display:none!important}.shell{width:100%;max-width:none}.panel{display:block!important;padding:.5rem 0!important;break-before:auto}.hero-card,.module-hero,.card,.bank-card,.topic-card,.answer-card,.example{box-shadow:none!important;break-inside:avoid;border-color:#b8c2cc}.hero-card,.module-hero{color:#000!important;background:#fff!important;border:1px solid #999}.hero-card p,.module-hero p,.malayalam{color:#222!important}.hero-panel{box-shadow:none;border:1px solid #999}.section-title h2,.hero-card h1,.module-hero h2{font-size:22pt}table{min-width:0;font-size:9pt}th,td{padding:6px}.footer{background:#fff;color:#000;border:1px solid #999}}
+    </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="shell nav" role="navigation" aria-label="Lesson navigation">
+    <div class="brand" aria-label="Course code 1008">1008</div>
+    <button class="tab-btn active" data-target="overview">Course Overview</button>
+    <button class="tab-btn" data-target="bank">Mini Formula Bank</button>
+    <button class="tab-btn" data-target="m1" aria-label="Open Module 1">Module 1</button>
+<button class="tab-btn" data-target="m2" aria-label="Open Module 2">Module 2</button>
+<button class="tab-btn" data-target="m3" aria-label="Open Module 3">Module 3</button>
+<button class="tab-btn" data-target="m4" aria-label="Open Module 4">Module 4</button>
+    <button class="tab-btn" data-target="revision">Quick Revision</button>
+    <button class="tab-btn" data-target="answers">Master Answer Key</button>
+    <button class="print-btn" id="downloadPdf" type="button">Download PDF</button>
+  </div>
+</header>
+<main class="shell">
+
+    <section id="overview" class="panel active" data-title="Course Overview">
+      <div class="hero-card">
+        <div>
+          <span class="eyebrow">Kerala Polytechnic Revision 2021 • Premium Lesson File</span>
+          <h1>Introduction to IT Systems Lab</h1>
+          <p>Diploma in Engineering and Technology • Semester 1 • Engineering Science</p>
+          <div class="hero-actions">
+            <button class="primary-action" data-target="m1">Start Module 1</button>
+            <button class="secondary-action" data-target="bank">Mini Formula Bank</button>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <b>Course Code</b><strong>1008</strong>
+          <span>Base course code: 1008</span>
+          <span>Credits: 2 • L:1, T:0, P:2</span>
+          <span>Periods/Semester: 45</span>
+        </div>
+      </div>
+      <div class="grid meta-grid">
+        <article class="card"><span class="label">Subject Type</span><h3>IT Lab</h3><p>This file adapts the lesson structure according to the subject type, so the learning material behaves like a textbook, revision guide, workbook and answer guide.</p></article>
+        <article class="card"><span class="label">Programme</span><h3>Diploma in Engineering and Technology</h3><p>Designed for Kerala Polytechnic students with simple explanations, exam-friendly formats and practical support notes.</p></article>
+        <article class="card"><span class="label">Exam / Evaluation</span><h3>Evaluation Style</h3><p>Open-ended projects compulsory for Continuous Internal Evaluation; not for End Semester Examination.</p></article>
+      </div>
+      <div class="grid">
+        <article class="card wide">
+          <h2>Student-friendly subject summary</h2>
+          <p>Introduction to IT Systems Lab builds the foundation needed for the semester by connecting syllabus outcomes with real study practice. Read the overview first, then open one module at a time, revise key points, and finally practise the expected questions with the master answer key.</p>
+          <div class="tip">Malayalam tip: ഓരോ module-ഉം open ചെയ്ത് പഠിക്കുക. എല്ലാം ഒരുമിച്ച് കാണിക്കാത്തതിനാൽ focus നഷ്ടപ്പെടില്ല.</div>
+        </article>
+        <article class="card">
+          <h2>Prerequisite Knowledge</h2>
+          <ul><li>Basic knowledge in computer systems from school IT lab.</li>
+<li>Basic Mathematics from classes 8 to 10.</li></ul>
+        </article>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h2>Course Objectives</h2>
+          <ul><li>Familiarize students with computer, operating system and internet applications.</li>
+<li>Enable preparation of documents, spreadsheets and presentations.</li>
+<li>Provide basic programming skills in Python.</li></ul>
+        </article>
+        <article class="card">
+          <h2>How to study this subject</h2>
+          <ol>
+            <li>Read the module outcome before studying the topic.</li>
+            <li>Write definitions, formulas/key points and procedures in a separate revision page.</li>
+            <li>Practise expected questions after completing each module.</li>
+            <li>Use the Master Answer Key to improve answer order and presentation.</li>
+          </ol>
+        </article>
+      </div>
+      <article class="card wide">
+        <h2>Course Outcomes</h2>
+        <div class='table-wrap'><table><thead><tr><th>CO</th><th>Outcome</th><th>Hours</th><th>Level</th></tr></thead><tbody><tr><td><b>CO1</b></td><td>Use basic functions and features of computer, OS and internet applications.</td><td>9</td><td>Applying</td></tr>
+<tr><td><b>CO2</b></td><td>Use stand-alone and cloud office tools for documents, spreadsheets and presentations.</td><td>11</td><td>Applying</td></tr>
+<tr><td><b>CO3</b></td><td>Develop algorithms and flowcharts for simple problems.</td><td>5</td><td>Applying</td></tr>
+<tr><td><b>CO4</b></td><td>Develop Python programs to solve simple problems.</td><td>18</td><td>Applying</td></tr></tbody></table></div>
+      </article>
+      <article class="card wide">
+        <h2>Module Map</h2>
+        <div class='table-wrap'><table><thead><tr><th>Module</th><th>Title</th><th>Hours</th><th>Linked outcome</th></tr></thead><tbody><tr><td><b>Module 1</b></td><td>Computer Hardware, Operating System and Internet Applications</td><td>9</td><td>Use basic functions and features of computer, OS and internet applications.</td></tr>
+<tr><td><b>Module 2</b></td><td>Office Tools: Writer, Calc, Impress and Cloud Tools</td><td>11</td><td>Use stand-alone and cloud office tools for documents, spreadsheets and presentations.</td></tr>
+<tr><td><b>Module 3</b></td><td>Algorithms and Flowcharts</td><td>5</td><td>Develop algorithms and flowcharts for simple problems.</td></tr>
+<tr><td><b>Module 4</b></td><td>Python Programming Basics</td><td>18</td><td>Develop Python programs to solve simple problems.</td></tr></tbody></table></div>
+      </article>
+      <article class="card wide">
+        <h2>Quick navigation cards</h2>
+        <div class="quick-grid">
+          <button data-target="bank">Mini Formula Bank</button>
+          <button data-target="m1">Module 1: Computer Hardware, Operating System and Internet Applications</button><button data-target="m2">Module 2: Office Tools: Writer, Calc, Impress and Cloud Tools</button><button data-target="m3">Module 3: Algorithms and Flowcharts</button><button data-target="m4">Module 4: Python Programming Basics</button>
+          <button data-target="revision">Quick Revision</button>
+          <button data-target="answers">Master Answer Key</button>
+        </div>
+      </article>
+    </section>
+    
+
+    <section id="bank" class="panel" data-title="Mini Formula Bank">
+      <div class="section-title">
+        <span class="eyebrow">Mini Formula Bank</span>
+        <h2>Mini Formula Bank for Introduction to IT Systems Lab</h2>
+        <p>Use this as the last-minute memory page before exams and practical sessions.</p>
+      </div>
+      <div class="bank-grid">
+          <article class="bank-card">
+            <h3>Input</h3>
+            <code>Data given to a program</code>
+            <p><b>Where used:</b> Programming and flowcharts</p>
+            <p><b>Common mistake:</b> Validate type before calculation.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Process</h3>
+            <code>Operation performed on input</code>
+            <p><b>Where used:</b> Algorithm design</p>
+            <p><b>Common mistake:</b> Write steps in correct order.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Output</h3>
+            <code>Result produced</code>
+            <p><b>Where used:</b> Programming</p>
+            <p><b>Common mistake:</b> Print meaningful labels.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Decision symbol</h3>
+            <code>Diamond shape</code>
+            <p><b>Where used:</b> Flowchart selection</p>
+            <p><b>Common mistake:</b> Use yes/no branches clearly.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Loop</h3>
+            <code>Repeated execution</code>
+            <p><b>Where used:</b> Iteration</p>
+            <p><b>Common mistake:</b> Ensure loop termination.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Python indentation</h3>
+            <code>Spaces at start of block</code>
+            <p><b>Where used:</b> Python syntax</p>
+            <p><b>Common mistake:</b> Do not mix tabs/spaces.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Spreadsheet formula</h3>
+            <code>Expression beginning with =</code>
+            <p><b>Where used:</b> Calc</p>
+            <p><b>Common mistake:</b> Use correct cell references.</p>
+          </article>
+        </div>
+    </section>
+    
+
+        <section id="m1" class="panel" data-title="Module 1">
+          <div class="module-hero">
+            <span class="eyebrow">Module 1 • 9 hours</span>
+            <h2>Computer Hardware, Operating System and Internet Applications</h2>
+            <p><b>Learning outcome:</b> Use basic functions and features of computer, OS and internet applications.</p>
+            <p class="malayalam">Computer lab-ൽ file save location clear ആയി maintain ചെയ്യുക.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="IT workflow diagram">
+          <rect x="35" y="28" width="690" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <rect x="75" y="105" width="150" height="70" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+          <polygon points="370,84 462,140 370,196 278,140" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+          <rect x="535" y="105" width="150" height="70" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+          <path d="M228 140 H274" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <path d="M466 140 H531" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#111827"/></marker></defs>
+          <text x="105" y="148" font-size="18" font-weight="800" fill="#1e40af">Input</text>
+          <text x="332" y="145" font-size="18" font-weight="800" fill="#92400e">Process</text>
+          <text x="570" y="148" font-size="18" font-weight="800" fill="#166534">Output</text>
+          <text x="82" y="58" font-size="20" font-weight="800" fill="#075985">Computer Hardware, Operating System an</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Computer functions</h3>
+            <p>Computer functions is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Hardware components</h3>
+            <p>Hardware components is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Ports and interfaces</h3>
+            <p>Ports and interfaces is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Cables</h3>
+            <p>Cables is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Operating system functions</h3>
+            <p>Operating system functions is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>File and directory management commands</h3>
+            <p>File and directory management commands is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Web browser</h3>
+            <p>Web browser is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Search engine</h3>
+            <p>Search engine is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Email and web portals</h3>
+            <p>Email and web portals is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>Computer functions</td><td>Computer functions is a core point in this module. In exam answers, connect it with Computer Hardware, Operating System and Internet Applications and give one clear example.</td></tr>
+<tr><td>Hardware components</td><td>Hardware components is a core point in this module. In exam answers, connect it with Computer Hardware, Operating System and Internet Applications and give one clear example.</td></tr>
+<tr><td>Ports and interfaces</td><td>Ports and interfaces is a core point in this module. In exam answers, connect it with Computer Hardware, Operating System and Internet Applications and give one clear example.</td></tr>
+<tr><td>Cables</td><td>Cables is a core point in this module. In exam answers, connect it with Computer Hardware, Operating System and Internet Applications and give one clear example.</td></tr>
+<tr><td>Operating system functions</td><td>Operating system functions is a core point in this module. In exam answers, connect it with Computer Hardware, Operating System and Internet Applications and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Create folders with meaningful names and keep versions properly.</p></div><div class='example'><b>Example</b><p>Use search keywords carefully: topic + filetype + source if needed.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M1-Q1</b> Explain Computer functions with its importance in Computer Hardware, Operating System and Internet Applications.</li><li><b>M1-Q2</b> Write short notes on Hardware components.</li><li><b>M1-Q3</b> Prepare an exam-ready answer for Ports and interfaces.</li><li><b>M1-Q4</b> Compare or connect two key ideas from Computer Hardware, Operating System and Internet Applications.</li><li><b>M1-Q5</b> Draw/describe a neat labelled diagram, table or format related to Computer Hardware, Operating System and Internet Applications.</li><li><b>M1-Q6</b> List common mistakes/precautions while studying or performing Computer Hardware, Operating System and Internet Applications.</li></ol>
+          </article>
+        </section>
+        
+        <section id="m2" class="panel" data-title="Module 2">
+          <div class="module-hero">
+            <span class="eyebrow">Module 2 • 11 hours</span>
+            <h2>Office Tools: Writer, Calc, Impress and Cloud Tools</h2>
+            <p><b>Learning outcome:</b> Use stand-alone and cloud office tools for documents, spreadsheets and presentations.</p>
+            <p class="malayalam">Office tools-ൽ formatting consistency marks ലഭിക്കാൻ സഹായിക്കും.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="IT workflow diagram">
+          <rect x="35" y="28" width="690" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <rect x="75" y="105" width="150" height="70" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+          <polygon points="370,84 462,140 370,196 278,140" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+          <rect x="535" y="105" width="150" height="70" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+          <path d="M228 140 H274" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <path d="M466 140 H531" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#111827"/></marker></defs>
+          <text x="105" y="148" font-size="18" font-weight="800" fill="#1e40af">Input</text>
+          <text x="332" y="145" font-size="18" font-weight="800" fill="#92400e">Process</text>
+          <text x="570" y="148" font-size="18" font-weight="800" fill="#166534">Output</text>
+          <text x="82" y="58" font-size="20" font-weight="800" fill="#075985">Office Tools: Writer, Calc, Impress an</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>OpenOffice features</h3>
+            <p>OpenOffice features is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Writer document preparation</h3>
+            <p>Writer document preparation is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Formatting text</h3>
+            <p>Formatting text is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Tables and images</h3>
+            <p>Tables and images is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Calc spreadsheet preparation</h3>
+            <p>Calc spreadsheet preparation is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Formulas and charts</h3>
+            <p>Formulas and charts is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Impress presentation</h3>
+            <p>Impress presentation is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Cloud-based office tools</h3>
+            <p>Cloud-based office tools is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Document sharing</h3>
+            <p>Document sharing is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>OpenOffice features</td><td>OpenOffice features is a core point in this module. In exam answers, connect it with Office Tools: Writer, Calc, Impress and Cloud Tools and give one clear example.</td></tr>
+<tr><td>Writer document preparation</td><td>Writer document preparation is a core point in this module. In exam answers, connect it with Office Tools: Writer, Calc, Impress and Cloud Tools and give one clear example.</td></tr>
+<tr><td>Formatting text</td><td>Formatting text is a core point in this module. In exam answers, connect it with Office Tools: Writer, Calc, Impress and Cloud Tools and give one clear example.</td></tr>
+<tr><td>Tables and images</td><td>Tables and images is a core point in this module. In exam answers, connect it with Office Tools: Writer, Calc, Impress and Cloud Tools and give one clear example.</td></tr>
+<tr><td>Calc spreadsheet preparation</td><td>Calc spreadsheet preparation is a core point in this module. In exam answers, connect it with Office Tools: Writer, Calc, Impress and Cloud Tools and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Project report should include cover page, certificate, table of contents, images and tables.</p></div><div class='example'><b>Example</b><p>Spreadsheet rank list can use formulas, sorting and formatting.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M2-Q1</b> Explain OpenOffice features with its importance in Office Tools: Writer, Calc, Impress and Cloud Tools.</li><li><b>M2-Q2</b> Write short notes on Writer document preparation.</li><li><b>M2-Q3</b> Prepare an exam-ready answer for Formatting text.</li><li><b>M2-Q4</b> Compare or connect two key ideas from Office Tools: Writer, Calc, Impress and Cloud Tools.</li><li><b>M2-Q5</b> Draw/describe a neat labelled diagram, table or format related to Office Tools: Writer, Calc, Impress and Cloud Tools.</li><li><b>M2-Q6</b> List common mistakes/precautions while studying or performing Office Tools: Writer, Calc, Impress and Cloud Tools.</li></ol>
+          </article>
+        </section>
+        
+        <section id="m3" class="panel" data-title="Module 3">
+          <div class="module-hero">
+            <span class="eyebrow">Module 3 • 5 hours</span>
+            <h2>Algorithms and Flowcharts</h2>
+            <p><b>Learning outcome:</b> Develop algorithms and flowcharts for simple problems.</p>
+            <p class="malayalam">Program എഴുതുന്നതിന് മുമ്പ് algorithm/flowchart തയ്യാറാക്കിയാൽ logic mistakes കുറയും.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="IT workflow diagram">
+          <rect x="35" y="28" width="690" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <rect x="75" y="105" width="150" height="70" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+          <polygon points="370,84 462,140 370,196 278,140" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+          <rect x="535" y="105" width="150" height="70" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+          <path d="M228 140 H274" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <path d="M466 140 H531" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#111827"/></marker></defs>
+          <text x="105" y="148" font-size="18" font-weight="800" fill="#1e40af">Input</text>
+          <text x="332" y="145" font-size="18" font-weight="800" fill="#92400e">Process</text>
+          <text x="570" y="148" font-size="18" font-weight="800" fill="#166534">Output</text>
+          <text x="82" y="58" font-size="20" font-weight="800" fill="#075985">Algorithms and Flowcharts</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Algorithm definition</h3>
+            <p>Algorithm definition is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Flowchart symbols</h3>
+            <p>Flowchart symbols is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Sequence structure</h3>
+            <p>Sequence structure is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Selection structure</h3>
+            <p>Selection structure is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Iteration structure</h3>
+            <p>Iteration structure is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Problem solving steps</h3>
+            <p>Problem solving steps is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Dry run</h3>
+            <p>Dry run is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Input-process-output</h3>
+            <p>Input-process-output is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>Algorithm definition</td><td>Algorithm definition is a core point in this module. In exam answers, connect it with Algorithms and Flowcharts and give one clear example.</td></tr>
+<tr><td>Flowchart symbols</td><td>Flowchart symbols is a core point in this module. In exam answers, connect it with Algorithms and Flowcharts and give one clear example.</td></tr>
+<tr><td>Sequence structure</td><td>Sequence structure is a core point in this module. In exam answers, connect it with Algorithms and Flowcharts and give one clear example.</td></tr>
+<tr><td>Selection structure</td><td>Selection structure is a core point in this module. In exam answers, connect it with Algorithms and Flowcharts and give one clear example.</td></tr>
+<tr><td>Iteration structure</td><td>Iteration structure is a core point in this module. In exam answers, connect it with Algorithms and Flowcharts and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Flowchart: oval-start/end, parallelogram-input/output, rectangle-process, diamond-decision.</p></div><div class='example'><b>Example</b><p>Dry run checks algorithm with sample values.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M3-Q1</b> Explain Algorithm definition with its importance in Algorithms and Flowcharts.</li><li><b>M3-Q2</b> Write short notes on Flowchart symbols.</li><li><b>M3-Q3</b> Prepare an exam-ready answer for Sequence structure.</li><li><b>M3-Q4</b> Compare or connect two key ideas from Algorithms and Flowcharts.</li><li><b>M3-Q5</b> Draw/describe a neat labelled diagram, table or format related to Algorithms and Flowcharts.</li><li><b>M3-Q6</b> List common mistakes/precautions while studying or performing Algorithms and Flowcharts.</li></ol>
+          </article>
+        </section>
+        
+        <section id="m4" class="panel" data-title="Module 4">
+          <div class="module-hero">
+            <span class="eyebrow">Module 4 • 18 hours</span>
+            <h2>Python Programming Basics</h2>
+            <p><b>Learning outcome:</b> Develop Python programs to solve simple problems.</p>
+            <p class="malayalam">Python indentation തെറ്റിയാൽ code run ചെയ്യില്ല; spaces consistent ആക്കുക.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="IT workflow diagram">
+          <rect x="35" y="28" width="690" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <rect x="75" y="105" width="150" height="70" rx="18" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+          <polygon points="370,84 462,140 370,196 278,140" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+          <rect x="535" y="105" width="150" height="70" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+          <path d="M228 140 H274" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <path d="M466 140 H531" stroke="#111827" stroke-width="4" marker-end="url(#arr2)"/>
+          <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#111827"/></marker></defs>
+          <text x="105" y="148" font-size="18" font-weight="800" fill="#1e40af">Input</text>
+          <text x="332" y="145" font-size="18" font-weight="800" fill="#92400e">Process</text>
+          <text x="570" y="148" font-size="18" font-weight="800" fill="#166534">Output</text>
+          <text x="82" y="58" font-size="20" font-weight="800" fill="#075985">Python Programming Basics</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Interactive input and output</h3>
+            <p>Interactive input and output is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Arithmetic expressions</h3>
+            <p>Arithmetic expressions is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>if statement</h3>
+            <p>if statement is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>if-else statement</h3>
+            <p>if-else statement is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>nested if</h3>
+            <p>nested if is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Relational operators</h3>
+            <p>Relational operators is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Logical operators</h3>
+            <p>Logical operators is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Iteration constructs</h3>
+            <p>Iteration constructs is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Open-ended projects</h3>
+            <p>Open-ended projects is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>Interactive input and output</td><td>Interactive input and output is a core point in this module. In exam answers, connect it with Python Programming Basics and give one clear example.</td></tr>
+<tr><td>Arithmetic expressions</td><td>Arithmetic expressions is a core point in this module. In exam answers, connect it with Python Programming Basics and give one clear example.</td></tr>
+<tr><td>if statement</td><td>if statement is a core point in this module. In exam answers, connect it with Python Programming Basics and give one clear example.</td></tr>
+<tr><td>if-else statement</td><td>if-else statement is a core point in this module. In exam answers, connect it with Python Programming Basics and give one clear example.</td></tr>
+<tr><td>nested if</td><td>nested if is a core point in this module. In exam answers, connect it with Python Programming Basics and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Use int(input()) for integer input when calculation is required.</p></div><div class='example'><b>Example</b><p>Loop examples: sum of numbers, multiplication table, factorial.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M4-Q1</b> Explain Interactive input and output with its importance in Python Programming Basics.</li><li><b>M4-Q2</b> Write short notes on Arithmetic expressions.</li><li><b>M4-Q3</b> Prepare an exam-ready answer for if statement.</li><li><b>M4-Q4</b> Compare or connect two key ideas from Python Programming Basics.</li><li><b>M4-Q5</b> Draw/describe a neat labelled diagram, table or format related to Python Programming Basics.</li><li><b>M4-Q6</b> List common mistakes/precautions while studying or performing Python Programming Basics.</li></ol>
+          </article>
+        </section>
+        
+
+    <section id="revision" class="panel" data-title="Quick Revision">
+      <div class="section-title">
+        <span class="eyebrow">Quick Revision</span>
+        <h2>One-page revision summary</h2>
+        <p>Use this section on the previous day of exam or practical assessment.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h2>Module-wise must-know points</h2>
+          <ul><li><b>Module 1:</b> Computer Hardware, Operating System and Internet Applications — revise Computer functions, Hardware components, Ports and interfaces, Cables.</li><li><b>Module 2:</b> Office Tools: Writer, Calc, Impress and Cloud Tools — revise OpenOffice features, Writer document preparation, Formatting text, Tables and images.</li><li><b>Module 3:</b> Algorithms and Flowcharts — revise Algorithm definition, Flowchart symbols, Sequence structure, Selection structure.</li><li><b>Module 4:</b> Python Programming Basics — revise Interactive input and output, Arithmetic expressions, if statement, if-else statement.</li></ul>
+        </article>
+        <article class="card">
+          <h2>Important definitions / formulas / key points</h2>
+          <ul><li><b>Input:</b> Data given to a program — Programming and flowcharts</li><li><b>Process:</b> Operation performed on input — Algorithm design</li><li><b>Output:</b> Result produced — Programming</li><li><b>Decision symbol:</b> Diamond shape — Flowchart selection</li><li><b>Loop:</b> Repeated execution — Iteration</li><li><b>Python indentation:</b> Spaces at start of block — Python syntax</li><li><b>Spreadsheet formula:</b> Expression beginning with = — Calc</li></ul>
+        </article>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h2>Common exam mistakes</h2>
+          <ul>
+            <li>Writing general answers instead of syllabus-topic answers.</li>
+            <li>Forgetting diagrams, tables, units, procedures or examples.</li>
+            <li>Skipping final conclusion/result in long answers.</li>
+            <li>Not numbering answers neatly.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Last-minute checklist</h2>
+          <div class="chips"><span>Course outcomes</span><span>Module map</span><span>Key bank</span><span>Expected questions</span><span>Answer format</span><span>Diagrams/tables</span><span>Final revision</span></div>
+        </article>
+      </div>
+      <article class="card wide">
+        <h2>Diagram / table list</h2>
+        <p>Prepare neat labelled diagrams, flowcharts, observation tables, comparison tables or answer formats wherever the module asks for drawing, procedure, calculation or communication structure.</p>
+      </article>
+    </section>
+    
+
+    <section id="answers" class="panel" data-title="Master Answer Key">
+      <div class="section-title">
+        <span class="eyebrow">Master Answer Key</span>
+        <h2>Answers matching every expected question</h2>
+        <p>Each answer number exactly follows the expected question number.</p>
+      </div>
+      <div class="answer-grid">
+        <article class="answer-card">
+          <h3>M1-Q1 — Explain Computer functions with its importance in Computer Hardware, Operating System and Internet Applications.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Computer functions, Hardware components, Ports and interfaces, Cables, Operating system functions.</p>
+          <p><b>Module link:</b> Computer Hardware, Operating System and Internet Applications</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q2 — Write short notes on Hardware components.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Computer functions, Hardware components, Ports and interfaces, Cables, Operating system functions.</p>
+          <p><b>Module link:</b> Computer Hardware, Operating System and Internet Applications</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q3 — Prepare an exam-ready answer for Ports and interfaces.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Computer functions, Hardware components, Ports and interfaces, Cables, Operating system functions.</p>
+          <p><b>Module link:</b> Computer Hardware, Operating System and Internet Applications</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q4 — Compare or connect two key ideas from Computer Hardware, Operating System and Internet Applications.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Computer functions, Hardware components, Ports and interfaces, Cables, Operating system functions.</p>
+          <p><b>Module link:</b> Computer Hardware, Operating System and Internet Applications</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q5 — Draw/describe a neat labelled diagram, table or format related to Computer Hardware, Operating System and Internet Applications.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Computer functions, Hardware components, Ports and interfaces, Cables, Operating system functions.</p>
+          <p><b>Module link:</b> Computer Hardware, Operating System and Internet Applications</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q6 — List common mistakes/precautions while studying or performing Computer Hardware, Operating System and Internet Applications.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Computer functions, Hardware components, Ports and interfaces, Cables, Operating system functions.</p>
+          <p><b>Module link:</b> Computer Hardware, Operating System and Internet Applications</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q1 — Explain OpenOffice features with its importance in Office Tools: Writer, Calc, Impress and Cloud Tools.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: OpenOffice features, Writer document preparation, Formatting text, Tables and images, Calc spreadsheet preparation.</p>
+          <p><b>Module link:</b> Office Tools: Writer, Calc, Impress and Cloud Tools</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q2 — Write short notes on Writer document preparation.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: OpenOffice features, Writer document preparation, Formatting text, Tables and images, Calc spreadsheet preparation.</p>
+          <p><b>Module link:</b> Office Tools: Writer, Calc, Impress and Cloud Tools</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q3 — Prepare an exam-ready answer for Formatting text.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: OpenOffice features, Writer document preparation, Formatting text, Tables and images, Calc spreadsheet preparation.</p>
+          <p><b>Module link:</b> Office Tools: Writer, Calc, Impress and Cloud Tools</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q4 — Compare or connect two key ideas from Office Tools: Writer, Calc, Impress and Cloud Tools.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: OpenOffice features, Writer document preparation, Formatting text, Tables and images, Calc spreadsheet preparation.</p>
+          <p><b>Module link:</b> Office Tools: Writer, Calc, Impress and Cloud Tools</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q5 — Draw/describe a neat labelled diagram, table or format related to Office Tools: Writer, Calc, Impress and Cloud Tools.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: OpenOffice features, Writer document preparation, Formatting text, Tables and images, Calc spreadsheet preparation.</p>
+          <p><b>Module link:</b> Office Tools: Writer, Calc, Impress and Cloud Tools</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q6 — List common mistakes/precautions while studying or performing Office Tools: Writer, Calc, Impress and Cloud Tools.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: OpenOffice features, Writer document preparation, Formatting text, Tables and images, Calc spreadsheet preparation.</p>
+          <p><b>Module link:</b> Office Tools: Writer, Calc, Impress and Cloud Tools</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q1 — Explain Algorithm definition with its importance in Algorithms and Flowcharts.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Algorithm definition, Flowchart symbols, Sequence structure, Selection structure, Iteration structure.</p>
+          <p><b>Module link:</b> Algorithms and Flowcharts</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q2 — Write short notes on Flowchart symbols.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Algorithm definition, Flowchart symbols, Sequence structure, Selection structure, Iteration structure.</p>
+          <p><b>Module link:</b> Algorithms and Flowcharts</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q3 — Prepare an exam-ready answer for Sequence structure.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Algorithm definition, Flowchart symbols, Sequence structure, Selection structure, Iteration structure.</p>
+          <p><b>Module link:</b> Algorithms and Flowcharts</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q4 — Compare or connect two key ideas from Algorithms and Flowcharts.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Algorithm definition, Flowchart symbols, Sequence structure, Selection structure, Iteration structure.</p>
+          <p><b>Module link:</b> Algorithms and Flowcharts</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q5 — Draw/describe a neat labelled diagram, table or format related to Algorithms and Flowcharts.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Algorithm definition, Flowchart symbols, Sequence structure, Selection structure, Iteration structure.</p>
+          <p><b>Module link:</b> Algorithms and Flowcharts</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q6 — List common mistakes/precautions while studying or performing Algorithms and Flowcharts.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Algorithm definition, Flowchart symbols, Sequence structure, Selection structure, Iteration structure.</p>
+          <p><b>Module link:</b> Algorithms and Flowcharts</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q1 — Explain Interactive input and output with its importance in Python Programming Basics.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Interactive input and output, Arithmetic expressions, if statement, if-else statement, nested if.</p>
+          <p><b>Module link:</b> Python Programming Basics</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q2 — Write short notes on Arithmetic expressions.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Interactive input and output, Arithmetic expressions, if statement, if-else statement, nested if.</p>
+          <p><b>Module link:</b> Python Programming Basics</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q3 — Prepare an exam-ready answer for if statement.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Interactive input and output, Arithmetic expressions, if statement, if-else statement, nested if.</p>
+          <p><b>Module link:</b> Python Programming Basics</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q4 — Compare or connect two key ideas from Python Programming Basics.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Interactive input and output, Arithmetic expressions, if statement, if-else statement, nested if.</p>
+          <p><b>Module link:</b> Python Programming Basics</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q5 — Draw/describe a neat labelled diagram, table or format related to Python Programming Basics.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Interactive input and output, Arithmetic expressions, if statement, if-else statement, nested if.</p>
+          <p><b>Module link:</b> Python Programming Basics</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q6 — List common mistakes/precautions while studying or performing Python Programming Basics.</h3>
+          <p><b>Answer format:</b> Start with the aim, then list required apparatus or software, write the procedure in correct order, record observations neatly, complete calculation/result where applicable, and end with precautions. For this module, cover: Interactive input and output, Arithmetic expressions, if statement, if-else statement, nested if.</p>
+          <p><b>Module link:</b> Python Programming Basics</p>
+        </article></div>
+    </section>
+    
+
+    <footer class="footer">
+      <div><b>Introduction to IT Systems Lab 1008 • Downloadable HTML Notes</b></div>
+      <div>Author: Nandakumar.M</div>
+      <div>Visit: nandakumarm.dpdns.org</div>
+      <details><summary>Text / Reference from syllabus</summary><ul><li>V. Rajaraman, Fundamentals of Computers</li><li>Chetna Shah &amp; Kalpesh Patel, Open Office</li><li>E. Balaguruswamy, Introduction to Computing and Problem Solving Using Python</li></ul></details>
+    </footer>
+    
+</main>
+<script>
+    const panels=[...document.querySelectorAll('.panel')];
+    const buttons=[...document.querySelectorAll('[data-target]')];
+    function showPanel(id){
+      panels.forEach(p=>p.classList.toggle('active',p.id===id));
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.target===id));
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    buttons.forEach(btn=>btn.addEventListener('click',()=>showPanel(btn.dataset.target)));
+    document.getElementById('downloadPdf').addEventListener('click',()=>window.print());
+    document.addEventListener('keydown',e=>{if(e.altKey&&e.key>='1'&&e.key<='9'){const idx=Number(e.key)-1;const b=document.querySelectorAll('.tab-btn')[idx];if(b)showPanel(b.dataset.target);}});
+    </script>
+</body>
+</html>
