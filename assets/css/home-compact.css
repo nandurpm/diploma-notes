@@ -1,0 +1,83 @@
+.home-compact-hero.page-title {
+  min-height: 220px;
+  align-content: center;
+  padding: clamp(18px, 3vw, 34px);
+  border-radius: 28px;
+  margin-top: 12px;
+}
+
+.home-compact-hero.page-title::before {
+  position: static;
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 7px 11px;
+  font-size: 0.64rem;
+}
+
+.home-compact-hero.page-title::after {
+  width: clamp(54px, 7vw, 86px);
+  height: clamp(54px, 7vw, 86px);
+  right: clamp(14px, 4vw, 44px);
+  bottom: clamp(12px, 3vw, 26px);
+  border-radius: 22px;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  opacity: 0.72;
+}
+
+.home-compact-hero .kicker {
+  margin-bottom: 9px;
+}
+
+.home-compact-hero h1 {
+  max-width: 850px;
+  margin-bottom: 8px;
+  font-size: clamp(1.75rem, 3.3vw, 3.15rem);
+  line-height: 1.04;
+}
+
+.home-compact-hero p {
+  max-width: 720px;
+  margin-bottom: 14px;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+.home-compact-hero .hero-actions {
+  gap: 8px;
+}
+
+.home-compact-hero .btn {
+  min-height: 40px;
+  padding: 9px 13px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 620px) {
+  .home-compact-hero.page-title {
+    min-height: 235px;
+    padding: 18px 13px;
+    border-radius: 18px;
+  }
+
+  .home-compact-hero h1 {
+    font-size: clamp(1.45rem, 6.4vw, 1.85rem);
+    line-height: 1.1;
+  }
+
+  .home-compact-hero p {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  .home-compact-hero .hero-actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: grid;
+  }
+
+  .home-compact-hero .btn {
+    min-height: 38px;
+    padding: 8px 6px;
+    font-size: 0.76rem;
+  }
+}
