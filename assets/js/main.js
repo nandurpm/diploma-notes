@@ -248,16 +248,22 @@ function setupHomepageVideoPoster() {
 function forcePremiumStylesheet() {
   const prefix = rootPrefix();
   const versionedHref = `${prefix}assets/css/style.css?v=20260611-portal1`;
+  const compactHref = `${prefix}assets/css/home-compact.css?v=20260611-compact3`;
   const responsiveHref = `${prefix}assets/css/responsive.css?v=20260611-portal1`;
   document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
     const href = link.getAttribute("href") || "";
     if (href.includes("assets/css/style.css")) link.remove();
+    if (href.includes("assets/css/home-compact.css")) link.remove();
     if (href.includes("assets/css/responsive.css")) link.remove();
   });
   const css = document.createElement("link");
   css.rel = "stylesheet";
   css.href = versionedHref;
   document.head.prepend(css);
+  const compact = document.createElement("link");
+  compact.rel = "stylesheet";
+  compact.href = compactHref;
+  document.head.append(compact);
   const responsive = document.createElement("link");
   responsive.rel = "stylesheet";
   responsive.href = responsiveHref;
