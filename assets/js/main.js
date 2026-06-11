@@ -131,9 +131,7 @@ function setupSubjectBrowser() {
   const fixedRevision = grid.dataset.revision || "";
   const fixedDepartment = grid.dataset.department || "";
   const homepageSearchMode = grid.dataset.mode === "homepage-search";
-  const browserSubjects = homepageSearchMode
-    ? ALL.filter((subject) => subject.revision !== "2015")
-    : ALL;
+  const browserSubjects = ALL.filter((subject) => subject.revision !== "2015");
 
   const COMMON_DEPT = "First Year / Common";
 
@@ -142,7 +140,10 @@ function setupSubjectBrowser() {
 
   // BUG4 FIX: refresh dept filter when revision changes.
   function refreshDeptFilter() {
-    if (fixedDepartment) return;
+    if (fixedDepartment) {
+      fillSelect(departmentFilter, [fixedDepartment], fixedDepartment, "All departments");
+      return;
+    }
     const activeRevision = fixedRevision || revisionFilter?.value || "all";
     const depts = [
       ...new Set(
@@ -193,8 +194,6 @@ function setupSubjectBrowser() {
         if (fixedDepartment && subject.revision === revision) {
            // For 2021, common subjects are marked "First Year / Common"
            if (revision === "2021" && subject.department === "First Year / Common") return true;
-           // For 2015, common subjects are in "2015 First Year Materials" or "2015 Study Materials"
-           if (revision === "2015" && (subject.department === "2015 First Year Materials" || subject.department === "2015 Study Materials")) return true;
         }
         
         return false;
