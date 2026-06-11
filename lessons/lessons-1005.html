@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Engineering Graphics 1005 premium Kerala Polytechnic lesson HTML notes, revision guide, workbook and answer key.">
+<title>Engineering Graphics 1005 | Kerala Polytechnic Study Hub</title>
+<style>
+    :root{--bg:#eef5fb;--ink:#0f172a;--muted:#536175;--surface:#fff;--line:rgba(15,23,42,.12);--brand:#075985;--brand2:#0891b2;--accent:#f97316;--ok:#0f766e;--warn:#b45309;--shadow:0 18px 45px rgba(15,23,42,.10);--radius:24px;--max:1760px}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 8% 0%,rgba(14,165,233,.20),transparent 30rem),radial-gradient(circle at 85% 12%,rgba(249,115,22,.13),transparent 34rem),linear-gradient(180deg,#f4fbff 0,#f8fafc 45%,#eef5fb 100%);overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(8,145,178,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(8,145,178,.06) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,#000,transparent 90%);z-index:-1}
+    .shell{width:min(98vw,var(--max));margin-inline:auto}.topbar{position:sticky;top:0;z-index:50;background:rgba(239,247,252,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{display:flex;align-items:center;gap:.7rem;overflow:auto;padding:.7rem 0}.nav::-webkit-scrollbar{height:0}.brand{flex:0 0 auto;width:62px;height:62px;border-radius:22px;background:linear-gradient(135deg,#0f172a,#0891b2);color:#fff;font-weight:950;display:grid;place-items:center;box-shadow:var(--shadow)}button{font:inherit}.tab-btn,.print-btn{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.92);padding:.82rem 1rem;font-weight:850;color:#334155;white-space:nowrap;cursor:pointer;box-shadow:0 8px 20px rgba(15,23,42,.04)}.tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a}.print-btn{background:#0891b2;color:#fff;border-color:#0891b2}
+    .panel{display:none;padding:1.5rem 0 2.5rem}.panel.active{display:block}.hero-card{min-height:430px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.55fr);gap:1.2rem;align-items:center;border-radius:42px;padding:clamp(1.4rem,4vw,3.4rem);color:#fff;background:linear-gradient(135deg,#0f172a 0%,#075985 52%,#0ea5e9 100%);box-shadow:0 28px 80px rgba(15,23,42,.25);position:relative;overflow:hidden}.hero-card:after{content:"";position:absolute;right:-8rem;top:-10rem;width:30rem;height:30rem;border-radius:50%;background:rgba(255,255,255,.12)}.hero-card>*{position:relative;z-index:1}.eyebrow{display:inline-flex;border-radius:999px;padding:.35rem .7rem;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);font-weight:850;font-size:.83rem;letter-spacing:.03em}.hero-card h1{font-size:clamp(2.2rem,5vw,5rem);line-height:.92;letter-spacing:-.06em;margin:.8rem 0}.hero-card p{font-size:clamp(1rem,1.2vw,1.25rem);color:rgba(255,255,255,.88);line-height:1.7}.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.2rem}.primary-action,.secondary-action{border:0;border-radius:999px;padding:.9rem 1.1rem;font-weight:900;cursor:pointer}.primary-action{background:#fff;color:#075985}.secondary-action{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.25)}.hero-panel{background:rgba(255,255,255,.94);color:#0f172a;border-radius:28px;padding:1.2rem;display:grid;gap:.65rem;box-shadow:0 18px 44px rgba(0,0,0,.16)}.hero-panel b{color:#64748b}.hero-panel strong{font-size:3.4rem;letter-spacing:-.06em;color:#075985}
+    .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:1rem;margin-top:1rem}.card{grid-column:span 6;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:clamp(1rem,1.8vw,1.45rem);backdrop-filter:blur(10px)}.card.wide,.diagram-card{grid-column:span 12}.meta-grid .card{grid-column:span 4}.card h2{margin:.1rem 0 .7rem;font-size:clamp(1.35rem,2vw,2rem);letter-spacing:-.035em}.card h3{margin:.15rem 0 .4rem}.card p,.card li{line-height:1.7;color:#334155}.label{display:inline-flex;font-size:.78rem;font-weight:950;color:#075985;background:#e0f2fe;border-radius:999px;padding:.32rem .58rem}.tip{margin-top:.9rem;padding:.85rem 1rem;border-radius:18px;background:#ecfeff;border:1px solid #a5f3fc;color:#155e75;font-weight:650}.malayalam{font-family:"Nirmala UI","Noto Sans Malayalam",system-ui,sans-serif;color:#e0f2fe!important}.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.75rem}.quick-grid button{border:1px solid var(--line);background:#f8fafc;border-radius:18px;padding:1rem;text-align:left;font-weight:850;cursor:pointer}
+    .section-title{padding:1.2rem 0}.section-title h2{font-size:clamp(2rem,4vw,4rem);letter-spacing:-.06em;margin:.7rem 0 .4rem}.section-title p{color:var(--muted);line-height:1.7}.bank-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(285px,1fr));gap:1rem}.bank-card,.topic-card,.example,.answer-card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:1rem;box-shadow:0 12px 30px rgba(15,23,42,.07)}.bank-card h3{margin:.1rem 0}.bank-card code{display:block;background:#0f172a;color:#e0f2fe;border-radius:14px;padding:.75rem;margin:.65rem 0;font-weight:900;white-space:normal}.bank-card p{color:#475569;line-height:1.58}.module-hero{border-radius:34px;padding:clamp(1.2rem,3vw,2.5rem);background:linear-gradient(135deg,#0f172a,#0f766e);color:#fff;box-shadow:var(--shadow);margin:1rem 0}.module-hero h2{font-size:clamp(1.8rem,4vw,3.6rem);letter-spacing:-.05em;margin:.7rem 0}.module-hero p{color:rgba(255,255,255,.88);line-height:1.7}.diagram-card{display:grid;place-items:center}.diagram-card svg{width:100%;max-height:380px}.topic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1rem}.topic-card h3{color:#075985}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:18px;background:#fff}table{width:100%;border-collapse:separate;border-spacing:0;min-width:720px}th,td{padding:.9rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.55}th{background:#e0f2fe;color:#075985;font-weight:950}tr:last-child td{border-bottom:0}.chips{display:flex;gap:.6rem;flex-wrap:wrap}.chips span{border-radius:999px;background:#f1f5f9;border:1px solid var(--line);padding:.55rem .75rem;font-weight:800;color:#334155}.question-list{display:grid;gap:.75rem;padding-left:1.3rem}.question-list li{background:#f8fafc;border:1px solid var(--line);border-radius:16px;padding:.85rem}.answer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1rem}.answer-card h3{color:#075985;font-size:1.02rem}.footer{margin:2rem auto 3rem;background:#0f172a;color:#e5e7eb;border-radius:24px;padding:1rem 1.2rem;display:flex;gap:1rem;align-items:center;justify-content:space-between;flex-wrap:wrap}.footer details{width:100%;color:#cbd5e1}
+    @media(max-width:980px){.hero-card{grid-template-columns:1fr;min-height:auto}.meta-grid .card,.card{grid-column:span 12}.nav{gap:.45rem}.tab-btn,.print-btn{padding:.72rem .8rem;font-size:.92rem}.brand{width:54px;height:54px;border-radius:18px}}
+    @media print{@page{size:A4;margin:12mm}body{background:#fff!important;color:#000}.topbar,body:before,.hero-actions,.quick-grid button{display:none!important}.shell{width:100%;max-width:none}.panel{display:block!important;padding:.5rem 0!important;break-before:auto}.hero-card,.module-hero,.card,.bank-card,.topic-card,.answer-card,.example{box-shadow:none!important;break-inside:avoid;border-color:#b8c2cc}.hero-card,.module-hero{color:#000!important;background:#fff!important;border:1px solid #999}.hero-card p,.module-hero p,.malayalam{color:#222!important}.hero-panel{box-shadow:none;border:1px solid #999}.section-title h2,.hero-card h1,.module-hero h2{font-size:22pt}table{min-width:0;font-size:9pt}th,td{padding:6px}.footer{background:#fff;color:#000;border:1px solid #999}}
+    </style>
+</head>
+<body>
+<header class="topbar">
+  <div class="shell nav" role="navigation" aria-label="Lesson navigation">
+    <div class="brand" aria-label="Course code 1005">1005</div>
+    <button class="tab-btn active" data-target="overview">Course Overview</button>
+    <button class="tab-btn" data-target="bank">Key Points Bank</button>
+    <button class="tab-btn" data-target="m1" aria-label="Open Module 1">Module 1</button>
+<button class="tab-btn" data-target="m2" aria-label="Open Module 2">Module 2</button>
+<button class="tab-btn" data-target="m3" aria-label="Open Module 3">Module 3</button>
+<button class="tab-btn" data-target="m4" aria-label="Open Module 4">Module 4</button>
+    <button class="tab-btn" data-target="revision">Quick Revision</button>
+    <button class="tab-btn" data-target="answers">Master Answer Key</button>
+    <button class="print-btn" id="downloadPdf" type="button">Download PDF</button>
+  </div>
+</header>
+<main class="shell">
+
+    <section id="overview" class="panel active" data-title="Course Overview">
+      <div class="hero-card">
+        <div>
+          <span class="eyebrow">Kerala Polytechnic Revision 2021 • Premium Lesson File</span>
+          <h1>Engineering Graphics</h1>
+          <p>Diploma in Engineering and Technology • Semester 1 • Engineering Science</p>
+          <div class="hero-actions">
+            <button class="primary-action" data-target="m1">Start Module 1</button>
+            <button class="secondary-action" data-target="bank">Key Points Bank</button>
+          </div>
+        </div>
+        <div class="hero-panel">
+          <b>Course Code</b><strong>1005</strong>
+          <span>Base course code: 1005</span>
+          <span>Credits: 1.5 • L:0, T:0, P:3</span>
+          <span>Periods/Semester: 45</span>
+        </div>
+      </div>
+      <div class="grid meta-grid">
+        <article class="card"><span class="label">Subject Type</span><h3>Drawing / Graphics</h3><p>This file adapts the lesson structure according to the subject type, so the learning material behaves like a textbook, revision guide, workbook and answer guide.</p></article>
+        <article class="card"><span class="label">Programme</span><h3>Diploma in Engineering and Technology</h3><p>Designed for Kerala Polytechnic students with simple explanations, exam-friendly formats and practical support notes.</p></article>
+        <article class="card"><span class="label">Exam / Evaluation</span><h3>Evaluation Style</h3><p>75 marks, 3 hours: Part A 5×1, Part B any five 8-mark questions, Part C any two 15-mark questions.</p></article>
+      </div>
+      <div class="grid">
+        <article class="card wide">
+          <h2>Student-friendly subject summary</h2>
+          <p>Engineering Graphics builds the foundation needed for the semester by connecting syllabus outcomes with real study practice. Read the overview first, then open one module at a time, revise key points, and finally practise the expected questions with the master answer key.</p>
+          <div class="tip">Malayalam tip: ഓരോ module-ഉം open ചെയ്ത് പഠിക്കുക. എല്ലാം ഒരുമിച്ച് കാണിക്കാത്തതിനാൽ focus നഷ്ടപ്പെടില്ല.</div>
+        </article>
+        <article class="card">
+          <h2>Prerequisite Knowledge</h2>
+          <ul><li>Basic geometry of secondary school level.</li></ul>
+        </article>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h2>Course Objectives</h2>
+          <ul><li>Familiarize the graphics language used in engineering work.</li>
+<li>Develop drafting and sketching skills and awareness of Indian Standards.</li>
+<li>Translate ideas into sketches and draw/read curves, projections and dimensioning styles.</li>
+<li>Develop projection of points and lines, orthographic/sectional views and simple CADD commands.</li></ul>
+        </article>
+        <article class="card">
+          <h2>How to study this subject</h2>
+          <ol>
+            <li>Read the module outcome before studying the topic.</li>
+            <li>Write definitions, formulas/key points and procedures in a separate revision page.</li>
+            <li>Practise expected questions after completing each module.</li>
+            <li>Use the Master Answer Key to improve answer order and presentation.</li>
+          </ol>
+        </article>
+      </div>
+      <article class="card wide">
+        <h2>Course Outcomes</h2>
+        <div class='table-wrap'><table><thead><tr><th>CO</th><th>Outcome</th><th>Hours</th><th>Level</th></tr></thead><tbody><tr><td><b>CO1</b></td><td>Illustrate basic elements of drawing.</td><td>14</td><td>Understanding</td></tr>
+<tr><td><b>CO2</b></td><td>Construct projections of points and lines.</td><td>12</td><td>Applying</td></tr>
+<tr><td><b>CO3</b></td><td>Build orthographic projections and sectional views of objects.</td><td>9</td><td>Applying</td></tr>
+<tr><td><b>CO4</b></td><td>Develop isometric projections.</td><td>8</td><td>Applying</td></tr></tbody></table></div>
+      </article>
+      <article class="card wide">
+        <h2>Module Map</h2>
+        <div class='table-wrap'><table><thead><tr><th>Module</th><th>Title</th><th>Hours</th><th>Linked outcome</th></tr></thead><tbody><tr><td><b>Module 1</b></td><td>Drawing Instruments, Lines, Dimensioning, Curves and Scales</td><td>14</td><td>Illustrate basic elements of drawing.</td></tr>
+<tr><td><b>Module 2</b></td><td>Projection of Points and Lines</td><td>12</td><td>Construct projections of points and lines.</td></tr>
+<tr><td><b>Module 3</b></td><td>Orthographic Projections and Sectional Views</td><td>9</td><td>Build orthographic projections and sectional views of objects.</td></tr>
+<tr><td><b>Module 4</b></td><td>Isometric Projection, Freehand Sketching and CADD</td><td>8</td><td>Develop isometric projections.</td></tr></tbody></table></div>
+      </article>
+      <article class="card wide">
+        <h2>Quick navigation cards</h2>
+        <div class="quick-grid">
+          <button data-target="bank">Key Points Bank</button>
+          <button data-target="m1">Module 1: Drawing Instruments, Lines, Dimensioning, Curves and Scales</button><button data-target="m2">Module 2: Projection of Points and Lines</button><button data-target="m3">Module 3: Orthographic Projections and Sectional Views</button><button data-target="m4">Module 4: Isometric Projection, Freehand Sketching and CADD</button>
+          <button data-target="revision">Quick Revision</button>
+          <button data-target="answers">Master Answer Key</button>
+        </div>
+      </article>
+    </section>
+    
+
+    <section id="bank" class="panel" data-title="Key Points Bank">
+      <div class="section-title">
+        <span class="eyebrow">Key Points Bank</span>
+        <h2>Key Points Bank for Engineering Graphics</h2>
+        <p>Use this as the last-minute memory page before exams and practical sessions.</p>
+      </div>
+      <div class="bank-grid">
+          <article class="bank-card">
+            <h3>Visible outline</h3>
+            <code>Thick continuous line</code>
+            <p><b>Where used:</b> Object boundary</p>
+            <p><b>Common mistake:</b> Do not use construction line thickness.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Projection line</h3>
+            <code>Thin continuous line</code>
+            <p><b>Where used:</b> Transfer points between views</p>
+            <p><b>Common mistake:</b> Keep light and clean.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Hidden edge</h3>
+            <code>Dashed thin line</code>
+            <p><b>Where used:</b> Invisible edge</p>
+            <p><b>Common mistake:</b> Do not overuse when sectional view is used.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Dimension line</h3>
+            <code>Thin continuous with arrowheads</code>
+            <p><b>Where used:</b> Size indication</p>
+            <p><b>Common mistake:</b> Do not cross dimension lines unnecessarily.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>First angle projection</h3>
+            <code>Object lies between observer and plane</code>
+            <p><b>Where used:</b> Kerala diploma drawings often specify this</p>
+            <p><b>Common mistake:</b> Place views in correct relative positions.</p>
+          </article>
+        
+          <article class="bank-card">
+            <h3>Isometric axes</h3>
+            <code>One vertical and two 30° axes</code>
+            <p><b>Where used:</b> Isometric drawing</p>
+            <p><b>Common mistake:</b> Do not draw horizontal edges as horizontal unless required.</p>
+          </article>
+        </div>
+    </section>
+    
+
+        <section id="m1" class="panel" data-title="Module 1">
+          <div class="module-hero">
+            <span class="eyebrow">Module 1 • 14 hours</span>
+            <h2>Drawing Instruments, Lines, Dimensioning, Curves and Scales</h2>
+            <p><b>Learning outcome:</b> Illustrate basic elements of drawing.</p>
+            <p class="malayalam">Drawing-ൽ neatness, line thickness, labels എന്നിവയാണ് marks കിട്ടാൻ പ്രധാന കാര്യം.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="Engineering graphics projection diagram">
+          <rect x="30" y="25" width="700" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <line x1="380" y1="55" x2="380" y2="250" stroke="#0f172a" stroke-width="3"/>
+          <line x1="95" y1="152" x2="665" y2="152" stroke="#0f172a" stroke-width="3"/>
+          <rect x="120" y="80" width="120" height="90" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+          <path d="M470 96 L585 72 L632 160 L510 190 Z" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+          <line x1="240" y1="170" x2="470" y2="190" stroke="#f97316" stroke-dasharray="10 8" stroke-width="3"/>
+          <text x="95" y="45" font-size="20" font-weight="800" fill="#075985">Drawing Instruments, Lines, Dimensioni</text>
+          <text x="138" y="205" font-size="16" fill="#475569">front/top view</text>
+          <text x="495" y="225" font-size="16" fill="#475569">isometric/object view</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Engineering graphics importance</h3>
+            <p>Engineering graphics importance is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Drawing instruments and supporting materials</h3>
+            <p>Drawing instruments and supporting materials is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Convention of lines</h3>
+            <p>Convention of lines is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>BIS dimensioning</h3>
+            <p>BIS dimensioning is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Chain, parallel and coordinate dimensioning</h3>
+            <p>Chain, parallel and coordinate dimensioning is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Regular polygon construction</h3>
+            <p>Regular polygon construction is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Conic sections ellipse and parabola</h3>
+            <p>Conic sections ellipse and parabola is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Helix and involute</h3>
+            <p>Helix and involute is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Plain, diagonal and vernier scales</h3>
+            <p>Plain, diagonal and vernier scales is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>Engineering graphics importance</td><td>Engineering graphics importance is a core point in this module. In exam answers, connect it with Drawing Instruments, Lines, Dimensioning, Curves and Scales and give one clear example.</td></tr>
+<tr><td>Drawing instruments and supporting materials</td><td>Drawing instruments and supporting materials is a core point in this module. In exam answers, connect it with Drawing Instruments, Lines, Dimensioning, Curves and Scales and give one clear example.</td></tr>
+<tr><td>Convention of lines</td><td>Convention of lines is a core point in this module. In exam answers, connect it with Drawing Instruments, Lines, Dimensioning, Curves and Scales and give one clear example.</td></tr>
+<tr><td>BIS dimensioning</td><td>BIS dimensioning is a core point in this module. In exam answers, connect it with Drawing Instruments, Lines, Dimensioning, Curves and Scales and give one clear example.</td></tr>
+<tr><td>Chain, parallel and coordinate dimensioning</td><td>Chain, parallel and coordinate dimensioning is a core point in this module. In exam answers, connect it with Drawing Instruments, Lines, Dimensioning, Curves and Scales and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Use thick continuous line for visible outlines and thin continuous line for projection/construction.</p></div><div class='example'><b>Example</b><p>Dimensioning should be readable from bottom/right side as per convention.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M1-Q1</b> Explain Engineering graphics importance with its importance in Drawing Instruments, Lines, Dimensioning, Curves and Scales.</li><li><b>M1-Q2</b> Write short notes on Drawing instruments and supporting materials.</li><li><b>M1-Q3</b> Prepare an exam-ready answer for Convention of lines.</li><li><b>M1-Q4</b> Compare or connect two key ideas from Drawing Instruments, Lines, Dimensioning, Curves and Scales.</li><li><b>M1-Q5</b> Draw/describe a neat labelled diagram, table or format related to Drawing Instruments, Lines, Dimensioning, Curves and Scales.</li><li><b>M1-Q6</b> List common mistakes/precautions while studying or performing Drawing Instruments, Lines, Dimensioning, Curves and Scales.</li></ol>
+          </article>
+        </section>
+        
+        <section id="m2" class="panel" data-title="Module 2">
+          <div class="module-hero">
+            <span class="eyebrow">Module 2 • 12 hours</span>
+            <h2>Projection of Points and Lines</h2>
+            <p><b>Learning outcome:</b> Construct projections of points and lines.</p>
+            <p class="malayalam">XY reference line, HP, VP labels തെറ്റിയാൽ complete answer തെറ്റായി കാണാം.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="Engineering graphics projection diagram">
+          <rect x="30" y="25" width="700" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <line x1="380" y1="55" x2="380" y2="250" stroke="#0f172a" stroke-width="3"/>
+          <line x1="95" y1="152" x2="665" y2="152" stroke="#0f172a" stroke-width="3"/>
+          <rect x="120" y="80" width="120" height="90" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+          <path d="M470 96 L585 72 L632 160 L510 190 Z" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+          <line x1="240" y1="170" x2="470" y2="190" stroke="#f97316" stroke-dasharray="10 8" stroke-width="3"/>
+          <text x="95" y="45" font-size="20" font-weight="800" fill="#075985">Projection of Points and Lines</text>
+          <text x="138" y="205" font-size="16" fill="#475569">front/top view</text>
+          <text x="495" y="225" font-size="16" fill="#475569">isometric/object view</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Theory of projection</h3>
+            <p>Theory of projection is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Reference planes HP and VP</h3>
+            <p>Reference planes HP and VP is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Quadrants</h3>
+            <p>Quadrants is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Projection of points</h3>
+            <p>Projection of points is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Projection of straight lines in first quadrant</h3>
+            <p>Projection of straight lines in first quadrant is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Lines parallel to planes</h3>
+            <p>Lines parallel to planes is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Lines perpendicular to one plane</h3>
+            <p>Lines perpendicular to one plane is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Lines inclined to one plane</h3>
+            <p>Lines inclined to one plane is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Lines inclined to both planes</h3>
+            <p>Lines inclined to both planes is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>True length and inclination</h3>
+            <p>True length and inclination is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>Theory of projection</td><td>Theory of projection is a core point in this module. In exam answers, connect it with Projection of Points and Lines and give one clear example.</td></tr>
+<tr><td>Reference planes HP and VP</td><td>Reference planes HP and VP is a core point in this module. In exam answers, connect it with Projection of Points and Lines and give one clear example.</td></tr>
+<tr><td>Quadrants</td><td>Quadrants is a core point in this module. In exam answers, connect it with Projection of Points and Lines and give one clear example.</td></tr>
+<tr><td>Projection of points</td><td>Projection of points is a core point in this module. In exam answers, connect it with Projection of Points and Lines and give one clear example.</td></tr>
+<tr><td>Projection of straight lines in first quadrant</td><td>Projection of straight lines in first quadrant is a core point in this module. In exam answers, connect it with Projection of Points and Lines and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Always start with XY line and mark distances from HP/VP correctly.</p></div><div class='example'><b>Example</b><p>Use projector lines perpendicular to the reference line.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M2-Q1</b> Explain Theory of projection with its importance in Projection of Points and Lines.</li><li><b>M2-Q2</b> Write short notes on Reference planes HP and VP.</li><li><b>M2-Q3</b> Prepare an exam-ready answer for Quadrants.</li><li><b>M2-Q4</b> Compare or connect two key ideas from Projection of Points and Lines.</li><li><b>M2-Q5</b> Draw/describe a neat labelled diagram, table or format related to Projection of Points and Lines.</li><li><b>M2-Q6</b> List common mistakes/precautions while studying or performing Projection of Points and Lines.</li></ol>
+          </article>
+        </section>
+        
+        <section id="m3" class="panel" data-title="Module 3">
+          <div class="module-hero">
+            <span class="eyebrow">Module 3 • 9 hours</span>
+            <h2>Orthographic Projections and Sectional Views</h2>
+            <p><b>Learning outcome:</b> Build orthographic projections and sectional views of objects.</p>
+            <p class="malayalam">First angle projection method മാത്രം use ചെയ്യുക എന്ന് syllabus പറയുന്നു; symbol ഓർക്കുക.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="Engineering graphics projection diagram">
+          <rect x="30" y="25" width="700" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <line x1="380" y1="55" x2="380" y2="250" stroke="#0f172a" stroke-width="3"/>
+          <line x1="95" y1="152" x2="665" y2="152" stroke="#0f172a" stroke-width="3"/>
+          <rect x="120" y="80" width="120" height="90" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+          <path d="M470 96 L585 72 L632 160 L510 190 Z" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+          <line x1="240" y1="170" x2="470" y2="190" stroke="#f97316" stroke-dasharray="10 8" stroke-width="3"/>
+          <text x="95" y="45" font-size="20" font-weight="800" fill="#075985">Orthographic Projections and Sectional</text>
+          <text x="138" y="205" font-size="16" fill="#475569">front/top view</text>
+          <text x="495" y="225" font-size="16" fill="#475569">isometric/object view</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Orthographic, isometric and oblique projection concept</h3>
+            <p>Orthographic, isometric and oblique projection concept is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>First angle projection</h3>
+            <p>First angle projection is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Third angle projection symbols</h3>
+            <p>Third angle projection symbols is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Conversion of pictorial view into orthographic views</h3>
+            <p>Conversion of pictorial view into orthographic views is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Objects with slots, ribs, cylindrical and slanting surfaces</h3>
+            <p>Objects with slots, ribs, cylindrical and slanting surfaces is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Need for sectional drawing</h3>
+            <p>Need for sectional drawing is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Full section and half section</h3>
+            <p>Full section and half section is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>Orthographic, isometric and oblique projection concept</td><td>Orthographic, isometric and oblique projection concept is a core point in this module. In exam answers, connect it with Orthographic Projections and Sectional Views and give one clear example.</td></tr>
+<tr><td>First angle projection</td><td>First angle projection is a core point in this module. In exam answers, connect it with Orthographic Projections and Sectional Views and give one clear example.</td></tr>
+<tr><td>Third angle projection symbols</td><td>Third angle projection symbols is a core point in this module. In exam answers, connect it with Orthographic Projections and Sectional Views and give one clear example.</td></tr>
+<tr><td>Conversion of pictorial view into orthographic views</td><td>Conversion of pictorial view into orthographic views is a core point in this module. In exam answers, connect it with Orthographic Projections and Sectional Views and give one clear example.</td></tr>
+<tr><td>Objects with slots, ribs, cylindrical and slanting surfaces</td><td>Objects with slots, ribs, cylindrical and slanting surfaces is a core point in this module. In exam answers, connect it with Orthographic Projections and Sectional Views and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Front view is usually chosen to show maximum shape information.</p></div><div class='example'><b>Example</b><p>Hatching indicates the cut surface in sectional view.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M3-Q1</b> Explain Orthographic, isometric and oblique projection concept with its importance in Orthographic Projections and Sectional Views.</li><li><b>M3-Q2</b> Write short notes on First angle projection.</li><li><b>M3-Q3</b> Prepare an exam-ready answer for Third angle projection symbols.</li><li><b>M3-Q4</b> Compare or connect two key ideas from Orthographic Projections and Sectional Views.</li><li><b>M3-Q5</b> Draw/describe a neat labelled diagram, table or format related to Orthographic Projections and Sectional Views.</li><li><b>M3-Q6</b> List common mistakes/precautions while studying or performing Orthographic Projections and Sectional Views.</li></ol>
+          </article>
+        </section>
+        
+        <section id="m4" class="panel" data-title="Module 4">
+          <div class="module-hero">
+            <span class="eyebrow">Module 4 • 8 hours</span>
+            <h2>Isometric Projection, Freehand Sketching and CADD</h2>
+            <p><b>Learning outcome:</b> Develop isometric projections.</p>
+            <p class="malayalam">Isometric-ൽ vertical line vertical, other two axes 30° ആയിരിക്കും.</p>
+          </div>
+          <div class="grid">
+            <article class="card wide">
+              <h2>Simple introduction</h2>
+              <p>This module should be studied as a connected set of ideas, not as isolated points. First understand the purpose, then learn the correct terms, then practise writing or performing the answer in exam/lab format.</p>
+            </article>
+            <article class="card diagram-card">
+        <svg viewBox="0 0 760 310" role="img" aria-label="Engineering graphics projection diagram">
+          <rect x="30" y="25" width="700" height="250" rx="24" fill="#f8fafc" stroke="#cbd5e1"/>
+          <line x1="380" y1="55" x2="380" y2="250" stroke="#0f172a" stroke-width="3"/>
+          <line x1="95" y1="152" x2="665" y2="152" stroke="#0f172a" stroke-width="3"/>
+          <rect x="120" y="80" width="120" height="90" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+          <path d="M470 96 L585 72 L632 160 L510 190 Z" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+          <line x1="240" y1="170" x2="470" y2="190" stroke="#f97316" stroke-dasharray="10 8" stroke-width="3"/>
+          <text x="95" y="45" font-size="20" font-weight="800" fill="#075985">Isometric Projection, Freehand Sketchi</text>
+          <text x="138" y="205" font-size="16" fill="#475569">front/top view</text>
+          <text x="495" y="225" font-size="16" fill="#475569">isometric/object view</text>
+        </svg></article>
+          </div>
+          <article class="card wide">
+            <h2>Topic-wise explanation</h2>
+            <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Isometric scale</h3>
+            <p>Isometric scale is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Isometric view</h3>
+            <p>Isometric view is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Isometric projection</h3>
+            <p>Isometric projection is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Conversion from orthographic to isometric</h3>
+            <p>Conversion from orthographic to isometric is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Freehand sketching of real objects</h3>
+            <p>Freehand sketching of real objects is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Conversion both ways</h3>
+            <p>Conversion both ways is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>AutoCAD introduction</h3>
+            <p>AutoCAD introduction is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Electrical CAD, STAAD, Mechanical Desktop introduction</h3>
+            <p>Electrical CAD, STAAD, Mechanical Desktop introduction is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Basic 2D CADD commands</h3>
+            <p>Basic 2D CADD commands is part of the official syllabus for this module. Study it by writing the definition/purpose, the working idea or procedure, one application, and one common error to avoid. In exam answers, keep the order logical and use labelled points.</p>
+          </article></div>
+          </article>
+          <div class="grid">
+            <article class="card">
+              <h2>Important terms</h2>
+              <div class='table-wrap'><table><thead><tr><th>Term</th><th>Exam-ready meaning</th></tr></thead><tbody><tr><td>Isometric scale</td><td>Isometric scale is a core point in this module. In exam answers, connect it with Isometric Projection, Freehand Sketching and CADD and give one clear example.</td></tr>
+<tr><td>Isometric view</td><td>Isometric view is a core point in this module. In exam answers, connect it with Isometric Projection, Freehand Sketching and CADD and give one clear example.</td></tr>
+<tr><td>Isometric projection</td><td>Isometric projection is a core point in this module. In exam answers, connect it with Isometric Projection, Freehand Sketching and CADD and give one clear example.</td></tr>
+<tr><td>Conversion from orthographic to isometric</td><td>Conversion from orthographic to isometric is a core point in this module. In exam answers, connect it with Isometric Projection, Freehand Sketching and CADD and give one clear example.</td></tr>
+<tr><td>Freehand sketching of real objects</td><td>Freehand sketching of real objects is a core point in this module. In exam answers, connect it with Isometric Projection, Freehand Sketching and CADD and give one clear example.</td></tr></tbody></table></div>
+            </article>
+            <article class="card">
+              <h2>Practical / real-life examples</h2>
+              <div class='example'><b>Example</b><p>Isometric view uses true dimensions; isometric projection uses isometric scale.</p></div><div class='example'><b>Example</b><p>CADD commands: line, circle, rectangle, trim, offset, dimension.</p></div>
+              <div class="tip">Exam writing tip: Start with the exact term, then add explanation, example and conclusion.</div>
+            </article>
+          </div>
+          <div class="grid">
+            <article class="card">
+              <h2>Common mistakes</h2>
+              <ul>
+                <li>Writing answers without the required order or headings.</li>
+                <li>Skipping units, labels, procedure steps or diagrams where needed.</li>
+                <li>Memorising without understanding the application.</li>
+                <li>Not matching the answer to the question verb: explain, compare, draw, calculate or list.</li>
+              </ul>
+            </article>
+            <article class="card">
+              <h2>Module checklist</h2>
+              <div class="chips"><span>Outcome read</span><span>Definitions ready</span><span>Examples practised</span><span>Diagram/table revised</span><span>Questions attempted</span><span>Mistakes checked</span></div>
+            </article>
+          </div>
+          <article class="card wide">
+            <h2>Expected Questions</h2>
+            <ol class="question-list"><li><b>M4-Q1</b> Explain Isometric scale with its importance in Isometric Projection, Freehand Sketching and CADD.</li><li><b>M4-Q2</b> Write short notes on Isometric view.</li><li><b>M4-Q3</b> Prepare an exam-ready answer for Isometric projection.</li><li><b>M4-Q4</b> Compare or connect two key ideas from Isometric Projection, Freehand Sketching and CADD.</li><li><b>M4-Q5</b> Draw/describe a neat labelled diagram, table or format related to Isometric Projection, Freehand Sketching and CADD.</li><li><b>M4-Q6</b> List common mistakes/precautions while studying or performing Isometric Projection, Freehand Sketching and CADD.</li></ol>
+          </article>
+        </section>
+        
+
+    <section id="revision" class="panel" data-title="Quick Revision">
+      <div class="section-title">
+        <span class="eyebrow">Quick Revision</span>
+        <h2>One-page revision summary</h2>
+        <p>Use this section on the previous day of exam or practical assessment.</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h2>Module-wise must-know points</h2>
+          <ul><li><b>Module 1:</b> Drawing Instruments, Lines, Dimensioning, Curves and Scales — revise Engineering graphics importance, Drawing instruments and supporting materials, Convention of lines, BIS dimensioning.</li><li><b>Module 2:</b> Projection of Points and Lines — revise Theory of projection, Reference planes HP and VP, Quadrants, Projection of points.</li><li><b>Module 3:</b> Orthographic Projections and Sectional Views — revise Orthographic, isometric and oblique projection concept, First angle projection, Third angle projection symbols, Conversion of pictorial view into orthographic views.</li><li><b>Module 4:</b> Isometric Projection, Freehand Sketching and CADD — revise Isometric scale, Isometric view, Isometric projection, Conversion from orthographic to isometric.</li></ul>
+        </article>
+        <article class="card">
+          <h2>Important definitions / formulas / key points</h2>
+          <ul><li><b>Visible outline:</b> Thick continuous line — Object boundary</li><li><b>Projection line:</b> Thin continuous line — Transfer points between views</li><li><b>Hidden edge:</b> Dashed thin line — Invisible edge</li><li><b>Dimension line:</b> Thin continuous with arrowheads — Size indication</li><li><b>First angle projection:</b> Object lies between observer and plane — Kerala diploma drawings often specify this</li><li><b>Isometric axes:</b> One vertical and two 30° axes — Isometric drawing</li></ul>
+        </article>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h2>Common exam mistakes</h2>
+          <ul>
+            <li>Writing general answers instead of syllabus-topic answers.</li>
+            <li>Forgetting diagrams, tables, units, procedures or examples.</li>
+            <li>Skipping final conclusion/result in long answers.</li>
+            <li>Not numbering answers neatly.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h2>Last-minute checklist</h2>
+          <div class="chips"><span>Course outcomes</span><span>Module map</span><span>Key bank</span><span>Expected questions</span><span>Answer format</span><span>Diagrams/tables</span><span>Final revision</span></div>
+        </article>
+      </div>
+      <article class="card wide">
+        <h2>Diagram / table list</h2>
+        <p>Prepare neat labelled diagrams, flowcharts, observation tables, comparison tables or answer formats wherever the module asks for drawing, procedure, calculation or communication structure.</p>
+      </article>
+    </section>
+    
+
+    <section id="answers" class="panel" data-title="Master Answer Key">
+      <div class="section-title">
+        <span class="eyebrow">Master Answer Key</span>
+        <h2>Answers matching every expected question</h2>
+        <p>Each answer number exactly follows the expected question number.</p>
+      </div>
+      <div class="answer-grid">
+        <article class="answer-card">
+          <h3>M1-Q1 — Explain Engineering graphics importance with its importance in Drawing Instruments, Lines, Dimensioning, Curves and Scales.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Engineering graphics importance, Drawing instruments and supporting materials, Convention of lines, BIS dimensioning, Chain, parallel and coordinate dimensioning.</p>
+          <p><b>Module link:</b> Drawing Instruments, Lines, Dimensioning, Curves and Scales</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q2 — Write short notes on Drawing instruments and supporting materials.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Engineering graphics importance, Drawing instruments and supporting materials, Convention of lines, BIS dimensioning, Chain, parallel and coordinate dimensioning.</p>
+          <p><b>Module link:</b> Drawing Instruments, Lines, Dimensioning, Curves and Scales</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q3 — Prepare an exam-ready answer for Convention of lines.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Engineering graphics importance, Drawing instruments and supporting materials, Convention of lines, BIS dimensioning, Chain, parallel and coordinate dimensioning.</p>
+          <p><b>Module link:</b> Drawing Instruments, Lines, Dimensioning, Curves and Scales</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q4 — Compare or connect two key ideas from Drawing Instruments, Lines, Dimensioning, Curves and Scales.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Engineering graphics importance, Drawing instruments and supporting materials, Convention of lines, BIS dimensioning, Chain, parallel and coordinate dimensioning.</p>
+          <p><b>Module link:</b> Drawing Instruments, Lines, Dimensioning, Curves and Scales</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q5 — Draw/describe a neat labelled diagram, table or format related to Drawing Instruments, Lines, Dimensioning, Curves and Scales.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Engineering graphics importance, Drawing instruments and supporting materials, Convention of lines, BIS dimensioning, Chain, parallel and coordinate dimensioning.</p>
+          <p><b>Module link:</b> Drawing Instruments, Lines, Dimensioning, Curves and Scales</p>
+        </article>
+        <article class="answer-card">
+          <h3>M1-Q6 — List common mistakes/precautions while studying or performing Drawing Instruments, Lines, Dimensioning, Curves and Scales.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Engineering graphics importance, Drawing instruments and supporting materials, Convention of lines, BIS dimensioning, Chain, parallel and coordinate dimensioning.</p>
+          <p><b>Module link:</b> Drawing Instruments, Lines, Dimensioning, Curves and Scales</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q1 — Explain Theory of projection with its importance in Projection of Points and Lines.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Theory of projection, Reference planes HP and VP, Quadrants, Projection of points, Projection of straight lines in first quadrant.</p>
+          <p><b>Module link:</b> Projection of Points and Lines</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q2 — Write short notes on Reference planes HP and VP.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Theory of projection, Reference planes HP and VP, Quadrants, Projection of points, Projection of straight lines in first quadrant.</p>
+          <p><b>Module link:</b> Projection of Points and Lines</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q3 — Prepare an exam-ready answer for Quadrants.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Theory of projection, Reference planes HP and VP, Quadrants, Projection of points, Projection of straight lines in first quadrant.</p>
+          <p><b>Module link:</b> Projection of Points and Lines</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q4 — Compare or connect two key ideas from Projection of Points and Lines.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Theory of projection, Reference planes HP and VP, Quadrants, Projection of points, Projection of straight lines in first quadrant.</p>
+          <p><b>Module link:</b> Projection of Points and Lines</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q5 — Draw/describe a neat labelled diagram, table or format related to Projection of Points and Lines.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Theory of projection, Reference planes HP and VP, Quadrants, Projection of points, Projection of straight lines in first quadrant.</p>
+          <p><b>Module link:</b> Projection of Points and Lines</p>
+        </article>
+        <article class="answer-card">
+          <h3>M2-Q6 — List common mistakes/precautions while studying or performing Projection of Points and Lines.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Theory of projection, Reference planes HP and VP, Quadrants, Projection of points, Projection of straight lines in first quadrant.</p>
+          <p><b>Module link:</b> Projection of Points and Lines</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q1 — Explain Orthographic, isometric and oblique projection concept with its importance in Orthographic Projections and Sectional Views.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Orthographic, isometric and oblique projection concept, First angle projection, Third angle projection symbols, Conversion of pictorial view into orthographic views, Objects with slots, ribs, cylindrical and slanting surfaces.</p>
+          <p><b>Module link:</b> Orthographic Projections and Sectional Views</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q2 — Write short notes on First angle projection.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Orthographic, isometric and oblique projection concept, First angle projection, Third angle projection symbols, Conversion of pictorial view into orthographic views, Objects with slots, ribs, cylindrical and slanting surfaces.</p>
+          <p><b>Module link:</b> Orthographic Projections and Sectional Views</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q3 — Prepare an exam-ready answer for Third angle projection symbols.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Orthographic, isometric and oblique projection concept, First angle projection, Third angle projection symbols, Conversion of pictorial view into orthographic views, Objects with slots, ribs, cylindrical and slanting surfaces.</p>
+          <p><b>Module link:</b> Orthographic Projections and Sectional Views</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q4 — Compare or connect two key ideas from Orthographic Projections and Sectional Views.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Orthographic, isometric and oblique projection concept, First angle projection, Third angle projection symbols, Conversion of pictorial view into orthographic views, Objects with slots, ribs, cylindrical and slanting surfaces.</p>
+          <p><b>Module link:</b> Orthographic Projections and Sectional Views</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q5 — Draw/describe a neat labelled diagram, table or format related to Orthographic Projections and Sectional Views.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Orthographic, isometric and oblique projection concept, First angle projection, Third angle projection symbols, Conversion of pictorial view into orthographic views, Objects with slots, ribs, cylindrical and slanting surfaces.</p>
+          <p><b>Module link:</b> Orthographic Projections and Sectional Views</p>
+        </article>
+        <article class="answer-card">
+          <h3>M3-Q6 — List common mistakes/precautions while studying or performing Orthographic Projections and Sectional Views.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Orthographic, isometric and oblique projection concept, First angle projection, Third angle projection symbols, Conversion of pictorial view into orthographic views, Objects with slots, ribs, cylindrical and slanting surfaces.</p>
+          <p><b>Module link:</b> Orthographic Projections and Sectional Views</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q1 — Explain Isometric scale with its importance in Isometric Projection, Freehand Sketching and CADD.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Isometric scale, Isometric view, Isometric projection, Conversion from orthographic to isometric, Freehand sketching of real objects.</p>
+          <p><b>Module link:</b> Isometric Projection, Freehand Sketching and CADD</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q2 — Write short notes on Isometric view.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Isometric scale, Isometric view, Isometric projection, Conversion from orthographic to isometric, Freehand sketching of real objects.</p>
+          <p><b>Module link:</b> Isometric Projection, Freehand Sketching and CADD</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q3 — Prepare an exam-ready answer for Isometric projection.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Isometric scale, Isometric view, Isometric projection, Conversion from orthographic to isometric, Freehand sketching of real objects.</p>
+          <p><b>Module link:</b> Isometric Projection, Freehand Sketching and CADD</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q4 — Compare or connect two key ideas from Isometric Projection, Freehand Sketching and CADD.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Isometric scale, Isometric view, Isometric projection, Conversion from orthographic to isometric, Freehand sketching of real objects.</p>
+          <p><b>Module link:</b> Isometric Projection, Freehand Sketching and CADD</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q5 — Draw/describe a neat labelled diagram, table or format related to Isometric Projection, Freehand Sketching and CADD.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Isometric scale, Isometric view, Isometric projection, Conversion from orthographic to isometric, Freehand sketching of real objects.</p>
+          <p><b>Module link:</b> Isometric Projection, Freehand Sketching and CADD</p>
+        </article>
+        <article class="answer-card">
+          <h3>M4-Q6 — List common mistakes/precautions while studying or performing Isometric Projection, Freehand Sketching and CADD.</h3>
+          <p><b>Answer format:</b> Use correct drawing instruments, BIS line conventions and clean construction steps. State the principle first, draw the reference/projection lines lightly, complete the required view, dimension only where required, and label the answer clearly. Main points: Isometric scale, Isometric view, Isometric projection, Conversion from orthographic to isometric, Freehand sketching of real objects.</p>
+          <p><b>Module link:</b> Isometric Projection, Freehand Sketching and CADD</p>
+        </article></div>
+    </section>
+    
+
+    <footer class="footer">
+      <div><b>Engineering Graphics 1005 • Downloadable HTML Notes</b></div>
+      <div>Author: Nandakumar.M</div>
+      <div>Visit: nandakumarm.dpdns.org</div>
+      <details><summary>Text / Reference from syllabus</summary><ul><li>P.I. Varghese, Engineering Graphics</li><li>K.C. John, Engineering Graphics</li><li>N.D. Bhatt, Engineering Drawing</li><li>D.M. Kulkarni et al., Engineering Graphics with AutoCAD</li></ul></details>
+    </footer>
+    
+</main>
+<script>
+    const panels=[...document.querySelectorAll('.panel')];
+    const buttons=[...document.querySelectorAll('[data-target]')];
+    function showPanel(id){
+      panels.forEach(p=>p.classList.toggle('active',p.id===id));
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.target===id));
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+    buttons.forEach(btn=>btn.addEventListener('click',()=>showPanel(btn.dataset.target)));
+    document.getElementById('downloadPdf').addEventListener('click',()=>window.print());
+    document.addEventListener('keydown',e=>{if(e.altKey&&e.key>='1'&&e.key<='9'){const idx=Number(e.key)-1;const b=document.querySelectorAll('.tab-btn')[idx];if(b)showPanel(b.dataset.target);}});
+    </script>
+</body>
+</html>

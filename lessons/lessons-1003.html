@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Applied Physics-I 1003 bilingual notes with formulas, modules, revision and master answer key." />
+  <title>Applied Physics-I 1003 | Kerala Polytechnic Study Hub</title>
+  <style>
+    :root {
+      --bg:#f4f8fc; --surface:#ffffff; --soft:#f8fafc; --ink:#0f172a; --muted:#5b6778; --line:rgba(15,23,42,.13);
+      --brand:#0369a1; --cyan:#06b6d4; --violet:#8b5cf6; --orange:#f97316; --green:#10b981;
+      --shadow:0 16px 46px rgba(15,23,42,.09); --radius:24px; --max:1700px;
+      --mal:"Noto Sans Malayalam","Nirmala UI","Manjari",system-ui,sans-serif;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; color:var(--ink); font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:radial-gradient(circle at 0 0,rgba(14,165,233,.18),transparent 28rem),radial-gradient(circle at 90% 0,rgba(139,92,246,.12),transparent 26rem),linear-gradient(180deg,#eef7fb 0%,var(--bg) 42%,#fff 100%); overflow-x:hidden; }
+    body:before { content:""; position:fixed; inset:0; pointer-events:none; opacity:.28; background-image:linear-gradient(rgba(14,165,233,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.08) 1px,transparent 1px); background-size:36px 36px; mask-image:linear-gradient(to bottom,#000,transparent 88%); }
+    button,input { font:inherit; } button { cursor:pointer; } a { color:inherit; text-decoration:none; }
+    .screen { width:min(var(--max),calc(100% - 28px)); margin-inline:auto; }
+    .progress { position:fixed; top:0; left:0; height:4px; width:0; z-index:200; background:linear-gradient(90deg,#06b6d4,#8b5cf6,#f97316,#10b981); }
+
+    /* Corrected topbar v3: compact single-row desktop header */
+    .topbar { position:sticky; top:0; z-index:100; border-bottom:1px solid var(--line); background:rgba(245,248,252,.96); backdrop-filter:blur(18px); overflow:hidden; }
+    .topbar-inner { width:min(var(--max),calc(100% - 24px)); margin-inline:auto; display:flex; align-items:center; gap:10px; padding:10px 0; flex-wrap:nowrap; overflow:hidden; }
+    .brand { flex:0 0 auto; display:grid; place-items:center; width:58px; height:58px; border:0; background:transparent; border-radius:18px; padding:0; box-shadow:none; }
+    .brand-mark { width:58px; height:58px; border-radius:18px; display:grid; place-items:center; color:#fff; font-weight:950; font-size:18px; background:linear-gradient(135deg,#083344,#0e7490,#2563eb); box-shadow:0 10px 28px rgba(3,105,161,.25); }
+    .brand:hover .brand-mark { transform:translateY(-1px); box-shadow:0 14px 30px rgba(3,105,161,.28); }
+    .brand-title { display:none!important; }
+    .selector { flex:1 1 auto; min-width:0; display:flex; gap:8px; justify-content:flex-start; align-items:center; flex-wrap:nowrap; overflow-x:auto; overflow-y:hidden; padding:0 0 2px; scrollbar-width:none; }
+    .selector::-webkit-scrollbar { display:none; }
+    .view-btn,.download-btn { flex:0 0 auto; border:1px solid var(--line); background:rgba(255,255,255,.9); color:#334155; border-radius:999px; padding:13px 18px; white-space:nowrap; font-size:clamp(13px,.85vw,16px); font-weight:850; line-height:1; transition:.18s ease; box-shadow:none; }
+    .view-btn:hover,.download-btn:hover { transform:translateY(-1px); border-color:rgba(3,105,161,.38); color:var(--brand); box-shadow:0 10px 26px rgba(15,23,42,.08); }
+    .view-btn.active { background:#0f172a; color:#fff; border-color:#0f172a; box-shadow:0 12px 30px rgba(15,23,42,.16); }
+    .download-btn { margin-left:auto; background:linear-gradient(135deg,#0284c7,#0891b2); color:#fff; border-color:transparent; }
+    .download-btn:hover { color:#fff; background:linear-gradient(135deg,#0369a1,#0e7490); }
+
+    main { position:relative; z-index:1; padding:1.25rem 0 2.6rem; }
+    .view-section[hidden] { display:none!important; }
+    .hero-mini { border-radius:34px; padding:clamp(1.35rem,3.2vw,2.6rem); color:#fff; background:linear-gradient(135deg,#0f172a,#075985 50%,#2563eb); box-shadow:0 24px 70px rgba(15,23,42,.22); overflow:hidden; position:relative; margin-bottom:1rem; }
+    .hero-mini:after { content:""; position:absolute; width:25rem; height:25rem; border-radius:50%; right:-9rem; top:-12rem; background:rgba(255,255,255,.13); }
+    .hero-mini>* { position:relative; z-index:1; }
+    .hero-mini h2 { margin:.8rem 0 .5rem; font-size:clamp(2rem,5vw,4.2rem); letter-spacing:-.065em; line-height:.95; }
+    .hero-mini p { margin:0; max-width:880px; color:rgba(255,255,255,.88); line-height:1.7; font-size:clamp(1rem,1.6vw,1.18rem); }
+    .pill,.badge { display:inline-flex; align-items:center; gap:.4rem; border-radius:999px; padding:.36rem .62rem; font-weight:900; font-size:.78rem; background:#e0f2fe; color:#0369a1; border:1px solid rgba(3,105,161,.12); }
+    .hero-mini .pill,.module-header .pill { background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.22); color:rgba(255,255,255,.94); }
+    .section-title { display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; margin:1.2rem 0 .9rem; }
+    .section-title h2 { margin:0; font-size:clamp(1.55rem,3vw,2.55rem); letter-spacing:-.04em; }
+    .section-title p { margin:.35rem 0 0; max-width:820px; color:var(--muted); line-height:1.6; }
+    .grid { display:grid; grid-template-columns:repeat(12,1fr); gap:1rem; }
+    .card { background:rgba(255,255,255,.94); border:1px solid var(--line); border-radius:var(--radius); padding:clamp(1rem,2vw,1.35rem); box-shadow:var(--shadow); backdrop-filter:blur(16px); }
+    .col-3 { grid-column:span 3; } .col-4 { grid-column:span 4; } .col-6 { grid-column:span 6; } .col-12 { grid-column:span 12; }
+    .note-list { margin:.75rem 0 0; padding-left:1.2rem; color:#334155; line-height:1.78; } .mal { font-family:var(--mal); line-height:1.9; }
+    .module-map { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.85rem; margin-top:.9rem; }
+    .map-card { text-align:left; cursor:pointer; position:relative; overflow:hidden; min-height:175px; border:1px solid var(--line); border-radius:22px; background:#fff; padding:1rem; box-shadow:0 10px 28px rgba(15,23,42,.06); }
+    .map-card:before { content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--accent,#0284c7); }
+    .map-card h3 { margin:.6rem 0 .4rem; font-size:1.06rem; line-height:1.25; } .map-card p { margin:0; color:var(--muted); line-height:1.55; font-size:.92rem; }
+    .tools { margin:.85rem 0 1rem; display:flex; gap:.7rem; flex-wrap:wrap; }
+    .search { flex:1 1 320px; min-width:0; border:1px solid var(--line); background:#fff; border-radius:999px; padding:.86rem 1rem; outline:none; box-shadow:0 10px 25px rgba(15,23,42,.05); }
+    .search:focus { border-color:#0ea5e9; box-shadow:0 0 0 4px rgba(14,165,233,.12); }
+    .formula-bank { display:grid; grid-template-columns:repeat(auto-fit,minmax(235px,1fr)); gap:.85rem; }
+    .formula-card { border:1px solid var(--line); background:#fff; border-radius:20px; padding:1rem; min-height:128px; box-shadow:0 10px 25px rgba(15,23,42,.055); }
+    .formula-card code { display:block; color:#082f49; font-size:1.05rem; font-weight:950; letter-spacing:-.02em; } .formula-card h3 { margin:.55rem 0 .22rem; color:#0f766e; font-size:.94rem; } .formula-card p { margin:0; color:var(--muted); line-height:1.45; font-size:.92rem; }
+    .module-header { border-radius:30px; padding:clamp(1.2rem,3vw,2rem); color:#fff; background:linear-gradient(135deg,#0f172a,var(--moduleAccent,#0284c7)); box-shadow:var(--shadow); overflow:hidden; position:relative; }
+    .module-header:after { content:""; position:absolute; right:-7rem; top:-10rem; width:25rem; height:25rem; border-radius:50%; background:rgba(255,255,255,.12); } .module-header>* { position:relative; z-index:1; }
+    .module-header h2 { margin:.6rem 0 .45rem; font-size:clamp(1.75rem,4vw,3rem); letter-spacing:-.04em; line-height:1.02; } .module-header p { margin:.25rem 0; color:rgba(255,255,255,.86); line-height:1.65; }
+    .lesson-grid { display:grid; grid-template-columns:1fr; gap:1rem; margin-top:1rem; }
+    .lesson { border:1px solid var(--line); border-radius:24px; background:#fff; padding:clamp(1rem,2vw,1.35rem); box-shadow:0 12px 34px rgba(15,23,42,.065); }
+    .lesson-head { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; margin-bottom:.9rem; } .lesson-head h3 { margin:0; font-size:clamp(1.1rem,2vw,1.45rem); letter-spacing:-.025em; color:#0f172a; }
+    .lesson-no { background:#eff6ff; color:#075985; border:1px solid #bfdbfe; border-radius:999px; padding:.35rem .65rem; font-weight:900; font-size:.8rem; white-space:nowrap; }
+    .bilingual { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.9rem; } .lang-box { background:#f8fafc; border:1px solid var(--line); border-radius:18px; padding:1rem; }
+    .lang-box h4 { margin:0 0 .5rem; color:#0369a1; font-size:.78rem; letter-spacing:.07em; } .lang-box p { margin:0; color:#334155; line-height:1.78; font-size:1rem; }
+    .chip-list { display:flex; flex-wrap:wrap; gap:.5rem; margin:.75rem 0 0; } .chip { background:#f1f5f9; border:1px solid var(--line); border-radius:999px; padding:.42rem .66rem; color:#334155; font-weight:750; font-size:.9rem; line-height:1.35; }
+    .tip { border-left:5px solid var(--moduleAccent,#06b6d4); background:color-mix(in srgb,var(--moduleAccent,#06b6d4) 11%,#fff); border-radius:16px; padding:.85rem .95rem; color:#334155; margin-top:.9rem; line-height:1.55; }
+    .diagram-card { min-height:250px; display:grid; align-items:center; overflow:hidden; } .diagram-card svg { width:100%; height:auto; max-height:330px; } .diagram-title { margin:0 0 .65rem; font-size:1rem; color:#0f172a; }
+    .problems,.qa-grid,.answer-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:.85rem; } .problem,.qa { background:#fff; border:1px solid var(--line); border-radius:20px; padding:1rem; box-shadow:0 10px 28px rgba(15,23,42,.06); } .problem h4 { margin:0 0 .65rem; color:#075985; }
+    .step { margin:.45rem 0; padding:.58rem .72rem; border-radius:13px; background:#f8fafc; color:#334155; line-height:1.55; } .answer { background:#dcfce7; color:#14532d; font-weight:800; }
+    .qa b { display:block; color:#0f172a; margin-bottom:.38rem; } .qa span { display:block; background:#ecfdf5; color:#065f46; border-radius:13px; padding:.55rem; line-height:1.5; }
+    .table-wrap { overflow:auto; border:1px solid var(--line); border-radius:18px; background:#fff; } table { width:100%; border-collapse:collapse; min-width:620px; } th,td { padding:.75rem .86rem; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; } th { background:#e0f2fe; color:#0c4a6e; font-size:.88rem; } tr:last-child td { border-bottom:0; }
+    .long-box { background:#eef6ff; border:1px solid rgba(14,165,233,.25); border-radius:20px; padding:1rem; } .long-box h3 { margin-top:0; }
+    .mark-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.7rem; margin-top:.9rem; } .mark { background:#fff; border:1px solid var(--line); border-radius:15px; padding:.8rem; } .mark b { color:#075985; }
+    .footer { position:relative; z-index:1; color:#475569; padding:1rem 0 2.8rem; } .footer-card { display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; align-items:center; color:#e2e8f0; background:#0f172a; border-radius:24px; padding:1.1rem 1.25rem; }
+    .to-top { position:fixed; right:1rem; bottom:1rem; width:48px; height:48px; border:0; border-radius:50%; background:#0f172a; color:#fff; box-shadow:var(--shadow); cursor:pointer; opacity:0; transform:translateY(14px); transition:.2s; z-index:110; } .to-top.show { opacity:1; transform:translateY(0); }
+    #printSheet { display:none; }
+    .print-help { display:none; margin:.6rem 0 0; color:#e0f2fe; font-weight:700; }
+
+    @media(max-width:1200px) { .module-map { grid-template-columns:repeat(2,minmax(0,1fr)); } .col-3,.col-4,.col-6 { grid-column:span 12; } .bilingual { grid-template-columns:1fr; } }
+    @media(max-width:760px) {
+      .screen,.topbar-inner { width:min(100% - 18px,var(--max)); }
+      .topbar-inner { gap:8px; }
+      .brand,.brand-mark { width:46px; height:46px; border-radius:15px; font-size:15px; }
+      .selector { gap:7px; padding-bottom:6px; }
+      .view-btn,.download-btn { padding:11px 15px; font-size:14px; }
+      .download-btn { margin-left:0; }
+      .hero-mini { border-radius:24px; } .module-map,.mark-grid { grid-template-columns:1fr; } table { min-width:560px; } .section-title { display:block; } .lesson-head { display:block; } .lesson-no { display:inline-flex; margin-top:.55rem; }
+    }
+
+    @media print {
+      @page { size:A4; margin:8mm; }
+      * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      body { background:#fff!important; color:#111827!important; font-size:10pt; line-height:1.35; }
+      body:before,.topbar,.to-top,.progress,.footer,main { display:none!important; }
+      #printSheet { display:block!important; } .print-page { break-after:page; } .print-page:last-child { break-after:auto; }
+      .screen { width:100%!important; } .card,.module-header,.lesson,.problem,.hero-mini,.formula-card,.qa { box-shadow:none!important; break-inside:avoid; page-break-inside:avoid; }
+      .hero-mini { background:#0f172a!important; color:#fff!important; padding:8mm!important; border-radius:6mm!important; } .hero-mini h2 { font-size:26pt!important; letter-spacing:0!important; }
+      .grid { gap:3mm!important; } .lesson { margin-bottom:4mm!important; padding:4mm!important; } .bilingual { grid-template-columns:1fr 1fr!important; gap:3mm!important; }
+      .formula-bank,.problems,.qa-grid,.answer-grid { grid-template-columns:repeat(2,1fr)!important; gap:3mm!important; }
+      .diagram-card, .diagram-card svg, svg, img, table { max-width:100%!important; height:auto; break-inside:avoid; page-break-inside:avoid; }
+      table { min-width:0!important; font-size:8.5pt; } th,td { padding:4pt 5pt; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <button class="brand" type="button" data-view="overview" aria-label="Go to Course Overview">
+        <span class="brand-mark">1003</span>
+      </button>
+      <nav class="selector" aria-label="Section selector">
+        <button class="view-btn active" type="button" data-view="overview">Course Overview</button>
+        <button class="view-btn" type="button" data-view="formula-bank">Mini Formula Bank</button>
+        <button class="view-btn" type="button" data-view="module" data-module="0">Module 1</button>
+        <button class="view-btn" type="button" data-view="module" data-module="1">Module 2</button>
+        <button class="view-btn" type="button" data-view="module" data-module="2">Module 3</button>
+        <button class="view-btn" type="button" data-view="module" data-module="3">Module 4</button>
+        <button class="view-btn" type="button" data-view="revision">Revision</button>
+        <button class="view-btn" type="button" data-view="answer-key">Master Answer Key</button>
+        <a class="download-btn" id="downloadPdfBtn" href="../notes/downloadable-notes-1003.pdf" download>Download PDF</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="overview" class="screen view-section" data-view="overview">
+      <div class="hero-mini">
+        <span class="pill">Diploma in Engineering and Technology • Semester 1</span>
+        <h2>Applied Physics-I<br>Downloadable Notes</h2>
+        <p>Student-friendly digital textbook + workbook + revision guide + answer guide. Only the selected section loads on screen. The PDF button opens browser Save as PDF without freezing the page.</p>
+        <p class="print-help">Print mode prepares the complete notes for Save as PDF.</p>
+      </div>
+      <div class="section-title"><div><h2>Course Overview</h2><p>Measurements → Vectors → Motion → Rotation → Energy & Heat → Elasticity → Fluids.</p></div></div>
+      <div class="grid">
+        <article class="card col-6"><span class="badge">Course objectives</span><ul class="note-list"><li>Understand important physical principles used in engineering.</li><li>Develop numerical problem-solving skill.</li><li>Apply mechanics, energy, heat and fluid concepts to practical situations.</li></ul></article>
+        <article class="card col-6"><span class="badge">Course outcomes</span><ul class="note-list"><li>CO1: Apply laws of mechanics in recoil of gun and rocket propulsion.</li><li>CO2: Apply circular and rotational motion concepts.</li><li>CO3: Solve problems involving work, energy, power, temperature and friction.</li><li>CO4: Use fluid dynamics in atomiser and airfoil.</li></ul></article>
+        <article class="card col-12"><span class="badge">Study method</span><div class="grid" style="margin-top:.9rem"><div class="col-4"><b>Daily method</b><ol class="note-list"><li>Read one lesson.</li><li>Copy formulas with units.</li><li>Redraw the diagram.</li><li>Solve worked examples.</li></ol></div><div class="col-4"><b>Numerical format</b><ol class="note-list"><li>Given Data</li><li>Formula Used</li><li>Substitution</li><li>Calculation</li><li>Final Answer with unit</li></ol></div><div class="col-4"><b>Long answer format</b><ol class="note-list"><li>Definition</li><li>Explanation</li><li>Labelled diagram</li><li>Application + example</li></ol></div></div></article>
+        <article class="card col-12"><span class="badge">Module map</span><div id="moduleMap" class="module-map"></div></article>
+      </div>
+    </section>
+
+    <section id="formula-bank" class="screen view-section" data-view="formula-bank" hidden>
+      <div class="section-title"><div><h2>Mini Formula Bank</h2><p>Search formulas, topics and units. This section loads only when selected.</p></div></div>
+      <div class="tools"><input id="formulaSearch" class="search" type="search" placeholder="Search formula, topic or unit…" aria-label="Search formulas"></div>
+      <div id="formulaBank" class="formula-bank"></div>
+    </section>
+
+    <section id="modules" class="screen view-section" data-view="module" hidden>
+      <div class="section-title"><div><h2 id="moduleTitle">Selected Module</h2><p id="moduleIntro">Only the selected module is loaded here.</p></div></div>
+      <div class="tools"><input id="lessonSearch" class="search" type="search" placeholder="Search inside selected module…" aria-label="Search selected module"></div>
+      <div id="modulesRoot"></div>
+    </section>
+
+    <section id="revision" class="screen view-section" data-view="revision" hidden>
+      <div class="section-title"><div><h2>Quick Revision Sheet</h2><p>Last-minute exam checklist and common mistakes.</p></div></div>
+      <div id="revisionRoot"></div>
+    </section>
+
+    <section id="answer-key" class="screen view-section" data-view="answer-key" hidden>
+      <div class="section-title"><div><h2>Final Master Answer Key</h2><p>Answers are matched exactly with the Expected Questions shown inside each module.</p></div></div>
+      <div id="answerKey" class="answer-grid"></div>
+    </section>
+  </main>
+
+  <section id="printSheet" class="screen" aria-hidden="true"></section>
+  <footer class="footer screen"><div class="footer-card"><strong>Applied Physics-I 1003 • Downloadable HTML Notes</strong><span>Author: Nandakumar.M • visit: nandakumarm.dpdns.org</span></div></footer>
+  <button id="toTop" class="to-top" type="button" aria-label="Back to top">↑</button>
+
+  <script id="courseData" type="application/json">{"formulas": [{"topic": "Physical quantity", "formula": "Physical quantity = numerical value × unit", "note": "Every measurement must include a correct unit."}, {"topic": "Absolute error", "formula": "Absolute error = |measured value − true value|", "note": "Same unit as the measured quantity."}, {"topic": "Relative error", "formula": "Relative error = absolute error / true value", "note": "No unit; useful for comparing accuracy."}, {"topic": "Percentage error", "formula": "% error = relative error × 100", "note": "Write final value in percent."}, {"topic": "Velocity", "formula": "v = s / t", "note": "SI unit: m s⁻¹."}, {"topic": "Acceleration", "formula": "a = (v − u) / t", "note": "SI unit: m s⁻²."}, {"topic": "Equations of motion", "formula": "v = u + at; s = ut + ½at²; v² = u² + 2as", "note": "Use only for uniform acceleration."}, {"topic": "Force", "formula": "F = ma", "note": "Newton's second law; SI unit: newton."}, {"topic": "Momentum", "formula": "p = mv", "note": "SI unit: kg m s⁻¹."}, {"topic": "Impulse", "formula": "J = Ft = Δp", "note": "Impulse equals change in momentum."}, {"topic": "Vector components", "formula": "Aₓ = A cos θ; Aᵧ = A sin θ", "note": "Resolve vector into horizontal and vertical components."}, {"topic": "Resultant of perpendicular vectors", "formula": "R = √(A² + B²)", "note": "Use Pythagoras for 90° vectors."}, {"topic": "Angular velocity", "formula": "ω = θ / t", "note": "SI unit: rad s⁻¹."}, {"topic": "Linear-angular relation", "formula": "v = rω; a = rα", "note": "Linear quantity = radius × angular quantity."}, {"topic": "Centripetal acceleration", "formula": "aᶜ = v²/r = rω²", "note": "Direction is towards the centre."}, {"topic": "Centripetal force", "formula": "Fᶜ = mv²/r", "note": "Required for circular motion."}, {"topic": "Banking of roads", "formula": "tan θ = v²/(rg)", "note": "For no side friction condition."}, {"topic": "Moment of inertia", "formula": "I = Σmr²; I = Mk²", "note": "Resistance to angular acceleration."}, {"topic": "Parallel axis theorem", "formula": "I = Iᴳ + Md²", "note": "Axis parallel to centre of gravity axis."}, {"topic": "Perpendicular axis theorem", "formula": "I𝓏 = Iₓ + Iᵧ", "note": "For plane lamina."}, {"topic": "Torque", "formula": "τ = rF sin θ", "note": "Turning effect of force."}, {"topic": "Angular momentum", "formula": "L = Iω", "note": "SI unit: kg m² s⁻¹."}, {"topic": "Work", "formula": "W = Fs cos θ", "note": "No displacement means no mechanical work."}, {"topic": "Friction", "formula": "F = μN; N = mg", "note": "On a horizontal surface."}, {"topic": "Kinetic energy", "formula": "KE = ½mv²", "note": "Energy due to motion."}, {"topic": "Potential energy", "formula": "PE = mgh", "note": "Energy due to position or height."}, {"topic": "Power", "formula": "P = W/t = E/t", "note": "SI unit: watt; 1 hp = 746 W."}, {"topic": "Temperature conversion", "formula": "K = °C + 273; °F = (9/5)°C + 32", "note": "Temperature rise in °C equals temperature rise in K."}, {"topic": "Heat", "formula": "Q = mcΔT", "note": "Specific heat relation."}, {"topic": "Stress", "formula": "σ = F/A", "note": "SI unit: pascal."}, {"topic": "Strain", "formula": "strain = ΔL/L", "note": "No unit."}, {"topic": "Young's modulus", "formula": "Y = stress / strain", "note": "SI unit: pascal."}, {"topic": "Pressure", "formula": "P = F/A", "note": "Force per unit area."}, {"topic": "Absolute pressure", "formula": "Pₐᵦₛ = Pₐₜₘ + P𝗀ₐᵤ𝗀ₑ", "note": "Use absolute pressure in many fluid problems."}, {"topic": "Capillary rise", "formula": "h = 2T cos θ / (rρg)", "note": "Smaller tube radius gives greater rise."}, {"topic": "Stoke's law", "formula": "F = 6πηrv", "note": "Viscous force on a small sphere."}, {"topic": "Reynolds number", "formula": "Re = ρvd/η", "note": "No unit; predicts nature of flow."}, {"topic": "Continuity equation", "formula": "A₁v₁ = A₂v₂", "note": "Incompressible steady flow."}, {"topic": "Bernoulli theorem", "formula": "P + ½ρv² + ρgh = constant", "note": "Higher velocity gives lower pressure when height change is small."}], "modules": [{"short": "Module 1", "title": "Measurements, Vectors and Laws of Motion", "accent": "#0284c7", "hours": "9 hours", "co": "CO1: Apply laws of mechanics in rocket propulsion and recoil of gun.", "ml": "ഈ module-ൽ units, errors, vectors, Newton's laws, momentum, impulse, recoil of gun, rocket propulsion എന്നിവ exam point of view-ൽ പഠിക്കാം.", "lessons": [{"title": "Physical quantities, units and systems", "en": "A physical quantity is anything that can be measured and expressed using a numerical value and a unit. Fundamental quantities are independent quantities such as length, mass and time. Derived quantities are obtained by combining fundamental quantities, for example velocity, acceleration, force and work.", "ml": "അളക്കാൻ കഴിയുന്ന ഒരു quantity ആണ് physical quantity. അതിന് numerical value ഉം unit ഉം വേണം. Length, mass, time പോലുള്ളവ fundamental quantities ആണ്. Velocity, acceleration, force പോലുള്ളവ derived quantities ആണ്.", "points": ["Use SI units in engineering answers.", "Write unit conversion clearly before substitution.", "Never write a numerical final answer without unit."], "formula": ["Physical quantity = numerical value × unit", "1 N = 1 kg m s⁻²", "1 J = 1 N m"], "application": "Engineering drawings, laboratory readings and machine design calculations need consistent units.", "tip": "Number without unit is incomplete."}, {"title": "Errors in measurement", "en": "Error is the difference between measured value and true or accepted value. Systematic error is repeated in the same direction due to a faulty instrument or method. Random error changes unpredictably during repeated measurements.", "ml": "Measured value-നും true/accepted value-നും ഇടയിലുള്ള വ്യത്യാസമാണ് error. Faulty instrument അല്ലെങ്കിൽ wrong method കാരണം systematic error ഉണ്ടാകും. Repeated reading-ൽ unpredictable variation വന്നാൽ random error ഉണ്ടാകും.", "points": ["Take repeated readings and mean value.", "Avoid parallax error while reading scale.", "Percentage error helps compare different measurements."], "formula": ["Absolute error = |measured − true|", "Relative error = absolute error / true value", "% error = relative error × 100"], "application": "Quality inspection, machining tolerance and laboratory experiments.", "tip": "Write absolute error with unit; relative error has no unit."}, {"title": "Scalar and vector quantities", "en": "A scalar quantity has magnitude only. A vector quantity has magnitude and direction. Temperature, mass and time are scalars. Displacement, velocity, acceleration, force and momentum are vectors. Vector resolution changes one vector into rectangular components.", "ml": "Scalar quantity-ക്ക് magnitude മാത്രം. Vector quantity-ക്ക് magnitude കൂടെ direction ഉം വേണം. Temperature, mass, time scalar ആണ്. Displacement, velocity, acceleration, force, momentum vector ആണ്.", "points": ["Represent vector by an arrow.", "Arrow length shows magnitude.", "Arrow head shows direction."], "formula": ["Aₓ = A cos θ", "Aᵧ = A sin θ", "R = √(A² + B²)"], "application": "Crane lifting, bridge forces, slope motion and surveying.", "tip": "Perpendicular vectors form a right triangle."}, {"title": "Equations of motion and Newton's laws", "en": "Equations of motion connect displacement, velocity, acceleration and time for uniform acceleration. Newton's laws explain inertia, force and action-reaction. Force is the rate of change of momentum; for constant mass it becomes F = ma.", "ml": "Uniform acceleration ഉള്ള motion-ൽ displacement, velocity, acceleration, time തമ്മിലുള്ള ബന്ധമാണ് equations of motion. Newton's laws inertia, force, action-reaction explain ചെയ്യുന്നു. Constant mass ആണെങ്കിൽ F = ma.", "points": ["First law explains inertia.", "Second law gives force equation.", "Third law states action and reaction are equal and opposite."], "formula": ["v = u + at", "s = ut + ½at²", "F = ma"], "application": "Vehicle acceleration, braking distance and machine motion analysis.", "tip": "Use equations of motion only when acceleration is constant."}, {"title": "Momentum, impulse, recoil and rocket propulsion", "en": "Momentum is the product of mass and velocity. Impulse is the product of force and time and equals change in momentum. Recoil of gun and rocket propulsion are based on conservation of linear momentum. In a rocket, high-speed gases move backward and the rocket moves forward.", "ml": "Momentum = mass × velocity. Impulse = force × time = change in momentum. Recoil of gun, rocket propulsion എന്നിവ conservation of linear momentum അടിസ്ഥാനത്തിലാണ്. Rocket-ൽ gases backward പോകുമ്പോൾ rocket forward move ചെയ്യും.", "points": ["Total momentum before and after interaction remains constant if external force is zero.", "Gun moves backward after bullet moves forward.", "Rocket does not need air to push against."], "formula": ["p = mv", "J = Ft = Δp", "m₁v₁ + m₂v₂ = constant"], "application": "Rockets, jet aircraft, pile driving and safety airbags.", "tip": "Impulse increases when stopping time increases; this reduces force."}], "problems": [["A force of 4 N acts on a 3 kg body. Find acceleration.", "Given F = 4 N, m = 3 kg. Formula a = F/m. Therefore a = 4/3 = 1.33 m s⁻²."], ["A 2 kg body moves at 5 m/s. Find momentum.", "p = mv = 2 × 5 = 10 kg m s⁻¹."], ["A force of 10 N acts for 0.5 s. Find impulse.", "J = Ft = 10 × 0.5 = 5 N s."]], "questions": [["Define physical quantity.", "A measurable quantity expressed with numerical value and unit."], ["What is vector resolution?", "Splitting a vector into perpendicular components."], ["State Newton's second law.", "Rate of change of momentum is directly proportional to applied force and occurs in the direction of force."], ["Why does a gun recoil?", "Due to conservation of linear momentum."], ["Explain rocket propulsion.", "Rocket gases move backward at high speed; equal and opposite reaction pushes rocket forward."]], "long": {"title": "Explain conservation of linear momentum with recoil of gun.", "points": ["State conservation law.", "Before firing, total momentum is zero.", "After firing, bullet momentum forward equals gun momentum backward.", "This backward motion of gun is recoil.", "Add formula and application."], "model": "When no external force acts on a system, total linear momentum remains constant. Before firing, gun and bullet are at rest, so total momentum is zero. After firing, the bullet moves forward with momentum and the gun moves backward with equal opposite momentum. Therefore total momentum remains zero. This backward motion of the gun is called recoil."}}, {"short": "Module 2", "title": "Circular and Rotational Motion", "accent": "#7c3aed", "hours": "9 hours", "co": "CO2: Apply concepts of circular and rotational motion.", "ml": "Circular motion, angular quantities, centripetal force, banking of roads, moment of inertia, torque, angular momentum എന്നിവ ഈ module-ൽ പഠിക്കാം.", "lessons": [{"title": "Angular displacement, velocity and acceleration", "en": "Angular displacement is the angle swept by a rotating body. Angular velocity is rate of change of angular displacement. Angular acceleration is rate of change of angular velocity. Radian is used as the standard unit for angle in physics calculations.", "ml": "Rotating body sweep ചെയ്യുന്ന angle ആണ് angular displacement. Angular displacement-ന്റെ rate ആണ് angular velocity. Angular velocity-ന്റെ rate ആണ് angular acceleration. Calculation-ൽ radian ഉപയോഗിക്കുന്നു.", "points": ["One revolution = 2π rad.", "Angular velocity is measured in rad s⁻¹.", "Angular acceleration is measured in rad s⁻²."], "formula": ["ω = θ/t", "α = (ω − ω₀)/t", "1 rev = 2π rad"], "application": "Fans, wheels, turbines and rotating shafts.", "tip": "Convert rpm to rad/s before numerical problems."}, {"title": "Relation between linear and angular quantities", "en": "A point on a rotating body has both angular motion and linear motion. Linear velocity depends on radius and angular velocity. Points farther from the centre have greater linear velocity for the same angular velocity.", "ml": "Rotating body-ൽ ഉള്ള point-ക്ക് angular motion ഉം linear motion ഉം ഉണ്ടാകും. Linear velocity radius-നും angular velocity-ക്കും proportional ആണ്. Centre-ൽ നിന്ന് ദൂരം കൂടുമ്പോൾ linear velocity കൂടും.", "points": ["All points in a rigid body have same angular velocity.", "Outer points travel more distance in same time.", "Tangential acceleration is related to angular acceleration."], "formula": ["s = rθ", "v = rω", "a = rα"], "application": "Wheel rims, pulley belts and gear systems.", "tip": "The letter r connects circular and linear quantities."}, {"title": "Centripetal force and acceleration", "en": "A body moving in a circle needs acceleration towards the centre even if speed is constant. This acceleration is centripetal acceleration. The force producing it is centripetal force. Without this force, the body moves tangentially.", "ml": "Constant speed-ൽ circle-ൽ move ചെയ്താലും direction മാറുന്നതിനാൽ acceleration centre direction-ൽ ഉണ്ടാകും. ഇതാണ് centripetal acceleration. അതിന് ആവശ്യമായ force centripetal force ആണ്.", "points": ["Direction is always towards centre.", "It changes direction of velocity.", "It is not a new force; it is provided by tension, friction, gravity etc."], "formula": ["aᶜ = v²/r", "aᶜ = rω²", "Fᶜ = mv²/r"], "application": "Vehicle turning, satellites, stone tied to a string.", "tip": "Centripetal means centre-seeking."}, {"title": "Banking of roads", "en": "Banking means raising the outer edge of a curved road. It provides the required centripetal force safely while vehicles take a turn. Proper banking reduces dependence on friction and improves safety at curves.", "ml": "Curved road-ന്റെ outer edge ഉയർത്തുന്നതാണ് banking. Vehicle turn ചെയ്യുമ്പോൾ വേണ്ട centripetal force safely provide ചെയ്യാൻ ഇത് സഹായിക്കുന്നു. Banking friction dependence കുറയ്ക്കുന്നു.", "points": ["Outer edge is higher than inner edge.", "Useful on highways and railway tracks.", "Design depends on speed and radius of curve."], "formula": ["tan θ = v²/(rg)", "v = √(rg tan θ)"], "application": "Road curves, railway tracks and race tracks.", "tip": "Higher design speed needs greater banking angle."}, {"title": "Moment of inertia, torque and angular momentum", "en": "Moment of inertia is the rotational analogue of mass. It depends on mass and distribution of mass about the axis of rotation. Torque is turning effect of force. Angular momentum is the product of moment of inertia and angular velocity.", "ml": "Moment of inertia rotational motion-ലെ mass പോലെയാണ്. Mass എങ്ങനെ axis-ൽ നിന്ന് distribute ചെയ്തിരിക്കുന്നു എന്നതിനെ ആശ്രയിക്കും. Torque force-ന്റെ turning effect ആണ്. Angular momentum = Iω.", "points": ["More mass away from axis gives more moment of inertia.", "Torque produces angular acceleration.", "Angular momentum is conserved when external torque is zero."], "formula": ["I = Σmr²", "τ = Iα", "L = Iω"], "application": "Flywheels, turbines, gyroscopes and rotating machines.", "tip": "Moment of inertia increases strongly with radius because of r²."}], "problems": [["A wheel has radius 0.5 m and angular velocity 4 rad/s. Find linear velocity.", "v = rω = 0.5 × 4 = 2 m/s."], ["A 2 kg body moves in a circle of radius 1 m with speed 4 m/s. Find centripetal force.", "F = mv²/r = 2 × 16 / 1 = 32 N."], ["A body has I = 3 kg m² and ω = 5 rad/s. Find angular momentum.", "L = Iω = 3 × 5 = 15 kg m² s⁻¹."]], "questions": [["Define angular velocity.", "Rate of change of angular displacement."], ["What is centripetal force?", "Force acting towards the centre that keeps a body in circular motion."], ["Why are roads banked?", "To provide required centripetal force safely at curves."], ["Define moment of inertia.", "Rotational inertia of a body about an axis."], ["State parallel axis theorem.", "I = Iᴳ + Md²."]], "long": {"title": "Explain banking of roads.", "points": ["Define banking.", "Draw a vehicle on a banked curve.", "Mention centripetal force requirement.", "Write formula tan θ = v²/(rg).", "Give road and railway applications."], "model": "Banking of road is the raising of outer edge of a curved road above the inner edge. When a vehicle moves through a curve, centripetal force is required towards the centre. In a properly banked road, the horizontal component of normal reaction helps to provide this centripetal force. Hence the vehicle can take the turn safely with less dependence on friction."}}, {"short": "Module 3", "title": "Work, Energy, Power, Friction and Heat", "accent": "#ea580c", "hours": "9 hours", "co": "CO3: Solve problems involving work, energy, power, temperature and friction.", "ml": "Work, friction, energy, power, conservation of energy, heat, temperature, thermometry, heat transfer എന്നിവ ഈ module-ൽ പഠിക്കാം.", "lessons": [{"title": "Work and friction", "en": "Work is done when a force produces displacement. Work depends on force, displacement and angle between them. Friction is a resistive force that opposes relative motion. Static friction acts before motion starts and kinetic friction acts during motion.", "ml": "Force displacement produce ചെയ്താൽ work done എന്ന് പറയുന്നു. Work force, displacement, angle എന്നിവയെ ആശ്രയിക്കും. Relative motion-നെ oppose ചെയ്യുന്ന resistive force ആണ് friction. Motion start ചെയ്യുന്നതിന് മുമ്പ് static friction, motion നടക്കുമ്പോൾ kinetic friction.", "points": ["No displacement means no mechanical work.", "Friction helps walking and braking.", "Friction wastes energy as heat in machines."], "formula": ["W = Fs cos θ", "F = μN", "N = mg"], "application": "Brakes, clutches, belt drives and lubrication.", "tip": "Friction is useful and harmful depending on situation."}, {"title": "Energy and conservation of energy", "en": "Energy is the capacity to do work. Kinetic energy is energy due to motion. Potential energy is energy due to position. According to conservation of energy, energy can neither be created nor destroyed; it can only be transformed from one form to another.", "ml": "Work ചെയ്യാനുള്ള capacity ആണ് energy. Motion കാരണം ഉള്ള energy kinetic energy. Position/height കാരണം ഉള്ള energy potential energy. Conservation of energy പ്രകാരം energy create ചെയ്യാനോ destroy ചെയ്യാനോ കഴിയില്ല; ഒരു form-ൽ നിന്ന് മറ്റൊരു form-ലേക്ക് മാറും.", "points": ["Falling body converts PE into KE.", "Machines convert energy into useful work.", "Losses usually appear as heat and sound."], "formula": ["KE = ½mv²", "PE = mgh", "Total energy = constant"], "application": "Hydroelectric power, cranes, lifts and machine tools.", "tip": "In falling body problems, PE decreases and KE increases."}, {"title": "Power and efficiency", "en": "Power is the rate of doing work or rate of energy conversion. A machine with higher power performs the same work in less time. Efficiency compares useful output energy or power with input energy or power.", "ml": "Work ചെയ്യുന്നതിന്റെ rate അല്ലെങ്കിൽ energy conversion-ന്റെ rate ആണ് power. Higher power machine same work കുറച്ച് time-ൽ ചെയ്യും. Efficiency useful output-നെ input-ുമായി compare ചെയ്യുന്നു.", "points": ["Power unit is watt.", "Commercial unit of electrical energy is kWh.", "Efficiency is always less than 100% for practical machines."], "formula": ["P = W/t", "P = E/t", "Efficiency = output/input × 100"], "application": "Motors, pumps, lifts and power plants.", "tip": "1 horsepower = 746 W."}, {"title": "Heat, temperature and thermometry", "en": "Heat is energy transferred because of temperature difference. Temperature indicates degree of hotness or coldness. Thermometers measure temperature using a physical property that changes uniformly with temperature. Mercury thermometer and pyrometer are common examples.", "ml": "Temperature difference കാരണം transfer ചെയ്യുന്ന energy ആണ് heat. Temperature hot/cold level കാണിക്കുന്നു. Temperature change അനുസരിച്ച് physical property uniformly മാറുന്നത് ഉപയോഗിച്ച് thermometer measure ചെയ്യുന്നു.", "points": ["Heat unit is joule.", "Temperature unit is kelvin in SI.", "Pyrometer measures high temperature without contact."], "formula": ["Q = mcΔT", "K = °C + 273", "°F = 1.8°C + 32"], "application": "Furnaces, boilers, engine cooling and heat exchangers.", "tip": "Do not write °K; correct SI symbol is K."}, {"title": "Modes of heat transfer", "en": "Heat is transferred by conduction, convection and radiation. Conduction needs material contact. Convection occurs through bulk movement of fluid. Radiation transfers heat by electromagnetic waves and can travel through vacuum.", "ml": "Heat transfer conduction, convection, radiation എന്നീ modes വഴി നടക്കുന്നു. Conduction-ന് contact വേണം. Convection fluid movement വഴി. Radiation vacuum-ൽ കൂടി travel ചെയ്യാം.", "points": ["Metal spoon gets hot by conduction.", "Sea breeze is due to convection.", "Sunlight reaches Earth by radiation."], "formula": ["Q = mcΔT", "Heat flows from high temperature to low temperature"], "application": "Insulation, furnaces, radiators and solar heating.", "tip": "Radiation does not need a medium."}], "problems": [["A force of 20 N moves a body 6 m in same direction. Find work.", "W = Fs = 20 × 6 = 120 J."], ["Find KE of 2 kg body moving at 5 m/s.", "KE = ½mv² = 0.5 × 2 × 25 = 25 J."], ["Calculate power if 400 J work is done in 4 s.", "P = W/t = 400/4 = 100 W."], ["Convert 100°C to Fahrenheit.", "F = 1.8C + 32 = 180 + 32 = 212°F."]], "questions": [["Define work.", "Work is done when force produces displacement."], ["What is friction?", "Resistive force opposing relative motion."], ["State conservation of energy.", "Energy can neither be created nor destroyed, only transformed."], ["Define power.", "Rate of doing work."], ["Name modes of heat transfer.", "Conduction, convection and radiation."]], "long": {"title": "Explain modes of heat transfer with examples.", "points": ["Define heat transfer.", "Explain conduction with example.", "Explain convection with example.", "Explain radiation with example.", "Add engineering applications."], "model": "Heat flows from a body at higher temperature to a body at lower temperature. In conduction, heat is transferred through direct contact, as in a metal spoon kept in hot tea. In convection, heat is transferred by movement of fluid, as in sea breeze. In radiation, heat is transferred by electromagnetic waves and no medium is needed; sunlight reaching Earth is an example."}}, {"short": "Module 4", "title": "Elasticity, Fluids and Bernoulli Applications", "accent": "#059669", "hours": "9 hours", "co": "CO4: Use fluid dynamics in atomiser and airfoil.", "ml": "Elasticity, stress, strain, pressure, surface tension, viscosity, continuity equation, Bernoulli theorem, airfoil, atomiser എന്നിവ പഠിക്കാം.", "lessons": [{"title": "Elasticity, stress and strain", "en": "Elasticity is the property by which a material regains its original shape and size after removal of deforming force. Stress is restoring force per unit area. Strain is the ratio of change in dimension to original dimension. Young's modulus is stress divided by strain.", "ml": "Deforming force remove ചെയ്താൽ original shape and size regain ചെയ്യാനുള്ള property ആണ് elasticity. Stress = restoring force per unit area. Strain = change in dimension / original dimension. Young's modulus = stress / strain.", "points": ["Stress has unit pascal.", "Strain has no unit.", "Hooke's law is valid within elastic limit."], "formula": ["Stress = F/A", "Strain = ΔL/L", "Y = stress/strain"], "application": "Springs, bridges, beams, wires and machine components.", "tip": "Stress has unit; strain has no unit."}, {"title": "Pressure and fluids", "en": "Pressure is force per unit area. In fluids, pressure acts normally on any surface. Gauge pressure is pressure above atmospheric pressure. Absolute pressure is the sum of atmospheric pressure and gauge pressure.", "ml": "Pressure = force per unit area. Fluid pressure surface-ൽ normal direction-ൽ act ചെയ്യും. Gauge pressure atmospheric pressure-നെക്കാൾ അധികം ഉള്ള pressure ആണ്. Absolute pressure = atmospheric pressure + gauge pressure.", "points": ["Pressure unit is pascal.", "Smaller area gives greater pressure for same force.", "Fluid pressure increases with depth."], "formula": ["P = F/A", "P = ρgh", "Pₐᵦₛ = Pₐₜₘ + P𝗀ₐᵤ𝗀ₑ"], "application": "Hydraulic machines, dams, pressure gauges and pumps.", "tip": "Use absolute pressure when total pressure is required."}, {"title": "Surface tension and capillarity", "en": "Surface tension is the property of a liquid surface due to which it behaves like a stretched elastic membrane. Capillarity is the rise or fall of liquid in a narrow tube due to surface tension and adhesive/cohesive forces.", "ml": "Liquid surface stretched membrane പോലെ behave ചെയ്യാനുള്ള property ആണ് surface tension. Narrow tube-ൽ liquid rise/fall ചെയ്യുന്നത് capillarity ആണ്. Surface tension, adhesive/cohesive forces കാരണം ഇത് സംഭവിക്കുന്നു.", "points": ["Small drops are nearly spherical due to surface tension.", "Capillary rise increases when tube radius decreases.", "Meniscus shape depends on liquid and tube material."], "formula": ["h = 2T cos θ / (rρg)", "Surface tension unit = N/m"], "application": "Ink pens, wicks, soil water movement and medical capillary tubes.", "tip": "Narrower capillary tube gives greater rise."}, {"title": "Viscosity and Reynolds number", "en": "Viscosity is the internal resistance offered by a fluid to relative motion between its layers. A highly viscous liquid flows slowly. Reynolds number is a dimensionless number used to identify laminar or turbulent flow.", "ml": "Fluid layers തമ്മിലുള്ള relative motion-നെ oppose ചെയ്യുന്ന internal resistance ആണ് viscosity. Highly viscous liquid slow ആയി flow ചെയ്യും. Reynolds number flow laminar ആണോ turbulent ആണോ എന്ന് identify ചെയ്യാൻ ഉപയോഗിക്കുന്നു.", "points": ["Honey has higher viscosity than water.", "Low Reynolds number indicates laminar flow.", "High Reynolds number indicates turbulent flow."], "formula": ["F = 6πηrv", "Re = ρvd/η"], "application": "Lubricants, pipelines, blood flow and hydraulic systems.", "tip": "Reynolds number has no unit."}, {"title": "Continuity equation and Bernoulli theorem", "en": "Continuity equation states that for steady incompressible flow, product of area and velocity remains constant. Bernoulli theorem states that pressure energy, kinetic energy and potential energy per unit volume have constant total along a streamline. Airfoil and atomiser work using Bernoulli principle.", "ml": "Steady incompressible flow-ൽ area × velocity constant ആണ് continuity equation. Bernoulli theorem പ്രകാരം streamline-ൽ pressure energy, kinetic energy, potential energy per unit volume total constant ആണ്. Airfoil, atomiser എന്നിവ Bernoulli principle ഉപയോഗിക്കുന്നു.", "points": ["Narrow pipe gives higher velocity.", "Higher velocity region has lower pressure.", "Airfoil gets lift due to pressure difference."], "formula": ["A₁v₁ = A₂v₂", "P + ½ρv² + ρgh = constant"], "application": "Atomiser, carburettor, airfoil, venturimeter and pipe flow.", "tip": "Fast fluid usually means low pressure."}], "problems": [["A force of 100 N acts on area 0.002 m². Find pressure.", "P = F/A = 100/0.002 = 50000 Pa."], ["A wire extends 1 mm from original length 1 m. Find strain.", "Strain = ΔL/L = 0.001/1 = 0.001."], ["Pipe area changes from 4 cm² to 2 cm². If velocity in first part is 2 m/s, find second velocity.", "A₁v₁ = A₂v₂. Therefore v₂ = 4 × 2 / 2 = 4 m/s."], ["Find Re if ρ = 1000 kg/m³, v = 1 m/s, d = 0.02 m, η = 0.01 Pa s.", "Re = ρvd/η = 1000 × 1 × 0.02 / 0.01 = 2000."]], "questions": [["Define elasticity.", "Ability to regain original shape and size after removal of deforming force."], ["Define stress.", "Restoring force per unit area."], ["What is capillarity?", "Rise or fall of liquid in a narrow tube due to surface tension."], ["Define viscosity.", "Internal resistance of a fluid to relative motion between layers."], ["State Bernoulli theorem.", "For steady incompressible non-viscous flow, P + ½ρv² + ρgh remains constant along a streamline."]], "long": {"title": "State Bernoulli theorem and explain airfoil and atomiser.", "points": ["State theorem with formula.", "Mention conditions: steady, incompressible, non-viscous flow.", "Explain high velocity-low pressure relation.", "Apply to airfoil lift.", "Apply to atomiser spray."], "model": "Bernoulli theorem states that for steady, incompressible and non-viscous flow along a streamline, P + ½ρv² + ρgh remains constant. When height change is small, higher velocity causes lower pressure. In an airfoil, air moves faster above the curved upper surface, so pressure above becomes lower and lift is produced. In an atomiser, fast air over a tube lowers pressure, so liquid rises and sprays into fine droplets."}}], "answer_key": {"Module 1": ["1.33 m s⁻²", "10 kg m s⁻¹", "5 N s", "Use SI units", "Vector has magnitude and direction"], "Module 2": ["2 m/s", "32 N", "15 kg m² s⁻¹", "tan θ = v²/(rg)", "I = Σmr²"], "Module 3": ["120 J", "25 J", "100 W", "212°F", "Conduction, convection, radiation"], "Module 4": ["50000 Pa", "0.001", "4 m/s", "2000", "P + ½ρv² + ρgh = constant"]}}</script>
+  <script>
+    const DATA = JSON.parse(document.getElementById('courseData').textContent);
+    const $ = (sel, root=document) => root.querySelector(sel);
+    const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+    const escapeHTML = str => String(str ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    const ul = items => `<ul class="note-list">${items.map(x=>`<li>${escapeHTML(x)}</li>`).join('')}</ul>`;
+    const chips = items => `<div class="chip-list">${items.map(x=>`<span class="chip">${escapeHTML(x)}</span>`).join('')}</div>`;
+
+    const diagrams = {
+      default: `<svg viewBox="0 0 720 300" role="img" aria-label="Applied Physics diagram"><rect width="720" height="300" rx="24" fill="#f8fbff"/><line x1="70" y1="230" x2="650" y2="230" stroke="#cbd5e1" stroke-width="5"/><circle cx="180" cy="170" r="42" fill="#e0f2fe" stroke="#0284c7" stroke-width="5"/><line x1="180" y1="170" x2="330" y2="115" stroke="#ef4444" stroke-width="7" marker-end="url(#a)"/><line x1="180" y1="170" x2="330" y2="170" stroke="#16a34a" stroke-width="5" marker-end="url(#a)"/><line x1="330" y1="170" x2="330" y2="115" stroke="#7c3aed" stroke-width="5" marker-end="url(#a)"/><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="currentColor"/></marker></defs><text x="360" y="60" text-anchor="middle" font-size="24" font-weight="800" fill="#0f172a">Physics Concept Map</text><text x="360" y="265" text-anchor="middle" font-size="18" fill="#475569">Formula → Diagram → Example → Application</text></svg>`,
+      m1: `<svg viewBox="0 0 720 300" role="img" aria-label="Vector resolution"><rect width="720" height="300" rx="24" fill="#f8fbff"/><defs><marker id="vArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#2563eb"/></marker></defs><line x1="100" y1="230" x2="620" y2="230" stroke="#cbd5e1" stroke-width="4"/><line x1="120" y1="240" x2="120" y2="60" stroke="#cbd5e1" stroke-width="4"/><line x1="120" y1="230" x2="485" y2="90" stroke="#ef4444" stroke-width="7" marker-end="url(#vArrow)"/><line x1="120" y1="230" x2="485" y2="230" stroke="#16a34a" stroke-width="6" marker-end="url(#vArrow)"/><line x1="485" y1="230" x2="485" y2="90" stroke="#7c3aed" stroke-width="6" marker-end="url(#vArrow)"/><text x="315" y="132" font-size="22" font-weight="800" fill="#ef4444">A</text><text x="290" y="258" font-size="20" font-weight="800" fill="#16a34a">A cos θ</text><text x="505" y="165" font-size="20" font-weight="800" fill="#7c3aed">A sin θ</text><text x="360" y="38" text-anchor="middle" font-size="24" font-weight="900" fill="#0f172a">Vector Resolution</text></svg>`,
+      m2: `<svg viewBox="0 0 720 300" role="img" aria-label="Circular motion"><rect width="720" height="300" rx="24" fill="#f8fbff"/><defs><marker id="cArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7c3aed"/></marker></defs><circle cx="360" cy="160" r="95" fill="none" stroke="#c4b5fd" stroke-width="8"/><circle cx="455" cy="160" r="18" fill="#7c3aed"/><line x1="455" y1="160" x2="360" y2="160" stroke="#ef4444" stroke-width="6" marker-end="url(#cArrow)"/><line x1="455" y1="160" x2="455" y2="75" stroke="#16a34a" stroke-width="6" marker-end="url(#cArrow)"/><text x="390" y="148" font-size="18" font-weight="800" fill="#ef4444">Fᶜ</text><text x="470" y="110" font-size="18" font-weight="800" fill="#16a34a">v</text><text x="360" y="38" text-anchor="middle" font-size="24" font-weight="900" fill="#0f172a">Circular Motion</text><text x="360" y="276" text-anchor="middle" font-size="18" fill="#475569">Centripetal force acts towards the centre</text></svg>`,
+      m3: `<svg viewBox="0 0 720 300" role="img" aria-label="Energy transformation"><rect width="720" height="300" rx="24" fill="#f8fbff"/><path d="M90 240 C210 80, 330 80, 470 240" fill="none" stroke="#fb923c" stroke-width="10"/><circle cx="160" cy="170" r="28" fill="#0ea5e9"/><circle cx="395" cy="155" r="28" fill="#16a34a"/><text x="160" y="125" text-anchor="middle" font-size="18" font-weight="900" fill="#0f172a">PE</text><text x="395" y="110" text-anchor="middle" font-size="18" font-weight="900" fill="#0f172a">KE</text><text x="360" y="40" text-anchor="middle" font-size="24" font-weight="900" fill="#0f172a">Energy Transformation</text><text x="360" y="275" text-anchor="middle" font-size="18" fill="#475569">Potential energy changes into kinetic energy</text></svg>`,
+      m4: `<svg viewBox="0 0 720 300" role="img" aria-label="Bernoulli principle"><rect width="720" height="300" rx="24" fill="#f8fbff"/><path d="M80 120 C210 120, 235 170, 360 170 C485 170, 510 120, 640 120 L640 210 C510 210, 485 250, 360 250 C235 250, 210 210, 80 210 Z" fill="#dbeafe" stroke="#0284c7" stroke-width="5"/><defs><marker id="bArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#059669"/></marker></defs><line x1="115" y1="165" x2="250" y2="165" stroke="#059669" stroke-width="6" marker-end="url(#bArrow)"/><line x1="390" y1="210" x2="575" y2="210" stroke="#059669" stroke-width="9" marker-end="url(#bArrow)"/><text x="175" y="95" text-anchor="middle" font-size="18" font-weight="900" fill="#0f172a">larger area</text><text x="500" y="95" text-anchor="middle" font-size="18" font-weight="900" fill="#0f172a">higher speed</text><text x="360" y="40" text-anchor="middle" font-size="24" font-weight="900" fill="#0f172a">Continuity and Bernoulli</text><text x="360" y="278" text-anchor="middle" font-size="18" fill="#475569">Narrow region: velocity increases, pressure decreases</text></svg>`
+    };
+
+    const moduleKey = idx => `m${Number(idx)+1}`;
+
+    function renderModuleMap() {
+      const root = $('#moduleMap');
+      root.innerHTML = DATA.modules.map((m, i) => `
+        <button type="button" class="map-card" style="--accent:${m.accent}" data-view="module" data-module="${i}">
+          <span class="badge">${escapeHTML(m.short)} • ${escapeHTML(m.hours)}</span>
+          <h3>${escapeHTML(m.title)}</h3>
+          <p>${escapeHTML(m.co)}</p>
+        </button>`).join('');
+      $$('.map-card', root).forEach(btn => btn.addEventListener('click', () => showView('module', btn.dataset.module, true)));
+    }
+
+    function renderFormulaBank() {
+      $('#formulaBank').innerHTML = DATA.formulas.map(f => `
+        <article class="formula-card" data-text="${escapeHTML((f.topic + ' ' + f.formula + ' ' + f.note).toLowerCase())}">
+          <code>${escapeHTML(f.formula)}</code><h3>${escapeHTML(f.topic)}</h3><p>${escapeHTML(f.note)}</p>
+        </article>`).join('');
+    }
+
+    function renderModule(index) {
+      const m = DATA.modules[Number(index) || 0];
+      $('#moduleTitle').textContent = `${m.short}: ${m.title}`;
+      $('#moduleIntro').textContent = `${m.co} Only this selected module is loaded.`;
+      document.documentElement.style.setProperty('--moduleAccent', m.accent);
+      $('#modulesRoot').innerHTML = moduleHTML(m, Number(index) || 0);
+    }
+
+    function moduleHTML(m, index) {
+      return `<article class="module" style="--moduleAccent:${m.accent}" data-module-text="${escapeHTML(JSON.stringify(m).toLowerCase())}">
+        <section class="module-header"><span class="pill">${escapeHTML(m.short)} • ${escapeHTML(m.hours)}</span><h2>${escapeHTML(m.title)}</h2><p>${escapeHTML(m.co)}</p><p class="mal">${escapeHTML(m.ml)}</p></section>
+        <div class="grid" style="margin-top:1rem"><div class="card col-6 diagram-card"><h3 class="diagram-title">Visual diagram</h3>${diagrams[moduleKey(index)] || diagrams.default}</div><div class="card col-6"><span class="badge">Learning outcomes</span>${ul(m.lessons.map(l => l.title))}</div></div>
+        <div class="lesson-grid">${m.lessons.map((l, li) => lessonHTML(l, li)).join('')}</div>
+        <div class="section-title"><div><h2>Solved Problems</h2><p>Exam-friendly method: Given Data → Formula Used → Substitution → Final Answer.</p></div></div><div class="problems">${m.problems.map((p,i)=>`<article class="problem"><h4>Problem ${i+1}</h4><div class="step">${escapeHTML(p[0])}</div><div class="step answer">${escapeHTML(p[1])}</div></article>`).join('')}</div>
+        <div class="section-title"><div><h2>Expected Questions</h2><p>Questions only are shown inside modules. Answers / hints are kept only in the Master Answer Key tab.</p></div></div><div class="qa-grid">${m.questions.map((q,i)=>`<div class="qa"><b>Q${i+1}. ${escapeHTML(q[0])}</b></div>`).join('')}</div>
+        <div class="section-title"><div><h2>Long Answer Writing Practice</h2><p>Use this structure for five-mark and ten-mark questions. Full answer checking is kept in the Master Answer Key tab.</p></div></div><div class="long-box"><h3>${escapeHTML(m.long.title)}</h3>${ul(m.long.points)}<p><b>Writing hint:</b> Use the above points to build the answer in your own words.</p></div><div class="mark-grid"><div class="mark"><b>1 mark</b><br>Definition or formula.</div><div class="mark"><b>2 marks</b><br>Definition + one point.</div><div class="mark"><b>5 marks</b><br>Statement + diagram + application.</div><div class="mark"><b>10 marks</b><br>Detailed explanation + derivation + diagram.</div></div>
+      </article>`;
+    }
+
+    function lessonHTML(l, i) {
+      return `<article class="lesson" data-lesson-text="${escapeHTML(JSON.stringify(l).toLowerCase())}"><div class="lesson-head"><h3>${escapeHTML(l.title)}</h3><span class="lesson-no">Lesson ${i+1}</span></div>
+        <div class="bilingual"><div class="lang-box"><h4>ENGLISH</h4><p>${escapeHTML(l.en)}</p></div><div class="lang-box"><h4>MALAYALAM HELPER</h4><p class="mal">${escapeHTML(l.ml)}</p></div></div>
+        <div class="chip-list">${l.formula.map(f=>`<span class="chip">${escapeHTML(f)}</span>`).join('')}</div>
+        <div class="grid" style="margin-top:.9rem"><div class="card col-6" style="box-shadow:none"><span class="badge">Key points</span>${ul(l.points)}</div><div class="card col-6" style="box-shadow:none"><span class="badge">Application</span><p style="line-height:1.65;color:#334155">${escapeHTML(l.application)}</p></div></div>
+        <div class="tip"><b>Study tip:</b> ${escapeHTML(l.tip)}</div>
+      </article>`;
+    }
+
+    function renderRevision() {
+      $('#revisionRoot').innerHTML = `<div class="grid">
+        <article class="card col-4"><span class="badge">Memory tricks</span><ul class="note-list"><li>v-u-at: final velocity = initial velocity + acceleration effect.</li><li>F-ma: more mass needs more force for same acceleration.</li><li>v-rω: rim speed increases with radius.</li><li>PE → KE: falling body converts stored energy into motion energy.</li><li>Av constant: narrow pipe gives faster flow.</li></ul></article>
+        <article class="card col-4"><span class="badge">Common mistakes</span><ul class="note-list"><li>Writing answer without SI unit.</li><li>Not converting cm, mm, rpm or minutes to SI.</li><li>Adding vectors like scalars.</li><li>Confusing mass and weight.</li><li>Using gauge pressure where absolute pressure is required.</li></ul></article>
+        <article class="card col-4"><span class="badge">Before exam</span><ul class="note-list"><li>Can I define every key term?</li><li>Can I write formulas from memory?</li><li>Can I solve at least five numerical problems?</li><li>Can I draw important diagrams neatly?</li><li>Did I revise answer keys?</li></ul></article>
+        <article class="card col-12"><span class="badge">One-day revision order</span><ol class="note-list"><li>Read the formula bank first.</li><li>Revise diagrams: vector resolution, banking, energy transformation, Bernoulli pipe.</li><li>Practise solved numericals from every module.</li><li>Read long answer model points.</li><li>Check final master answer key.</li></ol></article>
+      </div>`;
+    }
+
+    function answerKeyHTML() {
+      return DATA.modules.map(m => `
+        <article class="card">
+          <h3 style="margin-top:0">${escapeHTML(m.short)}: ${escapeHTML(m.title)}</h3>
+          <div class="table-wrap">
+            <table style="min-width:0">
+              <thead><tr><th>No.</th><th>Question</th><th>Answer / Hint</th></tr></thead>
+              <tbody>${m.questions.map((q,i)=>`<tr><td>Q${i+1}</td><td>${escapeHTML(q[0])}</td><td><b>${escapeHTML(q[1])}</b></td></tr>`).join('')}</tbody>
+            </table>
+          </div>
+          <div class="long-box" style="margin-top:1rem">
+            <h3>Long answer model</h3>
+            <p><b>Question:</b> ${escapeHTML(m.long.title)}</p>
+            <p><b>Model answer:</b> ${escapeHTML(m.long.model)}</p>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderAnswerKey() {
+      $('#answerKey').innerHTML = answerKeyHTML();
+    }
+
+    const loadedViews = new Set(['overview']);
+    let activeView = 'overview';
+    let activeModuleIndex = null;
+
+    function ensureViewLoaded(view, moduleIndex = null) {
+      if (view === 'overview') return;
+      if (view === 'formula-bank' && !loadedViews.has('formula-bank')) { renderFormulaBank(); loadedViews.add('formula-bank'); }
+      if (view === 'revision' && !loadedViews.has('revision')) { renderRevision(); loadedViews.add('revision'); }
+      if (view === 'answer-key' && !loadedViews.has('answer-key')) { renderAnswerKey(); loadedViews.add('answer-key'); }
+      if (view === 'module') { activeModuleIndex = Number(moduleIndex || 0); renderModule(activeModuleIndex); }
+    }
+
+    function showView(view='overview', moduleIndex=null, shouldScroll=true) {
+      activeView = view;
+      ensureViewLoaded(view, moduleIndex);
+      $$('.view-section').forEach(section => { section.hidden = section.dataset.view !== view; });
+      $$('.selector .view-btn').forEach(btn => {
+        const sameView = btn.dataset.view === view;
+        const sameModule = view !== 'module' || String(btn.dataset.module) === String(moduleIndex);
+        btn.classList.toggle('active', sameView && sameModule);
+      });
+      const target = view === 'module' ? $('#modules') : $(`.view-section[data-view="${view}"]`);
+      if (target && shouldScroll) target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    function wireSearch() {
+      $('#formulaSearch')?.addEventListener('input', e => {
+        const q = e.target.value.toLowerCase().trim();
+        $$('.formula-card').forEach(card => card.style.display = card.dataset.text.includes(q) ? '' : 'none');
+      });
+      $('#lessonSearch')?.addEventListener('input', e => {
+        const q = e.target.value.toLowerCase().trim();
+        $$('.lesson').forEach(lesson => lesson.style.display = lesson.dataset.lessonText.includes(q) || !q ? '' : 'none');
+      });
+      $$('.selector .view-btn, .brand[data-view]').forEach(btn => btn.addEventListener('click', () => showView(btn.dataset.view || 'overview', btn.dataset.module || null, true)));
+      window.addEventListener('afterprint', () => document.body.classList.remove('pdf-print-mode'));
+      window.addEventListener('beforeprint', preparePrintSheet);
+      const topBtn = $('#toTop');
+      topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+      window.addEventListener('scroll', () => {
+        const h = document.documentElement;
+        const percent = (h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)) * 100;
+        $('#progress').style.width = percent + '%';
+        topBtn.classList.toggle('show', h.scrollTop > 600);
+      }, {passive:true});
+    }
+
+    function preparePrintSheet() {
+      const root = $('#printSheet');
+      const allModules = DATA.modules.map((m,i) => `<div class="print-page">${moduleHTML(m,i)}</div>`).join('');
+      const formulaHTML = `<div class="print-page"><div class="section-title"><div><h2>Mini Formula Bank</h2><p>Complete formula list for Applied Physics-I.</p></div></div><div class="formula-bank">${DATA.formulas.map(f=>`<article class="formula-card"><code>${escapeHTML(f.formula)}</code><h3>${escapeHTML(f.topic)}</h3><p>${escapeHTML(f.note)}</p></article>`).join('')}</div></div>`;
+      const answerHTML = `<div class="print-page"><div class="section-title"><div><h2>Master Answer Key</h2><p>Answers are matched exactly with the Expected Questions in each module.</p></div></div><div class="answer-grid">${answerKeyHTML()}</div></div>`;
+      const revisionHTML = `<div class="print-page"><div class="section-title"><div><h2>Revision</h2><p>Last-minute checklist.</p></div></div><div class="grid"><article class="card col-4"><h3>Common mistakes</h3><ul class="note-list"><li>Missing SI units.</li><li>Wrong unit conversion.</li><li>Confusing scalar and vector.</li><li>Using wrong formula.</li></ul></article><article class="card col-4"><h3>Important diagrams</h3><ul class="note-list"><li>Vector resolution.</li><li>Banking of roads.</li><li>Energy transformation.</li><li>Bernoulli pipe and airfoil.</li></ul></article><article class="card col-4"><h3>Answer pattern</h3><ul class="note-list"><li>Definition.</li><li>Formula with unit.</li><li>Diagram.</li><li>Application.</li></ul></article></div></div>`;
+      root.innerHTML = `<div class="hero-mini print-page"><span class="pill">Subject Code 1003</span><h2>Applied Physics-I<br>Complete Printable Notes</h2><p>Author: Nandakumar.M • visit: nandakumarm.dpdns.org</p></div>${formulaHTML}${allModules}${revisionHTML}${answerHTML}`;
+    }
+
+    renderModuleMap();
+    wireSearch();
+    showView('overview', null, false);
+  </script>
+</body>
+</html>
