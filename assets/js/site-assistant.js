@@ -4,75 +4,38 @@
   const ROOT = document.getElementById("polySiteAssistant");
   if (!ROOT) return;
 
-  const KB_URL = "data/knowledge-base.json";
   const HISTORY_KEY = "polySiteAssistantHistory";
-  const FILTERS = [
-    "All",
-    "First Year",
-    "2015 Revision",
-    "2021 Revision",
-    "Lessons",
-    "Downloads",
-    "Question Papers",
-    "Lab / Practical",
-  ];
-  const QUICK = [
-    "1003 Physics",
-    "1004 Chemistry",
-    "Diploma notes",
-    "Formula sheets",
-    "Question papers",
-    "Lab manuals",
-    "Site map",
-  ];
-  const COMMANDS = new Set([
-    "help",
-    "site map",
-    "subjects",
-    "downloads",
-    "question papers",
-    "model question papers",
-    "formula sheets",
-    "practicals",
-    "contact",
-    "clear",
-  ]);
-  const NO_RESULT = "I could not find this information inside this website.";
+  const EMAIL = "nandakumarmkdpm@gmail.com";
+  const FILTERS = ["All", "First Year", "2021 Revision", "2015 Materials", "Lessons", "Downloads", "Question Papers", "Lab / Practical"];
+  const QUICK = ["1001", "1003", "1004", "3041", "Electronics Engineering", "Download notes", "Question papers", "Contact"];
+  const COMMANDS = new Set(["help", "site map", "subjects", "downloads", "download notes", "question papers", "model question papers", "2015", "2015 materials", "contact", "clear"]);
 
-  let knowledge = [];
-  let knowledgeReady = Promise.resolve();
   let activeFilter = "All";
   let lastAnswer = "";
   let lastQuery = "";
   let history = loadHistory();
+  let records = [];
 
   const button = el("button", {
     className: "poly-ai-button",
     type: "button",
-    attrs: { "aria-label": "Open Ask POLY PMNA assistant", "aria-expanded": "false" },
+    attrs: { "aria-label": "Open POLY PMNA assistant", "aria-expanded": "false" },
   });
   button.append(
     el("span", { className: "poly-ai-button-mark", text: "AI", attrs: { "aria-hidden": "true" } }),
     node("span", { className: "poly-ai-button-copy" }, [
       el("span", { className: "poly-ai-button-text", text: "Ask POLY" }),
-      el("span", { className: "poly-ai-button-subtext", text: "Local search" }),
+      el("span", { className: "poly-ai-button-subtext", text: "Subject finder" }),
     ])
   );
 
-  const panel = el("section", {
-    className: "poly-ai-panel",
-    attrs: { role: "dialog", "aria-label": "Ask POLY PMNA" },
-  });
-
+  const panel = el("section", { className: "poly-ai-panel", attrs: { role: "dialog", "aria-label": "Ask POLY PMNA" } });
   const header = el("div", { className: "poly-ai-head" });
   header.append(
     el("div", { className: "poly-ai-avatar", text: "AI", attrs: { "aria-hidden": "true" } }),
     node("div", {}, [
       el("div", { className: "poly-ai-title", text: "Ask POLY PMNA" }),
-      el("div", {
-        className: "poly-ai-subtitle",
-        text: "Search diploma notes, syllabus, subjects and downloads",
-      }),
+      el("div", { className: "poly-ai-subtitle", text: "Find subjects, lessons, downloads and QP links" }),
     ])
   );
 
@@ -82,21 +45,16 @@
   header.append(copyButton, clearButton, closeButton);
 
   const tabs = el("div", { className: "poly-ai-tabs", attrs: { "aria-label": "Assistant filters" } });
-  const status = el("div", { className: "poly-ai-status", text: "Local website search ready" });
+  const status = el("div", { className: "poly-ai-status", text: "Subject assistant ready" });
   const body = el("div", { className: "poly-ai-body", attrs: { "aria-live": "polite" } });
   const quick = el("div", { className: "poly-ai-quick", attrs: { "aria-label": "Quick suggestions" } });
   const form = el("form", { className: "poly-ai-form" });
   const inputWrap = el("div", { className: "poly-ai-input-wrap" });
   const suggestions = el("div", { className: "poly-ai-suggestions" });
   const input = el("input", {
-    attrs: {
-      type: "search",
-      placeholder: "Ask about 1003, notes, syllabus...",
-      "aria-label": "Ask POLY PMNA",
-      autocomplete: "off",
-    },
+    attrs: { type: "search", placeholder: "Type subject code, name or department...", "aria-label": "Ask POLY PMNA", autocomplete: "off" },
   });
-  const send = el("button", { className: "poly-ai-send", type: "submit", text: "Send" });
+  const send = el("button", { className: "poly-ai-send", type: "submit", text: "Search" });
 
   inputWrap.append(suggestions, input);
   form.append(inputWrap, send);
@@ -140,26 +98,66 @@
 
   init();
 
-  async function init() {
+  function init() {
+    records = buildRecords();
     renderHistory();
     if (!history.length) {
       addMessage(
         "bot",
-        "Hi! I can help you search POLY PMNA study materials. Ask me about subject codes, notes, syllabus, question papers, formula sheets, lesson pages, or downloads.",
+        "Hi! Type a subject code like 1001, 1003, 3041, or a department name. I can open syllabus, lessons, notes and model question papers directly.",
         { save: true }
       );
       body.append(quick);
     }
+    setStatus(`${records.length} searchable records ready`);
+  }
 
-    knowledgeReady = (async () => {
-      setStatus("Loading local website index...");
-      const response = await fetch(KB_URL, { cache: "no-store" });
-      knowledge = response.ok ? await response.json() : [];
-      setStatus(`${knowledge.length} local records ready`);
-    })().catch(() => {
-      knowledge = [];
-      setStatus("Local index could not be loaded");
-    });
+  function buildRecords() {
+    const out = [];
+    const seen = new Set();
+    if (Array.isArray(window.SUBJECTS)) {
+      window.SUBJECTS.forEach((subject) => {
+        const key = [subject.revision, subject.department, subject.semester, subject.code].join(":");
+        if (seen.has(key)) return;
+        seen.add(key);
+        const lessonUrl = safeLessonLink(subject);
+        const notesUrl = safeNotesLink(subject);
+        const syllabusUrl = safeSyllabusLink(subject.code);
+        const modelUrl = safeModelQuestionPaperLink(subject.code);
+        out.push({
+          kind: "subject",
+          title: `${subject.code} - ${subject.name}`,
+          code: String(subject.code || ""),
+          subjectName: subject.name || "",
+          department: subject.department || "",
+          semester: subject.semester || "",
+          type: subject.type || "",
+          revision: subject.revision || "",
+          section: `${subject.revision || ""} / ${subject.department || ""} / ${subject.semester || ""}`,
+          summary: `${subject.name} is a ${subject.type || "subject"} in ${subject.department || "Diploma"}, ${subject.semester || "semester"}.`,
+          answer: `${subject.code} is ${subject.name}. Use the action buttons below to open its syllabus, lesson page, notes download or model question paper.`,
+          url: lessonUrl,
+          lessonUrl,
+          downloadUrl: notesUrl,
+          syllabusUrl,
+          modelQuestionUrl: modelUrl,
+          keywords: [subject.code, subject.name, subject.department, subject.semester, subject.type, subject.revision, "lesson", "download", "notes", "qp"].filter(Boolean),
+        });
+      });
+    }
+
+    out.push(
+      pageRecord("Home", rootPath("index.html"), "Main landing page for Diploma Notes.", ["home", "site map"]),
+      pageRecord("Revision 2021", rootPath("revision-2021.html"), "Open department-wise Revision 2021 subject pages.", ["2021", "revision", "departments"]),
+      pageRecord("2015 Materials", rootPath("materials-2015.html"), "Open older 2015 scheme study material links.", ["2015", "materials", "legacy"]),
+      pageRecord("Question Papers", rootPath("model-question-papers.html"), "Open model question paper resources.", ["question", "paper", "qp", "model"]),
+      pageRecord("Help / Email", `mailto:${EMAIL}?subject=Diploma%20Notes%20Help`, "Email Nandakumar directly for corrections, missing notes or broken links.", ["contact", "email", "help"])
+    );
+    return out;
+  }
+
+  function pageRecord(title, url, summary, keywords) {
+    return { kind: "page", title, section: "Website", summary, answer: summary, url, keywords, revision: "" };
   }
 
   function togglePanel() {
@@ -178,121 +176,111 @@
     const query = raw.trim();
     suggestions.classList.remove("open");
     if (!query) return;
-
     if (query.toLowerCase() === "clear") {
       clearChat();
       input.value = "";
       return;
     }
-
     addMessage("user", query, { save: true });
     lastQuery = query;
-    setStatus("Searching local website data...");
-    knowledgeReady.then(() => runSearch(query, true));
+    runSearch(query, true);
     input.value = "";
   }
 
   function runSearch(query, shouldRespond) {
-    if (!query) return;
-
-    lastQuery = query;
     const normalized = normalize(query);
-    let answer = "";
-    let matches = [];
+    let matches = COMMANDS.has(normalized) ? commandResults(normalized) : searchRecords(query);
 
-    if (COMMANDS.has(normalized)) {
-      matches = commandResults(normalized);
-    } else {
-      matches = searchKnowledge(query);
-    }
-
+    clearResultBlocks();
     if (!matches.length) {
-      answer = NO_RESULT;
-      clearResultBlocks();
+      const answer = "No matching item found. Try a subject code, department name, lesson, notes, question papers, or contact.";
       if (shouldRespond) addMessage("bot", answer, { save: true });
       setStatus("No matching website record found");
       lastAnswer = answer;
       return;
     }
 
-    answer = makeAnswer(matches[0]);
-    clearResultBlocks();
+    const answer = makeAnswer(matches[0]);
     if (shouldRespond) addMessage("bot", answer, { save: true });
-    renderResults(matches.slice(0, 5));
-    setStatus(`${matches.length} local match${matches.length === 1 ? "" : "es"} found`);
+    renderResults(matches.slice(0, 7));
+    setStatus(`${matches.length} result${matches.length === 1 ? "" : "s"} found`);
     lastAnswer = answer;
   }
 
-  function searchKnowledge(query, options = {}) {
-    return knowledge
+  function searchRecords(query, options = {}) {
+    return records
       .map((item) => ({ item, score: scoreItem(item, query) }))
       .filter((result) => result.score > 8 && (options.ignoreFilter || filterMatch(result.item)))
       .sort((a, b) => b.score - a.score)
-      .slice(0, 8);
+      .slice(0, 12);
   }
 
   function commandResults(command) {
     const aliases = {
-      help: ["home", "diploma", "syllabus", "notes"],
-      "site map": ["site map", "home", "revision", "syllabus", "materials", "contact"],
-      subjects: ["subject", "1003", "1004", "mathematics", "chemistry", "physics"],
-      downloads: ["download", "pdf", "notes"],
-      "question papers": ["question paper", "previous papers"],
-      "model question papers": ["model question paper"],
-      "formula sheets": ["formula sheet", "formula"],
-      practicals: ["lab", "practical", "manual"],
-      contact: ["contact", "developer"],
+      help: "help contact email site map subject lesson notes",
+      "site map": "home revision 2021 materials 2015 question papers contact",
+      subjects: "subject first year electronics engineering semester",
+      downloads: "download notes pdf lesson",
+      "download notes": "download notes pdf lesson",
+      "question papers": "question paper qp model",
+      "model question papers": "question paper qp model",
+      "2015": "2015 materials legacy",
+      "2015 materials": "2015 materials legacy",
+      contact: "contact email help",
     };
-    const query = (aliases[command] || [command]).join(" ");
-    return searchKnowledge(query, { ignoreFilter: true });
+    return searchRecords(aliases[command] || command, { ignoreFilter: true });
   }
 
   function scoreItem(item, query) {
     const q = normalize(query);
     const tokens = tokenize(q);
-    const title = normalize(item.title);
-    const code = normalize(item.subjectCode || "");
-    const url = normalize(item.url || "");
+    const code = normalize(item.code || item.subjectCode || "");
+    const title = normalize(item.title || "");
+    const subjectName = normalize(item.subjectName || "");
+    const department = normalize(item.department || "");
+    const semester = normalize(item.semester || "");
+    const type = normalize(item.type || "");
+    const revision = normalize(item.revision || "");
     const section = normalize(item.section || "");
     const keywords = normalize((item.keywords || []).join(" "));
-    const content = normalize([item.subjectName, item.summary, item.content, item.answer].filter(Boolean).join(" "));
-    const haystack = `${title} ${code} ${url} ${section} ${keywords} ${content}`;
+    const url = normalize(item.url || "");
+    const haystack = `${code} ${title} ${subjectName} ${department} ${semester} ${type} ${revision} ${section} ${keywords} ${url}`;
     let score = 0;
 
-    if (q && title === q) score += 110;
-    if (q && code && code === q) score += 105;
-    if (q && url.includes(q)) score += 80;
-    if (q && title.includes(q)) score += 65;
-    if (q && keywords.includes(q)) score += 60;
-    if (q && section.includes(q)) score += 35;
-    if (q && content.includes(q)) score += 32;
+    if (q && code === q) score += 180;
+    if (q && title === q) score += 130;
+    if (q && title.includes(q)) score += 80;
+    if (q && subjectName.includes(q)) score += 75;
+    if (q && department.includes(q)) score += 65;
+    if (q && haystack.includes(q)) score += 42;
 
     tokens.forEach((token) => {
       if (!token) return;
-      if (code && code === token) score += 95;
-      if (title.split(" ").includes(token)) score += 34;
-      else if (title.includes(token)) score += 24;
-      if (keywords.includes(token)) score += 30;
-      if (url.includes(token)) score += 26;
-      if (section.includes(token)) score += 17;
-      if (content.includes(token)) score += 15;
+      if (code === token) score += 120;
+      else if (code.includes(token)) score += 70;
+      if (subjectName.includes(token)) score += 35;
+      if (title.includes(token)) score += 30;
+      if (department.includes(token)) score += 24;
+      if (semester.includes(token)) score += 18;
+      if (type.includes(token)) score += 15;
+      if (keywords.includes(token)) score += 18;
       if (!haystack.includes(token) && fuzzyToken(token, haystack)) score += 8;
     });
 
-    if (filterMatch(item)) score += 7;
+    if (filterMatch(item)) score += 6;
     return score;
   }
 
   function filterMatch(item) {
     if (activeFilter === "All") return true;
-    const blob = normalize([item.section, item.revision, item.title, item.keywords?.join(" "), item.url].join(" "));
+    const blob = normalize([item.section, item.revision, item.title, item.department, item.type, (item.keywords || []).join(" "), item.url].join(" "));
     const map = {
       "First Year": ["first year", "common", "1001", "1002", "1003", "1004", "1005"],
-      "2015 Revision": ["2015"],
-      "2021 Revision": ["2021", "rev2021"],
+      "2015 Materials": ["2015", "legacy"],
+      "2021 Revision": ["2021"],
       Lessons: ["lesson", "lessons"],
       Downloads: ["download", "pdf", "notes"],
-      "Question Papers": ["question", "paper", "qp"],
+      "Question Papers": ["question", "paper", "qp", "model"],
       "Lab / Practical": ["lab", "practical", "manual", "workshop"],
     };
     return (map[activeFilter] || []).some((term) => blob.includes(term));
@@ -301,22 +289,21 @@
   function renderResults(results) {
     const list = el("div", { className: "poly-ai-results" });
     results.forEach(({ item, score }) => {
-      const confidence = Math.max(38, Math.min(99, Math.round(score)));
+      const confidence = Math.max(45, Math.min(99, Math.round(score)));
       const card = el("article", { className: "poly-ai-card" });
       card.append(
         node("div", { className: "poly-ai-card-top" }, [
           el("h3", { text: item.title || "Website result" }),
           el("span", { className: "poly-ai-pill", text: `${confidence}%` }),
         ]),
-        el("p", { text: `${item.section || "Website"}${item.revision ? " / " + item.revision : ""}` }),
+        el("p", { text: item.section || "Website" }),
         el("p", { text: item.summary || item.answer || "Website resource from POLY PMNA." })
       );
 
       const links = el("div", { className: "poly-ai-links" });
-      addLink(links, "Open page", item.url);
-      addLink(links, "Download", item.downloadUrl, "download");
-      addLink(links, "Formula", item.formulaUrl, "download");
-      addLink(links, "Question bank", item.questionBankUrl, "download");
+      addLink(links, item.kind === "subject" ? "Open lesson" : "Open page", item.url);
+      addLink(links, "Syllabus", item.syllabusUrl);
+      addLink(links, "Download notes", item.downloadUrl, "download");
       addLink(links, "Model QP", item.modelQuestionUrl);
       if (links.children.length) card.append(links);
       list.append(card);
@@ -365,11 +352,7 @@
     history = [];
     saveHistory();
     body.textContent = "";
-    addMessage(
-      "bot",
-      "Hi! I can help you search POLY PMNA study materials. Ask me about subject codes, notes, syllabus, question papers, formula sheets, lesson pages, or downloads.",
-      { save: true }
-    );
+    addMessage("bot", "Hi! Type a subject code, subject name, department, lesson, download, question paper, 2015 materials or contact.", { save: true });
     body.append(quick);
   }
 
@@ -395,24 +378,50 @@
   function updateSuggestions() {
     const value = input.value.trim();
     suggestions.textContent = "";
-    if (value.length < 2 || !knowledge.length) {
+    if (value.length < 2) {
       suggestions.classList.remove("open");
       return;
     }
 
-    searchKnowledge(value)
-      .slice(0, 5)
-      .forEach(({ item }) => {
-        const choice = el("button", { type: "button", text: item.title });
-        choice.addEventListener("click", () => {
-          input.value = item.subjectCode || item.title;
-          suggestions.classList.remove("open");
-          submitQuery(input.value);
-        });
-        suggestions.append(choice);
+    searchRecords(value, { ignoreFilter: true }).slice(0, 6).forEach(({ item }) => {
+      const choice = el("button", { type: "button", text: item.title });
+      choice.addEventListener("click", () => {
+        input.value = item.code || item.title;
+        suggestions.classList.remove("open");
+        submitQuery(input.value);
       });
+      suggestions.append(choice);
+    });
 
     suggestions.classList.toggle("open", suggestions.children.length > 0);
+  }
+
+  function rootPath(path) {
+    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+    const prefix = depth > 0 ? "../".repeat(depth) : "";
+    return `${prefix}${path}`;
+  }
+
+  function safeLessonLink(subject) {
+    if (typeof window.lessonLink === "function") return window.lessonLink(subject);
+    return rootPath(`lessons/lessons-${encodeURIComponent(subject.code)}.html`);
+  }
+
+  function safeNotesLink(subject) {
+    if (typeof window.notesLink === "function") return window.notesLink(subject);
+    const code = String(subject.code || "");
+    if (code === "1003" || code === "1004") return rootPath(`notes/downloadable-notes-${encodeURIComponent(code)}.pdf`);
+    return rootPath(`lessons/lessons-${encodeURIComponent(code)}.html`);
+  }
+
+  function safeSyllabusLink(code) {
+    if (typeof window.syllabusLink === "function") return window.syllabusLink(code);
+    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}`;
+  }
+
+  function safeModelQuestionPaperLink(code) {
+    if (typeof window.modelQuestionPaperLink === "function") return window.modelQuestionPaperLink(code);
+    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
   }
 
   function loadHistory() {
@@ -467,12 +476,7 @@
   }
 
   function iconButton(label, text) {
-    return el("button", {
-      className: "poly-ai-icon",
-      type: "button",
-      text,
-      attrs: { "aria-label": label, title: label },
-    });
+    return el("button", { className: "poly-ai-icon", type: "button", text, attrs: { "aria-label": label, title: label } });
   }
 
   function node(tag, options, children) {
