@@ -1,4 +1,5 @@
-.home-compact-hero.page-title {
+.home-compact-hero.page-title,
+.compact-page-title.page-title {
   min-height: 220px;
   align-content: center;
   padding: clamp(18px, 3vw, 34px);
@@ -6,7 +7,8 @@
   margin-top: 12px;
 }
 
-.home-compact-hero.page-title::before {
+.home-compact-hero.page-title::before,
+.compact-page-title.page-title::before {
   position: static;
   width: fit-content;
   margin-bottom: 10px;
@@ -14,70 +16,131 @@
   font-size: 0.64rem;
 }
 
-.home-compact-hero.page-title::after {
+.home-compact-hero.page-title::after,
+.compact-page-title.page-title::after {
   width: clamp(54px, 7vw, 86px);
   height: clamp(54px, 7vw, 86px);
   right: clamp(14px, 4vw, 44px);
   bottom: clamp(12px, 3vw, 26px);
   border-radius: 22px;
   font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-  opacity: 0.72;
+  opacity: 0.64;
 }
 
-.home-compact-hero .kicker {
+.home-compact-hero .kicker,
+.compact-page-title .kicker {
   margin-bottom: 9px;
 }
 
-.home-compact-hero h1 {
+.home-compact-hero h1,
+.compact-page-title h1 {
   max-width: 850px;
   margin-bottom: 8px;
   font-size: clamp(1.75rem, 3.3vw, 3.15rem);
   line-height: 1.04;
 }
 
-.home-compact-hero p {
+.home-compact-hero p,
+.compact-page-title p {
   max-width: 720px;
   margin-bottom: 14px;
   font-size: 0.98rem;
   line-height: 1.5;
 }
 
-.home-compact-hero .hero-actions {
+.home-compact-hero .hero-actions,
+.compact-page-title .hero-actions {
   gap: 8px;
 }
 
-.home-compact-hero .btn {
+.home-compact-hero .btn,
+.compact-page-title .btn {
   min-height: 40px;
   padding: 9px 13px;
   border-radius: 14px;
   font-size: 0.9rem;
 }
 
+.about-compact .info-card,
+.materials-compact .info-card,
+.revision-compact .choice-card {
+  min-height: auto;
+}
+
+.revision-compact.selection-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.revision-compact .choice-card {
+  padding: 18px;
+  border-radius: 22px;
+  gap: 8px;
+}
+
+.revision-compact .choice-card h2 {
+  font-size: 1.12rem;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.revision-compact .choice-card p {
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.revision-compact .choice-card span {
+  height: 34px;
+  min-width: 44px;
+  padding: 0 11px;
+  font-size: 0.84rem;
+}
+
+@media (max-width: 1100px) {
+  .revision-compact.selection-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .revision-compact.selection-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 620px) {
-  .home-compact-hero.page-title {
-    min-height: 235px;
+  .home-compact-hero.page-title,
+  .compact-page-title.page-title {
+    min-height: 210px;
     padding: 18px 13px;
     border-radius: 18px;
   }
 
-  .home-compact-hero h1 {
+  .home-compact-hero h1,
+  .compact-page-title h1 {
     font-size: clamp(1.45rem, 6.4vw, 1.85rem);
     line-height: 1.1;
   }
 
-  .home-compact-hero p {
+  .home-compact-hero p,
+  .compact-page-title p {
     font-size: 0.9rem;
     line-height: 1.45;
   }
 
-  .home-compact-hero .hero-actions {
+  .home-compact-hero .hero-actions,
+  .compact-page-title .hero-actions {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     display: grid;
   }
 
-  .home-compact-hero .btn {
+  .home-compact-hero .btn,
+  .compact-page-title .btn {
     min-height: 38px;
     padding: 8px 6px;
     font-size: 0.76rem;
+  }
+
+  .revision-compact.selection-grid {
+    grid-template-columns: 1fr;
   }
 }
