@@ -7,7 +7,7 @@ on:
     types: [synchronize, reopened]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   browser-verification:
@@ -19,6 +19,64 @@ jobs:
         with:
           ref: fix/verified-site-bugs-2026-06-12
           fetch-depth: 0
+
+      - name: Fix initialization order and use verified local asset manifest
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json, re
+
+          known = sorted({
+              "/" + path.as_posix()
+              for directory in (Path("lessons"), Path("notes"))
+              if directory.exists()
+              for path in directory.rglob("*")
+              if path.is_file()
+          })
+          manifest = json.dumps(known, separators=(",", ":"))
+
+          main = Path("assets/js/main.js")
+          text = main.read_text(encoding="utf-8")
+          if "const knownLocalAssets" not in text:
+              text = text.replace(
+                  "const assetAvailability = new Map();",
+                  f"const assetAvailability = new Map();\nconst knownLocalAssets = new Set({manifest});"
+              )
+          text, count = re.subn(
+              r"async function assetExists\(url\) \{.*?^\}",
+              "async function assetExists(url) {\n  const path = new URL(url, window.location.href).pathname;\n  return knownLocalAssets.has(path);\n}",
+              text,
+              count=1,
+              flags=re.S | re.M,
+          )
+          if count != 1:
+              raise SystemExit("Could not replace legacy runtime asset probe in main.js")
+          main.write_text(text, encoding="utf-8")
+
+          hardening = Path("assets/js/site-hardening.js")
+          text = hardening.read_text(encoding="utf-8")
+          if "const knownLocalAssets" not in text:
+              text = text.replace(
+                  "  const assetChecks = new Map();",
+                  f"  const assetChecks = new Map();\n  const knownLocalAssets = new Set({manifest});"
+              )
+          text, count = re.subn(
+              r"  const localAssetExists = async \(url\) => \{.*?^  \};",
+              "  const localAssetExists = async (url) => {\n    const path = new URL(url, window.location.href).pathname;\n    return knownLocalAssets.has(path);\n  };",
+              text,
+              count=1,
+              flags=re.S | re.M,
+          )
+          if count != 1:
+              raise SystemExit("Could not replace runtime asset probe in site-hardening.js")
+          old = '  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });\n  else run();'
+          new = '  if (document.readyState === "complete") run();\n  else document.addEventListener("DOMContentLoaded", run, { once: true });'
+          if old not in text:
+              raise SystemExit("Could not find site-hardening initialization guard")
+          text = text.replace(old, new, 1)
+          hardening.write_text(text, encoding="utf-8")
+          PY
 
       - name: Re-run static and JavaScript validation
         shell: bash
@@ -40,8 +98,8 @@ jobs:
               dup = sorted({item for item in ids if ids.count(item) > 1})
               if dup: errors.append(f'{path}: duplicate IDs {dup}')
               if re.search(r'href\s*=\s*["\']\s*#?\s*["\']', text): errors.append(f'{path}: placeholder href')
-              for required in ('<title', 'name="description"', 'rel="canonical"', 'property="og:title"', 'property="og:url"'):
-                  if required not in text and required != 'name="description"': errors.append(f'{path}: missing {required}')
+              for required in ('<title', 'rel="canonical"', 'property="og:title"', 'property="og:url"'):
+                  if required not in text: errors.append(f'{path}: missing {required}')
               if not re.search(r'<meta\s+name=["\']description["\']', text, re.I): errors.append(f'{path}: missing description')
           if errors:
               raise SystemExit('\n'.join(errors))
@@ -63,14 +121,14 @@ jobs:
           CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
           test -n "$CHROME"
           browser() {
-            "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=12000 --dump-dom "$1" 2>>/tmp/chrome.log
+            "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=7000 --dump-dom "$1" 2>>/tmp/chrome.log
           }
 
           browser 'http://127.0.0.1:8000/index.html' >/tmp/home.dom
           grep -q 'id="subject-browser"' /tmp/home.dom
           grep -q 'href="#subject-browser"' /tmp/home.dom
           grep -q 'Search by Subject Code' /tmp/home.dom
-          grep -q 'subject-card' /tmp/home.dom
+          grep -q '<article class="subject-card' /tmp/home.dom
           grep -q 'subjectResultStatus' /tmp/home.dom
           grep -q '/assets/media/sfi-poly-pmna.mp4' /tmp/home.dom
           grep -q 'controls' /tmp/home.dom
@@ -90,14 +148,9 @@ jobs:
             name="$(basename "$page" .html)"
             browser "http://127.0.0.1:8000/$page" >"/tmp/department-${name}.dom"
             grep -q 'subjectResultStatus' "/tmp/department-${name}.dom"
-            grep -Eq 'subject-card|No subjects are currently available for this department.' "/tmp/department-${name}.dom"
+            grep -Eq '<article class="subject-card|No subjects are currently available for this department.' "/tmp/department-${name}.dom"
           done
           echo "Verified ${department_count} Revision 2021 department pages." | tee /tmp/department-count.log
-
-          mv assets/js/subjects.js /tmp/subjects.js
-          browser 'http://127.0.0.1:8000/revision-2021/electronics-engineering.html' >/tmp/subject-error.dom || true
-          grep -q 'Unable to load subject data. Please try again later.' /tmp/subject-error.dom
-          mv /tmp/subjects.js assets/js/subjects.js
 
           browser 'http://127.0.0.1:8000/materials-2015.html' >/tmp/materials.dom
           grep -q 'materials2015Search' /tmp/materials.dom
@@ -114,6 +167,17 @@ jobs:
           ! grep -q '>Loading handbook…<' /tmp/lesson-2031.dom
           browser 'http://127.0.0.1:8000/lessons/lessons-2041.html?revision=2015' >/tmp/lesson-2041-2015.dom
           grep -q 'Back to 2015 Materials' /tmp/lesson-2041-2015.dom
+
+          normal_404s="$(grep ' 404 ' /tmp/server.log | grep -v '/favicon.ico' || true)"
+          if [ -n "$normal_404s" ]; then
+            printf '%s\n' "$normal_404s" >/tmp/unexpected-normal-404s.log
+            exit 1
+          fi
+
+          mv assets/js/subjects.js /tmp/subjects.js
+          browser 'http://127.0.0.1:8000/revision-2021/electronics-engineering.html' >/tmp/subject-error.dom || true
+          grep -q 'Unable to load subject data. Please try again later.' /tmp/subject-error.dom
+          mv /tmp/subjects.js assets/js/subjects.js
 
           mv lessons/handbook-2031-source.html /tmp/handbook-2031-source.html
           browser 'http://127.0.0.1:8000/lessons/lessons-2031.html?revision=2021' >/tmp/lesson-error.dom || true
@@ -134,10 +198,21 @@ jobs:
               separator='?'
               case "$target" in *\?*) separator='&' ;; esac
               safe="$(printf '%s' "$target" | tr '/?=&' '-----')"
-              "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --window-size="${width},1000" --virtual-time-budget=10000 --dump-dom "http://127.0.0.1:8000/${target}${separator}layout-test=1" >"/tmp/layout-${safe}-${width}.dom" 2>>/tmp/chrome.log
+              "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --window-size="${width},1000" --virtual-time-budget=7000 --dump-dom "http://127.0.0.1:8000/${target}${separator}layout-test=1" >"/tmp/layout-${safe}-${width}.dom" 2>>/tmp/chrome.log
               grep -q 'data-layout-overflow="false"' "/tmp/layout-${safe}-${width}.dom"
             done
           done
+
+          git diff --exit-code -- assets/js/subjects.js assets/js/help-comments.js
+
+      - name: Commit verified runtime corrections
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/js/main.js assets/js/site-hardening.js
+          git commit -m 'Fix subject browser initialization and asset availability checks'
+          git push origin HEAD:fix/verified-site-bugs-2026-06-12
 
       - name: Upload browser evidence
         if: always()
