@@ -1,0 +1,958 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Complete Digital Electronics handbook for course 3044, third semester, Revision 2021.">
+<title>lessons-3044 | Digital Electronics</title>
+<style>
+:root{
+  --bg:#eef4fb;--paper:#fff;--ink:#102035;--muted:#52657a;--line:#d6e1ee;
+  --blue:#0b5ea8;--cyan:#0891b2;--violet:#6d28d9;--green:#0f766e;
+  --amber:#d97706;--red:#be123c;--nav:#07192f;--soft:#f7fbff;
+  --shadow:0 14px 36px rgba(15,23,42,.09);--radius:20px;--max:1920px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font-family:"Segoe UI",Inter,Arial,sans-serif;line-height:1.62;background:
+ radial-gradient(circle at 0 0,rgba(8,145,178,.10),transparent 34rem),
+ radial-gradient(circle at 100% 0,rgba(109,40,217,.08),transparent 30rem),
+ linear-gradient(180deg,#f9fcff 0%,var(--bg) 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:
+ linear-gradient(rgba(11,94,168,.032) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(11,94,168,.032) 1px,transparent 1px);background-size:28px 28px}
+a{color:var(--blue)}
+.progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,#22d3ee,#2563eb,#7c3aed);z-index:200}
+.toolbar{position:sticky;top:0;z-index:120;background:rgba(7,25,47,.97);border-bottom:1px solid rgba(255,255,255,.12);box-shadow:0 8px 28px rgba(2,6,23,.25)}
+.nav{
+ width:100%;max-width:none;margin:0;padding:.55rem clamp(6px,.7vw,14px);
+ display:flex;flex-wrap:wrap;align-items:center;gap:.38rem;overflow:visible
+}
+.brandbox{display:flex;align-items:center;gap:.55rem;flex:0 1 430px;min-width:260px;margin-right:.2rem}
+.logo{width:46px;height:46px;flex:0 0 46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#0891b2,#6d28d9);color:#fff;font-weight:950;box-shadow:0 8px 20px rgba(8,145,178,.3)}
+.brand{color:#fff;font-weight:900;line-height:1.08;font-size:.92rem}
+.brand small{display:block;color:#a9c3dd;font-size:.72rem;font-weight:700;margin-top:.14rem}
+.nav a,.nav button{border:1px solid rgba(255,255,255,.16);background:#102944;color:#eef8ff;border-radius:999px;padding:.5rem .68rem;font-size:.76rem;font-weight:800;text-decoration:none;white-space:nowrap;cursor:pointer}
+.nav a:hover,.nav button:hover,.nav a:focus-visible,.nav button:focus-visible{background:#16436f;outline:2px solid #67e8f9;outline-offset:1px}
+.nav .pdf{background:linear-gradient(135deg,#0b5ea8,#0f766e);border:0}
+.searchwrap{display:flex;align-items:center;gap:.3rem;flex:1 1 230px;min-width:190px;max-width:380px}
+.searchwrap input{width:100%;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:#fff;color:#0f172a;padding:.52rem .75rem;font:inherit;font-size:.8rem}
+.shell{width:100%;max-width:none;margin:0;padding:clamp(6px,.7vw,14px)}
+.hero{min-height:calc(100vh - 86px);display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(10px,1vw,18px);padding:.2rem 0 .75rem}
+.panel,.section{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.hero-main{padding:clamp(1.15rem,2vw,2.2rem);display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+.hero-main:after{content:"0101 1100 0011";position:absolute;right:-1rem;bottom:-2rem;font-size:clamp(4rem,9vw,10rem);font-weight:950;letter-spacing:.06em;color:rgba(11,94,168,.045);transform:rotate(-8deg);white-space:nowrap}
+.hero-main>*{position:relative;z-index:1}
+.hero-side{padding:clamp(1.15rem,1.7vw,2rem);color:#eaf7ff;background:
+ radial-gradient(circle at 18% 18%,rgba(34,211,238,.25),transparent 18rem),
+ radial-gradient(circle at 85% 80%,rgba(124,58,237,.35),transparent 20rem),
+ linear-gradient(135deg,#07192f,#0b365f 62%,#153c55);display:grid;align-content:center;overflow:hidden}
+.hero-side h2,.hero-side h3{color:#fff}
+.eyebrow{display:inline-flex;align-items:center;gap:.35rem;width:max-content;max-width:100%;border-radius:999px;padding:.3rem .58rem;background:#e5f5ff;color:#084e7d;font-weight:950;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em}
+h1,h2,h3,h4{line-height:1.15;letter-spacing:-.028em;color:#0e1f34}
+h1{font-size:clamp(2.4rem,4.5vw,5.4rem);margin:.6rem 0 .55rem}
+h2{font-size:clamp(1.65rem,2.5vw,3rem);margin:.2rem 0 .65rem}
+h3{font-size:clamp(1.18rem,1.45vw,1.55rem);margin:.85rem 0 .35rem}
+h4{font-size:1.02rem;margin:.72rem 0 .25rem}
+p{margin:.35rem 0 .72rem}
+.lead{font-size:clamp(1.03rem,1.25vw,1.27rem);color:var(--muted);max-width:104ch}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.62rem;margin-top:.9rem}
+.meta div{border:1px solid var(--line);border-radius:15px;padding:.7rem;background:linear-gradient(180deg,#fff,#f7fbff)}
+.meta span{display:block;color:var(--muted);font-size:.7rem;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+.meta b{display:block;margin-top:.12rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}
+.action{border:0;border-radius:999px;padding:.72rem 1rem;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.primary{background:linear-gradient(135deg,#0b5ea8,#6d28d9);color:#fff}
+.secondary{background:#edf6ff;color:#0b4f83;border:1px solid #b9d8ef}
+.module-strip{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.62rem;margin-top:.75rem}
+.module-strip div{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:.75rem;background:rgba(255,255,255,.08)}
+.module-strip b{display:block;color:#67e8f9}
+.section{margin:.75rem 0;padding:clamp(1rem,1.35vw,1.55rem)}
+.section.module{scroll-margin-top:120px}
+.section-head{border-bottom:1px solid var(--line);padding-bottom:.72rem;margin-bottom:.85rem}
+.section-head p{color:var(--muted);max-width:125ch}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:.72rem}
+.card{grid-column:span 6;background:#fff;border:1px solid var(--line);border-radius:18px;padding:.9rem;box-shadow:0 7px 18px rgba(15,23,42,.04);break-inside:avoid}
+.card.third{grid-column:span 4}.card.quarter{grid-column:span 3}.card.wide{grid-column:span 12}.card.eight{grid-column:span 8}.card.blue{background:#eef7ff}.card.cyan{background:#ecfeff}.card.violet{background:#f4f0ff}.card.green{background:#ecfdf5}.card.amber{background:#fff8e8}.card.rose{background:#fff1f2}.card.dark{background:#0b1f35;color:#eaf5ff}.card.dark h3,.card.dark h4{color:#fff}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.55rem}
+.toc a{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--line);border-radius:14px;padding:.68rem .78rem;background:#f8fbff;color:#0f2740;font-weight:850;text-decoration:none}
+.toc a:hover{background:#eaf5ff}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+table{width:100%;border-collapse:collapse;min-width:680px}
+th,td{border-bottom:1px solid var(--line);padding:.62rem .7rem;text-align:left;vertical-align:top}
+th{background:#eaf4ff;color:#113f68;font-weight:950}
+tr:last-child td{border-bottom:0}
+.compact th,.compact td{padding:.48rem .55rem;font-size:.91rem}
+.truth table{min-width:360px}
+.formula{font-family:"Cambria Math","Times New Roman",serif;font-size:1.08rem;border:1px solid #c9d9e9;border-left:5px solid var(--blue);border-radius:13px;background:#f7fbff;padding:.65rem .75rem;margin:.45rem 0;overflow:auto}
+.callout{border:1px solid #a9d7f3;border-radius:15px;background:#eef8ff;padding:.75rem .85rem;margin:.7rem 0;break-inside:avoid}
+.remember{border-color:#86efac;background:#f0fdf4}.exam{border-color:#f6d365;background:#fffbeb}.mistake{border-color:#fda4af;background:#fff1f2}.try{border-color:#c4b5fd;background:#f5f3ff}.priority{border-color:#67e8f9;background:#ecfeff}
+.ml{margin:.45rem 0 0;border-left:4px solid var(--green);border-radius:10px;background:#edf9f4;padding:.52rem .68rem;font-family:"Nirmala UI","Noto Sans Malayalam","Segoe UI",Arial,sans-serif;color:#164c42;font-size:.93rem}
+.steps{counter-reset:step;display:grid;gap:.45rem}
+.step{position:relative;border:1px solid var(--line);border-radius:13px;background:#f9fcff;padding:.62rem .7rem .62rem 2.45rem}
+.step:before{counter-increment:step;content:counter(step);position:absolute;left:.65rem;top:.62rem;width:1.28rem;height:1.28rem;display:grid;place-items:center;border-radius:50%;background:var(--blue);color:#fff;font-size:.75rem;font-weight:950}
+.svgbox{border:1px solid var(--line);border-radius:16px;background:#fff;padding:.65rem;min-height:215px;display:grid;place-items:center;overflow:auto;break-inside:avoid}
+svg{max-width:100%;height:auto}
+.kmap{display:grid;border:2px solid #18344f;background:white;max-width:660px;margin:.55rem auto}
+.kmap.k2{grid-template-columns:90px repeat(2,1fr)}
+.kmap.k3{grid-template-columns:110px repeat(4,1fr)}
+.kmap.k4{grid-template-columns:110px repeat(4,1fr)}
+.kcell{min-height:58px;border:1px solid #98aabc;display:grid;place-items:center;font-weight:800;position:relative}
+.khead{background:#eaf4ff;color:#17446d}
+.kone{background:#dcfce7}.kdc{background:#fff7d6}.kgroup{outline:4px solid #7c3aed;outline-offset:-5px}
+.solution{background:#0b1f35;color:#eef8ff;border-radius:16px;padding:.85rem;margin:.65rem 0;break-inside:avoid}
+.solution h4{color:#fff;margin-top:0}
+.solution pre{white-space:pre-wrap;margin:0;font:inherit}
+.codebox{font-family:Consolas,monospace;background:#07192f;color:#dff7ff;border-radius:12px;padding:.65rem;overflow:auto}
+.pills{display:flex;flex-wrap:wrap;gap:.35rem}.pill{border-radius:999px;padding:.28rem .55rem;background:#eaf4ff;color:#124e7a;font-size:.78rem;font-weight:900}
+.demo{border:1px dashed #7bcde0;background:#f3fdff;border-radius:16px;padding:.8rem}
+.demo-controls{display:flex;flex-wrap:wrap;gap:.4rem;margin:.55rem 0}
+.demo-controls button{border:1px solid #b6d9e8;background:#fff;border-radius:999px;padding:.45rem .65rem;font-weight:850;cursor:pointer}
+.bitrow{display:flex;gap:.35rem;flex-wrap:wrap}
+.bit{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;border:2px solid #8aa7bd;background:#fff;font-weight:950}
+.bit.on{background:#0b5ea8;color:#fff;border-color:#0b5ea8}
+.signal{stroke-dasharray:10 8;animation:flow 1.35s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-36}}
+.blink{animation:blink 1s ease-in-out infinite alternate}
+@keyframes blink{from{opacity:.28}to{opacity:1}}
+details{border:1px solid var(--line);border-radius:14px;padding:.68rem .78rem;background:#fff;margin:.55rem 0;break-inside:avoid}
+summary{font-weight:900;color:#124e7a;cursor:pointer}
+.checklist{list-style:none;padding:0}.checklist li{padding:.28rem 0 .28rem 1.65rem;position:relative}.checklist li:before{content:"✓";position:absolute;left:0;top:.3rem;width:1.12rem;height:1.12rem;display:grid;place-items:center;border-radius:50%;background:#dcfce7;color:#047857;font-weight:950}
+.badge{display:inline-block;border-radius:999px;padding:.2rem .5rem;background:#dbeafe;color:#173e67;font-size:.74rem;font-weight:950}
+.paper{border:2px solid #1f3349;background:#fff;border-radius:14px;padding:.85rem}
+.paper h3{text-align:center}.paper .marks{text-align:right;font-weight:900}
+.paper ol{padding-left:1.25rem}
+.backtop{position:fixed;right:14px;bottom:14px;z-index:90;width:44px;height:44px;border-radius:50%;border:0;background:#0b5ea8;color:#fff;font-size:1.25rem;box-shadow:0 10px 25px rgba(15,23,42,.25);cursor:pointer}
+.hidden-by-search{display:none!important}
+footer{text-align:center;color:var(--muted);padding:1.4rem .5rem 2.2rem}
+@media(max-width:1200px){
+ .hero{grid-template-columns:1fr}.meta{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .card,.card.third,.card.quarter,.card.eight{grid-column:span 12}
+ .brandbox{flex:1 1 calc(100% - 12px)}
+}
+@media(max-width:760px){
+ .nav{padding:.4rem 4px;gap:.28rem}
+ .brandbox{min-width:0;flex-basis:100%}.brand{font-size:.82rem}.brand small{font-size:.68rem}
+ .logo{width:42px;height:42px;flex-basis:42px}
+ .nav a,.nav button{font-size:.69rem;padding:.42rem .52rem}
+ .searchwrap{flex-basis:100%;max-width:none}
+ .shell{padding:4px}.section{padding:.8rem}.meta{grid-template-columns:1fr}.module-strip{grid-template-columns:1fr}
+ .hero{min-height:auto}
+ table{font-size:.9rem}
+}
+@media(prefers-reduced-motion:reduce){
+ *{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
+}
+@page{size:A4;margin:12mm}
+@media print{
+ *{box-shadow:none!important;animation:none!important;transition:none!important}
+ body{background:#fff!important;color:#000!important;font-size:10pt;line-height:1.4}
+ body:before,.toolbar,.progress,.backtop,.demo-controls,.searchwrap{display:none!important}
+ .shell{width:100%;padding:0!important}
+ .hero{display:block;min-height:auto;page-break-after:always}
+ .hero-main,.hero-side,.section,.card,.callout,.svgbox,.solution,.paper,details{background:#fff!important;color:#000!important;border:1px solid #777!important;border-radius:0!important}
+ .hero-side h2,.hero-side h3,.card.dark h3,.card.dark h4,.solution h4{color:#000!important}
+ .section.module{break-before:page;page-break-before:always}
+ .grid{display:block}.card{margin:3mm 0}
+ h1,h2,h3,h4{color:#000!important;break-after:avoid}
+ table{min-width:0!important;font-size:8.8pt}
+ th{background:#eee!important;color:#000!important}
+ .solution pre,.codebox{color:#000!important;background:#fff!important}
+ .kmap,.svgbox,.table-wrap,.solution,.card,.paper{break-inside:avoid;page-break-inside:avoid}
+ .demo{border:1px solid #777!important;background:#fff!important}
+ a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<header class="toolbar">
+<nav class="nav" aria-label="Primary navigation">
+  <div class="brandbox"><span class="logo">3044</span><span class="brand">Digital Electronics<small>Third Semester • Revision 2021 • BM / EC / EL</small></span></div>
+  <a href="#overview">Overview</a><a href="#contents">Contents</a><a href="#module1">Module 1</a><a href="#module2">Module 2</a><a href="#module3">Module 3</a><a href="#module4">Module 4</a>
+  <a href="#banks">Banks</a><a href="#practice">Practice</a><a href="#model-paper">Model Paper</a><a href="#answers">Answers</a>
+  <div class="searchwrap"><input id="searchBox" type="search" placeholder="Search this handbook" aria-label="Search this handbook"><button type="button" id="clearSearch">Clear</button></div>
+  <button class="pdf" type="button" onclick="window.print()">Download as PDF</button>
+</nav>
+</header>
+<main class="shell">
+<section class="hero" id="top">
+  <div class="panel hero-main">
+    <span class="eyebrow">Complete Digital Electronics Handbook</span>
+    <h1>Digital Electronics</h1>
+    <p class="lead">A full student textbook for number systems, Boolean algebra, K-Maps, logic families, combinational circuits, flip-flops, registers, counters and semiconductor memories—built from the official model-paper scope and examination pattern.</p>
+    <div class="meta">
+      <div><span>Course Code</span><b>3044</b></div><div><span>Semester</span><b>Third Semester</b></div>
+      <div><span>Programme</span><b>Common to BM / EC / EL</b></div><div><span>Scheme</span><b>Revision 2021</b></div>
+      <div><span>Maximum Marks</span><b>75</b></div><div><span>Time</span><b>3 Hours</b></div>
+      <div><span>Credits / Category</span><b>Not specified in supplied source</b></div><div><span>Primary Source</span><b>Official Model Question Paper, Sets 1 & 2</b></div>
+    </div>
+    <div class="hero-actions"><a class="action primary" href="#module1">Start Learning</a><button class="action secondary" onclick="window.print()">Download as PDF</button></div>
+  </div>
+  <aside class="panel hero-side">
+    <span class="eyebrow">Four reconstructed learning modules</span>
+    <h2>From binary digits to complete digital systems</h2>
+    <p>The handbook follows the topic scope and module-outcome codes evidenced in the supplied official-style model paper. Reconstructed titles are clearly identified as handbook organization, not claimed as official syllabus titles.</p>
+    <div class="module-strip">
+      <div><b>Module 1</b>Number systems, gates, Boolean algebra, K-Maps</div>
+      <div><b>Module 2</b>Logic families and combinational circuits</div>
+      <div><b>Module 3</b>Flip-flops, registers, ring and Johnson counters</div>
+      <div><b>Module 4</b>Asynchronous/synchronous counters and memories</div>
+    </div>
+  </aside>
+</section>
+
+
+<section class="section" id="overview">
+<div class="section-head"><span class="eyebrow">Course Overview</span><h2>What Digital Electronics is and why it matters</h2><p>Digital electronics represents and processes information using discrete logic levels, normally 0 and 1. It is the foundation of computers, embedded systems, communication equipment, medical instruments, industrial control and modern consumer electronics.</p></div>
+<div class="grid">
+  <article class="card third blue"><h3>Information as bits</h3><p>A bit has two states. Groups of bits represent numbers, instructions, characters, addresses and control information.</p></article>
+  <article class="card third cyan"><h3>Logic as decisions</h3><p>Logic gates implement decisions such as AND, OR, NOT and XOR. Boolean algebra gives a mathematical language to simplify those decisions.</p></article>
+  <article class="card third violet"><h3>Memory and sequence</h3><p>Flip-flops and registers remember past information. Counters and state circuits create controlled sequences over time.</p></article>
+</div>
+<h3>Importance and applications</h3>
+<div class="grid">
+  <div class="card quarter"><h4>Computing</h4><p>Processors, memories, storage interfaces and digital buses.</p></div>
+  <div class="card quarter"><h4>Communication</h4><p>Encoding, multiplexing, switching, timing and control.</p></div>
+  <div class="card quarter"><h4>Automation</h4><p>Programmable controllers, counters, sensors and machine sequencing.</p></div>
+  <div class="card quarter"><h4>Medical and instrumentation</h4><p>Digital measurement, data acquisition, alarms and display systems.</p></div>
+</div>
+<div class="callout exam"><b>Source limitation</b><div>The supplied document is a model question paper, not a complete syllabus. Therefore, credits, category, course objectives, exact CO-PO mapping, periods and official reference books are not fabricated. Module titles below are a logical handbook reconstruction from the questions and module-outcome codes.</div></div>
+</section>
+
+<section class="section" id="how">
+<div class="section-head"><span class="eyebrow">Study Method</span><h2>How to use this handbook</h2><p>For every topic: understand the idea, inspect the truth table or diagram, work the solved example, then attempt the practice question without looking at the answer.</p></div>
+<div class="grid">
+  <div class="card quarter"><h3>1. Learn the rule</h3><p>Read definitions, formulas and design rules.</p></div>
+  <div class="card quarter"><h3>2. Trace the logic</h3><p>Follow signal paths, state transitions and timing diagrams.</p></div>
+  <div class="card quarter"><h3>3. Solve step-by-step</h3><p>Show all conversions, K-Map groups and design tables.</p></div>
+  <div class="card quarter"><h3>4. Practise for marks</h3><p>Use one-mark, three-mark and seven-mark patterns.</p></div>
+</div>
+</section>
+
+<section class="section" id="contents">
+<div class="section-head"><span class="eyebrow">Table of Contents</span><h2>Clickable handbook map</h2><p>All links point to a valid section in this standalone file.</p></div>
+<div class="toc">
+<a href="#source-info">Source & Exam Information <span>→</span></a>
+<a href="#roadmap">Learning Roadmap <span>→</span></a>
+<a href="#module1">Module 1 <span>→</span></a>
+<a href="#module2">Module 2 <span>→</span></a>
+<a href="#module3">Module 3 <span>→</span></a>
+<a href="#module4">Module 4 <span>→</span></a>
+<a href="#banks">Rule and Formula Banks <span>→</span></a>
+<a href="#solved-examples">Solved Examples <span>→</span></a>
+<a href="#expected">Expected Questions <span>→</span></a>
+<a href="#practice">Practice Section <span>→</span></a>
+<a href="#revision">Quick Revision <span>→</span></a>
+<a href="#model-paper">Fresh Model Paper <span>→</span></a>
+<a href="#answers">Complete Model Answers <span>→</span></a>
+</div>
+</section>
+
+<section class="section" id="source-info">
+<div class="section-head"><span class="eyebrow">Source and Examination Information</span><h2>Confirmed examination pattern</h2><p>The two supplied model sets establish the title, semester, programme applicability, module-outcome codes and paper structure.</p></div>
+<div class="table-wrap"><table class=""><thead><tr><th>Item</th><th>Confirmed information</th></tr></thead><tbody><tr><td>Subject</td><td>Digital Electronics</td></tr><tr><td>Course code</td><td>3044</td></tr><tr><td>Semester</td><td>Third Semester</td></tr><tr><td>Programme</td><td>Common to BM / EC / EL</td></tr><tr><td>Scheme</td><td>Revision 2021</td></tr><tr><td>Time</td><td>3 hours</td></tr><tr><td>Maximum marks</td><td>75</td></tr><tr><td>Part A</td><td>9 questions × 1 mark = 9; answer all</td></tr><tr><td>Part B</td><td>10 questions; answer any 8; 3 marks each = 24</td></tr><tr><td>Part C</td><td>6 compulsory groups, each with internal OR; 7 marks per group = 42</td></tr><tr><td>Available module-outcome codes</td><td>M1.01, M1.03, M1.04, M2.02, M2.04, M3.01, M3.02, M3.03, M3.04, M4.01, M4.02, M4.03, M4.04</td></tr><tr><td>Not specified in supplied source</td><td>Credits, category, periods, formal objectives, CO-PO mapping, official reference books</td></tr></tbody></table></div>
+</section>
+
+<section class="section" id="roadmap">
+<div class="section-head"><span class="eyebrow">Learning Roadmap</span><h2>Four reconstructed modules</h2><p>The following module titles are a handbook organization inferred from the topic distribution in the model papers.</p></div>
+<div class="table-wrap"><table class=""><thead><tr><th>Module</th><th>Evidenced outcome codes</th><th>Core topics</th><th>Exam emphasis</th></tr></thead><tbody><tr><td>1. Number Systems, Logic Gates, Boolean Algebra and K-Maps</td><td>M1.01, M1.03, M1.04</td><td>Conversions, complements, binary arithmetic, universal gates, Boolean laws, De Morgan, K-Maps</td><td>Short calculations and 7-mark conversion / minimization problems</td></tr><tr><td>2. Logic Families and Combinational Logic Circuits</td><td>M2.02, M2.04</td><td>CMOS/ECL parameters, adders, multiplexers, demultiplexers, binary-to-Gray conversion</td><td>3-mark features and 7-mark truth-table/K-Map designs</td></tr><tr><td>3. Flip-Flops, Shift Registers, Ring and Johnson Counters</td><td>M3.01, M3.02, M3.03, M3.04</td><td>Sequential logic, flip-flops, conversions, register types, ring and Johnson sequence</td><td>Symbols, truth tables, diagrams and conversion/design questions</td></tr><tr><td>4. Counters and Semiconductor Memories</td><td>M4.01, M4.02, M4.03, M4.04</td><td>Ripple/synchronous counters, MOD design, timing diagrams, RAM/ROM/PROM/EPROM/EEPROM</td><td>Counter design and memory comparisons</td></tr></tbody></table></div>
+</section>
+
+
+<section class="section module" id="module1">
+<div class="section-head"><span class="eyebrow">Module 1 • M1.01 / M1.03 / M1.04</span><h2>Number Systems, Logic Gates, Boolean Algebra and K-Maps</h2><p>This title is reconstructed from the official model-paper topics. The chapter develops the complete calculation and logic-design foundation required by those questions.</p></div>
+<div class="grid">
+ <div class="card blue"><h3>Learning targets</h3><ul><li>Convert between decimal, binary and hexadecimal—including fractions.</li><li>Perform binary arithmetic and complement subtraction.</li><li>Use logic gates and universal-gate implementation.</li><li>Simplify expressions using Boolean laws and K-Maps.</li></ul></div>
+ <div class="card cyan"><h3>Core exam skills</h3><ul><li>Show each conversion step.</li><li>Use the specified bit width for complements.</li><li>Draw symbols and truth tables neatly.</li><li>Mark K-Map groups and write final reduced expression.</li></ul></div>
+</div>
+
+<h3>1. Number systems and positional value</h3>
+<p>A number system is defined by its radix or base. In a positional number system, the value of a digit depends on both the digit and its position.</p>
+<div class="formula">(d_n...d_1d_0.d_{-1}d_{-2})_r = Σ d_i r^i</div>
+<div class="table-wrap"><table class=""><thead><tr><th>System</th><th>Base</th><th>Digits</th><th>Example</th></tr></thead><tbody><tr><td>Decimal</td><td>10</td><td>0–9</td><td>(125.4)₁₀</td></tr><tr><td>Binary</td><td>2</td><td>0,1</td><td>(10101.01)₂</td></tr><tr><td>Hexadecimal</td><td>16</td><td>0–9, A–F</td><td>(4BAC)₁₆</td></tr></tbody></table></div>
+<div class="grid">
+ <div class="card"><h3>Place-value chart</h3><div class="table-wrap"><table class="compact"><thead><tr><th>Position</th><th>...</th><th>3</th><th>2</th><th>1</th><th>0</th><th>-1</th><th>-2</th></tr></thead><tbody><tr><td>Weight in base r</td><td>...</td><td>r³</td><td>r²</td><td>r¹</td><td>r⁰</td><td>r⁻¹</td><td>r⁻²</td></tr></tbody></table></div></div>
+ <div class="card"><h3>Hexadecimal digit table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>Hex</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead><tbody><tr><td>Decimal</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr><tr><td>Binary</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr></tbody></table></div></div>
+</div>
+<div class="callout remember"><b>Malayalam Support</b><div>Radix എന്നത് base ആണ്. Binary-ൽ ഓരോ position-നും 2ന്റെ power; hexadecimal-ൽ 16ന്റെ power ഉപയോഗിക്കുന്നു.</div></div>
+
+<h3>2. Conversion methods</h3>
+<div class="grid">
+ <div class="card third"><h4>Binary → Decimal</h4><p>Multiply each bit by its place value and add.</p><div class="formula">(10101)₂ = 1×2⁴+0×2³+1×2²+0×2¹+1×2⁰ = 21</div></div>
+ <div class="card third"><h4>Decimal integer → Binary</h4><p>Repeatedly divide by 2 and read remainders upward.</p><div class="formula">35₁₀ = 100011₂</div></div>
+ <div class="card third"><h4>Decimal fraction → Binary</h4><p>Repeatedly multiply the fraction by 2 and read integer parts downward.</p><div class="formula">0.625₁₀ = .101₂</div></div>
+ <div class="card third"><h4>Hex → Decimal</h4><p>Multiply each hexadecimal digit by powers of 16.</p><div class="formula">(AB6)₁₆ = 10×16²+11×16+6 = 2742₁₀</div></div>
+ <div class="card third"><h4>Hex ↔ Binary</h4><p>Replace every hexadecimal digit by four binary bits.</p><div class="formula">(4BAC)₁₆ = 0100 1011 1010 1100₂</div></div>
+ <div class="card third"><h4>Decimal → Hex</h4><p>Repeatedly divide integer part by 16. Use A–F for remainders 10–15.</p><div class="formula">125₁₀ = 7D₁₆</div></div>
+</div>
+<div class="demo" id="binaryDemo"><h3>Interactive binary counter</h3><p>Use the buttons to observe binary states and decimal value.</p><div class="bitrow" id="binaryBits"></div><p><b>Decimal:</b> <span id="binaryValue">0</span></p><div class="demo-controls"><button data-bincmd="prev">Previous</button><button data-bincmd="next">Next</button><button data-bincmd="play">Play</button><button data-bincmd="pause">Pause</button><button data-bincmd="reset">Reset</button></div></div>
+
+<h3>3. Binary arithmetic</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Operation</th><th>Rules</th></tr></thead><tbody><tr><td>Addition</td><td>0+0=0; 0+1=1; 1+0=1; 1+1=10; 1+1+1=11</td></tr><tr><td>Subtraction</td><td>0−0=0; 1−0=1; 1−1=0; 0−1 requires borrow</td></tr><tr><td>Multiplication</td><td>0×anything=0; 1×bit=bit</td></tr><tr><td>Division</td><td>Same long-division idea as decimal, but quotient digits are only 0 or 1</td></tr></tbody></table></div>
+<div class="grid">
+ <div class="card"><h3>Binary addition example</h3><div class="codebox">  101101<br>+ 011011<br>--------<br> 1001000</div><p>45 + 27 = 72, so the result is verified.</p></div>
+ <div class="card"><h3>Binary multiplication example</h3><div class="codebox">   1011<br>×   101<br>-------<br>   1011<br>  0000<br> 101100<br>-------<br>110111</div><p>11 × 5 = 55 = 110111₂.</p></div>
+</div>
+
+<h3>4. Signed numbers and complements</h3>
+<p>One’s complement is formed by inverting every bit. Two’s complement is one’s complement plus 1. In an n-bit signed two’s-complement system, the leftmost bit is the sign bit.</p>
+<div class="formula">One’s complement: 0 ↔ 1</div><div class="formula">Two’s complement = One’s complement + 1</div>
+<div class="grid">
+ <div class="card"><h3>Example: 8-bit two’s complement of 14</h3><div class="steps"><div class="step">14 = 00001110</div><div class="step">Invert bits → 11110001</div><div class="step">Add 1 → 11110010</div></div></div>
+ <div class="card"><h3>Subtraction: 46 − 14</h3><div class="codebox">46 = 00101110<br>14 = 00001110<br>2’s comp(14) = 11110010<br><br>  00101110<br>+ 11110010<br>-----------<br>1 00100000</div><p>Discard the end carry. Result = 00100000₂ = 32₁₀.</p></div>
+</div>
+<div class="callout remember"><b>Malayalam Support</b><div>Two’s complement subtraction-ൽ subtract ചെയ്യേണ്ട number-ന്റെ bits invert ചെയ്ത് 1 കൂട്ടുക. ശേഷം minuend-നോട് add ചെയ്യുക. End carry ഉണ്ടെങ്കിൽ അത് discard ചെയ്യണം.</div></div>
+<div class="callout mistake"><b>Common mistake</b><div>Use the required bit width before complementing. Do not complement an unpadded number.</div></div>
+
+<h3>5. Logic levels and gates</h3>
+<p>In positive logic, the higher voltage level represents logic 1 and the lower voltage level represents logic 0. A logic gate performs a Boolean operation on one or more binary inputs.</p>
+
+<div class="card blue"><h3>Logic-gate symbol guide</h3><p>AND is D-shaped, OR has a curved input, NOT is triangular, and inversion is shown by a small circle.</p></div>
+
+<div class="grid">
+ <div class="card third"><h3>AND</h3><div class="formula">Y = AB</div>
+    <div class="table-wrap"><table class="compact truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></tbody></table></div></div>
+ <div class="card third"><h3>OR</h3><div class="formula">Y = A + B</div>
+    <div class="table-wrap"><table class="compact truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></tbody></table></div></div>
+ <div class="card third"><h3>NOT</h3><div class="formula">Y = A̅</div><div class="table-wrap"><table class="compact truth"><thead><tr><th>A</th><th>Y</th></tr></thead><tbody><tr><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td></tr></tbody></table></div></div>
+ <div class="card third"><h3>NAND</h3><div class="formula">Y = (AB)̅</div>
+    <div class="table-wrap"><table class="compact truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table></div></div>
+ <div class="card third"><h3>NOR</h3><div class="formula">Y = (A+B)̅</div>
+    <div class="table-wrap"><table class="compact truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table></div></div>
+ <div class="card third"><h3>XOR</h3><div class="formula">Y = A ⊕ B</div>
+    <div class="table-wrap"><table class="compact truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></tbody></table></div></div>
+</div>
+<div class="callout priority"><b>Gate classification</b><p><b>Basic:</b> AND, OR, NOT. <b>Universal:</b> NAND, NOR. <b>Special:</b> XOR, XNOR.</p></div>
+
+<h3>6. Universal gates</h3>
+<p>A universal gate can implement any Boolean function. NAND and NOR are universal because NOT, AND and OR can be created using only one gate type.</p>
+<div class="table-wrap"><table class=""><thead><tr><th>Function using NAND</th><th>Connection</th><th>Result</th></tr></thead><tbody><tr><td>NOT</td><td>Join both NAND inputs to A</td><td>A NAND A = A̅</td></tr><tr><td>AND</td><td>NAND A,B, then invert output with NAND</td><td>[(AB)̅]̅ = AB</td></tr><tr><td>OR</td><td>Invert A and B using NAND, then NAND the results</td><td>(A̅B̅)̅ = A+B</td></tr><tr><td>XOR</td><td>Four-NAND standard network</td><td>A⊕B</td></tr></tbody></table></div>
+<div class="callout remember"><b>Malayalam Support</b><div>Universal gate എന്നത് മറ്റെല്ലാ basic gates-ഉം നിർമ്മിക്കാൻ കഴിയുന്ന gate ആണ്. NAND മാത്രം ഉപയോഗിച്ചും NOR മാത്രം ഉപയോഗിച്ചും മുഴുവൻ digital circuit നിർമ്മിക്കാം.</div></div>
+
+<h3>7. Boolean algebra</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Law</th><th>Expression</th></tr></thead><tbody><tr><td>Identity</td><td>A+0=A; A·1=A</td></tr><tr><td>Null</td><td>A+1=1; A·0=0</td></tr><tr><td>Idempotent</td><td>A+A=A; A·A=A</td></tr><tr><td>Complement</td><td>A+A̅=1; A·A̅=0</td></tr><tr><td>Involution</td><td>(A̅)̅=A</td></tr><tr><td>Commutative</td><td>A+B=B+A; AB=BA</td></tr><tr><td>Associative</td><td>A+(B+C)=(A+B)+C; A(BC)=(AB)C</td></tr><tr><td>Distributive</td><td>A(B+C)=AB+AC; A+BC=(A+B)(A+C)</td></tr><tr><td>Absorption</td><td>A+AB=A; A(A+B)=A</td></tr><tr><td>De Morgan 1</td><td>(A+B)̅=A̅B̅</td></tr><tr><td>De Morgan 2</td><td>(AB)̅=A̅+B̅</td></tr></tbody></table></div>
+<div class="solution"><h4>Algebraic simplification example</h4><pre>Y = A̅B + AB + AB̅
+  = B(A̅ + A) + AB̅
+  = B + AB̅
+  = (B + A)(B + B̅)
+  = A + B</pre></div>
+
+<h3>8. SOP, POS, minterms and maxterms</h3>
+<p>A minterm is an AND term containing every variable once. A maxterm is an OR term containing every variable once. Canonical SOP is a sum of minterms; canonical POS is a product of maxterms.</p>
+<div class="formula">F(A,B,C) = Σm(1,3,5,7)</div><div class="formula">F(A,B,C) = ΠM(0,2,4,6)</div>
+
+<h3>9. Karnaugh Maps</h3>
+<p>A K-Map arranges adjacent cells in Gray-code order so that one variable changes between neighbouring cells. Groups must contain 1, 2, 4, 8 or 16 cells.</p>
+<div class="grid">
+ <div class="card"><h3>Two-variable K-Map</h3><div class="kmap k2"><div class="kcell khead">A\B</div><div class="kcell khead">0</div><div class="kcell khead">1</div><div class="kcell khead">0</div><div class="kcell">m0</div><div class="kcell">m1</div><div class="kcell khead">1</div><div class="kcell">m2</div><div class="kcell">m3</div></div></div>
+ <div class="card"><h3>Three-variable K-Map</h3><div class="kmap k3"><div class="kcell khead">A\BC</div><div class="kcell khead">00</div><div class="kcell khead">01</div><div class="kcell khead">11</div><div class="kcell khead">10</div><div class="kcell khead">0</div><div class="kcell">m0</div><div class="kcell">m1</div><div class="kcell">m3</div><div class="kcell">m2</div><div class="kcell khead">1</div><div class="kcell">m4</div><div class="kcell">m5</div><div class="kcell">m7</div><div class="kcell">m6</div></div></div>
+</div>
+<h4>Four-variable K-Map</h4>
+<div class="kmap k4"><div class="kcell khead">AB\CD</div><div class="kcell khead">00</div><div class="kcell khead">01</div><div class="kcell khead">11</div><div class="kcell khead">10</div>
+<div class="kcell khead">00</div><div class="kcell">m0</div><div class="kcell">m1</div><div class="kcell">m3</div><div class="kcell">m2</div>
+<div class="kcell khead">01</div><div class="kcell">m4</div><div class="kcell">m5</div><div class="kcell">m7</div><div class="kcell">m6</div>
+<div class="kcell khead">11</div><div class="kcell">m12</div><div class="kcell">m13</div><div class="kcell">m15</div><div class="kcell">m14</div>
+<div class="kcell khead">10</div><div class="kcell">m8</div><div class="kcell">m9</div><div class="kcell">m11</div><div class="kcell">m10</div></div>
+<div class="grid">
+ <div class="card green"><h3>Grouping rules</h3><ul><li>Use largest possible groups.</li><li>Every required 1 must be covered.</li><li>Overlapping is allowed.</li><li>Wrap-around adjacency is allowed.</li><li>Diagonal cells are not adjacent.</li><li>Don’t-care cells may be used only when helpful.</li></ul></div>
+ <div class="card amber"><h3>Typical reduction workflow</h3><div class="steps"><div class="step">Place all minterms and don’t-cares.</div><div class="step">Form essential largest groups.</div><div class="step">Write one product term per group.</div><div class="step">OR the terms and verify coverage.</div></div></div>
+</div>
+<div class="solution"><h4>Solved K-Map: F(A,B,C)=Σm(0,2,3,4,5,6)</h4><pre>Place 1s at m0,m2,m3,m4,m5,m6.
+Group m0,m2,m4,m6 as a quad → C̅.
+Group m4,m5 as a pair → AB̅.
+Group m2,m3 as a pair → A̅B.
+Final: F = C̅ + AB̅ + A̅B.</pre></div>
+<div class="solution"><h4>Four-variable example with don’t-cares</h4><pre>F(A,B,C,D)=Σm(1,4,7,10,13)+Σd(5,14,15).
+Use d-cells only to enlarge groups:
+m1,m5(d),m13,m? cannot form a valid full quad unless every required cell is adjacent.
+One possible minimal cover is found by mapping and selecting valid pairs/quads.
+Always show the marked map, groups, reduced terms and final SOP. Do not treat every don't-care as mandatory 1.</pre></div>
+
+<details open><summary>Module 1 expected exam questions</summary>
+<div class="grid">
+ <div class="card third"><h4>One mark</h4><ul><li>Find decimal value of 10101₂.</li><li>Write 1’s or 2’s complement.</li><li>Name a universal gate.</li></ul></div>
+ <div class="card third"><h4>Three marks</h4><ul><li>Convert a hexadecimal integer/fraction.</li><li>State De Morgan’s theorems.</li><li>Reduce a small expression using K-Map.</li></ul></div>
+ <div class="card third"><h4>Seven marks</h4><ul><li>Mixed number-system operations.</li><li>Universal-gate implementation.</li><li>Four-variable K-Map with don’t-cares.</li></ul></div>
+</div></details>
+</section>
+
+
+<section class="section module" id="module2">
+<div class="section-head"><span class="eyebrow">Module 2 • M2.02 / M2.04</span><h2>Logic Families and Combinational Logic Circuits</h2><p>This reconstructed chapter covers the logic-family parameters and combinational design problems evidenced in the official model paper.</p></div>
+<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Compare TTL, CMOS and ECL.</li><li>Explain fan-out, delay and power dissipation.</li><li>Design adders, multiplexers and demultiplexers.</li><li>Derive a four-bit binary-to-Gray converter.</li></ul></div><div class="card cyan"><h3>Combinational principle</h3><p>Output depends only on present inputs. There is no stored state and normally no clock.</p><div class="ml">Combinational circuit-ന്റെ output ഇപ്പോഴുള്ള input-നെ മാത്രം ആശ്രയിക്കുന്നു; previous state ഓർക്കില്ല.</div></div></div>
+
+<h3>1. Logic families and parameters</h3>
+<p>A logic family is a group of compatible digital ICs built using a common circuit technology and logic-level convention.</p>
+<div class="table-wrap"><table class=""><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody><tr><td>Fan-in</td><td>Maximum number of inputs a gate is designed to accept</td></tr><tr><td>Fan-out</td><td>Number of standard gate inputs one output can drive reliably</td></tr><tr><td>Propagation delay</td><td>Time between input transition and corresponding output transition</td></tr><tr><td>Power dissipation</td><td>Average power consumed by a gate</td></tr><tr><td>Noise margin</td><td>Maximum unwanted noise voltage tolerated without logic error</td></tr><tr><td>Speed-power product</td><td>Propagation delay × power dissipation; lower is generally better</td></tr></tbody></table></div>
+<div class="table-wrap"><table class=""><thead><tr><th>Feature</th><th>TTL</th><th>CMOS</th><th>ECL</th></tr></thead><tbody><tr><td>Device technology</td><td>Bipolar transistor</td><td>MOSFET</td><td>Bipolar differential switching</td></tr><tr><td>Power dissipation</td><td>Moderate</td><td>Very low in static condition</td><td>High</td></tr><tr><td>Speed</td><td>Moderate / fast</td><td>Modern CMOS can be very fast</td><td>Traditionally fastest</td></tr><tr><td>Noise immunity</td><td>Moderate</td><td>High</td><td>Moderate</td></tr><tr><td>Input impedance</td><td>Moderate</td><td>Very high</td><td>Lower than CMOS</td></tr><tr><td>Model-paper emphasis</td><td>General comparison</td><td>Least power dissipation; CMOS features</td><td>Fastest family; ECL features</td></tr></tbody></table></div>
+<div class="callout remember"><b>Malayalam Support</b><div>Propagation delay എന്നത് input change ചെയ്തതിനു ശേഷം output change കാണാൻ എടുക്കുന്ന ചെറിയ സമയമാണ്. Fan-out ഒരു output എത്ര gate inputs drive ചെയ്യാമെന്ന് പറയുന്നു.</div></div>
+
+<h3>2. Combinational vs sequential circuits</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Feature</th><th>Combinational</th><th>Sequential</th></tr></thead><tbody><tr><td>Output depends on</td><td>Present inputs only</td><td>Present inputs and previous state</td></tr><tr><td>Memory</td><td>No</td><td>Yes</td></tr><tr><td>Clock</td><td>Normally not required</td><td>Usually required</td></tr><tr><td>Examples</td><td>Adder, MUX, DEMUX, converter</td><td>Flip-flop, register, counter</td></tr></tbody></table></div>
+
+<h3>3. Half adder and full adder</h3>
+<div class="grid">
+ <div class="card"><h3>Half adder</h3><div class="formula">Sum S = A ⊕ B</div><div class="formula">Carry C = AB</div><div class="table-wrap"><table class="compact"><thead><tr><th>A</th><th>B</th><th>S</th><th>C</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>1</td><td>0</td><td>1</td></tr></tbody></table></div></div>
+ <div class="card"><h3>Full adder</h3><div class="formula">S = A ⊕ B ⊕ C<sub>in</sub></div><div class="formula">C<sub>out</sub> = AB + AC<sub>in</sub> + BC<sub>in</sub></div><div class="table-wrap"><table class="compact"><thead><tr><th>A</th><th>B</th><th>Cin</th><th>S</th><th>Cout</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr></tbody></table></div></div>
+</div>
+<div class="callout priority"><b>Full adder using two half adders</b><p>HA1 adds A and B. HA2 adds the first sum and Cin. OR the two carry outputs.</p></div>
+
+<h3>4. Parallel adder</h3>
+<p>A multi-bit addition requires one full adder per bit. The carry output of one stage feeds the carry input of the next stage. A four-bit parallel adder adds A₃A₂A₁A₀ and B₃B₂B₁B₀ simultaneously, while carry ripples from LSB to MSB.</p>
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<h3>5. Multiplexers</h3>
+<p>A multiplexer is a data selector. It selects one of many input lines and connects it to one output according to select lines.</p>
+<div class="formula">For 2ⁿ inputs, number of select lines = n</div>
+<div class="pills"><span class="pill">2 inputs → 1 select</span><span class="pill">4 inputs → 2 selects</span><span class="pill">8 inputs → 3 selects</span><span class="pill">16 inputs → 4 selects</span></div>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<div class="formula">4:1 MUX: Y = I₀S̅₁S̅₀ + I₁S̅₁S₀ + I₂S₁S̅₀ + I₃S₁S₀</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>S1</th><th>S0</th><th>Selected input</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>I0</td></tr><tr><td>0</td><td>1</td><td>I1</td></tr><tr><td>1</td><td>0</td><td>I2</td></tr><tr><td>1</td><td>1</td><td>I3</td></tr></tbody></table></div>
+<div class="demo"><h3>Interactive 4:1 MUX</h3><p>Set input bits and select lines. The selected input appears at Y.</p>
+<div class="bitrow" id="muxInputs"></div><div class="demo-controls"><button id="muxS0">Toggle S0</button><button id="muxS1">Toggle S1</button></div><p><b>S1S0:</b> <span id="muxSel">00</span> &nbsp; <b>Y:</b> <span id="muxOut">0</span></p></div>
+<div class="callout remember"><b>Malayalam Support</b><div>Multiplexer പല input lines-ൽ നിന്ന് select lines ഉപയോഗിച്ച് ഒരു input മാത്രം output-ലേക്ക് തിരഞ്ഞെടുക്കുന്ന data selector ആണ്.</div></div>
+
+<h3>6. Demultiplexers</h3>
+<p>A demultiplexer is a data distributor. One input is routed to one of several outputs according to select lines.</p>
+<div class="table-wrap"><table class="compact"><thead><tr><th>S1</th><th>S0</th><th>Active output in 1:4 DEMUX</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>Y0 = D</td></tr><tr><td>0</td><td>1</td><td>Y1 = D</td></tr><tr><td>1</td><td>0</td><td>Y2 = D</td></tr><tr><td>1</td><td>1</td><td>Y3 = D</td></tr></tbody></table></div>
+<div class="formula">Y₀=D S̅₁S̅₀; Y₁=D S̅₁S₀; Y₂=D S₁S̅₀; Y₃=D S₁S₀</div>
+
+<h3>7. Binary-to-Gray converter</h3>
+<p>Gray code changes only one bit between adjacent numbers. This reduces transition ambiguity in encoders and position systems.</p>
+<div class="formula">MSB: G₃ = B₃</div><div class="formula">Remaining: G₂=B₃⊕B₂; G₁=B₂⊕B₁; G₀=B₁⊕B₀</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Binary B3B2B1B0</th><th>Gray G3G2G1G0</th></tr></thead><tbody><tr><td>0000</td><td>0000</td></tr><tr><td>0001</td><td>0001</td></tr><tr><td>0010</td><td>0011</td></tr><tr><td>0011</td><td>0010</td></tr><tr><td>0100</td><td>0110</td></tr><tr><td>0101</td><td>0111</td></tr><tr><td>0110</td><td>0101</td></tr><tr><td>0111</td><td>0100</td></tr><tr><td>1000</td><td>1100</td></tr><tr><td>1001</td><td>1101</td></tr><tr><td>1010</td><td>1111</td></tr><tr><td>1011</td><td>1110</td></tr><tr><td>1100</td><td>1010</td></tr><tr><td>1101</td><td>1011</td></tr><tr><td>1110</td><td>1001</td></tr><tr><td>1111</td><td>1000</td></tr></tbody></table></div>
+<div class="solution"><h4>Design method</h4><pre>1. Prepare Binary-to-Gray conversion table.
+2. Write each Gray output column as a function of B3,B2,B1,B0.
+3. Plot each output on a K-Map.
+4. Reduced results:
+   G3=B3
+   G2=B3⊕B2
+   G1=B2⊕B1
+   G0=B1⊕B0
+5. Implement using one direct connection and three XOR gates.</pre></div>
+
+<details open><summary>Module 2 expected exam questions</summary>
+<div class="grid">
+<div class="card third"><h4>One mark</h4><ul><li>Fastest logic family.</li><li>Least-power logic family.</li><li>Select lines for 8:1 MUX.</li></ul></div>
+<div class="card third"><h4>Three marks</h4><ul><li>Features of CMOS/ECL.</li><li>Define fan-out and propagation delay.</li><li>Draw D/T or half-adder table.</li></ul></div>
+<div class="card third"><h4>Seven marks</h4><ul><li>Design full adder.</li><li>Explain 1:4 DEMUX.</li><li>Design 4-bit Binary-to-Gray converter.</li></ul></div>
+</div></details>
+</section>
+
+
+<section class="section module" id="module3">
+<div class="section-head"><span class="eyebrow">Module 3 • M3.01 / M3.02 / M3.03 / M3.04</span><h2>Flip-Flops, Shift Registers, Ring and Johnson Counters</h2><p>This reconstructed chapter develops the sequential-logic topics repeatedly tested in the official model paper.</p></div>
+<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Distinguish combinational and sequential logic.</li><li>Use SR, JK, D and T flip-flops.</li><li>Convert JK to T and JK to D.</li><li>Trace register, ring and Johnson sequences.</li></ul></div><div class="card cyan"><h3>Sequential principle</h3><p>Output depends on present input and stored state. A clock coordinates state changes.</p><div class="ml">Sequential circuit previous state ഓർക്കുന്നു. Clock edge വന്നപ്പോൾ state update ചെയ്യും.</div></div></div>
+
+<h3>1. Clock and state concepts</h3>
+<p>A clock is a periodic digital waveform. Edge-triggered flip-flops respond at a rising edge or falling edge. Present state is the current stored output; next state is the value after the active clock edge.</p>
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<h3>2. Flip-flop summary</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Flip-flop</th><th>Inputs</th><th>Key action</th><th>Important condition</th></tr></thead><tbody><tr><td>SR</td><td>S,R</td><td>Set, reset or hold</td><td>S=R=1 invalid for active-high NOR form</td></tr><tr><td>JK</td><td>J,K</td><td>Improved SR; toggle when J=K=1</td><td>Avoid race-around with proper triggering</td></tr><tr><td>D</td><td>D</td><td>Next Q follows D</td><td>Data storage / delay</td></tr><tr><td>T</td><td>T</td><td>Toggle when T=1</td><td>Counters and divide-by-2</td></tr></tbody></table></div>
+<div class="grid">
+<div class="card"><h3>SR truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>S</th><th>R</th><th>Q(n+1)</th><th>Meaning</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>Qn</td><td>Hold</td></tr><tr><td>0</td><td>1</td><td>0</td><td>Reset</td></tr><tr><td>1</td><td>0</td><td>1</td><td>Set</td></tr><tr><td>1</td><td>1</td><td>Invalid</td><td>Forbidden</td></tr></tbody></table></div></div>
+<div class="card"><h3>JK truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>J</th><th>K</th><th>Q(n+1)</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>Qn</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>Q̅n</td></tr></tbody></table></div></div>
+<div class="card"><h3>D truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>D</th><th>Q(n+1)</th></tr></thead><tbody><tr><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td></tr></tbody></table></div><div class="formula">Q(n+1)=D</div></div>
+<div class="card"><h3>T truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>T</th><th>Q(n+1)</th></tr></thead><tbody><tr><td>0</td><td>Qn</td></tr><tr><td>1</td><td>Q̅n</td></tr></tbody></table></div><div class="formula">Q(n+1)=T⊕Qn</div></div>
+</div>
+
+<h3>3. SR flip-flop using NAND gates</h3>
+<p>A cross-coupled NAND latch normally uses active-low inputs S̅ and R̅. Both inputs high hold the state; pulling S̅ low sets Q; pulling R̅ low resets Q. Both low is invalid.</p>
+<div class="callout remember"><b>Malayalam Support</b><div>NAND SR latch-ൽ inputs active-low ആണ്. S̅=0 set, R̅=0 reset. രണ്ടും 0 ആക്കരുത്.</div></div>
+
+<h3>4. Flip-flop conversion</h3>
+<p>Conversion means forcing an available flip-flop to behave like a desired flip-flop. Use the desired next state and the available flip-flop excitation table, then simplify input equations.</p>
+<div class="grid">
+<div class="card"><h3>JK → T</h3><p>For T=0, hold. For T=1, toggle. A JK flip-flop already toggles for J=K=1.</p><div class="formula">J = T, K = T</div></div>
+<div class="card"><h3>JK → D</h3><p>To make Q(n+1)=D:</p><div class="formula">J = D, K = D̅</div></div>
+</div>
+<div class="callout remember"><b>Malayalam Support</b><div>Flip-flop conversion-ൽ desired flip-flop-ന്റെ next state ആദ്യം എഴുതുക. Available flip-flop ആ state ഉണ്ടാക്കാൻ J,K പോലുള്ള inputs എന്താകണം എന്ന് excitation table ഉപയോഗിച്ച് കണ്ടെത്തുക.</div></div>
+
+<h3>5. Shift registers</h3>
+<p>A shift register is a chain of flip-flops that stores and moves binary data one position per clock pulse.</p>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<div class="table-wrap"><table class=""><thead><tr><th>Type</th><th>Input</th><th>Output</th><th>Use</th></tr></thead><tbody><tr><td>SISO</td><td>Serial</td><td>Serial</td><td>Delay line</td></tr><tr><td>SIPO</td><td>Serial</td><td>Parallel</td><td>Serial-to-parallel conversion</td></tr><tr><td>PISO</td><td>Parallel</td><td>Serial</td><td>Parallel-to-serial conversion</td></tr><tr><td>PIPO</td><td>Parallel</td><td>Parallel</td><td>Temporary parallel storage</td></tr></tbody></table></div>
+<div class="demo" id="shiftDemo"><h3>Interactive four-bit shift register</h3><p>Choose the next serial input and press Clock.</p><div class="bitrow" id="shiftBits"></div><div class="demo-controls"><button id="shiftInput">Serial input: 1</button><button id="shiftClock">Clock</button><button id="shiftReset">Reset</button></div></div>
+<div class="callout remember"><b>Malayalam Support</b><div>ഓരോ clock pulse-ലും data ഒരു flip-flop-ൽ നിന്ന് അടുത്ത flip-flop-ലേക്ക് shift ചെയ്യും. SISO serial input/serial output; SIPO serial input/parallel output.</div></div>
+
+<h3>6. Ring counter</h3>
+<p>A ring counter circulates a single 1 (or single 0) through n flip-flops. It normally provides n valid states and requires initialization.</p>
+<div class="formula">n flip-flops → n ring-counter states</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Clock</th><th>Q3Q2Q1Q0</th></tr></thead><tbody><tr><td>Initial</td><td>1000</td></tr><tr><td>1</td><td>0100</td></tr><tr><td>2</td><td>0010</td></tr><tr><td>3</td><td>0001</td></tr><tr><td>4</td><td>1000</td></tr></tbody></table></div>
+
+<h3>7. Johnson counter</h3>
+<p>A Johnson counter feeds the complemented output of the last flip-flop back to the first. An n-stage Johnson counter produces 2n valid states.</p>
+<div class="formula">n flip-flops → 2n Johnson states</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Clock</th><th>Q3Q2Q1Q0</th></tr></thead><tbody><tr><td>0</td><td>0000</td></tr><tr><td>1</td><td>1000</td></tr><tr><td>2</td><td>1100</td></tr><tr><td>3</td><td>1110</td></tr><tr><td>4</td><td>1111</td></tr><tr><td>5</td><td>0111</td></tr><tr><td>6</td><td>0011</td></tr><tr><td>7</td><td>0001</td></tr><tr><td>8</td><td>0000</td></tr></tbody></table></div>
+<div class="callout priority"><b>Ring vs Johnson</b><div>Ring uses direct feedback and normally n states. Johnson uses complemented feedback and produces 2n states.</div></div>
+
+<details open><summary>Module 3 expected exam questions</summary>
+<div class="grid">
+<div class="card third"><h4>One mark</h4><ul><li>Which circuits require clock input?</li><li>Name SISO register.</li><li>State Johnson states for n stages.</li></ul></div>
+<div class="card third"><h4>Three marks</h4><ul><li>Draw D and T truth tables.</li><li>Applications of shift registers.</li><li>Draw 4-bit Johnson counter.</li></ul></div>
+<div class="card third"><h4>Seven marks</h4><ul><li>JK-to-T and JK-to-D conversion.</li><li>Explain PISO register.</li><li>Explain ring or Johnson counter.</li></ul></div>
+</div></details>
+</section>
+
+
+<section class="section module" id="module4">
+<div class="section-head"><span class="eyebrow">Module 4 • M4.01 / M4.02 / M4.03 / M4.04</span><h2>Counters and Semiconductor Memories</h2><p>This reconstructed chapter covers asynchronous and synchronous counter design, timing and memory types tested in the official model paper.</p></div>
+<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Explain ripple and synchronous counters.</li><li>Design MOD-6, MOD-8 and MOD-10 counters.</li><li>Trace up/down timing diagrams.</li><li>Compare RAM, ROM, PROM, EPROM and EEPROM.</li></ul></div><div class="card cyan"><h3>Counter definition</h3><p>A counter is a sequential circuit that advances through a prescribed state sequence in response to clock pulses.</p></div></div>
+
+<h3>1. MOD number and flip-flop requirement</h3>
+<div class="formula">Choose smallest n such that 2ⁿ ≥ N</div><div class="formula">n = ceiling(log₂N)</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Counter</th><th>Required flip-flops</th></tr></thead><tbody><tr><td>MOD-6</td><td>3</td></tr><tr><td>MOD-8</td><td>3</td></tr><tr><td>MOD-10</td><td>4</td></tr><tr><td>MOD-16</td><td>4</td></tr></tbody></table></div>
+
+<h3>2. Asynchronous and synchronous counters</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Feature</th><th>Asynchronous (ripple)</th><th>Synchronous</th></tr></thead><tbody><tr><td>Clocking</td><td>Only first FF receives external clock; others are clocked by preceding output</td><td>All FFs receive common clock</td></tr><tr><td>Output change</td><td>Ripples stage by stage</td><td>Changes nearly simultaneously</td></tr><tr><td>Speed</td><td>Lower due to cumulative delay</td><td>Higher</td></tr><tr><td>Hardware</td><td>Simpler</td><td>More combinational control logic</td></tr><tr><td>Glitches</td><td>More likely during transitions</td><td>Reduced with proper design</td></tr></tbody></table></div>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<div class="formula">Ripple frequency division: f<sub>out</sub> = f<sub>in</sub>/2ⁿ</div>
+<div class="callout remember"><b>Malayalam Support</b><div>Ripple counter-ൽ clock change ഓരോ flip-flop വഴിയും വൈകി പടരുന്നു. Synchronous counter-ൽ എല്ലാ flip-flops-നും ഒരേ clock കിട്ടുന്നതിനാൽ state ഒരേസമയം മാറും.</div></div>
+
+<h3>3. Three-bit ripple up and down counters</h3>
+<p>A three-bit ripple up counter counts 000,001,010,011,100,101,110,111. A ripple down counter follows the reverse sequence. Whether Q or Q̅ clocks the next stage depends on flip-flop triggering convention.</p>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Decimal</th><th>Up Q2Q1Q0</th><th>Down Q2Q1Q0</th></tr></thead><tbody><tr><td>0</td><td>000</td><td>111</td></tr><tr><td>1</td><td>001</td><td>110</td></tr><tr><td>2</td><td>010</td><td>101</td></tr><tr><td>3</td><td>011</td><td>100</td></tr><tr><td>4</td><td>100</td><td>011</td></tr><tr><td>5</td><td>101</td><td>010</td></tr><tr><td>6</td><td>110</td><td>001</td></tr><tr><td>7</td><td>111</td><td>000</td></tr></tbody></table></div>
+
+<h3>4. Truncated asynchronous counters</h3>
+<p>A MOD-N counter with N not equal to a power of two uses reset logic to force the counter back to 000… after the Nth state.</p>
+<div class="grid">
+<div class="card"><h3>MOD-6 design</h3><div class="steps"><div class="step">N=6; choose 3 flip-flops because 2³=8≥6.</div><div class="step">Valid states: 000 through 101.</div><div class="step">Detect 110 using reset/decode logic.</div><div class="step">Clear all flip-flops to 000.</div></div></div>
+<div class="card"><h3>MOD-10 design</h3><div class="steps"><div class="step">N=10; choose 4 flip-flops.</div><div class="step">Valid states: 0000 through 1001.</div><div class="step">Detect 1010.</div><div class="step">Apply asynchronous clear to return to 0000.</div></div></div>
+</div>
+
+<h3>5. Synchronous counter design</h3>
+<p>All flip-flops share the clock. The design procedure uses a state table, flip-flop excitation requirements, K-Maps and simplified input equations.</p>
+<div class="steps"><div class="step">List present and next states.</div><div class="step">Choose flip-flop type.</div><div class="step">Use excitation table to find required inputs.</div><div class="step">Minimize each input using K-Map.</div><div class="step">Draw common-clock circuit and verify sequence.</div></div>
+<div class="formula">3-bit synchronous up counter using T FFs: T₀=1; T₁=Q₀; T₂=Q₁Q₀</div>
+<div class="formula">3-bit synchronous down counter using T FFs: T₀=1; T₁=Q̅₀; T₂=Q̅₁Q̅₀</div>
+
+<div class="demo" id="counterDemo"><h3>Interactive 3-bit counter</h3><div class="bitrow" id="counterBits"></div><p><b>Decimal state:</b> <span id="counterValue">0</span></p><div class="demo-controls"><button id="counterUp">Count Up</button><button id="counterDown">Count Down</button><button id="counterAuto">Auto</button><button id="counterStop">Pause</button><button id="counterReset">Reset</button></div></div>
+
+<h3>6. Semiconductor memories</h3>
+<p>A semiconductor memory stores binary words at numbered locations. Address lines select a location; data lines transfer a word.</p>
+<div class="formula">Memory capacity = Number of locations × bits per location</div>
+<div class="table-wrap"><table class=""><thead><tr><th>Memory</th><th>Volatile?</th><th>Write method</th><th>Typical use</th></tr></thead><tbody><tr><td>RAM</td><td>Yes</td><td>Electrical, repeated</td><td>Temporary working data</td></tr><tr><td>SRAM</td><td>Yes</td><td>Flip-flop cells; no refresh</td><td>Cache / fast buffers</td></tr><tr><td>DRAM</td><td>Yes</td><td>Capacitor cells; refresh required</td><td>Main memory</td></tr><tr><td>ROM</td><td>No</td><td>Fixed or programmed content</td><td>Permanent firmware</td></tr><tr><td>PROM</td><td>No</td><td>Programmed once</td><td>One-time configuration</td></tr><tr><td>EPROM</td><td>No</td><td>UV erasure, then reprogram</td><td>Older development systems</td></tr><tr><td>EEPROM</td><td>No</td><td>Electrical erase/rewrite</td><td>Settings, calibration, firmware</td></tr></tbody></table></div>
+<div class="callout remember"><b>Malayalam Support</b><div>RAM power off ചെയ്താൽ data നഷ്ടപ്പെടും; working data-ക്കാണ്. ROM family power off ചെയ്താലും data നിലനിൽക്കും. PROM once, EPROM UV erase, EEPROM electrically erase ചെയ്യാം.</div></div>
+
+<h3>7. RAM vs ROM</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Point</th><th>RAM</th><th>ROM</th></tr></thead><tbody><tr><td>Nature</td><td>Read/write memory</td><td>Primarily read memory</td></tr><tr><td>Volatility</td><td>Volatile</td><td>Non-volatile</td></tr><tr><td>Speed</td><td>Generally faster for working storage</td><td>Depends on technology</td></tr><tr><td>Purpose</td><td>Temporary data and programs in execution</td><td>Permanent instructions / firmware</td></tr></tbody></table></div>
+
+<details open><summary>Module 4 expected exam questions</summary>
+<div class="grid">
+<div class="card third"><h4>One mark</h4><ul><li>Name the synchronous counter.</li><li>Flip-flops for MOD-10.</li><li>Memory used for working data.</li></ul></div>
+<div class="card third"><h4>Three marks</h4><ul><li>Asynchronous vs synchronous.</li><li>Types of RAM.</li><li>RAM vs ROM.</li></ul></div>
+<div class="card third"><h4>Seven marks</h4><ul><li>Three-bit ripple up/down counter.</li><li>MOD-6 or MOD-10 design.</li><li>Synchronous up/down counter design.</li></ul></div>
+</div></details>
+</section>
+
+
+<section class="section" id="banks">
+<div class="section-head"><span class="eyebrow">Digital Logic Banks</span><h2>Rules, formulas, symbols and design summaries</h2><p>Use these compact banks for rapid revision and as a checklist while solving design problems.</p></div>
+<div class="grid">
+<div class="card"><h3>Formula and rule bank</h3>
+<div class="formula">1’s complement: invert every bit</div>
+<div class="formula">2’s complement: 1’s complement + 1</div>
+<div class="formula">MUX: 2ⁿ inputs require n select lines</div>
+<div class="formula">Counter FF count: smallest n with 2ⁿ ≥ N</div>
+<div class="formula">Ripple division: fout=fin/2ⁿ</div>
+<div class="formula">Half adder: S=A⊕B; C=AB</div>
+<div class="formula">Full adder: S=A⊕B⊕Cin; Cout=AB+ACin+BCin</div>
+<div class="formula">Johnson states=2n; Ring states=n</div>
+</div>
+<div class="card"><h3>Binary-to-Gray bank</h3><div class="formula">Gₙ=Bₙ</div><div class="formula">Gᵢ=Bᵢ₊₁⊕Bᵢ</div><p>Copy the MSB. XOR each adjacent pair of binary bits for the remaining Gray bits.</p></div>
+<div class="card"><h3>K-Map rule bank</h3><ul><li>Groups: 1,2,4,8,16 cells.</li><li>Use largest groups.</li><li>Cover every required 1.</li><li>Overlap if useful.</li><li>Wrap-around allowed.</li><li>No diagonal grouping.</li><li>Don’t-cares are optional.</li></ul></div>
+<div class="card"><h3>Memory capacity bank</h3><div class="formula">Capacity = locations × bits per location</div><p>Example: 1K×8 = 1024 locations × 8 bits = 8192 bits = 1024 bytes.</p></div>
+</div>
+
+<h3>Number-system conversion bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>From</th><th>To</th><th>Method</th></tr></thead><tbody><tr><td>Binary</td><td>Decimal</td><td>Weighted sum of powers of 2</td></tr><tr><td>Decimal integer</td><td>Binary</td><td>Repeated division by 2</td></tr><tr><td>Decimal fraction</td><td>Binary</td><td>Repeated multiplication by 2</td></tr><tr><td>Hex</td><td>Binary</td><td>Four bits per hex digit</td></tr><tr><td>Binary</td><td>Hex</td><td>Group bits in fours from radix point</td></tr><tr><td>Decimal</td><td>Hex</td><td>Repeated division / multiplication by 16</td></tr></tbody></table></div>
+
+<h3>Logic-gate symbol and truth-table bank</h3>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<div class="table-wrap"><table class=""><thead><tr><th>Gate</th><th>Boolean expression</th><th>Output 1 condition</th></tr></thead><tbody><tr><td>AND</td><td>Y=AB</td><td>All inputs 1</td></tr><tr><td>OR</td><td>Y=A+B</td><td>At least one input 1</td></tr><tr><td>NOT</td><td>Y=A̅</td><td>Input 0</td></tr><tr><td>NAND</td><td>Y=(AB)̅</td><td>Except all inputs 1</td></tr><tr><td>NOR</td><td>Y=(A+B)̅</td><td>All inputs 0</td></tr><tr><td>XOR</td><td>Y=A⊕B</td><td>Inputs different</td></tr><tr><td>XNOR</td><td>Y=(A⊕B)̅</td><td>Inputs equal</td></tr></tbody></table></div>
+
+<h3>Combinational circuit bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Circuit</th><th>Inputs / Outputs</th><th>Core equation or idea</th></tr></thead><tbody><tr><td>Half adder</td><td>A,B → S,C</td><td>S=A⊕B; C=AB</td></tr><tr><td>Full adder</td><td>A,B,Cin → S,Cout</td><td>Two half adders + OR</td></tr><tr><td>4:1 MUX</td><td>I0–I3, S1,S0 → Y</td><td>One selected input</td></tr><tr><td>1:4 DEMUX</td><td>D,S1,S0 → Y0–Y3</td><td>One selected output</td></tr><tr><td>Binary-to-Gray</td><td>B3–B0 → G3–G0</td><td>MSB direct, adjacent XORs</td></tr></tbody></table></div>
+
+<h3>Flip-flop and sequential bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Device</th><th>Hold</th><th>Set</th><th>Reset</th><th>Toggle / follow</th></tr></thead><tbody><tr><td>SR</td><td>S=0,R=0</td><td>1,0</td><td>0,1</td><td>1,1 invalid</td></tr><tr><td>JK</td><td>0,0</td><td>1,0</td><td>0,1</td><td>1,1 toggles</td></tr><tr><td>D</td><td>—</td><td>D=1</td><td>D=0</td><td>Qnext=D</td></tr><tr><td>T</td><td>T=0</td><td>—</td><td>—</td><td>T=1 toggles</td></tr></tbody></table></div>
+
+<h3>Timing diagram bank</h3>
+<p>When drawing timing diagrams, align vertical transition lines with the correct active clock edge. In a ripple counter, show delayed changes from Q0 to Q1 to Q2. In a synchronous counter, show all output changes referenced to the same clock edge.</p>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+
+<h3>Counter design bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Task</th><th>Essential steps</th></tr></thead><tbody><tr><td>Asynchronous MOD-N</td><td>Choose FF count; list valid states; detect first invalid state; reset</td></tr><tr><td>Synchronous counter</td><td>State table; excitation table; K-Maps; input equations; common-clock circuit</td></tr><tr><td>Up/down tracing</td><td>Write state sequence and timing; note triggering convention</td></tr><tr><td>Frequency division</td><td>Each binary stage divides frequency by 2</td></tr></tbody></table></div>
+
+<h3>Memory comparison bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Type</th><th>Erase / program method</th><th>Retains data without power?</th></tr></thead><tbody><tr><td>RAM</td><td>Electrical read/write repeatedly</td><td>No</td></tr><tr><td>ROM</td><td>Factory or fixed program</td><td>Yes</td></tr><tr><td>PROM</td><td>One-time electrical programming</td><td>Yes</td></tr><tr><td>EPROM</td><td>UV erase, electrical program</td><td>Yes</td></tr><tr><td>EEPROM</td><td>Electrical erase and rewrite</td><td>Yes</td></tr></tbody></table></div>
+</section>
+
+
+<section class="section" id="solved-examples">
+<div class="section-head"><span class="eyebrow">Solved Examples</span><h2>Exam-style worked problems</h2><p>Each solution shows the method and final answer rather than only a hint.</p></div>
+<div class="solution"><h4>1. Convert 125₁₀ to hexadecimal</h4><pre>125 ÷ 16 = 7 remainder 13 (D)
+Read quotient and remainder: 7D
+Answer: (125)₁₀ = (7D)₁₆</pre></div>
+<div class="solution"><h4>2. Convert (124.56)₁₆ to decimal</h4><pre>Integer part: 1×16² + 2×16 + 4 = 256+32+4 = 292
+Fraction: 5×16⁻¹ + 6×16⁻² = 5/16 + 6/256 = 0.3125 + 0.0234375 = 0.3359375
+Answer: 292.3359375₁₀</pre></div>
+<div class="solution"><h4>3. Binary addition: 35 + 19</h4><pre>35₁₀ = 100011₂
+19₁₀ = 010011₂
+  100011
++ 010011
+--------
+  110110
+Answer: 54₁₀ = 110110₂</pre></div>
+<div class="solution"><h4>4. Eight-bit two’s-complement subtraction: 46−14</h4><pre>46 = 00101110
+14 = 00001110
+1’s comp of 14 = 11110001
+2’s comp = 11110010
+00101110 + 11110010 = 1 00100000
+Discard carry.
+Answer: 00100000₂ = 32₁₀</pre></div>
+<div class="solution"><h4>5. Universal-gate conversion</h4><pre>NOT: A NAND A = A̅
+AND: NAND A,B gives (AB)̅; NAND that output with itself gives AB.
+OR: NAND A,A gives A̅; NAND B,B gives B̅; NAND the two gives A+B by De Morgan.
+Thus NAND alone can implement the basic gates.</pre></div>
+<div class="solution"><h4>6. Half-adder design</h4><pre>Truth table gives S=1 for 01 and 10, so S=A⊕B.
+Carry is 1 only for 11, so C=AB.
+Implement one XOR gate for Sum and one AND gate for Carry.</pre></div>
+<div class="solution"><h4>7. Select lines for an 8:1 MUX</h4><pre>For 2ⁿ inputs, select lines=n.
+8=2³, therefore n=3.
+Answer: 3 select lines.</pre></div>
+<div class="solution"><h4>8. Four-bit binary to Gray</h4><pre>Input B3B2B1B0=1011
+G3=B3=1
+G2=B3⊕B2=1⊕0=1
+G1=B2⊕B1=0⊕1=1
+G0=B1⊕B0=1⊕1=0
+Answer: 1110 Gray</pre></div>
+<div class="solution"><h4>9. JK to T conversion</h4><pre>T=0 requires hold; JK hold is J=K=0.
+T=1 requires toggle; JK toggle is J=K=1.
+Therefore J=T and K=T.</pre></div>
+<div class="solution"><h4>10. Four-bit Johnson sequence</h4><pre>Start 0000. Feed complement of Q3 to Q0.
+0000→1000→1100→1110→1111→0111→0011→0001→0000.
+A four-stage Johnson counter has 2n=8 states.</pre></div>
+<div class="solution"><h4>11. Flip-flops for MOD-10</h4><pre>Find smallest n such that 2ⁿ≥10.
+2³=8&lt;10; 2⁴=16≥10.
+Answer: 4 flip-flops.</pre></div>
+<div class="solution"><h4>12. Memory capacity</h4><pre>A 2K×8 memory has 2048 locations and 8 bits/location.
+Capacity=2048×8=16384 bits=2048 bytes=2 KB.</pre></div>
+</section>
+
+
+<section class="section" id="expected">
+<div class="section-head"><span class="eyebrow">Module-wise Expected Questions</span><h2>High-priority practice patterns</h2><p>These are practice patterns inferred from the supplied model papers; they are not guaranteed examination questions.</p></div>
+<div class="grid">
+<div class="card blue"><h3>Module 1</h3><p><span class="badge">Frequently tested</span></p><ul><li>Mixed conversion and complement problem.</li><li>Universal gates and NAND implementation.</li><li>Boolean laws or De Morgan.</li><li>3/4-variable K-Map with don’t-cares.</li></ul></div>
+<div class="card cyan"><h3>Module 2</h3><p><span class="badge">Important design</span></p><ul><li>CMOS/ECL comparison and parameters.</li><li>Half/full adder design.</li><li>4:1 MUX or 1:4 DEMUX.</li><li>Binary-to-Gray converter.</li></ul></div>
+<div class="card violet"><h3>Module 3</h3><p><span class="badge">Important diagram</span></p><ul><li>Flip-flop truth/function tables.</li><li>JK-to-T or JK-to-D conversion.</li><li>Shift-register operation.</li><li>Ring/Johnson diagram and sequence.</li></ul></div>
+<div class="card green"><h3>Module 4</h3><p><span class="badge">Important timing</span></p><ul><li>Ripple up/down counter with timing.</li><li>MOD-6/MOD-10 asynchronous design.</li><li>Synchronous up/down design.</li><li>RAM/ROM/PROM/EPROM/EEPROM comparison.</li></ul></div>
+</div>
+</section>
+
+
+<section class="section" id="practice">
+<div class="section-head"><span class="eyebrow">Practice Section</span><h2>Module-wise exercises and self-assessment</h2><p>Attempt without looking at the answer key. Final answers are supplied below.</p></div>
+<div class="grid">
+<div class="card"><h3>Module 1 practice</h3><ol><li>Convert 93₁₀ to binary.</li><li>Convert 3A7₁₆ to decimal.</li><li>Find 8-bit two’s complement of 00110101.</li><li>Subtract 27 from 52 using 8-bit two’s complement.</li><li>Simplify F(A,B,C)=Σm(1,3,5,7).</li></ol></div>
+<div class="card"><h3>Module 2 practice</h3><ol><li>How many select lines for 16:1 MUX?</li><li>Write full-adder equations.</li><li>Design 2:1 MUX equation.</li><li>Convert binary 1101 to Gray.</li><li>Give three CMOS features.</li></ol></div>
+<div class="card"><h3>Module 3 practice</h3><ol><li>Complete JK table.</li><li>Show JK-to-D equations.</li><li>Trace 1011 through a four-stage SISO register.</li><li>List four shift-register applications.</li><li>Write 4-bit ring and Johnson sequences.</li></ol></div>
+<div class="card"><h3>Module 4 practice</h3><ol><li>Flip-flops required for MOD-12.</li><li>Write 3-bit up sequence.</li><li>State MOD-6 reset state.</li><li>Compare SRAM and DRAM.</li><li>Differentiate PROM, EPROM and EEPROM.</li></ol></div>
+</div>
+<h3>Objective practice</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>No.</th><th>Question</th><th>Options</th></tr></thead><tbody><tr><td>1</td><td>Logic family with traditionally least static power</td><td>A TTL • B CMOS • C ECL • D RTL</td></tr><tr><td>2</td><td>An 8:1 MUX requires</td><td>A 2 • B 3 • C 4 • D 8 select lines</td></tr><tr><td>3</td><td>Output depends on present input and past state in</td><td>A combinational • B sequential • C decoder • D adder</td></tr><tr><td>4</td><td>Four-stage Johnson counter has</td><td>A 4 • B 6 • C 8 • D 16 states</td></tr><tr><td>5</td><td>Temporary working data is usually stored in</td><td>A ROM • B RAM • C PROM • D EPROM</td></tr></tbody></table></div>
+<details><summary>Practice answer key</summary>
+<p><b>Module 1:</b> 1) 1011101₂. 2) 935₁₀. 3) 11001011. 4) 25₁₀ = 00011001₂. 5) F=C.</p>
+<p><b>Module 2:</b> 1) 4. 2) S=A⊕B⊕Cin; Cout=AB+ACin+BCin. 3) Y=I0S̅+I1S. 4) 1011. 5) Very low static power, high input impedance, good noise immunity.</p>
+<p><b>Module 3:</b> JK: hold/reset/set/toggle; JK-to-D J=D,K=D̅; remaining answers follow chapter tables.</p>
+<p><b>Module 4:</b> 4 FFs; 000→001→010→011→100→101→110→111; reset when 110 appears; SRAM faster/no refresh, DRAM denser/refresh; PROM once, EPROM UV, EEPROM electrical.</p>
+<p><b>Objective:</b> 1-B, 2-B, 3-B, 4-C, 5-B.</p>
+</details>
+<div class="callout try"><b>Self-assessment checklist</b><ul class="checklist"><li>I can show full number-conversion steps.</li><li>I can draw all basic and universal gate symbols.</li><li>I can group a four-variable K-Map correctly.</li><li>I can derive adder, MUX and converter equations.</li><li>I can trace flip-flop, register and counter states.</li><li>I can compare memory types without mixing volatility and programming method.</li></ul></div>
+</section>
+
+
+<section class="section" id="revision">
+<div class="section-head"><span class="eyebrow">Quick Revision</span><h2>Last-day revision sheet</h2><p>Use this section after completing the detailed chapters.</p></div>
+<div class="grid">
+<div class="card quarter blue"><h3>Numbers</h3><ul><li>Binary weights: powers of 2.</li><li>Hex digit = 4 bits.</li><li>2’s comp = invert + 1.</li></ul></div>
+<div class="card quarter cyan"><h3>Logic</h3><ul><li>NAND/NOR universal.</li><li>De Morgan swaps AND/OR and complements terms.</li><li>XOR=inputs different.</li></ul></div>
+<div class="card quarter violet"><h3>K-Maps</h3><ul><li>Gray order 00,01,11,10.</li><li>Largest power-of-two groups.</li><li>Wrap yes; diagonal no.</li></ul></div>
+<div class="card quarter green"><h3>Combinational</h3><ul><li>Half/full adder equations.</li><li>2ⁿ MUX inputs need n selects.</li><li>Gray uses adjacent XORs.</li></ul></div>
+<div class="card quarter blue"><h3>Flip-flops</h3><ul><li>SR set/reset.</li><li>JK 11 toggles.</li><li>D follows data.</li><li>T 1 toggles.</li></ul></div>
+<div class="card quarter cyan"><h3>Registers</h3><ul><li>SISO/SIPO/PISO/PIPO.</li><li>One shift per clock.</li><li>Ring=n states; Johnson=2n.</li></ul></div>
+<div class="card quarter violet"><h3>Counters</h3><ul><li>Async ripple; sync common clock.</li><li>Choose n with 2ⁿ≥N.</li><li>Each stage divides by 2.</li></ul></div>
+<div class="card quarter green"><h3>Memory</h3><ul><li>RAM volatile.</li><li>ROM non-volatile.</li><li>PROM once; EPROM UV; EEPROM electrical.</li></ul></div>
+</div>
+<div class="callout mistake"><b>Common mistakes</b><div>Wrong bit width in complements; binary/hex grouping from wrong side; non-Gray K-Map ordering; diagonal grouping; missing carry term in full adder; confusing MUX with DEMUX; failing to initialize ring counter; wrong reset state in MOD counter; calling ROM volatile.</div></div>
+</section>
+
+
+<section class="section" id="model-paper">
+<div class="section-head"><span class="eyebrow">Fresh Model Question Paper</span><h2>DIGITAL ELECTRONICS • Course 3044 • 3 Hours • 75 Marks</h2><p>Fresh questions are based on the confirmed official structure and topic distribution; they are not copied from the supplied sets.</p></div>
+<div class="paper">
+<h3>PART A</h3><p><b>Answer all questions in one word, one sentence or a small symbol. Each carries 1 mark. (9×1=9)</b></p>
+<ol>
+<li>Write the binary equivalent of decimal 23.</li>
+<li>Write the two’s complement of 01011010.</li>
+<li>Name the gate whose output is 1 when its two inputs are different.</li>
+<li>Which logic family is traditionally noted for very high speed?</li>
+<li>How many select lines are required for a 16:1 multiplexer?</li>
+<li>Name the flip-flop whose next output directly follows its data input.</li>
+<li>How many valid states are produced by a 5-stage Johnson counter?</li>
+<li>How many flip-flops are required for a MOD-12 counter?</li>
+<li>Name the non-volatile memory that can be erased electrically.</li>
+</ol>
+<h3>PART B</h3><p><b>Answer any eight. Each carries 3 marks. (8×3=24)</b></p>
+<ol>
+<li>Convert (3B.8)₁₆ to decimal.</li>
+<li>State both De Morgan’s theorems.</li>
+<li>Implement NOT and AND using NAND gates only.</li>
+<li>Define fan-out, propagation delay and power dissipation.</li>
+<li>Write the truth table and expressions of a half adder.</li>
+<li>Write the output equation and function table of a 2:1 multiplexer.</li>
+<li>Write the truth tables of D and T flip-flops and one application of each.</li>
+<li>List four applications of shift registers.</li>
+<li>Give three differences between asynchronous and synchronous counters.</li>
+<li>Compare SRAM and DRAM.</li>
+</ol>
+<h3>PART C</h3><p><b>Answer one alternative from every group. Each group carries 7 marks. (6×7=42)</b></p>
+<ol>
+<li><b>Module 1:</b> (A) Perform: (i) 157₁₀ to hexadecimal, (ii) 61−25 using 8-bit two’s complement, (iii) 7D3₁₆ to binary. <b>OR</b> (B) Simplify F(A,B,C,D)=Σm(0,2,5,7,8,10,13,15) using a K-Map.</li>
+<li><b>Module 2:</b> (A) Design a full adder from its truth table and realize it using two half adders. <b>OR</b> (B) Explain a 1:4 demultiplexer with function table, equations, logic diagram description and applications.</li>
+<li><b>Module 3:</b> (A) Convert a JK flip-flop into D and T flip-flops using conversion tables and equations. <b>OR</b> (B) Explain a four-bit Johnson counter with diagram description and state sequence.</li>
+<li><b>Module 3:</b> (A) Explain PISO and SIPO shift registers with operation tables. <b>OR</b> (B) Explain an SR flip-flop using NAND gates, including active-low truth table and invalid condition.</li>
+<li><b>Module 4:</b> (A) Explain a three-bit ripple up counter with logic and timing diagrams. <b>OR</b> (B) Compare RAM and ROM and explain PROM, EPROM and EEPROM.</li>
+<li><b>Module 4 design:</b> (A) Design a MOD-6 asynchronous counter using T flip-flops. <b>OR</b> (B) Design a three-bit synchronous down counter using T flip-flops.</li>
+</ol>
+</div>
+</section>
+
+
+<section class="section" id="answers">
+<div class="section-head"><span class="eyebrow">Complete Model Answers</span><h2>Full answers for every fresh-model question</h2><p>Both alternatives in every Part C group are answered so students can study the complete pattern.</p></div>
+<h3>Part A exact answers</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>No.</th><th>Answer</th></tr></thead><tbody><tr><td>1</td><td>10111₂</td></tr><tr><td>2</td><td>10100110</td></tr><tr><td>3</td><td>XOR gate</td></tr><tr><td>4</td><td>ECL</td></tr><tr><td>5</td><td>4 select lines</td></tr><tr><td>6</td><td>D flip-flop</td></tr><tr><td>7</td><td>10 states</td></tr><tr><td>8</td><td>4 flip-flops</td></tr><tr><td>9</td><td>EEPROM</td></tr></tbody></table></div>
+
+<h3>Part B answers</h3>
+<div class="solution"><h4>B1. Convert (3B.8)₁₆ to decimal</h4><pre>3×16¹ + 11×16⁰ + 8×16⁻¹ = 48 + 11 + 0.5 = 59.5
+Answer: (3B.8)₁₆ = 59.5₁₀</pre></div>
+<div class="solution"><h4>B2. De Morgan’s theorems</h4><pre>First: (A+B)̅ = A̅B̅
+Second: (AB)̅ = A̅ + B̅
+They are used to move complements across AND/OR operations while interchanging the operation.</pre></div>
+<div class="solution"><h4>B3. NOT and AND using NAND</h4><pre>NOT: connect both NAND inputs to A, so Y=A NAND A=A̅.
+AND: first X=(AB)̅ using a NAND. Then Y=X NAND X=X̅=AB.</pre></div>
+<div class="solution"><h4>B4. Logic-family parameters</h4><pre>Fan-out: number of standard gate inputs driven by one output.
+Propagation delay: time between input transition and output response.
+Power dissipation: average electrical power consumed by a gate, commonly measured in mW.</pre></div>
+<div class="solution"><h4>B5. Half adder</h4><pre>Truth table: 00→S0,C0; 01→1,0; 10→1,0; 11→0,1.
+Sum S=A⊕B; Carry C=AB.
+Use XOR for Sum and AND for Carry.</pre></div>
+<div class="solution"><h4>B6. 2:1 multiplexer</h4><pre>Function: S=0 selects I0; S=1 selects I1.
+Equation: Y=I0S̅+I1S.
+The select line enables one AND path; an OR gate combines the paths.</pre></div>
+<div class="solution"><h4>B7. D and T flip-flops</h4><pre>D: D=0→Qnext=0; D=1→Qnext=1. Application: data register.
+T: T=0→hold; T=1→toggle. Application: binary counter / frequency divider.</pre></div>
+<div class="solution"><h4>B8. Shift-register applications</h4><pre>Serial-to-parallel conversion, parallel-to-serial conversion, temporary data storage, digital delay line, sequence generation and data transfer. Any four earn full credit.</pre></div>
+<div class="solution"><h4>B9. Asynchronous vs synchronous counters</h4><pre>Asynchronous: only first FF gets external clock; output ripples; cumulative delay makes it slower.
+Synchronous: all FFs share common clock; outputs change together; faster but needs more control logic.</pre></div>
+<div class="solution"><h4>B10. SRAM vs DRAM</h4><pre>SRAM uses bistable cells, is fast, needs no refresh and has lower density/higher cost.
+DRAM uses capacitor cells, needs refresh, has higher density/lower cost and is used as main memory.</pre></div>
+
+<h3>Part C full answers</h3>
+<div class="solution"><h4>C1A. Mixed number-system operations</h4><pre>i) 157₁₀ to hexadecimal:
+157 ÷ 16 = 9 remainder 13(D)
+Answer: 9D₁₆.
+
+ii) 61−25 using 8 bits:
+61 = 00111101
+25 = 00011001
+1’s complement of 25 = 11100110
+2’s complement = 11100111
+  00111101
++ 11100111
+-----------
+1 00100100
+Discard carry. 00100100₂ = 36₁₀.
+
+iii) 7D3₁₆ to binary:
+7=0111, D=1101, 3=0011
+Answer: 0111 1101 0011₂.</pre></div>
+
+<div class="solution"><h4>C1B. K-Map simplification</h4><pre>F(A,B,C,D)=Σm(0,2,5,7,8,10,13,15).
+Place 1s on the four-variable K-Map in Gray order.
+Group m0,m2,m8,m10 as a quad. In this group B=0 and D=0, so term B̅D̅.
+Group m5,m7,m13,m15 as a quad. Here B=1 and D=1, so term BD.
+Final simplified expression:
+F = B̅D̅ + BD = B XNOR D.
+A and C disappear because they change inside each quad.</pre></div>
+
+<div class="solution"><h4>C2A. Full-adder design</h4><pre>Inputs: A,B,Cin. Outputs: S,Cout.
+Truth table:
+000→00, 001→10, 010→10, 011→01,
+100→10, 101→01, 110→01, 111→11.
+From K-Map:
+S=A⊕B⊕Cin.
+Cout=AB+ACin+BCin.
+Realization using two half adders:
+HA1: X=A⊕B, C1=AB.
+HA2: S=X⊕Cin, C2=X·Cin.
+Cout=C1+C2.
+This gives a complete full adder.</pre></div>
+
+<div class="solution"><h4>C2B. 1:4 demultiplexer</h4><pre>A 1:4 DEMUX routes data input D to one of four outputs.
+Function table:
+S1S0=00→Y0=D
+01→Y1=D
+10→Y2=D
+11→Y3=D
+Equations:
+Y0=D S̅1 S̅0
+Y1=D S̅1 S0
+Y2=D S1 S̅0
+Y3=D S1 S0
+Logic: two NOT gates generate complements; four 3-input AND gates produce outputs.
+Applications: data routing, serial distribution, communication switching and memory selection.</pre></div>
+
+<div class="solution"><h4>C3A. JK conversion to D and T</h4><pre>JK excitation:
+0→0 requires J=0,K=X
+0→1 requires J=1,K=X
+1→0 requires J=X,K=1
+1→1 requires J=X,K=0
+
+JK→D:
+Desired Qnext=D.
+K-Map/excitation reduction gives J=D and K=D̅.
+Thus Qnext follows D.
+
+JK→T:
+T=0 requires hold, so J=K=0.
+T=1 requires toggle, so J=K=1.
+Therefore J=T and K=T.
+Draw one inverter for K in JK→D and direct T connections in JK→T.</pre></div>
+
+<div class="solution"><h4>C3B. Four-bit Johnson counter</h4><pre>Use four D flip-flops with common clock. Connect Q0→D1, Q1→D2, Q2→D3 and feed Q̅3 back to D0.
+Starting at 0000:
+0000→1000→1100→1110→1111→0111→0011→0001→0000.
+There are 2n=8 valid states.
+Because complemented feedback is used, it is called a twisted-ring counter.
+Applications: timing sequence generation, divide-by-8 sequence and non-overlapping control signals.</pre></div>
+
+<div class="solution"><h4>C4A. PISO and SIPO registers</h4><pre>SIPO:
+Data enters serially into first flip-flop. Each clock shifts bits one stage. After four clocks, Q3,Q2,Q1,Q0 provide the parallel word.
+Example serial input 1,0,1,1 from reset:
+Clock1 1000; Clock2 0100; Clock3 1010; Clock4 1101 (orientation depends on drawing).
+
+PISO:
+Parallel inputs are loaded simultaneously using LOAD control. In SHIFT mode, each clock transfers one stored bit to serial output.
+Applications: communication interfaces and reducing wire count.
+Diagrams should show four flip-flops, common clock, serial path and load/shift selection.</pre></div>
+
+<div class="solution"><h4>C4B. SR latch using NAND</h4><pre>The cross-coupled NAND latch has active-low S̅ and R̅.
+S̅ R̅:
+1 1 → hold
+0 1 → set Q=1
+1 0 → reset Q=0
+0 0 → invalid because both outputs become 1 and the final state after release is uncertain.
+Two NAND outputs are cross-coupled, giving memory by positive feedback.
+Never apply both active-low inputs at 0 simultaneously.</pre></div>
+
+<div class="solution"><h4>C5A. Three-bit ripple up counter</h4><pre>Use three T flip-flops with T=1. External clock drives FF0. Q0 clocks FF1 and Q1 clocks FF2 according to the chosen edge convention.
+State sequence:
+000,001,010,011,100,101,110,111, then 000.
+Q0 frequency=fin/2; Q1=fin/4; Q2=fin/8.
+In timing diagram Q0 toggles every clock, Q1 every two clocks and Q2 every four clocks.
+Because each stage responds after the previous one, transitions ripple and cumulative delay occurs.</pre></div>
+
+<div class="solution"><h4>C5B. RAM, ROM, PROM, EPROM and EEPROM</h4><pre>RAM is volatile read/write memory for temporary working data.
+ROM is non-volatile memory used for fixed programs or firmware.
+PROM is programmed once by the user.
+EPROM can be erased using ultraviolet light and reprogrammed.
+EEPROM can be erased and rewritten electrically.
+RAM is used during active computation; ROM-family devices retain information without power.</pre></div>
+
+<div class="solution"><h4>C6A. MOD-6 asynchronous counter</h4><pre>Required modulus N=6.
+Flip-flops: smallest n with 2ⁿ≥6 is n=3.
+Use three T flip-flops with T=1 as a ripple counter.
+Valid states: 000,001,010,011,100,101.
+The next natural state is 110. Decode Q2=1 and Q1=1 (state 110) using a NAND/AND reset network according to active-clear polarity.
+Apply asynchronous clear to all flip-flops, forcing 000.
+Unused states 110 and 111 are eliminated by reset. Draw three T FFs, ripple clock connections and reset decoder.</pre></div>
+
+<div class="solution"><h4>C6B. Three-bit synchronous down counter using T flip-flops</h4><pre>All T flip-flops receive the same clock.
+Down sequence: 111,110,101,100,011,010,001,000, then 111.
+T input requirements:
+T0=1 because Q0 toggles every clock.
+T1=Q̅0 because Q1 toggles when lower bit Q0 is 0.
+T2=Q̅1Q̅0 because Q2 toggles when both lower bits are 0.
+Connect these equations using NOT and AND gates. Since all flip-flops share the clock, state changes are synchronous.</pre></div>
+</section>
+
+
+<section class="section" id="references">
+<div class="section-head"><span class="eyebrow">Reference Learning Links</span><h2>Supplementary resources</h2><p>The supplied source does not specify official textbooks. These links are supplementary and are not claimed as official course references.</p></div>
+<div class="grid">
+<div class="card third"><h3>Official model-paper page</h3><p><a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=3044" target="_blank" rel="noopener">SITTTR model question-paper page for course 3044</a></p></div>
+<div class="card third"><h3>NPTEL</h3><p><a href="https://nptel.ac.in/" target="_blank" rel="noopener">NPTEL course portal</a> — search for Digital Circuits / Digital Electronics.</p></div>
+<div class="card third"><h3>All About Circuits</h3><p><a href="https://www.allaboutcircuits.com/textbook/digital/" target="_blank" rel="noopener">Digital textbook</a> for supplementary reading.</p></div>
+</div>
+</section>
+
+<section class="section" id="checklist">
+<div class="section-head"><span class="eyebrow">Final Examination Checklist</span><h2>Before you submit the answer book</h2></div>
+<div class="grid">
+<div class="card"><h3>Calculations</h3><ul class="checklist"><li>Base and bit width shown.</li><li>Complement steps shown.</li><li>Carry treatment shown.</li><li>Final answer labelled with base.</li></ul></div>
+<div class="card"><h3>Design answers</h3><ul class="checklist"><li>Truth/state table included.</li><li>K-Map groups marked.</li><li>Reduced equations written.</li><li>Diagram labelled and operation explained.</li></ul></div>
+</div>
+<div class="callout exam"><b>Final exam tip</b><p>For a seven-mark design question, a bare final circuit is not enough. Include the table, reduction, equations, circuit and working explanation.</p></div>
+</section>
+</main>
+<button class="backtop" type="button" aria-label="Back to top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<footer>Digital Electronics • Course 3044 • Third Semester • Revision 2021 examination context</footer>
+
+
+<script>
+const progress=document.getElementById('progress');
+function updateProgress(){const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?scrollY/h*100:0)+'%'}
+addEventListener('scroll',updateProgress,{passive:true});updateProgress();
+
+const searchBox=document.getElementById('searchBox');
+function applySearch(){const q=searchBox.value.trim().toLowerCase();document.querySelectorAll('.section').forEach(s=>s.classList.toggle('hidden-by-search',q&&!s.innerText.toLowerCase().includes(q)))}
+searchBox.addEventListener('input',applySearch);
+document.getElementById('clearSearch').addEventListener('click',()=>{searchBox.value='';applySearch();searchBox.focus()});
+
+let binaryValue=0,binaryTimer=null;
+const binaryBits=document.getElementById('binaryBits');
+function drawBinary(){binaryBits.innerHTML='';binaryValue&=15;[3,2,1,0].forEach(i=>{const v=(binaryValue>>i)&1,e=document.createElement('span');e.className='bit '+(v?'on':'');e.textContent=v;binaryBits.appendChild(e)});document.getElementById('binaryValue').textContent=binaryValue}
+document.querySelectorAll('[data-bincmd]').forEach(b=>b.addEventListener('click',()=>{const c=b.dataset.bincmd;if(c==='next')binaryValue=(binaryValue+1)&15;if(c==='prev')binaryValue=(binaryValue+15)&15;if(c==='reset')binaryValue=0;if(c==='play'){clearInterval(binaryTimer);binaryTimer=setInterval(()=>{binaryValue=(binaryValue+1)&15;drawBinary()},700)}if(c==='pause')clearInterval(binaryTimer);drawBinary()}));drawBinary();
+
+let mux=[0,1,1,0],s0=0,s1=0;const muxInputs=document.getElementById('muxInputs');
+function drawMux(){muxInputs.innerHTML='';mux.forEach((v,i)=>{const b=document.createElement('button');b.className='bit '+(v?'on':'');b.textContent='I'+i+'='+v;b.addEventListener('click',()=>{mux[i]^=1;drawMux()});muxInputs.appendChild(b)});const n=(s1<<1)|s0;document.getElementById('muxSel').textContent=''+s1+s0;document.getElementById('muxOut').textContent=mux[n]}
+document.getElementById('muxS0').addEventListener('click',()=>{s0^=1;drawMux()});document.getElementById('muxS1').addEventListener('click',()=>{s1^=1;drawMux()});drawMux();
+
+let shift=[0,0,0,0],serialIn=1;const shiftBits=document.getElementById('shiftBits');
+function drawShift(){shiftBits.innerHTML='';shift.forEach(v=>{const e=document.createElement('span');e.className='bit '+(v?'on':'');e.textContent=v;shiftBits.appendChild(e)});document.getElementById('shiftInput').textContent='Serial input: '+serialIn}
+document.getElementById('shiftInput').addEventListener('click',()=>{serialIn^=1;drawShift()});document.getElementById('shiftClock').addEventListener('click',()=>{shift=[serialIn,shift[0],shift[1],shift[2]];drawShift()});document.getElementById('shiftReset').addEventListener('click',()=>{shift=[0,0,0,0];drawShift()});drawShift();
+
+let counter=0,counterTimer=null;const counterBits=document.getElementById('counterBits');
+function drawCounter(){counterBits.innerHTML='';[2,1,0].forEach(i=>{const v=(counter>>i)&1,e=document.createElement('span');e.className='bit '+(v?'on':'');e.textContent=v;counterBits.appendChild(e)});document.getElementById('counterValue').textContent=counter}
+document.getElementById('counterUp').addEventListener('click',()=>{counter=(counter+1)&7;drawCounter()});document.getElementById('counterDown').addEventListener('click',()=>{counter=(counter+7)&7;drawCounter()});document.getElementById('counterAuto').addEventListener('click',()=>{clearInterval(counterTimer);counterTimer=setInterval(()=>{counter=(counter+1)&7;drawCounter()},700)});document.getElementById('counterStop').addEventListener('click',()=>clearInterval(counterTimer));document.getElementById('counterReset').addEventListener('click',()=>{counter=0;drawCounter()});drawCounter();
+
+let closedDetails=[];addEventListener('beforeprint',()=>{clearInterval(binaryTimer);clearInterval(counterTimer);closedDetails=[];document.querySelectorAll('details').forEach(d=>{if(!d.open){closedDetails.push(d);d.open=true}})});addEventListener('afterprint',()=>{closedDetails.forEach(d=>d.open=false);closedDetails=[]});
+</script>
+</body>
+</html>
