@@ -1,0 +1,54 @@
+name: Verify department semester layout v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/verify-department-semester-v2.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Browser verification
+        run: |
+          node --check assets/js/department-semester-layout-v2.js
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/revision-2021/electronics-engineering.html >/dev/null && break
+            sleep 1
+          done
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=12000 --dump-dom 'http://127.0.0.1:8000/revision-2021/electronics-engineering.html' >/tmp/page.dom 2>/tmp/chrome.log
+          python - <<'PY'
+          from pathlib import Path
+          html = Path('/tmp/page.dom').read_text(encoding='utf-8')
+          missing = [number for number in range(1, 7) if f'data-semester-group="Semester {number}"' not in html]
+          if missing:
+              raise SystemExit(f'Missing semester groups: {missing}')
+          if html.count('class="department-semester-section"') < 6:
+              raise SystemExit('Semester sections were not rendered separately')
+          if html.count('class="department-semester-grid"') < 6:
+              raise SystemExit('Semester card grids were not rendered separately')
+          print('Semester-wise department browser test passed.')
+          PY
+
+      - name: Remove verification workflow
+        run: |
+          rm .github/workflows/verify-department-semester-v2.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Verify stable semester-wise department layout'
+          git push origin HEAD:main
