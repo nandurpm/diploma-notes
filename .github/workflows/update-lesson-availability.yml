@@ -37,9 +37,21 @@ jobs:
           node --check assets/js/main.js
           node --check assets/js/site-hardening.js
 
-      - name: Verify pull request output
+      - name: Verify automatic activation with a simulated upload
         if: github.event_name == 'pull_request'
-        run: git diff --exit-code -- assets/js/main.js assets/js/site-hardening.js
+        run: |
+          git diff --exit-code -- assets/js/main.js assets/js/site-hardening.js
+
+          cat > lessons/lessons-9999.html <<'HTML'
+          <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Manifest test</title></head><body><main>Manifest test</main></body></html>
+          HTML
+          python tools/update_asset_manifest.py
+          grep -q '"/lessons/lessons-9999.html"' assets/js/main.js
+          grep -q '"/lessons/lessons-9999.html"' assets/js/site-hardening.js
+
+          rm lessons/lessons-9999.html
+          python tools/update_asset_manifest.py
+          git diff --exit-code -- assets/js/main.js assets/js/site-hardening.js
 
       - name: Commit generated availability after an upload
         if: github.event_name == 'push'
