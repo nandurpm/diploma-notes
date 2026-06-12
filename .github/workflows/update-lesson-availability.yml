@@ -1,0 +1,68 @@
+name: Update lesson availability
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "lessons/**/*.html"
+      - "notes/**/*.pdf"
+      - "tools/update_asset_manifest.py"
+      - ".github/workflows/update-lesson-availability.yml"
+  push:
+    branches: [main]
+    paths:
+      - "lessons/**/*.html"
+      - "notes/**/*.pdf"
+      - "tools/update_asset_manifest.py"
+      - ".github/workflows/update-lesson-availability.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate current lesson and notes availability
+        run: |
+          python -m py_compile tools/update_asset_manifest.py
+          python tools/update_asset_manifest.py
+          node --check assets/js/main.js
+          node --check assets/js/site-hardening.js
+
+      - name: Verify automatic activation with a simulated upload
+        if: github.event_name == 'pull_request'
+        run: |
+          git diff --exit-code -- assets/js/main.js assets/js/site-hardening.js
+
+          cat > lessons/lessons-9999.html <<'HTML'
+          <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Manifest test</title></head><body><main>Manifest test</main></body></html>
+          HTML
+          python tools/update_asset_manifest.py
+          grep -q '"/lessons/lessons-9999.html"' assets/js/main.js
+          grep -q '"/lessons/lessons-9999.html"' assets/js/site-hardening.js
+
+          rm lessons/lessons-9999.html
+          python tools/update_asset_manifest.py
+          git diff --exit-code -- assets/js/main.js assets/js/site-hardening.js
+
+      - name: Commit generated availability after an upload
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet -- assets/js/main.js assets/js/site-hardening.js; then
+            echo "Lesson availability is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/main.js assets/js/site-hardening.js
+          git commit -m "Update lesson availability after file upload [skip ci]"
+          git push origin HEAD:main
