@@ -1,0 +1,85 @@
+6">Saturation</text>
+      </svg>
+      <p>Voltage initially rises with load as series-field flux increases, then saturates and may fall because of internal drops and armature reaction.</p>
+    </div>
+    <div class="curve-panel"><h4>Compound generators</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="Under, flat and over compounded generator characteristics">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M75 135 C260 145 430 170 590 210" fill="none" stroke="#b4233c" stroke-width="5"/><path d="M75 135 C260 137 430 135 590 137" fill="none" stroke="#27835f" stroke-width="5"/><path d="M75 135 C260 125 430 105 590 80" fill="none" stroke="#0b5f9e" stroke-width="5"/>
+        <text x="470" y="72" fill="#0b5f9e" font-size="18">Over</text><text x="470" y="130" fill="#27835f" font-size="18">Flat</text><text x="470" y="220" fill="#b4233c" font-size="18">Under</text><text x="280" y="355" font-size="20">Load current</text><text x="15" y="55" font-size="20">V</text>
+      </svg>
+    </div>
+  </div>
+
+  <h3>6. Voltage build-up of a shunt generator</h3>
+  <div class="steps">
+    <div class="step">Residual magnetism produces a small initial EMF when the armature starts rotating.</div>
+    <div class="step">This EMF sends current through the shunt field.</div>
+    <div class="step">Field current strengthens flux in the same direction as residual flux.</div>
+    <div class="step">Higher flux produces higher Eg, which produces more field current.</div>
+    <div class="step">Voltage rises cumulatively until the field-resistance line intersects the OCC.</div>
+  </div>
+  <div class="ml"><b>Malayalam Support:</b> Residual magnetism മൂലം ചെറിയ voltage ആദ്യം ഉണ്ടാകും. അതിലൂടെ field current ഒഴുകി flux കൂട്ടും; flux കൂടുമ്പോൾ generated voltage വീണ്ടും കൂടും. ഇങ്ങനെ voltage build up ചെയ്യുന്നു.</div>
+
+  <div class="grid">
+    <div class="card green"><h4>Conditions for build-up</h4><ul><li>Residual magnetism must exist.</li><li>Field connection must aid residual flux.</li><li>Field-circuit resistance must be below critical resistance.</li><li>Speed must exceed critical speed for the chosen field resistance.</li><li>Field circuit must be closed.</li></ul></div>
+    <div class="card rose"><h4>Failure causes</h4><ul><li>Loss of residual magnetism.</li><li>Reversed field connection.</li><li>Excessive field resistance.</li><li>Speed too low.</li><li>Open field circuit or poor brush contact.</li></ul></div>
+  </div>
+
+  <h3>7. Critical resistance and critical speed</h3>
+  <p><b>Critical field resistance</b> is the maximum shunt-field resistance at which a generator just builds voltage at a given speed. Graphically it is the slope of the line drawn from the origin tangent to the OCC. <b>Critical speed</b> is the minimum speed at which the machine builds voltage for a specified field resistance.</p>
+  <div class="curve-panel"><h4>Critical-resistance tangent method</h4>
+    <svg viewBox="0 0 760 430" role="img" aria-label="OCC with field resistance line and critical resistance tangent">
+      <line x1="80" y1="360" x2="710" y2="360" stroke="#334155" stroke-width="3"/><line x1="80" y1="360" x2="80" y2="45" stroke="#334155" stroke-width="3"/>
+      <path d="M80 335 C155 245 250 125 420 95 C520 78 610 75 690 74" fill="none" stroke="#0b5f9e" stroke-width="7"/>
+      <line x1="80" y1="360" x2="470" y2="90" stroke="#b4233c" stroke-width="5"/><line x1="80" y1="360" x2="620" y2="160" stroke="#27835f" stroke-width="5" stroke-dasharray="10 7"/>
+      <text x="420" y="80" fill="#b4233c" font-size="20">Critical-resistance tangent</text><text x="500" y="180" fill="#27835f" font-size="20">Operating field line</text><text x="335" y="405" font-size="20">Field current If</text><text x="15" y="60" font-size="20">Eg</text>
+    </svg>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M2-1: Critical resistance from OCC data</h4>
+    <p><b>Problem:</b> The tangent to a shunt-generator OCC passes through If=2.0 A, Eg=220 V. Determine critical field resistance.</p>
+    <p><b>Formula:</b> Rcrit = slope = Eg/If.</p>
+    <p><b>Calculation:</b> Rcrit=220/2=110 Ω.</p>
+    <p class="line"><b>Final answer:</b> <b>110 Ω</b>. The actual field-circuit resistance must be less than this at that speed.</p>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M2-2: Critical speed</h4>
+    <p><b>Problem:</b> At 1000 rpm the critical resistance is 120 Ω. Assuming the unsaturated OCC is proportional to speed, estimate critical speed for a 90 Ω field circuit.</p>
+    <p><b>Relation:</b> Critical-resistance slope is proportional to speed, so Ncrit/N1=Rf/Rcrit,1.</p>
+    <p><b>Calculation:</b> Ncrit=1000×90/120=750 rpm.</p>
+    <p class="line"><b>Final answer:</b> <b>750 rpm</b>.</p>
+    <p><b>Assumption:</b> Use the linear/unsaturated portion and geometrically similar OCC.</p>
+  </div>
+
+  <h3>8. Parallel operation of DC generators</h3>
+  <p>Parallel operation improves reliability, permits maintenance without total shutdown, allows economical matching of generating capacity to load and provides reserve capacity. Before closing the parallel switch, polarity must be the same and incoming voltage must approximately equal busbar voltage.</p>
+  <div class="steps">
+    <div class="step">Run the incoming generator at rated speed with its switch open.</div>
+    <div class="step">Verify correct polarity.</div>
+    <div class="step">Adjust excitation until incoming voltage equals bus voltage.</div>
+    <div class="step">Close the switch.</div>
+    <div class="step">Increase incoming-generator excitation to make it take load; adjust machines for desired sharing.</div>
+  </div>
+  <div class="callout safety"><b>Safety note</b><div>Wrong polarity effectively short-circuits the generators through the busbars. Never parallel without polarity and voltage checks.</div></div>
+  <p>Equalizer connections are essential for compound generators so unequal series-field currents do not cause one generator to take excessive load.</p>
+
+  <h3>9. Application selection</h3>
+  <div class="table-wrap"><table><thead><tr><th>Requirement</th><th>Suitable generator</th><th>Reason</th></tr></thead><tbody>
+    <tr><td>Adjustable DC laboratory supply</td><td>Separately excited</td><td>Field can be controlled independently</td></tr>
+    <tr><td>Nearly constant-voltage supply</td><td>Shunt generator</td><td>Small voltage drop with load</td></tr>
+    <tr><td>Feeder-voltage compensation / booster</td><td>Series generator</td><td>Voltage increases with load current</td></tr>
+    <tr><td>Constant terminal voltage with changing load</td><td>Flat-compounded generator</td><td>Series field offsets internal voltage drop</td></tr>
+    <tr><td>Rising voltage at remote load</td><td>Over-compounded generator</td><td>Compensates both machine and feeder drop</td></tr>
+  </tbody></table></div>
+
+  <details open><summary>Module 2 expected-question practice</summary>
+    <div class="question-bank">
+      <div class="qcard"><span class="tag">Definition</span><h4>Define armature reaction and MNA.</h4><p>State armature-field effect and zero-EMF axis.</p></div>
+      <div class="qcard"><span class="tag">Important diagram</span><h4>Show main, armature and resultant flux.</h4><p>Label GNA, shifted MNA and crowded pole tip.</p></div>
+      <div class="qcard"><span class="tag">Comparison</span><h4>Interpoles versus compensating windings.</h4><p>Compare location, purpose and connection.</p></div>
+      <div class="qcard"><span class="tag">Characteristic curve</span><h4>Draw OCC, internal and external curves.</h4><p>Label axes and explain why each curve lies below the previous one.</p></div>
+      <div class="qcard"><span class="tag">Important numerical</span><h4>Find critical resistance or critical speed.</h4><p>Use tangent slope and proportionality with speed.</p></div>
+      <div class="qcard"><span class="tag">Long answer</span><h4>Explain v
