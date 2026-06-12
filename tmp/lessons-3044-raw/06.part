@@ -1,0 +1,66 @@
+></tr><tr><td>0011</td><td>0010</td></tr><tr><td>0100</td><td>0110</td></tr><tr><td>0101</td><td>0111</td></tr><tr><td>0110</td><td>0101</td></tr><tr><td>0111</td><td>0100</td></tr><tr><td>1000</td><td>1100</td></tr><tr><td>1001</td><td>1101</td></tr><tr><td>1010</td><td>1111</td></tr><tr><td>1011</td><td>1110</td></tr><tr><td>1100</td><td>1010</td></tr><tr><td>1101</td><td>1011</td></tr><tr><td>1110</td><td>1001</td></tr><tr><td>1111</td><td>1000</td></tr></tbody></table></div>
+<div class="solution"><h4>Design method</h4><pre>1. Prepare Binary-to-Gray conversion table.
+2. Write each Gray output column as a function of B3,B2,B1,B0.
+3. Plot each output on a K-Map.
+4. Reduced results:
+   G3=B3
+   G2=B3⊕B2
+   G1=B2⊕B1
+   G0=B1⊕B0
+5. Implement using one direct connection and three XOR gates.</pre></div>
+
+<details open><summary>Module 2 expected exam questions</summary>
+<div class="grid">
+<div class="card third"><h4>One mark</h4><ul><li>Fastest logic family.</li><li>Least-power logic family.</li><li>Select lines for 8:1 MUX.</li></ul></div>
+<div class="card third"><h4>Three marks</h4><ul><li>Features of CMOS/ECL.</li><li>Define fan-out and propagation delay.</li><li>Draw D/T or half-adder table.</li></ul></div>
+<div class="card third"><h4>Seven marks</h4><ul><li>Design full adder.</li><li>Explain 1:4 DEMUX.</li><li>Design 4-bit Binary-to-Gray converter.</li></ul></div>
+</div></details>
+</section>
+
+
+<section class="section module" id="module3">
+<div class="section-head"><span class="eyebrow">Module 3 • M3.01 / M3.02 / M3.03 / M3.04</span><h2>Flip-Flops, Shift Registers, Ring and Johnson Counters</h2><p>This reconstructed chapter develops the sequential-logic topics repeatedly tested in the official model paper.</p></div>
+<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Distinguish combinational and sequential logic.</li><li>Use SR, JK, D and T flip-flops.</li><li>Convert JK to T and JK to D.</li><li>Trace register, ring and Johnson sequences.</li></ul></div><div class="card cyan"><h3>Sequential principle</h3><p>Output depends on present input and stored state. A clock coordinates state changes.</p><div class="ml">Sequential circuit previous state ഓർക്കുന്നു. Clock edge വന്നപ്പോൾ state update ചെയ്യും.</div></div></div>
+
+<h3>1. Clock and state concepts</h3>
+<p>A clock is a periodic digital waveform. Edge-triggered flip-flops respond at a rising edge or falling edge. Present state is the current stored output; next state is the value after the active clock edge.</p>
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<h3>2. Flip-flop summary</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Flip-flop</th><th>Inputs</th><th>Key action</th><th>Important condition</th></tr></thead><tbody><tr><td>SR</td><td>S,R</td><td>Set, reset or hold</td><td>S=R=1 invalid for active-high NOR form</td></tr><tr><td>JK</td><td>J,K</td><td>Improved SR; toggle when J=K=1</td><td>Avoid race-around with proper triggering</td></tr><tr><td>D</td><td>D</td><td>Next Q follows D</td><td>Data storage / delay</td></tr><tr><td>T</td><td>T</td><td>Toggle when T=1</td><td>Counters and divide-by-2</td></tr></tbody></table></div>
+<div class="grid">
+<div class="card"><h3>SR truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>S</th><th>R</th><th>Q(n+1)</th><th>Meaning</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>Qn</td><td>Hold</td></tr><tr><td>0</td><td>1</td><td>0</td><td>Reset</td></tr><tr><td>1</td><td>0</td><td>1</td><td>Set</td></tr><tr><td>1</td><td>1</td><td>Invalid</td><td>Forbidden</td></tr></tbody></table></div></div>
+<div class="card"><h3>JK truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>J</th><th>K</th><th>Q(n+1)</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>Qn</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>Q̅n</td></tr></tbody></table></div></div>
+<div class="card"><h3>D truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>D</th><th>Q(n+1)</th></tr></thead><tbody><tr><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td></tr></tbody></table></div><div class="formula">Q(n+1)=D</div></div>
+<div class="card"><h3>T truth table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>T</th><th>Q(n+1)</th></tr></thead><tbody><tr><td>0</td><td>Qn</td></tr><tr><td>1</td><td>Q̅n</td></tr></tbody></table></div><div class="formula">Q(n+1)=T⊕Qn</div></div>
+</div>
+
+<h3>3. SR flip-flop using NAND gates</h3>
+<p>A cross-coupled NAND latch normally uses active-low inputs S̅ and R̅. Both inputs high hold the state; pulling S̅ low sets Q; pulling R̅ low resets Q. Both low is invalid.</p>
+<div class="callout remember"><b>Malayalam Support</b><div>NAND SR latch-ൽ inputs active-low ആണ്. S̅=0 set, R̅=0 reset. രണ്ടും 0 ആക്കരുത്.</div></div>
+
+<h3>4. Flip-flop conversion</h3>
+<p>Conversion means forcing an available flip-flop to behave like a desired flip-flop. Use the desired next state and the available flip-flop excitation table, then simplify input equations.</p>
+<div class="grid">
+<div class="card"><h3>JK → T</h3><p>For T=0, hold. For T=1, toggle. A JK flip-flop already toggles for J=K=1.</p><div class="formula">J = T, K = T</div></div>
+<div class="card"><h3>JK → D</h3><p>To make Q(n+1)=D:</p><div class="formula">J = D, K = D̅</div></div>
+</div>
+<div class="callout remember"><b>Malayalam Support</b><div>Flip-flop conversion-ൽ desired flip-flop-ന്റെ next state ആദ്യം എഴുതുക. Available flip-flop ആ state ഉണ്ടാക്കാൻ J,K പോലുള്ള inputs എന്താകണം എന്ന് excitation table ഉപയോഗിച്ച് കണ്ടെത്തുക.</div></div>
+
+<h3>5. Shift registers</h3>
+<p>A shift register is a chain of flip-flops that stores and moves binary data one position per clock pulse.</p>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<div class="table-wrap"><table class=""><thead><tr><th>Type</th><th>Input</th><th>Output</th><th>Use</th></tr></thead><tbody><tr><td>SISO</td><td>Serial</td><td>Serial</td><td>Delay line</td></tr><tr><td>SIPO</td><td>Serial</td><td>Parallel</td><td>Serial-to-parallel conversion</td></tr><tr><td>PISO</td><td>Parallel</td><td>Serial</td><td>Parallel-to-serial conversion</td></tr><tr><td>PIPO</td><td>Parallel</td><td>Parallel</td><td>Temporary parallel storage</td></tr></tbody></table></div>
+<div class="demo" id="shiftDemo"><h3>Interactive four-bit shift register</h3><p>Choose the next serial input and press Clock.</p><div class="bitrow" id="shiftBits"></div><div class="demo-controls"><button id="shiftInput">Serial input: 1</button><button id="shiftClock">Clock</button><button id="shiftReset">Reset</button></div></div>
+<div class="callout remember"><b>Malayalam Support</b><div>ഓരോ clock pulse-ലും data ഒരു flip-flop-ൽ നിന്ന് അടുത്ത flip-flop-ലേക്ക് shift ചെയ്യും. SISO serial input/serial output; SIPO serial input/parallel output.</div></div>
+
+<h3>6. Ring counter</h3>
+<p>A ring counter circulates a single 1 (or single 0) through n flip-flops. It normally provides n valid states and requires initialization.</p>
+<div class="formula">n flip-flops → n ring-counter states</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Clock</th><th>Q3Q2Q1Q0</th></tr></thead><tbody><tr><td>Initial</td><td>1000</td></tr><tr><td>1</td><td>0100</td></tr><tr><td>2</td><td>0010</td></tr><tr><td>3</td><td>0001</td></tr><tr><td>4</td><td>1000</td></tr></tbody></table></div>
+
+<h3>7. Johnson counter</h3>
+<p>A Johnson counter feeds the complemented output of the last flip-flop back to the first. An n-stage Johnson counter produces 2n valid states.</p>
+<div 
