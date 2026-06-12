@@ -1,0 +1,78 @@
+n>→</span></a><a href="#selection-bank">Motor Selection <span>→</span></a><a href="#traction-bank">Traction Bank <span>→</span></a>
+    <a href="#solved">Solved Numericals <span>→</span></a><a href="#expected">Expected Questions <span>→</span></a><a href="#practice">Practice <span>→</span></a><a href="#revision">Quick Revision <span>→</span></a>
+    <a href="#model-paper">Model Paper <span>→</span></a><a href="#model-answers">Model Answers <span>→</span></a><a href="#answer-key">Answer Key <span>→</span></a><a href="#references">References <span>→</span></a>
+  </div>
+</section>
+
+<section class="section" id="objectives">
+  <div class="section-head"><span class="eyebrow">Official Course Information</span><h2>Objectives and prerequisite</h2></div>
+  <div class="grid">
+    <div class="card eight blue"><h3>Official course objectives</h3><ol><li>To familiarize students with the construction and operation of DC machines.</li><li>To recognize the classification and applications of DC machines.</li><li>To analyze the performance of DC generators and DC motors.</li><li>To provide basic knowledge of electric traction systems.</li></ol></div>
+    <div class="card third green"><h3>Prerequisite</h3><p><b>Topic:</b> Magnetism and Electromagnetism</p><p><b>Course:</b> Elementary Concepts of Electrical Systems</p><p><b>Semester:</b> 2</p></div>
+  </div>
+  <h3>How the prerequisite supports this course</h3>
+  <div class="grid">
+    <div class="card quarter"><h4>Magnetic circuit</h4><p>Flux, reluctance and permeability explain the path of field flux through yoke, poles, air gap and armature.</p></div>
+    <div class="card quarter"><h4>Electromagnetic induction</h4><p>Faraday’s law and Lenz’s law explain generated EMF and back EMF.</p></div>
+    <div class="card quarter"><h4>Force production</h4><p>A current-carrying conductor in a magnetic field experiences force, producing motor torque.</p></div>
+    <div class="card quarter"><h4>Fleming’s rules</h4><p>Right-hand rule gives generator direction; left-hand rule gives motor-force direction.</p></div>
+  </div>
+</section>
+
+<section class="section" id="outcomes">
+  <div class="section-head"><span class="eyebrow">Official Outcomes</span><h2>Course outcomes and CO-PO mapping</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>CO</th><th>Description</th><th>Duration</th><th>Cognitive level</th></tr></thead><tbody>
+    <tr><td>CO1</td><td>Identify the construction and operation of DC generator.</td><td>10 hours</td><td>Applying</td></tr>
+    <tr><td>CO2</td><td>Identify the electrical characteristics and uses of DC generators.</td><td>10 hours</td><td>Applying</td></tr>
+    <tr><td>CO3</td><td>Select a DC motor for specific applications based on performance characteristics.</td><td>12 hours</td><td>Applying</td></tr>
+    <tr><td>CO4</td><td>Choose various methods of speed control of DC motors and traction motors.</td><td>11 hours</td><td>Applying</td></tr>
+    <tr><td>—</td><td>Series Tests</td><td>2 hours</td><td>—</td></tr>
+  </tbody></table></div>
+  <h3>CO-PO mapping</h3>
+  <div class="table-wrap"><table class="compact"><thead><tr><th>Course outcome</th><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th><th>Interpretation</th></tr></thead><tbody>
+    <tr><td>CO1</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO2</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO3</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+  </tbody></table></div>
+  <div class="callout remember"><b>Mapping scale</b><div>3 – Strongly mapped; 2 – Moderately mapped; 1 – Weakly mapped.</div></div>
+</section>
+
+<section class="section" id="roadmap">
+  <div class="section-head"><span class="eyebrow">Module-wise Learning Roadmap</span><h2>Official outcomes, hours and cognitive levels</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Module outcome</th><th>Official description</th><th>Hours</th><th>Level</th></tr></thead><tbody>
+    <tr><td>M1.01</td><td>Illustrate the constructional details of DC machines.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td>M1.02</td><td>Explain the principle of operation of a DC generator.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M1.03</td><td>Derive EMF equation of DC generator and solve problems.</td><td>3</td><td>Applying</td></tr>
+    <tr><td>M1.04</td><td>Compare the armature windings of a DC machine.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M2.01</td><td>Illustrate armature reaction and its effects in DC generators.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M2.02</td><td>Explain commutation process in DC generator and methods for improving commutation.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M2.03</td><td>Illustrate the characteristics of various types of DC generators and solve problems.</td><td>3</td><td>Applying</td></tr>
+    <tr><td>M2.04</td><td>Outline parallel operation and uses of various DC generators.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td colspan="2">Series Test I</td><td>1</td><td>—</td></tr>
+    <tr><td>M3.01</td><td>Explain the working principle of DC motor and solve various motor parameters.</td><td>4</td><td>Applying</td></tr>
+    <tr><td>M3.02</td><td>Illustrate the performance characteristics of DC motors and select motors for specific applications.</td><td>4</td><td>Applying</td></tr>
+    <tr><td>M3.03</td><td>Illustrate the working of various types of starters.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M3.04</td><td>Outline the procedures for testing of DC motors.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M4.01</td><td>Identify different types of speed control of DC motors.</td><td>3</td><td>Applying</td></tr>
+    <tr><td>M4.02</td><td>Summarize the use of DC series motors in electric traction.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M4.03</td><td>Illustrate speed control of traction motors.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td>M4.04</td><td>Explain braking of traction motors.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td colspan="2">Series Test II</td><td>1</td><td>—</td></tr>
+  </tbody></table></div>
+</section>
+<section class="section module" id="module1" style="--accent:#0b5f9e">
+  <div class="module-banner"><span class="eyebrow">Module 1 • CO1 • 10 Hours</span><h2>Construction and Operation of DC Generator</h2><p>M1.01–M1.04: construction, generator principle, EMF equation, losses, efficiency and armature windings.</p></div>
+
+  <div class="grid">
+    <div class="card blue"><h3>Electrical-machine idea</h3><p>An electrical machine links an electrical system and a mechanical system through a magnetic field. In generator operation, a prime mover rotates conductors and electrical power is obtained. In motor operation, electrical current produces torque and mechanical output.</p></div>
+    <div class="card copper"><h3>Reversibility</h3><p>The physical DC machine is reversible. The same armature, field system, commutator and brushes can operate as a generator or a motor; only the direction of energy flow changes.</p></div>
+  </div>
+
+  <h3>1. Constructional details of a DC machine</h3>
+  <p>The stationary field system creates the main magnetic flux. The rotating armature carries conductors in which EMF is induced or current flows. The commutator and brushes form the mechanical switching system that provides DC at the terminals and unidirectional torque.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1000 560" role="img" aria-labelledby="dcConstructionTitle dcConstructionDesc">
+      <title id="dcConstructionTitle">Labeled construction of a DC machine</title>
+      <desc id="dcConstructi
