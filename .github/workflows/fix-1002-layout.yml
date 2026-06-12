@@ -1,0 +1,62 @@
+name: Fix Mathematics I full-width layout
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fix-1002-layout.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-layout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Remove sidebar and expand lesson content
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('lessons/lessons-1002.html')
+          text = path.read_text(encoding='utf-8')
+          original = text
+
+          text = text.replace(
+              ".wrap{width:min(98vw,var(--max));margin:auto}",
+              ".wrap{width:calc(100% - 20px);max-width:none;margin:0 auto}"
+          )
+          text = text.replace(
+              ".layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:1rem;padding:1rem 0 3rem}",
+              ".layout{display:block;padding:1rem 0 3rem}.layout>main{display:block;width:100%;min-width:0}"
+          )
+          text = text.replace(
+              ".examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:1rem}",
+              ".examples{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}"
+          )
+          text = re.sub(r"<aside class='side'>.*?</aside>", "", text, count=1, flags=re.S)
+
+          if text == original:
+              raise SystemExit('No expected layout patterns were changed.')
+          if "<aside class='side'>" in text:
+              raise SystemExit('Sidebar removal failed.')
+
+          path.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Remove one-time workflow and commit changes
+        shell: bash
+        run: |
+          rm -f .github/workflows/fix-1002-layout.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lessons/lessons-1002.html .github/workflows/fix-1002-layout.yml
+          git commit -m "Remove Mathematics I sidebar and use full screen width"
+          git push origin main
