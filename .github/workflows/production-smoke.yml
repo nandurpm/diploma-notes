@@ -1,0 +1,84 @@
+name: Verify production deployment
+
+on:
+  push:
+    branches:
+      - fix/verified-site-bugs-2026-06-12
+    paths:
+      - .github/workflows/production-smoke.yml
+
+permissions:
+  contents: read
+
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Verify deployed HTML and assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://polypmna.dpdns.org'
+          deployed=false
+
+          for attempt in {1..20}; do
+            token="${GITHUB_RUN_ID}-${attempt}-$(date +%s)"
+            curl -fsSL --retry 2 -H 'Cache-Control: no-cache' "${base}/?production-check=${token}" -o /tmp/index.html
+            if grep -q 'Search by Subject Code' /tmp/index.html && grep -q '/assets/js/site-hardening.js' /tmp/index.html; then
+              deployed=true
+              echo "Merged production HTML detected on attempt ${attempt}." | tee /tmp/production-result.log
+              break
+            fi
+            echo "Attempt ${attempt}: previous deployment still served." | tee -a /tmp/production-result.log
+            sleep 15
+          done
+
+          if [ "$deployed" != true ]; then
+            echo 'Production did not serve the merged HTML during this verification run.' | tee -a /tmp/production-result.log
+            grep -Eo 'Search Code|Search by Subject Code|Email Me|Email us' /tmp/index.html || true
+            exit 1
+          fi
+
+          token="${GITHUB_RUN_ID}-final-$(date +%s)"
+          curl -fsSL -H 'Cache-Control: no-cache' "${base}/contact.html?production-check=${token}" -o /tmp/contact.html
+          grep -q '>Email us<' /tmp/contact.html
+          grep -q '/assets/js/help-comments.js' /tmp/contact.html
+
+          curl -fsSL -H 'Cache-Control: no-cache' "${base}/materials-2015.html?production-check=${token}" -o /tmp/materials.html
+          grep -q '/assets/js/site-hardening.js' /tmp/materials.html
+          ! grep -q 'Official REV2021 model QP reference' /tmp/materials.html
+
+          curl -fsSL -H 'Cache-Control: no-cache' "${base}/lessons/lessons-2031.html?revision=2021&production-check=${token}" -o /tmp/lesson-2031.html
+          grep -q '/lessons/handbook-2031-source.html' /tmp/lesson-2031.html
+          grep -q 'Unable to load this lesson. Please try again later.' /tmp/lesson-2031.html
+
+          curl -fsSL -H 'Cache-Control: no-cache' "${base}/revision-2021/electronics-engineering.html?production-check=${token}" -o /tmp/department.html
+          grep -q 'data-department="Electronics Engineering"' /tmp/department.html
+          grep -q '/assets/js/site-hardening.js' /tmp/department.html
+
+          for asset in \
+            /assets/css/hardening.css \
+            /assets/js/site-hardening.js \
+            /assets/js/help-comments.js \
+            /lessons/handbook-2031-source.html \
+            /assets/media/sfi-poly-pmna.mp4; do
+            curl -fsSIL -H 'Cache-Control: no-cache' "${base}${asset}?production-check=${token}" >/dev/null
+          done
+
+          echo 'Production deployment smoke checks passed.' | tee -a /tmp/production-result.log
+
+      - name: Upload production evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-deployment-evidence
+          path: |
+            /tmp/production-result.log
+            /tmp/index.html
+            /tmp/contact.html
+            /tmp/materials.html
+            /tmp/lesson-2031.html
+            /tmp/department.html
+          if-no-files-found: warn
+          retention-days: 7
