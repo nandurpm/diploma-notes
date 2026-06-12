@@ -1,0 +1,28 @@
+Both motors are connected across the supply, initially with resistance to limit the rise in current.</p></div>
+    <div class="stage"><b>Stage 5 — Full parallel</b><p>All starting resistance is removed. Each motor receives full supply voltage for high-speed running.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1180 460" role="img" aria-label="Series and parallel connections of two traction motors">
+      <defs><style>.tw{stroke:#173b59;stroke-width:6;fill:none}.tm{fill:#fff;stroke:#6d43b5;stroke-width:6}.tt{font:700 22px Segoe UI,Arial}</style></defs>
+      <g transform="translate(40,25)"><text class="tt" x="180" y="25">Series connection — low speed</text><circle class="tm" cx="170" cy="190" r="65"/><text class="tt" x="140" y="198">M1</text><circle class="tm" cx="395" cy="190" r="65"/><text class="tt" x="365" y="198">M2</text><rect class="tm" x="70" y="310" width="430" height="60"/><text class="tt" x="170" y="348">Starting resistance</text><path class="tw" d="M60 190H105M235 190H330M460 190H530V340H500M70 340H30V190H60"/><text class="tt" x="20" y="150">+</text><text class="tt" x="510" y="150">−</text></g>
+      <g transform="translate(620,25)"><text class="tt" x="125" y="25">Parallel connection — high speed</text><circle class="tm" cx="175" cy="155" r="65"/><text class="tt" x="145" y="163">M1</text><circle class="tm" cx="175" cy="320" r="65"/><text class="tt" x="145" y="328">M2</text><path class="tw" d="M50 155H110M240 155H440M50 320H110M240 320H440M50 90V385M440 90V385"/><text class="tt" x="30" y="65">+</text><text class="tt" x="420" y="65">−</text><text class="tt" x="270" y="245">Each motor receives full line voltage</text></g>
+    </svg>
+    <figcaption>Current paths and switchgear are simplified for learning. Practical controllers use contactors and interlocks to prevent open circuits or short circuits during transition.</figcaption>
+  </figure>
+
+  <h3>7. Transition methods</h3>
+  <div class="grid">
+    <div class="card blue"><h4>Shunt transition</h4><p>During change from series to parallel, one motor is temporarily shunted by a resistor while connections are rearranged. Motor current is maintained, but some energy is lost in transition resistors.</p></div>
+    <div class="card violet"><h4>Bridge transition</h4><p>Motors and transition resistances form a bridge network. Current remains more nearly continuous and torque disturbance is lower, but switching is more complex.</p></div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Point</th><th>Shunt transition</th><th>Bridge transition</th></tr></thead><tbody>
+    <tr><td>Current continuity</td><td>Maintained through shunt path</td><td>Maintained through bridge paths</td></tr><tr><td>Torque disturbance</td><td>Moderate</td><td>Usually lower</td></tr><tr><td>Control complexity</td><td>Simpler</td><td>More contactors and sequencing</td></tr><tr><td>Energy loss</td><td>Transition resistor loss</td><td>Transition resistor loss but smoother sharing</td></tr>
+  </tbody></table></div>
+  <div class="ml"><b>Malayalam Support:</b> Series connection-ൽ രണ്ട് motors supply voltage പങ്കിടുന്നു. Parallel connection-ൽ ഓരോ motor-നും full voltage ലഭിക്കുന്നു. Transition സമയത്ത് current പെട്ടെന്ന് തടസ്സപ്പെടാതിരിക്കാനാണ് shunt/bridge method.</div>
+
+  <h3>8. Electrical braking</h3>
+  <p>During electrical braking the motor operates as a generator and converts vehicle kinetic energy into electrical energy. The generated energy is either dissipated in resistors or returned to the supply.</p>
+  <div class="grid">
+    <div class="card copper"><h4>Rheostatic braking</h4><p>Disconnect the motor from supply, maintain suitable field and connect armature to a braking resistor. Generated current produces torque opposite motion. Energy becomes heat in the resistor.</p></div>
+    <div class="card green"><h4>Regenerative braking</h4><p>Adjust excitation/speed so generated EMF exceeds supply voltage with correct polarity. Current reverses into the supply and electromagnetic to
