@@ -1,0 +1,195 @@
+name: Restore exact 2015 file and enable automatic lessons
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  restore-and-verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/restore-exact-2015-auto-lessons
+          fetch-depth: 0
+
+      - name: Restore the uploaded original 2015 file exactly
+        shell: bash
+        run: |
+          git show c75d00f3610fb188178bd280bd8bc55cc3cbc831:materials-2015.html > materials-2015.html
+          test "$(git hash-object materials-2015.html)" = "117781cc46b2ed77b2fcb57527ecbc49e045e04c"
+
+      - name: Replace hard-coded lesson manifest with live repository detection
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          main_path = Path('assets/js/main.js')
+          main = main_path.read_text(encoding='utf-8')
+          main, count = re.subn(
+              r'const assetAvailability = new Map\(\);\nconst knownLocalAssets = new Set\(\[.*?\]\);\nlet activePrintFrame = null;',
+              '''const assetAvailability = new Map();
+const REPOSITORY_TREE_API = "https://api.github.com/repos/nandurpm/diploma-notes/git/trees/main?recursive=1";
+let repositoryAssetPathsPromise = null;
+let activePrintFrame = null;''',
+              main,
+              count=1,
+              flags=re.S,
+          )
+          if count != 1:
+              raise SystemExit('Could not replace the hard-coded asset manifest in main.js')
+
+          replacement = '''async function repositoryAssetPaths() {
+  if (!repositoryAssetPathsPromise) {
+    repositoryAssetPathsPromise = fetch(`${REPOSITORY_TREE_API}&cacheBust=${Date.now()}`, {
+      cache: "no-store",
+      headers: { Accept: "application/vnd.github+json" }
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`GitHub repository tree request failed with HTTP ${response.status}.`);
+        return response.json();
+      })
+      .then((payload) => {
+        if (!Array.isArray(payload.tree)) throw new Error("GitHub repository tree response is malformed.");
+        return new Set(
+          payload.tree
+            .filter((item) => item && item.type === "blob" && typeof item.path === "string")
+            .map((item) => item.path)
+        );
+      })
+      .catch((error) => {
+        repositoryAssetPathsPromise = null;
+        console.error("Unable to read the current lesson-file list from GitHub.", error);
+        throw error;
+      });
+  }
+  return repositoryAssetPathsPromise;
+}
+
+async function assetExists(url) {
+  const path = new URL(url, window.location.href).pathname.replace(/^\\/+/, "");
+  if (assetAvailability.has(path)) return assetAvailability.get(path);
+
+  const check = repositoryAssetPaths()
+    .then((paths) => paths.has(path))
+    .catch(async () => {
+      try {
+        const response = await fetch(resolveAssetUrl(url), { method: "HEAD", cache: "no-store" });
+        return response.ok;
+      } catch (error) {
+        console.error(`Unable to verify uploaded asset: ${path}`, error);
+        return false;
+      }
+    });
+
+  assetAvailability.set(path, check);
+  return check;
+}
+
+globalThis.assetExists = assetExists;'''
+
+          main, count = re.subn(
+              r'async function assetExists\(url\) \{.*?^\}',
+              replacement,
+              main,
+              count=1,
+              flags=re.S | re.M,
+          )
+          if count != 1:
+              raise SystemExit('Could not replace assetExists in main.js')
+          main_path.write_text(main, encoding='utf-8')
+
+          hardening_path = Path('assets/js/site-hardening.js')
+          hardening = hardening_path.read_text(encoding='utf-8')
+          hardening = re.sub(r'\n  const assetChecks = new Map\(\);\n  const knownLocalAssets = new Set\(\[.*?\]\);', '', hardening, count=1, flags=re.S)
+          hardening_replacement = '''  const localAssetExists = async (url) => {
+    if (typeof globalThis.assetExists === "function") return globalThis.assetExists(url);
+    try {
+      const response = await fetch(new URL(url, window.location.href), { method: "HEAD", cache: "no-store" });
+      return response.ok;
+    } catch (error) {
+      console.error(`Asset check failed for ${url}`, error);
+      return false;
+    }
+  };'''
+          hardening, count = re.subn(
+              r'  const localAssetExists = async \(url\) => \{.*?^  \};',
+              hardening_replacement,
+              hardening,
+              count=1,
+              flags=re.S | re.M,
+          )
+          if count != 1:
+              raise SystemExit('Could not replace localAssetExists in site-hardening.js')
+          hardening_path.write_text(hardening, encoding='utf-8')
+          PY
+
+          node --check assets/js/main.js
+          node --check assets/js/site-hardening.js
+          ! grep -q 'knownLocalAssets' assets/js/main.js
+          ! grep -q 'knownLocalAssets' assets/js/site-hardening.js
+          grep -q 'api.github.com/repos/nandurpm/diploma-notes/git/trees/main' assets/js/main.js
+
+      - name: Browser-test automatic button activation with a repository-tree fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp assets/js/main.js /tmp/main.js
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('assets/js/main.js')
+          text = path.read_text(encoding='utf-8')
+          text = text.replace(
+              'https://api.github.com/repos/nandurpm/diploma-notes/git/trees/main?recursive=1',
+              '/repo-tree.json?recursive=1'
+          )
+          path.write_text(text, encoding='utf-8')
+          Path('repo-tree.json').write_text('''{"tree":[{"path":"lessons/lessons-3042.html","type":"blob"},{"path":"lessons/lessons-3044.html","type":"blob"}]}''', encoding='utf-8')
+          PY
+
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/materials-2015.html >/dev/null && break
+            sleep 1
+          done
+
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=10000 --dump-dom 'http://127.0.0.1:8000/materials-2015.html' >/tmp/materials.dom 2>/tmp/chrome.log
+
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path('/tmp/materials.dom').read_text(encoding='utf-8')
+          button_3042 = re.search(r'<a[^>]*href="lessons/lessons-3042\.html"[^>]*>', html)
+          button_3048 = re.search(r'<a[^>]*href="lessons/lessons-3048\.html"[^>]*>', html)
+          if not button_3042 or 'unavailable' in button_3042.group(0) or 'aria-disabled' in button_3042.group(0):
+              raise SystemExit('Fixture lesson 3042 did not activate automatically')
+          if not button_3048 or 'unavailable' not in button_3048.group(0):
+              raise SystemExit('Missing lesson 3048 should remain unavailable')
+          print('Automatic lesson activation test passed.')
+          PY
+
+          mv /tmp/main.js assets/js/main.js
+          rm repo-tree.json
+          git diff --exit-code -- materials-2015.html assets/js/main.js assets/js/site-hardening.js || true
+          test "$(git hash-object materials-2015.html)" = "117781cc46b2ed77b2fcb57527ecbc49e045e04c"
+
+      - name: Commit verified corrections
+        shell: bash
+        run: |
+          rm -f .github/workflows/restore-exact-2015-auto-lessons.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Restore original 2015 page and auto-detect uploaded lessons'
+          git push origin HEAD:fix/restore-exact-2015-auto-lessons
