@@ -1,0 +1,31 @@
+class="formula">n flip-flops → 2n Johnson states</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Clock</th><th>Q3Q2Q1Q0</th></tr></thead><tbody><tr><td>0</td><td>0000</td></tr><tr><td>1</td><td>1000</td></tr><tr><td>2</td><td>1100</td></tr><tr><td>3</td><td>1110</td></tr><tr><td>4</td><td>1111</td></tr><tr><td>5</td><td>0111</td></tr><tr><td>6</td><td>0011</td></tr><tr><td>7</td><td>0001</td></tr><tr><td>8</td><td>0000</td></tr></tbody></table></div>
+<div class="callout priority"><b>Ring vs Johnson</b><div>Ring uses direct feedback and normally n states. Johnson uses complemented feedback and produces 2n states.</div></div>
+
+<details open><summary>Module 3 expected exam questions</summary>
+<div class="grid">
+<div class="card third"><h4>One mark</h4><ul><li>Which circuits require clock input?</li><li>Name SISO register.</li><li>State Johnson states for n stages.</li></ul></div>
+<div class="card third"><h4>Three marks</h4><ul><li>Draw D and T truth tables.</li><li>Applications of shift registers.</li><li>Draw 4-bit Johnson counter.</li></ul></div>
+<div class="card third"><h4>Seven marks</h4><ul><li>JK-to-T and JK-to-D conversion.</li><li>Explain PISO register.</li><li>Explain ring or Johnson counter.</li></ul></div>
+</div></details>
+</section>
+
+
+<section class="section module" id="module4">
+<div class="section-head"><span class="eyebrow">Module 4 • M4.01 / M4.02 / M4.03 / M4.04</span><h2>Counters and Semiconductor Memories</h2><p>This reconstructed chapter covers asynchronous and synchronous counter design, timing and memory types tested in the official model paper.</p></div>
+<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Explain ripple and synchronous counters.</li><li>Design MOD-6, MOD-8 and MOD-10 counters.</li><li>Trace up/down timing diagrams.</li><li>Compare RAM, ROM, PROM, EPROM and EEPROM.</li></ul></div><div class="card cyan"><h3>Counter definition</h3><p>A counter is a sequential circuit that advances through a prescribed state sequence in response to clock pulses.</p></div></div>
+
+<h3>1. MOD number and flip-flop requirement</h3>
+<div class="formula">Choose smallest n such that 2ⁿ ≥ N</div><div class="formula">n = ceiling(log₂N)</div>
+<div class="table-wrap"><table class="compact"><thead><tr><th>Counter</th><th>Required flip-flops</th></tr></thead><tbody><tr><td>MOD-6</td><td>3</td></tr><tr><td>MOD-8</td><td>3</td></tr><tr><td>MOD-10</td><td>4</td></tr><tr><td>MOD-16</td><td>4</td></tr></tbody></table></div>
+
+<h3>2. Asynchronous and synchronous counters</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Feature</th><th>Asynchronous (ripple)</th><th>Synchronous</th></tr></thead><tbody><tr><td>Clocking</td><td>Only first FF receives external clock; others are clocked by preceding output</td><td>All FFs receive common clock</td></tr><tr><td>Output change</td><td>Ripples stage by stage</td><td>Changes nearly simultaneously</td></tr><tr><td>Speed</td><td>Lower due to cumulative delay</td><td>Higher</td></tr><tr><td>Hardware</td><td>Simpler</td><td>More combinational control logic</td></tr><tr><td>Glitches</td><td>More likely during transitions</td><td>Reduced with proper design</td></tr></tbody></table></div>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<div class="formula">Ripple frequency division: f<sub>out</sub> = f<sub>in</sub>/2ⁿ</div>
+<div class="callout remember"><b>Malayalam Support</b><div>Ripple counter-ൽ clock change ഓരോ flip-flop വഴിയും വൈകി പടരുന്നു. Synchronous counter-ൽ എല്ലാ flip-flops-നും ഒരേ clock കിട്ടുന്നതിനാൽ state ഒരേസമയം മാറും.</div></div>
+
+<h3>3. Three-bit ripple up and down counters</h3>
+<p>A three-bit ripple up counter counts 000,001,010,011,100,101,110,111. A ripple down counter follows the reverse sequence. Whether Q or Q̅ clocks the next sta
