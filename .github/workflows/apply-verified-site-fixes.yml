@@ -1,52 +1,151 @@
-name: Apply verified site fixes
+name: Verify website bug fixes
 
 on:
   workflow_dispatch:
   pull_request:
     branches: [main]
-    types: [opened, synchronize, reopened]
-  push:
-    branches: [fix/verified-site-bugs-2026-06-12]
-    paths:
-      - tools/fix_parts/**
-      - .github/workflows/apply-verified-site-fixes.yml
+    types: [synchronize, reopened]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  apply:
+  browser-verification:
     if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
           ref: fix/verified-site-bugs-2026-06-12
           fetch-depth: 0
-      - name: Apply and statically verify fixes
+
+      - name: Re-run static and JavaScript validation
+        shell: bash
         run: |
-          cat tools/fix_parts/part-* > tools/apply_verified_site_fixes.py
-          python -m py_compile tools/apply_verified_site_fixes.py
-          if ! python tools/apply_verified_site_fixes.py >/tmp/fix-run.log 2>&1; then
-            cat /tmp/fix-run.log
-            git reset --hard HEAD
-            cp /tmp/fix-run.log workflow-failure.log
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add workflow-failure.log
-            git commit -m 'Capture site-fix verification failure'
-            git push origin HEAD:fix/verified-site-bugs-2026-06-12
-            exit 1
-          fi
-          cat /tmp/fix-run.log
+          cat tools/fix_parts/part-* > /tmp/apply_verified_site_fixes.py
+          python -m py_compile /tmp/apply_verified_site_fixes.py
           node --check assets/js/main.js
           node --check assets/js/subjects.js
           node --check assets/js/site-hardening.js
           node --check assets/js/help-comments.js
-      - name: Commit fixes
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          root = Path('.')
+          errors = []
+          for path in root.rglob('*.html'):
+              text = path.read_text(encoding='utf-8', errors='replace')
+              ids = re.findall(r'\bid=["\']([^"\']+)', text, re.I)
+              dup = sorted({item for item in ids if ids.count(item) > 1})
+              if dup: errors.append(f'{path}: duplicate IDs {dup}')
+              if re.search(r'href\s*=\s*["\']\s*#?\s*["\']', text): errors.append(f'{path}: placeholder href')
+              for required in ('<title', 'name="description"', 'rel="canonical"', 'property="og:title"', 'property="og:url"'):
+                  if required not in text and required != 'name="description"': errors.append(f'{path}: missing {required}')
+              if not re.search(r'<meta\s+name=["\']description["\']', text, re.I): errors.append(f'{path}: missing description')
+          if errors:
+              raise SystemExit('\n'.join(errors))
+          print(f'Static validation passed for {len(list(root.rglob("*.html")))} HTML files.')
+          PY
+
+      - name: Run browser behavior, failure-state, and responsive tests
+        shell: bash
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -A
-          git commit -m 'Fix verified website bugs and structural issues' || exit 0
-          git push origin HEAD:fix/verified-site-bugs-2026-06-12
+          set -euo pipefail
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/index.html >/dev/null && break
+            sleep 1
+          done
+
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME"
+          browser() {
+            "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=12000 --dump-dom "$1" 2>>/tmp/chrome.log
+          }
+
+          browser 'http://127.0.0.1:8000/index.html' >/tmp/home.dom
+          grep -q 'id="subject-browser"' /tmp/home.dom
+          grep -q 'href="#subject-browser"' /tmp/home.dom
+          grep -q 'Search by Subject Code' /tmp/home.dom
+          grep -q 'subject-card' /tmp/home.dom
+          grep -q 'subjectResultStatus' /tmp/home.dom
+          grep -q '/assets/media/sfi-poly-pmna.mp4' /tmp/home.dom
+          grep -q 'controls' /tmp/home.dom
+
+          browser 'http://127.0.0.1:8000/index.html?subject=3041&revision=2021' >/tmp/search-code.dom
+          grep -qi 'Electric Circuits and Networks' /tmp/search-code.dom
+          browser 'http://127.0.0.1:8000/index.html?subject=basic%20elect&revision=2021&department=Electronics%20Engineering&semester=Semester%202' >/tmp/search-name.dom
+          grep -qi 'Basic Electronics' /tmp/search-name.dom
+          browser 'http://127.0.0.1:8000/index.html?subject=definitely-no-such-subject' >/tmp/no-results.dom
+          grep -q 'No matching subjects found.' /tmp/no-results.dom
+
+          browser 'http://127.0.0.1:8000/revision-2021.html' >/tmp/departments.dom
+          grep -q 'departmentSearch' /tmp/departments.dom
+          department_count=0
+          for page in revision-2021/*.html; do
+            department_count=$((department_count + 1))
+            name="$(basename "$page" .html)"
+            browser "http://127.0.0.1:8000/$page" >"/tmp/department-${name}.dom"
+            grep -q 'subjectResultStatus' "/tmp/department-${name}.dom"
+            grep -Eq 'subject-card|No subjects are currently available for this department.' "/tmp/department-${name}.dom"
+          done
+          echo "Verified ${department_count} Revision 2021 department pages." | tee /tmp/department-count.log
+
+          mv assets/js/subjects.js /tmp/subjects.js
+          browser 'http://127.0.0.1:8000/revision-2021/electronics-engineering.html' >/tmp/subject-error.dom || true
+          grep -q 'Unable to load subject data. Please try again later.' /tmp/subject-error.dom
+          mv /tmp/subjects.js assets/js/subjects.js
+
+          browser 'http://127.0.0.1:8000/materials-2015.html' >/tmp/materials.dom
+          grep -q 'materials2015Search' /tmp/materials.dom
+          grep -q 'materials2015Semester' /tmp/materials.dom
+          grep -q 'revision=2015' /tmp/materials.dom
+          grep -q 'Not available yet' /tmp/materials.dom
+          ! grep -q 'Official REV2021 model QP reference' /tmp/materials.dom
+
+          for lesson in 2031 2041 3044; do
+            browser "http://127.0.0.1:8000/lessons/lessons-${lesson}.html?revision=2021" >"/tmp/lesson-${lesson}.dom"
+            grep -q 'Back to Revision 2021' "/tmp/lesson-${lesson}.dom"
+          done
+          grep -qi 'Fundamentals of Electrical and Electronics Engineering' /tmp/lesson-2031.dom
+          ! grep -q '>Loading handbook…<' /tmp/lesson-2031.dom
+          browser 'http://127.0.0.1:8000/lessons/lessons-2041.html?revision=2015' >/tmp/lesson-2041-2015.dom
+          grep -q 'Back to 2015 Materials' /tmp/lesson-2041-2015.dom
+
+          mv lessons/handbook-2031-source.html /tmp/handbook-2031-source.html
+          browser 'http://127.0.0.1:8000/lessons/lessons-2031.html?revision=2021' >/tmp/lesson-error.dom || true
+          grep -q 'Unable to load this lesson. Please try again later.' /tmp/lesson-error.dom
+          mv /tmp/handbook-2031-source.html lessons/handbook-2031-source.html
+
+          cp assets/js/help-comments.js /tmp/help-comments.js
+          sed -i 's#https://www.gstatic.com/firebasejs/10.14.1/#/missing-firebase/#g' assets/js/help-comments.js
+          browser 'http://127.0.0.1:8000/contact.html' >/tmp/contact-error.dom || true
+          grep -q 'Discussion is currently unavailable. Please contact us by email.' /tmp/contact-error.dom
+          grep -q '>Email us<' /tmp/contact-error.dom
+          mv /tmp/help-comments.js assets/js/help-comments.js
+
+          widths='320 375 768 1024 1366 1920'
+          pages='index.html revision-2021/electronics-engineering.html materials-2015.html lessons/lessons-2031.html?revision=2021'
+          for target in $pages; do
+            for width in $widths; do
+              separator='?'
+              case "$target" in *\?*) separator='&' ;; esac
+              safe="$(printf '%s' "$target" | tr '/?=&' '-----')"
+              "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --window-size="${width},1000" --virtual-time-budget=10000 --dump-dom "http://127.0.0.1:8000/${target}${separator}layout-test=1" >"/tmp/layout-${safe}-${width}.dom" 2>>/tmp/chrome.log
+              grep -q 'data-layout-overflow="false"' "/tmp/layout-${safe}-${width}.dom"
+            done
+          done
+
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: website-verification-evidence
+          path: |
+            /tmp/*.dom
+            /tmp/*.log
+          if-no-files-found: warn
+          retention-days: 7
