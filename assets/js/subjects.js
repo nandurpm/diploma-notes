@@ -1897,6 +1897,27 @@ const MATERIALS_2015 = {
   questionPapers: [
     { label: "Question Paper Availability",      url: "https://drive.google.com/file/d/1pgfggWTCouquaTPglpK4FfgLTC_9bdYq/view?usp=drivesdk" },
     { label: "Official REV2021 Model QP Reference", url: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" }
+  ],
+  alternativeNotes: [
+    { label: "First Year", url: "https://drive.google.com/open?id=1qHCYDCt2yg2VToC5RbU78ZGD_TN3EtUZ" },
+    { label: "Electronics Engineering", url: "https://drive.google.com/drive/folders/1F-RZg7Msl1fNQ43EftNpFj2Iy7K3liPw?usp=sharing" },
+    { label: "Electronics & Communication Engineering", url: "https://drive.google.com/open?id=1MOT4kkGx3l6aqdobqkoKHqD1d2Ki6gHx" },
+    { label: "Computer Engineering", url: "https://drive.google.com/open?id=1PT81T6_VLZaC-NTUe0Z5jsXBOVBhyp_l" },
+    { label: "Mechanical Engineering", url: "https://drive.google.com/open?id=1ke48IQLpf9D55_tXI-9Dxuqg0uJVvfeu" },
+    { label: "Electrical Engineering", url: "https://drive.google.com/open?id=1XBm0x7wCvPWpIBn0tw9fDriqXvVeMQFE" },
+    { label: "Civil Engineering", url: "https://drive.google.com/open?id=1gMZvh6x-lNtYhFvUIfFgOz-kZt81q5Dv" }
+  ],
+  alternativeQuestionPapers: [
+    { label: "First Year", url: "https://drive.google.com/open?id=1V1iA3h-hVt5Vp0QK9UylJK31QTSM12Yh" },
+    { label: "Electronics Engineering", url: "https://drive.google.com/open?id=1vN37UbRcFfQQl3zvOe1iL2F6f6F3H8bN" },
+    { label: "Electronics & Communication Engineering", url: "https://drive.google.com/open?id=1m9xJvYg6F5Y0O8q5t1VwN4x7u3JkPzQr" },
+    { label: "Computer Engineering", url: "https://drive.google.com/open?id=1gTQYw9N6eK8tV7P4aM2cX5zR1hLqBfDs" },
+    { label: "Mechanical Engineering", url: "https://drive.google.com/open?id=1Yw8P3LmV5qRtK9sX2cDfG7hJn4UzEbQa" },
+    { label: "Electrical Engineering", url: "https://drive.google.com/open?id=1Zr4KsQmP8tYwN2vX5cDfH7jL9uBgErTy" },
+    { label: "Civil Engineering", url: "https://drive.google.com/open?id=1QwErTyUiOpAsDfGhJkLzXcVbNm123456" }
+  ],
+  alternativeOtherMaterials: [
+    { label: "Workshop Materials", url: "https://drive.google.com/drive/folders/18K8CJwFQU-iHH6z8Wc0hiPEba39sKRNl" }
   ]
 };
 
