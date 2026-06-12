@@ -1,0 +1,200 @@
+def add_defer(text: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if re.search(r"\bdefer\b|\basync\b|type\s*=\s*[\"']module[\"']", tag, flags=re.I):
+            return tag
+        src = re.search(r"src\s*=\s*[\"']([^\"']+)", tag, flags=re.I)
+        if not src or src.group(1).startswith(("http://", "https://", "//")):
+            return tag
+        return tag[:-1] + " defer>"
+    return re.sub(r"<script\b[^>]*\bsrc\s*=\s*[\"'][^\"']+[\"'][^>]*>", repl, text, flags=re.I)
+
+
+def dedupe_favicons(text: str) -> str:
+    seen: set[str] = set()
+    def repl(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        key = re.sub(r"\s+", " ", tag.strip())
+        if key in seen:
+            return ""
+        seen.add(key)
+        return tag
+    return re.sub(r"<link\b[^>]*rel=[\"']icon[\"'][^>]*>", repl, text, flags=re.I)
+
+
+def add_static_filter_labels(text: str) -> str:
+    labels = {
+        "subjectSearch": "Search subjects",
+        "revisionFilter": "Filter by revision",
+        "departmentFilter": "Filter by department",
+        "semesterFilter": "Filter by semester",
+    }
+    for control_id, label in labels.items():
+        if f'for="{control_id}"' in text or f"for='{control_id}'" in text:
+            continue
+        pattern = re.compile(rf'(<(?:input|select)\b[^>]*\bid=["\']{re.escape(control_id)}["\'][^>]*>)', re.I)
+        text = pattern.sub(lambda match: f'<label class="sr-only" for="{control_id}">{label}</label>{match.group(1)}', text)
+    return text
+
+
+def fix_external_rel(text: str) -> str:
+    def repl(match: re.Match[str]) -> str:
+        tag = match.group(0)
+        if re.search(r"\brel\s*=", tag, flags=re.I):
+            tag = re.sub(r'rel\s*=\s*(["\'])(.*?)(\1)', lambda m: f'rel={m.group(1)}{" ".join(dict.fromkeys((m.group(2) + " noopener noreferrer").split()))}{m.group(1)}', tag, flags=re.I)
+        else:
+            tag = tag[:-1] + ' rel="noopener noreferrer">'
+        return tag
+    return re.sub(r'<a\b[^>]*target\s*=\s*["\']_blank["\'][^>]*>', repl, text, flags=re.I)
+
+
+def add_aria_current(text: str) -> str:
+    return re.sub(r'<a\s+class=["\']active["\'](?![^>]*aria-current)([^>]*)>', r'<a class="active" aria-current="page"\1>', text, flags=re.I)
+
+
+def add_legal_links(text: str) -> str:
+    if "footer-legal" in text or "</footer>" not in text:
+        return text
+    nav = '<nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>'
+    return text.replace("</footer>", nav + "</footer>", 1)
+
+
+def patch_html(path: Path) -> None:
+    text = path.read_text(encoding="utf-8-sig")
+    text = normalize_asset_paths(text)
+    text = dedupe_favicons(text)
+    text = add_static_filter_labels(text)
+    text = add_aria_current(text)
+    text = fix_external_rel(text)
+    text = ensure_metadata(text, path)
+    text = add_shared_assets(text)
+    text = add_defer(text)
+    text = add_legal_links(text)
+
+    rel = path.relative_to(ROOT).as_posix()
+    if rel == "index.html":
+        text = text.replace(">Search Code<", ">Search by Subject Code<")
+        text = re.sub(
+            r'<video\b[^>]*class=["\']home-video["\'][^>]*>\s*</video>',
+            '<video class="home-video" controls muted playsinline preload="metadata" poster="/assets/media/sfi-poly-pmna-poster.jpg"><source src="/assets/media/sfi-poly-pmna.mp4" type="video/mp4">Your browser does not support HTML video.</video>',
+            text,
+            flags=re.I,
+        )
+    elif rel == "contact.html":
+        text = text.replace("Email Me", "Email us").replace("Open Mailbox", "Email us").replace("Email me directly", "Email us directly").replace("email me directly", "email us directly")
+    elif rel == "materials-2015.html":
+        text = re.sub(r'href=["\'](lessons/lessons-[^"\'?]+\.html)["\']', r'href="\1?revision=2015"', text, flags=re.I)
+        text = re.sub(
+            r'<a\s+href=["\']https://www\.sitttrkerala\.ac\.in/index\.php\?r=site%2Fdiploma-modelqp&scheme=REV2021["\'][^>]*>Official REV2021 model QP reference</a>',
+            '<span>2015 material references are listed on this page.</span>',
+            text,
+            flags=re.I,
+        )
+    elif rel == "lessons/lessons-2031.html":
+        text = text.replace(
+            "https://raw.githubusercontent.com/nandurpm/diploma-notes/632a33502f1408d7e0fb866a8f671f6956142dc5/lessons/lessons-2031.html",
+            "/lessons/handbook-2031-source.html",
+        )
+        text = text.replace("const response=await fetch(source,{cache:'no-store'});", "const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),12000);const response=await fetch(source,{cache:'no-store',signal:controller.signal});clearTimeout(timeout);")
+        text = re.sub(
+            r"document\.body\.innerHTML='<main[^;]+;",
+            "console.error('Unable to load lesson 2031.',error);document.body.innerHTML='<main class=\"loading-error\" style=\"max-width:760px;padding:2rem\"><h1>Unable to load this lesson. Please try again later.</h1></main>';",
+            text,
+            count=1,
+        )
+
+    path.write_text(text, encoding="utf-8")
+
+
+def patch_subject_data() -> None:
+    path = ROOT / "assets/js/subjects.js"
+    text = path.read_text(encoding="utf-8-sig")
+    text = re.sub(
+        r'\s*\{\s*label:\s*"Electronics Engineering Short Notes"[^\n]*\n?',
+        "\n",
+        text,
+    )
+    text = re.sub(
+        r'\s*\{\s*label:\s*"Electrical, Electronics, Civil, Mechanical Materials"[^\n]*\n?',
+        "\n",
+        text,
+    )
+    text = re.sub(
+        r'alternativeQuestionPapers:\s*\[.*?\],\s*alternativeOtherMaterials:',
+        'alternativeQuestionPapers: [],\n  alternativeOtherMaterials:',
+        text,
+        flags=re.S,
+    )
+    export = "\n// Explicit exports for shared scripts and resilient component initialization.\nglobalThis.SUBJECTS = SUBJECTS;\nglobalThis.MATERIALS_2015 = MATERIALS_2015;\n"
+    if "globalThis.SUBJECTS = SUBJECTS" not in text:
+        text += export
+    path.write_text(text, encoding="utf-8")
+
+
+def static_checks() -> None:
+    errors: list[str] = []
+    html_files = sorted(ROOT.rglob("*.html"))
+    for path in html_files:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        rel = path.relative_to(ROOT).as_posix()
+        if "<title>" not in text or 'name="description"' not in text:
+            errors.append(f"{rel}: missing title or description")
+        if 'rel="canonical"' not in text or 'property="og:title"' not in text or 'property="og:url"' not in text:
+            errors.append(f"{rel}: missing canonical/Open Graph metadata")
+        if re.search(r'href\s*=\s*["\']\s*#?\s*["\']', text):
+            errors.append(f"{rel}: empty or placeholder href")
+        ids = re.findall(r'\bid=["\']([^"\']+)', text, flags=re.I)
+        duplicate_ids = sorted({item for item in ids if ids.count(item) > 1})
+        if duplicate_ids:
+            errors.append(f"{rel}: duplicate IDs {duplicate_ids}")
+        for match in re.finditer(r'\b(?:src|href|poster)=["\']([^"\']+)', text, flags=re.I):
+            value = match.group(1)
+            if value.startswith(("http://", "https://", "mailto:", "tel:", "data:", "#", "javascript:")):
+                continue
+            parsed = urlsplit(value)
+            local = parsed.path
+            if not local or local.endswith("/"):
+                continue
+            target = ROOT / local.lstrip("/") if local.startswith("/") else path.parent / local
+            if target.suffix.lower() in {".html", ".css", ".js", ".json", ".pdf", ".png", ".jpg", ".jpeg", ".svg", ".webp", ".mp4", ".vtt", ".ico"} and not target.exists():
+                # Lesson links are intentionally handled as unavailable at runtime; all other missing assets are errors.
+                if "/lessons/lessons-" in local or local.startswith("lessons/lessons-") or "downloadable-notes-" in local:
+                    continue
+                errors.append(f"{rel}: missing local resource {value}")
+    subjects = (ROOT / "assets/js/subjects.js").read_text(encoding="utf-8")
+    departments = set(re.findall(r'department:\s*"([^"]+)"', subjects))
+    for path in sorted((ROOT / "revision-2021").glob("*.html")):
+        text = path.read_text(encoding="utf-8")
+        match = re.search(r'data-department=["\']([^"\']+)', text)
+        if match and match.group(1) not in departments:
+            errors.append(f"{path.relative_to(ROOT)}: department identifier has no matching subject data: {match.group(1)}")
+    index = (ROOT / "index.html").read_text(encoding="utf-8")
+    if "Search by Subject Code" not in index or "<source src=\"/assets/media/sfi-poly-pmna.mp4\"" not in index:
+        errors.append("index.html: subject anchor label or video markup not corrected")
+    materials = (ROOT / "materials-2015.html").read_text(encoding="utf-8")
+    if "Official REV2021 model QP reference" in materials:
+        errors.append("materials-2015.html: wrong REV2021 footer reference remains")
+    lesson = (ROOT / "lessons/lessons-2031.html").read_text(encoding="utf-8")
+    if "/lessons/handbook-2031-source.html" not in lesson or "Unable to load this lesson. Please try again later." not in lesson:
+        errors.append("lessons-2031.html: local source or visible failure state missing")
+    if not (ROOT / "lessons/handbook-2031-source.html").exists():
+        errors.append("lessons/handbook-2031-source.html: local handbook source missing")
+    help_js = (ROOT / "assets/js/help-comments.js").read_text(encoding="utf-8")
+    if "Discussion is currently unavailable. Please contact us by email." not in help_js:
+        errors.append("help-comments.js: required discussion failure message missing")
+    if errors:
+        raise SystemExit("Static verification failed:\n- " + "\n- ".join(errors))
+
+
+def main() -> None:
+    (ROOT / "assets/css/hardening.css").write_text(HARDENING_CSS, encoding="utf-8")
+    (ROOT / "assets/js/site-hardening.js").write_text(HARDENING_JS, encoding="utf-8")
+    (ROOT / "assets/js/help-comments.js").write_text(HELP_COMMENTS_JS, encoding="utf-8")
+    patch_subject_data()
+    for filename, args in LEGAL_PAGES.items():
+        (ROOT / filename).write_text(legal_page(filename, *args), encoding="utf-8")
+    for path in sorted(ROOT.rglob("*.html")):
+        patch_html(path)
+    static_checks()
+    print(f"Patched and statically verified {len(list(ROOT.rglob('*.html')))} HTML files.")
+
