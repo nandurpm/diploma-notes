@@ -192,8 +192,17 @@
     @media (max-width:1180px){.lesson-layout{grid-template-columns:1fr}.toc{position:static}.formula-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-inner{grid-template-columns:1fr}.grid-4{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:760px){.topbar-inner{width:100vw;padding:0 10px}.course-code{min-width:70px;height:42px}.tab-btn,.download-pdf-btn{font-size:13px;padding:9px 12px}.hero,.shell,.footer{width:94vw}.hero-inner{padding:22px}.card{padding:18px}.grid-2,.grid-3,.grid-4,.formula-grid{grid-template-columns:1fr}.mini-stats{grid-template-columns:1fr}}
   </style>
+
+<style id="revision-back-button-style">
+.revision-back-button{position:fixed;left:16px;bottom:16px;z-index:9999;display:inline-flex;align-items:center;justify-content:center;gap:.42rem;padding:.72rem 1rem;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:linear-gradient(135deg,#075985,#6d28d9);color:#fff!important;text-decoration:none!important;font-family:Segoe UI,Arial,sans-serif;font-size:.84rem;font-weight:900;line-height:1;letter-spacing:.01em;box-shadow:0 12px 30px rgba(15,23,42,.24);transition:transform .2s ease,box-shadow .2s ease;white-space:nowrap}
+.revision-back-button:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(15,23,42,.3)}
+.revision-back-button:focus-visible{outline:3px solid #fbbf24;outline-offset:3px}
+@media(max-width:560px){.revision-back-button{left:10px;bottom:10px;padding:.66rem .82rem;font-size:.76rem}}
+@media print{.revision-back-button{display:none!important}}
+</style>
 </head>
 <body>
+<a class="revision-back-button" href="../revision-2021.html" aria-label="Back to Revision 2021">&#8592; Back to Revision 2021</a>
   <header class="topbar">
     <div class="topbar-inner">
       <div class="course-code">3041</div>
