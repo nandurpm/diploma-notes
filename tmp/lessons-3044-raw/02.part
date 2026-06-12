@@ -1,0 +1,73 @@
+tcome codes evidenced in the supplied official-style model paper. Reconstructed titles are clearly identified as handbook organization, not claimed as official syllabus titles.</p>
+    <div class="module-strip">
+      <div><b>Module 1</b>Number systems, gates, Boolean algebra, K-Maps</div>
+      <div><b>Module 2</b>Logic families and combinational circuits</div>
+      <div><b>Module 3</b>Flip-flops, registers, ring and Johnson counters</div>
+      <div><b>Module 4</b>Asynchronous/synchronous counters and memories</div>
+    </div>
+  </aside>
+</section>
+
+
+<section class="section" id="overview">
+<div class="section-head"><span class="eyebrow">Course Overview</span><h2>What Digital Electronics is and why it matters</h2><p>Digital electronics represents and processes information using discrete logic levels, normally 0 and 1. It is the foundation of computers, embedded systems, communication equipment, medical instruments, industrial control and modern consumer electronics.</p></div>
+<div class="grid">
+  <article class="card third blue"><h3>Information as bits</h3><p>A bit has two states. Groups of bits represent numbers, instructions, characters, addresses and control information.</p></article>
+  <article class="card third cyan"><h3>Logic as decisions</h3><p>Logic gates implement decisions such as AND, OR, NOT and XOR. Boolean algebra gives a mathematical language to simplify those decisions.</p></article>
+  <article class="card third violet"><h3>Memory and sequence</h3><p>Flip-flops and registers remember past information. Counters and state circuits create controlled sequences over time.</p></article>
+</div>
+<h3>Importance and applications</h3>
+<div class="grid">
+  <div class="card quarter"><h4>Computing</h4><p>Processors, memories, storage interfaces and digital buses.</p></div>
+  <div class="card quarter"><h4>Communication</h4><p>Encoding, multiplexing, switching, timing and control.</p></div>
+  <div class="card quarter"><h4>Automation</h4><p>Programmable controllers, counters, sensors and machine sequencing.</p></div>
+  <div class="card quarter"><h4>Medical and instrumentation</h4><p>Digital measurement, data acquisition, alarms and display systems.</p></div>
+</div>
+<div class="callout exam"><b>Source limitation</b><div>The supplied document is a model question paper, not a complete syllabus. Therefore, credits, category, course objectives, exact CO-PO mapping, periods and official reference books are not fabricated. Module titles below are a logical handbook reconstruction from the questions and module-outcome codes.</div></div>
+</section>
+
+<section class="section" id="how">
+<div class="section-head"><span class="eyebrow">Study Method</span><h2>How to use this handbook</h2><p>For every topic: understand the idea, inspect the truth table or diagram, work the solved example, then attempt the practice question without looking at the answer.</p></div>
+<div class="grid">
+  <div class="card quarter"><h3>1. Learn the rule</h3><p>Read definitions, formulas and design rules.</p></div>
+  <div class="card quarter"><h3>2. Trace the logic</h3><p>Follow signal paths, state transitions and timing diagrams.</p></div>
+  <div class="card quarter"><h3>3. Solve step-by-step</h3><p>Show all conversions, K-Map groups and design tables.</p></div>
+  <div class="card quarter"><h3>4. Practise for marks</h3><p>Use one-mark, three-mark and seven-mark patterns.</p></div>
+</div>
+</section>
+
+<section class="section" id="contents">
+<div class="section-head"><span class="eyebrow">Table of Contents</span><h2>Clickable handbook map</h2><p>All links point to a valid section in this standalone file.</p></div>
+<div class="toc">
+<a href="#source-info">Source & Exam Information <span>→</span></a>
+<a href="#roadmap">Learning Roadmap <span>→</span></a>
+<a href="#module1">Module 1 <span>→</span></a>
+<a href="#module2">Module 2 <span>→</span></a>
+<a href="#module3">Module 3 <span>→</span></a>
+<a href="#module4">Module 4 <span>→</span></a>
+<a href="#banks">Rule and Formula Banks <span>→</span></a>
+<a href="#solved-examples">Solved Examples <span>→</span></a>
+<a href="#expected">Expected Questions <span>→</span></a>
+<a href="#practice">Practice Section <span>→</span></a>
+<a href="#revision">Quick Revision <span>→</span></a>
+<a href="#model-paper">Fresh Model Paper <span>→</span></a>
+<a href="#answers">Complete Model Answers <span>→</span></a>
+</div>
+</section>
+
+<section class="section" id="source-info">
+<div class="section-head"><span class="eyebrow">Source and Examination Information</span><h2>Confirmed examination pattern</h2><p>The two supplied model sets establish the title, semester, programme applicability, module-outcome codes and paper structure.</p></div>
+<div class="table-wrap"><table class=""><thead><tr><th>Item</th><th>Confirmed information</th></tr></thead><tbody><tr><td>Subject</td><td>Digital Electronics</td></tr><tr><td>Course code</td><td>3044</td></tr><tr><td>Semester</td><td>Third Semester</td></tr><tr><td>Programme</td><td>Common to BM / EC / EL</td></tr><tr><td>Scheme</td><td>Revision 2021</td></tr><tr><td>Time</td><td>3 hours</td></tr><tr><td>Maximum marks</td><td>75</td></tr><tr><td>Part A</td><td>9 questions × 1 mark = 9; answer all</td></tr><tr><td>Part B</td><td>10 questions; answer any 8; 3 marks each = 24</td></tr><tr><td>Part C</td><td>6 compulsory groups, each with internal OR; 7 marks per group = 42</td></tr><tr><td>Available module-outcome codes</td><td>M1.01, M1.03, M1.04, M2.02, M2.04, M3.01, M3.02, M3.03, M3.04, M4.01, M4.02, M4.03, M4.04</td></tr><tr><td>Not specified in supplied source</td><td>Credits, category, periods, formal objectives, CO-PO mapping, official reference books</td></tr></tbody></table></div>
+</section>
+
+<section class="section" id="roadmap">
+<div class="section-head"><span class="eyebrow">Learning Roadmap</span><h2>Four reconstructed modules</h2><p>The following module titles are a handbook organization inferred from the topic distribution in the model papers.</p></div>
+<div class="table-wrap"><table class=""><thead><tr><th>Module</th><th>Evidenced outcome codes</th><th>Core topics</th><th>Exam emphasis</th></tr></thead><tbody><tr><td>1. Number Systems, Logic Gates, Boolean Algebra and K-Maps</td><td>M1.01, M1.03, M1.04</td><td>Conversions, complements, binary arithmetic, universal gates, Boolean laws, De Morgan, K-Maps</td><td>Short calculations and 7-mark conversion / minimization problems</td></tr><tr><td>2. Logic Families and Combinational Logic Circuits</td><td>M2.02, M2.04</td><td>CMOS/ECL parameters, adders, multiplexers, demultiplexers, binary-to-Gray conversion</td><td>3-mark features and 7-mark truth-table/K-Map designs</td></tr><tr><td>3. Flip-Flops, Shift Registers, Ring and Johnson Counters</td><td>M3.01, M3.02, M3.03, M3.04</td><td>Sequential logic, flip-flops, conversions, register types, ring and Johnson sequence</td><td>Symbols, truth tables, diagrams and conversion/design questions</td></tr><tr><td>4. Counters and Semiconductor Memories</td><td>M4.01, M4.02, M4.03, M4.04</td><td>Ripple/synchronous counters, MOD design, timing diagrams, RAM/ROM/PROM/EPROM/EEPROM</td><td>Counter design and memory comparisons</td></tr></tbody></table></div>
+</section>
+
+
+<section class="section module" id="module1">
+<div class="section-head"><span class="eyebrow">Module 1 • M1.01 / M1.03 / M1.04</span><h2>Number Systems, Logic Gates, Boolean Algebra and K-Maps</h2><p>This title is reconstructed from the official model-paper topics. The chapter develops the complete calculation and logic-design foundation required by those questions.</p></div>
+<div class="grid">
+ <div class="card blue"><h3>Learning targets</h3><ul><li>Convert between decimal, binary and hexadecimal—including fractions.</li><li>Perform binary arithmetic and complement subtraction.</li><li>Use logic gates and universal-gate implementation.</li><li>Simplify expressions using Boolean laws and K-Maps.</li></ul></div>
+ <div class="card cyan"><h3>Core exam skills</h3><ul><li>Show e
