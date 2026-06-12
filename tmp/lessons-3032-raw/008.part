@@ -1,0 +1,76 @@
+<tr><th>Feature</th><th>Interpoles</th><th>Compensating winding</th></tr></thead><tbody>
+    <tr><td>Location</td><td>Between main poles</td><td>In main-pole shoes</td></tr><tr><td>Main purpose</td><td>Improve commutation in neutral zone</td><td>Neutralise cross-magnetising effect under pole arc</td></tr><tr><td>Connection</td><td>Series with armature</td><td>Series with armature</td></tr><tr><td>Use</td><td>Common in medium/large machines</td><td>Heavy-duty machines with rapidly changing load</td></tr>
+  </tbody></table></div>
+
+  <h3>3. Commutation</h3>
+  <p>Commutation is the reversal of current in an armature coil while the brush short-circuits the two commutator segments connected to that coil. Ideally, current changes linearly from +I to −I during the commutation period and reaches its final value exactly when the coil leaves the brush.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1100 420" role="img" aria-label="Armature coil undergoing commutation beneath a carbon brush">
+      <g transform="translate(40,35)">
+        <rect x="260" y="0" width="300" height="75" rx="15" fill="#222"/><text x="350" y="48" fill="#fff" font-size="27" font-weight="900">Carbon brush</text>
+        <path d="M180 130 A110 110 0 0 1 400 130" fill="none" stroke="#b65f2b" stroke-width="50"/><path d="M420 130 A110 110 0 0 1 640 130" fill="none" stroke="#b65f2b" stroke-width="50"/>
+        <line x1="400" y1="80" x2="400" y2="180" stroke="#fff" stroke-width="7"/><line x1="420" y1="80" x2="420" y2="180" stroke="#fff" stroke-width="7"/>
+        <path d="M290 150 C250 260 565 260 530 150" fill="none" stroke="#0b5f9e" stroke-width="9"/>
+        <text x="110" y="320" font-size="23">Coil is short-circuited while brush bridges two segments.</text>
+        <text x="220" y="380" font-size="22" fill="#b4233c">Current must reverse from +I to −I</text>
+      </g>
+    </svg>
+    <figcaption>Inductance opposes current reversal and produces reactance voltage e<sub>r</sub>=L·di/dt. If reversal is incomplete, current interruption at the brush edge causes sparking.</figcaption>
+  </figure>
+
+  <div class="grid">
+    <div class="card green"><h4>Ideal commutation</h4><p>Current reverses uniformly and reaches −I by the end of brush contact. No residual current is interrupted.</p></div>
+    <div class="card amber"><h4>Under-commutation</h4><p>Current reverses too slowly. At brush exit, current has not reached −I, causing sparking at the trailing edge.</p></div>
+    <div class="card rose"><h4>Over-commutation</h4><p>Current reverses too quickly and overshoots. Sparking may occur at the leading edge.</p></div>
+  </div>
+  <div class="curve-panel"><h4>Current reversal during commutation</h4>
+    <svg viewBox="0 0 850 330" role="img" aria-label="Ideal, under and over commutation current curves">
+      <line x1="75" y1="45" x2="75" y2="285" stroke="#334155" stroke-width="3"/><line x1="75" y1="165" x2="810" y2="165" stroke="#334155" stroke-width="3"/>
+      <line x1="180" y1="55" x2="700" y2="275" stroke="#27835f" stroke-width="6"/><path d="M180 55 C370 75 530 160 700 235" fill="none" stroke="#d97706" stroke-width="6"/><path d="M180 55 C350 170 520 280 700 275" fill="none" stroke="#b4233c" stroke-width="6"/>
+      <text x="610" y="215" fill="#d97706" font-size="21">Under</text><text x="610" y="300" fill="#b4233c" font-size="21">Over</text><text x="610" y="245" fill="#27835f" font-size="21">Ideal</text>
+      <text x="12" y="55" font-size="21">+I</text><text x="12" y="280" font-size="21">−I</text><text x="340" y="320" font-size="21">Commutation time</text>
+    </svg>
+  </div>
+
+  <h4>Methods of improving commutation</h4>
+  <div class="grid">
+    <div class="card quarter"><h4>Carbon brushes</h4><p>Higher contact resistance helps current transfer gradually from one segment to the next: resistance commutation.</p></div>
+    <div class="card quarter"><h4>Interpoles</h4><p>Provide reversing EMF proportional to armature current: EMF commutation.</p></div>
+    <div class="card quarter"><h4>Correct brush position</h4><p>Brushes should lie on the actual MNA, though fixed brush shift is inadequate over wide load range.</p></div>
+    <div class="card quarter"><h4>Shorter coil inductance</h4><p>Good winding design reduces reactance voltage and improves current reversal.</p></div>
+  </div>
+
+  <h3>4. Equalizer connections</h3>
+  <p>In a lap winding, each pole provides a separate parallel path. Small differences in air-gap flux can produce unequal path EMFs, causing circulating currents through brushes and commutator. Equalizer rings connect equipotential points of the winding, allowing circulating current to flow inside the armature instead of through the brushes. Wave windings normally do not require equalizer rings because each parallel path includes conductors under all poles.</p>
+
+  <h3>5. Generator characteristics</h3>
+  <p>A characteristic is a graph showing how voltage, current or excitation changes under specified operating conditions.</p>
+  <div class="table-wrap"><table><thead><tr><th>Characteristic</th><th>Axes</th><th>Meaning</th></tr></thead><tbody>
+    <tr><td>Open-circuit characteristic (OCC)</td><td>Eg versus field current If at constant speed, no load</td><td>Magnetisation curve; shows residual voltage and saturation</td></tr>
+    <tr><td>Internal characteristic</td><td>Generated EMF after armature-reaction effect versus load current</td><td>Lies below ideal generated-voltage relation</td></tr>
+    <tr><td>External characteristic</td><td>Terminal voltage V versus load current IL</td><td>Includes armature-reaction and internal voltage drops</td></tr>
+  </tbody></table></div>
+
+  <div class="grid">
+    <div class="curve-panel"><h4>Separately excited generator</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="OCC and load characteristics of separately excited generator">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M70 285 C155 190 250 90 420 75 C500 70 560 70 600 68" fill="none" stroke="#0b5f9e" stroke-width="6"/>
+        <text x="270" y="55" font-size="20" fill="#0b5f9e">OCC: Eg vs If</text><text x="280" y="355" font-size="20">Field current If</text><text x="10" y="55" font-size="20">Eg</text>
+      </svg>
+      <p>At first, Eg rises almost linearly with If. Magnetic saturation bends the curve.</p>
+    </div>
+    <div class="curve-panel"><h4>Shunt generator: internal and external</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="Internal and external characteristics of a shunt generator">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M75 90 C270 92 440 120 590 195" fill="none" stroke="#6d43b5" stroke-width="6"/><path d="M75 105 C280 115 445 160 590 270" fill="none" stroke="#b65f2b" stroke-width="6"/>
+        <text x="360" y="115" font-size="19" fill="#6d43b5">Internal Eg</text><text x="380" y="235" font-size="19" fill="#b65f2b">External V</text><text x="270" y="355" font-size="20">Load current IL</text><text x="15" y="55" font-size="20">Voltage</text>
+      </svg>
+      <p>Terminal voltage falls because IaRa drop and armature reaction reduce voltage. Falling V also reduces shunt-field current, causing a cumulative drop.</p>
+    </div>
+    <div class="curve-panel"><h4>Series generator</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="Series generator external characteristic">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M75 295 C170 235 255 145 360 105 C455 68 530 95 590 150" fill="none" stroke="#d97706" stroke-width="6"/>
+        <text x="300" y="355" font-size="20">Load current IL</text><text x="15" y="55" font-size="20">V</text><text x="330" y="85" font-size="19" fill="#d9770
