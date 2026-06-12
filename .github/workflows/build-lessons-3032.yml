@@ -23,12 +23,20 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Assemble standalone handbook
+      - name: Assemble and verify standalone handbook
         run: |
+          set -x
+          ls -la tmp/lessons-3032-raw
+          ls -la tmp/lessons-3032-tail
           mkdir -p lessons
           cat tmp/lessons-3032-raw/*.part > lessons/lessons-3032.html
-          cat tmp/lessons-3032-tail/*.part | base64 -d | gzip -d >> lessons/lessons-3032.html
-          test -s lessons/lessons-3032.html
+          cat tmp/lessons-3032-tail/*.part > /tmp/lessons-3032-tail.b64
+          wc -c lessons/lessons-3032.html /tmp/lessons-3032-tail.b64
+          base64 -d /tmp/lessons-3032-tail.b64 > /tmp/lessons-3032-tail.gz
+          gzip -t /tmp/lessons-3032-tail.gz
+          gzip -dc /tmp/lessons-3032-tail.gz >> lessons/lessons-3032.html
+          wc -c lessons/lessons-3032.html
+          sha256sum lessons/lessons-3032.html
           test "$(sha256sum lessons/lessons-3032.html | awk '{print $1}')" = "c709059935d3e236f62e0d581a61443900dc114dc400e405d52363ba3d087566"
           grep -q '<title>DC Machines &amp; Traction Motors | Course 3032</title>' lessons/lessons-3032.html
           grep -q 'Complete Model Answers' lessons/lessons-3032.html
@@ -37,6 +45,7 @@ jobs:
       - name: Remove staging files and workflow
         run: |
           rm -rf tmp/lessons-3032-raw tmp/lessons-3032-hex tmp/lessons-3032-tail
+          rm -f tmp/trigger-lessons-3032-build.txt
           rm -f .github/workflows/build-lessons-3032.yml
 
       - name: Commit completed handbook
