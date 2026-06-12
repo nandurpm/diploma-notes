@@ -5,82 +5,87 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Fundamentals of Electrical and Electronics Engineering — Course 2031">
 <title>lessons-2031 | Fundamentals of Electrical and Electronics Engineering</title>
+<link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-2031.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="lessons-2031 | Fundamentals of Electrical and Electronics Engineering">
+<meta property="og:description" content="Fundamentals of Electrical and Electronics Engineering — Course 2031">
+<meta property="og:url" content="https://polypmna.dpdns.org/lessons/lessons-2031.html">
+<link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
 <style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f4f8fb;color:#0f172a;font-family:Segoe UI,Arial,sans-serif}.loading{text-align:center;padding:2rem}.spinner{width:44px;height:44px;margin:0 auto 1rem;border:4px solid #d7e2ef;border-top-color:#0b4f6c;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f4f8fb;color:#0f172a;font-family:Segoe UI,Arial,sans-serif}.loading,.loading-error{width:min(100%,760px);text-align:center;padding:2rem}.spinner{width:44px;height:44px;margin:0 auto 1rem;border:4px solid #d7e2ef;border-top-color:#0b4f6c;border-radius:50%;animation:spin .8s linear infinite}.loading-error{border:1px solid #f1aeb5;border-radius:18px;background:#fff5f5;color:#8a1c28}@keyframes spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
 </style>
-  <link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-2031.html">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="lessons-2031 | Fundamentals of Electrical and Electronics Engineering">
-  <meta property="og:description" content="Fundamentals of Electrical and Electronics Engineering — Course 2031">
-  <meta property="og:url" content="https://polypmna.dpdns.org/lessons/lessons-2031.html">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
 </head>
 <body>
-<main class="loading"><div class="spinner"></div><strong>Loading handbook…</strong></main>
+<main class="loading" id="lessonLoading" role="status" aria-live="polite"><div class="spinner" aria-hidden="true"></div><strong>Loading handbook…</strong></main>
 <script>
-(async()=>{
-  try{
-    const source='/lessons/handbook-2031-source.html';
-    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),12000);const response=await fetch(source,{cache:'no-store',signal:controller.signal});clearTimeout(timeout);
-    if(!response.ok) throw new Error('Unable to load handbook source');
-    let html=await response.text();
-    const layoutFix=`
+(async () => {
+  const source = "/lessons/handbook-2031-source.html";
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 12000);
+
+  try {
+    const response = await fetch(source, { cache: "no-store", signal: controller.signal });
+    if (!response.ok) throw new Error(`Handbook request failed with HTTP ${response.status}.`);
+
+    let handbook = await response.text();
+    if (!/<html[\s>]/i.test(handbook) || !/<\/body>/i.test(handbook)) {
+      throw new Error("The local handbook source is missing required HTML structure.");
+    }
+
+    const layoutFix = `
 <style id="full-width-navigation-fix">
 :root{--lesson-nav-height:68px}
 html{width:100%!important;max-width:none!important;scroll-padding-top:calc(var(--lesson-nav-height) + 12px)!important}
 body{width:100%!important;max-width:none!important;margin:0!important;padding-top:var(--lesson-nav-height)!important;overflow-x:clip!important}
 .wrap{width:100%!important;max-width:none!important;margin:0!important;padding-left:clamp(5px,.55vw,11px)!important;padding-right:clamp(5px,.55vw,11px)!important}
-.top{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;z-index:99999!important;transform:translateZ(0)!important;will-change:transform!important;background:rgba(255,255,255,.98)!important;box-shadow:0 8px 24px rgba(15,23,42,.13)!important}
+.top{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;z-index:99999!important;transform:translateZ(0)!important;background:rgba(255,255,255,.98)!important;box-shadow:0 8px 24px rgba(15,23,42,.13)!important}
 .nav{width:100%!important;max-width:none!important;min-height:68px!important;margin:0!important;padding:.5rem clamp(5px,.55vw,11px)!important;display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-start!important;gap:.38rem!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin!important;overscroll-behavior-x:contain!important}
-.logo{flex:0 0 48px!important;min-width:48px!important;height:48px!important}
-.brand{flex:0 0 clamp(235px,22vw,360px)!important;min-width:0!important;white-space:normal!important;line-height:1.12!important}
-.nav a,.btn{flex:0 0 auto!important;font-size:.77rem!important;line-height:1!important;padding:.52rem .66rem!important}
-.btn{margin-left:0!important}
-.hero{padding:.62rem 0!important;gap:.7rem!important}
-.sec{margin:.7rem 0!important}
-section[id]{scroll-margin-top:calc(var(--lesson-nav-height) + 12px)!important}
-@media(max-width:1100px){
- .brand{flex-basis:245px!important}
- .nav a,.btn{font-size:.74rem!important;padding:.48rem .58rem!important}
-}
-@media(max-width:760px){
- :root{--lesson-nav-height:62px}
- .wrap{padding-left:4px!important;padding-right:4px!important}
- .nav{min-height:62px!important;padding:.38rem 4px!important;gap:.3rem!important}
- .logo{flex-basis:44px!important;min-width:44px!important;height:44px!important;border-radius:13px!important}
- .brand{flex-basis:195px!important;font-size:.83rem!important}
- .nav a,.btn{font-size:.7rem!important;padding:.43rem .52rem!important}
-}
-@media print{
- body{padding-top:0!important}
- .top{display:none!important}
- .wrap{padding:0!important}
- section[id]{scroll-margin-top:0!important}
-}
+.logo{flex:0 0 48px!important;min-width:48px!important;height:48px!important}.brand{flex:0 0 clamp(235px,22vw,360px)!important;min-width:0!important;white-space:normal!important;line-height:1.12!important}.nav a,.btn{flex:0 0 auto!important;font-size:.77rem!important;line-height:1!important;padding:.52rem .66rem!important}.btn{margin-left:0!important}.hero{padding:.62rem 0!important;gap:.7rem!important}.sec{margin:.7rem 0!important}section[id]{scroll-margin-top:calc(var(--lesson-nav-height) + 12px)!important}
+@media(max-width:1100px){.brand{flex-basis:245px!important}.nav a,.btn{font-size:.74rem!important;padding:.48rem .58rem!important}}
+@media(max-width:760px){:root{--lesson-nav-height:62px}.wrap{padding-left:4px!important;padding-right:4px!important}.nav{min-height:62px!important;padding:.38rem 4px!important;gap:.3rem!important}.logo{flex-basis:44px!important;min-width:44px!important;height:44px!important;border-radius:13px!important}.brand{flex-basis:195px!important;font-size:.83rem!important}.nav a,.btn{font-size:.7rem!important;padding:.43rem .52rem!important}}
+@media print{body{padding-top:0!important}.top{display:none!important}.wrap{padding:0!important}section[id]{scroll-margin-top:0!important}}
 </style>`;
-    const fixedHeaderScript=`
+
+    const runtimeScripts = `
 <script id="fixed-header-height-sync">
-(()=>{
- const sync=()=>{
-  const header=document.querySelector('.top');
-  if(!header)return;
-  document.documentElement.style.setProperty('--lesson-nav-height',Math.ceil(header.getBoundingClientRect().height)+'px');
- };
- requestAnimationFrame(sync);
- window.addEventListener('resize',sync,{passive:true});
- window.addEventListener('orientationchange',()=>setTimeout(sync,120),{passive:true});
- if('ResizeObserver' in window){const observer=new ResizeObserver(sync);const header=document.querySelector('.top');if(header)observer.observe(header)}
+(() => {
+  const sync = () => {
+    const header = document.querySelector('.top');
+    if (!header) return;
+    document.documentElement.style.setProperty('--lesson-nav-height', Math.ceil(header.getBoundingClientRect().height) + 'px');
+  };
+  requestAnimationFrame(sync);
+  window.addEventListener('resize', sync, { passive: true });
+  window.addEventListener('orientationchange', () => setTimeout(sync, 120), { passive: true });
+  if ('ResizeObserver' in window) {
+    const header = document.querySelector('.top');
+    if (header) new ResizeObserver(sync).observe(header);
+  }
 })();
-<\/script>`;
-    html=html.replace('</head>',layoutFix+'\n</head>');
-    html=html.replace('  <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
-</body>',fixedHeaderScript+'\n</body>');
+<\/script>
+<script src="/assets/js/site-hardening.js?v=20260612-1" defer><\/script>`;
+
+    handbook = handbook.replace(/<script\b[^>]*site-hardening\.js[^>]*><\/script>/gi, "");
+    handbook = handbook.replaceAll(
+      "https://polypmna.dpdns.org/lessons/handbook-2031-source.html",
+      "https://polypmna.dpdns.org/lessons/lessons-2031.html"
+    );
+    handbook = handbook.replace(/<\/head>/i, `${layoutFix}\n</head>`);
+    handbook = handbook.replace(/<\/body>/i, `${runtimeScripts}\n</body>`);
+
     document.open();
-    document.write(html);
+    document.write(handbook);
     document.close();
-    if(location.hash){setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView(),120)}
-  }catch(error){
-    console.error('Unable to load lesson 2031.',error);document.body.innerHTML='<main class="loading-error" style="max-width:760px;padding:2rem"><h1>Unable to load this lesson. Please try again later.</h1></main>';padding:2rem"><h1>Unable to load the handbook</h1><p>Please check the internet connection and reload the page.</p></main>';
+  } catch (error) {
+    console.error("Unable to load lesson 2031 from the local handbook source.", { source, error });
+    const main = document.createElement("main");
+    main.className = "loading-error";
+    const heading = document.createElement("h1");
+    heading.textContent = "Unable to load this lesson. Please try again later.";
+    main.append(heading);
+    document.body.replaceChildren(main);
+  } finally {
+    window.clearTimeout(timeout);
   }
 })();
 </script>
