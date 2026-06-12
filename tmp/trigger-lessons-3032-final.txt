@@ -1,0 +1,1 @@
+Trigger the corrected lessons-3032 handbook assembly workflow.
