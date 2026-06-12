@@ -1,0 +1,38 @@
+rque opposes motion.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1160 430" role="img" aria-label="Rheostatic and regenerative braking energy-flow diagrams">
+      <defs><marker id="be" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#b65f2b"/></marker></defs>
+      <g transform="translate(20,20)"><text x="150" y="25" font-size="26" font-weight="900">Rheostatic braking</text><circle cx="170" cy="190" r="75" fill="#fff" stroke="#b65f2b" stroke-width="7"/><text x="123" y="198" font-size="24" font-weight="900">Motor → G</text><rect x="350" y="140" width="170" height="100" rx="15" fill="#fff5ed" stroke="#b65f2b" stroke-width="6"/><text x="378" y="183" font-size="23" font-weight="900">Braking</text><text x="390" y="215" font-size="23" font-weight="900">resistor</text><line x1="245" y1="190" x2="345" y2="190" stroke="#b65f2b" stroke-width="8" marker-end="url(#be)"/><text x="130" y="330" font-size="22">Kinetic energy → electrical → heat</text></g>
+      <g transform="translate(610,20)"><text x="125" y="25" font-size="26" font-weight="900">Regenerative braking</text><circle cx="150" cy="190" r="75" fill="#fff" stroke="#27835f" stroke-width="7"/><text x="103" y="198" font-size="24" font-weight="900">Motor → G</text><rect x="350" y="140" width="170" height="100" rx="15" fill="#edfdf5" stroke="#27835f" stroke-width="6"/><text x="390" y="183" font-size="23" font-weight="900">Supply /</text><text x="385" y="215" font-size="23" font-weight="900">line</text><line x1="225" y1="190" x2="345" y2="190" stroke="#27835f" stroke-width="8" marker-end="url(#be)"/><text x="90" y="330" font-size="22">Kinetic energy → electrical → supply</text></g>
+    </svg>
+    <figcaption>Arrow direction shows energy, not merely current. Mechanical brakes are still required for low speed, parking and emergency backup.</figcaption>
+  </figure>
+
+  <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Rheostatic braking</th><th>Regenerative braking</th></tr></thead><tbody>
+    <tr><td>Energy destination</td><td>Dissipated as heat</td><td>Returned to supply</td></tr><tr><td>Supply receptivity</td><td>Not required</td><td>Supply must accept returned energy</td></tr><tr><td>Control</td><td>Relatively simple</td><td>Requires correct voltage/polarity and protection</td></tr><tr><td>Efficiency</td><td>Energy wasted</td><td>Energy recovered</td></tr><tr><td>Low-speed performance</td><td>Weakens as generated EMF falls</td><td>Also weakens; mechanical brake needed</td></tr>
+  </tbody></table></div>
+
+  <div class="ml"><b>Malayalam Support:</b> Rheostatic braking-ൽ generated energy resistor-ൽ heat ആയി നഷ്ടപ്പെടുന്നു. Regenerative braking-ൽ energy supply-ലേക്ക് തിരികെ നൽകുന്നു.</div>
+
+  <div class="solution">
+    <h4>Solved numerical M4-3: Rheostatic braking power</h4>
+    <p><b>Problem:</b> During braking, a traction motor generates 300 V and is connected to total resistance 2.5 Ω. Neglect losses. Find braking current and electrical braking power.</p>
+    <p><b>Current:</b> I=Eg/R=300/2.5=120 A.</p>
+    <p><b>Power:</b> P=EgI=300×120=36,000 W.</p>
+    <p class="line"><b>Final answer:</b> Braking current=<b>120 A</b>; power dissipated=<b>36 kW</b>.</p>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M4-4: Regenerated power</h4>
+    <p><b>Problem:</b> A motor generates 620 V while connected to a 600 V line. Total circuit resistance is 0.20 Ω. Find current returned and power delivered to the line.</p>
+    <p><b>Current:</b> I=(Eg−V)/R=(620−600)/0.20=100 A.</p>
+    <p><b>Line power:</b> Pline=VI=600×100=60 kW.</p>
+    <p><b>Generated electrical power:</b> EgI=62 kW; 2 kW is circuit copper loss.</p>
+    <p class="line"><b>Final answer:</b> <b>100 A</b> returned; <b>60 kW</b> delivered to line.</p>
+  </div>
+
+  <details open><summary>Module 4 expected-question practice</summary>
+    <div class="question-bank">
+      <div class="qcard"><span class="tag">Formula</span><h4>State the DC-motor speed e
