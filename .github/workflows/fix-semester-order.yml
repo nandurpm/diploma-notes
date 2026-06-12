@@ -1,0 +1,157 @@
+name: Fix semester-wise subject ordering
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fix-semester-order.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-order:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Sort and group every department subject browser by semester
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          js_path = Path('assets/js/main.js')
+          js = js_path.read_text(encoding='utf-8')
+
+          helper_marker = '''function setupSubjectBrowser() {'''
+          helpers = r'''function semesterRank(value) {
+  const text = String(value || "");
+  const match = text.match(/semester\s*(\d+)/i);
+  if (match) return Number(match[1]);
+  if (/first\s*year/i.test(text)) return 1;
+  return Number.MAX_SAFE_INTEGER;
+}
+
+function compareSubjectCodes(a, b) {
+  return String(a || "").localeCompare(String(b || ""), undefined, {
+    numeric: true,
+    sensitivity: "base"
+  });
+}
+
+function sortSubjectsSemesterWise(subjects, fixedDepartment = "") {
+  return [...subjects].sort((a, b) => {
+    const semesterDifference = semesterRank(a.semester) - semesterRank(b.semester);
+    if (semesterDifference) return semesterDifference;
+
+    if (fixedDepartment) {
+      const aCommon = a.department === "First Year / Common" ? 0 : 1;
+      const bCommon = b.department === "First Year / Common" ? 0 : 1;
+      if (aCommon !== bCommon) return aCommon - bCommon;
+    } else {
+      const aDepartment = a.department === "First Year / Common" ? "" : String(a.department || "");
+      const bDepartment = b.department === "First Year / Common" ? "" : String(b.department || "");
+      const departmentDifference = aDepartment.localeCompare(bDepartment, undefined, { sensitivity: "base" });
+      if (departmentDifference) return departmentDifference;
+    }
+
+    const codeDifference = compareSubjectCodes(a.code, b.code);
+    if (codeDifference) return codeDifference;
+    return String(a.name || "").localeCompare(String(b.name || ""), undefined, { sensitivity: "base" });
+  });
+}
+
+function renderSemesterGroups(subjects) {
+  const totals = subjects.reduce((map, subject) => {
+    const semester = subject.semester || "Other subjects";
+    map.set(semester, (map.get(semester) || 0) + 1);
+    return map;
+  }, new Map());
+
+  let previousSemester = "";
+  return subjects.map((subject) => {
+    const semester = subject.semester || "Other subjects";
+    const heading = semester !== previousSemester
+      ? `<div class="semester-group-heading"><span>${escapeHtml(semester)}</span><small>${totals.get(semester)} ${totals.get(semester) === 1 ? "subject" : "subjects"}</small></div>`
+      : "";
+    previousSemester = semester;
+    return heading + subjectCard(subject);
+  }).join("");
+}
+
+'''
+
+          if 'function sortSubjectsSemesterWise(' not in js:
+              if helper_marker not in js:
+                  raise SystemExit('setupSubjectBrowser marker not found')
+              js = js.replace(helper_marker, helpers + helper_marker, 1)
+
+          old_filter_start = '    const visible = subjects.filter((subject) => {'
+          new_filter_start = '    const visible = sortSubjectsSemesterWise(subjects.filter((subject) => {'
+          if old_filter_start in js:
+              js = js.replace(old_filter_start, new_filter_start, 1)
+
+          old_render = '''    });
+
+    grid.innerHTML = visible.length ? visible.map(subjectCard).join("") : '<p class="empty">No subjects match this filter.</p>';'''
+          new_render = '''    }), fixedDepartment);
+
+    grid.innerHTML = visible.length ? renderSemesterGroups(visible) : '<p class="empty">No subjects match this filter.</p>';'''
+          if old_render in js:
+              js = js.replace(old_render, new_render, 1)
+          elif 'renderSemesterGroups(visible)' not in js:
+              raise SystemExit('Subject render block not found')
+
+          js_path.write_text(js, encoding='utf-8')
+
+          css_path = Path('assets/css/style.css')
+          css = css_path.read_text(encoding='utf-8')
+          css_marker = '.subject-card {'
+          semester_css = '''.semester-group-heading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 64px;
+  margin-top: 12px;
+  padding: 14px 18px;
+  border: 1px solid rgba(29,78,216,.14);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(219,234,254,.96), rgba(236,253,245,.96));
+  box-shadow: 0 12px 28px rgba(20,45,90,.08);
+}
+.semester-group-heading:first-child { margin-top: 0; }
+.semester-group-heading span {
+  color: #0f3f8a;
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  font-weight: 950;
+  letter-spacing: -.03em;
+}
+.semester-group-heading small {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #047857;
+  background: rgba(255,255,255,.88);
+  font-size: .78rem;
+  font-weight: 900;
+}
+'''
+          if '.semester-group-heading {' not in css:
+              if css_marker not in css:
+                  raise SystemExit('subject-card CSS marker not found')
+              css = css.replace(css_marker, semester_css + css_marker, 1)
+          css_path.write_text(css, encoding='utf-8')
+          PY
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/main.js assets/css/style.css
+          git commit -m "Order and group all department subjects by semester"
+          git push origin main
