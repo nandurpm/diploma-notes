@@ -1,0 +1,77 @@
+Thus NAND alone can implement the basic gates.</pre></div>
+<div class="solution"><h4>6. Half-adder design</h4><pre>Truth table gives S=1 for 01 and 10, so S=A⊕B.
+Carry is 1 only for 11, so C=AB.
+Implement one XOR gate for Sum and one AND gate for Carry.</pre></div>
+<div class="solution"><h4>7. Select lines for an 8:1 MUX</h4><pre>For 2ⁿ inputs, select lines=n.
+8=2³, therefore n=3.
+Answer: 3 select lines.</pre></div>
+<div class="solution"><h4>8. Four-bit binary to Gray</h4><pre>Input B3B2B1B0=1011
+G3=B3=1
+G2=B3⊕B2=1⊕0=1
+G1=B2⊕B1=0⊕1=1
+G0=B1⊕B0=1⊕1=0
+Answer: 1110 Gray</pre></div>
+<div class="solution"><h4>9. JK to T conversion</h4><pre>T=0 requires hold; JK hold is J=K=0.
+T=1 requires toggle; JK toggle is J=K=1.
+Therefore J=T and K=T.</pre></div>
+<div class="solution"><h4>10. Four-bit Johnson sequence</h4><pre>Start 0000. Feed complement of Q3 to Q0.
+0000→1000→1100→1110→1111→0111→0011→0001→0000.
+A four-stage Johnson counter has 2n=8 states.</pre></div>
+<div class="solution"><h4>11. Flip-flops for MOD-10</h4><pre>Find smallest n such that 2ⁿ≥10.
+2³=8&lt;10; 2⁴=16≥10.
+Answer: 4 flip-flops.</pre></div>
+<div class="solution"><h4>12. Memory capacity</h4><pre>A 2K×8 memory has 2048 locations and 8 bits/location.
+Capacity=2048×8=16384 bits=2048 bytes=2 KB.</pre></div>
+</section>
+
+
+<section class="section" id="expected">
+<div class="section-head"><span class="eyebrow">Module-wise Expected Questions</span><h2>High-priority practice patterns</h2><p>These are practice patterns inferred from the supplied model papers; they are not guaranteed examination questions.</p></div>
+<div class="grid">
+<div class="card blue"><h3>Module 1</h3><p><span class="badge">Frequently tested</span></p><ul><li>Mixed conversion and complement problem.</li><li>Universal gates and NAND implementation.</li><li>Boolean laws or De Morgan.</li><li>3/4-variable K-Map with don’t-cares.</li></ul></div>
+<div class="card cyan"><h3>Module 2</h3><p><span class="badge">Important design</span></p><ul><li>CMOS/ECL comparison and parameters.</li><li>Half/full adder design.</li><li>4:1 MUX or 1:4 DEMUX.</li><li>Binary-to-Gray converter.</li></ul></div>
+<div class="card violet"><h3>Module 3</h3><p><span class="badge">Important diagram</span></p><ul><li>Flip-flop truth/function tables.</li><li>JK-to-T or JK-to-D conversion.</li><li>Shift-register operation.</li><li>Ring/Johnson diagram and sequence.</li></ul></div>
+<div class="card green"><h3>Module 4</h3><p><span class="badge">Important timing</span></p><ul><li>Ripple up/down counter with timing.</li><li>MOD-6/MOD-10 asynchronous design.</li><li>Synchronous up/down design.</li><li>RAM/ROM/PROM/EPROM/EEPROM comparison.</li></ul></div>
+</div>
+</section>
+
+
+<section class="section" id="practice">
+<div class="section-head"><span class="eyebrow">Practice Section</span><h2>Module-wise exercises and self-assessment</h2><p>Attempt without looking at the answer key. Final answers are supplied below.</p></div>
+<div class="grid">
+<div class="card"><h3>Module 1 practice</h3><ol><li>Convert 93₁₀ to binary.</li><li>Convert 3A7₁₆ to decimal.</li><li>Find 8-bit two’s complement of 00110101.</li><li>Subtract 27 from 52 using 8-bit two’s complement.</li><li>Simplify F(A,B,C)=Σm(1,3,5,7).</li></ol></div>
+<div class="card"><h3>Module 2 practice</h3><ol><li>How many select lines for 16:1 MUX?</li><li>Write full-adder equations.</li><li>Design 2:1 MUX equation.</li><li>Convert binary 1101 to Gray.</li><li>Give three CMOS features.</li></ol></div>
+<div class="card"><h3>Module 3 practice</h3><ol><li>Complete JK table.</li><li>Show JK-to-D equations.</li><li>Trace 1011 through a four-stage SISO register.</li><li>List four shift-register applications.</li><li>Write 4-bit ring and Johnson sequences.</li></ol></div>
+<div class="card"><h3>Module 4 practice</h3><ol><li>Flip-flops required for MOD-12.</li><li>Write 3-bit up sequence.</li><li>State MOD-6 reset state.</li><li>Compare SRAM and DRAM.</li><li>Differentiate PROM, EPROM and EEPROM.</li></ol></div>
+</div>
+<h3>Objective practice</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>No.</th><th>Question</th><th>Options</th></tr></thead><tbody><tr><td>1</td><td>Logic family with traditionally least static power</td><td>A TTL • B CMOS • C ECL • D RTL</td></tr><tr><td>2</td><td>An 8:1 MUX requires</td><td>A 2 • B 3 • C 4 • D 8 select lines</td></tr><tr><td>3</td><td>Output depends on present input and past state in</td><td>A combinational • B sequential • C decoder • D adder</td></tr><tr><td>4</td><td>Four-stage Johnson counter has</td><td>A 4 • B 6 • C 8 • D 16 states</td></tr><tr><td>5</td><td>Temporary working data is usually stored in</td><td>A ROM • B RAM • C PROM • D EPROM</td></tr></tbody></table></div>
+<details><summary>Practice answer key</summary>
+<p><b>Module 1:</b> 1) 1011101₂. 2) 935₁₀. 3) 11001011. 4) 25₁₀ = 00011001₂. 5) F=C.</p>
+<p><b>Module 2:</b> 1) 4. 2) S=A⊕B⊕Cin; Cout=AB+ACin+BCin. 3) Y=I0S̅+I1S. 4) 1011. 5) Very low static power, high input impedance, good noise immunity.</p>
+<p><b>Module 3:</b> JK: hold/reset/set/toggle; JK-to-D J=D,K=D̅; remaining answers follow chapter tables.</p>
+<p><b>Module 4:</b> 4 FFs; 000→001→010→011→100→101→110→111; reset when 110 appears; SRAM faster/no refresh, DRAM denser/refresh; PROM once, EPROM UV, EEPROM electrical.</p>
+<p><b>Objective:</b> 1-B, 2-B, 3-B, 4-C, 5-B.</p>
+</details>
+<div class="callout try"><b>Self-assessment checklist</b><ul class="checklist"><li>I can show full number-conversion steps.</li><li>I can draw all basic and universal gate symbols.</li><li>I can group a four-variable K-Map correctly.</li><li>I can derive adder, MUX and converter equations.</li><li>I can trace flip-flop, register and counter states.</li><li>I can compare memory types without mixing volatility and programming method.</li></ul></div>
+</section>
+
+
+<section class="section" id="revision">
+<div class="section-head"><span class="eyebrow">Quick Revision</span><h2>Last-day revision sheet</h2><p>Use this section after completing the detailed chapters.</p></div>
+<div class="grid">
+<div class="card quarter blue"><h3>Numbers</h3><ul><li>Binary weights: powers of 2.</li><li>Hex digit = 4 bits.</li><li>2’s comp = invert + 1.</li></ul></div>
+<div class="card quarter cyan"><h3>Logic</h3><ul><li>NAND/NOR universal.</li><li>De Morgan swaps AND/OR and complements terms.</li><li>XOR=inputs different.</li></ul></div>
+<div class="card quarter violet"><h3>K-Maps</h3><ul><li>Gray order 00,01,11,10.</li><li>Largest power-of-two groups.</li><li>Wrap yes; diagonal no.</li></ul></div>
+<div class="card quarter green"><h3>Combinational</h3><ul><li>Half/full adder equations.</li><li>2ⁿ MUX inputs need n selects.</li><li>Gray uses adjacent XORs.</li></ul></div>
+<div class="card quarter blue"><h3>Flip-flops</h3><ul><li>SR set/reset.</li><li>JK 11 toggles.</li><li>D follows data.</li><li>T 1 toggles.</li></ul></div>
+<div class="card quarter cyan"><h3>Registers</h3><ul><li>SISO/SIPO/PISO/PIPO.</li><li>One shift per clock.</li><li>Ring=n states; Johnson=2n.</li></ul></div>
+<div class="card quarter violet"><h3>Counters</h3><ul><li>Async ripple; sync common clock.</li><li>Choose n with 2ⁿ≥N.</li><li>Each stage divides by 2.</li></ul></div>
+<div class="card quarter green"><h3>Memory</h3><ul><li>RAM volatile.</li><li>ROM non-volatile.</li><li>PROM once; EPROM UV; EEPROM electrical.</li></ul></div>
+</div>
+<div class="callout mistake"><b>Common mistakes</b><div>Wrong bit width in complements; binary/hex grouping from wrong side; non-Gray K-Map ordering; diagonal grouping; missing carry term in full adder; confusing MUX with DEMUX; failing to initialize ring counter; wrong reset state in MOD counter; calling ROM volatile.</div></div>
+</section>
+
+
+<section class="section" id="model-paper">
+<div class="section-head"><span class="eyebrow">Fresh Model Question Paper</span><h2>DIGITAL ELECTRONICS • Course 3044 • 3 Hours • 75 Marks</h2><p>Fresh questions are based on the confirmed official structure and topic distribution; the
