@@ -3,6 +3,7 @@
 
   const PUBLIC_ROOT = "https://polypmna.dpdns.org";
   const assetChecks = new Map();
+  const knownLocalAssets = new Set(["/lessons/handbook-2031-source.html","/lessons/lessons-1001.html","/lessons/lessons-1002.html","/lessons/lessons-1003.html","/lessons/lessons-1004.html","/lessons/lessons-1005.html","/lessons/lessons-1006.html","/lessons/lessons-2003.html","/lessons/lessons-2031.html","/lessons/lessons-2041.html","/lessons/lessons-3031.html","/lessons/lessons-3041.html","/lessons/lessons-3044.html","/lessons/lessons-3045.html","/lessons/lessons-3046.html","/lessons/lessons-3047.html","/notes/downloadable-notes-1003.pdf","/notes/downloadable-notes-1004.pdf"]);
 
   const create = (tag, options = {}) => {
     const node = document.createElement(tag);
@@ -62,21 +63,8 @@
   };
 
   const localAssetExists = async (url) => {
-    const absolute = new URL(url, window.location.href).href;
-    if (assetChecks.has(absolute)) return assetChecks.get(absolute);
-    const request = (async () => {
-      try {
-        let response = await fetch(absolute, { method: "HEAD", cache: "no-store" });
-        if (response.ok) return true;
-        response = await fetch(absolute, { method: "GET", cache: "no-store" });
-        return response.ok;
-      } catch (error) {
-        console.error(`Asset check failed for ${absolute}`, error);
-        return false;
-      }
-    })();
-    assetChecks.set(absolute, request);
-    return request;
+    const path = new URL(url, window.location.href).pathname;
+    return knownLocalAssets.has(path);
   };
 
   const unavailable = (label = "Not available yet") => create("span", {
@@ -478,6 +466,6 @@
     }
   };
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
-  else run();
+  if (document.readyState === "complete") run();
+  else document.addEventListener("DOMContentLoaded", run, { once: true });
 })();
