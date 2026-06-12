@@ -152,6 +152,12 @@ tr:last-child td {border-bottom:0}
 @media(max-width:560px){.revision-back-button{left:10px;bottom:10px;padding:.66rem .82rem;font-size:.76rem}}
 @media print{.revision-back-button{display:none!important}}
 </style>
+  <link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-1004.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Applied Chemistry-I 1004 | Kerala Polytechnic Study Hub">
+  <meta property="og:description" content="Applied Chemistry-I 1004 handbook-style bilingual HTML notes with formulas, diagrams, solved problems, revision and answer key.">
+  <meta property="og:url" content="https://polypmna.dpdns.org/lessons/lessons-1004.html">
+  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
 </head>
 <body>
 <a class="revision-back-button" href="../revision-2021.html" aria-label="Back to Revision 2021">&#8592; Back to Revision 2021</a>
@@ -217,7 +223,7 @@ function expectedQuestions(id) { const qs=data.questions[id]||[]; return `<div c
 function first20Table() { return `<div class="section-head" style="margin-top:2rem"><div><h2>Electronic Configuration of First 20 Elements</h2><p>Useful for M1.03 electronic configuration practice.</p></div></div><div class="table-wrap"><table><thead><tr><th>Element</th><th>Atomic No.</th><th>Orbital configuration</th><th>Shell distribution</th></tr></thead><tbody>${data.first20.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` }
 function revision() { return `<section class="section screen"><div class="section-head"><div><h2>Quick Revision Sheet</h2><p>Last-minute checklist, study tricks and common mistakes for Applied Chemistry-I.</p></div></div><div class="revision-grid"><article class="card"><span class="badge">Study tricks</span>${list(data.revision.study_tricks)}</article><article class="card"><span class="badge">Common mistakes</span>${list(data.revision.common_mistakes)}</article><article class="card"><span class="badge">Before exam</span><ul class="note-list"><li>Can I write all formula-bank equations?</li><li>Can I draw Daniell cell and titration setup?</li><li>Can I solve one pH, molarity and Faraday problem?</li><li>Can I explain water treatment in order?</li><li>Can I compare thermoplastic and thermosetting plastics?</li></ul></article></div><div class="section-head" style="margin-top:2rem"><div><h2>Answer Writing Templates</h2><p>Use these formats to make answers look like a textbook response.</p></div></div><div class="revision-grid">${data.revision.exam_templates.map(t=>`<article class="template-card"><h3>${esc(t.name)}</h3><ol class="note-list">${t.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></article>`).join('')}</div></section>${footer()}`; }
 function answerKey() { return `<section class="section screen"><div class="section-head"><div><h2>Final Master Answer Key</h2><p>These model answers match exactly with the Expected Questions inside each module.</p></div></div>${data.modules.map((m,mi)=>`<div class="module-hero" style="--accent:${accent[m.id]};margin-top:1.4rem"><span class="pill">Module ${mi+1} Answer Key</span><h2>${esc(m.name)}</h2></div><div class="answer-grid">${(data.questions[m.id]||[]).map((qa,i)=>`<article class="answer-card"><span class="badge">Module ${mi+1} • Q${i+1}</span><h3>${esc(qa.q)}</h3><p>${esc(qa.a)}</p></article>`).join('')}</div>`).join('')}</section>${footer()}`; }
-function footer() { return `<footer class="footer screen"><div class="footer-card"><strong>${esc(data.title)} ${esc(data.code)} • Downloadable HTML Notes</strong><span>Author: Nandakumar.M • visit: nandakumarm.dpdns.org</span></div></footer>`; }
+function footer() { return `<footer class="footer screen"><div class="footer-card"><strong>${esc(data.title)} ${esc(data.code)} • Downloadable HTML Notes</strong><span>Author: Nandakumar.M • visit: nandakumarm.dpdns.org</span></div><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>`; }
 function render(section, target=app) {
  if(section==='overview') target.innerHTML=overview();
  else if(section==='formula') target.innerHTML=formulaBank();
@@ -235,5 +241,6 @@ window.addEventListener('scroll',()=>{ const h=document.documentElement; documen
 document.getElementById('toTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 render('overview');
 </script>
+  <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
 </body>
 </html>

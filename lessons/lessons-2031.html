@@ -8,14 +8,20 @@
 <style>
 *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f4f8fb;color:#0f172a;font-family:Segoe UI,Arial,sans-serif}.loading{text-align:center;padding:2rem}.spinner{width:44px;height:44px;margin:0 auto 1rem;border:4px solid #d7e2ef;border-top-color:#0b4f6c;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 </style>
+  <link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-2031.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="lessons-2031 | Fundamentals of Electrical and Electronics Engineering">
+  <meta property="og:description" content="Fundamentals of Electrical and Electronics Engineering — Course 2031">
+  <meta property="og:url" content="https://polypmna.dpdns.org/lessons/lessons-2031.html">
+  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
 </head>
 <body>
 <main class="loading"><div class="spinner"></div><strong>Loading handbook…</strong></main>
 <script>
 (async()=>{
   try{
-    const source='https://raw.githubusercontent.com/nandurpm/diploma-notes/632a33502f1408d7e0fb866a8f671f6956142dc5/lessons/lessons-2031.html';
-    const response=await fetch(source,{cache:'no-store'});
+    const source='/lessons/handbook-2031-source.html';
+    const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),12000);const response=await fetch(source,{cache:'no-store',signal:controller.signal});clearTimeout(timeout);
     if(!response.ok) throw new Error('Unable to load handbook source');
     let html=await response.text();
     const layoutFix=`
@@ -67,13 +73,14 @@ section[id]{scroll-margin-top:calc(var(--lesson-nav-height) + 12px)!important}
 })();
 <\/script>`;
     html=html.replace('</head>',layoutFix+'\n</head>');
-    html=html.replace('</body>',fixedHeaderScript+'\n</body>');
+    html=html.replace('  <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
+</body>',fixedHeaderScript+'\n</body>');
     document.open();
     document.write(html);
     document.close();
     if(location.hash){setTimeout(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView(),120)}
   }catch(error){
-    document.body.innerHTML='<main style="max-width:760px;padding:2rem"><h1>Unable to load the handbook</h1><p>Please check the internet connection and reload the page.</p></main>';
+    console.error('Unable to load lesson 2031.',error);document.body.innerHTML='<main class="loading-error" style="max-width:760px;padding:2rem"><h1>Unable to load this lesson. Please try again later.</h1></main>';padding:2rem"><h1>Unable to load the handbook</h1><p>Please check the internet connection and reload the page.</p></main>';
   }
 })();
 </script>
