@@ -1,0 +1,83 @@
+td></tr><tr><td>Volatility</td><td>Volatile</td><td>Non-volatile</td></tr><tr><td>Speed</td><td>Generally faster for working storage</td><td>Depends on technology</td></tr><tr><td>Purpose</td><td>Temporary data and programs in execution</td><td>Permanent instructions / firmware</td></tr></tbody></table></div>
+
+<details open><summary>Module 4 expected exam questions</summary>
+<div class="grid">
+<div class="card third"><h4>One mark</h4><ul><li>Name the synchronous counter.</li><li>Flip-flops for MOD-10.</li><li>Memory used for working data.</li></ul></div>
+<div class="card third"><h4>Three marks</h4><ul><li>Asynchronous vs synchronous.</li><li>Types of RAM.</li><li>RAM vs ROM.</li></ul></div>
+<div class="card third"><h4>Seven marks</h4><ul><li>Three-bit ripple up/down counter.</li><li>MOD-6 or MOD-10 design.</li><li>Synchronous up/down counter design.</li></ul></div>
+</div></details>
+</section>
+
+
+<section class="section" id="banks">
+<div class="section-head"><span class="eyebrow">Digital Logic Banks</span><h2>Rules, formulas, symbols and design summaries</h2><p>Use these compact banks for rapid revision and as a checklist while solving design problems.</p></div>
+<div class="grid">
+<div class="card"><h3>Formula and rule bank</h3>
+<div class="formula">1’s complement: invert every bit</div>
+<div class="formula">2’s complement: 1’s complement + 1</div>
+<div class="formula">MUX: 2ⁿ inputs require n select lines</div>
+<div class="formula">Counter FF count: smallest n with 2ⁿ ≥ N</div>
+<div class="formula">Ripple division: fout=fin/2ⁿ</div>
+<div class="formula">Half adder: S=A⊕B; C=AB</div>
+<div class="formula">Full adder: S=A⊕B⊕Cin; Cout=AB+ACin+BCin</div>
+<div class="formula">Johnson states=2n; Ring states=n</div>
+</div>
+<div class="card"><h3>Binary-to-Gray bank</h3><div class="formula">Gₙ=Bₙ</div><div class="formula">Gᵢ=Bᵢ₊₁⊕Bᵢ</div><p>Copy the MSB. XOR each adjacent pair of binary bits for the remaining Gray bits.</p></div>
+<div class="card"><h3>K-Map rule bank</h3><ul><li>Groups: 1,2,4,8,16 cells.</li><li>Use largest groups.</li><li>Cover every required 1.</li><li>Overlap if useful.</li><li>Wrap-around allowed.</li><li>No diagonal grouping.</li><li>Don’t-cares are optional.</li></ul></div>
+<div class="card"><h3>Memory capacity bank</h3><div class="formula">Capacity = locations × bits per location</div><p>Example: 1K×8 = 1024 locations × 8 bits = 8192 bits = 1024 bytes.</p></div>
+</div>
+
+<h3>Number-system conversion bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>From</th><th>To</th><th>Method</th></tr></thead><tbody><tr><td>Binary</td><td>Decimal</td><td>Weighted sum of powers of 2</td></tr><tr><td>Decimal integer</td><td>Binary</td><td>Repeated division by 2</td></tr><tr><td>Decimal fraction</td><td>Binary</td><td>Repeated multiplication by 2</td></tr><tr><td>Hex</td><td>Binary</td><td>Four bits per hex digit</td></tr><tr><td>Binary</td><td>Hex</td><td>Group bits in fours from radix point</td></tr><tr><td>Decimal</td><td>Hex</td><td>Repeated division / multiplication by 16</td></tr></tbody></table></div>
+
+<h3>Logic-gate symbol and truth-table bank</h3>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+<div class="table-wrap"><table class=""><thead><tr><th>Gate</th><th>Boolean expression</th><th>Output 1 condition</th></tr></thead><tbody><tr><td>AND</td><td>Y=AB</td><td>All inputs 1</td></tr><tr><td>OR</td><td>Y=A+B</td><td>At least one input 1</td></tr><tr><td>NOT</td><td>Y=A̅</td><td>Input 0</td></tr><tr><td>NAND</td><td>Y=(AB)̅</td><td>Except all inputs 1</td></tr><tr><td>NOR</td><td>Y=(A+B)̅</td><td>All inputs 0</td></tr><tr><td>XOR</td><td>Y=A⊕B</td><td>Inputs different</td></tr><tr><td>XNOR</td><td>Y=(A⊕B)̅</td><td>Inputs equal</td></tr></tbody></table></div>
+
+<h3>Combinational circuit bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Circuit</th><th>Inputs / Outputs</th><th>Core equation or idea</th></tr></thead><tbody><tr><td>Half adder</td><td>A,B → S,C</td><td>S=A⊕B; C=AB</td></tr><tr><td>Full adder</td><td>A,B,Cin → S,Cout</td><td>Two half adders + OR</td></tr><tr><td>4:1 MUX</td><td>I0–I3, S1,S0 → Y</td><td>One selected input</td></tr><tr><td>1:4 DEMUX</td><td>D,S1,S0 → Y0–Y3</td><td>One selected output</td></tr><tr><td>Binary-to-Gray</td><td>B3–B0 → G3–G0</td><td>MSB direct, adjacent XORs</td></tr></tbody></table></div>
+
+<h3>Flip-flop and sequential bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Device</th><th>Hold</th><th>Set</th><th>Reset</th><th>Toggle / follow</th></tr></thead><tbody><tr><td>SR</td><td>S=0,R=0</td><td>1,0</td><td>0,1</td><td>1,1 invalid</td></tr><tr><td>JK</td><td>0,0</td><td>1,0</td><td>0,1</td><td>1,1 toggles</td></tr><tr><td>D</td><td>—</td><td>D=1</td><td>D=0</td><td>Qnext=D</td></tr><tr><td>T</td><td>T=0</td><td>—</td><td>—</td><td>T=1 toggles</td></tr></tbody></table></div>
+
+<h3>Timing diagram bank</h3>
+<p>When drawing timing diagrams, align vertical transition lines with the correct active clock edge. In a ripple counter, show delayed changes from Q0 to Q1 to Q2. In a synchronous counter, show all output changes referenced to the same clock edge.</p>
+
+<div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
+
+
+<h3>Counter design bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Task</th><th>Essential steps</th></tr></thead><tbody><tr><td>Asynchronous MOD-N</td><td>Choose FF count; list valid states; detect first invalid state; reset</td></tr><tr><td>Synchronous counter</td><td>State table; excitation table; K-Maps; input equations; common-clock circuit</td></tr><tr><td>Up/down tracing</td><td>Write state sequence and timing; note triggering convention</td></tr><tr><td>Frequency division</td><td>Each binary stage divides frequency by 2</td></tr></tbody></table></div>
+
+<h3>Memory comparison bank</h3>
+<div class="table-wrap"><table class=""><thead><tr><th>Type</th><th>Erase / program method</th><th>Retains data without power?</th></tr></thead><tbody><tr><td>RAM</td><td>Electrical read/write repeatedly</td><td>No</td></tr><tr><td>ROM</td><td>Factory or fixed program</td><td>Yes</td></tr><tr><td>PROM</td><td>One-time electrical programming</td><td>Yes</td></tr><tr><td>EPROM</td><td>UV erase, electrical program</td><td>Yes</td></tr><tr><td>EEPROM</td><td>Electrical erase and rewrite</td><td>Yes</td></tr></tbody></table></div>
+</section>
+
+
+<section class="section" id="solved-examples">
+<div class="section-head"><span class="eyebrow">Solved Examples</span><h2>Exam-style worked problems</h2><p>Each solution shows the method and final answer rather than only a hint.</p></div>
+<div class="solution"><h4>1. Convert 125₁₀ to hexadecimal</h4><pre>125 ÷ 16 = 7 remainder 13 (D)
+Read quotient and remainder: 7D
+Answer: (125)₁₀ = (7D)₁₆</pre></div>
+<div class="solution"><h4>2. Convert (124.56)₁₆ to decimal</h4><pre>Integer part: 1×16² + 2×16 + 4 = 256+32+4 = 292
+Fraction: 5×16⁻¹ + 6×16⁻² = 5/16 + 6/256 = 0.3125 + 0.0234375 = 0.3359375
+Answer: 292.3359375₁₀</pre></div>
+<div class="solution"><h4>3. Binary addition: 35 + 19</h4><pre>35₁₀ = 100011₂
+19₁₀ = 010011₂
+  100011
++ 010011
+--------
+  110110
+Answer: 54₁₀ = 110110₂</pre></div>
+<div class="solution"><h4>4. Eight-bit two’s-complement subtraction: 46−14</h4><pre>46 = 00101110
+14 = 00001110
+1’s comp of 14 = 11110001
+2’s comp = 11110010
+00101110 + 11110010 = 1 00100000
+Discard carry.
+Answer: 00100000₂ = 32₁₀</pre></div>
+<div class="solution"><h4>5. Universal-gate conversion</h4><pre>NOT: A NAND A = A̅
+AND: NAND A,B gives (AB)̅; NAND that output with itself gives AB.
+OR: NAND A,A gives A̅; NAND B,B gives B̅; NAND the two gives A+B by De Morgan.
