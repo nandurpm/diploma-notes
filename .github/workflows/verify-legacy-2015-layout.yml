@@ -1,0 +1,68 @@
+name: Verify legacy 2015 layout
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: restore/legacy-2015-layout
+
+      - name: Validate source structure
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'data-link-group="firstYear"' materials-2015.html
+          grep -q 'data-link-group="departments"' materials-2015.html
+          grep -q 'data-link-group="studyMaterials"' materials-2015.html
+          grep -q '>Question Paper Availability<' materials-2015.html
+          grep -q 'Revision 2021 materials' materials-2015.html
+          ! grep -q 'electronics2015Grid' materials-2015.html
+          ! grep -q 'Complete department subject directory' materials-2015.html
+          ! grep -q 'materials2015Search' materials-2015.html
+          ! grep -q 'scheme=REV2021' materials-2015.html
+
+      - name: Verify rendered page and responsive layout
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/materials-2015.html >/dev/null && break
+            sleep 1
+          done
+
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          test -n "$CHROME"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=8000 --dump-dom 'http://127.0.0.1:8000/materials-2015.html' >/tmp/materials.dom 2>/tmp/chrome.log
+
+          test "$(grep -c '<article class="info-card"' /tmp/materials.dom)" -eq 4
+          grep -q '>Text Books<' /tmp/materials.dom
+          grep -q '>Computer Engineering<' /tmp/materials.dom
+          grep -q '>Workshop Material<' /tmp/materials.dom
+          grep -q '>Question Paper Availability<' /tmp/materials.dom
+          ! grep -q 'electronics2015Grid' /tmp/materials.dom
+          ! grep -q 'materials2015Search' /tmp/materials.dom
+          ! grep -q 'Official REV2021 Model QP Reference' /tmp/materials.dom
+
+          for width in 320 375 768 1024 1366 1920; do
+            "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --window-size="${width},1000" --virtual-time-budget=6000 --dump-dom "http://127.0.0.1:8000/materials-2015.html?layout-test=1" >"/tmp/layout-${width}.dom" 2>>/tmp/chrome.log
+            grep -q 'data-layout-overflow="false"' "/tmp/layout-${width}.dom"
+          done
+
+          unexpected="$(grep ' 404 ' /tmp/server.log || true)"
+          if [ -n "$unexpected" ]; then
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
