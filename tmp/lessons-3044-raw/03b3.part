@@ -1,0 +1,4 @@
+
+<div class="grid">
+ <div class="card third"><h3>AND</h3><div class="formula">Y = AB</div>
+    <div class="table-wrap"><table class="compact truth"><thead><tr><th>A</th><th>B</th><th>Y</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1
