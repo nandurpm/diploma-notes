@@ -16,10 +16,10 @@
 @media print{.revision-back-button{display:none!important}}
 </style>
 </head><body>
-<a class="revision-back-button" href="../revision-2021.html" aria-label="Back to Revision 2021">&#8592; Back to Revision 2021</a><div class="progress" id="progress"></div><header class="top"><nav class="nav"><span class="logo">2041</span><span class="brand">Basic Electronics</span><a href="#overview">Overview</a><a href="#toc">Contents</a><a href="#m1">Diode</a><a href="#m2">BJT</a><a href="#m3">FET & UJT</a><a href="#m4">Wave Shaping</a><a href="#formula-bank">Formula Bank</a><a href="#model-paper">Model Paper</a><a href="#answers">Answers</a><button class="btn pdf" onclick="window.print()">Download as PDF</button></nav></header><main class="wrap">
+<a class="revision-back-button" href="../revision-2021.html" aria-label="Back to Revision 2021">&#8592; Back to Revision 2021</a><div class="progress" id="progress"></div><header class="top"><nav class="nav"><span class="logo">2041</span><span class="brand">Basic Electronics</span><a href="#overview">Overview</a><a href="#toc">Contents</a><a href="#m1">Diode</a><a href="#m2">BJT</a><a href="#m3">FET & UJT</a><a href="#m4">Wave Shaping</a><a href="#source-enrichment">Expanded Notes</a><a href="#formula-bank">Formula Bank</a><a href="#model-paper">Model Paper</a><a href="#answers">Answers</a><button class="btn pdf" onclick="window.print()">Download as PDF</button></nav></header><main class="wrap">
 <section class="hero" id="overview"><div class="hero-main"><span class="tag">Semester 2 • Engineering Science</span><h1>Basic Electronics</h1><p class="lead">A complete diploma handbook covering semiconductor theory, PN junction diodes, BJT, JFET, MOSFET, UJT, rectifiers, filters, RC wave shaping, clippers, clampers and voltage multipliers.</p><div class="meta"><div class="m"><span>Course Code</span><b>2041</b></div><div class="m"><span>Programme</span><b>Electronics / ECE / Biomedical</b></div><div class="m"><span>Semester</span><b>2</b></div><div class="m"><span>Credits</span><b>3</b></div><div class="m"><span>Category</span><b>Engineering Science</b></div><div class="m"><span>Periods / Week</span><b>3 (L:3,T:0,P:0)</b></div><div class="m"><span>Periods / Semester</span><b>45</b></div><div class="m"><span>File</span><b>lessons-2041.html</b></div></div></div><div class="hero-side"><div class="big">45</div><h2>Periods from semiconductor material to practical circuits</h2><p>Connect device construction, biasing, carrier motion, characteristic curves, circuit operation and waveform output.</p><div class="pills"><span class="pill">PN Diode</span><span class="pill">BJT</span><span class="pill">JFET</span><span class="pill">MOSFET</span><span class="pill">UJT</span><span class="pill">Wave Shaping</span></div></div></section>
 <section class="section"><div class="head"><span class="tag">Course Overview</span><h2>Why Basic Electronics matters</h2></div><div class="grid"><div class="card third blue"><h3>Device physics</h3><p>Understand energy bands, carriers, doping, depletion region and biasing.</p><div class="ml">Carrier movement മനസ്സിലാക്കിയാൽ device working എളുപ്പമാകും.</div></div><div class="card third green"><h3>Signal control</h3><p>Use transistors for amplification, switching, voltage control and triggering.</p></div><div class="card third purple"><h3>Practical circuits</h3><p>Build rectifier, filter, differentiator, integrator, clipper, clamper and multiplier concepts.</p></div></div><div class="call"><b>Electronics in practice:</b> The same concepts appear in regulated power supplies, small-signal amplifiers, sensor interfaces, communication receivers, medical instrumentation front ends, triggering circuits and industrial control panels.</div></section>
-<section class="section" id="toc"><div class="head"><span class="tag">Table of Contents</span><h2>Clickable navigation</h2></div><div class="toc"><a href="#details">Objectives & Outcomes <span>→</span></a><a href="#roadmap">Roadmap <span>→</span></a><a href="#m1">Module 1 <span>→</span></a><a href="#m2">Module 2 <span>→</span></a><a href="#m3">Module 3 <span>→</span></a><a href="#m4">Module 4 <span>→</span></a><a href="#formula-bank">Formula Bank <span>→</span></a><a href="#banks">Diagram & Waveform Banks <span>→</span></a><a href="#extended-electronics-notes">Extended Notes <span>→</span></a><a href="#expected">Expected Questions <span>→</span></a><a href="#practice">Practice <span>→</span></a><a href="#revision">Quick Revision <span>→</span></a><a href="#model-paper">Model Paper <span>→</span></a><a href="#answers">Complete Answers <span>→</span></a><a href="#references">References <span>→</span></a></div></section>
+<section class="section" id="toc"><div class="head"><span class="tag">Table of Contents</span><h2>Clickable navigation</h2></div><div class="toc"><a href="#details">Objectives & Outcomes <span>→</span></a><a href="#roadmap">Roadmap <span>→</span></a><a href="#m1">Module 1 <span>→</span></a><a href="#m2">Module 2 <span>→</span></a><a href="#m3">Module 3 <span>→</span></a><a href="#m4">Module 4 <span>→</span></a><a href="#formula-bank">Formula Bank <span>→</span></a><a href="#banks">Diagram & Waveform Banks <span>→</span></a><a href="#extended-electronics-notes">Extended Notes <span>→</span></a><a href="#source-enrichment">Detailed Source Notes <span>→</span></a><a href="#expected">Expected Questions <span>→</span></a><a href="#practice">Practice <span>→</span></a><a href="#revision">Quick Revision <span>→</span></a><a href="#model-paper">Model Paper <span>→</span></a><a href="#answers">Complete Answers <span>→</span></a><a href="#references">References <span>→</span></a></div></section>
 <section class="section" id="details"><div class="head"><span class="tag">Course Details</span><h2>Objectives, prerequisites, outcomes and CO-PO mapping</h2></div><div class="grid"><div class="card"><h3>Objectives</h3><ol><li>Introduce semiconductor diodes and application circuits.</li><li>Illustrate working of different transistors.</li><li>Introduce linear and nonlinear wave-shaping circuits.</li></ol></div><div class="card green"><h3>Prerequisites</h3><ul><li>Electric circuits and passive components — Fundamentals of Electrical and Electronics, Semester 2.</li><li>Mathematics I & II — Semesters 1 & 2.</li><li>Applied Physics I & II — Semesters 1 & 2.</li></ul></div></div><div class="tbl"><table><tr><th>CO</th><th>Description</th><th>Hours</th><th>Level</th></tr><tr><td>CO1</td><td>Explain semiconductor theory and semiconductor diodes.</td><td>10</td><td>Understanding</td></tr><tr><td>CO2</td><td>Explain BJT and transistor amplifier.</td><td>11</td><td>Understanding</td></tr><tr><td>CO3</td><td>Summarize JFET, MOSFET and UJT.</td><td>11</td><td>Understanding</td></tr><tr><td>CO4</td><td>Develop linear and nonlinear wave-shaping circuits.</td><td>11</td><td>Applying</td></tr><tr><td>Tests</td><td>Series Tests I & II</td><td>2</td><td>-</td></tr></table></div><h3>CO-PO Mapping</h3><div class="tbl"><table><tr><th>CO</th><th>PO1</th><th>PO3</th><th>Mapping</th></tr><tr><td>CO1</td><td>2</td><td>-</td><td>Moderate</td></tr><tr><td>CO2</td><td>2</td><td>-</td><td>Moderate</td></tr><tr><td>CO3</td><td>2</td><td>-</td><td>Moderate</td></tr><tr><td>CO4</td><td>3</td><td>2</td><td>Strong PO1, Moderate PO3</td></tr></table></div><p>Scale: 3 Strong, 2 Moderate, 1 Weak.</p></section>
 <section class="section" id="roadmap"><div class="head"><span class="tag">Learning Roadmap</span><h2>45-period plan</h2></div><div class="tbl"><table><tr><th>Module</th><th>Hours</th><th>Main learning</th></tr><tr><td>1. Semiconductor and PN diode</td><td>10</td><td>Bands, carriers, doping, junction, biasing, V-I curve and specifications.</td></tr><tr><td>2. BJT and amplifier</td><td>11 + Test I</td><td>NPN/PNP, modes, gains, configurations, characteristics and amplification.</td></tr><tr><td>3. JFET, MOSFET and UJT</td><td>11</td><td>Voltage control, channel behavior and negative resistance.</td></tr><tr><td>4. Rectifiers and wave shaping</td><td>11 + Test II</td><td>Rectifiers, filters, RC circuits, clipping, clamping and multiplication.</td></tr></table></div></section>
 <section class="section module" id="m1"><div class="head"><span class="tag">Module 1 • CO1</span><h2>Semiconductor Theory and PN Junction Diode</h2></div><div class="grid"><div class="card"><h3>Module Outcomes</h3><ul><li>Describe intrinsic/extrinsic semiconductors.</li><li>Explain junction formation and barrier potential.</li><li>Illustrate bias and V-I characteristics.</li><li>List diode specifications.</li></ul></div><div class="card blue"><h3>Energy-band foundation</h3><p>Valence electrons occupy the valence band. Electrons in the conduction band can move through the material. The forbidden gap separates them.</p><div class="ml">Small band gap ഉള്ളതിനാൽ semiconductor conductivity control ചെയ്യാം.</div></div></div><div class="tbl"><table><tr><th>Material</th><th>Band condition</th><th>Behavior</th></tr><tr><td>Conductor</td><td>Bands overlap</td><td>High conductivity</td></tr><tr><td>Semiconductor</td><td>Small forbidden gap</td><td>Controllable conductivity</td></tr><tr><td>Insulator</td><td>Large forbidden gap</td><td>Very low conductivity</td></tr></table></div><h3>Intrinsic, thermal generation and doping</h3><p>A pure semiconductor is intrinsic. Thermal energy breaks covalent bonds and creates electron-hole pairs; recombination restores bonds. Pentavalent donor doping creates N-type material with electrons as majority carriers. Trivalent acceptor doping creates P-type material with holes as majority carriers. Both materials remain electrically neutral.</p><h3>PN-junction formation</h3><p>Electrons diffuse N→P and holes P→N. Recombination leaves fixed ions and creates a depletion region. The internal electric field produces barrier potential and drift current opposing diffusion.</p><div class="ml">Junction സമീപത്ത് mobile carriers കുറയുന്നതിനാൽ depletion region ഉണ്ടാകും.</div><div class="svgbox"><svg viewBox="0 0 900 300"><rect x="70" y="60" width="350" height="180" fill="#fff0f3" stroke="#d92d55" stroke-width="4"/><rect x="480" y="60" width="350" height="180" fill="#eaf5ff" stroke="#075985" stroke-width="4"/><rect x="420" y="60" width="60" height="180" fill="#fff7df"/><text x="220" y="105" font-size="30">P</text><text x="650" y="105" font-size="30">N</text><text x="375" y="275">Depletion region</text><path class="flow" d="M640 150 H475" stroke="#075985" stroke-width="5"/><path class="flow" d="M260 180 H425" stroke="#d92d55" stroke-width="5"/></svg></div><h3>Forward and reverse bias</h3><div class="grid"><div class="card"><h3>Forward bias</h3><p>P to positive and N to negative. Depletion width and barrier decrease; current rises rapidly after knee voltage. Typical barrier potential is approximately 0.7 V for silicon and 0.3 V for germanium at room temperature.</p></div><div class="card"><h3>Reverse bias</h3><p>P to negative and N to positive. Depletion width increases; only small reverse saturation current flows until breakdown.</p></div></div><div class="call"><b>Useful Extra Note — Shockley diode equation:</b> For deeper understanding, diode current can be represented by <span class="formula">I = I<sub>S</sub>(e<sup>qV<sub>D</sub>/kT</sup> − 1)</span>. At room temperature, kT/q ≈ 26 mV. For this diploma syllabus, use it as a concept note; numericals usually use static/dynamic resistance and diode power.</div><h3>V-I characteristic</h3><div class="svgbox"><svg viewBox="0 0 820 390"><line x1="70" y1="200" x2="760" y2="200" stroke="#111827" stroke-width="3"/><line x1="410" y1="40" x2="410" y2="350" stroke="#111827" stroke-width="3"/><text x="735" y="185">VD</text><text x="425" y="55">ID</text><path d="M410 200 C500 200 570 185 630 115 C660 80 680 55 700 40" fill="none" stroke="#075985" stroke-width="6"/><path d="M410 200 C310 202 220 205 145 220 C105 230 90 275 80 350" fill="none" stroke="#d92d55" stroke-width="5"/><text x="560" y="245">Knee</text><text x="55" y="375">Breakdown</text></svg></div><p>Knee voltage marks rapid forward-current rise. Reverse saturation current is minority-carrier leakage. Zener breakdown occurs in heavily doped junctions at lower reverse voltage; avalanche generally occurs at higher voltage.</p><div class="formula">RDC=VD/ID</div><div class="formula">rac=ΔVD/ΔID</div><div class="formula">PD=VD×ID</div><div class="solution"><h4>Static resistance</h4><div class="paper">VD=0.70 V, ID=10 mA=0.010 A.
@@ -49,6 +49,309 @@ Ideal tripler≈60 V.</div></div><div class="call exam"><b>Expected:</b> rectifi
 <h3>Power-supply signal path</h3><div class="grid"><div class="card quarter blue"><h3>1. Transformer</h3><p>Provides isolation and the required AC level.</p></div><div class="card quarter green"><h3>2. Rectifier</h3><p>Changes AC into pulsating DC.</p></div><div class="card quarter yellow"><h3>3. Filter</h3><p>Reduces ripple using C, L or a combined network.</p></div><div class="card quarter purple"><h3>4. Regulation / Load</h3><p>Maintains a useful DC level and supplies the circuit.</p></div></div><p>A capacitor-input filter gives a high no-load DC value but poorer regulation at heavy load. An inductor filter is more suitable for larger current. A π filter combines strong smoothing with practical DC output.</p>
 <h3>Clipping, clamping and multiplication</h3><div class="tbl"><table><tr><th>Circuit</th><th>What it does</th><th>Typical application</th></tr><tr><td>Positive/negative clipper</td><td>Removes one polarity beyond a set level</td><td>Amplitude limiting and protection</td></tr><tr><td>Biased clipper</td><td>Sets a non-zero clipping level</td><td>Threshold and slicing circuits</td></tr><tr><td>Combination clipper</td><td>Limits both upper and lower levels</td><td>Two-sided protection</td></tr><tr><td>Clamper</td><td>Shifts the complete waveform up or down</td><td>DC restoration</td></tr><tr><td>Voltage multiplier</td><td>Uses diode-capacitor stages for higher DC voltage</td><td>Low-current high-voltage supplies</td></tr></table></div>
 <h3>Quick practical checks</h3><div class="grid"><div class="card third"><h3>Before power ON</h3><ul><li>Check diode polarity and transistor pin identification.</li><li>Confirm capacitor polarity and voltage rating.</li><li>Verify current-limiting resistors.</li></ul></div><div class="card third"><h3>During measurement</h3><ul><li>Use a common reference ground.</li><li>Compare input and output waveforms on the same time scale.</li><li>Do not exceed device current, voltage or power ratings.</li></ul></div><div class="card third"><h3>When output is wrong</h3><ul><li>Check biasing first.</li><li>Confirm the expected conduction half-cycle.</li><li>Inspect loading, ripple and component orientation.</li></ul></div></div></section>
+<section class="section" id="source-enrichment">
+  <div class="head">
+    <span class="tag">Detailed Tutorial Expansion</span>
+    <h2>Source-based Basic Electronics study notes</h2>
+    <p>This expansion converts the relevant Diodes, Transistors, Power Electronics, RC Networks and Miscellaneous Circuits topics from the supplied tutorial index into syllabus-focused explanations. The material is paraphrased and organized for Course 2041; it is not a list of external links.</p>
+  </div>
+
+  <div class="call">
+    <b>How to use this section:</b> First read the working principle, then study the comparison table, copy the formula, and finally solve the mini example. Existing lesson material above remains the primary syllabus sequence; this section adds depth and practical connection.
+  </div>
+
+  <h3>1. Semiconductor material to practical diode</h3>
+  <div class="grid">
+    <div class="card third blue">
+      <h3>Intrinsic semiconductor</h3>
+      <p>Pure silicon or germanium contains covalent bonds. Thermal energy can release an electron from a bond and leave a hole. The free electron and the hole form an electron-hole pair, and recombination removes the pair.</p>
+    </div>
+    <div class="card third green">
+      <h3>N-type material</h3>
+      <p>Pentavalent donor atoms contribute an extra electron. Electrons are majority carriers and holes are minority carriers. The crystal as a whole remains electrically neutral.</p>
+    </div>
+    <div class="card third purple">
+      <h3>P-type material</h3>
+      <p>Trivalent acceptor atoms create vacancies called holes. Holes are majority carriers and electrons are minority carriers. A hole represents the movement of missing-electron charge through the lattice.</p>
+    </div>
+  </div>
+
+  <div class="tbl">
+    <table>
+      <tr><th>Condition</th><th>Depletion region</th><th>Barrier</th><th>Current</th><th>Useful model</th></tr>
+      <tr><td>Zero bias</td><td>Natural width</td><td>Built-in potential exists</td><td>Net current is approximately zero</td><td>Dynamic equilibrium</td></tr>
+      <tr><td>Forward bias</td><td>Narrows</td><td>Reduced</td><td>Rises rapidly after knee voltage</td><td>Closed switch with forward drop</td></tr>
+      <tr><td>Reverse bias</td><td>Widens</td><td>Increased</td><td>Only small leakage until breakdown</td><td>Open switch before breakdown</td></tr>
+    </table>
+  </div>
+
+  <p>The depletion region contains fixed ions but very few mobile carriers. Forward bias pushes majority carriers toward the junction, while reverse bias pulls them away. A silicon diode is commonly approximated by a 0.7 V forward drop and a germanium diode by about 0.3 V, although actual values depend on current and temperature.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Signal and switching diode</h3>
+      <p>Designed for low current and fast response. Important specifications are reverse-voltage rating, forward current, junction capacitance and recovery speed.</p>
+    </div>
+    <div class="card">
+      <h3>Power rectifier diode</h3>
+      <p>Designed for larger forward current and surge current. Selection depends mainly on average current, peak inverse voltage, power dissipation and thermal conditions.</p>
+    </div>
+    <div class="card">
+      <h3>Zener diode</h3>
+      <p>Intentionally operated in reverse breakdown. Within its permitted current range, the voltage remains nearly constant, so the device can act as a reference or simple shunt regulator.</p>
+    </div>
+    <div class="card">
+      <h3>LED</h3>
+      <p>Produces light when forward biased. A series resistor is essential because a small voltage increase can otherwise cause excessive current.</p>
+    </div>
+  </div>
+
+  <div class="formula">LED series resistor: R = (V<sub>S</sub> − V<sub>F</sub>) / I<sub>F</sub></div>
+  <div class="solution">
+    <h4>Mini example — LED resistor</h4>
+    <div class="paper">Supply = 9 V, LED drop = 2 V, required current = 15 mA.
+R = (9 − 2)/0.015 = 466.7 Ω.
+Choose the next convenient standard value, 470 Ω.</div>
+  </div>
+
+  <div class="formula">Zener series resistor: R<sub>S</sub> = (V<sub>IN</sub> − V<sub>Z</sub>) / (I<sub>L</sub> + I<sub>Z</sub>)</div>
+  <div class="solution">
+    <h4>Mini example — simple Zener regulator</h4>
+    <div class="paper">V<sub>IN</sub>=12 V, V<sub>Z</sub>=5.1 V, load current=10 mA, chosen Zener current=5 mA.
+R<sub>S</sub>=(12−5.1)/(0.010+0.005)=460 Ω.
+Use approximately 470 Ω and verify resistor/Zener power ratings.</div>
+  </div>
+
+  <h3>2. Rectification and filtering in a DC power supply</h3>
+  <div class="grid">
+    <div class="card third">
+      <h3>Half-wave rectifier</h3>
+      <p>One diode conducts during one half-cycle and blocks the other. The ripple frequency equals the supply frequency, so smoothing is relatively difficult.</p>
+    </div>
+    <div class="card third">
+      <h3>Centre-tapped full-wave</h3>
+      <p>Each diode conducts on alternate half-cycles through half of the transformer secondary. Ripple frequency is twice the supply frequency, but each diode must withstand a higher PIV.</p>
+    </div>
+    <div class="card third">
+      <h3>Bridge rectifier</h3>
+      <p>Two diodes conduct in each half-cycle. It does not require a centre tap and gives good transformer utilization, but the conducting path contains two forward drops.</p>
+    </div>
+  </div>
+
+  <div class="tbl">
+    <table>
+      <tr><th>Item</th><th>Half-wave</th><th>Full-wave centre tap</th><th>Bridge</th></tr>
+      <tr><td>Diodes conducting at a time</td><td>1</td><td>1</td><td>2</td></tr>
+      <tr><td>Ripple frequency</td><td>f</td><td>2f</td><td>2f</td></tr>
+      <tr><td>Ideal average output</td><td>V<sub>m</sub>/π</td><td>2V<sub>m</sub>/π</td><td>2V<sub>m</sub>/π</td></tr>
+      <tr><td>PIV per diode</td><td>V<sub>m</sub></td><td>2V<sub>m</sub></td><td>V<sub>m</sub></td></tr>
+      <tr><td>Main advantage</td><td>Simplicity</td><td>One diode drop in path</td><td>No centre tap, better utilization</td></tr>
+    </table>
+  </div>
+
+  <p>A capacitor-input filter charges near each rectified peak and supplies the load between peaks. Increasing capacitance or decreasing load current reduces ripple. A series inductor opposes changes in current, and a π filter combines shunt capacitors with a series element for stronger smoothing.</p>
+
+  <div class="formula">Approximate capacitor-filter ripple: ΔV ≈ I<sub>L</sub> / (f<sub>ripple</sub>C)</div>
+  <div class="solution">
+    <h4>Mini example — ripple estimate</h4>
+    <div class="paper">Full-wave rectifier on 50 Hz supply: f<sub>ripple</sub>=100 Hz.
+I<sub>L</sub>=50 mA and C=1000 μF.
+ΔV≈0.05/(100×0.001)=0.5 V peak-to-peak (approximate).</div>
+  </div>
+
+  <h3>3. BJT operation, configurations and switching</h3>
+  <p>A bipolar junction transistor contains two PN junctions and three terminals: emitter, base and collector. In normal active operation the emitter-base junction is forward biased and the collector-base junction is reverse biased. A small base current controls a much larger collector current.</p>
+
+  <div class="tbl">
+    <table>
+      <tr><th>Region</th><th>Junction condition</th><th>Collector current</th><th>Application</th></tr>
+      <tr><td>Cut-off</td><td>Base-emitter not sufficiently forward biased</td><td>Approximately zero</td><td>Switch OFF</td></tr>
+      <tr><td>Active</td><td>EB forward, CB reverse</td><td>I<sub>C</sub>≈βI<sub>B</sub></td><td>Amplification</td></tr>
+      <tr><td>Saturation</td><td>Both junctions forward biased</td><td>Limited mainly by load circuit</td><td>Switch ON</td></tr>
+    </table>
+  </div>
+
+  <div class="grid">
+    <div class="card third blue">
+      <h3>Common base</h3>
+      <p>Low input resistance, high output resistance, current gain below unity, useful voltage gain and good high-frequency response.</p>
+    </div>
+    <div class="card third green">
+      <h3>Common emitter</h3>
+      <p>Useful current and voltage gain, high power gain and 180° phase reversal. It is the most common general amplifier configuration.</p>
+    </div>
+    <div class="card third purple">
+      <h3>Common collector</h3>
+      <p>Voltage gain near unity, high input resistance and low output resistance. It is widely used as an emitter follower or buffer.</p>
+    </div>
+  </div>
+
+  <div class="formula">I<sub>E</sub>=I<sub>C</sub>+I<sub>B</sub>; &nbsp; β=I<sub>C</sub>/I<sub>B</sub>; &nbsp; α=I<sub>C</sub>/I<sub>E</sub></div>
+
+  <div class="solution">
+    <h4>Mini example — saturated transistor switch</h4>
+    <div class="paper">A 5 V logic signal drives an NPN transistor. Required collector current is 60 mA.
+Use forced β=10 for reliable saturation, so I<sub>B</sub>=60/10=6 mA.
+With V<sub>BE</sub>≈0.7 V, R<sub>B</sub>=(5−0.7)/0.006≈717 Ω.
+Choose about 680 Ω or 750 Ω after checking source-current capability.</div>
+  </div>
+
+  <div class="call mist">
+    <b>Inductive-load warning:</b> A relay coil or motor stores magnetic energy. When transistor current is interrupted, the coil can generate a large reverse voltage. Connect a flyback diode across a DC coil with polarity that is reverse biased during normal operation.
+  </div>
+
+  <h3>4. JFET and MOSFET control of current</h3>
+  <div class="grid">
+    <div class="card">
+      <h3>JFET</h3>
+      <p>The gate-channel junction is normally reverse biased. Changing V<sub>GS</sub> changes depletion width and therefore the effective channel width. Gate current is extremely small, giving high input impedance.</p>
+      <p>For an N-channel JFET, making V<sub>GS</sub> more negative reduces I<sub>D</sub>. At V<sub>GS(off)</sub> the channel is effectively cut off.</p>
+    </div>
+    <div class="card">
+      <h3>Depletion MOSFET</h3>
+      <p>An insulated gate controls an existing channel. It can conduct at V<sub>GS</sub>=0; one gate polarity depletes the channel and the opposite polarity enhances it.</p>
+      <p>The oxide insulation produces extremely high DC input resistance, but gate capacitance must still be charged and discharged during switching.</p>
+    </div>
+  </div>
+
+  <div class="formula">JFET transfer approximation: I<sub>D</sub>=I<sub>DSS</sub>(1−V<sub>GS</sub>/V<sub>P</sub>)²</div>
+  <div class="solution">
+    <h4>Mini example — JFET drain current</h4>
+    <div class="paper">I<sub>DSS</sub>=12 mA, V<sub>P</sub>=−6 V, V<sub>GS</sub>=−3 V.
+I<sub>D</sub>=12(1−(−3/−6))²=12(0.5)²=3 mA.</div>
+  </div>
+
+  <div class="tbl">
+    <table>
+      <tr><th>Feature</th><th>BJT</th><th>JFET</th><th>MOSFET</th></tr>
+      <tr><td>Control quantity</td><td>Base current</td><td>Gate voltage</td><td>Gate voltage</td></tr>
+      <tr><td>Carrier type</td><td>Bipolar</td><td>Unipolar</td><td>Unipolar</td></tr>
+      <tr><td>Input impedance</td><td>Lower</td><td>High</td><td>Very high</td></tr>
+      <tr><td>Typical strength</td><td>Current gain and simple analogue stages</td><td>Low gate current and low-noise input</td><td>Efficient voltage-controlled switching</td></tr>
+    </table>
+  </div>
+
+  <h3>5. UJT negative resistance and relaxation oscillator</h3>
+  <p>A unijunction transistor has one PN junction and three terminals: emitter E, base B1 and base B2. The N-type bar between B1 and B2 behaves like two series resistances. The emitter junction is connected to their internal division point.</p>
+
+  <div class="formula">R<sub>BB</sub>=R<sub>B1</sub>+R<sub>B2</sub>; &nbsp; η=R<sub>B1</sub>/R<sub>BB</sub>; &nbsp; V<sub>P</sub>≈ηV<sub>BB</sub>+V<sub>D</sub></div>
+
+  <p>Below the peak voltage, the emitter junction is not conducting. When the emitter reaches the peak point, carrier injection reduces the effective resistance toward B1. Emitter current increases while emitter voltage falls, producing the negative-resistance region. Conduction continues toward the valley point, after which the UJT returns to the OFF state when current becomes too small.</p>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Charging interval</h3>
+      <p>The timing capacitor charges through a resistor. Its voltage rises exponentially toward the supply while the UJT remains OFF.</p>
+    </div>
+    <div class="card">
+      <h3>Trigger and discharge</h3>
+      <p>When capacitor voltage reaches the UJT peak voltage, the emitter switches ON and the capacitor discharges quickly through B1, producing a narrow trigger pulse.</p>
+    </div>
+  </div>
+
+  <div class="solution">
+    <h4>Mini example — UJT peak voltage</h4>
+    <div class="paper">η=0.65, V<sub>BB</sub>=10 V, silicon emitter junction drop≈0.7 V.
+V<sub>P</sub>≈0.65×10+0.7=7.2 V.</div>
+  </div>
+
+  <h3>6. RC charging, discharging and pulse response</h3>
+  <div class="formula">Charging: v<sub>C</sub>(t)=V(1−e<sup>−t/RC</sup>)</div>
+  <div class="formula">Discharging: v<sub>C</sub>(t)=V<sub>0</sub>e<sup>−t/RC</sup></div>
+
+  <div class="tbl">
+    <table>
+      <tr><th>Elapsed time</th><th>Charging voltage</th><th>Discharging voltage</th></tr>
+      <tr><td>1τ</td><td>63.2% of final</td><td>36.8% remains</td></tr>
+      <tr><td>2τ</td><td>86.5%</td><td>13.5% remains</td></tr>
+      <tr><td>3τ</td><td>95.0%</td><td>5.0% remains</td></tr>
+      <tr><td>5τ</td><td>About 99.3%</td><td>About 0.7% remains</td></tr>
+    </table>
+  </div>
+
+  <div class="solution">
+    <h4>Mini example — capacitor charging</h4>
+    <div class="paper">V=10 V, R=100 kΩ, C=10 μF, so τ=1 s.
+At t=1 s: v<sub>C</sub>=10(1−e<sup>−1</sup>)≈6.32 V.
+At t=3 s: v<sub>C</sub>≈9.50 V.</div>
+  </div>
+
+  <h3>7. RC integrator and differentiator</h3>
+  <div class="grid">
+    <div class="card">
+      <h3>RC integrator</h3>
+      <p>Input is applied through the resistor and output is taken across the capacitor. The capacitor cannot follow rapid changes fully, so a square wave can become a ramp-like or approximately triangular waveform.</p>
+      <div class="formula">Good integration: RC much greater than pulse width (or X<sub>C</sub>≪R at the signal frequency)</div>
+    </div>
+    <div class="card">
+      <h3>RC differentiator</h3>
+      <p>Input is applied through the capacitor and output is taken across the resistor. Rapid changes pass strongly, so square-wave edges produce a positive spike at the rising edge and a negative spike at the falling edge.</p>
+      <div class="formula">Good differentiation: RC much smaller than pulse width (or X<sub>C</sub>≫R at the signal frequency)</div>
+    </div>
+  </div>
+
+  <div class="call exam">
+    <b>Memory rule:</b> Output across C tends toward integration; output across R tends toward differentiation. Always compare RC with pulse width or period before predicting the waveform.
+  </div>
+
+  <h3>8. Clippers, clampers and voltage multipliers</h3>
+  <div class="tbl">
+    <table>
+      <tr><th>Circuit</th><th>Main action</th><th>What changes</th><th>Typical purpose</th></tr>
+      <tr><td>Series/shunt clipper</td><td>Blocks or diverts a selected part</td><td>Waveform amplitude/shape</td><td>Limiting and protection</td></tr>
+      <tr><td>Biased clipper</td><td>Sets a non-zero clipping threshold</td><td>Upper or lower limit</td><td>Slicing and threshold control</td></tr>
+      <tr><td>Combination clipper</td><td>Limits both polarities</td><td>Upper and lower boundaries</td><td>Two-sided protection</td></tr>
+      <tr><td>Clamper</td><td>Adds a DC level to the waveform</td><td>Reference level; ideal peak-to-peak value stays similar</td><td>DC restoration and level shifting</td></tr>
+      <tr><td>Voltage multiplier</td><td>Charges capacitors on alternate half-cycles</td><td>Higher DC voltage at light load</td><td>Low-current high-voltage supply</td></tr>
+    </table>
+  </div>
+
+  <p>In a clamper, the diode establishes the charging polarity and the capacitor stores a voltage that shifts the entire waveform. For effective clamping, the discharge time constant through the load should be long compared with the signal period. In a voltage doubler or tripler, loading, diode drops and ripple make the practical output lower than the simple ideal multiples.</p>
+
+  <div class="solution">
+    <h4>Mini example — clipping level</h4>
+    <div class="paper">A silicon biased clipper has a 3 V bias source in series with the diode.
+A first estimate of the clipping threshold is 3 V + 0.7 V = 3.7 V.
+The actual polarity and whether positive or negative peaks are limited depend on diode orientation and bias-source polarity.</div>
+  </div>
+
+  <h3>9. Source-topic coverage map</h3>
+  <div class="tbl">
+    <table>
+      <tr><th>Uploaded tutorial category</th><th>Course 2041 use</th><th>Topics converted into notes</th></tr>
+      <tr><td>Semiconductor Diodes</td><td>Module 1 and Module 4</td><td>PN junction, bias, rectification, Zener, LED, clipping and clamping</td></tr>
+      <tr><td>Transistors</td><td>Module 2 and Module 3</td><td>BJT regions/configurations, transistor switch, JFET and MOSFET</td></tr>
+      <tr><td>Power Electronics</td><td>Module 3</td><td>UJT construction, negative resistance, triggering and relaxation oscillator</td></tr>
+      <tr><td>RC Networks</td><td>Module 4</td><td>Charging, discharging, time constant, waveforms, integration and differentiation</td></tr>
+      <tr><td>Miscellaneous Circuits / Power Supplies</td><td>Module 4</td><td>Voltage multiplication, rectifier-filter chain and practical waveform control</td></tr>
+    </table>
+  </div>
+
+  <h3>10. Quick concept test</h3>
+  <div class="grid">
+    <div class="card">
+      <ol>
+        <li>Why does forward bias reduce depletion width?</li>
+        <li>Why is a resistor required with an LED?</li>
+        <li>Why does full-wave rectification simplify filtering?</li>
+        <li>Which BJT region is used for linear amplification?</li>
+        <li>Why does a MOSFET have very high input resistance?</li>
+      </ol>
+    </div>
+    <div class="card">
+      <ol start="6">
+        <li>What produces the negative-resistance region of a UJT?</li>
+        <li>What percentage of final voltage is reached after one RC time constant?</li>
+        <li>Where is the output taken in an RC differentiator?</li>
+        <li>How does a clamper differ from a clipper?</li>
+        <li>Why is practical multiplier output below the ideal value?</li>
+      </ol>
+    </div>
+  </div>
+  <div class="call">
+    <b>Answer outline:</b> majority carriers are pushed toward the junction; current must be limited; ripple frequency doubles; active region; insulated gate; emitter injection lowers the B1-side resistance; 63.2%; across R; clamper shifts while clipper removes/limits; diode drops, ripple and loading reduce output.
+  </div>
+</section>
 <section class="section" id="expected"><div class="head"><span class="tag">Expected Questions</span><h2>Module-wise question bank</h2></div><div class="grid"><div class="card blue"><h3>Module 1</h3><ol><li>Energy-band diagrams.</li><li>Intrinsic/extrinsic and doping.</li><li>PN-junction formation.</li><li>Diode V-I and specifications.</li><li>Resistance and power numericals.</li></ol></div><div class="card green"><h3>Module 2</h3><ol><li>NPN/PNP construction.</li><li>Modes and currents.</li><li>Gain relations.</li><li>Configuration comparison.</li><li>CE characteristics and amplifier.</li></ol></div><div class="card purple"><h3>Module 3</h3><ol><li>JFET pinch-off.</li><li>MOSFET depletion operation.</li><li>UJT negative resistance.</li><li>Device comparisons.</li><li>η numerical.</li></ol></div><div class="card yellow"><h3>Module 4</h3><ol><li>Rectifier/filter comparison.</li><li>Differentiator/integrator.</li><li>Clipper and clamper waveforms.</li><li>Voltage multipliers.</li></ol></div></div></section>
 <section class="section" id="practice"><div class="head"><span class="tag">Practice</span><h2>Problems and self-assessment</h2></div><div class="grid"><div class="card third"><h3>Module 1</h3><ol><li>VD=0.6 V, ID=20 mA. <b>RDC=30 Ω</b></li><li>ΔV=0.03 V, ΔI=5 mA. <b>rac=6 Ω</b></li></ol></div><div class="card third"><h3>Module 2</h3><ol><li>IC=9.9 mA, IB=0.1 mA. <b>IE=10 mA, β=99</b></li><li>α=0.975. <b>β=39</b></li></ol></div><div class="card third"><h3>Module 3</h3><ol><li>RB1=7 kΩ,RB2=3 kΩ. <b>η=0.7</b></li><li>IDSS=8 mA, VP=-3 V, VGS=-1.5 V. <b>ID=2 mA</b></li></ol></div><div class="card third"><h3>Module 4</h3><ol><li>R=20 kΩ,C=0.005 μF. <b>τ=0.1 ms</b></li><li>Vm=25 V. <b>Doubler≈50 V</b></li></ol></div><div class="card third green"><h3>Checklist</h3><ul class="check"><li>I can draw all devices.</li><li>I can read curves.</li><li>I can solve formulas.</li><li>I can predict waveforms.</li></ul></div></div><p><b>Fill:</b> BJT base is ____ and lightly doped. Full-wave ripple≈____. UJT has ____ junction. <b>Answers:</b> thin, 0.482, one.</p></section>
 <section class="section" id="revision"><div class="head"><span class="tag">Quick Revision</span><h2>Last-day revision</h2></div><div class="grid"><div class="card quarter blue"><h3>M1</h3><ul><li>Donor→N; acceptor→P.</li><li>Forward bias narrows depletion.</li><li>RDC=VD/ID.</li></ul></div><div class="card quarter green"><h3>M2</h3><ul><li>Active amplifies.</li><li>Cutoff/saturation switch.</li><li>CE high power gain.</li></ul></div><div class="card quarter purple"><h3>M3</h3><ul><li>FET voltage controlled.</li><li>MOS gate insulated.</li><li>UJT negative resistance.</li></ul></div><div class="card quarter yellow"><h3>M4</h3><ul><li>Bridge PIV=Vm.</li><li>τ=RC.</li><li>Clipper cuts; clamper shifts.</li></ul></div></div><div class="call mist"><b>Common Examination Mistakes:</b> wrong transistor arrow, missing axes on curves, mixing α and β, forgetting ideal-diode assumptions, drawing series clippers when shunt type is asked, writing RC≫T for differentiator, writing RC≪T for integrator, and not converting mA/µA/nF/µF into base units.</div></section>
