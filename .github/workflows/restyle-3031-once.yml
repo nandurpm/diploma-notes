@@ -1,0 +1,48 @@
+name: Restyle lesson 3031 once
+
+on:
+  push:
+    paths:
+      - .github/workflows/restyle-3031-once.yml
+
+permissions:
+  contents: write
+
+jobs:
+  restyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Apply the standard lesson theme
+        run: python tools/restyle_3031_runner.py
+
+      - name: Verify the updated lesson
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('lessons/lessons-3031.html').read_text(encoding='utf-8')
+          checks = {
+              'light theme': '--bg:#f4f8fc' in text,
+              'top navigation': 'class="selector"' in text,
+              'print control': 'Print / Save PDF' in text,
+              'modules preserved': all(f'id="module{i}"' in text for i in range(1, 5)),
+              'model paper preserved': 'id="model-qp"' in text,
+              'diagrams preserved': text.count('<svg') >= 30,
+              'sections preserved': text.count('<section') >= 20,
+          }
+          failed = [name for name, ok in checks.items() if not ok]
+          if failed:
+              raise SystemExit('Validation failed: ' + ', '.join(failed))
+          print('All lesson checks passed')
+          PY
+
+      - name: Commit the finished lesson and remove temporary files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lessons/lessons-3031.html
+          git rm tools/restyle-3031.css tools/restyle_3031_runner.py .github/workflows/restyle-3031-once.yml
+          git commit -m "Restyle Analog and Digital Circuits lesson 3031"
+          git push
