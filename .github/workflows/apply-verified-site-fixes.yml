@@ -4,13 +4,16 @@ on:
   workflow_dispatch:
   push:
     branches: [fix/verified-site-bugs-2026-06-12]
-    paths: [tools/fix_parts/**]
+    paths:
+      - tools/fix_parts/**
+      - .github/workflows/apply-verified-site-fixes.yml
 
 permissions:
   contents: write
 
 jobs:
   apply:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
