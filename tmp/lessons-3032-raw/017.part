@@ -1,0 +1,71 @@
+to resistor</td><td>Energy → heat</td></tr>
+    <tr><td>Regenerative braking</td><td>Generated EMF opposing and exceeding supply</td><td>Energy → supply</td></tr>
+  </tbody></table></div>
+  <div class="callout exam"><b>Diagram-marking rule</b><div>Use standard symbols, show terminal names, draw current arrows, state switch position and add a one-sentence working principle below the diagram.</div></div>
+</section>
+
+<section class="section" id="curve-bank">
+  <div class="section-head"><span class="eyebrow">Characteristic Curve Bank</span><h2>Axes, shape and interpretation</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Curve</th><th>Horizontal axis</th><th>Vertical axis</th><th>Important interpretation</th></tr></thead><tbody>
+    <tr><td>Generator OCC</td><td>Field current If</td><td>Generated EMF Eg</td><td>Residual voltage, linear region, knee and saturation</td></tr>
+    <tr><td>Internal generator</td><td>Load current</td><td>Generated EMF after armature reaction</td><td>Below ideal/no-reaction curve</td></tr>
+    <tr><td>External generator</td><td>Load current</td><td>Terminal voltage V</td><td>Below internal curve by resistive drops</td></tr>
+    <tr><td>Series generator</td><td>Load current</td><td>Terminal voltage</td><td>Rises, saturates, may fall</td></tr>
+    <tr><td>Compound generator</td><td>Load current</td><td>Terminal voltage</td><td>Under, flat or over compounded</td></tr>
+    <tr><td>Shunt motor T–Ia</td><td>Armature current</td><td>Torque</td><td>Nearly straight line through origin</td></tr>
+    <tr><td>Shunt motor N–Ia</td><td>Armature current</td><td>Speed</td><td>Slight droop with load</td></tr>
+    <tr><td>Series motor T–Ia</td><td>Armature current</td><td>Torque</td><td>Quadratic before saturation; linear after</td></tr>
+    <tr><td>Series motor N–Ia</td><td>Armature current</td><td>Speed</td><td>Very high at light load; falls with current</td></tr>
+    <tr><td>Speed-control curve</td><td>Torque/load</td><td>Speed</td><td>Armature resistance gives drooping lower-speed curves; voltage control gives nearly parallel curves</td></tr>
+  </tbody></table></div>
+  <div class="callout exam"><b>Characteristic insight</b><div>A complete graph answer needs labeled axes, operating condition (constant speed/voltage/flux), important regions such as saturation, and a short physical reason for the curve shape.</div></div>
+</section>
+
+<section class="section" id="loss-bank">
+  <div class="section-head"><span class="eyebrow">Power-Flow and Losses Bank</span><h2>Where power goes in generators and motors</h2></div>
+  <div class="grid">
+    <div class="card"><h3>Generator</h3><p>Mechanical input → subtract iron/mechanical losses → gross electrical power EgIa → subtract armature/field/brush losses → terminal output VIL.</p></div>
+    <div class="card"><h3>Motor</h3><p>Electrical input VIL → subtract field/armature/brush losses → gross mechanical power EbIa → subtract rotational/stray losses → shaft output.</p></div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Loss</th><th>Cause</th><th>Variation</th><th>Reduction</th></tr></thead><tbody>
+    <tr><td>Armature copper Ia²Ra</td><td>Armature resistance</td><td>Variable with current squared</td><td>Low-resistance copper, cooling</td></tr>
+    <tr><td>Field copper</td><td>Field-winding resistance</td><td>Shunt nearly constant; series variable</td><td>Correct conductor size</td></tr>
+    <tr><td>Hysteresis</td><td>Repeated magnetisation of armature iron</td><td>Depends on frequency and flux density</td><td>Silicon steel</td></tr>
+    <tr><td>Eddy current</td><td>Induced currents in iron</td><td>Depends on flux and speed</td><td>Thin insulated laminations</td></tr>
+    <tr><td>Mechanical</td><td>Bearing/brush friction and windage</td><td>Approximately constant near rated speed</td><td>Lubrication, alignment and ventilation design</td></tr>
+    <tr><td>Stray load</td><td>Leakage, armature reaction, current redistribution</td><td>Increases with load</td><td>Good magnetic and winding design</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="selection-bank">
+  <div class="section-head"><span class="eyebrow">Motor Selection and Application Bank</span><h2>Select by torque, regulation, overload and control</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Application</th><th>Load requirement</th><th>Recommended motor</th><th>Technical justification</th></tr></thead><tbody>
+    <tr><td>Lathe / machine tool</td><td>Nearly constant speed, adjustable range</td><td>Shunt or separately excited</td><td>Good regulation and convenient field/voltage control</td></tr>
+    <tr><td>Fan / blower</td><td>Low starting torque, smooth speed</td><td>Shunt</td><td>Stable speed and moderate starting duty</td></tr>
+    <tr><td>Centrifugal pump</td><td>Nearly constant speed</td><td>Shunt</td><td>Good regulation</td></tr>
+    <tr><td>Conveyor</td><td>Higher starting torque, varying load</td><td>Cumulative compound</td><td>Good starting torque with better regulation than series</td></tr>
+    <tr><td>Crane / hoist</td><td>Very high starting torque and overload</td><td>Series</td><td>Torque rises strongly with current</td></tr>
+    <tr><td>Elevator</td><td>High starting torque and controlled acceleration</td><td>Series or compound with control</td><td>Strong starting performance</td></tr>
+    <tr><td>Rolling mill</td><td>Shock load and high overload</td><td>Cumulative compound</td><td>Torque support with acceptable speed change</td></tr>
+    <tr><td>Electric traction</td><td>Very high starting torque, wide control, braking</td><td>DC series (traditional)</td><td>Excellent torque and series-parallel control</td></tr>
+    <tr><td>Printing machine</td><td>Controlled nearly constant speed</td><td>Shunt / separately excited</td><td>Good regulation</td></tr>
+    <tr><td>Reciprocating pump / press</td><td>Fluctuating heavy torque</td><td>Cumulative compound</td><td>Handles peak torque without extreme speed rise</td></tr>
+  </tbody></table></div>
+  <div class="callout insight"><b>Selection method</b><div>First identify starting torque and overload requirement, then speed regulation, duty cycle, control range, braking and supply. Do not select a motor only from power rating.</div></div>
+</section>
+
+<section class="section" id="traction-bank">
+  <div class="section-head"><span class="eyebrow">Traction System Bank</span><h2>Series-parallel stages, transition and braking</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Stage / method</th><th>Connection or energy path</th><th>Purpose</th><th>Main limitation</th></tr></thead><tbody>
+    <tr><td>Series + resistance</td><td>Motors in series with starting resistors</td><td>Limit starting current</td><td>High resistor loss</td></tr>
+    <tr><td>Full series</td><td>Motors in series, resistors removed</td><td>Efficient low/medium speed</td><td>Each motor receives about half voltage</td></tr>
+    <tr><td>Shunt transition</td><td>Temporary shunt paths during reconnection</td><td>Maintain motor current</td><td>Torque disturbance and resistor loss</td></tr>
+    <tr><td>Bridge transition</td><td>Bridge network balances current paths</td><td>Smoother series-to-parallel change</td><td>More complex contactor sequence</td></tr>
+    <tr><td>Parallel + resistance</td><td>Motors parallel with resistance</td><td>Limit current after transition</td><td>Temporary loss</td></tr>
+    <tr><td>Full parallel</td><td>Each motor across supply</td><td>High-speed operation</td><td>Higher voltage per motor</td></tr>
+    <tr><td>Rheostatic braking</td><td>Generated energy to resistor</td><td>Electrical braking independent of receptive line</td><td>Energy wasted as heat</td></tr>
+    <tr><td>Regenerative braking</td><td>Generated energy to supply</td><td>Energy recovery and reduced brake wear</td><td>Needs receptive supply and control</td></tr>
+  </tbody></table></div>
+</section>
+<section class="section" id="solved">
+  <div class="section-head"><span class="eyebrow">Solv
