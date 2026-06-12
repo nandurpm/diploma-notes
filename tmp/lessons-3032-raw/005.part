@@ -1,0 +1,61 @@
+Y="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#b65f2b"/></marker></defs>
+      <rect x="55" y="80" width="190" height="250" rx="35" fill="#dbeafe" stroke="#0b5f9e" stroke-width="8"/><text x="130" y="220" font-size="70" font-weight="950" fill="#0b5f9e">N</text>
+      <rect x="755" y="80" width="190" height="250" rx="35" fill="#fee2e2" stroke="#b4233c" stroke-width="8"/><text x="830" y="220" font-size="70" font-weight="950" fill="#b4233c">S</text>
+      <g stroke="#07889b" stroke-width="4" marker-end="url(#a2)"><line x1="255" y1="125" x2="730" y2="125"/><line x1="255" y1="205" x2="730" y2="205"/><line x1="255" y1="285" x2="730" y2="285"/></g>
+      <rect x="365" y="85" width="270" height="220" rx="12" fill="none" stroke="#b65f2b" stroke-width="12"/>
+      <line x1="500" y1="45" x2="500" y2="355" stroke="#53687a" stroke-width="9"/>
+      <path d="M445 340 A55 55 0 0 0 500 395" fill="none" stroke="#b65f2b" stroke-width="20"/><path d="M555 340 A55 55 0 0 1 500 395" fill="none" stroke="#b65f2b" stroke-width="20"/>
+      <rect x="420" y="360" width="36" height="24" fill="#222"/><rect x="544" y="360" width="36" height="24" fill="#222"/>
+      <line x1="420" y1="372" x2="325" y2="372" stroke="#222" stroke-width="5"/><line x1="580" y1="372" x2="675" y2="372" stroke="#222" stroke-width="5"/>
+      <text x="265" y="392" font-size="24" font-weight="900">− Brush</text><text x="680" y="392" font-size="24" font-weight="900">+ Brush</text>
+      <path d="M660 65 A175 155 0 0 1 690 280" fill="none" stroke="#6d43b5" stroke-width="6" marker-end="url(#a2)"/><text x="645" y="55" font-size="22" font-weight="900" fill="#6d43b5">Rotation</text>
+      <text x="435" y="210" font-size="28" font-weight="900" fill="#b65f2b">Rotating coil</text>
+    </svg>
+    <figcaption>The EMF in each coil side reverses every half-turn, so the armature EMF is alternating. The split-ring commutator reverses coil connections at the same instant, keeping brush polarity unchanged.</figcaption>
+  </figure>
+
+  <h3>3. Simple-loop waveform and commutator rectification</h3>
+  <div class="grid">
+    <div class="card"><h4>Coil positions during one revolution</h4><div class="table-wrap"><table class="compact"><thead><tr><th>Angle</th><th>Flux-cutting rate</th><th>Coil EMF</th><th>Brush output</th></tr></thead><tbody>
+      <tr><td>0°</td><td>Zero</td><td>0</td><td>0</td></tr><tr><td>90°</td><td>Maximum</td><td>+Emax</td><td>+Emax</td></tr><tr><td>180°</td><td>Zero</td><td>0</td><td>0</td></tr><tr><td>270°</td><td>Maximum opposite</td><td>−Emax</td><td>+Emax</td></tr><tr><td>360°</td><td>Zero</td><td>0</td><td>0</td></tr>
+    </tbody></table></div></div>
+    <div class="curve-panel"><h4>Generated and rectified waveform</h4>
+      <svg viewBox="0 0 700 300" role="img" aria-label="Sinusoidal coil EMF and pulsating unidirectional brush voltage">
+        <line x1="55" y1="145" x2="665" y2="145" stroke="#334155" stroke-width="3"/><line x1="55" y1="35" x2="55" y2="265" stroke="#334155" stroke-width="3"/>
+        <path d="M55 145 C105 35 155 35 205 145 S305 255 355 145 S455 35 505 145 S605 255 655 145" fill="none" stroke="#6d43b5" stroke-width="5"/>
+        <path d="M55 145 C105 35 155 35 205 145 C255 35 305 35 355 145 C405 35 455 35 505 145 C555 35 605 35 655 145" fill="none" stroke="#b65f2b" stroke-width="5" stroke-dasharray="10 7"/>
+        <text x="75" y="35" font-size="20" fill="#6d43b5">Coil EMF</text><text x="430" y="65" font-size="20" fill="#b65f2b">Brush voltage</text><text x="310" y="290" font-size="20">Electrical angle</text><text x="5" y="50" font-size="20">e</text>
+      </svg>
+    </div>
+  </div>
+
+  <h3>4. Classification by field excitation</h3>
+  <div class="grid">
+    <div class="card quarter blue"><h4>Separately excited</h4><p>Field winding receives current from an independent DC supply. Flux can be controlled independently of armature load.</p></div>
+    <div class="card quarter green"><h4>Shunt</h4><p>Field winding is connected across armature terminals. It has many turns, high resistance and small field current.</p></div>
+    <div class="card quarter copper"><h4>Series</h4><p>Field winding is in series with armature and load. It carries load current and uses few thick turns.</p></div>
+    <div class="card quarter violet"><h4>Compound</h4><p>Both shunt and series fields are used. Cumulative compounding aids flux; differential compounding opposes it.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1200 420" role="img" aria-label="Connection diagrams of separately excited, shunt, series and compound DC generators">
+      <defs><style>.w1{stroke:#173b59;stroke-width:5;fill:none}.c1{fill:#fff;stroke:#0b5f9e;stroke-width:5}.t1{font:700 21px Segoe UI,Arial}</style></defs>
+      <g transform="translate(20,20)"><circle class="c1" cx="135" cy="135" r="55"/><text class="t1" x="104" y="143">G</text><path class="w1" d="M80 135H25V290H245V135H190"/><rect class="c1" x="65" y="245" width="140" height="45"/><text class="t1" x="92" y="275">Load</text><path class="w1" d="M30 75H240"/><rect class="c1" x="75" y="50" width="120" height="45"/><text class="t1" x="105" y="80">Field</text><text class="t1" x="55" y="365">Separately excited</text></g>
+      <g transform="translate(300,20)"><circle class="c1" cx="135" cy="135" r="55"/><text class="t1" x="104" y="143">G</text><path class="w1" d="M80 135H25V290H245V135H190"/><rect class="c1" x="65" y="245" width="140" height="45"/><text class="t1" x="92" y="275">Load</text><path class="w1" d="M45 135V70H225V135"/><rect class="c1" x="75" y="48" width="120" height="45"/><text class="t1" x="105" y="78">Shunt F</text><text class="t1" x="70" y="365">Shunt</text></g>
+      <g transform="translate(580,20)"><circle class="c1" cx="120" cy="135" r="55"/><text class="t1" x="90" y="143">G</text><path class="w1" d="M65 135H25V290H245V135H210"/><rect class="c1" x="65" y="245" width="140" height="45"/><text class="t1" x="92" y="275">Load</text><rect class="c1" x="165" y="110" width="65" height="50"/><text class="t1" x="177" y="143">SF</text><text class="t1" x="70" y="365">Series</text></g>
+      <g transform="translate(860,20)"><circle class="c1" cx="115" cy="150" r="55"/><text class="t1" x="85" y="158">G</text><path class="w1" d="M60 150H20V300H250V150H205"/><rect class="c1" x="65" y="255" width="140" height="45"/><text class="t1" x="92" y="285">Load</text><rect class="c1" x="165" y="125" width="65" height="50"/><text class="t1" x="177" y="158">SF</text><path class="w1" d="M40 150V65H225V125"/><rect class="c1" x="75" y="42" width="120" height="45"/><text class="t1" x="102" y="72">Shunt F</text><text class="t1" x="55" y="365">Compound</text></g>
+    </svg>
+    <figcaption>SF denotes series field. Compound generators may be long-shunt or short-shunt depending on whether the shunt field is connected across both armature and series field or across the armature alone.</figcaption>
+  </figure>
+
+  <div class="table-wrap"><table><thead><tr><th>Type</th><th>Field connection</th><th>Voltage behaviour</th><th>Typical use</th></tr></thead><tbody>
+    <tr><td>Separately excited</td><td>Independent supply</td><td>Wide controllability</td><td>Laboratory and controlled DC supply</td></tr>
+    <tr><td>Shunt</td><td>Across terminals</td><td>Approximately constant voltage</td><td>Battery charging, lighting, exciters</td></tr>
+    <tr><td>Series</td><td>Series with load</td><td>Voltage rises with load before saturation</td><td>Booster and special constant-current work</td></tr>
+    <tr><td>Cumulative compound</td><td>Series field aids shunt field</td><td>Flat or rising external characteristic</td><td>Distribution feeders, heavy load variation</td></tr>
+    <tr><td>Differential compound</td><td>Series field opposes shunt field</td><td>Voltage falls rapidly with load</td><td>Rare; special drooping-voltage duty</td></tr>
+  </tbody></table></div>
+
+  <h3>5. Generator voltage equations</h3>
+  <div class="grid">
+    <div class="card"><h4>Basic generator equation</h4><div class="formula">V
