@@ -1,0 +1,1849 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Complete diploma handbook for DC Machines & Traction Motors, course 3032.">
+<title>DC Machines & Traction Motors | Course 3032</title>
+<style>
+:root{
+  --bg:#edf3f8;--paper:#fff;--ink:#102033;--muted:#566779;--line:#cedbe7;
+  --nav:#071a2d;--blue:#0b5f9e;--cyan:#07889b;--teal:#0f766e;--copper:#b65f2b;
+  --amber:#d97706;--red:#b4233c;--violet:#6d43b5;--green:#27835f;
+  --soft:#f7fbff;--shadow:0 14px 36px rgba(15,23,42,.09);
+  --mal:"Noto Sans Malayalam","Nirmala UI","Manjari","Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;width:100%;overflow-x:hidden;color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.62;background:
+ radial-gradient(circle at 0 0,rgba(8,136,155,.12),transparent 32rem),
+ radial-gradient(circle at 100% 0,rgba(182,95,43,.10),transparent 34rem),
+ linear-gradient(180deg,#f9fcff 0%,var(--bg) 100%)}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:
+ linear-gradient(rgba(11,95,158,.032) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(11,95,158,.032) 1px,transparent 1px);background-size:30px 30px}
+a{color:var(--blue)}
+button,input{font:inherit}
+button{cursor:pointer}
+.progress{position:fixed;top:0;left:0;width:0;height:4px;background:linear-gradient(90deg,#06b6d4,#0b5f9e,#b65f2b);z-index:500}
+.topbar{position:sticky;top:0;z-index:420;background:rgba(7,26,45,.97);border-bottom:1px solid rgba(255,255,255,.14);box-shadow:0 8px 28px rgba(2,6,23,.24)}
+.topbar-inner{width:100%;max-width:none;margin:0;padding:.48rem clamp(8px,1vw,18px);display:flex;align-items:center;gap:.45rem;min-height:64px}
+.brand{display:flex;align-items:center;gap:.6rem;color:#fff;min-width:260px}
+.brand-mark{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(135deg,#07889b,#b65f2b);font-weight:950;box-shadow:0 8px 22px rgba(0,0,0,.22)}
+.brand-title{font-weight:950;line-height:1.05}
+.brand-title small{display:block;color:#abc3d7;font-size:.72rem;margin-top:.18rem}
+.top-actions{display:flex;align-items:center;gap:.38rem;flex:1;min-width:0}
+.top-actions a,.top-actions button{border:1px solid rgba(255,255,255,.18);border-radius:999px;background:#102c47;color:#eef8ff;padding:.5rem .65rem;font-size:.74rem;font-weight:850;white-space:nowrap;text-decoration:none}
+.top-actions a:hover,.top-actions button:hover,.top-actions a:focus-visible,.top-actions button:focus-visible{background:#17476f;outline:2px solid #67e8f9;outline-offset:1px}
+.search{flex:1 1 220px;min-width:170px;max-width:360px}
+.search input{width:100%;border:0;border-radius:999px;padding:.54rem .78rem;color:#0f172a}
+.pdf{background:linear-gradient(135deg,#0b5f9e,#0f766e)!important;border:0!important}
+.menu-btn{display:none!important}
+.page-shell{width:100%;max-width:none;margin:0;overflow-x:clip;padding-inline:clamp(12px,1.4vw,24px);padding-block:clamp(10px,1vw,18px)}
+.app-grid{width:100%;max-width:none;margin:0;overflow-x:clip;display:grid;grid-template-columns:minmax(220px,15vw) minmax(0,1fr) minmax(230px,17vw);gap:clamp(10px,1vw,18px);align-items:start}
+.left-rail,.right-rail{position:sticky;top:78px;max-height:calc(100vh - 92px);overflow:auto;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:20px;padding:.78rem;box-shadow:var(--shadow)}
+.left-rail h2,.right-rail h2{font-size:.95rem;margin:.15rem 0 .55rem;color:#123d62}
+.left-rail a{display:block;padding:.47rem .55rem;border-radius:10px;color:#26445f;text-decoration:none;font-size:.83rem;font-weight:780}
+.left-rail a:hover,.left-rail a:focus-visible{background:#e9f5ff;color:#074f87}
+.rail-group{border-top:1px solid var(--line);padding-top:.5rem;margin-top:.5rem}
+.quick-card{border:1px solid var(--line);border-radius:14px;padding:.65rem;background:#f8fbff;margin:.48rem 0}
+.quick-card b{display:block;color:#0b5f9e}
+.main-content{width:100%;max-width:none;min-width:0;margin:0;overflow-x:clip}
+.hero,.section{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.hero{min-height:calc(100vh - 102px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(360px,.8fr);gap:clamp(12px,1.2vw,22px);padding:clamp(1rem,2.3vw,2.5rem);overflow:hidden;position:relative}
+.hero:after{content:"N Φ Iₐ Eᵍ T";position:absolute;right:-1.2rem;bottom:-2.2rem;font-weight:950;font-size:clamp(4rem,9vw,10rem);color:rgba(11,95,158,.045);transform:rotate(-8deg);white-space:nowrap}
+.hero>*{position:relative;z-index:1}
+.hero-copy{display:flex;flex-direction:column;justify-content:center}
+.eyebrow{display:inline-flex;width:max-content;max-width:100%;padding:.3rem .6rem;border-radius:999px;background:#e4f4ff;color:#0c527f;font-size:.76rem;font-weight:950;text-transform:uppercase;letter-spacing:.045em}
+h1,h2,h3,h4{line-height:1.16;letter-spacing:-.025em;color:#0d2238}
+h1{font-size:clamp(2.5rem,4.7vw,5.6rem);margin:.6rem 0 .6rem}
+h2{font-size:clamp(1.65rem,2.5vw,3rem);margin:.2rem 0 .65rem}
+h3{font-size:clamp(1.16rem,1.45vw,1.55rem);margin:.85rem 0 .35rem}
+h4{font-size:1.02rem;margin:.7rem 0 .25rem}
+p{margin:.35rem 0 .72rem}
+.lead{max-width:95ch;color:var(--muted);font-size:clamp(1.04rem,1.25vw,1.3rem)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.9rem}
+.action{border:0;border-radius:999px;padding:.72rem 1rem;font-weight:900;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.primary{background:linear-gradient(135deg,#0b5f9e,#6d43b5);color:#fff}
+.secondary{background:#eef7ff;color:#0b4e7a;border:1px solid #b9d7ed}
+.meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin-top:1rem}
+.meta-grid div{border:1px solid var(--line);border-radius:15px;padding:.68rem;background:linear-gradient(180deg,#fff,#f7fbff)}
+.meta-grid span{display:block;color:var(--muted);font-size:.68rem;font-weight:900;text-transform:uppercase}
+.hero-visual{border-radius:22px;padding:1rem;color:#eaf7ff;background:
+ radial-gradient(circle at 20% 18%,rgba(34,211,238,.22),transparent 18rem),
+ radial-gradient(circle at 85% 80%,rgba(182,95,43,.34),transparent 20rem),
+ linear-gradient(135deg,#071a2d,#0b3c61 62%,#154e55);display:grid;align-content:center;overflow:hidden}
+.hero-visual h2,.hero-visual h3{color:#fff}
+.module-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.62rem;margin-top:.75rem}
+.module-tile{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:.72rem;background:rgba(255,255,255,.08)}
+.module-tile b{display:block;color:#67e8f9}
+.rotor-wrap{display:grid;place-items:center;margin:.5rem 0}
+.rotor{width:min(340px,78%);aspect-ratio:1;border-radius:50%;border:14px solid rgba(255,255,255,.18);position:relative;animation:spin 8s linear infinite}
+.rotor:before,.rotor:after{content:"";position:absolute;inset:17%;border-radius:50%;border:9px solid rgba(103,232,249,.55)}
+.rotor:after{inset:41% -10%;border-radius:999px;border:8px solid #f59e0b;transform:rotate(25deg)}
+.rotor.paused{animation-play-state:paused}
+@keyframes spin{to{transform:rotate(360deg)}}
+.section{margin:.78rem 0;padding:clamp(.95rem,1.35vw,1.55rem);scroll-margin-top:84px}
+.section-head{border-bottom:1px solid var(--line);padding-bottom:.7rem;margin-bottom:.8rem}
+.section-head p{color:var(--muted);max-width:125ch}
+.module{break-inside:auto}
+.module-banner{border-radius:20px;padding:clamp(1rem,1.7vw,1.6rem);color:#fff;background:linear-gradient(135deg,#0d2238,var(--accent,#0b5f9e));margin-bottom:.8rem}
+.module-banner h2,.module-banner h3{color:#fff}
+.module-banner p{color:rgba(255,255,255,.88)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:.72rem}
+.card{min-width:0;grid-column:span 6;border:1px solid var(--line);border-radius:18px;padding:.86rem;background:#fff;box-shadow:0 7px 18px rgba(15,23,42,.04);break-inside:avoid}
+.third{grid-column:span 4}.quarter{grid-column:span 3}.wide{grid-column:span 12}.eight{grid-column:span 8}
+.blue{background:#eef7ff}.cyan{background:#ecfeff}.copper{background:#fff5ed}.green{background:#edfdf5}.violet{background:#f4f0ff}.amber{background:#fff8e8}.rose{background:#fff1f2}.dark{background:#0b2138;color:#eaf5ff}.dark h3,.dark h4{color:#fff}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:.52rem}
+.toc a{display:flex;justify-content:space-between;gap:.5rem;border:1px solid var(--line);border-radius:14px;padding:.65rem .75rem;background:#f8fbff;color:#163b5c;font-weight:850;text-decoration:none}
+.toc a:hover{background:#eaf5ff}
+.table-wrap{min-width:0;max-width:100%;overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+table{width:100%;border-collapse:collapse;min-width:680px}
+th,td{border-bottom:1px solid var(--line);padding:.6rem .68rem;text-align:left;vertical-align:top}
+th{background:#eaf4ff;color:#123f68;font-weight:950}
+tr:last-child td{border-bottom:0}
+.compact th,.compact td{padding:.43rem .5rem;font-size:.9rem}
+.formula{font-family:"Cambria Math","Times New Roman",serif;font-size:1.08rem;border:1px solid #c6d8e8;border-left:5px solid var(--blue);border-radius:13px;background:#f7fbff;padding:.63rem .72rem;margin:.45rem 0;overflow-wrap:anywhere}
+.formula small{display:block;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--muted);margin-top:.25rem}
+.callout{border:1px solid #add7ef;border-radius:15px;background:#eef8ff;padding:.74rem .84rem;margin:.66rem 0;break-inside:avoid}
+.callout b:first-child{color:#0b5f9e}
+.remember{border-color:#8ee2b0;background:#effcf4}.exam{border-color:#f0cc73;background:#fffbeb}.mistake{border-color:#f4a3b1;background:#fff1f2}.insight{border-color:#c4b5fd;background:#f5f3ff}.safety{border-color:#f2a76b;background:#fff5ed}
+.ml{font-family:var(--mal);border-left:4px solid var(--green);border-radius:10px;background:#edf9f4;padding:.52rem .68rem;color:#164c42;margin:.45rem 0;font-size:.93rem}
+.steps{counter-reset:step;display:grid;gap:.42rem}
+.step{position:relative;border:1px solid var(--line);border-radius:13px;background:#f9fcff;padding:.6rem .68rem .6rem 2.4rem}
+.step:before{counter-increment:step;content:counter(step);position:absolute;left:.62rem;top:.58rem;width:1.28rem;height:1.28rem;display:grid;place-items:center;border-radius:50%;background:var(--blue);color:#fff;font-size:.75rem;font-weight:950}
+.diagram{min-width:0;max-width:100%;border:1px solid var(--line);border-radius:16px;background:#fff;padding:.7rem;overflow:auto;break-inside:avoid}
+.diagram svg{display:block;width:100%;height:auto;max-height:430px}
+.diagram figcaption{color:var(--muted);font-size:.9rem;margin-top:.45rem}
+.curve-panel{min-width:0;max-width:100%;border:1px solid var(--line);border-radius:16px;background:#fff;padding:.7rem;break-inside:avoid}
+.curve-panel svg{width:100%;height:auto}
+.solution{background:#0b2138;color:#eef8ff;border-radius:16px;padding:.82rem;margin:.62rem 0;break-inside:avoid}
+.solution h4{color:#fff;margin-top:0}
+.solution .line{border-top:1px solid rgba(255,255,255,.14);padding-top:.45rem;margin-top:.45rem}
+.solution code,.solution pre{white-space:pre-wrap;font:inherit;margin:0;color:#eef8ff}
+.answer{background:#edfbf3;border:1px solid #9bd6b5;border-radius:14px;padding:.7rem;margin:.45rem 0}
+.question-bank{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.68rem}
+.qcard{border:1px solid var(--line);border-radius:15px;background:#fff;padding:.72rem}
+.qcard .tag{display:inline-block;border-radius:999px;padding:.2rem .48rem;background:#eaf4ff;color:#0b5f9e;font-size:.72rem;font-weight:950}
+.power-flow{display:flex;align-items:stretch;gap:.42rem;flex-wrap:wrap}
+.flow-box{flex:1 1 150px;border:1px solid var(--line);border-radius:14px;background:#fff;padding:.68rem;text-align:center}
+.flow-arrow{display:grid;place-items:center;font-size:1.5rem;color:var(--copper);font-weight:950}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem;font-size:.82rem;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:.3rem}
+.legend i{width:22px;height:4px;background:currentColor;display:inline-block}
+.demo{border:1px dashed #69c4d1;border-radius:16px;background:#f2fdff;padding:.78rem}
+.controls{display:flex;flex-wrap:wrap;gap:.38rem;margin:.5rem 0}
+.controls button{border:1px solid #b8d9e8;background:#fff;border-radius:999px;padding:.44rem .63rem;font-weight:850}
+.stage{display:none}.stage.active{display:block}
+.paper{border:2px solid #1d344d;border-radius:14px;background:#fff;padding:.85rem}
+.paper h3{text-align:center}
+.checklist{list-style:none;padding:0}
+.checklist li{position:relative;padding:.27rem 0 .27rem 1.55rem}
+.checklist li:before{content:"✓";position:absolute;left:0;top:.28rem;width:1.08rem;height:1.08rem;display:grid;place-items:center;border-radius:50%;background:#dcfce7;color:#047857;font-weight:950}
+details{border:1px solid var(--line);border-radius:14px;padding:.66rem .74rem;background:#fff;margin:.52rem 0}
+summary{cursor:pointer;font-weight:900;color:#124e7a}
+.backtop{position:fixed;right:14px;bottom:14px;z-index:390;width:44px;height:44px;border:0;border-radius:50%;background:#0b5f9e;color:#fff;font-size:1.2rem;box-shadow:0 10px 26px rgba(15,23,42,.25)}
+.hidden-search{display:none!important}
+footer{text-align:center;color:var(--muted);padding:1.2rem .5rem 2rem}
+@media(max-width:1490px){.app-grid{grid-template-columns:minmax(210px,17vw) minmax(0,1fr)}.right-rail{display:none}}
+@media(max-width:1100px){.topbar-inner{flex-wrap:wrap}.brand{flex:1 1 100%;min-width:0}.top-actions{width:100%;flex-wrap:wrap}.hero{grid-template-columns:1fr}.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card,.third,.quarter,.eight{grid-column:span 12}.app-grid{grid-template-columns:1fr}.left-rail{position:fixed;left:10px;top:76px;bottom:10px;width:min(320px,calc(100vw - 20px));z-index:410;display:none}.left-rail.open{display:block}.menu-btn{display:inline-flex!important}}
+@media(max-width:760px){.hero:after{display:none}.topbar-inner{flex-wrap:wrap;padding:.4rem 5px}.brand{flex:1 1 100%;min-width:0}.top-actions{flex-wrap:wrap}.top-actions a{font-size:.68rem;padding:.42rem .5rem}.search{order:10;flex-basis:100%;max-width:none}.page-shell{padding-inline:5px}.section{padding:.78rem}.meta-grid,.module-map{grid-template-columns:1fr}.hero{padding:.85rem;min-height:auto}table{font-size:.89rem}.flow-arrow{transform:rotate(90deg)}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+@page{size:A4;margin:12mm}
+@media print{
+ body{background:#fff!important;color:#000!important;font-size:9.7pt;line-height:1.4}
+ body:before,.topbar,.left-rail,.right-rail,.progress,.backtop,.controls{display:none!important}
+ .page-shell{padding:0!important}.app-grid{display:block}.main-content{width:100%}
+ .hero{display:block;min-height:auto;page-break-after:always}.hero-visual{background:#fff!important;color:#000!important;border:1px solid #777}.hero-visual h2,.hero-visual h3{color:#000!important}
+ .section,.card,.diagram,.curve-panel,.callout,.solution,.paper,.quick-card{background:#fff!important;color:#000!important;border:1px solid #777!important;border-radius:0!important;box-shadow:none!important}
+ .solution h4,.dark h3,.dark h4{color:#000!important}.solution code,.solution pre{color:#000!important}
+ .module{break-before:page;page-break-before:always}
+ .grid{display:block}.card{margin:3mm 0}
+ h1,h2,h3,h4{color:#000!important;break-after:avoid}
+ table{min-width:0!important;font-size:8.5pt}th{background:#eee!important;color:#000!important}
+ .formula,.solution,.diagram,.curve-panel,.card,.table-wrap,.paper,.callout{break-inside:avoid;page-break-inside:avoid}
+ svg{max-width:100%!important;max-height:220mm!important}
+ details{break-inside:avoid}details:not([open])>*:not(summary){display:block!important}
+ a{color:#000;text-decoration:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-mark">3032</span><span class="brand-title">DC Machines & Traction Motors<small>Diploma EEE • Semester 3 • Program Core</small></span></div>
+    <div class="top-actions">
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="leftRail">Contents</button>
+      <a href="#overview">Overview</a><a href="#module1">M1</a><a href="#module2">M2</a><a href="#module3">M3</a><a href="#module4">M4</a>
+      <a href="#formula-bank">Formula Bank</a><a href="#model-paper">Model Paper</a>
+      <div class="search"><input id="searchBox" type="search" placeholder="Search handbook" aria-label="Search handbook"></div>
+      <button class="pdf" type="button" onclick="window.print()">Download as PDF</button>
+    </div>
+  </div>
+</header>
+<div class="page-shell">
+<div class="app-grid">
+<aside class="left-rail" id="leftRail" aria-label="Handbook contents">
+  <h2>Handbook Contents</h2>
+  <a href="#cover">Cover</a><a href="#overview">Course Overview</a><a href="#use">How to Use</a><a href="#toc">Table of Contents</a>
+  <div class="rail-group"><a href="#objectives">Objectives & Prerequisite</a><a href="#outcomes">Outcomes & CO-PO</a><a href="#roadmap">Learning Roadmap</a></div>
+  <div class="rail-group"><a href="#module1">Module 1: Generator Basics</a><a href="#module2">Module 2: Generator Characteristics</a><a href="#module3">Module 3: Motors, Starters & Tests</a><a href="#module4">Module 4: Speed Control & Traction</a></div>
+  <div class="rail-group"><a href="#formula-bank">Formula Bank</a><a href="#construction-bank">Construction Bank</a><a href="#circuit-bank">Circuit Bank</a><a href="#curve-bank">Curve Bank</a><a href="#loss-bank">Power-Flow Bank</a><a href="#selection-bank">Motor Selection</a><a href="#traction-bank">Traction Bank</a></div>
+  <div class="rail-group"><a href="#solved">Solved Numericals</a><a href="#expected">Expected Questions</a><a href="#practice">Practice</a><a href="#revision">Quick Revision</a><a href="#model-paper">Model Paper</a><a href="#model-answers">Model Answers</a><a href="#answer-key">Answer Key</a><a href="#references">References</a><a href="#checklist">Final Checklist</a></div>
+</aside>
+<main class="main-content">
+<section class="hero" id="cover">
+  <div class="hero-copy">
+    <span class="eyebrow">Complete Diploma Engineering Handbook</span>
+    <h1>DC Machines &amp; Traction Motors</h1>
+    <p class="lead">A complete learning and examination handbook covering DC-machine construction, generators, motors, starters, testing, speed control and electric-traction control—with derivations, diagrams, characteristic curves, solved numericals, Malayalam support, practice and full model answers.</p>
+    <div class="meta-grid">
+      <div><span>Course Code</span><b>3032</b></div><div><span>Programme</span><b>Diploma in Electrical &amp; Electronics Engineering</b></div><div><span>Semester</span><b>3</b></div>
+      <div><span>Credits</span><b>3</b></div><div><span>Category</span><b>Program Core</b></div><div><span>Periods</span><b>3/week • 45/semester</b></div>
+    </div>
+    <div class="hero-actions"><a class="action primary" href="#module1">Start Learning</a><button class="action secondary" type="button" onclick="window.print()">Download as PDF</button></div>
+    <div class="callout exam"><b>PDF note</b><div>The button opens the browser print dialog. Choose <b>Save as PDF</b> to create an offline A4 copy.</div></div>
+  </div>
+  <div class="hero-visual">
+    <div class="rotor-wrap"><div class="rotor" id="heroRotor" aria-label="Animated rotating DC-machine rotor"></div></div>
+    <div class="controls"><button type="button" data-rotor="play">Play</button><button type="button" data-rotor="pause">Pause</button><button type="button" data-rotor="replay">Replay</button></div>
+    <h2>Four-module pathway</h2>
+    <div class="module-map">
+      <div class="module-tile"><b>Module 1</b>Construction, generator action, EMF, losses, efficiency and windings</div>
+      <div class="module-tile"><b>Module 2</b>Armature reaction, commutation, characteristics and parallel operation</div>
+      <div class="module-tile"><b>Module 3</b>Motor action, torque, characteristics, starters and testing</div>
+      <div class="module-tile"><b>Module 4</b>Speed control, traction motors, transitions and electrical braking</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="overview">
+  <div class="section-head"><span class="eyebrow">Course Overview</span><h2>Why DC machines remain essential</h2><p>DC machines convert energy in both directions. As generators they convert mechanical input into direct-current electrical output. As motors they convert DC electrical input into mechanical torque. Their transparent magnetic and electrical relationships make them ideal for learning electromechanical energy conversion, while traction applications demonstrate high starting torque, controlled acceleration and electrical braking.</p></div>
+  <div class="grid">
+    <article class="card third blue"><h3>Energy conversion</h3><p>Faraday’s law explains generated EMF; force on a current-carrying conductor explains motor torque. The same physical machine can operate in either direction.</p></article>
+    <article class="card third copper"><h3>Industrial relevance</h3><p>DC motors are used where wide speed control, high starting torque or predictable torque-current relationships are required.</p></article>
+    <article class="card third green"><h3>Traction relevance</h3><p>Series motors historically suit locomotives, trams and cranes because their torque is very high at low speed and heavy current.</p></article>
+  </div>
+  <h3>Typical applications</h3>
+  <div class="grid">
+    <div class="card quarter"><h4>Generators</h4><p>Battery charging, laboratory supplies, exciters, electroplating and welding.</p></div>
+    <div class="card quarter"><h4>Shunt motors</h4><p>Lathes, fans, blowers, pumps and machine tools requiring nearly constant speed.</p></div>
+    <div class="card quarter"><h4>Series motors</h4><p>Traction, cranes, hoists and elevators requiring high starting torque.</p></div>
+    <div class="card quarter"><h4>Compound motors</h4><p>Presses, conveyors and rolling mills with changing load and better speed regulation.</p></div>
+  </div>
+</section>
+
+<section class="section" id="use">
+  <div class="section-head"><span class="eyebrow">How to Use This Handbook</span><h2>Learn, trace, calculate and practise</h2></div>
+  <div class="grid">
+    <div class="card quarter"><h3>1. Understand</h3><p>Read the physical principle before memorising any equation.</p></div>
+    <div class="card quarter"><h3>2. Trace</h3><p>Follow magnetic flux, current, power and motion arrows in every diagram.</p></div>
+    <div class="card quarter"><h3>3. Calculate</h3><p>Use the solved format: given data, formula, substitution, unit and interpretation.</p></div>
+    <div class="card quarter"><h3>4. Verify</h3><p>Attempt module questions, model paper and answer-key checks without looking first.</p></div>
+  </div>
+</section>
+
+<section class="section" id="toc">
+  <div class="section-head"><span class="eyebrow">Table of Contents</span><h2>Clickable textbook map</h2></div>
+  <div class="toc">
+    <a href="#objectives">Objectives &amp; Prerequisite <span>→</span></a><a href="#outcomes">Outcomes &amp; CO-PO <span>→</span></a><a href="#roadmap">Learning Roadmap <span>→</span></a>
+    <a href="#module1">Module 1 <span>→</span></a><a href="#module2">Module 2 <span>→</span></a><a href="#module3">Module 3 <span>→</span></a><a href="#module4">Module 4 <span>→</span></a>
+    <a href="#formula-bank">Formula Bank <span>→</span></a><a href="#construction-bank">Construction Bank <span>→</span></a><a href="#circuit-bank">Circuit Bank <span>→</span></a>
+    <a href="#curve-bank">Characteristic Curves <span>→</span></a><a href="#loss-bank">Power Flow &amp; Losses <span>→</span></a><a href="#selection-bank">Motor Selection <span>→</span></a><a href="#traction-bank">Traction Bank <span>→</span></a>
+    <a href="#solved">Solved Numericals <span>→</span></a><a href="#expected">Expected Questions <span>→</span></a><a href="#practice">Practice <span>→</span></a><a href="#revision">Quick Revision <span>→</span></a>
+    <a href="#model-paper">Model Paper <span>→</span></a><a href="#model-answers">Model Answers <span>→</span></a><a href="#answer-key">Answer Key <span>→</span></a><a href="#references">References <span>→</span></a>
+  </div>
+</section>
+
+<section class="section" id="objectives">
+  <div class="section-head"><span class="eyebrow">Official Course Information</span><h2>Objectives and prerequisite</h2></div>
+  <div class="grid">
+    <div class="card eight blue"><h3>Official course objectives</h3><ol><li>To familiarize students with the construction and operation of DC machines.</li><li>To recognize the classification and applications of DC machines.</li><li>To analyze the performance of DC generators and DC motors.</li><li>To provide basic knowledge of electric traction systems.</li></ol></div>
+    <div class="card third green"><h3>Prerequisite</h3><p><b>Topic:</b> Magnetism and Electromagnetism</p><p><b>Course:</b> Elementary Concepts of Electrical Systems</p><p><b>Semester:</b> 2</p></div>
+  </div>
+  <h3>How the prerequisite supports this course</h3>
+  <div class="grid">
+    <div class="card quarter"><h4>Magnetic circuit</h4><p>Flux, reluctance and permeability explain the path of field flux through yoke, poles, air gap and armature.</p></div>
+    <div class="card quarter"><h4>Electromagnetic induction</h4><p>Faraday’s law and Lenz’s law explain generated EMF and back EMF.</p></div>
+    <div class="card quarter"><h4>Force production</h4><p>A current-carrying conductor in a magnetic field experiences force, producing motor torque.</p></div>
+    <div class="card quarter"><h4>Fleming’s rules</h4><p>Right-hand rule gives generator direction; left-hand rule gives motor-force direction.</p></div>
+  </div>
+</section>
+
+<section class="section" id="outcomes">
+  <div class="section-head"><span class="eyebrow">Official Outcomes</span><h2>Course outcomes and CO-PO mapping</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>CO</th><th>Description</th><th>Duration</th><th>Cognitive level</th></tr></thead><tbody>
+    <tr><td>CO1</td><td>Identify the construction and operation of DC generator.</td><td>10 hours</td><td>Applying</td></tr>
+    <tr><td>CO2</td><td>Identify the electrical characteristics and uses of DC generators.</td><td>10 hours</td><td>Applying</td></tr>
+    <tr><td>CO3</td><td>Select a DC motor for specific applications based on performance characteristics.</td><td>12 hours</td><td>Applying</td></tr>
+    <tr><td>CO4</td><td>Choose various methods of speed control of DC motors and traction motors.</td><td>11 hours</td><td>Applying</td></tr>
+    <tr><td>—</td><td>Series Tests</td><td>2 hours</td><td>—</td></tr>
+  </tbody></table></div>
+  <h3>CO-PO mapping</h3>
+  <div class="table-wrap"><table class="compact"><thead><tr><th>Course outcome</th><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th><th>Interpretation</th></tr></thead><tbody>
+    <tr><td>CO1</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO2</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO3</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+  </tbody></table></div>
+  <div class="callout remember"><b>Mapping scale</b><div>3 – Strongly mapped; 2 – Moderately mapped; 1 – Weakly mapped.</div></div>
+</section>
+
+<section class="section" id="roadmap">
+  <div class="section-head"><span class="eyebrow">Module-wise Learning Roadmap</span><h2>Official outcomes, hours and cognitive levels</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Module outcome</th><th>Official description</th><th>Hours</th><th>Level</th></tr></thead><tbody>
+    <tr><td>M1.01</td><td>Illustrate the constructional details of DC machines.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td>M1.02</td><td>Explain the principle of operation of a DC generator.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M1.03</td><td>Derive EMF equation of DC generator and solve problems.</td><td>3</td><td>Applying</td></tr>
+    <tr><td>M1.04</td><td>Compare the armature windings of a DC machine.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M2.01</td><td>Illustrate armature reaction and its effects in DC generators.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M2.02</td><td>Explain commutation process in DC generator and methods for improving commutation.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M2.03</td><td>Illustrate the characteristics of various types of DC generators and solve problems.</td><td>3</td><td>Applying</td></tr>
+    <tr><td>M2.04</td><td>Outline parallel operation and uses of various DC generators.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td colspan="2">Series Test I</td><td>1</td><td>—</td></tr>
+    <tr><td>M3.01</td><td>Explain the working principle of DC motor and solve various motor parameters.</td><td>4</td><td>Applying</td></tr>
+    <tr><td>M3.02</td><td>Illustrate the performance characteristics of DC motors and select motors for specific applications.</td><td>4</td><td>Applying</td></tr>
+    <tr><td>M3.03</td><td>Illustrate the working of various types of starters.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M3.04</td><td>Outline the procedures for testing of DC motors.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M4.01</td><td>Identify different types of speed control of DC motors.</td><td>3</td><td>Applying</td></tr>
+    <tr><td>M4.02</td><td>Summarize the use of DC series motors in electric traction.</td><td>2</td><td>Understanding</td></tr>
+    <tr><td>M4.03</td><td>Illustrate speed control of traction motors.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td>M4.04</td><td>Explain braking of traction motors.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td colspan="2">Series Test II</td><td>1</td><td>—</td></tr>
+  </tbody></table></div>
+</section>
+<section class="section module" id="module1" style="--accent:#0b5f9e">
+  <div class="module-banner"><span class="eyebrow">Module 1 • CO1 • 10 Hours</span><h2>Construction and Operation of DC Generator</h2><p>M1.01–M1.04: construction, generator principle, EMF equation, losses, efficiency and armature windings.</p></div>
+
+  <div class="grid">
+    <div class="card blue"><h3>Electrical-machine idea</h3><p>An electrical machine links an electrical system and a mechanical system through a magnetic field. In generator operation, a prime mover rotates conductors and electrical power is obtained. In motor operation, electrical current produces torque and mechanical output.</p></div>
+    <div class="card copper"><h3>Reversibility</h3><p>The physical DC machine is reversible. The same armature, field system, commutator and brushes can operate as a generator or a motor; only the direction of energy flow changes.</p></div>
+  </div>
+
+  <h3>1. Constructional details of a DC machine</h3>
+  <p>The stationary field system creates the main magnetic flux. The rotating armature carries conductors in which EMF is induced or current flows. The commutator and brushes form the mechanical switching system that provides DC at the terminals and unidirectional torque.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1000 560" role="img" aria-labelledby="dcConstructionTitle dcConstructionDesc">
+      <title id="dcConstructionTitle">Labeled construction of a DC machine</title>
+      <desc id="dcConstructionDesc">Cross-sectional diagram showing yoke, poles, field windings, air gap, armature, commutator, brushes, shaft and bearings.</desc>
+      <defs>
+        <marker id="a1" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#0b5f9e"/></marker>
+        <pattern id="lam" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M0 0L10 10M10 0L0 10" stroke="#aac4d8" stroke-width="1"/></pattern>
+      </defs>
+      <circle cx="440" cy="270" r="225" fill="#d9e8f3" stroke="#153b5c" stroke-width="24"/>
+      <circle cx="440" cy="270" r="118" fill="url(#lam)" stroke="#0b5f9e" stroke-width="8"/>
+      <circle cx="440" cy="270" r="34" fill="#677b8d"/><line x1="440" y1="270" x2="770" y2="270" stroke="#677b8d" stroke-width="28"/>
+      <rect x="400" y="55" width="80" height="105" rx="14" fill="#7897aa" stroke="#153b5c" stroke-width="5"/>
+      <rect x="400" y="380" width="80" height="105" rx="14" fill="#7897aa" stroke="#153b5c" stroke-width="5"/>
+      <path d="M365 162 Q440 205 515 162 L500 215 Q440 190 380 215Z" fill="#7897aa" stroke="#153b5c" stroke-width="5"/>
+      <path d="M365 378 Q440 335 515 378 L500 325 Q440 350 380 325Z" fill="#7897aa" stroke="#153b5c" stroke-width="5"/>
+      <path d="M386 84 q54 -35 108 0 q-54 35 -108 0M386 111 q54 -35 108 0 q-54 35 -108 0M386 430 q54 -35 108 0 q-54 35 -108 0M386 457 q54 -35 108 0 q-54 35 -108 0" fill="none" stroke="#b65f2b" stroke-width="9"/>
+      <rect x="740" y="215" width="110" height="110" rx="18" fill="#b65f2b" stroke="#693112" stroke-width="6"/>
+      <g stroke="#fff" stroke-width="4"><line x1="760" y1="217" x2="760" y2="323"/><line x1="785" y1="217" x2="785" y2="323"/><line x1="810" y1="217" x2="810" y2="323"/><line x1="835" y1="217" x2="835" y2="323"/></g>
+      <rect x="700" y="232" width="45" height="28" rx="5" fill="#202b33"/><rect x="845" y="280" width="45" height="28" rx="5" fill="#202b33"/>
+      <circle cx="785" cy="270" r="70" fill="none" stroke="#53687a" stroke-width="14"/>
+      <text x="80" y="55" font-size="24" font-weight="800" fill="#153b5c">Yoke / frame</text><line x1="225" y1="60" x2="270" y2="100" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="45" y="150" font-size="22" font-weight="800" fill="#153b5c">Pole core &amp; shoe</text><line x1="230" y1="150" x2="370" y2="185" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="25" y="235" font-size="22" font-weight="800" fill="#153b5c">Field winding</text><line x1="190" y1="230" x2="400" y2="115" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="55" y="340" font-size="22" font-weight="800" fill="#153b5c">Armature core</text><line x1="230" y1="335" x2="338" y2="300" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="55" y="420" font-size="22" font-weight="800" fill="#153b5c">Air gap</text><line x1="160" y1="415" x2="354" y2="350" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="820" y="115" font-size="22" font-weight="800" fill="#153b5c">Shaft</text><line x1="835" y1="125" x2="755" y2="250" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="845" y="365" font-size="22" font-weight="800" fill="#153b5c">Commutator</text><line x1="900" y1="350" x2="835" y2="318" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="650" y="420" font-size="22" font-weight="800" fill="#153b5c">Carbon brushes</text><line x1="750" y1="405" x2="720" y2="265" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="675" y="500" font-size="22" font-weight="800" fill="#153b5c">Bearing &amp; brush holder</text><line x1="780" y1="475" x2="790" y2="340" stroke="#0b5f9e" stroke-width="3" marker-end="url(#a1)"/>
+      <text x="410" y="278" font-size="22" font-weight="900" fill="#fff">ARM</text>
+      <text x="425" y="55" font-size="24" font-weight="900" fill="#b65f2b">N</text><text x="425" y="525" font-size="24" font-weight="900" fill="#b65f2b">S</text>
+    </svg>
+    <figcaption>The yoke completes the magnetic path and supports the poles. Laminated armature steel reduces eddy-current loss. The commutator and brushes connect rotating conductors to the external DC circuit.</figcaption>
+  </figure>
+
+  <div class="table-wrap"><table><thead><tr><th>Part</th><th>Main purpose</th><th>Typical material / construction</th></tr></thead><tbody>
+    <tr><td>Yoke</td><td>Mechanical support and low-reluctance return path for flux</td><td>Cast iron for small machines; rolled/cast steel for larger machines</td></tr>
+    <tr><td>Pole core</td><td>Carries field winding and conducts flux</td><td>Laminated or solid steel depending on size</td></tr>
+    <tr><td>Pole shoe</td><td>Spreads flux over armature, reduces reluctance, supports coil</td><td>Laminated steel</td></tr>
+    <tr><td>Field winding</td><td>Produces main magnetomotive force</td><td>Insulated copper conductor</td></tr>
+    <tr><td>Armature core</td><td>Provides slots and magnetic path</td><td>Thin silicon-steel laminations keyed to shaft</td></tr>
+    <tr><td>Armature winding</td><td>Carries generated/current-carrying conductors</td><td>Insulated copper coils placed in slots</td></tr>
+    <tr><td>Commutator</td><td>Mechanical rectifier/current reverser</td><td>Hard-drawn copper segments insulated by mica</td></tr>
+    <tr><td>Brushes</td><td>Sliding electrical contact with commutator</td><td>Carbon/graphite or copper-graphite</td></tr>
+    <tr><td>Shaft &amp; bearings</td><td>Transmit torque and support rotation</td><td>Steel shaft with ball/roller bearings</td></tr>
+    <tr><td>Interpoles</td><td>Improve commutation by neutralising reactance voltage</td><td>Small poles between main poles, series with armature</td></tr>
+    <tr><td>Compensating winding</td><td>Neutralises armature reaction under pole faces</td><td>Conductors embedded in pole shoes, series with armature</td></tr>
+  </tbody></table></div>
+
+  <div class="grid">
+    <div class="card"><h3>Why laminations are used</h3><p>Alternating flux in armature teeth and core induces eddy currents. Dividing the core into insulated thin laminations greatly increases the resistance of unwanted current paths and reduces eddy-current heating. Silicon steel also reduces hysteresis loss.</p></div>
+    <div class="card"><h3>Cooling and mechanical support</h3><p>Ventilation ducts, fans and open frames remove heat. End brackets, bearings, shaft and yoke preserve a uniform air gap. Poor alignment creates noise, vibration, brush sparking and unequal magnetic pull.</p></div>
+  </div>
+
+  <h3>2. Magnetic circuit and generator principle</h3>
+  <p>Main flux leaves the north pole, crosses the air gap, enters the armature, divides through the armature core, crosses the opposite air gap into the south pole and returns through the yoke. When armature conductors cut this flux, an EMF is induced according to Faraday’s law.</p>
+  <div class="formula">e = -N<sub>c</sub> dΦ/dt <small>The negative sign represents Lenz’s law: induced EMF opposes the cause producing it.</small></div>
+  <div class="callout remember"><b>Generator action</b><div>Mechanical rotation causes conductors to cut magnetic flux. Fleming’s right-hand rule gives the induced-current direction: first finger = field, thumb = motion, middle finger = induced current.</div></div>
+  <div class="ml"><b>Malayalam Support:</b> ആർമേച്ചർ കണ്ടക്ടർ കാന്തിക ഫ്ലക്സ് മുറിച്ചുകടക്കുമ്പോൾ EMF ഉണ്ടാകുന്നു. വലത് കൈ നിയമം ഉപയോഗിച്ച് induced current-ന്റെ ദിശ കണ്ടെത്താം.</div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1000 410" role="img" aria-labelledby="loopTitle loopDesc">
+      <title id="loopTitle">Simple-loop DC generator and commutator action</title>
+      <desc id="loopDesc">A rectangular coil rotates between north and south poles. Split-ring commutator segments connect to positive and negative brushes, producing unidirectional terminal voltage.</desc>
+      <defs><marker id="a2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#b65f2b"/></marker></defs>
+      <rect x="55" y="80" width="190" height="250" rx="35" fill="#dbeafe" stroke="#0b5f9e" stroke-width="8"/><text x="130" y="220" font-size="70" font-weight="950" fill="#0b5f9e">N</text>
+      <rect x="755" y="80" width="190" height="250" rx="35" fill="#fee2e2" stroke="#b4233c" stroke-width="8"/><text x="830" y="220" font-size="70" font-weight="950" fill="#b4233c">S</text>
+      <g stroke="#07889b" stroke-width="4" marker-end="url(#a2)"><line x1="255" y1="125" x2="730" y2="125"/><line x1="255" y1="205" x2="730" y2="205"/><line x1="255" y1="285" x2="730" y2="285"/></g>
+      <rect x="365" y="85" width="270" height="220" rx="12" fill="none" stroke="#b65f2b" stroke-width="12"/>
+      <line x1="500" y1="45" x2="500" y2="355" stroke="#53687a" stroke-width="9"/>
+      <path d="M445 340 A55 55 0 0 0 500 395" fill="none" stroke="#b65f2b" stroke-width="20"/><path d="M555 340 A55 55 0 0 1 500 395" fill="none" stroke="#b65f2b" stroke-width="20"/>
+      <rect x="420" y="360" width="36" height="24" fill="#222"/><rect x="544" y="360" width="36" height="24" fill="#222"/>
+      <line x1="420" y1="372" x2="325" y2="372" stroke="#222" stroke-width="5"/><line x1="580" y1="372" x2="675" y2="372" stroke="#222" stroke-width="5"/>
+      <text x="265" y="392" font-size="24" font-weight="900">− Brush</text><text x="680" y="392" font-size="24" font-weight="900">+ Brush</text>
+      <path d="M660 65 A175 155 0 0 1 690 280" fill="none" stroke="#6d43b5" stroke-width="6" marker-end="url(#a2)"/><text x="645" y="55" font-size="22" font-weight="900" fill="#6d43b5">Rotation</text>
+      <text x="435" y="210" font-size="28" font-weight="900" fill="#b65f2b">Rotating coil</text>
+    </svg>
+    <figcaption>The EMF in each coil side reverses every half-turn, so the armature EMF is alternating. The split-ring commutator reverses coil connections at the same instant, keeping brush polarity unchanged.</figcaption>
+  </figure>
+
+  <h3>3. Simple-loop waveform and commutator rectification</h3>
+  <div class="grid">
+    <div class="card"><h4>Coil positions during one revolution</h4><div class="table-wrap"><table class="compact"><thead><tr><th>Angle</th><th>Flux-cutting rate</th><th>Coil EMF</th><th>Brush output</th></tr></thead><tbody>
+      <tr><td>0°</td><td>Zero</td><td>0</td><td>0</td></tr><tr><td>90°</td><td>Maximum</td><td>+Emax</td><td>+Emax</td></tr><tr><td>180°</td><td>Zero</td><td>0</td><td>0</td></tr><tr><td>270°</td><td>Maximum opposite</td><td>−Emax</td><td>+Emax</td></tr><tr><td>360°</td><td>Zero</td><td>0</td><td>0</td></tr>
+    </tbody></table></div></div>
+    <div class="curve-panel"><h4>Generated and rectified waveform</h4>
+      <svg viewBox="0 0 700 300" role="img" aria-label="Sinusoidal coil EMF and pulsating unidirectional brush voltage">
+        <line x1="55" y1="145" x2="665" y2="145" stroke="#334155" stroke-width="3"/><line x1="55" y1="35" x2="55" y2="265" stroke="#334155" stroke-width="3"/>
+        <path d="M55 145 C105 35 155 35 205 145 S305 255 355 145 S455 35 505 145 S605 255 655 145" fill="none" stroke="#6d43b5" stroke-width="5"/>
+        <path d="M55 145 C105 35 155 35 205 145 C255 35 305 35 355 145 C405 35 455 35 505 145 C555 35 605 35 655 145" fill="none" stroke="#b65f2b" stroke-width="5" stroke-dasharray="10 7"/>
+        <text x="75" y="35" font-size="20" fill="#6d43b5">Coil EMF</text><text x="430" y="65" font-size="20" fill="#b65f2b">Brush voltage</text><text x="310" y="290" font-size="20">Electrical angle</text><text x="5" y="50" font-size="20">e</text>
+      </svg>
+    </div>
+  </div>
+
+  <h3>4. Classification by field excitation</h3>
+  <div class="grid">
+    <div class="card quarter blue"><h4>Separately excited</h4><p>Field winding receives current from an independent DC supply. Flux can be controlled independently of armature load.</p></div>
+    <div class="card quarter green"><h4>Shunt</h4><p>Field winding is connected across armature terminals. It has many turns, high resistance and small field current.</p></div>
+    <div class="card quarter copper"><h4>Series</h4><p>Field winding is in series with armature and load. It carries load current and uses few thick turns.</p></div>
+    <div class="card quarter violet"><h4>Compound</h4><p>Both shunt and series fields are used. Cumulative compounding aids flux; differential compounding opposes it.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1200 420" role="img" aria-label="Connection diagrams of separately excited, shunt, series and compound DC generators">
+      <defs><style>.w1{stroke:#173b59;stroke-width:5;fill:none}.c1{fill:#fff;stroke:#0b5f9e;stroke-width:5}.t1{font:700 21px Segoe UI,Arial}</style></defs>
+      <g transform="translate(20,20)"><circle class="c1" cx="135" cy="135" r="55"/><text class="t1" x="104" y="143">G</text><path class="w1" d="M80 135H25V290H245V135H190"/><rect class="c1" x="65" y="245" width="140" height="45"/><text class="t1" x="92" y="275">Load</text><path class="w1" d="M30 75H240"/><rect class="c1" x="75" y="50" width="120" height="45"/><text class="t1" x="105" y="80">Field</text><text class="t1" x="55" y="365">Separately excited</text></g>
+      <g transform="translate(300,20)"><circle class="c1" cx="135" cy="135" r="55"/><text class="t1" x="104" y="143">G</text><path class="w1" d="M80 135H25V290H245V135H190"/><rect class="c1" x="65" y="245" width="140" height="45"/><text class="t1" x="92" y="275">Load</text><path class="w1" d="M45 135V70H225V135"/><rect class="c1" x="75" y="48" width="120" height="45"/><text class="t1" x="105" y="78">Shunt F</text><text class="t1" x="70" y="365">Shunt</text></g>
+      <g transform="translate(580,20)"><circle class="c1" cx="120" cy="135" r="55"/><text class="t1" x="90" y="143">G</text><path class="w1" d="M65 135H25V290H245V135H210"/><rect class="c1" x="65" y="245" width="140" height="45"/><text class="t1" x="92" y="275">Load</text><rect class="c1" x="165" y="110" width="65" height="50"/><text class="t1" x="177" y="143">SF</text><text class="t1" x="70" y="365">Series</text></g>
+      <g transform="translate(860,20)"><circle class="c1" cx="115" cy="150" r="55"/><text class="t1" x="85" y="158">G</text><path class="w1" d="M60 150H20V300H250V150H205"/><rect class="c1" x="65" y="255" width="140" height="45"/><text class="t1" x="92" y="285">Load</text><rect class="c1" x="165" y="125" width="65" height="50"/><text class="t1" x="177" y="158">SF</text><path class="w1" d="M40 150V65H225V125"/><rect class="c1" x="75" y="42" width="120" height="45"/><text class="t1" x="102" y="72">Shunt F</text><text class="t1" x="55" y="365">Compound</text></g>
+    </svg>
+    <figcaption>SF denotes series field. Compound generators may be long-shunt or short-shunt depending on whether the shunt field is connected across both armature and series field or across the armature alone.</figcaption>
+  </figure>
+
+  <div class="table-wrap"><table><thead><tr><th>Type</th><th>Field connection</th><th>Voltage behaviour</th><th>Typical use</th></tr></thead><tbody>
+    <tr><td>Separately excited</td><td>Independent supply</td><td>Wide controllability</td><td>Laboratory and controlled DC supply</td></tr>
+    <tr><td>Shunt</td><td>Across terminals</td><td>Approximately constant voltage</td><td>Battery charging, lighting, exciters</td></tr>
+    <tr><td>Series</td><td>Series with load</td><td>Voltage rises with load before saturation</td><td>Booster and special constant-current work</td></tr>
+    <tr><td>Cumulative compound</td><td>Series field aids shunt field</td><td>Flat or rising external characteristic</td><td>Distribution feeders, heavy load variation</td></tr>
+    <tr><td>Differential compound</td><td>Series field opposes shunt field</td><td>Voltage falls rapidly with load</td><td>Rare; special drooping-voltage duty</td></tr>
+  </tbody></table></div>
+
+  <h3>5. Generator voltage equations</h3>
+  <div class="grid">
+    <div class="card"><h4>Basic generator equation</h4><div class="formula">V = E<sub>g</sub> − I<sub>a</sub>R<sub>a</sub> − V<sub>b</sub></div><p>If brush drop is neglected, V = Eg − IaRa. State the assumption in numerical work.</p></div>
+    <div class="card"><h4>Current relations</h4><p><b>Shunt:</b> Ia = IL + Ish, Ish = V/Rsh.</p><p><b>Series:</b> Ia = IL; V = Eg − Ia(Ra+Rse).</p><p><b>Long-shunt compound:</b> Ish = V/Rsh; Ia = IL + Ish.</p></div>
+  </div>
+
+  <h3>6. Derivation of the DC-generator EMF equation</h3>
+  <div class="steps">
+    <div class="step">Flux cut by one conductor in one complete revolution = PΦ webers, because it passes under P poles.</div>
+    <div class="step">Time for one revolution at N rpm = 60/N seconds.</div>
+    <div class="step">Average EMF induced in one conductor = flux cut / time = PΦN/60 volts.</div>
+    <div class="step">Conductors in series in each parallel path = Z/A.</div>
+    <div class="step">Generated EMF between brushes = EMF per conductor × conductors in series.</div>
+  </div>
+  <div class="formula">E<sub>g</sub> = PΦZN / 60A</div>
+  <div class="table-wrap"><table class="compact"><thead><tr><th>Symbol</th><th>Meaning</th><th>SI unit</th></tr></thead><tbody>
+    <tr><td>Eg</td><td>Generated EMF</td><td>volt</td></tr><tr><td>P</td><td>Number of poles</td><td>dimensionless</td></tr><tr><td>Φ</td><td>Flux per pole</td><td>weber</td></tr><tr><td>Z</td><td>Total armature conductors</td><td>dimensionless</td></tr><tr><td>N</td><td>Speed</td><td>revolutions per minute</td></tr><tr><td>A</td><td>Parallel paths</td><td>dimensionless</td></tr>
+  </tbody></table></div>
+  <div class="formula">Simplex lap winding: A = P &nbsp;&nbsp; | &nbsp;&nbsp; Simplex wave winding: A = 2</div>
+
+  <div class="solution">
+    <h4>Solved numerical M1-1: Generated EMF</h4>
+    <p><b>Problem:</b> A 4-pole wave-wound generator has 600 conductors, flux 25 mWb/pole and speed 900 rpm. Find Eg.</p>
+    <p><b>Given:</b> P=4, Z=600, Φ=0.025 Wb, N=900 rpm, A=2.</p>
+    <p><b>Formula:</b> Eg=PΦZN/(60A).</p>
+    <p><b>Substitution:</b> Eg=(4×0.025×600×900)/(60×2)=450 V.</p>
+    <p class="line"><b>Final answer:</b> Generated EMF = <b>450 V</b>. The wave winding gives only two parallel paths and therefore higher voltage.</p>
+    <p><b>Common mistake:</b> Do not use A=P for a wave winding.</p>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M1-2: Speed from generated EMF</h4>
+    <p><b>Problem:</b> A 6-pole simplex lap generator has 720 conductors and 30 mWb/pole. Find speed for Eg=216 V.</p>
+    <p><b>Given:</b> P=6, A=6, Z=720, Φ=0.03 Wb, Eg=216 V.</p>
+    <p><b>Formula:</b> N=60AEg/(PΦZ).</p>
+    <p><b>Calculation:</b> N=(60×6×216)/(6×0.03×720)=600 rpm.</p>
+    <p class="line"><b>Final answer:</b> <b>600 rpm</b>.</p>
+  </div>
+
+  <h3>7. Losses, power stages and efficiency</h3>
+  <div class="grid">
+    <div class="card"><h4>Copper losses</h4><p>Armature: Ia²Ra. Shunt field: V²/Rsh or VIsh. Series field: Ia²Rse. Brush-contact loss may be taken as VbIa when specified.</p></div>
+    <div class="card"><h4>Iron losses</h4><p>Hysteresis and eddy-current losses occur mainly in the armature core because its flux direction changes as it rotates.</p></div>
+    <div class="card"><h4>Mechanical losses</h4><p>Bearing friction, brush friction and windage. They are approximately constant over the normal operating range.</p></div>
+    <div class="card"><h4>Stray-load loss</h4><p>Additional loss caused by leakage flux, armature reaction and nonuniform current distribution. It is often estimated as a small percentage.</p></div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Constant losses</th><th>Variable losses</th></tr></thead><tbody><tr><td>Iron loss, mechanical loss and approximately constant shunt-field loss</td><td>Mainly armature and series-field copper loss proportional to load-current squared</td></tr></tbody></table></div>
+
+  <div class="power-flow" aria-label="Generator power flow">
+    <div class="flow-box"><b>Mechanical input</b><br>Pmech,in</div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Subtract rotational losses</b><br>iron + mechanical</div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Gross electrical power</b><br>EgIa</div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Subtract electrical losses</b><br>Ia²Ra + field + brush</div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Terminal output</b><br>VIL</div>
+  </div>
+  <div class="formula">η<sub>g</sub> = Electrical output / Mechanical input × 100%</div>
+
+  <h3>8. Condition for maximum efficiency</h3>
+  <div class="steps">
+    <div class="step">Let terminal voltage be approximately constant, load current be I and effective variable resistance be R. Let constant loss be Wc.</div>
+    <div class="step">Output = VI. Total loss = I²R + Wc.</div>
+    <div class="step">Efficiency η = VI / (VI + I²R + Wc).</div>
+    <div class="step">For maximum efficiency, differentiate η with respect to I and set dη/dI=0.</div>
+    <div class="step">After simplification: I²R = Wc.</div>
+  </div>
+  <div class="formula">At maximum efficiency: variable copper loss = constant loss</div>
+  <p>This result assumes approximately constant terminal voltage, constant field loss and constant rotational losses. For a shunt generator, armature current rather than load current should be used when field current is appreciable.</p>
+
+  <div class="solution">
+    <h4>Solved numerical M1-3: Load at maximum efficiency</h4>
+    <p><b>Problem:</b> A 220 V shunt generator has armature resistance 0.20 Ω and constant losses 800 W. Neglect field-current difference. Find load current at maximum efficiency.</p>
+    <p><b>Formula:</b> I²Ra=Wc.</p>
+    <p><b>Calculation:</b> I=√(800/0.20)=√4000=63.25 A.</p>
+    <p><b>Output:</b> 220×63.25=13.915 kW.</p>
+    <p class="line"><b>Final answer:</b> Maximum efficiency occurs at approximately <b>63.3 A</b> load current.</p>
+  </div>
+
+  <h3>9. Armature winding fundamentals</h3>
+  <p>A coil has one or more turns. Each turn has two active coil sides placed in slots. Coil ends connect to commutator segments. The winding must provide closed paths and correctly spaced connections so generated EMFs add.</p>
+  <div class="grid">
+    <div class="card blue"><h4>Simplex lap winding</h4><p>Each coil “laps back” to a nearby commutator segment. Parallel paths A=P. Brush sets are normally equal to pole number. Suitable for low-voltage, high-current machines.</p></div>
+    <div class="card copper"><h4>Simplex wave winding</h4><p>The winding progresses around the armature in a wave, connecting conductors under poles of similar polarity. Parallel paths A=2. Suitable for high-voltage, lower-current machines.</p></div>
+  </div>
+  <figure class="diagram">
+    <svg viewBox="0 0 1100 360" role="img" aria-label="Conceptual comparison of lap and wave armature winding">
+      <g transform="translate(20,20)"><text x="220" y="25" font-size="26" font-weight="900" fill="#0b5f9e">Simplex lap: A=P</text>
+        <g fill="#eaf4ff" stroke="#0b5f9e" stroke-width="4"><rect x="40" y="65" width="70" height="55"/><rect x="140" y="65" width="70" height="55"/><rect x="240" y="65" width="70" height="55"/><rect x="340" y="65" width="70" height="55"/><rect x="440" y="65" width="70" height="55"/></g>
+        <path d="M75 120 C75 190 175 190 175 120 M175 65 C175 10 275 10 275 65 M275 120 C275 190 375 190 375 120 M375 65 C375 10 475 10 475 65" fill="none" stroke="#b65f2b" stroke-width="8"/>
+        <text x="120" y="250" font-size="22">Nearby commutator connections; many parallel paths</text></g>
+      <g transform="translate(565,20)"><text x="175" y="25" font-size="26" font-weight="900" fill="#6d43b5">Simplex wave: A=2</text>
+        <g fill="#f4f0ff" stroke="#6d43b5" stroke-width="4"><rect x="20" y="65" width="70" height="55"/><rect x="120" y="65" width="70" height="55"/><rect x="220" y="65" width="70" height="55"/><rect x="320" y="65" width="70" height="55"/><rect x="420" y="65" width="70" height="55"/></g>
+        <path d="M55 120 C55 205 355 205 355 120 M155 65 C155 -5 455 -5 455 65 M255 120 C255 270 55 270 55 120" fill="none" stroke="#b65f2b" stroke-width="8"/>
+        <text x="80" y="250" font-size="22">Coils progress around armature; two parallel paths</text></g>
+    </svg>
+    <figcaption>Conceptual path only: practical winding diagrams use coil-span, back pitch, front pitch and commutator pitch.</figcaption>
+  </figure>
+
+  <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Lap winding</th><th>Wave winding</th></tr></thead><tbody>
+    <tr><td>Parallel paths, simplex</td><td>A=P</td><td>A=2</td></tr><tr><td>Brush sets</td><td>Usually P</td><td>Usually 2</td></tr><tr><td>Voltage/current suitability</td><td>Low voltage, high current</td><td>High voltage, low current</td></tr><tr><td>Equalizer rings</td><td>Required to prevent circulating current</td><td>Normally not required</td></tr><tr><td>Dummy coil</td><td>Not normally required</td><td>May be required to satisfy pitch conditions</td></tr><tr><td>Typical use</td><td>Heavy-current generators</td><td>Lighting and higher-voltage generators</td></tr>
+  </tbody></table></div>
+
+  <details open><summary>Module 1 expected-question practice</summary>
+    <div class="question-bank">
+      <div class="qcard"><span class="tag">One word</span><h4>Name the part acting as a mechanical rectifier.</h4><p><b>Answer:</b> Commutator.</p></div>
+      <div class="qcard"><span class="tag">Important diagram</span><h4>Draw and label DC-machine construction.</h4><p>Include yoke, pole core, pole shoe, field winding, armature, commutator, brushes, shaft and bearings.</p></div>
+      <div class="qcard"><span class="tag">Important derivation</span><h4>Derive Eg=PΦZN/60A.</h4><p>Use flux cut per revolution, time per revolution and conductors in series per path.</p></div>
+      <div class="qcard"><span class="tag">Important numerical</span><h4>Find Eg, N, Φ or Z from the EMF equation.</h4><p>First identify lap/wave winding and correct A.</p></div>
+      <div class="qcard"><span class="tag">Comparison</span><h4>Compare lap and wave windings.</h4><p>Parallel paths, brushes, current/voltage rating and equalizer rings.</p></div>
+      <div class="qcard"><span class="tag">Long answer</span><h4>Explain losses, power flow and maximum efficiency.</h4><p>Classify losses, draw stages and derive I²R=Wc.</p></div>
+    </div>
+  </details>
+</section>
+<section class="section module" id="module2" style="--accent:#07889b">
+  <div class="module-banner"><span class="eyebrow">Module 2 • CO2 • 10 Hours + Series Test I</span><h2>Characteristics and Applications of DC Generators</h2><p>M2.01–M2.04: armature reaction, commutation, generator characteristics, voltage build-up, parallel operation and applications.</p></div>
+
+  <h3>1. Armature reaction</h3>
+  <p>When load current flows in armature conductors, the armature produces its own magnetic field. This armature field combines with the main pole field and distorts the air-gap flux distribution. The effect of armature magnetomotive force on the main field is called <b>armature reaction</b>.</p>
+  <div class="grid">
+    <div class="card blue"><h4>Geometrical neutral axis (GNA)</h4><p>The axis midway between adjacent pole centres. It is fixed by machine geometry.</p></div>
+    <div class="card cyan"><h4>Magnetic neutral axis (MNA)</h4><p>The axis along which armature conductors have zero induced EMF. Under load it shifts because the resultant field is distorted.</p></div>
+    <div class="card copper"><h4>Cross-magnetising effect</h4><p>Armature MMF acts mainly across the pole axis, strengthening flux at one pole tip and weakening it at the other.</p></div>
+    <div class="card violet"><h4>Demagnetising effect</h4><p>If brushes are shifted from the GNA, part of armature MMF directly opposes the main field and reduces average flux.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1180 450" role="img" aria-label="Main field, armature field and distorted resultant field in a DC generator">
+      <defs><marker id="arr2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#07889b"/></marker></defs>
+      <g transform="translate(0,0)">
+        <text x="90" y="35" font-size="25" font-weight="900">Main field only</text>
+        <circle cx="200" cy="235" r="120" fill="#f8fbff" stroke="#173b59" stroke-width="8"/>
+        <rect x="20" y="150" width="80" height="170" rx="18" fill="#dbeafe" stroke="#0b5f9e" stroke-width="6"/><text x="44" y="245" font-size="42" font-weight="950">N</text>
+        <rect x="300" y="150" width="80" height="170" rx="18" fill="#fee2e2" stroke="#b4233c" stroke-width="6"/><text x="324" y="245" font-size="42" font-weight="950">S</text>
+        <g stroke="#07889b" stroke-width="4" marker-end="url(#arr2)"><path d="M100 175 C150 140 245 140 300 175"/><path d="M100 235 C155 210 245 210 300 235"/><path d="M100 295 C150 330 245 330 300 295"/></g>
+      </g>
+      <g transform="translate(390,0)">
+        <text x="65" y="35" font-size="25" font-weight="900">Armature field</text>
+        <circle cx="200" cy="235" r="120" fill="#f8fbff" stroke="#173b59" stroke-width="8"/>
+        <g stroke="#b65f2b" stroke-width="4" marker-end="url(#arr2)"><path d="M130 330 C90 250 100 170 160 115"/><path d="M200 355 C180 270 185 170 200 110"/><path d="M270 330 C310 250 300 170 240 115"/></g>
+        <text x="138" y="405" font-size="21">Armature MMF axis</text>
+      </g>
+      <g transform="translate(780,0)">
+        <text x="55" y="35" font-size="25" font-weight="900">Resultant field under load</text>
+        <circle cx="200" cy="235" r="120" fill="#f8fbff" stroke="#173b59" stroke-width="8"/>
+        <rect x="20" y="150" width="80" height="170" rx="18" fill="#dbeafe" stroke="#0b5f9e" stroke-width="6"/><text x="44" y="245" font-size="42" font-weight="950">N</text>
+        <rect x="300" y="150" width="80" height="170" rx="18" fill="#fee2e2" stroke="#b4233c" stroke-width="6"/><text x="324" y="245" font-size="42" font-weight="950">S</text>
+        <g stroke="#6d43b5" stroke-width="5" marker-end="url(#arr2)"><path d="M98 180 C190 110 260 135 300 175"/><path d="M98 235 C190 170 255 205 300 235"/><path d="M98 290 C160 305 245 345 300 295"/></g>
+        <line x1="200" y1="95" x2="200" y2="375" stroke="#334155" stroke-width="3" stroke-dasharray="8 7"/><line x1="155" y1="105" x2="245" y2="365" stroke="#b4233c" stroke-width="4"/>
+        <text x="205" y="390" font-size="18">GNA</text><text x="250" y="350" font-size="18" fill="#b4233c">Shifted MNA</text>
+      </g>
+    </svg>
+    <figcaption>Flux crowds at one pole tip and weakens at the other. In a generator, MNA shifts in the direction of rotation. Brush shifting alone is unsatisfactory because the required shift varies with load.</figcaption>
+  </figure>
+
+  <div class="callout insight"><b>Effects of armature reaction</b><div>Distorted flux, reduced average flux, lower generated EMF, shifted MNA, brush sparking, local heating at pole tips and poor commutation.</div></div>
+  <div class="ml"><b>Malayalam Support:</b> ലോഡ് കറന്റ് മൂലം armature സ്വന്തം magnetic field ഉണ്ടാക്കുന്നു. ഇത് main field-നെ വളച്ചുമറിക്കുകയും neutral axis മാറ്റുകയും ചെയ്യുന്നു; അതിനാൽ brush sparking ഉണ്ടാകാം.</div>
+
+  <h3>2. Interpoles and compensating windings</h3>
+  <div class="grid">
+    <div class="card"><h4>Interpoles</h4><p>Small poles placed midway between main poles. Their windings are connected in series with the armature, so interpole flux automatically varies with load. In a generator, interpole polarity is the same as the next main pole in the direction of rotation. Interpoles induce a commutating EMF that opposes reactance voltage.</p></div>
+    <div class="card"><h4>Compensating winding</h4><p>Conductors embedded in slots on the pole faces and connected in series with the armature. Their MMF opposes armature MMF under the pole arc, keeping air-gap flux nearly uniform during rapid load changes.</p></div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Interpoles</th><th>Compensating winding</th></tr></thead><tbody>
+    <tr><td>Location</td><td>Between main poles</td><td>In main-pole shoes</td></tr><tr><td>Main purpose</td><td>Improve commutation in neutral zone</td><td>Neutralise cross-magnetising effect under pole arc</td></tr><tr><td>Connection</td><td>Series with armature</td><td>Series with armature</td></tr><tr><td>Use</td><td>Common in medium/large machines</td><td>Heavy-duty machines with rapidly changing load</td></tr>
+  </tbody></table></div>
+
+  <h3>3. Commutation</h3>
+  <p>Commutation is the reversal of current in an armature coil while the brush short-circuits the two commutator segments connected to that coil. Ideally, current changes linearly from +I to −I during the commutation period and reaches its final value exactly when the coil leaves the brush.</p>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1100 420" role="img" aria-label="Armature coil undergoing commutation beneath a carbon brush">
+      <g transform="translate(40,35)">
+        <rect x="260" y="0" width="300" height="75" rx="15" fill="#222"/><text x="350" y="48" fill="#fff" font-size="27" font-weight="900">Carbon brush</text>
+        <path d="M180 130 A110 110 0 0 1 400 130" fill="none" stroke="#b65f2b" stroke-width="50"/><path d="M420 130 A110 110 0 0 1 640 130" fill="none" stroke="#b65f2b" stroke-width="50"/>
+        <line x1="400" y1="80" x2="400" y2="180" stroke="#fff" stroke-width="7"/><line x1="420" y1="80" x2="420" y2="180" stroke="#fff" stroke-width="7"/>
+        <path d="M290 150 C250 260 565 260 530 150" fill="none" stroke="#0b5f9e" stroke-width="9"/>
+        <text x="110" y="320" font-size="23">Coil is short-circuited while brush bridges two segments.</text>
+        <text x="220" y="380" font-size="22" fill="#b4233c">Current must reverse from +I to −I</text>
+      </g>
+    </svg>
+    <figcaption>Inductance opposes current reversal and produces reactance voltage e<sub>r</sub>=L·di/dt. If reversal is incomplete, current interruption at the brush edge causes sparking.</figcaption>
+  </figure>
+
+  <div class="grid">
+    <div class="card green"><h4>Ideal commutation</h4><p>Current reverses uniformly and reaches −I by the end of brush contact. No residual current is interrupted.</p></div>
+    <div class="card amber"><h4>Under-commutation</h4><p>Current reverses too slowly. At brush exit, current has not reached −I, causing sparking at the trailing edge.</p></div>
+    <div class="card rose"><h4>Over-commutation</h4><p>Current reverses too quickly and overshoots. Sparking may occur at the leading edge.</p></div>
+  </div>
+  <div class="curve-panel"><h4>Current reversal during commutation</h4>
+    <svg viewBox="0 0 850 330" role="img" aria-label="Ideal, under and over commutation current curves">
+      <line x1="75" y1="45" x2="75" y2="285" stroke="#334155" stroke-width="3"/><line x1="75" y1="165" x2="810" y2="165" stroke="#334155" stroke-width="3"/>
+      <line x1="180" y1="55" x2="700" y2="275" stroke="#27835f" stroke-width="6"/><path d="M180 55 C370 75 530 160 700 235" fill="none" stroke="#d97706" stroke-width="6"/><path d="M180 55 C350 170 520 280 700 275" fill="none" stroke="#b4233c" stroke-width="6"/>
+      <text x="610" y="215" fill="#d97706" font-size="21">Under</text><text x="610" y="300" fill="#b4233c" font-size="21">Over</text><text x="610" y="245" fill="#27835f" font-size="21">Ideal</text>
+      <text x="12" y="55" font-size="21">+I</text><text x="12" y="280" font-size="21">−I</text><text x="340" y="320" font-size="21">Commutation time</text>
+    </svg>
+  </div>
+
+  <h4>Methods of improving commutation</h4>
+  <div class="grid">
+    <div class="card quarter"><h4>Carbon brushes</h4><p>Higher contact resistance helps current transfer gradually from one segment to the next: resistance commutation.</p></div>
+    <div class="card quarter"><h4>Interpoles</h4><p>Provide reversing EMF proportional to armature current: EMF commutation.</p></div>
+    <div class="card quarter"><h4>Correct brush position</h4><p>Brushes should lie on the actual MNA, though fixed brush shift is inadequate over wide load range.</p></div>
+    <div class="card quarter"><h4>Shorter coil inductance</h4><p>Good winding design reduces reactance voltage and improves current reversal.</p></div>
+  </div>
+
+  <h3>4. Equalizer connections</h3>
+  <p>In a lap winding, each pole provides a separate parallel path. Small differences in air-gap flux can produce unequal path EMFs, causing circulating currents through brushes and commutator. Equalizer rings connect equipotential points of the winding, allowing circulating current to flow inside the armature instead of through the brushes. Wave windings normally do not require equalizer rings because each parallel path includes conductors under all poles.</p>
+
+  <h3>5. Generator characteristics</h3>
+  <p>A characteristic is a graph showing how voltage, current or excitation changes under specified operating conditions.</p>
+  <div class="table-wrap"><table><thead><tr><th>Characteristic</th><th>Axes</th><th>Meaning</th></tr></thead><tbody>
+    <tr><td>Open-circuit characteristic (OCC)</td><td>Eg versus field current If at constant speed, no load</td><td>Magnetisation curve; shows residual voltage and saturation</td></tr>
+    <tr><td>Internal characteristic</td><td>Generated EMF after armature-reaction effect versus load current</td><td>Lies below ideal generated-voltage relation</td></tr>
+    <tr><td>External characteristic</td><td>Terminal voltage V versus load current IL</td><td>Includes armature-reaction and internal voltage drops</td></tr>
+  </tbody></table></div>
+
+  <div class="grid">
+    <div class="curve-panel"><h4>Separately excited generator</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="OCC and load characteristics of separately excited generator">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M70 285 C155 190 250 90 420 75 C500 70 560 70 600 68" fill="none" stroke="#0b5f9e" stroke-width="6"/>
+        <text x="270" y="55" font-size="20" fill="#0b5f9e">OCC: Eg vs If</text><text x="280" y="355" font-size="20">Field current If</text><text x="10" y="55" font-size="20">Eg</text>
+      </svg>
+      <p>At first, Eg rises almost linearly with If. Magnetic saturation bends the curve.</p>
+    </div>
+    <div class="curve-panel"><h4>Shunt generator: internal and external</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="Internal and external characteristics of a shunt generator">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M75 90 C270 92 440 120 590 195" fill="none" stroke="#6d43b5" stroke-width="6"/><path d="M75 105 C280 115 445 160 590 270" fill="none" stroke="#b65f2b" stroke-width="6"/>
+        <text x="360" y="115" font-size="19" fill="#6d43b5">Internal Eg</text><text x="380" y="235" font-size="19" fill="#b65f2b">External V</text><text x="270" y="355" font-size="20">Load current IL</text><text x="15" y="55" font-size="20">Voltage</text>
+      </svg>
+      <p>Terminal voltage falls because IaRa drop and armature reaction reduce voltage. Falling V also reduces shunt-field current, causing a cumulative drop.</p>
+    </div>
+    <div class="curve-panel"><h4>Series generator</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="Series generator external characteristic">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M75 295 C170 235 255 145 360 105 C455 68 530 95 590 150" fill="none" stroke="#d97706" stroke-width="6"/>
+        <text x="300" y="355" font-size="20">Load current IL</text><text x="15" y="55" font-size="20">V</text><text x="330" y="85" font-size="19" fill="#d97706">Saturation</text>
+      </svg>
+      <p>Voltage initially rises with load as series-field flux increases, then saturates and may fall because of internal drops and armature reaction.</p>
+    </div>
+    <div class="curve-panel"><h4>Compound generators</h4>
+      <svg viewBox="0 0 650 380" role="img" aria-label="Under, flat and over compounded generator characteristics">
+        <line x1="70" y1="315" x2="610" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="40" stroke="#334155" stroke-width="3"/>
+        <path d="M75 135 C260 145 430 170 590 210" fill="none" stroke="#b4233c" stroke-width="5"/><path d="M75 135 C260 137 430 135 590 137" fill="none" stroke="#27835f" stroke-width="5"/><path d="M75 135 C260 125 430 105 590 80" fill="none" stroke="#0b5f9e" stroke-width="5"/>
+        <text x="470" y="72" fill="#0b5f9e" font-size="18">Over</text><text x="470" y="130" fill="#27835f" font-size="18">Flat</text><text x="470" y="220" fill="#b4233c" font-size="18">Under</text><text x="280" y="355" font-size="20">Load current</text><text x="15" y="55" font-size="20">V</text>
+      </svg>
+    </div>
+  </div>
+
+  <h3>6. Voltage build-up of a shunt generator</h3>
+  <div class="steps">
+    <div class="step">Residual magnetism produces a small initial EMF when the armature starts rotating.</div>
+    <div class="step">This EMF sends current through the shunt field.</div>
+    <div class="step">Field current strengthens flux in the same direction as residual flux.</div>
+    <div class="step">Higher flux produces higher Eg, which produces more field current.</div>
+    <div class="step">Voltage rises cumulatively until the field-resistance line intersects the OCC.</div>
+  </div>
+  <div class="ml"><b>Malayalam Support:</b> Residual magnetism മൂലം ചെറിയ voltage ആദ്യം ഉണ്ടാകും. അതിലൂടെ field current ഒഴുകി flux കൂട്ടും; flux കൂടുമ്പോൾ generated voltage വീണ്ടും കൂടും. ഇങ്ങനെ voltage build up ചെയ്യുന്നു.</div>
+
+  <div class="grid">
+    <div class="card green"><h4>Conditions for build-up</h4><ul><li>Residual magnetism must exist.</li><li>Field connection must aid residual flux.</li><li>Field-circuit resistance must be below critical resistance.</li><li>Speed must exceed critical speed for the chosen field resistance.</li><li>Field circuit must be closed.</li></ul></div>
+    <div class="card rose"><h4>Failure causes</h4><ul><li>Loss of residual magnetism.</li><li>Reversed field connection.</li><li>Excessive field resistance.</li><li>Speed too low.</li><li>Open field circuit or poor brush contact.</li></ul></div>
+  </div>
+
+  <h3>7. Critical resistance and critical speed</h3>
+  <p><b>Critical field resistance</b> is the maximum shunt-field resistance at which a generator just builds voltage at a given speed. Graphically it is the slope of the line drawn from the origin tangent to the OCC. <b>Critical speed</b> is the minimum speed at which the machine builds voltage for a specified field resistance.</p>
+  <div class="curve-panel"><h4>Critical-resistance tangent method</h4>
+    <svg viewBox="0 0 760 430" role="img" aria-label="OCC with field resistance line and critical resistance tangent">
+      <line x1="80" y1="360" x2="710" y2="360" stroke="#334155" stroke-width="3"/><line x1="80" y1="360" x2="80" y2="45" stroke="#334155" stroke-width="3"/>
+      <path d="M80 335 C155 245 250 125 420 95 C520 78 610 75 690 74" fill="none" stroke="#0b5f9e" stroke-width="7"/>
+      <line x1="80" y1="360" x2="470" y2="90" stroke="#b4233c" stroke-width="5"/><line x1="80" y1="360" x2="620" y2="160" stroke="#27835f" stroke-width="5" stroke-dasharray="10 7"/>
+      <text x="420" y="80" fill="#b4233c" font-size="20">Critical-resistance tangent</text><text x="500" y="180" fill="#27835f" font-size="20">Operating field line</text><text x="335" y="405" font-size="20">Field current If</text><text x="15" y="60" font-size="20">Eg</text>
+    </svg>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M2-1: Critical resistance from OCC data</h4>
+    <p><b>Problem:</b> The tangent to a shunt-generator OCC passes through If=2.0 A, Eg=220 V. Determine critical field resistance.</p>
+    <p><b>Formula:</b> Rcrit = slope = Eg/If.</p>
+    <p><b>Calculation:</b> Rcrit=220/2=110 Ω.</p>
+    <p class="line"><b>Final answer:</b> <b>110 Ω</b>. The actual field-circuit resistance must be less than this at that speed.</p>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M2-2: Critical speed</h4>
+    <p><b>Problem:</b> At 1000 rpm the critical resistance is 120 Ω. Assuming the unsaturated OCC is proportional to speed, estimate critical speed for a 90 Ω field circuit.</p>
+    <p><b>Relation:</b> Critical-resistance slope is proportional to speed, so Ncrit/N1=Rf/Rcrit,1.</p>
+    <p><b>Calculation:</b> Ncrit=1000×90/120=750 rpm.</p>
+    <p class="line"><b>Final answer:</b> <b>750 rpm</b>.</p>
+    <p><b>Assumption:</b> Use the linear/unsaturated portion and geometrically similar OCC.</p>
+  </div>
+
+  <h3>8. Parallel operation of DC generators</h3>
+  <p>Parallel operation improves reliability, permits maintenance without total shutdown, allows economical matching of generating capacity to load and provides reserve capacity. Before closing the parallel switch, polarity must be the same and incoming voltage must approximately equal busbar voltage.</p>
+  <div class="steps">
+    <div class="step">Run the incoming generator at rated speed with its switch open.</div>
+    <div class="step">Verify correct polarity.</div>
+    <div class="step">Adjust excitation until incoming voltage equals bus voltage.</div>
+    <div class="step">Close the switch.</div>
+    <div class="step">Increase incoming-generator excitation to make it take load; adjust machines for desired sharing.</div>
+  </div>
+  <div class="callout safety"><b>Safety note</b><div>Wrong polarity effectively short-circuits the generators through the busbars. Never parallel without polarity and voltage checks.</div></div>
+  <p>Equalizer connections are essential for compound generators so unequal series-field currents do not cause one generator to take excessive load.</p>
+
+  <h3>9. Application selection</h3>
+  <div class="table-wrap"><table><thead><tr><th>Requirement</th><th>Suitable generator</th><th>Reason</th></tr></thead><tbody>
+    <tr><td>Adjustable DC laboratory supply</td><td>Separately excited</td><td>Field can be controlled independently</td></tr>
+    <tr><td>Nearly constant-voltage supply</td><td>Shunt generator</td><td>Small voltage drop with load</td></tr>
+    <tr><td>Feeder-voltage compensation / booster</td><td>Series generator</td><td>Voltage increases with load current</td></tr>
+    <tr><td>Constant terminal voltage with changing load</td><td>Flat-compounded generator</td><td>Series field offsets internal voltage drop</td></tr>
+    <tr><td>Rising voltage at remote load</td><td>Over-compounded generator</td><td>Compensates both machine and feeder drop</td></tr>
+  </tbody></table></div>
+
+  <details open><summary>Module 2 expected-question practice</summary>
+    <div class="question-bank">
+      <div class="qcard"><span class="tag">Definition</span><h4>Define armature reaction and MNA.</h4><p>State armature-field effect and zero-EMF axis.</p></div>
+      <div class="qcard"><span class="tag">Important diagram</span><h4>Show main, armature and resultant flux.</h4><p>Label GNA, shifted MNA and crowded pole tip.</p></div>
+      <div class="qcard"><span class="tag">Comparison</span><h4>Interpoles versus compensating windings.</h4><p>Compare location, purpose and connection.</p></div>
+      <div class="qcard"><span class="tag">Characteristic curve</span><h4>Draw OCC, internal and external curves.</h4><p>Label axes and explain why each curve lies below the previous one.</p></div>
+      <div class="qcard"><span class="tag">Important numerical</span><h4>Find critical resistance or critical speed.</h4><p>Use tangent slope and proportionality with speed.</p></div>
+      <div class="qcard"><span class="tag">Long answer</span><h4>Explain voltage build-up and failure causes.</h4><p>Include residual magnetism, polarity, resistance and speed conditions.</p></div>
+    </div>
+  </details>
+</section>
+<section class="section module" id="module3" style="--accent:#b65f2b">
+  <div class="module-banner"><span class="eyebrow">Module 3 • CO3 • 12 Hours</span><h2>DC Motors, Starters and Testing</h2><p>M3.01–M3.04: motor principle, back EMF, torque, performance characteristics, starters, load test and Swinburne’s test.</p></div>
+
+  <h3>1. Working principle of a DC motor</h3>
+  <p>A current-carrying conductor placed in a magnetic field experiences a force. In a DC motor, forces on armature conductors form a couple and produce torque. Fleming’s left-hand rule gives the force direction: first finger points along field, second finger along current and thumb along force or motion.</p>
+  <div class="formula">F = B I l sin θ <small>F in newtons; B in tesla; I in amperes; active length l in metres.</small></div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1050 460" role="img" aria-label="Simple DC motor showing magnetic field, current direction and force on armature conductors">
+      <defs><marker id="m3a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#07889b"/></marker></defs>
+      <rect x="40" y="110" width="200" height="240" rx="36" fill="#dbeafe" stroke="#0b5f9e" stroke-width="8"/><text x="112" y="250" font-size="76" font-weight="950" fill="#0b5f9e">N</text>
+      <rect x="810" y="110" width="200" height="240" rx="36" fill="#fee2e2" stroke="#b4233c" stroke-width="8"/><text x="882" y="250" font-size="76" font-weight="950" fill="#b4233c">S</text>
+      <g stroke="#07889b" stroke-width="5" marker-end="url(#m3a)"><line x1="245" y1="155" x2="790" y2="155"/><line x1="245" y1="230" x2="790" y2="230"/><line x1="245" y1="305" x2="790" y2="305"/></g>
+      <rect x="410" y="100" width="230" height="260" rx="16" fill="none" stroke="#b65f2b" stroke-width="13"/>
+      <circle cx="410" cy="230" r="32" fill="#0f172a"/><circle cx="640" cy="230" r="32" fill="#fff" stroke="#0f172a" stroke-width="7"/>
+      <circle cx="410" cy="230" r="7" fill="#fff"/><line x1="388" y1="208" x2="432" y2="252" stroke="#fff" stroke-width="7"/><line x1="432" y1="208" x2="388" y2="252" stroke="#fff" stroke-width="7"/>
+      <circle cx="640" cy="230" r="7" fill="#0f172a"/>
+      <line x1="410" y1="230" x2="410" y2="60" stroke="#b4233c" stroke-width="7" marker-end="url(#m3a)"/><line x1="640" y1="230" x2="640" y2="405" stroke="#27835f" stroke-width="7" marker-end="url(#m3a)"/>
+      <text x="315" y="55" font-size="22" font-weight="900" fill="#b4233c">Force upward</text><text x="620" y="440" font-size="22" font-weight="900" fill="#27835f">Force downward</text>
+      <path d="M720 80 A220 185 0 0 1 750 340" fill="none" stroke="#6d43b5" stroke-width="8" marker-end="url(#m3a)"/><text x="720" y="70" font-size="23" font-weight="900" fill="#6d43b5">Torque / rotation</text>
+    </svg>
+    <figcaption>Cross and dot symbols show current into and out of the page. Opposite forces form a turning couple. The commutator reverses conductor current when a coil moves under the next pole so torque remains in the same direction.</figcaption>
+  </figure>
+
+  <div class="ml"><b>Malayalam Support:</b> കാന്തിക ഫീൽഡിൽ current ഒഴുകുന്ന conductor-ന് force ലഭിക്കുന്നു. Armature-ന്റെ രണ്ട് വശങ്ങളിലെ വിരുദ്ധ force-കൾ ചേർന്ന് torque ഉണ്ടാക്കുന്നു.</div>
+
+  <h3>2. Back EMF and self-regulation</h3>
+  <p>As the armature rotates, its conductors cut flux and generate an EMF by generator action. By Lenz’s law, this induced EMF opposes the applied voltage, so it is called <b>back EMF</b> Eb. It limits armature current during normal running.</p>
+  <div class="formula">V = E<sub>b</sub> + I<sub>a</sub>R<sub>a</sub> + V<sub>b</sub></div>
+  <div class="formula">Neglecting brush drop: E<sub>b</sub> = V − I<sub>a</sub>R<sub>a</sub></div>
+  <div class="formula">E<sub>b</sub> = PΦZN / 60A</div>
+  <div class="callout insight"><b>Self-regulating action</b><div>If load increases, speed falls slightly. Eb falls, Ia=(V−Eb)/Ra rises, torque rises and the motor meets the larger load. If load decreases, speed and Eb rise, reducing Ia and torque.</div></div>
+  <div class="ml"><b>Malayalam Support:</b> Speed കൂടുമ്പോൾ back EMF കൂടും; അതിനാൽ armature current കുറയും. Load കൂടിയാൽ speed അല്പം കുറയുകയും back EMF കുറയുകയും current/torque കൂടുകയും ചെയ്യും.</div>
+
+  <h3>3. Why a starter is essential</h3>
+  <p>At starting, N=0 and therefore Eb=0. Because armature resistance is very small, connecting the motor directly to supply would cause a dangerously high current.</p>
+  <div class="formula">I<sub>a,start</sub> = V / R<sub>a</sub> &nbsp; (without starter)</div>
+  <div class="formula">I<sub>a,start</sub> = V / (R<sub>a</sub> + R<sub>st</sub>) &nbsp; (with starter resistance)</div>
+  <div class="solution">
+    <h4>Solved numerical M3-1: Starting current and starter resistance</h4>
+    <p><b>Problem:</b> A 220 V motor has Ra=0.25 Ω. Find direct starting current and series resistance needed to limit current to 50 A.</p>
+    <p><b>Direct start:</b> Ia=220/0.25=880 A.</p>
+    <p><b>Required total resistance:</b> Rtotal=220/50=4.4 Ω.</p>
+    <p><b>Starter resistance:</b> Rst=4.4−0.25=4.15 Ω.</p>
+    <p class="line"><b>Final answer:</b> Direct current <b>880 A</b>; starter resistance <b>4.15 Ω</b>.</p>
+  </div>
+
+  <h3>4. Classification and connection</h3>
+  <div class="grid">
+    <div class="card quarter blue"><h4>Separately excited</h4><p>Field supplied independently. Excellent independent flux control.</p></div>
+    <div class="card quarter green"><h4>Shunt motor</h4><p>Field connected across supply. Nearly constant flux and speed.</p></div>
+    <div class="card quarter copper"><h4>Series motor</h4><p>Field in series with armature. Flux initially proportional to Ia; very high starting torque.</p></div>
+    <div class="card quarter violet"><h4>Compound motor</h4><p>Shunt and series fields combine. Cumulative compound gives high starting torque with better speed regulation.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1200 400" role="img" aria-label="Connection diagrams of shunt, series and compound DC motors">
+      <defs><style>.mw{stroke:#183c59;stroke-width:5;fill:none}.mc{fill:#fff;stroke:#b65f2b;stroke-width:5}.mt{font:700 21px Segoe UI,Arial}</style></defs>
+      <g transform="translate(40,20)"><circle class="mc" cx="145" cy="145" r="62"/><text class="mt" x="113" y="153">M</text><path class="mw" d="M83 145H30V310H260V145H207"/><path class="mw" d="M45 145V60H245V145"/><rect class="mc" x="80" y="38" width="130" height="45"/><text class="mt" x="108" y="68">Shunt F</text><circle cx="30" cy="145" r="6"/><circle cx="260" cy="145" r="6"/><text class="mt" x="95" y="365">Shunt motor</text></g>
+      <g transform="translate(415,20)"><circle class="mc" cx="125" cy="145" r="62"/><text class="mt" x="93" y="153">M</text><path class="mw" d="M63 145H25V310H265V145H225"/><rect class="mc" x="175" y="120" width="75" height="50"/><text class="mt" x="190" y="153">SF</text><text class="mt" x="80" y="365">Series motor</text></g>
+      <g transform="translate(790,20)"><circle class="mc" cx="125" cy="160" r="62"/><text class="mt" x="93" y="168">M</text><path class="mw" d="M63 160H25V320H270V160H225"/><rect class="mc" x="175" y="135" width="75" height="50"/><text class="mt" x="190" y="168">SF</text><path class="mw" d="M45 160V65H245V135"/><rect class="mc" x="80" y="42" width="130" height="45"/><text class="mt" x="108" y="72">Shunt F</text><text class="mt" x="65" y="365">Compound motor</text></g>
+    </svg>
+    <figcaption>In a cumulative compound motor, series-field MMF aids the shunt field. Differential compounding is generally unstable for motor duty and is rarely used.</figcaption>
+  </figure>
+
+  <h3>5. Mechanical power and torque</h3>
+  <p>Armature electrical input is VIa. Armature copper loss is Ia²Ra. The remaining power converted electromagnetically is called gross mechanical power developed.</p>
+  <div class="formula">P<sub>m</sub> = E<sub>b</sub>I<sub>a</sub></div>
+  <div class="formula">ω = 2πN/60 rad/s</div>
+  <div class="formula">T<sub>a</sub> = P<sub>m</sub>/ω</div>
+
+  <h4>Derivation of the general torque equation</h4>
+  <div class="steps">
+    <div class="step">Mechanical power developed Pm = EbIa.</div>
+    <div class="step">Substitute Eb=PΦZN/(60A).</div>
+    <div class="step">Angular speed ω=2πN/60.</div>
+    <div class="step">Torque Ta=Pm/ω=[PΦZN Ia/(60A)]/[2πN/60].</div>
+    <div class="step">Cancel N and simplify.</div>
+  </div>
+  <div class="formula">T<sub>a</sub> = (PZ/2πA) ΦI<sub>a</sub> = 0.159(PZ/A)ΦI<sub>a</sub> N·m</div>
+  <div class="formula">Therefore T ∝ ΦI<sub>a</sub></div>
+  <p><b>Armature torque</b> is the electromagnetic torque developed inside the armature. <b>Shaft torque</b> is the useful output torque after subtracting torque equivalent of iron and mechanical losses.</p>
+  <div class="formula">T<sub>sh</sub> = P<sub>out</sub>/ω</div>
+
+  <div class="solution">
+    <h4>Solved numerical M3-2: Back EMF, developed power and torque</h4>
+    <p><b>Problem:</b> A 220 V shunt motor takes armature current 40 A. Ra=0.30 Ω and speed=1000 rpm. Neglect brush drop. Find Eb, Pm and Ta.</p>
+    <p><b>Back EMF:</b> Eb=220−40×0.30=208 V.</p>
+    <p><b>Developed power:</b> Pm=208×40=8320 W.</p>
+    <p><b>Angular speed:</b> ω=2π×1000/60=104.72 rad/s.</p>
+    <p><b>Torque:</b> Ta=8320/104.72=79.45 N·m.</p>
+    <p class="line"><b>Final answer:</b> Eb=<b>208 V</b>, Pm=<b>8.32 kW</b>, Ta=<b>79.5 N·m</b>.</p>
+  </div>
+
+  <h3>6. Speed relation</h3>
+  <div class="formula">N ∝ E<sub>b</sub>/Φ = (V−I<sub>a</sub>R<sub>a</sub>)/Φ</div>
+  <p>Speed can therefore be changed by varying flux, armature-circuit resistance or applied armature voltage. This relation is the foundation of Module 4.</p>
+
+  <h3>7. Condition for maximum mechanical power</h3>
+  <div class="steps">
+    <div class="step">Ignoring brush drop, Ia=(V−Eb)/Ra.</div>
+    <div class="step">Mechanical power developed Pm=EbIa=Eb(V−Eb)/Ra.</div>
+    <div class="step">Differentiate with respect to Eb: dPm/dEb=(V−2Eb)/Ra.</div>
+    <div class="step">Set derivative to zero: V−2Eb=0.</div>
+  </div>
+  <div class="formula">At maximum mechanical power: E<sub>b</sub> = V/2</div>
+  <div class="callout mistake"><b>Why this is not normal operation</b><div>At Eb=V/2, Ia=V/(2Ra). Armature copper loss Ia²Ra equals mechanical power developed, so even before rotational losses the efficiency is only 50%. Current is excessive and heating is severe.</div></div>
+
+  <h3>8. Motor characteristics</h3>
+  <p>Electrical characteristic usually means torque versus armature current. Mechanical characteristic means speed versus torque. Performance characteristic includes speed versus current, efficiency versus output and other operating curves.</p>
+  <div class="grid">
+    <div class="curve-panel"><h4>Shunt motor characteristics</h4>
+      <svg viewBox="0 0 700 420" role="img" aria-label="Shunt motor torque-current and speed-current characteristics">
+        <line x1="70" y1="345" x2="650" y2="345" stroke="#334155" stroke-width="3"/><line x1="70" y1="345" x2="70" y2="45" stroke="#334155" stroke-width="3"/>
+        <path d="M80 325 L610 80" fill="none" stroke="#b65f2b" stroke-width="6"/><path d="M80 100 C300 110 470 125 610 155" fill="none" stroke="#0b5f9e" stroke-width="6"/>
+        <text x="470" y="105" fill="#b65f2b" font-size="20">T ∝ Ia</text><text x="440" y="175" fill="#0b5f9e" font-size="20">Speed falls slightly</text><text x="300" y="390" font-size="20">Armature current Ia</text>
+      </svg>
+      <p>Flux is approximately constant: torque is proportional to Ia and speed is nearly constant.</p>
+    </div>
+    <div class="curve-panel"><h4>Series motor characteristics</h4>
+      <svg viewBox="0 0 700 420" role="img" aria-label="Series motor torque-current and speed-current characteristics">
+        <line x1="70" y1="345" x2="650" y2="345" stroke="#334155" stroke-width="3"/><line x1="70" y1="345" x2="70" y2="45" stroke="#334155" stroke-width="3"/>
+        <path d="M80 330 C190 300 250 205 330 135 C430 75 525 70 610 65" fill="none" stroke="#b65f2b" stroke-width="6"/><path d="M85 60 C150 145 220 215 310 255 C410 295 515 310 610 320" fill="none" stroke="#0b5f9e" stroke-width="6"/>
+        <text x="410" y="85" fill="#b65f2b" font-size="20">T: quadratic then linear</text><text x="385" y="285" fill="#0b5f9e" font-size="20">Speed falls sharply</text><text x="300" y="390" font-size="20">Armature current Ia</text>
+      </svg>
+      <p>Before saturation, Φ∝Ia so T∝Ia². At light load, flux is small and speed can become dangerously high; never run a series motor without load.</p>
+    </div>
+    <div class="curve-panel"><h4>Speed–torque comparison</h4>
+      <svg viewBox="0 0 700 420" role="img" aria-label="Speed versus torque for shunt, series and compound motors">
+        <line x1="70" y1="345" x2="650" y2="345" stroke="#334155" stroke-width="3"/><line x1="70" y1="345" x2="70" y2="45" stroke="#334155" stroke-width="3"/>
+        <path d="M80 100 C300 110 480 130 610 160" fill="none" stroke="#27835f" stroke-width="6"/><path d="M90 55 C150 150 250 245 610 325" fill="none" stroke="#b65f2b" stroke-width="6"/><path d="M85 80 C240 125 390 185 610 250" fill="none" stroke="#6d43b5" stroke-width="6"/>
+        <text x="470" y="130" fill="#27835f" font-size="19">Shunt</text><text x="470" y="300" fill="#b65f2b" font-size="19">Series</text><text x="470" y="225" fill="#6d43b5" font-size="19">Compound</text><text x="300" y="390" font-size="20">Torque</text><text x="15" y="60" font-size="20">Speed</text>
+      </svg>
+    </div>
+    <div class="card"><h4>Application selection logic</h4><ul><li><b>Nearly constant speed:</b> shunt motor.</li><li><b>Very high starting torque:</b> series motor.</li><li><b>High starting torque plus better speed regulation:</b> cumulative compound motor.</li><li><b>Independent wide control:</b> separately excited motor.</li></ul></div>
+  </div>
+
+  <div class="table-wrap"><table><thead><tr><th>Motor</th><th>Starting torque</th><th>Speed regulation</th><th>Suitable applications</th></tr></thead><tbody>
+    <tr><td>Shunt</td><td>Moderate</td><td>Good</td><td>Lathes, fans, blowers, pumps, machine tools</td></tr>
+    <tr><td>Series</td><td>Very high</td><td>Poor; no-load dangerous</td><td>Cranes, hoists, traction, elevators</td></tr>
+    <tr><td>Cumulative compound</td><td>High</td><td>Better than series</td><td>Conveyors, presses, rolling mills, reciprocating pumps</td></tr>
+    <tr><td>Separately excited</td><td>Controlled</td><td>Excellent with feedback/control</td><td>Precision drives, laboratories, variable-speed systems</td></tr>
+  </tbody></table></div>
+
+  <h3>9. Motor losses, power flow and efficiency</h3>
+  <div class="power-flow" aria-label="DC motor power flow">
+    <div class="flow-box"><b>Electrical input</b><br>VIL</div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Subtract field &amp; armature copper losses</b><br>I²R + brush</div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Gross mechanical power</b><br>EbIa</div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Subtract rotational &amp; stray losses</b></div><div class="flow-arrow">→</div>
+    <div class="flow-box"><b>Shaft output</b><br>Pout</div>
+  </div>
+  <div class="formula">η<sub>m</sub> = Mechanical output / Electrical input × 100%</div>
+  <div class="formula">At maximum efficiency: variable copper loss = constant loss <small>Use the correct current and include field loss consistently.</small></div>
+
+  <div class="solution">
+    <h4>Solved numerical M3-3: Motor efficiency</h4>
+    <p><b>Problem:</b> A 220 V shunt motor takes line current 30 A. Shunt-field current is 1 A, Ra=0.4 Ω and rotational losses are 500 W. Find shaft output and efficiency.</p>
+    <p><b>Armature current:</b> Ia=30−1=29 A.</p>
+    <p><b>Input:</b> Pin=220×30=6600 W.</p>
+    <p><b>Armature copper loss:</b> 29²×0.4=336.4 W.</p>
+    <p><b>Field loss:</b> 220×1=220 W.</p>
+    <p><b>Shaft output:</b> 6600−336.4−220−500=5543.6 W.</p>
+    <p><b>Efficiency:</b> 5543.6/6600×100=83.99%.</p>
+    <p class="line"><b>Final answer:</b> Output ≈<b>5.54 kW</b>; efficiency ≈<b>84.0%</b>.</p>
+  </div>
+
+  <h3>10. Three-point starter</h3>
+  <p>The three terminals are L (line), A (armature) and F (field). Starting resistance is divided into sections. Moving the handle from OFF toward RUN progressively removes resistance as speed and back EMF rise.</p>
+  <div class="grid">
+    <div class="card"><h4>No-volt release (NVR)</h4><p>Connected in series with the shunt field. It magnetically holds the handle in RUN. Supply failure or field-circuit opening releases the handle and spring returns it to OFF.</p></div>
+    <div class="card"><h4>Overload release (OLR)</h4><p>Connected in series with armature. Excess current energises it and releases the NVR mechanism, disconnecting the motor.</p></div>
+  </div>
+  <figure class="diagram">
+    <svg viewBox="0 0 1100 500" role="img" aria-label="Simplified three-point DC motor starter">
+      <defs><style>.s3{stroke:#173b59;stroke-width:5;fill:none}.r3{fill:#fff5ed;stroke:#b65f2b;stroke-width:4}.tx3{font:700 22px Segoe UI,Arial}</style></defs>
+      <circle cx="140" cy="90" r="12" fill="#b4233c"/><text class="tx3" x="120" y="55">L</text>
+      <circle cx="890" cy="90" r="12" fill="#0b5f9e"/><text class="tx3" x="875" y="55">A</text>
+      <circle cx="900" cy="400" r="12" fill="#27835f"/><text class="tx3" x="885" y="450">F</text>
+      <path class="s3" d="M150 90H240"/><rect class="r3" x="240" y="60" width="105" height="60"/><text class="tx3" x="267" y="98">OLR</text>
+      <path class="s3" d="M345 90H440"/><g fill="#fff" stroke="#b65f2b" stroke-width="4"><circle cx="470" cy="90" r="13"/><circle cx="535" cy="90" r="13"/><circle cx="600" cy="90" r="13"/><circle cx="665" cy="90" r="13"/><circle cx="730" cy="90" r="13"/></g>
+      <path d="M440 90 L680 38" stroke="#6d43b5" stroke-width="10"/><text class="tx3" x="500" y="25">Starter handle</text>
+      <path class="s3" d="M730 90H890"/><path class="s3" d="M150 90V350H300"/><rect class="r3" x="300" y="320" width="160" height="60"/><text class="tx3" x="325" y="358">NVR / hold coil</text><path class="s3" d="M460 350H700V400H900"/>
+      <text class="tx3" x="470" y="155">Starting resistance sections</text><text class="tx3" x="780" y="365">Shunt field path</text>
+    </svg>
+    <figcaption>Because the NVR is in the field circuit, weakening the shunt field for speed control may reduce holding current and unintentionally release the handle.</figcaption>
+  </figure>
+
+  <h3>11. Four-point starter</h3>
+  <p>The four terminals are L, A, F and N. The NVR coil is connected directly across the supply through a limiting resistance, independent of the shunt-field circuit. Therefore field weakening does not release the handle. However, this arrangement does not directly protect against field-circuit opening in the same way as the three-point starter.</p>
+  <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Three-point starter</th><th>Four-point starter</th></tr></thead><tbody>
+    <tr><td>Terminals</td><td>L, A, F</td><td>L, A, F, N</td></tr><tr><td>NVR connection</td><td>Series with shunt field</td><td>Across supply independently</td></tr><tr><td>Field-control compatibility</td><td>May release at weak field</td><td>Suitable for field weakening</td></tr><tr><td>Field-failure protection</td><td>Better inherent protection</td><td>Needs separate field-failure protection</td></tr>
+  </tbody></table></div>
+
+  <h3>12. Direct load test</h3>
+  <p>In a direct load test, the motor drives a brake, generator or dynamometer. Measure supply voltage, line/armature current, speed and output torque. Then calculate input, output and efficiency at different loads.</p>
+  <div class="formula">P<sub>out</sub> = 2πNT/60</div>
+  <div class="steps"><div class="step">Start the motor with no load using the starter.</div><div class="step">Record no-load readings.</div><div class="step">Increase load gradually and record V, I, N and torque.</div><div class="step">Compute input, output and efficiency.</div><div class="step">Do not exceed rated current or temperature.</div></div>
+  <div class="callout safety"><b>Laboratory safety</b><div>Check couplings, guards, earthing and instrument ranges. Never touch rotating parts or adjust a mechanical brake without supervision.</div></div>
+
+  <h3>13. Swinburne’s test</h3>
+  <p>Swinburne’s test is an indirect no-load test mainly for DC shunt and compound machines. Run the motor at rated voltage and speed without mechanical load. The no-load input supplies armature copper loss, field loss and constant rotational losses. From these, efficiency at any assumed load can be predicted.</p>
+  <div class="steps">
+    <div class="step">Measure supply voltage V, no-load line current I0, field current Ish and armature resistance Ra.</div>
+    <div class="step">No-load armature current Ia0=I0−Ish.</div>
+    <div class="step">No-load input P0=VI0.</div>
+    <div class="step">Constant rotational loss Wc=P0−VIsh−Ia0²Ra (subtract brush loss if specified).</div>
+    <div class="step">At a chosen load, calculate armature copper loss and combine with Wc and field loss to predict efficiency.</div>
+  </div>
+
+  <div class="grid">
+    <div class="card green"><h4>Advantages</h4><ul><li>Simple and economical.</li><li>Requires only no-load power.</li><li>Efficiency can be predicted for motor and generator operation.</li><li>No large loading arrangement required.</li></ul></div>
+    <div class="card rose"><h4>Limitations</h4><ul><li>Temperature rise under full load is not tested.</li><li>Stray-load loss and armature-reaction effects are not accurately included.</li><li>Not suitable for series motors.</li><li>Commutation under load is not assessed.</li></ul></div>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M3-4: Swinburne’s-test prediction</h4>
+    <p><b>Problem:</b> A 220 V shunt motor takes 5 A at no load. Field current=1 A and Ra=0.5 Ω. Predict efficiency when line current is 40 A.</p>
+    <p><b>No-load armature current:</b> Ia0=5−1=4 A.</p>
+    <p><b>No-load input:</b> 220×5=1100 W.</p>
+    <p><b>Field loss:</b> 220×1=220 W.</p>
+    <p><b>No-load armature copper:</b> 4²×0.5=8 W.</p>
+    <p><b>Constant rotational loss:</b> 1100−220−8=872 W.</p>
+    <p><b>At 40 A line current:</b> Ia=39 A; armature copper=39²×0.5=760.5 W.</p>
+    <p><b>Total losses:</b> 872+220+760.5=1852.5 W.</p>
+    <p><b>Input:</b> 220×40=8800 W; output=6947.5 W.</p>
+    <p><b>Efficiency:</b> 6947.5/8800×100=78.95%.</p>
+    <p class="line"><b>Final answer:</b> Predicted motor efficiency ≈<b>79.0%</b>.</p>
+  </div>
+
+  <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Direct load test</th><th>Swinburne’s test</th></tr></thead><tbody>
+    <tr><td>Method</td><td>Actual mechanical loading</td><td>No-load indirect prediction</td></tr><tr><td>Power required</td><td>High at full load</td><td>Low</td></tr><tr><td>Temperature and commutation</td><td>Observed under load</td><td>Not accurately assessed</td></tr><tr><td>Efficiency accuracy</td><td>Actual at tested load</td><td>Predicted</td></tr><tr><td>Suitable machines</td><td>Most motors if loading equipment available</td><td>Shunt and cumulative compound; not series</td></tr>
+  </tbody></table></div>
+
+  <details open><summary>Module 3 expected-question practice</summary>
+    <div class="question-bank">
+      <div class="qcard"><span class="tag">Very short</span><h4>Why is a starter required?</h4><p>At start Eb=0; small Ra would cause excessive current.</p></div>
+      <div class="qcard"><span class="tag">Important derivation</span><h4>Derive T=0.159(PZ/A)ΦIa.</h4><p>Use Pm=EbIa and Ta=Pm/ω.</p></div>
+      <div class="qcard"><span class="tag">Important derivation</span><h4>Derive maximum-power condition.</h4><p>Differentiate Eb(V−Eb)/Ra to obtain Eb=V/2 and explain low efficiency.</p></div>
+      <div class="qcard"><span class="tag">Characteristic curve</span><h4>Draw shunt and series motor curves.</h4><p>Show torque-current, speed-current and speed-torque relations.</p></div>
+      <div class="qcard"><span class="tag">Important diagram</span><h4>Explain three-point and four-point starters.</h4><p>Label starting resistance, handle, NVR and OLR.</p></div>
+      <div class="qcard"><span class="tag">Long answer</span><h4>Explain Swinburne’s test.</h4><p>Procedure, calculation, advantages, limitations and prediction numerical.</p></div>
+    </div>
+  </details>
+</section>
+<section class="section module" id="module4" style="--accent:#6d43b5">
+  <div class="module-banner"><span class="eyebrow">Module 4 • CO4 • 11 Hours + Series Test II</span><h2>Speed Control and Traction Motors</h2><p>M4.01–M4.04: speed-control methods, DC series motors in traction, series-parallel control, shunt/bridge transitions and electrical braking.</p></div>
+
+  <h3>1. Speed equation and control variables</h3>
+  <div class="formula">N ∝ E<sub>b</sub>/Φ = (V − I<sub>a</sub>R<sub>a</sub>)/Φ</div>
+  <p>Motor speed is controlled by changing applied armature voltage V, armature-circuit resistance, or flux per pole Φ. The practical method depends on motor type, required speed range, efficiency, load torque and cost.</p>
+  <div class="grid">
+    <div class="card blue"><h4>Flux control</h4><p>Reduce flux to obtain speed above base speed. Efficient because field current is small, but excessive weakening reduces torque capability and may cause overspeed.</p></div>
+    <div class="card copper"><h4>Armature resistance control</h4><p>Insert series resistance to reduce Eb and speed below base speed. Simple but inefficient; speed varies with load.</p></div>
+    <div class="card green"><h4>Voltage control</h4><p>Vary armature voltage while maintaining flux. Gives smooth, efficient control below base speed using controlled rectifiers, choppers or motor-generator systems.</p></div>
+  </div>
+
+  <div class="table-wrap"><table><thead><tr><th>Method</th><th>Speed range</th><th>Efficiency</th><th>Load regulation</th><th>Main limitation</th></tr></thead><tbody>
+    <tr><td>Flux control</td><td>Above base speed</td><td>High</td><td>Good if field is stable</td><td>Reduced torque and commutation margin</td></tr>
+    <tr><td>Armature resistance</td><td>Below base speed</td><td>Low</td><td>Poor</td><td>Large I²R loss and load-dependent speed</td></tr>
+    <tr><td>Voltage control</td><td>Mostly below base speed</td><td>High</td><td>Good</td><td>Needs variable DC source/power electronics</td></tr>
+  </tbody></table></div>
+
+  <h3>2. Shunt-motor speed control</h3>
+  <div class="grid">
+    <div class="card"><h4>Field-rheostat control</h4><p>A rheostat in series with the shunt field reduces field current and flux. Since N∝1/Φ approximately, speed rises. It is used above rated/base speed.</p><div class="formula">For approximately constant Eb: N₁/N₂ = Φ₂/Φ₁</div></div>
+    <div class="card"><h4>Armature-resistance control</h4><p>A resistor in series with armature increases voltage drop IaR, reducing Eb and speed. Used for short-duration low-speed duty.</p><div class="formula">N₂/N₁ = [(V−Ia(Ra+Rext))/Φ₂] / [(V−IaRa)/Φ₁]</div></div>
+    <div class="card"><h4>Armature-voltage control</h4><p>With constant flux, speed is nearly proportional to armature voltage. Modern chopper drives provide smooth control and regenerative capability.</p><div class="formula">For constant Φ: N₁/N₂ = E<sub>b1</sub>/E<sub>b2</sub></div></div>
+    <div class="card insight"><h4>Constant-torque / constant-power regions</h4><p>Below base speed, voltage control with rated flux gives nearly constant torque. Above base speed, field weakening reduces flux and available torque, so output is approximately constant power within limits.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1160 430" role="img" aria-label="Shunt motor field control, armature resistance control and voltage control circuits">
+      <defs><style>.cw{stroke:#173b59;stroke-width:5;fill:none}.cc{fill:#fff;stroke:#6d43b5;stroke-width:5}.ct{font:700 20px Segoe UI,Arial}</style></defs>
+      <g transform="translate(20,20)"><text class="ct" x="75" y="25">Field-rheostat control</text><circle class="cc" cx="150" cy="170" r="55"/><text class="ct" x="120" y="178">M</text><path class="cw" d="M95 170H25V330H285V170H205"/><path class="cw" d="M45 170V75H265V170"/><rect class="cc" x="75" y="50" width="90" height="45"/><text class="ct" x="95" y="80">Rfh</text><rect class="cc" x="175" y="50" width="70" height="45"/><text class="ct" x="190" y="80">F</text></g>
+      <g transform="translate(400,20)"><text class="ct" x="45" y="25">Armature-resistance control</text><circle class="cc" cx="155" cy="170" r="55"/><text class="ct" x="125" y="178">M</text><path class="cw" d="M100 170H25V330H300V170H255"/><rect class="cc" x="205" y="145" width="75" height="50"/><text class="ct" x="220" y="177">Rext</text><path class="cw" d="M45 170V75H275V170"/><rect class="cc" x="100" y="50" width="100" height="45"/><text class="ct" x="125" y="80">Field</text></g>
+      <g transform="translate(790,20)"><text class="ct" x="75" y="25">Voltage control</text><rect class="cc" x="20" y="115" width="145" height="100"/><text class="ct" x="42" y="150">Variable</text><text class="ct" x="48" y="180">DC source</text><circle class="cc" cx="265" cy="165" r="60"/><text class="ct" x="235" y="173">M</text><path class="cw" d="M165 145H205M165 190H205"/><path class="cw" d="M325 165H350V330H20V215"/></g>
+    </svg>
+    <figcaption>Field control changes Φ; armature resistance wastes power in Rext; voltage control changes armature terminal voltage with better efficiency.</figcaption>
+  </figure>
+
+  <div class="solution">
+    <h4>Solved numerical M4-1: Speed after flux change</h4>
+    <p><b>Problem:</b> A shunt motor runs at 1000 rpm with flux Φ1. If field flux is reduced by 20% and armature voltage drop is unchanged, find new speed.</p>
+    <p><b>Given:</b> Φ2=0.8Φ1.</p>
+    <p><b>Relation:</b> N1/N2=Φ2/Φ1.</p>
+    <p><b>Calculation:</b> N2=N1×Φ1/Φ2=1000/0.8=1250 rpm.</p>
+    <p class="line"><b>Final answer:</b> <b>1250 rpm</b>.</p>
+    <p><b>Common mistake:</b> Speed is inversely, not directly, proportional to flux.</p>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M4-2: Armature resistance for target speed</h4>
+    <p><b>Problem:</b> A 220 V shunt motor runs at 1000 rpm taking Ia=30 A. Ra=0.4 Ω. Find external resistance for 700 rpm at the same current and flux.</p>
+    <p><b>Initial Eb:</b> E1=220−30×0.4=208 V.</p>
+    <p><b>At constant flux:</b> E2/E1=N2/N1=700/1000; E2=145.6 V.</p>
+    <p><b>Total armature resistance:</b> Rtotal=(220−145.6)/30=2.48 Ω.</p>
+    <p><b>External resistance:</b> Rext=2.48−0.4=2.08 Ω.</p>
+    <p class="line"><b>Final answer:</b> <b>2.08 Ω</b>.</p>
+  </div>
+
+  <h3>3. Series-motor speed control</h3>
+  <div class="grid">
+    <div class="card"><h4>Field diverter</h4><p>A variable resistor connected in parallel with the series field diverts part of armature current, reducing field current and flux. Speed increases.</p></div>
+    <div class="card"><h4>Armature diverter</h4><p>A resistor is connected in parallel with armature. Series-field current can exceed armature current, increasing flux and lowering speed. It is inefficient and used for special low-speed control.</p></div>
+    <div class="card"><h4>Tapped field</h4><p>Selecting fewer series-field turns weakens flux and increases speed. Used in traction for discrete high-speed settings.</p></div>
+    <div class="card"><h4>Series resistance</h4><p>External armature resistance reduces motor voltage and speed. It is mainly used during starting and low-speed acceleration because energy is lost as heat.</p></div>
+  </div>
+
+  <h3>4. Electric traction and traction-motor requirements</h3>
+  <p>Electric traction uses electric motors to propel locomotives, multiple units, trams, trolley buses and some industrial vehicles. A traction motor repeatedly starts heavy mass, accelerates rapidly, operates over a wide speed range and must survive vibration, overload and frequent braking.</p>
+  <div class="table-wrap"><table><thead><tr><th>Requirement</th><th>Why it matters</th><th>DC series-motor suitability</th></tr></thead><tbody>
+    <tr><td>High starting torque</td><td>Large train mass must be accelerated from rest</td><td>T∝Ia² before saturation</td></tr>
+    <tr><td>High overload capacity</td><td>Gradients and acceleration require short-time overload</td><td>Robust series field and high torque</td></tr>
+    <tr><td>Wide speed control</td><td>Starting, acceleration, cruising and grade control</td><td>Series-parallel, resistance and field control available</td></tr>
+    <tr><td>Electrical braking</td><td>Reduce mechanical-brake wear and improve control</td><td>Can operate as generator for rheostatic/regenerative braking</td></tr>
+    <tr><td>Compact and rugged</td><td>Limited bogie space and severe vibration</td><td>Historically well suited</td></tr>
+  </tbody></table></div>
+  <div class="ml"><b>Malayalam Support:</b> DC series motor-ന് starting torque വളരെ കൂടുതലാണ്. Train പോലുള്ള വലിയ load rest-ൽ നിന്ന് വേഗത്തിൽ ആരംഭിക്കാൻ ഇത് സഹായിക്കുന്നു.</div>
+
+  <h3>5. Tractive effort and speed-time curve</h3>
+  <p>A typical run has acceleration, free running/coasting and braking periods. The speed-time curve helps estimate schedule speed, energy use and motor rating.</p>
+  <div class="curve-panel">
+    <svg viewBox="0 0 900 380" role="img" aria-label="Traction speed-time curve with acceleration, free running, coasting and braking regions">
+      <line x1="70" y1="315" x2="850" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="45" stroke="#334155" stroke-width="3"/>
+      <path d="M70 315 C150 210 230 105 350 85 L520 85 C610 100 680 145 730 190 C775 225 815 265 850 315" fill="none" stroke="#6d43b5" stroke-width="7"/>
+      <line x1="350" y1="315" x2="350" y2="85" stroke="#94a3b8" stroke-dasharray="8 7"/><line x1="520" y1="315" x2="520" y2="85" stroke="#94a3b8" stroke-dasharray="8 7"/><line x1="730" y1="315" x2="730" y2="190" stroke="#94a3b8" stroke-dasharray="8 7"/>
+      <text x="150" y="280" font-size="20">Acceleration</text><text x="390" y="70" font-size="20">Free running</text><text x="575" y="170" font-size="20">Coasting</text><text x="760" y="250" font-size="20">Braking</text><text x="390" y="360" font-size="20">Time</text><text x="15" y="60" font-size="20">Speed</text>
+    </svg>
+  </div>
+
+  <h3>6. Series-parallel control of traction motors</h3>
+  <p>For a vehicle with two identical series motors and a fixed DC supply, starting resistances limit current. At low speed, motors are connected in series so each receives about half the supply. At higher speed, motors are reconnected in parallel so each receives full supply. Resistance is progressively cut out in each connection.</p>
+  <div class="demo" id="tractionDemo">
+    <h4>Interactive traction-control sequence</h4>
+    <div class="controls"><button type="button" data-stage="prev">Previous Step</button><button type="button" data-stage="next">Next Step</button><button type="button" data-stage="replay">Replay</button></div>
+    <div class="stage active"><b>Stage 1 — Series with full starting resistance</b><p>Motors M1 and M2 are in series. Current passes through all starting-resistance sections. Torque is controlled and each motor receives a fraction of supply voltage.</p></div>
+    <div class="stage"><b>Stage 2 — Series with resistance cut out</b><p>As back EMF rises, resistance sections are removed. At full-series position, both motors remain in series with no starting resistance.</p></div>
+    <div class="stage"><b>Stage 3 — Transition</b><p>Connections change without allowing excessive current or interrupting tractive effort. Shunt or bridge transition is used.</p></div>
+    <div class="stage"><b>Stage 4 — Parallel with resistance</b><p>Both motors are connected across the supply, initially with resistance to limit the rise in current.</p></div>
+    <div class="stage"><b>Stage 5 — Full parallel</b><p>All starting resistance is removed. Each motor receives full supply voltage for high-speed running.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1180 460" role="img" aria-label="Series and parallel connections of two traction motors">
+      <defs><style>.tw{stroke:#173b59;stroke-width:6;fill:none}.tm{fill:#fff;stroke:#6d43b5;stroke-width:6}.tt{font:700 22px Segoe UI,Arial}</style></defs>
+      <g transform="translate(40,25)"><text class="tt" x="180" y="25">Series connection — low speed</text><circle class="tm" cx="170" cy="190" r="65"/><text class="tt" x="140" y="198">M1</text><circle class="tm" cx="395" cy="190" r="65"/><text class="tt" x="365" y="198">M2</text><rect class="tm" x="70" y="310" width="430" height="60"/><text class="tt" x="170" y="348">Starting resistance</text><path class="tw" d="M60 190H105M235 190H330M460 190H530V340H500M70 340H30V190H60"/><text class="tt" x="20" y="150">+</text><text class="tt" x="510" y="150">−</text></g>
+      <g transform="translate(620,25)"><text class="tt" x="125" y="25">Parallel connection — high speed</text><circle class="tm" cx="175" cy="155" r="65"/><text class="tt" x="145" y="163">M1</text><circle class="tm" cx="175" cy="320" r="65"/><text class="tt" x="145" y="328">M2</text><path class="tw" d="M50 155H110M240 155H440M50 320H110M240 320H440M50 90V385M440 90V385"/><text class="tt" x="30" y="65">+</text><text class="tt" x="420" y="65">−</text><text class="tt" x="270" y="245">Each motor receives full line voltage</text></g>
+    </svg>
+    <figcaption>Current paths and switchgear are simplified for learning. Practical controllers use contactors and interlocks to prevent open circuits or short circuits during transition.</figcaption>
+  </figure>
+
+  <h3>7. Transition methods</h3>
+  <div class="grid">
+    <div class="card blue"><h4>Shunt transition</h4><p>During change from series to parallel, one motor is temporarily shunted by a resistor while connections are rearranged. Motor current is maintained, but some energy is lost in transition resistors.</p></div>
+    <div class="card violet"><h4>Bridge transition</h4><p>Motors and transition resistances form a bridge network. Current remains more nearly continuous and torque disturbance is lower, but switching is more complex.</p></div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Point</th><th>Shunt transition</th><th>Bridge transition</th></tr></thead><tbody>
+    <tr><td>Current continuity</td><td>Maintained through shunt path</td><td>Maintained through bridge paths</td></tr><tr><td>Torque disturbance</td><td>Moderate</td><td>Usually lower</td></tr><tr><td>Control complexity</td><td>Simpler</td><td>More contactors and sequencing</td></tr><tr><td>Energy loss</td><td>Transition resistor loss</td><td>Transition resistor loss but smoother sharing</td></tr>
+  </tbody></table></div>
+  <div class="ml"><b>Malayalam Support:</b> Series connection-ൽ രണ്ട് motors supply voltage പങ്കിടുന്നു. Parallel connection-ൽ ഓരോ motor-നും full voltage ലഭിക്കുന്നു. Transition സമയത്ത് current പെട്ടെന്ന് തടസ്സപ്പെടാതിരിക്കാനാണ് shunt/bridge method.</div>
+
+  <h3>8. Electrical braking</h3>
+  <p>During electrical braking the motor operates as a generator and converts vehicle kinetic energy into electrical energy. The generated energy is either dissipated in resistors or returned to the supply.</p>
+  <div class="grid">
+    <div class="card copper"><h4>Rheostatic braking</h4><p>Disconnect the motor from supply, maintain suitable field and connect armature to a braking resistor. Generated current produces torque opposite motion. Energy becomes heat in the resistor.</p></div>
+    <div class="card green"><h4>Regenerative braking</h4><p>Adjust excitation/speed so generated EMF exceeds supply voltage with correct polarity. Current reverses into the supply and electromagnetic torque opposes motion.</p></div>
+  </div>
+
+  <figure class="diagram">
+    <svg viewBox="0 0 1160 430" role="img" aria-label="Rheostatic and regenerative braking energy-flow diagrams">
+      <defs><marker id="be" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#b65f2b"/></marker></defs>
+      <g transform="translate(20,20)"><text x="150" y="25" font-size="26" font-weight="900">Rheostatic braking</text><circle cx="170" cy="190" r="75" fill="#fff" stroke="#b65f2b" stroke-width="7"/><text x="123" y="198" font-size="24" font-weight="900">Motor → G</text><rect x="350" y="140" width="170" height="100" rx="15" fill="#fff5ed" stroke="#b65f2b" stroke-width="6"/><text x="378" y="183" font-size="23" font-weight="900">Braking</text><text x="390" y="215" font-size="23" font-weight="900">resistor</text><line x1="245" y1="190" x2="345" y2="190" stroke="#b65f2b" stroke-width="8" marker-end="url(#be)"/><text x="130" y="330" font-size="22">Kinetic energy → electrical → heat</text></g>
+      <g transform="translate(610,20)"><text x="125" y="25" font-size="26" font-weight="900">Regenerative braking</text><circle cx="150" cy="190" r="75" fill="#fff" stroke="#27835f" stroke-width="7"/><text x="103" y="198" font-size="24" font-weight="900">Motor → G</text><rect x="350" y="140" width="170" height="100" rx="15" fill="#edfdf5" stroke="#27835f" stroke-width="6"/><text x="390" y="183" font-size="23" font-weight="900">Supply /</text><text x="385" y="215" font-size="23" font-weight="900">line</text><line x1="225" y1="190" x2="345" y2="190" stroke="#27835f" stroke-width="8" marker-end="url(#be)"/><text x="90" y="330" font-size="22">Kinetic energy → electrical → supply</text></g>
+    </svg>
+    <figcaption>Arrow direction shows energy, not merely current. Mechanical brakes are still required for low speed, parking and emergency backup.</figcaption>
+  </figure>
+
+  <div class="table-wrap"><table><thead><tr><th>Feature</th><th>Rheostatic braking</th><th>Regenerative braking</th></tr></thead><tbody>
+    <tr><td>Energy destination</td><td>Dissipated as heat</td><td>Returned to supply</td></tr><tr><td>Supply receptivity</td><td>Not required</td><td>Supply must accept returned energy</td></tr><tr><td>Control</td><td>Relatively simple</td><td>Requires correct voltage/polarity and protection</td></tr><tr><td>Efficiency</td><td>Energy wasted</td><td>Energy recovered</td></tr><tr><td>Low-speed performance</td><td>Weakens as generated EMF falls</td><td>Also weakens; mechanical brake needed</td></tr>
+  </tbody></table></div>
+
+  <div class="ml"><b>Malayalam Support:</b> Rheostatic braking-ൽ generated energy resistor-ൽ heat ആയി നഷ്ടപ്പെടുന്നു. Regenerative braking-ൽ energy supply-ലേക്ക് തിരികെ നൽകുന്നു.</div>
+
+  <div class="solution">
+    <h4>Solved numerical M4-3: Rheostatic braking power</h4>
+    <p><b>Problem:</b> During braking, a traction motor generates 300 V and is connected to total resistance 2.5 Ω. Neglect losses. Find braking current and electrical braking power.</p>
+    <p><b>Current:</b> I=Eg/R=300/2.5=120 A.</p>
+    <p><b>Power:</b> P=EgI=300×120=36,000 W.</p>
+    <p class="line"><b>Final answer:</b> Braking current=<b>120 A</b>; power dissipated=<b>36 kW</b>.</p>
+  </div>
+
+  <div class="solution">
+    <h4>Solved numerical M4-4: Regenerated power</h4>
+    <p><b>Problem:</b> A motor generates 620 V while connected to a 600 V line. Total circuit resistance is 0.20 Ω. Find current returned and power delivered to the line.</p>
+    <p><b>Current:</b> I=(Eg−V)/R=(620−600)/0.20=100 A.</p>
+    <p><b>Line power:</b> Pline=VI=600×100=60 kW.</p>
+    <p><b>Generated electrical power:</b> EgI=62 kW; 2 kW is circuit copper loss.</p>
+    <p class="line"><b>Final answer:</b> <b>100 A</b> returned; <b>60 kW</b> delivered to line.</p>
+  </div>
+
+  <details open><summary>Module 4 expected-question practice</summary>
+    <div class="question-bank">
+      <div class="qcard"><span class="tag">Formula</span><h4>State the DC-motor speed equation.</h4><p>N∝(V−IaRa)/Φ.</p></div>
+      <div class="qcard"><span class="tag">Important numerical</span><h4>Find speed after flux, resistance or voltage change.</h4><p>Compare back EMFs and fluxes; state constant-current/flux assumptions.</p></div>
+      <div class="qcard"><span class="tag">Application</span><h4>Why is a DC series motor suitable for traction?</h4><p>High starting torque, overload capability, wide control and electrical braking.</p></div>
+      <div class="qcard"><span class="tag">Important diagram</span><h4>Draw series and parallel motor connections.</h4><p>Show starting resistances and current paths.</p></div>
+      <div class="qcard"><span class="tag">Comparison</span><h4>Shunt transition versus bridge transition.</h4><p>Compare current continuity, torque disturbance and switching complexity.</p></div>
+      <div class="qcard"><span class="tag">Long answer</span><h4>Explain rheostatic and regenerative braking.</h4><p>Include energy flow, operating condition, advantages and limitations.</p></div>
+    </div>
+  </details>
+</section>
+<section class="section" id="formula-bank">
+  <div class="section-head"><span class="eyebrow">Formula Bank</span><h2>Module-wise equations, units, conditions and common mistakes</h2><p>Use SI units unless a problem states otherwise. Convert mWb to Wb, kW to W and rpm to rad/s where required.</p></div>
+
+  <h3>Module 1 — Generator formulas</h3>
+  <div class="grid">
+    <div class="card third"><h4>Generated EMF</h4><div class="formula">E<sub>g</sub>=PΦZN/(60A)</div><p><b>Units:</b> Eg V, Φ Wb, N rpm.</p><p><b>Condition:</b> Average generated DC value at brushes.</p><p><b>Mistake:</b> Wrong parallel paths. Lap A=P; wave A=2.</p><p><b>Mini example:</b> P=4, Φ=.02, Z=500, N=1200, wave → Eg=400 V.</p></div>
+    <div class="card third"><h4>Terminal voltage</h4><div class="formula">V=E<sub>g</sub>−I<sub>a</sub>R<sub>a</sub>−V<sub>b</sub></div><p><b>Units:</b> V, A, Ω.</p><p><b>Condition:</b> Generator delivering current.</p><p><b>Mistake:</b> Brush drop must be included only if given/assumed.</p></div>
+    <div class="card third"><h4>Shunt current relation</h4><div class="formula">I<sub>sh</sub>=V/R<sub>sh</sub>; I<sub>a</sub>=I<sub>L</sub>+I<sub>sh</sub></div><p><b>Condition:</b> Shunt generator.</p><p><b>Mistake:</b> Armature current is greater than load current.</p></div>
+    <div class="card third"><h4>Series generator</h4><div class="formula">I<sub>a</sub>=I<sub>L</sub>; V=E<sub>g</sub>−I<sub>a</sub>(R<sub>a</sub>+R<sub>se</sub>)</div><p><b>Condition:</b> Series field and armature carry same current.</p></div>
+    <div class="card third"><h4>Generator efficiency</h4><div class="formula">η<sub>g</sub>=P<sub>out</sub>/P<sub>in</sub>×100%</div><p><b>Output:</b> VIL. <b>Input:</b> output + all losses.</p><p><b>Mistake:</b> Do not divide output by generated power if rotational losses exist.</p></div>
+    <div class="card third"><h4>Maximum efficiency</h4><div class="formula">Variable copper loss = constant loss</div><p><b>Typical:</b> I²R=Wc.</p><p><b>Condition:</b> Approximately constant voltage and constant rotational/field losses.</p></div>
+  </div>
+
+  <h3>Module 2 — Characteristic rules</h3>
+  <div class="grid">
+    <div class="card"><h4>Critical resistance</h4><div class="formula">R<sub>crit</sub>=slope of tangent from origin to OCC=E/I<sub>f</sub></div><p>Maximum field-circuit resistance for build-up at a given speed. Read E and If from the tangent, not an arbitrary OCC point.</p></div>
+    <div class="card"><h4>Critical speed</h4><div class="formula">N<sub>crit</sub>/N<sub>1</sub>≈R<sub>f</sub>/R<sub>crit,1</sub></div><p>Use only when OCCs scale proportionally with speed in the unsaturated region. Critical speed is the minimum speed for the given field resistance.</p></div>
+    <div class="card"><h4>Voltage regulation</h4><div class="formula">% regulation=(V<sub>NL</sub>−V<sub>FL</sub>)/V<sub>FL</sub>×100%</div><p>Use when asked. Keep the denominator convention stated by the problem or institution.</p></div>
+    <div class="card"><h4>Commutation reactance voltage</h4><div class="formula">e<sub>r</sub>=L·di/dt</div><p>Shows why rapid current reversal in an inductive coil causes sparking. This is a concept relation, not normally a detailed numerical topic here.</p></div>
+  </div>
+
+  <h3>Module 3 — Motor formulas</h3>
+  <div class="grid">
+    <div class="card third"><h4>Voltage and back EMF</h4><div class="formula">V=E<sub>b</sub>+I<sub>a</sub>R<sub>a</sub>; E<sub>b</sub>=V−I<sub>a</sub>R<sub>a</sub></div><p>Neglect brush drop unless stated. Back EMF is less than supply during motoring.</p></div>
+    <div class="card third"><h4>Back-EMF equation</h4><div class="formula">E<sub>b</sub>=PΦZN/(60A)</div><p>Same machine constant as generator EMF. Use motor speed and flux.</p></div>
+    <div class="card third"><h4>Speed relation</h4><div class="formula">N∝E<sub>b</sub>/Φ=(V−I<sub>a</sub>R<sub>a</sub>)/Φ</div><p>For comparisons, use ratios and state which quantities are constant.</p></div>
+    <div class="card third"><h4>Torque</h4><div class="formula">T=0.159(PZ/A)ΦI<sub>a</sub></div><p><b>Unit:</b> N·m. <b>Mistake:</b> Φ must be in webers, not mWb.</p></div>
+    <div class="card third"><h4>Mechanical power developed</h4><div class="formula">P<sub>m</sub>=E<sub>b</sub>I<sub>a</sub></div><p>This is gross converted mechanical power before rotational losses.</p></div>
+    <div class="card third"><h4>Torque from power</h4><div class="formula">T=P/ω=60P/(2πN)=9.55P/N</div><p>If P is watts and N rpm, T is N·m. With P in kW: T=9550P(kW)/N.</p></div>
+    <div class="card third"><h4>Starting current</h4><div class="formula">I<sub>a,start</sub>=V/(R<sub>a</sub>+R<sub>st</sub>)</div><p>At standstill Eb=0. Solve Rst=V/Ilimit−Ra.</p></div>
+    <div class="card third"><h4>Motor efficiency</h4><div class="formula">η<sub>m</sub>=P<sub>shaft</sub>/P<sub>electrical input</sub>×100%</div><p>Line input includes field current in a shunt motor.</p></div>
+    <div class="card third"><h4>Maximum mechanical power</h4><div class="formula">E<sub>b</sub>=V/2</div><p>Idealised armature-circuit result. It gives excessive current and ≤50% conversion efficiency before rotational losses.</p></div>
+  </div>
+
+  <h3>Module 4 — Speed-control and braking formulas</h3>
+  <div class="grid">
+    <div class="card third"><h4>General speed ratio</h4><div class="formula">N₂/N₁=[(V₂−I₂R₂)/(V₁−I₁R₁)]·(Φ₁/Φ₂)</div><p>R includes armature plus external series resistance. Use consistent currents.</p></div>
+    <div class="card third"><h4>Constant flux</h4><div class="formula">N₁/N₂=E<sub>b1</sub>/E<sub>b2</sub></div><p>Suitable for armature-voltage or resistance-control comparisons.</p></div>
+    <div class="card third"><h4>Approximately constant Eb</h4><div class="formula">N₁/N₂=Φ₂/Φ₁</div><p>Used for field-control estimates when armature drop is small.</p></div>
+    <div class="card third"><h4>Rheostatic braking</h4><div class="formula">I=E<sub>g</sub>/R<sub>total</sub>; P=E<sub>g</sub>I=I²R</div><p>Generated energy is dissipated in resistors.</p></div>
+    <div class="card third"><h4>Regenerative braking</h4><div class="formula">I=(E<sub>g</sub>−V)/R<sub>total</sub>, when E<sub>g</sub>&gt;V</div><p>Current returns to the supply; line power approximately VI.</p></div>
+    <div class="card third"><h4>Mechanical output / braking torque</h4><div class="formula">T=9.55P/N</div><p>Use the converted mechanical/electrical power consistent with the requested torque and account for losses if supplied.</p></div>
+  </div>
+</section>
+
+<section class="section" id="construction-bank">
+  <div class="section-head"><span class="eyebrow">DC Machine Construction Bank</span><h2>Parts, magnetic path and maintenance insight</h2></div>
+  <div class="grid">
+    <div class="card quarter"><h3>Yoke</h3><p>Outer frame, mechanical support and flux return. Inspect for cracks, loose feet and earthing.</p></div>
+    <div class="card quarter"><h3>Pole core</h3><p>Supports field coil and carries flux. Tight pole bolts preserve air-gap uniformity.</p></div>
+    <div class="card quarter"><h3>Pole shoe</h3><p>Spreads flux, lowers reluctance and supports field coil.</p></div>
+    <div class="card quarter"><h3>Field winding</h3><p>Creates main MMF. Shunt coils use fine wire/many turns; series coils use thick wire/few turns.</p></div>
+    <div class="card quarter"><h3>Armature core</h3><p>Laminated steel cylinder with slots. Laminations reduce eddy-current loss.</p></div>
+    <div class="card quarter"><h3>Armature winding</h3><p>Coils in slots connected to commutator segments. Insulation must withstand thermal and mechanical stress.</p></div>
+    <div class="card quarter"><h3>Commutator</h3><p>Copper segments insulated by mica. Surface should be concentric, smooth and properly undercut.</p></div>
+    <div class="card quarter"><h3>Brushes</h3><p>Carbon contacts collect/supply current. Correct grade, pressure and neutral position prevent sparking.</p></div>
+    <div class="card quarter"><h3>Shaft</h3><p>Supports armature and transmits torque. Check alignment and key condition.</p></div>
+    <div class="card quarter"><h3>Bearings</h3><p>Maintain rotation and air gap. Lubrication, noise and temperature indicate condition.</p></div>
+    <div class="card quarter"><h3>Interpoles</h3><p>Series-connected auxiliary poles that improve current reversal under brushes.</p></div>
+    <div class="card quarter"><h3>Compensating winding</h3><p>Pole-face conductors that cancel armature MMF under load.</p></div>
+  </div>
+  <div class="callout safety"><b>Machine insight</b><div>Many brush and commutation faults are actually caused by mechanical problems: eccentric commutator, vibration, incorrect spring pressure, dirty surface, poor alignment or overloaded bearings.</div></div>
+</section>
+
+<section class="section" id="circuit-bank">
+  <div class="section-head"><span class="eyebrow">Circuit and Connection Diagram Bank</span><h2>What to show in every examination diagram</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Diagram</th><th>Essential labels and current path</th><th>Key equation / note</th></tr></thead><tbody>
+    <tr><td>Separately excited generator</td><td>Independent field supply, armature Eg/Ra, load, Ia and IL</td><td>Field current independent of load</td></tr>
+    <tr><td>Shunt generator</td><td>Shunt field across terminals; Ia splits into IL and Ish</td><td>Ia=IL+Ish</td></tr>
+    <tr><td>Series generator</td><td>Series field in load path</td><td>Ia=IL</td></tr>
+    <tr><td>Compound generator</td><td>Both shunt and series fields; show long/short-shunt connection</td><td>Mark aiding/opposing polarity</td></tr>
+    <tr><td>Shunt motor</td><td>Armature and shunt field across supply; Ia and Ish branches</td><td>IL=Ia+Ish</td></tr>
+    <tr><td>Series motor</td><td>Series field and armature in one path</td><td>Never run unloaded</td></tr>
+    <tr><td>Compound motor</td><td>Both fields; mark cumulative direction</td><td>Series field aids shunt field</td></tr>
+    <tr><td>Three-point starter</td><td>L,A,F; starting resistance, handle, NVR, OLR</td><td>NVR in field circuit</td></tr>
+    <tr><td>Four-point starter</td><td>L,A,F,N; NVR across supply</td><td>Independent of field current</td></tr>
+    <tr><td>Load test</td><td>Supply, starter, ammeter, voltmeter, motor, brake/dynamometer and tachometer</td><td>Pout=2πNT/60</td></tr>
+    <tr><td>Swinburne test</td><td>No-load shunt motor, V/A meters, field rheostat</td><td>Find constant losses from no-load input</td></tr>
+    <tr><td>Flux control</td><td>Field rheostat in shunt-field circuit</td><td>Weak field → high speed</td></tr>
+    <tr><td>Armature control</td><td>Series resistor or variable armature supply</td><td>Lower Eb → lower speed</td></tr>
+    <tr><td>Traction series/parallel</td><td>Two motors, starting resistors, contactors and current path</td><td>Series low speed; parallel high speed</td></tr>
+    <tr><td>Rheostatic braking</td><td>Motor reconnected as generator to resistor</td><td>Energy → heat</td></tr>
+    <tr><td>Regenerative braking</td><td>Generated EMF opposing and exceeding supply</td><td>Energy → supply</td></tr>
+  </tbody></table></div>
+  <div class="callout exam"><b>Diagram-marking rule</b><div>Use standard symbols, show terminal names, draw current arrows, state switch position and add a one-sentence working principle below the diagram.</div></div>
+</section>
+
+<section class="section" id="curve-bank">
+  <div class="section-head"><span class="eyebrow">Characteristic Curve Bank</span><h2>Axes, shape and interpretation</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Curve</th><th>Horizontal axis</th><th>Vertical axis</th><th>Important interpretation</th></tr></thead><tbody>
+    <tr><td>Generator OCC</td><td>Field current If</td><td>Generated EMF Eg</td><td>Residual voltage, linear region, knee and saturation</td></tr>
+    <tr><td>Internal generator</td><td>Load current</td><td>Generated EMF after armature reaction</td><td>Below ideal/no-reaction curve</td></tr>
+    <tr><td>External generator</td><td>Load current</td><td>Terminal voltage V</td><td>Below internal curve by resistive drops</td></tr>
+    <tr><td>Series generator</td><td>Load current</td><td>Terminal voltage</td><td>Rises, saturates, may fall</td></tr>
+    <tr><td>Compound generator</td><td>Load current</td><td>Terminal voltage</td><td>Under, flat or over compounded</td></tr>
+    <tr><td>Shunt motor T–Ia</td><td>Armature current</td><td>Torque</td><td>Nearly straight line through origin</td></tr>
+    <tr><td>Shunt motor N–Ia</td><td>Armature current</td><td>Speed</td><td>Slight droop with load</td></tr>
+    <tr><td>Series motor T–Ia</td><td>Armature current</td><td>Torque</td><td>Quadratic before saturation; linear after</td></tr>
+    <tr><td>Series motor N–Ia</td><td>Armature current</td><td>Speed</td><td>Very high at light load; falls with current</td></tr>
+    <tr><td>Speed-control curve</td><td>Torque/load</td><td>Speed</td><td>Armature resistance gives drooping lower-speed curves; voltage control gives nearly parallel curves</td></tr>
+  </tbody></table></div>
+  <div class="callout exam"><b>Characteristic insight</b><div>A complete graph answer needs labeled axes, operating condition (constant speed/voltage/flux), important regions such as saturation, and a short physical reason for the curve shape.</div></div>
+</section>
+
+<section class="section" id="loss-bank">
+  <div class="section-head"><span class="eyebrow">Power-Flow and Losses Bank</span><h2>Where power goes in generators and motors</h2></div>
+  <div class="grid">
+    <div class="card"><h3>Generator</h3><p>Mechanical input → subtract iron/mechanical losses → gross electrical power EgIa → subtract armature/field/brush losses → terminal output VIL.</p></div>
+    <div class="card"><h3>Motor</h3><p>Electrical input VIL → subtract field/armature/brush losses → gross mechanical power EbIa → subtract rotational/stray losses → shaft output.</p></div>
+  </div>
+  <div class="table-wrap"><table><thead><tr><th>Loss</th><th>Cause</th><th>Variation</th><th>Reduction</th></tr></thead><tbody>
+    <tr><td>Armature copper Ia²Ra</td><td>Armature resistance</td><td>Variable with current squared</td><td>Low-resistance copper, cooling</td></tr>
+    <tr><td>Field copper</td><td>Field-winding resistance</td><td>Shunt nearly constant; series variable</td><td>Correct conductor size</td></tr>
+    <tr><td>Hysteresis</td><td>Repeated magnetisation of armature iron</td><td>Depends on frequency and flux density</td><td>Silicon steel</td></tr>
+    <tr><td>Eddy current</td><td>Induced currents in iron</td><td>Depends on flux and speed</td><td>Thin insulated laminations</td></tr>
+    <tr><td>Mechanical</td><td>Bearing/brush friction and windage</td><td>Approximately constant near rated speed</td><td>Lubrication, alignment and ventilation design</td></tr>
+    <tr><td>Stray load</td><td>Leakage, armature reaction, current redistribution</td><td>Increases with load</td><td>Good magnetic and winding design</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="selection-bank">
+  <div class="section-head"><span class="eyebrow">Motor Selection and Application Bank</span><h2>Select by torque, regulation, overload and control</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Application</th><th>Load requirement</th><th>Recommended motor</th><th>Technical justification</th></tr></thead><tbody>
+    <tr><td>Lathe / machine tool</td><td>Nearly constant speed, adjustable range</td><td>Shunt or separately excited</td><td>Good regulation and convenient field/voltage control</td></tr>
+    <tr><td>Fan / blower</td><td>Low starting torque, smooth speed</td><td>Shunt</td><td>Stable speed and moderate starting duty</td></tr>
+    <tr><td>Centrifugal pump</td><td>Nearly constant speed</td><td>Shunt</td><td>Good regulation</td></tr>
+    <tr><td>Conveyor</td><td>Higher starting torque, varying load</td><td>Cumulative compound</td><td>Good starting torque with better regulation than series</td></tr>
+    <tr><td>Crane / hoist</td><td>Very high starting torque and overload</td><td>Series</td><td>Torque rises strongly with current</td></tr>
+    <tr><td>Elevator</td><td>High starting torque and controlled acceleration</td><td>Series or compound with control</td><td>Strong starting performance</td></tr>
+    <tr><td>Rolling mill</td><td>Shock load and high overload</td><td>Cumulative compound</td><td>Torque support with acceptable speed change</td></tr>
+    <tr><td>Electric traction</td><td>Very high starting torque, wide control, braking</td><td>DC series (traditional)</td><td>Excellent torque and series-parallel control</td></tr>
+    <tr><td>Printing machine</td><td>Controlled nearly constant speed</td><td>Shunt / separately excited</td><td>Good regulation</td></tr>
+    <tr><td>Reciprocating pump / press</td><td>Fluctuating heavy torque</td><td>Cumulative compound</td><td>Handles peak torque without extreme speed rise</td></tr>
+  </tbody></table></div>
+  <div class="callout insight"><b>Selection method</b><div>First identify starting torque and overload requirement, then speed regulation, duty cycle, control range, braking and supply. Do not select a motor only from power rating.</div></div>
+</section>
+
+<section class="section" id="traction-bank">
+  <div class="section-head"><span class="eyebrow">Traction System Bank</span><h2>Series-parallel stages, transition and braking</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Stage / method</th><th>Connection or energy path</th><th>Purpose</th><th>Main limitation</th></tr></thead><tbody>
+    <tr><td>Series + resistance</td><td>Motors in series with starting resistors</td><td>Limit starting current</td><td>High resistor loss</td></tr>
+    <tr><td>Full series</td><td>Motors in series, resistors removed</td><td>Efficient low/medium speed</td><td>Each motor receives about half voltage</td></tr>
+    <tr><td>Shunt transition</td><td>Temporary shunt paths during reconnection</td><td>Maintain motor current</td><td>Torque disturbance and resistor loss</td></tr>
+    <tr><td>Bridge transition</td><td>Bridge network balances current paths</td><td>Smoother series-to-parallel change</td><td>More complex contactor sequence</td></tr>
+    <tr><td>Parallel + resistance</td><td>Motors parallel with resistance</td><td>Limit current after transition</td><td>Temporary loss</td></tr>
+    <tr><td>Full parallel</td><td>Each motor across supply</td><td>High-speed operation</td><td>Higher voltage per motor</td></tr>
+    <tr><td>Rheostatic braking</td><td>Generated energy to resistor</td><td>Electrical braking independent of receptive line</td><td>Energy wasted as heat</td></tr>
+    <tr><td>Regenerative braking</td><td>Generated energy to supply</td><td>Energy recovery and reduced brake wear</td><td>Needs receptive supply and control</td></tr>
+  </tbody></table></div>
+</section>
+<section class="section" id="solved">
+  <div class="section-head"><span class="eyebrow">Solved Numerical Examples</span><h2>Additional worked problems across all modules</h2><p>These examples complement the in-module problems and follow the required examination format.</p></div>
+
+  <div class="solution"><h4>S1. Flux per pole from generator data</h4>
+    <p><b>Problem:</b> A 4-pole simplex wave generator has Z=720, N=500 rpm and Eg=240 V. Find flux per pole.</p>
+    <p><b>Formula:</b> Φ=60AEg/(PZN), with A=2.</p>
+    <p><b>Substitution:</b> Φ=(60×2×240)/(4×720×500)=0.02 Wb.</p>
+    <p class="line"><b>Answer:</b> <b>0.02 Wb = 20 mWb per pole.</b></p></div>
+
+  <div class="solution"><h4>S2. Number of armature conductors</h4>
+    <p><b>Problem:</b> A 6-pole lap generator must generate 250 V at 750 rpm with Φ=30 mWb. Find Z.</p>
+    <p><b>Formula:</b> Z=60AEg/(PΦN), A=P=6.</p>
+    <p><b>Calculation:</b> Z=(60×6×250)/(6×0.03×750)=666.7.</p>
+    <p class="line"><b>Answer:</b> Use approximately <b>668 conductors</b> (an even practical integer).</p></div>
+
+  <div class="solution"><h4>S3. Lap versus wave generated voltage</h4>
+    <p><b>Problem:</b> A 4-pole armature has Z=480, Φ=25 mWb and N=1000 rpm. Find Eg for simplex lap and wave windings.</p>
+    <p><b>Lap:</b> A=4; Eg=(4×.025×480×1000)/(60×4)=200 V.</p>
+    <p><b>Wave:</b> A=2; Eg=(4×.025×480×1000)/(60×2)=400 V.</p>
+    <p class="line"><b>Answer:</b> Lap=<b>200 V</b>; wave=<b>400 V</b>. The wave winding doubles series conductors per path.</p></div>
+
+  <div class="solution"><h4>S4. Shunt-generator terminal voltage and currents</h4>
+    <p><b>Problem:</b> Eg=250 V, Ra=0.15 Ω, Rsh=100 Ω and load current IL=80 A. Neglect brush drop. Find V, Ish and Ia.</p>
+    <p>Because Ish=V/Rsh and Ia=IL+Ish, V=Eg−Ra(IL+V/Rsh).</p>
+    <p>V[1+Ra/Rsh]=Eg−RaIL=250−12=238.</p>
+    <p>V=238/(1.0015)=237.64 V; Ish=2.376 A; Ia=82.376 A.</p>
+    <p class="line"><b>Answer:</b> V≈<b>237.6 V</b>, Ish≈<b>2.38 A</b>, Ia≈<b>82.38 A</b>.</p></div>
+
+  <div class="solution"><h4>S5. Generator efficiency from losses</h4>
+    <p><b>Problem:</b> A 230 V generator supplies 60 A. Armature copper loss=500 W, field loss=250 W, iron+mechanical loss=700 W and stray loss=150 W. Find efficiency.</p>
+    <p><b>Output:</b> 230×60=13,800 W. <b>Total loss:</b> 1600 W. <b>Input:</b> 15,400 W.</p>
+    <p><b>Efficiency:</b> 13,800/15,400×100=89.61%.</p>
+    <p class="line"><b>Answer:</b> <b>89.6%</b>.</p></div>
+
+  <div class="solution"><h4>S6. Voltage regulation</h4>
+    <p><b>Problem:</b> A shunt generator has no-load voltage 250 V and full-load voltage 230 V. Find regulation using full-load voltage as denominator.</p>
+    <p>% regulation=(250−230)/230×100=8.70%.</p>
+    <p class="line"><b>Answer:</b> <b>8.7%</b>.</p></div>
+
+  <div class="solution"><h4>S7. Motor speed from machine constants</h4>
+    <p><b>Problem:</b> A 4-pole wave motor has Z=600, Φ=20 mWb and Eb=240 V. Find speed.</p>
+    <p><b>Formula:</b> N=60AEb/(PΦZ), A=2.</p>
+    <p>N=(60×2×240)/(4×.02×600)=600 rpm.</p>
+    <p class="line"><b>Answer:</b> <b>600 rpm</b>.</p></div>
+
+  <div class="solution"><h4>S8. Shaft torque</h4>
+    <p><b>Problem:</b> A motor delivers 12 kW at 900 rpm. Find shaft torque.</p>
+    <p><b>Formula:</b> Tsh=9550P(kW)/N.</p>
+    <p>Tsh=9550×12/900=127.33 N·m.</p>
+    <p class="line"><b>Answer:</b> <b>127.3 N·m</b>.</p></div>
+
+  <div class="solution"><h4>S9. General torque equation</h4>
+    <p><b>Problem:</b> A 6-pole lap motor has Z=720, Φ=25 mWb and Ia=50 A. Find armature torque.</p>
+    <p>A=P=6. T=0.159(PZ/A)ΦIa=0.159×720×.025×50=143.1 N·m.</p>
+    <p class="line"><b>Answer:</b> <b>143 N·m</b>.</p></div>
+
+  <div class="solution"><h4>S10. Maximum-power operating point</h4>
+    <p><b>Problem:</b> A 240 V motor has Ra=0.4 Ω. Under ideal assumptions find Eb, Ia and developed mechanical power at maximum power.</p>
+    <p>Eb=V/2=120 V. Ia=(240−120)/0.4=300 A.</p>
+    <p>Pm=EbIa=120×300=36 kW. Armature copper loss is also 300²×.4=36 kW.</p>
+    <p class="line"><b>Answer:</b> Eb=<b>120 V</b>, Ia=<b>300 A</b>, Pm=<b>36 kW</b>. This is thermally unacceptable normal operation.</p></div>
+
+  <div class="solution"><h4>S11. New speed after voltage change</h4>
+    <p><b>Problem:</b> A separately excited motor runs at 1200 rpm with Eb=220 V. Flux is constant. Find speed when Eb is reduced to 165 V.</p>
+    <p>N2/N1=Eb2/Eb1=165/220=0.75. N2=900 rpm.</p>
+    <p class="line"><b>Answer:</b> <b>900 rpm</b>.</p></div>
+
+  <div class="solution"><h4>S12. Speed with simultaneous voltage and flux change</h4>
+    <p><b>Problem:</b> Initially Eb1=200 V, Φ1=30 mWb and N1=1000 rpm. Find N2 if Eb2=180 V and Φ2=24 mWb.</p>
+    <p>N2/N1=(Eb2/Eb1)(Φ1/Φ2)=(180/200)(30/24)=1.125.</p>
+    <p class="line"><b>Answer:</b> <b>1125 rpm</b>.</p></div>
+</section>
+
+<section class="section" id="expected">
+  <div class="section-head"><span class="eyebrow">Expected Questions</span><h2>Module-wise examination practice patterns</h2><p>These are high-priority practice patterns inferred from the official syllabus. They are not guaranteed examination questions.</p></div>
+  <div class="grid">
+    <div class="card blue"><h3>Module 1</h3><ul><li><b>One word:</b> Mechanical rectifier, winding for high current.</li><li><b>Short answer:</b> Purpose of laminations, commutator and brushes.</li><li><b>Diagram:</b> Labeled DC machine and simple-loop generator.</li><li><b>Comparison:</b> Lap versus wave; shunt versus series generator.</li><li><b>Derivation:</b> EMF equation; maximum efficiency.</li><li><b>Numerical:</b> Eg, N, Φ, Z, terminal voltage and efficiency.</li></ul></div>
+    <div class="card cyan"><h3>Module 2</h3><ul><li><b>Definition:</b> Armature reaction, commutation, critical resistance/speed.</li><li><b>Diagram:</b> MNA shift, interpoles, commutation.</li><li><b>Curve:</b> OCC, internal, external and compound characteristics.</li><li><b>Long answer:</b> Voltage build-up and conditions.</li><li><b>Application:</b> Select generator for a stated use.</li><li><b>Numerical:</b> Critical resistance, critical speed and voltage regulation.</li></ul></div>
+    <div class="card copper"><h3>Module 3</h3><ul><li><b>Short answer:</b> Back EMF and starter necessity.</li><li><b>Derivation:</b> Torque equation and maximum mechanical power.</li><li><b>Curve:</b> Shunt/series motor characteristics.</li><li><b>Diagram:</b> Three-point/four-point starter.</li><li><b>Testing:</b> Load test and Swinburne’s test.</li><li><b>Numerical:</b> Eb, Ia, speed, torque, output, efficiency and starter resistance.</li></ul></div>
+    <div class="card violet"><h3>Module 4</h3><ul><li><b>Formula:</b> Speed relation and ratios.</li><li><b>Comparison:</b> Flux, armature and voltage control.</li><li><b>Application:</b> Why series motor is used for traction.</li><li><b>Diagram:</b> Series-parallel connection and transition.</li><li><b>Long answer:</b> Rheostatic and regenerative braking.</li><li><b>Numerical:</b> New speed, external resistance and braking power.</li></ul></div>
+  </div>
+</section>
+
+<section class="section" id="practice">
+  <div class="section-head"><span class="eyebrow">Practice Section</span><h2>Objective, diagram, curve, numerical and selection exercises</h2></div>
+
+  <h3>A. Fill in the blanks</h3>
+  <ol>
+    <li>The outer frame that completes the magnetic path is the ______.</li>
+    <li>In a simplex wave winding, the number of parallel paths is ______.</li>
+    <li>The maximum field resistance for shunt-generator voltage build-up is called ______.</li>
+    <li>At motor starting, back EMF is ______.</li>
+    <li>For a DC motor, electromagnetic torque is proportional to ______.</li>
+    <li>The coil that holds a three-point starter handle in RUN is the ______ release.</li>
+    <li>In rheostatic braking, energy is dissipated in a ______.</li>
+    <li>During full-parallel traction operation, each motor receives ______ supply voltage.</li>
+  </ol>
+
+  <h3>B. True or false</h3>
+  <ol>
+    <li>A wave winding is preferred for low-voltage, high-current machines.</li>
+    <li>Interpoles are connected in series with armature current.</li>
+    <li>A series motor may safely run at no load.</li>
+    <li>At maximum mechanical power, Eb=V/2 under simplified assumptions.</li>
+    <li>Field weakening increases shunt-motor speed.</li>
+    <li>Regenerative braking returns electrical energy to a receptive supply.</li>
+  </ol>
+
+  <h3>C. Multiple-choice questions</h3>
+  <div class="table-wrap"><table><thead><tr><th>No.</th><th>Question</th><th>Options</th></tr></thead><tbody>
+    <tr><td>1</td><td>Mechanical rectification is performed by</td><td>A yoke • B armature core • C commutator • D pole shoe</td></tr>
+    <tr><td>2</td><td>A simplex lap winding has parallel paths equal to</td><td>A 2 • B P • C Z • D N</td></tr>
+    <tr><td>3</td><td>Critical resistance is obtained graphically from</td><td>A external curve • B OCC tangent • C speed-torque curve • D efficiency curve</td></tr>
+    <tr><td>4</td><td>Before saturation, series-motor torque is approximately proportional to</td><td>A Ia • B Ia² • C 1/Ia • D speed</td></tr>
+    <tr><td>5</td><td>The starter suitable for field-weakening control without NVR release is</td><td>A two-point • B three-point • C four-point • D direct switch</td></tr>
+    <tr><td>6</td><td>At full series traction position, two identical motors each receive approximately</td><td>A full line voltage • B half line voltage • C zero voltage • D double line voltage</td></tr>
+    <tr><td>7</td><td>Electrical energy is recovered in</td><td>A plugging • B rheostatic braking • C regenerative braking • D mechanical braking</td></tr>
+    <tr><td>8</td><td>Swinburne’s test is mainly suitable for</td><td>A series motors • B shunt machines • C induction motors • D transformers only</td></tr>
+  </tbody></table></div>
+
+  <h3>D. Part-identification and connection questions</h3>
+  <ol>
+    <li>From the construction diagram, identify the part that spreads pole flux and supports the field coil.</li>
+    <li>Identify the part made of copper segments separated by mica.</li>
+    <li>Draw a shunt generator and mark Ia, IL and Ish.</li>
+    <li>Draw a three-point starter and label L, A, F, NVR and OLR.</li>
+    <li>Draw two traction motors in series and then in parallel, showing current path.</li>
+  </ol>
+
+  <h3>E. Characteristic-curve interpretation</h3>
+  <ol>
+    <li>Why does the external characteristic of a shunt generator fall more steeply than its internal characteristic?</li>
+    <li>What does the knee of an OCC indicate?</li>
+    <li>Why does a series-motor speed-current curve rise sharply at light current?</li>
+    <li>Which compound-generator curve is preferred for feeder voltage-drop compensation?</li>
+  </ol>
+
+  <h3>F. Formula and numerical practice</h3>
+  <ol>
+    <li>A 4-pole wave generator has Z=800, Φ=20 mWb and N=600 rpm. Find Eg.</li>
+    <li>A 6-pole lap generator has Eg=300 V, Z=900 and N=1000 rpm. Find Φ.</li>
+    <li>A 250 V shunt generator delivers 50 A; Ish=2 A and Ra=0.2 Ω. Find Eg, neglecting brush drop.</li>
+    <li>A 220 V motor has Eb=205 V and Ra=0.3 Ω. Find Ia.</li>
+    <li>A motor develops 10 kW at 750 rpm. Find torque.</li>
+    <li>A shunt motor runs at 900 rpm. Flux is reduced to 75% with unchanged Eb. Find new speed.</li>
+    <li>A 240 V motor with Ra=0.4 Ω must limit starting current to 60 A. Find starter resistance.</li>
+    <li>A braking generator produces 360 V across 3 Ω. Find current and power.</li>
+  </ol>
+
+  <h3>G. Motor-selection scenarios</h3>
+  <ol>
+    <li>Select a motor for a lathe requiring nearly constant speed and explain.</li>
+    <li>Select a motor for a crane lifting heavy loads from rest.</li>
+    <li>Select a motor for a conveyor with fluctuating load but acceptable speed regulation.</li>
+    <li>Select a speed-control method for efficient smooth control below base speed.</li>
+    <li>Select a braking method where recovered energy can be returned to the line.</li>
+  </ol>
+
+  <h3>H. Self-assessment checklist</h3>
+  <ul class="checklist">
+    <li>I can label all main DC-machine parts and trace the magnetic path.</li>
+    <li>I can derive Eg=PΦZN/60A and choose the correct parallel paths.</li>
+    <li>I can calculate generator voltage, losses and efficiency.</li>
+    <li>I can explain armature reaction, commutation and voltage build-up.</li>
+    <li>I can draw and interpret generator characteristic curves.</li>
+    <li>I can derive motor torque and maximum-power condition.</li>
+    <li>I can select motors from performance requirements.</li>
+    <li>I can explain starters and Swinburne’s test.</li>
+    <li>I can solve flux, resistance and voltage speed-control problems.</li>
+    <li>I can trace series-parallel traction stages and braking energy flow.</li>
+  </ul>
+</section>
+<section class="section" id="revision">
+  <div class="section-head"><span class="eyebrow">Quick Revision</span><h2>Compact last-day revision sheet</h2></div>
+  <div class="grid">
+    <div class="card quarter blue"><h3>Construction</h3><p>Yoke, poles, field coils, laminated armature, winding, commutator, brushes, shaft, bearings, interpoles and compensating winding.</p></div>
+    <div class="card quarter cyan"><h3>Generator principle</h3><p>Flux cutting induces EMF. Right-hand rule gives direction. Commutator makes brush output unidirectional.</p></div>
+    <div class="card quarter copper"><h3>EMF equation</h3><p>Eg=PΦZN/60A. Lap A=P; wave A=2.</p></div>
+    <div class="card quarter green"><h3>Generator voltage</h3><p>V=Eg−IaRa−Vb. Shunt: Ia=IL+Ish.</p></div>
+    <div class="card quarter blue"><h3>Losses</h3><p>Copper, iron, mechanical and stray. Maximum efficiency when variable copper loss equals constant loss.</p></div>
+    <div class="card quarter cyan"><h3>Windings</h3><p>Lap: high current/low voltage. Wave: high voltage/lower current.</p></div>
+    <div class="card quarter copper"><h3>Armature reaction</h3><p>Armature MMF distorts flux and shifts MNA. Compensating winding cancels pole-face distortion.</p></div>
+    <div class="card quarter green"><h3>Commutation</h3><p>Current reversal under brush. Carbon brush and interpole improve commutation.</p></div>
+    <div class="card quarter blue"><h3>Characteristics</h3><p>OCC: Eg–If. Internal includes armature reaction. External includes voltage drops.</p></div>
+    <div class="card quarter cyan"><h3>Build-up</h3><p>Residual magnetism, correct field connection, Rf&lt;Rcrit and speed&gt;Ncrit.</p></div>
+    <div class="card quarter copper"><h3>Motor principle</h3><p>Force on current-carrying conductor. Left-hand rule. Commutator keeps torque unidirectional.</p></div>
+    <div class="card quarter green"><h3>Back EMF</h3><p>Eb=V−IaRa. It limits current and makes the motor self-regulating.</p></div>
+    <div class="card quarter blue"><h3>Torque</h3><p>T=0.159(PZ/A)ΦIa. Pm=EbIa. Tsh=9550P(kW)/N.</p></div>
+    <div class="card quarter cyan"><h3>Maximum power</h3><p>Eb=V/2 under simplified assumptions; not a normal efficient operating point.</p></div>
+    <div class="card quarter copper"><h3>Characteristics</h3><p>Shunt: nearly constant speed. Series: very high starting torque and dangerous no-load speed.</p></div>
+    <div class="card quarter green"><h3>Starters</h3><p>Three-point NVR in field circuit; four-point NVR across supply. OLR protects against excess current.</p></div>
+    <div class="card quarter blue"><h3>Testing</h3><p>Load test gives actual performance. Swinburne predicts efficiency from no-load losses.</p></div>
+    <div class="card quarter cyan"><h3>Speed control</h3><p>Flux control above base; armature resistance below base but inefficient; voltage control efficient below base.</p></div>
+    <div class="card quarter copper"><h3>Traction</h3><p>Series motors for high starting torque. Motors series at low speed and parallel at high speed.</p></div>
+    <div class="card quarter green"><h3>Braking</h3><p>Rheostatic: energy to resistor. Regenerative: energy returned to supply.</p></div>
+  </div>
+  <div class="callout mistake"><b>Common examination mistakes</b><div>Using mWb without conversion; wrong A for lap/wave; mixing generator and motor voltage signs; using line current instead of armature current; omitting field loss; drawing curves without axes; saying a series motor can run unloaded; confusing maximum power with maximum efficiency; claiming window.print automatically downloads a PDF; omitting energy-flow arrows in braking diagrams.</div></div>
+  <div class="callout exam"><b>Important derivations</b><div>Generator EMF equation, generator maximum-efficiency condition, motor torque equation and motor maximum-mechanical-power condition.</div></div>
+  <div class="callout exam"><b>Important diagrams</b><div>DC machine, simple-loop generator, armature reaction, commutation, OCC/critical tangent, three-point and four-point starters, motor characteristics, series-parallel traction and both electrical-braking circuits.</div></div>
+</section>
+
+<section class="section" id="model-paper">
+  <div class="section-head"><span class="eyebrow">Fresh Model Question Paper</span><h2>DC Machines &amp; Traction Motors — Course 3032</h2><p><b>Time: 3 Hours &nbsp; | &nbsp; Maximum Marks: 75</b></p></div>
+  <div class="paper">
+    <h3>PART A</h3>
+    <p><b>Answer all questions. Each carries 1 mark. (9 × 1 = 9)</b></p>
+    <ol>
+      <li>Name the part of a DC machine that acts as a mechanical rectifier.</li>
+      <li>Write the number of parallel paths in a simplex wave winding.</li>
+      <li>State one essential condition for voltage build-up of a shunt generator.</li>
+      <li>Name the auxiliary pole used to improve commutation.</li>
+      <li>Write the motor voltage equation, neglecting brush drop.</li>
+      <li>Which DC motor has the highest starting torque?</li>
+      <li>Name the release that protects a starter against excessive armature current.</li>
+      <li>Which speed-control method is normally used above base speed in a shunt motor?</li>
+      <li>Name the braking method that returns energy to the supply.</li>
+    </ol>
+
+    <h3>PART B</h3>
+    <p><b>Answer any eight questions. Each carries 3 marks. (8 × 3 = 24)</b></p>
+    <ol>
+      <li>State the functions of yoke, pole shoe and commutator.</li>
+      <li>Compare simplex lap and simplex wave windings.</li>
+      <li>A 4-pole wave generator has 600 conductors, flux 20 mWb/pole and speed 1000 rpm. Calculate generated EMF.</li>
+      <li>Define armature reaction and list two effects.</li>
+      <li>Distinguish critical field resistance and critical speed.</li>
+      <li>Explain why back EMF makes a DC motor self-regulating.</li>
+      <li>Write the torque equation and define each symbol.</li>
+      <li>Compare three-point and four-point starters.</li>
+      <li>State the procedure of Swinburne’s test.</li>
+      <li>Compare rheostatic and regenerative braking.</li>
+    </ol>
+
+    <h3>PART C</h3>
+    <p><b>Answer one alternative from each group. Each group carries 7 marks. (6 × 7 = 42)</b></p>
+    <ol>
+      <li><b>(A)</b> Explain the construction and working principle of a DC generator with a labeled diagram and derive the EMF equation. <b>OR</b> <b>(B)</b> A 6-pole lap generator has Z=720, Φ=30 mWb, N=800 rpm, Ra=0.2 Ω and supplies 100 A. Field current is 2 A. Find Eg, Ia, terminal voltage and output power. Neglect brush drop.</li>
+      <li><b>(A)</b> Classify DC-generator losses, draw the power-flow diagram and derive the maximum-efficiency condition. <b>OR</b> <b>(B)</b> Explain armature windings and compare lap and wave windings with applications.</li>
+      <li><b>(A)</b> Explain armature reaction, interpoles and compensating windings with diagrams. <b>OR</b> <b>(B)</b> Explain shunt-generator OCC, critical resistance, critical speed and voltage build-up conditions.</li>
+      <li><b>(A)</b> Derive the general torque equation of a DC motor and explain shunt and series motor characteristics. <b>OR</b> <b>(B)</b> A 220 V shunt motor takes line current 45 A; Ish=1.5 A, Ra=0.25 Ω and speed=950 rpm. Rotational losses are 600 W. Find Eb, developed torque, shaft output and efficiency.</li>
+      <li><b>(A)</b> Explain construction and working of three-point and four-point starters. <b>OR</b> <b>(B)</b> Explain the direct load test and Swinburne’s test, including advantages and limitations.</li>
+      <li><b>(A)</b> Explain shunt- and series-motor speed-control methods with diagrams and comparison. <b>OR</b> <b>(B)</b> Explain series-parallel traction control, shunt/bridge transition, rheostatic braking and regenerative braking.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" id="model-answers">
+  <div class="section-head"><span class="eyebrow">Complete Model Answers</span><h2>Full solutions for all questions and both OR alternatives</h2></div>
+
+  <h3>Part A</h3>
+  <div class="table-wrap"><table class="compact"><thead><tr><th>No.</th><th>Answer</th></tr></thead><tbody>
+    <tr><td>1</td><td>Commutator</td></tr><tr><td>2</td><td>2</td></tr><tr><td>3</td><td>Any one: residual magnetism, correct field polarity, field resistance below critical value, speed above critical speed</td></tr><tr><td>4</td><td>Interpole / commutating pole</td></tr><tr><td>5</td><td>V=Eb+IaRa</td></tr><tr><td>6</td><td>DC series motor</td></tr><tr><td>7</td><td>Overload release</td></tr><tr><td>8</td><td>Flux or field-control method</td></tr><tr><td>9</td><td>Regenerative braking</td></tr>
+  </tbody></table></div>
+
+  <h3>Part B</h3>
+  <div class="answer"><h4>B1. Functions</h4><p><b>Yoke:</b> provides mechanical support and a low-reluctance return path for flux. <b>Pole shoe:</b> spreads flux over the armature, reduces air-gap reluctance and supports the field coil. <b>Commutator:</b> acts as a mechanical rectifier in a generator and reverses armature-coil current at the correct instant in a motor.</p></div>
+  <div class="answer"><h4>B2. Lap versus wave</h4><p>Simplex lap has A=P, usually P brush sets, is suited to low-voltage high-current duty and needs equalizer rings. Simplex wave has A=2, usually two brush sets, is suited to high-voltage lower-current duty and normally does not need equalizer rings.</p></div>
+  <div class="answer"><h4>B3. Generated EMF</h4><p>P=4, A=2, Z=600, Φ=.02 Wb, N=1000 rpm.</p><p>Eg=PΦZN/(60A)=(4×.02×600×1000)/(60×2)=400 V.</p><p><b>Answer: 400 V.</b></p></div>
+  <div class="answer"><h4>B4. Armature reaction</h4><p>Armature reaction is the effect of armature-current MMF on the main field. It distorts flux, shifts MNA, reduces average flux/generated voltage and can cause brush sparking and local pole-tip heating.</p></div>
+  <div class="answer"><h4>B5. Critical resistance and speed</h4><p>Critical resistance is the maximum shunt-field resistance at which a generator just builds voltage at a specified speed; graphically it is the tangent slope from the OCC origin. Critical speed is the minimum speed at which voltage builds for a given field resistance.</p></div>
+  <div class="answer"><h4>B6. Self-regulation by back EMF</h4><p>When load rises, speed and Eb fall slightly. Since Ia=(V−Eb)/Ra, armature current and torque rise to meet the load. When load falls, speed/Eb rise, current falls and torque reduces.</p></div>
+  <div class="answer"><h4>B7. Torque equation</h4><p>T=0.159(PZ/A)ΦIa N·m, where P is poles, Z total armature conductors, A parallel paths, Φ flux per pole in Wb and Ia armature current in A.</p></div>
+  <div class="answer"><h4>B8. Three-point versus four-point starter</h4><p>Three-point terminals are L,A,F and its NVR is in series with the shunt field; field weakening may release the handle, but field failure is sensed. Four-point terminals are L,A,F,N and its NVR is connected across the supply independently, so field weakening does not release it; separate field-failure protection is desirable.</p></div>
+  <div class="answer"><h4>B9. Swinburne’s procedure</h4><p>Run the shunt motor at rated voltage without mechanical load. Measure V, no-load line current I0, field current Ish and Ra. Find Ia0=I0−Ish. Constant rotational loss is VI0−VIsh−Ia0²Ra, with brush loss included if specified. Use this constant loss plus copper losses at an assumed load to predict efficiency.</p></div>
+  <div class="answer"><h4>B10. Braking comparison</h4><p>In rheostatic braking the motor generates into a resistor and energy becomes heat; it does not require a receptive supply but wastes energy. In regenerative braking Eg exceeds supply voltage with correct polarity, current returns to the supply and energy is recovered; more control and a receptive supply are required.</p></div>
+
+  <h3>Part C — Group 1</h3>
+  <div class="answer"><h4>C1(A). Construction, principle and EMF derivation</h4>
+    <p><b>Construction:</b> The yoke supports the machine and carries return flux. Main poles and field windings create stationary flux. The laminated armature core carries conductors and rotates on the shaft. Copper commutator segments insulated by mica connect armature coils to stationary carbon brushes. Bearings support rotation; interpoles and compensating windings improve loaded operation.</p>
+    <p><b>Working principle:</b> A prime mover rotates armature conductors through magnetic flux. By Faraday’s law an EMF is induced. Fleming’s right-hand rule gives direction. The EMF in each coil reverses every half-turn, while the commutator reverses coil connection to the brushes, producing unidirectional terminal voltage.</p>
+    <p><b>Derivation:</b> Flux cut by one conductor per revolution=PΦ Wb. Time per revolution=60/N s. EMF per conductor=PΦN/60 V. Conductors in series per path=Z/A. Therefore:</p>
+    <div class="formula">E<sub>g</sub>=(PΦN/60)(Z/A)=PΦZN/60A</div>
+    <p>For simplex lap A=P; for simplex wave A=2. A complete diagram should label yoke, pole, field coil, armature, commutator, brushes and shaft.</p>
+  </div>
+  <div class="answer"><h4>C1(B). Generator numerical</h4>
+    <p><b>Given:</b> P=6, lap A=6, Z=720, Φ=.03 Wb, N=800 rpm, Ra=.2 Ω, IL=100 A, Ish=2 A.</p>
+    <p><b>Generated EMF:</b> Eg=(6×.03×720×800)/(60×6)=288 V.</p>
+    <p><b>Armature current:</b> Ia=IL+Ish=102 A.</p>
+    <p><b>Terminal voltage:</b> V=Eg−IaRa=288−102×.2=267.6 V.</p>
+    <p><b>Output power:</b> Pout=VIL=267.6×100=26,760 W=26.76 kW.</p>
+    <p><b>Final:</b> Eg=<b>288 V</b>, Ia=<b>102 A</b>, V=<b>267.6 V</b>, output=<b>26.76 kW</b>.</p>
+  </div>
+
+  <h3>Part C — Group 2</h3>
+  <div class="answer"><h4>C2(A). Losses, power flow and maximum efficiency</h4>
+    <p><b>Copper losses:</b> Ia²Ra, series-field I²R, shunt-field V²/Rsh and brush-contact loss. <b>Iron losses:</b> hysteresis and eddy currents. <b>Mechanical losses:</b> bearing/brush friction and windage. <b>Stray-load losses:</b> additional loaded effects.</p>
+    <p><b>Power flow:</b> Mechanical input → subtract iron and mechanical losses → gross electrical power EgIa → subtract armature, brush and field losses → terminal output VIL.</p>
+    <p>Let output=VI, variable loss=I²R and constant loss=Wc. η=VI/(VI+I²R+Wc). Differentiating with respect to I and setting dη/dI=0 gives I²R=Wc.</p>
+    <div class="formula">Maximum efficiency occurs when variable copper loss equals constant loss.</div>
+    <p>Assume nearly constant voltage and constant rotational/field losses.</p>
+  </div>
+  <div class="answer"><h4>C2(B). Armature windings</h4>
+    <p>An armature winding consists of coils placed in slots and connected to commutator segments. Each turn has two active coil sides. Parallel paths determine current and voltage rating.</p>
+    <p><b>Lap winding:</b> Coils connect to nearby commutator segments and lap back. Simplex A=P. It carries high current at lower voltage, usually uses P brush sets and needs equalizer rings.</p>
+    <p><b>Wave winding:</b> Coils progress around the armature in a wave, connecting conductors under similar pole polarities. Simplex A=2. It gives higher voltage at lower current, uses two main brush sets and generally needs no equalizer rings.</p>
+    <p><b>Applications:</b> Lap—heavy-current generators, electroplating and welding supplies. Wave—higher-voltage lighting or general DC generators.</p>
+  </div>
+
+  <h3>Part C — Group 3</h3>
+  <div class="answer"><h4>C3(A). Armature reaction, interpoles and compensation</h4>
+    <p>Armature current produces armature MMF. Its field combines with the main field, crowds flux at one pole tip, weakens it at the other, shifts MNA and can reduce average flux. Effects include sparking, voltage reduction, local heating and poor commutation.</p>
+    <p><b>Interpoles:</b> Small poles between main poles, series-connected with armature. Their commutating EMF opposes reactance voltage and allows brushes to remain near geometrical neutral.</p>
+    <p><b>Compensating winding:</b> Conductors embedded in pole shoes and series-connected with armature. Their MMF opposes armature MMF under the pole arc, preventing flux distortion during rapid load change.</p>
+    <p>A complete diagram must show main poles, armature, shifted MNA, interpoles and pole-face compensation conductors.</p>
+  </div>
+  <div class="answer"><h4>C3(B). OCC, critical values and voltage build-up</h4>
+    <p>The OCC plots Eg against If at constant speed and no load. It begins at residual voltage, rises approximately linearly and bends at magnetic saturation.</p>
+    <p>Critical resistance is the maximum field resistance for build-up at a given speed and equals the slope of the tangent from origin to OCC. Critical speed is the minimum speed for build-up at a fixed field resistance.</p>
+    <p>Build-up sequence: residual magnetism creates initial Eg → field current flows → field MMF aids residual flux → Eg rises → operation settles at the field-line/OCC intersection.</p>
+    <p>Conditions: residual magnetism, correct field polarity, closed field circuit, Rf below critical resistance and speed above critical speed.</p>
+  </div>
+
+  <h3>Part C — Group 4</h3>
+  <div class="answer"><h4>C4(A). Torque derivation and characteristics</h4>
+    <p>Pm=EbIa and Eb=PΦZN/(60A). Angular speed ω=2πN/60. Therefore:</p>
+    <div class="formula">T=Pm/ω=[PΦZN Ia/(60A)]/[2πN/60]=PZΦIa/(2πA)=0.159(PZ/A)ΦIa</div>
+    <p>Thus T∝ΦIa.</p>
+    <p><b>Shunt motor:</b> Φ approximately constant, so T∝Ia. Speed is nearly constant and drops slightly with load. Suitable for lathes, fans and pumps.</p>
+    <p><b>Series motor:</b> Before saturation Φ∝Ia, so T∝Ia²; after saturation T∝Ia. Speed is inversely related to flux and becomes dangerously high at light load. Suitable for cranes, hoists and traction.</p>
+  </div>
+  <div class="answer"><h4>C4(B). Motor numerical</h4>
+    <p><b>Given:</b> V=220 V, IL=45 A, Ish=1.5 A, Ra=.25 Ω, N=950 rpm, rotational loss=600 W.</p>
+    <p><b>Armature current:</b> Ia=45−1.5=43.5 A.</p>
+    <p><b>Back EMF:</b> Eb=220−43.5×.25=209.125 V.</p>
+    <p><b>Developed power:</b> Pm=EbIa=209.125×43.5=9096.94 W.</p>
+    <p><b>Developed torque:</b> Ta=9550×9.09694/950=91.44 N·m.</p>
+    <p><b>Shaft output:</b> 9096.94−600=8496.94 W.</p>
+    <p><b>Input:</b> 220×45=9900 W.</p>
+    <p><b>Efficiency:</b> 8496.94/9900×100=85.83%.</p>
+    <p><b>Final:</b> Eb≈<b>209.1 V</b>, Ta≈<b>91.4 N·m</b>, output≈<b>8.50 kW</b>, efficiency≈<b>85.8%</b>.</p>
+  </div>
+
+  <h3>Part C — Group 5</h3>
+  <div class="answer"><h4>C5(A). Three-point and four-point starters</h4>
+    <p>A starter inserts resistance in series with armature at starting because Eb=0. The handle moves over studs to cut out resistance as speed rises.</p>
+    <p><b>Three-point:</b> Terminals L,A,F. OLR is in armature path and trips on excess current. NVR is in series with the shunt field and holds the handle at RUN. Supply failure or field opening releases it. Field weakening may reduce NVR current and cause unwanted release.</p>
+    <p><b>Four-point:</b> Terminals L,A,F,N. NVR is connected across supply independently, so field weakening does not release the handle. It needs separate field-failure protection. Diagrams must show resistance studs, handle, spring, NVR and OLR.</p>
+  </div>
+  <div class="answer"><h4>C5(B). Load test and Swinburne’s test</h4>
+    <p><b>Direct load test:</b> Couple motor to brake/dynamometer, start safely, increase load, record V, I, N and torque. Calculate input VIL, output 2πNT/60 and efficiency. It gives actual temperature, commutation and efficiency but wastes full-load power and needs loading equipment.</p>
+    <p><b>Swinburne’s test:</b> Run shunt motor no-load at rated voltage. Measure V, I0, Ish and Ra. Determine constant rotational loss from no-load input after subtracting field and no-load armature copper loss. Predict efficiency at any load by adding load copper losses.</p>
+    <p><b>Advantages:</b> economical, simple, low power, predicts motor/generator efficiency. <b>Limitations:</b> no full-load temperature/commutation test, inaccurate stray-load effects, not suitable for series motors.</p>
+  </div>
+
+  <h3>Part C — Group 6</h3>
+  <div class="answer"><h4>C6(A). Speed-control methods</h4>
+    <p>From N∝(V−IaRa)/Φ:</p>
+    <p><b>Shunt field control:</b> increase field resistance → reduce If and Φ → speed above base. Efficient but torque capacity falls.</p>
+    <p><b>Shunt armature resistance:</b> add series resistance → larger IaR drop → lower speed. Simple but inefficient and load-dependent.</p>
+    <p><b>Voltage control:</b> vary armature voltage with constant field → smooth efficient speed control below base.</p>
+    <p><b>Series motor:</b> field diverter weakens field and raises speed; armature diverter strengthens effective field and lowers speed; tapped-field control changes turns; series resistance gives low-speed starting control.</p>
+    <p>Diagrams should show the rheostat/diverter position and current paths. Flux control is generally above base; armature voltage/resistance is below base.</p>
+  </div>
+  <div class="answer"><h4>C6(B). Traction control and braking</h4>
+    <p>At starting, two series motors are connected in series with maximum starting resistance. As speed and back EMF rise, resistance is cut out to full-series. The motors are then transitioned to parallel, first with limiting resistance and finally full-parallel.</p>
+    <p><b>Shunt transition:</b> temporary shunt resistors maintain current while reconnection occurs. <b>Bridge transition:</b> a bridge network gives smoother current/torque continuity but uses more complex contactors.</p>
+    <p><b>Rheostatic braking:</b> motors generate into resistors; kinetic energy becomes heat. <b>Regenerative braking:</b> generated EMF exceeds line voltage with correct polarity, returning current and energy to the supply. Mechanical brakes remain necessary for low speed, parking and emergency.</p>
+  </div>
+</section>
+<section class="section" id="answer-key">
+  <div class="section-head"><span class="eyebrow">Answer Key</span><h2>Practice answers and final numerical values</h2></div>
+
+  <h3>A. Fill in the blanks</h3>
+  <p>1 Yoke. 2 Two. 3 Critical field resistance. 4 Zero. 5 ΦIa. 6 No-volt. 7 Braking resistor/rheostat. 8 Full.</p>
+
+  <h3>B. True or false</h3>
+  <p>1 False—lap winding is preferred for low-voltage high-current duty. 2 True. 3 False—series motor no-load speed may become dangerous. 4 True. 5 True. 6 True.</p>
+
+  <h3>C. MCQs</h3>
+  <p>1-C, 2-B, 3-B, 4-B, 5-C, 6-B, 7-C, 8-B.</p>
+
+  <h3>D. Part-identification and connection answers</h3>
+  <ol>
+    <li>Pole shoe.</li>
+    <li>Commutator.</li>
+    <li>In a shunt generator, the field is across terminal voltage; Ia reaches the brush junction and divides into IL and Ish, so Ia=IL+Ish.</li>
+    <li>The three-point starter has L to starting resistance/armature through OLR, F through the NVR/field circuit and a spring-return handle.</li>
+    <li>Series: supply → resistance → M1 → M2 → return. Parallel: both M1 and M2 form separate branches across the same supply.</li>
+  </ol>
+
+  <h3>E. Characteristic-curve answers</h3>
+  <ol>
+    <li>External voltage includes both armature-reaction reduction and internal resistive/brush drops; falling shunt voltage also weakens field current.</li>
+    <li>The knee marks onset of magnetic saturation; beyond it, large field-current increase gives small voltage increase.</li>
+    <li>At light current, series-field flux is small. Since N∝Eb/Φ, speed rises sharply.</li>
+    <li>Over-compounded cumulative generator, because its rising terminal voltage can compensate feeder drop.</li>
+  </ol>
+
+  <h3>F. Numerical answers</h3>
+  <div class="table-wrap"><table><thead><tr><th>No.</th><th>Working summary</th><th>Final answer</th></tr></thead><tbody>
+    <tr><td>1</td><td>Eg=4×.02×800×600/(60×2)</td><td>320 V</td></tr>
+    <tr><td>2</td><td>Φ=60×6×300/(6×900×1000)</td><td>0.02 Wb = 20 mWb</td></tr>
+    <tr><td>3</td><td>Ia=50+2=52 A; Eg=250+52×.2</td><td>260.4 V</td></tr>
+    <tr><td>4</td><td>Ia=(220−205)/.3</td><td>50 A</td></tr>
+    <tr><td>5</td><td>T=9550×10/750</td><td>127.3 N·m</td></tr>
+    <tr><td>6</td><td>N2=900/0.75</td><td>1200 rpm</td></tr>
+    <tr><td>7</td><td>Rst=240/60−.4</td><td>3.6 Ω</td></tr>
+    <tr><td>8</td><td>I=360/3; P=360×120</td><td>120 A, 43.2 kW</td></tr>
+  </tbody></table></div>
+
+  <h3>G. Motor-selection answers</h3>
+  <ol>
+    <li><b>Lathe:</b> shunt or separately excited motor because speed regulation is good and speed can be controlled smoothly.</li>
+    <li><b>Crane:</b> series motor because very high starting torque and overload capacity are required.</li>
+    <li><b>Conveyor:</b> cumulative compound motor because it combines high starting torque with better speed regulation than a series motor.</li>
+    <li><b>Efficient below-base control:</b> armature-voltage control with constant field.</li>
+    <li><b>Energy recovery:</b> regenerative braking, provided the supply can accept returned power.</li>
+  </ol>
+</section>
+
+<section class="section" id="references">
+  <div class="section-head"><span class="eyebrow">References and Online Resources</span><h2>Official syllabus references</h2></div>
+  <h3>Textbooks and reference books</h3>
+  <div class="table-wrap"><table><thead><tr><th>Code</th><th>Book</th></tr></thead><tbody>
+    <tr><td>T1</td><td>B. L. Theraja and A. K. Theraja, <i>Electrical Technology</i>, Volume II, S. Chand &amp; Co.</td></tr>
+    <tr><td>T2</td><td>B. L. Theraja and A. K. Theraja, <i>Electrical Technology</i>, Volume III, S. Chand &amp; Co.</td></tr>
+    <tr><td>R1</td><td>P. S. Bimbhra, <i>Electrical Machinery</i>, Khanna Publishers.</td></tr>
+    <tr><td>R2</td><td>N. V. Suryanarayana, <i>Utilization of Electric Power: Including Electric Drives and Electric Traction</i>, New Age International Publishers.</td></tr>
+    <tr><td>R3</td><td>K. Murugesh Kumar, <i>DC Machines and Transformers</i>, S. Chand &amp; Company.</td></tr>
+    <tr><td>R4</td><td>J. B. Gupta, <i>Theory and Performance of Electrical Machines</i>, S. K. Kataria &amp; Sons.</td></tr>
+    <tr><td>R5</td><td>M. V. Deshpande, <i>Electrical Machines</i>, Prentice Hall India, New Delhi, 2011.</td></tr>
+    <tr><td>R6</td><td>I. J. Nagrath and D. P. Kothari, <i>Electrical Machines</i>, Tata McGraw-Hill Education.</td></tr>
+    <tr><td>R7</td><td>B. R. Gupta, <i>Fundamentals of Electric Machines</i>, Third Edition, New Age International Publishers.</td></tr>
+  </tbody></table></div>
+
+  <h3>Official online resources listed in the syllabus</h3>
+  <div class="toc">
+    <a target="_blank" rel="noopener noreferrer" href="https://nptel.ac.in/courses/108/102/108102146">NPTEL 108102146 <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="https://nptel.ac.in/courses/108/105/108105155">NPTEL 108105155 <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="https://nptel.ac.in/courses/108/106/108106071">NPTEL 108106071 <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="https://nptel.ac.in/courses/108/105/108105053">NPTEL 108105053 <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="https://www.swayam.gov.in">SWAYAM <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="http://vlabs.iitb.ac.in/vlab/labsee.html">IIT Bombay Virtual Labs <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="http://em-coep.vlabs.ac.in">COEP Electrical Machines Virtual Lab <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="http://vem-iitg.vlabs.ac.in">IIT Guwahati Virtual Electrical Machines Lab <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="http://www.youtube.com/channel/UC640y4UvDAlya_WOj5U4pfA">NPTEL YouTube Channel <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="http://www.javatpoint.com/electrical-machines-tutorial">Electrical Machines Tutorial <span>↗</span></a>
+    <a target="_blank" rel="noopener noreferrer" href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&amp;course=3032">SITTTR Model Question Paper Page — 3032 <span>↗</span></a>
+  </div>
+  <div class="callout remember"><b>Resource note</b><div>External websites require internet access. The core handbook, formulas, diagrams, animation controls and print/PDF function work offline.</div></div>
+</section>
+
+<section class="section" id="checklist">
+  <div class="section-head"><span class="eyebrow">Final Examination Checklist</span><h2>Before submitting the answer book</h2></div>
+  <div class="grid">
+    <div class="card"><h3>Numerical answers</h3><ul class="checklist"><li>Write given data with units.</li><li>Convert mWb to Wb and kW to W where needed.</li><li>Identify lap/wave and correct A.</li><li>Use Ia rather than IL where appropriate.</li><li>State brush-drop and loss assumptions.</li><li>Box the final answer with unit.</li></ul></div>
+    <div class="card"><h3>Theory and diagrams</h3><ul class="checklist"><li>Start with definition/principle.</li><li>Draw labeled diagram with arrows and current path.</li><li>Explain construction and working in sequence.</li><li>Label graph axes and operating regions.</li><li>Give advantages, limitations and applications where asked.</li><li>End with the required conclusion or comparison.</li></ul></div>
+  </div>
+  <div class="callout exam"><b>Seven-mark answer structure</b><div>Definition/principle → labeled diagram → construction/connection → step-by-step working → formula/curve → advantages/limitations → application or conclusion.</div></div>
+</section>
+</main>
+
+<aside class="right-rail" aria-label="Quick reference">
+  <h2>Quick Reference</h2>
+  <div class="quick-card"><b>Generator EMF</b>Eg=PΦZN/60A</div>
+  <div class="quick-card"><b>Lap / Wave</b>A=P / A=2</div>
+  <div class="quick-card"><b>Generator voltage</b>V=Eg−IaRa</div>
+  <div class="quick-card"><b>Motor voltage</b>V=Eb+IaRa</div>
+  <div class="quick-card"><b>Motor torque</b>T=0.159(PZ/A)ΦIa</div>
+  <div class="quick-card"><b>Speed</b>N∝(V−IaRa)/Φ</div>
+  <div class="quick-card"><b>Max efficiency</b>Variable copper loss = constant loss</div>
+  <div class="quick-card"><b>Max mechanical power</b>Eb=V/2</div>
+  <div class="quick-card"><b>Traction stages</b>Series + R → full series → transition → parallel + R → full parallel</div>
+  <div class="quick-card"><b>Braking</b>Rheostatic: heat<br>Regenerative: supply</div>
+</aside>
+</div>
+</div>
+
+<button class="backtop" type="button" aria-label="Back to top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<footer>DC Machines &amp; Traction Motors • Course 3032 • Diploma in Electrical &amp; Electronics Engineering • Semester 3</footer>
+
+<script>
+const progress=document.getElementById('progress');
+function updateProgress(){const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?scrollY/h*100:0)+'%'}
+addEventListener('scroll',updateProgress,{passive:true});updateProgress();
+
+const leftRail=document.getElementById('leftRail');
+const menuBtn=document.getElementById('menuBtn');
+menuBtn?.addEventListener('click',()=>{const open=leftRail.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open))});
+leftRail?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(innerWidth<=1100){leftRail.classList.remove('open');menuBtn?.setAttribute('aria-expanded','false')}}));
+
+const searchBox=document.getElementById('searchBox');
+searchBox?.addEventListener('input',()=>{
+  const q=searchBox.value.trim().toLowerCase();
+  document.querySelectorAll('.main-content > section').forEach(s=>{
+    s.classList.toggle('hidden-search',Boolean(q)&&!s.innerText.toLowerCase().includes(q));
+  });
+});
+
+const rotor=document.getElementById('heroRotor');
+document.querySelectorAll('[data-rotor]').forEach(btn=>btn.addEventListener('click',()=>{
+  const cmd=btn.dataset.rotor;
+  if(cmd==='pause') rotor?.classList.add('paused');
+  if(cmd==='play') rotor?.classList.remove('paused');
+  if(cmd==='replay'&&rotor){rotor.classList.remove('paused');rotor.style.animation='none';void rotor.offsetWidth;rotor.style.animation='spin 8s linear infinite'}
+}));
+
+const stages=[...document.querySelectorAll('#tractionDemo .stage')];
+let stageIndex=0,stageTimer=null;
+function showStage(i){if(!stages.length)return;stageIndex=(i+stages.length)%stages.length;stages.forEach((s,n)=>s.classList.toggle('active',n===stageIndex))}
+document.querySelector('[data-stage="next"]')?.addEventListener('click',()=>showStage(stageIndex+1));
+document.querySelector('[data-stage="prev"]')?.addEventListener('click',()=>showStage(stageIndex-1));
+document.querySelector('[data-stage="replay"]')?.addEventListener('click',()=>{clearInterval(stageTimer);showStage(0);stageTimer=setInterval(()=>{if(stageIndex===stages.length-1){clearInterval(stageTimer)}else showStage(stageIndex+1)},1300)});
+
+let closedDetails=[];
+addEventListener('beforeprint',()=>{
+  clearInterval(stageTimer);
+  rotor?.classList.add('paused');
+  closedDetails=[];
+  document.querySelectorAll('details').forEach(d=>{if(!d.open){closedDetails.push(d);d.open=true}});
+});
+addEventListener('afterprint',()=>{closedDetails.forEach(d=>d.open=false);closedDetails=[]});
+</script>
+</body>
+</html>
