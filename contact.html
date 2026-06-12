@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="assets/css/style.css?v=20260611-premium2">
   <link rel="stylesheet" href="assets/css/animations.css">
   <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="stylesheet" href="assets/css/help-comments.css?v=20260612-1">
 </head>
 <body>
   <header class="topbar">
@@ -29,31 +30,36 @@
     <section class="page-title reveal">
       <p class="kicker">Help & Corrections</p>
       <h1>Need a subject, note, or broken link fixed?</h1>
-      <p>Send the subject code, page link, missing note, wrong download, or correction details. You can email me directly or open my main website contact page.</p>
+      <p>Send the subject code, page link, missing note, wrong download, or correction details. You can email me directly or use the public discussion below.</p>
       <div class="hero-actions">
-        <a class="btn primary email" href="mailto:nandakumarmkdpm@gmail.com?subject=Diploma%20Notes%20Help&body=Subject%20code%3A%0AIssue%20or%20request%3A%0APage%20link%20if%20available%3A">Email Me</a>
-        <a class="btn ghost" href="https://nandakumarm.dpdns.org/about.html#contact" target="_blank" rel="noopener">My Website Contact</a>
+        <a class="btn primary email" href="mailto:nandakumarmkdpm@gmail.com?subject=Diploma%20Notes%20Help">Email Me</a>
+        <a class="btn ghost" href="#public-discussion">Open Discussion</a>
         <a class="btn ghost" href="revision-2021.html">Browse Revision 2021</a>
       </div>
     </section>
     <section class="section cards three">
-      <article class="info-card">
-        <span>01</span>
-        <h3>What to send</h3>
-        <p>Subject code, course name, department, semester, and a clear description of the missing file, wrong link, or correction needed.</p>
-      </article>
-      <article class="info-card contact-card">
-        <span>02</span>
-        <h3>Email me directly</h3>
-        <p>To ID: <strong>nandakumarmkdpm@gmail.com</strong></p>
-        <a class="btn small email" href="mailto:nandakumarmkdpm@gmail.com?subject=Diploma%20Notes%20Help">Open Mailbox</a>
-      </article>
-      <article class="info-card">
-        <span>03</span>
-        <h3>Main website</h3>
-        <p>Open my portfolio/contact page for other project-related messages and details.</p>
-        <a class="btn small" href="https://nandakumarm.dpdns.org/about.html#contact" target="_blank" rel="noopener">Open My Website</a>
-      </article>
+      <article class="info-card"><span>01</span><h3>What to send</h3><p>Subject code, course name, department, semester, and a clear description of the issue.</p></article>
+      <article class="info-card contact-card"><span>02</span><h3>Email me directly</h3><p>To ID: <strong>nandakumarmkdpm@gmail.com</strong></p><a class="btn small email" href="mailto:nandakumarmkdpm@gmail.com?subject=Diploma%20Notes%20Help">Open Mailbox</a></article>
+      <article class="info-card"><span>03</span><h3>Public discussion</h3><p>Post questions, corrections and replies directly on this Help page.</p><a class="btn small" href="#public-discussion">Join Discussion</a></article>
+    </section>
+
+    <section class="discussion-section reveal" id="public-discussion" aria-labelledby="discussionTitle">
+      <div class="discussion-shell">
+        <div class="discussion-head">
+          <div><p class="kicker">Student Help Forum</p><h2 id="discussionTitle">Public Help Discussion</h2><p>Ask a question, report a problem, suggest an improvement, or reply to an existing comment.</p></div>
+          <span class="discussion-count" id="commentCount" aria-live="polite">0 comments</span>
+        </div>
+        <form class="comment-form" id="helpCommentForm">
+          <div class="comment-form-row">
+            <div><label for="commentName">Your name</label><input id="commentName" name="name" type="text" minlength="2" maxlength="40" autocomplete="name" placeholder="Enter your name" required></div>
+            <button class="comment-submit" id="commentSubmit" type="submit" disabled>Post Comment</button>
+          </div>
+          <div><label for="commentMessage">Comment or question</label><textarea id="commentMessage" name="message" maxlength="1500" placeholder="Write your question, correction or suggestion…" required></textarea></div>
+        </form>
+        <p class="comment-status" id="commentStatus" aria-live="polite"></p>
+        <p class="discussion-note">Comments are public. Avoid sharing passwords, phone numbers or private information.</p>
+        <div class="comments-list" id="commentsList" aria-live="polite"><div class="discussion-loading">Loading discussion…</div></div>
+      </div>
     </section>
   </main>
   <footer class="footer">
@@ -63,5 +69,6 @@
   <script src="assets/js/subjects.js"></script>
   <script src="assets/js/search.js"></script>
   <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/help-comments.js?v=20260612-1"></script>
 </body>
 </html>
