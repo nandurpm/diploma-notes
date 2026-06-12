@@ -1,0 +1,200 @@
+    const seen = new Set();
+    return items.filter((item) => {
+      if (!item || !item.code || !item.name || !item.revision) return false;
+      const key = [item.revision, item.department, item.semester, item.code].join(":");
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  };
+
+  const semesterNumber = (value) => {
+    const match = String(value || "").match(/(?:semester\s*)?(\d+)/i);
+    return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+  };
+
+  const sortSubjects = (items) => [...items].sort((a, b) => {
+    const sem = semesterNumber(a.semester) - semesterNumber(b.semester);
+    if (sem) return sem;
+    const department = String(a.department || "").localeCompare(String(b.department || ""), undefined, { sensitivity: "base" });
+    if (department) return department;
+    return String(a.code).localeCompare(String(b.code), undefined, { numeric: true, sensitivity: "base" });
+  });
+
+  const fillSelect = (select, values, allLabel, selected = "all") => {
+    if (!select) return;
+    const wanted = selected || select.value || "all";
+    select.replaceChildren();
+    select.append(create("option", { text: allLabel, attrs: { value: "all" } }));
+    [...new Set(values.filter(Boolean))]
+      .sort((a, b) => semesterNumber(a) - semesterNumber(b) || String(a).localeCompare(String(b), undefined, { sensitivity: "base" }))
+      .forEach((value) => select.append(create("option", { text: value, attrs: { value } })));
+    select.value = [...select.options].some((option) => option.value === wanted) ? wanted : "all";
+  };
+
+  const localAssetExists = async (url) => {
+    const absolute = new URL(url, window.location.href).href;
+    if (assetChecks.has(absolute)) return assetChecks.get(absolute);
+    const request = (async () => {
+      try {
+        let response = await fetch(absolute, { method: "HEAD", cache: "no-store" });
+        if (response.ok) return true;
+        response = await fetch(absolute, { method: "GET", cache: "no-store" });
+        return response.ok;
+      } catch (error) {
+        console.error(`Asset check failed for ${absolute}`, error);
+        return false;
+      }
+    })();
+    assetChecks.set(absolute, request);
+    return request;
+  };
+
+  const unavailable = (label = "Not available yet") => create("span", {
+    className: "availability-label",
+    text: label,
+    attrs: { "aria-disabled": "true" }
+  });
+
+  const externalLink = (label, href, className) => create("a", {
+    className,
+    text: label,
+    attrs: { href, target: "_blank", rel: "noopener noreferrer" }
+  });
+
+  const checkedInternalLink = (label, href, className, container) => {
+    const link = create("a", {
+      className: `${className} unavailable`,
+      text: label,
+      attrs: { href, "aria-disabled": "true", title: "Checking availability" }
+    });
+    link.addEventListener("click", (event) => {
+      if (link.getAttribute("aria-disabled") === "true") event.preventDefault();
+    });
+    container.append(link);
+    localAssetExists(href).then((exists) => {
+      if (!link.isConnected) return;
+      if (!exists) {
+        link.replaceWith(unavailable());
+        return;
+      }
+      link.classList.remove("unavailable");
+      link.removeAttribute("aria-disabled");
+      link.removeAttribute("title");
+    });
+    return link;
+  };
+
+  const buildSubjectCard = (subject) => {
+    const article = create("article", { className: "subject-card reveal" });
+    const top = create("div", { className: "subject-top" });
+    top.append(create("span", { text: String(subject.revision) }), create("strong", { text: String(subject.code) }));
+    article.append(top, create("h3", { text: subject.name }));
+    article.append(create("p", { text: `${subject.department} / ${subject.semester} / ${subject.type}` }));
+    const actions = create("div", { className: "action-row" });
+
+    if (String(subject.revision) === "2015" || subject.type === "Material") {
+      actions.append(create("a", {
+        className: "action lessons",
+        text: "View 2015 Materials",
+        attrs: { href: "/materials-2015.html" }
+      }));
+      article.append(actions);
+      return article;
+    }
+
+    const code = encodeURIComponent(subject.code);
+    actions.append(externalLink(
+      "Open Syllabus",
+      `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${code}`,
+      "action syllabus"
+    ));
+    const lessonUrl = subject.lessonFile ? `/${String(subject.lessonFile).replace(/^\/+/, "")}` : `/lessons/lessons-${code}.html?revision=2021`;
+    checkedInternalLink("View Lessons", lessonUrl, "action lessons", actions);
+
+    const separateNotes = Boolean(subject.notesFile) || ["1003", "1004"].includes(String(subject.code));
+    if (separateNotes) {
+      const notesUrl = subject.notesFile
+        ? `/${String(subject.notesFile).replace(/^\/+/, "")}`
+        : `/notes/downloadable-notes-${code}.pdf`;
+      checkedInternalLink("Download Notes", notesUrl, "action download", actions);
+    } else {
+      checkedInternalLink("Open / Print Notes", lessonUrl, "action download", actions);
+    }
+
+    actions.append(externalLink(
+      "Sample QP",
+      `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${code}`,
+      "action qp"
+    ));
+    article.append(actions);
+    return article;
+  };
+
+  const ensureFilterLabels = () => {
+    const names = {
+      subjectSearch: "Search subjects",
+      revisionFilter: "Filter by revision",
+      departmentFilter: "Filter by department",
+      semesterFilter: "Filter by semester"
+    };
+    Object.entries(names).forEach(([id, text]) => {
+      const control = document.getElementById(id);
+      if (!control || document.querySelector(`label[for="${id}"]`)) return;
+      const label = create("label", { className: "sr-only", text, attrs: { for: id } });
+      control.before(label);
+    });
+  };
+
+  const setupSubjectBrowser = () => {
+    const grid = document.getElementById("subjectGrid");
+    if (!grid || grid.dataset.hardeningInitialized === "true") return;
+    grid.dataset.hardeningInitialized = "true";
+    ensureFilterLabels();
+
+    const search = document.getElementById("subjectSearch");
+    const revisionFilter = document.getElementById("revisionFilter");
+    const departmentFilter = document.getElementById("departmentFilter");
+    const semesterFilter = document.getElementById("semesterFilter");
+    const fixedRevision = grid.dataset.revision || "";
+    const fixedDepartment = grid.dataset.department || "";
+    const homepage = grid.dataset.mode === "homepage-search";
+    const params = new URLSearchParams(window.location.search);
+    const all = uniqueSubjects(subjectData());
+
+    const status = create("p", {
+      className: "subject-browser-status",
+      attrs: { id: "subjectResultStatus", role: "status", "aria-live": "polite" }
+    });
+    grid.before(status);
+
+    if (!all.length) {
+      grid.replaceChildren(create("p", {
+        className: "async-error",
+        text: "Unable to load subject data. Please try again later."
+      }));
+      status.textContent = "Subject data unavailable.";
+      console.error("Subject browser initialization failed: SUBJECTS is missing, malformed, or empty.");
+      return;
+    }
+
+    globalThis.SUBJECTS = all;
+    const initialRevision = fixedRevision || params.get("revision") || revisionFilter?.value || "all";
+    const initialDepartment = fixedDepartment || params.get("department") || departmentFilter?.value || "all";
+    const initialSemester = params.get("semester") || semesterFilter?.value || "all";
+    if (search && params.get("subject")) search.value = params.get("subject");
+
+    fillSelect(revisionFilter, all.map((item) => String(item.revision)), "All revisions", initialRevision);
+    fillSelect(departmentFilter, all.map((item) => item.department), "All departments", initialDepartment);
+    fillSelect(semesterFilter, all.map((item) => item.semester), "All semesters", initialSemester);
+    if (fixedRevision && revisionFilter) { revisionFilter.value = fixedRevision; revisionFilter.disabled = true; }
+    if (fixedDepartment && departmentFilter) { departmentFilter.value = fixedDepartment; departmentFilter.disabled = true; }
+
+    const refreshDependentFilters = () => {
+      const revision = fixedRevision || revisionFilter?.value || "all";
+      const currentDepartment = fixedDepartment || departmentFilter?.value || "all";
+      const departmentPool = all.filter((item) => revision === "all" || String(item.revision) === revision);
+      fillSelect(departmentFilter, departmentPool.map((item) => item.department), "All departments", currentDepartment);
+      if (fixedDepartment && departmentFilter) { departmentFilter.value = fixedDepartment; departmentFilter.disabled = true; }
+      const department = fixedDepartment || departmentFilter?.value || "all";
+      const semesterPool = departmentPool.filter((item) => department === "all" || item.department === department || (fixedDepartment && item.department === "First Year / Common"));
