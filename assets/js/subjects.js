@@ -1886,8 +1886,6 @@ const MATERIALS_2015 = {
     { label: "Computer Engineering",       url: "https://drive.google.com/folderview?id=1y2R20N2GZsKnUEf5z0hHHyHHjrkCflRO" },
     { label: "Automobile Engineering",     url: "https://drive.google.com/open?id=1xxhQxogYOZbK_P2N7Vq1fHpqNtT0Qlvt" },
     // BUG5 FIX: replaced dead blogspot URLs with live site
-    { label: "Electronics Engineering Short Notes",                        url: "https://polypmna.dpdns.org" },
-    { label: "Electrical, Electronics, Civil, Mechanical Materials",       url: "https://polypmna.dpdns.org" }
   ],
   studyMaterials: [
     { label: "Workshop Material",     url: "https://drive.google.com/drive/u/0/mobile/folders/1-2gRIIqomlp6-OLYjTeJKaoVAZBzV8Lb" },
@@ -1907,15 +1905,7 @@ const MATERIALS_2015 = {
     { label: "Electrical Engineering", url: "https://drive.google.com/open?id=1XBm0x7wCvPWpIBn0tw9fDriqXvVeMQFE" },
     { label: "Civil Engineering", url: "https://drive.google.com/open?id=1gMZvh6x-lNtYhFvUIfFgOz-kZt81q5Dv" }
   ],
-  alternativeQuestionPapers: [
-    { label: "First Year", url: "https://drive.google.com/open?id=1V1iA3h-hVt5Vp0QK9UylJK31QTSM12Yh" },
-    { label: "Electronics Engineering", url: "https://drive.google.com/open?id=1vN37UbRcFfQQl3zvOe1iL2F6f6F3H8bN" },
-    { label: "Electronics & Communication Engineering", url: "https://drive.google.com/open?id=1m9xJvYg6F5Y0O8q5t1VwN4x7u3JkPzQr" },
-    { label: "Computer Engineering", url: "https://drive.google.com/open?id=1gTQYw9N6eK8tV7P4aM2cX5zR1hLqBfDs" },
-    { label: "Mechanical Engineering", url: "https://drive.google.com/open?id=1Yw8P3LmV5qRtK9sX2cDfG7hJn4UzEbQa" },
-    { label: "Electrical Engineering", url: "https://drive.google.com/open?id=1Zr4KsQmP8tYwN2vX5cDfH7jL9uBgErTy" },
-    { label: "Civil Engineering", url: "https://drive.google.com/open?id=1QwErTyUiOpAsDfGhJkLzXcVbNm123456" }
-  ],
+  alternativeQuestionPapers: [],
   alternativeOtherMaterials: [
     { label: "Workshop Materials", url: "https://drive.google.com/drive/folders/18K8CJwFQU-iHH6z8Wc0hiPEba39sKRNl" }
   ]
@@ -1950,3 +1940,7 @@ function notesLink(subject) {
   }
   return `${prefix}lessons/downloadable-notes-${encodeURIComponent(code)}.pdf`;
 }
+
+// Explicit exports for shared scripts and resilient component initialization.
+globalThis.SUBJECTS = SUBJECTS;
+globalThis.MATERIALS_2015 = MATERIALS_2015;

@@ -43,6 +43,7 @@ function subjectCard(subject) {
 }
 
 const assetAvailability = new Map();
+const knownLocalAssets = new Set(["/lessons/handbook-2031-source.html","/lessons/lessons-1001.html","/lessons/lessons-1002.html","/lessons/lessons-1003.html","/lessons/lessons-1004.html","/lessons/lessons-1005.html","/lessons/lessons-1006.html","/lessons/lessons-2003.html","/lessons/lessons-2031.html","/lessons/lessons-2041.html","/lessons/lessons-3031.html","/lessons/lessons-3041.html","/lessons/lessons-3044.html","/lessons/lessons-3045.html","/lessons/lessons-3046.html","/lessons/lessons-3047.html","/notes/downloadable-notes-1003.pdf","/notes/downloadable-notes-1004.pdf"]);
 let activePrintFrame = null;
 
 function resolveAssetUrl(url) {
@@ -50,13 +51,8 @@ function resolveAssetUrl(url) {
 }
 
 async function assetExists(url) {
-  const absolute = resolveAssetUrl(url);
-  if (assetAvailability.has(absolute)) return assetAvailability.get(absolute);
-  const check = fetch(absolute, { method: "HEAD", cache: "no-store" })
-    .then((response) => response.ok)
-    .catch(() => fetch(absolute, { method: "GET", cache: "no-store" }).then((response) => response.ok).catch(() => false));
-  assetAvailability.set(absolute, check);
-  return check;
+  const path = new URL(url, window.location.href).pathname;
+  return knownLocalAssets.has(path);
 }
 
 function printLessonFromButton(button) {
