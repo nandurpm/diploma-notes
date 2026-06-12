@@ -1,0 +1,82 @@
+="progress" id="progress"></div>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-mark">3032</span><span class="brand-title">DC Machines & Traction Motors<small>Diploma EEE • Semester 3 • Program Core</small></span></div>
+    <div class="top-actions">
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="leftRail">Contents</button>
+      <a href="#overview">Overview</a><a href="#module1">M1</a><a href="#module2">M2</a><a href="#module3">M3</a><a href="#module4">M4</a>
+      <a href="#formula-bank">Formula Bank</a><a href="#model-paper">Model Paper</a>
+      <div class="search"><input id="searchBox" type="search" placeholder="Search handbook" aria-label="Search handbook"></div>
+      <button class="pdf" type="button" onclick="window.print()">Download as PDF</button>
+    </div>
+  </div>
+</header>
+<div class="page-shell">
+<div class="app-grid">
+<aside class="left-rail" id="leftRail" aria-label="Handbook contents">
+  <h2>Handbook Contents</h2>
+  <a href="#cover">Cover</a><a href="#overview">Course Overview</a><a href="#use">How to Use</a><a href="#toc">Table of Contents</a>
+  <div class="rail-group"><a href="#objectives">Objectives & Prerequisite</a><a href="#outcomes">Outcomes & CO-PO</a><a href="#roadmap">Learning Roadmap</a></div>
+  <div class="rail-group"><a href="#module1">Module 1: Generator Basics</a><a href="#module2">Module 2: Generator Characteristics</a><a href="#module3">Module 3: Motors, Starters & Tests</a><a href="#module4">Module 4: Speed Control & Traction</a></div>
+  <div class="rail-group"><a href="#formula-bank">Formula Bank</a><a href="#construction-bank">Construction Bank</a><a href="#circuit-bank">Circuit Bank</a><a href="#curve-bank">Curve Bank</a><a href="#loss-bank">Power-Flow Bank</a><a href="#selection-bank">Motor Selection</a><a href="#traction-bank">Traction Bank</a></div>
+  <div class="rail-group"><a href="#solved">Solved Numericals</a><a href="#expected">Expected Questions</a><a href="#practice">Practice</a><a href="#revision">Quick Revision</a><a href="#model-paper">Model Paper</a><a href="#model-answers">Model Answers</a><a href="#answer-key">Answer Key</a><a href="#references">References</a><a href="#checklist">Final Checklist</a></div>
+</aside>
+<main class="main-content">
+<section class="hero" id="cover">
+  <div class="hero-copy">
+    <span class="eyebrow">Complete Diploma Engineering Handbook</span>
+    <h1>DC Machines &amp; Traction Motors</h1>
+    <p class="lead">A complete learning and examination handbook covering DC-machine construction, generators, motors, starters, testing, speed control and electric-traction control—with derivations, diagrams, characteristic curves, solved numericals, Malayalam support, practice and full model answers.</p>
+    <div class="meta-grid">
+      <div><span>Course Code</span><b>3032</b></div><div><span>Programme</span><b>Diploma in Electrical &amp; Electronics Engineering</b></div><div><span>Semester</span><b>3</b></div>
+      <div><span>Credits</span><b>3</b></div><div><span>Category</span><b>Program Core</b></div><div><span>Periods</span><b>3/week • 45/semester</b></div>
+    </div>
+    <div class="hero-actions"><a class="action primary" href="#module1">Start Learning</a><button class="action secondary" type="button" onclick="window.print()">Download as PDF</button></div>
+    <div class="callout exam"><b>PDF note</b><div>The button opens the browser print dialog. Choose <b>Save as PDF</b> to create an offline A4 copy.</div></div>
+  </div>
+  <div class="hero-visual">
+    <div class="rotor-wrap"><div class="rotor" id="heroRotor" aria-label="Animated rotating DC-machine rotor"></div></div>
+    <div class="controls"><button type="button" data-rotor="play">Play</button><button type="button" data-rotor="pause">Pause</button><button type="button" data-rotor="replay">Replay</button></div>
+    <h2>Four-module pathway</h2>
+    <div class="module-map">
+      <div class="module-tile"><b>Module 1</b>Construction, generator action, EMF, losses, efficiency and windings</div>
+      <div class="module-tile"><b>Module 2</b>Armature reaction, commutation, characteristics and parallel operation</div>
+      <div class="module-tile"><b>Module 3</b>Motor action, torque, characteristics, starters and testing</div>
+      <div class="module-tile"><b>Module 4</b>Speed control, traction motors, transitions and electrical braking</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="overview">
+  <div class="section-head"><span class="eyebrow">Course Overview</span><h2>Why DC machines remain essential</h2><p>DC machines convert energy in both directions. As generators they convert mechanical input into direct-current electrical output. As motors they convert DC electrical input into mechanical torque. Their transparent magnetic and electrical relationships make them ideal for learning electromechanical energy conversion, while traction applications demonstrate high starting torque, controlled acceleration and electrical braking.</p></div>
+  <div class="grid">
+    <article class="card third blue"><h3>Energy conversion</h3><p>Faraday’s law explains generated EMF; force on a current-carrying conductor explains motor torque. The same physical machine can operate in either direction.</p></article>
+    <article class="card third copper"><h3>Industrial relevance</h3><p>DC motors are used where wide speed control, high starting torque or predictable torque-current relationships are required.</p></article>
+    <article class="card third green"><h3>Traction relevance</h3><p>Series motors historically suit locomotives, trams and cranes because their torque is very high at low speed and heavy current.</p></article>
+  </div>
+  <h3>Typical applications</h3>
+  <div class="grid">
+    <div class="card quarter"><h4>Generators</h4><p>Battery charging, laboratory supplies, exciters, electroplating and welding.</p></div>
+    <div class="card quarter"><h4>Shunt motors</h4><p>Lathes, fans, blowers, pumps and machine tools requiring nearly constant speed.</p></div>
+    <div class="card quarter"><h4>Series motors</h4><p>Traction, cranes, hoists and elevators requiring high starting torque.</p></div>
+    <div class="card quarter"><h4>Compound motors</h4><p>Presses, conveyors and rolling mills with changing load and better speed regulation.</p></div>
+  </div>
+</section>
+
+<section class="section" id="use">
+  <div class="section-head"><span class="eyebrow">How to Use This Handbook</span><h2>Learn, trace, calculate and practise</h2></div>
+  <div class="grid">
+    <div class="card quarter"><h3>1. Understand</h3><p>Read the physical principle before memorising any equation.</p></div>
+    <div class="card quarter"><h3>2. Trace</h3><p>Follow magnetic flux, current, power and motion arrows in every diagram.</p></div>
+    <div class="card quarter"><h3>3. Calculate</h3><p>Use the solved format: given data, formula, substitution, unit and interpretation.</p></div>
+    <div class="card quarter"><h3>4. Verify</h3><p>Attempt module questions, model paper and answer-key checks without looking first.</p></div>
+  </div>
+</section>
+
+<section class="section" id="toc">
+  <div class="section-head"><span class="eyebrow">Table of Contents</span><h2>Clickable textbook map</h2></div>
+  <div class="toc">
+    <a href="#objectives">Objectives &amp; Prerequisite <span>→</span></a><a href="#outcomes">Outcomes &amp; CO-PO <span>→</span></a><a href="#roadmap">Learning Roadmap <span>→</span></a>
+    <a href="#module1">Module 1 <span>→</span></a><a href="#module2">Module 2 <span>→</span></a><a href="#module3">Module 3 <span>→</span></a><a href="#module4">Module 4 <span>→</span></a>
+    <a href="#formula-bank">Formula Bank <span>→</span></a><a href="#construction-bank">Construction Bank <span>→</span></a><a href="#circuit-bank">Circuit Bank <span>→</span></a>
+    <a href="#curve-bank">Characteristic Curves <span>→</span></a><a href="#loss-bank">Power Flow &amp; Losses <spa
