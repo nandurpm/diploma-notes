@@ -1,0 +1,17 @@
+><p>45 + 27 = 72, so the result is verified.</p></div>
+ <div class="card"><h3>Binary multiplication example</h3><div class="codebox">   1011<br>×   101<br>-------<br>   1011<br>  0000<br> 101100<br>-------<br>110111</div><p>11 × 5 = 55 = 110111₂.</p></div>
+</div>
+
+<h3>4. Signed numbers and complements</h3>
+<p>One’s complement is formed by inverting every bit. Two’s complement is one’s complement plus 1. In an n-bit signed two’s-complement system, the leftmost bit is the sign bit.</p>
+<div class="formula">One’s complement: 0 ↔ 1</div><div class="formula">Two’s complement = One’s complement + 1</div>
+<div class="grid">
+ <div class="card"><h3>Example: 8-bit two’s complement of 14</h3><div class="steps"><div class="step">14 = 00001110</div><div class="step">Invert bits → 11110001</div><div class="step">Add 1 → 11110010</div></div></div>
+ <div class="card"><h3>Subtraction: 46 − 14</h3><div class="codebox">46 = 00101110<br>14 = 00001110<br>2’s comp(14) = 11110010<br><br>  00101110<br>+ 11110010<br>-----------<br>1 00100000</div><p>Discard the end carry. Result = 00100000₂ = 32₁₀.</p></div>
+</div>
+<div class="callout remember"><b>Malayalam Support</b><div>Two’s complement subtraction-ൽ subtract ചെയ്യേണ്ട number-ന്റെ bits invert ചെയ്ത് 1 കൂട്ടുക. ശേഷം minuend-നോട് add ചെയ്യുക. End carry ഉണ്ടെങ്കിൽ അത് discard ചെയ്യണം.</div></div>
+<div class="callout mistake"><b>Common mistake</b><div>Use the required bit width before complementing. Do not complement an unpadded number.</div></div>
+
+<h3>5. Logic levels and gates</h3>
+<p>In positive logic, the higher voltage level represents logic 1 and the lower voltage level represents logic 0. A logic gate performs a Boolean operation on one or more binary inputs.</p>
+
