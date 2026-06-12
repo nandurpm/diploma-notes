@@ -1,0 +1,30 @@
+buses and some industrial vehicles. A traction motor repeatedly starts heavy mass, accelerates rapidly, operates over a wide speed range and must survive vibration, overload and frequent braking.</p>
+  <div class="table-wrap"><table><thead><tr><th>Requirement</th><th>Why it matters</th><th>DC series-motor suitability</th></tr></thead><tbody>
+    <tr><td>High starting torque</td><td>Large train mass must be accelerated from rest</td><td>T∝Ia² before saturation</td></tr>
+    <tr><td>High overload capacity</td><td>Gradients and acceleration require short-time overload</td><td>Robust series field and high torque</td></tr>
+    <tr><td>Wide speed control</td><td>Starting, acceleration, cruising and grade control</td><td>Series-parallel, resistance and field control available</td></tr>
+    <tr><td>Electrical braking</td><td>Reduce mechanical-brake wear and improve control</td><td>Can operate as generator for rheostatic/regenerative braking</td></tr>
+    <tr><td>Compact and rugged</td><td>Limited bogie space and severe vibration</td><td>Historically well suited</td></tr>
+  </tbody></table></div>
+  <div class="ml"><b>Malayalam Support:</b> DC series motor-ന് starting torque വളരെ കൂടുതലാണ്. Train പോലുള്ള വലിയ load rest-ൽ നിന്ന് വേഗത്തിൽ ആരംഭിക്കാൻ ഇത് സഹായിക്കുന്നു.</div>
+
+  <h3>5. Tractive effort and speed-time curve</h3>
+  <p>A typical run has acceleration, free running/coasting and braking periods. The speed-time curve helps estimate schedule speed, energy use and motor rating.</p>
+  <div class="curve-panel">
+    <svg viewBox="0 0 900 380" role="img" aria-label="Traction speed-time curve with acceleration, free running, coasting and braking regions">
+      <line x1="70" y1="315" x2="850" y2="315" stroke="#334155" stroke-width="3"/><line x1="70" y1="315" x2="70" y2="45" stroke="#334155" stroke-width="3"/>
+      <path d="M70 315 C150 210 230 105 350 85 L520 85 C610 100 680 145 730 190 C775 225 815 265 850 315" fill="none" stroke="#6d43b5" stroke-width="7"/>
+      <line x1="350" y1="315" x2="350" y2="85" stroke="#94a3b8" stroke-dasharray="8 7"/><line x1="520" y1="315" x2="520" y2="85" stroke="#94a3b8" stroke-dasharray="8 7"/><line x1="730" y1="315" x2="730" y2="190" stroke="#94a3b8" stroke-dasharray="8 7"/>
+      <text x="150" y="280" font-size="20">Acceleration</text><text x="390" y="70" font-size="20">Free running</text><text x="575" y="170" font-size="20">Coasting</text><text x="760" y="250" font-size="20">Braking</text><text x="390" y="360" font-size="20">Time</text><text x="15" y="60" font-size="20">Speed</text>
+    </svg>
+  </div>
+
+  <h3>6. Series-parallel control of traction motors</h3>
+  <p>For a vehicle with two identical series motors and a fixed DC supply, starting resistances limit current. At low speed, motors are connected in series so each receives about half the supply. At higher speed, motors are reconnected in parallel so each receives full supply. Resistance is progressively cut out in each connection.</p>
+  <div class="demo" id="tractionDemo">
+    <h4>Interactive traction-control sequence</h4>
+    <div class="controls"><button type="button" data-stage="prev">Previous Step</button><button type="button" data-stage="next">Next Step</button><button type="button" data-stage="replay">Replay</button></div>
+    <div class="stage active"><b>Stage 1 — Series with full starting resistance</b><p>Motors M1 and M2 are in series. Current passes through all starting-resistance sections. Torque is controlled and each motor receives a fraction of supply voltage.</p></div>
+    <div class="stage"><b>Stage 2 — Series with resistance cut out</b><p>As back EMF rises, resistance sections are removed. At full-series position, both motors remain in series with no starting resistance.</p></div>
+    <div class="stage"><b>Stage 3 — Transition</b><p>Connections change without allowing excessive current or interrupting tractive effort. Shunt or bridge transition is used.</p></div>
+    <div class="stage"><b>Stage 4 — Parallel with resistance</b><p>
