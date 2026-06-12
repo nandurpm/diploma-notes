@@ -1,3 +1,15 @@
+:root {
+  /* Shared desktop width for every portal page using the common stylesheet. */
+  --page-width: 1880px;
+  --page-gutter: clamp(16px, 2vw, 32px);
+}
+
+/* About page previously used its own narrower 1180px container. */
+.about-shell,
+.language-bar {
+  width: min(var(--page-width), calc(100% - var(--page-gutter))) !important;
+}
+
 @media (max-width: 1200px) {
   .topbar { grid-template-columns: auto 1fr; }
   .site-notice { grid-column: 1 / -1; order: 3; }
@@ -32,6 +44,8 @@
   main,
   .topbar,
   .footer { width: calc(100% - 14px); max-width: calc(100% - 14px); }
+  .about-shell,
+  .language-bar { width: calc(100% - 14px) !important; max-width: calc(100% - 14px) !important; }
   .page-title,
   .hero-copy,
   .hero-panel,
