@@ -1,0 +1,65 @@
+lem or institution.</p></div>
+    <div class="card"><h4>Commutation reactance voltage</h4><div class="formula">e<sub>r</sub>=L·di/dt</div><p>Shows why rapid current reversal in an inductive coil causes sparking. This is a concept relation, not normally a detailed numerical topic here.</p></div>
+  </div>
+
+  <h3>Module 3 — Motor formulas</h3>
+  <div class="grid">
+    <div class="card third"><h4>Voltage and back EMF</h4><div class="formula">V=E<sub>b</sub>+I<sub>a</sub>R<sub>a</sub>; E<sub>b</sub>=V−I<sub>a</sub>R<sub>a</sub></div><p>Neglect brush drop unless stated. Back EMF is less than supply during motoring.</p></div>
+    <div class="card third"><h4>Back-EMF equation</h4><div class="formula">E<sub>b</sub>=PΦZN/(60A)</div><p>Same machine constant as generator EMF. Use motor speed and flux.</p></div>
+    <div class="card third"><h4>Speed relation</h4><div class="formula">N∝E<sub>b</sub>/Φ=(V−I<sub>a</sub>R<sub>a</sub>)/Φ</div><p>For comparisons, use ratios and state which quantities are constant.</p></div>
+    <div class="card third"><h4>Torque</h4><div class="formula">T=0.159(PZ/A)ΦI<sub>a</sub></div><p><b>Unit:</b> N·m. <b>Mistake:</b> Φ must be in webers, not mWb.</p></div>
+    <div class="card third"><h4>Mechanical power developed</h4><div class="formula">P<sub>m</sub>=E<sub>b</sub>I<sub>a</sub></div><p>This is gross converted mechanical power before rotational losses.</p></div>
+    <div class="card third"><h4>Torque from power</h4><div class="formula">T=P/ω=60P/(2πN)=9.55P/N</div><p>If P is watts and N rpm, T is N·m. With P in kW: T=9550P(kW)/N.</p></div>
+    <div class="card third"><h4>Starting current</h4><div class="formula">I<sub>a,start</sub>=V/(R<sub>a</sub>+R<sub>st</sub>)</div><p>At standstill Eb=0. Solve Rst=V/Ilimit−Ra.</p></div>
+    <div class="card third"><h4>Motor efficiency</h4><div class="formula">η<sub>m</sub>=P<sub>shaft</sub>/P<sub>electrical input</sub>×100%</div><p>Line input includes field current in a shunt motor.</p></div>
+    <div class="card third"><h4>Maximum mechanical power</h4><div class="formula">E<sub>b</sub>=V/2</div><p>Idealised armature-circuit result. It gives excessive current and ≤50% conversion efficiency before rotational losses.</p></div>
+  </div>
+
+  <h3>Module 4 — Speed-control and braking formulas</h3>
+  <div class="grid">
+    <div class="card third"><h4>General speed ratio</h4><div class="formula">N₂/N₁=[(V₂−I₂R₂)/(V₁−I₁R₁)]·(Φ₁/Φ₂)</div><p>R includes armature plus external series resistance. Use consistent currents.</p></div>
+    <div class="card third"><h4>Constant flux</h4><div class="formula">N₁/N₂=E<sub>b1</sub>/E<sub>b2</sub></div><p>Suitable for armature-voltage or resistance-control comparisons.</p></div>
+    <div class="card third"><h4>Approximately constant Eb</h4><div class="formula">N₁/N₂=Φ₂/Φ₁</div><p>Used for field-control estimates when armature drop is small.</p></div>
+    <div class="card third"><h4>Rheostatic braking</h4><div class="formula">I=E<sub>g</sub>/R<sub>total</sub>; P=E<sub>g</sub>I=I²R</div><p>Generated energy is dissipated in resistors.</p></div>
+    <div class="card third"><h4>Regenerative braking</h4><div class="formula">I=(E<sub>g</sub>−V)/R<sub>total</sub>, when E<sub>g</sub>&gt;V</div><p>Current returns to the supply; line power approximately VI.</p></div>
+    <div class="card third"><h4>Mechanical output / braking torque</h4><div class="formula">T=9.55P/N</div><p>Use the converted mechanical/electrical power consistent with the requested torque and account for losses if supplied.</p></div>
+  </div>
+</section>
+
+<section class="section" id="construction-bank">
+  <div class="section-head"><span class="eyebrow">DC Machine Construction Bank</span><h2>Parts, magnetic path and maintenance insight</h2></div>
+  <div class="grid">
+    <div class="card quarter"><h3>Yoke</h3><p>Outer frame, mechanical support and flux return. Inspect for cracks, loose feet and earthing.</p></div>
+    <div class="card quarter"><h3>Pole core</h3><p>Supports field coil and carries flux. Tight pole bolts preserve air-gap uniformity.</p></div>
+    <div class="card quarter"><h3>Pole shoe</h3><p>Spreads flux, lowers reluctance and supports field coil.</p></div>
+    <div class="card quarter"><h3>Field winding</h3><p>Creates main MMF. Shunt coils use fine wire/many turns; series coils use thick wire/few turns.</p></div>
+    <div class="card quarter"><h3>Armature core</h3><p>Laminated steel cylinder with slots. Laminations reduce eddy-current loss.</p></div>
+    <div class="card quarter"><h3>Armature winding</h3><p>Coils in slots connected to commutator segments. Insulation must withstand thermal and mechanical stress.</p></div>
+    <div class="card quarter"><h3>Commutator</h3><p>Copper segments insulated by mica. Surface should be concentric, smooth and properly undercut.</p></div>
+    <div class="card quarter"><h3>Brushes</h3><p>Carbon contacts collect/supply current. Correct grade, pressure and neutral position prevent sparking.</p></div>
+    <div class="card quarter"><h3>Shaft</h3><p>Supports armature and transmits torque. Check alignment and key condition.</p></div>
+    <div class="card quarter"><h3>Bearings</h3><p>Maintain rotation and air gap. Lubrication, noise and temperature indicate condition.</p></div>
+    <div class="card quarter"><h3>Interpoles</h3><p>Series-connected auxiliary poles that improve current reversal under brushes.</p></div>
+    <div class="card quarter"><h3>Compensating winding</h3><p>Pole-face conductors that cancel armature MMF under load.</p></div>
+  </div>
+  <div class="callout safety"><b>Machine insight</b><div>Many brush and commutation faults are actually caused by mechanical problems: eccentric commutator, vibration, incorrect spring pressure, dirty surface, poor alignment or overloaded bearings.</div></div>
+</section>
+
+<section class="section" id="circuit-bank">
+  <div class="section-head"><span class="eyebrow">Circuit and Connection Diagram Bank</span><h2>What to show in every examination diagram</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Diagram</th><th>Essential labels and current path</th><th>Key equation / note</th></tr></thead><tbody>
+    <tr><td>Separately excited generator</td><td>Independent field supply, armature Eg/Ra, load, Ia and IL</td><td>Field current independent of load</td></tr>
+    <tr><td>Shunt generator</td><td>Shunt field across terminals; Ia splits into IL and Ish</td><td>Ia=IL+Ish</td></tr>
+    <tr><td>Series generator</td><td>Series field in load path</td><td>Ia=IL</td></tr>
+    <tr><td>Compound generator</td><td>Both shunt and series fields; show long/short-shunt connection</td><td>Mark aiding/opposing polarity</td></tr>
+    <tr><td>Shunt motor</td><td>Armature and shunt field across supply; Ia and Ish branches</td><td>IL=Ia+Ish</td></tr>
+    <tr><td>Series motor</td><td>Series field and armature in one path</td><td>Never run unloaded</td></tr>
+    <tr><td>Compound motor</td><td>Both fields; mark cumulative direction</td><td>Series field aids shunt field</td></tr>
+    <tr><td>Three-point starter</td><td>L,A,F; starting resistance, handle, NVR, OLR</td><td>NVR in field circuit</td></tr>
+    <tr><td>Four-point starter</td><td>L,A,F,N; NVR across supply</td><td>Independent of field current</td></tr>
+    <tr><td>Load test</td><td>Supply, starter, ammeter, voltmeter, motor, brake/dynamometer and tachometer</td><td>Pout=2πNT/60</td></tr>
+    <tr><td>Swinburne test</td><td>No-load shunt motor, V/A meters, field rheostat</td><td>Find constant losses from no-load input</td></tr>
+    <tr><td>Flux control</td><td>Field rheostat in shunt-field circuit</td><td>Weak field → high speed</td></tr>
+    <tr><td>Armature control</td><td>Series resistor or variable armature supply</td><td>Lower Eb → lower speed</td></tr>
+    <tr><td>Traction series/parallel</td><td>Two motors, starting resistors, contactors and current path</td><td>Series low speed; parallel high speed</td></tr>
+    <tr><td>Rheostatic braking</td><td>Motor reconnected as generator 
