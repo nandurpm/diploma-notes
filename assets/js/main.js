@@ -145,6 +145,105 @@ function dedupeSubjects(subjects) {
   return out;
 }
 
+function semesterRank(value) {
+  const text = String(value || "");
+  const match = text.match(/semester\s*(\d+)/i);
+  if (match) return Number(match[1]);
+  if (/first\s*year/i.test(text)) return 1;
+  return Number.MAX_SAFE_INTEGER;
+}
+
+function compareSubjectCodes(a, b) {
+  return String(a || "").localeCompare(String(b || ""), undefined, {
+    numeric: true,
+    sensitivity: "base"
+  });
+}
+
+function sortSubjectsSemesterWise(subjects, fixedDepartment = "") {
+  return [...subjects].sort((a, b) => {
+    const semesterDifference = semesterRank(a.semester) - semesterRank(b.semester);
+    if (semesterDifference) return semesterDifference;
+
+    if (fixedDepartment) {
+      const aCommon = a.department === "First Year / Common" ? 0 : 1;
+      const bCommon = b.department === "First Year / Common" ? 0 : 1;
+      if (aCommon !== bCommon) return aCommon - bCommon;
+    } else {
+      const aDepartment = a.department === "First Year / Common" ? "" : String(a.department || "");
+      const bDepartment = b.department === "First Year / Common" ? "" : String(b.department || "");
+      const departmentDifference = aDepartment.localeCompare(bDepartment, undefined, { sensitivity: "base" });
+      if (departmentDifference) return departmentDifference;
+    }
+
+    const codeDifference = compareSubjectCodes(a.code, b.code);
+    if (codeDifference) return codeDifference;
+    return String(a.name || "").localeCompare(String(b.name || ""), undefined, { sensitivity: "base" });
+  });
+}
+
+function ensureSemesterGroupStyles() {
+  if (document.getElementById("semesterGroupStyles")) return;
+  const style = document.createElement("style");
+  style.id = "semesterGroupStyles";
+  style.textContent = `
+    .semester-group-heading {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 64px;
+      margin-top: 12px;
+      padding: 14px 18px;
+      border: 1px solid rgba(29,78,216,.14);
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(219,234,254,.96), rgba(236,253,245,.96));
+      box-shadow: 0 12px 28px rgba(20,45,90,.08);
+    }
+    .semester-group-heading:first-child { margin-top: 0; }
+    .semester-group-heading span {
+      color: #0f3f8a;
+      font-family: "Space Grotesk", Inter, sans-serif;
+      font-size: clamp(1.2rem, 2vw, 1.65rem);
+      font-weight: 950;
+      letter-spacing: -.03em;
+    }
+    .semester-group-heading small {
+      flex: 0 0 auto;
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: #047857;
+      background: rgba(255,255,255,.88);
+      font-size: .78rem;
+      font-weight: 900;
+    }
+    @media (max-width: 560px) {
+      .semester-group-heading { min-height: 56px; padding: 12px 14px; }
+    }
+  `;
+  document.head.append(style);
+}
+
+function renderSemesterGroups(subjects) {
+  const totals = subjects.reduce((map, subject) => {
+    const semester = subject.semester || "Other subjects";
+    map.set(semester, (map.get(semester) || 0) + 1);
+    return map;
+  }, new Map());
+
+  let previousSemester = "";
+  return subjects.map((subject) => {
+    const semester = subject.semester || "Other subjects";
+    const count = totals.get(semester);
+    const heading = semester !== previousSemester
+      ? `<div class="semester-group-heading"><span>${escapeHtml(semester)}</span><small>${count} ${count === 1 ? "subject" : "subjects"}</small></div>`
+      : "";
+    previousSemester = semester;
+    return heading + subjectCard(subject);
+  }).join("");
+}
+
 function setupSubjectBrowser() {
   const pagePath = window.location.pathname.toLowerCase();
   if (pagePath.endsWith("/materials-2015.html") || pagePath.endsWith("materials-2015.html")) {
@@ -154,6 +253,7 @@ function setupSubjectBrowser() {
 
   const grid = document.querySelector("#subjectGrid");
   if (!grid || !Array.isArray(SUBJECTS)) return;
+  ensureSemesterGroupStyles();
 
   const subjects = dedupeSubjects(SUBJECTS).filter((subject) => subject.revision !== "2015");
   const params = new URLSearchParams(window.location.search);
@@ -194,7 +294,7 @@ function setupSubjectBrowser() {
       return;
     }
 
-    const visible = subjects.filter((subject) => {
+    const visible = sortSubjectsSemesterWise(subjects.filter((subject) => {
       const text = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
       if (revision !== "all" && subject.revision !== revision) return false;
       if (semester !== "all" && subject.semester !== semester) return false;
@@ -205,9 +305,9 @@ function setupSubjectBrowser() {
         return false;
       }
       return true;
-    });
+    }), fixedDepartment);
 
-    grid.innerHTML = visible.length ? visible.map(subjectCard).join("") : '<p class="empty">No subjects match this filter.</p>';
+    grid.innerHTML = visible.length ? renderSemesterGroups(visible) : '<p class="empty">No subjects match this filter.</p>';
     setupAssetButtons(grid);
   };
 
