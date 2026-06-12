@@ -109,8 +109,17 @@
       table { min-width:0!important; font-size:8.5pt; } th,td { padding:4pt 5pt; }
     }
   </style>
+
+<style id="revision-back-button-style">
+.revision-back-button{position:fixed;left:16px;bottom:16px;z-index:9999;display:inline-flex;align-items:center;justify-content:center;gap:.42rem;padding:.72rem 1rem;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:linear-gradient(135deg,#075985,#6d28d9);color:#fff!important;text-decoration:none!important;font-family:Segoe UI,Arial,sans-serif;font-size:.84rem;font-weight:900;line-height:1;letter-spacing:.01em;box-shadow:0 12px 30px rgba(15,23,42,.24);transition:transform .2s ease,box-shadow .2s ease;white-space:nowrap}
+.revision-back-button:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(15,23,42,.3)}
+.revision-back-button:focus-visible{outline:3px solid #fbbf24;outline-offset:3px}
+@media(max-width:560px){.revision-back-button{left:10px;bottom:10px;padding:.66rem .82rem;font-size:.76rem}}
+@media print{.revision-back-button{display:none!important}}
+</style>
 </head>
 <body>
+<a class="revision-back-button" href="../revision-2021.html" aria-label="Back to Revision 2021">&#8592; Back to Revision 2021</a>
   <div class="progress" id="progress"></div>
   <header class="topbar">
     <div class="topbar-inner">

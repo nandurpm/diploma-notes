@@ -9,7 +9,7 @@
 :root {
   --bg:#f4f8fc; --surface:#ffffff; --surface2:#f8fbff; --ink:#101827; --muted:#5a6678; --line:rgba(15,23,42,.14);
   --brand:#0788b8; --dark:#111827; --green:#0f766e; --orange:#f97316; --violet:#7c3aed; --cyan:#0891b2; --red:#dc2626;
-  --shadow:0 16px 42px rgba(15,23,42,.10); --radius:24px; --max:1540px; --mal:"Noto Sans Malayalam","Nirmala UI","Manjari",system-ui,sans-serif;
+  --shadow:0 16px 42px rgba(15,23,42,.10); --radius:24px; --max:1900px; --mal:"Noto Sans Malayalam","Nirmala UI","Manjari",system-ui,sans-serif;
 }
 * {box-sizing:border-box}
 html {scroll-behavior:smooth}
@@ -17,7 +17,7 @@ body {margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI
 body:before {content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(14,165,233,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.06) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,black,transparent 90%);opacity:.7}
 a {color:inherit;text-decoration:none}
 button,input {font:inherit}
-.screen {width:min(var(--max),calc(100% - 28px));margin-inline:auto}
+.screen {width:min(99.2vw,var(--max));margin-inline:auto}
 .progress {position:fixed;left:0;top:0;height:4px;background:linear-gradient(90deg,#06b6d4,#8b5cf6,#f97316,#10b981);width:0;z-index:1000}
 .topbar {position:sticky;top:0;z-index:200;background:rgba(244,248,252,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
 .topbar .screen {display:flex;align-items:center;gap:16px;padding:8px 0;overflow-x:auto;scrollbar-width:none}
@@ -144,8 +144,17 @@ tr:last-child td {border-bottom:0}
   .section{break-before:auto;padding:1rem 0} .section-head h2{font-size:2rem} a{text-decoration:none;color:inherit}
 }
 </style>
+
+<style id="revision-back-button-style">
+.revision-back-button{position:fixed;left:16px;bottom:16px;z-index:9999;display:inline-flex;align-items:center;justify-content:center;gap:.42rem;padding:.72rem 1rem;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:linear-gradient(135deg,#075985,#6d28d9);color:#fff!important;text-decoration:none!important;font-family:Segoe UI,Arial,sans-serif;font-size:.84rem;font-weight:900;line-height:1;letter-spacing:.01em;box-shadow:0 12px 30px rgba(15,23,42,.24);transition:transform .2s ease,box-shadow .2s ease;white-space:nowrap}
+.revision-back-button:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(15,23,42,.3)}
+.revision-back-button:focus-visible{outline:3px solid #fbbf24;outline-offset:3px}
+@media(max-width:560px){.revision-back-button{left:10px;bottom:10px;padding:.66rem .82rem;font-size:.76rem}}
+@media print{.revision-back-button{display:none!important}}
+</style>
 </head>
 <body>
+<a class="revision-back-button" href="../revision-2021.html" aria-label="Back to Revision 2021">&#8592; Back to Revision 2021</a>
 <div class="progress" id="progress"></div>
 <header class="topbar">
   <div class="screen">
