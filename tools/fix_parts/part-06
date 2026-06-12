@@ -1,3 +1,35 @@
 
+_base_main = main
+
+def main() -> None:
+    _base_main()
+    hardening_path = ROOT / "assets/js/site-hardening.js"
+    text = hardening_path.read_text(encoding="utf-8")
+    text = text.replace(
+        "  const fixFooter = () => {",
+        '''  const fixEmptyMaterialGroups = () => {
+    if (normalizedPath() !== "/materials-2015.html") return;
+    window.setTimeout(() => {
+      document.querySelectorAll("[data-link-group]").forEach((container) => {
+        if (!container.querySelector("a") && !container.textContent.trim()) container.append(unavailable());
+      });
+    }, 0);
+  };
+
+  const fixFooter = () => {'''
+    )
+    text = text.replace("      fixFooter();\n      layoutProbe();", "      fixEmptyMaterialGroups();\n      fixFooter();\n      layoutProbe();")
+    text = text.replace(
+        '''    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.body.dataset.layoutOverflow = String(document.documentElement.scrollWidth > window.innerWidth + 1);
+    }));''',
+        '''    const measure = () => { document.body.dataset.layoutOverflow = String(document.documentElement.scrollWidth > window.innerWidth + 1); };
+    measure();
+    requestAnimationFrame(() => requestAnimationFrame(measure));'''
+    )
+    hardening_path.write_text(text, encoding="utf-8")
+    static_checks()
+
+
 if __name__ == "__main__":
     main()
