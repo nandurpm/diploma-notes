@@ -1,0 +1,63 @@
+#subjectGrid.department-semester-layout {
+  display: block;
+}
+
+.department-semester-section {
+  width: 100%;
+  margin: 0 0 24px;
+}
+
+.department-semester-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding: 15px 18px;
+  border: 1px solid rgba(29, 78, 216, 0.16);
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.98), rgba(236, 253, 245, 0.98));
+  box-shadow: 0 12px 28px rgba(20, 45, 90, 0.08);
+}
+
+.department-semester-heading h3 {
+  margin: 0;
+  color: #0f3f8a;
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  font-weight: 950;
+  letter-spacing: -0.03em;
+}
+
+.department-semester-heading span {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #047857;
+  background: rgba(255, 255, 255, 0.92);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.department-semester-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.department-semester-grid .subject-card {
+  min-width: 0;
+  height: 100%;
+}
+
+@media (max-width: 640px) {
+  .department-semester-heading {
+    padding: 13px 14px;
+  }
+
+  .department-semester-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
