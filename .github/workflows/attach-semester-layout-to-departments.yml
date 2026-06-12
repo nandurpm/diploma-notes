@@ -1,0 +1,57 @@
+name: Attach semester layout to department pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/attach-semester-layout-to-departments.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-pages:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Load shared semester layout on all department pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          changed = 0
+          css = '  <link rel="stylesheet" href="/assets/css/department-semester-layout.css?v=20260612-1">\n'
+          script = '  <script src="/assets/js/department-semester-layout.js?v=20260612-1" defer></script>\n'
+
+          for path in sorted(Path('revision-2021').glob('*.html')):
+              text = path.read_text(encoding='utf-8')
+              if 'id="subjectGrid"' not in text or 'data-revision="2021"' not in text or 'data-department=' not in text:
+                  continue
+              updated = text
+              if 'department-semester-layout.css' not in updated:
+                  updated = updated.replace('</head>', css + '</head>', 1)
+              if 'department-semester-layout.js' not in updated:
+                  updated = updated.replace('</body>', script + '</body>', 1)
+              if updated != text:
+                  path.write_text(updated, encoding='utf-8')
+                  changed += 1
+
+          if changed < 1:
+              raise SystemExit('No Revision 2021 department pages were updated')
+          print(f'Updated {changed} department pages.')
+          PY
+
+          grep -RIl 'department-semester-layout.js' revision-2021/*.html | wc -l
+
+      - name: Commit department page updates
+        run: |
+          rm -f .github/workflows/attach-semester-layout-to-departments.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Load semester-wise layout on all Revision 2021 departments'
+          git push origin HEAD:main
