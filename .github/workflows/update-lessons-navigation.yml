@@ -1,0 +1,95 @@
+name: Update lesson navigation and content
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-lessons-navigation.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-lessons:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add Revision 2021 navigation and lesson updates
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          lessons_dir = Path('lessons')
+          lesson_files = sorted(lessons_dir.glob('lessons-*.html'))
+
+          button_css = '''
+          <style id="revision-back-button-style">
+          .revision-back-button{position:fixed;left:16px;bottom:16px;z-index:9999;display:inline-flex;align-items:center;justify-content:center;gap:.42rem;padding:.72rem 1rem;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:linear-gradient(135deg,#075985,#6d28d9);color:#fff!important;text-decoration:none!important;font-family:Segoe UI,Arial,sans-serif;font-size:.84rem;font-weight:900;line-height:1;letter-spacing:.01em;box-shadow:0 12px 30px rgba(15,23,42,.24);transition:transform .2s ease,box-shadow .2s ease;white-space:nowrap}
+          .revision-back-button:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(15,23,42,.3)}
+          .revision-back-button:focus-visible{outline:3px solid #fbbf24;outline-offset:3px}
+          @media(max-width:560px){.revision-back-button{left:10px;bottom:10px;padding:.66rem .82rem;font-size:.76rem}}
+          @media print{.revision-back-button{display:none!important}}
+          </style>'''
+          button_html = '<a class="revision-back-button" href="../revision-2021.html" aria-label="Back to Revision 2021">&#8592; Back to Revision 2021</a>'
+
+          for path in lesson_files:
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              if 'id="revision-back-button-style"' not in text:
+                  text = re.sub(r'</head\s*>', button_css + '\n</head>', text, count=1, flags=re.I)
+              if 'class="revision-back-button"' not in text:
+                  match = re.search(r'<body\b[^>]*>', text, flags=re.I)
+                  if match:
+                      text = text[:match.end()] + '\n' + button_html + text[match.end():]
+
+              if path.name == 'lessons-1004.html':
+                  text = re.sub(r'--max\s*:\s*1540px', '--max:1900px', text, count=1)
+                  text = re.sub(
+                      r'\.screen\s*\{\s*width\s*:\s*min\(var\(--max\),\s*calc\(100%\s*-\s*28px\)\)\s*;\s*margin-inline\s*:\s*auto\s*\}',
+                      '.screen {width:min(99.2vw,var(--max));margin-inline:auto}',
+                      text,
+                      count=1
+                  )
+
+              if path.name == 'lessons-2041.html' and 'id="extended-electronics-notes"' not in text:
+                  extended = '''
+          <section class="section" id="extended-electronics-notes"><div class="head"><span class="tag">Extended Electronics Notes</span><h2>Useful device and circuit notes</h2><p>Additional syllabus-relevant explanations developed from major electronics tutorial topics. No external tutorial links are included.</p></div>
+          <h3>Diode family and selection</h3><div class="tbl"><table><tr><th>Device</th><th>Main property</th><th>Typical use</th><th>Selection point</th></tr><tr><td>Signal diode</td><td>Fast operation at low current</td><td>Detection, switching and small-signal clipping</td><td>Switching speed, forward current and reverse voltage</td></tr><tr><td>Power diode</td><td>Handles larger current and power</td><td>Rectifiers and power supplies</td><td>Average current, surge current, PIV and power loss</td></tr><tr><td>Zener diode</td><td>Operates safely in reverse breakdown</td><td>Voltage reference and protection</td><td>Zener voltage, current range and power rating</td></tr><tr><td>LED</td><td>Converts current into light</td><td>Indicators and displays</td><td>Forward voltage, current and series resistor</td></tr><tr><td>Schottky diode</td><td>Low forward drop and fast switching</td><td>High-frequency and low-voltage circuits</td><td>Reverse leakage and voltage rating</td></tr><tr><td>Bypass diode</td><td>Provides an alternate current path</td><td>Protection of series-connected cells or sections</td><td>Current and reverse-voltage capability</td></tr></table></div>
+          <div class="call"><b>Practical diode choice:</b> A rectifier diode is chosen mainly by current and PIV, a signal diode by speed and low capacitance, a Zener by breakdown voltage and power, and an LED by forward current and required light output.</div>
+          <h3>Transistor switching and Darlington connection</h3><div class="grid"><div class="card"><h3>BJT as a switch</h3><p>Cut-off represents the OFF state and saturation represents the ON state. A base resistor limits base current. The load is normally placed in the collector path, and an inductive load requires a flyback diode.</p><div class="ml">Switching circuit-ൽ transistor active region-ൽ അല്ല; cut-off അല്ലെങ്കിൽ saturation region-ലാണ് പ്രവർത്തിക്കുന്നത്.</div></div><div class="card"><h3>Darlington pair</h3><p>Two BJTs connected so the first emitter drives the second base provide very high overall current gain. The approximate gain is the product of the individual gains, but the pair has a higher effective base-emitter voltage and slower switching than a single transistor.</p></div><div class="card"><h3>FET and MOSFET switches</h3><p>Gate voltage controls the channel while drawing very little steady gate current. MOSFETs are preferred for efficient voltage-controlled switching; the gate must still be charged and discharged during transitions.</p></div><div class="card"><h3>UJT triggering</h3><p>The negative-resistance region allows a capacitor to charge slowly and discharge rapidly, producing trigger pulses. This is the basic idea of a UJT relaxation oscillator.</p></div></div>
+          <h3>RC networks: charging, discharging and waveform action</h3><div class="formula">Capacitor charging: vC(t)=V(1-e<sup>-t/RC</sup>)</div><div class="formula">Capacitor discharging: vC(t)=V<sub>0</sub>e<sup>-t/RC</sup></div><div class="tbl"><table><tr><th>Time</th><th>Charging level</th><th>Discharging level</th></tr><tr><td>1τ</td><td>About 63.2%</td><td>About 36.8%</td></tr><tr><td>3τ</td><td>About 95%</td><td>About 5%</td></tr><tr><td>5τ</td><td>Practically fully charged</td><td>Practically discharged</td></tr></table></div><div class="call exam"><b>Wave-shaping connection:</b> A differentiator emphasizes rapid changes and produces edge spikes. An integrator averages the input over time and changes a square wave toward a ramp or triangular waveform.</div>
+          <h3>Power-supply signal path</h3><div class="grid"><div class="card quarter blue"><h3>1. Transformer</h3><p>Provides isolation and the required AC level.</p></div><div class="card quarter green"><h3>2. Rectifier</h3><p>Changes AC into pulsating DC.</p></div><div class="card quarter yellow"><h3>3. Filter</h3><p>Reduces ripple using C, L or a combined network.</p></div><div class="card quarter purple"><h3>4. Regulation / Load</h3><p>Maintains a useful DC level and supplies the circuit.</p></div></div><p>A capacitor-input filter gives a high no-load DC value but poorer regulation at heavy load. An inductor filter is more suitable for larger current. A π filter combines strong smoothing with practical DC output.</p>
+          <h3>Clipping, clamping and multiplication</h3><div class="tbl"><table><tr><th>Circuit</th><th>What it does</th><th>Typical application</th></tr><tr><td>Positive/negative clipper</td><td>Removes one polarity beyond a set level</td><td>Amplitude limiting and protection</td></tr><tr><td>Biased clipper</td><td>Sets a non-zero clipping level</td><td>Threshold and slicing circuits</td></tr><tr><td>Combination clipper</td><td>Limits both upper and lower levels</td><td>Two-sided protection</td></tr><tr><td>Clamper</td><td>Shifts the complete waveform up or down</td><td>DC restoration</td></tr><tr><td>Voltage multiplier</td><td>Uses diode-capacitor stages for higher DC voltage</td><td>Low-current high-voltage supplies</td></tr></table></div>
+          <h3>Quick practical checks</h3><div class="grid"><div class="card third"><h3>Before power ON</h3><ul><li>Check diode polarity and transistor pin identification.</li><li>Confirm capacitor polarity and voltage rating.</li><li>Verify current-limiting resistors.</li></ul></div><div class="card third"><h3>During measurement</h3><ul><li>Use a common reference ground.</li><li>Compare input and output waveforms on the same time scale.</li><li>Do not exceed device current, voltage or power ratings.</li></ul></div><div class="card third"><h3>When output is wrong</h3><ul><li>Check biasing first.</li><li>Confirm the expected conduction half-cycle.</li><li>Inspect loading, ripple and component orientation.</li></ul></div></div></section>'''
+                  marker = '<section class="section" id="expected">'
+                  if marker in text:
+                      text = text.replace(marker, extended + '\n' + marker, 1)
+                  toc_marker = '<a href="#expected">Expected Questions <span>→</span></a>'
+                  if toc_marker in text:
+                      text = text.replace(toc_marker, '<a href="#extended-electronics-notes">Extended Notes <span>→</span></a>' + toc_marker, 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+
+          print(f'Updated {len(lesson_files)} lesson HTML files.')
+          PY
+
+      - name: Commit updates
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No changes required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lessons
+          git commit -m "Add Revision 2021 back navigation to lesson pages"
+          git push
