@@ -1,0 +1,34 @@
+name: Apply verified site fixes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [fix/verified-site-bugs-2026-06-12]
+    paths: [tools/fix_parts/**]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/verified-site-bugs-2026-06-12
+      - name: Apply and statically verify fixes
+        run: |
+          cat tools/fix_parts/part-* > tools/apply_verified_site_fixes.py
+          python -m py_compile tools/apply_verified_site_fixes.py
+          python tools/apply_verified_site_fixes.py
+          node --check assets/js/main.js
+          node --check assets/js/subjects.js
+          node --check assets/js/site-hardening.js
+          node --check assets/js/help-comments.js
+      - name: Commit fixes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'Fix verified website bugs and structural issues' || exit 0
+          git push origin HEAD:fix/verified-site-bugs-2026-06-12
