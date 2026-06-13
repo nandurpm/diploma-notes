@@ -1,0 +1,76 @@
+name: Improve official lesson page titles
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/fix-official-lesson-titles.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Replace internal filenames in page titles
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          titles = {
+              "lessons/lessons-1001.html": "Communication Skills in English 1001 | Kerala Polytechnic Study Hub",
+              "lessons/lessons-1005.html": "Engineering Graphics 1005 | Kerala Polytechnic Study Hub",
+              "lessons/lessons-2003.html": "Applied Physics-II 2003 | Kerala Polytechnic Study Hub",
+              "lessons/lessons-2031.html": "Fundamentals of Electrical and Electronics Engineering 2031 | Kerala Polytechnic Study Hub",
+              "lessons/lessons-2041.html": "Basic Electronics 2041 | Kerala Polytechnic Study Hub",
+              "lessons/lessons-3023.html": "Machine Tools 3023 | Kerala Polytechnic Study Hub",
+              "lessons/lessons-3044.html": "Digital Electronics 3044 | Kerala Polytechnic Study Hub",
+          }
+
+          for filename, title in titles.items():
+              path = Path(filename)
+              text = path.read_text(encoding="utf-8")
+
+              text, count = re.subn(
+                  r"<title>.*?</title>",
+                  f"<title>{title}</title>",
+                  text,
+                  count=1,
+                  flags=re.IGNORECASE | re.DOTALL,
+              )
+              if count != 1:
+                  raise SystemExit(f"Expected one title element in {filename}, found {count}")
+
+              og_title = f'<meta property="og:title" content="{title}">'
+              og_pattern = r"<meta\b[^>]*\bproperty=[\"']og:title[\"'][^>]*>"
+              if re.search(og_pattern, text, flags=re.IGNORECASE):
+                  text = re.sub(og_pattern, og_title, text, count=1, flags=re.IGNORECASE)
+              else:
+                  canonical_pattern = r"(<link\b[^>]*\brel=[\"']canonical[\"'][^>]*>)"
+                  match = re.search(canonical_pattern, text, flags=re.IGNORECASE)
+                  if not match:
+                      raise SystemExit(f"Canonical link not found in {filename}")
+                  extra = ""
+                  if not re.search(r"<meta\b[^>]*\bproperty=[\"']og:type[\"'][^>]*>", text, flags=re.IGNORECASE):
+                      extra += '\n  <meta property="og:type" content="website">'
+                  extra += f"\n  {og_title}"
+                  text = text[:match.end()] + extra + text[match.end():]
+
+              path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Remove temporary workflow
+        run: rm .github/workflows/fix-official-lesson-titles.yml
+
+      - name: Commit title corrections
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lessons/lessons-1001.html lessons/lessons-1005.html lessons/lessons-2003.html lessons/lessons-2031.html lessons/lessons-2041.html lessons/lessons-3023.html lessons/lessons-3044.html .github/workflows/fix-official-lesson-titles.yml
+          git commit -m "Improve official lesson page titles"
+          git push
