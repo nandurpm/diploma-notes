@@ -219,8 +219,7 @@ async function initializeDiscussion() {
     });
 
     await authModule.signInAnonymously(auth);
-    const commentsQuery = firestoreModule.query(commentsRef, firestoreModule.orderBy("createdAt", "asc"), firestoreModule.limit(250));
-    firestoreModule.onSnapshot(commentsQuery, (snapshot) => {
+const commentsQuery = firestoreModule.query(commentsRef, firestoreModule.where("pageId", "==", "help"), firestoreModule.orderBy("createdAt", "desc"), firestoreModule.limit(20));    firestoreModule.onSnapshot(commentsQuery, (snapshot) => {
       window.clearTimeout(timeout);
       comments = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
       renderComments();
