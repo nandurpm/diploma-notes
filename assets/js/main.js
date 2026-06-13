@@ -263,6 +263,102 @@ function setupSiteNotice() {
   brand.insertAdjacentElement("afterend", notice);
 }
 
+function setupCompactSectionHeading() {
+  const pathname = window.location.pathname.toLowerCase().replace(/\/+$/, "");
+  const compactPages = ["/revision-2021.html", "/materials-2015.html", "/contact.html"];
+  if (!compactPages.some((page) => pathname.endsWith(page))) return;
+
+  const pageTitle = document.querySelector(".page-title");
+  if (!pageTitle) return;
+  pageTitle.classList.add("compact-section-heading");
+
+  if (document.getElementById("compactSectionHeadingStyles")) return;
+  const style = document.createElement("style");
+  style.id = "compactSectionHeadingStyles";
+  style.textContent = `
+    .page-title.compact-section-heading {
+      min-height: 230px !important;
+      padding: clamp(24px, 3.2vw, 44px) !important;
+      border-radius: 30px !important;
+      margin-top: 16px !important;
+    }
+    .page-title.compact-section-heading h1 {
+      max-width: 850px !important;
+      margin-bottom: 10px !important;
+      font-size: clamp(1.95rem, 3vw, 3.1rem) !important;
+      line-height: 1.06 !important;
+      letter-spacing: -0.045em !important;
+    }
+    .page-title.compact-section-heading > p:not(.kicker) {
+      max-width: 760px !important;
+      margin-bottom: 12px !important;
+      font-size: 0.98rem !important;
+      line-height: 1.55 !important;
+    }
+    .page-title.compact-section-heading .kicker {
+      min-height: 29px !important;
+      margin-bottom: 9px !important;
+      padding: 6px 10px !important;
+      font-size: 0.68rem !important;
+    }
+    .page-title.compact-section-heading::before {
+      top: 22px !important;
+      right: 28px !important;
+      padding: 7px 11px !important;
+      font-size: 0.64rem !important;
+    }
+    .page-title.compact-section-heading::after {
+      right: 34px !important;
+      bottom: 24px !important;
+      width: 72px !important;
+      height: 72px !important;
+      border-radius: 22px !important;
+      font-size: 2.2rem !important;
+      opacity: 0.54 !important;
+    }
+    .page-title.compact-section-heading .hero-actions {
+      gap: 8px !important;
+    }
+    .page-title.compact-section-heading .btn {
+      min-height: 42px !important;
+      padding: 9px 14px !important;
+      border-radius: 14px !important;
+      font-size: 0.88rem !important;
+    }
+    @media (max-width: 700px) {
+      .page-title.compact-section-heading {
+        min-height: 190px !important;
+        padding: 18px 14px !important;
+        border-radius: 20px !important;
+      }
+      .page-title.compact-section-heading h1 {
+        max-width: calc(100% - 58px) !important;
+        font-size: clamp(1.5rem, 7vw, 2rem) !important;
+        line-height: 1.1 !important;
+      }
+      .page-title.compact-section-heading > p:not(.kicker) {
+        max-width: 100% !important;
+        font-size: 0.9rem !important;
+      }
+      .page-title.compact-section-heading::before {
+        position: static !important;
+        display: inline-flex !important;
+        width: fit-content !important;
+        margin-bottom: 8px !important;
+      }
+      .page-title.compact-section-heading::after {
+        right: 14px !important;
+        bottom: 14px !important;
+        width: 50px !important;
+        height: 50px !important;
+        border-radius: 16px !important;
+        font-size: 1.55rem !important;
+      }
+    }
+  `;
+  document.head.append(style);
+}
+
 function setupSiteAssistant() {
   if (window.location.pathname.includes("/lessons/") || document.querySelector(".poly-ai-button")) return;
 
@@ -314,6 +410,7 @@ function setupSiteAssistant() {
 
 document.addEventListener("DOMContentLoaded", () => {
   setupSiteNotice();
+  setupCompactSectionHeading();
   document.querySelectorAll("[data-year]").forEach((item) => { item.textContent = new Date().getFullYear(); });
   setupMenu();
   renderMaterialLinks();
