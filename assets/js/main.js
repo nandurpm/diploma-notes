@@ -13,78 +13,61 @@ function rootPrefix() {
 }
 
 function hasSeparateNotesPdf(subject) {
-  const code = String(subject.code || "").toUpperCase();
+  const code = String(subject.code || "");
   return Boolean(subject.notesFile) || code === "1003" || code === "1004";
 }
 
-function subjectCard(subject) {
-  const searchText = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
-  const isMaterial = subject.type === "Material";
-  const lessonHref = lessonLink(subject);
-  const separatePdf = hasSeparateNotesPdf(subject);
-  const downloadHref = separatePdf ? notesLink(subject) : lessonHref;
-  const downloadAsset = separatePdf ? downloadHref : lessonHref;
-  const downloadTitle = separatePdf ? "Download uploaded notes PDF" : "Open the lesson PDF/download dialog";
-  const printAttrs = separatePdf ? "" : ` data-print-url="${escapeHtml(lessonHref)}"`;
-  const targetAttrs = separatePdf ? ` target="_blank" rel="noopener" download` : "";
+const knownLocalAssets = new Set([
+  "/lessons/handbook-2031-source.html",
+  "/lessons/lessons-1001.html", "/lessons/lessons-1002.html", "/lessons/lessons-1003.html",
+  "/lessons/lessons-1004.html", "/lessons/lessons-1005.html", "/lessons/lessons-1006.html",
+  "/lessons/lessons-2003.html", "/lessons/lessons-2031.html", "/lessons/lessons-2041.html",
+  "/lessons/lessons-3023.html", "/lessons/lessons-3031.html", "/lessons/lessons-3032.html",
+  "/lessons/lessons-3041.html", "/lessons/lessons-3044.html", "/lessons/lessons-3045.html",
+  "/lessons/lessons-3046.html", "/lessons/lessons-3047.html",
+  "/notes/downloadable-notes-1003.pdf", "/notes/downloadable-notes-1004.pdf"
+]);
 
-  return `
-    <article class="subject-card reveal" data-search="${escapeHtml(searchText)}">
-      <div class="subject-top"><span>${escapeHtml(subject.revision)}</span><strong>${escapeHtml(subject.code)}</strong></div>
-      <h3>${escapeHtml(subject.name)}</h3>
-      <p>${escapeHtml(subject.department)} / ${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
-      <div class="action-row">
-        ${!isMaterial ? `<a class="action syllabus" href="${syllabusLink(subject.code)}" target="_blank" rel="noopener">Open Syllabus</a>` : ""}
-        <a class="action lessons unavailable asset-check" href="${escapeHtml(lessonHref)}" data-asset-url="${escapeHtml(lessonHref)}" aria-disabled="true" title="Lesson file not uploaded yet">View Lessons</a>
-        <a class="action download unavailable asset-check" href="${escapeHtml(downloadHref)}" data-asset-url="${escapeHtml(downloadAsset)}" aria-disabled="true" title="${escapeHtml(downloadTitle)}"${printAttrs}${targetAttrs}>Download Notes</a>
-        ${!isMaterial ? `<a class="action qp" href="${modelQuestionPaperLink(subject.code)}" target="_blank" rel="noopener">Sample QP</a>` : ""}
-      </div>
-    </article>`;
-}
-
-const assetAvailability = new Map();
-const knownLocalAssets = new Set(["/lessons/handbook-2031-source.html","/lessons/lessons-1001.html","/lessons/lessons-1002.html","/lessons/lessons-1003.html","/lessons/lessons-1004.html","/lessons/lessons-1005.html","/lessons/lessons-1006.html","/lessons/lessons-2003.html","/lessons/lessons-2031.html","/lessons/lessons-2041.html","/lessons/lessons-3023.html","/lessons/lessons-3031.html","/lessons/lessons-3032.html","/lessons/lessons-3041.html","/lessons/lessons-3044.html","/lessons/lessons-3045.html","/lessons/lessons-3046.html","/lessons/lessons-3047.html","/notes/downloadable-notes-1003.pdf","/notes/downloadable-notes-1004.pdf"]);
 let activePrintFrame = null;
 
-function resolveAssetUrl(url) {
-  return new URL(url, window.location.href).href;
-}
-
-async function assetExists(url) {
-  const path = new URL(url, window.location.href).pathname;
-  return knownLocalAssets.has(path);
+function assetExists(url) {
+  return knownLocalAssets.has(new URL(url, window.location.href).pathname);
 }
 
 function printLessonFromButton(button) {
   const printUrl = button.dataset.printUrl;
   if (!printUrl || button.classList.contains("unavailable")) return;
-  if (activePrintFrame) activePrintFrame.remove();
-
+  activePrintFrame?.remove();
   const frame = document.createElement("iframe");
   activePrintFrame = frame;
   frame.setAttribute("aria-hidden", "true");
-  Object.assign(frame.style, { position: "fixed", right: "0", bottom: "0", width: "0", height: "0", border: "0", opacity: "0" });
+  Object.assign(frame.style, { position: "fixed", width: "0", height: "0", border: "0", opacity: "0" });
   frame.addEventListener("load", () => {
     window.setTimeout(() => {
       try {
         frame.contentWindow.focus();
         frame.contentWindow.print();
-      } catch (error) {
-        window.open(resolveAssetUrl(printUrl), "_blank", "noopener");
+      } catch (_) {
+        window.open(new URL(printUrl, window.location.href).href, "_blank", "noopener");
       }
     }, 350);
   }, { once: true });
-  frame.src = resolveAssetUrl(printUrl);
+  frame.src = new URL(printUrl, window.location.href).href;
   document.body.append(frame);
 }
 
 function setupAssetButtons(root) {
-  const buttons = [...root.querySelectorAll(".asset-check")];
-  const checkButton = (button) => {
-    const assetUrl = button.dataset.assetUrl;
-    if (!assetUrl) return;
+  root.querySelectorAll(".asset-check").forEach((button) => {
+    if (button.dataset.assetInitialized === "true") return;
+    button.dataset.assetInitialized = "true";
+    const exists = assetExists(button.dataset.assetUrl || "");
+    if (exists) {
+      button.classList.remove("unavailable");
+      button.removeAttribute("aria-disabled");
+      if (!button.dataset.printUrl) button.removeAttribute("title");
+    }
     button.addEventListener("click", (event) => {
-      if (button.classList.contains("unavailable")) {
+      if (!exists) {
         event.preventDefault();
         return;
       }
@@ -93,132 +76,76 @@ function setupAssetButtons(root) {
         printLessonFromButton(button);
       }
     });
-    assetExists(assetUrl).then((exists) => {
-      if (!exists) return;
-      button.classList.remove("unavailable");
-      button.removeAttribute("aria-disabled");
-      if (!button.dataset.printUrl) button.removeAttribute("title");
-    });
-  };
+  });
+}
 
-  if ("IntersectionObserver" in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        observer.unobserve(entry.target);
-        checkButton(entry.target);
-      });
-    }, { rootMargin: "300px" });
-    buttons.forEach((button) => observer.observe(button));
-    return;
-  }
-  buttons.forEach(checkButton);
+function subjectCard(subject) {
+  const lessonHref = typeof lessonLink === "function"
+    ? lessonLink(subject)
+    : `${rootPrefix()}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
+  const separatePdf = hasSeparateNotesPdf(subject);
+  const notesHref = separatePdf
+    ? (typeof notesLink === "function" ? notesLink(subject) : `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`)
+    : lessonHref;
+  const lessonAvailable = assetExists(lessonHref);
+  const notesAvailable = assetExists(notesHref);
+  const lessonAttrs = lessonAvailable ? "" : ' aria-disabled="true" title="Lesson not available yet"';
+  const notesAttrs = notesAvailable ? "" : ' aria-disabled="true" title="Notes not available yet"';
+  const printAttrs = !separatePdf && notesAvailable ? ` data-print-url="${escapeHtml(lessonHref)}"` : "";
+  const pdfAttrs = separatePdf && notesAvailable ? ' target="_blank" rel="noopener" download' : "";
+  const searchText = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
+
+  return `
+    <article class="subject-card reveal" data-search="${escapeHtml(searchText)}">
+      <div class="subject-top"><span>${escapeHtml(subject.revision)}</span><strong>${escapeHtml(subject.code)}</strong></div>
+      <h3>${escapeHtml(subject.name)}</h3>
+      <p>${escapeHtml(subject.department)} / ${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
+      <div class="action-row">
+        <a class="action syllabus" href="${syllabusLink(subject.code)}" target="_blank" rel="noopener">Open Syllabus</a>
+        <a class="action lessons asset-check${lessonAvailable ? "" : " unavailable"}" href="${escapeHtml(lessonHref)}" data-asset-url="${escapeHtml(lessonHref)}"${lessonAttrs}>View Lessons</a>
+        <a class="action download asset-check${notesAvailable ? "" : " unavailable"}" href="${escapeHtml(notesHref)}" data-asset-url="${escapeHtml(notesHref)}"${printAttrs}${pdfAttrs}${notesAttrs}>Download Notes</a>
+        <a class="action qp" href="${modelQuestionPaperLink(subject.code)}" target="_blank" rel="noopener">Sample QP</a>
+      </div>
+    </article>`;
 }
 
 function fillSelect(select, values, selected, allLabel) {
   if (!select) return;
-  const current = selected || select.value || "all";
-  const sorted = [...values].sort((a, b) => {
-    const ma = a.match(/^Semester\s+(\d+)$/i);
-    const mb = b.match(/^Semester\s+(\d+)$/i);
-    if (ma && mb) return Number(ma[1]) - Number(mb[1]);
-    return a.localeCompare(b);
+  const wanted = selected || select.value || "all";
+  const sorted = [...new Set(values.filter(Boolean))].sort((a, b) => {
+    const an = Number(String(a).match(/\d+/)?.[0] || 999);
+    const bn = Number(String(b).match(/\d+/)?.[0] || 999);
+    return an - bn || String(a).localeCompare(String(b));
   });
-  select.innerHTML = `<option value="all">${escapeHtml(allLabel || "All")}</option>` + sorted.map((v) => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
-  select.value = sorted.includes(current) ? current : "all";
+  select.innerHTML = `<option value="all">${escapeHtml(allLabel || "All")}</option>` +
+    sorted.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("");
+  select.value = sorted.includes(wanted) ? wanted : "all";
 }
 
 function dedupeSubjects(subjects) {
-  const seen = new Map();
-  const out = [];
-  for (const s of subjects) {
-    const key = [s.revision, s.department, s.semester, s.code].join(":");
-    if (!seen.has(key)) {
-      seen.set(key, true);
-      out.push(s);
-    }
-  }
-  return out;
+  const seen = new Set();
+  return subjects.filter((subject) => {
+    const key = [subject.revision, subject.department, subject.semester, subject.code].join(":");
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 }
 
 function semesterRank(value) {
-  const text = String(value || "");
-  const match = text.match(/semester\s*(\d+)/i);
-  if (match) return Number(match[1]);
-  if (/first\s*year/i.test(text)) return 1;
-  return Number.MAX_SAFE_INTEGER;
+  return Number(String(value || "").match(/\d+/)?.[0] || 999);
 }
 
-function compareSubjectCodes(a, b) {
-  return String(a || "").localeCompare(String(b || ""), undefined, {
-    numeric: true,
-    sensitivity: "base"
-  });
-}
-
-function sortSubjectsSemesterWise(subjects, fixedDepartment = "") {
+function sortSubjects(subjects, fixedDepartment) {
   return [...subjects].sort((a, b) => {
-    const semesterDifference = semesterRank(a.semester) - semesterRank(b.semester);
-    if (semesterDifference) return semesterDifference;
-
-    if (fixedDepartment) {
-      const aCommon = a.department === "First Year / Common" ? 0 : 1;
-      const bCommon = b.department === "First Year / Common" ? 0 : 1;
-      if (aCommon !== bCommon) return aCommon - bCommon;
-    } else {
-      const aDepartment = a.department === "First Year / Common" ? "" : String(a.department || "");
-      const bDepartment = b.department === "First Year / Common" ? "" : String(b.department || "");
-      const departmentDifference = aDepartment.localeCompare(bDepartment, undefined, { sensitivity: "base" });
-      if (departmentDifference) return departmentDifference;
+    const semester = semesterRank(a.semester) - semesterRank(b.semester);
+    if (semester) return semester;
+    if (!fixedDepartment) {
+      const department = String(a.department || "").localeCompare(String(b.department || ""));
+      if (department) return department;
     }
-
-    const codeDifference = compareSubjectCodes(a.code, b.code);
-    if (codeDifference) return codeDifference;
-    return String(a.name || "").localeCompare(String(b.name || ""), undefined, { sensitivity: "base" });
+    return String(a.code).localeCompare(String(b.code), undefined, { numeric: true });
   });
-}
-
-function ensureSemesterGroupStyles() {
-  if (document.getElementById("semesterGroupStyles")) return;
-  const style = document.createElement("style");
-  style.id = "semesterGroupStyles";
-  style.textContent = `
-    .semester-group-heading {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      min-height: 64px;
-      margin-top: 12px;
-      padding: 14px 18px;
-      border: 1px solid rgba(29,78,216,.14);
-      border-radius: 22px;
-      background: linear-gradient(135deg, rgba(219,234,254,.96), rgba(236,253,245,.96));
-      box-shadow: 0 12px 28px rgba(20,45,90,.08);
-    }
-    .semester-group-heading:first-child { margin-top: 0; }
-    .semester-group-heading span {
-      color: #0f3f8a;
-      font-family: "Space Grotesk", Inter, sans-serif;
-      font-size: clamp(1.2rem, 2vw, 1.65rem);
-      font-weight: 950;
-      letter-spacing: -.03em;
-    }
-    .semester-group-heading small {
-      flex: 0 0 auto;
-      padding: 7px 11px;
-      border-radius: 999px;
-      color: #047857;
-      background: rgba(255,255,255,.88);
-      font-size: .78rem;
-      font-weight: 900;
-    }
-    @media (max-width: 560px) {
-      .semester-group-heading { min-height: 56px; padding: 12px 14px; }
-    }
-  `;
-  document.head.append(style);
 }
 
 function renderSemesterGroups(subjects) {
@@ -227,78 +154,60 @@ function renderSemesterGroups(subjects) {
     map.set(semester, (map.get(semester) || 0) + 1);
     return map;
   }, new Map());
-
-  let previousSemester = "";
+  let previous = "";
   return subjects.map((subject) => {
     const semester = subject.semester || "Other subjects";
-    const count = totals.get(semester);
-    const heading = semester !== previousSemester
-      ? `<div class="semester-group-heading"><span>${escapeHtml(semester)}</span><small>${count} ${count === 1 ? "subject" : "subjects"}</small></div>`
+    const heading = semester !== previous
+      ? `<div class="semester-group-heading"><span>${escapeHtml(semester)}</span><small>${totals.get(semester)} subjects</small></div>`
       : "";
-    previousSemester = semester;
+    previous = semester;
     return heading + subjectCard(subject);
   }).join("");
 }
 
 function setupSubjectBrowser() {
-  const pagePath = window.location.pathname.toLowerCase();
-  if (pagePath.endsWith("/materials-2015.html") || pagePath.endsWith("materials-2015.html")) {
-    document.querySelector("#subject-browser")?.remove();
-    return;
-  }
-
-  const grid = document.querySelector("#subjectGrid");
+  const grid = document.getElementById("subjectGrid");
   if (!grid || !Array.isArray(SUBJECTS)) return;
-  ensureSemesterGroupStyles();
+
+  // main.js is the only subject-browser owner. site-hardening.js checks this flag and exits.
+  grid.dataset.hardeningInitialized = "true";
+  grid.dataset.subjectBrowserOwner = "main";
 
   const subjects = dedupeSubjects(SUBJECTS).filter((subject) => subject.revision !== "2015");
   const params = new URLSearchParams(window.location.search);
-  const search = document.querySelector("#subjectSearch");
-  const revisionFilter = document.querySelector("#revisionFilter");
-  const departmentFilter = document.querySelector("#departmentFilter");
-  const semesterFilter = document.querySelector("#semesterFilter");
+  const search = document.getElementById("subjectSearch");
+  const revisionFilter = document.getElementById("revisionFilter");
+  const departmentFilter = document.getElementById("departmentFilter");
+  const semesterFilter = document.getElementById("semesterFilter");
   const fixedRevision = grid.dataset.revision || "";
   const fixedDepartment = grid.dataset.department || "";
-  const homepageSearchMode = grid.dataset.mode === "homepage-search";
+  const homepage = grid.dataset.mode === "homepage-search";
 
-  fillSelect(revisionFilter, [...new Set(subjects.map((s) => s.revision))], fixedRevision || params.get("revision"), "All revisions");
-
-  function refreshDeptFilter() {
-    if (fixedDepartment) {
-      fillSelect(departmentFilter, [fixedDepartment], fixedDepartment, "All departments");
-      return;
-    }
-    const activeRevision = fixedRevision || revisionFilter?.value || "all";
-    const depts = [...new Set(subjects.filter((s) => activeRevision === "all" || s.revision === activeRevision).map((s) => s.department))];
-    fillSelect(departmentFilter, depts, params.get("department"), "All departments");
-  }
-
-  refreshDeptFilter();
-  fillSelect(semesterFilter, [...new Set(subjects.map((s) => s.semester))], params.get("semester"), "All semesters");
+  fillSelect(revisionFilter, subjects.map((item) => item.revision), fixedRevision || params.get("revision"), "All revisions");
+  fillSelect(departmentFilter, subjects.map((item) => item.department), fixedDepartment || params.get("department"), "All departments");
+  fillSelect(semesterFilter, subjects.map((item) => item.semester), params.get("semester"), "All semesters");
   if (fixedRevision && revisionFilter) revisionFilter.disabled = true;
   if (fixedDepartment && departmentFilter) departmentFilter.disabled = true;
   if (params.get("subject") && search) search.value = params.get("subject");
 
   const render = () => {
-    const query = (search?.value || "").trim().toLowerCase();
+    const query = String(search?.value || "").trim().toLowerCase();
     const revision = fixedRevision || revisionFilter?.value || "all";
     const department = fixedDepartment || departmentFilter?.value || "all";
     const semester = semesterFilter?.value || "all";
 
-    if (homepageSearchMode && !query) {
-      grid.innerHTML = '<p class="empty">Search a subject code, title, department, or semester to show matching Kerala Polytechnic subject cards.</p>';
+    if (homepage && !query) {
+      grid.innerHTML = '<p class="empty">Search a subject code, title, department, or semester to show matching subjects.</p>';
       return;
     }
 
-    const visible = sortSubjectsSemesterWise(subjects.filter((subject) => {
+    const visible = sortSubjects(subjects.filter((subject) => {
       const text = [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
       if (revision !== "all" && subject.revision !== revision) return false;
       if (semester !== "all" && subject.semester !== semester) return false;
       if (query && !text.includes(query)) return false;
-      if (department !== "all") {
-        if (subject.department === department) return true;
-        if (fixedDepartment && subject.revision === revision && revision === "2021" && subject.department === "First Year / Common") return true;
-        return false;
+      if (department !== "all" && subject.department !== department) {
+        return Boolean(fixedDepartment && revision === "2021" && subject.department === "First Year / Common");
       }
       return true;
     }), fixedDepartment);
@@ -307,16 +216,16 @@ function setupSubjectBrowser() {
     setupAssetButtons(grid);
   };
 
-  revisionFilter?.addEventListener("change", () => { refreshDeptFilter(); render(); });
-  revisionFilter?.addEventListener("input", () => { refreshDeptFilter(); render(); });
-  [search, departmentFilter, semesterFilter].forEach((control) => control?.addEventListener("input", render));
-  [departmentFilter, semesterFilter].forEach((control) => control?.addEventListener("change", render));
+  [search, revisionFilter, departmentFilter, semesterFilter].forEach((control) => {
+    control?.addEventListener("input", render);
+    control?.addEventListener("change", render);
+  });
   render();
 }
 
 function renderMaterialLinks() {
   document.querySelectorAll("[data-link-group]").forEach((container) => {
-    const group = MATERIALS_2015?.[container.dataset.linkGroup] || [];
+    const group = typeof MATERIALS_2015 !== "undefined" ? MATERIALS_2015?.[container.dataset.linkGroup] || [] : [];
     container.innerHTML = group.map((item) => `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.label)}</a>`).join("");
   });
 }
@@ -324,7 +233,8 @@ function renderMaterialLinks() {
 function setupMenu() {
   const toggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector(".navlinks");
-  if (!toggle || !nav) return;
+  if (!toggle || !nav || toggle.dataset.mainInitialized === "true") return;
+  toggle.dataset.mainInitialized = "true";
   toggle.addEventListener("click", () => {
     const open = nav.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(open));
@@ -341,31 +251,6 @@ function setupHomepageVideoPoster() {
   });
 }
 
-function forcePremiumStylesheet() {
-  const prefix = rootPrefix();
-  const versionedHref = `${prefix}assets/css/style.css?v=20260611-portal1`;
-  const compactHref = `${prefix}assets/css/home-compact.css?v=20260611-compact3`;
-  const responsiveHref = `${prefix}assets/css/responsive.css?v=20260611-portal1`;
-  document.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
-    const href = link.getAttribute("href") || "";
-    if (href.includes("assets/css/style.css")) link.remove();
-    if (href.includes("assets/css/home-compact.css")) link.remove();
-    if (href.includes("assets/css/responsive.css")) link.remove();
-  });
-  const css = document.createElement("link");
-  css.rel = "stylesheet";
-  css.href = versionedHref;
-  document.head.prepend(css);
-  const compact = document.createElement("link");
-  compact.rel = "stylesheet";
-  compact.href = compactHref;
-  document.head.append(compact);
-  const responsive = document.createElement("link");
-  responsive.rel = "stylesheet";
-  responsive.href = responsiveHref;
-  document.head.append(responsive);
-}
-
 function setupSiteNotice() {
   if (document.querySelector(".site-notice")) return;
   const brand = document.querySelector(".topbar .brand");
@@ -375,21 +260,13 @@ function setupSiteNotice() {
   notice.href = "https://nandakumarm.dpdns.org/about.html#contact";
   notice.target = "_blank";
   notice.rel = "noopener";
-  notice.setAttribute("aria-label", "Contact the developer for suggestions or content changes");
-  notice.innerHTML = '<span>This website is in its initial stage. For suggestions or content changes, please contact the developer.</span>';
+  notice.textContent = "This website is in its initial stage. For suggestions or content changes, contact the developer.";
   brand.insertAdjacentElement("afterend", notice);
 }
 
 function setupSiteAssistant() {
-  const path = window.location.pathname.toLowerCase();
-  if (path.includes("/lessons/") || document.querySelector(".poly-ai-button")) return;
+  if (window.location.pathname.includes("/lessons/") || document.querySelector(".poly-ai-button")) return;
   const prefix = rootPrefix();
-  if (!document.querySelector('link[href*="assets/css/site-assistant.css"]')) {
-    const css = document.createElement("link");
-    css.rel = "stylesheet";
-    css.href = `${prefix}assets/css/site-assistant.css?v=20260611-portal1`;
-    document.head.append(css);
-  }
   if (!document.getElementById("polySiteAssistant")) {
     const mount = document.createElement("div");
     mount.id = "polySiteAssistant";
@@ -397,18 +274,15 @@ function setupSiteAssistant() {
   }
   if (!document.querySelector('script[src*="assets/js/site-assistant.js"]')) {
     const script = document.createElement("script");
-    script.src = `${prefix}assets/js/site-assistant.js?v=20260611-portal1`;
+    script.src = `${prefix}assets/js/site-assistant.js?v=20260613-2`;
     script.defer = true;
     document.body.append(script);
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  forcePremiumStylesheet();
   setupSiteNotice();
-  document.querySelectorAll("[data-year]").forEach((el) => {
-    el.textContent = new Date().getFullYear();
-  });
+  document.querySelectorAll("[data-year]").forEach((item) => { item.textContent = new Date().getFullYear(); });
   setupMenu();
   renderMaterialLinks();
   setupSubjectBrowser();
