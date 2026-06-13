@@ -1,5 +1,6 @@
 const FALLBACK_MESSAGE = "Discussion is currently unavailable. Please contact us by email.";
 const EMAIL = "nandakumarmkdpm@gmail.com";
+const PAGE_SIZE = 20;
 
 const form = document.querySelector("#helpCommentForm");
 const nameInput = document.querySelector("#commentName");
@@ -65,7 +66,12 @@ async function initializeDiscussion() {
     const commentsRef = firestoreModule.collection(db, "helpComments");
 
     let currentUser = null;
+    let liveComments = [];
+    let olderComments = [];
     let comments = [];
+    let oldestLoadedDoc = null;
+    let hasMoreComments = false;
+    let loadingOlderComments = false;
 
     const savedName = localStorage.getItem("diplomaNotesCommentName");
     if (savedName) {
@@ -107,25 +113,31 @@ async function initializeDiscussion() {
 
     const isDeletedComment = (comment) =>
       comment?.deleted === true ||
-      (
-        comment?.author === "Deleted" &&
-        comment?.message === "This comment was deleted."
-      );
+      (comment?.author === "Deleted" && comment?.message === "This comment was deleted.");
+
+    const mergeComments = () => {
+      const byId = new Map();
+
+      [...liveComments, ...olderComments].forEach((comment) => {
+        byId.set(comment.id, comment);
+      });
+
+      comments = [...byId.values()].sort((a, b) => {
+        const aTime = a.createdAt?.toMillis?.() || 0;
+        const bTime = b.createdAt?.toMillis?.() || 0;
+        return bTime - aTime;
+      });
+    };
 
     const createReplyForm = (parentId, card) => {
       const parentComment = comments.find((item) => item.id === parentId);
 
-      if (
-        !parentComment ||
-        parentComment.parentId ||
-        isDeletedComment(parentComment)
-      ) {
+      if (!parentComment || parentComment.parentId || isDeletedComment(parentComment)) {
         setStatus("Replies can only be added to an active top-level comment.", "error");
         return;
       }
 
       const existing = card.querySelector(".reply-form");
-
       if (existing) {
         existing.remove();
         return;
@@ -170,12 +182,7 @@ async function initializeDiscussion() {
         }
 
         const currentParent = comments.find((item) => item.id === parentId);
-
-        if (
-          !currentParent ||
-          currentParent.parentId ||
-          isDeletedComment(currentParent)
-        ) {
+        if (!currentParent || currentParent.parentId || isDeletedComment(currentParent)) {
           replyForm.remove();
           setStatus("This comment is no longer available for replies.", "error");
           return;
@@ -185,7 +192,6 @@ async function initializeDiscussion() {
 
         try {
           localStorage.setItem("diplomaNotesCommentName", author);
-
           await firestoreModule.addDoc(commentsRef, {
             pageId: "help",
             author,
@@ -194,7 +200,6 @@ async function initializeDiscussion() {
             uid: currentUser.uid,
             createdAt: firestoreModule.serverTimestamp()
           });
-
           replyForm.remove();
           setStatus("Reply posted.", "success");
         } catch (error) {
@@ -226,7 +231,6 @@ async function initializeDiscussion() {
       avatar.setAttribute("aria-hidden", "true");
 
       const authorText = document.createElement("div");
-
       const author = document.createElement("strong");
       author.textContent = deleted ? "Deleted" : (comment.author || "Student");
 
@@ -247,9 +251,7 @@ async function initializeDiscussion() {
 
       if (!isReply && !deleted) {
         actions.append(
-          button("Reply", "comment-action", () =>
-            createReplyForm(comment.id, card)
-          )
+          button("Reply", "comment-action", () => createReplyForm(comment.id, card))
         );
       }
 
@@ -264,15 +266,14 @@ async function initializeDiscussion() {
               return;
             }
 
-            const commentRef = firestoreModule.doc(
-              db,
-              "helpComments",
-              comment.id
-            );
+            const commentRef = firestoreModule.doc(db, "helpComments", comment.id);
 
             try {
               if (isReply) {
                 await firestoreModule.deleteDoc(commentRef);
+                olderComments = olderComments.filter((item) => item.id !== comment.id);
+                mergeComments();
+                renderComments();
                 setStatus("Reply deleted.", "success");
               } else {
                 await firestoreModule.updateDoc(commentRef, {
@@ -280,6 +281,14 @@ async function initializeDiscussion() {
                   message: "This comment was deleted.",
                   deleted: true
                 });
+
+                olderComments = olderComments.map((item) =>
+                  item.id === comment.id
+                    ? { ...item, author: "Deleted", message: "This comment was deleted.", deleted: true }
+                    : item
+                );
+                mergeComments();
+                renderComments();
                 setStatus("Comment deleted. Existing replies were preserved.", "success");
               }
             } catch (error) {
@@ -294,20 +303,73 @@ async function initializeDiscussion() {
       return card;
     };
 
+    const loadOlderComments = async () => {
+      if (loadingOlderComments || !hasMoreComments || !oldestLoadedDoc) {
+        return;
+      }
+
+      loadingOlderComments = true;
+      renderComments();
+      setStatus("Loading older comments…");
+
+      try {
+        const olderQuery = firestoreModule.query(
+          commentsRef,
+          firestoreModule.orderBy("createdAt", "desc"),
+          firestoreModule.startAfter(oldestLoadedDoc),
+          firestoreModule.limit(PAGE_SIZE)
+        );
+        const snapshot = await firestoreModule.getDocs(olderQuery);
+        const batch = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+
+        olderComments = [...olderComments, ...batch];
+        if (!snapshot.empty) {
+          oldestLoadedDoc = snapshot.docs[snapshot.docs.length - 1];
+        }
+        hasMoreComments = snapshot.size === PAGE_SIZE;
+        mergeComments();
+        setStatus(batch.length ? `${batch.length} older comments loaded.` : "No older comments.", "success");
+      } catch (error) {
+        console.error("Could not load older comments.", error);
+        setStatus("Could not load older comments. Please try again.", "error");
+      } finally {
+        loadingOlderComments = false;
+        renderComments();
+      }
+    };
+
+    const appendLoadMoreButton = () => {
+      if (!hasMoreComments) {
+        return;
+      }
+
+      const wrap = document.createElement("div");
+      wrap.className = "comment-pagination";
+
+      const loadMoreButton = button(
+        loadingOlderComments ? "Loading…" : "Load older comments",
+        "comment-submit load-older-comments",
+        loadOlderComments
+      );
+      loadMoreButton.disabled = loadingOlderComments;
+      loadMoreButton.setAttribute("aria-label", "Load older discussion comments");
+
+      wrap.append(loadMoreButton);
+      list.append(wrap);
+    };
+
     const renderComments = () => {
       list.replaceChildren();
 
       const visible = comments.filter((item) => item.pageId === "help");
-
-      countBox.textContent = `${visible.length} ${
-        visible.length === 1 ? "comment" : "comments"
-      }`;
+      countBox.textContent = `${visible.length}${hasMoreComments ? "+" : ""} ${visible.length === 1 ? "comment" : "comments"}`;
 
       if (!visible.length) {
         const empty = document.createElement("div");
         empty.className = "empty-comments";
         empty.textContent = "No comments yet. Start the discussion.";
         list.append(empty);
+        appendLoadMoreButton();
         return;
       }
 
@@ -324,11 +386,12 @@ async function initializeDiscussion() {
 
       topLevel.forEach((comment) => {
         list.append(createCommentCard(comment));
-
         (replies.get(comment.id) || []).forEach((reply) => {
           list.append(createCommentCard(reply, true));
         });
       });
+
+      appendLoadMoreButton();
     };
 
     form.addEventListener("submit", async (event) => {
@@ -359,7 +422,6 @@ async function initializeDiscussion() {
 
       try {
         localStorage.setItem("diplomaNotesCommentName", author);
-
         await firestoreModule.addDoc(commentsRef, {
           pageId: "help",
           author,
@@ -368,7 +430,6 @@ async function initializeDiscussion() {
           uid: currentUser.uid,
           createdAt: firestoreModule.serverTimestamp()
         });
-
         messageInput.value = "";
         setStatus("Comment posted.", "success");
       } catch (error) {
@@ -390,7 +451,7 @@ async function initializeDiscussion() {
     const commentsQuery = firestoreModule.query(
       commentsRef,
       firestoreModule.orderBy("createdAt", "desc"),
-      firestoreModule.limit(20)
+      firestoreModule.limit(PAGE_SIZE)
     );
 
     firestoreModule.onSnapshot(
@@ -398,11 +459,13 @@ async function initializeDiscussion() {
       (snapshot) => {
         window.clearTimeout(timeout);
 
-        comments = snapshot.docs.map((item) => ({
-          id: item.id,
-          ...item.data()
-        }));
+        liveComments = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+        if (olderComments.length === 0) {
+          oldestLoadedDoc = snapshot.empty ? null : snapshot.docs[snapshot.docs.length - 1];
+          hasMoreComments = snapshot.size === PAGE_SIZE;
+        }
 
+        mergeComments();
         renderComments();
       },
       (error) => {
