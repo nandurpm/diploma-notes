@@ -10,8 +10,7 @@
   width: min(var(--page-width), calc(100% - var(--page-gutter))) !important;
 }
 
-/* The shared script currently inserts the notice as plain text. Render that text
-   as a reliable marquee until every cached page receives the span-based markup. */
+/* Site-wide notice: complete English message first, Malayalam translation next. */
 .site-notice {
   font-size: 0 !important;
   color: transparent !important;
@@ -22,16 +21,20 @@
   flex: 0 0 auto;
   font-size: .82rem !important;
 }
+.site-notice > span {
+  display: none !important;
+}
 .site-notice::after {
-  content: "This website is in its initial stage. For suggestions or content changes, contact the developer.";
+  content: "Diploma Notes helps Kerala Polytechnic students find departments, semester-wise subjects, syllabus links, lessons, notes and model question papers. This website is in its initial stage and is updated regularly. For missing materials, broken links, corrections or suggestions, contact the developer. \2022  Malayalam: \D21 \D3F \D2A \D4D \D32 \D4B \D2E  \D28 \D4B \D31 \D4D \D31 \D4D \D38 \D4D  \D15 \D47 \D30 \D33  \D2A \D4B \D33 \D3F \D1F \D46 \D15 \D4D \D28 \D3F \D15 \D4D  \D35 \D3F \D26 \D4D \D2F \D3E \D7C \D24 \D4D \D25 \D3F \D15 \D7E \D15 \D4D \D15 \D4D  \D21 \D3F \D2A \D4D \D2A \D3E \D7C \D1F \D4D \D1F \D4D \D2E \D46 \D28 \D4D \D31 \D41 \D15 \D7E , \D38 \D46 \D2E \D38 \D4D \D31 \D4D \D31 \D7C  \D35 \D3F \D37 \D2F \D19 \D4D \D19 \D7E , \D38 \D3F \D32 \D2C \D38 \D4D  \D32 \D3F \D19 \D4D \D15 \D41 \D15 \D7E , \D2A \D3E \D20 \D19 \D4D \D19 \D7E , \D28 \D4B \D1F \D4D \D1F \D41 \D15 \D7E , \D2E \D3E \D24 \D43 \D15 \D3E  \D1A \D4B \D26 \D4D \D2F \D2A \D47 \D2A \D4D \D2A \D31 \D41 \D15 \D7E  \D0E \D28 \D4D \D28 \D3F \D35  \D15 \D23 \D4D \D1F \D46 \D24 \D4D \D24 \D3E \D7B  \D38 \D39 \D3E \D2F \D3F \D15 \D4D \D15 \D41 \D28 \D4D \D28 \D41 . \D35 \D46 \D2C \D4D \D38 \D48 \D31 \D4D \D31 \D4D  \D2A \D4D \D30 \D3E \D30 \D02 \D2D  \D18 \D1F \D4D \D1F \D24 \D4D \D24 \D3F \D32 \D3E \D23 \D4D ; \D2A \D41 \D24 \D3F \D2F  \D2A \D20 \D28 \D35 \D3F \D2D \D35 \D19 \D4D \D19 \D7E  \D28 \D3F \D30 \D28 \D4D \D24 \D30 \D02  \D1A \D47 \D7C \D15 \D4D \D15 \D41 \D28 \D4D \D28 \D41 . \D32 \D2D \D4D \D2F \D2E \D32 \D4D \D32 \D3E \D24 \D4D \D24  \D2A \D20 \D28 \D38 \D3E \D2E \D17 \D4D \D30 \D3F \D15 \D7E , \D2A \D4D \D30 \D35 \D7C \D24 \D4D \D24 \D3F \D15 \D4D \D15 \D3E \D24 \D4D \D24  \D32 \D3F \D19 \D4D \D15 \D41 \D15 \D7E , \D24 \D3F \D30 \D41 \D24 \D4D \D24 \D32 \D41 \D15 \D7E , \D28 \D3F \D7C \D26 \D4D \D26 \D47 \D36 \D19 \D4D \D19 \D7E  \D0E \D28 \D4D \D28 \D3F \D35  \D05 \D31 \D3F \D2F \D3F \D15 \D4D \D15 \D3E \D7B  \D21 \D46 \D35 \D32 \D2A \D4D \D2A \D31 \D46  \D2C \D28 \D4D \D27 \D2A \D4D \D2A \D46 \D1F \D41 \D15 .";
   display: inline-block;
   min-width: max-content;
   padding-left: 100%;
   color: #0f3f8a;
+  font-family: Inter, "Noto Sans Malayalam", "Segoe UI", sans-serif;
   font-size: .88rem;
   font-weight: 850;
   line-height: 1;
-  animation: siteNoticeRightToLeft 20s linear infinite;
+  animation: siteNoticeRightToLeft 58s linear infinite;
   will-change: transform;
 }
 .site-notice:hover::after,
@@ -102,8 +105,7 @@
   .brand strong { font-size: .98rem; }
   .site-notice { height: 38px; }
   .site-notice::before { padding: 0 10px; font-size: .75rem !important; }
-  .site-notice::after { font-size: .78rem; animation-duration: 15s; }
-  .site-notice span { font-size: .78rem; animation-duration: 18s; }
+  .site-notice::after { font-size: .78rem; animation-duration: 45s; }
   .menu-toggle { min-height: 40px; padding: 9px 12px; }
   .navlinks.open { grid-template-columns: 1fr; gap: 7px; }
   .navlinks a { display: flex; justify-content: center; min-height: 42px; padding: 10px; }
