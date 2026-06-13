@@ -18,7 +18,6 @@ function hasSeparateNotesPdf(subject) {
 }
 
 const knownLocalAssets = new Set([
-  "/lessons/handbook-2031-source.html",
   "/lessons/lessons-1001.html", "/lessons/lessons-1002.html", "/lessons/lessons-1003.html",
   "/lessons/lessons-1004.html", "/lessons/lessons-1005.html", "/lessons/lessons-1006.html",
   "/lessons/lessons-2003.html", "/lessons/lessons-2031.html", "/lessons/lessons-2041.html",
