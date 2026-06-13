@@ -10,6 +10,39 @@
   width: min(var(--page-width), calc(100% - var(--page-gutter))) !important;
 }
 
+/* The shared script currently inserts the notice as plain text. Render that text
+   as a reliable marquee until every cached page receives the span-based markup. */
+.site-notice {
+  font-size: 0 !important;
+  color: transparent !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+.site-notice::before {
+  flex: 0 0 auto;
+  font-size: .82rem !important;
+}
+.site-notice::after {
+  content: "This website is in its initial stage. For suggestions or content changes, contact the developer.";
+  display: inline-block;
+  min-width: max-content;
+  padding-left: 100%;
+  color: #0f3f8a;
+  font-size: .88rem;
+  font-weight: 850;
+  line-height: 1;
+  animation: siteNoticeRightToLeft 20s linear infinite;
+  will-change: transform;
+}
+.site-notice:hover::after,
+.site-notice:focus-visible::after {
+  animation-play-state: paused;
+}
+@keyframes siteNoticeRightToLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
 @media (max-width: 1200px) {
   .topbar { grid-template-columns: auto 1fr; }
   .site-notice { grid-column: 1 / -1; order: 3; }
@@ -68,7 +101,8 @@
   .brand span { width: 40px; height: 40px; border-radius: 14px; }
   .brand strong { font-size: .98rem; }
   .site-notice { height: 38px; }
-  .site-notice::before { padding: 0 10px; font-size: .75rem; }
+  .site-notice::before { padding: 0 10px; font-size: .75rem !important; }
+  .site-notice::after { font-size: .78rem; animation-duration: 15s; }
   .site-notice span { font-size: .78rem; animation-duration: 18s; }
   .menu-toggle { min-height: 40px; padding: 9px 12px; }
   .navlinks.open { grid-template-columns: 1fr; gap: 7px; }
