@@ -21,19 +21,27 @@ function showUnavailable(error) {
   form.setAttribute("aria-disabled", "true");
   countBox.textContent = "Unavailable";
   statusBox.textContent = "";
+
   const box = document.createElement("div");
   box.className = "comment-error-box";
+
   const text = document.createElement("p");
   text.textContent = FALLBACK_MESSAGE;
+
   const email = document.createElement("a");
   email.href = `mailto:${EMAIL}?subject=Diploma%20Notes%20Help`;
   email.textContent = "Email us";
+
   box.append(text, email);
   list.replaceChildren(box);
 }
 
 async function initializeDiscussion() {
-  const timeout = window.setTimeout(() => showUnavailable(new Error("Discussion initialization timed out.")), 10000);
+  const timeout = window.setTimeout(
+    () => showUnavailable(new Error("Discussion initialization timed out.")),
+    10000
+  );
+
   try {
     const [appModule, authModule, firestoreModule] = await Promise.all([
       import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"),
@@ -55,11 +63,14 @@ async function initializeDiscussion() {
     const auth = authModule.getAuth(app);
     const db = firestoreModule.getFirestore(app);
     const commentsRef = firestoreModule.collection(db, "helpComments");
+
     let currentUser = null;
     let comments = [];
 
     const savedName = localStorage.getItem("diplomaNotesCommentName");
-    if (savedName) nameInput.value = savedName;
+    if (savedName) {
+      nameInput.value = savedName;
+    }
 
     const setStatus = (message = "", type = "") => {
       statusBox.textContent = message;
@@ -67,11 +78,23 @@ async function initializeDiscussion() {
     };
 
     const formatDate = (timestamp) => {
-      if (!timestamp?.toDate) return "Posting…";
-      return new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(timestamp.toDate());
+      if (!timestamp?.toDate) {
+        return "Posting…";
+      }
+
+      return new Intl.DateTimeFormat("en-IN", {
+        dateStyle: "medium",
+        timeStyle: "short"
+      }).format(timestamp.toDate());
     };
 
-    const initials = (name) => name.trim().split(/\s+/).slice(0, 2).map((part) => part[0]?.toUpperCase() || "").join("") || "S";
+    const initials = (name) =>
+      name
+        .trim()
+        .split(/\s+/)
+        .slice(0, 2)
+        .map((part) => part[0]?.toUpperCase() || "")
+        .join("") || "S";
 
     const button = (label, className, handler) => {
       const element = document.createElement("button");
@@ -84,36 +107,64 @@ async function initializeDiscussion() {
 
     const createReplyForm = (parentId, card) => {
       const existing = card.querySelector(".reply-form");
-      if (existing) { existing.remove(); return; }
+
+      if (existing) {
+        existing.remove();
+        return;
+      }
+
       const replyForm = document.createElement("form");
       replyForm.className = "reply-form";
+
       const label = document.createElement("label");
       const textareaId = `reply-${parentId}`;
       label.className = "sr-only";
       label.htmlFor = textareaId;
       label.textContent = "Reply message";
+
       const textarea = document.createElement("textarea");
       textarea.id = textareaId;
       textarea.maxLength = 1500;
       textarea.required = true;
       textarea.placeholder = "Write your reply…";
+
       const submit = document.createElement("button");
       submit.type = "submit";
       submit.className = "comment-submit";
       submit.textContent = "Post Reply";
+
       replyForm.append(label, textarea, submit);
+
       replyForm.addEventListener("submit", async (event) => {
         event.preventDefault();
+
         const author = nameInput.value.trim();
         const message = textarea.value.trim();
-        if (!author) { nameInput.focus(); setStatus("Enter your name before replying.", "error"); return; }
-        if (!currentUser || !message) return;
+
+        if (!author) {
+          nameInput.focus();
+          setStatus("Enter your name before replying.", "error");
+          return;
+        }
+
+        if (!currentUser || !message) {
+          return;
+        }
+
         submit.disabled = true;
+
         try {
           localStorage.setItem("diplomaNotesCommentName", author);
+
           await firestoreModule.addDoc(commentsRef, {
-            pageId: "help", author, message, parentId, uid: currentUser.uid, createdAt: firestoreModule.serverTimestamp()
+            pageId: "help",
+            author,
+            message,
+            parentId,
+            uid: currentUser.uid,
+            createdAt: firestoreModule.serverTimestamp()
           });
+
           replyForm.remove();
           setStatus("Reply posted.", "success");
         } catch (error) {
@@ -122,6 +173,7 @@ async function initializeDiscussion() {
           submit.disabled = false;
         }
       });
+
       card.append(replyForm);
       textarea.focus();
     };
@@ -130,44 +182,76 @@ async function initializeDiscussion() {
       const card = document.createElement("article");
       card.className = `comment-card${isReply ? " reply-card" : ""}`;
       card.dataset.commentId = comment.id;
+
       const meta = document.createElement("div");
       meta.className = "comment-meta";
+
       const authorWrap = document.createElement("div");
       authorWrap.className = "comment-author";
+
       const avatar = document.createElement("span");
       avatar.className = "comment-avatar";
       avatar.textContent = initials(comment.author || "Student");
       avatar.setAttribute("aria-hidden", "true");
+
       const authorText = document.createElement("div");
+
       const author = document.createElement("strong");
       author.textContent = comment.author || "Student";
+
       const time = document.createElement("span");
       time.className = "comment-time";
       time.textContent = formatDate(comment.createdAt);
+
       authorText.append(author, time);
       authorWrap.append(avatar, authorText);
       meta.append(authorWrap);
+
       const message = document.createElement("p");
       message.className = "comment-message";
       message.textContent = comment.message || "";
+
       const actions = document.createElement("div");
       actions.className = "comment-actions";
-      actions.append(button("Reply", "comment-action", () => createReplyForm(comment.id, card)));
+
+      actions.append(
+        button("Reply", "comment-action", () =>
+          createReplyForm(comment.id, card)
+        )
+      );
+
       if (currentUser && comment.uid === currentUser.uid) {
-        actions.append(button("Delete", "comment-action delete", async () => {
-          if (!window.confirm("Delete this comment?")) return;
-          try { await firestoreModule.deleteDoc(firestoreModule.doc(db, "helpComments", comment.id)); }
-          catch (error) { console.error("Could not delete comment.", error); setStatus("Could not delete this comment.", "error"); }
-        }));
+        actions.append(
+          button("Delete", "comment-action delete", async () => {
+            if (!window.confirm("Delete this comment?")) {
+              return;
+            }
+
+            try {
+              await firestoreModule.deleteDoc(
+                firestoreModule.doc(db, "helpComments", comment.id)
+              );
+            } catch (error) {
+              console.error("Could not delete comment.", error);
+              setStatus("Could not delete this comment.", "error");
+            }
+          })
+        );
       }
+
       card.append(meta, message, actions);
       return card;
     };
 
     const renderComments = () => {
       list.replaceChildren();
+
       const visible = comments.filter((item) => item.pageId === "help");
-      countBox.textContent = `${visible.length} ${visible.length === 1 ? "comment" : "comments"}`;
+
+      countBox.textContent = `${visible.length} ${
+        visible.length === 1 ? "comment" : "comments"
+      }`;
+
       if (!visible.length) {
         const empty = document.createElement("div");
         empty.className = "empty-comments";
@@ -175,33 +259,65 @@ async function initializeDiscussion() {
         list.append(empty);
         return;
       }
+
       const topLevel = visible.filter((item) => !item.parentId);
       const replies = new Map();
-      visible.filter((item) => item.parentId).forEach((reply) => {
-        const items = replies.get(reply.parentId) || [];
-        items.push(reply);
-        replies.set(reply.parentId, items);
-      });
+
+      visible
+        .filter((item) => item.parentId)
+        .forEach((reply) => {
+          const items = replies.get(reply.parentId) || [];
+          items.push(reply);
+          replies.set(reply.parentId, items);
+        });
+
       topLevel.forEach((comment) => {
         list.append(createCommentCard(comment));
-        (replies.get(comment.id) || []).forEach((reply) => list.append(createCommentCard(reply, true)));
+
+        (replies.get(comment.id) || []).forEach((reply) => {
+          list.append(createCommentCard(reply, true));
+        });
       });
     };
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+
       const author = nameInput.value.trim();
       const message = messageInput.value.trim();
-      if (!currentUser) { setStatus("Discussion is still connecting. Please try again.", "error"); return; }
-      if (author.length < 2 || author.length > 40) { setStatus("Name must contain 2–40 characters.", "error"); nameInput.focus(); return; }
-      if (!message || message.length > 1500) { setStatus("Comment must contain 1–1500 characters.", "error"); messageInput.focus(); return; }
+
+      if (!currentUser) {
+        setStatus("Discussion is still connecting. Please try again.", "error");
+        return;
+      }
+
+      if (author.length < 2 || author.length > 40) {
+        setStatus("Name must contain 2–40 characters.", "error");
+        nameInput.focus();
+        return;
+      }
+
+      if (!message || message.length > 1500) {
+        setStatus("Comment must contain 1–1500 characters.", "error");
+        messageInput.focus();
+        return;
+      }
+
       submitButton.disabled = true;
       setStatus("Posting…");
+
       try {
         localStorage.setItem("diplomaNotesCommentName", author);
+
         await firestoreModule.addDoc(commentsRef, {
-          pageId: "help", author, message, parentId: null, uid: currentUser.uid, createdAt: firestoreModule.serverTimestamp()
+          pageId: "help",
+          author,
+          message,
+          parentId: null,
+          uid: currentUser.uid,
+          createdAt: firestoreModule.serverTimestamp()
         });
+
         messageInput.value = "";
         setStatus("Comment posted.", "success");
       } catch (error) {
@@ -219,10 +335,30 @@ async function initializeDiscussion() {
     });
 
     await authModule.signInAnonymously(auth);
-const commentsQuery = firestoreModule.query(commentsRef, firestoreModule.orderBy("createdAt", "desc"), firestoreModule.limit(20));      window.clearTimeout(timeout);
-      comments = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
-      renderComments();
-    }, (error) => showUnavailable(error));
+
+    const commentsQuery = firestoreModule.query(
+      commentsRef,
+      firestoreModule.orderBy("createdAt", "desc"),
+      firestoreModule.limit(20)
+    );
+
+    firestoreModule.onSnapshot(
+      commentsQuery,
+      (snapshot) => {
+        window.clearTimeout(timeout);
+
+        comments = snapshot.docs.map((item) => ({
+          id: item.id,
+          ...item.data()
+        }));
+
+        renderComments();
+      },
+      (error) => {
+        window.clearTimeout(timeout);
+        showUnavailable(error);
+      }
+    );
   } catch (error) {
     window.clearTimeout(timeout);
     throw error;
