@@ -103,6 +103,7 @@ img, video { max-width: 100%; }
 .brand strong { font-size: 1.04rem; }
 
 .site-notice {
+  pointer-events: none !important;
   position: relative;
   height: 42px;
   display: flex;
@@ -139,7 +140,9 @@ img, video { max-width: 100%; }
   animation: marqueeNotice 22s linear infinite;
 }
 .site-notice:hover span,
-.site-notice:focus-visible span { animation-play-state: running !important; }
+.site-notice:focus span,
+.site-notice:focus-visible span,
+.site-notice:active span { animation-play-state: running !important; }
 
 .navlinks {
   display: flex;
