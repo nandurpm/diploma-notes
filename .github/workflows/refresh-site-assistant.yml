@@ -1,0 +1,94 @@
+name: Refresh Ask POLY assistant loader
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/refresh-site-assistant.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Replace assistant loader with cache-safe floating loader
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('assets/js/main.js')
+          text = path.read_text(encoding='utf-8')
+
+          replacement = r'''function setupSiteAssistant() {
+  const path = window.location.pathname.toLowerCase();
+  if (path.includes("/lessons/") || document.querySelector(".poly-ai-button")) return;
+
+  const prefix = rootPrefix();
+  const version = "20260613-assistant3";
+
+  if (!document.getElementById("polyAssistantLoaderStyles")) {
+    const fallback = document.createElement("style");
+    fallback.id = "polyAssistantLoaderStyles";
+    fallback.textContent = `
+      #polySiteAssistant {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 2147483000;
+        width: max-content;
+        height: max-content;
+      }
+      #polySiteAssistant .poly-ai-panel[hidden] { display: none !important; }
+      @media (max-width: 620px) {
+        #polySiteAssistant { right: 10px; bottom: 10px; }
+      }
+    `;
+    document.head.append(fallback);
+  }
+
+  if (!document.querySelector('link[href*="assets/css/site-assistant.css"]')) {
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = new URL(`${prefix}assets/css/site-assistant.css?v=${version}`, document.baseURI).href;
+    document.head.append(css);
+  }
+
+  let mount = document.getElementById("polySiteAssistant");
+  if (!mount) {
+    mount = document.createElement("div");
+    mount.id = "polySiteAssistant";
+    mount.setAttribute("aria-live", "polite");
+    document.body.append(mount);
+  }
+
+  if (!document.querySelector('script[src*="assets/js/site-assistant.js"]')) {
+    const script = document.createElement("script");
+    script.src = new URL(`${prefix}assets/js/site-assistant.js?v=${version}`, document.baseURI).href;
+    script.async = true;
+    document.body.append(script);
+  }
+}'''
+
+          pattern = r'function setupSiteAssistant\(\) \{.*?\n\}\n\ndocument\.addEventListener\("DOMContentLoaded"'
+          updated, count = re.subn(pattern, replacement + '\n\ndocument.addEventListener("DOMContentLoaded"', text, count=1, flags=re.S)
+          if count != 1:
+              raise SystemExit('Could not find setupSiteAssistant block')
+
+          path.write_text(updated, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/refresh-site-assistant.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/main.js .github/workflows/refresh-site-assistant.yml
+          git commit -m "Fix and cache-bust the Ask POLY assistant"
+          git push origin main
