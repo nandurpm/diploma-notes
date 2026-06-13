@@ -65,7 +65,8 @@ async function initializeDiscussion() {
     const db = firestoreModule.getFirestore(app);
     const commentsRef = firestoreModule.collection(db, "helpComments");
 
-    let currentUser = null;
+    let currentUser = auth.currentUser;
+    let authPromise = null;
     let liveComments = [];
     let olderComments = [];
     let comments = [];
@@ -81,6 +82,27 @@ async function initializeDiscussion() {
     const setStatus = (message = "", type = "") => {
       statusBox.textContent = message;
       statusBox.className = `comment-status${type ? ` ${type}` : ""}`;
+    };
+
+    const ensureAuthenticated = async () => {
+      if (auth.currentUser) {
+        currentUser = auth.currentUser;
+        return currentUser;
+      }
+
+      if (!authPromise) {
+        authPromise = authModule
+          .signInAnonymously(auth)
+          .then((credential) => {
+            currentUser = credential.user;
+            return credential.user;
+          })
+          .finally(() => {
+            authPromise = null;
+          });
+      }
+
+      return authPromise;
     };
 
     const formatDate = (timestamp) => {
@@ -171,13 +193,15 @@ async function initializeDiscussion() {
         const author = nameInput.value.trim();
         const message = textarea.value.trim();
 
-        if (!author) {
+        if (author.length < 2 || author.length > 40) {
           nameInput.focus();
-          setStatus("Enter your name before replying.", "error");
+          setStatus("Name must contain 2–40 characters.", "error");
           return;
         }
 
-        if (!currentUser || !message) {
+        if (!message || message.length > 1500) {
+          setStatus("Reply must contain 1–1500 characters.", "error");
+          textarea.focus();
           return;
         }
 
@@ -189,17 +213,21 @@ async function initializeDiscussion() {
         }
 
         submit.disabled = true;
+        setStatus("Connecting…");
 
         try {
+          const user = await ensureAuthenticated();
           localStorage.setItem("diplomaNotesCommentName", author);
+
           await firestoreModule.addDoc(commentsRef, {
             pageId: "help",
             author,
             message,
             parentId,
-            uid: currentUser.uid,
+            uid: user.uid,
             createdAt: firestoreModule.serverTimestamp()
           });
+
           replyForm.remove();
           setStatus("Reply posted.", "success");
         } catch (error) {
@@ -269,6 +297,8 @@ async function initializeDiscussion() {
             const commentRef = firestoreModule.doc(db, "helpComments", comment.id);
 
             try {
+              await ensureAuthenticated();
+
               if (isReply) {
                 await firestoreModule.deleteDoc(commentRef);
                 olderComments = olderComments.filter((item) => item.id !== comment.id);
@@ -400,11 +430,6 @@ async function initializeDiscussion() {
       const author = nameInput.value.trim();
       const message = messageInput.value.trim();
 
-      if (!currentUser) {
-        setStatus("Discussion is still connecting. Please try again.", "error");
-        return;
-      }
-
       if (author.length < 2 || author.length > 40) {
         setStatus("Name must contain 2–40 characters.", "error");
         nameInput.focus();
@@ -418,18 +443,22 @@ async function initializeDiscussion() {
       }
 
       submitButton.disabled = true;
-      setStatus("Posting…");
+      setStatus("Connecting…");
 
       try {
+        const user = await ensureAuthenticated();
+        setStatus("Posting…");
         localStorage.setItem("diplomaNotesCommentName", author);
+
         await firestoreModule.addDoc(commentsRef, {
           pageId: "help",
           author,
           message,
           parentId: null,
-          uid: currentUser.uid,
+          uid: user.uid,
           createdAt: firestoreModule.serverTimestamp()
         });
+
         messageInput.value = "";
         setStatus("Comment posted.", "success");
       } catch (error) {
@@ -442,11 +471,10 @@ async function initializeDiscussion() {
 
     authModule.onAuthStateChanged(auth, (user) => {
       currentUser = user;
-      submitButton.disabled = !user;
       renderComments();
     });
 
-    await authModule.signInAnonymously(auth);
+    submitButton.disabled = false;
 
     const commentsQuery = firestoreModule.query(
       commentsRef,
