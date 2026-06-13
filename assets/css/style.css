@@ -103,7 +103,6 @@ img, video { max-width: 100%; }
 .brand strong { font-size: 1.04rem; }
 
 .site-notice {
-  pointer-events: none !important;
   position: relative;
   height: 42px;
   display: flex;
