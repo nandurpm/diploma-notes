@@ -256,8 +256,6 @@ function setupSiteNotice() {
   const notice = document.createElement("a");
   notice.className = "site-notice";
   notice.href = "https://nandakumarm.dpdns.org/about.html";
-  notice.target = "_blank";
-  notice.rel = "noopener";
   notice.textContent = "This website is in its initial stage. For suggestions or content changes, contact the developer.";
   brand.insertAdjacentElement("afterend", notice);
 }
