@@ -39,7 +39,7 @@
 }
 .site-notice:hover::after,
 .site-notice:focus-visible::after {
-  animation-play-state: paused;
+  animation-play-state: running !important;
 }
 @keyframes siteNoticeRightToLeft {
   from { transform: translateX(0); }
