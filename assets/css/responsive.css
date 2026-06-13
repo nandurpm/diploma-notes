@@ -12,7 +12,6 @@
 
 /* Site-wide notice: complete English message first, Malayalam translation next. */
 .site-notice {
-  pointer-events: none !important;
   font-size: 0 !important;
   color: transparent !important;
   overflow: hidden !important;
@@ -37,7 +36,7 @@
   line-height: 1;
   animation: siteNoticeRightToLeft 58s linear infinite;
   animation-play-state: running !important;
-  pointer-events: none !important;
+  pointer-events: auto !important;
   will-change: transform;
 }
 .site-notice:hover::after,
