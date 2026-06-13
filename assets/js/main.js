@@ -43,7 +43,7 @@ function subjectCard(subject) {
 }
 
 const assetAvailability = new Map();
-const knownLocalAssets = new Set(["/lessons/handbook-2031-source.html","/lessons/lessons-1001.html","/lessons/lessons-1002.html","/lessons/lessons-1003.html","/lessons/lessons-1004.html","/lessons/lessons-1005.html","/lessons/lessons-1006.html","/lessons/lessons-2003.html","/lessons/lessons-2031.html","/lessons/lessons-2041.html","/lessons/lessons-3031.html","/lessons/lessons-3041.html","/lessons/lessons-3044.html","/lessons/lessons-3045.html","/lessons/lessons-3046.html","/lessons/lessons-3047.html","/notes/downloadable-notes-1003.pdf","/notes/downloadable-notes-1004.pdf"]);
+const knownLocalAssets = new Set(["/lessons/handbook-2031-source.html","/lessons/lessons-1001.html","/lessons/lessons-1002.html","/lessons/lessons-1003.html","/lessons/lessons-1004.html","/lessons/lessons-1005.html","/lessons/lessons-1006.html","/lessons/lessons-2003.html","/lessons/lessons-2031.html","/lessons/lessons-2041.html","/lessons/lessons-3023.html","/lessons/lessons-3031.html","/lessons/lessons-3032.html","/lessons/lessons-3041.html","/lessons/lessons-3044.html","/lessons/lessons-3045.html","/lessons/lessons-3046.html","/lessons/lessons-3047.html","/notes/downloadable-notes-1003.pdf","/notes/downloadable-notes-1004.pdf"]);
 let activePrintFrame = null;
 
 function resolveAssetUrl(url) {
