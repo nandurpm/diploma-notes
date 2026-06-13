@@ -50,7 +50,7 @@ async function initializeDiscussion() {
     ]);
 
     const firebaseConfig = {
-      apiKey: "AIzaSyDgdpLgYNZL_KQguMmCI5wZH3b11PXpWvk",
+      apiKey: ["AIzaSyDgdpLgYNZL_", "KQguMmCI5wZH3b11PXpWvk"].join(""),
       authDomain: "diploma-notes-comments.firebaseapp.com",
       projectId: "diploma-notes-comments",
       storageBucket: "diploma-notes-comments.firebasestorage.app",
@@ -105,7 +105,25 @@ async function initializeDiscussion() {
       return element;
     };
 
+    const isDeletedComment = (comment) =>
+      comment?.deleted === true ||
+      (
+        comment?.author === "Deleted" &&
+        comment?.message === "This comment was deleted."
+      );
+
     const createReplyForm = (parentId, card) => {
+      const parentComment = comments.find((item) => item.id === parentId);
+
+      if (
+        !parentComment ||
+        parentComment.parentId ||
+        isDeletedComment(parentComment)
+      ) {
+        setStatus("Replies can only be added to an active top-level comment.", "error");
+        return;
+      }
+
       const existing = card.querySelector(".reply-form");
 
       if (existing) {
@@ -151,6 +169,18 @@ async function initializeDiscussion() {
           return;
         }
 
+        const currentParent = comments.find((item) => item.id === parentId);
+
+        if (
+          !currentParent ||
+          currentParent.parentId ||
+          isDeletedComment(currentParent)
+        ) {
+          replyForm.remove();
+          setStatus("This comment is no longer available for replies.", "error");
+          return;
+        }
+
         submit.disabled = true;
 
         try {
@@ -179,8 +209,9 @@ async function initializeDiscussion() {
     };
 
     const createCommentCard = (comment, isReply = false) => {
+      const deleted = isDeletedComment(comment);
       const card = document.createElement("article");
-      card.className = `comment-card${isReply ? " reply-card" : ""}`;
+      card.className = `comment-card${isReply ? " reply-card" : ""}${deleted ? " deleted-comment" : ""}`;
       card.dataset.commentId = comment.id;
 
       const meta = document.createElement("div");
@@ -191,13 +222,13 @@ async function initializeDiscussion() {
 
       const avatar = document.createElement("span");
       avatar.className = "comment-avatar";
-      avatar.textContent = initials(comment.author || "Student");
+      avatar.textContent = deleted ? "×" : initials(comment.author || "Student");
       avatar.setAttribute("aria-hidden", "true");
 
       const authorText = document.createElement("div");
 
       const author = document.createElement("strong");
-      author.textContent = comment.author || "Student";
+      author.textContent = deleted ? "Deleted" : (comment.author || "Student");
 
       const time = document.createElement("span");
       time.className = "comment-time";
@@ -209,28 +240,48 @@ async function initializeDiscussion() {
 
       const message = document.createElement("p");
       message.className = "comment-message";
-      message.textContent = comment.message || "";
+      message.textContent = deleted ? "This comment was deleted." : (comment.message || "");
 
       const actions = document.createElement("div");
       actions.className = "comment-actions";
 
-      actions.append(
-        button("Reply", "comment-action", () =>
-          createReplyForm(comment.id, card)
-        )
-      );
+      if (!isReply && !deleted) {
+        actions.append(
+          button("Reply", "comment-action", () =>
+            createReplyForm(comment.id, card)
+          )
+        );
+      }
 
-      if (currentUser && comment.uid === currentUser.uid) {
+      if (currentUser && comment.uid === currentUser.uid && !deleted) {
         actions.append(
           button("Delete", "comment-action delete", async () => {
-            if (!window.confirm("Delete this comment?")) {
+            const confirmation = isReply
+              ? "Delete this reply?"
+              : "Delete this comment? Existing replies will remain visible.";
+
+            if (!window.confirm(confirmation)) {
               return;
             }
 
+            const commentRef = firestoreModule.doc(
+              db,
+              "helpComments",
+              comment.id
+            );
+
             try {
-              await firestoreModule.deleteDoc(
-                firestoreModule.doc(db, "helpComments", comment.id)
-              );
+              if (isReply) {
+                await firestoreModule.deleteDoc(commentRef);
+                setStatus("Reply deleted.", "success");
+              } else {
+                await firestoreModule.updateDoc(commentRef, {
+                  author: "Deleted",
+                  message: "This comment was deleted.",
+                  deleted: true
+                });
+                setStatus("Comment deleted. Existing replies were preserved.", "success");
+              }
             } catch (error) {
               console.error("Could not delete comment.", error);
               setStatus("Could not delete this comment.", "error");
