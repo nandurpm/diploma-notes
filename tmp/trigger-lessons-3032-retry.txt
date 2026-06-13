@@ -1,0 +1,1 @@
+Retry the lessons-3032 handbook assembly with diagnostic verification.
