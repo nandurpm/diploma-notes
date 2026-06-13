@@ -1,0 +1,90 @@
+name: Fix scrolling notice hover behavior
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fix-notice-hover.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-notice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Keep the notice moving and remove the language label
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          responsive_path = Path('assets/css/responsive.css')
+          responsive = responsive_path.read_text(encoding='utf-8')
+
+          # Keep only the Malayalam content itself after the English text.
+          responsive = responsive.replace('  Malayalam: ', '  ')
+
+          # The notice is informational; disabling pointer events prevents any
+          # hover/focus state from pausing or restarting its animation.
+          responsive = responsive.replace(
+              '.site-notice {\n  font-size:',
+              '.site-notice {\n  pointer-events: none !important;\n  font-size:',
+              1
+          )
+          responsive = responsive.replace(
+              '  animation: siteNoticeRightToLeft 58s linear infinite;\n  will-change: transform;',
+              '  animation: siteNoticeRightToLeft 58s linear infinite;\n  animation-play-state: running !important;\n  pointer-events: none !important;\n  will-change: transform;',
+              1
+          )
+          responsive = re.sub(
+              r'\.site-notice:hover::after,\s*\.site-notice:focus-visible::after\s*\{.*?\}',
+              '.site-notice:hover::after,\n.site-notice:focus::after,\n.site-notice:focus-visible::after,\n.site-notice:active::after {\n  animation-play-state: running !important;\n}',
+              responsive,
+              count=1,
+              flags=re.S
+          )
+          responsive_path.write_text(responsive, encoding='utf-8')
+
+          style_path = Path('assets/css/style.css')
+          style = style_path.read_text(encoding='utf-8')
+          style = style.replace('  Malayalam: ', '  ')
+          style = style.replace(
+              '.site-notice {\n  position:',
+              '.site-notice {\n  pointer-events: none !important;\n  position:',
+              1
+          )
+          style = re.sub(
+              r'\.site-notice:hover span,\s*\.site-notice:focus-visible span\s*\{.*?\}',
+              '.site-notice:hover span,\n.site-notice:focus span,\n.site-notice:focus-visible span,\n.site-notice:active span { animation-play-state: running !important; }',
+              style,
+              count=1,
+              flags=re.S
+          )
+          style_path.write_text(style, encoding='utf-8')
+
+          # Cache-bust the shared responsive stylesheet in every HTML page so
+          # all sections receive this correction immediately.
+          for html_path in Path('.').rglob('*.html'):
+              text = html_path.read_text(encoding='utf-8')
+              updated = re.sub(
+                  r'(assets/css/responsive\.css)(?:\?v=[^"\']*)?',
+                  r'\1?v=20260614-marquee2',
+                  text
+              )
+              if updated != text:
+                  html_path.write_text(updated, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/fix-notice-hover.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Keep the bilingual notice scrolling on hover"
+          git push origin main
