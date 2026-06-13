@@ -1,6 +1,70 @@
 rules_version = '2';
+
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function ownsExistingComment() {
+      return isSignedIn() &&
+        resource.data.uid is string &&
+        resource.data.uid == request.auth.uid;
+    }
+
+    function isActiveTopLevelParent(parentId) {
+      return parentId is string &&
+        parentId.size() > 0 &&
+        exists(/databases/$(database)/documents/helpComments/$(parentId)) &&
+        get(/databases/$(database)/documents/helpComments/$(parentId)).data.pageId == "help" &&
+        get(/databases/$(database)/documents/helpComments/$(parentId)).data.parentId == null &&
+        !get(/databases/$(database)/documents/helpComments/$(parentId)).data.keys().hasAny(["deleted"]);
+    }
+
+    function isValidNewComment() {
+      return isSignedIn() &&
+        request.resource.data.keys().hasAll(["pageId", "author", "message", "parentId", "uid", "createdAt"]) &&
+        request.resource.data.keys().hasOnly(["pageId", "author", "message", "parentId", "uid", "createdAt"]) &&
+        request.resource.data.pageId == "help" &&
+        request.resource.data.author is string &&
+        request.resource.data.author.size() >= 2 &&
+        request.resource.data.author.size() <= 40 &&
+        request.resource.data.message is string &&
+        request.resource.data.message.size() >= 1 &&
+        request.resource.data.message.size() <= 1500 &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.createdAt is timestamp &&
+        request.resource.data.createdAt == request.time &&
+        (
+          request.resource.data.parentId == null ||
+          isActiveTopLevelParent(request.resource.data.parentId)
+        );
+    }
+
+    function isValidParentSoftDelete() {
+      return ownsExistingComment() &&
+        resource.data.pageId == "help" &&
+        resource.data.parentId == null &&
+        !resource.data.keys().hasAny(["deleted"]) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(["author", "message", "deleted"]) &&
+        request.resource.data.pageId == resource.data.pageId &&
+        request.resource.data.parentId == resource.data.parentId &&
+        request.resource.data.uid == resource.data.uid &&
+        request.resource.data.createdAt == resource.data.createdAt &&
+        request.resource.data.author == "Deleted" &&
+        request.resource.data.message == "This comment was deleted." &&
+        request.resource.data.deleted == true;
+    }
+
+    match /helpComments/{commentId} {
+      allow read: if isSignedIn();
+      allow create: if isValidNewComment();
+      allow update: if isValidParentSoftDelete();
+      allow delete: if ownsExistingComment() &&
+        resource.data.pageId == "help" &&
+        resource.data.parentId is string;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }
