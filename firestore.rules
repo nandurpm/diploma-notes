@@ -57,7 +57,7 @@ service cloud.firestore {
     }
 
     match /helpComments/{commentId} {
-      allow read: if isSignedIn();
+      allow read: if true;
       allow create: if isValidNewComment();
       allow update: if isValidParentSoftDelete();
       allow delete: if ownsExistingComment() &&
