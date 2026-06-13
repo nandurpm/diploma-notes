@@ -169,7 +169,6 @@ function setupSubjectBrowser() {
   const grid = document.getElementById("subjectGrid");
   if (!grid || !Array.isArray(SUBJECTS)) return;
 
-  // main.js is the only subject-browser owner. site-hardening.js checks this flag and exits.
   grid.dataset.hardeningInitialized = "true";
   grid.dataset.subjectBrowserOwner = "main";
 
@@ -266,16 +265,49 @@ function setupSiteNotice() {
 
 function setupSiteAssistant() {
   if (window.location.pathname.includes("/lessons/") || document.querySelector(".poly-ai-button")) return;
+
   const prefix = rootPrefix();
-  if (!document.getElementById("polySiteAssistant")) {
-    const mount = document.createElement("div");
+  const version = "20260613-assistant4";
+
+  if (!document.getElementById("polyAssistantLoaderStyles")) {
+    const fallback = document.createElement("style");
+    fallback.id = "polyAssistantLoaderStyles";
+    fallback.textContent = `
+      #polySiteAssistant {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 2147483000;
+        width: max-content;
+        height: max-content;
+      }
+      #polySiteAssistant .poly-ai-panel[hidden] { display: none !important; }
+      @media (max-width: 620px) {
+        #polySiteAssistant { right: 10px; bottom: 10px; }
+      }
+    `;
+    document.head.append(fallback);
+  }
+
+  if (!document.querySelector('link[href*="assets/css/site-assistant.css"]')) {
+    const css = document.createElement("link");
+    css.rel = "stylesheet";
+    css.href = new URL(`${prefix}assets/css/site-assistant.css?v=${version}`, document.baseURI).href;
+    document.head.append(css);
+  }
+
+  let mount = document.getElementById("polySiteAssistant");
+  if (!mount) {
+    mount = document.createElement("div");
     mount.id = "polySiteAssistant";
+    mount.setAttribute("aria-live", "polite");
     document.body.append(mount);
   }
+
   if (!document.querySelector('script[src*="assets/js/site-assistant.js"]')) {
     const script = document.createElement("script");
-    script.src = `${prefix}assets/js/site-assistant.js?v=20260613-2`;
-    script.defer = true;
+    script.src = new URL(`${prefix}assets/js/site-assistant.js?v=${version}`, document.baseURI).href;
+    script.async = true;
     document.body.append(script);
   }
 }
