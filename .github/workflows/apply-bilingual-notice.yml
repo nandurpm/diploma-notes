@@ -1,0 +1,103 @@
+name: Apply bilingual scrolling notice
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/apply-bilingual-notice.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-notice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Update shared notice and Help assistant behavior
+        env:
+          NOTICE_B64: "V2VsY29tZSB0byBEaXBsb21hIE5vdGVzIOKAlCBhIHN0dWRlbnQtZnJpZW5kbHkgS2VyYWxhIFBvbHl0ZWNobmljIHN0dWR5IHBvcnRhbC4gRmluZCBzY2hlbWUtd2lzZSBkZXBhcnRtZW50cywgc2VtZXN0ZXItd2lzZSBzdWJqZWN0cywgc3lsbGFidXMgbGlua3MsIGxlc3NvbnMsIG5vdGVzLCBtb2RlbCBxdWVzdGlvbiBwYXBlcnMgYW5kIHB1YmxpYyBoZWxwIGRpc2N1c3Npb25zLiBUaGlzIHdlYnNpdGUgaXMgaW4gaXRzIGluaXRpYWwgc3RhZ2UsIGFuZCBuZXcgbGVhcm5pbmcgcmVzb3VyY2VzIGFyZSBhZGRlZCByZWd1bGFybHkuIEZvciBtaXNzaW5nIG1hdGVyaWFscywgYnJva2VuIGxpbmtzLCBjb3JyZWN0aW9ucyBvciBzdWdnZXN0aW9ucywgY29udGFjdCB0aGUgZGV2ZWxvcGVyLiAg4oCiICDgtK7gtLLgtK/gtL7gtLPgtII6IOC0oeC0v+C0quC1jeC0suC1i+C0riDgtKjgtYvgtLHgtY3gtLHgtY3gtLjgtY0g4LSV4LWH4LSw4LSzIOC0quC1i+C0s+C0v+C0n+C1huC0leC1jeC0qOC0v+C0leC1jSDgtLXgtL/gtKbgtY3gtK/gtL7gtbzgtKTgtY3gtKXgtL/gtJXgtb7gtJXgtY3gtJXgtL7gtK/gtYHgtLPgtY3gtLMg4LSq4LSg4LSoIOC0quC1i+C1vOC0n+C1jeC0n+C0suC0vuC0o+C1jS4g4LS44LWN4LSV4LWA4LSCIOC0heC0n+C0v+C0uOC1jeC0peC0vuC0qOC0pOC1jeC0pOC0v+C0suC1geC0s+C1jeC0syDgtKHgtL/gtKrgtY3gtKrgtL7gtbzgtJ/gtY3gtJ/gtY3gtK7gtYbgtKjgtY3gtLHgtYHgtJXgtb4sIOC0uOC1huC0ruC0uOC1jeC0seC1jeC0seC1vCDgtIXgtJ/gtL/gtLjgtY3gtKXgtL7gtKjgtKTgtY3gtKTgtL/gtLLgtYHgtLPgtY3gtLMg4LS14LS/4LS34LSv4LSZ4LWN4LSZ4LW+LCDgtLjgtL/gtLLgtKzgtLjgtY0g4LSy4LS/4LSZ4LWN4LSV4LWB4LSV4LW+LCDgtKrgtL7gtKDgtJngtY3gtJngtb4sIOC0qOC1i+C0n+C1jeC0n+C1geC0leC1viwg4LSu4LS+4LSk4LWD4LSV4LS+IOC0muC1i+C0puC1jeC0r+C0quC1h+C0quC1jeC0quC0seC1geC0leC1viwg4LSq4LWK4LSk4LWB4LS44LS54LS+4LSvIOC0muC1vOC0muC1jeC0muC0leC1viDgtI7gtKjgtY3gtKjgtL/gtLUg4LSH4LS14LS/4LSf4LWGIOC0suC0reC1jeC0r+C0ruC0vuC0o+C1jS4g4LS14LWG4LSs4LWN4LS44LWI4LSx4LWN4LSx4LWNIOC0h+C0quC1jeC0quC1i+C1viDgtKrgtY3gtLDgtL7gtLDgtILgtK0g4LSY4LSf4LWN4LSf4LSk4LWN4LSk4LS/4LSy4LS+4LSj4LWNOyDgtKrgtYHgtKTgtL/gtK8g4LSq4LSg4LSo4LS14LS/4LSt4LS14LSZ4LWN4LSZ4LW+IOC0qOC0v+C0sOC0qOC1jeC0pOC0sOC0giDgtJrgtYfgtbzgtJXgtY3gtJXgtYHgtKjgtY3gtKjgtYEuIOC0suC0reC1jeC0r+C0ruC0suC1jeC0suC0vuC0pOC1jeC0pCDgtKrgtKDgtKjgtLjgtL7gtK7gtJfgtY3gtLDgtL/gtJXgtb4sIOC0quC1jeC0sOC0teC1vOC0pOC1jeC0pOC0v+C0leC1jeC0leC0vuC0pOC1jeC0pCDgtLLgtL/gtJngtY3gtJXgtYHgtJXgtb4sIOC0pOC0v+C0sOC1geC0pOC1jeC0pOC0suC1geC0leC1viwg4LSo4LS/4LW84LSm4LWN4LSm4LWH4LS24LSZ4LWN4LSZ4LW+IOC0juC0qOC1jeC0qOC0v+C0tSDgtIXgtLHgtL/gtK/gtL/gtJXgtY3gtJXgtL7gtbsg4LSh4LWG4LS14LSy4LSq4LWN4LSq4LSx4LWGIOC0rOC0qOC1jeC0p+C0quC1jeC0quC1huC0n+C1geC0lS4="
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, json, os, re
+
+          message = base64.b64decode(os.environ['NOTICE_B64']).decode('utf-8')
+          css_message = message.replace('\\', '\\\\').replace('"', '\\"')
+
+          responsive_path = Path('assets/css/responsive.css')
+          responsive = responsive_path.read_text(encoding='utf-8')
+          responsive = re.sub(
+              r'content:\s*"This website is in its initial stage\.[^"]*";',
+              f'content: "{css_message}";',
+              responsive,
+              count=1
+          )
+          if '.site-notice > span {' not in responsive:
+              responsive = responsive.replace(
+                  '.site-notice::after {',
+                  '.site-notice > span { display: none !important; }\n.site-notice::after {',
+                  1
+              )
+          responsive = responsive.replace('siteNoticeRightToLeft 20s', 'siteNoticeRightToLeft 58s')
+          responsive = responsive.replace('animation-duration: 15s', 'animation-duration: 45s')
+          responsive_path.write_text(responsive, encoding='utf-8')
+
+          style_path = Path('assets/css/style.css')
+          style = style_path.read_text(encoding='utf-8')
+          notice_block = f'''.site-notice span {{ display: none !important; }}
+.site-notice::after {{
+  content: "{css_message}";
+  display: inline-block;
+  min-width: max-content;
+  padding-left: 100%;
+  color: #0f3f8a;
+  font-family: Inter, "Noto Sans Malayalam", "Segoe UI", sans-serif;
+  font-size: .88rem;
+  font-weight: 850;
+  animation: marqueeNotice 58s linear infinite;
+  will-change: transform;
+}}
+.site-notice:hover::after,
+.site-notice:focus-visible::after {{ animation-play-state: paused; }}'''
+          style, count = re.subn(
+              r'\.site-notice span \{.*?\}\n\.site-notice:hover span \{.*?\}',
+              notice_block,
+              style,
+              count=1,
+              flags=re.S
+          )
+          if count != 1:
+              raise SystemExit('Could not update the shared site-notice block in style.css')
+          style_path.write_text(style, encoding='utf-8')
+
+          js_path = Path('assets/js/main.js')
+          js = js_path.read_text(encoding='utf-8')
+          js = re.sub(
+              r'notice\.textContent = "This website is in its initial stage\.[^"]*";',
+              'notice.textContent = ' + json.dumps(message, ensure_ascii=False) + ';',
+              js,
+              count=1
+          )
+          old = 'if (window.location.pathname.includes("/lessons/") || document.querySelector(".poly-ai-button")) return;'
+          new = '''const assistantPath = window.location.pathname.toLowerCase().replace(/\\/+$/, "");
+  if (assistantPath.includes("/lessons/") || assistantPath.endsWith("/contact.html")) {
+    document.getElementById("polySiteAssistant")?.remove();
+    return;
+  }
+  if (document.querySelector(".poly-ai-button")) return;'''
+          if old in js:
+              js = js.replace(old, new, 1)
+          js_path.write_text(js, encoding='utf-8')
+          PY
+
+      - name: Commit site-wide update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/css/style.css assets/css/responsive.css assets/js/main.js
+          git commit -m "Add a bilingual scrolling notice across the site"
+          git push origin main
