@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "automation/final-integrity.trigger"
+      - ".github/workflows/final-integrity-pass.yml"
 
 permissions:
   contents: write
@@ -44,8 +45,9 @@ jobs:
           rm -f automation/final-integrity.trigger
           rm -f automation/repair-audit-findings.py
           rm -f .github/workflows/final-integrity-pass.yml
+          rm -f .github/workflows/apply-final-audit-fixes.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Resolve final site integrity findings"
+          git commit -m "Record final browser integrity audit"
           git push
