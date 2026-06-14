@@ -143,6 +143,7 @@ tr:last-child td {border-bottom:0}
   .screen{width:100%;max-width:none} .hero-card,.card,.lesson-card,.problem,.answer-card,.module-hero{box-shadow:none!important;break-inside:avoid}
   .section{break-before:auto;padding:1rem 0} .section-head h2{font-size:2rem} a{text-decoration:none;color:inherit}
 }
+.static-page-title{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 </style>
 
 <link rel="stylesheet" href="/assets/css/revision-back-button.css?v=20260614-1">
@@ -178,10 +179,11 @@ tr:last-child td {border-bottom:0}
       <button class="tabbtn" data-target="m4">Module 4</button>
       <button class="tabbtn" data-target="revision">Revision</button>
       <button class="tabbtn" data-target="answer-key">Master Answer Key</button>
-      <button id="downloadPdf" class="printbtn" type="button">Download PDF</button>
+      <button id="downloadPdf" class="printbtn" type="button">Print / Save as PDF</button>
     </nav>
   </div>
 </header>
+<h1 class="static-page-title">Applied Chemistry-I</h1>
 <div id="app" class="app-root"></div>
 <div id="printRoot" class="print-root screen"></div>
 <button id="toTop" class="to-top" aria-label="Back to top">↑</button>

@@ -1,6 +1,6 @@
 {
   "pages_checked": 74,
-  "pages_with_issues": 4,
+  "pages_with_issues": 0,
   "css_asset_issues": [],
   "pages": [
     {
@@ -71,9 +71,7 @@
       "url": "https://polypmna.dpdns.org/lessons/lessons-1004.html",
       "title": "Applied Chemistry-I 1004 | Kerala Polytechnic Study Hub",
       "canonical": "https://polypmna.dpdns.org/lessons/lessons-1004.html",
-      "issues": [
-        "Expected exactly one H1; found 0"
-      ]
+      "issues": []
     },
     {
       "path": "lessons/lessons-1005.html",
@@ -101,10 +99,7 @@
       "url": "https://polypmna.dpdns.org/lessons/lessons-2031.html",
       "title": "Fundamentals of Electrical and Electronics Engineering 2031 | Kerala Polytechnic Study Hub",
       "canonical": "https://polypmna.dpdns.org/lessons/lessons-2031.html",
-      "issues": [
-        "Missing metadata: twitter:title",
-        "Missing metadata: twitter:description"
-      ]
+      "issues": []
     },
     {
       "path": "lessons/lessons-2041.html",
@@ -116,7 +111,7 @@
     {
       "path": "lessons/lessons-3023.html",
       "url": "https://polypmna.dpdns.org/lessons/lessons-3023.html",
-      "title": "Machine Tools 3023 | Kerala Polytechnic Study HubMachine tool workshop illustrationOrthogonal and oblique cutting diagramsSingle point cutting tool nomenclatureLabeled centre latheRadial drilling machineCrank and slotted lever quick-return mechanismVertical milling machineCentreless grindingCNC machine block diagram",
+      "title": "Machine Tools 3023 | Kerala Polytechnic Study Hub",
       "canonical": "https://polypmna.dpdns.org/lessons/lessons-3023.html",
       "issues": []
     },
@@ -130,22 +125,16 @@
     {
       "path": "lessons/lessons-3032.html",
       "url": "https://polypmna.dpdns.org/lessons/lessons-3032.html",
-      "title": "DC Machines & Traction Motors | Course 3032Labeled construction of a DC machineSimple-loop DC generator and commutator action",
+      "title": "DC Machines & Traction Motors 3032 | Kerala Polytechnic Study Hub",
       "canonical": "https://polypmna.dpdns.org/lessons/lessons-3032.html",
-      "issues": [
-        "Missing metadata: og:type",
-        "Missing metadata: og:title",
-        "Missing metadata: og:description"
-      ]
+      "issues": []
     },
     {
       "path": "lessons/lessons-3041.html",
       "url": "https://polypmna.dpdns.org/lessons/lessons-3041.html",
       "title": "3041 | Electric Circuits & Networks",
       "canonical": "https://polypmna.dpdns.org/lessons/lessons-3041.html",
-      "issues": [
-        "Broken local reference: downloadable-notes-3041.pdf -> lessons/downloadable-notes-3041.pdf"
-      ]
+      "issues": []
     },
     {
       "path": "lessons/lessons-3044.html",
