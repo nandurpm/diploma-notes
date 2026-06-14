@@ -1,0 +1,83 @@
+{
+  "generated": [
+    {
+      "code": "1001",
+      "pages": 22,
+      "bytes": 246737
+    },
+    {
+      "code": "1002",
+      "pages": 21,
+      "bytes": 553921
+    },
+    {
+      "code": "1005",
+      "pages": 37,
+      "bytes": 351655
+    },
+    {
+      "code": "1006",
+      "pages": 33,
+      "bytes": 620828
+    },
+    {
+      "code": "2003",
+      "pages": 42,
+      "bytes": 486991
+    },
+    {
+      "code": "2031",
+      "pages": 38,
+      "bytes": 326467
+    },
+    {
+      "code": "2041",
+      "pages": 47,
+      "bytes": 1282023
+    },
+    {
+      "code": "3023",
+      "pages": 25,
+      "bytes": 303375
+    },
+    {
+      "code": "3031",
+      "pages": 89,
+      "bytes": 4433175
+    },
+    {
+      "code": "3032",
+      "pages": 75,
+      "bytes": 1256686
+    },
+    {
+      "code": "3041",
+      "pages": 5,
+      "bytes": 722863
+    },
+    {
+      "code": "3044",
+      "pages": 53,
+      "bytes": 614565
+    },
+    {
+      "code": "3045",
+      "pages": 34,
+      "bytes": 559439
+    },
+    {
+      "code": "3046",
+      "pages": 37,
+      "bytes": 528418
+    },
+    {
+      "code": "3047",
+      "pages": 38,
+      "bytes": 534990
+    }
+  ],
+  "preservedSeparateNotes": [
+    "1003",
+    "1004"
+  ]
+}
