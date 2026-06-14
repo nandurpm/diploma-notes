@@ -46,6 +46,11 @@
   opacity: 0.62 !important;
 }
 
+/* Revision and department are already fixed by the department page data. */
+.filters.department-subject-filters {
+  grid-template-columns: minmax(260px, 2fr) minmax(190px, 0.75fr) !important;
+}
+
 #subjectGrid.department-semester-layout {
   display: block;
 }
@@ -117,6 +122,12 @@
     height: 68px !important;
     border-radius: 20px !important;
     font-size: 2rem !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .filters.department-subject-filters {
+    grid-template-columns: 1fr !important;
   }
 }
 
