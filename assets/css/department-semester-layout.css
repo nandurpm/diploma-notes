@@ -1,3 +1,51 @@
+/* Compact page heading shared by every Revision 2021 department page. */
+.page-title {
+  min-height: 260px !important;
+  margin-top: 16px !important;
+  padding: clamp(26px, 3vw, 46px) !important;
+  border-radius: 30px !important;
+}
+
+.page-title h1 {
+  max-width: min(1120px, calc(100% - 190px)) !important;
+  margin: 10px 0 12px !important;
+  font-size: clamp(2rem, 3.35vw, 3.65rem) !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.045em !important;
+  text-wrap: balance;
+}
+
+.page-title > p:not(.kicker) {
+  max-width: 840px !important;
+  margin: 0 !important;
+  font-size: 1rem !important;
+  line-height: 1.55 !important;
+}
+
+.page-title .kicker {
+  min-height: 30px !important;
+  margin-bottom: 8px !important;
+  padding: 6px 11px !important;
+  font-size: 0.7rem !important;
+}
+
+.page-title::before {
+  top: 22px !important;
+  right: 28px !important;
+  padding: 7px 12px !important;
+  font-size: 0.65rem !important;
+}
+
+.page-title::after {
+  right: 42px !important;
+  bottom: 28px !important;
+  width: 86px !important;
+  height: 86px !important;
+  border-radius: 25px !important;
+  font-size: 2.6rem !important;
+  opacity: 0.62 !important;
+}
+
 #subjectGrid.department-semester-layout {
   display: block;
 }
@@ -51,7 +99,63 @@
   height: 100%;
 }
 
+@media (max-width: 900px) {
+  .page-title {
+    min-height: 225px !important;
+    padding: 24px 20px !important;
+  }
+
+  .page-title h1 {
+    max-width: calc(100% - 110px) !important;
+    font-size: clamp(1.85rem, 5.4vw, 2.8rem) !important;
+  }
+
+  .page-title::after {
+    right: 22px !important;
+    bottom: 22px !important;
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 20px !important;
+    font-size: 2rem !important;
+  }
+}
+
 @media (max-width: 640px) {
+  .page-title {
+    min-height: 190px !important;
+    padding: 18px 14px !important;
+    border-radius: 20px !important;
+  }
+
+  .page-title h1 {
+    max-width: calc(100% - 58px) !important;
+    margin: 8px 0 10px !important;
+    font-size: clamp(1.5rem, 7vw, 2.05rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .page-title > p:not(.kicker) {
+    max-width: 100% !important;
+    font-size: 0.9rem !important;
+  }
+
+  .page-title::before {
+    position: static !important;
+    display: inline-flex !important;
+    width: fit-content !important;
+    margin-bottom: 6px !important;
+  }
+
+  .page-title::after {
+    right: 12px !important;
+    bottom: 12px !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 15px !important;
+    font-size: 1.45rem !important;
+    opacity: 0.48 !important;
+  }
+
   .department-semester-heading {
     padding: 13px 14px;
   }
