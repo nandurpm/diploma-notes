@@ -62,17 +62,18 @@ img, video { max-width: 100%; }
 
 .topbar {
   position: sticky;
-  top: 12px;
-  z-index: 40;
-  width: min(var(--page-width), calc(100% - var(--page-gutter)));
-  margin: 12px auto 18px;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  max-width: none;
+  margin: 0 0 18px;
   display: grid;
   grid-template-columns: auto minmax(220px, 1fr) auto;
   align-items: center;
   gap: 14px;
   padding: 12px 14px;
   border: 1px solid rgba(255,255,255,.9);
-  border-radius: 28px;
+  border-radius: 0 0 28px 28px;
   background: rgba(255, 255, 255, 0.88);
   box-shadow: 0 16px 45px rgba(15, 35, 65, 0.12);
   backdrop-filter: blur(20px) saturate(140%);
