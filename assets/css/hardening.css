@@ -1,3 +1,5 @@
+@import url("/assets/css/subject-semester-layout.css?v=20260614-1");
+
 /* Verified cross-page layout, accessibility, and failure-state corrections. */
 :root {
   --site-edge-gutter: clamp(12px, 1.4vw, 24px);
