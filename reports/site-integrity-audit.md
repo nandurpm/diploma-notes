@@ -3,27 +3,22 @@
 - Sitemap pages checked: **74**
 - Pages with static issues: **0**
 - Broken CSS asset references: **0**
-- Runtime console audit: **Pending workflow browser check**
+- Browser pages checked: **74**
+- Browser pages completed: **72**
+- Pages with detected application JavaScript errors: **0**
+- Pages that exceeded the Chrome CLI audit timeout: **2**
 
 ## Static result
 
 All static integrity checks passed.
 
-## Chrome runtime audit
+## Browser result
 
-- Pages checked: **74**
-- Pages with detected application errors: **3**
+No application JavaScript console errors were detected on the pages that completed the browser audit.
 
-### https://polypmna.dpdns.org/lessons.html
-- `Chrome audit timed out`
+### Inconclusive Chrome CLI pages
 
-### https://polypmna.dpdns.org/model-question-papers.html
-- `Chrome audit timed out`
+These pages passed the static audit but the command-line Chrome process did not terminate within the extended retry limit:
 
-### https://polypmna.dpdns.org/syllabus.html
-- `Chrome audit timed out`
-
-## Chrome timeout retry
-
-- Pages retried: **3**
-- Remaining pages with detected errors or timeouts: **2**
+- https://polypmna.dpdns.org/lessons.html
+- https://polypmna.dpdns.org/model-question-papers.html
