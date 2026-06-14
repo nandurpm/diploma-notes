@@ -8,7 +8,7 @@
     "1001", "1002", "1003", "1004", "1005", "1006", "2003", "2031", "2041",
     "3023", "3031", "3032", "3041", "3044", "3045", "3046", "3047"
   ]);
-  const NOTES_CODES = new Set(["1003", "1004"]);
+  const NOTES_CODES = new Set(LESSON_CODES);
   const LOCAL_ASSETS = new Set([
     ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
     ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`)
@@ -35,9 +35,7 @@
     ? globalThis.modelQuestionPaperLink(subject.code)
     : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
   const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
-  const notesLinkFor = (subject) => NOTES_CODES.has(String(subject.code))
-    ? `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`
-    : lessonLinkFor(subject);
+  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
 
   function uniqueSubjects(subjects) {
     const seen = new Set();
@@ -98,7 +96,7 @@
     const notesHref = notesLinkFor(subject);
     const lessonAvailable = hasAsset(lessonHref);
     const notesAvailable = hasAsset(notesHref);
-    const notesDownload = NOTES_CODES.has(String(subject.code)) && notesAvailable ? ' target="_blank" rel="noopener noreferrer" download' : "";
+    const notesDownload = notesAvailable ? ' download' : "";
 
     return `
       <article class="subject-card reveal">
