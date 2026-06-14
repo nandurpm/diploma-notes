@@ -160,12 +160,12 @@
       const headingId = `semester-group-heading-${index + 1}`;
       const count = semesterSubjects.length;
       return `
-        <section class="semester-subject-section" aria-labelledby="${headingId}">
-          <div class="semester-group-heading">
+        <section class="semester-subject-section" aria-labelledby="${headingId}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px">
+          <div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)">
             <h3 id="${headingId}">${escapeHtml(semester)}</h3>
             <span>${count} ${count === 1 ? "subject" : "subjects"}</span>
           </div>
-          <div class="semester-card-grid">
+          <div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">
             ${semesterSubjects.map(renderer).join("")}
           </div>
         </section>
