@@ -1,0 +1,202 @@
+name: Fix homepage subject filters
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fix-home-subject-filters.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-filters:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Fix fixed revision, common default and department results
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          # Homepage markup: Revision 2021 is fixed, so remove its selector.
+          index_path = Path('index.html')
+          index = index_path.read_text(encoding='utf-8')
+          index = index.replace(
+              '<div class="filters">\n'
+              '        <label class="sr-only" for="subjectSearch">Search subjects</label><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester">\n'
+              '        <label class="sr-only" for="revisionFilter">Filter by revision</label><select id="revisionFilter"><option value="all">All revisions</option></select>\n'
+              '        <label class="sr-only" for="departmentFilter">Filter by department</label><select id="departmentFilter"><option value="all">All departments</option></select>\n'
+              '        <label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select>\n'
+              '      </div>\n'
+              '      <div class="subject-grid" id="subjectGrid" data-mode="homepage-search"></div>',
+              '<div class="filters home-subject-filters">\n'
+              '        <label class="sr-only" for="subjectSearch">Search Revision 2021 subjects</label><input id="subjectSearch" type="search" placeholder="Search subject code or title">\n'
+              '        <label class="sr-only" for="departmentFilter">Choose department</label><select id="departmentFilter"><option value="__common__">Common Subjects</option></select>\n'
+              '        <label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select>\n'
+              '      </div>\n'
+              '      <div class="subject-grid" id="subjectGrid" data-mode="homepage-search" data-revision="2021"></div>'
+          )
+          index = index.replace(
+              '<script src="/assets/js/main.js?v=20260611-portal1" defer></script>',
+              '<script src="/assets/js/main.js?v=20260614-home-filters2" defer></script>'
+          )
+          index = re.sub(
+              r'\n\s*<script src="/assets/js/home-common-subject-default\.js[^>]*></script>',
+              '',
+              index
+          )
+          index_path.write_text(index, encoding='utf-8')
+
+          # Shared homepage filter layout: use all available width with three controls.
+          css_path = Path('assets/css/style.css')
+          css = css_path.read_text(encoding='utf-8')
+          rule = '''
+.home-subject-filters {
+  grid-template-columns: minmax(240px, 1.2fr) minmax(280px, 1.45fr) minmax(180px, .8fr) !important;
+}
+@media (max-width: 900px) {
+  .home-subject-filters { grid-template-columns: 1fr 1fr !important; }
+  .home-subject-filters #subjectSearch { grid-column: 1 / -1; }
+}
+@media (max-width: 620px) {
+  .home-subject-filters { grid-template-columns: 1fr !important; }
+  .home-subject-filters #subjectSearch { grid-column: auto; }
+}
+'''
+          if '.home-subject-filters {' not in css:
+              css += rule
+          css_path.write_text(css, encoding='utf-8')
+
+          # Replace only the subject-browser function. Non-home department pages retain
+          # their fixed-department behavior; the homepage gets a clean Common Subjects default.
+          js_path = Path('assets/js/main.js')
+          js = js_path.read_text(encoding='utf-8')
+          new_function = r'''function setupSubjectBrowser() {
+  const grid = document.getElementById("subjectGrid");
+  if (!grid || typeof SUBJECTS === "undefined" || !Array.isArray(SUBJECTS)) return;
+
+  // Prevent the later hardening script from creating a second competing browser.
+  grid.dataset.hardeningInitialized = "true";
+  grid.dataset.subjectBrowserOwner = "main";
+
+  const allSubjects = dedupeSubjects(SUBJECTS).filter((subject) => String(subject.revision) === "2021");
+  const params = new URLSearchParams(window.location.search);
+  const search = document.getElementById("subjectSearch");
+  const revisionFilter = document.getElementById("revisionFilter");
+  const departmentFilter = document.getElementById("departmentFilter");
+  const semesterFilter = document.getElementById("semesterFilter");
+  const fixedRevision = grid.dataset.revision || "";
+  const fixedDepartment = grid.dataset.department || "";
+  const homepage = grid.dataset.mode === "homepage-search";
+  const commonDepartment = "First Year / Common";
+  const commonValue = "__common__";
+
+  if (revisionFilter) {
+    fillSelect(revisionFilter, ["2021"], fixedRevision || "2021", "Revision 2021");
+    revisionFilter.value = "2021";
+    revisionFilter.disabled = true;
+  }
+
+  if (homepage && departmentFilter) {
+    const departments = [...new Set(
+      allSubjects
+        .map((subject) => subject.department)
+        .filter((department) => department && department !== commonDepartment)
+    )].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+
+    departmentFilter.replaceChildren();
+    const commonOption = document.createElement("option");
+    commonOption.value = commonValue;
+    commonOption.textContent = "Common Subjects";
+    departmentFilter.append(commonOption);
+    departments.forEach((department) => {
+      const option = document.createElement("option");
+      option.value = department;
+      option.textContent = department;
+      departmentFilter.append(option);
+    });
+
+    const requestedDepartment = params.get("department");
+    departmentFilter.value = departments.includes(requestedDepartment) ? requestedDepartment : commonValue;
+  } else if (departmentFilter) {
+    const departments = allSubjects.map((subject) => subject.department);
+    fillSelect(departmentFilter, departments, fixedDepartment || params.get("department"), "All departments");
+    if (fixedDepartment) departmentFilter.disabled = true;
+  }
+
+  fillSelect(semesterFilter, allSubjects.map((subject) => subject.semester), params.get("semester"), "All semesters");
+  if (params.get("subject") && search) search.value = params.get("subject");
+
+  const render = () => {
+    const query = String(search?.value || "").trim().toLocaleLowerCase();
+    const selectedDepartment = fixedDepartment || departmentFilter?.value || (homepage ? commonValue : "all");
+    const semester = semesterFilter?.value || "all";
+
+    let visible = allSubjects.filter((subject) => {
+      if (fixedRevision && String(subject.revision) !== fixedRevision) return false;
+      if (semester !== "all" && subject.semester !== semester) return false;
+
+      if (homepage) {
+        if (selectedDepartment === commonValue) {
+          // With no search, show only common subjects. While typing, search the
+          // complete Revision 2021 catalogue so a department subject code is findable.
+          if (!query && subject.department !== commonDepartment) return false;
+        } else if (subject.department !== commonDepartment && subject.department !== selectedDepartment) {
+          return false;
+        }
+      } else if (selectedDepartment !== "all") {
+        const includeCommon = Boolean(fixedDepartment && subject.department === commonDepartment);
+        if (subject.department !== selectedDepartment && !includeCommon) return false;
+      }
+
+      if (!query) return true;
+      const searchable = [
+        subject.code,
+        subject.name,
+        subject.department,
+        subject.semester,
+        subject.type
+      ].join(" ").toLocaleLowerCase();
+      return searchable.includes(query);
+    });
+
+    visible = [...visible].sort((a, b) => {
+      const semesterDifference = semesterRank(a.semester) - semesterRank(b.semester);
+      if (semesterDifference) return semesterDifference;
+      const commonDifference = (a.department === commonDepartment ? 0 : 1) - (b.department === commonDepartment ? 0 : 1);
+      if (commonDifference) return commonDifference;
+      return String(a.code).localeCompare(String(b.code), undefined, { numeric: true, sensitivity: "base" });
+    });
+
+    grid.innerHTML = visible.length
+      ? renderSemesterGroups(visible)
+      : '<p class="empty">No subjects match the selected department, semester or search.</p>';
+    setupAssetButtons(grid);
+  };
+
+  search?.addEventListener("input", render);
+  departmentFilter?.addEventListener("change", render);
+  semesterFilter?.addEventListener("change", render);
+  render();
+}'''
+
+          pattern = re.compile(r'function setupSubjectBrowser\(\) \{.*?\n\}\n\nfunction renderMaterialLinks\(\)', re.S)
+          js, count = pattern.subn(new_function + '\n\nfunction renderMaterialLinks()', js, count=1)
+          if count != 1:
+              raise SystemExit('Could not replace setupSubjectBrowser in assets/js/main.js')
+          js_path.write_text(js, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/fix-home-subject-filters.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Fix homepage common-subject and department filtering"
+          git push origin main
