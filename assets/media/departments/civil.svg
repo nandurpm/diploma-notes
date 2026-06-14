@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Civil bridge and structure">
+  <rect width="640" height="360" fill="#e2e8f0"/>
+  <path d="M72 260h496M114 260c60-112 352-112 412 0" fill="none" stroke="#334155" stroke-width="18" stroke-linecap="round"/>
+  <path d="M160 260V150M240 260V118M320 260v-124M400 260V118M480 260V150" stroke="#0f766e" stroke-width="12" stroke-linecap="round"/>
+  <path d="M92 306h456" stroke="#2563eb" stroke-width="14" stroke-linecap="round" opacity=".45"/>
+</svg>

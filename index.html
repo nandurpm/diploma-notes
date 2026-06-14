@@ -9,13 +9,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260614-flush-topbar1">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/animations.css">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260614-flush-topbar1">
-  <link rel="stylesheet" href="/assets/css/home-compact.css?v=20260611-compact1">
-  <link rel="stylesheet" href="/assets/css/home-subject-browser.css?v=20260614-home-browser3">
-  <link rel="stylesheet" href="/assets/css/wide-layout.css?v=20260612-wide1">
-  <link rel="stylesheet" href="/assets/css/site-assistant.css">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+  <link rel="stylesheet" href="/assets/css/home-compact.css">
+  <link rel="stylesheet" href="/assets/css/home-subject-browser.css">
+  <link rel="stylesheet" href="/assets/css/wide-layout.css">
   <link rel="canonical" href="https://polypmna.dpdns.org/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kerala Polytechnic Diploma Notes &amp; Study Materials | Diploma Notes">
@@ -30,13 +29,13 @@
   <meta name="twitter:title" content="Kerala Polytechnic Diploma Notes &amp; Study Materials | Diploma Notes">
   <meta name="twitter:description" content="Kerala Polytechnic diploma notes, Revision 2021 syllabus, lesson pages, study materials and question papers for students.">
   <meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
+  <link rel="stylesheet" href="/assets/css/hardening.css">
   <style>
     .home-subject-filters{grid-template-columns:minmax(240px,1.2fr) minmax(280px,1.45fr) minmax(180px,.8fr)!important}
     @media(max-width:900px){.home-subject-filters{grid-template-columns:1fr 1fr!important}.home-subject-filters #subjectSearch{grid-column:1/-1}}
     @media(max-width:620px){.home-subject-filters{grid-template-columns:1fr!important}.home-subject-filters #subjectSearch{grid-column:auto}}
   </style>
-  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260614-flush-topbar1">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -118,11 +117,14 @@
         <p>Common subjects are shown first. Choose a department to display its subjects together with the common subjects.</p>
       </div>
       <div class="filters home-subject-filters">
-        <label class="sr-only" for="subjectSearch">Search Revision 2021 subjects</label><input id="subjectSearch" type="search" placeholder="Search subject code or title">
-        <label class="sr-only" for="departmentFilter">Choose department</label><select id="departmentFilter"><option value="__common__">Common Subjects</option></select>
-        <label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select>
+        <label class="sr-only" for="subjectSearch">Search Revision 2021 subjects</label>
+        <input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off">
+        <label class="sr-only" for="departmentFilter">Choose department</label>
+        <select id="departmentFilter"><option value="__common__">Common Subjects</option></select>
+        <label class="sr-only" for="semesterFilter">Filter by semester</label>
+        <select id="semesterFilter"><option value="all">All semesters</option></select>
       </div>
-      <div class="subject-grid" id="subjectGrid" data-mode="homepage-search" data-revision="2021"></div>
+      <div class="subject-grid" id="subjectGrid" data-mode="home" data-revision="2021"></div>
     </section>
   </main>
 
@@ -131,11 +133,9 @@
     <a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a>
   <nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
   <script src="/assets/js/subjects.js" defer></script>
-  <script src="/assets/js/search.js" defer></script>
-  <script src="/assets/js/main.js?v=20260614-home-filters2" defer></script>
-  <div id="polySiteAssistant"></div>
-  <script src="/assets/js/site-assistant.js" defer></script>
-  <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
-  <script src="/assets/js/home-subject-browser.js?v=20260614-home2" defer></script>
+  <script src="/assets/js/main.js" defer></script>
+  <script src="/assets/js/subject-browser.js" defer></script>
+  <script src="/assets/js/site-hardening.js" defer></script>
+  <script src="/assets/js/site-assistant-loader.js" defer></script>
 </body>
 </html>

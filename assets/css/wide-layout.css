@@ -1,13 +1,11 @@
-:root {
-  /* Use the available desktop width instead of stopping at 1500px. */
-  --page-width: 1880px;
-  --page-gutter: clamp(16px, 2vw, 32px);
-}
+@media (min-width: 1200px) {
+  main {
+    width: 100%;
+    max-width: none;
+    padding-inline: var(--page-gutter);
+  }
 
-@media (min-width: 1600px) {
-  .topbar,
-  main,
-  .footer {
-    width: min(var(--page-width), calc(100% - var(--page-gutter)));
+  .subject-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 }

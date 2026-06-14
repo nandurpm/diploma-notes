@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Architecture drafting and building">
+  <rect width="640" height="360" fill="#ede9fe"/>
+  <path d="M102 274 322 88l216 186z" fill="#ffffff" stroke="#4338ca" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M178 274V168h96v106M342 274V146h118v128" fill="none" stroke="#7c3aed" stroke-width="12" stroke-linejoin="round"/>
+  <path d="M80 304h480M430 76l72 72M502 76l-72 72" stroke="#0f172a" stroke-width="10" stroke-linecap="round" opacity=".45"/>
+</svg>

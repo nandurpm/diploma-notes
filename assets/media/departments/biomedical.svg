@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Biomedical pulse and device">
+  <rect width="640" height="360" fill="#ffe4e6"/>
+  <rect x="156" y="76" width="328" height="208" rx="30" fill="#ffffff" stroke="#be123c" stroke-width="14"/>
+  <path d="M194 190h70l26-54 44 104 32-50h82" fill="none" stroke="#e11d48" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M320 66v44M320 250v44M274 180h92" stroke="#be123c" stroke-width="12" stroke-linecap="round" opacity=".55"/>
+</svg>
