@@ -1,0 +1,305 @@
+name: Final consolidated lesson cleanup
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/final-lesson-cleanup.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install image dependency
+        run: python -m pip install --disable-pip-version-check pillow
+
+      - name: Apply final lesson cleanup
+        shell: python
+        run: |
+          from pathlib import Path
+          from PIL import Image, ImageDraw, ImageFont
+          import html
+          import re
+
+          ROOT = Path('.')
+          LESSONS = ROOT / 'lessons'
+          SOCIAL_REL = 'assets/media/poly-pmna-study-hub-social-card.png'
+          SOCIAL_URL = 'https://polypmna.dpdns.org/' + SOCIAL_REL
+          SHARED_CSS_REL = 'assets/css/revision-back-button.css'
+          SHARED_CSS_LINK = '<link rel="stylesheet" href="/assets/css/revision-back-button.css?v=20260614-1">'
+
+          # 1. Create a dedicated 1200x630 social-sharing image.
+          social_path = ROOT / SOCIAL_REL
+          social_path.parent.mkdir(parents=True, exist_ok=True)
+          image = Image.new('RGB', (1200, 630), '#07182f')
+          draw = ImageDraw.Draw(image)
+          for y in range(630):
+              ratio = y / 629
+              r = int(7 + (10 - 7) * ratio)
+              g = int(24 + (70 - 24) * ratio)
+              b = int(47 + (120 - 47) * ratio)
+              draw.line((0, y, 1200, y), fill=(r, g, b))
+          draw.ellipse((820, -180, 1320, 320), fill='#0e7490')
+          draw.ellipse((-170, 350, 340, 860), fill='#5b21b6')
+          draw.rounded_rectangle((70, 66, 1130, 564), radius=42, fill=(8, 31, 58), outline='#67e8f9', width=3)
+          draw.rounded_rectangle((104, 100, 260, 160), radius=25, fill='#0e7490')
+
+          font_candidates = [
+              '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
+              '/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf',
+          ]
+          regular_candidates = [
+              '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf',
+              '/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf',
+          ]
+          def load_font(candidates, size):
+              for candidate in candidates:
+                  if Path(candidate).exists():
+                      return ImageFont.truetype(candidate, size=size)
+              return ImageFont.load_default()
+
+          f_badge = load_font(font_candidates, 28)
+          f_brand = load_font(font_candidates, 82)
+          f_title = load_font(font_candidates, 46)
+          f_body = load_font(regular_candidates, 28)
+          f_domain = load_font(font_candidates, 25)
+
+          draw.text((130, 112), 'POLY PMNA', font=f_badge, fill='white')
+          draw.text((105, 205), 'KERALA POLYTECHNIC', font=f_brand, fill='white')
+          draw.text((108, 312), 'STUDY HUB', font=f_brand, fill='#67e8f9')
+          draw.text((110, 428), 'Lessons  •  Notes  •  Question Papers', font=f_title, fill='#e2e8f0')
+          draw.text((110, 497), 'Revision 2021 student learning resource', font=f_body, fill='#cbd5e1')
+          draw.text((842, 515), 'polypmna.dpdns.org', font=f_domain, fill='white')
+          image.save(social_path, format='PNG', optimize=True)
+
+          # 2. Create one shared revision back-button stylesheet.
+          shared_css = '''.revision-back-button{
+            position:fixed;left:16px;bottom:16px;z-index:9999;
+            display:inline-flex;align-items:center;justify-content:center;gap:.42rem;
+            padding:.72rem 1rem;border:1px solid rgba(255,255,255,.42);
+            border-radius:999px;background:linear-gradient(135deg,#075985,#6d28d9);
+            color:#fff!important;text-decoration:none!important;
+            font-family:Segoe UI,Arial,sans-serif;font-size:.84rem;font-weight:900;
+            line-height:1;letter-spacing:.01em;box-shadow:0 12px 30px rgba(15,23,42,.24);
+            transition:transform .2s ease,box-shadow .2s ease;white-space:nowrap
+          }
+          .revision-back-button:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(15,23,42,.3)}
+          .revision-back-button:focus-visible{outline:3px solid #fbbf24;outline-offset:3px}
+          @media(max-width:560px){.revision-back-button{left:10px;bottom:10px;padding:.66rem .82rem;font-size:.76rem}}
+          @media print{.revision-back-button{display:none!important}}
+          '''
+          shared_css_path = ROOT / SHARED_CSS_REL
+          shared_css_path.parent.mkdir(parents=True, exist_ok=True)
+          shared_css_path.write_text(shared_css, encoding='utf-8')
+
+          # Preserve the current full-width behaviour when making lesson 2031 static.
+          layout_2031 = '''html{width:100%;max-width:none;scroll-padding-top:80px}
+          body{width:100%;max-width:none;margin:0;overflow-x:clip}
+          .wrap{width:100%!important;max-width:none!important;margin:0!important;padding-left:clamp(5px,.55vw,11px)!important;padding-right:clamp(5px,.55vw,11px)!important}
+          .top{position:sticky!important;top:0!important;width:100%!important;z-index:9999!important;background:rgba(255,255,255,.98)!important;box-shadow:0 8px 24px rgba(15,23,42,.13)!important}
+          .nav{width:100%!important;max-width:none!important;margin:0!important;padding:.5rem clamp(5px,.55vw,11px)!important;display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:.38rem!important;overflow-x:auto!important;overflow-y:hidden!important;overscroll-behavior-x:contain!important}
+          .logo{flex:0 0 48px!important;min-width:48px!important;height:48px!important}
+          .brand{flex:0 0 clamp(235px,22vw,360px)!important;min-width:0!important;white-space:normal!important;line-height:1.12!important}
+          .nav a,.btn{flex:0 0 auto!important;font-size:.77rem!important;line-height:1!important;padding:.52rem .66rem!important}
+          .btn{margin-left:0!important}
+          section[id]{scroll-margin-top:82px!important}
+          @media(max-width:760px){.wrap{padding-left:4px!important;padding-right:4px!important}.nav{padding:.38rem 4px!important}.brand{flex-basis:195px!important;font-size:.83rem!important}.nav a,.btn{font-size:.7rem!important;padding:.43rem .52rem!important}}
+          @media print{.top{display:none!important}.wrap{padding:0!important}section[id]{scroll-margin-top:0!important}}
+          '''
+          layout_2031_path = ROOT / 'assets/css/lesson-2031-layout.css'
+          layout_2031_path.write_text(layout_2031, encoding='utf-8')
+
+          inline_back_style = re.compile(
+              r'<style\s+id=["\']revision-back-button-style["\']>.*?</style>',
+              flags=re.I | re.S,
+          )
+
+          def ensure_shared_back_css(text):
+              text, count = inline_back_style.subn(SHARED_CSS_LINK, text)
+              return text, count
+
+          def ensure_button_type(opening):
+              if re.search(r'\btype\s*=', opening, flags=re.I):
+                  return opening
+              return opening.replace('<button', '<button type="button"', 1)
+
+          button_pattern = re.compile(r'(<button\b[^>]*>)(.*?)(</button>)', flags=re.I | re.S)
+          def normalize_print_buttons(text):
+              changed = 0
+              def callback(match):
+                  nonlocal changed
+                  opening, body, closing = match.groups()
+                  if 'window.print()' not in opening and 'window.print()' not in body:
+                      return match.group(0)
+                  new_opening = ensure_button_type(opening)
+                  new_body = body
+                  for old_label in ('Download as PDF', 'Download PDF', 'Print / Save PDF'):
+                      new_body = new_body.replace(old_label, 'Print / Save as PDF')
+                  if new_opening != opening or new_body != body:
+                      changed += 1
+                  return new_opening + new_body + closing
+              return button_pattern.sub(callback, text), changed
+
+          def replace_meta(text, attr, key, value):
+              pattern = re.compile(
+                  rf'<meta\s+{attr}=["\']{re.escape(key)}["\'][^>]*>',
+                  flags=re.I,
+              )
+              tag = f'<meta {attr}="{key}" content="{html.escape(value, quote=True)}">'
+              if pattern.search(text):
+                  return pattern.sub(tag, text, count=1)
+              return text.replace('</head>', '  ' + tag + '\n</head>', 1)
+
+          def replace_canonical(text, url):
+              pattern = re.compile(r'<link\s+rel=["\']canonical["\'][^>]*>', flags=re.I)
+              tag = f'<link rel="canonical" href="{url}">'
+              if pattern.search(text):
+                  return pattern.sub(tag, text, count=1)
+              return text.replace('</head>', '  ' + tag + '\n</head>', 1)
+
+          def page_subject(text, code):
+              og = re.search(r'<meta\s+property=["\']og:title["\'][^>]*content=["\']([^"\']+)', text, flags=re.I)
+              candidate = html.unescape(og.group(1)) if og else ''
+              if not candidate:
+                  h1 = re.search(r'<h1\b[^>]*>(.*?)</h1>', text, flags=re.I | re.S)
+                  candidate = re.sub(r'<[^>]+>', ' ', h1.group(1)).strip() if h1 else ''
+              candidate = candidate.split('|')[0].strip()
+              candidate = re.sub(rf'\s*{re.escape(code)}\s*$', '', candidate).strip()
+              return candidate or f'Course {code}'
+
+          def remove_visible_filename(text, code, subject):
+              footer_pattern = re.compile(r'(<footer\b[^>]*>)(.*?)(</footer>)', flags=re.I | re.S)
+              def footer_cb(match):
+                  body = match.group(2)
+                  body = body.replace(f'lessons-{code}.html', f'{subject} {code}')
+                  return match.group(1) + body + match.group(3)
+              text = footer_pattern.sub(footer_cb, text)
+              text = re.sub(
+                  rf'<span>\s*File\s*</span>\s*<b>\s*lessons-{re.escape(code)}\.html\s*</b>',
+                  f'<span>Course Title</span><b>{html.escape(subject)}</b>',
+                  text,
+                  flags=re.I,
+              )
+              return text
+
+          # 3. Convert lesson 2031 from a runtime loader into the standalone source document.
+          source_2031 = LESSONS / 'handbook-2031-source.html'
+          official_2031 = LESSONS / 'lessons-2031.html'
+          if not source_2031.exists():
+              raise SystemExit('The lesson 2031 source document is missing.')
+          text_2031 = source_2031.read_text(encoding='utf-8')
+          text_2031 = re.sub(r'<meta\s+name=["\']robots["\'][^>]*>', '', text_2031, flags=re.I)
+          title_2031 = 'Fundamentals of Electrical and Electronics Engineering 2031 | Kerala Polytechnic Study Hub'
+          description_2031 = 'Fundamentals of Electrical and Electronics Engineering 2031 diploma handbook with electrical circuits, electronics, formulas, revision and exam preparation.'
+          if re.search(r'<title>.*?</title>', text_2031, flags=re.I | re.S):
+              text_2031 = re.sub(r'<title>.*?</title>', f'<title>{title_2031}</title>', text_2031, count=1, flags=re.I | re.S)
+          else:
+              text_2031 = text_2031.replace('</head>', f'<title>{title_2031}</title>\n</head>', 1)
+          official_url_2031 = 'https://polypmna.dpdns.org/lessons/lessons-2031.html'
+          text_2031 = text_2031.replace('handbook-2031-source.html', 'lessons-2031.html')
+          text_2031 = replace_canonical(text_2031, official_url_2031)
+          text_2031 = replace_meta(text_2031, 'property', 'og:type', 'website')
+          text_2031 = replace_meta(text_2031, 'property', 'og:title', title_2031)
+          text_2031 = replace_meta(text_2031, 'property', 'og:description', description_2031)
+          text_2031 = replace_meta(text_2031, 'property', 'og:url', official_url_2031)
+          text_2031 = replace_meta(text_2031, 'name', 'description', description_2031)
+          text_2031, _ = ensure_shared_back_css(text_2031)
+          if '/assets/css/lesson-2031-layout.css' not in text_2031:
+              text_2031 = text_2031.replace('</head>', '  <link rel="stylesheet" href="/assets/css/lesson-2031-layout.css?v=20260614-1">\n</head>', 1)
+          text_2031, _ = normalize_print_buttons(text_2031)
+          text_2031 = remove_visible_filename(text_2031, '2031', 'Fundamentals of Electrical and Electronics Engineering')
+          text_2031 = re.sub(r'<script\b[^>]*site-hardening\.js[^>]*></script>', '', text_2031, flags=re.I)
+          text_2031 = text_2031.replace('</body>', '  <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>\n</body>', 1)
+          official_2031.write_text(text_2031, encoding='utf-8')
+          source_2031.unlink()
+
+          # Replace any remaining source-page references elsewhere in repository text files.
+          for suffix in ('*.html', '*.js', '*.xml', '*.txt'):
+              for file in ROOT.rglob(suffix):
+                  if '.git' in file.parts:
+                      continue
+                  content = file.read_text(encoding='utf-8')
+                  updated = content.replace('handbook-2031-source.html', 'lessons-2031.html')
+                  if updated != content:
+                      file.write_text(updated, encoding='utf-8')
+
+          # 4. Apply metadata, controls, filename and CSS cleanup to every official lesson.
+          lesson_files = sorted(LESSONS.glob('lessons-*.html'))
+          inline_blocks_removed = 0
+          print_controls_changed = 0
+          filename_pages_changed = 0
+
+          for path in lesson_files:
+              text = path.read_text(encoding='utf-8')
+              original = text
+              code_match = re.search(r'lessons-(\d+)\.html$', path.name)
+              if not code_match:
+                  continue
+              code = code_match.group(1)
+              subject = page_subject(text, code)
+
+              text, removed = ensure_shared_back_css(text)
+              inline_blocks_removed += removed
+              text, changed_buttons = normalize_print_buttons(text)
+              print_controls_changed += changed_buttons
+
+              before_filename = text
+              text = remove_visible_filename(text, code, subject)
+              if text != before_filename:
+                  filename_pages_changed += 1
+
+              if re.search(r'<meta\s+property=["\']og:url["\']', text, flags=re.I):
+                  text = replace_meta(text, 'property', 'og:image', SOCIAL_URL)
+                  text = replace_meta(text, 'property', 'og:image:type', 'image/png')
+                  text = replace_meta(text, 'property', 'og:image:width', '1200')
+                  text = replace_meta(text, 'property', 'og:image:height', '630')
+                  text = replace_meta(text, 'property', 'og:image:alt', 'POLY PMNA Kerala Polytechnic Study Hub')
+                  text = replace_meta(text, 'name', 'twitter:card', 'summary_large_image')
+                  text = replace_meta(text, 'name', 'twitter:image', SOCIAL_URL)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+
+          # Assertions for requested cleanup.
+          if source_2031.exists():
+              raise SystemExit('The duplicate lesson 2031 source was not removed.')
+          final_2031 = official_2031.read_text(encoding='utf-8')
+          if 'document.write' in final_2031 or 'fetch(' in final_2031 and 'handbook-2031' in final_2031:
+              raise SystemExit('Lesson 2031 still contains the old runtime loader.')
+          if SOCIAL_URL not in final_2031:
+              raise SystemExit('Lesson 2031 does not use the new social image.')
+          for path in lesson_files:
+              text = path.read_text(encoding='utf-8')
+              if 'sfi-poly-pmna-poster.jpg' in text and re.search(r'<meta\s+(?:property|name)=["\'](?:og:image|twitter:image)', text, flags=re.I):
+                  raise SystemExit(f'{path} still uses the initiative poster as social metadata.')
+              if 'revision-back-button-style' in text:
+                  raise SystemExit(f'{path} still contains duplicated revision back-button CSS.')
+          print_targets = ['2003', '2031', '2041', '3032', '3044']
+          for code in print_targets:
+              page = (LESSONS / f'lessons-{code}.html').read_text(encoding='utf-8')
+              for button in button_pattern.findall(page):
+                  combined = ''.join(button)
+                  if 'window.print()' in combined and 'Print / Save as PDF' not in combined:
+                      raise SystemExit(f'Lesson {code} has an inconsistent print control.')
+
+          print(f'Lesson files processed: {len(lesson_files)}')
+          print(f'Inline back-button style blocks removed: {inline_blocks_removed}')
+          print(f'Print controls normalized: {print_controls_changed}')
+          print(f'Visible filename footers/cards changed: {filename_pages_changed}')
+
+      - name: Remove temporary workflow
+        run: rm .github/workflows/final-lesson-cleanup.yml
+
+      - name: Commit final cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Complete consolidated lesson cleanup"
+          git push
