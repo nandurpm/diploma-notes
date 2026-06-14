@@ -1,0 +1,33 @@
+name: Clarify 3023 PDF labels
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/fix-3023-pdf-labels.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update labels
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path("lessons/lessons-3023.html")
+          text = path.read_text(encoding="utf-8")
+          if text.count("Download as PDF") != 2:
+              raise SystemExit("Expected two labels")
+          if text.count('<button class="btn gold no-print"') != 2:
+              raise SystemExit("Expected two buttons")
+          text = text.replace("Download as PDF", "Print / Save as PDF")
+          text = text.replace('<button class="btn gold no-print"', '<button type="button" class="btn gold no-print"')
+          path.write_text(text, encoding="utf-8")
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Clarify Machine Tools PDF button labels
+          file_pattern: lessons/lessons-3023.html
