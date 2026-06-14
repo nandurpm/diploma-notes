@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Computer engineering display and code">
+  <rect width="640" height="360" fill="#cffafe"/>
+  <rect x="118" y="72" width="404" height="220" rx="22" fill="#0f172a"/>
+  <rect x="148" y="102" width="344" height="150" rx="10" fill="#1d4ed8"/>
+  <path d="m236 174-42 32 42 32M404 174l42 32-42 32M346 150l-52 112" fill="none" stroke="#ecfeff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M260 292h120l20 36H240z" fill="#334155"/>
+</svg>

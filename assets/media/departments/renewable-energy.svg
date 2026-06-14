@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Renewable energy solar and wind">
+  <rect width="640" height="360" fill="#dcfce7"/>
+  <circle cx="488" cy="94" r="46" fill="#f59e0b"/>
+  <path d="M130 286h190l-34-92H164z" fill="#1d4ed8" stroke="#0f172a" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M160 226h132M146 256h158M202 194l-28 92M248 194l28 92" stroke="#bfdbfe" stroke-width="7"/>
+  <path d="M420 286V154M420 154l-72-40M420 154l74-38M420 154v-82" stroke="#047857" stroke-width="12" stroke-linecap="round"/>
+</svg>

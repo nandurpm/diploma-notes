@@ -1,0 +1,43 @@
+name: Post-deploy verification
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify production build info
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import sys
+          import time
+          from urllib.request import urlopen
+
+          url = "https://polypmna.dpdns.org/build-info.json"
+          expected = os.environ["EXPECTED_SHA"]
+          last_error = None
+          for _ in range(12):
+              try:
+                  with urlopen(url, timeout=15) as response:
+                      data = json.loads(response.read().decode("utf-8"))
+                  if data.get("commit") == expected and data.get("branch") == "main":
+                      print(f"Production build-info.json matches {expected}")
+                      sys.exit(0)
+                  last_error = f"production commit {data.get('commit')} did not match {expected}"
+              except Exception as exc:
+                  last_error = str(exc)
+              time.sleep(20)
+          raise SystemExit(f"Deployment verification failed: {last_error}")
+          PY
