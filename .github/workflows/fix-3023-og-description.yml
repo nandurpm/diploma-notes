@@ -1,0 +1,47 @@
+name: Add Machine Tools Open Graph description
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/fix-3023-og-description.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Add missing Open Graph description
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("lessons/lessons-3023.html")
+          text = path.read_text(encoding="utf-8")
+
+          marker = '<meta property="og:title" content="Machine Tools 3023 | Kerala Polytechnic Study Hub">'
+          addition = marker + '\n  <meta property="og:description" content="Premium standalone handbook for Course 3023 Machine Tools">'
+
+          if '<meta property="og:description"' in text:
+              raise SystemExit("Open Graph description already exists")
+          if marker not in text:
+              raise SystemExit("Expected Open Graph title was not found")
+
+          path.write_text(text.replace(marker, addition, 1), encoding="utf-8")
+          PY
+
+      - name: Remove temporary workflow
+        run: rm .github/workflows/fix-3023-og-description.yml
+
+      - name: Commit correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lessons/lessons-3023.html .github/workflows/fix-3023-og-description.yml
+          git commit -m "Add Machine Tools Open Graph description"
+          git push
