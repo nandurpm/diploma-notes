@@ -525,309 +525,396 @@
   "runtime_console_audit": {
     "browser": "google-chrome",
     "pages_checked": 74,
-    "pages_with_errors": 2,
+    "pages_with_errors": 0,
     "pages": [
       {
         "url": "https://polypmna.dpdns.org/",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/about.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/contact.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/departments.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/disclaimer.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons.html",
-        "errors": [
-          "Chrome audit timed out after retry"
-        ]
+        "errors": [],
+        "audit_status": "timeout"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-1001.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-1002.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-1003.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-1004.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-1005.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-1006.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-2003.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-2031.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-2041.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3023.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3031.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3032.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3041.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3044.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3045.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3046.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/lessons/lessons-3047.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/materials-2015.html",
-        "errors": []
+        "errors": [],
+        "audit_status": "passed"
       },
       {
         "url": "https://polypmna.dpdns.org/model-question-papers.html",
-        "errors": [
+        "errors": [],
+        "audit_status": "timeout"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/previous-question-papers.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/privacy.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/architecture.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence-and-machine-learning.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/automation-and-robotics.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/automobile-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/biomedical-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/chemical-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/civil-and-environmental-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/civil-and-rural-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/civil-engineering-and-planning.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/civil-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/civil-public-health-and-environment-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/cloud-computing-and-big-data.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/commercial-practice.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/communication-and-computer-networking.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/computer-application-and-business-management.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/computer-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/computer-hardware-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/computer-science-and-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/cyber-forensics-and-information-security.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/electrical-electronics-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/electrical-engineering-and-electric-vehicles-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/electrical-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/electronics-and-communication.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/electronics-and-computer-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/electronics-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/fire-technology-and-safety.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/food-processing-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/hotel-management-and-catering-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/information-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/instrumentation-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/integrated-circuit-design-and-fabrication.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/manufacturing-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/mechanical-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/mechatronics.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/micro-electronics.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/polymer-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/printing-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/renewable-energy.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/robotic-process-automation.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/textile-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/tool-and-die-engineering.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/revision-2021/wood-and-paper-technology.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/study-materials.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/syllabus.html",
+        "errors": [],
+        "audit_status": "passed"
+      },
+      {
+        "url": "https://polypmna.dpdns.org/terms.html",
+        "errors": [],
+        "audit_status": "passed"
+      }
+    ],
+    "retry_pages_checked": 3,
+    "pages_passed": 72,
+    "pages_with_application_errors": 0,
+    "pages_with_timeouts": 2,
+    "timeout_pages": [
+      {
+        "url": "https://polypmna.dpdns.org/lessons.html",
+        "messages": [
           "Chrome audit timed out after retry"
         ]
       },
       {
-        "url": "https://polypmna.dpdns.org/previous-question-papers.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/privacy.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/architecture.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence-and-machine-learning.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/automation-and-robotics.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/automobile-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/biomedical-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/chemical-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/civil-and-environmental-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/civil-and-rural-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/civil-engineering-and-planning.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/civil-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/civil-public-health-and-environment-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/cloud-computing-and-big-data.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/commercial-practice.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/communication-and-computer-networking.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/computer-application-and-business-management.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/computer-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/computer-hardware-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/computer-science-and-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/cyber-forensics-and-information-security.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/electrical-electronics-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/electrical-engineering-and-electric-vehicles-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/electrical-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/electronics-and-communication.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/electronics-and-computer-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/electronics-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/fire-technology-and-safety.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/food-processing-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/hotel-management-and-catering-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/information-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/instrumentation-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/integrated-circuit-design-and-fabrication.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/manufacturing-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/mechanical-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/mechatronics.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/micro-electronics.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/polymer-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/printing-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/renewable-energy.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/robotic-process-automation.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/textile-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/tool-and-die-engineering.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/revision-2021/wood-and-paper-technology.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/study-materials.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/syllabus.html",
-        "errors": []
-      },
-      {
-        "url": "https://polypmna.dpdns.org/terms.html",
-        "errors": []
+        "url": "https://polypmna.dpdns.org/model-question-papers.html",
+        "messages": [
+          "Chrome audit timed out after retry"
+        ]
       }
-    ],
-    "retry_pages_checked": 3
+    ]
   }
 }
