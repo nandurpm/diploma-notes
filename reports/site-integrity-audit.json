@@ -61,12 +61,8 @@
       "Semester 6": 452
     },
     "duplicate_keys": [],
-    "missing_department_pages": [
-      "electrical-and-electronics-engineering.html"
-    ],
-    "department_pages_with_no_subjects": [
-      "electrical-electronics-engineering.html"
-    ],
+    "missing_department_pages": [],
+    "department_pages_with_no_subjects": [],
     "lesson_files_found": [
       "lessons/lessons-1001.html",
       "lessons/lessons-1002.html",

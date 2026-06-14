@@ -18,8 +18,8 @@ All static integrity checks passed.
 
 - Total departments: 43
 - Basic Electronics 2041 present in Revision 2021 Electronics Engineering: True
-- Missing department pages: 1
-- Department pages with no subjects: 1
+- Missing department pages: 0
+- Department pages with no subjects: 0
 
 ### Subjects per semester
 - Semester: 1
