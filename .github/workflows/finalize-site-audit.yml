@@ -1,0 +1,107 @@
+name: Finalize site audit
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-site-audit.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Classify browser timeouts separately from application errors
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          report = Path('reports/site-integrity-audit.json')
+          data = json.loads(report.read_text(encoding='utf-8'))
+          runtime = data.get('runtime_console_audit', {})
+          pages = runtime.get('pages', [])
+          timeout_pages = []
+          application_errors = []
+          for page in pages:
+              errors = list(page.get('errors', []))
+              timeouts = [item for item in errors if 'timed out' in item.lower()]
+              actual = [item for item in errors if item not in timeouts]
+              if timeouts:
+                  timeout_pages.append({'url': page.get('url'), 'messages': timeouts})
+              if actual:
+                  application_errors.append({'url': page.get('url'), 'errors': actual})
+              page['errors'] = actual
+              page['audit_status'] = 'timeout' if timeouts and not actual else ('error' if actual else 'passed')
+
+          runtime['pages_checked'] = len(pages)
+          runtime['pages_passed'] = sum(1 for page in pages if page.get('audit_status') == 'passed')
+          runtime['pages_with_application_errors'] = len(application_errors)
+          runtime['pages_with_errors'] = len(application_errors)
+          runtime['pages_with_timeouts'] = len(timeout_pages)
+          runtime['timeout_pages'] = timeout_pages
+          data['runtime_console_audit'] = runtime
+          report.write_text(json.dumps(data, indent=2, ensure_ascii=False) + '\n', encoding='utf-8')
+
+          markdown = Path('reports/site-integrity-audit.md')
+          lines = [
+              '# Site Integrity Audit',
+              '',
+              f"- Sitemap pages checked: **{data.get('pages_checked', 0)}**",
+              f"- Pages with static issues: **{data.get('pages_with_issues', 0)}**",
+              f"- Broken CSS asset references: **{len(data.get('css_asset_issues', []))}**",
+              f"- Browser pages checked: **{runtime.get('pages_checked', 0)}**",
+              f"- Browser pages completed: **{runtime.get('pages_passed', 0)}**",
+              f"- Pages with detected application JavaScript errors: **{runtime.get('pages_with_application_errors', 0)}**",
+              f"- Pages that exceeded the Chrome CLI audit timeout: **{runtime.get('pages_with_timeouts', 0)}**",
+              '',
+              '## Static result',
+              '',
+              'All static integrity checks passed.' if data.get('pages_with_issues', 0) == 0 and not data.get('css_asset_issues') else 'See the JSON report for remaining static findings.',
+              '',
+              '## Browser result',
+              '',
+          ]
+          if application_errors:
+              lines.append('Application JavaScript errors were detected on the following pages:')
+              lines.append('')
+              for item in application_errors:
+                  lines.append(f"### {item['url']}")
+                  lines.extend(f"- `{error}`" for error in item['errors'])
+                  lines.append('')
+          else:
+              lines.append('No application JavaScript console errors were detected on the pages that completed the browser audit.')
+              lines.append('')
+          if timeout_pages:
+              lines.append('### Inconclusive Chrome CLI pages')
+              lines.append('')
+              lines.append('These pages passed the static audit but the command-line Chrome process did not terminate within the extended retry limit:')
+              lines.append('')
+              lines.extend(f"- {item['url']}" for item in timeout_pages)
+              lines.append('')
+          markdown.write_text('\n'.join(lines), encoding='utf-8')
+
+      - name: Remove temporary repair and workflow files
+        run: |
+          rm -f automation/final-integrity.trigger
+          rm -f automation/repair-audit-findings.py
+          rm -f tools/chrome_retry_timeouts.py
+          rm -f .github/workflows/final-integrity-pass.yml
+          rm -f .github/workflows/apply-final-audit-fixes.yml
+          rm -f .github/workflows/run-chrome-runtime-audit.yml
+          rm -f .github/workflows/retry-chrome-timeouts.yml
+          rm -f .github/workflows/apply-public-page-maintenance.yml
+          rm -f .github/workflows/commit-audit-repairs.yml
+          rm -f .github/workflows/commit-repairs.yml
+          rm -f .github/workflows/finalize-site-audit.yml
+
+      - name: Commit final report and cleanup
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Finalize public page maintenance and audit"
+          git push
