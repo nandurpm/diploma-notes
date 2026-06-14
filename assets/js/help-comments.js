@@ -1,6 +1,8 @@
 const FALLBACK_MESSAGE = "Discussion is currently unavailable. Please contact us by email.";
 const EMAIL = "nandakumarmkdpm@gmail.com";
 const PAGE_SIZE = 20;
+const POST_COOLDOWN_MS = 60000;
+const MAX_LINKS = 2;
 
 const form = document.querySelector("#helpCommentForm");
 const nameInput = document.querySelector("#commentName");
@@ -70,6 +72,7 @@ async function initializeDiscussion() {
     let liveComments = [];
     let olderComments = [];
     let comments = [];
+    let repliesByParent = new Map();
     let oldestLoadedDoc = null;
     let hasMoreComments = false;
     let loadingOlderComments = false;
@@ -82,6 +85,39 @@ async function initializeDiscussion() {
     const setStatus = (message = "", type = "") => {
       statusBox.textContent = message;
       statusBox.className = `comment-status${type ? ` ${type}` : ""}`;
+    };
+
+    const getLastPost = () => Number(localStorage.getItem("diplomaNotesLastCommentAt") || "0");
+    const rememberPost = (message) => {
+      localStorage.setItem("diplomaNotesLastCommentAt", String(Date.now()));
+      localStorage.setItem("diplomaNotesLastCommentText", message);
+    };
+    const hasUrlSpam = (message) => (message.match(/https?:\/\/|www\./gi) || []).length > MAX_LINKS;
+
+    const validatePost = (author, message, textarea, label) => {
+      if (author.length < 2 || author.length > 40) {
+        nameInput.focus();
+        setStatus("Name must contain 2-40 characters.", "error");
+        return false;
+      }
+      if (!message || message.length > 1500) {
+        setStatus(`${label} must contain 1-1500 characters.`, "error");
+        textarea.focus();
+        return false;
+      }
+      if (Date.now() - getLastPost() < POST_COOLDOWN_MS) {
+        setStatus("Please wait a minute before posting again.", "error");
+        return false;
+      }
+      if (localStorage.getItem("diplomaNotesLastCommentText") === message) {
+        setStatus("This looks like a duplicate of your last post.", "error");
+        return false;
+      }
+      if (hasUrlSpam(message)) {
+        setStatus("Please limit links in a comment. Too many links look like spam.", "error");
+        return false;
+      }
+      return true;
     };
 
     const ensureAuthenticated = async () => {
@@ -193,17 +229,7 @@ async function initializeDiscussion() {
         const author = nameInput.value.trim();
         const message = textarea.value.trim();
 
-        if (author.length < 2 || author.length > 40) {
-          nameInput.focus();
-          setStatus("Name must contain 2–40 characters.", "error");
-          return;
-        }
-
-        if (!message || message.length > 1500) {
-          setStatus("Reply must contain 1–1500 characters.", "error");
-          textarea.focus();
-          return;
-        }
+        if (!validatePost(author, message, textarea, "Reply")) return;
 
         const currentParent = comments.find((item) => item.id === parentId);
         if (!currentParent || currentParent.parentId || isDeletedComment(currentParent)) {
@@ -227,6 +253,7 @@ async function initializeDiscussion() {
             uid: user.uid,
             createdAt: firestoreModule.serverTimestamp()
           });
+          rememberPost(message);
 
           replyForm.remove();
           setStatus("Reply posted.", "success");
@@ -347,10 +374,13 @@ async function initializeDiscussion() {
           commentsRef,
           firestoreModule.orderBy("createdAt", "desc"),
           firestoreModule.startAfter(oldestLoadedDoc),
-          firestoreModule.limit(PAGE_SIZE)
+          firestoreModule.limit(PAGE_SIZE * 3)
         );
         const snapshot = await firestoreModule.getDocs(olderQuery);
-        const batch = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+        const batch = snapshot.docs
+          .map((item) => ({ id: item.id, ...item.data() }))
+          .filter((item) => item.pageId === "help" && !item.parentId)
+          .slice(0, PAGE_SIZE);
 
         olderComments = [...olderComments, ...batch];
         if (!snapshot.empty) {
@@ -358,6 +388,7 @@ async function initializeDiscussion() {
         }
         hasMoreComments = snapshot.size === PAGE_SIZE;
         mergeComments();
+        await loadRepliesForParents(comments.filter((item) => !item.parentId));
         setStatus(batch.length ? `${batch.length} older comments loaded.` : "No older comments.", "success");
       } catch (error) {
         console.error("Could not load older comments.", error);
@@ -391,8 +422,8 @@ async function initializeDiscussion() {
     const renderComments = () => {
       list.replaceChildren();
 
-      const visible = comments.filter((item) => item.pageId === "help");
-      countBox.textContent = `${visible.length}${hasMoreComments ? "+" : ""} ${visible.length === 1 ? "comment" : "comments"}`;
+      const visible = comments.filter((item) => item.pageId === "help" && !item.parentId);
+      countBox.textContent = `${visible.length}${hasMoreComments ? "+" : ""} loaded ${visible.length === 1 ? "comment" : "comments"}`;
 
       if (!visible.length) {
         const empty = document.createElement("div");
@@ -403,20 +434,9 @@ async function initializeDiscussion() {
         return;
       }
 
-      const topLevel = visible.filter((item) => !item.parentId);
-      const replies = new Map();
-
-      visible
-        .filter((item) => item.parentId)
-        .forEach((reply) => {
-          const items = replies.get(reply.parentId) || [];
-          items.push(reply);
-          replies.set(reply.parentId, items);
-        });
-
-      topLevel.forEach((comment) => {
+      visible.forEach((comment) => {
         list.append(createCommentCard(comment));
-        (replies.get(comment.id) || []).forEach((reply) => {
+        (repliesByParent.get(comment.id) || []).forEach((reply) => {
           list.append(createCommentCard(reply, true));
         });
       });
@@ -430,17 +450,7 @@ async function initializeDiscussion() {
       const author = nameInput.value.trim();
       const message = messageInput.value.trim();
 
-      if (author.length < 2 || author.length > 40) {
-        setStatus("Name must contain 2–40 characters.", "error");
-        nameInput.focus();
-        return;
-      }
-
-      if (!message || message.length > 1500) {
-        setStatus("Comment must contain 1–1500 characters.", "error");
-        messageInput.focus();
-        return;
-      }
+      if (!validatePost(author, message, messageInput, "Comment")) return;
 
       submitButton.disabled = true;
       setStatus("Connecting…");
@@ -458,6 +468,7 @@ async function initializeDiscussion() {
           uid: user.uid,
           createdAt: firestoreModule.serverTimestamp()
         });
+        rememberPost(message);
 
         messageInput.value = "";
         setStatus("Comment posted.", "success");
@@ -476,10 +487,38 @@ async function initializeDiscussion() {
 
     submitButton.disabled = false;
 
+    const loadRepliesForParents = async (parents) => {
+      const parentIds = parents.map((item) => item.id).filter(Boolean);
+      const next = new Map();
+
+      for (let index = 0; index < parentIds.length; index += 10) {
+        const batch = parentIds.slice(index, index + 10);
+        if (!batch.length) continue;
+
+        const repliesQuery = firestoreModule.query(
+          commentsRef,
+          firestoreModule.where("parentId", "in", batch)
+        );
+        const snapshot = await firestoreModule.getDocs(repliesQuery);
+        snapshot.docs.forEach((item) => {
+          const reply = { id: item.id, ...item.data() };
+          if (reply.pageId !== "help") return;
+          const items = next.get(reply.parentId) || [];
+          items.push(reply);
+          next.set(reply.parentId, items);
+        });
+      }
+
+      next.forEach((items) => {
+        items.sort((a, b) => (a.createdAt?.toMillis?.() || 0) - (b.createdAt?.toMillis?.() || 0));
+      });
+      repliesByParent = next;
+    };
+
     const commentsQuery = firestoreModule.query(
       commentsRef,
       firestoreModule.orderBy("createdAt", "desc"),
-      firestoreModule.limit(PAGE_SIZE)
+      firestoreModule.limit(PAGE_SIZE * 3)
     );
 
     firestoreModule.onSnapshot(
@@ -487,14 +526,19 @@ async function initializeDiscussion() {
       (snapshot) => {
         window.clearTimeout(timeout);
 
-        liveComments = snapshot.docs.map((item) => ({ id: item.id, ...item.data() }));
+        liveComments = snapshot.docs
+          .map((item) => ({ id: item.id, ...item.data() }))
+          .filter((item) => item.pageId === "help" && !item.parentId)
+          .slice(0, PAGE_SIZE);
         if (olderComments.length === 0) {
           oldestLoadedDoc = snapshot.empty ? null : snapshot.docs[snapshot.docs.length - 1];
           hasMoreComments = snapshot.size === PAGE_SIZE;
         }
 
         mergeComments();
-        renderComments();
+        loadRepliesForParents(comments.filter((item) => !item.parentId))
+          .catch((error) => console.error("Could not load replies.", error))
+          .finally(renderComments);
       },
       (error) => {
         window.clearTimeout(timeout);

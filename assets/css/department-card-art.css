@@ -32,16 +32,16 @@
   background-repeat: no-repeat;
   background-position: center, right center;
   background-size: cover, cover;
-  opacity: 1;
+  opacity: 0.98;
   pointer-events: none;
   transform: scale(1.001);
-  transition: transform 0.32s ease, filter 0.32s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .revision-department-grid .choice-card.department-visual-card:hover::after,
 .revision-department-grid .choice-card.department-visual-card:focus-visible::after {
   transform: scale(1.035);
-  filter: saturate(1.08) contrast(1.02);
+  opacity: 1;
 }
 
 .revision-department-grid .choice-card.department-visual-card > * {

@@ -4,21 +4,22 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
   Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; frame-src 'self' https://drive.google.com; form-action 'self' mailto:; base-uri 'self'; frame-ancestors 'self'
 
 /
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-cache, must-revalidate
 
 /*.html
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-cache, must-revalidate
 
-/assets/css/department-semester-layout.css
-  Cache-Control: public, max-age=0, must-revalidate
+/assets/css/*
+  Cache-Control: no-cache, must-revalidate
 
-/assets/js/department-semester-layout-v2.js
-  Cache-Control: public, max-age=0, must-revalidate
+/assets/js/*
+  Cache-Control: no-cache, must-revalidate
 
-/assets/*
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/build-info.json
+  Cache-Control: no-cache, must-revalidate
 
 /notes/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=86400
@@ -26,8 +27,11 @@
 /*.pdf
   Cache-Control: public, max-age=86400, stale-while-revalidate=86400
 
+/assets/media/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
 /robots.txt
-  Cache-Control: public, max-age=3600
+  Cache-Control: no-cache, must-revalidate
 
 /sitemap.xml
-  Cache-Control: public, max-age=3600
+  Cache-Control: no-cache, must-revalidate

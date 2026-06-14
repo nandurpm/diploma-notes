@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Electronics circuit board">
+  <rect width="640" height="360" fill="#dcfce7"/>
+  <rect x="116" y="72" width="408" height="216" rx="28" fill="#047857"/>
+  <g fill="#bbf7d0" stroke="#ecfeff" stroke-width="8">
+    <rect x="244" y="122" width="152" height="116" rx="14"/>
+    <circle cx="168" cy="126" r="22"/><circle cx="168" cy="234" r="22"/><circle cx="472" cy="126" r="22"/><circle cx="472" cy="234" r="22"/>
+  </g>
+  <path d="M190 126h54M396 126h54M190 234h54M396 234h54M320 72v50M320 238v50" stroke="#ecfeff" stroke-width="10" stroke-linecap="round"/>
+</svg>

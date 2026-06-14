@@ -1894,7 +1894,7 @@ const MATERIALS_2015 = {
   ],
   questionPapers: [
     { label: "Question Paper Availability",      url: "https://drive.google.com/file/d/1pgfggWTCouquaTPglpK4FfgLTC_9bdYq/view?usp=drivesdk" },
-    { label: "Official REV2021 Model QP Reference", url: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" }
+    { label: "SITTTR REV2021 Model QP Page", url: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" }
   ],
   alternativeNotes: [
     { label: "First Year", url: "https://drive.google.com/open?id=1qHCYDCt2yg2VToC5RbU78ZGD_TN3EtUZ" },

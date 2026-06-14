@@ -10,15 +10,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260614-flush-topbar1">
+  <link rel="stylesheet" href="/assets/css/style.css">
   <link rel="stylesheet" href="/assets/css/animations.css">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260614-flush-topbar1">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
   <link rel="canonical" href="https://polypmna.dpdns.org/model-question-papers.html">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kerala Polytechnic Model Question Papers | Diploma Notes">
   <meta property="og:description" content="Browse Kerala Polytechnic model and sample question papers by revision, department, semester and subject.">
   <meta property="og:url" content="https://polypmna.dpdns.org/model-question-papers.html">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
+  <link rel="stylesheet" href="/assets/css/hardening.css">
   <meta property="og:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
   <meta property="og:image:type" content="image/png">
   <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
   <meta name="twitter:title" content="Kerala Polytechnic Model Question Papers | Diploma Notes">
   <meta name="twitter:description" content="Browse Kerala Polytechnic model and sample question papers by revision, department, semester and subject.">
   <meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
-  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260614-flush-topbar1">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -47,8 +47,17 @@
     <nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Model Question Papers</span></li></ol></nav>
 <section class="page-title reveal"><p class="kicker">Model Question Papers</p><h1>Sample question papers by subject code</h1><p>Every Sample Question Paper button is generated with the requested SITTTR URL pattern and the subject code.</p></section><section class="section notice"><strong>URL pattern:</strong> https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&amp;course=SUBJECT_CODE</section><section class="section compact" id="subject-browser">
   <div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Cards show only the selected revision and department.</p></div>
-  <div class="filters"><label class="sr-only" for="subjectSearch">Search subjects</label><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><label class="sr-only" for="revisionFilter">Filter by revision</label><select id="revisionFilter"><option value="all">All revisions</option></select><label class="sr-only" for="departmentFilter">Filter by department</label><select id="departmentFilter"><option value="all">All departments</option></select><label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select></div>
-  <div class="subject-grid" id="subjectGrid" data-revision="" data-department=""></div>
+  <div class="filters">
+    <label class="sr-only" for="subjectSearch">Search subjects</label>
+    <input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester" autocomplete="off">
+    <label class="sr-only" for="revisionFilter">Filter by revision</label>
+    <select id="revisionFilter"><option value="all">All revisions</option></select>
+    <label class="sr-only" for="departmentFilter">Filter by department</label>
+    <select id="departmentFilter"><option value="all">All departments</option></select>
+    <label class="sr-only" for="semesterFilter">Filter by semester</label>
+    <select id="semesterFilter"><option value="all">All semesters</option></select>
+  </div>
+  <div class="subject-grid" id="subjectGrid" data-mode="model-question-papers"></div>
 </section>
   </main>
   <footer class="footer">
@@ -56,8 +65,9 @@
     <a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a>
   <nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
   <script src="/assets/js/subjects.js" defer></script>
-  <script src="/assets/js/search.js" defer></script>
   <script src="/assets/js/main.js" defer></script>
-  <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
+  <script src="/assets/js/subject-browser.js" defer></script>
+  <script src="/assets/js/site-hardening.js" defer></script>
+  <script src="/assets/js/site-assistant-loader.js" defer></script>
 </body>
 </html>
