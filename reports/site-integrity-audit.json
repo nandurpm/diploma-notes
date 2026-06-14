@@ -525,7 +525,7 @@
   "runtime_console_audit": {
     "browser": "google-chrome",
     "pages_checked": 74,
-    "pages_with_errors": 3,
+    "pages_with_errors": 2,
     "pages": [
       {
         "url": "https://polypmna.dpdns.org/",
@@ -550,7 +550,7 @@
       {
         "url": "https://polypmna.dpdns.org/lessons.html",
         "errors": [
-          "Chrome audit timed out"
+          "Chrome audit timed out after retry"
         ]
       },
       {
@@ -628,7 +628,7 @@
       {
         "url": "https://polypmna.dpdns.org/model-question-papers.html",
         "errors": [
-          "Chrome audit timed out"
+          "Chrome audit timed out after retry"
         ]
       },
       {
@@ -821,14 +821,13 @@
       },
       {
         "url": "https://polypmna.dpdns.org/syllabus.html",
-        "errors": [
-          "Chrome audit timed out"
-        ]
+        "errors": []
       },
       {
         "url": "https://polypmna.dpdns.org/terms.html",
         "errors": []
       }
-    ]
+    ],
+    "retry_pages_checked": 3
   }
 }
