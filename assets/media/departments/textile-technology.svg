@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Textile Technology department artwork">
+  <rect width="640" height="360" fill="#dbeafe"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <path d="M130 96h380M130 156h380M130 216h380M130 276h380M176 70v236M260 70v236M344 70v236M428 70v236" stroke="#1d4ed8" stroke-width="14" stroke-linecap="round"/><path d="M176 96c64 60 124 60 168 0s106-60 166 0M130 216c62-60 118-60 174 0s112 60 206 0" fill="none" stroke="#f59e0b" stroke-width="12" stroke-linecap="round"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#1d4ed8" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">TT</text>
+</svg>
