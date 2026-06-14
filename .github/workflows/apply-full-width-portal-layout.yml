@@ -1,0 +1,83 @@
+name: Apply full-width portal layout
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/apply-full-width-portal-layout.yml
+
+permissions:
+  contents: write
+
+jobs:
+  apply-layout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Mark standard portal pages and load the final layout stylesheet
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          pages = list(Path('.').glob('*.html')) + list(Path('revision-2021').glob('*.html'))
+          stylesheet = '  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260614-layout1">\n'
+          changed = []
+
+          for path in pages:
+              text = path.read_text(encoding='utf-8')
+              if '<header class="topbar">' not in text:
+                  continue
+
+              original = text
+
+              body_match = re.search(r'<body([^>]*)>', text, flags=re.I)
+              if body_match:
+                  attrs = body_match.group(1)
+                  class_match = re.search(r'class="([^"]*)"', attrs, flags=re.I)
+                  if class_match:
+                      classes = class_match.group(1).split()
+                      if 'portal-page' not in classes:
+                          new_classes = ' '.join(classes + ['portal-page'])
+                          new_attrs = attrs[:class_match.start()] + f'class="{new_classes}"' + attrs[class_match.end():]
+                          text = text[:body_match.start()] + f'<body{new_attrs}>' + text[body_match.end():]
+                  else:
+                      text = text[:body_match.start()] + f'<body class="portal-page"{attrs}>' + text[body_match.end():]
+
+              if '/assets/css/portal-layout.css' not in text:
+                  text = text.replace('</head>', stylesheet + '</head>', 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          about = Path('about.html')
+          text = about.read_text(encoding='utf-8')
+          text = text.replace(
+              '.about-shell{width:min(1180px,calc(100% - 32px));margin:0 auto 72px}',
+              '.about-shell{width:100%;max-width:none;margin:0 0 56px}'
+          )
+          text = text.replace(
+              '.language-bar{width:min(1180px,calc(100% - 32px));margin:18px auto 0;',
+              '.language-bar{width:100%;max-width:none;margin:18px 0 0;'
+          )
+          text = text.replace(
+              '@media(max-width:520px){.about-shell,.language-bar{width:min(100% - 20px,1180px)}',
+              '@media(max-width:520px){.about-shell,.language-bar{width:100%}'
+          )
+          about.write_text(text, encoding='utf-8')
+
+          print(f'Updated {len(changed)} standard portal pages.')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/apply-full-width-portal-layout.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Use full-width compact layout across portal tabs"
+          git push origin main
