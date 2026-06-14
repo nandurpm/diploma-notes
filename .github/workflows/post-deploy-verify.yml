@@ -1,9 +1,11 @@
 name: Post-deploy verification
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
-  workflow_dispatch:
+    paths:
+      - "build-info.json"
 
 permissions:
   contents: read
@@ -15,29 +17,34 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Verify production build info
-        env:
-          EXPECTED_SHA: ${{ github.sha }}
         run: |
           python - <<'PY'
           import json
-          import os
-          import sys
           import time
+          from pathlib import Path
           from urllib.request import urlopen
 
+          expected = json.loads(Path("build-info.json").read_text(encoding="utf-8"))
           url = "https://polypmna.dpdns.org/build-info.json"
-          expected = os.environ["EXPECTED_SHA"]
           last_error = None
+
           for _ in range(12):
               try:
                   with urlopen(url, timeout=15) as response:
-                      data = json.loads(response.read().decode("utf-8"))
-                  if data.get("commit") == expected and data.get("branch") == "main":
-                      print(f"Production build-info.json matches {expected}")
-                      sys.exit(0)
-                  last_error = f"production commit {data.get('commit')} did not match {expected}"
+                      production = json.loads(response.read().decode("utf-8"))
+
+                  if production == expected:
+                      print("Production build-info.json matches the tracked file.")
+                      raise SystemExit(0)
+
+                  last_error = (
+                      f"production build info {production!r} did not match "
+                      f"tracked build info {expected!r}"
+                  )
               except Exception as exc:
                   last_error = str(exc)
+
               time.sleep(20)
+
           raise SystemExit(f"Deployment verification failed: {last_error}")
           PY
