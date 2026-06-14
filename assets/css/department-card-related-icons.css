@@ -1,4 +1,4 @@
-@import url("/assets/css/department-card-animation-fixes.css?v=20260614-animation2");
+@import url("/assets/css/department-card-animation-fixes.css?v=20260614-animation3");
 
 /* Real department-related vector images layered over the existing card artwork. */
 .revision-department-grid .choice-card.department-visual-card::after {
@@ -26,59 +26,59 @@
 }
 
 /* Electrical and electronics */
-.choice-card[href$="electrical-electronics-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/transmission-tower.svg?color=%231d4ed8"); }
-.choice-card[href$="electronics-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/motherboard.svg?color=%23047857"); }
-.choice-card[href$="electrical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/lightning-bolt.svg?color=%23a16207"); }
-.choice-card[href$="electrical-engineering-and-electric-vehicles-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/ev-station.svg?color=%23047857"); }
-.choice-card[href$="electronics-and-communication.html"] { --department-icon: url("https://api.iconify.design/mdi/radio-tower.svg?color=%230e7490"); }
-.choice-card[href$="electronics-and-computer-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/integrated-circuit-chip.svg?color=%231d4ed8"); }
-.choice-card[href$="instrumentation-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/gauge.svg?color=%230e7490"); }
-.choice-card[href$="integrated-circuit-design-and-fabrication.html"] { --department-icon: url("https://api.iconify.design/mdi/memory.svg?color=%236d28d9"); }
-.choice-card[href$="micro-electronics.html"] { --department-icon: url("https://api.iconify.design/mdi/microscope.svg?color=%236d28d9"); }
+.choice-card[href$="/electrical-electronics-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/transmission-tower.svg?color=%231d4ed8"); }
+.choice-card[href$="/electronics-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/motherboard.svg?color=%23047857"); }
+.choice-card[href$="/electrical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/lightning-bolt.svg?color=%23a16207"); }
+.choice-card[href$="/electrical-engineering-and-electric-vehicles-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/ev-station.svg?color=%23047857"); }
+.choice-card[href$="/electronics-and-communication.html"] { --department-icon: url("https://api.iconify.design/mdi/radio-tower.svg?color=%230e7490"); }
+.choice-card[href$="/electronics-and-computer-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/integrated-circuit-chip.svg?color=%231d4ed8"); }
+.choice-card[href$="/instrumentation-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/gauge.svg?color=%230e7490"); }
+.choice-card[href$="/integrated-circuit-design-and-fabrication.html"] { --department-icon: url("https://api.iconify.design/mdi/memory.svg?color=%236d28d9"); }
+.choice-card[href$="/micro-electronics.html"] { --department-icon: url("https://api.iconify.design/mdi/microscope.svg?color=%236d28d9"); }
 
 /* Mechanical, automobile and production */
-.choice-card[href$="mechanical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/cog.svg?color=%23c2410c"); }
-.choice-card[href$="automation-and-robotics.html"] { --department-icon: url("https://api.iconify.design/mdi/robot-industrial.svg?color=%230e7490"); }
-.choice-card[href$="automobile-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/car-wrench.svg?color=%23b91c1c"); }
-.choice-card[href$="manufacturing-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/factory.svg?color=%23334155"); }
-.choice-card[href$="mechatronics.html"] { --department-icon: url("https://api.iconify.design/mdi/cog-sync.svg?color=%23047857"); }
-.choice-card[href$="robotic-process-automation.html"] { --department-icon: url("https://api.iconify.design/mdi/robot.svg?color=%230e7490"); }
-.choice-card[href$="tool-and-die-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/tools.svg?color=%23334155"); }
+.choice-card[href$="/mechanical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/cog.svg?color=%23c2410c"); }
+.choice-card[href$="/automation-and-robotics.html"] { --department-icon: url("https://api.iconify.design/mdi/robot-industrial.svg?color=%230e7490"); }
+.choice-card[href$="/automobile-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/car-wrench.svg?color=%23b91c1c"); }
+.choice-card[href$="/manufacturing-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/factory.svg?color=%23334155"); }
+.choice-card[href$="/mechatronics.html"] { --department-icon: url("https://api.iconify.design/mdi/cog-sync.svg?color=%23047857"); }
+.choice-card[href$="/robotic-process-automation.html"] { --department-icon: url("https://api.iconify.design/mdi/robot.svg?color=%230e7490"); }
+.choice-card[href$="/tool-and-die-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/tools.svg?color=%23334155"); }
 
 /* Civil, architecture and environment */
-.choice-card[href$="civil-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/bridge.svg?color=%23334155"); }
-.choice-card[href$="architecture.html"] { --department-icon: url("https://api.iconify.design/mdi/home-city-outline.svg?color=%234338ca"); }
-.choice-card[href$="civil-and-environmental-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/leaf-circle-outline.svg?color=%23047857"); }
-.choice-card[href$="civil-and-rural-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/home-group.svg?color=%233f6212"); }
-.choice-card[href$="civil-public-health-and-environment-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/water-pump.svg?color=%230e7490"); }
-.choice-card[href$="civil-engineering-and-planning.html"] { --department-icon: url("https://api.iconify.design/mdi/map-marker-path.svg?color=%23334155"); }
+.choice-card[href$="/civil-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/bridge.svg?color=%23334155"); }
+.choice-card[href$="/architecture.html"] { --department-icon: url("https://api.iconify.design/mdi/home-city-outline.svg?color=%234338ca"); }
+.choice-card[href$="/civil-and-environmental-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/leaf-circle-outline.svg?color=%23047857"); }
+.choice-card[href$="/civil-and-rural-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/home-group.svg?color=%233f6212"); }
+.choice-card[href$="/civil-public-health-and-environment-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/water-pump.svg?color=%230e7490"); }
+.choice-card[href$="/civil-engineering-and-planning.html"] { --department-icon: url("https://api.iconify.design/mdi/map-marker-path.svg?color=%23334155"); }
 
 /* Computer, AI, cloud and networking */
-.choice-card[href$="artificial-intelligence.html"] { --department-icon: url("https://api.iconify.design/mdi/brain.svg?color=%236d28d9"); }
-.choice-card[href$="artificial-intelligence-and-machine-learning.html"] { --department-icon: url("https://api.iconify.design/mdi/brain.svg?color=%232563eb"); }
-.choice-card[href$="cloud-computing-and-big-data.html"] { --department-icon: url("https://api.iconify.design/mdi/cloud.svg?color=%231d4ed8"); }
-.choice-card[href$="communication-and-computer-networking.html"] { --department-icon: url("https://api.iconify.design/mdi/lan-connect.svg?color=%230e7490"); }
-.choice-card[href$="computer-application-and-business-management.html"] { --department-icon: url("https://api.iconify.design/mdi/laptop-account.svg?color=%234338ca"); }
-.choice-card[href$="computer-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/laptop.svg?color=%231d4ed8"); }
-.choice-card[href$="computer-hardware-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/desktop-tower-monitor.svg?color=%23047857"); }
-.choice-card[href$="computer-science-and-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/code-braces.svg?color=%234338ca"); }
-.choice-card[href$="cyber-forensics-and-information-security.html"] { --department-icon: url("https://api.iconify.design/mdi/shield-lock.svg?color=%23334155"); }
-.choice-card[href$="information-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/cloud-braces.svg?color=%231d4ed8"); }
+.choice-card[href$="/artificial-intelligence.html"] { --department-icon: url("https://api.iconify.design/mdi/brain.svg?color=%236d28d9"); }
+.choice-card[href$="/artificial-intelligence-and-machine-learning.html"] { --department-icon: url("https://api.iconify.design/mdi/brain.svg?color=%232563eb"); }
+.choice-card[href$="/cloud-computing-and-big-data.html"] { --department-icon: url("https://api.iconify.design/mdi/cloud.svg?color=%231d4ed8"); }
+.choice-card[href$="/communication-and-computer-networking.html"] { --department-icon: url("https://api.iconify.design/mdi/lan-connect.svg?color=%230e7490"); }
+.choice-card[href$="/computer-application-and-business-management.html"] { --department-icon: url("https://api.iconify.design/mdi/laptop-account.svg?color=%234338ca"); }
+.choice-card[href$="/computer-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/laptop.svg?color=%231d4ed8"); }
+.choice-card[href$="/computer-hardware-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/desktop-tower-monitor.svg?color=%23047857"); }
+.choice-card[href$="/computer-science-and-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/code-braces.svg?color=%234338ca"); }
+.choice-card[href$="/cyber-forensics-and-information-security.html"] { --department-icon: url("https://api.iconify.design/mdi/shield-lock.svg?color=%23334155"); }
+.choice-card[href$="/information-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/cloud-braces.svg?color=%231d4ed8"); }
 
 /* Health, chemistry, materials and energy */
-.choice-card[href$="biomedical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/heart-pulse.svg?color=%23be123c"); }
-.choice-card[href$="chemical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/flask.svg?color=%23c2410c"); }
-.choice-card[href$="polymer-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/molecule.svg?color=%23047857"); }
-.choice-card[href$="renewable-energy.html"] { --department-icon: url("https://api.iconify.design/mdi/solar-power-variant.svg?color=%233f6212"); }
+.choice-card[href$="/biomedical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/heart-pulse.svg?color=%23be123c"); }
+.choice-card[href$="/chemical-engineering.html"] { --department-icon: url("https://api.iconify.design/mdi/flask.svg?color=%23c2410c"); }
+.choice-card[href$="/polymer-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/molecule.svg?color=%23047857"); }
+.choice-card[href$="/renewable-energy.html"] { --department-icon: url("https://api.iconify.design/mdi/solar-power-variant.svg?color=%233f6212"); }
 
 /* Service, safety and applied technologies */
-.choice-card[href$="commercial-practice.html"] { --department-icon: url("https://api.iconify.design/mdi/briefcase.svg?color=%23a16207"); }
-.choice-card[href$="fire-technology-and-safety.html"] { --department-icon: url("https://api.iconify.design/mdi/fire-extinguisher.svg?color=%23b91c1c"); }
-.choice-card[href$="food-processing-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/food-apple.svg?color=%23c2410c"); }
-.choice-card[href$="hotel-management-and-catering-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/silverware-fork-knife.svg?color=%23a16207"); }
-.choice-card[href$="printing-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/printer.svg?color=%23c2410c"); }
-.choice-card[href$="textile-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/tshirt-crew.svg?color=%236d28d9"); }
-.choice-card[href$="wood-and-paper-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/tree-outline.svg?color=%23a16207"); }
+.choice-card[href$="/commercial-practice.html"] { --department-icon: url("https://api.iconify.design/mdi/briefcase.svg?color=%23a16207"); }
+.choice-card[href$="/fire-technology-and-safety.html"] { --department-icon: url("https://api.iconify.design/mdi/fire-extinguisher.svg?color=%23b91c1c"); }
+.choice-card[href$="/food-processing-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/food-apple.svg?color=%23c2410c"); }
+.choice-card[href$="/hotel-management-and-catering-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/silverware-fork-knife.svg?color=%23a16207"); }
+.choice-card[href$="/printing-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/printer.svg?color=%23c2410c"); }
+.choice-card[href$="/textile-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/tshirt-crew.svg?color=%236d28d9"); }
+.choice-card[href$="/wood-and-paper-technology.html"] { --department-icon: url("https://api.iconify.design/mdi/tree-outline.svg?color=%23a16207"); }
 
 @media (max-width: 700px) {
   .revision-department-grid .choice-card.department-visual-card::after {
