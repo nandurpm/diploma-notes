@@ -1,0 +1,61 @@
+name: Refresh unique department images
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/refresh-unique-department-images.yml
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Refresh CSS imports and page cache versions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          css_path = Path('assets/css/department-card-related-icons.css')
+          css = css_path.read_text(encoding='utf-8')
+          css = css.replace(
+              'department-card-animation-fixes.css?v=20260614-animation1',
+              'department-card-animation-fixes.css?v=20260614-animation2'
+          )
+          css_path.write_text(css, encoding='utf-8')
+
+          js_path = Path('assets/js/department-card-art.js')
+          js = js_path.read_text(encoding='utf-8')
+          js = js.replace(
+              'department-card-related-icons.css?v=20260614-related2',
+              'department-card-related-icons.css?v=20260614-related3'
+          )
+          js_path.write_text(js, encoding='utf-8')
+
+          page_path = Path('revision-2021.html')
+          page = page_path.read_text(encoding='utf-8')
+          page = page.replace(
+              'department-card-art.css?v=20260614-department-art2',
+              'department-card-art.css?v=20260614-department-art3'
+          )
+          page = page.replace(
+              'department-card-art.js?v=20260614-department-art2',
+              'department-card-art.js?v=20260614-department-art3'
+          )
+          page_path.write_text(page, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/refresh-unique-department-images.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Use unique images for similar department cards"
+          git push origin main
