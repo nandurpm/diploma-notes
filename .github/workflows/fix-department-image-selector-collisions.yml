@@ -1,0 +1,69 @@
+name: Fix department image selector collisions
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/fix-department-image-selector-collisions.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Make every department image selector path-specific
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          for filename in (
+              'assets/css/department-card-related-icons.css',
+              'assets/css/department-card-animation-fixes.css',
+          ):
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              text = text.replace('.choice-card[href$="', '.choice-card[href$="/')
+              text = text.replace('.choice-card[href$="//', '.choice-card[href$="/')
+              path.write_text(text, encoding='utf-8')
+
+          related = Path('assets/css/department-card-related-icons.css')
+          text = related.read_text(encoding='utf-8').replace(
+              'department-card-animation-fixes.css?v=20260614-animation2',
+              'department-card-animation-fixes.css?v=20260614-animation3'
+          )
+          related.write_text(text, encoding='utf-8')
+
+          js = Path('assets/js/department-card-art.js')
+          text = js.read_text(encoding='utf-8').replace(
+              'department-card-related-icons.css?v=20260614-related3',
+              'department-card-related-icons.css?v=20260614-related4'
+          )
+          js.write_text(text, encoding='utf-8')
+
+          page = Path('revision-2021.html')
+          text = page.read_text(encoding='utf-8')
+          text = text.replace(
+              'department-card-art.css?v=20260614-department-art3',
+              'department-card-art.css?v=20260614-department-art4'
+          )
+          text = text.replace(
+              'department-card-art.js?v=20260614-department-art3',
+              'department-card-art.js?v=20260614-department-art4'
+          )
+          page.write_text(text, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/fix-department-image-selector-collisions.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Prevent similar department paths from sharing images"
+          git push origin main
