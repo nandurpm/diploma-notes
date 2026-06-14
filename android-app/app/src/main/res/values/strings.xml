@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Polytechnic Study Hub</string>
+    <string name="download_started">Download started</string>
+    <string name="downloading_file">Downloading study material</string>
+    <string name="download_blocked">Only secure downloads are allowed</string>
+    <string name="no_app_found">No compatible app was found</string>
+    <string name="no_file_picker">No file picker is available</string>
+    <string name="unsafe_page_blocked">Unsafe page blocked</string>
+</resources>
