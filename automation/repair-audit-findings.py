@@ -74,7 +74,8 @@ write_if_changed(path, text)
 
 # 3032: complete missing Open Graph metadata and normalize its public title.
 path = LESSONS / "lessons-3032.html"
-text = path.read_text(encoding="utf-8")ntitle = "DC Machines & Traction Motors 3032 | Kerala Polytechnic Study Hub"
+text = path.read_text(encoding="utf-8")
+ntitle = "DC Machines & Traction Motors 3032 | Kerala Polytechnic Study Hub"
 description = "DC Machines and Traction Motors 3032 diploma handbook with construction, working principles, characteristics, diagrams, numericals and revision answers."
 text = re.sub(r"<title\b[^>]*>.*?</title>", f"<title>{html.escape(ntitle)}</title>", text, count=1, flags=re.I | re.S)
 text = set_meta(text, "name", "description", description)
