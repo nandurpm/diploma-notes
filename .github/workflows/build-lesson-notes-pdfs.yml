@@ -101,7 +101,6 @@ jobs:
                       display_header_footer=True,
                       header_template=f'<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm">Course {code}</div>',
                       footer_template='<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm;display:flex;justify-content:space-between"><span>Polytechnic Study Hub</span><span>polypmna.dpdns.org</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>',
-                      timeout=120000,
                   )
 
                   reader = PdfReader(str(output))
