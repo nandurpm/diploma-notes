@@ -1,0 +1,101 @@
+name: Hide deleted Help comments
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/hide-deleted-help-comments.yml
+
+permissions:
+  contents: write
+
+jobs:
+  fix-comments:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Remove deleted comments and their threads from public rendering
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('assets/js/help-comments.js')
+          text = path.read_text(encoding='utf-8')
+
+          text = text.replace(
+              ': "Delete this comment? Existing replies will remain visible.";',
+              ': "Delete this comment? It will be removed from the public discussion.";'
+          )
+
+          old_block = '''                olderComments = olderComments.map((item) =>
+                  item.id === comment.id
+                    ? { ...item, author: "Deleted", message: "This comment was deleted.", deleted: true }
+                    : item
+                );
+                mergeComments();
+                renderComments();
+                setStatus("Comment deleted. Existing replies were preserved.", "success");'''
+
+          new_block = '''                const markDeleted = (item) =>
+                  item.id === comment.id
+                    ? { ...item, author: "Deleted", message: "This comment was deleted.", deleted: true }
+                    : item;
+
+                liveComments = liveComments.map(markDeleted);
+                olderComments = olderComments.map(markDeleted);
+                repliesByParent.delete(comment.id);
+                mergeComments();
+                renderComments();
+                setStatus("Comment removed from the public discussion.", "success");'''
+
+          if old_block not in text:
+              raise SystemExit('Top-level deletion block was not found.')
+          text = text.replace(old_block, new_block, 1)
+
+          text = text.replace(
+              '.filter((item) => item.pageId === "help" && !item.parentId)\n          .slice(0, PAGE_SIZE);',
+              '.filter((item) => item.pageId === "help" && !item.parentId && !isDeletedComment(item))\n          .slice(0, PAGE_SIZE);'
+          )
+
+          text = text.replace(
+              'await loadRepliesForParents(comments.filter((item) => !item.parentId));',
+              'await loadRepliesForParents(comments.filter((item) => !item.parentId && !isDeletedComment(item)));'
+          )
+
+          text = text.replace(
+              'const visible = comments.filter((item) => item.pageId === "help" && !item.parentId);',
+              'const visible = comments.filter(\n        (item) => item.pageId === "help" && !item.parentId && !isDeletedComment(item)\n      );'
+          )
+
+          text = text.replace(
+              '.filter((item) => item.pageId === "help" && !item.parentId)\n          .slice(0, PAGE_SIZE);',
+              '.filter((item) => item.pageId === "help" && !item.parentId && !isDeletedComment(item))\n          .slice(0, PAGE_SIZE);'
+          )
+
+          text = text.replace(
+              'loadRepliesForParents(comments.filter((item) => !item.parentId))',
+              'loadRepliesForParents(comments.filter((item) => !item.parentId && !isDeletedComment(item)))'
+          )
+
+          path.write_text(text, encoding='utf-8')
+
+          contact_path = Path('contact.html')
+          contact = contact_path.read_text(encoding='utf-8')
+          contact = contact.replace(
+              '<script type="module" src="/assets/js/help-comments.js"></script>',
+              '<script type="module" src="/assets/js/help-comments.js?v=20260614-hide-deleted1"></script>'
+          )
+          contact_path.write_text(contact, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/hide-deleted-help-comments.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Hide deleted comments from the Help discussion"
+          git push origin main
