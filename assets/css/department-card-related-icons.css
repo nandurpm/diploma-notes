@@ -1,3 +1,5 @@
+@import url("/assets/css/department-card-animation-fixes.css?v=20260614-animation1");
+
 /* Real department-related vector images layered over the existing card artwork. */
 .revision-department-grid .choice-card.department-visual-card::after {
   background-image:
