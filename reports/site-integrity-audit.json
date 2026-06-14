@@ -1,0 +1,537 @@
+{
+  "pages_checked": 74,
+  "pages_with_issues": 4,
+  "css_asset_issues": [],
+  "pages": [
+    {
+      "path": "index.html",
+      "url": "https://polypmna.dpdns.org/",
+      "title": "Kerala Polytechnic Diploma Notes & Study Materials | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/",
+      "issues": []
+    },
+    {
+      "path": "about.html",
+      "url": "https://polypmna.dpdns.org/about.html",
+      "title": "About the Kerala Polytechnic Study Hub | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/about.html",
+      "issues": []
+    },
+    {
+      "path": "contact.html",
+      "url": "https://polypmna.dpdns.org/contact.html",
+      "title": "Help, Corrections & Content Requests | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/contact.html",
+      "issues": []
+    },
+    {
+      "path": "departments.html",
+      "url": "https://polypmna.dpdns.org/departments.html",
+      "title": "Kerala Polytechnic Departments | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/departments.html",
+      "issues": []
+    },
+    {
+      "path": "disclaimer.html",
+      "url": "https://polypmna.dpdns.org/disclaimer.html",
+      "title": "Disclaimer | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/disclaimer.html",
+      "issues": []
+    },
+    {
+      "path": "lessons.html",
+      "url": "https://polypmna.dpdns.org/lessons.html",
+      "title": "Kerala Polytechnic Lesson Pages | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/lessons.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-1001.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1001.html",
+      "title": "Communication Skills in English 1001 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-1001.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-1002.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1002.html",
+      "title": "Mathematics I 1002 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-1002.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-1003.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1003.html",
+      "title": "Applied Physics-I 1003 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-1003.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-1004.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1004.html",
+      "title": "Applied Chemistry-I 1004 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-1004.html",
+      "issues": [
+        "Expected exactly one H1; found 0"
+      ]
+    },
+    {
+      "path": "lessons/lessons-1005.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1005.html",
+      "title": "Engineering Graphics 1005 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-1005.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-1006.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1006.html",
+      "title": "Applied Physics Lab 1006 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-1006.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-2003.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2003.html",
+      "title": "Applied Physics-II 2003 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-2003.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-2031.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2031.html",
+      "title": "Fundamentals of Electrical and Electronics Engineering 2031 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-2031.html",
+      "issues": [
+        "Missing metadata: twitter:title",
+        "Missing metadata: twitter:description"
+      ]
+    },
+    {
+      "path": "lessons/lessons-2041.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2041.html",
+      "title": "Basic Electronics 2041 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-2041.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-3023.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3023.html",
+      "title": "Machine Tools 3023 | Kerala Polytechnic Study HubMachine tool workshop illustrationOrthogonal and oblique cutting diagramsSingle point cutting tool nomenclatureLabeled centre latheRadial drilling machineCrank and slotted lever quick-return mechanismVertical milling machineCentreless grindingCNC machine block diagram",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3023.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-3031.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3031.html",
+      "title": "Analog & Digital Circuits 3031 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3031.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-3032.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3032.html",
+      "title": "DC Machines & Traction Motors | Course 3032Labeled construction of a DC machineSimple-loop DC generator and commutator action",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3032.html",
+      "issues": [
+        "Missing metadata: og:type",
+        "Missing metadata: og:title",
+        "Missing metadata: og:description"
+      ]
+    },
+    {
+      "path": "lessons/lessons-3041.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3041.html",
+      "title": "3041 | Electric Circuits & Networks",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3041.html",
+      "issues": [
+        "Broken local reference: downloadable-notes-3041.pdf -> lessons/downloadable-notes-3041.pdf"
+      ]
+    },
+    {
+      "path": "lessons/lessons-3044.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3044.html",
+      "title": "Digital Electronics 3044 | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3044.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-3045.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3045.html",
+      "title": "3045 | Fundamentals of C Programming",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3045.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-3046.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3046.html",
+      "title": "3046 | Principles of Electronic Communication Lab",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3046.html",
+      "issues": []
+    },
+    {
+      "path": "lessons/lessons-3047.html",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-3047.html",
+      "title": "3047 | Electronic Circuits Lab",
+      "canonical": "https://polypmna.dpdns.org/lessons/lessons-3047.html",
+      "issues": []
+    },
+    {
+      "path": "materials-2015.html",
+      "url": "https://polypmna.dpdns.org/materials-2015.html",
+      "title": "Kerala Polytechnic 2015 Scheme Materials | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/materials-2015.html",
+      "issues": []
+    },
+    {
+      "path": "model-question-papers.html",
+      "url": "https://polypmna.dpdns.org/model-question-papers.html",
+      "title": "Kerala Polytechnic Model Question Papers | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/model-question-papers.html",
+      "issues": []
+    },
+    {
+      "path": "previous-question-papers.html",
+      "url": "https://polypmna.dpdns.org/previous-question-papers.html",
+      "title": "Kerala Polytechnic Previous Question Papers | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/previous-question-papers.html",
+      "issues": []
+    },
+    {
+      "path": "privacy.html",
+      "url": "https://polypmna.dpdns.org/privacy.html",
+      "title": "Privacy Policy | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/privacy.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021.html",
+      "url": "https://polypmna.dpdns.org/revision-2021.html",
+      "title": "Revision 2021 Diploma Departments | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/architecture.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/architecture.html",
+      "title": "Architecture Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/architecture.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence-and-machine-learning.html",
+      "title": "Artificial Intelligence & Machine Learning Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence-and-machine-learning.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/artificial-intelligence.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence.html",
+      "title": "Artificial Intelligence Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/artificial-intelligence.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/automation-and-robotics.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/automation-and-robotics.html",
+      "title": "Automation and Robotics Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/automation-and-robotics.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/automobile-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/automobile-engineering.html",
+      "title": "Automobile Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/automobile-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/biomedical-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/biomedical-engineering.html",
+      "title": "Biomedical Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/biomedical-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/chemical-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/chemical-engineering.html",
+      "title": "Chemical Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/chemical-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/civil-and-environmental-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/civil-and-environmental-engineering.html",
+      "title": "Civil & Environmental Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/civil-and-environmental-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/civil-and-rural-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/civil-and-rural-engineering.html",
+      "title": "Civil & Rural Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/civil-and-rural-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/civil-engineering-and-planning.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/civil-engineering-and-planning.html",
+      "title": "Civil Engineering & Planning Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/civil-engineering-and-planning.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/civil-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/civil-engineering.html",
+      "title": "Civil Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/civil-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/civil-public-health-and-environment-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/civil-public-health-and-environment-engineering.html",
+      "title": "Civil (Public Health and Environment) Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/civil-public-health-and-environment-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/cloud-computing-and-big-data.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/cloud-computing-and-big-data.html",
+      "title": "Cloud Computing and Big Data Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/cloud-computing-and-big-data.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/commercial-practice.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/commercial-practice.html",
+      "title": "Commercial Practice Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/commercial-practice.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/communication-and-computer-networking.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/communication-and-computer-networking.html",
+      "title": "Communication & Computer Networking Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/communication-and-computer-networking.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/computer-application-and-business-management.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/computer-application-and-business-management.html",
+      "title": "Computer Application & Business Management Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/computer-application-and-business-management.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/computer-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/computer-engineering.html",
+      "title": "Computer Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/computer-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/computer-hardware-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/computer-hardware-engineering.html",
+      "title": "Computer Hardware Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/computer-hardware-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/computer-science-and-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/computer-science-and-engineering.html",
+      "title": "Computer Science & Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/computer-science-and-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/cyber-forensics-and-information-security.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/cyber-forensics-and-information-security.html",
+      "title": "Cyber Forensics and Information Security Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/cyber-forensics-and-information-security.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/electrical-electronics-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/electrical-electronics-engineering.html",
+      "title": "Electrical and Electronics Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/electrical-electronics-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/electrical-engineering-and-electric-vehicles-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/electrical-engineering-and-electric-vehicles-technology.html",
+      "title": "Electrical Engineering & Electric Vehicles Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/electrical-engineering-and-electric-vehicles-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/electrical-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/electrical-engineering.html",
+      "title": "Electrical Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/electrical-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/electronics-and-communication.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/electronics-and-communication.html",
+      "title": "Electronics and Communication Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/electronics-and-communication.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/electronics-and-computer-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/electronics-and-computer-engineering.html",
+      "title": "Electronics and Computer Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/electronics-and-computer-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/electronics-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/electronics-engineering.html",
+      "title": "Electronics Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/electronics-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/fire-technology-and-safety.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/fire-technology-and-safety.html",
+      "title": "Fire Technology and Safety Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/fire-technology-and-safety.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/food-processing-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/food-processing-technology.html",
+      "title": "Food Processing Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/food-processing-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/hotel-management-and-catering-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/hotel-management-and-catering-technology.html",
+      "title": "Hotel Management and Catering Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/hotel-management-and-catering-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/information-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/information-technology.html",
+      "title": "Information Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/information-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/instrumentation-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/instrumentation-engineering.html",
+      "title": "Instrumentation Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/instrumentation-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/integrated-circuit-design-and-fabrication.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/integrated-circuit-design-and-fabrication.html",
+      "title": "Integrated Circuit Design & Fabrication Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/integrated-circuit-design-and-fabrication.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/manufacturing-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/manufacturing-technology.html",
+      "title": "Manufacturing Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/manufacturing-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/mechanical-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/mechanical-engineering.html",
+      "title": "Mechanical Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/mechanical-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/mechatronics.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/mechatronics.html",
+      "title": "Mechatronics Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/mechatronics.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/micro-electronics.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/micro-electronics.html",
+      "title": "Micro Electronics Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/micro-electronics.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/polymer-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/polymer-technology.html",
+      "title": "Polymer Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/polymer-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/printing-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/printing-technology.html",
+      "title": "Printing Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/printing-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/renewable-energy.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/renewable-energy.html",
+      "title": "Renewable Energy Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/renewable-energy.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/robotic-process-automation.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/robotic-process-automation.html",
+      "title": "Robotic Process Automation Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/robotic-process-automation.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/textile-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/textile-technology.html",
+      "title": "Textile Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/textile-technology.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/tool-and-die-engineering.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/tool-and-die-engineering.html",
+      "title": "Tool & Die Engineering Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/tool-and-die-engineering.html",
+      "issues": []
+    },
+    {
+      "path": "revision-2021/wood-and-paper-technology.html",
+      "url": "https://polypmna.dpdns.org/revision-2021/wood-and-paper-technology.html",
+      "title": "Wood and Paper Technology Revision 2021 Subjects | Kerala Polytechnic Study Hub",
+      "canonical": "https://polypmna.dpdns.org/revision-2021/wood-and-paper-technology.html",
+      "issues": []
+    },
+    {
+      "path": "study-materials.html",
+      "url": "https://polypmna.dpdns.org/study-materials.html",
+      "title": "Kerala Polytechnic Study Materials | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/study-materials.html",
+      "issues": []
+    },
+    {
+      "path": "syllabus.html",
+      "url": "https://polypmna.dpdns.org/syllabus.html",
+      "title": "Kerala Polytechnic Syllabus Browser | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/syllabus.html",
+      "issues": []
+    },
+    {
+      "path": "terms.html",
+      "url": "https://polypmna.dpdns.org/terms.html",
+      "title": "Terms of Use | Diploma Notes",
+      "canonical": "https://polypmna.dpdns.org/terms.html",
+      "issues": []
+    }
+  ],
+  "runtime_console_audit": "pending"
+}
