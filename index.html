@@ -21,6 +21,11 @@
   <meta property="og:description" content="Kerala Polytechnic Diploma Engineering Notes homepage.">
   <meta property="og:url" content="https://polypmna.dpdns.org/">
   <link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
+  <style>
+    .home-subject-filters{grid-template-columns:minmax(240px,1.2fr) minmax(280px,1.45fr) minmax(180px,.8fr)!important}
+    @media(max-width:900px){.home-subject-filters{grid-template-columns:1fr 1fr!important}.home-subject-filters #subjectSearch{grid-column:1/-1}}
+    @media(max-width:620px){.home-subject-filters{grid-template-columns:1fr!important}.home-subject-filters #subjectSearch{grid-column:auto}}
+  </style>
 </head>
 <body>
   <header class="topbar">
@@ -96,17 +101,16 @@
       <div class="section-heading inline-heading">
         <div>
           <p class="kicker">Quick Subject Finder</p>
-          <h2>Search by subject code, title, department or semester.</h2>
+          <h2>Search Revision 2021 subjects quickly.</h2>
         </div>
-        <p>Common Revision 2021 subjects available in every department are shown by default. Search or use filters to browse the complete subject list.</p>
+        <p>Common subjects are shown first. Choose a department to display its subjects together with the common subjects.</p>
       </div>
-      <div class="filters">
-        <label class="sr-only" for="subjectSearch">Search subjects</label><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester">
-        <label class="sr-only" for="revisionFilter">Filter by revision</label><select id="revisionFilter"><option value="all">All revisions</option></select>
-        <label class="sr-only" for="departmentFilter">Filter by department</label><select id="departmentFilter"><option value="all">All departments</option></select>
+      <div class="filters home-subject-filters">
+        <label class="sr-only" for="subjectSearch">Search Revision 2021 subjects</label><input id="subjectSearch" type="search" placeholder="Search subject code or title">
+        <label class="sr-only" for="departmentFilter">Choose department</label><select id="departmentFilter"><option value="__common__">Common Subjects</option></select>
         <label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select>
       </div>
-      <div class="subject-grid" id="subjectGrid" data-mode="homepage-search"></div>
+      <div class="subject-grid" id="subjectGrid" data-mode="homepage-search" data-revision="2021"></div>
     </section>
   </main>
 
@@ -116,10 +120,9 @@
   <nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
   <script src="/assets/js/subjects.js" defer></script>
   <script src="/assets/js/search.js" defer></script>
-  <script src="/assets/js/main.js?v=20260611-portal1" defer></script>
+  <script src="/assets/js/main.js?v=20260614-home-filters2" defer></script>
   <div id="polySiteAssistant"></div>
   <script src="/assets/js/site-assistant.js" defer></script>
   <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
-  <script src="/assets/js/home-common-subject-default.js?v=20260612-1" defer></script>
 </body>
 </html>
