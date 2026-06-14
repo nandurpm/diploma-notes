@@ -12,9 +12,35 @@
     return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
   }
 
+  function removeFixedFilters() {
+    const filters = document.querySelector("#subject-browser .filters");
+    if (!filters) return;
+
+    ["revisionFilter", "departmentFilter"].forEach((id) => {
+      const control = document.getElementById(id);
+      document.querySelector(`label[for="${id}"]`)?.remove();
+      control?.remove();
+    });
+
+    filters.classList.add("department-subject-filters");
+
+    const search = document.getElementById("subjectSearch");
+    if (search) {
+      search.placeholder = "Search subject code or title";
+      search.setAttribute("aria-label", "Search subjects in this department");
+    }
+
+    const semester = document.getElementById("semesterFilter");
+    if (semester) {
+      semester.setAttribute("aria-label", "Select semester");
+    }
+  }
+
   function initialiseSemesterLayout() {
     const grid = document.querySelector('#subjectGrid[data-revision="2021"][data-department]');
     if (!grid || grid.dataset.semesterLayoutVersion === "2") return;
+
+    removeFixedFilters();
 
     grid.dataset.semesterLayoutVersion = "2";
     grid.classList.add("department-semester-layout");
