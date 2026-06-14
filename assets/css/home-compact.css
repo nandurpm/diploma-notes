@@ -69,6 +69,21 @@
   font-size: 0.9rem;
 }
 
+.home-app-actions .app-download {
+  color: #ffffff;
+  border-color: transparent;
+  background: linear-gradient(135deg, #168b5b, #05a89f 58%, #087fbc);
+  box-shadow: 0 12px 25px rgba(5, 145, 122, 0.24);
+}
+
+.home-app-actions .app-download:hover,
+.home-app-actions .app-download:focus-visible {
+  color: #ffffff;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(5, 145, 122, 0.3);
+}
+
 .hero.compact-hero { margin-top: 12px; }
 .hero.compact-hero .hero-copy {
   min-height: 220px;
@@ -162,6 +177,9 @@
   .compact-page-title .hero-actions {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     display: grid;
+  }
+  .home-compact-hero .home-app-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .page-title .btn,
   .home-compact-hero .btn,
