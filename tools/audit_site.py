@@ -258,6 +258,18 @@ def audit_architecture() -> list[str]:
         issues.append("Help page loads unnecessary assistant/search/subject assets")
     if "api.iconify.design" in "\n".join(path.read_text(encoding="utf-8") for path in ROOT.glob("assets/css/*.css")):
         issues.append("External Iconify department artwork remains in CSS")
+    revision = (ROOT / "revision-2021.html").read_text(encoding="utf-8")
+    department_hrefs = re.findall(r'<a class="choice-card" href="revision-2021/([^"]+)"', revision)
+    art_script = (ROOT / "assets/js/department-card-art.js").read_text(encoding="utf-8")
+    for href in department_hrefs:
+        slug = href.removesuffix(".html")
+        if f'"revision-2021/{href}"' not in art_script:
+            issues.append(f"Department artwork mapping missing for {href}")
+        if not (ROOT / "assets/media/departments" / f"{slug}.svg").is_file():
+            issues.append(f"Local department artwork missing: assets/media/departments/{slug}.svg")
+    svg_count = len(list((ROOT / "assets/media/departments").glob("*.svg")))
+    if svg_count != len(department_hrefs):
+        issues.append(f"Expected {len(department_hrefs)} department SVG files; found {svg_count}")
     return issues
 
 
