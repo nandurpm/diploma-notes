@@ -38,6 +38,7 @@ class PageParser(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.title_parts: list[str] = []
         self.in_title = False
+        self.title_seen = False
         self.meta: dict[str, str] = {}
         self.canonical = ""
         self.ids: list[str] = []
@@ -50,8 +51,9 @@ class PageParser(HTMLParser):
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attr = {key.lower(): (value or "") for key, value in attrs}
         lower = tag.lower()
-        if lower == "title":
+        if lower == "title" and not self.title_seen:
             self.in_title = True
+            self.title_seen = True
         if "id" in attr:
             self.ids.append(attr["id"])
         if lower == "meta":
