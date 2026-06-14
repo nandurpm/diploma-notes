@@ -9,7 +9,7 @@
     "2031", "2041", "3023", "3031", "3032", "3041", "3044",
     "3045", "3046", "3047"
   ]);
-  const SEPARATE_PDFS = new Set(["1003", "1004"]);
+  const NOTES_PDFS = new Set(AVAILABLE_LESSONS);
   const HISTORY_KEY = "polySiteAssistantHistory";
 
   let history = [];
@@ -148,9 +148,9 @@
         ? localPath(String(subject.lessonFile).replace(/^\/+/, ""))
         : localPath(`lessons/lessons-${encodeURIComponent(code)}.html`))
       : "";
-    const notes = SEPARATE_PDFS.has(code)
+    const notes = NOTES_PDFS.has(code)
       ? localPath(`notes/downloadable-notes-${code}.pdf`)
-      : lesson;
+      : "";
 
     return {
       ...subject,
