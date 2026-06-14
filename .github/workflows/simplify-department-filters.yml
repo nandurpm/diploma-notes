@@ -1,0 +1,101 @@
+name: Simplify department subject filters
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/simplify-department-filters.yml
+
+permissions:
+  contents: write
+
+jobs:
+  simplify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Keep only search and semester controls on department pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          replacement = '''<div class="filters department-subject-filters">
+        <label class="sr-only" for="subjectSearch">Search subjects</label><input id="subjectSearch" type="search" placeholder="Search subject code or title">
+        <label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select>
+      </div>
+      <div class="subject-grid"'''
+
+          changed = 0
+          for path in sorted(Path('revision-2021').glob('*.html')):
+              text = path.read_text(encoding='utf-8')
+
+              updated, count = re.subn(
+                  r'<div class="filters">.*?</div>\s*<div class="subject-grid"',
+                  replacement,
+                  text,
+                  count=1,
+                  flags=re.S
+              )
+
+              if count != 1:
+                  raise SystemExit(f'Could not find the filter block in {path}')
+
+              # Remove the legacy hardening script from department pages. The
+              # shared main browser and department-semester layout already own
+              # all functionality used on these pages.
+              updated = re.sub(
+                  r'\s*<script src="/assets/js/site-hardening\.js(?:\?v=[^"]*)?" defer></script>',
+                  '',
+                  updated,
+                  count=1
+              )
+
+              # Load the revised two-control layout without stale browser cache.
+              updated = re.sub(
+                  r'(/assets/css/department-semester-layout\.css)(?:\?v=[^"]*)?',
+                  r'\1?v=20260614-filters1',
+                  updated,
+                  count=1
+              )
+
+              if updated != text:
+                  path.write_text(updated, encoding='utf-8')
+                  changed += 1
+
+          if not changed:
+              raise SystemExit('No department pages were changed.')
+          print(f'Updated {changed} department pages.')
+
+          css_path = Path('assets/css/department-semester-layout.css')
+          css = css_path.read_text(encoding='utf-8')
+          rules = '''
+
+/* Department and revision are fixed by the page data attributes, so only the
+   useful search and semester controls are displayed. */
+.filters.department-subject-filters {
+  grid-template-columns: minmax(260px, 2fr) minmax(190px, 0.75fr) !important;
+}
+
+@media (max-width: 700px) {
+  .filters.department-subject-filters {
+    grid-template-columns: 1fr !important;
+  }
+}
+'''
+          if '.filters.department-subject-filters {' not in css:
+              css += rules
+          css_path.write_text(css, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/simplify-department-filters.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Keep only search and semester filters on department pages"
+          git push origin main
