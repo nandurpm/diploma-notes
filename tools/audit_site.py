@@ -215,11 +215,16 @@ def audit_subject_integrity() -> dict[str, object]:
     ]
     subjects_per_department = Counter(item["department"] for item in rev2021)
     subjects_per_semester = Counter(item["semester"] for item in rev2021)
-    department_pages = {path.name for path in (ROOT / "revision-2021").glob("*.html")}
-    missing_department_pages = sorted(slugify_department(name) for name in departments if slugify_department(name) not in department_pages)
+    page_departments: dict[str, str] = {}
+    for page in (ROOT / "revision-2021").glob("*.html"):
+        match = re.search(r'data-department="([^"]+)"', page.read_text(encoding="utf-8"))
+        page_departments[page.name] = match.group(1).replace("&amp;", "&") if match else ""
+    department_pages = set(page_departments)
+    page_department_values = {value for value in page_departments.values() if value}
+    missing_department_pages = sorted(name for name in departments if name not in page_department_values)
     pages_with_no_subjects = sorted(
-        page for page in department_pages
-        if not any(slugify_department(name) == page for name in departments)
+        page for page, department in page_departments.items()
+        if department not in departments
     )
     lesson_files = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "lessons").glob("lessons-*.html"))
     notes_files = sorted(path.relative_to(ROOT).as_posix() for path in (ROOT / "notes").glob("*.pdf"))

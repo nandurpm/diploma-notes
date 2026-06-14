@@ -49,6 +49,16 @@
     });
   }
 
+  function uniqueByCode(subjects) {
+    const seen = new Set();
+    return subjects.filter((subject) => {
+      const code = String(subject.code || "");
+      if (seen.has(code)) return false;
+      seen.add(code);
+      return true;
+    });
+  }
+
   function sortSubjects(subjects) {
     return [...subjects].sort((a, b) => {
       const semester = semesterRank(a.semester) - semesterRank(b.semester);
@@ -212,7 +222,7 @@
       const department = fixedDepartment || departmentFilter?.value || (mode === "home" ? COMMON_VALUE : "all");
       const semester = semesterFilter?.value || "all";
 
-      return sortSubjects(base.filter((subject) => {
+      const matches = sortSubjects(base.filter((subject) => {
         if (revision !== "all" && String(subject.revision) !== revision) return false;
         if (semester !== "all" && subject.semester !== semester) return false;
         if (department === COMMON_VALUE) {
@@ -226,6 +236,7 @@
           .toLowerCase()
           .includes(query);
       }));
+      return mode === "lessons" ? uniqueByCode(matches) : matches;
     };
 
     function render(reset = true) {
