@@ -1,0 +1,102 @@
+name: Restyle scrolling notice
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/style-scrolling-notice.yml
+
+permissions:
+  contents: write
+
+jobs:
+  update-notice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Change notice colour and add helpful symbols
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          responsive_path = Path('assets/css/responsive.css')
+          responsive = responsive_path.read_text(encoding='utf-8')
+
+          # Add a small set of readable symbols without adding a language label.
+          responsive = responsive.replace(
+              'content: "Diploma Notes helps',
+              'content: "📚 Diploma Notes helps',
+              1
+          )
+          responsive = responsive.replace(
+              'This website is in its initial stage and is updated regularly.',
+              '✨ This website is in its initial stage and is updated regularly.',
+              1
+          )
+          responsive = responsive.replace(
+              'For missing materials, broken links, corrections or suggestions, contact the developer.',
+              '🛠️ For missing materials, broken links, corrections or suggestions, contact the developer.',
+              1
+          )
+          responsive = responsive.replace('\\2022  \\D21', '\\2022  🌐 \\D21', 1)
+
+          # Use a clearly different purple colour for the moving text.
+          notice_after = re.compile(r'(\.site-notice::after\s*\{.*?)(\n\})', re.S)
+          match = notice_after.search(responsive)
+          if not match:
+              raise SystemExit('Could not locate .site-notice::after in responsive.css')
+          block = match.group(1)
+          block = re.sub(r'\n\s*color:\s*[^;]+;', '\n  color: #6d28d9;', block, count=1)
+          if 'text-shadow:' not in block:
+              block = block.replace(
+                  '  font-weight: 850;',
+                  '  font-weight: 900;\n  letter-spacing: .01em;\n  text-shadow: 0 1px 0 rgba(255,255,255,.9), 0 0 12px rgba(109,40,217,.14);',
+                  1
+              )
+          responsive = responsive[:match.start()] + block + match.group(2) + responsive[match.end():]
+          responsive_path.write_text(responsive, encoding='utf-8')
+
+          # Give the notice track a matching soft background on every page.
+          style_path = Path('assets/css/style.css')
+          style = style_path.read_text(encoding='utf-8')
+          style = style.replace(
+              'background: linear-gradient(90deg, #eff6ff, #ecfeff 60%, #f8fafc);',
+              'background: linear-gradient(90deg, #faf5ff, #fff1f2 58%, #fff7ed);',
+              1
+          )
+          style = style.replace(
+              'border: 1px solid rgba(29, 78, 216, .12);',
+              'border: 1px solid rgba(109, 40, 217, .18);',
+              1
+          )
+          style_path.write_text(style, encoding='utf-8')
+
+          # Force every section to load the new shared notice styling immediately.
+          for html_path in Path('.').rglob('*.html'):
+              text = html_path.read_text(encoding='utf-8')
+              updated = re.sub(
+                  r'(assets/css/responsive\.css)(?:\?v=[^"\']*)?',
+                  r'\1?v=20260614-marquee3',
+                  text
+              )
+              updated = re.sub(
+                  r'(assets/css/style\.css)(?:\?v=[^"\']*)?',
+                  r'\1?v=20260614-notice-colour1',
+                  updated
+              )
+              if updated != text:
+                  html_path.write_text(updated, encoding='utf-8')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/style-scrolling-notice.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Use a purple emoji-enhanced scrolling notice"
+          git push origin main
