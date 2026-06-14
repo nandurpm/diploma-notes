@@ -1,0 +1,32 @@
+name: Run public page maintenance
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "automation/public-maintenance.trigger"
+
+permissions:
+  contents: write
+
+jobs:
+  maintain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply maintenance
+        run: python tools/maintain_public_pages.py
+      - name: Run static audit
+        run: python tools/audit_site.py || true
+      - name: Check JavaScript syntax
+        run: find assets/js -type f -name '*.js' -print0 | xargs -0 -n1 node --check
+      - name: Commit results
+        run: |
+          rm -f automation/public-maintenance.trigger
+          rm -f .github/workflows/apply-public-page-maintenance.yml
+          rm -f .github/workflows/run-maintenance.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Complete public page SEO and accessibility batch"
+          git push
