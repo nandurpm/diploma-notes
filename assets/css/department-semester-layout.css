@@ -104,6 +104,47 @@
   height: 100%;
 }
 
+/* Compact subject finder shared by every department page. */
+#subject-browser.section.compact {
+  margin: 12px 0 16px !important;
+}
+
+#subject-browser .section-heading.inline-heading {
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+
+#subject-browser .section-heading .kicker,
+#subject-browser .section-heading > p:last-child {
+  display: none !important;
+}
+
+#subject-browser .section-heading h2 {
+  margin: 0 !important;
+  font-size: clamp(1.2rem, 1.55vw, 1.5rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.03em !important;
+}
+
+#subject-browser .filters.department-subject-filters {
+  display: grid !important;
+  grid-template-columns: minmax(240px, 1.5fr) minmax(180px, 0.7fr) !important;
+  gap: 8px !important;
+  margin: 7px 0 13px !important;
+  padding: 8px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 20px rgba(20, 45, 90, 0.07) !important;
+}
+
+#subject-browser .filters.department-subject-filters input,
+#subject-browser .filters.department-subject-filters select {
+  min-height: 43px !important;
+  padding: 0 12px !important;
+  border-radius: 11px !important;
+  font-size: 0.9rem !important;
+}
+
 @media (max-width: 900px) {
   .page-title {
     min-height: 225px !important;
@@ -126,8 +167,34 @@
 }
 
 @media (max-width: 700px) {
-  .filters.department-subject-filters {
+  .filters.department-subject-filters,
+  #subject-browser .filters.department-subject-filters {
     grid-template-columns: 1fr !important;
+  }
+
+  #subject-browser.section.compact {
+    margin: 9px 0 14px !important;
+  }
+
+  #subject-browser .section-heading.inline-heading {
+    margin-bottom: 5px !important;
+  }
+
+  #subject-browser .section-heading h2 {
+    font-size: 1.15rem !important;
+  }
+
+  #subject-browser .filters.department-subject-filters {
+    gap: 7px !important;
+    margin: 6px 0 11px !important;
+    padding: 7px !important;
+    border-radius: 14px !important;
+  }
+
+  #subject-browser .filters.department-subject-filters input,
+  #subject-browser .filters.department-subject-filters select {
+    min-height: 42px !important;
+    font-size: 0.86rem !important;
   }
 }
 
