@@ -22,3 +22,8 @@ All static integrity checks passed.
 
 ### https://polypmna.dpdns.org/syllabus.html
 - `Chrome audit timed out`
+
+## Chrome timeout retry
+
+- Pages retried: **3**
+- Remaining pages with detected errors or timeouts: **2**
