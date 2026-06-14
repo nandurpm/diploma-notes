@@ -7,7 +7,7 @@
   if (!document.querySelector('link[href*="department-card-related-icons.css"]')) {
     const stylesheet = document.createElement("link");
     stylesheet.rel = "stylesheet";
-    stylesheet.href = "/assets/css/department-card-related-icons.css?v=20260614-related3";
+    stylesheet.href = "/assets/css/department-card-related-icons.css?v=20260614-related4";
     document.head.append(stylesheet);
   }
 

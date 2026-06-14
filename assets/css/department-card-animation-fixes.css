@@ -1,33 +1,33 @@
 /* Reliable local SVG artwork for departments that previously duplicated or depended on similar remote icons. */
-.revision-department-grid .choice-card[href$="electrical-electronics-engineering.html"] {
+.revision-department-grid .choice-card[href$="/electrical-electronics-engineering.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%231d4ed8' stroke-width='10' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M120 24L72 216M120 24l48 192M84 168h72M94 126h52M104 84h32M58 216h124'/%3E%3Cpath d='M120 24L54 86M120 24l66 62M72 86h96'/%3E%3C/g%3E%3Cpath d='M186 54h28v54h-28z' fill='%2306b6d4' opacity='.55'/%3E%3Cpath d='M200 108v42h-26' fill='none' stroke='%2306b6d4' stroke-width='9' stroke-linecap='round'/%3E%3C/svg%3E") !important;
 }
 
-.revision-department-grid .choice-card[href$="electronics-engineering.html"] {
+.revision-department-grid .choice-card[href$="/electronics-engineering.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Crect x='24' y='24' width='192' height='192' rx='26' fill='%23d1fae5' stroke='%23047857' stroke-width='9'/%3E%3Crect x='82' y='72' width='76' height='72' rx='12' fill='white' stroke='%23047857' stroke-width='9'/%3E%3Crect x='102' y='92' width='36' height='32' rx='6' fill='%2314b8a6' opacity='.65'/%3E%3Cg fill='none' stroke='%23047857' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M82 88H52V58M82 112H46M82 136H58v42M158 88h32V54M158 112h40M158 136h28v42M72 178h46v24M130 178v24h34'/%3E%3C/g%3E%3Cg fill='%2314b8a6'%3E%3Ccircle cx='52' cy='58' r='8'/%3E%3Ccircle cx='46' cy='112' r='8'/%3E%3Ccircle cx='58' cy='178' r='8'/%3E%3Ccircle cx='190' cy='54' r='8'/%3E%3Ccircle cx='198' cy='112' r='8'/%3E%3Ccircle cx='186' cy='178' r='8'/%3E%3C/g%3E%3C/svg%3E") !important;
 }
 
-.revision-department-grid .choice-card[href$="artificial-intelligence.html"] {
+.revision-department-grid .choice-card[href$="/artificial-intelligence.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Crect x='40' y='34' width='160' height='172' rx='48' fill='%23f3e8ff' stroke='%236d28d9' stroke-width='9'/%3E%3Ccircle cx='92' cy='112' r='13' fill='%23db2777'/%3E%3Ccircle cx='148' cy='112' r='13' fill='%23db2777'/%3E%3Cpath d='M84 158c24 18 48 18 72 0M120 34V14M92 34V20M148 34V20M66 82H38M174 82h28M66 142H38M174 142h28' fill='none' stroke='%236d28d9' stroke-width='9' stroke-linecap='round'/%3E%3Cpath d='M76 76l22 14 22-18 22 18 22-14' fill='none' stroke='%23db2777' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") !important;
 }
 
-.revision-department-grid .choice-card[href$="artificial-intelligence-and-machine-learning.html"] {
+.revision-department-grid .choice-card[href$="/artificial-intelligence-and-machine-learning.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg fill='none' stroke='%232563eb' stroke-width='7'%3E%3Cpath d='M50 58l70 52 70-58M50 58l70 108 70-114M50 182l70-72 70 72M120 110v56'/%3E%3C/g%3E%3Cg fill='%23dbeafe' stroke='%232563eb' stroke-width='7'%3E%3Ccircle cx='50' cy='58' r='18'/%3E%3Ccircle cx='190' cy='52' r='18'/%3E%3Ccircle cx='120' cy='110' r='21'/%3E%3Ccircle cx='50' cy='182' r='18'/%3E%3Ccircle cx='190' cy='182' r='18'/%3E%3Ccircle cx='120' cy='166' r='18'/%3E%3C/g%3E%3C/svg%3E") !important;
 }
 
-.revision-department-grid .choice-card[href$="cloud-computing-and-big-data.html"] {
+.revision-department-grid .choice-card[href$="/cloud-computing-and-big-data.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cpath d='M62 126c-26-54 46-86 80-43 32-48 100-10 82 42 40 8 38 70-6 70H68c-42 0-48-58-6-69z' fill='%23dbeafe' stroke='%231d4ed8' stroke-width='9'/%3E%3Cellipse cx='120' cy='170' rx='44' ry='16' fill='white' stroke='%2306b6d4' stroke-width='8'/%3E%3Cpath d='M76 170v34c0 9 20 16 44 16s44-7 44-16v-34M76 187c0 9 20 16 44 16s44-7 44-16' fill='none' stroke='%2306b6d4' stroke-width='8'/%3E%3C/svg%3E") !important;
 }
 
-.revision-department-grid .choice-card[href$="information-technology.html"] {
+.revision-department-grid .choice-card[href$="/information-technology.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Crect x='42' y='34' width='156' height='54' rx='12' fill='%23dbeafe' stroke='%231d4ed8' stroke-width='9'/%3E%3Crect x='42' y='94' width='156' height='54' rx='12' fill='white' stroke='%231d4ed8' stroke-width='9'/%3E%3Crect x='42' y='154' width='156' height='54' rx='12' fill='%23cffafe' stroke='%230e7490' stroke-width='9'/%3E%3Cg fill='%2306b6d4'%3E%3Ccircle cx='68' cy='61' r='7'/%3E%3Ccircle cx='68' cy='121' r='7'/%3E%3Ccircle cx='68' cy='181' r='7'/%3E%3C/g%3E%3Cg stroke='%231d4ed8' stroke-width='7' stroke-linecap='round'%3E%3Cpath d='M94 61h76M94 121h76M94 181h76'/%3E%3C/g%3E%3C/svg%3E") !important;
 }
 
-.revision-department-grid .choice-card[href$="computer-engineering.html"] {
+.revision-department-grid .choice-card[href$="/computer-engineering.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Crect x='28' y='36' width='184' height='126' rx='18' fill='%23dbeafe' stroke='%231d4ed8' stroke-width='9'/%3E%3Cpath d='M18 182h204l-22 28H40z' fill='white' stroke='%231d4ed8' stroke-width='9'/%3E%3Crect x='88' y='72' width='64' height='56' rx='9' fill='white' stroke='%2306b6d4' stroke-width='8'/%3E%3Cpath d='M104 88h32M104 104h24' fill='none' stroke='%2306b6d4' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E") !important;
 }
 
-.revision-department-grid .choice-card[href$="computer-application-and-business-management.html"] {
+.revision-department-grid .choice-card[href$="/computer-application-and-business-management.html"] {
   --department-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Crect x='30' y='42' width='180' height='118' rx='18' fill='%23e0e7ff' stroke='%234338ca' stroke-width='9'/%3E%3Cpath d='M20 180h200l-22 28H42z' fill='white' stroke='%234338ca' stroke-width='9'/%3E%3Cpath d='M66 130V98M102 130V76M138 130v-44M174 130V62' fill='none' stroke='%238b5cf6' stroke-width='11' stroke-linecap='round'/%3E%3Cpath d='M58 146h124' fill='none' stroke='%234338ca' stroke-width='7'/%3E%3C/svg%3E") !important;
 }
 
