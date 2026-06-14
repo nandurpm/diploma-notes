@@ -149,20 +149,34 @@
   }
 
   function groupCards(subjects, renderer) {
-    const counts = subjects.reduce((map, subject) => map.set(subject.semester, (map.get(subject.semester) || 0) + 1), new Map());
-    let previous = "";
-    return subjects.map((subject) => {
-      const heading = subject.semester !== previous
-        ? `<div class="semester-group-heading"><span>${escapeHtml(subject.semester)}</span><small>${counts.get(subject.semester)} subjects</small></div>`
-        : "";
-      previous = subject.semester;
-      return heading + renderer(subject);
+    const groups = new Map();
+    subjects.forEach((subject) => {
+      const semester = String(subject.semester || "Other subjects");
+      if (!groups.has(semester)) groups.set(semester, []);
+      groups.get(semester).push(subject);
+    });
+
+    return Array.from(groups.entries()).map(([semester, semesterSubjects], index) => {
+      const headingId = `semester-group-heading-${index + 1}`;
+      const count = semesterSubjects.length;
+      return `
+        <section class="semester-subject-section" aria-labelledby="${headingId}">
+          <div class="semester-group-heading">
+            <h3 id="${headingId}">${escapeHtml(semester)}</h3>
+            <span>${count} ${count === 1 ? "subject" : "subjects"}</span>
+          </div>
+          <div class="semester-card-grid">
+            ${semesterSubjects.map(renderer).join("")}
+          </div>
+        </section>
+      `;
     }).join("");
   }
 
   function controller(grid) {
     if (grid.dataset.subjectBrowserInitialized === "true") return;
     grid.dataset.subjectBrowserInitialized = "true";
+    grid.classList.add("semester-grouped");
 
     const mode = grid.dataset.mode || "lessons";
     const fixedRevision = grid.dataset.revision || "";
