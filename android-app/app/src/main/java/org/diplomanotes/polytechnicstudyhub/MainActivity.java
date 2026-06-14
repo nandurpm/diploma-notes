@@ -1,24 +1,19 @@
 package org.diplomanotes.polytechnicstudyhub;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
-import android.webkit.MimeTypeMap;
-import android.webkit.SafeBrowsingResponse;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -35,7 +30,6 @@ public class MainActivity extends Activity {
     private static final String HOME_URL = "https://polypmna.dpdns.org/";
     private static final String TRUSTED_HOST = "polypmna.dpdns.org";
     private static final int FILE_CHOOSER_REQUEST = 2001;
-    private static final int NOTIFICATION_PERMISSION_REQUEST = 2002;
 
     private WebView webView;
     private ProgressBar progressBar;
@@ -50,7 +44,6 @@ public class MainActivity extends Activity {
         progressBar = findViewById(R.id.progressBar);
 
         configureWebView();
-        requestNotificationPermissionIfNeeded();
 
         if (savedInstanceState == null) {
             Uri deepLink = getIntent() != null ? getIntent().getData() : null;
@@ -167,17 +160,6 @@ public class MainActivity extends Activity {
         webView.loadUrl("file:///android_asset/offline.html");
     }
 
-    private void requestNotificationPermissionIfNeeded() {
-        if (Build.VERSION.SDK_INT >= 33
-                && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(
-                    new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                    NOTIFICATION_PERMISSION_REQUEST
-            );
-        }
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         webView.saveState(outState);
@@ -229,19 +211,6 @@ public class MainActivity extends Activity {
         ) {
             if (request.isForMainFrame()) {
                 showOfflinePage();
-            }
-        }
-
-        @Override
-        public void onSafeBrowsingHit(
-                WebView view,
-                WebResourceRequest request,
-                int threatType,
-                SafeBrowsingResponse callback
-        ) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
-                callback.backToSafety(true);
-                Toast.makeText(MainActivity.this, R.string.unsafe_page_blocked, Toast.LENGTH_LONG).show();
             }
         }
     }
