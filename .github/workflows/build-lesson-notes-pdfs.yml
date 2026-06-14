@@ -1,0 +1,117 @@
+name: Build lesson notes PDFs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lessons/lessons-*.html"
+      - ".github/workflows/build-lesson-notes-pdfs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PDF tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright pypdf
+          python -m playwright install --with-deps chromium
+
+      - name: Generate lesson PDFs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+          from playwright.sync_api import sync_playwright
+          from pypdf import PdfReader
+
+          root = Path.cwd()
+          notes = root / "notes"
+          reports = root / "reports"
+          notes.mkdir(exist_ok=True)
+          reports.mkdir(exist_ok=True)
+          excluded = {"1003", "1004"}
+          lesson_files = []
+
+          for path in sorted((root / "lessons").glob("lessons-*.html")):
+              match = re.fullmatch(r"lessons-(\d+[A-Za-z]?)\.html", path.name)
+              if match and match.group(1) not in excluded:
+                  lesson_files.append((match.group(1), path))
+
+          results = []
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page(viewport={"width": 1440, "height": 1800})
+
+              for code, lesson in lesson_files:
+                  output = notes / f"downloadable-notes-{code}.pdf"
+                  page.goto(lesson.resolve().as_uri(), wait_until="domcontentloaded", timeout=90000)
+                  page.wait_for_timeout(1200)
+                  page.evaluate("document.querySelectorAll('details').forEach(item => item.open = true)")
+                  page.add_style_tag(content="""
+                    @media print {
+                      main [hidden], [role='tabpanel'], .tab-panel, .tab-content,
+                      .module-panel, .lesson-panel, .content-panel {
+                        display:block!important;
+                        visibility:visible!important;
+                        opacity:1!important;
+                        height:auto!important;
+                        max-height:none!important;
+                        overflow:visible!important;
+                      }
+                      details > * { display:block!important; }
+                      * { animation:none!important; transition:none!important; }
+                    }
+                  """)
+                  page.emulate_media(media="print")
+                  page.pdf(
+                      path=str(output),
+                      format="A4",
+                      print_background=True,
+                      margin={"top":"11mm","right":"9mm","bottom":"13mm","left":"9mm"},
+                      display_header_footer=True,
+                      header_template=f'<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm">Course {code}</div>',
+                      footer_template='<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm;display:flex;justify-content:space-between"><span>Polytechnic Study Hub</span><span>polypmna.dpdns.org</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>',
+                      timeout=120000,
+                  )
+
+                  reader = PdfReader(str(output))
+                  if output.stat().st_size < 20000 or not reader.pages:
+                      raise SystemExit(f"Invalid PDF generated for {code}")
+                  first_pages = "\n".join((item.extract_text() or "") for item in reader.pages[:8])
+                  if code not in first_pages:
+                      raise SystemExit(f"Course code missing from generated PDF: {code}")
+                  results.append({"code": code, "pages": len(reader.pages), "bytes": output.stat().st_size})
+
+              browser.close()
+
+          (reports / "lesson-notes-pdf-build.json").write_text(
+              json.dumps({"generated": results, "preservedSeparateNotes": sorted(excluded)}, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          PY
+
+      - name: Commit PDFs
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add notes/downloadable-notes-*.pdf reports/lesson-notes-pdf-build.json
+          if git diff --cached --quiet; then
+            echo "No PDF changes"
+          else
+            git commit -m "Generate downloadable PDF notes from lesson pages"
+            git push origin main
+          fi
