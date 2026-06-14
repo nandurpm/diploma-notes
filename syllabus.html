@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Revision-wise syllabus browser.">
-  <title>Syllabus | Diploma Notes</title>
+  <meta name="description" content="Find Kerala Polytechnic syllabus links by revision, department, semester, subject title and subject code.">
+  <title>Kerala Polytechnic Syllabus Browser | Diploma Notes</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
@@ -13,12 +13,23 @@
   <link rel="stylesheet" href="/assets/css/responsive.css?v=20260614-marquee3">
   <link rel="canonical" href="https://polypmna.dpdns.org/syllabus.html">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Syllabus | Diploma Notes">
-  <meta property="og:description" content="Revision-wise syllabus browser.">
+  <meta property="og:title" content="Kerala Polytechnic Syllabus Browser | Diploma Notes">
+  <meta property="og:description" content="Find Kerala Polytechnic syllabus links by revision, department, semester, subject title and subject code.">
   <meta property="og:url" content="https://polypmna.dpdns.org/syllabus.html">
   <link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
+  <meta property="og:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="POLY PMNA Kerala Polytechnic Study Hub">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kerala Polytechnic Syllabus Browser | Diploma Notes">
+  <meta name="twitter:description" content="Find Kerala Polytechnic syllabus links by revision, department, semester, subject title and subject code.">
+  <meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260614-1">
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Diploma Notes home"><span>DN</span><strong>Diploma Notes</strong></a>
     <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
@@ -32,7 +43,8 @@
         <a href="contact.html">Help</a>
     </nav>
   </header>
-  <main>
+  <main id="main-content">
+    <nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Syllabus</span></li></ol></nav>
 <section class="page-title reveal"><p class="kicker">Syllabus</p><h1>Revision-wise syllabus access</h1><p>Use the revision filter first, then open the correct subject syllabus.</p></section><section class="section compact" id="subject-browser">
   <div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Cards show only the selected revision and department.</p></div>
   <div class="filters"><label class="sr-only" for="subjectSearch">Search subjects</label><input id="subjectSearch" type="search" placeholder="Search subject, code, department, semester"><label class="sr-only" for="revisionFilter">Filter by revision</label><select id="revisionFilter"><option value="all">All revisions</option></select><label class="sr-only" for="departmentFilter">Filter by department</label><select id="departmentFilter"><option value="all">All departments</option></select><label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select></div>
