@@ -29,17 +29,41 @@
     const brand = document.querySelector(".topbar .brand");
     if (!brand) return;
 
+    const englishNotice = [
+      "📚 Revision 2021 and 2015 study materials",
+      "📝 subject-wise lessons, official syllabus links, downloadable notes and model question papers",
+      "🔎 search by department, semester, subject name or subject code",
+      "📱 designed for mobile phones, tablets and desktop computers",
+      "💬 use the Help page to report missing materials, broken links, incorrect subject details or content corrections",
+      "✨ new resources are added regularly and existing pages are continuously checked and improved"
+    ].join("  •  ");
+
+    const malayalamNotice = [
+      "📚 കേരള പോളിടെക്നിക് വിദ്യാർത്ഥികൾക്കായി റിവിഷൻ 2021, 2015 പഠനസാമഗ്രികൾ ഒരിടത്ത്",
+      "📝 വിഷയവാരി പാഠങ്ങൾ, ഔദ്യോഗിക സിലബസ് ലിങ്കുകൾ, ഡൗൺലോഡ് നോട്ടുകൾ, മോഡൽ ചോദ്യപേപ്പറുകൾ",
+      "🔎 വിഭാഗം, സെമസ്റ്റർ, വിഷയത്തിന്റെ പേര് അല്ലെങ്കിൽ വിഷയ കോഡ് ഉപയോഗിച്ച് തിരയാം",
+      "📱 മൊബൈൽ ഫോൺ, ടാബ്ലറ്റ്, കമ്പ്യൂട്ടർ എന്നിവയിൽ ഉപയോഗിക്കാൻ അനുയോജ്യം",
+      "💬 ലഭ്യമല്ലാത്ത പഠനസാമഗ്രികൾ, തെറ്റായ ലിങ്കുകൾ, വിഷയവിവരത്തിലെ പിശകുകൾ, ഉള്ളടക്ക തിരുത്തലുകൾ എന്നിവ Help പേജിൽ അറിയിക്കാം",
+      "✨ പുതിയ പഠനസഹായങ്ങൾ ക്രമമായി ചേർക്കുകയും നിലവിലുള്ള പേജുകൾ തുടർച്ചയായി പരിശോധിച്ച് മെച്ചപ്പെടുത്തുകയും ചെയ്യുന്നു"
+    ].join("  •  ");
+
     const notice = document.createElement("a");
     notice.className = "site-notice";
     notice.href = "https://nandakumarm.dpdns.org/about.html";
     notice.target = "_blank";
     notice.rel = "noopener noreferrer";
+    notice.setAttribute("aria-label", "Website updates and available study resources");
     notice.innerHTML = `
       <strong class="site-notice-label">Update</strong>
       <span class="site-notice-viewport">
-        <span class="site-notice-track">English study notes, syllabus links and lesson pages are being checked and improved. മലയാളം പഠനസഹായവും തിരുത്തലുകളും ക്രമമായി ചേർക്കുന്നു.</span>
+        <span class="site-notice-track"></span>
       </span>
     `;
+
+    const track = notice.querySelector(".site-notice-track");
+    track.textContent = `${englishNotice}  ◆  ${malayalamNotice}  ◆  `;
+    track.style.animationDuration = "58s";
+
     brand.insertAdjacentElement("afterend", notice);
   }
 
