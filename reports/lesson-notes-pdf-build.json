@@ -23,7 +23,7 @@
     {
       "code": "2002",
       "pages": 38,
-      "bytes": 681047
+      "bytes": 681050
     },
     {
       "code": "2003",
@@ -34,6 +34,11 @@
       "code": "2031",
       "pages": 38,
       "bytes": 326467
+    },
+    {
+      "code": "2038",
+      "pages": 37,
+      "bytes": 693981
     },
     {
       "code": "2041",
@@ -79,6 +84,11 @@
       "code": "3047",
       "pages": 38,
       "bytes": 534990
+    },
+    {
+      "code": "6002",
+      "pages": 27,
+      "bytes": 394740
     }
   ],
   "preservedSeparateNotes": [
