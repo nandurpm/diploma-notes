@@ -1,0 +1,59 @@
+name: Apply fixed site header
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/apply-fixed-site-header.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Load the fixed-header assets on every page with a topbar
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          css = '  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260615-fixed1">\n'
+          js = '  <script src="/assets/js/fixed-site-header.js?v=20260615-fixed1" defer></script>\n'
+          changed = []
+
+          for path in Path('.').rglob('*.html'):
+              text = path.read_text(encoding='utf-8')
+              if 'class="topbar"' not in text:
+                  continue
+
+              original = text
+              if '/assets/css/fixed-site-header.css' not in text:
+                  text = text.replace('</head>', css + '</head>', 1)
+              if '/assets/js/fixed-site-header.js' not in text:
+                  text = text.replace('</body>', js + '</body>', 1)
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          if not changed:
+              raise SystemExit('No topbar pages required updating.')
+
+          print(f'Updated {len(changed)} pages:')
+          for item in changed:
+              print(f'  - {item}')
+          PY
+
+      - name: Remove workflow and commit
+        run: |
+          rm -f .github/workflows/apply-fixed-site-header.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Keep the website header fixed while scrolling"
+          git push origin main
