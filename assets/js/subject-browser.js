@@ -4,12 +4,8 @@
   const COMMON_DEPARTMENT = "First Year / Common";
   const COMMON_VALUE = "__common__";
   const PAGE_SIZE = 30;
-  const LESSON_CODES = new Set([
-    "1001", "1002", "1003", "1004", "1005", "1006", "2002", "2003",
-    "2031", "2038", "2041", "3023", "3031", "3032", "3041", "3044",
-    "3045", "3046", "3047"
-  ]);
-  const NOTES_CODES = new Set(LESSON_CODES);
+  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","2002","2003","2031","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","6002"]);
+  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","2002","2003","2031","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047"]);
   const LOCAL_ASSETS = new Set([
     ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
     ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`)
@@ -97,7 +93,7 @@
     const notesHref = notesLinkFor(subject);
     const lessonAvailable = hasAsset(lessonHref);
     const notesAvailable = hasAsset(notesHref);
-    const notesDownload = notesAvailable ? ' download' : "";
+    const notesDownload = notesAvailable ? " download" : "";
 
     return `
       <article class="subject-card reveal">
