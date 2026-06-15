@@ -1,0 +1,44 @@
+<section class="section searchable" id="practice">
+<div class="head"><span class="tag">Programming Practice</span><h2>Recommended program set</h2><p>Write, compile, test and trace every program. Do not merely memorise code.</p></div>
+<div class="grid">
+<div class="card quarter blue"><h3>Control flow</h3><ol><li>Largest of three</li><li>Grade using if-else</li><li>Calculator using switch</li><li>Prime-number test</li><li>Pattern printing</li></ol></div>
+<div class="card quarter green"><h3>Functions</h3><ol><li>GCD and LCM</li><li>Function-based menu</li><li>Static call counter</li><li>Recursive factorial</li><li>Recursive Fibonacci</li></ol></div>
+<div class="card quarter yellow"><h3>Arrays</h3><ol><li>Average and maximum</li><li>Matrix addition</li><li>Matrix transpose</li><li>Linear/binary search</li><li>Selection sort</li></ol></div>
+<div class="card quarter violet"><h3>Strings</h3><ol><li>Length without strlen</li><li>Copy without strcpy</li><li>Concatenate</li><li>Palindrome</li><li>Substring search</li></ol></div>
+<div class="card quarter red"><h3>Pointers</h3><ol><li>Swap</li><li>Array sum by pointer</li><li>String traversal</li><li>Dynamic array</li><li>Resize using realloc</li></ol></div>
+<div class="card quarter"><h3>Structures</h3><ol><li>Student record</li><li>Array of students</li><li>Sort records</li><li>Pointer to structure</li><li>Tagged union</li></ol></div>
+<div class="card quarter green"><h3>Files</h3><ol><li>Write/read marks</li><li>Character count</li><li>File copy</li><li>Append record</li><li>Search record</li></ol></div>
+<div class="card quarter blue"><h3>Command line</h3><ol><li>Sum numbers</li><li>Display arguments</li><li>Copy file by names</li><li>Find maximum</li><li>Validate options</li></ol></div>
+</div>
+<div class="call rule"><b>Testing checklist:</b> Test normal input, boundary values, invalid input, empty data, one-element data, duplicates, already sorted input, reverse-sorted input, missing file and allocation failure paths.</div>
+</section>
+<section class="section searchable">
+<div class="head"><span class="tag">Debugging Handbook</span><h2>Common mistakes and corrections</h2></div>
+<div class="table-wrap"><table><thead><tr><th>Mistake</th><th>Why it fails</th><th>Correction</th></tr></thead><tbody>
+<tr><td><span class="inline-code">if (x = 5)</span></td><td>Assignment, not comparison.</td><td>Use <span class="inline-code">if (x == 5)</span>.</td></tr>
+<tr><td>Missing <span class="inline-code">&amp;</span> in numeric scanf</td><td><span class="inline-code">scanf</span> needs an address.</td><td><span class="inline-code">scanf("%d", &amp;x)</span> and check return value.</td></tr>
+<tr><td>Array index equals size</td><td>Out-of-bounds access.</td><td>Loop while <span class="inline-code">i &lt; size</span>.</td></tr>
+<tr><td>Binary search on unsorted input</td><td>Ordering assumption is violated.</td><td>Sort first or use linear search.</td></tr>
+<tr><td>String without <span class="inline-code">'\0'</span></td><td>String functions read beyond intended data.</td><td>Reserve and preserve terminator space.</td></tr>
+<tr><td>Dereferencing NULL/uninitialized pointer</td><td>No valid target object.</td><td>Initialize, validate, then dereference.</td></tr>
+<tr><td>Overwriting pointer with failed realloc</td><td>Original block address is lost.</td><td>Use a temporary pointer.</td></tr>
+<tr><td>Reading inactive union member</td><td>Stored representation may not match.</td><td>Track active member with an enum tag.</td></tr>
+<tr><td><span class="inline-code">while (!feof(file))</span></td><td>EOF is set only after a failed read.</td><td>Loop on the input function’s return value.</td></tr>
+<tr><td>Forgetting <span class="inline-code">fclose</span> or <span class="inline-code">free</span></td><td>Resource leak or incomplete output.</td><td>Release every successfully acquired resource.</td></tr>
+</tbody></table></div>
+</section>
+<section class="section searchable" id="revision">
+<div class="head"><span class="tag">Final Revision</span><h2>One-page memory map</h2></div>
+<div class="grid">
+<div class="card quarter blue"><h3>Module 1</h3><ul><li>Program structure</li><li>if/switch/loops</li><li>#include/#define</li><li>Functions</li><li>Storage classes</li><li>Recursion</li></ul></div>
+<div class="card quarter green"><h3>Module 2</h3><ul><li>1D/2D arrays</li><li>Divide and conquer</li><li>Linear/binary search</li><li>Selection/quicksort</li><li>Strings</li><li>Array parameters</li></ul></div>
+<div class="card quarter yellow"><h3>Module 3</h3><ul><li>&amp; and *</li><li>Pointer arithmetic</li><li>Pointer parameters</li><li>malloc/calloc</li><li>realloc/free</li><li>Arrays and pointers</li></ul></div>
+<div class="card quarter violet"><h3>Module 4</h3><ul><li>Structures</li><li>Array/pointer to structure</li><li>Union and enum</li><li>File modes</li><li>Sequential I/O</li><li>argc/argv</li></ul></div>
+</div>
+<div class="call exam"><b>Malayalam last-day cue:</b> Control flow → Functions → Recursion → Arrays → Search/Sort → Strings → Pointers → Dynamic memory → Structures → Union/Enum → Files → Command line എന്ന ക്രമത്തിൽ revise ചെയ്യുക.</div>
+<div class="grid">
+<div class="card third"><h3>Likely one-mark areas</h3><ul><li>Define recursion.</li><li>Purpose of a function prototype.</li><li>Meaning of static local variable.</li><li>Requirement for binary search.</li><li>String terminator.</li><li>Meaning of NULL.</li><li>Difference between dot and arrow.</li></ul></div>
+<div class="card third"><h3>Likely short answers</h3><ul><li>Storage classes.</li><li>Selection vs repetition.</li><li>Linear vs binary search.</li><li>Selection sort vs quicksort.</li><li>Array–pointer relationship.</li><li>Structure vs union.</li><li>File modes.</li></ul></div>
+<div class="card third"><h3>Likely programs</h3><ul><li>Recursive factorial/GCD.</li><li>Matrix operation.</li><li>Search and sort.</li><li>String functions.</li><li>Dynamic array.</li><li>Student structure.</li><li>Sequential file processing.</li></ul></div>
+</div>
+</section>
