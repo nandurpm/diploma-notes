@@ -37,3 +37,5 @@ jobs:
           git add reports/missing-theory-drawing-lessons.csv
           git commit -m "Update missing Theory and Drawing lesson report [skip ci]"
           git push origin HEAD:main
+
+# Triggered to generate the first complete report.
