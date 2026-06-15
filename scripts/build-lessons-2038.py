@@ -38,10 +38,10 @@ lesson.write_bytes(html)
 text = html.decode('utf-8')
 for token in (
     '<title>Engineering Graphics Using CAD Software 2038 | Complete Lab Handbook</title>',
-    'Model Lab Examination',
+    'Model Lab Exam 1',
     'Master Answer Key',
     'downloadable-notes-2038.pdf',
-    'Open-Ended Project',
+    'open-ended project',
 ):
     if token not in text:
         raise SystemExit(f'Missing required handbook content: {token}')
