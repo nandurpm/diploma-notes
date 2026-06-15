@@ -1,0 +1,72 @@
+<section class="section searchable" id="paper">
+<div class="head"><span class="tag">Practice Model Question Paper</span><h2>PROGRAMMING IN C • Maximum Marks: 75 • Time: 3 Hours</h2><p>This is an original practice paper prepared from the uploaded syllabus; it is not an official board question paper.</p></div>
+<div class="card wide"><h3>PART A — Answer all questions. Each carries 1 mark. [5 × 1 = 5]</h3>
+<ol><li>What is the purpose of a function prototype?</li><li>State the essential requirement for binary search.</li><li>What does the null character do in a C string?</li><li>Name the function used to release dynamically allocated memory.</li><li>What is the difference between <span class="inline-code">.</span> and <span class="inline-code">-&gt;</span> in structure access?</li></ol>
+</div>
+<div class="card wide"><h3>PART B — Answer any five. Each carries 8 marks. [5 × 8 = 40]</h3>
+<ol><li>Explain control structures with suitable C fragments.</li><li>Explain storage classes, scope, lifetime and visibility.</li><li>Write and explain a recursive program to find factorial.</li><li>Compare linear and binary search and write a binary-search function.</li><li>Explain selection sort and quicksort.</li><li>Explain strings in C and write functions for length and comparison.</li><li>Explain pointer arithmetic and dynamic memory allocation.</li><li>Explain structures, unions and enumerations with examples.</li></ol>
+</div>
+<div class="card wide"><h3>PART C — Answer any two. Each carries 15 marks. [2 × 15 = 30]</h3>
+<ol><li>Develop a menu-driven array program supporting input, display, linear search, selection sort and average.</li><li>Explain pointers and write programs for swap, dynamic array allocation and two-dimensional array access using pointer notation.</li><li>Develop a student-record program using an array of structures and sequential file storage. Include proper file-error handling.</li></ol>
+</div>
+<h3>Answer outlines</h3>
+<details open><summary>Part A answers</summary>
+<ol><li>It declares the function name, return type and parameter types before use, allowing type checking.</li><li>The array must be sorted according to the search order.</li><li>It marks the end of the string.</li><li><span class="inline-code">free()</span>.</li><li><span class="inline-code">.</span> accesses a member through a structure object; <span class="inline-code">-&gt;</span> accesses through a structure pointer.</li></ol>
+</details>
+<details><summary>Part B scoring guide</summary>
+<p>For an 8-mark answer, include a definition, syntax/diagram where applicable, working steps, a correct program or code fragment, one example/output, and key limitations or precautions. For search/sort answers, state preconditions and time complexity.</p>
+</details>
+<details><summary>Part C1 solution design</summary>
+<div class="paper">Functions:
+read_array(a, &size)
+display_array(a, size)
+linear_search(a, size, target)
+selection_sort(a, size)
+average(a, size)
+
+Menu loop:
+1. Read
+2. Display
+3. Search
+4. Sort
+5. Average
+0. Exit
+
+Validation:
+• size must be within array capacity
+• search handles “not found”
+• average checks size &gt; 0
+• menu repeats until Exit</div>
+</details>
+<details><summary>Part C2 solution design</summary>
+<p>Explain pointer declaration, initialization, address operator, dereferencing and arithmetic. Show <span class="inline-code">swap(&amp;x, &amp;y)</span>. Allocate <span class="inline-code">n * sizeof *p</span> bytes, check NULL, process values, then free. For 2D arrays, explain <span class="inline-code">a[i][j] == *(*(a+i)+j)</span>.</p>
+</details>
+<details><summary>Part C3 solution design</summary>
+<p>Define a Student structure with roll, name and mark. Store many records in an array. Use functions for input/display. Open a text file in write or append mode, check for NULL, write using <span class="inline-code">fprintf</span>, close, reopen in read mode, and loop while <span class="inline-code">fscanf(...) == expected_count</span>.</p>
+</details>
+</section>
+<section class="section searchable">
+<div class="head"><span class="tag">Viva Preparation</span><h2>Important questions and answers</h2></div>
+<details><summary>Why does array indexing start at zero?</summary><p>Because <span class="inline-code">a[i]</span> is defined as <span class="inline-code">*(a+i)</span>; index zero means zero element offsets from the base address.</p></details>
+<details><summary>What is the difference between declaration and definition of a function?</summary><p>A declaration states the interface. A definition provides the executable body.</p></details>
+<details><summary>Why does recursion need a base case?</summary><p>Without a base case, calls continue until stack memory is exhausted.</p></details>
+<details><summary>Why must binary search use sorted data?</summary><p>Its decision to discard the left or right half depends on order.</p></details>
+<details><summary>What is pointer arithmetic scaled by?</summary><p>By the size of the pointed type. Adding one moves to the next object of that type.</p></details>
+<details><summary>malloc versus calloc?</summary><p><span class="inline-code">malloc</span> allocates uninitialized storage; <span class="inline-code">calloc</span> allocates an array and zero-initializes its bytes.</p></details>
+<details><summary>Why is a temporary pointer used with realloc?</summary><p>On failure, realloc returns NULL while the old block remains valid. Direct assignment could lose the old address.</p></details>
+<details><summary>Structure versus union?</summary><p>A structure allocates storage for all members; union members share the same storage.</p></details>
+<details><summary>Why is while(!feof(file)) incorrect?</summary><p>EOF becomes true only after a read attempts to go past the end, so the previous data may be processed again. Test the read function instead.</p></details>
+<details><summary>What are argc and argv?</summary><p><span class="inline-code">argc</span> is the count of command-line strings; <span class="inline-code">argv</span> is the array of pointers to those strings.</p></details>
+</section>
+<section class="section searchable">
+<div class="head"><span class="tag">References from the Syllabus</span><h2>Books and online learning resources</h2></div>
+<div class="table-wrap"><table><thead><tr><th>Code</th><th>Book / Resource</th></tr></thead><tbody>
+<tr><td>T1</td><td>E. Balagurusamy, <i>Programming in ANSI C</i>, 7th Edition.</td></tr>
+<tr><td>R1</td><td>Yashavant Kanetkar, <i>Let Us C</i>.</td></tr>
+<tr><td>R2</td><td>Paul J. Deitel and Harvey Deitel, <i>C How to Program</i>.</td></tr>
+<tr><td>R3</td><td>Brian W. Kernighan and Dennis M. Ritchie, <i>The C Programming Language</i>, 2nd Edition.</td></tr>
+<tr><td>R4</td><td>Herbert Schildt, <i>C: The Complete Reference</i>.</td></tr>
+<tr><td>R5</td><td>Byron Gottfried, <i>Schaum's Outline of Programming with C</i>.</td></tr>
+<tr><td>Online</td><td>NPTEL course 106104128; Programiz C Programming; TutorialsPoint C Programming.</td></tr>
+</tbody></table></div>
+</section>
