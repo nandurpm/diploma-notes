@@ -7,6 +7,7 @@ on:
     paths:
       - "lessons/**/*.html"
       - "notes/**/*.pdf"
+      - "assets/js/subject-browser.js"
       - "tools/update_asset_manifest.py"
       - ".github/workflows/update-lesson-availability.yml"
   push:
@@ -14,6 +15,7 @@ on:
     paths:
       - "lessons/**/*.html"
       - "notes/**/*.pdf"
+      - "assets/js/subject-browser.js"
       - "tools/update_asset_manifest.py"
       - ".github/workflows/update-lesson-availability.yml"
 
@@ -34,35 +36,47 @@ jobs:
         run: |
           python -m py_compile tools/update_asset_manifest.py
           python tools/update_asset_manifest.py
-          node --check assets/js/main.js
-          node --check assets/js/site-hardening.js
+          node --check assets/js/subject-browser.js
 
-      - name: Verify automatic activation with a simulated upload
+      - name: Verify independent lesson and notes activation
         if: github.event_name == 'pull_request'
         run: |
-          git diff --exit-code -- assets/js/main.js assets/js/site-hardening.js
+          git diff --exit-code -- assets/js/subject-browser.js
 
           cat > lessons/lessons-9999.html <<'HTML'
           <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Manifest test</title></head><body><main>Manifest test</main></body></html>
           HTML
-          python tools/update_asset_manifest.py
-          grep -q '"/lessons/lessons-9999.html"' assets/js/main.js
-          grep -q '"/lessons/lessons-9999.html"' assets/js/site-hardening.js
+          printf '%s\n' '%PDF-1.4' > notes/downloadable-notes-9998.pdf
 
-          rm lessons/lessons-9999.html
           python tools/update_asset_manifest.py
-          git diff --exit-code -- assets/js/main.js assets/js/site-hardening.js
+
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
+          lesson_line = next(line for line in source.splitlines() if "const LESSON_CODES" in line)
+          notes_line = next(line for line in source.splitlines() if "const NOTES_CODES" in line)
+
+          assert '"9999"' in lesson_line, "lesson upload was not activated"
+          assert '"9999"' not in notes_line, "lesson-only code leaked into notes availability"
+          assert '"9998"' in notes_line, "notes upload was not activated"
+          assert '"9998"' not in lesson_line, "notes-only code leaked into lesson availability"
+          PY
+
+          rm lessons/lessons-9999.html notes/downloadable-notes-9998.pdf
+          python tools/update_asset_manifest.py
+          git diff --exit-code -- assets/js/subject-browser.js
 
       - name: Commit generated availability after an upload
         if: github.event_name == 'push'
         run: |
-          if git diff --quiet -- assets/js/main.js assets/js/site-hardening.js; then
-            echo "Lesson availability is already current."
+          if git diff --quiet -- assets/js/subject-browser.js; then
+            echo "Lesson and notes availability is already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/js/main.js assets/js/site-hardening.js
-          git commit -m "Update lesson availability after file upload [skip ci]"
+          git add assets/js/subject-browser.js
+          git commit -m "Update lesson and notes availability [skip ci]"
           git push origin HEAD:main
