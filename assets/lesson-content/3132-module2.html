@@ -1,0 +1,205 @@
+<section class="section module searchable" id="m2">
+<div class="head"><span class="tag">CO2 • 11 Hours + Series Test I</span><h2>Module 2 — Arrays, Searching, Sorting and Strings</h2><p>Use indexed collections and algorithms to organise, locate, rearrange and process data.</p></div>
+<div class="grid">
+<article class="card unit wide">
+<span class="code-id">M2.01–M2.02</span><span class="hour">2 hours</span>
+<h3>One-dimensional and multidimensional arrays</h3>
+<p>An array stores elements of the same type in contiguous memory. Indexing begins at zero. A two-dimensional array is commonly treated as rows and columns and is stored in row-major order in C.</p>
+<div class="codebox"><div class="code-title"><span>Average and maximum using a 1D array</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+#define SIZE 5
+
+int main(void)
+{
+    int values[SIZE] = {12, 7, 25, 9, 18};
+    int sum = 0;
+    int maximum = values[0];
+
+    for (int i = 0; i &lt; SIZE; i++) {
+        sum += values[i];
+        if (values[i] &gt; maximum) {
+            maximum = values[i];
+        }
+    }
+
+    printf("Average = %.2f\n", (double)sum / SIZE);
+    printf("Maximum = %d\n", maximum);
+    return 0;
+}</code></pre></div>
+<div class="codebox"><div class="code-title"><span>Matrix addition</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+#define ROWS 2
+#define COLS 3
+
+int main(void)
+{
+    int a[ROWS][COLS] = {{1, 2, 3}, {4, 5, 6}};
+    int b[ROWS][COLS] = {{6, 5, 4}, {3, 2, 1}};
+    int sum[ROWS][COLS];
+
+    for (int row = 0; row &lt; ROWS; row++) {
+        for (int col = 0; col &lt; COLS; col++) {
+            sum[row][col] = a[row][col] + b[row][col];
+            printf("%d%c", sum[row][col],
+                   col == COLS - 1 ? '\n' : ' ');
+        }
+    }
+    return 0;
+}</code></pre></div>
+<div class="ml">Array size കടക്കുന്നത് undefined behaviour ആണ്. Valid index range <span class="inline-code">0</span> മുതൽ <span class="inline-code">size - 1</span> വരെ മാത്രം.</div>
+</article>
+<article class="card unit">
+<span class="code-id">M2.03</span><span class="hour">1 hour</span>
+<h3>Divide and conquer</h3>
+<p>Divide and conquer splits a problem into smaller subproblems, solves them and combines the results. Binary search and quicksort are important syllabus examples.</p>
+<div class="steps"><div class="step">Divide the input.</div><div class="step">Conquer smaller parts recursively or iteratively.</div><div class="step">Combine or interpret the results.</div></div>
+<div class="ml">വലിയ problem ചെറിയ parts ആയി വിഭജിച്ച് solve ചെയ്യുന്നതാണ് divide and conquer. Binary search sorted array-നെ പകുതികളാക്കുന്നു.</div>
+</article>
+<article class="card unit">
+<span class="code-id">M2.04</span><span class="hour">2 hours</span>
+<h3>Searching algorithms</h3>
+<div class="table-wrap"><table><thead><tr><th>Algorithm</th><th>Requirement</th><th>Worst time</th></tr></thead><tbody>
+<tr><td>Linear search</td><td>None</td><td>O(n)</td></tr>
+<tr><td>Binary search</td><td>Array must be sorted</td><td>O(log n)</td></tr>
+</tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Binary search</span><button class="copy-code" type="button">Copy</button></div><pre><code>int binary_search(const int a[], int size, int target)
+{
+    int low = 0;
+    int high = size - 1;
+
+    while (low &lt;= high) {
+        int mid = low + (high - low) / 2;
+
+        if (a[mid] == target) {
+            return mid;
+        }
+        if (a[mid] &lt; target) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    return -1;
+}</code></pre></div>
+<div class="ml">Binary search ഉപയോഗിക്കുന്നതിന് മുമ്പ് array sorted ആണെന്ന് ഉറപ്പാക്കണം. Found അല്ലെങ്കിൽ index; not found ആണെങ്കിൽ <span class="inline-code">-1</span> return ചെയ്യാം.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M2.04</span><span class="hour">Included</span>
+<h3>Selection sort and quicksort</h3>
+<div class="grid">
+<div class="card six blue">
+<h3>Selection sort</h3>
+<p>Repeatedly finds the smallest remaining element and places it at the next sorted position. It is simple, in-place and O(n²).</p>
+<div class="codebox"><div class="code-title"><span>Selection sort</span><button class="copy-code" type="button">Copy</button></div><pre><code>void selection_sort(int a[], int size)
+{
+    for (int i = 0; i &lt; size - 1; i++) {
+        int min_index = i;
+
+        for (int j = i + 1; j &lt; size; j++) {
+            if (a[j] &lt; a[min_index]) {
+                min_index = j;
+            }
+        }
+
+        int temp = a[i];
+        a[i] = a[min_index];
+        a[min_index] = temp;
+    }
+}</code></pre></div>
+</div>
+<div class="card six green">
+<h3>Quicksort</h3>
+<p>Partitions the array around a pivot and recursively sorts the left and right parts. Average time is O(n log n); worst case is O(n²).</p>
+<div class="codebox"><div class="code-title"><span>Quicksort</span><button class="copy-code" type="button">Copy</button></div><pre><code>static void swap(int *x, int *y)
+{
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+static int partition(int a[], int low, int high)
+{
+    int pivot = a[high];
+    int i = low - 1;
+
+    for (int j = low; j &lt; high; j++) {
+        if (a[j] &lt;= pivot) {
+            i++;
+            swap(&amp;a[i], &amp;a[j]);
+        }
+    }
+    swap(&amp;a[i + 1], &amp;a[high]);
+    return i + 1;
+}
+
+void quicksort(int a[], int low, int high)
+{
+    if (low &lt; high) {
+        int pivot_index = partition(a, low, high);
+        quicksort(a, low, pivot_index - 1);
+        quicksort(a, pivot_index + 1, high);
+    }
+}</code></pre></div>
+</div>
+</div>
+<div class="ml">Selection sort മനസ്സിലാക്കാൻ എളുപ്പമാണ്, പക്ഷേ large data-ക്ക് slow. Quicksort divide-and-conquer ഉപയോഗിക്കുന്നു; pivot partition ശരിയായി trace ചെയ്യുക.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M2.05–M2.06</span><span class="hour">4 hours</span>
+<h3>Strings in C</h3>
+<p>A C string is a character array terminated by the null character <span class="inline-code">'\0'</span>. Storage must include space for this terminator.</p>
+<div class="table-wrap"><table><thead><tr><th>Operation</th><th>Library function</th><th>Header</th><th>Important note</th></tr></thead><tbody>
+<tr><td>Length</td><td><span class="inline-code">strlen</span></td><td>string.h</td><td>Does not count <span class="inline-code">'\0'</span>.</td></tr>
+<tr><td>Copy</td><td><span class="inline-code">strcpy</span></td><td>string.h</td><td>Destination must be large enough.</td></tr>
+<tr><td>Concatenate</td><td><span class="inline-code">strcat</span></td><td>string.h</td><td>Destination needs space for both strings and terminator.</td></tr>
+<tr><td>Compare</td><td><span class="inline-code">strcmp</span></td><td>string.h</td><td>Returns 0 when equal.</td></tr>
+<tr><td>Find substring</td><td><span class="inline-code">strstr</span></td><td>string.h</td><td>Returns pointer to first match or NULL.</td></tr>
+</tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Safe line input and custom string length</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+size_t my_strlen(const char text[])
+{
+    size_t length = 0;
+
+    while (text[length] != '\0') {
+        length++;
+    }
+    return length;
+}
+
+int main(void)
+{
+    char text[100];
+
+    printf("Enter a line: ");
+    if (fgets(text, sizeof text, stdin) == NULL) {
+        fprintf(stderr, "Input error\n");
+        return 1;
+    }
+
+    text[strcspn(text, "\n")] = '\0';
+    printf("Length = %zu\n", my_strlen(text));
+    return 0;
+}</code></pre></div>
+<div class="call mist"><b>Do not use <span class="inline-code">gets()</span>:</b> it cannot limit input length. Prefer <span class="inline-code">fgets()</span> and remove the trailing newline when needed.</div>
+<div class="ml">String അവസാനിക്കുന്നതായി compiler അറിയുന്നത് null character <span class="inline-code">'\0'</span> കൊണ്ടാണ്. Character array size-ൽ terminator-നുള്ള സ്ഥലം വേണം.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M2.07</span><span class="hour">2 hours</span>
+<h3>Passing arrays to functions</h3>
+<p>When an array is passed to a function, the parameter behaves like a pointer to its first element. Pass the size separately because the function cannot automatically determine the full array length.</p>
+<div class="codebox"><div class="code-title"><span>Array parameter with const</span><button class="copy-code" type="button">Copy</button></div><pre><code>double average(const int values[], int size)
+{
+    int sum = 0;
+
+    for (int i = 0; i &lt; size; i++) {
+        sum += values[i];
+    }
+    return size &gt; 0 ? (double)sum / size : 0.0;
+}</code></pre></div>
+<div class="ml">Function array മാറ്റേണ്ടതില്ലെങ്കിൽ parameter-ൽ <span class="inline-code">const</span> ഉപയോഗിക്കുക. Array size വേറെ argument ആയി pass ചെയ്യണം.</div>
+</article>
+</div>
+<div class="call exam"><b>Series Test I focus:</b> array initialization and traversal, matrix programs, linear/binary search, selection sort, quicksort, string representation and operations, and passing arrays to functions.</div>
+</section>
