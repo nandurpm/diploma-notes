@@ -1,0 +1,72 @@
+/* Keep the complete Polytechnic Study Hub header visible while scrolling. */
+:root {
+  --fixed-site-header-height: 0px;
+  --fixed-site-header-gap: 10px;
+}
+
+.topbar {
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  z-index: 10000 !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  isolation: isolate;
+}
+
+body.has-fixed-site-header {
+  padding-top: calc(var(--fixed-site-header-height) + var(--fixed-site-header-gap)) !important;
+}
+
+html {
+  scroll-padding-top: calc(var(--fixed-site-header-height) + 16px) !important;
+}
+
+/* Keep page anchors from being hidden behind the fixed header. */
+body.has-fixed-site-header [id] {
+  scroll-margin-top: calc(var(--fixed-site-header-height) + 16px);
+}
+
+/* Reading-progress bars should remain visible above the fixed lesson header. */
+.progress,
+.reading-progress,
+#readingProgress {
+  z-index: 10020 !important;
+}
+
+@media (max-width: 980px) {
+  :root {
+    --fixed-site-header-gap: 8px;
+  }
+
+  .topbar {
+    max-height: 100svh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --fixed-site-header-gap: 6px;
+  }
+}
+
+@media print {
+  .topbar {
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+  }
+
+  body.has-fixed-site-header {
+    padding-top: 0 !important;
+  }
+
+  html {
+    scroll-padding-top: 0 !important;
+  }
+}
