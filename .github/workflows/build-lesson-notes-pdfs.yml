@@ -6,6 +6,9 @@ on:
     branches: [main]
     paths:
       - "lessons/lessons-*.html"
+      - "assets/lesson-content/**/*.html"
+      - "assets/css/**/*.css"
+      - "assets/js/site-hardening.js"
       - ".github/workflows/build-lesson-notes-pdfs.yml"
 
 permissions:
@@ -18,21 +21,12 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with:
           ref: main
-
-      - name: Record workflow run
-        run: |
-          mkdir -p reports
-          printf '%s\n' "$GITHUB_RUN_ID" > reports/lesson-notes-pdf-run-id.txt
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/lesson-notes-pdf-run-id.txt
-          git commit -m "Record lesson PDF workflow run"
-          git push origin main
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -43,6 +37,20 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install playwright pypdf
           python -m playwright install --with-deps chromium
+
+      - name: Start local website server
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 > /tmp/lesson-http.log 2>&1 &
+          echo $! > /tmp/lesson-http.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8000/lessons.html > /dev/null; then
+              echo "Local website server is ready."
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/lesson-http.log
+          exit 1
 
       - name: Generate lesson PDFs
         run: |
@@ -73,9 +81,20 @@ jobs:
 
               for code, lesson in lesson_files:
                   output = notes / f"downloadable-notes-{code}.pdf"
-                  print(f"Rendering {code} from {lesson}")
-                  page.goto(lesson.resolve().as_uri(), wait_until="domcontentloaded", timeout=90000)
-                  page.wait_for_timeout(1200)
+                  relative_url = lesson.relative_to(root).as_posix()
+                  url = f"http://127.0.0.1:8000/{relative_url}"
+                  print(f"Rendering {code} from {url}")
+
+                  page.goto(url, wait_until="networkidle", timeout=120000)
+                  page.wait_for_function(
+                      "document.querySelectorAll('.fragment-slot').length === 0",
+                      timeout=120000,
+                  )
+                  page.wait_for_function(
+                      "document.fonts ? document.fonts.status === 'loaded' : true",
+                      timeout=60000,
+                  )
+                  page.wait_for_timeout(1000)
                   page.evaluate("document.querySelectorAll('details').forEach(item => item.open = true)")
                   page.add_style_tag(content="""
                     @media print {
@@ -92,6 +111,22 @@ jobs:
                       * { animation:none!important; transition:none!important; }
                     }
                   """)
+
+                  body_text = page.locator("body").inner_text()
+                  if len(body_text.strip()) < 2500:
+                      raise SystemExit(f"Rendered lesson {code} is unexpectedly short")
+                  if code == "3132":
+                      required = [
+                          "Control Structures",
+                          "Arrays, Searching, Sorting and Strings",
+                          "Pointers and Dynamic Memory Allocation",
+                          "Structures, Unions, Enumerations, Files",
+                          "Solved Problem Laboratory",
+                      ]
+                      missing = [item for item in required if item not in body_text]
+                      if missing:
+                          raise SystemExit(f"Lesson 3132 is missing rendered handbook sections: {missing}")
+
                   page.emulate_media(media="print")
                   page.pdf(
                       path=str(output),
@@ -106,24 +141,45 @@ jobs:
                   reader = PdfReader(str(output))
                   if output.stat().st_size < 20000 or not reader.pages:
                       raise SystemExit(f"Invalid PDF generated for {code}")
-                  results.append({"code": code, "pages": len(reader.pages), "bytes": output.stat().st_size})
+                  results.append({
+                      "code": code,
+                      "pages": len(reader.pages),
+                      "bytes": output.stat().st_size,
+                      "source": relative_url,
+                  })
 
               browser.close()
 
           (reports / "lesson-notes-pdf-build.json").write_text(
-              json.dumps({"generated": results, "preservedSeparateNotes": sorted(excluded)}, indent=2) + "\n",
+              json.dumps({
+                  "generated": results,
+                  "preservedSeparateNotes": sorted(excluded),
+                  "renderer": "Playwright Chromium through local HTTP server",
+              }, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          (reports / "lesson-notes-pdf-run-id.txt").write_text(
+              "${{ github.run_id }}\n",
               encoding="utf-8",
           )
           PY
 
-      - name: Commit PDFs
+      - name: Commit generated PDFs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add notes/downloadable-notes-*.pdf reports/lesson-notes-pdf-build.json
+          git pull --rebase origin main
+          git add notes/downloadable-notes-*.pdf reports/lesson-notes-pdf-build.json reports/lesson-notes-pdf-run-id.txt
           if git diff --cached --quiet; then
             echo "No PDF changes"
           else
             git commit -m "Generate downloadable PDF notes from lesson pages"
-            git push origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Stop local website server
+        if: always()
+        run: |
+          if [ -f /tmp/lesson-http.pid ]; then
+            kill "$(cat /tmp/lesson-http.pid)" || true
           fi
