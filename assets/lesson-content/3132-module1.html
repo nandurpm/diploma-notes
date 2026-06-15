@@ -1,0 +1,148 @@
+<section class="section module searchable" id="m1">
+<div class="head"><span class="tag">CO1 • 11 Hours</span><h2>Module 1 — Control Structures, Functions, Storage Classes and Recursion</h2><p>Use the basic building blocks of C to create modular and maintainable programs.</p></div>
+<div class="grid">
+<article class="card unit wide">
+<span class="code-id">M1.01</span><span class="hour">2 hours • Understanding</span>
+<h3>C program structure and control flow</h3>
+<p>A C program normally contains preprocessor directives, declarations, <span class="inline-code">main()</span>, statements and user-defined functions. Execution begins at <span class="inline-code">main()</span>.</p>
+<div class="keyword"><span>Sequence</span><span>if / else</span><span>switch</span><span>for</span><span>while</span><span>do-while</span><span>break</span><span>continue</span><span>goto</span><span>return</span></div>
+<div class="ml"><b>മലയാളം:</b> Sequence-ൽ statements ക്രമത്തിൽ നടക്കും. Selection-ൽ condition അനുസരിച്ച് branch തിരഞ്ഞെടുക്കും. Loop-ൽ ഒരു block ആവർത്തിക്കും. <span class="inline-code">break</span> loop/switch അവസാനിപ്പിക്കും; <span class="inline-code">continue</span> അടുത്ത iteration-ലേക്ക് പോകും.</div>
+<div class="codebox"><div class="code-title"><span>Example — largest of three numbers</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a, b, c, largest;
+
+    printf("Enter three integers: ");
+    if (scanf("%d %d %d", &amp;a, &amp;b, &amp;c) != 3) {
+        fprintf(stderr, "Invalid input\n");
+        return 1;
+    }
+
+    largest = a;
+    if (b &gt; largest) {
+        largest = b;
+    }
+    if (c &gt; largest) {
+        largest = c;
+    }
+
+    printf("Largest = %d\n", largest);
+    return 0;
+}</code></pre></div>
+<details><summary>Loop-selection guide</summary>
+<div class="table-wrap"><table><thead><tr><th>Construct</th><th>Use when</th><th>Key caution</th></tr></thead><tbody>
+<tr><td>for</td><td>Initialization, condition and update are naturally grouped; count-controlled loops.</td><td>Check off-by-one errors.</td></tr>
+<tr><td>while</td><td>Number of repetitions is unknown and condition is checked first.</td><td>Update loop state to avoid an infinite loop.</td></tr>
+<tr><td>do-while</td><td>Body must run at least once.</td><td>Semicolon is required after <span class="inline-code">while(condition);</span>.</td></tr>
+<tr><td>switch</td><td>One expression is compared with discrete integral/enum cases.</td><td>Add <span class="inline-code">break</span> unless fall-through is intentional.</td></tr>
+</tbody></table></div>
+</details>
+</article>
+<article class="card unit">
+<span class="code-id">M1.02</span><span class="hour">1 hour</span>
+<h3>Preprocessor: file inclusion and macros</h3>
+<p>Preprocessor directives begin with <span class="inline-code">#</span> and are processed before compilation. <span class="inline-code">#include</span> inserts declarations from a header; <span class="inline-code">#define</span> performs macro substitution.</p>
+<div class="codebox"><div class="code-title"><span>Safe macro style</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+#define PI 3.141592653589793
+#define SQUARE(x) ((x) * (x))
+
+int main(void)
+{
+    double radius = 3.0;
+    printf("Area = %.2f\n", PI * SQUARE(radius));
+    return 0;
+}</code></pre></div>
+<div class="call mist"><b>Macro caution:</b> Always parenthesize parameters and the complete replacement expression. Even then, avoid arguments with side effects such as <span class="inline-code">SQUARE(i++)</span>.</div>
+<div class="ml">Macro text substitution ആണ്; function പോലെ type checking ഇല്ല. അതിനാൽ parentheses ഉപയോഗിക്കുക.</div>
+</article>
+<article class="card unit">
+<span class="code-id">M1.03–M1.04</span><span class="hour">2 hours</span>
+<h3>Modular programming and functions</h3>
+<p>Break a large problem into small functions. A function has a declaration/prototype, definition and call. Parameters carry input; the return value carries one result.</p>
+<div class="codebox"><div class="code-title"><span>Function prototype, definition and call</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int gcd(int a, int b);
+
+int main(void)
+{
+    printf("GCD = %d\n", gcd(48, 18));
+    return 0;
+}
+
+int gcd(int a, int b)
+{
+    while (b != 0) {
+        int remainder = a % b;
+        a = b;
+        b = remainder;
+    }
+    return a;
+}</code></pre></div>
+<div class="ml">Function ഒരു പ്രത്യേക task ചെയ്യണം. Meaningful name, ചെറിയ parameter list, clear return value എന്നിവ modularity കൂട്ടും.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M1.05–M1.06</span><span class="hour">3 hours</span>
+<h3>Storage classes, scope, lifetime and visibility</h3>
+<div class="table-wrap"><table><thead><tr><th>Storage class</th><th>Typical location</th><th>Lifetime</th><th>Visibility / purpose</th></tr></thead><tbody>
+<tr><td>auto</td><td>Inside block; default local variable</td><td>During block execution</td><td>Block scope.</td></tr>
+<tr><td>register</td><td>Inside block</td><td>During block execution</td><td>Compiler hint for frequent access; address may not be taken.</td></tr>
+<tr><td>static local</td><td>Inside function/block</td><td>Entire program</td><td>Block scope but retains value between calls.</td></tr>
+<tr><td>static global</td><td>File scope</td><td>Entire program</td><td>Visible only in the current source file.</td></tr>
+<tr><td>extern</td><td>File or block declaration</td><td>Entire program for the defined object</td><td>Refers to an object defined elsewhere.</td></tr>
+</tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Static local variable</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+void visit(void)
+{
+    static int count = 0;
+    count++;
+    printf("Function called %d time(s)\n", count);
+}
+
+int main(void)
+{
+    visit();
+    visit();
+    visit();
+    return 0;
+}</code></pre></div>
+<div class="ml"><b>Scope</b> variable name എവിടെ ഉപയോഗിക്കാമെന്ന് പറയുന്നു. <b>Lifetime</b> memory-ൽ variable എത്രകാലം നിലനിൽക്കും എന്ന് പറയുന്നു. Static local variable function calls ഇടയിലും value സൂക്ഷിക്കും.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M1.07–M1.08</span><span class="hour">3 hours</span>
+<h3>Recursion</h3>
+<p>A recursive function calls itself directly or indirectly. Every correct recursive solution needs a <b>base case</b> that stops recursion and a <b>recursive case</b> that moves toward the base case.</p>
+<div class="codebox"><div class="code-title"><span>Recursive factorial with validation</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+unsigned long long factorial(unsigned int n)
+{
+    if (n &lt;= 1U) {
+        return 1ULL;
+    }
+    return n * factorial(n - 1U);
+}
+
+int main(void)
+{
+    unsigned int n;
+
+    printf("Enter n (0 to 20): ");
+    if (scanf("%u", &amp;n) != 1 || n &gt; 20U) {
+        fprintf(stderr, "Invalid range\n");
+        return 1;
+    }
+
+    printf("%u! = %llu\n", n, factorial(n));
+    return 0;
+}</code></pre></div>
+<div class="grid">
+<div class="card third blue"><h3>Base case</h3><p>Returns without another recursive call.</p><div class="ml">Recursion നിർത്തുന്ന condition.</div></div>
+<div class="card third green"><h3>Progress</h3><p>Each call reduces the problem size.</p><div class="ml">ഓരോ call-ലും base case-ലേക്ക് അടുത്തുവരണം.</div></div>
+<div class="card third yellow"><h3>Stack cost</h3><p>Each call consumes stack memory; deep recursion can overflow.</p><div class="ml">വളരെ deep recursion stack overflow ഉണ്ടാക്കാം.</div></div>
+</div>
+</article>
+</div>
+<div class="call exam"><b>Module 1 exam focus:</b> control-flow syntax, function prototype/definition/call, macro precautions, storage-class comparison, scope/lifetime and a traced recursive program.</div>
+</section>
