@@ -6,73 +6,100 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGETS = (
-    ROOT / "assets/js/main.js",
-    ROOT / "assets/js/site-hardening.js",
-)
-ASSET_DIRECTORIES = (
-    (ROOT / "lessons", {".html"}),
-    (ROOT / "notes", {".pdf"}),
-)
-MANIFEST_PATTERN = re.compile(
-    r"(?m)^(?P<indent>[ \t]*)const knownLocalAssets = new Set\(\[[^\n]*\]\);$"
+TARGET = ROOT / "assets/js/subject-browser.js"
+
+ASSET_SPECS = (
+    (
+        "LESSON_CODES",
+        ROOT / "lessons",
+        re.compile(r"^lessons-(?P<code>\d+)\.html$", re.IGNORECASE),
+    ),
+    (
+        "NOTES_CODES",
+        ROOT / "notes",
+        re.compile(r"^downloadable-notes-(?P<code>\d+)\.pdf$", re.IGNORECASE),
+    ),
 )
 
 
-def collect_assets() -> list[str]:
-    assets: set[str] = set()
-    for directory, suffixes in ASSET_DIRECTORIES:
-        if not directory.exists():
+def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[str]:
+    codes: set[str] = set()
+    if not directory.exists():
+        return []
+
+    for path in directory.rglob("*"):
+        if not path.is_file():
             continue
-        for path in directory.rglob("*"):
-            if path.is_file() and path.suffix.lower() in suffixes:
-                assets.add("/" + path.relative_to(ROOT).as_posix())
-    return sorted(assets)
+        match = filename_pattern.fullmatch(path.name)
+        if match:
+            codes.add(match.group("code"))
+
+    return sorted(codes, key=lambda code: int(code))
 
 
-def updated_source(path: Path, assets: list[str]) -> str:
-    source = path.read_text(encoding="utf-8")
-    encoded = json.dumps(assets, ensure_ascii=False, separators=(",", ":"))
+def replace_set(source: str, name: str, codes: list[str]) -> str:
+    pattern = re.compile(
+        rf"(?ms)^(?P<indent>[ \t]*)const {re.escape(name)} = new Set\(\[.*?\]\);"
+    )
+    encoded = json.dumps(codes, ensure_ascii=False, separators=(",", ":"))
 
     def replacement(match: re.Match[str]) -> str:
-        return f'{match.group("indent")}const knownLocalAssets = new Set({encoded});'
+        return f'{match.group("indent")}const {name} = new Set({encoded});'
 
-    updated, count = MANIFEST_PATTERN.subn(replacement, source, count=1)
+    updated, count = pattern.subn(replacement, source, count=1)
     if count != 1:
-        raise RuntimeError(f"Could not find exactly one knownLocalAssets declaration in {path.relative_to(ROOT)}")
+        raise RuntimeError(
+            f"Could not find exactly one {name} declaration in {TARGET.relative_to(ROOT)}"
+        )
     return updated
+
+
+def updated_source(path: Path, manifests: dict[str, list[str]]) -> str:
+    source = path.read_text(encoding="utf-8")
+    for name, codes in manifests.items():
+        source = replace_set(source, name, codes)
+    return source
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Synchronize lesson and notes file availability with the website buttons."
+        description=(
+            "Synchronize lesson and notes availability in subject-browser.js "
+            "with files currently present in the repository."
+        )
     )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Fail when the generated asset list differs from the committed JavaScript files.",
+        help="Fail when the generated code lists differ from subject-browser.js.",
     )
     args = parser.parse_args()
 
-    assets = collect_assets()
-    stale: list[Path] = []
+    manifests = {
+        name: collect_codes(directory, filename_pattern)
+        for name, directory, filename_pattern in ASSET_SPECS
+    }
 
-    for path in TARGETS:
-        updated = updated_source(path, assets)
-        current = path.read_text(encoding="utf-8")
-        if updated == current:
-            continue
-        stale.append(path)
-        if not args.check:
-            path.write_text(updated, encoding="utf-8")
+    updated = updated_source(TARGET, manifests)
+    current = TARGET.read_text(encoding="utf-8")
+    stale = updated != current
+
+    if stale and not args.check:
+        TARGET.write_text(updated, encoding="utf-8")
+
+    lesson_count = len(manifests["LESSON_CODES"])
+    notes_count = len(manifests["NOTES_CODES"])
 
     if args.check and stale:
-        names = ", ".join(str(path.relative_to(ROOT)) for path in stale)
-        print(f"Asset availability manifest is stale in: {names}")
+        print(f"Asset availability manifest is stale in: {TARGET.relative_to(ROOT)}")
+        print(f"Detected {lesson_count} lesson pages and {notes_count} notes PDFs.")
         return 1
 
     action = "Verified" if args.check else "Updated"
-    print(f"{action} {len(assets)} local lesson/note assets.")
+    print(
+        f"{action} availability for {lesson_count} lesson pages "
+        f"and {notes_count} notes PDFs."
+    )
     return 0
 
 
