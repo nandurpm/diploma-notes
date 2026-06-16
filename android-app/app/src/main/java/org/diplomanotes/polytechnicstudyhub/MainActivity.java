@@ -12,9 +12,14 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
+import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
@@ -40,8 +45,16 @@ import java.util.Map;
 public class MainActivity extends ComponentActivity {
     private static final String HOME_URL = "https://polypmna.dpdns.org/";
     private static final String TRUSTED_HOST = "polypmna.dpdns.org";
+    private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
+    private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final Runnable slowLoadRunnable = () -> {
+        if (!launchOverlayDismissed && toolbarSubtitle != null) {
+            toolbarSubtitle.setText(R.string.loading_slow);
+        }
+    };
 
     private DrawerLayout drawerLayout;
     private WebView webView;
@@ -50,6 +63,7 @@ public class MainActivity extends ComponentActivity {
     private TextView toolbarSubtitle;
     private ValueCallback<Uri[]> fileChooserCallback;
     private boolean launchOverlayDismissed;
+    private String lastFailedUrl = HOME_URL;
 
     private final ActivityResultLauncher<Intent> fileChooserLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -84,13 +98,28 @@ public class MainActivity extends ComponentActivity {
         configureWebView();
 
         if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
-            Uri deepLink = getIntent() != null ? getIntent().getData() : null;
-            webView.loadUrl(isTrustedUri(deepLink) ? deepLink.toString() : HOME_URL);
+            loadIncomingIntent(getIntent(), true);
         } else {
             hideLaunchOverlay();
         }
 
-        launchOverlay.postDelayed(this::hideLaunchOverlay, 9000L);
+        mainHandler.postDelayed(slowLoadRunnable, 15000L);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        loadIncomingIntent(intent, false);
+    }
+
+    private void loadIncomingIntent(Intent intent, boolean fallBackHome) {
+        Uri deepLink = intent == null ? null : intent.getData();
+        if (isTrustedUri(deepLink)) {
+            webView.loadUrl(deepLink.toString());
+        } else if (fallBackHome) {
+            webView.loadUrl(HOME_URL);
+        }
     }
 
     private void configureNativeShell() {
@@ -99,7 +128,13 @@ public class MainActivity extends ComponentActivity {
         findViewById(R.id.menuButton).setOnClickListener(
                 view -> drawerLayout.openDrawer(GravityCompat.START)
         );
-        findViewById(R.id.refreshButton).setOnClickListener(view -> webView.reload());
+        findViewById(R.id.refreshButton).setOnClickListener(view -> {
+            if (webView != null && webView.getUrl() != null && webView.getUrl().startsWith(ERROR_PAGE_URL)) {
+                retryLastFailedUrl();
+            } else if (webView != null) {
+                webView.reload();
+            }
+        });
 
         bindNavigation(R.id.navHome, "/");
         bindNavigation(R.id.navRevision2021, "/revision-2021.html");
@@ -121,11 +156,25 @@ public class MainActivity extends ComponentActivity {
         navigationItems.put(item, path);
         item.setOnClickListener(view -> {
             drawerLayout.closeDrawer(GravityCompat.START);
-            String target = HOME_URL.substring(0, HOME_URL.length() - 1) + path;
-            if (!target.equals(webView.getUrl())) {
+            String target = buildTrustedUrl(path);
+            if (webView != null && !target.equals(webView.getUrl())) {
                 webView.loadUrl(target);
             }
         });
+    }
+
+    private String buildTrustedUrl(String path) {
+        String normalizedPath = path == null || path.trim().isEmpty() ? "/" : path.trim();
+        if (!normalizedPath.startsWith("/")) {
+            normalizedPath = "/" + normalizedPath;
+        }
+        return Uri.parse(HOME_URL)
+                .buildUpon()
+                .encodedPath(normalizedPath)
+                .clearQuery()
+                .fragment(null)
+                .build()
+                .toString();
     }
 
     private void markActiveNavigation(String pageUrl) {
@@ -186,7 +235,7 @@ public class MainActivity extends ComponentActivity {
 
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
-        cookieManager.setAcceptThirdPartyCookies(webView, true);
+        cookieManager.setAcceptThirdPartyCookies(webView, false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             settings.setSafeBrowsingEnabled(true);
@@ -198,6 +247,7 @@ public class MainActivity extends ComponentActivity {
     }
 
     private void hideLaunchOverlay() {
+        mainHandler.removeCallbacks(slowLoadRunnable);
         if (launchOverlayDismissed || launchOverlay == null) {
             return;
         }
@@ -208,7 +258,9 @@ public class MainActivity extends ComponentActivity {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        launchOverlay.setVisibility(View.GONE);
+                        if (launchOverlay != null) {
+                            launchOverlay.setVisibility(View.GONE);
+                        }
                     }
                 })
                 .start();
@@ -216,48 +268,103 @@ public class MainActivity extends ComponentActivity {
 
     private DownloadListener createDownloadListener() {
         return (url, userAgent, contentDisposition, mimeType, contentLength) -> {
-            if (url == null || !url.toLowerCase(Locale.ROOT).startsWith("https://")) {
-                Toast.makeText(this, R.string.download_blocked, Toast.LENGTH_SHORT).show();
+            Uri downloadUri = parseUri(url);
+            if (!isAllowedDownloadUri(downloadUri)) {
+                Toast.makeText(this, R.string.download_blocked, Toast.LENGTH_LONG).show();
                 return;
             }
 
             try {
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-                request.addRequestHeader("User-Agent", userAgent == null ? "" : userAgent);
+                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                if (manager == null) {
+                    throw new IllegalStateException("Download service is unavailable.");
+                }
+
+                DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+                if (userAgent != null && !userAgent.trim().isEmpty()) {
+                    request.addRequestHeader("User-Agent", userAgent);
+                }
+
+                String cookie = CookieManager.getInstance().getCookie(downloadUri.toString());
+                if (cookie != null && !cookie.trim().isEmpty()) {
+                    request.addRequestHeader("Cookie", cookie);
+                }
+
+                String currentPage = webView == null ? null : webView.getUrl();
+                Uri currentPageUri = parseUri(currentPage);
+                if (isTrustedUri(currentPageUri)) {
+                    request.addRequestHeader("Referer", currentPageUri.toString());
+                }
+
+                if (mimeType != null && !mimeType.trim().isEmpty()) {
+                    request.setMimeType(mimeType);
+                }
                 request.setNotificationVisibility(
                         DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
                 );
                 request.setAllowedOverMetered(true);
                 request.setAllowedOverRoaming(false);
 
-                String fileName = android.webkit.URLUtil.guessFileName(url, contentDisposition, mimeType);
+                String fileName = URLUtil.guessFileName(url, contentDisposition, mimeType);
                 request.setTitle(fileName);
                 request.setDescription(getString(R.string.downloading_file));
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
 
-                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                manager.enqueue(request);
+                long downloadId = manager.enqueue(request);
+                if (downloadId <= 0) {
+                    throw new IllegalStateException("Download manager rejected the request.");
+                }
                 Toast.makeText(this, R.string.download_started, Toast.LENGTH_SHORT).show();
-            } catch (Exception error) {
-                openExternal(Uri.parse(url));
+            } catch (SecurityException | IllegalArgumentException | IllegalStateException error) {
+                Toast.makeText(this, R.string.download_failed, Toast.LENGTH_LONG).show();
             }
         };
     }
 
+    private Uri parseUri(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return null;
+        }
+        try {
+            return Uri.parse(value.trim());
+        } catch (Exception ignored) {
+            return null;
+        }
+    }
+
+    private boolean isAllowedDownloadUri(Uri uri) {
+        return isTrustedUri(uri);
+    }
+
     private boolean isTrustedUri(Uri uri) {
-        return uri != null
-                && "https".equalsIgnoreCase(uri.getScheme())
-                && TRUSTED_HOST.equalsIgnoreCase(uri.getHost());
+        if (uri == null || !"https".equalsIgnoreCase(uri.getScheme())) {
+            return false;
+        }
+        if (!TRUSTED_HOST.equalsIgnoreCase(uri.getHost()) || uri.getUserInfo() != null) {
+            return false;
+        }
+        int port = uri.getPort();
+        return port == -1 || port == 443;
     }
 
     private boolean handleUri(Uri uri) {
         if (uri == null) {
-            return false;
+            return true;
         }
 
         String scheme = uri.getScheme() == null ? "" : uri.getScheme().toLowerCase(Locale.ROOT);
         if (isTrustedUri(uri)) {
             return false;
+        }
+
+        if (APP_ACTION_SCHEME.equals(scheme)) {
+            String action = uri.getHost() == null ? "" : uri.getHost().toLowerCase(Locale.ROOT);
+            if ("retry".equals(action)) {
+                retryLastFailedUrl();
+            } else if ("home".equals(action)) {
+                webView.loadUrl(HOME_URL);
+            }
+            return true;
         }
 
         if ("http".equals(scheme) || "https".equals(scheme)
@@ -268,52 +375,131 @@ public class MainActivity extends ComponentActivity {
         }
 
         if ("intent".equals(scheme)) {
-            try {
-                Intent intent = Intent.parseUri(uri.toString(), Intent.URI_INTENT_SCHEME);
-                startActivity(intent);
-            } catch (Exception ignored) {
-                Toast.makeText(this, R.string.no_app_found, Toast.LENGTH_SHORT).show();
-            }
+            Toast.makeText(this, R.string.intent_link_blocked, Toast.LENGTH_LONG).show();
             return true;
         }
 
+        Toast.makeText(this, R.string.unsafe_page_blocked, Toast.LENGTH_SHORT).show();
         return true;
+    }
+
+    private void retryLastFailedUrl() {
+        String retryUrl = isTrustedUri(parseUri(lastFailedUrl)) ? lastFailedUrl : HOME_URL;
+        webView.loadUrl(retryUrl);
     }
 
     private void openExternal(Uri uri) {
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, uri));
-        } catch (ActivityNotFoundException error) {
+            Intent externalIntent = new Intent(Intent.ACTION_VIEW, uri);
+            externalIntent.addCategory(Intent.CATEGORY_BROWSABLE);
+            externalIntent.setComponent(null);
+            externalIntent.setSelector(null);
+            startActivity(externalIntent);
+        } catch (ActivityNotFoundException | SecurityException error) {
             Toast.makeText(this, R.string.no_app_found, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void showOfflinePage() {
-        webView.loadUrl("file:///android_asset/offline.html");
+    private boolean isNetworkError(int errorCode) {
+        return errorCode == WebViewClient.ERROR_HOST_LOOKUP
+                || errorCode == WebViewClient.ERROR_CONNECT
+                || errorCode == WebViewClient.ERROR_TIMEOUT
+                || errorCode == WebViewClient.ERROR_IO
+                || errorCode == WebViewClient.ERROR_PROXY_AUTHENTICATION;
+    }
+
+    private void showErrorPage(String failedUrl, boolean offline) {
+        Uri failedUri = parseUri(failedUrl);
+        if (isTrustedUri(failedUri)) {
+            lastFailedUrl = failedUri.toString();
+        }
+        hideLaunchOverlay();
+        String reason = offline ? "offline" : "error";
+        webView.loadUrl(ERROR_PAGE_URL + "?reason=" + reason);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (webView != null) {
+            webView.onResume();
+            webView.resumeTimers();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        if (webView != null) {
+            webView.onPause();
+            webView.pauseTimers();
+        }
+        super.onPause();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        webView.saveState(outState);
+        if (webView != null) {
+            webView.saveState(outState);
+        }
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mainHandler.removeCallbacksAndMessages(null);
+
+        if (fileChooserCallback != null) {
+            fileChooserCallback.onReceiveValue(null);
+            fileChooserCallback = null;
+        }
+
+        if (webView != null) {
+            webView.stopLoading();
+            webView.setDownloadListener(null);
+            webView.setWebChromeClient(null);
+            webView.setWebViewClient(null);
+            webView.loadUrl("about:blank");
+            webView.clearHistory();
+            ViewParent parent = webView.getParent();
+            if (parent instanceof ViewGroup) {
+                ((ViewGroup) parent).removeView(webView);
+            }
+            webView.removeAllViews();
+            webView.destroy();
+            webView = null;
+        }
+
+        super.onDestroy();
     }
 
     private final class HubWebViewClient extends WebViewClient {
         @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            return handleUri(parseUri(url));
+        }
+
+        @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            return handleUri(request.getUrl());
+            return handleUri(request == null ? null : request.getUrl());
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             progressBar.setVisibility(View.VISIBLE);
-            toolbarSubtitle.setText("Loading…");
+            toolbarSubtitle.setText(R.string.loading_page);
+        }
+
+        @Override
+        public void onPageCommitVisible(WebView view, String url) {
+            hideLaunchOverlay();
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
             progressBar.setVisibility(View.GONE);
-            markActiveNavigation(url);
+            if (isTrustedUri(parseUri(url))) {
+                markActiveNavigation(url);
+            }
             hideLaunchOverlay();
         }
 
@@ -323,8 +509,17 @@ public class MainActivity extends ComponentActivity {
                 WebResourceRequest request,
                 WebResourceError error
         ) {
-            if (request.isForMainFrame()) {
-                showOfflinePage();
+            if (request != null && request.isForMainFrame()) {
+                int errorCode = error == null ? WebViewClient.ERROR_UNKNOWN : error.getErrorCode();
+                showErrorPage(request.getUrl() == null ? HOME_URL : request.getUrl().toString(), isNetworkError(errorCode));
+            }
+        }
+
+        @SuppressWarnings("deprecation")
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                showErrorPage(failingUrl, isNetworkError(errorCode));
             }
         }
     }
@@ -338,7 +533,7 @@ public class MainActivity extends ComponentActivity {
 
         @Override
         public void onReceivedTitle(WebView view, String title) {
-            if (title == null || title.isBlank()) {
+            if (title == null || title.trim().isEmpty()) {
                 toolbarSubtitle.setText(R.string.app_subtitle);
                 return;
             }
@@ -365,7 +560,7 @@ public class MainActivity extends ComponentActivity {
             try {
                 fileChooserLauncher.launch(fileChooserParams.createIntent());
                 return true;
-            } catch (ActivityNotFoundException error) {
+            } catch (ActivityNotFoundException | SecurityException error) {
                 fileChooserCallback = null;
                 Toast.makeText(MainActivity.this, R.string.no_file_picker, Toast.LENGTH_SHORT).show();
                 return false;
