@@ -1,0 +1,54 @@
+name: Publish Android v1.0.1
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-android-v1.0.1.yml"
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download verified release artifact
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: 7657589096
+          path: android-release
+          github-token: ${{ github.token }}
+
+      - name: Publish APK and update metadata
+        run: |
+          set -euo pipefail
+          EXPECTED_SHA="e1696378f98ee60f1cbc7da654bd6f41cb2daf14c5147e1cd7f761afb3b274fd"
+          APK="android-release/Polytechnic-Study-Hub-v1.0.1.apk"
+          test -f "$APK"
+          test "$(sha256sum "$APK" | awk '{print $1}')" = "$EXPECTED_SHA"
+          cp "$APK" downloads/Polytechnic-Study-Hub-v1.0.1.apk
+          printf '%s  %s\n' "$EXPECTED_SHA" "Polytechnic-Study-Hub-v1.0.1.apk" > downloads/Polytechnic-Study-Hub-v1.0.1.sha256.txt
+          python tools/update_app_manifest.py
+          node --check assets/js/site-hardening.js
+          python -m json.tool downloads/app-update.json > /dev/null
+
+      - name: Commit public release files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/Polytechnic-Study-Hub-v1.0.1.apk downloads/Polytechnic-Study-Hub-v1.0.1.sha256.txt downloads/app-update.json index.html
+          if git diff --cached --quiet; then
+            echo "Release files are already published."
+            exit 0
+          fi
+          git commit -m "Publish Polytechnic Study Hub v1.0.1 [skip ci]"
+          git push
