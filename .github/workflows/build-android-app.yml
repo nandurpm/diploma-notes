@@ -6,10 +6,12 @@ on:
     branches: [main]
     paths:
       - "android-app/**"
+      - ".well-known/assetlinks.json"
       - ".github/workflows/build-android-app.yml"
   pull_request:
     paths:
       - "android-app/**"
+      - ".well-known/assetlinks.json"
       - ".github/workflows/build-android-app.yml"
 
 permissions:
@@ -35,28 +37,40 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Verify secure Android APIs
+      - name: Verify secure Android APIs and manifest
         run: |
           set -euo pipefail
           SOURCE="android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java"
+          MANIFEST="android-app/app/src/main/AndroidManifest.xml"
+
           ! grep -q "void onBackPressed" "$SOURCE"
           ! grep -q "startActivityForResult" "$SOURCE"
           ! grep -q "setDatabaseEnabled" "$SOURCE"
           ! grep -q "setAllowFileAccess(true)" "$SOURCE"
           ! grep -q "setAllowContentAccess(true)" "$SOURCE"
+          ! grep -q "Intent.parseUri" "$SOURCE"
+          grep -q "shouldOverrideUrlLoading(WebView view, String url)" "$SOURCE"
+          grep -q "shouldOverrideUrlLoading(WebView view, WebResourceRequest request)" "$SOURCE"
           grep -q "MIXED_CONTENT_NEVER_ALLOW" "$SOURCE"
-          grep -q "OnBackPressedCallback" "$SOURCE"
-          grep -q "ActivityResultLauncher" "$SOURCE"
-          grep -q "DrawerLayout" "$SOURCE"
+          grep -q "setAcceptThirdPartyCookies(webView, false)" "$SOURCE"
+          grep -q 'request.addRequestHeader("Cookie"' "$SOURCE"
+          grep -q "request.setMimeType" "$SOURCE"
+          grep -q "onNewIntent" "$SOURCE"
+          grep -q "onDestroy" "$SOURCE"
+          grep -q 'android:autoVerify="true"' "$MANIFEST"
+          grep -q 'android:allowBackup="false"' "$MANIFEST"
+          grep -q 'android:launchMode="singleTop"' "$MANIFEST"
+          ! grep -q "ACCESS_NETWORK_STATE" "$MANIFEST"
+          python -m json.tool .well-known/assetlinks.json > /dev/null
 
-      - name: Build release validation APK
+      - name: Build clean release validation APK
         working-directory: android-app
         run: |
           set -o pipefail
           mkdir -p release-output
-          gradle --no-daemon :app:clean :app:assembleRelease --stacktrace 2>&1 | tee release-output/gradle-build.log
+          gradle --no-daemon --refresh-dependencies :app:clean :app:assembleRelease --stacktrace 2>&1 | tee release-output/gradle-build.log
 
-      - name: Verify release manifest
+      - name: Verify release manifest and metadata
         run: |
           set -euo pipefail
           APK="android-app/app/build/outputs/apk/release/app-release-unsigned.apk"
@@ -69,6 +83,23 @@ jobs:
           fi
           test -n "$APKANALYZER"
           test "$("$APKANALYZER" manifest debuggable "$APK" | tr -d '\r\n')" = "false"
+
+          python - "$APK" <<'PY'
+          import re
+          import sys
+          import zipfile
+
+          apk = sys.argv[1]
+          malformed = []
+          with zipfile.ZipFile(apk) as archive:
+              for name in archive.namelist():
+                  if re.fullmatch(r"META-INF/androidx\..+\.version", name):
+                      value = archive.read(name).decode("utf-8", "replace").strip()
+                      if value and not re.fullmatch(r"\d+(?:\.\d+){1,3}(?:[-+][A-Za-z0-9._-]+)?", value):
+                          malformed.append(f"{name}: {value}")
+          if malformed:
+              raise SystemExit("Malformed AndroidX version metadata:\n" + "\n".join(malformed))
+          PY
 
           cp "$APK" "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk"
           sha256sum "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk" > "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.sha256.txt"
