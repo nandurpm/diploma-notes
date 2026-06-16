@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260616-links1";
+  const ASSET_VERSION = "20260616-links2";
 
   function rootPrefix() {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -10,12 +10,7 @@
 
   function shouldSkipAssistant() {
     const pathname = window.location.pathname;
-    if (
-      pathname.startsWith("/lessons/") ||
-      pathname === "/contact.html"
-    ) {
-      return true;
-    }
+    if (pathname.startsWith("/lessons/") || pathname === "/contact.html") return true;
     return [
       "/about.html",
       "/privacy.html",
@@ -80,5 +75,6 @@
     await loadScript(prefix, "assets/js/ask-poly-config.js");
     await loadScript(prefix, "assets/js/ask-poly-remote.js");
     await loadScript(prefix, "assets/js/ask-poly-general-ai-extension.js");
+    await loadScript(prefix, "assets/js/ask-poly-rich-renderer.js");
   });
 })();
