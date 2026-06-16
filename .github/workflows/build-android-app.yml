@@ -103,7 +103,10 @@ jobs:
 
       - name: Build signed release APK
         working-directory: android-app
-        run: gradle --no-daemon :app:clean :app:assembleRelease
+        run: |
+          set -o pipefail
+          mkdir -p release-output
+          gradle --no-daemon :app:clean :app:assembleRelease --stacktrace 2>&1 | tee release-output/gradle-build.log
 
       - name: Verify release APK
         run: |
@@ -126,7 +129,8 @@ jobs:
           cp "$APK" "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.1.apk"
           sha256sum "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.1.apk" > "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.1.sha256.txt"
 
-      - name: Upload signed release bundle
+      - name: Upload release bundle and diagnostics
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: polytechnic-study-hub-v1.0.1-release-bundle
