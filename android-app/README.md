@@ -13,7 +13,7 @@ https://polypmna.dpdns.org/
 
 Version 1.0.1 replaces the original debug-distributed build with a signed release build and fixes the audited WebView and Android API issues:
 
-- Release builds are explicitly non-debuggable.
+- Release builds are explicitly non-debuggable through the release build type.
 - Back navigation uses `OnBackPressedDispatcher` and `OnBackPressedCallback`.
 - Mixed content is blocked with `MIXED_CONTENT_NEVER_ALLOW`.
 - WebView file and content access are disabled.
