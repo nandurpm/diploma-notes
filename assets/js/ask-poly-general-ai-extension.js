@@ -159,7 +159,8 @@
     form.addEventListener("submit", async (event) => {
       if (form.dataset.remoteBypass === "true") return;
       const query = clean(input.value);
-      if (!query || shouldStayLocal(query) || !globalThis.AskPolyRemote?.isConfigured?.()) return;
+      const configuredNow = Boolean(globalThis.AskPolyRemote?.isConfigured?.());
+      if (!query || !configuredNow) return;
 
       event.preventDefault();
       event.stopImmediatePropagation();
