@@ -1,0 +1,10 @@
+name = "ask-poly-ai"
+main = "src/index.js"
+compatibility_date = "2026-06-16"
+workers_dev = true
+
+[vars]
+OPENAI_MODEL = "gpt-5.4-mini"
+REASONING_EFFORT = "low"
+MAX_OUTPUT_TOKENS = "1400"
+ALLOWED_ORIGINS = "https://polypmna.dpdns.org,http://localhost:8000,http://127.0.0.1:8000"
