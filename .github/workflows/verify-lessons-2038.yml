@@ -1,0 +1,30 @@
+name: Verify lessons-2038 from uploaded syllabus
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verify-lessons-2038.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Apply syllabus verification note
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('lessons/lessons-2038.html')
+          s = p.read_text(encoding='utf-8')
+          old = 'The official syllabus specifies basic CAD tools, at least six CAD figures, at least four isometric figures, at least two complete two-dimensional figures, two three-hour lab examinations and a 15-mark open-ended group activity. Every one of those requirements is built into this handbook.'</nPY
