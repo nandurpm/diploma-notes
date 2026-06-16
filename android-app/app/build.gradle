@@ -18,6 +18,19 @@ android {
         buildConfig true
     }
 
+    packaging {
+        resources {
+            pickFirsts += [
+                'META-INF/androidx.arch.core_core-runtime.version',
+                'META-INF/androidx.drawerlayout_drawerlayout.version',
+                'META-INF/androidx.lifecycle_lifecycle-livedata-core.version',
+                'META-INF/androidx.lifecycle_lifecycle-runtime.version',
+                'META-INF/androidx.lifecycle_lifecycle-viewmodel-savedstate.version',
+                'META-INF/androidx.lifecycle_lifecycle-viewmodel.version'
+            ]
+        }
+    }
+
     buildTypes {
         debug {
             debuggable true
