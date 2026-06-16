@@ -1,0 +1,79 @@
+name: Publish Android v1.0.2
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-android-v1.0.2.yml"
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download verified signed APK
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: 7658690171
+          path: signed-release
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 27597823438
+
+      - name: Publish app and update metadata
+        run: |
+          set -euo pipefail
+          APK="$(find signed-release -type f -name Polytechnic-Study-Hub-v1.0.2.apk | head -n 1)"
+          test -f "$APK"
+          cp "$APK" downloads/Polytechnic-Study-Hub-v1.0.2.apk
+          sha256sum downloads/Polytechnic-Study-Hub-v1.0.2.apk > downloads/Polytechnic-Study-Hub-v1.0.2.sha256.txt
+          python tools/update_app_manifest.py
+
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("downloads/app-update.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          data.update({
+              "versionCode": 3,
+              "versionName": "1.0.2",
+              "forceUpdate": False,
+              "title": "A redesigned Polytechnic Study Hub app is available",
+              "message": "Update for a polished launch screen, native app bar and faster access to every study section.",
+              "releaseNotes": [
+                  "Attractive branded opening screen instead of a blank white screen.",
+                  "Native top app bar with menu and refresh controls.",
+                  "Slide-out navigation for lessons, materials, syllabus and question papers.",
+                  "Active menu highlighting and improved loading feedback.",
+                  "All v1.0.1 security fixes remain enabled."
+              ]
+          })
+          path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+          PY
+
+          python -m json.tool downloads/app-update.json > /dev/null
+          node --check assets/js/site-hardening.js
+
+      - name: Commit website release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/Polytechnic-Study-Hub-v1.0.2.apk downloads/Polytechnic-Study-Hub-v1.0.2.sha256.txt downloads/app-update.json index.html
+          if git diff --cached --quiet; then
+            echo "Android v1.0.2 is already published."
+            exit 0
+          fi
+          git commit -m "Publish Polytechnic Study Hub v1.0.2 [skip ci]"
+          git push origin HEAD:main
