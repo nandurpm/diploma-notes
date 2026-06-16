@@ -77,37 +77,57 @@ jobs:
             "$UNSIGNED"
 
           "$SIGNER" verify --verbose --print-certs "$OUTPUT" | tee "$OUTPUT_DIR/signature-report.txt"
-          CERT_SHA="$(grep 'Signer #1 certificate SHA-256 digest:' "$OUTPUT_DIR/signature-report.txt" | awk -F': ' '{print tolower($2)}')"
-          test "$CERT_SHA" = "5a967a8bc71710e34ecd4ec3679fc483c43f252b945b29770c18ac80719e8432"
 
           APKANALYZER="$(command -v apkanalyzer || true)"
           if [ -z "$APKANALYZER" ]; then
             APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
           fi
           test -n "$APKANALYZER"
-          test "$("$APKANALYZER" manifest debuggable "$OUTPUT" | tr -d '\r\n')" = "false"
-          test "$("$APKANALYZER" manifest version-name "$OUTPUT" | tr -d '\r\n')" = "1.0.3"
-          test "$("$APKANALYZER" manifest version-code "$OUTPUT" | tr -d '\r\n')" = "4"
 
-          python - "$OUTPUT" <<'PY'
+          CERT_SHA="$(grep 'Signer #1 certificate SHA-256 digest:' "$OUTPUT_DIR/signature-report.txt" | awk -F': ' '{print tolower($2)}')"
+          DEBUGGABLE="$("$APKANALYZER" manifest debuggable "$OUTPUT" | tr -d '\r\n')"
+          VERSION_NAME="$("$APKANALYZER" manifest version-name "$OUTPUT" | tr -d '\r\n')"
+          VERSION_CODE="$("$APKANALYZER" manifest version-code "$OUTPUT" | tr -d '\r\n')"
+
+          {
+            echo "certificate_sha256=$CERT_SHA"
+            echo "debuggable=$DEBUGGABLE"
+            echo "version_name=$VERSION_NAME"
+            echo "version_code=$VERSION_CODE"
+          } > "$OUTPUT_DIR/release-verification.txt"
+
+          STATUS=0
+          test "$CERT_SHA" = "5a967a8bc71710e34ecd4ec3679fc483c43f252b945b29770c18ac80719e8432" || STATUS=1
+          test "$DEBUGGABLE" = "false" || STATUS=1
+          test "$VERSION_NAME" = "1.0.3" || STATUS=1
+          test "$VERSION_CODE" = "4" || STATUS=1
+
+          python - "$OUTPUT" "$OUTPUT_DIR/androidx-version-metadata.txt" <<'PY' || STATUS=1
           import re
           import sys
           import zipfile
 
+          apk, report = sys.argv[1:3]
+          entries = []
           malformed = []
-          with zipfile.ZipFile(sys.argv[1]) as archive:
+          with zipfile.ZipFile(apk) as archive:
               for name in archive.namelist():
                   if re.fullmatch(r"META-INF/androidx\..+\.version", name):
                       value = archive.read(name).decode("utf-8", "replace").strip()
+                      entries.append(f"{name}: {value}")
                       if value and not re.fullmatch(r"\d+(?:\.\d+){1,3}(?:[-+][A-Za-z0-9._-]+)?", value):
                           malformed.append(f"{name}: {value}")
+          with open(report, "w", encoding="utf-8") as handle:
+              handle.write("\n".join(entries) + "\n")
           if malformed:
               raise SystemExit("Malformed AndroidX metadata:\n" + "\n".join(malformed))
           PY
 
           sha256sum "$OUTPUT" > "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.3.sha256.txt"
+          exit "$STATUS"
 
-      - name: Upload signed release
+      - name: Upload signed release and diagnostics
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: polytechnic-study-hub-v1.0.3-signed
