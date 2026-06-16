@@ -6,20 +6,29 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TARGET = ROOT / "assets/js/subject-browser.js"
+BROWSER_TARGET = ROOT / "assets/js/subject-browser.js"
+MANIFEST_TARGET = ROOT / "assets/js/asset-manifest.js"
 
 ASSET_SPECS = (
     (
         "LESSON_CODES",
         ROOT / "lessons",
-        re.compile(r"^lessons-(?P<code>\d+)\.html$", re.IGNORECASE),
+        re.compile(r"^lessons-(?P<code>[A-Za-z0-9-]+)\.html$", re.IGNORECASE),
     ),
     (
         "NOTES_CODES",
         ROOT / "notes",
-        re.compile(r"^downloadable-notes-(?P<code>\d+)\.pdf$", re.IGNORECASE),
+        re.compile(r"^downloadable-notes-(?P<code>[A-Za-z0-9-]+)\.pdf$", re.IGNORECASE),
     ),
 )
+
+
+def natural_key(value: str) -> tuple[object, ...]:
+    return tuple(
+        int(part) if part.isdigit() else part.casefold()
+        for part in re.split(r"(\d+)", value)
+        if part
+    )
 
 
 def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[str]:
@@ -34,7 +43,7 @@ def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[st
         if match:
             codes.add(match.group("code"))
 
-    return sorted(codes, key=lambda code: int(code))
+    return sorted(codes, key=natural_key)
 
 
 def replace_set(source: str, name: str, codes: list[str]) -> str:
@@ -49,29 +58,40 @@ def replace_set(source: str, name: str, codes: list[str]) -> str:
     updated, count = pattern.subn(replacement, source, count=1)
     if count != 1:
         raise RuntimeError(
-            f"Could not find exactly one {name} declaration in {TARGET.relative_to(ROOT)}"
+            f"Could not find exactly one {name} declaration in {BROWSER_TARGET.relative_to(ROOT)}"
         )
     return updated
 
 
-def updated_source(path: Path, manifests: dict[str, list[str]]) -> str:
+def updated_browser_source(path: Path, manifests: dict[str, list[str]]) -> str:
     source = path.read_text(encoding="utf-8")
     for name, codes in manifests.items():
         source = replace_set(source, name, codes)
     return source
 
 
+def generated_manifest_source(manifests: dict[str, list[str]]) -> str:
+    lesson_codes = json.dumps(manifests["LESSON_CODES"], ensure_ascii=False, separators=(",", ":"))
+    notes_codes = json.dumps(manifests["NOTES_CODES"], ensure_ascii=False, separators=(",", ":"))
+    return (
+        "globalThis.POLY_ASSET_MANIFEST = Object.freeze({\n"
+        f"  lessonCodes: Object.freeze({lesson_codes}),\n"
+        f"  notesCodes: Object.freeze({notes_codes})\n"
+        "});\n"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Synchronize lesson and notes availability in subject-browser.js "
-            "with files currently present in the repository."
+            "Synchronize lesson and notes availability in subject-browser.js and "
+            "asset-manifest.js with files currently present in the repository."
         )
     )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Fail when the generated code lists differ from subject-browser.js.",
+        help="Fail when either generated availability file is stale.",
     )
     args = parser.parse_args()
 
@@ -80,18 +100,30 @@ def main() -> int:
         for name, directory, filename_pattern in ASSET_SPECS
     }
 
-    updated = updated_source(TARGET, manifests)
-    current = TARGET.read_text(encoding="utf-8")
-    stale = updated != current
+    browser_updated = updated_browser_source(BROWSER_TARGET, manifests)
+    manifest_updated = generated_manifest_source(manifests)
+    browser_stale = browser_updated != BROWSER_TARGET.read_text(encoding="utf-8")
+    manifest_stale = (
+        not MANIFEST_TARGET.exists()
+        or manifest_updated != MANIFEST_TARGET.read_text(encoding="utf-8")
+    )
 
-    if stale and not args.check:
-        TARGET.write_text(updated, encoding="utf-8")
+    if not args.check:
+        if browser_stale:
+            BROWSER_TARGET.write_text(browser_updated, encoding="utf-8")
+        if manifest_stale:
+            MANIFEST_TARGET.write_text(manifest_updated, encoding="utf-8")
 
     lesson_count = len(manifests["LESSON_CODES"])
     notes_count = len(manifests["NOTES_CODES"])
 
-    if args.check and stale:
-        print(f"Asset availability manifest is stale in: {TARGET.relative_to(ROOT)}")
+    if args.check and (browser_stale or manifest_stale):
+        stale_files = []
+        if browser_stale:
+            stale_files.append(str(BROWSER_TARGET.relative_to(ROOT)))
+        if manifest_stale:
+            stale_files.append(str(MANIFEST_TARGET.relative_to(ROOT)))
+        print(f"Asset availability is stale in: {', '.join(stale_files)}")
         print(f"Detected {lesson_count} lesson pages and {notes_count} notes PDFs.")
         return 1
 
