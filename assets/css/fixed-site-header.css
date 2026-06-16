@@ -4,6 +4,22 @@
   --fixed-site-header-gap: 10px;
 }
 
+/* The Android app already provides its own toolbar and navigation drawer. */
+html.polytechnic-native-app {
+  --fixed-site-header-height: 0px !important;
+  --fixed-site-header-gap: 0px !important;
+  scroll-padding-top: 0 !important;
+}
+
+html.polytechnic-native-app .topbar,
+html.polytechnic-native-app .skip-link {
+  display: none !important;
+}
+
+html.polytechnic-native-app body.has-fixed-site-header {
+  padding-top: 0 !important;
+}
+
 .topbar {
   position: fixed !important;
   inset: 0 0 auto 0 !important;
