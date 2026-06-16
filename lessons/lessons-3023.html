@@ -46,4 +46,8 @@
 const bar=document.getElementById('progress');addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
 const search=document.getElementById('search');search&&search.addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('main section').forEach(s=>{s.style.outline=q&&s.innerText.toLowerCase().includes(q)?'3px solid #e8871e':'none'})});
 document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('main section').forEach(s=>s.style.outline='none')}));
-</script></body></html>
+</script>
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
+</body></html>
