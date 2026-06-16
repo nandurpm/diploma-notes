@@ -48,23 +48,29 @@ jobs:
           set -euo pipefail
           UNSIGNED="android-app/app/build/outputs/apk/release/app-release-unsigned.apk"
           OUTPUT="android-app/release-output/Polytechnic-Study-Hub-v1.0.2.apk"
-          META="previous-release/KEEP-PRIVATE-signing-credentials.txt"
-          STORE="previous-release/KEEP-PRIVATE-Polytechnic-Study-Hub-release-key.jks"
+          META="$(find previous-release -type f -name KEEP-PRIVATE-signing-credentials.txt | head -n 1)"
+          STORE="$(find previous-release -type f -name KEEP-PRIVATE-Polytechnic-Study-Hub-release-key.jks | head -n 1)"
           mkdir -p android-app/release-output
+
+          test -f "$UNSIGNED"
+          test -f "$META"
+          test -f "$STORE"
 
           mapfile -t VALUES < <(awk -F': ' 'NF > 1 {print $2}' "$META")
           FIRST="${VALUES[1]}"
           ALIAS="${VALUES[2]}"
           SECOND="${VALUES[3]}"
           SIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
-
-          test -f "$UNSIGNED"
-          test -f "$STORE"
           test -n "$SIGNER"
+
           "$SIGNER" sign --ks "$STORE" --ks-pass "pass:$FIRST" --ks-key-alias "$ALIAS" --key-pass "pass:$SECOND" --out "$OUTPUT" "$UNSIGNED"
           "$SIGNER" verify --verbose --print-certs "$OUTPUT"
 
-          APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
+          APKANALYZER="$(command -v apkanalyzer || true)"
+          if [ -z "$APKANALYZER" ]; then
+            APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
+          fi
+          test -n "$APKANALYZER"
           test "$("$APKANALYZER" manifest debuggable "$OUTPUT" | tr -d '\r\n')" = "false"
           sha256sum "$OUTPUT" > android-app/release-output/Polytechnic-Study-Hub-v1.0.2.sha256.txt
 
