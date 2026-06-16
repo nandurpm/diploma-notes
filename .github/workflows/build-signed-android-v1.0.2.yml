@@ -1,0 +1,77 @@
+name: Build signed Android v1.0.2
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "android-app/**"
+      - ".github/workflows/build-signed-android-v1.0.2.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Download preserved release identity
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: 7657589096
+          path: previous-release
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 27594595899
+
+      - name: Build unsigned release
+        working-directory: android-app
+        run: gradle --no-daemon :app:clean :app:assembleRelease
+
+      - name: Sign and verify release
+        run: |
+          set -euo pipefail
+          UNSIGNED="android-app/app/build/outputs/apk/release/app-release-unsigned.apk"
+          OUTPUT="android-app/release-output/Polytechnic-Study-Hub-v1.0.2.apk"
+          META="previous-release/KEEP-PRIVATE-signing-credentials.txt"
+          STORE="previous-release/KEEP-PRIVATE-Polytechnic-Study-Hub-release-key.jks"
+          mkdir -p android-app/release-output
+
+          mapfile -t VALUES < <(awk -F': ' 'NF > 1 {print $2}' "$META")
+          FIRST="${VALUES[1]}"
+          ALIAS="${VALUES[2]}"
+          SECOND="${VALUES[3]}"
+          SIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+
+          test -f "$UNSIGNED"
+          test -f "$STORE"
+          test -n "$SIGNER"
+          "$SIGNER" sign --ks "$STORE" --ks-pass "pass:$FIRST" --ks-key-alias "$ALIAS" --key-pass "pass:$SECOND" --out "$OUTPUT" "$UNSIGNED"
+          "$SIGNER" verify --verbose --print-certs "$OUTPUT"
+
+          APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
+          test "$("$APKANALYZER" manifest debuggable "$OUTPUT" | tr -d '\r\n')" = "false"
+          sha256sum "$OUTPUT" > android-app/release-output/Polytechnic-Study-Hub-v1.0.2.sha256.txt
+
+      - name: Upload signed release
+        uses: actions/upload-artifact@v4
+        with:
+          name: polytechnic-study-hub-v1.0.2-signed
+          path: android-app/release-output/
+          if-no-files-found: error
+          retention-days: 14
