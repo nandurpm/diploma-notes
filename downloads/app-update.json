@@ -1,18 +1,19 @@
 {
   "schemaVersion": 1,
-  "versionCode": 3,
-  "versionName": "1.0.2",
-  "apkUrl": "/downloads/Polytechnic-Study-Hub-v1.0.2.apk",
-  "sha256": "827476cda0d43f55b7deb0e082fceba63bf820e9206b17fe308727be6b927304",
+  "versionCode": 4,
+  "versionName": "1.0.3",
+  "apkUrl": "/downloads/Polytechnic-Study-Hub-v1.0.3.apk",
+  "sha256": "8229523c702766901925da73cb9bc7224c94f99efcd4d542373cae1be98b40a5",
   "publishedAt": "2026-06-16",
   "forceUpdate": false,
-  "title": "A redesigned Polytechnic Study Hub app is available",
-  "message": "Update for a polished launch screen, native app bar and faster access to every study section.",
+  "title": "Polytechnic Study Hub 1.0.3 security update",
+  "message": "Update for safer links and downloads, Android 6 compatibility, verified website links and improved offline recovery.",
   "releaseNotes": [
-    "Attractive branded opening screen instead of a blank white screen.",
-    "Native top app bar with menu and refresh controls.",
-    "Slide-out navigation for lessons, materials, syllabus and question papers.",
-    "Active menu highlighting and improved loading feedback.",
-    "All v1.0.1 security fixes remain enabled."
+    "Fixed external and special-link handling on Android 6.",
+    "Blocked unsafe intent links and restricted downloads to the trusted website.",
+    "Forwarded session cookies and file type information for reliable downloads.",
+    "Disabled third-party cookies and application-data backup.",
+    "Added verified website deep links and improved offline retry.",
+    "Improved WebView lifecycle cleanup and dependency metadata."
   ]
 }
