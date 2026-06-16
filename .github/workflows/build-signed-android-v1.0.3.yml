@@ -84,7 +84,7 @@ jobs:
           fi
           test -n "$APKANALYZER"
 
-          CERT_SHA="$(grep 'Signer #1 certificate SHA-256 digest:' "$OUTPUT_DIR/signature-report.txt" | awk -F': ' '{print tolower($2)}')"
+          CERT_SHA="$(grep -m1 'certificate SHA-256 digest:' "$OUTPUT_DIR/signature-report.txt" | sed 's/.*: //' | tr '[:upper:]' '[:lower:]')"
           DEBUGGABLE="$("$APKANALYZER" manifest debuggable "$OUTPUT" | tr -d '\r\n')"
           VERSION_NAME="$("$APKANALYZER" manifest version-name "$OUTPUT" | tr -d '\r\n')"
           VERSION_CODE="$("$APKANALYZER" manifest version-code "$OUTPUT" | tr -d '\r\n')"
