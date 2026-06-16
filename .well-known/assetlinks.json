@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.diplomanotes.polytechnicstudyhub",
+      "sha256_cert_fingerprints": [
+        "5A:96:7A:8B:C7:17:10:E3:4E:CD:4E:C3:67:9F:C4:83:C4:3F:25:2B:94:5B:29:77:0C:18:AC:80:71:9E:84:32"
+      ]
+    }
+  }
+]
