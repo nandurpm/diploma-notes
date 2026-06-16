@@ -1,0 +1,250 @@
+name: Apply Ask POLY general AI integration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/apply-ask-poly-general-ai.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-test:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Connect Ask POLY UI to secure AI backend
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('assets/js/site-assistant.js')
+          source = path.read_text(encoding='utf-8')
+          source = source.replace('const ASSISTANT_VERSION = "3.0";', 'const ASSISTANT_VERSION = "4.0";', 1)
+          source = source.replace('text: IS_LESSON_PAGE ? "Lesson doubt helper" : "Subject finder"', 'text: "Study & general AI"', 1)
+          source = source.replace('text: IS_LESSON_PAGE ? "Answers from this lesson" : "Local website assistant"', 'text: IS_LESSON_PAGE ? "Lesson context + general AI" : "Student learning assistant"', 1)
+          source = source.replace('placeholder: IS_LESSON_PAGE ? "Ask a doubt from this lesson…" : "Type subject code, name or department…"', 'placeholder: IS_LESSON_PAGE ? "Ask lesson, maths, coding or general doubt…" : "Ask maths, coding, grammar, current affairs…"', 1)
+
+          insert_marker = '''  function runQuery(rawValue, options = {}) {'''
+          remote_helpers = r'''  function isExplicitSubjectLookup(query, subjects) {
+    const normalizedQuery = normalize(query);
+    if (/^[A-Za-z]*\d+[A-Za-z]*$/.test(cleanText(query))) return true;
+    if (/\b(subject|lesson|syllabus|notes|semester|department|model qp|question paper)\b/i.test(query)) return true;
+    return subjects.some((subject) => normalize(subject.name) === normalizedQuery || normalize(subject.department) === normalizedQuery);
+  }
+
+  function remotePageContext() {
+    if (IS_LESSON_PAGE) {
+      return lessonChunks
+        .slice(0, 70)
+        .map((chunk) => `[${chunk.title}] ${chunk.text}`)
+        .join("\n")
+        .slice(0, 12000);
+    }
+    const main = document.querySelector("main") || document.body;
+    return cleanText(main?.innerText || "").slice(0, 8000);
+  }
+
+  function renderRemoteCitations(citations) {
+    if (!Array.isArray(citations) || !citations.length) return;
+    const container = createElement("div", { className: "poly-ai-sources" });
+    citations.slice(0, 6).forEach((citation, index) => {
+      const card = createElement("article", { className: "poly-ai-source" });
+      card.append(
+        createElement("strong", { text: `Web source ${index + 1}` }),
+        createElement("p", { text: citation.title || citation.url || "Source" })
+      );
+      const links = createElement("div", { className: "poly-ai-links" });
+      addLink(links, "Open source", citation.url);
+      card.append(links);
+      container.append(card);
+    });
+    messageBody.append(container);
+    messageBody.scrollTop = messageBody.scrollHeight;
+  }
+
+  async function askGeneralAI(query) {
+    if (!globalThis.AskPolyRemote?.isConfigured?.()) return null;
+    status.textContent = "Ask POLY AI is thinking…";
+    sendButton.disabled = true;
+    input.disabled = true;
+    try {
+      return await globalThis.AskPolyRemote.ask({
+        message: query,
+        history: history.slice(-13, -1),
+        pageTitle: document.title,
+        pageUrl: window.location.href,
+        selectedText: selectedLessonText,
+        pageContext: remotePageContext()
+      });
+    } catch (error) {
+      console.error("Ask POLY remote AI failed.", error);
+      status.textContent = error?.status === 429
+        ? "Question limit reached temporarily; using local assistant"
+        : "Online AI unavailable; using local assistant";
+      return null;
+    } finally {
+      sendButton.disabled = false;
+      input.disabled = false;
+    }
+  }
+
+'''
+          if insert_marker not in source:
+              raise SystemExit('Could not find runQuery insertion point')
+          source = source.replace(insert_marker, remote_helpers + insert_marker, 1)
+
+          new_run_query = r'''  async function runQuery(rawValue, options = {}) {
+    const query = cleanText(rawValue);
+    if (!query) return;
+    if (!options.silentUser) addMessage("user", query);
+
+    if (looksLikeGeneralHelp(query)) {
+      lastAnswer = globalThis.AskPolyRemote?.isConfigured?.()
+        ? "Ask me mathematics, limits, trigonometry, chemistry, grammar, electrical or electronics questions, HTML/programming, computer topics, important days, current affairs, or a doubt from the current lesson."
+        : (IS_LESSON_PAGE
+          ? "Ask a doubt from this lesson, request formulas or exam questions, or search a subject. General AI will become available after the secure backend is configured."
+          : "Search subjects and available lessons. General AI will become available after the secure backend is configured.");
+      addMessage("bot", lastAnswer);
+      updateStatus();
+      return;
+    }
+
+    const lessonResult = answerFromLesson(query);
+    const subjects = searchSubjects(query);
+
+    if (!lessonResult && subjects.length && isExplicitSubjectLookup(query, subjects)) {
+      const first = subjects[0];
+      lastAnswer = first.lessonAvailable
+        ? `${first.code} is ${first.name}. Its lesson is available.`
+        : `${first.code} is ${first.name}. The lesson is not available yet.`;
+      addMessage("bot", lastAnswer);
+      renderSubjectResults(subjects);
+      status.textContent = `${subjects.length} subject result${subjects.length === 1 ? "" : "s"}`;
+      return;
+    }
+
+    const remoteResult = await askGeneralAI(query);
+    if (remoteResult?.answer) {
+      lastAnswer = remoteResult.answer;
+      addMessage("bot", lastAnswer);
+      renderRemoteCitations(remoteResult.citations);
+      if (lessonResult) addSources(lessonResult.sources);
+      status.textContent = remoteResult.usedWeb
+        ? "Answered with current web sources"
+        : `Answered by Ask POLY AI${remoteResult.model ? ` • ${remoteResult.model}` : ""}`;
+      return;
+    }
+
+    if (lessonResult) {
+      lastAnswer = lessonResult.answer;
+      addMessage("bot", lastAnswer);
+      addSources(lessonResult.sources);
+      status.textContent = `Answered locally from ${lessonResult.sources.length} lesson source${lessonResult.sources.length === 1 ? "" : "s"}`;
+      return;
+    }
+
+    if (subjects.length) {
+      const first = subjects[0];
+      lastAnswer = first.lessonAvailable
+        ? `${first.code} is ${first.name}. Its lesson is available.`
+        : `${first.code} is ${first.name}. The lesson is not available yet.`;
+      addMessage("bot", lastAnswer);
+      renderSubjectResults(subjects);
+      status.textContent = `${subjects.length} subject result${subjects.length === 1 ? "" : "s"}`;
+      return;
+    }
+
+    lastAnswer = IS_LESSON_PAGE
+      ? "I could not find that answer in this lesson, and the online AI is not connected right now. Try the exact technical term or configure the secure AI backend."
+      : "No matching local record was found, and the online AI is not connected right now.";
+    addMessage("bot", lastAnswer);
+    status.textContent = "No matching answer available";
+  }'''
+          source, count = re.subn(
+              r'  function runQuery\(rawValue, options = \{\}\) \{.*?^  \}',
+              new_run_query,
+              source,
+              count=1,
+              flags=re.S | re.M,
+          )
+          if count != 1:
+              raise SystemExit('Could not replace runQuery')
+
+          source = source.replace(
+              ''': ["1001", "3041", "Electronics Engineering", "Available lessons"];''',
+              ''': ["Solve a maths question", "Check grammar", "Create an HTML page", "Latest current affairs"];''',
+              1,
+          )
+          source = source.replace(
+              '''          "Current module"''',
+              '''          "Current module",
+          "Solve a maths question",
+          "Check grammar",
+          "Latest current affairs"''',
+              1,
+          )
+
+          bootstrap_old = '''      loadScriptOnce("/assets/js/subjects.js", () => getSubjects().length > 0),
+      loadScriptOnce("/assets/js/asset-manifest.js", () => Boolean(globalThis.POLY_ASSET_MANIFEST))'''
+          bootstrap_new = '''      loadScriptOnce("/assets/js/subjects.js", () => getSubjects().length > 0),
+      loadScriptOnce("/assets/js/asset-manifest.js", () => Boolean(globalThis.POLY_ASSET_MANIFEST)),
+      loadScriptOnce("/assets/js/ask-poly-config.js", () => Boolean(globalThis.ASK_POLY_CONFIG)),
+      loadScriptOnce("/assets/js/ask-poly-remote.js", () => Boolean(globalThis.AskPolyRemote))'''
+          if bootstrap_old not in source:
+              raise SystemExit('Could not find bootstrap script list')
+          source = source.replace(bootstrap_old, bootstrap_new, 1)
+
+          source = source.replace(
+              '''          ? `Hi! I have indexed ${lessonChunks.length} sections from ${lessonTitle || "this lesson"}. Ask a doubt, request formulas or exam questions, or select text and ask me to explain it.`
+          : "Hi! Search a subject code, name, department or semester. Lesson and notes availability updates from the repository automatically."''',
+              '''          ? `Hi! I have indexed ${lessonChunks.length} sections from ${lessonTitle || "this lesson"}. Ask a lesson doubt or a general maths, science, grammar, coding, electronics or current-affairs question.`
+          : "Hi! Ask maths, science, grammar, coding, electronics, computer or current-affairs questions, or search a subject code and available lesson."''',
+              1,
+          )
+
+          path.write_text(source, encoding='utf-8')
+          PY
+
+          node --check assets/js/site-assistant.js
+          node --check assets/js/ask-poly-config.js
+          node --check assets/js/ask-poly-remote.js
+          grep -q 'async function askGeneralAI' assets/js/site-assistant.js
+          grep -q 'Latest current affairs' assets/js/site-assistant.js
+          grep -q 'ask-poly-remote.js' assets/js/site-assistant.js
+
+      - name: Test local fallback and remote client syntax
+        run: |
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/lessons/lessons-3041.html >/dev/null && break
+            sleep 1
+          done
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=12000 --dump-dom 'http://127.0.0.1:8000/lessons/lessons-3041.html?ask=What%20is%20resonance' >/tmp/lesson.dom 2>/tmp/chrome.log
+          python - <<'PY'
+          from pathlib import Path
+          html = Path('/tmp/lesson.dom').read_text(encoding='utf-8')
+          for marker in ['Study &amp; general AI', 'Based on this lesson:', 'Open source section']:
+              if marker not in html:
+                  raise SystemExit(f'Missing browser marker: {marker}')
+          print('Ask POLY local fallback remains functional.')
+          PY
+
+      - name: Commit integration
+        run: |
+          rm .github/workflows/apply-ask-poly-general-ai.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Connect Ask POLY to secure general AI backend"
+          git push origin HEAD:main
