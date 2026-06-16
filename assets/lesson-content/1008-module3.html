@@ -1,0 +1,173 @@
+<section id="m3" class="panel">
+<div class="module-hero"><span class="module-code">CO3 • M3.01 • 5L • Applying</span><h2>Module 3 — Algorithms and Flowcharts</h2><p>Analyse a problem, state input and output, design a finite solution and trace sequence, selection and iteration before writing code.</p></div>
+<section class="section"><div class="section-head"><h2>Problem-solving foundation</h2><p>A good solution begins before programming. Clarify the task, inputs, outputs, restrictions and test cases, then write and verify an algorithm.</p></div>
+<div class="grid"><article class="card third blue"><h3>Problem definition</h3><p>State what must be calculated or decided, available inputs, expected output and constraints.</p></article><article class="card third green"><h3>Algorithm</h3><p>An ordered, finite and unambiguous sequence of effective steps that produces the required result.</p></article><article class="card third yellow"><h3>Dry run</h3><p>Execute the steps manually with test data and record variable changes in a trace table.</p></article></div>
+<div class="table-wrap"><table><thead><tr><th>Characteristic</th><th>Meaning</th><th>Check question</th></tr></thead><tbody><tr><td>Input</td><td>Zero or more clearly identified values</td><td>What values must be supplied?</td></tr><tr><td>Output</td><td>At least one meaningful result</td><td>What should be displayed or stored?</td></tr><tr><td>Definiteness</td><td>Every step is precise and unambiguous</td><td>Could two readers interpret the step differently?</td></tr><tr><td>Finiteness</td><td>Terminates after a finite number of steps</td><td>What makes repetition stop?</td></tr><tr><td>Effectiveness</td><td>Each step is practical and executable</td><td>Can a person or computer perform it?</td></tr></tbody></table></div>
+<div class="ml"><b>ലളിതമായി:</b> Problem എന്താണ്, input എന്താണ്, output എന്താണ്, decision/loop എവിടെയാണ് എന്നത് ആദ്യം എഴുതുക. ശേഷം മാത്രമാണ് flowchart അല്ലെങ്കിൽ code.</div>
+</section>
+<section class="section"><div class="section-head"><h2>Flowchart symbols and rules</h2></div>
+<figure class="diagram"><svg viewBox="0 0 1100 520" role="img" aria-label="Flowchart symbols chart"><ellipse cx="180" cy="90" rx="110" ry="45" fill="#eaf5ff" stroke="#1167a8" stroke-width="5"/><text x="125" y="100" font-size="28">Start / Stop</text><rect x="390" y="45" width="220" height="90" rx="8" fill="#eefbf5" stroke="#15745d" stroke-width="5"/><text x="455" y="100" font-size="28">Process</text><path d="M760 45h220l-35 90H725z" fill="#fff7e5" stroke="#b36b12" stroke-width="5"/><text x="790" y="100" font-size="28">Input / Output</text><path d="M180 245l120 75-120 75-120-75z" fill="#fff1f4" stroke="#b33d5b" stroke-width="5"/><text x="122" y="328" font-size="28">Decision</text><circle cx="500" cy="320" r="55" fill="#f5f1ff" stroke="#6b4bb1" stroke-width="5"/><text x="445" y="328" font-size="25">Connector</text><rect x="740" y="275" width="240" height="90" rx="8" fill="#e0f2fe" stroke="#078a96" stroke-width="5"/><path d="M760 275v90M960 275v90" stroke="#078a96" stroke-width="5"/><text x="790" y="328" font-size="24">Predefined process</text><path d="M300 455h500" stroke="#1167a8" stroke-width="6"/><path d="M800 455l-25-18v36z" fill="#1167a8"/><text x="475" y="500" font-size="26">Flow line</text></svg><figcaption>Decision branches must be labelled, commonly Yes/No or True/False.</figcaption></figure>
+<div class="grid"><article class="card six"><h3>Drawing rules</h3><ul class="checklist"><li>Use one Start and at least one Stop.</li><li>Use the correct symbol for each action.</li><li>Draw flow from top to bottom or left to right.</li><li>Label decision branches.</li><li>Use connectors rather than long crossed lines.</li><li>Show initialisation and update in every loop.</li></ul></article><article class="card six"><h3>Frequent mistakes</h3><ul><li>Missing Start/Stop.</li><li>Decision with only one outgoing branch.</li><li>Input written inside a process rectangle.</li><li>Arrow returning to the wrong step.</li><li>Counter never updated.</li><li>Condition tested after the wrong operation.</li><li>Using an unclear variable name.</li></ul></article></div>
+</section>
+<section class="section"><div class="section-head"><span class="tag">Sequence</span><h2>Solved sequence problems</h2><p>Sequence executes each instruction once in the written order.</p></div>
+<article class="solution"><h4>1. Add two numbers</h4><div class="two"><div><b>Input:</b> a, b<br><b>Output:</b> sum<pre><code>START
+READ a, b
+sum ← a + b
+PRINT sum
+STOP</code></pre></div><div><b>Dry run:</b><p>a = 12, b = 8 → sum = 20.</p><b>Practice:</b><p>Modify to calculate sum, difference and product.</p></div></div></article>
+<article class="solution"><h4>2. Rectangle area and perimeter</h4><div class="two"><div><pre><code>START
+READ length, breadth
+area ← length × breadth
+perimeter ← 2 × (length + breadth)
+PRINT area, perimeter
+STOP</code></pre></div><div><p>For length 5 and breadth 3: area = 15; perimeter = 16.</p><div class="callout warning"><b>Common error:</b> Writing <code>2 × length + breadth</code> without brackets gives a different expression.</div></div></div></article>
+<article class="solution"><h4>3. Celsius to Fahrenheit</h4><div class="two"><div><pre><code>START
+READ celsius
+fahrenheit ← celsius × 9 / 5 + 32
+PRINT fahrenheit
+STOP</code></pre></div><div><p>25°C → 25 × 9 / 5 + 32 = 77°F.</p><p>Test 0°C, 100°C and a negative temperature.</p></div></div></article>
+<article class="solution"><h4>4. Simple interest</h4><div class="two"><div><pre><code>START
+READ principal, rate, time
+interest ← principal × rate × time / 100
+PRINT interest
+STOP</code></pre></div><div><p>P = 10000, R = 8, T = 2 → interest = 1600.</p><p>Add amount = principal + interest as a variation.</p></div></div></article>
+<article class="solution"><h4>5. Total and average of three marks</h4><div class="two"><div><pre><code>START
+READ m1, m2, m3
+total ← m1 + m2 + m3
+average ← total / 3
+PRINT total, average
+STOP</code></pre></div><div><p>70, 80, 90 → total 240, average 80.</p><p>Validate marks between 0 and 100 as a later selection exercise.</p></div></div></article>
+<article class="solution"><h4>6. Exchange two values using a temporary variable</h4><div class="two"><div><pre><code>START
+READ a, b
+temporary ← a
+a ← b
+b ← temporary
+PRINT a, b
+STOP</code></pre></div><div><p>a = 5, b = 9 → after exchange a = 9, b = 5.</p><p>The temporary variable prevents the original value of a from being lost.</p></div></div></article>
+</section>
+<section class="section"><div class="section-head"><span class="tag">Selection</span><h2>Solved decision problems</h2><p>Selection chooses a path according to a Boolean condition.</p></div>
+<article class="solution"><h4>7. Even or odd</h4><div class="two"><div><pre><code>START
+READ number
+IF number mod 2 = 0 THEN
+    PRINT "Even"
+ELSE
+    PRINT "Odd"
+END IF
+STOP</code></pre></div><div><p>17 mod 2 = 1, so the result is Odd.</p><p>Zero is even because its remainder on division by 2 is zero.</p></div></div></article>
+<article class="solution"><h4>8. Positive, negative or zero</h4><div class="two"><div><pre><code>START
+READ number
+IF number &gt; 0 THEN
+    PRINT "Positive"
+ELSE IF number &lt; 0 THEN
+    PRINT "Negative"
+ELSE
+    PRINT "Zero"
+END IF
+STOP</code></pre></div><div><p>Use three test cases: -4, 0 and 7.</p><p>The final else represents exactly zero after the two earlier conditions are false.</p></div></div></article>
+<article class="solution"><h4>9. Largest of three values</h4><div class="two"><div><pre><code>START
+READ a, b, c
+largest ← a
+IF b &gt; largest THEN largest ← b
+IF c &gt; largest THEN largest ← c
+PRINT largest
+STOP</code></pre></div><div><p>For 4, 9, 7: largest begins at 4, becomes 9 and remains 9.</p><p>This method also handles equal values.</p></div></div></article>
+<article class="solution"><h4>10. Pass/fail and grade classification</h4><div class="two"><div><pre><code>START
+READ mark
+IF mark &lt; 0 OR mark &gt; 100 THEN
+    PRINT "Invalid"
+ELSE IF mark &gt;= 90 THEN PRINT "A+"
+ELSE IF mark &gt;= 80 THEN PRINT "A"
+ELSE IF mark &gt;= 70 THEN PRINT "B"
+ELSE IF mark &gt;= 60 THEN PRINT "C"
+ELSE IF mark &gt;= 50 THEN PRINT "D"
+ELSE PRINT "F"
+STOP</code></pre></div><div><p>Check highest boundary first. If mark 94 is checked against 50 first, the more specific grade would never be reached.</p><p>Boundary tests: -1, 0, 49, 50, 89, 90, 100 and 101.</p></div></div></article>
+<article class="solution"><h4>11. Leap-year decision</h4><div class="two"><div><pre><code>START
+READ year
+IF year mod 400 = 0 OR
+   (year mod 4 = 0 AND year mod 100 ≠ 0) THEN
+    PRINT "Leap year"
+ELSE
+    PRINT "Not leap year"
+END IF
+STOP</code></pre></div><div><p>2000 is leap; 1900 is not; 2024 is leap; 2023 is not.</p><p>The century rule prevents every multiple of 4 from being accepted.</p></div></div></article>
+<article class="solution"><h4>12. Electricity-bill slab decision</h4><div class="two"><div><pre><code>START
+READ units
+IF units &lt; 0 THEN PRINT "Invalid"
+ELSE IF units &lt;= 100 THEN
+    charge ← units × 1.50
+ELSE IF units &lt;= 200 THEN
+    charge ← 100 × 1.50 + (units - 100) × 2.50
+ELSE
+    charge ← 100 × 1.50 + 100 × 2.50
+              + (units - 200) × 4.00
+PRINT charge
+STOP</code></pre></div><div><p>For 250 units: 150 + 250 + 200 = 600.</p><div class="callout warning"><b>Important:</b> Do not multiply all 250 units by ₹4. Each slab is charged separately.</div></div></div></article>
+</section>
+<section class="section"><div class="section-head"><span class="tag">Iteration</span><h2>Solved loop problems</h2></div>
+<article class="solution"><h4>13. Print 1 to n and find the sum</h4><div class="two"><div><pre><code>START
+READ n
+total ← 0
+FOR number ← 1 TO n
+    PRINT number
+    total ← total + number
+END FOR
+PRINT total
+STOP</code></pre></div><div><p>n = 5: total changes 0 → 1 → 3 → 6 → 10 → 15.</p><p><b>Counter:</b> number. <b>Accumulator:</b> total.</p></div></div></article>
+<article class="solution"><h4>14. Multiplication table</h4><div class="two"><div><pre><code>START
+READ number
+FOR multiplier ← 1 TO 10
+    product ← number × multiplier
+    PRINT number, multiplier, product
+END FOR
+STOP</code></pre></div><div><p>For number 7, the loop prints 7×1 through 7×10.</p><p>Initialisation, condition and update must all be represented.</p></div></div></article>
+<article class="solution"><h4>15. Factorial</h4><div class="two"><div><pre><code>START
+READ n
+IF n &lt; 0 THEN PRINT "Invalid"
+ELSE
+    factorial ← 1
+    FOR value ← 2 TO n
+        factorial ← factorial × value
+    END FOR
+    PRINT factorial
+END IF
+STOP</code></pre></div><div><p>5! = 1×2×3×4×5 = 120. The accumulator begins at 1 because zero would make every product zero.</p><p>0! is 1; the loop can run zero times.</p></div></div></article>
+<article class="solution"><h4>16. Reverse a number and test palindrome</h4><div class="two"><div><pre><code>START
+READ number
+copy ← number
+reverse ← 0
+WHILE copy &gt; 0
+    digit ← copy mod 10
+    reverse ← reverse × 10 + digit
+    copy ← copy div 10
+END WHILE
+IF reverse = number THEN PRINT "Palindrome"
+ELSE PRINT "Not palindrome"
+STOP</code></pre></div><div><p>For 121: reverse changes 0 → 1 → 12 → 121, so it is a palindrome.</p><p>Keep the original number because the loop changes copy.</p></div></div></article>
+<article class="solution"><h4>17. Prime-number test</h4><div class="two"><div><pre><code>START
+READ n
+prime ← n &gt;= 2
+divisor ← 2
+WHILE divisor × divisor &lt;= n AND prime
+    IF n mod divisor = 0 THEN prime ← false
+    divisor ← divisor + 1
+END WHILE
+PRINT result
+STOP</code></pre></div><div><p>For 29, test divisors 2, 3, 4 and 5. No divisor divides exactly, so 29 is prime.</p><p>Testing up to the square root is sufficient because factors occur in pairs.</p></div></div></article>
+<article class="solution"><h4>18. Fibonacci sequence</h4><div class="two"><div><pre><code>START
+READ terms
+a ← 0
+b ← 1
+REPEAT terms TIMES
+    PRINT a
+    next ← a + b
+    a ← b
+    b ← next
+END REPEAT
+STOP</code></pre></div><div><p>Six terms: 0, 1, 1, 2, 3, 5.</p><p>Two state variables are updated each iteration.</p></div></div></article>
+</section>
+<section class="section"><div class="section-head"><h2>Comparison and conversion to Python</h2></div>
+<div class="table-wrap"><table><thead><tr><th>Concept</th><th>Use</th><th>Pseudocode</th><th>Python form</th></tr></thead><tbody><tr><td>Sequence</td><td>One ordered path</td><td>READ → calculate → PRINT</td><td>Normal statements</td></tr><tr><td>Selection</td><td>Choose a path</td><td>IF / ELSE</td><td><code>if</code>, <code>elif</code>, <code>else</code></td></tr><tr><td>Iteration</td><td>Repeat steps</td><td>FOR / WHILE</td><td><code>for</code>, <code>while</code></td></tr><tr><td>Input/output symbol</td><td>Read/display</td><td>READ n / PRINT result</td><td><code>input()</code> / <code>print()</code></td></tr><tr><td>Process symbol</td><td>Assignment/calculation</td><td>total ← a + b</td><td><code>total = a + b</code></td></tr></tbody></table></div>
+<div class="callout exam"><b>Exam/lab writing order:</b> Problem → Input/Output → Algorithm → Flowchart → Dry run → Result. The Python program in Module 4 must follow the same logic.</div>
+</section>
+</section>
