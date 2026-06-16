@@ -1,6 +1,12 @@
 (() => {
   "use strict";
 
+  const RESPONSE_FORMAT_GUIDANCE = `
+
+--- ASK POLY INTERFACE REQUIREMENTS ---
+Use Markdown links only for real, accessible URLs. Never invent a download URL and never use example.com, example.org or example.net as a file link. Do not claim that a ZIP, PDF or other file was created unless a real URL exists. When the user asks for downloadable source code, provide each file in a fenced code block and include its filename in the fence, for example: \`\`\`html filename=index.html. The website will add a Download file button to each fenced code block.
+--- END INTERFACE REQUIREMENTS ---`;
+
   function currentConfig() {
     const config = globalThis.ASK_POLY_CONFIG || {};
     return {
@@ -21,6 +27,10 @@
     }
   }
 
+  function guidedMessage(message) {
+    return `${String(message || "").trim()}${RESPONSE_FORMAT_GUIDANCE}`;
+  }
+
   async function ask(payload) {
     const config = currentConfig();
     if (!validEndpoint(config.endpoint)) return null;
@@ -36,6 +46,7 @@
         signal: controller.signal,
         body: JSON.stringify({
           ...payload,
+          message: guidedMessage(payload.message),
           history: Array.isArray(payload.history) ? payload.history.slice(-config.maxHistory) : []
         })
       });
