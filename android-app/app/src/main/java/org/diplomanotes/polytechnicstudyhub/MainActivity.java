@@ -101,7 +101,9 @@ public class MainActivity extends ComponentActivity {
         settings.setAllowContentAccess(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         settings.setMediaPlaybackRequiresUserGesture(true);
-        settings.setUserAgentString(settings.getUserAgentString() + " PolytechnicStudyHubAndroid/1.0.1");
+        settings.setUserAgentString(
+                settings.getUserAgentString() + " PolytechnicStudyHubAndroid/" + BuildConfig.VERSION_NAME
+        );
 
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
