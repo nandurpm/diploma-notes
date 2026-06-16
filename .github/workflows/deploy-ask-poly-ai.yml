@@ -1,0 +1,95 @@
+name: Deploy Ask POLY AI Worker
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "workers/ask-poly-ai/**"
+      - ".github/workflows/deploy-ask-poly-ai.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID_VALUE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Validate Worker source
+        run: |
+          node --check workers/ask-poly-ai/src/index.js
+          python - <<'PY'
+          from pathlib import Path
+          assert 'OPENAI_API_KEY' not in Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
+          print('Worker source and public configuration validated.')
+          PY
+
+      - name: Check deployment secrets
+        id: secrets
+        shell: bash
+        run: |
+          if [ -n "$CLOUDFLARE_API_TOKEN_VALUE" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID_VALUE" ] && [ -n "$OPENAI_API_KEY_VALUE" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Ask POLY AI deployment skipped. Add CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and OPENAI_API_KEY as repository Actions secrets, then run this workflow manually."
+          fi
+
+      - name: Deploy Worker and store OpenAI key securely
+        id: deploy
+        if: steps.secrets.outputs.enabled == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: workers/ask-poly-ai
+          wranglerVersion: "4"
+          command: deploy
+          secrets: |
+            OPENAI_API_KEY
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Configure website with deployed Worker URL
+        if: steps.secrets.outputs.enabled == 'true'
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          deployment_url = os.environ.get('DEPLOYMENT_URL', '').strip().rstrip('/')
+          if not deployment_url:
+              raise SystemExit('Cloudflare did not return a deployment URL.')
+          endpoint = f"{deployment_url}/api/ask-poly"
+          source = (
+              "globalThis.ASK_POLY_CONFIG = Object.freeze({\n"
+              f"  endpoint: {json.dumps(endpoint)},\n"
+              "  timeoutMs: 60000,\n"
+              "  maxHistory: 12\n"
+              "});\n"
+          )
+          Path('assets/js/ask-poly-config.js').write_text(source, encoding='utf-8')
+          print(f'Configured Ask POLY endpoint: {endpoint}')
+          PY
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/ask-poly-config.js
+          if git diff --cached --quiet; then
+            echo "Website endpoint configuration is already current."
+          else
+            git commit -m "Configure deployed Ask POLY AI endpoint [skip ci]"
+            git push origin HEAD:main
+          fi
