@@ -27,6 +27,8 @@ jobs:
           artifact-ids: 7657589096
           path: android-release
           github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 27594595899
 
       - name: Publish APK and update metadata
         run: |
