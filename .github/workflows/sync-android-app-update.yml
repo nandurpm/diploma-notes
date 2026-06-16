@@ -1,0 +1,42 @@
+name: Sync Android app update metadata
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "downloads/Polytechnic-Study-Hub-v*.apk"
+      - "android-app/app/build.gradle"
+      - "tools/update_app_manifest.py"
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Synchronize update metadata
+        run: |
+          python -m py_compile tools/update_app_manifest.py
+          node --check assets/js/site-hardening.js
+          python tools/update_app_manifest.py
+          python -m json.tool downloads/app-update.json > /dev/null
+
+      - name: Commit generated metadata
+        run: |
+          if git diff --quiet -- downloads/app-update.json index.html; then
+            echo "Android update metadata is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/app-update.json index.html
+          git commit -m "Update Android app download metadata [skip ci]"
+          git push
