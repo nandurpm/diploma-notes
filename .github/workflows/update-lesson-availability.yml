@@ -8,6 +8,7 @@ on:
       - "lessons/**/*.html"
       - "notes/**/*.pdf"
       - "assets/js/subject-browser.js"
+      - "assets/js/asset-manifest.js"
       - "tools/update_asset_manifest.py"
       - ".github/workflows/update-lesson-availability.yml"
   push:
@@ -16,6 +17,7 @@ on:
       - "lessons/**/*.html"
       - "notes/**/*.pdf"
       - "assets/js/subject-browser.js"
+      - "assets/js/asset-manifest.js"
       - "tools/update_asset_manifest.py"
       - ".github/workflows/update-lesson-availability.yml"
 
@@ -37,11 +39,12 @@ jobs:
           python -m py_compile tools/update_asset_manifest.py
           python tools/update_asset_manifest.py
           node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
 
       - name: Verify independent lesson and notes activation
         if: github.event_name == 'pull_request'
         run: |
-          git diff --exit-code -- assets/js/subject-browser.js
+          git diff --exit-code -- assets/js/subject-browser.js assets/js/asset-manifest.js
 
           cat > lessons/lessons-9999.html <<'HTML'
           <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Manifest test</title></head><body><main>Manifest test</main></body></html>
@@ -53,30 +56,33 @@ jobs:
           python - <<'PY'
           from pathlib import Path
 
-          source = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
-          lesson_line = next(line for line in source.splitlines() if "const LESSON_CODES" in line)
-          notes_line = next(line for line in source.splitlines() if "const NOTES_CODES" in line)
+          browser = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
+          manifest = Path("assets/js/asset-manifest.js").read_text(encoding="utf-8")
+          lesson_line = next(line for line in browser.splitlines() if "const LESSON_CODES" in line)
+          notes_line = next(line for line in browser.splitlines() if "const NOTES_CODES" in line)
 
-          assert '"9999"' in lesson_line, "lesson upload was not activated"
+          assert '"9999"' in lesson_line, "lesson upload was not activated in subject browser"
           assert '"9999"' not in notes_line, "lesson-only code leaked into notes availability"
-          assert '"9998"' in notes_line, "notes upload was not activated"
+          assert '"9998"' in notes_line, "notes upload was not activated in subject browser"
           assert '"9998"' not in lesson_line, "notes-only code leaked into lesson availability"
+          assert '"9999"' in manifest, "lesson upload was not activated in Ask POLY manifest"
+          assert '"9998"' in manifest, "notes upload was not activated in Ask POLY manifest"
           PY
 
           rm lessons/lessons-9999.html notes/downloadable-notes-9998.pdf
           python tools/update_asset_manifest.py
-          git diff --exit-code -- assets/js/subject-browser.js
+          git diff --exit-code -- assets/js/subject-browser.js assets/js/asset-manifest.js
 
       - name: Commit generated availability after an upload
         if: github.event_name == 'push'
         run: |
-          if git diff --quiet -- assets/js/subject-browser.js; then
+          if git diff --quiet -- assets/js/subject-browser.js assets/js/asset-manifest.js; then
             echo "Lesson and notes availability is already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/js/subject-browser.js
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js
           git commit -m "Update lesson and notes availability [skip ci]"
           git push origin HEAD:main
