@@ -1,0 +1,55 @@
+name: Refresh native app header assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/bump-native-app-header-cache.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Update fixed-header asset versions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          root = Path('.')
+          css_pattern = re.compile(r'(/assets/css/fixed-site-header\.css)(?:\?v=[^"\']*)?')
+          js_pattern = re.compile(r'(/assets/js/fixed-site-header\.js)(?:\?v=[^"\']*)?')
+          changed = 0
+
+          for path in root.rglob('*.html'):
+              source = path.read_text(encoding='utf-8')
+              updated = css_pattern.sub(r'\1?v=20260616-nativeapp1', source)
+              updated = js_pattern.sub(r'\1?v=20260616-nativeapp1', updated)
+              if updated != source:
+                  path.write_text(updated, encoding='utf-8')
+                  changed += 1
+
+          print(f'Updated {changed} HTML files.')
+          PY
+
+      - name: Commit refreshed references
+        run: |
+          if git diff --quiet -- '*.html'; then
+            echo "Asset references are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html'
+          git commit -m "Refresh Android app header assets [skip ci]"
+          git push origin HEAD:main
