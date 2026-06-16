@@ -75,7 +75,11 @@ jobs:
           set -euo pipefail
           APK="android-app/app/build/outputs/apk/release/app-release-unsigned.apk"
           OUTPUT="android-app/release-output"
+          REPORT="$OUTPUT/androidx-version-metadata.txt"
           test -f "$APK"
+
+          cp "$APK" "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk"
+          sha256sum "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk" > "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.sha256.txt"
 
           APKANALYZER="$(command -v apkanalyzer || true)"
           if [ -z "$APKANALYZER" ]; then
@@ -84,25 +88,26 @@ jobs:
           test -n "$APKANALYZER"
           test "$("$APKANALYZER" manifest debuggable "$APK" | tr -d '\r\n')" = "false"
 
-          python - "$APK" <<'PY'
+          python - "$APK" "$REPORT" <<'PY'
           import re
           import sys
           import zipfile
 
-          apk = sys.argv[1]
+          apk, report = sys.argv[1:3]
+          entries = []
           malformed = []
           with zipfile.ZipFile(apk) as archive:
               for name in archive.namelist():
                   if re.fullmatch(r"META-INF/androidx\..+\.version", name):
                       value = archive.read(name).decode("utf-8", "replace").strip()
+                      entries.append(f"{name}: {value}")
                       if value and not re.fullmatch(r"\d+(?:\.\d+){1,3}(?:[-+][A-Za-z0-9._-]+)?", value):
                           malformed.append(f"{name}: {value}")
+          with open(report, "w", encoding="utf-8") as handle:
+              handle.write("\n".join(entries) + ("\n" if entries else ""))
           if malformed:
               raise SystemExit("Malformed AndroidX version metadata:\n" + "\n".join(malformed))
           PY
-
-          cp "$APK" "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk"
-          sha256sum "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk" > "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.sha256.txt"
 
       - name: Upload validation bundle
         if: always()
