@@ -76,7 +76,7 @@ The signed APK is generated at:
 app/build/outputs/apk/release/app-release.apk
 ```
 
-The workflow verifies both the APK signature and the final merged manifest's non-debuggable status before publishing the artifact.
+The workflow verifies both the APK signature and the final merged manifest's non-debuggable status before publishing the artifact. It also retains a Gradle diagnostic log when validation fails.
 
 The old v1.0.0 download was signed as a debug build. Android will not accept a differently signed release APK as an in-place update. Users must uninstall v1.0.0 once before installing v1.0.1. Future versions signed with the preserved v1.0.1 release key will update normally.
 
