@@ -1,0 +1,89 @@
+name: Update lesson Ask POLY assistant
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "lessons/**/*.html"
+      - "assets/js/site-assistant.js"
+      - "assets/js/asset-manifest.js"
+      - "tools/update_lesson_assistant.py"
+      - ".github/workflows/update-lesson-assistant.yml"
+  push:
+    branches: [main]
+    paths:
+      - "lessons/**/*.html"
+      - "assets/js/site-assistant.js"
+      - "assets/js/asset-manifest.js"
+      - "tools/update_lesson_assistant.py"
+      - ".github/workflows/update-lesson-assistant.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Attach Ask POLY and validate scripts
+        run: |
+          python -m py_compile tools/update_lesson_assistant.py
+          python tools/update_lesson_assistant.py
+          python tools/update_lesson_assistant.py --check
+          node --check assets/js/site-assistant.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Browser-test a real lesson doubt
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/lessons/lessons-3041.html >/dev/null && break
+            sleep 1
+          done
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=15000 --dump-dom 'http://127.0.0.1:8000/lessons/lessons-3041.html?ask=What%20is%20resonance' >/tmp/lesson.dom 2>/tmp/chrome.log
+
+          python - <<'PY'
+          from pathlib import Path
+
+          html = Path('/tmp/lesson.dom').read_text(encoding='utf-8')
+          checks = {
+              'Ask POLY button': 'class="poly-ai-button"',
+              'lesson mode': 'Lesson doubt helper',
+              'local answer': 'Based on this lesson:',
+              'source cards': 'class="poly-ai-sources"',
+              'source action': 'Open source section',
+          }
+          missing = [name for name, marker in checks.items() if marker not in html]
+          if missing:
+              raise SystemExit(f'Ask POLY browser test failed: {missing}')
+          print('Lesson-aware Ask POLY browser test passed.')
+          PY
+
+      - name: Verify pull requests are already synchronized
+        if: github.event_name == 'pull_request'
+        run: git diff --exit-code -- lessons
+
+      - name: Commit assistant attachment after uploads or upgrades
+        if: github.event_name == 'push'
+        run: |
+          if git diff --quiet -- lessons; then
+            echo "All lesson pages already load the current Ask POLY assistant."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add lessons
+          git commit -m "Attach lesson-aware Ask POLY to lesson pages [skip ci]"
+          git push origin HEAD:main
