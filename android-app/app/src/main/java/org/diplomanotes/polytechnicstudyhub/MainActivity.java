@@ -49,12 +49,6 @@ public class MainActivity extends ComponentActivity {
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
-    private final Runnable slowLoadRunnable = () -> {
-        if (!launchOverlayDismissed && toolbarSubtitle != null) {
-            toolbarSubtitle.setText(R.string.loading_slow);
-        }
-    };
 
     private DrawerLayout drawerLayout;
     private WebView webView;
@@ -65,6 +59,13 @@ public class MainActivity extends ComponentActivity {
     private boolean launchOverlayDismissed;
     private String lastFailedUrl = HOME_URL;
 
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final Runnable slowLoadRunnable = () -> {
+        if (!launchOverlayDismissed && toolbarSubtitle != null) {
+            toolbarSubtitle.setText(R.string.loading_slow);
+        }
+    };
+
     private final ActivityResultLauncher<Intent> fileChooserLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -73,7 +74,6 @@ public class MainActivity extends ComponentActivity {
                 if (callback == null) {
                     return;
                 }
-
                 Uri[] selectedFiles = WebChromeClient.FileChooserParams.parseResult(
                         result.getResultCode(),
                         result.getData()
@@ -124,7 +124,6 @@ public class MainActivity extends ComponentActivity {
 
     private void configureNativeShell() {
         drawerLayout.setScrimColor(0x66081733);
-
         findViewById(R.id.menuButton).setOnClickListener(
                 view -> drawerLayout.openDrawer(GravityCompat.START)
         );
@@ -185,7 +184,7 @@ public class MainActivity extends ComponentActivity {
                 currentPath = uri.getPath();
             }
         } catch (Exception ignored) {
-            // Keep the home item selected when a malformed URL is received.
+            // Keep the home item selected for malformed URLs.
         }
 
         if ("/index.html".equals(currentPath)) {
@@ -208,7 +207,6 @@ public class MainActivity extends ComponentActivity {
                     webView.goBack();
                     return;
                 }
-
                 setEnabled(false);
                 getOnBackPressedDispatcher().onBackPressed();
                 setEnabled(true);
@@ -414,8 +412,7 @@ public class MainActivity extends ComponentActivity {
             lastFailedUrl = failedUri.toString();
         }
         hideLaunchOverlay();
-        String reason = offline ? "offline" : "error";
-        webView.loadUrl(ERROR_PAGE_URL + "?reason=" + reason);
+        webView.loadUrl(ERROR_PAGE_URL + "?reason=" + (offline ? "offline" : "error"));
     }
 
     @Override
@@ -447,7 +444,6 @@ public class MainActivity extends ComponentActivity {
     @Override
     protected void onDestroy() {
         mainHandler.removeCallbacksAndMessages(null);
-
         if (fileChooserCallback != null) {
             fileChooserCallback.onReceiveValue(null);
             fileChooserCallback = null;
@@ -468,11 +464,11 @@ public class MainActivity extends ComponentActivity {
             webView.destroy();
             webView = null;
         }
-
         super.onDestroy();
     }
 
     private final class HubWebViewClient extends WebViewClient {
+        @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return handleUri(parseUri(url));
@@ -504,11 +500,7 @@ public class MainActivity extends ComponentActivity {
         }
 
         @Override
-        public void onReceivedError(
-                WebView view,
-                WebResourceRequest request,
-                WebResourceError error
-        ) {
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             if (request != null && request.isForMainFrame()) {
                 int errorCode = error == null ? WebViewClient.ERROR_UNKNOWN : error.getErrorCode();
                 showErrorPage(request.getUrl() == null ? HOME_URL : request.getUrl().toString(), isNetworkError(errorCode));
@@ -556,7 +548,6 @@ public class MainActivity extends ComponentActivity {
                 fileChooserCallback.onReceiveValue(null);
             }
             fileChooserCallback = callback;
-
             try {
                 fileChooserLauncher.launch(fileChooserParams.createIntent());
                 return true;
