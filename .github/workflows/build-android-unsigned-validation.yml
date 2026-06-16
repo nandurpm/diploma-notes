@@ -1,0 +1,59 @@
+name: Validate Android v1.0.2 UI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "android-app/**"
+      - ".github/workflows/build-android-unsigned-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Build release APK
+        working-directory: android-app
+        run: gradle --no-daemon :app:clean :app:assembleRelease
+
+      - name: Verify and collect unsigned release
+        run: |
+          set -euo pipefail
+          APK="android-app/app/build/outputs/apk/release/app-release-unsigned.apk"
+          OUTPUT="android-app/release-output"
+          test -f "$APK"
+          mkdir -p "$OUTPUT"
+
+          APKANALYZER="$(command -v apkanalyzer || true)"
+          if [ -z "$APKANALYZER" ]; then
+            APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
+          fi
+          test -n "$APKANALYZER"
+          test "$("$APKANALYZER" manifest debuggable "$APK" | tr -d '\r\n')" = "false"
+          cp "$APK" "$OUTPUT/Polytechnic-Study-Hub-v1.0.2-unsigned.apk"
+          sha256sum "$OUTPUT/Polytechnic-Study-Hub-v1.0.2-unsigned.apk" > "$OUTPUT/Polytechnic-Study-Hub-v1.0.2-unsigned.sha256.txt"
+
+      - name: Upload unsigned validation build
+        uses: actions/upload-artifact@v4
+        with:
+          name: polytechnic-study-hub-v1.0.2-unsigned
+          path: android-app/release-output/
+          if-no-files-found: error
+          retention-days: 7
