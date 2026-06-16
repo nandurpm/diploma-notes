@@ -68,6 +68,7 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p release-output
+          gradle --no-daemon :app:dependencies --configuration releaseRuntimeClasspath > release-output/dependencies.txt
           gradle --no-daemon --refresh-dependencies :app:clean :app:assembleRelease --stacktrace 2>&1 | tee release-output/gradle-build.log
 
       - name: Verify release manifest and metadata
