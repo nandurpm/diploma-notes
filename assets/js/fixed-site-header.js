@@ -1,11 +1,32 @@
 (() => {
   "use strict";
 
+  const root = document.documentElement;
+  const body = document.body;
+  const isNativeAndroidApp = /PolytechnicStudyHubAndroid\//i.test(navigator.userAgent);
+
+  if (isNativeAndroidApp) {
+    root.classList.add("polytechnic-native-app");
+    root.style.setProperty("--fixed-site-header-height", "0px");
+    root.style.setProperty("--fixed-site-header-gap", "0px");
+    body.classList.remove("has-fixed-site-header");
+
+    const header = document.querySelector(".topbar");
+    if (header) {
+      header.hidden = true;
+      header.setAttribute("aria-hidden", "true");
+    }
+
+    const skipLink = document.querySelector(".skip-link");
+    if (skipLink) {
+      skipLink.hidden = true;
+    }
+    return;
+  }
+
   const header = document.querySelector(".topbar");
   if (!header) return;
 
-  const root = document.documentElement;
-  const body = document.body;
   let frame = 0;
 
   const updateHeaderHeight = () => {
