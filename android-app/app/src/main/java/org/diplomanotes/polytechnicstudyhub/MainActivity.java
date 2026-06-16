@@ -1,7 +1,6 @@
 package org.diplomanotes.polytechnicstudyhub;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -24,16 +23,37 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
 import java.util.Locale;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ComponentActivity {
     private static final String HOME_URL = "https://polypmna.dpdns.org/";
     private static final String TRUSTED_HOST = "polypmna.dpdns.org";
-    private static final int FILE_CHOOSER_REQUEST = 2001;
 
     private WebView webView;
     private ProgressBar progressBar;
     private ValueCallback<Uri[]> fileChooserCallback;
+
+    private final ActivityResultLauncher<Intent> fileChooserLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                ValueCallback<Uri[]> callback = fileChooserCallback;
+                fileChooserCallback = null;
+                if (callback == null) {
+                    return;
+                }
+
+                Uri[] selectedFiles = WebChromeClient.FileChooserParams.parseResult(
+                        result.getResultCode(),
+                        result.getData()
+                );
+                callback.onReceiveValue(selectedFiles);
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +63,29 @@ public class MainActivity extends Activity {
         webView = findViewById(R.id.webView);
         progressBar = findViewById(R.id.progressBar);
 
+        configureBackNavigation();
         configureWebView();
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
             Uri deepLink = getIntent() != null ? getIntent().getData() : null;
             webView.loadUrl(isTrustedUri(deepLink) ? deepLink.toString() : HOME_URL);
-        } else {
-            webView.restoreState(savedInstanceState);
         }
+    }
+
+    private void configureBackNavigation() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (webView != null && webView.canGoBack()) {
+                    webView.goBack();
+                    return;
+                }
+
+                setEnabled(false);
+                getOnBackPressedDispatcher().onBackPressed();
+                setEnabled(true);
+            }
+        });
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -58,16 +93,15 @@ public class MainActivity extends Activity {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
-        settings.setDatabaseEnabled(true);
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
         settings.setAllowFileAccess(false);
-        settings.setAllowContentAccess(true);
+        settings.setAllowContentAccess(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         settings.setMediaPlaybackRequiresUserGesture(true);
-        settings.setUserAgentString(settings.getUserAgentString() + " PolytechnicStudyHubAndroid/1.0");
+        settings.setUserAgentString(settings.getUserAgentString() + " PolytechnicStudyHubAndroid/1.0.1");
 
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
@@ -166,27 +200,6 @@ public class MainActivity extends Activity {
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode != FILE_CHOOSER_REQUEST || fileChooserCallback == null) {
-            return;
-        }
-
-        Uri[] result = WebChromeClient.FileChooserParams.parseResult(resultCode, data);
-        fileChooserCallback.onReceiveValue(result);
-        fileChooserCallback = null;
-    }
-
     private final class HubWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -234,7 +247,7 @@ public class MainActivity extends Activity {
             fileChooserCallback = callback;
 
             try {
-                startActivityForResult(fileChooserParams.createIntent(), FILE_CHOOSER_REQUEST);
+                fileChooserLauncher.launch(fileChooserParams.createIntent());
                 return true;
             } catch (ActivityNotFoundException error) {
                 fileChooserCallback = null;
