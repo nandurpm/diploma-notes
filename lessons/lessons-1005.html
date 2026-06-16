@@ -157,5 +157,9 @@ Expected final drawing: neat isometric stepped block with correct proportions.</
 let p=document.createElement('div');p.style.cssText='position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,#f59e0b,#0f766e,#0f4c81);z-index:99;width:0';document.body.appendChild(p);function prog(){let h=document.documentElement.scrollHeight-innerHeight;p.style.width=h>0?scrollY/h*100+'%':'0'}addEventListener('scroll',prog,{passive:true});prog();let closed=[];addEventListener('beforeprint',()=>{closed=[];document.querySelectorAll('details').forEach(d=>{if(!d.open){closed.push(d);d.open=true}})});addEventListener('afterprint',()=>{closed.forEach(d=>d.open=false);closed=[]});
 </script>
   <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
