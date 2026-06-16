@@ -16,8 +16,9 @@ permissions:
   contents: read
 
 jobs:
-  build-debug-apk:
+  build-release-apk:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Check out repository
@@ -34,14 +35,101 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Build debug APK
-        working-directory: android-app
-        run: gradle --no-daemon :app:assembleDebug
+      - name: Verify deprecated and unsafe APIs are absent
+        run: |
+          set -euo pipefail
+          SOURCE="android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java"
+          ! grep -q "void onBackPressed" "$SOURCE"
+          ! grep -q "startActivityForResult" "$SOURCE"
+          ! grep -q "setDatabaseEnabled" "$SOURCE"
+          ! grep -q "setAllowFileAccess(true)" "$SOURCE"
+          ! grep -q "setAllowContentAccess(true)" "$SOURCE"
+          grep -q "MIXED_CONTENT_NEVER_ALLOW" "$SOURCE"
+          grep -q "OnBackPressedCallback" "$SOURCE"
+          grep -q "ActivityResultLauncher" "$SOURCE"
 
-      - name: Upload debug APK
+      - name: Prepare release signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          SECRET_STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          SECRET_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          SECRET_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          OUTPUT_DIR="$GITHUB_WORKSPACE/android-app/release-output"
+          KEYSTORE_FILE="$GITHUB_WORKSPACE/android-app/release-keystore.jks"
+          mkdir -p "$OUTPUT_DIR"
+
+          if [ -n "${KEYSTORE_BASE64:-}" ]; then
+            if [ -z "${SECRET_STORE_PASSWORD:-}" ] || [ -z "${SECRET_KEY_ALIAS:-}" ] || [ -z "${SECRET_KEY_PASSWORD:-}" ]; then
+              echo "All Android signing secrets must be configured together."
+              exit 1
+            fi
+            printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE_FILE"
+            STORE_PASSWORD="$SECRET_STORE_PASSWORD"
+            KEY_ALIAS="$SECRET_KEY_ALIAS"
+            KEY_PASSWORD="$SECRET_KEY_PASSWORD"
+          else
+            STORE_PASSWORD="$(openssl rand -hex 24)"
+            KEY_PASSWORD="$STORE_PASSWORD"
+            KEY_ALIAS="polytechnic-study-hub"
+            keytool -genkeypair \
+              -keystore "$KEYSTORE_FILE" \
+              -storetype JKS \
+              -storepass "$STORE_PASSWORD" \
+              -keypass "$KEY_PASSWORD" \
+              -alias "$KEY_ALIAS" \
+              -keyalg RSA \
+              -keysize 4096 \
+              -validity 10000 \
+              -dname "CN=Polytechnic Study Hub, OU=Android, O=Diploma Notes, L=Perinthalmanna, ST=Kerala, C=IN"
+
+            cp "$KEYSTORE_FILE" "$OUTPUT_DIR/KEEP-PRIVATE-Polytechnic-Study-Hub-release-key.jks"
+            {
+              echo "KEEP THIS FILE PRIVATE. It is required to sign all future app updates."
+              echo "Keystore file: KEEP-PRIVATE-Polytechnic-Study-Hub-release-key.jks"
+              echo "Keystore password: $STORE_PASSWORD"
+              echo "Key alias: $KEY_ALIAS"
+              echo "Key password: $KEY_PASSWORD"
+            } > "$OUTPUT_DIR/KEEP-PRIVATE-signing-credentials.txt"
+          fi
+
+          {
+            echo "ANDROID_KEYSTORE_FILE=$KEYSTORE_FILE"
+            echo "ANDROID_KEYSTORE_PASSWORD=$STORE_PASSWORD"
+            echo "ANDROID_KEY_ALIAS=$KEY_ALIAS"
+            echo "ANDROID_KEY_PASSWORD=$KEY_PASSWORD"
+          } >> "$GITHUB_ENV"
+
+      - name: Build signed release APK
+        working-directory: android-app
+        run: gradle --no-daemon :app:clean :app:assembleRelease
+
+      - name: Verify release APK
+        run: |
+          set -euo pipefail
+          APK="$GITHUB_WORKSPACE/android-app/app/build/outputs/apk/release/app-release.apk"
+          OUTPUT_DIR="$GITHUB_WORKSPACE/android-app/release-output"
+          test -f "$APK"
+
+          APKANALYZER="$(command -v apkanalyzer || true)"
+          if [ -z "$APKANALYZER" ]; then
+            APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
+          fi
+          test -n "$APKANALYZER"
+          test "$("$APKANALYZER" manifest debuggable "$APK" | tr -d '\r\n')" = "false"
+
+          APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+          test -n "$APKSIGNER"
+          "$APKSIGNER" verify --verbose --print-certs "$APK"
+
+          cp "$APK" "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.1.apk"
+          sha256sum "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.1.apk" > "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.1.sha256.txt"
+
+      - name: Upload signed release bundle
         uses: actions/upload-artifact@v4
         with:
-          name: polytechnic-study-hub-debug-apk
-          path: android-app/app/build/outputs/apk/debug/app-debug.apk
+          name: polytechnic-study-hub-v1.0.1-release-bundle
+          path: android-app/release-output/
           if-no-files-found: error
-          retention-days: 30
+          retention-days: 7
