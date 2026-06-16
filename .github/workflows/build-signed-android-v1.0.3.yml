@@ -1,0 +1,116 @@
+name: Build signed Android v1.0.3
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "android-app/**"
+      - ".well-known/assetlinks.json"
+      - ".github/workflows/build-signed-android-v1.0.3.yml"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  build-signed-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.9"
+
+      - name: Download preserved production signing identity
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: 7657589096
+          path: previous-release
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: 27594595899
+
+      - name: Build clean unsigned release
+        working-directory: android-app
+        run: |
+          mkdir -p release-output
+          gradle --no-daemon --refresh-dependencies :app:clean :app:assembleRelease
+
+      - name: Sign and verify v1.0.3
+        run: |
+          set -euo pipefail
+          UNSIGNED="android-app/app/build/outputs/apk/release/app-release-unsigned.apk"
+          OUTPUT_DIR="android-app/release-output"
+          OUTPUT="$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.3.apk"
+          META="$(find previous-release -type f -name KEEP-PRIVATE-signing-credentials.txt | head -n 1)"
+          STORE="$(find previous-release -type f -name KEEP-PRIVATE-Polytechnic-Study-Hub-release-key.jks | head -n 1)"
+          SIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
+
+          test -f "$UNSIGNED"
+          test -f "$META"
+          test -f "$STORE"
+          test -n "$SIGNER"
+          mkdir -p "$OUTPUT_DIR"
+
+          mapfile -t VALUES < <(awk -F': ' 'NF > 1 {print $2}' "$META")
+          STORE_PASSWORD="${VALUES[1]}"
+          KEY_ALIAS="${VALUES[2]}"
+          KEY_PASSWORD="${VALUES[3]}"
+
+          "$SIGNER" sign \
+            --ks "$STORE" \
+            --ks-pass "pass:$STORE_PASSWORD" \
+            --ks-key-alias "$KEY_ALIAS" \
+            --key-pass "pass:$KEY_PASSWORD" \
+            --out "$OUTPUT" \
+            "$UNSIGNED"
+
+          "$SIGNER" verify --verbose --print-certs "$OUTPUT" | tee "$OUTPUT_DIR/signature-report.txt"
+          CERT_SHA="$(grep 'Signer #1 certificate SHA-256 digest:' "$OUTPUT_DIR/signature-report.txt" | awk -F': ' '{print tolower($2)}')"
+          test "$CERT_SHA" = "5a967a8bc71710e34ecd4ec3679fc483c43f252b945b29770c18ac80719e8432"
+
+          APKANALYZER="$(command -v apkanalyzer || true)"
+          if [ -z "$APKANALYZER" ]; then
+            APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
+          fi
+          test -n "$APKANALYZER"
+          test "$("$APKANALYZER" manifest debuggable "$OUTPUT" | tr -d '\r\n')" = "false"
+          test "$("$APKANALYZER" manifest version-name "$OUTPUT" | tr -d '\r\n')" = "1.0.3"
+          test "$("$APKANALYZER" manifest version-code "$OUTPUT" | tr -d '\r\n')" = "4"
+
+          python - "$OUTPUT" <<'PY'
+          import re
+          import sys
+          import zipfile
+
+          malformed = []
+          with zipfile.ZipFile(sys.argv[1]) as archive:
+              for name in archive.namelist():
+                  if re.fullmatch(r"META-INF/androidx\..+\.version", name):
+                      value = archive.read(name).decode("utf-8", "replace").strip()
+                      if value and not re.fullmatch(r"\d+(?:\.\d+){1,3}(?:[-+][A-Za-z0-9._-]+)?", value):
+                          malformed.append(f"{name}: {value}")
+          if malformed:
+              raise SystemExit("Malformed AndroidX metadata:\n" + "\n".join(malformed))
+          PY
+
+          sha256sum "$OUTPUT" > "$OUTPUT_DIR/Polytechnic-Study-Hub-v1.0.3.sha256.txt"
+
+      - name: Upload signed release
+        uses: actions/upload-artifact@v4
+        with:
+          name: polytechnic-study-hub-v1.0.3-signed
+          path: android-app/release-output/
+          if-no-files-found: error
+          retention-days: 14
