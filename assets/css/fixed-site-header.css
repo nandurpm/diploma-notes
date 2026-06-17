@@ -16,6 +16,17 @@ html.polytechnic-native-app .skip-link {
   display: none !important;
 }
 
+/* Never show the website download button inside the installed Android app.
+   The update-check script explicitly marks it as "update" only when a newer
+   APK is available. This CSS also works when an older script is cached. */
+html.polytechnic-native-app .app-download {
+  display: none !important;
+}
+
+html.polytechnic-native-app .app-download[data-app-button-state="update"] {
+  display: inline-flex !important;
+}
+
 html.polytechnic-native-app body.has-fixed-site-header {
   padding-top: 0 !important;
 }
