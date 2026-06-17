@@ -1,0 +1,189 @@
+{
+  "version": "2026-06-17",
+  "source": "SITTTR Kerala institution lists (Government, Aided, Self-Financing and IHRD), reviewed 2026-06-17.",
+  "districts": [
+    {
+      "name": "Thiruvananthapuram",
+      "colleges": [
+        "Central Polytechnic College, Thiruvananthapuram",
+        "Government Women's Polytechnic College, Thiruvananthapuram",
+        "Government Polytechnic College, Neyyattinkara",
+        "Government Polytechnic College, Attingal",
+        "Government Polytechnic College, Nedumangad",
+        "MGM Polytechnic College, Kilimanoor",
+        "Rajadhani Institute of Engineering and Technology, Nagaroor",
+        "P. A. Aziz College of Engineering and Technology, Karakulam",
+        "Muslim Association College of Engineering, Venjaramoodu",
+        "Musaliar College of Engineering, Chirayinkeezhu",
+        "M. G. College of Engineering, Thiruvallam",
+        "John Cox Memorial CSI Institute of Technology, Kannammoola"
+      ]
+    },
+    {
+      "name": "Kollam",
+      "colleges": [
+        "Government Polytechnic College, Punalur",
+        "Government Polytechnic College, Ezhukone",
+        "Sree Narayana Polytechnic College, Kottiyam",
+        "Model Polytechnic College, Karunagappally",
+        "Younus College of Polytechnic, Thalachira",
+        "AKM Polytechnic College, Kannanalloor",
+        "UKF College of Engineering and Technology, Parippally",
+        "Baselios Mathews II College of Engineering, Sasthamcotta"
+      ]
+    },
+    {
+      "name": "Pathanamthitta",
+      "colleges": [
+        "Government Polytechnic College, Vennikulam",
+        "Government Polytechnic College, Adoor",
+        "Government Polytechnic College, Vechoochira",
+        "N. S. S. Polytechnic College, Pandalam",
+        "Sree Narayana Institute of Technology, Adoor"
+      ]
+    },
+    {
+      "name": "Alappuzha",
+      "colleges": [
+        "Government Polytechnic College, Cherthala",
+        "Government Women's Polytechnic College, Kayamkulam",
+        "Carmel Polytechnic College, Punnapra",
+        "Keltron Toolroom Research and Training Centre, Aroor",
+        "KVM College of Engineering and Information Technology, Cherthala"
+      ]
+    },
+    {
+      "name": "Kottayam",
+      "colleges": [
+        "Government Polytechnic College, Kottayam",
+        "Government Polytechnic College, Pala",
+        "Government Polytechnic College, Kaduthuruthy",
+        "Model Polytechnic College, Mattakkara",
+        "College of Engineering, Poonjar",
+        "Gregorian Institute of Technology, Kangazha",
+        "TOMS College of Engineering, Mattakkara",
+        "Mangalam College of Engineering, Ettumanoor"
+      ]
+    },
+    {
+      "name": "Idukki",
+      "colleges": [
+        "Government Polytechnic College, Muttom",
+        "Government Polytechnic College, Vandiperiyar",
+        "Government Polytechnic College, Nedumkandam",
+        "Government Polytechnic College, Purappuzha",
+        "Model Polytechnic College, Painavu",
+        "Al-Azhar College of Engineering and Polytechnic, Thodupuzha"
+      ]
+    },
+    {
+      "name": "Ernakulam",
+      "colleges": [
+        "Government Polytechnic College, Kalamassery",
+        "Government Women's Polytechnic College, Ernakulam",
+        "Government Polytechnic College, Kothamangalam",
+        "Government Polytechnic College, Perumbavoor",
+        "Kuttukaran Polytechnic College, North Paravur",
+        "Indira Gandhi Institute of Polytechnic and Engineering, Nellikuzhy",
+        "SCMS College of Polytechnic, Perumbavoor",
+        "MGM Polytechnic College, Pampakuda",
+        "SNM Institute of Management and Technology, Maliankara",
+        "Indira Gandhi Polytechnic College, Asamannoor",
+        "Jai Bharath College of Management and Engineering Technology, Perumbavoor",
+        "SNGIST Group of Institutions, North Paravur",
+        "Ilahia School of Science and Technology, Muvattupuzha",
+        "Mar Baselios Institute of Technology and Science, Kothamangalam",
+        "Albertian Institute of Science and Technology, Kalamassery",
+        "KMEA College of Architecture, Edathala"
+      ]
+    },
+    {
+      "name": "Thrissur",
+      "colleges": [
+        "Maharaja's Technological Institute, Thrissur",
+        "Sree Rama Government Polytechnic College, Thriprayar",
+        "Government Polytechnic College, Koratty",
+        "Government Polytechnic College, Kunnamkulam",
+        "Government Women's Polytechnic College, Thrissur",
+        "Government Polytechnic College, Chelakkara",
+        "Thiagarajar Polytechnic College, Alagappanagar",
+        "K. Karunakaran Memorial Model Polytechnic College, Mala",
+        "Nirmala Institute of Technology, Kunnappilly",
+        "Holy Grace Polytechnic College, Mala",
+        "MET's School of Engineering, Mala",
+        "ICCS College of Engineering and Management, Mupliyam"
+      ]
+    },
+    {
+      "name": "Palakkad",
+      "colleges": [
+        "Government Polytechnic College, Palakkad",
+        "Institute of Printing Technology and Government Polytechnic College, Shoranur",
+        "Model Residential Polytechnic College, Kuzhalmannam",
+        "St. Mary's Polytechnic College, Valliyode",
+        "Malabar Polytechnic Campus, Palakkad",
+        "Aries Polytechnic College, Palakkad",
+        "Nehru College of Architecture, Lakkidi",
+        "Rajadhani Institute of Science and Technology, Mankara"
+      ]
+    },
+    {
+      "name": "Malappuram",
+      "colleges": [
+        "Government Polytechnic College, Perinthalmanna",
+        "Government Polytechnic College, Tirurangadi",
+        "Government Women's Polytechnic College, Kottakkal",
+        "Government Polytechnic College, Manjeri",
+        "Seethi Sahib Memorial Polytechnic College, Tirur",
+        "MGM Technological Campus, Valanchery",
+        "Ma'din Polytechnic College, Melmuri",
+        "KMCT Polytechnic College, Malappuram",
+        "Orphanage Polytechnic College, Edavanna",
+        "Malabar Polytechnic College, Kottakkal",
+        "Majlis Polytechnic College, Puramannur",
+        "Devaki Amma's Guruvayoorappan College of Architecture, Chelambra",
+        "Eranad Knowledge City College of Architecture, Manjeri"
+      ]
+    },
+    {
+      "name": "Kozhikode",
+      "colleges": [
+        "Kerala Government Polytechnic College, Kozhikode",
+        "Government Women's Polytechnic College, Kozhikode",
+        "JDT Islam Polytechnic College, Kozhikode",
+        "Model Polytechnic College, Vadakara",
+        "KMCT Institute of Emerging Technology and Management, Mukkam",
+        "AWH Polytechnic College, Kuttikkattoor",
+        "KMCT Polytechnic College, Manassery",
+        "Hassan Haji Memorial JDT Islam Polytechnic College, Kozhikode",
+        "M. DIT Polytechnic College, Kozhikode"
+      ]
+    },
+    {
+      "name": "Wayanad",
+      "colleges": [
+        "Government Polytechnic College, Meenangadi",
+        "Government Polytechnic College, Meppadi",
+        "Government Polytechnic College, Mananthavady"
+      ]
+    },
+    {
+      "name": "Kannur",
+      "colleges": [
+        "Government Polytechnic College, Kannur",
+        "Government Polytechnic College, Mattannur",
+        "Government Residential Women's Polytechnic College, Payyannur",
+        "Government Polytechnic College, Naduvil",
+        "E. K. Nayanar Memorial Model Polytechnic College, Kalliasseri",
+        "MGM Silver Jubilee Polytechnic College, Vilayancode"
+      ]
+    },
+    {
+      "name": "Kasaragod",
+      "colleges": [
+        "Government Polytechnic College, Kasaragod",
+        "Government Polytechnic College, Thrikkaripur"
+      ]
+    }
+  ]
+}
