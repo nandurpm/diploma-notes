@@ -41,10 +41,13 @@ jobs:
           python -m pip install playwright pypdf
           python -m playwright install --with-deps chromium
 
-      - name: Validate renderer source
+      - name: Validate renderer and shared scripts
         run: |
           python -m py_compile tools/build_lesson_pdfs.py
           python -m py_compile tools/update_asset_manifest.py
+          node --check assets/js/site-hardening.js
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
 
       - name: Start local website server
         run: |
