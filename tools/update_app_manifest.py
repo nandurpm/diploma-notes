@@ -79,15 +79,39 @@ def build_manifest(apk_path: Path, version_name: str) -> dict:
     }
 
 
-def update_index(source: str, apk_path: Path) -> str:
+def update_index(source: str, apk_path: Path, version_name: str) -> str:
     replacement = f'href="/downloads/{apk_path.name}" download="{apk_path.name}"'
-    pattern = re.compile(
+    apk_link_pattern = re.compile(
         r'href="/downloads/Polytechnic-Study-Hub-v[^\"]+\.apk"\s+'
         r'download="Polytechnic-Study-Hub-v[^\"]+\.apk"'
     )
-    updated, count = pattern.subn(replacement, source)
+    updated, count = apk_link_pattern.subn(replacement, source)
     if count == 0:
         raise RuntimeError("Could not find the homepage Android APK download link.")
+
+    app_button_pattern = re.compile(r'<a\b[^>]*\bclass="btn app-download"[^>]*>', re.IGNORECASE)
+
+    def hide_app_button(match: re.Match[str]) -> str:
+        tag = re.sub(r'\s+aria-hidden="true"', "", match.group(0), flags=re.IGNORECASE)
+        tag = re.sub(r'\s+hidden(?=\s|>)', "", tag, flags=re.IGNORECASE)
+        return tag[:-1] + ' aria-hidden="true" hidden>'
+
+    updated, count = app_button_pattern.subn(hide_app_button, updated, count=1)
+    if count == 0:
+        raise RuntimeError("Could not find the homepage Android app button.")
+
+    cache_token = f"app-{version_name.replace('.', '-')}-update-button-1"
+    script_pattern = re.compile(
+        r'src="/assets/js/fixed-site-header\.js(?:\?v=[^\"]*)?"'
+    )
+    updated, count = script_pattern.subn(
+        f'src="/assets/js/fixed-site-header.js?v={cache_token}"',
+        updated,
+        count=1,
+    )
+    if count == 0:
+        raise RuntimeError("Could not find the native-app website script reference.")
+
     return updated
 
 
@@ -99,7 +123,7 @@ def main() -> int:
     apk_path, version_name = latest_apk()
     manifest_text = json.dumps(build_manifest(apk_path, version_name), ensure_ascii=False, indent=2) + "\n"
     index_source = INDEX_PATH.read_text(encoding="utf-8")
-    index_text = update_index(index_source, apk_path)
+    index_text = update_index(index_source, apk_path, version_name)
 
     stale_manifest = not MANIFEST_PATH.exists() or MANIFEST_PATH.read_text(encoding="utf-8") != manifest_text
     stale_index = index_source != index_text
