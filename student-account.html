@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create or access a POLY PMNA student account for daily exams.">
+  <title>Student Account & Daily Exams | POLY PMNA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+  <link rel="stylesheet" href="/assets/css/wide-layout.css">
+  <link rel="stylesheet" href="/assets/css/hardening.css">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260614-brand2">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260614-layout1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=app-1-0-3-update-button-2">
+  <link rel="stylesheet" href="/assets/css/student-account.css?v=20260617-auth1">
+  <link rel="canonical" href="https://polypmna.dpdns.org/student-account.html">
+</head>
+<body class="portal-page account-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="topbar">
+    <a class="brand" href="/index.html" aria-label="Polytechnic Study Hub home">
+      <span class="brand-symbol" aria-hidden="true">📚</span>
+      <strong>Polytechnic Study Hub</strong>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="/index.html">Home</a>
+      <a href="/revision-2021.html">Revision 2021</a>
+      <a href="/materials-2015.html">2015 Materials</a>
+      <a class="active" aria-current="page" href="/student-account.html">Daily Exams</a>
+      <a href="/contact.html">Help</a>
+    </nav>
+  </header>
+
+  <main id="main-content" class="account-shell">
+    <section class="account-intro" aria-labelledby="account-title">
+      <p class="kicker">POLY PMNA Daily Exams</p>
+      <h1 id="account-title">Your student account</h1>
+      <p>Create one account using a unique username and verified recovery email. Your password is handled by Firebase Authentication and is never stored in the website database.</p>
+      <div class="account-points" aria-label="Account benefits">
+        <span>One username</span>
+        <span>Verified recovery email</span>
+        <span>District-based college selection</span>
+      </div>
+    </section>
+
+    <section class="account-card" aria-label="Student account forms">
+      <div id="signedOutView">
+        <div class="account-tabs" role="tablist" aria-label="Account actions">
+          <button class="account-tab is-active" id="loginTab" type="button" role="tab" aria-selected="true" aria-controls="loginPanel" data-panel="login">Login</button>
+          <button class="account-tab" id="createTab" type="button" role="tab" aria-selected="false" aria-controls="createPanel" data-panel="create">Create Account</button>
+          <button class="account-tab" id="recoveryTab" type="button" role="tab" aria-selected="false" aria-controls="recoveryPanel" data-panel="recovery">Forgot Password</button>
+        </div>
+
+        <div id="accountStatus" class="account-status" role="status" aria-live="polite"></div>
+
+        <section class="account-panel is-active" id="loginPanel" role="tabpanel" aria-labelledby="loginTab">
+          <div class="panel-heading">
+            <h2>Student Login</h2>
+            <p>Use the username and password created for POLY PMNA.</p>
+          </div>
+          <form id="loginForm" novalidate>
+            <div class="field">
+              <label for="loginUsername">Username</label>
+              <input id="loginUsername" name="username" type="text" autocomplete="username" minlength="4" maxlength="20" required placeholder="e.g. nandakumar123">
+            </div>
+            <div class="field">
+              <label for="loginPassword">Password</label>
+              <div class="password-field">
+                <input id="loginPassword" name="password" type="password" autocomplete="current-password" minlength="8" required>
+                <button class="password-toggle" type="button" data-toggle-password="loginPassword" aria-label="Show password">Show</button>
+              </div>
+            </div>
+            <button class="account-submit" type="submit">Login</button>
+          </form>
+        </section>
+
+        <section class="account-panel" id="createPanel" role="tabpanel" aria-labelledby="createTab" hidden>
+          <div class="panel-heading">
+            <h2>Create Account</h2>
+            <p>All fields are required. The college list changes after selecting a district.</p>
+          </div>
+          <form id="createAccountForm" novalidate>
+            <div class="field">
+              <label for="createUsername">Username</label>
+              <input id="createUsername" name="username" type="text" autocomplete="username" minlength="4" maxlength="20" required placeholder="e.g. nandakumar123" aria-describedby="usernameHelp usernameAvailability">
+              <small id="usernameHelp">Use 4–20 lowercase letters, numbers, dot or underscore.</small>
+              <small id="usernameAvailability" class="field-feedback" aria-live="polite"></small>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="createPassword">Password</label>
+                <div class="password-field">
+                  <input id="createPassword" name="password" type="password" autocomplete="new-password" minlength="8" required aria-describedby="passwordHelp">
+                  <button class="password-toggle" type="button" data-toggle-password="createPassword" aria-label="Show password">Show</button>
+                </div>
+                <small id="passwordHelp">At least 8 characters with a letter and a number.</small>
+              </div>
+              <div class="field">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="password-field">
+                  <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+                  <button class="password-toggle" type="button" data-toggle-password="confirmPassword" aria-label="Show password">Show</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-grid">
+              <div class="field">
+                <label for="districtSelect">District</label>
+                <select id="districtSelect" name="district" required>
+                  <option value="">Select district</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="collegeSelect">College</label>
+                <select id="collegeSelect" name="college" required disabled>
+                  <option value="">Select district first</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="recoveryEmail">Recovery Email</label>
+              <input id="recoveryEmail" name="email" type="email" autocomplete="email" required placeholder="student@gmail.com" aria-describedby="emailHelp">
+              <small id="emailHelp">A verification link and future password-reset links will be sent here.</small>
+            </div>
+
+            <label class="consent-row" for="accountConsent">
+              <input id="accountConsent" name="consent" type="checkbox" required>
+              <span>I agree to the <a href="/terms.html" target="_blank" rel="noopener">Terms</a> and acknowledge the <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.</span>
+            </label>
+
+            <button class="account-submit" type="submit">Create Account</button>
+          </form>
+        </section>
+
+        <section class="account-panel" id="recoveryPanel" role="tabpanel" aria-labelledby="recoveryTab" hidden>
+          <div class="panel-heading">
+            <h2>Reset Password</h2>
+            <p>Enter your username. A reset link will be sent to the registered recovery email.</p>
+          </div>
+          <form id="recoveryForm" novalidate>
+            <div class="field">
+              <label for="recoveryUsername">Username</label>
+              <input id="recoveryUsername" name="username" type="text" autocomplete="username" minlength="4" maxlength="20" required placeholder="e.g. nandakumar123">
+            </div>
+            <button class="account-submit" type="submit">Send Reset Link</button>
+          </form>
+        </section>
+      </div>
+
+      <section id="signedInView" class="signed-in-card" hidden aria-live="polite">
+        <div class="student-avatar" id="studentAvatar" aria-hidden="true">S</div>
+        <p class="kicker">Signed in</p>
+        <h2 id="studentUsername">Student</h2>
+        <dl class="profile-summary">
+          <div><dt>District</dt><dd id="studentDistrict">—</dd></div>
+          <div><dt>College</dt><dd id="studentCollege">—</dd></div>
+          <div><dt>Email</dt><dd id="studentEmail">—</dd></div>
+        </dl>
+        <div id="verificationNotice" class="verification-notice" hidden>
+          Verify your recovery email before participating in daily exams.
+          <button id="resendVerificationButton" type="button">Resend verification email</button>
+        </div>
+        <div class="signed-in-actions">
+          <a class="account-submit is-link" href="/daily-exams.html" id="openExamButton">Open Daily Exams</a>
+          <button class="account-secondary" id="logoutButton" type="button">Logout</button>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span data-year></span> Diploma Notes.</p>
+    <a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a>
+    <nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>
+  </footer>
+
+  <script src="/assets/js/main.js?v=20260615-notice2" defer></script>
+  <script src="/assets/js/site-hardening.js" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=app-1-0-3-update-button-2" defer></script>
+  <script type="module" src="/assets/js/student-account.js?v=20260617-auth1"></script>
+</body>
+</html>
