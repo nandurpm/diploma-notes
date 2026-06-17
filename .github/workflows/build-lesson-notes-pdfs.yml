@@ -9,6 +9,7 @@ on:
       - "assets/lesson-content/**/*.html"
       - "assets/css/**/*.css"
       - "assets/js/site-hardening.js"
+      - "assets/js/fixed-site-header.js"
       - "tools/build_lesson_pdfs.py"
       - ".github/workflows/build-lesson-notes-pdfs.yml"
 
@@ -46,6 +47,7 @@ jobs:
           python -m py_compile tools/build_lesson_pdfs.py
           python -m py_compile tools/update_asset_manifest.py
           node --check assets/js/site-hardening.js
+          node --check assets/js/fixed-site-header.js
           node --check assets/js/subject-browser.js
           node --check assets/js/asset-manifest.js
 
