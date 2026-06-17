@@ -50,14 +50,14 @@
     </section>
 
     <section class="account-card" aria-label="Student account forms">
+      <div id="accountStatus" class="account-status" role="status" aria-live="polite"></div>
+
       <div id="signedOutView">
         <div class="account-tabs" role="tablist" aria-label="Account actions">
           <button class="account-tab is-active" id="loginTab" type="button" role="tab" aria-selected="true" aria-controls="loginPanel" data-panel="login">Login</button>
           <button class="account-tab" id="createTab" type="button" role="tab" aria-selected="false" aria-controls="createPanel" data-panel="create">Create Account</button>
           <button class="account-tab" id="recoveryTab" type="button" role="tab" aria-selected="false" aria-controls="recoveryPanel" data-panel="recovery">Forgot Password</button>
         </div>
-
-        <div id="accountStatus" class="account-status" role="status" aria-live="polite"></div>
 
         <section class="account-panel is-active" id="loginPanel" role="tabpanel" aria-labelledby="loginTab">
           <div class="panel-heading">
