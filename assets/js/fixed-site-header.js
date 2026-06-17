@@ -7,6 +7,10 @@
   const isNativeAndroidApp = Boolean(appUserAgentMatch);
   const installedAppVersion = appUserAgentMatch ? appUserAgentMatch[1] : null;
 
+  if (isNativeAndroidApp) {
+    root.classList.add("polytechnic-native-app");
+  }
+
   const compareVersions = (left, right) => {
     const leftParts = String(left || "0").split(".").map((part) => Number.parseInt(part, 10) || 0);
     const rightParts = String(right || "0").split(".").map((part) => Number.parseInt(part, 10) || 0);
@@ -36,12 +40,14 @@
     };
 
     if (!isNativeAndroidApp) {
+      button.dataset.appButtonState = "download";
       button.textContent = "📱 Download Our App";
       button.setAttribute("aria-label", "Download Polytechnic Study Hub Android application");
       showButton();
       return;
     }
 
+    button.dataset.appButtonState = "checking";
     hideButton();
     button.removeAttribute("download");
 
@@ -55,10 +61,12 @@
         const apkUrl = update && update.apkUrl;
 
         if (!latestVersion || !apkUrl || compareVersions(latestVersion, installedAppVersion) <= 0) {
+          button.dataset.appButtonState = "current";
           hideButton();
           return;
         }
 
+        button.dataset.appButtonState = "update";
         button.textContent = "UPDATE YOUR APP";
         button.href = apkUrl;
         button.setAttribute("aria-label", `Update Polytechnic Study Hub to version ${latestVersion}`);
@@ -66,6 +74,7 @@
       })
       .catch((error) => {
         console.error("Unable to check for an app update.", error);
+        button.dataset.appButtonState = "unavailable";
         hideButton();
       });
   };
@@ -73,7 +82,6 @@
   configureAppDownloadButton();
 
   if (isNativeAndroidApp) {
-    root.classList.add("polytechnic-native-app");
     root.style.setProperty("--fixed-site-header-height", "0px");
     root.style.setProperty("--fixed-site-header-gap", "0px");
     body.classList.remove("has-fixed-site-header");
