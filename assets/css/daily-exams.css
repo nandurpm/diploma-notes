@@ -1,0 +1,133 @@
+.exams-page {
+  background: #f6f8fc;
+}
+
+.exams-shell {
+  width: 100%;
+  max-width: none;
+  min-height: calc(100vh - 170px);
+  padding: clamp(96px, 10vw, 126px) clamp(14px, 3vw, 48px) 54px;
+}
+
+.exams-heading {
+  margin-bottom: 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-end;
+}
+
+.exams-heading h1 {
+  margin: .2rem 0 .5rem;
+  color: #10233f;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.2rem, 5vw, 4.6rem);
+  letter-spacing: -.05em;
+}
+
+.exams-heading p {
+  margin: 0;
+  color: #627187;
+}
+
+.exam-account-link {
+  border: 1px solid #c7d4e6;
+  border-radius: 12px;
+  background: #fff;
+  padding: 11px 15px;
+  color: #1d4ed8;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.exam-status {
+  padding: 18px;
+  border: 1px solid #d8e1ee;
+  border-radius: 16px;
+  background: #fff;
+  color: #56677e;
+  font-weight: 700;
+}
+
+.exam-status.error {
+  border-color: #f0c5c0;
+  background: #fff3f1;
+  color: #a72d23;
+}
+
+.exam-list {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.exam-card {
+  border: 1px solid #d8e1ee;
+  border-radius: 18px;
+  background: #fff;
+  padding: 22px;
+  box-shadow: 0 12px 32px rgba(30, 54, 87, .08);
+}
+
+.exam-card h2 {
+  margin: 0 0 10px;
+  color: #142d4b;
+  font-size: 1.25rem;
+}
+
+.exam-card p {
+  color: #637188;
+}
+
+.exam-meta {
+  display: grid;
+  gap: 8px;
+  margin: 16px 0;
+  color: #3f536d;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.exam-start {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #1d4ed8;
+  padding: 10px 15px;
+  color: #fff;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.empty-exams {
+  grid-column: 1 / -1;
+  border: 1px dashed #becce0;
+  border-radius: 18px;
+  background: #fff;
+  padding: clamp(28px, 6vw, 70px);
+  text-align: center;
+}
+
+.empty-exams h2 {
+  margin: 0 0 8px;
+  color: #193351;
+}
+
+.empty-exams p {
+  margin: 0;
+  color: #69798e;
+}
+
+@media (max-width: 620px) {
+  .exams-shell {
+    padding-inline: 12px;
+  }
+
+  .exams-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
