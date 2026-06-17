@@ -6,6 +6,16 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function isVerifiedStudent() {
+      return isSignedIn() &&
+        request.auth.token.email_verified == true;
+    }
+
+    function owns(uid) {
+      return isSignedIn() &&
+        request.auth.uid == uid;
+    }
+
     function ownsExistingComment() {
       return isSignedIn() &&
         resource.data.uid is string &&
@@ -63,6 +73,46 @@ service cloud.firestore {
       allow delete: if ownsExistingComment() &&
         resource.data.pageId == "help" &&
         resource.data.parentId is string;
+    }
+
+    match /users/{uid} {
+      allow read: if owns(uid);
+      allow create, update, delete: if false;
+    }
+
+    match /usernames/{username} {
+      allow read, write: if false;
+    }
+
+    match /privateRateLimits/{documentId} {
+      allow read, write: if false;
+    }
+
+    match /exams/{examId} {
+      allow read: if isVerifiedStudent() &&
+        resource.data.status == "published";
+      allow write: if false;
+
+      match /questions/{questionId} {
+        allow read: if isVerifiedStudent() &&
+          get(/databases/$(database)/documents/exams/$(examId)).data.status == "published";
+        allow write: if false;
+      }
+    }
+
+    match /submissions/{submissionId} {
+      allow read: if isSignedIn() &&
+        resource.data.uid == request.auth.uid;
+      allow create, update, delete: if false;
+    }
+
+    match /examDrafts/{draftId} {
+      allow read: if isSignedIn() &&
+        resource.data.uid == request.auth.uid;
+      allow create, update: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() &&
+        resource.data.uid == request.auth.uid;
     }
 
     match /{document=**} {
