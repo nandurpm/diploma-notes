@@ -7,6 +7,83 @@
   const isNativeAndroidApp = Boolean(appUserAgentMatch);
   const installedAppVersion = appUserAgentMatch ? appUserAgentMatch[1] : null;
 
+  async function recoverFragmentLesson() {
+    if (!body.classList.contains("course-2001")) return;
+    const slots = [...document.querySelectorAll("[data-fragment]")];
+
+    await Promise.all(slots.map(async (slot) => {
+      try {
+        const response = await fetch(slot.dataset.fragment, { cache: "no-cache" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        slot.outerHTML = await response.text();
+      } catch (error) {
+        slot.outerHTML = `<section class="section"><div class="callout warning"><b>Section could not be loaded:</b> ${String(error.message || error)}</div></section>`;
+      }
+    }));
+
+    const panels = [...document.querySelectorAll(".panel")];
+    const tabs = [...document.querySelectorAll(".tab[data-panel]")];
+
+    const showPanel = (id, shouldScroll = true) => {
+      panels.forEach((panel) => panel.classList.toggle("active", panel.id === id));
+      tabs.forEach((tab) => {
+        const active = tab.dataset.panel === id;
+        tab.classList.toggle("active", active);
+        tab.setAttribute("aria-current", active ? "page" : "false");
+      });
+      if (shouldScroll) window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+
+    tabs.forEach((tab) => {
+      if (tab.dataset.recoveryBound === "true") return;
+      tab.dataset.recoveryBound = "true";
+      tab.addEventListener("click", () => showPanel(tab.dataset.panel));
+    });
+
+    const bindSearch = (inputId, selector) => {
+      const input = document.getElementById(inputId);
+      if (!input || input.dataset.recoveryBound === "true") return;
+      input.dataset.recoveryBound = "true";
+      const apply = () => {
+        const query = input.value.trim().toLowerCase();
+        document.querySelectorAll(selector).forEach((item) => {
+          item.hidden = Boolean(query) && !item.innerText.toLowerCase().includes(query);
+        });
+      };
+      input.addEventListener("input", apply);
+      document.querySelector(`[data-clear="${inputId}"]`)?.addEventListener("click", () => {
+        input.value = "";
+        apply();
+        input.focus();
+      });
+    };
+
+    bindSearch("topicSearch", ".searchable-topic");
+    bindSearch("questionSearch", ".searchable-question");
+
+    const progress = document.getElementById("readingProgress");
+    const topButton = document.getElementById("toTop");
+    if (progress && topButton && topButton.dataset.recoveryBound !== "true") {
+      topButton.dataset.recoveryBound = "true";
+      window.addEventListener("scroll", () => {
+        const percentage = root.scrollTop / Math.max(1, root.scrollHeight - root.clientHeight) * 100;
+        progress.style.width = `${percentage}%`;
+        topButton.classList.toggle("show", root.scrollTop > 700);
+      }, { passive: true });
+      topButton.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    }
+
+    showPanel("overview", false);
+    document.dispatchEvent(new CustomEvent("poly:lesson-fragments-ready"));
+  }
+
+  recoverFragmentLesson().catch((error) => {
+    console.error("Unable to recover the fragmented lesson page.", error);
+    document.querySelectorAll(".fragment-slot").forEach((slot) => {
+      slot.outerHTML = `<section class="section"><div class="callout warning"><b>Section could not be loaded.</b></div></section>`;
+    });
+  });
+
   if (isNativeAndroidApp) {
     root.classList.add("polytechnic-native-app");
   }
