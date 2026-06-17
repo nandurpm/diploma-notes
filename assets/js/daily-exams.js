@@ -123,7 +123,7 @@ async function loadTodayExams(db, firestoreModule, profile) {
       link.textContent = "Exam closed";
       link.setAttribute("aria-disabled", "true");
       link.removeAttribute("href");
-    } else if (typeof exam.playerUrl === "string" && exam.playerUrl.startsWith("/")) {
+    } else if (isSafeSameSitePath(exam.playerUrl)) {
       link.textContent = "Open Exam";
       link.href = exam.playerUrl;
     } else {
@@ -135,6 +135,18 @@ async function loadTodayExams(db, firestoreModule, profile) {
     card.append(title, description, meta, link);
     examList.append(card);
   });
+}
+
+function isSafeSameSitePath(value) {
+  if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) {
+    return false;
+  }
+
+  try {
+    return new URL(value, window.location.origin).origin === window.location.origin;
+  } catch {
+    return false;
+  }
 }
 
 function metaLine(text) {
