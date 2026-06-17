@@ -9,6 +9,7 @@ on:
       - "assets/lesson-content/**/*.html"
       - "assets/css/**/*.css"
       - "assets/js/site-hardening.js"
+      - "tools/build_lesson_pdfs.py"
       - ".github/workflows/build-lesson-notes-pdfs.yml"
 
 permissions:
@@ -21,14 +22,16 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 50
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out current main branch
+        uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
@@ -37,6 +40,11 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install playwright pypdf
           python -m playwright install --with-deps chromium
+
+      - name: Validate renderer source
+        run: |
+          python -m py_compile tools/build_lesson_pdfs.py
+          python -m py_compile tools/update_asset_manifest.py
 
       - name: Start local website server
         run: |
@@ -52,127 +60,47 @@ jobs:
           cat /tmp/lesson-http.log
           exit 1
 
-      - name: Generate lesson PDFs
+      - name: Generate and validate all lesson PDFs
         run: |
+          python tools/build_lesson_pdfs.py
+          printf '%s\n' "${{ github.run_id }}" > reports/lesson-notes-pdf-run-id.txt
+
+      - name: Synchronize lesson and notes availability
+        run: |
+          python tools/update_asset_manifest.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Verify separate uploaded notes are preserved
+        run: |
+          test -f notes/downloadable-notes-1003.pdf
+          test -f notes/downloadable-notes-1004.pdf
           python - <<'PY'
-          from pathlib import Path
           import json
-          import re
-          from playwright.sync_api import sync_playwright
-          from pypdf import PdfReader
+          from pathlib import Path
 
-          root = Path.cwd()
-          notes = root / "notes"
-          reports = root / "reports"
-          notes.mkdir(exist_ok=True)
-          reports.mkdir(exist_ok=True)
-          excluded = {"1003", "1004"}
-          lesson_files = []
-
-          for path in sorted((root / "lessons").glob("lessons-*.html")):
-              match = re.fullmatch(r"lessons-(\d+[A-Za-z]?)\.html", path.name)
-              if match and match.group(1) not in excluded:
-                  lesson_files.append((match.group(1), path))
-
-          results = []
-          with sync_playwright() as p:
-              browser = p.chromium.launch()
-              page = browser.new_page(viewport={"width": 1440, "height": 1800})
-
-              for code, lesson in lesson_files:
-                  output = notes / f"downloadable-notes-{code}.pdf"
-                  relative_url = lesson.relative_to(root).as_posix()
-                  url = f"http://127.0.0.1:8000/{relative_url}"
-                  print(f"Rendering {code} from {url}")
-
-                  page.goto(url, wait_until="networkidle", timeout=120000)
-                  page.wait_for_function(
-                      "document.querySelectorAll('.fragment-slot').length === 0",
-                      timeout=120000,
-                  )
-                  page.wait_for_function(
-                      "document.fonts ? document.fonts.status === 'loaded' : true",
-                      timeout=60000,
-                  )
-                  page.wait_for_timeout(1000)
-                  page.evaluate("document.querySelectorAll('details').forEach(item => item.open = true)")
-                  page.add_style_tag(content="""
-                    @media print {
-                      main [hidden], [role='tabpanel'], .tab-panel, .tab-content,
-                      .module-panel, .lesson-panel, .content-panel {
-                        display:block!important;
-                        visibility:visible!important;
-                        opacity:1!important;
-                        height:auto!important;
-                        max-height:none!important;
-                        overflow:visible!important;
-                      }
-                      details > * { display:block!important; }
-                      * { animation:none!important; transition:none!important; }
-                    }
-                  """)
-
-                  body_text = page.locator("body").inner_text()
-                  if len(body_text.strip()) < 2500:
-                      raise SystemExit(f"Rendered lesson {code} is unexpectedly short")
-                  if code == "3132":
-                      required = [
-                          "Control Structures",
-                          "Arrays, Searching, Sorting and Strings",
-                          "Pointers and Dynamic Memory Allocation",
-                          "Structures, Unions, Enumerations, Files",
-                          "Solved Problem Laboratory",
-                      ]
-                      missing = [item for item in required if item not in body_text]
-                      if missing:
-                          raise SystemExit(f"Lesson 3132 is missing rendered handbook sections: {missing}")
-
-                  page.emulate_media(media="print")
-                  page.pdf(
-                      path=str(output),
-                      format="A4",
-                      print_background=True,
-                      margin={"top":"11mm","right":"9mm","bottom":"13mm","left":"9mm"},
-                      display_header_footer=True,
-                      header_template=f'<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm">Course {code}</div>',
-                      footer_template='<div style="font-size:8px;color:#64748b;width:100%;padding:0 9mm;display:flex;justify-content:space-between"><span>Polytechnic Study Hub</span><span>polypmna.dpdns.org</span><span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span></div>',
-                  )
-
-                  reader = PdfReader(str(output))
-                  if output.stat().st_size < 20000 or not reader.pages:
-                      raise SystemExit(f"Invalid PDF generated for {code}")
-                  results.append({
-                      "code": code,
-                      "pages": len(reader.pages),
-                      "bytes": output.stat().st_size,
-                      "source": relative_url,
-                  })
-
-              browser.close()
-
-          (reports / "lesson-notes-pdf-build.json").write_text(
-              json.dumps({
-                  "generated": results,
-                  "preservedSeparateNotes": sorted(excluded),
-                  "renderer": "Playwright Chromium through local HTTP server",
-              }, indent=2) + "\n",
-              encoding="utf-8",
-          )
-          (reports / "lesson-notes-pdf-run-id.txt").write_text(
-              "${{ github.run_id }}\n",
-              encoding="utf-8",
-          )
+          report = json.loads(Path("reports/lesson-notes-pdf-build.json").read_text(encoding="utf-8"))
+          assert report["preservedSeparateNotes"] == ["1003", "1004"]
+          generated_codes = {item["code"] for item in report["generated"]}
+          assert "1003" not in generated_codes
+          assert "1004" not in generated_codes
+          assert all(not item["blankPages"] for item in report["generated"])
+          assert all(item["panelCount"] == item["visiblePanelCount"] for item in report["generated"])
           PY
 
-      - name: Commit generated PDFs
+      - name: Commit corrected PDFs and availability files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add notes/downloadable-notes-*.pdf reports/lesson-notes-pdf-build.json reports/lesson-notes-pdf-run-id.txt
+          git add notes/downloadable-notes-*.pdf \
+            reports/lesson-notes-pdf-build.json \
+            reports/lesson-notes-pdf-run-id.txt \
+            assets/js/subject-browser.js \
+            assets/js/asset-manifest.js
           if git diff --cached --quiet; then
-            echo "No PDF changes"
+            echo "No lesson PDF changes"
           else
-            git commit -m "Generate downloadable PDF notes from lesson pages"
+            git commit -m "Regenerate complete lesson PDFs without blank pages"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
