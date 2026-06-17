@@ -2,9 +2,10 @@
   "use strict";
 
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
-  const isLessonPage = () => /\/lessons\/lessons-\d+\.html$/i.test(currentPath());
+  const isLessonPage = () => /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(currentPath());
   const APP_USER_AGENT_PATTERN = /PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+){0,3})/i;
   const APP_UPDATE_MANIFEST = "/downloads/app-update.json";
+  let printableDetailStates = [];
 
   function normalizeLinks() {
     document.querySelectorAll(".navlinks a.active").forEach((link) => {
@@ -56,22 +57,53 @@
     requestAnimationFrame(() => requestAnimationFrame(check));
   }
 
-  function lessonPdfHref(lessonHref) {
-    const url = new URL(lessonHref, window.location.href);
-    url.searchParams.set("download", "pdf");
-    return url.href;
+  function lessonCodeFromHref(href) {
+    try {
+      const pathname = new URL(href, window.location.href).pathname;
+      return pathname.match(/\/lessons\/lessons-(\d+[a-z]?)\.html$/i)?.[1] || "";
+    } catch {
+      return "";
+    }
+  }
+
+  function currentLessonCode() {
+    return lessonCodeFromHref(window.location.href);
+  }
+
+  function notesPdfHref(code) {
+    return new URL(`/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`, window.location.origin).href;
+  }
+
+  function notesPdfFilename(code) {
+    return `downloadable-notes-${code}.pdf`;
+  }
+
+  function normalizeDirectDownload(link, code, label) {
+    link.href = notesPdfHref(code);
+    link.download = notesPdfFilename(code);
+    link.removeAttribute("target");
+    link.removeAttribute("onclick");
+    link.textContent = label;
+    link.setAttribute("aria-label", `${label} for Course ${code}`);
+    link.classList.remove("generated-pdf-fallback");
   }
 
   function enhanceLessonDownloadButtons(root = document) {
     root.querySelectorAll?.(".subject-card").forEach((card) => {
       const lesson = card.querySelector("a.action.lessons");
-      if (!lesson || card.querySelector("a.action.download")) return;
+      if (!lesson) return;
+      const code = lessonCodeFromHref(lesson.href);
+      if (!code) return;
+
+      const existing = card.querySelector("a.action.download");
+      if (existing) {
+        normalizeDirectDownload(existing, code, "Download Notes (PDF)");
+        return;
+      }
 
       const download = document.createElement("a");
-      download.className = "action download generated-pdf-fallback";
-      download.href = lessonPdfHref(lesson.href);
-      download.textContent = "Download Notes (PDF)";
-      download.setAttribute("aria-label", `Download ${card.querySelector("h3")?.textContent?.trim() || "lesson"} as PDF`);
+      download.className = "action download";
+      normalizeDirectDownload(download, code, "Download Notes (PDF)");
 
       const unavailable = [...card.querySelectorAll(".availability-label")]
         .find((item) => /notes/i.test(item.textContent || ""));
@@ -91,44 +123,94 @@
     observer.observe(grid, { childList: true, subtree: true });
   }
 
-  function improveLessonPdfButtonLabel() {
-    if (!isLessonPage()) return;
-    document.querySelectorAll("button, a").forEach((control) => {
-      if (/print\s*\/\s*save as pdf/i.test(control.textContent || "")) {
-        control.textContent = "Download as PDF";
+  function installLessonPrintStyles() {
+    if (!isLessonPage() || document.getElementById("poly-lesson-print-fix")) return;
+    const style = document.createElement("style");
+    style.id = "poly-lesson-print-fix";
+    style.textContent = `
+      @media print {
+        @page { size:A4; margin:12mm 9mm 14mm; }
+        html,body{width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important}
+        body::before,body::after{display:none!important}
+        header,nav,.topbar,.bar,.lesson-nav,.reading-progress,.revision-back-button,#toTop,.download-pdf-btn,.pdf-button,.search-tools,button{display:none!important}
+        main,.wrap,.shell,.page-shell,.content,.container{display:block!important;width:100%!important;max-width:none!important;height:auto!important;margin:0!important;padding:0!important;overflow:visible!important}
+        body.poly-print-all [hidden],body.poly-print-all [aria-hidden="true"],body.poly-print-all .panel,body.poly-print-all .tab-panel,body.poly-print-all .tab-content,body.poly-print-all .module-panel,body.poly-print-all .lesson-panel,body.poly-print-all .content-panel,body.poly-print-all .content-section,body.poly-print-all .section-panel,body.poly-print-all [role="tabpanel"]{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;transform:none!important;position:static!important}
+        .hero,.hero-inner,.lesson-layout,.grid,.grid-2,.grid-3,.grid-4,.formula-grid,.meta-grid,.two,.quick-grid,.toc{display:block!important;width:100%!important;max-width:none!important;height:auto!important;position:static!important;overflow:visible!important}
+        .hero>*,.hero-inner>*,.lesson-layout>*,.grid>*,.grid-2>*,.grid-3>*,.grid-4>*,.formula-grid>*,.meta-grid>*,.two>*,.quick-grid>*{width:100%!important;max-width:none!important;margin:0 0 4mm!important}
+        section,article,.sec,.card,.c,.worked,.case-card,.question-paper,.module-banner,.hero{break-inside:auto!important;page-break-inside:auto!important;break-before:auto!important;page-break-before:auto!important;break-after:auto!important;page-break-after:auto!important}
+        h1,h2,h3,h4,h5,h6,figure,table,pre,blockquote,.diagram,.formula,.formula-card,.info-box,.callout,.q,details,summary{break-inside:avoid!important;page-break-inside:avoid!important}
+        .toc,aside{position:static!important;top:auto!important}
+        img,svg,canvas{max-width:100%!important;height:auto!important;break-inside:avoid!important;page-break-inside:avoid!important}
+        table{width:100%!important;min-width:0!important;max-width:100%!important;table-layout:auto!important}
+        .table-wrap,.tbl{overflow:visible!important;max-width:100%!important}
+        details>*{display:block!important}
+        *{animation:none!important;transition:none!important}
       }
-    });
+    `;
+    document.head.append(style);
   }
 
-  function openAllPrintableContent() {
-    document.querySelectorAll("details").forEach((detail) => {
+  function prepareLessonForPrint() {
+    if (!isLessonPage() || document.body.classList.contains("poly-print-all")) return;
+    printableDetailStates = [...document.querySelectorAll("details")].map((detail) => ({ detail, open: detail.open }));
+    printableDetailStates.forEach(({ detail }) => {
       detail.open = true;
     });
-    document.querySelectorAll("[hidden]").forEach((element) => {
-      if (element.closest("main")) element.hidden = false;
+    document.body.classList.add("poly-print-all");
+  }
+
+  function restoreLessonAfterPrint() {
+    printableDetailStates.forEach(({ detail, open }) => {
+      detail.open = open;
+    });
+    printableDetailStates = [];
+    document.body?.classList.remove("poly-print-all");
+  }
+
+  function replaceLessonPrintButtons() {
+    if (!isLessonPage()) return;
+    const code = currentLessonCode();
+    if (!code) return;
+
+    document.querySelectorAll("button, a").forEach((control) => {
+      const inlinePrint = /window\.print\s*\(/i.test(control.getAttribute("onclick") || "");
+      const classMatch = control.matches(".download-pdf-btn, .pdf-button");
+      const labelMatch = /(?:download|print|save).*(?:pdf)|pdf.*(?:download|print|save)/i.test(control.textContent || "");
+      if (!inlinePrint && !classMatch && !labelMatch) return;
+
+      if (control instanceof HTMLAnchorElement) {
+        normalizeDirectDownload(control, code, "Download Lesson PDF");
+        return;
+      }
+
+      const link = document.createElement("a");
+      [...control.attributes].forEach((attribute) => {
+        if (!["onclick", "type", "href", "download"].includes(attribute.name.toLowerCase())) {
+          link.setAttribute(attribute.name, attribute.value);
+        }
+      });
+      normalizeDirectDownload(link, code, "Download Lesson PDF");
+      control.replaceWith(link);
     });
   }
 
-  function autoPrintLessonFromDownloadLink() {
+  function handleLegacyLessonPdfQuery() {
     if (!isLessonPage()) return;
     const params = new URLSearchParams(window.location.search);
-    if (params.get("download") !== "pdf" && params.get("print") !== "1") return;
+    const code = currentLessonCode();
+    if (!code) return;
 
-    const started = Date.now();
-    const timeout = 45000;
-    const waitForCompleteLesson = window.setInterval(() => {
-      const fragmentsLoading = document.querySelectorAll(".fragment-slot").length > 0;
-      const loadingText = [...document.querySelectorAll("main *")]
-        .some((node) => /^Loading\b/i.test((node.textContent || "").trim()));
-      const ready = document.readyState === "complete" && !fragmentsLoading && !loadingText;
+    if (params.get("download") === "pdf") {
+      window.location.replace(notesPdfHref(code));
+      return;
+    }
 
-      if (ready || Date.now() - started > timeout) {
-        window.clearInterval(waitForCompleteLesson);
-        openAllPrintableContent();
-        document.body.dataset.pdfDownloadReady = "true";
-        window.setTimeout(() => window.print(), 500);
-      }
-    }, 250);
+    if (params.get("print") === "1") {
+      window.setTimeout(() => {
+        prepareLessonForPrint();
+        window.print();
+      }, 500);
+    }
   }
 
   function versionParts(value) {
@@ -293,14 +375,18 @@
     }
   }
 
+  window.addEventListener("beforeprint", prepareLessonForPrint);
+  window.addEventListener("afterprint", restoreLessonAfterPrint);
+
   document.addEventListener("DOMContentLoaded", () => {
     normalizeLinks();
     materialPageFallbacks();
     contactFallbackTimer();
     layoutOverflowFlag();
     observeLessonCards();
-    improveLessonPdfButtonLabel();
-    autoPrintLessonFromDownloadLink();
+    installLessonPrintStyles();
+    replaceLessonPrintButtons();
+    handleLegacyLessonPdfQuery();
     window.setTimeout(checkForAppUpdate, 700);
   });
 })();
