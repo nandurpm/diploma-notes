@@ -76,6 +76,21 @@
       "warnings": []
     },
     {
+      "code": "2001",
+      "pages": 47,
+      "bytes": 615859,
+      "source": "lessons/lessons-2001.html",
+      "sourceCharacters": 65820,
+      "pdfCharacters": 66257,
+      "textCoverage": 1.0066,
+      "panelCount": 10,
+      "visiblePanelCount": 10,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
       "code": "2002",
       "pages": 33,
       "bytes": 727113,
@@ -342,13 +357,7 @@
       "warnings": []
     }
   ],
-  "errors": [
-    {
-      "code": "2001",
-      "source": "lessons/lessons-2001.html",
-      "error": "Page.wait_for_function: Timeout 120000ms exceeded."
-    }
-  ],
+  "errors": [],
   "preservedSeparateNotes": [
     "1003",
     "1004"
