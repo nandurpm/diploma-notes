@@ -1,0 +1,227 @@
+.home-compact-hero.page-title {
+  grid-template-columns: minmax(0, 1.34fr) minmax(340px, 0.9fr);
+  gap: clamp(22px, 3vw, 52px);
+  align-items: center;
+  min-height: clamp(320px, 28vw, 430px);
+}
+
+.home-compact-hero.page-title > :not(.daily-special-card) {
+  grid-column: 1;
+  max-width: 860px;
+}
+
+.home-compact-hero.page-title::after {
+  right: clamp(16px, 2.4vw, 42px);
+  bottom: clamp(12px, 2vw, 28px);
+  opacity: 0.22;
+  z-index: 0;
+}
+
+.daily-special-card {
+  position: relative;
+  z-index: 2;
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  align-self: center;
+  padding: clamp(20px, 2.2vw, 28px);
+  border: 1px solid rgba(42, 129, 226, 0.18);
+  border-radius: 26px;
+  background:
+    linear-gradient(105deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.92) 56%, rgba(231, 246, 255, 0.72) 100%),
+    var(--daily-special-image, url("../media/important-days/default-study.webp")),
+    radial-gradient(circle at 100% 0%, rgba(15, 159, 186, 0.15), transparent 16rem);
+  background-position: center, center, center;
+  background-repeat: no-repeat;
+  background-size: cover, cover, cover;
+  box-shadow: 0 18px 45px rgba(26, 74, 135, 0.12);
+  color: var(--ink, #172033);
+}
+
+.daily-special-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--blue, #1d4ed8), var(--cyan, #0f9fba), var(--green, #059669));
+}
+
+.daily-special-card__glow {
+  position: absolute;
+  inset: auto -20% -38% 32%;
+  height: 58%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(29, 78, 216, 0.14), rgba(15, 159, 186, 0.10) 42%, transparent 70%);
+  pointer-events: none;
+}
+
+.daily-special-card__top,
+.daily-special-card__content,
+.daily-special-card__date {
+  position: relative;
+  z-index: 1;
+}
+
+.daily-special-card__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.daily-special-card__eyebrow {
+  margin: 0;
+}
+
+.daily-special-card__eyebrow {
+  color: #075985;
+  font-size: 0.74rem;
+  font-weight: 950;
+  letter-spacing: 0.13em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.daily-special-card__counter {
+  flex: 0 0 auto;
+  min-width: 58px;
+  padding: 7px 10px;
+  border: 1px solid rgba(29, 78, 216, 0.12);
+  border-radius: 999px;
+  color: #0f3f8a;
+  background: rgba(255, 255, 255, 0.82);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-align: center;
+}
+
+.daily-special-card__date {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.76);
+  border: 1px solid rgba(15, 35, 65, 0.08);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.daily-special-card__title {
+  max-width: none;
+  margin: 0 0 12px;
+  color: var(--ink-strong, #061426);
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-size: clamp(1.42rem, 2vw, 2.12rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.daily-special-card__message {
+  max-width: none;
+  margin: 0;
+  color: #40536f;
+  font-family: inherit, "Noto Sans Malayalam", "Manjari", "Kartika", sans-serif;
+  font-size: clamp(1rem, 1.12vw, 1.18rem);
+  line-height: 1.68;
+  white-space: pre-line;
+}
+
+.daily-special-card__message:empty {
+  display: none;
+}
+
+.daily-special-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.daily-special-card__badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: #075985;
+  background: rgba(14, 165, 233, 0.11);
+  border: 1px solid rgba(14, 165, 233, 0.16);
+  font-size: 0.72rem;
+  font-weight: 950;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.daily-special-card__badge--holiday {
+  color: #047857;
+  background: rgba(5, 150, 105, 0.10);
+  border-color: rgba(5, 150, 105, 0.18);
+}
+
+.daily-special-card__badge--provisional {
+  color: #92400e;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.18);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+@media (max-width: 900px) {
+  .home-compact-hero.page-title {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    align-items: stretch;
+    min-height: auto;
+  }
+
+  .home-compact-hero.page-title > :not(.daily-special-card),
+  .daily-special-card {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .daily-special-card {
+    max-width: none;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-compact-hero.page-title {
+    padding: 18px 13px;
+    gap: 14px;
+  }
+
+  .home-compact-hero.page-title .hero-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .daily-special-card {
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .daily-special-card__top {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .daily-special-card__title {
+    font-size: clamp(1.28rem, 7vw, 1.72rem);
+  }
+
+  .daily-special-card__message {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+}

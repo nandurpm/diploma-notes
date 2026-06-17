@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="/assets/css/responsive.css">
   <link rel="stylesheet" href="/assets/css/home-compact.css?v=20260615-app1">
   <link rel="stylesheet" href="/assets/css/home-subject-browser.css">
+  <link rel="stylesheet" href="/assets/css/daily-important-day.css?v=20260617-important-days1">
   <link rel="stylesheet" href="/assets/css/wide-layout.css">
   <link rel="canonical" href="https://polypmna.dpdns.org/">
   <meta property="og:type" content="website">
@@ -50,6 +51,7 @@
       <a href="about.html">About</a>
       <a href="revision-2021.html">Revision 2021</a>
       <a href="materials-2015.html">2015 Materials</a>
+      <a href="#important-days">Important Days</a>
       <a href="contact.html">Help</a>
     </nav>
   </header>
@@ -65,6 +67,19 @@
         <a class="btn ghost" href="materials-2015.html">2015 Materials</a>
         <a class="btn app-download" href="/downloads/Polytechnic-Study-Hub-v1.0.3.apk" download="Polytechnic-Study-Hub-v1.0.3.apk" type="application/vnd.android.package-archive" aria-label="Download Polytechnic Study Hub Android application">📱 Download Our App</a>
       </div>
+      <article class="daily-special-card" id="important-days" data-important-card aria-label="Today's important day">
+        <span class="daily-special-card__glow" aria-hidden="true"></span>
+        <div class="daily-special-card__top">
+          <p class="daily-special-card__eyebrow">Important Days &amp; Wishes</p>
+          <p class="daily-special-card__counter" data-important-counter hidden><span data-current-slide>1</span>/<span data-total-slides>1</span></p>
+        </div>
+        <div class="daily-special-card__content" data-important-content aria-live="polite">
+          <time class="daily-special-card__date" data-important-date datetime="">Today</time>
+          <h2 class="daily-special-card__title" data-important-title>Loading today...</h2>
+          <p class="daily-special-card__message" data-important-message></p>
+          <div class="daily-special-card__badges" data-important-badges></div>
+        </div>
+      </article>
     </section>
 
     <section class="poly-tools reveal" aria-label="Student quick tools">
@@ -138,6 +153,7 @@
   <nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
   <script src="/assets/js/subjects.js" defer></script>
   <script src="/assets/js/main.js?v=20260615-notice2" defer></script>
+  <script src="/assets/js/daily-important-day.js?v=20260617-important-days1" defer></script>
   <script src="/assets/js/subject-browser.js?v=20260615-notespdf1" defer></script>
   <script src="/assets/js/site-hardening.js" defer></script>
   <script src="/assets/js/site-assistant-loader.js?v=e1cd19787b0c" defer></script>
