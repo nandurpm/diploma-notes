@@ -1,0 +1,76 @@
+name: Sync Course 2001 website integration
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "lessons/lessons-2001.html"
+      - "assets/lesson-content/2001-*.html"
+      - ".github/workflows/sync-course-2001.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-course-2001
+  cancel-in-progress: true
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Register lesson and notes availability
+        run: |
+          python -m py_compile tools/update_asset_manifest.py
+          python tools/update_asset_manifest.py
+
+      - name: Add Course 2001 to sitemap
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          sitemap = Path("sitemap.xml")
+          text = sitemap.read_text(encoding="utf-8")
+          entry = '  <url><loc>https://polypmna.dpdns.org/lessons/lessons-2001.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>\n'
+          if entry not in text:
+              anchor = '  <url><loc>https://polypmna.dpdns.org/lessons/lessons-2002.html</loc>'
+              if anchor not in text:
+                  raise SystemExit("Could not find sitemap insertion anchor")
+              text = text.replace(anchor, entry + anchor, 1)
+              sitemap.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Validate generated integration files
+        run: |
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+          python - <<'PY'
+          from pathlib import Path
+
+          browser = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
+          sitemap = Path("sitemap.xml").read_text(encoding="utf-8")
+          lesson_line = next(line for line in browser.splitlines() if "const LESSON_CODES" in line)
+          assert '"2001"' in lesson_line, "Course 2001 lesson is not active"
+          assert "lessons/lessons-2001.html" in sitemap, "Course 2001 is missing from sitemap"
+          PY
+
+      - name: Commit generated integration
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Course 2001 integration is already current."
+          else
+            git commit -m "Register Course 2001 lesson and sitemap [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
