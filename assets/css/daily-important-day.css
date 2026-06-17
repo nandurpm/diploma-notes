@@ -1,8 +1,8 @@
 .home-compact-hero.page-title {
-  grid-template-columns: minmax(0, 1.34fr) minmax(340px, 0.9fr);
-  gap: clamp(22px, 3vw, 52px);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.46fr);
+  gap: clamp(18px, 2.2vw, 36px);
   align-items: center;
-  min-height: clamp(320px, 28vw, 430px);
+  min-height: clamp(260px, 22vw, 340px);
 }
 
 .home-compact-hero.page-title > :not(.daily-special-card) {
@@ -22,13 +22,14 @@
   z-index: 2;
   grid-column: 2;
   grid-row: 1 / span 4;
-  width: 100%;
+  width: min(100%, 520px);
   min-width: 0;
   overflow: hidden;
   align-self: center;
-  padding: clamp(20px, 2.2vw, 28px);
+  justify-self: end;
+  padding: clamp(15px, 1.35vw, 20px);
   border: 1px solid rgba(42, 129, 226, 0.18);
-  border-radius: 26px;
+  border-radius: 20px;
   background:
     linear-gradient(105deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.92) 56%, rgba(231, 246, 255, 0.72) 100%),
     var(--daily-special-image, url("../media/important-days/default-study.webp")),
@@ -36,7 +37,7 @@
   background-position: center, center, center;
   background-repeat: no-repeat;
   background-size: cover, cover, cover;
-  box-shadow: 0 18px 45px rgba(26, 74, 135, 0.12);
+  box-shadow: 0 12px 30px rgba(26, 74, 135, 0.10);
   color: var(--ink, #172033);
 }
 
@@ -44,14 +45,14 @@
   content: "";
   position: absolute;
   inset: 0 0 auto;
-  height: 5px;
+  height: 4px;
   background: linear-gradient(90deg, var(--blue, #1d4ed8), var(--cyan, #0f9fba), var(--green, #059669));
 }
 
 .daily-special-card__glow {
   position: absolute;
   inset: auto -20% -38% 32%;
-  height: 58%;
+  height: 46%;
   border-radius: 999px;
   background: radial-gradient(circle, rgba(29, 78, 216, 0.14), rgba(15, 159, 186, 0.10) 42%, transparent 70%);
   pointer-events: none;
@@ -67,9 +68,9 @@
 .daily-special-card__top {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: 12px;
   align-items: flex-start;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .daily-special-card__eyebrow {
@@ -78,22 +79,22 @@
 
 .daily-special-card__eyebrow {
   color: #075985;
-  font-size: 0.74rem;
+  font-size: 0.66rem;
   font-weight: 950;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.11em;
   line-height: 1.25;
   text-transform: uppercase;
 }
 
 .daily-special-card__counter {
   flex: 0 0 auto;
-  min-width: 58px;
-  padding: 7px 10px;
+  min-width: 50px;
+  padding: 5px 8px;
   border: 1px solid rgba(29, 78, 216, 0.12);
   border-radius: 999px;
   color: #0f3f8a;
   background: rgba(255, 255, 255, 0.82);
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   font-weight: 950;
   text-align: center;
 }
@@ -102,13 +103,13 @@
   display: inline-flex;
   width: fit-content;
   max-width: 100%;
-  margin-bottom: 16px;
-  padding: 8px 12px;
+  margin-bottom: 11px;
+  padding: 6px 10px;
   border-radius: 999px;
   color: #334155;
   background: rgba(255, 255, 255, 0.76);
   border: 1px solid rgba(15, 35, 65, 0.08);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.04em;
   line-height: 1.25;
@@ -117,12 +118,12 @@
 
 .daily-special-card__title {
   max-width: none;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   color: var(--ink-strong, #061426);
   font-family: "Space Grotesk", Inter, sans-serif;
-  font-size: clamp(1.42rem, 2vw, 2.12rem);
-  line-height: 1.08;
-  letter-spacing: -0.035em;
+  font-size: clamp(1.08rem, 1.3vw, 1.48rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
@@ -131,9 +132,13 @@
   margin: 0;
   color: #40536f;
   font-family: inherit, "Noto Sans Malayalam", "Manjari", "Kartika", sans-serif;
-  font-size: clamp(1rem, 1.12vw, 1.18rem);
-  line-height: 1.68;
+  display: -webkit-box;
+  overflow: hidden;
+  font-size: clamp(0.82rem, 0.88vw, 0.96rem);
+  line-height: 1.48;
   white-space: pre-line;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .daily-special-card__message:empty {
@@ -143,20 +148,20 @@
 .daily-special-card__badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
+  gap: 6px;
+  margin-top: 12px;
 }
 
 .daily-special-card__badge {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
-  padding: 7px 10px;
+  min-height: 24px;
+  padding: 5px 8px;
   border-radius: 999px;
   color: #075985;
   background: rgba(14, 165, 233, 0.11);
   border: 1px solid rgba(14, 165, 233, 0.16);
-  font-size: 0.72rem;
+  font-size: 0.62rem;
   font-weight: 950;
   letter-spacing: 0.08em;
   line-height: 1.2;
@@ -192,7 +197,9 @@
   }
 
   .daily-special-card {
+    width: 100%;
     max-width: none;
+    justify-self: stretch;
   }
 }
 
@@ -207,8 +214,8 @@
   }
 
   .daily-special-card {
-    padding: 18px;
-    border-radius: 20px;
+    padding: 15px;
+    border-radius: 18px;
   }
 
   .daily-special-card__top {
@@ -217,11 +224,11 @@
   }
 
   .daily-special-card__title {
-    font-size: clamp(1.28rem, 7vw, 1.72rem);
+    font-size: clamp(1.08rem, 5.7vw, 1.42rem);
   }
 
   .daily-special-card__message {
-    font-size: 0.98rem;
-    line-height: 1.65;
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 }
