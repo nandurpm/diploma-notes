@@ -109,7 +109,10 @@ service cloud.firestore {
     match /examDrafts/{draftId} {
       allow read: if isSignedIn() &&
         resource.data.uid == request.auth.uid;
-      allow create, update: if isSignedIn() &&
+      allow create: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid;
+      allow update: if isSignedIn() &&
+        resource.data.uid == request.auth.uid &&
         request.resource.data.uid == request.auth.uid;
       allow delete: if isSignedIn() &&
         resource.data.uid == request.auth.uid;
