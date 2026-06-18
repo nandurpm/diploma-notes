@@ -1,6 +1,7 @@
 (() => {
   "use strict";
   const Q = window.PolyQuiz;
+  Q.config.functionName = "quiz-portal-api";
 
   Q.initialize = async () => {
     const ids = [
