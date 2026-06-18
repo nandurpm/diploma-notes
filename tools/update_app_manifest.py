@@ -14,6 +14,10 @@ INDEX_PATH = ROOT / "index.html"
 GRADLE_PATH = ROOT / "android-app/app/build.gradle"
 APK_PATTERN = re.compile(r"^Polytechnic-Study-Hub-v(?P<version>\d+(?:\.\d+){1,3})\.apk$")
 APP_BUTTON_MARKER = "<!-- APP_DOWNLOAD_BUTTON -->"
+APP_BUTTON_PATTERN = re.compile(
+    r'\s*<a\b[^>]*\bclass="btn app-download"[^>]*>.*?</a>',
+    re.IGNORECASE | re.DOTALL,
+)
 
 
 def version_key(value: str) -> tuple[int, ...]:
@@ -89,6 +93,13 @@ def app_button_markup(apk_path: Path) -> str:
     )
 
 
+def remove_app_button(source: str) -> str:
+    updated = APP_BUTTON_PATTERN.sub("", source, count=1)
+    if APP_BUTTON_MARKER not in updated:
+        raise RuntimeError("Could not find the homepage Android app insertion marker.")
+    return updated
+
+
 def update_index(source: str, apk_path: Path, version_name: str) -> str:
     replacement = f'href="/downloads/{apk_path.name}" download="{apk_path.name}"'
     apk_link_pattern = re.compile(
@@ -137,10 +148,23 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="Fail instead of writing when generated files are stale.")
     args = parser.parse_args()
 
-    apk_path, version_name = latest_apk()
-    manifest_text = json.dumps(build_manifest(apk_path, version_name), ensure_ascii=False, indent=2) + "\n"
+    apk_path, apk_version = latest_apk()
+    _, gradle_name = gradle_version()
     index_source = INDEX_PATH.read_text(encoding="utf-8")
-    index_text = update_index(index_source, apk_path, version_name)
+
+    if gradle_name and version_key(gradle_name) > version_key(apk_version):
+        index_text = remove_app_button(index_source)
+        stale_index = index_source != index_text
+        if args.check and stale_index:
+            print(f"Signed Android {gradle_name} APK is pending; the old {apk_version} download button must stay hidden.")
+            return 1
+        if not args.check and stale_index:
+            INDEX_PATH.write_text(index_text, encoding="utf-8")
+        print(f"Waiting for signed Android {gradle_name}; {apk_version} remains in update metadata but is not offered for download.")
+        return 0
+
+    manifest_text = json.dumps(build_manifest(apk_path, apk_version), ensure_ascii=False, indent=2) + "\n"
+    index_text = update_index(index_source, apk_path, apk_version)
 
     stale_manifest = not MANIFEST_PATH.exists() or MANIFEST_PATH.read_text(encoding="utf-8") != manifest_text
     stale_index = index_source != index_text
