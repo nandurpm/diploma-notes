@@ -1,16 +1,104 @@
 (() => {
   "use strict";
-  const parts = ["01","02","03","04","05","06"].map((part) => `/assets/js/quiz-guest-bank-parts/part-${part}.txt?v=20260618-v2`);
-  window.QuizGuestBankReady = Promise.all(parts.map(async (url) => {
-    const response = await fetch(url, { cache: "no-cache" });
-    if (!response.ok) throw new Error(`Unable to load guest question bank: ${url}`);
-    return response.text();
-  })).then((sourceParts) => new Promise((resolve, reject) => {
-    const blobUrl = URL.createObjectURL(new Blob([sourceParts.join("")], { type: "text/javascript" }));
-    const script = document.createElement("script");
-    script.src = blobUrl;
-    script.onload = () => { URL.revokeObjectURL(blobUrl); resolve(window.QuizGuestBank); };
-    script.onerror = () => { URL.revokeObjectURL(blobUrl); reject(new Error("Guest question bank could not start.")); };
-    document.head.append(script);
-  }));
+
+  const files = ["1001", "1002", "1003", "1004", "gk"].map(
+    (code) => `/assets/js/quiz-bank-${code}.js?v=20260618-v3`
+  );
+
+  function hash(text) {
+    let value = 2166136261;
+    for (let index = 0; index < text.length; index += 1) {
+      value ^= text.charCodeAt(index);
+      value = Math.imul(value, 16777619);
+    }
+    return value >>> 0;
+  }
+
+  function randomFrom(seed) {
+    return () => {
+      seed += 0x6d2b79f5;
+      let value = seed;
+      value = Math.imul(value ^ (value >>> 15), value | 1);
+      value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+      return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function shuffle(items, random) {
+    const output = [...items];
+    for (let index = output.length - 1; index > 0; index -= 1) {
+      const target = Math.floor(random() * (index + 1));
+      [output[index], output[target]] = [output[target], output[index]];
+    }
+    return output;
+  }
+
+  function loadScript(url) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = url;
+      script.async = false;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Unable to load ${url}`));
+      document.head.append(script);
+    });
+  }
+
+  window.QuizGuestBankReady = files.reduce(
+    (promise, file) => promise.then(() => loadScript(file)),
+    Promise.resolve()
+  ).then(() => {
+    const sources = window.QuizGuestSubjects || {};
+
+    function selectedQuestions(subjectCode, dateKey, mode) {
+      const subject = sources[subjectCode];
+      if (!subject) throw new Error("Unknown quiz subject.");
+
+      const daily = shuffle(
+        subject.questions,
+        randomFrom(hash(`${subjectCode}-${dateKey}-daily`))
+      ).slice(0, 10);
+
+      return daily.map((question) => ({
+        ...question,
+        options: shuffle(
+          question.options,
+          randomFrom(hash(`${subjectCode}-${dateKey}-${question.id}-${mode}`))
+        ),
+      }));
+    }
+
+    window.QuizGuestBank = {
+      subjects: Object.fromEntries(
+        Object.entries(sources).map(([code, subject]) => [code, {
+          code,
+          title: subject.title,
+          subtitle: subject.subtitle,
+          icon: subject.icon,
+          description: subject.description,
+          color: subject.color,
+        }])
+      ),
+      questions: selectedQuestions,
+      grade(subjectCode, dateKey, mode, answers) {
+        const selected = selectedQuestions(subjectCode, dateKey, mode);
+        const review = selected.map((question, index) => ({
+          number: index + 1,
+          id: question.id,
+          topic: question.topic,
+          question: question.question,
+          userAnswer: answers[String(question.id)] ?? "Not answered",
+          correctAnswer: question.answer,
+        }));
+        return {
+          score: review.filter(
+            (item) => item.userAnswer === item.correctAnswer
+          ).length,
+          review,
+        };
+      },
+    };
+
+    return window.QuizGuestBank;
+  });
 })();
