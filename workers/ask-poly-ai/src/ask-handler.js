@@ -1,5 +1,7 @@
 import { cleanText } from "./http.js";
 
+const DEFAULT_MODEL = "gpt-5.5";
+
 const SYSTEM_INSTRUCTIONS = `You are Ask POLY, a compact educational assistant for Kerala Polytechnic and diploma students.
 
 Capabilities:
@@ -9,7 +11,7 @@ Capabilities:
 - Explain electrical wiring, electronic circuits and components. Prioritize safety: never advise working on live mains; recommend power isolation, proper ratings, supervision and a qualified electrician or instructor when appropriate.
 - Generate complete HTML, CSS, JavaScript and other programming examples with filenames and short usage steps.
 - Answer computer, networking, electronics and general academic questions.
-- For current affairs and other time-sensitive topics, use web search and cite reliable sources.
+- For current affairs and other time-sensitive topics, use web search when available and cite reliable sources.
 
 Response rules:
 - Match the user's language.
@@ -70,18 +72,33 @@ function extractAnswer(data) {
   };
 }
 
-export async function askPoly(body, env) {
-  if (!cleanText(body?.message, 6000)) throw new Error("Please enter a question.");
-  const input = sanitizeHistory(body.history);
-  input.push({ role: "user", content: buildUserContent(body) });
-  const payload = {
-    model: env.OPENAI_MODEL || "gpt-5.4-mini",
-    reasoning: { effort: env.REASONING_EFFORT || "low" },
+function normalizeModel(value) {
+  const model = cleanText(value, 80);
+  return model || DEFAULT_MODEL;
+}
+
+function buildPayload(model, input, useWeb = true) {
+  return {
+    model,
+    reasoning: { effort: "low" },
     instructions: SYSTEM_INSTRUCTIONS,
-    tools: [{ type: "web_search" }],
+    ...(useWeb ? { tools: [{ type: "web_search" }] } : {}),
     input,
-    max_output_tokens: Number(env.MAX_OUTPUT_TOKENS || 1400)
+    max_output_tokens: 1800
   };
+}
+
+function shouldRetryWithoutWeb(error) {
+  const message = String(error?.message || "").toLowerCase();
+  return /web_search|tool|tools|unsupported|not supported|invalid.*tool/.test(message);
+}
+
+function shouldRetryDefaultModel(error, model) {
+  const message = String(error?.message || "").toLowerCase();
+  return model !== DEFAULT_MODEL && /model|does not exist|not found|unsupported|invalid/.test(message);
+}
+
+async function requestOpenAI(payload, env) {
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
@@ -91,7 +108,42 @@ export async function askPoly(body, env) {
     body: JSON.stringify(payload)
   });
   const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data?.error?.message || `OpenAI request failed with HTTP ${response.status}.`);
+  if (!response.ok) {
+    const error = new Error(data?.error?.message || `OpenAI request failed with HTTP ${response.status}.`);
+    error.status = response.status;
+    error.data = data;
+    throw error;
+  }
+  return data;
+}
+
+export async function askPoly(body, env) {
+  if (!cleanText(body?.message, 6000)) throw new Error("Please enter a question.");
+  if (!env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
+
+  const input = sanitizeHistory(body.history);
+  input.push({ role: "user", content: buildUserContent(body) });
+
+  let model = normalizeModel(env.OPENAI_MODEL);
+  let payload = buildPayload(model, input, true);
+  if (env.REASONING_EFFORT) payload.reasoning.effort = cleanText(env.REASONING_EFFORT, 20) || "low";
+  if (env.MAX_OUTPUT_TOKENS) payload.max_output_tokens = Number(env.MAX_OUTPUT_TOKENS || 1800);
+
+  let data;
+  try {
+    data = await requestOpenAI(payload, env);
+  } catch (error) {
+    if (shouldRetryDefaultModel(error, model)) {
+      model = DEFAULT_MODEL;
+      payload = { ...payload, model };
+      data = await requestOpenAI(payload, env);
+    } else if (shouldRetryWithoutWeb(error)) {
+      data = await requestOpenAI(buildPayload(model, input, false), env);
+    } else {
+      throw error;
+    }
+  }
+
   const result = extractAnswer(data);
   if (!result.answer) throw new Error("The AI service returned an empty response.");
   return { ...result, model: data.model || payload.model, responseId: data.id || "" };
