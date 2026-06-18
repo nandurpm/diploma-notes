@@ -27,9 +27,9 @@
 /*.pdf
   Cache-Control: public, max-age=86400, stale-while-revalidate=86400
 
-/downloads/*
+/downloads/*.apk
   Cache-Control: no-cache, must-revalidate
-  Content-Type: application/octet-stream
+  Content-Type: application/vnd.android.package-archive
 
 /assets/media/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
