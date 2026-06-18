@@ -1,6 +1,38 @@
 (() => {
   "use strict";
 
+  const NAV_ITEMS = [
+    { label: "Home", href: "/index.html", match: [/^\/$/, /\/index\.html$/] },
+    { label: "About", href: "/about.html", match: [/\/about\.html$/] },
+    { label: "Revision 2021", href: "/revision-2021.html", match: [/\/revision-2021\.html$/, /\/revision-2021\//] },
+    { label: "Mock Exams", href: "/daily-quiz.html", match: [/\/daily-quiz\.html$/, /\/mock-exam-/] },
+    { label: "2015 Materials", href: "/materials-2015.html", match: [/\/materials-2015\.html$/] },
+    { label: "Question Papers", href: "/model-question-papers.html", match: [/\/model-question-papers\.html$/, /\/previous-question-papers\.html$/] },
+    { label: "Help", href: "/contact.html", match: [/\/contact\.html$/] }
+  ];
+
+  function setupPrimaryNavigation() {
+    const currentPath = window.location.pathname || "/";
+    document.querySelectorAll(".topbar .navlinks").forEach((nav) => {
+      if (nav.dataset.primaryNavNormalized === "true") return;
+      const existingActiveHref = nav.querySelector('a.active, a[aria-current="page"]')?.getAttribute("href") || "";
+      nav.dataset.primaryNavNormalized = "true";
+      nav.replaceChildren();
+
+      NAV_ITEMS.forEach((item) => {
+        const link = document.createElement("a");
+        link.href = item.href;
+        link.textContent = item.label;
+        const isActive = item.match.some((pattern) => pattern.test(currentPath)) || existingActiveHref.endsWith(item.href.replace(/^\//, ""));
+        if (isActive) {
+          link.classList.add("active");
+          link.setAttribute("aria-current", "page");
+        }
+        nav.append(link);
+      });
+    });
+  }
+
   function setupQuizRuntime() {
     const Q = window.PolyQuiz;
     const warning = document.getElementById("serviceWarning");
@@ -39,7 +71,7 @@
   function setupMockExamLabels() {
     document.querySelectorAll('a[href$="daily-quiz.html"], a[href$="/daily-quiz.html"]').forEach((link) => {
       const label = (link.textContent || "").trim();
-      if (/^(daily quiz|quiz)$/i.test(label)) link.textContent = "Mock Exams";
+      if (/^(daily quiz|quiz|mock exams?)$/i.test(label)) link.textContent = "Mock Exams";
     });
 
     document.querySelectorAll('.choice-card[href$="daily-quiz.html"], .choice-card[href$="/daily-quiz.html"]').forEach((card) => {
@@ -76,44 +108,41 @@
   }
 
   function setupSiteNotice() {
-    if (document.querySelector(".site-notice")) return;
     const brand = document.querySelector(".topbar .brand");
     if (!brand) return;
 
     const englishNotice = [
-      "📚 Revision 2021 and 2015 study materials",
-      "📝 subject-wise lessons, official syllabus links, downloadable notes and model question papers",
-      "🔎 search by department, semester, subject name or subject code",
-      "📱 designed for mobile phones, tablets and desktop computers",
-      "💬 use the Help page to report missing materials, broken links, incorrect subject details or content corrections",
-      "✨ new resources are added regularly and existing pages are continuously checked and improved"
+      "📚 Use Revision 2021 for current department and semester subject cards",
+      "📝 Open Mock Exams for daily quiz practice and saved score feedback",
+      "🗂 Use 2015 Materials only for older-scheme resources",
+      "📄 Question Papers contains model, sample and exam-practice resources",
+      "💬 Report broken links, missing subjects or corrections through Help",
+      "✅ Always verify syllabus, marks and exam notices with official SITTTR and institution updates"
     ].join("  •  ");
 
     const malayalamNotice = [
-      "📚 കേരള പോളിടെക്നിക് വിദ്യാർത്ഥികൾക്കായി റിവിഷൻ 2021, 2015 പഠനസാമഗ്രികൾ ഒരിടത്ത്",
-      "📝 വിഷയവാരി പാഠങ്ങൾ, ഔദ്യോഗിക സിലബസ് ലിങ്കുകൾ, ഡൗൺലോഡ് നോട്ടുകൾ, മോഡൽ ചോദ്യപേപ്പറുകൾ",
-      "🔎 വിഭാഗം, സെമസ്റ്റർ, വിഷയത്തിന്റെ പേര് അല്ലെങ്കിൽ വിഷയ കോഡ് ഉപയോഗിച്ച് തിരയാം",
-      "📱 മൊബൈൽ ഫോൺ, ടാബ്ലറ്റ്, കമ്പ്യൂട്ടർ എന്നിവയിൽ ഉപയോഗിക്കാൻ അനുയോജ്യം",
-      "💬 ലഭ്യമല്ലാത്ത പഠനസാമഗ്രികൾ, തെറ്റായ ലിങ്കുകൾ, വിഷയവിവരത്തിലെ പിശകുകൾ, ഉള്ളടക്ക തിരുത്തലുകൾ എന്നിവ Help പേജിൽ അറിയിക്കാം",
-      "✨ പുതിയ പഠനസഹായങ്ങൾ ക്രമമായി ചേർക്കുകയും നിലവിലുള്ള പേജുകൾ തുടർച്ചയായി പരിശോധിച്ച് മെച്ചപ്പെടുത്തുകയും ചെയ്യുന്നു"
+      "📚 നിലവിലെ department/semester subject cards കാണാൻ Revision 2021 ഉപയോഗിക്കുക",
+      "📝 daily quiz practice, saved score feedback എന്നിവയ്ക്ക് Mock Exams തുറക്കുക",
+      "🗂 പഴയ scheme ആവശ്യങ്ങൾക്ക് മാത്രം 2015 Materials ഉപയോഗിക്കുക",
+      "📄 model, sample, exam-practice resources Question Papersൽ ലഭിക്കും",
+      "💬 broken links, missing subjects, corrections എന്നിവ Help വഴി അറിയിക്കുക",
+      "✅ syllabus, marks, exam notices എന്നിവ official SITTTR/institution updates ഉപയോഗിച്ച് പരിശോധിക്കുക"
     ].join("  •  ");
 
-    const notice = document.createElement("a");
+    const message = `${englishNotice}  ◆  ${malayalamNotice}`;
+    const notice = document.querySelector(".site-notice") || document.createElement("a");
     notice.className = "site-notice";
-    notice.href = "/about.html";
-    notice.setAttribute("aria-label", "Website updates and available study resources");
+    notice.href = "/about.html#site-guide";
+    notice.dataset.floatingInstructions = "true";
+    notice.setAttribute("aria-label", "Floating website instructions and important study-resource updates");
     notice.innerHTML = `
       <strong class="site-notice-label">Update</strong>
-      <span class="site-notice-viewport">
-        <span class="site-notice-track"></span>
+      <span class="site-notice-viewport" aria-hidden="true">
+        <span class="site-notice-track">${message}  ◆  ${message}  ◆  </span>
       </span>
     `;
 
-    const track = notice.querySelector(".site-notice-track");
-    track.textContent = `${englishNotice}  ◆  ${malayalamNotice}  ◆  `;
-    track.style.animationDuration = "58s";
-
-    brand.insertAdjacentElement("afterend", notice);
+    if (!notice.parentElement) brand.insertAdjacentElement("afterend", notice);
   }
 
   function setupHomepageVideoPoster() {
@@ -177,10 +206,12 @@
   }
 
   setupQuizRuntime();
+  setupPrimaryNavigation();
   setupMockExamLabels();
 
   document.addEventListener("DOMContentLoaded", () => {
     setupQuizRuntime();
+    setupPrimaryNavigation();
     setupMockExamLabels();
     setupSiteNotice();
     document.querySelectorAll("[data-year]").forEach((item) => {
