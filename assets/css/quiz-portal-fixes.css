@@ -1,0 +1,142 @@
+/* Quiz portal header and admin layout corrections. */
+.quiz-portal-page .topbar {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap;
+  gap: 12px !important;
+  min-height: 64px;
+  overflow: visible !important;
+}
+
+.quiz-portal-page .topbar .brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 0 !important;
+  max-width: min(520px, calc(100vw - 220px));
+  gap: 10px !important;
+}
+
+.quiz-portal-page .topbar .brand > .brand-symbol {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+}
+
+/* The shared stylesheet styles every span inside .brand as an icon.
+   Reset the text wrapper so the name and subtitle are not squeezed into 42px. */
+.quiz-portal-page .topbar .brand > .brand-copy {
+  display: grid !important;
+  place-items: start !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: inherit !important;
+  background: none !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: 1.15 !important;
+}
+
+.quiz-portal-page .topbar .brand-copy strong,
+.quiz-portal-page .topbar .brand-copy small {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quiz-portal-page .topbar .brand-copy strong {
+  font-size: clamp(.9rem, 1.2vw, 1.05rem) !important;
+}
+
+.quiz-portal-page .topbar .brand-copy small {
+  margin-top: 3px;
+  color: #667085;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.quiz-portal-page .topbar .navlinks {
+  margin-left: auto;
+}
+
+.quiz-portal-page .topbar .menu-toggle {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.quiz-portal-page .topbar .app-download {
+  flex: 0 0 auto;
+  margin-left: 0;
+}
+
+/* Prevent action-button class names from also receiving the result-panel box style. */
+.quiz-portal-page button.admin-results {
+  margin-top: 0;
+  padding: 6px 9px;
+  border-radius: 11px;
+  background: var(--quiz-soft);
+  box-shadow: none;
+}
+
+.quiz-portal-page #adminUserResults.admin-results {
+  margin-top: 15px;
+  padding: 14px;
+  border: 1px solid var(--quiz-line);
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+@media (max-width: 980px) {
+  .quiz-portal-page .topbar {
+    flex-wrap: wrap;
+  }
+
+  .quiz-portal-page .topbar .brand {
+    max-width: calc(100vw - 92px);
+  }
+
+  .quiz-portal-page .topbar .navlinks {
+    order: 3;
+    flex: 1 0 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  .quiz-portal-page .topbar {
+    min-height: 56px;
+    padding: 7px 8px !important;
+  }
+
+  .quiz-portal-page .topbar .brand {
+    max-width: calc(100vw - 78px);
+    gap: 7px !important;
+  }
+
+  .quiz-portal-page .topbar .brand > .brand-symbol {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .quiz-portal-page .topbar .brand-copy strong {
+    font-size: .84rem !important;
+  }
+
+  .quiz-portal-page .topbar .brand-copy small {
+    font-size: .68rem;
+  }
+}
