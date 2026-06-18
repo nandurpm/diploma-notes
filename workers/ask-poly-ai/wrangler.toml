@@ -3,6 +3,7 @@ main = "src/index.js"
 compatibility_date = "2026-06-18"
 workers_dev = true
 # Deployment trigger: Ask POLY AI backend
+# Redeploy marker: 2026-06-18T16:45:30Z apk-ai-fix1
 
 [vars]
 OPENAI_MODEL = "gpt-5.5"
