@@ -4,18 +4,35 @@
   const { $, esc, mark } = M.ui;
   const key = (kind) => `poly-mock-exam:${M.paperId}:${M.state.user?.id || "unknown"}:${kind}`;
 
-  const fallbackRules = Object.freeze({
-    Q1: ["stationary orbit", "angular momentum", "quantised", "transition", "hydrogen spectrum", "multi-electron", "fine structure"],
-    Q2: ["principal", "subshell", "orientation", "spin", "aufbau", "pauli", "hund", "1s2", "4s2"],
-    Q3: ["electron transfer", "sharing", "coordinate", "donated", "nacl", "nh4", "hydrogen bonding", "boiling point"],
-    Q4: ["h/mv", "de broglie", "6.626", "9.11", "2.0", "3.64", "10^-10", "10⁻10", "metre", "meter"],
-    Q5: ["mass/molar mass", "4/40", "0.1 mol", "500 ml", "0.5 l", "moles/volume", "0.20", "0.2 m"],
-    Q6: ["n1v1", "n2v2", "0.10", "20", "25", "0.08 n", "0.08"],
-    Q7: ["sedimentation", "coagulation", "filtration", "chlorination", "sterilisation", "temporary hardness", "permanent hardness", "bicarbonate", "chloride", "sulphate", "ion exchange", "lime soda"],
-    Q8: ["thermoplastic", "thermosetting", "soften", "cross-linked", "polythene", "pvc", "nylon-66", "bakelite", "monomer", "uses"],
-    Q9: ["nanomaterial", "nanotechnology", "0d", "1d", "2d", "nanoparticle", "nanotube", "graphene", "application"],
-    Q10: ["corrosion", "chemical", "electrochemical", "barrier", "anodising", "anti-rust", "sacrificial anode", "cathodic protection"],
-    Q11: ["mass proportional to charge", "chemical equivalent", "m =", "eit/f", "2 x 1800", "3600 c", "4.03 g", "4.03", "faraday"]
+  const exactAnswers = Object.freeze({
+    A1: ["orbital"], A2: ["covalent"], A3: ["water"], A4: ["phenolphthalein"],
+    A5: ["temporary"], A6: ["brass"], A7: ["borosilicate", "pyrex"],
+    A8: ["ion", "ions"], A9: ["oxidation"]
+  });
+
+  const keywords = Object.freeze({
+    B1: ["lambda", "h/mv", "6.626", "10^-35", "10⁻35", "m"],
+    B2: ["hydrogen bond", "boiling", "surface tension", "density", "ice"],
+    B3: ["lime", "soda", "calcium", "magnesium", "precipitate", "filtration"],
+    B4: ["ph", "-log", "0.005", "2.30"],
+    B5: ["normality", "3.95", "31.6", "0.25", "0.5 n", "0.50"],
+    B6: ["nanomaterial", "1-100", "nanoparticle", "nanotube", "graphene"],
+    B7: ["sulphur", "cross-link", "elastic", "strength", "wear"],
+    B8: ["soften", "remould", "cross-link", "thermoplastic", "thermosetting"],
+    B9: ["electron", "ion", "chemical change", "temperature", "solid", "solution"],
+    B10: ["zn", "zn2+", "cu2+", "cu", "oxidation", "reduction"],
+    C1A: ["electron transfer", "sharing", "ionic", "covalent", "pauli", "two electrons", "opposite spin"],
+    C1B: ["stationary orbit", "angular momentum", "transition", "hydrogen spectrum", "stability"],
+    C2A: ["sedimentation", "coagulation", "filtration", "chlorination", "boiler", "scale", "corrosion"],
+    C2B: ["1.825", "36.5", "0.2 n", "n1v1", "40 ml", "buffer", "resist ph"],
+    C3A: ["agriculture", "medicine", "soil", "blood", "industry", "equivalent point", "end point", "indicator"],
+    C3B: ["soap", "scale", "boiler", "textile", "kw", "h+", "oh-", "10^-14"],
+    C4A: ["addition polymer", "condensation polymer", "monomer", "by-product", "polythene", "nylon"],
+    C4B: ["refractory", "high temperature", "thermal shock", "chemical resistance", "furnace", "kiln"],
+    C5A: ["electrolysis", "nickel", "cathode", "anode", "electrolyte", "clean", "deposit"],
+    C5B: ["equivalent mass", "charge", "4", "1500", "6000", "1.825", "faraday"],
+    C6A: ["barrier", "paint", "anodising", "anti-rust", "sacrificial anode", "cathodic"],
+    C6B: ["electrochemical cell", "spontaneous", "non-spontaneous", "galvanic", "electrolytic", "anode", "cathode"]
   });
 
   async function loadSupabaseConfig() {
@@ -32,6 +49,8 @@
     try {
       const saved = JSON.parse(localStorage.getItem(key("draft")) || "null");
       if (saved?.answers && typeof saved.answers === "object") M.state.answers = saved.answers;
+      if (Array.isArray(saved?.selections?.partB)) M.state.selections.partB = saved.selections.partB.slice(0, 8);
+      if (saved?.selections?.partC && typeof saved.selections.partC === "object") M.state.selections.partC = saved.selections.partC;
     } catch (error) {
       console.warn("Could not restore mock-exam draft", error);
     }
@@ -39,8 +58,12 @@
 
   function saveDraft() {
     try {
-      localStorage.setItem(key("draft"), JSON.stringify({ answers: M.state.answers, savedAt: new Date().toISOString() }));
-      $("saveStatus").textContent = "Answers saved in this browser";
+      localStorage.setItem(key("draft"), JSON.stringify({
+        answers: M.state.answers,
+        selections: M.state.selections,
+        savedAt: new Date().toISOString()
+      }));
+      $("saveStatus").textContent = "Answers and choices saved in this browser";
       $("saveStatus").className = "save-status saved";
     } catch (error) {
       console.error(error);
@@ -69,41 +92,46 @@
 
   function isNonAnswer(value) {
     const text = String(value || "").trim().toLowerCase();
-    if (text.length < 8) return true;
-    return /^(?:i\s+)?(?:do\s*not|don't|dont)\s+know\b|^no idea\b|^not sure\b|^nil\b|^n\/?a\b/.test(text);
+    return !text || /^(?:i\s+)?(?:do\s*not|don't|dont)\s+know\b|^no idea\b|^not sure\b|^nil\b|^n\/?a\b/.test(text);
+  }
+
+  function selectedPayload() {
+    return M.ui.selectedQuestions().map((q) => ({ id: q.id, answer: String(M.state.answers[q.id] || "").trim() }));
   }
 
   function localFallbackEvaluation(reason) {
-    const results = M.questions.map((question) => {
+    const results = M.ui.selectedQuestions().map((question) => {
       const answer = String(M.state.answers[question.id] || "").trim();
-      const terms = fallbackRules[question.id] || [];
       if (isNonAnswer(answer)) {
-        return {
-          id: question.id,
-          awardedMarks: 0,
-          maxMarks: question.marks,
-          confidence: 0.99,
-          feedback: "No assessable answer was provided for this question.",
-          missingPoints: ["Write the relevant concept, law, formula, working and final unit where applicable."]
-        };
+        return { id: question.id, awardedMarks: 0, maxMarks: question.marks, confidence: 0.99, feedback: "No assessable answer was provided.", missingPoints: ["Provide the required chemistry fact, explanation, calculation or reaction."] };
       }
 
       const normalised = answer.toLowerCase().replace(/×/g, "x").replace(/\s+/g, " ");
+      if (question.section === "A") {
+        const accepted = exactAnswers[question.id] || [];
+        const correct = accepted.some((term) => normalised.includes(term));
+        return {
+          id: question.id,
+          awardedMarks: correct ? 1 : 0,
+          maxMarks: 1,
+          confidence: 0.95,
+          feedback: correct ? "Correct." : "The one-word or one-sentence answer does not match the expected concept.",
+          missingPoints: correct ? [] : accepted.slice(0, 2)
+        };
+      }
+
+      const terms = keywords[question.id] || [];
       const matched = terms.filter((term) => normalised.includes(term.toLowerCase()));
       const missing = terms.filter((term) => !normalised.includes(term.toLowerCase()));
       const coverage = terms.length ? matched.length / terms.length : 0;
-      const lengthCredit = Math.min(0.2, answer.length / 1200);
-      const raw = question.marks * Math.min(1, coverage * 1.15 + lengthCredit);
-      const awardedMarks = Math.round(raw * 2) / 2;
-
+      const lengthCredit = Math.min(0.18, answer.length / 1600);
+      const awardedMarks = Math.round(question.marks * Math.min(1, coverage * 1.2 + lengthCredit) * 2) / 2;
       return {
         id: question.id,
         awardedMarks,
         maxMarks: question.marks,
         confidence: 0.5,
-        feedback: awardedMarks > 0
-          ? `Provisional rubric check detected ${matched.length} relevant point${matched.length === 1 ? "" : "s"}. This result was produced without the AI evaluator.`
-          : "The response did not contain enough relevant chemistry content to award marks.",
+        feedback: awardedMarks > 0 ? `Provisional rubric check found ${matched.length} relevant point${matched.length === 1 ? "" : "s"}.` : "The response did not contain enough relevant chemistry content to award marks.",
         missingPoints: missing.slice(0, 5)
       };
     });
@@ -112,16 +140,16 @@
     return {
       paperId: M.paperId,
       subjectCode: M.subjectCode,
-      title: "Applied Chemistry Mock Examination",
+      title: "Applied Chemistry Official-Pattern Mock Examination",
       score,
       totalMarks: M.totalMarks,
       percentage: Math.round(score / M.totalMarks * 1000) / 10,
       status: "published",
       evaluationMode: "automated_rubric_fallback",
-      model: "browser-rubric-v1",
+      model: "browser-rubric-v2",
       evaluatedAt: new Date().toISOString(),
       results,
-      overallFeedback: "The AI evaluation service was temporarily unavailable, so a provisional rubric-based result was published instead. Your result is visible now and can be saved to your account.",
+      overallFeedback: "The AI service was temporarily unavailable, so a provisional rubric-based result was published. The paper structure and maximum marks follow the official model-question-paper pattern.",
       fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180)
     };
   }
@@ -129,9 +157,8 @@
   async function evaluate() {
     const url = endpoint();
     if (!url) return localFallbackEvaluation(new Error("AI evaluation service is not configured."));
-
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 45000);
+    const timeout = setTimeout(() => controller.abort(), 60000);
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -140,7 +167,8 @@
         body: JSON.stringify({
           paperId: M.paperId,
           subjectCode: M.subjectCode,
-          answers: M.questions.map((q) => ({ id: q.id, answer: String(M.state.answers[q.id] || "").trim() }))
+          selections: M.state.selections,
+          answers: selectedPayload()
         })
       });
       const data = await response.json().catch(() => ({}));
@@ -160,7 +188,7 @@
       user_id: M.state.user.id,
       subject_code: M.subjectCode,
       paper_code: M.paperId,
-      answers: M.questions.map((q) => ({ id: q.id, answer: String(M.state.answers[q.id] || "").trim() })),
+      answers: { selections: M.state.selections, responses: selectedPayload() },
       ai_feedback: result,
       score: Number(result.score || 0),
       max_score: M.totalMarks,
@@ -196,14 +224,5 @@
     }).join("")}</tbody></table>`;
   }
 
-  M.service = {
-    key,
-    loadSupabaseConfig,
-    restoreDraft,
-    saveDraft,
-    startTimer,
-    evaluate,
-    saveResult,
-    loadHistory
-  };
+  M.service = { key, loadSupabaseConfig, restoreDraft, saveDraft, startTimer, evaluate, saveResult, loadHistory };
 })();
