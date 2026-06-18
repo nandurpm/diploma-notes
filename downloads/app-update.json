@@ -4,16 +4,13 @@
   "versionName": "1.0.3",
   "apkUrl": "/downloads/Polytechnic-Study-Hub-v1.0.3.apk",
   "sha256": "8229523c702766901925da73cb9bc7224c94f99efcd4d542373cae1be98b40a5",
-  "publishedAt": "2026-06-16",
+  "publishedAt": "2026-06-19",
   "forceUpdate": false,
-  "title": "Polytechnic Study Hub 1.0.3 security update",
-  "message": "Update for safer links and downloads, Android 6 compatibility, verified website links and improved offline recovery.",
+  "title": "Polytechnic Study Hub latest Android app",
+  "message": "Latest available Android app. Website updates load automatically from polypmna.dpdns.org.",
   "releaseNotes": [
-    "Fixed external and special-link handling on Android 6.",
-    "Blocked unsafe intent links and restricted downloads to the trusted website.",
-    "Forwarded session cookies and file type information for reliable downloads.",
-    "Disabled third-party cookies and application-data backup.",
-    "Added verified website deep links and improved offline retry.",
-    "Improved WebView lifecycle cleanup and dependency metadata."
+    "Latest available Android APK remains version 1.0.3.",
+    "Website menu, header, study pages and floating instruction updates load from the live website.",
+    "Use this download button for the current public app package."
   ]
 }
