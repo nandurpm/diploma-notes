@@ -185,9 +185,79 @@ body.has-fixed-site-header [id] {
   color: #10213c;
 }
 
+.native-app-update-banner {
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.2);
+  background: linear-gradient(135deg, #eff6ff, #eef2ff);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+  color: #10213c;
+}
+
+.native-app-update-banner[hidden] {
+  display: none !important;
+}
+
+.native-app-update-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.native-app-update-copy strong {
+  font-size: 0.92rem;
+}
+
+.native-app-update-message {
+  overflow: hidden;
+  color: #526078;
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.native-app-update-action {
+  min-height: 40px;
+  padding: 9px 14px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+.native-app-update-dismiss {
+  min-height: 40px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #334155;
+  font: inherit;
+  font-weight: 700;
+}
+
 @media (max-width: 720px) {
   .brand {
     min-width: 0 !important;
     max-width: calc(100% - 108px) !important;
+  }
+
+  .native-app-update-banner {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .native-app-update-copy {
+    grid-column: 1 / -1;
+  }
+
+  .native-app-update-action,
+  .native-app-update-dismiss {
+    width: 100%;
+    justify-content: center;
   }
 }
