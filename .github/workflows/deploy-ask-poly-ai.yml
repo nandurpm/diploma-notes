@@ -22,7 +22,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID_VALUE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -74,7 +74,6 @@ jobs:
 
           deployment_url = os.environ.get('DEPLOYMENT_URL', '').strip().rstrip('/')
           if not deployment_url:
-              # workers.dev URL is stable because wrangler.toml has name = "ask-poly-ai".
               deployment_url = 'https://ask-poly-ai.nandakumarkdpm.workers.dev'
           endpoint = f"{deployment_url}/api/ask-poly"
           source = (
