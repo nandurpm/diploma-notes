@@ -3,6 +3,7 @@
 
   const meta = (name) => document.querySelector(`meta[name="${name}"]`)?.content || "";
   const Q = (window.PolyQuiz = window.PolyQuiz || {});
+  const CONFIRMATION_REDIRECT_URL = "https://polypmna.dpdns.org/daily-quiz.html";
 
   Q.config = {
     supabaseUrl: meta("supabase-url"),
@@ -157,13 +158,20 @@
     try {
       const { data, error } = await Q.state.client.auth.signUp({
         email: E.email.value.trim(), password,
-        options: { data: { username }, emailRedirectTo: `${location.origin}/daily-quiz.html` },
+        options: {
+          data: { username },
+          emailRedirectTo: CONFIRMATION_REDIRECT_URL,
+        },
       });
       if (error) throw error;
       if (data.session?.user) await Q.enterAuthenticated(data.session.user);
       else {
         Q.setAuthMode("login");
-        Q.message(E.authMessage, "Registration successful. Confirm your email, then login.", "success");
+        Q.message(
+          E.authMessage,
+          "Registration successful. Confirm your email, then return to this page and login.",
+          "success",
+        );
       }
     } catch (error) {
       Q.message(E.authMessage, error.message || "Registration failed.", "error");
