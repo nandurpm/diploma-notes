@@ -179,6 +179,24 @@
   const header = document.querySelector(".topbar");
   if (!header) return;
 
+  const ensureDailyQuizMenuLink = () => {
+    const nav = header.querySelector(".navlinks");
+    if (!nav || nav.querySelector('a[href$="daily-quiz.html"]')) return;
+
+    const dailyLink = document.createElement("a");
+    dailyLink.href = "daily-quiz.html";
+    dailyLink.textContent = "Daily Quiz";
+
+    const materialsLink = [...nav.querySelectorAll("a")].find((link) => link.getAttribute("href")?.includes("materials-2015.html"));
+    if (materialsLink) {
+      materialsLink.before(dailyLink);
+    } else {
+      nav.append(dailyLink);
+    }
+  };
+
+  ensureDailyQuizMenuLink();
+
   let frame = 0;
 
   const updateHeaderHeight = () => {
