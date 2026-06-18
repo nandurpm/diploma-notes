@@ -4,7 +4,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
   Strict-Transport-Security: max-age=31536000
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self' https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com; frame-src 'self' https://drive.google.com; form-action 'self' mailto:; base-uri 'self'; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self'; connect-src 'self' https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://hwobooljdvynsajtrvnk.supabase.co https://ask-poly-ai.nandakumarkdpm.workers.dev https://*.workers.dev; frame-src 'self' https://drive.google.com; form-action 'self' mailto:; base-uri 'self'; frame-ancestors 'self'
 
 /
   Cache-Control: no-cache, must-revalidate
@@ -26,6 +26,10 @@
 
 /*.pdf
   Cache-Control: public, max-age=86400, stale-while-revalidate=86400
+
+/downloads/*
+  Cache-Control: no-cache, must-revalidate
+  Content-Type: application/octet-stream
 
 /assets/media/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
