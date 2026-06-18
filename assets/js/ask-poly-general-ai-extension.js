@@ -134,6 +134,13 @@
       : "Ask maths, coding, grammar, current affairs…";
   }
 
+  function runLocalAssistant(form, input, query) {
+    input.value = query;
+    form.dataset.remoteBypass = "true";
+    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
+    delete form.dataset.remoteBypass;
+  }
+
   function initialize(root) {
     if (!root || root.dataset.generalAiExtension === "true") return;
     const form = root.querySelector(".poly-ai-form");
@@ -161,6 +168,7 @@
       const query = clean(input.value);
       const configuredNow = Boolean(globalThis.AskPolyRemote?.isConfigured?.());
       if (!query || !configuredNow) return;
+      if (shouldStayLocal(query)) return;
 
       event.preventDefault();
       event.stopImmediatePropagation();
@@ -193,18 +201,12 @@
           : `Answered by Ask POLY AI${result.model ? ` • ${result.model}` : ""}`;
       } catch (error) {
         console.error("Ask POLY general AI failed.", error);
-        if (IS_LESSON_PAGE) {
-          userMessage.remove();
-          input.value = query;
-          form.dataset.remoteBypass = "true";
-          form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-          delete form.dataset.remoteBypass;
-        } else {
-          makeMessage(body, "bot", error?.status === 429
-            ? "Too many questions were sent recently. Please wait a few minutes and try again."
-            : "The online AI is temporarily unavailable. Subject and lesson search still works.");
-          status.textContent = "Online AI temporarily unavailable";
-        }
+        userMessage.remove();
+        runLocalAssistant(form, input, query);
+        makeMessage(body, "bot", error?.status === 429
+          ? "Online AI received too many questions recently. Local subject and lesson search still works."
+          : "Online AI is temporarily unavailable. I switched back to local subject and lesson search for this question.");
+        status.textContent = "Online AI temporarily unavailable";
       } finally {
         input.disabled = false;
         send.disabled = false;
