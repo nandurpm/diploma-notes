@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Applied Chemistry Mock Exam | Course Code 1004</title>
-  <meta name="description" content="A 50-mark Applied Chemistry mock examination with automated AI-supported evaluation for Kerala Polytechnic Revision 2021 students.">
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260618-mock2">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260618-mock2">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260618-mock2">
-  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260618-mock2">
-  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260618-mock2">
-  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-mock2">
-  <link rel="stylesheet" href="/assets/css/mock-exam.css?v=20260618-mock2">
+  <title>Applied Chemistry Official-Pattern Mock Exam | Course Code 1004</title>
+  <meta name="description" content="A 75-mark, three-hour Applied Chemistry mock examination following the official Revision 2021 Course Code 1004 model-question-paper structure.">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260618-model75">
+  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260618-model75">
+  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260618-model75">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260618-model75">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260618-model75">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-model75">
+  <link rel="stylesheet" href="/assets/css/mock-exam.css?v=20260618-model75">
 </head>
 <body class="portal-page mock-exam-page">
   <header class="topbar">
@@ -36,20 +36,20 @@
     <section id="loadingView" class="mock-state-card" aria-live="polite">
       <span class="mock-spinner" aria-hidden="true"></span>
       <h1>Preparing your mock examination…</h1>
-      <p>Checking the existing student session and loading Course Code 1004.</p>
+      <p>Loading the official-pattern Course Code 1004 paper.</p>
     </section>
 
     <section id="examView" class="hidden">
       <section class="mock-hero">
         <div>
-          <p class="eyebrow">Revision 2021 · Semester 1 · Basic Science</p>
+          <p class="eyebrow">Revision 2021 · First Semester · Common to all Diploma Programmes</p>
           <h1>Applied Chemistry Mock Examination</h1>
-          <p>Course Code 1004 · English · All questions are compulsory</p>
+          <p>Course Code 1004 · English · Official model-question-paper pattern</p>
         </div>
         <div class="mock-meta-grid" aria-label="Exam information">
-          <div><span>Maximum Marks</span><strong>50</strong></div>
-          <div><span>Duration</span><strong>120 min</strong></div>
-          <div><span>Questions</span><strong>11</strong></div>
+          <div><span>Maximum Marks</span><strong>75</strong></div>
+          <div><span>Duration</span><strong>3 hours</strong></div>
+          <div><span>Answers Required</span><strong>23</strong></div>
           <div><span>Evaluation</span><strong>AI + Rubric</strong></div>
         </div>
       </section>
@@ -57,7 +57,7 @@
       <section class="mock-notice">
         <div>
           <strong id="studentName">Authenticated student</strong>
-          <p>Your answers are automatically saved in this browser until submission. The published score is for practice and self-assessment.</p>
+          <p>Part A: answer all 9. Part B: choose any 8 of 10. Part C: choose one option from each of the 6 OR pairs. Answers and choices are saved automatically.</p>
         </div>
         <a class="btn soft" href="/daily-quiz.html">Back to Mock Exams</a>
       </section>
@@ -66,11 +66,11 @@
         <aside class="exam-sidebar" aria-label="Question navigation">
           <div class="timer-card">
             <span>Time Remaining</span>
-            <strong id="examTimer">02:00:00</strong>
-            <small id="timerNote">Practice timer</small>
+            <strong id="examTimer">03:00:00</strong>
+            <small id="timerNote">Official model duration</small>
           </div>
           <div class="progress-card">
-            <div><span>Answered</span><strong id="answeredCount">0/11</strong></div>
+            <div><span>Required Answers</span><strong id="answeredCount">0/23</strong></div>
             <div class="progress-track"><span id="answerProgress"></span></div>
           </div>
           <nav id="questionNav" class="question-nav"></nav>
@@ -81,20 +81,20 @@
         <section class="paper-card">
           <header class="paper-heading">
             <div>
-              <p class="eyebrow">Sample Question Paper</p>
-              <h2>Answer all questions</h2>
+              <p class="eyebrow">Official-Pattern Sample Question Paper</p>
+              <h2>Follow the choice rules in each part</h2>
             </div>
-            <span class="paper-total">50 Marks</span>
+            <span class="paper-total">75 Marks</span>
           </header>
           <div class="paper-instructions">
             <strong>Instructions</strong>
-            <p>Show formulas, substitutions, units and working for numerical questions. Write technically complete answers for descriptive questions. Do not paste unrelated material.</p>
+            <p>Part A carries 9 marks, Part B carries 24 marks and Part C carries 42 marks. Show formulas, substitutions, reactions, units and working wherever applicable.</p>
           </div>
           <form id="examForm" novalidate>
             <div id="questionList"></div>
           </form>
           <div class="paper-submit">
-            <button id="submitExam" class="btn primary" type="button" disabled>Submit All Answers for AI Evaluation</button>
+            <button id="submitExam" class="btn primary" type="button" disabled>Submit Selected Answers for AI Evaluation</button>
             <p id="examMessage" class="status-message" aria-live="polite"></p>
           </div>
         </section>
@@ -103,9 +103,9 @@
 
     <section id="evaluatingView" class="mock-state-card hidden" aria-live="assertive">
       <span class="mock-spinner" aria-hidden="true"></span>
-      <h1>Evaluating your answers…</h1>
-      <p>The system is checking each response against the official Course Code 1004 syllabus topics, model points and question-specific marking rubrics. Keep this page open.</p>
-      <div class="evaluation-steps"><span class="active">Validating answers</span><span>Applying rubrics</span><span>Publishing result</span></div>
+      <h1>Evaluating your selected answers…</h1>
+      <p>The system is checking the 9 Part A answers, 8 selected Part B answers and 6 selected Part C answers against question-specific marking rubrics.</p>
+      <div class="evaluation-steps"><span class="active">Validating choices</span><span>Applying rubrics</span><span>Publishing result</span></div>
     </section>
 
     <section id="resultView" class="hidden">
@@ -116,7 +116,7 @@
           <p id="resultMeta"></p>
         </div>
         <div class="score-ring" aria-label="Published score">
-          <strong id="resultScore">0/50</strong>
+          <strong id="resultScore">0/75</strong>
           <span id="resultPercent">0%</span>
         </div>
       </section>
@@ -124,8 +124,8 @@
       <section class="result-summary-grid">
         <article><span>Status</span><strong>Published</strong></article>
         <article><span>Evaluation</span><strong id="evaluationMode">AI + Rubric</strong></article>
-        <article><span>Questions Evaluated</span><strong>11</strong></article>
-        <article><span>Maximum Marks</span><strong>50</strong></article>
+        <article><span>Answers Evaluated</span><strong>23</strong></article>
+        <article><span>Maximum Marks</span><strong>75</strong></article>
       </section>
 
       <section class="result-card">
@@ -153,10 +153,10 @@
   <footer class="footer"><p>&copy; <span data-year></span> Polytechnic Study Hub.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="/assets/js/ask-poly-config.js?v=20260618-mock2" defer></script>
-  <script src="/assets/js/mock-exam-1004.js?v=20260618-mock2" defer></script>
-  <script src="/assets/js/main.js?v=20260618-mock2" defer></script>
-  <script src="/assets/js/site-hardening.js?v=20260618-mock2" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260618-mock2" defer></script>
+  <script src="/assets/js/ask-poly-config.js?v=20260618-model75" defer></script>
+  <script src="/assets/js/mock-exam-1004.js?v=20260618-model75" defer></script>
+  <script src="/assets/js/main.js?v=20260618-model75" defer></script>
+  <script src="/assets/js/site-hardening.js?v=20260618-model75" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260618-model75" defer></script>
 </body>
 </html>

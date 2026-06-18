@@ -2,34 +2,59 @@ import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 
 const clean = (value, maximum) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
-function answersFrom(body) {
-  if (body?.paperId !== MOCK_PAPER.id || body?.subjectCode !== MOCK_PAPER.subjectCode) throw new Error("Unknown mock examination paper.");
-  if (!Array.isArray(body.answers) || body.answers.length !== MOCK_PAPER.questions.length) throw new Error("All 11 answers are required.");
+function selectedQuestionsFrom(body) {
+  if (body?.paperId !== MOCK_PAPER.id || body?.subjectCode !== MOCK_PAPER.subjectCode) {
+    throw new Error("Unknown mock examination paper.");
+  }
+  if (!Array.isArray(body.answers) || body.answers.length !== 23) {
+    throw new Error("The official-pattern paper requires exactly 23 selected answers.");
+  }
+
+  const bank = new Map(MOCK_PAPER.questions.map((question) => [question.id, question]));
   const supplied = new Map();
   for (const item of body.answers) {
     const id = clean(item?.id, 10);
+    const question = bank.get(id);
+    if (!question || supplied.has(id)) throw new Error(`Unknown or duplicate answer ${id || "unknown"}.`);
     const answer = clean(item?.answer, 4000);
-    if (!id || answer.length < 8) throw new Error(`Answer ${id || "unknown"} is incomplete.`);
+    const minimum = question.section === "A" ? 1 : 8;
+    if (answer.length < minimum) throw new Error(`Answer ${id} is incomplete.`);
     supplied.set(id, answer);
   }
-  return MOCK_PAPER.questions.map((question) => {
-    const answer = supplied.get(question.id);
-    if (!answer) throw new Error(`Answer ${question.id} is missing.`);
-    return { ...question, studentAnswer: answer };
-  });
+
+  for (const id of MOCK_PAPER.partAIds) {
+    if (!supplied.has(id)) throw new Error(`Part A answer ${id} is missing.`);
+  }
+
+  const selectedB = MOCK_PAPER.partBIds.filter((id) => supplied.has(id));
+  if (selectedB.length !== 8) throw new Error("Select exactly eight Part B questions.");
+
+  for (const pair of MOCK_PAPER.pairs) {
+    const selected = MOCK_PAPER.questions.filter((question) => question.pair === pair && supplied.has(question.id));
+    if (selected.length !== 1) throw new Error(`Select exactly one answer from Part C pair ${pair}.`);
+  }
+
+  return [...supplied.entries()].map(([id, studentAnswer]) => ({ ...bank.get(id), studentAnswer }));
 }
 
 function schema() {
   return {
-    type: "object", additionalProperties: false,
+    type: "object",
+    additionalProperties: false,
     properties: {
       results: {
-        type: "array", minItems: 11, maxItems: 11,
+        type: "array",
+        minItems: 23,
+        maxItems: 23,
         items: {
-          type: "object", additionalProperties: false,
+          type: "object",
+          additionalProperties: false,
           properties: {
-            id: { type: "string" }, awardedMarks: { type: "number" }, confidence: { type: "number" },
-            feedback: { type: "string" }, missingPoints: { type: "array", items: { type: "string" } }
+            id: { type: "string" },
+            awardedMarks: { type: "number" },
+            confidence: { type: "number" },
+            feedback: { type: "string" },
+            missingPoints: { type: "array", items: { type: "string" } }
           },
           required: ["id", "awardedMarks", "confidence", "feedback", "missingPoints"]
         }
@@ -49,11 +74,13 @@ function outputText(data) {
   return "";
 }
 
-function normalize(parsed, data, model) {
+function normalize(parsed, selectedQuestions, data, model) {
   const returned = new Map((parsed?.results || []).map((item) => [String(item?.id || ""), item]));
-  const results = MOCK_PAPER.questions.map((question) => {
+  const results = selectedQuestions.map((question) => {
     const item = returned.get(question.id) || {};
-    const awardedMarks = Math.round(Math.max(0, Math.min(question.maxMarks, Number(item.awardedMarks || 0))) * 2) / 2;
+    const step = question.maxMarks === 1 ? 1 : 0.5;
+    const raw = Math.max(0, Math.min(question.maxMarks, Number(item.awardedMarks || 0)));
+    const awardedMarks = Math.round(raw / step) * step;
     return {
       id: question.id,
       awardedMarks,
@@ -65,6 +92,7 @@ function normalize(parsed, data, model) {
         : []
     };
   });
+
   const score = Math.round(results.reduce((sum, item) => sum + item.awardedMarks, 0) * 2) / 2;
   return {
     paperId: MOCK_PAPER.id,
@@ -84,7 +112,7 @@ function normalize(parsed, data, model) {
 }
 
 export async function evaluateMockExam(body, env) {
-  const questions = answersFrom(body);
+  const questions = selectedQuestionsFrom(body);
   const model = env.MOCK_EXAM_MODEL || env.OPENAI_MODEL || "gpt-5.4-mini";
   const payload = {
     model,
@@ -93,20 +121,27 @@ export async function evaluateMockExam(body, env) {
     input: [{
       role: "user",
       content: JSON.stringify({
-        examination: { id: MOCK_PAPER.id, subjectCode: MOCK_PAPER.subjectCode, title: MOCK_PAPER.title, totalMarks: MOCK_PAPER.totalMarks },
+        examination: {
+          id: MOCK_PAPER.id,
+          subjectCode: MOCK_PAPER.subjectCode,
+          title: MOCK_PAPER.title,
+          totalMarks: MOCK_PAPER.totalMarks,
+          structure: "Part A 9x1; Part B any 8 of 10 at 3 marks; Part C six OR pairs at 7 marks"
+        },
         questions
       })
     }],
-    max_output_tokens: Number(env.MOCK_EXAM_MAX_OUTPUT_TOKENS || 5000),
+    max_output_tokens: Number(env.MOCK_EXAM_MAX_OUTPUT_TOKENS || 7500),
     text: {
       format: {
         type: "json_schema",
-        name: "applied_chemistry_mock_exam_evaluation",
+        name: "applied_chemistry_official_pattern_evaluation",
         strict: true,
         schema: schema()
       }
     }
   };
+
   const response = await fetch("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
@@ -119,5 +154,5 @@ export async function evaluateMockExam(body, env) {
   let parsed;
   try { parsed = JSON.parse(text); }
   catch { throw new Error("The AI evaluator returned an invalid structured result."); }
-  return normalize(parsed, data, model);
+  return normalize(parsed, questions, data, model);
 }
