@@ -1,7 +1,7 @@
 import { cleanText } from "./http.js";
 
-const DEFAULT_MODEL = "gpt-5.5";
-const FALLBACK_MODELS = ["gpt-5.5", "gpt-4.1-mini", "gpt-4o-mini"];
+const DEFAULT_MODEL = "gpt-4o-mini";
+const FALLBACK_MODELS = ["gpt-4o-mini", "gpt-4.1-mini", "gpt-5.5"];
 
 const SYSTEM_INSTRUCTIONS = `You are Ask POLY, a compact educational assistant for Kerala Polytechnic and diploma students.
 
@@ -12,7 +12,7 @@ Capabilities:
 - Explain electrical wiring, electronic circuits and components. Prioritize safety: never advise working on live mains; recommend power isolation, proper ratings, supervision and a qualified electrician or instructor when appropriate.
 - Generate complete HTML, CSS, JavaScript and other programming examples with filenames and short usage steps.
 - Answer computer, networking, electronics and general academic questions.
-- For current affairs and other time-sensitive topics, use web search when available and cite reliable sources.
+- For current affairs and other time-sensitive topics, clearly state when information may need verification.
 
 Response rules:
 - Match the user's language.
@@ -77,25 +77,28 @@ function uniqueModels(primary) {
   return [...new Set([cleanText(primary, 80), DEFAULT_MODEL, ...FALLBACK_MODELS].filter(Boolean))];
 }
 
-function buildPayload(model, input, env, useWeb = true) {
+function buildPayload(model, input, env) {
   return {
     model,
-    reasoning: { effort: cleanText(env.REASONING_EFFORT, 20) || "low" },
     instructions: SYSTEM_INSTRUCTIONS,
-    ...(useWeb ? { tools: [{ type: "web_search" }] } : {}),
     input,
     max_output_tokens: Number(env.MAX_OUTPUT_TOKENS || 1800)
   };
 }
 
-function shouldRetryWithoutWeb(error) {
-  const message = String(error?.message || "").toLowerCase();
-  return /web_search|web search|tool|tools|unsupported|not supported|invalid.*tool/.test(message);
-}
-
-function isModelError(error) {
+function isRetryableModelError(error) {
   const message = String(error?.message || "").toLowerCase();
   return /model|does not exist|not found|unsupported|invalid/.test(message);
+}
+
+function simplifyPayloadAfterError(payload, error) {
+  const message = String(error?.message || "").toLowerCase();
+  if (/max_output_tokens|unsupported parameter|unknown parameter|invalid parameter/.test(message)) {
+    const clone = { ...payload };
+    delete clone.max_output_tokens;
+    return clone;
+  }
+  return null;
 }
 
 async function requestOpenAI(payload, env) {
@@ -117,14 +120,25 @@ async function requestOpenAI(payload, env) {
   return data;
 }
 
-async function tryModels(input, env, useWeb) {
+async function requestWithPayloadFallback(payload, env) {
+  try {
+    return await requestOpenAI(payload, env);
+  } catch (error) {
+    const simplified = simplifyPayloadAfterError(payload, error);
+    if (!simplified) throw error;
+    return await requestOpenAI(simplified, env);
+  }
+}
+
+async function tryModels(input, env) {
   let lastError;
   for (const model of uniqueModels(env.OPENAI_MODEL)) {
+    const payload = buildPayload(model, input, env);
     try {
-      return { data: await requestOpenAI(buildPayload(model, input, env, useWeb), env), model };
+      return { data: await requestWithPayloadFallback(payload, env), model };
     } catch (error) {
       lastError = error;
-      if (!isModelError(error)) throw error;
+      if (!isRetryableModelError(error)) throw error;
     }
   }
   throw lastError;
@@ -137,14 +151,7 @@ export async function askPoly(body, env) {
   const input = sanitizeHistory(body.history);
   input.push({ role: "user", content: buildUserContent(body) });
 
-  let response;
-  try {
-    response = await tryModels(input, env, true);
-  } catch (error) {
-    if (!shouldRetryWithoutWeb(error)) throw error;
-    response = await tryModels(input, env, false);
-  }
-
+  const response = await tryModels(input, env);
   const result = extractAnswer(response.data);
   if (!result.answer) throw new Error("The AI service returned an empty response.");
   return { ...result, model: response.data.model || response.model, responseId: response.data.id || "" };
