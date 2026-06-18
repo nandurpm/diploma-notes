@@ -1,0 +1,1 @@
+/* Daily quiz client script placeholder. */
