@@ -36,6 +36,22 @@
     });
   }
 
+  function setupMockExamLabels() {
+    document.querySelectorAll('a[href$="daily-quiz.html"], a[href$="/daily-quiz.html"]').forEach((link) => {
+      const label = (link.textContent || "").trim();
+      if (/^(daily quiz|quiz)$/i.test(label)) link.textContent = "Mock Exams";
+    });
+
+    document.querySelectorAll('.choice-card[href$="daily-quiz.html"], .choice-card[href$="/daily-quiz.html"]').forEach((card) => {
+      const badge = card.querySelector("span");
+      const title = card.querySelector("h2");
+      const description = card.querySelector("p");
+      if (badge) badge.textContent = "EXAMS";
+      if (title) title.textContent = "Mock Exams";
+      if (description) description.textContent = "Attend daily subject quizzes and full syllabus-based mock examinations with saved scores and feedback.";
+    });
+  }
+
   function setupMenu() {
     const toggle = document.querySelector(".menu-toggle");
     const nav = document.querySelector(".navlinks");
@@ -161,9 +177,11 @@
   }
 
   setupQuizRuntime();
+  setupMockExamLabels();
 
   document.addEventListener("DOMContentLoaded", () => {
     setupQuizRuntime();
+    setupMockExamLabels();
     setupSiteNotice();
     document.querySelectorAll("[data-year]").forEach((item) => {
       item.textContent = new Date().getFullYear();
