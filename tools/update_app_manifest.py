@@ -13,6 +13,7 @@ MANIFEST_PATH = DOWNLOADS_DIR / "app-update.json"
 INDEX_PATH = ROOT / "index.html"
 GRADLE_PATH = ROOT / "android-app/app/build.gradle"
 APK_PATTERN = re.compile(r"^Polytechnic-Study-Hub-v(?P<version>\d+(?:\.\d+){1,3})\.apk$")
+APP_BUTTON_MARKER = "<!-- APP_DOWNLOAD_BUTTON -->"
 
 
 def version_key(value: str) -> tuple[int, ...]:
@@ -74,9 +75,18 @@ def build_manifest(apk_path: Path, version_name: str) -> dict:
         "publishedAt": previous.get("publishedAt") if same_release else date.today().isoformat(),
         "forceUpdate": bool(previous.get("forceUpdate", False)) if same_release else False,
         "title": previous.get("title") if same_release else f"Polytechnic Study Hub {version_name} is available",
-        "message": previous.get("message") if same_release else "A newer and more secure version of Polytechnic Study Hub is ready to install.",
+        "message": previous.get("message") if same_release else "A newer version of Polytechnic Study Hub is ready to install.",
         "releaseNotes": previous.get("releaseNotes", []) if same_release else [],
     }
+
+
+def app_button_markup(apk_path: Path) -> str:
+    return (
+        f'<a class="btn app-download" href="/downloads/{apk_path.name}" '
+        f'download="{apk_path.name}" type="application/vnd.android.package-archive" '
+        'aria-label="Download Polytechnic Study Hub Android application" '
+        'aria-hidden="true" hidden>📱 Download Our App</a>'
+    )
 
 
 def update_index(source: str, apk_path: Path, version_name: str) -> str:
@@ -86,8 +96,15 @@ def update_index(source: str, apk_path: Path, version_name: str) -> str:
         r'download="Polytechnic-Study-Hub-v[^\"]+\.apk"'
     )
     updated, count = apk_link_pattern.subn(replacement, source)
+
     if count == 0:
-        raise RuntimeError("Could not find the homepage Android APK download link.")
+        if APP_BUTTON_MARKER not in updated:
+            raise RuntimeError("Could not find the homepage Android APK download link or insertion marker.")
+        updated = updated.replace(
+            APP_BUTTON_MARKER,
+            APP_BUTTON_MARKER + "\n        " + app_button_markup(apk_path),
+            1,
+        )
 
     app_button_pattern = re.compile(r'<a\b[^>]*\bclass="btn app-download"[^>]*>', re.IGNORECASE)
 
@@ -98,7 +115,7 @@ def update_index(source: str, apk_path: Path, version_name: str) -> str:
 
     updated, count = app_button_pattern.subn(hide_app_button, updated, count=1)
     if count == 0:
-        raise RuntimeError("Could not find the homepage Android app button.")
+        raise RuntimeError("Could not create the homepage Android app button.")
 
     cache_token = f"app-{version_name.replace('.', '-')}-update-button-1"
     script_pattern = re.compile(
