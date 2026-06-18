@@ -10,8 +10,8 @@
   const FALLBACK_UPDATE = Object.freeze({
     versionName: "1.0.3",
     apkUrl: "/downloads/Polytechnic-Study-Hub-v1.0.3.apk",
-    title: "Polytechnic Study Hub Android app",
-    message: "Download the latest available Android APK."
+    title: "Polytechnic Study Hub latest Android app",
+    message: "Download the latest available Android APK. Website updates load automatically."
   });
 
   const validApkPath = (value) => {
@@ -48,11 +48,11 @@
     const filename = apkUrl.pathname.split("/").pop() || `Polytechnic-Study-Hub-v${update.versionName}.apk`;
 
     button.dataset.appButtonState = "download";
-    button.textContent = `📱 Download App ${update.versionName}`;
+    button.textContent = `📱 Download Updated App ${update.versionName}`;
     button.href = apkUrl.href;
     button.download = filename;
     button.removeAttribute("aria-disabled");
-    button.setAttribute("aria-label", `Download Polytechnic Study Hub Android version ${update.versionName}`);
+    button.setAttribute("aria-label", `Download the latest available Polytechnic Study Hub Android app version ${update.versionName}`);
     button.hidden = false;
     button.removeAttribute("aria-hidden");
   };
