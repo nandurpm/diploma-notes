@@ -4,6 +4,11 @@
   const Q = window.PolyQuiz;
   if (!Q) return;
 
+  const portalUpgrade = document.createElement("script");
+  portalUpgrade.src = "/assets/js/mock-exam-portal-upgrade.js?v=20260618-mock1";
+  portalUpgrade.async = false;
+  document.head.append(portalUpgrade);
+
   async function clearSavedResults(targetUserId) {
     const { data, error } = await Q.state.client.functions.invoke(
       "quiz-admin-clear-results",
