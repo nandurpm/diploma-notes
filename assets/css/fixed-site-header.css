@@ -261,3 +261,69 @@ body.has-fixed-site-header [id] {
     justify-content: center;
   }
 }
+
+/* Site-wide cleaned header: important links only, no duplicated notice label. */
+.topbar {
+  grid-template-columns: auto minmax(180px, 1fr) max-content !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.topbar .navlinks {
+  min-width: 0;
+}
+
+.topbar .navlinks a {
+  white-space: nowrap;
+}
+
+.site-notice {
+  min-width: 180px;
+}
+
+.site-notice::before {
+  display: none !important;
+  content: none !important;
+}
+
+.site-notice > .site-notice-label {
+  color: #fff !important;
+  background: linear-gradient(135deg, #1d4ed8, #0f9fba) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 10px 22px rgba(29, 78, 216, 0.18) !important;
+}
+
+.site-notice .site-notice-track {
+  animation: siteNoticeScroll 42s linear infinite !important;
+}
+
+@media (max-width: 1100px) {
+  .topbar {
+    grid-template-columns: auto auto !important;
+  }
+
+  .site-notice {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+
+  .navlinks {
+    grid-column: 1 / -1;
+    order: 4;
+    justify-content: flex-start;
+  }
+
+  .menu-toggle {
+    order: 2;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-notice {
+    height: 38px;
+  }
+
+  .site-notice > .site-notice-label {
+    padding: 7px 12px !important;
+  }
+}
