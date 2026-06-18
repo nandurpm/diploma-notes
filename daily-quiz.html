@@ -23,19 +23,12 @@
     </a>
     <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
     <nav class="navlinks" aria-label="Primary navigation">
-      <a href="index.html">Home</a>
-      <a href="revision-2021.html">Revision 2021</a>
-      <a href="study-materials.html">Study Materials</a>
-      <a href="daily-quiz.html" aria-current="page">Quiz</a>
-      <a href="model-question-papers.html">Question Papers</a>
-      <a href="contact.html">Help</a>
+      <a href="index.html">Home</a><a href="revision-2021.html">Revision 2021</a><a href="study-materials.html">Study Materials</a><a href="daily-quiz.html" aria-current="page">Quiz</a><a href="model-question-papers.html">Question Papers</a><a href="contact.html">Help</a>
     </nav>
   </header>
 
   <main class="quiz-app">
-    <section id="serviceWarning" class="notice error-box hidden" role="alert">
-      The secure quiz service is unavailable. Reload the page and try again.
-    </section>
+    <section id="serviceWarning" class="notice error-box hidden" role="alert">The secure quiz service is unavailable. Reload the page and try again.</section>
 
     <section id="authView" class="auth-view">
       <div class="auth-card">
@@ -43,34 +36,17 @@
         <p class="eyebrow">Kerala Polytechnic · Revision 2021</p>
         <h1>Student Quiz Portal</h1>
         <p class="auth-intro">Login to save scores and analysis, register a new account, or continue as a guest without saving anything.</p>
-
         <div class="auth-tabs" role="tablist" aria-label="Account action">
           <button id="loginTab" class="auth-tab active" type="button" role="tab" aria-selected="true" disabled>Login</button>
           <button id="registerTab" class="auth-tab" type="button" role="tab" aria-selected="false" disabled>Register</button>
         </div>
-
         <form id="authForm" novalidate>
-          <div id="usernameField" class="field hidden">
-            <label for="username">Username</label>
-            <input id="username" name="username" type="text" minlength="3" maxlength="30"
-              pattern="[A-Za-z0-9_.-]{3,30}" autocomplete="username"
-              placeholder="3–30 letters, numbers, dot, _ or -">
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email" required placeholder="student@example.com">
-          </div>
-          <div class="field">
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required placeholder="Minimum 6 characters">
-          </div>
-          <div id="confirmField" class="field hidden">
-            <label for="confirmPassword">Confirm password</label>
-            <input id="confirmPassword" name="confirmPassword" type="password" minlength="6" autocomplete="new-password" placeholder="Re-enter password">
-          </div>
+          <div id="usernameField" class="field hidden"><label for="username">Username</label><input id="username" name="username" type="text" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" autocomplete="username" placeholder="3–30 letters, numbers, dot, _ or -"></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="student@example.com"></div>
+          <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required placeholder="Minimum 6 characters"></div>
+          <div id="confirmField" class="field hidden"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" name="confirmPassword" type="password" minlength="6" autocomplete="new-password" placeholder="Re-enter password"></div>
           <button id="authSubmit" class="btn primary full" type="submit" disabled>Login</button>
         </form>
-
         <div class="divider"><span>or</span></div>
         <button id="guestLogin" class="btn guest full" type="button" disabled>Continue as Guest</button>
         <p class="guest-note">Guest activity is kept only in this open page. It is not saved to Supabase, localStorage, sessionStorage or cookies.</p>
@@ -80,123 +56,52 @@
 
     <section id="portalView" class="portal-view hidden">
       <section class="dashboard-head">
-        <div>
-          <p class="eyebrow">Quiz Dashboard</p>
-          <h1 id="welcomeTitle">Welcome</h1>
-          <p id="accountSubtitle">Choose a subject to begin.</p>
-        </div>
-        <div class="head-actions">
-          <button id="accountButton" class="btn soft" type="button">Account</button>
-          <button id="adminButton" class="btn admin hidden" type="button">Admin Control</button>
-          <button id="logoutButton" class="btn outline" type="button">Logout</button>
-        </div>
+        <div><p class="eyebrow">Quiz Dashboard</p><h1 id="welcomeTitle">Welcome</h1><p id="accountSubtitle">Choose a subject to begin.</p></div>
+        <div class="head-actions"><button id="accountButton" class="btn soft" type="button">Account</button><button id="adminButton" class="btn admin hidden" type="button">Admin Control</button><button id="logoutButton" class="btn outline" type="button">Logout</button></div>
       </section>
-
-      <section id="guestBanner" class="notice guest-banner hidden">
-        <strong>Guest mode:</strong> results disappear when this page is refreshed or closed.
-      </section>
+      <section id="guestBanner" class="notice guest-banner hidden"><strong>Guest mode:</strong> results disappear when this page is refreshed or closed.</section>
 
       <section id="dashboardView" class="view-section">
         <div id="summaryCards" class="summary-grid" aria-label="Quiz summary"></div>
-
-        <section class="section-card">
-          <div class="section-heading">
-            <div><p class="eyebrow">Daily practice</p><h2>Choose a quiz</h2></div>
-            <p>Each subject gives 10 questions per day and one final retry.</p>
-          </div>
-          <div id="subjectGrid" class="subject-grid"></div>
-        </section>
-
+        <section class="section-card"><div class="section-heading"><div><p class="eyebrow">Daily practice</p><h2>Choose a quiz</h2></div><p>Each subject gives 10 questions per day and one final retry.</p></div><div id="subjectGrid" class="subject-grid"></div></section>
         <section class="analytics-layout">
-          <article class="section-card">
-            <div class="section-heading"><div><p class="eyebrow">Analysis</p><h2>Subject performance</h2></div></div>
-            <div id="subjectAnalysis" class="analysis-list"></div>
-          </article>
-          <article class="section-card">
-            <div class="section-heading"><div><p class="eyebrow">History</p><h2>Recent results</h2></div></div>
-            <div id="recentResults" class="table-wrap"></div>
-          </article>
+          <article class="section-card"><div class="section-heading"><div><p class="eyebrow">Analysis</p><h2>Subject performance</h2></div></div><div id="subjectAnalysis" class="analysis-list"></div></article>
+          <article class="section-card"><div class="section-heading"><div><p class="eyebrow">History</p><h2>Recent results</h2></div></div><div id="recentResults" class="table-wrap"></div></article>
         </section>
-
-        <section class="section-card future-card">
-          <div>
-            <p class="eyebrow">Future feature</p>
-            <h2>Sample Question Papers with AI Evaluation</h2>
-            <p>Long, descriptive and numerical answers will be checked against syllabus rubrics. Results will be published only after automated verification and, when needed, admin review.</p>
-          </div>
-          <span class="coming-soon">Planned</span>
-        </section>
+        <section class="section-card future-card"><div><p class="eyebrow">Future feature</p><h2>Sample Question Papers with AI Evaluation</h2><p>Long, descriptive and numerical answers will be checked against syllabus rubrics. Results will be published only after automated verification and, when needed, admin review.</p></div><span class="coming-soon">Planned</span></section>
       </section>
 
       <section id="quizView" class="view-section hidden">
-        <div class="view-toolbar">
-          <button class="btn soft back-dashboard" type="button">← Dashboard</button>
-          <div><p class="eyebrow" id="quizSubjectCode"></p><h2 id="quizTitle">Quiz</h2></div>
-          <span id="quizAttemptBadge" class="attempt-badge"></span>
-        </div>
-        <article class="section-card quiz-card">
-          <p id="quizInstruction" class="quiz-instruction">Answer every question before submitting.</p>
-          <div id="questionContainer"></div>
-          <div class="quiz-actions">
-            <button id="submitQuiz" class="btn primary" type="button" disabled>Submit Answers</button>
-            <button id="retryQuiz" class="btn warning hidden" type="button">Start Final Retry &amp; Reshuffle</button>
-            <button class="btn soft back-dashboard" type="button">Back to Dashboard</button>
-          </div>
-          <p id="quizMessage" class="status-message" aria-live="polite"></p>
-        </article>
+        <div class="view-toolbar"><button class="btn soft back-dashboard" type="button">← Dashboard</button><div><p class="eyebrow" id="quizSubjectCode"></p><h2 id="quizTitle">Quiz</h2></div><span id="quizAttemptBadge" class="attempt-badge"></span></div>
+        <article class="section-card quiz-card"><p id="quizInstruction" class="quiz-instruction">Answer every question before submitting.</p><div id="questionContainer"></div><div class="quiz-actions"><button id="submitQuiz" class="btn primary" type="button" disabled>Submit Answers</button><button id="retryQuiz" class="btn warning hidden" type="button">Start Final Retry &amp; Reshuffle</button><button class="btn soft back-dashboard" type="button">Back to Dashboard</button></div><p id="quizMessage" class="status-message" aria-live="polite"></p></article>
       </section>
 
       <section id="accountView" class="view-section hidden">
         <div class="view-toolbar"><button class="btn soft back-dashboard" type="button">← Dashboard</button><div><p class="eyebrow">Account</p><h2>Account Settings</h2></div></div>
-        <div id="accountGuestOnly" class="section-card hidden">
-          <h3>Guest account</h3><p>Guest mode has no saved account. Exit guest mode to login or register.</p>
-        </div>
+        <div id="accountGuestOnly" class="section-card hidden"><h3>Guest account</h3><p>Guest mode has no saved account. Exit guest mode to login or register.</p></div>
         <div id="accountControls" class="account-grid">
-          <form id="usernameForm" class="section-card">
-            <h3>Edit username</h3>
-            <div class="field"><label for="newUsername">Username</label><input id="newUsername" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" required></div>
-            <button class="btn primary" type="submit">Save Username</button>
-            <p id="usernameMessage" class="status-message" aria-live="polite"></p>
-          </form>
-          <form id="passwordForm" class="section-card">
-            <h3>Change password</h3>
-            <div class="field"><label for="newPassword">New password</label><input id="newPassword" type="password" minlength="6" autocomplete="new-password" required></div>
-            <div class="field"><label for="newPasswordConfirm">Confirm new password</label><input id="newPasswordConfirm" type="password" minlength="6" autocomplete="new-password" required></div>
-            <button class="btn primary" type="submit">Change Password</button>
-            <p id="passwordMessage" class="status-message" aria-live="polite"></p>
-          </form>
-          <article class="section-card danger-card">
-            <h3>Permanently delete account</h3>
-            <p>This deletes the account, profile, quiz results and future sample-paper records. It cannot be undone.</p>
-            <div class="field"><label for="deleteConfirm">Type DELETE</label><input id="deleteConfirm" autocomplete="off"></div>
-            <button id="deleteAccount" class="btn danger" type="button" disabled>Permanently Delete Account</button>
-            <p id="deleteMessage" class="status-message" aria-live="polite"></p>
-          </article>
+          <form id="usernameForm" class="section-card"><h3>Edit username</h3><div class="field"><label for="newUsername">Username</label><input id="newUsername" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" required></div><button class="btn primary" type="submit">Save Username</button><p id="usernameMessage" class="status-message" aria-live="polite"></p></form>
+          <form id="passwordForm" class="section-card"><h3>Change password</h3><div class="field"><label for="newPassword">New password</label><input id="newPassword" type="password" minlength="6" autocomplete="new-password" required></div><div class="field"><label for="newPasswordConfirm">Confirm new password</label><input id="newPasswordConfirm" type="password" minlength="6" autocomplete="new-password" required></div><button class="btn primary" type="submit">Change Password</button><p id="passwordMessage" class="status-message" aria-live="polite"></p></form>
+          <article class="section-card danger-card"><h3>Permanently delete account</h3><p>This deletes the account, profile, quiz results and future sample-paper records. It cannot be undone.</p><div class="field"><label for="deleteConfirm">Type DELETE</label><input id="deleteConfirm" autocomplete="off"></div><button id="deleteAccount" class="btn danger" type="button" disabled>Permanently Delete Account</button><p id="deleteMessage" class="status-message" aria-live="polite"></p></article>
         </div>
       </section>
 
       <section id="adminView" class="view-section hidden">
         <div class="view-toolbar"><button class="btn soft back-dashboard" type="button">← Dashboard</button><div><p class="eyebrow">Administrator</p><h2>User Management</h2></div></div>
         <div id="adminSummary" class="summary-grid"></div>
-        <article class="section-card">
-          <div class="section-heading"><div><h3>All registered users</h3><p>Edit usernames and roles, inspect results, clear quiz history or permanently delete an account.</p></div><button id="refreshAdmin" class="btn soft" type="button">Refresh</button></div>
-          <div id="adminUsers" class="table-wrap"></div>
-          <div id="adminUserResults" class="admin-results hidden"></div>
-          <p id="adminMessage" class="status-message" aria-live="polite"></p>
-        </article>
+        <article class="section-card"><div class="section-heading"><div><h3>All registered users</h3><p>Edit usernames and roles, inspect results, clear quiz history or permanently delete an account.</p></div><button id="refreshAdmin" class="btn soft" type="button">Refresh</button></div><div id="adminUsers" class="table-wrap"></div><div id="adminUserResults" class="admin-results hidden"></div><p id="adminMessage" class="status-message" aria-live="polite"></p></article>
       </section>
     </section>
   </main>
 
-  <footer class="footer">
-    <p>&copy; <span data-year></span> Polytechnic Study Hub.</p>
-    <nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>
-  </footer>
+  <footer class="footer"><p>&copy; <span data-year></span> Polytechnic Study Hub.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="/assets/js/quiz-portal.js?v=20260618-v2" defer></script>
-  <script src="/assets/js/main.js?v=20260615-notice2" defer></script>
-  <script src="/assets/js/site-hardening.js" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260616-nativeapp1" defer></script>
+  <script src="/assets/js/quiz-core.js?v=20260618-v3" defer></script>
+  <script src="/assets/js/quiz-dashboard.js?v=20260618-v3" defer></script>
+  <script src="/assets/js/quiz-play.js?v=20260618-v3" defer></script>
+  <script src="/assets/js/quiz-account-admin.js?v=20260618-v3" defer></script>
+  <script src="/assets/js/quiz-init.js?v=20260618-v3" defer></script>
+  <script src="/assets/js/main.js?v=20260615-notice2" defer></script><script src="/assets/js/site-hardening.js" defer></script><script src="/assets/js/fixed-site-header.js?v=20260616-nativeapp1" defer></script>
 </body>
 </html>
