@@ -1,6 +1,7 @@
 import { cleanText } from "./http.js";
 
 const DEFAULT_MODEL = "gpt-5.5";
+const FALLBACK_MODELS = ["gpt-5.5", "gpt-4.1-mini", "gpt-4o-mini"];
 
 const SYSTEM_INSTRUCTIONS = `You are Ask POLY, a compact educational assistant for Kerala Polytechnic and diploma students.
 
@@ -72,30 +73,29 @@ function extractAnswer(data) {
   };
 }
 
-function normalizeModel(value) {
-  const model = cleanText(value, 80);
-  return model || DEFAULT_MODEL;
+function uniqueModels(primary) {
+  return [...new Set([cleanText(primary, 80), DEFAULT_MODEL, ...FALLBACK_MODELS].filter(Boolean))];
 }
 
-function buildPayload(model, input, useWeb = true) {
+function buildPayload(model, input, env, useWeb = true) {
   return {
     model,
-    reasoning: { effort: "low" },
+    reasoning: { effort: cleanText(env.REASONING_EFFORT, 20) || "low" },
     instructions: SYSTEM_INSTRUCTIONS,
     ...(useWeb ? { tools: [{ type: "web_search" }] } : {}),
     input,
-    max_output_tokens: 1800
+    max_output_tokens: Number(env.MAX_OUTPUT_TOKENS || 1800)
   };
 }
 
 function shouldRetryWithoutWeb(error) {
   const message = String(error?.message || "").toLowerCase();
-  return /web_search|tool|tools|unsupported|not supported|invalid.*tool/.test(message);
+  return /web_search|web search|tool|tools|unsupported|not supported|invalid.*tool/.test(message);
 }
 
-function shouldRetryDefaultModel(error, model) {
+function isModelError(error) {
   const message = String(error?.message || "").toLowerCase();
-  return model !== DEFAULT_MODEL && /model|does not exist|not found|unsupported|invalid/.test(message);
+  return /model|does not exist|not found|unsupported|invalid/.test(message);
 }
 
 async function requestOpenAI(payload, env) {
@@ -117,6 +117,19 @@ async function requestOpenAI(payload, env) {
   return data;
 }
 
+async function tryModels(input, env, useWeb) {
+  let lastError;
+  for (const model of uniqueModels(env.OPENAI_MODEL)) {
+    try {
+      return { data: await requestOpenAI(buildPayload(model, input, env, useWeb), env), model };
+    } catch (error) {
+      lastError = error;
+      if (!isModelError(error)) throw error;
+    }
+  }
+  throw lastError;
+}
+
 export async function askPoly(body, env) {
   if (!cleanText(body?.message, 6000)) throw new Error("Please enter a question.");
   if (!env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
@@ -124,27 +137,15 @@ export async function askPoly(body, env) {
   const input = sanitizeHistory(body.history);
   input.push({ role: "user", content: buildUserContent(body) });
 
-  let model = normalizeModel(env.OPENAI_MODEL);
-  let payload = buildPayload(model, input, true);
-  if (env.REASONING_EFFORT) payload.reasoning.effort = cleanText(env.REASONING_EFFORT, 20) || "low";
-  if (env.MAX_OUTPUT_TOKENS) payload.max_output_tokens = Number(env.MAX_OUTPUT_TOKENS || 1800);
-
-  let data;
+  let response;
   try {
-    data = await requestOpenAI(payload, env);
+    response = await tryModels(input, env, true);
   } catch (error) {
-    if (shouldRetryDefaultModel(error, model)) {
-      model = DEFAULT_MODEL;
-      payload = { ...payload, model };
-      data = await requestOpenAI(payload, env);
-    } else if (shouldRetryWithoutWeb(error)) {
-      data = await requestOpenAI(buildPayload(model, input, false), env);
-    } else {
-      throw error;
-    }
+    if (!shouldRetryWithoutWeb(error)) throw error;
+    response = await tryModels(input, env, false);
   }
 
-  const result = extractAnswer(data);
+  const result = extractAnswer(response.data);
   if (!result.answer) throw new Error("The AI service returned an empty response.");
-  return { ...result, model: data.model || payload.model, responseId: data.id || "" };
+  return { ...result, model: response.data.model || response.model, responseId: response.data.id || "" };
 }
