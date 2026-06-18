@@ -3,7 +3,38 @@
   const Q = window.PolyQuiz;
   Q.config.functionName = "quiz-portal-api";
 
+  function loadStyle(href) {
+    if (document.querySelector(`link[href^="${href}"]`)) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = `${href}?v=20260618-fix1`;
+    document.head.append(link);
+  }
+
+  function loadScript(src) {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src^="${src}"]`)) {
+        resolve();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = `${src}?v=20260618-fix1`;
+      script.onload = resolve;
+      script.onerror = () => reject(new Error(`Unable to load ${src}`));
+      document.head.append(script);
+    });
+  }
+
   Q.initialize = async () => {
+    loadStyle("/assets/css/quiz-portal-fixes.css");
+    document.querySelector(".topbar .brand > span:last-child")?.classList.add("brand-copy");
+
+    try {
+      await loadScript("/assets/js/quiz-admin-actions.js");
+    } catch (error) {
+      console.error(error);
+    }
+
     const ids = [
       "serviceWarning", "authView", "portalView", "loginTab", "registerTab", "authForm",
       "usernameField", "username", "email", "password", "confirmField", "confirmPassword",
