@@ -97,3 +97,97 @@ body.has-fixed-site-header [id] {
     scroll-padding-top: 0 !important;
   }
 }
+
+/* Correct generic span rules that were also styling the brand text as an icon. */
+.brand > .brand-symbol + span {
+  display: grid !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  line-height: 1.1 !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.brand > .brand-symbol + span strong,
+.brand > .brand-symbol + span small {
+  display: block !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Keep the update label and its scrolling message as separate layout elements. */
+.site-notice > .site-notice-label {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 9px 16px !important;
+  animation: none !important;
+  transform: none !important;
+  white-space: nowrap !important;
+}
+
+.site-notice > .site-notice-viewport {
+  flex: 1 1 auto !important;
+  display: block !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.site-notice .site-notice-track {
+  display: inline-flex !important;
+  align-items: center !important;
+  width: max-content !important;
+  min-width: 100% !important;
+  height: auto !important;
+  padding: 0 0 0 100% !important;
+  gap: 16px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+  animation: siteNoticeScroll 24s linear infinite !important;
+}
+
+.site-notice .site-notice-message,
+.site-notice .site-notice-separator {
+  display: inline !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.service-recovery-card {
+  grid-column: 1 / -1;
+  padding: 22px;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 18px;
+  background: #f8fbff;
+  color: #10213c;
+}
+
+@media (max-width: 720px) {
+  .brand {
+    min-width: 0 !important;
+    max-width: calc(100% - 108px) !important;
+  }
+}
