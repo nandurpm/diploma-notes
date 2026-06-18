@@ -19,8 +19,8 @@
   if (!card) return;
   card.classList.add("mock-exam-launch");
   text(".future-card .eyebrow", "Available now");
-  text(".future-card h2", "Applied Chemistry Mock Examination");
-  text(".future-card p:not(.eyebrow)", "Course Code 1004 · English · 50 marks · 120 minutes. Descriptive and numerical answers are evaluated against syllabus rubrics, and the result is published immediately.");
+  text(".future-card h2", "Applied Chemistry Official-Pattern Mock Examination");
+  text(".future-card p:not(.eyebrow)", "Course Code 1004 · English · 75 marks · 3 hours. Part A: 9 × 1, Part B: answer any 8 of 10, and Part C: choose one from each of 6 OR pairs. Results are published with rubric-based feedback.");
   const oldBadge = card.querySelector(".coming-soon");
   if (oldBadge) {
     const link = document.createElement("a");

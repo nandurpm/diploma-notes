@@ -7,7 +7,7 @@
     if (document.querySelector(`link[href^="${href}"]`)) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `${href}?v=20260618-boot2`;
+    link.href = `${href}?v=20260618-model75`;
     document.head.append(link);
   }
 
@@ -18,7 +18,7 @@
         return;
       }
       const script = document.createElement("script");
-      script.src = `${src}?v=20260618-boot2`;
+      script.src = `${src}?v=20260618-model75`;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Unable to load ${src}`));
       document.head.append(script);

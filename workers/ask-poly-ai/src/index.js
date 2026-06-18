@@ -35,7 +35,8 @@ export default {
         service: "Ask POLY AI",
         configured: Boolean(env.OPENAI_API_KEY),
         model: env.OPENAI_MODEL || "gpt-5.4-mini",
-        mockExamEvaluation: true
+        mockExamEvaluation: true,
+        mockExamPattern: "1004-75-mark-official-model"
       }, 200, origin, env);
     }
 
@@ -53,7 +54,7 @@ export default {
     }
 
     const isExam = url.pathname === "/api/evaluate-mock-exam";
-    const maximumSize = isExam ? 65000 : 40000;
+    const maximumSize = isExam ? 120000 : 40000;
     if (Number(request.headers.get("Content-Length") || 0) > maximumSize) {
       return jsonResponse({ error: "The request is too large." }, 413, origin, env);
     }
@@ -70,7 +71,7 @@ export default {
         return jsonResponse(result, 200, origin, env);
       } catch (error) {
         console.error("Mock exam evaluation failed", error);
-        const validationError = /missing|incomplete|unknown/i.test(String(error?.message || ""));
+        const validationError = /missing|incomplete|unknown|duplicate|select exactly|requires exactly/i.test(String(error?.message || ""));
         return jsonResponse({
           error: validationError
             ? cleanText(error.message, 300)

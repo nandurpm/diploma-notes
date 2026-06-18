@@ -4,7 +4,7 @@
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = `${src}?v=20260618-mock2`;
+      script.src = `${src}?v=20260618-model75`;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Unable to load ${src}`));
       document.head.append(script);
@@ -24,7 +24,7 @@
 
   function start() {
     const M = globalThis.PolyMock1004;
-    const { $, complete } = M.ui;
+    const { $ } = M.ui;
     let saveTimer = null;
     const show = (id) => $(id)?.classList.remove("hidden");
     const hide = (id) => $(id)?.classList.add("hidden");
@@ -37,19 +37,20 @@
 
     async function submit() {
       if (M.state.submitting) return;
-      const missing = M.questions.filter((q) => !complete(M.state.answers[q.id]));
-      if (missing.length) {
-        $("examMessage").textContent = `Complete all answers before submission. Incomplete: ${missing.map((q) => q.id).join(", ")}.`;
+      const check = M.ui.validation();
+      if (!check.ready) {
+        $("examMessage").textContent = check.missing.slice(0, 4).join(" ");
         $("examMessage").className = "status-message error";
-        $(`question-${missing[0].id}`)?.scrollIntoView({ behavior: "smooth" });
         return;
       }
-      if (!confirm("Submit all 11 answers for evaluation? The current attempt will be published after evaluation.")) return;
+      if (!confirm("Submit the selected 23 answers for evaluation? The paper carries 75 marks.")) return;
+
       M.state.submitting = true;
       M.ui.updateProgress();
       hide("examView");
       show("evaluatingView");
       scrollTo({ top: 0, behavior: "smooth" });
+
       try {
         const result = await M.service.evaluate();
         try {
@@ -83,6 +84,7 @@
     function newAttempt() {
       if (!confirm("Start a new attempt? The published result remains in your history.")) return;
       M.state.answers = Object.create(null);
+      M.state.selections = { partB: [], partC: Object.create(null) };
       ["draft", "started", "latest-result"].forEach((name) => localStorage.removeItem(M.service.key(name)));
       M.state.startedAt = Date.now();
       localStorage.setItem(M.service.key("started"), String(M.state.startedAt));
