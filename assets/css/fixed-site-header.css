@@ -327,3 +327,93 @@ body.has-fixed-site-header [id] {
     padding: 7px 12px !important;
   }
 }
+
+/* Mobile header visibility and floating-instruction hotfix. */
+@keyframes siteInstructionScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.site-notice .site-notice-track {
+  padding-left: 0 !important;
+  animation: siteInstructionScroll 42s linear infinite !important;
+}
+
+@media (max-width: 980px) {
+  .topbar {
+    grid-template-columns: 1fr !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    padding: 10px !important;
+  }
+
+  .brand {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .brand strong {
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+  }
+
+  .menu-toggle {
+    display: none !important;
+  }
+
+  .site-notice {
+    grid-column: 1 / -1 !important;
+    order: 2 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  .topbar .navlinks,
+  .topbar .navlinks.open {
+    grid-column: 1 / -1 !important;
+    order: 3 !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: flex-start !important;
+    gap: 7px !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    padding: 2px 1px 4px !important;
+    scrollbar-width: none;
+  }
+
+  .topbar .navlinks::-webkit-scrollbar {
+    display: none;
+  }
+
+  .topbar .navlinks a {
+    flex: 0 0 auto !important;
+    min-height: 38px !important;
+    padding: 8px 12px !important;
+    font-size: 0.8rem !important;
+    overflow-wrap: normal !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .topbar {
+    padding: 8px !important;
+    border-radius: 0 0 18px 18px !important;
+  }
+
+  .brand span {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .brand strong {
+    font-size: 0.9rem !important;
+  }
+
+  .site-notice .site-notice-track {
+    font-size: 0.78rem !important;
+  }
+}
