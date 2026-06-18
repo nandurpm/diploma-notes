@@ -1,5 +1,6 @@
 import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 
+const DEFAULT_MODEL = "gpt-5.5";
 const clean = (value, maximum) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
 function selectedQuestionsFrom(body) {
@@ -111,9 +112,30 @@ function normalize(parsed, selectedQuestions, data, model) {
   };
 }
 
+async function requestEvaluation(payload, env) {
+  const response = await fetch("https://api.openai.com/v1/responses", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error(data?.error?.message || `OpenAI evaluation failed with HTTP ${response.status}.`);
+    error.status = response.status;
+    throw error;
+  }
+  return data;
+}
+
+function shouldRetryDefaultModel(error, model) {
+  const message = String(error?.message || "").toLowerCase();
+  return model !== DEFAULT_MODEL && /model|does not exist|not found|unsupported|invalid/.test(message);
+}
+
 export async function evaluateMockExam(body, env) {
+  if (!env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
   const questions = selectedQuestionsFrom(body);
-  const model = env.MOCK_EXAM_MODEL || env.OPENAI_MODEL || "gpt-5.4-mini";
+  let model = env.MOCK_EXAM_MODEL || env.OPENAI_MODEL || DEFAULT_MODEL;
   const payload = {
     model,
     reasoning: { effort: env.MOCK_EXAM_REASONING_EFFORT || "low" },
@@ -142,13 +164,15 @@ export async function evaluateMockExam(body, env) {
     }
   };
 
-  const response = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(data?.error?.message || `OpenAI evaluation failed with HTTP ${response.status}.`);
+  let data;
+  try {
+    data = await requestEvaluation(payload, env);
+  } catch (error) {
+    if (!shouldRetryDefaultModel(error, model)) throw error;
+    model = DEFAULT_MODEL;
+    data = await requestEvaluation({ ...payload, model }, env);
+  }
+
   const text = outputText(data);
   if (!text) throw new Error("The AI evaluator returned an empty result.");
   let parsed;
