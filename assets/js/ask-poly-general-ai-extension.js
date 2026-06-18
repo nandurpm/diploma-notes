@@ -5,6 +5,7 @@
   const IS_LESSON_PAGE = /\/lessons\/[^/]+\.html$/i.test(window.location.pathname);
   const LOCAL_QUERY_PATTERN = /\b(subject|lesson|syllabus|notes|semester|department|model\s*qp|question\s*paper)\b/i;
   const SIMPLE_HELP_PATTERN = /^(hi|hello|hey|help|what can you do|how to use)$/i;
+  const ACKNOWLEDGEMENT_PATTERN = /^(ok|okay|okk|k|thanks|thank you|fine|good)$/i;
 
   let remoteHistory = [];
   let lastRemoteAnswer = "";
@@ -167,7 +168,19 @@
       if (form.dataset.remoteBypass === "true") return;
       const query = clean(input.value);
       const configuredNow = Boolean(globalThis.AskPolyRemote?.isConfigured?.());
-      if (!query || !configuredNow) return;
+      if (!query) return;
+
+      if (ACKNOWLEDGEMENT_PATTERN.test(query)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        input.value = "";
+        makeMessage(body, "user", query);
+        makeMessage(body, "bot", "Okay. Ask a clear question like a maths problem, HTML help, grammar correction, or a subject code.");
+        status.textContent = configuredNow ? "Ask POLY AI ready" : "Local assistant ready";
+        return;
+      }
+
+      if (!configuredNow) return;
       if (shouldStayLocal(query)) return;
 
       event.preventDefault();
