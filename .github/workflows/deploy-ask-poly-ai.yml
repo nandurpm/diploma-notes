@@ -21,6 +21,7 @@ jobs:
       CLOUDFLARE_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID_VALUE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
+      NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY || secrets.NIVIDIA_API_KEY }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,7 +34,7 @@ jobs:
           node --check workers/ask-poly-ai/src/mock-evaluator.js
           python - <<'PY'
           from pathlib import Path
-          assert 'OPENAI_API_KEY' not in Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
+          assert 'API_KEY' not in Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
           print('Worker source and public configuration validated.')
           PY
 
@@ -41,15 +42,15 @@ jobs:
         id: secrets
         shell: bash
         run: |
-          if [ -n "$CLOUDFLARE_API_TOKEN_VALUE" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID_VALUE" ] && [ -n "$OPENAI_API_KEY_VALUE" ]; then
+          if [ -n "$CLOUDFLARE_API_TOKEN_VALUE" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID_VALUE" ] && { [ -n "$NVIDIA_API_KEY_VALUE" ] || [ -n "$OPENAI_API_KEY_VALUE" ]; }; then
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           else
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "Ask POLY AI deployment skipped. Add CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and OPENAI_API_KEY as repository Actions secrets, then run this workflow manually."
+            echo "Ask POLY AI deployment skipped. Add Cloudflare credentials and at least one provider key (NVIDIA_API_KEY or OPENAI_API_KEY)."
             exit 1
           fi
 
-      - name: Deploy Worker and store OpenAI key securely
+      - name: Deploy Worker and store provider keys securely
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
@@ -60,8 +61,10 @@ jobs:
           command: deploy
           secrets: |
             OPENAI_API_KEY
+            NVIDIA_API_KEY
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY || secrets.NIVIDIA_API_KEY }}
 
       - name: Configure website with deployed Worker URL
         env:

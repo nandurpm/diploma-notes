@@ -33,8 +33,11 @@ export default {
       return jsonResponse({
         ok: true,
         service: "Ask POLY AI",
-        configured: Boolean(env.OPENAI_API_KEY),
-        model: env.OPENAI_MODEL || "gpt-5.4-mini",
+        configured: Boolean(env.NVIDIA_API_KEY || env.OPENAI_API_KEY),
+        provider: env.NVIDIA_API_KEY ? "nvidia" : "openai",
+        model: env.NVIDIA_API_KEY
+          ? env.NVIDIA_MODEL || "meta/llama-3.3-70b-instruct"
+          : env.OPENAI_MODEL || "gpt-4o-mini",
         mockExamEvaluation: true,
         mockExamPattern: "1004-75-mark-official-model"
       }, 200, origin, env);
@@ -49,11 +52,10 @@ export default {
       return jsonResponse({ error: "This website origin is not allowed." }, 403, origin, env);
     }
 
-    if (!env.OPENAI_API_KEY) {
+    const isExam = url.pathname === "/api/evaluate-mock-exam";
+    if ((isExam && !env.OPENAI_API_KEY) || (!isExam && !env.NVIDIA_API_KEY && !env.OPENAI_API_KEY)) {
       return jsonResponse({ error: "Ask POLY AI is not configured yet." }, 503, origin, env);
     }
-
-    const isExam = url.pathname === "/api/evaluate-mock-exam";
     const maximumSize = isExam ? 120000 : 40000;
     if (Number(request.headers.get("Content-Length") || 0) > maximumSize) {
       return jsonResponse({ error: "The request is too large." }, 413, origin, env);
@@ -96,11 +98,14 @@ export default {
           ? "Please enter a question."
           : "The AI service could not answer right now. The local lesson assistant is still available.",
         diagnostic: missingMessage ? undefined : {
+          provider: cleanText(error?.provider, 40) || undefined,
           upstreamStatus: Number(error?.status) || undefined,
           upstreamCode: cleanText(error?.code, 80) || undefined,
           upstreamType: cleanText(error?.type, 80) || undefined,
           responsesStatus: Number(error?.responsesStatus) || undefined,
-          responsesCode: cleanText(error?.responsesCode, 80) || undefined
+          responsesCode: cleanText(error?.responsesCode, 80) || undefined,
+          nvidiaStatus: Number(error?.nvidiaStatus) || undefined,
+          nvidiaCode: cleanText(error?.nvidiaCode, 80) || undefined
         },
         detail: env.EXPOSE_ERRORS === "true" ? cleanText(error?.message, 500) : undefined
       }, missingMessage ? 400 : 502, origin, env);

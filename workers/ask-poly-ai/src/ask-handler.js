@@ -2,6 +2,7 @@ import { cleanText } from "./http.js";
 
 const DEFAULT_MODEL = "gpt-4o-mini";
 const FALLBACK_MODELS = ["gpt-4o-mini", "gpt-4.1-mini", "gpt-5.5"];
+const DEFAULT_NVIDIA_MODEL = "meta/llama-3.3-70b-instruct";
 
 const SYSTEM_INSTRUCTIONS = `You are Ask POLY, a compact educational assistant for Kerala Polytechnic and diploma students.
 
@@ -117,6 +118,7 @@ async function requestOpenAI(payload, env) {
     error.status = response.status;
     error.code = data?.error?.code || "responses_api_error";
     error.type = data?.error?.type || "openai_error";
+    error.provider = "openai";
     error.data = data;
     throw error;
   }
@@ -146,6 +148,7 @@ async function requestChatCompletion(model, input, env) {
     error.status = response.status;
     error.code = data?.error?.code || "chat_completions_api_error";
     error.type = data?.error?.type || "openai_error";
+    error.provider = "openai";
     error.data = data;
     throw error;
   }
@@ -161,6 +164,57 @@ async function requestChatCompletion(model, input, env) {
     answer,
     citations: [],
     usedWeb: false,
+    provider: "openai",
+    model: data.model || model,
+    responseId: data.id || ""
+  };
+}
+
+async function requestNvidia(input, env) {
+  const model = cleanText(env.NVIDIA_MODEL, 120) || DEFAULT_NVIDIA_MODEL;
+  const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${env.NVIDIA_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: SYSTEM_INSTRUCTIONS },
+        ...input
+      ],
+      temperature: 0.2,
+      top_p: 0.7,
+      max_tokens: Number(env.MAX_OUTPUT_TOKENS || 1800),
+      stream: false
+    }),
+    signal: AbortSignal.timeout(55000)
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error(data?.detail || data?.error?.message || `NVIDIA request failed with HTTP ${response.status}.`);
+    error.status = response.status;
+    error.code = data?.error?.code || data?.code || "nvidia_api_error";
+    error.type = data?.error?.type || "nvidia_error";
+    error.provider = "nvidia";
+    error.data = data;
+    throw error;
+  }
+  const answer = cleanText(data?.choices?.[0]?.message?.content, 24000);
+  if (!answer) {
+    const error = new Error("The NVIDIA API returned an empty response.");
+    error.status = 502;
+    error.code = "empty_nvidia_completion";
+    error.type = "empty_response";
+    error.provider = "nvidia";
+    throw error;
+  }
+  return {
+    answer,
+    citations: [],
+    usedWeb: false,
+    provider: "nvidia",
     model: data.model || model,
     responseId: data.id || ""
   };
@@ -205,16 +259,26 @@ async function tryChatModels(input, env) {
 
 export async function askPoly(body, env) {
   if (!cleanText(body?.message, 6000)) throw new Error("Please enter a question.");
-  if (!env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
+  if (!env.NVIDIA_API_KEY && !env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
 
   const input = sanitizeHistory(body.history);
   input.push({ role: "user", content: buildUserContent(body) });
+
+  let nvidiaError;
+  if (env.NVIDIA_API_KEY) {
+    try {
+      return await requestNvidia(input, env);
+    } catch (error) {
+      nvidiaError = error;
+      if (!env.OPENAI_API_KEY) throw error;
+    }
+  }
 
   try {
     const response = await tryModels(input, env);
     const result = extractAnswer(response.data);
     if (result.answer) {
-      return { ...result, model: response.data.model || response.model, responseId: response.data.id || "" };
+      return { ...result, provider: "openai", model: response.data.model || response.model, responseId: response.data.id || "" };
     }
   } catch (responseError) {
     try {
@@ -222,6 +286,8 @@ export async function askPoly(body, env) {
     } catch (chatError) {
       chatError.responsesStatus = responseError?.status;
       chatError.responsesCode = responseError?.code;
+      chatError.nvidiaStatus = nvidiaError?.status;
+      chatError.nvidiaCode = nvidiaError?.code;
       throw chatError;
     }
   }

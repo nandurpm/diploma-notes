@@ -7,6 +7,7 @@ workers_dev = true
 
 [vars]
 OPENAI_MODEL = "gpt-4o-mini"
+NVIDIA_MODEL = "meta/llama-3.3-70b-instruct"
 MAX_OUTPUT_TOKENS = "1800"
 MOCK_EXAM_MODEL = "gpt-4o-mini"
 MOCK_EXAM_MAX_OUTPUT_TOKENS = "7500"
