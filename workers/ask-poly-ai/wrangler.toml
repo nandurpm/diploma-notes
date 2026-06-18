@@ -1,6 +1,6 @@
 name = "ask-poly-ai"
 main = "src/index.js"
-compatibility_date = "2026-06-16"
+compatibility_date = "2026-06-18"
 workers_dev = true
 # Deployment trigger: Ask POLY AI backend
 
@@ -8,4 +8,6 @@ workers_dev = true
 OPENAI_MODEL = "gpt-5.4-mini"
 REASONING_EFFORT = "low"
 MAX_OUTPUT_TOKENS = "1400"
+MOCK_EXAM_REASONING_EFFORT = "low"
+MOCK_EXAM_MAX_OUTPUT_TOKENS = "7500"
 ALLOWED_ORIGINS = "https://polypmna.dpdns.org,http://localhost:8000,http://127.0.0.1:8000"
