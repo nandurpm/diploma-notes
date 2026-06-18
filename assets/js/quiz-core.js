@@ -32,6 +32,7 @@
     activeQuiz: null,
     guestResults: Object.create(null),
     guestBankPromise: null,
+    serviceError: null,
   };
 
   Q.elements = {};
@@ -41,9 +42,22 @@
   })[char]);
 
   Q.message = (element, text, type = "") => {
+    if (!element) return;
     element.textContent = text;
     element.classList.remove("success", "error");
     if (type) element.classList.add(type);
+  };
+
+  Q.showServiceWarning = (text = "The secure quiz service is temporarily unavailable.") => {
+    const E = Q.elements;
+    Q.state.serviceError = text;
+    if (E.serviceWarningText) E.serviceWarningText.textContent = text;
+    E.serviceWarning?.classList.remove("hidden");
+  };
+
+  Q.hideServiceWarning = () => {
+    Q.state.serviceError = null;
+    Q.elements.serviceWarning?.classList.add("hidden");
   };
 
   Q.dateKeyIST = () => {
@@ -58,12 +72,13 @@
 
   Q.setBusy = (busy) => {
     Q.state.busy = busy;
-    ["authSubmit", "guestLogin", "loginTab", "registerTab"].forEach((id) => {
+    ["authSubmit", "guestLogin", "loginTab", "registerTab", "retryService"].forEach((id) => {
       if (Q.elements[id]) Q.elements[id].disabled = busy;
     });
   };
 
   Q.callApi = async (action, extra = {}) => {
+    if (!Q.state.client) throw new Error("The secure quiz connection is not initialized.");
     const { data, error } = await Q.state.client.functions.invoke(Q.config.functionName, {
       body: { action, ...extra },
     });
@@ -97,16 +112,17 @@
     Q.message(E.authMessage, "");
   };
 
-  Q.showAuth = (notice = "") => {
+  Q.showAuth = (notice = "", noticeType = "success") => {
     const E = Q.elements;
     Object.assign(Q.state, {
       mode: "none", user: null, profile: null, dashboard: null,
       activeSubject: null, activeQuiz: null,
     });
+    Q.hideServiceWarning();
     E.portalView.classList.add("hidden");
     E.authView.classList.remove("hidden");
     Q.setAuthMode("login");
-    if (notice) Q.message(E.authMessage, notice, "success");
+    if (notice) Q.message(E.authMessage, notice, noticeType);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -123,9 +139,24 @@
     });
   };
 
+  Q.renderServiceFailure = (error) => {
+    const E = Q.elements;
+    const text = error?.message || "The secure quiz service could not be reached. Check your connection and retry.";
+    Q.showPortal();
+    E.welcomeTitle.textContent = Q.state.user?.email ? `Signed in as ${Q.state.user.email}` : "Signed in";
+    E.accountSubtitle.textContent = "Your login is active, but the dashboard could not be loaded.";
+    E.adminButton.classList.add("hidden");
+    E.summaryCards.innerHTML = "";
+    E.subjectAnalysis.innerHTML = "";
+    E.recentResults.innerHTML = '<div class="empty-state">Dashboard data is unavailable until the secure service reconnects.</div>';
+    E.subjectGrid.innerHTML = '<div class="service-recovery-card"><b>You are still logged in.</b><p>Use Retry Service above. Do not register another account.</p></div>';
+    Q.showServiceWarning(text);
+  };
+
   Q.login = async () => {
     const E = Q.elements;
     Q.setBusy(true);
+    Q.hideServiceWarning();
     E.authSubmit.textContent = "Logging in…";
     try {
       const { data, error } = await Q.state.client.auth.signInWithPassword({
@@ -154,6 +185,7 @@
       return;
     }
     Q.setBusy(true);
+    Q.hideServiceWarning();
     E.authSubmit.textContent = "Creating account…";
     try {
       const { data, error } = await Q.state.client.auth.signUp({
@@ -186,7 +218,7 @@
     if (Q.state.guestBankPromise) return Q.state.guestBankPromise;
     Q.state.guestBankPromise = new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = "/assets/js/quiz-guest-bank.js?v=20260618-v3";
+      script.src = "/assets/js/quiz-guest-bank.js?v=20260618-v4";
       script.onload = () => Promise.resolve(window.QuizGuestBankReady)
         .then(() => resolve(window.QuizGuestBank)).catch(reject);
       script.onerror = () => reject(new Error("Guest question bank could not be loaded."));
@@ -197,6 +229,7 @@
 
   Q.enterGuest = async () => {
     Q.setBusy(true);
+    Q.hideServiceWarning();
     try {
       if (Q.state.client) await Q.state.client.auth.signOut().catch(() => {});
       await Q.loadGuestBank();
@@ -216,16 +249,36 @@
     Q.state.user = user;
     Q.showPortal();
     Q.elements.welcomeTitle.textContent = "Loading dashboard…";
-    try { await Q.loadAuthenticatedDashboard(); }
-    catch (error) {
-      console.error(error);
-      Q.showAuth();
-      Q.elements.serviceWarning.classList.remove("hidden");
-      Q.message(Q.elements.authMessage, error.message || "Dashboard could not be loaded.", "error");
+    Q.elements.accountSubtitle.textContent = "Connecting to the secure quiz service…";
+    Q.hideServiceWarning();
+    try {
+      await Q.loadAuthenticatedDashboard();
+    } catch (error) {
+      console.error("Dashboard load failed while authentication remained valid.", error);
+      Q.renderServiceFailure(error);
+    }
+  };
+
+  Q.retryService = async () => {
+    if (Q.state.mode !== "authenticated" || !Q.state.user) {
+      Q.showAuth("Your session has ended. Login again.", "error");
+      return;
+    }
+    Q.setBusy(true);
+    Q.hideServiceWarning();
+    Q.elements.welcomeTitle.textContent = "Reconnecting…";
+    try {
+      await Q.loadAuthenticatedDashboard();
+    } catch (error) {
+      console.error("Secure quiz service retry failed.", error);
+      Q.renderServiceFailure(error);
+    } finally {
+      Q.setBusy(false);
     }
   };
 
   Q.logout = async () => {
+    Q.hideServiceWarning();
     if (Q.state.mode === "guest") {
       Q.state.guestResults = Object.create(null);
       Q.showAuth("Guest session ended.");
