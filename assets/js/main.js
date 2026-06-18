@@ -1,6 +1,41 @@
 (() => {
   "use strict";
 
+  function setupQuizRuntime() {
+    const Q = window.PolyQuiz;
+    const warning = document.getElementById("serviceWarning");
+    if (!Q || !warning || warning.dataset.runtimeReady === "true") return;
+
+    warning.dataset.runtimeReady = "true";
+    warning.innerHTML = `
+      <span class="service-warning-text">The secure quiz service is temporarily unavailable.</span>
+      <button class="btn soft service-retry-button" type="button">Retry Service</button>
+    `;
+
+    const textNode = warning.querySelector(".service-warning-text");
+    const retryButton = warning.querySelector(".service-retry-button");
+
+    const originalShow = Q.showServiceWarning;
+    Q.showServiceWarning = (text) => {
+      if (textNode) textNode.textContent = text || "The secure quiz service is temporarily unavailable.";
+      warning.classList.remove("hidden");
+      if (typeof originalShow === "function") originalShow(text);
+    };
+
+    const originalHide = Q.hideServiceWarning;
+    Q.hideServiceWarning = () => {
+      warning.classList.add("hidden");
+      if (typeof originalHide === "function") originalHide();
+    };
+
+    retryButton?.addEventListener("click", () => Q.retryService?.());
+    window.addEventListener("online", () => {
+      if (Q.state?.mode === "authenticated" && !warning.classList.contains("hidden")) {
+        Q.retryService?.();
+      }
+    });
+  }
+
   function setupMenu() {
     const toggle = document.querySelector(".menu-toggle");
     const nav = document.querySelector(".navlinks");
@@ -49,9 +84,7 @@
 
     const notice = document.createElement("a");
     notice.className = "site-notice";
-    notice.href = "https://nandakumarm.dpdns.org/about.html";
-    notice.target = "_blank";
-    notice.rel = "noopener noreferrer";
+    notice.href = "/about.html";
     notice.setAttribute("aria-label", "Website updates and available study resources");
     notice.innerHTML = `
       <strong class="site-notice-label">Update</strong>
@@ -127,7 +160,10 @@
     });
   }
 
+  setupQuizRuntime();
+
   document.addEventListener("DOMContentLoaded", () => {
+    setupQuizRuntime();
     setupSiteNotice();
     document.querySelectorAll("[data-year]").forEach((item) => {
       item.textContent = new Date().getFullYear();
