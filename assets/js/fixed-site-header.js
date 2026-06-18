@@ -102,18 +102,48 @@
     return 0;
   };
 
+  const ensureNativeUpdateUi = () => {
+    let button = document.querySelector(".app-download");
+    let banner = button?.closest(".native-app-update-banner") || null;
+
+    if (!button && isNativeAndroidApp) {
+      banner = document.createElement("aside");
+      banner.className = "native-app-update-banner";
+      banner.hidden = true;
+      banner.setAttribute("role", "status");
+      banner.setAttribute("aria-live", "polite");
+      banner.innerHTML = `
+        <div class="native-app-update-copy">
+          <strong>App update available</strong>
+          <span class="native-app-update-message">A newer Polytechnic Study Hub app is ready.</span>
+        </div>
+        <a class="btn primary app-download native-app-update-action" href="#" aria-hidden="true" hidden>Update App</a>
+        <button class="native-app-update-dismiss" type="button" aria-label="Dismiss app update notice">Later</button>
+      `;
+      body.prepend(banner);
+      button = banner.querySelector(".app-download");
+      banner.querySelector(".native-app-update-dismiss")?.addEventListener("click", () => {
+        banner.hidden = true;
+      });
+    }
+
+    return { button, banner };
+  };
+
   const configureAppDownloadButton = () => {
-    const button = document.querySelector(".app-download");
+    const { button, banner } = ensureNativeUpdateUi();
     if (!button) return;
 
     const showButton = () => {
       button.hidden = false;
       button.removeAttribute("aria-hidden");
+      if (banner) banner.hidden = false;
     };
 
     const hideButton = () => {
       button.hidden = true;
       button.setAttribute("aria-hidden", "true");
+      if (banner) banner.hidden = true;
     };
 
     if (!isNativeAndroidApp) {
@@ -144,9 +174,13 @@
         }
 
         button.dataset.appButtonState = "update";
-        button.textContent = "UPDATE YOUR APP";
-        button.href = apkUrl;
+        button.textContent = `Update to ${latestVersion}`;
+        button.href = new URL(apkUrl, window.location.origin).href;
         button.setAttribute("aria-label", `Update Polytechnic Study Hub to version ${latestVersion}`);
+        if (banner) {
+          const message = banner.querySelector(".native-app-update-message");
+          if (message) message.textContent = update.message || `Version ${latestVersion} is available.`;
+        }
         showButton();
       })
       .catch((error) => {
