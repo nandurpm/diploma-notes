@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260616-links3";
+  const ASSET_VERSION = "20260618-ai-fix1";
 
   function rootPrefix() {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
