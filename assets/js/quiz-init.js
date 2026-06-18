@@ -7,7 +7,7 @@
     if (document.querySelector(`link[href^="${href}"]`)) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `${href}?v=20260618-fix1`;
+    link.href = `${href}?v=20260618-boot2`;
     document.head.append(link);
   }
 
@@ -18,11 +18,23 @@
         return;
       }
       const script = document.createElement("script");
-      script.src = `${src}?v=20260618-fix1`;
+      script.src = `${src}?v=20260618-boot2`;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Unable to load ${src}`));
       document.head.append(script);
     });
+  }
+
+  function finishBoot() {
+    const reveal = () => {
+      document.body.classList.remove("quiz-booting");
+      document.getElementById("quiz-boot-guard")?.remove();
+      document.querySelectorAll("[data-quiz-loader], .quiz-loading-screen, .quiz-loading-overlay")
+        .forEach((loader) => loader.remove());
+    };
+
+    if (document.readyState === "complete") requestAnimationFrame(reveal);
+    else window.addEventListener("load", () => requestAnimationFrame(reveal), { once: true });
   }
 
   Q.initialize = async () => {
@@ -80,6 +92,7 @@
 
     if (!window.supabase?.createClient || !Q.config.supabaseUrl || !Q.config.publishableKey) {
       Q.elements.serviceWarning.classList.remove("hidden");
+      finishBoot();
       return;
     }
 
@@ -97,7 +110,10 @@
       console.error(error);
       Q.showAuth();
       Q.elements.serviceWarning.classList.remove("hidden");
-    } finally { Q.setBusy(false); }
+    } finally {
+      Q.setBusy(false);
+      finishBoot();
+    }
   };
 
   if (document.readyState === "loading") {
