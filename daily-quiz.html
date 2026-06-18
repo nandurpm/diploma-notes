@@ -1,5 +1,223 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Applied Chemistry Daily Quiz | Diploma Notes</title><meta name="description" content="Secure Applied Chemistry daily quiz with online scores, streaks and one retry per day."><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="/assets/css/responsive.css"><link rel="stylesheet" href="/assets/css/hardening.css"><link rel="stylesheet" href="/assets/css/site-brand.css?v=20260614-brand2"><link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260614-layout1"><link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260616-nativeapp1"><style>
-.quiz-shell{width:100%;max-width:none;padding:0 clamp(10px,2vw,28px) 44px}.hero{margin-top:18px;padding:clamp(20px,4vw,40px);border-radius:22px;background:linear-gradient(135deg,#14295d,#315efb);color:#fff}.hero h1{margin:4px 0;font-size:clamp(28px,4vw,48px)}.hero p{color:#eef2ff}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:18px}.stat{padding:12px;border:1px solid #ffffff40;border-radius:13px;background:#ffffff20}.stat span{display:block;font-size:13px}.stat b{display:block;font-size:20px}.panel{margin-top:16px;padding:18px;border:1px solid #dfe5ef;border-radius:17px;background:#fff;color:#172033;box-shadow:0 8px 24px #1e375a18}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}.field label{display:block;margin-bottom:5px;font-size:13px;font-weight:800}.field input{width:100%;padding:11px;border:1px solid #ccd5e4;border-radius:10px;font:inherit}.controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.btn{min-height:44px;padding:10px 15px;border:0;border-radius:10px;font-weight:800;cursor:pointer}.btn:disabled{opacity:.5;cursor:not-allowed}.primary{background:#315efb;color:#fff}.secondary{background:#e8eeff;color:#1739a8}.ghost{background:#f2f4f7}.question{margin:13px 0;padding:15px;border:1px solid #dfe5ef;border-radius:14px}.question.correct{border-color:#73bd93;background:#f0fbf5}.question.wrong{border-color:#e88980;background:#fff5f4}.qhead{display:flex;gap:10px}.qnum{display:grid;flex:0 0 32px;height:32px;place-items:center;border-radius:50%;background:#eef2ff;color:#263ea8;font-weight:800}.qtext{font-weight:800}.topic,.small{font-size:13px;color:#667085}.options{display:grid;gap:8px;margin-top:12px}.options label{display:flex;gap:9px;padding:10px;border:1px solid #dfe5ef;border-radius:10px;cursor:pointer}.options label:has(input:checked){border-color:#315efb;background:#f1f4ff}.result{min-height:1.4em;margin-top:12px;font-weight:800}.success{color:#087443}.error{color:#b42318}.answer{margin-top:8px;color:#087443;font-weight:700}.notice{background:#fff8e6;border-color:#ffd98a;color:#664d03}.hidden{display:none!important}.review{overflow:auto}.review table{width:100%;min-width:680px;border-collapse:collapse}.review th,.review td{padding:9px;border-bottom:1px solid #dfe5ef;text-align:left;vertical-align:top}@media(max-width:700px){.quiz-shell{padding:0 10px 34px}.panel{padding:13px}.controls .btn{width:100%}}
-</style></head><body class="portal-page"><a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="index.html" aria-label="Polytechnic Study Hub home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong></a><button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button><nav class="navlinks" aria-label="Primary navigation"><a href="index.html">Home</a><a href="about.html">About</a><a href="revision-2021.html">Departments</a><a href="daily-quiz.html" aria-current="page">Daily Quiz</a><a href="model-question-papers.html">Question Papers</a><a href="contact.html">Help</a></nav></header><main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="study-materials.html">Study Materials</a></li><li><span aria-current="page">Daily Quiz</span></li></ol></nav><div class="quiz-shell"><section class="hero"><p>Applied Chemistry · Course Code 1004</p><h1>Daily Quiz</h1><p>10 questions every day. Login required. Scores, streak and one retry are secured online.</p><div class="stats"><div class="stat"><span>Today</span><b id="dateStat">—</b></div><div class="stat"><span>Next Quiz In</span><b id="countdown">—</b></div><div class="stat"><span>Daily Streak</span><b id="streak">—</b></div><div class="stat"><span>Best Score</span><b id="best">—</b></div><div class="stat"><span>Retry Status</span><b id="retryStatus">Login required</b></div></div></section><section id="warning" class="panel notice hidden" role="alert">The secure quiz service is unavailable. Reload the page and try again.</section><section id="auth" class="panel"><h2>Student Login</h2><p class="small">Register once. Existing students only need email and password.</p><div class="grid"><div class="field"><label for="username">Username (registration)</label><input id="username" maxlength="30" autocomplete="username"></div><div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email"></div><div class="field"><label for="password">Password</label><input id="password" type="password" minlength="6" autocomplete="current-password"></div><div class="field"><label for="confirm">Confirm password (registration)</label><input id="confirm" type="password" minlength="6" autocomplete="new-password"></div></div><div class="controls"><button id="register" class="btn secondary" type="button">Register</button><button id="login" class="btn primary" type="button">Login</button></div><p id="authMsg" class="result" aria-live="polite"></p></section><section id="user" class="panel hidden"><p>Logged in as <strong id="userName"></strong> <span id="userEmail" class="small"></span></p><button id="logout" class="btn ghost" type="button">Logout</button></section><section id="quizPanel" class="panel hidden"><h2>Today's Questions</h2><p class="small">Submit is enabled only after all 10 questions are answered. One final retry is allowed after the first submission.</p><div id="quiz"></div><div class="controls"><button id="submit" class="btn primary" type="button" disabled>Submit Answers</button><button id="retry" class="btn secondary hidden" type="button">Start Final Retry &amp; Reshuffle</button></div><p id="result" class="result" aria-live="polite"></p></section><section id="previous" class="panel hidden"><h2>Previous-Day Review</h2><div id="review" class="small">Loading…</div></section></div></main><footer class="footer"><p>&copy; <span data-year></span> Diploma Notes.</p><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-(()=>{"use strict";const URL="https://hwobooljdvynsajtrvnk.supabase.co",KEY="sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD",FN="daily-quiz-api",N=10,$=id=>document.getElementById(id),e={};let sb,questions=[],mode="first",busy=false;const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));function msg(el,text,type=""){el.textContent=text;el.classList.remove("success","error");if(type)el.classList.add(type)}function dateIST(){const p=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Kolkata",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date()),g=t=>p.find(x=>x.type===t)?.value||"";return `${g("year")}-${g("month")}-${g("day")}`}function clock(){const d=dateIST(),[y,m,day]=d.split("-").map(Number);e.dateStat.textContent=d;const next=Date.UTC(y,m-1,day,18,30),s=Math.max(0,Math.floor((next-Date.now())/1e3));e.countdown.textContent=[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(x=>String(x).padStart(2,"0")).join(":")}async function api(action,extra={}){const{data,error}=await sb.functions.invoke(FN,{body:{action,...extra}});if(error){let m=error.message;try{m=(await error.context.json()).error||m}catch{}throw Error(m)}if(data?.error)throw Error(data.error);return data}function answered(){return questions.filter(q=>document.querySelector(`input[name="q${q.id}"]:checked`)).length}function submitState(){e.submit.disabled=busy||questions.length!==N||answered()!==N}function renderQuestions(list,m){questions=Array.isArray(list)?list:[];mode=m||"first";e.quiz.innerHTML="";questions.forEach((q,i)=>{const a=document.createElement("article");a.className="question";a.id=`card-${q.id}`;a.innerHTML=`<div class="qhead"><span class="qnum">${i+1}</span><div><div class="qtext">${esc(q.question)}</div><div class="topic">Question ID ${q.id} · ${esc(q.topic)}</div></div></div><div class="options">${q.options.map((o,j)=>`<label><input type="radio" name="q${q.id}" value="${esc(o)}"><span><b>${String.fromCharCode(65+j)}.</b> ${esc(o)}</span></label>`).join("")}</div><div id="ans-${q.id}" class="answer hidden"></div>`;e.quiz.append(a)});e.quiz.querySelectorAll("input").forEach(x=>x.addEventListener("change",submitState));e.submit.textContent=mode==="retry"?"Submit Final Retry":"Submit Answers";e.submit.classList.toggle("hidden",!questions.length);submitState()}function showReview(items){const map=new Map((items||[]).map(x=>[String(x.id),x]));questions.forEach(q=>{const x=map.get(String(q.id));if(!x)return;const card=$(`card-${q.id}`),ans=$(`ans-${q.id}`);card.classList.add(x.userAnswer===x.correctAnswer?"correct":"wrong");ans.classList.remove("hidden");ans.textContent=`Correct answer: ${x.correctAnswer}`;card.querySelectorAll("input").forEach(input=>{input.disabled=true;input.checked=input.value===x.userAnswer})})}function previous(x){if(!x){e.review.textContent="No previous-day attempt found.";return}e.review.innerHTML=`<p><b>${esc(x.date)}</b> — Score ${x.score}/10 · Best ${x.bestScore}/10 · Attempts ${x.attemptCount}</p><div class="review"><table><thead><tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct Answer</th></tr></thead><tbody>${x.questions.map(q=>`<tr><td>${q.number}</td><td>${esc(q.question)}</td><td>${esc(q.userAnswer)}</td><td>${esc(q.correctAnswer)}</td></tr>`).join("")}</tbody></table></div>`}function loggedOut(text=""){e.auth.classList.remove("hidden");e.user.classList.add("hidden");e.quizPanel.classList.add("hidden");e.previous.classList.add("hidden");e.streak.textContent=e.best.textContent="—";e.retryStatus.textContent="Login required";questions=[];if(text)msg(e.authMsg,text,"success")}async function load(){e.quizPanel.classList.remove("hidden");e.previous.classList.remove("hidden");e.quiz.innerHTML='<p class="small">Loading secure quiz…</p>';const s=await api("state");e.userName.textContent=s.username||"Student";e.userEmail.textContent=s.email?`(${s.email})`:"";e.streak.textContent=String(s.streak??0);e.best.textContent=`${s.bestScore??0}/10`;previous(s.previousReview);e.retry.classList.add("hidden");if(s.attemptCount>=2){questions=[];e.quiz.innerHTML="<p><strong>Today's quiz is complete.</strong> Both permitted attempts have been submitted.</p>";e.submit.classList.add("hidden");e.retryStatus.textContent="Used";msg(e.result,`Best score today: ${s.bestScore}/10.`,"success");return}if(s.attemptCount===1&&!s.retryStarted){questions=[];e.quiz.innerHTML="<p><strong>First attempt submitted.</strong> One final retry is available.</p>";e.submit.classList.add("hidden");e.retry.classList.remove("hidden");e.retryStatus.textContent="1 available";return}renderQuestions(s.questions,s.mode);e.retryStatus.textContent=s.mode==="retry"?"Final retry active":"Available after attempt 1"}async function signedIn(user){e.auth.classList.add("hidden");e.user.classList.remove("hidden");e.userEmail.textContent=user.email?`(${user.email})`:"";try{await load()}catch(err){console.error(err);e.warning.classList.remove("hidden");e.quizPanel.classList.add("hidden");e.previous.classList.add("hidden")}}async function register(){if(busy)return;const u=e.username.value.trim(),mail=e.email.value.trim(),p=e.password.value,c=e.confirm.value;if(!/^[A-Za-z0-9_.-]{3,30}$/.test(u))return msg(e.authMsg,"Username must be 3–30 letters, numbers, dot, underscore or hyphen.","error");if(!mail||p.length<6)return msg(e.authMsg,"Enter a valid email and a password of at least 6 characters.","error");if(p!==c)return msg(e.authMsg,"Password and confirm password do not match.","error");busy=true;e.register.disabled=e.login.disabled=true;try{const{data,error}=await sb.auth.signUp({email:mail,password:p,options:{data:{username:u},emailRedirectTo:location.origin+"/daily-quiz.html"}});if(error)throw error;if(data.session?.user)await signedIn(data.session.user);else msg(e.authMsg,"Registration successful. Confirm the email, then login.","success")}catch(err){msg(e.authMsg,err.message||"Registration failed.","error")}finally{busy=false;e.register.disabled=e.login.disabled=false}}async function login(){if(busy)return;const mail=e.email.value.trim(),p=e.password.value;if(!mail||!p)return msg(e.authMsg,"Enter email and password.","error");busy=true;e.register.disabled=e.login.disabled=true;try{const{data,error}=await sb.auth.signInWithPassword({email:mail,password:p});if(error)throw error;await signedIn(data.user)}catch(err){msg(e.authMsg,err.message||"Login failed.","error")}finally{busy=false;e.register.disabled=e.login.disabled=false}}async function logout(){if(busy)return;busy=true;e.logout.disabled=true;try{const{error}=await sb.auth.signOut();if(error)throw error;loggedOut("Logged out successfully.")}catch(err){msg(e.result,err.message||"Logout failed.","error")}finally{busy=false;e.logout.disabled=false}}async function submit(){if(busy||e.submit.disabled)return;const answers={};for(const q of questions){const x=document.querySelector(`input[name="q${q.id}"]:checked`);if(!x)return msg(e.result,"Answer all 10 questions.","error");answers[String(q.id)]=x.value}busy=true;e.submit.disabled=e.retry.disabled=true;try{const r=await api("submit",{answers});showReview(r.review);e.best.textContent=`${r.bestScore}/10`;e.submit.classList.add("hidden");msg(e.result,`Score: ${r.score}/10. Saved securely online.`,"success");if(r.canRetry){e.retry.classList.remove("hidden");e.retry.disabled=false;e.retryStatus.textContent="1 available"}else{e.retry.classList.add("hidden");e.retryStatus.textContent="Used"}}catch(err){msg(e.result,err.message||"Result could not be saved.","error");await load().catch(()=>{})}finally{busy=false;submitState()}}async function retry(){if(busy)return;busy=true;e.retry.disabled=true;try{const r=await api("start_retry");renderQuestions(r.questions,"retry");e.retry.classList.add("hidden");e.retryStatus.textContent="Final retry active";msg(e.result,"Options reshuffled once. This is the final permitted attempt.","success");e.quizPanel.scrollIntoView({behavior:"smooth"})}catch(err){msg(e.result,err.message||"Retry could not be started.","error");await load().catch(()=>{})}finally{busy=false;e.retry.disabled=false;submitState()}}async function init(){["dateStat","countdown","streak","best","retryStatus","warning","auth","username","email","password","confirm","register","login","authMsg","user","userName","userEmail","logout","quizPanel","quiz","submit","retry","result","previous","review"].forEach(id=>e[id]=$(id));clock();setInterval(clock,1000);e.register.onclick=register;e.login.onclick=login;e.logout.onclick=logout;e.submit.onclick=submit;e.retry.onclick=retry;if(!window.supabase?.createClient){e.warning.classList.remove("hidden");e.register.disabled=e.login.disabled=true;return}try{sb=window.supabase.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const{data:{session},error}=await sb.auth.getSession();if(error)throw error;if(session?.user)await signedIn(session.user);else loggedOut()}catch(err){console.error(err);e.warning.classList.remove("hidden")}}document.addEventListener("DOMContentLoaded",init)})();
-</script><script src="/assets/js/main.js?v=20260615-notice2" defer></script><script src="/assets/js/site-hardening.js" defer></script><script src="/assets/js/fixed-site-header.js?v=20260616-nativeapp1" defer></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Applied Chemistry Daily Quiz | Diploma Notes</title>
+  <meta name="description" content="Secure Applied Chemistry daily quiz with online scores, streaks and one retry per day.">
+  <meta name="supabase-url" content="https://hwobooljdvynsajtrvnk.supabase.co">
+  <meta name="supabase-publishable-key" content="sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/responsive.css">
+  <link rel="stylesheet" href="/assets/css/hardening.css">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260614-brand2">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260614-layout1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260616-nativeapp1">
+
+  <style>
+    .quiz-shell{width:100%;max-width:none;padding:0 clamp(10px,2vw,28px) 44px}
+    .hero{margin-top:18px;padding:clamp(20px,4vw,40px);border-radius:22px;background:linear-gradient(135deg,#14295d,#315efb);color:#fff}
+    .hero-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap}
+    .hero h1{margin:4px 0;font-size:clamp(28px,4vw,48px)}
+    .hero p{color:#eef2ff}
+    .account-badge{display:flex;align-items:center;gap:12px;max-width:100%;padding:10px 12px;border:1px solid rgba(255,255,255,.3);border-radius:14px;background:rgba(255,255,255,.14)}
+    .account-copy{display:grid;gap:2px;min-width:0}
+    .account-copy span{font-size:12px;color:#eaf0ff}
+    .account-copy strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .account-email{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .account-badge .btn{min-height:38px;background:#fff;color:#1739a8}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin-top:18px}
+    .stat{padding:12px;border:1px solid rgba(255,255,255,.25);border-radius:13px;background:rgba(255,255,255,.13)}
+    .stat span{display:block;font-size:13px}
+    .stat b{display:block;font-size:20px}
+    .stats-hint{margin:12px 0 0;font-size:13px;color:#f1f4ff}
+    .panel{margin-top:16px;padding:18px;border:1px solid #dfe5ef;border-radius:17px;background:#fff;color:#172033;box-shadow:0 8px 24px rgba(30,55,90,.09)}
+    .auth-tabs{display:inline-grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;border:1px solid #d7deea;border-radius:12px;background:#f3f6fb}
+    .auth-tab{min-width:110px;padding:9px 14px;border:0;border-radius:9px;background:transparent;color:#475467;font:inherit;font-weight:800;cursor:pointer}
+    .auth-tab.active{background:#fff;color:#1739a8;box-shadow:0 2px 8px rgba(16,24,40,.1)}
+    .auth-tab:focus-visible,.btn:focus-visible,.field input:focus-visible{outline:3px solid rgba(49,94,251,.3);outline-offset:2px}
+    .auth-help{margin:12px 0;color:#344054;font-weight:600}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+    .field label{display:block;margin-bottom:5px;font-size:13px;font-weight:800}
+    .field input{width:100%;padding:11px;border:1px solid #ccd5e4;border-radius:10px;font:inherit}
+    .field input:invalid:not(:placeholder-shown){border-color:#d92d20}
+    .controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+    .btn{min-height:44px;padding:10px 15px;border:0;border-radius:10px;font-weight:800;cursor:pointer}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+    .primary{background:#315efb;color:#fff}
+    .secondary{background:#e8eeff;color:#1739a8}
+    .ghost{background:#f2f4f7;color:#344054}
+    .warning-action{background:#b54708;color:#fff}
+    .question{margin:13px 0;padding:15px;border:1px solid #dfe5ef;border-radius:14px}
+    .question.correct{border-color:#73bd93;background:#f0fbf5}
+    .question.wrong{border-color:#e88980;background:#fff5f4}
+    .qhead{display:flex;gap:10px}
+    .qnum{display:grid;flex:0 0 32px;height:32px;place-items:center;border-radius:50%;background:#eef2ff;color:#263ea8;font-weight:800}
+    .qtext{font-weight:800}
+    .topic,.small{font-size:13px;color:#475467}
+    .options{display:grid;gap:8px;margin-top:12px}
+    .options label{display:flex;gap:9px;padding:10px;border:1px solid #dfe5ef;border-radius:10px;cursor:pointer}
+    .options label:has(input:checked){border-color:#315efb;background:#f1f4ff}
+    .result{min-height:1.4em;margin-top:12px;font-weight:800}
+    .success{color:#087443}
+    .error{color:#b42318}
+    .answer{margin-top:8px;color:#087443;font-weight:700}
+    .notice{background:#fff8e6;border-color:#ffd98a;color:#664d03}
+    .hidden{display:none!important}
+    .review{overflow:auto}
+    .review table{width:100%;min-width:680px;border-collapse:collapse}
+    .review th,.review td{padding:9px;border-bottom:1px solid #dfe5ef;text-align:left;vertical-align:top}
+    .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+    @media(max-width:700px){
+      .quiz-shell{padding:0 10px 34px}
+      .panel{padding:13px}
+      .hero-top{display:block}
+      .account-badge{margin-top:14px;justify-content:space-between}
+      .controls .btn{width:100%}
+      .auth-tabs{display:grid;width:100%}
+    }
+  </style>
+</head>
+<body class="portal-page">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Polytechnic Study Hub home">
+      <span class="brand-symbol" aria-hidden="true">📚</span>
+      <strong>Polytechnic Study Hub</strong>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="revision-2021.html">Departments</a>
+      <a href="daily-quiz.html" aria-current="page">Daily Quiz</a>
+      <a href="model-question-papers.html">Question Papers</a>
+      <a href="contact.html">Help</a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <nav class="site-breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="study-materials.html">Study Materials</a></li>
+        <li><span aria-current="page">Daily Quiz</span></li>
+      </ol>
+    </nav>
+
+    <div class="quiz-shell">
+      <section class="hero">
+        <div class="hero-top">
+          <div>
+            <p>Applied Chemistry · Course Code 1004</p>
+            <h1>Daily Quiz</h1>
+            <p>10 questions every day. Login required. Scores, streak and one retry are secured online.</p>
+          </div>
+
+          <div id="accountBadge" class="account-badge hidden">
+            <div class="account-copy">
+              <span>Signed in as</span>
+              <strong id="userName">Student</strong>
+              <span id="userEmail" class="account-email"></span>
+            </div>
+            <button id="logout" class="btn" type="button">Logout</button>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><span>Today</span><b id="dateStat">—</b></div>
+          <div class="stat"><span>Next Quiz In</span><b id="countdown">—</b></div>
+          <div class="stat"><span>Daily Streak</span><b id="streak" title="Login to view">—</b></div>
+          <div class="stat"><span>Best Score</span><b id="best" title="Login to view">—</b></div>
+          <div class="stat"><span>Retry Status</span><b id="retryStatus" title="Login to view">Login required</b></div>
+        </div>
+        <p id="statsHint" class="stats-hint">Login to view your personal streak, best score and retry status.</p>
+      </section>
+
+      <section id="warning" class="panel notice hidden" role="alert">
+        The secure quiz service is unavailable. Reload the page and try again.
+      </section>
+
+      <section id="auth" class="panel" aria-labelledby="authHeading">
+        <h2 id="authHeading">Student Account</h2>
+
+        <div class="auth-tabs" role="tablist" aria-label="Student account action">
+          <button id="tabLogin" class="auth-tab active" type="button" role="tab" aria-selected="true" aria-controls="authForm" disabled>Login</button>
+          <button id="tabRegister" class="auth-tab" type="button" role="tab" aria-selected="false" aria-controls="authForm" disabled>Register</button>
+        </div>
+
+        <p id="authHelp" class="auth-help">Login with your email address and password.</p>
+
+        <form id="authForm">
+          <div class="grid">
+            <div id="usernameField" class="field hidden">
+              <label for="username">Username</label>
+              <input id="username" name="username" type="text" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" autocomplete="username" placeholder="3–30 letters, numbers, dot, _ or -">
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required placeholder="student@example.com">
+            </div>
+
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required placeholder="Minimum 6 characters">
+            </div>
+
+            <div id="confirmField" class="field hidden">
+              <label for="confirm">Confirm password</label>
+              <input id="confirm" name="confirm" type="password" minlength="6" autocomplete="new-password" placeholder="Re-enter the password">
+            </div>
+          </div>
+
+          <div class="controls">
+            <button id="authSubmit" class="btn primary" type="submit" disabled>Login</button>
+          </div>
+        </form>
+
+        <p id="authMsg" class="result" aria-live="polite"></p>
+      </section>
+
+      <section id="quizPanel" class="panel hidden">
+        <h2>Today's Questions</h2>
+        <p class="small">Submit is enabled only after all 10 questions are answered. One final retry is allowed after the first submission.</p>
+        <div id="quiz"></div>
+        <div class="controls">
+          <button id="submit" class="btn primary hidden" type="button" disabled>Submit Answers</button>
+          <button id="retry" class="btn warning-action hidden" type="button" aria-describedby="retryHelp">⚠️ Start Final Retry &amp; Reshuffle</button>
+        </div>
+        <p id="retryHelp" class="small hidden">The retry is your final permitted attempt for today.</p>
+        <p id="result" class="result" aria-live="polite"></p>
+      </section>
+
+      <section id="previous" class="panel hidden">
+        <h2>Previous-Day Review</h2>
+        <div id="review" class="small">Loading…</div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span data-year></span> Diploma Notes.</p>
+    <a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/disclaimer.html">Disclaimer</a>
+    </nav>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/js/daily-quiz-utils.js?v=20260618-auditfix1" defer></script>
+  <script src="/assets/js/daily-quiz-ui.js?v=20260618-auditfix1" defer></script>
+  <script src="/assets/js/daily-quiz-register.js?v=20260618-auditfix1" defer></script>
+  <script src="/assets/js/daily-quiz-session.js?v=20260618-auditfix1" defer></script>
+  <script src="/assets/js/daily-quiz.js?v=20260618-auditfix1" defer></script>
+  <script src="/assets/js/main.js?v=20260615-notice2" defer></script>
+  <script src="/assets/js/site-hardening.js" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260616-nativeapp1" defer></script>
+</body>
+</html>
