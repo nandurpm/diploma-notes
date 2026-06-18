@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Applied Chemistry Mock Exam | Course Code 1004</title>
+  <meta name="description" content="A 50-mark Applied Chemistry mock examination with automated AI-supported evaluation for Kerala Polytechnic Revision 2021 students.">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260618-mock1">
+  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260618-mock1">
+  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260618-mock1">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260618-mock1">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260618-mock1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-mock1">
+  <link rel="stylesheet" href="/assets/css/mock-exam.css?v=20260618-mock1">
+</head>
+<body class="portal-page mock-exam-page">
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Polytechnic Study Hub home">
+      <span class="brand-symbol" aria-hidden="true">📚</span>
+      <span class="brand-copy"><strong>Polytechnic Study Hub</strong><small>Mock Exams</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
+    <nav class="navlinks" aria-label="Primary navigation">
+      <a href="index.html">Home</a><a href="revision-2021.html">Revision 2021</a><a href="study-materials.html">Study Materials</a><a href="daily-quiz.html" aria-current="page">Mock Exams</a><a href="model-question-papers.html">Question Papers</a><a href="contact.html">Help</a>
+    </nav>
+  </header>
+
+  <main id="main-content" class="mock-exam-shell">
+    <section id="authRequired" class="mock-state-card hidden" role="alert">
+      <span class="state-icon" aria-hidden="true">🔐</span>
+      <h1>Login required</h1>
+      <p>This mock examination uses the account already connected to the Mock Exams portal. Login there first, then open the paper again.</p>
+      <a class="btn primary" href="/daily-quiz.html">Go to Mock Exams Login</a>
+    </section>
+
+    <section id="loadingView" class="mock-state-card" aria-live="polite">
+      <span class="mock-spinner" aria-hidden="true"></span>
+      <h1>Preparing your mock examination…</h1>
+      <p>Checking the existing student session and loading Course Code 1004.</p>
+    </section>
+
+    <section id="examView" class="hidden">
+      <section class="mock-hero">
+        <div>
+          <p class="eyebrow">Revision 2021 · Semester 1 · Basic Science</p>
+          <h1>Applied Chemistry Mock Examination</h1>
+          <p>Course Code 1004 · English · All questions are compulsory</p>
+        </div>
+        <div class="mock-meta-grid" aria-label="Exam information">
+          <div><span>Maximum Marks</span><strong>50</strong></div>
+          <div><span>Duration</span><strong>120 min</strong></div>
+          <div><span>Questions</span><strong>11</strong></div>
+          <div><span>Evaluation</span><strong>AI + Rubric</strong></div>
+        </div>
+      </section>
+
+      <section class="mock-notice">
+        <div>
+          <strong id="studentName">Authenticated student</strong>
+          <p>Your answers are automatically saved in this browser until submission. The published score is for practice and self-assessment.</p>
+        </div>
+        <a class="btn soft" href="/daily-quiz.html">Back to Mock Exams</a>
+      </section>
+
+      <section class="exam-layout">
+        <aside class="exam-sidebar" aria-label="Question navigation">
+          <div class="timer-card">
+            <span>Time Remaining</span>
+            <strong id="examTimer">02:00:00</strong>
+            <small id="timerNote">Practice timer</small>
+          </div>
+          <div class="progress-card">
+            <div><span>Answered</span><strong id="answeredCount">0/11</strong></div>
+            <div class="progress-track"><span id="answerProgress"></span></div>
+          </div>
+          <nav id="questionNav" class="question-nav"></nav>
+          <button id="submitExamSide" class="btn primary full" type="button" disabled>Submit for Evaluation</button>
+          <p id="saveStatus" class="save-status" aria-live="polite">Not yet saved</p>
+        </aside>
+
+        <section class="paper-card">
+          <header class="paper-heading">
+            <div>
+              <p class="eyebrow">Sample Question Paper</p>
+              <h2>Answer all questions</h2>
+            </div>
+            <span class="paper-total">50 Marks</span>
+          </header>
+          <div class="paper-instructions">
+            <strong>Instructions</strong>
+            <p>Show formulas, substitutions, units and working for numerical questions. Write technically complete answers for descriptive questions. Do not paste unrelated material.</p>
+          </div>
+          <form id="examForm" novalidate>
+            <div id="questionList"></div>
+          </form>
+          <div class="paper-submit">
+            <button id="submitExam" class="btn primary" type="button" disabled>Submit All Answers for AI Evaluation</button>
+            <p id="examMessage" class="status-message" aria-live="polite"></p>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section id="evaluatingView" class="mock-state-card hidden" aria-live="assertive">
+      <span class="mock-spinner" aria-hidden="true"></span>
+      <h1>Evaluating your answers…</h1>
+      <p>The system is checking each response against the official Course Code 1004 syllabus topics, model points and question-specific marking rubrics. Keep this page open.</p>
+      <div class="evaluation-steps"><span class="active">Validating answers</span><span>Applying rubrics</span><span>Publishing result</span></div>
+    </section>
+
+    <section id="resultView" class="hidden">
+      <section class="result-hero">
+        <div>
+          <p class="eyebrow">Published Practice Result</p>
+          <h1>Applied Chemistry · 1004</h1>
+          <p id="resultMeta"></p>
+        </div>
+        <div class="score-ring" aria-label="Published score">
+          <strong id="resultScore">0/50</strong>
+          <span id="resultPercent">0%</span>
+        </div>
+      </section>
+
+      <section class="result-summary-grid">
+        <article><span>Status</span><strong>Published</strong></article>
+        <article><span>Evaluation</span><strong id="evaluationMode">AI + Rubric</strong></article>
+        <article><span>Questions Evaluated</span><strong>11</strong></article>
+        <article><span>Maximum Marks</span><strong>50</strong></article>
+      </section>
+
+      <section class="result-card">
+        <div class="section-heading"><div><p class="eyebrow">Overall feedback</p><h2>Performance summary</h2></div></div>
+        <p id="overallFeedback" class="overall-feedback"></p>
+      </section>
+
+      <section class="result-card">
+        <div class="section-heading"><div><p class="eyebrow">Question-wise evaluation</p><h2>Marks and feedback</h2></div></div>
+        <div id="resultDetails" class="result-details"></div>
+      </section>
+
+      <section class="result-actions">
+        <button id="newAttempt" class="btn primary" type="button">Start a New Attempt</button>
+        <a class="btn soft" href="/daily-quiz.html">Return to Mock Exams</a>
+      </section>
+
+      <section class="result-card">
+        <div class="section-heading"><div><p class="eyebrow">Saved history</p><h2>Your recent 1004 attempts</h2></div></div>
+        <div id="attemptHistory" class="table-wrap"><div class="empty-state">Loading saved attempts…</div></div>
+      </section>
+    </section>
+  </main>
+
+  <footer class="footer"><p>&copy; <span data-year></span> Polytechnic Study Hub.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/js/ask-poly-config.js?v=20260618-mock1" defer></script>
+  <script src="/assets/js/mock-exam-1004.js?v=20260618-mock1" defer></script>
+  <script src="/assets/js/main.js?v=20260618-mock1" defer></script>
+  <script src="/assets/js/site-hardening.js?v=20260618-mock1" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260618-mock1" defer></script>
+</body>
+</html>
