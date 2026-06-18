@@ -108,16 +108,62 @@ async function requestOpenAI(payload, env) {
       "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(55000)
   });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
     const error = new Error(data?.error?.message || `OpenAI request failed with HTTP ${response.status}.`);
     error.status = response.status;
+    error.code = data?.error?.code || "responses_api_error";
+    error.type = data?.error?.type || "openai_error";
     error.data = data;
     throw error;
   }
   return data;
+}
+
+async function requestChatCompletion(model, input, env) {
+  const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      model,
+      messages: [
+        { role: "system", content: SYSTEM_INSTRUCTIONS },
+        ...input
+      ],
+      max_tokens: Number(env.MAX_OUTPUT_TOKENS || 1800)
+    }),
+    signal: AbortSignal.timeout(55000)
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error(data?.error?.message || `OpenAI chat request failed with HTTP ${response.status}.`);
+    error.status = response.status;
+    error.code = data?.error?.code || "chat_completions_api_error";
+    error.type = data?.error?.type || "openai_error";
+    error.data = data;
+    throw error;
+  }
+  const answer = cleanText(data?.choices?.[0]?.message?.content, 24000);
+  if (!answer) {
+    const error = new Error("The Chat Completions API returned an empty response.");
+    error.status = 502;
+    error.code = "empty_chat_completion";
+    error.type = "empty_response";
+    throw error;
+  }
+  return {
+    answer,
+    citations: [],
+    usedWeb: false,
+    model: data.model || model,
+    responseId: data.id || ""
+  };
 }
 
 async function requestWithPayloadFallback(payload, env) {
@@ -144,6 +190,19 @@ async function tryModels(input, env) {
   throw lastError;
 }
 
+async function tryChatModels(input, env) {
+  let lastError;
+  for (const model of uniqueModels(env.OPENAI_MODEL)) {
+    try {
+      return await requestChatCompletion(model, input, env);
+    } catch (error) {
+      lastError = error;
+      if (!isRetryableModelError(error)) throw error;
+    }
+  }
+  throw lastError;
+}
+
 export async function askPoly(body, env) {
   if (!cleanText(body?.message, 6000)) throw new Error("Please enter a question.");
   if (!env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
@@ -151,8 +210,21 @@ export async function askPoly(body, env) {
   const input = sanitizeHistory(body.history);
   input.push({ role: "user", content: buildUserContent(body) });
 
-  const response = await tryModels(input, env);
-  const result = extractAnswer(response.data);
-  if (!result.answer) throw new Error("The AI service returned an empty response.");
-  return { ...result, model: response.data.model || response.model, responseId: response.data.id || "" };
+  try {
+    const response = await tryModels(input, env);
+    const result = extractAnswer(response.data);
+    if (result.answer) {
+      return { ...result, model: response.data.model || response.model, responseId: response.data.id || "" };
+    }
+  } catch (responseError) {
+    try {
+      return await tryChatModels(input, env);
+    } catch (chatError) {
+      chatError.responsesStatus = responseError?.status;
+      chatError.responsesCode = responseError?.code;
+      throw chatError;
+    }
+  }
+
+  return await tryChatModels(input, env);
 }

@@ -95,6 +95,13 @@ export default {
         error: missingMessage
           ? "Please enter a question."
           : "The AI service could not answer right now. The local lesson assistant is still available.",
+        diagnostic: missingMessage ? undefined : {
+          upstreamStatus: Number(error?.status) || undefined,
+          upstreamCode: cleanText(error?.code, 80) || undefined,
+          upstreamType: cleanText(error?.type, 80) || undefined,
+          responsesStatus: Number(error?.responsesStatus) || undefined,
+          responsesCode: cleanText(error?.responsesCode, 80) || undefined
+        },
         detail: env.EXPOSE_ERRORS === "true" ? cleanText(error?.message, 500) : undefined
       }, missingMessage ? 400 : 502, origin, env);
     }
