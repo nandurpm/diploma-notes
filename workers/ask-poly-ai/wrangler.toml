@@ -12,4 +12,13 @@ MAX_OUTPUT_TOKENS = "1800"
 MOCK_EXAM_MODEL = "gpt-5.5"
 MOCK_EXAM_REASONING_EFFORT = "low"
 MOCK_EXAM_MAX_OUTPUT_TOKENS = "7500"
-ALLOWED_ORIGINS = "https://polypmna.dpdns.org,http://localhost:8000,http://127.0.0.1:8000"
+ALLOWED_ORIGINS = "https://polypmna.dpdns.org,https://www.polypmna.dpdns.org,http://localhost:8000,http://127.0.0.1:8000"
+
+[durable_objects]
+bindings = [
+  { name = "RATE_LIMITER", class_name = "RateLimiter" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RateLimiter"]

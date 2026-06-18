@@ -49,6 +49,6 @@ The Worker uses `gpt-5.4-mini` by default for a balance of quality, speed and co
 - API key remains server-side
 - Origin allowlist
 - Request-size limits
-- Basic per-IP throttling
+- Persistent per-IP throttling with a Durable Object
 - No response caching
 - Current-affairs answers return source URLs for the website UI

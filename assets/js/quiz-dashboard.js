@@ -75,6 +75,11 @@
 
   Q.subjectStatusHtml = (today) => {
     if (!today) return '<span class="status-chip">Not attempted today</span>';
+    if (Q.state.mode === "guest") {
+      return today.attemptCount >= 2
+        ? '<span class="status-chip good">Practice completed</span>'
+        : '<span class="status-chip good">Practice submitted</span><span class="status-chip warn">1 retry available</span>';
+    }
     if (today.attemptCount >= 2) {
       return `<span class="status-chip good">Completed</span><span class="status-chip">Best ${Q.escape(today.bestScore)}/${Q.escape(today.totalQuestions)}</span>`;
     }
@@ -98,12 +103,19 @@
     E.adminButton.classList.toggle("hidden", profile.role !== "admin");
     E.logoutButton.textContent = guest ? "Exit Guest" : "Logout";
 
-    const summary = [
+    const summary = guest ? [
+      ["Practice Quizzes", analytics.totalQuizzes ?? 0],
+      ["Attempts", analytics.totalAttempts ?? 0],
+      ["Scoring", "Sign in"],
+      ["Storage", "Not saved"],
+      ["Streak", "Not saved"],
+      ["Completed Today", analytics.completedToday ?? 0],
+    ] : [
       ["Quizzes", analytics.totalQuizzes ?? 0],
       ["Attempts", analytics.totalAttempts ?? 0],
       ["Average", `${analytics.averagePercent ?? 0}%`],
       ["Best", `${analytics.bestPercent ?? 0}%`],
-      ["Streak", guest ? "Not saved" : `${analytics.streak ?? 0} day${analytics.streak === 1 ? "" : "s"}`],
+      ["Streak", `${analytics.streak ?? 0} day${analytics.streak === 1 ? "" : "s"}`],
       ["Completed Today", analytics.completedToday ?? 0],
     ];
     E.summaryCards.innerHTML = summary.map(([label, value]) =>
@@ -140,7 +152,7 @@
         <thead><tr><th>Date</th><th>Subject</th><th>Best Score</th><th>Attempts</th></tr></thead>
         <tbody>${recentResults.map((result) => `<tr>
           <td>${Q.escape(result.date)}</td><td>${Q.escape(result.subjectTitle)}</td>
-          <td><b>${Q.escape(result.bestScore)}/${Q.escape(result.totalQuestions)}</b></td>
+          <td><b>${guest ? "Practice only" : `${Q.escape(result.bestScore)}/${Q.escape(result.totalQuestions)}`}</b></td>
           <td>${Q.escape(result.attemptCount)}</td>
         </tr>`).join("")}</tbody>
       </table>` : '<div class="empty-state">No quiz results yet.</div>';

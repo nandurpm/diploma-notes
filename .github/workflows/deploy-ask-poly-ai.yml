@@ -28,9 +28,7 @@ jobs:
 
       - name: Validate Worker source
         run: |
-          node --check workers/ask-poly-ai/src/index.js
-          node --check workers/ask-poly-ai/src/ask-handler.js
-          node --check workers/ask-poly-ai/src/mock-evaluator.js
+          find workers/ask-poly-ai/src -name '*.js' -print0 | xargs -0 -n1 node --check
           python - <<'PY'
           from pathlib import Path
           assert 'OPENAI_API_KEY' not in Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
@@ -62,6 +60,19 @@ jobs:
             OPENAI_API_KEY
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+
+      - name: Smoke-test deployed AI response
+        if: steps.secrets.outputs.enabled == 'true'
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: |
+          endpoint="${DEPLOYMENT_URL%/}/api/ask-poly"
+          response="$(curl --fail-with-body --retry 2 --max-time 75 \
+            -H 'Origin: https://polypmna.dpdns.org' \
+            -H 'Content-Type: application/json' \
+            --data '{"message":"Reply with the single word OK."}' \
+            "$endpoint")"
+          python -c 'import json,sys; data=json.loads(sys.argv[1]); assert data.get("answer"), data' "$response"
 
       - name: Configure website with deployed Worker URL
         env:

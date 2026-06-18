@@ -42,6 +42,10 @@
       Q.message(E.passwordMessage, "Password and confirmation do not match.", "error");
       return;
     }
+    if (!Q.validPassword(E.newPassword.value)) {
+      Q.message(E.passwordMessage, "Use at least 8 characters with uppercase, lowercase and a number.", "error");
+      return;
+    }
     try {
       const { error } = await Q.state.client.auth.updateUser({ password: E.newPassword.value });
       if (error) throw error;
@@ -160,8 +164,10 @@
 
   Q.adminClearResults = async (userId) => {
     if (!window.confirm("Delete every saved quiz result for this user?")) return;
+    const reason = window.prompt("Audit reason (required):", "User requested result reset");
+    if (reason === null || reason.trim().length < 5) return;
     try {
-      await Q.callApi("admin_clear_results", { targetUserId: userId });
+      await Q.callApi("admin_clear_results", { targetUserId: userId, reason: reason.trim() });
       Q.message(Q.elements.adminMessage, "Quiz results cleared.", "success");
       await Q.loadAdminUsers();
     } catch (error) { Q.message(Q.elements.adminMessage, error.message || "Results could not be cleared.", "error"); }
@@ -169,8 +175,10 @@
 
   Q.adminDeleteUser = async (userId, username) => {
     if (!window.confirm(`Permanently delete ${username} and all saved data?`)) return;
+    const reason = window.prompt("Audit reason (required):", "Account deletion requested");
+    if (reason === null || reason.trim().length < 5) return;
     try {
-      await Q.callApi("admin_delete_user", { targetUserId: userId });
+      await Q.callApi("admin_delete_user", { targetUserId: userId, reason: reason.trim() });
       Q.message(Q.elements.adminMessage, "User permanently deleted.", "success");
       await Q.loadAdminUsers();
     } catch (error) { Q.message(Q.elements.adminMessage, error.message || "User could not be deleted.", "error"); }

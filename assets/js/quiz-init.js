@@ -49,7 +49,7 @@
 
     const ids = [
       "serviceWarning", "authView", "portalView", "loginTab", "registerTab", "authForm",
-      "usernameField", "username", "email", "password", "confirmField", "confirmPassword",
+      "usernameField", "username", "email", "password", "confirmField", "confirmPassword", "forgotPassword",
       "authSubmit", "guestLogin", "authMessage", "welcomeTitle", "accountSubtitle",
       "accountButton", "adminButton", "logoutButton", "guestBanner", "dashboardView",
       "summaryCards", "subjectGrid", "subjectAnalysis", "recentResults", "quizView",
@@ -75,6 +75,7 @@
       else await Q.login();
     });
     Q.elements.guestLogin.addEventListener("click", Q.enterGuest);
+    Q.elements.forgotPassword.addEventListener("click", Q.resetPassword);
     Q.elements.logoutButton.addEventListener("click", Q.logout);
     Q.elements.accountButton.addEventListener("click", Q.openAccount);
     Q.elements.adminButton.addEventListener("click", Q.openAdmin);

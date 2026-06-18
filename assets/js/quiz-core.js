@@ -69,10 +69,12 @@
   };
 
   Q.percent = (score, total) => total ? Math.round((Number(score || 0) / Number(total)) * 100) : 0;
+  Q.validPassword = (value) => String(value || "").length >= 8
+    && /[a-z]/.test(value) && /[A-Z]/.test(value) && /\d/.test(value);
 
   Q.setBusy = (busy) => {
     Q.state.busy = busy;
-    ["authSubmit", "guestLogin", "loginTab", "registerTab", "retryService"].forEach((id) => {
+    ["authSubmit", "guestLogin", "loginTab", "registerTab", "forgotPassword", "retryService"].forEach((id) => {
       if (Q.elements[id]) Q.elements[id].disabled = busy;
     });
   };
@@ -105,6 +107,7 @@
     E.confirmPassword.required = register;
     E.password.autocomplete = register ? "new-password" : "current-password";
     E.authSubmit.textContent = register ? "Create Account" : "Login";
+    E.forgotPassword.classList.toggle("hidden", register);
     if (!register) {
       E.username.value = "";
       E.confirmPassword.value = "";
@@ -213,12 +216,37 @@
     }
   };
 
+  Q.resetPassword = async () => {
+    const email = Q.elements.email.value.trim();
+    if (!email || !Q.elements.email.checkValidity()) {
+      Q.message(Q.elements.authMessage, "Enter your account email first.", "error");
+      Q.elements.email.focus();
+      return;
+    }
+    if (!Q.validPassword(password)) {
+      Q.message(E.authMessage, "Use at least 8 characters with uppercase, lowercase and a number.", "error");
+      return;
+    }
+    Q.setBusy(true);
+    try {
+      const { error } = await Q.state.client.auth.resetPasswordForEmail(email, {
+        redirectTo: CONFIRMATION_REDIRECT_URL,
+      });
+      if (error) throw error;
+      Q.message(Q.elements.authMessage, "Password-reset email sent. Check your inbox and spam folder.", "success");
+    } catch (error) {
+      Q.message(Q.elements.authMessage, error.message || "Password reset could not be started.", "error");
+    } finally {
+      Q.setBusy(false);
+    }
+  };
+
   Q.loadGuestBank = () => {
     if (window.QuizGuestBank) return Promise.resolve(window.QuizGuestBank);
     if (Q.state.guestBankPromise) return Q.state.guestBankPromise;
     Q.state.guestBankPromise = new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = "/assets/js/quiz-guest-bank.js?v=20260618-v4";
+      script.src = "/assets/js/quiz-guest-bank.js?v=20260618-audit1";
       script.onload = () => Promise.resolve(window.QuizGuestBankReady)
         .then(() => resolve(window.QuizGuestBank)).catch(reject);
       script.onerror = () => reject(new Error("Guest question bank could not be loaded."));

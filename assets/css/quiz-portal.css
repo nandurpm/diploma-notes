@@ -93,9 +93,10 @@
 .attempt-badge{padding:7px 10px;border-radius:999px;background:#fff;border:1px solid var(--quiz-line);font-size:12px;font-weight:850}
 .quiz-card{max-width:1100px;margin:0 auto}
 .quiz-instruction{margin-top:0;color:var(--quiz-muted)}
-.question-card{margin:13px 0;padding:15px;border:1px solid var(--quiz-line);border-radius:15px;background:#fff}
+.question-card{min-inline-size:0;margin:13px 0;padding:15px;border:1px solid var(--quiz-line);border-radius:15px;background:#fff}
 .question-card.correct{border-color:#86c9a2;background:#f1fbf5}
 .question-card.wrong{border-color:#e6a29b;background:#fff5f4}
+.question-card.submitted{border-color:#9eb7df;background:#f6f9ff}
 .question-head{display:flex;gap:10px;align-items:flex-start}
 .question-number{flex:0 0 32px;height:32px;display:grid;place-items:center;border-radius:50%;background:#eaf0ff;color:#21449c;font-weight:900}
 .question-text{font-weight:850;line-height:1.5}

@@ -2,7 +2,7 @@
   "use strict";
 
   const files = ["1001", "1002", "1003", "1004", "gk"].map(
-    (code) => `/assets/js/quiz-bank-${code}.js?v=20260618-v3`
+    (code) => `/assets/js/quiz-bank-${code}.js?v=20260618-audit1`
   );
 
   function hash(text) {
@@ -57,9 +57,15 @@
       const daily = shuffle(
         subject.questions,
         randomFrom(hash(`${subjectCode}-${dateKey}-daily`))
-      ).slice(0, 10);
+      );
+      const start = mode === "retry" ? 10 : 0;
+      const selected = daily.slice(start, start + 10);
 
-      return daily.map((question) => ({
+      if (selected.length < 10) {
+        throw new Error("This subject needs at least 20 questions for a separate retry.");
+      }
+
+      return selected.map((question) => ({
         ...question,
         options: shuffle(
           question.options,
@@ -88,12 +94,8 @@
           topic: question.topic,
           question: question.question,
           userAnswer: answers[String(question.id)] ?? "Not answered",
-          correctAnswer: question.answer,
         }));
         return {
-          score: review.filter(
-            (item) => item.userAnswer === item.correctAnswer
-          ).length,
           review,
         };
       },

@@ -28,7 +28,9 @@
     if (quiz.currentReview?.length) {
       Q.renderReadOnlyReview(quiz.currentReview);
       E.quizInstruction.textContent = attempts >= 2
-        ? "Both attempts are complete. Questions, your answers and correct answers are shown below and cannot be edited."
+        ? (Q.state.mode === "guest"
+          ? "Both practice attempts are complete. Sign in to take scored quizzes."
+          : "Both attempts are complete. Questions, your answers and correct answers are shown below and cannot be edited.")
         : "Your submitted questions and answers are shown below and cannot be edited. One final retry is available.";
       return;
     }
@@ -48,12 +50,13 @@
           <span><b>${String.fromCharCode(65 + optionIndex)}.</b> ${Q.escape(option)}</span>
         </label>`;
       }).join("");
-      return `<article class="question-card" id="question-card-${Q.escape(question.id)}">
+      return `<fieldset class="question-card" id="question-card-${Q.escape(question.id)}">
+        <legend class="sr-only">Question ${index + 1}: ${Q.escape(question.question)}</legend>
         <div class="question-head"><span class="question-number">${index + 1}</span>
           <div><div class="question-text">${Q.escape(question.question)}</div>
           <div class="question-topic">${Q.escape(question.topic)}</div></div>
         </div><div class="options">${options}</div><div class="answer-slot"></div>
-      </article>`;
+      </fieldset>`;
     }).join("");
     E.questionContainer.querySelectorAll('input[type="radio"]').forEach((input) => {
       input.addEventListener("change", Q.updateSubmitButton);
@@ -83,28 +86,38 @@
       const item = byId.get(String(question.id));
       const card = Q.byId(`question-card-${question.id}`);
       if (!item || !card) continue;
-      card.classList.add(item.userAnswer === item.correctAnswer ? "correct" : "wrong");
+      const answersRevealed = typeof item.correctAnswer === "string";
+      if (answersRevealed) {
+        card.classList.add(item.userAnswer === item.correctAnswer ? "correct" : "wrong");
+      } else {
+        card.classList.add("submitted");
+      }
       card.querySelectorAll('input[type="radio"]').forEach((input) => {
         input.disabled = true;
         input.checked = input.value === item.userAnswer;
         input.closest("label")?.classList.add("disabled");
       });
-      card.querySelector(".answer-slot").innerHTML = `
-        <div class="user-answer">Your answer: <b>${Q.escape(item.userAnswer)}</b></div>
-        <div class="answer-review">Correct answer: ${Q.escape(item.correctAnswer)}</div>`;
+      card.querySelector(".answer-slot").innerHTML = answersRevealed
+        ? `<div class="user-answer">Your answer: <b>${Q.escape(item.userAnswer)}</b></div>
+           <div class="answer-review">Correct answer: ${Q.escape(item.correctAnswer)}</div>`
+        : `<div class="user-answer">Your submitted answer: <b>${Q.escape(item.userAnswer)}</b></div>
+           <div class="answer-review">${Q.state.mode === "guest" ? "Guest practice does not reveal answer keys. Sign in for scored quizzes." : "Correct answers unlock after the final retry."}</div>`;
     }
   };
 
   Q.renderReadOnlyReview = (review) => {
-    Q.elements.questionContainer.innerHTML = review.map((item, index) => `
-      <article class="question-card ${item.userAnswer === item.correctAnswer ? "correct" : "wrong"}">
+    Q.elements.questionContainer.innerHTML = review.map((item, index) => {
+      const answersRevealed = typeof item.correctAnswer === "string";
+      return `
+      <article class="question-card ${answersRevealed ? (item.userAnswer === item.correctAnswer ? "correct" : "wrong") : "submitted"}">
         <div class="question-head"><span class="question-number">${index + 1}</span>
           <div><div class="question-text">${Q.escape(item.question)}</div>
           <div class="question-topic">${Q.escape(item.topic)}</div></div>
         </div>
         <div class="user-answer">Your answer: <b>${Q.escape(item.userAnswer)}</b></div>
-        <div class="answer-review">Correct answer: ${Q.escape(item.correctAnswer)}</div>
-      </article>`).join("");
+        <div class="answer-review">${answersRevealed ? `Correct answer: ${Q.escape(item.correctAnswer)}` : (Q.state.mode === "guest" ? "Guest practice does not reveal answer keys. Sign in for scored quizzes." : "Correct answers unlock after the final retry.")}</div>
+      </article>`;
+    }).join("");
   };
 
   Q.submitGuestQuiz = (answers) => {
@@ -114,22 +127,23 @@
     const graded = window.QuizGuestBank.grade(code, Q.dateKeyIST(), mode, answers);
     if (result.attemptCount === 0) {
       result.attemptCount = 1;
-      result.firstScore = graded.score;
-      result.bestScore = graded.score;
+      result.firstScore = null;
+      result.bestScore = null;
       result.retryStarted = false;
     } else {
       result.attemptCount = 2;
-      result.retryScore = graded.score;
-      result.bestScore = Math.max(result.bestScore, graded.score);
+      result.retryScore = null;
+      result.bestScore = null;
       result.retryStarted = true;
     }
-    result.currentReview = graded.review;
+    const visibleReview = graded.review;
+    result.currentReview = visibleReview;
     return {
-      score: graded.score,
+      score: null,
       bestScore: result.bestScore,
       attemptCount: result.attemptCount,
       canRetry: result.attemptCount === 1,
-      review: graded.review,
+      review: visibleReview,
     };
   };
 
@@ -158,10 +172,12 @@
       E.quizAttemptBadge.textContent = response.canRetry ? "Retry available" : "Completed";
       E.quizInstruction.textContent = response.canRetry
         ? "The submitted questions and answers are shown below and cannot be edited. One final retry is available."
-        : "Both attempts are complete. The submitted questions and answers are shown below and cannot be edited.";
-      Q.message(E.quizMessage,
-        `Score: ${response.score}/10. ${Q.state.mode === "guest" ? "This guest result is not saved." : "Saved securely online."}`,
-        "success");
+        : (Q.state.mode === "guest"
+          ? "Both practice attempts are complete. Sign in to take scored quizzes."
+          : "Both attempts are complete. The submitted questions and answers are shown below and cannot be edited.");
+      Q.message(E.quizMessage, Q.state.mode === "guest"
+        ? "Practice completed. Guest answers are not scored, verified or saved. Sign in for a secure score."
+        : `Score: ${response.score}/10. Saved securely online.`, "success");
       if (Q.state.mode === "guest") Q.state.dashboard = Q.guestDashboardData();
       else Q.state.dashboard = await Q.callApi("dashboard");
     } catch (error) {

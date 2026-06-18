@@ -3,8 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Mock Exams | Polytechnic Study Hub</title>
+  <title>Daily Quizzes &amp; Mock Exams | POLY PMNA</title>
   <meta name="description" content="Kerala Polytechnic Revision 2021 daily quizzes, official-pattern mock examinations, results and account dashboard.">
+  <link rel="canonical" href="https://polypmna.dpdns.org/daily-quiz.html">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Daily Quizzes &amp; Mock Exams | POLY PMNA">
+  <meta property="og:description" content="Practice Kerala Polytechnic Revision 2021 subjects and take official-pattern mock examinations.">
+  <meta property="og:url" content="https://polypmna.dpdns.org/daily-quiz.html">
+  <meta property="og:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="POLY PMNA Kerala Polytechnic Study Hub">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Daily Quizzes &amp; Mock Exams | POLY PMNA">
+  <meta name="twitter:description" content="Practice Kerala Polytechnic Revision 2021 subjects and take official-pattern mock examinations.">
+  <meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://hwobooljdvynsajtrvnk.supabase.co wss://hwobooljdvynsajtrvnk.supabase.co; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta name="supabase-url" content="https://hwobooljdvynsajtrvnk.supabase.co">
   <meta name="supabase-publishable-key" content="sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD">
   <script>
@@ -24,10 +40,12 @@
   <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260618-model75">
   <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260618-model75">
   <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/quiz-portal.css?v=20260618-model75">
+  <link rel="stylesheet" href="/assets/css/quiz-portal.css?v=20260618-audit1">
   <link rel="stylesheet" href="/assets/css/quiz-portal-fixes.css?v=20260618-model75">
 </head>
 <body class="portal-page quiz-portal-page quiz-booting">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <noscript><style>body.quiz-booting .quiz-app,body.quiz-booting .footer{visibility:visible!important}</style><div class="notice error-box" role="alert">JavaScript is required for the interactive quiz portal. Study materials remain available from the main navigation.</div></noscript>
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Polytechnic Study Hub home">
       <span class="brand-symbol" aria-hidden="true">📚</span>
@@ -39,7 +57,8 @@
     </nav>
   </header>
 
-  <main class="quiz-app">
+  <main id="main-content" class="quiz-app">
+    <nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Mock Exams</span></li></ol></nav>
     <section id="serviceWarning" class="notice error-box hidden" role="alert">The secure quiz service is unavailable. Reload the page and try again.</section>
 
     <section id="authView" class="auth-view">
@@ -55,9 +74,10 @@
         <form id="authForm" novalidate>
           <div id="usernameField" class="field hidden"><label for="username">Username</label><input id="username" name="username" type="text" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" autocomplete="username" placeholder="3–30 letters, numbers, dot, _ or -"></div>
           <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="student@example.com"></div>
-          <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required placeholder="Minimum 6 characters"></div>
-          <div id="confirmField" class="field hidden"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" name="confirmPassword" type="password" minlength="6" autocomplete="new-password" placeholder="Re-enter password"></div>
+          <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" minlength="8" autocomplete="current-password" required placeholder="Minimum 8 characters"></div>
+          <div id="confirmField" class="field hidden"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" name="confirmPassword" type="password" minlength="8" autocomplete="new-password" placeholder="Re-enter password"></div>
           <button id="authSubmit" class="btn primary full" type="submit" disabled>Login</button>
+          <button id="forgotPassword" class="btn soft full" type="button" disabled>Send password-reset email</button>
         </form>
         <div class="divider"><span>or</span></div>
         <button id="guestLogin" class="btn guest full" type="button" disabled>Continue as Guest</button>
@@ -68,7 +88,7 @@
 
     <section id="portalView" class="portal-view hidden">
       <section class="dashboard-head">
-        <div><p class="eyebrow">Mock Exams Dashboard</p><h1 id="welcomeTitle">Welcome</h1><p id="accountSubtitle">Choose daily practice or a full mock examination.</p></div>
+        <div><p class="eyebrow">Mock Exams Dashboard</p><h2 id="welcomeTitle">Welcome</h2><p id="accountSubtitle">Choose daily practice or a full mock examination.</p></div>
         <div class="head-actions"><button id="accountButton" class="btn soft" type="button">Account</button><button id="adminButton" class="btn admin hidden" type="button">Admin Control</button><button id="logoutButton" class="btn outline" type="button">Logout</button></div>
       </section>
       <section id="guestBanner" class="notice guest-banner hidden"><strong>Guest mode:</strong> results disappear when this page is refreshed or closed.</section>
@@ -93,7 +113,7 @@
         <div id="accountGuestOnly" class="section-card hidden"><h3>Guest account</h3><p>Guest mode has no saved account. Exit guest mode to login or register.</p></div>
         <div id="accountControls" class="account-grid">
           <form id="usernameForm" class="section-card"><h3>Edit username</h3><div class="field"><label for="newUsername">Username</label><input id="newUsername" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" required></div><button class="btn primary" type="submit">Save Username</button><p id="usernameMessage" class="status-message" aria-live="polite"></p></form>
-          <form id="passwordForm" class="section-card"><h3>Change password</h3><div class="field"><label for="newPassword">New password</label><input id="newPassword" type="password" minlength="6" autocomplete="new-password" required></div><div class="field"><label for="newPasswordConfirm">Confirm new password</label><input id="newPasswordConfirm" type="password" minlength="6" autocomplete="new-password" required></div><button class="btn primary" type="submit">Change Password</button><p id="passwordMessage" class="status-message" aria-live="polite"></p></form>
+          <form id="passwordForm" class="section-card"><h3>Change password</h3><div class="field"><label for="newPassword">New password</label><input id="newPassword" type="password" minlength="8" autocomplete="new-password" required></div><div class="field"><label for="newPasswordConfirm">Confirm new password</label><input id="newPasswordConfirm" type="password" minlength="8" autocomplete="new-password" required></div><button class="btn primary" type="submit">Change Password</button><p id="passwordMessage" class="status-message" aria-live="polite"></p></form>
           <article class="section-card danger-card"><h3>Permanently delete account</h3><p>This deletes the account, profile, quiz results and future sample-paper records. It cannot be undone.</p><div class="field"><label for="deleteConfirm">Type DELETE</label><input id="deleteConfirm" autocomplete="off"></div><button id="deleteAccount" class="btn danger" type="button" disabled>Permanently Delete Account</button><p id="deleteMessage" class="status-message" aria-live="polite"></p></article>
         </div>
       </section>
@@ -108,12 +128,12 @@
 
   <footer class="footer"><p>&copy; <span data-year></span> Polytechnic Study Hub.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="/assets/js/quiz-core.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-dashboard.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-play.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-account-admin.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-init.js?v=20260618-model75" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/dist/umd/supabase.min.js" integrity="sha384-JWEyvHh+lRf0sN/WWY+QTQwX+CyWqmNg4tkc8GQzAMEtR2wGNrCJlvnu1lHD1kDm" crossorigin="anonymous" defer></script>
+  <script src="/assets/js/quiz-core.js?v=20260618-audit1" defer></script>
+  <script src="/assets/js/quiz-dashboard.js?v=20260618-audit1" defer></script>
+  <script src="/assets/js/quiz-play.js?v=20260618-audit1" defer></script>
+  <script src="/assets/js/quiz-account-admin.js?v=20260618-audit1" defer></script>
+  <script src="/assets/js/quiz-init.js?v=20260618-audit1" defer></script>
   <script src="/assets/js/main.js?v=20260618-model75" defer></script>
   <script src="/assets/js/site-hardening.js?v=20260618-model75" defer></script>
   <script src="/assets/js/fixed-site-header.js?v=20260618-model75" defer></script>

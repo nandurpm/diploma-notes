@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const button = document.querySelector(".app-download");
+  let button = document.querySelector(".app-download");
   if (!button) return;
 
   const appMatch = navigator.userAgent.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
@@ -29,7 +29,8 @@
   const showUnavailable = (message = "The app download is temporarily unavailable.") => {
     button.dataset.appButtonState = "unavailable";
     button.textContent = "📱 App Download Unavailable";
-    button.href = "/downloads/";
+    button.removeAttribute("href");
+    button.disabled = true;
     button.removeAttribute("download");
     button.setAttribute("aria-disabled", "true");
     button.setAttribute("aria-label", message);
@@ -47,11 +48,19 @@
     const apkUrl = new URL(apkHref);
     const filename = apkUrl.pathname.split("/").pop() || `Polytechnic-Study-Hub-v${update.versionName}.apk`;
 
+    if (button.tagName !== "A") {
+      const anchor = document.createElement("a");
+      anchor.className = button.className;
+      Object.assign(anchor.dataset, button.dataset);
+      button.replaceWith(anchor);
+      button = anchor;
+    }
     button.dataset.appButtonState = "download";
     button.textContent = `📱 Download App ${update.versionName}`;
     button.href = apkUrl.href;
     button.download = filename;
     button.removeAttribute("aria-disabled");
+    button.removeAttribute("disabled");
     button.setAttribute("aria-label", `Download Polytechnic Study Hub Android version ${update.versionName}`);
     button.hidden = false;
     button.removeAttribute("aria-hidden");

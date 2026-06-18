@@ -4,8 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - "build-info.json"
 
 permissions:
   contents: read
@@ -16,31 +14,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Verify production build info
+      - name: Verify production files
         run: |
           python - <<'PY'
-          import json
+          import hashlib
           import time
           from pathlib import Path
-          from urllib.request import urlopen
+          from urllib.request import Request, urlopen
 
-          expected = json.loads(Path("build-info.json").read_text(encoding="utf-8"))
-          url = "https://polypmna.dpdns.org/build-info.json"
+          base = "https://polypmna.dpdns.org"
+          files = ["index.html", "daily-quiz.html", "assets/js/main.js",
+                   "assets/js/quiz-init.js", "sitemap.xml", "build-info.json"]
           last_error = None
 
-          for _ in range(12):
+          for attempt in range(18):
               try:
-                  with urlopen(url, timeout=15) as response:
-                      production = json.loads(response.read().decode("utf-8"))
-
-                  if production == expected:
-                      print("Production build-info.json matches the tracked file.")
+                  mismatches = []
+                  for name in files:
+                      expected = Path(name).read_bytes()
+                      request = Request(f"{base}/{name}?deploy_verify={attempt}", headers={
+                          "Cache-Control": "no-cache", "User-Agent": "POLY-PMNA-deploy-verifier"})
+                      with urlopen(request, timeout=20) as response:
+                          actual = response.read()
+                      if hashlib.sha256(actual).digest() != hashlib.sha256(expected).digest():
+                          mismatches.append(name)
+                  if not mismatches:
+                      print("Production core files match this commit.")
                       raise SystemExit(0)
-
-                  last_error = (
-                      f"production build info {production!r} did not match "
-                      f"tracked build info {expected!r}"
-                  )
+                  last_error = f"stale production files: {', '.join(mismatches)}"
               except Exception as exc:
                   last_error = str(exc)
 

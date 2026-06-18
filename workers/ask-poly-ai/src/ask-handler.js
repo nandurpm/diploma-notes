@@ -77,14 +77,15 @@ function normalizeModel(value) {
   return model || DEFAULT_MODEL;
 }
 
-function buildPayload(model, input, useWeb = true) {
+function buildPayload(model, input, useWeb = true, env = {}) {
+  const configuredMaxTokens = Number(env.MAX_OUTPUT_TOKENS || 1800);
   return {
     model,
-    reasoning: { effort: "low" },
+    reasoning: { effort: cleanText(env.REASONING_EFFORT, 20) || "low" },
     instructions: SYSTEM_INSTRUCTIONS,
     ...(useWeb ? { tools: [{ type: "web_search" }] } : {}),
     input,
-    max_output_tokens: 1800
+    max_output_tokens: Number.isFinite(configuredMaxTokens) && configuredMaxTokens > 0 ? configuredMaxTokens : 1800
   };
 }
 
@@ -95,7 +96,7 @@ function shouldRetryWithoutWeb(error) {
 
 function shouldRetryDefaultModel(error, model) {
   const message = String(error?.message || "").toLowerCase();
-  return model !== DEFAULT_MODEL && /model|does not exist|not found|unsupported|invalid/.test(message);
+  return model !== DEFAULT_MODEL && /\bmodel\b|does not exist|unsupported model|invalid model/.test(message);
 }
 
 async function requestOpenAI(payload, env) {
@@ -105,7 +106,8 @@ async function requestOpenAI(payload, env) {
       "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(55000)
   });
   const data = await response.json().catch(() => ({}));
   if (!response.ok) {
@@ -125,9 +127,7 @@ export async function askPoly(body, env) {
   input.push({ role: "user", content: buildUserContent(body) });
 
   let model = normalizeModel(env.OPENAI_MODEL);
-  let payload = buildPayload(model, input, true);
-  if (env.REASONING_EFFORT) payload.reasoning.effort = cleanText(env.REASONING_EFFORT, 20) || "low";
-  if (env.MAX_OUTPUT_TOKENS) payload.max_output_tokens = Number(env.MAX_OUTPUT_TOKENS || 1800);
+  let payload = buildPayload(model, input, true, env);
 
   let data;
   try {
@@ -135,16 +135,29 @@ export async function askPoly(body, env) {
   } catch (error) {
     if (shouldRetryDefaultModel(error, model)) {
       model = DEFAULT_MODEL;
-      payload = { ...payload, model };
-      data = await requestOpenAI(payload, env);
+      payload = buildPayload(model, input, true, env);
+      try {
+        data = await requestOpenAI(payload, env);
+      } catch (retryError) {
+        if (!shouldRetryWithoutWeb(retryError)) throw retryError;
+        payload = buildPayload(model, input, false, env);
+        data = await requestOpenAI(payload, env);
+      }
     } else if (shouldRetryWithoutWeb(error)) {
-      data = await requestOpenAI(buildPayload(model, input, false), env);
+      payload = buildPayload(model, input, false, env);
+      data = await requestOpenAI(payload, env);
     } else {
       throw error;
     }
   }
 
-  const result = extractAnswer(data);
-  if (!result.answer) throw new Error("The AI service returned an empty response.");
+  let result = extractAnswer(data);
+  if (!result.answer && payload.tools) {
+    payload = buildPayload(model, input, false, env);
+    payload.max_output_tokens = Math.max(payload.max_output_tokens, 2200);
+    data = await requestOpenAI(payload, env);
+    result = extractAnswer(data);
+  }
+  if (!result.answer) throw new Error("The AI service returned an empty response twice.");
   return { ...result, model: data.model || payload.model, responseId: data.id || "" };
 }

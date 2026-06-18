@@ -372,15 +372,16 @@ async function initializeDiscussion() {
       try {
         const olderQuery = firestoreModule.query(
           commentsRef,
+          firestoreModule.where("pageId", "==", "help"),
+          firestoreModule.where("parentId", "==", null),
           firestoreModule.orderBy("createdAt", "desc"),
           firestoreModule.startAfter(oldestLoadedDoc),
-          firestoreModule.limit(PAGE_SIZE * 3)
+          firestoreModule.limit(PAGE_SIZE)
         );
         const snapshot = await firestoreModule.getDocs(olderQuery);
         const batch = snapshot.docs
           .map((item) => ({ id: item.id, ...item.data() }))
-          .filter((item) => item.pageId === "help" && !item.parentId)
-          .slice(0, PAGE_SIZE);
+          .filter((item) => item.pageId === "help" && !item.parentId);
 
         olderComments = [...olderComments, ...batch];
         if (!snapshot.empty) {
@@ -497,6 +498,7 @@ async function initializeDiscussion() {
 
         const repliesQuery = firestoreModule.query(
           commentsRef,
+          firestoreModule.where("pageId", "==", "help"),
           firestoreModule.where("parentId", "in", batch)
         );
         const snapshot = await firestoreModule.getDocs(repliesQuery);
@@ -517,8 +519,10 @@ async function initializeDiscussion() {
 
     const commentsQuery = firestoreModule.query(
       commentsRef,
+      firestoreModule.where("pageId", "==", "help"),
+      firestoreModule.where("parentId", "==", null),
       firestoreModule.orderBy("createdAt", "desc"),
-      firestoreModule.limit(PAGE_SIZE * 3)
+      firestoreModule.limit(PAGE_SIZE)
     );
 
     firestoreModule.onSnapshot(
@@ -528,8 +532,7 @@ async function initializeDiscussion() {
 
         liveComments = snapshot.docs
           .map((item) => ({ id: item.id, ...item.data() }))
-          .filter((item) => item.pageId === "help" && !item.parentId)
-          .slice(0, PAGE_SIZE);
+          .filter((item) => item.pageId === "help" && !item.parentId);
         if (olderComments.length === 0) {
           oldestLoadedDoc = snapshot.empty ? null : snapshot.docs[snapshot.docs.length - 1];
           hasMoreComments = snapshot.size === PAGE_SIZE;
