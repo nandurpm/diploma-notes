@@ -1,7 +1,16 @@
 {
+  "schemaVersion": 1,
   "versionCode": 5,
   "versionName": "1.0.4",
   "apkUrl": "/downloads/Polytechnic-Study-Hub-v1.0.4.apk",
+  "sha256": "pending-upload",
+  "publishedAt": "2026-06-19",
+  "forceUpdate": false,
   "title": "Polytechnic Study Hub Android app 1.0.4",
-  "message": "Updated Android app with Mock Exams, improved sidebar, and latest website structure."
+  "message": "Updated Android app with Mock Exams, improved sidebar, and latest website structure.",
+  "releaseNotes": [
+    "Mock Exams added to the Android app sidebar.",
+    "Sidebar updated to match the latest website structure.",
+    "Download button now points to Android app 1.0.4."
+  ]
 }
