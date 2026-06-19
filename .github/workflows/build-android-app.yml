@@ -39,39 +39,6 @@ jobs:
         with:
           gradle-version: "8.9"
 
-      - name: Apply current app menu and version
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          source = Path("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java")
-          text = source.read_text(encoding="utf-8")
-          text = text.replace('bindNavigation(R.id.navLessons, "/lessons.html");', 'bindNavigation(R.id.navLessons, "/daily-quiz.html");')
-          text = text.replace('bindNavigation(R.id.navStudyMaterials, "/study-materials.html");', 'bindNavigation(R.id.navStudyMaterials, "/model-question-papers.html");')
-          text = text.replace('bindNavigation(R.id.navSyllabus, "/syllabus.html");', 'bindNavigation(R.id.navSyllabus, "/materials-2015.html");')
-          text = text.replace('bindNavigation(R.id.navPreviousQuestions, "/previous-question-papers.html");', 'bindNavigation(R.id.navPreviousQuestions, "/about.html");')
-          text = text.replace('bindNavigation(R.id.navModelQuestions, "/model-question-papers.html");', 'bindNavigation(R.id.navModelQuestions, "/contact.html");')
-          text = text.replace('bindNavigation(R.id.navMaterials2015, "/materials-2015.html");\n        bindNavigation(R.id.navAbout, "/about.html");\n        bindNavigation(R.id.navContact, "/contact.html");\n', '')
-          source.write_text(text, encoding="utf-8")
-
-          strings = Path("android-app/app/src/main/res/values/strings.xml")
-          text = strings.read_text(encoding="utf-8")
-          replacements = {
-              '<string name="app_subtitle">Kerala Polytechnic Learning</string>': '<string name="app_subtitle">Revision 2021 • Mock Exams • Question Papers</string>',
-              '<string name="loading_subtitle">Lessons, quizzes, notes, syllabus and question papers</string>': '<string name="loading_subtitle">Revision 2021, Mock Exams, notes and question papers</string>',
-              '<string name="nav_lessons">Lessons</string>': '<string name="nav_lessons">Mock Exams</string>',
-              '<string name="nav_study_materials">Study Materials</string>': '<string name="nav_study_materials">Question Papers</string>',
-              '<string name="nav_syllabus">Syllabus</string>': '<string name="nav_syllabus">2015 Materials</string>',
-              '<string name="nav_previous_questions">Previous Question Papers</string>': '<string name="nav_previous_questions">About</string>',
-              '<string name="nav_model_questions">Model Question Papers</string>': '<string name="nav_model_questions">Help</string>',
-              '<string name="drawer_study">STUDY</string>': '<string name="drawer_study">IMPORTANT</string>',
-              '<string name="drawer_resources">RESOURCES</string>': '<string name="drawer_resources">MORE</string>'
-          }
-          for old, new in replacements.items():
-              text = text.replace(old, new)
-          strings.write_text(text, encoding="utf-8")
-          PY
-
       - name: Verify secure Android APIs and manifest
         run: |
           set -euo pipefail
@@ -127,22 +94,14 @@ jobs:
           test -x "$BUILD_TOOLS/zipalign"
 
           KEYSTORE="$OUTPUT/release.keystore"
-          if [ -n "${ANDROID_SIGNING_KEYSTORE_BASE64:-}" ]; then
-            echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | base64 -d > "$KEYSTORE"
-            STORE_PASS="${ANDROID_SIGNING_STORE_PASSWORD}"
-            KEY_ALIAS="${ANDROID_SIGNING_KEY_ALIAS}"
-            KEY_PASS="${ANDROID_SIGNING_KEY_PASSWORD:-$ANDROID_SIGNING_STORE_PASSWORD}"
-          else
-            KEYSTORE="$OUTPUT/generated-poly-release.keystore"
-            STORE_PASS="android"
-            KEY_ALIAS="polyrelease"
-            KEY_PASS="android"
-            keytool -genkeypair -v \
-              -keystore "$KEYSTORE" \
-              -storepass "$STORE_PASS" -keypass "$KEY_PASS" \
-              -alias "$KEY_ALIAS" -keyalg RSA -keysize 2048 -validity 10000 \
-              -dname "CN=Polytechnic Study Hub,O=POLY PMNA,C=IN"
-          fi
+          test -n "${ANDROID_SIGNING_KEYSTORE_BASE64:-}" || { echo "Missing signing keystore"; exit 1; }
+          test -n "${ANDROID_SIGNING_STORE_PASSWORD:-}" || { echo "Missing store password"; exit 1; }
+          test -n "${ANDROID_SIGNING_KEY_ALIAS:-}" || { echo "Missing key alias"; exit 1; }
+          test -n "${ANDROID_SIGNING_KEY_PASSWORD:-}" || { echo "Missing key password"; exit 1; }
+          echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | base64 -d > "$KEYSTORE"
+          STORE_PASS="${ANDROID_SIGNING_STORE_PASSWORD}"
+          KEY_ALIAS="${ANDROID_SIGNING_KEY_ALIAS}"
+          KEY_PASS="${ANDROID_SIGNING_KEY_PASSWORD}"
 
           "$BUILD_TOOLS/zipalign" -f -p 4 "$UNSIGNED_COPY" "$OUTPUT/app-aligned.apk"
           "$BUILD_TOOLS/apksigner" sign \

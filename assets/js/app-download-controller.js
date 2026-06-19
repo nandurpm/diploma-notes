@@ -8,8 +8,8 @@
   if (appMatch) return;
 
   const FALLBACK_UPDATE = Object.freeze({
-    versionName: "1.0.3",
-    apkUrl: "/downloads/Polytechnic-Study-Hub-v1.0.3.apk",
+    versionName: "1.0.4",
+    apkUrl: "/downloads/Polytechnic-Study-Hub-v1.0.4.apk",
     title: "Polytechnic Study Hub latest Android app",
     message: "Download the latest available Android APK. Website updates load automatically."
   });
