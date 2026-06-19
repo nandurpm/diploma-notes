@@ -3,8 +3,9 @@ name: Build POLY PMNA APK
 on:
   workflow_dispatch:
   push:
-    branches:
-      - poly-pmna-apk-build
+    branches: [ poly-pmna-apk-build ]
+  pull_request:
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -13,9 +14,6 @@ jobs:
   build-apk:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout builder branch
-        uses: actions/checkout@v4
-
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -30,19 +28,78 @@ jobs:
         with:
           gradle-version: '8.10.2'
 
-      - name: Decode Android source
+      - name: Create Android project
         run: |
-          mkdir -p build-src
-          base64 -d poly_pmna_android_source.b64 > poly_pmna_android_source.zip
-          unzip -q poly_pmna_android_source.zip -d build-src
+          mkdir -p poly-pmna-app/app/src/main/java/org/polypmna/studyhub
+          mkdir -p poly-pmna-app/app/src/main/res/drawable poly-pmna-app/app/src/main/res/values
+          cat > poly-pmna-app/settings.gradle <<'EOF'
+          pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+          dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
+          rootProject.name='POLY PMNA Study Hub'
+          include ':app'
+          EOF
+          cat > poly-pmna-app/build.gradle <<'EOF'
+          plugins { id 'com.android.application' version '8.7.3' apply false }
+          EOF
+          cat > poly-pmna-app/app/build.gradle <<'EOF'
+          plugins { id 'com.android.application' }
+          android { namespace 'org.polypmna.studyhub'; compileSdk 35
+            defaultConfig { applicationId 'org.polypmna.studyhub'; minSdk 26; targetSdk 35; versionCode 104; versionName '1.0.4' }
+          }
+          EOF
+          cat > poly-pmna-app/app/src/main/res/values/strings.xml <<'EOF'
+          <resources><string name="app_name">POLY PMNA</string></resources>
+          EOF
+          cat > poly-pmna-app/app/src/main/res/values/colors.xml <<'EOF'
+          <resources><color name="poly_blue">#2563EB</color></resources>
+          EOF
+          cat > poly-pmna-app/app/src/main/res/values/styles.xml <<'EOF'
+          <resources><style name="AppTheme" parent="android:style/Theme.Material.Light.NoActionBar"><item name="android:fontFamily">sans</item><item name="android:colorAccent">#7C3AED</item><item name="android:windowLightStatusBar">false</item></style></resources>
+          EOF
+          cat > poly-pmna-app/app/src/main/res/drawable/ic_launcher.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108"><path android:fillColor="#2563EB" android:pathData="M0,0h108v108h-108z"/><path android:fillColor="#FFFFFF" android:pathData="M24,28h60v10h-60zM24,48h60v10h-60zM24,68h42v10h-42z"/></vector>
+          EOF
+          cat > poly-pmna-app/app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+            <application android:theme="@style/AppTheme" android:label="POLY PMNA" android:icon="@drawable/ic_launcher" android:allowBackup="true" android:usesCleartextTraffic="false">
+              <activity android:name=".MainActivity" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
+            </application>
+          </manifest>
+          EOF
+          cat > poly-pmna-app/app/src/main/java/org/polypmna/studyhub/MainActivity.java <<'EOF'
+          package org.polypmna.studyhub;
+          import android.app.*;import android.os.*;import android.content.*;import android.net.*;import android.graphics.*;import android.graphics.drawable.*;import android.view.*;import android.webkit.*;import android.widget.*;import java.util.*;
+          public class MainActivity extends Activity{String BASE="https://polypmna.dpdns.org/";LinearLayout root,body,bar;WebView web;ProgressBar progress;android.content.SharedPreferences sp;ArrayList<String> recent=new ArrayList<>(),marks=new ArrayList<>();int blue=Color.rgb(37,99,235),violet=Color.rgb(124,58,237);public void onCreate(Bundle b){super.onCreate(b);sp=getSharedPreferences("poly",0);loadLists();splash();}
+          void splash(){FrameLayout f=new FrameLayout(this);GradientDrawable g=new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{blue,violet});f.setBackground(g);LinearLayout c=new LinearLayout(this);c.setOrientation(LinearLayout.VERTICAL);c.setGravity(17);TextView t=txt("POLY PMNA",34,Color.WHITE,1);TextView s=txt("Kerala Polytechnic Study Hub",16,Color.WHITE,0);ProgressBar p=new ProgressBar(this);c.addView(t);c.addView(s);c.addView(p);f.addView(c,new FrameLayout.LayoutParams(-1,-1));setContentView(f);new Handler().postDelayed(()->shell(),900);} 
+          void shell(){root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);body=new LinearLayout(this);body.setOrientation(LinearLayout.VERTICAL);body.setBackgroundColor(Color.rgb(246,248,255));bar=new LinearLayout(this);bar.setGravity(17);bar.setBackgroundColor(Color.WHITE);root.addView(body,new LinearLayout.LayoutParams(-1,0,1));root.addView(bar,new LinearLayout.LayoutParams(-1,64));setContentView(root);nav();home();}
+          TextView txt(String x,int sp, int c,int bold){TextView v=new TextView(this);v.setText(x);v.setTextSize(sp);v.setTextColor(c);v.setPadding(18,10,18,10);if(bold==1)v.setTypeface(Typeface.DEFAULT_BOLD);return v;}
+          TextView card(String x){TextView v=txt(x,16,Color.rgb(31,41,55),1);GradientDrawable d=new GradientDrawable();d.setColor(Color.WHITE);d.setCornerRadius(28);v.setBackground(d);v.setElevation(5);v.setMinHeight(96);v.setGravity(16);v.setPadding(26,18,26,18);return v;}
+          void nav(){bar.removeAllViews();String[] ns={"Home","Study","Quiz","Search","Profile"};for(String n:ns){TextView b=txt(n,13,blue,1);b.setGravity(17);bar.addView(b,new LinearLayout.LayoutParams(0,-1,1));b.setOnClickListener(v->{if(n.equals("Home"))home();if(n.equals("Study"))study();if(n.equals("Quiz"))open("Daily Quiz",BASE+"daily-quiz.html");if(n.equals("Search"))search();if(n.equals("Profile"))profile();});}}
+          void header(String title,String sub){body.removeAllViews();TextView h=txt(title,26,Color.WHITE,1);TextView st=txt(sub,14,Color.WHITE,0);LinearLayout box=new LinearLayout(this);box.setOrientation(LinearLayout.VERTICAL);GradientDrawable gg=new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT,new int[]{blue,violet});gg.setCornerRadii(new float[]{0,0,0,0,28,28,28,28});box.setBackground(gg);box.addView(h);box.addView(st);body.addView(box,new LinearLayout.LayoutParams(-1,-2));}
+          void home(){header("Hi Student 👋","Continue your study with POLY PMNA");ScrollView sv=new ScrollView(this);LinearLayout l=list();EditText q=new EditText(this);q.setHint("Search subject code / title");q.setSingleLine();q.setPadding(22,8,22,8);l.addView(q,new LinearLayout.LayoutParams(-1,62));q.setOnEditorActionListener((v,a,e)->{open("Search",BASE+"search.html?q="+Uri.encode(q.getText().toString()));return true;});add(l,"Daily Quiz / Mock Exam",BASE+"daily-quiz.html");add(l,"Revision 2021 Study Materials",BASE+"revision-2021.html");add(l,"Question Papers",BASE+"revision-2021.html");add(l,"2015 Materials",BASE+"materials-2015.html");add(l,"Help & Corrections",BASE+"contact.html");section(l,"Recently Opened",recent);section(l,"Bookmarked Subjects",marks);sv.addView(l);body.addView(sv,new LinearLayout.LayoutParams(-1,0,1));}
+          LinearLayout list(){LinearLayout l=new LinearLayout(this);l.setOrientation(LinearLayout.VERTICAL);l.setPadding(18,18,18,18);return l;}
+          void add(LinearLayout l,String name,String url){TextView c=card(name);LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(-1,-2);lp.setMargins(0,8,0,14);l.addView(c,lp);c.setOnClickListener(v->open(name,url));c.setOnLongClickListener(v->{bookmark(name+"|"+url);toast("Bookmarked");return true;});}
+          void section(LinearLayout l,String title,ArrayList<String> data){l.addView(txt(title,18,Color.rgb(17,24,39),1));if(data.isEmpty())l.addView(txt("No items yet",14,Color.GRAY,0));for(String it:data){String[] p=it.split("\\|",2);add(l,p[0],p.length>1?p[1]:BASE);}}
+          void study(){header("Study Materials","Revision 2021 department browser");ScrollView sv=new ScrollView(this);LinearLayout l=list();String[] ds={"EEE","EL","ME","CE","CT","EC","IT","IE","AI","AIML","AE","BM","CHE","CH","CSE","CFIS","EE","ECE"};for(String d:ds)add(l,d+" Department",BASE+"revision-2021.html#"+d.toLowerCase());sv.addView(l);body.addView(sv,new LinearLayout.LayoutParams(-1,0,1));}
+          void search(){header("Subject Search","Search by code, title, department or semester");LinearLayout l=list();EditText e=new EditText(this);e.setHint("Example: 3041, Electronics, S3, EEE");Button b=new Button(this);b.setText("Search");l.addView(e,new LinearLayout.LayoutParams(-1,70));l.addView(b);b.setOnClickListener(v->open("Search",BASE+"search.html?q="+Uri.encode(e.getText().toString())));body.addView(l,new LinearLayout.LayoutParams(-1,0,1));}
+          void profile(){header("Profile","Local app settings");ScrollView sv=new ScrollView(this);LinearLayout l=list();l.addView(txt("Login status: Website login is handled securely inside Quiz page. Passwords are not stored by this app.",15,Color.DKGRAY,0));add(l,"Privacy Policy",BASE+"privacy.html");Button clear=new Button(this);clear.setText("Clear cache / history");l.addView(clear);clear.setOnClickListener(v->{sp.edit().clear().apply();recent.clear();marks.clear();toast("Cleared");home();});sv.addView(l);body.addView(sv,new LinearLayout.LayoutParams(-1,0,1));}
+          void open(String title,String url){body.removeAllViews();LinearLayout top=new LinearLayout(this);top.setGravity(16);top.setBackgroundColor(blue);TextView back=txt("‹",34,Color.WHITE,1),tt=txt(title,18,Color.WHITE,1),ref=txt("↻",24,Color.WHITE,1);top.addView(back,new LinearLayout.LayoutParams(56,60));top.addView(tt,new LinearLayout.LayoutParams(0,60,1));top.addView(ref,new LinearLayout.LayoutParams(56,60));body.addView(top);progress=new ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal);body.addView(progress,new LinearLayout.LayoutParams(-1,6));web=new WebView(this);body.addView(web,new LinearLayout.LayoutParams(-1,0,1));back.setOnClickListener(v->{if(web.canGoBack())web.goBack();else home();});ref.setOnClickListener(v->web.reload());setupWeb(url,title);}
+          void setupWeb(String url,String title){WebSettings s=web.getSettings();s.setJavaScriptEnabled(true);s.setDomStorageEnabled(true);s.setDatabaseEnabled(true);s.setAllowFileAccess(false);CookieManager.getInstance().setAcceptCookie(true);web.setDownloadListener((u,ua,cd,m,l)->{try{Intent i=new Intent(Intent.ACTION_VIEW,Uri.parse(u));startActivity(i);}catch(Exception e){toast("Cannot open download link");}});web.setWebChromeClient(new WebChromeClient(){public void onProgressChanged(WebView v,int p){progress.setProgress(p);progress.setVisibility(p==100?View.GONE:View.VISIBLE);}});web.setWebViewClient(new WebViewClient(){public void onPageFinished(WebView v,String u){remember(title,u);}public void onReceivedError(WebView v,WebResourceRequest r,WebResourceError e){if(r.isForMainFrame())offline(url);};public boolean shouldOverrideUrlLoading(WebView v,WebResourceRequest r){String u=r.getUrl().toString();if(u.startsWith(BASE)){return false;}try{startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(u)));}catch(Exception ex){toast("Unsupported link");}return true;}});web.loadUrl(url);} 
+          void offline(String retry){body.removeAllViews();LinearLayout l=list();l.setGravity(17);l.addView(txt("You are offline",26,blue,1));l.addView(txt("Bookmarks and recent pages are still available. Connect to internet and retry.",15,Color.DKGRAY,0));Button b=new Button(this);b.setText("Retry");l.addView(b);b.setOnClickListener(v->open("POLY PMNA",retry));body.addView(l,new LinearLayout.LayoutParams(-1,0,1));}
+          void bookmark(String x){if(!marks.contains(x)){marks.add(0,x);save("marks",marks);}}
+          void remember(String t,String u){String x=t+"|"+u;recent.remove(x);recent.add(0,x);while(recent.size()>8)recent.remove(recent.size()-1);save("recent",recent);}void loadLists(){recent.addAll(sp.getStringSet("recent",new LinkedHashSet<String>()));marks.addAll(sp.getStringSet("marks",new LinkedHashSet<String>()));}void save(String k,ArrayList<String> a){sp.edit().putStringSet(k,new LinkedHashSet<>(a)).apply();}void toast(String s){Toast.makeText(this,s,Toast.LENGTH_SHORT).show();}public void onBackPressed(){if(web!=null&&web.getParent()!=null&&web.canGoBack())web.goBack();else home();}}
+          EOF
 
       - name: Build debug APK
         run: |
-          cd build-src/poly_pmna_android
+          cd poly-pmna-app
           gradle assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: POLY-PMNA-v1.0.4-debug-apk
-          path: build-src/poly_pmna_android/app/build/outputs/apk/debug/*.apk
+          path: poly-pmna-app/app/build/outputs/apk/debug/*.apk
