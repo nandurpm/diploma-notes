@@ -4,7 +4,7 @@
   const HISTORY_PREFIX = "askPolyGeneralHistory:v1:";
   const IS_LESSON_PAGE = /\/lessons\/[^/]+\.html$/i.test(window.location.pathname);
   const LOCAL_QUERY_PATTERN = /\b(subject|lesson|syllabus|notes|semester|department|model\s*qp|question\s*paper)\b/i;
-  const SIMPLE_HELP_PATTERN = /^(hi|hello|hey|help|what can you do|how to use)$/i;
+  const SIMPLE_HELP_PATTERN = /^(hi+|hai|hlo|helo|hello|hellow|hey|help|what can you do|how to use)$/i;
   const ACKNOWLEDGEMENT_PATTERN = /^(ok|okay|okk|k|thanks|thank you|fine|good)$/i;
 
   let remoteHistory = [];
@@ -33,6 +33,10 @@
     } catch (_) {
       // Storage restrictions must not disable the assistant.
     }
+  }
+
+  function greetingAnswer() {
+    return "Hi! I can help with maths, grammar, HTML/coding doubts and POLY PMNA subject or lesson search. Try a question like 2+25, a subject code like 3041, or a subject name like Electronics Engineering.";
   }
 
   function shouldStayLocal(query) {
@@ -219,6 +223,17 @@
       const query = clean(input.value);
       const configuredNow = Boolean(globalThis.AskPolyRemote?.isConfigured?.());
       if (!query) return;
+
+      if (SIMPLE_HELP_PATTERN.test(query)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        input.value = "";
+        lastRemoteAnswer = greetingAnswer();
+        makeMessage(body, "user", query);
+        makeMessage(body, "bot", lastRemoteAnswer);
+        status.textContent = configuredNow ? "Ask POLY AI ready" : "Local assistant ready";
+        return;
+      }
 
       if (ACKNOWLEDGEMENT_PATTERN.test(query)) {
         event.preventDefault();
