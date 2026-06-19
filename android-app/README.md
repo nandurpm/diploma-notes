@@ -6,12 +6,12 @@ https://polypmna.dpdns.org/
 
 ## Current release
 
-- Version: `1.0.3`
+- Version: `1.0.4`
 - Application ID: `org.diplomanotes.polytechnicstudyhub`
 - Minimum Android version: Android 6.0 (API 23)
 - Target SDK: API 35
 
-Version 1.0.3 hardens navigation, downloads, deep links and WebView lifecycle handling:
+Version 1.0.4 hardens navigation, downloads, deep links and WebView lifecycle handling:
 
 - Supports both the Android 6 legacy URL callback and the modern `WebResourceRequest` callback.
 - Blocks unsanitized `intent:` URLs instead of launching arbitrary external intents.
@@ -78,6 +78,6 @@ Production builds must use the private release key created for v1.0.1. Configure
 - `ANDROID_KEY_ALIAS`
 - `ANDROID_KEY_PASSWORD`
 
-Losing or replacing that key prevents Android from accepting a future APK as an update to an installed v1.0.1, v1.0.2 or v1.0.3 release.
+Losing or replacing that key prevents Android from accepting a future APK as an update to an installed v1.0.1, v1.0.2 or v1.0.4 release.
 
 Never commit a signing keystore or its passwords to the repository.
