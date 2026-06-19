@@ -20,10 +20,11 @@
         html, body { max-width: 100% !important; overflow-x: hidden !important; }
         html body .topbar {
           display: grid !important;
-          grid-template-columns: minmax(0, 0.7fr) minmax(150px, 1.3fr) !important;
+          grid-template-columns: minmax(0, 1fr) auto !important;
           grid-template-areas:
-            "brand nav"
-            "notice notice" !important;
+            "brand menu"
+            "notice notice"
+            "nav nav" !important;
           grid-auto-flow: row !important;
           grid-auto-rows: auto !important;
           align-items: center !important;
@@ -41,7 +42,7 @@
           grid-row: 1 !important;
           display: flex !important;
           align-items: center !important;
-          gap: 7px !important;
+          gap: 8px !important;
           width: 100% !important;
           max-width: 100% !important;
           min-width: 0 !important;
@@ -49,11 +50,11 @@
         }
         html body .topbar .brand .brand-symbol,
         html body .topbar .brand > span:first-child {
-          flex: 0 0 40px !important;
-          width: 40px !important;
-          height: 40px !important;
-          min-width: 40px !important;
-          border-radius: 13px !important;
+          flex: 0 0 42px !important;
+          width: 42px !important;
+          height: 42px !important;
+          min-width: 42px !important;
+          border-radius: 14px !important;
         }
         html body .topbar .brand .brand-copy,
         html body .topbar .brand > .brand-symbol + span {
@@ -71,7 +72,7 @@
           white-space: nowrap !important;
         }
         html body .topbar .brand strong {
-          font-size: clamp(0.78rem, 3.4vw, 1rem) !important;
+          font-size: clamp(0.9rem, 4vw, 1.12rem) !important;
           line-height: 1.05 !important;
         }
         html body .topbar .brand small {
@@ -79,64 +80,72 @@
           line-height: 1.15 !important;
         }
         html body .topbar .menu-toggle {
+          grid-area: menu !important;
+          grid-column: 2 !important;
+          grid-row: 1 !important;
+          display: inline-flex !important;
+          visibility: visible !important;
+          align-items: center !important;
+          justify-content: center !important;
+          width: auto !important;
+          min-width: 76px !important;
+          height: auto !important;
+          min-height: 42px !important;
+          padding: 8px 14px !important;
+          margin: 0 !important;
+          border-radius: 999px !important;
+          font-size: 0.92rem !important;
+          line-height: 1 !important;
+          white-space: nowrap !important;
+          overflow: visible !important;
+        }
+        html body .topbar .navlinks,
+        html body .topbar .navlinks:not(.open) {
+          grid-area: nav !important;
+          grid-column: 1 / -1 !important;
+          grid-row: 3 !important;
           display: none !important;
-          visibility: hidden !important;
-          width: 0 !important;
-          height: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
           min-width: 0 !important;
+          height: auto !important;
           min-height: 0 !important;
           padding: 0 !important;
           margin: 0 !important;
           overflow: hidden !important;
         }
-        html body .topbar .navlinks,
-        html body .topbar .navlinks:not(.open),
         html body .topbar .navlinks.open {
           grid-area: nav !important;
-          grid-column: 2 !important;
-          grid-row: 1 !important;
-          justify-self: end !important;
-          align-self: center !important;
-          display: flex !important;
-          flex-wrap: nowrap !important;
-          align-items: center !important;
-          justify-content: flex-end !important;
-          gap: 6px !important;
+          grid-column: 1 / -1 !important;
+          grid-row: 3 !important;
+          display: grid !important;
+          grid-template-columns: 1fr !important;
+          gap: 7px !important;
           width: 100% !important;
           max-width: 100% !important;
           min-width: 0 !important;
-          height: auto !important;
-          min-height: 40px !important;
-          padding: 0 0 2px !important;
+          padding-top: 3px !important;
           margin: 0 !important;
-          overflow-x: auto !important;
-          overflow-y: hidden !important;
-          white-space: nowrap !important;
-          scrollbar-width: none !important;
-          -webkit-overflow-scrolling: touch !important;
-        }
-        html body .topbar .navlinks::-webkit-scrollbar {
-          display: none !important;
+          overflow: hidden !important;
         }
         html body .topbar .navlinks a,
         html body .topbar .navlinks.open a {
-          flex: 0 0 auto !important;
-          width: auto !important;
-          min-width: auto !important;
-          max-width: none !important;
-          min-height: 34px !important;
-          padding: 7px 10px !important;
-          font-size: 0.72rem !important;
+          width: 100% !important;
+          min-width: 0 !important;
+          max-width: 100% !important;
+          min-height: 42px !important;
+          padding: 10px !important;
+          font-size: 0.86rem !important;
           font-weight: 800 !important;
-          line-height: 1 !important;
-          display: inline-flex !important;
+          line-height: 1.1 !important;
+          display: flex !important;
           align-items: center !important;
           justify-content: center !important;
           text-align: center !important;
           border-radius: 999px !important;
           white-space: nowrap !important;
-          overflow: visible !important;
-          text-overflow: clip !important;
+          overflow: hidden !important;
+          text-overflow: ellipsis !important;
         }
         html body .topbar .site-notice {
           grid-area: notice !important;
