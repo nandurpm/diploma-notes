@@ -80,4 +80,6 @@
   <url><loc>https://polypmna.dpdns.org/study-materials.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://polypmna.dpdns.org/syllabus.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://polypmna.dpdns.org/terms.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://polypmna.dpdns.org/daily-quiz.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://polypmna.dpdns.org/mock-exam-1004.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
 </urlset>

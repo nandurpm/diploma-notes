@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Polytechnic Study Hub</string>
-    <string name="app_subtitle">Kerala Polytechnic Learning</string>
+    <string name="app_subtitle">Revision 2021 • Mock Exams • Question Papers</string>
     <string name="menu">Open navigation menu</string>
     <string name="refresh">Refresh current page</string>
     <string name="loading_title">Polytechnic Study Hub</string>
-    <string name="loading_subtitle">Lessons, quizzes, notes, syllabus and question papers</string>
+    <string name="loading_subtitle">Revision 2021, Mock Exams, notes and question papers</string>
     <string name="loading_status">Preparing your study dashboard…</string>
     <string name="loading_page">Loading…</string>
     <string name="loading_slow">Connection is taking longer than usual…</string>
@@ -20,16 +20,16 @@
     <string name="nav_home">Home</string>
     <string name="nav_revision_2021">Revision 2021</string>
     <string name="nav_lessons">Lessons</string>
-    <string name="nav_study_materials">Study Materials</string>
-    <string name="nav_daily_quiz">Quiz Dashboard</string>
+    <string name="nav_study_materials">Question Papers</string>
+    <string name="nav_daily_quiz">Mock Exams</string>
     <string name="nav_daily_quiz_description">Open the quiz dashboard, results and subject analysis</string>
     <string name="nav_syllabus">Syllabus</string>
     <string name="nav_previous_questions">Previous Question Papers</string>
     <string name="nav_model_questions">Model Question Papers</string>
-    <string name="nav_materials_2015">2015 Scheme Materials</string>
+    <string name="nav_materials_2015">2015 Materials</string>
     <string name="nav_about">About</string>
     <string name="nav_contact">Contact</string>
-    <string name="drawer_study">STUDY</string>
-    <string name="drawer_resources">RESOURCES</string>
+    <string name="drawer_study">IMPORTANT</string>
+    <string name="drawer_resources">MORE</string>
     <string name="drawer_support">SUPPORT</string>
 </resources>

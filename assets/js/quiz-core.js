@@ -51,7 +51,7 @@
     if (type) element.classList.add(type);
   };
 
-  Q.showServiceWarning = (text = "The secure quiz service is temporarily unavailable.") => {
+  Q.showServiceWarning = (text = "Quiz service is temporarily down. Guest mode still works. Try again later.") => {
     const E = Q.elements;
     Q.state.serviceError = text;
     if (E.serviceWarningText) E.serviceWarningText.textContent = text;
@@ -144,7 +144,7 @@
 
   Q.renderServiceFailure = (error) => {
     const E = Q.elements;
-    const text = error?.message || "The secure quiz service could not be reached. Check your connection and retry.";
+    const text = error?.message || "Quiz service is temporarily down. Guest mode still works. Try again later.";
     Q.showPortal();
     E.welcomeTitle.textContent = Q.state.user?.email ? `Signed in as ${Q.state.user.email}` : "Signed in";
     E.accountSubtitle.textContent = "Your login is active, but the dashboard could not be loaded.";
@@ -152,7 +152,7 @@
     E.summaryCards.innerHTML = "";
     E.subjectAnalysis.innerHTML = "";
     E.recentResults.innerHTML = '<div class="empty-state">Dashboard data is unavailable until the secure service reconnects.</div>';
-    E.subjectGrid.innerHTML = '<div class="service-recovery-card"><b>You are still logged in.</b><p>Use Retry Service above. Do not register another account.</p></div>';
+    E.subjectGrid.innerHTML = '<div class="service-recovery-card"><b>Quiz service is temporarily down.</b><p>Guest mode still works. Use Retry Service above or try again later.</p></div>';
     Q.showServiceWarning(text);
   };
 
