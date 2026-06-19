@@ -1,10 +1,9 @@
-/* Keep the complete Polytechnic Study Hub header visible while scrolling. */
+/* Fixed, responsive Polytechnic Study Hub header. */
 :root {
   --fixed-site-header-height: 0px;
   --fixed-site-header-gap: 10px;
 }
 
-/* The Android app already provides its own toolbar and navigation drawer. */
 html.polytechnic-native-app {
   --fixed-site-header-height: 0px !important;
   --fixed-site-header-gap: 0px !important;
@@ -16,9 +15,6 @@ html.polytechnic-native-app .skip-link {
   display: none !important;
 }
 
-/* Never show the website download button inside the installed Android app.
-   The update-check script explicitly marks it as "update" only when a newer
-   APK is available. This CSS also works when an older script is cached. */
 html.polytechnic-native-app .app-download {
   display: none !important;
 }
@@ -34,10 +30,14 @@ html.polytechnic-native-app body.has-fixed-site-header {
 .topbar {
   position: fixed !important;
   inset: 0 0 auto 0 !important;
+  z-index: 10000 !important;
+  display: grid !important;
+  grid-template-columns: auto minmax(220px, 1fr) max-content !important;
+  align-items: center !important;
+  gap: 12px !important;
   width: 100% !important;
   max-width: none !important;
   margin: 0 !important;
-  z-index: 10000 !important;
   transform: translateZ(0);
   backface-visibility: hidden;
   isolation: isolate;
@@ -51,54 +51,20 @@ html {
   scroll-padding-top: calc(var(--fixed-site-header-height) + 16px) !important;
 }
 
-/* Keep page anchors from being hidden behind the fixed header. */
 body.has-fixed-site-header [id] {
   scroll-margin-top: calc(var(--fixed-site-header-height) + 16px);
 }
 
-/* Reading-progress bars should remain visible above the fixed lesson header. */
 .progress,
 .reading-progress,
 #readingProgress {
   z-index: 10020 !important;
 }
 
-@media (max-width: 980px) {
-  :root {
-    --fixed-site-header-gap: 8px;
-  }
-
-  .topbar {
-    max-height: 100svh;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
-  }
+.brand {
+  min-width: 0 !important;
 }
 
-@media (max-width: 620px) {
-  :root {
-    --fixed-site-header-gap: 6px;
-  }
-}
-
-@media print {
-  .topbar {
-    position: static !important;
-    inset: auto !important;
-    transform: none !important;
-  }
-
-  body.has-fixed-site-header {
-    padding-top: 0 !important;
-  }
-
-  html {
-    scroll-padding-top: 0 !important;
-  }
-}
-
-/* Correct generic span rules that were also styling the brand text as an icon. */
 .brand > .brand-symbol + span {
   display: grid !important;
   width: auto !important;
@@ -115,22 +81,37 @@ body.has-fixed-site-header [id] {
 }
 
 .brand > .brand-symbol + span strong,
-.brand > .brand-symbol + span small {
-  display: block !important;
+.brand > .brand-symbol + span small,
+.brand strong,
+.brand small {
   max-width: 100% !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
 }
 
-/* Keep the update label and its scrolling message as separate layout elements. */
+.site-notice {
+  min-width: 0 !important;
+  width: 100% !important;
+  color: #0f3f8a;
+}
+
+.site-notice::before {
+  display: none !important;
+  content: none !important;
+}
+
 .site-notice > .site-notice-label {
   flex: 0 0 auto !important;
   display: inline-flex !important;
   width: auto !important;
   height: auto !important;
-  margin: 0 !important;
-  padding: 9px 16px !important;
+  margin: 0 8px 0 0 !important;
+  padding: 8px 14px !important;
+  border-radius: 999px !important;
+  color: #fff !important;
+  background: linear-gradient(135deg, #1d4ed8, #0f9fba) !important;
+  box-shadow: 0 10px 22px rgba(29, 78, 216, 0.18) !important;
   animation: none !important;
   transform: none !important;
   white-space: nowrap !important;
@@ -150,30 +131,31 @@ body.has-fixed-site-header [id] {
   transform: none !important;
 }
 
+@keyframes siteInstructionScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .site-notice .site-notice-track {
   display: inline-flex !important;
   align-items: center !important;
   width: max-content !important;
   min-width: 100% !important;
   height: auto !important;
-  padding: 0 0 0 100% !important;
+  padding-left: 0 !important;
   gap: 16px !important;
   background: transparent !important;
   box-shadow: none !important;
   white-space: nowrap !important;
-  animation: siteNoticeScroll 24s linear infinite !important;
+  animation: siteInstructionScroll 42s linear infinite !important;
 }
 
-.site-notice .site-notice-message,
-.site-notice .site-notice-separator {
-  display: inline !important;
-  width: auto !important;
-  height: auto !important;
-  padding: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  animation: none !important;
-  transform: none !important;
+.topbar .navlinks {
+  min-width: 0 !important;
+}
+
+.topbar .navlinks a {
+  white-space: nowrap !important;
 }
 
 .service-recovery-card {
@@ -223,28 +205,136 @@ body.has-fixed-site-header [id] {
   white-space: nowrap;
 }
 
-.native-app-update-action {
+.native-app-update-action,
+.native-app-update-dismiss {
   min-height: 40px;
-  padding: 9px 14px;
   border-radius: 12px;
   white-space: nowrap;
 }
 
+.native-app-update-action {
+  padding: 9px 14px;
+}
+
 .native-app-update-dismiss {
-  min-height: 40px;
   padding: 8px 10px;
   border: 0;
-  border-radius: 10px;
   background: transparent;
   color: #334155;
   font: inherit;
   font-weight: 700;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 1100px) {
+  .topbar {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 8px !important;
+    padding: 10px !important;
+    max-height: 100svh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .brand {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .brand strong {
+    max-width: calc(100vw - 118px) !important;
+  }
+
+  .menu-toggle {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    order: 2 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 42px !important;
+    padding: 9px 14px !important;
+    white-space: nowrap !important;
+  }
+
+  .site-notice {
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    order: 3 !important;
+    width: 100% !important;
+    height: 38px !important;
+  }
+
+  .site-notice > .site-notice-label {
+    padding: 7px 11px !important;
+    font-size: 0.76rem !important;
+  }
+
+  .site-notice .site-notice-track {
+    font-size: 0.78rem !important;
+  }
+
+  .topbar .navlinks {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    order: 4 !important;
+    display: none !important;
+    width: 100% !important;
     min-width: 0 !important;
-    max-width: calc(100% - 108px) !important;
+    padding: 4px 0 0 !important;
+  }
+
+  .topbar .navlinks.open {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 7px !important;
+  }
+
+  .topbar .navlinks a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+    min-height: 40px !important;
+    padding: 8px 10px !important;
+    font-size: 0.78rem !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --fixed-site-header-gap: 6px;
+  }
+
+  .topbar {
+    padding: 8px !important;
+    border-radius: 0 0 18px 18px !important;
+  }
+
+  .brand span {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .brand strong {
+    font-size: 0.88rem !important;
+    max-width: calc(100vw - 112px) !important;
+  }
+
+  .menu-toggle {
+    min-height: 40px !important;
+    padding: 8px 12px !important;
+    font-size: 0.86rem !important;
+  }
+
+  .topbar .navlinks.open {
+    grid-template-columns: 1fr !important;
   }
 
   .native-app-update-banner {
@@ -262,158 +352,18 @@ body.has-fixed-site-header [id] {
   }
 }
 
-/* Site-wide cleaned header: important links only, no duplicated notice label. */
-.topbar {
-  grid-template-columns: auto minmax(180px, 1fr) max-content !important;
-  align-items: center !important;
-  gap: 12px !important;
-}
-
-.topbar .navlinks {
-  min-width: 0;
-}
-
-.topbar .navlinks a {
-  white-space: nowrap;
-}
-
-.site-notice {
-  min-width: 180px;
-}
-
-.site-notice::before {
-  display: none !important;
-  content: none !important;
-}
-
-.site-notice > .site-notice-label {
-  color: #fff !important;
-  background: linear-gradient(135deg, #1d4ed8, #0f9fba) !important;
-  border-radius: 999px !important;
-  box-shadow: 0 10px 22px rgba(29, 78, 216, 0.18) !important;
-}
-
-.site-notice .site-notice-track {
-  animation: siteNoticeScroll 42s linear infinite !important;
-}
-
-@media (max-width: 1100px) {
+@media print {
   .topbar {
-    grid-template-columns: auto auto !important;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
   }
 
-  .site-notice {
-    grid-column: 1 / -1;
-    order: 3;
+  body.has-fixed-site-header {
+    padding-top: 0 !important;
   }
 
-  .navlinks {
-    grid-column: 1 / -1;
-    order: 4;
-    justify-content: flex-start;
-  }
-
-  .menu-toggle {
-    order: 2;
-  }
-}
-
-@media (max-width: 720px) {
-  .site-notice {
-    height: 38px;
-  }
-
-  .site-notice > .site-notice-label {
-    padding: 7px 12px !important;
-  }
-}
-
-/* Mobile header visibility and floating-instruction hotfix. */
-@keyframes siteInstructionScroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.site-notice .site-notice-track {
-  padding-left: 0 !important;
-  animation: siteInstructionScroll 42s linear infinite !important;
-}
-
-@media (max-width: 980px) {
-  .topbar {
-    grid-template-columns: 1fr !important;
-    align-items: stretch !important;
-    gap: 8px !important;
-    padding: 10px !important;
-  }
-
-  .brand {
-    grid-column: 1 / -1 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  .brand strong {
-    max-width: none !important;
-    overflow: visible !important;
-    text-overflow: clip !important;
-  }
-
-  .menu-toggle {
-    display: none !important;
-  }
-
-  .site-notice {
-    grid-column: 1 / -1 !important;
-    order: 2 !important;
-    width: 100% !important;
-    min-width: 0 !important;
-  }
-
-  .topbar .navlinks,
-  .topbar .navlinks.open {
-    grid-column: 1 / -1 !important;
-    order: 3 !important;
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    justify-content: flex-start !important;
-    gap: 7px !important;
-    width: 100% !important;
-    overflow-x: auto !important;
-    padding: 2px 1px 4px !important;
-    scrollbar-width: none;
-  }
-
-  .topbar .navlinks::-webkit-scrollbar {
-    display: none;
-  }
-
-  .topbar .navlinks a {
-    flex: 0 0 auto !important;
-    min-height: 38px !important;
-    padding: 8px 12px !important;
-    font-size: 0.8rem !important;
-    overflow-wrap: normal !important;
-  }
-}
-
-@media (max-width: 620px) {
-  .topbar {
-    padding: 8px !important;
-    border-radius: 0 0 18px 18px !important;
-  }
-
-  .brand span {
-    width: 40px !important;
-    height: 40px !important;
-  }
-
-  .brand strong {
-    font-size: 0.9rem !important;
-  }
-
-  .site-notice .site-notice-track {
-    font-size: 0.78rem !important;
+  html {
+    scroll-padding-top: 0 !important;
   }
 }
