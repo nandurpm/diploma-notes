@@ -42,6 +42,56 @@
     return LOCAL_QUERY_PATTERN.test(text);
   }
 
+  function formatNumber(value) {
+    if (!Number.isFinite(value)) return "";
+    const rounded = Math.round((value + Number.EPSILON) * 1e12) / 1e12;
+    return new Intl.NumberFormat("en-IN", { maximumFractionDigits: 12 }).format(rounded);
+  }
+
+  function extractMathExpression(query) {
+    let text = clean(query).toLowerCase();
+    if (!text || text.length > 120) return "";
+
+    const percentOf = text.match(/(-?\d+(?:\.\d+)?)\s*%\s*of\s*(-?\d+(?:\.\d+)?)/i);
+    if (percentOf) return `(${percentOf[1]}/100)*${percentOf[2]}`;
+
+    text = text
+      .replace(/[?=]/g, " ")
+      .replace(/,/g, "")
+      .replace(/\b(what is|whats|calculate|calc|solve|answer|find|evaluate|step by step|maths|math)\b/g, " ")
+      .replace(/\bplus\b/g, "+")
+      .replace(/\bminus\b/g, "-")
+      .replace(/\binto\b|\bmultiplied by\b|\btimes\b/g, "*")
+      .replace(/\bdivided by\b|\bover\b/g, "/")
+      .replace(/×/g, "*")
+      .replace(/÷/g, "/")
+      .replace(/(?<=\d)\s*x\s*(?=\d)/g, "*")
+      .replace(/\s+/g, "")
+      .trim();
+
+    if (!/[+\-*/%]/.test(text) || !/\d/.test(text)) return "";
+    if (!/^[\d+\-*/().%\s]+$/.test(text)) return "";
+    if (/[*\/%]{2,}|[+\-*/%.]$|^[*/%]/.test(text)) return "";
+    return text;
+  }
+
+  function answerOfflineMath(query) {
+    const expression = extractMathExpression(query);
+    if (!expression) return "";
+    try {
+      const result = Function(`"use strict"; return (${expression});`)();
+      const formatted = formatNumber(Number(result));
+      if (!formatted) return "";
+      return `${expression.replace(/\*/g, " × ").replace(/\//g, " ÷ ").replace(/\+/g, " + ").replace(/-/g, " - ").replace(/\s+/g, " ").trim()} = ${formatted}`;
+    } catch (_) {
+      return "";
+    }
+  }
+
+  function offlineGeneralAnswer(query) {
+    return answerOfflineMath(query);
+  }
+
   function selectedText() {
     const selection = window.getSelection();
     const text = clean(selection?.toString());
@@ -180,14 +230,36 @@
         return;
       }
 
-      if (!configuredNow) return;
+      const offlineAnswer = offlineGeneralAnswer(query);
+      if (offlineAnswer) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        input.value = "";
+        lastRemoteAnswer = offlineAnswer;
+        makeMessage(body, "user", query);
+        makeMessage(body, "bot", offlineAnswer);
+        status.textContent = "Answered locally";
+        return;
+      }
+
+      if (!configuredNow) {
+        if (shouldStayLocal(query)) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        input.value = "";
+        makeMessage(body, "user", query);
+        makeMessage(body, "bot", "Online AI is not available now. Local subject and lesson search still works; try a subject code, subject name, department or semester.");
+        status.textContent = "Online AI unavailable";
+        return;
+      }
+
       if (shouldStayLocal(query)) return;
 
       event.preventDefault();
       event.stopImmediatePropagation();
       input.value = "";
 
-      const userMessage = makeMessage(body, "user", query);
+      makeMessage(body, "user", query);
       status.textContent = "Ask POLY AI is thinking…";
       input.disabled = true;
       send.disabled = true;
@@ -214,12 +286,17 @@
           : `Answered by Ask POLY AI${result.model ? ` • ${result.model}` : ""}`;
       } catch (error) {
         console.error("Ask POLY general AI failed.", error);
-        userMessage.remove();
-        runLocalAssistant(form, input, query);
-        makeMessage(body, "bot", error?.status === 429
-          ? "Online AI received too many questions recently. Local subject and lesson search still works."
-          : "Online AI is temporarily unavailable. I switched back to local subject and lesson search for this question.");
-        status.textContent = "Online AI temporarily unavailable";
+        const fallbackAnswer = offlineGeneralAnswer(query);
+        if (fallbackAnswer) {
+          lastRemoteAnswer = fallbackAnswer;
+          makeMessage(body, "bot", fallbackAnswer);
+          status.textContent = "Answered locally";
+        } else {
+          makeMessage(body, "bot", error?.status === 429
+            ? "Online AI received too many questions recently. Local subject and lesson search still works."
+            : "Online AI is temporarily unavailable. General AI questions need the online service; local subject and lesson search still works.");
+          status.textContent = "Online AI temporarily unavailable";
+        }
       } finally {
         input.disabled = false;
         send.disabled = false;
