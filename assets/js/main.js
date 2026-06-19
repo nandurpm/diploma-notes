@@ -201,7 +201,7 @@
 
     warning.dataset.runtimeReady = "true";
     warning.innerHTML = `
-      <span class="service-warning-text">The secure quiz service is temporarily unavailable.</span>
+      <span class="service-warning-text">Quiz service is temporarily down. Guest mode still works. Try again later.</span>
       <button class="btn soft service-retry-button" type="button">Retry Service</button>
     `;
 
@@ -210,7 +210,7 @@
 
     const originalShow = Q.showServiceWarning;
     Q.showServiceWarning = (text) => {
-      if (textNode) textNode.textContent = text || "The secure quiz service is temporarily unavailable.";
+      if (textNode) textNode.textContent = text || "Quiz service is temporarily down. Guest mode still works. Try again later.";
       warning.classList.remove("hidden");
       if (typeof originalShow === "function") originalShow(text);
     };
