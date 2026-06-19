@@ -241,6 +241,27 @@ public class MainActivity extends ComponentActivity {
         webView.setDownloadListener(createDownloadListener());
     }
 
+    private void injectNativeAppChrome(WebView target) {
+        if (target == null) {
+            return;
+        }
+        target.evaluateJavascript(
+                "(function(){try{" +
+                        "var d=document;var root=d.documentElement;root.classList.add('polytechnic-native-app');" +
+                        "var css='html.polytechnic-native-app .topbar,html.polytechnic-native-app .skip-link{display:none!important;}' +" +
+                        "'html.polytechnic-native-app body{padding-top:0!important;margin-top:0!important;}' +" +
+                        "'html.polytechnic-native-app .wrap{padding-top:0!important;}' +" +
+                        "'html.polytechnic-native-app main{margin-top:0!important;}' +" +
+                        "'html.polytechnic-native-app .app-download:not([data-app-button-state=update]){display:none!important;}';" +
+                        "var s=d.getElementById('poly-native-app-header-cleanup');" +
+                        "if(!s){s=d.createElement('style');s.id='poly-native-app-header-cleanup';s.textContent=css;(d.head||d.documentElement).appendChild(s);}" +
+                        "var header=d.querySelector('.topbar');if(header){header.hidden=true;header.setAttribute('aria-hidden','true');}" +
+                        "var skip=d.querySelector('.skip-link');if(skip){skip.hidden=true;}" +
+                        "}catch(e){}})();",
+                null
+        );
+    }
+
     private void hideLaunchOverlay() {
         mainHandler.removeCallbacks(slowLoadRunnable);
         if (launchOverlayDismissed || launchOverlay == null) {
@@ -484,6 +505,7 @@ public class MainActivity extends ComponentActivity {
 
         @Override
         public void onPageCommitVisible(WebView view, String url) {
+            injectNativeAppChrome(view);
             hideLaunchOverlay();
         }
 
@@ -493,6 +515,7 @@ public class MainActivity extends ComponentActivity {
             if (isTrustedUri(parseUri(url))) {
                 markActiveNavigation(url);
             }
+            injectNativeAppChrome(view);
             hideLaunchOverlay();
         }
 
