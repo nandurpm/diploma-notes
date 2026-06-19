@@ -4,9 +4,8 @@
   const COMMON_DEPARTMENT = "First Year / Common";
   const COMMON_VALUE = "__common__";
   const PAGE_SIZE = 30;
-  const INPUT_DELAY = 180;
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
-  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
+  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
   const LOCAL_ASSETS = new Set([
     ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
     ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`)
@@ -19,7 +18,6 @@
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-  const clean = (value) => String(value || "").toLowerCase().replace(/\s+/g, " ").trim();
   const semesterRank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
   const rootPrefix = () => {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -98,7 +96,7 @@
     const notesDownload = notesAvailable ? " download" : "";
 
     return `
-      <article class="subject-card">
+      <article class="subject-card reveal">
         <div class="subject-top"><span>${escapeHtml(subject.revision)}</span><strong>${escapeHtml(subject.code)}</strong></div>
         <h3>${escapeHtml(subject.name)}</h3>
         <p>${escapeHtml(subject.department)} / ${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
@@ -187,10 +185,6 @@
     const loadMore = document.getElementById("subjectLoadMore") || document.createElement("button");
     const params = new URLSearchParams(window.location.search);
     let shown = PAGE_SIZE;
-    let renderTimer = 0;
-    let rafId = 0;
-    let filterCacheKey = "";
-    let filterCache = [];
 
     status.id = "subjectResultStatus";
     status.className = "subject-browser-status";
@@ -209,10 +203,7 @@
       if (mode !== "home" && String(subject.revision) === "2015" && mode !== "lessons") return false;
       if (mode === "lessons") return String(subject.revision) === "2021" && LESSON_CODES.has(String(subject.code));
       return true;
-    }).map((subject) => ({
-      ...subject,
-      _searchText: clean([subject.code, subject.name, subject.department, subject.semester, subject.type, subject.revision].join(" "))
-    }));
+    });
 
     if (revisionFilter) fillSelect(revisionFilter, base.map((item) => item.revision), "All revisions", fixedRevision || params.get("revision") || "all");
     if (departmentFilter && mode === "home") {
@@ -234,13 +225,11 @@
           ? lessonCard
           : fullCard;
 
-    function filtered() {
-      const query = clean(search?.value || "");
+    const filtered = () => {
+      const query = String(search?.value || "").trim().toLowerCase();
       const revision = fixedRevision || revisionFilter?.value || "all";
       const department = fixedDepartment || departmentFilter?.value || (mode === "home" ? COMMON_VALUE : "all");
       const semester = semesterFilter?.value || "all";
-      const cacheKey = [query, revision, department, semester, mode].join("|");
-      if (cacheKey === filterCacheKey) return filterCache;
 
       const matches = sortSubjects(base.filter((subject) => {
         if (revision !== "all" && String(subject.revision) !== revision) return false;
@@ -250,18 +239,19 @@
         } else if (department !== "all" && subject.department !== department && subject.department !== COMMON_DEPARTMENT) {
           return false;
         }
-        return !query || subject._searchText.includes(query);
+        if (!query) return true;
+        return [subject.code, subject.name, subject.department, subject.semester, subject.type, subject.revision]
+          .join(" ")
+          .toLowerCase()
+          .includes(query);
       }));
-
-      filterCacheKey = cacheKey;
-      filterCache = mode === "lessons" ? uniqueByCode(matches) : matches;
-      return filterCache;
-    }
+      return mode === "lessons" ? uniqueByCode(matches) : matches;
+    };
 
     function render(reset = true) {
       if (reset) shown = PAGE_SIZE;
       const visible = filtered();
-      const usePaging = true;
+      const usePaging = ["lessons", "model-question-papers", "syllabus"].includes(mode);
       const slice = usePaging ? visible.slice(0, shown) : visible;
 
       if (!visible.length) {
@@ -271,31 +261,21 @@
         return;
       }
 
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        grid.innerHTML = groupCards(slice, renderer);
-        loadMore.hidden = slice.length >= visible.length;
-        status.textContent = slice.length < visible.length
-          ? `Showing ${slice.length} of ${visible.length} subjects.`
-          : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
-      });
+      grid.innerHTML = groupCards(slice, renderer);
+      loadMore.hidden = !usePaging || slice.length >= visible.length;
+      status.textContent = slice.length < visible.length
+        ? `Showing ${slice.length} of ${visible.length} subjects.`
+        : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
     }
 
-    function scheduleRender(delay = 0) {
-      clearTimeout(renderTimer);
-      renderTimer = window.setTimeout(() => render(true), delay);
-    }
-
-    search?.addEventListener("input", () => scheduleRender(INPUT_DELAY));
-    [revisionFilter, departmentFilter, semesterFilter].forEach((control) => {
-      control?.addEventListener("change", () => scheduleRender(0));
+    [search, revisionFilter, departmentFilter, semesterFilter].forEach((control) => {
+      control?.addEventListener("input", () => render(true));
+      control?.addEventListener("change", () => render(true));
     });
-
     loadMore.addEventListener("click", () => {
       shown += PAGE_SIZE;
       render(false);
     });
-
     render(true);
   }
 
