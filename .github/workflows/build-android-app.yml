@@ -1,4 +1,4 @@
-name: Validate Android App
+name: Build Android App
 
 on:
   workflow_dispatch:
@@ -8,19 +8,21 @@ on:
       - "android-app/**"
       - ".well-known/assetlinks.json"
       - ".github/workflows/build-android-app.yml"
-  pull_request:
-    paths:
-      - "android-app/**"
-      - ".well-known/assetlinks.json"
-      - ".github/workflows/build-android-app.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  validate-release:
+  build-and-publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
+    env:
+      APP_VERSION_NAME: "1.0.4"
+      APP_VERSION_CODE: "5"
+      APK_NAME: "Polytechnic-Study-Hub-v1.0.4.apk"
+      SOURCE: "android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java"
+      STRINGS: "android-app/app/src/main/res/values/strings.xml"
+      MANIFEST: "android-app/app/src/main/AndroidManifest.xml"
 
     steps:
       - name: Check out repository
@@ -37,12 +39,42 @@ jobs:
         with:
           gradle-version: "8.9"
 
+      - name: Apply current app menu and version
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          source = Path("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java")
+          text = source.read_text(encoding="utf-8")
+          text = text.replace('bindNavigation(R.id.navLessons, "/lessons.html");', 'bindNavigation(R.id.navLessons, "/daily-quiz.html");')
+          text = text.replace('bindNavigation(R.id.navStudyMaterials, "/study-materials.html");', 'bindNavigation(R.id.navStudyMaterials, "/model-question-papers.html");')
+          text = text.replace('bindNavigation(R.id.navSyllabus, "/syllabus.html");', 'bindNavigation(R.id.navSyllabus, "/materials-2015.html");')
+          text = text.replace('bindNavigation(R.id.navPreviousQuestions, "/previous-question-papers.html");', 'bindNavigation(R.id.navPreviousQuestions, "/about.html");')
+          text = text.replace('bindNavigation(R.id.navModelQuestions, "/model-question-papers.html");', 'bindNavigation(R.id.navModelQuestions, "/contact.html");')
+          text = text.replace('bindNavigation(R.id.navMaterials2015, "/materials-2015.html");\n        bindNavigation(R.id.navAbout, "/about.html");\n        bindNavigation(R.id.navContact, "/contact.html");\n', '')
+          source.write_text(text, encoding="utf-8")
+
+          strings = Path("android-app/app/src/main/res/values/strings.xml")
+          text = strings.read_text(encoding="utf-8")
+          replacements = {
+              '<string name="app_subtitle">Kerala Polytechnic Learning</string>': '<string name="app_subtitle">Revision 2021 • Mock Exams • Question Papers</string>',
+              '<string name="loading_subtitle">Lessons, quizzes, notes, syllabus and question papers</string>': '<string name="loading_subtitle">Revision 2021, Mock Exams, notes and question papers</string>',
+              '<string name="nav_lessons">Lessons</string>': '<string name="nav_lessons">Mock Exams</string>',
+              '<string name="nav_study_materials">Study Materials</string>': '<string name="nav_study_materials">Question Papers</string>',
+              '<string name="nav_syllabus">Syllabus</string>': '<string name="nav_syllabus">2015 Materials</string>',
+              '<string name="nav_previous_questions">Previous Question Papers</string>': '<string name="nav_previous_questions">About</string>',
+              '<string name="nav_model_questions">Model Question Papers</string>': '<string name="nav_model_questions">Help</string>',
+              '<string name="drawer_study">STUDY</string>': '<string name="drawer_study">IMPORTANT</string>',
+              '<string name="drawer_resources">RESOURCES</string>': '<string name="drawer_resources">MORE</string>'
+          }
+          for old, new in replacements.items():
+              text = text.replace(old, new)
+          strings.write_text(text, encoding="utf-8")
+          PY
+
       - name: Verify secure Android APIs and manifest
         run: |
           set -euo pipefail
-          SOURCE="android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java"
-          MANIFEST="android-app/app/src/main/AndroidManifest.xml"
-
           ! grep -q "void onBackPressed" "$SOURCE"
           ! grep -q "startActivityForResult" "$SOURCE"
           ! grep -q "setDatabaseEnabled" "$SOURCE"
@@ -63,7 +95,7 @@ jobs:
           ! grep -q "ACCESS_NETWORK_STATE" "$MANIFEST"
           python -m json.tool .well-known/assetlinks.json > /dev/null
 
-      - name: Build clean release validation APK
+      - name: Build clean release APK
         working-directory: android-app
         run: |
           set -o pipefail
@@ -71,32 +103,73 @@ jobs:
           gradle --no-daemon :app:dependencies --configuration releaseRuntimeClasspath > release-output/dependencies.txt
           gradle --no-daemon --refresh-dependencies :app:clean :app:assembleRelease --stacktrace 2>&1 | tee release-output/gradle-build.log
 
-      - name: Verify release manifest and metadata
+      - name: Sign, verify and publish APK files
+        env:
+          ANDROID_SIGNING_KEYSTORE_BASE64: ${{ secrets.ANDROID_SIGNING_KEYSTORE_BASE64 }}
+          ANDROID_SIGNING_STORE_PASSWORD: ${{ secrets.ANDROID_SIGNING_STORE_PASSWORD }}
+          ANDROID_SIGNING_KEY_ALIAS: ${{ secrets.ANDROID_SIGNING_KEY_ALIAS }}
+          ANDROID_SIGNING_KEY_PASSWORD: ${{ secrets.ANDROID_SIGNING_KEY_PASSWORD }}
         run: |
           set -euo pipefail
           APK="android-app/app/build/outputs/apk/release/app-release-unsigned.apk"
           OUTPUT="android-app/release-output"
-          REPORT="$OUTPUT/androidx-version-metadata.txt"
+          UNSIGNED_COPY="$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk"
+          SIGNED_APK="downloads/$APK_NAME"
+          mkdir -p "$OUTPUT" downloads
           test -f "$APK"
+          cp "$APK" "$UNSIGNED_COPY"
 
-          cp "$APK" "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk"
-          sha256sum "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.apk" > "$OUTPUT/Polytechnic-Study-Hub-release-unsigned.sha256.txt"
+          BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
+          if [ ! -d "$BUILD_TOOLS" ]; then
+            BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -maxdepth 1 -type d | sort -V | tail -n 1)"
+          fi
+          test -x "$BUILD_TOOLS/apksigner"
+          test -x "$BUILD_TOOLS/zipalign"
 
+          KEYSTORE="$OUTPUT/release.keystore"
+          if [ -n "${ANDROID_SIGNING_KEYSTORE_BASE64:-}" ]; then
+            echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | base64 -d > "$KEYSTORE"
+            STORE_PASS="${ANDROID_SIGNING_STORE_PASSWORD}"
+            KEY_ALIAS="${ANDROID_SIGNING_KEY_ALIAS}"
+            KEY_PASS="${ANDROID_SIGNING_KEY_PASSWORD:-$ANDROID_SIGNING_STORE_PASSWORD}"
+          else
+            KEYSTORE="$OUTPUT/generated-poly-release.keystore"
+            STORE_PASS="android"
+            KEY_ALIAS="polyrelease"
+            KEY_PASS="android"
+            keytool -genkeypair -v \
+              -keystore "$KEYSTORE" \
+              -storepass "$STORE_PASS" -keypass "$KEY_PASS" \
+              -alias "$KEY_ALIAS" -keyalg RSA -keysize 2048 -validity 10000 \
+              -dname "CN=Polytechnic Study Hub,O=POLY PMNA,C=IN"
+          fi
+
+          "$BUILD_TOOLS/zipalign" -f -p 4 "$UNSIGNED_COPY" "$OUTPUT/app-aligned.apk"
+          "$BUILD_TOOLS/apksigner" sign \
+            --ks "$KEYSTORE" \
+            --ks-pass "pass:$STORE_PASS" \
+            --key-pass "pass:$KEY_PASS" \
+            --out "$SIGNED_APK" \
+            "$OUTPUT/app-aligned.apk"
+          "$BUILD_TOOLS/apksigner" verify --verbose "$SIGNED_APK"
+          sha256sum "$SIGNED_APK" > "$OUTPUT/$APK_NAME.sha256.txt"
+
+      - name: Verify release metadata
+        run: |
+          set -euo pipefail
+          APK="downloads/$APK_NAME"
+          OUTPUT="android-app/release-output"
+          REPORT="$OUTPUT/androidx-version-metadata.txt"
           APKANALYZER="$(command -v apkanalyzer || true)"
           if [ -z "$APKANALYZER" ]; then
             APKANALYZER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name apkanalyzer | head -n 1)"
           fi
           test -n "$APKANALYZER"
-          test "$("$APKANALYZER" manifest debuggable "$APK" | tr -d '\r\n')" = "false"
-
+          test "$($APKANALYZER manifest debuggable "$APK" | tr -d '\r\n')" = "false"
           python - "$APK" "$REPORT" <<'PY'
-          import re
-          import sys
-          import zipfile
-
+          import re, sys, zipfile
           apk, report = sys.argv[1:3]
-          entries = []
-          malformed = []
+          entries, malformed = [], []
           with zipfile.ZipFile(apk) as archive:
               for name in archive.namelist():
                   if re.fullmatch(r"META-INF/androidx\..+\.version", name):
@@ -110,11 +183,54 @@ jobs:
               raise SystemExit("Malformed AndroidX version metadata:\n" + "\n".join(malformed))
           PY
 
+      - name: Update app-update.json
+        run: |
+          python - <<'PY'
+          import hashlib, json, os
+          apk = f"downloads/{os.environ['APK_NAME']}"
+          digest = hashlib.sha256(open(apk, "rb").read()).hexdigest()
+          data = {
+            "schemaVersion": 1,
+            "versionCode": int(os.environ["APP_VERSION_CODE"]),
+            "versionName": os.environ["APP_VERSION_NAME"],
+            "apkUrl": f"/downloads/{os.environ['APK_NAME']}",
+            "sha256": digest,
+            "publishedAt": "2026-06-19",
+            "forceUpdate": False,
+            "title": "Polytechnic Study Hub Android app 1.0.4",
+            "message": "Updated Android app with the new menu structure, Mock Exams entry, improved sidebar and refreshed WebView shell.",
+            "releaseNotes": [
+              "Added Mock Exams to the native app sidebar.",
+              "Updated the sidebar to match the current important website menu.",
+              "Improved trusted downloads, loading status and release verification.",
+              "Website pages continue to load live from polypmna.dpdns.org."
+            ]
+          }
+          with open("downloads/app-update.json", "w", encoding="utf-8") as handle:
+              json.dump(data, handle, indent=2)
+              handle.write("\n")
+          PY
+
+      - name: Commit APK and manifest to website
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "downloads/$APK_NAME" downloads/app-update.json
+          if git diff --cached --quiet; then
+            echo "No APK or manifest changes to commit."
+          else
+            git commit -m "Publish Android app v$APP_VERSION_NAME"
+            git push
+          fi
+
       - name: Upload validation bundle
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: polytechnic-study-hub-android-validation
-          path: android-app/release-output/
+          name: polytechnic-study-hub-android-v1.0.4
+          path: |
+            android-app/release-output/
+            downloads/Polytechnic-Study-Hub-v1.0.4.apk
           if-no-files-found: error
-          retention-days: 7
+          retention-days: 14
