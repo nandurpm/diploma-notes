@@ -6,13 +6,15 @@ create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   username text unique not null,
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  updated_at timestamptz not null default now(),
+  role text not null default 'student' check (role in ('student', 'admin'))
 );
 
 create table if not exists public.daily_quiz_results (
   id bigint generated always as identity primary key,
   user_id uuid not null references auth.users(id) on delete cascade,
   quiz_date date not null,
+  subject_code text not null default 'UNKNOWN',
   score integer not null default 0 check (score >= 0),
   best_score integer not null default 0 check (best_score >= 0),
   total_questions integer not null default 10 check (total_questions > 0),
@@ -23,7 +25,8 @@ create table if not exists public.daily_quiz_results (
   submitted_at timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  unique (user_id, quiz_date)
+  constraint daily_quiz_results_subject_code_check check (subject_code = any (array['1001', '1002', '1003', '1004', '2001', '2002', '2003', 'GK', 'UNKNOWN'])),
+  unique (user_id, quiz_date, subject_code)
 );
 
 alter table public.profiles enable row level security;

@@ -278,10 +278,10 @@
                     android:text="@string/nav_revision_2021" />
 
                 <TextView
-                    android:id="@+id/navLessons"
+                    android:id="@+id/navDailyQuiz"
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_book"
-                    android:text="@string/nav_lessons" />
+                    android:text="@string/nav_daily_quiz" />
 
                 <TextView
                     android:id="@+id/navStudyMaterials"
@@ -290,24 +290,6 @@
                     android:text="@string/nav_study_materials" />
 
                 <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_resources" />
-
-                <TextView
-                    android:id="@+id/navSyllabus"
-                    style="@style/DrawerMenuItem"
-                    android:drawableStart="@drawable/ic_document"
-                    android:text="@string/nav_syllabus" />
-
-                <TextView
-                    android:id="@+id/navPreviousQuestions"
-                    style="@style/DrawerMenuItem"
-                    android:drawableStart="@drawable/ic_question"
-                    android:text="@string/nav_previous_questions" />
-
-                <TextView
-                    android:id="@+id/navModelQuestions"
-                    style="@style/DrawerMenuItem"
-                    android:drawableStart="@drawable/ic_question"
-                    android:text="@string/nav_model_questions" />
 
                 <TextView
                     android:id="@+id/navMaterials2015"
