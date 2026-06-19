@@ -140,6 +140,21 @@
       "warnings": []
     },
     {
+      "code": "2032",
+      "pages": 21,
+      "bytes": 341688,
+      "source": "lessons/lessons-2032.html",
+      "sourceCharacters": 24972,
+      "pdfCharacters": 24999,
+      "textCoverage": 1.0011,
+      "panelCount": 10,
+      "visiblePanelCount": 10,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
       "code": "2038",
       "pages": 31,
       "bytes": 654125,
