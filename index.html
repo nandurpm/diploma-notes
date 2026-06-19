@@ -49,7 +49,7 @@
   <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-ai-fix2">
   <link rel="stylesheet" href="/assets/css/home-hero-tight.css?v=20260618-ai-fix2">
 </head>
-<body class="portal-page" data-site-revision="20260619-fast-subject-search">
+<body class="portal-page" data-site-revision="20260620-emergency-fast-home">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Polytechnic Study Hub home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong></a>
@@ -110,7 +110,9 @@
         <label class="sr-only" for="departmentFilter">Choose department</label><select id="departmentFilter"><option value="__common__">Common Subjects</option></select>
         <label class="sr-only" for="semesterFilter">Filter by semester</label><select id="semesterFilter"><option value="all">All semesters</option></select>
       </div>
-      <div class="subject-grid" id="subjectGrid" data-mode="home" data-revision="2021"></div>
+      <p id="subjectResultStatus" class="subject-browser-status" role="status" aria-live="polite"></p>
+      <div class="subject-grid semester-grouped" id="subjectGrid" data-mode="home" data-revision="2021"></div>
+      <button id="subjectLoadMore" class="btn ghost subject-load-more" type="button" hidden>Load More</button>
     </section>
   </main>
 
@@ -118,9 +120,24 @@
   <script src="/assets/js/subjects.js?v=20260618-ai-fix2" defer></script>
   <script src="/assets/js/main.js?v=20260619-mobile-menu-restore" defer></script>
   <script src="/assets/js/daily-important-day.js?v=20260618-ai-fix2" defer></script>
-  <script src="/assets/js/subject-browser.js?v=20260619-fast-search" defer></script>
+  <script>
+  (function(){
+    'use strict';
+    var PAGE_SIZE=30,shown=PAGE_SIZE,timer=0,current=[];
+    var COMMON='First Year / Common',COMMON_VALUE='__common__';
+    function $(id){return document.getElementById(id)}
+    function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]})}
+    function norm(v){return String(v||'').toLowerCase().replace(/\s+/g,' ').trim()}
+    function semRank(v){var m=String(v||'').match(/\d+/);return m?Number(m[0]):999}
+    function fill(select,values,firstText,firstValue){if(!select)return;var seen={},arr=[];values.forEach(function(v){if(v&&!seen[v]){seen[v]=1;arr.push(v)}});arr.sort(function(a,b){return semRank(a)-semRank(b)||String(a).localeCompare(String(b))});select.innerHTML='<option value="'+firstValue+'">'+firstText+'</option>'+arr.map(function(v){return '<option value="'+esc(v)+'">'+esc(v)+'</option>'}).join('')}
+    function card(s){var code=esc(s.code),name=esc(s.name),dept=esc(s.department),sem=esc(s.semester),type=esc(s.type);return '<article class="subject-card simple-subject-card"><div class="subject-top"><span>'+esc(s.revision)+'</span><strong>'+code+'</strong></div><h3>'+name+'</h3><p>'+dept+' / '+sem+' / '+type+'</p><div class="action-row"><a class="action syllabus" target="_blank" rel="noopener noreferrer" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course='+encodeURIComponent(s.code)+'">Open Syllabus</a><a class="action qp" target="_blank" rel="noopener noreferrer" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course='+encodeURIComponent(s.code)+'">Sample QP</a></div></article>'}
+    function group(list){var groups={};list.forEach(function(s){var sem=s.semester||'Other subjects';(groups[sem]=groups[sem]||[]).push(s)});return Object.keys(groups).sort(function(a,b){return semRank(a)-semRank(b)}).map(function(sem,i){var items=groups[sem];return '<section class="semester-subject-section" style="grid-column:1/-1;display:block;width:100%;margin:0 0 24px"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3> '+esc(sem)+'</h3><span>'+items.length+' '+(items.length===1?'subject':'subjects')+'</span></div><div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;width:100%">'+items.map(card).join('')+'</div></section>'}).join('')}
+    function apply(reset){if(reset)shown=PAGE_SIZE;var grid=$('subjectGrid'),status=$('subjectResultStatus'),more=$('subjectLoadMore'),q=norm($('subjectSearch')&&$('subjectSearch').value),dep=($('departmentFilter')&&$('departmentFilter').value)||COMMON_VALUE,sem=($('semesterFilter')&&$('semesterFilter').value)||'all';if(!grid)return;var matches=current.filter(function(s){if(sem!=='all'&&s.semester!==sem)return false;if(dep===COMMON_VALUE){if(!q&&s.department!==COMMON)return false}else if(dep!=='all'&&s.department!==dep&&s.department!==COMMON)return false;return !q||s._text.indexOf(q)>-1});matches.sort(function(a,b){return semRank(a.semester)-semRank(b.semester)||String(a.department).localeCompare(String(b.department))||String(a.code).localeCompare(String(b.code),undefined,{numeric:true})});var slice=matches.slice(0,shown);requestAnimationFrame(function(){grid.innerHTML=slice.length?group(slice):'<p class="empty">No subjects match the selected filters.</p>';if(status)status.textContent=slice.length<matches.length?'Showing '+slice.length+' of '+matches.length+' subjects.':matches.length+' '+(matches.length===1?'subject':'subjects')+' shown.';if(more)more.hidden=slice.length>=matches.length})}
+    function init(){if(!Array.isArray(window.SUBJECTS))return;current=window.SUBJECTS.filter(function(s){return String(s.revision)==='2021'}).map(function(s){var o={};for(var k in s)o[k]=s[k];o._text=norm([s.code,s.name,s.department,s.semester,s.type,s.revision].join(' '));return o});fill($('departmentFilter'),current.map(function(s){return s.department}).filter(function(d){return d!==COMMON}),'Common Subjects',COMMON_VALUE);fill($('semesterFilter'),current.map(function(s){return s.semester}),'All semesters','all');var search=$('subjectSearch');if(search)search.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){apply(true)},220)});['departmentFilter','semesterFilter'].forEach(function(id){var el=$(id);if(el)el.addEventListener('change',function(){apply(true)})});var more=$('subjectLoadMore');if(more)more.addEventListener('click',function(){shown+=PAGE_SIZE;apply(false)});apply(true)}
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+  })();
+  </script>
   <script src="/assets/js/site-hardening.js?v=20260618-ai-fix2" defer></script>
-  <script src="/assets/js/site-assistant-loader.js?v=f004dc0bdd9d" defer></script>
   <script src="/assets/js/fixed-site-header.js?v=app-1-0-4-update-button-1" defer></script>
   <script src="/assets/js/app-download-controller.js?v=20260618-ai-fix2" defer></script>
 </body>
