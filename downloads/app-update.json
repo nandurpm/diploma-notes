@@ -1,16 +1,12 @@
 {
   "schemaVersion": 1,
-  "versionCode": 4,
-  "versionName": "1.0.3",
-  "apkUrl": "/downloads/Polytechnic-Study-Hub-v1.0.3.apk",
-  "sha256": "8229523c702766901925da73cb9bc7224c94f99efcd4d542373cae1be98b40a5",
+  "versionCode": 5,
+  "versionName": "1.0.4",
+  "apkUrl": "/downloads/Polytechnic-Study-Hub-v1.0.4.apk",
+  "sha256": "f2e793129354dd7eaadba798519343f9bc073fb4a8a55b7d5d432f254719a57b",
   "publishedAt": "2026-06-19",
   "forceUpdate": false,
-  "title": "Polytechnic Study Hub latest Android app",
-  "message": "Latest available Android app. Website updates load automatically from polypmna.dpdns.org.",
-  "releaseNotes": [
-    "Latest available Android APK remains version 1.0.3.",
-    "Website menu, header, study pages and floating instruction updates load from the live website.",
-    "Use this download button for the current public app package."
-  ]
+  "title": "Polytechnic Study Hub 1.0.4 is available",
+  "message": "A newer version of Polytechnic Study Hub is ready to install.",
+  "releaseNotes": []
 }
