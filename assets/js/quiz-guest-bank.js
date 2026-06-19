@@ -1,8 +1,8 @@
 (() => {
   "use strict";
 
-  const files = ["1001", "1002", "1003", "1004", "gk"].map(
-    (code) => `/assets/js/quiz-bank-${code}.js?v=20260618-v3`
+  const files = ["1001", "1002", "1003", "1004", "2001", "2002", "2003", "gk"].map(
+    (code) => `/assets/js/quiz-bank-${code}.js?v=20260619-pdfbank`
   );
 
   function hash(text) {
@@ -49,6 +49,20 @@
     Promise.resolve()
   ).then(() => {
     const sources = window.QuizGuestSubjects || {};
+    const subjectMeta = Object.fromEntries(
+      Object.entries(sources).map(([code, subject]) => [code, {
+        code,
+        title: subject.title,
+        subtitle: subject.subtitle,
+        icon: subject.icon,
+        description: subject.description,
+        color: subject.color,
+      }])
+    );
+
+    if (window.PolyQuiz?.subjects) {
+      Object.assign(window.PolyQuiz.subjects, subjectMeta);
+    }
 
     function selectedQuestions(subjectCode, dateKey, mode) {
       const subject = sources[subjectCode];
@@ -69,16 +83,7 @@
     }
 
     window.QuizGuestBank = {
-      subjects: Object.fromEntries(
-        Object.entries(sources).map(([code, subject]) => [code, {
-          code,
-          title: subject.title,
-          subtitle: subject.subtitle,
-          icon: subject.icon,
-          description: subject.description,
-          color: subject.color,
-        }])
-      ),
+      subjects: subjectMeta,
       questions: selectedQuestions,
       grade(subjectCode, dateKey, mode, answers) {
         const selected = selectedQuestions(subjectCode, dateKey, mode);
