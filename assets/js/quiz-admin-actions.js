@@ -5,7 +5,7 @@
   if (!Q) return;
 
   const portalUpgrade = document.createElement("script");
-  portalUpgrade.src = "/assets/js/mock-exam-portal-upgrade.js?v=20260618-model75";
+  portalUpgrade.src = "/assets/js/mock-exam-portal-upgrade.js?v=20260619-pdfbank";
   portalUpgrade.async = false;
   document.head.append(portalUpgrade);
 
