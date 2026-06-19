@@ -2,6 +2,8 @@
   "use strict";
   const M = globalThis.PolyMock1004;
   const { $, esc, mark } = M.ui;
+  const DEFAULT_SUPABASE_URL = "https://hwobooljdvynsajtrvnk.supabase.co";
+  const DEFAULT_SUPABASE_PUBLISHABLE_KEY = "sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD";
   const key = (kind) => `poly-mock-exam:${M.paperId}:${M.state.user?.id || "unknown"}:${kind}`;
 
   const chemistryExact = Object.freeze({
@@ -12,13 +14,18 @@
   const keywords = Object.freeze(M.keywords || {});
 
   async function loadSupabaseConfig() {
-    const response = await fetch("/daily-quiz.html", { cache: "no-cache" });
-    if (!response.ok) throw new Error("The Mock Exams account configuration could not be loaded.");
-    const copy = new DOMParser().parseFromString(await response.text(), "text/html");
-    const url = copy.querySelector('meta[name="supabase-url"]')?.content || "";
-    const publishableKey = copy.querySelector('meta[name="supabase-publishable-key"]')?.content || "";
-    if (!url || !publishableKey) throw new Error("The Mock Exams account configuration is incomplete.");
-    return { url, publishableKey };
+    try {
+      const response = await fetch(`/daily-quiz.html?auth_config=${Date.now()}`, { cache: "no-store" });
+      if (response.ok) {
+        const copy = new DOMParser().parseFromString(await response.text(), "text/html");
+        const url = copy.querySelector('meta[name="supabase-url"]')?.content || "";
+        const publishableKey = copy.querySelector('meta[name="supabase-publishable-key"]')?.content || "";
+        if (url && publishableKey) return { url, publishableKey };
+      }
+    } catch (error) {
+      console.warn("Could not read account config from daily-quiz.html; using built-in Mock Exams config.", error);
+    }
+    return { url: DEFAULT_SUPABASE_URL, publishableKey: DEFAULT_SUPABASE_PUBLISHABLE_KEY };
   }
 
   function restoreDraft() {
@@ -94,7 +101,7 @@
       return { id: question.id, awardedMarks, maxMarks: question.marks, confidence: 0.5, feedback: awardedMarks > 0 ? `Provisional rubric check found ${matched.length} relevant point${matched.length === 1 ? "" : "s"}.` : "The response did not contain enough relevant content to award marks.", missingPoints: missing.slice(0, 5) };
     });
     const score = Math.round(results.reduce((sum, item) => sum + item.awardedMarks, 0) * 2) / 2;
-    return { paperId: M.paperId, subjectCode: M.subjectCode, title: M.examTitle || M.displayName || "Official-Pattern Mock Examination", score, totalMarks: M.totalMarks, percentage: Math.round(score / M.totalMarks * 1000) / 10, status: "published", evaluationMode: "automated_rubric_fallback", model: "browser-rubric-v3", evaluatedAt: new Date().toISOString(), results, overallFeedback: "The AI service was temporarily unavailable, so a provisional rubric-based result was published. The paper structure and maximum marks follow the official model-question-paper pattern.", fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180) };
+    return { paperId: M.paperId, subjectCode: M.subjectCode, title: M.examTitle || M.displayName || "Official-Pattern Mock Examination", score, totalMarks: M.totalMarks, percentage: Math.round(score / M.totalMarks * 1000) / 10, status: "published", evaluationMode: "automated_rubric_fallback", model: "browser-rubric-v4", evaluatedAt: new Date().toISOString(), results, overallFeedback: "The AI service was temporarily unavailable, so a provisional rubric-based result was published. The paper structure and maximum marks follow the official model-question-paper pattern.", fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180) };
   }
 
   async function evaluate() {
@@ -127,7 +134,7 @@
 
   async function loadHistory() {
     const box = $("attemptHistory");
-    const { data, error } = await M.state.client.from("sample_paper_attempts").select("id,score,max_score,ai_feedback,created_at,status").eq("subject_code", M.subjectCode).eq("paper_code", M.paperId).order("created_at", { ascending: false }).limit(10);
+    const { data, error } = await M.state.client.from("sample_paper_attempts").select("id,score,max_score,ai_feedback,created_at,status").eq("user_id", M.state.user.id).eq("subject_code", M.subjectCode).eq("paper_code", M.paperId).order("created_at", { ascending: false }).limit(10);
     if (error || !data?.length) {
       box.innerHTML = `<div class="empty-state">${error ? "Online attempt history is temporarily unavailable." : "No saved mock-exam attempts yet."}</div>`;
       return;
