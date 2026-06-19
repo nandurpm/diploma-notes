@@ -1,0 +1,48 @@
+name: Build POLY PMNA APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - poly-pmna-apk-build
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout builder branch
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+
+      - name: Decode Android source
+        run: |
+          mkdir -p build-src
+          base64 -d poly_pmna_android_source.b64 > poly_pmna_android_source.zip
+          unzip -q poly_pmna_android_source.zip -d build-src
+
+      - name: Build debug APK
+        run: |
+          cd build-src/poly_pmna_android
+          gradle assembleDebug --no-daemon --stacktrace
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: POLY-PMNA-v1.0.4-debug-apk
+          path: build-src/poly_pmna_android/app/build/outputs/apk/debug/*.apk
