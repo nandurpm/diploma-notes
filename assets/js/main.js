@@ -21,6 +21,12 @@
         html body .topbar {
           display: grid !important;
           grid-template-columns: minmax(0, 1fr) auto !important;
+          grid-template-areas:
+            "brand menu"
+            "notice notice"
+            "nav nav" !important;
+          grid-auto-flow: row !important;
+          grid-auto-rows: auto !important;
           align-items: center !important;
           width: 100vw !important;
           max-width: 100vw !important;
@@ -31,13 +37,16 @@
           border-radius: 0 0 18px 18px !important;
         }
         html body .topbar .brand {
+          grid-area: brand !important;
           grid-column: 1 !important;
           grid-row: 1 !important;
           display: flex !important;
           align-items: center !important;
           gap: 8px !important;
           width: 100% !important;
+          max-width: 100% !important;
           min-width: 0 !important;
+          overflow: hidden !important;
         }
         html body .topbar .brand .brand-symbol,
         html body .topbar .brand > span:first-child {
@@ -46,36 +55,59 @@
           height: 42px !important;
           min-width: 42px !important;
         }
-        html body .topbar .brand strong {
+        html body .topbar .brand .brand-copy,
+        html body .topbar .brand > .brand-symbol + span {
+          display: grid !important;
+          min-width: 0 !important;
+          max-width: 100% !important;
+          overflow: hidden !important;
+        }
+        html body .topbar .brand strong,
+        html body .topbar .brand small {
+          display: block !important;
           max-width: calc(100vw - 156px) !important;
           overflow: hidden !important;
           text-overflow: ellipsis !important;
           white-space: nowrap !important;
+        }
+        html body .topbar .brand strong {
           font-size: clamp(0.92rem, 4.2vw, 1.18rem) !important;
           line-height: 1.05 !important;
         }
+        html body .topbar .brand small {
+          font-size: 0.78rem !important;
+          line-height: 1.15 !important;
+        }
         html body .topbar .menu-toggle {
+          grid-area: menu !important;
           grid-column: 2 !important;
           grid-row: 1 !important;
+          justify-self: end !important;
+          align-self: center !important;
           display: inline-flex !important;
           align-items: center !important;
           justify-content: center !important;
+          flex: 0 0 auto !important;
           min-width: 76px !important;
           min-height: 44px !important;
           padding: 9px 15px !important;
+          margin: 0 !important;
           border-radius: 999px !important;
           font-size: 1rem !important;
           line-height: 1 !important;
           white-space: nowrap !important;
         }
         html body .topbar .site-notice {
+          grid-area: notice !important;
           grid-column: 1 / -1 !important;
           grid-row: 2 !important;
           width: 100% !important;
           max-width: calc(100vw - 16px) !important;
+          min-width: 0 !important;
           height: 38px !important;
           display: flex !important;
           align-items: center !important;
+          justify-self: stretch !important;
           overflow: hidden !important;
         }
         html body .topbar .site-notice > .site-notice-label {
@@ -96,6 +128,7 @@
         }
         html body .topbar .navlinks,
         html body .topbar .navlinks:not(.open) {
+          grid-area: nav !important;
           grid-column: 1 / -1 !important;
           grid-row: 3 !important;
           display: none !important;
@@ -107,6 +140,7 @@
           overflow: hidden !important;
         }
         html body .topbar .navlinks.open {
+          grid-area: nav !important;
           grid-column: 1 / -1 !important;
           grid-row: 3 !important;
           display: grid !important;
