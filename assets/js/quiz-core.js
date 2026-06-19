@@ -14,9 +14,12 @@
 
   Q.subjects = {
     "1001": { code: "1001", title: "English Quiz", subtitle: "Communication Skills in English · Course Code 1001", icon: "EN", description: "Reading, grammar, vocabulary, workplace communication and writing.", color: "#7c3aed" },
-    "1002": { code: "1002", title: "Maths Quiz", subtitle: "Mathematics I · Course Code 1002", icon: "∑", description: "Complex numbers, coordinate geometry, trigonometry, limits and differentiation.", color: "#2563eb" },
-    "1003": { code: "1003", title: "Physics Quiz", subtitle: "Applied Physics-I · Course Code 1003", icon: "PH", description: "Measurements, vectors, motion, rotation, energy, heat, elasticity and fluids.", color: "#0891b2" },
-    "1004": { code: "1004", title: "Chemistry Quiz", subtitle: "Applied Chemistry · Course Code 1004", icon: "CH", description: "Atomic structure, bonding, water, polymers, electrochemistry and corrosion.", color: "#059669" },
+    "1002": { code: "1002", title: "Maths Quiz", subtitle: "Mathematics I · Course Code 1002", icon: "Σ", description: "Complex numbers, straight lines, trigonometry, limits and differentiation.", color: "#2563eb" },
+    "1003": { code: "1003", title: "Physics Quiz", subtitle: "Applied Physics-I · Course Code 1003", icon: "Φ", description: "Measurements, vectors, momentum, circular motion, rotation, energy, heat, elasticity and fluids.", color: "#0891b2" },
+    "1004": { code: "1004", title: "Chemistry Quiz", subtitle: "Applied Chemistry · Course Code 1004", icon: "CH", description: "Atomic structure, bonding, solutions, water, materials, electrochemistry and corrosion.", color: "#059669" },
+    "2001": { code: "2001", title: "Environmental Science Quiz", subtitle: "Environmental Science · Course Code 2001", icon: "EV", description: "Ecosystems, pollution, renewable energy, solid waste, laws and environmental management.", color: "#15803d" },
+    "2002": { code: "2002", title: "Mathematics II Quiz", subtitle: "Mathematics II · Course Code 2002", icon: "M2", description: "Determinants, matrices, vectors, integral calculus, applications and differential equations.", color: "#4f46e5" },
+    "2003": { code: "2003", title: "Applied Physics II Quiz", subtitle: "Applied Physics-II · Course Code 2003", icon: "P2", description: "Wave motion, optics, electricity, semiconductors, photoelectric effect, LASER and nanoscience.", color: "#0f766e" },
     "GK": { code: "GK", title: "General Knowledge Quiz", subtitle: "General Knowledge · Daily Practice", icon: "GK", description: "India, Kerala, science, technology, safety and current fundamentals.", color: "#ea580c" },
   };
 
@@ -218,7 +221,7 @@
     if (Q.state.guestBankPromise) return Q.state.guestBankPromise;
     Q.state.guestBankPromise = new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = "/assets/js/quiz-guest-bank.js?v=20260618-v4";
+      script.src = "/assets/js/quiz-guest-bank.js?v=20260619-pdfbank";
       script.onload = () => Promise.resolve(window.QuizGuestBankReady)
         .then(() => resolve(window.QuizGuestBank)).catch(reject);
       script.onerror = () => reject(new Error("Guest question bank could not be loaded."));
@@ -256,37 +259,6 @@
     } catch (error) {
       console.error("Dashboard load failed while authentication remained valid.", error);
       Q.renderServiceFailure(error);
-    }
-  };
-
-  Q.retryService = async () => {
-    if (Q.state.mode !== "authenticated" || !Q.state.user) {
-      Q.showAuth("Your session has ended. Login again.", "error");
-      return;
-    }
-    Q.setBusy(true);
-    Q.hideServiceWarning();
-    Q.elements.welcomeTitle.textContent = "Reconnecting…";
-    try {
-      await Q.loadAuthenticatedDashboard();
-    } catch (error) {
-      console.error("Secure quiz service retry failed.", error);
-      Q.renderServiceFailure(error);
-    } finally {
-      Q.setBusy(false);
-    }
-  };
-
-  Q.logout = async () => {
-    Q.hideServiceWarning();
-    if (Q.state.mode === "guest") {
-      Q.state.guestResults = Object.create(null);
-      Q.showAuth("Guest session ended.");
-      return;
-    }
-    if (Q.state.mode === "authenticated") {
-      await Q.state.client.auth.signOut().catch(() => {});
-      Q.showAuth("Logged out successfully.");
     }
   };
 })();
