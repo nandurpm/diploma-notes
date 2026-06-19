@@ -48,11 +48,11 @@
     const filename = apkUrl.pathname.split("/").pop() || `Polytechnic-Study-Hub-v${update.versionName}.apk`;
 
     button.dataset.appButtonState = "download";
-    button.textContent = `📱 Download Updated App ${update.versionName}`;
+    button.textContent = "📱 Download Our App";
     button.href = apkUrl.href;
     button.download = filename;
     button.removeAttribute("aria-disabled");
-    button.setAttribute("aria-label", `Download the latest available Polytechnic Study Hub Android app version ${update.versionName}`);
+    button.setAttribute("aria-label", `Download Polytechnic Study Hub Android app version ${update.versionName}`);
     button.hidden = false;
     button.removeAttribute("aria-hidden");
   };
