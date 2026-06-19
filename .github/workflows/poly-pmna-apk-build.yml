@@ -1,0 +1,96 @@
+name: Build POLY PMNA Futuristic APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ poly-pmna-apk-build ]
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.10.2'
+      - name: Create futuristic Android project
+        run: |
+          mkdir -p poly-pmna-app/app/src/main/java/org/polypmna/studyhub
+          mkdir -p poly-pmna-app/app/src/main/res/drawable poly-pmna-app/app/src/main/res/mipmap-hdpi poly-pmna-app/app/src/main/res/values
+          cat > poly-pmna-app/settings.gradle <<'EOF'
+          pluginManagement { repositories { google(); mavenCentral(); gradlePluginPortal() } }
+          dependencyResolutionManagement { repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS); repositories { google(); mavenCentral() } }
+          rootProject.name='POLY PMNA Future'
+          include ':app'
+          EOF
+          cat > poly-pmna-app/build.gradle <<'EOF'
+          plugins { id 'com.android.application' version '8.7.3' apply false }
+          EOF
+          cat > poly-pmna-app/app/build.gradle <<'EOF'
+          plugins { id 'com.android.application' }
+          android { namespace 'org.polypmna.studyhub'; compileSdk 35
+            defaultConfig { applicationId 'org.polypmna.studyhub'; minSdk 26; targetSdk 35; versionCode 105; versionName '1.0.5-futuristic' }
+          }
+          EOF
+          cat > poly-pmna-app/app/src/main/res/values/strings.xml <<'EOF'
+          <resources><string name="app_name">POLY PMNA</string></resources>
+          EOF
+          cat > poly-pmna-app/app/src/main/res/values/styles.xml <<'EOF'
+          <resources><style name="AppTheme" parent="android:style/Theme.Material.NoActionBar"><item name="android:fontFamily">sans</item><item name="android:windowLightStatusBar">false</item><item name="android:navigationBarColor">#050816</item><item name="android:statusBarColor">#050816</item></style></resources>
+          EOF
+          cat > poly-pmna-app/app/src/main/res/drawable/ic_launcher.xml <<'EOF'
+          <vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108"><path android:fillColor="#050816" android:pathData="M0,0h108v108h-108z"/><path android:fillColor="#2563EB" android:pathData="M16,16h76a16,16 0,0 1,16 16v44a16,16 0,0 1,-16 16h-76z"/><path android:fillColor="#8B5CF6" android:pathData="M27,25h54a10,10 0,0 1,10 10v38a10,10 0,0 1,-10 10h-54z"/><path android:fillColor="#FFFFFF" android:pathData="M33,35h42v8h-42zM33,51h42v8h-42zM33,67h28v8h-28z"/></vector>
+          EOF
+          cat > poly-pmna-app/app/src/main/AndroidManifest.xml <<'EOF'
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+            <uses-permission android:name="android.permission.INTERNET"/>
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+            <application android:theme="@style/AppTheme" android:label="POLY PMNA" android:icon="@drawable/ic_launcher" android:allowBackup="true" android:usesCleartextTraffic="false">
+              <activity android:name=".MainActivity" android:screenOrientation="portrait" android:exported="true"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
+            </application>
+          </manifest>
+          EOF
+          cat > poly-pmna-app/app/src/main/java/org/polypmna/studyhub/MainActivity.java <<'EOF'
+          package org.polypmna.studyhub;
+          import android.app.*;import android.os.*;import android.content.*;import android.net.*;import android.graphics.*;import android.graphics.drawable.*;import android.view.*;import android.view.animation.*;import android.webkit.*;import android.widget.*;import java.util.*;
+          public class MainActivity extends Activity{String BASE="https://polypmna.dpdns.org/";LinearLayout root,body,nav;WebView web;ProgressBar progress;SharedPreferences sp;ArrayList<String> recent=new ArrayList<>(),marks=new ArrayList<>();int bg=Color.rgb(5,8,22),panel=Color.rgb(13,20,43),blue=Color.rgb(37,99,235),violet=Color.rgb(139,92,246),cyan=Color.rgb(34,211,238),text=Color.WHITE,muted=Color.rgb(180,190,220);String active="Home";public void onCreate(Bundle b){super.onCreate(b);getWindow().setStatusBarColor(bg);getWindow().setNavigationBarColor(bg);sp=getSharedPreferences("polyfuture",0);loadLists();splash();}
+          TextView tv(String s,int size,int color,int bold){TextView v=new TextView(this);v.setText(s);v.setTextSize(size);v.setTextColor(color);v.setPadding(dp(14),dp(8),dp(14),dp(8));if(bold==1)v.setTypeface(Typeface.DEFAULT_BOLD);return v;}int dp(int v){return (int)(v*getResources().getDisplayMetrics().density+.5f);}GradientDrawable grad(int a,int b,float r){GradientDrawable g=new GradientDrawable(GradientDrawable.Orientation.TL_BR,new int[]{a,b});g.setCornerRadius(dp((int)r));return g;}GradientDrawable box(int c,float r,int stroke){GradientDrawable g=new GradientDrawable();g.setColor(c);g.setCornerRadius(dp((int)r));if(stroke>0)g.setStroke(dp(1),Color.argb(130,80,220,255));return g;}
+          void splash(){FrameLayout f=new FrameLayout(this);f.setBackground(grad(Color.rgb(2,6,23),Color.rgb(30,27,75),0));LinearLayout c=new LinearLayout(this);c.setOrientation(LinearLayout.VERTICAL);c.setGravity(17);TextView logo=tv("✦",70,cyan,1);logo.setGravity(17);logo.setBackground(grad(blue,violet,34));TextView title=tv("POLY PMNA",36,Color.WHITE,1);title.setGravity(17);TextView sub=tv("Kerala Polytechnic Study Hub",15,muted,0);sub.setGravity(17);ProgressBar p=new ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal);p.setIndeterminate(true);c.addView(logo,new LinearLayout.LayoutParams(dp(96),dp(96)));c.addView(title);c.addView(sub);c.addView(p,new LinearLayout.LayoutParams(dp(190),dp(8)));f.addView(c,new FrameLayout.LayoutParams(-1,-1));setContentView(f);logo.animate().rotation(360).scaleX(1.08f).scaleY(1.08f).setDuration(900).start();new Handler().postDelayed(()->shell(),1050);}
+          void shell(){root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);body=new LinearLayout(this);body.setOrientation(LinearLayout.VERTICAL);body.setBackgroundColor(bg);nav=new LinearLayout(this);nav.setGravity(17);nav.setPadding(dp(8),dp(6),dp(8),dp(8));nav.setBackgroundColor(bg);root.addView(body,new LinearLayout.LayoutParams(-1,0,1));root.addView(nav,new LinearLayout.LayoutParams(-1,dp(76)));setContentView(root);drawNav();home();}
+          void drawNav(){nav.removeAllViews();String[][] n={{"⌂","Home"},{"▦","Study"},{"⚡","Quiz"},{"⌕","Search"},{"◉","Profile"}};for(String[] it:n){TextView b=tv(it[0]+"\n"+it[1],11,it[1].equals(active)?Color.WHITE:muted,1);b.setGravity(17);b.setBackground(it[1].equals(active)?grad(blue,violet,22):box(Color.TRANSPARENT,20,0));nav.addView(b,new LinearLayout.LayoutParams(0,-1,1));b.setOnClickListener(v->{active=it[1];drawNav();if(active.equals("Home"))home();if(active.equals("Study"))study();if(active.equals("Quiz"))openWeb("Daily Quiz",BASE+"daily-quiz.html");if(active.equals("Search"))search();if(active.equals("Profile"))profile();});}}
+          void top(String title,String sub){body.removeAllViews();LinearLayout h=new LinearLayout(this);h.setOrientation(LinearLayout.VERTICAL);h.setPadding(dp(18),dp(18),dp(18),dp(16));h.setBackground(grad(Color.rgb(14,38,110),Color.rgb(73,23,135),0));TextView t=tv(title,27,Color.WHITE,1);TextView s=tv(sub,14,Color.rgb(220,230,255),0);h.addView(t);h.addView(s);body.addView(h,new LinearLayout.LayoutParams(-1,-2));}
+          LinearLayout list(){LinearLayout l=new LinearLayout(this);l.setOrientation(LinearLayout.VERTICAL);l.setPadding(dp(16),dp(16),dp(16),dp(24));return l;}ScrollView scroll(LinearLayout l){ScrollView s=new ScrollView(this);s.addView(l);body.addView(s,new LinearLayout.LayoutParams(-1,0,1));return s;}
+          TextView chip(String s){TextView v=tv(s,12,Color.rgb(190,235,255),1);v.setGravity(17);v.setBackground(box(Color.argb(65,34,211,238),18,1));return v;}
+          void hero(LinearLayout l){LinearLayout card=new LinearLayout(this);card.setOrientation(LinearLayout.VERTICAL);card.setPadding(dp(18),dp(18),dp(18),dp(18));card.setBackground(grad(Color.argb(255,12,28,72),Color.argb(255,55,24,115),26));card.setElevation(dp(10));TextView a=tv("🚀 Future Study Control Center",20,Color.WHITE,1);TextView b=tv("Daily quiz, revision cards, notes, syllabus and question papers in one student app.",14,Color.rgb(220,230,255),0);LinearLayout chips=new LinearLayout(this);chips.setGravity(16);chips.addView(chip("Quiz"));chips.addView(chip("Notes"));chips.addView(chip("Syllabus"));card.addView(a);card.addView(b);card.addView(chips);l.addView(card,mp());}
+          LinearLayout.LayoutParams mp(){LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,-2);p.setMargins(0,0,0,dp(14));return p;}
+          TextView card(String icon,String title,String sub){TextView v=tv(icon+"  "+title+"\n"+sub,15,Color.WHITE,1);v.setLineSpacing(dp(2),1);v.setMinHeight(dp(92));v.setGravity(16);v.setBackground(box(Color.argb(220,15,23,49),24,1));v.setElevation(dp(7));return v;}
+          void add(LinearLayout l,String icon,String name,String sub,String url){TextView c=card(icon,name,sub);l.addView(c,mp());c.setOnClickListener(v->openWeb(name,url));c.setOnLongClickListener(v->{bookmark(name+"|"+url);toast("Bookmarked");return true;});}
+          void home(){active="Home";drawNav();top("Hi Nandakumar 👋","Continue your diploma study");ScrollView sv=new ScrollView(this);LinearLayout l=list();EditText q=new EditText(this);q.setHint("Search subject code / title / semester");q.setHintTextColor(Color.rgb(130,150,190));q.setTextColor(Color.WHITE);q.setSingleLine();q.setPadding(dp(20),0,dp(20),0);q.setBackground(box(Color.argb(180,10,16,34),22,1));l.addView(q,new LinearLayout.LayoutParams(-1,dp(58)));q.setOnEditorActionListener((v,a,e)->{openWeb("Search",BASE+"search.html?q="+Uri.encode(q.getText().toString()));return true;});hero(l);add(l,"⚡","Daily Quiz / Mock Exam","Practice with real website quiz system",BASE+"daily-quiz.html");add(l,"📚","Revision 2021 Materials","Department wise subject cards",BASE+"revision-2021.html");add(l,"🔎","Subject Finder","Search by code, title, department or semester",BASE+"search.html");add(l,"📝","Question Papers","Sample papers and exam resources",BASE+"revision-2021.html");add(l,"🛠","Help & Corrections","Report missing notes or wrong links",BASE+"contact.html");section(l,"Recently Opened",recent);section(l,"Bookmarked Subjects",marks);sv.addView(l);body.addView(sv,new LinearLayout.LayoutParams(-1,0,1));}
+          void section(LinearLayout l,String title,ArrayList<String> data){TextView h=tv(title,18,Color.WHITE,1);l.addView(h);if(data.isEmpty())l.addView(tv("No saved items yet",13,muted,0));for(String it:data){String[] p=it.split("\\|",2);add(l,"✦",p[0],"Tap to continue",p.length>1?p[1]:BASE);}}
+          void study(){active="Study";drawNav();top("Study Galaxy","Revision 2021 departments");LinearLayout l=list();String[] ds={"EEE","EL","ME","CE","CT","EC","IT","IE","AI","AIML","AE","BM","CHE","CH","CSE","CFIS","EE","ECE"};for(String d:ds)add(l,"▣",d+" Department","Open semester-wise materials",BASE+"revision-2021.html#"+d.toLowerCase());scroll(l);}
+          void search(){active="Search";drawNav();top("Smart Search","Find subjects faster");LinearLayout l=list();EditText e=new EditText(this);e.setHint("Example: 3041 / S3 / Electronics");e.setHintTextColor(Color.rgb(130,150,190));e.setTextColor(Color.WHITE);e.setSingleLine();e.setBackground(box(Color.argb(190,10,16,34),22,1));e.setPadding(dp(18),0,dp(18),0);Button b=new Button(this);b.setText("Launch Search");l.addView(e,new LinearLayout.LayoutParams(-1,dp(60)));l.addView(b,mp());b.setOnClickListener(v->openWeb("Search",BASE+"search.html?q="+Uri.encode(e.getText().toString())));add(l,"🏷","Department Filter","Open revision browser",BASE+"revision-2021.html");scroll(l);}
+          void profile(){active="Profile";drawNav();top("Profile Hub","Local app data and privacy");LinearLayout l=list();l.addView(tv("🔐 Login is handled securely inside the website pages. This app does not store passwords manually.",14,muted,0));add(l,"🔖","Saved Bookmarks","Long press any card to bookmark",BASE);add(l,"🕘","Recent History","Recently opened pages appear on Home",BASE);add(l,"📜","Privacy Policy","Open website privacy page",BASE+"privacy.html");Button clear=new Button(this);clear.setText("Clear local cache/history");l.addView(clear,mp());clear.setOnClickListener(v->{sp.edit().clear().apply();recent.clear();marks.clear();toast("Cleared");home();});scroll(l);}
+          void openWeb(String title,String url){body.removeAllViews();LinearLayout top=new LinearLayout(this);top.setGravity(16);top.setPadding(dp(6),0,dp(6),0);top.setBackground(grad(Color.rgb(7,18,50),Color.rgb(54,22,98),0));TextView back=tv("‹",38,Color.WHITE,1),tt=tv(title,17,Color.WHITE,1),bm=tv("☆",25,cyan,1),rf=tv("↻",23,Color.WHITE,1);top.addView(back,new LinearLayout.LayoutParams(dp(48),dp(62)));top.addView(tt,new LinearLayout.LayoutParams(0,dp(62),1));top.addView(bm,new LinearLayout.LayoutParams(dp(48),dp(62)));top.addView(rf,new LinearLayout.LayoutParams(dp(48),dp(62)));body.addView(top);progress=new ProgressBar(this,null,android.R.attr.progressBarStyleHorizontal);body.addView(progress,new LinearLayout.LayoutParams(-1,dp(5)));web=new WebView(this);body.addView(web,new LinearLayout.LayoutParams(-1,0,1));back.setOnClickListener(v->{if(web.canGoBack())web.goBack();else home();});rf.setOnClickListener(v->web.reload());bm.setOnClickListener(v->{bookmark(title+"|"+web.getUrl());toast("Bookmarked");});setupWeb(title,url);}
+          void setupWeb(String title,String url){WebSettings s=web.getSettings();s.setJavaScriptEnabled(true);s.setDomStorageEnabled(true);s.setDatabaseEnabled(true);s.setAllowFileAccess(false);s.setLoadWithOverviewMode(true);s.setUseWideViewPort(true);CookieManager.getInstance().setAcceptCookie(true);CookieManager.getInstance().setAcceptThirdPartyCookies(web,true);web.setDownloadListener((u,ua,cd,m,l)->{try{startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(u)));}catch(Exception e){toast("Cannot open this file/link");}});web.setWebChromeClient(new WebChromeClient(){public void onProgressChanged(WebView v,int p){progress.setProgress(p);progress.setVisibility(p>=100?View.GONE:View.VISIBLE);}});web.setWebViewClient(new WebViewClient(){public void onPageFinished(WebView v,String u){remember(title,u);}public void onReceivedError(WebView v,WebResourceRequest r,WebResourceError e){if(r.isForMainFrame())offline(title,url);}public boolean shouldOverrideUrlLoading(WebView v,WebResourceRequest r){String u=r.getUrl().toString();if(u.startsWith(BASE))return false;try{startActivity(new Intent(Intent.ACTION_VIEW,Uri.parse(u)));}catch(Exception ex){toast("Unsupported external link");}return true;}});web.loadUrl(url);} 
+          void offline(String title,String retry){body.removeAllViews();LinearLayout l=list();l.setGravity(17);TextView a=tv("☁",66,cyan,1);a.setGravity(17);l.addView(a);l.addView(tv("Offline Mode",28,Color.WHITE,1));l.addView(tv("Internet is not available. Bookmarks and recent pages stay saved locally.",15,muted,0));Button b=new Button(this);b.setText("Retry Connection");l.addView(b,mp());b.setOnClickListener(v->openWeb(title,retry));section(l,"Bookmarks",marks);body.addView(l,new LinearLayout.LayoutParams(-1,0,1));}
+          void bookmark(String x){if(x==null)return;if(!marks.contains(x)){marks.add(0,x);while(marks.size()>20)marks.remove(marks.size()-1);save("marks",marks);}}void remember(String t,String u){if(u==null)return;String x=t+"|"+u;recent.remove(x);recent.add(0,x);while(recent.size()>10)recent.remove(recent.size()-1);save("recent",recent);}void loadLists(){recent.addAll(sp.getStringSet("recent",new LinkedHashSet<String>()));marks.addAll(sp.getStringSet("marks",new LinkedHashSet<String>()));}void save(String k,ArrayList<String> a){sp.edit().putStringSet(k,new LinkedHashSet<>(a)).apply();}void toast(String s){Toast.makeText(this,s,Toast.LENGTH_SHORT).show();}public void onBackPressed(){if(web!=null&&web.getParent()!=null&&web.canGoBack())web.goBack();else home();}}
+          EOF
+      - name: Build futuristic debug APK
+        run: |
+          cd poly-pmna-app
+          gradle assembleDebug --no-daemon --stacktrace
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: POLY-PMNA-v1.0.5-futuristic-debug-apk
+          path: poly-pmna-app/app/build/outputs/apk/debug/*.apk
