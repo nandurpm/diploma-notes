@@ -1,121 +1,197 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Mock Exams | Polytechnic Study Hub</title>
-  <meta name="description" content="Kerala Polytechnic Revision 2021 daily quizzes, official-pattern mock examinations, results and account dashboard.">
-  <meta name="supabase-url" content="https://hwobooljdvynsajtrvnk.supabase.co">
-  <meta name="supabase-publishable-key" content="sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD">
-  <script>
-    if (/PolytechnicStudyHubAndroid\//i.test(navigator.userAgent)) {
-      document.documentElement.classList.add("polytechnic-native-app");
-    }
-  </script>
-  <style id="quiz-boot-guard">
-    body.quiz-booting { background: #f4f8ff; }
-    body.quiz-booting .quiz-app,
-    body.quiz-booting .footer { visibility: hidden !important; }
-    html.polytechnic-native-app .topbar { display: none !important; }
-  </style>
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/quiz-portal.css?v=20260618-model75">
-  <link rel="stylesheet" href="/assets/css/quiz-portal-fixes.css?v=20260618-model75">
-</head>
-<body class="portal-page quiz-portal-page quiz-booting">
-  <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Polytechnic Study Hub home">
-      <span class="brand-symbol" aria-hidden="true">📚</span>
-      <span class="brand-copy"><strong>Polytechnic Study Hub</strong><small>Mock Exams</small></span>
-    </a>
-    <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
-    <nav class="navlinks" aria-label="Primary navigation">
-      <a href="index.html">Home</a><a href="revision-2021.html">Revision 2021</a><a href="study-materials.html">Study Materials</a><a href="daily-quiz.html" aria-current="page">Mock Exams</a><a href="model-question-papers.html">Question Papers</a><a href="contact.html">Help</a>
-    </nav>
-  </header>
-
-  <main class="quiz-app">
-    <section id="serviceWarning" class="notice error-box hidden" role="alert">The secure quiz service is unavailable. Reload the page and try again.</section>
-
-    <section id="authView" class="auth-view">
-      <div class="auth-card">
-        <div class="auth-brand" aria-hidden="true">Q</div>
-        <p class="eyebrow">Kerala Polytechnic · Revision 2021</p>
-        <h1>Student Mock Exams Portal</h1>
-        <p class="auth-intro">Login once to attend daily quizzes and full mock examinations, save scores and view performance analysis.</p>
-        <div class="auth-tabs" role="tablist" aria-label="Account action">
-          <button id="loginTab" class="auth-tab active" type="button" role="tab" aria-selected="true" disabled>Login</button>
-          <button id="registerTab" class="auth-tab" type="button" role="tab" aria-selected="false" disabled>Register</button>
-        </div>
-        <form id="authForm" novalidate>
-          <div id="usernameField" class="field hidden"><label for="username">Username</label><input id="username" name="username" type="text" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" autocomplete="username" placeholder="3–30 letters, numbers, dot, _ or -"></div>
-          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="student@example.com"></div>
-          <div class="field"><label for="password">Password</label><input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required placeholder="Minimum 6 characters"></div>
-          <div id="confirmField" class="field hidden"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" name="confirmPassword" type="password" minlength="6" autocomplete="new-password" placeholder="Re-enter password"></div>
-          <button id="authSubmit" class="btn primary full" type="submit" disabled>Login</button>
-        </form>
-        <div class="divider"><span>or</span></div>
-        <button id="guestLogin" class="btn guest full" type="button" disabled>Continue as Guest</button>
-        <p class="guest-note">Guest activity is kept only in this open page. It is not saved to Supabase, localStorage, sessionStorage or cookies.</p>
-        <p id="authMessage" class="status-message" aria-live="polite"></p>
-      </div>
-    </section>
-
-    <section id="portalView" class="portal-view hidden">
-      <section class="dashboard-head">
-        <div><p class="eyebrow">Mock Exams Dashboard</p><h1 id="welcomeTitle">Welcome</h1><p id="accountSubtitle">Choose daily practice or a full mock examination.</p></div>
-        <div class="head-actions"><button id="accountButton" class="btn soft" type="button">Account</button><button id="adminButton" class="btn admin hidden" type="button">Admin Control</button><button id="logoutButton" class="btn outline" type="button">Logout</button></div>
-      </section>
-      <section id="guestBanner" class="notice guest-banner hidden"><strong>Guest mode:</strong> results disappear when this page is refreshed or closed.</section>
-
-      <section id="dashboardView" class="view-section">
-        <div id="summaryCards" class="summary-grid" aria-label="Quiz summary"></div>
-        <section class="section-card"><div class="section-heading"><div><p class="eyebrow">Daily practice</p><h2>Choose a quiz</h2></div><p>Each subject gives 10 questions per day and one final retry.</p></div><div id="subjectGrid" class="subject-grid"></div></section>
-        <section class="analytics-layout">
-          <article class="section-card"><div class="section-heading"><div><p class="eyebrow">Analysis</p><h2>Subject performance</h2></div></div><div id="subjectAnalysis" class="analysis-list"></div></article>
-          <article class="section-card"><div class="section-heading"><div><p class="eyebrow">History</p><h2>Recent results</h2></div></div><div id="recentResults" class="table-wrap"></div></article>
-        </section>
-        <section class="section-card future-card mock-exam-launch"><div><p class="eyebrow">Available now</p><h2>Applied Chemistry Official-Pattern Mock Examination</h2><p>Course Code 1004 · English · 75 marks · 3 hours. Part A: 9 × 1, Part B: answer any 8 of 10, and Part C: choose one from each of 6 OR pairs.</p></div><a class="coming-soon" href="/mock-exam-1004.html">Start Exam</a></section>
-      </section>
-
-      <section id="quizView" class="view-section hidden">
-        <div class="view-toolbar"><button class="btn soft back-dashboard" type="button">← Dashboard</button><div><p class="eyebrow" id="quizSubjectCode"></p><h2 id="quizTitle">Quiz</h2></div><span id="quizAttemptBadge" class="attempt-badge"></span></div>
-        <article class="section-card quiz-card"><p id="quizInstruction" class="quiz-instruction">Answer every question before submitting.</p><div id="questionContainer"></div><div class="quiz-actions"><button id="submitQuiz" class="btn primary" type="button" disabled>Submit Answers</button><button id="retryQuiz" class="btn warning hidden" type="button">Start Final Retry &amp; Reshuffle</button><button class="btn soft back-dashboard" type="button">Back to Dashboard</button></div><p id="quizMessage" class="status-message" aria-live="polite"></p></article>
-      </section>
-
-      <section id="accountView" class="view-section hidden">
-        <div class="view-toolbar"><button class="btn soft back-dashboard" type="button">← Dashboard</button><div><p class="eyebrow">Account</p><h2>Account Settings</h2></div></div>
-        <div id="accountGuestOnly" class="section-card hidden"><h3>Guest account</h3><p>Guest mode has no saved account. Exit guest mode to login or register.</p></div>
-        <div id="accountControls" class="account-grid">
-          <form id="usernameForm" class="section-card"><h3>Edit username</h3><div class="field"><label for="newUsername">Username</label><input id="newUsername" minlength="3" maxlength="30" pattern="[A-Za-z0-9_.-]{3,30}" required></div><button class="btn primary" type="submit">Save Username</button><p id="usernameMessage" class="status-message" aria-live="polite"></p></form>
-          <form id="passwordForm" class="section-card"><h3>Change password</h3><div class="field"><label for="newPassword">New password</label><input id="newPassword" type="password" minlength="6" autocomplete="new-password" required></div><div class="field"><label for="newPasswordConfirm">Confirm new password</label><input id="newPasswordConfirm" type="password" minlength="6" autocomplete="new-password" required></div><button class="btn primary" type="submit">Change Password</button><p id="passwordMessage" class="status-message" aria-live="polite"></p></form>
-          <article class="section-card danger-card"><h3>Permanently delete account</h3><p>This deletes the account, profile, quiz results and future sample-paper records. It cannot be undone.</p><div class="field"><label for="deleteConfirm">Type DELETE</label><input id="deleteConfirm" autocomplete="off"></div><button id="deleteAccount" class="btn danger" type="button" disabled>Permanently Delete Account</button><p id="deleteMessage" class="status-message" aria-live="polite"></p></article>
-        </div>
-      </section>
-
-      <section id="adminView" class="view-section hidden">
-        <div class="view-toolbar"><button class="btn soft back-dashboard" type="button">← Dashboard</button><div><p class="eyebrow">Administrator</p><h2>User Management</h2></div></div>
-        <div id="adminSummary" class="summary-grid"></div>
-        <article class="section-card"><div class="section-heading"><div><h3>All registered users</h3><p>Edit usernames and roles, inspect results, clear quiz history or permanently delete an account.</p></div><button id="refreshAdmin" class="btn soft" type="button">Refresh</button></div><div id="adminUsers" class="table-wrap"></div><div id="adminUserResults" class="admin-results hidden"></div><p id="adminMessage" class="status-message" aria-live="polite"></p></article>
-      </section>
-    </section>
-  </main>
-
-  <footer class="footer"><p>&copy; <span data-year></span> Polytechnic Study Hub.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
-  <script src="/assets/js/quiz-core.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-dashboard.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-play.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-account-admin.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/quiz-init.js?v=20260619-layoutfix1" defer></script>
-  <script src="/assets/js/main.js?v=20260619-header-tabs2" defer></script>
-  <script src="/assets/js/site-hardening.js?v=20260618-model75" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260618-model75" defer></script>
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Syllabus Daily Quiz | Polytechnic Study Hub</title><meta name="description" content="Syllabus based daily quizzes with 2000 questions per subject, login, online score saving and one retry."><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="/assets/css/responsive.css"><link rel="stylesheet" href="/assets/css/hardening.css"><link rel="stylesheet" href="/assets/css/site-brand.css?v=20260614-brand2"><link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260614-layout1"><link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-daily-quiz-menu1"><style>.quiz-shell{padding:0 clamp(12px,2vw,28px) 48px}.quiz-hero{margin-top:18px;border-radius:22px;padding:clamp(20px,4vw,42px);background:linear-gradient(135deg,#14295d,#315efb);color:#fff;box-shadow:0 10px 30px rgba(30,55,90,.12)}.quiz-hero h1{margin:0 0 8px;font-size:clamp(28px,4vw,48px)}.quiz-hero p{color:#eaf0ff}.quiz-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-top:18px}.quiz-stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:14px}.quiz-stat span{display:block;font-size:13px;opacity:.86}.quiz-stat b{font-size:21px}.quiz-panel{background:#fff;border:1px solid #dfe5ef;border-radius:18px;box-shadow:0 10px 30px rgba(30,55,90,.10);padding:18px;margin-top:18px;color:#172033}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.grid input,.grid select{width:100%;padding:12px;border:1px solid #dfe5ef;border-radius:12px;font:inherit}.question{border:1px solid #dfe5ef;border-radius:16px;padding:16px;margin:14px 0}.question.correct{border-color:#9bd2b3;background:#f0fbf5}.question.wrong{border-color:#f0aaa3;background:#fff5f4}.qhead{display:flex;gap:12px}.qnum{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#eef2ff;color:#263ea8;font-weight:800;flex:0 0 auto}.qtext{font-weight:800}.topic{font-size:12px;color:#667085;margin-top:5px}.options{display:grid;gap:9px;margin-top:12px}.options label{display:flex;gap:10px;border:1px solid #dfe5ef;border-radius:12px;padding:10px;cursor:pointer}.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.btnq{border:0;border-radius:11px;padding:11px 16px;font-weight:800;cursor:pointer}.btnq:disabled{opacity:.55;cursor:not-allowed}.primary{background:#315efb;color:#fff}.secondary{background:#e9efff;color:#1739a8}.ghost{background:#f2f4f7;color:#344054}.hidden{display:none!important}.result{font-weight:800;font-size:18px;margin-top:14px}.answer{margin-top:8px;color:#14804a;font-weight:800}.small{font-size:13px;color:#667085}.success{background:#ecfdf3;border:1px solid #abefc6;color:#067647;border-radius:14px;padding:14px;margin-top:14px;font-weight:800}.review{width:100%;border-collapse:collapse}.review th,.review td{border-bottom:1px solid #dfe5ef;padding:9px;text-align:left;vertical-align:top}@media(max-width:700px){.quiz-shell{padding:0 10px 36px}.quiz-panel{padding:13px}}</style></head><body class="portal-page"><a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar"><a class="brand" href="index.html"><span class="brand-symbol">📚</span><strong>Polytechnic Study Hub</strong></a><button class="menu-toggle" type="button" aria-label="Toggle navigation">Menu</button><nav class="navlinks"><a href="index.html">Home</a><a href="about.html">About</a><a href="revision-2021.html">Revision 2021</a><a href="daily-quiz.html">Daily Quiz</a><a href="materials-2015.html">2015 Materials</a><a href="contact.html">Help</a></nav></header><main id="main-content"><nav class="site-breadcrumbs"><ol><li><a href="/">Home</a></li><li><span>Daily Quiz</span></li></ol></nav><div class="quiz-shell"><section class="quiz-hero"><p class="kicker">Syllabus-based Polytechnic Practice</p><h1>Daily Quiz</h1><p>Each syllabus subject has 2000 generated questions. Daily quiz shows 10 fixed questions per subject. General Knowledge quizzes are not changed.</p><div class="quiz-stats"><div class="quiz-stat"><span>Today</span><b id="dateStat">—</b></div><div class="quiz-stat"><span>Next Quiz In</span><b id="countdown">—</b></div><div class="quiz-stat"><span>Daily Streak</span><b id="streak">0</b></div><div class="quiz-stat"><span>Best Score Today</span><b id="best">0/10</b></div><div class="quiz-stat"><span>Retry Available</span><b id="retryStatus">Login</b></div><div class="quiz-stat"><span>Progress</span><b id="progressStat">0/2000</b></div></div></section><section id="authSection" class="quiz-panel"><h2>Student Login</h2><p class="small">Register with username, email and password.</p><div class="grid"><input id="usernameInput" placeholder="Username"><input id="emailInput" type="email" placeholder="Email"><input id="passwordInput" type="password" placeholder="Password"></div><div class="controls"><button class="btnq secondary" id="registerBtn">Register</button><button class="btnq primary" id="loginBtn">Login</button></div><p id="authMessage" class="result"></p></section><section id="userSection" class="quiz-panel hidden"><p>Logged in as: <strong id="loggedInUser"></strong></p><button class="btnq ghost" id="logoutBtn">Logout</button></section><section id="subjectPanel" class="quiz-panel hidden"><h2>Select Subject</h2><div class="grid"><label><span class="small">Syllabus Subject</span><select id="subjectSelect"></select></label></div><div id="completeBox" class="success hidden"></div></section><section id="quizSection" class="quiz-panel hidden"><h2 id="quizTitle">Today's Questions</h2><p class="small">Submit is allowed only after all 10 questions are answered. One retry and reshuffle is allowed per account, per subject, per day.</p><div id="quiz"></div><div class="controls"><button class="btnq primary" id="submitBtn">Submit Answers</button><button class="btnq secondary" id="retryBtn">Retry & Reshuffle — 1 Available</button></div><div id="result" class="result"></div></section><section id="previousPanel" class="quiz-panel hidden"><h2>Previous-Day Review</h2><div id="previousReview" class="small">No previous-day attempt found.</div></section></div></main><footer class="footer"><p>&copy; <span data-year></span> Diploma Notes.</p><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>const SUPABASE_URL='https://hwobooljdvynsajtrvnk.supabase.co',SUPABASE_PUBLISHABLE_KEY='sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD',TOTAL=2000,PER_DAY=10,START='2026-06-18';const RAW={
+'1001':['Communication Skills in English',`Listening comprehension|identifying main idea and supporting details
+Language functions|workplace and daily life communication
+Reading comprehension|understanding articles, narratives and technical documents
+Technical writing|reports, emails and documents with clarity
+Contextual clues|inferring meanings from context
+Self-introduction|introducing oneself clearly
+Stating opinion|expressing one's opinion appropriately
+Concord|subject and verb agreement
+Report writing|writing technical reports
+Graph report|describing information in a graph
+Time and tense|accurate use of tense
+Signal words|sequence, cause and effect links
+Presentation skills|slide preparation and presentation
+Reading strategies|identifying main ideas in text
+Homophones and homonyms|accuracy in word use
+Affixes|prefixes and suffixes
+Passive voice|using passive voice effectively
+Business email|email for business correspondence
+Process description|describing a process clearly
+Reported speech|reporting direct speech accurately
+Agreement and disagreement|polite agreement or disagreement
+Giving instructions|clear instruction writing
+Paragraph writing|coherent paragraph composition
+Synonyms and antonyms|vocabulary building`],
+'1002':['Mathematics I',`Complex number|number of the form a + ib
+Conjugate|changing sign of imaginary part
+Modulus|distance from origin
+Amplitude|argument of a complex number
+Straight line equation|standard forms of a line
+Intersection of lines|common point of two lines
+Angle between lines|angle found using slopes
+Parallel lines|equal slopes
+Perpendicular lines|slopes multiply to -1
+Perpendicular distance|shortest distance from point to line
+Degree and radian|angle measurements
+Trigonometric ratios|sine, cosine and tangent
+Standard angles|0, 30, 45, 60 and 90 degree values
+Allied angles|ratios of related angles
+Trigonometric identities|standard trigonometric relations
+Compound angles|sum and difference formulae
+Multiple angles|2A and 3A formulae
+Product formulae|product to sum or difference
+Limits|value approached by a function
+Algebraic limits|limits of algebraic expressions
+Trigonometric limits|limits of trigonometric expressions
+Differentiation by definition|derivative from first principle
+Standard derivatives|derivatives of standard functions
+Product and quotient rules|rules of differentiation
+Chain rule|function of a function
+Parametric differentiation|derivative using a parameter
+Implicit differentiation|differentiation of implicit functions
+Successive differentiation|second order derivative`],
+'1003':['Applied Physics-I',`Physical quantities|fundamental and derived quantities
+SI units|international system of units
+Measurement errors|absolute, relative and percentage errors
+Scalar quantity|magnitude only
+Vector quantity|magnitude and direction
+Vector addition|triangle and parallelogram laws
+Resolution of vector|splitting into components
+Newton's laws|laws of force and motion
+Momentum|mass times velocity
+Conservation of linear momentum|basis of recoil and rocket propulsion
+Impulse|force multiplied by time
+Circular motion|motion along a circular path
+Angular velocity|rate of angular displacement
+Centripetal force|force towards centre
+Banking of roads|safe circular motion application
+Moment of inertia|rotational inertia
+Radius of gyration|equivalent mass distance
+Angular momentum|rotational momentum
+Torque|turning effect of force
+Work|force into displacement
+Friction|force opposing motion
+Energy|capacity to do work
+Power|rate of doing work
+Heat and temperature|thermal concepts
+Temperature scales|Celsius, Fahrenheit and Kelvin
+Elasticity|regaining original shape
+Hooke's law|stress proportional to strain
+Pressure|force per unit area
+Surface tension|liquid surface effect
+Viscosity|resistance to flow
+Stoke's law|viscous force on sphere
+Continuity equation|constant flow rate
+Bernoulli's theorem|pressure velocity height relation
+Atomiser and airfoil|fluid dynamics applications`],
+'1004':['Applied Chemistry',`Atomic structure|subatomic arrangement in atom
+Bohr atom model|electrons in fixed energy orbits
+de Broglie equation|wavelength and momentum relation
+Uncertainty principle|position and momentum limitation
+Orbital concept|probability region for electron
+Quantum numbers|electron energy, shape, orientation and spin
+Pauli principle|two electrons with opposite spins
+Hund rule|singly fill degenerate orbitals
+Aufbau rule|fill orbitals in increasing energy
+Electronic configuration|electron distribution
+Octet rule|eight valence electron tendency
+Ionic bond|electron transfer bond
+Covalent bond|electron sharing bond
+Coordinate bond|one atom donates shared pair
+Hydrogen bonding|anomalous behaviour of water
+Molarity|moles per litre
+Normality|equivalents per litre
+pH|hydrogen ion concentration scale
+Buffer solution|resists pH change
+Volumetric analysis|titration based analysis
+Hard water|poor lathering with soap
+Water softening|soda lime or ion exchange
+Municipal water treatment|sedimentation, filtration and sterilization
+Alloy|metal mixture
+Glass and refractory|engineering materials
+Polymerization|formation of polymers
+Thermoplastic|softens on heating
+Thermosetting plastic|does not soften on reheating
+Nanomaterials|nanometre scale materials
+Oxidation|loss of electrons
+Reduction|gain of electrons
+Electrolysis|decomposition by current
+Faraday laws|mass and electricity relation
+Electroplating|metal coating by electrolysis
+Daniel cell|zinc copper electrochemical cell
+Corrosion|destruction of metals
+Cathodic protection|corrosion prevention method`],
+'2002':['Mathematics II',`Second order determinant|determinant of 2 by 2 matrix
+Third order determinant|determinant of 3 by 3 matrix
+Order of determinant|size of determinant
+Matrix|rectangular arrangement of numbers
+Order of matrix|rows and columns
+Types of matrices|row, column, square and zero matrices
+Matrix addition|adding corresponding elements
+Matrix multiplication|row by column multiplication
+Cramer's rule|solving equations using determinants
+Inverse matrix|matrix producing identity on multiplication
+Matrix inverse method|linear equation solution method
+Linear system|simultaneous linear equations
+Scalar quantity|magnitude only
+Vector quantity|magnitude and direction
+Position vector|position of a point
+Scalar product|dot product
+Vector product|cross product
+Work by dot product|work application of scalar product
+Moment by cross product|moment application of vector product
+Integration|inverse of differentiation
+Standard integrals|known integration formulae
+Substitution method|integration by change of variable
+Integration by parts|integration from product rule
+Definite integral|integral with limits
+Area by integration|area bounded by curve and axes
+Differential equation|equation involving derivative
+First order equation|equation with first derivative
+Variable separable method|separating variables
+Linear differential equation|first order linear form`],
+'2003':['Applied Physics-II',`Periodic motion|motion repeating regularly
+Simple harmonic motion|restoring force proportional to displacement
+Displacement in SHM|position from mean point
+Time period|time for one oscillation
+Frequency|oscillations per second
+Transverse wave|vibration perpendicular to propagation
+Longitudinal wave|vibration parallel to propagation
+Wave velocity|speed of wave propagation
+Wavelength|distance between same phase points
+Amplitude|maximum displacement
+Superposition|resultant wave displacement
+Beats|periodic sound intensity variation
+Ultrasonic waves|frequency above audible range
+Reverberation|persistence of sound
+Echo|reflected sound heard separately
+Reflection|bouncing back of light
+Refraction|bending of light
+Refractive index|speed ratio property
+Convex lens|converging lens
+Concave lens|diverging lens
+Lens formula|u, v and f relation
+Power of lens|reciprocal of focal length
+Aberration|defect of lens
+Total internal reflection|complete reflection in denser medium
+Optical fiber|light guiding by TIR
+Coulomb law|force between charges
+Electric field|force per unit charge
+Capacitance|charge per potential difference
+Ohm law|current proportional to voltage
+Resistance combination|series and parallel circuits
+Kirchhoff laws|current and voltage laws
+Wheatstone bridge|resistance measurement bridge
+Electromagnetic induction|emf due to changing flux
+Moving coil galvanometer|small current measuring device
+Ammeter conversion|galvanometer to ammeter
+Voltmeter conversion|galvanometer to voltmeter
+Semiconductor|material between conductor and insulator
+p-n junction|junction of p and n type
+Transistor|amplification or switching device
+Photoelectric effect|electron emission by light
+LASER action|stimulated emission light amplification
+Nanoscience|nanometre scale science`]
+};
+const SUBJECTS=Object.fromEntries(Object.entries(RAW).map(([c,[title,txt]])=>[c,{title,concepts:txt.trim().split(/\n+/).map(x=>{let [term,clue]=x.split('|');return{term,clue}})}]));const T=[(s,c,n)=>`Set ${n}: Which syllabus term is related to ${c.clue}?`,(s,c,n)=>`Set ${n}: Identify the concept described as ${c.clue}.`,(s,c,n)=>`Set ${n}: In ${s.title}, ${c.clue} refers to _____.`,(s,c,n)=>`Set ${n}: Choose the best match for ${c.clue}.`,(s,c,n)=>`Set ${n}: The phrase '${c.clue}' belongs to which topic?`,(s,c,n)=>`Set ${n}: Select the correct syllabus-based answer: ${c.clue}.`,(s,c,n)=>`Set ${n}: Which option correctly represents ${c.clue}?`,(s,c,n)=>`Set ${n}: For exam revision, ${c.clue} is connected with _____.`,(s,c,n)=>`Set ${n}: Which answer matches the clue '${c.clue}'?`,(s,c,n)=>`Set ${n}: Pick the correct term for ${c.clue}.`,(s,c,n)=>`Set ${n}: A question from ${s.title}: ${c.clue}.`,(s,c,n)=>`Set ${n}: The correct syllabus item for ${c.clue} is _____.`];let sb=null,user=null,current=[],retried=false;const $=id=>document.getElementById(id);Object.entries(SUBJECTS).forEach(([c,s])=>{let o=document.createElement('option');o.value=c;o.textContent=`${c} - ${s.title}`;$('subjectSelect').append(o)});$('subjectSelect').value=localStorage.getItem('dailyQuizSubject')||'1004';function dateKey(d=new Date()){return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}function dayNo(k=dateKey()){return Math.floor((new Date(k+'T00:00:00')-new Date(START+'T00:00:00'))/86400000)}function h(str){let x=2166136261;for(let i=0;i<str.length;i++){x^=str.charCodeAt(i);x=Math.imul(x,16777619)}return x>>>0}function rng(seed){return()=>{seed+=0x6D2B79F5;let t=seed;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}function sh(a,r){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(r()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}function esc(x){return String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}function code(){return $('subjectSelect').value}function qmake(c,id){let s=SUBJECTS[c],cs=s.concepts,con=cs[(id-1)%cs.length],ti=Math.floor((id-1)/cs.length)%T.length,set=Math.floor((id-1)/(cs.length*T.length))+1,wrong=sh(cs.filter(x=>x.term!==con.term).map(x=>x.term),rng(h(c+id))).slice(0,3);return{id,key:`${c}:${id}`,topic:con.term,question:T[ti](s,con,set),answer:con.term,options:[con.term,...wrong]}}function daily(c,k=dateKey()){let block=((dayNo(k)%200)+200)%200,start=block*10+1,ids=Array.from({length:10},(_,i)=>start+i);return sh(ids.map(id=>qmake(c,id)),rng(h('order'+c+k)))}function render(re=false){let c=code(),k=dateKey();current=daily(c,k);$('quizTitle').textContent=`Today's Questions - ${c} ${SUBJECTS[c].title}`;$('quiz').innerHTML='';current.forEach((q,i)=>{let opts=sh(q.options,rng(h(k+q.key+(re?Date.now():'x')))),div=document.createElement('div');div.className='question';div.id='qcard-'+q.key.replace(':','-');div.innerHTML=`<div class=qhead><div class=qnum>${i+1}</div><div><div class=qtext>${esc(q.question)}</div><div class=topic>${esc(q.key)} · ${esc(q.topic)}</div></div></div><div class=options>${opts.map((op,j)=>`<label><input type=radio name="q${q.key}" value="${esc(op)}"><span><b>${String.fromCharCode(65+j)}.</b> ${esc(op)}</span></label>`).join('')}</div><div class="answer hidden" id="ans-${q.key.replace(':','-')}"></div>`;$('quiz').append(div)});$('result').textContent=''}async function getUser(){return(await sb.auth.getUser()).data.user}async function profile(u,name=''){let r=await sb.from('profiles').select('username').eq('id',u.id).maybeSingle();if(r.data?.username)return r.data.username;let username=name||u.user_metadata?.username||u.email?.split('@')[0]||('student-'+u.id.slice(0,8));let ins=await sb.from('profiles').insert({id:u.id,username});if(ins.error&&ins.error.code==='23505'){username+='-'+u.id.slice(0,4);await sb.from('profiles').insert({id:u.id,username})}return username}async function afterLogin(u,name=''){user=u;$('loggedInUser').textContent=await profile(u,name);['authSection'].forEach(id=>$(id).classList.add('hidden'));['userSection','subjectPanel','quizSection','previousPanel'].forEach(id=>$(id).classList.remove('hidden'));render();await refresh()}async function register(){let username=$('usernameInput').value.trim(),email=$('emailInput').value.trim(),password=$('passwordInput').value;if(!username||!email||!password){$('authMessage').textContent='Enter username, email and password.';return}let {data,error}=await sb.auth.signUp({email,password,options:{data:{username}}});if(error){$('authMessage').textContent=error.message;return}$('authMessage').textContent=data.session?'Registration successful.':'Registration successful. Check email if confirmation is enabled.';if(data.session?.user)await afterLogin(data.session.user,username)}async function login(){let email=$('emailInput').value.trim(),password=$('passwordInput').value;if(!email||!password){$('authMessage').textContent='Enter email and password.';return}let {data,error}=await sb.auth.signInWithPassword({email,password});if(error){$('authMessage').textContent=error.message;return}await afterLogin(data.user)}async function logout(){await sb.auth.signOut();user=null;['authSection'].forEach(id=>$(id).classList.remove('hidden'));['userSection','subjectPanel','quizSection','previousPanel'].forEach(id=>$(id).classList.add('hidden'));$('retryStatus').textContent='Login';$('best').textContent='0/10';$('progressStat').textContent='0/2000'}async function refresh(){render();await loadToday();await streak();await progress();await previous()}async function loadToday(){let d=await sb.from('daily_quiz_results').select('*').eq('user_id',user.id).eq('quiz_date',dateKey()).eq('subject_code',code()).maybeSingle();retried=!!d.data?.retry_used;$('best').textContent=`${d.data?.best_score||0}/10`;retryBtn.disabled=retried;retryBtn.textContent=retried?'Retry Already Used':'Retry & Reshuffle — 1 Available';$('retryStatus').textContent=retried?'No — Used':'Yes — 1'}async function retry(){let d=await sb.from('daily_quiz_results').select('*').eq('user_id',user.id).eq('quiz_date',dateKey()).eq('subject_code',code()).maybeSingle();if(d.data?.retry_used){retried=true;await loadToday();$('result').textContent='Only one retry is allowed for this subject today.';return}let p={user_id:user.id,quiz_date:dateKey(),subject_code:code(),retry_used:true,retry_started_at:new Date().toISOString(),completed:d.data?.completed||false,score:d.data?.score||0,best_score:d.data?.best_score||0,total_questions:10,answers:d.data?.answers||{},question_ids:current.map(q=>q.id),question_keys:current.map(q=>q.key)};let r=await sb.from('daily_quiz_results').upsert(p,{onConflict:'user_id,quiz_date,subject_code'});if(r.error){alert('Retry status could not be saved.');return}retried=true;await loadToday();render(true);$('result').textContent='Final retry started. No more reshuffling is available today for this subject.'}async function submit(){let miss=[];current.forEach((q,i)=>{let ch=document.querySelector(`input[name="q${q.key}"]:checked`),card=$('qcard-'+q.key.replace(':','-'));card.classList.remove('wrong');if(!ch){miss.push(i+1);card.classList.add('wrong')}});if(miss.length){$('result').textContent=`Please answer all 10 questions before submitting. Unanswered: ${miss.join(', ')}`;$('qcard-'+current[miss[0]-1].key.replace(':','-')).scrollIntoView({behavior:'smooth',block:'center'});return}let score=0,answers={};current.forEach(q=>{let ch=document.querySelector(`input[name="q${q.key}"]:checked`),card=$('qcard-'+q.key.replace(':','-')),ans=$('ans-'+q.key.replace(':','-'));ans.classList.remove('hidden');answers[q.key]=ch.value;if(ch.value===q.answer){score++;card.classList.add('correct')}else card.classList.add('wrong');ans.textContent='Correct answer: '+q.answer});let old=await sb.from('daily_quiz_results').select('best_score,retry_used,attempt_count').eq('user_id',user.id).eq('quiz_date',dateKey()).eq('subject_code',code()).maybeSingle(),bestScore=Math.max(score,old.data?.best_score||0),attempt=Math.min(2,(old.data?.attempt_count||0)+1),p={user_id:user.id,quiz_date:dateKey(),subject_code:code(),score,best_score:bestScore,total_questions:10,retry_used:old.data?.retry_used||retried,completed:true,answers,question_ids:current.map(q=>q.id),question_keys:current.map(q=>q.key),attempt_count:attempt,submitted_at:new Date().toISOString()};if(attempt===1)p.first_score=score;else p.retry_score=score;let r=await sb.from('daily_quiz_results').upsert(p,{onConflict:'user_id,quiz_date,subject_code'});if(r.error){alert('Result could not be saved.');return}$('result').textContent=`Score: ${score}/10. Saved online.`;await refresh()}async function streak(){let start=new Date();start.setDate(start.getDate()-260);let r=await sb.from('daily_quiz_results').select('quiz_date,completed').eq('user_id',user.id).eq('subject_code',code()).gte('quiz_date',dateKey(start));let set=new Set((r.data||[]).filter(x=>x.completed).map(x=>x.quiz_date)),s=0,d=new Date();for(let i=0;i<366;i++){let k=dateKey(d);if(set.has(k)){s++;d.setDate(d.getDate()-1)}else break}$('streak').textContent=s}async function progress(){let r=await sb.from('daily_quiz_results').select('question_keys,question_ids').eq('user_id',user.id).eq('subject_code',code()).eq('completed',true),done=new Set();(r.data||[]).forEach(row=>{(row.question_keys||[]).forEach(k=>done.add(k));(row.question_ids||[]).forEach(id=>done.add(`${code()}:${id}`))});let count=Math.min(TOTAL,done.size);$('progressStat').textContent=`${count}/2000`;$('completeBox').classList.toggle('hidden',count<TOTAL);$('completeBox').textContent=count>=TOTAL?`🎉 Congratulations! You completed all 2000 questions in ${code()} - ${SUBJECTS[code()].title}.`:''}async function previous(){let d=new Date();d.setDate(d.getDate()-1);let k=dateKey(d),r=await sb.from('daily_quiz_results').select('*').eq('user_id',user.id).eq('quiz_date',k).eq('subject_code',code()).maybeSingle();if(!r.data){$('previousReview').textContent='No previous-day attempt found for this subject.';return}let qs=daily(code(),k);$('previousReview').innerHTML=`<p><b>${k}</b> — ${code()} ${SUBJECTS[code()].title} — Score: ${r.data.score}/10</p><table class=review><tr><th>#</th><th>Question</th><th>Your Answer</th><th>Correct</th></tr>${qs.map((q,i)=>`<tr><td>${i+1}</td><td>${esc(q.question)}</td><td>${esc(r.data.answers?.[q.key]||'Not answered')}</td><td>${esc(q.answer)}</td></tr>`).join('')}</table>`}function tick(){let n=new Date(),x=new Date(n);x.setHours(24,0,0,0);let s=Math.floor((x-n)/1000);$('countdown').textContent=`${String(Math.floor(s/3600)).padStart(2,'0')}:${String(Math.floor((s%3600)/60)).padStart(2,'0')}:${String(s%60).padStart(2,'0')}`}$('dateStat').textContent=dateKey();$('registerBtn').onclick=register;$('loginBtn').onclick=login;$('logoutBtn').onclick=logout;$('submitBtn').onclick=submit;$('retryBtn').onclick=retry;$('subjectSelect').onchange=()=>{localStorage.setItem('dailyQuizSubject',code());refresh()};tick();setInterval(tick,1000);(async()=>{sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);let s=(await sb.auth.getSession()).data.session;if(s?.user)await afterLogin(s.user)})();</script><script src="/assets/js/main.js?v=20260615-notice2" defer></script><script src="/assets/js/site-hardening.js" defer></script><script src="/assets/js/fixed-site-header.js?v=20260618-daily-quiz-menu1" defer></script></body></html>
