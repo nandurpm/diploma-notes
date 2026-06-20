@@ -96,6 +96,44 @@
     return answerOfflineMath(query);
   }
 
+  function onlineFailureMessage(error) {
+    const status = Number(error?.status || 0);
+    const message = clean(error?.message || error?.detail || "");
+
+    if (status === 429) {
+      return {
+        text: "Online AI received too many questions recently. Wait a few minutes and try again. Local subject, lesson search and basic maths still work.",
+        status: "Online AI rate limited"
+      };
+    }
+
+    if (status === 503 || /not configured|OPENAI_API_KEY|api key/i.test(message)) {
+      return {
+        text: "Ask POLY AI backend is reachable, but the OpenAI API key is not configured in the Cloudflare Worker. Add the OPENAI_API_KEY secret and redeploy the Worker. Local subject, lesson search and basic maths still work.",
+        status: "AI key not configured"
+      };
+    }
+
+    if (status === 403 || /origin|allowed/i.test(message)) {
+      return {
+        text: "Ask POLY AI backend blocked this website origin. Add https://polypmna.dpdns.org to the Worker ALLOWED_ORIGINS setting and redeploy. Local subject and lesson search still works.",
+        status: "AI origin blocked"
+      };
+    }
+
+    if (status === 404 || /failed to fetch|network|load failed/i.test(message)) {
+      return {
+        text: "Ask POLY AI backend URL is not responding. Check that the Cloudflare Worker is deployed at the configured endpoint and redeploy it if needed. Local subject and lesson search still works.",
+        status: "AI backend offline"
+      };
+    }
+
+    return {
+      text: "Ask POLY AI backend could not answer right now. Check the Cloudflare Worker logs and OpenAI billing/key status. Local subject, lesson search and basic maths still work.",
+      status: "Online AI temporarily unavailable"
+    };
+  }
+
   function selectedText() {
     const selection = window.getSelection();
     const text = clean(selection?.toString());
@@ -189,13 +227,6 @@
       : "Ask maths, coding, grammar, current affairs…";
   }
 
-  function runLocalAssistant(form, input, query) {
-    input.value = query;
-    form.dataset.remoteBypass = "true";
-    form.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true }));
-    delete form.dataset.remoteBypass;
-  }
-
   function initialize(root) {
     if (!root || root.dataset.generalAiExtension === "true") return;
     const form = root.querySelector(".poly-ai-form");
@@ -263,8 +294,8 @@
         event.stopImmediatePropagation();
         input.value = "";
         makeMessage(body, "user", query);
-        makeMessage(body, "bot", "Online AI is not available now. Local subject and lesson search still works; try a subject code, subject name, department or semester.");
-        status.textContent = "Online AI unavailable";
+        makeMessage(body, "bot", "Ask POLY AI endpoint is not configured on this page. Local subject and lesson search still works; try a subject code, subject name, department or semester.");
+        status.textContent = "AI endpoint missing";
         return;
       }
 
@@ -307,10 +338,9 @@
           makeMessage(body, "bot", fallbackAnswer);
           status.textContent = "Answered locally";
         } else {
-          makeMessage(body, "bot", error?.status === 429
-            ? "Online AI received too many questions recently. Local subject and lesson search still works."
-            : "Online AI is temporarily unavailable. General AI questions need the online service; local subject and lesson search still works.");
-          status.textContent = "Online AI temporarily unavailable";
+          const reason = onlineFailureMessage(error);
+          makeMessage(body, "bot", reason.text);
+          status.textContent = reason.status;
         }
       } finally {
         input.disabled = false;
