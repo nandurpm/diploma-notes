@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiB5PSIwIiByeD0iOCIgZmlsbD0iIzFkNGVkOCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ETjwvdGV4dD4KPC9zdmc=">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiB5PSIwIiByeD0iOCIgZmlsbD0iIzFkNGVkOCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTgiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ETjwvdGV4dD4KPC9zdmc=">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
@@ -42,6 +42,7 @@
     html.polytechnic-native-app .app-download[data-app-button-state="update"]{display:none!important}
     .poly-tools{display:none!important}
     .app-download[data-app-button-state="pending"],.app-download[data-app-button-state="unavailable"]{opacity:.78;cursor:not-allowed;filter:saturate(.65)}
+    .new-badge{display:inline-flex;margin-left:5px;padding:2px 7px;border-radius:999px;background:#dcfae6;color:#067647;font-size:.66rem;font-weight:950;line-height:1;text-transform:uppercase;vertical-align:middle}
   </style>
   <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260618-ai-fix2">
   <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260618-ai-fix2">
@@ -49,7 +50,7 @@
   <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260618-ai-fix2">
   <link rel="stylesheet" href="/assets/css/home-hero-tight.css?v=20260618-ai-fix2">
 </head>
-<body class="portal-page" data-site-revision="20260620-app-download-browser-only">
+<body class="portal-page" data-site-revision="20260620-static-tools-menu">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="index.html" aria-label="Polytechnic Study Hub home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong></a>
@@ -58,8 +59,9 @@
       <a class="active" aria-current="page" href="index.html">Home</a>
       <a href="about.html">About</a>
       <a href="revision-2021.html">Revision 2021</a>
-      <a href="daily-quiz.html">Daily Quiz</a>
+      <a href="daily-quiz.html">Mock Exams</a>
       <a href="materials-2015.html">2015 Materials</a>
+      <a href="tools-v2.html">Tools <span class="new-badge">New</span></a>
       <a href="contact.html">Help</a>
     </nav>
   </header>
@@ -68,11 +70,12 @@
     <section class="page-title home-compact-hero reveal">
       <p class="kicker">Kerala Polytechnic Study Helper</p>
       <h1>Notes, syllabus, lessons and question papers.</h1>
-      <p>Quick access to Revision 2021 subjects, daily quiz, lesson pages, sample question papers, and 2015 scheme materials.</p>
+      <p>Quick access to Revision 2021 subjects, mock exams, lesson pages, sample question papers, 2015 scheme materials and student tools.</p>
       <div class="hero-actions home-app-actions">
         <a class="btn primary" href="revision-2021.html">Start Studying</a>
+        <a class="btn ghost" href="tools-v2.html">Student Tools</a>
         <a class="btn ghost" href="#subject-browser">Search by Subject Code</a>
-        <a class="btn ghost" href="daily-quiz.html">Daily Quiz</a>
+        <a class="btn ghost" href="daily-quiz.html">Mock Exams</a>
         <a class="btn ghost" href="materials-2015.html">2015 Materials</a>
         <!-- APP_DOWNLOAD_BUTTON -->
       </div>
@@ -92,8 +95,9 @@
 
     <section class="section cards three selection-grid">
       <a class="choice-card" href="revision-2021.html"><span>REV 2021</span><h2>Revision 2021</h2><p>Semester-wise subject cards with syllabus, lesson access, notes download, and sample question paper links.</p></a>
-      <a class="choice-card" href="daily-quiz.html"><span>DAILY</span><h2>Daily Quiz</h2><p>Attend 10 questions per subject every day with login, online score saving, streaks and one retry.</p></a>
+      <a class="choice-card" href="daily-quiz.html"><span>EXAMS</span><h2>Mock Exams</h2><p>Attend daily subject quizzes and full syllabus-based mock examinations with saved scores and feedback.</p></a>
       <a class="choice-card legacy" href="materials-2015.html"><span>2015</span><h2>2015 Materials</h2><p>Older scheme study-material links are kept separate and easy to access.</p></a>
+      <a class="choice-card" href="tools-v2.html"><span>TOOLS</span><h2>Student Tools</h2><p>Open professional calculators, converters, CGPA, attendance, electrical, civil, mechanical, computer and career tools.</p></a>
       <a class="choice-card contact-card" href="contact.html"><span>HELP</span><h2>Suggest Changes</h2><p>Report missing content, wrong links, syllabus mistakes, or request a content correction.</p></a>
     </section>
 
@@ -115,7 +119,7 @@
 
   <footer class="footer"><p>&copy; <span data-year></span> Diploma Notes.</p><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
   <script src="/assets/js/subjects.js?v=20260618-ai-fix2" defer></script>
-  <script src="/assets/js/main.js?v=20260619-mobile-menu-restore" defer></script>
+  <script src="/assets/js/main.js?v=20260620-tools-v2" defer></script>
   <script src="/assets/js/daily-important-day.js?v=20260618-ai-fix2" defer></script>
   <script src="/assets/js/subject-browser.js?v=20260618-ai-fix2" defer></script>
   <script src="/assets/js/site-hardening.js?v=20260618-ai-fix2" defer></script>
