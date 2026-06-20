@@ -13,6 +13,7 @@
       { label: "Revision 2021", href: "/revision-2021.html", active: currentPath.endsWith("/revision-2021.html") || currentPath.includes("/revision-2021/") },
       { label: "Mock Exams", href: "/daily-quiz.html", active: currentPath.endsWith("/daily-quiz.html") || currentPath.includes("/mock-exam-") },
       { label: "2015 Materials", href: "/materials-2015.html", active: currentPath.endsWith("/materials-2015.html") },
+      { label: "Tools", href: "/tools.html", active: currentPath.endsWith("/tools.html") },
       { label: "Help", href: "/contact.html", active: currentPath.endsWith("/contact.html") }
     ];
     nav.replaceChildren(...items.map((item) => {
