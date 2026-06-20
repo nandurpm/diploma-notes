@@ -48,7 +48,7 @@
     {
       "code": "1006",
       "pages": 25,
-      "bytes": 655643,
+      "bytes": 655793,
       "source": "lessons/lessons-1006.html",
       "sourceCharacters": 39081,
       "pdfCharacters": 40828,
@@ -63,7 +63,7 @@
     {
       "code": "1008",
       "pages": 67,
-      "bytes": 946727,
+      "bytes": 947046,
       "source": "lessons/lessons-1008.html",
       "sourceCharacters": 68405,
       "pdfCharacters": 68863,
@@ -77,8 +77,8 @@
     },
     {
       "code": "2002",
-      "pages": 33,
-      "bytes": 727113,
+      "pages": 34,
+      "bytes": 726657,
       "source": "lessons/lessons-2002.html",
       "sourceCharacters": 32822,
       "pdfCharacters": 33183,
@@ -127,7 +127,7 @@
     {
       "code": "2032",
       "pages": 21,
-      "bytes": 341688,
+      "bytes": 442871,
       "source": "lessons/lessons-2032.html",
       "sourceCharacters": 24972,
       "pdfCharacters": 24999,
@@ -142,11 +142,11 @@
     {
       "code": "2038",
       "pages": 31,
-      "bytes": 618653,
+      "bytes": 617736,
       "source": "lessons/lessons-2038.html",
       "sourceCharacters": 34310,
-      "pdfCharacters": 32867,
-      "textCoverage": 0.9579,
+      "pdfCharacters": 32856,
+      "textCoverage": 0.9576,
       "panelCount": 12,
       "visiblePanelCount": 12,
       "removedBlankPages": [],
@@ -187,7 +187,7 @@
     {
       "code": "3031",
       "pages": 77,
-      "bytes": 4484446,
+      "bytes": 4484670,
       "source": "lessons/lessons-3031.html",
       "sourceCharacters": 75422,
       "pdfCharacters": 111400,
@@ -202,7 +202,7 @@
     {
       "code": "3032",
       "pages": 68,
-      "bytes": 1287955,
+      "bytes": 1289336,
       "source": "lessons/lessons-3032.html",
       "sourceCharacters": 91419,
       "pdfCharacters": 91748,
@@ -217,7 +217,7 @@
     {
       "code": "3041",
       "pages": 28,
-      "bytes": 3639649,
+      "bytes": 3586719,
       "source": "lessons/lessons-3041.html",
       "sourceCharacters": 23961,
       "pdfCharacters": 24471,
@@ -262,7 +262,7 @@
     {
       "code": "3045",
       "pages": 28,
-      "bytes": 490151,
+      "bytes": 490389,
       "source": "lessons/lessons-3045.html",
       "sourceCharacters": 32212,
       "pdfCharacters": 32418,
@@ -277,7 +277,7 @@
     {
       "code": "3046",
       "pages": 27,
-      "bytes": 454718,
+      "bytes": 454938,
       "source": "lessons/lessons-3046.html",
       "sourceCharacters": 38265,
       "pdfCharacters": 38490,
@@ -292,7 +292,7 @@
     {
       "code": "3047",
       "pages": 27,
-      "bytes": 451966,
+      "bytes": 452163,
       "source": "lessons/lessons-3047.html",
       "sourceCharacters": 39265,
       "pdfCharacters": 39476,
