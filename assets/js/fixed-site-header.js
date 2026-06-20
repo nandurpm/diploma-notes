@@ -80,26 +80,35 @@
       });
   };
 
-  const installDailyQuizResponsiveFix = () => {
-    if (!/\/daily-quiz\.html$/i.test(window.location.pathname)) return;
-    if (document.getElementById("poly-quiz-responsive-fix")) return;
+  const addStylesheetOnce = (id, href) => {
+    if (document.getElementById(id)) return;
     const link = document.createElement("link");
-    link.id = "poly-quiz-responsive-fix";
+    link.id = id;
     link.rel = "stylesheet";
-    link.href = `/assets/css/quiz-responsive-fix.css?v=20260620-mobile-fix-${Date.now()}`;
+    link.href = href;
     document.head.append(link);
   };
 
-  configureAppDownloadButton();
-  installDailyQuizResponsiveFix();
+  const installDailyQuizResponsiveFix = () => {
+    if (!/\/daily-quiz\.html$/i.test(window.location.pathname)) return;
+    addStylesheetOnce("poly-quiz-responsive-fix", `/assets/css/quiz-responsive-fix.css?v=20260620-mobile-fix-${Date.now()}`);
+  };
 
-  if (isLessonPage) {
+  const installLessonPageFix = () => {
+    if (!isLessonPage) return;
+    root.classList.add("poly-lesson-page");
     body.classList.add("poly-lesson-page");
     body.classList.remove("has-fixed-site-header", "portal-page");
     root.style.setProperty("--fixed-site-header-height", "0px");
     root.style.setProperty("--fixed-site-header-gap", "0px");
-    return;
-  }
+    addStylesheetOnce("poly-lesson-page-fix", `/assets/css/lesson-page-fix.css?v=20260620-lesson-fix-${Date.now()}`);
+  };
+
+  configureAppDownloadButton();
+  installDailyQuizResponsiveFix();
+  installLessonPageFix();
+
+  if (isLessonPage) return;
 
   const header = document.querySelector(".topbar");
   if (isNativeApp) {
