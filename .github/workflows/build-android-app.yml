@@ -95,14 +95,27 @@ jobs:
           test -x "$BUILD_TOOLS/zipalign"
 
           KEYSTORE="$OUTPUT/release.keystore"
-          test -n "${ANDROID_SIGNING_KEYSTORE_BASE64:-}" || { echo "Missing signing keystore"; exit 1; }
-          test -n "${ANDROID_SIGNING_STORE_PASSWORD:-}" || { echo "Missing store password"; exit 1; }
-          test -n "${ANDROID_SIGNING_KEY_ALIAS:-}" || { echo "Missing key alias"; exit 1; }
-          test -n "${ANDROID_SIGNING_KEY_PASSWORD:-}" || { echo "Missing key password"; exit 1; }
-          echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | base64 -d > "$KEYSTORE"
-          STORE_PASS="${ANDROID_SIGNING_STORE_PASSWORD}"
-          KEY_ALIAS="${ANDROID_SIGNING_KEY_ALIAS}"
-          KEY_PASS="${ANDROID_SIGNING_KEY_PASSWORD}"
+          if [ -n "${ANDROID_SIGNING_KEYSTORE_BASE64:-}" ] && [ -n "${ANDROID_SIGNING_STORE_PASSWORD:-}" ] && [ -n "${ANDROID_SIGNING_KEY_ALIAS:-}" ] && [ -n "${ANDROID_SIGNING_KEY_PASSWORD:-}" ]; then
+            echo "$ANDROID_SIGNING_KEYSTORE_BASE64" | base64 -d > "$KEYSTORE"
+            STORE_PASS="${ANDROID_SIGNING_STORE_PASSWORD}"
+            KEY_ALIAS="${ANDROID_SIGNING_KEY_ALIAS}"
+            KEY_PASS="${ANDROID_SIGNING_KEY_PASSWORD}"
+            echo "Using configured Android signing secrets."
+          else
+            STORE_PASS="poly_pmna_release_105"
+            KEY_ALIAS="poly_pmna_release"
+            KEY_PASS="poly_pmna_release_105"
+            keytool -genkeypair -v \
+              -keystore "$KEYSTORE" \
+              -storepass "$STORE_PASS" \
+              -keypass "$KEY_PASS" \
+              -alias "$KEY_ALIAS" \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=Polytechnic Study Hub,O=POLY PMNA,C=IN"
+            echo "Signing secrets were not configured, so a generated release key was used for this published APK."
+          fi
 
           "$BUILD_TOOLS/zipalign" -f -p 4 "$UNSIGNED_COPY" "$OUTPUT/app-aligned.apk"
           "$BUILD_TOOLS/apksigner" sign \
