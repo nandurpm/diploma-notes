@@ -1,7 +1,24 @@
 (() => {
   "use strict";
 
-  const button = document.querySelector(".app-download");
+  const ensureButton = () => {
+    let button = document.querySelector(".app-download");
+    if (button) return button;
+
+    const actions = document.querySelector(".home-app-actions,.home-compact-hero .hero-actions,.hero-actions");
+    if (!actions) return null;
+
+    button = document.createElement("a");
+    button.className = "btn ghost app-download";
+    button.href = "/downloads/Polytechnic-Study-Hub-v1.0.5.apk";
+    button.download = "Polytechnic-Study-Hub-v1.0.5.apk";
+    button.textContent = "📱 Download Our App";
+    button.setAttribute("aria-label", "Download Polytechnic Study Hub Android app");
+    actions.append(button);
+    return button;
+  };
+
+  const button = ensureButton();
   if (!button) return;
 
   const appMatch = navigator.userAgent.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
@@ -15,8 +32,8 @@
   }
 
   const PUBLISHED_UPDATE = Object.freeze({
-    versionName: "1.0.4",
-    apkUrl: "/downloads/Polytechnic-Study-Hub-v1.0.4.apk",
+    versionName: "1.0.5",
+    apkUrl: "/downloads/Polytechnic-Study-Hub-v1.0.5.apk",
     title: "Polytechnic Study Hub Android app",
     message: "Download the currently published Android app."
   });
@@ -42,6 +59,7 @@
     button.setAttribute("aria-label", message);
     button.hidden = false;
     button.removeAttribute("aria-hidden");
+    button.style.removeProperty("display");
   };
 
   const activateDownload = (update) => {
@@ -55,13 +73,14 @@
     const filename = apkUrl.pathname.split("/").pop() || `Polytechnic-Study-Hub-v${update.versionName}.apk`;
 
     button.dataset.appButtonState = "download";
-    button.textContent = "📱 Download Our App";
+    button.textContent = `📱 Download App v${update.versionName}`;
     button.href = apkUrl.href;
     button.download = filename;
     button.removeAttribute("aria-disabled");
     button.setAttribute("aria-label", `Download Polytechnic Study Hub Android app version ${update.versionName}`);
     button.hidden = false;
     button.removeAttribute("aria-hidden");
+    button.style.removeProperty("display");
   };
 
   const activateLatestAvailable = async () => {
