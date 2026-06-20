@@ -182,7 +182,7 @@
                             android:gravity="center"
                             android:paddingStart="11dp"
                             android:paddingEnd="11dp"
-                            android:text="Question Papers"
+                            android:text="Tools"
                             android:textColor="@color/brand_indigo"
                             android:textSize="11sp"
                             android:textStyle="bold" />
@@ -282,6 +282,12 @@
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_book"
                     android:text="@string/nav_daily_quiz" />
+
+                <TextView
+                    android:id="@+id/navTools"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_document"
+                    android:text="@string/nav_tools" />
 
                 <TextView
                     android:id="@+id/navStudyMaterials"
