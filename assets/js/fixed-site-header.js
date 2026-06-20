@@ -78,7 +78,18 @@
       });
   };
 
+  const installDailyQuizResponsiveFix = () => {
+    if (!/\/daily-quiz\.html$/i.test(window.location.pathname)) return;
+    if (document.getElementById("poly-quiz-responsive-fix")) return;
+    const link = document.createElement("link");
+    link.id = "poly-quiz-responsive-fix";
+    link.rel = "stylesheet";
+    link.href = `/assets/css/quiz-responsive-fix.css?v=20260620-mobile-fix-${Date.now()}`;
+    document.head.append(link);
+  };
+
   configureAppDownloadButton();
+  installDailyQuizResponsiveFix();
 
   const header = document.querySelector(".topbar");
   if (isNativeApp) {
