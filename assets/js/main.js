@@ -7,8 +7,7 @@
     { label: "Revision 2021", href: "/revision-2021.html", match: [/\/revision-2021\.html$/, /\/revision-2021\//] },
     { label: "Mock Exams", href: "/daily-quiz.html", match: [/\/daily-quiz\.html$/, /\/mock-exam-/] },
     { label: "2015 Materials", href: "/materials-2015.html", match: [/\/materials-2015\.html$/] },
-    { label: "Question Papers", href: "/model-question-papers.html", match: [/\/model-question-papers\.html$/, /\/previous-question-papers\.html$/] },
-    { label: "Tools", href: "/tools.html", badge: "New", match: [/\/tools\.html$/] },
+    { label: "Tools", href: "/tools.html", match: [/\/tools\.html$/] },
     { label: "Help", href: "/contact.html", match: [/\/contact\.html$/] }
   ];
 
@@ -25,6 +24,7 @@
       .student-tools-update p,.apk-download-section p{margin:0;color:#475467;line-height:1.55}
       .student-tools-update .btn,.apk-download-section .download-btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#3158f4,#0ea5c6);color:#fff;font-weight:950;text-decoration:none;box-shadow:0 12px 28px rgba(49,88,244,.22)}
       .apk-download-section{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;padding:22px}.apk-version-card{border-radius:18px;background:#f1f7ff;border:1px solid #d8e4f3;padding:16px}.apk-version-card strong{display:block;color:#102a80;font-size:1.05rem;margin-bottom:6px}.apk-note{font-size:.92rem;color:#667085;margin-top:10px!important}
+      .topbar .navlinks a{min-width:max-content!important;height:42px!important;min-height:42px!important;padding:0 14px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;line-height:1!important;white-space:nowrap!important}
       @media(max-width:760px){html,body{max-width:100%!important;overflow-x:hidden!important}.topbar{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-template-areas:"brand menu" "notice notice" "nav nav"!important;gap:8px!important;width:100vw!important;max-width:100vw!important;margin:0!important;padding:8px 8px 10px!important;border-radius:0 0 18px 18px!important}.topbar .brand{grid-area:brand!important;min-width:0!important;overflow:hidden!important}.topbar .brand strong{display:block!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:clamp(.9rem,4vw,1.12rem)!important}.topbar .menu-toggle{grid-area:menu!important;display:inline-flex!important;min-width:76px!important;min-height:42px!important;align-items:center!important;justify-content:center!important}.topbar .navlinks,.topbar .navlinks:not(.open){grid-area:nav!important;display:none!important;width:100%!important}.topbar .navlinks.open{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}.topbar .navlinks a{width:100%!important;min-height:42px!important;padding:10px!important;display:flex!important;align-items:center!important;justify-content:center!important}.topbar .site-notice{grid-area:notice!important;max-width:calc(100vw - 16px)!important;height:38px!important;display:flex!important}.student-tools-update,.apk-download-section{grid-template-columns:1fr;margin-inline:10px}.student-tools-update .btn,.apk-download-section .download-btn{width:100%}}
     `;
     document.head.append(style);
@@ -33,7 +33,6 @@
   function setupPrimaryNavigation() {
     const currentPath = window.location.pathname || "/";
     document.querySelectorAll(".topbar .navlinks").forEach((nav) => {
-      if (nav.dataset.primaryNavNormalized === "true") return;
       const existingActiveHref = nav.querySelector('a.active, a[aria-current="page"]')?.getAttribute("href") || "";
       nav.dataset.primaryNavNormalized = "true";
       nav.replaceChildren();
@@ -41,13 +40,6 @@
         const link = document.createElement("a");
         link.href = item.href;
         link.textContent = item.label;
-        if (item.badge) {
-          link.append(" ");
-          const badge = document.createElement("span");
-          badge.className = "new-badge";
-          badge.textContent = item.badge;
-          link.append(badge);
-        }
         const isActive = item.match.some((pattern) => pattern.test(currentPath)) || existingActiveHref.endsWith(item.href.replace(/^\//, ""));
         if (isActive) {
           link.classList.add("active");
@@ -76,7 +68,7 @@
     const brand = document.querySelector(".topbar .brand");
     if (!brand) return;
     const message = [
-      "🧰 New Student Tools added: calculators, converters, CGPA, attendance, electrical, civil, mechanical, computer and career helpers",
+      "🧰 Student Tools added: calculators, converters, CGPA, attendance, electrical, civil, mechanical, computer and career helpers",
       "📚 Use Revision 2021 for current department and semester subject cards",
       "📝 Open Mock Exams for daily quiz practice and saved score feedback",
       "🗂 Use 2015 Materials only for older-scheme resources",
