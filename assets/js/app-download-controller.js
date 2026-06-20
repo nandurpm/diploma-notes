@@ -5,7 +5,14 @@
   if (!button) return;
 
   const appMatch = navigator.userAgent.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
-  if (appMatch) return;
+  if (appMatch) {
+    button.hidden = true;
+    button.setAttribute("aria-hidden", "true");
+    button.style.setProperty("display", "none", "important");
+    button.removeAttribute("href");
+    button.removeAttribute("download");
+    return;
+  }
 
   const PUBLISHED_UPDATE = Object.freeze({
     versionName: "1.0.4",
