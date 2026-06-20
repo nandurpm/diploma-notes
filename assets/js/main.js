@@ -10,7 +10,6 @@
     { label: "Mock Exams", href: "/daily-quiz.html", match: [/\/daily-quiz\.html$/, /\/mock-exam(?:-|\.html)/] },
     { label: "2015 Materials", href: "/materials-2015.html", match: [/\/materials-2015\.html$/] },
     { label: "Tools", href: TOOLS_URL, badge: "New", match: [/\/tools-v2\.html$/, /\/tools\.html$/] },
-    { label: "Question Papers", href: "/model-question-papers.html", match: [/\/model-question-papers\.html$/, /\/previous-question-papers\.html$/] },
     { label: "Help", href: "/contact.html", match: [/\/contact\.html$/] }
   ];
 
