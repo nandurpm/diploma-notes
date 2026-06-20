@@ -3,11 +3,13 @@
   const Q = window.PolyQuiz;
   Q.config.functionName = "quiz-portal-api";
 
+  const ASSET_VERSION = "20260620-nospace1";
+
   function loadStyle(href) {
     if (document.querySelector(`link[href^="${href}"]`)) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `${href}?v=20260619-layoutfix1`;
+    link.href = `${href}?v=${ASSET_VERSION}`;
     document.head.append(link);
   }
 
@@ -18,7 +20,7 @@
         return;
       }
       const script = document.createElement("script");
-      script.src = `${src}?v=20260619-layoutfix1`;
+      script.src = `${src}?v=${ASSET_VERSION}`;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Unable to load ${src}`));
       document.head.append(script);
