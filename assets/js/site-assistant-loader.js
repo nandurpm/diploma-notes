@@ -3,6 +3,30 @@
 
   const ASSET_VERSION = "20260620-ai-diagnostics1";
 
+  function renderPrimaryMenu() {
+    const nav = document.querySelector(".topbar .navlinks");
+    if (!nav) return;
+    const currentPath = window.location.pathname || "/";
+    const items = [
+      { label: "Home", href: "/index.html", active: currentPath === "/" || currentPath.endsWith("/index.html") },
+      { label: "About", href: "/about.html", active: currentPath.endsWith("/about.html") },
+      { label: "Revision 2021", href: "/revision-2021.html", active: currentPath.endsWith("/revision-2021.html") || currentPath.includes("/revision-2021/") },
+      { label: "Mock Exams", href: "/daily-quiz.html", active: currentPath.endsWith("/daily-quiz.html") || currentPath.includes("/mock-exam-") },
+      { label: "2015 Materials", href: "/materials-2015.html", active: currentPath.endsWith("/materials-2015.html") },
+      { label: "Help", href: "/contact.html", active: currentPath.endsWith("/contact.html") }
+    ];
+    nav.replaceChildren(...items.map((item) => {
+      const link = document.createElement("a");
+      link.href = item.href;
+      link.textContent = item.label;
+      if (item.active) {
+        link.className = "active";
+        link.setAttribute("aria-current", "page");
+      }
+      return link;
+    }));
+  }
+
   function rootPrefix() {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
     return depth > 0 ? "../".repeat(depth) : "";
@@ -57,6 +81,8 @@
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
+    renderPrimaryMenu();
+
     if (shouldSkipAssistant() || document.querySelector(".poly-ai-button")) return;
 
     const prefix = rootPrefix();
