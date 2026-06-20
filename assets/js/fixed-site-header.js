@@ -6,6 +6,8 @@
   const appMatch = navigator.userAgent.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
   const isNativeApp = Boolean(appMatch);
   const installedVersion = appMatch ? appMatch[1] : null;
+  const isLessonPage = /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(window.location.pathname);
+  if (isLessonPage) root.classList.add("poly-lesson-page");
 
   const compareVersions = (left, right) => {
     const a = String(left || "0").split(".").map((n) => parseInt(n, 10) || 0);
@@ -90,6 +92,14 @@
 
   configureAppDownloadButton();
   installDailyQuizResponsiveFix();
+
+  if (isLessonPage) {
+    body.classList.add("poly-lesson-page");
+    body.classList.remove("has-fixed-site-header", "portal-page");
+    root.style.setProperty("--fixed-site-header-height", "0px");
+    root.style.setProperty("--fixed-site-header-gap", "0px");
+    return;
+  }
 
   const header = document.querySelector(".topbar");
   if (isNativeApp) {
