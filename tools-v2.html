@@ -2,43 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Student Tools - POLY PMNA</title>
-  <meta name="description" content="Frontend-only engineering calculators and study tools for POLY PMNA diploma students.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url=/tools-v2-original.html">
+  <title>Opening Student Tools - POLY PMNA</title>
   <style>
-    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#eef5ff;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
-    .tools-frame{display:block;width:100%;height:100dvh;min-height:100vh;border:0;background:#eef5ff}
-    .fallback{position:fixed;inset:0;display:grid;place-items:center;color:#102033;background:linear-gradient(180deg,#eaf3ff,#fff);padding:24px;text-align:center}
-    .fallback a{color:#2457f5;font-weight:900}
+    body{margin:0;min-height:100vh;display:grid;place-items:center;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#eef6ff,#ffffff);color:#102a80;text-align:center;padding:24px}
+    .card{max-width:560px;background:#fff;border:1px solid #d9e5f7;border-radius:24px;padding:28px;box-shadow:0 18px 45px rgba(18,43,90,.12)}
+    a{display:inline-flex;margin-top:14px;padding:12px 18px;border-radius:999px;background:linear-gradient(135deg,#2457f5,#09a9c9);color:#fff;text-decoration:none;font-weight:900}
   </style>
 </head>
 <body>
-  <iframe id="toolsFrame" class="tools-frame" src="/tools-v2-original.html?v=20260620-unfreeze-toolbar" title="POLY PMNA Student Tools"></iframe>
-  <noscript><main class="fallback"><p>Open <a href="/tools-v2-original.html">Student Tools</a>.</p></main></noscript>
-  <script>
-    (()=>{
-      'use strict';
-      const frame=document.getElementById('toolsFrame');
-      const css='.toolbar{position:static!important;top:auto!important;z-index:auto!important}.toolbar{transform:none!important}@media(max-width:850px){.toolbar{top:auto!important;position:static!important}}';
-      const applyFix=()=>{
-        try{
-          const doc=frame.contentDocument;
-          if(!doc||!doc.head)return;
-          let style=doc.getElementById('poly-tools-unfreeze-toolbar');
-          if(!style){style=doc.createElement('style');style.id='poly-tools-unfreeze-toolbar';doc.head.append(style)}
-          style.textContent=css;
-        }catch(error){console.warn('Tools toolbar fix could not be applied yet.',error)}
-      };
-      frame.addEventListener('load',()=>{
-        applyFix();
-        const doc=frame.contentDocument;
-        if(doc){
-          doc.addEventListener('click',()=>setTimeout(applyFix,60),true);
-          doc.addEventListener('input',()=>setTimeout(applyFix,60),true);
-        }
-      });
-      setInterval(applyFix,800);
-    })();
-  </script>
+  <main class="card">
+    <h1>Opening Student Tools...</h1>
+    <p>The tools page now opens directly, not inside an iframe, so menu links update the address bar correctly and pages load faster.</p>
+    <a href="/tools-v2-original.html">Open Student Tools</a>
+  </main>
+  <script>location.replace('/tools-v2-original.html');</script>
 </body>
 </html>
