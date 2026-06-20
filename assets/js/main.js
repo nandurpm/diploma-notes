@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const TOOLS_URL = "/tools-v2.html";
+  const TOOLS_URL = "/tools-v2-original.html";
   const UNIFIED_CSS = "/assets/css/site-unified.css?v=20260620-unified1";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
   const NAV_ITEMS = [
@@ -10,7 +10,7 @@
     { label: "Revision 2021", href: "/revision-2021.html", match: [/\/revision-2021\.html$/, /\/revision-2021\//] },
     { label: "Mock Exams", href: "/daily-quiz.html", match: [/\/daily-quiz\.html$/, /\/mock-exam(?:-|\.html)/] },
     { label: "2015 Materials", href: "/materials-2015.html", match: [/\/materials-2015\.html$/] },
-    { label: "Tools", href: TOOLS_URL, badge: "New", match: [/\/tools-v2\.html$/, /\/tools\.html$/] },
+    { label: "Tools", href: TOOLS_URL, badge: "New", match: [/\/tools-v2-original\.html$/, /\/tools-v2\.html$/, /\/tools\.html$/] },
     { label: "Help", href: "/contact.html", match: [/\/contact\.html$/] }
   ];
 
@@ -134,18 +134,18 @@
   function setupHomepageToolsAccess() {
     if (LESSON_PAGE) return;
     const actions = document.querySelector(".home-compact-hero .hero-actions");
-    if (actions && !actions.querySelector('a[href="/tools-v2.html"], a[href="tools-v2.html"], a[href="/tools.html"], a[href="tools.html"]')) {
+    if (actions && !actions.querySelector('a[href="/tools-v2-original.html"], a[href="tools-v2-original.html"], a[href="/tools-v2.html"], a[href="tools-v2.html"], a[href="/tools.html"], a[href="tools.html"]')) {
       const link = document.createElement("a");
       link.className = "btn ghost";
       link.href = TOOLS_URL;
       link.textContent = "Student Tools";
       actions.insertBefore(link, actions.children[1] || null);
     }
-    document.querySelectorAll('a[href="tools.html"], a[href="/tools.html"]').forEach((link) => {
+    document.querySelectorAll('a[href="tools.html"], a[href="/tools.html"], a[href="tools-v2.html"], a[href="/tools-v2.html"]').forEach((link) => {
       if ((link.textContent || "").toLowerCase().includes("tool")) link.href = TOOLS_URL;
     });
     const grid = document.querySelector(".selection-grid");
-    if (grid && !grid.querySelector('a[href="/tools-v2.html"], a[href="tools-v2.html"], a[href="/tools.html"], a[href="tools.html"]')) {
+    if (grid && !grid.querySelector('a[href="/tools-v2-original.html"], a[href="tools-v2-original.html"], a[href="/tools-v2.html"], a[href="tools-v2.html"], a[href="/tools.html"], a[href="tools.html"]')) {
       const card = document.createElement("a");
       card.className = "choice-card";
       card.href = TOOLS_URL;
