@@ -138,6 +138,7 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navHome, "/");
         bindNavigation(R.id.navRevision2021, "/revision-2021.html");
         bindNavigation(R.id.navDailyQuiz, "/daily-quiz.html");
+        bindNavigation(R.id.navTools, "/tools-v2.html");
         bindNavigation(R.id.navStudyMaterials, "/model-question-papers.html");
         bindNavigation(R.id.navMaterials2015, "/materials-2015.html");
         bindNavigation(R.id.navAbout, "/about.html");
@@ -262,19 +263,99 @@ public class MainActivity extends ComponentActivity {
         );
     }
 
+    private DownloadListener createDownloadListener() {
+        return (url, userAgent, contentDisposition, mimetype, contentLength) -> {
+            if (!isTrustedDownload(url)) {
+                Toast.makeText(this, R.string.download_blocked, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            try {
+                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+                String guessedName = URLUtil.guessFileName(url, contentDisposition, mimetype);
+                CookieManager cookieManager = CookieManager.getInstance();
+                String cookies = cookieManager.getCookie(url);
+                if (cookies != null) {
+                    request.addRequestHeader("Cookie", cookies);
+                }
+                request.addRequestHeader("User-Agent", userAgent);
+                request.setTitle(guessedName);
+                request.setDescription(getString(R.string.downloading_file));
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, guessedName);
+                request.setMimeType(mimetype == null || mimetype.isEmpty() ? "application/octet-stream" : mimetype);
+                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                if (downloadManager != null) {
+                    downloadManager.enqueue(request);
+                    Toast.makeText(this, R.string.download_started, Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception ex) {
+                Toast.makeText(this, R.string.download_failed, Toast.LENGTH_SHORT).show();
+            }
+        };
+    }
+
+    private boolean isTrustedUri(Uri uri) {
+        return uri != null
+                && "https".equalsIgnoreCase(uri.getScheme())
+                && TRUSTED_HOST.equalsIgnoreCase(uri.getHost());
+    }
+
+    private boolean isTrustedDownload(String url) {
+        try {
+            Uri uri = Uri.parse(url);
+            if (!isTrustedUri(uri)) {
+                return false;
+            }
+            String path = uri.getPath();
+            return path != null && (
+                    path.startsWith("/notes/")
+                            || path.startsWith("/downloads/")
+                            || path.endsWith(".pdf")
+                            || path.endsWith(".apk")
+            );
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    private boolean isSafeExternalScheme(Uri uri) {
+        if (uri == null || uri.getScheme() == null) {
+            return false;
+        }
+        String scheme = uri.getScheme().toLowerCase(Locale.ROOT);
+        return "mailto".equals(scheme) || "tel".equals(scheme);
+    }
+
+    private void openExternal(Intent intent, int errorMessageResId) {
+        try {
+            startActivity(intent);
+        } catch (ActivityNotFoundException ex) {
+            Toast.makeText(this, errorMessageResId, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void retryLastFailedUrl() {
+        if (webView != null) {
+            webView.loadUrl(lastFailedUrl == null ? HOME_URL : lastFailedUrl);
+        }
+    }
+
     private void hideLaunchOverlay() {
-        mainHandler.removeCallbacks(slowLoadRunnable);
         if (launchOverlayDismissed || launchOverlay == null) {
             return;
         }
         launchOverlayDismissed = true;
+        mainHandler.removeCallbacks(slowLoadRunnable);
         launchOverlay.animate()
                 .alpha(0f)
-                .setDuration(260L)
+                .setDuration(180L)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        if (launchOverlay != null) {
+                        ViewParent parent = launchOverlay.getParent();
+                        if (parent instanceof ViewGroup) {
+                            ((ViewGroup) parent).removeView(launchOverlay);
+                        } else {
                             launchOverlay.setVisibility(View.GONE);
                         }
                     }
@@ -282,203 +363,21 @@ public class MainActivity extends ComponentActivity {
                 .start();
     }
 
-    private DownloadListener createDownloadListener() {
-        return (url, userAgent, contentDisposition, mimeType, contentLength) -> {
-            Uri downloadUri = parseUri(url);
-            if (!isAllowedDownloadUri(downloadUri)) {
-                Toast.makeText(this, R.string.download_blocked, Toast.LENGTH_LONG).show();
-                return;
-            }
-
-            try {
-                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                if (manager == null) {
-                    throw new IllegalStateException("Download service is unavailable.");
-                }
-
-                DownloadManager.Request request = new DownloadManager.Request(downloadUri);
-                if (userAgent != null && !userAgent.trim().isEmpty()) {
-                    request.addRequestHeader("User-Agent", userAgent);
-                }
-
-                String cookie = CookieManager.getInstance().getCookie(downloadUri.toString());
-                if (cookie != null && !cookie.trim().isEmpty()) {
-                    request.addRequestHeader("Cookie", cookie);
-                }
-
-                String currentPage = webView == null ? null : webView.getUrl();
-                Uri currentPageUri = parseUri(currentPage);
-                if (isTrustedUri(currentPageUri)) {
-                    request.addRequestHeader("Referer", currentPageUri.toString());
-                }
-
-                if (mimeType != null && !mimeType.trim().isEmpty()) {
-                    request.setMimeType(mimeType);
-                }
-                request.setNotificationVisibility(
-                        DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
-                );
-                request.setAllowedOverMetered(true);
-                request.setAllowedOverRoaming(false);
-
-                String fileName = URLUtil.guessFileName(url, contentDisposition, mimeType);
-                request.setTitle(fileName);
-                request.setDescription(getString(R.string.downloading_file));
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
-
-                long downloadId = manager.enqueue(request);
-                if (downloadId <= 0) {
-                    throw new IllegalStateException("Download manager rejected the request.");
-                }
-                Toast.makeText(this, R.string.download_started, Toast.LENGTH_SHORT).show();
-            } catch (SecurityException | IllegalArgumentException | IllegalStateException error) {
-                Toast.makeText(this, R.string.download_failed, Toast.LENGTH_LONG).show();
-            }
-        };
-    }
-
-    private Uri parseUri(String value) {
-        if (value == null || value.trim().isEmpty()) {
-            return null;
-        }
-        try {
-            return Uri.parse(value.trim());
-        } catch (Exception ignored) {
-            return null;
-        }
-    }
-
-    private boolean isAllowedDownloadUri(Uri uri) {
-        return isTrustedUri(uri);
-    }
-
-    private boolean isTrustedUri(Uri uri) {
-        if (uri == null || !"https".equalsIgnoreCase(uri.getScheme())) {
-            return false;
-        }
-        if (!TRUSTED_HOST.equalsIgnoreCase(uri.getHost()) || uri.getUserInfo() != null) {
-            return false;
-        }
-        int port = uri.getPort();
-        return port == -1 || port == 443;
-    }
-
-    private boolean handleUri(Uri uri) {
-        if (uri == null) {
-            return true;
-        }
-
-        String scheme = uri.getScheme() == null ? "" : uri.getScheme().toLowerCase(Locale.ROOT);
-        if (isTrustedUri(uri)) {
-            return false;
-        }
-
-        if (APP_ACTION_SCHEME.equals(scheme)) {
-            String action = uri.getHost() == null ? "" : uri.getHost().toLowerCase(Locale.ROOT);
-            if ("retry".equals(action)) {
-                retryLastFailedUrl();
-            } else if ("home".equals(action)) {
-                webView.loadUrl(HOME_URL);
-            }
-            return true;
-        }
-
-        if ("http".equals(scheme) || "https".equals(scheme)
-                || "mailto".equals(scheme) || "tel".equals(scheme)
-                || "sms".equals(scheme) || "geo".equals(scheme)) {
-            openExternal(uri);
-            return true;
-        }
-
-        if ("intent".equals(scheme)) {
-            Toast.makeText(this, R.string.intent_link_blocked, Toast.LENGTH_LONG).show();
-            return true;
-        }
-
-        Toast.makeText(this, R.string.unsafe_page_blocked, Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
-    private void retryLastFailedUrl() {
-        String retryUrl = isTrustedUri(parseUri(lastFailedUrl)) ? lastFailedUrl : HOME_URL;
-        webView.loadUrl(retryUrl);
-    }
-
-    private void openExternal(Uri uri) {
-        try {
-            Intent externalIntent = new Intent(Intent.ACTION_VIEW, uri);
-            externalIntent.addCategory(Intent.CATEGORY_BROWSABLE);
-            externalIntent.setComponent(null);
-            externalIntent.setSelector(null);
-            startActivity(externalIntent);
-        } catch (ActivityNotFoundException | SecurityException error) {
-            Toast.makeText(this, R.string.no_app_found, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean isNetworkError(int errorCode) {
-        return errorCode == WebViewClient.ERROR_HOST_LOOKUP
-                || errorCode == WebViewClient.ERROR_CONNECT
-                || errorCode == WebViewClient.ERROR_TIMEOUT
-                || errorCode == WebViewClient.ERROR_IO
-                || errorCode == WebViewClient.ERROR_PROXY_AUTHENTICATION;
-    }
-
-    private void showErrorPage(String failedUrl, boolean offline) {
-        Uri failedUri = parseUri(failedUrl);
-        if (isTrustedUri(failedUri)) {
-            lastFailedUrl = failedUri.toString();
-        }
-        hideLaunchOverlay();
-        webView.loadUrl(ERROR_PAGE_URL + "?reason=" + (offline ? "offline" : "error"));
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (webView != null) {
-            webView.onResume();
-            webView.resumeTimers();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        if (webView != null) {
-            webView.onPause();
-            webView.pauseTimers();
-        }
-        super.onPause();
-    }
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         if (webView != null) {
             webView.saveState(outState);
         }
-        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onDestroy() {
         mainHandler.removeCallbacksAndMessages(null);
-        if (fileChooserCallback != null) {
-            fileChooserCallback.onReceiveValue(null);
-            fileChooserCallback = null;
-        }
-
         if (webView != null) {
             webView.stopLoading();
-            webView.setDownloadListener(null);
             webView.setWebChromeClient(null);
             webView.setWebViewClient(null);
-            webView.loadUrl("about:blank");
-            webView.clearHistory();
-            ViewParent parent = webView.getParent();
-            if (parent instanceof ViewGroup) {
-                ((ViewGroup) parent).removeView(webView);
-            }
-            webView.removeAllViews();
             webView.destroy();
             webView = null;
         }
@@ -486,92 +385,83 @@ public class MainActivity extends ComponentActivity {
     }
 
     private final class HubWebViewClient extends WebViewClient {
-        @SuppressWarnings("deprecation")
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return handleUri(parseUri(url));
+            return handleNavigation(Uri.parse(url));
         }
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-            return handleUri(request == null ? null : request.getUrl());
+            return handleNavigation(request == null ? null : request.getUrl());
+        }
+
+        private boolean handleNavigation(Uri uri) {
+            if (isTrustedUri(uri)) {
+                return false;
+            }
+            if (isSafeExternalScheme(uri)) {
+                openExternal(new Intent(Intent.ACTION_VIEW, uri), R.string.no_app_found);
+            } else if (uri != null && APP_ACTION_SCHEME.equalsIgnoreCase(uri.getScheme())) {
+                Toast.makeText(MainActivity.this, R.string.intent_link_blocked, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, R.string.unsafe_page_blocked, Toast.LENGTH_SHORT).show();
+            }
+            return true;
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             progressBar.setVisibility(View.VISIBLE);
+            progressBar.setIndeterminate(true);
             toolbarSubtitle.setText(R.string.loading_page);
-        }
-
-        @Override
-        public void onPageCommitVisible(WebView view, String url) {
-            injectNativeAppChrome(view);
-            hideLaunchOverlay();
+            markActiveNavigation(url);
+            super.onPageStarted(view, url, favicon);
         }
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            progressBar.setIndeterminate(false);
+            progressBar.setProgress(100);
             progressBar.setVisibility(View.GONE);
-            if (isTrustedUri(parseUri(url))) {
-                markActiveNavigation(url);
-            }
+            toolbarSubtitle.setText(R.string.app_subtitle);
+            markActiveNavigation(url);
             injectNativeAppChrome(view);
             hideLaunchOverlay();
+            super.onPageFinished(view, url);
         }
 
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             if (request != null && request.isForMainFrame()) {
-                int errorCode = error == null ? WebViewClient.ERROR_UNKNOWN : error.getErrorCode();
-                showErrorPage(request.getUrl() == null ? HOME_URL : request.getUrl().toString(), isNetworkError(errorCode));
+                Uri failingUri = request.getUrl();
+                lastFailedUrl = failingUri == null ? HOME_URL : failingUri.toString();
+                view.loadUrl(ERROR_PAGE_URL);
             }
-        }
-
-        @SuppressWarnings("deprecation")
-        @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                showErrorPage(failingUrl, isNetworkError(errorCode));
-            }
+            super.onReceivedError(view, request, error);
         }
     }
 
     private final class HubWebChromeClient extends WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
+            progressBar.setIndeterminate(false);
             progressBar.setProgress(newProgress);
             progressBar.setVisibility(newProgress >= 100 ? View.GONE : View.VISIBLE);
+            super.onProgressChanged(view, newProgress);
         }
 
         @Override
-        public void onReceivedTitle(WebView view, String title) {
-            if (title == null || title.trim().isEmpty()) {
-                toolbarSubtitle.setText(R.string.app_subtitle);
-                return;
-            }
-            String cleaned = title
-                    .replace("Polytechnic Study Hub", "")
-                    .replace("Kerala Polytechnic Study Hub", "")
-                    .replace("|", "")
-                    .replace("–", "")
-                    .trim();
-            toolbarSubtitle.setText(cleaned.isEmpty() ? getString(R.string.app_subtitle) : cleaned);
-        }
-
-        @Override
-        public boolean onShowFileChooser(
-                WebView webView,
-                ValueCallback<Uri[]> callback,
-                FileChooserParams fileChooserParams
-        ) {
+        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
             if (fileChooserCallback != null) {
                 fileChooserCallback.onReceiveValue(null);
             }
-            fileChooserCallback = callback;
+            fileChooserCallback = filePathCallback;
+            Intent intent = fileChooserParams == null ? new Intent(Intent.ACTION_GET_CONTENT) : fileChooserParams.createIntent();
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
             try {
-                fileChooserLauncher.launch(fileChooserParams.createIntent());
+                fileChooserLauncher.launch(intent);
                 return true;
-            } catch (ActivityNotFoundException | SecurityException error) {
+            } catch (ActivityNotFoundException ex) {
                 fileChooserCallback = null;
                 Toast.makeText(MainActivity.this, R.string.no_file_picker, Toast.LENGTH_SHORT).show();
                 return false;
