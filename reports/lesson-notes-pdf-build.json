@@ -48,7 +48,7 @@
     {
       "code": "1006",
       "pages": 25,
-      "bytes": 687254,
+      "bytes": 687262,
       "source": "lessons/lessons-1006.html",
       "sourceCharacters": 39081,
       "pdfCharacters": 40870,
@@ -63,7 +63,7 @@
     {
       "code": "1008",
       "pages": 67,
-      "bytes": 981363,
+      "bytes": 981370,
       "source": "lessons/lessons-1008.html",
       "sourceCharacters": 68405,
       "pdfCharacters": 68871,
@@ -93,7 +93,7 @@
     {
       "code": "2002",
       "pages": 33,
-      "bytes": 747810,
+      "bytes": 747807,
       "source": "lessons/lessons-2002.html",
       "sourceCharacters": 32822,
       "pdfCharacters": 33277,
@@ -217,7 +217,7 @@
     {
       "code": "3032",
       "pages": 68,
-      "bytes": 1331558,
+      "bytes": 1331567,
       "source": "lessons/lessons-3032.html",
       "sourceCharacters": 91419,
       "pdfCharacters": 91893,
