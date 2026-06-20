@@ -1,16 +1,17 @@
 {
   "schemaVersion": 1,
-  "versionCode": 6,
-  "versionName": "1.0.5",
-  "apkUrl": "/downloads/Polytechnic-Study-Hub-v1.0.5.apk",
-  "sha256": "4c76b066ad0821594679891f9ea1cb232086ecaafd89f19509803b65a4f8b5d5",
+  "versionCode": 7,
+  "versionName": "2.0",
+  "apkUrl": "/downloads/POLY_PMNA_v2.0.apk",
+  "sha256": "dcf8cc7632eca0d40dd73413cf0bc0d56f06fd6c2f44ef3c5faf15210d611822",
   "publishedAt": "2026-06-20",
   "forceUpdate": false,
-  "title": "Polytechnic Study Hub Android app 1.0.5",
-  "message": "Updated Android app hides duplicate website headers inside the native shell, including the Mock Exams tab.",
+  "title": "POLY PMNA Android app 2.0",
+  "message": "Updated Android app includes the new Student Tools section and the corrected website layout.",
   "releaseNotes": [
-    "Removed duplicate website header/menu inside the Android WebView.",
-    "Mock Exams now uses only the native app top bar and left-side drawer.",
-    "Kept live website content and secure trusted downloads."
+    "Added Tools item in the Android app drawer.",
+    "Tools opens the new Student Tools section from the live website.",
+    "Restored the website app download button.",
+    "Kept duplicate website headers hidden inside the native app shell."
   ]
 }
