@@ -76,24 +76,9 @@
       "warnings": []
     },
     {
-      "code": "2001",
-      "pages": 47,
-      "bytes": 615859,
-      "source": "lessons/lessons-2001.html",
-      "sourceCharacters": 65820,
-      "pdfCharacters": 66257,
-      "textCoverage": 1.0066,
-      "panelCount": 10,
-      "visiblePanelCount": 10,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    },
-    {
       "code": "2002",
       "pages": 33,
-      "bytes": 755559,
+      "bytes": 755551,
       "source": "lessons/lessons-2002.html",
       "sourceCharacters": 32822,
       "pdfCharacters": 33228,
@@ -157,7 +142,7 @@
     {
       "code": "2038",
       "pages": 31,
-      "bytes": 669415,
+      "bytes": 669407,
       "source": "lessons/lessons-2038.html",
       "sourceCharacters": 34310,
       "pdfCharacters": 32942,
@@ -204,9 +189,9 @@
       "pages": 77,
       "bytes": 4484446,
       "source": "lessons/lessons-3031.html",
-      "sourceCharacters": 75533,
+      "sourceCharacters": 75517,
       "pdfCharacters": 111400,
-      "textCoverage": 1.4749,
+      "textCoverage": 1.4752,
       "panelCount": 4,
       "visiblePanelCount": 4,
       "removedBlankPages": [],
@@ -220,7 +205,7 @@
       "bytes": 1335194,
       "source": "lessons/lessons-3032.html",
       "sourceCharacters": 91419,
-      "pdfCharacters": 91821,
+      "pdfCharacters": 91817,
       "textCoverage": 1.0044,
       "panelCount": 0,
       "visiblePanelCount": 0,
@@ -232,7 +217,7 @@
     {
       "code": "3041",
       "pages": 28,
-      "bytes": 3669046,
+      "bytes": 3669038,
       "source": "lessons/lessons-3041.html",
       "sourceCharacters": 23961,
       "pdfCharacters": 24524,
@@ -277,7 +262,7 @@
     {
       "code": "3045",
       "pages": 28,
-      "bytes": 527665,
+      "bytes": 527657,
       "source": "lessons/lessons-3045.html",
       "sourceCharacters": 32212,
       "pdfCharacters": 32471,
@@ -292,7 +277,7 @@
     {
       "code": "3046",
       "pages": 27,
-      "bytes": 492517,
+      "bytes": 492509,
       "source": "lessons/lessons-3046.html",
       "sourceCharacters": 38265,
       "pdfCharacters": 38543,
@@ -307,7 +292,7 @@
     {
       "code": "3047",
       "pages": 27,
-      "bytes": 491115,
+      "bytes": 491107,
       "source": "lessons/lessons-3047.html",
       "sourceCharacters": 39265,
       "pdfCharacters": 39529,
@@ -372,7 +357,13 @@
       "warnings": []
     }
   ],
-  "errors": [],
+  "errors": [
+    {
+      "code": "2001",
+      "source": "lessons/lessons-2001.html",
+      "error": "Page.wait_for_function: Timeout 120000ms exceeded."
+    }
+  ],
   "preservedSeparateNotes": [
     "1003",
     "1004"
