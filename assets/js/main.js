@@ -3,6 +3,7 @@
 
   const TOOLS_URL = "/tools-v2.html";
   const UNIFIED_CSS = "/assets/css/site-unified.css?v=20260620-unified1";
+  const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
   const NAV_ITEMS = [
     { label: "Home", href: "/index.html", match: [/^\/$/, /\/index\.html$/] },
     { label: "About", href: "/about.html", match: [/\/about\.html$/] },
@@ -14,6 +15,7 @@
   ];
 
   function injectUnifiedCss() {
+    if (LESSON_PAGE) return;
     if (document.querySelector('link[href*="/assets/css/site-unified.css"]')) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";
@@ -22,6 +24,7 @@
   }
 
   function addGlobalStyle() {
+    if (LESSON_PAGE) return;
     injectUnifiedCss();
     if (document.getElementById("poly-menu-tools-fix")) return;
     const style = document.createElement("style");
@@ -48,6 +51,7 @@
   }
 
   function setupPrimaryNavigation() {
+    if (LESSON_PAGE) return;
     const currentPath = window.location.pathname || "/";
     document.querySelectorAll(".topbar .navlinks").forEach((nav) => {
       const existingActiveHref = nav.querySelector('a.active, a[aria-current="page"]')?.getAttribute("href") || "";
@@ -75,6 +79,7 @@
   }
 
   function setupMenu() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll(".topbar").forEach((bar) => {
       const toggle = bar.querySelector(".menu-toggle");
       const nav = bar.querySelector(".navlinks");
@@ -92,6 +97,7 @@
   }
 
   function normalizeFooter() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll(".footer").forEach((footer) => {
       let copyright = footer.querySelector("p");
       if (!copyright) {
@@ -121,10 +127,12 @@
   }
 
   function cleanupHomepageExtras() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll(".student-tools-update,.apk-download-section,#student-tools-update,#apk-download-v2").forEach((section) => section.remove());
   }
 
   function setupHomepageToolsAccess() {
+    if (LESSON_PAGE) return;
     const actions = document.querySelector(".home-compact-hero .hero-actions");
     if (actions && !actions.querySelector('a[href="/tools-v2.html"], a[href="tools-v2.html"], a[href="/tools.html"], a[href="tools.html"]')) {
       const link = document.createElement("a");
@@ -148,6 +156,7 @@
   }
 
   function setupMockExamLabels() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll('a[href$="daily-quiz.html"], a[href$="/daily-quiz.html"]').forEach((link) => {
       const label = (link.textContent || "").trim();
       if (/^(daily quiz|quiz|mock exams?)$/i.test(label)) link.textContent = "Mock Exams";
@@ -163,6 +172,7 @@
   }
 
   function renderMaterialLinks() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll("[data-link-group]").forEach((container) => {
       const group = globalThis.MATERIALS_2015?.[container.dataset.linkGroup] || [];
       container.replaceChildren();
@@ -178,24 +188,11 @@
   }
 
   function setupLessonBackLinks() {
-    const path = window.location.pathname;
-    if (!path.includes("/lessons/")) return;
-    const params = new URLSearchParams(window.location.search);
-    let revision = params.get("revision");
-    const existing = [...document.querySelectorAll("a")].find((link) => /back to/i.test(link.textContent));
-    if (revision !== "2015" && revision !== "2021") {
-      revision = existing && /2015|materials-2015/i.test(`${existing.textContent} ${existing.getAttribute("href") || ""}`) ? "2015" : "2021";
-    }
-    const href = revision === "2015" ? "/materials-2015.html" : "/revision-2021.html";
-    const text = revision === "2015" ? "Back to 2015 Materials" : "Back to Revision 2021";
-    const link = existing || document.createElement("a");
-    link.href = href;
-    link.textContent = text;
-    link.classList.add("curriculum-back");
-    if (!existing) document.body.prepend(link);
+    /* Disabled: injecting a body-level back link broke the top of lesson pages. */
   }
 
   function setupTables() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll("table").forEach((table) => {
       table.querySelectorAll("thead th").forEach((header) => { if (!header.hasAttribute("scope")) header.scope = "col"; });
       if (table.parentElement?.matches(".table-wrapper, .table-wrap, .tbl")) return;
@@ -207,6 +204,7 @@
   }
 
   function setupHomepageVideoPoster() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll(".home-video[poster]").forEach((video) => {
       video.addEventListener("ended", () => { video.pause(); video.currentTime = 0; video.load(); });
     });
