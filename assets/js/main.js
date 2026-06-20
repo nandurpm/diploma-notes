@@ -2,17 +2,28 @@
   "use strict";
 
   const TOOLS_URL = "/tools-v2.html";
+  const UNIFIED_CSS = "/assets/css/site-unified.css?v=20260620-unified1";
   const NAV_ITEMS = [
     { label: "Home", href: "/index.html", match: [/^\/$/, /\/index\.html$/] },
     { label: "About", href: "/about.html", match: [/\/about\.html$/] },
     { label: "Revision 2021", href: "/revision-2021.html", match: [/\/revision-2021\.html$/, /\/revision-2021\//] },
-    { label: "Mock Exams", href: "/daily-quiz.html", match: [/\/daily-quiz\.html$/, /\/mock-exam-/] },
+    { label: "Mock Exams", href: "/daily-quiz.html", match: [/\/daily-quiz\.html$/, /\/mock-exam(?:-|\.html)/] },
     { label: "2015 Materials", href: "/materials-2015.html", match: [/\/materials-2015\.html$/] },
     { label: "Tools", href: TOOLS_URL, badge: "New", match: [/\/tools-v2\.html$/, /\/tools\.html$/] },
+    { label: "Question Papers", href: "/model-question-papers.html", match: [/\/model-question-papers\.html$/, /\/previous-question-papers\.html$/] },
     { label: "Help", href: "/contact.html", match: [/\/contact\.html$/] }
   ];
 
+  function injectUnifiedCss() {
+    if (document.querySelector('link[href*="/assets/css/site-unified.css"]')) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = UNIFIED_CSS;
+    document.head.append(link);
+  }
+
   function addGlobalStyle() {
+    injectUnifiedCss();
     if (document.getElementById("poly-menu-tools-fix")) return;
     const style = document.createElement("style");
     style.id = "poly-menu-tools-fix";
@@ -72,11 +83,41 @@
       toggle.dataset.mainInitialized = "true";
       const setOpen = (open) => {
         nav.classList.toggle("open", open);
+        bar.classList.toggle("open", open);
         toggle.setAttribute("aria-expanded", String(open));
       };
       toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
       nav.addEventListener("click", (event) => { if (event.target.closest("a")) setOpen(false); });
       document.addEventListener("keydown", (event) => { if (event.key === "Escape" && nav.classList.contains("open")) { setOpen(false); toggle.focus(); } });
+    });
+  }
+
+  function normalizeFooter() {
+    document.querySelectorAll(".footer").forEach((footer) => {
+      let copyright = footer.querySelector("p");
+      if (!copyright) {
+        copyright = document.createElement("p");
+        footer.prepend(copyright);
+      }
+      if (!copyright.querySelector("[data-year],#year")) {
+        copyright.innerHTML = "&copy; <span data-year></span> Diploma Notes.";
+      }
+      if (!footer.querySelector('a[href*="nandakumarm.dpdns.org"]')) {
+        const developer = document.createElement("a");
+        developer.href = "https://nandakumarm.dpdns.org/about.html";
+        developer.target = "_blank";
+        developer.rel = "noopener noreferrer";
+        developer.textContent = "Connect to Developer";
+        footer.append(developer);
+      }
+      let legal = footer.querySelector(".footer-legal");
+      if (!legal) {
+        legal = document.createElement("nav");
+        legal.className = "footer-legal";
+        legal.setAttribute("aria-label", "Legal");
+        footer.append(legal);
+      }
+      legal.innerHTML = '<a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a>';
     });
   }
 
@@ -172,6 +213,10 @@
     });
   }
 
+  function updateYears() {
+    document.querySelectorAll("[data-year],#year").forEach((item) => { item.textContent = new Date().getFullYear(); });
+  }
+
   addGlobalStyle();
   setupPrimaryNavigation();
   setupMockExamLabels();
@@ -181,7 +226,8 @@
     setupPrimaryNavigation();
     setupMockExamLabels();
     setupHomepageToolsAccess();
-    document.querySelectorAll("[data-year]").forEach((item) => { item.textContent = new Date().getFullYear(); });
+    normalizeFooter();
+    updateYears();
     setupMenu();
     setupHomepageVideoPoster();
     renderMaterialLinks();
