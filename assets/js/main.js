@@ -8,6 +8,7 @@
     { label: "Mock Exams", href: "/daily-quiz.html", match: [/\/daily-quiz\.html$/, /\/mock-exam-/] },
     { label: "2015 Materials", href: "/materials-2015.html", match: [/\/materials-2015\.html$/] },
     { label: "Question Papers", href: "/model-question-papers.html", match: [/\/model-question-papers\.html$/, /\/previous-question-papers\.html$/] },
+    { label: "Tools", href: "/tools.html", badge: "New", match: [/\/tools\.html$/] },
     { label: "Help", href: "/contact.html", match: [/\/contact\.html$/] }
   ];
 
@@ -16,6 +17,21 @@
     const style = document.createElement("style");
     style.id = "mobile-header-inline-nav-hotfix";
     style.textContent = `
+      .new-badge {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        margin-left: 5px !important;
+        padding: 2px 7px !important;
+        border-radius: 999px !important;
+        background: #dcfae6 !important;
+        color: #067647 !important;
+        font-size: 0.66rem !important;
+        font-weight: 950 !important;
+        line-height: 1 !important;
+        letter-spacing: .04em !important;
+        text-transform: uppercase !important;
+      }
       @media (max-width: 760px) {
         html, body { max-width: 100% !important; overflow-x: hidden !important; }
         html body .topbar {
@@ -193,6 +209,13 @@
         const link = document.createElement("a");
         link.href = item.href;
         link.textContent = item.label;
+        if (item.badge) {
+          link.append(" ");
+          const badge = document.createElement("span");
+          badge.className = "new-badge";
+          badge.textContent = item.badge;
+          link.append(badge);
+        }
         const isActive = item.match.some((pattern) => pattern.test(currentPath)) || existingActiveHref.endsWith(item.href.replace(/^\//, ""));
         if (isActive) {
           link.classList.add("active");
@@ -282,6 +305,7 @@
     if (!brand) return;
 
     const englishNotice = [
+      "🧰 New Student Tools added: calculators, converters, CGPA, attendance, electrical, civil, mechanical, computer and career helpers",
       "📚 Use Revision 2021 for current department and semester subject cards",
       "📝 Open Mock Exams for daily quiz practice and saved score feedback",
       "🗂 Use 2015 Materials only for older-scheme resources",
@@ -291,6 +315,7 @@
     ].join("  •  ");
 
     const malayalamNotice = [
+      "🧰 പുതിയ Student Tools ചേർത്തു: calculators, converters, CGPA, attendance, electrical, civil, mechanical, computer, career helpers",
       "📚 നിലവിലെ department/semester subject cards കാണാൻ Revision 2021 ഉപയോഗിക്കുക",
       "📝 daily quiz practice, saved score feedback എന്നിവയ്ക്ക് Mock Exams തുറക്കുക",
       "🗂 പഴയ scheme ആവശ്യങ്ങൾക്ക് മാത്രം 2015 Materials ഉപയോഗിക്കുക",
@@ -302,7 +327,7 @@
     const message = `${englishNotice}  ◆  ${malayalamNotice}`;
     const notice = document.querySelector(".site-notice") || document.createElement("a");
     notice.className = "site-notice";
-    notice.href = "/about.html#site-guide";
+    notice.href = "/tools.html";
     notice.dataset.floatingInstructions = "true";
     notice.setAttribute("aria-label", "Floating website instructions and important study-resource updates");
     notice.innerHTML = `
