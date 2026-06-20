@@ -1,19 +1,19 @@
 (() => {
   "use strict";
 
-  const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({
+  const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
     "&": "&amp;",
     "<": "&lt;",
     ">": "&gt;",
     '"': "&quot;",
     "'": "&#039;",
-  })[c]);
+  })[char]);
 
   const exams = [
-    ["1001", "Communication Skills in English", "EN", "#7c3aed", "/mock-exam.html?subject=1001", "Reading, grammar, vocabulary, workplace communication and writing"],
-    ["1002", "Mathematics I", "Σ", "#2563eb", "/mock-exam.html?subject=1002", "Complex numbers, straight lines, trigonometry, limits and differentiation"],
+    ["1004", "Applied Chemistry", "CH", "#16a34a", "/mock-exam-1004.html", "Applied Chemistry · Course Code 1004"],
+    ["1002", "Mathematics I", "Σ", "#2563eb", "/mock-exam.html?subject=1002", "Complex numbers, straight lines, trigonometry and differentiation"],
     ["1003", "Applied Physics I", "Φ", "#0891b2", "/mock-exam.html?subject=1003", "Mechanics, heat, elasticity and fluid dynamics"],
-    ["1004", "Applied Chemistry", "CH", "#16a34a", "/mock-exam-1004.html", "Atomic structure, bonding, water, materials, electrochemistry and corrosion"],
+    ["1001", "Communication Skills in English", "EN", "#7c3aed", "/mock-exam.html?subject=1001", "Reading, grammar, vocabulary and workplace communication"],
     ["2002", "Mathematics II", "M2", "#4f46e5", "/mock-exam.html?subject=2002", "Determinants, matrices, vectors, integration and differential equations"],
     ["2003", "Applied Physics II", "P2", "#0f766e", "/mock-exam.html?subject=2003", "Waves, optics, electricity, semiconductors, LASER and nanoscience"],
   ];
@@ -24,7 +24,9 @@
   };
 
   function injectStyle() {
-    if (document.getElementById("mock-exam-portal-restore-style")) return;
+    const old = document.getElementById("mock-exam-portal-restore-style");
+    old?.remove();
+
     const style = document.createElement("style");
     style.id = "mock-exam-portal-restore-style";
     style.textContent = `
@@ -37,45 +39,59 @@
       .mock-exam-restore-panel {
         display: block !important;
         width: 100% !important;
+        max-width: none !important;
         margin-top: 16px !important;
-        background: linear-gradient(135deg, #ffffff, #f7f9ff) !important;
+        padding: clamp(16px, 2.5vw, 26px) !important;
         border: 1px solid #dfe5ef !important;
         border-radius: 22px !important;
+        background: linear-gradient(135deg, #ffffff, #f7f9ff) !important;
         box-shadow: 0 12px 30px rgba(30, 55, 90, .10) !important;
-        padding: clamp(16px, 2.5vw, 24px) !important;
+      }
+
+      .mock-exam-launch.future-card,
+      .mock-exam-restore-panel.future-card {
+        display: block !important;
       }
 
       .mock-exam-launch .section-heading,
       .mock-exam-restore-panel .section-heading {
-        display: grid !important;
-        grid-template-columns: minmax(210px, .8fr) minmax(260px, 1.2fr) !important;
-        align-items: end !important;
-        gap: 18px !important;
-        margin-bottom: 18px !important;
+        display: block !important;
+        width: 100% !important;
+        max-width: 920px !important;
+        margin: 0 0 18px !important;
       }
 
       .mock-exam-launch .section-heading h2,
       .mock-exam-restore-panel .section-heading h2 {
-        margin: 0 !important;
+        margin: 4px 0 8px !important;
+        max-width: 620px !important;
         color: #101828 !important;
+        font-size: clamp(26px, 3vw, 40px) !important;
+        line-height: 1.08 !important;
+        letter-spacing: -.035em !important;
       }
 
       .mock-exam-launch .section-heading p:not(.eyebrow),
       .mock-exam-restore-panel .section-heading p:not(.eyebrow) {
         margin: 0 !important;
+        max-width: 880px !important;
         color: #475467 !important;
-        line-height: 1.55 !important;
+        line-height: 1.6 !important;
+        font-size: clamp(15px, 1.25vw, 18px) !important;
       }
 
       .mock-exam-grid-restored {
         display: grid !important;
         grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        gap: 14px !important;
+        gap: 16px !important;
         width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
       }
 
       .mock-exam-grid-restored .subject-card {
-        min-height: 245px !important;
+        min-height: 252px !important;
         color: #101828 !important;
         background: #ffffff !important;
         border: 1px solid #dfe5ef !important;
@@ -85,6 +101,7 @@
       }
 
       .mock-exam-grid-restored .subject-card h3 {
+        margin: 12px 0 8px !important;
         color: #101828 !important;
       }
 
@@ -142,14 +159,6 @@
         border-spacing: 0 10px !important;
       }
 
-      #recentResults tr,
-      #previousReview tr,
-      .table-wrap tr {
-        background: #ffffff !important;
-        color: #101828 !important;
-        box-shadow: 0 4px 14px rgba(30,55,90,.06) !important;
-      }
-
       #recentResults th,
       #recentResults td,
       #previousReview th,
@@ -189,29 +198,35 @@
         margin-top: 6px !important;
       }
 
-      @media (max-width: 1050px) {
-        .mock-exam-grid-restored { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      @media (max-width: 1120px) {
+        .mock-exam-grid-restored {
+          grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
       }
 
       @media (max-width: 700px) {
-        .mock-exam-launch .section-heading,
-        .mock-exam-restore-panel .section-heading { display: block !important; }
-        .mock-exam-launch .section-heading p:not(.eyebrow),
-        .mock-exam-restore-panel .section-heading p:not(.eyebrow) { margin-top: 8px !important; }
-        .mock-exam-grid-restored { grid-template-columns: 1fr !important; }
+        .mock-exam-grid-restored {
+          grid-template-columns: 1fr !important;
+        }
+        .mock-exam-launch,
+        .mock-exam-restore-panel {
+          padding: 15px !important;
+          border-radius: 18px !important;
+        }
       }
     `;
     document.head.append(style);
   }
 
   function mockExamMarkup() {
-    return `<div class="section-heading"><div><p class="eyebrow">Mock Exams</p><h2>Official-Pattern Mock Examinations</h2></div><p>Select a subject first. The Mock Exams button should never open Chemistry directly unless Chemistry is selected here.</p></div><div class="subject-grid mock-exam-grid-restored">${exams.map(([code, title, icon, color, href, desc]) => `<article class="subject-card" style="--subject-color:${esc(color)}"><div class="subject-icon">${esc(icon)}</div><h3>${esc(title)}</h3><p>${esc(desc)} · 75 marks · 3 hours.</p><div class="subject-status"><span class="status-chip good">Available now</span><span class="status-chip">AI + Rubric</span></div><a class="btn primary full" href="${esc(href)}">Start ${esc(title)}</a></article>`).join("")}</div>`;
+    return `<div class="section-heading"><div><p class="eyebrow">Available now</p><h2>Official-Pattern Mock Examinations</h2></div><p>Each paper follows the uploaded official model pattern: Part A 9 × 1, Part B answer any 8 of 10, and Part C choose one from each OR pair. Select a subject below to start.</p></div><div class="subject-grid mock-exam-grid-restored">${exams.map(([code, title, icon, color, href, desc]) => `<article class="subject-card" style="--subject-color:${esc(color)}"><div class="subject-icon">${esc(icon)}</div><h3>${esc(title)}</h3><p>${esc(desc)} · 75 marks · 3 hours.</p><div class="subject-status"><span class="status-chip good">Available now</span><span class="status-chip">AI + Rubric</span></div><a class="btn primary full" href="${esc(href)}">Start Exam</a></article>`).join("")}</div>`;
   }
 
   function restoreMockExamCards() {
     let card = document.querySelector(".future-card");
     if (!card) {
-      const chemistryOnly = [...document.querySelectorAll("section, article, div")].find((node) => /Applied Chemistry Official-Pattern Mock Examination/i.test(node.textContent || ""));
+      const chemistryOnly = [...document.querySelectorAll("section, article, div")]
+        .find((node) => /Applied Chemistry Official-Pattern Mock Examination/i.test(node.textContent || ""));
       card = chemistryOnly?.closest("section") || chemistryOnly;
     }
 
@@ -257,7 +272,4 @@
   }
 
   [100, 600, 1500, 3000].forEach((delay) => setTimeout(applyFixes, delay));
-
-  const observer = new MutationObserver(() => applyFixes());
-  observer.observe(document.documentElement, { childList: true, subtree: true });
 })();
