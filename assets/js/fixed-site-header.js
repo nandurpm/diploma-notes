@@ -213,23 +213,93 @@
   const header = document.querySelector(".topbar");
   if (!header) return;
 
-  const ensureDailyQuizMenuLink = () => {
-    const nav = header.querySelector(".navlinks");
-    if (!nav || nav.querySelector('a[href$="daily-quiz.html"]')) return;
+  const canonicalNav = [
+    { key: "home", label: "Home", href: "index.html", match: (path) => path === "/" || path.endsWith("/index.html") },
+    { key: "about", label: "About", href: "about.html", match: (path) => path.endsWith("/about.html") },
+    { key: "revision", label: "Revision 2021", href: "revision-2021.html", match: (path) => path.endsWith("/revision-2021.html") || path.includes("/revision-2021/") },
+    { key: "mock", label: "Mock Exams", href: "daily-quiz.html", match: (path) => path.endsWith("/daily-quiz.html") },
+    { key: "materials", label: "2015 Materials", href: "materials-2015.html", match: (path) => path.endsWith("/materials-2015.html") },
+    { key: "tools", label: "Tools", href: "tools-v2.html", badge: "New", match: (path) => path.endsWith("/tools-v2.html") || path.endsWith("/tools.html") },
+    { key: "papers", label: "Question Papers", href: "previous-question-papers.html", match: (path) => path.endsWith("/previous-question-papers.html") || path.endsWith("/model-question-papers.html") },
+    { key: "help", label: "Help", href: "contact.html", match: (path) => path.endsWith("/contact.html") },
+  ];
 
-    const dailyLink = document.createElement("a");
-    dailyLink.href = "daily-quiz.html";
-    dailyLink.textContent = "Daily Quiz";
+  const currentPath = window.location.pathname.toLowerCase();
 
-    const materialsLink = [...nav.querySelectorAll("a")].find((link) => link.getAttribute("href")?.includes("materials-2015.html"));
-    if (materialsLink) {
-      materialsLink.before(dailyLink);
-    } else {
-      nav.append(dailyLink);
-    }
+  const ensureNavigationBadgeStyle = () => {
+    if (document.getElementById("poly-unified-nav-style")) return;
+    const style = document.createElement("style");
+    style.id = "poly-unified-nav-style";
+    style.textContent = `.new-badge{display:inline-flex;margin-left:5px;padding:2px 7px;border-radius:999px;background:#dcfae6;color:#067647;font-size:.66rem;font-weight:950;line-height:1;text-transform:uppercase;vertical-align:middle}.topbar .navlinks a.active .new-badge,.topbar .navlinks a:hover .new-badge{background:rgba(255,255,255,.92);color:#067647}`;
+    document.head.append(style);
   };
 
-  ensureDailyQuizMenuLink();
+  const normalizeSiteNavigation = () => {
+    body.classList.add("portal-page");
+    ensureNavigationBadgeStyle();
+
+    let brand = header.querySelector(".brand");
+    if (!brand) {
+      brand = document.createElement("a");
+      header.prepend(brand);
+    }
+    brand.className = "brand";
+    brand.href = "index.html";
+    brand.setAttribute("aria-label", "Polytechnic Study Hub home");
+    brand.innerHTML = '<span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong>';
+
+    let menuToggle = header.querySelector(".menu-toggle, .menu-btn");
+    if (!menuToggle) {
+      menuToggle = document.createElement("button");
+      brand.after(menuToggle);
+    }
+    menuToggle.className = "menu-toggle";
+    menuToggle.type = "button";
+    menuToggle.textContent = menuToggle.textContent.trim() || "Menu";
+    menuToggle.setAttribute("aria-label", "Toggle navigation");
+
+    let nav = header.querySelector(".navlinks");
+    if (!nav) {
+      nav = document.createElement("nav");
+      header.append(nav);
+    }
+    const wasOpen = nav.classList.contains("open");
+    nav.className = wasOpen ? "navlinks open" : "navlinks";
+    nav.setAttribute("aria-label", "Primary navigation");
+    nav.innerHTML = "";
+
+    canonicalNav.forEach((item) => {
+      const link = document.createElement("a");
+      link.href = item.href;
+      link.textContent = item.label;
+      if (item.badge) {
+        link.append(" ");
+        const badge = document.createElement("span");
+        badge.className = "new-badge";
+        badge.textContent = item.badge;
+        link.append(badge);
+      }
+      const isActive = item.match(currentPath);
+      link.classList.toggle("active", isActive);
+      if (isActive) {
+        link.setAttribute("aria-current", "page");
+      }
+      nav.append(link);
+    });
+
+    menuToggle.setAttribute("aria-expanded", nav.classList.contains("open") ? "true" : "false");
+
+    if (menuToggle.dataset.unifiedNavBound !== "true") {
+      menuToggle.dataset.unifiedNavBound = "true";
+      menuToggle.addEventListener("click", () => {
+        const open = nav.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        requestAnimationFrame(updateHeaderHeight);
+        setTimeout(updateHeaderHeight, 80);
+        setTimeout(updateHeaderHeight, 260);
+      });
+    }
+  };
 
   let frame = 0;
 
@@ -242,6 +312,7 @@
     });
   };
 
+  normalizeSiteNavigation();
   updateHeaderHeight();
 
   if ("ResizeObserver" in window) {
@@ -254,14 +325,5 @@
 
   if (document.fonts?.ready) {
     document.fonts.ready.then(updateHeaderHeight).catch(() => {});
-  }
-
-  const menuToggle = header.querySelector(".menu-toggle, .menu-btn");
-  if (menuToggle) {
-    menuToggle.addEventListener("click", () => {
-      requestAnimationFrame(updateHeaderHeight);
-      setTimeout(updateHeaderHeight, 80);
-      setTimeout(updateHeaderHeight, 260);
-    });
   }
 })();
