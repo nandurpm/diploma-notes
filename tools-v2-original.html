@@ -96,6 +96,42 @@ function bindResume(){$$('#body input,#body textarea').forEach(el=>el.addEventLi
 function resistor(){let colors=['black','brown','red','orange','yellow','green','blue','violet','grey','white'].map((c,i)=>[i,c.charAt(0).toUpperCase()+c.slice(1)]);return `<div class="bandVisual" id="bandPreview" aria-label="Resistor band preview"></div>`+form([{id:'bands',label:'Band type',type:'select',options:[[4,'4 band'],[5,'5 band']]},{id:'b1',label:'1st digit colour',type:'select',options:colors},{id:'b2',label:'2nd digit colour',type:'select',options:colors},{id:'b3',label:'3rd digit / multiplier',type:'select',options:colors},{id:'b4',label:'Multiplier for 5-band',type:'select',options:colors},{id:'tol',label:'Tolerance',type:'select',options:[[5,'Gold ±5%'],[10,'Silver ±10%'],[1,'Brown ±1%'],[2,'Red ±2%']]}],'4-band: first two colours are digits and the third is the multiplier. 5-band: first three are digits and the fourth is the multiplier.')}
 function bindResistor(){let draw=()=>{let vals=['b1','b2','b3','b4'].map(id=>v(id)),names=['black','brown','red','orange','yellow','green','blue','violet','grey','white'];$('#bandPreview').innerHTML=vals.map((x,i)=>`<span title="Band ${i+1}" style="background:${names[+x]}"></span>`).join('');$('#b4').closest('.field').style.display=+v('bands')===5?'grid':'none'};$$('#body select').forEach(el=>el.addEventListener('change',draw));draw()}
 
+/* Expanded offline grammar rules. These intentionally stay deterministic and browser-only. */
+function checkGrammar(autoFix){
+  let source=v('gIn'),t=source.trim(),issues=[];
+  const apply=(re,replacement,message)=>{let next=t.replace(re,replacement);if(next!==t){issues.push(message);t=next}};
+  if(!t){$('#gOut').value='';$('#gIssues').innerHTML='<b>Enter some text to check.</b>';return}
+  apply(/[ \t]{2,}/g,' ','Extra spaces were removed.');
+  apply(/\s+([,.;!?])/g,'$1','Spacing before punctuation was corrected.');
+  apply(/([,.;!?])(?=[A-Za-z])/g,'$1 ','Spacing after punctuation was corrected.');
+  apply(/\b(\w+)\s+\1\b/gi,'$1','A repeated word was removed.');
+  const words={recieve:'receive',definately:'definitely',seperate:'separate',occured:'occurred',adress:'address',becuase:'because',beleive:'believe',freind:'friend',goverment:'government',grammer:'grammar',tomorow:'tomorrow',untill:'until',wich:'which'};
+  Object.entries(words).forEach(([wrong,right])=>apply(new RegExp('\\b'+wrong+'\\b','gi'),right,`${wrong} → ${right}`));
+  const phrases=[
+    [/\byour welcome\b/gi,"you're welcome",'Use “you’re welcome”.'],[/\bdont\b/gi,"don't",'Use “don’t”.'],[/\bcant\b/gi,"can't",'Use “can’t”.'],[/\bwont\b/gi,"won't",'Use “won’t”.'],[/\bdidnt\b/gi,"didn't",'Use “didn’t”.'],
+    [/\bI has\b/gi,'I have','Use “I have”.'],[/\b(he|she|it) have\b/gi,'$1 has','Use “has” with he, she, or it.'],[/\b(I|you|we|they) has\b/gi,'$1 have','Use “have” with I, you, we, or they.'],
+    [/\bI is\b/gi,'I am','Use “I am”.'],[/\b(you|we|they) is\b/gi,'$1 are','Use “are” with you, we, or they.'],[/\b(he|she|it) are\b/gi,'$1 is','Use “is” with he, she, or it.'],
+    [/\b(I|you|we|they) was\b/gi,'$1 were','Use “were” with you, we, or they.'],[/\b(he|she|it) were\b/gi,'$1 was','Use “was” with he, she, or it.'],
+    [/\b(can|could|will|would|shall|should|may|might|must)\s+going\b/gi,'$1 go','A modal verb should be followed by the base verb “go”.'],
+    [/\bdid\s+went\b/gi,'did go','Use the base verb after “did”.'],[/\b(has|have|had)\s+went\b/gi,'$1 gone','Use “gone” after has, have, or had.'],
+    [/\b(I|you|we|they)\s+goes\b/gi,'$1 go','Use “go” with I, you, we, or they.'],[/\b(he|she|it)\s+go\b/gi,'$1 goes','Use “goes” with he, she, or it.'],
+    [/\bmy home\b/gi,'home','Use “home” without “my” after a movement verb.']
+  ];
+  phrases.forEach(([re,right,message])=>apply(re,right,message));
+  if(/\byesterday\b/i.test(t)){
+    apply(/\bI\s+(?:will go|am going|go)\s+home\b/gi,'I went home','“Yesterday” requires the past tense “went”.');
+    apply(/\b(he|she|it)\s+(?:will go|is going|goes)\b/gi,'$1 went','“Yesterday” requires the past tense “went”.');
+    apply(/\b(you|we|they)\s+(?:will go|are going|go)\b/gi,'$1 went','“Yesterday” requires the past tense “went”.');
+  }
+  apply(/\b(a)\s+([aeiou][a-z]*)\b/gi,'an $2','Use “an” before a vowel sound.');
+  apply(/\b(an)\s+([b-df-hj-np-tv-z][a-z]*)\b/gi,'a $2','Use “a” before a consonant sound.');
+  apply(/(^|[.!?]\s+)([a-z])/g,(m,start,ch)=>start+ch.toUpperCase(),'A sentence should begin with a capital letter.');
+  apply(/\bi\b/g,'I','The pronoun “I” must be capitalized.');
+  if(!/[.!?]$/.test(t)){issues.push('Ending punctuation was added.');t+='.'}
+  $('#gOut').value=t;
+  $('#gIssues').innerHTML=`<b>${issues.length?issues.length+' issue(s) corrected':'No common issues detected'}</b>${issues.length?'<ul>'+issues.map(i=>`<li>${esc(i)}</li>`).join('')+'</ul>':'<p>Basic rule check passed.</p>'}<p><small>${autoFix?'Common errors were fixed automatically.':'Suggested correction is shown above.'}</small></p>`;
+}
+
 function special(id){try{if(id==='resistor')return calcResistor();if(id==='resistance')return calcResistance();if(id==='cgpa')return calcCgpa();if(id==='base')return calcBase();if(id==='logic')return calcLogic();return calc(id)}catch(e){showError(e.message)}}
 
 window.APP={open:openTool,calc:special,sciKey,copyResult(){navigator.clipboard?.writeText($('#result')?.innerText||'')},copyField(id){navigator.clipboard?.writeText($('#'+id)?.value||'')},clearFields(...ids){ids.forEach(id=>{let el=$('#'+id);if(el)el.value=''})},swapText(a,b){let A=$('#'+a),B=$('#'+b),t=A.value;A.value=B.value;B.value=t;caseStats()},caseConvert(type){let t=v('caseIn'),o=type==='upper'?t.toUpperCase():type==='lower'?t.toLowerCase():type==='title'?titleCase(t):type==='sentence'?sentenceCase(t):type==='caps'?t.replace(/\b\w/g,c=>c.toUpperCase()):altCase(t);$('#caseOut').value=o;caseStats()},checkGrammar,jsonAction,generateDoc,copyPreview(){navigator.clipboard?.writeText($('#docPreview')?.innerText||'')}};$('#chips').innerHTML=cats.map(c=>`<button class="chip ${c==='All'?'on':''}" data-c="${c}">${c}</button>`).join('');$$('.chip').forEach(b=>b.onclick=()=>{$$('.chip').forEach(x=>x.classList.remove('on'));b.classList.add('on');state.cat=b.dataset.c;state.fav=false;render()});$('#search').oninput=e=>{state.q=e.target.value.toLowerCase();render()};$('#favBtn').onclick=()=>{state.fav=!state.fav;$('#favBtn').textContent=state.fav?'Showing Favorites':'Favorites';render()};$('#clearAll').onclick=()=>{if(confirm('Clear tool history, recent tools and favorites?')){Object.keys(localStorage).filter(k=>k==='recent'||k==='favs').forEach(k=>localStorage.removeItem(k));render()}};$('#toggle').onclick=()=>$('#menu').classList.toggle('open');$('#close').onclick=()=>{$('#modal').classList.remove('show');document.body.classList.remove('modal-open')};$('#modal').onclick=e=>{if(e.target.id==='modal'){$('#modal').classList.remove('show');document.body.classList.remove('modal-open')}};document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#modal').classList.remove('show');document.body.classList.remove('modal-open')}});render();})();
