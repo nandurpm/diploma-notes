@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private static final String HOME_URL = "https://polypmna.dpdns.org/";
-    private static final String VERSION_NAME = "1.0.4";
+    private static final String VERSION_NAME = "2.0";
     private static final String USER_AGENT_TOKEN = "PolytechnicStudyHubAndroid/" + VERSION_NAME;
 
     private WebView webView;
@@ -43,14 +43,16 @@ public class MainActivity extends Activity {
     private boolean drawerOpen = false;
 
     private final String[][] menuItems = new String[][]{
-            {"🏠 Home", HOME_URL},
-            {"📚 Revision 2021", HOME_URL + "revision-2021.html"},
-            {"📝 Mock Exams", HOME_URL + "daily-quiz.html"},
-            {"🗂 2015 Materials", HOME_URL + "materials-2015.html"},
-            {"📄 Question Papers", HOME_URL + "model-question-papers.html"},
-            {"🔎 Subject Search", HOME_URL + "#subject-browser"},
-            {"ℹ️ About", HOME_URL + "about.html"},
-            {"💬 Help", HOME_URL + "contact.html"}
+            {"Home", HOME_URL},
+            {"Revision 2021", HOME_URL + "revision-2021.html"},
+            {"Daily Quiz / Mock Exams", HOME_URL + "daily-quiz.html"},
+            {"2015 Materials", HOME_URL + "materials-2015.html"},
+            {"Tools", HOME_URL + "tools.html"},
+            {"Question Papers", HOME_URL + "model-question-papers.html"},
+            {"Subject Search", HOME_URL + "#subject-browser"},
+            {"About", HOME_URL + "about.html"},
+            {"Help", HOME_URL + "contact.html"},
+            {"Privacy", HOME_URL + "privacy.html"}
     };
 
     @Override
@@ -75,31 +77,31 @@ public class MainActivity extends Activity {
         top.setPadding(dp(12), dp(10), dp(12), dp(8));
         top.setBackgroundColor(Color.rgb(248, 251, 255));
 
-        TextView menu = pill("☰", 18, Color.WHITE, Color.rgb(29, 78, 216));
+        TextView menu = pill("Menu", 14, Color.WHITE, Color.rgb(29, 78, 216));
         menu.setGravity(Gravity.CENTER);
-        top.addView(menu, new LinearLayout.LayoutParams(dp(48), dp(46)));
+        top.addView(menu, new LinearLayout.LayoutParams(dp(64), dp(46)));
         menu.setOnClickListener(v -> toggleDrawer());
 
         LinearLayout brand = new LinearLayout(this);
         brand.setOrientation(LinearLayout.VERTICAL);
         brand.setPadding(dp(12), 0, 0, 0);
         title = new TextView(this);
-        title.setText("Polytechnic Study Hub");
+        title.setText("POLY PMNA");
         title.setTextColor(Color.rgb(10, 20, 40));
         title.setTextSize(18);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         TextView sub = new TextView(this);
-        sub.setText("Revision 2021 • Mock Exams • Question Papers");
+        sub.setText("Tools - Mock Exams - Revision 2021");
         sub.setTextColor(Color.rgb(71, 85, 105));
         sub.setTextSize(11);
         brand.addView(title);
         brand.addView(sub);
         top.addView(brand, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
-        TextView refresh = pill("↻", 18, Color.rgb(29, 78, 216), Color.WHITE);
+        TextView refresh = pill("Reload", 12, Color.rgb(29, 78, 216), Color.WHITE);
         refresh.setGravity(Gravity.CENTER);
         refresh.setOnClickListener(v -> webView.reload());
-        top.addView(refresh, new LinearLayout.LayoutParams(dp(44), dp(44)));
+        top.addView(refresh, new LinearLayout.LayoutParams(dp(60), dp(44)));
 
         progress = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         progress.setMax(100);
@@ -131,7 +133,7 @@ public class MainActivity extends Activity {
         panel.setPadding(dp(16), dp(20), dp(16), dp(16));
 
         TextView head = new TextView(this);
-        head.setText("📚 Polytechnic Study Hub\nLatest app 1.0.4");
+        head.setText("POLY PMNA\nLatest app 2.0");
         head.setTextSize(20);
         head.setTypeface(Typeface.DEFAULT_BOLD);
         head.setTextColor(Color.WHITE);
@@ -140,7 +142,7 @@ public class MainActivity extends Activity {
         panel.addView(head, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         TextView note = new TextView(this);
-        note.setText("Quick access to important student pages.");
+        note.setText("Quick access to study pages, mock exams and the new Student Tools section.");
         note.setTextColor(Color.rgb(71, 85, 105));
         note.setTextSize(13);
         note.setPadding(0, dp(12), 0, dp(10));
