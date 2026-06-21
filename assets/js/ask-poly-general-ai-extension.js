@@ -6,10 +6,13 @@
   const LOCAL_QUERY_PATTERN = /\b(subject|lesson|syllabus|notes|semester|department|model\s*qp|question\s*paper)\b/i;
   const SIMPLE_HELP_PATTERN = /^(hi+|hai|hlo|helo|hello|hellow|hey|help|what can you do|how to use)$/i;
   const ACKNOWLEDGEMENT_PATTERN = /^(ok|okay|okk|k|thanks|thank you|fine|good)$/i;
+  const AVAILABILITY_PATTERN = /^(are you available|available\??|are you online|online\??|working\??|are you working|test|testing|ping)$/i;
+  const REASON_PATTERN = /^(reason|what reason|why not working|why failed|why no answer|why error|issue|problem)$/i;
   const VAGUE_QUERY_PATTERN = /^(why|what|how|where|when|which|who|then|yes|no|and|so|tell|explain|why\?|what\?|how\?)$/i;
 
   let remoteHistory = [];
   let lastRemoteAnswer = "";
+  let lastFailureReason = "No online failure recorded in this chat yet.";
 
   function clean(value) {
     return String(value || "").replace(/\s+/g, " ").trim();
@@ -64,6 +67,27 @@
     return "Hi! I can help with maths, grammar, HTML/coding doubts and POLY PMNA subject or lesson search. Try a full question like “Why is my menu moving down?”, a maths problem like 2+25, a subject code like 3041, or a subject name like Electronics Engineering.";
   }
 
+  function availabilityAnswer(configured) {
+    return configured
+      ? "Yes. The local Ask POLY assistant is available. Online AI is also configured, but if it takes too long, local subject search, lesson search and basic maths will still work."
+      : "Yes. The local Ask POLY assistant is available. Online AI is not configured on this page right now, but subject search, lesson search and basic maths still work.";
+  }
+
+  function reasonAnswer() {
+    return `Reason: ${lastFailureReason}\n\nMost likely causes are: the Worker deployment is not updated yet, the selected online provider timed out, or the browser is still using cached Ask POLY files. Local mode is still active.`;
+  }
+
+  function localAcademicAnswer(query) {
+    const text = clean(query).toLowerCase();
+    if (/chemical\s+bond/.test(text)) {
+      return "A chemical bond is the attractive force that holds atoms together in a molecule or compound. Atoms form chemical bonds to become more stable, usually by sharing, gaining, or losing electrons. Main types include ionic bond, covalent bond, and metallic bond.";
+    }
+    if (/ohm'?s?\s+law/.test(text)) {
+      return "Ohm’s law states that voltage equals current multiplied by resistance: V = I × R. It means current increases when voltage increases, and current decreases when resistance increases, if other conditions stay the same.";
+    }
+    return "";
+  }
+
   function vagueQuestionAnswer(query) {
     const text = clean(query).toLowerCase().replace(/[.!?]+$/g, "");
     if (!text) return "";
@@ -75,7 +99,7 @@
 
   function shouldStayLocal(query) {
     const text = clean(query);
-    if (!text || SIMPLE_HELP_PATTERN.test(text)) return true;
+    if (!text || SIMPLE_HELP_PATTERN.test(text) || AVAILABILITY_PATTERN.test(text) || REASON_PATTERN.test(text)) return true;
     if (/^[A-Za-z]*\d+[A-Za-z]*$/.test(text)) return true;
     return LOCAL_QUERY_PATTERN.test(text);
   }
@@ -127,7 +151,7 @@
   }
 
   function offlineGeneralAnswer(query) {
-    return vagueQuestionAnswer(query) || answerOfflineMath(query);
+    return localAcademicAnswer(query) || vagueQuestionAnswer(query) || answerOfflineMath(query);
   }
 
   function onlineFailureMessage(error) {
@@ -135,6 +159,7 @@
     const message = clean(error?.message || error?.detail || "");
 
     if (status === 429) {
+      lastFailureReason = "Online AI rate limit was reached. Wait a few minutes and try again.";
       return {
         text: "Online AI is busy because many questions were asked recently. Please wait a few minutes and try again. Local subject search, lesson search and basic maths still work.",
         status: "Online AI busy • Local mode active"
@@ -142,6 +167,7 @@
     }
 
     if (status === 403 || /origin|allowed/i.test(message)) {
+      lastFailureReason = "The website origin was blocked by the Worker allowed-origin setting.";
       return {
         text: "Online AI is not available for this page right now. Local subject search, lesson search and basic maths still work.",
         status: "Online AI unavailable • Local mode active"
@@ -149,19 +175,22 @@
     }
 
     if (status === 503 || /not configured|OPENAI_API_KEY|api key/i.test(message)) {
+      lastFailureReason = "No usable AI key was available inside the Worker runtime.";
       return {
         text: "Online AI is temporarily unavailable. You can still use local subject search, lesson search, grammar prompts, HTML prompts and basic maths.",
         status: "Online AI unavailable • Local mode active"
       };
     }
 
-    if (status === 404 || /failed to fetch|network|load failed|abort/i.test(message)) {
+    if (status === 404 || status === 504 || /failed to fetch|network|load failed|abort|timeout|timed out/i.test(message)) {
+      lastFailureReason = "The online AI request timed out or the Worker did not respond fast enough.";
       return {
         text: "Online AI could not connect right now. Local subject search, lesson search and basic maths still work. Please try the online question again later.",
         status: "Connection issue • Local mode active"
       };
     }
 
+    lastFailureReason = "The Worker returned an unexpected AI provider error.";
     return {
       text: "Online AI is temporarily unavailable. Local maths, subject search, lesson search, grammar and HTML help still work. Please try again later.",
       status: "Online AI unavailable • Local mode active"
@@ -179,7 +208,7 @@
   function pageContext() {
     const activePanel = document.querySelector(".panel.active") || document.querySelector("main") || document.body;
     const main = IS_LESSON_PAGE ? (activePanel || document.querySelector("main")) : document.querySelector("main");
-    return clean(main?.innerText || "").slice(0, IS_LESSON_PAGE ? 12000 : 8000);
+    return clean(main?.innerText || "").slice(0, IS_LESSON_PAGE ? 9000 : 5000);
   }
 
   function makeMessage(body, role, text) {
@@ -299,6 +328,26 @@
         makeMessage(body, "user", query);
         makeMessage(body, "bot", greetingAnswer());
         status.textContent = configuredNow ? "Online AI enabled • Local mode ready" : "Local assistant ready";
+        return;
+      }
+
+      if (AVAILABILITY_PATTERN.test(query)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        input.value = "";
+        makeMessage(body, "user", query);
+        makeMessage(body, "bot", availabilityAnswer(configuredNow));
+        status.textContent = configuredNow ? "Online AI configured • Local mode ready" : "Local assistant ready";
+        return;
+      }
+
+      if (REASON_PATTERN.test(query)) {
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        input.value = "";
+        makeMessage(body, "user", query);
+        makeMessage(body, "bot", reasonAnswer());
+        status.textContent = "Reason explained locally";
         return;
       }
 
