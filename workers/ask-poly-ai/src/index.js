@@ -1,4 +1,4 @@
-import { askPoly } from "./ask-handler.js";
+import { askPoly, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
 import {
   cleanText,
@@ -23,6 +23,7 @@ export default {
   async fetch(request, env) {
     const origin = request.headers.get("Origin") || "";
     const url = new URL(request.url);
+    const providers = configuredProviders(env);
 
     if (request.method === "OPTIONS") {
       if (!isOriginAllowed(origin, env)) return new Response(null, { status: 403 });
@@ -33,8 +34,13 @@ export default {
       return jsonResponse({
         ok: true,
         service: "Ask POLY AI",
-        configured: Boolean(env.OPENAI_API_KEY),
-        model: env.OPENAI_MODEL || "gpt-5.4-mini",
+        configured: providers.length > 0,
+        providers,
+        model: providers[0] === "nvidia"
+          ? (env.NVIDIA_MODEL || "nvidia/nemotron-3-ultra-550b-a55b")
+          : providers[0] === "gemini"
+            ? (env.GEMINI_MODEL || "gemini-3.5-flash")
+            : (env.OPENAI_MODEL || "gpt-4o-mini"),
         mockExamEvaluation: true,
         mockExamPattern: "1004-75-mark-official-model"
       }, 200, origin, env);
@@ -49,7 +55,7 @@ export default {
       return jsonResponse({ error: "This website origin is not allowed." }, 403, origin, env);
     }
 
-    if (!env.OPENAI_API_KEY) {
+    if (!providers.length) {
       return jsonResponse({ error: "Ask POLY AI is not configured yet." }, 503, origin, env);
     }
 
