@@ -28,7 +28,7 @@ function sanitizeHistory(value) {
   if (!Array.isArray(value)) return [];
   return value.slice(-12).map((item) => ({
     role: item?.role === "assistant" ? "assistant" : "user",
-    content: cleanText(item?.text ?? item?.content, 2400)
+    content: cleanText(item?.text ?? item?.content, 2000)
   })).filter((item) => item.content);
 }
 
@@ -37,14 +37,40 @@ function buildUserContent(body) {
   const parts = [];
   const pageTitle = cleanText(body.pageTitle, 300);
   const pageUrl = cleanText(body.pageUrl, 600);
-  const selectedText = cleanText(body.selectedText, 2500);
-  const pageContext = cleanText(body.pageContext, 10000);
+  const selectedText = cleanText(body.selectedText, 1800);
+  const pageContext = cleanText(body.pageContext, 6500);
   if (pageTitle) parts.push(`Page title: ${pageTitle}`);
   if (pageUrl) parts.push(`Page URL: ${pageUrl}`);
   if (selectedText) parts.push(`Selected text:\n${selectedText}`);
   if (pageContext) parts.push(`Relevant page or lesson context:\n${pageContext}`);
   if (!parts.length) return message;
   return `${message}\n\n--- BEGIN UNTRUSTED PAGE CONTEXT ---\n${parts.join("\n\n")}\n--- END UNTRUSTED PAGE CONTEXT ---`;
+}
+
+function providerTimeoutMs(env) {
+  return Math.max(5000, Math.min(45000, Number(env.PROVIDER_TIMEOUT_MS || env.AI_PROVIDER_TIMEOUT_MS || 16000)));
+}
+
+async function fetchJsonWithTimeout(url, options, env, provider) {
+  const timeoutMs = providerTimeoutMs(env);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    const data = await response.json().catch(() => ({}));
+    return { response, data };
+  } catch (error) {
+    const timedOut = error?.name === "AbortError" || String(error?.message || "").toLowerCase().includes("abort");
+    const wrapped = new Error(timedOut
+      ? `${provider} timed out after ${timeoutMs} ms.`
+      : `${provider} request failed before a response was received.`);
+    wrapped.status = timedOut ? 504 : 502;
+    wrapped.provider = provider;
+    wrapped.cause = error;
+    throw wrapped;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function extractOpenAIAnswer(data) {
@@ -80,7 +106,7 @@ function uniqueModels(primary, defaults) {
 }
 
 function providerOrder(env) {
-  const requested = String(env.AI_PROVIDER_ORDER || env.AI_PROVIDER || "nvidia,openai,gemini")
+  const requested = String(env.AI_PROVIDER_ORDER || env.AI_PROVIDER || "openai,nvidia,gemini")
     .split(",")
     .map((item) => item.trim().toLowerCase())
     .filter(Boolean);
@@ -91,8 +117,8 @@ function providerOrder(env) {
     return false;
   });
   return usable.length ? usable : [
-    ...(env.NVIDIA_API_KEY ? ["nvidia"] : []),
     ...(env.OPENAI_API_KEY ? ["openai"] : []),
+    ...(env.NVIDIA_API_KEY ? ["nvidia"] : []),
     ...(env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO ? ["gemini"] : [])
   ];
 }
@@ -136,15 +162,14 @@ function simplifyOpenAiPayloadAfterError(payload, error) {
 }
 
 async function requestOpenAI(payload, env) {
-  const response = await fetch("https://api.openai.com/v1/responses", {
+  const { response, data } = await fetchJsonWithTimeout("https://api.openai.com/v1/responses", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify(payload)
-  });
-  const data = await response.json().catch(() => ({}));
+  }, env, "openai");
   if (!response.ok) {
     const error = new Error(data?.error?.message || `OpenAI request failed with HTTP ${response.status}.`);
     error.status = response.status;
@@ -184,7 +209,7 @@ async function askOpenAI(input, env) {
 
 async function askNvidia(input, env) {
   const model = cleanText(env.NVIDIA_MODEL, 140) || DEFAULT_NVIDIA_MODEL;
-  const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+  const { response, data } = await fetchJsonWithTimeout("https://integrate.api.nvidia.com/v1/chat/completions", {
     method: "POST",
     headers: {
       "Authorization": `Bearer ${env.NVIDIA_API_KEY}`,
@@ -198,8 +223,7 @@ async function askNvidia(input, env) {
       max_tokens: Number(env.MAX_OUTPUT_TOKENS || 1800),
       stream: false
     })
-  });
-  const data = await response.json().catch(() => ({}));
+  }, env, "nvidia");
   if (!response.ok) {
     const error = new Error(data?.error?.message || data?.detail || `NVIDIA request failed with HTTP ${response.status}.`);
     error.status = response.status;
@@ -215,7 +239,7 @@ async function askNvidia(input, env) {
 async function askGemini(input, env) {
   const apiKey = env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
   const model = cleanText(env.GEMINI_MODEL, 120) || DEFAULT_GEMINI_MODEL;
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+  const { response, data } = await fetchJsonWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
     method: "POST",
     headers: {
       "x-goog-api-key": apiKey,
@@ -229,8 +253,7 @@ async function askGemini(input, env) {
         maxOutputTokens: Number(env.MAX_OUTPUT_TOKENS || 1800)
       }
     })
-  });
-  const data = await response.json().catch(() => ({}));
+  }, env, "gemini");
   if (!response.ok) {
     const error = new Error(data?.error?.message || `Gemini request failed with HTTP ${response.status}.`);
     error.status = response.status;
@@ -251,8 +274,8 @@ async function askAnyProvider(input, env) {
   const errors = [];
   for (const provider of providerOrder(env)) {
     try {
-      if (provider === "nvidia") return await askNvidia(input, env);
       if (provider === "openai") return await askOpenAI(input, env);
+      if (provider === "nvidia") return await askNvidia(input, env);
       if (provider === "gemini" || provider === "google") return await askGemini(input, env);
     } catch (error) {
       errors.push(`${provider}: ${error?.status || "error"} ${cleanText(error?.message, 180)}`);
