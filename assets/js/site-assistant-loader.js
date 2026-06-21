@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260621-ask-poly-student-friendly-fix";
+  const ASSET_VERSION = "20260621-ask-poly-provider-timeout-fix";
 
   function rootPrefix() {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
