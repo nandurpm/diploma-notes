@@ -3,11 +3,11 @@ main = "src/index.js"
 compatibility_date = "2026-06-18"
 workers_dev = true
 # Deployment trigger: Ask POLY AI backend
-# Redeploy marker: 2026-06-19T00:25:00Z stable-ai-request
+# Redeploy marker: 2026-06-21T00:00:00Z backend-diagnostics-and-origin-fix
 
 [vars]
 OPENAI_MODEL = "gpt-4o-mini"
 MAX_OUTPUT_TOKENS = "1800"
 MOCK_EXAM_MODEL = "gpt-4o-mini"
 MOCK_EXAM_MAX_OUTPUT_TOKENS = "7500"
-ALLOWED_ORIGINS = "https://polypmna.dpdns.org,http://localhost:8000,http://127.0.0.1:8000"
+ALLOWED_ORIGINS = "https://polypmna.dpdns.org,https://www.polypmna.dpdns.org,https://polypmna.dpdns.com,https://www.polypmna.dpdns.com,https://polypmna.blogspot.com,https://polypmna.blogspot.in,http://localhost:8000,http://127.0.0.1:8000"
