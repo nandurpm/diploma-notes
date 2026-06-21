@@ -21,6 +21,8 @@ jobs:
       CLOUDFLARE_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID_VALUE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
+      NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY }}
+      GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,7 +35,10 @@ jobs:
           node --check workers/ask-poly-ai/src/mock-evaluator.js
           python - <<'PY'
           from pathlib import Path
-          assert 'OPENAI_API_KEY' not in Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
+          public_config = Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
+          assert 'OPENAI_API_KEY' not in public_config
+          assert 'NVIDIA_API_KEY' not in public_config
+          assert 'GOOGLE_AI_STUDIO' not in public_config
           print('Worker source and public configuration validated.')
           PY
 
@@ -41,15 +46,19 @@ jobs:
         id: secrets
         shell: bash
         run: |
-          if [ -n "$CLOUDFLARE_API_TOKEN_VALUE" ] && [ -n "$CLOUDFLARE_ACCOUNT_ID_VALUE" ] && [ -n "$OPENAI_API_KEY_VALUE" ]; then
-            echo "enabled=true" >> "$GITHUB_OUTPUT"
-          else
+          if [ -z "$CLOUDFLARE_API_TOKEN_VALUE" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID_VALUE" ]; then
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "Ask POLY AI deployment skipped. Add CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and OPENAI_API_KEY as repository Actions secrets, then run this workflow manually."
+            echo "Ask POLY AI deployment skipped. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repository Actions secrets, then run this workflow manually."
             exit 1
           fi
+          if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "Ask POLY AI deployment skipped. Add at least one AI key: OPENAI_API_KEY, NVIDIA_API_KEY, or GOOGLE_AI_STUDIO."
+            exit 1
+          fi
+          echo "enabled=true" >> "$GITHUB_OUTPUT"
 
-      - name: Deploy Worker and store OpenAI key securely
+      - name: Deploy Worker and store AI keys securely
         id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
@@ -60,8 +69,14 @@ jobs:
           command: deploy
           secrets: |
             OPENAI_API_KEY
+            NVIDIA_API_KEY
+            GOOGLE_AI_STUDIO
+            GEMINI_API_KEY
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          GOOGLE_AI_STUDIO: ${{ secrets.GOOGLE_AI_STUDIO }}
+          GEMINI_API_KEY: ${{ secrets.GOOGLE_AI_STUDIO }}
 
       - name: Configure website with deployed Worker URL
         env:
