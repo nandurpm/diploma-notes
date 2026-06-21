@@ -10,11 +10,12 @@ EXPOSE_ERRORS = "true"
 AI_PROVIDER_ORDER = "nvidia"
 PROVIDER_TIMEOUT_MS = "20000"
 OPENAI_MODEL = "gpt-4o-mini"
-NVIDIA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b"
+NVIDIA_MODEL = "meta/llama-3.1-8b-instruct"
 MAX_OUTPUT_TOKENS = "900"
 MOCK_EXAM_MODEL = "gpt-4o-mini"
 MOCK_EXAM_MAX_OUTPUT_TOKENS = "7500"
 ALLOWED_ORIGINS = "https://polypmna.dpdns.org,https://www.polypmna.dpdns.org,https://polypmna.dpdns.com,https://www.polypmna.dpdns.com,https://polypmna.blogspot.com,https://polypmna.blogspot.in,http://localhost:8000,http://127.0.0.1:8000"
+
 
 
 
