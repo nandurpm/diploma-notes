@@ -94,7 +94,7 @@ jobs:
           source = (
               "globalThis.ASK_POLY_CONFIG = Object.freeze({\n"
               f"  endpoint: {json.dumps(endpoint)},\n"
-              "  timeoutMs: 60000,\n"
+              "  timeoutMs: 30000,\n"
               "  maxHistory: 12\n"
               "});\n"
           )
