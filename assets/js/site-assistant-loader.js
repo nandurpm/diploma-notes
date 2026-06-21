@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260620-ask-poly-fix1";
+  const ASSET_VERSION = "20260621-ask-poly-student-friendly-fix";
 
   function rootPrefix() {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
