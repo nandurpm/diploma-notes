@@ -6,6 +6,7 @@
   const LOCAL_QUERY_PATTERN = /\b(subject|lesson|syllabus|notes|semester|department|model\s*qp|question\s*paper)\b/i;
   const SIMPLE_HELP_PATTERN = /^(hi+|hai|hlo|helo|hello|hellow|hey|help|what can you do|how to use)$/i;
   const ACKNOWLEDGEMENT_PATTERN = /^(ok|okay|okk|k|thanks|thank you|fine|good)$/i;
+  const VAGUE_QUERY_PATTERN = /^(why|what|how|where|when|which|who|then|yes|no|and|so|tell|explain|why\?|what\?|how\?)$/i;
 
   let remoteHistory = [];
   let lastRemoteAnswer = "";
@@ -35,8 +36,41 @@
     }
   }
 
+  function installUiFixStyles() {
+    if (document.getElementById("ask-poly-student-friendly-fixes")) return;
+    const style = document.createElement("style");
+    style.id = "ask-poly-student-friendly-fixes";
+    style.textContent = `
+      #polySiteAssistant{z-index:2147483000!important}
+      #polySiteAssistant .poly-ai-panel{grid-template-rows:auto auto auto minmax(0,1fr) auto!important;height:min(620px,calc(100dvh - 92px))!important;max-height:calc(100dvh - 20px)!important}
+      #polySiteAssistant .poly-ai-tabs,#polySiteAssistant .poly-ai-quick{display:flex!important;flex-wrap:nowrap!important;max-height:54px!important;min-height:0!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin!important;overscroll-behavior-x:contain!important;white-space:nowrap!important;padding:8px 10px!important;background:#fff!important}
+      #polySiteAssistant .poly-ai-tabs button,#polySiteAssistant .poly-ai-quick button{flex:0 0 auto!important;white-space:nowrap!important}
+      #polySiteAssistant .poly-ai-body{min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important;scrollbar-gutter:stable!important;padding-bottom:10px!important}
+      #polySiteAssistant .poly-ai-msg.bot{color:#53657f!important}
+      #polySiteAssistant .poly-ai-msg.user{color:#fff!important}
+      body.poly-ai-chat-open .app-download{opacity:0!important;pointer-events:none!important;transform:translateY(10px)!important;transition:opacity .16s ease,transform .16s ease!important}
+      @media(max-width:700px){#polySiteAssistant .poly-ai-panel{height:min(620px,calc(100dvh - 20px))!important}#polySiteAssistant .poly-ai-tabs,#polySiteAssistant .poly-ai-quick{max-height:50px!important;padding:7px 9px!important}#polySiteAssistant .poly-ai-form{position:relative!important;z-index:2!important}}
+    `;
+    document.head.append(style);
+  }
+
+  function syncAssistantOpenState(root) {
+    const apply = () => document.body.classList.toggle("poly-ai-chat-open", root.classList.contains("poly-ai-open"));
+    apply();
+    new MutationObserver(apply).observe(root, { attributes: true, attributeFilter: ["class"] });
+  }
+
   function greetingAnswer() {
-    return "Hi! I can help with maths, grammar, HTML/coding doubts and POLY PMNA subject or lesson search. Try a question like 2+25, a subject code like 3041, or a subject name like Electronics Engineering.";
+    return "Hi! I can help with maths, grammar, HTML/coding doubts and POLY PMNA subject or lesson search. Try a full question like “Why is my menu moving down?”, a maths problem like 2+25, a subject code like 3041, or a subject name like Electronics Engineering.";
+  }
+
+  function vagueQuestionAnswer(query) {
+    const text = clean(query).toLowerCase().replace(/[.!?]+$/g, "");
+    if (!text) return "";
+    if (VAGUE_QUERY_PATTERN.test(text) || (/^(why|what|how|where|when|which|who)\b/.test(text) && text.split(" ").length <= 2)) {
+      return "Please ask a complete question so I can answer correctly. Example: “Why is the menu moving down?”, “Why does current decrease when resistance increases?”, or “How to create an HTML calculator?”";
+    }
+    return "";
   }
 
   function shouldStayLocal(query) {
@@ -93,7 +127,7 @@
   }
 
   function offlineGeneralAnswer(query) {
-    return answerOfflineMath(query);
+    return vagueQuestionAnswer(query) || answerOfflineMath(query);
   }
 
   function onlineFailureMessage(error) {
@@ -102,35 +136,35 @@
 
     if (status === 429) {
       return {
-        text: "Online AI received too many questions recently. Wait a few minutes and try again. Local subject, lesson search and basic maths still work.",
-        status: "Online AI rate limited"
-      };
-    }
-
-    if (status === 503 || /not configured|OPENAI_API_KEY|api key/i.test(message)) {
-      return {
-        text: "Ask POLY AI backend is reachable, but the OpenAI API key is not configured in the Cloudflare Worker. Add the OPENAI_API_KEY secret and redeploy the Worker. Local subject, lesson search and basic maths still work.",
-        status: "AI key not configured"
+        text: "Online AI is busy because many questions were asked recently. Please wait a few minutes and try again. Local subject search, lesson search and basic maths still work.",
+        status: "Online AI busy • Local mode active"
       };
     }
 
     if (status === 403 || /origin|allowed/i.test(message)) {
       return {
-        text: "Ask POLY AI backend blocked this website origin. Add https://polypmna.dpdns.org to the Worker ALLOWED_ORIGINS setting and redeploy. Local subject and lesson search still works.",
-        status: "AI origin blocked"
+        text: "Online AI is not available for this page right now. Local subject search, lesson search and basic maths still work.",
+        status: "Online AI unavailable • Local mode active"
       };
     }
 
-    if (status === 404 || /failed to fetch|network|load failed/i.test(message)) {
+    if (status === 503 || /not configured|OPENAI_API_KEY|api key/i.test(message)) {
       return {
-        text: "Ask POLY AI backend URL is not responding. Check that the Cloudflare Worker is deployed at the configured endpoint and redeploy it if needed. Local subject and lesson search still works.",
-        status: "AI backend offline"
+        text: "Online AI is temporarily unavailable. You can still use local subject search, lesson search, grammar prompts, HTML prompts and basic maths.",
+        status: "Online AI unavailable • Local mode active"
+      };
+    }
+
+    if (status === 404 || /failed to fetch|network|load failed|abort/i.test(message)) {
+      return {
+        text: "Online AI could not connect right now. Local subject search, lesson search and basic maths still work. Please try the online question again later.",
+        status: "Connection issue • Local mode active"
       };
     }
 
     return {
-      text: "Ask POLY AI backend could not answer right now. Check the Cloudflare Worker logs and OpenAI billing/key status. Local subject, lesson search and basic maths still work.",
-      status: "Online AI temporarily unavailable"
+      text: "Online AI is temporarily unavailable. Local maths, subject search, lesson search, grammar and HTML help still work. Please try again later.",
+      status: "Online AI unavailable • Local mode active"
     };
   }
 
@@ -153,6 +187,7 @@
     message.className = `poly-ai-msg ${role}`;
     message.textContent = text;
     body.append(message);
+    if (role === "bot") lastRemoteAnswer = text;
     body.scrollTop = body.scrollHeight;
     return message;
   }
@@ -215,11 +250,11 @@
   function enhanceLabels(root, configured) {
     const subtitle = root.querySelector(".poly-ai-subtitle");
     if (subtitle) subtitle.textContent = configured
-      ? (IS_LESSON_PAGE ? "Lesson context + general AI" : "Student learning assistant")
+      ? (IS_LESSON_PAGE ? "Lesson context + online AI" : "Student learning assistant")
       : (IS_LESSON_PAGE ? "Lesson assistant" : "Subject finder");
 
     const subtext = root.querySelector(".poly-ai-button-subtext");
-    if (subtext) subtext.textContent = configured ? "Study & general AI" : (IS_LESSON_PAGE ? "Lesson doubt helper" : "Subject finder");
+    if (subtext) subtext.textContent = configured ? "Study helper" : (IS_LESSON_PAGE ? "Lesson doubt helper" : "Subject finder");
 
     const input = root.querySelector(".poly-ai-form input");
     if (input && configured) input.placeholder = IS_LESSON_PAGE
@@ -238,6 +273,8 @@
     if (!form || !input || !body || !status || !send) return;
 
     root.dataset.generalAiExtension = "true";
+    installUiFixStyles();
+    syncAssistantOpenState(root);
     loadHistory();
     const configured = Boolean(globalThis.AskPolyRemote?.isConfigured?.());
     enhanceLabels(root, configured);
@@ -259,10 +296,9 @@
         event.preventDefault();
         event.stopImmediatePropagation();
         input.value = "";
-        lastRemoteAnswer = greetingAnswer();
         makeMessage(body, "user", query);
-        makeMessage(body, "bot", lastRemoteAnswer);
-        status.textContent = configuredNow ? "Ask POLY AI ready" : "Local assistant ready";
+        makeMessage(body, "bot", greetingAnswer());
+        status.textContent = configuredNow ? "Online AI enabled • Local mode ready" : "Local assistant ready";
         return;
       }
 
@@ -271,8 +307,8 @@
         event.stopImmediatePropagation();
         input.value = "";
         makeMessage(body, "user", query);
-        makeMessage(body, "bot", "Okay. Ask a clear question like a maths problem, HTML help, grammar correction, or a subject code.");
-        status.textContent = configuredNow ? "Ask POLY AI ready" : "Local assistant ready";
+        makeMessage(body, "bot", "Okay. Ask a clear question like a maths problem, HTML help, grammar correction, a subject code, or a complete why/how question.");
+        status.textContent = configuredNow ? "Online AI enabled • Local mode ready" : "Local assistant ready";
         return;
       }
 
@@ -281,7 +317,6 @@
         event.preventDefault();
         event.stopImmediatePropagation();
         input.value = "";
-        lastRemoteAnswer = offlineAnswer;
         makeMessage(body, "user", query);
         makeMessage(body, "bot", offlineAnswer);
         status.textContent = "Answered locally";
@@ -294,8 +329,8 @@
         event.stopImmediatePropagation();
         input.value = "";
         makeMessage(body, "user", query);
-        makeMessage(body, "bot", "Ask POLY AI endpoint is not configured on this page. Local subject and lesson search still works; try a subject code, subject name, department or semester.");
-        status.textContent = "AI endpoint missing";
+        makeMessage(body, "bot", "Online AI is not enabled on this page right now. Local subject search, lesson search and basic maths still work. Try a subject code, subject name, department or semester.");
+        status.textContent = "Online AI off • Local mode active";
         return;
       }
 
@@ -321,7 +356,6 @@
         });
 
         if (!result?.answer) throw new Error("The AI service returned no answer.");
-        lastRemoteAnswer = result.answer;
         makeMessage(body, "bot", result.answer);
         appendCitations(body, result.citations);
         remoteHistory.push({ role: "user", text: query }, { role: "assistant", text: result.answer });
@@ -331,10 +365,9 @@
           ? "Answered with current web sources"
           : `Answered by Ask POLY AI${result.model ? ` • ${result.model}` : ""}`;
       } catch (error) {
-        console.error("Ask POLY general AI failed.", error);
+        console.error("Ask POLY online AI failed.", error);
         const fallbackAnswer = offlineGeneralAnswer(query);
         if (fallbackAnswer) {
-          lastRemoteAnswer = fallbackAnswer;
           makeMessage(body, "bot", fallbackAnswer);
           status.textContent = "Answered locally";
         } else {
@@ -356,7 +389,7 @@
       event.stopImmediatePropagation();
       try {
         await navigator.clipboard.writeText(lastRemoteAnswer);
-        status.textContent = "Last AI answer copied";
+        status.textContent = "Last answer copied";
       } catch (_) {
         status.textContent = "Copy unavailable";
       }
@@ -369,7 +402,7 @@
       saveHistory();
     });
 
-    if (configured) status.textContent = `${status.textContent} • General AI online`;
+    if (configured) status.textContent = `${status.textContent} • Online AI enabled`;
   }
 
   function waitForAssistant() {
