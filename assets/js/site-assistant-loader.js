@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260621-ask-poly-provider-timeout-fix";
+  const ASSET_VERSION = "20260621-ask-poly-local-command-fix";
 
   function rootPrefix() {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -89,6 +89,7 @@
     await loadScript(prefix, "assets/js/ask-poly-remote.js");
     await loadScript(prefix, "assets/js/site-assistant.js");
     await loadScript(prefix, "assets/js/ask-poly-general-ai-extension.js");
+    await loadScript(prefix, "assets/js/ask-poly-live-hotfix.js");
     await loadScript(prefix, "assets/js/ask-poly-rich-renderer.js");
 
     window.setTimeout(fallbackButton, 1200);
