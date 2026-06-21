@@ -1,10 +1,15 @@
 const DEFAULT_ORIGINS = [
   "https://polypmna.dpdns.org",
+  "https://www.polypmna.dpdns.org",
+  "https://polypmna.dpdns.com",
+  "https://www.polypmna.dpdns.com",
+  "https://polypmna.blogspot.com",
+  "https://polypmna.blogspot.in",
   "http://localhost:8000",
   "http://127.0.0.1:8000"
 ];
 
-export function cleanText(value, maximum) {
+export function cleanText(value, maximum = 10000) {
   return String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 }
 
