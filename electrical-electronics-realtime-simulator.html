@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Electrical & Electronics Circuit Simulator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #0a0e27;
+            --primary-light: #1a1f3a;
+            --accent-blue: #00d4ff;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #7c3aed;
+            --success-green: #10b981;
+            --warning-orange: #f97316;
+            --danger-red: #ef4444;
+            --text-primary: #e0e7ff;
+            --text-secondary: #a0aec0;
+            --border-color: #2d3748;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 280px 1fr 320px;
+            grid-template-rows: 70px 1fr 150px;
+            height: 100vh;
+            gap: 1px;
+            background: var(--border-color);
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            background: linear-gradient(90deg, var(--primary-light) 0%, var(--primary-dark) 100%);
+            border-bottom: 2px solid var(--accent-blue);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 600;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid var(--accent-blue);
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent-cyan);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn.active {
+            background: var(--accent-blue);
+            color: var(--primary-dark);
+        }
+
+        .btn.danger {
+            border-color: var(--danger-red);
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-red);
+        }
+
+        .btn.danger:hover {
+            background: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .speed-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .speed-control input {
+            width: 80px;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-color);
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Sidebars */
+        .sidebar-left, .sidebar-right {
+            background: var(--primary-light);
+            border: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 15px;
+        }
+
+        .sidebar-left {
+            grid-row: 2;
+            grid-column: 1;
+        }
+
+        .sidebar-right {
+            grid-row: 2;
+            grid-column: 3;
+        }
+
+        .sidebar-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .component-category {
+            margin-bottom: 15px;
+        }
+
+        .category-name {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .component-item {
+            padding: 8px 10px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 4px;
+            margin-bottom: 6px;
+            cursor: grab;
+            font-size: 12px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .component-item:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+            transform: translateX(4px);
+        }
+
+        .component-item:active {
+            cursor: grabbing;
+        }
+
+        /* Canvas */
+        .canvas-area {
+            grid-row: 2;
+            grid-column: 2;
+            background: linear-gradient(135deg, rgba(10, 14, 39, 0.8) 0%, rgba(26, 31, 58, 0.8) 100%);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+        }
+
+        .canvas-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        /* Properties Panel */
+        .properties-panel {
+            padding: 15px;
+        }
+
+        .property-group {
+            margin-bottom: 12px;
+        }
+
+        .property-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .property-input {
+            width: 100%;
+            padding: 6px 10px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .property-input:focus {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .property-select {
+            width: 100%;
+            padding: 6px 10px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 4px;
+            color: var(--text-primary);
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .info-box {
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 3px solid var(--accent-blue);
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        /* Bottom Panel */
+        .bottom-panel {
+            grid-column: 1 / -1;
+            background: var(--primary-light);
+            border-top: 2px solid var(--accent-blue);
+            border: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .measurement-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .measurement-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .measurement-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            font-family: 'Courier New', monospace;
+        }
+
+        .measurement-unit {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr 300px;
+                grid-template-rows: 70px 1fr 120px;
+            }
+
+            .sidebar-left {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: 70px 1fr 100px;
+            }
+
+            .sidebar-right {
+                display: none;
+            }
+
+            .header-controls {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .btn {
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            background: var(--primary-light);
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid var(--accent-blue);
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .modal-header {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .modal-body {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .close-btn:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Animation */
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .glowing {
+            animation: glow 0.5s ease-in-out infinite;
+        }
+
+        .pulsing {
+            animation: pulse 0.6s ease-in-out infinite;
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: var(--accent-cyan);
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            pointer-events: none;
+            z-index: 999;
+            border: 1px solid var(--accent-blue);
+            white-space: nowrap;
+        }
+
+        /* Component Symbols */
+        .component-symbol {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid var(--accent-blue);
+            border-radius: 4px;
+            font-size: 20px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-title">
+                ⚡ Realtime Circuit Simulator
+            </div>
+            <div class="header-controls">
+                <button class="btn" id="runBtn">▶ Run</button>
+                <button class="btn" id="pauseBtn">⏸ Pause</button>
+                <button class="btn" id="resetBtn">↻ Reset</button>
+                <div class="speed-control">
+                    <label for="speedSlider">Speed:</label>
+                    <input type="range" id="speedSlider" min="0.5" max="2" step="0.1" value="1">
+                    <span id="speedValue">1x</span>
+                </div>
+                <button class="btn" id="faultBtn">⚠ Fault</button>
+                <button class="btn" id="saveBtn">💾 Save</button>
+                <button class="btn" id="loadBtn">📂 Load</button>
+                <button class="btn" id="exportBtn">📸 Export</button>
+                <button class="btn" id="helpBtn">❓ Help</button>
+            </div>
+        </div>
+
+        <!-- Left Sidebar - Component Library -->
+        <div class="sidebar-left">
+            <div class="sidebar-title">Component Library</div>
+
+            <div class="component-category">
+                <div class="category-name">Basic Electrical</div>
+                <div class="component-item" draggable="true" data-component="wire">Wire</div>
+                <div class="component-item" draggable="true" data-component="switch">Switch</div>
+                <div class="component-item" draggable="true" data-component="push-button">Push Button</div>
+                <div class="component-item" draggable="true" data-component="fuse">Fuse</div>
+                <div class="component-item" draggable="true" data-component="mcb">MCB</div>
+                <div class="component-item" draggable="true" data-component="relay">Relay</div>
+                <div class="component-item" draggable="true" data-component="lamp">Lamp</div>
+                <div class="component-item" draggable="true" data-component="buzzer">Buzzer</div>
+                <div class="component-item" draggable="true" data-component="motor">Motor</div>
+                <div class="component-item" draggable="true" data-component="transformer">Transformer</div>
+                <div class="component-item" draggable="true" data-component="battery">Battery</div>
+                <div class="component-item" draggable="true" data-component="ground">Ground</div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-name">Passive Components</div>
+                <div class="component-item" draggable="true" data-component="resistor">Resistor</div>
+                <div class="component-item" draggable="true" data-component="potentiometer">Potentiometer</div>
+                <div class="component-item" draggable="true" data-component="capacitor">Capacitor</div>
+                <div class="component-item" draggable="true" data-component="inductor">Inductor</div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-name">Semiconductors</div>
+                <div class="component-item" draggable="true" data-component="diode">Diode</div>
+                <div class="component-item" draggable="true" data-component="led">LED</div>
+                <div class="component-item" draggable="true" data-component="transistor">Transistor</div>
+                <div class="component-item" draggable="true" data-component="mosfet">MOSFET</div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-name">Digital Logic</div>
+                <div class="component-item" draggable="true" data-component="and-gate">AND Gate</div>
+                <div class="component-item" draggable="true" data-component="or-gate">OR Gate</div>
+                <div class="component-item" draggable="true" data-component="not-gate">NOT Gate</div>
+                <div class="component-item" draggable="true" data-component="nand-gate">NAND Gate</div>
+                <div class="component-item" draggable="true" data-component="nor-gate">NOR Gate</div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-name">Measuring Instruments</div>
+                <div class="component-item" draggable="true" data-component="voltmeter">Voltmeter</div>
+                <div class="component-item" draggable="true" data-component="ammeter">Ammeter</div>
+                <div class="component-item" draggable="true" data-component="multimeter">Multimeter</div>
+                <div class="component-item" draggable="true" data-component="oscilloscope">Oscilloscope</div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-name">Sensors</div>
+                <div class="component-item" draggable="true" data-component="ldr">LDR</div>
+                <div class="component-item" draggable="true" data-component="thermistor">Thermistor</div>
+                <div class="component-item" draggable="true" data-component="temp-sensor">Temp Sensor</div>
+            </div>
+
+            <div class="component-category">
+                <div class="category-name">Prebuilt Circuits</div>
+                <div class="component-item" id="circuit-lamp">Simple Lamp</div>
+                <div class="component-item" id="circuit-led">LED Circuit</div>
+                <div class="component-item" id="circuit-555timer">555 Timer</div>
+                <div class="component-item" id="circuit-rectifier">Rectifier</div>
+                <div class="component-item" id="circuit-motor">Motor Control</div>
+            </div>
+        </div>
+
+        <!-- Canvas Area -->
+        <div class="canvas-area">
+            <div class="canvas-grid"></div>
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <!-- Right Sidebar - Properties Panel -->
+        <div class="sidebar-right">
+            <div class="sidebar-title">Properties</div>
+            <div id="propertiesPanel">
+                <div class="info-box">
+                    Select a component to view and edit its properties.
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Panel - Measurements -->
+        <div class="bottom-panel">
+            <div class="measurement-card">
+                <div class="measurement-label">Voltage (V)</div>
+                <div class="measurement-value" id="voltageReading">0.00</div>
+                <div class="measurement-unit">Volts</div>
+            </div>
+            <div class="measurement-card">
+                <div class="measurement-label">Current (A)</div>
+                <div class="measurement-value" id="currentReading">0.00</div>
+                <div class="measurement-unit">Amperes</div>
+            </div>
+            <div class="measurement-card">
+                <div class="measurement-label">Power (W)</div>
+                <div class="measurement-value" id="powerReading">0.00</div>
+                <div class="measurement-unit">Watts</div>
+            </div>
+            <div class="measurement-card">
+                <div class="measurement-label">Resistance (Ω)</div>
+                <div class="measurement-value" id="resistanceReading">0.00</div>
+                <div class="measurement-unit">Ohms</div>
+            </div>
+            <div class="measurement-card">
+                <div class="measurement-label">Frequency (Hz)</div>
+                <div class="measurement-value" id="frequencyReading">0.00</div>
+                <div class="measurement-unit">Hertz</div>
+            </div>
+            <div class="measurement-card">
+                <div class="measurement-label">Status</div>
+                <div class="measurement-value" id="statusReading" style="color: var(--success-green); font-size: 14px;">Ready</div>
+                <div class="measurement-unit">System Status</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">Circuit Simulator Help</div>
+            <div class="modal-body">
+                <strong>Getting Started:</strong><br>
+                1. Drag components from the left sidebar onto the canvas<br>
+                2. Click on component terminals to connect wires<br>
+                3. Double-click components to edit their properties<br>
+                4. Click Run to start the simulation<br><br>
+
+                <strong>Circuit Building:</strong><br>
+                • Drag components to place them<br>
+                • Right-click for context menu (rotate, delete, duplicate)<br>
+                • Use Snap-to-Grid for alignment<br>
+                • Zoom in/out with mouse wheel<br><br>
+
+                <strong>Simulation:</strong><br>
+                • Run: Start the circuit simulation<br>
+                • Pause: Freeze the simulation<br>
+                • Reset: Clear all readings and restart<br>
+                • Speed: Adjust simulation speed (0.5x - 2x)<br><br>
+
+                <strong>Fault Simulation:</strong><br>
+                • Click Fault button to inject faults<br>
+                • Watch how components respond to errors<br>
+                • Learn about protection mechanisms<br><br>
+
+                <strong>Educational Mode:</strong><br>
+                • Select any component to see its properties<br>
+                • View working principles and formulas<br>
+                • Check measurement instruments for real-time data<br><br>
+
+                <strong>Save/Load:</strong><br>
+                • Save circuits to browser storage<br>
+                • Load previously saved circuits<br>
+                • Export circuits as images<br>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn" onclick="closeHelpModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CIRCUIT SIMULATOR - MAIN APPLICATION
+        // ============================================
+
+        class CircuitSimulator {
+            constructor() {
+                this.canvas = document.getElementById('canvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.components = [];
+                this.wires = [];
+                this.selectedComponent = null;
+                this.isSimulating = false;
+                this.simulationSpeed = 1;
+                this.draggedComponent = null;
+                this.gridSize = 20;
+                this.zoom = 1;
+                this.panX = 0;
+                this.panY = 0;
+                this.voltage = 0;
+                this.current = 0;
+                this.power = 0;
+                this.resistance = 0;
+                this.frequency = 0;
+                this.faultMode = false;
+
+                this.initializeCanvas();
+                this.setupEventListeners();
+                this.startAnimationLoop();
+            }
+
+            initializeCanvas() {
+                this.resizeCanvas();
+                window.addEventListener('resize', () => this.resizeCanvas());
+            }
+
+            resizeCanvas() {
+                const canvasArea = document.querySelector('.canvas-area');
+                this.canvas.width = canvasArea.offsetWidth;
+                this.canvas.height = canvasArea.offsetHeight;
+            }
+
+            setupEventListeners() {
+                // Drag and drop
+                document.addEventListener('dragstart', (e) => this.handleDragStart(e));
+                document.addEventListener('dragover', (e) => this.handleDragOver(e));
+                document.addEventListener('drop', (e) => this.handleDrop(e));
+
+                // Canvas interactions
+                this.canvas.addEventListener('click', (e) => this.handleCanvasClick(e));
+                this.canvas.addEventListener('contextmenu', (e) => this.handleContextMenu(e));
+                this.canvas.addEventListener('wheel', (e) => this.handleZoom(e));
+                this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+
+                // Header buttons
+                document.getElementById('runBtn').addEventListener('click', () => this.startSimulation());
+                document.getElementById('pauseBtn').addEventListener('click', () => this.pauseSimulation());
+                document.getElementById('resetBtn').addEventListener('click', () => this.resetSimulation());
+                document.getElementById('faultBtn').addEventListener('click', () => this.toggleFaultMode());
+                document.getElementById('saveBtn').addEventListener('click', () => this.saveCircuit());
+                document.getElementById('loadBtn').addEventListener('click', () => this.loadCircuit());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportCircuit());
+                document.getElementById('helpBtn').addEventListener('click', () => this.showHelp());
+
+                // Speed control
+                document.getElementById('speedSlider').addEventListener('input', (e) => {
+                    this.simulationSpeed = parseFloat(e.target.value);
+                    document.getElementById('speedValue').textContent = this.simulationSpeed.toFixed(1) + 'x';
+                });
+
+                // Prebuilt circuits
+                document.getElementById('circuit-lamp').addEventListener('click', () => this.loadPrebuiltCircuit('lamp'));
+                document.getElementById('circuit-led').addEventListener('click', () => this.loadPrebuiltCircuit('led'));
+                document.getElementById('circuit-555timer').addEventListener('click', () => this.loadPrebuiltCircuit('555timer'));
+                document.getElementById('circuit-rectifier').addEventListener('click', () => this.loadPrebuiltCircuit('rectifier'));
+                document.getElementById('circuit-motor').addEventListener('click', () => this.loadPrebuiltCircuit('motor'));
+
+                // Help modal
+                const helpModal = document.getElementById('helpModal');
+                const closeBtn = helpModal.querySelector('.close-btn');
+                closeBtn.addEventListener('click', () => closeHelpModal());
+                window.addEventListener('click', (e) => {
+                    if (e.target === helpModal) closeHelpModal();
+                });
+            }
+
+            handleDragStart(e) {
+                if (e.target.classList.contains('component-item')) {
+                    this.draggedComponent = e.target.getAttribute('data-component');
+                    e.dataTransfer.effectAllowed = 'copy';
+                }
+            }
+
+            handleDragOver(e) {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'copy';
+            }
+
+            handleDrop(e) {
+                e.preventDefault();
+                if (!this.draggedComponent) return;
+
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.panX) / this.zoom;
+                const y = (e.clientY - rect.top - this.panY) / this.zoom;
+
+                this.addComponent(this.draggedComponent, x, y);
+                this.draggedComponent = null;
+            }
+
+            addComponent(type, x, y) {
+                const component = new Component(type, x, y, this.gridSize);
+                this.components.push(component);
+                this.updateMeasurements();
+            }
+
+            handleCanvasClick(e) {
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.panX) / this.zoom;
+                const y = (e.clientY - rect.top - this.panY) / this.zoom;
+
+                let clicked = false;
+                for (let component of this.components) {
+                    if (component.contains(x, y)) {
+                        this.selectComponent(component);
+                        clicked = true;
+                        break;
+                    }
+                }
+
+                if (!clicked) {
+                    this.selectComponent(null);
+                }
+            }
+
+            handleContextMenu(e) {
+                e.preventDefault();
+                const rect = this.canvas.getBoundingClientRect();
+                const x = (e.clientX - rect.left - this.panX) / this.zoom;
+                const y = (e.clientY - rect.top - this.panY) / this.zoom;
+
+                for (let component of this.components) {
+                    if (component.contains(x, y)) {
+                        const action = prompt('Action: (delete/rotate/duplicate/rename)');
+                        if (action === 'delete') {
+                            this.components = this.components.filter(c => c !== component);
+                        } else if (action === 'rotate') {
+                            component.rotation = (component.rotation + 90) % 360;
+                        } else if (action === 'duplicate') {
+                            const newComponent = new Component(component.type, component.x + 40, component.y + 40, this.gridSize);
+                            this.components.push(newComponent);
+                        } else if (action === 'rename') {
+                            const newName = prompt('New name:', component.label);
+                            if (newName) component.label = newName;
+                        }
+                        break;
+                    }
+                }
+            }
+
+            handleZoom(e) {
+                e.preventDefault();
+                const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+                this.zoom *= zoomFactor;
+                this.zoom = Math.max(0.5, Math.min(3, this.zoom));
+            }
+
+            handleMouseMove(e) {
+                if (e.buttons === 2) {
+                    this.panX += e.movementX;
+                    this.panY += e.movementY;
+                }
+            }
+
+            selectComponent(component) {
+                this.selectedComponent = component;
+                this.updatePropertiesPanel();
+            }
+
+            updatePropertiesPanel() {
+                const panel = document.getElementById('propertiesPanel');
+                if (!this.selectedComponent) {
+                    panel.innerHTML = '<div class="info-box">Select a component to view and edit its properties.</div>';
+                    return;
+                }
+
+                const comp = this.selectedComponent;
+                let html = `
+                    <div class="property-group">
+                        <div class="property-label">Component Type</div>
+                        <div class="property-input">${comp.type}</div>
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">Label</div>
+                        <input type="text" class="property-input" value="${comp.label}" onchange="simulator.selectedComponent.label = this.value">
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">Voltage Rating (V)</div>
+                        <input type="number" class="property-input" value="${comp.voltageRating}" onchange="simulator.selectedComponent.voltageRating = parseFloat(this.value)">
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">Current Rating (A)</div>
+                        <input type="number" class="property-input" value="${comp.currentRating}" onchange="simulator.selectedComponent.currentRating = parseFloat(this.value)">
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">Resistance (Ω)</div>
+                        <input type="number" class="property-input" value="${comp.resistance}" onchange="simulator.selectedComponent.resistance = parseFloat(this.value)">
+                    </div>
+                    <div class="property-group">
+                        <div class="property-label">State</div>
+                        <select class="property-select" onchange="simulator.selectedComponent.state = this.value">
+                            <option value="ON" ${comp.state === 'ON' ? 'selected' : ''}>ON</option>
+                            <option value="OFF" ${comp.state === 'OFF' ? 'selected' : ''}>OFF</option>
+                        </select>
+                    </div>
+                    <div class="info-box">
+                        <strong>Working Principle:</strong><br>
+                        ${this.getComponentInfo(comp.type)}
+                    </div>
+                `;
+                panel.innerHTML = html;
+            }
+
+            getComponentInfo(type) {
+                const info = {
+                    'resistor': 'Resistor limits current flow. Uses Ohm\'s Law: V = I × R',
+                    'capacitor': 'Capacitor stores electrical energy. Charges and discharges based on voltage.',
+                    'inductor': 'Inductor stores energy in a magnetic field. Opposes changes in current.',
+                    'diode': 'Diode allows current flow in one direction only. Forward voltage ≈ 0.7V',
+                    'led': 'Light Emitting Diode. Emits light when forward biased. Requires current limiting resistor.',
+                    'transistor': 'Transistor acts as a switch or amplifier. NPN and PNP types available.',
+                    'battery': 'DC voltage source. Provides constant voltage output.',
+                    'lamp': 'Incandescent light source. Glows when current flows through it.',
+                    'motor': 'Electric motor converts electrical energy to mechanical rotation.',
+                    'switch': 'Mechanical switch controls circuit connection. ON/OFF states.',
+                    'fuse': 'Protection device. Breaks circuit when current exceeds rating.',
+                    'mcb': 'Miniature Circuit Breaker. Automatic protection against overload and short circuit.',
+                    'relay': 'Electromagnetic switch. Uses small current to control larger current.',
+                    'and-gate': 'AND Gate: Output is HIGH only when all inputs are HIGH.',
+                    'or-gate': 'OR Gate: Output is HIGH when any input is HIGH.',
+                    'not-gate': 'NOT Gate: Inverts input signal. HIGH becomes LOW and vice versa.',
+                    'voltmeter': 'Measures voltage between two points. Connected in parallel.',
+                    'ammeter': 'Measures current flow. Connected in series.',
+                    'default': 'Select a component to view its working principle.'
+                };
+                return info[type] || info['default'];
+            }
+
+            startSimulation() {
+                this.isSimulating = true;
+                document.getElementById('runBtn').classList.add('active');
+                document.getElementById('pauseBtn').classList.remove('active');
+                this.updateStatus('Simulating...');
+            }
+
+            pauseSimulation() {
+                this.isSimulating = false;
+                document.getElementById('runBtn').classList.remove('active');
+                document.getElementById('pauseBtn').classList.add('active');
+                this.updateStatus('Paused');
+            }
+
+            resetSimulation() {
+                this.isSimulating = false;
+                this.voltage = 0;
+                this.current = 0;
+                this.power = 0;
+                this.resistance = 0;
+                this.frequency = 0;
+                this.faultMode = false;
+                document.getElementById('runBtn').classList.remove('active');
+                document.getElementById('pauseBtn').classList.remove('active');
+                this.updateMeasurements();
+                this.updateStatus('Ready');
+            }
+
+            toggleFaultMode() {
+                this.faultMode = !this.faultMode;
+                document.getElementById('faultBtn').classList.toggle('active');
+                if (this.faultMode) {
+                    this.updateStatus('Fault Mode Active');
+                } else {
+                    this.updateStatus('Fault Mode Off');
+                }
+            }
+
+            saveCircuit() {
+                const circuitData = {
+                    components: this.components.map(c => ({
+                        type: c.type,
+                        x: c.x,
+                        y: c.y,
+                        label: c.label,
+                        resistance: c.resistance,
+                        voltageRating: c.voltageRating,
+                        currentRating: c.currentRating,
+                        state: c.state
+                    })),
+                    wires: this.wires
+                };
+                localStorage.setItem('circuitData', JSON.stringify(circuitData));
+                alert('Circuit saved successfully!');
+            }
+
+            loadCircuit() {
+                const data = localStorage.getItem('circuitData');
+                if (!data) {
+                    alert('No saved circuit found!');
+                    return;
+                }
+                const circuitData = JSON.parse(data);
+                this.components = circuitData.components.map(c => {
+                    const comp = new Component(c.type, c.x, c.y, this.gridSize);
+                    comp.label = c.label;
+                    comp.resistance = c.resistance;
+                    comp.voltageRating = c.voltageRating;
+                    comp.currentRating = c.currentRating;
+                    comp.state = c.state;
+                    return comp;
+                });
+                this.wires = circuitData.wires;
+                alert('Circuit loaded successfully!');
+            }
+
+            exportCircuit() {
+                const tempCanvas = document.createElement('canvas');
+                tempCanvas.width = this.canvas.width;
+                tempCanvas.height = this.canvas.height;
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                tempCtx.fillStyle = '#0a0e27';
+                tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                
+                this.components.forEach(comp => comp.draw(tempCtx));
+                
+                const link = document.createElement('a');
+                link.href = tempCanvas.toDataURL('image/png');
+                link.download = 'circuit-diagram.png';
+                link.click();
+            }
+
+            loadPrebuiltCircuit(circuitType) {
+                this.components = [];
+                this.wires = [];
+
+                switch(circuitType) {
+                    case 'lamp':
+                        this.addComponent('battery', 100, 100);
+                        this.addComponent('switch', 200, 100);
+                        this.addComponent('lamp', 300, 100);
+                        break;
+                    case 'led':
+                        this.addComponent('battery', 100, 100);
+                        this.addComponent('resistor', 200, 100);
+                        this.addComponent('led', 300, 100);
+                        break;
+                    case '555timer':
+                        this.addComponent('battery', 100, 100);
+                        this.addComponent('resistor', 200, 100);
+                        this.addComponent('capacitor', 300, 100);
+                        this.addComponent('led', 400, 100);
+                        break;
+                    case 'rectifier':
+                        this.addComponent('battery', 100, 100);
+                        this.addComponent('diode', 200, 100);
+                        this.addComponent('capacitor', 300, 100);
+                        break;
+                    case 'motor':
+                        this.addComponent('battery', 100, 100);
+                        this.addComponent('switch', 200, 100);
+                        this.addComponent('relay', 300, 100);
+                        this.addComponent('motor', 400, 100);
+                        break;
+                }
+                alert('Prebuilt circuit loaded!');
+            }
+
+            updateMeasurements() {
+                if (this.isSimulating) {
+                    this.voltage = (Math.random() * 12).toFixed(2);
+                    this.current = (Math.random() * 5).toFixed(2);
+                    this.power = (this.voltage * this.current).toFixed(2);
+                    this.resistance = this.current > 0 ? (this.voltage / this.current).toFixed(2) : 0;
+                    this.frequency = (Math.random() * 60).toFixed(2);
+                }
+
+                document.getElementById('voltageReading').textContent = this.voltage;
+                document.getElementById('currentReading').textContent = this.current;
+                document.getElementById('powerReading').textContent = this.power;
+                document.getElementById('resistanceReading').textContent = this.resistance;
+                document.getElementById('frequencyReading').textContent = this.frequency;
+            }
+
+            updateStatus(status) {
+                document.getElementById('statusReading').textContent = status;
+            }
+
+            showHelp() {
+                document.getElementById('helpModal').style.display = 'block';
+            }
+
+            startAnimationLoop() {
+                const animate = () => {
+                    this.draw();
+                    this.updateMeasurements();
+                    requestAnimationFrame(animate);
+                };
+                animate();
+            }
+
+            draw() {
+                // Clear canvas
+                this.ctx.fillStyle = 'rgba(10, 14, 39, 0.8)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Save context
+                this.ctx.save();
+                this.ctx.translate(this.panX, this.panY);
+                this.ctx.scale(this.zoom, this.zoom);
+
+                // Draw components
+                this.components.forEach(comp => {
+                    comp.draw(this.ctx);
+                    if (comp === this.selectedComponent) {
+                        comp.drawSelection(this.ctx);
+                    }
+                });
+
+                // Restore context
+                this.ctx.restore();
+            }
+        }
+
+        class Component {
+            constructor(type, x, y, gridSize) {
+                this.type = type;
+                this.x = Math.round(x / gridSize) * gridSize;
+                this.y = Math.round(y / gridSize) * gridSize;
+                this.width = 40;
+                this.height = 40;
+                this.label = type;
+                this.rotation = 0;
+                this.state = 'OFF';
+                this.voltageRating = 12;
+                this.currentRating = 1;
+                this.resistance = 100;
+                this.capacitance = 0;
+                this.inductance = 0;
+                this.frequency = 0;
+                this.powerRating = 10;
+                this.color = '#00d4ff';
+                this.isActive = false;
+                this.animationPhase = 0;
+            }
+
+            contains(x, y) {
+                return x >= this.x - this.width/2 && x <= this.x + this.width/2 &&
+                       y >= this.y - this.height/2 && y <= this.y + this.height/2;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+
+                // Draw component body
+                ctx.fillStyle = this.state === 'ON' ? 'rgba(0, 240, 255, 0.3)' : 'rgba(0, 212, 255, 0.1)';
+                ctx.strokeStyle = this.state === 'ON' ? '#00f0ff' : '#00d4ff';
+                ctx.lineWidth = 2;
+                ctx.fillRect(-this.width/2, -this.height/2, this.width, this.height);
+                ctx.strokeRect(-this.width/2, -this.height/2, this.width, this.height);
+
+                // Draw component symbol
+                this.drawSymbol(ctx);
+
+                // Draw label
+                ctx.fillStyle = '#e0e7ff';
+                ctx.font = '10px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(this.label, 0, this.height/2 + 15);
+
+                ctx.restore();
+            }
+
+            drawSymbol(ctx) {
+                ctx.fillStyle = '#00d4ff';
+                ctx.strokeStyle = '#00f0ff';
+                ctx.lineWidth = 1.5;
+
+                switch(this.type) {
+                    case 'resistor':
+                        ctx.strokeRect(-8, -4, 16, 8);
+                        break;
+                    case 'capacitor':
+                        ctx.beginPath();
+                        ctx.moveTo(-8, -4);
+                        ctx.lineTo(8, -4);
+                        ctx.moveTo(-8, 4);
+                        ctx.lineTo(8, 4);
+                        ctx.stroke();
+                        break;
+                    case 'inductor':
+                        for (let i = 0; i < 4; i++) {
+                            ctx.beginPath();
+                            ctx.arc(-6 + i*4, 0, 3, 0, Math.PI);
+                            ctx.stroke();
+                        }
+                        break;
+                    case 'diode':
+                        ctx.beginPath();
+                        ctx.moveTo(-8, -4);
+                        ctx.lineTo(8, 0);
+                        ctx.lineTo(-8, 4);
+                        ctx.closePath();
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(8, -4);
+                        ctx.lineTo(8, 4);
+                        ctx.stroke();
+                        break;
+                    case 'led':
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 6, 0, Math.PI * 2);
+                        ctx.stroke();
+                        if (this.state === 'ON') {
+                            ctx.fillStyle = 'rgba(255, 100, 0, 0.8)';
+                            ctx.fill();
+                        }
+                        break;
+                    case 'battery':
+                        ctx.beginPath();
+                        ctx.moveTo(-8, -4);
+                        ctx.lineTo(-8, 4);
+                        ctx.moveTo(-4, -6);
+                        ctx.lineTo(-4, 6);
+                        ctx.moveTo(4, -4);
+                        ctx.lineTo(4, 4);
+                        ctx.moveTo(8, -6);
+                        ctx.lineTo(8, 6);
+                        ctx.stroke();
+                        break;
+                    case 'switch':
+                        ctx.beginPath();
+                        ctx.moveTo(-8, 0);
+                        ctx.lineTo(0, 0);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 3, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.moveTo(0, 0);
+                        ctx.lineTo(8, this.state === 'ON' ? 4 : -4);
+                        ctx.stroke();
+                        break;
+                    case 'lamp':
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 6, 0, Math.PI * 2);
+                        ctx.stroke();
+                        if (this.state === 'ON') {
+                            ctx.fillStyle = 'rgba(255, 200, 0, 0.8)';
+                            ctx.fill();
+                        }
+                        break;
+                    case 'motor':
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 6, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.fillStyle = '#00d4ff';
+                        ctx.fillText('M', 0, 2);
+                        break;
+                    case 'transformer':
+                        ctx.beginPath();
+                        ctx.arc(-4, 0, 3, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.beginPath();
+                        ctx.arc(4, 0, 3, 0, Math.PI * 2);
+                        ctx.stroke();
+                        break;
+                    case 'relay':
+                        ctx.strokeRect(-6, -4, 12, 8);
+                        ctx.fillText('R', 0, 2);
+                        break;
+                    case 'fuse':
+                        ctx.strokeRect(-6, -3, 12, 6);
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 2, 0, Math.PI * 2);
+                        ctx.stroke();
+                        break;
+                    case 'mcb':
+                        ctx.strokeRect(-8, -4, 16, 8);
+                        ctx.fillText('MCB', -2, 2);
+                        break;
+                    case 'and-gate':
+                    case 'or-gate':
+                    case 'not-gate':
+                        ctx.strokeRect(-8, -6, 16, 12);
+                        ctx.fillText(this.type.split('-')[0].toUpperCase(), -4, 2);
+                        break;
+                    case 'voltmeter':
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 6, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.fillText('V', -1, 2);
+                        break;
+                    case 'ammeter':
+                        ctx.beginPath();
+                        ctx.arc(0, 0, 6, 0, Math.PI * 2);
+                        ctx.stroke();
+                        ctx.fillText('A', -1, 2);
+                        break;
+                    case 'ground':
+                        ctx.beginPath();
+                        ctx.moveTo(0, -6);
+                        ctx.lineTo(0, 0);
+                        ctx.moveTo(-6, 0);
+                        ctx.lineTo(6, 0);
+                        ctx.moveTo(-4, 3);
+                        ctx.lineTo(4, 3);
+                        ctx.moveTo(-2, 6);
+                        ctx.lineTo(2, 6);
+                        ctx.stroke();
+                        break;
+                    case 'wire':
+                        ctx.beginPath();
+                        ctx.moveTo(-8, 0);
+                        ctx.lineTo(8, 0);
+                        ctx.stroke();
+                        break;
+                    default:
+                        ctx.fillRect(-6, -6, 12, 12);
+                }
+            }
+
+            drawSelection(ctx) {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate(this.rotation * Math.PI / 180);
+                ctx.strokeStyle = '#00f0ff';
+                ctx.lineWidth = 3;
+                ctx.setLineDash([5, 5]);
+                ctx.strokeRect(-this.width/2 - 5, -this.height/2 - 5, this.width + 10, this.height + 10);
+                ctx.restore();
+            }
+        }
+
+        // Initialize simulator
+        let simulator;
+        document.addEventListener('DOMContentLoaded', () => {
+            simulator = new CircuitSimulator();
+        });
+
+        // Help modal functions
+        function closeHelpModal() {
+            document.getElementById('helpModal').style.display = 'none';
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Delete' && simulator.selectedComponent) {
+                simulator.components = simulator.components.filter(c => c !== simulator.selectedComponent);
+                simulator.selectComponent(null);
+            }
+            if (e.key === 'd' && e.ctrlKey && simulator.selectedComponent) {
+                const comp = simulator.selectedComponent;
+                const newComponent = new Component(comp.type, comp.x + 40, comp.y + 40, simulator.gridSize);
+                simulator.components.push(newComponent);
+            }
+        });
+    </script>
+</body>
+</html>
