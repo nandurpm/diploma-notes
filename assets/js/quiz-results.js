@@ -70,6 +70,13 @@ window.PolyQuizResults = (() => {
     return rows.find((row) => row.quiz_date === key && row.subject_code === subject) || null;
   }
 
+  function numericQuestionIds(ids) {
+    return (ids || []).map((value, index) => {
+      const numeric = Number(value);
+      return Number.isInteger(numeric) && numeric > 0 ? numeric : index + 1;
+    });
+  }
+
   async function save(row) {
     const a = auth();
     const db = a?.getClient?.();
@@ -104,7 +111,7 @@ window.PolyQuizResults = (() => {
         retry_used: false,
         completed: true,
         answers: row.answers,
-        question_ids: row.question_ids,
+        question_ids: numericQuestionIds(row.question_ids),
         question_keys: row.question_keys,
         attempt_count: 1,
         first_score: row.score,
