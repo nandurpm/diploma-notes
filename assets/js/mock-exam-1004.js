@@ -1,10 +1,12 @@
 (() => {
   "use strict";
 
+  const MOCK_EXAM_ASSET_VERSION = "20260622-ai-eval-fix";
+
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = `${src}?v=20260618-model75`;
+      script.src = `${src}?v=${MOCK_EXAM_ASSET_VERSION}`;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Unable to load ${src}`));
       document.head.append(script);
