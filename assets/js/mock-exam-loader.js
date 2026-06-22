@@ -4,7 +4,7 @@
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = `${src}?v=20260619-pdfbank`;
+      script.src = `${src}?v=20260622-ai-first`;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Unable to load ${src}`));
       document.head.append(script);
@@ -41,6 +41,7 @@
     })
     .then(() => loadScript("/assets/js/mock-exam-ui.js"))
     .then(() => loadScript("/assets/js/mock-exam-service.js"))
+    .then(() => loadScript("/assets/js/mock-exam-ai-evaluator.js"))
     .then(start)
     .catch((error) => {
       console.error(error);
