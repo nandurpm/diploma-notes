@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260622-ai-eval-fix";
+  const MOCK_EXAM_ASSET_VERSION = "20260622-ai-eval-fallback10";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
