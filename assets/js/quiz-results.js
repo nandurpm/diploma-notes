@@ -1,1 +1,139 @@
-window.PolyQuizResults=(()=>{const LOCAL='poly-quiz-results-v3';const dateKey=d=>{d=d?new Date(d):new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};const auth=()=>window.PolyQuizAuth;const stateKey=()=>auth()?.user?.id?'user:'+auth().user.id:'guest';const all=()=>{try{return JSON.parse(localStorage.getItem(LOCAL)||'{}')}catch{return{}}};const localRows=()=>all()[stateKey()]||[];function saveLocal(row){let obj=all(),k=stateKey();obj[k]=[row,...(obj[k]||[]).filter(r=>!(r.quiz_date===row.quiz_date&&r.subject_code===row.subject_code))].slice(0,150);localStorage.setItem(LOCAL,JSON.stringify(obj))}async function save(row){saveLocal(row);let a=auth(),db=a?.getClient?.();if(a?.guest||!a?.user||!db)return{local:true,remote:false};try{let old=await db.from('daily_quiz_results').select('best_score,attempt_count').eq('user_id',a.user.id).eq('quiz_date',row.quiz_date).eq('subject_code',row.subject_code).maybeSingle();let best=Math.max(row.score,old.data?.best_score||0);let payload={user_id:a.user.id,quiz_date:row.quiz_date,subject_code:row.subject_code,score:row.score,best_score:best,total_questions:row.total_questions,completed:true,answers:row.answers,question_ids:row.question_ids,question_keys:row.question_keys,attempt_count:(old.data?.attempt_count||0)+1,submitted_at:row.submitted_at};let res=await db.from('daily_quiz_results').upsert(payload,{onConflict:'user_id,quiz_date,subject_code'});if(res.error)throw res.error;return{local:true,remote:true}}catch(e){console.error('Remote quiz save failed',e);return{local:true,remote:false,error:e}}}async function recent(){let a=auth(),db=a?.getClient?.();if(!a?.guest&&a?.user&&db){try{let r=await db.from('daily_quiz_results').select('quiz_date,subject_code,score,best_score,total_questions,submitted_at,answers,question_ids,question_keys,attempt_count').eq('user_id',a.user.id).order('submitted_at',{ascending:false}).limit(100);if(Array.isArray(r.data))return r.data}catch(e){console.error('Remote quiz load failed',e)}}return localRows()}async function previous(subject){let d=new Date();d.setDate(d.getDate()-1);let k=dateKey(d),rows=await recent();return rows.find(r=>r.quiz_date===k&&r.subject_code===subject)||null}return{dateKey,save,recent,previous,localAll:localRows}})();
+window.PolyQuizResults = (() => {
+  const LOCAL = 'poly-quiz-results-v4-single-submit';
+
+  const dateKey = (d) => {
+    d = d ? new Date(d) : new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  };
+
+  const auth = () => window.PolyQuizAuth;
+  const stateKey = () => auth()?.user?.id ? 'user:' + auth().user.id : 'guest';
+
+  const all = () => {
+    try { return JSON.parse(localStorage.getItem(LOCAL) || '{}'); }
+    catch { return {}; }
+  };
+
+  const localRows = () => all()[stateKey()] || [];
+
+  function saveLocal(row) {
+    const obj = all();
+    const key = stateKey();
+    const rows = obj[key] || [];
+    obj[key] = [row, ...rows.filter((r) => !(r.quiz_date === row.quiz_date && r.subject_code === row.subject_code))].slice(0, 150);
+    localStorage.setItem(LOCAL, JSON.stringify(obj));
+  }
+
+  function mergeRows(remoteRows, localRowsList) {
+    const map = new Map();
+    [...localRowsList, ...remoteRows].forEach((row) => {
+      map.set(`${row.quiz_date}:${row.subject_code}`, row);
+    });
+    return [...map.values()].sort((a, b) => String(b.submitted_at || b.created_at || '').localeCompare(String(a.submitted_at || a.created_at || '')));
+  }
+
+  async function remoteRows(limit = 100) {
+    const a = auth();
+    const db = a?.getClient?.();
+    if (a?.guest || !a?.user || !db) return [];
+    const result = await db
+      .from('daily_quiz_results')
+      .select('quiz_date,subject_code,score,best_score,total_questions,submitted_at,answers,question_ids,question_keys,attempt_count,completed,created_at')
+      .eq('user_id', a.user.id)
+      .order('submitted_at', { ascending: false })
+      .limit(limit);
+    if (result.error) throw result.error;
+    return Array.isArray(result.data) ? result.data : [];
+  }
+
+  async function recent() {
+    try {
+      const remote = await remoteRows(100);
+      return mergeRows(remote, localRows());
+    } catch (error) {
+      console.error('Remote quiz load failed', error);
+      return localRows();
+    }
+  }
+
+  async function today(subject) {
+    const todayKey = dateKey();
+    const rows = await recent();
+    return rows.find((row) => row.quiz_date === todayKey && row.subject_code === subject) || null;
+  }
+
+  async function previous(subject) {
+    const d = new Date();
+    d.setDate(d.getDate() - 1);
+    const key = dateKey(d);
+    const rows = await recent();
+    return rows.find((row) => row.quiz_date === key && row.subject_code === subject) || null;
+  }
+
+  async function save(row) {
+    const a = auth();
+    const db = a?.getClient?.();
+
+    if (a?.guest || !a?.user || !db) {
+      saveLocal(row);
+      return { local: true, remote: false, guest: true };
+    }
+
+    try {
+      const existing = await db
+        .from('daily_quiz_results')
+        .select('quiz_date,subject_code,score,best_score,total_questions,submitted_at,answers,question_ids,question_keys,attempt_count,completed,created_at')
+        .eq('user_id', a.user.id)
+        .eq('quiz_date', row.quiz_date)
+        .eq('subject_code', row.subject_code)
+        .maybeSingle();
+
+      if (existing.error) throw existing.error;
+      if (existing.data) {
+        saveLocal(existing.data);
+        return { local: true, remote: true, alreadySubmitted: true, row: existing.data };
+      }
+
+      const payload = {
+        user_id: a.user.id,
+        quiz_date: row.quiz_date,
+        subject_code: row.subject_code,
+        score: row.score,
+        best_score: row.score,
+        total_questions: row.total_questions || 10,
+        retry_used: false,
+        completed: true,
+        answers: row.answers,
+        question_ids: row.question_ids,
+        question_keys: row.question_keys,
+        attempt_count: 1,
+        first_score: row.score,
+        retry_score: null,
+        submitted_at: row.submitted_at,
+        updated_at: new Date().toISOString()
+      };
+
+      const inserted = await db
+        .from('daily_quiz_results')
+        .insert(payload)
+        .select('quiz_date,subject_code,score,best_score,total_questions,submitted_at,answers,question_ids,question_keys,attempt_count,completed,created_at')
+        .single();
+
+      if (inserted.error) {
+        if (inserted.error.code === '23505') {
+          const latest = await today(row.subject_code);
+          return { local: true, remote: true, alreadySubmitted: true, row: latest || row };
+        }
+        throw inserted.error;
+      }
+
+      saveLocal(inserted.data || row);
+      return { local: true, remote: true, row: inserted.data || row };
+    } catch (error) {
+      console.error('Remote quiz save failed', error);
+      return { local: false, remote: false, error };
+    }
+  }
+
+  return { dateKey, save, recent, today, previous, localAll: localRows };
+})();
