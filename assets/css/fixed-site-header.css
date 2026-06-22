@@ -27,8 +27,9 @@ body.portal-page .site-notice>.site-notice-viewport{flex:1 1 auto!important;disp
 @keyframes siteInstructionScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 body.portal-page .site-notice .site-notice-track{display:inline-flex!important;align-items:center!important;width:max-content!important;min-width:100%!important;height:auto!important;padding-left:0!important;gap:16px!important;background:transparent!important;box-shadow:none!important;white-space:nowrap!important;animation:siteInstructionScroll 42s linear infinite!important}
 body.portal-page .topbar .navlinks{min-width:0!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important}
-body.portal-page .topbar .navlinks a{white-space:nowrap!important;transform:none!important}
+body.portal-page .topbar .navlinks a{box-sizing:border-box!important;white-space:nowrap!important;transform:none!important;border-width:1px!important;border-style:solid!important}
 body.portal-page .topbar .navlinks a:hover,body.portal-page .topbar .navlinks a.active{transform:none!important}
+body.portal-page .topbar .navlinks a.active{border-color:transparent!important}
 
 .native-app-update-banner{position:sticky;top:0;z-index:9999;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;margin:0;padding:12px 14px;border-bottom:1px solid rgba(37,99,235,.2);background:linear-gradient(135deg,#eff6ff,#eef2ff);box-shadow:0 8px 22px rgba(15,23,42,.12);color:#10213c}
 .native-app-update-banner[hidden]{display:none!important}.native-app-update-copy{display:grid;min-width:0;gap:2px}.native-app-update-copy strong{font-size:.92rem}.native-app-update-message{overflow:hidden;color:#526078;font-size:.78rem;text-overflow:ellipsis;white-space:nowrap}.native-app-update-action,.native-app-update-dismiss{min-height:40px;border-radius:12px;white-space:nowrap}.native-app-update-action{padding:9px 14px}.native-app-update-dismiss{padding:8px 10px;border:0;background:transparent;color:#334155;font:inherit;font-weight:700}
@@ -43,7 +44,7 @@ body.portal-page .topbar .navlinks a:hover,body.portal-page .topbar .navlinks a.
   body.portal-page .topbar .site-notice>.site-notice-label{height:42px!important;min-height:42px!important;padding:0 14px!important;font-size:.82rem!important}
   body.portal-page .topbar .navlinks{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;min-height:42px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important}
   body.portal-page .topbar .navlinks::-webkit-scrollbar{display:none!important}
-  body.portal-page .topbar .navlinks a{height:42px!important;min-height:42px!important;max-height:42px!important;padding:0 14px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:.88rem!important;line-height:1!important;white-space:nowrap!important;transform:none!important}
+  body.portal-page .topbar .navlinks a{height:42px!important;min-height:42px!important;max-height:42px!important;padding:0 14px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:.88rem!important;line-height:1!important;white-space:nowrap!important;transform:none!important;flex:0 0 auto!important}
   body.portal-page .topbar .menu-toggle{height:42px!important;min-height:42px!important;padding:0 16px!important;font-size:.88rem!important;line-height:1!important}
 }
 
