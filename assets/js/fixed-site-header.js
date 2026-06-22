@@ -138,7 +138,7 @@
     { label: "Revision 2021", href: "/revision-2021.html", match: (p) => p.endsWith("/revision-2021.html") || p.includes("/revision-2021/") },
     { label: "Mock Exams", href: "/daily-quiz.html", match: (p) => p.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/.test(p) },
     { label: "2015 Materials", href: "/materials-2015.html", match: (p) => p.endsWith("/materials-2015.html") },
-    { label: "Tools", href: "/tools.html", badge: "New", match: (p) => /\/tools(?:-v2|-v2-original)?\.html$/.test(p) },
+    { label: "Tools", href: "/tools.html", match: (p) => /\/tools(?:-v2|-v2-original)?\.html$/.test(p) },
     { label: "Help", href: "/contact.html", match: (p) => p.endsWith("/contact.html") }
   ];
 
@@ -169,13 +169,6 @@
       const link = document.createElement("a");
       link.href = item.href;
       link.textContent = item.label;
-      if (item.badge) {
-        link.append(" ");
-        const badge = document.createElement("span");
-        badge.className = "new-badge";
-        badge.textContent = item.badge;
-        link.append(badge);
-      }
       if (item.match(path)) {
         link.classList.add("active");
         link.setAttribute("aria-current", "page");
