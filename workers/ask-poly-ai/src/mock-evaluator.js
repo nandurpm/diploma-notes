@@ -1,6 +1,6 @@
 import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 
-const DEFAULT_MODEL = "gpt-5.5";
+const DEFAULT_MODEL = "gpt-4o-mini";
 const clean = (value, maximum) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
 function selectedQuestionsFrom(body) {
