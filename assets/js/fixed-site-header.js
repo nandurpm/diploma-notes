@@ -104,9 +104,19 @@
     addStylesheetOnce("poly-lesson-page-fix", `/assets/css/lesson-page-fix.css?v=20260620-lesson-fix-${Date.now()}`);
   };
 
+  const installVisitorPopup = () => {
+    if (document.getElementById("poly-visitor-popup-script")) return;
+    const script = document.createElement("script");
+    script.id = "poly-visitor-popup-script";
+    script.src = "/assets/js/visitor-popup.js?v=20260622-visitor-popup";
+    script.defer = true;
+    document.head.append(script);
+  };
+
   configureAppDownloadButton();
   installDailyQuizResponsiveFix();
   installLessonPageFix();
+  installVisitorPopup();
 
   if (isLessonPage) return;
 
