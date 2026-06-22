@@ -80,6 +80,10 @@
     return String(value || "").toLowerCase().replace(/×/g, "x").replace(/\s+/g, " ").trim();
   }
 
+  function allowRubricFallback() {
+    return globalThis.ASK_POLY_CONFIG?.mockExamRubricFallback === true;
+  }
+
   function localFallbackEvaluation(reason) {
     const results = M.ui.selectedQuestions().map((question) => {
       const answer = String(M.state.answers[question.id] || "").trim();
@@ -101,12 +105,16 @@
       return { id: question.id, awardedMarks, maxMarks: question.marks, confidence: 0.5, feedback: awardedMarks > 0 ? `Provisional rubric check found ${matched.length} relevant point${matched.length === 1 ? "" : "s"}.` : "The response did not contain enough relevant content to award marks.", missingPoints: missing.slice(0, 5) };
     });
     const score = Math.round(results.reduce((sum, item) => sum + item.awardedMarks, 0) * 2) / 2;
-    return { paperId: M.paperId, subjectCode: M.subjectCode, title: M.examTitle || M.displayName || "Official-Pattern Mock Examination", score, totalMarks: M.totalMarks, percentage: Math.round(score / M.totalMarks * 1000) / 10, status: "published", evaluationMode: "automated_rubric_fallback", model: "browser-rubric-v4", evaluatedAt: new Date().toISOString(), results, overallFeedback: "The AI service was temporarily unavailable, so a provisional rubric-based result was published. The paper structure and maximum marks follow the official model-question-paper pattern.", fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180) };
+    return { paperId: M.paperId, subjectCode: M.subjectCode, title: M.examTitle || M.displayName || "Official-Pattern Mock Examination", score, totalMarks: M.totalMarks, percentage: Math.round(score / M.totalMarks * 1000) / 10, status: "published", evaluationMode: "automated_rubric_fallback", model: "browser-rubric-v5", evaluatedAt: new Date().toISOString(), results, overallFeedback: "This is a provisional browser-rubric result, not a full AI evaluation. Please retry later for AI + Rubric marking.", fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180) };
   }
 
   async function evaluate() {
     const url = endpoint();
-    if (!url) return localFallbackEvaluation(new Error("AI evaluation service is not configured."));
+    if (!url) {
+      const error = new Error("AI evaluation service is not configured. Please try again after the site update is deployed.");
+      if (allowRubricFallback()) return localFallbackEvaluation(error);
+      throw error;
+    }
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 60000);
     try {
@@ -120,8 +128,11 @@
       if (!response.ok) throw new Error(data.error || `Evaluation service returned HTTP ${response.status}.`);
       return data;
     } catch (error) {
-      console.error("AI evaluation unavailable; using provisional rubric result.", error);
-      return localFallbackEvaluation(error);
+      console.error("AI evaluation unavailable.", error);
+      if (allowRubricFallback()) return localFallbackEvaluation(error);
+      throw new Error(error.name === "AbortError"
+        ? "AI evaluation timed out. Your answers are still saved. Please submit again."
+        : (error.message || "AI evaluation is temporarily unavailable. Your answers are still saved; please submit again."));
     } finally { clearTimeout(timeout); }
   }
 
