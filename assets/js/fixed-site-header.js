@@ -3,11 +3,44 @@
 
   const root = document.documentElement;
   const body = document.body;
-  const appMatch = navigator.userAgent.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
-  const isNativeApp = Boolean(appMatch);
+  const ua = navigator.userAgent || "";
+  const appMatch = ua.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
+  const isAndroidWebView = /Android/i.test(ua) && (/\bwv\b/i.test(ua) || /Version\/\d+(?:\.\d+)?\s+Chrome\//i.test(ua));
+  const isStandaloneAndroid = /Android/i.test(ua) && window.matchMedia?.("(display-mode: standalone)")?.matches;
+  const isNativeApp = Boolean(appMatch) || isAndroidWebView || Boolean(isStandaloneAndroid);
   const installedVersion = appMatch ? appMatch[1] : null;
   const isLessonPage = /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(window.location.pathname);
   if (isLessonPage) root.classList.add("poly-lesson-page");
+
+  const hideNativeWebHeader = () => {
+    root.classList.add("polytechnic-native-app");
+    root.style.setProperty("--fixed-site-header-height", "0px");
+    root.style.setProperty("--fixed-site-header-gap", "0px");
+    body.classList.remove("has-fixed-site-header");
+    body.style.setProperty("padding-top", "0", "important");
+    body.style.setProperty("margin-top", "0", "important");
+
+    const header = document.querySelector(".topbar");
+    if (header) {
+      header.hidden = true;
+      header.setAttribute("aria-hidden", "true");
+      header.style.setProperty("display", "none", "important");
+      header.style.setProperty("visibility", "hidden", "important");
+      header.style.setProperty("height", "0", "important");
+      header.style.setProperty("min-height", "0", "important");
+      header.style.setProperty("max-height", "0", "important");
+      header.style.setProperty("padding", "0", "important");
+      header.style.setProperty("margin", "0", "important");
+      header.style.setProperty("overflow", "hidden", "important");
+    }
+
+    const skip = document.querySelector(".skip-link");
+    if (skip) {
+      skip.hidden = true;
+      skip.setAttribute("aria-hidden", "true");
+      skip.style.setProperty("display", "none", "important");
+    }
+  };
 
   const compareVersions = (left, right) => {
     const a = String(left || "0").split(".").map((n) => parseInt(n, 10) || 0);
@@ -19,7 +52,7 @@
     return 0;
   };
 
-  if (isNativeApp) root.classList.add("polytechnic-native-app");
+  if (isNativeApp) hideNativeWebHeader();
 
   const ensureNativeUpdateUi = () => {
     let button = document.querySelector(".app-download");
@@ -60,7 +93,7 @@
       .then((update) => {
         const latest = update?.versionName;
         const apkUrl = update?.apkUrl;
-        if (!latest || !apkUrl || compareVersions(latest, installedVersion) <= 0) {
+        if (!latest || !apkUrl || !installedVersion || compareVersions(latest, installedVersion) <= 0) {
           button.dataset.appButtonState = "current";
           hide();
           return;
@@ -120,16 +153,14 @@
 
   if (isLessonPage) return;
 
-  const header = document.querySelector(".topbar");
   if (isNativeApp) {
-    root.style.setProperty("--fixed-site-header-height", "0px");
-    root.style.setProperty("--fixed-site-header-gap", "0px");
-    body.classList.remove("has-fixed-site-header");
-    if (header) { header.hidden = true; header.setAttribute("aria-hidden", "true"); }
-    const skip = document.querySelector(".skip-link");
-    if (skip) skip.hidden = true;
+    hideNativeWebHeader();
+    requestAnimationFrame(hideNativeWebHeader);
+    setTimeout(hideNativeWebHeader, 250);
     return;
   }
+
+  const header = document.querySelector(".topbar");
   if (!header) return;
 
   const navItems = [
