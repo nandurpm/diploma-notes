@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260614-brand2">
   <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260614-layout1">
   <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260619-nav-instructions1">
+  <style>
+    .about-voice-actions{display:flex;align-items:center;gap:.85rem;flex-wrap:wrap;margin-top:1.1rem}.about-voice-btn{appearance:none;border:0;border-radius:999px;padding:.85rem 1.2rem;font-weight:800;cursor:pointer;background:#0f6bff;color:#fff;box-shadow:0 14px 30px rgba(15,107,255,.22);transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease}.about-voice-btn:hover{transform:translateY(-2px);box-shadow:0 18px 34px rgba(15,107,255,.28)}.about-voice-btn:disabled{cursor:wait;opacity:.78;transform:none}.about-voice-hint{font-size:.95rem;color:#52616f}
+  </style>
   <link rel="canonical" href="https://polypmna.dpdns.org/about.html">
 </head>
 <body class="portal-page">
@@ -37,6 +40,10 @@
       <p class="kicker">About Polytechnic Study Hub</p>
       <h1>A focused study portal for Kerala Polytechnic students.</h1>
       <p>Polytechnic Study Hub brings syllabus-based subject cards, lesson pages, notes, question-paper resources, daily practice and mock examinations into one clean website for faster exam preparation.</p>
+      <div class="about-voice-actions" aria-label="Malayalam voice explanation">
+        <button class="about-voice-btn" type="button" data-about-voice-button data-about-voice-src="/assets/audio/about-voice.mp3">🔊 മലയാളം കേൾക്കാം</button>
+        <span class="about-voice-hint">Click to play the Malayalam voice explanation.</span>
+      </div>
     </section>
 
     <section class="notice reveal" id="site-guide" data-about-voice data-about-voice-src="/assets/audio/about-voice.mp3" data-about-voice-delay="5000" tabindex="0" aria-label="About Polytechnic Study Hub voice-enabled section">
@@ -71,7 +78,7 @@
     <nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>
   </footer>
   <script src="/assets/js/main.js?v=20260619-header-lock1" defer></script>
-  <script src="/assets/js/about-voice-auto.js?v=20260623-about-voice1" defer></script>
+  <script src="/assets/js/about-voice-auto.js?v=20260623-about-voice2" defer></script>
   <script src="/assets/js/site-hardening.js" defer></script>
   <script src="/assets/js/site-assistant-loader.js?v=a502d8fb3272" defer></script>
   <script src="/assets/js/fixed-site-header.js?v=20260619-nav-instructions1" defer></script>
