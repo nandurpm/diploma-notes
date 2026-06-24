@@ -21,6 +21,7 @@
   const weekdayNames = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const rotationMs = 5000;
+  const exactEventEndDate = "2028-01-01";
   const importantDayImages = {
     "default-study": "assets/media/important-days/default-study.webp",
     "education-reading": "assets/media/important-days/education-reading.webp",
@@ -80,6 +81,10 @@
 
   function monthDay(dateKey) {
     return isDateKey(dateKey) ? dateKey.slice(5) : "";
+  }
+
+  function isExactDatePeriod(dateKey) {
+    return isDateKey(dateKey) && dateKey <= exactEventEndDate;
   }
 
   function formatDateLabel(dateKey) {
@@ -283,10 +288,7 @@
   }
 
   function renderTodayEvents(events, dateKey = getIndiaDateKey()) {
-    visibleEvents = findEventsForDate(events, dateKey);
-    if (!visibleEvents.length) {
-      visibleEvents = findAnnualRecurringEvents(events, dateKey);
-    }
+    visibleEvents = isExactDatePeriod(dateKey) ? findEventsForDate(events, dateKey) : findAnnualRecurringEvents(events, dateKey);
     activeIndex = 0;
     if (!visibleEvents.length) {
       renderFallback(dateKey);
