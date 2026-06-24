@@ -78,6 +78,10 @@
     return { year, month, day };
   }
 
+  function monthDay(dateKey) {
+    return isDateKey(dateKey) ? dateKey.slice(5) : "";
+  }
+
   function formatDateLabel(dateKey) {
     if (!isDateKey(dateKey)) return "TODAY";
     const { year, month, day } = parseDateKey(dateKey);
@@ -124,6 +128,17 @@
     return /provisional|likely|tentative/.test(text);
   }
 
+  function isMovableEvent(event) {
+    const text = `${event.category || ""} ${event.title || ""}`.toLowerCase();
+    return /onam|vishu|muharram|eid|ramadan|easter|good friday|ashura|father|mother|mandala|pooja|mahotsavam|aanayoottu|thrissur|pooram|temple festival|kerala public holiday|provisional|tentative|likely/.test(text);
+  }
+
+  function isAnnualFixedEvent(event) {
+    if (isMovableEvent(event) || isProvisionalEvent(event)) return false;
+    const text = `${event.category || ""} ${event.title || ""}`.toLowerCase();
+    return /international|\/ un|un |india|national|world|science|health|environment|education|literacy|statistics|consumer|constitution|republic day|independence day|new year|christmas|gandhi|ambedkar|kargil|teacher|engineer|children|women|labour|yoga|music/.test(text);
+  }
+
   function eventPriority(event) {
     const category = String(event.category || "").toLowerCase();
     const title = String(event.title || "").toLowerCase();
@@ -146,6 +161,13 @@
 
   function findEventsForDate(events, dateKey) {
     return sortSameDayEvents(events.filter((event) => event.date === dateKey));
+  }
+
+  function findAnnualRecurringEvents(events, dateKey) {
+    const todayMonthDay = monthDay(dateKey);
+    if (!todayMonthDay) return [];
+    const candidates = events.filter((event) => monthDay(event.date) === todayMonthDay && isAnnualFixedEvent(event));
+    return sortSameDayEvents(candidates).map((event) => ({ ...event, date: dateKey }));
   }
 
   function primaryBadge(event) {
@@ -262,6 +284,9 @@
 
   function renderTodayEvents(events, dateKey = getIndiaDateKey()) {
     visibleEvents = findEventsForDate(events, dateKey);
+    if (!visibleEvents.length) {
+      visibleEvents = findAnnualRecurringEvents(events, dateKey);
+    }
     activeIndex = 0;
     if (!visibleEvents.length) {
       renderFallback(dateKey);
@@ -322,6 +347,7 @@
   window.DiplomaImportantDays = {
     getIndiaDateKey,
     findEventsForDate: (dateKey) => findEventsForDate(allEvents, dateKey),
+    findAnnualRecurringEvents: (dateKey) => findAnnualRecurringEvents(allEvents, dateKey),
     renderForDate,
   };
 
