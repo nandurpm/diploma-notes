@@ -64,9 +64,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: workers/ask-poly-ai
           wranglerVersion: "4"
-          command: deploy
+          command: deploy --config workers/ask-poly-ai/wrangler.toml
           secrets: |
             OPENAI_API_KEY
             NVIDIA_API_KEY
