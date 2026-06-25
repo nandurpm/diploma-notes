@@ -19,3 +19,9 @@ Thumbs.db
 android-app/app/build/
 android-app/build/
 reports/*.tmp.json
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example
