@@ -43,53 +43,56 @@ jobs:
           PY
 
       - name: Check deployment secrets
-        id: secrets
         shell: bash
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN_VALUE" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID_VALUE" ]; then
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
             echo "Ask POLY AI deployment skipped. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repository Actions secrets, then run this workflow manually."
             exit 1
           fi
           if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ]; then
-            echo "enabled=false" >> "$GITHUB_OUTPUT"
             echo "Ask POLY AI deployment skipped. Add at least one AI key: OPENAI_API_KEY, NVIDIA_API_KEY, or GOOGLE_AI_STUDIO."
             exit 1
           fi
-          echo "enabled=true" >> "$GITHUB_OUTPUT"
 
-      - name: Deploy Worker and store AI keys securely
-        id: deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          wranglerVersion: "4"
-          command: deploy --config workers/ask-poly-ai/wrangler.toml
-          secrets: |
-            OPENAI_API_KEY
-            NVIDIA_API_KEY
-            GOOGLE_AI_STUDIO
-            GEMINI_API_KEY
+      - name: Install Wrangler
+        run: npm install -g wrangler@4
+
+      - name: Upload AI secrets to Ask POLY Worker
         env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           GOOGLE_AI_STUDIO: ${{ secrets.GOOGLE_AI_STUDIO }}
-          GEMINI_API_KEY: ${{ secrets.GOOGLE_AI_STUDIO }}
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json, os
+          secrets = {}
+          for key in ("OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO"):
+              value = os.environ.get(key, "")
+              if value:
+                  secrets[key] = value
+          if os.environ.get("GOOGLE_AI_STUDIO", ""):
+              secrets["GEMINI_API_KEY"] = os.environ["GOOGLE_AI_STUDIO"]
+          with open("ask-poly-secrets.json", "w", encoding="utf-8") as f:
+              json.dump(secrets, f)
+          print("Prepared secret names:", ", ".join(secrets.keys()))
+          PY
+          wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
+
+      - name: Deploy Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
 
       - name: Configure website with deployed Worker URL
-        env:
-          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
         run: |
           python - <<'PY'
           import json
-          import os
           from pathlib import Path
-
-          deployment_url = os.environ.get('DEPLOYMENT_URL', '').strip().rstrip('/')
-          if not deployment_url:
-              deployment_url = 'https://ask-poly-ai.nandakumarkdpm.workers.dev'
-          endpoint = f"{deployment_url}/api/ask-poly"
+          endpoint = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
           source = (
               "globalThis.ASK_POLY_CONFIG = Object.freeze({\n"
               f"  endpoint: {json.dumps(endpoint)},\n"
