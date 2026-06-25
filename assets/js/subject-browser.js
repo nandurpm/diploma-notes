@@ -4,7 +4,7 @@
   const COMMON_DEPARTMENT = "First Year / Common";
   const COMMON_VALUE = "__common__";
   const PAGE_SIZE = 30;
-  const SEARCH_DEBOUNCE_MS = 120;
+  const SEARCH_DEBOUNCE_MS = 220;
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
   const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
   const LOCAL_ASSETS = new Set([
@@ -87,6 +87,19 @@
 
   function unavailable(text) {
     return `<span class="availability-label" aria-disabled="true">${escapeHtml(text)}</span>`;
+  }
+
+  function isIncompleteHomepageQuery(mode, query) {
+    if (mode !== "home" || !query) return false;
+    if (/^\d{1,3}$/i.test(query)) return true;
+    if (/^[a-z]$/i.test(query)) return true;
+    return false;
+  }
+
+  function incompleteQueryMessage(query) {
+    return /^\d/.test(query)
+      ? "Enter the full 4-digit subject code, for example 1003, 2031 or 3044."
+      : "Type at least 2 letters of the subject title, or enter a full subject code.";
   }
 
   function subjectMatchesQuery(subject, query) {
@@ -259,11 +272,21 @@
         }
         return subjectMatchesQuery(subject, query);
       }));
-      return mode === "lessons" ? uniqueByCode(matches) : matches;
+      return (mode === "lessons" || mode === "home") ? uniqueByCode(matches) : matches;
     };
 
     function render(reset = true) {
+      const query = String(search?.value || "").trim().toLowerCase();
       if (reset) shown = PAGE_SIZE;
+
+      if (isIncompleteHomepageQuery(mode, query)) {
+        const message = incompleteQueryMessage(query);
+        grid.innerHTML = `<p class="empty">${escapeHtml(message)}</p>`;
+        status.textContent = message;
+        loadMore.hidden = true;
+        return;
+      }
+
       const visible = filtered();
       const usePaging = mode === "home" || ["lessons", "model-question-papers", "syllabus"].includes(mode);
       const slice = usePaging ? visible.slice(0, shown) : visible;
