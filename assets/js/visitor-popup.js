@@ -7,16 +7,15 @@
   const config = {
     delayMs: 20000,
     autoCloseMs: 60000,
-    storageKey: "polyPmnaVisitorPopupShownDate",
+    shownDateKey: "polyPmnaVisitorPopupShownDate",
+    sequenceIndexKey: "polyPmnaVisitorPopupSequenceIndex",
     mediaBase: "/assets/popup/",
     candidates: [
-      { file: "popup.mp4", kind: "video", type: "video/mp4" },
-      { file: "popup.webm", kind: "video", type: "video/webm" },
-      { file: "popup.jpg", kind: "image", type: "image/jpeg" },
-      { file: "popup.jpeg", kind: "image", type: "image/jpeg" },
-      { file: "popup.png", kind: "image", type: "image/png" },
-      { file: "popup.webp", kind: "image", type: "image/webp" },
-      { file: "popup.gif", kind: "image", type: "image/gif" }
+      { file: "popup-1.jpg", kind: "image", type: "image/jpeg" },
+      { file: "popup-2.jpg", kind: "image", type: "image/jpeg" },
+      { file: "popup-3.jpg", kind: "image", type: "image/jpeg" },
+      { file: "popup-1.mp4", kind: "video", type: "video/mp4" },
+      { file: "popup-2.mp4", kind: "video", type: "video/mp4" }
     ]
   };
 
@@ -30,7 +29,7 @@
 
   const wasShownToday = () => {
     try {
-      return localStorage.getItem(config.storageKey) === localDateKey();
+      return localStorage.getItem(config.shownDateKey) === localDateKey();
     } catch (error) {
       return false;
     }
@@ -38,25 +37,51 @@
 
   const rememberShownToday = () => {
     try {
-      localStorage.setItem(config.storageKey, localDateKey());
+      localStorage.setItem(config.shownDateKey, localDateKey());
     } catch (error) {
       // Private browsing or disabled storage should not break the website.
+    }
+  };
+
+  const getSequenceIndex = () => {
+    try {
+      const value = Number.parseInt(localStorage.getItem(config.sequenceIndexKey) || "0", 10);
+      return Number.isFinite(value) && value >= 0 ? value : 0;
+    } catch (error) {
+      return 0;
+    }
+  };
+
+  const saveSequenceIndex = (value) => {
+    try {
+      localStorage.setItem(config.sequenceIndexKey, String(value));
+    } catch (error) {
+      // Ignore storage failures.
     }
   };
 
   const cacheBustedUrl = (path) => `${path}?popupCheck=${Date.now()}`;
 
   const findAvailableMedia = async () => {
+    const existingMedia = [];
     for (const item of config.candidates) {
       const url = `${config.mediaBase}${item.file}`;
       try {
         const response = await fetch(cacheBustedUrl(url), { method: "HEAD", cache: "no-store" });
-        if (response.ok) return { ...item, url };
+        if (response.ok) existingMedia.push({ ...item, url });
       } catch (error) {
         // Continue checking the remaining popup file names.
       }
     }
-    return null;
+    return existingMedia;
+  };
+
+  const chooseNextMedia = (existingMedia) => {
+    if (!Array.isArray(existingMedia) || existingMedia.length === 0) return null;
+    const currentIndex = getSequenceIndex();
+    const selected = existingMedia[currentIndex % existingMedia.length];
+    saveSequenceIndex((currentIndex + 1) % existingMedia.length);
+    return selected;
   };
 
   const injectStyles = () => {
@@ -88,7 +113,7 @@
       video.muted = true;
       video.playsInline = true;
       video.preload = "metadata";
-      video.setAttribute("aria-label", "POLY PMNA visitor notification video");
+      video.setAttribute("aria-label", `POLY PMNA visitor notification video: ${media.file}`);
       const source = document.createElement("source");
       source.src = media.url;
       source.type = media.type;
@@ -98,7 +123,7 @@
 
     const image = document.createElement("img");
     image.src = media.url;
-    image.alt = "POLY PMNA visitor notification";
+    image.alt = `POLY PMNA visitor notification: ${media.file}`;
     image.loading = "eager";
     image.decoding = "async";
     return image;
@@ -164,8 +189,9 @@
     if (wasShownToday()) return;
     window.setTimeout(async () => {
       if (wasShownToday()) return;
-      const media = await findAvailableMedia();
-      showPopup(media);
+      const existingMedia = await findAvailableMedia();
+      const selectedMedia = chooseNextMedia(existingMedia);
+      showPopup(selectedMedia);
     }, config.delayMs);
   };
 
