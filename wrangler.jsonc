@@ -1,14 +1,1 @@
-{
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ask-poly-ai",
-  "compatibility_date": "2026-06-25",
-  "observability": {
-    "enabled": true
-  },
-  "assets": {
-    "directory": "."
-  },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
-}
+{"name":"poly-pmna-static-site"}
