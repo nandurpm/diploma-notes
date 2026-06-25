@@ -1,24 +1,40 @@
 # Visitor Popup Upload Folder
 
-Upload exactly one popup media file here when you want a visitor popup to appear on the website.
+Upload popup media files here when you want visitor popups to appear on the website.
 
-Supported file names:
+Supported ordered popup file names:
 
-- `popup.jpg`
-- `popup.jpeg`
-- `popup.png`
-- `popup.webp`
-- `popup.gif`
-- `popup.mp4`
-- `popup.webm`
+1. `popup-1.jpg`
+2. `popup-2.jpg`
+3. `popup-3.jpg`
+4. `popup-1.mp4`
+5. `popup-2.mp4`
 
 How it works:
 
-1. Upload one supported file into this folder.
-2. Visitors will see it once per day, 20 seconds after opening the website.
-3. The popup has a close button.
-4. If the visitor does not close it, it disappears automatically after 1 minute.
-5. Remove or rename the popup file to stop showing the popup.
+1. The website first checks which of the above popup files actually exist in this folder.
+2. Missing files are skipped automatically.
+3. Visitors will see one popup per day, 20 seconds after opening the website.
+4. The next visit/day shows the next existing popup in the sequence.
+5. After the last existing popup, it starts again from the first existing popup.
+6. The popup has a close button.
+7. If the visitor does not close it, it disappears automatically after 1 minute.
+8. Remove or rename all popup files to stop showing popups.
+
+Example:
+
+If only these files exist:
+
+- `popup-1.jpg`
+- `popup-3.jpg`
+- `popup-2.mp4`
+
+The showing order becomes:
+
+1. `popup-1.jpg`
+2. `popup-3.jpg`
+3. `popup-2.mp4`
+4. Repeat again from `popup-1.jpg`
 
 Recommended image size: 1200 × 700 px or 1080 × 1080 px.
 Recommended video: MP4, compressed, short duration, preferably below 10 MB for faster loading.
