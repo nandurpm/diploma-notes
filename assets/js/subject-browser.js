@@ -4,6 +4,7 @@
   const COMMON_DEPARTMENT = "First Year / Common";
   const COMMON_VALUE = "__common__";
   const PAGE_SIZE = 30;
+  const SEARCH_DEBOUNCE_MS = 120;
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
   const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
   const LOCAL_ASSETS = new Set([
@@ -86,6 +87,22 @@
 
   function unavailable(text) {
     return `<span class="availability-label" aria-disabled="true">${escapeHtml(text)}</span>`;
+  }
+
+  function subjectMatchesQuery(subject, query) {
+    if (!query) return true;
+
+    const numericLikeQuery = /^[0-9]{2,5}[a-z]?$/i.test(query);
+    const code = String(subject.code || "").toLowerCase();
+
+    if (numericLikeQuery) {
+      return code.includes(query);
+    }
+
+    return [subject.code, subject.name, subject.department, subject.semester, subject.type]
+      .join(" ")
+      .toLowerCase()
+      .includes(query);
   }
 
   function fullCard(subject) {
@@ -185,6 +202,7 @@
     const loadMore = document.getElementById("subjectLoadMore") || document.createElement("button");
     const params = new URLSearchParams(window.location.search);
     let shown = PAGE_SIZE;
+    let renderTimer = 0;
 
     status.id = "subjectResultStatus";
     status.className = "subject-browser-status";
@@ -239,11 +257,7 @@
         } else if (department !== "all" && subject.department !== department && subject.department !== COMMON_DEPARTMENT) {
           return false;
         }
-        if (!query) return true;
-        return [subject.code, subject.name, subject.department, subject.semester, subject.type, subject.revision]
-          .join(" ")
-          .toLowerCase()
-          .includes(query);
+        return subjectMatchesQuery(subject, query);
       }));
       return mode === "lessons" ? uniqueByCode(matches) : matches;
     };
@@ -251,7 +265,7 @@
     function render(reset = true) {
       if (reset) shown = PAGE_SIZE;
       const visible = filtered();
-      const usePaging = ["lessons", "model-question-papers", "syllabus"].includes(mode);
+      const usePaging = mode === "home" || ["lessons", "model-question-papers", "syllabus"].includes(mode);
       const slice = usePaging ? visible.slice(0, shown) : visible;
 
       if (!visible.length) {
@@ -268,7 +282,15 @@
         : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
     }
 
-    [search, revisionFilter, departmentFilter, semesterFilter].forEach((control) => {
+    function scheduleRender() {
+      window.clearTimeout(renderTimer);
+      renderTimer = window.setTimeout(() => render(true), SEARCH_DEBOUNCE_MS);
+    }
+
+    search?.addEventListener("input", scheduleRender);
+    search?.addEventListener("change", () => render(true));
+
+    [revisionFilter, departmentFilter, semesterFilter].forEach((control) => {
       control?.addEventListener("input", () => render(true));
       control?.addEventListener("change", () => render(true));
     });
