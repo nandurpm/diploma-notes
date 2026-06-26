@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260626-assistant-parallel-timeout";
+  const ASSET_VERSION = "20260626-assistant-disabled-on-subject-pages";
   const ASSET_TIMEOUT_MS = 4500;
 
   function rootPrefix() {
@@ -11,7 +11,9 @@
 
   function shouldSkipAssistant() {
     const pathname = window.location.pathname;
-    return [
+    return /^\/revision-2021\/.+\.html$/i.test(pathname) || [
+      "/",
+      "/index.html",
       "/privacy.html",
       "/terms.html",
       "/disclaimer.html",
