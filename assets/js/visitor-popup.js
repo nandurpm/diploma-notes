@@ -7,6 +7,7 @@
   const config = {
     delayMs: 20000,
     autoCloseMs: 60000,
+    probeTimeoutMs: 2500,
     shownDateKey: "polyPmnaVisitorPopupShownDate",
     sequenceIndexKey: "polyPmnaVisitorPopupSequenceIndex",
     mediaBase: "/assets/popup/",
@@ -60,20 +61,25 @@
     }
   };
 
-  const cacheBustedUrl = (path) => `${path}?popupCheck=${Date.now()}`;
+  const withTimeout = (promise, timeoutMs = config.probeTimeoutMs) => {
+    let timeoutId = 0;
+    const timeout = new Promise((resolve) => {
+      timeoutId = window.setTimeout(() => resolve(null), timeoutMs);
+    });
+    return Promise.race([promise, timeout]).finally(() => window.clearTimeout(timeoutId));
+  };
+
+  const probeMedia = (item) => {
+    const url = `${config.mediaBase}${item.file}`;
+    const request = fetch(url, { method: "HEAD", cache: "default" })
+      .then((response) => response.ok ? { ...item, url } : null)
+      .catch(() => null);
+    return withTimeout(request);
+  };
 
   const findAvailableMedia = async () => {
-    const existingMedia = [];
-    for (const item of config.candidates) {
-      const url = `${config.mediaBase}${item.file}`;
-      try {
-        const response = await fetch(cacheBustedUrl(url), { method: "HEAD", cache: "no-store" });
-        if (response.ok) existingMedia.push({ ...item, url });
-      } catch (error) {
-        // Continue checking the remaining popup file names.
-      }
-    }
-    return existingMedia;
+    const results = await Promise.all(config.candidates.map(probeMedia));
+    return results.filter(Boolean);
   };
 
   const chooseNextMedia = (existingMedia) => {
