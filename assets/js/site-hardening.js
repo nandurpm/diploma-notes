@@ -5,6 +5,10 @@
   const isRevisionDepartmentPage = () => /^\/revision-2021\/.+\.html$/i.test(currentPath());
   const isLessonPage = () => /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(currentPath());
   const COMMON_DEPARTMENT = "First Year / Common";
+  const DEPARTMENT_ALIASES = new Map([
+    ["electrical engineering", "electrical and electronics engineering"],
+    ["civil public health and environment engineering", "civil and environmental engineering"]
+  ]);
 
   const esc = (value) => String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -118,6 +122,25 @@
       </section>`).join("");
   }
 
+  function pickDepartmentSubjects(subjects, fixedRevision, fixedDepartmentKey) {
+    const aliasDepartmentKey = DEPARTMENT_ALIASES.get(fixedDepartmentKey) || "";
+    const exact = subjects.filter((subject) => {
+      if (String(subject.revision) !== fixedRevision) return false;
+      const subjectDepartmentKey = normalizeDepartment(subject.department);
+      return subjectDepartmentKey === fixedDepartmentKey || subject.department === COMMON_DEPARTMENT;
+    });
+
+    const exactSpecialCount = exact.filter((subject) => subject.department !== COMMON_DEPARTMENT).length;
+    if (exactSpecialCount >= 8 || !aliasDepartmentKey) return exact;
+
+    const alias = subjects.filter((subject) => {
+      if (String(subject.revision) !== fixedRevision) return false;
+      const subjectDepartmentKey = normalizeDepartment(subject.department);
+      return subjectDepartmentKey === aliasDepartmentKey || subject.department === COMMON_DEPARTMENT;
+    });
+    return alias.length > exact.length ? alias : exact;
+  }
+
   async function emergencyRenderDepartmentSubjects(force = false) {
     if (!isRevisionDepartmentPage()) return;
     const grid = document.getElementById("subjectGrid");
@@ -144,11 +167,7 @@
       return;
     }
 
-    const departmentSubjects = subjects.filter((subject) => {
-      if (String(subject.revision) !== fixedRevision) return false;
-      const subjectDepartmentKey = normalizeDepartment(subject.department);
-      return subjectDepartmentKey === fixedDepartmentKey || subject.department === COMMON_DEPARTMENT;
-    });
+    const departmentSubjects = pickDepartmentSubjects(subjects, fixedRevision, fixedDepartmentKey);
 
     const semesters = [...new Set(departmentSubjects.map((subject) => subject.semester).filter(Boolean))]
       .sort((a, b) => semesterRank(a) - semesterRank(b));
