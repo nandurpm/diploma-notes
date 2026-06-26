@@ -146,7 +146,7 @@
         return;
       }
       const visible = getVisible();
-      const slice = visible.slice(0, shown);
+      const slice = mode === "department" ? visible : visible.slice(0, shown);
       if (!visible.length) {
         grid.innerHTML = '<p class="empty">No subjects match the selected filters.</p>';
         status.textContent = "No matching subjects found.";
@@ -154,7 +154,7 @@
         return;
       }
       grid.innerHTML = groups(slice, mode);
-      loadMore.hidden = slice.length >= visible.length;
+      loadMore.hidden = mode === "department" || slice.length >= visible.length;
       status.textContent = slice.length < visible.length ? `Showing ${slice.length} of ${visible.length} subjects.` : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
     }
 
