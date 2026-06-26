@@ -6,6 +6,7 @@
   const ua = navigator.userAgent || "";
   const pathname = window.location.pathname;
   const isHomePage = pathname === "/" || /\/index\.html$/i.test(pathname);
+  const isRevisionDepartmentPage = /^\/revision-2021\/.+\.html$/i.test(pathname);
   const appMatch = ua.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
   const isAndroidWebView = /Android/i.test(ua) && (/\bwv\b/i.test(ua) || /Version\/\d+(?:\.\d+)?\s+Chrome\//i.test(ua));
   const isStandaloneAndroid = /Android/i.test(ua) && window.matchMedia?.("(display-mode: standalone)")?.matches;
@@ -140,7 +141,7 @@
   };
 
   const installVisitorPopup = () => {
-    if (isHomePage) return;
+    if (isHomePage || isRevisionDepartmentPage) return;
     if (document.getElementById("poly-visitor-popup-script")) return;
     const script = document.createElement("script");
     script.id = "poly-visitor-popup-script";
