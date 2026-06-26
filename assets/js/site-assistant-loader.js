@@ -63,7 +63,7 @@
     return withTimeout(new Promise((resolve) => {
       const script = document.createElement("script");
       script.src = assetUrl(prefix, path);
-      script.async = true;
+      script.async = false;
       script.defer = true;
       script.addEventListener("load", () => resolve({ ok: true, path }), { once: true });
       script.addEventListener("error", () => resolve({ ok: false, path }), { once: true });
@@ -102,10 +102,11 @@
         loadStyle(prefix, "assets/css/site-assistant-fix.css")
       ]);
 
+      await loadScript(prefix, "assets/js/ask-poly-config.js");
+      await loadScript(prefix, "assets/js/ask-poly-remote.js");
+      await loadScript(prefix, "assets/js/site-assistant.js");
+
       await Promise.all([
-        loadScript(prefix, "assets/js/ask-poly-config.js"),
-        loadScript(prefix, "assets/js/ask-poly-remote.js"),
-        loadScript(prefix, "assets/js/site-assistant.js"),
         loadScript(prefix, "assets/js/ask-poly-general-ai-extension.js"),
         loadScript(prefix, "assets/js/ask-poly-live-hotfix.js"),
         loadScript(prefix, "assets/js/ask-poly-rich-renderer.js")
