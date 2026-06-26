@@ -3,18 +3,19 @@
 
   const COMMON_DEPARTMENT = "First Year / Common";
   const COMMON_VALUE = "__common__";
-  const PAGE_SIZE = 30;
-  const SEARCH_DEBOUNCE_MS = 220;
-  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
-  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
+  const HOME_PAGE_SIZE = 30;
+  const SEARCH_DEBOUNCE_MS = 180;
+  const LESSON_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
+  const NOTES_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
   const LOCAL_ASSETS = new Set([
     ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
-    ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`),
+    ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`)
   ]);
 
   let subjectsPromise = null;
 
-  const escapeHtml = (value) => String(value ?? "")
+  const $ = (id) => document.getElementById(id);
+  const esc = (value) => String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
@@ -22,22 +23,24 @@
     .replaceAll("'", "&#039;");
 
   const semesterRank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
-
   const rootPrefix = () => {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
     return depth > 0 ? "../".repeat(depth) : "";
   };
-
   const localPath = (url) => new URL(url, window.location.href).pathname;
   const hasAsset = (url) => LOCAL_ASSETS.has(localPath(url));
 
-  const syllabusLinkFor = (subject) => globalThis.syllabusLink
-    ? globalThis.syllabusLink(subject.code)
-    : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+  function syllabusLinkFor(subject) {
+    return typeof globalThis.syllabusLink === "function"
+      ? globalThis.syllabusLink(subject.code)
+      : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+  }
 
-  const modelQuestionPaperLinkFor = (subject) => globalThis.modelQuestionPaperLink
-    ? globalThis.modelQuestionPaperLink(subject.code)
-    : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+  function modelQuestionPaperLinkFor(subject) {
+    return typeof globalThis.modelQuestionPaperLink === "function"
+      ? globalThis.modelQuestionPaperLink(subject.code)
+      : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+  }
 
   const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
   const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
@@ -46,13 +49,13 @@
     if (Array.isArray(globalThis.SUBJECTS) && globalThis.SUBJECTS.length) return globalThis.SUBJECTS;
     if (subjectsPromise) return subjectsPromise;
 
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260626-subject-data-fallback`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260626-full-subjects-global`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
       })
       .then((text) => {
-        const match = text.match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*\]);?\s*$/m);
+        const match = text.match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);
         if (!match) throw new Error("SUBJECTS array was not found in subjects.js");
         const parsed = Function(`"use strict"; return (${match[1]});`)();
         if (!Array.isArray(parsed)) throw new Error("SUBJECTS data is not an array");
@@ -70,7 +73,7 @@
   function uniqueSubjects(subjects) {
     const seen = new Set();
     return subjects.filter((subject) => {
-      const key = [subject.revision, subject.department, subject.semester, subject.code].join(":");
+      const key = [subject.revision, subject.department, subject.semester, subject.code, subject.name].join(":");
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
@@ -117,90 +120,44 @@
     select.value = [...select.options].some((option) => option.value === selected) ? selected : all.value;
   }
 
-  function unavailable(text) {
-    return `<span class="availability-label" aria-disabled="true">${escapeHtml(text)}</span>`;
-  }
-
-  function isIncompleteHomepageQuery(mode, query) {
-    if (mode !== "home" || !query) return false;
-    if (/^\d{1,3}$/i.test(query)) return true;
-    if (/^[a-z]$/i.test(query)) return true;
-    return false;
-  }
-
-  function incompleteQueryMessage(query) {
-    return /^\d/.test(query)
-      ? "Enter the full 4-digit subject code, for example 1003, 2031 or 3044."
-      : "Type at least 2 letters of the subject title, or enter a full subject code.";
+  function queryIsIncompleteHomeCode(mode, query) {
+    return mode === "home" && (/^\d{1,3}$/i.test(query) || /^[a-z]$/i.test(query));
   }
 
   function subjectMatchesQuery(subject, query) {
     if (!query) return true;
-    const numericLikeQuery = /^[0-9]{2,5}[a-z]?$/i.test(query);
     const code = String(subject.code || "").toLowerCase();
-    if (numericLikeQuery) return code.includes(query);
+    if (/^[0-9]{2,5}[a-z]?$/i.test(query)) return code.includes(query);
     return [subject.code, subject.name, subject.department, subject.semester, subject.type]
       .join(" ")
       .toLowerCase()
       .includes(query);
   }
 
-  function fullCard(subject) {
+  function unavailable(label) {
+    return `<span class="availability-label" aria-disabled="true">${esc(label)}</span>`;
+  }
+
+  function subjectCard(subject) {
     const lessonHref = lessonLinkFor(subject);
     const notesHref = notesLinkFor(subject);
     const lessonAvailable = hasAsset(lessonHref);
     const notesAvailable = hasAsset(notesHref);
-    const notesDownload = notesAvailable ? " download" : "";
-
     return `
       <article class="subject-card reveal">
-        <div class="subject-top"><span>${escapeHtml(subject.revision)}</span><strong>${escapeHtml(subject.code)}</strong></div>
-        <h3>${escapeHtml(subject.name)}</h3>
-        <p>${escapeHtml(subject.department)} / ${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
+        <div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div>
+        <h3>${esc(subject.name)}</h3>
+        <p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>
         <div class="action-row">
-          <a class="action syllabus" href="${escapeHtml(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
-          ${lessonAvailable ? `<a class="action lessons" href="${escapeHtml(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}
-          ${notesAvailable ? `<a class="action download" href="${escapeHtml(notesHref)}"${notesDownload}>Download Notes</a>` : unavailable("Notes unavailable")}
-          <a class="action qp" href="${escapeHtml(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
+          <a class="action syllabus" href="${esc(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
+          ${lessonAvailable ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}
+          ${notesAvailable ? `<a class="action download" href="${esc(notesHref)}" download>Download Notes</a>` : unavailable("Notes unavailable")}
+          <a class="action qp" href="${esc(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
         </div>
-      </article>
-    `;
+      </article>`;
   }
 
-  function lessonCard(subject) {
-    return `
-      <article class="subject-card simple-subject-card">
-        <div class="subject-top"><span>${escapeHtml(subject.department)}</span><strong>${escapeHtml(subject.code)}</strong></div>
-        <h3>${escapeHtml(subject.name)}</h3>
-        <p>${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
-        <div class="action-row"><a class="action lessons" href="${escapeHtml(lessonLinkFor(subject))}">Open Lesson Page</a></div>
-      </article>
-    `;
-  }
-
-  function syllabusCard(subject) {
-    return `
-      <article class="subject-card simple-subject-card">
-        <div class="subject-top"><span>${escapeHtml(subject.semester)}</span><strong>${escapeHtml(subject.code)}</strong></div>
-        <h3>${escapeHtml(subject.name)}</h3>
-        <p>${escapeHtml(subject.department)}</p>
-        <div class="action-row"><a class="action syllabus" href="${escapeHtml(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a></div>
-      </article>
-    `;
-  }
-
-  function modelQuestionCard(subject) {
-    return `
-      <article class="subject-card simple-subject-card model-question-card">
-        <div class="subject-top"><span>${escapeHtml(subject.semester)}</span><strong>${escapeHtml(subject.code)}</strong></div>
-        <h3>${escapeHtml(subject.name)}</h3>
-        <p>${escapeHtml(subject.department)}</p>
-        <div class="action-row"><a class="action qp" href="${escapeHtml(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Model Question Paper</a></div>
-      </article>
-    `;
-  }
-
-  function groupCards(subjects, renderer) {
+  function groupCards(subjects) {
     const groups = new Map();
     subjects.forEach((subject) => {
       const semester = String(subject.semester || "Other subjects");
@@ -208,25 +165,20 @@
       groups.get(semester).push(subject);
     });
 
-    return Array.from(groups.entries()).map(([semester, semesterSubjects], index) => {
-      const headingId = `semester-group-heading-${index + 1}`;
-      const count = semesterSubjects.length;
-      return `
-        <section class="semester-subject-section" aria-labelledby="${headingId}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px">
-          <div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)">
-            <h3 id="${headingId}">${escapeHtml(semester)}</h3>
-            <span>${count} ${count === 1 ? "subject" : "subjects"}</span>
-          </div>
-          <div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">
-            ${semesterSubjects.map(renderer).join("")}
-          </div>
-        </section>
-      `;
-    }).join("");
+    return Array.from(groups.entries()).map(([semester, items], index) => `
+      <section class="semester-subject-section" aria-labelledby="semester-group-heading-${index + 1}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px">
+        <div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)">
+          <h3 id="semester-group-heading-${index + 1}">${esc(semester)}</h3>
+          <span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span>
+        </div>
+        <div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">
+          ${items.map(subjectCard).join("")}
+        </div>
+      </section>`).join("");
   }
 
   async function controller(grid) {
-    if (grid.dataset.subjectBrowserInitialized === "true") return;
+    if (!grid || grid.dataset.subjectBrowserInitialized === "true") return;
     grid.dataset.subjectBrowserInitialized = "true";
     grid.classList.add("semester-grouped");
     grid.innerHTML = '<p class="empty">Loading subjects...</p>';
@@ -234,15 +186,14 @@
     const mode = grid.dataset.mode || "lessons";
     const fixedRevision = grid.dataset.revision || "";
     const fixedDepartment = grid.dataset.department || "";
-    const search = document.getElementById("subjectSearch");
-    const revisionFilter = document.getElementById("revisionFilter");
-    const departmentFilter = document.getElementById("departmentFilter");
-    const semesterFilter = document.getElementById("semesterFilter");
-    const subjects = uniqueSubjects(await loadSubjects());
-    const status = document.getElementById("subjectResultStatus") || document.createElement("p");
-    const loadMore = document.getElementById("subjectLoadMore") || document.createElement("button");
+    const search = $("subjectSearch");
+    const revisionFilter = $("revisionFilter");
+    const departmentFilter = $("departmentFilter");
+    const semesterFilter = $("semesterFilter");
+    const status = $("subjectResultStatus") || document.createElement("p");
+    const loadMore = $("subjectLoadMore") || document.createElement("button");
     const params = new URLSearchParams(window.location.search);
-    let shown = PAGE_SIZE;
+    let shown = HOME_PAGE_SIZE;
     let renderTimer = 0;
 
     status.id = "subjectResultStatus";
@@ -257,6 +208,7 @@
     loadMore.textContent = "Load More";
     if (!loadMore.isConnected) grid.after(loadMore);
 
+    const subjects = uniqueSubjects(await loadSubjects());
     if (!subjects.length) {
       grid.innerHTML = '<p class="empty">No subjects found. Please try again later.</p>';
       status.textContent = "Subject data failed to load.";
@@ -266,7 +218,6 @@
 
     const base = subjects.filter((subject) => {
       if (fixedRevision && String(subject.revision) !== fixedRevision) return false;
-      if (mode !== "home" && String(subject.revision) === "2015" && mode !== "lessons") return false;
       if (mode === "lessons") return String(subject.revision) === "2021" && LESSON_CODES.has(String(subject.code));
       return true;
     });
@@ -283,21 +234,12 @@
     if (fixedDepartment && departmentFilter) departmentFilter.disabled = true;
     if (params.get("subject") && search) search.value = params.get("subject");
 
-    const renderer = mode === "syllabus"
-      ? syllabusCard
-      : mode === "model-question-papers"
-        ? modelQuestionCard
-        : mode === "lessons"
-          ? lessonCard
-          : fullCard;
-
-    const filtered = () => {
+    function filtered() {
       const query = String(search?.value || "").trim().toLowerCase();
       const revision = fixedRevision || revisionFilter?.value || "all";
       const department = fixedDepartment || departmentFilter?.value || (mode === "home" ? COMMON_VALUE : "all");
       const semester = semesterFilter?.value || "all";
-
-      const matches = sortSubjects(base.filter((subject) => {
+      const list = sortSubjects(base.filter((subject) => {
         if (revision !== "all" && String(subject.revision) !== revision) return false;
         if (semester !== "all" && subject.semester !== semester) return false;
         if (department === COMMON_VALUE) {
@@ -307,24 +249,26 @@
         }
         return subjectMatchesQuery(subject, query);
       }));
-      return (mode === "lessons" || mode === "home") ? uniqueByCode(matches) : matches;
-    };
+      return mode === "home" || mode === "lessons" ? uniqueByCode(list) : list;
+    }
 
     function render(reset = true) {
       const query = String(search?.value || "").trim().toLowerCase();
-      if (reset) shown = PAGE_SIZE;
+      if (reset) shown = HOME_PAGE_SIZE;
 
-      if (isIncompleteHomepageQuery(mode, query)) {
-        const message = incompleteQueryMessage(query);
-        grid.innerHTML = `<p class="empty">${escapeHtml(message)}</p>`;
+      if (queryIsIncompleteHomeCode(mode, query)) {
+        const message = /^\d/.test(query)
+          ? "Enter the full 4-digit subject code, for example 1003, 2031 or 3044."
+          : "Type at least 2 letters of the subject title, or enter a full subject code.";
+        grid.innerHTML = `<p class="empty">${esc(message)}</p>`;
         status.textContent = message;
         loadMore.hidden = true;
         return;
       }
 
       const visible = filtered();
-      const usePaging = mode === "home" || ["lessons", "model-question-papers", "syllabus", "department"].includes(mode);
-      const slice = usePaging ? visible.slice(0, shown) : visible;
+      const shouldPage = mode === "home" || mode === "lessons" || mode === "model-question-papers" || mode === "syllabus";
+      const pageItems = shouldPage ? visible.slice(0, shown) : visible;
 
       if (!visible.length) {
         grid.innerHTML = '<p class="empty">No subjects match the selected filters.</p>';
@@ -333,10 +277,10 @@
         return;
       }
 
-      grid.innerHTML = groupCards(slice, renderer);
-      loadMore.hidden = !usePaging || slice.length >= visible.length;
-      status.textContent = slice.length < visible.length
-        ? `Showing ${slice.length} of ${visible.length} subjects.`
+      grid.innerHTML = groupCards(pageItems);
+      loadMore.hidden = !shouldPage || pageItems.length >= visible.length;
+      status.textContent = pageItems.length < visible.length
+        ? `Showing ${pageItems.length} of ${visible.length} subjects.`
         : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
     }
 
@@ -352,14 +296,12 @@
       control?.addEventListener("change", () => render(true));
     });
     loadMore.addEventListener("click", () => {
-      shown += PAGE_SIZE;
+      shown += HOME_PAGE_SIZE;
       render(false);
     });
+
     render(true);
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const grid = document.getElementById("subjectGrid");
-    if (grid) controller(grid);
-  });
+  document.addEventListener("DOMContentLoaded", () => controller($("subjectGrid")));
 })();
