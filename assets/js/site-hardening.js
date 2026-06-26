@@ -9,6 +9,8 @@
     ["electrical engineering", "electrical and electronics engineering"],
     ["civil public health and environment engineering", "civil and environmental engineering"]
   ]);
+  const LESSON_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
+  const NOTES_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
 
   const esc = (value) => String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -89,17 +91,27 @@
   }
 
   function subjectCard(subject) {
+    const code = String(subject.code || "");
+    const actions = [
+      `<a class="action syllabus" href="${esc(linkFor("syllabus", subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>`
+    ];
+
+    if (LESSON_CODES.has(code)) {
+      actions.push(`<a class="action lessons" href="${esc(linkFor("lesson", subject))}">View Lessons</a>`);
+    }
+
+    if (NOTES_CODES.has(code)) {
+      actions.push(`<a class="action download" href="${esc(linkFor("notes", subject))}" download>Download Notes</a>`);
+    }
+
+    actions.push(`<a class="action qp" href="${esc(linkFor("qp", subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>`);
+
     return `
       <article class="subject-card reveal">
         <div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div>
         <h3>${esc(subject.name)}</h3>
         <p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>
-        <div class="action-row">
-          <a class="action syllabus" href="${esc(linkFor("syllabus", subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
-          <a class="action lessons" href="${esc(linkFor("lesson", subject))}">View Lessons</a>
-          <a class="action download" href="${esc(linkFor("notes", subject))}" download>Download Notes</a>
-          <a class="action qp" href="${esc(linkFor("qp", subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
-        </div>
+        <div class="action-row">${actions.join("")}</div>
       </article>`;
   }
 
