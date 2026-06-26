@@ -1,5 +1,6 @@
 window.PolyQuizResults = (() => {
   const LOCAL = 'poly-quiz-results-v4-single-submit';
+  const memoryStore = Object.create(null);
 
   const dateKey = (d) => {
     d = d ? new Date(d) : new Date();
@@ -11,7 +12,7 @@ window.PolyQuizResults = (() => {
 
   const all = () => {
     try { return JSON.parse(localStorage.getItem(LOCAL) || '{}'); }
-    catch { return {}; }
+    catch { return memoryStore[LOCAL] || {}; }
   };
 
   const localRows = () => all()[stateKey()] || [];
@@ -21,7 +22,9 @@ window.PolyQuizResults = (() => {
     const key = stateKey();
     const rows = obj[key] || [];
     obj[key] = [row, ...rows.filter((r) => !(r.quiz_date === row.quiz_date && r.subject_code === row.subject_code))].slice(0, 150);
-    localStorage.setItem(LOCAL, JSON.stringify(obj));
+    memoryStore[LOCAL] = obj;
+    try { localStorage.setItem(LOCAL, JSON.stringify(obj)); }
+    catch (error) { console.warn('Local quiz storage is blocked. Keeping result in memory for this tab only.', error); }
   }
 
   function mergeRows(remoteRows, localRowsList) {
@@ -83,7 +86,7 @@ window.PolyQuizResults = (() => {
 
     if (a?.guest || !a?.user || !db) {
       saveLocal(row);
-      return { local: true, remote: false, guest: true };
+      return { local: true, remote: false, guest: true, row };
     }
 
     try {
@@ -138,7 +141,8 @@ window.PolyQuizResults = (() => {
       return { local: true, remote: true, row: inserted.data || row };
     } catch (error) {
       console.error('Remote quiz save failed', error);
-      return { local: false, remote: false, error };
+      saveLocal(row);
+      return { local: true, remote: false, fallback: true, error, row };
     }
   }
 
