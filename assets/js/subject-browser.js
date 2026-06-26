@@ -4,251 +4,352 @@
   const COMMON_DEPARTMENT = "First Year / Common";
   const COMMON_VALUE = "__common__";
   const PAGE_SIZE = 30;
-  const SUBJECT_JSON_URL = "/assets/data/subjects.json";
-  const MIN_EXPECTED_DEPARTMENT_SUBJECTS = 18;
-  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
-  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
+  const SEARCH_DEBOUNCE_MS = 220;
+  const LESSON_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
+  const NOTES_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
+  const LOCAL_ASSETS = new Set([
+    ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
+    ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`),
+  ]);
 
-  const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;",
-  })[char]);
-  const rank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
-  const rootPrefix = () => window.location.pathname.split("/").filter(Boolean).length > 1 ? "../" : "";
-  const syllabus = (code) => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}`;
-  const qp = (code) => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
-  const lesson = (code) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(code)}.html`;
-  const notes = (code) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+  let subjectsPromise = null;
 
-  function getGlobalSubjects() {
-    try {
-      if (typeof SUBJECTS !== "undefined" && Array.isArray(SUBJECTS)) return SUBJECTS;
-    } catch {}
-    return Array.isArray(window.SUBJECTS) ? window.SUBJECTS : [];
-  }
+  const escapeHtml = (value) => String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
-  function normalizeSubject(subject) {
-    return {
-      revision: String(subject.revision || "2021"),
-      code: String(subject.code || subject.course_code || "").trim(),
-      name: String(subject.name || subject.title || subject.subject || "").trim(),
-      department: String(subject.department || subject.programme || subject.program || "").trim(),
-      semester: String(subject.semester || subject.sem || "").trim(),
-      type: String(subject.type || subject.category || "Theory").trim(),
-    };
-  }
+  const semesterRank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
 
-  function validSubjects(subjects) {
-    return subjects.map(normalizeSubject).filter((subject) => subject.code && subject.name && subject.department);
-  }
+  const rootPrefix = () => {
+    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+    return depth > 0 ? "../".repeat(depth) : "";
+  };
 
-  async function waitForGlobalSubjects() {
-    for (let i = 0; i < 20; i += 1) {
-      const subjects = getGlobalSubjects();
-      if (subjects.length) return validSubjects(subjects);
-      await new Promise((resolve) => window.setTimeout(resolve, 50));
-    }
-    return [];
-  }
+  const localPath = (url) => new URL(url, window.location.href).pathname;
+  const hasAsset = (url) => LOCAL_ASSETS.has(localPath(url));
 
-  async function fetchJsonSubjects() {
-    try {
-      const response = await fetch(SUBJECT_JSON_URL, { cache: "no-store" });
-      if (!response.ok) throw new Error(`Subject JSON request failed: ${response.status}`);
-      const data = await response.json();
-      return validSubjects(Array.isArray(data) ? data : data.subjects || []);
-    } catch (error) {
-      console.warn("Subject JSON unavailable; falling back to subjects.js", error);
-      return [];
-    }
-  }
+  const syllabusLinkFor = (subject) => globalThis.syllabusLink
+    ? globalThis.syllabusLink(subject.code)
+    : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+
+  const modelQuestionPaperLinkFor = (subject) => globalThis.modelQuestionPaperLink
+    ? globalThis.modelQuestionPaperLink(subject.code)
+    : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+
+  const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
+  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
 
   async function loadSubjects() {
-    const globalSubjects = await waitForGlobalSubjects();
-    if (globalSubjects.length) return globalSubjects;
-    const jsonSubjects = await fetchJsonSubjects();
-    if (jsonSubjects.length) return jsonSubjects;
-    return [];
+    if (Array.isArray(globalThis.SUBJECTS) && globalThis.SUBJECTS.length) return globalThis.SUBJECTS;
+    if (subjectsPromise) return subjectsPromise;
+
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260626-subject-data-fallback`, { cache: "no-store" })
+      .then((response) => {
+        if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
+        return response.text();
+      })
+      .then((text) => {
+        const match = text.match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*\]);?\s*$/m);
+        if (!match) throw new Error("SUBJECTS array was not found in subjects.js");
+        const parsed = Function(`"use strict"; return (${match[1]});`)();
+        if (!Array.isArray(parsed)) throw new Error("SUBJECTS data is not an array");
+        globalThis.SUBJECTS = parsed;
+        return parsed;
+      })
+      .catch((error) => {
+        console.error("Subject data failed to load:", error);
+        return [];
+      });
+
+    return subjectsPromise;
   }
 
-  function uniqueByDepartmentCode(items) {
+  function uniqueSubjects(subjects) {
     const seen = new Set();
-    return items.filter((subject) => {
-      const key = `${subject.revision}|${subject.department}|${subject.semester}|${subject.code}`;
+    return subjects.filter((subject) => {
+      const key = [subject.revision, subject.department, subject.semester, subject.code].join(":");
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     });
   }
 
-  function uniqueByCode(items) {
+  function uniqueByCode(subjects) {
     const seen = new Set();
-    return items.filter((subject) => {
-      const key = String(subject.code || "");
-      if (seen.has(key)) return false;
-      seen.add(key);
+    return subjects.filter((subject) => {
+      const code = String(subject.code || "");
+      if (seen.has(code)) return false;
+      seen.add(code);
       return true;
     });
   }
 
-  function sortItems(items) {
-    return [...items].sort((a, b) => (
-      rank(a.semester) - rank(b.semester)
-      || String(a.department || "").localeCompare(String(b.department || ""))
-      || String(a.code || "").localeCompare(String(b.code || ""), undefined, { numeric: true })
-    ));
-  }
-
-  function unavailable(text) {
-    return `<span class="availability-label" aria-disabled="true">${esc(text)}</span>`;
-  }
-
-  function card(subject, mode) {
-    const code = String(subject.code || "");
-    if (mode === "syllabus") {
-      return `<article class="subject-card simple-subject-card"><div class="subject-top"><span>${esc(subject.semester)}</span><strong>${esc(code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus(code))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a></div></article>`;
-    }
-    if (mode === "model-question-papers") {
-      return `<article class="subject-card simple-subject-card model-question-card"><div class="subject-top"><span>${esc(subject.semester)}</span><strong>${esc(code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)}</p><div class="action-row"><a class="action qp" href="${esc(qp(code))}" target="_blank" rel="noopener noreferrer">Open Model Question Paper</a></div></article>`;
-    }
-    if (mode === "lessons") {
-      return `<article class="subject-card simple-subject-card"><div class="subject-top"><span>${esc(subject.department)}</span><strong>${esc(code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action lessons" href="${esc(lesson(code))}">Open Lesson Page</a></div></article>`;
-    }
-    return `<article class="subject-card reveal"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus(code))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${LESSON_CODES.has(code) ? `<a class="action lessons" href="${esc(lesson(code))}">View Lessons</a>` : unavailable("Lessons unavailable")}${NOTES_CODES.has(code) ? `<a class="action download" href="${esc(notes(code))}" download>Download Notes</a>` : unavailable("Notes unavailable")}<a class="action qp" href="${esc(qp(code))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
-  }
-
-  function groups(items, mode) {
-    const map = new Map();
-    items.forEach((subject) => {
-      const semester = String(subject.semester || "Other subjects");
-      if (!map.has(semester)) map.set(semester, []);
-      map.get(semester).push(subject);
+  function sortSubjects(subjects) {
+    return [...subjects].sort((a, b) => {
+      const semester = semesterRank(a.semester) - semesterRank(b.semester);
+      if (semester) return semester;
+      const common = (a.department === COMMON_DEPARTMENT ? 0 : 1) - (b.department === COMMON_DEPARTMENT ? 0 : 1);
+      if (common) return common;
+      const department = String(a.department || "").localeCompare(String(b.department || ""), undefined, { sensitivity: "base" });
+      if (department) return department;
+      return String(a.code || "").localeCompare(String(b.code || ""), undefined, { numeric: true, sensitivity: "base" });
     });
-    return [...map.entries()].map(([semester, list], i) => `<section class="semester-subject-section" aria-labelledby="semester-group-heading-${i + 1}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3 id="semester-group-heading-${i + 1}">${esc(semester)}</h3><span>${list.length} ${list.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">${list.map((subject) => card(subject, mode)).join("")}</div></section>`).join("");
   }
 
-  function fillSelect(select, values, label, selected) {
+  function fillSelect(select, values, allLabel, selected = "all") {
     if (!select) return;
+    const options = [...new Set(values.filter(Boolean))]
+      .sort((a, b) => semesterRank(a) - semesterRank(b) || String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
     select.replaceChildren();
-    const first = document.createElement("option");
-    first.value = label === "Common Subjects" ? COMMON_VALUE : "all";
-    first.textContent = label;
-    select.append(first);
-    [...new Set(values.filter(Boolean))].sort((a, b) => rank(a) - rank(b) || String(a).localeCompare(String(b))).forEach((value) => {
+    const all = document.createElement("option");
+    all.value = allLabel === "Common Subjects" ? COMMON_VALUE : "all";
+    all.textContent = allLabel;
+    select.append(all);
+    options.forEach((value) => {
       const option = document.createElement("option");
       option.value = value;
       option.textContent = value;
       select.append(option);
     });
-    select.value = [...select.options].some((option) => option.value === selected) ? selected : first.value;
+    select.value = [...select.options].some((option) => option.value === selected) ? selected : all.value;
   }
 
-  function ensureStatusAndLoadMore(grid) {
-    const status = document.getElementById("subjectResultStatus") || document.createElement("p");
-    const loadMore = document.getElementById("subjectLoadMore") || document.createElement("button");
-    status.id = "subjectResultStatus";
-    status.className = "subject-browser-status";
-    if (!status.isConnected) grid.before(status);
-    loadMore.id = "subjectLoadMore";
-    loadMore.type = "button";
-    loadMore.className = "btn ghost subject-load-more";
-    loadMore.textContent = "Load More";
-    if (!loadMore.isConnected) grid.after(loadMore);
-    return { status, loadMore };
+  function unavailable(text) {
+    return `<span class="availability-label" aria-disabled="true">${escapeHtml(text)}</span>`;
   }
 
-  function officialNotice(fixedDepartment, departmentSpecificCount) {
-    if (!fixedDepartment || departmentSpecificCount >= MIN_EXPECTED_DEPARTMENT_SUBJECTS) return "";
-    return `<div class="notice subject-data-warning" style="grid-column:1/-1;margin-bottom:16px"><strong>Subject data is incomplete for ${esc(fixedDepartment)}.</strong> Only ${departmentSpecificCount} department-specific subject${departmentSpecificCount === 1 ? "" : "s"} are available in the current data file. Use the syllabus buttons and the official SITTTR Revision 2021 source while this department list is being completed.</div>`;
+  function isIncompleteHomepageQuery(mode, query) {
+    if (mode !== "home" || !query) return false;
+    if (/^\d{1,3}$/i.test(query)) return true;
+    if (/^[a-z]$/i.test(query)) return true;
+    return false;
   }
 
-  async function init() {
-    const grid = document.getElementById("subjectGrid");
-    if (!grid || grid.dataset.subjectBrowserInitialized === "true") return;
+  function incompleteQueryMessage(query) {
+    return /^\d/.test(query)
+      ? "Enter the full 4-digit subject code, for example 1003, 2031 or 3044."
+      : "Type at least 2 letters of the subject title, or enter a full subject code.";
+  }
+
+  function subjectMatchesQuery(subject, query) {
+    if (!query) return true;
+    const numericLikeQuery = /^[0-9]{2,5}[a-z]?$/i.test(query);
+    const code = String(subject.code || "").toLowerCase();
+    if (numericLikeQuery) return code.includes(query);
+    return [subject.code, subject.name, subject.department, subject.semester, subject.type]
+      .join(" ")
+      .toLowerCase()
+      .includes(query);
+  }
+
+  function fullCard(subject) {
+    const lessonHref = lessonLinkFor(subject);
+    const notesHref = notesLinkFor(subject);
+    const lessonAvailable = hasAsset(lessonHref);
+    const notesAvailable = hasAsset(notesHref);
+    const notesDownload = notesAvailable ? " download" : "";
+
+    return `
+      <article class="subject-card reveal">
+        <div class="subject-top"><span>${escapeHtml(subject.revision)}</span><strong>${escapeHtml(subject.code)}</strong></div>
+        <h3>${escapeHtml(subject.name)}</h3>
+        <p>${escapeHtml(subject.department)} / ${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
+        <div class="action-row">
+          <a class="action syllabus" href="${escapeHtml(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
+          ${lessonAvailable ? `<a class="action lessons" href="${escapeHtml(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}
+          ${notesAvailable ? `<a class="action download" href="${escapeHtml(notesHref)}"${notesDownload}>Download Notes</a>` : unavailable("Notes unavailable")}
+          <a class="action qp" href="${escapeHtml(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
+        </div>
+      </article>
+    `;
+  }
+
+  function lessonCard(subject) {
+    return `
+      <article class="subject-card simple-subject-card">
+        <div class="subject-top"><span>${escapeHtml(subject.department)}</span><strong>${escapeHtml(subject.code)}</strong></div>
+        <h3>${escapeHtml(subject.name)}</h3>
+        <p>${escapeHtml(subject.semester)} / ${escapeHtml(subject.type)}</p>
+        <div class="action-row"><a class="action lessons" href="${escapeHtml(lessonLinkFor(subject))}">Open Lesson Page</a></div>
+      </article>
+    `;
+  }
+
+  function syllabusCard(subject) {
+    return `
+      <article class="subject-card simple-subject-card">
+        <div class="subject-top"><span>${escapeHtml(subject.semester)}</span><strong>${escapeHtml(subject.code)}</strong></div>
+        <h3>${escapeHtml(subject.name)}</h3>
+        <p>${escapeHtml(subject.department)}</p>
+        <div class="action-row"><a class="action syllabus" href="${escapeHtml(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a></div>
+      </article>
+    `;
+  }
+
+  function modelQuestionCard(subject) {
+    return `
+      <article class="subject-card simple-subject-card model-question-card">
+        <div class="subject-top"><span>${escapeHtml(subject.semester)}</span><strong>${escapeHtml(subject.code)}</strong></div>
+        <h3>${escapeHtml(subject.name)}</h3>
+        <p>${escapeHtml(subject.department)}</p>
+        <div class="action-row"><a class="action qp" href="${escapeHtml(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Model Question Paper</a></div>
+      </article>
+    `;
+  }
+
+  function groupCards(subjects, renderer) {
+    const groups = new Map();
+    subjects.forEach((subject) => {
+      const semester = String(subject.semester || "Other subjects");
+      if (!groups.has(semester)) groups.set(semester, []);
+      groups.get(semester).push(subject);
+    });
+
+    return Array.from(groups.entries()).map(([semester, semesterSubjects], index) => {
+      const headingId = `semester-group-heading-${index + 1}`;
+      const count = semesterSubjects.length;
+      return `
+        <section class="semester-subject-section" aria-labelledby="${headingId}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px">
+          <div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)">
+            <h3 id="${headingId}">${escapeHtml(semester)}</h3>
+            <span>${count} ${count === 1 ? "subject" : "subjects"}</span>
+          </div>
+          <div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">
+            ${semesterSubjects.map(renderer).join("")}
+          </div>
+        </section>
+      `;
+    }).join("");
+  }
+
+  async function controller(grid) {
+    if (grid.dataset.subjectBrowserInitialized === "true") return;
     grid.dataset.subjectBrowserInitialized = "true";
     grid.classList.add("semester-grouped");
+    grid.innerHTML = '<p class="empty">Loading subjects...</p>';
 
-    const mode = grid.dataset.mode || "home";
+    const mode = grid.dataset.mode || "lessons";
     const fixedRevision = grid.dataset.revision || "";
     const fixedDepartment = grid.dataset.department || "";
     const search = document.getElementById("subjectSearch");
     const revisionFilter = document.getElementById("revisionFilter");
     const departmentFilter = document.getElementById("departmentFilter");
     const semesterFilter = document.getElementById("semesterFilter");
-    const { status, loadMore } = ensureStatusAndLoadMore(grid);
+    const subjects = uniqueSubjects(await loadSubjects());
+    const status = document.getElementById("subjectResultStatus") || document.createElement("p");
+    const loadMore = document.getElementById("subjectLoadMore") || document.createElement("button");
+    const params = new URLSearchParams(window.location.search);
     let shown = PAGE_SIZE;
-    let timer = 0;
+    let renderTimer = 0;
 
-    status.textContent = "Loading subjects…";
-    loadMore.hidden = true;
+    status.id = "subjectResultStatus";
+    status.className = "subject-browser-status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    if (!status.isConnected) grid.before(status);
 
-    const all = uniqueByDepartmentCode(await loadSubjects());
-    if (!all.length) {
+    loadMore.id = "subjectLoadMore";
+    loadMore.type = "button";
+    loadMore.className = "btn ghost subject-load-more";
+    loadMore.textContent = "Load More";
+    if (!loadMore.isConnected) grid.after(loadMore);
+
+    if (!subjects.length) {
       grid.innerHTML = '<p class="empty">No subjects found. Please try again later.</p>';
-      status.textContent = "No subjects found. Please try again later.";
+      status.textContent = "Subject data failed to load.";
+      loadMore.hidden = true;
       return;
     }
 
-    const base = all.filter((subject) => {
+    const base = subjects.filter((subject) => {
       if (fixedRevision && String(subject.revision) !== fixedRevision) return false;
-      if (fixedDepartment && subject.department !== fixedDepartment && subject.department !== COMMON_DEPARTMENT) return false;
+      if (mode !== "home" && String(subject.revision) === "2015" && mode !== "lessons") return false;
       if (mode === "lessons") return String(subject.revision) === "2021" && LESSON_CODES.has(String(subject.code));
       return true;
     });
-    const departmentSpecificCount = fixedDepartment ? base.filter((subject) => subject.department === fixedDepartment).length : 0;
 
-    if (revisionFilter) fillSelect(revisionFilter, base.map((subject) => subject.revision), "All revisions", fixedRevision || "all");
-    if (departmentFilter && mode === "home") fillSelect(departmentFilter, base.map((subject) => subject.department).filter((department) => department !== COMMON_DEPARTMENT), "Common Subjects", COMMON_VALUE);
-    if (departmentFilter && mode !== "home") fillSelect(departmentFilter, base.map((subject) => subject.department), "All departments", fixedDepartment || "all");
-    if (semesterFilter) fillSelect(semesterFilter, base.map((subject) => subject.semester), "All semesters", "all");
-
-    function getVisible() {
-      const q = String(search?.value || "").trim().toLowerCase();
-      const rev = fixedRevision || revisionFilter?.value || "all";
-      const dep = fixedDepartment || departmentFilter?.value || (mode === "home" ? COMMON_VALUE : "all");
-      const sem = semesterFilter?.value || "all";
-      let items = base.filter((subject) => {
-        if (rev !== "all" && String(subject.revision) !== rev) return false;
-        if (sem !== "all" && subject.semester !== sem) return false;
-        if (dep === COMMON_VALUE && mode === "home" && !q && subject.department !== COMMON_DEPARTMENT) return false;
-        if (dep !== COMMON_VALUE && dep !== "all" && subject.department !== dep && subject.department !== COMMON_DEPARTMENT) return false;
-        if (!q) return true;
-        return [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase().includes(q);
-      });
-      items = mode === "home" || mode === "lessons" ? uniqueByCode(items) : uniqueByDepartmentCode(items);
-      return sortItems(items);
+    if (revisionFilter) fillSelect(revisionFilter, base.map((item) => item.revision), "All revisions", fixedRevision || params.get("revision") || "all");
+    if (departmentFilter && mode === "home") {
+      const departments = base.map((item) => item.department).filter((department) => department !== COMMON_DEPARTMENT);
+      fillSelect(departmentFilter, departments, "Common Subjects", params.get("department") || COMMON_VALUE);
+    } else if (departmentFilter) {
+      fillSelect(departmentFilter, base.map((item) => item.department), "All departments", fixedDepartment || params.get("department") || "all");
     }
+    if (semesterFilter) fillSelect(semesterFilter, base.map((item) => item.semester), "All semesters", params.get("semester") || "all");
+    if (fixedRevision && revisionFilter) revisionFilter.disabled = true;
+    if (fixedDepartment && departmentFilter) departmentFilter.disabled = true;
+    if (params.get("subject") && search) search.value = params.get("subject");
+
+    const renderer = mode === "syllabus"
+      ? syllabusCard
+      : mode === "model-question-papers"
+        ? modelQuestionCard
+        : mode === "lessons"
+          ? lessonCard
+          : fullCard;
+
+    const filtered = () => {
+      const query = String(search?.value || "").trim().toLowerCase();
+      const revision = fixedRevision || revisionFilter?.value || "all";
+      const department = fixedDepartment || departmentFilter?.value || (mode === "home" ? COMMON_VALUE : "all");
+      const semester = semesterFilter?.value || "all";
+
+      const matches = sortSubjects(base.filter((subject) => {
+        if (revision !== "all" && String(subject.revision) !== revision) return false;
+        if (semester !== "all" && subject.semester !== semester) return false;
+        if (department === COMMON_VALUE) {
+          if (mode === "home" && !query && subject.department !== COMMON_DEPARTMENT) return false;
+        } else if (department !== "all" && subject.department !== department && subject.department !== COMMON_DEPARTMENT) {
+          return false;
+        }
+        return subjectMatchesQuery(subject, query);
+      }));
+      return (mode === "lessons" || mode === "home") ? uniqueByCode(matches) : matches;
+    };
 
     function render(reset = true) {
+      const query = String(search?.value || "").trim().toLowerCase();
       if (reset) shown = PAGE_SIZE;
-      const q = String(search?.value || "").trim().toLowerCase();
-      if (mode === "home" && /^\d{1,3}$/.test(q)) {
-        grid.innerHTML = '<p class="empty">Enter the full 4-digit subject code, for example 1003, 2031 or 3044.</p>';
-        status.textContent = "Enter the full 4-digit subject code.";
+
+      if (isIncompleteHomepageQuery(mode, query)) {
+        const message = incompleteQueryMessage(query);
+        grid.innerHTML = `<p class="empty">${escapeHtml(message)}</p>`;
+        status.textContent = message;
         loadMore.hidden = true;
         return;
       }
-      const visible = getVisible();
-      const slice = mode === "department" ? visible : visible.slice(0, shown);
+
+      const visible = filtered();
+      const usePaging = mode === "home" || ["lessons", "model-question-papers", "syllabus", "department"].includes(mode);
+      const slice = usePaging ? visible.slice(0, shown) : visible;
+
       if (!visible.length) {
         grid.innerHTML = '<p class="empty">No subjects match the selected filters.</p>';
         status.textContent = "No matching subjects found.";
         loadMore.hidden = true;
         return;
       }
-      const notice = mode === "department" ? officialNotice(fixedDepartment, departmentSpecificCount) : "";
-      grid.innerHTML = notice + groups(slice, mode);
-      loadMore.hidden = mode === "department" || slice.length >= visible.length;
-      status.textContent = slice.length < visible.length ? `Showing ${slice.length} of ${visible.length} subjects.` : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
+
+      grid.innerHTML = groupCards(slice, renderer);
+      loadMore.hidden = !usePaging || slice.length >= visible.length;
+      status.textContent = slice.length < visible.length
+        ? `Showing ${slice.length} of ${visible.length} subjects.`
+        : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
     }
 
-    search?.addEventListener("input", () => {
-      clearTimeout(timer);
-      timer = setTimeout(() => render(true), 220);
-    });
+    function scheduleRender() {
+      window.clearTimeout(renderTimer);
+      renderTimer = window.setTimeout(() => render(true), SEARCH_DEBOUNCE_MS);
+    }
+
+    search?.addEventListener("input", scheduleRender);
     search?.addEventListener("change", () => render(true));
     [revisionFilter, departmentFilter, semesterFilter].forEach((control) => {
-      control?.addEventListener("change", () => render(true));
       control?.addEventListener("input", () => render(true));
+      control?.addEventListener("change", () => render(true));
     });
     loadMore.addEventListener("click", () => {
       shown += PAGE_SIZE;
@@ -258,12 +359,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
-    init().catch((error) => {
-      console.error("Subject browser failed:", error);
-      const grid = document.getElementById("subjectGrid");
-      const status = document.getElementById("subjectResultStatus");
-      if (grid) grid.innerHTML = '<p class="empty">No subjects found. Please try again later.</p>';
-      if (status) status.textContent = "No subjects found. Please try again later.";
-    });
+    const grid = document.getElementById("subjectGrid");
+    if (grid) controller(grid);
   });
 })();
