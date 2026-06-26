@@ -141,7 +141,7 @@
     if (document.getElementById("poly-visitor-popup-script")) return;
     const script = document.createElement("script");
     script.id = "poly-visitor-popup-script";
-    script.src = "/assets/js/visitor-popup.js?v=20260622-visitor-popup";
+    script.src = "/assets/js/visitor-popup.js?v=20260626-popup-parallel-timeout";
     script.defer = true;
     document.head.append(script);
   };
