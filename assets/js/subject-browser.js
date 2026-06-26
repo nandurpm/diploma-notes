@@ -46,7 +46,7 @@
     if (Array.isArray(globalThis.SUBJECTS) && globalThis.SUBJECTS.length) return globalThis.SUBJECTS;
     if (subjectsPromise) return subjectsPromise;
 
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260626-subject-data-fallback`, { cache: "no-store" })
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260626-subject-data-fallback`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
