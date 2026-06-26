@@ -2,391 +2,210 @@
   "use strict";
 
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
+  const isRevisionDepartmentPage = () => /^\/revision-2021\/.+\.html$/i.test(currentPath());
   const isLessonPage = () => /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(currentPath());
-  const APP_USER_AGENT_PATTERN = /PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+){0,3})/i;
-  const APP_UPDATE_MANIFEST = "/downloads/app-update.json";
-  let printableDetailStates = [];
+  const COMMON_DEPARTMENT = "First Year / Common";
+
+  const esc = (value) => String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+  const semesterRank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
+
+  function rootPrefix() {
+    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+    return depth > 0 ? "../".repeat(depth) : "";
+  }
+
+  function normalizeDepartment(value) {
+    return String(value || "")
+      .toLowerCase()
+      .replace(/&/g, " and ")
+      .replace(/\+/g, " and ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .replace(/\band\b/g, " and ")
+      .trim()
+      .replace(/\s+/g, " ");
+  }
 
   function normalizeLinks() {
-    document.querySelectorAll(".navlinks a.active").forEach((link) => {
-      link.setAttribute("aria-current", "page");
-    });
-    document.querySelectorAll('a[target="_blank"]').forEach((link) => {
-      link.setAttribute("rel", "noopener noreferrer");
-    });
+    document.querySelectorAll(".navlinks a.active").forEach((link) => link.setAttribute("aria-current", "page"));
+    document.querySelectorAll('a[target="_blank"]').forEach((link) => link.setAttribute("rel", "noopener noreferrer"));
     document.querySelectorAll('a[href="departments.html"], a[href="/departments.html"]').forEach((link) => {
       link.href = link.getAttribute("href")?.startsWith("/") ? "/revision-2021.html" : "revision-2021.html";
-      if (/departments/i.test(link.textContent)) link.textContent = "Revision 2021";
+      if (/departments/i.test(link.textContent || "")) link.textContent = "Revision 2021";
     });
   }
 
-  function materialPageFallbacks() {
-    if (currentPath() !== "/materials-2015.html") return;
-    window.setTimeout(() => {
-      document.querySelectorAll("[data-link-group]").forEach((container) => {
-        if (container.querySelector("a") || container.textContent.trim()) return;
-        const span = document.createElement("span");
-        span.className = "availability-label";
-        span.setAttribute("aria-disabled", "true");
-        span.textContent = "Not available yet";
-        container.append(span);
-      });
-    }, 0);
+  function blockHeavyDepartmentScripts() {
+    if (!isRevisionDepartmentPage()) return;
+    window.POLY_DISABLE_ASSISTANT = true;
+    document.querySelectorAll('script[src*="site-assistant-loader"], script[src*="visitor-popup"]').forEach((script) => script.remove());
+    document.getElementById("polySiteAssistant")?.remove();
+    document.querySelectorAll(".poly-ai-button,.poly-visitor-popup").forEach((element) => element.remove());
   }
 
-  function contactFallbackTimer() {
-    if (currentPath() !== "/contact.html") return;
-    const list = document.getElementById("commentsList");
-    if (!list) return;
-    window.setTimeout(() => {
-      if (!list.querySelector(".discussion-loading")) return;
-      const box = document.createElement("div");
-      box.className = "comment-error-box";
-      box.textContent = "Discussion is currently unavailable. Please contact us by email.";
-      list.replaceChildren(box);
-      console.error("Discussion initialization timed out before the comments module produced a success or error state.");
-    }, 12000);
-  }
-
-  function layoutOverflowFlag() {
-    if (new URLSearchParams(window.location.search).get("layout-test") !== "1") return;
-    const check = () => {
-      document.body.dataset.layoutOverflow = String(document.documentElement.scrollWidth > window.innerWidth + 1);
-    };
-    check();
-    requestAnimationFrame(() => requestAnimationFrame(check));
-  }
-
-  function lessonCodeFromHref(href) {
+  async function loadSubjectsSafely() {
+    if (Array.isArray(window.SUBJECTS) && window.SUBJECTS.length) return window.SUBJECTS;
     try {
-      const pathname = new URL(href, window.location.href).pathname;
-      return pathname.match(/\/lessons\/lessons-(\d+[a-z]?)\.html$/i)?.[1] || "";
-    } catch {
-      return "";
+      const response = await fetch(`${rootPrefix()}assets/js/subjects.js?v=20260626-department-emergency-renderer`, { cache: "reload" });
+      if (!response.ok) throw new Error(`subjects.js failed: ${response.status}`);
+      const text = await response.text();
+      const match = text.match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);
+      if (!match) throw new Error("SUBJECTS array missing");
+      const parsed = Function(`"use strict"; return (${match[1]});`)();
+      if (!Array.isArray(parsed)) throw new Error("SUBJECTS is not an array");
+      window.SUBJECTS = parsed;
+      return parsed;
+    } catch (error) {
+      console.error("Emergency subject load failed", error);
+      return [];
     }
   }
 
-  function currentLessonCode() {
-    return lessonCodeFromHref(window.location.href);
-  }
-
-  function notesPdfHref(code) {
-    return new URL(`/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`, window.location.origin).href;
-  }
-
-  function notesPdfFilename(code) {
-    return `downloadable-notes-${code}.pdf`;
-  }
-
-  function normalizeDirectDownload(link, code, label) {
-    link.href = notesPdfHref(code);
-    link.download = notesPdfFilename(code);
-    link.removeAttribute("target");
-    link.removeAttribute("onclick");
-    link.textContent = label;
-    link.setAttribute("aria-label", `${label} for Course ${code}`);
-    link.classList.remove("generated-pdf-fallback");
-  }
-
-  function enhanceLessonDownloadButtons(root = document) {
-    root.querySelectorAll?.(".subject-card").forEach((card) => {
-      const lesson = card.querySelector("a.action.lessons");
-      if (!lesson) return;
-      const code = lessonCodeFromHref(lesson.href);
-      if (!code) return;
-
-      const existing = card.querySelector("a.action.download");
-      if (existing) {
-        normalizeDirectDownload(existing, code, "Download Notes (PDF)");
-        return;
-      }
-
-      const download = document.createElement("a");
-      download.className = "action download";
-      normalizeDirectDownload(download, code, "Download Notes (PDF)");
-
-      const unavailable = [...card.querySelectorAll(".availability-label")]
-        .find((item) => /notes/i.test(item.textContent || ""));
-      if (unavailable) {
-        unavailable.replaceWith(download);
-      } else {
-        card.querySelector(".action-row")?.append(download);
-      }
+  function sortSubjects(subjects) {
+    return [...subjects].sort((a, b) => {
+      const semester = semesterRank(a.semester) - semesterRank(b.semester);
+      if (semester) return semester;
+      const common = (a.department === COMMON_DEPARTMENT ? 0 : 1) - (b.department === COMMON_DEPARTMENT ? 0 : 1);
+      if (common) return common;
+      return String(a.code || "").localeCompare(String(b.code || ""), undefined, { numeric: true, sensitivity: "base" });
     });
   }
 
-  function observeLessonCards() {
-    enhanceLessonDownloadButtons();
+  function linkFor(kind, subject) {
+    const code = encodeURIComponent(subject.code || "");
+    if (kind === "syllabus") return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${code}`;
+    if (kind === "qp") return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${code}`;
+    if (kind === "lesson") return `${rootPrefix()}lessons/lessons-${code}.html`;
+    return `${rootPrefix()}notes/downloadable-notes-${code}.pdf`;
+  }
+
+  function subjectCard(subject) {
+    return `
+      <article class="subject-card reveal">
+        <div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div>
+        <h3>${esc(subject.name)}</h3>
+        <p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>
+        <div class="action-row">
+          <a class="action syllabus" href="${esc(linkFor("syllabus", subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
+          <a class="action lessons" href="${esc(linkFor("lesson", subject))}">View Lessons</a>
+          <a class="action download" href="${esc(linkFor("notes", subject))}" download>Download Notes</a>
+          <a class="action qp" href="${esc(linkFor("qp", subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
+        </div>
+      </article>`;
+  }
+
+  function groupCards(subjects) {
+    const groups = new Map();
+    subjects.forEach((subject) => {
+      const semester = String(subject.semester || "Other subjects");
+      if (!groups.has(semester)) groups.set(semester, []);
+      groups.get(semester).push(subject);
+    });
+    return Array.from(groups.entries()).map(([semester, items], index) => `
+      <section class="semester-subject-section" aria-labelledby="semester-emergency-heading-${index + 1}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px">
+        <div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)">
+          <h3 id="semester-emergency-heading-${index + 1}">${esc(semester)}</h3>
+          <span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span>
+        </div>
+        <div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">
+          ${items.map(subjectCard).join("")}
+        </div>
+      </section>`).join("");
+  }
+
+  async function emergencyRenderDepartmentSubjects(force = false) {
+    if (!isRevisionDepartmentPage()) return;
     const grid = document.getElementById("subjectGrid");
     if (!grid) return;
-    const observer = new MutationObserver(() => enhanceLessonDownloadButtons(grid));
-    observer.observe(grid, { childList: true, subtree: true });
-  }
+    if (!force && grid.querySelector(".subject-card")) return;
 
-  function installLessonPrintStyles() {
-    if (!isLessonPage() || document.getElementById("poly-lesson-print-fix")) return;
-    const style = document.createElement("style");
-    style.id = "poly-lesson-print-fix";
-    style.textContent = `
-      @media print {
-        @page { size:A4; margin:12mm 9mm 14mm; }
-        html,body{width:100%!important;max-width:none!important;height:auto!important;min-height:0!important;margin:0!important;padding:0!important;overflow:visible!important;background:#fff!important}
-        body::before,body::after{display:none!important}
-        header,nav,.topbar,.bar,.lesson-nav,.reading-progress,.revision-back-button,#toTop,.download-pdf-btn,.pdf-button,.search-tools,button{display:none!important}
-        main,.wrap,.shell,.page-shell,.content,.container{display:block!important;width:100%!important;max-width:none!important;height:auto!important;margin:0!important;padding:0!important;overflow:visible!important}
-        body.poly-print-all [hidden],body.poly-print-all [aria-hidden="true"],body.poly-print-all .panel,body.poly-print-all .tab-panel,body.poly-print-all .tab-content,body.poly-print-all .module-panel,body.poly-print-all .lesson-panel,body.poly-print-all .content-panel,body.poly-print-all .content-section,body.poly-print-all .section-panel,body.poly-print-all [role="tabpanel"]{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;transform:none!important;position:static!important}
-        .hero,.hero-inner,.lesson-layout,.grid,.grid-2,.grid-3,.grid-4,.formula-grid,.meta-grid,.two,.quick-grid,.toc{display:block!important;width:100%!important;max-width:none!important;height:auto!important;position:static!important;overflow:visible!important}
-        .hero>*,.hero-inner>*,.lesson-layout>*,.grid>*,.grid-2>*,.grid-3>*,.grid-4>*,.formula-grid>*,.meta-grid>*,.two>*,.quick-grid>*{width:100%!important;max-width:none!important;margin:0 0 4mm!important}
-        section,article,.sec,.card,.c,.worked,.case-card,.question-paper,.module-banner,.hero{break-inside:auto!important;page-break-inside:auto!important;break-before:auto!important;page-break-before:auto!important;break-after:auto!important;page-break-after:auto!important}
-        h1,h2,h3,h4,h5,h6,figure,table,pre,blockquote,.diagram,.formula,.formula-card,.info-box,.callout,.q,details,summary{break-inside:avoid!important;page-break-inside:avoid!important}
-        .toc,aside{position:static!important;top:auto!important}
-        img,svg,canvas{max-width:100%!important;height:auto!important;break-inside:avoid!important;page-break-inside:avoid!important}
-        table{width:100%!important;min-width:0!important;max-width:100%!important;table-layout:auto!important}
-        .table-wrap,.tbl{overflow:visible!important;max-width:100%!important}
-        details>*{display:block!important}
-        *{animation:none!important;transition:none!important}
-      }
-    `;
-    document.head.append(style);
-  }
+    const fixedRevision = grid.dataset.revision || "2021";
+    const fixedDepartment = grid.dataset.department || document.querySelector("h1")?.textContent || "";
+    const fixedDepartmentKey = normalizeDepartment(fixedDepartment);
+    const semesterFilter = document.getElementById("semesterFilter");
+    const search = document.getElementById("subjectSearch");
+    const status = document.getElementById("subjectResultStatus") || document.createElement("p");
 
-  function prepareLessonForPrint() {
-    if (!isLessonPage() || document.body.classList.contains("poly-print-all")) return;
-    printableDetailStates = [...document.querySelectorAll("details")].map((detail) => ({ detail, open: detail.open }));
-    printableDetailStates.forEach(({ detail }) => {
-      detail.open = true;
-    });
-    document.body.classList.add("poly-print-all");
-  }
+    status.id = "subjectResultStatus";
+    status.className = "subject-browser-status";
+    status.setAttribute("role", "status");
+    status.setAttribute("aria-live", "polite");
+    if (!status.isConnected) grid.before(status);
 
-  function restoreLessonAfterPrint() {
-    printableDetailStates.forEach(({ detail, open }) => {
-      detail.open = open;
-    });
-    printableDetailStates = [];
-    document.body?.classList.remove("poly-print-all");
-  }
-
-  function replaceLessonPrintButtons() {
-    if (!isLessonPage()) return;
-    const code = currentLessonCode();
-    if (!code) return;
-
-    document.querySelectorAll("button, a").forEach((control) => {
-      const inlinePrint = /window\.print\s*\(/i.test(control.getAttribute("onclick") || "");
-      const classMatch = control.matches(".download-pdf-btn, .pdf-button");
-      const labelMatch = /(?:download|print|save).*(?:pdf)|pdf.*(?:download|print|save)/i.test(control.textContent || "");
-      if (!inlinePrint && !classMatch && !labelMatch) return;
-
-      if (control instanceof HTMLAnchorElement) {
-        normalizeDirectDownload(control, code, "Download Lesson PDF");
-        return;
-      }
-
-      const link = document.createElement("a");
-      [...control.attributes].forEach((attribute) => {
-        if (!["onclick", "type", "href", "download"].includes(attribute.name.toLowerCase())) {
-          link.setAttribute(attribute.name, attribute.value);
-        }
-      });
-      normalizeDirectDownload(link, code, "Download Lesson PDF");
-      control.replaceWith(link);
-    });
-  }
-
-  function handleLegacyLessonPdfQuery() {
-    if (!isLessonPage()) return;
-    const params = new URLSearchParams(window.location.search);
-    const code = currentLessonCode();
-    if (!code) return;
-
-    if (params.get("download") === "pdf") {
-      window.location.replace(notesPdfHref(code));
+    const subjects = await loadSubjectsSafely();
+    if (!subjects.length) {
+      grid.innerHTML = '<p class="empty">No subjects found. Please try again later.</p>';
+      status.textContent = "Subject data failed to load.";
       return;
     }
 
-    if (params.get("print") === "1") {
-      window.setTimeout(() => {
-        prepareLessonForPrint();
-        window.print();
-      }, 500);
-    }
-  }
+    const departmentSubjects = subjects.filter((subject) => {
+      if (String(subject.revision) !== fixedRevision) return false;
+      const subjectDepartmentKey = normalizeDepartment(subject.department);
+      return subjectDepartmentKey === fixedDepartmentKey || subject.department === COMMON_DEPARTMENT;
+    });
 
-  function versionParts(value) {
-    return String(value || "")
-      .trim()
-      .split(".")
-      .slice(0, 4)
-      .map((part) => Number.parseInt(part, 10))
-      .map((part) => Number.isFinite(part) && part >= 0 ? part : 0);
-  }
-
-  function compareVersions(left, right) {
-    const a = versionParts(left);
-    const b = versionParts(right);
-    const length = Math.max(a.length, b.length, 3);
-    for (let index = 0; index < length; index += 1) {
-      const difference = (a[index] || 0) - (b[index] || 0);
-      if (difference !== 0) return difference;
-    }
-    return 0;
-  }
-
-  function safeUpdateUrl(value) {
-    try {
-      const url = new URL(String(value || ""), window.location.origin);
-      if (url.protocol !== "https:" || url.host !== window.location.host) return null;
-      return url;
-    } catch {
-      return null;
-    }
-  }
-
-  function addAppUpdateStyles() {
-    if (document.getElementById("poly-app-update-styles")) return;
-    const style = document.createElement("style");
-    style.id = "poly-app-update-styles";
-    style.textContent = `
-      .poly-app-update-overlay{position:fixed;inset:0;z-index:2147483000;display:grid;place-items:end center;padding:16px;background:rgba(5,14,33,.48);backdrop-filter:blur(5px)}
-      .poly-app-update-card{width:min(100%,560px);max-height:min(84vh,680px);overflow:auto;border:1px solid rgba(255,255,255,.65);border-radius:24px;background:#fff;color:#10213d;box-shadow:0 24px 70px rgba(5,20,50,.34);padding:22px;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-      .poly-app-update-kicker{margin:0 0 6px;color:#1d4ed8;font-size:.77rem;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
-      .poly-app-update-card h2{margin:0;font-size:clamp(1.35rem,5vw,1.85rem);line-height:1.15}
-      .poly-app-update-version{margin:8px 0 0;color:#52637d;font-size:.92rem;font-weight:700}
-      .poly-app-update-message{margin:16px 0 0;line-height:1.6}
-      .poly-app-update-notes{margin:14px 0 0;padding-left:20px;color:#33445f;line-height:1.55}
-      .poly-app-update-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-      .poly-app-update-actions a,.poly-app-update-actions button{min-height:44px;border-radius:13px;padding:11px 17px;font:inherit;font-weight:850;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
-      .poly-app-update-primary{border:1px solid #1d4ed8;background:#1d4ed8;color:#fff;flex:1 1 180px}
-      .poly-app-update-later{border:1px solid #cbd5e1;background:#fff;color:#1e293b;flex:0 1 120px}
-      .poly-app-update-sha{margin:14px 0 0;color:#64748b;font-size:.73rem;overflow-wrap:anywhere}
-      @media(max-width:480px){.poly-app-update-overlay{padding:0;align-items:end}.poly-app-update-card{border-radius:24px 24px 0 0;padding:20px}.poly-app-update-actions>*{width:100%}}
-      @media(prefers-reduced-motion:no-preference){.poly-app-update-card{animation:poly-app-update-in .22s ease-out both}@keyframes poly-app-update-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}}
-    `;
-    document.head.append(style);
-  }
-
-  function showAppUpdateDialog(manifest, installedVersion, apkUrl) {
-    if (document.getElementById("poly-app-update-overlay")) return;
-    addAppUpdateStyles();
-
-    const overlay = document.createElement("div");
-    overlay.id = "poly-app-update-overlay";
-    overlay.className = "poly-app-update-overlay";
-    overlay.setAttribute("role", "dialog");
-    overlay.setAttribute("aria-modal", "true");
-    overlay.setAttribute("aria-labelledby", "poly-app-update-title");
-    overlay.setAttribute("aria-describedby", "poly-app-update-message");
-
-    const card = document.createElement("section");
-    card.className = "poly-app-update-card";
-
-    const kicker = document.createElement("p");
-    kicker.className = "poly-app-update-kicker";
-    kicker.textContent = manifest.forceUpdate ? "Required app update" : "App update available";
-
-    const title = document.createElement("h2");
-    title.id = "poly-app-update-title";
-    title.textContent = manifest.title || `Polytechnic Study Hub ${manifest.versionName} is available`;
-
-    const version = document.createElement("p");
-    version.className = "poly-app-update-version";
-    version.textContent = `Installed: ${installedVersion}  •  Latest: ${manifest.versionName}`;
-
-    const message = document.createElement("p");
-    message.id = "poly-app-update-message";
-    message.className = "poly-app-update-message";
-    message.textContent = manifest.message || "Download the latest secure version of the app.";
-
-    card.append(kicker, title, version, message);
-
-    if (Array.isArray(manifest.releaseNotes) && manifest.releaseNotes.length) {
-      const notes = document.createElement("ul");
-      notes.className = "poly-app-update-notes";
-      manifest.releaseNotes.slice(0, 8).forEach((item) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = String(item);
-        notes.append(listItem);
+    const semesters = [...new Set(departmentSubjects.map((subject) => subject.semester).filter(Boolean))]
+      .sort((a, b) => semesterRank(a) - semesterRank(b));
+    if (semesterFilter && semesterFilter.options.length <= 1) {
+      semesterFilter.replaceChildren();
+      const all = document.createElement("option");
+      all.value = "all";
+      all.textContent = "All semesters";
+      semesterFilter.append(all);
+      semesters.forEach((semester) => {
+        const option = document.createElement("option");
+        option.value = semester;
+        option.textContent = semester;
+        semesterFilter.append(option);
       });
-      card.append(notes);
     }
 
-    const actions = document.createElement("div");
-    actions.className = "poly-app-update-actions";
-
-    const update = document.createElement("a");
-    update.className = "poly-app-update-primary";
-    update.href = apkUrl.href;
-    update.download = apkUrl.pathname.split("/").pop() || "Polytechnic-Study-Hub.apk";
-    update.textContent = "Update Now";
-    update.setAttribute("aria-label", `Download Polytechnic Study Hub ${manifest.versionName}`);
-    actions.append(update);
-
-    if (!manifest.forceUpdate) {
-      const later = document.createElement("button");
-      later.type = "button";
-      later.className = "poly-app-update-later";
-      later.textContent = "Later";
-      later.addEventListener("click", () => {
-        sessionStorage.setItem(`poly-app-update-dismissed-${manifest.versionName}`, "1");
-        overlay.remove();
-      });
-      actions.append(later);
+    function render() {
+      const query = String(search?.value || "").trim().toLowerCase();
+      const semester = semesterFilter?.value || "all";
+      const visible = sortSubjects(departmentSubjects.filter((subject) => {
+        if (semester !== "all" && subject.semester !== semester) return false;
+        if (!query) return true;
+        return [subject.code, subject.name, subject.department, subject.semester, subject.type]
+          .join(" ")
+          .toLowerCase()
+          .includes(query);
+      }));
+      grid.innerHTML = visible.length ? groupCards(visible) : '<p class="empty">No subjects match the selected filters.</p>';
+      status.textContent = visible.length ? `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.` : "No matching subjects found.";
     }
 
-    card.append(actions);
-
-    if (manifest.sha256) {
-      const checksum = document.createElement("p");
-      checksum.className = "poly-app-update-sha";
-      checksum.textContent = `SHA-256: ${manifest.sha256}`;
-      card.append(checksum);
+    if (grid.dataset.emergencyRendererBound !== "true") {
+      grid.dataset.emergencyRendererBound = "true";
+      search?.addEventListener("input", render);
+      semesterFilter?.addEventListener("change", render);
     }
-
-    overlay.append(card);
-    document.body.append(overlay);
-    update.focus({ preventScroll: true });
+    render();
   }
 
-  async function checkForAppUpdate() {
-    const match = navigator.userAgent.match(APP_USER_AGENT_PATTERN);
-    if (!match) return;
-
-    const installedVersion = match[1];
-    try {
-      const manifestUrl = new URL(APP_UPDATE_MANIFEST, window.location.origin);
-      manifestUrl.searchParams.set("check", Date.now().toString());
-      const response = await fetch(manifestUrl, {
-        cache: "no-store",
-        credentials: "same-origin",
-        headers: { Accept: "application/json" }
-      });
-      if (!response.ok) return;
-
-      const manifest = await response.json();
-      if (!manifest || compareVersions(manifest.versionName, installedVersion) <= 0) return;
-      if (sessionStorage.getItem(`poly-app-update-dismissed-${manifest.versionName}`) === "1") return;
-
-      const apkUrl = safeUpdateUrl(manifest.apkUrl);
-      if (!apkUrl) return;
-      showAppUpdateDialog(manifest, installedVersion, apkUrl);
-    } catch (error) {
-      console.warn("App update check failed.", error);
-    }
+  function basicLessonFixes() {
+    if (!isLessonPage()) return;
+    document.querySelectorAll("details").forEach((detail) => {
+      if (new URLSearchParams(window.location.search).get("print") === "1") detail.open = true;
+    });
   }
 
-  window.addEventListener("beforeprint", prepareLessonForPrint);
-  window.addEventListener("afterprint", restoreLessonAfterPrint);
+  blockHeavyDepartmentScripts();
 
   document.addEventListener("DOMContentLoaded", () => {
     normalizeLinks();
-    materialPageFallbacks();
-    contactFallbackTimer();
-    layoutOverflowFlag();
-    observeLessonCards();
-    installLessonPrintStyles();
-    replaceLessonPrintButtons();
-    handleLegacyLessonPdfQuery();
-    window.setTimeout(checkForAppUpdate, 700);
+    blockHeavyDepartmentScripts();
+    basicLessonFixes();
+    if (isRevisionDepartmentPage()) {
+      emergencyRenderDepartmentSubjects(false);
+      window.setTimeout(() => emergencyRenderDepartmentSubjects(false), 500);
+      window.setTimeout(() => emergencyRenderDepartmentSubjects(true), 1800);
+    }
   });
 })();
