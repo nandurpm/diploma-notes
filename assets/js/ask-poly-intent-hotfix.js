@@ -16,9 +16,18 @@
     return SITE_WORDS.test(text);
   }
 
+  function extractUserMessage(payload) {
+    return String(payload?.history?.at?.(-1)?.content || payload?.message || "")
+      .replace(/[\s\S]*User question:\s*/i, "")
+      .replace(/[\s\S]*Question:\s*/i, "")
+      .split("--- ASK POLY INTERFACE REQUIREMENTS ---")[0]
+      .trim();
+  }
+
   function installHotfix() {
     if (window.ASK_POLY_INTENT_HOTFIX_INSTALLED) return;
     window.ASK_POLY_INTENT_HOTFIX_INSTALLED = true;
+    window.ASK_POLY_SHOULD_WEBSITE_SEARCH = shouldUseWebsiteSearch;
 
     const originalFetch = window.fetch.bind(window);
     window.fetch = function patchedAskPolyFetch(input, init = {}) {
@@ -28,11 +37,13 @@
         const isAskPoly = endpoint && String(url).includes(endpoint);
         if (isAskPoly && init?.body) {
           const payload = JSON.parse(init.body);
-          const message = String(payload?.history?.at?.(-1)?.content || payload?.message || "").replace(/[\s\S]*User question:\s*/i, "").replace(/[\s\S]*Question:\s*/i, "").split("--- ASK POLY INTERFACE REQUIREMENTS ---")[0].trim();
+          const message = extractUserMessage(payload);
           if (!shouldUseWebsiteSearch(message)) {
             payload.localContext = "";
             if (typeof payload.message === "string") {
-              payload.message = payload.message.replace(/\nRelevant website data:\n[\s\S]*?\n\nUser question:/, "\nUser question:");
+              payload.message = payload.message
+                .replace(/\nRelevant website data:\n[\s\S]*?\n\nUser question:/, "\nUser question:")
+                .replace("Your job is to guide students through this website and Kerala Polytechnic study navigation.", "Your main job is website guidance, but for casual conversation or simple math practice, answer the user directly and do not search website subjects.");
             }
             init = { ...init, body: JSON.stringify(payload) };
           }
@@ -42,17 +53,6 @@
       }
       return originalFetch(input, init);
     };
-
-    document.addEventListener("submit", (event) => {
-      const form = event.target;
-      if (!(form instanceof HTMLFormElement) || form.id !== "chatForm") return;
-      const input = document.getElementById("chatInput");
-      const message = input?.value || "";
-      if (!shouldUseWebsiteSearch(message)) {
-        window.ASK_POLY_FORCE_AI_MODE = true;
-        setTimeout(() => { window.ASK_POLY_FORCE_AI_MODE = false; }, 4000);
-      }
-    }, true);
   }
 
   installHotfix();
