@@ -12,13 +12,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/animations.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/home-compact.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/home-subject-browser.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/daily-important-day.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/wide-layout.css?v=20260626-home-ask-poly-link">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/animations.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/home-compact.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/home-subject-browser.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/daily-important-day.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/wide-layout.css?v=20260626-home-ask-poly-button-v2">
   <link rel="canonical" href="https://polypmna.dpdns.org/">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Kerala Polytechnic Diploma Notes &amp; Study Materials | Diploma Notes">
@@ -33,7 +33,7 @@
   <meta name="twitter:title" content="Kerala Polytechnic Diploma Notes &amp; Study Materials | Diploma Notes">
   <meta name="twitter:description" content="Kerala Polytechnic diploma notes, Revision 2021 syllabus, lesson pages, study materials and question papers for students.">
   <meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260626-home-ask-poly-link">
+  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260626-home-ask-poly-button-v2">
   <style>
     .home-subject-filters{grid-template-columns:minmax(240px,1.2fr) minmax(280px,1.45fr) minmax(180px,.8fr)!important}
     @media(max-width:900px){.home-subject-filters{grid-template-columns:1fr 1fr!important}.home-subject-filters #subjectSearch{grid-column:1/-1}}
@@ -42,19 +42,20 @@
     html.polytechnic-native-app .app-download[data-app-button-state="update"]{display:none!important}
     .poly-tools{display:none!important}
     .app-download[data-app-button-state="pending"],.app-download[data-app-button-state="unavailable"]{opacity:.78;cursor:not-allowed;filter:saturate(.65)}
-    .home-ask-poly-float{position:fixed;right:20px;bottom:22px;z-index:9000;display:inline-flex;align-items:center;gap:10px;border-radius:999px;padding:14px 18px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:#fff;text-decoration:none;font-weight:950;box-shadow:0 18px 42px rgba(29,78,216,.28);border:1px solid rgba(255,255,255,.35)}
-    .home-ask-poly-float span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.18);font-size:14px}
-    .home-ask-poly-float small{display:block;font-size:11px;line-height:1;opacity:.88;font-weight:800}
-    .home-ask-poly-float strong{display:block;line-height:1.1}
-    @media(max-width:620px){.home-ask-poly-float{right:12px;bottom:12px;padding:12px 14px}.home-ask-poly-float small{display:none}}
+    .home-ask-poly-float{position:fixed;right:22px;bottom:22px;z-index:9000;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:8px 18px 8px 9px;border-radius:999px;background:linear-gradient(135deg,#1d4ed8,#0ea5e9);color:#fff;text-decoration:none;font-weight:950;line-height:1;white-space:nowrap;box-shadow:0 16px 36px rgba(29,78,216,.28);border:1px solid rgba(255,255,255,.38);backdrop-filter:blur(12px);transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+    .home-ask-poly-float:hover,.home-ask-poly-float:focus-visible{transform:translateY(-2px);box-shadow:0 20px 46px rgba(29,78,216,.34);filter:saturate(1.08)}
+    .home-ask-poly-float:focus-visible{outline:3px solid rgba(14,165,233,.28);outline-offset:4px}
+    .home-ask-poly-icon{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);font-size:14px;letter-spacing:.2px}
+    .home-ask-poly-label{font-size:15px;letter-spacing:.1px}
+    @media(max-width:620px){.home-ask-poly-float{right:14px;bottom:14px;width:56px;height:56px;min-height:56px;padding:0;border-radius:50%;gap:0}.home-ask-poly-label{display:none}.home-ask-poly-icon{width:42px;height:42px;font-size:15px}}
   </style>
-  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260626-home-ask-poly-link">
-  <link rel="stylesheet" href="/assets/css/home-hero-tight.css?v=20260626-home-ask-poly-link">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260626-home-ask-poly-button-v2">
+  <link rel="stylesheet" href="/assets/css/home-hero-tight.css?v=20260626-home-ask-poly-button-v2">
 </head>
-<body class="portal-page" data-site-revision="20260626-home-ask-poly-link">
+<body class="portal-page" data-site-revision="20260626-home-ask-poly-button-v2">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="/index.html" aria-label="Polytechnic Study Hub home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong></a>
@@ -122,7 +123,7 @@
     </section>
   </main>
 
-  <a class="home-ask-poly-float" href="/ask-poly.html" aria-label="Open Ask POLY website guide"><span>AI</span><span><strong>Ask POLY</strong><small>Website guide</small></span></a>
+  <a class="home-ask-poly-float" href="/ask-poly.html" aria-label="Open Ask POLY website guide"><span class="home-ask-poly-icon" aria-hidden="true">AI</span><span class="home-ask-poly-label">Ask POLY</span></a>
   <footer class="footer"><p>&copy; <span data-year></span> Diploma Notes.</p><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
   <script>
     (() => {
@@ -133,11 +134,11 @@
       if (titleEl && /loading today/i.test(titleEl.textContent || '')) titleEl.textContent = label;
     })();
   </script>
-  <script src="/assets/js/subjects.js?v=20260626-home-ask-poly-link" defer></script>
-  <script src="/assets/js/main.js?v=20260626-home-ask-poly-link" defer></script>
-  <script src="/assets/js/app-download-controller.js?v=20260626-home-ask-poly-link" defer></script>
-  <script src="/assets/js/subject-browser.js?v=20260626-home-ask-poly-link" defer></script>
-  <script src="/assets/js/daily-important-day.js?v=20260626-home-ask-poly-link" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260626-home-ask-poly-link" defer></script>
+  <script src="/assets/js/subjects.js?v=20260626-home-ask-poly-button-v2" defer></script>
+  <script src="/assets/js/main.js?v=20260626-home-ask-poly-button-v2" defer></script>
+  <script src="/assets/js/app-download-controller.js?v=20260626-home-ask-poly-button-v2" defer></script>
+  <script src="/assets/js/subject-browser.js?v=20260626-home-ask-poly-button-v2" defer></script>
+  <script src="/assets/js/daily-important-day.js?v=20260626-home-ask-poly-button-v2" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260626-home-ask-poly-button-v2" defer></script>
 </body>
 </html>
