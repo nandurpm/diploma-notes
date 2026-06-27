@@ -1,6 +1,8 @@
 (() => {
   "use strict";
 
+  const MAX_INPUT_CHARS = 1200;
+
   const WEBSITE_CONTEXT = `
 You are Ask POLY, the website assistant for polypmna.dpdns.org / Polytechnic Study Hub.
 Your job is to guide students through this website and Kerala Polytechnic study navigation.
@@ -119,6 +121,10 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
     return html.replace(/\n/g, "<br>");
   }
 
+  function isMobileDevice() {
+    return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+  }
+
   function upgradeAskPolyPage() {
     if (!/\/ask-poly\.html$/i.test(location.pathname)) return;
     const box = document.getElementById("chatBox");
@@ -128,7 +134,7 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
     if (!box || !oldForm || !input || !status || oldForm.dataset.polyUpgraded === "true") return;
 
     const style = document.createElement("style");
-    style.textContent = `.chat-actions{display:flex;gap:8px;margin-top:8px}.chat-actions button{border:0;border-radius:999px;background:rgba(29,78,216,.10);color:#1e3a8a;font-weight:850;padding:7px 10px;cursor:pointer}.bubble pre{background:#0f172a;color:#e2e8f0;border-radius:14px;padding:12px;overflow:auto}.bubble code{background:rgba(15,23,42,.08);border-radius:6px;padding:2px 5px}.bubble a{color:#1d4ed8;font-weight:800}.ask-status-note{font-size:13px;color:#64748b;margin:8px 0 0}.chat-form button.secondary{background:#fff;color:#1e3a8a;border:1px solid rgba(37,99,235,.18)}`;
+    style.textContent = `.chat-actions{display:flex;gap:8px;margin-top:8px}.chat-actions button{border:0;border-radius:999px;background:rgba(29,78,216,.10);color:#1e3a8a;font-weight:850;padding:7px 10px;cursor:pointer}.bubble pre{background:#0f172a;color:#e2e8f0;border-radius:14px;padding:12px;overflow:auto}.bubble code{background:rgba(15,23,42,.08);border-radius:6px;padding:2px 5px}.bubble a{color:#1d4ed8;font-weight:800}.ask-status-note,.ask-char-counter{font-size:13px;color:#64748b;margin:8px 0 0}.ask-char-counter.over{color:#b42318;font-weight:800}.chat-form button.secondary{background:#fff;color:#1e3a8a;border:1px solid rgba(37,99,235,.18)}.poly-typing{display:inline-flex;align-items:center;gap:5px}.poly-typing i{width:7px;height:7px;border-radius:50%;background:#1d4ed8;display:inline-block;animation:polyBlink 1s infinite ease-in-out}.poly-typing i:nth-child(2){animation-delay:.15s}.poly-typing i:nth-child(3){animation-delay:.3s}@keyframes polyBlink{0%,80%,100%{opacity:.28;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}.chat-form textarea:disabled{opacity:.72;background:#f8fafc}`;
     document.head.append(style);
 
     const noteTarget = document.querySelector(".page-title");
@@ -139,6 +145,25 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
       note.textContent = "Tuned for polypmna.dpdns.org. It will not invent missing local notes or lesson files.";
       noteTarget.append(note);
     }
+
+    const form = oldForm.cloneNode(true);
+    form.dataset.polyUpgraded = "true";
+    oldForm.replaceWith(form);
+    const newInput = form.querySelector("#chatInput");
+    const newSend = form.querySelector("#sendBtn");
+    const clear = document.createElement("button");
+    clear.type = "button";
+    clear.className = "secondary";
+    clear.textContent = "Clear";
+    form.append(clear);
+
+    const counter = document.createElement("p");
+    counter.className = "ask-char-counter";
+    counter.setAttribute("aria-live", "polite");
+    form.after(counter);
+
+    newInput.maxLength = MAX_INPUT_CHARS;
+    newInput.placeholder = "Ask about subjects, syllabus, notes, mock exams, tools or website help...";
 
     const quick = [
       ["Find subjects", "Where can I find Revision 2021 Computer Engineering subjects?"],
@@ -154,23 +179,43 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
         const button = document.createElement("button");
         button.type = "button";
         button.textContent = label;
-        button.addEventListener("click", () => { newInput.value = prompt; newInput.focus(); });
+        button.addEventListener("click", () => { newInput.value = prompt; updateCounter(); newInput.focus(); });
         promptRow.append(button);
       });
     }
 
-    const form = oldForm.cloneNode(true);
-    form.dataset.polyUpgraded = "true";
-    oldForm.replaceWith(form);
-    const newInput = form.querySelector("#chatInput");
-    const newSend = form.querySelector("#sendBtn");
-    const clear = document.createElement("button");
-    clear.type = "button";
-    clear.className = "secondary";
-    clear.textContent = "Clear";
-    form.append(clear);
-
     const history = [];
+    let typingBubble = null;
+    let waiting = false;
+
+    function updateCounter() {
+      const count = newInput.value.length;
+      counter.textContent = `${count}/${MAX_INPUT_CHARS} characters`;
+      counter.classList.toggle("over", count > MAX_INPUT_CHARS * 0.9);
+      if (!waiting) newSend.disabled = count === 0 || count > MAX_INPUT_CHARS;
+    }
+
+    function setWaiting(value) {
+      waiting = value;
+      newInput.disabled = value;
+      newSend.disabled = value || newInput.value.trim().length === 0 || newInput.value.length > MAX_INPUT_CHARS;
+      clear.disabled = value;
+      status.textContent = value ? "POLY is thinking..." : "Ready";
+    }
+
+    function addTyping() {
+      removeTyping();
+      typingBubble = document.createElement("div");
+      typingBubble.className = "bubble ai";
+      typingBubble.innerHTML = '<span class="poly-typing">POLY is thinking <i></i><i></i><i></i></span>';
+      box.append(typingBubble);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function removeTyping() {
+      if (typingBubble) typingBubble.remove();
+      typingBubble = null;
+    }
 
     function addBubble(role, text) {
       const wrap = document.createElement("div");
@@ -195,28 +240,42 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
     }
 
     async function run(message) {
-      addBubble("user", message);
-      history.push({ role: "user", content: message });
+      if (waiting) return;
+      const clean = String(message || "").trim();
+      if (!clean) return;
+      if (clean.length > MAX_INPUT_CHARS) {
+        status.textContent = "Message too long";
+        return;
+      }
+
+      addBubble("user", clean);
+      history.push({ role: "user", content: clean });
       newInput.value = "";
-      newSend.disabled = true;
-      status.textContent = "Thinking...";
+      updateCounter();
+      setWaiting(true);
+      addTyping();
+
       try {
-        const data = await ask({ message, history });
-        const reply = data?.answer || data?.message || data?.reply || localAnswer(message);
+        const data = await ask({ message: clean, history });
+        const reply = data?.answer || data?.message || data?.reply || localAnswer(clean);
+        removeTyping();
         addBubble("ai", reply);
         history.push({ role: "assistant", content: reply });
         status.textContent = "Ready";
       } catch (error) {
         console.warn("Ask POLY remote failed. Using local website guide.", error);
-        addBubble("ai", localAnswer(message));
+        removeTyping();
+        addBubble("ai", localAnswer(clean));
         status.textContent = "Local guide";
       } finally {
-        newSend.disabled = false;
+        setWaiting(false);
+        updateCounter();
         newInput.focus();
       }
     }
 
     clear.addEventListener("click", () => {
+      if (waiting) return;
       history.length = 0;
       box.innerHTML = "";
       addBubble("ai", "Chat cleared. Ask me about subjects, syllabus, lessons, notes, mock exams, tools or issue reporting.");
@@ -225,9 +284,19 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      const message = newInput.value.trim();
-      if (message) run(message);
+      run(newInput.value);
     });
+
+    newInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey && !isMobileDevice()) {
+        event.preventDefault();
+        newSend.click();
+      }
+    });
+
+    newInput.addEventListener("input", updateCounter);
+    updateCounter();
+    requestAnimationFrame(() => newInput.focus());
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", upgradeAskPolyPage, { once: true });
