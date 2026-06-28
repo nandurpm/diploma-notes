@@ -1,5 +1,5 @@
 // Ask POLY Cloudflare Worker
-// Multi-provider fallback: Website/RAG context -> Cache -> NVIDIA -> Gemini -> OpenRouter -> safe local fallback.
+// Multi-provider fallback: Website/RAG context -> Cache -> NVIDIA -> OpenAI -> Gemini -> OpenRouter -> safe local fallback.
 // Keep all API keys as Cloudflare Worker secrets. Never put keys in frontend files.
 
 const ALLOWED_ORIGINS = new Set([
@@ -12,6 +12,10 @@ const MODEL_CONFIG = {
   nvidia: {
     url: "https://integrate.api.nvidia.com/v1/chat/completions",
     model: "meta/llama-3.1-70b-instruct"
+  },
+  openai: {
+    url: "https://api.openai.com/v1/chat/completions",
+    model: "gpt-4.1-mini"
   },
   gemini: {
     model: "gemini-1.5-flash"
@@ -113,6 +117,31 @@ async function callNvidia(env, messages) {
   });
 }
 
+async function callOpenAI(env, messages) {
+  if (!env.OPENAI_API_KEY) throw new Error("OPENAI_API_KEY secret missing");
+  return withTimeout(async (signal) => {
+    const response = await fetch(MODEL_CONFIG.openai.url, {
+      method: "POST",
+      signal,
+      headers: {
+        "Authorization": `Bearer ${env.OPENAI_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: env.OPENAI_MODEL || MODEL_CONFIG.openai.model,
+        messages,
+        temperature: 0.35,
+        max_tokens: 900
+      })
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(`OpenAI failed ${response.status}: ${data.error?.message || "unknown"}`);
+    const answer = data.choices?.[0]?.message?.content || "";
+    if (!answer.trim()) throw new Error("OpenAI returned empty answer");
+    return { answer, provider: "openai" };
+  });
+}
+
 async function callGemini(env, messages) {
   if (!env.GEMINI_API_KEY) throw new Error("GEMINI_API_KEY secret missing");
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${env.GEMINI_MODEL || MODEL_CONFIG.gemini.model}:generateContent?key=${env.GEMINI_API_KEY}`;
@@ -190,7 +219,6 @@ async function putCached(env, key, value) {
 }
 
 async function handleAsk(request, env) {
-  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const contentLength = Number(request.headers.get("Content-Length") || 0);
   if (contentLength > 40_000) return jsonResponse(request, { error: "Message too large" }, 413);
 
@@ -207,7 +235,7 @@ async function handleAsk(request, env) {
 
   const messages = buildMessages(message, history);
   const errors = [];
-  const providers = [callNvidia, callGemini, callOpenRouter];
+  const providers = [callNvidia, callOpenAI, callGemini, callOpenRouter];
 
   for (const provider of providers) {
     try {
@@ -220,7 +248,7 @@ async function handleAsk(request, env) {
     }
   }
 
-  const fallback = { answer: localFallback(message), provider: "local-fallback", cached: false, errors: errors.slice(0, 3) };
+  const fallback = { answer: localFallback(message), provider: "local-fallback", cached: false, errors: errors.slice(0, 4) };
   return jsonResponse(request, fallback, 200);
 }
 
