@@ -1,0 +1,24 @@
+name = "ask-poly-ai"
+main = "workers/ask-poly-ai-worker.js"
+compatibility_date = "2026-06-29"
+
+# Keep API keys as Cloudflare/GitHub secrets. Do not write them here.
+# Required Worker secrets:
+# - NVIDIA_API_KEY
+# - OPENAI_API_KEY
+# - GEMINI_API_KEY
+# - OPENROUTER_API_KEY
+
+# Optional model overrides:
+# [vars]
+# NVIDIA_MODEL = "meta/llama-3.1-70b-instruct"
+# OPENAI_MODEL = "gpt-4.1-mini"
+# GEMINI_MODEL = "gemini-1.5-flash"
+# OPENROUTER_MODEL = "qwen/qwen-2.5-72b-instruct"
+
+# Optional KV cache binding. Create a KV namespace in Cloudflare first,
+# then uncomment and replace the IDs below.
+# [[kv_namespaces]]
+# binding = "ASK_POLY_CACHE"
+# id = "YOUR_KV_NAMESPACE_ID"
+# preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID"
