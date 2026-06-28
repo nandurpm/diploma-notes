@@ -1,53 +1,10 @@
-name: Compile standalone lesson handbooks
+name: Disabled - Compile standalone lesson handbooks
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "lessons/lessons-*.html"
-      - "assets/lesson-content/**/*.html"
-      - "tools/build_modular_lessons.py"
-      - ".github/workflows/compile-standalone-lessons.yml"
-
-permissions:
-  contents: write
-
-concurrency:
-  group: compile-standalone-lessons
-  cancel-in-progress: true
 
 jobs:
-  compile:
-    if: github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]'
+  disabled:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Compile fragment-based lessons
-        run: |
-          python -m py_compile tools/build_modular_lessons.py
-          python tools/build_modular_lessons.py
-
-      - name: Commit standalone lesson files
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add lessons/lessons-*.html lesson-sources/*.template.html
-          if git diff --cached --quiet; then
-            echo "All lesson pages are already standalone."
-          else
-            git commit -m "Compile standalone lesson handbooks"
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+      - run: echo "This workflow was disabled to stop unnecessary GitHub Actions runs and cache creation."
