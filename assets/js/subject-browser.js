@@ -6,35 +6,21 @@
   const HOME_PAGE_SIZE = 30;
   const SEARCH_DEBOUNCE_MS = 180;
 
-  // Important: official suffix codes must stay separate. Never collapse 6041A/B/C to 6041 or 6042A/B/C/D to 6042.
+  // Important: suffix codes such as 6041A, 6041B and 6041C must stay separate.
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5041","5042","5043","5043A","6002","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D"]);
   const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
-  const LOCAL_ASSETS = new Set([
-    ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
-    ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`)
-  ]);
 
-  const OFFICIAL_SUBJECT_CORRECTIONS = [
-    {
-      department: "Electronics Engineering",
-      removeCodes: ["5042", "5043", "5048", "5049", "6041", "6042", "6043", "6049"],
-      subjects: [
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5042", name: "Industrial Automation", type: "Program Core / Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5043A", name: "Optical Communication and Networking", type: "Program Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5048", name: "Industrial Automation Lab", type: "Program Core / Elective Lab" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5049B", name: "Digital Communication Lab", type: "Program Core / Elective Lab" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041A", name: "Medical Electronics", type: "Program Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041B", name: "Verilog HDL and Programmable Logic Devices", type: "Program Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041C", name: "Consumer Electronics", type: "Program Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042A", name: "Concepts of IoT", type: "Open Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042B", name: "Contemporary Electronics", type: "Open Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042C", name: "Introduction to Hybrid and Electric Vehicles", type: "Open Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042D", name: "Introduction to Multimedia", type: "Open Elective" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6047", name: "Simulation Lab with Numerical Software", type: "Program Core" },
-        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6049B", name: "Verilog HDL and PLD Lab", type: "Elective Lab" }
-      ]
-    }
+  const ELECTRONICS_ELECTIVES = [
+    { revision: "2021", semester: "Semester 6", code: "6041A", name: "Medical Electronics", type: "Program Elective", assetCode: "6041A" },
+    { revision: "2021", semester: "Semester 6", code: "6041B", name: "Verilog HDL and Programmable Logic Devices", type: "Program Elective", assetCode: "6041B" },
+    { revision: "2021", semester: "Semester 6", code: "6041C", name: "Consumer Electronics", type: "Program Elective", assetCode: "6041C" },
+    { revision: "2021", semester: "Semester 6", code: "6042A", name: "Concepts of IoT", type: "Open Elective", assetCode: "6042A" },
+    { revision: "2021", semester: "Semester 6", code: "6042B", name: "Contemporary Electronics", type: "Open Elective", assetCode: "6042B" },
+    { revision: "2021", semester: "Semester 6", code: "6042C", name: "Introduction to Hybrid and Electric Vehicles", type: "Open Elective", assetCode: "6042C" },
+    { revision: "2021", semester: "Semester 6", code: "6042D", name: "Introduction to Multimedia", type: "Open Elective", assetCode: "6042D" }
   ];
+  const ELECTRONICS_DEPARTMENTS = ["Electronics Engineering", "Electronics and Communication", "Electronics and Communication Engineering", "Biomedical Engineering"];
+  const LEGACY_ELECTRONICS_CODES = new Set(["6041", "6042", "6043", "6049"]);
 
   const $ = (id) => document.getElementById(id);
   const esc = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
@@ -45,27 +31,34 @@
     return depth > 0 ? "../".repeat(depth) : "";
   };
   const localPath = (url) => new URL(url, window.location.href).pathname;
-  const hasAsset = (url) => LOCAL_ASSETS.has(localPath(url));
+  const hasAsset = (url) => {
+    const path = localPath(url);
+    const match = path.match(/\/lessons\/lessons-([^/]+)\.html$/i);
+    if (match) return LESSON_CODES.has(normalizeCode(decodeURIComponent(match[1])));
+    const notesMatch = path.match(/\/notes\/downloadable-notes-([^/]+)\.pdf$/i);
+    if (notesMatch) return NOTES_CODES.has(normalizeCode(decodeURIComponent(notesMatch[1])));
+    return false;
+  };
   const assetCodeFor = (subject, kind) => String(subject?.[`${kind}Code`] || subject?.assetCode || subject?.code || "");
-  const correctionKey = (department, code) => `${department}::${normalizeCode(code)}`;
-  const subjectRecordKey = (subject) => [subject.revision, subject.department, subject.semester, normalizeCode(subject.code), String(subject.name || "").trim().toLowerCase()].join("::");
+  const recordKey = (subject) => [subject.revision, subject.department, subject.semester, normalizeCode(subject.code), String(subject.name || "").trim().toLowerCase()].join("::");
 
   function applyOfficialSubjectCorrections(subjects) {
     if (!Array.isArray(subjects)) return [];
-    const removals = new Set();
-    const additions = [];
-    OFFICIAL_SUBJECT_CORRECTIONS.forEach((correction) => {
-      (correction.removeCodes || []).forEach((code) => removals.add(correctionKey(correction.department, code)));
-      (correction.subjects || []).forEach((subject) => additions.push(subject));
+    const cleaned = subjects.filter((subject) => {
+      const dept = String(subject.department || "").trim();
+      const code = normalizeCode(subject.code);
+      return !(ELECTRONICS_DEPARTMENTS.includes(dept) && LEGACY_ELECTRONICS_CODES.has(code));
     });
-    const cleaned = subjects.filter((subject) => !removals.has(correctionKey(subject.department, subject.code)));
-    const seen = new Set(cleaned.map(subjectRecordKey));
-    additions.forEach((subject) => {
-      const key = subjectRecordKey(subject);
-      if (!seen.has(key)) {
-        cleaned.push(subject);
-        seen.add(key);
-      }
+    const seen = new Set(cleaned.map(recordKey));
+    ELECTRONICS_DEPARTMENTS.forEach((department) => {
+      ELECTRONICS_ELECTIVES.forEach((item) => {
+        const subject = { ...item, department };
+        const key = recordKey(subject);
+        if (!seen.has(key)) {
+          cleaned.push(subject);
+          seen.add(key);
+        }
+      });
     });
     return cleaned;
   }
@@ -77,7 +70,7 @@
       return globalThis.SUBJECTS;
     }
     if (subjectsPromise) return subjectsPromise;
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-official-subject-code-variants-3`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-6041A-visible`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -100,13 +93,12 @@
   function uniqueSubjects(subjects) {
     const seen = new Set();
     return subjects.filter((subject) => {
-      const key = [subject.revision, subject.department, subject.semester, subject.code, subject.name].join(":");
+      const key = recordKey(subject);
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
     });
   }
-
   function uniqueByCode(subjects) {
     const seen = new Set();
     return subjects.filter((subject) => {
@@ -116,7 +108,6 @@
       return true;
     });
   }
-
   function sortSubjects(subjects) {
     return [...subjects].sort((a, b) => {
       const semester = semesterRank(a.semester) - semesterRank(b.semester);
@@ -128,7 +119,6 @@
       return String(a.code || "").localeCompare(String(b.code || ""), undefined, { numeric: true, sensitivity: "base" });
     });
   }
-
   function fillSelect(select, values, allLabel, selected = "all") {
     if (!select) return;
     const options = [...new Set(values.filter(Boolean))].sort((a, b) => semesterRank(a) - semesterRank(b) || String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
@@ -145,14 +135,12 @@
     });
     select.value = [...select.options].some((option) => option.value === selected) ? selected : all.value;
   }
-
   function subjectMatchesQuery(subject, query) {
     if (!query) return true;
     const code = String(subject.code || "").toLowerCase();
     if (/^[0-9]{2,5}[a-z]?$/i.test(query)) return code.includes(query);
     return [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase().includes(query);
   }
-
   const syllabusLinkFor = (subject) => typeof globalThis.syllabusLink === "function" ? globalThis.syllabusLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
   const modelQuestionPaperLinkFor = (subject) => typeof globalThis.modelQuestionPaperLink === "function" ? globalThis.modelQuestionPaperLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
   const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
@@ -166,7 +154,6 @@
     const notesAvailable = hasAsset(notesHref);
     return `<article class="subject-card reveal"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${lessonAvailable ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}${notesAvailable ? `<a class="action download" href="${esc(notesHref)}" download>Download Notes</a>` : unavailable("Notes unavailable")}<a class="action qp" href="${esc(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
   }
-
   function groupCards(subjects) {
     const groups = new Map();
     subjects.forEach((subject) => {
@@ -201,7 +188,6 @@
     status.setAttribute("role", "status");
     status.setAttribute("aria-live", "polite");
     if (!status.isConnected) grid.before(status);
-
     loadMore.id = "subjectLoadMore";
     loadMore.type = "button";
     loadMore.className = "btn ghost subject-load-more";
@@ -218,7 +204,7 @@
 
     const base = subjects.filter((subject) => {
       if (fixedRevision && String(subject.revision) !== fixedRevision) return false;
-      if (mode === "lessons") return String(subject.revision) === "2021" && LESSON_CODES.has(assetCodeFor(subject, "lesson"));
+      if (mode === "lessons") return String(subject.revision) === "2021" && LESSON_CODES.has(normalizeCode(assetCodeFor(subject, "lesson")));
       return true;
     });
 
@@ -280,7 +266,6 @@
       window.clearTimeout(renderTimer);
       renderTimer = window.setTimeout(() => render(true), SEARCH_DEBOUNCE_MS);
     }
-
     search?.addEventListener("input", scheduleRender);
     search?.addEventListener("change", () => render(true));
     [revisionFilter, departmentFilter, semesterFilter].forEach((control) => {
