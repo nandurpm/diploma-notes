@@ -63,4 +63,8 @@ PART C - Answer any five. Each carries 8 marks.
 const progress=document.getElementById('progress'),toTop=document.getElementById('toTop'),box=document.getElementById('searchBox'),blocks=[...document.querySelectorAll('.lesson-block')],links=[...document.querySelectorAll('.rail a,.tabs a')];
 function update(){let h=document.documentElement,sc=h.scrollTop,den=h.scrollHeight-h.clientHeight;progress.style.width=(den?sc/den*100:0)+'%';toTop.classList.toggle('show',sc>500);let id='';blocks.forEach(s=>{if(s.getBoundingClientRect().top<150)id=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id))}addEventListener('scroll',update,{passive:true});update();
 box&&box.addEventListener('input',()=>{let q=box.value.trim().toLowerCase();blocks.forEach(s=>s.classList.toggle('search-hidden',q&&!s.innerText.toLowerCase().includes(q)))});
-</script></body></html>
+</script>
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
+</body></html>
