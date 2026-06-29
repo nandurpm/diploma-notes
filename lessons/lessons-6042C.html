@@ -68,5 +68,9 @@ Numerical Practice
 <script>
 const progress=document.getElementById('progress'),topBtn=document.getElementById('toTop'),links=[...document.querySelectorAll('.rail a')],sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);function onScroll(){const h=document.documentElement;progress.style.width=((h.scrollTop)/(h.scrollHeight-h.clientHeight)*100)+'%';topBtn.classList.toggle('show',scrollY>700);let active='';sections.forEach(s=>{if(s.getBoundingClientRect().top<140)active='#'+s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===active))}addEventListener('scroll',onScroll,{passive:true});onScroll();const box=document.getElementById('searchBox');box?.addEventListener('input',()=>{const q=box.value.toLowerCase().trim();document.querySelectorAll('.section,.hero').forEach(sec=>{sec.classList.toggle('search-hidden',q&&!sec.innerText.toLowerCase().includes(q))})});
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>

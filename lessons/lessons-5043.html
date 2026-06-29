@@ -65,5 +65,9 @@ PART C - Long Answer Questions
 <script>
 const progress=document.getElementById('progress');const topBtn=document.getElementById('toTop');const links=[...document.querySelectorAll('.left-rail a')];const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);function onScroll(){const h=document.documentElement;progress.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';topBtn.classList.toggle('show',scrollY>500);let cur='';sections.forEach(s=>{if(s.offsetTop-120<=scrollY)cur='#'+s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===cur))}addEventListener('scroll',onScroll,{passive:true});onScroll();const box=document.getElementById('searchBox');box.addEventListener('input',()=>{const q=box.value.trim().toLowerCase();document.querySelectorAll('.section,.hero').forEach(s=>{s.classList.toggle('search-hidden',q&&!s.textContent.toLowerCase().includes(q))})});
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>

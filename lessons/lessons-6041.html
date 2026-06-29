@@ -72,5 +72,9 @@ addEventListener('scroll',updateProgress,{passive:true});updateProgress();
 searchBox&&searchBox.addEventListener('input',()=>{const q=searchBox.value.trim().toLowerCase();document.querySelectorAll('.section,.topic-card,.card,details').forEach(el=>{if(!q){el.classList.remove('search-hidden');return}el.classList.toggle('search-hidden',!el.textContent.toLowerCase().includes(q))})});
 document.querySelectorAll('.left-rail a').forEach(a=>a.addEventListener('click',()=>document.querySelectorAll('.left-rail a').forEach(x=>x.classList.remove('active'))||a.classList.add('active')));
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
