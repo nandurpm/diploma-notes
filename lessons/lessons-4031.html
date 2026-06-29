@@ -86,5 +86,9 @@ function runSearch(){const q=(searchBox.value||'').trim().toLowerCase();let show
 if(searchBox){searchBox.addEventListener('input',runSearch);runSearch();}
 document.querySelectorAll('.left-rail a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.left-rail a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
