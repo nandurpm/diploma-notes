@@ -1,12 +1,13 @@
 (() => {
   "use strict";
 
+  // Must match actual files in /lessons. Letter variants stay exact, e.g. 5043A -> lessons-5043A.html.
   const LESSON_CODES = new Set([
-    "3042", "3048", "3049", "4031", "4041", "5041", "5043", "5043A",
     "1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008",
     "2001", "2002", "2003", "2031", "2032", "2038", "2039", "2041", "2049",
-    "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132",
-    "4001", "4042", "4043", "5042", "6002", "6041", "6041A", "6041B", "6042", "6042A", "6042B", "6042C", "6042D", "6042d"
+    "3023", "3031", "3032", "3041", "3042", "3043", "3044", "3045", "3046", "3047", "3048", "3049", "3132",
+    "4001", "4031", "4041", "4042", "4043", "5041", "5042", "5043", "5043A", "6002",
+    "6041", "6041A", "6041B", "6041C", "6042A", "6042B", "6042C", "6042D"
   ]);
 
   const TITLE_FIXES = new Map([
@@ -23,9 +24,7 @@
   };
 
   const normalize = (code) => String(code || "").trim().toUpperCase();
-  const baseCode = (code) => normalize(code).replace(/[A-Z]+$/, "");
-  const hasLesson = (code) => LESSON_CODES.has(normalize(code)) || LESSON_CODES.has(baseCode(code));
-  const lessonCode = (code) => LESSON_CODES.has(normalize(code)) ? normalize(code) : baseCode(code);
+  const hasLesson = (code) => LESSON_CODES.has(normalize(code));
 
   function fixCard(card) {
     const codeEl = card.querySelector(".subject-top strong");
@@ -33,15 +32,14 @@
     if (!codeEl || !actions) return;
 
     const code = normalize(codeEl.textContent);
-    const base = baseCode(code);
     if (!hasLesson(code)) return;
 
     const titleEl = card.querySelector("h3");
-    const fixedTitle = TITLE_FIXES.get(code) || TITLE_FIXES.get(base);
+    const fixedTitle = TITLE_FIXES.get(code);
     if (titleEl && fixedTitle) titleEl.textContent = fixedTitle;
 
+    const href = `${rootPrefix()}lessons/lessons-${encodeURIComponent(code)}.html`;
     let lessonBtn = actions.querySelector(".action.lessons");
-    const href = `${rootPrefix()}lessons/lessons-${encodeURIComponent(lessonCode(code))}.html`;
     if (lessonBtn) {
       lessonBtn.setAttribute("href", href);
       lessonBtn.textContent = "View Lessons";
