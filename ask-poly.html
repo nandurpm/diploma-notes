@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="Ask POLY AI chat with saved conversations, website knowledge and AI fallback for Polytechnic Study Hub.">
   <link rel="canonical" href="https://polypmna.dpdns.org/ask-poly.html">
   <title>Ask POLY AI | Polytechnic Study Hub</title>
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260629-ask-poly-clean2">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260629-ask-poly-clean2">
-  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260629-ask-poly-clean2">
-  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260629-ask-poly-clean2">
-  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260629-ask-poly-clean2">
-  <link rel="stylesheet" href="/assets/css/ask-poly-main.css?v=20260629-ask-poly-clean2">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260629-ask-poly-mobile-redesign">
+  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260629-ask-poly-mobile-redesign">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260629-ask-poly-mobile-redesign">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260629-ask-poly-mobile-redesign">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260629-ask-poly-mobile-redesign">
+  <link rel="stylesheet" href="/assets/css/ask-poly-main.css?v=20260629-ask-poly-mobile-redesign">
 </head>
-<body class="portal-page ask-poly-page" data-site-revision="20260629-ask-poly-clean2">
+<body class="portal-page ask-poly-page" data-site-revision="20260629-ask-poly-mobile-redesign">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="/index.html" aria-label="Polytechnic Study Hub home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong></a>
@@ -28,7 +28,11 @@
       <div class="ask-tags" aria-label="Ask POLY features"><span>Saved chats</span><span>Website knowledge</span><span>AI fallback</span><span>Student friendly</span></div>
     </section>
     <section class="ask-app" aria-label="Ask POLY application">
-      <aside class="ask-sidebar" aria-label="Saved conversations">
+      <div class="ask-mobile-controls" aria-label="Mobile chat controls">
+        <button class="ask-mobile-chats-btn" id="mobileChatsToggle" type="button" aria-controls="savedChatsPanel" aria-expanded="false">☰ Saved chats</button>
+        <button class="ask-mobile-new" id="mobileNewChatBtn" type="button">+ New</button>
+      </div>
+      <aside class="ask-sidebar" id="savedChatsPanel" aria-label="Saved conversations">
         <div class="ask-side-head"><button class="ask-new" id="newChatBtn" type="button">+ New chat</button></div>
         <input class="ask-search" id="chatSearch" type="search" placeholder="Search saved chats">
         <div class="ask-list" id="chatList"></div>
@@ -36,16 +40,16 @@
       <section class="ask-chat" aria-label="Chat panel">
         <div class="ask-chat-head"><div><h2 id="chatTitle">Ask POLY Chat</h2><p id="chatSub">Website knowledge + saved chat memory + AI fallback</p></div><span class="ask-status" id="chatStatus">Ready</span></div>
         <div class="ask-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions text"></div>
-        <div class="ask-prompts" id="quickPrompts"></div>
+        <div class="ask-prompts" id="quickPrompts" aria-label="Quick prompts"></div>
         <form class="ask-form" id="chatForm"><label class="sr-only" for="chatInput">Message</label><textarea class="ask-input" id="chatInput" placeholder="Ask about subjects, notes, syllabus, mock exams, tools, or normal study doubts..." maxlength="1400" required></textarea><button class="ask-send" id="sendBtn" type="submit">Send</button><button class="ask-clear" id="clearChatBtn" type="button">Clear</button></form>
       </section>
     </section>
   </main>
   <footer class="footer ask-footer"><p>&copy; <span data-year></span> Diploma Notes.</p><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
-  <script src="/assets/js/ask-poly-config.js?v=20260629-ask-poly-clean2" defer></script>
-  <script src="/assets/js/ask-poly-knowledge-loader.js?v=20260629-ask-poly-clean2" defer></script>
-  <script src="/assets/js/ask-poly-v2.js?v=20260629-ask-poly-clean2" defer></script>
-  <script src="/assets/js/main.js?v=20260629-ask-poly-clean2" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260629-ask-poly-clean2" defer></script>
+  <script src="/assets/js/ask-poly-config.js?v=20260629-ask-poly-mobile-redesign" defer></script>
+  <script src="/assets/js/ask-poly-knowledge-loader.js?v=20260629-ask-poly-mobile-redesign" defer></script>
+  <script src="/assets/js/ask-poly-v2.js?v=20260629-ask-poly-mobile-redesign" defer></script>
+  <script src="/assets/js/main.js?v=20260629-ask-poly-mobile-redesign" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260629-ask-poly-mobile-redesign" defer></script>
 </body>
 </html>
