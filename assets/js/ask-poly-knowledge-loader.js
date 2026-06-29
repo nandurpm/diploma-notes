@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  if (!/\/ask-poly\.html$/i.test(location.pathname)) return;
+  if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
   let knowledgePromise = null;
 
