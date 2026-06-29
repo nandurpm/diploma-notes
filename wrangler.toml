@@ -2,6 +2,7 @@ name = "ask-poly-ai"
 main = "workers/ask-poly-ai-worker.js"
 compatibility_date = "2026-06-29"
 
+# Local deterministic maths fallback is built into the Worker.
 # Keep API keys as Cloudflare/GitHub secrets. Do not write them here.
 # Required Worker secrets:
 # - NVIDIA_API_KEY
