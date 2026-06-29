@@ -1,11 +1,16 @@
 (() => {
   "use strict";
 
-  // Disabled for stability. The previous Ask POLY loader caused page hangs on
-  // Revision 2021 department pages because many HTML files still referenced an
-  // old cached loader query string. Keep this file as a safe no-op so any old
-  // page reference cannot lock the browser main thread.
-  window.POLY_DISABLE_ASSISTANT = true;
-  document.getElementById("polySiteAssistant")?.remove();
-  document.querySelectorAll(".poly-ai-button,.poly-visitor-popup").forEach((element) => element.remove());
+  // Safe lightweight loader. It only injects the visitor popup script and does not
+  // render heavy assistant code on department pages.
+  if (window.POLY_DISABLE_ASSISTANT) return;
+  if (/\/revision-2021\/.+\.html$/i.test(location.pathname)) return;
+  if (/\/ask-poly\.html$/i.test(location.pathname)) return;
+  if (document.getElementById("poly-visitor-popup-script")) return;
+
+  const script = document.createElement("script");
+  script.id = "poly-visitor-popup-script";
+  script.src = "/assets/js/visitor-popup.js?v=20260629-popup-restore";
+  script.defer = true;
+  document.head.append(script);
 })();
