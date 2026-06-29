@@ -5,15 +5,15 @@
   const COMMON_VALUE = "__common__";
   const HOME_PAGE_SIZE = 30;
   const SEARCH_DEBOUNCE_MS = 180;
-  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5041","5042","5043","6002","6041","6041A","6041B","6042A","6042B","6042C","6042D"]);
+
+  // Keep official suffix codes separate. Do not collapse 6041A/B/C or 6042A/B/C/D into 6041 or 6042.
+  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5041","5042","5043","6002","6041A","6041B","6041C","6042A","6042B","6042C","6042D"]);
   const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
   const LOCAL_ASSETS = new Set([
     ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
     ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`)
   ]);
 
-  // Official REV2021 SITTTR corrections for subject-card rendering.
-  // Keep this layer here so lesson/notes assets are not renamed or affected.
   const OFFICIAL_SUBJECT_CORRECTIONS = [
     {
       department: "Electronics Engineering",
@@ -37,7 +37,6 @@
   ];
 
   let subjectsPromise = null;
-
   const $ = (id) => document.getElementById(id);
   const esc = (value) => String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -45,30 +44,20 @@
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
-
   const normalizeCode = (code) => String(code || "").trim().toUpperCase();
   const correctionKey = (department, code) => `${department}::${normalizeCode(code)}`;
-  const subjectRecordKey = (subject) => [
-    subject.revision,
-    subject.department,
-    subject.semester,
-    normalizeCode(subject.code),
-    String(subject.name || "").trim().toLowerCase()
-  ].join("::");
+  const subjectRecordKey = (subject) => [subject.revision, subject.department, subject.semester, normalizeCode(subject.code), String(subject.name || "").trim().toLowerCase()].join("::");
 
   function applyOfficialSubjectCorrections(subjects) {
     if (!Array.isArray(subjects)) return [];
-
     const removals = new Set();
     const additions = [];
     OFFICIAL_SUBJECT_CORRECTIONS.forEach((correction) => {
       (correction.removeCodes || []).forEach((code) => removals.add(correctionKey(correction.department, code)));
       (correction.subjects || []).forEach((subject) => additions.push(subject));
     });
-
     const cleaned = subjects.filter((subject) => !removals.has(correctionKey(subject.department, subject.code)));
     const seen = new Set(cleaned.map(subjectRecordKey));
-
     additions.forEach((subject) => {
       const key = subjectRecordKey(subject);
       if (!seen.has(key)) {
@@ -76,7 +65,6 @@
         seen.add(key);
       }
     });
-
     return cleaned;
   }
 
@@ -88,19 +76,8 @@
   const localPath = (url) => new URL(url, window.location.href).pathname;
   const hasAsset = (url) => LOCAL_ASSETS.has(localPath(url));
   const assetCodeFor = (subject, kind) => String(subject?.[`${kind}Code`] || subject?.assetCode || subject?.code || "");
-
-  function syllabusLinkFor(subject) {
-    return typeof globalThis.syllabusLink === "function"
-      ? globalThis.syllabusLink(subject.code)
-      : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
-  }
-
-  function modelQuestionPaperLinkFor(subject) {
-    return typeof globalThis.modelQuestionPaperLink === "function"
-      ? globalThis.modelQuestionPaperLink(subject.code)
-      : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
-  }
-
+  const syllabusLinkFor = (subject) => typeof globalThis.syllabusLink === "function" ? globalThis.syllabusLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+  const modelQuestionPaperLinkFor = (subject) => typeof globalThis.modelQuestionPaperLink === "function" ? globalThis.modelQuestionPaperLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
   const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
   const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(assetCodeFor(subject, "notes"))}.pdf`;
 
@@ -111,8 +88,7 @@
       return corrected;
     }
     if (subjectsPromise) return subjectsPromise;
-
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-official-subject-code-variants`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-official-subject-code-variants-2`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -130,7 +106,6 @@
         console.error("Subject data failed to load:", error);
         return [];
       });
-
     return subjectsPromise;
   }
 
@@ -147,7 +122,7 @@
   function uniqueByCode(subjects) {
     const seen = new Set();
     return subjects.filter((subject) => {
-      const code = String(subject.code || "");
+      const code = normalizeCode(subject.code);
       if (seen.has(code)) return false;
       seen.add(code);
       return true;
@@ -168,8 +143,7 @@
 
   function fillSelect(select, values, allLabel, selected = "all") {
     if (!select) return;
-    const options = [...new Set(values.filter(Boolean))]
-      .sort((a, b) => semesterRank(a) - semesterRank(b) || String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
+    const options = [...new Set(values.filter(Boolean))].sort((a, b) => semesterRank(a) - semesterRank(b) || String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
     select.replaceChildren();
     const all = document.createElement("option");
     all.value = allLabel === "Common Subjects" ? COMMON_VALUE : "all";
@@ -192,15 +166,10 @@
     if (!query) return true;
     const code = String(subject.code || "").toLowerCase();
     if (/^[0-9]{2,5}[a-z]?$/i.test(query)) return code.includes(query);
-    return [subject.code, subject.name, subject.department, subject.semester, subject.type]
-      .join(" ")
-      .toLowerCase()
-      .includes(query);
+    return [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase().includes(query);
   }
 
-  function unavailable(label) {
-    return `<span class="availability-label" aria-disabled="true">${esc(label)}</span>`;
-  }
+  const unavailable = (label) => `<span class="availability-label" aria-disabled="true">${esc(label)}</span>`;
 
   function subjectCard(subject) {
     const lessonHref = lessonLinkFor(subject);
@@ -228,7 +197,6 @@
       if (!groups.has(semester)) groups.set(semester, []);
       groups.get(semester).push(subject);
     });
-
     return Array.from(groups.entries()).map(([semester, items], index) => `
       <section class="semester-subject-section" aria-labelledby="semester-group-heading-${index + 1}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px">
         <div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)">
@@ -319,33 +287,25 @@
     function render(reset = true) {
       const query = String(search?.value || "").trim().toLowerCase();
       if (reset) shown = HOME_PAGE_SIZE;
-
       if (queryIsIncompleteHomeCode(mode, query)) {
-        const message = /^\d/.test(query)
-          ? "Enter the full 4-digit subject code, for example 1003, 2031 or 3044."
-          : "Type at least 2 letters of the subject title, or enter a full subject code.";
+        const message = /^\d/.test(query) ? "Enter the full 4-digit subject code, for example 1003, 2031 or 3044." : "Type at least 2 letters of the subject title, or enter a full subject code.";
         grid.innerHTML = `<p class="empty">${esc(message)}</p>`;
         status.textContent = message;
         loadMore.hidden = true;
         return;
       }
-
       const visible = filtered();
       const shouldPage = mode === "home" || mode === "lessons" || mode === "model-question-papers" || mode === "syllabus";
       const pageItems = shouldPage ? visible.slice(0, shown) : visible;
-
       if (!visible.length) {
         grid.innerHTML = '<p class="empty">No subjects match the selected filters.</p>';
         status.textContent = "No matching subjects found.";
         loadMore.hidden = true;
         return;
       }
-
       grid.innerHTML = groupCards(pageItems);
       loadMore.hidden = !shouldPage || pageItems.length >= visible.length;
-      status.textContent = pageItems.length < visible.length
-        ? `Showing ${pageItems.length} of ${visible.length} subjects.`
-        : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
+      status.textContent = pageItems.length < visible.length ? `Showing ${pageItems.length} of ${visible.length} subjects.` : `${visible.length} ${visible.length === 1 ? "subject" : "subjects"} shown.`;
     }
 
     function scheduleRender() {
@@ -363,7 +323,6 @@
       shown += HOME_PAGE_SIZE;
       render(false);
     });
-
     render(true);
   }
 
