@@ -55,5 +55,9 @@
 <script>
 const progress=document.getElementById('progress');addEventListener('scroll',()=>{const h=document.documentElement;progress.style.width=((h.scrollTop)/(h.scrollHeight-h.clientHeight)*100)+'%'});const links=[...document.querySelectorAll('.left-rail a,.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-25% 0px -65% 0px',threshold:.01});secs.forEach(s=>io.observe(s));const box=document.getElementById('searchBox');box.addEventListener('input',()=>{const q=box.value.trim().toLowerCase();document.querySelectorAll('.section,.hero').forEach(sec=>{sec.classList.toggle('hide',q && !sec.innerText.toLowerCase().includes(q))})});
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
