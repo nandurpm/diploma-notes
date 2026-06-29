@@ -11,7 +11,7 @@ ROOT = Path.cwd()
 LESSONS = ROOT / "lessons"
 NOTES = ROOT / "notes"
 REPORTS = ROOT / "reports"
-EXCLUDED_CODES = {"1003", "1004"}
+MIN_VALID_PDF_BYTES = 20000
 
 PANEL_SELECTORS = [
     ".panel",
@@ -176,15 +176,13 @@ PREPARE_JS = r"""
 
 
 def lesson_files() -> list[tuple[str, Path]]:
+    """Return every lesson HTML file that must have a downloadable notes PDF."""
     items: list[tuple[str, Path]] = []
     for path in sorted(LESSONS.glob("lessons-*.html")):
         match = re.fullmatch(r"lessons-(\d+[A-Za-z]?)\.html", path.name)
         if not match:
             continue
-        code = match.group(1)
-        if code in EXCLUDED_CODES:
-            continue
-        items.append((code, path))
+        items.append((match.group(1), path))
     return items
 
 
@@ -334,7 +332,7 @@ def render_all() -> tuple[list[dict[str, object]], list[dict[str, str]]]:
                 if not page.is_closed():
                     page.close()
 
-            if not output.exists() or output.stat().st_size < 20000:
+            if not output.exists() or output.stat().st_size < MIN_VALID_PDF_BYTES:
                 errors.append({"code": code, "source": relative_url, "error": "generated PDF is missing or invalid"})
                 continue
 
@@ -383,16 +381,23 @@ def render_all() -> tuple[list[dict[str, object]], list[dict[str, str]]]:
 
 def main() -> None:
     generated, errors = render_all()
+    lesson_codes = [code for code, _ in lesson_files()]
+    generated_codes = sorted(str(item["code"]) for item in generated)
+    missing_codes = sorted(set(lesson_codes) - set(generated_codes))
     report = {
         "generated": generated,
         "errors": errors,
-        "preservedSeparateNotes": sorted(EXCLUDED_CODES),
+        "requiredLessonCodes": lesson_codes,
+        "generatedCodes": generated_codes,
+        "missingCodes": missing_codes,
         "renderer": "Playwright Chromium through local HTTP server",
         "validation": {
+            "everyLessonHtmlRequiresPdf": True,
             "allKnownPanelsForcedVisible": True,
             "largeContainersAllowedToSplit": True,
             "genuinelyBlankPagesRemoved": True,
             "blankPageTextThreshold": 10,
+            "minimumPdfBytes": MIN_VALID_PDF_BYTES,
             "textCoverageReported": True,
         },
     }
@@ -400,6 +405,10 @@ def main() -> None:
         json.dumps(report, indent=2) + "\n",
         encoding="utf-8",
     )
+
+    if missing_codes or errors:
+        print("Downloadable notes generation is incomplete.")
+        print(json.dumps({"missingCodes": missing_codes, "errors": errors}, indent=2))
 
 
 if __name__ == "__main__":
