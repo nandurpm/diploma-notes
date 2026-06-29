@@ -35,6 +35,7 @@ export default {
         ok: true,
         service: "Ask POLY AI",
         configured: providers.length > 0,
+        localMathFallback: true,
         providers,
         model: providers[0] === "nvidia"
           ? (env.NVIDIA_MODEL || "nvidia/nemotron-3-ultra-550b-a55b")
@@ -53,10 +54,6 @@ export default {
 
     if (!isOriginAllowed(origin, env)) {
       return jsonResponse({ error: "This website origin is not allowed." }, 403, origin, env);
-    }
-
-    if (!providers.length) {
-      return jsonResponse({ error: "Ask POLY AI is not configured yet." }, 503, origin, env);
     }
 
     const isExam = url.pathname === "/api/evaluate-mock-exam";
@@ -100,7 +97,7 @@ export default {
       return jsonResponse({
         error: missingMessage
           ? "Please enter a question."
-          : "The AI service could not answer right now. The local lesson assistant is still available.",
+          : "The AI service could not answer right now. Local maths still works for arithmetic, equations, percentages and common diploma calculations.",
         detail: env.EXPOSE_ERRORS === "true" ? cleanText(error?.message, 500) : undefined
       }, missingMessage ? 400 : 502, origin, env);
     }
