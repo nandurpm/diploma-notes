@@ -22,7 +22,6 @@
     sub: $("chatSub"),
     prompts: $("quickPrompts"),
     newChat: $("newChatBtn"),
-    exportChat: $("exportChatBtn"),
     clear: $("clearChatBtn"),
     send: $("sendBtn")
   };
@@ -185,6 +184,19 @@
     els.sub.textContent = `${messages.length} saved messages`;
   }
 
+  async function chooseChatAfterDelete(deletedId) {
+    const chats = (await getAll("chats")).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+    if (deletedId === activeChatId) activeChatId = chats[0]?.id || null;
+    if (!activeChatId) await createChat();
+    else await renderAll();
+  }
+
+  async function deleteSavedChat(chat) {
+    if (!confirm(`Delete saved chat "${chat.title || "New chat"}"?`)) return;
+    await deleteChat(chat.id);
+    await chooseChatAfterDelete(chat.id);
+  }
+
   async function renderChats() {
     const q = (els.search.value || "").toLowerCase().trim();
     const chats = (await getAll("chats"))
@@ -197,6 +209,22 @@
       btn.type = "button";
       btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt))}</small>`;
       btn.addEventListener("click", async () => { activeChatId = chat.id; await renderAll(); });
+
+      const del = document.createElement("span");
+      del.className = "ask-delete";
+      del.setAttribute("role", "button");
+      del.setAttribute("tabindex", "0");
+      del.setAttribute("aria-label", `Delete ${chat.title || "saved chat"}`);
+      del.textContent = "×";
+      del.addEventListener("click", async (event) => { event.stopPropagation(); await deleteSavedChat(chat); });
+      del.addEventListener("keydown", async (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          event.stopPropagation();
+          await deleteSavedChat(chat);
+        }
+      });
+      btn.append(del);
       els.list.append(btn);
     });
   }
@@ -287,18 +315,6 @@
 
   function autoResize() { els.input.style.height = "auto"; els.input.style.height = `${Math.min(els.input.scrollHeight, 180)}px`; }
 
-  async function exportActiveChat() {
-    const chat = await getChat(activeChatId);
-    const messages = await getMessages(activeChatId);
-    const blob = new Blob([JSON.stringify({ chat, messages }, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${(chat?.title || "ask-poly-chat").replace(/[^a-z0-9]+/gi, "-").toLowerCase()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
   async function init() {
     await openDB();
     const chats = (await getAll("chats")).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
@@ -308,8 +324,7 @@
     els.input.addEventListener("input", autoResize);
     els.search.addEventListener("input", renderChats);
     els.newChat.addEventListener("click", () => createChat());
-    els.exportChat.addEventListener("click", exportActiveChat);
-    els.clear.addEventListener("click", async () => { if (!confirm("Clear this saved chat?")) return; await deleteChat(activeChatId); await createChat(); });
+    els.clear.addEventListener("click", async () => { if (!confirm("Clear this saved chat?")) return; await deleteChat(activeChatId); await chooseChatAfterDelete(activeChatId); });
     await renderAll(); autoResize(); els.input.focus();
   }
 
