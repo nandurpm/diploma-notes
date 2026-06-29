@@ -138,6 +138,7 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navHome, "/");
         bindNavigation(R.id.navRevision2021, "/revision-2021.html");
         bindNavigation(R.id.navDailyQuiz, "/daily-quiz.html");
+        bindNavigation(R.id.navAskPoly, "/ask-poly.html");
         bindNavigation(R.id.navTools, "/tools-v2.html");
         bindNavigation(R.id.navStudyMaterials, "/model-question-papers.html");
         bindNavigation(R.id.navMaterials2015, "/materials-2015.html");
@@ -145,7 +146,7 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navContact, "/contact.html");
 
         TextView version = findViewById(R.id.drawerVersion);
-        version.setText("Version " + BuildConfig.VERSION_NAME + "  •  Online study content");
+        version.setText("Version " + BuildConfig.VERSION_NAME + "  •  Ask POLY AI ready");
     }
 
     private void bindNavigation(int viewId, String path) {
@@ -187,6 +188,12 @@ public class MainActivity extends ComponentActivity {
 
         if ("/index.html".equals(currentPath)) {
             currentPath = "/";
+        }
+        if ("/ask-poly-v2.html".equals(currentPath)) {
+            currentPath = "/ask-poly.html";
+        }
+        if ("/tools.html".equals(currentPath)) {
+            currentPath = "/tools-v2.html";
         }
         for (Map.Entry<View, String> entry : navigationItems.entrySet()) {
             entry.getKey().setActivated(entry.getValue().equals(currentPath));
