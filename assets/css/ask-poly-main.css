@@ -10,6 +10,7 @@
   --ask-blue:#38bdf8;
   --ask-primary:#2563eb;
   --ask-green:#22c55e;
+  --ask-red:#ef4444;
   --ask-border:rgba(255,255,255,.20);
   --ask-shadow:0 22px 70px rgba(0,0,0,.28);
 }
@@ -44,23 +45,26 @@ body.portal-page.ask-poly-page{
 .ask-hero p{max-width:860px;margin:16px 0 0;color:#d9e8f8;font-size:1.05rem;line-height:1.65;}
 .ask-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:16px;}
 .ask-tags span{padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);color:#f7fbff;font-weight:850;font-size:.88rem;}
-.ask-app{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;margin-top:18px;min-height:calc(100vh - 275px);}
+.ask-app{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;margin-top:18px;align-items:start;min-height:calc(100vh - 275px);}
 .ask-sidebar,.ask-chat{border:1px solid var(--ask-border);border-radius:26px;background:rgba(16,36,58,.94);box-shadow:var(--ask-shadow);overflow:hidden;}
-.ask-sidebar{display:flex;flex-direction:column;min-height:680px;}
-.ask-side-head{display:flex;gap:10px;padding:16px;border-bottom:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);}
-.ask-new,.ask-export,.ask-send,.ask-clear{min-height:44px;border:0;border-radius:15px;font-weight:950;cursor:pointer;transition:.18s ease;}
-.ask-new:hover,.ask-export:hover,.ask-send:hover,.ask-clear:hover,.ask-prompts button:hover,.ask-copy:hover{transform:translateY(-1px);}
-.ask-new{flex:1;background:linear-gradient(135deg,#38bdf8,#6366f1);color:#fff;box-shadow:0 12px 28px rgba(56,189,248,.18);}
-.ask-export,.ask-clear{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18);padding:0 13px;}
-.ask-search{margin:14px 16px 8px;border:1px solid rgba(255,255,255,.20);border-radius:15px;padding:13px 14px;background:#0d2034;color:#fff;outline:none;}
+.ask-sidebar{display:flex;flex-direction:column;position:sticky;top:92px;height:calc(100vh - 112px);min-height:0;max-height:760px;}
+.ask-side-head{display:flex;gap:10px;padding:16px;border-bottom:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);flex:0 0 auto;}
+.ask-new,.ask-send,.ask-clear{min-height:44px;border:0;border-radius:15px;font-weight:950;cursor:pointer;transition:.18s ease;}
+.ask-new:hover,.ask-send:hover,.ask-clear:hover,.ask-prompts button:hover,.ask-copy:hover,.ask-delete:hover{transform:translateY(-1px);}
+.ask-new{width:100%;background:linear-gradient(135deg,#38bdf8,#6366f1);color:#fff;box-shadow:0 12px 28px rgba(56,189,248,.18);}
+.ask-clear{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18);padding:0 13px;}
+.ask-search{margin:14px 16px 8px;border:1px solid rgba(255,255,255,.20);border-radius:15px;padding:13px 14px;background:#0d2034;color:#fff;outline:none;flex:0 0 auto;}
 .ask-search::placeholder,.ask-input::placeholder{color:#9fb4cc;}
 .ask-search:focus,.ask-input:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,.13);}
-.ask-list{overflow:auto;padding:8px 12px 16px;display:flex;flex-direction:column;gap:10px;}
-.ask-item{border:1px solid rgba(255,255,255,.16);border-radius:16px;background:#17334f;padding:13px;text-align:left;cursor:pointer;color:#fff;transition:.18s ease;}
+.ask-list{overflow:auto;padding:8px 12px 16px;display:flex;flex-direction:column;gap:10px;min-height:0;flex:1 1 auto;}
+.ask-item{position:relative;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:#17334f;padding:13px 50px 13px 13px;text-align:left;cursor:pointer;color:#fff;transition:.18s ease;}
 .ask-item:hover{background:#204767;border-color:#38bdf8;}
 .ask-item.active{background:#eaf6ff;color:#0b1728;border-color:#38bdf8;box-shadow:0 12px 28px rgba(56,189,248,.18);}
-.ask-item strong{display:block;color:inherit;font-size:.96rem;}
+.ask-item strong{display:block;color:inherit;font-size:.96rem;line-height:1.25;}
 .ask-item small{display:block;color:inherit;opacity:.72;margin-top:4px;}
+.ask-delete{position:absolute;right:9px;top:50%;transform:translateY(-50%);width:34px;height:34px;border:1px solid rgba(239,68,68,.25);border-radius:12px;background:rgba(239,68,68,.12);color:#fecaca;font-weight:950;cursor:pointer;display:grid;place-items:center;line-height:1;}
+.ask-item.active .ask-delete{background:#fee2e2;color:#991b1b;border-color:#fecaca;}
+.ask-delete:hover{background:#ef4444;color:#fff;border-color:#ef4444;}
 .ask-chat{min-height:680px;display:flex;flex-direction:column;background:#0d2034;}
 .ask-chat-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.14);background:#17334f;}
 .ask-chat-head h2{margin:0;color:#fff;font-size:1.45rem;}.ask-chat-head p{margin:5px 0 0;color:#d4e4f5;}
@@ -80,5 +84,5 @@ body.portal-page.ask-poly-page{
 .ask-send{background:linear-gradient(135deg,#22c55e,#38bdf8);color:#06111f;padding:0 26px;box-shadow:0 12px 28px rgba(34,197,94,.16);}
 .ask-footer{background:rgba(5,16,30,.92)!important;color:#c8d8ea!important;border-top:1px solid rgba(255,255,255,.12);}.ask-footer a{color:#eaf6ff!important;}
 @keyframes askPop{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:none}}
-@media(max-width:940px){.ask-shell{padding:0 12px}.ask-app{grid-template-columns:1fr;min-height:auto}.ask-sidebar{min-height:auto;max-height:292px}.ask-chat{min-height:72dvh}.ask-hero{padding:22px;border-radius:24px}.ask-hero:after{font-size:74px;right:16px}.ask-prompts{flex-wrap:nowrap;overflow:auto}.ask-prompts button{white-space:nowrap}.ask-form{flex-direction:column}.ask-send,.ask-clear{width:100%;min-height:50px}.ask-bubble{max-width:100%}.ask-messages{padding:16px}}
+@media(max-width:940px){.ask-shell{padding:0 12px}.ask-app{grid-template-columns:1fr;min-height:auto}.ask-sidebar{position:relative;top:auto;height:auto;min-height:auto;max-height:320px}.ask-chat{min-height:72dvh}.ask-hero{padding:22px;border-radius:24px}.ask-hero:after{font-size:74px;right:16px}.ask-prompts{flex-wrap:nowrap;overflow:auto}.ask-prompts button{white-space:nowrap}.ask-form{flex-direction:column}.ask-send,.ask-clear{width:100%;min-height:50px}.ask-bubble{max-width:100%}.ask-messages{padding:16px}}
 @media(max-width:520px){.ask-hero h1{font-size:38px}.ask-chat-head{align-items:flex-start;flex-direction:column}.ask-status{font-size:.86rem}.ask-side-head{position:sticky;top:0;z-index:2}.ask-shell{margin-top:12px}}
