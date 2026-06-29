@@ -214,5 +214,9 @@ const links=[...document.querySelectorAll('.left-rail a')],sections=links.map(a=
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-25% 0px -65% 0px'});sections.forEach(s=>obs.observe(s));
 const searchBox=document.getElementById('searchBox');searchBox.addEventListener('input',()=>{const q=searchBox.value.trim().toLowerCase();document.querySelectorAll('.section,.hero').forEach(sec=>{sec.classList.toggle('search-hidden',q && !sec.innerText.toLowerCase().includes(q));});});
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
