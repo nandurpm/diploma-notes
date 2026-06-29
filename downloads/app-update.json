@@ -1,17 +1,16 @@
 {
   "schemaVersion": 1,
-  "versionCode": 7,
-  "versionName": "2.0",
-  "apkUrl": "/downloads/POLY_PMNA_v2.0.apk",
-  "sha256": "6e078b7b67979ccacfc309d767908b230106904069a21fcbff214a66efd8ad04",
-  "publishedAt": "2026-06-20",
+  "versionCode": 0,
+  "versionName": "fresh-install-only",
+  "apkUrl": "",
+  "sha256": "",
+  "publishedAt": "2026-06-29",
   "forceUpdate": false,
-  "title": "POLY PMNA Android app 2.0",
-  "message": "Updated Android app includes the new Student Tools section and the corrected website layout.",
+  "title": "POLY PMNA Android app update disabled",
+  "message": "The old v2.0 APK download has been removed. The next app must be installed as a fresh APK because it will not use the old signing key.",
   "releaseNotes": [
-    "Added Tools item in the Android app drawer.",
-    "Tools opens the new Student Tools section from the live website.",
-    "Restored the website app download button.",
-    "Kept duplicate website headers hidden inside the native app shell."
+    "Old v2.0 update download removed.",
+    "Future APKs should be installed as a fresh app unless signed with the original release key.",
+    "Existing users must uninstall the old app before installing a differently signed APK."
   ]
 }
