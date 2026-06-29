@@ -94,5 +94,9 @@ window.addEventListener('scroll',()=>{const h=document.documentElement;progress.
 const links=[...document.querySelectorAll('.rail a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-25% 0px -70% 0px'});secs.forEach(s=>io.observe(s));
 document.getElementById('searchBox').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('.section,.hero').forEach(sec=>{sec.classList.toggle('search-hidden',q&&!sec.innerText.toLowerCase().includes(q));});});
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
