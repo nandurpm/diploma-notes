@@ -17,8 +17,12 @@
   const OFFICIAL_SUBJECT_CORRECTIONS = [
     {
       department: "Electronics Engineering",
-      removeCodes: ["6041", "6042", "6043", "6049"],
+      removeCodes: ["5042", "5043", "5048", "5049", "6041", "6042", "6043", "6049"],
       subjects: [
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5042", name: "Industrial Automation", type: "Program Core / Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5043A", name: "Optical Communication and Networking", type: "Program Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5048", name: "Industrial Automation Lab", type: "Program Core / Elective Lab" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 5", code: "5049B", name: "Digital Communication Lab", type: "Program Core / Elective Lab" },
         { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041A", name: "Medical Electronics", type: "Program Elective" },
         { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041B", name: "Verilog HDL and Programmable Logic Devices", type: "Program Elective" },
         { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041C", name: "Consumer Electronics", type: "Program Elective" },
