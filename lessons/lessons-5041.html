@@ -103,5 +103,9 @@ PART C - Long Essay
 <script>
 const progress=document.getElementById('progress'),topBtn=document.getElementById('toTop');addEventListener('scroll',()=>{const h=document.documentElement;progress.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';topBtn.classList.toggle('show',h.scrollTop>500)});document.getElementById('searchBox').addEventListener('input',e=>{const q=e.target.value.trim().toLowerCase();document.querySelectorAll('.section,.card,.topic,details').forEach(el=>{if(!q){el.classList.remove('search-hidden');return}el.classList.toggle('search-hidden',!el.textContent.toLowerCase().includes(q))})});const links=[...document.querySelectorAll('.rail a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);addEventListener('scroll',()=>{let cur=secs[0];secs.forEach(s=>{if(s.getBoundingClientRect().top<130)cur=s});links.forEach(a=>a.classList.toggle('active',cur&&a.getAttribute('href')==='#'+cur.id))});
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>

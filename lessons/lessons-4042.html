@@ -70,5 +70,9 @@ PART C - Answer any five questions. Each carries 8 marks.
 <script>
 const sections=[...document.querySelectorAll('section[id]')],links=[...document.querySelectorAll('.left-rail a')],bar=document.getElementById('progress'),topBtn=document.getElementById('toTop');function onScroll(){const h=document.documentElement,sc=h.scrollTop,max=h.scrollHeight-h.clientHeight;bar.style.width=(max?sc/max*100:0)+'%';topBtn.classList.toggle('show',sc>500);let cur='';sections.forEach(s=>{if(s.offsetTop-120<=sc)cur=s.id});links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur))}addEventListener('scroll',onScroll,{passive:true});onScroll();document.getElementById('searchBox').addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();document.querySelectorAll('.section,.card,.topic-card,details').forEach(el=>{el.classList.toggle('search-hidden',q&& !el.innerText.toLowerCase().includes(q))})});
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
