@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  if (!/\/ask-poly-v2\.html$/i.test(location.pathname)) return;
+  if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
   const DB_NAME = "ask-poly-v2-db";
   const DB_VERSION = 1;
@@ -12,8 +12,22 @@
 
   const $ = (id) => document.getElementById(id);
   const els = {
-    list: $("chatList"), search: $("chatSearch"), messages: $("chatMessages"), form: $("chatForm"), input: $("chatInput"), status: $("chatStatus"), title: $("chatTitle"), sub: $("chatSub"), prompts: $("quickPrompts"), newChat: $("newChatBtn"), exportChat: $("exportChatBtn"), clear: $("clearChatBtn"), send: $("sendBtn")
+    list: $("chatList"),
+    search: $("chatSearch"),
+    messages: $("chatMessages"),
+    form: $("chatForm"),
+    input: $("chatInput"),
+    status: $("chatStatus"),
+    title: $("chatTitle"),
+    sub: $("chatSub"),
+    prompts: $("quickPrompts"),
+    newChat: $("newChatBtn"),
+    exportChat: $("exportChatBtn"),
+    clear: $("clearChatBtn"),
+    send: $("sendBtn")
   };
+
+  if (!els.form || !els.messages || !els.input) return;
 
   function now() { return new Date().toISOString(); }
   function id() { return `chat_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`; }
@@ -98,7 +112,7 @@
     const chat = { id: id(), title, createdAt: now(), updatedAt: now() };
     await putChat(chat);
     activeChatId = chat.id;
-    await addMessage("assistant", "Hi. I am Ask POLY v2. This chat is saved in your browser, so refresh will not remove it.");
+    await addMessage("assistant", "Hi. I am Ask POLY. This chat is saved in your browser, so refresh will not remove it.");
     await renderAll();
   }
 
@@ -139,19 +153,23 @@
 
   function bubble(message) {
     const div = document.createElement("div");
-    div.className = `ask-v2-bubble ${message.role === "user" ? "user" : "ai"}`;
+    div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
     const time = document.createElement("time");
-    time.className = "ask-v2-time";
+    time.className = "ask-time";
     time.dateTime = message.createdAt;
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
     if (message.role === "assistant") {
       const copy = document.createElement("button");
-      copy.className = "ask-v2-copy";
+      copy.className = "ask-copy";
       copy.type = "button";
       copy.textContent = "Copy";
-      copy.addEventListener("click", async () => { await navigator.clipboard.writeText(message.content); copy.textContent = "Copied"; setTimeout(() => copy.textContent = "Copy", 1100); });
+      copy.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(message.content);
+        copy.textContent = "Copied";
+        setTimeout(() => { copy.textContent = "Copy"; }, 1100);
+      });
       div.append(copy);
     }
     return div;
@@ -169,11 +187,13 @@
 
   async function renderChats() {
     const q = (els.search.value || "").toLowerCase().trim();
-    const chats = (await getAll("chats")).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)).filter((c) => !q || `${c.title} ${c.updatedAt}`.toLowerCase().includes(q));
+    const chats = (await getAll("chats"))
+      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+      .filter((c) => !q || `${c.title} ${c.updatedAt}`.toLowerCase().includes(q));
     els.list.replaceChildren();
     chats.forEach((chat) => {
       const btn = document.createElement("button");
-      btn.className = `ask-v2-item ${chat.id === activeChatId ? "active" : ""}`;
+      btn.className = `ask-item ${chat.id === activeChatId ? "active" : ""}`;
       btn.type = "button";
       btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt))}</small>`;
       btn.addEventListener("click", async () => { activeChatId = chat.id; await renderAll(); });
@@ -193,17 +213,21 @@
   }
 
   function defaultPrompts() {
-    return [["Find subjects", "Where can I find Revision 2021 Computer Engineering subjects?"], ["Missing notes", "Why is Download Notes missing for some subjects?"], ["Mock exams", "Explain how to use the mock exams page."], ["Report issue", "I found a broken link. What should I send?"]];
+    return [
+      ["Find subjects", "Where can I find Revision 2021 Computer Engineering subjects?"],
+      ["Missing notes", "Why is Download Notes missing for some subjects?"],
+      ["Mock exams", "Explain how to use the mock exams page."],
+      ["Report issue", "I found a broken link. What should I send?"]
+    ];
   }
 
   async function renderAll() { await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); }
-
   function setWaiting(value) { waiting = value; els.status.textContent = value ? "Thinking..." : "Ready"; els.input.disabled = value; els.send.disabled = value; els.clear.disabled = value; }
 
   function addTyping() {
     const m = document.createElement("div");
     m.id = "typingBubble";
-    m.className = "ask-v2-bubble ai";
+    m.className = "ask-bubble ai";
     m.textContent = "POLY is thinking...";
     els.messages.append(m);
     els.messages.scrollTop = els.messages.scrollHeight;
@@ -225,7 +249,12 @@
   async function callAI(message, history, localContext) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Endpoint missing");
-    const response = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, cache: "no-store", body: JSON.stringify({ message: localContext ? `${localContext}\n\nQuestion: ${message}` : message, history }) });
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      cache: "no-store",
+      body: JSON.stringify({ message: localContext ? `${localContext}\n\nQuestion: ${message}` : message, history })
+    });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) throw new Error(data.error || `AI failed ${response.status}`);
     return data.answer || data.message || data.reply || "No answer received.";
@@ -243,9 +272,9 @@
       const messages = await getMessages(activeChatId);
       const history = messages.slice(-MAX_HISTORY).map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
       const retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
-      let answer = "";
-      if (retrieval?.answer && shouldSearchWebsite(clean)) answer = retrieval.answer;
-      else answer = await callAI(clean, history, retrieval?.context || "");
+      const answer = retrieval?.answer && shouldSearchWebsite(clean)
+        ? retrieval.answer
+        : await callAI(clean, history, retrieval?.context || "");
       removeTyping();
       await addMessage("assistant", answer, { provider: retrieval?.answer ? "local-knowledge" : "ai" });
     } catch (error) {
@@ -256,7 +285,7 @@
     }
   }
 
-  function autoResize() { els.input.style.height = "auto"; els.input.style.height = `${Math.min(els.input.scrollHeight, 170)}px`; }
+  function autoResize() { els.input.style.height = "auto"; els.input.style.height = `${Math.min(els.input.scrollHeight, 180)}px`; }
 
   async function exportActiveChat() {
     const chat = await getChat(activeChatId);
@@ -264,7 +293,9 @@
     const blob = new Blob([JSON.stringify({ chat, messages }, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = `${(chat?.title || "ask-poly-chat").replace(/[^a-z0-9]+/gi, "-").toLowerCase()}.json`; a.click();
+    a.href = url;
+    a.download = `${(chat?.title || "ask-poly-chat").replace(/[^a-z0-9]+/gi, "-").toLowerCase()}.json`;
+    a.click();
     URL.revokeObjectURL(url);
   }
 
