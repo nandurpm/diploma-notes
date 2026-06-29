@@ -10,10 +10,10 @@
 
     button = document.createElement("a");
     button.className = "btn ghost app-download";
-    button.href = "/downloads/Polytechnic-Study-Hub-v1.0.5.apk";
-    button.download = "Polytechnic-Study-Hub-v1.0.5.apk";
-    button.textContent = "📱 Download Our App";
-    button.setAttribute("aria-label", "Download Polytechnic Study Hub Android app");
+    button.href = "/downloads/";
+    button.textContent = "📱 App Download Unavailable";
+    button.setAttribute("aria-disabled", "true");
+    button.setAttribute("aria-label", "The Android app download is temporarily unavailable until the new APK is published.");
     actions.append(button);
     return button;
   };
@@ -31,13 +31,6 @@
     return;
   }
 
-  const PUBLISHED_UPDATE = Object.freeze({
-    versionName: "1.0.5",
-    apkUrl: "/downloads/Polytechnic-Study-Hub-v1.0.5.apk",
-    title: "Polytechnic Study Hub Android app",
-    message: "Download the currently published Android app."
-  });
-
   const validApkPath = (value) => {
     if (!value) return "";
     try {
@@ -50,9 +43,9 @@
     }
   };
 
-  const showUnavailable = (message = "The app download is temporarily unavailable.") => {
+  const showUnavailable = (message = "The new Android app APK is not published yet.") => {
     button.dataset.appButtonState = "unavailable";
-    button.textContent = "📱 App Download Unavailable";
+    button.textContent = "📱 New App Coming Soon";
     button.href = "/downloads/";
     button.removeAttribute("download");
     button.setAttribute("aria-disabled", "true");
@@ -63,7 +56,7 @@
   };
 
   const activateDownload = (update) => {
-    const apkHref = validApkPath(update.apkUrl);
+    const apkHref = validApkPath(update?.apkUrl);
     if (!update?.versionName || !apkHref) {
       showUnavailable();
       return;
@@ -73,7 +66,7 @@
     const filename = apkUrl.pathname.split("/").pop() || `Polytechnic-Study-Hub-v${update.versionName}.apk`;
 
     button.dataset.appButtonState = "download";
-    button.textContent = `📱 Download App v${update.versionName}`;
+    button.textContent = `📱 Download New App v${update.versionName}`;
     button.href = apkUrl.href;
     button.download = filename;
     button.removeAttribute("aria-disabled");
@@ -88,19 +81,19 @@
       const response = await fetch(`/downloads/app-update.json?t=${Date.now()}`, { cache: "no-store" });
       if (!response.ok) throw new Error(`Update check failed: ${response.status}`);
       const update = await response.json();
-      activateDownload(update?.apkUrl ? update : PUBLISHED_UPDATE);
+      activateDownload(update);
     } catch (error) {
-      console.error("Unable to read app-update.json; using published app link.", error);
-      activateDownload(PUBLISHED_UPDATE);
+      console.error("Unable to read app-update.json; app download disabled until new APK is published.", error);
+      showUnavailable();
     }
   };
 
   button.addEventListener("click", (event) => {
     if (button.dataset.appButtonState === "download") return;
     event.preventDefault();
-    window.alert(button.getAttribute("aria-label") || "The app download is temporarily unavailable.");
+    window.alert(button.getAttribute("aria-label") || "The new Android app APK is not published yet.");
   });
 
-  activateDownload(PUBLISHED_UPDATE);
+  showUnavailable();
   activateLatestAvailable();
 })();
