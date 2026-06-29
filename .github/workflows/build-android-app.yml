@@ -68,13 +68,32 @@ jobs:
         with:
           gradle-version: "8.10.2"
 
-      - name: Decode release keystore
+      - name: Validate release signing secrets
         run: |
-          if [ -z "${ANDROID_KEYSTORE_BASE64}" ]; then
-            echo "ANDROID_KEYSTORE_BASE64 secret is missing."
+          missing=""
+          [ -z "${ANDROID_KEYSTORE_BASE64}" ] && missing="$missing ANDROID_KEYSTORE_BASE64"
+          [ -z "${ANDROID_KEYSTORE_PASSWORD}" ] && missing="$missing ANDROID_KEYSTORE_PASSWORD"
+          [ -z "${ANDROID_KEY_ALIAS}" ] && missing="$missing ANDROID_KEY_ALIAS"
+          [ -z "${ANDROID_KEY_PASSWORD}" ] && missing="$missing ANDROID_KEY_PASSWORD"
+          if [ -n "$missing" ]; then
+            echo "Missing required GitHub Actions secrets:$missing"
+            echo "Add them in: Repository Settings → Secrets and variables → Actions → New repository secret"
             exit 1
           fi
-          echo "${ANDROID_KEYSTORE_BASE64}" | base64 --decode > android-app/release.keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+
+      - name: Decode release keystore
+        run: |
+          set -e
+          echo "${ANDROID_KEYSTORE_BASE64}" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
+          if [ ! -s android-app/release.keystore ]; then
+            echo "Decoded release.keystore is empty. Re-create ANDROID_KEYSTORE_BASE64 from the original .jks/.keystore file."
+            exit 1
+          fi
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
 
