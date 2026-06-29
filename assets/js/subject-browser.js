@@ -12,6 +12,26 @@
     ...[...NOTES_CODES].map((code) => `/notes/downloadable-notes-${code}.pdf`)
   ]);
 
+  // Official REV2021 SITTTR corrections for subject-card rendering.
+  // Keep this layer here so lesson/notes assets are not renamed or affected.
+  const OFFICIAL_SUBJECT_CORRECTIONS = [
+    {
+      department: "Electronics Engineering",
+      removeCodes: ["6041", "6042", "6043", "6049"],
+      subjects: [
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041A", name: "Medical Electronics", type: "Program Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041B", name: "Verilog HDL and Programmable Logic Devices", type: "Program Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6041C", name: "Consumer Electronics", type: "Program Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042A", name: "Concepts of IoT", type: "Open Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042B", name: "Contemporary Electronics", type: "Open Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042C", name: "Introduction to Hybrid and Electric Vehicles", type: "Open Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6042D", name: "Introduction to Multimedia", type: "Open Elective" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6047", name: "Simulation Lab with Numerical Software", type: "Program Core" },
+        { revision: "2021", department: "Electronics Engineering", semester: "Semester 6", code: "6049B", name: "Verilog HDL and PLD Lab", type: "Elective Lab" }
+      ]
+    }
+  ];
+
   let subjectsPromise = null;
 
   const $ = (id) => document.getElementById(id);
@@ -22,6 +42,40 @@
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
+  const normalizeCode = (code) => String(code || "").trim().toUpperCase();
+  const correctionKey = (department, code) => `${department}::${normalizeCode(code)}`;
+  const subjectRecordKey = (subject) => [
+    subject.revision,
+    subject.department,
+    subject.semester,
+    normalizeCode(subject.code),
+    String(subject.name || "").trim().toLowerCase()
+  ].join("::");
+
+  function applyOfficialSubjectCorrections(subjects) {
+    if (!Array.isArray(subjects)) return [];
+
+    const removals = new Set();
+    const additions = [];
+    OFFICIAL_SUBJECT_CORRECTIONS.forEach((correction) => {
+      (correction.removeCodes || []).forEach((code) => removals.add(correctionKey(correction.department, code)));
+      (correction.subjects || []).forEach((subject) => additions.push(subject));
+    });
+
+    const cleaned = subjects.filter((subject) => !removals.has(correctionKey(subject.department, subject.code)));
+    const seen = new Set(cleaned.map(subjectRecordKey));
+
+    additions.forEach((subject) => {
+      const key = subjectRecordKey(subject);
+      if (!seen.has(key)) {
+        cleaned.push(subject);
+        seen.add(key);
+      }
+    });
+
+    return cleaned;
+  }
+
   const semesterRank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
   const rootPrefix = () => {
     const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -29,6 +83,7 @@
   };
   const localPath = (url) => new URL(url, window.location.href).pathname;
   const hasAsset = (url) => LOCAL_ASSETS.has(localPath(url));
+  const assetCodeFor = (subject, kind) => String(subject?.[`${kind}Code`] || subject?.assetCode || subject?.code || "");
 
   function syllabusLinkFor(subject) {
     return typeof globalThis.syllabusLink === "function"
@@ -42,14 +97,18 @@
       : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
   }
 
-  const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(subject.code)}.html`;
-  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`;
+  const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
+  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(assetCodeFor(subject, "notes"))}.pdf`;
 
   async function loadSubjects() {
-    if (Array.isArray(globalThis.SUBJECTS) && globalThis.SUBJECTS.length) return globalThis.SUBJECTS;
+    if (Array.isArray(globalThis.SUBJECTS) && globalThis.SUBJECTS.length) {
+      const corrected = applyOfficialSubjectCorrections(globalThis.SUBJECTS);
+      globalThis.SUBJECTS = corrected;
+      return corrected;
+    }
     if (subjectsPromise) return subjectsPromise;
 
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260626-full-subjects-global`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-official-subject-code-variants`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -59,8 +118,9 @@
         if (!match) throw new Error("SUBJECTS array was not found in subjects.js");
         const parsed = Function(`"use strict"; return (${match[1]});`)();
         if (!Array.isArray(parsed)) throw new Error("SUBJECTS data is not an array");
-        globalThis.SUBJECTS = parsed;
-        return parsed;
+        const corrected = applyOfficialSubjectCorrections(parsed);
+        globalThis.SUBJECTS = corrected;
+        return corrected;
       })
       .catch((error) => {
         console.error("Subject data failed to load:", error);
@@ -218,7 +278,7 @@
 
     const base = subjects.filter((subject) => {
       if (fixedRevision && String(subject.revision) !== fixedRevision) return false;
-      if (mode === "lessons") return String(subject.revision) === "2021" && LESSON_CODES.has(String(subject.code));
+      if (mode === "lessons") return String(subject.revision) === "2021" && LESSON_CODES.has(assetCodeFor(subject, "lesson"));
       return true;
     });
 
