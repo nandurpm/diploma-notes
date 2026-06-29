@@ -5,17 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Browse Revision 2021 department semester subjects, syllabus, lesson pages, notes and sample question papers.">
   <title>Revision 2021 Department Subjects | Polytechnic Study Hub</title>
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/animations.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/department-semester-layout.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260626-department-view">
-  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260626-department-view">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/animations.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/department-semester-layout.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260629-ece-lesson-visible">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260629-ece-lesson-visible">
 </head>
-<body class="portal-page" data-site-revision="20260629-subject-code-variants">
+<body class="portal-page" data-site-revision="20260629-ece-lesson-visible">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="/index.html" aria-label="Polytechnic Study Hub home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong></a>
@@ -95,24 +95,29 @@
         "tool-and-die-engineering": "Tool & Die Engineering",
         "wood-and-paper-technology": "Wood and Paper Technology"
       };
+      const browserAliases = {
+        "electronics-and-communication": "Electronics Engineering"
+      };
       const params = new URLSearchParams(location.search);
       const slug = (params.get("dept") || "").replace(/\.html$/i, "").trim();
       const fallbackName = slug.split("-").filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ") || "Department";
-      const department = names[slug] || fallbackName;
+      const displayDepartment = names[slug] || fallbackName;
+      const browserDepartment = browserAliases[slug] || displayDepartment;
       const grid = document.getElementById("subjectGrid");
-      if (grid) grid.dataset.department = department;
-      document.title = `${department} Revision 2021 Subjects | Polytechnic Study Hub`;
+      if (grid) grid.dataset.department = browserDepartment;
+      document.title = `${displayDepartment} Revision 2021 Subjects | Polytechnic Study Hub`;
       const h1 = document.getElementById("departmentTitle");
       const crumb = document.getElementById("crumbDept");
-      if (h1) h1.textContent = department;
-      if (crumb) crumb.textContent = department;
+      if (h1) h1.textContent = displayDepartment;
+      if (crumb) crumb.textContent = displayDepartment;
     })();
   </script>
-  <script src="/assets/js/subjects.js?v=20260629-subject-code-variants" defer></script>
-  <script src="/assets/js/main.js?v=20260626-availability-buttons" defer></script>
-  <script src="/assets/js/subject-browser.js?v=20260629-subject-code-variants" defer></script>
-  <script src="/assets/js/hide-unavailable-actions.js?v=20260626-availability-buttons" defer></script>
-  <script src="/assets/js/site-hardening.js?v=20260626-availability-buttons" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260626-availability-buttons" defer></script>
+  <script src="/assets/js/subjects.js?v=20260629-ece-lesson-visible" defer></script>
+  <script src="/assets/js/main.js?v=20260629-ece-lesson-visible" defer></script>
+  <script src="/assets/js/subject-browser.js?v=20260629-ece-lesson-visible" defer></script>
+  <script src="/assets/js/lesson-availability-hotfix.js?v=20260629-ece-lesson-visible" defer></script>
+  <script src="/assets/js/hide-unavailable-actions.js?v=20260629-ece-lesson-visible" defer></script>
+  <script src="/assets/js/site-hardening.js?v=20260629-ece-lesson-visible" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260629-ece-lesson-visible" defer></script>
 </body>
 </html>
