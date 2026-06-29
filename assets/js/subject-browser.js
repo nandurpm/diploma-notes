@@ -6,8 +6,8 @@
   const HOME_PAGE_SIZE = 30;
   const SEARCH_DEBOUNCE_MS = 180;
 
-  // Keep official suffix codes separate. Do not collapse 6041A/B/C or 6042A/B/C/D into 6041 or 6042.
-  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5041","5042","5043","6002","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D"]);
+  // Important: official suffix codes must stay separate. Never collapse 6041A/B/C to 6041 or 6042A/B/C/D to 6042.
+  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5041","5042","5043","6002","6041A","6041B","6041C","6042A","6042B","6042C","6042D"]);
   const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1008","2001","2002","2003","2031","2032","2038","2041","3023","3031","3032","3041","3043","3044","3045","3046","3047","3132","4001","6002"]);
   const LOCAL_ASSETS = new Set([
     ...[...LESSON_CODES].map((code) => `/lessons/lessons-${code}.html`),
@@ -36,15 +36,17 @@
     }
   ];
 
-  let subjectsPromise = null;
   const $ = (id) => document.getElementById(id);
-  const esc = (value) => String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  const esc = (value) => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
   const normalizeCode = (code) => String(code || "").trim().toUpperCase();
+  const semesterRank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
+  const rootPrefix = () => {
+    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
+    return depth > 0 ? "../".repeat(depth) : "";
+  };
+  const localPath = (url) => new URL(url, window.location.href).pathname;
+  const hasAsset = (url) => LOCAL_ASSETS.has(localPath(url));
+  const assetCodeFor = (subject, kind) => String(subject?.[`${kind}Code`] || subject?.assetCode || subject?.code || "");
   const correctionKey = (department, code) => `${department}::${normalizeCode(code)}`;
   const subjectRecordKey = (subject) => [subject.revision, subject.department, subject.semester, normalizeCode(subject.code), String(subject.name || "").trim().toLowerCase()].join("::");
 
@@ -68,27 +70,14 @@
     return cleaned;
   }
 
-  const semesterRank = (value) => Number(String(value || "").match(/\d+/)?.[0] || 999);
-  const rootPrefix = () => {
-    const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
-    return depth > 0 ? "../".repeat(depth) : "";
-  };
-  const localPath = (url) => new URL(url, window.location.href).pathname;
-  const hasAsset = (url) => LOCAL_ASSETS.has(localPath(url));
-  const assetCodeFor = (subject, kind) => String(subject?.[`${kind}Code`] || subject?.assetCode || subject?.code || "");
-  const syllabusLinkFor = (subject) => typeof globalThis.syllabusLink === "function" ? globalThis.syllabusLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
-  const modelQuestionPaperLinkFor = (subject) => typeof globalThis.modelQuestionPaperLink === "function" ? globalThis.modelQuestionPaperLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
-  const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
-  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(assetCodeFor(subject, "notes"))}.pdf`;
-
+  let subjectsPromise;
   async function loadSubjects() {
     if (Array.isArray(globalThis.SUBJECTS) && globalThis.SUBJECTS.length) {
-      const corrected = applyOfficialSubjectCorrections(globalThis.SUBJECTS);
-      globalThis.SUBJECTS = corrected;
-      return corrected;
+      globalThis.SUBJECTS = applyOfficialSubjectCorrections(globalThis.SUBJECTS);
+      return globalThis.SUBJECTS;
     }
     if (subjectsPromise) return subjectsPromise;
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-official-subject-code-variants-2`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-official-subject-code-variants-3`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -98,9 +87,8 @@
         if (!match) throw new Error("SUBJECTS array was not found in subjects.js");
         const parsed = Function(`"use strict"; return (${match[1]});`)();
         if (!Array.isArray(parsed)) throw new Error("SUBJECTS data is not an array");
-        const corrected = applyOfficialSubjectCorrections(parsed);
-        globalThis.SUBJECTS = corrected;
-        return corrected;
+        globalThis.SUBJECTS = applyOfficialSubjectCorrections(parsed);
+        return globalThis.SUBJECTS;
       })
       .catch((error) => {
         console.error("Subject data failed to load:", error);
@@ -158,10 +146,6 @@
     select.value = [...select.options].some((option) => option.value === selected) ? selected : all.value;
   }
 
-  function queryIsIncompleteHomeCode(mode, query) {
-    return mode === "home" && (/^\d{1,3}$/i.test(query) || /^[a-z]$/i.test(query));
-  }
-
   function subjectMatchesQuery(subject, query) {
     if (!query) return true;
     const code = String(subject.code || "").toLowerCase();
@@ -169,6 +153,10 @@
     return [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase().includes(query);
   }
 
+  const syllabusLinkFor = (subject) => typeof globalThis.syllabusLink === "function" ? globalThis.syllabusLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+  const modelQuestionPaperLinkFor = (subject) => typeof globalThis.modelQuestionPaperLink === "function" ? globalThis.modelQuestionPaperLink(subject.code) : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+  const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
+  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(assetCodeFor(subject, "notes"))}.pdf`;
   const unavailable = (label) => `<span class="availability-label" aria-disabled="true">${esc(label)}</span>`;
 
   function subjectCard(subject) {
@@ -176,18 +164,7 @@
     const notesHref = notesLinkFor(subject);
     const lessonAvailable = hasAsset(lessonHref);
     const notesAvailable = hasAsset(notesHref);
-    return `
-      <article class="subject-card reveal">
-        <div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div>
-        <h3>${esc(subject.name)}</h3>
-        <p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>
-        <div class="action-row">
-          <a class="action syllabus" href="${esc(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
-          ${lessonAvailable ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}
-          ${notesAvailable ? `<a class="action download" href="${esc(notesHref)}" download>Download Notes</a>` : unavailable("Notes unavailable")}
-          <a class="action qp" href="${esc(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
-        </div>
-      </article>`;
+    return `<article class="subject-card reveal"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${lessonAvailable ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}${notesAvailable ? `<a class="action download" href="${esc(notesHref)}" download>Download Notes</a>` : unavailable("Notes unavailable")}<a class="action qp" href="${esc(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
   }
 
   function groupCards(subjects) {
@@ -197,16 +174,7 @@
       if (!groups.has(semester)) groups.set(semester, []);
       groups.get(semester).push(subject);
     });
-    return Array.from(groups.entries()).map(([semester, items], index) => `
-      <section class="semester-subject-section" aria-labelledby="semester-group-heading-${index + 1}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px">
-        <div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)">
-          <h3 id="semester-group-heading-${index + 1}">${esc(semester)}</h3>
-          <span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span>
-        </div>
-        <div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">
-          ${items.map(subjectCard).join("")}
-        </div>
-      </section>`).join("");
+    return Array.from(groups.entries()).map(([semester, items], index) => `<section class="semester-subject-section" aria-labelledby="semester-group-heading-${index + 1}" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3 id="semester-group-heading-${index + 1}">${esc(semester)}</h3><span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">${items.map(subjectCard).join("")}</div></section>`).join("");
   }
 
   async function controller(grid) {
@@ -287,7 +255,7 @@
     function render(reset = true) {
       const query = String(search?.value || "").trim().toLowerCase();
       if (reset) shown = HOME_PAGE_SIZE;
-      if (queryIsIncompleteHomeCode(mode, query)) {
+      if (mode === "home" && (/^\d{1,3}$/i.test(query) || /^[a-z]$/i.test(query))) {
         const message = /^\d/.test(query) ? "Enter the full 4-digit subject code, for example 1003, 2031 or 3044." : "Type at least 2 letters of the subject title, or enter a full subject code.";
         grid.innerHTML = `<p class="empty">${esc(message)}</p>`;
         status.textContent = message;
