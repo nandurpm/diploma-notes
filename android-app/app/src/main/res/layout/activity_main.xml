@@ -289,6 +289,14 @@
                     android:drawableStart="@drawable/ic_question"
                     android:text="@string/nav_ask_poly_ai" />
 
+                <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_resources" />
+
+                <TextView
+                    android:id="@+id/navMaterials2015"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_archive"
+                    android:text="@string/nav_materials_2015" />
+
                 <TextView
                     android:id="@+id/navTools"
                     style="@style/DrawerMenuItem"
@@ -300,14 +308,6 @@
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_document"
                     android:text="@string/nav_study_materials" />
-
-                <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_resources" />
-
-                <TextView
-                    android:id="@+id/navMaterials2015"
-                    style="@style/DrawerMenuItem"
-                    android:drawableStart="@drawable/ic_archive"
-                    android:text="@string/nav_materials_2015" />
 
                 <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_support" />
 
