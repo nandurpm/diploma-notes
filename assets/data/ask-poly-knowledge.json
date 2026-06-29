@@ -1,0 +1,92 @@
+{
+  "version": "2026-06-29-phase-1",
+  "site": "polypmna.dpdns.org",
+  "purpose": "Fast local knowledge index for Ask POLY website assistant.",
+  "rules": [
+    "Do not invent lesson pages or notes PDFs.",
+    "If View Lessons is missing, the local lesson file is not uploaded yet.",
+    "If Download Notes is missing, the local notes PDF is not uploaded yet.",
+    "Use SITTTR syllabus and sample question paper links for official references.",
+    "For broken links, ask for page URL, subject code, button name, screenshot and what happened."
+  ],
+  "pages": [
+    {
+      "title": "Home",
+      "url": "/",
+      "keywords": ["home", "quick subject finder", "search", "subject code", "homepage"],
+      "summary": "Homepage contains Quick Subject Finder for Revision 2021 subjects, main navigation, Ask POLY floating link, important day card, and shortcuts to Revision 2021, Mock Exams, Materials and Tools."
+    },
+    {
+      "title": "Revision 2021 Departments",
+      "url": "/revision-2021.html",
+      "keywords": ["revision 2021", "department", "departments", "syllabus", "subjects"],
+      "summary": "Lists all Revision 2021 diploma departments. Each department opens the stable department viewer with semester-wise subject cards."
+    },
+    {
+      "title": "Revision 2021 Department Viewer",
+      "url": "/revision-2021/department-view.html",
+      "keywords": ["department viewer", "semester", "subject cards", "open syllabus", "sample qp", "lessons", "notes"],
+      "summary": "Shows Semester 1 to Semester 6 subject cards for a selected department. Subject cards may include Open Syllabus, Sample QP, View Lessons and Download Notes. Lesson and Notes buttons appear only when local files are available."
+    },
+    {
+      "title": "Mock Exams",
+      "url": "/daily-quiz.html",
+      "keywords": ["mock exam", "quiz", "daily quiz", "exam practice", "scores"],
+      "summary": "Mock Exams page is used for quiz and exam practice. Students can use it for revision and checking understanding."
+    },
+    {
+      "title": "2015 Materials",
+      "url": "/materials-2015.html",
+      "keywords": ["2015", "old scheme", "materials", "previous scheme"],
+      "summary": "Contains study material links for the older 2015 scheme. This is separate from Revision 2021."
+    },
+    {
+      "title": "Student Tools",
+      "url": "/tools.html",
+      "keywords": ["tools", "calculator", "converter", "electrical", "electronics", "academic", "student tools"],
+      "summary": "Tools page contains calculators, converters, academic helpers and engineering-related tools. Ask POLY is also available as a website guide tool."
+    },
+    {
+      "title": "Ask POLY",
+      "url": "/ask-poly.html",
+      "keywords": ["ask poly", "ai", "chat", "website guide", "assistant"],
+      "summary": "Ask POLY is the website assistant. It helps with subjects, syllabus links, available lessons, notes, mock exams, materials, tools and issue reporting."
+    },
+    {
+      "title": "Help and Corrections",
+      "url": "/contact.html",
+      "keywords": ["help", "contact", "report", "broken link", "correction", "missing notes"],
+      "summary": "Use Help page to report missing content, wrong links, syllabus mistakes, broken buttons, or request corrections. Send page URL, subject code, screenshot and issue details."
+    }
+  ],
+  "availability": {
+    "lessonCodes": ["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"],
+    "notesCodes": ["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]
+  },
+  "faq": [
+    {
+      "question": "Why is View Lessons missing?",
+      "answer": "View Lessons is shown only when the local lesson HTML file exists for that subject code. If missing, the lesson is not uploaded yet."
+    },
+    {
+      "question": "Why is Download Notes missing?",
+      "answer": "Download Notes is shown only when the local PDF notes file exists for that subject code. If missing, the notes PDF is not uploaded yet."
+    },
+    {
+      "question": "Where do I find syllabus?",
+      "answer": "Open the subject card and click Open Syllabus. It opens the official SITTTR syllabus page for that subject code."
+    },
+    {
+      "question": "Where do I find sample question paper?",
+      "answer": "Open the subject card and click Sample QP. It opens the official SITTTR model question paper page for that subject code."
+    },
+    {
+      "question": "How do I report a broken link?",
+      "answer": "Open Help page and send the page URL, subject code, button or link name, screenshot, and what happened."
+    },
+    {
+      "question": "Does Ask POLY know all uploaded notes?",
+      "answer": "Ask POLY knows the current availability list of uploaded lesson and notes files. Full PDF paragraph-level retrieval requires a later backend vector index."
+    }
+  ]
+}
