@@ -7,6 +7,7 @@
   const pathname = window.location.pathname;
   const isHomePage = pathname === "/" || /\/index\.html$/i.test(pathname);
   const isRevisionDepartmentPage = /^\/revision-2021\/.+\.html$/i.test(pathname);
+  const isAskPolyPage = /\/ask-poly(?:-v2)?\.html$/i.test(pathname);
   const appMatch = ua.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
   const isAndroidWebView = /Android/i.test(ua) && (/\bwv\b/i.test(ua) || /Version\/\d+(?:\.\d+)?\s+Chrome\//i.test(ua));
   const isStandaloneAndroid = /Android/i.test(ua) && window.matchMedia?.("(display-mode: standalone)")?.matches;
@@ -96,7 +97,13 @@
       .then((update) => {
         const latest = update?.versionName;
         const apkUrl = update?.apkUrl;
-        if (!latest || !apkUrl || !installedVersion || compareVersions(latest, installedVersion) <= 0) {
+        if (!latest || !apkUrl) {
+          button.dataset.appButtonState = "current";
+          hide();
+          return;
+        }
+        const needsUpdate = installedVersion ? compareVersions(latest, installedVersion) > 0 : true;
+        if (!needsUpdate) {
           button.dataset.appButtonState = "current";
           hide();
           return;
@@ -141,11 +148,11 @@
   };
 
   const installVisitorPopup = () => {
-    if (isHomePage || isRevisionDepartmentPage) return;
+    if (isAskPolyPage || isRevisionDepartmentPage || isLessonPage) return;
     if (document.getElementById("poly-visitor-popup-script")) return;
     const script = document.createElement("script");
     script.id = "poly-visitor-popup-script";
-    script.src = "/assets/js/visitor-popup.js?v=20260626-popup-parallel-timeout";
+    script.src = "/assets/js/visitor-popup.js?v=20260629-popup-media-v1";
     script.defer = true;
     document.head.append(script);
   };
