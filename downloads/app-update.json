@@ -1,16 +1,17 @@
 {
   "schemaVersion": 1,
-  "versionCode": 0,
-  "versionName": "fresh-install-only",
-  "apkUrl": "",
-  "sha256": "",
+  "versionCode": 8,
+  "versionName": "2.01",
+  "apkUrl": "/downloads/POLY_PMNA_v2.01.apk",
+  "sha256": "7e572f6c46d1c46547bc51b11fed694ca2ec5f7990afecb94eed20670d74fe5e",
   "publishedAt": "2026-06-29",
   "forceUpdate": false,
-  "title": "POLY PMNA Android app update disabled",
-  "message": "The old v2.0 APK download has been removed. The next app must be installed as a fresh APK because it will not use the old signing key.",
+  "title": "POLY PMNA Android app 2.01",
+  "message": "Updated Android app includes Ask POLY AI in the left sidebar and refreshed website sections.",
   "releaseNotes": [
-    "Old v2.0 update download removed.",
-    "Future APKs should be installed as a fresh app unless signed with the original release key.",
-    "Existing users must uninstall the old app before installing a differently signed APK."
+    "Added Ask POLY AI as a separate drawer item.",
+    "Updated drawer order to match the website navigation.",
+    "Updated launch text and version label for Ask POLY AI.",
+    "Kept Revision 2021, Mock Exams, Tools, Question Papers, 2015 Materials, About and Contact available."
   ]
 }
