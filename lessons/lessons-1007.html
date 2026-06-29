@@ -102,5 +102,9 @@
     const search=document.getElementById('search');
     if(search){search.addEventListener('input',()=>{const q=search.value.toLowerCase().trim();document.querySelectorAll('.lab,.qa,.card').forEach(el=>{if(!q){el.style.display='';return}const txt=(el.innerText+' '+(el.dataset.key||'')).toLowerCase();el.style.display=txt.includes(q)?'':'none'})})}
   </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
