@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Polytechnic Study Hub</string>
-    <string name="app_subtitle">Revision 2021 • Mock Exams • Tools</string>
+    <string name="app_subtitle">Revision 2021 • Ask POLY AI • Mock Exams</string>
     <string name="menu">Open navigation menu</string>
     <string name="refresh">Refresh current page</string>
     <string name="loading_title">Polytechnic Study Hub</string>
-    <string name="loading_subtitle">Revision 2021, Mock Exams, notes and student tools</string>
+    <string name="loading_subtitle">Revision 2021, Ask POLY AI, Mock Exams, notes and student tools</string>
     <string name="loading_status">Preparing your study dashboard…</string>
     <string name="loading_page">Loading…</string>
     <string name="loading_slow">Connection is taking longer than usual…</string>
@@ -22,6 +22,7 @@
     <string name="nav_lessons">Lessons</string>
     <string name="nav_study_materials">Question Papers</string>
     <string name="nav_daily_quiz">Mock Exams</string>
+    <string name="nav_ask_poly_ai">Ask POLY AI</string>
     <string name="nav_tools">Tools</string>
     <string name="nav_daily_quiz_description">Open the quiz dashboard, results and subject analysis</string>
     <string name="nav_syllabus">Syllabus</string>
