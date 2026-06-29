@@ -89,7 +89,10 @@ jobs:
       - name: Decode release keystore
         run: |
           set -e
-          echo "${ANDROID_KEYSTORE_BASE64}" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
+          printf "%s" "${ANDROID_KEYSTORE_BASE64}" \
+            | sed '/-----BEGIN/d;/-----END/d' \
+            | tr -d '\n\r ' \
+            | base64 --decode > android-app/release.keystore
           if [ ! -s android-app/release.keystore ]; then
             echo "Decoded release.keystore is empty. Re-create ANDROID_KEYSTORE_BASE64 from the original .jks/.keystore file."
             exit 1
