@@ -44,5 +44,9 @@ const progress=document.getElementById('progress');function updateProgress(){con
 const links=[...document.querySelectorAll('.rail.left a')];const sections=links.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}})},{rootMargin:'-30% 0px -65% 0px'});sections.forEach(s=>io.observe(s));
 function filterCards(q){q=(q||'').toLowerCase().trim();document.querySelectorAll('.section,.card,details').forEach(el=>{if(!q){el.classList.remove('hide');return}const ok=el.innerText.toLowerCase().includes(q);el.classList.toggle('hide',!ok)})}
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
