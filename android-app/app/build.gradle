@@ -3,6 +3,12 @@ plugins {
     id 'com.android.application'
 }
 
+def releaseStoreFilePath = project.findProperty('ANDROID_KEYSTORE_FILE')
+def releaseStorePassword = project.findProperty('ANDROID_KEYSTORE_PASSWORD')
+def releaseKeyAlias = project.findProperty('ANDROID_KEY_ALIAS')
+def releaseKeyPassword = project.findProperty('ANDROID_KEY_PASSWORD')
+def hasReleaseSigning = releaseStoreFilePath && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
+
 android {
     namespace 'org.diplomanotes.polytechnicstudyhub'
     compileSdk 35
@@ -17,6 +23,17 @@ android {
 
     buildFeatures {
         buildConfig true
+    }
+
+    if (hasReleaseSigning) {
+        signingConfigs {
+            release {
+                storeFile file(releaseStoreFilePath)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
     }
 
     packaging {
@@ -39,6 +56,9 @@ android {
         release {
             debuggable false
             minifyEnabled false
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
