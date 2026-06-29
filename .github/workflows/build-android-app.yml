@@ -56,6 +56,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -112,10 +114,18 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
-      - name: Publish APK and update metadata
+      - name: Prepare APK and metadata
         run: |
+          set -e
           mkdir -p downloads
-          cp android-app/app/build/outputs/apk/release/app-release.apk downloads/POLY_PMNA_v2.01.apk
+          APK_SOURCE=$(find android-app/app/build/outputs/apk/release -name "*.apk" | head -n 1)
+          if [ -z "${APK_SOURCE}" ]; then
+            echo "No release APK found. Listing release output folder:"
+            find android-app/app/build/outputs/apk/release -maxdepth 2 -type f -print || true
+            exit 1
+          fi
+          echo "Using APK: ${APK_SOURCE}"
+          cp "${APK_SOURCE}" downloads/POLY_PMNA_v2.01.apk
           SHA256=$(sha256sum downloads/POLY_PMNA_v2.01.apk | awk '{print $1}')
           cat > downloads/app-update.json <<JSON
           {
@@ -136,14 +146,23 @@ jobs:
             ]
           }
           JSON
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add downloads/POLY_PMNA_v2.01.apk downloads/app-update.json
-          git commit -m "Publish Android app v2.01" || exit 0
-          git push
 
       - name: Upload signed APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: POLY_PMNA_v2.01_signed_apk
           path: downloads/POLY_PMNA_v2.01.apk
+
+      - name: Publish APK and update metadata
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add downloads/POLY_PMNA_v2.01.apk downloads/app-update.json
+          if git diff --cached --quiet; then
+            echo "No APK or metadata changes to publish."
+            exit 0
+          fi
+          git commit -m "Publish Android app v2.01"
+          git pull --rebase origin main
+          git push origin HEAD:main
