@@ -2,6 +2,9 @@ name: Build lesson notes PDFs
 
 on:
   workflow_dispatch:
+  schedule:
+    # Catch lesson files added by tools or uploads that do not trigger a normal push workflow.
+    - cron: "*/30 * * * *"
   push:
     branches: [main]
     paths:
@@ -19,7 +22,7 @@ concurrency:
 
 jobs:
   build-notes:
-    if: ${{ !contains(github.event.head_commit.message, '[skip notes]') }}
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip notes]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
@@ -46,9 +49,31 @@ jobs:
           echo $! > /tmp/lesson-site.pid
           sleep 3
 
-      - name: Build downloadable notes PDFs from lesson HTML
+      - name: Build downloadable notes PDFs from every lesson HTML
         run: |
           python tools/build_lesson_pdfs.py
+
+      - name: Verify every lesson has a downloadable notes PDF
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          root = Path.cwd()
+          lesson_codes = set()
+          notes_codes = set()
+          for path in (root / "lessons").glob("lessons-*.html"):
+              match = re.fullmatch(r"lessons-(\d+[A-Za-z]?)\.html", path.name)
+              if match:
+                  lesson_codes.add(match.group(1).upper())
+          for path in (root / "notes").glob("downloadable-notes-*.pdf"):
+              match = re.fullmatch(r"downloadable-notes-(\d+[A-Za-z]?)\.pdf", path.name)
+              if match and path.stat().st_size >= 20000:
+                  notes_codes.add(match.group(1).upper())
+          missing = sorted(lesson_codes - notes_codes)
+          if missing:
+              raise SystemExit(f"Missing downloadable notes PDFs for: {', '.join(missing)}")
+          print(f"Verified {len(lesson_codes)} lesson files and {len(notes_codes)} downloadable notes PDFs.")
+          PY
 
       - name: Synchronize lesson and notes availability
         run: |
