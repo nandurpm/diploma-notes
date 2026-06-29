@@ -74,5 +74,9 @@ window.addEventListener('scroll',updateProgress,{passive:true});updateProgress()
 function runSearch(){const q=(searchBox.value||'').trim().toLowerCase();let shown=0;items.forEach(el=>{const hit=!q||el.textContent.toLowerCase().includes(q);el.classList.toggle('search-hidden',!hit);if(hit)shown++;});status.textContent=q?shown+' matching sections/cards shown':'Search inside this lesson'}
 if(searchBox){searchBox.addEventListener('input',runSearch);runSearch()}document.querySelectorAll('.left-rail a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.left-rail a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}));
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
