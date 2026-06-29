@@ -46,7 +46,7 @@ jobs:
       - name: Upload debug APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: POLY_PMNA_v2.1_debug_apk
+          name: POLY_PMNA_v2.01_debug_apk
           path: android-app/app/build/outputs/apk/debug/app-debug.apk
 
   signed-release-apk:
@@ -112,18 +112,18 @@ jobs:
       - name: Publish APK and update metadata
         run: |
           mkdir -p downloads
-          cp android-app/app/build/outputs/apk/release/app-release.apk downloads/POLY_PMNA_v2.1.apk
-          SHA256=$(sha256sum downloads/POLY_PMNA_v2.1.apk | awk '{print $1}')
+          cp android-app/app/build/outputs/apk/release/app-release.apk downloads/POLY_PMNA_v2.01.apk
+          SHA256=$(sha256sum downloads/POLY_PMNA_v2.01.apk | awk '{print $1}')
           cat > downloads/app-update.json <<JSON
           {
             "schemaVersion": 1,
             "versionCode": 8,
-            "versionName": "2.1",
-            "apkUrl": "/downloads/POLY_PMNA_v2.1.apk",
+            "versionName": "2.01",
+            "apkUrl": "/downloads/POLY_PMNA_v2.01.apk",
             "sha256": "${SHA256}",
             "publishedAt": "2026-06-29",
             "forceUpdate": false,
-            "title": "POLY PMNA Android app 2.1",
+            "title": "POLY PMNA Android app 2.01",
             "message": "Updated Android app includes Ask POLY AI in the left sidebar and refreshed website sections.",
             "releaseNotes": [
               "Added Ask POLY AI as a separate drawer item.",
@@ -135,12 +135,12 @@ jobs:
           JSON
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add downloads/POLY_PMNA_v2.1.apk downloads/app-update.json
-          git commit -m "Publish Android app v2.1" || exit 0
+          git add downloads/POLY_PMNA_v2.01.apk downloads/app-update.json
+          git commit -m "Publish Android app v2.01" || exit 0
           git push
 
       - name: Upload signed APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: POLY_PMNA_v2.1_signed_apk
-          path: downloads/POLY_PMNA_v2.1.apk
+          name: POLY_PMNA_v2.01_signed_apk
+          path: downloads/POLY_PMNA_v2.01.apk
