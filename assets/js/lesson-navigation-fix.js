@@ -20,7 +20,9 @@
       .view-btn:hover,.hb-tabs a:hover,.hb-tabs button:hover,.tabs a:hover,.tabs button:hover{transform:translateY(-1px)!important;border-color:rgba(3,105,161,.38)!important;color:#0369a1!important;box-shadow:0 10px 26px rgba(15,23,42,.08)!important}
       .view-btn.active,.hb-tabs a.active,.hb-tabs button.active,.tabs a.active,.tabs button.active{background:#0f172a!important;color:#fff!important;border-color:#0f172a!important;box-shadow:0 12px 30px rgba(15,23,42,.16)!important}
       .download-btn,.hb-tabs button:last-child,.tabs button:last-child{margin-left:auto!important;background:linear-gradient(135deg,#0284c7,#0891b2)!important;color:#fff!important;border-color:transparent!important}
+      .notes-fallback-banner{position:sticky;top:80px;z-index:900;margin:8px auto;padding:12px 16px;width:min(1100px,calc(100% - 20px));border:1px solid #bae6fd;border-radius:16px;background:#ecfeff;color:#083344;font-weight:800;box-shadow:0 12px 30px rgba(15,23,42,.12)}
       @media(max-width:700px){.topbar-inner,.hb-top-inner,.lesson-topbar-inner{width:calc(100% - 16px)!important}.view-btn,.hb-tabs a,.hb-tabs button,.tabs a,.tabs button{padding:11px 13px!important}.brand,.hb-code,.brand-code{width:50px!important;height:50px!important}.hb-code,.brand-code,.brand-mark{width:50px!important;height:50px!important}}
+      @media print{.topbar,.hb-topbar,.lesson-topbar,.revision-back-button,#polySiteAssistant,#hbToTop,.hb-actions,.notes-fallback-banner{display:none!important}details{display:block!important}details>*{display:block!important}.view-section,.hb-section,[hidden]{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;position:static!important}.hb-left,.hb-right,aside{position:static!important;max-height:none!important;overflow:visible!important}.hb-layout,.hb-grid,.grid,.grid-2,.grid-3,.grid-4{display:block!important;width:100%!important;max-width:none!important}.hb-card,.card,section,article{break-inside:auto!important;page-break-inside:auto!important}}
     `;
     document.head.append(style);
   }
@@ -50,7 +52,6 @@
     const id = decodeURIComponent(hash.slice(1));
     const target = document.getElementById(id) || document.querySelector(`[name="${CSS.escape(id)}"]`);
     if (!target) return false;
-
     const viewSection = target.matches(".view-section") ? target : target.closest(".view-section");
     if (viewSection && viewSection.hasAttribute("data-view")) {
       const view = viewSection.getAttribute("data-view");
@@ -60,12 +61,41 @@
       const related = document.querySelector(`[data-view="${CSS.escape(view)}"]${trigger?.dataset?.module ? `[data-module="${CSS.escape(trigger.dataset.module)}"]` : ""}`);
       if (related) activateButton(related);
     }
-
     target.scrollIntoView({ behavior: "smooth", block: "start" });
     return true;
   }
 
+  function prepareFallbackMode() {
+    const params = new URLSearchParams(location.search);
+    if (!params.has("autoPrintNotes") && !params.has("downloadNotes")) return;
+    document.documentElement.classList.add("pdf-export-mode");
+    document.body?.classList.add("pdf-export-mode");
+    document.querySelectorAll("details").forEach((item) => { item.open = true; });
+    document.querySelectorAll("[hidden]").forEach((item) => { item.hidden = false; item.removeAttribute("hidden"); });
+    document.querySelectorAll("[aria-hidden='true']").forEach((item) => item.setAttribute("aria-hidden", "false"));
+    document.querySelectorAll(".view-section,.hb-section,.panel,.tab-panel,.tab-content,.module-panel,.lesson-panel,.content-panel,.content-section,.section-panel,[role='tabpanel']").forEach((item) => {
+      item.hidden = false;
+      item.removeAttribute("hidden");
+      item.setAttribute("aria-hidden", "false");
+      item.style.setProperty("display", "block", "important");
+      item.style.setProperty("visibility", "visible", "important");
+      item.style.setProperty("opacity", "1", "important");
+      item.style.setProperty("height", "auto", "important");
+      item.style.setProperty("max-height", "none", "important");
+      item.style.setProperty("overflow", "visible", "important");
+      item.style.setProperty("position", "static", "important");
+    });
+    const match = location.pathname.match(/lessons-([^/]+)\.html$/i);
+    if (match) document.title = `downloadable-notes-${decodeURIComponent(match[1])}`;
+    const banner = document.createElement("div");
+    banner.className = "notes-fallback-banner";
+    banner.textContent = "PDF notes are being generated from this lesson. Use the browser print/save-as-PDF option if the generated PDF is not published yet.";
+    document.body.prepend(banner);
+    window.scrollTo(0, 0);
+  }
+
   installHeaderStyle();
+  prepareFallbackMode();
 
   document.addEventListener("click", (event) => {
     const anchor = event.target.closest?.("a[href^='#']");
