@@ -2,7 +2,7 @@
   "use strict";
   const COMMON = "First Year / Common";
   const COMMON_VALUE = "__common__";
-  const LESSONS = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","5031","5041","5042","5043","5043A","6001","6002","6007","6009","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
+  const LESSONS = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5031","5041","5042","5043","5043A","6001","6002","6007","6009","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
   const manual = [
     {revision:"2021",semester:"Semester 2",code:"2022",name:"Manufacturing Technology",department:"Mechanical Engineering",type:"Theory",assetCode:"2022"},
     {revision:"2021",semester:"Semester 2",code:"2022",name:"Manufacturing Technology",department:"Mechatronics",type:"Theory",assetCode:"2022"},
@@ -19,6 +19,9 @@
     {revision:"2021",semester:"Semester 3",code:"3022",name:"Material Science and Metrology",department:"Manufacturing Technology",type:"Program Core",assetCode:"3022"},
     {revision:"2021",semester:"Semester 4",code:"4022",name:"Fluid Mechanics & Hydraulic Machinery",department:"Mechanical Engineering",type:"Program Core",assetCode:"4022"},
     {revision:"2021",semester:"Semester 4",code:"4022",name:"Fluid Mechanics & Hydraulic Machinery",department:"Manufacturing Technology",type:"Program Core",assetCode:"4022"},
+    {revision:"2021",semester:"Semester 4",code:"4101",name:"Mechanism of Printing Machines II",department:"Printing Technology",type:"Program Core",assetCode:"4101"},
+    {revision:"2021",semester:"Semester 4",code:"4102",name:"Print Finishing & Conversion Techniques",department:"Printing Technology",type:"Program Core",assetCode:"4102"},
+    {revision:"2021",semester:"Semester 4",code:"4103",name:"Digital Imaging Techniques",department:"Printing Technology",type:"Program Core",assetCode:"4103"},
     {revision:"2021",semester:"Semester 6",code:"6041A",name:"Medical Electronics",department:"Electronics Engineering",type:"Program Elective",assetCode:"6041A"},
     {revision:"2021",semester:"Semester 6",code:"6041A",name:"Medical Electronics",department:"Electronics and Communication",type:"Program Elective",assetCode:"6041A"},
     {revision:"2021",semester:"Semester 6",code:"6041A",name:"Medical Electronics",department:"Electronics and Communication Engineering",type:"Program Elective",assetCode:"6041A"},
