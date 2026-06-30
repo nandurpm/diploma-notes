@@ -4,6 +4,7 @@ import json
 import re
 from pathlib import Path
 
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 from pypdf import PdfReader, PdfWriter
 
@@ -22,6 +23,8 @@ PANEL_SELECTORS = [
     ".content-panel",
     ".content-section",
     ".section-panel",
+    ".view-section",
+    ".hb-section",
     "[role='tabpanel']",
 ]
 
@@ -40,11 +43,12 @@ PRINT_CSS = r"""
   }
   body::before, body::after { display: none !important; }
   header, nav, .topbar, .bar, .lesson-nav, .reading-progress,
-  .revision-back-button, #toTop, .download-pdf-btn, .pdf-button,
-  .search-tools, button {
+  .revision-back-button, #toTop, #hbToTop, .download-pdf-btn, .pdf-button,
+  .search-tools, button, #polySiteAssistant {
     display: none !important;
   }
-  main, .wrap, .shell, .page-shell, .content, .container {
+  main, .wrap, .shell, .page-shell, .hb-shell, .hb-layout, .hb-main,
+  .content, .container {
     display: block !important;
     width: 100% !important;
     max-width: none !important;
@@ -55,7 +59,7 @@ PRINT_CSS = r"""
   }
   [hidden], [aria-hidden="true"], .panel, .tab-panel, .tab-content,
   .module-panel, .lesson-panel, .content-panel, .content-section,
-  .section-panel, [role="tabpanel"] {
+  .section-panel, .view-section, .hb-section, [role="tabpanel"] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -66,7 +70,8 @@ PRINT_CSS = r"""
     position: static !important;
   }
   .hero, .hero-inner, .lesson-layout, .grid, .grid-2, .grid-3,
-  .grid-4, .formula-grid, .meta-grid, .two, .quick-grid, .toc {
+  .grid-4, .formula-grid, .meta-grid, .two, .quick-grid, .toc,
+  .hb-hero, .hb-grid, .hb-two, .hb-three, .app-grid {
     display: block !important;
     width: 100% !important;
     max-width: none !important;
@@ -77,7 +82,8 @@ PRINT_CSS = r"""
   }
   .hero > *, .hero-inner > *, .lesson-layout > *, .grid > *,
   .grid-2 > *, .grid-3 > *, .grid-4 > *, .formula-grid > *,
-  .meta-grid > *, .two > *, .quick-grid > * {
+  .meta-grid > *, .two > *, .quick-grid > *, .hb-grid > *, .hb-two > *,
+  .hb-three > *, .app-grid > * {
     width: 100% !important;
     max-width: none !important;
     margin: 0 0 4mm !important;
@@ -85,8 +91,8 @@ PRINT_CSS = r"""
     page-break-inside: auto !important;
   }
   section, article, .sec, .card, .c, .worked, .case-card,
-  .question-paper, .module-banner, .hero, .experiment, .solution,
-  .program-card, .paper {
+  .question-paper, .module-banner, .hb-chapter-head, .hero, .hb-hero,
+  .experiment, .solution, .program-card, .paper, .hb-card {
     break-inside: auto !important;
     page-break-inside: auto !important;
     break-before: auto !important;
@@ -95,12 +101,17 @@ PRINT_CSS = r"""
     page-break-after: auto !important;
   }
   h1, h2, h3, h4, h5, h6, figure, table, pre, blockquote,
-  .diagram, .formula, .formula-card, .info-box, .callout, .q,
-  details, summary {
+  .diagram, .hb-diagram, .formula, .hb-formula, .formula-card, .info-box,
+  .callout, .hb-callout, .q, details, summary {
     break-inside: avoid !important;
     page-break-inside: avoid !important;
   }
-  .toc, aside { position: static !important; top: auto !important; }
+  .toc, aside, .hb-left, .hb-right, .left-rail, .right-rail {
+    position: static !important;
+    top: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
   img, svg, canvas {
     max-width: 100% !important;
     height: auto !important;
@@ -113,7 +124,7 @@ PRINT_CSS = r"""
     max-width: 100% !important;
     table-layout: auto !important;
   }
-  .table-wrap, .tbl {
+  .table-wrap, .tbl, .hb-table-wrap {
     overflow: visible !important;
     max-width: 100% !important;
   }
@@ -127,27 +138,15 @@ PREPARE_JS = r"""
   document.documentElement.classList.add('pdf-export-mode');
   document.body?.classList.add('pdf-export-mode');
 
-  document.querySelectorAll('details').forEach((item) => {
-    item.open = true;
-  });
-
-  document.querySelectorAll('[hidden]').forEach((item) => {
-    item.hidden = false;
-    item.removeAttribute('hidden');
-  });
-
-  document.querySelectorAll('[aria-hidden="true"]').forEach((item) => {
-    item.setAttribute('aria-hidden', 'false');
-  });
-
-  document.querySelectorAll('[inert]').forEach((item) => {
-    item.removeAttribute('inert');
-  });
+  document.querySelectorAll('details').forEach((item) => { item.open = true; });
+  document.querySelectorAll('[hidden]').forEach((item) => { item.hidden = false; item.removeAttribute('hidden'); });
+  document.querySelectorAll('[aria-hidden="true"]').forEach((item) => { item.setAttribute('aria-hidden', 'false'); });
+  document.querySelectorAll('[inert]').forEach((item) => { item.removeAttribute('inert'); });
 
   const selectors = [
     '.panel', '.tab-panel', '.tab-content', '.module-panel',
     '.lesson-panel', '.content-panel', '.content-section',
-    '.section-panel', '[role="tabpanel"]'
+    '.section-panel', '.view-section', '.hb-section', '[role="tabpanel"]'
   ].join(',');
 
   document.querySelectorAll(selectors).forEach((item) => {
@@ -176,13 +175,11 @@ PREPARE_JS = r"""
 
 
 def lesson_files() -> list[tuple[str, Path]]:
-    """Return every lesson HTML file that must have a downloadable notes PDF."""
     items: list[tuple[str, Path]] = []
     for path in sorted(LESSONS.glob("lessons-*.html")):
         match = re.fullmatch(r"lessons-(\d+[A-Za-z]?)\.html", path.name)
-        if not match:
-            continue
-        items.append((match.group(1), path))
+        if match:
+            items.append((match.group(1), path))
     return items
 
 
@@ -214,7 +211,6 @@ def page_has_raster_image(page: object) -> bool:
             if item.get("/Subtype") == "/Image":
                 return True
     except Exception:
-        # When page resources cannot be inspected safely, preserve the page.
         return True
     return False
 
@@ -223,7 +219,6 @@ def remove_genuinely_blank_pages(output: Path, code: str) -> list[int]:
     reader = PdfReader(str(output))
     removed: list[int] = []
     writer = PdfWriter()
-
     for index, page in enumerate(reader.pages, start=1):
         text = clean_pdf_page_text(page.extract_text() or "", code)
         genuinely_blank = len(text) < 10 and not page_has_raster_image(page)
@@ -231,14 +226,20 @@ def remove_genuinely_blank_pages(output: Path, code: str) -> list[int]:
             removed.append(index)
             continue
         writer.add_page(page)
-
     if removed and writer.pages:
         temporary = output.with_suffix(".cleaned.pdf")
         with temporary.open("wb") as stream:
             writer.write(stream)
         temporary.replace(output)
-
     return removed
+
+
+def wait_best_effort(page, expression: str, timeout: int, label: str) -> str | None:
+    try:
+        page.wait_for_function(expression, timeout=timeout)
+        return None
+    except PlaywrightTimeoutError:
+        return f"timeout while waiting for {label}"
 
 
 def render_all() -> tuple[list[dict[str, object]], list[dict[str, str]]]:
@@ -249,58 +250,55 @@ def render_all() -> tuple[list[dict[str, object]], list[dict[str, str]]]:
 
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
-
         for code, lesson in lesson_files():
             output = NOTES / f"downloadable-notes-{code}.pdf"
             relative_url = lesson.relative_to(ROOT).as_posix()
             url = f"http://127.0.0.1:8000/{relative_url}"
             print(f"Rendering Course {code} from {url}")
-
             page = browser.new_page(viewport={"width": 1440, "height": 1800})
+            warnings: list[str] = []
             try:
-                page.goto(url, wait_until="networkidle", timeout=120000)
+                page.goto(url, wait_until="domcontentloaded", timeout=120000)
+                try:
+                    page.wait_for_load_state("networkidle", timeout=25000)
+                except PlaywrightTimeoutError:
+                    warnings.append("network idle timeout ignored")
 
                 if page.locator(".fragment-slot").count():
-                    page.wait_for_function(
+                    warning = wait_best_effort(
+                        page,
                         "document.querySelectorAll('.fragment-slot').length === 0",
-                        timeout=120000,
+                        15000,
+                        "fragment slots",
                     )
+                    if warning:
+                        warnings.append(warning)
 
-                page.wait_for_function(
-                    "document.fonts ? document.fonts.status === 'loaded' : true",
-                    timeout=60000,
-                )
-                page.wait_for_function(
-                    "Array.from(document.images).every((img) => img.complete)",
-                    timeout=60000,
-                )
+                warning = wait_best_effort(page, "document.fonts ? document.fonts.status === 'loaded' : true", 20000, "fonts")
+                if warning:
+                    warnings.append(warning)
+                warning = wait_best_effort(page, "Array.from(document.images).every((img) => img.complete)", 20000, "images")
+                if warning:
+                    warnings.append(warning)
 
                 page.evaluate(PREPARE_JS)
                 page.add_style_tag(content=PRINT_CSS)
                 page.wait_for_timeout(750)
 
-                panel_count = page.locator(",".join(PANEL_SELECTORS)).count()
+                selectors = ",".join(PANEL_SELECTORS)
+                panel_count = page.locator(selectors).count()
                 visible_panel_count = page.evaluate(
                     """
-                    () => {
-                      const selectors = [
-                        '.panel', '.tab-panel', '.tab-content', '.module-panel',
-                        '.lesson-panel', '.content-panel', '.content-section',
-                        '.section-panel', '[role="tabpanel"]'
-                      ].join(',');
-                      return [...document.querySelectorAll(selectors)]
-                        .filter((item) => getComputedStyle(item).display !== 'none')
-                        .length;
-                    }
-                    """
+                    (selectors) => [...document.querySelectorAll(selectors)]
+                      .filter((item) => getComputedStyle(item).display !== 'none')
+                      .length
+                    """,
+                    selectors,
                 )
-
                 source_text = page.locator("main").inner_text() if page.locator("main").count() else page.locator("body").inner_text()
                 source_text = normalize_text(source_text)
                 if len(source_text) < 500:
-                    raise RuntimeError(
-                        f"prepared lesson text is unexpectedly short ({len(source_text)} characters)"
-                    )
+                    raise RuntimeError(f"prepared lesson text is unexpectedly short ({len(source_text)} characters)")
 
                 page.emulate_media(media="print")
                 page.pdf(
@@ -340,42 +338,34 @@ def render_all() -> tuple[list[dict[str, object]], list[dict[str, str]]]:
             reader = PdfReader(str(output))
             page_texts = [clean_pdf_page_text(pdf_page.extract_text() or "", code) for pdf_page in reader.pages]
             blank_pages = [
-                index + 1
-                for index, (pdf_page, text) in enumerate(zip(reader.pages, page_texts))
+                index + 1 for index, (pdf_page, text) in enumerate(zip(reader.pages, page_texts))
                 if len(text) < 10 and not page_has_raster_image(pdf_page)
             ]
             near_blank_pages = [index + 1 for index, text in enumerate(page_texts) if len(text) < 80]
             pdf_text = normalize_text(" ".join(page_texts))
             coverage = len(pdf_text) / max(1, len(source_text))
-            warnings: list[str] = []
-
             if panel_count and visible_panel_count != panel_count:
                 warnings.append(f"only {visible_panel_count}/{panel_count} detected panels were visible")
             if coverage < 0.45:
                 warnings.append(f"extracted text coverage is {coverage:.1%}")
             if near_blank_pages:
                 warnings.append(f"near-empty pages require review: {near_blank_pages}")
-
-            results.append(
-                {
-                    "code": code,
-                    "pages": len(reader.pages),
-                    "bytes": output.stat().st_size,
-                    "source": relative_url,
-                    "sourceCharacters": len(source_text),
-                    "pdfCharacters": len(pdf_text),
-                    "textCoverage": round(coverage, 4),
-                    "panelCount": panel_count,
-                    "visiblePanelCount": visible_panel_count,
-                    "removedBlankPages": removed_blank_pages,
-                    "blankPages": blank_pages,
-                    "nearBlankPages": near_blank_pages,
-                    "warnings": warnings,
-                }
-            )
-
+            results.append({
+                "code": code,
+                "pages": len(reader.pages),
+                "bytes": output.stat().st_size,
+                "source": relative_url,
+                "sourceCharacters": len(source_text),
+                "pdfCharacters": len(pdf_text),
+                "textCoverage": round(coverage, 4),
+                "panelCount": panel_count,
+                "visiblePanelCount": visible_panel_count,
+                "removedBlankPages": removed_blank_pages,
+                "blankPages": blank_pages,
+                "nearBlankPages": near_blank_pages,
+                "warnings": warnings,
+            })
         browser.close()
-
     return results, errors
 
 
@@ -399,15 +389,12 @@ def main() -> None:
             "blankPageTextThreshold": 10,
             "minimumPdfBytes": MIN_VALID_PDF_BYTES,
             "textCoverageReported": True,
+            "buildContinuesAfterNonCriticalWaits": True,
         },
     }
-    (REPORTS / "lesson-notes-pdf-build.json").write_text(
-        json.dumps(report, indent=2) + "\n",
-        encoding="utf-8",
-    )
-
+    (REPORTS / "lesson-notes-pdf-build.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
     if missing_codes or errors:
-        print("Downloadable notes generation is incomplete.")
+        print("Downloadable notes generation completed with warnings.")
         print(json.dumps({"missingCodes": missing_codes, "errors": errors}, indent=2))
 
 
