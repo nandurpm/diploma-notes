@@ -1,0 +1,331 @@
+%PDF-1.4
+% ASCII handbook PDF
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Length 613 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(3021 Strength of Materials - Handbook Notes) Tj
+/F1 10 Tf
+60 745 Td
+(Kerala Polytechnic Study Hub) Tj
+60 722 Td
+(Course code: 3021) Tj
+60 699 Td
+(Program: Mechanical / Tool and Die / Manufacturing Technology / Wood and Paper) Tj
+60 682 Td
+(Technology) Tj
+60 659 Td
+(Semester: 3/3/3/4 | Credits: 3/3/3/No Credit | Periods: 45) Tj
+60 636 Td
+(This PDF is generated from the matching lesson HTML and contains all key chapters,) Tj
+60 619 Td
+(formulas, solved examples, practice and model answers.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 1) Tj
+ET
+endstream
+endobj
+3 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 2 0 R >>
+endobj
+4 0 obj
+<< /Length 797 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Course Overview) Tj
+/F1 10 Tf
+60 745 Td
+(Strength of Materials studies stress, strain, deformation, bending, torsion, spring) Tj
+60 728 Td
+(action and stresses in thin shells.) Tj
+60 705 Td
+(Objectives: stress/strain; SFD and BMD; simple bending and deflection; torsion,) Tj
+60 688 Td
+(springs and thin cylinders.) Tj
+60 665 Td
+(Prerequisites: Mathematics I and II, Applied Physics I and II, Engineering Mechanics.) Tj
+60 642 Td
+(CO1: stress, strain, dimensional changes and thermal stress.) Tj
+60 619 Td
+(CO2: shear force and bending moment diagrams.) Tj
+60 596 Td
+(CO3: deflection of beams, columns and struts.) Tj
+60 573 Td
+(CO4: shafts, helical springs and thin cylinders.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 2) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 824 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Module 1 - Simple Stresses and Strains) Tj
+/F1 10 Tf
+60 745 Td
+(Stress = internal resistance per unit area. Unit: N/mm2.) Tj
+60 722 Td
+(Strain = change in dimension / original dimension. It has no unit.) Tj
+60 699 Td
+(Stress-strain diagram of mild steel: proportional limit, elastic limit, yield point,) Tj
+60 682 Td
+(ultimate stress, breaking stress.) Tj
+60 659 Td
+(Mechanical properties: elasticity, plasticity, ductility, brittleness, toughness,) Tj
+60 642 Td
+(hardness.) Tj
+60 619 Td
+(Thermal stress develops only when free expansion or contraction is prevented. Formula:) Tj
+60 602 Td
+(sigma = E alpha delta T.) Tj
+60 579 Td
+(Exam tip: always state whether thermal stress is tensile or compressive.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 3) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 682 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Module 2 - SFD and BMD) Tj
+/F1 10 Tf
+60 745 Td
+(Beam types: cantilever, simply supported, overhanging, fixed and continuous.) Tj
+60 722 Td
+(Load types: point load, uniformly distributed load and uniformly varying load.) Tj
+60 699 Td
+(Shear force at a section is algebraic sum of vertical forces on one side.) Tj
+60 676 Td
+(Bending moment at a section is algebraic sum of moments on one side.) Tj
+60 653 Td
+(Point load gives sudden jump in SFD. UDL gives sloping SFD and parabolic BMD.) Tj
+60 630 Td
+(Maximum BM generally occurs where SF is zero or changes sign.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 4) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 694 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Module 3 - Bending, Deflection and Columns) Tj
+/F1 10 Tf
+60 745 Td
+(Bending equation: M/I = sigma/y = E/R.) Tj
+60 722 Td
+(Section modulus Z = I/ymax, so maximum bending stress sigma = M/Z.) Tj
+60 699 Td
+(Neutral axis is the layer where bending stress is zero.) Tj
+60 676 Td
+(Deflection is important for serviceability. Standard formulae must be memorised for) Tj
+60 659 Td
+(cantilever and simply supported beams.) Tj
+60 636 Td
+(Columns fail by buckling when slender. Euler load: Pcr = pi2 EI / Le2.) Tj
+60 613 Td
+(Rankine formula is used for practical/intermediate columns.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 5) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 636 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Module 4 - Shafts, Springs and Thin Cylinders) Tj
+/F1 10 Tf
+60 745 Td
+(Torsion equation: T/J = tau/R = G theta/L.) Tj
+60 722 Td
+(Solid shaft polar moment: J = pi d4 / 32.) Tj
+60 699 Td
+(Hollow shaft is better for strength-to-weight ratio.) Tj
+60 676 Td
+(Close coiled spring deflection: delta = 8WD3n/Gd4. Stiffness k = W/delta.) Tj
+60 653 Td
+(Thin cylinder hoop stress: sigmah = pD/2t. Longitudinal stress: sigmal = pD/4t.) Tj
+60 630 Td
+(Hoop stress is twice longitudinal stress and usually governs shell thickness.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 6) Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 639 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Formula Bank and Solved Examples) Tj
+/F1 10 Tf
+60 745 Td
+(1. sigma = P/A. Example: 30 kN on 300 mm2 gives 100 N/mm2.) Tj
+60 722 Td
+(2. epsilon = deltaL/L. If stress=100 and E=200000, strain=0.0005.) Tj
+60 699 Td
+(3. deltaL = PL/AE. For L=1200 mm, elongation = 0.6 mm.) Tj
+60 676 Td
+(4. Thermal stress = E alpha deltaT = 200000 x 12e-6 x 50 = 120 N/mm2.) Tj
+60 653 Td
+(5. Simply supported UDL: max BM = wL2/8. For w=4 kN/m, L=6 m, BM=18 kNm.) Tj
+60 630 Td
+(6. Shaft torque: T=9550P/N. For 8 kW and 300 rpm, T=254.67 Nm.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 7) Tj
+ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 883 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Practice and Model Question Paper) Tj
+/F1 10 Tf
+60 745 Td
+(Part A: define stress, strain, Hooke law, factor of safety, SF, BM, neutral axis,) Tj
+60 728 Td
+(Euler load, spring stiffness.) Tj
+60 705 Td
+(Part B: draw stress-strain diagram, explain SFD/BMD procedure, bending equation,) Tj
+60 688 Td
+(column end conditions, solid/hollow shafts, cylinder stresses.) Tj
+60 665 Td
+(Part C: solve numerical problems on axial deformation, thermal stress, SFD/BMD,) Tj
+60 648 Td
+(bending stress, deflection, buckling load, shaft diameter, spring deflection and) Tj
+60 631 Td
+(cylinder thickness.) Tj
+60 608 Td
+(Expected diagrams: stress-strain curve, beam loading, SFD, BMD, bending stress) Tj
+60 591 Td
+(distribution, column buckling, shaft torsion, thin cylinder stress.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 8) Tj
+ET
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 802 >>
+stream
+BT
+/F1 18 Tf
+60 780 Td
+(Answer Guide and References) Tj
+/F1 10 Tf
+60 745 Td
+(Stress/strain answer must include definition, unit and formula.) Tj
+60 722 Td
+(SFD/BMD answer must include reactions, shear values, moment values and labelled) Tj
+60 705 Td
+(diagrams.) Tj
+60 682 Td
+(Bending answer must include M/I = sigma/y = E/R and term meanings.) Tj
+60 659 Td
+(Thin cylinder answer must compare hoop and longitudinal stress and select the) Tj
+60 642 Td
+(governing stress.) Tj
+60 619 Td
+(References: R.K. Bansal, R.S. Khurmi, S.S. Bhavikatti, Ramamrutham, T.D. Gunneswara) Tj
+60 602 Td
+(Rao.) Tj
+60 579 Td
+(Footer format: 3021 Strength of Materials | Kerala Polytechnic Study Hub | Page) Tj
+60 562 Td
+(number.) Tj
+/F1 8 Tf
+60 38 Td
+(3021 Strength of Materials | Kerala Polytechnic Study Hub | Page 9) Tj
+ET
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Type /Pages /Kids [3 0 R 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R] /Count 9 >>
+endobj
+21 0 obj
+<< /Type /Catalog /Pages 20 0 R >>
+endobj
+xref
+0 22
+0000000000 65535 f 
+0000000030 00000 n 
+0000000100 00000 n 
+0000000764 00000 n 
+0000000891 00000 n 
+0000001739 00000 n 
+0000001866 00000 n 
+0000002741 00000 n 
+0000002868 00000 n 
+0000003601 00000 n 
+0000003728 00000 n 
+0000004474 00000 n 
+0000004603 00000 n 
+0000005291 00000 n 
+0000005420 00000 n 
+0000006111 00000 n 
+0000006240 00000 n 
+0000007175 00000 n 
+0000007304 00000 n 
+0000008158 00000 n 
+0000008287 00000 n 
+0000008398 00000 n 
+trailer
+<< /Size 22 /Root 21 0 R >>
+startxref
+8449
+%%EOF
