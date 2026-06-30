@@ -61,5 +61,10 @@ Part C - Long answers
 <script>
 (function(){const panels=[...document.querySelectorAll('.view-section')],buttons=[...document.querySelectorAll('[data-view]')];function show(view,update=true){panels.forEach(p=>p.hidden=p.dataset.panel!==view);buttons.forEach(b=>b.classList.toggle('active',b.dataset.view===view));if(update)history.replaceState(null,'',location.pathname+'?view='+encodeURIComponent(view));scrollTo({top:0,behavior:'smooth'});}buttons.forEach(b=>b.addEventListener('click',e=>{e.preventDefault();show(b.dataset.view);}));const initial=new URLSearchParams(location.search).get('view')||'overview';if(document.querySelector(`[data-panel="${initial}"]`))show(initial,false);if(new URLSearchParams(location.search).get('autoPrintNotes')==='1'){panels.forEach(p=>p.hidden=false);setTimeout(()=>print(),600);}const bar=document.getElementById('progress'),topBtn=document.getElementById('toTop');addEventListener('scroll',()=>{const d=document.documentElement;bar.style.width=(d.scrollTop/(d.scrollHeight-d.clientHeight)*100)+'%';topBtn.classList.toggle('show',scrollY>500);});const s=document.getElementById('lessonSearch');if(s)s.addEventListener('input',()=>{const q=s.value.trim().toLowerCase();document.querySelectorAll('.concept-card,.formula-card,.problem,.qa,.answer-card').forEach(el=>el.classList.toggle('hide-search',q&&!el.innerText.toLowerCase().includes(q)));});const dl=document.getElementById('downloadNotes');if(dl)dl.addEventListener('click',async e=>{try{const r=await fetch(dl.href,{method:'HEAD',cache:'no-store'});if(!r.ok){e.preventDefault();location.href='lessons-4023.html?autoPrintNotes=1';}}catch(err){e.preventDefault();location.href='lessons-4023.html?autoPrintNotes=1';}});})();
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
