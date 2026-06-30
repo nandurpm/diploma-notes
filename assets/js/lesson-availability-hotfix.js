@@ -8,6 +8,7 @@
   };
   const norm = (value) => String(value || "").trim().toUpperCase();
   const notesUrlFor = (code) => `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+  const lessonUrlFor = (code) => `${root()}lessons/lessons-${encodeURIComponent(code)}.html?autoPrintNotes=1`;
 
   async function pdfExists(url) {
     const absolute = new URL(url, location.href).href;
@@ -24,34 +25,49 @@
     return result;
   }
 
+  function buildLink(href, verified) {
+    const link = document.createElement("a");
+    link.className = "action download";
+    link.href = href;
+    link.textContent = "Download Notes";
+    if (verified) {
+      link.download = "";
+      link.dataset.verified = "true";
+      link.title = "Download the generated PDF notes.";
+    } else {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.dataset.generatedFromLesson = "true";
+      link.title = "Generated PDF is not published yet; open the lesson in print/PDF mode.";
+    }
+    return link;
+  }
+
   async function validateCard(card) {
     const row = card.querySelector(".action-row");
     const code = norm(card.dataset.subjectCode || card.querySelector(".subject-top strong")?.textContent);
     if (!row || !code) return;
     const href = notesUrlFor(code);
+    const lessonAvailable = Boolean(row.querySelector(".action.lessons")) || card.dataset.lessonAvailable === "true";
     const qp = row.querySelector(".action.qp");
     row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
     const pending = document.createElement("span");
     pending.className = "availability-label notes-status";
     pending.setAttribute("aria-disabled", "true");
-    pending.textContent = "Checking notes…";
+    pending.textContent = "Preparing notes…";
     row.insertBefore(pending, qp || null);
     const ok = await pdfExists(href);
     if (!card.isConnected) return;
     row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
     if (ok) {
-      const link = document.createElement("a");
-      link.className = "action download";
-      link.href = href;
-      link.download = "";
-      link.dataset.verified = "true";
-      link.textContent = "Download Notes";
-      row.insertBefore(link, qp || null);
+      row.insertBefore(buildLink(href, true), qp || null);
+    } else if (lessonAvailable) {
+      row.insertBefore(buildLink(lessonUrlFor(code), false), qp || null);
     } else {
       const unavailable = document.createElement("span");
       unavailable.className = "availability-label notes-status";
       unavailable.setAttribute("aria-disabled", "true");
-      unavailable.textContent = "Notes unavailable";
+      unavailable.textContent = "Lessons unavailable";
       row.insertBefore(unavailable, qp || null);
     }
   }
@@ -63,12 +79,6 @@
       validateCard(card);
     });
   }
-
-  document.addEventListener("click", (event) => {
-    const link = event.target.closest?.(".action.download:not([data-verified='true'])");
-    if (!link) return;
-    event.preventDefault();
-  }, true);
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
