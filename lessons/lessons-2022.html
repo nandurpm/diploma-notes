@@ -65,5 +65,10 @@ Part C - Application / diagram questions
 <script>
 (()=>{const panels=[...document.querySelectorAll('.panel')],tabs=[...document.querySelectorAll('.tab')],bar=document.getElementById('bar'),top=document.getElementById('toTop'),search=document.getElementById('searchBox');function show(id){const target=panels.some(p=>p.id===id)?id:'overview';panels.forEach(p=>p.classList.toggle('active',p.id===target));tabs.forEach(b=>b.classList.toggle('active',b.dataset.view===target));const u=new URL(location.href);u.searchParams.set('view',target);history.replaceState(null,'',u.pathname+u.search+u.hash);scrollTo({top:0,behavior:'smooth'});}tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));const init=new URLSearchParams(location.search).get('view');if(init)show(init);addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=((h.scrollTop/(h.scrollHeight-h.clientHeight))*100||0)+'%';top.classList.toggle('show',scrollY>500);},{passive:true});if(search){search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();document.querySelectorAll('main article, main .topic, main li').forEach(el=>{el.classList.toggle('search-hidden',q&&!el.textContent.toLowerCase().includes(q));});});}if(new URLSearchParams(location.search).get('autoPrintNotes')==='1'){setTimeout(()=>window.print(),650);}})();
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>

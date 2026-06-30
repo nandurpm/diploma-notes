@@ -66,4 +66,9 @@ Part D - Isometric drawing and plotting
   if(new URLSearchParams(location.search).get('autoPrintNotes')==='1'){document.body.classList.add('pdf-export-mode');panels.forEach(p=>p.hidden=false);setTimeout(()=>window.print(),700);}else{show('overview');}
 })();
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body></html>
