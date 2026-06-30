@@ -1,51 +1,5 @@
 {
-  "generated": [
-    {
-      "code": "4101",
-      "pages": 21,
-      "bytes": 324996,
-      "source": "lessons/lessons-4101.html",
-      "sourceCharacters": 2737,
-      "pdfCharacters": 28352,
-      "textCoverage": 10.3588,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    },
-    {
-      "code": "4102",
-      "pages": 9,
-      "bytes": 182476,
-      "source": "lessons/lessons-4102.html",
-      "sourceCharacters": 1297,
-      "pdfCharacters": 8417,
-      "textCoverage": 6.4896,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    },
-    {
-      "code": "4103",
-      "pages": 10,
-      "bytes": 193570,
-      "source": "lessons/lessons-4103.html",
-      "sourceCharacters": 1296,
-      "pdfCharacters": 8734,
-      "textCoverage": 6.7392,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    }
-  ],
+  "generated": [],
   "errors": [
     {
       "code": "6041C",
@@ -54,16 +8,9 @@
     }
   ],
   "requiredLessonCodes": [
-    "4101",
-    "4102",
-    "4103",
     "6041C"
   ],
-  "generatedCodes": [
-    "4101",
-    "4102",
-    "4103"
-  ],
+  "generatedCodes": [],
   "missingCodes": [
     "6041C"
   ],
