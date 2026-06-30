@@ -1,6 +1,5 @@
 (() => {
   "use strict";
-
   const cache = new Map();
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -8,7 +7,6 @@
   };
   const norm = (value) => String(value || "").trim().toUpperCase();
   const esc = (value) => encodeURIComponent(value);
-
   async function pdfExists(url) {
     const absolute = new URL(url, location.href).href;
     if (cache.has(absolute)) return cache.get(absolute);
@@ -23,16 +21,15 @@
     cache.set(absolute, result);
     return result;
   }
-
-  function notesUrlFor(code) {
-    return `${root()}notes/downloadable-notes-${esc(code)}.pdf`;
+  function notesUrlFor(code) { return `${root()}notes/downloadable-notes-${esc(code)}.pdf`; }
+  function lessonUrlFor(code) { return `${root()}lessons/lessons-${esc(code)}.html?autoPrintNotes=1`; }
+  function clearNotes(row) {
+    row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
+    Array.from(row.querySelectorAll(".availability-label"))
+      .filter((item) => /notes?/i.test(item.textContent || ""))
+      .forEach((item) => item.remove());
   }
-
-  function lessonPrintUrlFor(code) {
-    return `${root()}lessons/lessons-${esc(code)}.html?autoPrintNotes=1`;
-  }
-
-  function downloadLink(href, verified) {
+  function makeLink(href, verified) {
     const link = document.createElement("a");
     link.className = "action download";
     link.href = href;
@@ -45,33 +42,28 @@
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.dataset.generatedFromLesson = "true";
-      link.title = "Generated PDF is not published yet; open the lesson in print/PDF mode.";
+      link.title = "PDF is not published yet; open the lesson page for print/save as PDF.";
     }
     return link;
   }
-
   async function validateCard(card) {
     const code = norm(card.querySelector(".subject-top strong")?.textContent || card.dataset.subjectCode);
     const row = card.querySelector(".action-row");
     if (!row || !code) return;
-
-    const href = notesUrlFor(code);
-    const lessonAvailable = Boolean(row.querySelector(".action.lessons")) || card.dataset.lessonAvailable === "true";
-    row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
-
-    const placeholder = document.createElement("span");
-    placeholder.className = "availability-label notes-status";
-    placeholder.setAttribute("aria-disabled", "true");
-    placeholder.textContent = "Preparing notes…";
     const qp = row.querySelector(".action.qp");
-    row.insertBefore(placeholder, qp || null);
-
+    const lessonAvailable = Boolean(row.querySelector(".action.lessons")) || card.dataset.lessonAvailable === "true";
+    const href = notesUrlFor(code);
+    clearNotes(row);
+    const waiting = document.createElement("span");
+    waiting.className = "availability-label notes-status";
+    waiting.setAttribute("aria-disabled", "true");
+    waiting.textContent = "Preparing notes…";
+    row.insertBefore(waiting, qp || null);
     const ok = await pdfExists(href);
     if (!card.isConnected) return;
-    row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
-
-    if (ok) row.insertBefore(downloadLink(href, true), qp || null);
-    else if (lessonAvailable) row.insertBefore(downloadLink(lessonPrintUrlFor(code), false), qp || null);
+    clearNotes(row);
+    if (ok) row.insertBefore(makeLink(href, true), qp || null);
+    else if (lessonAvailable) row.insertBefore(makeLink(lessonUrlFor(code), false), qp || null);
     else {
       const unavailable = document.createElement("span");
       unavailable.className = "availability-label notes-status";
@@ -80,7 +72,6 @@
       row.insertBefore(unavailable, qp || null);
     }
   }
-
   function run() {
     document.querySelectorAll(".subject-card").forEach((card) => {
       if (card.dataset.notesChecked === "1") return;
@@ -88,7 +79,6 @@
       validateCard(card);
     });
   }
-
   addEventListener("DOMContentLoaded", () => {
     run();
     new MutationObserver(run).observe(document.getElementById("subjectGrid") || document.body, { childList: true, subtree: true });
