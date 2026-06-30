@@ -6,10 +6,12 @@
   const HOME_PAGE_SIZE = 30;
   const SEARCH_DEBOUNCE_MS = 180;
 
-  // Important: this list must match actual files in /lessons exactly.
-  // Examples: 5043A -> /lessons/lessons-5043A.html, not /lessons/lessons-5043.html.
+  // This list must match actual lesson HTML files in /lessons exactly.
+  // Suffixes are kept exactly: 5043A -> /lessons/lessons-5043A.html.
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5031","5041","5042","5043","5043A","6002","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D"]);
-  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5031","5041","5042","5043","5043A","6002","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D"]);
+
+  // Do not hard-code every lesson as notes-available. A PDF button is enabled only after the file is verified.
+  const pdfAvailabilityCache = new Map();
 
   const ELECTRONICS_ELECTIVES = [
     { revision: "2021", semester: "Semester 6", code: "6041A", name: "Medical Electronics", type: "Program Elective", assetCode: "6041A" },
@@ -32,16 +34,30 @@
     return depth > 0 ? "../".repeat(depth) : "";
   };
   const localPath = (url) => new URL(url, window.location.href).pathname;
-  const hasAsset = (url) => {
-    const path = localPath(url);
-    const match = path.match(/\/lessons\/lessons-([^/]+)\.html$/i);
-    if (match) return LESSON_CODES.has(normalizeCode(decodeURIComponent(match[1])));
-    const notesMatch = path.match(/\/notes\/downloadable-notes-([^/]+)\.pdf$/i);
-    if (notesMatch) return NOTES_CODES.has(normalizeCode(decodeURIComponent(notesMatch[1])));
-    return false;
-  };
   const assetCodeFor = (subject, kind) => String(subject?.[`${kind}Code`] || subject?.assetCode || subject?.code || "");
+  const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
+  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(assetCodeFor(subject, "notes"))}.pdf`;
   const recordKey = (subject) => [subject.revision, subject.department, subject.semester, normalizeCode(subject.code), String(subject.name || "").trim().toLowerCase()].join("::");
+
+  function hasLessonAsset(url) {
+    const match = localPath(url).match(/\/lessons\/lessons-([^/]+)\.html$/i);
+    return Boolean(match && LESSON_CODES.has(normalizeCode(decodeURIComponent(match[1]))));
+  }
+
+  async function pdfExists(url) {
+    const absolute = new URL(url, window.location.href).href;
+    if (pdfAvailabilityCache.has(absolute)) return pdfAvailabilityCache.get(absolute);
+    const check = fetch(absolute, { method: "HEAD", cache: "no-store" })
+      .then((response) => {
+        const type = response.headers.get("content-type") || "";
+        return response.ok && !/html/i.test(type);
+      })
+      .catch(() => false);
+    pdfAvailabilityCache.set(absolute, check);
+    const result = await check;
+    pdfAvailabilityCache.set(absolute, result);
+    return result;
+  }
 
   function applyOfficialSubjectCorrections(subjects) {
     if (!Array.isArray(subjects)) return [];
@@ -71,7 +87,7 @@
       return globalThis.SUBJECTS;
     }
     if (subjectsPromise) return subjectsPromise;
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260629-all-lessons-visible`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260630-download-check`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -100,6 +116,7 @@
       return true;
     });
   }
+
   function uniqueByCode(subjects) {
     const seen = new Set();
     return subjects.filter((subject) => {
@@ -109,6 +126,7 @@
       return true;
     });
   }
+
   function sortSubjects(subjects) {
     return [...subjects].sort((a, b) => {
       const semester = semesterRank(a.semester) - semesterRank(b.semester);
@@ -120,6 +138,7 @@
       return String(a.code || "").localeCompare(String(b.code || ""), undefined, { numeric: true, sensitivity: "base" });
     });
   }
+
   function fillSelect(select, values, allLabel, selected = "all") {
     if (!select) return;
     const options = [...new Set(values.filter(Boolean))].sort((a, b) => semesterRank(a) - semesterRank(b) || String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
@@ -136,48 +155,52 @@
     });
     select.value = [...select.options].some((option) => option.value === selected) ? selected : all.value;
   }
+
   function queryIsIncompleteHomeCode(mode, query) {
     return mode === "home" && (/^\d{1,3}$/i.test(query) || /^[a-z]$/i.test(query));
   }
+
   function subjectMatchesQuery(subject, query) {
     if (!query) return true;
     const code = String(subject.code || "").toLowerCase();
     if (/^[0-9]{2,5}[a-z]?$/i.test(query)) return code.includes(query);
     return [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase().includes(query);
   }
-  function unavailable(label) {
-    return `<span class="availability-label" aria-disabled="true">${esc(label)}</span>`;
+
+  function unavailable(label, extra = "") {
+    return `<span class="availability-label ${extra}" aria-disabled="true">${esc(label)}</span>`;
   }
+
   function syllabusLinkFor(subject) {
     return typeof globalThis.syllabusLink === "function"
       ? globalThis.syllabusLink(subject.code)
       : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
   }
+
   function modelQuestionPaperLinkFor(subject) {
     return typeof globalThis.modelQuestionPaperLink === "function"
       ? globalThis.modelQuestionPaperLink(subject.code)
       : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
   }
-  const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
-  const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(assetCodeFor(subject, "notes"))}.pdf`;
+
   function subjectCard(subject) {
     const lessonHref = lessonLinkFor(subject);
     const notesHref = notesLinkFor(subject);
-    const lessonAvailable = hasAsset(lessonHref);
-    const notesAvailable = hasAsset(notesHref);
+    const lessonAvailable = hasLessonAsset(lessonHref);
     return `
-      <article class="subject-card reveal">
+      <article class="subject-card reveal" data-subject-code="${esc(normalizeCode(subject.code))}" data-notes-href="${esc(notesHref)}">
         <div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div>
         <h3>${esc(subject.name)}</h3>
         <p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>
         <div class="action-row">
           <a class="action syllabus" href="${esc(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
           ${lessonAvailable ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}
-          ${notesAvailable ? `<a class="action download" href="${esc(notesHref)}" download>Download Notes</a>` : unavailable("Notes unavailable")}
+          ${unavailable("Checking notes…", "notes-status")}
           <a class="action qp" href="${esc(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
         </div>
       </article>`;
   }
+
   function groupCards(subjects) {
     const groups = new Map();
     subjects.forEach((subject) => {
@@ -196,6 +219,37 @@
         </div>
       </section>`).join("");
   }
+
+  async function validateNotesForGrid(grid) {
+    const cards = [...grid.querySelectorAll(".subject-card[data-notes-href]")];
+    cards.forEach(async (card) => {
+      const row = card.querySelector(".action-row");
+      if (!row) return;
+      const href = card.getAttribute("data-notes-href") || "";
+      const status = row.querySelector(".notes-status");
+      const ok = await pdfExists(href);
+      if (!card.isConnected) return;
+      row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
+      const qp = row.querySelector(".action.qp");
+      if (ok) {
+        const link = document.createElement("a");
+        link.className = "action download";
+        link.href = href;
+        link.download = "";
+        link.dataset.verified = "true";
+        link.textContent = "Download Notes";
+        row.insertBefore(link, qp || null);
+      } else {
+        const span = document.createElement("span");
+        span.className = "availability-label notes-status";
+        span.setAttribute("aria-disabled", "true");
+        span.textContent = "Notes unavailable";
+        row.insertBefore(span, qp || null);
+      }
+      status?.remove();
+    });
+  }
+
   function renderSubjects(subjects, mode, grid, query = "", semester = "all") {
     let items = uniqueSubjects(subjects);
     if (mode === "home") items = uniqueByCode(items);
@@ -207,7 +261,9 @@
       return;
     }
     grid.innerHTML = mode === "home" ? items.slice(0, HOME_PAGE_SIZE).map(subjectCard).join("") : groupCards(items);
+    validateNotesForGrid(grid);
   }
+
   async function initSubjectBrowser() {
     const grid = $("subjectGrid");
     if (!grid) return;
@@ -225,8 +281,15 @@
     };
     search?.addEventListener("input", rerender);
     semester?.addEventListener("change", rerender);
+    grid.addEventListener("click", (event) => {
+      const brokenDownload = event.target.closest?.(".action.download:not([data-verified='true'])");
+      if (!brokenDownload) return;
+      event.preventDefault();
+      brokenDownload.replaceWith(Object.assign(document.createElement("span"), { className: "availability-label notes-status", textContent: "Notes unavailable" }));
+    });
     renderSubjects(subjects, mode, grid, "", semester?.value || "all");
   }
+
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initSubjectBrowser, { once: true });
   else initSubjectBrowser();
 })();
