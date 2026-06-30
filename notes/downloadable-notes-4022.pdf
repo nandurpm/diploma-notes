@@ -1,0 +1,291 @@
+%PDF-1.4
+1 0 obj
+<< /F1 2 0 R /F2 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+4 0 obj
+<< /Length 2094 >>
+stream
+BT /F2 20 Tf 50 800 Td (Fluid Mechanics & Hydraulic Machinery - 4022) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F1 9.4 Tf 55 758 Td (Diploma in Mechanical Engineering / Manufacturing Technology. Semester 4. Credits 4.) Tj ET
+BT /F1 9.4 Tf 55 744 Td (Program Core. Periods: 4 per week, 60 per semester.) Tj ET
+BT /F1 9.4 Tf 55 726 Td (This PDF notes file is generated from the 4022 handbook lesson. It is a compact) Tj ET
+BT /F1 9.4 Tf 55 712 Td (printable companion containing official overview, roadmap, module chapters, formulas,) Tj ET
+BT /F1 9.4 Tf 55 698 Td (solved examples, model question paper and answer points.) Tj ET
+BT /F2 10 Tf 55 680 Td (Course objectives:) Tj ET
+BT /F1 9.4 Tf 55 662 Td (- Identify properties of fluids and pressure measurement techniques.) Tj ET
+BT /F1 9.4 Tf 55 644 Td (- Understand fluid flow and its engineering applications.) Tj ET
+BT /F1 9.4 Tf 55 626 Td (- Find losses in pipe flow.) Tj ET
+BT /F1 9.4 Tf 55 608 Td (- Understand construction, working and performance testing of turbines and pumps.) Tj ET
+BT /F2 10 Tf 55 590 Td (Course outcomes:) Tj ET
+BT /F1 9.4 Tf 55 572 Td (CO1: Explain fluid properties and pressure measurement techniques - 12 hours -) Tj ET
+BT /F1 9.4 Tf 55 558 Td (Understanding - PO1=3, PO2=3, PO7=1.) Tj ET
+BT /F1 9.4 Tf 55 540 Td (CO2: Apply conservation laws to notches, pipes and orifices - 17 hours - Applying -) Tj ET
+BT /F1 9.4 Tf 55 526 Td (PO1=3, PO2=3, PO7=1.) Tj ET
+BT /F1 9.4 Tf 55 508 Td (CO3: Describe construction, working and testing of turbines - 17 hours - Understanding -) Tj ET
+BT /F1 9.4 Tf 55 494 Td (PO1=3, PO2=3, PO7=1.) Tj ET
+BT /F1 9.4 Tf 55 476 Td (CO4: Describe construction, working and testing of pumps - 12 hours - Understanding -) Tj ET
+BT /F1 9.4 Tf 55 462 Td (PO1=3, PO2=3, PO7=1.) Tj ET
+BT /F1 9.4 Tf 55 444 Td (Prerequisites: Mathematics I and II for problem solving; Applied Physics I and II for) Tj ET
+BT /F1 9.4 Tf 55 430 Td (physics of fluids.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 1) Tj ET
+endstream
+endobj
+5 0 obj
+<< /Length 2286 >>
+stream
+BT /F2 20 Tf 50 800 Td (Module 1 - Fluid Properties and Pressure Measurement) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F1 9.4 Tf 55 758 Td (Core topics: Density, specific gravity, specific weight, specific volume, dynamic) Tj ET
+BT /F1 9.4 Tf 55 744 Td (viscosity, kinematic viscosity, surface tension, capillarity, vapour pressure and) Tj ET
+BT /F1 9.4 Tf 55 730 Td (compressibility.) Tj ET
+BT /F1 9.4 Tf 55 712 Td (Density is mass per unit volume. Specific weight is weight per unit volume. Specific) Tj ET
+BT /F1 9.4 Tf 55 698 Td (volume is volume per unit mass. Specific gravity is density ratio with water and has no) Tj ET
+BT /F1 9.4 Tf 55 684 Td (unit.) Tj ET
+BT /F1 9.4 Tf 55 666 Td (Viscosity is resistance to relative motion between fluid layers. Dynamic viscosity is) Tj ET
+BT /F1 9.4 Tf 55 652 Td (force effect; kinematic viscosity is dynamic viscosity divided by density.) Tj ET
+BT /F1 9.4 Tf 55 634 Td (Pressure is force per unit area. Pressure head is pressure expressed as height of fluid) Tj ET
+BT /F1 9.4 Tf 55 620 Td (column. Absolute pressure is measured from perfect vacuum. Gauge pressure is measured) Tj ET
+BT /F1 9.4 Tf 55 606 Td (from atmospheric pressure. Vacuum pressure is below atmospheric pressure.) Tj ET
+BT /F1 9.4 Tf 55 588 Td (Pascal law: pressure applied to a confined fluid is transmitted equally in all) Tj ET
+BT /F1 9.4 Tf 55 574 Td (directions. Hydraulic press, hydraulic lift and hydraulic brakes use this principle.) Tj ET
+BT /F1 9.4 Tf 55 556 Td (Pressure instruments: Piezometer for simple positive pressure, U-tube manometer,) Tj ET
+BT /F1 9.4 Tf 55 542 Td (differential manometer, inverted differential manometer and Bourdon pressure gauge.) Tj ET
+BT /F1 9.4 Tf 55 524 Td (Formulas: rho=m/V; gamma=rho*g; SG=rho_fluid/rho_water; p=F/A; h=p/\(rho*g\).) Tj ET
+BT /F1 9.4 Tf 55 506 Td (Solved example: If pressure is 196.2 kPa in water, h=p/\(rho*g\)=196200/\(1000*9.81\)=20 m) Tj ET
+BT /F1 9.4 Tf 55 492 Td (of water.) Tj ET
+BT /F1 9.4 Tf 55 474 Td (Exam tip: Draw pressure scale and instrument diagram before explanation. Mention units) Tj ET
+BT /F1 9.4 Tf 55 460 Td (in all numerical answers.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 2) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Length 1964 >>
+stream
+BT /F2 20 Tf 50 800 Td (Module 2 - Fluid Flow, Bernoulli, Notches and Pipe Losses) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F1 9.4 Tf 55 758 Td (Core topics: steady/unsteady, uniform/non-uniform, compressible/incompressible,) Tj ET
+BT /F1 9.4 Tf 55 744 Td (rotational/irrotational and one-dimensional/multidimensional flows.) Tj ET
+BT /F1 9.4 Tf 55 726 Td (Discharge Q is volume flow rate. Streamline is tangent to velocity direction. Path line) Tj ET
+BT /F1 9.4 Tf 55 712 Td (is actual path followed by a fluid particle.) Tj ET
+BT /F1 9.4 Tf 55 694 Td (Continuity equation for steady incompressible flow: A1*V1=A2*V2=Q. It represents) Tj ET
+BT /F1 9.4 Tf 55 680 Td (conservation of mass.) Tj ET
+BT /F1 9.4 Tf 55 662 Td (Bernoulli equation: p/gamma + V^2/\(2g\) + z = constant. It represents conservation of) Tj ET
+BT /F1 9.4 Tf 55 648 Td (pressure head, velocity head and datum head along a streamline.) Tj ET
+BT /F1 9.4 Tf 55 630 Td (Limitations: steady flow, incompressible fluid, inviscid assumption, along streamline,) Tj ET
+BT /F1 9.4 Tf 55 616 Td (no pump/turbine work between sections and no major energy loss.) Tj ET
+BT /F1 9.4 Tf 55 598 Td (Applications: Venturimeter, orifice meter and Pitot tube. Notches and orifices measure) Tj ET
+BT /F1 9.4 Tf 55 584 Td (discharge. Rectangular and triangular notches are important.) Tj ET
+BT /F1 9.4 Tf 55 566 Td (Pipe losses: Major loss is friction loss. Minor losses occur at entry, exit, valves,) Tj ET
+BT /F1 9.4 Tf 55 552 Td (bends, sudden enlargement and sudden contraction. HGL and TEL show energy variation.) Tj ET
+BT /F1 9.4 Tf 55 534 Td (Formulas: Q=AV; A1V1=A2V2; hf=4fLV^2/\(2gd\); hm=K V^2/\(2g\).) Tj ET
+BT /F1 9.4 Tf 55 516 Td (Solved example: If A1=0.04 m2, A2=0.02 m2 and V1=1.5 m/s, V2=A1V1/A2=3 m/s and Q=0.06) Tj ET
+BT /F1 9.4 Tf 55 502 Td (m3/s.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 3) Tj ET
+endstream
+endobj
+7 0 obj
+<< /Length 2013 >>
+stream
+BT /F2 20 Tf 50 800 Td (Module 3 - Impact of Jets and Hydraulic Turbines) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F1 9.4 Tf 55 758 Td (A water jet has momentum. When jet strikes a plate or vane, change in momentum produces) Tj ET
+BT /F1 9.4 Tf 55 744 Td (force and work. Turbines extract energy by changing water momentum and pressure.) Tj ET
+BT /F1 9.4 Tf 55 726 Td (Hydroelectric plant layout: reservoir, dam, intake, trash rack, penstock, surge tank,) Tj ET
+BT /F1 9.4 Tf 55 712 Td (turbine, draft tube, generator, tailrace and switchyard.) Tj ET
+BT /F1 9.4 Tf 55 694 Td (Turbine classification: impulse or reaction; tangential, radial, axial or mixed flow;) Tj ET
+BT /F1 9.4 Tf 55 680 Td (high head, medium head or low head.) Tj ET
+BT /F1 9.4 Tf 55 662 Td (Pelton wheel: impulse turbine for high head and low discharge. Francis turbine: reaction) Tj ET
+BT /F1 9.4 Tf 55 648 Td (turbine for medium head. Kaplan turbine: axial reaction turbine for low head and high) Tj ET
+BT /F1 9.4 Tf 55 634 Td (discharge.) Tj ET
+BT /F1 9.4 Tf 55 616 Td (Draft tube recovers kinetic energy at reaction turbine outlet and discharges water to) Tj ET
+BT /F1 9.4 Tf 55 602 Td (tailrace. Cavitation occurs when local pressure falls below vapour pressure; bubbles) Tj ET
+BT /F1 9.4 Tf 55 588 Td (collapse and damage surfaces.) Tj ET
+BT /F1 9.4 Tf 55 570 Td (Formulas: water power=rho*g*Q*H. Turbine efficiency=output power/water power. Unit) Tj ET
+BT /F1 9.4 Tf 55 556 Td (quantities help compare turbines under unit head.) Tj ET
+BT /F1 9.4 Tf 55 538 Td (Solved example: Q=0.08 m3/s, H=40 m. Water power=1000*9.81*0.08*40=31.39 kW. If) Tj ET
+BT /F1 9.4 Tf 55 524 Td (efficiency is 75 percent, output power=23.54 kW.) Tj ET
+BT /F1 9.4 Tf 55 506 Td (Exam tip: For turbine answers, draw layout or runner sketch and then explain water) Tj ET
+BT /F1 9.4 Tf 55 492 Td (energy conversion.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 4) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Length 2156 >>
+stream
+BT /F2 20 Tf 50 800 Td (Module 4 - Hydraulic Pumps) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F1 9.4 Tf 55 758 Td (Centrifugal pump: rotating impeller gives kinetic energy to water; casing converts part) Tj ET
+BT /F1 9.4 Tf 55 744 Td (of kinetic energy into pressure energy. Main parts: impeller, casing, suction pipe, foot) Tj ET
+BT /F1 9.4 Tf 55 730 Td (valve, strainer, delivery pipe and shaft.) Tj ET
+BT /F1 9.4 Tf 55 712 Td (Priming: filling pump casing and suction pipe with water before starting. Without) Tj ET
+BT /F1 9.4 Tf 55 698 Td (priming, air prevents proper suction in centrifugal pump.) Tj ET
+BT /F1 9.4 Tf 55 680 Td (Cavitation: formation and collapse of vapour bubbles due to low pressure. Effects:) Tj ET
+BT /F1 9.4 Tf 55 666 Td (noise, vibration, pitting, reduced efficiency and damage.) Tj ET
+BT /F1 9.4 Tf 55 648 Td (Manometric head: head against which pump works. Manometric efficiency relates useful) Tj ET
+BT /F1 9.4 Tf 55 634 Td (head to impeller energy. Overall efficiency compares water power and shaft power.) Tj ET
+BT /F1 9.4 Tf 55 616 Td (Reciprocating pump: piston/plunger produces suction and delivery. Single acting pump) Tj ET
+BT /F1 9.4 Tf 55 602 Td (delivers in one stroke; double acting pump delivers in both strokes.) Tj ET
+BT /F1 9.4 Tf 55 584 Td (Slip: theoretical discharge minus actual discharge. Negative slip occurs when actual) Tj ET
+BT /F1 9.4 Tf 55 570 Td (discharge exceeds theoretical under special conditions.) Tj ET
+BT /F1 9.4 Tf 55 552 Td (Special pumps: hydraulic ram, air lift pump, jet pump, monoblock coupled submersible) Tj ET
+BT /F1 9.4 Tf 55 538 Td (pump, propeller pump and turbine pump.) Tj ET
+BT /F1 9.4 Tf 55 520 Td (Formulas: Water power=rho*g*Q*H. Overall efficiency=water power/shaft power. Q single) Tj ET
+BT /F1 9.4 Tf 55 506 Td (acting=A*L*N/60. Slip=Qth-Qact.) Tj ET
+BT /F1 9.4 Tf 55 488 Td (Solved example: Q=0.05 m3/s, H=30 m, shaft power=22 kW. Water power=14.715 kW.) Tj ET
+BT /F1 9.4 Tf 55 474 Td (Efficiency=14.715/22=66.9 percent.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 5) Tj ET
+endstream
+endobj
+9 0 obj
+<< /Length 1745 >>
+stream
+BT /F2 20 Tf 50 800 Td (Formula Bank and Solved Examples) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F2 10 Tf 55 758 Td (Formula bank:) Tj ET
+BT /F1 9.4 Tf 55 740 Td (1. Density: rho=m/V, unit kg/m3. Used for property and mass calculations.) Tj ET
+BT /F1 9.4 Tf 55 722 Td (2. Specific weight: gamma=rho*g, unit N/m3. Used in pressure head relation.) Tj ET
+BT /F1 9.4 Tf 55 704 Td (3. Specific gravity: SG=rho_fluid/rho_water, no unit.) Tj ET
+BT /F1 9.4 Tf 55 686 Td (4. Pressure: p=F/A, unit Pa.) Tj ET
+BT /F1 9.4 Tf 55 668 Td (5. Pressure head: h=p/\(rho*g\), unit m of fluid.) Tj ET
+BT /F1 9.4 Tf 55 650 Td (6. Discharge: Q=A*V, unit m3/s.) Tj ET
+BT /F1 9.4 Tf 55 632 Td (7. Bernoulli: p/gamma+V^2/\(2g\)+z=constant.) Tj ET
+BT /F1 9.4 Tf 55 614 Td (8. Darcy loss: hf=4fLV^2/\(2gd\).) Tj ET
+BT /F1 9.4 Tf 55 596 Td (9. Minor loss: hm=K V^2/\(2g\).) Tj ET
+BT /F1 9.4 Tf 55 578 Td (10. Hydraulic power: P=rho*g*Q*H.) Tj ET
+BT /F1 9.4 Tf 55 560 Td (11. Pump efficiency: eta=water power/shaft power.) Tj ET
+BT /F1 9.4 Tf 55 542 Td (Worked example 1: A liquid has mass 600 kg and volume 0.75 m3. Density=800 kg/m3.) Tj ET
+BT /F1 9.4 Tf 55 528 Td (Specific weight=7848 N/m3.) Tj ET
+BT /F1 9.4 Tf 55 510 Td (Worked example 2: A pipe reduces from 200 mm to 100 mm. Velocity in large pipe is 1.2) Tj ET
+BT /F1 9.4 Tf 55 496 Td (m/s. V2=\(D1/D2\)^2*V1=4.8 m/s. Q=0.0377 m3/s.) Tj ET
+BT /F1 9.4 Tf 55 478 Td (Common mistakes: skipping units, using diameter instead of area, forgetting coefficient) Tj ET
+BT /F1 9.4 Tf 55 464 Td (of discharge, drawing unlabelled diagrams and mixing pump/turbine efficiencies.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 6) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Length 2176 >>
+stream
+BT /F2 20 Tf 50 800 Td (Practice, Expected Questions and Model Paper) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F2 10 Tf 55 758 Td (Expected questions:) Tj ET
+BT /F1 9.4 Tf 55 740 Td (- Define density, specific weight, specific volume, specific gravity and viscosity.) Tj ET
+BT /F1 9.4 Tf 55 722 Td (- State and explain Pascal law with application.) Tj ET
+BT /F1 9.4 Tf 55 704 Td (- Explain piezometer, U-tube manometer, differential manometer and Bourdon gauge.) Tj ET
+BT /F1 9.4 Tf 55 686 Td (- Classify fluid flow and explain stream line and path line.) Tj ET
+BT /F1 9.4 Tf 55 668 Td (- State continuity equation and Bernoulli equation with limitations.) Tj ET
+BT /F1 9.4 Tf 55 650 Td (- Explain Venturimeter, orifice meter and Pitot tube.) Tj ET
+BT /F1 9.4 Tf 55 632 Td (- Explain rectangular and triangular notches and hydraulic coefficients of orifice.) Tj ET
+BT /F1 9.4 Tf 55 614 Td (- Explain Darcy equation, Chezy equation, HGL and TEL.) Tj ET
+BT /F1 9.4 Tf 55 596 Td (- Explain impact of jet on fixed/moving plates and curved vanes.) Tj ET
+BT /F1 9.4 Tf 55 578 Td (- Draw hydroelectric power plant layout and explain turbine selection.) Tj ET
+BT /F1 9.4 Tf 55 560 Td (- Explain Pelton, Francis, Kaplan turbine, draft tube and cavitation.) Tj ET
+BT /F1 9.4 Tf 55 542 Td (- Explain centrifugal pump, priming, cavitation, reciprocating pump, slip and special) Tj ET
+BT /F1 9.4 Tf 55 528 Td (pumps.) Tj ET
+BT /F1 9.4 Tf 55 510 Td (Model paper outline: Part A - 10 short answers. Part B - 8 paragraph/diagram questions.) Tj ET
+BT /F1 9.4 Tf 55 496 Td (Part C - 4 descriptive/numerical questions. Cover all four modules. Fresh questions) Tj ET
+BT /F1 9.4 Tf 55 482 Td (should not copy official questions.) Tj ET
+BT /F1 9.4 Tf 55 464 Td (Practice objective answers: Density is mass/volume. Venturimeter works on Bernoulli) Tj ET
+BT /F1 9.4 Tf 55 450 Td (theorem. Pelton is high head turbine. Priming is required in centrifugal pump.) Tj ET
+BT /F1 9.4 Tf 55 436 Td (Cavitation occurs when pressure falls below vapour pressure.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 7) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Length 1825 >>
+stream
+BT /F2 20 Tf 50 800 Td (Complete Model Answers and References) Tj ET
+0.1 0.45 0.70 RG 50 790 m 545 790 l S
+BT /F1 9.4 Tf 55 758 Td (Model answer numerical 1: m=720 kg, V=0.9 m3. rho=m/V=800 kg/m3. gamma=rho*g=7848 N/m3.) Tj ET
+BT /F1 9.4 Tf 55 744 Td (SG=800/1000=0.8.) Tj ET
+BT /F1 9.4 Tf 55 726 Td (Model answer numerical 2: D1=0.2 m, D2=0.1 m, V1=1.2 m/s. A1/A2=4. V2=4.8 m/s.) Tj ET
+BT /F1 9.4 Tf 55 712 Td (Q=pi/4*0.2^2*1.2=0.0377 m3/s.) Tj ET
+BT /F1 9.4 Tf 55 694 Td (Model answer numerical 3: Pump Q=0.05 m3/s, H=30 m, shaft power=22 kW. Water) Tj ET
+BT /F1 9.4 Tf 55 680 Td (power=1000*9.81*0.05*30=14.715 kW. Overall efficiency=66.9 percent.) Tj ET
+BT /F1 9.4 Tf 55 662 Td (Answer writing format: definition, labelled diagram, working principle, formula,) Tj ET
+BT /F1 9.4 Tf 55 648 Td (application, conclusion. For numerical answers: given data, formula, substitution,) Tj ET
+BT /F1 9.4 Tf 55 634 Td (calculation, final answer with unit.) Tj ET
+BT /F2 10 Tf 55 616 Td (References from supplied syllabus:) Tj ET
+BT /F1 9.4 Tf 55 598 Td (- Fluid Mechanics and Hydraulic Machines - Dr. R.K. Bansal.) Tj ET
+BT /F1 9.4 Tf 55 580 Td (- Hydraulic, Fluid Mechanics and Hydraulic Machines - R.S. Khurmi.) Tj ET
+BT /F1 9.4 Tf 55 562 Td (- Hydraulics and Fluid Mechanics - Dr. P.N. Modi and Dr. S.M. Seth.) Tj ET
+BT /F1 9.4 Tf 55 544 Td (- Hydraulics, Fluid Mechanics and Fluid Machines - S. Ramamurtham.) Tj ET
+BT /F1 9.4 Tf 55 526 Td (- Fluid Mechanics - Yunus A. Cengel and John M. Cimbala.) Tj ET
+BT /F1 9.4 Tf 55 508 Td (Online resources from syllabus: Elsevier Fluid Mechanics, Cambridge Introduction to) Tj ET
+BT /F1 9.4 Tf 55 494 Td (Fluid Dynamics and NPTEL course 112105183.) Tj ET
+BT /F1 7 Tf 50 24 Td (4022 Fluid Mechanics and Hydraulic Machinery - Polytechnic Study Hub) Tj ET
+BT /F1 7 Tf 520 24 Td (Page 8) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 4 0 R >>
+endobj
+13 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 5 0 R >>
+endobj
+14 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 6 0 R >>
+endobj
+15 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 7 0 R >>
+endobj
+16 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 8 0 R >>
+endobj
+17 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 9 0 R >>
+endobj
+18 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 10 0 R >>
+endobj
+19 0 obj
+<< /Type /Page /Parent 20 0 R /MediaBox [0 0 595 842] /Resources << /Font 1 0 R >> /Contents 11 0 R >>
+endobj
+20 0 obj
+<< /Type /Pages /Count 8 /Kids [12 0 R 13 0 R 14 0 R 15 0 R 16 0 R 17 0 R 18 0 R 19 0 R] >>
+endobj
+21 0 obj
+<< /Type /Catalog /Pages 20 0 R >>
+endobj
+xref
+0 22
+0000000000 65535 f 
+0000000009 00000 n 
+0000000050 00000 n 
+0000000120 00000 n 
+0000000195 00000 n 
+0000002341 00000 n 
+0000004679 00000 n 
+0000006695 00000 n 
+0000008760 00000 n 
+0000010968 00000 n 
+0000012765 00000 n 
+0000014994 00000 n 
+0000016872 00000 n 
+0000016990 00000 n 
+0000017108 00000 n 
+0000017226 00000 n 
+0000017344 00000 n 
+0000017462 00000 n 
+0000017580 00000 n 
+0000017699 00000 n 
+0000017818 00000 n 
+0000017926 00000 n 
+trailer
+<< /Size 22 /Root 21 0 R >>
+startxref
+17977
+%%EOF
