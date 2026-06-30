@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Browse Revision 2021 department semester subjects, syllabus, lesson pages, notes and sample question papers.">
   <title>Revision 2021 Department Subjects | Polytechnic Study Hub</title>
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/animations.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/department-semester-layout.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260629-dept-freeze-fix1">
-  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260629-dept-freeze-fix1">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/animations.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/hardening.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/department-semester-layout.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260630-notes-fallback1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260630-notes-fallback1">
   <style>
     html,body{height:auto!important;min-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important;overscroll-behavior-y:auto!important;touch-action:pan-y!important}
     body.portal-page{position:relative!important}
@@ -21,7 +21,7 @@
     #subjectGrid .subject-card{will-change:auto!important}
   </style>
 </head>
-<body class="portal-page" data-site-revision="20260629-dept-freeze-fix1">
+<body class="portal-page" data-site-revision="20260630-notes-fallback1">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar">
     <a class="brand" href="/index.html" aria-label="Polytechnic Study Hub home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong></a>
@@ -56,7 +56,7 @@
 
   <script>
     (() => {
-      const names = {"electrical-electronics-engineering":"Electrical and Electronics Engineering","electronics-engineering":"Electronics Engineering","mechanical-engineering":"Mechanical Engineering","civil-engineering":"Civil Engineering","architecture":"Architecture","artificial-intelligence":"Artificial Intelligence","artificial-intelligence-and-machine-learning":"Artificial Intelligence & Machine Learning","automation-and-robotics":"Automation and Robotics","automobile-engineering":"Automobile Engineering","biomedical-engineering":"Biomedical Engineering","chemical-engineering":"Chemical Engineering","civil-and-environmental-engineering":"Civil & Environmental Engineering","civil-and-rural-engineering":"Civil & Rural Engineering","civil-public-health-and-environment-engineering":"Civil (Public Health and Environment) Engineering","civil-engineering-and-planning":"Civil Engineering & Planning","cloud-computing-and-big-data":"Cloud Computing and Big Data","commercial-practice":"Commercial Practice","communication-and-computer-networking":"Communication & Computer Networking","computer-application-and-business-management":"Computer Application & Business Management","computer-engineering":"Computer Engineering","computer-hardware-engineering":"Computer Hardware Engineering","computer-science-and-engineering":"Computer Science & Engineering","cyber-forensics-and-information-security":"Cyber Forensics and Information Security","electrical-engineering":"Electrical Engineering","electrical-engineering-and-electric-vehicles-technology":"Electrical Engineering & Electric Vehicles Technology","electronics-and-communication":"Electronics and Communication","electronics-and-computer-engineering":"Electronics and Computer Engineering","fire-technology-and-safety":"Fire Technology and Safety","food-processing-technology":"Food Processing Technology","hotel-management-and-catering-technology":"Hotel Management and Catering Technology","information-technology":"Information Technology","instrumentation-engineering":"Instrumentation Engineering","integrated-circuit-design-and-fabrication":"Integrated Circuit Design & Fabrication","manufacturing-technology":"Manufacturing Technology","mechatronics":"Mechatronics","micro-electronics":"Micro Electronics","polymer-technology":"Polymer Technology","printing-technology":"Printing Technology","renewable-energy":"Renewable Energy","robotic-process-automation":"Robotic Process Automation","textile-technology":"Textile Technology","tool-and-die-engineering":"Tool & Die Engineering","wood-and-paper-technology":"Wood and Paper Technology"};
+      const names = {"electrical-electronics-engineering":"Electrical and Electronics Engineering","electronics-engineering":"Electronics Engineering","mechanical-engineering":"Mechanical Engineering","civil-engineering":"Civil Engineering","architecture":"Architecture","artificial-intelligence":"Artificial Intelligence","artificial-intelligence-and-machine-learning":"Artificial Intelligence & Machine Learning","automation-and-robotics":"Automation and Robotics","automobile-engineering":"Automobile Engineering","biomedical-engineering":"Biomedical Engineering","chemical-engineering":"Chemical Engineering","civil-and-environmental-engineering":"Civil & Environmental Engineering","civil-and-rural-engineering":"Civil & Rural Engineering","civil-public-health-and-environment-engineering":"Civil (Public Health and Environment) Engineering","civil-engineering-and-planning":"Civil Engineering & Planning","cloud-computing-and-big-data":"Cloud Computing and Big Data","commercial-practice":"Commercial Practice","communication-and-computer-networking":"Communication & Computer Networking","computer-application-and-business-management":"Computer Application and Business Management","computer-engineering":"Computer Engineering","computer-hardware-engineering":"Computer Hardware Engineering","computer-science-and-engineering":"Computer Science & Engineering","cyber-forensics-and-information-security":"Cyber Forensics and Information Security","electrical-engineering":"Electrical Engineering","electrical-engineering-and-electric-vehicles-technology":"Electrical Engineering & Electric Vehicles Technology","electronics-and-communication":"Electronics and Communication","electronics-and-computer-engineering":"Electronics and Computer Engineering","fire-technology-and-safety":"Fire Technology and Safety","food-processing-technology":"Food Processing Technology","hotel-management-and-catering-technology":"Hotel Management and Catering Technology","information-technology":"Information Technology","instrumentation-engineering":"Instrumentation Engineering","integrated-circuit-design-and-fabrication":"Integrated Circuit Design & Fabrication","manufacturing-technology":"Manufacturing Technology","mechatronics":"Mechatronics","micro-electronics":"Micro Electronics","polymer-technology":"Polymer Technology","printing-technology":"Printing Technology","renewable-energy":"Renewable Energy","robotic-process-automation":"Robotic Process Automation","textile-technology":"Textile Technology","tool-and-die-engineering":"Tool & Die Engineering","wood-and-paper-technology":"Wood and Paper Technology"};
       const params = new URLSearchParams(location.search);
       const slug = (params.get("dept") || "").replace(/\.html$/i, "").trim();
       const fallbackName = slug.split("-").filter(Boolean).map((part) => part.charAt(0).toUpperCase() + part.slice(1)).join(" ") || "Department";
@@ -70,9 +70,10 @@
       if (crumb) crumb.textContent = department;
     })();
   </script>
-  <script src="/assets/js/subjects.js?v=20260629-dept-freeze-fix1" defer></script>
-  <script src="/assets/js/main.js?v=20260629-dept-freeze-fix1" defer></script>
-  <script src="/assets/js/subject-browser.js?v=20260629-dept-freeze-fix1" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260629-dept-freeze-fix1" defer></script>
+  <script src="/assets/js/subjects.js?v=20260630-notes-fallback1" defer></script>
+  <script src="/assets/js/main.js?v=20260630-notes-fallback1" defer></script>
+  <script src="/assets/js/subject-browser.js?v=20260630-notes-fallback1" defer></script>
+  <script src="/assets/js/lesson-availability-hotfix.js?v=20260630-notes-fallback1" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260630-notes-fallback1" defer></script>
 </body>
 </html>
