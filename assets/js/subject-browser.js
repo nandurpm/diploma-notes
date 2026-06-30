@@ -83,7 +83,7 @@
       return globalThis.SUBJECTS;
     }
     if (subjectsPromise) return subjectsPromise;
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260630-home-common-filter1`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260630-department-common1`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -173,6 +173,12 @@
   function homeDepartmentFilter(subject, selectedDepartment) {
     const department = String(subject.department || "");
     if (!selectedDepartment || selectedDepartment === COMMON_VALUE) return department === COMMON_DEPARTMENT;
+    return department === COMMON_DEPARTMENT || department === selectedDepartment;
+  }
+
+  function departmentPageFilter(subject, selectedDepartment) {
+    if (!selectedDepartment) return true;
+    const department = String(subject.department || "");
     return department === COMMON_DEPARTMENT || department === selectedDepartment;
   }
 
@@ -296,9 +302,15 @@
     const search = $("subjectSearch");
     const semester = $("semesterFilter");
     const departmentFilter = $("departmentFilter");
-    const subjects = (await loadSubjects()).filter((subject) => (!revision || String(subject.revision) === revision) && (!department || String(subject.department) === department));
+    const loadedSubjects = await loadSubjects();
+    const subjects = loadedSubjects.filter((subject) => {
+      const sameRevision = !revision || String(subject.revision) === revision;
+      if (!sameRevision) return false;
+      if (mode === "department") return departmentPageFilter(subject, department);
+      return !department || String(subject.department) === department;
+    });
     if (mode === "home") fillDepartmentSelect(departmentFilter, subjects, departmentFilter?.value || COMMON_VALUE);
-    fillSelect(semester, subjects.map((subject) => subject.semester), mode === "home" ? "All semesters" : "All semesters");
+    fillSelect(semester, subjects.map((subject) => subject.semester), "All semesters");
     let timer = 0;
     const rerender = () => {
       clearTimeout(timer);
