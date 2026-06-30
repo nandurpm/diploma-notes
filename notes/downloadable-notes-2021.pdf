@@ -1,0 +1,268 @@
+%PDF-1.4
+% Polytechnic Study Hub ASCII PDF
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Count 8 /Kids [ 5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R ] >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
+endobj
+6 0 obj
+<< /Length 1096 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Engineering Mechanics 2021) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Polytechnic Study Hub - Downloadable Handbook Notes) Tj ET
+BT /F1 10.5 Tf 48 711 Td (Course Code 2021, Course Title Engineering Mechanics, Revision 2021) Tj ET
+BT /F1 10.5 Tf 48 687 Td (Semester 2, Credits 3, Category Engineering Science, Periods per week 3 [L2 T1 P0], Total) Tj ET
+BT /F1 10.5 Tf 48 671 Td (periods 45) Tj ET
+BT /F1 10.5 Tf 48 647 Td (Programmes: Architecture, Automobile, Civil allied, Mechanical allied, Wood and Paper) Tj ET
+BT /F1 10.5 Tf 48 631 Td (Technology, Environmental Engineering.) Tj ET
+BT /F1 10.5 Tf 48 607 Td (Official source: supplied syllabus PDF. Official model question paper pattern is not) Tj ET
+BT /F1 10.5 Tf 48 591 Td (specified in the supplied source; model paper here is fresh practice.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 1) Tj ET
+
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
+endobj
+8 0 obj
+<< /Length 1282 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Official Overview) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Objective: impart knowledge and skills to predict effects of force and motion.) Tj ET
+BT /F1 10.5 Tf 48 711 Td (Prerequisites: Integration and trigonometry from Mathematics I and II; scalar/vector) Tj ET
+BT /F1 10.5 Tf 48 695 Td (quantities and triangular/parallelogram law of forces from Applied Physics I.) Tj ET
+BT /F1 10.5 Tf 48 671 Td (CO1 Identify force systems using basics of mechanics, 10 h, Understanding. CO2 Apply) Tj ET
+BT /F1 10.5 Tf 48 655 Td (static equilibrium for unknown forces in structural elements, 12 h, Applying.) Tj ET
+BT /F1 10.5 Tf 48 631 Td (CO3 Solve rigid-body problems using distributed areas and masses, 11 h, Applying. CO4) Tj ET
+BT /F1 10.5 Tf 48 615 Td (Determine structural behaviour of materials under loading, 10 h, Applying.) Tj ET
+BT /F1 10.5 Tf 48 591 Td (CO-PO mapping: CO1 PO1=2; CO2 PO1=3 and PO2=2; CO3 PO1=3; CO4 PO1=3. 3 strong, 2 moderate,) Tj ET
+BT /F1 10.5 Tf 48 575 Td (1 weak.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 2) Tj ET
+
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
+endobj
+10 0 obj
+<< /Length 1412 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Module 1 - Force Systems) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Mechanics studies bodies under force and motion. Statics means equilibrium; dynamics means) Tj ET
+BT /F1 10.5 Tf 48 719 Td (motion. Use particle, rigid body and flexible body idealisations correctly.) Tj ET
+BT /F1 10.5 Tf 48 695 Td (Scalar has magnitude only; vector has magnitude and direction. Force resolution: Fx=F cos) Tj ET
+BT /F1 10.5 Tf 48 679 Td (theta, Fy=F sin theta, R=sqrt[Fx^2+Fy^2], tan theta=Fy/Fx.) Tj ET
+BT /F1 10.5 Tf 48 655 Td (Principle of transmissibility: force can move along its line of action without changing) Tj ET
+BT /F1 10.5 Tf 48 639 Td (external effect on a rigid body. Moment M=F d, unit N m.) Tj ET
+BT /F1 10.5 Tf 48 615 Td (Varignon theorem: moment of resultant equals sum of moments of components. Equilibrium) Tj ET
+BT /F1 10.5 Tf 48 599 Td (needs Sum Fx=0, Sum Fy=0, Sum M=0.) Tj ET
+BT /F1 10.5 Tf 48 575 Td (FBD is compulsory: show body isolated, applied loads, reactions, dimensions and chosen) Tj ET
+BT /F1 10.5 Tf 48 559 Td (axes. Lami theorem applies only for three coplanar concurrent non-parallel forces.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 3) Tj ET
+
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
+endobj
+12 0 obj
+<< /Length 1391 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Module 2 - Beams, Trusses, Friction) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Supports: simple/roller gives one reaction, hinge gives horizontal and vertical reactions,) Tj ET
+BT /F1 10.5 Tf 48 719 Td (fixed support gives reactions plus fixing moment.) Tj ET
+BT /F1 10.5 Tf 48 695 Td (Loads: point load, inclined point load, UDL and couple. UDL equivalent W=wL acts at) Tj ET
+BT /F1 10.5 Tf 48 679 Td (centroid of loaded length, not automatically at full beam centre.) Tj ET
+BT /F1 10.5 Tf 48 655 Td (Beam reactions: convert UDL, mark distances, use Sum M=0 and Sum Fy=0. Simply supported) Tj ET
+BT /F1 10.5 Tf 48 639 Td (beam central load W gives RA=RB=W/2; cantilever end load W gives fixed moment WL.) Tj ET
+BT /F1 10.5 Tf 48 615 Td (Truss method of joints: find reactions, choose joint with two unknowns, assume tension,) Tj ET
+BT /F1 10.5 Tf 48 599 Td (apply Sum Fx=0 and Sum Fy=0; negative answer means compression.) Tj ET
+BT /F1 10.5 Tf 48 575 Td (Friction: limiting friction F=mu R, tan phi=mu, angle of repose equals angle of friction) Tj ET
+BT /F1 10.5 Tf 48 559 Td (at impending motion.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 4) Tj ET
+
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
+endobj
+14 0 obj
+<< /Length 1388 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Module 3 - Centroid and MI) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Centroid is geometric centre of area; centre of gravity is point through which weight) Tj ET
+BT /F1 10.5 Tf 48 719 Td (acts. For uniform lamina they coincide.) Tj ET
+BT /F1 10.5 Tf 48 695 Td (Composite centroid steps: split into simple shapes, choose axes, prepare A, x, y, Ax, Ay) Tj ET
+BT /F1 10.5 Tf 48 679 Td (table, use xbar=SumAx/SumA and ybar=SumAy/SumA. Holes are negative areas.) Tj ET
+BT /F1 10.5 Tf 48 655 Td (Standard centroid: rectangle centre, triangle h/3 from base, semicircle 4r/[3pi] from) Tj ET
+BT /F1 10.5 Tf 48 639 Td (diameter, quarter circle 4r/[3pi] from both axes.) Tj ET
+BT /F1 10.5 Tf 48 615 Td (Moment of inertia measures distribution of area resisting bending. Radius of gyration) Tj ET
+BT /F1 10.5 Tf 48 599 Td (k=sqrt[I/A]. Parallel axis theorem I=IG+Ad^2. Perpendicular axis theorem Iz=Ix+Iy.) Tj ET
+BT /F1 10.5 Tf 48 575 Td (For composite MI, use own centroidal MI plus Ad^2 for each part; subtract holes. Polar MI) Tj ET
+BT /F1 10.5 Tf 48 559 Td (of solid circular section J=pi d^4/32.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 5) Tj ET
+
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 1450 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Module 4 - Stress and Strain) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Stress sigma=P/A, unit N/mm^2 or MPa. Strain is deformation/original length, no unit.) Tj ET
+BT /F1 10.5 Tf 48 719 Td (Hooke law: stress proportional to strain within elastic limit.) Tj ET
+BT /F1 10.5 Tf 48 695 Td (Young modulus E=stress/strain. Axial elongation deltaL=PL/[AE]. Convert load, length and) Tj ET
+BT /F1 10.5 Tf 48 679 Td (area units before substitution.) Tj ET
+BT /F1 10.5 Tf 48 655 Td (Types of stress: direct tensile/compressive, shear, bending and torsional. Know nature and) Tj ET
+BT /F1 10.5 Tf 48 639 Td (direction of each stress.) Tj ET
+BT /F1 10.5 Tf 48 615 Td (Mild steel stress-strain curve: proportional limit, elastic limit, yield point, ultimate) Tj ET
+BT /F1 10.5 Tf 48 599 Td (stress and breaking point. Tor steel uses proof stress because yield plateau is not clear.) Tj ET
+BT /F1 10.5 Tf 48 575 Td (Elastic constants: E, G, K and Poisson ratio nu. Relations: E=2G[1+nu], E=3K[1-2nu],) Tj ET
+BT /F1 10.5 Tf 48 559 Td (E=9KG/[3K+G]. Properties: ductility, malleability, brittleness, toughness, stiffness,) Tj ET
+BT /F1 10.5 Tf 48 543 Td (hardness.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 6) Tj ET
+
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 18 0 R >>
+endobj
+18 0 obj
+<< /Length 1301 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Formula Bank and Solved Examples) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Resultant: Rx=SumFx, Ry=SumFy, R=sqrt[Rx^2+Ry^2], theta=tan^-1[Ry/Rx]. Moment: M=F d.) Tj ET
+BT /F1 10.5 Tf 48 719 Td (Equilibrium: SumFx=0, SumFy=0, SumM=0.) Tj ET
+BT /F1 10.5 Tf 48 695 Td (UDL: W=wL at L/2 from start of UDL. Friction: F=muR, tan phi=mu. Centroid:) Tj ET
+BT /F1 10.5 Tf 48 679 Td (xbar=SumAx/SumA, ybar=SumAy/SumA. MI: I=IG+Ad^2, k=sqrt[I/A].) Tj ET
+BT /F1 10.5 Tf 48 655 Td (Stress formulas: sigma=P/A, strain=e/L, E=sigma/strain, delta=PL/AE. Units: 1 N/mm^2 = 1) Tj ET
+BT /F1 10.5 Tf 48 639 Td (MPa.) Tj ET
+BT /F1 10.5 Tf 48 615 Td (Solved 1: 100 N at 30 deg gives Fx=86.6 N and Fy=50 N. Solved 2: 5 m simply supported beam) Tj ET
+BT /F1 10.5 Tf 48 599 Td (with 10 kN central load gives RA=RB=5 kN.) Tj ET
+BT /F1 10.5 Tf 48 575 Td (Solved 3: 20 mm dia rod under 30 kN has A=314.16 mm^2, stress=30000/314.16=95.5 N/mm^2.) Tj ET
+BT /F1 10.5 Tf 48 559 Td (Solved 4: mu=0.35 gives phi=tan^-1[0.35]=19.3 deg.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 7) Tj ET
+
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 20 0 R >>
+endobj
+20 0 obj
+<< /Length 1839 >>
+stream
+0.05 0.23 0.42 rg
+0 812 595 30 re f
+1 1 1 rg
+BT /F2 13 Tf 40 822 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+0 0 0 rg
+BT /F2 24 Tf 40 770 Td (Practice, Model Paper and References) Tj ET
+BT /F1 10.5 Tf 48 735 Td (Expected questions: define statics, vector, moment, centroid, MI, stress, strain; explain) Tj ET
+BT /F1 10.5 Tf 48 719 Td (Varignon theorem, Lami theorem, FBD, support types, friction laws, stress-strain curve.) Tj ET
+BT /F1 10.5 Tf 48 695 Td (Numericals: resultant of forces, Lami theorem, beam reactions for point load and UDL,) Tj ET
+BT /F1 10.5 Tf 48 679 Td (truss by joints, coefficient of friction, composite centroid, MI by parallel axis theorem,) Tj ET
+BT /F1 10.5 Tf 48 663 Td (axial stress and elongation.) Tj ET
+BT /F1 10.5 Tf 48 639 Td (Fresh model paper: Time 3 hours, Max marks 100. Part A 10x2 all modules. Part B answer any) Tj ET
+BT /F1 10.5 Tf 48 623 Td (8 of 5 marks. Part C answer any 4 of 10 marks. Pattern is practice only because official) Tj ET
+BT /F1 10.5 Tf 48 607 Td (pattern was not specified in source.) Tj ET
+BT /F1 10.5 Tf 48 583 Td (Answer guide: draw diagram/FBD first, write formula, substitute with units, calculate,) Tj ET
+BT /F1 10.5 Tf 48 567 Td (state final answer and member nature if truss. Avoid wrong UDL centroid, inconsistent) Tj ET
+BT /F1 10.5 Tf 48 551 Td (moment sign and unit mixing.) Tj ET
+BT /F1 10.5 Tf 48 527 Td (References specified: Khurmi Applied Mechanics, Bansal Engineering Mechanics, Ramamrutham) Tj ET
+BT /F1 10.5 Tf 48 511 Td (Engineering Mechanics, Bedi Strength of Materials, Khurmi SOM, Punmia SOM, Meriam and) Tj ET
+BT /F1 10.5 Tf 48 495 Td (Kraige Statics, Rattan SOM, NPTEL 122104015 and 112103109.) Tj ET
+0.25 0.32 0.45 rg
+BT /F1 9 Tf 40 36 Td (Engineering Mechanics 2021 | Polytechnic Study Hub) Tj ET
+BT /F1 9 Tf 510 36 Td (Page 8) Tj ET
+
+endstream
+endobj
+xref
+0 21
+0000000000 65535 f 
+0000000043 00000 n 
+0000000092 00000 n 
+0000000198 00000 n 
+0000000268 00000 n 
+0000000343 00000 n 
+0000000479 00000 n 
+0000001627 00000 n 
+0000001763 00000 n 
+0000003097 00000 n 
+0000003234 00000 n 
+0000004699 00000 n 
+0000004837 00000 n 
+0000006281 00000 n 
+0000006419 00000 n 
+0000007860 00000 n 
+0000007998 00000 n 
+0000009501 00000 n 
+0000009639 00000 n 
+0000010993 00000 n 
+0000011131 00000 n 
+trailer
+<< /Size 21 /Root 1 0 R >>
+startxref
+13023
+%%EOF
