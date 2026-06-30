@@ -124,6 +124,20 @@
     document.querySelectorAll("[data-year],#year").forEach((item) => { item.textContent = new Date().getFullYear(); });
   }
 
+  function loadLessonNotesFallback() {
+    if (LESSON_PAGE || !document.getElementById("subjectGrid")) return;
+    const path = "/assets/js/lesson-availability-hotfix.js?v=20260630-all-departments1";
+    const alreadyLoaded = [...document.scripts].some((script) => {
+      try { return new URL(script.src || "", window.location.href).pathname === "/assets/js/lesson-availability-hotfix.js"; }
+      catch { return false; }
+    });
+    if (alreadyLoaded) return;
+    const script = document.createElement("script");
+    script.src = path;
+    script.defer = true;
+    document.head.append(script);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     cleanupHomepageExtras();
     normalizeToolLinks();
@@ -134,5 +148,6 @@
     setupHomepageVideoPoster();
     renderMaterialLinks();
     setupTables();
+    loadLessonNotesFallback();
   });
 })();
