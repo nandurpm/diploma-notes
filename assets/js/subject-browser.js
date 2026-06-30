@@ -30,6 +30,11 @@
     return depth > 0 ? "../".repeat(depth) : "";
   };
   const localPath = (url) => new URL(url, window.location.href).pathname;
+  const withQuery = (url, params) => {
+    const absolute = new URL(url, window.location.href);
+    Object.entries(params).forEach(([key, value]) => absolute.searchParams.set(key, value));
+    return absolute.pathname + absolute.search + absolute.hash;
+  };
   const assetCodeFor = (subject, kind) => String(subject?.[`${kind}Code`] || subject?.assetCode || subject?.code || "");
   const lessonLinkFor = (subject) => `${rootPrefix()}lessons/lessons-${encodeURIComponent(assetCodeFor(subject, "lesson"))}.html`;
   const notesLinkFor = (subject) => `${rootPrefix()}notes/downloadable-notes-${encodeURIComponent(assetCodeFor(subject, "notes"))}.pdf`;
@@ -53,6 +58,24 @@
     const result = await check;
     pdfAvailabilityCache.set(absolute, result);
     return result;
+  }
+
+  function makeDownloadLink(href, verified) {
+    const link = document.createElement("a");
+    link.className = "action download";
+    link.href = href;
+    link.textContent = "Download Notes";
+    if (verified) {
+      link.download = "";
+      link.dataset.verified = "true";
+      link.title = "Download the generated PDF notes.";
+    } else {
+      link.dataset.generatedFromLesson = "true";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.title = "PDF is being generated from the lesson. This opens the lesson in print/PDF mode if the generated PDF is not ready yet.";
+    }
+    return link;
   }
 
   function applyOfficialSubjectCorrections(subjects) {
@@ -83,7 +106,7 @@
       return globalThis.SUBJECTS;
     }
     if (subjectsPromise) return subjectsPromise;
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260630-department-common1`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260630-download-autopdf1`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -214,14 +237,14 @@
     const notesHref = notesLinkFor(subject);
     const lessonAvailable = hasLessonAsset(lessonHref);
     return `
-      <article class="subject-card reveal" data-subject-code="${esc(normalizeCode(subject.code))}" data-notes-href="${esc(notesHref)}">
+      <article class="subject-card reveal" data-subject-code="${esc(normalizeCode(subject.code))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${lessonAvailable ? "true" : "false"}">
         <div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div>
         <h3>${esc(subject.name)}</h3>
         <p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p>
         <div class="action-row">
           <a class="action syllabus" href="${esc(syllabusLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>
           ${lessonAvailable ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a>` : unavailable("Lessons unavailable")}
-          ${unavailable("Checking notes…", "notes-status")}
+          ${lessonAvailable ? unavailable("Preparing notes…", "notes-status") : unavailable("Lessons unavailable", "notes-status")}
           <a class="action qp" href="${esc(modelQuestionPaperLinkFor(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a>
         </div>
       </article>`;
@@ -252,25 +275,19 @@
       const row = card.querySelector(".action-row");
       if (!row) return;
       const href = card.getAttribute("data-notes-href") || "";
+      const lessonHref = card.getAttribute("data-lesson-href") || "";
+      const lessonAvailable = card.getAttribute("data-lesson-available") === "true";
       const status = row.querySelector(".notes-status");
       const ok = await pdfExists(href);
       if (!card.isConnected) return;
       row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
       const qp = row.querySelector(".action.qp");
       if (ok) {
-        const link = document.createElement("a");
-        link.className = "action download";
-        link.href = href;
-        link.download = "";
-        link.dataset.verified = "true";
-        link.textContent = "Download Notes";
-        row.insertBefore(link, qp || null);
+        row.insertBefore(makeDownloadLink(href, true), qp || null);
+      } else if (lessonAvailable) {
+        row.insertBefore(makeDownloadLink(withQuery(lessonHref, { autoPrintNotes: "1" }), false), qp || null);
       } else {
-        const span = document.createElement("span");
-        span.className = "availability-label notes-status";
-        span.setAttribute("aria-disabled", "true");
-        span.textContent = "Notes unavailable";
-        row.insertBefore(span, qp || null);
+        row.insertBefore(Object.assign(document.createElement("span"), { className: "availability-label notes-status", textContent: "Lessons unavailable" }), qp || null);
       }
       status?.remove();
     });
@@ -319,12 +336,6 @@
     search?.addEventListener("input", rerender);
     semester?.addEventListener("change", rerender);
     departmentFilter?.addEventListener("change", rerender);
-    grid.addEventListener("click", (event) => {
-      const brokenDownload = event.target.closest?.(".action.download:not([data-verified='true'])");
-      if (!brokenDownload) return;
-      event.preventDefault();
-      brokenDownload.replaceWith(Object.assign(document.createElement("span"), { className: "availability-label notes-status", textContent: "Notes unavailable" }));
-    });
     renderSubjects(subjects, mode, grid, "", semester?.value || "all", departmentFilter?.value || COMMON_VALUE);
   }
 
