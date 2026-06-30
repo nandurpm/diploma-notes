@@ -31,6 +31,10 @@ def natural_key(value: str) -> tuple[object, ...]:
     )
 
 
+def natural_sorted(codes: set[str] | list[str]) -> list[str]:
+    return sorted(set(codes), key=natural_key)
+
+
 def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[str]:
     codes: set[str] = set()
     if not directory.exists():
@@ -43,7 +47,7 @@ def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[st
         if match:
             codes.add(match.group("code"))
 
-    return sorted(codes, key=natural_key)
+    return natural_sorted(codes)
 
 
 def replace_set(source: str, name: str, codes: list[str]) -> str:
@@ -98,6 +102,21 @@ def generated_manifest_source(manifests: dict[str, list[str]]) -> str:
     )
 
 
+def collect_manifests() -> dict[str, list[str]]:
+    manifests = {
+        name: collect_codes(directory, filename_pattern)
+        for name, directory, filename_pattern in ASSET_SPECS
+    }
+
+    # The user-facing Download Notes action points to the PDF generated from a lesson HTML.
+    # Therefore every lesson code must be treated as a notes target too. The workflow builds
+    # missing PDFs and then rewrites these availability sets again.
+    manifests["NOTES_CODES"] = natural_sorted(
+        set(manifests["NOTES_CODES"]) | set(manifests["LESSON_CODES"])
+    )
+    return manifests
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
@@ -112,10 +131,7 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    manifests = {
-        name: collect_codes(directory, filename_pattern)
-        for name, directory, filename_pattern in ASSET_SPECS
-    }
+    manifests = collect_manifests()
 
     browser_updated = updated_browser_source(BROWSER_TARGET, manifests)
     manifest_updated = generated_manifest_source(manifests)
@@ -141,13 +157,13 @@ def main() -> int:
         if manifest_stale:
             stale_files.append(str(MANIFEST_TARGET.relative_to(ROOT)))
         print(f"Asset availability is stale in: {', '.join(stale_files)}")
-        print(f"Detected {lesson_count} lesson pages and {notes_count} notes PDFs.")
+        print(f"Detected {lesson_count} lesson pages and {notes_count} notes targets.")
         return 1
 
     action = "Verified" if args.check else "Updated"
     print(
         f"{action} availability for {lesson_count} lesson pages "
-        f"and {notes_count} notes PDFs."
+        f"and {notes_count} notes targets."
     )
     return 0
 
