@@ -6,11 +6,7 @@
   const HOME_PAGE_SIZE = 30;
   const SEARCH_DEBOUNCE_MS = 180;
 
-  // This list must match actual lesson HTML files in /lessons exactly.
-  // Suffixes are kept exactly: 5043A -> /lessons/lessons-5043A.html.
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2031","2032","2038","2039","2041","2049","3023","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4031","4041","4042","4043","5031","5041","5042","5043","5043A","6002","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D"]);
-
-  // Do not hard-code every lesson as notes-available. A PDF button is enabled only after the file is verified.
   const pdfAvailabilityCache = new Map();
 
   const ELECTRONICS_ELECTIVES = [
@@ -87,7 +83,7 @@
       return globalThis.SUBJECTS;
     }
     if (subjectsPromise) return subjectsPromise;
-    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260630-download-check`)
+    subjectsPromise = fetch(`${rootPrefix()}assets/js/subjects.js?v=20260630-home-common-filter1`)
       .then((response) => {
         if (!response.ok) throw new Error(`subjects.js request failed: ${response.status}`);
         return response.text();
@@ -154,6 +150,30 @@
       select.append(option);
     });
     select.value = [...select.options].some((option) => option.value === selected) ? selected : all.value;
+  }
+
+  function fillDepartmentSelect(select, subjects, selected = COMMON_VALUE) {
+    if (!select) return;
+    const departments = [...new Set(subjects.map((subject) => subject.department).filter(Boolean).filter((department) => department !== COMMON_DEPARTMENT))]
+      .sort((a, b) => String(a).localeCompare(String(b), undefined, { sensitivity: "base" }));
+    select.replaceChildren();
+    const common = document.createElement("option");
+    common.value = COMMON_VALUE;
+    common.textContent = "Common Subjects";
+    select.append(common);
+    departments.forEach((department) => {
+      const option = document.createElement("option");
+      option.value = department;
+      option.textContent = department;
+      select.append(option);
+    });
+    select.value = [...select.options].some((option) => option.value === selected) ? selected : COMMON_VALUE;
+  }
+
+  function homeDepartmentFilter(subject, selectedDepartment) {
+    const department = String(subject.department || "");
+    if (!selectedDepartment || selectedDepartment === COMMON_VALUE) return department === COMMON_DEPARTMENT;
+    return department === COMMON_DEPARTMENT || department === selectedDepartment;
   }
 
   function queryIsIncompleteHomeCode(mode, query) {
@@ -250,9 +270,12 @@
     });
   }
 
-  function renderSubjects(subjects, mode, grid, query = "", semester = "all") {
+  function renderSubjects(subjects, mode, grid, query = "", semester = "all", selectedDepartment = COMMON_VALUE) {
     let items = uniqueSubjects(subjects);
-    if (mode === "home") items = uniqueByCode(items);
+    if (mode === "home") {
+      items = items.filter((subject) => homeDepartmentFilter(subject, selectedDepartment));
+      items = uniqueByCode(items);
+    }
     items = sortSubjects(items).filter((subject) => subjectMatchesQuery(subject, query));
     if (semester !== "all") items = items.filter((subject) => String(subject.semester) === semester);
     if (queryIsIncompleteHomeCode(mode, query)) items = [];
@@ -272,22 +295,25 @@
     const department = grid.dataset.department;
     const search = $("subjectSearch");
     const semester = $("semesterFilter");
+    const departmentFilter = $("departmentFilter");
     const subjects = (await loadSubjects()).filter((subject) => (!revision || String(subject.revision) === revision) && (!department || String(subject.department) === department));
-    fillSelect(semester, subjects.map((subject) => subject.semester), mode === "home" ? "Common Subjects" : "All semesters");
+    if (mode === "home") fillDepartmentSelect(departmentFilter, subjects, departmentFilter?.value || COMMON_VALUE);
+    fillSelect(semester, subjects.map((subject) => subject.semester), mode === "home" ? "All semesters" : "All semesters");
     let timer = 0;
     const rerender = () => {
       clearTimeout(timer);
-      timer = setTimeout(() => renderSubjects(subjects, mode, grid, String(search?.value || "").trim().toLowerCase(), semester?.value || "all"), SEARCH_DEBOUNCE_MS);
+      timer = setTimeout(() => renderSubjects(subjects, mode, grid, String(search?.value || "").trim().toLowerCase(), semester?.value || "all", departmentFilter?.value || COMMON_VALUE), SEARCH_DEBOUNCE_MS);
     };
     search?.addEventListener("input", rerender);
     semester?.addEventListener("change", rerender);
+    departmentFilter?.addEventListener("change", rerender);
     grid.addEventListener("click", (event) => {
       const brokenDownload = event.target.closest?.(".action.download:not([data-verified='true'])");
       if (!brokenDownload) return;
       event.preventDefault();
       brokenDownload.replaceWith(Object.assign(document.createElement("span"), { className: "availability-label notes-status", textContent: "Notes unavailable" }));
     });
-    renderSubjects(subjects, mode, grid, "", semester?.value || "all");
+    renderSubjects(subjects, mode, grid, "", semester?.value || "all", departmentFilter?.value || COMMON_VALUE);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initSubjectBrowser, { once: true });
