@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,6 +11,7 @@ ASSISTANT_ROOT = '<div id="polySiteAssistant"></div>'
 NAV_FIX_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>'
 MARKER = "Ask POLY lesson assistant"
 NAV_MARKER = "Lesson navigation back-button fix"
+SITE_ASSISTANT_TAG_RE = re.compile(r"<script\b[^>]*src=[\"'][^\"']*site-assistant\.js[^\"']*[\"'][^>]*>\s*</script>", re.I)
 
 
 def update_page(path: Path) -> bool:
@@ -28,16 +30,18 @@ def update_page(path: Path) -> bool:
             updated = f"{updated.rstrip()}\n{assistant_snippet}"
 
     if "lesson-navigation-fix.js" not in updated:
-        nav_snippet = (
-            f"\n  <!-- {NAV_MARKER} -->\n"
-            f"  {NAV_FIX_SCRIPT}\n"
-        )
-        if "site-assistant.js" in updated:
-            updated = updated.replace(ASSISTANT_SCRIPT, f"{NAV_FIX_SCRIPT}\n  {ASSISTANT_SCRIPT}", 1)
+        match = SITE_ASSISTANT_TAG_RE.search(updated)
+        if match:
+            replacement = f"{NAV_FIX_SCRIPT}\n  {match.group(0)}"
+            updated = updated[:match.start()] + replacement + updated[match.end():]
         elif "</body>" in updated:
+            nav_snippet = (
+                f"\n  <!-- {NAV_MARKER} -->\n"
+                f"  {NAV_FIX_SCRIPT}\n"
+            )
             updated = updated.replace("</body>", f"{nav_snippet}</body>", 1)
         else:
-            updated = f"{updated.rstrip()}\n{nav_snippet}"
+            updated = f"{updated.rstrip()}\n<!-- {NAV_MARKER} -->\n{NAV_FIX_SCRIPT}\n"
 
     if updated == source:
         return False
