@@ -28,5 +28,10 @@
 <script>
 (()=>{const panels=[...document.querySelectorAll('.section-panel')],buttons=[...document.querySelectorAll('[data-target]')],jumpers=[...document.querySelectorAll('[data-jump]')],progress=document.getElementById('progress'),download=document.getElementById('downloadNotes'),valid=new Set(panels.map(p=>p.id));function show(id,scroll=true){if(!valid.has(id))id='overview';panels.forEach(p=>p.classList.toggle('active',p.id===id));buttons.forEach(b=>b.classList.toggle('active',b.dataset.target===id));history.replaceState(null,'',location.pathname+location.search);if(scroll)scrollTo({top:0,behavior:'smooth'})}buttons.forEach(b=>b.addEventListener('click',()=>show(b.dataset.target)));jumpers.forEach(b=>b.addEventListener('click',()=>show(b.dataset.jump)));download?.addEventListener('click',e=>{if(new URL(download.href,location.href).pathname.endsWith('.pdf'))return;e.preventDefault();print()});addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=h>0?((scrollY/h)*100).toFixed(2)+'%':'0%'},{passive:true});if(new URLSearchParams(location.search).get('autoPrintNotes')==='1'){panels.forEach(p=>p.classList.add('active'));buttons.forEach(b=>b.classList.remove('active'));setTimeout(()=>print(),700)}})();
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
