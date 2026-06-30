@@ -9,6 +9,9 @@ on:
     branches: [main]
     paths:
       - "lessons/**/*.html"
+      - "assets/js/subject-browser.js"
+      - "assets/js/asset-manifest.js"
+      - "assets/js/lesson-availability-hotfix.js"
       - "tools/build_lesson_pdfs.py"
       - "tools/update_asset_manifest.py"
       - ".github/workflows/build-lesson-notes-pdfs.yml"
