@@ -13,6 +13,7 @@ LESSONS = ROOT / "lessons"
 NOTES = ROOT / "notes"
 REPORTS = ROOT / "reports"
 MIN_VALID_PDF_BYTES = 20000
+PRESERVE_EXISTING_PDF_CODES = {"1003", "1004"}
 
 PANEL_SELECTORS = [
     ".panel",
@@ -234,6 +235,24 @@ def remove_genuinely_blank_pages(output: Path, code: str) -> list[int]:
     return removed
 
 
+def inspect_pdf(output: Path, code: str) -> dict[str, object]:
+    reader = PdfReader(str(output))
+    page_texts = [clean_pdf_page_text(pdf_page.extract_text() or "", code) for pdf_page in reader.pages]
+    blank_pages = [
+        index + 1 for index, (pdf_page, text) in enumerate(zip(reader.pages, page_texts))
+        if len(text) < 10 and not page_has_raster_image(pdf_page)
+    ]
+    near_blank_pages = [index + 1 for index, text in enumerate(page_texts) if len(text) < 80]
+    pdf_text = normalize_text(" ".join(page_texts))
+    return {
+        "pages": len(reader.pages),
+        "bytes": output.stat().st_size,
+        "pdfCharacters": len(pdf_text),
+        "blankPages": blank_pages,
+        "nearBlankPages": near_blank_pages,
+    }
+
+
 def wait_best_effort(page, expression: str, timeout: int, label: str) -> str | None:
     try:
         page.wait_for_function(expression, timeout=timeout)
@@ -253,6 +272,29 @@ def render_all() -> tuple[list[dict[str, object]], list[dict[str, str]]]:
         for code, lesson in lesson_files():
             output = NOTES / f"downloadable-notes-{code}.pdf"
             relative_url = lesson.relative_to(ROOT).as_posix()
+            if code in PRESERVE_EXISTING_PDF_CODES and output.exists() and output.stat().st_size >= MIN_VALID_PDF_BYTES:
+                info = inspect_pdf(output, code)
+                warnings = ["preserved existing approved notes PDF"]
+                if info["nearBlankPages"]:
+                    warnings.append(f"near-empty pages require review: {info['nearBlankPages']}")
+                results.append({
+                    "code": code,
+                    "pages": info["pages"],
+                    "bytes": info["bytes"],
+                    "source": relative_url,
+                    "sourceCharacters": 0,
+                    "pdfCharacters": info["pdfCharacters"],
+                    "textCoverage": None,
+                    "panelCount": 0,
+                    "visiblePanelCount": 0,
+                    "removedBlankPages": [],
+                    "blankPages": info["blankPages"],
+                    "nearBlankPages": info["nearBlankPages"],
+                    "warnings": warnings,
+                })
+                print(f"Preserved existing Course {code} PDF")
+                continue
+
             url = f"http://127.0.0.1:8000/{relative_url}"
             print(f"Rendering Course {code} from {url}")
             page = browser.new_page(viewport={"width": 1440, "height": 1800})
@@ -335,34 +377,28 @@ def render_all() -> tuple[list[dict[str, object]], list[dict[str, str]]]:
                 continue
 
             removed_blank_pages = remove_genuinely_blank_pages(output, code)
-            reader = PdfReader(str(output))
-            page_texts = [clean_pdf_page_text(pdf_page.extract_text() or "", code) for pdf_page in reader.pages]
-            blank_pages = [
-                index + 1 for index, (pdf_page, text) in enumerate(zip(reader.pages, page_texts))
-                if len(text) < 10 and not page_has_raster_image(pdf_page)
-            ]
-            near_blank_pages = [index + 1 for index, text in enumerate(page_texts) if len(text) < 80]
-            pdf_text = normalize_text(" ".join(page_texts))
-            coverage = len(pdf_text) / max(1, len(source_text))
+            info = inspect_pdf(output, code)
+            pdf_characters = int(info["pdfCharacters"])
+            coverage = pdf_characters / max(1, len(source_text))
             if panel_count and visible_panel_count != panel_count:
                 warnings.append(f"only {visible_panel_count}/{panel_count} detected panels were visible")
             if coverage < 0.45:
                 warnings.append(f"extracted text coverage is {coverage:.1%}")
-            if near_blank_pages:
-                warnings.append(f"near-empty pages require review: {near_blank_pages}")
+            if info["nearBlankPages"]:
+                warnings.append(f"near-empty pages require review: {info['nearBlankPages']}")
             results.append({
                 "code": code,
-                "pages": len(reader.pages),
-                "bytes": output.stat().st_size,
+                "pages": info["pages"],
+                "bytes": info["bytes"],
                 "source": relative_url,
                 "sourceCharacters": len(source_text),
-                "pdfCharacters": len(pdf_text),
+                "pdfCharacters": pdf_characters,
                 "textCoverage": round(coverage, 4),
                 "panelCount": panel_count,
                 "visiblePanelCount": visible_panel_count,
                 "removedBlankPages": removed_blank_pages,
-                "blankPages": blank_pages,
-                "nearBlankPages": near_blank_pages,
+                "blankPages": info["blankPages"],
+                "nearBlankPages": info["nearBlankPages"],
                 "warnings": warnings,
             })
         browser.close()
@@ -380,6 +416,7 @@ def main() -> None:
         "requiredLessonCodes": lesson_codes,
         "generatedCodes": generated_codes,
         "missingCodes": missing_codes,
+        "preservedExistingPdfCodes": sorted(PRESERVE_EXISTING_PDF_CODES),
         "renderer": "Playwright Chromium through local HTTP server",
         "validation": {
             "everyLessonHtmlRequiresPdf": True,
