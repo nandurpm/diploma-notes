@@ -21,6 +21,7 @@ ASSET_SPECS = (
         re.compile(r"^downloadable-notes-(?P<code>[A-Za-z0-9-]+)\.pdf$", re.IGNORECASE),
     ),
 )
+MIN_VALID_PDF_BYTES = 20000
 
 
 def natural_key(value: str) -> tuple[object, ...]:
@@ -44,33 +45,33 @@ def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[st
         if not path.is_file():
             continue
         match = filename_pattern.fullmatch(path.name)
-        if match:
-            codes.add(match.group("code"))
+        if not match:
+            continue
+        if path.suffix.lower() == ".pdf" and path.stat().st_size < MIN_VALID_PDF_BYTES:
+            continue
+        codes.add(match.group("code"))
 
     return natural_sorted(codes)
 
 
-def replace_set(source: str, name: str, codes: list[str]) -> str:
-    pattern = re.compile(
-        rf"(?ms)^(?P<indent>[ \t]*)const {re.escape(name)} = new Set\(\[.*?\]\);"
-    )
+def replace_set_if_present(source: str, name: str, codes: list[str]) -> str:
+    pattern = re.compile(rf"(?ms)^(?P<indent>[ \t]*)const {re.escape(name)} = new Set\(\[.*?\]\);")
     encoded = json.dumps(codes, ensure_ascii=False, separators=(",", ":"))
 
     def replacement(match: re.Match[str]) -> str:
         return f'{match.group("indent")}const {name} = new Set({encoded});'
 
     updated, count = pattern.subn(replacement, source, count=1)
-    if count != 1:
-        raise RuntimeError(
-            f"Could not find exactly one {name} declaration in {BROWSER_TARGET.relative_to(ROOT)}"
-        )
+    if count > 1:
+        raise RuntimeError(f"Found multiple {name} declarations in {BROWSER_TARGET.relative_to(ROOT)}")
     return updated
 
 
 def updated_browser_source(path: Path, manifests: dict[str, list[str]]) -> str:
     source = path.read_text(encoding="utf-8")
-    for name, codes in manifests.items():
-        source = replace_set(source, name, codes)
+    # subject-browser.js may use dynamic HEAD checks and no longer needs NOTES_CODES.
+    source = replace_set_if_present(source, "LESSON_CODES", manifests["LESSON_CODES"])
+    source = replace_set_if_present(source, "NOTES_CODES", manifests["NOTES_CODES"])
     return source
 
 
@@ -80,6 +81,7 @@ def generated_manifest_source(manifests: dict[str, list[str]]) -> str:
     return (
         "globalThis.POLY_ASSET_MANIFEST = Object.freeze({\n"
         f"  lessonCodes: Object.freeze({lesson_codes}),\n"
+        "  // This list is intentionally limited to PDFs that really exist in /notes.\n"
         f"  notesCodes: Object.freeze({notes_codes})\n"
         "});\n\n"
         "(() => {\n"
@@ -103,26 +105,15 @@ def generated_manifest_source(manifests: dict[str, list[str]]) -> str:
 
 
 def collect_manifests() -> dict[str, list[str]]:
-    manifests = {
+    return {
         name: collect_codes(directory, filename_pattern)
         for name, directory, filename_pattern in ASSET_SPECS
     }
 
-    # The user-facing Download Notes action points to the PDF generated from a lesson HTML.
-    # Therefore every lesson code must be treated as a notes target too. The workflow builds
-    # missing PDFs and then rewrites these availability sets again.
-    manifests["NOTES_CODES"] = natural_sorted(
-        set(manifests["NOTES_CODES"]) | set(manifests["LESSON_CODES"])
-    )
-    return manifests
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description=(
-            "Synchronize lesson and notes availability in subject-browser.js and "
-            "asset-manifest.js with files currently present in the repository."
-        )
+        description="Synchronize lesson and real notes availability with files currently present in the repository."
     )
     parser.add_argument(
         "--check",
@@ -132,14 +123,10 @@ def main() -> int:
     args = parser.parse_args()
 
     manifests = collect_manifests()
-
     browser_updated = updated_browser_source(BROWSER_TARGET, manifests)
     manifest_updated = generated_manifest_source(manifests)
     browser_stale = browser_updated != BROWSER_TARGET.read_text(encoding="utf-8")
-    manifest_stale = (
-        not MANIFEST_TARGET.exists()
-        or manifest_updated != MANIFEST_TARGET.read_text(encoding="utf-8")
-    )
+    manifest_stale = not MANIFEST_TARGET.exists() or manifest_updated != MANIFEST_TARGET.read_text(encoding="utf-8")
 
     if not args.check:
         if browser_stale:
@@ -157,14 +144,11 @@ def main() -> int:
         if manifest_stale:
             stale_files.append(str(MANIFEST_TARGET.relative_to(ROOT)))
         print(f"Asset availability is stale in: {', '.join(stale_files)}")
-        print(f"Detected {lesson_count} lesson pages and {notes_count} notes targets.")
+        print(f"Detected {lesson_count} lesson pages and {notes_count} real notes PDFs.")
         return 1
 
     action = "Verified" if args.check else "Updated"
-    print(
-        f"{action} availability for {lesson_count} lesson pages "
-        f"and {notes_count} notes targets."
-    )
+    print(f"{action} availability for {lesson_count} lesson pages and {notes_count} real notes PDFs.")
     return 0
 
 
