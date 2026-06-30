@@ -85,5 +85,10 @@ function updateProgress(){const h=document.documentElement;const max=h.scrollHei
 function searchLesson(){const q=lessonSearch.value.trim().toLowerCase();document.querySelectorAll('.searchable').forEach(el=>{el.classList.toggle('search-hidden',q && !el.innerText.toLowerCase().includes(q))})}
 renderRoadmap();renderModules();renderFormula();renderProblems();renderQuestions();renderAnswers();addEventListener('scroll',updateProgress,{passive:true});lessonSearch.addEventListener('input',searchLesson);updateProgress();
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
