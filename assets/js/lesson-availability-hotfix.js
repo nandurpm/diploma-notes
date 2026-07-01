@@ -54,6 +54,10 @@
     return item.classList?.contains("notes-status") || /notes?|preparing/i.test((item.textContent || "").trim());
   }
 
+  function notesLabels(row) {
+    return [...row.querySelectorAll(".availability-label")].filter(isNotesLabel);
+  }
+
   function removeNotesControls(row) {
     row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
     row.querySelectorAll(".availability-label").forEach((item) => {
@@ -67,7 +71,26 @@
     });
   }
 
-  function insertNotesUnavailable(row, qp) {
+  function hasLessonsUnavailable(row) {
+    return [...row.querySelectorAll(".availability-label")].some((item) => /lessons unavailable/i.test(item.textContent || ""));
+  }
+
+  function ensureLessonsUnavailable(row, qp) {
+    if (hasLessonsUnavailable(row)) return;
+    const syllabus = row.querySelector(".action.syllabus");
+    const lessons = document.createElement("span");
+    lessons.className = "availability-label lessons-status";
+    lessons.setAttribute("aria-disabled", "true");
+    lessons.textContent = "Lessons unavailable";
+    row.insertBefore(lessons, syllabus?.nextSibling || qp || null);
+  }
+
+  function ensureNotesUnavailable(row, qp) {
+    const current = notesLabels(row);
+    if (!row.querySelector(".action.download") && current.length === 1 && /notes unavailable/i.test(current[0].textContent || "")) {
+      current[0].classList.add("notes-status");
+      return;
+    }
     removeNotesControls(row);
     const unavailable = document.createElement("span");
     unavailable.className = "availability-label notes-status";
@@ -80,19 +103,25 @@
     const row = card.querySelector(".action-row");
     if (!row) return;
     if (row.querySelector(".action.download")) {
-      row.querySelectorAll(".availability-label").forEach((item) => {
-        if (isNotesLabel(item)) item.remove();
-      });
+      notesLabels(row).forEach((item) => item.remove());
       return;
     }
-    const notes = [...row.querySelectorAll(".availability-label")].filter(isNotesLabel);
+    const notes = notesLabels(row);
     if (notes.length > 1) notes.slice(0, -1).forEach((item) => item.remove());
-    const final = [...row.querySelectorAll(".availability-label")].filter(isNotesLabel)[0];
+    const final = notesLabels(row)[0];
     if (final) {
       final.classList.add("notes-status");
-      if (/preparing/i.test(final.textContent || "")) return;
-      final.textContent = "Notes unavailable";
+      if (!/preparing/i.test(final.textContent || "")) final.textContent = "Notes unavailable";
     }
+  }
+
+  function stableNoLesson(row) {
+    const notes = notesLabels(row);
+    return !row.querySelector(".action.download") && hasLessonsUnavailable(row) && notes.length === 1 && /notes unavailable/i.test(notes[0].textContent || "");
+  }
+
+  function stableLesson(row) {
+    return Boolean(row.querySelector(".action.lessons") && row.querySelector(".action.download") && !notesLabels(row).length);
   }
 
   async function validateCard(card) {
@@ -112,6 +141,7 @@
       if (!card.isConnected) return;
 
       if (lessonAvailable) {
+        if (stableLesson(row)) return;
         card.dataset.lessonAvailable = "true";
         removeLabels(row, /lessons unavailable/i);
         if (!row.querySelector(".action.lessons")) {
@@ -121,19 +151,14 @@
         removeNotesControls(row);
         const ok = await pdfExists(notesHref);
         if (!card.isConnected) return;
+        if (stableLesson(row)) return;
         removeNotesControls(row);
         row.insertBefore(buildLink(ok ? notesHref : lessonPrintHref, "action download", "Download Notes", ok), qp || null);
       } else {
+        if (stableNoLesson(row)) return;
         card.dataset.lessonAvailable = "false";
-        if (!row.querySelector(".availability-label") || !/lessons unavailable/i.test(row.textContent || "")) {
-          const syllabus = row.querySelector(".action.syllabus");
-          const lessons = document.createElement("span");
-          lessons.className = "availability-label lessons-status";
-          lessons.setAttribute("aria-disabled", "true");
-          lessons.textContent = "Lessons unavailable";
-          row.insertBefore(lessons, syllabus?.nextSibling || qp || null);
-        }
-        insertNotesUnavailable(row, qp);
+        ensureLessonsUnavailable(row, qp);
+        ensureNotesUnavailable(row, qp);
       }
     } finally {
       checking.delete(card);
@@ -149,7 +174,7 @@
         dedupeVisibleNotes(card);
         validateCard(card);
       });
-    }, 80);
+    }, 120);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
