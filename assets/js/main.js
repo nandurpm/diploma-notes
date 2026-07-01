@@ -126,7 +126,7 @@
 
   function loadLessonNotesFallback() {
     if (LESSON_PAGE || !document.getElementById("subjectGrid")) return;
-    const path = "/assets/js/lesson-availability-hotfix.js?v=20260630-lesson-head-check1";
+    const path = "/assets/js/lesson-availability-hotfix.js?v=20260701-notes-dedupe1";
     const alreadyLoaded = [...document.scripts].some((script) => {
       try { return new URL(script.src || "", window.location.href).pathname === "/assets/js/lesson-availability-hotfix.js"; }
       catch { return false; }
