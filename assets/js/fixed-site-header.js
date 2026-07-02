@@ -14,6 +14,7 @@
   const isNativeApp = Boolean(appMatch) || isAndroidWebView || Boolean(isStandaloneAndroid);
   const installedVersion = appMatch ? appMatch[1] : null;
   const isLessonPage = /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(window.location.pathname);
+  const ONAM_VERSION = "20260702-onam1";
   if (isLessonPage) root.classList.add("poly-lesson-page");
 
   const hideNativeWebHeader = () => {
@@ -132,6 +133,16 @@
     document.head.append(link);
   };
 
+  const installOnamThemeLoader = () => {
+    addStylesheetOnce("poly-onam-theme-css", `/assets/css/onam-theme.css?v=${ONAM_VERSION}`);
+    if (document.getElementById("poly-onam-theme-script")) return;
+    const script = document.createElement("script");
+    script.id = "poly-onam-theme-script";
+    script.src = `/assets/js/onam-theme.js?v=${ONAM_VERSION}`;
+    script.defer = true;
+    document.head.append(script);
+  };
+
   const installDailyQuizResponsiveFix = () => {
     if (!/\/daily-quiz\.html$/i.test(window.location.pathname)) return;
     addStylesheetOnce("poly-quiz-responsive-fix", `/assets/css/quiz-responsive-fix.css?v=20260620-mobile-fix-${Date.now()}`);
@@ -157,6 +168,7 @@
     document.head.append(script);
   };
 
+  installOnamThemeLoader();
   configureAppDownloadButton();
   installDailyQuizResponsiveFix();
   installLessonPageFix();
