@@ -5,6 +5,24 @@
   if (!isLesson || window.__polyLessonNavigationFixLoaded) return;
   window.__polyLessonNavigationFixLoaded = true;
 
+  const ONAM_VERSION = "20260702-onam1";
+
+  function installOnamThemeLoader() {
+    if (!document.getElementById("poly-onam-theme-css")) {
+      const link = document.createElement("link");
+      link.id = "poly-onam-theme-css";
+      link.rel = "stylesheet";
+      link.href = `/assets/css/onam-theme.css?v=${ONAM_VERSION}`;
+      document.head.append(link);
+    }
+    if (document.getElementById("poly-onam-theme-script")) return;
+    const script = document.createElement("script");
+    script.id = "poly-onam-theme-script";
+    script.src = `/assets/js/onam-theme.js?v=${ONAM_VERSION}`;
+    script.defer = true;
+    document.head.append(script);
+  }
+
   function installHeaderStyle() {
     if (document.getElementById("polyLessonHeaderStandardStyle")) return;
     const style = document.createElement("style");
@@ -94,6 +112,7 @@
     window.scrollTo(0, 0);
   }
 
+  installOnamThemeLoader();
   installHeaderStyle();
   prepareFallbackMode();
 
