@@ -22,7 +22,20 @@
   const STORAGE_INDEX = "polyVisitorPopupMediaIndexV2";
   const WAIT_MS = 20000;
   const AUTO_CLOSE_MS = 60000;
-  const today = () => new Date().toISOString().slice(0, 10);
+  const today = () => {
+    try {
+      const parts = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      }).formatToParts(new Date());
+      const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+      return `${values.year}-${values.month}-${values.day}`;
+    } catch (_) {
+      return new Date().toISOString().slice(0, 10);
+    }
+  };
   const forceShow = /(?:[?&]showPopup=1\b|#showPopup\b)/i.test(location.search + location.hash);
 
   async function exists(item) {
@@ -65,6 +78,24 @@
     document.head.append(style);
   }
 
+  function getSavedIndex() {
+    try {
+      const previous = parseInt(localStorage.getItem(STORAGE_INDEX) || "-1", 10);
+      return Number.isFinite(previous) ? previous : -1;
+    } catch (_) {
+      return -1;
+    }
+  }
+
+  function resetDailySequenceIfNeeded() {
+    try {
+      if (localStorage.getItem(STORAGE_DATE) !== today()) {
+        localStorage.setItem(STORAGE_DATE, today());
+        localStorage.setItem(STORAGE_INDEX, "-1");
+      }
+    } catch (_) {}
+  }
+
   function markShown(index) {
     try {
       localStorage.setItem(STORAGE_DATE, today());
@@ -72,23 +103,15 @@
     } catch (_) {}
   }
 
-  function shouldShowToday() {
+  function shouldShowForThisVisit(count) {
     if (forceShow) return true;
-    try {
-      return localStorage.getItem(STORAGE_DATE) !== today();
-    } catch (_) {
-      return true;
-    }
+    if (!count) return false;
+    return getSavedIndex() < count - 1;
   }
 
   function nextIndex(count) {
     if (!count) return 0;
-    try {
-      const previous = parseInt(localStorage.getItem(STORAGE_INDEX) || "-1", 10);
-      return Number.isFinite(previous) ? (previous + 1) % count : 0;
-    } catch (_) {
-      return 0;
-    }
+    return Math.min(getSavedIndex() + 1, count - 1);
   }
 
   function openPopup(item, index) {
@@ -136,8 +159,9 @@
 
   async function install() {
     if (window.POLY_DISABLE_ASSISTANT || document.getElementById("polyVisitorPopup")) return;
+    resetDailySequenceIfNeeded();
     const available = await availablePopups();
-    if (!available.length || !shouldShowToday()) return;
+    if (!shouldShowForThisVisit(available.length)) return;
     const index = nextIndex(available.length);
     setTimeout(() => openPopup(available[index], index), forceShow ? 500 : WAIT_MS);
   }
