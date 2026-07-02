@@ -3,6 +3,7 @@
 
   const TOOLS_URL = "/tools.html";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
+  const ONAM_VERSION = "20260702-onam1";
 
   function normalizeToolLinks() {
     document.querySelectorAll("a[href]").forEach((link) => {
@@ -138,6 +139,23 @@
     document.head.append(script);
   }
 
+  function loadOnamTheme() {
+    if (document.getElementById("poly-onam-theme-script")) return;
+    const cssPath = `/assets/css/onam-theme.css?v=${ONAM_VERSION}`;
+    if (!document.getElementById("poly-onam-theme-css")) {
+      const link = document.createElement("link");
+      link.id = "poly-onam-theme-css";
+      link.rel = "stylesheet";
+      link.href = cssPath;
+      document.head.append(link);
+    }
+    const script = document.createElement("script");
+    script.id = "poly-onam-theme-script";
+    script.src = `/assets/js/onam-theme.js?v=${ONAM_VERSION}`;
+    script.defer = true;
+    document.head.append(script);
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     cleanupHomepageExtras();
     normalizeToolLinks();
@@ -149,5 +167,6 @@
     renderMaterialLinks();
     setupTables();
     loadLessonNotesFallback();
+    loadOnamTheme();
   });
 })();
