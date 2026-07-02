@@ -10,7 +10,7 @@
 
   const script = document.createElement("script");
   script.id = "poly-visitor-popup-script";
-  script.src = "/assets/js/visitor-popup.js?v=20260629-popup-restore";
+  script.src = "/assets/js/visitor-popup.js?v=20260702-popup-sequence-stop";
   script.defer = true;
   document.head.append(script);
 })();
