@@ -3,7 +3,7 @@
 
   const TOOLS_URL = "/tools.html";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
-  const ONAM_VERSION = "20260703-onam3";
+  const ONAM_VERSION = "20260703-onam5";
 
   function normalizeToolLinks() {
     document.querySelectorAll("a[href]").forEach((link) => {
@@ -140,26 +140,10 @@
   }
 
   function loadOnamTheme() {
-    if (document.getElementById("poly-onam-theme-script")) return;
-    const cssPath = `/assets/css/onam-theme.css?v=${ONAM_VERSION}`;
-    const artPath = `/assets/css/onam-2026-art.css?v=${ONAM_VERSION}`;
-    if (!document.getElementById("poly-onam-theme-css")) {
-      const link = document.createElement("link");
-      link.id = "poly-onam-theme-css";
-      link.rel = "stylesheet";
-      link.href = cssPath;
-      document.head.append(link);
-    }
-    if (!document.getElementById("poly-onam-2026-art-css")) {
-      const artLink = document.createElement("link");
-      artLink.id = "poly-onam-2026-art-css";
-      artLink.rel = "stylesheet";
-      artLink.href = artPath;
-      document.head.append(artLink);
-    }
+    if (LESSON_PAGE || document.getElementById("poly-onam-reference-script")) return;
     const script = document.createElement("script");
-    script.id = "poly-onam-theme-script";
-    script.src = `/assets/js/onam-theme.js?v=${ONAM_VERSION}`;
+    script.id = "poly-onam-reference-script";
+    script.src = `/assets/js/onam-theme-2026-force.js?v=${ONAM_VERSION}`;
     script.defer = true;
     document.head.append(script);
   }
