@@ -4,7 +4,7 @@
   if (window.__polyOnamThemeLoaded) return;
   window.__polyOnamThemeLoaded = true;
 
-  const VERSION = '20260703-onam2';
+  const VERSION = '20260703-onam3';
   const DAYS = [
     { key: 'uthradam', label: 'Uthradam', malayalam: 'ഉത്രാടം', message: 'Onam preparations begin. Study with joy and keep moving forward.' },
     { key: 'thiruvonam', label: 'Thiruvonam', malayalam: 'തിരുവോണം', message: 'Happy Onam. May knowledge, unity and success grow.' },
@@ -39,19 +39,25 @@
     const params = new URLSearchParams(window.location.search);
     const previewDay = getPreviewDay(params);
     if (previewDay) return { day: previewDay, preview: true };
-
     const index = ONAM_DATES_2026.indexOf(istDateString());
     if (index >= 0) return { day: index + 1, preview: false };
     return null;
   }
 
+  function stylesheet(id, href) {
+    let link = document.getElementById(id);
+    if (!link) {
+      link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      document.head.append(link);
+    }
+    link.href = href;
+  }
+
   function ensureStylesheet() {
-    if (document.getElementById('poly-onam-theme-css')) return;
-    const link = document.createElement('link');
-    link.id = 'poly-onam-theme-css';
-    link.rel = 'stylesheet';
-    link.href = `/assets/css/onam-theme.css?v=${VERSION}`;
-    document.head.append(link);
+    stylesheet('poly-onam-theme-css', `/assets/css/onam-theme.css?v=${VERSION}`);
+    stylesheet('poly-onam-2026-art-css', `/assets/css/onam-2026-art.css?v=${VERSION}`);
   }
 
   function makeEl(tag, className, text) {
@@ -66,12 +72,11 @@
     const day = DAYS[info.day - 1] || DAYS[1];
     const bar = makeEl('aside', 'poly-onam-bar');
     bar.setAttribute('role', 'status');
-    bar.append(makeEl('span', 'poly-onam-bar__flower', '🌼'));
-    bar.append(makeEl('strong', '', 'Happy Onam!'));
-    bar.append(makeEl('span', '', 'Wishing you and your family a prosperous and joyful Onam.'));
-    bar.append(makeEl('span', 'poly-onam-bar__day', `${day.label} · ${day.malayalam}`));
-    if (info.preview) bar.append(makeEl('span', 'poly-onam-preview-tag', 'Preview'));
-    bar.append(makeEl('span', 'poly-onam-bar__flower', '🌼'));
+    ['🌼', 'Happy Onam!', 'Wishing you and your family a prosperous and joyful Onam.', `${day.label} · ${day.malayalam}`, info.preview ? 'Preview' : '', '🌼'].forEach((text, index) => {
+      if (!text) return;
+      const className = index === 0 || index === 5 ? 'poly-onam-bar__flower' : index === 3 ? 'poly-onam-bar__day' : index === 4 ? 'poly-onam-preview-tag' : '';
+      bar.append(makeEl(index === 1 ? 'strong' : 'span', className, text));
+    });
     const skip = document.querySelector('.skip-link');
     if (skip?.nextSibling) skip.after(bar); else document.body.prepend(bar);
   }
@@ -95,8 +100,7 @@
     stage.setAttribute('aria-hidden', 'true');
     const leaves = makeEl('div', 'poly-onam-leaves');
     const pookalam = makeEl('div', 'poly-onam-pookalam-art');
-    const lamp = makeEl('span', 'poly-onam-lamp', '🪔');
-    pookalam.append(lamp);
+    pookalam.append(makeEl('span', 'poly-onam-lamp', '🪔'));
     stage.append(leaves, pookalam);
     parent.append(stage);
   }
@@ -120,39 +124,28 @@
 
     const scene = makeEl('section', 'poly-onam-grand-hero');
     scene.setAttribute('aria-label', `Happy Onam ${day.label} greeting`);
-
     const leftArrow = makeEl('button', 'poly-onam-hero-arrow poly-onam-hero-arrow--left', '‹');
     leftArrow.type = 'button';
-    leftArrow.setAttribute('aria-label', 'Onam decoration');
-
     const rightArrow = makeEl('button', 'poly-onam-hero-arrow poly-onam-hero-arrow--right', '›');
     rightArrow.type = 'button';
-    rightArrow.setAttribute('aria-label', 'Onam decoration');
-
     const left = makeEl('div', 'poly-onam-hero-left');
     addPookalam(left);
-
     const center = makeEl('div', 'poly-onam-hero-center');
     center.append(makeEl('p', 'poly-onam-script', 'Happy'));
     const h1 = makeEl('h1', '', 'Onam');
     h1.append(makeEl('span', '', '!'));
-    center.append(h1);
-    center.append(makeEl('p', 'poly-onam-malayalam', 'ഓണാശംസകൾ'));
-    center.append(makeEl('p', 'poly-onam-copy', `${day.message} Wishing joy, prosperity and success to you and your family.`));
+    center.append(h1, makeEl('p', 'poly-onam-malayalam', 'ഓണാശംസകൾ'), makeEl('p', 'poly-onam-copy', `${day.message} Wishing joy, prosperity and success to you and your family.`));
     const dots = makeEl('div', 'poly-onam-dots');
     dots.setAttribute('aria-hidden', 'true');
     for (let i = 0; i < 4; i += 1) dots.append(makeEl('span'));
     center.append(dots);
-
     const right = makeEl('div', 'poly-onam-hero-right');
     addBoat(right);
-
     scene.append(leftArrow, left, center, right, rightArrow);
     host.prepend(scene);
 
     const subjectBrowser = document.querySelector('#subject-browser');
     if (subjectBrowser && host.nextElementSibling !== subjectBrowser) host.after(subjectBrowser);
-
     const grid = document.querySelector('.selection-grid');
     if (grid && !grid.querySelector('.poly-onam-special-card')) {
       const card = document.createElement('a');
@@ -174,10 +167,8 @@
   }
 
   function addPetals() {
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.innerWidth < 540) return;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || window.innerWidth < 540) return;
     let count = 0;
-    const maxPetals = 44;
     const spawn = () => {
       if (!document.documentElement.classList.contains('poly-onam-theme')) return;
       const petal = makeEl('span', 'poly-onam-petal', Math.random() > 0.48 ? '🌼' : '🌸');
@@ -188,7 +179,7 @@
       document.body.append(petal);
       count += 1;
       setTimeout(() => petal.remove(), 17000);
-      if (count < maxPetals) setTimeout(spawn, 520 + Math.random() * 780);
+      if (count < 44) setTimeout(spawn, 520 + Math.random() * 780);
     };
     setTimeout(spawn, 450);
   }
@@ -208,8 +199,7 @@
 
   function boot() {
     const info = getActiveDay();
-    if (!info) return;
-    install(info);
+    if (info) install(info);
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot, { once: true });
