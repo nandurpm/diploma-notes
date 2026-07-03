@@ -1,0 +1,1 @@
+window.POLY_ONAM_RENDER_READY=true;
