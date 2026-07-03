@@ -4,19 +4,15 @@
   if (window.__polyOnamThemeLoaded) return;
   window.__polyOnamThemeLoaded = true;
 
-  const VERSION = '20260702-onam1';
+  const VERSION = '20260703-onam2';
   const DAYS = [
-    { key: 'uthradam', label: 'Uthradam', malayalam: 'ഉത്രാടം', message: 'Onam preparations begin. Stay blessed and keep learning.' },
+    { key: 'uthradam', label: 'Uthradam', malayalam: 'ഉത്രാടം', message: 'Onam preparations begin. Study with joy and keep moving forward.' },
     { key: 'thiruvonam', label: 'Thiruvonam', malayalam: 'തിരുവോണം', message: 'Happy Onam. May knowledge, unity and success grow.' },
-    { key: 'avittam', label: 'Avittam', malayalam: 'അവിട്ടം', message: 'Keep the Onam spirit alive with steady learning.' },
+    { key: 'avittam', label: 'Avittam', malayalam: 'അവിട്ടം', message: 'Keep the Onam spirit alive with steady learning and revision.' },
     { key: 'chathayam', label: 'Chathayam', malayalam: 'ചതയം', message: 'Final Onam day theme. Revise well and move forward.' }
   ];
 
-  const DEFAULT_DATES = {
-    // Four public Onam days: Uthradam, Thiruvonam, Avittam, Chathayam.
-    2025: ['2025-09-04', '2025-09-05', '2025-09-06', '2025-09-07'],
-    2026: ['2026-08-25', '2026-08-26', '2026-08-27', '2026-08-28']
-  };
+  const ONAM_DATES_2026 = ['2026-08-25', '2026-08-26', '2026-08-27', '2026-08-28'];
 
   function istDateString(date = new Date()) {
     const parts = new Intl.DateTimeFormat('en-CA', {
@@ -32,12 +28,7 @@
   }
 
   function getPreviewDay(params) {
-    const fromUrl = params.get('onamTheme') || params.get('onam') || '';
-    const fromStorage = (() => {
-      try { return localStorage.getItem('polyOnamThemePreview') || ''; }
-      catch { return ''; }
-    })();
-    const raw = String(fromUrl || fromStorage).trim().toLowerCase();
+    const raw = String(params.get('onamTheme') || params.get('onam') || '').trim().toLowerCase();
     if (!raw || raw === '0' || raw === 'off' || raw === 'false') return null;
     if (raw === 'random') return 1 + Math.floor(Math.random() * 4);
     const digit = raw.match(/[1-4]/)?.[0];
@@ -49,12 +40,8 @@
     const previewDay = getPreviewDay(params);
     if (previewDay) return { day: previewDay, preview: true };
 
-    const current = istDateString();
-    const dates = window.POLY_ONAM_THEME_DATES || DEFAULT_DATES;
-    for (const yearDates of Object.values(dates)) {
-      const index = yearDates.indexOf(current);
-      if (index >= 0) return { day: index + 1, preview: false };
-    }
+    const index = ONAM_DATES_2026.indexOf(istDateString());
+    if (index >= 0) return { day: index + 1, preview: false };
     return null;
   }
 
@@ -67,95 +54,143 @@
     document.head.append(link);
   }
 
-  function flowerSvg() {
-    return `<svg viewBox='0 0 180 180' aria-hidden='true' focusable='false'>
-      <defs><linearGradient id='og' x1='0' x2='1'><stop stop-color='#facc15'/><stop offset='1' stop-color='#f97316'/></linearGradient></defs>
-      <g opacity='.98'>
-        <path d='M0 0c35 8 62 28 80 59-30-2-58-15-80-59z' fill='#166534'/>
-        <path d='M20 4c29 14 50 35 62 65-28-8-50-28-62-65z' fill='#15803d'/>
-        <circle cx='60' cy='58' r='16' fill='url(#og)'/><circle cx='87' cy='45' r='14' fill='#facc15'/><circle cx='105' cy='72' r='17' fill='#f97316'/>
-        <circle cx='70' cy='91' r='15' fill='#f59e0b'/><circle cx='118' cy='106' r='14' fill='#facc15'/><circle cx='44' cy='116' r='13' fill='#f97316'/>
-        <path d='M26 73c50 12 86 40 118 89' fill='none' stroke='#14532d' stroke-width='8' stroke-linecap='round'/>
-      </g>
-    </svg>`;
-  }
-
-  function boatSvg() {
-    return `<svg viewBox='0 0 420 150' aria-hidden='true' focusable='false'>
-      <path d='M35 90c72 28 224 40 350 6-68 45-232 52-350-6z' fill='#4a250f'/>
-      <path d='M360 34c26 22 38 50 36 70-20-30-42-52-82-72 18-4 30-3 46 2z' fill='#4a250f'/>
-      <path d='M52 80c74 16 190 22 286 8' fill='none' stroke='#d89b18' stroke-width='8' stroke-linecap='round'/>
-      <g fill='#fff8e6' stroke='#4a250f' stroke-width='3'>
-        ${Array.from({ length: 14 }, (_, i) => `<circle cx='${95 + i * 16}' cy='72' r='6'/>`).join('')}
-      </g>
-      <g stroke='#d89b18' stroke-width='5' stroke-linecap='round'>
-        ${Array.from({ length: 9 }, (_, i) => `<path d='M${105 + i * 24} 66l-20 45'/>`).join('')}
-      </g>
-      <path d='M0 123c85-15 151 18 225 0s122-12 195 0' fill='none' stroke='#0f8a99' stroke-width='8' stroke-linecap='round' opacity='.6'/>
-    </svg>`;
+  function makeEl(tag, className, text) {
+    const el = document.createElement(tag);
+    if (className) el.className = className;
+    if (typeof text === 'string') el.textContent = text;
+    return el;
   }
 
   function addBanner(info) {
     if (document.querySelector('.poly-onam-bar')) return;
     const day = DAYS[info.day - 1] || DAYS[1];
-    const bar = document.createElement('aside');
-    bar.className = 'poly-onam-bar';
+    const bar = makeEl('aside', 'poly-onam-bar');
     bar.setAttribute('role', 'status');
-    bar.innerHTML = `<span class='poly-onam-bar__flower'>🌼</span><span>Happy Onam!</span><span class='poly-onam-bar__day'>Day ${info.day} - ${day.label}</span><span>${day.malayalam}</span><span class='poly-onam-bar__tag'>Onam Special</span>${info.preview ? `<span class='poly-onam-preview-tag'>Preview</span>` : ''}<span class='poly-onam-bar__flower'>🌼</span>`;
+    bar.append(makeEl('span', 'poly-onam-bar__flower', '🌼'));
+    bar.append(makeEl('strong', '', 'Happy Onam!'));
+    bar.append(makeEl('span', '', 'Wishing you and your family a prosperous and joyful Onam.'));
+    bar.append(makeEl('span', 'poly-onam-bar__day', `${day.label} · ${day.malayalam}`));
+    if (info.preview) bar.append(makeEl('span', 'poly-onam-preview-tag', 'Preview'));
+    bar.append(makeEl('span', 'poly-onam-bar__flower', '🌼'));
     const skip = document.querySelector('.skip-link');
     if (skip?.nextSibling) skip.after(bar); else document.body.prepend(bar);
   }
 
   function addDecor() {
     if (document.querySelector('.poly-onam-corner')) return;
-    ['tl', 'tr', 'bl', 'br'].forEach((pos) => {
-      const corner = document.createElement('div');
-      corner.className = `poly-onam-corner poly-onam-corner--${pos}`;
-      corner.innerHTML = flowerSvg();
+    ['tl', 'tr'].forEach((pos) => {
+      const corner = makeEl('div', `poly-onam-corner poly-onam-corner--${pos}`);
+      ['🌿', '🌼', '🏵️', '🌸'].forEach((item) => corner.append(makeEl('span', '', item)));
       document.body.append(corner);
     });
-    const pookalam = document.createElement('div');
-    pookalam.className = 'poly-onam-pookalam';
-    pookalam.setAttribute('aria-hidden', 'true');
-    document.body.append(pookalam);
+    ['left', 'right'].forEach((pos) => {
+      const dancer = makeEl('div', `poly-onam-dancer poly-onam-dancer--${pos}`, '🧡');
+      dancer.setAttribute('aria-hidden', 'true');
+      document.body.append(dancer);
+    });
+  }
 
-    const boat = document.createElement('div');
-    boat.className = 'poly-onam-boat';
-    boat.innerHTML = boatSvg();
-    document.body.append(boat);
+  function addPookalam(parent) {
+    const stage = makeEl('div', 'poly-onam-pookalam-stage');
+    stage.setAttribute('aria-hidden', 'true');
+    const leaves = makeEl('div', 'poly-onam-leaves');
+    const pookalam = makeEl('div', 'poly-onam-pookalam-art');
+    const lamp = makeEl('span', 'poly-onam-lamp', '🪔');
+    pookalam.append(lamp);
+    stage.append(leaves, pookalam);
+    parent.append(stage);
+  }
+
+  function addBoat(parent) {
+    const scene = makeEl('div', 'poly-onam-boat-scene');
+    scene.setAttribute('aria-hidden', 'true');
+    scene.append(makeEl('span', 'poly-onam-palm', '🌴'));
+    scene.append(makeEl('span', 'poly-onam-boat-emoji', '🛶'));
+    scene.append(makeEl('span', 'poly-onam-rowers', '⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪ ⚪'));
+    scene.append(makeEl('span', 'poly-onam-flag', '🚩'));
+    parent.append(scene);
+  }
+
+  function addGrandHero(info) {
+    const host = document.querySelector('.home-compact-hero');
+    if (!host || document.querySelector('.poly-onam-grand-hero')) return;
+    const day = DAYS[info.day - 1] || DAYS[1];
+    document.body.classList.add('poly-onam-home');
+    host.classList.add('poly-onam-hero-host');
+
+    const scene = makeEl('section', 'poly-onam-grand-hero');
+    scene.setAttribute('aria-label', `Happy Onam ${day.label} greeting`);
+
+    const leftArrow = makeEl('button', 'poly-onam-hero-arrow poly-onam-hero-arrow--left', '‹');
+    leftArrow.type = 'button';
+    leftArrow.setAttribute('aria-label', 'Onam decoration');
+
+    const rightArrow = makeEl('button', 'poly-onam-hero-arrow poly-onam-hero-arrow--right', '›');
+    rightArrow.type = 'button';
+    rightArrow.setAttribute('aria-label', 'Onam decoration');
+
+    const left = makeEl('div', 'poly-onam-hero-left');
+    addPookalam(left);
+
+    const center = makeEl('div', 'poly-onam-hero-center');
+    center.append(makeEl('p', 'poly-onam-script', 'Happy'));
+    const h1 = makeEl('h1', '', 'Onam');
+    h1.append(makeEl('span', '', '!'));
+    center.append(h1);
+    center.append(makeEl('p', 'poly-onam-malayalam', 'ഓണാശംസകൾ'));
+    center.append(makeEl('p', 'poly-onam-copy', `${day.message} Wishing joy, prosperity and success to you and your family.`));
+    const dots = makeEl('div', 'poly-onam-dots');
+    dots.setAttribute('aria-hidden', 'true');
+    for (let i = 0; i < 4; i += 1) dots.append(makeEl('span'));
+    center.append(dots);
+
+    const right = makeEl('div', 'poly-onam-hero-right');
+    addBoat(right);
+
+    scene.append(leftArrow, left, center, right, rightArrow);
+    host.prepend(scene);
+
+    const subjectBrowser = document.querySelector('#subject-browser');
+    if (subjectBrowser && host.nextElementSibling !== subjectBrowser) host.after(subjectBrowser);
+
+    const grid = document.querySelector('.selection-grid');
+    if (grid && !grid.querySelector('.poly-onam-special-card')) {
+      const card = document.createElement('a');
+      card.className = 'choice-card poly-onam-special-card';
+      card.href = '#subject-browser';
+      card.append(makeEl('span', '', '🌼 ONAM SPECIAL'));
+      card.append(makeEl('h2', '', 'Celebrate Onam with learning'));
+      card.append(makeEl('p', '', 'Use notes, lessons, syllabus and mock exams while the festival theme is active.'));
+      grid.append(card);
+    }
   }
 
   function addContextStrip(info) {
-    if (!document.querySelector('#main-content,.main-content,main')) return;
     if (document.querySelector('.poly-onam-sadya-strip')) return;
     const day = DAYS[info.day - 1] || DAYS[1];
-    const strip = document.createElement('div');
-    strip.className = 'poly-onam-sadya-strip';
-    strip.textContent = `${day.message} Use the search, notes and mock exams while the Onam theme is active.`;
-    const hero = document.querySelector('.home-compact-hero,.page-title,.hero-card,.hero-mini,.hero');
-    if (hero) hero.append(strip);
+    const strip = makeEl('div', 'poly-onam-sadya-strip', `${day.label} Onam special theme is active for 2026. Learn, revise and celebrate responsibly.`);
+    const target = document.querySelector('.selection-grid,.section.cards,.hero-card,.hero-mini,.hero');
+    if (target) target.after(strip);
   }
 
   function addPetals() {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     if (window.innerWidth < 540) return;
     let count = 0;
-    const maxPetals = 34;
+    const maxPetals = 44;
     const spawn = () => {
       if (!document.documentElement.classList.contains('poly-onam-theme')) return;
-      const petal = document.createElement('span');
-      petal.className = 'poly-onam-petal';
-      petal.textContent = Math.random() > 0.45 ? '🌼' : '🌸';
+      const petal = makeEl('span', 'poly-onam-petal', Math.random() > 0.48 ? '🌼' : '🌸');
       petal.style.left = `${Math.random() * 100}vw`;
-      petal.style.setProperty('--x-end', `${Math.round((Math.random() - 0.5) * 120)}px`);
-      petal.style.animationDuration = `${7 + Math.random() * 8}s`;
-      petal.style.fontSize = `${14 + Math.random() * 10}px`;
+      petal.style.setProperty('--x-end', `${Math.round((Math.random() - 0.5) * 140)}px`);
+      petal.style.animationDuration = `${8 + Math.random() * 8}s`;
+      petal.style.fontSize = `${14 + Math.random() * 12}px`;
       document.body.append(petal);
       count += 1;
-      setTimeout(() => petal.remove(), 16000);
-      if (count < maxPetals) setTimeout(spawn, 700 + Math.random() * 900);
+      setTimeout(() => petal.remove(), 17000);
+      if (count < maxPetals) setTimeout(spawn, 520 + Math.random() * 780);
     };
-    setTimeout(spawn, 700);
+    setTimeout(spawn, 450);
   }
 
   function install(info) {
@@ -166,6 +201,7 @@
     document.body.dataset.onamPreview = String(Boolean(info.preview));
     addBanner(info);
     addDecor();
+    addGrandHero(info);
     addContextStrip(info);
     addPetals();
   }
