@@ -1,6 +1,8 @@
 (() => {
   "use strict";
 
+  const ASSET_VERSION = "20260704-banner3";
+
   const ONAM_DATES = [
     "2026-08-25", // Uthradam
     "2026-08-26", // Thiruvonam
@@ -30,6 +32,10 @@
       alt: "Happy Onam Chathayam banner"
     }
   };
+
+  function withVersion(src) {
+    return `${src}?v=${encodeURIComponent(ASSET_VERSION)}`;
+  }
 
   function getISTDate() {
     const p = new Intl.DateTimeFormat("en-CA", {
@@ -92,7 +98,7 @@
       document.body.classList.remove("poly-onam-banner-mode");
     };
 
-    img.src = config.src;
+    img.src = withVersion(config.src);
 
     wrap.appendChild(img);
     heroTarget.parentNode.insertBefore(wrap, heroTarget);
