@@ -1,36 +1,20 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260704-banner5";
+  const ASSET_VERSION = "20260704-banner6";
 
   const ONAM_DATES = [
-    "2026-08-25", // Uthradam
-    "2026-08-26", // Thiruvonam
-    "2026-08-27", // Avittam
-    "2026-08-28"  // Chathayam
+    "2026-08-25",
+    "2026-08-26",
+    "2026-08-27",
+    "2026-08-28"
   ];
 
   const ONAM_BANNERS = {
-    1: {
-      day: "Uthradam",
-      src: "/assets/media/onam-2026/uthradam-banner.png",
-      alt: "Happy Onam Uthradam banner"
-    },
-    2: {
-      day: "Thiruvonam",
-      src: "/assets/media/onam-2026/thiruvonam-banner.png",
-      alt: "Happy Onam Thiruvonam banner"
-    },
-    3: {
-      day: "Avittam",
-      src: "/assets/media/onam-2026/avittam-banner.png",
-      alt: "Happy Onam Avittam banner"
-    },
-    4: {
-      day: "Chathayam",
-      src: "/assets/media/onam-2026/chathayam-banner.png",
-      alt: "Happy Onam Chathayam banner"
-    }
+    1: { day: "Uthradam", src: "/assets/media/onam-2026/uthradam-banner.png", alt: "Happy Onam Uthradam banner" },
+    2: { day: "Thiruvonam", src: "/assets/media/onam-2026/thiruvonam-banner.png", alt: "Happy Onam Thiruvonam banner" },
+    3: { day: "Avittam", src: "/assets/media/onam-2026/avittam-banner.png", alt: "Happy Onam Avittam banner" },
+    4: { day: "Chathayam", src: "/assets/media/onam-2026/chathayam-banner.png", alt: "Happy Onam Chathayam banner" }
   };
 
   function withVersion(src) {
@@ -52,37 +36,27 @@
 
   function getRequestedOnamDay() {
     const params = new URLSearchParams(window.location.search || "");
-    const direct = String(
-      params.get("onamTheme") ||
-      params.get("onam") ||
-      ""
-    ).trim().toLowerCase();
-
+    const direct = String(params.get("onamTheme") || params.get("onam") || "").trim().toLowerCase();
     if (direct) return direct;
 
     for (const key of params.keys()) {
       const match = String(key || "").trim().toLowerCase().match(/^onam(?:theme)?([1-4]|random)$/);
       if (match) return match[1];
     }
-
     return "";
   }
 
   function getActiveOnamDay() {
     const raw = getRequestedOnamDay();
-
     if (raw === "random") return Math.floor(Math.random() * 4) + 1;
-
     const n = Number(raw);
     if (n >= 1 && n <= 4) return n;
-
     const index = ONAM_DATES.indexOf(getISTDate());
     return index >= 0 ? index + 1 : 0;
   }
 
   function addFestiveAnimationLayer() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
     document.querySelector(".onam-petal-layer")?.remove();
     document.querySelector(".onam-floating-lamp")?.remove();
 
@@ -94,11 +68,11 @@
       const p = document.createElement("span");
       p.className = "onam-petal";
       p.textContent = petals[i % petals.length];
-      p.style.setProperty("--x", `${Math.round(Math.random() * 100)}vw`);
+      p.style.setProperty("--x", `${Math.round(Math.random() * 94)}vw`);
       p.style.setProperty("--s", `${14 + Math.round(Math.random() * 11)}px`);
       p.style.setProperty("--d", `${10 + Math.round(Math.random() * 9)}s`);
       p.style.setProperty("--delay", `${Math.random() * 8}s`);
-      p.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 170)}px`);
+      p.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 70)}px`);
       layer.appendChild(p);
     }
 
@@ -129,11 +103,7 @@
     const old = document.getElementById("onam-day-banner-wrap");
     if (old) old.remove();
 
-    const heroTarget =
-      document.querySelector(".home-compact-hero") ||
-      document.querySelector("main") ||
-      document.body;
-
+    const heroTarget = document.querySelector(".home-compact-hero") || document.querySelector("main") || document.body;
     const wrap = document.createElement("section");
     wrap.id = "onam-day-banner-wrap";
     wrap.className = "onam-day-banner-wrap";
@@ -145,10 +115,7 @@
     img.loading = "eager";
     img.decoding = "async";
 
-    img.onload = () => {
-      applyOnamMode(dayNo, wrap);
-    };
-
+    img.onload = () => { applyOnamMode(dayNo, wrap); };
     img.onerror = () => {
       wrap.remove();
       document.documentElement.classList.remove("poly-onam-banner-mode", `poly-onam-day-${dayNo}`);
@@ -156,7 +123,6 @@
     };
 
     img.src = withVersion(config.src);
-
     wrap.appendChild(img);
     heroTarget.parentNode.insertBefore(wrap, heroTarget);
   }
