@@ -3,7 +3,7 @@
 
   const TOOLS_URL = "/tools.html";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
-  const ONAM_VERSION = "20260703-onam5";
+  const ONAM_VERSION = "20260703-reference-exact2";
 
   function normalizeToolLinks() {
     document.querySelectorAll("a[href]").forEach((link) => {
@@ -143,7 +143,7 @@
     if (LESSON_PAGE || document.getElementById("poly-onam-reference-script")) return;
     const script = document.createElement("script");
     script.id = "poly-onam-reference-script";
-    script.src = `/assets/js/onam-theme-2026-force.js?v=${ONAM_VERSION}`;
+    script.src = `/assets/js/onam-theme.js?v=${ONAM_VERSION}`;
     script.defer = true;
     document.head.append(script);
   }
