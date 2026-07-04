@@ -14,10 +14,42 @@
     });
   }
 
-  function updateYears() {
-    document.querySelectorAll("[data-year],#year").forEach((item) => {
-      item.textContent = new Date().getFullYear();
+  function setupHomepageToolsAccess() {
+    if (LESSON_PAGE) return;
+    normalizeToolLinks();
+    const actions = document.querySelector(".home-compact-hero .hero-actions");
+    if (actions && !actions.querySelector('a[href="/tools.html"], a[href="tools.html"]')) {
+      const link = document.createElement("a");
+      link.className = "btn ghost";
+      link.href = TOOLS_URL;
+      link.textContent = "Student Tools";
+      actions.insertBefore(link, actions.children[1] || null);
+    }
+  }
+
+  function setupMockExamLabels() {
+    if (LESSON_PAGE) return;
+    document.querySelectorAll('a[href$="daily-quiz.html"], a[href$="/daily-quiz.html"]').forEach((link) => {
+      const label = (link.textContent || "").trim();
+      if (/^(daily quiz|quiz|mock exams?)$/i.test(label)) link.textContent = "Mock Exams";
     });
+  }
+
+  function updateYears() {
+    document.querySelectorAll("[data-year],#year").forEach((item) => { item.textContent = new Date().getFullYear(); });
+  }
+
+  function loadLessonNotesFallback() {
+    if (LESSON_PAGE || !document.getElementById("subjectGrid")) return;
+    const alreadyLoaded = [...document.scripts].some((script) => {
+      try { return new URL(script.src || "", window.location.href).pathname === "/assets/js/lesson-availability-hotfix.js"; }
+      catch { return false; }
+    });
+    if (alreadyLoaded) return;
+    const script = document.createElement("script");
+    script.src = "/assets/js/lesson-availability-hotfix.js?v=20260701-notes-dedupe1";
+    script.defer = true;
+    document.head.append(script);
   }
 
   function loadOnamTheme() {
@@ -38,7 +70,10 @@
 
   document.addEventListener("DOMContentLoaded", () => {
     normalizeToolLinks();
+    setupMockExamLabels();
+    setupHomepageToolsAccess();
     updateYears();
+    loadLessonNotesFallback();
     loadOnamTheme();
   });
 })();
