@@ -1,8 +1,47 @@
-.onam-day-banner-wrap{width:100%;max-width:100%;margin:0;padding:0;overflow:hidden;background:#fff8e8}
-.onam-day-banner{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
-body.poly-onam-banner-mode .home-compact-hero{display:none!important}
-body.poly-onam-banner-mode{background:#fff8e8!important}
-body.poly-onam-banner-mode .topbar{background:rgba(255,255,255,.96)!important;box-shadow:0 10px 24px rgba(120,74,0,.10)!important;border-bottom:1px solid rgba(216,155,24,.22)!important}
-body.poly-onam-banner-mode .navlinks a.active{background:transparent!important;color:#ea580c!important;box-shadow:inset 0 -2px 0 #ea580c!important}
-body.poly-onam-banner-mode #subject-browser{margin-top:0!important}
-@media(max-width:768px){.onam-day-banner{max-height:260px;object-fit:cover}}
+.onam-day-banner-wrap{
+  width:100%;
+  max-width:100%;
+  margin:0;
+  padding:0;
+  overflow:hidden;
+  background:#fff8e8;
+}
+
+.onam-day-banner{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:520px;
+  object-fit:cover;
+}
+
+body.poly-onam-banner-mode .home-compact-hero{
+  display:none !important;
+}
+
+body.poly-onam-banner-mode{
+  background:#fff8e8 !important;
+}
+
+body.poly-onam-banner-mode .topbar{
+  background:rgba(255,255,255,.96) !important;
+  box-shadow:0 10px 24px rgba(120,74,0,.10) !important;
+  border-bottom:1px solid rgba(216,155,24,.22) !important;
+}
+
+body.poly-onam-banner-mode .navlinks a.active{
+  background:transparent !important;
+  color:#ea580c !important;
+  box-shadow:inset 0 -2px 0 #ea580c !important;
+}
+
+body.poly-onam-banner-mode #subject-browser{
+  margin-top:0 !important;
+}
+
+@media (max-width:768px){
+  .onam-day-banner{
+    max-height:260px;
+    object-fit:cover;
+  }
+}
