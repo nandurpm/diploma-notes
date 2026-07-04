@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260704-banner4";
+  const ASSET_VERSION = "20260704-banner5";
 
   const ONAM_DATES = [
     "2026-08-25", // Uthradam
@@ -50,10 +50,26 @@
     return `${p.year}-${p.month}-${p.day}`;
   }
 
-  function getActiveOnamDay() {
-    const raw = String(
-      new URLSearchParams(window.location.search).get("onamTheme") || ""
+  function getRequestedOnamDay() {
+    const params = new URLSearchParams(window.location.search || "");
+    const direct = String(
+      params.get("onamTheme") ||
+      params.get("onam") ||
+      ""
     ).trim().toLowerCase();
+
+    if (direct) return direct;
+
+    for (const key of params.keys()) {
+      const match = String(key || "").trim().toLowerCase().match(/^onam(?:theme)?([1-4]|random)$/);
+      if (match) return match[1];
+    }
+
+    return "";
+  }
+
+  function getActiveOnamDay() {
+    const raw = getRequestedOnamDay();
 
     if (raw === "random") return Math.floor(Math.random() * 4) + 1;
 
