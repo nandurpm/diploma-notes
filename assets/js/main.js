@@ -3,7 +3,7 @@
 
   const TOOLS_URL = "/tools.html";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
-  const ONAM_VERSION = "20260703-reference-exact2";
+  const ONAM_VERSION = "20260704-banner1";
 
   function normalizeToolLinks() {
     document.querySelectorAll("a[href]").forEach((link) => {
@@ -140,10 +140,17 @@
   }
 
   function loadOnamTheme() {
-    if (LESSON_PAGE || document.getElementById("poly-onam-reference-script")) return;
+    if (LESSON_PAGE || document.getElementById("poly-onam-banner-script")) return;
+    if (!document.getElementById("poly-onam-banner-css")) {
+      const link = document.createElement("link");
+      link.id = "poly-onam-banner-css";
+      link.rel = "stylesheet";
+      link.href = `/assets/css/onam-theme.css?v=${ONAM_VERSION}`;
+      document.head.append(link);
+    }
     const script = document.createElement("script");
-    script.id = "poly-onam-reference-script";
-    script.src = `/assets/js/onam-theme.js?v=${ONAM_VERSION}`;
+    script.id = "poly-onam-banner-script";
+    script.src = `/assets/js/onam-render-a.js?v=${ONAM_VERSION}`;
     script.defer = true;
     document.head.append(script);
   }
