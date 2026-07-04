@@ -3,7 +3,7 @@
 
   const TOOLS_URL = "/tools.html";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
-  const ONAM_VERSION = "20260704-banner2";
+  const ONAM_VERSION = "20260704-banner3";
 
   function normalizeToolLinks() {
     document.querySelectorAll("a[href]").forEach((link) => {
