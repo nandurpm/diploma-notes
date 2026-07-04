@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260704-banner3";
+  const ASSET_VERSION = "20260704-banner4";
 
   const ONAM_DATES = [
     "2026-08-25", // Uthradam
@@ -64,6 +64,48 @@
     return index >= 0 ? index + 1 : 0;
   }
 
+  function addFestiveAnimationLayer() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    document.querySelector(".onam-petal-layer")?.remove();
+    document.querySelector(".onam-floating-lamp")?.remove();
+
+    const layer = document.createElement("div");
+    layer.className = "onam-petal-layer";
+    const petals = ["🌼", "🌸", "🏵️", "🍂"];
+
+    for (let i = 0; i < 22; i += 1) {
+      const p = document.createElement("span");
+      p.className = "onam-petal";
+      p.textContent = petals[i % petals.length];
+      p.style.setProperty("--x", `${Math.round(Math.random() * 100)}vw`);
+      p.style.setProperty("--s", `${14 + Math.round(Math.random() * 11)}px`);
+      p.style.setProperty("--d", `${10 + Math.round(Math.random() * 9)}s`);
+      p.style.setProperty("--delay", `${Math.random() * 8}s`);
+      p.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 170)}px`);
+      layer.appendChild(p);
+    }
+
+    const lamp = document.createElement("div");
+    lamp.className = "onam-floating-lamp";
+    lamp.textContent = "🪔";
+    document.body.append(layer, lamp);
+  }
+
+  function moveSubjectBrowserBelowBanner(wrap) {
+    const browser = document.getElementById("subject-browser");
+    if (!browser || !wrap || !wrap.parentNode) return;
+    if (wrap.nextElementSibling !== browser) wrap.after(browser);
+  }
+
+  function applyOnamMode(dayNo, wrap) {
+    document.documentElement.classList.add("poly-onam-banner-mode", `poly-onam-day-${dayNo}`);
+    document.body.classList.add("poly-onam-banner-mode", `poly-onam-day-${dayNo}`);
+    document.body.dataset.onamDay = String(dayNo);
+    moveSubjectBrowserBelowBanner(wrap);
+    addFestiveAnimationLayer();
+  }
+
   function injectBanner(dayNo) {
     const config = ONAM_BANNERS[dayNo];
     if (!config) return;
@@ -88,14 +130,13 @@
     img.decoding = "async";
 
     img.onload = () => {
-      document.documentElement.classList.add("poly-onam-banner-mode");
-      document.body.classList.add("poly-onam-banner-mode");
+      applyOnamMode(dayNo, wrap);
     };
 
     img.onerror = () => {
       wrap.remove();
-      document.documentElement.classList.remove("poly-onam-banner-mode");
-      document.body.classList.remove("poly-onam-banner-mode");
+      document.documentElement.classList.remove("poly-onam-banner-mode", `poly-onam-day-${dayNo}`);
+      document.body.classList.remove("poly-onam-banner-mode", `poly-onam-day-${dayNo}`);
     };
 
     img.src = withVersion(config.src);
