@@ -29,20 +29,20 @@
       .filter((item) => /notes?/i.test(item.textContent || ""))
       .forEach((item) => item.remove());
   }
-  function makeLink(href, verified) {
+  function makeLink(href, mode) {
     const link = document.createElement("a");
     link.className = "action download";
     link.href = href;
     link.textContent = "Download Notes";
-    if (verified) {
-      link.download = "";
-      link.dataset.verified = "true";
-      link.title = "Download the generated PDF notes.";
-    } else {
+    if (mode === "lesson") {
       link.target = "_blank";
       link.rel = "noopener noreferrer";
       link.dataset.generatedFromLesson = "true";
-      link.title = "PDF is not published yet; open the lesson page for print/save as PDF.";
+      link.title = "Generate clean PDF notes directly from the lesson HTML page.";
+    } else {
+      link.download = "";
+      link.dataset.verified = "true";
+      link.title = "Download the published PDF notes.";
     }
     return link;
   }
@@ -62,8 +62,8 @@
     const ok = await pdfExists(href);
     if (!card.isConnected) return;
     clearNotes(row);
-    if (ok) row.insertBefore(makeLink(href, true), qp || null);
-    else if (lessonAvailable) row.insertBefore(makeLink(lessonUrlFor(code), false), qp || null);
+    if (lessonAvailable) row.insertBefore(makeLink(lessonUrlFor(code), "lesson"), qp || null);
+    else if (ok) row.insertBefore(makeLink(href, "pdf"), qp || null);
     else {
       const unavailable = document.createElement("span");
       unavailable.className = "availability-label notes-status";
