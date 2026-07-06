@@ -40,7 +40,18 @@
       .download-btn,.hb-tabs button:last-child,.tabs button:last-child{margin-left:auto!important;background:linear-gradient(135deg,#0284c7,#0891b2)!important;color:#fff!important;border-color:transparent!important}
       .notes-fallback-banner{position:sticky;top:80px;z-index:900;margin:8px auto;padding:12px 16px;width:min(1100px,calc(100% - 20px));border:1px solid #bae6fd;border-radius:16px;background:#ecfeff;color:#083344;font-weight:800;box-shadow:0 12px 30px rgba(15,23,42,.12)}
       @media(max-width:700px){.topbar-inner,.hb-top-inner,.lesson-topbar-inner{width:calc(100% - 16px)!important}.view-btn,.hb-tabs a,.hb-tabs button,.tabs a,.tabs button{padding:11px 13px!important}.brand,.hb-code,.brand-code{width:50px!important;height:50px!important}.hb-code,.brand-code,.brand-mark{width:50px!important;height:50px!important}}
-      @media print{.topbar,.hb-topbar,.lesson-topbar,.revision-back-button,#polySiteAssistant,#hbToTop,.hb-actions,.notes-fallback-banner{display:none!important}details{display:block!important}details>*{display:block!important}.view-section,.hb-section,[hidden]{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;position:static!important}.hb-left,.hb-right,aside{position:static!important;max-height:none!important;overflow:visible!important}.hb-layout,.hb-grid,.grid,.grid-2,.grid-3,.grid-4{display:block!important;width:100%!important;max-width:none!important}.hb-card,.card,section,article{break-inside:auto!important;page-break-inside:auto!important}}
+      @media print{
+        @page{size:A4;margin:7mm}
+        html,body{background:#fff!important;color:#111827!important;width:100%!important;min-width:0!important;overflow:visible!important}
+        body:before,body:after,.topbar,.hb-topbar,.lesson-topbar,.revision-back-button,#polySiteAssistant,#hbToTop,.hb-actions,.notes-fallback-banner,.selector,.tabs,.hb-tabs,.download-btn,.view-btn,#toTop,#progress{display:none!important}
+        main,.screen,.hb-container,.container,.wrapper,.content,.main-content{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;box-shadow:none!important;background:#fff!important}
+        details{display:block!important}details>*{display:block!important}
+        .view-section,.hb-section,[hidden]{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;position:static!important}
+        .hb-left,.hb-right,aside{position:static!important;max-height:none!important;overflow:visible!important}
+        .hb-layout,.hb-grid,.grid,.grid-2,.grid-3,.grid-4{display:block!important;width:100%!important;max-width:none!important}
+        .hb-card,.card,section,article{break-inside:auto!important;page-break-inside:auto!important;box-shadow:none!important}
+        .pdf-export-mode *{animation:none!important;transition:none!important;filter:none!important}
+      }
     `;
     document.head.append(style);
   }
@@ -83,11 +94,7 @@
     return true;
   }
 
-  function prepareFallbackMode() {
-    const params = new URLSearchParams(location.search);
-    if (!params.has("autoPrintNotes") && !params.has("downloadNotes")) return;
-    document.documentElement.classList.add("pdf-export-mode");
-    document.body?.classList.add("pdf-export-mode");
+  function forceAllLessonSectionsVisible() {
     document.querySelectorAll("details").forEach((item) => { item.open = true; });
     document.querySelectorAll("[hidden]").forEach((item) => { item.hidden = false; item.removeAttribute("hidden"); });
     document.querySelectorAll("[aria-hidden='true']").forEach((item) => item.setAttribute("aria-hidden", "false"));
@@ -103,18 +110,45 @@
       item.style.setProperty("overflow", "visible", "important");
       item.style.setProperty("position", "static", "important");
     });
+  }
+
+  function setDownloadTitle() {
     const match = location.pathname.match(/lessons-([^/]+)\.html$/i);
     if (match) document.title = `downloadable-notes-${decodeURIComponent(match[1])}`;
-    const banner = document.createElement("div");
-    banner.className = "notes-fallback-banner";
-    banner.textContent = "PDF notes are being generated from this lesson. Use the browser print/save-as-PDF option if the generated PDF is not published yet.";
-    document.body.prepend(banner);
+  }
+
+  function prepareFallbackMode(shouldPrint = false) {
+    document.documentElement.classList.add("pdf-export-mode");
+    document.body?.classList.add("pdf-export-mode");
+    forceAllLessonSectionsVisible();
+    setDownloadTitle();
+    if (!document.querySelector(".notes-fallback-banner")) {
+      const banner = document.createElement("div");
+      banner.className = "notes-fallback-banner";
+      banner.textContent = "PDF notes are being generated from this lesson page. Choose Save as PDF / Print to PDF to download the clean notes file.";
+      document.body.prepend(banner);
+    }
     window.scrollTo(0, 0);
+    if (shouldPrint) window.setTimeout(() => window.print(), 450);
+  }
+
+  function installHtmlPdfDownload() {
+    document.querySelectorAll("#downloadPdfBtn,.download-btn[data-html-pdf],button[data-html-pdf]").forEach((button) => {
+      button.removeAttribute("download");
+      if (button.tagName === "A") button.setAttribute("href", `${location.pathname}?downloadNotes=1`);
+      button.setAttribute("title", "Download this lesson as a clean PDF from the HTML notes layout.");
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        prepareFallbackMode(true);
+      });
+    });
   }
 
   installOnamThemeLoader();
   installHeaderStyle();
-  prepareFallbackMode();
+  const params = new URLSearchParams(location.search);
+  if (params.has("autoPrintNotes") || params.has("downloadNotes")) prepareFallbackMode(params.has("autoPrintNotes") || params.has("downloadNotes"));
+  installHtmlPdfDownload();
 
   document.addEventListener("click", (event) => {
     const anchor = event.target.closest?.("a[href^='#']");
