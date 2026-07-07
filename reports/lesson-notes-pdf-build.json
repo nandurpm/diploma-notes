@@ -1,5 +1,36 @@
 {
-  "generated": [],
+  "generated": [
+    {
+      "code": "5032",
+      "pages": 8,
+      "bytes": 195154,
+      "source": "lessons/lessons-5032.html",
+      "sourceCharacters": 7414,
+      "pdfCharacters": 7407,
+      "textCoverage": 0.9991,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6031C",
+      "pages": 14,
+      "bytes": 369786,
+      "source": "lessons/lessons-6031C.html",
+      "sourceCharacters": 16312,
+      "pdfCharacters": 16640,
+      "textCoverage": 1.0201,
+      "panelCount": 11,
+      "visiblePanelCount": 11,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    }
+  ],
   "errors": [
     {
       "code": "6041C",
@@ -8,9 +39,14 @@
     }
   ],
   "requiredLessonCodes": [
+    "5032",
+    "6031C",
     "6041C"
   ],
-  "generatedCodes": [],
+  "generatedCodes": [
+    "5032",
+    "6031C"
+  ],
   "missingCodes": [
     "6041C"
   ],
