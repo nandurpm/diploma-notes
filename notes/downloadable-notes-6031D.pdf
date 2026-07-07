@@ -1,2 +1,143 @@
-PDF-1.4
-placeholder
+%PDF-1.4
+% POLY PMNA generated PDF
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 1119 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031D Electric Vehicles - POLY PMNA) Tj ET
+0.03 0.28 0.18 rg 0 650 595 192 re f
+BT /F2 23 Tf 1 1 1 rg 48 790 Td (Course 6031D) Tj ET
+BT /F2 21 Tf 1 1 1 rg 48 760 Td (Electric Vehicles) Tj ET
+BT /F1 12 Tf 1 1 1 rg 48 730 Td (Diploma Engineering Handbook Notes) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 615 Td (POLY PMNA - Polytechnic Study Hub) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 591 Td (Course 6031D - Electric Vehicles) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 567 Td (Semester 6 | Program Elective | Credits: 4 | Periods: 60) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 543 Td (Downloadable handbook notes generated from lessons-6031D.html.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 519 Td (Core areas: EV classifications, drive trains, motors, energy storage, EVSE, renewable) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 503 Td (charging, grid support and maintenance.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031D | POLY PMNA | Page 1 of 4) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 1507 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031D Electric Vehicles - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.18 rg 48 780 Td (Overview and Roadmap) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (Objectives: express EV relevance for future transportation, understand motor) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (applications in EV, summarize energy storage options, and identify charging) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 722 Td (infrastructure requirements.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 698 Td (CO1: Outline EV basic concepts and classifications. CO2: Identify EV and HEV drive) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 682 Td (trains. CO3: Outline hybridization of energy storage. CO4: Explain EV charging systems) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 666 Td (integrated with renewable energy.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 642 Td (Module roadmap: M1 EV basics, FAME policies and motor drive technologies. M2 EV/HEV) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 626 Td (drive trains, power flow and regenerative braking. M3 batteries, BMS, converters, EVSE) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 610 Td (and smart charging. M4 grid integration, V2X, renewable charging, maintenance and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 594 Td (recycling.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031D | POLY PMNA | Page 2 of 4) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 2447 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031D Electric Vehicles - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.18 rg 48 780 Td (Module Chapters) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (Module 1: EVs use electric propulsion and energy storage instead of depending only on) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (internal combustion. Types include BEV, FCEV, HEV and PHEV. Benefits include lower tail-) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 722 Td (pipe emission, high efficiency, less noise and regenerative braking. Motor drives) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 706 Td (include DC, induction, permanent magnet and switched reluctance drives.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 682 Td (Module 2: EV subsystems include electric propulsion unit, energy source subsystem and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 666 Td (auxiliary subsystem. Drive train types include single motor with differential, multi-) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 650 Td (motor and in-wheel drive. HEV configurations include series, parallel, series-parallel) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 634 Td (and complex. Regenerative braking returns kinetic energy to storage.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 610 Td (Module 3: Energy storage includes batteries, supercapacitors, flywheels and fuel cells.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 594 Td (Battery parameters include voltage, capacity, energy, SOC, DOD, C-rate and cycle life.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 578 Td (BMS monitors voltage, current, temperature, SOC, SOH and balancing. EVSE supports) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 562 Td (domestic, public, fast charging and battery swapping.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 538 Td (Module 4: EV charging can affect distribution systems through congestion, voltage drop) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 522 Td (and power quality. Smart charging and V2X support grid operation. Renewable charging) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 506 Td (stations combine solar or wind, grid, battery buffer, energy manager and EVSE.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 490 Td (Maintenance covers motor, drivetrain, battery, charger and recycling.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031D | POLY PMNA | Page 3 of 4) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 1658 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031D Electric Vehicles - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.18 rg 48 780 Td (Formula Bank, Model Paper and Answers) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (Formula bank: Battery energy Wh = Voltage x Ah. Charging time = battery energy / charger) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (power. Charging cost = kWh x tariff. Range = usable battery energy / kWh per km.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 714 Td (Solved example: A 400 V, 120 Ah battery has energy = 400 x 120 = 48000 Wh = 48 kWh. With) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 698 Td (a 12 kW charger, ideal charging time = 48 / 12 = 4 hours.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 674 Td (Expected questions: classify EVs, compare EV and conventional vehicle, explain motor) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 658 Td (drives, draw EV subsystem diagram, explain HEV power flow, explain regenerative braking,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 642 Td (explain BMS, explain EVSE, explain V2X and renewable charging station.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 618 Td (Model paper answer guide: draw block diagrams for EV configuration, drive train,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 602 Td (battery-BMS and renewable charging station. For numerical questions, write given data,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 586 Td (formula, substitution, answer with unit and exam tip.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031D | POLY PMNA | Page 4 of 4) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R] /Count 4 >>
+endobj
+12 0 obj
+<< /Type /Catalog /Pages 11 0 R >>
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000035 00000 n 
+0000000105 00000 n 
+0000000180 00000 n 
+0000001350 00000 n 
+0000001487 00000 n 
+0000003045 00000 n 
+0000003182 00000 n 
+0000005680 00000 n 
+0000005817 00000 n 
+0000007526 00000 n 
+0000007664 00000 n 
+0000007741 00000 n 
+trailer
+<< /Size 13 /Root 12 0 R >>
+startxref
+7792
+%%EOF
