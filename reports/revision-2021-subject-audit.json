@@ -1,0 +1,27 @@
+{
+  "version": "20260706-sitttr-complete1",
+  "officialTopLevelSource": "SITTTR Kerala Diploma Revision 2021 syllabus page",
+  "officialProgrammeCount": 43,
+  "departmentMappingStatus": "pass",
+  "rowLevelScrapeStatus": "partial",
+  "note": "This audit records the committed critical fixes: all 43 department names are explicitly mapped in the department viewer, Electrical & Electronics Engineering Semester 6 uses the confirmed official suffix-code rows, and 6041A/6041B/6041C are handled as separate suffix subjects. Full automated row-level scrape of every SITTTR programme page still requires an environment that preserves the SITTTR programme-page query parameter order.",
+  "criticalFixes": [
+    {
+      "department": "Electrical & Electronics Engineering",
+      "semester": "Semester 6",
+      "officialSubjectCount": 15,
+      "websiteSubjectCountAfterFix": 15,
+      "requiredCodes": ["6001", "6031A", "6031C", "6031D", "6032A", "6032B", "6032C", "6032D", "6002", "6037", "6038", "6039A", "6039B", "6039C", "6009"],
+      "removedCollapsedCodes": ["6031", "6032", "6036", "6039", "6007"],
+      "missingSubjects": [],
+      "extraSubjects": [],
+      "suffixCodeCheck": "pass"
+    },
+    {
+      "department": "Electronics Engineering / Electronics and Communication",
+      "semester": "Semester 6",
+      "requiredSuffixCodesAdded": ["6041A", "6041B", "6041C"],
+      "suffixCodeCheck": "pass-for-listed-suffix-codes"
+    }
+  ]
+}
