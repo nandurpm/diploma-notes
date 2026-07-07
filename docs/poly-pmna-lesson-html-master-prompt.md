@@ -1,700 +1,303 @@
 # POLY PMNA SITTTR REVISION 2021 PREMIUM LESSON HTML MASTER PROMPT
 
-Use this prompt whenever creating a new `lessons/lessons-[SUBJECT_CODE].html` file for the POLY PMNA website.
+Use this prompt whenever creating or updating a `lessons/lessons-[SUBJECT_CODE].html` file for the POLY PMNA website.
 
 ```text
-# MASTER PROMPT – POLY PMNA SITTTR REVISION 2021 PREMIUM LESSON FILE GENERATOR
+# MASTER PROMPT – POLY PMNA PREMIUM SITTTR KERALA DIPLOMA HANDBOOK LESSON GENERATOR
 
-You are an expert educational content developer, engineering textbook author, UI/UX designer, and front-end developer.
+You are an expert educational content developer, UI/UX designer, front-end developer, engineering textbook author, and diploma exam preparation specialist.
 
-Create a COMPLETE PREMIUM STANDALONE HTML LESSON FILE from the uploaded official SITTTR Kerala Diploma Revision 2021 syllabus PDF.
+Your task is to create a COMPLETE PREMIUM STANDALONE HTML HANDBOOK from the uploaded official SITTTR Kerala Diploma Revision 2021 syllabus PDF.
 
+This is NOT a short note.
 This is NOT a summary.
-This is NOT short notes.
-This is NOT a syllabus outline.
+This is NOT a simple notebook.
+This is NOT a small card-based page.
 
-It must be a complete digital textbook suitable for diploma students.
+It must be a large digital handbook that can replace printed study material for the subject.
 
-The final file must be directly usable on:
-https://polypmna.dpdns.org
+The output must be production-ready and directly usable on the POLY PMNA website.
 
-===============================================================================
-WEBSITE CONTEXT
-===============================================================================
+Website reference:
+https://polypmna.dpdns.org/revision-2021.html
 
-This lesson file belongs to the POLY PMNA Revision 2021 section.
-
-The main site uses:
-
-Home
-About
-Revision 2021
-Mock Exams
-Ask POLY AI
-2015 Materials
-Tools New
-Help
-
-The Revision 2021 page uses department cards.
-Each department opens one stable subject viewer.
-The subject viewer contains Semester 1 to Semester 6 subject cards.
-
-This lesson page must visually and structurally fit inside that system.
-
-Do not create a design that looks disconnected from POLY PMNA.
-
-===============================================================================
+================================================================================
 OFFICIAL SOURCE RULE
-===============================================================================
+================================================================================
 
-Use only the uploaded official SITTTR Kerala Revision 2021 syllabus PDF.
+Use ONLY the uploaded official SITTTR Kerala Diploma Revision 2021 syllabus PDF.
 
-The official source is:
-SITTTR Kerala Revision 2021 syllabus page.
+Never invent syllabus topics.
+Never add unrelated theory.
+Never copy official model questions directly.
+Expand only the syllabus topics, but explain them deeply like a textbook.
 
-Do not invent syllabus topics.
-Do not add unrelated content.
-Do not copy official model questions directly.
-Expand only the topics present in the syllabus.
+================================================================================
+FILE NAME AND SUBJECT CODE RULE
+================================================================================
 
-===============================================================================
-FILE NAME RULE
-===============================================================================
-
-Generate the HTML file using the EXACT official subject code.
+Generate the file using the EXACT official subject code.
 
 Format:
-
 lessons-[SUBJECT_CODE].html
 
 Examples:
-
 1002   → lessons-1002.html
 1002A  → lessons-1002A.html
-1002B  → lessons-1002B.html
-2031   → lessons-2031.html
 2031A  → lessons-2031A.html
-6041   → lessons-6041.html
 6041A  → lessons-6041A.html
 6041B  → lessons-6041B.html
 6041C  → lessons-6041C.html
 
-Do NOT merge suffix codes.
+Do NOT merge suffix-code subjects.
 Do NOT remove suffix letters.
 Do NOT convert 6041A into 6041.
 
-Each suffix code is a separate subject and must have:
-
-Own HTML file
-Own title
-Own content
-Own metadata
-Own navigation entry
-Own search indexing
-Own clean HTML-to-PDF download behavior
-
-===============================================================================
-PAGE TYPE
-===============================================================================
-
-Create one complete standalone HTML file.
-
-Use only:
-
-HTML
-CSS
-Vanilla JavaScript
-Inline SVG where needed
-
-Do NOT use:
-
-CDN
-External JS libraries
-External CSS libraries
-React
-Vue
-Angular
-Bootstrap JS
-jQuery
-Online fonts
-
-Everything must work offline.
-
-===============================================================================
-DESIGN STYLE
-===============================================================================
-
-Design must match a premium POLY PMNA educational website.
-
-Use:
-
-Modern cards
-Clean header
-Professional typography
-Soft gradients
-Glassmorphism only where useful
-Smooth animations
-Rounded sections
-Responsive layout
-Readable spacing
-Engineering textbook feel
-
-Avoid:
-
-Cartoon style
-Over-decoration
-Huge empty spaces
-Narrow centered layout
-Poor mobile layout
-Unnecessary animations
-
-===============================================================================
-DESKTOP LAYOUT RULE
-===============================================================================
-
-The page must properly use full desktop width.
-
-Do not create large blank left or right spaces.
-
-Use a professional content layout:
-
-Main content area
-Side navigation / module navigator
-Responsive cards
-Wide tables where useful
-Readable but not cramped layout
-
-On mobile, convert to single-column layout.
-
-===============================================================================
-HEADER
-===============================================================================
-
-Create a sticky header.
-
-Include:
-
-POLY PMNA branding
-Subject code
-Subject name
-Revision 2021 label
-Search box
-Reading progress
-Dark / Light mode toggle
-Download PDF / Download Notes button
-Back to top button
-
-===============================================================================
-DOWNLOAD NOTES / PDF BUTTON – VERY IMPORTANT
-===============================================================================
-
-The lesson page must create a Download Notes / Download PDF button that generates a clean PDF from the CURRENT HTML lesson content.
-
-The button must NOT simply link to an old static PDF with unused/blank space.
-
-Required behavior:
-
-1. User clicks Download Notes / Download PDF.
-2. The page switches into PDF export mode.
-3. All hidden modules, tabs, accordions, details, answer keys, revision sections, formulas, expected questions, and model question paper become visible.
-4. Navigation UI, sticky header, assistant widget, floating buttons, search UI, decorative animations, and unnecessary controls are hidden from print/PDF.
-5. The page title becomes:
-   downloadable-notes-[SUBJECT_CODE]
-6. The browser print/download flow opens so the student can save the HTML lesson as a clean PDF.
-7. The PDF must have minimum unused space.
-8. The print layout must use full A4 width properly.
-9. No large blank left/right spaces.
-10. No broken hidden sections.
-11. No clipped tables or diagrams.
-12. No empty cover-only PDF.
-13. No narrow centered PDF layout.
-
-Use CSS `@media print` and a dedicated `.pdf-export-mode` class.
-
-Required print CSS rules:
-
-- `@page { size: A4; margin: 7mm; }`
-- Hide header/nav/search/buttons/floating UI.
-- Force hidden content visible.
-- Force grids/cards to print cleanly.
-- Set main containers to `width:100%` and `max-width:none`.
-- Remove unnecessary shadows and animation.
-- Prevent major blank spaces.
-
-Required JavaScript behavior:
-
-- Add click listener to the Download Notes / Download PDF button.
-- Add `.pdf-export-mode` to `html` and `body`.
-- Open all `details` elements.
-- Remove `[hidden]` from all lesson sections.
-- Set all tab/panel sections visible.
-- Set document title as `downloadable-notes-[SUBJECT_CODE]`.
-- Trigger `window.print()` after the content is fully visible.
-
-Do NOT use:
-
-html2pdf
-html2canvas
-jsPDF
-External PDF library
-CDN
-Old separate static PDF as the primary download
-
-Static PDFs may exist as backup only, but the main lesson download behavior must be HTML-to-clean-PDF.
-
-Subject viewer card rule:
-
-If a lesson HTML file exists, the subject card Download Notes button should open:
-
-lessons/lessons-[SUBJECT_CODE].html?autoPrintNotes=1
-
-This should generate the PDF from the lesson HTML itself.
-
-Examples:
-
-1003 → lessons/lessons-1003.html?autoPrintNotes=1
-6041A → lessons/lessons-6041A.html?autoPrintNotes=1
-6041B → lessons/lessons-6041B.html?autoPrintNotes=1
-
-===============================================================================
-BREADCRUMB
-===============================================================================
-
-Add breadcrumb:
-
-Home > Revision 2021 > Department > Semester > Subject
-
-The breadcrumb should visually match the POLY PMNA site.
-
-===============================================================================
-COVER SECTION
-===============================================================================
-
-Include:
-
-Subject name
-Subject code
-Semester
-Department
-Scheme: Revision 2021
-Credits
-Total hours
-Course category
-Course type
-Beautiful hero section
-Engineering-style SVG illustration
-
-===============================================================================
-COURSE INFORMATION
-===============================================================================
-
-Include:
-
-Course overview
-Why this subject is important
-Where it is used
-Industrial applications
-Engineering relevance
-Career relevance
-Prerequisites
-Course objectives
-Course outcomes
-
-Use official syllabus data where available.
-
-===============================================================================
-HOW TO USE THIS LESSON
-===============================================================================
-
-Explain how students should use the lesson:
-
-Read module-wise
-Study Malayalam explanation
-Practice questions
-Use formula bank
-Revise quick notes
-Attempt model exam
-Download PDF if needed
-
-===============================================================================
-TABLE OF CONTENTS
-===============================================================================
-
-Create clickable table of contents.
-
-Include:
-
-Course overview
-Objectives
-Outcomes
-All modules
-Formula bank
-Expected questions
-Practice questions
-Model question paper
-Answer key
-Quick revision
-
-Smooth scroll must work.
-
-===============================================================================
-MODULE STRUCTURE
-===============================================================================
-
-Create every module from the uploaded syllabus.
-
-Example:
-
-Module 1
-Module 2
-Module 3
-Module 4
-Module 5 if available
-Module 6 if available
-
-Do not skip any syllabus module.
-
-Each module must become a complete textbook chapter.
-
-For every module include:
-
-Module title
-Module introduction
-Learning objectives
-Complete explanation
-Simple explanation
-Detailed technical explanation
-Malayalam explanation
-Diagrams
-Tables
-Definitions
-Important points
-Applications
-Industrial examples
-Exam tips
-Common mistakes
-Summary
-Key takeaways
-
-===============================================================================
-MALAYALAM EXPLANATION
-===============================================================================
-
-For every important concept, add Malayalam explanation.
+Each suffix subject must have its own HTML, title, content, metadata, search index and PDF export title.
+
+================================================================================
+HANDBOOK DEPTH RULE – VERY IMPORTANT
+================================================================================
+
+The generated lesson must look and read like a BIG HANDBOOK, not like a short notebook.
+
+Do NOT create only small cards with 2-3 lines.
+Do NOT create only bullet points.
+Do NOT create a thin page that feels unfinished.
+Do NOT create a lesson that only summarizes the syllabus.
+
+Every module must become a full chapter.
+
+For every module/chapter, include:
+
+• Chapter introduction
+• Learning objectives
+• Complete theory explanation
+• Simple explanation
+• Detailed technical explanation
+• Malayalam explanation
+• Key definitions
+• Important formulas if applicable
+• Diagrams or SVG illustrations where useful
+• Tables and comparisons
+• Working principle where applicable
+• Construction where applicable
+• Operation where applicable
+• Advantages and disadvantages where applicable
+• Industrial relevance
+• Practical examples
+• Common mistakes
+• Exam tips
+• Memory points
+• Module summary
+• Key takeaways
+• Module-level expected questions
+
+Minimum depth target:
+
+• At least 4 major chapters for a 4-module syllabus
+• At least 3 to 6 sub-lessons inside every module
+• At least 8 to 12 worked examples for numerical/theory subjects where applicable
+• At least 80 to 120 total exam/practice questions for a full subject where possible
+• A proper formula bank for calculation subjects
+• A real model question paper with full answers
+• Malayalam explanations throughout the main theory
+
+The final output should feel like a textbook chapter set, not a simple revision note.
+
+================================================================================
+PAGE AND DESIGN REQUIREMENTS
+================================================================================
+
+The page must be:
+
+• Fully responsive
+• Desktop friendly
+• Laptop friendly
+• Tablet friendly
+• Mobile friendly
+• Touch friendly
+• Keyboard accessible
+• Fast loading
+• Offline working
+• Print friendly
+• PDF export friendly
+
+The desktop layout must use available width properly.
+
+Never create:
+
+• Narrow centered layout only
+• Huge empty left or right spaces
+• Blank sections
+• Oversized decorative sections
+• Clipped tables
+• Broken diagrams
+• Poor mobile layout
+
+Use a premium educational engineering theme:
+
+• Modern cards
+• Clear chapters
+• Professional typography
+• Smooth gradients
+• Soft shadows
+• Subtle glassmorphism
+• Engineering-style SVG visuals
+• Readable spacing
+• Good contrast
+
+Avoid cartoon style and over-decoration.
+
+================================================================================
+STRUCTURE REQUIRED
+================================================================================
+
+Include these sections:
+
+1. Cover / Hero section
+2. Course information
+3. Course objectives
+4. Course outcomes
+5. How to use this lesson
+6. Clickable table of contents
+7. All syllabus modules as full handbook chapters
+8. Malayalam explanation throughout
+9. Diagrams / SVG illustrations
+10. Formula Bank if applicable
+11. Worked examples
+12. Expected questions module-wise
+13. Practice questions
+14. Answer key
+15. Quick revision
+16. Model question paper with complete answers
+17. References if provided in syllabus
+18. Download Notes / PDF export button
+
+================================================================================
+MALAYALAM EXPLANATION RULE
+================================================================================
+
+After every important concept, include Malayalam explanation.
 
 Technical terms may remain in English.
 
-Example style:
+Malayalam explanations must help diploma students understand difficult English theory.
 
-Malayalam Explanation:
-ഈ ഭാഗം വിദ്യാർത്ഥികൾക്ക് എളുപ്പത്തിൽ മനസ്സിലാകുന്ന രീതിയിൽ വിശദീകരിക്കുക.
+Do not force Malayalam for language subjects where it is not useful.
 
-Do not force Malayalam sections for language subjects.
+================================================================================
+DIAGRAM AND ANIMATION RULE
+================================================================================
 
-===============================================================================
-DIAGRAMS AND VISUALS
-===============================================================================
+Create offline SVG diagrams wherever useful:
 
-Create clean offline SVG diagrams wherever useful.
-
-Examples:
-
-Electrical circuits
-Electronic circuits
-Mechanical systems
-Block diagrams
-Flow charts
-Signal flow
-Logic diagrams
-Timing diagrams
-Graphs
-Tables
-Comparison charts
-Process diagrams
-
-All visuals must be inside the HTML file.
-
-No image dependency unless explicitly provided.
-
-===============================================================================
-ANIMATIONS
-===============================================================================
+• Electrical circuits
+• Power plant layouts
+• Transmission line diagrams
+• Sag diagrams
+• Distribution layouts
+• Cable construction diagrams
+• Substation single-line diagrams
+• Flowcharts
+• Block diagrams
+• Tables and comparison charts
 
 Use animations only when they improve understanding.
+Use only CSS, SVG and Vanilla JavaScript.
+No external libraries.
+Animations must be disabled in print/PDF mode.
 
-Allowed animation examples:
+================================================================================
+DOWNLOAD NOTES / PDF EXPORT RULE
+================================================================================
 
-Signal flow
-Waveform movement
-Motor rotation
-Current flow
-Logic operation
-Communication process
-Mechanical motion
-Data transfer
+Every lesson page must include a Download Notes or Download PDF button.
 
-Use only CSS, SVG, and Vanilla JavaScript.
+The button must generate a clean PDF directly from the CURRENT HTML lesson page.
 
-Avoid useless decorative animation.
+The button must NOT simply download an old static PDF with unused blank space.
 
-===============================================================================
-CALLOUT BOXES
-===============================================================================
+When clicked:
 
-Add useful callout boxes:
+1. Add `pdf-export-mode` class to html and body.
+2. Open all details elements.
+3. Reveal all hidden modules, tabs, accordions and answer sections.
+4. Reveal formula bank, practice questions, model paper and answer key.
+5. Hide header, navigation, search, floating buttons, assistant widget and decorative controls.
+6. Disable animations.
+7. Change document title to `downloadable-notes-[SUBJECT_CODE]`.
+8. Trigger `window.print()` after layout is prepared.
 
-Important
-Remember
-Exam Tip
-Definition
-Formula
-Warning
-Industrial Note
-Practical Note
-Common Mistake
+Also support:
 
-===============================================================================
-WORKED EXAMPLES
-===============================================================================
+lessons/lessons-[SUBJECT_CODE].html?autoPrintNotes=1
 
-Include solved examples where applicable.
+PDF layout requirements:
 
-For numerical subjects include:
+• A4 page
+• Approximately 7 mm margin
+• Full printable width
+• No huge blank spaces
+• No blank first page
+• No clipped diagrams
+• No cropped tables
+• No missing hidden sections
+• Selectable text
+• Sharp SVG diagrams
 
-Given
-Formula
-Substitution
-Calculation
-Final answer
-Unit
+Do NOT use html2pdf, html2canvas, jsPDF or any external PDF library.
 
-For theory subjects include:
-
-Question
-Structured answer
-Important keywords
-Exam writing style
-
-===============================================================================
-FORMULA BANK
-===============================================================================
-
-Include Formula Bank if the subject needs formulas.
-
-For each formula include:
-
-Formula
-Meaning
-Variables
-Units
-Usage
-Example
-
-Skip Formula Bank for language subjects.
-
-===============================================================================
-EXPECTED QUESTIONS
-===============================================================================
-
-For every module generate:
-
-2 mark questions
-5 mark questions
-10 mark questions
-15 mark questions
-
-Questions must match syllabus scope.
-
-Do not add out-of-syllabus questions.
-
-===============================================================================
-PRACTICE QUESTIONS
-===============================================================================
+================================================================================
+SEARCH, BOOKMARKS AND PROGRESS
+================================================================================
 
 Include:
 
-MCQ
-True or False
-Fill in the blanks
-Match the following
-Short answer
-Long answer
-Numerical problems if applicable
-Case study questions
+• Instant search
+• Bookmark buttons using localStorage
+• Reading progress bar
+• Continue reading / last read if practical
+• Dark/light mode if practical
 
-===============================================================================
-ANSWER KEY
-===============================================================================
+All features must work offline.
 
-Provide answers for all practice questions.
+================================================================================
+ACCESSIBILITY AND PERFORMANCE
+================================================================================
 
-Do not leave answers incomplete.
-
-===============================================================================
-QUICK REVISION
-===============================================================================
-
-Create:
-
-One-page revision
-Important definitions
-Important formulas
-Important diagrams
-Important tables
-Module-wise summary
-Last-minute exam notes
-
-===============================================================================
-MODEL QUESTION PAPER
-===============================================================================
-
-Generate a complete model examination.
-
-Follow the official SITTTR Kerala Revision 2021 model question paper pattern for that subject code.
-
-Follow only:
-
-Question structure
-Marks distribution
-Section order
-Exam style
-
-Do NOT copy official questions.
-
-Generate original questions from the syllabus.
-
-Provide complete answers after the question paper.
-
-===============================================================================
-SEARCH FUNCTION
-===============================================================================
-
-Add instant search.
-
-Search should find:
-
-Topics
-Definitions
-Formulas
-Examples
-Questions
-Module names
-
-Highlight search results.
-
-===============================================================================
-READING PROGRESS
-===============================================================================
-
-Add reading progress bar.
-
-Use localStorage to remember progress.
-
-===============================================================================
-LAST READ SECTION
-===============================================================================
-
-Use localStorage to remember the last opened module/topic.
-
-Show “Continue Reading” button.
-
-===============================================================================
-BOOKMARKS
-===============================================================================
-
-Allow users to bookmark important sections.
-
-Store bookmarks using localStorage.
-
-===============================================================================
-PRINT SUPPORT
-===============================================================================
-
-Add print-friendly CSS.
-
-Use @media print.
-
-Hide unnecessary UI during print.
-
-Keep content clean and readable.
-
-The print/PDF output must be treated as the official downloadable notes version.
-
-===============================================================================
-ACCESSIBILITY
-===============================================================================
-
-Use:
-
-Semantic HTML
-Proper headings
-ARIA labels
-Keyboard navigation
-Readable contrast
-Alt text for diagrams
-Accessible buttons
-
-===============================================================================
-PERFORMANCE
-===============================================================================
-
-The page must load fast.
+Use semantic HTML, proper heading hierarchy, ARIA labels where needed, keyboard navigation, readable font sizes, high contrast and accessible buttons.
 
 Use optimized CSS and JavaScript.
+Avoid heavy scripts and repeated expensive DOM operations.
 
-Do not create heavy scripts.
+================================================================================
+GITHUB COMMIT AND PUSH REQUIREMENT
+================================================================================
 
-Avoid unnecessary effects.
+After creating or modifying the lesson:
 
-===============================================================================
-SUBJECT CARD / INDEX COMPATIBILITY
-===============================================================================
+1. Verify subject code and filename.
+2. Verify all modules are included.
+3. Verify the page is handbook-level, not short-note level.
+4. Verify Download Notes creates a clean HTML-to-PDF output.
+5. Verify no unnecessary blank space in PDF mode.
+6. Commit with a meaningful commit message.
+7. Push to the GitHub repository.
 
-The lesson file must be compatible with the POLY PMNA Revision 2021 subject viewer.
-
-Use metadata in the HTML:
-
-Subject code
-Subject name
-Department
-Semester
-Revision 2021
-Lesson filename
-HTML-to-PDF download filename
-
-Suffix subjects must be indexed separately.
-
-Example:
-
-6041A Medical Electronics
-lessons-6041A.html
-downloadable-notes-6041A.pdf generated from HTML export mode
-
-Do not list it as 6041.
-
-===============================================================================
-CONTENT QUALITY
-===============================================================================
-
-The final lesson must feel like a professionally authored engineering textbook.
-
-Avoid AI-style shallow explanations.
-
-Every syllabus point must be expanded into useful study material.
-
-Students should be able to study the full subject using this single HTML lesson file.
-
-===============================================================================
+================================================================================
 FINAL OUTPUT
-===============================================================================
+================================================================================
 
-Produce one complete standalone HTML file.
+Produce ONE complete standalone HTML file.
 
 No placeholders.
 No dummy text.
 No “content omitted.”
 No “continue later.”
-No unfinished sections.
+No unfinished modules.
+No missing answer key.
+No broken PDF download behavior.
 
-The file must be complete, polished, responsive, offline-compatible, PDF-export-ready, and ready to deploy on POLY PMNA.
+Everything must be complete, large, handbook-style, production-ready, offline-compatible, responsive, PDF-export-ready and immediately deployable on POLY PMNA.
 ```
