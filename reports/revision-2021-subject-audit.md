@@ -1,21 +1,25 @@
 # Revision 2021 Subject Audit
 
-Version: `20260706-sitttr-complete2`
+Version: `20260706-sitttr-complete3`
 
 ## Result
 
-- Added `assets/js/rev2021-all-dept-cleanup.js` and loaded it on the Revision 2021 department viewer.
-- Applied the suffix-code cleanup to every department page, not only Electrical & Electronics Engineering.
+- Added and strengthened `assets/js/rev2021-all-dept-cleanup.js`.
+- The cleanup now checks **every rendered semester section** in every department page.
+- It is not limited to Semester 6.
+- It runs on page load, delayed passes, and DOM mutation changes, so late-rendered subject cards are also checked.
 - Corrected the department viewer to map all 43 official Revision 2021 department names explicitly.
 - Kept suffix-code subjects as separate cards instead of collapsing them into base codes.
 - Removed blindly injected `6007` common Internship cards from department pages.
 - Preserved lesson, notes, syllabus, and model-question-paper links with exact suffix codes.
 
-## Global department rule now applied
+## All-semester rule now applied
+
+For every department page and every semester section:
 
 If a semester section contains suffix-code cards such as `6041A`, `6041B`, or `6041C`, the matching collapsed base-code card such as `6041` is removed from that same semester section.
 
-This is applied across all department pages opened through:
+This is applied across:
 
 `/revision-2021/department-view.html?dept=...`
 
@@ -35,4 +39,4 @@ Required visible codes:
 
 ## Important limitation
 
-Full row-level automated scrape of every SITTTR programme page is still marked partial because the SITTTR programme-course endpoint fails when the query order is changed by the fetch layer. The committed site-side fix now applies the suffix-code and common-subject cleanup across all 43 department viewer pages without changing the visual card design.
+Full row-level automated scrape of every SITTTR programme page is still marked partial because the SITTTR programme-course endpoint fails when the query order is changed by the fetch layer. The committed site-side fix now checks all rendered semesters across all 43 department viewer pages without changing the visual card design.
