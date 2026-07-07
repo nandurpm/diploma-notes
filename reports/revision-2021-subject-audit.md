@@ -1,14 +1,23 @@
 # Revision 2021 Subject Audit
 
-Version: `20260706-sitttr-complete1`
+Version: `20260706-sitttr-complete2`
 
-## Result in this commit
+## Result
 
-- Added a dedicated Revision 2021 department subject renderer: `assets/js/sitttr-rev2021-browser.js`.
+- Added `assets/js/rev2021-all-dept-cleanup.js` and loaded it on the Revision 2021 department viewer.
+- Applied the suffix-code cleanup to every department page, not only Electrical & Electronics Engineering.
 - Corrected the department viewer to map all 43 official Revision 2021 department names explicitly.
-- Fixed the confirmed Electrical & Electronics Engineering Semester 6 missing suffix-code subjects.
-- Added separate subject cards for `6041A`, `6041B`, and `6041C` where applicable.
-- Syllabus, model question paper, lesson HTML, and notes PDF paths keep suffix letters instead of collapsing them.
+- Kept suffix-code subjects as separate cards instead of collapsing them into base codes.
+- Removed blindly injected `6007` common Internship cards from department pages.
+- Preserved lesson, notes, syllabus, and model-question-paper links with exact suffix codes.
+
+## Global department rule now applied
+
+If a semester section contains suffix-code cards such as `6041A`, `6041B`, or `6041C`, the matching collapsed base-code card such as `6041` is removed from that same semester section.
+
+This is applied across all department pages opened through:
+
+`/revision-2021/department-view.html?dept=...`
 
 ## Electrical & Electronics Engineering – Semester 6
 
@@ -26,4 +35,4 @@ Required visible codes:
 
 ## Important limitation
 
-Full row-level automated scrape of every SITTTR programme page is marked partial because the SITTTR programme-page endpoint fails when query parameters are reordered. The committed browser fix now handles the confirmed broken subject groups and all 43 department names without changing the visual card design.
+Full row-level automated scrape of every SITTTR programme page is still marked partial because the SITTTR programme-course endpoint fails when the query order is changed by the fetch layer. The committed site-side fix now applies the suffix-code and common-subject cleanup across all 43 department viewer pages without changing the visual card design.
