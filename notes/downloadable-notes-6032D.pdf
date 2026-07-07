@@ -1,1 +1,135 @@
-placeholder
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 1037 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032D Electric Vehicles & Traction - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.25 0.21 0.78 rg 48 780 Td (6032D Electric Vehicles & Traction) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (POLY PMNA - Polytechnic Study Hub) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 724 Td (Semester 6 | Program Elective | Credits 4 | Periods 60) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 700 Td (Downloadable handbook generated from lessons-6032D.html) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 676 Td (Core areas: EV powertrain, vehicle motion, electric traction, speed time curve, BLDC,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 660 Td (PMSM, batteries, hybrid storage, fuel cells, charging standards and e-mobility.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032D | POLY PMNA | Page 1 of 4) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 1439 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032D Electric Vehicles & Traction - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.25 0.21 0.78 rg 48 780 Td (Course Overview and Roadmap) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (Objectives: express EV relevance, illustrate electric traction and EV motors, outline) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 732 Td (energy storage options and identify charging infrastructure requirements.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 708 Td (CO1: Outline basic concepts of EVs and match power train needs. CO2: Explain electric) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 692 Td (traction and EV motor applications. CO3: Outline importance of hybridization of energy) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 676 Td (storage. CO4: Summarize public charging infrastructure and e-mobility.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 652 Td (Roadmap: M1 vehicle classification, motion resistance and EV/HEV/PHEV powertrain. M2) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 636 Td (electric traction, traction motors, speed-time curve, BLDC and PMSM. M3 batteries,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 620 Td (ultra-capacitors, flywheels, fuel cells and hybrid storage. M4 HEV control, chargers,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 604 Td (connectors, V2G/G2V/V2B/V2H, public charging and e-mobility challenges.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032D | POLY PMNA | Page 2 of 4) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 2085 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032D Electric Vehicles & Traction - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.25 0.21 0.78 rg 48 780 Td (Module Chapters) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (Module 1: EVs, HEVs and PHEVs are compared by technical, economical and environmental) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 732 Td (aspects. Vehicle movement depends on rolling resistance, aerodynamic drag, grade) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 716 Td (resistance, adhesion and tractive effort. IC powertrain uses clutch, gearbox and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 700 Td (differential; EV powertrain uses battery, inverter/controller, motor and drive train.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 676 Td (Module 2: Electric traction includes supply system, locomotive layout, traction motors,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 660 Td (speed-time curve and train movement terms. Traction motors include DC series, single) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 644 Td (phase AC series and three phase induction motors. Special EV motors include BLDC and) Tj ET
+BT /F1 10.5 Tf 0.07 0.10 rg 48 628 Td (PMSM with electronic/synchronous control.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 604 Td (Module 3: Battery parameters include specific power, energy efficiency, thermodynamic) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 588 Td (voltage and selection criteria. Li-ion and Li-P batteries are common EV choices. Ultra) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 572 Td (capacitors, flywheels and hydrogen fuel cells support high power or range needs.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 548 Td (Module 4: HEV control coordinates engine, motor, battery, inverter and charger. EV) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 532 Td (charging covers SAE J1772 modes, CCS, Bharat EV AC/DC, safety, connectors, public) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 516 Td (charging requirements and e-mobility challenges.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032D | POLY PMNA | Page 3 of 4) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 1606 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032D Electric Vehicles & Traction - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.25 0.21 0.78 rg 48 780 Td (Formula Bank, Practice and Answers) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (Formula bank: total tractive effort equals rolling, aerodynamic, grade and acceleration) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 732 Td (resistances. Average speed equals distance divided by actual running time. Scheduled) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 716 Td (speed equals distance divided by total time including stops. Battery energy equals V x Ah.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 692 Td (Solved example: 320 V, 100 Ah battery has 32000 Wh = 32 kWh. With 6 kW charger,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 676 Td (ideal charging time is 32 / 6 = 5.33 hours.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 652 Td (Expected questions: compare EV/HEV/PHEV, explain vehicle resistance, speed-time curve,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 636 Td (BLDC, PMSM, storage hybridization, fuel cells, charging modes, connectors and public) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 620 Td (charging infrastructure.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 596 Td (Model answer guide: include diagrams, formulas, units, torque-speed keywords, safety,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 580 Td (communication, connector rating and grid interaction. Do not omit BMS and controller.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032D | POLY PMNA | Page 4 of 4) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R] /Count 4 >>
+endobj
+12 0 obj
+<< /Type /Catalog /Pages 11 0 R >>
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000000154 00000 n 
+0000001243 00000 n 
+0000001380 00000 n 
+0000002869 00000 n 
+0000003006 00000 n 
+0000005142 00000 n 
+0000005279 00000 n 
+0000006936 00000 n 
+0000007074 00000 n 
+0000007151 00000 n 
+trailer
+<< /Size 13 /Root 12 0 R >>
+startxref
+7202
+%%EOF
