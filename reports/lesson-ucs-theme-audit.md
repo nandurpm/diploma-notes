@@ -134,6 +134,8 @@ These pages are now visually normalized by the shared UCS runtime enforcer, but 
 
 This fixes the earlier build failure cause where the PDF builder saw only a short wrapper text instead of lesson content.
 
-## Recommended next step
+## PDF notes published
 
-Run the lesson PDF build workflow after this commit so `notes/downloadable-notes-6041C.pdf` can be generated from the corrected HTML source. Until that PDF is published, the Download Notes button uses the lesson print/PDF fallback.
+`notes/downloadable-notes-6041C.pdf` has now been added as the published PDF notes file for course `6041C`.
+
+`assets/js/asset-manifest.js` includes `6041C` in `notesCodes`, so subject-browser Download Notes can resolve the real PDF instead of relying only on the print fallback.
