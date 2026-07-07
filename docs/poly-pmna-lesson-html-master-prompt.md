@@ -106,6 +106,38 @@ Minimum depth target:
 The final output should feel like a textbook chapter set, not a simple revision note.
 
 ================================================================================
+FULL WIDTH / NO FREE SPACE LAYOUT RULE – VERY IMPORTANT
+================================================================================
+
+The lesson page must use the available screen width properly.
+
+Do NOT leave unnecessary free space on the left side.
+Do NOT leave unnecessary free space on the right side.
+Do NOT create a narrow centered textbook column on desktop.
+Do NOT use a small max-width that wastes desktop monitor space.
+Do NOT create empty gutters around the lesson body.
+
+Desktop layout requirement:
+
+• Main lesson wrapper should use almost full viewport width.
+• Use `width: calc(100% - 16px)` or similar full-width layout.
+• Use large responsive grids and chapter blocks.
+• If `max-width` is used, it must be large enough for desktop, such as 1700px or more.
+• Content should visually fill the page while still remaining readable.
+• Tables, diagrams, formula banks and question banks should use available width.
+• Hero section, chapter sections and revision blocks must not look squeezed in the center.
+
+Inside the lesson page:
+
+• Avoid blank cards.
+• Avoid unused columns.
+• Avoid empty right-side space after grids.
+• Avoid excessive padding that creates wasted space.
+• Avoid large decorative areas with no study content.
+
+Mobile layout should still collapse cleanly into single-column format.
+
+================================================================================
 PAGE AND DESIGN REQUIREMENTS
 ================================================================================
 
@@ -123,7 +155,7 @@ The page must be:
 • Print friendly
 • PDF export friendly
 
-The desktop layout must use available width properly.
+The desktop layout must use available width properly with no unnecessary left/right blank space.
 
 Never create:
 
@@ -172,7 +204,8 @@ Include these sections:
 15. Quick revision
 16. Model question paper with complete answers
 17. References if provided in syllabus
-18. Download Notes / PDF export button
+18. Download Notes button
+19. Print / PDF button inside the lesson page
 
 ================================================================================
 MALAYALAM EXPLANATION RULE
@@ -209,12 +242,17 @@ No external libraries.
 Animations must be disabled in print/PDF mode.
 
 ================================================================================
-DOWNLOAD NOTES / PDF EXPORT RULE
+DOWNLOAD NOTES / PRINT PDF EXPORT RULE
 ================================================================================
 
-Every lesson page must include a Download Notes or Download PDF button.
+Every lesson page must include BOTH:
 
-The button must generate a clean PDF directly from the CURRENT HTML lesson page.
+1. A Download Notes button.
+2. A Print / PDF button inside the lesson page.
+
+Both buttons must work from inside the lesson HTML page.
+
+The Download Notes button must generate a clean PDF directly from the CURRENT HTML lesson page.
 
 The button must NOT simply download an old static PDF with unused blank space.
 
@@ -228,6 +266,8 @@ When clicked:
 6. Disable animations.
 7. Change document title to `downloadable-notes-[SUBJECT_CODE]`.
 8. Trigger `window.print()` after layout is prepared.
+
+For direct user clicks, call `window.print()` immediately after preparing the layout so browser popup blocking does not prevent the print dialog.
 
 Also support:
 
@@ -247,6 +287,30 @@ PDF layout requirements:
 • Sharp SVG diagrams
 
 Do NOT use html2pdf, html2canvas, jsPDF or any external PDF library.
+
+================================================================================
+AUTOMATIC NOTES AVAILABILITY RULE
+================================================================================
+
+If `lessons/lessons-[SUBJECT_CODE].html` exists, then PDF notes must automatically be available for that subject.
+
+Subject cards should show Download Notes automatically when the lesson HTML file exists.
+
+The subject card Download Notes link should open:
+
+lessons/lessons-[SUBJECT_CODE].html?autoPrintNotes=1
+
+Examples:
+
+lessons/lessons-5032.html?autoPrintNotes=1
+lessons/lessons-6041A.html?autoPrintNotes=1
+lessons/lessons-6041B.html?autoPrintNotes=1
+
+Static PDF files are optional backup only.
+
+Do NOT hide Download Notes just because a separate PDF file is missing.
+
+The lesson HTML itself is the primary source for downloadable PDF notes.
 
 ================================================================================
 SEARCH, BOOKMARKS AND PROGRESS
@@ -280,10 +344,13 @@ After creating or modifying the lesson:
 1. Verify subject code and filename.
 2. Verify all modules are included.
 3. Verify the page is handbook-level, not short-note level.
-4. Verify Download Notes creates a clean HTML-to-PDF output.
-5. Verify no unnecessary blank space in PDF mode.
-6. Commit with a meaningful commit message.
-7. Push to the GitHub repository.
+4. Verify the lesson uses full width and has no unnecessary left/right free space.
+5. Verify Download Notes and Print / PDF buttons are available inside the lesson page.
+6. Verify Download Notes creates a clean HTML-to-PDF output.
+7. Verify no unnecessary blank space in PDF mode.
+8. Verify that a subject with lesson HTML automatically gets Download Notes from `?autoPrintNotes=1`.
+9. Commit with a meaningful commit message.
+10. Push to the GitHub repository.
 
 ================================================================================
 FINAL OUTPUT
@@ -298,6 +365,7 @@ No “continue later.”
 No unfinished modules.
 No missing answer key.
 No broken PDF download behavior.
+No unnecessary left/right free space.
 
-Everything must be complete, large, handbook-style, production-ready, offline-compatible, responsive, PDF-export-ready and immediately deployable on POLY PMNA.
+Everything must be complete, large, handbook-style, production-ready, offline-compatible, responsive, full-width, PDF-export-ready and immediately deployable on POLY PMNA.
 ```
