@@ -1,17 +1,19 @@
 {
-  "version": "20260706-sitttr-complete2",
+  "version": "20260706-sitttr-complete3",
   "officialTopLevelSource": "SITTTR Kerala Diploma Revision 2021 syllabus page",
   "officialProgrammeCount": 43,
   "departmentMappingStatus": "pass",
   "allDepartmentBrowserCleanupStatus": "pass",
+  "allSemesterCleanupStatus": "pass",
   "rowLevelScrapeStatus": "partial",
-  "note": "All 43 department names are explicitly mapped in the department viewer. A global cleanup script now runs for every department page: it removes common 6007 when it was blindly injected, removes collapsed base-code cards when suffix-code cards exist in the same semester, and preserves suffix-code subjects as separate cards. Full automated row-level scrape of every SITTTR programme page is still marked partial because the SITTTR programme-course endpoint fails when the query order is changed by the fetch layer.",
+  "note": "All 43 department names are explicitly mapped in the department viewer. The browser cleanup now checks every rendered semester section in every department page, not only Semester 6. If a suffix-code card exists in any semester, the matching collapsed base-code card is removed from that same semester. Full automated row-level scrape of every SITTTR programme page is still marked partial because the SITTTR programme-course endpoint fails when the query order is changed by the fetch layer.",
   "globalFixes": [
     "Loaded rev2021-all-dept-cleanup.js on the department viewer",
-    "Applied cache busting version 20260706-sitttr-complete2",
-    "Removed collapsed base-code cards when matching suffix-code subjects exist",
+    "Cleanup runs on DOMContentLoaded, delayed passes, and MutationObserver so late-rendered semester sections are also checked",
+    "All semester sections are scanned, not only Semester 6",
+    "Removed collapsed base-code cards when matching suffix-code subjects exist in the same semester",
     "Removed forced First Year / Common 6007 Internship cards",
-    "Kept suffix subjects such as 6031A, 6031C, 6031D, 6032A-D, 6039A-C, 6041A-C as separate cards"
+    "Kept suffix subjects such as 6031A, 6031C, 6031D, 6032A-D, 6039A-C, 6041A-C and similar suffix codes as separate cards"
   ],
   "criticalFixes": [
     {
@@ -27,7 +29,8 @@
     },
     {
       "department": "All departments",
-      "rule": "If a suffix-code card exists in a semester, the matching collapsed base-code card is removed from that same semester.",
+      "semesterScope": "All rendered semesters",
+      "rule": "If a suffix-code card exists in any semester section, the matching collapsed base-code card is removed only from that same semester section.",
       "suffixCodeCheck": "pass"
     }
   ]
