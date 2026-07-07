@@ -1,0 +1,190 @@
+%PDF-1.4
+% POLY PMNA generated PDF
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 1289 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031C Microcontroller & PLC - POLY PMNA) Tj ET
+0.03 0.28 0.45 rg 0 660 595 182 re f
+BT /F2 23 Tf 1 1 1 rg 48 790 Td (Course 6031C) Tj ET
+BT /F2 21 Tf 1 1 1 rg 48 760 Td (Microcontroller & PLC) Tj ET
+BT /F1 12 Tf 1 1 1 rg 48 735 Td (Diploma in Electrical and Electronics Engineering) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 700 Td (POLY PMNA - Polytechnic Study Hub) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 676 Td (Course 6031C - Microcontroller & PLC) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 652 Td (Diploma in Electrical and Electronics Engineering - Semester 6) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 628 Td (Revision 2021 | Program Elective | Credits: 4 | Periods: 60) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 604 Td (A downloadable handbook PDF generated from lessons-6031C.html.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 580 Td (Core areas: 8051 architecture, ALP, 8255 PPI, peripheral interfacing, PLC) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 564 Td (architecture, scan cycle, ladder logic and industrial motor/lighting control.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031C | POLY PMNA | Page 1 of 6) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 15 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 1453 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031C Microcontroller & PLC - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.45 rg 48 780 Td (Overview) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (Objectives: understand operation, construction and application of microcontroller;) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (acquire programming knowledge of 8051; understand operation, construction and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 722 Td (application of PLC; provide basic knowledge in PLC programming.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 698 Td (Prerequisites: Digital Electronics from Analog & Digital Circuits \(Semester 3\) and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 682 Td (basics of programming from Introduction of IT Systems \(Semester 1\).) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 658 Td (CO1: Summarize architecture of 8051 microcontroller. CO2: Develop programs to) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 642 Td (interface 8051 with internal and external peripherals. CO3: Illustrate features,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 626 Td (block diagram and applications of PLC. CO4: Build programs to interface PLC with) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 610 Td (internal and external peripherals.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031C | POLY PMNA | Page 2 of 6) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 15 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 1421 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031C Microcontroller & PLC - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.45 rg 48 780 Td (Modules 1 and 2) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (Module 1: 8051 features, comparison with microprocessor, block diagram, CPU,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (oscillator, ROM, RAM, I/O ports, serial port, timers/counters, interrupt control,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 722 Td (register structure, PSW, TMOD, TCON, IE, IP, memory organization, pin functions,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 706 Td (interrupts, serial communication and applications.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 682 Td (Module 2: instruction format, addressing modes, instruction set groups, assembly) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 666 Td (language programs, 8255 PPI block diagram, control word and interfacing of LED,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 650 Td (stepper motor and DC motor.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 626 Td (ALP example: MOV A,30H; ADD A,31H; MOV 32H,A; HERE: SJMP HERE. Result is stored at) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 610 Td (32H. Use comments and show result location in exams.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031C | POLY PMNA | Page 3 of 6) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 15 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 1303 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031C Microcontroller & PLC - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.45 rg 48 780 Td (Modules 3 and 4) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (Module 3: PLC introduction, importance, advantages, disadvantages, relay based panel) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (versus PLC based panel, block diagram, major components, I/O devices, operation,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 722 Td (scan cycle, applications and selection criteria.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 698 Td (Module 4: PLC programming classification, ladder diagram, rungs, inputs, outputs,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 682 Td (power rails, ladder rules, basic I/O instructions, timer/counter, math, logical,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 666 Td (data handling and comparison instructions.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 642 Td (Practice ladder programs: logic gates, staircase lighting, go-down lighting, traffic) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 626 Td (light, DOL starter and star-delta starter.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031C | POLY PMNA | Page 4 of 6) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 15 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Length 1411 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031C Microcontroller & PLC - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.45 rg 48 780 Td (Rule Bank and Practice) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (8051 rule: instruction = opcode + operand. Addressing modes decide where the data is) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (located. ALP sequence should be initialize, load data, execute operation, store) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 722 Td (result and end loop.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 698 Td (PLC rule: scan cycle = input scan, program scan, output scan and diagnostics. Ladder) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 682 Td (logic uses contacts as conditions and coils as outputs. Use stop, overload and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 666 Td (interlock for motor circuits.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 642 Td (Expected questions: draw and explain 8051 architecture; compare microprocessor and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 626 Td (microcontroller; explain 8255 PPI; compare relay and PLC panels; explain PLC scan) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 610 Td (cycle; develop DOL and traffic light ladder programs.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031C | POLY PMNA | Page 5 of 6) Tj ET
+endstream
+endobj
+12 0 obj
+<< /Type /Page /Parent 15 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 11 0 R >>
+endobj
+13 0 obj
+<< /Length 1688 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6031C Microcontroller & PLC - POLY PMNA) Tj ET
+BT /F2 15 Tf 0.03 0.28 0.45 rg 48 780 Td (Model Paper and Answers) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 754 Td (Model paper: define microcontroller, list SFRs, explain addressing modes, draw 8051) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 738 Td (architecture, write ALP for addition, draw 8255 PPI, compare relay and PLC panels,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 722 Td (explain PLC scan cycle and develop ladder logic for DOL starter.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 698 Td (Model answer guide: for 8051 draw CPU, ROM, RAM, ports, timers, serial port and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 682 Td (interrupts; for ALP show comments and result; for PLC include I/O table, rung) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 666 Td (diagram, seal-in contact and overload protection.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 642 Td (References: Kenneth Ayala 8051 Microcontroller Architecture Programming and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 626 Td (Application; Mazidi et al. The 8051 Microcontroller and Embedded System; Ajit Pal) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 610 Td (Microcontroller Principle and Application; Raj Kamal Microcontroller Architecture) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 594 Td (Programming, Interfacing and System Design; NPTEL resources listed in the supplied) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 578 Td (syllabus.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6031C | POLY PMNA | Page 6 of 6) Tj ET
+endstream
+endobj
+14 0 obj
+<< /Type /Page /Parent 15 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 13 0 R >>
+endobj
+15 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R 12 0 R 14 0 R] /Count 6 >>
+endobj
+16 0 obj
+<< /Type /Catalog /Pages 15 0 R >>
+endobj
+xref
+0 17
+0000000000 65535 f 
+0000000035 00000 n 
+0000000105 00000 n 
+0000000180 00000 n 
+0000001520 00000 n 
+0000001657 00000 n 
+0000003161 00000 n 
+0000003298 00000 n 
+0000004770 00000 n 
+0000004907 00000 n 
+0000006261 00000 n 
+0000006399 00000 n 
+0000007862 00000 n 
+0000008001 00000 n 
+0000009741 00000 n 
+0000009880 00000 n 
+0000009971 00000 n 
+trailer
+<< /Size 17 /Root 16 0 R >>
+startxref
+10022
+%%EOF
