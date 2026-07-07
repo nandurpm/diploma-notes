@@ -1,2 +1,130 @@
-PDF-1.4
-placeholder
+%PDF-1.4
+1 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+3 0 obj
+<< /Length 872 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032A Solar Power Technologies - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.80 0.28 0.04 rg 48 780 Td (6032A Solar Power Technologies) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (POLY PMNA - Polytechnic Study Hub) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 724 Td (Semester 6 | Program Elective | Credits 4 | Periods 60) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 700 Td (Downloadable handbook generated from lessons-6032A.html) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 676 Td (Core areas: solar thermal, CSP, PV cells, rooftop arrays, inverters, net metering and grid) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 660 Td (synchronization.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032A | POLY PMNA | Page 1 of 4) Tj ET
+endstream
+endobj
+4 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 3 0 R >>
+endobj
+5 0 obj
+<< /Length 1222 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032A Solar Power Technologies - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.80 0.28 0.04 rg 48 780 Td (Course Overview and Roadmap) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (Objectives: adopt efficient solar technology, extract electrical power or heat using solar) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 732 Td (technologies, and select/erect solar PV systems.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 708 Td (CO1: Explain technologies to harness solar heat. CO2: Classify CSP plants.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 684 Td (CO3: Explain rooftop solar module array configurations and maintenance.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 660 Td (CO4: Outline solar PV operation and grid synchronization.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 636 Td (Roadmap: M1 solar thermal devices; M2 CSP plants; M3 PV modules and arrays; M4 PV system) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 620 Td (components, inverters, controllers, net metering and synchronization.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032A | POLY PMNA | Page 2 of 4) Tj ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 5 0 R >>
+endobj
+7 0 obj
+<< /Length 1871 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032A Solar Power Technologies - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.80 0.28 0.04 rg 48 780 Td (Module Chapters) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (Module 1: Solar energy advantages, disadvantages, applications, collectors, solar cookers,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 732 Td (water heaters, stills, air heaters, dryers, kilns, pumps, greenhouses, space heating and) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 716 Td (solar absorption cooling.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 692 Td (Module 2: CSP plants by temperature. Low temperature: solar pond and flat plate collector) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 676 Td (plant. Medium temperature: parabolic collector plant. High temperature: parabolic dish,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 660 Td (central receiver, Fresnel reflector and Stirling engine.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 636 Td (Module 3: PV effect, cell construction, crystalline silicon, thin film and emerging PV) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 620 Td (technologies, V-I characteristics, Isc, Voc, Pmax, Vmp, Imp, fill factor, equivalent) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 604 Td (circuit, strings and arrays, module specifications and maintenance.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 580 Td (Module 4: PV modules, batteries, inverter, charge controller, mounting, cables,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 564 Td (blocking/bypass diode, junction box, buck/boost converters, MPPT/PWM, off-grid, grid-tied) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 548 Td (and hybrid systems, net metering and grid synchronization.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032A | POLY PMNA | Page 3 of 4) Tj ET
+endstream
+endobj
+8 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 7 0 R >>
+endobj
+9 0 obj
+<< /Length 1399 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+0.82 0.88 0.93 RG 36 812 m 559 812 l S
+BT /F2 9 Tf 0.10 0.20 0.30 rg 36 820 Td (6032A Solar Power Technologies - POLY PMNA) Tj ET
+BT /F2 18 Tf 0.80 0.28 0.04 rg 48 780 Td (Formula Bank, Practice and Answers) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 748 Td (P = V x I. Pmax = Vmp x Imp. Fill factor = Pmax / \(Voc x Isc\). Energy = Power x sunshine) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 732 Td (hours x derating factor.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 708 Td (Example: Vmp = 36 V and Imp = 8 A gives Pmax = 288 W.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 684 Td (Example: Voc = 44 V, Isc = 9 A, Vmp = 36 V, Imp = 8 A. Fill factor = 288 / \(44 x 9\) =) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 668 Td (0.727.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 644 Td (Expected questions: explain solar collectors, CSP classification, solar cell V-I curve,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 628 Td (array configurations, MPPT, net metering and grid synchronization.) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 604 Td (Model paper answer guide: draw diagrams, write formulas, substitute values, state units,) Tj ET
+BT /F1 10.5 Tf 0.05 0.07 0.10 rg 48 588 Td (mention shading, tilt, direction, temperature and maintenance.) Tj ET
+0.82 0.88 0.93 RG 36 34 m 559 34 l S
+BT /F1 9 Tf 0.25 0.30 0.35 rg 200 20 Td (Course 6032A | POLY PMNA | Page 4 of 4) Tj ET
+endstream
+endobj
+10 0 obj
+<< /Type /Page /Parent 11 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 1 0 R /F2 2 0 R >> >> /Contents 9 0 R >>
+endobj
+11 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R 8 0 R 10 0 R] /Count 4 >>
+endobj
+12 0 obj
+<< /Type /Catalog /Pages 11 0 R >>
+endobj
+xref
+0 13
+0000000000 65535 f 
+0000000009 00000 n 
+0000000079 00000 n 
+0000000154 00000 n 
+0000001076 00000 n 
+0000001213 00000 n 
+0000002486 00000 n 
+0000002623 00000 n 
+0000004545 00000 n 
+0000004682 00000 n 
+0000006132 00000 n 
+0000006270 00000 n 
+0000006347 00000 n 
+trailer
+<< /Size 13 /Root 12 0 R >>
+startxref
+6398
+%%EOF
