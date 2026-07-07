@@ -60,4 +60,9 @@
 <script>
 (()=>{"use strict";const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s));function show(id){$$('.view-section').forEach(s=>s.hidden=s.id!==id);$$('.tabbtn').forEach(b=>b.classList.toggle('active',b.dataset.view===id));history.replaceState(null,'','#'+id);scrollTo({top:0,behavior:'smooth'});}$$('[data-view]').forEach(b=>b.addEventListener('click',()=>show(b.dataset.view)));function printMode(){document.documentElement.classList.add('pdf-export-mode');document.body.classList.add('pdf-export-mode');$$('.view-section').forEach(s=>s.hidden=false);document.title='downloadable-notes-6031A';setTimeout(()=>print(),100);}$('#printPdfBtn').addEventListener('click',printMode);$('#heroPrintBtn').addEventListener('click',printMode);$('#toTop').addEventListener('click',()=>scrollTo({top:0,behavior:'smooth'}));addEventListener('scroll',()=>{$('#toTop').classList.toggle('show',scrollY>600);$('.progress').style.width=(scrollY/(document.documentElement.scrollHeight-innerHeight)*100)+'%';});const p=new URLSearchParams(location.search);if(p.has('autoPrintNotes')||p.has('downloadNotes'))setTimeout(printMode,500);})();
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body></html>
