@@ -19,11 +19,21 @@ A lesson is treated as following the required UCS/theme only if it uses, or is c
 
 Content depth was not checked in this audit because the requested scope was style/theme only.
 
-## Site-wide enforcement added
+## Site-wide UCS enforcement completed
 
-`assets/js/lesson-navigation-fix.js` now also normalizes legacy lesson headers using selectors such as `.bar`, `.nav`, `.logo`, `.tabstrip`, `.tab-btn`, `.pdf-link`, `.printbtn`, `.code-badge`, and `.course-code`.
+`assets/js/lesson-navigation-fix.js` now applies the recently updated lesson theme across old and new lesson HTML pages.
 
-This means older lesson pages get a closer common UCS appearance at runtime without rewriting their educational content.
+It normalizes:
+
+- body background and typography;
+- compact sticky lesson selector/header;
+- legacy headers such as `.bar`, `.top`, `.nav`, `.logo`, `.code`, `.code-badge`, `.course-code`;
+- tab selectors such as `.tabs`, `.tabstrip`, `.tab-btn`, `.view-btn`, `.hb-tabs`;
+- handbook containers such as `.hero`, `.section`, `.sec`, `.card`, `.topic-card`, `.panel`, `.view-section`, `.hb-section`;
+- tables, formula boxes, diagrams, module banners, callouts and Malayalam blocks;
+- print/PDF mode so hidden panels/details are visible.
+
+This applies the common UCS/theme at runtime without rewriting lesson educational content.
 
 ## Native / close UCS lesson HTML files
 
@@ -51,10 +61,11 @@ These files already use a native or close button/tab-style lesson shell:
 - `lessons/lessons-6032A.html`
 - `lessons/lessons-6032B.html`
 - `lessons/lessons-6032C.html`
+- `lessons/lessons-6041C.html`
 
-## Lesson HTML files not natively following the 1003 / 1004 UCS shell
+## Lesson HTML files still not natively built in the 1003 / 1004 shell
 
-These pages are usable, and the shared runtime enforcer now improves their header/theme, but their own HTML is still legacy/alternate style and should be converted later if exact 1003/1004 native structure is required:
+These pages are now visually normalized by the shared UCS runtime enforcer, but their own source HTML is still legacy/alternate structure. Convert them later only if exact native source structure is required:
 
 - `lessons/lessons-1001.html`
 - `lessons/lessons-1002.html`
@@ -104,7 +115,6 @@ These pages are usable, and the shared runtime enforcer now improves their heade
 - `lessons/lessons-6041.html`
 - `lessons/lessons-6041A.html`
 - `lessons/lessons-6041B.html`
-- `lessons/lessons-6041C.html`
 - `lessons/lessons-6042A.html`
 - `lessons/lessons-6042B.html`
 - `lessons/lessons-6042C.html`
@@ -118,10 +128,12 @@ These pages are usable, and the shared runtime enforcer now improves their heade
 - `lessons/lessons-6068.html`
 - `lessons/lessons-6069.html`
 
-## Important separate issue
+## Separate issue fixed
 
-This is not a theme issue, but `reports/lesson-notes-pdf-build.json` reports that PDF generation failed for `6041C` because prepared lesson text was unexpectedly short. That page needs separate PDF/content-source correction.
+`lessons/lessons-6041C.html` is no longer an iframe wrapper. It is now a standalone, PDF-readable lesson source with visible sections for overview, syllabus map, modules, formula/rule bank, practice, model paper and answer guide.
+
+This fixes the earlier build failure cause where the PDF builder saw only a short wrapper text instead of lesson content.
 
 ## Recommended next step
 
-Do not rewrite all pages blindly. Use the shared UCS enforcer for immediate visual consistency, then convert the listed legacy files one batch at a time into the native 1003/1004 shell so risk is controlled.
+Run the lesson PDF build workflow after this commit so `notes/downloadable-notes-6041C.pdf` can be generated from the corrected HTML source. Until that PDF is published, the Download Notes button uses the lesson print/PDF fallback.
