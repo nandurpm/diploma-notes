@@ -1,1 +1,43 @@
-notes shell
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 393 >>
+stream
+q
+1 1 1 rg 0 0 595 842 re f
+Q
+BT /F2 18 Tf 48 780 Td (Course 5022  Downloadable Notes) Tj ET
+BT /F1 11 Tf 48 740 Td (POLY PMNA - Polytechnic Study Hub) Tj ET
+BT /F1 10 Tf 48 710 Td (Compact PDF linked from the subject browser.) Tj ET
+BT /F1 10 Tf 48 692 Td (Use the lesson page Print / PDF button for the full expanded handbook.) Tj ET
+BT /F1 9 Tf 205 30 Td (Course 5022  | Page 1 of 1) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+839
+%%EOF
