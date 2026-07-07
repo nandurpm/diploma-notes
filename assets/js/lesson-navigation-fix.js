@@ -28,34 +28,57 @@
     const style = document.createElement("style");
     style.id = "polyLessonHeaderStandardStyle";
     style.textContent = `
-      /* POLY PMNA UCS lesson shell enforcement
-         Normalizes old lesson headers (.bar/.nav/.logo), tab lessons (.tabstrip/.tab-btn),
-         and newer 1003/1004-style headers without touching lesson content. */
-      .topbar,.hb-topbar,.lesson-topbar,.bar{position:sticky!important;top:0!important;z-index:1000!important;border-bottom:1px solid rgba(15,23,42,.13)!important;background:rgba(245,248,252,.96)!important;backdrop-filter:blur(18px)!important;overflow:hidden!important;box-shadow:none!important}
-      .topbar-inner,.hb-top-inner,.lesson-topbar-inner,.bar>.nav,.top-main{width:min(1700px,calc(100% - 24px))!important;margin-inline:auto!important;display:flex!important;align-items:center!important;gap:10px!important;padding:10px 0!important;flex-wrap:nowrap!important;overflow:hidden!important;min-height:auto!important}
-      .brand,.hb-code,.brand-code,.lesson-brand,.logo,.code-badge,.course-code{flex:0 0 auto!important;display:grid!important;place-items:center!important;width:58px!important;min-width:58px!important;height:58px!important;border:0!important;border-radius:18px!important;padding:0!important;color:#fff!important;font-weight:950!important;font-size:18px!important;letter-spacing:0!important;background:linear-gradient(135deg,#083344,#0e7490,#2563eb)!important;box-shadow:0 10px 28px rgba(3,105,161,.25)!important;text-decoration:none!important}
+      /* POLY PMNA common UCS lesson theme
+         Applies the recently updated lesson look to old and new lesson HTML pages.
+         This is style/shell only: lesson body text is not rewritten here. */
+      :root{--poly-ucs-bg:#f4f8fc;--poly-ucs-surface:#ffffff;--poly-ucs-soft:#f8fbff;--poly-ucs-ink:#0f172a;--poly-ucs-muted:#5b6778;--poly-ucs-line:rgba(15,23,42,.13);--poly-ucs-brand:#0369a1;--poly-ucs-cyan:#06b6d4;--poly-ucs-violet:#8b5cf6;--poly-ucs-orange:#f97316;--poly-ucs-green:#10b981;--poly-ucs-shadow:0 16px 46px rgba(15,23,42,.09);--poly-ucs-radius:24px;--poly-ucs-max:1900px}
+      html{scroll-behavior:smooth!important;scroll-padding-top:88px!important}
+      body{margin:0!important;color:var(--ink,var(--poly-ucs-ink))!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif!important;background:radial-gradient(circle at 0 0,rgba(14,165,233,.18),transparent 28rem),radial-gradient(circle at 90% 0,rgba(139,92,246,.12),transparent 26rem),linear-gradient(180deg,#eef7fb 0%,var(--bg,var(--poly-ucs-bg)) 42%,#fff 100%)!important;overflow-x:hidden!important}
+      body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.28;background-image:linear-gradient(rgba(14,165,233,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.08) 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(to bottom,#000,transparent 88%);z-index:-1}
+      a{color:inherit;text-decoration:none}button,input{font:inherit}
+
+      /* Compact sticky selector like lessons-1003/1004 */
+      .topbar,.hb-topbar,.lesson-topbar,.bar,.top{position:sticky!important;top:0!important;z-index:1000!important;border-bottom:1px solid var(--poly-ucs-line)!important;background:rgba(245,248,252,.96)!important;backdrop-filter:blur(18px)!important;overflow:hidden!important;box-shadow:none!important}
+      .topbar-inner,.top-inner,.hb-top-inner,.lesson-topbar-inner,.bar>.nav,.top>.nav,.top-main{width:min(1700px,calc(100% - 24px))!important;margin-inline:auto!important;display:flex!important;align-items:center!important;gap:10px!important;padding:10px 0!important;flex-wrap:nowrap!important;overflow:hidden!important;min-height:auto!important}
+      .brand,.hb-code,.brand-code,.lesson-brand,.logo,.code-badge,.course-code,.code{flex:0 0 auto!important;display:grid!important;place-items:center!important;width:58px!important;min-width:58px!important;height:58px!important;border:0!important;border-radius:18px!important;padding:0!important;color:#fff!important;font-weight:950!important;font-size:18px!important;letter-spacing:0!important;background:linear-gradient(135deg,#083344,#0e7490,#2563eb)!important;box-shadow:0 10px 28px rgba(3,105,161,.25)!important;text-decoration:none!important}
       .brand-mark,.lesson-brand-mark{width:58px!important;height:58px!important;border-radius:18px!important;display:grid!important;place-items:center!important;color:#fff!important;font-weight:950!important;font-size:18px!important;background:linear-gradient(135deg,#083344,#0e7490,#2563eb)!important;box-shadow:0 10px 28px rgba(3,105,161,.25)!important}
       .selector,.hb-tabs,.tabs,.lesson-selector,.tabstrip{flex:1 1 auto!important;min-width:0!important;display:flex!important;gap:8px!important;justify-content:flex-start!important;align-items:center!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;padding:0 0 2px!important;scrollbar-width:none!important;white-space:nowrap!important}
-      .selector::-webkit-scrollbar,.hb-tabs::-webkit-scrollbar,.tabs::-webkit-scrollbar,.lesson-selector::-webkit-scrollbar,.tabstrip::-webkit-scrollbar,.bar>.nav::-webkit-scrollbar{display:none!important}
-      .bar>.nav{overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important}
-      .view-btn,.hb-tabs a,.hb-tabs button,.tabs a,.tabs button,.lesson-tab,.nav a,.tab-btn,.tabstrip button{flex:0 0 auto!important;border:1px solid rgba(15,23,42,.13)!important;background:rgba(255,255,255,.9)!important;color:#334155!important;border-radius:999px!important;padding:13px 18px!important;white-space:nowrap!important;font-size:clamp(13px,.85vw,16px)!important;font-weight:850!important;line-height:1!important;transition:.18s ease!important;box-shadow:none!important;text-decoration:none!important;min-height:auto!important}
-      .view-btn:hover,.hb-tabs a:hover,.hb-tabs button:hover,.tabs a:hover,.tabs button:hover,.nav a:hover,.tab-btn:hover,.tabstrip button:hover{transform:translateY(-1px)!important;border-color:rgba(3,105,161,.38)!important;color:#0369a1!important;box-shadow:0 10px 26px rgba(15,23,42,.08)!important}
+      .selector::-webkit-scrollbar,.hb-tabs::-webkit-scrollbar,.tabs::-webkit-scrollbar,.lesson-selector::-webkit-scrollbar,.tabstrip::-webkit-scrollbar,.bar>.nav::-webkit-scrollbar,.top>.nav::-webkit-scrollbar{display:none!important}
+      .bar>.nav,.top>.nav{overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important}
+      .view-btn,.hb-tabs a,.hb-tabs button,.tabs a,.tabs button,.lesson-tab,.nav a,.tab-btn,.tabstrip button{flex:0 0 auto!important;border:1px solid var(--poly-ucs-line)!important;background:rgba(255,255,255,.9)!important;color:#334155!important;border-radius:999px!important;padding:13px 18px!important;white-space:nowrap!important;font-size:clamp(13px,.85vw,16px)!important;font-weight:850!important;line-height:1!important;transition:.18s ease!important;box-shadow:none!important;text-decoration:none!important;min-height:auto!important}
+      .view-btn:hover,.hb-tabs a:hover,.hb-tabs button:hover,.tabs a:hover,.tabs button:hover,.nav a:hover,.tab-btn:hover,.tabstrip button:hover{transform:translateY(-1px)!important;border-color:rgba(3,105,161,.38)!important;color:var(--poly-ucs-brand)!important;box-shadow:0 10px 26px rgba(15,23,42,.08)!important}
       .view-btn.active,.hb-tabs a.active,.hb-tabs button.active,.tabs a.active,.tabs button.active,.tab-btn.active,.tabstrip button.active,.nav a.active,.nav a[aria-current='page']{background:#0f172a!important;color:#fff!important;border-color:#0f172a!important;box-shadow:0 12px 30px rgba(15,23,42,.16)!important}
       .download-btn,.hb-tabs button:last-child,.tabs button:last-child,.bar .btn,.nav .btn,.printbtn,.pdf-link{flex:0 0 auto!important;margin-left:auto!important;background:linear-gradient(135deg,#0284c7,#0891b2)!important;color:#fff!important;border-color:transparent!important;border-radius:999px!important;padding:13px 18px!important;font-weight:900!important;line-height:1!important;white-space:nowrap!important;text-decoration:none!important;box-shadow:0 10px 26px rgba(3,105,161,.18)!important}
       .download-btn:hover,.bar .btn:hover,.nav .btn:hover,.printbtn:hover,.pdf-link:hover{color:#fff!important;background:linear-gradient(135deg,#0369a1,#0e7490)!important;transform:translateY(-1px)!important}
-      .wrap,.screen,.page-shell,.hb-container,.container,.wrapper,.content,.main-content{max-width:none!important;width:min(100%,1900px)!important}
+
+      /* Common wide handbook body theme */
+      main,.wrap,.screen,.page-shell,.hb-container,.container,.wrapper,.content,.main-content,.shell{max-width:none!important;width:min(100%,var(--poly-ucs-max))!important;margin-inline:auto!important}
+      .page-shell,.wrap,.screen,.hb-container,.container,.wrapper,.content,.main-content{padding-inline:clamp(8px,1vw,18px)!important}
+      .hero,.hero-mini,.hero-card,.hb-hero,.section,.sec,.panel,.hb-section,.view-section,.lesson,.lesson-card,.topic-card,.card,.c,.info-box,.problem,.qa,.formula-card,.bank-card,.map-card,.module-tile,.quick,.side-card,details,.callout,.long-box,.diagram,.table-wrap,.tbl{border-radius:var(--poly-ucs-radius)!important;border:1px solid var(--poly-ucs-line)!important;background:rgba(255,255,255,.94)!important;box-shadow:var(--poly-ucs-shadow)!important;backdrop-filter:blur(14px)!important}
+      .hero,.hero-mini,.hero-card,.hb-hero{overflow:hidden!important;position:relative!important;background:linear-gradient(135deg,#0f172a,#075985 50%,#2563eb)!important;color:#fff!important;box-shadow:0 24px 70px rgba(15,23,42,.22)!important}
+      .hero h1,.hero h2,.hero h3,.hero p,.hero-mini h1,.hero-mini h2,.hero-mini h3,.hero-mini p,.hero-card h1,.hero-card h2,.hero-card h3,.hero-card p,.hb-hero h1,.hb-hero h2,.hb-hero h3,.hb-hero p{color:inherit!important}
+      .section,.sec,.panel,.hb-section,.view-section{margin-block:clamp(.8rem,1.2vw,1.2rem)!important;padding:clamp(1rem,2vw,1.45rem)!important}
+      .card,.c,.topic-card,.info-box,.problem,.qa,.formula-card,.bank-card,.map-card,.quick,.side-card,details,.callout,.long-box{padding:clamp(.9rem,1.5vw,1.15rem)!important}
+      h1,h2,h3,h4{letter-spacing:-.035em!important;line-height:1.08!important;color:#0f172a}p,li,td{line-height:1.68}.muted,.lead,.section-head p,.section-title p{color:var(--poly-ucs-muted)!important}
+      .grid,.hb-grid,.lesson-grid,.bank-grid,.formula-bank,.topic-grid,.problems,.qa-grid,.answer-grid,.meta-grid,.module-map,.map-grid,.two,.bilingual{gap:1rem!important}
+      .pill,.badge,.tag,.eyebrow{display:inline-flex!important;align-items:center!important;border-radius:999px!important;padding:.36rem .66rem!important;font-weight:900!important;font-size:.78rem!important;background:#e0f2fe!important;color:#0369a1!important;border:1px solid rgba(3,105,161,.12)!important}
+      .module-header,.module-hero,.module-banner{border-radius:30px!important;padding:clamp(1.2rem,3vw,2rem)!important;color:#fff!important;background:linear-gradient(135deg,#0f172a,var(--moduleAccent,var(--accent,#0284c7)))!important;box-shadow:var(--poly-ucs-shadow)!important;overflow:hidden!important}
+      .module-header h2,.module-header p,.module-hero h2,.module-hero p,.module-banner h2,.module-banner p{color:#fff!important}
+      .table-wrap,.tbl{overflow:auto!important;background:#fff!important}.table-wrap table,.tbl table,table{width:100%;border-collapse:collapse}th{background:#e0f2fe!important;color:#0c4a6e!important;font-weight:950!important}th,td{border-bottom:1px solid var(--poly-ucs-line)!important;padding:.75rem .86rem!important;text-align:left;vertical-align:top}
+      .diagram svg,img{max-width:100%!important;height:auto!important}.formula,.command,pre,.paper-box{border-radius:18px!important}.ml,.mal{font-family:var(--mal,"Noto Sans Malayalam","Nirmala UI","Manjari",system-ui,sans-serif)!important;line-height:1.9!important}
       .notes-fallback-banner{position:sticky;top:80px;z-index:900;margin:8px auto;padding:12px 16px;width:min(1100px,calc(100% - 20px));border:1px solid #bae6fd;border-radius:16px;background:#ecfeff;color:#083344;font-weight:800;box-shadow:0 12px 30px rgba(15,23,42,.12)}
-      @media(max-width:700px){.topbar-inner,.hb-top-inner,.lesson-topbar-inner,.bar>.nav,.top-main{width:calc(100% - 16px)!important}.view-btn,.hb-tabs a,.hb-tabs button,.tabs a,.tabs button,.nav a,.tab-btn,.tabstrip button,.download-btn,.bar .btn,.nav .btn,.printbtn,.pdf-link{padding:11px 13px!important;font-size:14px!important}.brand,.hb-code,.brand-code,.lesson-brand,.logo,.code-badge,.course-code,.brand-mark,.lesson-brand-mark{width:50px!important;min-width:50px!important;height:50px!important;font-size:15px!important;border-radius:15px!important}}
+
+      @media(max-width:700px){.topbar-inner,.top-inner,.hb-top-inner,.lesson-topbar-inner,.bar>.nav,.top>.nav,.top-main{width:calc(100% - 16px)!important}.view-btn,.hb-tabs a,.hb-tabs button,.tabs a,.tabs button,.nav a,.tab-btn,.tabstrip button,.download-btn,.bar .btn,.nav .btn,.printbtn,.pdf-link{padding:11px 13px!important;font-size:14px!important}.brand,.hb-code,.brand-code,.lesson-brand,.logo,.code-badge,.course-code,.code,.brand-mark,.lesson-brand-mark{width:50px!important;min-width:50px!important;height:50px!important;font-size:15px!important;border-radius:15px!important}}
       @media print{
         @page{size:A4;margin:7mm}
         html,body{background:#fff!important;color:#111827!important;width:100%!important;min-width:0!important;overflow:visible!important}
-        body:before,body:after,.topbar,.hb-topbar,.lesson-topbar,.bar,.revision-back-button,#polySiteAssistant,#hbToTop,.hb-actions,.notes-fallback-banner,.selector,.tabs,.hb-tabs,.tabstrip,.download-btn,.view-btn,#toTop,#progress{display:none!important}
-        main,.screen,.hb-container,.container,.wrapper,.content,.main-content,.wrap,.page-shell{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;box-shadow:none!important;background:#fff!important}
+        body:before,body:after,.topbar,.hb-topbar,.lesson-topbar,.bar,.top,.revision-back-button,#polySiteAssistant,#hbToTop,.hb-actions,.notes-fallback-banner,.selector,.tabs,.hb-tabs,.tabstrip,.download-btn,.view-btn,#toTop,#progress{display:none!important}
+        main,.screen,.hb-container,.container,.wrapper,.content,.main-content,.wrap,.page-shell,.shell{width:100%!important;max-width:none!important;margin:0!important;padding:0!important;box-shadow:none!important;background:#fff!important}
         details{display:block!important}details>*{display:block!important}
         .view-section,.hb-section,[hidden],.panel,.tab-panel,.tab-content,.module-panel,.lesson-panel,.content-panel,.content-section,.section-panel,[role='tabpanel']{display:block!important;visibility:visible!important;opacity:1!important;height:auto!important;max-height:none!important;overflow:visible!important;position:static!important}
-        .hb-left,.hb-right,aside{position:static!important;max-height:none!important;overflow:visible!important}
-        .hb-layout,.hb-grid,.grid,.grid-2,.grid-3,.grid-4{display:block!important;width:100%!important;max-width:none!important}
-        .hb-card,.card,section,article{break-inside:auto!important;page-break-inside:auto!important;box-shadow:none!important}
+        .hb-left,.hb-right,aside,.left-rail,.right-rail{position:static!important;max-height:none!important;overflow:visible!important;display:block!important}
+        .hb-layout,.hb-grid,.grid,.grid-2,.grid-3,.grid-4,.topic-grid,.two,.bilingual,.app-grid{display:block!important;width:100%!important;max-width:none!important}
+        .hb-card,.card,.c,section,article,.topic-card,.info-box,.problem,.qa,.formula-card,.bank-card,.map-card,.quick,.side-card,details,.callout,.long-box{break-inside:auto!important;page-break-inside:auto!important;box-shadow:none!important;background:#fff!important;color:#111827!important}
         .pdf-export-mode *{animation:none!important;transition:none!important;filter:none!important}
       }
     `;
@@ -139,7 +162,7 @@
   }
 
   function installHtmlPdfDownload() {
-    document.querySelectorAll("#downloadPdfBtn,.download-btn[data-html-pdf],button[data-html-pdf]").forEach((button) => {
+    document.querySelectorAll("#downloadPdfBtn,.download-btn[data-html-pdf],button[data-html-pdf],a[data-html-pdf]").forEach((button) => {
       button.removeAttribute("download");
       if (button.tagName === "A") button.setAttribute("href", `${location.pathname}?downloadNotes=1`);
       button.setAttribute("title", "Download this lesson as a clean PDF from the HTML notes layout.");
