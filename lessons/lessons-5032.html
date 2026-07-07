@@ -32,5 +32,10 @@
 <script>
 (()=>{const CODE='5032',$=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>Array.from(r.querySelectorAll(s)),root=document.documentElement;function progress(){const h=document.documentElement,p=h.scrollTop/Math.max(1,h.scrollHeight-h.clientHeight)*100;$('#progress').style.width=p+'%';$('#toTop').classList.toggle('show',h.scrollTop>500)}addEventListener('scroll',progress,{passive:true});$('#toTop').onclick=()=>scrollTo({top:0,behavior:'smooth'});$('#themeBtn').onclick=()=>{const n=root.getAttribute('data-theme')==='dark'?'light':'dark';root.setAttribute('data-theme',n)};$('#searchInput')?.addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();$$('.searchable').forEach(x=>x.classList.toggle('hide-search',q&&!x.textContent.toLowerCase().includes(q)))});function revealForPdf(){root.classList.add('pdf-export-mode');document.body.classList.add('pdf-export-mode');document.title='downloadable-notes-'+CODE;$$('details').forEach(d=>d.open=true);$$('[hidden]').forEach(e=>{e.hidden=false;e.removeAttribute('hidden')});$$('.hide-search').forEach(e=>e.classList.remove('hide-search'));scrollTo(0,0)}function printNow(){revealForPdf();window.print()}function autoPrint(){revealForPdf();setTimeout(()=>window.print(),650)}$('#downloadPdfBtn').addEventListener('click',printNow);$('#printPdfBtn').addEventListener('click',printNow);const p=new URLSearchParams(location.search);if(p.has('autoPrintNotes')||p.has('downloadNotes'))setTimeout(autoPrint,600)})();
 </script>
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
 </body>
 </html>
