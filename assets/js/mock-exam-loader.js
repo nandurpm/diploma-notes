@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260713-ai-evaluator2";
+  const MOCK_EXAM_ASSET_VERSION = "20260713-ai-evaluator3";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -14,15 +14,18 @@
   }
 
   function subjectFromPage() {
-    const fromBody = document.body?.dataset?.mockSubject;
-    const fromQuery = new URLSearchParams(location.search).get("subject");
-    const fromPath = location.pathname.match(/mock-exam-(\d{4})\.html$/)?.[1];
-    return fromBody || fromQuery || fromPath || "";
+    return document.body?.dataset?.mockSubject
+      || new URLSearchParams(location.search).get("subject")
+      || location.pathname.match(/mock-exam-(\d{4})\.html$/)?.[1]
+      || "";
   }
 
   function applyPaperText(M) {
     document.title = `${M.examTitle || M.displayName} | POLY PMNA`;
-    const set = (id, text) => { const node = document.getElementById(id); if (node) node.textContent = text; };
+    const set = (id, text) => {
+      const node = document.getElementById(id);
+      if (node) node.textContent = text;
+    };
     set("loadingTitle", `Preparing ${M.displayName} mock examination…`);
     set("loadingText", `Loading the official-pattern Course Code ${M.subjectCode} paper.`);
     set("heroEyebrow", M.heroEyebrow);
@@ -85,8 +88,14 @@
       scrollTo({ top: 0, behavior: "smooth" });
       try {
         const result = await M.service.evaluate();
-        try { await M.service.saveResult(result); result.savedOnline = true; }
-        catch (error) { console.error(error); result.savedOnline = false; result.saveWarning = "The score was published on this page, but online history storage is temporarily unavailable."; }
+        try {
+          await M.service.saveResult(result);
+          result.savedOnline = true;
+        } catch (error) {
+          console.error(error);
+          result.savedOnline = false;
+          result.saveWarning = "The score was published on this page, but online history storage is temporarily unavailable.";
+        }
         localStorage.setItem(M.service.key("latest-result"), JSON.stringify(result));
         localStorage.removeItem(M.service.key("draft"));
         localStorage.removeItem(M.service.key("started"));
@@ -101,7 +110,10 @@
         show("examView");
         $("examMessage").textContent = error.message || "Evaluation failed. Your answers remain saved; please submit again.";
         $("examMessage").className = "status-message error";
-      } finally { M.state.submitting = false; M.ui.updateProgress(); }
+      } finally {
+        M.state.submitting = false;
+        M.ui.updateProgress();
+      }
     }
 
     function newAttempt() {
@@ -124,13 +136,23 @@
       $("submitExam").addEventListener("click", submit);
       $("submitExamSide").addEventListener("click", submit);
       $("newAttempt").addEventListener("click", newAttempt);
-      if (!window.supabase?.createClient) { hide("loadingView"); show("authRequired"); return; }
+      if (!window.supabase?.createClient) {
+        hide("loadingView");
+        show("authRequired");
+        return;
+      }
       try {
         const config = await M.service.loadSupabaseConfig();
-        M.state.client = window.supabase.createClient(config.url, config.publishableKey, { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true } });
+        M.state.client = window.supabase.createClient(config.url, config.publishableKey, {
+          auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true }
+        });
         const { data: { session }, error } = await M.state.client.auth.getSession();
         if (error) throw error;
-        if (!session?.user) { hide("loadingView"); show("authRequired"); return; }
+        if (!session?.user) {
+          hide("loadingView");
+          show("authRequired");
+          return;
+        }
         M.state.user = session.user;
         $("studentName").textContent = session.user.user_metadata?.username || session.user.email || "Authenticated student";
         M.service.restoreDraft();
@@ -138,7 +160,11 @@
         M.service.startTimer();
         hide("loadingView");
         show("examView");
-      } catch (error) { console.error(error); hide("loadingView"); show("authRequired"); }
+      } catch (error) {
+        console.error(error);
+        hide("loadingView");
+        show("authRequired");
+      }
     }
 
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initialize);
