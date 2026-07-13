@@ -5,49 +5,58 @@
   const body = document.body;
   const ua = navigator.userAgent || "";
   const pathname = window.location.pathname;
-  const isHomePage = pathname === "/" || /\/index\.html$/i.test(pathname);
   const isRevisionDepartmentPage = /^\/revision-2021\/.+\.html$/i.test(pathname);
   const isAskPolyPage = /\/ask-poly(?:-v2)?\.html$/i.test(pathname);
+  const isLessonPage = /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(pathname);
   const appMatch = ua.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
   const isAndroidWebView = /Android/i.test(ua) && (/\bwv\b/i.test(ua) || /Version\/\d+(?:\.\d+)?\s+Chrome\//i.test(ua));
   const isStandaloneAndroid = /Android/i.test(ua) && window.matchMedia?.("(display-mode: standalone)")?.matches;
   const isNativeApp = Boolean(appMatch) || isAndroidWebView || Boolean(isStandaloneAndroid);
   const installedVersion = appMatch ? appMatch[1] : null;
-  const isLessonPage = /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(window.location.pathname);
   const ONAM_VERSION = "20260702-onam1";
+  const CONSISTENCY_VERSION = "20260711-consistency1";
+
   if (isLessonPage) root.classList.add("poly-lesson-page");
 
-  const hideNativeWebHeader = () => {
+  function addStylesheetOnce(id, href) {
+    if (document.getElementById(id)) return;
+    const link = document.createElement("link");
+    link.id = id;
+    link.rel = "stylesheet";
+    link.href = href;
+    document.head.append(link);
+  }
+
+  function loadScriptOnce(id, src) {
+    if (document.getElementById(id)) return;
+    const script = document.createElement("script");
+    script.id = id;
+    script.src = src;
+    script.defer = true;
+    document.head.append(script);
+  }
+
+  function hideNativeWebHeader() {
     root.classList.add("polytechnic-native-app");
     root.style.setProperty("--fixed-site-header-height", "0px");
     root.style.setProperty("--fixed-site-header-gap", "0px");
     body.classList.remove("has-fixed-site-header");
     body.style.setProperty("padding-top", "0", "important");
     body.style.setProperty("margin-top", "0", "important");
-
     const header = document.querySelector(".topbar");
     if (header) {
       header.hidden = true;
       header.setAttribute("aria-hidden", "true");
-      header.style.setProperty("display", "none", "important");
-      header.style.setProperty("visibility", "hidden", "important");
-      header.style.setProperty("height", "0", "important");
-      header.style.setProperty("min-height", "0", "important");
-      header.style.setProperty("max-height", "0", "important");
-      header.style.setProperty("padding", "0", "important");
-      header.style.setProperty("margin", "0", "important");
-      header.style.setProperty("overflow", "hidden", "important");
+      ["display", "visibility", "height", "min-height", "max-height", "padding", "margin", "overflow"].forEach((prop) => {
+        const value = prop === "display" ? "none" : prop === "visibility" ? "hidden" : "0";
+        header.style.setProperty(prop, value, "important");
+      });
     }
-
     const skip = document.querySelector(".skip-link");
-    if (skip) {
-      skip.hidden = true;
-      skip.setAttribute("aria-hidden", "true");
-      skip.style.setProperty("display", "none", "important");
-    }
-  };
+    if (skip) { skip.hidden = true; skip.setAttribute("aria-hidden", "true"); skip.style.setProperty("display", "none", "important"); }
+  }
 
-  const compareVersions = (left, right) => {
+  function compareVersions(left, right) {
     const a = String(left || "0").split(".").map((n) => parseInt(n, 10) || 0);
     const b = String(right || "0").split(".").map((n) => parseInt(n, 10) || 0);
     for (let i = 0; i < Math.max(a.length, b.length); i += 1) {
@@ -55,11 +64,9 @@
       if ((a[i] || 0) < (b[i] || 0)) return -1;
     }
     return 0;
-  };
+  }
 
-  if (isNativeApp) hideNativeWebHeader();
-
-  const ensureNativeUpdateUi = () => {
+  function ensureNativeUpdateUi() {
     let button = document.querySelector(".app-download");
     let banner = button?.closest(".native-app-update-banner") || null;
     if (!button && isNativeApp) {
@@ -68,15 +75,15 @@
       banner.hidden = true;
       banner.setAttribute("role", "status");
       banner.setAttribute("aria-live", "polite");
-      banner.innerHTML = '<div class="native-app-update-copy"><strong>App update available</strong><span class="native-app-update-message">A newer Polytechnic Study Hub app is ready.</span></div><a class="btn primary app-download native-app-update-action" href="#" aria-hidden="true" hidden>Update App</a><button class="native-app-update-dismiss" type="button" aria-label="Dismiss app update notice">Later</button>';
+      banner.innerHTML = '<div class="native-app-update-copy"><strong>App update available</strong><span class="native-app-update-message">A newer POLY PMNA app is ready.</span></div><a class="btn primary app-download native-app-update-action" href="#" aria-hidden="true" hidden>Update App</a><button class="native-app-update-dismiss" type="button" aria-label="Dismiss app update notice">Later</button>';
       body.prepend(banner);
       button = banner.querySelector(".app-download");
       banner.querySelector(".native-app-update-dismiss")?.addEventListener("click", () => { banner.hidden = true; });
     }
     return { button, banner };
-  };
+  }
 
-  const configureAppDownloadButton = () => {
+  function configureAppDownloadButton() {
     const { button, banner } = ensureNativeUpdateUi();
     if (!button) return;
     const show = () => { button.hidden = false; button.removeAttribute("aria-hidden"); if (banner) banner.hidden = false; };
@@ -84,90 +91,58 @@
     if (!isNativeApp) {
       button.dataset.appButtonState = "download";
       button.textContent = "📱 Download Our App";
-      button.setAttribute("aria-label", "Download Polytechnic Study Hub Android application");
+      button.setAttribute("aria-label", "Download POLY PMNA Android application");
       show();
       return;
     }
     button.dataset.appButtonState = "checking";
     hide();
     fetch(`/downloads/app-update.json?t=${Date.now()}`, { cache: "no-store" })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Update check failed: ${response.status}`);
-        return response.json();
-      })
+      .then((response) => response.ok ? response.json() : null)
       .then((update) => {
         const latest = update?.versionName;
         const apkUrl = update?.apkUrl;
-        if (!latest || !apkUrl) {
-          button.dataset.appButtonState = "current";
-          hide();
-          return;
-        }
-        const needsUpdate = installedVersion ? compareVersions(latest, installedVersion) > 0 : true;
-        if (!needsUpdate) {
-          button.dataset.appButtonState = "current";
-          hide();
-          return;
-        }
+        if (!latest || !apkUrl || (installedVersion && compareVersions(latest, installedVersion) <= 0)) { button.dataset.appButtonState = "current"; hide(); return; }
         button.dataset.appButtonState = "update";
         button.textContent = `Update to ${latest}`;
         button.href = new URL(apkUrl, window.location.origin).href;
-        button.setAttribute("aria-label", `Update Polytechnic Study Hub to version ${latest}`);
+        button.setAttribute("aria-label", `Update POLY PMNA to version ${latest}`);
         const message = banner?.querySelector(".native-app-update-message");
         if (message) message.textContent = update.message || `Version ${latest} is available.`;
         show();
       })
-      .catch((error) => {
-        console.error("Unable to check for an app update.", error);
-        button.dataset.appButtonState = "unavailable";
-        hide();
-      });
-  };
+      .catch(() => { button.dataset.appButtonState = "unavailable"; hide(); });
+  }
 
-  const addStylesheetOnce = (id, href) => {
-    if (document.getElementById(id)) return;
-    const link = document.createElement("link");
-    link.id = id;
-    link.rel = "stylesheet";
-    link.href = href;
-    document.head.append(link);
-  };
+  function installSharedFixes() {
+    loadScriptOnce("poly-site-consistency-fix", `/assets/js/site-consistency-fix.js?v=${CONSISTENCY_VERSION}`);
+  }
 
-  const installOnamThemeLoader = () => {
+  function installOnamThemeLoader() {
     addStylesheetOnce("poly-onam-theme-css", `/assets/css/onam-theme.css?v=${ONAM_VERSION}`);
-    if (document.getElementById("poly-onam-theme-script")) return;
-    const script = document.createElement("script");
-    script.id = "poly-onam-theme-script";
-    script.src = `/assets/js/onam-theme.js?v=${ONAM_VERSION}`;
-    script.defer = true;
-    document.head.append(script);
-  };
+    loadScriptOnce("poly-onam-theme-script", `/assets/js/onam-theme.js?v=${ONAM_VERSION}`);
+  }
 
-  const installDailyQuizResponsiveFix = () => {
-    if (!/\/daily-quiz\.html$/i.test(window.location.pathname)) return;
-    addStylesheetOnce("poly-quiz-responsive-fix", `/assets/css/quiz-responsive-fix.css?v=20260620-mobile-fix-${Date.now()}`);
-  };
+  function installDailyQuizResponsiveFix() {
+    if (/\/daily-quiz\.html$/i.test(pathname)) addStylesheetOnce("poly-quiz-responsive-fix", `/assets/css/quiz-responsive-fix.css?v=20260711-consistency1`);
+  }
 
-  const installLessonPageFix = () => {
+  function installLessonPageFix() {
     if (!isLessonPage) return;
     root.classList.add("poly-lesson-page");
     body.classList.add("poly-lesson-page");
     body.classList.remove("has-fixed-site-header", "portal-page");
     root.style.setProperty("--fixed-site-header-height", "0px");
     root.style.setProperty("--fixed-site-header-gap", "0px");
-    addStylesheetOnce("poly-lesson-page-fix", `/assets/css/lesson-page-fix.css?v=20260620-lesson-fix-${Date.now()}`);
-  };
+    addStylesheetOnce("poly-lesson-page-fix", `/assets/css/lesson-page-fix.css?v=20260711-consistency1`);
+  }
 
-  const installVisitorPopup = () => {
+  function installVisitorPopup() {
     if (isAskPolyPage || isRevisionDepartmentPage || isLessonPage) return;
-    if (document.getElementById("poly-visitor-popup-script")) return;
-    const script = document.createElement("script");
-    script.id = "poly-visitor-popup-script";
-    script.src = "/assets/js/visitor-popup.js?v=20260629-popup-media-v1";
-    script.defer = true;
-    document.head.append(script);
-  };
+    loadScriptOnce("poly-visitor-popup-script", "/assets/js/visitor-popup.js?v=20260711-consistency1");
+  }
 
+  installSharedFixes();
   installOnamThemeLoader();
   configureAppDownloadButton();
   installDailyQuizResponsiveFix();
@@ -175,13 +150,7 @@
   installVisitorPopup();
 
   if (isLessonPage) return;
-
-  if (isNativeApp) {
-    hideNativeWebHeader();
-    requestAnimationFrame(hideNativeWebHeader);
-    setTimeout(hideNativeWebHeader, 250);
-    return;
-  }
+  if (isNativeApp) { hideNativeWebHeader(); requestAnimationFrame(hideNativeWebHeader); setTimeout(hideNativeWebHeader, 250); return; }
 
   const header = document.querySelector(".topbar");
   if (!header) return;
@@ -197,14 +166,14 @@
     { label: "Help", href: "/contact.html", match: (p) => p.endsWith("/contact.html") }
   ];
 
-  const buildHeader = () => {
+  function buildHeader() {
     body.classList.add("portal-page");
     let brand = header.querySelector(".brand");
     if (!brand) { brand = document.createElement("a"); header.prepend(brand); }
     brand.className = "brand";
     brand.href = "/index.html";
-    brand.setAttribute("aria-label", "Polytechnic Study Hub home");
-    brand.innerHTML = '<span class="brand-symbol" aria-hidden="true">📚</span><strong>Polytechnic Study Hub</strong>';
+    brand.setAttribute("aria-label", "POLY PMNA home");
+    brand.innerHTML = '<span class="brand-symbol" aria-hidden="true">📚</span><strong>POLY PMNA</strong>';
 
     let toggle = header.querySelector(".menu-toggle, .menu-btn, .toggle");
     if (!toggle) { toggle = document.createElement("button"); brand.after(toggle); }
@@ -219,15 +188,12 @@
     nav.className = wasOpen ? "navlinks open" : "navlinks";
     nav.setAttribute("aria-label", "Primary navigation");
     nav.innerHTML = "";
-    const path = window.location.pathname.toLowerCase();
+    const path = pathname.toLowerCase();
     navItems.forEach((item) => {
       const link = document.createElement("a");
       link.href = item.href;
-      link.textContent = item.label;
-      if (item.match(path)) {
-        link.classList.add("active");
-        link.setAttribute("aria-current", "page");
-      }
+      link.innerHTML = item.label === "Tools" ? 'Tools <span class="nav-badge">New</span>' : item.label;
+      if (item.match(path)) { link.classList.add("active"); link.setAttribute("aria-current", "page"); }
       nav.append(link);
     });
     toggle.setAttribute("aria-expanded", nav.classList.contains("open") ? "true" : "false");
@@ -235,20 +201,18 @@
       toggle.dataset.fixedHeaderBound = "true";
       toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
       nav.addEventListener("click", (event) => { if (event.target.closest("a")) setOpen(false); });
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && nav.classList.contains("open")) { setOpen(false); toggle.focus(); }
-      });
+      document.addEventListener("keydown", (event) => { if (event.key === "Escape" && nav.classList.contains("open")) { setOpen(false); toggle.focus(); } });
     }
-  };
+  }
 
   let frame = 0;
-  const updateHeight = () => {
+  function updateHeight() {
     cancelAnimationFrame(frame);
     frame = requestAnimationFrame(() => {
       root.style.setProperty("--fixed-site-header-height", `${Math.ceil(header.getBoundingClientRect().height)}px`);
       body.classList.add("has-fixed-site-header");
     });
-  };
+  }
   function setOpen(open) {
     const nav = header.querySelector(".navlinks");
     const toggle = header.querySelector(".menu-toggle");
