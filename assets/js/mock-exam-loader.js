@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260713-ai-evaluator3";
+  const MOCK_EXAM_ASSET_VERSION = "20260713-ai-evaluator4";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
