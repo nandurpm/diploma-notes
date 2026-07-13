@@ -1,10 +1,12 @@
 (() => {
   "use strict";
 
+  const MOCK_EXAM_ASSET_VERSION = "20260713-ai-evaluator2";
+
   function loadScript(src) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = `${src}?v=20260622-ai-first`;
+      script.src = `${src}?v=${MOCK_EXAM_ASSET_VERSION}`;
       script.onload = resolve;
       script.onerror = () => reject(new Error(`Unable to load ${src}`));
       document.head.append(script);
@@ -19,7 +21,7 @@
   }
 
   function applyPaperText(M) {
-    document.title = `${M.examTitle || M.displayName} | Polytechnic Study Hub`;
+    document.title = `${M.examTitle || M.displayName} | POLY PMNA`;
     const set = (id, text) => { const node = document.getElementById(id); if (node) node.textContent = text; };
     set("loadingTitle", `Preparing ${M.displayName} mock examination…`);
     set("loadingText", `Loading the official-pattern Course Code ${M.subjectCode} paper.`);
