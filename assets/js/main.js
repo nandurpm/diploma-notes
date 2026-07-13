@@ -6,7 +6,7 @@
   const ASK_POLY_URL = "/ask-poly.html";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
   const ONAM_VERSION = "20260704-banner6";
-  const SHARED_VERSION = "20260706-shared1";
+  const SHARED_VERSION = "20260711-consistency1";
 
   const pathName = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isHomePage = () => pathName() === "/" || pathName() === "/index.html";
@@ -53,9 +53,9 @@
     const path = pathName();
     if (path === "/" || path === "/index.html") return "home";
     if (path.endsWith("/about.html")) return "about";
-    if (path.endsWith("/revision-2021.html")) return "revision";
-    if (path.endsWith("/daily-quiz.html")) return "exams";
-    if (path.endsWith("/ask-poly.html")) return "ask";
+    if (path.endsWith("/revision-2021.html") || path.includes("/revision-2021/")) return "revision";
+    if (path.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/.test(path)) return "exams";
+    if (path.endsWith("/ask-poly.html") || path.endsWith("/ask-poly-v2.html")) return "ask";
     if (path.endsWith("/materials-2015.html")) return "materials";
     if (path.endsWith("/tools.html")) return "tools";
     if (path.endsWith("/contact.html")) return "help";
@@ -97,7 +97,7 @@
     if (active === "home") return "Kerala Polytechnic Diploma Notes & Study Materials";
     const map = {
       about: "About",
-      revision: "Revision 2021",
+      revision: pathName().includes("/revision-2021/") ? "Revision 2021 Department Subjects" : "Revision 2021",
       exams: "Mock Exams",
       ask: "Ask POLY AI",
       materials: "2015 Materials",
@@ -109,7 +109,7 @@
 
   function normalizeMetadata() {
     const prefix = pageTitlePrefix();
-    document.title = `${prefix} | ${SITE_NAME}`;
+    if (!LESSON_PAGE) document.title = `${prefix} | ${SITE_NAME}`;
 
     const description = isHomePage()
       ? `${SITE_NAME} provides Kerala Polytechnic Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers.`
@@ -139,6 +139,7 @@
   }
 
   function normalizeFooter() {
+    if (LESSON_PAGE) return;
     document.querySelectorAll(".footer").forEach((footer) => {
       let copyright = footer.querySelector("p");
       if (!copyright) {
@@ -198,7 +199,7 @@
     });
     if (alreadyLoaded) return;
     const script = document.createElement("script");
-    script.src = "/assets/js/lesson-availability-hotfix.js?v=20260701-notes-dedupe1";
+    script.src = "/assets/js/lesson-availability-hotfix.js?v=20260711-consistency1";
     script.defer = true;
     document.head.append(script);
   }
@@ -217,6 +218,10 @@
     script.src = `/assets/js/onam-render-a.js?v=${ONAM_VERSION}`;
     script.defer = true;
     document.head.append(script);
+  }
+
+  function loadConsistencyFix() {
+    return loadScript("poly-site-consistency-fix", `/assets/js/site-consistency-fix.js?v=${SHARED_VERSION}`);
   }
 
   function loadSiteAssistant() {
@@ -238,8 +243,8 @@
     updateYears();
     loadLessonNotesFallback();
     loadOnamTheme();
+    await loadConsistencyFix();
 
-    // Load assistant hook and visitor popup independently. Neither creates DOM required by the other.
     await Promise.all([
       loadSiteAssistant(),
       loadVisitorPopup()
