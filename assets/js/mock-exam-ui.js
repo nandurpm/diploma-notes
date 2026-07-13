@@ -5,7 +5,12 @@
   const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[c]);
   const mark = (value) => Number.isInteger(Number(value || 0)) ? String(Number(value || 0)) : Number(value || 0).toFixed(1).replace(/\.0$/, "");
   const completeFor = (question, value) => String(value || "").trim().length >= (question.section === "A" ? 1 : 8);
-  const isAiEvaluation = (mode) => /^(?:ai|openai)$/i.test(String(mode || ""));
+  const evaluationLabel = (mode) => {
+    const value = String(mode || "").toLowerCase();
+    if (value === "ai_partial") return "AI + Rubric (Partial)";
+    if (value === "ai" || value === "openai") return "AI + Rubric";
+    return "Automated Rubric";
+  };
 
   function selectedQuestions() {
     const b = new Set(M.state.selections.partB || []);
@@ -113,11 +118,11 @@
     $("resultScore").textContent = `${mark(score)}/${M.totalMarks}`;
     $("resultPercent").textContent = `${mark(percent)}%`;
     $("resultMeta").textContent = `${new Date().toLocaleString("en-IN")} · ${result.savedOnline === false ? "Published on this page" : "Saved to your account"}`;
-    $("evaluationMode").textContent = isAiEvaluation(result.evaluationMode) ? "AI + Rubric" : "Automated Rubric";
+    $("evaluationMode").textContent = evaluationLabel(result.evaluationMode);
     $("overallFeedback").textContent = `${result.overallFeedback || "Review the question-wise feedback below."}${result.saveWarning ? ` ${result.saveWarning}` : ""}`;
     const questionMap = new Map(M.questions.map((q) => [q.id, q]));
     $("resultDetails").innerHTML = (result.results || []).map((item, index) => { const q = questionMap.get(String(item.id)); if (!q) return ""; const awarded = Math.max(0, Math.min(q.marks, Number(item.awardedMarks || 0))); const confidence = Math.round(Math.max(0, Math.min(1, Number(item.confidence || 0))) * 100); return `<details class="result-question" ${index === 0 ? "open" : ""}><summary><b>${esc(q.section)} ${esc(q.number)}. ${esc(q.question)}</b><span class="question-score">${mark(awarded)}/${q.marks}</span></summary><div class="result-question-body"><p><strong>Feedback:</strong> ${esc(item.feedback || "No additional feedback was returned.")}</p>${Array.isArray(item.missingPoints) && item.missingPoints.length ? `<p><strong>Missing or weak points:</strong> ${esc(item.missingPoints.join("; "))}</p>` : ""}<p class="confidence">Evaluation confidence: ${confidence}%</p></div></details>`; }).join("");
   }
 
-  M.ui = { $, esc, mark, completeFor, selectedQuestions, validation, renderQuestions, updateProgress, updateTimer, renderResult };
+  M.ui = { $, esc, mark, completeFor, selectedQuestions, validation, renderQuestions, updateProgress, updateTimer, renderResult, evaluationLabel };
 })();
