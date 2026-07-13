@@ -170,8 +170,8 @@
       const maximum = Number(row.max_score || M.totalMarks);
       const score = Number(row.score || 0);
       const percentage = maximum > 0 ? score / maximum * 100 : 0;
-      const mode = row.ai_feedback?.evaluationMode === "openai" ? "AI + Rubric" : "Automated Rubric";
-      return `<tr><td>${esc(new Date(row.created_at).toLocaleString("en-IN"))}</td><td class="history-score">${mark(score)}/${mark(maximum)}</td><td>${mark(percentage)}%</td><td>${mode}</td><td>${esc(row.status || "published")}</td></tr>`;
+      const mode = M.ui.evaluationLabel ? M.ui.evaluationLabel(row.ai_feedback?.evaluationMode) : "Automated Rubric";
+      return `<tr><td>${esc(new Date(row.created_at).toLocaleString("en-IN"))}</td><td class="history-score">${mark(score)}/${mark(maximum)}</td><td>${mark(percentage)}%</td><td>${esc(mode)}</td><td>${esc(row.status || "published")}</td></tr>`;
     }).join("")}</tbody></table>`;
   }
 
