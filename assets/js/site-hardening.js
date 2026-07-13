@@ -5,6 +5,15 @@
   const isDepartmentSubjectPage = () => /^\/revision-2021\/.+\.html$/i.test(currentPath());
   const isLessonPage = () => /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(currentPath());
 
+  function loadConsistencyFix() {
+    if (document.getElementById("poly-site-consistency-fix")) return;
+    const script = document.createElement("script");
+    script.id = "poly-site-consistency-fix";
+    script.src = "/assets/js/site-consistency-fix.js?v=20260711-consistency1";
+    script.defer = true;
+    document.head.append(script);
+  }
+
   function normalizeLinks() {
     document.querySelectorAll(".navlinks a.active").forEach((link) => link.setAttribute("aria-current", "page"));
     document.querySelectorAll('a[target="_blank"]').forEach((link) => link.setAttribute("rel", "noopener noreferrer"));
@@ -34,8 +43,10 @@
     });
   }
 
+  loadConsistencyFix();
   restoreScrolling();
   document.addEventListener("DOMContentLoaded", () => {
+    loadConsistencyFix();
     normalizeLinks();
     restoreScrolling();
     basicLessonFixes();
