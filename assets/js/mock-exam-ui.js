@@ -5,6 +5,7 @@
   const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" })[c]);
   const mark = (value) => Number.isInteger(Number(value || 0)) ? String(Number(value || 0)) : Number(value || 0).toFixed(1).replace(/\.0$/, "");
   const completeFor = (question, value) => String(value || "").trim().length >= (question.section === "A" ? 1 : 8);
+  const isAiEvaluation = (mode) => /^(?:ai|openai)$/i.test(String(mode || ""));
 
   function selectedQuestions() {
     const b = new Set(M.state.selections.partB || []);
@@ -76,71 +77,20 @@
 
   function questionHtml(q, selectionControl = "") {
     const short = q.section === "A";
-    return `<article class="mock-question" id="question-${esc(q.id)}" data-section="${q.section}">
-      <div class="mock-question-head"><span class="mock-question-number">${esc(q.number)}</span><div>
-        <h3>${esc(q.question).replace(/\n/g, "<br>")}</h3>
-        <div class="question-tags"><span>${esc(q.module)}</span><span>${esc(q.type)}</span><span class="marks">${q.marks} mark${q.marks === 1 ? "" : "s"}</span></div>
-        ${selectionControl}
-      </div></div>
-      <div class="answer-field"><label for="answer-${esc(q.id)}">Your answer</label>
-        <textarea id="answer-${esc(q.id)}" data-question-id="${esc(q.id)}" maxlength="4000" rows="${short ? 2 : 6}" spellcheck="true" placeholder="${short ? "Enter one word or one sentence." : "Write a complete answer. Include formulas, steps and units where applicable."}"></textarea>
-        <div class="answer-meta"><span id="status-${esc(q.id)}">Not answered</span><span id="count-${esc(q.id)}">0 / 4000</span></div>
-      </div>
-    </article>`;
+    return `<article class="mock-question" id="question-${esc(q.id)}" data-section="${q.section}"><div class="mock-question-head"><span class="mock-question-number">${esc(q.number)}</span><div><h3>${esc(q.question).replace(/\n/g, "<br>")}</h3><div class="question-tags"><span>${esc(q.module)}</span><span>${esc(q.type)}</span><span class="marks">${q.marks} mark${q.marks === 1 ? "" : "s"}</span></div>${selectionControl}</div></div><div class="answer-field"><label for="answer-${esc(q.id)}">Your answer</label><textarea id="answer-${esc(q.id)}" data-question-id="${esc(q.id)}" maxlength="4000" rows="${short ? 2 : 6}" spellcheck="true" placeholder="${short ? "Enter one word or one sentence." : "Write a complete answer. Include formulas, steps and units where applicable."}"></textarea><div class="answer-meta"><span id="status-${esc(q.id)}">Not answered</span><span id="count-${esc(q.id)}">0 / 4000</span></div></div></article>`;
   }
 
   function renderQuestions(onInput) {
     const partA = `<section class="paper-part"><header class="paper-part-title"><p>PART A</p><h2>Answer all questions in one word or one sentence</h2><strong>9 × 1 = 9 Marks</strong></header>${M.partA.map((q) => questionHtml(q)).join("")}</section>`;
     const partB = `<section class="paper-part"><header class="paper-part-title"><p>PART B</p><h2>Answer any eight questions</h2><strong>8 × 3 = 24 Marks</strong><small data-selection-summary></small></header>${M.partB.map((q) => questionHtml(q, `<label class="question-select"><input type="checkbox" data-part-b-select value="${q.id}"> Include this question</label>`)).join("")}</section>`;
-    const pairs = M.pairs.map((pair, index) => {
-      const options = M.partC.filter((q) => q.pair === pair);
-      return `<fieldset class="or-pair"><legend>Question ${index + 1}: answer either ${options[0].number} or ${options[1].number}</legend>${options.map((q, optionIndex) => `${optionIndex ? '<div class="or-divider">OR</div>' : ""}${questionHtml(q, `<label class="question-select"><input type="radio" name="pair-${pair}" value="${q.id}"> Answer Question ${q.number}</label>`)}`).join("")}</fieldset>`;
-    }).join("");
+    const pairs = M.pairs.map((pair, index) => { const options = M.partC.filter((q) => q.pair === pair); return `<fieldset class="or-pair"><legend>Question ${index + 1}: answer either ${options[0].number} or ${options[1].number}</legend>${options.map((q, optionIndex) => `${optionIndex ? '<div class="or-divider">OR</div>' : ""}${questionHtml(q, `<label class="question-select"><input type="radio" name="pair-${pair}" value="${q.id}"> Answer Question ${q.number}</label>`)}`).join("")}</fieldset>`; }).join("");
     const partC = `<section class="paper-part"><header class="paper-part-title"><p>PART C</p><h2>Answer all six questions by choosing one option from each OR pair</h2><strong>6 × 7 = 42 Marks</strong><small data-selection-summary></small></header>${pairs}</section>`;
     $("questionList").innerHTML = partA + partB + partC;
-
     $("questionNav").innerHTML = M.questions.map((q) => `<a href="#question-${esc(q.id)}" id="nav-${esc(q.id)}" aria-label="Go to ${q.section}${q.number}">${esc(q.number)}</a>`).join("");
-
-    document.querySelectorAll("textarea[data-question-id]").forEach((box) => {
-      const question = M.questions.find((q) => q.id === box.dataset.questionId);
-      box.value = M.state.answers[question.id] || "";
-      box.addEventListener("input", () => {
-        M.state.answers[question.id] = box.value;
-        updateAnswer(question, box.value);
-        updateProgress();
-        onInput();
-      });
-      updateAnswer(question, box.value);
-    });
-
-    document.querySelectorAll('input[data-part-b-select]').forEach((input) => {
-      input.addEventListener("change", () => {
-        const current = new Set(M.state.selections.partB || []);
-        if (input.checked) current.add(input.value); else current.delete(input.value);
-        if (current.size > 8) {
-          input.checked = false;
-          alert("Part B allows exactly eight questions.");
-          return;
-        }
-        M.state.selections.partB = [...current];
-        syncSelectionControls();
-        updateProgress();
-        onInput();
-      });
-    });
-
-    document.querySelectorAll('input[type="radio"][name^="pair-"]').forEach((radio) => {
-      radio.addEventListener("change", () => {
-        const pair = radio.name.replace("pair-", "");
-        M.state.selections.partC[pair] = radio.value;
-        syncSelectionControls();
-        updateProgress();
-        onInput();
-      });
-    });
-
-    syncSelectionControls();
-    updateProgress();
+    document.querySelectorAll("textarea[data-question-id]").forEach((box) => { const question = M.questions.find((q) => q.id === box.dataset.questionId); box.value = M.state.answers[question.id] || ""; box.addEventListener("input", () => { M.state.answers[question.id] = box.value; updateAnswer(question, box.value); updateProgress(); onInput(); }); updateAnswer(question, box.value); });
+    document.querySelectorAll('input[data-part-b-select]').forEach((input) => { input.addEventListener("change", () => { const current = new Set(M.state.selections.partB || []); if (input.checked) current.add(input.value); else current.delete(input.value); if (current.size > 8) { input.checked = false; alert("Part B allows exactly eight questions."); return; } M.state.selections.partB = [...current]; syncSelectionControls(); updateProgress(); onInput(); }); });
+    document.querySelectorAll('input[type="radio"][name^="pair-"]').forEach((radio) => { radio.addEventListener("change", () => { const pair = radio.name.replace("pair-", ""); M.state.selections.partC[pair] = radio.value; syncSelectionControls(); updateProgress(); onInput(); }); });
+    syncSelectionControls(); updateProgress();
   }
 
   function updateTimer() {
@@ -163,16 +113,10 @@
     $("resultScore").textContent = `${mark(score)}/${M.totalMarks}`;
     $("resultPercent").textContent = `${mark(percent)}%`;
     $("resultMeta").textContent = `${new Date().toLocaleString("en-IN")} · ${result.savedOnline === false ? "Published on this page" : "Saved to your account"}`;
-    $("evaluationMode").textContent = result.evaluationMode === "openai" ? "AI + Rubric" : "Automated Rubric";
+    $("evaluationMode").textContent = isAiEvaluation(result.evaluationMode) ? "AI + Rubric" : "Automated Rubric";
     $("overallFeedback").textContent = `${result.overallFeedback || "Review the question-wise feedback below."}${result.saveWarning ? ` ${result.saveWarning}` : ""}`;
     const questionMap = new Map(M.questions.map((q) => [q.id, q]));
-    $("resultDetails").innerHTML = (result.results || []).map((item, index) => {
-      const q = questionMap.get(String(item.id));
-      if (!q) return "";
-      const awarded = Math.max(0, Math.min(q.marks, Number(item.awardedMarks || 0)));
-      const confidence = Math.round(Math.max(0, Math.min(1, Number(item.confidence || 0))) * 100);
-      return `<details class="result-question" ${index === 0 ? "open" : ""}><summary><b>${esc(q.section)} ${esc(q.number)}. ${esc(q.question)}</b><span class="question-score">${mark(awarded)}/${q.marks}</span></summary><div class="result-question-body"><p><strong>Feedback:</strong> ${esc(item.feedback || "No additional feedback was returned.")}</p>${Array.isArray(item.missingPoints) && item.missingPoints.length ? `<p><strong>Missing or weak points:</strong> ${esc(item.missingPoints.join("; "))}</p>` : ""}<p class="confidence">Evaluation confidence: ${confidence}%</p></div></details>`;
-    }).join("");
+    $("resultDetails").innerHTML = (result.results || []).map((item, index) => { const q = questionMap.get(String(item.id)); if (!q) return ""; const awarded = Math.max(0, Math.min(q.marks, Number(item.awardedMarks || 0))); const confidence = Math.round(Math.max(0, Math.min(1, Number(item.confidence || 0))) * 100); return `<details class="result-question" ${index === 0 ? "open" : ""}><summary><b>${esc(q.section)} ${esc(q.number)}. ${esc(q.question)}</b><span class="question-score">${mark(awarded)}/${q.marks}</span></summary><div class="result-question-body"><p><strong>Feedback:</strong> ${esc(item.feedback || "No additional feedback was returned.")}</p>${Array.isArray(item.missingPoints) && item.missingPoints.length ? `<p><strong>Missing or weak points:</strong> ${esc(item.missingPoints.join("; "))}</p>` : ""}<p class="confidence">Evaluation confidence: ${confidence}%</p></div></details>`; }).join("");
   }
 
   M.ui = { $, esc, mark, completeFor, selectedQuestions, validation, renderQuestions, updateProgress, updateTimer, renderResult };
