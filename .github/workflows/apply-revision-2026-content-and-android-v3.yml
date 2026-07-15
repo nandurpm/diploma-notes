@@ -1,5 +1,6 @@
 name: Apply Revision 2026 content and Android v3 migration
 
+# Separate trigger commit so GitHub Actions can run this newly added workflow.
 on:
   workflow_dispatch:
   push:
