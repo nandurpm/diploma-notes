@@ -49,7 +49,7 @@
   const norm = v => String(v || "").trim().toUpperCase();
   const depKey = v => String(v || "").toLowerCase().replaceAll("&"," and ").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
   const semRank = v => Number(String(v || "").match(/\d+/)?.[0] || 999);
-  const root = () => { const d = location.pathname.replace(/\/[^/]*$/,"").split("/").filter(Boolean).length; return d ? "../".repeat(d) : ""; };
+  const root = () => { const d = location.pathname.replace(/\/[^/]*$/," ").trim().split("/").filter(Boolean).length; return d ? "../".repeat(d) : ""; };
   const asset = s => String(s.assetCode || s.code || "");
   const key = s => [s.revision,s.department,s.semester,norm(s.code),String(s.name||"").toLowerCase()].join("::");
   const syllabus = s => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(s.code)}`;
@@ -60,41 +60,66 @@
   async function getSubjects(){
     let base = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
     if(!base.length){
-      const text = await fetch(`${root()}assets/js/subjects.js?v=20260701-home-common-sem1`, {cache:"no-store"}).then(r => r.ok ? r.text() : "").catch(() => "");
+      const text = await fetch(`${root()}assets/js/subjects.js?v=20260715-revision-aware`, {cache:"no-store"}).then(r => r.ok ? r.text() : "").catch(() => "");
       base = parseSubjectsText(text);
     }
     return unique([...base, ...MANUAL]);
   }
   function hasLesson(s){ return LESSONS.has(norm(asset(s))); }
-  function card(s){ const r=root(), ac=asset(s), les=`${r}lessons/lessons-${encodeURIComponent(ac)}.html`, pdf=`${r}notes/downloadable-notes-${encodeURIComponent(ac)}.pdf`, ok=hasLesson(s); return `<article class="subject-card reveal" data-subject-code="${esc(norm(s.code))}" data-notes-href="${esc(pdf)}" data-lesson-href="${esc(les)}" data-lesson-available="${ok}"><div class="subject-top"><span>${esc(s.revision)}</span><strong>${esc(s.code)}</strong></div><h3>${esc(s.name)}</h3><p>${esc(s.department)} / ${esc(s.semester)} / ${esc(s.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus(s))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${ok?`<a class="action lessons" href="${esc(les)}">View Lessons</a><a class="action download" href="${esc(pdf)}" download>Download Notes</a>`:`<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`}<a class="action qp" href="${esc(qp(s))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`; }
+  function card(s){ const r=root(), ac=asset(s), les=`${r}lessons/lessons-${encodeURIComponent(ac)}.html`, pdf=`${r}notes/downloadable-notes-${encodeURIComponent(ac)}.pdf`, ok=hasLesson(s); return `<article class="subject-card reveal" data-subject-code="${esc(norm(s.code))}" data-revision="${esc(s.revision)}" data-notes-href="${esc(pdf)}" data-lesson-href="${esc(les)}" data-lesson-available="${ok}"><div class="subject-top"><span>Revision ${esc(s.revision)}</span><strong>${esc(s.code)}</strong></div><h3>${esc(s.name)}</h3><p>${esc(s.department)} / ${esc(s.semester)} / ${esc(s.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus(s))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${ok?`<a class="action lessons" href="${esc(les)}">View Handbook</a><a class="action download" href="${esc(pdf)}" download>Download Notes</a>`:`<span class="availability-label lessons-status" aria-disabled="true">Handbook unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`}<a class="action qp" href="${esc(qp(s))}" target="_blank" rel="noopener noreferrer">Model Question Paper</a></div></article>`; }
   function group(list){ const map = new Map(); list.forEach(s => { const sem = String(s.semester || "Other subjects"); if(!map.has(sem)) map.set(sem,[]); map.get(sem).push(s); }); return [...map.entries()].map(([sem,items]) => `<section class="semester-subject-section" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3>${esc(sem)}</h3><span>${items.length} ${items.length===1?"subject":"subjects"}</span></div><div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">${items.map(card).join("")}</div></section>`).join(""); }
   function fillSelect(sel, values, preferred){ if(!sel) return; const old = sel.value || preferred || "all"; sel.replaceChildren(); sel.append(Object.assign(document.createElement("option"),{value:"all",textContent:"All semesters"})); [...new Set(values.filter(Boolean))].sort((a,b)=>semRank(a)-semRank(b)||String(a).localeCompare(String(b))).forEach(v=>sel.append(Object.assign(document.createElement("option"),{value:v,textContent:v}))); sel.value=[...sel.options].some(o=>o.value===old)?old:"all"; }
   function fillDept(sel, list){ if(!sel) return; const old=sel.value||COMMON_VALUE; sel.replaceChildren(); sel.append(Object.assign(document.createElement("option"),{value:COMMON_VALUE,textContent:"Common Subjects"})); [...new Set(list.map(s=>s.department).filter(Boolean).filter(d=>d!==COMMON))].sort().forEach(d=>sel.append(Object.assign(document.createElement("option"),{value:d,textContent:d}))); sel.value=[...sel.options].some(o=>o.value===old)?old:COMMON_VALUE; }
-  function render(all, grid, mode, rev, dept){
+  function fillRevision(sel, subjects){
+    if(!sel) return;
+    const old = sel.value || "2021";
+    const configured = globalThis.CURRICULUM_REVISIONS || {};
+    const ids = [...new Set([...Object.keys(configured), ...subjects.map(s=>String(s.revision)).filter(Boolean)])].sort().reverse();
+    sel.replaceChildren();
+    ids.forEach(id => {
+      const cfg = configured[id] || {};
+      const published = subjects.some(s => String(s.revision) === id);
+      const option = new Option(`${cfg.label || `Revision ${id}`}${published ? "" : " — awaiting verified subjects"}`, id);
+      option.disabled = !published;
+      sel.add(option);
+    });
+    sel.value = [...sel.options].some(o=>o.value===old && !o.disabled) ? old : ([...sel.options].find(o=>!o.disabled)?.value || "2021");
+  }
+  function render(all, grid, mode, fixedRev, dept){
     const q=String($("subjectSearch")?.value||"").trim().toLowerCase();
     const sem=$("semesterFilter")?.value||"all";
     const chosen=$("departmentFilter")?.value||COMMON_VALUE;
-    let list = all.filter(s => !rev || String(s.revision) === rev);
+    const selectedRev = fixedRev || $("revisionFilter")?.value || "all";
+    let list = all.filter(s => selectedRev === "all" || String(s.revision) === selectedRev);
     if(mode === "department") list = list.filter(s => sameDept(s.department, dept) || sameDept(s.department, COMMON));
     else if(mode === "home") list = list.filter(s => chosen === COMMON_VALUE ? sameDept(s.department, COMMON) : sameDept(s.department, COMMON) || sameDept(s.department, chosen));
     if(sem !== "all") list = list.filter(s => String(s.semester) === sem);
-    if(q) list = list.filter(s => [s.code,s.name,s.department,s.semester,s.type].join(" ").toLowerCase().includes(q));
+    if(q) list = list.filter(s => [s.code,s.name,s.department,s.semester,s.type,s.revision].join(" ").toLowerCase().includes(q));
     list = unique(list).sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true}));
-    if(mode === "home") list = list.filter((s,i,a)=>a.findIndex(x=>norm(x.code)===norm(s.code))===i).slice(0,HOME_LIMIT);
-    grid.innerHTML = list.length ? (mode === "home" ? list.map(card).join("") : group(list)) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`;
+    if(mode === "home") list = list.filter((s,i,a)=>a.findIndex(x=>norm(x.code)===norm(s.code) && String(x.revision)===String(s.revision))===i).slice(0,HOME_LIMIT);
+    grid.innerHTML = list.length ? (mode === "home" ? list.map(card).join("") : group(list)) : `<div class="empty-state">No verified subjects found for this revision and filter selection.</div>`;
   }
   async function init(){
     const grid=$("subjectGrid"); if(!grid) return;
     grid.innerHTML = `<div class="empty-state">Loading subjects...</div>`;
-    const mode=grid.dataset.mode||"home", rev=grid.dataset.revision, dept=grid.dataset.department;
+    const mode=grid.dataset.mode||"home", fixedRev=grid.dataset.revision, dept=grid.dataset.department;
     const all=await getSubjects();
+    fillRevision($("revisionFilter"), all);
     if(mode==="home") fillDept($("departmentFilter"), all);
+    const activeRev = fixedRev || $("revisionFilter")?.value || "2021";
     const defaultSem = mode === "home" ? "Semester 1" : "all";
-    fillSelect($("semesterFilter"), all.filter(s => !rev || String(s.revision) === rev).map(s => s.semester), defaultSem);
+    fillSelect($("semesterFilter"), all.filter(s => activeRev === "all" || String(s.revision) === activeRev).map(s => s.semester), defaultSem);
     if(mode === "home" && $("departmentFilter")) $("departmentFilter").value = COMMON_VALUE;
-    let t=0; const rr=()=>{ clearTimeout(t); t=setTimeout(()=>render(all,grid,mode,rev,dept),120); };
+    let t=0;
+    const rr=()=>{ clearTimeout(t); t=setTimeout(()=>render(all,grid,mode,fixedRev,dept),120); };
+    $("revisionFilter")?.addEventListener("change", () => {
+      const revision = $("revisionFilter").value;
+      fillSelect($("semesterFilter"), all.filter(s => String(s.revision) === revision).map(s => s.semester), mode === "home" ? "Semester 1" : "all");
+      if(mode === "home") fillDept($("departmentFilter"), all.filter(s => String(s.revision) === revision));
+      rr();
+    });
     [$("subjectSearch"),$("semesterFilter"),$("departmentFilter")].forEach(x=>{ if(x){ x.addEventListener("input",rr); x.addEventListener("change",rr); } });
-    render(all,grid,mode,rev,dept);
+    render(all,grid,mode,fixedRev,dept);
   }
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true}); else init();
 })();
