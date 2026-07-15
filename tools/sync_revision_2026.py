@@ -9,7 +9,9 @@ from bs4 import BeautifulSoup
 BASE='https://www.sitttrkerala.ac.in/'
 LANDING=urljoin(BASE,'index.php?r=site%2Fdiploma-syllabus&scheme=REV2026')
 OUT=Path('assets/data/revision-2026-subjects.json')
-HEADERS={'User-Agent':'Mozilla/5.0 POLY-PMNA-REV2026-Sync/1.0'}
+HEADERS={'User-Agent':'Mozilla/5.0 POLY-PMNA-REV2026-Sync/1.1'}
+BAD_LABELS=re.compile(r'^(view|open|download|syllabus|course content|details?)$',re.I)
+DURATION=re.compile(r'\b(months?|weeks?|hours?|hrs?|per semester|duration)\b',re.I)
 
 def slug(v):
     v=v.lower().replace('&',' and ')
@@ -26,8 +28,19 @@ def get(session,url,tries=4):
         time.sleep(2**i)
     raise last
 
-def text(cells,i,default=''):
-    return cells[i].get_text(' ',strip=True) if i<len(cells) else default
+def clean_subject_name(rowtxt,code,link_text):
+    link_text=(link_text or '').strip()
+    if link_text and link_text!=code and not BAD_LABELS.fullmatch(link_text) and not DURATION.search(link_text):
+        return link_text
+    try: idx=next(i for i,x in enumerate(rowtxt) if x.strip()==code)
+    except StopIteration: idx=-1
+    ordered=(rowtxt[idx+1:]+rowtxt[:idx]) if idx>=0 else rowtxt
+    for value in ordered:
+        value=value.strip()
+        if not value or value==code or BAD_LABELS.fullmatch(value) or DURATION.search(value): continue
+        if re.fullmatch(r'[\d\s./-]+',value): continue
+        return value
+    return code
 
 def main():
     s=requests.Session(); landing=get(s,LANDING)
@@ -52,10 +65,7 @@ def main():
                 if not code:
                     m=re.search(r'\b\d{3,5}[A-Z]?\b',' '.join(rowtxt)); code=m.group(0) if m else ''
                 if not code: continue
-                subj=link.get_text(' ',strip=True)
-                if not subj or subj==code:
-                    candidates=[x for x in rowtxt if x and x!=code and not re.fullmatch(r'\d+',x)]
-                    subj=max(candidates,key=len) if candidates else code
+                subj=clean_subject_name(rowtxt,code,link.get_text(' ',strip=True))
                 semester=next((x for x in rowtxt if re.search(r'\bsemester\s*[1-6]\b',x,re.I)), '')
                 if not semester:
                     n=next((re.search(r'\b[1-6]\b',x) for x in rowtxt if re.fullmatch(r'\s*[1-6]\s*',x)),None)
