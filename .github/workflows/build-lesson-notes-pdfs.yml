@@ -8,13 +8,17 @@ on:
     branches: [main]
     paths:
       - "lessons/**/*.html"
+      - "notes/**/*.pdf"
+      - "revision-2026-content/lessons/**/*.html"
+      - "revision-2026-content/notes/**/*.pdf"
       - "revision-2021/**/*.html"
+      - "revision-2026/**/*.html"
       - "assets/js/subject-browser.js"
       - "assets/js/asset-manifest.js"
       - "assets/js/lesson-availability-hotfix.js"
-      - "assets/js/notes-direct-pdf-hotfix.js"
       - "tools/build_lesson_pdfs.py"
       - "tools/build_missing_lesson_pdfs.py"
+      - "tools/build_missing_revision_2026_lesson_pdfs.py"
       - "tools/update_asset_manifest.py"
       - ".github/workflows/build-lesson-notes-pdfs.yml"
 
@@ -54,48 +58,76 @@ jobs:
           echo $! > /tmp/lesson-site.pid
           sleep 3
 
-      - name: Build missing downloadable notes PDFs from lesson HTML files
-        run: |
-          python tools/build_missing_lesson_pdfs.py
+      - name: Build missing Revision 2021 PDFs
+        run: python tools/build_missing_lesson_pdfs.py
 
-      - name: Report generated notes coverage
+      - name: Build missing Revision 2026 PDFs
+        run: |
+          python -m py_compile tools/build_missing_revision_2026_lesson_pdfs.py
+          python tools/build_missing_revision_2026_lesson_pdfs.py
+
+      - name: Report separated notes coverage
         run: |
           python - <<'PY'
           from pathlib import Path
           import json
           import re
+
           root = Path.cwd()
-          lesson_codes = set()
-          notes_codes = set()
-          for path in (root / "lessons").glob("lessons-*.html"):
-              match = re.fullmatch(r"lessons-(\d+[A-Za-z]?)\.html", path.name)
-              if match:
-                  lesson_codes.add(match.group(1).upper())
-          for path in (root / "notes").glob("downloadable-notes-*.pdf"):
-              match = re.fullmatch(r"downloadable-notes-(\d+[A-Za-z]?)\.pdf", path.name)
-              if match and path.stat().st_size >= 20000:
-                  notes_codes.add(match.group(1).upper())
-          missing = sorted(lesson_codes - notes_codes)
-          print(json.dumps({"lesson_count": len(lesson_codes), "notes_count": len(notes_codes), "missing": missing}, indent=2))
+
+          def coverage(lesson_dir, notes_dir):
+              lesson_codes = set()
+              notes_codes = set()
+              for path in lesson_dir.glob('lessons-*.html'):
+                  match = re.fullmatch(r'lessons-([0-9]+[A-Za-z]*)\.html', path.name)
+                  if match:
+                      lesson_codes.add(match.group(1).upper())
+              for path in notes_dir.glob('downloadable-notes-*.pdf'):
+                  match = re.fullmatch(r'downloadable-notes-([0-9]+[A-Za-z]*)\.pdf', path.name)
+                  if match and path.stat().st_size >= 20000:
+                      notes_codes.add(match.group(1).upper())
+              return {
+                  'lessonCount': len(lesson_codes),
+                  'notesCount': len(notes_codes),
+                  'missing': sorted(lesson_codes - notes_codes),
+              }
+
+          print(json.dumps({
+              'revision2021': coverage(root / 'lessons', root / 'notes'),
+              'revision2026': coverage(
+                  root / 'revision-2026-content' / 'lessons',
+                  root / 'revision-2026-content' / 'notes',
+              ),
+          }, indent=2))
           PY
 
-      - name: Synchronize lesson and notes availability
+      - name: Synchronize independent lesson and notes availability
         run: |
           python tools/update_asset_manifest.py
           node --check assets/js/subject-browser.js
           node --check assets/js/asset-manifest.js
 
+      - name: Rebuild Revision 2026 cards after content changes
+        run: |
+          python -m py_compile tools/build_revision_2026_pages.py
+          python tools/build_revision_2026_pages.py
+
       - name: Commit generated PDFs and availability data
         run: |
-          if git diff --quiet -- notes reports/lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js; then
+          if git diff --quiet -- notes revision-2026-content/notes reports assets/js/subject-browser.js assets/js/asset-manifest.js revision-2026.html revision-2026; then
             echo "Downloadable notes are already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add notes reports/lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js
-          git commit -m "Build downloadable lesson notes [skip notes]"
+          git add notes revision-2026-content/notes
+          git add reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json
+          git add reports/revision-2026-build-summary.json reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js
+          git add revision-2026.html revision-2026/*.html
+          git commit -m "Build revision-separated downloadable notes [skip notes]"
+          git pull --rebase origin main
           git push origin HEAD:main
 
       - name: Stop local static server
