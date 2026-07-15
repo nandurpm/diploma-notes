@@ -1,13 +1,14 @@
 (() => {
   "use strict";
   const SITE = "POLY PMNA";
-  const VERSION = "20260715-mobile-menu1";
+  const VERSION = "20260715-rev2026-nav1";
   const path = () => location.pathname.replace(/\/+$/, "") || "/";
   const isLesson = /\/lessons\//i.test(path());
   const navItems = [
     ["Home", "/index.html", p => p === "/" || p.endsWith("/index.html")],
     ["About", "/about.html", p => p.endsWith("/about.html")],
     ["Revision 2021", "/revision-2021.html", p => p.endsWith("/revision-2021.html") || p.includes("/revision-2021/")],
+    ["Revision 2026", "/revision-2026.html", p => p.endsWith("/revision-2026.html") || p.includes("/revision-2026/")],
     ["Mock Exams", "/daily-quiz.html", p => p.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/i.test(p)],
     ["Ask POLY AI", "/ask-poly.html", p => /\/ask-poly(?:-v2)?\.html$/i.test(p)],
     ["2015 Materials", "/materials-2015.html", p => p.endsWith("/materials-2015.html")],
@@ -19,6 +20,8 @@
     [/\/about\.html$/i, "About"],
     [/\/revision-2021\.html$/i, "Revision 2021"],
     [/\/revision-2021\//i, "Revision 2021 Department Subjects"],
+    [/\/revision-2026\.html$/i, "Revision 2026"],
+    [/\/revision-2026\//i, "Revision 2026 Department Subjects"],
     [/\/daily-quiz\.html$/i, "Mock Exams"],
     [/\/ask-poly(?:-v2)?\.html$/i, "Ask POLY AI"],
     [/\/materials-2015\.html$/i, "2015 Materials"],
@@ -101,8 +104,6 @@
       const shown=document.getElementById("shown"), grid=document.getElementById("grid");
       if(shown && grid && !grid.children.length && /loading|0 of 0|0 tools/i.test(shown.textContent||"")) shown.textContent="Loading tools. If this remains empty, hard refresh once with Ctrl+F5.";
     }
-    const sg=document.getElementById("subjectGrid");
-    if(sg && !sg.querySelector(".subject-card") && !sg.dataset.polyChecked){ sg.dataset.polyChecked="true"; setTimeout(()=>{ if(!sg.querySelector(".subject-card") && !/loading/i.test(sg.textContent||"")) sg.innerHTML='<div class="empty-state">No subjects loaded. Use Revision 2021 from the top menu and open the department viewer.</div>'; },1800); }
   }
   function run(){ ensureStyle(); ensureHeader(); normalizeBrandMeta(); normalizeFooter(); normalizeBreadcrumbs(); loadingFallbacks(); }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",run,{once:true}); else run();
