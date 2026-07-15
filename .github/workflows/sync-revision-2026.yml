@@ -1,4 +1,4 @@
-name: Sync Revision 2026 subjects
+name: Sync and build Revision 2026
 
 on:
   workflow_dispatch:
@@ -7,6 +7,7 @@ on:
   push:
     paths:
       - 'tools/sync_revision_2026.py'
+      - 'tools/build_revision_2026_pages.py'
       - '.github/workflows/sync-revision-2026.yml'
 
 permissions:
@@ -25,16 +26,21 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4
-      - run: python -m py_compile tools/sync_revision_2026.py
-      - run: python tools/sync_revision_2026.py
-      - name: Commit verified programme and subject data
+      - name: Validate scripts
+        run: python -m py_compile tools/sync_revision_2026.py tools/build_revision_2026_pages.py
+      - name: Download official programme tables
+        run: python tools/sync_revision_2026.py
+      - name: Build static Semester 1-6 pages
+        run: python tools/build_revision_2026_pages.py
+      - name: Commit verified data and static pages
         run: |
           git add assets/data/revision-2026-programmes.json assets/data/revision-2026-subjects.json
+          git add revision-2026.html revision-2026/*.html reports/revision-2026-build-summary.json
           if git diff --cached --quiet; then
-            echo 'No verified data change.'
+            echo 'No verified data or page change.'
             exit 0
           fi
           git config user.name 'poly-pmna-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git commit -m 'Sync official SITTTR Revision 2026 subjects'
+          git commit -m 'Sync and build official SITTTR Revision 2026 pages'
           git push
