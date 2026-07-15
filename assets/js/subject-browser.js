@@ -69,12 +69,14 @@
   }
 
   function normalize2026(subject) {
+    const code = String(subject.code || "").trim();
+    const semesterNumber = Number(subject.semesterNumber) || Number(code.match(/^([1-6])/)?.[1]) || semRank(subject.semester);
     return {
       revision: "2026",
-      code: String(subject.code || "").trim(),
+      code,
       name: String(subject.name || "Untitled subject").trim(),
       department: String(subject.programme || subject.department || "Revision 2026").trim(),
-      semester: String(subject.semester || (subject.semesterNumber ? `Semester ${subject.semesterNumber}` : "Other subjects")).trim(),
+      semester: semesterNumber >= 1 && semesterNumber <= 6 ? `Semester ${semesterNumber}` : "Other subjects",
       type: String(subject.type || "Course").trim(),
       syllabusUrl: subject.syllabusUrl,
       programmeSlug: subject.programmeSlug,
@@ -87,7 +89,7 @@
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
     const [subjectText, revision2026Payload] = await Promise.all([
       revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`, { cache: "no-store" }).then(response => response.ok ? response.text() : "").catch(() => ""),
-      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-revision-switch`, { cache: "no-store" }).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-match-2021`, { cache: "no-store" }).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
@@ -98,20 +100,23 @@
     return String(subject.revision) === "2021" && LESSONS.has(norm(asset(subject)));
   }
 
-  function card(subject) {
+  function assetPaths(subject) {
     const relativeRoot = root();
     const code = asset(subject);
-    const lessonHref = `${relativeRoot}lessons/lessons-${encodeURIComponent(code)}.html`;
-    const notesHref = `${relativeRoot}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+    const suffix = String(subject.revision) === "2026" ? "_REV2026" : "";
+    return {
+      lessonHref: `${relativeRoot}lessons/lessons-${encodeURIComponent(code)}${suffix}.html`,
+      notesHref: `${relativeRoot}notes/downloadable-notes-${encodeURIComponent(code)}${suffix}.pdf`
+    };
+  }
+
+  function card(subject) {
+    const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
-    const is2026 = String(subject.revision) === "2026";
-    const departmentHref = subject.programmeSlug ? `${relativeRoot}revision-2026/${encodeURIComponent(subject.programmeSlug)}.html` : `${relativeRoot}revision-2026.html`;
-    const studyActions = is2026
-      ? `<a class="action lessons" href="${esc(departmentHref)}">Open Department</a><span class="availability-label lessons-status" aria-disabled="true">2026 handbook pending</span><span class="availability-label notes-status" aria-disabled="true">2026 notes pending</span><span class="availability-label qp-status" aria-disabled="true">Model paper pending</span>`
-      : handbookAvailable
-        ? `<a class="action lessons" href="${esc(lessonHref)}">View Handbook</a><a class="action download" href="${esc(notesHref)}" download>Download Notes</a><a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Model Question Paper</a>`
-        : `<span class="availability-label lessons-status" aria-disabled="true">Handbook unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span><a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Model Question Paper</a>`;
-    return `<article class="subject-card reveal" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}"><div class="subject-top"><span>Revision ${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}</div></article>`;
+    const studyActions = handbookAvailable
+      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" download>Download Notes</a>`
+      : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
+    return `<article class="subject-card reveal" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}<a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
   }
 
   function group(list) {
@@ -155,7 +160,7 @@
   }
 
   function emptyMessage(mode, revision) {
-    if (mode === "lessons" && revision === "2026") return "Revision 2026 subject data is available, but dedicated 2026 handbooks and downloadable notes have not been published yet. Use the Syllabus page or Revision 2026 department pages.";
+    if (mode === "lessons" && revision === "2026") return "No dedicated Revision 2026 lesson handbooks are published yet.";
     return "No verified subjects found for this revision and filter selection.";
   }
 
