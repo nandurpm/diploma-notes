@@ -6,6 +6,7 @@ on:
     paths:
       - 'tools/normalize_revision_2026_legacy_data.py'
       - 'tools/build_revision_2026_pages.py'
+      - 'tools/bump_subject_card_assets.py'
       - '.github/workflows/rebuild-revision-2026-current-data.yml'
 
 permissions:
@@ -24,22 +25,21 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate scripts
-        run: python -m py_compile tools/normalize_revision_2026_legacy_data.py tools/build_revision_2026_pages.py
+        run: python -m py_compile tools/normalize_revision_2026_legacy_data.py tools/build_revision_2026_pages.py tools/bump_subject_card_assets.py
       - name: Correct legacy semester placement
         run: python tools/normalize_revision_2026_legacy_data.py
-      - name: Build static pages and code comparison report
+      - name: Build Revision 2021-style static subject cards
         run: python tools/build_revision_2026_pages.py
-      - name: Commit corrected data, pages and reports
+      - name: Refresh subject-card browser cache versions
+        run: python tools/bump_subject_card_assets.py
+      - name: Commit corrected cards, data and reports
         run: |
-          git add assets/data/revision-2026-subjects.json
-          git add revision-2026.html revision-2026/*.html
-          git add reports/revision-2026-build-summary.json
-          git add reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
+          git add -A
           if git diff --cached --quiet; then
             echo 'No generated change.'
             exit 0
           fi
           git config user.name 'poly-pmna-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git commit -m 'Correct REV2026 semester ordering and publish code comparison'
+          git commit -m 'Rebuild REV2026 with REV2021 subject-card structure'
           git push
