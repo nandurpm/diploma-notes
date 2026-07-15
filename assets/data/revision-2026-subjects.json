@@ -1,7 +1,7 @@
 {
   "scheme": "REV2026",
   "source": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
-  "generatedAt": "2026-07-15T12:38:38.463062+00:00",
+  "generatedAt": "2026-07-15T12:41:35.385975+00:00",
   "programmeCount": 38,
   "subjectCount": 2404,
   "failures": [],
@@ -13,7 +13,7 @@
       "programmeSlug": "architecture",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -68,7 +68,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 1",
       "code": "3188",
-      "name": "Programme core course",
+      "name": "Working Drawing I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3188"
     },
@@ -178,7 +178,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -321,7 +321,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 3",
       "code": "3189",
-      "name": "Programme core course",
+      "name": "CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3189"
     },
@@ -365,7 +365,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 3",
       "code": "4182",
-      "name": "Programme core course",
+      "name": "Building Services",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4182"
     },
@@ -376,7 +376,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 3",
       "code": "4183",
-      "name": "Programme core course",
+      "name": "Building Estimation",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4183"
     },
@@ -387,7 +387,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 3",
       "code": "4189",
-      "name": "Programme core course",
+      "name": "Working Drawing II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4189"
     },
@@ -475,7 +475,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 3",
       "code": "5183B",
-      "name": "Program Elective course",
+      "name": "Vernacular Architecture",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5183B"
     },
@@ -486,7 +486,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 3",
       "code": "5183C",
-      "name": "Program Elective course",
+      "name": "Tendering and Valuation",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5183C"
     },
@@ -552,7 +552,7 @@
       "programmeSlug": "architecture",
       "semester": "Semester 3",
       "code": "6189",
-      "name": "Programme core course",
+      "name": "Advanced CAD lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6189"
     },
@@ -640,7 +640,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -706,7 +706,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -816,7 +816,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -893,7 +893,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "3389",
-      "name": "Programme core course",
+      "name": "Web Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3389"
     },
@@ -926,7 +926,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "4131",
-      "name": "Programme core course",
+      "name": "Data Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4131"
     },
@@ -937,7 +937,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "4137",
-      "name": "Programme core course",
+      "name": "Data Structures Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4137"
     },
@@ -948,7 +948,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "4139",
-      "name": "Programme core course",
+      "name": "UI/UX Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4139"
     },
@@ -959,7 +959,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "4381",
-      "name": "Programme core course",
+      "name": "Prompt Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4381"
     },
@@ -1036,7 +1036,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5381",
-      "name": "Programme core course",
+      "name": "Big Data Analytics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5381"
     },
@@ -1058,7 +1058,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5383B",
-      "name": "Program Elective course",
+      "name": "AI in Cyber Security",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5383B"
     },
@@ -1069,7 +1069,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5383C",
-      "name": "Program Elective course",
+      "name": "IoT and Applications",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5383C"
     },
@@ -1102,7 +1102,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5388",
-      "name": "Programme core course",
+      "name": "Deep Learning Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5388"
     },
@@ -1113,7 +1113,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5389A",
-      "name": "Program Elective course",
+      "name": "MATLAB",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5389A"
     },
@@ -1124,7 +1124,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5389B",
-      "name": "Program Elective course",
+      "name": "Java Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5389B"
     },
@@ -1135,7 +1135,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5389C",
-      "name": "Program Elective course",
+      "name": "Julia Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5389C"
     },
@@ -1146,7 +1146,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "5389D",
-      "name": "Program Elective course",
+      "name": "Power BI Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5389D"
     },
@@ -1212,7 +1212,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 3",
       "code": "6389C",
-      "name": "Program Elective course",
+      "name": "Virtual Reality Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6389C"
     },
@@ -1245,7 +1245,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -1256,7 +1256,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 4",
       "code": "5382",
-      "name": "Programme core course",
+      "name": "Deep Learning",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5382"
     },
@@ -1300,7 +1300,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 4",
       "code": "6383B",
-      "name": "Program Elective course",
+      "name": "Reinforcement Learning",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6383B"
     },
@@ -1311,7 +1311,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 4",
       "code": "6383C",
-      "name": "Program Elective course",
+      "name": "AI for Robotics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6383C"
     },
@@ -1344,7 +1344,7 @@
       "programmeSlug": "artificial-intelligence",
       "semester": "Semester 4",
       "code": "6384B",
-      "name": "Open Elective course",
+      "name": "Generative AI",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6384B"
     },
@@ -1377,7 +1377,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -1443,7 +1443,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -1553,7 +1553,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -1575,7 +1575,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "3341",
-      "name": "Programme core course",
+      "name": "Data Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3341"
     },
@@ -1608,7 +1608,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "3349",
-      "name": "Programme core course",
+      "name": "Data Structures Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3349"
     },
@@ -1663,7 +1663,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "4341",
-      "name": "Programme core course",
+      "name": "Machine Learning",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4341"
     },
@@ -1696,7 +1696,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "4348",
-      "name": "Programme core course",
+      "name": "Machine Learning Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4348"
     },
@@ -1707,7 +1707,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "4349",
-      "name": "Programme core course",
+      "name": "Julia Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4349"
     },
@@ -1784,7 +1784,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "5342A",
-      "name": "Program Elective course",
+      "name": "Soft Computing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5342A"
     },
@@ -1806,7 +1806,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "5348",
-      "name": "Programme core course",
+      "name": "UI/UX Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5348"
     },
@@ -1828,7 +1828,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "5349B",
-      "name": "Program Elective course",
+      "name": "Soft Computing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5349B"
     },
@@ -1839,7 +1839,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "5381",
-      "name": "Programme core course",
+      "name": "Big Data Analytics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5381"
     },
@@ -1850,7 +1850,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "5383C",
-      "name": "Program Elective course",
+      "name": "IoT and Applications",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5383C"
     },
@@ -1872,7 +1872,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "6131P",
-      "name": "Programme core course",
+      "name": "Software Testing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6131P"
     },
@@ -1883,7 +1883,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "6131T",
-      "name": "Programme core course",
+      "name": "Software Testing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6131T"
     },
@@ -1894,7 +1894,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "6139D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6139D"
     },
@@ -1905,7 +1905,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 3",
       "code": "6348",
-      "name": "Programme core course",
+      "name": "Deep Learning Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6348"
     },
@@ -1938,7 +1938,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -1960,7 +1960,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 4",
       "code": "6341",
-      "name": "Programme core course",
+      "name": "Deep Learning",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6341"
     },
@@ -1971,7 +1971,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 4",
       "code": "6342A",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking with AI",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6342A"
     },
@@ -1993,7 +1993,7 @@
       "programmeSlug": "artificial-intelligence-and-machine-learning",
       "semester": "Semester 4",
       "code": "6342C",
-      "name": "Program Elective course",
+      "name": "Mobile Computing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6342C"
     },
@@ -2070,7 +2070,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -2136,7 +2136,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -2290,7 +2290,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "3334",
-      "name": "Programme core course",
+      "name": "Sensor Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3334"
     },
@@ -2323,7 +2323,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "3339",
-      "name": "Programme core course",
+      "name": "Sensor Technology Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3339"
     },
@@ -2378,7 +2378,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "4333",
-      "name": "Programme core course",
+      "name": "Mechanics of Robotics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4333"
     },
@@ -2477,7 +2477,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "5333A",
-      "name": "Program Elective course",
+      "name": "Industrial Robotics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5333A"
     },
@@ -2521,7 +2521,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "5338",
-      "name": "Programme core course",
+      "name": "AI for Robotics Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5338"
     },
@@ -2554,7 +2554,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "5383C",
-      "name": "Program Elective course",
+      "name": "IoT and Applications",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5383C"
     },
@@ -2565,7 +2565,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "6331P",
-      "name": "Programme core course",
+      "name": "Advanced Robotics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6331P"
     },
@@ -2576,7 +2576,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 3",
       "code": "6331T",
-      "name": "Programme core course",
+      "name": "Advanced Robotics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6331T"
     },
@@ -2664,7 +2664,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 4",
       "code": "5332",
-      "name": "Programme core course",
+      "name": "AI for Robotics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5332"
     },
@@ -2752,7 +2752,7 @@
       "programmeSlug": "automation-and-robotics",
       "semester": "Semester 4",
       "code": "6334C",
-      "name": "Open Elective course",
+      "name": "PLC and Automation",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6334C"
     },
@@ -2785,7 +2785,7 @@
       "programmeSlug": "automobile-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -2851,7 +2851,7 @@
       "programmeSlug": "automobile-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -3016,7 +3016,7 @@
       "programmeSlug": "automobile-engineering",
       "semester": "Semester 3",
       "code": "3058",
-      "name": "Programme core course",
+      "name": "Petrol Engine Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3058"
     },
@@ -3060,7 +3060,7 @@
       "programmeSlug": "automobile-engineering",
       "semester": "Semester 3",
       "code": "4027",
-      "name": "Programme core course",
+      "name": "Mechanical Workshop",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4027"
     },
@@ -3115,7 +3115,7 @@
       "programmeSlug": "automobile-engineering",
       "semester": "Semester 3",
       "code": "4059",
-      "name": "Programme core course",
+      "name": "Diesel Engine Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4059"
     },
@@ -3511,7 +3511,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -3577,7 +3577,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -3709,7 +3709,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 3",
       "code": "3044",
-      "name": "Programme core course",
+      "name": "Analog Circuits",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3044"
     },
@@ -3731,7 +3731,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 3",
       "code": "3048",
-      "name": "Programme core course",
+      "name": "Analog Circuits Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3048"
     },
@@ -3907,7 +3907,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 3",
       "code": "5243B",
-      "name": "Program Elective course",
+      "name": "C Programming",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5243B"
     },
@@ -3951,7 +3951,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 3",
       "code": "5249B",
-      "name": "Program Elective course",
+      "name": "C Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5249B"
     },
@@ -3973,7 +3973,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 3",
       "code": "6048",
-      "name": "Program Elective course",
+      "name": "Robotics and AI Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6048"
     },
@@ -4127,7 +4127,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 4",
       "code": "6243B",
-      "name": "Program Elective course",
+      "name": "IoMT and Healthcare",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6243B"
     },
@@ -4138,7 +4138,7 @@
       "programmeSlug": "biomedical-engineering",
       "semester": "Semester 4",
       "code": "6243C",
-      "name": "Program Elective course",
+      "name": "Principles of BioMEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6243C"
     },
@@ -4204,7 +4204,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -4270,7 +4270,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -4281,7 +4281,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 2",
       "code": "4071",
-      "name": "Programme core course",
+      "name": "Process Heat Transfer",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4071"
     },
@@ -4391,7 +4391,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "2079",
-      "name": "Programme core course",
+      "name": "CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2079"
     },
@@ -4424,7 +4424,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "3074",
-      "name": "Programme core course",
+      "name": "Fluid Mechanics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3074"
     },
@@ -4523,7 +4523,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "4078",
-      "name": "Programme core course",
+      "name": "Fluid Mechanics Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4078"
     },
@@ -4644,7 +4644,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "5077",
-      "name": "Programme core course",
+      "name": "Heat Transfer Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5077"
     },
@@ -4666,7 +4666,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "5079A",
-      "name": "Program Elective course",
+      "name": "Material Testing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5079A"
     },
@@ -4677,7 +4677,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "6071P",
-      "name": "Programme core course",
+      "name": "Mechanical Operations",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6071P"
     },
@@ -4688,7 +4688,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "6071T",
-      "name": "Programme core course",
+      "name": "Mechanical Operations",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6071T"
     },
@@ -4699,7 +4699,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 3",
       "code": "6078",
-      "name": "Programme core course",
+      "name": "Mass Transfer Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6078"
     },
@@ -4776,7 +4776,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 4",
       "code": "6073A",
-      "name": "Program Elective course",
+      "name": "Plant Utilities",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6073A"
     },
@@ -4787,7 +4787,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 4",
       "code": "6073B",
-      "name": "Program Elective course",
+      "name": "Solid Waste Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6073B"
     },
@@ -4798,7 +4798,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 4",
       "code": "6073C",
-      "name": "Program Elective course",
+      "name": "Biochemical Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6073C"
     },
@@ -4842,7 +4842,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 4",
       "code": "6074C",
-      "name": "Open Elective course",
+      "name": "Disaster Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6074C"
     },
@@ -4853,7 +4853,7 @@
       "programmeSlug": "chemical-engineering",
       "semester": "Semester 4",
       "code": "6074D",
-      "name": "Open Elective course",
+      "name": "Energy Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6074D"
     },
@@ -4875,7 +4875,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -4941,7 +4941,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -5051,7 +5051,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "2019",
-      "name": "Programme core course",
+      "name": "Basic Surveying Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2019"
     },
@@ -5062,7 +5062,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "3011",
-      "name": "Programme core course",
+      "name": "Engineering Mechanics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3011"
     },
@@ -5073,7 +5073,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "3012",
-      "name": "Programme core course",
+      "name": "Advanced Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3012"
     },
@@ -5084,7 +5084,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "3013",
-      "name": "Programme core course",
+      "name": "Estimation & Costing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3013"
     },
@@ -5095,7 +5095,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "3014",
-      "name": "Programme core course",
+      "name": "Concrete Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3014"
     },
@@ -5128,7 +5128,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "3359",
-      "name": "Programme core course",
+      "name": "CADD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3359"
     },
@@ -5172,7 +5172,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "4012",
-      "name": "Programme core course",
+      "name": "Theory of Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4012"
     },
@@ -5194,7 +5194,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "4018",
-      "name": "Programme core course",
+      "name": "Material Testing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4018"
     },
@@ -5205,7 +5205,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "4019",
-      "name": "Programme core course",
+      "name": "Advanced CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4019"
     },
@@ -5381,7 +5381,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 3",
       "code": "6019A",
-      "name": "Program Elective course",
+      "name": "BIM & Modelling Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6019A"
     },
@@ -5436,7 +5436,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 4",
       "code": "2012",
-      "name": "Programme core course",
+      "name": "Basic Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2012"
     },
@@ -5480,7 +5480,7 @@
       "programmeSlug": "civil-and-environmental-engineering",
       "semester": "Semester 4",
       "code": "6013D",
-      "name": "Program Elective course",
+      "name": "Habitat Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6013D"
     },
@@ -5568,7 +5568,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -5634,7 +5634,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -5744,7 +5744,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "2019",
-      "name": "Programme core course",
+      "name": "Basic Surveying Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2019"
     },
@@ -5755,7 +5755,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "3011",
-      "name": "Programme core course",
+      "name": "Engineering Mechanics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3011"
     },
@@ -5766,7 +5766,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "3012",
-      "name": "Programme core course",
+      "name": "Advanced Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3012"
     },
@@ -5777,7 +5777,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "3013",
-      "name": "Programme core course",
+      "name": "Estimation & Costing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3013"
     },
@@ -5788,7 +5788,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "3014",
-      "name": "Programme core course",
+      "name": "Concrete Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3014"
     },
@@ -5799,7 +5799,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "3017",
-      "name": "Programme core course",
+      "name": "CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3017"
     },
@@ -5865,7 +5865,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "4012",
-      "name": "Programme core course",
+      "name": "Theory of Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4012"
     },
@@ -5887,7 +5887,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "4018",
-      "name": "Programme core course",
+      "name": "Material Testing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4018"
     },
@@ -5898,7 +5898,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "4019",
-      "name": "Programme core course",
+      "name": "Advanced CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4019"
     },
@@ -6074,7 +6074,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 3",
       "code": "6019A",
-      "name": "Program Elective course",
+      "name": "BIM & Modelling Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6019A"
     },
@@ -6129,7 +6129,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 4",
       "code": "2012",
-      "name": "Programme core course",
+      "name": "Basic Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2012"
     },
@@ -6173,7 +6173,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 4",
       "code": "6013D",
-      "name": "Program Elective course",
+      "name": "Habitat Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6013D"
     },
@@ -6228,7 +6228,7 @@
       "programmeSlug": "civil-and-rural-engineering",
       "semester": "Semester 4",
       "code": "6361A",
-      "name": "Program Elective course",
+      "name": "Disaster Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6361A"
     },
@@ -6261,7 +6261,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -6327,7 +6327,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -6437,7 +6437,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "2019",
-      "name": "Programme core course",
+      "name": "Basic Surveying Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2019"
     },
@@ -6448,7 +6448,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "3011",
-      "name": "Programme core course",
+      "name": "Engineering Mechanics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3011"
     },
@@ -6459,7 +6459,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "3012",
-      "name": "Programme core course",
+      "name": "Advanced Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3012"
     },
@@ -6470,7 +6470,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "3013",
-      "name": "Programme core course",
+      "name": "Estimation & Costing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3013"
     },
@@ -6481,7 +6481,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "3014",
-      "name": "Programme core course",
+      "name": "Concrete Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3014"
     },
@@ -6492,7 +6492,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "3017",
-      "name": "Programme core course",
+      "name": "CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3017"
     },
@@ -6558,7 +6558,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "4012",
-      "name": "Programme core course",
+      "name": "Theory of Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4012"
     },
@@ -6591,7 +6591,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "4018",
-      "name": "Programme core course",
+      "name": "Material Testing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4018"
     },
@@ -6602,7 +6602,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "4019",
-      "name": "Programme core course",
+      "name": "Advanced CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4019"
     },
@@ -6679,7 +6679,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "5014B",
-      "name": "Program Elective course",
+      "name": "Remote Sensing and GIS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5014B"
     },
@@ -6745,7 +6745,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "5019B",
-      "name": "Program Elective course",
+      "name": "GIS Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5019B"
     },
@@ -6789,7 +6789,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 3",
       "code": "6019A",
-      "name": "Program Elective course",
+      "name": "BIM & Modelling Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6019A"
     },
@@ -6822,7 +6822,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 4",
       "code": "2012",
-      "name": "Programme core course",
+      "name": "Basic Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2012"
     },
@@ -6888,7 +6888,7 @@
       "programmeSlug": "civil-engineering",
       "semester": "Semester 4",
       "code": "6013D",
-      "name": "Program Elective course",
+      "name": "Habitat Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6013D"
     },
@@ -6954,7 +6954,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -7020,7 +7020,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -7130,7 +7130,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "2019",
-      "name": "Programme core course",
+      "name": "Basic Surveying Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2019"
     },
@@ -7141,7 +7141,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "3011",
-      "name": "Programme core course",
+      "name": "Engineering Mechanics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3011"
     },
@@ -7152,7 +7152,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "3012",
-      "name": "Programme core course",
+      "name": "Advanced Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3012"
     },
@@ -7163,7 +7163,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "3013",
-      "name": "Programme core course",
+      "name": "Estimation & Costing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3013"
     },
@@ -7174,7 +7174,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "3014",
-      "name": "Programme core course",
+      "name": "Concrete Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3014"
     },
@@ -7185,7 +7185,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "3017",
-      "name": "Programme core course",
+      "name": "CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3017"
     },
@@ -7251,7 +7251,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "4012",
-      "name": "Programme core course",
+      "name": "Theory of Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4012"
     },
@@ -7273,7 +7273,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "4018",
-      "name": "Programme core course",
+      "name": "Material Testing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4018"
     },
@@ -7284,7 +7284,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "4019",
-      "name": "Programme core course",
+      "name": "Advanced CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4019"
     },
@@ -7361,7 +7361,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "5014B",
-      "name": "Program Elective course",
+      "name": "Remote Sensing and GIS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5014B"
     },
@@ -7416,7 +7416,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "5391A",
-      "name": "Program Elective course",
+      "name": "Tendering and Contracts",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5391A"
     },
@@ -7427,7 +7427,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "5391B",
-      "name": "Program Elective course",
+      "name": "Low-Cost Housing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5391B"
     },
@@ -7460,7 +7460,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 3",
       "code": "6019A",
-      "name": "Program Elective course",
+      "name": "BIM & Modelling Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6019A"
     },
@@ -7515,7 +7515,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 4",
       "code": "2012",
-      "name": "Programme core course",
+      "name": "Basic Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2012"
     },
@@ -7559,7 +7559,7 @@
       "programmeSlug": "civil-engineering-and-planning",
       "semester": "Semester 4",
       "code": "6013D",
-      "name": "Program Elective course",
+      "name": "Habitat Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6013D"
     },
@@ -7647,7 +7647,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -7746,7 +7746,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 2",
       "code": "3143",
-      "name": "Programme core course",
+      "name": "Functional Hindi",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3143"
     },
@@ -7757,7 +7757,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -7944,7 +7944,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 3",
       "code": "4147",
-      "name": "Programme core course",
+      "name": "Shorthand Malayalam",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4147"
     },
@@ -8032,7 +8032,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 3",
       "code": "5149A",
-      "name": "Program Elective course",
+      "name": "Applied ERP with SAP",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5149A"
     },
@@ -8175,7 +8175,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 4",
       "code": "5144A",
-      "name": "Program Elective course",
+      "name": "Financial Market",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5144A"
     },
@@ -8186,7 +8186,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 4",
       "code": "5144B",
-      "name": "Program Elective course",
+      "name": "Banking & Insurance",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5144B"
     },
@@ -8208,7 +8208,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 4",
       "code": "5144D",
-      "name": "Program Elective course",
+      "name": "GST Law & Practice",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5144D"
     },
@@ -8230,7 +8230,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 4",
       "code": "6143A",
-      "name": "Program Elective course",
+      "name": "Financial Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6143A"
     },
@@ -8252,7 +8252,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 4",
       "code": "6143C",
-      "name": "Program Elective course",
+      "name": "Business Environment",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6143C"
     },
@@ -8263,7 +8263,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 4",
       "code": "6143D",
-      "name": "Program Elective course",
+      "name": "Investment Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6143D"
     },
@@ -8340,7 +8340,7 @@
       "programmeSlug": "commercial-practice",
       "semester": "Semester 4",
       "code": "6149C",
-      "name": "Program Elective course",
+      "name": "Advanced Excel with AI",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6149C"
     },
@@ -8373,7 +8373,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -8428,7 +8428,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -8483,7 +8483,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "1251",
-      "name": "Foundation Courses",
+      "name": "Basic Accounting",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=1251"
     },
@@ -8538,7 +8538,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "2251",
-      "name": "Foundation Courses",
+      "name": "AI for Business",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2251"
     },
@@ -8549,7 +8549,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "2253",
-      "name": "Foundation Courses",
+      "name": "Cost Accounting",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2253"
     },
@@ -8571,7 +8571,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "2258",
-      "name": "Foundation Courses",
+      "name": "C Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2258"
     },
@@ -8593,7 +8593,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "3251",
-      "name": "Programme core course",
+      "name": "Business Law",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3251"
     },
@@ -8802,7 +8802,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "5254B",
-      "name": "Program Elective course",
+      "name": "Warehouse Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5254B"
     },
@@ -8824,7 +8824,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "5254D",
-      "name": "Program Elective course",
+      "name": "Hospital Administration",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5254D"
     },
@@ -8846,7 +8846,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "5258",
-      "name": "Programme core course",
+      "name": "Web Designing I Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5258"
     },
@@ -8857,7 +8857,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "6251P",
-      "name": "Programme core course",
+      "name": "Digital Marketing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6251P"
     },
@@ -8868,7 +8868,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "6251T",
-      "name": "Programme core course",
+      "name": "Digital Marketing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6251T"
     },
@@ -8879,7 +8879,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "6258",
-      "name": "Programme core course",
+      "name": "Web Designing Lab II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6258"
     },
@@ -8901,7 +8901,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 3",
       "code": "6259B",
-      "name": "Program Elective course",
+      "name": "Security Market Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6259B"
     },
@@ -8912,7 +8912,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 4",
       "code": "1252",
-      "name": "Foundation Courses",
+      "name": "Business Economics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=1252"
     },
@@ -8923,7 +8923,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 4",
       "code": "1253",
-      "name": "Foundation Courses",
+      "name": "Business Studies",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=1253"
     },
@@ -8978,7 +8978,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 4",
       "code": "6252",
-      "name": "Programme core course",
+      "name": "Retail Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6252"
     },
@@ -8989,7 +8989,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 4",
       "code": "6253A",
-      "name": "Program Elective course",
+      "name": "Airport Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6253A"
     },
@@ -9000,7 +9000,7 @@
       "programmeSlug": "computer-application-and-business-management",
       "semester": "Semester 4",
       "code": "6253B",
-      "name": "Program Elective course",
+      "name": "Business Ethics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6253B"
     },
@@ -9077,7 +9077,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -9143,7 +9143,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -9253,7 +9253,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -9297,7 +9297,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "3134",
-      "name": "Programme core course",
+      "name": "Web Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3134"
     },
@@ -9363,7 +9363,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "4131",
-      "name": "Programme core course",
+      "name": "Data Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4131"
     },
@@ -9385,7 +9385,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "4133",
-      "name": "Programme core course",
+      "name": "Computer Networks",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4133"
     },
@@ -9396,7 +9396,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "4137",
-      "name": "Programme core course",
+      "name": "Data Structures Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4137"
     },
@@ -9407,7 +9407,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "4138",
-      "name": "Programme core course",
+      "name": "Web Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4138"
     },
@@ -9418,7 +9418,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "4139",
-      "name": "Programme core course",
+      "name": "UI/UX Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4139"
     },
@@ -9473,7 +9473,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "5132",
-      "name": "Programme core course",
+      "name": "Cyber Security",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5132"
     },
@@ -9506,7 +9506,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "5134C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5134C"
     },
@@ -9528,7 +9528,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "5137",
-      "name": "Programme core course",
+      "name": "Cyber Security Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5137"
     },
@@ -9572,7 +9572,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "5139C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5139C"
     },
@@ -9594,7 +9594,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "6131P",
-      "name": "Programme core course",
+      "name": "Software Testing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6131P"
     },
@@ -9605,7 +9605,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "6131T",
-      "name": "Programme core course",
+      "name": "Software Testing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6131T"
     },
@@ -9660,7 +9660,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 3",
       "code": "6139D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6139D"
     },
@@ -9682,7 +9682,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -9704,7 +9704,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 4",
       "code": "6132",
-      "name": "Programme core course",
+      "name": "Internet of Things",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6132"
     },
@@ -9748,7 +9748,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 4",
       "code": "6133D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6133D"
     },
@@ -9781,7 +9781,7 @@
       "programmeSlug": "computer-engineering",
       "semester": "Semester 4",
       "code": "6134C",
-      "name": "Open Elective course",
+      "name": "Principles to IoT",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6134C"
     },
@@ -9814,7 +9814,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -9880,7 +9880,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -9990,7 +9990,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -10034,7 +10034,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "3134",
-      "name": "Programme core course",
+      "name": "Web Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3134"
     },
@@ -10100,7 +10100,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "4131",
-      "name": "Programme core course",
+      "name": "Data Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4131"
     },
@@ -10122,7 +10122,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "4133",
-      "name": "Programme core course",
+      "name": "Computer Networks",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4133"
     },
@@ -10133,7 +10133,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "4137",
-      "name": "Programme core course",
+      "name": "Data Structures Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4137"
     },
@@ -10144,7 +10144,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "4138",
-      "name": "Programme core course",
+      "name": "Web Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4138"
     },
@@ -10155,7 +10155,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "4139",
-      "name": "Programme core course",
+      "name": "UI/UX Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4139"
     },
@@ -10232,7 +10232,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "5134C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5134C"
     },
@@ -10276,7 +10276,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "5139C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5139C"
     },
@@ -10298,7 +10298,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "5262",
-      "name": "Programme core course",
+      "name": "System Administration",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5262"
     },
@@ -10320,7 +10320,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "5302",
-      "name": "Programme core course",
+      "name": "Internet of Things",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5302"
     },
@@ -10375,7 +10375,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 3",
       "code": "6139D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6139D"
     },
@@ -10430,7 +10430,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -10474,7 +10474,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 4",
       "code": "6133D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6133D"
     },
@@ -10507,7 +10507,7 @@
       "programmeSlug": "computer-science-and-engineering",
       "semester": "Semester 4",
       "code": "6134C",
-      "name": "Open Elective course",
+      "name": "Principles to IoT",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6134C"
     },
@@ -10551,7 +10551,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -10617,7 +10617,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -10727,7 +10727,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -10771,7 +10771,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "3134",
-      "name": "Programme core course",
+      "name": "Web Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3134"
     },
@@ -10837,7 +10837,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "4131",
-      "name": "Programme core course",
+      "name": "Data Structures",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4131"
     },
@@ -10859,7 +10859,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "4133",
-      "name": "Programme core course",
+      "name": "Computer Networks",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4133"
     },
@@ -10870,7 +10870,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "4137",
-      "name": "Programme core course",
+      "name": "Data Structures Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4137"
     },
@@ -10881,7 +10881,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "4138",
-      "name": "Programme core course",
+      "name": "Web Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4138"
     },
@@ -10892,7 +10892,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "4139",
-      "name": "Programme core course",
+      "name": "UI/UX Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4139"
     },
@@ -10947,7 +10947,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "5134C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5134C"
     },
@@ -10980,7 +10980,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "5139C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5139C"
     },
@@ -10991,7 +10991,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "5302",
-      "name": "Programme core course",
+      "name": "Internet of Things",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5302"
     },
@@ -11013,7 +11013,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "5551B",
-      "name": "Program Elective course",
+      "name": "Deep Learning",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5551B"
     },
@@ -11024,7 +11024,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "5551C",
-      "name": "Program Elective course",
+      "name": "Cyber Security",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5551C"
     },
@@ -11046,7 +11046,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "5559A",
-      "name": "Program Elective course",
+      "name": "Deep Learning Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5559A"
     },
@@ -11057,7 +11057,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "5559B",
-      "name": "Program Elective course",
+      "name": "Cyber Security Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5559B"
     },
@@ -11090,7 +11090,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "6269A",
-      "name": "Program Elective course",
+      "name": "Cloud and DevOps Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6269A"
     },
@@ -11101,7 +11101,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "6269C",
-      "name": "Program Elective course",
+      "name": "Soft Computing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6269C"
     },
@@ -11112,7 +11112,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "6551P",
-      "name": "Programme core course",
+      "name": "Mobile Programming",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6551P"
     },
@@ -11123,7 +11123,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 3",
       "code": "6551T",
-      "name": "Programme core course",
+      "name": "Mobile Programming",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6551T"
     },
@@ -11156,7 +11156,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -11222,7 +11222,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 4",
       "code": "6134C",
-      "name": "Open Elective course",
+      "name": "Principles to IoT",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6134C"
     },
@@ -11244,7 +11244,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 4",
       "code": "6263A",
-      "name": "Program Elective course",
+      "name": "Cloud and DevOps",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6263A"
     },
@@ -11255,7 +11255,7 @@
       "programmeSlug": "computer-science-and-technology",
       "semester": "Semester 4",
       "code": "6263C",
-      "name": "Program Elective course",
+      "name": "Soft Computing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6263C"
     },
@@ -11288,7 +11288,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -11354,7 +11354,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -11464,7 +11464,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -11530,7 +11530,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "3289",
-      "name": "Programme core course",
+      "name": "Web Technology Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3289"
     },
@@ -11574,7 +11574,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "4139",
-      "name": "Programme core course",
+      "name": "UI/UX Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4139"
     },
@@ -11585,7 +11585,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "4281",
-      "name": "Programme core course",
+      "name": "Biometric Security",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4281"
     },
@@ -11607,7 +11607,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "4283",
-      "name": "Programme core course",
+      "name": "Web Programming",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4283"
     },
@@ -11629,7 +11629,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "4289",
-      "name": "Programme core course",
+      "name": "Cyber Forensics Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4289"
     },
@@ -11695,7 +11695,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "5283A",
-      "name": "Program Elective course",
+      "name": "Introduction to IoT",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5283A"
     },
@@ -11750,7 +11750,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "5288",
-      "name": "Programme core course",
+      "name": "Network Security Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5288"
     },
@@ -11794,7 +11794,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 3",
       "code": "6139D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6139D"
     },
@@ -11849,7 +11849,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -11860,7 +11860,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 4",
       "code": "5282",
-      "name": "Programme core course",
+      "name": "Network Security",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5282"
     },
@@ -11871,7 +11871,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 4",
       "code": "6133D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6133D"
     },
@@ -11926,7 +11926,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 4",
       "code": "6283C",
-      "name": "Program Elective course",
+      "name": "Cyber Forensics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6283C"
     },
@@ -11937,7 +11937,7 @@
       "programmeSlug": "cyber-forensics-and-information-security",
       "semester": "Semester 4",
       "code": "6284A",
-      "name": "Open Elective course",
+      "name": "Data Mining",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6284A"
     },
@@ -11970,7 +11970,7 @@
       "programmeSlug": "electrical-and-electronics-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -12047,7 +12047,7 @@
       "programmeSlug": "electrical-and-electronics-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -12179,7 +12179,7 @@
       "programmeSlug": "electrical-and-electronics-engineering",
       "semester": "Semester 3",
       "code": "3032",
-      "name": "Programme core course",
+      "name": "Electrical Machines I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3032"
     },
@@ -12410,7 +12410,7 @@
       "programmeSlug": "electrical-and-electronics-engineering",
       "semester": "Semester 3",
       "code": "5033D",
-      "name": "Program Elective course",
+      "name": "Renewable Power Plants",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5033D"
     },
@@ -12432,7 +12432,7 @@
       "programmeSlug": "electrical-and-electronics-engineering",
       "semester": "Semester 3",
       "code": "5038",
-      "name": "Programme core course",
+      "name": "Power Electronics Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5038"
     },
@@ -12509,7 +12509,7 @@
       "programmeSlug": "electrical-and-electronics-engineering",
       "semester": "Semester 3",
       "code": "6039B",
-      "name": "Program Elective course",
+      "name": "Embedded Systems Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6039B"
     },
@@ -12542,7 +12542,7 @@
       "programmeSlug": "electrical-and-electronics-engineering",
       "semester": "Semester 4",
       "code": "5032",
-      "name": "Programme core course",
+      "name": "Power Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5032"
     },
@@ -12663,7 +12663,7 @@
       "programmeSlug": "electrical-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -12740,7 +12740,7 @@
       "programmeSlug": "electrical-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -12872,7 +12872,7 @@
       "programmeSlug": "electrical-engineering",
       "semester": "Semester 3",
       "code": "3032",
-      "name": "Programme core course",
+      "name": "Electrical Machines I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3032"
     },
@@ -13103,7 +13103,7 @@
       "programmeSlug": "electrical-engineering",
       "semester": "Semester 3",
       "code": "5033D",
-      "name": "Program Elective course",
+      "name": "Renewable Power Plants",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5033D"
     },
@@ -13125,7 +13125,7 @@
       "programmeSlug": "electrical-engineering",
       "semester": "Semester 3",
       "code": "5038",
-      "name": "Programme core course",
+      "name": "Power Electronics Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5038"
     },
@@ -13180,7 +13180,7 @@
       "programmeSlug": "electrical-engineering",
       "semester": "Semester 3",
       "code": "6039B",
-      "name": "Program Elective course",
+      "name": "Embedded Systems Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6039B"
     },
@@ -13235,7 +13235,7 @@
       "programmeSlug": "electrical-engineering",
       "semester": "Semester 4",
       "code": "5032",
-      "name": "Programme core course",
+      "name": "Power Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5032"
     },
@@ -13356,7 +13356,7 @@
       "programmeSlug": "electrical-engineering-and-electric-vehicles-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -13433,7 +13433,7 @@
       "programmeSlug": "electrical-engineering-and-electric-vehicles-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -13565,7 +13565,7 @@
       "programmeSlug": "electrical-engineering-and-electric-vehicles-technology",
       "semester": "Semester 3",
       "code": "3032",
-      "name": "Programme core course",
+      "name": "Electrical Machines I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3032"
     },
@@ -13785,7 +13785,7 @@
       "programmeSlug": "electrical-engineering-and-electric-vehicles-technology",
       "semester": "Semester 3",
       "code": "5033D",
-      "name": "Program Elective course",
+      "name": "Renewable Power Plants",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5033D"
     },
@@ -13807,7 +13807,7 @@
       "programmeSlug": "electrical-engineering-and-electric-vehicles-technology",
       "semester": "Semester 3",
       "code": "5038",
-      "name": "Programme core course",
+      "name": "Power Electronics Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5038"
     },
@@ -13884,7 +13884,7 @@
       "programmeSlug": "electrical-engineering-and-electric-vehicles-technology",
       "semester": "Semester 3",
       "code": "6039B",
-      "name": "Program Elective course",
+      "name": "Embedded Systems Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6039B"
     },
@@ -13928,7 +13928,7 @@
       "programmeSlug": "electrical-engineering-and-electric-vehicles-technology",
       "semester": "Semester 4",
       "code": "5032",
-      "name": "Programme core course",
+      "name": "Power Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5032"
     },
@@ -14049,7 +14049,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -14115,7 +14115,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -14258,7 +14258,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 3",
       "code": "3043",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3043"
     },
@@ -14269,7 +14269,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 3",
       "code": "3044",
-      "name": "Programme core course",
+      "name": "Analog Circuits",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3044"
     },
@@ -14291,7 +14291,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 3",
       "code": "3048",
-      "name": "Programme core course",
+      "name": "Analog Circuits Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3048"
     },
@@ -14335,7 +14335,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 3",
       "code": "4041",
-      "name": "Programme core course",
+      "name": "Analog Communication",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4041"
     },
@@ -14544,7 +14544,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 3",
       "code": "5049C",
-      "name": "Program Elective course",
+      "name": "Microwave Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5049C"
     },
@@ -14577,7 +14577,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 3",
       "code": "6048",
-      "name": "Programme core course",
+      "name": "Robotics and AI Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6048"
     },
@@ -14665,7 +14665,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 4",
       "code": "6043B",
-      "name": "Program Elective course",
+      "name": "Medical Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6043B"
     },
@@ -14687,7 +14687,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 4",
       "code": "6043D",
-      "name": "Program Elective course",
+      "name": "Principles of MEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6043D"
     },
@@ -14709,7 +14709,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 4",
       "code": "6044B",
-      "name": "Open Elective course",
+      "name": "Modern Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6044B"
     },
@@ -14720,7 +14720,7 @@
       "programmeSlug": "electronics-engineering",
       "semester": "Semester 4",
       "code": "6044C",
-      "name": "Open Elective course",
+      "name": "Drone Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6044C"
     },
@@ -14753,7 +14753,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -14819,7 +14819,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -14962,7 +14962,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 3",
       "code": "3043",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3043"
     },
@@ -14973,7 +14973,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 3",
       "code": "3044",
-      "name": "Programme core course",
+      "name": "Analog Circuits",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3044"
     },
@@ -14995,7 +14995,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 3",
       "code": "3048",
-      "name": "Programme core course",
+      "name": "Analog Circuits Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3048"
     },
@@ -15039,7 +15039,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 3",
       "code": "4041",
-      "name": "Programme core course",
+      "name": "Analog Communication",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4041"
     },
@@ -15226,7 +15226,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 3",
       "code": "5202A",
-      "name": "Program Elective course",
+      "name": "Microwave Communication",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5202A"
     },
@@ -15281,7 +15281,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 3",
       "code": "6048",
-      "name": "Program Elective course",
+      "name": "Robotics and AI Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6048"
     },
@@ -15336,7 +15336,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 4",
       "code": "5201",
-      "name": "Programme core course",
+      "name": "Digital Communication",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5201"
     },
@@ -15369,7 +15369,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 4",
       "code": "6043D",
-      "name": "Program Elective course",
+      "name": "Principles of MEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6043D"
     },
@@ -15391,7 +15391,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 4",
       "code": "6044C",
-      "name": "Open Elective course",
+      "name": "Drone Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6044C"
     },
@@ -15424,7 +15424,7 @@
       "programmeSlug": "electronics-and-communication",
       "semester": "Semester 4",
       "code": "6203A",
-      "name": "Open Elective course",
+      "name": "Applied Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6203A"
     },
@@ -15457,7 +15457,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -15523,7 +15523,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -15655,7 +15655,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 3",
       "code": "3043",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3043"
     },
@@ -15666,7 +15666,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 3",
       "code": "3044",
-      "name": "Programme core course",
+      "name": "Analog Circuits",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3044"
     },
@@ -15688,7 +15688,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 3",
       "code": "3048",
-      "name": "Programme core course",
+      "name": "Analog Circuits Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3048"
     },
@@ -15897,7 +15897,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 3",
       "code": "5049C",
-      "name": "Program Elective course",
+      "name": "Microwave Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5049C"
     },
@@ -15985,7 +15985,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 3",
       "code": "6048",
-      "name": "Programme core course",
+      "name": "Robotics and AI Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6048"
     },
@@ -16007,7 +16007,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 3",
       "code": "6139D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6139D"
     },
@@ -16073,7 +16073,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 4",
       "code": "6043D",
-      "name": "Program Elective course",
+      "name": "Principles of MEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6043D"
     },
@@ -16095,7 +16095,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 4",
       "code": "6044C",
-      "name": "Open Elective course",
+      "name": "Drone Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6044C"
     },
@@ -16106,7 +16106,7 @@
       "programmeSlug": "electronics-and-computer-engineering",
       "semester": "Semester 4",
       "code": "6133D",
-      "name": "Program Elective course",
+      "name": "Ethical Hacking",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6133D"
     },
@@ -16161,7 +16161,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -16227,7 +16227,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -16359,7 +16359,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "3462",
-      "name": "Programme core course",
+      "name": "Basic First Aid",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3462"
     },
@@ -16370,7 +16370,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "3463",
-      "name": "Programme core course",
+      "name": "Electrical Safety",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3463"
     },
@@ -16392,7 +16392,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "3468",
-      "name": "Programme core course",
+      "name": "Basic First aid lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3468"
     },
@@ -16403,7 +16403,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "3469",
-      "name": "Programme core course",
+      "name": "Advanced CADD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3469"
     },
@@ -16436,7 +16436,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "4027",
-      "name": "Programme core course",
+      "name": "Mechanical Workshop",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4027"
     },
@@ -16480,7 +16480,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "4467",
-      "name": "Programme core course",
+      "name": "Fire Engineering Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4467"
     },
@@ -16590,7 +16590,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "5463D",
-      "name": "Program Elective course",
+      "name": "Manufacturing Process",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5463D"
     },
@@ -16623,7 +16623,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 3",
       "code": "5469A",
-      "name": "Program Elective course",
+      "name": "Transportation Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5469A"
     },
@@ -16788,7 +16788,7 @@
       "programmeSlug": "fire-technology-and-safety",
       "semester": "Semester 4",
       "code": "6464A",
-      "name": "Open Elective course",
+      "name": "Safety Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6464A"
     },
@@ -16843,7 +16843,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -16909,7 +16909,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -17041,7 +17041,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "3422",
-      "name": "Programme core course",
+      "name": "Food Microbiology I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3422"
     },
@@ -17052,7 +17052,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "3423",
-      "name": "Programme core course",
+      "name": "Food Chemistry I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3423"
     },
@@ -17129,7 +17129,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "4421",
-      "name": "Programme core course",
+      "name": "Food Microbiology II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4421"
     },
@@ -17140,7 +17140,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "4422",
-      "name": "Programme core course",
+      "name": "Food Analysis",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4422"
     },
@@ -17151,7 +17151,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "4423",
-      "name": "Programme core course",
+      "name": "Food Preservation",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4423"
     },
@@ -17173,7 +17173,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "4428",
-      "name": "Programme core course",
+      "name": "Food Analysis Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4428"
     },
@@ -17184,7 +17184,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "4429",
-      "name": "Programme core course",
+      "name": "Food Chemistry II Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4429"
     },
@@ -17250,7 +17250,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "5423A",
-      "name": "Program Elective course",
+      "name": "Food Chemistry II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5423A"
     },
@@ -17261,7 +17261,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "5423B",
-      "name": "Program Elective course",
+      "name": "Beverage Processing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5423B"
     },
@@ -17305,7 +17305,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 3",
       "code": "5428",
-      "name": "Programme core course",
+      "name": "Food Additives Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5428"
     },
@@ -17415,7 +17415,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 4",
       "code": "5422",
-      "name": "Programme core course",
+      "name": "Food Additives",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5422"
     },
@@ -17437,7 +17437,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 4",
       "code": "6423A",
-      "name": "Program Elective course",
+      "name": "Cereals and Legumes",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6423A"
     },
@@ -17448,7 +17448,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 4",
       "code": "6423B",
-      "name": "Program Elective course",
+      "name": "Spices and Condiments",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6423B"
     },
@@ -17470,7 +17470,7 @@
       "programmeSlug": "food-processing-technology",
       "semester": "Semester 4",
       "code": "6423D",
-      "name": "Program Elective course",
+      "name": "Food Packing Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6423D"
     },
@@ -17536,7 +17536,7 @@
       "programmeSlug": "information-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -17602,7 +17602,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -17712,7 +17712,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -17745,7 +17745,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "3261",
-      "name": "Programme core course",
+      "name": "Web Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3261"
     },
@@ -17756,7 +17756,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "3262",
-      "name": "Programme core course",
+      "name": "Database Systems",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3262"
     },
@@ -17778,7 +17778,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "3268",
-      "name": "Programme core course",
+      "name": "UI/UX Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3268"
     },
@@ -17789,7 +17789,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "3269",
-      "name": "Programme core course",
+      "name": "Web Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3269"
     },
@@ -17822,7 +17822,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "4138",
-      "name": "Programme core course",
+      "name": "Web Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4138"
     },
@@ -17833,7 +17833,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "4261",
-      "name": "Programme core course",
+      "name": "Web Programming",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4261"
     },
@@ -17943,7 +17943,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "5134C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5134C"
     },
@@ -17976,7 +17976,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "5139C",
-      "name": "Program Elective course",
+      "name": "Digital Marketing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5139C"
     },
@@ -18009,7 +18009,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "5262",
-      "name": "Programme core course",
+      "name": "System Administration",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5262"
     },
@@ -18108,7 +18108,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "6269A",
-      "name": "Program Elective course",
+      "name": "Cloud and DevOps Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6269A"
     },
@@ -18119,7 +18119,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "6269B",
-      "name": "Program Elective course",
+      "name": "Cyber Forensic Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6269B"
     },
@@ -18130,7 +18130,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 3",
       "code": "6269C",
-      "name": "Program Elective course",
+      "name": "Soft Computing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6269C"
     },
@@ -18152,7 +18152,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -18185,7 +18185,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 4",
       "code": "6263A",
-      "name": "Program Elective course",
+      "name": "Cloud and DevOps",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6263A"
     },
@@ -18196,7 +18196,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 4",
       "code": "6263B",
-      "name": "Program Elective course",
+      "name": "Cyber Forensics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6263B"
     },
@@ -18207,7 +18207,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 4",
       "code": "6263C",
-      "name": "Program Elective course",
+      "name": "Soft Computing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6263C"
     },
@@ -18218,7 +18218,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 4",
       "code": "6264A",
-      "name": "Open Elective course",
+      "name": "Web Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6264A"
     },
@@ -18251,7 +18251,7 @@
       "programmeSlug": "information-technology",
       "semester": "Semester 4",
       "code": "6264D",
-      "name": "Open Elective course",
+      "name": "Web Programming",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6264D"
     },
@@ -18273,7 +18273,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -18339,7 +18339,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -18460,7 +18460,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 3",
       "code": "3081",
-      "name": "Programme core course",
+      "name": "Electronic Circuits",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3081"
     },
@@ -18482,7 +18482,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 3",
       "code": "3083",
-      "name": "Programme core course",
+      "name": "Logic Circuits Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3083"
     },
@@ -18515,7 +18515,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 3",
       "code": "3088",
-      "name": "Programme core course",
+      "name": "Measurements Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3088"
     },
@@ -18559,7 +18559,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 3",
       "code": "4081",
-      "name": "Programme core course",
+      "name": "Control Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4081"
     },
@@ -18614,7 +18614,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 3",
       "code": "4089",
-      "name": "Programme core course",
+      "name": "System Simulation Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4089"
     },
@@ -18702,7 +18702,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 3",
       "code": "5083C",
-      "name": "Program Elective course",
+      "name": "Robotics and Control",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5083C"
     },
@@ -18944,7 +18944,7 @@
       "programmeSlug": "instrumentation-engineering",
       "semester": "Semester 4",
       "code": "6084B",
-      "name": "Open Elective course",
+      "name": "Industrial IOT",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6084B"
     },
@@ -18988,7 +18988,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -19054,7 +19054,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -19186,7 +19186,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "3043",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3043"
     },
@@ -19197,7 +19197,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "3044",
-      "name": "Programme core course",
+      "name": "Analog Circuits",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3044"
     },
@@ -19219,7 +19219,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "3048",
-      "name": "Programme core course",
+      "name": "Analog Circuits Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3048"
     },
@@ -19241,7 +19241,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "3371",
-      "name": "Programme core course",
+      "name": "IC Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3371"
     },
@@ -19318,7 +19318,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "4371",
-      "name": "Programme core course",
+      "name": "Solid State Devices",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4371"
     },
@@ -19439,7 +19439,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "5371",
-      "name": "Programme core course",
+      "name": "CAD for VLSI",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5371"
     },
@@ -19461,7 +19461,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "5378",
-      "name": "Programme core course",
+      "name": "VLSI CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5378"
     },
@@ -19505,7 +19505,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 3",
       "code": "6048",
-      "name": "Programme core course",
+      "name": "Robotics and AI Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6048"
     },
@@ -19560,7 +19560,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 4",
       "code": "5372",
-      "name": "Programme core course",
+      "name": "VLSI Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5372"
     },
@@ -19593,7 +19593,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 4",
       "code": "6043D",
-      "name": "Program Elective course",
+      "name": "Principles of MEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6043D"
     },
@@ -19615,7 +19615,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 4",
       "code": "6044B",
-      "name": "Open Elective course",
+      "name": "Modern Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6044B"
     },
@@ -19626,7 +19626,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 4",
       "code": "6203A",
-      "name": "Open Elective course",
+      "name": "Applied Electronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6203A"
     },
@@ -19648,7 +19648,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 4",
       "code": "6371B",
-      "name": "Program Elective course",
+      "name": "Sensors and Actuators",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6371B"
     },
@@ -19659,7 +19659,7 @@
       "programmeSlug": "integrated-circuit-design-and-fabrication",
       "semester": "Semester 4",
       "code": "6372A",
-      "name": "Open Elective course",
+      "name": "Renewable Energy",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6372A"
     },
@@ -19681,7 +19681,7 @@
       "programmeSlug": "interior-design",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -19824,7 +19824,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 2",
       "code": "3532",
-      "name": "Programme core course",
+      "name": "Space Documentation",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3532"
     },
@@ -19846,7 +19846,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -19967,7 +19967,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "3189",
-      "name": "Programme core course",
+      "name": "CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3189"
     },
@@ -20022,7 +20022,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "4182",
-      "name": "Programme core course",
+      "name": "Building Services",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4182"
     },
@@ -20099,7 +20099,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "5183B",
-      "name": "Program Elective course",
+      "name": "Vernacular Architecture",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5183B"
     },
@@ -20121,7 +20121,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "5532",
-      "name": "Programme core course",
+      "name": "Furniture Design I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5532"
     },
@@ -20154,7 +20154,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "5539",
-      "name": "Programme core course",
+      "name": "Digital Photography",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5539"
     },
@@ -20165,7 +20165,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "6189",
-      "name": "Programme core course",
+      "name": "Advanced CAD lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6189"
     },
@@ -20176,7 +20176,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "6531P",
-      "name": "Programme core course",
+      "name": "Furniture Design II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6531P"
     },
@@ -20187,7 +20187,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 3",
       "code": "6531T",
-      "name": "Programme core course",
+      "name": "Furniture Design II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6531T"
     },
@@ -20264,7 +20264,7 @@
       "programmeSlug": "interior-design",
       "semester": "Semester 4",
       "code": "6532A",
-      "name": "Program Elective course",
+      "name": "Landscape for Interiors",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6532A"
     },
@@ -20297,7 +20297,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -20363,7 +20363,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -20374,7 +20374,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 2",
       "code": "4021",
-      "name": "Programme core course",
+      "name": "Strength of Materials",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4021"
     },
@@ -20495,7 +20495,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "3021",
-      "name": "Programme core course",
+      "name": "Thermal Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3021"
     },
@@ -20528,7 +20528,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "3028",
-      "name": "Programme core course",
+      "name": "CADD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3028"
     },
@@ -20572,7 +20572,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "4022",
-      "name": "Programme core course",
+      "name": "Machine Tools",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4022"
     },
@@ -20605,7 +20605,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "4027",
-      "name": "Programme core course",
+      "name": "Mechanical Workshop",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4027"
     },
@@ -20693,7 +20693,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "5024A",
-      "name": "Program Elective course",
+      "name": "Non-destructive Testing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5024A"
     },
@@ -20704,7 +20704,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "5024B",
-      "name": "Program Elective course",
+      "name": "Power Plant Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5024B"
     },
@@ -20715,7 +20715,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "5024C",
-      "name": "Program Elective course",
+      "name": "Composite Materials",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5024C"
     },
@@ -20737,7 +20737,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "5028",
-      "name": "Programme core course",
+      "name": "Machine Shop Practice",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5028"
     },
@@ -20748,7 +20748,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "5029A",
-      "name": "Program Elective course",
+      "name": "Design and Analysis Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5029A"
     },
@@ -20759,7 +20759,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "5029B",
-      "name": "Program Elective course",
+      "name": "NDT Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5029B"
     },
@@ -20814,7 +20814,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 3",
       "code": "6029B",
-      "name": "Program Elective course",
+      "name": "Electric Vehicles Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6029B"
     },
@@ -20891,7 +20891,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 4",
       "code": "6023B",
-      "name": "Program Elective course",
+      "name": "Additive Manufacturing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6023B"
     },
@@ -20902,7 +20902,7 @@
       "programmeSlug": "mechanical-engineering",
       "semester": "Semester 4",
       "code": "6023C",
-      "name": "Program Elective course",
+      "name": "Electric Vehicles",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6023C"
     },
@@ -20979,7 +20979,7 @@
       "programmeSlug": "mechatronics",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -21045,7 +21045,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -21232,7 +21232,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "3439",
-      "name": "Programme core course",
+      "name": "CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3439"
     },
@@ -21265,7 +21265,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "4431",
-      "name": "Programme core course",
+      "name": "Mechanics of Robotics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4431"
     },
@@ -21375,7 +21375,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "5383C",
-      "name": "Program Elective course",
+      "name": "IoT and Applications",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5383C"
     },
@@ -21408,7 +21408,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "5433B",
-      "name": "Program Elective course",
+      "name": "Automobile Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5433B"
     },
@@ -21419,7 +21419,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "5433D",
-      "name": "Program Elective course",
+      "name": "Network Theory",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5433D"
     },
@@ -21463,7 +21463,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "5439B",
-      "name": "Program Elective course",
+      "name": "IoT Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5439B"
     },
@@ -21474,7 +21474,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "6431P",
-      "name": "Programme core course",
+      "name": "Bio Mechatronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6431P"
     },
@@ -21485,7 +21485,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "6431T",
-      "name": "Programme core course",
+      "name": "Bio Mechatronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6431T"
     },
@@ -21507,7 +21507,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "6439A",
-      "name": "Program Elective course",
+      "name": "Thermal Engineering Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6439A"
     },
@@ -21518,7 +21518,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 3",
       "code": "6439B",
-      "name": "Program Elective course",
+      "name": "MEMS Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6439B"
     },
@@ -21584,7 +21584,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 4",
       "code": "6433A",
-      "name": "Program Elective course",
+      "name": "Thermodynamics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6433A"
     },
@@ -21595,7 +21595,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 4",
       "code": "6433B",
-      "name": "Program Elective course",
+      "name": "Renewable Energy",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6433B"
     },
@@ -21606,7 +21606,7 @@
       "programmeSlug": "mechatronics",
       "semester": "Semester 4",
       "code": "6433C",
-      "name": "Program Elective course",
+      "name": "Maintenance Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6433C"
     },
@@ -21661,7 +21661,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -21727,7 +21727,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -21848,7 +21848,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "3043",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3043"
     },
@@ -21859,7 +21859,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "3048",
-      "name": "Programme core course",
+      "name": "Analog Circuits Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3048"
     },
@@ -21881,7 +21881,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "3491",
-      "name": "Programme core course",
+      "name": "Solid State Devices",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3491"
     },
@@ -21903,7 +21903,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "3493",
-      "name": "Programme core course",
+      "name": "Logic Circuit Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3493"
     },
@@ -21991,7 +21991,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "4491",
-      "name": "Programme core course",
+      "name": "VLSI Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4491"
     },
@@ -22002,7 +22002,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "4499",
-      "name": "Programme core course",
+      "name": "VLSI Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4499"
     },
@@ -22079,7 +22079,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "5491",
-      "name": "Programme core course",
+      "name": "Digital System Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5491"
     },
@@ -22090,7 +22090,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "5493A",
-      "name": "Program Elective course",
+      "name": "Embedded System",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5493A"
     },
@@ -22101,7 +22101,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "5493B",
-      "name": "Program Elective course",
+      "name": "Digital CMOS VLSI",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5493B"
     },
@@ -22112,7 +22112,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "5493C",
-      "name": "Program Elective course",
+      "name": "Introduction to MEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5493C"
     },
@@ -22145,7 +22145,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "5499A",
-      "name": "Program Elective course",
+      "name": "VHDL Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5499A"
     },
@@ -22156,7 +22156,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "6048",
-      "name": "Programme core course",
+      "name": "Robotics and AI Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6048"
     },
@@ -22178,7 +22178,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "6491P",
-      "name": "Programme core course",
+      "name": "Principles of IoT",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6491P"
     },
@@ -22189,7 +22189,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "6491T",
-      "name": "Programme core course",
+      "name": "Principles of IoT",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6491T"
     },
@@ -22200,7 +22200,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 3",
       "code": "6499A",
-      "name": "Program Elective course",
+      "name": "Sensors & Actuators Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6499A"
     },
@@ -22277,7 +22277,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 4",
       "code": "6044C",
-      "name": "Open Elective course",
+      "name": "Drone Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6044C"
     },
@@ -22288,7 +22288,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 4",
       "code": "6492A",
-      "name": "Program Elective course",
+      "name": "VLSI Testing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6492A"
     },
@@ -22299,7 +22299,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 4",
       "code": "6492B",
-      "name": "Program Elective course",
+      "name": "RF MEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6492B"
     },
@@ -22310,7 +22310,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 4",
       "code": "6492C",
-      "name": "Program Elective course",
+      "name": "Nanoelectronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6492C"
     },
@@ -22332,7 +22332,7 @@
       "programmeSlug": "micro-electronics",
       "semester": "Semester 4",
       "code": "6493B",
-      "name": "Open Elective course",
+      "name": "MEMS",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6493B"
     },
@@ -22354,7 +22354,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -22420,7 +22420,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -22519,7 +22519,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "2099",
-      "name": "Programme core course",
+      "name": "Polymer Science Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2099"
     },
@@ -22574,7 +22574,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "3094",
-      "name": "Programme core course",
+      "name": "Synthetic Rubbers",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3094"
     },
@@ -22607,7 +22607,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "3099",
-      "name": "Programme core course",
+      "name": "Introduction to CAD",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3099"
     },
@@ -22651,7 +22651,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "4092",
-      "name": "Programme core course",
+      "name": "Latex Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4092"
     },
@@ -22662,7 +22662,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "4093",
-      "name": "Programme core course",
+      "name": "Rubber Products",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4093"
     },
@@ -22684,7 +22684,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "4098",
-      "name": "Programme core course",
+      "name": "Latex Technology Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4098"
     },
@@ -22750,7 +22750,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "5091",
-      "name": "Programme core course",
+      "name": "Plastic Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5091"
     },
@@ -22761,7 +22761,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "5093A",
-      "name": "Program Elective course",
+      "name": "Tyre Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5093A"
     },
@@ -22772,7 +22772,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "5093B",
-      "name": "Program Elective course",
+      "name": "Polymers for Packaging",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5093B"
     },
@@ -22783,7 +22783,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "5093C",
-      "name": "Program Elective course",
+      "name": "Polymer Recycling",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5093C"
     },
@@ -22794,7 +22794,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "5093D",
-      "name": "Program Elective course",
+      "name": "Polymer Adhesives",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5093D"
     },
@@ -22816,7 +22816,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "5098",
-      "name": "Programme core course",
+      "name": "Physical Testing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5098"
     },
@@ -22849,7 +22849,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "6091P",
-      "name": "Programme core course",
+      "name": "Fibres and Composites",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6091P"
     },
@@ -22860,7 +22860,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 3",
       "code": "6091T",
-      "name": "Programme core course",
+      "name": "Fibres and Composites",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6091T"
     },
@@ -22904,7 +22904,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 4",
       "code": "2091",
-      "name": "Programme core course",
+      "name": "Polymer Science",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2091"
     },
@@ -22937,7 +22937,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 4",
       "code": "6092",
-      "name": "Programme core course",
+      "name": "Plastic Products",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6092"
     },
@@ -22948,7 +22948,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 4",
       "code": "6093A",
-      "name": "Program Elective course",
+      "name": "Injection Mould Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6093A"
     },
@@ -22959,7 +22959,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 4",
       "code": "6093B",
-      "name": "Program Elective course",
+      "name": "Biopolymers",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6093B"
     },
@@ -22970,7 +22970,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 4",
       "code": "6093C",
-      "name": "Program Elective course",
+      "name": "Speciality Polymers",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6093C"
     },
@@ -22981,7 +22981,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 4",
       "code": "6093D",
-      "name": "Program Elective course",
+      "name": "Paint Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6093D"
     },
@@ -23014,7 +23014,7 @@
       "programmeSlug": "polymer-technology",
       "semester": "Semester 4",
       "code": "6094C",
-      "name": "Open Elective course",
+      "name": "Smart Polymers",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6094C"
     },
@@ -23047,7 +23047,7 @@
       "programmeSlug": "printing-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -23113,7 +23113,7 @@
       "programmeSlug": "printing-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -23487,7 +23487,7 @@
       "programmeSlug": "printing-technology",
       "semester": "Semester 3",
       "code": "5103D",
-      "name": "Program Elective course",
+      "name": "Printing and Logistics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5103D"
     },
@@ -23575,7 +23575,7 @@
       "programmeSlug": "printing-technology",
       "semester": "Semester 3",
       "code": "6109A",
-      "name": "Program Elective course",
+      "name": "Package Testing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6109A"
     },
@@ -23586,7 +23586,7 @@
       "programmeSlug": "printing-technology",
       "semester": "Semester 3",
       "code": "6109B",
-      "name": "Program Elective course",
+      "name": "MATLAB",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6109B"
     },
@@ -23740,7 +23740,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -23806,7 +23806,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -23916,7 +23916,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "2139",
-      "name": "Programme core course",
+      "name": "Programming in C Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2139"
     },
@@ -23938,7 +23938,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "3134",
-      "name": "Programme core course",
+      "name": "Web Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3134"
     },
@@ -24037,7 +24037,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "4138",
-      "name": "Programme core course",
+      "name": "Web Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4138"
     },
@@ -24147,7 +24147,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "5302",
-      "name": "Programme core course",
+      "name": "Internet of Things",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5302"
     },
@@ -24191,7 +24191,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "5303D",
-      "name": "Program Elective course",
+      "name": "Data Mining",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5303D"
     },
@@ -24224,7 +24224,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "5309B",
-      "name": "Program Elective course",
+      "name": "Data Mining Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5309B"
     },
@@ -24268,7 +24268,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "6308",
-      "name": "Programme core course",
+      "name": "Julia Programming Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6308"
     },
@@ -24290,7 +24290,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 3",
       "code": "6309B",
-      "name": "Program Elective course",
+      "name": "Cyber Security Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6309B"
     },
@@ -24312,7 +24312,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 4",
       "code": "2132",
-      "name": "Programme core course",
+      "name": "Programming in C",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2132"
     },
@@ -24334,7 +24334,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 4",
       "code": "6263C",
-      "name": "Program Elective course",
+      "name": "Soft Computing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6263C"
     },
@@ -24356,7 +24356,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 4",
       "code": "6303A",
-      "name": "Program Elective course",
+      "name": "Software Testing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6303A"
     },
@@ -24389,7 +24389,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 4",
       "code": "6304C",
-      "name": "Open Elective course",
+      "name": "Digital Marketing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6304C"
     },
@@ -24400,7 +24400,7 @@
       "programmeSlug": "robotic-process-automation",
       "semester": "Semester 4",
       "code": "6304D",
-      "name": "Open Elective course",
+      "name": "Multimedia",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6304D"
     },
@@ -24433,7 +24433,7 @@
       "programmeSlug": "textile-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -24499,7 +24499,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -24532,7 +24532,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 3",
       "code": "1061",
-      "name": "Engineering Science",
+      "name": "Fibre Science",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=1061"
     },
@@ -24917,7 +24917,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 3",
       "code": "5069B",
-      "name": "Program Elective course",
+      "name": "Garment CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5069B"
     },
@@ -24972,7 +24972,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 3",
       "code": "6069B",
-      "name": "Program Elective course",
+      "name": "Fashion Technology Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6069B"
     },
@@ -25016,7 +25016,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 4",
       "code": "6062",
-      "name": "Programme core course",
+      "name": "Technical Textiles",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6062"
     },
@@ -25049,7 +25049,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 4",
       "code": "6063C",
-      "name": "Program Elective course",
+      "name": "Textile Mill Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6063C"
     },
@@ -25060,7 +25060,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 4",
       "code": "6063D",
-      "name": "Program Elective course",
+      "name": "High Performance Fibres",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6063D"
     },
@@ -25082,7 +25082,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 4",
       "code": "6064B",
-      "name": "Open Elective course",
+      "name": "Geotextiles",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6064B"
     },
@@ -25093,7 +25093,7 @@
       "programmeSlug": "textile-technology",
       "semester": "Semester 4",
       "code": "6064C",
-      "name": "Open Elective course",
+      "name": "Textile Composites",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6064C"
     },
@@ -25115,7 +25115,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -25181,7 +25181,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -25291,7 +25291,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "2119",
-      "name": "Programme core course",
+      "name": "Basic CAD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2119"
     },
@@ -25324,7 +25324,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "3112",
-      "name": "Programme core course",
+      "name": "Engineering Metrology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3112"
     },
@@ -25357,7 +25357,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "3117",
-      "name": "Programme core course",
+      "name": "Metrology Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3117"
     },
@@ -25368,7 +25368,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "3118",
-      "name": "Programme core course",
+      "name": "Mould and Die Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3118"
     },
@@ -25412,7 +25412,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "4112",
-      "name": "Programme core course",
+      "name": "Press Tool Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4112"
     },
@@ -25434,7 +25434,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "4117",
-      "name": "Programme core course",
+      "name": "Press Tool Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4117"
     },
@@ -25544,7 +25544,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "5113C",
-      "name": "Program Elective course",
+      "name": "CAD/CAM",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5113C"
     },
@@ -25588,7 +25588,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "5119A",
-      "name": "Program Elective course",
+      "name": "Advanced Tooling Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5119A"
     },
@@ -25632,7 +25632,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "6117",
-      "name": "Programme core course",
+      "name": "CAM & 3D Printing Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6117"
     },
@@ -25643,7 +25643,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 3",
       "code": "6118A",
-      "name": "Program Elective course",
+      "name": "Product Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6118A"
     },
@@ -25698,7 +25698,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 4",
       "code": "6023B",
-      "name": "Program Elective course",
+      "name": "Additive Manufacturing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6023B"
     },
@@ -25720,7 +25720,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 4",
       "code": "6113A",
-      "name": "Program Elective course",
+      "name": "Production Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6113A"
     },
@@ -25742,7 +25742,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 4",
       "code": "6113C",
-      "name": "Program Elective course",
+      "name": "Mechatronics",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6113C"
     },
@@ -25775,7 +25775,7 @@
       "programmeSlug": "tool-and-die-engineering",
       "semester": "Semester 4",
       "code": "6114C",
-      "name": "Open Elective course",
+      "name": "Product Design",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6114C"
     },
@@ -25808,7 +25808,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "",
       "code": "6007",
-      "name": "4 - 6 months per semester",
+      "name": "Internship",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6007"
     },
@@ -25874,7 +25874,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 2",
       "code": "4001",
-      "name": "Humanities & Social Sciences",
+      "name": "Entrepreneurship and Startup",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4001"
     },
@@ -25973,7 +25973,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "2129",
-      "name": "Programme core course",
+      "name": "Botany Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2129"
     },
@@ -25995,7 +25995,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "3121",
-      "name": "Programme core course",
+      "name": "Pulp Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3121"
     },
@@ -26006,7 +26006,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "3122",
-      "name": "Programme core course",
+      "name": "Wood Chemistry",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3122"
     },
@@ -26028,7 +26028,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "3124",
-      "name": "Programme core course",
+      "name": "Wood Processing",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3124"
     },
@@ -26039,7 +26039,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "3127",
-      "name": "Programme core course",
+      "name": "Pulp Technology Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3127"
     },
@@ -26061,7 +26061,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "3129",
-      "name": "Programme core course",
+      "name": "Workshop Practice",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3129"
     },
@@ -26094,7 +26094,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "4121",
-      "name": "Programme core course",
+      "name": "Chemical Engineering",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4121"
     },
@@ -26105,7 +26105,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "4122",
-      "name": "Programme core course",
+      "name": "Wood Products",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4122"
     },
@@ -26116,7 +26116,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "4123",
-      "name": "Programme core course",
+      "name": "Paper Technology-I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4123"
     },
@@ -26127,7 +26127,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "4127",
-      "name": "Programme core course",
+      "name": "CADD Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4127"
     },
@@ -26138,7 +26138,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "4128",
-      "name": "Programme core course",
+      "name": "Wood Chemistry Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4128"
     },
@@ -26149,7 +26149,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "4129",
-      "name": "Programme core course",
+      "name": "Wood Workshop I",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=4129"
     },
@@ -26204,7 +26204,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "5121",
-      "name": "Programme core course",
+      "name": "Adhesive Technology",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5121"
     },
@@ -26226,7 +26226,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "5123B",
-      "name": "Program Elective course",
+      "name": "Quantity Surveying",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5123B"
     },
@@ -26259,7 +26259,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "5128",
-      "name": "Programme core course",
+      "name": "Wood Workshop II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=5128"
     },
@@ -26314,7 +26314,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 3",
       "code": "6129",
-      "name": "Program Elective course",
+      "name": "Interior Design Lab",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6129"
     },
@@ -26369,7 +26369,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 4",
       "code": "6122",
-      "name": "Programme core course",
+      "name": "Paper Technology-II",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6122"
     },
@@ -26402,7 +26402,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 4",
       "code": "6123C",
-      "name": "Program Elective course",
+      "name": "Timber Structure",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6123C"
     },
@@ -26413,7 +26413,7 @@
       "programmeSlug": "wood-and-paper-technology",
       "semester": "Semester 4",
       "code": "6124A",
-      "name": "Open Elective course",
+      "name": "Project Management",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=6124A"
     },
