@@ -7,16 +7,18 @@
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
     return depth ? "../".repeat(depth) : "";
   };
-  const norm = (value) => String(value || "").trim().toUpperCase();
-  const notesUrlFor = (code) => `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
-  const lessonUrlFor = (code, printMode = false) => `${root()}lessons/lessons-${encodeURIComponent(code)}.html${printMode ? "?autoPrintNotes=1" : ""}`;
+  const norm = value => String(value || "").trim().toUpperCase();
+  const revisionOf = card => String(card.dataset.revision || "2021").trim();
+  const revisionSuffix = revision => revision === "2026" ? "_REV2026" : "";
+  const notesUrlFor = (code, revision) => `${root()}notes/downloadable-notes-${encodeURIComponent(code)}${revisionSuffix(revision)}.pdf`;
+  const lessonUrlFor = (code, revision, printMode = false) => `${root()}lessons/lessons-${encodeURIComponent(code)}${revisionSuffix(revision)}.html${printMode ? "?autoPrintNotes=1" : ""}`;
 
   async function headOk(url, rejectHtml = false) {
     const absolute = new URL(url, location.href).href;
     const key = `${rejectHtml ? "file" : "page"}:${absolute}`;
     if (cache.has(key)) return cache.get(key);
     const check = fetch(absolute, { method: "HEAD", cache: "no-store" })
-      .then((response) => {
+      .then(response => {
         const type = response.headers.get("content-type") || "";
         return response.ok && (!rejectHtml || !/html/i.test(type));
       })
@@ -27,8 +29,8 @@
     return result;
   }
 
-  const pdfExists = (url) => headOk(url, true);
-  const lessonExists = (url) => headOk(url, false);
+  const pdfExists = url => headOk(url, true);
+  const lessonExists = url => headOk(url, false);
 
   function buildLink(href, className, label, verified = false) {
     const link = document.createElement("a");
@@ -59,23 +61,24 @@
   }
 
   function removeNotesControls(row) {
-    row.querySelectorAll(".action.download,.notes-status").forEach((item) => item.remove());
-    row.querySelectorAll(".availability-label").forEach((item) => {
+    row.querySelectorAll(".action.download,.notes-status").forEach(item => item.remove());
+    row.querySelectorAll(".availability-label").forEach(item => {
       if (isNotesLabel(item)) item.remove();
     });
   }
 
   function removeLabels(row, pattern) {
-    row.querySelectorAll(".availability-label").forEach((item) => {
+    row.querySelectorAll(".availability-label").forEach(item => {
       if (pattern.test((item.textContent || "").trim())) item.remove();
     });
   }
 
   function hasLessonsUnavailable(row) {
-    return [...row.querySelectorAll(".availability-label")].some((item) => /lessons unavailable/i.test(item.textContent || ""));
+    return [...row.querySelectorAll(".availability-label")].some(item => /lessons unavailable/i.test(item.textContent || ""));
   }
 
   function ensureLessonsUnavailable(row, qp) {
+    row.querySelectorAll(".action.lessons").forEach(item => item.remove());
     if (hasLessonsUnavailable(row)) return;
     const syllabus = row.querySelector(".action.syllabus");
     const lessons = document.createElement("span");
@@ -103,15 +106,23 @@
     const row = card.querySelector(".action-row");
     if (!row) return;
     if (row.querySelector(".action.download")) {
-      notesLabels(row).forEach((item) => item.remove());
+      notesLabels(row).forEach(item => item.remove());
       return;
     }
     const notes = notesLabels(row);
-    if (notes.length > 1) notes.slice(0, -1).forEach((item) => item.remove());
+    if (notes.length > 1) notes.slice(0, -1).forEach(item => item.remove());
     const final = notesLabels(row)[0];
     if (final) {
       final.classList.add("notes-status");
       if (!/preparing/i.test(final.textContent || "")) final.textContent = "Notes unavailable";
+    }
+  }
+
+  function samePath(href, expected) {
+    try {
+      return new URL(href, location.href).pathname === new URL(expected, location.href).pathname;
+    } catch {
+      return false;
     }
   }
 
@@ -120,29 +131,41 @@
     return !row.querySelector(".action.download") && hasLessonsUnavailable(row) && notes.length === 1 && /notes unavailable/i.test(notes[0].textContent || "");
   }
 
-  function stableLesson(row) {
-    return Boolean(row.querySelector(".action.lessons") && row.querySelector(".action.download") && !notesLabels(row).length);
+  function stableLesson(row, expectedLesson) {
+    const lesson = row.querySelector(".action.lessons");
+    return Boolean(lesson && samePath(lesson.href, expectedLesson) && row.querySelector(".action.download") && !notesLabels(row).length);
   }
 
   async function validateCard(card) {
     const row = card.querySelector(".action-row");
     const code = norm(card.dataset.subjectCode || card.querySelector(".subject-top strong")?.textContent);
+    const revision = revisionOf(card);
     if (!row || !code || checking.has(card)) return;
     checking.add(card);
 
     try {
-      const notesHref = notesUrlFor(code);
-      const lessonHref = lessonUrlFor(code, false);
-      const lessonPrintHref = lessonUrlFor(code, true);
+      const notesHref = notesUrlFor(code, revision);
+      const lessonHref = lessonUrlFor(code, revision, false);
+      const lessonPrintHref = lessonUrlFor(code, revision, true);
       const qp = row.querySelector(".action.qp");
+      const existingLesson = row.querySelector(".action.lessons");
 
-      let lessonAvailable = Boolean(row.querySelector(".action.lessons")) || card.dataset.lessonAvailable === "true";
+      if (existingLesson && !samePath(existingLesson.href, lessonHref)) {
+        existingLesson.remove();
+        removeNotesControls(row);
+        card.dataset.lessonAvailable = "false";
+      }
+
+      let lessonAvailable = Boolean(row.querySelector(".action.lessons") && samePath(row.querySelector(".action.lessons").href, lessonHref))
+        || card.dataset.lessonAvailable === "true";
       if (!lessonAvailable) lessonAvailable = await lessonExists(lessonHref);
       if (!card.isConnected) return;
 
       if (lessonAvailable) {
-        if (stableLesson(row)) return;
+        if (stableLesson(row, lessonHref)) return;
         card.dataset.lessonAvailable = "true";
+        card.dataset.lessonHref = lessonHref;
+        card.dataset.notesHref = notesHref;
         removeLabels(row, /lessons unavailable/i);
         if (!row.querySelector(".action.lessons")) {
           const syllabus = row.querySelector(".action.syllabus");
@@ -151,12 +174,14 @@
         removeNotesControls(row);
         const ok = await pdfExists(notesHref);
         if (!card.isConnected) return;
-        if (stableLesson(row)) return;
+        if (stableLesson(row, lessonHref)) return;
         removeNotesControls(row);
         row.insertBefore(buildLink(ok ? notesHref : lessonPrintHref, "action download", "Download Notes", ok), qp || null);
       } else {
         if (stableNoLesson(row)) return;
         card.dataset.lessonAvailable = "false";
+        card.dataset.lessonHref = lessonHref;
+        card.dataset.notesHref = notesHref;
         ensureLessonsUnavailable(row, qp);
         ensureNotesUnavailable(row, qp);
       }
@@ -170,7 +195,7 @@
   function run() {
     clearTimeout(timer);
     timer = setTimeout(() => {
-      document.querySelectorAll(".subject-card").forEach((card) => {
+      document.querySelectorAll(".subject-card").forEach(card => {
         dedupeVisibleNotes(card);
         validateCard(card);
       });
