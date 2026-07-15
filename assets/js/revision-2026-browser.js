@@ -1,9 +1,18 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260716-rev2026-match-2021";
-  const esc = value => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
-  const slug = value => String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const VERSION = "20260716-rev2026-dedicated-content";
+  const esc = value => String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+  const slug = value => String(value || "")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
   const cleanPath = () => location.pathname.replace(/\/+$/, "") || "/";
   const isProgrammeIndex = () => ["/revision-2026.html", "/revision-2026"].includes(cleanPath());
 
@@ -37,7 +46,10 @@
   }
 
   function naturalCodeCompare(left, right) {
-    return String(left || "").localeCompare(String(right || ""), undefined, { numeric: true, sensitivity: "base" });
+    return String(left || "").localeCompare(String(right || ""), undefined, {
+      numeric: true,
+      sensitivity: "base"
+    });
   }
 
   function enhanceProgrammeIndex() {
@@ -45,12 +57,15 @@
     const search = document.getElementById("programmeSearch");
     const empty = document.getElementById("programmeEmptyState");
     if (!grid || !search) return;
+
     const cards = [...grid.querySelectorAll("[data-programme-card]")];
     const draw = () => {
       const query = search.value.trim().toLowerCase();
       let visible = 0;
       cards.forEach(card => {
-        const haystack = [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent].join(" ").toLowerCase();
+        const haystack = [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent]
+          .join(" ")
+          .toLowerCase();
         const show = !query || haystack.includes(query);
         card.hidden = !show;
         if (show) visible += 1;
@@ -67,12 +82,14 @@
     const semesterText = semester <= 6 ? `Semester ${semester}` : "Other subjects";
     const name = String(subject.name || "Untitled subject").trim();
     const type = String(subject.type || "Course").trim();
-    const syllabus = subject.syllabusUrl || `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}`;
+    const syllabus = subject.syllabusUrl ||
+      `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}`;
     const qp = `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
-    const lesson = `/lessons/lessons-${encodeURIComponent(code)}_REV2026.html`;
-    const notes = `/notes/downloadable-notes-${encodeURIComponent(code)}_REV2026.pdf`;
+    const lesson = `/revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`;
+    const notes = `/revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
-    return `<article class="subject-card reveal" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="false"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a><span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span><a class="action qp" href="${esc(qp)}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
+
+    return `<article class="subject-card reveal" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="false" data-notes-available="false"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a><span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span><a class="action qp" href="${esc(qp)}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
   }
 
   function semesterSection(number, subjects, programmeName) {
@@ -163,6 +180,9 @@
     if (!enhanceStaticDepartment()) renderCompatibilityPage();
   }
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
-  else start();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", start, { once: true });
+  } else {
+    start();
+  }
 })();
