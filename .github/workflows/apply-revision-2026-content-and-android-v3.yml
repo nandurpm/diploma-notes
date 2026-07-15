@@ -1,0 +1,68 @@
+name: Apply Revision 2026 content and Android v3 migration
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/apply_revision_2026_content_and_android_v3.py"
+      - ".github/workflows/apply-revision-2026-content-and-android-v3.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-revision-2026-content-and-android-v3
+  cancel-in-progress: true
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+
+      - name: Apply migration
+        run: |
+          python -m py_compile tools/apply_revision_2026_content_and_android_v3.py
+          python tools/apply_revision_2026_content_and_android_v3.py
+          python -m py_compile tools/build_revision_2026_pages.py tools/build_lesson_pdfs.py tools/build_missing_revision_2026_lesson_pdfs.py
+          node --check assets/js/revision-2026-browser.js
+          node --check assets/js/subject-browser.js
+          node --check assets/js/lesson-availability-hotfix.js
+
+      - name: Refresh availability and rebuild Revision 2026 pages
+        run: |
+          python tools/update_asset_manifest.py
+          python tools/build_revision_2026_pages.py
+
+      - name: Validate Android v3 source
+        run: gradle -p android-app :app:assembleDebug --no-daemon
+
+      - name: Commit migration output
+        run: |
+          git add assets/js/revision-2026-browser.js
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js assets/js/lesson-availability-hotfix.js
+          git add tools/build_revision_2026_pages.py tools/build_lesson_pdfs.py tools/build_missing_revision_2026_lesson_pdfs.py
+          git add revision-2026.html revision-2026/*.html lessons.html
+          git add android-app .github/workflows/build-android-app.yml
+          git add reports/revision-2026-build-summary.json reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
+          if git diff --cached --quiet; then
+            echo "Migration already applied."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Separate REV2026 content and upgrade Android app to v3.0"
+          git pull --rebase origin main
+          git push origin HEAD:main
