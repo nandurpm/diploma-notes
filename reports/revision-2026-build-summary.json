@@ -3,6 +3,7 @@
   "programmeCount": 38,
   "subjectCount": 2404,
   "staticPageCount": 38,
+  "layout": "Revision 2021-compatible subject cards",
   "programmeSubjectCounts": {
     "architecture": 57,
     "artificial-intelligence": 67,
@@ -349,5 +350,5 @@
       "Semester 6": 14
     }
   },
-  "newCodeCountComparedWithREV2021": 527
+  "newCodeCountComparedWithREV2021": 526
 }
