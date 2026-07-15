@@ -10,11 +10,15 @@ from pathlib import Path
 DATA = Path("assets/data/revision-2026-subjects.json")
 REGISTRY = Path("assets/data/revision-2026-programmes.json")
 OUT = Path("revision-2026")
+REV2026_CONTENT = Path("revision-2026-content")
+REV2026_LESSONS = REV2026_CONTENT / "lessons"
+REV2026_NOTES = REV2026_CONTENT / "notes"
 SITE = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = SITE + "/assets/media/poly-pmna-study-hub-social-card.png"
 REPORT_JSON = Path("reports/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260716-rev2026-match-2021"
+VERSION = "20260716-rev2026-dedicated-content"
+MIN_VALID_PDF_BYTES = 20000
 
 
 def esc(value: object) -> str:
@@ -40,11 +44,16 @@ def natural_code_key(code: str) -> tuple[int, str]:
 
 
 def lesson_file(code: str) -> Path:
-    return Path("lessons") / f"lessons-{code}_REV2026.html"
+    return REV2026_LESSONS / f"lessons-{code}.html"
 
 
 def notes_file(code: str) -> Path:
-    return Path("notes") / f"downloadable-notes-{code}_REV2026.pdf"
+    return REV2026_NOTES / f"downloadable-notes-{code}.pdf"
+
+
+def valid_notes(code: str) -> bool:
+    path = notes_file(code)
+    return path.exists() and path.stat().st_size >= MIN_VALID_PDF_BYTES
 
 
 def head(title: str, description: str, canonical: str) -> str:
@@ -64,10 +73,10 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     semester = f"Semester {semester_number(row)}"
     name = str(row.get("name", "")).strip()
     subject_type = str(row.get("type", "Course")).strip() or "Course"
-    lesson_url = f"/lessons/lessons-{esc(code)}_REV2026.html"
-    notes_url = f"/notes/downloadable-notes-{esc(code)}_REV2026.pdf"
+    lesson_url = f"/revision-2026-content/lessons/lessons-{esc(code)}.html"
+    notes_url = f"/revision-2026-content/notes/downloadable-notes-{esc(code)}.pdf"
     lesson_ok = lesson_file(code).exists()
-    notes_ok = notes_file(code).exists()
+    notes_ok = valid_notes(code)
     syllabus_url = str(row.get("syllabusUrl", "")).strip() or (
         "https://www.sitttrkerala.ac.in/index.php?"
         f"r=site%2Fdiploma-syllabus-course-contents&course={code}"
@@ -76,6 +85,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         "https://www.sitttrkerala.ac.in/index.php?"
         f"r=site%2Fdiploma-modelqp-courses-show&course={code}"
     )
+
     if lesson_ok:
         lesson_action = f'<a class="action lessons" href="{lesson_url}">View Lessons</a>'
         download_href = notes_url if notes_ok else lesson_url + "?autoPrintNotes=1"
@@ -92,7 +102,8 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'<article class="subject-card reveal" data-subject-code="{esc(code)}" '
         f'data-revision="2026" data-semester="{esc(semester)}" '
         f'data-search-text="{esc(search_text)}" data-notes-href="{notes_url}" '
-        f'data-lesson-href="{lesson_url}" data-lesson-available="{str(lesson_ok).lower()}">'
+        f'data-lesson-href="{lesson_url}" data-lesson-available="{str(lesson_ok).lower()}" '
+        f'data-notes-available="{str(notes_ok).lower()}">'
         f'<div class="subject-top"><span>2026</span><strong>{esc(code)}</strong></div>'
         f'<h3>{esc(name)}</h3>'
         f'<p>{esc(programme["name"])} / {esc(semester)} / {esc(subject_type)}</p>'
@@ -142,8 +153,8 @@ def build_department_page(programme: dict[str, object], rows: list[dict[str, obj
     name = str(programme["name"])
     slug = str(programme["slug"])
     title = f"{name} Revision 2026 Subjects | POLY PMNA"
-    description = f"Browse {name} Revision 2026 subjects by semester with syllabus, lessons, notes and sample question-paper actions."
-    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards from the SITTTR Revision 2026 scheme data.</p></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Each official suffix code remains a separate subject card.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
+    description = f"Browse {name} Revision 2026 subjects by semester with syllabus, dedicated lessons, notes and sample question-paper actions."
+    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards from the SITTTR Revision 2026 scheme data.</p></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Revision 2026 lessons and notes are loaded only from the dedicated 2026 content folders.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
 
 
 def revision_2021_codes() -> set[str]:
@@ -227,11 +238,13 @@ def main() -> None:
             semester_number(row)
             by_programme[slug].append(row)
 
-    missing = [str(p["slug"]) for p in programmes if not by_programme[str(p["slug"])] ]
+    missing = [str(p["slug"]) for p in programmes if not by_programme[str(p["slug"])]]
     if missing:
         raise SystemExit("Empty programme data: " + ", ".join(missing))
 
     OUT.mkdir(exist_ok=True)
+    REV2026_LESSONS.mkdir(parents=True, exist_ok=True)
+    REV2026_NOTES.mkdir(parents=True, exist_ok=True)
     Path("revision-2026.html").write_text(build_index(programmes), encoding="utf-8")
     counts: dict[str, int] = {}
     semester_counts: dict[str, dict[str, int]] = {}
@@ -263,6 +276,8 @@ def main() -> None:
                 "subjectCount": len(subjects),
                 "staticPageCount": 38,
                 "layout": "Revision 2021-compatible subject cards",
+                "lessonFolder": "revision-2026-content/lessons",
+                "notesFolder": "revision-2026-content/notes",
                 "programmeSubjectCounts": counts,
                 "programmeSemesterCounts": semester_counts,
                 "newCodeCountComparedWithREV2021": comparison["newCodeCount"],
@@ -273,7 +288,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"Built 38 Revision 2021-style REV2026 pages from {len(subjects)} records; "
+        f"Built 38 REV2026 pages from {len(subjects)} records using dedicated content folders; "
         f"new codes versus REV2021={comparison['newCodeCount']}"
     )
 
