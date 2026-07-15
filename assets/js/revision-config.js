@@ -1,5 +1,4 @@
 // Central curriculum revision registry for POLY PMNA.
-// Do not mark subject-level data as published until exact codes and official PDFs are verified.
 const CURRICULUM_REVISIONS = Object.freeze({
   "2021": Object.freeze({
     id: "2021",
@@ -7,17 +6,19 @@ const CURRICULUM_REVISIONS = Object.freeze({
     label: "Revision 2021",
     status: "published",
     syllabusAvailable: true,
+    subjectDataPublished: true,
     modelQuestionPapersAvailable: true,
     programmeCount: 43,
-    protectExistingHandbooks: true
+    protectExistingHandbooks: true,
+    notice: "Revision 2021 subjects, handbooks, notes and model-question-paper links remain available for legacy batches."
   }),
   "2026": Object.freeze({
     id: "2026",
     tag: "REV2026",
     label: "Revision 2026",
-    status: "programme-list-verified-subjects-pending",
+    status: "published",
     syllabusAvailable: true,
-    subjectDataPublished: false,
+    subjectDataPublished: true,
     modelQuestionPapersAvailable: false,
     programmeCount: 38,
     officialSyllabusUrl: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
@@ -25,15 +26,16 @@ const CURRICULUM_REVISIONS = Object.freeze({
       "Computer Science and Technology",
       "Interior Design"
     ]),
-    uncertainOrMissingComparedWith2021: Object.freeze([
-      "Hotel Management and Catering Technology",
+    programmesNotListedComparedWith2021: Object.freeze([
+      "Civil (Public Health and Environment) Engineering",
       "Cloud Computing and Big Data",
       "Communication & Computer Networking",
       "Computer Hardware Engineering",
-      "Renewable Energy",
-      "Selected civil specialisations not present in the current REV2026 list"
+      "Hotel Management and Catering Technology",
+      "Manufacturing Technology",
+      "Renewable Energy"
     ]),
-    notice: "The official REV2026 page currently lists 38 programmes. Subject-level publication remains blocked until each code and official PDF is individually verified. Missing REV2021 programmes are retained as uncertain and are not deleted."
+    notice: "The official Revision 2026 programme list and semester-wise subject records are published for 38 programmes. Dedicated Revision 2026 handbooks, downloadable notes and official model question papers are added separately when available."
   })
 });
 
