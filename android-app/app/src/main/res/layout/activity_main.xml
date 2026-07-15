@@ -156,9 +156,9 @@
                             android:gravity="center"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
-                            android:text="Ask POLY"
+                            android:text="REV 2026"
                             android:textColor="@color/brand_indigo"
-                            android:textSize="12sp"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -169,9 +169,9 @@
                             android:gravity="center"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
-                            android:text="Mock"
+                            android:text="REV 2021"
                             android:textColor="@color/brand_indigo"
-                            android:textSize="12sp"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -182,7 +182,7 @@
                             android:gravity="center"
                             android:paddingStart="11dp"
                             android:paddingEnd="11dp"
-                            android:text="Tools"
+                            android:text="POLY AI"
                             android:textColor="@color/brand_indigo"
                             android:textSize="11sp"
                             android:textStyle="bold" />
@@ -272,6 +272,12 @@
                     android:text="@string/nav_home" />
 
                 <TextView
+                    android:id="@+id/navRevision2026"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_book"
+                    android:text="@string/nav_revision_2026" />
+
+                <TextView
                     android:id="@+id/navRevision2021"
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_book"
@@ -292,12 +298,6 @@
                 <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_resources" />
 
                 <TextView
-                    android:id="@+id/navMaterials2015"
-                    style="@style/DrawerMenuItem"
-                    android:drawableStart="@drawable/ic_archive"
-                    android:text="@string/nav_materials_2015" />
-
-                <TextView
                     android:id="@+id/navTools"
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_document"
@@ -308,6 +308,12 @@
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_document"
                     android:text="@string/nav_study_materials" />
+
+                <TextView
+                    android:id="@+id/navMaterials2015"
+                    style="@style/DrawerMenuItem"
+                    android:drawableStart="@drawable/ic_archive"
+                    android:text="@string/nav_materials_2015" />
 
                 <TextView style="@style/DrawerSectionLabel" android:text="@string/drawer_support" />
 
