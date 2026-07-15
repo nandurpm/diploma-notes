@@ -7,6 +7,8 @@ on:
     paths:
       - "lessons/**/*.html"
       - "notes/**/*.pdf"
+      - "revision-2026-content/lessons/**/*.html"
+      - "revision-2026-content/notes/**/*.pdf"
       - "assets/js/subject-browser.js"
       - "assets/js/asset-manifest.js"
       - "tools/update_asset_manifest.py"
@@ -16,6 +18,8 @@ on:
     paths:
       - "lessons/**/*.html"
       - "notes/**/*.pdf"
+      - "revision-2026-content/lessons/**/*.html"
+      - "revision-2026-content/notes/**/*.pdf"
       - "assets/js/subject-browser.js"
       - "assets/js/asset-manifest.js"
       - "tools/update_asset_manifest.py"
@@ -23,6 +27,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: lesson-availability-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   synchronize:
@@ -34,42 +42,59 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Generate current lesson and notes availability
+      - name: Generate current Revision 2021 and Revision 2026 availability
         run: |
           python -m py_compile tools/update_asset_manifest.py
           python tools/update_asset_manifest.py
           node --check assets/js/subject-browser.js
           node --check assets/js/asset-manifest.js
 
-      - name: Verify independent lesson and notes activation
+      - name: Verify revision folders remain independent
         if: github.event_name == 'pull_request'
         run: |
           git diff --exit-code -- assets/js/subject-browser.js assets/js/asset-manifest.js
 
           cat > lessons/lessons-9999.html <<'HTML'
-          <!doctype html><html lang="en"><head><meta charset="utf-8"><title>Manifest test</title></head><body><main>Manifest test</main></body></html>
+          <!doctype html><html lang="en"><head><meta charset="utf-8"><title>REV2021 test</title></head><body><main>Revision 2021 manifest test lesson.</main></body></html>
           HTML
-          printf '%s\n' '%PDF-1.4' > notes/downloadable-notes-9998.pdf
+          cat > revision-2026-content/lessons/lessons-6888A.html <<'HTML'
+          <!doctype html><html lang="en"><head><meta charset="utf-8"><title>REV2026 test</title></head><body><main>Revision 2026 manifest test lesson.</main></body></html>
+          HTML
+
+          python - <<'PY'
+          from pathlib import Path
+          Path('notes/downloadable-notes-9998.pdf').write_bytes(b'%PDF-1.4\n' + b'0' * 21000)
+          Path('revision-2026-content/notes/downloadable-notes-6888B.pdf').write_bytes(b'%PDF-1.4\n' + b'0' * 21000)
+          PY
 
           python tools/update_asset_manifest.py
 
           python - <<'PY'
           from pathlib import Path
 
-          browser = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
-          manifest = Path("assets/js/asset-manifest.js").read_text(encoding="utf-8")
-          lesson_line = next(line for line in browser.splitlines() if "const LESSON_CODES" in line)
-          notes_line = next(line for line in browser.splitlines() if "const NOTES_CODES" in line)
+          browser = Path('assets/js/subject-browser.js').read_text(encoding='utf-8')
+          manifest = Path('assets/js/asset-manifest.js').read_text(encoding='utf-8')
 
-          assert '"9999"' in lesson_line, "lesson upload was not activated in subject browser"
-          assert '"9999"' not in notes_line, "lesson-only code leaked into notes availability"
-          assert '"9998"' in notes_line, "notes upload was not activated in subject browser"
-          assert '"9998"' not in lesson_line, "notes-only code leaked into lesson availability"
-          assert '"9999"' in manifest, "lesson upload was not activated in Ask POLY manifest"
-          assert '"9998"' in manifest, "notes upload was not activated in Ask POLY manifest"
+          line_2021_lessons = next(line for line in browser.splitlines() if 'const LESSON_CODES' in line)
+          line_2021_notes = next(line for line in browser.splitlines() if 'const NOTES_CODES' in line)
+          line_2026_lessons = next(line for line in browser.splitlines() if 'const REV2026_LESSON_CODES' in line)
+          line_2026_notes = next(line for line in browser.splitlines() if 'const REV2026_NOTES_CODES' in line)
+
+          assert '"9999"' in line_2021_lessons
+          assert '"9999"' not in line_2026_lessons
+          assert '"9998"' in line_2021_notes
+          assert '"9998"' not in line_2026_notes
+          assert '"6888A"' in line_2026_lessons
+          assert '"6888A"' not in line_2021_lessons
+          assert '"6888B"' in line_2026_notes
+          assert '"6888B"' not in line_2021_notes
+          assert 'revision2026LessonCodes' in manifest
+          assert 'revision2026NotesCodes' in manifest
           PY
 
           rm lessons/lessons-9999.html notes/downloadable-notes-9998.pdf
+          rm revision-2026-content/lessons/lessons-6888A.html
+          rm revision-2026-content/notes/downloadable-notes-6888B.pdf
           python tools/update_asset_manifest.py
           git diff --exit-code -- assets/js/subject-browser.js assets/js/asset-manifest.js
 
@@ -84,5 +109,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add assets/js/subject-browser.js assets/js/asset-manifest.js
-          git commit -m "Update lesson and notes availability [skip ci]"
+          git commit -m "Update revision-aware lesson and notes availability [skip ci]"
+          git pull --rebase origin main
           git push origin HEAD:main
