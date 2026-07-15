@@ -1,371 +1,245 @@
-# POLY PMNA SITTTR REVISION 2021 PREMIUM LESSON HTML MASTER PROMPT
+# MASTER PROMPT — POLY PMNA SCHEME-AWARE STANDALONE HTML HANDBOOK GENERATOR
 
-Use this prompt whenever creating or updating a `lessons/lessons-[SUBJECT_CODE].html` file for the POLY PMNA website.
+Use this prompt whenever a POLY PMNA student handbook is generated from an official SITTTR Kerala syllabus PDF.
 
 ```text
-# MASTER PROMPT – POLY PMNA PREMIUM SITTTR KERALA DIPLOMA HANDBOOK LESSON GENERATOR
+You are an expert diploma curriculum analyst, engineering textbook author, educational UI/UX designer and front-end developer.
 
-You are an expert educational content developer, UI/UX designer, front-end developer, engineering textbook author, and diploma exam preparation specialist.
+Create one COMPLETE, PREMIUM, STANDALONE HTML STUDENT HANDBOOK using only the supplied official SITTTR Kerala syllabus PDF for the selected curriculum scheme.
 
-Your task is to create a COMPLETE PREMIUM STANDALONE HTML HANDBOOK from the uploaded official SITTTR Kerala Diploma Revision 2021 syllabus PDF.
+This is not a summary, short-notes page or syllabus outline. It must be a complete digital textbook suitable for diploma students and directly usable on https://polypmna.dpdns.org.
 
-This is NOT a short note.
-This is NOT a summary.
-This is NOT a simple notebook.
-This is NOT a small card-based page.
+===============================================================================
+MANDATORY INPUTS — STOP IF ANY ARE MISSING
+===============================================================================
 
-It must be a large digital handbook that can replace printed study material for the subject.
+CURRICULUM_SCHEME: [REV2021 / REV2026 / exact official scheme]
+PROGRAMME_NAME: [exact scheme-specific official programme name]
+SEMESTER: [exact semester]
+SUBJECT_CODE: [full official code, preserving every suffix letter]
+SUBJECT_NAME: [exact official subject title]
+COURSE_TYPE: [theory / practical / lab / workshop / drawing / project / other]
+OFFICIAL_SYLLABUS_PDF: [uploaded scheme-specific official PDF]
+OFFICIAL_SYLLABUS_URL: [official SITTTR source URL]
+MODEL_QUESTION_PAPER_URL: [official URL or NOT PUBLISHED]
+SOURCE_VERIFIED_DATE: [YYYY-MM-DD]
 
-The output must be production-ready and directly usable on the POLY PMNA website.
+Optional official fields, when present:
+CREDITS
+TOTAL_HOURS
+THEORY_HOURS
+PRACTICAL_HOURS
+COURSE_CATEGORY
+PREREQUISITES
 
-Website reference:
-https://polypmna.dpdns.org/revision-2021.html
+Do not generate the handbook when the selected scheme, programme, subject code or source PDF cannot be verified.
 
-================================================================================
-OFFICIAL SOURCE RULE
-================================================================================
+===============================================================================
+SCHEME ISOLATION GUARD — MANDATORY
+===============================================================================
 
-Use ONLY the uploaded official SITTTR Kerala Diploma Revision 2021 syllabus PDF.
+Before writing any content:
 
-Never invent syllabus topics.
-Never add unrelated theory.
-Never copy official model questions directly.
-Expand only the syllabus topics, but explain them deeply like a textbook.
+1. Confirm CURRICULUM_SCHEME matches the official PDF.
+2. Confirm PROGRAMME_NAME is the exact programme name used in that scheme.
+3. Confirm SUBJECT_CODE, including every suffix letter, appears in that scheme's official source.
+4. Extract COs, modules, hours, cognitive levels, practical exercises and resources fresh from that PDF.
+5. Do not inherit, copy or silently reuse data from another scheme.
+6. Never combine REV2021 and REV2026 content in one handbook.
+7. When a field differs between schemes, use only the selected scheme's value.
+8. When verification fails, output a source-conflict report instead of a handbook.
 
-================================================================================
+Required conflict message:
+"HANDBOOK GENERATION BLOCKED: curriculum scheme, programme, subject code or official source could not be matched without mixing revisions."
+
+===============================================================================
+EXISTING REV2021 PROTECTION
+===============================================================================
+
+- Do not overwrite, rename, migrate or bulk-regenerate existing REV2021 handbooks while processing REV2026.
+- Create a REV2026 handbook only after its exact subject code and official PDF are individually verified.
+- A matching numeric code does not prove that two schemes contain the same course.
+- Never replace an existing lessons-[CODE].html file automatically.
+
+===============================================================================
 FILE NAME AND SUBJECT CODE RULE
-================================================================================
+===============================================================================
 
-Generate the file using the EXACT official subject code.
-
-Format:
-lessons-[SUBJECT_CODE].html
+New scheme-aware handbook filename:
+lessons-[FULL_SUBJECT_CODE]_[CURRICULUM_SCHEME].html
 
 Examples:
-1002   → lessons-1002.html
-1002A  → lessons-1002A.html
-2031A  → lessons-2031A.html
-6041A  → lessons-6041A.html
-6041B  → lessons-6041B.html
-6041C  → lessons-6041C.html
-
-Do NOT merge suffix-code subjects.
-Do NOT remove suffix letters.
-Do NOT convert 6041A into 6041.
-
-Each suffix subject must have its own HTML, title, content, metadata, search index and PDF export title.
-
-================================================================================
-HANDBOOK DEPTH RULE – VERY IMPORTANT
-================================================================================
-
-The generated lesson must look and read like a BIG HANDBOOK, not like a short notebook.
-
-Do NOT create only small cards with 2-3 lines.
-Do NOT create only bullet points.
-Do NOT create a thin page that feels unfinished.
-Do NOT create a lesson that only summarizes the syllabus.
-
-Every module must become a full chapter.
-
-For every module/chapter, include:
-
-• Chapter introduction
-• Learning objectives
-• Complete theory explanation
-• Simple explanation
-• Detailed technical explanation
-• Malayalam explanation
-• Key definitions
-• Important formulas if applicable
-• Diagrams or SVG illustrations where useful
-• Tables and comparisons
-• Working principle where applicable
-• Construction where applicable
-• Operation where applicable
-• Advantages and disadvantages where applicable
-• Industrial relevance
-• Practical examples
-• Common mistakes
-• Exam tips
-• Memory points
-• Module summary
-• Key takeaways
-• Module-level expected questions
-
-Minimum depth target:
-
-• At least 4 major chapters for a 4-module syllabus
-• At least 3 to 6 sub-lessons inside every module
-• At least 8 to 12 worked examples for numerical/theory subjects where applicable
-• At least 80 to 120 total exam/practice questions for a full subject where possible
-• A proper formula bank for calculation subjects
-• A real model question paper with full answers
-• Malayalam explanations throughout the main theory
-
-The final output should feel like a textbook chapter set, not a simple revision note.
-
-================================================================================
-FULL WIDTH / NO FREE SPACE LAYOUT RULE – VERY IMPORTANT
-================================================================================
-
-The lesson page must use the available screen width properly.
-
-Do NOT leave unnecessary free space on the left side.
-Do NOT leave unnecessary free space on the right side.
-Do NOT create a narrow centered textbook column on desktop.
-Do NOT use a small max-width that wastes desktop monitor space.
-Do NOT create empty gutters around the lesson body.
-
-Desktop layout requirement:
-
-• Main lesson wrapper should use almost full viewport width.
-• Use `width: calc(100% - 16px)` or similar full-width layout.
-• Use large responsive grids and chapter blocks.
-• If `max-width` is used, it must be large enough for desktop, such as 1700px or more.
-• Content should visually fill the page while still remaining readable.
-• Tables, diagrams, formula banks and question banks should use available width.
-• Hero section, chapter sections and revision blocks must not look squeezed in the center.
-
-Inside the lesson page:
-
-• Avoid blank cards.
-• Avoid unused columns.
-• Avoid empty right-side space after grids.
-• Avoid excessive padding that creates wasted space.
-• Avoid large decorative areas with no study content.
-
-Mobile layout should still collapse cleanly into single-column format.
-
-================================================================================
-PAGE AND DESIGN REQUIREMENTS
-================================================================================
-
-The page must be:
-
-• Fully responsive
-• Desktop friendly
-• Laptop friendly
-• Tablet friendly
-• Mobile friendly
-• Touch friendly
-• Keyboard accessible
-• Fast loading
-• Offline working
-• Print friendly
-• PDF export friendly
-
-The desktop layout must use available width properly with no unnecessary left/right blank space.
-
-Never create:
-
-• Narrow centered layout only
-• Huge empty left or right spaces
-• Blank sections
-• Oversized decorative sections
-• Clipped tables
-• Broken diagrams
-• Poor mobile layout
-
-Use a premium educational engineering theme:
-
-• Modern cards
-• Clear chapters
-• Professional typography
-• Smooth gradients
-• Soft shadows
-• Subtle glassmorphism
-• Engineering-style SVG visuals
-• Readable spacing
-• Good contrast
-
-Avoid cartoon style and over-decoration.
-
-================================================================================
-STRUCTURE REQUIRED
-================================================================================
-
-Include these sections:
-
-1. Cover / Hero section
-2. Course information
-3. Course objectives
-4. Course outcomes
-5. How to use this lesson
-6. Clickable table of contents
-7. All syllabus modules as full handbook chapters
-8. Malayalam explanation throughout
-9. Diagrams / SVG illustrations
-10. Formula Bank if applicable
-11. Worked examples
-12. Expected questions module-wise
-13. Practice questions
-14. Answer key
-15. Quick revision
-16. Model question paper with complete answers
-17. References if provided in syllabus
-18. Download Notes button
-19. Print / PDF button inside the lesson page
-
-================================================================================
-MALAYALAM EXPLANATION RULE
-================================================================================
-
-After every important concept, include Malayalam explanation.
-
-Technical terms may remain in English.
-
-Malayalam explanations must help diploma students understand difficult English theory.
-
-Do not force Malayalam for language subjects where it is not useful.
-
-================================================================================
-DIAGRAM AND ANIMATION RULE
-================================================================================
-
-Create offline SVG diagrams wherever useful:
-
-• Electrical circuits
-• Power plant layouts
-• Transmission line diagrams
-• Sag diagrams
-• Distribution layouts
-• Cable construction diagrams
-• Substation single-line diagrams
-• Flowcharts
-• Block diagrams
-• Tables and comparison charts
-
-Use animations only when they improve understanding.
-Use only CSS, SVG and Vanilla JavaScript.
-No external libraries.
-Animations must be disabled in print/PDF mode.
-
-================================================================================
-DOWNLOAD NOTES / PRINT PDF EXPORT RULE
-================================================================================
-
-Every lesson page must include BOTH:
-
-1. A Download Notes button.
-2. A Print / PDF button inside the lesson page.
-
-Both buttons must work from inside the lesson HTML page.
-
-The Download Notes button must generate a clean PDF directly from the CURRENT HTML lesson page.
-
-The button must NOT simply download an old static PDF with unused blank space.
-
-When clicked:
-
-1. Add `pdf-export-mode` class to html and body.
-2. Open all details elements.
-3. Reveal all hidden modules, tabs, accordions and answer sections.
-4. Reveal formula bank, practice questions, model paper and answer key.
-5. Hide header, navigation, search, floating buttons, assistant widget and decorative controls.
-6. Disable animations.
-7. Change document title to `downloadable-notes-[SUBJECT_CODE]`.
-8. Trigger `window.print()` after layout is prepared.
-
-For direct user clicks, call `window.print()` immediately after preparing the layout so browser popup blocking does not prevent the print dialog.
-
-Also support:
-
-lessons/lessons-[SUBJECT_CODE].html?autoPrintNotes=1
-
-PDF layout requirements:
-
-• A4 page
-• Approximately 7 mm margin
-• Full printable width
-• No huge blank spaces
-• No blank first page
-• No clipped diagrams
-• No cropped tables
-• No missing hidden sections
-• Selectable text
-• Sharp SVG diagrams
-
-Do NOT use html2pdf, html2canvas, jsPDF or any external PDF library.
-
-================================================================================
-AUTOMATIC NOTES AVAILABILITY RULE
-================================================================================
-
-If `lessons/lessons-[SUBJECT_CODE].html` exists, then PDF notes must automatically be available for that subject.
-
-Subject cards should show Download Notes automatically when the lesson HTML file exists.
-
-The subject card Download Notes link should open:
-
-lessons/lessons-[SUBJECT_CODE].html?autoPrintNotes=1
-
-Examples:
-
-lessons/lessons-5032.html?autoPrintNotes=1
-lessons/lessons-6041A.html?autoPrintNotes=1
-lessons/lessons-6041B.html?autoPrintNotes=1
-
-Static PDF files are optional backup only.
-
-Do NOT hide Download Notes just because a separate PDF file is missing.
-
-The lesson HTML itself is the primary source for downloadable PDF notes.
-
-================================================================================
-SEARCH, BOOKMARKS AND PROGRESS
-================================================================================
+lessons-1477_REV2026.html
+lessons-6031A_REV2026.html
+lessons-1002_REV2021.html
+
+New scheme-aware notes filename:
+notes/downloadable-notes-[FULL_SUBJECT_CODE]_[CURRICULUM_SCHEME].pdf
+
+Preserve suffixes exactly. 6031A must never become 6031. 6041C must never become 6041.
+
+Protected REV2021 files already published as lessons-[CODE].html must remain unchanged. Do not bulk rename them.
+
+===============================================================================
+VISIBLE PAGE IDENTITY AND METADATA
+===============================================================================
+
+Display prominently in the header, breadcrumb and cover:
+- POLY PMNA
+- exact subject name
+- full subject code
+- curriculum tag such as REV2021 or REV2026
+- exact scheme-specific programme name
+- semester and course type
+- credits and hours when officially available
+
+Breadcrumb:
+Home > [CURRICULUM_SCHEME] > [PROGRAMME_NAME] > [SEMESTER] > [SUBJECT_CODE]
+
+Add to <head>:
+- title containing code, subject and scheme
+- scheme-aware description and canonical URL
+- Open Graph metadata
+- JSON-LD Course data
+- <meta name="poly-pmna:curriculum-scheme" content="REV2026">
+- <meta name="poly-pmna:programme" content="Exact programme name">
+- <meta name="poly-pmna:subject-code" content="Full code including suffix">
+- <meta name="poly-pmna:source-url" content="Official SITTTR URL">
+- <meta name="poly-pmna:source-verified-date" content="YYYY-MM-DD">
+
+Add equivalent body attributes:
+data-curriculum-scheme
+data-programme
+data-subject-code
+data-source-verified-date
+
+===============================================================================
+OFFICIAL SOURCE RULE
+===============================================================================
+
+Use only the official SITTTR PDF belonging to the selected scheme.
+
+Do not invent topics, infer missing hours/cognitive levels, silently substitute a similar programme, import another revision's COs/modules or present an unofficial question bank as official.
+
+You may deeply explain official topics, but every major section must remain traceable to the selected PDF.
+
+===============================================================================
+SCHEME-SPECIFIC CURRICULUM EXTRACTION
+===============================================================================
+
+Extract fresh from the selected PDF:
+- every Course Outcome with exact numbering
+- every module/unit and official title
+- module topics and allocated hours
+- theory/practical split
+- CO mapping
+- cognitive/taxonomy level
+- assessment pattern
+- practical experiment, exercise, job or menu outline
+- official resources and references
+
+When a field is not published, show "Not specified in the official source". Never fill it from another scheme.
+
+Include a visible curriculum map:
+Module | Official topics | Hours | CO mapping | Cognitive level | Handbook section
+
+===============================================================================
+HANDBOOK DEPTH AND STRUCTURE
+===============================================================================
+
+Every module must become a full textbook chapter, not a small card or bullet summary.
 
 Include:
+1. Cover and course information
+2. Learning roadmap
+3. Official objectives and Course Outcomes
+4. Official curriculum map
+5. Complete module-wise chapters
+6. Malayalam support for difficult concepts where useful, except language subjects
+7. Formula/rule/procedure bank where applicable
+8. Diagrams and offline SVG illustrations
+9. Worked examples or demonstrations
+10. Practical exercises, experiments, menus, jobs or activities where applicable
+11. Safety, quality and professional-practice notes
+12. Module summaries, common mistakes and exam tips
+13. Practice and expected questions clearly labelled as practice
+14. Answer key and model answers
+15. Quick revision and glossary
+16. Practice model paper
+17. References and source declaration
 
-• Instant search
-• Bookmark buttons using localStorage
-• Reading progress bar
-• Continue reading / last read if practical
-• Dark/light mode if practical
+For every module include introduction, objectives, detailed theory/procedure, definitions, examples, industrial relevance, summary and questions.
 
-All features must work offline.
+===============================================================================
+MODEL QUESTION PAPER RULE
+===============================================================================
 
-================================================================================
-ACCESSIBILITY AND PERFORMANCE
-================================================================================
+Do not invent a REV2026 official model-paper structure.
 
-Use semantic HTML, proper heading hierarchy, ARIA labels where needed, keyboard navigation, readable font sizes, high contrast and accessible buttons.
+Until SITTTR publishes a REV2026 model-question-paper section:
+- retain the current POLY PMNA practice-paper structure
+- label it "Practice Model Paper — not an official REV2026 paper"
+- do not claim its marks or cognitive pattern is official for REV2026
+- keep REV2021 and REV2015 official links revision-specific
 
-Use optimized CSS and JavaScript.
-Avoid heavy scripts and repeated expensive DOM operations.
+Change the structure only after a scheme-specific official model paper is verified.
 
-================================================================================
-GITHUB COMMIT AND PUSH REQUIREMENT
-================================================================================
+===============================================================================
+PAGE, OFFLINE AND PDF REQUIREMENTS
+===============================================================================
 
-After creating or modifying the lesson:
+Create one standalone file using HTML, CSS, vanilla JavaScript and inline SVG only. No CDN, frameworks, online fonts or external PDF libraries.
 
-1. Verify subject code and filename.
-2. Verify all modules are included.
-3. Verify the page is handbook-level, not short-note level.
-4. Verify the lesson uses full width and has no unnecessary left/right free space.
-5. Verify Download Notes and Print / PDF buttons are available inside the lesson page.
-6. Verify Download Notes creates a clean HTML-to-PDF output.
-7. Verify no unnecessary blank space in PDF mode.
-8. Verify that a subject with lesson HTML automatically gets Download Notes from `?autoPrintNotes=1`.
-9. Commit with a meaningful commit message.
-10. Push to the GitHub repository.
+The page must:
+- work offline
+- use nearly full desktop width without excessive side gaps
+- collapse cleanly on mobile
+- include sticky header, module navigation, search, bookmarks, reading progress and dark/light mode
+- include Download Notes and Print/PDF controls
+- support ?autoPrintNotes=1
+- reveal all hidden content before printing
+- use compact A4 print CSS with no blank pages or clipped tables/diagrams
+- hide navigation, animations and decorative controls in print mode
 
-================================================================================
-FINAL OUTPUT
-================================================================================
+Set the print title to downloadable-notes-[FULL_SUBJECT_CODE]_[CURRICULUM_SCHEME].
 
-Produce ONE complete standalone HTML file.
+===============================================================================
+SOURCE DECLARATION
+===============================================================================
 
-No placeholders.
-No dummy text.
-No “content omitted.”
-No “continue later.”
-No unfinished modules.
-No missing answer key.
-No broken PDF download behavior.
-No unnecessary left/right free space.
+At the end show:
+Curriculum scheme
+Programme name
+Subject code
+Subject name
+Official source URL
+Source verification date
 
-Everything must be complete, large, handbook-style, production-ready, offline-compatible, responsive, full-width, PDF-export-ready and immediately deployable on POLY PMNA.
+Statement:
+"This handbook was generated only from the identified scheme-specific SITTTR source. Content from other curriculum revisions was not merged."
+
+===============================================================================
+FINAL VALIDATION CHECKLIST
+===============================================================================
+
+[ ] curriculum tag is visible and embedded in metadata
+[ ] full subject code and suffix are preserved everywhere
+[ ] scheme-specific programme name is used
+[ ] COs, modules, hours and cognitive levels came from the selected PDF
+[ ] practical outline and resources came from the selected PDF
+[ ] missing data is marked unavailable rather than inherited
+[ ] no other scheme was merged
+[ ] new filename contains the scheme
+[ ] existing REV2021 handbooks were not overwritten or renamed
+[ ] model paper is not misrepresented as official REV2026 content
+[ ] page is complete, full-width, offline-ready and print-ready
+
+Return only the complete final HTML after every check passes.
 ```
+
+## Repository policy
+
+- Existing `lessons/lessons-[CODE].html` REV2021 files are protected and remain untouched.
+- New verified files use `lessons/lessons-[CODE]_[SCHEME].html`.
+- Publish only after scheme, programme, full subject code and official PDF are individually verified.
+- Suffix letters are part of the code and must never be normalized away.
