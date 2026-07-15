@@ -1,0 +1,12 @@
+{
+  "revision": "2026",
+  "lessonFolder": "revision-2026-content/lessons",
+  "notesFolder": "revision-2026-content/notes",
+  "generated": [],
+  "errors": [],
+  "requiredLessonCodes": [],
+  "generatedThisRunCodes": [],
+  "missingCodes": [],
+  "renderer": "Playwright Chromium through local HTTP server",
+  "minimumPdfBytes": 20000
+}
