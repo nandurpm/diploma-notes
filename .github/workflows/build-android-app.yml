@@ -21,6 +21,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: poly-pmna-android-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   debug-apk:
     name: Build debug APK
@@ -46,8 +50,9 @@ jobs:
       - name: Upload debug APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: POLY_PMNA_v2.01_debug_apk
+          name: POLY_PMNA_v3.0_debug_apk
           path: android-app/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
 
   signed-release-apk:
     name: Build signed release APK
@@ -79,7 +84,7 @@ jobs:
           [ -z "${ANDROID_KEY_PASSWORD}" ] && missing="$missing ANDROID_KEY_PASSWORD"
           if [ -n "$missing" ]; then
             echo "Missing required GitHub Actions secrets:$missing"
-            echo "Add them in: Repository Settings → Secrets and variables → Actions → New repository secret"
+            echo "Add them in Repository Settings → Secrets and variables → Actions."
             exit 1
           fi
         env:
@@ -95,10 +100,7 @@ jobs:
             | sed '/-----BEGIN/d;/-----END/d' \
             | tr -d '\n\r ' \
             | base64 --decode > android-app/release.keystore
-          if [ ! -s android-app/release.keystore ]; then
-            echo "Decoded release.keystore is empty. Re-create ANDROID_KEYSTORE_BASE64 from the original .jks/.keystore file."
-            exit 1
-          fi
+          test -s android-app/release.keystore
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
 
@@ -120,29 +122,29 @@ jobs:
           mkdir -p downloads
           APK_SOURCE=$(find android-app/app/build/outputs/apk/release -name "*.apk" | head -n 1)
           if [ -z "${APK_SOURCE}" ]; then
-            echo "No release APK found. Listing release output folder:"
+            echo "No release APK found."
             find android-app/app/build/outputs/apk/release -maxdepth 2 -type f -print || true
             exit 1
           fi
-          echo "Using APK: ${APK_SOURCE}"
-          cp "${APK_SOURCE}" downloads/POLY_PMNA_v2.01.apk
-          SHA256=$(sha256sum downloads/POLY_PMNA_v2.01.apk | awk '{print $1}')
+          cp "${APK_SOURCE}" downloads/POLY_PMNA_v3.0.apk
+          SHA256=$(sha256sum downloads/POLY_PMNA_v3.0.apk | awk '{print $1}')
           cat > downloads/app-update.json <<JSON
           {
             "schemaVersion": 1,
-            "versionCode": 8,
-            "versionName": "2.01",
-            "apkUrl": "/downloads/POLY_PMNA_v2.01.apk",
+            "versionCode": 9,
+            "versionName": "3.0",
+            "apkUrl": "/downloads/POLY_PMNA_v3.0.apk",
             "sha256": "${SHA256}",
-            "publishedAt": "2026-06-29",
+            "publishedAt": "2026-07-16",
             "forceUpdate": false,
-            "title": "POLY PMNA Android app 2.01",
-            "message": "Updated Android app includes Ask POLY AI in the left sidebar and refreshed website sections.",
+            "title": "POLY PMNA Android app 3.0",
+            "message": "Major update adds Revision 2026 navigation and fully separates 2026 lessons and notes from Revision 2021.",
             "releaseNotes": [
-              "Added Ask POLY AI as a separate drawer item.",
-              "Updated drawer order to match the website navigation.",
-              "Updated launch text and version label for Ask POLY AI.",
-              "Kept Revision 2021, Mock Exams, Tools, Question Papers, 2015 Materials, About and Contact available."
+              "Added Revision 2026 as a separate native drawer destination.",
+              "Added dedicated Revision 2026 lesson and notes folder support.",
+              "Prevented Revision 2026 subject codes from opening Revision 2021 content.",
+              "Improved department and lesson deep-link highlighting.",
+              "Updated WebView cache and trusted Revision 2026 PDF download handling."
             ]
           }
           JSON
@@ -150,19 +152,20 @@ jobs:
       - name: Upload signed APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: POLY_PMNA_v2.01_signed_apk
-          path: downloads/POLY_PMNA_v2.01.apk
+          name: POLY_PMNA_v3.0_signed_apk
+          path: downloads/POLY_PMNA_v3.0.apk
+          if-no-files-found: error
 
       - name: Publish APK and update metadata
         run: |
           set -e
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add downloads/POLY_PMNA_v2.01.apk downloads/app-update.json
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add downloads/POLY_PMNA_v3.0.apk downloads/app-update.json
           if git diff --cached --quiet; then
             echo "No APK or metadata changes to publish."
             exit 0
           fi
-          git commit -m "Publish Android app v2.01"
+          git commit -m "Publish Android app v3.0"
           git pull --rebase origin main
           git push origin HEAD:main
