@@ -1,4 +1,4 @@
-// Build trigger: publish POLY PMNA Android app v2.01 with Ask POLY AI
+// POLY PMNA Android app v3.0 — Revision 2026 content separation
 plugins {
     id 'com.android.application'
 }
@@ -17,8 +17,8 @@ android {
         applicationId 'org.diplomanotes.polytechnicstudyhub'
         minSdk 23
         targetSdk 35
-        versionCode 8
-        versionName '2.01'
+        versionCode 9
+        versionName '3.0'
     }
 
     buildFeatures {
