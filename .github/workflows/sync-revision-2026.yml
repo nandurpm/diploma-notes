@@ -25,15 +25,16 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4
+      - run: python -m py_compile tools/sync_revision_2026.py
       - run: python tools/sync_revision_2026.py
-      - name: Commit verified subject data
+      - name: Commit verified programme and subject data
         run: |
-          if git diff --quiet -- assets/data/revision-2026-subjects.json; then
+          git add assets/data/revision-2026-programmes.json assets/data/revision-2026-subjects.json
+          if git diff --cached --quiet; then
             echo 'No verified data change.'
             exit 0
           fi
           git config user.name 'poly-pmna-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add assets/data/revision-2026-subjects.json
           git commit -m 'Sync official SITTTR Revision 2026 subjects'
           git push
