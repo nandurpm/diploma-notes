@@ -1,0 +1,15 @@
+{
+  "applicationId": "org.diplomanotes.polytechnicstudyhub",
+  "versionCode": 9,
+  "versionName": "3.0",
+  "buildType": "debug",
+  "status": "success",
+  "sourceCommit": "ff9c2e247c552d457500a17c0edacfd7811ac5fb",
+  "artifactName": "POLY_PMNA_v3.0_debug_apk",
+  "apkFileName": "app-debug.apk",
+  "apkBytes": 3384132,
+  "sha256": "287a4c86f5cca527b45d814e7540bf9285f8c48c9d0e23550fa6928429380012",
+  "builtAt": "2026-07-15T20:47:19Z",
+  "revision2026LessonFolder": "revision-2026-content/lessons",
+  "revision2026NotesFolder": "revision-2026-content/notes"
+}
