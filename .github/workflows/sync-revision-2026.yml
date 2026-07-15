@@ -30,12 +30,14 @@ jobs:
         run: python -m py_compile tools/sync_revision_2026.py tools/build_revision_2026_pages.py
       - name: Download official programme tables
         run: python tools/sync_revision_2026.py
-      - name: Build static Semester 1-6 pages
+      - name: Build static Semester 1-6 pages and comparison report
         run: python tools/build_revision_2026_pages.py
-      - name: Commit verified data and static pages
+      - name: Commit verified data, pages and reports
         run: |
           git add assets/data/revision-2026-programmes.json assets/data/revision-2026-subjects.json
-          git add revision-2026.html revision-2026/*.html reports/revision-2026-build-summary.json
+          git add revision-2026.html revision-2026/*.html
+          git add reports/revision-2026-build-summary.json
+          git add reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
           if git diff --cached --quiet; then
             echo 'No verified data or page change.'
             exit 0
