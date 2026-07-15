@@ -8,9 +8,10 @@ const CURRICULUM_REVISIONS = Object.freeze({
     syllabusAvailable: true,
     subjectDataPublished: true,
     modelQuestionPapersAvailable: true,
+    officialModelQuestionPapersUrl: "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021",
     programmeCount: 43,
     protectExistingHandbooks: true,
-    notice: "Revision 2021 subjects, handbooks, notes and model-question-paper links remain available for legacy batches."
+    notice: "Revision 2021 subjects, handbooks, notes and official model-question-paper links remain available for legacy batches."
   }),
   "2026": Object.freeze({
     id: "2026",
@@ -19,9 +20,10 @@ const CURRICULUM_REVISIONS = Object.freeze({
     status: "published",
     syllabusAvailable: true,
     subjectDataPublished: true,
-    modelQuestionPapersAvailable: false,
+    modelQuestionPapersAvailable: true,
     programmeCount: 38,
     officialSyllabusUrl: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
+    officialModelQuestionPapersUrl: "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026",
     newlyListedProgrammes: Object.freeze([
       "Computer Science and Technology",
       "Interior Design"
@@ -35,7 +37,7 @@ const CURRICULUM_REVISIONS = Object.freeze({
       "Manufacturing Technology",
       "Renewable Energy"
     ]),
-    notice: "The official Revision 2026 programme list and semester-wise subject records are published for 38 programmes. Dedicated Revision 2026 handbooks, downloadable notes and official model question papers are added separately when available."
+    notice: "The official Revision 2026 programme list, semester-wise subjects and sample-question-paper links are published for all 38 programmes. Dedicated Revision 2026 handbooks and downloadable notes are added separately when available."
   })
 });
 
