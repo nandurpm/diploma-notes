@@ -5,7 +5,15 @@
   const COMMON_VALUE = "__common__";
   const ALL_DEPARTMENTS = "all";
   const HOME_LIMIT = 36;
-  const LESSONS = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5031","5041","5042","5043","5043A","6001","6002","6007","6009","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
+
+  // Revision 2021 assets remain in /lessons and /notes.
+  const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5001","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
+  const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5001","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
+
+  // Revision 2026 assets are detected only inside /revision-2026-content.
+  const REV2026_LESSON_CODES = new Set([]);
+  const REV2026_NOTES_CODES = new Set([]);
+
   const MANUAL = [
     {revision:"2021",semester:"Semester 1",code:"1001",name:"Communication Skills in English",department:COMMON,type:"Theory",assetCode:"1001"},
     {revision:"2021",semester:"Semester 1",code:"1002",name:"Mathematics I",department:COMMON,type:"Theory",assetCode:"1002"},
@@ -89,7 +97,7 @@
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
     const [subjectText, revision2026Payload] = await Promise.all([
       revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`, { cache: "no-store" }).then(response => response.ok ? response.text() : "").catch(() => ""),
-      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-match-2021`, { cache: "no-store" }).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-content`, { cache: "no-store" }).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
@@ -97,26 +105,44 @@
   }
 
   function hasLesson(subject) {
-    return String(subject.revision) === "2021" && LESSONS.has(norm(asset(subject)));
+    const code = norm(asset(subject));
+    return String(subject.revision) === "2026"
+      ? REV2026_LESSON_CODES.has(code)
+      : LESSON_CODES.has(code);
+  }
+
+  function hasNotes(subject) {
+    const code = norm(asset(subject));
+    return String(subject.revision) === "2026"
+      ? REV2026_NOTES_CODES.has(code)
+      : NOTES_CODES.has(code);
   }
 
   function assetPaths(subject) {
     const relativeRoot = root();
-    const code = asset(subject);
-    const suffix = String(subject.revision) === "2026" ? "_REV2026" : "";
+    const code = encodeURIComponent(asset(subject));
+    if (String(subject.revision) === "2026") {
+      return {
+        lessonHref: `${relativeRoot}revision-2026-content/lessons/lessons-${code}.html`,
+        notesHref: `${relativeRoot}revision-2026-content/notes/downloadable-notes-${code}.pdf`
+      };
+    }
     return {
-      lessonHref: `${relativeRoot}lessons/lessons-${encodeURIComponent(code)}${suffix}.html`,
-      notesHref: `${relativeRoot}notes/downloadable-notes-${encodeURIComponent(code)}${suffix}.pdf`
+      lessonHref: `${relativeRoot}lessons/lessons-${code}.html`,
+      notesHref: `${relativeRoot}notes/downloadable-notes-${code}.pdf`
     };
   }
 
   function card(subject) {
     const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
+    const notesAvailable = hasNotes(subject);
+    const downloadHref = notesAvailable ? notesHref : `${lessonHref}?autoPrintNotes=1`;
+    const downloadAttributes = notesAvailable ? " download" : ' target="_blank" rel="noopener noreferrer"';
     const studyActions = handbookAvailable
-      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" download>Download Notes</a>`
+      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card reveal" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}<a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
+    return `<article class="subject-card reveal" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}<a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
   }
 
   function group(list) {
@@ -160,7 +186,7 @@
   }
 
   function emptyMessage(mode, revision) {
-    if (mode === "lessons" && revision === "2026") return "No dedicated Revision 2026 lesson handbooks are published yet.";
+    if (mode === "lessons" && revision === "2026") return "No Revision 2026 lesson HTML files are published in the dedicated 2026 folder yet.";
     return "No verified subjects found for this revision and filter selection.";
   }
 
