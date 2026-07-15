@@ -1,7 +1,7 @@
 (() => {
   "use strict";
   const SITE = "POLY PMNA";
-  const VERSION = "20260711-consistency1";
+  const VERSION = "20260715-mobile-menu1";
   const path = () => location.pathname.replace(/\/+$/, "") || "/";
   const isLesson = /\/lessons\//i.test(path());
   const navItems = [
@@ -45,10 +45,13 @@
     btn.className="menu-toggle"; btn.type="button"; btn.textContent="Menu"; btn.setAttribute("aria-label","Toggle navigation");
     let nav=h.querySelector(".navlinks");
     if(!nav){ nav=document.createElement("nav"); h.append(nav); }
+    const wasOpen = nav.classList.contains("open") || h.classList.contains("open");
     const p=path().toLowerCase();
-    nav.className="navlinks"; nav.setAttribute("aria-label","Primary navigation");
+    nav.className=wasOpen ? "navlinks open" : "navlinks";
+    nav.setAttribute("aria-label","Primary navigation");
     nav.innerHTML=navItems.map(([label,href,match])=>`<a href="${href}"${match(p)?' class="active" aria-current="page"':''}>${label}${label==="Tools"?' <span class="nav-badge">New</span>':''}</a>`).join("");
-    if(btn.dataset.polyNavBound!=="true"){
+    btn.setAttribute("aria-expanded", String(wasOpen));
+    if(btn.dataset.fixedHeaderBound !== "true" && btn.dataset.polyNavBound !== "true"){
       btn.dataset.polyNavBound="true";
       btn.addEventListener("click",()=>{ const open=!nav.classList.contains("open"); nav.classList.toggle("open",open); h.classList.toggle("open",open); btn.setAttribute("aria-expanded",String(open)); });
     }
@@ -84,7 +87,7 @@
     const items=map[path()]; if(!items) return;
     let bc=document.querySelector(".site-breadcrumbs");
     if(!bc){ const main=document.getElementById("main-content")||document.querySelector("main"); if(!main) return; bc=document.createElement("nav"); bc.className="site-breadcrumbs"; bc.setAttribute("aria-label","Breadcrumb"); main.prepend(bc); }
-    bc.innerHTML=`<ol>${items.map(([label,href],i)=>`<li>${href?`<a href="${href}">${label}</a>`:`<span aria-current="page">${label}</span>`}</li>`).join("")}</ol>`;
+    bc.innerHTML=`<ol>${items.map(([label,href])=>`<li>${href?`<a href="${href}">${label}</a>`:`<span aria-current="page">${label}</span>`}</li>`).join("")}</ol>`;
   }
   function loadingFallbacks(){
     const title=document.querySelector('[data-important-title]');
