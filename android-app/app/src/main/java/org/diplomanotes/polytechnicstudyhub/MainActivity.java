@@ -41,14 +41,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends ComponentActivity {
     private static final String HOME_URL = "https://polypmna.dpdns.org/";
     private static final String TRUSTED_HOST = "polypmna.dpdns.org";
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
+    private static final Set<String> APPROVED_EXTERNAL_HOSTS = Set.of(
+            "sitttrkerala.ac.in",
+            "www.sitttrkerala.ac.in",
+            "drive.google.com",
+            "docs.google.com",
+            "github.com",
+            "raw.githubusercontent.com"
+    );
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private DrawerLayout drawerLayout;
     private WebView webView;
@@ -59,7 +69,6 @@ public class MainActivity extends ComponentActivity {
     private boolean launchOverlayDismissed;
     private String lastFailedUrl = HOME_URL;
 
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final Runnable slowLoadRunnable = () -> {
         if (!launchOverlayDismissed && toolbarSubtitle != null) {
             toolbarSubtitle.setText(R.string.loading_slow);
@@ -128,14 +137,18 @@ public class MainActivity extends ComponentActivity {
                 view -> drawerLayout.openDrawer(GravityCompat.START)
         );
         findViewById(R.id.refreshButton).setOnClickListener(view -> {
-            if (webView != null && webView.getUrl() != null && webView.getUrl().startsWith(ERROR_PAGE_URL)) {
+            if (webView == null) {
+                return;
+            }
+            if (webView.getUrl() != null && webView.getUrl().startsWith(ERROR_PAGE_URL)) {
                 retryLastFailedUrl();
-            } else if (webView != null) {
+            } else {
                 webView.reload();
             }
         });
 
         bindNavigation(R.id.navHome, "/");
+        bindNavigation(R.id.navRevision2026, "/revision-2026.html");
         bindNavigation(R.id.navRevision2021, "/revision-2021.html");
         bindNavigation(R.id.navDailyQuiz, "/daily-quiz.html");
         bindNavigation(R.id.navAskPoly, "/ask-poly.html");
@@ -146,7 +159,7 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navContact, "/contact.html");
 
         TextView version = findViewById(R.id.drawerVersion);
-        version.setText("Version " + BuildConfig.VERSION_NAME + "  •  Ask POLY AI ready");
+        version.setText("Version " + BuildConfig.VERSION_NAME + "  •  REV2026 content ready");
     }
 
     private void bindNavigation(int viewId, String path) {
@@ -183,21 +196,35 @@ public class MainActivity extends ComponentActivity {
                 currentPath = uri.getPath();
             }
         } catch (Exception ignored) {
-            // Keep the home item selected for malformed URLs.
+            // Keep Home active for malformed URLs.
         }
 
         if ("/index.html".equals(currentPath)) {
             currentPath = "/";
-        }
-        if ("/ask-poly-v2.html".equals(currentPath)) {
+        } else if ("/ask-poly-v2.html".equals(currentPath)) {
             currentPath = "/ask-poly.html";
-        }
-        if ("/tools.html".equals(currentPath)) {
+        } else if ("/tools.html".equals(currentPath)) {
             currentPath = "/tools-v2.html";
         }
+
         for (Map.Entry<View, String> entry : navigationItems.entrySet()) {
-            entry.getKey().setActivated(entry.getValue().equals(currentPath));
+            entry.getKey().setActivated(pathMatches(currentPath, entry.getValue()));
         }
+    }
+
+    private boolean pathMatches(String currentPath, String targetPath) {
+        if ("/revision-2026.html".equals(targetPath)) {
+            return "/revision-2026.html".equals(currentPath)
+                    || currentPath.startsWith("/revision-2026/")
+                    || currentPath.startsWith("/revision-2026-content/");
+        }
+        if ("/revision-2021.html".equals(targetPath)) {
+            return "/revision-2021.html".equals(currentPath)
+                    || currentPath.startsWith("/revision-2021/")
+                    || currentPath.startsWith("/lessons/")
+                    || currentPath.startsWith("/notes/");
+        }
+        return targetPath.equals(currentPath);
     }
 
     private void configureBackNavigation() {
@@ -224,6 +251,8 @@ public class MainActivity extends ComponentActivity {
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
+        settings.setDatabaseEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         settings.setBuiltInZoomControls(false);
         settings.setDisplayZoomControls(false);
         settings.setLoadWithOverviewMode(true);
@@ -232,8 +261,9 @@ public class MainActivity extends ComponentActivity {
         settings.setAllowContentAccess(false);
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         settings.setMediaPlaybackRequiresUserGesture(true);
+        settings.setSupportMultipleWindows(false);
         settings.setUserAgentString(
-                settings.getUserAgentString() + " PolytechnicStudyHubAndroid/" + BuildConfig.VERSION_NAME
+                settings.getUserAgentString() + " PolyPmnaAndroid/" + BuildConfig.VERSION_NAME
         );
 
         CookieManager cookieManager = CookieManager.getInstance();
@@ -255,15 +285,14 @@ public class MainActivity extends ComponentActivity {
         }
         target.evaluateJavascript(
                 "(function(){try{" +
-                        "var d=document;var root=d.documentElement;root.classList.add('polytechnic-native-app');" +
+                        "var d=document;d.documentElement.classList.add('polytechnic-native-app');" +
                         "var css='html.polytechnic-native-app .topbar,html.polytechnic-native-app .skip-link{display:none!important;}' +" +
                         "'html.polytechnic-native-app body{padding-top:0!important;margin-top:0!important;}' +" +
-                        "'html.polytechnic-native-app .wrap{padding-top:0!important;}' +" +
                         "'html.polytechnic-native-app main{margin-top:0!important;}' +" +
                         "'html.polytechnic-native-app .app-download:not([data-app-button-state=update]){display:none!important;}';" +
                         "var s=d.getElementById('poly-native-app-header-cleanup');" +
                         "if(!s){s=d.createElement('style');s.id='poly-native-app-header-cleanup';s.textContent=css;(d.head||d.documentElement).appendChild(s);}" +
-                        "var header=d.querySelector('.topbar');if(header){header.hidden=true;header.setAttribute('aria-hidden','true');}" +
+                        "var h=d.querySelector('.topbar');if(h){h.hidden=true;h.setAttribute('aria-hidden','true');}" +
                         "var skip=d.querySelector('.skip-link');if(skip){skip.hidden=true;}" +
                         "}catch(e){}})();",
                 null
@@ -279,8 +308,7 @@ public class MainActivity extends ComponentActivity {
             try {
                 DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
                 String guessedName = URLUtil.guessFileName(url, contentDisposition, mimetype);
-                CookieManager cookieManager = CookieManager.getInstance();
-                String cookies = cookieManager.getCookie(url);
+                String cookies = CookieManager.getInstance().getCookie(url);
                 if (cookies != null) {
                     request.addRequestHeader("Cookie", cookies);
                 }
@@ -289,13 +317,17 @@ public class MainActivity extends ComponentActivity {
                 request.setDescription(getString(R.string.downloading_file));
                 request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, guessedName);
-                request.setMimeType(mimetype == null || mimetype.isEmpty() ? "application/octet-stream" : mimetype);
-                DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-                if (downloadManager != null) {
-                    downloadManager.enqueue(request);
+                request.setMimeType(
+                        mimetype == null || mimetype.isEmpty()
+                                ? "application/octet-stream"
+                                : mimetype
+                );
+                DownloadManager manager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+                if (manager != null) {
+                    manager.enqueue(request);
                     Toast.makeText(this, R.string.download_started, Toast.LENGTH_SHORT).show();
                 }
-            } catch (Exception ex) {
+            } catch (Exception error) {
                 Toast.makeText(this, R.string.download_failed, Toast.LENGTH_SHORT).show();
             }
         };
@@ -307,6 +339,13 @@ public class MainActivity extends ComponentActivity {
                 && TRUSTED_HOST.equalsIgnoreCase(uri.getHost());
     }
 
+    private boolean isApprovedExternalHttps(Uri uri) {
+        return uri != null
+                && "https".equalsIgnoreCase(uri.getScheme())
+                && uri.getHost() != null
+                && APPROVED_EXTERNAL_HOSTS.contains(uri.getHost().toLowerCase(Locale.ROOT));
+    }
+
     private boolean isTrustedDownload(String url) {
         try {
             Uri uri = Uri.parse(url);
@@ -316,6 +355,7 @@ public class MainActivity extends ComponentActivity {
             String path = uri.getPath();
             return path != null && (
                     path.startsWith("/notes/")
+                            || path.startsWith("/revision-2026-content/notes/")
                             || path.startsWith("/downloads/")
                             || path.endsWith(".pdf")
                             || path.endsWith(".apk")
@@ -336,13 +376,14 @@ public class MainActivity extends ComponentActivity {
     private void openExternal(Intent intent, int errorMessageResId) {
         try {
             startActivity(intent);
-        } catch (ActivityNotFoundException ex) {
+        } catch (ActivityNotFoundException error) {
             Toast.makeText(this, errorMessageResId, Toast.LENGTH_SHORT).show();
         }
     }
 
     private void retryLastFailedUrl() {
         if (webView != null) {
+            webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             webView.loadUrl(lastFailedUrl == null ? HOME_URL : lastFailedUrl);
         }
     }
@@ -394,7 +435,7 @@ public class MainActivity extends ComponentActivity {
     private final class HubWebViewClient extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return handleNavigation(Uri.parse(url));
+            return handleNavigation(url == null ? null : Uri.parse(url));
         }
 
         @Override
@@ -406,7 +447,7 @@ public class MainActivity extends ComponentActivity {
             if (isTrustedUri(uri)) {
                 return false;
             }
-            if (isSafeExternalScheme(uri)) {
+            if (isApprovedExternalHttps(uri) || isSafeExternalScheme(uri)) {
                 openExternal(new Intent(Intent.ACTION_VIEW, uri), R.string.no_app_found);
             } else if (uri != null && APP_ACTION_SCHEME.equalsIgnoreCase(uri.getScheme())) {
                 Toast.makeText(MainActivity.this, R.string.intent_link_blocked, Toast.LENGTH_SHORT).show();
@@ -431,6 +472,7 @@ public class MainActivity extends ComponentActivity {
             progressBar.setProgress(100);
             progressBar.setVisibility(View.GONE);
             toolbarSubtitle.setText(R.string.app_subtitle);
+            view.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             markActiveNavigation(url);
             injectNativeAppChrome(view);
             hideLaunchOverlay();
@@ -442,6 +484,7 @@ public class MainActivity extends ComponentActivity {
             if (request != null && request.isForMainFrame()) {
                 Uri failingUri = request.getUrl();
                 lastFailedUrl = failingUri == null ? HOME_URL : failingUri.toString();
+                view.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
                 view.loadUrl(ERROR_PAGE_URL);
             }
             super.onReceivedError(view, request, error);
@@ -458,17 +501,23 @@ public class MainActivity extends ComponentActivity {
         }
 
         @Override
-        public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
+        public boolean onShowFileChooser(
+                WebView webView,
+                ValueCallback<Uri[]> filePathCallback,
+                FileChooserParams fileChooserParams
+        ) {
             if (fileChooserCallback != null) {
                 fileChooserCallback.onReceiveValue(null);
             }
             fileChooserCallback = filePathCallback;
-            Intent intent = fileChooserParams == null ? new Intent(Intent.ACTION_GET_CONTENT) : fileChooserParams.createIntent();
+            Intent intent = fileChooserParams == null
+                    ? new Intent(Intent.ACTION_GET_CONTENT)
+                    : fileChooserParams.createIntent();
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             try {
                 fileChooserLauncher.launch(intent);
                 return true;
-            } catch (ActivityNotFoundException ex) {
+            } catch (ActivityNotFoundException error) {
                 fileChooserCallback = null;
                 Toast.makeText(MainActivity.this, R.string.no_file_picker, Toast.LENGTH_SHORT).show();
                 return false;
