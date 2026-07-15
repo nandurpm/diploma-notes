@@ -9,9 +9,19 @@
   };
   const norm = value => String(value || "").trim().toUpperCase();
   const revisionOf = card => String(card.dataset.revision || "2021").trim();
-  const revisionSuffix = revision => revision === "2026" ? "_REV2026" : "";
-  const notesUrlFor = (code, revision) => `${root()}notes/downloadable-notes-${encodeURIComponent(code)}${revisionSuffix(revision)}.pdf`;
-  const lessonUrlFor = (code, revision, printMode = false) => `${root()}lessons/lessons-${encodeURIComponent(code)}${revisionSuffix(revision)}.html${printMode ? "?autoPrintNotes=1" : ""}`;
+
+  function notesUrlFor(code, revision) {
+    return revision === "2026"
+      ? `${root()}revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`
+      : `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+  }
+
+  function lessonUrlFor(code, revision, printMode = false) {
+    const href = revision === "2026"
+      ? `${root()}revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`
+      : `${root()}lessons/lessons-${encodeURIComponent(code)}.html`;
+    return `${href}${printMode ? "?autoPrintNotes=1" : ""}`;
+  }
 
   async function headOk(url, rejectHtml = false) {
     const absolute = new URL(url, location.href).href;
@@ -46,7 +56,7 @@
         link.target = "_blank";
         link.rel = "noopener noreferrer";
         link.dataset.generatedFromLesson = "true";
-        link.title = "Generated PDF is not published yet; open the lesson in print/PDF mode.";
+        link.title = "The PDF is not published yet; open the lesson in print/PDF mode.";
       }
     }
     return link;
@@ -118,9 +128,11 @@
     }
   }
 
-  function samePath(href, expected) {
+  function samePathAndQuery(href, expected) {
     try {
-      return new URL(href, location.href).pathname === new URL(expected, location.href).pathname;
+      const actualUrl = new URL(href, location.href);
+      const expectedUrl = new URL(expected, location.href);
+      return actualUrl.pathname === expectedUrl.pathname && actualUrl.search === expectedUrl.search;
     } catch {
       return false;
     }
@@ -131,9 +143,15 @@
     return !row.querySelector(".action.download") && hasLessonsUnavailable(row) && notes.length === 1 && /notes unavailable/i.test(notes[0].textContent || "");
   }
 
-  function stableLesson(row, expectedLesson) {
+  function stableLesson(row, expectedLesson, expectedDownload) {
     const lesson = row.querySelector(".action.lessons");
-    return Boolean(lesson && samePath(lesson.href, expectedLesson) && row.querySelector(".action.download") && !notesLabels(row).length);
+    const download = row.querySelector(".action.download");
+    return Boolean(
+      lesson && download
+      && samePathAndQuery(lesson.href, expectedLesson)
+      && samePathAndQuery(download.href, expectedDownload)
+      && !notesLabels(row).length
+    );
   }
 
   async function validateCard(card) {
@@ -150,19 +168,20 @@
       const qp = row.querySelector(".action.qp");
       const existingLesson = row.querySelector(".action.lessons");
 
-      if (existingLesson && !samePath(existingLesson.href, lessonHref)) {
+      if (existingLesson && !samePathAndQuery(existingLesson.href, lessonHref)) {
         existingLesson.remove();
         removeNotesControls(row);
         card.dataset.lessonAvailable = "false";
       }
 
-      let lessonAvailable = Boolean(row.querySelector(".action.lessons") && samePath(row.querySelector(".action.lessons").href, lessonHref))
-        || card.dataset.lessonAvailable === "true";
+      let lessonAvailable = Boolean(
+        row.querySelector(".action.lessons")
+        && samePathAndQuery(row.querySelector(".action.lessons").href, lessonHref)
+      ) || card.dataset.lessonAvailable === "true";
       if (!lessonAvailable) lessonAvailable = await lessonExists(lessonHref);
       if (!card.isConnected) return;
 
       if (lessonAvailable) {
-        if (stableLesson(row, lessonHref)) return;
         card.dataset.lessonAvailable = "true";
         card.dataset.lessonHref = lessonHref;
         card.dataset.notesHref = notesHref;
@@ -171,15 +190,22 @@
           const syllabus = row.querySelector(".action.syllabus");
           row.insertBefore(buildLink(lessonHref, "action lessons", "View Lessons"), syllabus?.nextSibling || row.firstChild);
         }
-        removeNotesControls(row);
-        const ok = await pdfExists(notesHref);
+
+        const notesAvailable = await pdfExists(notesHref);
         if (!card.isConnected) return;
-        if (stableLesson(row, lessonHref)) return;
+        const expectedDownload = notesAvailable ? notesHref : lessonPrintHref;
+        if (stableLesson(row, lessonHref, expectedDownload)) return;
+
         removeNotesControls(row);
-        row.insertBefore(buildLink(ok ? notesHref : lessonPrintHref, "action download", "Download Notes", ok), qp || null);
+        row.insertBefore(
+          buildLink(expectedDownload, "action download", "Download Notes", notesAvailable),
+          qp || null
+        );
+        card.dataset.notesAvailable = String(notesAvailable);
       } else {
         if (stableNoLesson(row)) return;
         card.dataset.lessonAvailable = "false";
+        card.dataset.notesAvailable = "false";
         card.dataset.lessonHref = lessonHref;
         card.dataset.notesHref = notesHref;
         ensureLessonsUnavailable(row, qp);
