@@ -20,6 +20,16 @@ ASSET_SPECS = (
         ROOT / "notes",
         re.compile(r"^downloadable-notes-(?P<code>[A-Za-z0-9-]+)\.pdf$", re.IGNORECASE),
     ),
+    (
+        "REV2026_LESSON_CODES",
+        ROOT / "revision-2026-content" / "lessons",
+        re.compile(r"^lessons-(?P<code>[A-Za-z0-9-]+)\.html$", re.IGNORECASE),
+    ),
+    (
+        "REV2026_NOTES_CODES",
+        ROOT / "revision-2026-content" / "notes",
+        re.compile(r"^downloadable-notes-(?P<code>[A-Za-z0-9-]+)\.pdf$", re.IGNORECASE),
+    ),
 )
 MIN_VALID_PDF_BYTES = 20000
 
@@ -49,40 +59,73 @@ def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[st
             continue
         if path.suffix.lower() == ".pdf" and path.stat().st_size < MIN_VALID_PDF_BYTES:
             continue
-        codes.add(match.group("code"))
+        codes.add(match.group("code").upper())
 
     return natural_sorted(codes)
 
 
 def replace_set_if_present(source: str, name: str, codes: list[str]) -> str:
-    pattern = re.compile(rf"(?ms)^(?P<indent>[ \t]*)const {re.escape(name)} = new Set\(\[.*?\]\);")
+    pattern = re.compile(
+        rf"(?ms)^(?P<indent>[ \t]*)const {re.escape(name)} = new Set\(\[.*?\]\);"
+    )
     encoded = json.dumps(codes, ensure_ascii=False, separators=(",", ":"))
 
     def replacement(match: re.Match[str]) -> str:
         return f'{match.group("indent")}const {name} = new Set({encoded});'
 
     updated, count = pattern.subn(replacement, source, count=1)
-    if count > 1:
-        raise RuntimeError(f"Found multiple {name} declarations in {BROWSER_TARGET.relative_to(ROOT)}")
+    if count != 1:
+        raise RuntimeError(
+            f"Expected one {name} declaration in {BROWSER_TARGET.relative_to(ROOT)}, found {count}"
+        )
     return updated
 
 
 def updated_browser_source(path: Path, manifests: dict[str, list[str]]) -> str:
     source = path.read_text(encoding="utf-8")
-    # subject-browser.js may use dynamic HEAD checks and no longer needs NOTES_CODES.
-    source = replace_set_if_present(source, "LESSON_CODES", manifests["LESSON_CODES"])
-    source = replace_set_if_present(source, "NOTES_CODES", manifests["NOTES_CODES"])
+    for name in (
+        "LESSON_CODES",
+        "NOTES_CODES",
+        "REV2026_LESSON_CODES",
+        "REV2026_NOTES_CODES",
+    ):
+        source = replace_set_if_present(source, name, manifests[name])
     return source
 
 
 def generated_manifest_source(manifests: dict[str, list[str]]) -> str:
-    lesson_codes = json.dumps(manifests["LESSON_CODES"], ensure_ascii=False, separators=(",", ":"))
-    notes_codes = json.dumps(manifests["NOTES_CODES"], ensure_ascii=False, separators=(",", ":"))
+    lesson_codes = json.dumps(
+        manifests["LESSON_CODES"], ensure_ascii=False, separators=(",", ":")
+    )
+    notes_codes = json.dumps(
+        manifests["NOTES_CODES"], ensure_ascii=False, separators=(",", ":")
+    )
+    revision_2026_lesson_codes = json.dumps(
+        manifests["REV2026_LESSON_CODES"],
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+    revision_2026_notes_codes = json.dumps(
+        manifests["REV2026_NOTES_CODES"],
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
     return (
         "globalThis.POLY_ASSET_MANIFEST = Object.freeze({\n"
         f"  lessonCodes: Object.freeze({lesson_codes}),\n"
-        "  // This list is intentionally limited to PDFs that really exist in /notes.\n"
-        f"  notesCodes: Object.freeze({notes_codes})\n"
+        f"  notesCodes: Object.freeze({notes_codes}),\n"
+        f"  revision2026LessonCodes: Object.freeze({revision_2026_lesson_codes}),\n"
+        f"  revision2026NotesCodes: Object.freeze({revision_2026_notes_codes}),\n"
+        "  revisions: Object.freeze({\n"
+        "    2021: Object.freeze({\n"
+        f"      lessonCodes: Object.freeze({lesson_codes}),\n"
+        f"      notesCodes: Object.freeze({notes_codes})\n"
+        "    }),\n"
+        "    2026: Object.freeze({\n"
+        f"      lessonCodes: Object.freeze({revision_2026_lesson_codes}),\n"
+        f"      notesCodes: Object.freeze({revision_2026_notes_codes})\n"
+        "    })\n"
+        "  })\n"
         "});\n\n"
         "(() => {\n"
         "  const scripts = [\n"
@@ -113,7 +156,10 @@ def collect_manifests() -> dict[str, list[str]]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Synchronize lesson and real notes availability with files currently present in the repository."
+        description=(
+            "Synchronize Revision 2021 and Revision 2026 lesson/PDF availability "
+            "without mixing their folders."
+        )
     )
     parser.add_argument(
         "--check",
@@ -126,7 +172,10 @@ def main() -> int:
     browser_updated = updated_browser_source(BROWSER_TARGET, manifests)
     manifest_updated = generated_manifest_source(manifests)
     browser_stale = browser_updated != BROWSER_TARGET.read_text(encoding="utf-8")
-    manifest_stale = not MANIFEST_TARGET.exists() or manifest_updated != MANIFEST_TARGET.read_text(encoding="utf-8")
+    manifest_stale = (
+        not MANIFEST_TARGET.exists()
+        or manifest_updated != MANIFEST_TARGET.read_text(encoding="utf-8")
+    )
 
     if not args.check:
         if browser_stale:
@@ -134,8 +183,12 @@ def main() -> int:
         if manifest_stale:
             MANIFEST_TARGET.write_text(manifest_updated, encoding="utf-8")
 
-    lesson_count = len(manifests["LESSON_CODES"])
-    notes_count = len(manifests["NOTES_CODES"])
+    counts = {
+        "revision2021Lessons": len(manifests["LESSON_CODES"]),
+        "revision2021Notes": len(manifests["NOTES_CODES"]),
+        "revision2026Lessons": len(manifests["REV2026_LESSON_CODES"]),
+        "revision2026Notes": len(manifests["REV2026_NOTES_CODES"]),
+    }
 
     if args.check and (browser_stale or manifest_stale):
         stale_files = []
@@ -144,11 +197,12 @@ def main() -> int:
         if manifest_stale:
             stale_files.append(str(MANIFEST_TARGET.relative_to(ROOT)))
         print(f"Asset availability is stale in: {', '.join(stale_files)}")
-        print(f"Detected {lesson_count} lesson pages and {notes_count} real notes PDFs.")
+        print(json.dumps(counts, indent=2))
         return 1
 
     action = "Verified" if args.check else "Updated"
-    print(f"{action} availability for {lesson_count} lesson pages and {notes_count} real notes PDFs.")
+    print(f"{action} independent lesson and notes availability:")
+    print(json.dumps(counts, indent=2))
     return 0
 
 
