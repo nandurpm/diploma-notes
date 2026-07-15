@@ -4,6 +4,8 @@
   "subjectCount": 2404,
   "staticPageCount": 38,
   "layout": "Revision 2021-compatible subject cards",
+  "lessonFolder": "revision-2026-content/lessons",
+  "notesFolder": "revision-2026-content/notes",
   "programmeSubjectCounts": {
     "architecture": 57,
     "artificial-intelligence": 67,
