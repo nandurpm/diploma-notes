@@ -1,10 +1,10 @@
 # Revision 2026 new subject codes compared with Revision 2021
 
-- REV2021 unique codes in repository catalogue: **1245**
-- REV2026 unique official codes: **1143**
-- Codes appearing in REV2026 but not in the current REV2021 catalogue: **527**
+- REV2021 unique codes in repository catalogue: **1248**
+- REV2026 unique codes: **1143**
+- Codes in REV2026 but absent from the current REV2021 catalogue: **526**
 
-> Limitation: the REV2021 repository catalogue was previously audited as not fully certified for every official programme row.
+> Limitation: the REV2021 repository catalogue is not fully certified for every official programme row.
 
 ## New codes
 
@@ -52,7 +52,6 @@
 - **2439** — Computer Programming Lab — Semester 2 — Mechatronics
 - **2532** — History of Interior Design - I — Semester 2 — Interior Design
 - **2539** — Interior Design & Drafting I — Semester 2 — Interior Design
-- **3001** — Essence of Indian Constitution — Semester 3 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation  Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
 - **3114** — Mould and Die Technology — Semester 3 — Tool & Die Engineering
 - **3144** — Business Statistics & Data Analysis — Semester 3 — Commercial Practice
 - **3283** — Fundamentals of Cryptography and Information Security Study — Semester 3 — Cyber Forensics and Information Security
