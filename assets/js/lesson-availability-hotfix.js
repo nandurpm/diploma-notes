@@ -27,7 +27,7 @@
     return `${href}${printMode ? "?autoPrintNotes=1" : ""}`;
   }
 
-  function questionPaperUrlFor(code) {
+  function directQuestionPaperUrlFor(code) {
     return `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
   }
 
@@ -35,19 +35,47 @@
     return `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp-courses&prog=${encodeURIComponent(programmeCode)}`;
   }
 
-  function normalizeQuestionPaperLink(row, code, revision) {
+  function programmeCodeFor(card) {
+    return norm(card?.dataset?.programmeCode || document.body?.dataset?.programmeCode);
+  }
+
+  function normalizeQuestionPaperLink(card, row, code, revision, programmeCode = "") {
     const link = row.querySelector(".action.qp");
     if (!link || !code) return link;
-    link.href = questionPaperUrlFor(code);
+
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.dataset.courseCode = code;
+    link.dataset.directCourseUrl = directQuestionPaperUrlFor(code);
+
     if (revision === "2026") {
+      const officialProgrammeCode = norm(programmeCode || programmeCodeFor(card));
       link.dataset.scheme = "REV2026";
-      link.textContent = "Sample Question Paper";
-      link.title = `Open the official SITTTR Revision 2026 model question paper for course ${code}.`;
+      link.dataset.directPaperStatus = "unverified";
+      link.href = officialProgrammeCode
+        ? programmeQuestionPaperUrlFor(officialProgrammeCode)
+        : REV2026_MODEL_QP_INDEX;
+      link.textContent = "Browse Sample Papers";
+      link.title = officialProgrammeCode
+        ? `Open the official ${officialProgrammeCode} department paper list and select course ${code}. The direct course file is not used because SITTTR may return “Requested file not found”.`
+        : `Open the official Revision 2026 paper directory and locate course ${code}. The direct course file is not used because SITTTR may return “Requested file not found”.`;
+      if (officialProgrammeCode) {
+        card.dataset.programmeCode = officialProgrammeCode;
+        link.dataset.programmeCode = officialProgrammeCode;
+      }
+      return link;
     }
+
+    link.href = directQuestionPaperUrlFor(code);
     return link;
+  }
+
+  function normalizeAllRevision2026PaperLinks(programmeCode = "") {
+    document.querySelectorAll('.subject-card[data-revision="2026"]').forEach(card => {
+      const row = card.querySelector(".action-row");
+      const code = norm(card.dataset.subjectCode || card.querySelector(".subject-top strong")?.textContent);
+      if (row && code) normalizeQuestionPaperLink(card, row, code, "2026", programmeCode);
+    });
   }
 
   async function enhanceDepartmentPaperAccess() {
@@ -55,16 +83,24 @@
     const slug = document.body?.dataset?.programmeSlug;
     const revision = String(document.body?.dataset?.revision || "");
     const notice = document.getElementById("rev2026-model-qp-access");
-    if (revision !== "2026" || !slug || !notice) return null;
+    if (revision !== "2026" || !slug || !notice) {
+      normalizeAllRevision2026PaperLinks();
+      return null;
+    }
 
-    departmentPaperAccessPromise = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260716-modelqp-links1`, { cache: "no-store" })
+    departmentPaperAccessPromise = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260716-modelqp-links2`, { cache: "no-store" })
       .then(response => response.ok ? response.json() : null)
       .then(payload => {
         const programme = payload?.programmes?.find(item => item.slug === slug);
         const programmeCode = norm(programme?.officialCode);
-        if (!programmeCode || !notice.isConnected) return null;
+        if (!programmeCode || !notice.isConnected) {
+          normalizeAllRevision2026PaperLinks();
+          return null;
+        }
 
         document.body.dataset.programmeCode = programmeCode;
+        normalizeAllRevision2026PaperLinks(programmeCode);
+
         let departmentLink = notice.querySelector("a[data-model-qp-programme]");
         const existingLink = notice.querySelector("a");
         if (!departmentLink) {
@@ -94,6 +130,7 @@
       })
       .catch(error => {
         console.warn("Could not enhance REV2026 department model-paper access", error);
+        normalizeAllRevision2026PaperLinks();
         return null;
       });
 
@@ -242,7 +279,7 @@
       const notesHref = notesUrlFor(code, revision);
       const lessonHref = lessonUrlFor(code, revision, false);
       const lessonPrintHref = lessonUrlFor(code, revision, true);
-      const qp = normalizeQuestionPaperLink(row, code, revision);
+      const qp = normalizeQuestionPaperLink(card, row, code, revision);
       const existingLesson = row.querySelector(".action.lessons");
 
       if (existingLesson && !samePathAndQuery(existingLesson.href, lessonHref)) {
