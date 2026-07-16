@@ -1,0 +1,15 @@
+{
+  "revision": "2026",
+  "courseCode": "1002",
+  "courseTitle": "Engineering Mathematics",
+  "lessonPath": "revision-2026-content/lessons/lessons-1002.html",
+  "pdfPath": "revision-2026-content/notes/downloadable-notes-1002.pdf",
+  "sourceSha256": "4c59a4c8932f7fe700628daeff2d969eef349fd41041d4075e3ac71a8bc3f237",
+  "sourceBytes": 84606,
+  "pdfBytes": 3303180,
+  "pages": 45,
+  "blankPages": [],
+  "nearBlankPages": [],
+  "pageLimitPassed": true,
+  "renderer": "Playwright Chromium through local HTTP server"
+}
