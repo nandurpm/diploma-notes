@@ -2,6 +2,7 @@
   "use strict";
 
   const ASSET_VERSION = "20260704-banner6";
+  const REV2026_THEME_VERSION = "20260716-rev2026-department-themes1";
 
   const ONAM_DATES = [
     "2026-08-25",
@@ -19,6 +20,17 @@
 
   function withVersion(src) {
     return `${src}?v=${encodeURIComponent(ASSET_VERSION)}`;
+  }
+
+  function installRevision2026DepartmentThemes() {
+    const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+    if (currentPath !== "/revision-2026" && currentPath !== "/revision-2026.html") return;
+    if (document.getElementById("revision-2026-department-themes")) return;
+    const link = document.createElement("link");
+    link.id = "revision-2026-department-themes";
+    link.rel = "stylesheet";
+    link.href = `/assets/css/revision-2026-department-themes.css?v=${REV2026_THEME_VERSION}`;
+    document.head.append(link);
   }
 
   function getISTDate() {
@@ -128,6 +140,7 @@
   }
 
   function run() {
+    installRevision2026DepartmentThemes();
     const dayNo = getActiveOnamDay();
     if (!dayNo) return;
     injectBanner(dayNo);
