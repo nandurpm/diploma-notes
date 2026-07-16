@@ -37,6 +37,23 @@ jobs:
         run: python tools/build_revision_2026_pages.py
       - name: Apply department-specific directory themes
         run: python tools/apply_revision_2026_department_themes.py
+      - name: Verify all official programme cards have semantic themes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          registry = json.loads(Path('assets/data/revision-2026-programmes.json').read_text(encoding='utf-8'))
+          css = Path('assets/css/revision-2026-department-themes.css').read_text(encoding='utf-8')
+          page = Path('revision-2026.html').read_text(encoding='utf-8')
+          codes = [str(item['officialCode']) for item in registry['programmes']]
+          missing = [code for code in codes if f'data-official-code="{code}"' not in css]
+          assert len(codes) == 38, f'Expected 38 programmes, found {len(codes)}'
+          assert not missing, f'Missing card themes: {missing}'
+          assert 'revision-2026-department-themes.css' in page
+          assert page.count('data-programme-card') == 38
+          print('All 38 Revision 2026 department cards have semantic themes.')
+          PY
       - name: Add permanent model-question-paper links
         run: python tools/enhance_revision_2026_model_qp.py
       - name: Commit verified data, pages and reports
