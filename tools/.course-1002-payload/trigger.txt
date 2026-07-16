@@ -1,1 +1,0 @@
-Trigger the one-time Course 1002 assembly, PDF generation, validation and publication workflow.
