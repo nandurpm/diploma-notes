@@ -1,6 +1,5 @@
 name: Fix Revision 2026 link semantics
 
-# Separate trigger commit for this one-time corrective workflow.
 on:
   workflow_dispatch:
   push:
@@ -30,14 +29,12 @@ jobs:
 
           path = Path("tools/build_revision_2026_pages.py")
           text = path.read_text(encoding="utf-8")
-          replacements = {
-              'f\'<a class="revision-programme-card reveal" role="listitem" \'' : 'f\'<a class="revision-programme-card reveal" \'' ,
-              '<div class="revision-directory-grid" id="departmentCards" role="list">' : '<div class="revision-directory-grid" id="departmentCards">',
-          }
-          for old, new in replacements.items():
-              if old not in text:
-                  raise SystemExit(f"Expected generator markup not found: {old}")
-              text = text.replace(old, new, 1)
+          old_role = 'role="listitem" '
+          old_list = 'id="departmentCards" role="list"'
+          if old_role not in text or old_list not in text:
+              raise SystemExit("Expected Revision 2026 role attributes were not found")
+          text = text.replace(old_role, "", 1)
+          text = text.replace(old_list, 'id="departmentCards"', 1)
           path.write_text(text, encoding="utf-8")
           PY
 
