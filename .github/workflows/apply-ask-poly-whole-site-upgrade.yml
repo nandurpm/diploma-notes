@@ -1,0 +1,108 @@
+name: Apply Ask POLY whole-site upgrade
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/apply-ask-poly-whole-site-upgrade.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-ask-poly-whole-site-upgrade
+  cancel-in-progress: true
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Connect Worker to whole-site instructions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          handler = Path("workers/ask-poly-ai/src/ask-handler.js")
+          text = handler.read_text(encoding="utf-8")
+          import_line = 'import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";\n'
+          if import_line not in text:
+              anchor = 'import { cleanText } from "./http.js";\n'
+              if anchor not in text:
+                  raise SystemExit("ask-handler import anchor not found")
+              text = text.replace(anchor, anchor + import_line, 1)
+
+          text, removed = re.subn(
+              r'\nconst SYSTEM_INSTRUCTIONS = `.*?`;\n',
+              '\n',
+              text,
+              count=1,
+              flags=re.S,
+          )
+          if removed == 0 and 'from "./site-instructions.js"' not in text:
+              raise SystemExit("Old SYSTEM_INSTRUCTIONS block was not found")
+
+          text = text.replace("MAX_OUTPUT_TOKENS || 450", "MAX_OUTPUT_TOKENS || 700")
+          handler.write_text(text, encoding="utf-8")
+
+          workflow = Path(".github/workflows/deploy-ask-poly-ai.yml")
+          source = workflow.read_text(encoding="utf-8")
+          check = "          node --check workers/ask-poly-ai/src/site-instructions.js\n"
+          if check not in source:
+              anchor = "          node --check workers/ask-poly-ai/src/ask-handler.js\n"
+              if anchor not in source:
+                  raise SystemExit("Worker validation anchor not found")
+              source = source.replace(anchor, anchor + check, 1)
+          workflow.write_text(source, encoding="utf-8")
+          PY
+
+      - name: Build current whole-site knowledge index
+        run: python tools/build_ask_poly_knowledge.py
+
+      - name: Validate upgraded sources and knowledge
+        run: |
+          python -m py_compile tools/build_ask_poly_knowledge.py
+          node --check assets/js/ask-poly-knowledge-loader.js
+          node --check assets/js/ask-poly-v2.js
+          node --check workers/ask-poly-ai/src/site-instructions.js
+          node --check workers/ask-poly-ai/src/ask-handler.js
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("assets/data/ask-poly-knowledge.json").read_text(encoding="utf-8"))
+          counts = data.get("counts", {})
+          assert counts.get("programmes2026") == 38, counts
+          assert counts.get("pages", 0) >= 40, counts
+          assert counts.get("subjectRecords", 0) >= 300, counts
+          subjects = data.get("subjects", [])
+          assert any(row.get("revision") == "2026" for row in subjects)
+          assert any(row.get("revision") == "2021" for row in subjects)
+          assert any(row.get("code") == "1008" for row in subjects)
+          assert "Revision 2026" in Path("workers/ask-poly-ai/src/site-instructions.js").read_text(encoding="utf-8")
+          print(json.dumps(counts, indent=2))
+          PY
+
+      - name: Commit upgraded Worker and generated knowledge
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add workers/ask-poly-ai/src/ask-handler.js workers/ask-poly-ai/src/site-instructions.js
+          git add assets/data/ask-poly-knowledge.json .github/workflows/deploy-ask-poly-ai.yml
+          if git diff --cached --quiet; then
+            echo "Ask POLY whole-site upgrade is already current."
+            exit 0
+          fi
+          git commit -m "Teach Ask POLY from the whole POLY PMNA website"
+          git pull --rebase origin main
+          git push origin HEAD:main
