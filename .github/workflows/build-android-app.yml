@@ -2,15 +2,6 @@ name: Build Android App
 
 on:
   workflow_dispatch:
-    inputs:
-      publish_release:
-        description: "Publish signed release APK to downloads and update app-update.json"
-        required: true
-        default: "false"
-        type: choice
-        options:
-          - "false"
-          - "true"
   push:
     branches:
       - main
@@ -86,7 +77,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/android-v3-build-status.json
           if git diff --cached --quiet; then
-            echo "Android build status is already current."
+            echo "Android debug build status is already current."
             exit 0
           fi
           git commit -m "Verify Android app v3.0 debug build [skip ci]"
@@ -96,7 +87,6 @@ jobs:
   signed-release-apk:
     name: Build and publish signed release APK
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_release == 'true') }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -123,7 +113,6 @@ jobs:
           [ -z "${ANDROID_KEY_PASSWORD}" ] && missing="$missing ANDROID_KEY_PASSWORD"
           if [ -n "$missing" ]; then
             echo "Missing required GitHub Actions secrets:$missing"
-            echo "Add them in Repository Settings → Secrets and variables → Actions."
             exit 1
           fi
         env:
@@ -160,11 +149,7 @@ jobs:
           set -e
           mkdir -p downloads
           APK_SOURCE=$(find android-app/app/build/outputs/apk/release -name "*.apk" | head -n 1)
-          if [ -z "${APK_SOURCE}" ]; then
-            echo "No release APK found."
-            find android-app/app/build/outputs/apk/release -maxdepth 2 -type f -print || true
-            exit 1
-          fi
+          test -n "${APK_SOURCE}"
           cp "${APK_SOURCE}" downloads/POLY_PMNA_v3.0.apk
           SHA256=$(sha256sum downloads/POLY_PMNA_v3.0.apk | awk '{print $1}')
           cat > downloads/app-update.json <<JSON
@@ -179,12 +164,11 @@ jobs:
             "title": "POLY PMNA Android app 3.0",
             "message": "Major update: the native sidebar now includes Revision 2026 and matches the current POLY PMNA website.",
             "releaseNotes": [
-              "Added Revision 2026 as a separate native drawer destination before Revision 2021.",
-              "Updated the app title, launch screen, drawer subtitle and version label to POLY PMNA 3.0.",
-              "Added dedicated Revision 2026 lesson and notes folder support without copying Revision 2021 content.",
-              "Connected Ask POLY AI to the current whole-site, revision-aware knowledge system.",
-              "Improved Revision 2026 department, lesson and notes deep-link highlighting.",
-              "Updated WebView caching and trusted Revision 2026 PDF download handling."
+              "Added Revision 2026 before Revision 2021 in the native drawer.",
+              "Updated the app title, launch screen, drawer subtitle and footer to POLY PMNA 3.0.",
+              "Added dedicated Revision 2026 lesson and notes path support.",
+              "Connected Ask POLY AI to the whole-site revision-aware knowledge system.",
+              "Improved Revision 2026 department and content deep-link highlighting."
             ]
           }
           JSON
@@ -207,5 +191,39 @@ jobs:
             exit 0
           fi
           git commit -m "Publish Android app v3.0 [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+  signed-release-status:
+    name: Record signed release result
+    runs-on: ubuntu-latest
+    needs: signed-release-apk
+    if: ${{ always() }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Write signed release result
+        env:
+          RELEASE_RESULT: ${{ needs.signed-release-apk.result }}
+        run: |
+          mkdir -p reports
+          cat > reports/android-v3-signed-release-status.json <<JSON
+          {
+            "versionCode": 9,
+            "versionName": "3.0",
+            "result": "${RELEASE_RESULT}",
+            "sourceCommit": "${GITHUB_SHA}",
+            "checkedAt": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')",
+            "expectedApk": "downloads/POLY_PMNA_v3.0.apk",
+            "expectedMetadata": "downloads/app-update.json"
+          }
+          JSON
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/android-v3-signed-release-status.json
+          git commit -m "Record Android v3.0 signed release result [skip ci]" || exit 0
           git pull --rebase origin main
           git push origin HEAD:main
