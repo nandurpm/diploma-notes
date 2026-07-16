@@ -1,5 +1,6 @@
 name: Fix Revision 2026 runtime
 
+# Separate trigger commit for this one-time corrective workflow.
 on:
   workflow_dispatch:
   push:
@@ -26,6 +27,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
           def replace(path_name, old, new, count=1):
               path = Path(path_name)
@@ -89,20 +91,15 @@ jobs:
 
           popup = Path("assets/js/visitor-popup.js")
           popup_text = popup.read_text(encoding="utf-8")
-          old_popup_list = '''  const POPUPS = [
-            { id: "popup-1", type: "image", src: "/assets/popup/popup-1.jpg" },
-            { id: "popup-2", type: "image", src: "/assets/popup/popup-2.jpg" },
-            { id: "popup-3", type: "image", src: "/assets/popup/popup-3.jpg" },
-            { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" },
-            { id: "popup-2-video", type: "video", src: "/assets/popup/popup-2.mp4" }
-          ];'''
-          new_popup_list = '''  const POPUPS = [
+          popup_pattern = re.compile(r"  const POPUPS = \[.*?\n  \];", re.S)
+          popup_replacement = '''  const POPUPS = [
             { id: "popup-1", type: "image", src: "/assets/popup/popup-1.jpg" },
             { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" }
           ];'''
-          if old_popup_list not in popup_text:
-              raise SystemExit("Expected popup media list not found")
-          popup.write_text(popup_text.replace(old_popup_list, new_popup_list, 1), encoding="utf-8")
+          updated_popup, changed = popup_pattern.subn(popup_replacement, popup_text, count=1)
+          if changed != 1:
+              raise SystemExit(f"Expected one popup media list, changed {changed}")
+          popup.write_text(updated_popup, encoding="utf-8")
           PY
 
       - name: Validate corrected JavaScript
