@@ -3,16 +3,15 @@
   "versionCode": 9,
   "versionName": "3.0",
   "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.0/POLY_PMNA_v3.0.apk",
-  "sha256": "e1b102bdc9c988717cc69c645697a48430dac6b22a481f78a5c94a21ba4f0eaf",
-  "publishedAt": "2026-07-16",
+  "sha256": "21a99f404af42eeeda980a5b72c73abed7028db479b5ecc0180cf1787b00de37",
+  "publishedAt": "2026-07-16T08:23:01Z",
   "forceUpdate": true,
   "title": "POLY PMNA Android app 3.0",
-  "message": "Major update: Revision 2026 is now available in the native sidebar and the app matches the current POLY PMNA website.",
+  "message": "The native app and sidebar match the current POLY PMNA website, including Revision 2026.",
   "releaseNotes": [
-    "Added Revision 2026 before Revision 2021 in the native drawer.",
-    "Updated the native title and drawer branding to POLY PMNA.",
-    "Updated the drawer footer from Version 2.01 to Version 3.0.",
-    "Added dedicated Revision 2026 lesson and notes paths.",
-    "Connected Ask POLY AI to the whole-site revision-aware knowledge system."
+    "Revision 2026 and Revision 2021 are separate native drawer destinations.",
+    "Revision 2026 lessons and notes use dedicated content folders.",
+    "Ask POLY AI uses the current whole-site revision-aware knowledge system.",
+    "Mock Exams, Tools, Question Papers, 2015 Materials, About and Help remain available."
   ]
 }
