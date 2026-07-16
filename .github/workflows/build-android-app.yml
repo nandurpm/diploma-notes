@@ -36,6 +36,19 @@ jobs:
         with:
           gradle-version: "8.10.2"
 
+      - name: Configure Firebase Android app
+        env:
+          FIREBASE_GOOGLE_SERVICES_JSON: ${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -z "$FIREBASE_GOOGLE_SERVICES_JSON" ]; then
+            echo "FIREBASE_GOOGLE_SERVICES_JSON is required to build the notification-enabled APK." >&2
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_GOOGLE_SERVICES_JSON" > android-app/app/google-services.json
+          python -m json.tool android-app/app/google-services.json >/dev/null
+          grep -q 'org.diplomanotes.polytechnicstudyhub' android-app/app/google-services.json
+
       - name: Read app version
         run: |
           VERSION_CODE=$(sed -n "s/^[[:space:]]*versionCode[[:space:]]\+\([0-9][0-9]*\).*$/\1/p" android-app/app/build.gradle | head -n 1)
@@ -112,7 +125,7 @@ jobs:
           else
             gh release create "$RELEASE_TAG" "release-output/$APK_NAME" \
               --title "POLY PMNA Android $VERSION_NAME" \
-              --notes "Signed POLY PMNA Android release with Revision 2026, Revision 2021, Ask POLY AI, mock exams, tools and revision-separated lessons and notes."
+              --notes "Signed POLY PMNA Android release with automatic new-lesson push notifications, Revision 2026, Revision 2021, Ask POLY AI, mock exams and tools."
           fi
 
       - name: Upload signed APK artifact
@@ -137,12 +150,12 @@ jobs:
             "publishedAt": "${PUBLISHED_AT}",
             "forceUpdate": true,
             "title": "POLY PMNA Android app ${VERSION_NAME}",
-            "message": "The native app and sidebar match the current POLY PMNA website, including Revision 2026.",
+            "message": "Install this update to receive automatic notifications when new lessons are published.",
             "releaseNotes": [
-              "Revision 2026 and Revision 2021 are separate native drawer destinations.",
-              "Revision 2026 lessons and notes use dedicated content folders.",
-              "Ask POLY AI uses the current whole-site revision-aware knowledge system.",
-              "Mock Exams, Tools, Question Papers, 2015 Materials, About and Help remain available."
+              "New lesson push notifications through Firebase Cloud Messaging.",
+              "Notification taps open the exact Revision 2021 or Revision 2026 lesson.",
+              "Android 13 and newer notification permission support.",
+              "Revision 2026 and Revision 2021 remain separate content destinations."
             ]
           }
           JSON
@@ -151,6 +164,7 @@ jobs:
             "applicationId": "org.diplomanotes.polytechnicstudyhub",
             "versionCode": ${VERSION_CODE},
             "versionName": "${VERSION_NAME}",
+            "firebaseMessaging": true,
             "status": "success",
             "debugApkBytes": ${DEBUG_BYTES},
             "debugSha256": "${DEBUG_SHA}",
@@ -164,6 +178,7 @@ jobs:
             "status": "success",
             "versionCode": ${VERSION_CODE},
             "versionName": "${VERSION_NAME}",
+            "firebaseMessaging": true,
             "apkUrl": "${APK_URL}",
             "apkBytes": ${RELEASE_BYTES},
             "sha256": "${RELEASE_SHA}",
