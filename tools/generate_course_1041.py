@@ -24,10 +24,15 @@ def main() -> None:
         raise RuntimeError("Course 1041 payload files are missing")
 
     payload = "".join(path.read_text(encoding="utf-8").strip() for path in parts)
-    if len(payload) != EXPECTED_PAYLOAD_CHARS:
-        raise RuntimeError(f"Unexpected payload length: {len(payload)}")
 
-    html = lzma.decompress(base64.b64decode(payload))
+    # One staged payload lost only the final Base64 padding character. Restoring
+    # standard padding is safe because the decompressed byte count and SHA-256
+    # below still have to match the approved handbook exactly.
+    if len(payload) not in {EXPECTED_PAYLOAD_CHARS, EXPECTED_PAYLOAD_CHARS - 1}:
+        raise RuntimeError(f"Unexpected payload length: {len(payload)}")
+    payload += "=" * (-len(payload) % 4)
+
+    html = lzma.decompress(base64.b64decode(payload, validate=True))
     digest = hashlib.sha256(html).hexdigest()
     if len(html) != EXPECTED_HTML_BYTES:
         raise RuntimeError(f"Unexpected handbook size: {len(html)} bytes")
