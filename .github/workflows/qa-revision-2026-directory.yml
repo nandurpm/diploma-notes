@@ -1,5 +1,6 @@
 name: QA Revision 2026 directory
 
+# Separate trigger commit so this newly added workflow runs immediately.
 on:
   workflow_dispatch:
   push:
