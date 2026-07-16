@@ -2,30 +2,13 @@
   "revision": "2026",
   "lessonFolder": "revision-2026-content/lessons",
   "notesFolder": "revision-2026-content/notes",
-  "generated": [
-    {
-      "code": "2003A",
-      "pages": 178,
-      "bytes": 2927534,
-      "source": "revision-2026-content/lessons/lessons-2003A.html",
-      "sourceCharacters": 232128,
-      "pdfCharacters": 242876,
-      "textCoverage": 1.0463,
-      "panelCount": 19,
-      "visiblePanelCount": 19,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    }
-  ],
+  "generated": [],
   "errors": [],
   "requiredLessonCodes": [
+    "1002",
     "2003A"
   ],
-  "generatedThisRunCodes": [
-    "2003A"
-  ],
+  "generatedThisRunCodes": [],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
   "minimumPdfBytes": 20000
