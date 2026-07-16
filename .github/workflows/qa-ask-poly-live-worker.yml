@@ -1,0 +1,96 @@
+name: QA live Ask POLY Worker
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "workers/ask-poly-ai/src/index.js"
+      - "workers/ask-poly-ai/src/site-instructions.js"
+      - "workers/ask-poly-ai/src/ask-handler.js"
+      - ".github/workflows/deploy-ask-poly-ai.yml"
+      - ".github/workflows/qa-ask-poly-live-worker.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qa-live-ask-poly-worker
+  cancel-in-progress: true
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Wait for deployed Worker and verify knowledge mode
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          import urllib.error
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/health"
+          last_error = ""
+          payload = None
+          for attempt in range(1, 31):
+              try:
+                  request = urllib.request.Request(url, headers={"User-Agent": "POLY-PMNA-Live-QA/1.0"})
+                  with urllib.request.urlopen(request, timeout=20) as response:
+                      body = response.read().decode("utf-8", "replace")
+                      candidate = json.loads(body)
+                      if (
+                          response.status == 200
+                          and candidate.get("ok") is True
+                          and candidate.get("knowledgeMode") == "whole-site-revision-aware-v1"
+                          and candidate.get("wholeSiteContext") is True
+                          and set(candidate.get("revisionAware") or []) >= {"2026", "2021", "2015"}
+                      ):
+                          payload = candidate
+                          break
+                      last_error = f"Attempt {attempt}: Worker returned old or incomplete health payload: {candidate}"
+              except Exception as error:
+                  last_error = f"Attempt {attempt}: {type(error).__name__}: {error}"
+              print(last_error)
+              time.sleep(10)
+
+          report = {
+              "status": "success" if payload else "failed",
+              "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+              "endpoint": url,
+              "expectedKnowledgeMode": "whole-site-revision-aware-v1",
+              "health": payload,
+              "lastError": "" if payload else last_error,
+          }
+          path = Path("reports/ask-poly-live-worker-qa.json")
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(report, indent=2))
+          if not payload:
+              raise SystemExit(last_error or "Live Ask POLY Worker did not report the expected knowledge mode")
+          PY
+
+      - name: Commit live Worker QA report
+        if: always()
+        run: |
+          if [ ! -f reports/ask-poly-live-worker-qa.json ]; then
+            echo "Live Worker QA report was not generated."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/ask-poly-live-worker-qa.json
+          if git diff --cached --quiet; then
+            echo "Live Worker QA report is already current."
+          else
+            git commit -m "Record live Ask POLY Worker knowledge QA [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
