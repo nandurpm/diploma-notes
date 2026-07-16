@@ -1,0 +1,119 @@
+name: Assemble Course 1002 handbook v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/assemble-course-1002-handbook-v2.yml"
+      - "tools/.course-1002-payload/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: assemble-course-1002-handbook-v2
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble exact handbook source
+        run: |
+          set -euo pipefail
+          test "$(find tools/.course-1002-payload -maxdepth 1 -name 'part-*.txt' | wc -l)" -eq 8
+          mkdir -p revision-2026-content/lessons revision-2026-content/notes reports
+          cat tools/.course-1002-payload/part-*.txt > /tmp/course-1002.html.gz.b64
+          echo 'a8251cb0f1a8dec4ae46a4e407b12653988dd830cbc76d290b0abf28e3447e10  /tmp/course-1002.html.gz.b64' | sha256sum -c -
+          base64 -d /tmp/course-1002.html.gz.b64 | gzip -d > revision-2026-content/lessons/lessons-1002.html
+          echo '4c59a4c8932f7fe700628daeff2d969eef349fd41041d4075e3ac71a8bc3f237  revision-2026-content/lessons/lessons-1002.html' | sha256sum -c -
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install renderer
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright pypdf
+          python -m playwright install --with-deps chromium
+
+      - name: Render Course 1002 PDF
+        run: |
+          python -m http.server 8000 > /tmp/course-1002-site.log 2>&1 &
+          echo $! > /tmp/course-1002-site.pid
+          sleep 3
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('tools').resolve()))
+          import build_lesson_pdfs as builder
+          lesson = Path('revision-2026-content/lessons/lessons-1002.html').resolve()
+          builder.LESSONS = lesson.parent
+          builder.NOTES = Path('revision-2026-content/notes').resolve()
+          builder.REPORTS = Path('reports').resolve()
+          builder.PRESERVE_EXISTING_PDF_CODES = set()
+          builder.lesson_files = lambda: [('1002', lesson)]
+          generated, errors = builder.render_all()
+          if errors or len(generated) != 1:
+              raise SystemExit(f'PDF generation failed: generated={generated}, errors={errors}')
+          print(generated[0])
+          PY
+
+      - name: Validate output and synchronize cards
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+          import hashlib, json
+          html = Path('revision-2026-content/lessons/lessons-1002.html')
+          pdf = Path('revision-2026-content/notes/downloadable-notes-1002.pdf')
+          reader = PdfReader(str(pdf))
+          texts = [(p.extract_text() or '').strip() for p in reader.pages]
+          pages = len(reader.pages)
+          blanks = [i + 1 for i, text in enumerate(texts) if len(text) < 10]
+          near = [i + 1 for i, text in enumerate(texts) if len(text) < 80]
+          if not 40 <= pages <= 50:
+              raise SystemExit(f'Page count {pages} is outside 40-50')
+          if blanks:
+              raise SystemExit(f'Blank pages: {blanks}')
+          report = {
+            'revision':'2026','courseCode':'1002','courseTitle':'Engineering Mathematics',
+            'lessonPath':str(html),'pdfPath':str(pdf),
+            'sourceSha256':hashlib.sha256(html.read_bytes()).hexdigest(),
+            'sourceBytes':html.stat().st_size,'pdfBytes':pdf.stat().st_size,
+            'pages':pages,'blankPages':blanks,'nearBlankPages':near,
+            'pageLimitPassed':pages <= 50,
+            'renderer':'Playwright Chromium through local HTTP server'
+          }
+          Path('reports/revision-2026-course-1002-validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+          print(json.dumps(report,indent=2))
+          PY
+          python tools/update_asset_manifest.py
+          python tools/build_revision_2026_pages.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add revision-2026-content/lessons/lessons-1002.html
+          git add revision-2026-content/notes/downloadable-notes-1002.pdf
+          git add reports/revision-2026-course-1002-validation.json
+          git add reports/revision-2026-build-summary.json reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js revision-2026.html revision-2026/*.html
+          git commit -m 'Add REV2026 Course 1002 Engineering Mathematics handbook and notes [skip notes]'
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Stop server
+        if: always()
+        run: |
+          test ! -f /tmp/course-1002-site.pid || kill "$(cat /tmp/course-1002-site.pid)" || true
