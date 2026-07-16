@@ -1,6 +1,6 @@
 name: QA Revision 2026 directory
 
-# Separate trigger commit so this newly added workflow runs immediately.
+# Rerun after the Revision 2026 metadata, navigation and missing-asset corrections.
 on:
   workflow_dispatch:
   push:
