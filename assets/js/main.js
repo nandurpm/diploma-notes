@@ -53,7 +53,8 @@
     const path = pathName();
     if (path === "/" || path === "/index.html") return "home";
     if (path.endsWith("/about.html")) return "about";
-    if (path.endsWith("/revision-2021.html") || path.includes("/revision-2021/")) return "revision";
+    if (path.endsWith("/revision-2021.html") || path.includes("/revision-2021/")) return "revision2021";
+    if (path.endsWith("/revision-2026.html") || path.includes("/revision-2026/")) return "revision2026";
     if (path.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/.test(path)) return "exams";
     if (path.endsWith("/ask-poly.html") || path.endsWith("/ask-poly-v2.html")) return "ask";
     if (path.endsWith("/materials-2015.html")) return "materials";
@@ -75,7 +76,8 @@
     const links = [
       ["home", "/index.html", "Home"],
       ["about", "/about.html", "About"],
-      ["revision", "/revision-2021.html", "Revision 2021"],
+      ["revision2021", "/revision-2021.html", "Revision 2021"],
+      ["revision2026", "/revision-2026.html", "Revision 2026"],
       ["exams", "/daily-quiz.html", "Mock Exams"],
       ["ask", ASK_POLY_URL, "Ask POLY AI"],
       ["materials", "/materials-2015.html", "2015 Materials"],
@@ -97,7 +99,8 @@
     if (active === "home") return "Kerala Polytechnic Diploma Notes & Study Materials";
     const map = {
       about: "About",
-      revision: pathName().includes("/revision-2021/") ? "Revision 2021 Department Subjects" : "Revision 2021",
+      revision2021: pathName().includes("/revision-2021/") ? "Revision 2021 Department Subjects" : "Revision 2021",
+      revision2026: pathName().includes("/revision-2026/") ? "Revision 2026 Department Subjects" : "Revision 2026 Diploma Departments",
       exams: "Mock Exams",
       ask: "Ask POLY AI",
       materials: "2015 Materials",

@@ -5,15 +5,15 @@
   const body = document.body;
   const ua = navigator.userAgent || "";
   const pathname = window.location.pathname;
-  const isRevisionDepartmentPage = /^\/revision-2021\/.+\.html$/i.test(pathname);
+  const isRevisionDepartmentPage = /^\/revision-(?:2021|2026)\/.+\.html$/i.test(pathname);
   const isAskPolyPage = /\/ask-poly(?:-v2)?\.html$/i.test(pathname);
   const isLessonPage = /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(pathname);
-  const appMatch = ua.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
+  const appMatch = ua.match(/(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/([0-9]+(?:\.[0-9]+)*)/i);
   const isAndroidWebView = /Android/i.test(ua) && (/\bwv\b/i.test(ua) || /Version\/\d+(?:\.\d+)?\s+Chrome\//i.test(ua));
   const isStandaloneAndroid = /Android/i.test(ua) && window.matchMedia?.("(display-mode: standalone)")?.matches;
   const isNativeApp = Boolean(appMatch) || isAndroidWebView || Boolean(isStandaloneAndroid);
   const installedVersion = appMatch ? appMatch[1] : null;
-  const ONAM_VERSION = "20260702-onam1";
+  const ONAM_VERSION = "20260704-banner6";
   const CONSISTENCY_VERSION = "20260711-consistency1";
 
   if (isLessonPage) root.classList.add("poly-lesson-page");
@@ -119,8 +119,8 @@
   }
 
   function installOnamThemeLoader() {
-    addStylesheetOnce("poly-onam-theme-css", `/assets/css/onam-theme.css?v=${ONAM_VERSION}`);
-    loadScriptOnce("poly-onam-theme-script", `/assets/js/onam-theme.js?v=${ONAM_VERSION}`);
+    addStylesheetOnce("poly-onam-banner-css", `/assets/css/onam-theme.css?v=${ONAM_VERSION}`);
+    loadScriptOnce("poly-onam-banner-script", `/assets/js/onam-render-a.js?v=${ONAM_VERSION}`);
   }
 
   function installDailyQuizResponsiveFix() {
@@ -159,6 +159,7 @@
     { label: "Home", href: "/index.html", match: (p) => p === "/" || p.endsWith("/index.html") },
     { label: "About", href: "/about.html", match: (p) => p.endsWith("/about.html") },
     { label: "Revision 2021", href: "/revision-2021.html", match: (p) => p.endsWith("/revision-2021.html") || p.includes("/revision-2021/") },
+    { label: "Revision 2026", href: "/revision-2026.html", match: (p) => p.endsWith("/revision-2026.html") || p.includes("/revision-2026/") },
     { label: "Mock Exams", href: "/daily-quiz.html", match: (p) => p.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/.test(p) },
     { label: "Ask POLY AI", href: "/ask-poly.html", match: (p) => p.endsWith("/ask-poly.html") || p.endsWith("/ask-poly-v2.html") },
     { label: "2015 Materials", href: "/materials-2015.html", match: (p) => p.endsWith("/materials-2015.html") },
