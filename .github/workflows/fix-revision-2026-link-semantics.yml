@@ -26,6 +26,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import re
 
           generator = Path("tools/build_revision_2026_pages.py")
           text = generator.read_text(encoding="utf-8")
@@ -35,17 +36,19 @@ jobs:
 
           main = Path("assets/js/main.js")
           main_text = main.read_text(encoding="utf-8")
-          old = '''    const description = isHomePage()
-                ? `${SITE_NAME} provides Kerala Polytechnic Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers.`
-                : `${prefix} on ${SITE_NAME} for Kerala Polytechnic students.`;'''
-          new = '''    const existingDescription = document.querySelector('meta[name="description"]')?.content?.trim();
+          if "const existingDescription" not in main_text:
+              pattern = re.compile(
+                  r"\s{4}const description = isHomePage\(\)\n"
+                  r"\s+\? `\$\{SITE_NAME\} provides Kerala Polytechnic Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers\.`\n"
+                  r"\s+: `\$\{prefix\} on \$\{SITE_NAME\} for Kerala Polytechnic students\.`;"
+              )
+              replacement = '''    const existingDescription = document.querySelector('meta[name="description"]')?.content?.trim();
               const description = isHomePage()
                 ? `${SITE_NAME} provides Kerala Polytechnic Revision 2026 and Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers.`
                 : (existingDescription || `${prefix} on ${SITE_NAME} for Kerala Polytechnic students.`);'''
-          if old in main_text:
-              main_text = main_text.replace(old, new, 1)
-          elif "const existingDescription" not in main_text:
-              raise SystemExit("Expected metadata block was not found in assets/js/main.js")
+              main_text, changed = pattern.subn(replacement, main_text, count=1)
+              if changed != 1:
+                  raise SystemExit(f"Expected one metadata block, changed {changed}")
           main.write_text(main_text, encoding="utf-8")
           PY
 
