@@ -4,12 +4,12 @@
   "versionName": "3.0",
   "buildType": "debug",
   "status": "success",
-  "sourceCommit": "dc9556e53c23722d9bfec13ec60c55f8680408a6",
+  "sourceCommit": "495a3d4d888c88beef71ea6ef74b4a74257d63c1",
   "artifactName": "POLY_PMNA_v3.0_debug_apk",
   "apkFileName": "app-debug.apk",
-  "apkBytes": 3384133,
-  "sha256": "17582d9ccb8aa746d6b80193937e351f2873e4535f8330692d76b38f022038c9",
-  "builtAt": "2026-07-16T08:03:04Z",
+  "apkBytes": 3384130,
+  "sha256": "5b65b5026d06f7338ab418ef1c74c781a311813bcd163198edb25d712f19a3ae",
+  "builtAt": "2026-07-16T08:10:03Z",
   "revision2026LessonFolder": "revision-2026-content/lessons",
   "revision2026NotesFolder": "revision-2026-content/notes"
 }
