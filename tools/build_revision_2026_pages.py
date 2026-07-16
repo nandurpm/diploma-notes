@@ -15,9 +15,11 @@ REV2026_LESSONS = REV2026_CONTENT / "lessons"
 REV2026_NOTES = REV2026_CONTENT / "notes"
 SITE = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = SITE + "/assets/media/poly-pmna-study-hub-social-card.png"
+SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026"
+MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 REPORT_JSON = Path("reports/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260716-rev2026-dedicated-content"
+VERSION = "20260716-rev2026-directory-v2"
 MIN_VALID_PDF_BYTES = 20000
 
 
@@ -56,8 +58,17 @@ def valid_notes(code: str) -> bool:
     return path.exists() and path.stat().st_size >= MIN_VALID_PDF_BYTES
 
 
-def head(title: str, description: str, canonical: str) -> str:
-    return f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="{esc(description)}"><title>{esc(title)}</title><link rel="canonical" href="{esc(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(canonical)}"><meta property="og:image" content="{SOCIAL_IMAGE}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(title)}"><meta name="twitter:description" content="{esc(description)}"><meta name="twitter:image" content="{SOCIAL_IMAGE}"><link rel="stylesheet" href="/assets/css/style.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/animations.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/responsive.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/hardening.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/department-semester-layout.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-brand.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/portal-layout.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/fixed-site-header.css?v={VERSION}"><style>html,body{{height:auto!important;min-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important}}#subjectGrid{{min-height:45vh}}.semester-card-grid .subject-card{{height:100%}}</style></head>'''
+def head(title: str, description: str, canonical: str, *, directory: bool = False) -> str:
+    page_styles = (
+        f'<link rel="stylesheet" href="/assets/css/revision-2026-directory.css?v={VERSION}">'
+        if directory
+        else (
+            f'<link rel="stylesheet" href="/assets/css/department-semester-layout.css?v={VERSION}">'
+            '<style>html,body{height:auto!important;min-height:100%!important;overflow-y:auto!important;overflow-x:hidden!important}'
+            '#subjectGrid{min-height:45vh}.semester-card-grid .subject-card{height:100%}</style>'
+        )
+    )
+    return f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="{esc(description)}"><title>{esc(title)}</title><link rel="canonical" href="{esc(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(canonical)}"><meta property="og:image" content="{SOCIAL_IMAGE}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="POLY PMNA Kerala Polytechnic Study Hub"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(title)}"><meta name="twitter:description" content="{esc(description)}"><meta name="twitter:image" content="{SOCIAL_IMAGE}"><link rel="stylesheet" href="/assets/css/style.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/animations.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/responsive.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/hardening.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-brand.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/portal-layout.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/fixed-site-header.css?v={VERSION}">{page_styles}</head>'''
 
 
 def navigation() -> str:
@@ -65,7 +76,7 @@ def navigation() -> str:
 
 
 def footer() -> str:
-    return f'''<footer class="footer"><p>&copy; <span data-year></span> POLY PMNA.</p><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v={VERSION}" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
+    return f'''<footer class="footer"><p>&copy; <span data-year></span> POLY PMNA.</p><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v={VERSION}" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
 
 
 def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
@@ -82,7 +93,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f"r=site%2Fdiploma-syllabus-course-contents&course={code}"
     )
     qp_url = (
-        "https://www.sitttrkerala.ac.in/index.php?"
+        "https://sitttrkerala.ac.in/index.php?"
         f"r=site%2Fdiploma-modelqp-courses-show&course={code}"
     )
 
@@ -110,7 +121,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'<div class="action-row">'
         f'<a class="action syllabus" href="{esc(syllabus_url)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
         f'{lesson_action}{notes_action}'
-        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer">Sample QP</a>'
+        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer">Sample Question Paper</a>'
         f'</div></article>'
     )
 
@@ -128,14 +139,32 @@ def semester_group(programme: dict[str, object], number: int, rows: list[dict[st
     )
 
 
-def build_index(programmes: list[dict[str, object]]) -> str:
-    cards = "".join(
-        f'<a class="choice-card reveal" data-programme-card data-programme-slug="{esc(p["slug"])}" data-official-code="{esc(p["officialCode"])}" href="/revision-2026/{esc(p["slug"])}.html"><span>{esc(p["officialCode"])}</span><h2>{esc(p["name"])}</h2><p>Open Semester 1 to Semester 6 subject cards.</p></a>'
-        for p in programmes
+def programme_card(programme: dict[str, object]) -> str:
+    code = str(programme["officialCode"])
+    name = str(programme["name"])
+    slug = str(programme["slug"])
+    search_text = f"{code} {name} {slug}".casefold()
+    return (
+        f'<a class="revision-programme-card reveal" role="listitem" '
+        f'data-programme-card data-programme-slug="{esc(slug)}" '
+        f'data-official-code="{esc(code)}" data-search-text="{esc(search_text)}" '
+        f'href="/revision-2026/{esc(slug)}.html">'
+        f'<div class="revision-programme-card__top">'
+        f'<span class="revision-programme-code">{esc(code)}</span>'
+        f'<span class="revision-programme-arrow" aria-hidden="true">→</span>'
+        f'</div>'
+        f'<div><h2>{esc(name)}</h2><p>Browse Semester 1 to Semester 6 subjects, syllabus and study resources.</p></div>'
+        f'<span class="revision-programme-card__meta">Open department</span>'
+        f'</a>'
     )
+
+
+def build_index(programmes: list[dict[str, object]]) -> str:
+    cards = "".join(programme_card(programme) for programme in programmes)
+    count = len(programmes)
     title = "Revision 2026 Diploma Departments | POLY PMNA"
-    description = "Browse all 38 official SITTTR Kerala Revision 2026 programmes and semester-wise subject cards."
-    return head(title, description, SITE + "/revision-2026.html") + f'''<body class="portal-page" data-revision="2026">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Revision 2026</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>Choose your 2026 department</h1><p>All 38 official programmes are listed below.</p></section><section class="section compact"><div class="section-heading inline-heading"><div><p class="kicker">Programme Browser</p><h2>Find your department</h2></div></div><div class="filters"><label class="sr-only" for="programmeSearch">Search departments</label><input id="programmeSearch" type="search" placeholder="Search department name or code" autocomplete="off"></div><div class="section cards two selection-grid" id="departmentCards">{cards}</div><p class="empty-state" id="programmeEmptyState" hidden>No department matches this search.</p></section></main>{footer()}</body></html>\n'''
+    description = "Browse all 38 official SITTTR Kerala Revision 2026 programmes with semester-wise subjects, syllabus links, lessons, notes and sample question papers."
+    return head(title, description, SITE + "/revision-2026.html", directory=True) + f'''<body class="portal-page revision-2026-directory-page" data-revision="2026">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Revision 2026</span></li></ol></nav><section class="page-title revision-directory-hero reveal"><div class="revision-directory-hero-copy"><p class="kicker">Revision 2026</p><h1>Choose your department</h1><p>Open the official Semester 1 to Semester 6 subject list for any Revision 2026 diploma programme.</p><nav class="revision-directory-switch" aria-label="Choose curriculum revision"><a href="/revision-2021.html">Revision 2021</a><a class="active" aria-current="page" href="/revision-2026.html">Revision 2026</a></nav></div><div class="revision-directory-summary" aria-label="Revision 2026 summary"><div><strong>{count}</strong><span>Departments</span></div><div><strong>6</strong><span>Semesters</span></div><div><strong>2026</strong><span>Current revision</span></div></div></section><section class="revision-directory-shell" aria-labelledby="revisionDirectoryHeading"><div class="revision-directory-head"><div><p class="kicker">Programme Browser</p><h2 id="revisionDirectoryHeading">Find your department</h2></div><p class="revision-directory-results" id="programmeResultCount" aria-live="polite">{count} departments available</p></div><div class="revision-directory-toolbar" role="search"><label class="revision-directory-search-field" for="programmeSearch"><span aria-hidden="true">⌕</span><span class="sr-only">Search departments</span><input id="programmeSearch" type="search" placeholder="Search department name or code" autocomplete="off" aria-controls="departmentCards" aria-describedby="programmeResultCount"></label><button class="revision-directory-clear" id="programmeSearchClear" type="button" hidden>Clear</button></div><div class="revision-directory-grid" id="departmentCards" role="list">{cards}</div><div class="revision-directory-empty" id="programmeEmptyState" hidden><strong>No department matches that search.</strong><p>Check the spelling or search using the official department code.</p><button class="revision-directory-clear" id="programmeEmptyClear" type="button">Clear search</button></div></section><section class="section notice revision-directory-source" id="rev2026-model-qp-access"><div class="revision-directory-source-copy"><strong>Official SITTTR Revision 2026 sources</strong><p>Use the official syllabus and sample-question-paper pages to verify published curriculum information.</p></div><div class="revision-directory-source-actions"><a class="btn ghost" href="{SYLLABUS_INDEX}" target="_blank" rel="noopener noreferrer">Open official syllabus</a><a class="btn primary" href="{MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open sample papers</a></div></section></main>{footer()}</body></html>\n'''
 
 
 def build_department_page(programme: dict[str, object], rows: list[dict[str, object]]) -> str:
@@ -154,7 +183,7 @@ def build_department_page(programme: dict[str, object], rows: list[dict[str, obj
     slug = str(programme["slug"])
     title = f"{name} Revision 2026 Subjects | POLY PMNA"
     description = f"Browse {name} Revision 2026 subjects by semester with syllabus, dedicated lessons, notes and sample question-paper actions."
-    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards from the SITTTR Revision 2026 scheme data.</p></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Revision 2026 lessons and notes are loaded only from the dedicated 2026 content folders.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
+    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards from the SITTTR Revision 2026 scheme data.</p></section><section class="section notice" id="rev2026-model-qp-access"><strong>Official Revision 2026 sample question papers:</strong> <a class="btn ghost" href="{MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open all REV2026 sample papers</a></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Revision 2026 lessons and notes are loaded only from the dedicated 2026 content folders.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
 
 
 def revision_2021_codes() -> set[str]:
@@ -275,7 +304,8 @@ def main() -> None:
                 "programmeCount": 38,
                 "subjectCount": len(subjects),
                 "staticPageCount": 38,
-                "layout": "Revision 2021-compatible subject cards",
+                "directoryLayout": "Responsive searchable programme directory",
+                "departmentLayout": "Revision 2021-compatible semester subject cards",
                 "lessonFolder": "revision-2026-content/lessons",
                 "notesFolder": "revision-2026-content/notes",
                 "programmeSubjectCounts": counts,
@@ -288,7 +318,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"Built 38 REV2026 pages from {len(subjects)} records using dedicated content folders; "
+        f"Built a responsive REV2026 directory and 38 department pages from {len(subjects)} records; "
         f"new codes versus REV2021={comparison['newCodeCount']}"
     )
 
