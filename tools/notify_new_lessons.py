@@ -123,9 +123,11 @@ def main() -> int:
         name = subject_name(lesson_path, code)
         title = f"New {revision} Lesson Available"
         body = f"{name} · {code} is now available on POLY PMNA."
+
+        # Data-only delivery ensures the Android service creates the notification
+        # and the tap always opens the exact lesson URL in the native WebView.
         message = {
             "topic": args.topic,
-            "notification": {"title": title, "body": body},
             "data": {
                 "title": title,
                 "body": body,
@@ -136,11 +138,8 @@ def main() -> int:
             },
             "android": {
                 "priority": "high",
-                "notification": {
-                    "channel_id": "new_lessons",
-                    "click_action": "OPEN_LESSON",
-                    "tag": f"lesson-{revision.lower()}-{code.lower()}",
-                },
+                "ttl": "86400s",
+                "collapse_key": f"lesson-{revision.lower()}-{code.lower()}",
             },
         }
         message_id = send_message(creds, project_id, message)
