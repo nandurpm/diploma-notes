@@ -30,8 +30,8 @@
 
         <activity
             android:name=".NotificationBootstrapActivity"
-            android:exported="true"
-            android:noHistory="true">
+            android:excludeFromRecents="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
