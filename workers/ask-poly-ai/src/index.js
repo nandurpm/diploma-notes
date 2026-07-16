@@ -1,5 +1,6 @@
 import { askPoly, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
+import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
 import {
   cleanText,
   corsHeaders,
@@ -10,6 +11,7 @@ import {
 
 const allowAsk = createRateLimiter(30);
 const allowExam = createRateLimiter(5);
+const KNOWLEDGE_MODE = "whole-site-revision-aware-v1";
 
 async function readJson(request) {
   try {
@@ -17,6 +19,22 @@ async function readJson(request) {
   } catch (_) {
     return null;
   }
+}
+
+function enrichAskBody(body) {
+  const suppliedContext = cleanText(body?.pageContext, 12000);
+  const websiteContext = [
+    "POLY PMNA WEBSITE POLICY AND CURRENT STRUCTURE",
+    SYSTEM_INSTRUCTIONS,
+    suppliedContext ? `CURRENT MATCHES FROM THE GENERATED WEBSITE INDEX:\n${suppliedContext}` : "",
+    "Use the matched website records when answering. Keep Revision 2026, Revision 2021 and 2015 materials separate."
+  ].filter(Boolean).join("\n\n");
+
+  return {
+    ...body,
+    pageTitle: cleanText(body?.pageTitle, 160) || "POLY PMNA whole-site knowledge",
+    pageContext: websiteContext
+  };
 }
 
 export default {
@@ -35,6 +53,9 @@ export default {
         ok: true,
         service: "Ask POLY AI",
         configured: providers.length > 0,
+        knowledgeMode: KNOWLEDGE_MODE,
+        revisionAware: ["2026", "2021", "2015"],
+        wholeSiteContext: true,
         localMathFallback: true,
         providers,
         model: providers[0] === "nvidia"
@@ -89,8 +110,8 @@ export default {
     }
 
     try {
-      const result = await askPoly(body, env);
-      return jsonResponse(result, 200, origin, env);
+      const result = await askPoly(enrichAskBody(body), env);
+      return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
     } catch (error) {
       console.error("Ask POLY AI request failed", error);
       const missingMessage = String(error?.message || "") === "Please enter a question.";
