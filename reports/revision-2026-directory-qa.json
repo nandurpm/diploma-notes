@@ -1,9 +1,9 @@
 {
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
-  "status": "failed",
-  "sourceCommit": "dc479f50f1a615e5702626411a7f1f048b117d69",
-  "generatedAt": "2026-07-16T03:55:52.099Z",
+  "status": "success",
+  "sourceCommit": "e2077879acef0ae98af5122a048f2ef158874398",
+  "generatedAt": "2026-07-16T04:07:08.244Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -28,8 +28,8 @@
     },
     {
       "name": "page identity is correct",
-      "passed": false,
-      "title": "Revision 2026 | POLY PMNA"
+      "passed": true,
+      "title": "Revision 2026 Diploma Departments | POLY PMNA"
     },
     {
       "name": "page has one primary heading",
@@ -150,251 +150,21 @@
     },
     {
       "name": "no relevant console errors",
-      "passed": false,
-      "consoleErrors": [
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/js/onam-theme.js?v=20260702-onam1",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-3.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/js/onam-theme.js?v=20260702-onam1",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-3.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        }
-      ]
+      "passed": true,
+      "consoleErrors": []
     }
   ],
-  "failures": [
-    {
-      "name": "page identity is correct",
-      "passed": false,
-      "title": "Revision 2026 | POLY PMNA"
-    },
-    {
-      "name": "no relevant console errors",
-      "passed": false,
-      "consoleErrors": [
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/js/onam-theme.js?v=20260702-onam1",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-3.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/js/onam-theme.js?v=20260702-onam1",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-3.jpg?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        }
-      ]
-    }
-  ],
+  "failures": [],
   "console": {
-    "errors": [
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/js/onam-theme.js?v=20260702-onam1",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-3.jpg?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-2.jpg?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-2.mp4?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/js/onam-theme.js?v=20260702-onam1",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-2.jpg?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-3.jpg?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-2.mp4?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      }
-    ],
+    "errors": [],
     "warnings": []
   },
   "screenshots": [
     {
       "label": "desktop",
       "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 2113036,
-      "sha256": "14076c69354febcb8bdf632fdb39459374d0643a3b0dde7a7976563cb51759e6",
+      "bytes": 2101925,
+      "sha256": "326bec631d82b5eedc7c18405d3a87f2915a7530d87e49ef41174f4ba88daaf5",
       "viewport": {
         "width": 1440,
         "height": 1000
@@ -403,8 +173,8 @@
     {
       "label": "mobile",
       "fileName": "revision-2026-directory-mobile.png",
-      "bytes": 2410920,
-      "sha256": "c0bdb025791904633050781e0853f4bf75200dfb927f85f825fc34d6424d6eb2",
+      "bytes": 2410919,
+      "sha256": "d8f2e9576cf3cabb12a12938d2620ae35d168cc16532e6f4006056f8a892d799",
       "viewport": {
         "width": 390,
         "height": 844
