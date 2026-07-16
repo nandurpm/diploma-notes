@@ -1,0 +1,169 @@
+name: Assemble Course 1002 handbook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/assemble-course-1002-handbook.yml"
+      - "tools/.course-1002-payload/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: assemble-course-1002-handbook
+  cancel-in-progress: false
+
+jobs:
+  assemble-build-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble and validate handbook source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(find tools/.course-1002-payload -maxdepth 1 -name 'part-*.txt' | wc -l)" -eq 8
+          mkdir -p revision-2026-content/lessons revision-2026-content/notes reports
+          cat tools/.course-1002-payload/part-*.txt > /tmp/course-1002.html.gz.b64
+          printf '%s  %s\n' 'a8251cb0f1a8dec4ae46a4e407b12653988dd830cbc76d290b0abf28e3447e10' '/tmp/course-1002.html.gz.b64' | sha256sum -c -
+          base64 --decode /tmp/course-1002.html.gz.b64 | gzip --decompress > revision-2026-content/lessons/lessons-1002.html
+          printf '%s  %s\n' '4c59a4c8932f7fe700628daeff2d969eef349fd41041d4075e3ac71a8bc3f237' 'revision-2026-content/lessons/lessons-1002.html' | sha256sum -c -
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          path = Path('revision-2026-content/lessons/lessons-1002.html')
+          text = path.read_text(encoding='utf-8')
+          required = [
+              '<!DOCTYPE html>', 'Engineering Mathematics', 'Course Code: 1002',
+              'REVISION 2026', 'Module I', 'Module II', 'Module III', 'Module IV',
+              'Matrices and Determinants', 'Trigonometry', 'Coordinate Geometry',
+              'Differential Calculus', 'autoPrintNotes', 'window.print()',
+              'https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1002.html',
+          ]
+          missing = [item for item in required if item not in text]
+          if missing:
+              raise SystemExit('Missing required handbook markers: ' + ', '.join(missing))
+          if len(text.encode('utf-8')) < 80000:
+              raise SystemExit('Handbook source is unexpectedly short')
+          ids = re.findall(r'\bid=["\']([^"\']+)', text)
+          if len(ids) != len(set(ids)):
+              raise SystemExit('Duplicate HTML IDs detected')
+          print(f'Validated handbook source: {len(text.encode("utf-8"))} bytes, {len(ids)} IDs')
+          PY
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PDF build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright pypdf
+          python -m playwright install --with-deps chromium
+
+      - name: Start local site server
+        run: |
+          python -m http.server 8000 > /tmp/course-1002-site.log 2>&1 &
+          echo $! > /tmp/course-1002-site.pid
+          sleep 3
+
+      - name: Generate focused Revision 2026 PDF
+        run: |
+          python - <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path('tools').resolve()))
+          import build_lesson_pdfs as builder
+
+          lesson = Path('revision-2026-content/lessons/lessons-1002.html').resolve()
+          builder.LESSONS = lesson.parent
+          builder.NOTES = Path('revision-2026-content/notes').resolve()
+          builder.REPORTS = Path('reports').resolve()
+          builder.PRESERVE_EXISTING_PDF_CODES = set()
+          builder.lesson_files = lambda: [('1002', lesson)]
+          generated, errors = builder.render_all()
+          if errors or len(generated) != 1:
+              raise SystemExit(f'Course 1002 PDF generation failed: generated={generated}, errors={errors}')
+          print(generated[0])
+          PY
+
+      - name: Validate PDF page limit and write report
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+          import json
+
+          html = Path('revision-2026-content/lessons/lessons-1002.html')
+          pdf = Path('revision-2026-content/notes/downloadable-notes-1002.pdf')
+          reader = PdfReader(str(pdf))
+          page_text = [(page.extract_text() or '').strip() for page in reader.pages]
+          pages = len(reader.pages)
+          blank = [i + 1 for i, text in enumerate(page_text) if len(text) < 10]
+          near_blank = [i + 1 for i, text in enumerate(page_text) if len(text) < 80]
+          if not 40 <= pages <= 50:
+              raise SystemExit(f'Course 1002 PDF page count {pages} is outside the required 40-50 range')
+          if blank:
+              raise SystemExit(f'Blank PDF pages detected: {blank}')
+          report = {
+              'revision': '2026',
+              'courseCode': '1002',
+              'courseTitle': 'Engineering Mathematics',
+              'lessonPath': str(html),
+              'pdfPath': str(pdf),
+              'sourceSha256': '4c59a4c8932f7fe700628daeff2d969eef349fd41041d4075e3ac71a8bc3f237',
+              'sourceBytes': html.stat().st_size,
+              'pdfBytes': pdf.stat().st_size,
+              'pages': pages,
+              'blankPages': blank,
+              'nearBlankPages': near_blank,
+              'pageLimitPassed': pages <= 50,
+              'renderer': 'Playwright Chromium through local HTTP server',
+          }
+          Path('reports/revision-2026-course-1002-validation.json').write_text(
+              json.dumps(report, indent=2) + '\n', encoding='utf-8'
+          )
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Synchronize availability and Revision 2026 cards
+        run: |
+          python tools/update_asset_manifest.py
+          python tools/build_revision_2026_pages.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Commit and push completed handbook
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-1002.html
+          git add revision-2026-content/notes/downloadable-notes-1002.pdf
+          git add reports/revision-2026-course-1002-validation.json
+          git add reports/revision-2026-build-summary.json reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js
+          git add revision-2026.html revision-2026/*.html
+          if git diff --cached --quiet; then
+            echo "Course 1002 handbook is already current."
+            exit 0
+          fi
+          git commit -m "Add REV2026 Course 1002 Engineering Mathematics handbook and notes [skip notes]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Stop local site server
+        if: always()
+        run: |
+          if [ -f /tmp/course-1002-site.pid ]; then
+            kill "$(cat /tmp/course-1002-site.pid)" || true
+          fi
