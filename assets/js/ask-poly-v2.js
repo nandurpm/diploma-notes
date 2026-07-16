@@ -5,7 +5,7 @@
 
   const DB_NAME = "ask-poly-v2-db";
   const DB_VERSION = 1;
-  const MAX_HISTORY = 12;
+  const MAX_HISTORY = Number(window.ASK_POLY_CONFIG?.maxHistory || 12);
   let dbPromise = null;
   let activeChatId = null;
   let waiting = false;
@@ -111,7 +111,7 @@
     const chat = { id: id(), title, createdAt: now(), updatedAt: now() };
     await putChat(chat);
     activeChatId = chat.id;
-    await addMessage("assistant", "Hi. I am Ask POLY. This chat is saved in your browser, so refresh will not remove it.");
+    await addMessage("assistant", "Hi. I am Ask POLY AI. I can guide you through Revision 2026, Revision 2021, 2015 materials, subjects, lessons, notes, mock exams, tools and the rest of POLY PMNA. This chat is saved in your browser.");
     await renderAll();
   }
 
@@ -181,7 +181,7 @@
     els.messages.scrollTop = els.messages.scrollHeight;
     const chat = await getChat(activeChatId);
     els.title.textContent = chat?.title || "Ask POLY Chat";
-    els.sub.textContent = `${messages.length} saved messages`;
+    els.sub.textContent = `${messages.length} saved messages · whole-site knowledge`;
   }
 
   async function chooseChatAfterDelete(deletedId) {
@@ -242,21 +242,27 @@
 
   function defaultPrompts() {
     return [
-      ["Find subjects", "Where can I find Revision 2021 Computer Engineering subjects?"],
-      ["Missing notes", "Why is Download Notes missing for some subjects?"],
-      ["Mock exams", "Explain how to use the mock exams page."],
-      ["Report issue", "I found a broken link. What should I send?"]
+      ["REV2026 subjects", "Show the Revision 2026 Electrical and Electronics Engineering subjects semester-wise."],
+      ["Compare revisions", "How is Revision 2026 different from Revision 2021?"],
+      ["Find subject code", "Find subject code 1008 and tell me which revision, semester and resources are available."],
+      ["Website guide", "Explain all important areas of the POLY PMNA website and where I should go for each task."]
     ];
   }
 
   async function renderAll() { await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); }
-  function setWaiting(value) { waiting = value; els.status.textContent = value ? "Thinking..." : "Ready"; els.input.disabled = value; els.send.disabled = value; els.clear.disabled = value; }
+  function setWaiting(value) {
+    waiting = value;
+    els.status.textContent = value ? "Checking website + thinking..." : "Ready";
+    els.input.disabled = value;
+    els.send.disabled = value;
+    els.clear.disabled = value;
+  }
 
   function addTyping() {
     const m = document.createElement("div");
     m.id = "typingBubble";
     m.className = "ask-bubble ai";
-    m.textContent = "POLY is thinking...";
+    m.textContent = "POLY is checking the website and thinking...";
     els.messages.append(m);
     els.messages.scrollTop = els.messages.scrollHeight;
   }
@@ -265,68 +271,138 @@
   async function knowledgeSearch(message) {
     try {
       if (window.AskPolyKnowledge?.searchKnowledge) return await window.AskPolyKnowledge.searchKnowledge(message);
-    } catch (_) {}
+    } catch (error) {
+      console.error("Ask POLY website retrieval failed", error);
+    }
     return null;
   }
 
   function shouldSearchWebsite(text) {
-    if (/^\d{1,3}$/.test(String(text).trim())) return false;
-    return /subject|syllabus|notes|lesson|department|semester|revision|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|materials|2015|broken|report|website|page|link|find|search/i.test(text);
+    const value = String(text || "").trim();
+    if (!value || /^\d{1,3}$/.test(value)) return false;
+    if (/\b[1-6]\d{3,4}[A-Z]?\b/i.test(value)) return true;
+    return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
   }
 
   async function callAI(message, history, localContext) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
-    if (!endpoint) throw new Error("Endpoint missing");
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      cache: "no-store",
-      body: JSON.stringify({ message: localContext ? `${localContext}\n\nQuestion: ${message}` : message, history })
-    });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(data.error || `AI failed ${response.status}`);
-    return data.answer || data.message || data.reply || "No answer received.";
+    if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
+    const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), Math.max(5000, timeoutMs));
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        signal: controller.signal,
+        body: JSON.stringify({
+          message,
+          history,
+          pageTitle: "Ask POLY whole-site knowledge",
+          pageContext: localContext || ""
+        })
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
+      return {
+        answer: data.answer || data.message || data.reply || "No answer received.",
+        provider: data.provider || "ai",
+        model: data.model || ""
+      };
+    } finally {
+      clearTimeout(timer);
+    }
   }
 
   async function sendMessage(text) {
     if (waiting || !text.trim()) return;
     const clean = text.trim();
-    els.input.value = ""; autoResize();
+    els.input.value = "";
+    autoResize();
     await addMessage("user", clean);
     await updateChatTitleFromMessage(activeChatId, clean);
-    await renderMessages(); await renderChats();
-    setWaiting(true); addTyping();
+    await renderMessages();
+    await renderChats();
+    setWaiting(true);
+    addTyping();
+
+    let retrieval = null;
     try {
       const messages = await getMessages(activeChatId);
-      const history = messages.slice(-MAX_HISTORY).map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
-      const retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
-      const answer = retrieval?.answer && shouldSearchWebsite(clean)
-        ? retrieval.answer
-        : await callAI(clean, history, retrieval?.context || "");
+      const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
+      const history = previousMessages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
+      retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
+      const result = await callAI(clean, history, retrieval?.context || "");
       removeTyping();
-      await addMessage("assistant", answer, { provider: retrieval?.answer ? "local-knowledge" : "ai" });
+      await addMessage("assistant", result.answer, {
+        provider: result.provider,
+        model: result.model,
+        websiteKnowledge: Boolean(retrieval?.context),
+        knowledgeVersion: retrieval?.version || ""
+      });
     } catch (error) {
       removeTyping();
-      await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try again later or use Revision 2021, Tools, Mock Exams, or Help from the top menu.", { error: error.message });
+      const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
+      if (fallback) {
+        await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
+          provider: "local-knowledge-fallback",
+          error: error.message,
+          knowledgeVersion: retrieval?.version || ""
+        });
+      } else {
+        await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. You can still open Revision 2026, Revision 2021, Student Tools, Mock Exams, 2015 Materials or Help from the menu.", { error: error.message });
+      }
     } finally {
-      setWaiting(false); await renderAll(); els.input.focus();
+      setWaiting(false);
+      await renderAll();
+      els.input.focus();
     }
   }
 
-  function autoResize() { els.input.style.height = "auto"; els.input.style.height = `${Math.min(els.input.scrollHeight, 180)}px`; }
+  function autoResize() {
+    els.input.style.height = "auto";
+    els.input.style.height = `${Math.min(els.input.scrollHeight, 180)}px`;
+  }
+
+  async function updateKnowledgeStatus() {
+    try {
+      const status = await window.AskPolyKnowledge?.getStatus?.();
+      if (!status?.ok) return;
+      const counts = status.counts || {};
+      els.status.title = `Website index ${status.version || ""}; ${counts.pages || 0} pages; ${counts.subjectRecords || 0} subject records`;
+      els.sub.textContent = `Whole-site knowledge · ${counts.pages || 0} pages · ${counts.subjectRecords || 0} subject records`;
+    } catch (_) {}
+  }
 
   async function init() {
     await openDB();
     const chats = (await getAll("chats")).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-    if (chats.length) activeChatId = chats[0].id; else await createChat();
-    els.form.addEventListener("submit", (e) => { e.preventDefault(); sendMessage(els.input.value); });
-    els.input.addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey && !isMobile()) { e.preventDefault(); els.send.click(); } });
+    if (chats.length) activeChatId = chats[0].id;
+    else await createChat();
+    els.form.addEventListener("submit", (event) => { event.preventDefault(); sendMessage(els.input.value); });
+    els.input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !event.shiftKey && !isMobile()) {
+        event.preventDefault();
+        els.send.click();
+      }
+    });
     els.input.addEventListener("input", autoResize);
     els.search.addEventListener("input", renderChats);
     els.newChat.addEventListener("click", () => createChat());
-    els.clear.addEventListener("click", async () => { if (!confirm("Clear this saved chat?")) return; await deleteChat(activeChatId); await chooseChatAfterDelete(activeChatId); });
-    await renderAll(); autoResize(); els.input.focus();
+    els.clear.addEventListener("click", async () => {
+      if (!confirm("Clear this saved chat?")) return;
+      await deleteChat(activeChatId);
+      await chooseChatAfterDelete(activeChatId);
+    });
+    await renderAll();
+    await updateKnowledgeStatus();
+    autoResize();
+    els.input.focus();
   }
 
-  init().catch((error) => { console.error(error); els.status.textContent = "Storage error"; });
+  init().catch((error) => {
+    console.error(error);
+    els.status.textContent = "Storage error";
+  });
 })();
