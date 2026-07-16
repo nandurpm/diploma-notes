@@ -17,6 +17,10 @@
     <string name="no_file_picker">No file picker is available</string>
     <string name="unsafe_page_blocked">Unsupported or unsafe link blocked</string>
     <string name="intent_link_blocked">This app link was blocked for your safety</string>
+    <string name="notification_channel_new_lessons">New Lessons</string>
+    <string name="notification_channel_new_lessons_description">Notifications when new Revision 2021 or Revision 2026 lessons are published.</string>
+    <string name="notification_default_title">New Lesson Available</string>
+    <string name="notification_default_body">A new POLY PMNA lesson handbook has been published.</string>
     <string name="nav_home">Home</string>
     <string name="nav_revision_2026">Revision 2026</string>
     <string name="nav_revision_2021">Revision 2021</string>
