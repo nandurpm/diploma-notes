@@ -1,21 +1,24 @@
-name: Run Course 1041 build on issue
+name: Finalize Course 1041 handbook
 
 on:
+  workflow_dispatch:
   issues:
-    types: [opened]
+    types: [opened, reopened]
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: course-1041-final-build
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
-    if: ${{ github.event.issue.title == 'Run Course 1041 handbook build' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.issue.title == 'Run Course 1041 handbook build' }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
+
     steps:
       - name: Check out latest main
         uses: actions/checkout@v4
@@ -28,10 +31,19 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Reconstruct handbook
+      - name: Reconstruct and validate handbook
         run: |
           python -m py_compile tools/generate_course_1041.py
           python tools/generate_course_1041.py
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+
+          html = Path("revision-2026-content/lessons/lessons-1041.html")
+          assert html.stat().st_size == 577326
+          assert hashlib.sha256(html.read_bytes()).hexdigest() == "098ecfddf6ff398a1463c1a6752711202a1124a23800f32d20076fe8c25cf699"
+          print("Course 1041 source validation passed")
+          PY
 
       - name: Install browser and PDF dependencies
         run: |
@@ -56,12 +68,17 @@ jobs:
           url = "http://127.0.0.1:8000/revision-2026-content/lessons/lessons-1041.html"
           sizes = [(1920, 1080), (1366, 768), (768, 1024), (360, 800), (390, 844)]
           results = []
+
           with sync_playwright() as playwright:
               browser = playwright.chromium.launch()
               for width, height in sizes:
                   page = browser.new_page(viewport={"width": width, "height": height})
-                  errors = []
-                  page.on("console", lambda message, bucket=errors: bucket.append(message.text) if message.type == "error" else None)
+                  console_errors = []
+                  page.on(
+                      "console",
+                      lambda message, bucket=console_errors: bucket.append(message.text)
+                      if message.type == "error" else None,
+                  )
                   page.goto(url, wait_until="networkidle", timeout=120000)
                   page.wait_for_function("window.__HANDBOOK_READY__ === true", timeout=30000)
                   assert page.locator("main").count() == 1
@@ -69,8 +86,13 @@ jobs:
                   assert page.locator(".animation-card").count() == 12
                   assert page.locator(".experiment").count() == 16
                   assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
-                  assert not errors, errors
-                  results.append({"width": width, "height": height, "horizontalOverflow": False, "consoleErrors": []})
+                  assert not console_errors, console_errors
+                  results.append({
+                      "width": width,
+                      "height": height,
+                      "horizontalOverflow": False,
+                      "consoleErrors": [],
+                  })
                   page.close()
 
               page = browser.new_page(viewport={"width": 1366, "height": 768})
@@ -82,13 +104,21 @@ jobs:
               page.close()
               browser.close()
 
-          report = {"course": "1041", "viewports": results, "autoPrintNotes": True, "status": "passed"}
+          report = {
+              "course": "1041",
+              "viewports": results,
+              "autoPrintNotes": True,
+              "status": "passed",
+          }
           Path("reports").mkdir(exist_ok=True)
-          Path("reports/course-1041-browser-verification.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          Path("reports/course-1041-browser-verification.json").write_text(
+              json.dumps(report, indent=2) + "\n",
+              encoding="utf-8",
+          )
           print(json.dumps(report, indent=2))
           PY
 
-      - name: Build Course 1041 PDF
+      - name: Build and verify Course 1041 PDF
         run: |
           python - <<'PY'
           from __future__ import annotations
@@ -102,26 +132,31 @@ jobs:
           import build_lesson_pdfs as builder
 
           lesson = root / "revision-2026-content" / "lessons" / "lessons-1041.html"
+          notes = root / "revision-2026-content" / "notes"
           builder.LESSONS = lesson.parent
-          builder.NOTES = root / "revision-2026-content" / "notes"
+          builder.NOTES = notes
           builder.REPORTS = root / "reports"
           builder.PRESERVE_EXISTING_PDF_CODES = set()
           builder.lesson_files = lambda: [("1041", lesson)]
+
           generated, errors = builder.render_all()
           if errors or not generated:
               raise RuntimeError({"generated": generated, "errors": errors})
 
-          pdf = builder.NOTES / "downloadable-notes-1041.pdf"
+          pdf = notes / "downloadable-notes-1041.pdf"
           reader = PdfReader(str(pdf))
           page_texts = [" ".join((page.extract_text() or "").split()) for page in reader.pages]
           blank_pages = [index + 1 for index, text in enumerate(page_texts) if len(text) < 10]
           source = lesson.read_text(encoding="utf-8")
+
           assert pdf.stat().st_size >= 20000
           assert len(reader.pages) > 20
           assert not blank_pages
           assert sum(len(text) for text in page_texts) > 100000
 
-          browser = json.loads((root / "reports" / "course-1041-browser-verification.json").read_text(encoding="utf-8"))
+          browser_report = json.loads(
+              (root / "reports" / "course-1041-browser-verification.json").read_text(encoding="utf-8")
+          )
           report = {
               "course": "1041",
               "htmlPath": "revision-2026-content/lessons/lessons-1041.html",
@@ -137,11 +172,19 @@ jobs:
               "experiments": source.count('class="experiment'),
               "componentAtlasEntries": source.count('class="component-card'),
               "questionAnswerItems": source.count('class="qa'),
-              "browser": browser,
+              "browser": browser_report,
+              "lessonAvailability": True,
+              "notesAvailability": True,
               "status": "passed",
           }
-          (root / "reports" / "course-1041-verification.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
-          (root / "reports" / "course-1041-pdf-build.json").write_text(json.dumps({"generated": generated, "errors": errors}, indent=2) + "\n", encoding="utf-8")
+          (root / "reports" / "course-1041-verification.json").write_text(
+              json.dumps(report, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          (root / "reports" / "course-1041-pdf-build.json").write_text(
+              json.dumps({"generated": generated, "errors": errors}, indent=2) + "\n",
+              encoding="utf-8",
+          )
           print(json.dumps(report, indent=2))
           PY
 
@@ -158,6 +201,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          published=0
 
           for attempt in 1 2 3 4 5; do
             git fetch origin main
@@ -170,6 +214,7 @@ jobs:
 
             rm -rf tools/.course-1041-payload
             rm -f tools/generate_course_1041.py
+            rm -f tools/.course-1041-payload-trigger.txt
             rm -f .github/workflows/generate-course-1041.yml
             rm -f .github/workflows/run-course-1041-on-issue.yml
 
@@ -181,19 +226,41 @@ jobs:
 
             python - <<'PY'
           from pathlib import Path
+
           browser = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
+          manifest = Path("assets/js/asset-manifest.js").read_text(encoding="utf-8")
           assert '"1041"' in next(line for line in browser.splitlines() if "REV2026_LESSON_CODES" in line)
           assert '"1041"' in next(line for line in browser.splitlines() if "REV2026_NOTES_CODES" in line)
+          assert "revision2026LessonCodes" in manifest
+          assert "revision2026NotesCodes" in manifest
           PY
 
             git add -A
+            if git diff --cached --quiet; then
+              published=1
+              break
+            fi
+
             git commit -m "Add complete REV2026 Course 1041 electronics handbook"
             if git push origin HEAD:main; then
-              exit 0
+              published=1
+              break
             fi
+
             sleep $((attempt * 10))
           done
-          exit 1
+
+          if [ "$published" -ne 1 ]; then
+            echo "Course 1041 publication failed after five attempts" >&2
+            exit 1
+          fi
+
+      - name: Close temporary build issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue close 38 --repo nandurpm/diploma-notes --reason completed --comment "Course 1041 final build workflow completed and published the handbook and PDF." || true
+          gh issue close 39 --repo nandurpm/diploma-notes --reason completed --comment "Course 1041 final build workflow completed and published the handbook and PDF." || true
 
       - name: Stop local website
         if: always()
