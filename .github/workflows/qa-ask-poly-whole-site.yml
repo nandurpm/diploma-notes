@@ -1,5 +1,6 @@
 name: QA Ask POLY whole-site grounding
 
+# Final trigger after the Worker whole-site context injection.
 on:
   workflow_dispatch:
   push:
@@ -9,6 +10,8 @@ on:
       - "assets/js/ask-poly-v2.js"
       - "assets/js/ask-poly-knowledge-loader.js"
       - "assets/data/ask-poly-knowledge.json"
+      - "workers/ask-poly-ai/src/index.js"
+      - "workers/ask-poly-ai/src/site-instructions.js"
       - "tools/qa_ask_poly_whole_site.mjs"
       - ".github/workflows/qa-ask-poly-whole-site.yml"
 
@@ -38,6 +41,13 @@ jobs:
         run: |
           npm install --no-save --package-lock=false playwright@1.54.2
           npx playwright install --with-deps chromium
+
+      - name: Validate Worker source
+        run: |
+          node --check workers/ask-poly-ai/src/index.js
+          node --check workers/ask-poly-ai/src/site-instructions.js
+          grep -q 'whole-site-revision-aware-v1' workers/ask-poly-ai/src/index.js
+          grep -q 'Revision 2026' workers/ask-poly-ai/src/site-instructions.js
 
       - name: Start local website
         run: |
