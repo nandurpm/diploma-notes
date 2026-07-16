@@ -15,17 +15,10 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Report repaired publication status
+      - name: Refresh publication status comment
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          sleep 30
-          status="$(gh run list --repo nandurpm/diploma-notes --workflow run-course-1041-on-issue.yml --limit 3 --json databaseId,status,conclusion,headSha,displayTitle,event,createdAt,url)"
-          {
-            echo "Course 1041 repaired publication status:"
-            echo
-            echo '```json'
-            echo "$status"
-            echo '```'
-          } > /tmp/course-1041-status.md
-          gh issue comment 38 --repo nandurpm/diploma-notes --body-file /tmp/course-1041-status.md
+          status="$(gh run list --repo nandurpm/diploma-notes --workflow run-course-1041-on-issue.yml --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,event,createdAt,url)"
+          body="$(printf 'Current Course 1041 publication workflow status:\n\n```json\n%s\n```' "$status")"
+          gh api --method PATCH repos/nandurpm/diploma-notes/issues/comments/4992023119 -f body="$body"
