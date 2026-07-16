@@ -15,10 +15,11 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Refresh publication status comment
+      - name: Refresh failed publication log
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          status="$(gh run list --repo nandurpm/diploma-notes --workflow run-course-1041-on-issue.yml --limit 5 --json databaseId,status,conclusion,headSha,displayTitle,event,createdAt,url)"
-          body="$(printf 'Current Course 1041 publication workflow status:\n\n```json\n%s\n```' "$status")"
-          gh api --method PATCH repos/nandurpm/diploma-notes/issues/comments/4992023119 -f body="$body"
+          gh run view 29499640611 --repo nandurpm/diploma-notes --log-failed > /tmp/course-1041-full.log || true
+          tail -n 120 /tmp/course-1041-full.log > /tmp/course-1041-tail.log
+          body="$(printf 'Latest Course 1041 failed workflow log:\n\n```text\n%s\n```' "$(cat /tmp/course-1041-tail.log)")"
+          gh api --method PATCH repos/nandurpm/diploma-notes/issues/comments/4992036997 -f body="$body"
