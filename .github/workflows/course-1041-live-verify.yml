@@ -1,0 +1,126 @@
+name: Verify deployed Course 1041 handbook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/course-1041-live-verify.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install verification dependency
+        run: python -m pip install pypdf
+
+      - name: Wait for and validate live files
+        run: |
+          set -euo pipefail
+          HTML_URL="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1041.html"
+          PDF_URL="https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1041.pdf"
+
+          success=0
+          for attempt in $(seq 1 30); do
+            rm -f /tmp/live-1041.html /tmp/live-1041.pdf
+            if curl --location --fail --silent --show-error --max-time 90 "$HTML_URL" -o /tmp/live-1041.html \
+              && curl --location --fail --silent --show-error --max-time 180 "$PDF_URL" -o /tmp/live-1041.pdf; then
+              if python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          from pypdf import PdfReader
+
+          html = Path('/tmp/live-1041.html')
+          pdf = Path('/tmp/live-1041.pdf')
+          source = html.read_text(encoding='utf-8')
+          assert html.stat().st_size == 577326, html.stat().st_size
+          assert hashlib.sha256(html.read_bytes()).hexdigest() == '098ecfddf6ff398a1463c1a6752711202a1124a23800f32d20076fe8c25cf699'
+          assert 'Elementary Concepts of Electronics' in source
+          assert source.count('class="module-panel') == 4
+          assert pdf.read_bytes()[:5] == b'%PDF-'
+          reader = PdfReader(str(pdf))
+          assert len(reader.pages) > 20
+          text = ' '.join((page.extract_text() or '') for page in reader.pages)
+          assert 'Module I' in text and 'Module IV' in text and 'Component Atlas' in text
+          PY
+              then
+                success=1
+                break
+              fi
+            fi
+            echo "Live deployment not ready on attempt $attempt; retrying..."
+            sleep 20
+          done
+
+          if [ "$success" -ne 1 ]; then
+            echo "Course 1041 live deployment verification failed after all retries" >&2
+            exit 1
+          fi
+
+      - name: Write live verification report
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+          from pypdf import PdfReader
+
+          html = Path('/tmp/live-1041.html')
+          pdf = Path('/tmp/live-1041.pdf')
+          reader = PdfReader(str(pdf))
+          page_texts = [' '.join((page.extract_text() or '').split()) for page in reader.pages]
+          report = {
+              'course': '1041',
+              'htmlUrl': 'https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1041.html',
+              'pdfUrl': 'https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1041.pdf',
+              'htmlBytes': html.stat().st_size,
+              'htmlSha256': hashlib.sha256(html.read_bytes()).hexdigest(),
+              'pdfBytes': pdf.stat().st_size,
+              'pdfPages': len(reader.pages),
+              'pdfCharacters': sum(len(text) for text in page_texts),
+              'blankPages': [index + 1 for index, text in enumerate(page_texts) if len(text) < 10],
+              'htmlOpened': True,
+              'pdfOpened': True,
+              'status': 'passed',
+          }
+          Path('reports').mkdir(exist_ok=True)
+          Path('reports/course-1041-live-verification.json').write_text(
+              json.dumps(report, indent=2) + '\n',
+              encoding='utf-8',
+          )
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Commit report and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp reports/course-1041-live-verification.json /tmp/course-1041-live-verification.json
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p reports
+            cp /tmp/course-1041-live-verification.json reports/course-1041-live-verification.json
+            rm -f .github/workflows/course-1041-live-verify.yml
+            git add -A
+            git commit -m "Verify live Course 1041 handbook deployment"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 10))
+          done
+          exit 1
