@@ -12,7 +12,7 @@
 
   // Revision 2026 assets are detected only inside /revision-2026-content.
   const REV2026_LESSON_CODES = new Set(["2003A"]);
-  const REV2026_NOTES_CODES = new Set([]);
+  const REV2026_NOTES_CODES = new Set(["2003A"]);
 
   const MANUAL = [
     {revision:"2021",semester:"Semester 1",code:"1001",name:"Communication Skills in English",department:COMMON,type:"Theory",assetCode:"1001"},
