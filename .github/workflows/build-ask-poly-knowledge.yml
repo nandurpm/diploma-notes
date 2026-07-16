@@ -5,18 +5,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "index.html"
-      - "about.html"
-      - "contact.html"
-      - "tools.html"
-      - "daily-quiz.html"
-      - "materials-2015.html"
-      - "model-question-papers.html"
-      - "mock-exam*.html"
-      - "revision-2021.html"
-      - "revision-2021/**"
-      - "revision-2026.html"
-      - "revision-2026/**"
+      - "**/*.html"
       - "lessons/**"
       - "notes/**"
       - "revision-2026-content/**"
