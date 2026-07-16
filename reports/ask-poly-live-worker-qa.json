@@ -1,0 +1,26 @@
+{
+  "status": "success",
+  "generatedAt": "2026-07-16T05:25:48Z",
+  "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
+  "expectedKnowledgeMode": "whole-site-revision-aware-v1",
+  "health": {
+    "ok": true,
+    "service": "Ask POLY AI",
+    "configured": true,
+    "knowledgeMode": "whole-site-revision-aware-v1",
+    "revisionAware": [
+      "2026",
+      "2021",
+      "2015"
+    ],
+    "wholeSiteContext": true,
+    "localMathFallback": true,
+    "providers": [
+      "nvidia"
+    ],
+    "model": "meta/llama-3.1-8b-instruct",
+    "mockExamEvaluation": true,
+    "mockExamPattern": "1004-75-mark-official-model"
+  },
+  "lastError": ""
+}
