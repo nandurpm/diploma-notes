@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260716-rev2026-model-qp";
+  const VERSION = "20260716-rev2026-directory-v2";
   const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
   const esc = value => String(value ?? "")
     .replaceAll("&", "&amp;")
@@ -16,6 +16,11 @@
     .replace(/^-|-$/g, "");
   const cleanPath = () => location.pathname.replace(/\/+$/, "") || "/";
   const isProgrammeIndex = () => ["/revision-2026.html", "/revision-2026"].includes(cleanPath());
+  const normaliseSearch = value => String(value || "")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
 
   async function json(url, timeoutMs = 12000) {
     const controller = new AbortController();
@@ -72,22 +77,72 @@
   function enhanceProgrammeIndex() {
     const grid = document.getElementById("departmentCards");
     const search = document.getElementById("programmeSearch");
+    const resultCount = document.getElementById("programmeResultCount");
+    const clearButton = document.getElementById("programmeSearchClear");
     const empty = document.getElementById("programmeEmptyState");
+    const emptyClear = document.getElementById("programmeEmptyClear");
     if (!grid || !search) return;
+
     const cards = [...grid.querySelectorAll("[data-programme-card]")];
-    const draw = () => {
-      const query = search.value.trim().toLowerCase();
+    const total = cards.length;
+
+    const updateUrl = query => {
+      try {
+        const url = new URL(location.href);
+        if (query) url.searchParams.set("q", query);
+        else url.searchParams.delete("q");
+        history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+      } catch {
+        // URL persistence is optional; filtering still works without it.
+      }
+    };
+
+    const draw = ({ persist = true } = {}) => {
+      const rawQuery = search.value.trim();
+      const query = normaliseSearch(rawQuery);
       let visible = 0;
+
       cards.forEach(card => {
-        const haystack = [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent].join(" ").toLowerCase();
+        const haystack = normaliseSearch(
+          card.dataset.searchText ||
+          [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent].join(" ")
+        );
         const show = !query || haystack.includes(query);
         card.hidden = !show;
+        card.setAttribute("aria-hidden", String(!show));
         if (show) visible += 1;
       });
+
+      if (resultCount) {
+        resultCount.textContent = query
+          ? `Showing ${visible} of ${total} departments`
+          : `${total} departments available`;
+      }
+      if (clearButton) clearButton.hidden = !rawQuery;
       if (empty) empty.hidden = visible !== 0;
+      if (persist) updateUrl(rawQuery);
     };
-    search.addEventListener("input", draw);
-    draw();
+
+    const clear = () => {
+      if (!search.value) return;
+      search.value = "";
+      draw();
+      search.focus();
+    };
+
+    const initialQuery = new URLSearchParams(location.search).get("q") || "";
+    if (initialQuery) search.value = initialQuery;
+
+    search.addEventListener("input", () => draw());
+    search.addEventListener("keydown", event => {
+      if (event.key === "Escape" && search.value) {
+        event.preventDefault();
+        clear();
+      }
+    });
+    clearButton?.addEventListener("click", clear);
+    emptyClear?.addEventListener("click", clear);
+    draw({ persist: false });
   }
 
   function subjectCard(subject, programmeName) {
@@ -118,12 +173,12 @@
     const cards = [...grid.querySelectorAll(".subject-card")];
     const sections = [...grid.querySelectorAll(".semester-subject-section")];
     const draw = () => {
-      const query = (search?.value || "").trim().toLowerCase();
+      const query = normaliseSearch(search?.value || "");
       const selected = semester?.value || "all";
       let visibleTotal = 0;
       cards.forEach(card => {
         const matchesSemester = selected === "all" || card.dataset.semester === selected;
-        const haystack = card.dataset.searchText || card.textContent.toLowerCase();
+        const haystack = normaliseSearch(card.dataset.searchText || card.textContent);
         const show = matchesSemester && (!query || haystack.includes(query));
         card.hidden = !show;
         if (show) visibleTotal += 1;
