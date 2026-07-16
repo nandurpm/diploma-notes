@@ -4,7 +4,7 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-VERSION = "20260716-rev2026-match-2021"
+VERSION = "20260716-rev2026-modelqp-direct3"
 PATTERNS = (
     re.compile(r"(assets/js/subject-browser\.js)\?v=[^\"']+"),
     re.compile(r"(assets/js/revision-2026-browser\.js)\?v=[^\"']+"),
