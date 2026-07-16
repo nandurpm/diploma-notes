@@ -18,6 +18,8 @@ Thumbs.db
 !/downloads/POLY_PMNA_v2.0.apk
 android-app/app/build/
 android-app/build/
+android-app/app/google-services.json
+firebase-service-account*.json
 reports/*.tmp.json
 
 # wrangler files
