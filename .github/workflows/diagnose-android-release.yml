@@ -1,0 +1,100 @@
+name: Diagnose Android signed release
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/diagnose-android-release.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+
+      - name: Decode release keystore
+        id: decode
+        continue-on-error: true
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          echo "${ANDROID_KEYSTORE_BASE64}" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
+          test -s android-app/release.keystore
+
+      - name: Validate keystore and alias
+        id: keytool
+        if: ${{ steps.decode.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          keytool -list -keystore android-app/release.keystore \
+            -storepass "$ANDROID_KEYSTORE_PASSWORD" \
+            -alias "$ANDROID_KEY_ALIAS" >/tmp/keytool-output.txt 2>&1
+
+      - name: Build signed release APK
+        id: build
+        if: ${{ steps.decode.outcome == 'success' && steps.keytool.outcome == 'success' }}
+        continue-on-error: true
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          set -o pipefail
+          gradle -p android-app :app:assembleRelease --no-daemon \
+            -PANDROID_KEYSTORE_FILE="$PWD/android-app/release.keystore" \
+            -PANDROID_KEYSTORE_PASSWORD="$ANDROID_KEYSTORE_PASSWORD" \
+            -PANDROID_KEY_ALIAS="$ANDROID_KEY_ALIAS" \
+            -PANDROID_KEY_PASSWORD="$ANDROID_KEY_PASSWORD" \
+            2>&1 | tee /tmp/android-release-build.log
+
+      - name: Record diagnostic result
+        if: ${{ always() }}
+        env:
+          DECODE_OUTCOME: ${{ steps.decode.outcome }}
+          KEYTOOL_OUTCOME: ${{ steps.keytool.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+        run: |
+          mkdir -p reports
+          APK_FOUND=false
+          APK_PATH=$(find android-app/app/build/outputs/apk/release -name '*.apk' 2>/dev/null | head -n 1 || true)
+          [ -n "$APK_PATH" ] && APK_FOUND=true
+          ERROR_SUMMARY=""
+          if [ -f /tmp/android-release-build.log ]; then
+            ERROR_SUMMARY=$(grep -E '^(FAILURE:|\* What went wrong:|Execution failed|> Task .*FAILED|Caused by:|[[:space:]]*> )' /tmp/android-release-build.log | tail -n 12 | sed 's/"/\"/g' | tr '\n' ' ' | cut -c1-1800)
+          elif [ -f /tmp/keytool-output.txt ]; then
+            ERROR_SUMMARY=$(tail -n 8 /tmp/keytool-output.txt | sed 's/"/\"/g' | tr '\n' ' ' | cut -c1-1800)
+          fi
+          cat > reports/android-v3-release-diagnostic.json <<JSON
+          {
+            "decodeOutcome": "${DECODE_OUTCOME}",
+            "keystoreAliasOutcome": "${KEYTOOL_OUTCOME}",
+            "releaseBuildOutcome": "${BUILD_OUTCOME}",
+            "apkFound": ${APK_FOUND},
+            "errorSummary": "${ERROR_SUMMARY}",
+            "checkedAt": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          }
+          JSON
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/android-v3-release-diagnostic.json
+          git commit -m "Record Android v3.0 release diagnostic [skip ci]" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main
