@@ -1,0 +1,21 @@
+name: Course 1041 workflow diagnostic
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/course-1041-diagnostic.yml"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm workflow execution
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment 38 --repo nandurpm/diploma-notes --body "Course 1041 workflow runner is active. Final publication is being processed."
