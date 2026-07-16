@@ -1,8 +1,0 @@
-{
-  "decodeOutcome": "success",
-  "keystoreAliasOutcome": "success",
-  "releaseBuildOutcome": "success",
-  "apkFound": true,
-  "errorSummary": "> Task :app:writeReleaseAppMetadata > Task :app:writeReleaseSigningConfigVersions > Task :app:optimizeReleaseResources > Task :app:mergeDexRelease > Task :app:lintVitalAnalyzeRelease > Task :app:lintVitalReportRelease > Task :app:lintVitalRelease > Task :app:l8DexDesugarLibRelease > Task :app:compileReleaseArtProfile > Task :app:packageRelease > Task :app:createReleaseApkListingFileRedirect > Task :app:assembleRelease ",
-  "checkedAt": "2026-07-16T08:08:01Z"
-}
