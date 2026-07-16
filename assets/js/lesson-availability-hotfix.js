@@ -3,6 +3,10 @@
 
   const cache = new Map();
   const checking = new WeakSet();
+  const SITTTR_MODEL_QP_BASE = "https://sitttrkerala.ac.in/index.php";
+  const REV2026_MODEL_QP_INDEX = `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp&scheme=REV2026`;
+  let departmentPaperAccessPromise = null;
+
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
     return depth ? "../".repeat(depth) : "";
@@ -21,6 +25,79 @@
       ? `${root()}revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`
       : `${root()}lessons/lessons-${encodeURIComponent(code)}.html`;
     return `${href}${printMode ? "?autoPrintNotes=1" : ""}`;
+  }
+
+  function questionPaperUrlFor(code) {
+    return `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
+  }
+
+  function programmeQuestionPaperUrlFor(programmeCode) {
+    return `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp-courses&prog=${encodeURIComponent(programmeCode)}`;
+  }
+
+  function normalizeQuestionPaperLink(row, code, revision) {
+    const link = row.querySelector(".action.qp");
+    if (!link || !code) return link;
+    link.href = questionPaperUrlFor(code);
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.dataset.courseCode = code;
+    if (revision === "2026") {
+      link.dataset.scheme = "REV2026";
+      link.textContent = "Sample Question Paper";
+      link.title = `Open the official SITTTR Revision 2026 model question paper for course ${code}.`;
+    }
+    return link;
+  }
+
+  async function enhanceDepartmentPaperAccess() {
+    if (departmentPaperAccessPromise) return departmentPaperAccessPromise;
+    const slug = document.body?.dataset?.programmeSlug;
+    const revision = String(document.body?.dataset?.revision || "");
+    const notice = document.getElementById("rev2026-model-qp-access");
+    if (revision !== "2026" || !slug || !notice) return null;
+
+    departmentPaperAccessPromise = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260716-modelqp-links1`, { cache: "no-store" })
+      .then(response => response.ok ? response.json() : null)
+      .then(payload => {
+        const programme = payload?.programmes?.find(item => item.slug === slug);
+        const programmeCode = norm(programme?.officialCode);
+        if (!programmeCode || !notice.isConnected) return null;
+
+        document.body.dataset.programmeCode = programmeCode;
+        let departmentLink = notice.querySelector("a[data-model-qp-programme]");
+        const existingLink = notice.querySelector("a");
+        if (!departmentLink) {
+          departmentLink = existingLink || document.createElement("a");
+          departmentLink.dataset.modelQpProgramme = programmeCode;
+          departmentLink.classList.add("btn", "ghost");
+          departmentLink.target = "_blank";
+          departmentLink.rel = "noopener noreferrer";
+          if (!departmentLink.isConnected) notice.append(departmentLink);
+        }
+        departmentLink.href = programmeQuestionPaperUrlFor(programmeCode);
+        departmentLink.textContent = `Open ${programmeCode} department sample papers`;
+        departmentLink.title = `Open the official Revision 2026 model-question-paper list for ${programme?.name || programmeCode}.`;
+
+        let indexLink = notice.querySelector("a[data-model-qp-index]");
+        if (!indexLink) {
+          indexLink = document.createElement("a");
+          indexLink.className = "btn ghost";
+          indexLink.dataset.modelQpIndex = "REV2026";
+          indexLink.target = "_blank";
+          indexLink.rel = "noopener noreferrer";
+          indexLink.href = REV2026_MODEL_QP_INDEX;
+          indexLink.textContent = "Open all REV2026 sample papers";
+          notice.append(" ", indexLink);
+        }
+        return programme;
+      })
+      .catch(error => {
+        console.warn("Could not enhance REV2026 department model-paper access", error);
+        return null;
+      });
+
+    return departmentPaperAccessPromise;
   }
 
   async function headOk(url, rejectHtml = false) {
@@ -165,7 +242,7 @@
       const notesHref = notesUrlFor(code, revision);
       const lessonHref = lessonUrlFor(code, revision, false);
       const lessonPrintHref = lessonUrlFor(code, revision, true);
-      const qp = row.querySelector(".action.qp");
+      const qp = normalizeQuestionPaperLink(row, code, revision);
       const existingLesson = row.querySelector(".action.lessons");
 
       if (existingLesson && !samePathAndQuery(existingLesson.href, lessonHref)) {
@@ -221,6 +298,7 @@
   function run() {
     clearTimeout(timer);
     timer = setTimeout(() => {
+      enhanceDepartmentPaperAccess();
       document.querySelectorAll(".subject-card").forEach(card => {
         dedupeVisibleNotes(card);
         validateCard(card);
