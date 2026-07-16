@@ -1,0 +1,203 @@
+name: Run Course 1041 build on issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: course-1041-final-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: ${{ github.event.issue.title == 'Run Course 1041 handbook build' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Check out latest main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Reconstruct handbook
+        run: |
+          python -m py_compile tools/generate_course_1041.py
+          python tools/generate_course_1041.py
+
+      - name: Install browser and PDF dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright pypdf
+          python -m playwright install --with-deps chromium
+
+      - name: Start local website
+        run: |
+          python -m http.server 8000 > /tmp/course-1041-site.log 2>&1 &
+          echo $! > /tmp/course-1041-site.pid
+          sleep 3
+
+      - name: Test desktop, tablet, mobile and auto-print
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import json
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+
+          url = "http://127.0.0.1:8000/revision-2026-content/lessons/lessons-1041.html"
+          sizes = [(1920, 1080), (1366, 768), (768, 1024), (360, 800), (390, 844)]
+          results = []
+          with sync_playwright() as playwright:
+              browser = playwright.chromium.launch()
+              for width, height in sizes:
+                  page = browser.new_page(viewport={"width": width, "height": height})
+                  errors = []
+                  page.on("console", lambda message, bucket=errors: bucket.append(message.text) if message.type == "error" else None)
+                  page.goto(url, wait_until="networkidle", timeout=120000)
+                  page.wait_for_function("window.__HANDBOOK_READY__ === true", timeout=30000)
+                  assert page.locator("main").count() == 1
+                  assert page.locator(".module-panel").count() == 4
+                  assert page.locator(".animation-card").count() == 12
+                  assert page.locator(".experiment").count() == 16
+                  assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
+                  assert not errors, errors
+                  results.append({"width": width, "height": height, "horizontalOverflow": False, "consoleErrors": []})
+                  page.close()
+
+              page = browser.new_page(viewport={"width": 1366, "height": 768})
+              page.add_init_script("window.print = () => { window.__course1041PrintCalled = true; };")
+              page.goto(url + "?autoPrintNotes=1", wait_until="networkidle", timeout=120000)
+              page.wait_for_function("window.__course1041PrintCalled === true", timeout=30000)
+              assert page.title() == "downloadable-notes-1041"
+              assert page.locator("details:not([open])").count() == 0
+              page.close()
+              browser.close()
+
+          report = {"course": "1041", "viewports": results, "autoPrintNotes": True, "status": "passed"}
+          Path("reports").mkdir(exist_ok=True)
+          Path("reports/course-1041-browser-verification.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Build Course 1041 PDF
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+          import json
+          import sys
+          from pathlib import Path
+          from pypdf import PdfReader
+
+          root = Path.cwd()
+          sys.path.insert(0, str(root / "tools"))
+          import build_lesson_pdfs as builder
+
+          lesson = root / "revision-2026-content" / "lessons" / "lessons-1041.html"
+          builder.LESSONS = lesson.parent
+          builder.NOTES = root / "revision-2026-content" / "notes"
+          builder.REPORTS = root / "reports"
+          builder.PRESERVE_EXISTING_PDF_CODES = set()
+          builder.lesson_files = lambda: [("1041", lesson)]
+          generated, errors = builder.render_all()
+          if errors or not generated:
+              raise RuntimeError({"generated": generated, "errors": errors})
+
+          pdf = builder.NOTES / "downloadable-notes-1041.pdf"
+          reader = PdfReader(str(pdf))
+          page_texts = [" ".join((page.extract_text() or "").split()) for page in reader.pages]
+          blank_pages = [index + 1 for index, text in enumerate(page_texts) if len(text) < 10]
+          source = lesson.read_text(encoding="utf-8")
+          assert pdf.stat().st_size >= 20000
+          assert len(reader.pages) > 20
+          assert not blank_pages
+          assert sum(len(text) for text in page_texts) > 100000
+
+          browser = json.loads((root / "reports" / "course-1041-browser-verification.json").read_text(encoding="utf-8"))
+          report = {
+              "course": "1041",
+              "htmlPath": "revision-2026-content/lessons/lessons-1041.html",
+              "htmlBytes": lesson.stat().st_size,
+              "pdfPath": "revision-2026-content/notes/downloadable-notes-1041.pdf",
+              "pdfBytes": pdf.stat().st_size,
+              "pdfPages": len(reader.pages),
+              "pdfCharacters": sum(len(text) for text in page_texts),
+              "blankPages": blank_pages,
+              "diagrams": source.count("<svg"),
+              "animations": source.count('class="animation-card'),
+              "solvedExamples": source.count('class="worked'),
+              "experiments": source.count('class="experiment'),
+              "componentAtlasEntries": source.count('class="component-card'),
+              "questionAnswerItems": source.count('class="qa'),
+              "browser": browser,
+              "status": "passed",
+          }
+          (root / "reports" / "course-1041-verification.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          (root / "reports" / "course-1041-pdf-build.json").write_text(json.dumps({"generated": generated, "errors": errors}, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Preserve generated outputs
+        run: |
+          mkdir -p /tmp/course-1041-output/lessons /tmp/course-1041-output/notes /tmp/course-1041-output/reports
+          cp revision-2026-content/lessons/lessons-1041.html /tmp/course-1041-output/lessons/
+          cp revision-2026-content/notes/downloadable-notes-1041.pdf /tmp/course-1041-output/notes/
+          cp reports/course-1041-browser-verification.json /tmp/course-1041-output/reports/
+          cp reports/course-1041-verification.json /tmp/course-1041-output/reports/
+          cp reports/course-1041-pdf-build.json /tmp/course-1041-output/reports/
+
+      - name: Publish final files against latest main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+
+            mkdir -p revision-2026-content/lessons revision-2026-content/notes reports
+            cp /tmp/course-1041-output/lessons/lessons-1041.html revision-2026-content/lessons/
+            cp /tmp/course-1041-output/notes/downloadable-notes-1041.pdf revision-2026-content/notes/
+            cp /tmp/course-1041-output/reports/*.json reports/
+
+            rm -rf tools/.course-1041-payload
+            rm -f tools/generate_course_1041.py
+            rm -f .github/workflows/generate-course-1041.yml
+            rm -f .github/workflows/run-course-1041-on-issue.yml
+
+            python tools/update_asset_manifest.py
+            node --check assets/js/subject-browser.js
+            node --check assets/js/asset-manifest.js
+            python -m py_compile tools/build_revision_2026_pages.py
+            python tools/build_revision_2026_pages.py
+
+            python - <<'PY'
+          from pathlib import Path
+          browser = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
+          assert '"1041"' in next(line for line in browser.splitlines() if "REV2026_LESSON_CODES" in line)
+          assert '"1041"' in next(line for line in browser.splitlines() if "REV2026_NOTES_CODES" in line)
+          PY
+
+            git add -A
+            git commit -m "Add complete REV2026 Course 1041 electronics handbook"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 10))
+          done
+          exit 1
+
+      - name: Stop local website
+        if: always()
+        run: |
+          if [ -f /tmp/course-1041-site.pid ]; then
+            kill "$(cat /tmp/course-1041-site.pid)" || true
+          fi
