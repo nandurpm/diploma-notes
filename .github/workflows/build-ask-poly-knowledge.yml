@@ -1,0 +1,84 @@
+name: Build Ask POLY whole-site knowledge
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "about.html"
+      - "contact.html"
+      - "tools.html"
+      - "daily-quiz.html"
+      - "materials-2015.html"
+      - "model-question-papers.html"
+      - "mock-exam*.html"
+      - "revision-2021.html"
+      - "revision-2021/**"
+      - "revision-2026.html"
+      - "revision-2026/**"
+      - "lessons/**"
+      - "notes/**"
+      - "revision-2026-content/**"
+      - "assets/js/subjects.js"
+      - "assets/data/revision-2026-programmes.json"
+      - "assets/data/revision-2026-subjects.json"
+      - "tools/build_ask_poly_knowledge.py"
+      - ".github/workflows/build-ask-poly-knowledge.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-ask-poly-whole-site-knowledge
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate whole-site knowledge index
+        run: python tools/build_ask_poly_knowledge.py
+
+      - name: Validate generated index and browser retrieval
+        run: |
+          python -m py_compile tools/build_ask_poly_knowledge.py
+          node --check assets/js/ask-poly-knowledge-loader.js
+          node --check assets/js/ask-poly-v2.js
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("assets/data/ask-poly-knowledge.json").read_text(encoding="utf-8"))
+          counts = data.get("counts", {})
+          assert counts.get("programmes2026") == 38, counts
+          assert counts.get("pages", 0) >= 40, counts
+          assert counts.get("subjectRecords", 0) >= 300, counts
+          revisions = {str(row.get("revision")) for row in data.get("subjects", [])}
+          assert {"2021", "2026"}.issubset(revisions), revisions
+          assert any(page.get("url") == "/revision-2026.html" for page in data.get("pages", []))
+          assert any(page.get("url") == "/tools.html" for page in data.get("pages", []))
+          print(json.dumps(counts, indent=2))
+          PY
+
+      - name: Commit refreshed knowledge index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/ask-poly-knowledge.json
+          if git diff --cached --quiet; then
+            echo "Ask POLY knowledge is already current."
+            exit 0
+          fi
+          git commit -m "Refresh Ask POLY whole-site knowledge [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
