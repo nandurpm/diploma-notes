@@ -121,16 +121,18 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
-      - name: Decode release keystore
-        run: |
-          set -e
-          printf "%s" "${ANDROID_KEYSTORE_BASE64}" \
-            | sed '/-----BEGIN/d;/-----END/d' \
-            | tr -d '\n\r ' \
-            | base64 --decode > android-app/release.keystore
-          test -s android-app/release.keystore
+      - name: Decode and validate release keystore
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          set -e
+          echo "${ANDROID_KEYSTORE_BASE64}" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
+          test -s android-app/release.keystore
+          keytool -list -keystore android-app/release.keystore \
+            -storepass "$ANDROID_KEYSTORE_PASSWORD" \
+            -alias "$ANDROID_KEY_ALIAS" >/dev/null
 
       - name: Build signed release APK
         run: |
