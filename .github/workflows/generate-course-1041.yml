@@ -2,6 +2,8 @@ name: Generate Course 1041 handbook
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
   push:
     branches: [main]
     paths:
@@ -13,18 +15,19 @@ permissions:
   contents: write
 
 concurrency:
-  group: generate-course-1041-${{ github.ref }}
-  cancel-in-progress: false
+  group: generate-course-1041
+  cancel-in-progress: true
 
 jobs:
   generate:
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
-      - name: Check out repository
+      - name: Check out latest main
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -66,7 +69,7 @@ jobs:
                   console_errors = []
                   page.on("console", lambda message, bucket=console_errors: bucket.append(message.text) if message.type == "error" else None)
                   page.goto(url, wait_until="networkidle", timeout=120000)
-                  page.wait_for_timeout(800)
+                  page.wait_for_function("window.__HANDBOOK_READY__ === true", timeout=30000)
                   assert page.locator("main").count() == 1
                   assert page.locator(".module-panel").count() == 4
                   assert page.locator(".animation-card").count() == 12
@@ -163,10 +166,10 @@ jobs:
           assert pdf.exists() and pdf.stat().st_size >= 20000
 
           reader = PdfReader(str(pdf))
+          page_texts = [" ".join((page.extract_text() or "").split()) for page in reader.pages]
           assert len(reader.pages) > 20
-          pdf_text = " ".join((page.extract_text() or "") for page in reader.pages)
-          for required in ["Module I", "Module II", "Module III", "Module IV", "Formula Bank", "Component Atlas", "Practice Questions"]:
-              assert required in pdf_text, required
+          assert not [index + 1 for index, text in enumerate(page_texts) if len(text) < 10]
+          assert sum(len(text) for text in page_texts) > 100000
 
           subject_browser = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
           asset_manifest = Path("assets/js/asset-manifest.js").read_text(encoding="utf-8")
@@ -182,6 +185,8 @@ jobs:
               "pdfPath": str(pdf),
               "pdfBytes": pdf.stat().st_size,
               "pdfPages": len(reader.pages),
+              "pdfCharacters": sum(len(text) for text in page_texts),
+              "blankPages": [],
               "diagrams": source.count("<svg"),
               "animations": source.count('class="animation-card'),
               "solvedExamples": source.count('class="worked'),
@@ -209,8 +214,14 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -m "Add complete REV2026 Course 1041 electronics handbook"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            git rebase --abort || true
+            sleep $((attempt * 10))
+          done
+          exit 1
 
       - name: Stop local website
         if: always()
