@@ -8,19 +8,30 @@ on:
 
 permissions:
   actions: read
-  issues: write
+  contents: write
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
     steps:
-      - name: Report live verification status
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Write live verification run status
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          status="$(gh run list --repo nandurpm/diploma-notes --workflow course-1041-live-verify.yml --limit 3 --json databaseId,status,conclusion,headSha,displayTitle,event,createdAt,url)"
-          gh issue comment 38 --repo nandurpm/diploma-notes --body "Course 1041 live verification status:
+          mkdir -p reports
+          gh run list --repo nandurpm/diploma-notes --workflow course-1041-live-verify.yml --limit 3 --json databaseId,status,conclusion,headSha,displayTitle,event,createdAt,url > reports/course-1041-live-run-status.json
+          cat reports/course-1041-live-run-status.json
 
-\`\`\`json
-${status}
-\`\`\`"
+      - name: Commit status report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/course-1041-live-run-status.json
+          git commit -m "Record Course 1041 live verification status [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
