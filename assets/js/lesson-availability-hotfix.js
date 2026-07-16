@@ -3,9 +3,9 @@
 
   const cache = new Map();
   const checking = new WeakSet();
-  const SITTTR_MODEL_QP_BASE = "https://sitttrkerala.ac.in/index.php";
-  const REV2026_MODEL_QP_INDEX = `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp&scheme=REV2026`;
-  let departmentPaperAccessPromise = null;
+  const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
+  const REV2026_INDEX = `${SITTTR_BASE}?r=site%2Fdiploma-modelqp&scheme=REV2026`;
+  let programmeLookup = null;
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -14,258 +14,130 @@
   const norm = value => String(value || "").trim().toUpperCase();
   const revisionOf = card => String(card.dataset.revision || "2021").trim();
 
-  function notesUrlFor(code, revision) {
-    return revision === "2026"
-      ? `${root()}revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`
-      : `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
-  }
+  const notesUrlFor = (code, revision) => revision === "2026"
+    ? `${root()}revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`
+    : `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
 
-  function lessonUrlFor(code, revision, printMode = false) {
+  const lessonUrlFor = (code, revision, printMode = false) => {
     const href = revision === "2026"
       ? `${root()}revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`
       : `${root()}lessons/lessons-${encodeURIComponent(code)}.html`;
     return `${href}${printMode ? "?autoPrintNotes=1" : ""}`;
-  }
+  };
 
-  function directQuestionPaperUrlFor(code) {
-    return `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
-  }
+  const questionPaperUrlFor = code =>
+    `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
 
-  function programmeQuestionPaperUrlFor(programmeCode) {
-    return `${SITTTR_MODEL_QP_BASE}?r=site%2Fdiploma-modelqp-courses&prog=${encodeURIComponent(programmeCode)}`;
-  }
+  const programmeQuestionPaperUrlFor = programmeCode =>
+    `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses&prog=${encodeURIComponent(programmeCode)}`;
 
-  function programmeCodeFor(card) {
-    return norm(card?.dataset?.programmeCode || document.body?.dataset?.programmeCode);
-  }
-
-  function normalizeQuestionPaperLink(card, row, code, revision, programmeCode = "") {
+  function normalizeQuestionPaperLink(card, row, code, revision) {
     const link = row.querySelector(".action.qp");
     if (!link || !code) return link;
-
+    link.href = questionPaperUrlFor(code);
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.dataset.courseCode = code;
-    link.dataset.directCourseUrl = directQuestionPaperUrlFor(code);
-
     if (revision === "2026") {
-      const officialProgrammeCode = norm(programmeCode || programmeCodeFor(card));
       link.dataset.scheme = "REV2026";
-      link.dataset.directPaperStatus = "unverified";
-      link.href = officialProgrammeCode
-        ? programmeQuestionPaperUrlFor(officialProgrammeCode)
-        : REV2026_MODEL_QP_INDEX;
-      link.textContent = "Browse Sample Papers";
-      link.title = officialProgrammeCode
-        ? `Open the official ${officialProgrammeCode} department paper list and select course ${code}. The direct course file is not used because SITTTR may return “Requested file not found”.`
-        : `Open the official Revision 2026 paper directory and locate course ${code}. The direct course file is not used because SITTTR may return “Requested file not found”.`;
-      if (officialProgrammeCode) {
-        card.dataset.programmeCode = officialProgrammeCode;
-        link.dataset.programmeCode = officialProgrammeCode;
-      }
-      return link;
+      link.textContent = "Sample Question Paper";
+      link.title = `Open the official SITTTR Revision 2026 model-question-paper page for course ${code}.`;
     }
-
-    link.href = directQuestionPaperUrlFor(code);
     return link;
   }
 
-  function normalizeAllRevision2026PaperLinks(programmeCode = "") {
-    document.querySelectorAll('.subject-card[data-revision="2026"]').forEach(card => {
-      const row = card.querySelector(".action-row");
-      const code = norm(card.dataset.subjectCode || card.querySelector(".subject-top strong")?.textContent);
-      if (row && code) normalizeQuestionPaperLink(card, row, code, "2026", programmeCode);
-    });
-  }
-
   async function enhanceDepartmentPaperAccess() {
-    if (departmentPaperAccessPromise) return departmentPaperAccessPromise;
     const slug = document.body?.dataset?.programmeSlug;
     const revision = String(document.body?.dataset?.revision || "");
     const notice = document.getElementById("rev2026-model-qp-access");
-    if (revision !== "2026" || !slug || !notice) {
-      normalizeAllRevision2026PaperLinks();
-      return null;
+    if (revision !== "2026" || !slug || !notice) return;
+
+    if (!programmeLookup) {
+      programmeLookup = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260716-modelqp-links3`, { cache: "no-store" })
+        .then(response => response.ok ? response.json() : null)
+        .catch(() => null);
     }
 
-    departmentPaperAccessPromise = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260716-modelqp-links2`, { cache: "no-store" })
-      .then(response => response.ok ? response.json() : null)
-      .then(payload => {
-        const programme = payload?.programmes?.find(item => item.slug === slug);
-        const programmeCode = norm(programme?.officialCode);
-        if (!programmeCode || !notice.isConnected) {
-          normalizeAllRevision2026PaperLinks();
-          return null;
-        }
+    const payload = await programmeLookup;
+    const programme = payload?.programmes?.find(item => item.slug === slug);
+    const programmeCode = norm(programme?.officialCode);
+    if (!programmeCode || !notice.isConnected) return;
 
-        document.body.dataset.programmeCode = programmeCode;
-        normalizeAllRevision2026PaperLinks(programmeCode);
+    document.body.dataset.programmeCode = programmeCode;
+    let departmentLink = notice.querySelector("a[data-model-qp-programme]");
+    if (!departmentLink) {
+      departmentLink = document.createElement("a");
+      departmentLink.className = "btn ghost";
+      departmentLink.dataset.modelQpProgramme = programmeCode;
+      departmentLink.target = "_blank";
+      departmentLink.rel = "noopener noreferrer";
+      notice.append(" ", departmentLink);
+    }
+    departmentLink.href = programmeQuestionPaperUrlFor(programmeCode);
+    departmentLink.textContent = `Open ${programmeCode} department sample papers`;
 
-        let departmentLink = notice.querySelector("a[data-model-qp-programme]");
-        const existingLink = notice.querySelector("a");
-        if (!departmentLink) {
-          departmentLink = existingLink || document.createElement("a");
-          departmentLink.dataset.modelQpProgramme = programmeCode;
-          departmentLink.classList.add("btn", "ghost");
-          departmentLink.target = "_blank";
-          departmentLink.rel = "noopener noreferrer";
-          if (!departmentLink.isConnected) notice.append(departmentLink);
-        }
-        departmentLink.href = programmeQuestionPaperUrlFor(programmeCode);
-        departmentLink.textContent = `Open ${programmeCode} department sample papers`;
-        departmentLink.title = `Open the official Revision 2026 model-question-paper list for ${programme?.name || programmeCode}.`;
-
-        let indexLink = notice.querySelector("a[data-model-qp-index]");
-        if (!indexLink) {
-          indexLink = document.createElement("a");
-          indexLink.className = "btn ghost";
-          indexLink.dataset.modelQpIndex = "REV2026";
-          indexLink.target = "_blank";
-          indexLink.rel = "noopener noreferrer";
-          indexLink.href = REV2026_MODEL_QP_INDEX;
-          indexLink.textContent = "Open all REV2026 sample papers";
-          notice.append(" ", indexLink);
-        }
-        return programme;
-      })
-      .catch(error => {
-        console.warn("Could not enhance REV2026 department model-paper access", error);
-        normalizeAllRevision2026PaperLinks();
-        return null;
-      });
-
-    return departmentPaperAccessPromise;
+    let indexLink = notice.querySelector("a[data-model-qp-index]");
+    if (!indexLink) {
+      indexLink = document.createElement("a");
+      indexLink.className = "btn ghost";
+      indexLink.dataset.modelQpIndex = "REV2026";
+      indexLink.target = "_blank";
+      indexLink.rel = "noopener noreferrer";
+      indexLink.href = REV2026_INDEX;
+      indexLink.textContent = "Open all REV2026 sample papers";
+      notice.append(" ", indexLink);
+    }
   }
 
   async function headOk(url, rejectHtml = false) {
     const absolute = new URL(url, location.href).href;
     const key = `${rejectHtml ? "file" : "page"}:${absolute}`;
     if (cache.has(key)) return cache.get(key);
-    const check = fetch(absolute, { method: "HEAD", cache: "no-store" })
+    const promise = fetch(absolute, { method: "HEAD", cache: "no-store" })
       .then(response => {
         const type = response.headers.get("content-type") || "";
         return response.ok && (!rejectHtml || !/html/i.test(type));
       })
       .catch(() => false);
-    cache.set(key, check);
-    const result = await check;
+    cache.set(key, promise);
+    const result = await promise;
     cache.set(key, result);
     return result;
   }
 
-  const pdfExists = url => headOk(url, true);
   const lessonExists = url => headOk(url, false);
+  const pdfExists = url => headOk(url, true);
 
-  function buildLink(href, className, label, verified = false) {
+  function makeLink(href, className, label, download = false) {
     const link = document.createElement("a");
     link.className = className;
     link.href = href;
     link.textContent = label;
-    if (className.includes("download")) {
-      if (verified) {
-        link.download = "";
-        link.dataset.verified = "true";
-        link.title = "Download the generated PDF notes.";
-      } else {
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-        link.dataset.generatedFromLesson = "true";
-        link.title = "The PDF is not published yet; open the lesson in print/PDF mode.";
-      }
+    if (download) link.download = "";
+    else if (className.includes("download")) {
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
     }
     return link;
   }
 
-  function isNotesLabel(item) {
-    return item.classList?.contains("notes-status") || /notes?|preparing/i.test((item.textContent || "").trim());
+  function removeStudyControls(row) {
+    row.querySelectorAll(".action.lessons,.action.download,.lessons-status,.notes-status").forEach(item => item.remove());
   }
 
-  function notesLabels(row) {
-    return [...row.querySelectorAll(".availability-label")].filter(isNotesLabel);
-  }
-
-  function removeNotesControls(row) {
-    row.querySelectorAll(".action.download,.notes-status").forEach(item => item.remove());
-    row.querySelectorAll(".availability-label").forEach(item => {
-      if (isNotesLabel(item)) item.remove();
-    });
-  }
-
-  function removeLabels(row, pattern) {
-    row.querySelectorAll(".availability-label").forEach(item => {
-      if (pattern.test((item.textContent || "").trim())) item.remove();
-    });
-  }
-
-  function hasLessonsUnavailable(row) {
-    return [...row.querySelectorAll(".availability-label")].some(item => /lessons unavailable/i.test(item.textContent || ""));
-  }
-
-  function ensureLessonsUnavailable(row, qp) {
-    row.querySelectorAll(".action.lessons").forEach(item => item.remove());
-    if (hasLessonsUnavailable(row)) return;
-    const syllabus = row.querySelector(".action.syllabus");
+  function addUnavailable(row, qp) {
     const lessons = document.createElement("span");
     lessons.className = "availability-label lessons-status";
     lessons.setAttribute("aria-disabled", "true");
     lessons.textContent = "Lessons unavailable";
-    row.insertBefore(lessons, syllabus?.nextSibling || qp || null);
-  }
 
-  function ensureNotesUnavailable(row, qp) {
-    const current = notesLabels(row);
-    if (!row.querySelector(".action.download") && current.length === 1 && /notes unavailable/i.test(current[0].textContent || "")) {
-      current[0].classList.add("notes-status");
-      return;
-    }
-    removeNotesControls(row);
-    const unavailable = document.createElement("span");
-    unavailable.className = "availability-label notes-status";
-    unavailable.setAttribute("aria-disabled", "true");
-    unavailable.textContent = "Notes unavailable";
-    row.insertBefore(unavailable, qp || null);
-  }
+    const notes = document.createElement("span");
+    notes.className = "availability-label notes-status";
+    notes.setAttribute("aria-disabled", "true");
+    notes.textContent = "Notes unavailable";
 
-  function dedupeVisibleNotes(card) {
-    const row = card.querySelector(".action-row");
-    if (!row) return;
-    if (row.querySelector(".action.download")) {
-      notesLabels(row).forEach(item => item.remove());
-      return;
-    }
-    const notes = notesLabels(row);
-    if (notes.length > 1) notes.slice(0, -1).forEach(item => item.remove());
-    const final = notesLabels(row)[0];
-    if (final) {
-      final.classList.add("notes-status");
-      if (!/preparing/i.test(final.textContent || "")) final.textContent = "Notes unavailable";
-    }
-  }
-
-  function samePathAndQuery(href, expected) {
-    try {
-      const actualUrl = new URL(href, location.href);
-      const expectedUrl = new URL(expected, location.href);
-      return actualUrl.pathname === expectedUrl.pathname && actualUrl.search === expectedUrl.search;
-    } catch {
-      return false;
-    }
-  }
-
-  function stableNoLesson(row) {
-    const notes = notesLabels(row);
-    return !row.querySelector(".action.download") && hasLessonsUnavailable(row) && notes.length === 1 && /notes unavailable/i.test(notes[0].textContent || "");
-  }
-
-  function stableLesson(row, expectedLesson, expectedDownload) {
-    const lesson = row.querySelector(".action.lessons");
-    const download = row.querySelector(".action.download");
-    return Boolean(
-      lesson && download
-      && samePathAndQuery(lesson.href, expectedLesson)
-      && samePathAndQuery(download.href, expectedDownload)
-      && !notesLabels(row).length
-    );
+    row.insertBefore(lessons, qp || null);
+    row.insertBefore(notes, qp || null);
   }
 
   async function validateCard(card) {
@@ -276,58 +148,41 @@
     checking.add(card);
 
     try {
-      const notesHref = notesUrlFor(code, revision);
-      const lessonHref = lessonUrlFor(code, revision, false);
-      const lessonPrintHref = lessonUrlFor(code, revision, true);
       const qp = normalizeQuestionPaperLink(card, row, code, revision);
-      const existingLesson = row.querySelector(".action.lessons");
-
-      if (existingLesson && !samePathAndQuery(existingLesson.href, lessonHref)) {
-        existingLesson.remove();
-        removeNotesControls(row);
-        card.dataset.lessonAvailable = "false";
-      }
-
-      let lessonAvailable = Boolean(
-        row.querySelector(".action.lessons")
-        && samePathAndQuery(row.querySelector(".action.lessons").href, lessonHref)
-      ) || card.dataset.lessonAvailable === "true";
-      if (!lessonAvailable) lessonAvailable = await lessonExists(lessonHref);
+      const lessonHref = lessonUrlFor(code, revision);
+      const notesHref = notesUrlFor(code, revision);
+      const printHref = lessonUrlFor(code, revision, true);
+      const lessonAvailable = await lessonExists(lessonHref);
       if (!card.isConnected) return;
 
-      if (lessonAvailable) {
-        card.dataset.lessonAvailable = "true";
-        card.dataset.lessonHref = lessonHref;
-        card.dataset.notesHref = notesHref;
-        removeLabels(row, /lessons unavailable/i);
-        if (!row.querySelector(".action.lessons")) {
-          const syllabus = row.querySelector(".action.syllabus");
-          row.insertBefore(buildLink(lessonHref, "action lessons", "View Lessons"), syllabus?.nextSibling || row.firstChild);
-        }
-
-        const notesAvailable = await pdfExists(notesHref);
-        if (!card.isConnected) return;
-        const expectedDownload = notesAvailable ? notesHref : lessonPrintHref;
-        if (stableLesson(row, lessonHref, expectedDownload)) return;
-
-        removeNotesControls(row);
-        row.insertBefore(
-          buildLink(expectedDownload, "action download", "Download Notes", notesAvailable),
-          qp || null
-        );
-        card.dataset.notesAvailable = String(notesAvailable);
-      } else {
-        if (stableNoLesson(row)) return;
+      removeStudyControls(row);
+      if (!lessonAvailable) {
         card.dataset.lessonAvailable = "false";
         card.dataset.notesAvailable = "false";
-        card.dataset.lessonHref = lessonHref;
-        card.dataset.notesHref = notesHref;
-        ensureLessonsUnavailable(row, qp);
-        ensureNotesUnavailable(row, qp);
+        addUnavailable(row, qp);
+        return;
       }
+
+      card.dataset.lessonAvailable = "true";
+      card.dataset.lessonHref = lessonHref;
+      card.dataset.notesHref = notesHref;
+
+      const syllabus = row.querySelector(".action.syllabus");
+      const lessonsLink = makeLink(lessonHref, "action lessons", "View Lessons");
+      row.insertBefore(lessonsLink, syllabus?.nextSibling || row.firstChild);
+
+      const notesAvailable = await pdfExists(notesHref);
+      if (!card.isConnected) return;
+      const download = makeLink(
+        notesAvailable ? notesHref : printHref,
+        "action download",
+        "Download Notes",
+        notesAvailable
+      );
+      row.insertBefore(download, qp || null);
+      card.dataset.notesAvailable = String(notesAvailable);
     } finally {
       checking.delete(card);
-      dedupeVisibleNotes(card);
     }
   }
 
@@ -336,10 +191,7 @@
     clearTimeout(timer);
     timer = setTimeout(() => {
       enhanceDepartmentPaperAccess();
-      document.querySelectorAll(".subject-card").forEach(card => {
-        dedupeVisibleNotes(card);
-        validateCard(card);
-      });
+      document.querySelectorAll(".subject-card").forEach(validateCard);
     }, 120);
   }
 
