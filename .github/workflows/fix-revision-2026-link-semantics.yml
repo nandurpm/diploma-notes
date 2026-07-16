@@ -1,0 +1,70 @@
+name: Fix Revision 2026 link semantics
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/fix-revision-2026-link-semantics.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Preserve native link semantics in the generator
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("tools/build_revision_2026_pages.py")
+          text = path.read_text(encoding="utf-8")
+          replacements = {
+              'f\'<a class="revision-programme-card reveal" role="listitem" \'' : 'f\'<a class="revision-programme-card reveal" \'' ,
+              '<div class="revision-directory-grid" id="departmentCards" role="list">' : '<div class="revision-directory-grid" id="departmentCards">',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f"Expected generator markup not found: {old}")
+              text = text.replace(old, new, 1)
+          path.write_text(text, encoding="utf-8")
+          PY
+
+      - name: Rebuild Revision 2026 pages
+        run: |
+          python -m py_compile tools/build_revision_2026_pages.py
+          python tools/build_revision_2026_pages.py
+
+      - name: Verify department cards remain native links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path("revision-2026.html").read_text(encoding="utf-8")
+          assert text.count('data-programme-card') == 38
+          assert 'role="listitem"' not in text
+          assert 'id="departmentCards" role="list"' not in text
+          assert text.count('class="revision-programme-card reveal"') == 38
+          PY
+
+      - name: Commit corrected generator and pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/build_revision_2026_pages.py revision-2026.html revision-2026/*.html reports/revision-2026-build-summary.json
+          if git diff --cached --quiet; then
+            echo "Link semantics are already correct."
+            exit 0
+          fi
+          git commit -m "Preserve native links in Revision 2026 directory"
+          git pull --rebase origin main
+          git push origin HEAD:main
