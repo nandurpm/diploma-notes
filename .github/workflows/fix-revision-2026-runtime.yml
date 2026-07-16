@@ -1,0 +1,129 @@
+name: Fix Revision 2026 runtime
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/fix-revision-2026-runtime.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Correct global navigation, metadata and asset loaders
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          def replace(path_name, old, new, count=1):
+              path = Path(path_name)
+              text = path.read_text(encoding="utf-8")
+              if old not in text:
+                  raise SystemExit(f"Expected text not found in {path_name}: {old}")
+              path.write_text(text.replace(old, new, count), encoding="utf-8")
+
+          replace(
+              "assets/js/main.js",
+              '    if (path.endsWith("/revision-2021.html") || path.includes("/revision-2021/")) return "revision";',
+              '    if (path.endsWith("/revision-2021.html") || path.includes("/revision-2021/")) return "revision2021";\n    if (path.endsWith("/revision-2026.html") || path.includes("/revision-2026/")) return "revision2026";'
+          )
+          replace(
+              "assets/js/main.js",
+              '      ["revision", "/revision-2021.html", "Revision 2021"],',
+              '      ["revision2021", "/revision-2021.html", "Revision 2021"],\n      ["revision2026", "/revision-2026.html", "Revision 2026"],'
+          )
+          replace(
+              "assets/js/main.js",
+              '      revision: pathName().includes("/revision-2021/") ? "Revision 2021 Department Subjects" : "Revision 2021",',
+              '      revision2021: pathName().includes("/revision-2021/") ? "Revision 2021 Department Subjects" : "Revision 2021",\n      revision2026: pathName().includes("/revision-2026/") ? "Revision 2026 Department Subjects" : "Revision 2026 Diploma Departments",'
+          )
+
+          replace(
+              "assets/js/site-consistency-fix.js",
+              '    [/\\/revision-2026\\.html$/i, "Revision 2026"],',
+              '    [/\\/revision-2026\\.html$/i, "Revision 2026 Diploma Departments"],'
+          )
+          replace(
+              "assets/js/site-consistency-fix.js",
+              '  function ensureRevisionSwitcher() {\n    const match = path().match(/^\\/revision-(2021|2026)(?:\\/[^/]+\\.html)?$/i);',
+              '  function ensureRevisionSwitcher() {\n    if (document.querySelector(".revision-directory-switch")) return;\n    const match = path().match(/^\\/revision-(2021|2026)(?:\\/[^/]+\\.html)?$/i);'
+          )
+
+          replace(
+              "assets/js/fixed-site-header.js",
+              '  const isRevisionDepartmentPage = /^\\/revision-2021\\/.+\\.html$/i.test(pathname);',
+              '  const isRevisionDepartmentPage = /^\\/revision-(?:2021|2026)\\/.+\\.html$/i.test(pathname);'
+          )
+          replace(
+              "assets/js/fixed-site-header.js",
+              '  const appMatch = ua.match(/PolytechnicStudyHubAndroid\\/([0-9]+(?:\\.[0-9]+)*)/i);',
+              '  const appMatch = ua.match(/(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\\/([0-9]+(?:\\.[0-9]+)*)/i);'
+          )
+          replace(
+              "assets/js/fixed-site-header.js",
+              '  const ONAM_VERSION = "20260702-onam1";',
+              '  const ONAM_VERSION = "20260704-banner6";'
+          )
+          replace(
+              "assets/js/fixed-site-header.js",
+              '    addStylesheetOnce("poly-onam-theme-css", `/assets/css/onam-theme.css?v=${ONAM_VERSION}`);\n    loadScriptOnce("poly-onam-theme-script", `/assets/js/onam-theme.js?v=${ONAM_VERSION}`);',
+              '    addStylesheetOnce("poly-onam-banner-css", `/assets/css/onam-theme.css?v=${ONAM_VERSION}`);\n    loadScriptOnce("poly-onam-banner-script", `/assets/js/onam-render-a.js?v=${ONAM_VERSION}`);'
+          )
+          replace(
+              "assets/js/fixed-site-header.js",
+              '    { label: "Revision 2021", href: "/revision-2021.html", match: (p) => p.endsWith("/revision-2021.html") || p.includes("/revision-2021/") },\n    { label: "Mock Exams",',
+              '    { label: "Revision 2021", href: "/revision-2021.html", match: (p) => p.endsWith("/revision-2021.html") || p.includes("/revision-2021/") },\n    { label: "Revision 2026", href: "/revision-2026.html", match: (p) => p.endsWith("/revision-2026.html") || p.includes("/revision-2026/") },\n    { label: "Mock Exams",'
+          )
+
+          popup = Path("assets/js/visitor-popup.js")
+          popup_text = popup.read_text(encoding="utf-8")
+          old_popup_list = '''  const POPUPS = [
+            { id: "popup-1", type: "image", src: "/assets/popup/popup-1.jpg" },
+            { id: "popup-2", type: "image", src: "/assets/popup/popup-2.jpg" },
+            { id: "popup-3", type: "image", src: "/assets/popup/popup-3.jpg" },
+            { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" },
+            { id: "popup-2-video", type: "video", src: "/assets/popup/popup-2.mp4" }
+          ];'''
+          new_popup_list = '''  const POPUPS = [
+            { id: "popup-1", type: "image", src: "/assets/popup/popup-1.jpg" },
+            { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" }
+          ];'''
+          if old_popup_list not in popup_text:
+              raise SystemExit("Expected popup media list not found")
+          popup.write_text(popup_text.replace(old_popup_list, new_popup_list, 1), encoding="utf-8")
+          PY
+
+      - name: Validate corrected JavaScript
+        run: |
+          node --check assets/js/main.js
+          node --check assets/js/site-consistency-fix.js
+          node --check assets/js/fixed-site-header.js
+          node --check assets/js/visitor-popup.js
+          test -f assets/js/onam-render-a.js
+          test -f assets/popup/popup-1.jpg
+          test -f assets/popup/popup-1.mp4
+
+      - name: Commit runtime corrections
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/js/main.js assets/js/site-consistency-fix.js assets/js/fixed-site-header.js assets/js/visitor-popup.js
+          if git diff --cached --quiet; then
+            echo "Runtime corrections are already current."
+            exit 0
+          fi
+          git commit -m "Fix Revision 2026 runtime navigation and asset errors"
+          git pull --rebase origin main
+          git push origin HEAD:main
