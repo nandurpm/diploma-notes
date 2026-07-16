@@ -94,9 +94,9 @@ jobs:
           git push origin HEAD:main
 
   signed-release-apk:
-    name: Build signed release APK
+    name: Build and publish signed release APK
     runs-on: ubuntu-latest
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_release == 'true' }}
+    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.publish_release == 'true') }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -155,7 +155,7 @@ jobs:
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
 
-      - name: Prepare APK and metadata
+      - name: Prepare APK and update metadata
         run: |
           set -e
           mkdir -p downloads
@@ -175,15 +175,16 @@ jobs:
             "apkUrl": "/downloads/POLY_PMNA_v3.0.apk",
             "sha256": "${SHA256}",
             "publishedAt": "2026-07-16",
-            "forceUpdate": false,
+            "forceUpdate": true,
             "title": "POLY PMNA Android app 3.0",
-            "message": "Major update adds Revision 2026 navigation and fully separates 2026 lessons and notes from Revision 2021.",
+            "message": "Major update: the native sidebar now includes Revision 2026 and matches the current POLY PMNA website.",
             "releaseNotes": [
-              "Added Revision 2026 as a separate native drawer destination.",
-              "Added dedicated Revision 2026 lesson and notes folder support.",
-              "Prevented Revision 2026 subject codes from opening Revision 2021 content.",
-              "Improved department and lesson deep-link highlighting.",
-              "Updated WebView cache and trusted Revision 2026 PDF download handling."
+              "Added Revision 2026 as a separate native drawer destination before Revision 2021.",
+              "Updated the app title, launch screen, drawer subtitle and version label to POLY PMNA 3.0.",
+              "Added dedicated Revision 2026 lesson and notes folder support without copying Revision 2021 content.",
+              "Connected Ask POLY AI to the current whole-site, revision-aware knowledge system.",
+              "Improved Revision 2026 department, lesson and notes deep-link highlighting.",
+              "Updated WebView caching and trusted Revision 2026 PDF download handling."
             ]
           }
           JSON
@@ -205,6 +206,6 @@ jobs:
             echo "No APK or metadata changes to publish."
             exit 0
           fi
-          git commit -m "Publish Android app v3.0"
+          git commit -m "Publish Android app v3.0 [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
