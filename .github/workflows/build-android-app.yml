@@ -1,10 +1,9 @@
-name: Build Android App
+name: Build and publish Android app
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - "android-app/**"
       - ".github/workflows/build-android-app.yml"
@@ -13,13 +12,13 @@ permissions:
   contents: write
 
 concurrency:
-  group: poly-pmna-android-${{ github.ref }}
-  cancel-in-progress: true
+  group: poly-pmna-android-release
+  cancel-in-progress: false
 
 jobs:
-  debug-apk:
-    name: Build debug APK
+  build-and-publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -36,6 +35,17 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.10.2"
+
+      - name: Read app version
+        run: |
+          VERSION_CODE=$(sed -n "s/^[[:space:]]*versionCode[[:space:]]\+\([0-9][0-9]*\).*$/\1/p" android-app/app/build.gradle | head -n 1)
+          VERSION_NAME=$(sed -n "s/^[[:space:]]*versionName[[:space:]]\+'\([^']*\)'.*$/\1/p" android-app/app/build.gradle | head -n 1)
+          test -n "$VERSION_CODE"
+          test -n "$VERSION_NAME"
+          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
+          echo "VERSION_NAME=$VERSION_NAME" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=android-v$VERSION_NAME" >> "$GITHUB_ENV"
+          echo "APK_NAME=POLY_PMNA_v$VERSION_NAME.apk" >> "$GITHUB_ENV"
 
       - name: Build debug APK
         run: gradle -p android-app :app:assembleDebug --no-daemon
@@ -43,189 +53,134 @@ jobs:
       - name: Upload debug APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: POLY_PMNA_v3.0_debug_apk
+          name: POLY_PMNA_v${{ env.VERSION_NAME }}_debug_apk
           path: android-app/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
 
-      - name: Record successful debug build
-        run: |
-          set -e
-          APK="android-app/app/build/outputs/apk/debug/app-debug.apk"
-          test -s "$APK"
-          mkdir -p reports
-          SHA256=$(sha256sum "$APK" | awk '{print $1}')
-          BYTES=$(stat -c '%s' "$APK")
-          BUILT_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-          cat > reports/android-v3-build-status.json <<JSON
-          {
-            "applicationId": "org.diplomanotes.polytechnicstudyhub",
-            "versionCode": 9,
-            "versionName": "3.0",
-            "buildType": "debug",
-            "status": "success",
-            "sourceCommit": "${GITHUB_SHA}",
-            "artifactName": "POLY_PMNA_v3.0_debug_apk",
-            "apkFileName": "app-debug.apk",
-            "apkBytes": ${BYTES},
-            "sha256": "${SHA256}",
-            "builtAt": "${BUILT_AT}",
-            "revision2026LessonFolder": "revision-2026-content/lessons",
-            "revision2026NotesFolder": "revision-2026-content/notes"
-          }
-          JSON
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/android-v3-build-status.json
-          if git diff --cached --quiet; then
-            echo "Android debug build status is already current."
-            exit 0
-          fi
-          git commit -m "Verify Android app v3.0 debug build [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
-
-  signed-release-apk:
-    name: Build and publish signed release APK
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
-
-      - name: Set up Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.10.2"
-
-      - name: Validate release signing secrets
-        run: |
-          missing=""
-          [ -z "${ANDROID_KEYSTORE_BASE64}" ] && missing="$missing ANDROID_KEYSTORE_BASE64"
-          [ -z "${ANDROID_KEYSTORE_PASSWORD}" ] && missing="$missing ANDROID_KEYSTORE_PASSWORD"
-          [ -z "${ANDROID_KEY_ALIAS}" ] && missing="$missing ANDROID_KEY_ALIAS"
-          [ -z "${ANDROID_KEY_PASSWORD}" ] && missing="$missing ANDROID_KEY_PASSWORD"
-          if [ -n "$missing" ]; then
-            echo "Missing required GitHub Actions secrets:$missing"
-            exit 1
-          fi
+      - name: Validate release signing configuration
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
-
-      - name: Decode and validate release keystore
-        env:
-          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
         run: |
-          set -e
-          echo "${ANDROID_KEYSTORE_BASE64}" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
+          test -n "$ANDROID_KEYSTORE_BASE64"
+          test -n "$ANDROID_KEYSTORE_PASSWORD"
+          test -n "$ANDROID_KEY_ALIAS"
+          test -n "$ANDROID_KEY_PASSWORD"
+          echo "$ANDROID_KEYSTORE_BASE64" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
           test -s android-app/release.keystore
           keytool -list -keystore android-app/release.keystore \
             -storepass "$ANDROID_KEYSTORE_PASSWORD" \
             -alias "$ANDROID_KEY_ALIAS" >/dev/null
 
       - name: Build signed release APK
-        run: |
-          gradle -p android-app :app:assembleRelease --no-daemon \
-            -PANDROID_KEYSTORE_FILE="$PWD/android-app/release.keystore" \
-            -PANDROID_KEYSTORE_PASSWORD="${ANDROID_KEYSTORE_PASSWORD}" \
-            -PANDROID_KEY_ALIAS="${ANDROID_KEY_ALIAS}" \
-            -PANDROID_KEY_PASSWORD="${ANDROID_KEY_PASSWORD}"
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          gradle -p android-app :app:assembleRelease --no-daemon \
+            -PANDROID_KEYSTORE_FILE="$PWD/android-app/release.keystore" \
+            -PANDROID_KEYSTORE_PASSWORD="$ANDROID_KEYSTORE_PASSWORD" \
+            -PANDROID_KEY_ALIAS="$ANDROID_KEY_ALIAS" \
+            -PANDROID_KEY_PASSWORD="$ANDROID_KEY_PASSWORD"
 
-      - name: Prepare APK and update metadata
+      - name: Prepare signed release
         run: |
           set -e
-          mkdir -p downloads
-          APK_SOURCE=$(find android-app/app/build/outputs/apk/release -name "*.apk" | head -n 1)
-          test -n "${APK_SOURCE}"
-          cp "${APK_SOURCE}" downloads/POLY_PMNA_v3.0.apk
-          SHA256=$(sha256sum downloads/POLY_PMNA_v3.0.apk | awk '{print $1}')
-          cat > downloads/app-update.json <<JSON
-          {
-            "schemaVersion": 1,
-            "versionCode": 9,
-            "versionName": "3.0",
-            "apkUrl": "/downloads/POLY_PMNA_v3.0.apk",
-            "sha256": "${SHA256}",
-            "publishedAt": "2026-07-16",
-            "forceUpdate": true,
-            "title": "POLY PMNA Android app 3.0",
-            "message": "Major update: the native sidebar now includes Revision 2026 and matches the current POLY PMNA website.",
-            "releaseNotes": [
-              "Added Revision 2026 before Revision 2021 in the native drawer.",
-              "Updated the app title, launch screen, drawer subtitle and footer to POLY PMNA 3.0.",
-              "Added dedicated Revision 2026 lesson and notes path support.",
-              "Connected Ask POLY AI to the whole-site revision-aware knowledge system.",
-              "Improved Revision 2026 department and content deep-link highlighting."
-            ]
-          }
-          JSON
+          mkdir -p release-output reports downloads
+          RELEASE_APK=$(find android-app/app/build/outputs/apk/release -name '*.apk' | head -n 1)
+          test -n "$RELEASE_APK"
+          cp "$RELEASE_APK" "release-output/$APK_NAME"
+          RELEASE_SHA=$(sha256sum "release-output/$APK_NAME" | awk '{print $1}')
+          RELEASE_BYTES=$(stat -c '%s' "release-output/$APK_NAME")
+          DEBUG_SHA=$(sha256sum android-app/app/build/outputs/apk/debug/app-debug.apk | awk '{print $1}')
+          DEBUG_BYTES=$(stat -c '%s' android-app/app/build/outputs/apk/debug/app-debug.apk)
+          echo "RELEASE_SHA=$RELEASE_SHA" >> "$GITHUB_ENV"
+          echo "RELEASE_BYTES=$RELEASE_BYTES" >> "$GITHUB_ENV"
+          echo "DEBUG_SHA=$DEBUG_SHA" >> "$GITHUB_ENV"
+          echo "DEBUG_BYTES=$DEBUG_BYTES" >> "$GITHUB_ENV"
+
+      - name: Publish signed APK as GitHub Release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "release-output/$APK_NAME" --clobber
+          else
+            gh release create "$RELEASE_TAG" "release-output/$APK_NAME" \
+              --title "POLY PMNA Android $VERSION_NAME" \
+              --notes "Signed POLY PMNA Android release with Revision 2026, Revision 2021, Ask POLY AI, mock exams, tools and revision-separated lessons and notes."
+          fi
 
       - name: Upload signed APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: POLY_PMNA_v3.0_signed_apk
-          path: downloads/POLY_PMNA_v3.0.apk
+          name: POLY_PMNA_v${{ env.VERSION_NAME }}_signed_apk
+          path: release-output/${{ env.APK_NAME }}
           if-no-files-found: error
 
-      - name: Publish APK and update metadata
+      - name: Update website manifest and build reports
+        run: |
+          set -e
+          APK_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${APK_NAME}"
+          PUBLISHED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          cat > downloads/app-update.json <<JSON
+          {
+            "schemaVersion": 1,
+            "versionCode": ${VERSION_CODE},
+            "versionName": "${VERSION_NAME}",
+            "apkUrl": "${APK_URL}",
+            "sha256": "${RELEASE_SHA}",
+            "publishedAt": "${PUBLISHED_AT}",
+            "forceUpdate": true,
+            "title": "POLY PMNA Android app ${VERSION_NAME}",
+            "message": "The native app and sidebar match the current POLY PMNA website, including Revision 2026.",
+            "releaseNotes": [
+              "Revision 2026 and Revision 2021 are separate native drawer destinations.",
+              "Revision 2026 lessons and notes use dedicated content folders.",
+              "Ask POLY AI uses the current whole-site revision-aware knowledge system.",
+              "Mock Exams, Tools, Question Papers, 2015 Materials, About and Help remain available."
+            ]
+          }
+          JSON
+          cat > reports/android-v3-build-status.json <<JSON
+          {
+            "applicationId": "org.diplomanotes.polytechnicstudyhub",
+            "versionCode": ${VERSION_CODE},
+            "versionName": "${VERSION_NAME}",
+            "status": "success",
+            "debugApkBytes": ${DEBUG_BYTES},
+            "debugSha256": "${DEBUG_SHA}",
+            "releaseApkBytes": ${RELEASE_BYTES},
+            "releaseSha256": "${RELEASE_SHA}",
+            "builtAt": "${PUBLISHED_AT}"
+          }
+          JSON
+          cat > reports/android-v3-publication.json <<JSON
+          {
+            "status": "success",
+            "versionCode": ${VERSION_CODE},
+            "versionName": "${VERSION_NAME}",
+            "apkUrl": "${APK_URL}",
+            "apkBytes": ${RELEASE_BYTES},
+            "sha256": "${RELEASE_SHA}",
+            "publishedAt": "${PUBLISHED_AT}"
+          }
+          JSON
+
+      - name: Commit website update metadata
         run: |
           set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add downloads/POLY_PMNA_v3.0.apk downloads/app-update.json
+          git add downloads/app-update.json reports/android-v3-build-status.json reports/android-v3-publication.json
           if git diff --cached --quiet; then
-            echo "No APK or metadata changes to publish."
+            echo "Android release metadata is already current."
             exit 0
           fi
-          git commit -m "Publish Android app v3.0 [skip ci]"
-          git pull --rebase origin main
-          git push origin HEAD:main
-
-  signed-release-status:
-    name: Record signed release result
-    runs-on: ubuntu-latest
-    needs: signed-release-apk
-    if: ${{ always() }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Write signed release result
-        env:
-          RELEASE_RESULT: ${{ needs.signed-release-apk.result }}
-        run: |
-          mkdir -p reports
-          cat > reports/android-v3-signed-release-status.json <<JSON
-          {
-            "versionCode": 9,
-            "versionName": "3.0",
-            "result": "${RELEASE_RESULT}",
-            "sourceCommit": "${GITHUB_SHA}",
-            "checkedAt": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')",
-            "expectedApk": "downloads/POLY_PMNA_v3.0.apk",
-            "expectedMetadata": "downloads/app-update.json"
-          }
-          JSON
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add reports/android-v3-signed-release-status.json
-          git commit -m "Record Android v3.0 signed release result [skip ci]" || exit 0
+          git commit -m "Publish Android app v${VERSION_NAME} metadata [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
