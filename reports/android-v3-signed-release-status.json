@@ -2,8 +2,8 @@
   "versionCode": 9,
   "versionName": "3.0",
   "result": "failure",
-  "sourceCommit": "dc9556e53c23722d9bfec13ec60c55f8680408a6",
-  "checkedAt": "2026-07-16T08:03:26Z",
+  "sourceCommit": "495a3d4d888c88beef71ea6ef74b4a74257d63c1",
+  "checkedAt": "2026-07-16T08:10:36Z",
   "expectedApk": "downloads/POLY_PMNA_v3.0.apk",
   "expectedMetadata": "downloads/app-update.json"
 }
