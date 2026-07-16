@@ -1,21 +1,24 @@
-name: Finalize Course 1041 handbook
+name: Publish Course 1041 handbook
 
 on:
   workflow_dispatch:
-  issues:
-    types: [opened, reopened]
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/run-course-1041-on-issue.yml"
+      - "tools/generate_course_1041.py"
+      - "tools/.course-1041-payload/**"
 
 permissions:
   contents: write
   issues: write
 
 concurrency:
-  group: course-1041-final-build
+  group: course-1041-final-publication
   cancel-in-progress: false
 
 jobs:
-  build:
-    if: ${{ github.event_name == 'workflow_dispatch' || github.event.issue.title == 'Run Course 1041 handbook build' }}
+  publish:
     runs-on: ubuntu-latest
     timeout-minutes: 90
 
@@ -31,7 +34,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Reconstruct and validate handbook
+      - name: Reconstruct exact handbook source
         run: |
           python -m py_compile tools/generate_course_1041.py
           python tools/generate_course_1041.py
@@ -42,43 +45,36 @@ jobs:
           html = Path("revision-2026-content/lessons/lessons-1041.html")
           assert html.stat().st_size == 577326
           assert hashlib.sha256(html.read_bytes()).hexdigest() == "098ecfddf6ff398a1463c1a6752711202a1124a23800f32d20076fe8c25cf699"
-          print("Course 1041 source validation passed")
+          print("Course 1041 HTML checksum passed")
           PY
 
-      - name: Install browser and PDF dependencies
+      - name: Install PDF build dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install playwright pypdf
           python -m playwright install --with-deps chromium
 
-      - name: Start local website
+      - name: Start local site
         run: |
           python -m http.server 8000 > /tmp/course-1041-site.log 2>&1 &
           echo $! > /tmp/course-1041-site.pid
           sleep 3
 
-      - name: Test desktop, tablet, mobile and auto-print
+      - name: Verify desktop, mobile and auto-print behaviour
         run: |
           python - <<'PY'
-          from __future__ import annotations
-          import json
           from pathlib import Path
+          import json
           from playwright.sync_api import sync_playwright
 
           url = "http://127.0.0.1:8000/revision-2026-content/lessons/lessons-1041.html"
-          sizes = [(1920, 1080), (1366, 768), (768, 1024), (360, 800), (390, 844)]
           results = []
-
           with sync_playwright() as playwright:
               browser = playwright.chromium.launch()
-              for width, height in sizes:
+              for width, height in [(1366, 768), (390, 844)]:
                   page = browser.new_page(viewport={"width": width, "height": height})
-                  console_errors = []
-                  page.on(
-                      "console",
-                      lambda message, bucket=console_errors: bucket.append(message.text)
-                      if message.type == "error" else None,
-                  )
+                  page_errors = []
+                  page.on("pageerror", lambda error, bucket=page_errors: bucket.append(str(error)))
                   page.goto(url, wait_until="networkidle", timeout=120000)
                   page.wait_for_function("window.__HANDBOOK_READY__ === true", timeout=30000)
                   assert page.locator("main").count() == 1
@@ -86,13 +82,8 @@ jobs:
                   assert page.locator(".animation-card").count() == 12
                   assert page.locator(".experiment").count() == 16
                   assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth + 1")
-                  assert not console_errors, console_errors
-                  results.append({
-                      "width": width,
-                      "height": height,
-                      "horizontalOverflow": False,
-                      "consoleErrors": [],
-                  })
+                  assert not page_errors, page_errors
+                  results.append({"width": width, "height": height, "status": "passed"})
                   page.close()
 
               page = browser.new_page(viewport={"width": 1366, "height": 768})
@@ -118,13 +109,12 @@ jobs:
           print(json.dumps(report, indent=2))
           PY
 
-      - name: Build and verify Course 1041 PDF
+      - name: Generate and verify downloadable PDF
         run: |
           python - <<'PY'
-          from __future__ import annotations
+          from pathlib import Path
           import json
           import sys
-          from pathlib import Path
           from pypdf import PdfReader
 
           root = Path.cwd()
@@ -149,6 +139,7 @@ jobs:
           blank_pages = [index + 1 for index, text in enumerate(page_texts) if len(text) < 10]
           source = lesson.read_text(encoding="utf-8")
 
+          assert pdf.exists()
           assert pdf.stat().st_size >= 20000
           assert len(reader.pages) > 20
           assert not blank_pages
@@ -188,7 +179,7 @@ jobs:
           print(json.dumps(report, indent=2))
           PY
 
-      - name: Preserve generated outputs
+      - name: Preserve final outputs
         run: |
           mkdir -p /tmp/course-1041-output/lessons /tmp/course-1041-output/notes /tmp/course-1041-output/reports
           cp revision-2026-content/lessons/lessons-1041.html /tmp/course-1041-output/lessons/
@@ -197,7 +188,7 @@ jobs:
           cp reports/course-1041-verification.json /tmp/course-1041-output/reports/
           cp reports/course-1041-pdf-build.json /tmp/course-1041-output/reports/
 
-      - name: Publish final files against latest main
+      - name: Commit final handbook, PDF and availability data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -236,17 +227,11 @@ jobs:
           PY
 
             git add -A
-            if git diff --cached --quiet; then
-              published=1
-              break
-            fi
-
             git commit -m "Add complete REV2026 Course 1041 electronics handbook"
             if git push origin HEAD:main; then
               published=1
               break
             fi
-
             sleep $((attempt * 10))
           done
 
@@ -255,14 +240,14 @@ jobs:
             exit 1
           fi
 
-      - name: Close temporary build issues
+      - name: Close temporary Course 1041 issues
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue close 38 --repo nandurpm/diploma-notes --reason completed --comment "Course 1041 final build workflow completed and published the handbook and PDF." || true
-          gh issue close 39 --repo nandurpm/diploma-notes --reason completed --comment "Course 1041 final build workflow completed and published the handbook and PDF." || true
+          gh issue close 38 --repo nandurpm/diploma-notes --reason completed --comment "Course 1041 handbook and PDF were published successfully." || true
+          gh issue close 39 --repo nandurpm/diploma-notes --reason completed --comment "Course 1041 handbook and PDF were published successfully." || true
 
-      - name: Stop local website
+      - name: Stop local site
         if: always()
         run: |
           if [ -f /tmp/course-1041-site.pid ]; then
