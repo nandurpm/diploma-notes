@@ -1,5 +1,6 @@
 name: Fix Revision 2026 link semantics
 
+# Separate trigger commit for this one-time corrective workflow.
 on:
   workflow_dispatch:
   push:
