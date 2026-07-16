@@ -1,4 +1,4 @@
-name: Fix Revision 2026 link semantics
+name: Finalize Revision 2026 semantics and metadata
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ permissions:
   contents: write
 
 jobs:
-  fix:
+  finalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,47 +22,59 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Preserve native link semantics in the generator
+      - name: Preserve native links and detailed metadata
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          path = Path("tools/build_revision_2026_pages.py")
-          text = path.read_text(encoding="utf-8")
-          old_role = 'role="listitem" '
-          old_list = 'id="departmentCards" role="list"'
-          if old_role not in text or old_list not in text:
-              raise SystemExit("Expected Revision 2026 role attributes were not found")
-          text = text.replace(old_role, "", 1)
-          text = text.replace(old_list, 'id="departmentCards"', 1)
-          path.write_text(text, encoding="utf-8")
+          generator = Path("tools/build_revision_2026_pages.py")
+          text = generator.read_text(encoding="utf-8")
+          text = text.replace('role="listitem" ', "", 1)
+          text = text.replace('id="departmentCards" role="list"', 'id="departmentCards"', 1)
+          generator.write_text(text, encoding="utf-8")
+
+          main = Path("assets/js/main.js")
+          main_text = main.read_text(encoding="utf-8")
+          old = '''    const description = isHomePage()
+                ? `${SITE_NAME} provides Kerala Polytechnic Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers.`
+                : `${prefix} on ${SITE_NAME} for Kerala Polytechnic students.`;'''
+          new = '''    const existingDescription = document.querySelector('meta[name="description"]')?.content?.trim();
+              const description = isHomePage()
+                ? `${SITE_NAME} provides Kerala Polytechnic Revision 2026 and Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers.`
+                : (existingDescription || `${prefix} on ${SITE_NAME} for Kerala Polytechnic students.`);'''
+          if old in main_text:
+              main_text = main_text.replace(old, new, 1)
+          elif "const existingDescription" not in main_text:
+              raise SystemExit("Expected metadata block was not found in assets/js/main.js")
+          main.write_text(main_text, encoding="utf-8")
           PY
 
-      - name: Rebuild Revision 2026 pages
+      - name: Rebuild and validate Revision 2026 pages
         run: |
           python -m py_compile tools/build_revision_2026_pages.py
           python tools/build_revision_2026_pages.py
-
-      - name: Verify department cards remain native links
-        run: |
+          node --check assets/js/main.js
           python - <<'PY'
           from pathlib import Path
-          text = Path("revision-2026.html").read_text(encoding="utf-8")
-          assert text.count('data-programme-card') == 38
-          assert 'role="listitem"' not in text
-          assert 'id="departmentCards" role="list"' not in text
-          assert text.count('class="revision-programme-card reveal"') == 38
+          generated = Path("revision-2026.html").read_text(encoding="utf-8")
+          generator = Path("tools/build_revision_2026_pages.py").read_text(encoding="utf-8")
+          main = Path("assets/js/main.js").read_text(encoding="utf-8")
+          assert generated.count('data-programme-card') == 38
+          assert 'role="listitem"' not in generated
+          assert 'id="departmentCards" role="list"' not in generated
+          assert 'role="listitem"' not in generator
+          assert 'const existingDescription' in main
           PY
 
-      - name: Commit corrected generator and pages
+      - name: Commit final durable corrections
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add tools/build_revision_2026_pages.py revision-2026.html revision-2026/*.html reports/revision-2026-build-summary.json
+          git add tools/build_revision_2026_pages.py assets/js/main.js revision-2026.html revision-2026/*.html reports/revision-2026-build-summary.json
           if git diff --cached --quiet; then
-            echo "Link semantics are already correct."
+            echo "Revision 2026 semantics and metadata are already final."
             exit 0
           fi
-          git commit -m "Preserve native links in Revision 2026 directory"
+          git commit -m "Finalize Revision 2026 directory semantics and metadata"
           git pull --rebase origin main
           git push origin HEAD:main
