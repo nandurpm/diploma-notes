@@ -1,0 +1,67 @@
+name: Probe live Course 1041 deployment
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/course-1041-live-probe.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Probe live endpoints
+        run: |
+          set +e
+          HTML_URL="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1041.html"
+          PDF_URL="https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1041.pdf"
+          mkdir -p reports
+          html_code="$(curl -L -sS -o /tmp/probe-1041.html -w '%{http_code}' --max-time 90 "$HTML_URL")"
+          html_curl=$?
+          pdf_code="$(curl -L -sS -o /tmp/probe-1041.pdf -w '%{http_code}' --max-time 180 "$PDF_URL")"
+          pdf_curl=$?
+          python - <<PY
+          from pathlib import Path
+          import hashlib, json
+          html=Path('/tmp/probe-1041.html')
+          pdf=Path('/tmp/probe-1041.pdf')
+          data={
+            'htmlHttpCode': '$html_code',
+            'htmlCurlExit': $html_curl,
+            'htmlBytes': html.stat().st_size if html.exists() else 0,
+            'htmlSha256': hashlib.sha256(html.read_bytes()).hexdigest() if html.exists() else None,
+            'htmlPrefix': html.read_bytes()[:120].decode('utf-8','replace') if html.exists() else None,
+            'pdfHttpCode': '$pdf_code',
+            'pdfCurlExit': $pdf_curl,
+            'pdfBytes': pdf.stat().st_size if pdf.exists() else 0,
+            'pdfPrefix': pdf.read_bytes()[:16].hex() if pdf.exists() else None,
+          }
+          Path('reports/course-1041-live-probe.json').write_text(json.dumps(data,indent=2)+'\n')
+          print(json.dumps(data,indent=2))
+          PY
+
+      - name: Commit probe report and remove workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp reports/course-1041-live-probe.json /tmp/course-1041-live-probe.json
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git reset --hard origin/main
+            mkdir -p reports
+            cp /tmp/course-1041-live-probe.json reports/course-1041-live-probe.json
+            rm -f .github/workflows/course-1041-live-probe.yml
+            git add -A
+            git commit -m "Record Course 1041 live deployment probe [skip ci]"
+            if git push origin HEAD:main; then exit 0; fi
+            sleep 10
+          done
+          exit 1
