@@ -3,9 +3,9 @@
   "versionCode": 9,
   "versionName": "3.0",
   "status": "success",
-  "debugApkBytes": 3384132,
-  "debugSha256": "748a85364094915d9130e43fa31065542acc1b7500284512c043d1e5a24ccabd",
+  "debugApkBytes": 3384129,
+  "debugSha256": "4620c57a761af08b59245def0924b3b777dcfb545eca859a118dffdeabef0703",
   "releaseApkBytes": 1980882,
-  "releaseSha256": "21a99f404af42eeeda980a5b72c73abed7028db479b5ecc0180cf1787b00de37",
-  "builtAt": "2026-07-16T08:23:01Z"
+  "releaseSha256": "8d8e4f7382b9e6d0358af8d55f7978a8a8e8022e61e37f73c2d0cc39cfe0b352",
+  "builtAt": "2026-07-16T09:28:18Z"
 }
