@@ -1,6 +1,9 @@
 (() => {
   "use strict";
 
+  const RELEASE_OWNER = "nandurpm";
+  const RELEASE_REPOSITORY = "diploma-notes";
+
   const ensureButton = () => {
     let button = document.querySelector(".app-download");
     if (button) return button;
@@ -11,9 +14,9 @@
     button = document.createElement("a");
     button.className = "btn ghost app-download";
     button.href = "/downloads/";
-    button.textContent = "📱 App Download Unavailable";
-    button.setAttribute("aria-disabled", "true");
-    button.setAttribute("aria-label", "The Android app download is temporarily unavailable until the new APK is published.");
+    button.textContent = "📱 Checking App Download…";
+    button.dataset.appButtonState = "checking";
+    button.setAttribute("aria-label", "Checking the latest POLY PMNA Android app download");
     actions.append(button);
     return button;
   };
@@ -21,7 +24,7 @@
   const button = ensureButton();
   if (!button) return;
 
-  const appMatch = navigator.userAgent.match(/PolytechnicStudyHubAndroid\/([0-9]+(?:\.[0-9]+)*)/i);
+  const appMatch = navigator.userAgent.match(/(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/([0-9]+(?:\.[0-9]+)*)/i);
   if (appMatch) {
     button.hidden = true;
     button.setAttribute("aria-hidden", "true");
@@ -31,21 +34,29 @@
     return;
   }
 
-  const validApkPath = (value) => {
+  const validApkUrl = (value) => {
     if (!value) return "";
     try {
       const url = new URL(value, window.location.origin);
-      if (url.origin !== window.location.origin) return "";
-      if (!url.pathname.startsWith("/downloads/") || !url.pathname.endsWith(".apk")) return "";
-      return url.href;
+      if (url.protocol !== "https:") return "";
+
+      const sameSiteApk = url.origin === window.location.origin
+        && url.pathname.startsWith("/downloads/")
+        && url.pathname.toLowerCase().endsWith(".apk");
+
+      const trustedReleaseApk = url.hostname.toLowerCase() === "github.com"
+        && url.pathname.toLowerCase().startsWith(`/${RELEASE_OWNER}/${RELEASE_REPOSITORY}/releases/download/`)
+        && url.pathname.toLowerCase().endsWith(".apk");
+
+      return sameSiteApk || trustedReleaseApk ? url.href : "";
     } catch (_) {
       return "";
     }
   };
 
-  const showUnavailable = (message = "The new Android app APK is not published yet.") => {
+  const showUnavailable = (message = "The Android app download is temporarily unavailable.") => {
     button.dataset.appButtonState = "unavailable";
-    button.textContent = "📱 New App Coming Soon";
+    button.textContent = "📱 App Download Unavailable";
     button.href = "/downloads/";
     button.removeAttribute("download");
     button.setAttribute("aria-disabled", "true");
@@ -56,21 +67,27 @@
   };
 
   const activateDownload = (update) => {
-    const apkHref = validApkPath(update?.apkUrl);
+    const apkHref = validApkUrl(update?.apkUrl);
     if (!update?.versionName || !apkHref) {
       showUnavailable();
       return;
     }
 
     const apkUrl = new URL(apkHref);
-    const filename = apkUrl.pathname.split("/").pop() || `Polytechnic-Study-Hub-v${update.versionName}.apk`;
+    const filename = decodeURIComponent(apkUrl.pathname.split("/").pop() || `POLY_PMNA_v${update.versionName}.apk`);
 
     button.dataset.appButtonState = "download";
-    button.textContent = `📱 Download New App v${update.versionName}`;
+    button.textContent = `📱 Download Our App v${update.versionName}`;
     button.href = apkUrl.href;
-    button.download = filename;
+
+    // The download attribute is reliable for same-origin files. GitHub Release
+    // assets provide their own attachment response, so normal navigation starts
+    // the APK download on Android without opening an intermediate website page.
+    if (apkUrl.origin === window.location.origin) button.download = filename;
+    else button.removeAttribute("download");
+
     button.removeAttribute("aria-disabled");
-    button.setAttribute("aria-label", `Download Polytechnic Study Hub Android app version ${update.versionName}`);
+    button.setAttribute("aria-label", `Download POLY PMNA Android app version ${update.versionName}`);
     button.hidden = false;
     button.removeAttribute("aria-hidden");
     button.style.removeProperty("display");
@@ -80,10 +97,9 @@
     try {
       const response = await fetch(`/downloads/app-update.json?t=${Date.now()}`, { cache: "no-store" });
       if (!response.ok) throw new Error(`Update check failed: ${response.status}`);
-      const update = await response.json();
-      activateDownload(update);
+      activateDownload(await response.json());
     } catch (error) {
-      console.error("Unable to read app-update.json; app download disabled until new APK is published.", error);
+      console.error("Unable to read the Android app update manifest.", error);
       showUnavailable();
     }
   };
@@ -91,9 +107,8 @@
   button.addEventListener("click", (event) => {
     if (button.dataset.appButtonState === "download") return;
     event.preventDefault();
-    window.alert(button.getAttribute("aria-label") || "The new Android app APK is not published yet.");
+    window.alert(button.getAttribute("aria-label") || "The Android app download is temporarily unavailable.");
   });
 
-  showUnavailable();
   activateLatestAvailable();
 })();
