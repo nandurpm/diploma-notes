@@ -1,4 +1,4 @@
-name: Course 1041 workflow diagnostic
+name: Course 1041 payload diagnostic
 
 on:
   push:
@@ -8,18 +8,44 @@ on:
   workflow_dispatch:
 
 permissions:
-  actions: read
-  issues: write
+  contents: write
 
 jobs:
-  check:
+  export:
     runs-on: ubuntu-latest
     steps:
-      - name: Refresh failed publication log
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Concatenate staged payload
         run: |
-          gh run view 29499640611 --repo nandurpm/diploma-notes --log-failed > /tmp/course-1041-full.log || true
-          tail -n 120 /tmp/course-1041-full.log > /tmp/course-1041-tail.log
-          body="$(printf 'Latest Course 1041 failed workflow log:\n\n```text\n%s\n```' "$(cat /tmp/course-1041-tail.log)")"
-          gh api --method PATCH repos/nandurpm/diploma-notes/issues/comments/4992036997 -f body="$body"
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import re
+
+          root = Path.cwd()
+          payload_dir = root / "tools" / ".course-1041-payload"
+          parts = sorted(
+              payload_dir.glob("part-*.txt"),
+              key=lambda path: tuple(int(value) for value in re.findall(r"\d+", path.stem)),
+          )
+          if not parts:
+              raise SystemExit("No Course 1041 payload parts found")
+          payload = "".join(path.read_text(encoding="utf-8").strip() for path in parts)
+          output = root / "reports" / "course-1041-staged-payload.txt"
+          output.parent.mkdir(exist_ok=True)
+          output.write_text(payload, encoding="ascii")
+          print({"parts": len(parts), "characters": len(payload), "sha256": hashlib.sha256(payload.encode()).hexdigest()})
+          PY
+
+      - name: Commit exported payload
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/course-1041-staged-payload.txt
+          git commit -m "Export Course 1041 staged payload [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
