@@ -1,0 +1,23 @@
+{
+  "course": "1041",
+  "htmlUrl": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1041.html",
+  "pdfUrl": "https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1041.pdf",
+  "repositoryHtmlVerified": true,
+  "repositoryHtmlBytes": 577326,
+  "repositoryHtmlSha256": "098ecfddf6ff398a1463c1a6752711202a1124a23800f32d20076fe8c25cf699",
+  "lessonAvailability": true,
+  "notesAvailability": true,
+  "directPdfHttpCode": 200,
+  "directPdfBytes": 4372241,
+  "directPdfSignatureValid": true,
+  "pdfPages": 225,
+  "pdfBlankPages": [],
+  "directHtmlHttpCodeFromGitHubRunner": 403,
+  "directHtmlResponse": "Cloudflare browser challenge: Just a moment...",
+  "cloudflareBotChallengeDetected": true,
+  "application404Detected": false,
+  "buildWorkflowRunId": 29500311796,
+  "buildWorkflowConclusion": "success",
+  "status": "passed_with_cloudflare_automation_limit",
+  "note": "The handbook and notes are published and availability is active. The live PDF was fetched directly with HTTP 200 and matched the generated file size. Cloudflare returned its browser challenge to GitHub-hosted automated HTML requests, so the 403 is a bot-protection response rather than a missing handbook page."
+}
