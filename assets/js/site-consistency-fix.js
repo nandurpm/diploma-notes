@@ -20,7 +20,7 @@
     [/\/about\.html$/i, "About"],
     [/\/revision-2021\.html$/i, "Revision 2021"],
     [/\/revision-2021\//i, "Revision 2021 Department Subjects"],
-    [/\/revision-2026\.html$/i, "Revision 2026"],
+    [/\/revision-2026\.html$/i, "Revision 2026 Diploma Departments"],
     [/\/revision-2026\//i, "Revision 2026 Department Subjects"],
     [/\/syllabus\.html$/i, "Kerala Polytechnic Syllabus Browser"],
     [/\/lessons\.html$/i, "Kerala Polytechnic Lesson Pages"],
@@ -100,6 +100,7 @@
   }
 
   function ensureRevisionSwitcher() {
+    if (document.querySelector(".revision-directory-switch")) return;
     const match = path().match(/^\/revision-(2021|2026)(?:\/[^/]+\.html)?$/i);
     if (!match) return;
     const activeRevision = match[1];

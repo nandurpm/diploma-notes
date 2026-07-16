@@ -11,12 +11,9 @@
   document.head.append(readyFlag);
 
   const POPUPS = [
-    { id: "popup-1", type: "image", src: "/assets/popup/popup-1.jpg" },
-    { id: "popup-2", type: "image", src: "/assets/popup/popup-2.jpg" },
-    { id: "popup-3", type: "image", src: "/assets/popup/popup-3.jpg" },
-    { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" },
-    { id: "popup-2-video", type: "video", src: "/assets/popup/popup-2.mp4" }
-  ];
+  { id: "popup-1", type: "image", src: "/assets/popup/popup-1.jpg" },
+  { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" }
+];
 
   const FALLBACK_POPUP = {
     id: "ask-poly-fallback",
