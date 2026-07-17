@@ -2,13 +2,7 @@
   "use strict";
 
   const $ = (id) => document.getElementById(id);
-  const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (char) => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;",
-  }[char]));
+  const esc = window.PolyUtils.escapeHtml;
 
   const STORE = "poly-quiz-safe-fallback-results";
 

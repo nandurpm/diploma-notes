@@ -6,7 +6,6 @@ window.PolyQuizAuth = (() => {
   let guest = false;
 
   const SITE_URL = "https://polypmna.dpdns.org";
-  const meta = (name) => document.querySelector(`meta[name="${name}"]`)?.content || "";
 
   function isNetworkOrPausedProjectError(error) {
     const text = String(error?.message || error || "").toLowerCase();
@@ -48,19 +47,8 @@ window.PolyQuizAuth = (() => {
   function getClient() {
     if (client) return client;
 
-    if (!window.supabase?.createClient) return null;
-
-    const url = meta("supabase-url");
-    const key = meta("supabase-publishable-key");
-    if (!url || !key) return null;
-
-    client = window.supabase.createClient(url, key, {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true,
-        flowType: "pkce",
-      },
+    client = window.PolyUtils.createSupabaseBrowserClient({
+      auth: { flowType: "pkce" },
       global: {
         headers: {
           "X-Client-Info": "poly-pmna-quiz-auth-20260713",
