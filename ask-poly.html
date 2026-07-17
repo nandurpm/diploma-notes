@@ -6,26 +6,28 @@
   <meta name="description" content="Ask POLY AI uses the current POLY PMNA website index to answer questions about Revision 2026, Revision 2021, subjects, lessons, notes, mock exams, tools and 2015 materials.">
   <link rel="canonical" href="https://polypmna.dpdns.org/ask-poly.html">
   <title>Ask POLY AI | POLY PMNA</title>
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260716-whole-site-ai1">
-  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260716-whole-site-ai1">
-  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260716-whole-site-ai1">
-  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260716-whole-site-ai1">
-  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260716-whole-site-ai1">
-  <link rel="stylesheet" href="/assets/css/ask-poly-main.css?v=20260716-whole-site-ai1">
-  <link rel="stylesheet" href="/assets/css/ask-poly-mobile-layout.css?v=20260716-whole-site-ai1">
-  <script src="/assets/js/site-shell.js?v=20260717-site-shell1" defer></script>
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/responsive.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/ask-poly-main.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/ask-poly-mobile-layout.css?v=20260717-architecture-clean1">
+  <script src="/assets/js/site-shell.js?v=20260717-architecture-clean1" defer></script>
 </head>
-<body class="portal-page ask-poly-page" data-site-revision="20260716-whole-site-ai1">
+<body class="portal-page ask-poly-page" data-site-revision="20260717-architecture-clean1">
   <a class="skip-link" href="#main-content">Skip to main content</a>
   <header class="topbar" data-site-header></header>
   <main id="main-content" class="ask-shell">
-    <nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/index.html">Home</a></li><li><span aria-current="page">Ask POLY AI</span></li></ol></nav>
-    <section class="ask-hero" aria-hidden="true">
+    <nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Ask POLY AI</span></li></ol></nav>
+    <section class="ask-hero">
       <p class="ask-kicker">Ask POLY AI</p>
       <h1>Whole-site study and navigation assistant</h1>
       <p>Ask about Revision 2026 and Revision 2021 departments, semester-wise subjects, subject codes, official syllabus links, available lessons and notes, sample question papers, mock exams, Student Tools, 2015 materials, website pages, broken links and normal diploma study doubts. The website knowledge index is rebuilt when POLY PMNA changes.</p>
-      <div class="ask-tags" aria-label="Ask POLY features"><span>Revision 2026 aware</span><span>Whole-site knowledge</span><span>Subject-code search</span><span>Saved chats</span><span>AI + local fallback</span></div>
+      <div class="ask-tags" aria-label="Ask POLY features"><span>Revision 2026 aware</span><span>Whole-site knowledge</span><span>Subject-code search</span><span>Browser-saved chats</span><span>AI + local fallback</span></div>
     </section>
+    <noscript><section class="notice"><h2>JavaScript is required</h2><p>Ask POLY AI needs JavaScript for chat, website search and saved conversations. You can still use the Study menu to open Revision 2026, Revision 2021 and 2015 Materials.</p></section></noscript>
     <section class="ask-app" aria-label="Ask POLY application">
       <div class="ask-mobile-controls" aria-label="Mobile chat controls">
         <button class="ask-mobile-chats-btn" id="mobileChatsToggle" type="button" aria-controls="savedChatsPanel" aria-expanded="false">☰ Saved chats</button>
@@ -33,11 +35,12 @@
       </div>
       <aside class="ask-sidebar" id="savedChatsPanel" aria-label="Saved conversations">
         <div class="ask-side-head"><button class="ask-new" id="newChatBtn" type="button">+ New chat</button></div>
+        <label class="sr-only" for="chatSearch">Search saved chats</label>
         <input class="ask-search" id="chatSearch" type="search" placeholder="Search saved chats">
         <div class="ask-list" id="chatList"></div>
       </aside>
       <section class="ask-chat" aria-label="Chat panel">
-        <div class="ask-chat-head"><div><h2 id="chatTitle">Ask POLY Chat</h2><p id="chatSub">Whole-site knowledge + saved chat memory + AI reasoning</p></div><span class="ask-status" id="chatStatus">Loading website knowledge...</span></div>
+        <div class="ask-chat-head"><div><h2 id="chatTitle">Ask POLY Chat</h2><p id="chatSub">Whole-site knowledge + saved chat memory + AI reasoning</p></div><span class="ask-status" id="chatStatus" role="status" aria-live="polite">Loading website knowledge...</span></div>
         <div class="ask-messages" id="chatMessages" role="log" aria-live="polite" aria-relevant="additions text"></div>
         <div class="ask-prompts" id="quickPrompts" aria-label="Quick prompts"></div>
         <form class="ask-form" id="chatForm"><label class="sr-only" for="chatInput">Message</label><textarea class="ask-input" id="chatInput" placeholder="Ask about REV2026, REV2021, a subject code, lessons, notes, syllabus, mock exams, tools or any website page..." maxlength="2200" required></textarea><button class="ask-send" id="sendBtn" type="submit">Send</button><button class="ask-clear" id="clearChatBtn" type="button">Clear</button></form>
@@ -45,12 +48,12 @@
     </section>
   </main>
   <footer class="footer" data-site-footer></footer>
-  <script src="/assets/js/poly-utils.js?v=20260716-whole-site-ai1" defer></script><script src="/assets/js/ask-poly-config.js?v=20260716-whole-site-ai1" defer></script>
-  <script src="/assets/js/ask-poly-knowledge-loader.js?v=20260716-whole-site-ai1" defer></script>
-  <script src="/assets/js/ask-poly-v2.js?v=20260716-whole-site-ai1" defer></script>
-  <script src="/assets/js/ask-poly-layout.js?v=20260716-whole-site-ai1" defer></script>
-  <script src="/assets/js/main.js?v=20260717-site-shell1" defer></script>
-  <script src="/assets/js/site-consistency-fix.js?v=20260716-whole-site-ai1" defer></script>
-  <script src="/assets/js/fixed-site-header.js?v=20260717-site-shell1" defer></script>
+  <script src="/assets/js/poly-utils.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/ask-poly-config.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/ask-poly-knowledge-loader.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/ask-poly-v2.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/ask-poly-layout.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/main.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260717-architecture-clean1" defer></script>
 </body>
 </html>
