@@ -1,0 +1,62 @@
+name: Publish REV2026 batch lesson handbooks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "tools/rev2026-course-payload/**"
+      - "tools/rev2026-generator-parts/**"
+      - ".github/workflows/publish-rev2026-batch-lessons.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-rev2026-batch-lessons
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Reconstruct generator
+        run: |
+          cat \
+            tools/rev2026-generator-parts/part0 \
+            tools/rev2026-generator-parts/part1 \
+            tools/rev2026-generator-parts/part2 \
+            tools/rev2026-generator-parts/part3 \
+            > /tmp/publish_rev2026_batch.py
+          python -m py_compile /tmp/publish_rev2026_batch.py
+
+      - name: Generate and validate lesson handbooks
+        run: python /tmp/publish_rev2026_batch.py
+
+      - name: Commit generated handbooks and remove one-time publisher
+        run: |
+          git config user.name "poly-pmna-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add \
+            revision-2026-content/lessons/lessons-1003.html \
+            revision-2026-content/lessons/lessons-1008.html \
+            revision-2026-content/lessons/lessons-1031.html \
+            revision-2026-content/lessons/lessons-2031.html \
+            revision-2026-content/lessons/lessons-2032.html
+          git add revision-2026/*.html || true
+          git rm -r tools/rev2026-course-payload tools/rev2026-generator-parts
+          git rm .github/workflows/publish-rev2026-batch-lessons.yml
+          git commit -m "Add five complete REV2026 lesson handbooks"
+          git pull --rebase origin main
+          git push origin HEAD:main
