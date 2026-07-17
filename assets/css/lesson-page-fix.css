@@ -486,3 +486,24 @@ html.poly-lesson-page.polytechnic-native-app .poly-lesson-back {
     filter: none !important;
   }
 }
+
+/* REV2026 full-screen repair v4: preserve complete modules, remove duplicate sidebar, and eliminate top gaps. */
+html.poly-lesson-page {
+  --fixed-site-header-height:0px!important;
+  --fixed-site-header-gap:0px!important;
+  --header-h:0px!important;
+  --topbar-h:0px!important;
+  --toolbar-h:0px!important;
+  --top:0px!important;
+}
+html.poly-lesson-page :is(.sidebar,#chapterNav,.lesson-sidebar,.chapter-sidebar,.side-nav,[data-lesson-sidebar]) {
+  display:none!important;visibility:hidden!important;width:0!important;height:0!important;
+  min-width:0!important;max-width:0!important;margin:0!important;padding:0!important;
+  border:0!important;overflow:hidden!important;
+}
+html.poly-lesson-page :is(.shell,.lesson-shell,.page-shell,.main-content) {
+  width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;
+  padding-top:var(--lesson-edge)!important;grid-template-columns:minmax(0,1fr)!important;
+}
+html.revision-2026-lesson .poly-dynamic-source {display:block!important;visibility:visible!important;opacity:1!important}
+html.revision-2026-lesson .poly-expanded-dynamic-list {display:none!important}

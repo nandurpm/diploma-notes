@@ -14,12 +14,16 @@
 
   function markPage() {
     root.classList.add("poly-lesson-page", "lesson-all-content");
+    root.classList.toggle("revision-2026-lesson", revision2026);
+    root.classList.toggle("revision-2021-lesson", !revision2026);
     root.classList.toggle("polytechnic-native-app", nativeApp);
     root.dataset.lessonRevision = revision2026 ? "REV2026" : "REV2021";
     if (courseCode) root.dataset.courseCode = courseCode;
     const body = document.body;
     if (body) {
       body.classList.add("poly-lesson-page", "lesson-all-content");
+      body.classList.toggle("revision-2026-lesson", revision2026);
+      body.classList.toggle("revision-2021-lesson", !revision2026);
       body.classList.remove("portal-page", "has-fixed-site-header");
       body.style.setProperty("padding-top", "0", "important");
       body.style.setProperty("margin-top", "0", "important");
@@ -27,6 +31,9 @@
     root.style.setProperty("--fixed-site-header-height", "0px");
     root.style.setProperty("--fixed-site-header-gap", "0px");
     root.style.setProperty("--header-h", "0px");
+    root.style.setProperty("--topbar-h", "0px");
+    root.style.setProperty("--toolbar-h", "0px");
+    root.style.setProperty("--top", "0px");
   }
 
   function installStyles() {
@@ -43,7 +50,7 @@
       link.rel = "stylesheet";
       (document.head || root).append(link);
     }
-    link.href = "/assets/css/lesson-page-fix.css?v=20260717-fullscreen3";
+    link.href = "/assets/css/lesson-page-fix.css?v=20260718-fullscreen4";
   }
 
   function ensureViewport() {
@@ -91,7 +98,7 @@
     }
     if (module !== undefined) {
       const n = Number(module);
-      for (const candidate of [`module-${n + 1}`, `module-${n}`, `m${n + 1}`, `m${n}`, "modules"]) {
+      for (const candidate of [`module-${n}`, `m${n}`, `module-${n + 1}`, `m${n + 1}`, "modules"]) {
         const found = document.getElementById(candidate);
         if (found) return found;
       }
@@ -234,7 +241,7 @@
     installStyles();
     revealAllLessonSections();
     await new Promise((resolve) => setTimeout(resolve, 120));
-    await expandDynamicModuleViews();
+    if (!revision2026) await expandDynamicModuleViews();
     revealAllLessonSections();
     createEndActions();
     updateProgress();

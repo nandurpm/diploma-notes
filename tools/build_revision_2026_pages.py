@@ -19,7 +19,7 @@ SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syll
 MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 REPORT_JSON = Path("reports/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260717-fixed-header-restore1"
+VERSION = "20260718-rev2026-repair4"
 MIN_VALID_PDF_BYTES = 20000
 
 
@@ -76,7 +76,7 @@ def navigation() -> str:
 
 
 def footer() -> str:
-    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v=20260717-availability-stable1" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
+    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v=20260718-model-paper-navigation3" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
 
 
 def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
@@ -121,7 +121,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'<div class="action-row">'
         f'<a class="action syllabus" href="{esc(syllabus_url)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
         f'{lesson_action}{notes_action}'
-        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer">Sample Question Paper</a>'
+        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer">Open Model Question Paper</a>'
         f'</div></article>'
     )
 

@@ -10,7 +10,7 @@ LESSON_DIRS = (
     ROOT / "revision-2026-content" / "lessons",
 )
 LESSON_CSS = ROOT / "assets" / "css" / "lesson-page-fix.css"
-LESSON_STANDARD_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260717-fullscreen3" defer></script>'
+LESSON_STANDARD_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260718-fullscreen4" defer></script>'
 STANDARD_MARKER = "Shared full-screen lesson standard"
 CHROME_MARKER = "Full-screen lesson chrome suppression"
 CHROME_RULE = f"""
@@ -90,7 +90,7 @@ def main() -> int:
             relative = str(path.relative_to(ROOT))
             if "lesson-navigation-fix.js" not in text:
                 missing.append(relative)
-            elif "20260717-fullscreen3" not in text:
+            elif "20260718-fullscreen4" not in text:
                 stale.append(relative)
         errors: list[str] = []
         if missing:
