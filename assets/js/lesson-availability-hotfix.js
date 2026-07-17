@@ -139,9 +139,9 @@
     const revision = String(document.body?.dataset?.revision || "");
     const notice = document.getElementById("rev2026-model-qp-access");
     if (revision !== "2026" || !notice) return;
+    if (!slug) return;
 
     rebuildModelPaperNotice(notice);
-    if (!slug) return;
 
     if (!programmeLookup) {
       programmeLookup = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260717-model-paper-navigation2`, { cache: "no-store" })

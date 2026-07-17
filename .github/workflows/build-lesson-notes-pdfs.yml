@@ -107,14 +107,9 @@ jobs:
           node --check assets/js/subject-browser.js
           node --check assets/js/asset-manifest.js
 
-      - name: Rebuild Revision 2026 cards after content changes
-        run: |
-          python -m py_compile tools/build_revision_2026_pages.py
-          python tools/build_revision_2026_pages.py
-
       - name: Commit generated PDFs and availability data
         run: |
-          if git diff --quiet -- notes revision-2026-content/notes reports assets/js/subject-browser.js assets/js/asset-manifest.js revision-2026.html revision-2026; then
+          if git diff --quiet -- notes revision-2026-content/notes reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js; then
             echo "Downloadable notes are already current."
             exit 0
           fi
@@ -123,9 +118,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add notes revision-2026-content/notes
           git add reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json
-          git add reports/revision-2026-build-summary.json reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
           git add assets/js/subject-browser.js assets/js/asset-manifest.js
-          git add revision-2026.html revision-2026/*.html
           git commit -m "Build revision-separated downloadable notes [skip notes]"
           git pull --rebase --autostash origin main
           git push origin HEAD:main
