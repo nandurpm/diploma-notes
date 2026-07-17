@@ -40,7 +40,7 @@ jobs:
           import zlib
 
           folder = Path("tools/rev2026-handbook-generator-parts")
-          names = [f"part{index:02d}" for index in range(7)]
+          names = ("part00", "part01", "part02a", "part02b", "part03", "part04", "part05", "part06")
           payload = "".join((folder / name).read_text(encoding="utf-8") for name in names)
           expected_sha256 = "3a98891adc76dcc9481184234212dad190153c709846e98e8d032f8971f9f9ab"
           actual_sha256 = hashlib.sha256(payload.encode("ascii")).hexdigest()
