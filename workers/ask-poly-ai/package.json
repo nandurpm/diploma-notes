@@ -2,8 +2,11 @@
   "name": "ask-poly-ai-worker",
   "private": true,
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "check": "node --check src/index.js",
+    "test": "node --test test/",
+    "coverage": "node --test --experimental-test-coverage test/",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },

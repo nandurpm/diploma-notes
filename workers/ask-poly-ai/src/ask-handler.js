@@ -740,3 +740,23 @@ export async function askPoly(body, env) {
     throw error;
   }
 }
+
+// Pure helpers exposed for unit testing. Not part of the worker's public API.
+export const __testables = {
+  roundSmart,
+  cleanMathInput,
+  isMathLike,
+  evalMathExpression,
+  stripQuestionWords,
+  tryPercentage,
+  equationParts,
+  tryEquation,
+  parsePolynomialTerms,
+  polynomialToString,
+  tryCalculus,
+  tryGeometry,
+  expressionCandidate,
+  tryArithmetic,
+  localMathAnswer,
+  sanitizeHistory
+};
