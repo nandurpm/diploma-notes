@@ -7,14 +7,14 @@
   const pathname = window.location.pathname;
   const isRevisionDepartmentPage = /^\/revision-(?:2021|2026)\/.+\.html$/i.test(pathname);
   const isAskPolyPage = /\/ask-poly(?:-v2)?\.html$/i.test(pathname);
-  const isLessonPage = /\/lessons\/lessons-\d+[a-z]?\.html$/i.test(pathname);
+  const isLessonPage = /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(pathname);
   const appMatch = ua.match(/(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/([0-9]+(?:\.[0-9]+)*)/i);
   const isAndroidWebView = /Android/i.test(ua) && (/\bwv\b/i.test(ua) || /Version\/\d+(?:\.\d+)?\s+Chrome\//i.test(ua));
   const isStandaloneAndroid = /Android/i.test(ua) && window.matchMedia?.("(display-mode: standalone)")?.matches;
   const isNativeApp = Boolean(appMatch) || isAndroidWebView || Boolean(isStandaloneAndroid);
   const installedVersion = appMatch ? appMatch[1] : null;
   const ONAM_VERSION = "20260704-banner6";
-  const CONSISTENCY_VERSION = "20260717-site-shell1";
+  const CONSISTENCY_VERSION = "20260717-lesson-safe2";
 
   if (isLessonPage) root.classList.add("poly-lesson-page");
 
@@ -135,7 +135,7 @@
     body.classList.remove("has-fixed-site-header", "portal-page");
     root.style.setProperty("--fixed-site-header-height", "0px");
     root.style.setProperty("--fixed-site-header-gap", "0px");
-    addStylesheetOnce("poly-lesson-page-fix", `/assets/css/lesson-page-fix.css?v=20260711-consistency1`);
+    addStylesheetOnce("poly-lesson-page-fix", "/assets/css/lesson-page-fix.css?v=20260717-lesson-safe2");
   }
 
   function installVisitorPopup() {
@@ -143,14 +143,17 @@
     loadScriptOnce("poly-visitor-popup-script", "/assets/js/visitor-popup.js?v=20260711-consistency1");
   }
 
+  if (isLessonPage) {
+    installLessonPageFix();
+    return;
+  }
+
   installSharedFixes();
   installOnamThemeLoader();
   configureAppDownloadButton();
   installDailyQuizResponsiveFix();
-  installLessonPageFix();
   installVisitorPopup();
 
-  if (isLessonPage) return;
   if (isNativeApp) { hideNativeWebHeader(); requestAnimationFrame(hideNativeWebHeader); setTimeout(hideNativeWebHeader, 250); return; }
 
   const header = document.querySelector(".topbar");
@@ -169,6 +172,7 @@
       body.classList.add("has-fixed-site-header");
     });
   }
+
   buildHeader();
   updateHeight();
   if ("ResizeObserver" in window) new ResizeObserver(updateHeight).observe(header);
