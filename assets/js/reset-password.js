@@ -1,7 +1,6 @@
 (() => {
   "use strict";
 
-  const meta = (name) => document.querySelector(`meta[name="${name}"]`)?.content || "";
   const $ = (id) => document.getElementById(id);
 
   function msg(text, ok = false) {
@@ -12,13 +11,7 @@
   }
 
   function client() {
-    if (!window.supabase?.createClient) return null;
-    const url = meta("supabase-url");
-    const key = meta("supabase-publishable-key");
-    if (!url || !key) return null;
-    return window.supabase.createClient(url, key, {
-      auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true },
-    });
+    return window.PolyUtils.createSupabaseBrowserClient();
   }
 
   async function bind() {
