@@ -43,6 +43,8 @@ jobs:
             tools/rev2026-generator-parts/part1 \
             tools/rev2026-generator-parts/part2 \
             tools/rev2026-generator-parts/part3 \
+            tools/rev2026-generator-parts/part4 \
+            tools/rev2026-generator-parts/part5 \
             > /tmp/publish_rev2026_batch.py
           python -m py_compile /tmp/publish_rev2026_batch.py
 
