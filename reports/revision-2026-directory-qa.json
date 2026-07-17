@@ -2,8 +2,8 @@
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
   "status": "failed",
-  "sourceCommit": "23ce333fd7d6742dd998962a951956671f281af4",
-  "generatedAt": "2026-07-17T15:16:33.340Z",
+  "sourceCommit": "617cc0ff1107f73d337560fe2d3a990bb6a4dd91",
+  "generatedAt": "2026-07-17T17:47:27.208Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -59,7 +59,7 @@
     },
     {
       "name": "official source actions are present",
-      "passed": true
+      "passed": false
     },
     {
       "name": "desktop has no horizontal overflow",
@@ -150,84 +150,26 @@
     },
     {
       "name": "no relevant console errors",
-      "passed": false,
-      "consoleErrors": [
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-1.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-1.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        }
-      ]
+      "passed": true,
+      "consoleErrors": []
     }
   ],
   "failures": [
     {
-      "name": "no relevant console errors",
-      "passed": false,
-      "consoleErrors": [
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-1.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-1.mp4?v=20260706-popup-check",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        }
-      ]
+      "name": "official source actions are present",
+      "passed": false
     }
   ],
   "console": {
-    "errors": [
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-1.mp4?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-1.mp4?v=20260706-popup-check",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      }
-    ],
+    "errors": [],
     "warnings": []
   },
   "screenshots": [
     {
       "label": "desktop",
       "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 3109638,
-      "sha256": "2bf87cbae469095c85ceccf2c9edad8bcb1f59ae4ccbcc8b712accb998407e11",
+      "bytes": 3120139,
+      "sha256": "6018a92062f7ce9003de0f2b9252e2b3d9d2b4277a9f4720a2145a45d33d694d",
       "viewport": {
         "width": 1440,
         "height": 1000
@@ -236,8 +178,8 @@
     {
       "label": "mobile",
       "fileName": "revision-2026-directory-mobile.png",
-      "bytes": 2638331,
-      "sha256": "cf8026abd5741b0ec1600d5cc867cd237af2a90c8b4cb06af522f1aa17494905",
+      "bytes": 2629622,
+      "sha256": "0f2ff44b78fd8937e619e7120f09f0f32183f7db80a88ee203c08d5a58e0d61a",
       "viewport": {
         "width": 390,
         "height": 844
