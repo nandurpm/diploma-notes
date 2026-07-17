@@ -92,7 +92,9 @@ jobs:
             "${LESSONS[@]}"
 
       - name: Commit notification log
-        if: steps.lessons.outputs.has_lessons == 'true'
+        # Run even when the send step reported partial failures so that the
+        # notifications that DID succeed are recorded and never re-sent.
+        if: ${{ !cancelled() && steps.lessons.outputs.has_lessons == 'true' }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
