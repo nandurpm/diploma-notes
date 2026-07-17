@@ -6,6 +6,7 @@ on:
     types: [opened, synchronize, reopened]
     paths:
       - ".rev2026-batch-trigger"
+      - "reports/rev2026-batch-generator-error.txt"
       - "revision-2026-content/lessons/lessons-1003.html"
       - "revision-2026-content/lessons/lessons-1008.html"
       - "revision-2026-content/lessons/lessons-1031.html"
@@ -50,10 +51,29 @@ jobs:
           python -m py_compile /tmp/publish_rev2026_batch.py
 
       - name: Generate and validate separate lesson handbooks
-        run: python /tmp/publish_rev2026_batch.py
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          set +e
+          python /tmp/publish_rev2026_batch.py > /tmp/rev2026-generator.log 2>&1
+          status=$?
+          cat /tmp/rev2026-generator.log
+          if [ "$status" -ne 0 ]; then
+            mkdir -p reports
+            cp /tmp/rev2026-generator.log reports/rev2026-batch-generator-error.txt
+            git config user.name "poly-pmna-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add reports/rev2026-batch-generator-error.txt
+            if ! git diff --cached --quiet; then
+              git commit -m "Record REV2026 batch generator failure"
+              git push origin HEAD:"${HEAD_REF}"
+            fi
+            exit "$status"
+          fi
 
       - name: Synchronize lesson availability and generated department pages
         run: |
+          rm -f reports/rev2026-batch-generator-error.txt
           python tools/update_asset_manifest.py
           python tools/build_revision_2026_pages.py
           node --check assets/js/subject-browser.js
@@ -74,6 +94,7 @@ jobs:
             assets/js/subject-browser.js \
             assets/js/asset-manifest.js \
             revision-2026/*.html
+          git add -u reports/rev2026-batch-generator-error.txt || true
           if git diff --cached --quiet; then
             echo "Generated handbooks are already current."
             exit 0
