@@ -9,8 +9,25 @@ LESSON_DIRS = (
     ROOT / "lessons",
     ROOT / "revision-2026-content" / "lessons",
 )
+LESSON_CSS = ROOT / "assets" / "css" / "lesson-page-fix.css"
 LESSON_STANDARD_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260717-fullscreen3" defer></script>'
 STANDARD_MARKER = "Shared full-screen lesson standard"
+CHROME_MARKER = "Full-screen lesson chrome suppression"
+CHROME_RULE = f"""
+
+/* {CHROME_MARKER}: no duplicate header/action row inside lesson files. */
+html.poly-lesson-page :is(.toolbar,.hb-toolbar,.lesson-toolbar,.lesson-actions,.course-toolbar,.course-nav){{
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  min-height:0!important;
+  max-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  overflow:hidden!important;
+}}
+"""
 LESSON_STANDARD_TAG_RE = re.compile(r"<script\b[^>]*src=[\"'][^\"']*lesson-navigation-fix\.js[^\"']*[\"'][^>]*>\s*</script>", re.I)
 
 
@@ -33,6 +50,14 @@ def update_page(path: Path) -> bool:
     return True
 
 
+def update_shared_css() -> bool:
+    source = LESSON_CSS.read_text(encoding="utf-8")
+    if CHROME_MARKER in source:
+        return False
+    LESSON_CSS.write_text(source.rstrip() + CHROME_RULE + "\n", encoding="utf-8")
+    return True
+
+
 def lesson_pages() -> list[Path]:
     pages: list[Path] = []
     for directory in LESSON_DIRS:
@@ -48,7 +73,7 @@ def main() -> int:
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Fail when a lesson page does not load the shared full-screen lesson runtime.",
+        help="Fail when a lesson page or shared CSS does not follow the full-screen lesson standard.",
     )
     args = parser.parse_args()
 
@@ -59,19 +84,33 @@ def main() -> int:
 
     if args.check:
         missing: list[str] = []
+        stale: list[str] = []
         for path in pages:
             text = path.read_text(encoding="utf-8", errors="ignore")
+            relative = str(path.relative_to(ROOT))
             if "lesson-navigation-fix.js" not in text:
-                missing.append(str(path.relative_to(ROOT)))
+                missing.append(relative)
+            elif "20260717-fullscreen3" not in text:
+                stale.append(relative)
+        errors: list[str] = []
         if missing:
-            print("Shared lesson runtime is missing from:")
-            print("\n".join(missing))
+            errors.append("Shared lesson runtime is missing from:\n" + "\n".join(missing))
+        if stale:
+            errors.append("Shared lesson runtime reference is stale in:\n" + "\n".join(stale))
+        if CHROME_MARKER not in LESSON_CSS.read_text(encoding="utf-8", errors="ignore"):
+            errors.append("Shared lesson CSS does not suppress toolbar-style duplicate lesson chrome.")
+        if errors:
+            print("\n".join(errors))
             return 1
-        print(f"Verified full-screen lesson runtime on {len(pages)} lesson pages.")
+        print(f"Verified full-screen lesson standard on {len(pages)} lesson pages.")
         return 0
 
     changed = sum(update_page(path) for path in pages)
-    print(f"Updated {changed} of {len(pages)} lesson pages across REV2021 and REV2026.")
+    css_changed = update_shared_css()
+    print(
+        f"Updated {changed} of {len(pages)} lesson pages across REV2021 and REV2026; "
+        f"shared CSS changed: {css_changed}."
+    )
     return 0
 
 
