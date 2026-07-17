@@ -10,6 +10,7 @@ on:
       - "assets/css/**"
       - "android-app/**"
       - "tools/validate_site_structure.py"
+      - "tools/validate_lesson_fullscreen.py"
       - ".github/workflows/site-structure-validation.yml"
   push:
     branches: [main]
@@ -21,6 +22,7 @@ on:
       - "assets/css/**"
       - "android-app/**"
       - "tools/validate_site_structure.py"
+      - "tools/validate_lesson_fullscreen.py"
       - ".github/workflows/site-structure-validation.yml"
 
 permissions:
@@ -38,10 +40,14 @@ jobs:
           python-version: "3.12"
       - name: Validate site structure
         run: python tools/validate_site_structure.py
-      - name: Upload validation report
+      - name: Validate full-screen lesson standard
+        run: python tools/validate_lesson_fullscreen.py
+      - name: Upload validation reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: site-structure-validation
-          path: reports/site-structure-validation.json
+          path: |
+            reports/site-structure-validation.json
+            reports/lesson-fullscreen-validation.json
           if-no-files-found: warn
