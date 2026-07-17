@@ -370,7 +370,9 @@
       const counts = status.counts || {};
       els.status.title = `Website index ${status.version || ""}; ${counts.pages || 0} pages; ${counts.subjectRecords || 0} subject records`;
       els.sub.textContent = `Whole-site knowledge · ${counts.pages || 0} pages · ${counts.subjectRecords || 0} subject records`;
-    } catch (_) {}
+    } catch (error) {
+      console.warn("Ask POLY knowledge status update failed", error);
+    }
   }
 
   async function init() {
