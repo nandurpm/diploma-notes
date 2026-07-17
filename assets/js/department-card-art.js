@@ -53,7 +53,12 @@
 
   function programmeSlug(card) {
     try {
-      return new URL(card.href, window.location.href).searchParams.get("dept") || "";
+      const url = new URL(card.href, window.location.href);
+      const querySlug = url.searchParams.get("dept");
+      if (querySlug) return querySlug;
+
+      const pathMatch = url.pathname.match(/\/revision-2021\/([^/]+)\.html$/i);
+      return pathMatch ? decodeURIComponent(pathMatch[1]) : "";
     } catch {
       return "";
     }
