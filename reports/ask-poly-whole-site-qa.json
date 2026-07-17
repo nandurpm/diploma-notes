@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-07-16T05:24:29.275Z",
+  "generatedAt": "2026-07-17T14:17:42.959Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
@@ -24,14 +24,14 @@
       "status": {
         "ok": true,
         "version": "2026-07-whole-site-v1",
-        "generatedAt": "2026-07-16T05:14:15Z",
+        "generatedAt": "2026-07-17T13:56:21Z",
         "counts": {
-          "pages": 216,
+          "pages": 226,
           "programmes2021": 43,
           "programmes2026": 38,
           "subjectRecords": 4182,
-          "lessonRecordsAvailable": 275,
-          "notesRecordsAvailable": 275
+          "lessonRecordsAvailable": 470,
+          "notesRecordsAvailable": 350
         }
       }
     },
@@ -39,24 +39,24 @@
       "name": "knowledge contains 38 Revision 2026 programmes",
       "passed": true,
       "counts": {
-        "pages": 216,
+        "pages": 226,
         "programmes2021": 43,
         "programmes2026": 38,
         "subjectRecords": 4182,
-        "lessonRecordsAvailable": 275,
-        "notesRecordsAvailable": 275
+        "lessonRecordsAvailable": 470,
+        "notesRecordsAvailable": 350
       }
     },
     {
       "name": "knowledge contains both curriculum datasets",
       "passed": true,
       "counts": {
-        "pages": 216,
+        "pages": 226,
         "programmes2021": 43,
         "programmes2026": 38,
         "subjectRecords": 4182,
-        "lessonRecordsAvailable": 275,
-        "notesRecordsAvailable": 275
+        "lessonRecordsAvailable": 470,
+        "notesRecordsAvailable": 350
       }
     },
     {
@@ -113,18 +113,18 @@
     }
   ],
   "consoleErrors": [],
-  "requestContextLength": 8883,
+  "requestContextLength": 9000,
   "knowledgeStatus": {
     "ok": true,
     "version": "2026-07-whole-site-v1",
-    "generatedAt": "2026-07-16T05:14:15Z",
+    "generatedAt": "2026-07-17T13:56:21Z",
     "counts": {
-      "pages": 216,
+      "pages": 226,
       "programmes2021": 43,
       "programmes2026": 38,
       "subjectRecords": 4182,
-      "lessonRecordsAvailable": 275,
-      "notesRecordsAvailable": 275
+      "lessonRecordsAvailable": 470,
+      "notesRecordsAvailable": 350
     }
   },
   "screenshots": [
