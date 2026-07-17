@@ -71,6 +71,18 @@ jobs:
           if [ "$status" -ne 0 ]; then
             mkdir -p reports
             cp /tmp/rev2026-generator.log reports/rev2026-batch-generator-error.txt
+            python - <<'PY' >> reports/rev2026-batch-generator-error.txt
+          from pathlib import Path
+          import hashlib
+          names = ("courses.part1","courses.part2","courses.part3","courses.part4","courses.part5","courses.part6a","courses.part6b","courses.part6c","courses.part6d","courses.part7a","courses.part7rest","courses.part8a2","courses.part8b2")
+          print("\nPAYLOAD CHUNK DIAGNOSTICS")
+          for name in names:
+              data=(Path("tools/rev2026-course-payload")/name).read_bytes()
+              blob=b"blob "+str(len(data)).encode()+b"\0"+data
+              print(name, len(data), hashlib.sha1(blob).hexdigest(), data[:12].decode(errors="replace"), data[-12:].decode(errors="replace"))
+          joined=b"".join((Path("tools/rev2026-course-payload")/name).read_bytes() for name in names)
+          print("joined",len(joined),hashlib.sha256(joined).hexdigest())
+          PY
             git config user.name "poly-pmna-bot"
             git config user.email "actions@users.noreply.github.com"
             git add reports/rev2026-batch-generator-error.txt
