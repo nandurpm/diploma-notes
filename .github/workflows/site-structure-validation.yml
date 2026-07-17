@@ -1,0 +1,41 @@
+name: Site Structure Validation
+
+on:
+  pull_request:
+    paths:
+      - "*.html"
+      - "assets/js/**"
+      - "assets/css/**"
+      - "tools/validate_site_structure.py"
+      - ".github/workflows/site-structure-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "assets/js/**"
+      - "assets/css/**"
+      - "tools/validate_site_structure.py"
+      - ".github/workflows/site-structure-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate site structure
+        run: python tools/validate_site_structure.py
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-structure-validation
+          path: reports/site-structure-validation.json
+          if-no-files-found: warn
