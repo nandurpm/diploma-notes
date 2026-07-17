@@ -5,18 +5,36 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-LESSONS_DIR = ROOT / "lessons"
+LESSON_DIRS = (
+    ROOT / "lessons",
+    ROOT / "revision-2026-content" / "lessons",
+)
 ASSISTANT_SCRIPT = '<script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>'
 ASSISTANT_ROOT = '<div id="polySiteAssistant"></div>'
-NAV_FIX_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260630-1" defer></script>'
+LESSON_STANDARD_SCRIPT = '<script src="/assets/js/lesson-navigation-fix.js?v=20260717-fullscreen3" defer></script>'
 MARKER = "Ask POLY lesson assistant"
-NAV_MARKER = "Lesson navigation back-button fix"
+STANDARD_MARKER = "Shared full-screen lesson standard"
 SITE_ASSISTANT_TAG_RE = re.compile(r"<script\b[^>]*src=[\"'][^\"']*site-assistant\.js[^\"']*[\"'][^>]*>\s*</script>", re.I)
+LESSON_STANDARD_TAG_RE = re.compile(r"<script\b[^>]*src=[\"'][^\"']*lesson-navigation-fix\.js[^\"']*[\"'][^>]*>\s*</script>", re.I)
 
 
 def update_page(path: Path) -> bool:
     source = path.read_text(encoding="utf-8")
     updated = source
+
+    existing_standard = LESSON_STANDARD_TAG_RE.search(updated)
+    if existing_standard:
+        updated = updated[: existing_standard.start()] + LESSON_STANDARD_SCRIPT + updated[existing_standard.end() :]
+    else:
+        assistant_match = SITE_ASSISTANT_TAG_RE.search(updated)
+        if assistant_match:
+            replacement = f"{LESSON_STANDARD_SCRIPT}\n  {assistant_match.group(0)}"
+            updated = updated[: assistant_match.start()] + replacement + updated[assistant_match.end() :]
+        elif "</body>" in updated:
+            snippet = f"\n  <!-- {STANDARD_MARKER} -->\n  {LESSON_STANDARD_SCRIPT}\n"
+            updated = updated.replace("</body>", f"{snippet}</body>", 1)
+        else:
+            updated = f"{updated.rstrip()}\n<!-- {STANDARD_MARKER} -->\n{LESSON_STANDARD_SCRIPT}\n"
 
     if "site-assistant.js" not in updated:
         assistant_snippet = (
@@ -29,20 +47,6 @@ def update_page(path: Path) -> bool:
         else:
             updated = f"{updated.rstrip()}\n{assistant_snippet}"
 
-    if "lesson-navigation-fix.js" not in updated:
-        match = SITE_ASSISTANT_TAG_RE.search(updated)
-        if match:
-            replacement = f"{NAV_FIX_SCRIPT}\n  {match.group(0)}"
-            updated = updated[:match.start()] + replacement + updated[match.end():]
-        elif "</body>" in updated:
-            nav_snippet = (
-                f"\n  <!-- {NAV_MARKER} -->\n"
-                f"  {NAV_FIX_SCRIPT}\n"
-            )
-            updated = updated.replace("</body>", f"{nav_snippet}</body>", 1)
-        else:
-            updated = f"{updated.rstrip()}\n<!-- {NAV_MARKER} -->\n{NAV_FIX_SCRIPT}\n"
-
     if updated == source:
         return False
     path.write_text(updated, encoding="utf-8")
@@ -50,19 +54,21 @@ def update_page(path: Path) -> bool:
 
 
 def lesson_pages() -> list[Path]:
-    if not LESSONS_DIR.exists():
-        return []
-    return sorted(path for path in LESSONS_DIR.rglob("*.html") if path.is_file())
+    pages: list[Path] = []
+    for directory in LESSON_DIRS:
+        if directory.exists():
+            pages.extend(path for path in directory.glob("lessons-*.html") if path.is_file())
+    return sorted(pages)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Attach the lesson-aware Ask POLY assistant and lesson navigation fix to every lesson HTML page."
+        description="Attach the shared full-screen lesson standard and Ask POLY assistant to every REV2021 and REV2026 lesson."
     )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Fail when one or more lesson pages do not load required lesson scripts.",
+        help="Fail when a lesson page does not load the required shared scripts.",
     )
     args = parser.parse_args()
 
@@ -72,20 +78,28 @@ def main() -> int:
         return 0
 
     if args.check:
-        missing = []
+        missing: list[str] = []
+        stale: list[str] = []
         for path in pages:
-            text = path.read_text(encoding="utf-8")
+            text = path.read_text(encoding="utf-8", errors="ignore")
+            relative = str(path.relative_to(ROOT))
             if "site-assistant.js" not in text or "lesson-navigation-fix.js" not in text:
-                missing.append(str(path.relative_to(ROOT)))
+                missing.append(relative)
+            if "20260717-fullscreen3" not in text:
+                stale.append(relative)
         if missing:
             print("Required lesson scripts are missing from:")
             print("\n".join(missing))
             return 1
-        print(f"Verified Ask POLY and navigation fix on {len(pages)} lesson pages.")
+        if stale:
+            print("Shared lesson runtime version is stale in:")
+            print("\n".join(stale))
+            return 1
+        print(f"Verified full-screen lesson standard on {len(pages)} lesson pages.")
         return 0
 
     changed = sum(update_page(path) for path in pages)
-    print(f"Updated {changed} of {len(pages)} lesson pages.")
+    print(f"Updated {changed} of {len(pages)} lesson pages across REV2021 and REV2026.")
     return 0
 
 
