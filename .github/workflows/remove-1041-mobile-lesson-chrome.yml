@@ -1,0 +1,60 @@
+name: Remove Course 1041 mobile lesson chrome
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/remove_1041_mobile_lesson_chrome.py'
+      - '.github/workflows/remove-1041-mobile-lesson-chrome.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: remove-course-1041-mobile-lesson-chrome
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate repair script
+        run: python -m py_compile tools/remove_1041_mobile_lesson_chrome.py
+      - name: Remove lesson header and sidebar from mobile/APK
+        run: python tools/remove_1041_mobile_lesson_chrome.py
+      - name: Validate final Course 1041 layout
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('revision-2026-content/lessons/lessons-1041.html').read_text(encoding='utf-8')
+          required = [
+              '<meta name="revision" content="REV2026">',
+              '<meta name="course-code" content="1041">',
+              'Course 1041 mobile/APK content-only layout',
+              '.lesson-header,.chapter-nav,.native-handbook-menu,.nav-arrows{display:none!important',
+              'html.polytechnic-native-app .chapter-nav',
+          ]
+          forbidden = [
+              '1041-native-app-header-fix-v1',
+              'id="nativeHandbookMenu"',
+              '1041-native-handbook-controls',
+          ]
+          missing = [item for item in required if item not in text]
+          remaining = [item for item in forbidden if item in text]
+          if missing or remaining:
+              raise SystemExit(f'Validation failed. Missing={missing}; remaining={remaining}')
+          print('Course 1041 content-only mobile/APK layout validated.')
+          PY
+      - name: Commit repair and remove one-time runner
+        run: |
+          git config user.name 'poly-pmna-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add revision-2026-content/lessons/lessons-1041.html
+          git rm tools/remove_1041_mobile_lesson_chrome.py .github/workflows/remove-1041-mobile-lesson-chrome.yml
+          git commit -m 'Remove Course 1041 lesson header and sidebar on mobile'
+          git push
