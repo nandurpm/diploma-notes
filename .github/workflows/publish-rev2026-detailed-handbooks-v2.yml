@@ -1,0 +1,142 @@
+name: Publish detailed REV2026 handbooks v2
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".rev2026-v2-trigger"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rev2026-detailed-v2-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out publishing branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Decode and verify five handbook payloads
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, hashlib, zlib
+
+          expected = {
+              "1003": (255789, "08867d711f7b380fcbee1791454e2777970ad456fcebc3fba35a1b384b0108fe"),
+              "1008": (320906, "9dcf06020aa4167646c12395bcfd875432edb75c251698d329f71daa0466c22d"),
+              "1031": (333705, "a4ef2cbf5aa0360a7670f0e3e64c6feab93a5d62fc2b7dfaf78b9fdddd98b316"),
+              "2031": (346280, "ceeb9248bff12b402288446baed031463bc62637cb1926579f712ac3ba9a77be"),
+              "2032": (366300, "461864905fcf2daa18a055b4b541b54911b0dc71def9ba53900967243274e396"),
+          }
+          payload_dir = Path("tools/rev2026-detailed-v2-payloads")
+          output_dir = Path("revision-2026-content/lessons")
+          output_dir.mkdir(parents=True, exist_ok=True)
+          for code, (expected_size, expected_sha) in expected.items():
+              encoded = (payload_dir / f"{code}.zb64").read_text(encoding="ascii").strip()
+              data = zlib.decompress(base64.b64decode(encoded))
+              actual_sha = hashlib.sha256(data).hexdigest()
+              if len(data) != expected_size:
+                  raise SystemExit(f"{code}: size mismatch {len(data)} != {expected_size}")
+              if actual_sha != expected_sha:
+                  raise SystemExit(f"{code}: SHA-256 mismatch {actual_sha}")
+              target = output_dir / f"lessons-{code}.html"
+              target.write_bytes(data)
+              print(f"Decoded {target}: {len(data):,} bytes")
+          PY
+
+      - name: Validate handbook structure and content depth
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import re
+
+          class Parser(HTMLParser):
+              pass
+
+          minimum = {"1003": 250000, "1008": 315000, "1031": 330000, "2031": 340000, "2032": 360000}
+          for code, min_size in minimum.items():
+              path = Path(f"revision-2026-content/lessons/lessons-{code}.html")
+              text = path.read_text(encoding="utf-8")
+              required = (
+                  f'content="{code}"', 'content="REV2026"',
+                  "Module I", "Module II", "Module III", "Module IV",
+                  "Print / Save PDF", "autoPrintNotes", "Question Bank",
+                  "Expected questions", "Self-learning schedule",
+                  "Assessment readiness", "Official syllabus coverage checklist",
+                  "Malayalam concept support", "Applied example / procedure",
+              )
+              missing = [item for item in required if item not in text]
+              if missing:
+                  raise SystemExit(f"{code}: missing markers {missing}")
+              if len(text.encode("utf-8")) < min_size:
+                  raise SystemExit(f"{code}: file is too small")
+              if len(re.findall(r'class="module-panel"', text)) != 4:
+                  raise SystemExit(f"{code}: module panel count is not four")
+              if len(re.findall(r'class="chapter searchable"', text)) < 18:
+                  raise SystemExit(f"{code}: insufficient detailed chapters")
+              if len(re.findall(r'<details', text)) < 250:
+                  raise SystemExit(f"{code}: insufficient micro-learning/question entries")
+              if not any("\u0d00" <= ch <= "\u0d7f" for ch in text):
+                  raise SystemExit(f"{code}: Malayalam content missing")
+              Parser().feed(text)
+              print(f"Validated {code}: {len(text):,} chars")
+          PY
+
+      - name: Validate inline JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          temp = Path("/tmp/rev2026-v2-js")
+          temp.mkdir(exist_ok=True)
+          for code in ("1003", "1008", "1031", "2031", "2032"):
+              text = Path(f"revision-2026-content/lessons/lessons-{code}.html").read_text(encoding="utf-8")
+              for index, script in enumerate(re.findall(r"<script>(.*?)</script>", text, re.S)):
+                  (temp / f"{code}-{index}.js").write_text(script, encoding="utf-8")
+          PY
+          for file in /tmp/rev2026-v2-js/*.js; do node --check "$file"; done
+
+      - name: Synchronize availability and generated programme pages
+        run: |
+          python tools/update_asset_manifest.py
+          python tools/build_revision_2026_pages.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Commit detailed handbooks to PR branch
+        env:
+          TARGET_BRANCH: ${{ github.head_ref }}
+        run: |
+          git config user.name "poly-pmna-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add \
+            revision-2026-content/lessons/lessons-1003.html \
+            revision-2026-content/lessons/lessons-1008.html \
+            revision-2026-content/lessons/lessons-1031.html \
+            revision-2026-content/lessons/lessons-2031.html \
+            revision-2026-content/lessons/lessons-2032.html \
+            assets/js/subject-browser.js \
+            assets/js/asset-manifest.js \
+            revision-2026/*.html
+          git rm -r --ignore-unmatch tools/rev2026-detailed-v2-payloads
+          git rm --ignore-unmatch .rev2026-v2-trigger .github/workflows/publish-rev2026-detailed-handbooks-v2.yml
+          git commit -m "Rebuild five REV2026 lessons as detailed handbooks"
+          git pull --rebase origin "${TARGET_BRANCH}"
+          git push origin HEAD:"${TARGET_BRANCH}"
