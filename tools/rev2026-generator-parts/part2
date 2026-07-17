@@ -1,102 +1,36 @@
- fill="#7c3aed"/>
-        </svg><figcaption>{escape(title)} — simplified engineering circuit. Verify polarity and instrument connection before use.</figcaption></figure>'''
-    return generic_svg("flow",title,accent)
+BASE_JS = '\n(() => {\n  const qs=s=>document.querySelector(s), qsa=s=>[...document.querySelectorAll(s)];\n  const body=document.body;\n  const ua=navigator.userAgent||"";\n  if(window.ReactNativeWebView || /POLY.?PMNA/i.test(ua) || new URLSearchParams(location.search).get("app")==="1") body.classList.add("app-embed");\n  const progress=qs("#progressBar");\n  const updateProgress=()=>{const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;progress.style.width=(max?Math.min(100,h.scrollTop/max*100):0)+"%";};\n  addEventListener("scroll",updateProgress,{passive:true});updateProgress();\n  qs("#themeBtn")?.addEventListener("click",()=>body.classList.toggle("dark"));\n  qs("#motionBtn")?.addEventListener("click",()=>body.classList.toggle("reduced"));\n  const expand=()=>qsa("details").forEach(d=>d.open=true);\n  const collapse=()=>qsa(".topic").forEach(d=>d.open=false);\n  qs("#expandBtn")?.addEventListener("click",expand);\n  qs("#collapseBtn")?.addEventListener("click",collapse);\n  const preparePrint=()=>{expand();body.classList.add("print-mode");qsa("svg .flow-dot,svg .pulse-dot").forEach(n=>n.style.animation="none");};\n  const doPrint=()=>{preparePrint();document.title="downloadable-notes-"+body.dataset.course;setTimeout(()=>window.print(),500);};\n  qsa("[data-print]").forEach(b=>b.addEventListener("click",doPrint));\n  addEventListener("afterprint",()=>body.classList.remove("print-mode"));\n  const search=qs("#lessonSearch");\n  search?.addEventListener("input",()=>{const term=search.value.trim().toLowerCase();qsa(".topic,.question-card,.formula-card,.practical-card").forEach(el=>{el.style.display=!term||el.textContent.toLowerCase().includes(term)?"":"none";});});\n  const auto=new URLSearchParams(location.search).get("autoPrintNotes")==="1";\n  if(auto){addEventListener("load",()=>setTimeout(doPrint,1000));}\n})();\n'
+
+def html_list(items, cls=""):
+    return f'<ul class="{cls}">' + ''.join(f'<li>{escape(str(x))}</li>' for x in items) + '</ul>'
 
 
-def make_question_blocks(module, module_no):
-    topics=[t["title"] for t in module["topics"]]
-    q1=[]
-    q3=[]
-    q7=[]
-    mcq=[]
-    for i,t in enumerate(topics[:8],1):
-        q1.append((f"Define or identify {t}.", f"A correct one-line definition or labelled identification of {t}."))
-    for i,t in enumerate(topics[:5],1):
-        q3.append((f"Explain {t} with one suitable example or diagram.", f"State the principle, explain key steps/parts, and give one relevant example."))
-    for i,t in enumerate(topics[:3],1):
-        q7.append((f"Discuss {t} in detail, including principle, procedure/derivation, diagram and applications.", f"Use a structured answer: definition, principle, labelled diagram/derivation, key equations or rules, applications and precautions."))
-    opts=["It is always independent of conditions","It follows the stated engineering definition","It has no practical use","It is only a decorative term"]
-    for i,t in enumerate(topics[:5],1):
-        mcq.append((f"Which statement best describes {t}?",opts,1))
-    def qcards(items, mark):
-        s=[]
-        for i,(q,a) in enumerate(items,1):
-            s.append(f'<article class="question-card"><span class="qmeta">{mark} mark{"s" if mark!=1 else ""} • M{module_no}</span><h4>Q{i}. {escape(q)}</h4><details><summary>Answer guide</summary><p>{escape(a)}</p></details></article>')
-        return ''.join(s)
-    m=[]
-    for i,(q,opts,ans) in enumerate(mcq,1):
-        lis=''.join(f'<li>{chr(65+j)}. {escape(o)}</li>' for j,o in enumerate(opts))
-        m.append(f'<article class="question-card"><span class="qmeta">MCQ • M{module_no}</span><h4>Q{i}. {escape(q)}</h4><ol class="options">{lis}</ol><details><summary>Answer</summary><p><strong>{chr(65+ans)}</strong> — {escape(opts[ans])}</p></details></article>')
-    return f'''
-    <h3>One-mark practice</h3><div class="question-grid">{qcards(q1,1)}</div>
-    <h3>Three-mark practice</h3><div class="question-grid">{qcards(q3,3)}</div>
-    <h3>Seven-mark practice</h3><div class="question-grid">{qcards(q7,7)}</div>
-    <h3>MCQs</h3><div class="question-grid">{''.join(m)}</div>
-    '''
-
-
-def topic_html(topic, idx, module_no, accent):
-    title=topic["title"]
-    expl=topic.get("explanation","")
-    points=topic.get("points",[])
-    ml=topic.get("ml","")
-    formula=topic.get("formula","")
-    app=topic.get("application","")
-    diagram=topic.get("diagram","")
-    out=[f'<details class="topic" id="m{module_no}-t{idx}" open><summary><span>{idx}. {escape(title)}</span><span class="summary-tag">Learn</span></summary><div class="topic-body">']
-    if expl: out.append(f'<p>{expl}</p>')
-    if points: out.append(html_list(points,"key-list"))
-    if formula: out.append(f'<div class="formula"><strong>Formula / Rule</strong><div>{formula}</div></div>')
-    if ml: out.append(f'<div class="ml"><strong>Malayalam explanation:</strong> {ml}</div>')
-    if app: out.append(f'<div class="application"><strong>Engineering application:</strong> {app}</div>')
-    if diagram: out.append(diagram)
-    out.append('</div></details>')
-    return ''.join(out)
-
-
-def build_handbook(course):
-    code=course["code"]; title=course["title"]
-    cover_vars=f'--cover1:{course.get("cover1","#071f3f")};--cover2:{course.get("cover2","#0b4b91")};--cover3:{course.get("cover3","#6d28d9")}'
-    nav_links=['overview']+[f'module-{i}' for i in range(1,len(course["modules"])+1)]+['reference','questions','self-learning','assessment','sources']
-    nav_names=['Overview']+[f'Module {i}' for i in range(1,len(course["modules"])+1)]+['Reference Bank','Questions','Self-Learning','Assessment','References']
-    nav=''.join(f'<a href="#{a}">{b}</a>' for a,b in zip(nav_links,nav_names))
-    co_cards=''.join(f'<article class="card"><h3>{escape(k)}</h3><p>{escape(v)}</p></article>' for k,v in course["cos"].items())
-    module_rows=''.join(f'<tr><td>Module {i}</td><td>{escape(m["title"])}</td><td>{escape(str(m.get("hours","")))}</td><td>{escape(m.get("co",f"CO{i}"))}</td></tr>' for i,m in enumerate(course["modules"],1))
-    roadmap='<div class="roadmap">' + ''.join(f'<a href="#module-{i}">{escape(m["title"])}</a><i>→</i>' for i,m in enumerate(course["modules"],1)) + '<a href="#questions">Exam Ready</a></div>'
-    modules_html=[]
-    all_questions=[]
-    for i,m in enumerate(course["modules"],1):
-        topic_parts=''.join(topic_html(t,j,i,course.get("accent","#0ea5e9")) for j,t in enumerate(m["topics"],1))
-        coverage=''.join(f'<li>{escape(x)}</li>' for x in m.get("coverage",[]))
-        practicals=''
-        if m.get("practicals"):
-            pcards=[]
-            for p in m["practicals"]:
-                steps=p.get("steps",["Study the aim and required resources.","Prepare the setup safely.","Carry out the procedure systematically.","Record observations and verify the result."])
-                pcards.append(f'''<article class="practical-card"><h3>{escape(p["title"])}</h3><p><strong>Aim:</strong> {escape(p.get("aim","Apply the module concept in a structured activity."))}</p>
-                <p><strong>Apparatus / resources:</strong> {escape(p.get("apparatus","As specified by the laboratory or drawing exercise."))}</p>
-                <ol>{''.join(f'<li>{escape(s)}</li>' for s in steps)}</ol>
-                <p><strong>Record:</strong> Aim, diagram/setup, procedure, observation/output, calculation where required, result, precautions and viva.</p></article>''')
-            practicals=f'<h3>Practical / drawing / lab activities</h3><div class="practical-grid">{"".join(pcards)}</div>'
-        diagrams=''.join(generic_svg(d.get("kind","flow"),d.get("title",m["title"]),d.get("accent",course.get("accent","#0ea5e9"))) for d in m.get("diagrams",[]))
-        questions=make_question_blocks(m,i)
-        all_questions.append(f'<section class="question-module"><h2>Module {i}: {escape(m["title"])}</h2>{questions}</section>')
-        modules_html.append(f'''<section class="module" id="module-{i}" style="--module-color:{m.get("color",course.get("accent","#0ea5e9"))}">
-        <div class="module-head"><div><p class="kicker">Module {i}</p><h2>{escape(m["title"])}</h2><p class="lead">{escape(m.get("intro",""))}</p></div>
-        <div class="module-meta"><span>{escape(str(m.get("hours","Official hours")))}</span><span>{escape(m.get("co",f"CO{i}"))}</span><span>{len(m["topics"])} core chapters</span></div></div>
-        <div class="remember"><strong>Module goal:</strong> {escape(m.get("goal",m.get("intro","")))}</div>
-        {topic_parts}
-        {f'<h3>Diagrams and animated concept views</h3><div class="diagram-grid">{diagrams}</div>' if diagrams else ''}
-        {practicals}
-        <details class="topic" open><summary><span>Official syllabus coverage checklist</span><span class="summary-tag">Verified</span></summary><div class="topic-body"><ul class="coverage">{coverage}</ul></div></details>
-        <h3>Module quick revision</h3><div class="grid three"><article class="card"><h4>Remember</h4>{html_list(m.get("remember",m.get("coverage",[])[:5]))}</article><article class="card"><h4>Common mistakes</h4>{html_list(m.get("mistakes",["Ignoring units or standards.","Skipping the labelled diagram or intermediate step.","Using a formula/rule outside its stated conditions."]))}</article><article class="card"><h4>Professional application</h4><p>{escape(m.get("professional","The concepts support measurement, design, testing, troubleshooting and engineering communication."))}</p></article></div>
-        </section>''')
-    formulas=''.join(f'''<article class="formula-card"><h3>{escape(f["name"])}</h3><div class="formula">{f["formula"]}</div><p>{escape(f.get("use",""))}</p><p class="source-note"><strong>Symbols/conditions:</strong> {escape(f.get("symbols","Refer to the module explanation."))}</p></article>''' for f in course.get("formulas",[]))
-    selflearn=''.join(f'<article class="card"><h3>Week {i}</h3><p>{escape(x)}</p></article>' for i,x in enumerate(course.get("self_learning",[]),1))
-    resources=''.join(f'<li>{escape(r)}</li>' for r in course.get("resources",[]))
-    html=f'''<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="{course.get("cover1","#071f3f")}"><meta name="description" content="Complete Revision 2026 {escape(title)} handbook for Course {code}, with Malayalam support, diagrams, animations, solved examples, expected questions and print/PDF support.">
-<meta name="course-code" content="{code}"><meta name="curriculum" content="REV2026"><link rel="canonical" href="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-{code}.html">
-<title>{escape(title)} {code} | Revision 2026 | POLY PMNA</title><style>{BASE_CSS}</style></head>
-<body data-course
+def generic_svg(kind, title, accent="#0ea5e9"):
+    if kind=="flow":
+        return f'''<figure class="diagram"><svg viewBox="0 0 760 210" role="img" aria-label="{escape(title)} flowchart">
+        <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{accent}"/></marker></defs>
+        <rect x="20" y="70" width="150" height="70" rx="18" fill="#e0f2fe" stroke="{accent}" stroke-width="3"/><text x="95" y="105" text-anchor="middle" font-size="18" font-weight="700">Input</text>
+        <path d="M170 105 H295" stroke="{accent}" stroke-width="5" marker-end="url(#arr)"/>
+        <rect x="305" y="50" width="150" height="110" rx="18" fill="#f0fdfa" stroke="#14b8a6" stroke-width="3"/><text x="380" y="95" text-anchor="middle" font-size="18" font-weight="700">Process</text><text x="380" y="122" text-anchor="middle" font-size="14">Analyse • Apply</text>
+        <path d="M455 105 H580" stroke="{accent}" stroke-width="5" marker-end="url(#arr)"/>
+        <rect x="590" y="70" width="150" height="70" rx="18" fill="#fef3c7" stroke="#f59e0b" stroke-width="3"/><text x="665" y="105" text-anchor="middle" font-size="18" font-weight="700">Result</text>
+        <circle class="pulse-dot" cx="230" cy="105" r="8" fill="#7c3aed"/><circle class="pulse-dot delay" cx="515" cy="105" r="8" fill="#7c3aed"/>
+        </svg><figcaption>{escape(title)} — concept flow from input to verified result.</figcaption></figure>'''
+    if kind=="wave":
+        return f'''<figure class="diagram"><svg viewBox="0 0 760 260" role="img" aria-label="{escape(title)} waveform">
+        <line x1="40" y1="130" x2="730" y2="130" stroke="#64748b" stroke-width="2"/><line x1="70" y1="30" x2="70" y2="230" stroke="#64748b" stroke-width="2"/>
+        <path class="wave-path" d="M70 130 C120 35 170 35 220 130 S320 225 370 130 S470 35 520 130 S620 225 690 130" fill="none" stroke="{accent}" stroke-width="6"/>
+        <text x="705" y="150" font-size="15">time</text><text x="15" y="35" font-size="15">value</text>
+        </svg><figcaption>{escape(title)} — animated waveform. The print view freezes the informative frame.</figcaption></figure>'''
+    if kind=="graph":
+        return f'''<figure class="diagram"><svg viewBox="0 0 760 300" role="img" aria-label="{escape(title)} graph">
+        <line x1="70" y1="250" x2="710" y2="250" stroke="#334155" stroke-width="3"/><line x1="70" y1="250" x2="70" y2="35" stroke="#334155" stroke-width="3"/>
+        <path class="draw-path" d="M75 240 C180 235 230 215 310 175 S470 90 690 55" fill="none" stroke="{accent}" stroke-width="6"/>
+        <g fill="{accent}"><circle cx="170" cy="225" r="7"/><circle cx="310" cy="175" r="7"/><circle cx="470" cy="105" r="7"/><circle cx="690" cy="55" r="7"/></g>
+        <text x="690" y="276" font-size="15">x</text><text x="42" y="42" font-size="15">y</text>
+        </svg><figcaption>{escape(title)} — labelled relationship graph.</figcaption></figure>'''
+    if kind=="circuit":
+        return f'''<figure class="diagram"><svg viewBox="0 0 760 250" role="img" aria-label="{escape(title)} circuit diagram">
+        <line x1="80" y1="70" x2="210" y2="70" stroke="#0f172a" stroke-width="5"/><line x1="80" y1="70" x2="80" y2="190" stroke="#0f172a" stroke-width="5"/><line x1="80" y1="190" x2="680" y2="190" stroke="#0f172a" stroke-width="5"/><line x1="680" y1="190" x2="680" y2="70" stroke="#0f172a" stroke-width="5"/><line x1="550" y1="70" x2="680" y2="70" stroke="#0f172a" stroke-width="5"/>
+        <line x1="55" y1="105" x2="105" y2="105" stroke="{accent}" stroke-width="6"/><line x1="65" y1="125" x2="95" y2="125" stroke="{accent}" stroke-width="3"/><text x="30" y="120" font-size="15">Source</text>
+        <path d="M210 70 h35 l12 -22 l24 44 l24 -44 l24 44 l24 -44 l24 44 l12 -22 h35" fill="none" stroke="{accent}" stroke-width="5"/><text x="300" y="35" font-size="17">Load / Network</text>
+        <circle class="flow-dot" cx="120" cy="70" r="9"
