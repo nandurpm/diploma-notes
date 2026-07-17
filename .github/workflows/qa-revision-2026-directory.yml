@@ -9,6 +9,7 @@ on:
       - "revision-2026.html"
       - "assets/css/revision-2026-directory.css"
       - "assets/js/revision-2026-browser.js"
+      - "assets/js/lesson-availability-hotfix.js"
       - "tools/build_revision_2026_pages.py"
       - "tools/qa_revision_2026_directory.mjs"
       - ".github/workflows/qa-revision-2026-directory.yml"
