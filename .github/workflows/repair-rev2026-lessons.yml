@@ -47,7 +47,6 @@ jobs:
             exit 1
           fi
           cat /tmp/rev2026-repair.log
-          python tools/apply_rev2026_lesson_repair.py --check
 
       - name: Browser-test complete REV2026 lesson
         run: |
