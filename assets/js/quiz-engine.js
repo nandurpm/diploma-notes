@@ -3,7 +3,7 @@
   const R = window.PolyQuizResults;
   const A = window.PolyQuizAuth;
   const $ = (id) => document.getElementById(id);
-  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c]));
+  const esc = window.PolyUtils.escapeHtml;
 
   let current = [];
   let subject = '';
