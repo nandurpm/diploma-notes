@@ -189,7 +189,11 @@
     const initialQuery = new URLSearchParams(location.search).get("q") || "";
     if (initialQuery) search.value = initialQuery;
 
-    search.addEventListener("input", () => draw());
+    let timer = 0;
+    search.addEventListener("input", () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => draw(), 100);
+    });
     search.addEventListener("keydown", event => {
       if (event.key === "Escape" && search.value) {
         event.preventDefault();
@@ -247,7 +251,12 @@
       });
       if (empty) empty.hidden = visibleTotal !== 0;
     };
-    search?.addEventListener("input", draw);
+    let timer = 0;
+    const debouncedDraw = () => {
+      clearTimeout(timer);
+      timer = setTimeout(draw, 100);
+    };
+    search?.addEventListener("input", debouncedDraw);
     semester?.addEventListener("change", draw);
     draw();
     return true;

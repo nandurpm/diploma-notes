@@ -74,8 +74,13 @@
       items.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
       if (items.length) renderGroups(grid, items);
     };
+    let timer = 0;
+    const debouncedRender = () => {
+      clearTimeout(timer);
+      timer = setTimeout(render, 100);
+    };
     render();
-    search?.addEventListener("input", render);
+    search?.addEventListener("input", debouncedRender);
     semester?.addEventListener("change", render);
   }
 
