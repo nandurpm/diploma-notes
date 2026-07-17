@@ -6,7 +6,7 @@
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
   const REV2026_INDEX = `${SITTTR_BASE}?r=site%2Fdiploma-modelqp&scheme=REV2026`;
   let programmeLookup = null;
-  const VALIDATION_VERSION = "20260717-model-paper-navigation2";
+  const VALIDATION_VERSION = "20260718-model-paper-navigation3";
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -33,13 +33,8 @@
     `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses&prog=${encodeURIComponent(programmeCode)}`;
 
   function bindReliableOfficialNavigation(link) {
-    if (!link || link.dataset.officialNavigationBound === "true") return;
-    link.dataset.officialNavigationBound = "true";
-    link.addEventListener("click", event => {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-      location.assign(link.href);
-    }, true);
+    if (!link) return;
+    link.dataset.officialNavigationBound = "native-anchor";
   }
 
   function configureOfficialLink(link, href, text, title) {
@@ -144,7 +139,7 @@
     rebuildModelPaperNotice(notice);
 
     if (!programmeLookup) {
-      programmeLookup = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260717-model-paper-navigation2`, { cache: "no-store" })
+      programmeLookup = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260718-model-paper-navigation3`, { cache: "no-store" })
         .then(response => response.ok ? response.json() : null)
         .catch(() => null);
     }

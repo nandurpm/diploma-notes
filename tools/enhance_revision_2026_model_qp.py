@@ -65,8 +65,8 @@ def normalise_subject_card(match: re.Match[str]) -> str:
 def enhance(path: Path) -> tuple[bool, int]:
     original = path.read_text(encoding="utf-8")
     updated, card_count = ARTICLE_RE.subn(normalise_subject_card, original)
-    updated = updated.replace(">Sample QP</a>", ">Model Question Paper</a>")
-    updated = updated.replace(">Sample Question Paper</a>", ">Model Question Paper</a>")
+    updated = updated.replace(">Sample QP</a>", ">Open Model Question Paper</a>")
+    updated = updated.replace(">Sample Question Paper</a>", ">Open Model Question Paper</a>")
 
     if 'id="rev2026-model-qp-access"' not in updated:
         page_title = updated.find('<section class="page-title')

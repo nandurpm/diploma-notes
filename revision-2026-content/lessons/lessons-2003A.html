@@ -208,5 +208,5 @@ function setupUI(){const side=document.getElementById('sidebar'),menu=document.g
 function autoPrint(){if(new URLSearchParams(location.search).get('autoPrintNotes')!=='1')return;const run=async()=>{try{await document.fonts.ready}catch{}preparePrint();await new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));setTimeout(()=>print(),700)};if(document.readyState==='complete')run();else addEventListener('load',run,{once:true})}
 renderRoadmap();renderModules();renderExperiments();renderFormulas();renderCalcs();renderDiagrams();renderAnimations();renderExamples();renderQuestions();renderExam();renderWeeks();renderApplications();setupNavigation();setupSearch();setupUI();autoPrint();
 </script>
-<script src="/assets/js/lesson-navigation-fix.js?v=20260717-fullscreen3" defer></script></body>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260718-fullscreen4" defer></script></body>
 </html>
