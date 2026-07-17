@@ -1,34 +1,35 @@
 name: Publish REV2026 batch lesson handbooks
 
 on:
-  push:
+  pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened]
     paths:
-      - "tools/rev2026-course-payload/**"
-      - "tools/rev2026-generator-parts/**"
-      - ".github/workflows/publish-rev2026-batch-lessons.yml"
-  issues:
-    types: [opened]
+      - ".rev2026-batch-trigger"
+      - "revision-2026-content/lessons/lessons-1003.html"
+      - "revision-2026-content/lessons/lessons-1008.html"
+      - "revision-2026-content/lessons/lessons-1031.html"
+      - "revision-2026-content/lessons/lessons-2031.html"
+      - "revision-2026-content/lessons/lessons-2032.html"
   workflow_dispatch:
 
 permissions:
   contents: write
-  issues: write
 
 concurrency:
-  group: publish-rev2026-batch-lessons
+  group: publish-rev2026-batch-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
 jobs:
   publish:
-    if: github.event_name != 'issues' || github.event.issue.title == 'Run REV2026 batch lesson publisher'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out repository
+      - name: Check out source branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -45,10 +46,19 @@ jobs:
             > /tmp/publish_rev2026_batch.py
           python -m py_compile /tmp/publish_rev2026_batch.py
 
-      - name: Generate and validate lesson handbooks
+      - name: Generate and validate separate lesson handbooks
         run: python /tmp/publish_rev2026_batch.py
 
-      - name: Commit generated handbooks and remove one-time publisher
+      - name: Synchronize lesson availability and generated department pages
+        run: |
+          python tools/update_asset_manifest.py
+          python tools/build_revision_2026_pages.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Commit generated handbooks to pull-request branch
+        env:
+          HEAD_REF: ${{ github.head_ref }}
         run: |
           git config user.name "poly-pmna-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -57,16 +67,13 @@ jobs:
             revision-2026-content/lessons/lessons-1008.html \
             revision-2026-content/lessons/lessons-1031.html \
             revision-2026-content/lessons/lessons-2031.html \
-            revision-2026-content/lessons/lessons-2032.html
-          git add revision-2026/*.html || true
-          git rm -r tools/rev2026-course-payload tools/rev2026-generator-parts
-          git rm .github/workflows/publish-rev2026-batch-lessons.yml
+            revision-2026-content/lessons/lessons-2032.html \
+            assets/js/subject-browser.js \
+            assets/js/asset-manifest.js \
+            revision-2026/*.html
+          if git diff --cached --quiet; then
+            echo "Generated handbooks are already current."
+            exit 0
+          fi
           git commit -m "Add five complete REV2026 lesson handbooks"
-          git pull --rebase origin main
-          git push origin HEAD:main
-
-      - name: Close one-time trigger issue
-        if: github.event_name == 'issues'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh issue close "${{ github.event.issue.number }}" --repo "${{ github.repository }}" --comment "Batch lesson publishing completed."
+          git push origin HEAD:"${HEAD_REF}"
