@@ -54,14 +54,16 @@ jobs:
         env:
           HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
         run: |
-          rm .github/workflows/publish-rev2026-generated-once.yml
           git add assets/js/lesson-navigation-fix.js assets/js/lesson-availability-hotfix.js
           git add assets/css/lesson-page-fix.css
           git add tools/update_lesson_assistant.py tools/validate_lesson_fullscreen.py
           git add tools/build_revision_2026_pages.py tools/enhance_revision_2026_model_qp.py
           git add .github/workflows/update-lesson-assistant.yml
           git add lessons revision-2026-content/lessons revision-2026.html revision-2026
-          git add -u .github/workflows/publish-rev2026-generated-once.yml
+          if git diff --cached --quiet; then
+            echo "Generated repair output is already committed."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Apply generated REV2026 lesson and model-paper repair"
