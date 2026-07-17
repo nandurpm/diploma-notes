@@ -53,7 +53,7 @@ jobs:
           p = Path('/tmp/publish_rev2026_batch.py')
           text = p.read_text()
           old = '("courses.part1","courses.part2")'
-          new = 'tuple(f"courses.part{i}" for i in range(1,9))'
+          new = '("courses.part1","courses.part2","courses.part3","courses.part4","courses.part5","courses.part6a","courses.part6b","courses.part6c","courses.part6d","courses.part7a","courses.part7rest","courses.part8a2","courses.part8b2")'
           if old not in text:
               raise SystemExit('Payload reader marker not found')
           p.write_text(text.replace(old, new, 1))
