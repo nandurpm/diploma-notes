@@ -1,0 +1,14 @@
+{
+  "courses": ["1003", "1008", "1031", "2031", "2032"],
+  "purpose": "Replace brief notebook-style pages with complete syllabus-mapped Revision 2026 handbooks",
+  "requirements": [
+    "four module panels",
+    "detailed coverage of every official syllabus area",
+    "subject-specific worked examples and procedures",
+    "Malayalam concept support",
+    "module question banks and answers",
+    "official self-learning schedule",
+    "course-specific assessment readiness",
+    "full print/PDF and autoPrintNotes behavior"
+  ]
+}
