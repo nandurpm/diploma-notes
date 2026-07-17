@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260717-fixed-header-restore1";
+  const VERSION = "20260717-old-header-final2";
   const SITE_NAME = "POLY PMNA";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
