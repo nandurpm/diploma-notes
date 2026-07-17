@@ -6,13 +6,18 @@ on:
     paths:
       - "tools/rev2026-handbook-generator.zb64"
       - ".github/workflows/publish-rev2026-batch-lessons.yml"
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+    paths:
+      - ".rev2026-publish-trigger"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: publish-rev2026-batch-lessons-main
+  group: publish-rev2026-batch-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -20,11 +25,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out main
+      - name: Check out publishing branch
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: main
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -106,7 +111,9 @@ jobs:
           print("All five lesson files are registered as available.")
           PY
 
-      - name: Commit generated handbooks to main
+      - name: Commit generated handbooks
+        env:
+          TARGET_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
         run: |
           git config user.name "poly-pmna-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -131,5 +138,5 @@ jobs:
           fi
 
           git commit -m "Add five complete REV2026 lesson handbooks"
-          git pull --rebase origin main
-          git push origin HEAD:main
+          git pull --rebase origin "${TARGET_BRANCH}"
+          git push origin HEAD:"${TARGET_BRANCH}"
