@@ -22,3 +22,34 @@ body.revision-2026-directory-page .revision-programme-card[data-official-code="M
 body.revision-2026-directory-page .revision-programme-card[data-official-code="TT"]{--dept-accent:#be123c;--dept-accent-2:#7c3aed;--dept-surface:#fff0f5;--dept-mark:"WEAVE"} body.revision-2026-directory-page .revision-programme-card[data-official-code="TD"]{--dept-accent:#374151;--dept-accent-2:#dc2626;--dept-surface:#f4f5f7;--dept-mark:"DIE"} body.revision-2026-directory-page .revision-programme-card[data-official-code="WP"]{--dept-accent:#92400e;--dept-accent-2:#15803d;--dept-surface:#fff5e8;--dept-mark:"WOOD"}
 @media(max-width:700px){body.revision-2026-directory-page .revision-programme-card::after{right:10px!important;bottom:-5px!important;font-size:clamp(3rem,16vw,4.8rem)!important}}
 @media(prefers-reduced-motion:reduce){body.revision-2026-directory-page .revision-programme-card::after{transform:none}}
+
+/* Generated Revision 2026 artwork replaces the former code/word watermark. */
+body.revision-2026-directory-page .revision-programme-card.department-visual-card {
+  border-color: color-mix(in srgb, var(--dept-accent) 24%, #fff) !important;
+  background-color: #fff !important;
+  background-image:
+    linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,.99) 42%, rgba(255,255,255,.94) 58%, rgba(255,255,255,.70) 76%, rgba(255,255,255,.16) 100%),
+    var(--department-art) !important;
+  background-repeat: no-repeat !important;
+  background-position: center, right center !important;
+  background-size: 100% 100%, cover !important;
+  box-shadow: 0 13px 34px rgba(20,45,90,.11), inset 0 0 0 1px rgba(255,255,255,.58) !important;
+}
+body.revision-2026-directory-page .revision-programme-card.department-visual-card::after {
+  display: none !important;
+  content: none !important;
+}
+body.revision-2026-directory-page .revision-programme-card.department-visual-card h2,
+body.revision-2026-directory-page .revision-programme-card.department-visual-card p {
+  position: relative;
+  z-index: 2;
+  text-shadow: 0 1px 0 #fff, 0 0 12px rgba(255,255,255,.96);
+}
+@media(max-width:620px) {
+  body.revision-2026-directory-page .revision-programme-card.department-visual-card {
+    background-image:
+      linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,.99) 50%, rgba(255,255,255,.92) 68%, rgba(255,255,255,.54) 100%),
+      var(--department-art) !important;
+    background-position: center, 72% center !important;
+  }
+}
