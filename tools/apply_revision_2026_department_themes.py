@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 PAGE = Path("revision-2026.html")
-THEME_HREF = "/assets/css/revision-2026-department-themes.css?v=20260716-rev2026-department-themes1"
+THEME_HREF = "/assets/css/revision-2026-department-themes.css?v=20260717-site-shell1"
 THEME_LINK = f'<link rel="stylesheet" href="{THEME_HREF}">'
 
 

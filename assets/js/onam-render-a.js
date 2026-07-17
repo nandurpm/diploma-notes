@@ -2,7 +2,7 @@
   "use strict";
 
   const ASSET_VERSION = "20260704-banner6";
-  const REV2026_THEME_VERSION = "20260716-rev2026-department-themes1";
+  const REV2026_THEME_VERSION = "20260717-site-shell1";
 
   const ONAM_DATES = [
     "2026-08-25",
