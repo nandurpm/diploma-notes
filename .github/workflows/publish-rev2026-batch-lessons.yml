@@ -46,6 +46,7 @@ jobs:
             tools/rev2026-generator-parts/part4 \
             tools/rev2026-generator-parts/part5 \
             > /tmp/publish_rev2026_batch.py
+          sed -i 's/"Expected Questions"/"Expected questions"/; s/"Syllabus Coverage Checklist"/"Official syllabus coverage checklist"/' /tmp/publish_rev2026_batch.py
           python -m py_compile /tmp/publish_rev2026_batch.py
 
       - name: Generate and validate separate lesson handbooks
