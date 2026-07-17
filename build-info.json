@@ -1,6 +1,6 @@
 {
-  "commit": "c9ac54d527e1a4b132aacfd333e27fd565a6dc62",
-  "builtAt": "2026-06-30T00:00:00Z",
+  "commit": "6d09871bff97e7ba4c280232c8ad36e4b9519ff0",
+  "builtAt": "2026-07-17T16:47:07Z",
   "branch": "main",
-  "release": "notes-visible-20260630"
+  "release": "site-architecture-audit-remediation-20260717"
 }
