@@ -1,81 +1,83 @@
-="{code}" style="{cover_vars}">
-<a class="skip" href="#main">Skip to lesson</a><div class="progress"><span id="progressBar"></span></div>
-<nav class="lesson-nav" aria-label="Lesson navigation"><a class="lesson-brand" href="/revision-2026.html"><b>PM</b><span>POLY PMNA</span></a><div class="navlinks">{nav}<button id="expandBtn">Expand all</button><button id="collapseBtn">Collapse</button></div><div class="navtools"><button id="themeBtn" aria-label="Toggle dark mode">◐</button><button id="motionBtn" aria-label="Toggle reduced motion">◉</button></div></nav>
-<main class="shell" id="main">
-<section class="cover" id="cover"><div><div class="badges"><span class="badge">Diploma Curriculum Revision 2026</span><span class="badge">Course {code}</span><span class="badge">{escape(course["type"])}</span></div>
-<h1>{escape(title)}</h1><p class="subtitle">{escape(course["subtitle"])}</p><div class="actions"><a class="btn primary" href="#overview">Start Learning</a><a class="btn light" href="#reference">Quick Reference</a><button class="btn ghost" data-print>Print / Save PDF</button></div></div>
-<aside class="cover-card"><dl><dt>Semester</dt><dd>{escape(course["semester"])}</dd><dt>Teaching Scheme</dt><dd>{escape(course["scheme"])}</dd><dt>Contact Hours</dt><dd>{escape(str(course["contact"]))}</dd><dt>Credits</dt><dd>{escape(str(course["credits"]))}</dd><dt>CIE</dt><dd>{escape(str(course["cie"]))}</dd><dt>ESE</dt><dd>{escape(str(course["ese"]))}</dd><dt>Modules</dt><dd>{len(course["modules"])}</dd></dl></aside></section>
-<section class="hb-section" id="overview"><p class="kicker">Course Dashboard</p><h2>Learn the complete official syllabus</h2><p class="lead">{escape(course["intro"])}</p>
-<div class="grid four"><article class="card stat"><strong>{len(course["modules"])}</strong>Modules</article><article class="card stat"><strong>{sum(len(m["topics"]) for m in course["modules"])}</strong>Core chapters</article><article class="card stat"><strong>{len(course.get("formulas",[]))}</strong>Reference rules/formulas</article><article class="card stat"><strong>100%</strong>Syllabus mapping target</article></div>
-<h3>Course Outcomes</h3><div class="grid four">{co_cards}</div>
-<h3>Teaching and module map</h3><div class="table-wrap"><table><thead><tr><th>Module</th><th>Title</th><th>Hours</th><th>CO</th></tr></thead><tbody>{module_rows}</tbody></table></div>
-<h3>Learning roadmap</h3>{roadmap}
-<div class="ml"><strong>Malayalam guide:</strong> ഈ handbook-ൽ technical terms English-ൽ തന്നെയാണ് ഉപയോഗിച്ചിരിക്കുന്നത്. ബുദ്ധിമുട്ടുള്ള concepts-ന് താഴെ ചെറിയ Malayalam explanation നൽകിയിട്ടുണ്ട്.</div>
-<div class="application"><strong>How to use:</strong> Read the concept, inspect the labelled diagram, follow the formula/rule, work through examples, complete the activity, then answer the module questions.</div>
-<label for="lessonSearch"><strong>Search inside handbook</strong></label><input id="lessonSearch" type="search" placeholder="Search a concept, formula, experiment or question" style="width:100%;margin-top:7px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink)"></section>
-{''.join(modules_html)}
-<section class="hb-section" id="reference"><p class="kicker">Reference Bank</p><h2>{escape(course.get("reference_title","Formula, Rule and Standard Bank"))}</h2><p class="lead">Use each item only under the conditions stated in the related module.</p><div class="formula-grid">{formulas}</div>
-<h3>Master concept flow</h3>{generic_svg("flow",title+" learning workflow",course.get("accent","#0ea5e9"))}</section>
-<section class="hb-section" id="questions"><p class="kicker">Examination Preparation</p><h2>Expected questions and answer guides</h2><div class="mistake"><strong>Important:</strong> These are practice/expected questions created from the official syllabus. They are not official SITTTR question papers.</div>{''.join(all_questions)}</section>
-<section class="hb-section" id="self-learning"><p class="kicker">Student Activities</p><h2>Official self-learning and professional tasks</h2><div class="grid three">{selflearn}</div></section>
-<section class="hb-section" id="assessment"><p class="kicker">Assessment</p><h2>Preparation checklist</h2>
-<div class="grid three"><article class="card"><h3>Before the exam</h3>{html_list(["Cover every official module.","Revise formulas, rules, diagrams and definitions.","Practise the official mark pattern.","Check units, labels and stepwise working."])}</article><article class="card"><h3>For practical/drawing work</h3>{html_list(["Prepare the aim and setup.","Follow safety and standard procedure.","Record observations/output neatly.","Verify result and prepare viva answers."])}</article><article class="card"><h3>Print/PDF</h3><p>The Print / Save PDF control expands every chapter and answer, freezes animations, removes navigation and prints the complete handbook in A4 format.</p></article></div>
-<div class="table-wrap"><table><thead><tr><th>Item</th><th>Official value</th></tr></thead><tbody><tr><td>Course type</td><td>{escape(course["type"])}</td></tr><tr><td>Teaching scheme</td><td>{escape(course["scheme"])}</td></tr><tr><td>Contact hours</td><td>{escape(str(course["contact"]))}</td></tr><tr><td>CIE / ESE</td><td>{escape(str(course["cie"]))} / {escape(str(course["ese"]))}</td></tr><tr><td>Question / evaluation pattern</td><td>{escape(course.get("assessment","Follow the official syllabus assessment table."))}</td></tr></tbody></table></div></section>
-<section class="hb-section" id="sources"><p class="kicker">References</p><h2>Learning resources and official source declaration</h2><ul>{resources}</ul><p class="source-note">Academic scope and course identity are based on the supplied official SITTTR Kerala Diploma Curriculum Revision 2026 syllabus PDF for Course {code}. Additional explanations, diagrams and questions are original learning aids and are clearly presented as handbook content.</p>
-<div class="actions screen-only"><button class="btn primary" data-print>Print complete handbook</button><a class="btn light" href="/revision-2026.html">Back to Revision 2026</a></div></section>
-<footer class="footer">POLY PMNA • Revision 2026 • Course {code} • {escape(title)}</footer>
-</main><script>{BASE_JS}</script></body></html>'''
-    return html
+ fill="#7c3aed"/>
+        </svg><figcaption>{escape(title)} — simplified engineering circuit. Verify polarity and instrument connection before use.</figcaption></figure>'''
+    return generic_svg("flow",title,accent)
 
 
-def fail(message):
-    raise SystemExit(message)
+def make_question_blocks(module, module_no):
+    topics=[t["title"] for t in module["topics"]]
+    q1=[]
+    q3=[]
+    q7=[]
+    mcq=[]
+    for i,t in enumerate(topics[:8],1):
+        q1.append((f"Define or identify {t}.", f"A correct one-line definition or labelled identification of {t}."))
+    for i,t in enumerate(topics[:5],1):
+        q3.append((f"Explain {t} with one suitable example or diagram.", f"State the principle, explain key steps/parts, and give one relevant example."))
+    for i,t in enumerate(topics[:3],1):
+        q7.append((f"Discuss {t} in detail, including principle, procedure/derivation, diagram and applications.", f"Use a structured answer: definition, principle, labelled diagram/derivation, key equations or rules, applications and precautions."))
+    opts=["It is always independent of conditions","It follows the stated engineering definition","It has no practical use","It is only a decorative term"]
+    for i,t in enumerate(topics[:5],1):
+        mcq.append((f"Which statement best describes {t}?",opts,1))
+    def qcards(items, mark):
+        s=[]
+        for i,(q,a) in enumerate(items,1):
+            s.append(f'<article class="question-card"><span class="qmeta">{mark} mark{"s" if mark!=1 else ""} • M{module_no}</span><h4>Q{i}. {escape(q)}</h4><details><summary>Answer guide</summary><p>{escape(a)}</p></details></article>')
+        return ''.join(s)
+    m=[]
+    for i,(q,opts,ans) in enumerate(mcq,1):
+        lis=''.join(f'<li>{chr(65+j)}. {escape(o)}</li>' for j,o in enumerate(opts))
+        m.append(f'<article class="question-card"><span class="qmeta">MCQ • M{module_no}</span><h4>Q{i}. {escape(q)}</h4><ol class="options">{lis}</ol><details><summary>Answer</summary><p><strong>{chr(65+ans)}</strong> — {escape(opts[ans])}</p></details></article>')
+    return f'''
+    <h3>One-mark practice</h3><div class="question-grid">{qcards(q1,1)}</div>
+    <h3>Three-mark practice</h3><div class="question-grid">{qcards(q3,3)}</div>
+    <h3>Seven-mark practice</h3><div class="question-grid">{qcards(q7,7)}</div>
+    <h3>MCQs</h3><div class="question-grid">{''.join(m)}</div>
+    '''
 
-payload = "".join((PAYLOAD_DIR / name).read_text().strip() for name in ("courses.part1","courses.part2"))
-courses = json.loads(zlib.decompress(base64.b64decode(payload)).decode("utf-8"))
-codes = ("1003","1008","1031","2031","2032")
-LESSONS.mkdir(parents=True, exist_ok=True)
 
-for code in codes:
-    if code not in courses:
-        fail(f"Missing course data: {code}")
-    text = build_handbook(courses[code])
-    required = [
-        f'data-course="{code}"',
-        f'<meta name="course-code" content="{code}">',
-        "REV2026", "Malayalam", "Print / Save PDF", "autoPrintNotes",
-        "Expected Questions", "Syllabus Coverage Checklist"
-    ]
-    missing = [item for item in required if item not in text]
-    if missing:
-        fail(f"{code} missing markers: {missing}")
-    if text.count('class="module"') < 4:
-        fail(f"{code} has fewer than four modules")
-    if len(text.encode("utf-8")) < 50000:
-        fail(f"{code} handbook is unexpectedly small")
-    if any(host in text for host in ("cdn.jsdelivr.net","cdnjs.cloudflare.com","unpkg.com","fonts.googleapis.com")):
-        fail(f"{code} uses a blocked external dependency")
-    target = LESSONS / f"lessons-{code}.html"
-    target.write_text(text, encoding="utf-8")
-    print(f"Wrote {target.relative_to(ROOT)} ({target.stat().st_size:,} bytes)")
+def topic_html(topic, idx, module_no, accent):
+    title=topic["title"]
+    expl=topic.get("explanation","")
+    points=topic.get("points",[])
+    ml=topic.get("ml","")
+    formula=topic.get("formula","")
+    app=topic.get("application","")
+    diagram=topic.get("diagram","")
+    out=[f'<details class="topic" id="m{module_no}-t{idx}" open><summary><span>{idx}. {escape(title)}</span><span class="summary-tag">Learn</span></summary><div class="topic-body">']
+    if expl: out.append(f'<p>{expl}</p>')
+    if points: out.append(html_list(points,"key-list"))
+    if formula: out.append(f'<div class="formula"><strong>Formula / Rule</strong><div>{formula}</div></div>')
+    if ml: out.append(f'<div class="ml"><strong>Malayalam explanation:</strong> {ml}</div>')
+    if app: out.append(f'<div class="application"><strong>Engineering application:</strong> {app}</div>')
+    if diagram: out.append(diagram)
+    out.append('</div></details>')
+    return ''.join(out)
 
-existing = LESSONS / "lessons-1002.html"
-if not existing.exists() or existing.stat().st_size < 50000:
-    fail("Existing REV2026 Course 1002 handbook is missing or incomplete; it was intentionally preserved.")
 
-pages = list((ROOT / "revision-2026").glob("*.html"))
-page_text = "\n".join(p.read_text(encoding="utf-8", errors="ignore") for p in pages)
-required_cards = ("1002","1003","1008","1031","2031","2032")
-missing_cards = [code for code in required_cards if f'data-subject-code="{code}"' not in page_text]
-if missing_cards:
-    print("Missing cards; rebuilding generated REV2026 pages:", ", ".join(missing_cards))
-    subprocess.run([sys.executable, str(ROOT / "tools" / "build_revision_2026_pages.py")], cwd=ROOT, check=True)
-    pages = list((ROOT / "revision-2026").glob("*.html"))
-    page_text = "\n".join(p.read_text(encoding="utf-8", errors="ignore") for p in pages)
-    still_missing = [code for code in required_cards if f'data-subject-code="{code}"' not in page_text]
-    if still_missing:
-        fail(f"Subject cards remain missing after rebuild: {still_missing}")
-else:
-    print("All six subject cards already exist; no duplicate cards created.")
-
-print("Batch handbook generation and validation passed.")
+def build_handbook(course):
+    code=course["code"]; title=course["title"]
+    cover_vars=f'--cover1:{course.get("cover1","#071f3f")};--cover2:{course.get("cover2","#0b4b91")};--cover3:{course.get("cover3","#6d28d9")}'
+    nav_links=['overview']+[f'module-{i}' for i in range(1,len(course["modules"])+1)]+['reference','questions','self-learning','assessment','sources']
+    nav_names=['Overview']+[f'Module {i}' for i in range(1,len(course["modules"])+1)]+['Reference Bank','Questions','Self-Learning','Assessment','References']
+    nav=''.join(f'<a href="#{a}">{b}</a>' for a,b in zip(nav_links,nav_names))
+    co_cards=''.join(f'<article class="card"><h3>{escape(k)}</h3><p>{escape(v)}</p></article>' for k,v in course["cos"].items())
+    module_rows=''.join(f'<tr><td>Module {i}</td><td>{escape(m["title"])}</td><td>{escape(str(m.get("hours","")))}</td><td>{escape(m.get("co",f"CO{i}"))}</td></tr>' for i,m in enumerate(course["modules"],1))
+    roadmap='<div class="roadmap">' + ''.join(f'<a href="#module-{i}">{escape(m["title"])}</a><i>→</i>' for i,m in enumerate(course["modules"],1)) + '<a href="#questions">Exam Ready</a></div>'
+    modules_html=[]
+    all_questions=[]
+    for i,m in enumerate(course["modules"],1):
+        topic_parts=''.join(topic_html(t,j,i,course.get("accent","#0ea5e9")) for j,t in enumerate(m["topics"],1))
+        coverage=''.join(f'<li>{escape(x)}</li>' for x in m.get("coverage",[]))
+        practicals=''
+        if m.get("practicals"):
+            pcards=[]
+            for p in m["practicals"]:
+                steps=p.get("steps",["Study the aim and required resources.","Prepare the setup safely.","Carry out the procedure systematically.","Record observations and verify the result."])
+                pcards.append(f'''<article class="practical-card"><h3>{escape(p["title"])}</h3><p><strong>Aim:</strong> {escape(p.get("aim","Apply the module concept in a structured activity."))}</p>
+                <p><strong>Apparatus / resources:</strong> {escape(p.get("apparatus","As specified by the laboratory or drawing exercise."))}</p>
+                <ol>{''.join(f'<li>{escape(s)}</li>' for s in steps)}</ol>
+                <p><strong>Record:</strong> Aim, diagram/setup, procedure, observation/output, calculation where required, result, precautions and viva.</p></article>''')
+            practicals=f'<h3>Practical / drawing / lab activities</h3><div class="practical-grid">{"".join(pcards)}</div>'
+        diagrams=''.join(generic_svg(d.get("kind","flow"),d.get("title",m["title"]),d.get("accent",course.get("accent","#0ea5e9"))) for d in m.get("diagrams",[]))
+        questions=make_question_blocks(m,i)
+        all_questions.append(f'<section cla
