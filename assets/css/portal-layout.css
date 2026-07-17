@@ -10,6 +10,11 @@ body.portal-page main {
   padding-inline: var(--portal-gutter) !important;
 }
 
+/* Remove double horizontal/inline padding on breadcrumbs when nested within main container */
+body.portal-page main .site-breadcrumbs {
+  padding-inline: 0 !important;
+}
+
 body.portal-page main > section,
 body.portal-page main > article,
 body.portal-page main > div,

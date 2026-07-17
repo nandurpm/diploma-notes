@@ -433,11 +433,16 @@ p { color: var(--muted); line-height: 1.68; }
 .filters select:focus { outline: 4px solid rgba(29,78,216,.13); border-color: var(--blue); }
 .subject-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
 .subject-card {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 11px;
   padding: 20px;
   border-radius: 26px;
   background: linear-gradient(180deg, #ffffff, #f8fbff);
+}
+
+.subject-card .action-row {
+  margin-top: auto !important;
 }
 .subject-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
 .subject-top span,
