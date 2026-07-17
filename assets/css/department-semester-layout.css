@@ -102,6 +102,12 @@
 .department-semester-grid .subject-card {
   min-width: 0;
   height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.department-semester-grid .subject-card .action-row {
+  margin-top: auto !important;
 }
 
 /* Compact subject finder shared by every department page. */
