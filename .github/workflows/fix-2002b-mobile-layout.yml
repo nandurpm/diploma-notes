@@ -1,0 +1,112 @@
+name: Fix 2002B mobile layout
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/fix-2002b-mobile-layout.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    if: github.event.head_commit.message == 'Add one-time 2002B mobile layout fixer'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove mobile whitespace and add Malayalam summaries
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('revision-2026-content/lessons/lessons-2002B.html')
+          text = path.read_text(encoding='utf-8')
+
+          marker = 'data-mobile-fix="v2"'
+          if marker in text:
+              print('2002B mobile fix is already applied.')
+              raise SystemExit(0)
+
+          css = r'''
+          /* 2002B mobile/app viewport correction */
+          .topbar{position:sticky;top:4px}
+          .shell{padding:8px 6px 24px}
+          .cover .cover-ml{max-width:920px;margin:12px 0 0;padding:10px 12px;background:rgba(255,255,255,.12);color:#eef6ff;border-left-color:#67e8f9;line-height:1.75}
+          .module-ml{margin:-4px 0 14px;line-height:1.75}
+          @media(max-width:980px){
+            .shell{grid-template-columns:1fr;padding:4px 3px 18px;gap:8px}
+            .cover{gap:14px}
+          }
+          @media(max-width:620px){
+            .shell{padding:2px 1px 14px}
+            .cover,.hb-section,.module-panel{padding:14px;border-radius:12px;margin-bottom:10px}
+            .cover{gap:12px}
+            .cover h1{font-size:clamp(1.78rem,8.3vw,2.18rem);line-height:1.06;margin:12px 0 8px}
+            .cover .subtitle{font-size:1rem;line-height:1.55}
+            .cover .cover-ml{font-size:.94rem;margin-top:10px;padding:9px 10px}
+            .badge-row{gap:6px}
+            .badge{padding:5px 8px;font-size:.78rem}
+            .cover-actions{margin-top:14px;gap:8px}
+            .cover-actions .btn{padding:10px 12px;min-height:42px}
+            .cover-card{padding:14px}
+            .cover-card dl{gap:5px 10px}
+            .module-meta{margin-bottom:12px}
+          }
+          '''
+          text = text.replace('</style>', css + '\n</style>', 1)
+
+          old_cover = '<p class="subtitle">Interactive Theory, Laboratory, Numerical and Examination Handbook with Malayalam concept support.</p>'
+          new_cover = old_cover + '<p class="ml cover-ml" data-mobile-fix="v2"><strong>Malayalam:</strong> Mechanics, Fluid Dynamics, Rotational Motion, Wave Motion, Semiconductor Physics, Photoelectric Effect, Laser എന്നീ concepts theory, numerical problems, diagrams, animations, laboratory experiments എന്നിവയുമായി ബന്ധപ്പെടുത്തി ലളിതമായി പഠിക്കാനായുള്ള വലിയ handbook ആണ്.</p>'
+          if old_cover not in text:
+              raise SystemExit('Cover subtitle anchor was not found.')
+          text = text.replace(old_cover, new_cover, 1)
+
+          old_overview = '<p class="lead">Applied Physics connects measurable physical laws with electrical technology, computing hardware, instrumentation and engineering practice. The handbook follows the official Revision 2026 Course 2002B syllabus and combines theory, experiments, formulas, diagrams, numericals and examination preparation.</p>'
+          new_overview = old_overview + '<div class="ml"><strong>Malayalam overview:</strong> Physics laws മനപ്പാഠമാക്കുന്നത് മാത്രം അല്ല; ഓരോ concept-ഉം electrical technology, computing, measurement, laboratory work എന്നിവയിൽ എങ്ങനെ ഉപയോഗിക്കുന്നു എന്ന് diagrams, solved numericals, experiments എന്നിവയിലൂടെ മനസ്സിലാക്കുകയാണ് ഈ handbook-ന്റെ ലക്ഷ്യം.</div>'
+          if old_overview not in text:
+              raise SystemExit('Overview anchor was not found.')
+          text = text.replace(old_overview, new_overview, 1)
+
+          replacements = {
+              '<section class="module-panel" id="module1" style="--module-color:var(--blue)"><div class="kicker">Module I</div><h2>Mechanics</h2><div class="module-meta"><span>10 Theory Hours</span><span>CO1</span><span>4 Listed Experiments</span></div>':
+              '<section class="module-panel" id="module1" style="--module-color:var(--blue)"><div class="kicker">Module I</div><h2>Mechanics</h2><div class="module-meta"><span>10 Theory Hours</span><span>CO1</span><span>4 Listed Experiments</span></div><div class="ml module-ml"><strong>Malayalam overview:</strong> Units, Vector, Motion, Newton’s Laws, Momentum, Work, Energy, Power എന്നിവ engineering motion problems analyse ചെയ്യാൻ ഉപയോഗിക്കുന്ന രീതിയാണ് ഈ Module വിശദീകരിക്കുന്നത്.</div>',
+              '<section class="module-panel" id="module2" style="--module-color:var(--teal)"><div class="kicker">Module II</div><h2>Properties of Matter and Thermodynamics</h2><div class="module-meta"><span>10 Theory Hours</span><span>CO2</span><span>4 Listed Experiments</span></div>':
+              '<section class="module-panel" id="module2" style="--module-color:var(--teal)"><div class="kicker">Module II</div><h2>Properties of Matter and Thermodynamics</h2><div class="module-meta"><span>10 Theory Hours</span><span>CO2</span><span>4 Listed Experiments</span></div><div class="ml module-ml"><strong>Malayalam overview:</strong> Elasticity, Stress, Strain, Fluid Flow, Bernoulli’s Theorem, Viscosity, Heat Transfer എന്നിവ material-ുകളുടെയും fluid-ുകളുടെയും practical behaviour മനസ്സിലാക്കാൻ സഹായിക്കുന്നു.</div>',
+              '<section class="module-panel" id="module3" style="--module-color:var(--violet)"><div class="kicker">Module III</div><h2>Rotational and Wave Motion</h2><div class="module-meta"><span>11 Theory Hours</span><span>CO3</span><span>5 Listed Experiments</span></div>':
+              '<section class="module-panel" id="module3" style="--module-color:var(--violet)"><div class="kicker">Module III</div><h2>Rotational and Wave Motion</h2><div class="module-meta"><span>11 Theory Hours</span><span>CO3</span><span>5 Listed Experiments</span></div><div class="ml module-ml"><strong>Malayalam overview:</strong> Circular Motion, Moment of Inertia, Torque, Angular Momentum, SHM, Wave Motion എന്നിവ rotating machines, vibration, sound എന്നീ applications-നോട് ബന്ധപ്പെടുത്തി പഠിക്കുന്നു.</div>',
+              '<section class="module-panel" id="module4" style="--module-color:var(--amber)"><div class="kicker">Module IV</div><h2>Modern Physics</h2><div class="module-meta"><span>10 Theory Hours</span><span>CO4</span><span>2 Listed Experiments</span></div>':
+              '<section class="module-panel" id="module4" style="--module-color:var(--amber)"><div class="kicker">Module IV</div><h2>Modern Physics</h2><div class="module-meta"><span>10 Theory Hours</span><span>CO4</span><span>2 Listed Experiments</span></div><div class="ml module-ml"><strong>Malayalam overview:</strong> Semiconductor, Doping, PN Junction, Photoelectric Effect, Photon, Laser എന്നീ concepts electronic devices, sensors, computing hardware എന്നിവയുടെ അടിസ്ഥാനമാണ്.</div>',
+          }
+          for old, new in replacements.items():
+              if old not in text:
+                  raise SystemExit(f'Module anchor not found: {old[:80]}')
+              text = text.replace(old, new, 1)
+
+          path.write_text(text, encoding='utf-8')
+          print('Updated', path)
+          PY
+
+      - name: Validate handbook HTML markers
+        run: |
+          grep -q 'data-mobile-fix="v2"' revision-2026-content/lessons/lessons-2002B.html
+          grep -q 'Malayalam overview' revision-2026-content/lessons/lessons-2002B.html
+          grep -q '.topbar{position:sticky' revision-2026-content/lessons/lessons-2002B.html
+
+      - name: Commit and push the correction
+        run: |
+          if git diff --quiet -- revision-2026-content/lessons/lessons-2002B.html; then
+            echo "No correction was required."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-2002B.html
+          git commit -m "Fix 2002B mobile spacing and Malayalam support"
+          git pull --rebase origin main
+          git push origin HEAD:main
