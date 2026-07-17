@@ -282,6 +282,41 @@ body.revision-2026-directory-page .revision-directory-hero > .revision-directory
 .revision-programme-card:nth-child(8n + 7) { --dept-accent: #334155; --dept-accent-2: #0f766e; }
 .revision-programme-card:nth-child(8n + 8) { --dept-accent: #4338ca; --dept-accent-2: #7c3aed; }
 
+body.revision-2026-directory-page .revision-programme-card.department-visual-card {
+  border-color: color-mix(in srgb, var(--dept-accent) 24%, #ffffff) !important;
+  background-color: #ffffff !important;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, .99) 42%,
+      rgba(255, 255, 255, .94) 58%,
+      rgba(255, 255, 255, .70) 76%,
+      rgba(255, 255, 255, .16) 100%
+    ),
+    var(--department-art) !important;
+  background-repeat: no-repeat !important;
+  background-position: center, right center !important;
+  background-size: 100% 100%, cover !important;
+  box-shadow:
+    0 13px 34px rgba(20, 45, 90, .11),
+    inset 0 0 0 1px rgba(255, 255, 255, .58) !important;
+}
+
+body.revision-2026-directory-page .revision-programme-card.department-visual-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+body.revision-2026-directory-page .revision-programme-card.department-visual-card h2,
+body.revision-2026-directory-page .revision-programme-card.department-visual-card p {
+  position: relative;
+  z-index: 2;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 1),
+    0 0 12px rgba(255, 255, 255, .96);
+}
+
 .revision-programme-card:hover,
 .revision-programme-card:focus-visible {
   transform: translateY(-4px);
@@ -322,6 +357,7 @@ body.revision-2026-directory-page .revision-directory-hero > .revision-directory
 }
 
 .revision-programme-arrow {
+  position: relative;
   display: grid;
   place-items: center;
   width: 38px;
@@ -330,9 +366,28 @@ body.revision-2026-directory-page .revision-directory-hero > .revision-directory
   border-radius: 13px;
   color: var(--dept-accent);
   background: color-mix(in srgb, var(--dept-accent) 7%, #ffffff);
-  font-size: 1.1rem;
+  font-size: 0;
   font-weight: 900;
   transition: transform .18s ease;
+}
+
+.revision-programme-arrow::before {
+  width: 14px;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  content: "";
+}
+
+.revision-programme-arrow::after {
+  position: absolute;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  content: "";
+  transform: rotate(45deg);
 }
 
 .revision-programme-card:hover .revision-programme-arrow,
@@ -543,6 +598,19 @@ body.revision-2026-directory-page .revision-directory-hero > .revision-directory
     min-height: 170px;
     padding: 17px;
     border-radius: 20px;
+  }
+
+  body.revision-2026-directory-page .revision-programme-card.department-visual-card {
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, .99) 50%,
+        rgba(255, 255, 255, .92) 68%,
+        rgba(255, 255, 255, .54) 100%
+      ),
+      var(--department-art) !important;
+    background-position: center, 72% center !important;
   }
 
   .revision-programme-card h2 {

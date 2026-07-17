@@ -1,8 +1,48 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260716-rev2026-directory-v2";
+  const VERSION = "20260717-rev2026-department-art-v3";
   const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
+  const PROGRAMME_ART = {
+    "architecture": ["#0f5ea8", "#0e7490"],
+    "artificial-intelligence": ["#4f46e5", "#7c3aed"],
+    "artificial-intelligence-and-machine-learning": ["#4338ca", "#2563eb"],
+    "automation-and-robotics": ["#334155", "#0f766e"],
+    "automobile-engineering": ["#b91c1c", "#f97316"],
+    "biomedical-engineering": ["#0f766e", "#06b6d4"],
+    "chemical-engineering": ["#b45309", "#d97706"],
+    "civil-and-environmental-engineering": ["#15803d", "#0891b2"],
+    "civil-and-rural-engineering": ["#4d7c0f", "#0e7490"],
+    "civil-engineering": ["#1d4ed8", "#0891b2"],
+    "civil-engineering-and-planning": ["#1e40af", "#6366f1"],
+    "commercial-practice": ["#9a3412", "#d97706"],
+    "computer-application-and-business-management": ["#6d28d9", "#2563eb"],
+    "computer-engineering": ["#1e3a8a", "#2563eb"],
+    "computer-science-and-engineering": ["#4f46e5", "#7c3aed"],
+    "computer-science-and-technology": ["#0f766e", "#0891b2"],
+    "cyber-forensics-and-information-security": ["#0f172a", "#2563eb"],
+    "electrical-and-electronics-engineering": ["#c2410c", "#2563eb"],
+    "electrical-engineering": ["#1e3a8a", "#0e7490"],
+    "electrical-engineering-and-electric-vehicles-technology": ["#15803d", "#84cc16"],
+    "electronics-and-communication": ["#0369a1", "#06b6d4"],
+    "electronics-and-computer-engineering": ["#4338ca", "#2563eb"],
+    "electronics-engineering": ["#b45309", "#1d4ed8"],
+    "fire-technology-and-safety": ["#b91c1c", "#f97316"],
+    "food-processing-technology": ["#166534", "#65a30d"],
+    "information-technology": ["#1d4ed8", "#0284c7"],
+    "instrumentation-engineering": ["#0f5c6e", "#2563eb"],
+    "integrated-circuit-design-and-fabrication": ["#6d28d9", "#2563eb"],
+    "interior-design": ["#7c2d12", "#a16207"],
+    "mechanical-engineering": ["#334155", "#0891b2"],
+    "mechatronics": ["#0f766e", "#2563eb"],
+    "micro-electronics": ["#5b21b6", "#7c3aed"],
+    "polymer-technology": ["#1d4ed8", "#2563eb"],
+    "printing-technology": ["#be123c", "#f59e0b"],
+    "robotic-process-automation": ["#4f46e5", "#06b6d4"],
+    "textile-technology": ["#92400e", "#0f766e"],
+    "tool-and-die-engineering": ["#334155", "#d97706"],
+    "wood-and-paper-technology": ["#854d0e", "#65a30d"]
+  };
   const esc = value => String(value ?? "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
@@ -85,6 +125,22 @@
 
     const cards = [...grid.querySelectorAll("[data-programme-card]")];
     const total = cards.length;
+
+    cards.forEach(card => {
+      const programmeSlug = card.dataset.programmeSlug || "";
+      const colors = PROGRAMME_ART[programmeSlug];
+      if (!colors) {
+        card.classList.add("department-art-missing");
+        return;
+      }
+      card.classList.add("department-visual-card");
+      card.style.setProperty("--dept-accent", colors[0]);
+      card.style.setProperty("--dept-accent-2", colors[1]);
+      card.style.setProperty(
+        "--department-art",
+        `url("/assets/media/departments/rev2026/${programmeSlug}.webp?v=${VERSION}")`
+      );
+    });
 
     const updateUrl = query => {
       try {
