@@ -492,7 +492,11 @@ function localMathAnswer(message) {
           responseId: ""
         };
       }
-    } catch (_) {}
+    } catch (error) {
+      // A solver that cannot handle this input should not abort the fallback chain,
+      // but log it so genuine solver bugs are not hidden.
+      console.warn(`Ask POLY local-math solver ${solver.name || "anonymous"} failed`, error);
+    }
   }
   return null;
 }
