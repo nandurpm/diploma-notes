@@ -5,7 +5,9 @@
   overflow: hidden;
   min-height: 260px;
   padding: clamp(24px, 2.2vw, 34px);
+  border-color: color-mix(in srgb, var(--department-accent, #2563eb) 24%, #ffffff);
   background: #ffffff;
+  box-shadow: 0 13px 34px rgba(20, 45, 90, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.58);
 }
 
 .revision-department-grid .choice-card.department-visual-card::before {
@@ -24,9 +26,10 @@
     linear-gradient(
       90deg,
       rgba(255, 255, 255, 0.99) 0%,
-      rgba(255, 255, 255, 0.97) 34%,
-      rgba(255, 255, 255, 0.83) 58%,
-      rgba(255, 255, 255, 0.35) 100%
+      rgba(255, 255, 255, 0.97) 36%,
+      rgba(255, 255, 255, 0.86) 54%,
+      rgba(255, 255, 255, 0.58) 72%,
+      rgba(255, 255, 255, 0.12) 100%
     ),
     var(--department-art);
   background-repeat: no-repeat;
@@ -63,7 +66,7 @@
   line-height: 1.08;
   letter-spacing: -0.045em;
   text-wrap: balance;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 0 #ffffff, 0 0 12px rgba(255, 255, 255, 0.96);
 }
 
 .revision-department-grid .choice-card.department-visual-card p {
@@ -72,7 +75,7 @@
   color: #526681;
   font-size: 0.98rem;
   line-height: 1.55;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 0 #ffffff, 0 0 12px rgba(255, 255, 255, 0.96);
 }
 
 .revision-department-grid .choice-card.department-visual-card:focus-visible {
@@ -93,7 +96,7 @@
 
 @media (max-width: 700px) {
   .revision-department-grid .choice-card.department-visual-card {
-    min-height: 220px;
+    min-height: 210px;
     padding: 22px 18px;
   }
 
@@ -102,8 +105,9 @@
       linear-gradient(
         90deg,
         rgba(255, 255, 255, 0.99) 0%,
-        rgba(255, 255, 255, 0.94) 58%,
-        rgba(255, 255, 255, 0.60) 100%
+        rgba(255, 255, 255, 0.96) 48%,
+        rgba(255, 255, 255, 0.84) 66%,
+        rgba(255, 255, 255, 0.34) 100%
       ),
       var(--department-art);
     background-position: center, 72% center;
