@@ -7,4 +7,4 @@ qs('#printBtn')?.addEventListener('click',()=>{qsa('details').forEach(d=>d.open=
 qs('#expandBtn')?.addEventListener('click',()=>{const open=!qsa('details').every(d=>d.open);qsa('details').forEach(d=>d.open=open)});
 qs('#themeBtn')?.addEventListener('click',()=>document.body.classList.toggle('dark'));
 const params=new URLSearchParams(location.search);if(params.get('autoPrintNotes')==='1'){qsa('details').forEach(d=>d.open=true);setTimeout(()=>window.print(),450)}
-</script><script src="/assets/js/lesson-navigation-fix.js?v=20260717-standard1" defer></script></body></html>
+</script><script src="/assets/js/lesson-navigation-fix.js?v=20260717-fullscreen3" defer></script></body></html>
