@@ -37,17 +37,20 @@ jobs:
           gradle-version: "8.10.2"
 
       - name: Configure Firebase Android app
+        id: firebase
         env:
           FIREBASE_GOOGLE_SERVICES_JSON: ${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}
         run: |
           set -euo pipefail
           if [ -z "$FIREBASE_GOOGLE_SERVICES_JSON" ]; then
-            echo "FIREBASE_GOOGLE_SERVICES_JSON is required to build the notification-enabled APK." >&2
-            exit 1
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::FIREBASE_GOOGLE_SERVICES_JSON is not configured; building a debug APK without push registration."
+            exit 0
           fi
           printf '%s' "$FIREBASE_GOOGLE_SERVICES_JSON" > android-app/app/google-services.json
           python -m json.tool android-app/app/google-services.json >/dev/null
           grep -q 'org.diplomanotes.polytechnicstudyhub' android-app/app/google-services.json
+          echo "configured=true" >> "$GITHUB_OUTPUT"
 
       - name: Read app version
         run: |
@@ -71,23 +74,27 @@ jobs:
           if-no-files-found: error
 
       - name: Validate release signing configuration
+        id: signing
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
           ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
         run: |
-          test -n "$ANDROID_KEYSTORE_BASE64"
-          test -n "$ANDROID_KEYSTORE_PASSWORD"
-          test -n "$ANDROID_KEY_ALIAS"
-          test -n "$ANDROID_KEY_PASSWORD"
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ] || [ -z "$ANDROID_KEYSTORE_PASSWORD" ] || [ -z "$ANDROID_KEY_ALIAS" ] || [ -z "$ANDROID_KEY_PASSWORD" ]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::Release signing secrets are incomplete; the validated debug APK remains available as a workflow artifact."
+            exit 0
+          fi
           echo "$ANDROID_KEYSTORE_BASE64" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
           test -s android-app/release.keystore
           keytool -list -keystore android-app/release.keystore \
             -storepass "$ANDROID_KEYSTORE_PASSWORD" \
             -alias "$ANDROID_KEY_ALIAS" >/dev/null
+          echo "available=true" >> "$GITHUB_OUTPUT"
 
       - name: Build signed release APK
+        if: steps.firebase.outputs.configured == 'true' && steps.signing.outputs.available == 'true'
         env:
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
@@ -100,6 +107,7 @@ jobs:
             -PANDROID_KEY_PASSWORD="$ANDROID_KEY_PASSWORD"
 
       - name: Prepare signed release
+        if: steps.firebase.outputs.configured == 'true' && steps.signing.outputs.available == 'true'
         run: |
           set -e
           mkdir -p release-output reports downloads
@@ -116,6 +124,7 @@ jobs:
           echo "DEBUG_BYTES=$DEBUG_BYTES" >> "$GITHUB_ENV"
 
       - name: Publish signed APK as GitHub Release asset
+        if: steps.firebase.outputs.configured == 'true' && steps.signing.outputs.available == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -129,6 +138,7 @@ jobs:
           fi
 
       - name: Upload signed APK artifact
+        if: steps.firebase.outputs.configured == 'true' && steps.signing.outputs.available == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: POLY_PMNA_v${{ env.VERSION_NAME }}_signed_apk
@@ -136,6 +146,7 @@ jobs:
           if-no-files-found: error
 
       - name: Update website manifest and build reports
+        if: steps.firebase.outputs.configured == 'true' && steps.signing.outputs.available == 'true'
         run: |
           set -e
           APK_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${APK_NAME}"
@@ -187,6 +198,7 @@ jobs:
           JSON
 
       - name: Commit website update metadata
+        if: steps.firebase.outputs.configured == 'true' && steps.signing.outputs.available == 'true'
         run: |
           set -e
           git config user.name "github-actions[bot]"

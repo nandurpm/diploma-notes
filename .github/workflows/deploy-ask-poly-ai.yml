@@ -5,6 +5,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "workers/ask-poly-ai/**"
+      - "assets/js/ask-poly-config.js"
+      - ".github/workflows/deploy-ask-poly-ai.yml"
 
 permissions:
   contents: write
@@ -57,6 +61,12 @@ jobs:
       - name: Install Wrangler
         run: npm install -g wrangler@4
 
+      - name: Deploy Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
+
       - name: Upload AI secrets to Ask POLY Worker
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -80,12 +90,6 @@ jobs:
           print("Prepared secret names:", ", ".join(secrets.keys()))
           PY
           wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
-
-      - name: Deploy Worker
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
 
       - name: Configure website with deployed Worker URL
         run: |

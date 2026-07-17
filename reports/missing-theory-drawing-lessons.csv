@@ -1,0 +1,837 @@
+﻿department,semester,code,subject,type,expected_lesson_file
+Architecture,Semester 2,2181,Basic Architectural Drawing,Drawing,lessons/lessons-2181.html
+Architecture,Semester 2,2182,Fundamentals of Architecture,Theory,lessons/lessons-2182.html
+Architecture,Semester 3,3013,Building Construction and Construction Materials,Theory,lessons/lessons-3013.html
+Architecture,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
+Architecture,Semester 3,3181,History of Human settlement,Theory,lessons/lessons-3181.html
+Architecture,Semester 3,3182,Climate Responsive Architecture,Theory,lessons/lessons-3182.html
+Architecture,Semester 3,3183,Architectural Drawing I,Drawing,lessons/lessons-3183.html
+Architecture,Semester 3,3184,Working Drawing I,Drawing,lessons/lessons-3184.html
+Architecture,Semester 4,4181,History of Architecture,Theory,lessons/lessons-4181.html
+Architecture,Semester 4,4182,Surveying for Architecture,Theory,lessons/lessons-4182.html
+Architecture,Semester 4,4183,Building Services,Theory,lessons/lessons-4183.html
+Architecture,Semester 4,4184,Architectural Appreciation,Theory,lessons/lessons-4184.html
+Architecture,Semester 4,4185,Architecture Drawing II,Drawing,lessons/lessons-4185.html
+Architecture,Semester 4,4189,Working Drawing II (CAD),Drawing,lessons/lessons-4189.html
+Architecture,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
+Architecture,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
+Architecture,Semester 5,5181,Town Planning,Theory,lessons/lessons-5181.html
+Architecture,Semester 5,5182A,Vernacular Architecture,Theory,lessons/lessons-5182A.html
+Architecture,Semester 5,5182B,Green Building and Energy Conservation,Theory,lessons/lessons-5182B.html
+Architecture,Semester 5,5182C,Applied Ergonomics,Theory,lessons/lessons-5182C.html
+Architecture,Semester 5,5187,Architectural Drawing III,Drawing,lessons/lessons-5187.html
+Architecture,Semester 5,5188,Working Drawing III (CAD),Drawing,lessons/lessons-5188.html
+Architecture,Semester 5,5189,Landscape Architecture,Theory,lessons/lessons-5189.html
+Architecture,Semester 6,6181A,Disaster Resilient buildings,Theory,lessons/lessons-6181A.html
+Architecture,Semester 6,6181B,Tendering and Valuation,Theory,lessons/lessons-6181B.html
+Architecture,Semester 6,6181C,Repairs and Maintenance of Structures,Theory,lessons/lessons-6181C.html
+Architecture,Semester 6,6182A,Interior Space planning,Theory,lessons/lessons-6182A.html
+Architecture,Semester 6,6182B,Fundamentals of Landscape Design,Theory,lessons/lessons-6182B.html
+Architecture,Semester 6,6182C,Traditional Architecture of Kerala,Theory,lessons/lessons-6182C.html
+Architecture,Semester 6,6182D,Fundamentals of Design,Theory,lessons/lessons-6182D.html
+Architecture,Semester 6,6187,Interior Design,Theory,lessons/lessons-6187.html
+Artificial Intelligence,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Artificial Intelligence,Semester 3,3341,Discrete Mathematics,Theory,lessons/lessons-3341.html
+Artificial Intelligence,Semester 3,3343,Data Structures,Theory,lessons/lessons-3343.html
+Artificial Intelligence,Semester 3,3381,Ethics in Artificial Intelligence,Theory,lessons/lessons-3381.html
+Artificial Intelligence,Semester 3,3382,Introduction to Artificial Intelligence,Theory,lessons/lessons-3382.html
+Artificial Intelligence,Semester 4,4341,Mathematics for ML,Theory,lessons/lessons-4341.html
+Artificial Intelligence,Semester 4,4343,Object Oriented Programming Concepts using Java,Theory,lessons/lessons-4343.html
+Artificial Intelligence,Semester 4,4381,Fundamentals of Machine Learning,Theory,lessons/lessons-4381.html
+Artificial Intelligence,Semester 5,5133A,Virtualisation Technology and Cloud Computing,Theory,lessons/lessons-5133A.html
+Artificial Intelligence,Semester 5,5342,Soft Computing,Theory,lessons/lessons-5342.html
+Artificial Intelligence,Semester 5,5343A,Natural Language Processing,Theory,lessons/lessons-5343A.html
+Artificial Intelligence,Semester 5,5343B,Fundamentals of Internet of Things,Theory,lessons/lessons-5343B.html
+Artificial Intelligence,Semester 5,5381,Fundamentals of Virtual Reality and Augmented Reality,Theory,lessons/lessons-5381.html
+Artificial Intelligence,Semester 6,6322B,Fundamentals of Python,Theory,lessons/lessons-6322B.html
+Artificial Intelligence,Semester 6,6341A,Deep Learning,Theory,lessons/lessons-6341A.html
+Artificial Intelligence,Semester 6,6341B,Robotic Process Automation,Theory,lessons/lessons-6341B.html
+Artificial Intelligence,Semester 6,6341C,Computer Vision and Image Processing,Theory,lessons/lessons-6341C.html
+Artificial Intelligence,Semester 6,6342A,Introduction to Artificial Intelligence and Machine Learning,Theory,lessons/lessons-6342A.html
+Artificial Intelligence,Semester 6,6342B,Fundamentals of Soft Computing,Theory,lessons/lessons-6342B.html
+Artificial Intelligence,Semester 6,6342C,Big Data Concepts,Theory,lessons/lessons-6342C.html
+Artificial Intelligence & Machine Learning,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Artificial Intelligence & Machine Learning,Semester 3,3341,Discrete Mathematics,Theory,lessons/lessons-3341.html
+Artificial Intelligence & Machine Learning,Semester 3,3342,Logic System Design & Computer Organization,Theory,lessons/lessons-3342.html
+Artificial Intelligence & Machine Learning,Semester 3,3343,Data Structures,Theory,lessons/lessons-3343.html
+Artificial Intelligence & Machine Learning,Semester 3,3344,Artificial Intelligence,Theory,lessons/lessons-3344.html
+Artificial Intelligence & Machine Learning,Semester 4,4341,Mathematics for ML,Theory,lessons/lessons-4341.html
+Artificial Intelligence & Machine Learning,Semester 4,4342,Machine Learning & Neural Networks,Theory,lessons/lessons-4342.html
+Artificial Intelligence & Machine Learning,Semester 4,4343,Object Oriented Programming Concepts using Java,Theory,lessons/lessons-4343.html
+Artificial Intelligence & Machine Learning,Semester 5,5133A,Virtualisation Technology and Cloud Computing,Theory,lessons/lessons-5133A.html
+Artificial Intelligence & Machine Learning,Semester 5,5341,Big Data Analytics,Theory,lessons/lessons-5341.html
+Artificial Intelligence & Machine Learning,Semester 5,5342,Soft Computing,Theory,lessons/lessons-5342.html
+Artificial Intelligence & Machine Learning,Semester 5,5343A,Natural Language Processing,Theory,lessons/lessons-5343A.html
+Artificial Intelligence & Machine Learning,Semester 5,5343B,Fundamentals of Internet of Things,Theory,lessons/lessons-5343B.html
+Artificial Intelligence & Machine Learning,Semester 6,6322B,Fundamentals of Python,Theory,lessons/lessons-6322B.html
+Artificial Intelligence & Machine Learning,Semester 6,6341A,Deep Learning,Theory,lessons/lessons-6341A.html
+Artificial Intelligence & Machine Learning,Semester 6,6341B,Robotic Process Automation,Theory,lessons/lessons-6341B.html
+Artificial Intelligence & Machine Learning,Semester 6,6341C,Computer Vision and Image Processing,Theory,lessons/lessons-6341C.html
+Artificial Intelligence & Machine Learning,Semester 6,6342A,Introduction to Artificial Intelligence and Machine Learning,Theory,lessons/lessons-6342A.html
+Artificial Intelligence & Machine Learning,Semester 6,6342B,Fundamentals of Soft Computing,Theory,lessons/lessons-6342B.html
+Artificial Intelligence & Machine Learning,Semester 6,6342C,Big Data Concepts,Theory,lessons/lessons-6342C.html
+Automation and Robotics,Semester 2,2371,Foundations of Robotics,Theory,lessons/lessons-2371.html
+Automation and Robotics,Semester 3,3331,Analog and Digital Electronics,Theory,lessons/lessons-3331.html
+Automation and Robotics,Semester 3,3332,Mechanics of Materials,Theory,lessons/lessons-3332.html
+Automation and Robotics,Semester 3,3333,Python Programming,Theory,lessons/lessons-3333.html
+Automation and Robotics,Semester 3,3334,Electrical Circuits and Machines,Theory,lessons/lessons-3334.html
+Automation and Robotics,Semester 3,3339,Robotic Case Studies,Theory,lessons/lessons-3339.html
+Automation and Robotics,Semester 4,4331,Mechanics of Robotics,Theory,lessons/lessons-4331.html
+Automation and Robotics,Semester 4,4332,Microcontroller based Robotic Application Design,Theory,lessons/lessons-4332.html
+Automation and Robotics,Semester 4,4333,Linear IC and Power Electronics,Theory,lessons/lessons-4333.html
+Automation and Robotics,Semester 4,4339,Industry 4.0,Theory,lessons/lessons-4339.html
+Automation and Robotics,Semester 5,5331,Industrial Automation Control,Theory,lessons/lessons-5331.html
+Automation and Robotics,Semester 5,5332,AI for Robotics,Theory,lessons/lessons-5332.html
+Automation and Robotics,Semester 5,5333A,Industrial Robotics,Theory,lessons/lessons-5333A.html
+Automation and Robotics,Semester 5,5333B,Machine Vision,Theory,lessons/lessons-5333B.html
+Automation and Robotics,Semester 5,5333C,IoT and Applications,Theory,lessons/lessons-5333C.html
+Automation and Robotics,Semester 6,6331A,Advanced Robotics,Theory,lessons/lessons-6331A.html
+Automation and Robotics,Semester 6,6331B,Advanced Microprocessor and Microcontroller,Theory,lessons/lessons-6331B.html
+Automation and Robotics,Semester 6,6331C,Mechatronics and Automation,Theory,lessons/lessons-6331C.html
+Automation and Robotics,Semester 6,6332A,Renewable Energy Systems,Theory,lessons/lessons-6332A.html
+Automation and Robotics,Semester 6,6332B,Environmental Impact Assessment,Theory,lessons/lessons-6332B.html
+Automation and Robotics,Semester 6,6332C,Radar and Navigation,Theory,lessons/lessons-6332C.html
+Automation and Robotics,Semester 6,6332D,Digital Signal Processing,Theory,lessons/lessons-6332D.html
+Automobile Engineering,Semester 2,2051,Basic Automobile Engineering,Theory,lessons/lessons-2051.html
+Automobile Engineering,Semester 3,3051,Fundamentals of Fluid Mechanics,Theory,lessons/lessons-3051.html
+Automobile Engineering,Semester 3,3052,Manufacturing Technology for Automobile Components,Theory,lessons/lessons-3052.html
+Automobile Engineering,Semester 3,3053,Automobile Electrical and Electronics Systems,Theory,lessons/lessons-3053.html
+Automobile Engineering,Semester 3,3054,Internal Combustion Engines,Theory,lessons/lessons-3054.html
+Automobile Engineering,Semester 3,3055,Automobile Engineering Drawing,Drawing,lessons/lessons-3055.html
+Automobile Engineering,Semester 4,4051,Heat Power Engineering,Theory,lessons/lessons-4051.html
+Automobile Engineering,Semester 4,4052,Material Science and Strength of Materials,Theory,lessons/lessons-4052.html
+Automobile Engineering,Semester 4,4053,Automobile Chassis and Transmission,Theory,lessons/lessons-4053.html
+Automobile Engineering,Semester 4,4059,Transport Management Practices,Theory,lessons/lessons-4059.html
+Automobile Engineering,Semester 5,5051,Design of Automotive Components,Theory,lessons/lessons-5051.html
+Automobile Engineering,Semester 5,5052,Vehicle Diagnostics and Service,Theory,lessons/lessons-5052.html
+Automobile Engineering,Semester 5,5053A,Automotive Power Train Control Systems,Theory,lessons/lessons-5053A.html
+Automobile Engineering,Semester 5,5053B,Farm Machinery and Construction Equipment,Theory,lessons/lessons-5053B.html
+Automobile Engineering,Semester 5,5053C,Two and Three wheeler Technology,Theory,lessons/lessons-5053C.html
+Automobile Engineering,Semester 6,6051A,Electric and Hybrid Vehicles,Theory,lessons/lessons-6051A.html
+Automobile Engineering,Semester 6,6051B,Automotive Vehicle and Body Control Systems,Theory,lessons/lessons-6051B.html
+Automobile Engineering,Semester 6,6051C,Vehicle Body Engineering,Theory,lessons/lessons-6051C.html
+Automobile Engineering,Semester 6,6052B,Elementary Automobile Engineering,Theory,lessons/lessons-6052B.html
+Automobile Engineering,Semester 6,6052C,Automotive Safety,Theory,lessons/lessons-6052C.html
+Automobile Engineering,Semester 6,6052D,Automotive Air conditioning System,Theory,lessons/lessons-6052D.html
+Biomedical Engineering,Semester 3,3241,Basic Medical Sciences,Theory,lessons/lessons-3241.html
+Biomedical Engineering,Semester 3,3242,Medical Instrumentation,Theory,lessons/lessons-3242.html
+Biomedical Engineering,Semester 3,3243,Electronic Measurements and Instrumentation,Theory,lessons/lessons-3243.html
+Biomedical Engineering,Semester 4,4241,Therapeutic Equipment,Theory,lessons/lessons-4241.html
+Biomedical Engineering,Semester 4,4242,Electric Circuits & Networks,Theory,lessons/lessons-4242.html
+Biomedical Engineering,Semester 5,5241,Medical Imaging Techniques,Theory,lessons/lessons-5241.html
+Biomedical Engineering,Semester 5,5242,Hospital Systems,Theory,lessons/lessons-5242.html
+Biomedical Engineering,Semester 5,5243A,Analytical Instruments,Theory,lessons/lessons-5243A.html
+Biomedical Engineering,Semester 5,5243B,Programming in C,Theory,lessons/lessons-5243B.html
+Biomedical Engineering,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Biomedical Engineering,Semester 6,6241A,Advanced Medical Instrumentation and Prosthetics,Theory,lessons/lessons-6241A.html
+Biomedical Engineering,Semester 6,6241B,Signals and Systems,Theory,lessons/lessons-6241B.html
+Biomedical Engineering,Semester 6,6241C,Bio MEMS,Theory,lessons/lessons-6241C.html
+Biomedical Engineering,Semester 6,6242A,Healthcare Informatics,Theory,lessons/lessons-6242A.html
+Biomedical Engineering,Semester 6,6242B,Rehabilitation Engineering,Theory,lessons/lessons-6242B.html
+Biomedical Engineering,Semester 6,6242C,Biomedical Instrumentation,Theory,lessons/lessons-6242C.html
+Biomedical Engineering,Semester 6,6242D,IoT in Healthcare,Theory,lessons/lessons-6242D.html
+Chemical Engineering,Semester 2,2071,Chemical Process Principles,Theory,lessons/lessons-2071.html
+Chemical Engineering,Semester 2,2072,Engineering Chemistry,Theory,lessons/lessons-2072.html
+Chemical Engineering,Semester 3,3071,Chemical Engineering Thermodynamics,Theory,lessons/lessons-3071.html
+Chemical Engineering,Semester 3,3072,Mechanical Operations,Theory,lessons/lessons-3072.html
+Chemical Engineering,Semester 3,3073,Inorganic Chemical Technology,Theory,lessons/lessons-3073.html
+Chemical Engineering,Semester 3,3074,Fluid Mechanics,Theory,lessons/lessons-3074.html
+Chemical Engineering,Semester 3,3075,Safety in Process Industries,Theory,lessons/lessons-3075.html
+Chemical Engineering,Semester 3,3076,Chemical Equipment Drawing,Drawing,lessons/lessons-3076.html
+Chemical Engineering,Semester 4,4071,Process Heat Transfer,Theory,lessons/lessons-4071.html
+Chemical Engineering,Semester 4,4072,Organic Chemical Technology,Theory,lessons/lessons-4072.html
+Chemical Engineering,Semester 4,4073,Mass Transfer Operations I,Theory,lessons/lessons-4073.html
+Chemical Engineering,Semester 4,4074,Sustainable Materials and Technologies,Theory,lessons/lessons-4074.html
+Chemical Engineering,Semester 4,4077,Process Engineering Drawing,Drawing,lessons/lessons-4077.html
+Chemical Engineering,Semester 5,5071,Mass Transfer Operations II,Theory,lessons/lessons-5071.html
+Chemical Engineering,Semester 5,5072,Process Control & Instrumentation,Theory,lessons/lessons-5072.html
+Chemical Engineering,Semester 5,5073A,Petroleum Refining & Petrochemical Technology,Theory,lessons/lessons-5073A.html
+Chemical Engineering,Semester 5,5073B,Modern Separation Techniques,Theory,lessons/lessons-5073B.html
+Chemical Engineering,Semester 5,5073C,Material Science and Technology,Theory,lessons/lessons-5073C.html
+Chemical Engineering,Semester 6,6071A,Plant Utilities,Theory,lessons/lessons-6071A.html
+Chemical Engineering,Semester 6,6071B,Solid Waste Management,Theory,lessons/lessons-6071B.html
+Chemical Engineering,Semester 6,6071C,Energy Engineering,Theory,lessons/lessons-6071C.html
+Chemical Engineering,Semester 6,6072A,Sustainable Energy Technologies,Theory,lessons/lessons-6072A.html
+Chemical Engineering,Semester 6,6072C,Energy Conservation & Audit (CH),Theory,lessons/lessons-6072C.html
+Chemical Engineering,Semester 6,6072D,Disaster Management (CH),Theory,lessons/lessons-6072D.html
+Civil & Environmental Engineering,Semester 2,2011,Basic Surveying,Theory,lessons/lessons-2011.html
+Civil & Environmental Engineering,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
+Civil & Environmental Engineering,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
+Civil & Environmental Engineering,Semester 3,3351,Building Materials and Construction,Theory,lessons/lessons-3351.html
+Civil & Environmental Engineering,Semester 3,3352,Mechanics of Fluids,Theory,lessons/lessons-3352.html
+Civil & Environmental Engineering,Semester 4,4351,Soil Mechanics and Transportation Enginering,Theory,lessons/lessons-4351.html
+Civil & Environmental Engineering,Semester 4,4352,Environmental chemistry and Microbiology,Theory,lessons/lessons-4352.html
+Civil & Environmental Engineering,Semester 4,4353,Sustainable Engineering,Theory,lessons/lessons-4353.html
+Civil & Environmental Engineering,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
+Civil & Environmental Engineering,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
+Civil & Environmental Engineering,Semester 5,5351,Environmental Engineering,Theory,lessons/lessons-5351.html
+Civil & Environmental Engineering,Semester 5,5352A,Sustainable Construction Practices,Theory,lessons/lessons-5352A.html
+Civil & Environmental Engineering,Semester 5,5352B,Environmental Impact Assessment,Theory,lessons/lessons-5352B.html
+Civil & Environmental Engineering,Semester 5,5352C,Environmental Geotechnology,Theory,lessons/lessons-5352C.html
+Civil & Environmental Engineering,Semester 6,6351A,Habitat Engineering,Theory,lessons/lessons-6351A.html
+Civil & Environmental Engineering,Semester 6,6351B,Solid Waste Management and Air Pollution Control,Theory,lessons/lessons-6351B.html
+Civil & Environmental Engineering,Semester 6,6351C,Environmental Laws and Policies,Theory,lessons/lessons-6351C.html
+Civil & Environmental Engineering,Semester 6,6352A,Industrial Pollution and its Control,Theory,lessons/lessons-6352A.html
+Civil & Environmental Engineering,Semester 6,6352B,Green Building,Theory,lessons/lessons-6352B.html
+Civil & Environmental Engineering,Semester 6,6352C,Climate Change and Sustainability,Theory,lessons/lessons-6352C.html
+Civil & Environmental Engineering,Semester 6,6352D,Water Resources Engineering,Theory,lessons/lessons-6352D.html
+Civil & Rural Engineering,Semester 2,2011,Basic Surveying,Theory,lessons/lessons-2011.html
+Civil & Rural Engineering,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
+Civil & Rural Engineering,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
+Civil & Rural Engineering,Semester 3,3361,Rural Development,Theory,lessons/lessons-3361.html
+Civil & Rural Engineering,Semester 3,3362,Construction Technology,Theory,lessons/lessons-3362.html
+Civil & Rural Engineering,Semester 4,4011,Geotechnical Engineering,Theory,lessons/lessons-4011.html
+Civil & Rural Engineering,Semester 4,4012,Hydraulics and Irrigation Engineering,Theory,lessons/lessons-4012.html
+Civil & Rural Engineering,Semester 4,4013,Estimating & Costing,Theory,lessons/lessons-4013.html
+Civil & Rural Engineering,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
+Civil & Rural Engineering,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
+Civil & Rural Engineering,Semester 5,5013,Transportation Engineering,Theory,lessons/lessons-5013.html
+Civil & Rural Engineering,Semester 5,5014A,Habitat Technology,Theory,lessons/lessons-5014A.html
+Civil & Rural Engineering,Semester 5,5014B,Ground Improvement Techniques,Theory,lessons/lessons-5014B.html
+Civil & Rural Engineering,Semester 5,5014C,Precast and Prestressed Concrete,Theory,lessons/lessons-5014C.html
+Civil & Rural Engineering,Semester 6,6011B,Building Maintenance and Services,Theory,lessons/lessons-6011B.html
+Civil & Rural Engineering,Semester 6,6011C,Pavement Design and Maintenance,Theory,lessons/lessons-6011C.html
+Civil & Rural Engineering,Semester 6,6012A,Renewable Energy and Environment,Theory,lessons/lessons-6012A.html
+Civil & Rural Engineering,Semester 6,6012B,Sustainable Development,Theory,lessons/lessons-6012B.html
+Civil & Rural Engineering,Semester 6,6012C,Disaster Management (CE),Theory,lessons/lessons-6012C.html
+Civil & Rural Engineering,Semester 6,6012D,Rural Technology,Theory,lessons/lessons-6012D.html
+Civil & Rural Engineering,Semester 6,6361A,Water Supply and Sanitation Engineering,Theory,lessons/lessons-6361A.html
+Civil (Public Health and Environment) Engineering,Semester 2,2011,Basic Surveying,Theory,lessons/lessons-2011.html
+Civil Engineering,Semester 2,2011,Basic Surveying,Theory,lessons/lessons-2011.html
+Civil Engineering,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
+Civil Engineering,Semester 3,3012,Concrete Technology,Theory,lessons/lessons-3012.html
+Civil Engineering,Semester 3,3013,Building Construction and Construction Materials,Theory,lessons/lessons-3013.html
+Civil Engineering,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
+Civil Engineering,Semester 4,4011,Geotechnical Engineering,Theory,lessons/lessons-4011.html
+Civil Engineering,Semester 4,4012,Hydraulics and Irrigation Engineering,Theory,lessons/lessons-4012.html
+Civil Engineering,Semester 4,4013,Estimating & Costing,Theory,lessons/lessons-4013.html
+Civil Engineering,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
+Civil Engineering,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
+Civil Engineering,Semester 5,5013,Transportation Engineering,Theory,lessons/lessons-5013.html
+Civil Engineering,Semester 5,5014A,Habitat Technology,Theory,lessons/lessons-5014A.html
+Civil Engineering,Semester 5,5014B,Ground Improvement Techniques,Theory,lessons/lessons-5014B.html
+Civil Engineering,Semester 5,5014C,Precast and Prestressed Concrete,Theory,lessons/lessons-5014C.html
+Civil Engineering,Semester 6,6011A,Public Health Engineering,Theory,lessons/lessons-6011A.html
+Civil Engineering,Semester 6,6011B,Building Maintenance and Services,Theory,lessons/lessons-6011B.html
+Civil Engineering,Semester 6,6011C,Pavement Design and Maintenance,Theory,lessons/lessons-6011C.html
+Civil Engineering,Semester 6,6012A,Renewable Energy and Environment,Theory,lessons/lessons-6012A.html
+Civil Engineering,Semester 6,6012B,Sustainable Development,Theory,lessons/lessons-6012B.html
+Civil Engineering,Semester 6,6012C,Disaster Management (CE),Theory,lessons/lessons-6012C.html
+Civil Engineering,Semester 6,6012D,Rural Technology,Theory,lessons/lessons-6012D.html
+Civil Engineering & Planning,Semester 2,2011,Basic Surveying,Theory,lessons/lessons-2011.html
+Civil Engineering & Planning,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
+Civil Engineering & Planning,Semester 3,3012,Concrete Technology,Theory,lessons/lessons-3012.html
+Civil Engineering & Planning,Semester 3,3013,Building Construction and Construction Materials,Theory,lessons/lessons-3013.html
+Civil Engineering & Planning,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
+Civil Engineering & Planning,Semester 4,4012,Hydraulics and Irrigation Engineering,Theory,lessons/lessons-4012.html
+Civil Engineering & Planning,Semester 4,4391,Fundamentals of Town Planning,Theory,lessons/lessons-4391.html
+Civil Engineering & Planning,Semester 4,4392,"Estimation,Tendering and Valuation",Theory,lessons/lessons-4392.html
+Civil Engineering & Planning,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
+Civil Engineering & Planning,Semester 5,5013,Transportation Engineering,Theory,lessons/lessons-5013.html
+Civil Engineering & Planning,Semester 5,5014A,Habitat Technology,Theory,lessons/lessons-5014A.html
+Civil Engineering & Planning,Semester 5,5014B,Ground Improvement Techniques,Theory,lessons/lessons-5014B.html
+Civil Engineering & Planning,Semester 5,5014C,Precast and Prestressed Concrete,Theory,lessons/lessons-5014C.html
+Civil Engineering & Planning,Semester 5,5391,Construction Planning and Management,Theory,lessons/lessons-5391.html
+Civil Engineering & Planning,Semester 6,6011B,Building Maintenance and Services,Theory,lessons/lessons-6011B.html
+Civil Engineering & Planning,Semester 6,6012A,Renewable Energy and Environment,Theory,lessons/lessons-6012A.html
+Civil Engineering & Planning,Semester 6,6012B,Sustainable Development,Theory,lessons/lessons-6012B.html
+Civil Engineering & Planning,Semester 6,6012C,Disaster Management (CE),Theory,lessons/lessons-6012C.html
+Civil Engineering & Planning,Semester 6,6012D,Rural Technology,Theory,lessons/lessons-6012D.html
+Civil Engineering & Planning,Semester 6,6391A,Basic Geotechnical Engineeing,Theory,lessons/lessons-6391A.html
+Civil Engineering & Planning,Semester 6,6391B,Environmental Engineering,Theory,lessons/lessons-6391B.html
+Cloud Computing and Big Data,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Cloud Computing and Big Data,Semester 3,3271,Operating System,Theory,lessons/lessons-3271.html
+Cloud Computing and Big Data,Semester 3,3272,Database System Concepts,Theory,lessons/lessons-3272.html
+Cloud Computing and Big Data,Semester 3,3273,Introduction to Cloud Computing,Theory,lessons/lessons-3273.html
+Cloud Computing and Big Data,Semester 3,3274,Digital Computer Architecture,Theory,lessons/lessons-3274.html
+Cloud Computing and Big Data,Semester 4,4132,Computer Communication and Networks,Theory,lessons/lessons-4132.html
+Cloud Computing and Big Data,Semester 4,4271,Big Data Concepts,Theory,lessons/lessons-4271.html
+Cloud Computing and Big Data,Semester 4,4272,Data Structures and Algorithms,Theory,lessons/lessons-4272.html
+Cloud Computing and Big Data,Semester 4,4279,Advanced Operting System,Theory,lessons/lessons-4279.html
+Cloud Computing and Big Data,Semester 5,5271,Advanced Cloud Computing,Theory,lessons/lessons-5271.html
+Cloud Computing and Big Data,Semester 5,5272,Machine Learning,Theory,lessons/lessons-5272.html
+Cloud Computing and Big Data,Semester 5,5273A,Introduction to Microservices,Theory,lessons/lessons-5273A.html
+Cloud Computing and Big Data,Semester 5,5273B,Advanced Data structure,Theory,lessons/lessons-5273B.html
+Cloud Computing and Big Data,Semester 5,5273C,Data Mining Practices,Theory,lessons/lessons-5273C.html
+Cloud Computing and Big Data,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Cloud Computing and Big Data,Semester 6,6271A,Block Chain,Theory,lessons/lessons-6271A.html
+Cloud Computing and Big Data,Semester 6,6271B,Artificial Neural Networks,Theory,lessons/lessons-6271B.html
+Cloud Computing and Big Data,Semester 6,6271C,Cloud Security,Theory,lessons/lessons-6271C.html
+Cloud Computing and Big Data,Semester 6,6272A,Fundamentals of Cloud Computing,Theory,lessons/lessons-6272A.html
+Cloud Computing and Big Data,Semester 6,6272B,Introduction to Machine Learning,Theory,lessons/lessons-6272B.html
+Cloud Computing and Big Data,Semester 6,6272C,Bigdata Analytics,Theory,lessons/lessons-6272C.html
+Cloud Computing and Big Data,Semester 6,6272D,Data Security,Theory,lessons/lessons-6272D.html
+Commercial Practice,Semester 1,1141,Foundation Courses Financial Accounting I,Theory,lessons/lessons-1141.html
+Commercial Practice,Semester 1,1142,Foundation Courses Fundamentals of Business,Theory,lessons/lessons-1142.html
+Commercial Practice,Semester 1,1143,Foundation Courses Managerial Economics,Theory,lessons/lessons-1143.html
+Commercial Practice,Semester 1,1144,Foundation Courses Shorthand English Theory I,Theory,lessons/lessons-1144.html
+Commercial Practice,Semester 1,1149,Basic Technology Courses Word Processing (Open office writer based) I,Theory,lessons/lessons-1149.html
+Commercial Practice,Semester 2,2141,Foundation Courses Business Statistics,Theory,lessons/lessons-2141.html
+Commercial Practice,Semester 2,2142,Foundation Courses Financial Accounting II,Theory,lessons/lessons-2142.html
+Commercial Practice,Semester 2,2143,Hindi,Theory,lessons/lessons-2143.html
+Commercial Practice,Semester 2,2144,Foundation Courses Shorthand English Theory II,Theory,lessons/lessons-2144.html
+Commercial Practice,Semester 2,2148,Basic Technology Courses Word Processing (Open office writer based) II,Theory,lessons/lessons-2148.html
+Commercial Practice,Semester 2,2149,Foundation Courses E-commerce,Theory,lessons/lessons-2149.html
+Commercial Practice,Semester 3,3141,Financial Accounting III,Theory,lessons/lessons-3141.html
+Commercial Practice,Semester 3,3142,Business Regulatory Framework,Theory,lessons/lessons-3142.html
+Commercial Practice,Semester 3,3143,Auditing,Theory,lessons/lessons-3143.html
+Commercial Practice,Semester 3,3146,Shorthand English 60 wpm,Theory,lessons/lessons-3146.html
+Commercial Practice,Semester 3,3147,Business Communication and Administration Skills,Theory,lessons/lessons-3147.html
+Commercial Practice,Semester 3,3148,Basic Technology Courses Typewriting English 30 wpm,Theory,lessons/lessons-3148.html
+Commercial Practice,Semester 3,3149,Desktop Publishing,Theory,lessons/lessons-3149.html
+Commercial Practice,Semester 4,4141,Financial Accounting IV,Theory,lessons/lessons-4141.html
+Commercial Practice,Semester 4,4142,Cost Accounting,Theory,lessons/lessons-4142.html
+Commercial Practice,Semester 4,4143,Marketing Management,Theory,lessons/lessons-4143.html
+Commercial Practice,Semester 4,4144,Shorthand English 80 wpm,Theory,lessons/lessons-4144.html
+Commercial Practice,Semester 4,4147,Data Entry Operations I,Theory,lessons/lessons-4147.html
+Commercial Practice,Semester 4,4148,Typewriting English 45 wpm,Theory,lessons/lessons-4148.html
+Commercial Practice,Semester 4,4149,Typewriting Malayalam I,Theory,lessons/lessons-4149.html
+Commercial Practice,Semester 5,5142,Shorthand English (Condensation & Theory) 100 wpm,Theory,lessons/lessons-5142.html
+Commercial Practice,Semester 5,5143A,Financial Market,Theory,lessons/lessons-5143A.html
+Commercial Practice,Semester 5,5143B,Banking & Insurance,Theory,lessons/lessons-5143B.html
+Commercial Practice,Semester 5,5143C,Income Tax Law & Practice,Theory,lessons/lessons-5143C.html
+Commercial Practice,Semester 5,5146,Shorthand Malayalam,Theory,lessons/lessons-5146.html
+Commercial Practice,Semester 5,5147,Typewriting Malayalam II,Theory,lessons/lessons-5147.html
+Commercial Practice,Semester 5,5148A,Computerised Financial Accounting I,Theory,lessons/lessons-5148A.html
+Commercial Practice,Semester 5,5148B,Introduction to MS Access,Theory,lessons/lessons-5148B.html
+Commercial Practice,Semester 5,5148C,Hindi Word Processing,Theory,lessons/lessons-5148C.html
+Commercial Practice,Semester 5,5149,Data Entry Operations II,Theory,lessons/lessons-5149.html
+Commercial Practice,Semester 6,6141,Shorthand English (Speed and Theory) 120 wpm,Theory,lessons/lessons-6141.html
+Commercial Practice,Semester 6,6142,Shorthand Malayalam (Speed and Theory) 50 wpm,Theory,lessons/lessons-6142.html
+Commercial Practice,Semester 6,6143A,Economic Policies in India,Theory,lessons/lessons-6143A.html
+Commercial Practice,Semester 6,6143C,Engineering Economics and Accountancy,Theory,lessons/lessons-6143C.html
+Commercial Practice,Semester 6,6148,Malayalam Word Processing,Theory,lessons/lessons-6148.html
+Commercial Practice,Semester 6,6149,Computerised Financial Accounting II,Theory,lessons/lessons-6149.html
+Communication & Computer Networking,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Communication & Computer Networking,Semester 3,3321,Computer Architecture and Organization,Theory,lessons/lessons-3321.html
+Communication & Computer Networking,Semester 3,3322,Logic Design,Theory,lessons/lessons-3322.html
+Communication & Computer Networking,Semester 3,3323,Object Oriented Programming using JAVA,Theory,lessons/lessons-3323.html
+Communication & Computer Networking,Semester 3,3324,Operating System Design,Theory,lessons/lessons-3324.html
+Communication & Computer Networking,Semester 4,4321,Introduction to Micro Controllers,Theory,lessons/lessons-4321.html
+Communication & Computer Networking,Semester 4,4322,Computer Networks,Theory,lessons/lessons-4322.html
+Communication & Computer Networking,Semester 4,4323,Database Management System,Theory,lessons/lessons-4323.html
+Communication & Computer Networking,Semester 5,5321,Software Management System,Theory,lessons/lessons-5321.html
+Communication & Computer Networking,Semester 5,5322A,Web Technologies,Theory,lessons/lessons-5322A.html
+Communication & Computer Networking,Semester 5,5322B,Cloud Computing,Theory,lessons/lessons-5322B.html
+Communication & Computer Networking,Semester 5,5322C,Introduction to Social Networks,Theory,lessons/lessons-5322C.html
+Communication & Computer Networking,Semester 5,5323,Fundamentals of Embedded System Design,Theory,lessons/lessons-5323.html
+Communication & Computer Networking,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Communication & Computer Networking,Semester 6,6321A,Android Programming,Theory,lessons/lessons-6321A.html
+Communication & Computer Networking,Semester 6,6321B,Digital Communication System,Theory,lessons/lessons-6321B.html
+Communication & Computer Networking,Semester 6,6321C,IoT Fundamentals and Design,Theory,lessons/lessons-6321C.html
+Communication & Computer Networking,Semester 6,6322A,C Programming,Theory,lessons/lessons-6322A.html
+Communication & Computer Networking,Semester 6,6322B,Fundamentals of Python,Theory,lessons/lessons-6322B.html
+Communication & Computer Networking,Semester 6,6322C,Data Communication,Theory,lessons/lessons-6322C.html
+Communication & Computer Networking,Semester 6,6322D,Fundamentals of Networking,Theory,lessons/lessons-6322D.html
+Communication & Computer Networking,Semester 6,6327,Python Programming,Theory,lessons/lessons-6327.html
+Communication & Computer Networking,Semester 6,6328,Advanced Computer Networking,Theory,lessons/lessons-6328.html
+Computer Application & Business Management,Semester 1,1251,Foundation Courses Basic Accounting,Theory,lessons/lessons-1251.html
+Computer Application & Business Management,Semester 1,1252,Foundation Courses Business Economics,Theory,lessons/lessons-1252.html
+Computer Application & Business Management,Semester 1,1253,Business Studies,Theory,lessons/lessons-1253.html
+Computer Application & Business Management,Semester 1,1254,Foundation Courses Foundations in Science & Technology,Theory,lessons/lessons-1254.html
+Computer Application & Business Management,Semester 1,1257,Foundation Courses Introduction to Python,Theory,lessons/lessons-1257.html
+Computer Application & Business Management,Semester 1,1258,Computerised Accounting I,Theory,lessons/lessons-1258.html
+Computer Application & Business Management,Semester 2,2251,Foundation Courses Basic Management Concepts,Theory,lessons/lessons-2251.html
+Computer Application & Business Management,Semester 2,2252,Foundation Courses Business Mathematics,Theory,lessons/lessons-2252.html
+Computer Application & Business Management,Semester 2,2253,Foundation Courses Cost Accounting,Theory,lessons/lessons-2253.html
+Computer Application & Business Management,Semester 2,2254,Management Information Systems,Theory,lessons/lessons-2254.html
+Computer Application & Business Management,Semester 2,2255,Organizational Behaviour,Theory,lessons/lessons-2255.html
+Computer Application & Business Management,Semester 2,2257,Foundation Courses Introduction to C Programming,Theory,lessons/lessons-2257.html
+Computer Application & Business Management,Semester 2,2258,Computerised Accounting II,Theory,lessons/lessons-2258.html
+Computer Application & Business Management,Semester 2,2259,Foundation Courses Basics of Computer Hardware & Networking,Theory,lessons/lessons-2259.html
+Computer Application & Business Management,Semester 3,3251,Foundation Courses Computer Applications in Management,Theory,lessons/lessons-3251.html
+Computer Application & Business Management,Semester 3,3252,Financial Management,Theory,lessons/lessons-3252.html
+Computer Application & Business Management,Semester 3,3253,Marketing Management,Theory,lessons/lessons-3253.html
+Computer Application & Business Management,Semester 3,3254,Quantitative Techniques,Theory,lessons/lessons-3254.html
+Computer Application & Business Management,Semester 3,3255,Production & Operations Management,Theory,lessons/lessons-3255.html
+Computer Application & Business Management,Semester 4,4251,Foundation Courses Business Law,Theory,lessons/lessons-4251.html
+Computer Application & Business Management,Semester 4,4252,Human Resource Management,Theory,lessons/lessons-4252.html
+Computer Application & Business Management,Semester 4,4253,Relational Database Management System,Theory,lessons/lessons-4253.html
+Computer Application & Business Management,Semester 4,4254,Advertising Management,Theory,lessons/lessons-4254.html
+Computer Application & Business Management,Semester 5,5251,Visual Programming,Theory,lessons/lessons-5251.html
+Computer Application & Business Management,Semester 5,5252,E-commerce and Cyber Security,Theory,lessons/lessons-5252.html
+Computer Application & Business Management,Semester 5,5253,Supply Chain & Logistics Management,Theory,lessons/lessons-5253.html
+Computer Application & Business Management,Semester 5,5254A,Customer Relationship Management,Theory,lessons/lessons-5254A.html
+Computer Application & Business Management,Semester 5,5254B,Digital Marketing,Theory,lessons/lessons-5254B.html
+Computer Application & Business Management,Semester 5,5254C,Banking and Financial System,Theory,lessons/lessons-5254C.html
+Computer Application & Business Management,Semester 6,6251A,Retail Business Operations,Theory,lessons/lessons-6251A.html
+Computer Application & Business Management,Semester 6,6251B,Working Capital Management,Theory,lessons/lessons-6251B.html
+Computer Application & Business Management,Semester 6,6251C,Business Ethics,Theory,lessons/lessons-6251C.html
+Computer Application & Business Management,Semester 6,6252A,Fundamentals of Marketing Management,Theory,lessons/lessons-6252A.html
+Computer Application & Business Management,Semester 6,6252B,Fundamentals of Accounting and Finance,Theory,lessons/lessons-6252B.html
+Computer Application & Business Management,Semester 6,6252C,Production and Operations Management,Theory,lessons/lessons-6252C.html
+Computer Application & Business Management,Semester 6,6252D,Information System for Managers,Theory,lessons/lessons-6252D.html
+Computer Engineering,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Computer Engineering,Semester 3,3131,Computer Organisation,Theory,lessons/lessons-3131.html
+Computer Engineering,Semester 3,3133,Database Management Systems,Theory,lessons/lessons-3133.html
+Computer Engineering,Semester 3,3134,Digital Computer Fundamentals,Theory,lessons/lessons-3134.html
+Computer Engineering,Semester 4,4131,Object Oriented Programming,Theory,lessons/lessons-4131.html
+Computer Engineering,Semester 4,4132,Computer Communication and Networks,Theory,lessons/lessons-4132.html
+Computer Engineering,Semester 4,4133,Data Structures,Theory,lessons/lessons-4133.html
+Computer Engineering,Semester 5,5131,Embedded System and Real time Operating System,Theory,lessons/lessons-5131.html
+Computer Engineering,Semester 5,5132,Operating System,Theory,lessons/lessons-5132.html
+Computer Engineering,Semester 5,5133A,Virtualisation Technology and Cloud Computing,Theory,lessons/lessons-5133A.html
+Computer Engineering,Semester 5,5133B,Ethical Hacking,Theory,lessons/lessons-5133B.html
+Computer Engineering,Semester 5,5133C,Fundamentals of Artificial Intelligence and Machine Learning,Theory,lessons/lessons-5133C.html
+Computer Engineering,Semester 6,6131A,Internet of Things,Theory,lessons/lessons-6131A.html
+Computer Engineering,Semester 6,6131B,Server Administration,Theory,lessons/lessons-6131B.html
+Computer Engineering,Semester 6,6131C,Software Testing,Theory,lessons/lessons-6131C.html
+Computer Engineering,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Computer Engineering,Semester 6,6132A,Introduction to IoT,Theory,lessons/lessons-6132A.html
+Computer Engineering,Semester 6,6132B,Fundamentals of Web Technology,Theory,lessons/lessons-6132B.html
+Computer Engineering,Semester 6,6132C,Multimedia,Theory,lessons/lessons-6132C.html
+Computer Engineering,Semester 6,6132D,Cloud Computing,Theory,lessons/lessons-6132D.html
+Computer Hardware Engineering,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Computer Hardware Engineering,Semester 3,3134,Digital Computer Fundamentals,Theory,lessons/lessons-3134.html
+Computer Hardware Engineering,Semester 3,3151,Computer System Architecture,Theory,lessons/lessons-3151.html
+Computer Hardware Engineering,Semester 3,3152,Computer Networks I,Theory,lessons/lessons-3152.html
+Computer Hardware Engineering,Semester 4,4131,Object Oriented Programming,Theory,lessons/lessons-4131.html
+Computer Hardware Engineering,Semester 4,4151,Computer Networks II,Theory,lessons/lessons-4151.html
+Computer Hardware Engineering,Semester 4,4152,Embedded System and Real time Operating System,Theory,lessons/lessons-4152.html
+Computer Hardware Engineering,Semester 5,5132,Operating System,Theory,lessons/lessons-5132.html
+Computer Hardware Engineering,Semester 5,5133A,Virtualisation Technology and Cloud Computing,Theory,lessons/lessons-5133A.html
+Computer Hardware Engineering,Semester 5,5151,Internet of Things,Theory,lessons/lessons-5151.html
+Computer Hardware Engineering,Semester 5,5152A,Web programming,Theory,lessons/lessons-5152A.html
+Computer Hardware Engineering,Semester 5,5152B,Data structures,Theory,lessons/lessons-5152B.html
+Computer Hardware Engineering,Semester 6,6131C,Software Testing,Theory,lessons/lessons-6131C.html
+Computer Hardware Engineering,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Computer Hardware Engineering,Semester 6,6132A,Introduction to IoT,Theory,lessons/lessons-6132A.html
+Computer Hardware Engineering,Semester 6,6132C,Multimedia,Theory,lessons/lessons-6132C.html
+Computer Hardware Engineering,Semester 6,6132D,Cloud Computing,Theory,lessons/lessons-6132D.html
+Computer Hardware Engineering,Semester 6,6151A,Fundamentals of Artificial Intelligence & Machine Learning,Theory,lessons/lessons-6151A.html
+Computer Hardware Engineering,Semester 6,6151B,Database Management Systems,Theory,lessons/lessons-6151B.html
+Computer Hardware Engineering,Semester 6,6152,Computer System Hardware,Theory,lessons/lessons-6152.html
+Computer Science & Engineering,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Computer Science & Engineering,Semester 3,3131,Computer Organisation,Theory,lessons/lessons-3131.html
+Computer Science & Engineering,Semester 3,3133,Database Management Systems,Theory,lessons/lessons-3133.html
+Computer Science & Engineering,Semester 3,3134,Digital Computer Fundamentals,Theory,lessons/lessons-3134.html
+Computer Science & Engineering,Semester 4,4131,Object Oriented Programming,Theory,lessons/lessons-4131.html
+Computer Science & Engineering,Semester 4,4132,Computer Communication and Networks,Theory,lessons/lessons-4132.html
+Computer Science & Engineering,Semester 4,4133,Data Structures,Theory,lessons/lessons-4133.html
+Computer Science & Engineering,Semester 5,5132,Operating System,Theory,lessons/lessons-5132.html
+Computer Science & Engineering,Semester 5,5133A,Virtualisation Technology and Cloud Computing,Theory,lessons/lessons-5133A.html
+Computer Science & Engineering,Semester 5,5133B,Ethical Hacking,Theory,lessons/lessons-5133B.html
+Computer Science & Engineering,Semester 5,5401,Artificial Intelligence,Theory,lessons/lessons-5401.html
+Computer Science & Engineering,Semester 5,5402A,Embedded Systems and Realtime Operating Systems,Theory,lessons/lessons-5402A.html
+Computer Science & Engineering,Semester 6,6131B,Server Administration,Theory,lessons/lessons-6131B.html
+Computer Science & Engineering,Semester 6,6131C,Software Testing,Theory,lessons/lessons-6131C.html
+Computer Science & Engineering,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Computer Science & Engineering,Semester 6,6132A,Introduction to IoT,Theory,lessons/lessons-6132A.html
+Computer Science & Engineering,Semester 6,6132B,Fundamentals of Web Technology,Theory,lessons/lessons-6132B.html
+Computer Science & Engineering,Semester 6,6132C,Multimedia,Theory,lessons/lessons-6132C.html
+Computer Science & Engineering,Semester 6,6132D,Cloud Computing,Theory,lessons/lessons-6132D.html
+Computer Science & Engineering,Semester 6,6401A,Machine Learning,Theory,lessons/lessons-6401A.html
+Cyber Forensics and Information Security,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Cyber Forensics and Information Security,Semester 3,3133,Database Management Systems,Theory,lessons/lessons-3133.html
+Cyber Forensics and Information Security,Semester 3,3271,Operating System,Theory,lessons/lessons-3271.html
+Cyber Forensics and Information Security,Semester 3,3281,Fundamentals of Cryptography and Information Security,Theory,lessons/lessons-3281.html
+Cyber Forensics and Information Security,Semester 3,3282,Data Structures using C,Theory,lessons/lessons-3282.html
+Cyber Forensics and Information Security,Semester 3,3289,Computer Organization,Theory,lessons/lessons-3289.html
+Cyber Forensics and Information Security,Semester 4,4132,Computer Communication and Networks,Theory,lessons/lessons-4132.html
+Cyber Forensics and Information Security,Semester 4,4281,Programming in Python,Theory,lessons/lessons-4281.html
+Cyber Forensics and Information Security,Semester 4,4282,Cyber Forensics and Security Threats,Theory,lessons/lessons-4282.html
+Cyber Forensics and Information Security,Semester 5,5281,Object Oriented Programming,Theory,lessons/lessons-5281.html
+Cyber Forensics and Information Security,Semester 5,5282,Network Security,Theory,lessons/lessons-5282.html
+Cyber Forensics and Information Security,Semester 5,5283A,Data and Application Security,Theory,lessons/lessons-5283A.html
+Cyber Forensics and Information Security,Semester 5,5283B,IoT Security,Theory,lessons/lessons-5283B.html
+Cyber Forensics and Information Security,Semester 5,5283C,Internet and Web application Security,Theory,lessons/lessons-5283C.html
+Cyber Forensics and Information Security,Semester 6,6131A,Internet of Things,Theory,lessons/lessons-6131A.html
+Cyber Forensics and Information Security,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Cyber Forensics and Information Security,Semester 6,6281A,Virtualization and Cloud Security,Theory,lessons/lessons-6281A.html
+Cyber Forensics and Information Security,Semester 6,6281B,Ethical Hacking,Theory,lessons/lessons-6281B.html
+Cyber Forensics and Information Security,Semester 6,6281C,Mobile Application Security,Theory,lessons/lessons-6281C.html
+Cyber Forensics and Information Security,Semester 6,6282A,Cyber Security Law and Practices,Theory,lessons/lessons-6282A.html
+Cyber Forensics and Information Security,Semester 6,6282B,Data Mining and Warehousing,Theory,lessons/lessons-6282B.html
+Cyber Forensics and Information Security,Semester 6,6282C,Fundamentals of Cyber Security,Theory,lessons/lessons-6282C.html
+Electrical Engineering & Electric Vehicles Technology,Semester 2,2411,Introduction to Electric vehicles & Elementary theory,Theory,lessons/lessons-2411.html
+Electrical Engineering & Electric Vehicles Technology,Semester 3,3033,Fundamentals of Electric Circuits,Theory,lessons/lessons-3033.html
+Electrical Engineering & Electric Vehicles Technology,Semester 3,3034,Electrical & Electronics Measuring Instruments,Theory,lessons/lessons-3034.html
+Electrical Engineering & Electric Vehicles Technology,Semester 3,3411,Electric Vehicle Batteries and Charging System,Theory,lessons/lessons-3411.html
+Electrical Engineering & Electric Vehicles Technology,Semester 4,4033,Induction Machines,Theory,lessons/lessons-4033.html
+Electrical Engineering & Electric Vehicles Technology,Semester 4,4411,Vehicle Chasis and Transmission Systems,Theory,lessons/lessons-4411.html
+Electrical Engineering & Electric Vehicles Technology,Semester 5,5033A,Renewable Energy Power Plant,Theory,lessons/lessons-5033A.html
+Electrical Engineering & Electric Vehicles Technology,Semester 5,5033B,Industrial Drives & Control,Theory,lessons/lessons-5033B.html
+Electrical Engineering & Electric Vehicles Technology,Semester 5,5033C,Switch Gear & Protection,Theory,lessons/lessons-5033C.html
+Electrical Engineering & Electric Vehicles Technology,Semester 5,5411,Electric Vehicle Technology & Design Considerations,Theory,lessons/lessons-5411.html
+Electrical Engineering & Electric Vehicles Technology,Semester 6,6411A,Vehicle Power Train Control Systems,Theory,lessons/lessons-6411A.html
+Electrical Engineering & Electric Vehicles Technology,Semester 6,6412A,Fundamentals of Electric Vehicle Technology,Theory,lessons/lessons-6412A.html
+Electrical and Electronics Engineering,Semester 4,4032,Electrical Installation Design and Estimation,Theory,lessons/lessons-4032.html
+Electrical and Electronics Engineering,Semester 6,6031,Electrical Energy Management,Theory,lessons/lessons-6031.html
+Electrical and Electronics Engineering,Semester 6,6032,Industrial Drives and Control,Theory,lessons/lessons-6032.html
+Electronics Engineering,Semester 6,6042,Optical Fiber Communication,Theory,lessons/lessons-6042.html
+Electronics Engineering,Semester 6,6043,VLSI and DSP Fundamentals,Theory,lessons/lessons-6043.html
+Electronics and Communication,Semester 5,5043B,Microwave Devices and Radar,Theory,lessons/lessons-5043B.html
+Electronics and Communication,Semester 5,5043D,Digital Communication,Theory,lessons/lessons-5043D.html
+Electronics and Communication,Semester 5,5043E,Telecommunication Networks,Theory,lessons/lessons-5043E.html
+Electronics and Communication,Semester 5,5201,Signals and Systems,Theory,lessons/lessons-5201.html
+Electronics and Communication,Semester 5,5202,Mobile and Wireless Communication,Theory,lessons/lessons-5202.html
+Electronics and Communication,Semester 6,6201A,Antenna and Wave Propagation,Theory,lessons/lessons-6201A.html
+Electronics and Communication,Semester 6,6201B,Embedded Systems,Theory,lessons/lessons-6201B.html
+Electronics and Computer Engineering,Semester 3,3131,Computer Organisation,Theory,lessons/lessons-3131.html
+Electronics and Computer Engineering,Semester 3,3133,Database Management Systems,Theory,lessons/lessons-3133.html
+Electronics and Computer Engineering,Semester 3,3501,Basics of C Programming,Theory,lessons/lessons-3501.html
+Electronics and Computer Engineering,Semester 4,4132,Computer Communication and Networks,Theory,lessons/lessons-4132.html
+Electronics and Computer Engineering,Semester 4,4501,Fundamentals of Electronic Communication,Theory,lessons/lessons-4501.html
+Electronics and Computer Engineering,Semester 5,5043B,Microwave Devices and Radar,Theory,lessons/lessons-5043B.html
+Electronics and Computer Engineering,Semester 5,5131,Embedded System and Real time Operating System,Theory,lessons/lessons-5131.html
+Electronics and Computer Engineering,Semester 5,5133B,Ethical Hacking,Theory,lessons/lessons-5133B.html
+Electronics and Computer Engineering,Semester 5,5133C,Fundamentals of Artificial Intelligence and Machine Learning,Theory,lessons/lessons-5133C.html
+Electronics and Computer Engineering,Semester 5,5501,Linear Integared Ciricuits,Theory,lessons/lessons-5501.html
+Electronics and Computer Engineering,Semester 6,6131A,Internet of Things,Theory,lessons/lessons-6131A.html
+Electronics and Computer Engineering,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Electronics and Computer Engineering,Semester 6,6201A,Antenna and Wave Propagation,Theory,lessons/lessons-6201A.html
+Electronics and Computer Engineering,Semester 6,6501A,Entertainment electronics,Theory,lessons/lessons-6501A.html
+Electronics and Computer Engineering,Semester 6,6501B,Basics of MEMS,Theory,lessons/lessons-6501B.html
+Electronics and Computer Engineering,Semester 6,6501C,Fundamentals of Photovoltaics and solar cell technology,Theory,lessons/lessons-6501C.html
+Fire Technology and Safety,Semester 2,2461,Principles of Safety Management,Theory,lessons/lessons-2461.html
+Fire Technology and Safety,Semester 2,2469,Computer Applications in Fire Technology And Safety,Theory,lessons/lessons-2469.html
+Fire Technology and Safety,Semester 3,3461,Industrial Safety Engineering,Theory,lessons/lessons-3461.html
+Fire Technology and Safety,Semester 3,3462,Fire Engineering,Theory,lessons/lessons-3462.html
+Fire Technology and Safety,Semester 3,3463,Occupational Health & Safety,Theory,lessons/lessons-3463.html
+Fire Technology and Safety,Semester 3,3464,Electrical Safety,Theory,lessons/lessons-3464.html
+Fire Technology and Safety,Semester 3,3465,Basic First Aid,Theory,lessons/lessons-3465.html
+Fire Technology and Safety,Semester 4,4461,Strength of Materials (FS),Theory,lessons/lessons-4461.html
+Fire Technology and Safety,Semester 4,4462,Environmental Safety,Theory,lessons/lessons-4462.html
+Fire Technology and Safety,Semester 4,4463,Hazard Identification And Risk Management,Theory,lessons/lessons-4463.html
+Fire Technology and Safety,Semester 4,4464,Safety In Engineering Industries,Theory,lessons/lessons-4464.html
+Fire Technology and Safety,Semester 5,5461,Safety In Process Industries And Powder Handling,Theory,lessons/lessons-5461.html
+Fire Technology and Safety,Semester 5,5462,Safety In Oil And Gas Industries,Theory,lessons/lessons-5462.html
+Fire Technology and Safety,Semester 5,5463A,Safety In Construction And Textile Industry,Theory,lessons/lessons-5463A.html
+Fire Technology and Safety,Semester 5,5463B,Safety In Material Handling,Theory,lessons/lessons-5463B.html
+Fire Technology and Safety,Semester 5,5463C,Transport And Mine Safety,Theory,lessons/lessons-5463C.html
+Fire Technology and Safety,Semester 5,5469,Fire Safety Training,Theory,lessons/lessons-5469.html
+Fire Technology and Safety,Semester 6,6461A,Regulations For Safety Health And Environment,Theory,lessons/lessons-6461A.html
+Fire Technology and Safety,Semester 6,6461B,Explosion Theory And Control,Theory,lessons/lessons-6461B.html
+Fire Technology and Safety,Semester 6,6461C,Advanced Safety Mmanagement,Theory,lessons/lessons-6461C.html
+Fire Technology and Safety,Semester 6,6461D,Advanced Fire Control Ttechnology,Theory,lessons/lessons-6461D.html
+Fire Technology and Safety,Semester 6,6462A,Safety Management,Theory,lessons/lessons-6462A.html
+Fire Technology and Safety,Semester 6,6462B,Basic Fire Control Technology,Theory,lessons/lessons-6462B.html
+Fire Technology and Safety,Semester 6,6462C,Transportation Safety,Theory,lessons/lessons-6462C.html
+Fire Technology and Safety,Semester 6,6462D,Basic Safety in material handling,Theory,lessons/lessons-6462D.html
+First Year / Common,Semester 1,1009,Sports and Yoga,Theory,lessons/lessons-1009.html
+Food Processing Technology,Semester 2,2072,Engineering Chemistry,Theory,lessons/lessons-2072.html
+Food Processing Technology,Semester 2,2421,Fundamentals of Food Processing Technology,Theory,lessons/lessons-2421.html
+Food Processing Technology,Semester 3,3421,Food Processing Technology,Theory,lessons/lessons-3421.html
+Food Processing Technology,Semester 3,3422,Elements of Food Engineering,Theory,lessons/lessons-3422.html
+Food Processing Technology,Semester 3,3423,Food Analysis,Theory,lessons/lessons-3423.html
+Food Processing Technology,Semester 3,3424,Food Microbiology-I,Theory,lessons/lessons-3424.html
+Food Processing Technology,Semester 3,3425,"Food Safety, Quality & Hygiene",Theory,lessons/lessons-3425.html
+Food Processing Technology,Semester 4,4421,Food Microbiology -II,Theory,lessons/lessons-4421.html
+Food Processing Technology,Semester 4,4422,Food Chemistry I,Theory,lessons/lessons-4422.html
+Food Processing Technology,Semester 4,4423,Food Preservation,Theory,lessons/lessons-4423.html
+Food Processing Technology,Semester 4,4424,Food Packing Technology,Theory,lessons/lessons-4424.html
+Food Processing Technology,Semester 5,5421,Unit Operations of Food Industry,Theory,lessons/lessons-5421.html
+Food Processing Technology,Semester 5,5422,Food Additives,Theory,lessons/lessons-5422.html
+Food Processing Technology,Semester 5,5423A,Food Chemistry II,Theory,lessons/lessons-5423A.html
+Food Processing Technology,Semester 5,5423B,Spices & Condiments,Theory,lessons/lessons-5423B.html
+Food Processing Technology,Semester 5,5423C,Beverage Processing,Theory,lessons/lessons-5423C.html
+Food Processing Technology,Semester 6,6421A,Fruit &Vegetable Processing,Theory,lessons/lessons-6421A.html
+Food Processing Technology,Semester 6,6421B,Diary Processing Technology,Theory,lessons/lessons-6421B.html
+Food Processing Technology,Semester 6,6421C,Bakery and Confectionery,Theory,lessons/lessons-6421C.html
+Food Processing Technology,Semester 6,6422A,Cereals and Legumes,Theory,lessons/lessons-6422A.html
+Food Processing Technology,Semester 6,6422B,Food Laws & Regulation,Theory,lessons/lessons-6422B.html
+Food Processing Technology,Semester 6,6422C,Processing of Meat and Fish,Theory,lessons/lessons-6422C.html
+Food Processing Technology,Semester 6,6422D,Non Thermal Processing Techniques,Theory,lessons/lessons-6422D.html
+Hotel Management and Catering Technology,Semester 1,1471,Foundation Courses Food and Beverage Service I,Theory,lessons/lessons-1471.html
+Hotel Management and Catering Technology,Semester 1,1472,Foundation Courses Fundamentals of Business (HM),Theory,lessons/lessons-1472.html
+Hotel Management and Catering Technology,Semester 1,1473,Foundation Courses House Keeping Management I,Theory,lessons/lessons-1473.html
+Hotel Management and Catering Technology,Semester 1,1474,Foundation Courses Food Production I,Theory,lessons/lessons-1474.html
+Hotel Management and Catering Technology,Semester 1,1477,Foundation Courses Food Production Practical I,Theory,lessons/lessons-1477.html
+Hotel Management and Catering Technology,Semester 1,1478,Foundation Courses Food and Beverage Service Practical I,Theory,lessons/lessons-1478.html
+Hotel Management and Catering Technology,Semester 1,1479,Foundation Courses House Keeping Management Practical I,Theory,lessons/lessons-1479.html
+Hotel Management and Catering Technology,Semester 2,2471,Basic Technology Courses Fundamentals of Computer,Theory,lessons/lessons-2471.html
+Hotel Management and Catering Technology,Semester 2,2472,Foundation Courses Food and Beverage Service II,Theory,lessons/lessons-2472.html
+Hotel Management and Catering Technology,Semester 2,2473,Foundation Courses Financial Accounting,Theory,lessons/lessons-2473.html
+Hotel Management and Catering Technology,Semester 2,2474,Foundation Courses Front Office Operations I,Theory,lessons/lessons-2474.html
+Hotel Management and Catering Technology,Semester 2,2475,Foundation Courses Food Production II,Theory,lessons/lessons-2475.html
+Hotel Management and Catering Technology,Semester 2,2477,Foundation Courses Computerised Accounting,Theory,lessons/lessons-2477.html
+Hotel Management and Catering Technology,Semester 2,2478,Foundation Courses Front Office Operations Practical I,Theory,lessons/lessons-2478.html
+Hotel Management and Catering Technology,Semester 2,2479,Foundation Courses Food and Beverage Service Practical II,Theory,lessons/lessons-2479.html
+Hotel Management and Catering Technology,Semester 3,3471,Foundation Courses Applications of Computer and Cyber Law,Theory,lessons/lessons-3471.html
+Hotel Management and Catering Technology,Semester 3,3472,Principles of Nutrition,Theory,lessons/lessons-3472.html
+Hotel Management and Catering Technology,Semester 3,3473,Food Production III,Theory,lessons/lessons-3473.html
+Hotel Management and Catering Technology,Semester 3,3474,Food and Beverage Service III,Theory,lessons/lessons-3474.html
+Hotel Management and Catering Technology,Semester 3,3475,Hotel Law,Theory,lessons/lessons-3475.html
+Hotel Management and Catering Technology,Semester 3,3476,Food Production Practical III,Theory,lessons/lessons-3476.html
+Hotel Management and Catering Technology,Semester 3,3477,Food and Beverage Service Practical III,Theory,lessons/lessons-3477.html
+Hotel Management and Catering Technology,Semester 3,3478,Applications of Computer Practical,Theory,lessons/lessons-3478.html
+Hotel Management and Catering Technology,Semester 3,3479,Food Production Practical II,Theory,lessons/lessons-3479.html
+Hotel Management and Catering Technology,Semester 4,4471,Foundation Courses Bakery and Confectionery,Theory,lessons/lessons-4471.html
+Hotel Management and Catering Technology,Semester 4,4472,Food Production IV,Theory,lessons/lessons-4472.html
+Hotel Management and Catering Technology,Semester 4,4473,Food and Beverage Service IV,Theory,lessons/lessons-4473.html
+Hotel Management and Catering Technology,Semester 4,4474,Accomodation Operation and Management,Theory,lessons/lessons-4474.html
+Hotel Management and Catering Technology,Semester 4,4477,Food Production Practical IV,Theory,lessons/lessons-4477.html
+Hotel Management and Catering Technology,Semester 4,4478,Food and Beverage Service Practical IV,Theory,lessons/lessons-4478.html
+Hotel Management and Catering Technology,Semester 4,4479,Accomodation Operation and Management Practicals,Theory,lessons/lessons-4479.html
+Hotel Management and Catering Technology,Semester 5,5471,Food and Beverage Management,Theory,lessons/lessons-5471.html
+Hotel Management and Catering Technology,Semester 5,5472,Facility Planning,Theory,lessons/lessons-5472.html
+Hotel Management and Catering Technology,Semester 5,5473,Financial Management,Theory,lessons/lessons-5473.html
+Hotel Management and Catering Technology,Semester 5,5474A,Interior Design,Theory,lessons/lessons-5474A.html
+Hotel Management and Catering Technology,Semester 5,5474B,Customer Relationship Management,Theory,lessons/lessons-5474B.html
+Hotel Management and Catering Technology,Semester 5,5474C,Human Resource Management,Theory,lessons/lessons-5474C.html
+Hotel Management and Catering Technology,Semester 5,5477,Bakery and Confectionery Practical,Theory,lessons/lessons-5477.html
+Hotel Management and Catering Technology,Semester 5,5478,Industrial Catering Practical,Theory,lessons/lessons-5478.html
+Hotel Management and Catering Technology,Semester 5,5479A,Interior Design Practical,Theory,lessons/lessons-5479A.html
+Hotel Management and Catering Technology,Semester 5,5479B,Customer Relationship Management Practical,Theory,lessons/lessons-5479B.html
+Hotel Management and Catering Technology,Semester 5,5479C,Human Resource Management Practical,Theory,lessons/lessons-5479C.html
+Hotel Management and Catering Technology,Semester 6,6143A,Economic Policies in India,Theory,lessons/lessons-6143A.html
+Hotel Management and Catering Technology,Semester 6,6252A,Fundamentals of Marketing Management,Theory,lessons/lessons-6252A.html
+Hotel Management and Catering Technology,Semester 6,6471A,Hosptitality Management,Theory,lessons/lessons-6471A.html
+Hotel Management and Catering Technology,Semester 6,6471B,Tourism and Travel Management,Theory,lessons/lessons-6471B.html
+Hotel Management and Catering Technology,Semester 6,6471C,Priciples of Food Microbiology,Theory,lessons/lessons-6471C.html
+Hotel Management and Catering Technology,Semester 6,6477,Hotel Management Software Practical,Theory,lessons/lessons-6477.html
+Hotel Management and Catering Technology,Semester 6,6478,Advanced Excel Practical,Theory,lessons/lessons-6478.html
+Hotel Management and Catering Technology,Semester 6,6479,Tourism Planning Practical,Theory,lessons/lessons-6479.html
+Information Technology,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
+Information Technology,Semester 3,3261,Fundamentals of Network Administration,Theory,lessons/lessons-3261.html
+Information Technology,Semester 3,3262,Fundamentals of System Administration,Theory,lessons/lessons-3262.html
+Information Technology,Semester 3,3263,Fundamentals of Web Development,Theory,lessons/lessons-3263.html
+Information Technology,Semester 3,3264,Software Engineering,Theory,lessons/lessons-3264.html
+Information Technology,Semester 4,4261,Network Switching Technologies,Theory,lessons/lessons-4261.html
+Information Technology,Semester 4,4262,System Administration,Theory,lessons/lessons-4262.html
+Information Technology,Semester 4,4263,Advanced Web Development,Theory,lessons/lessons-4263.html
+Information Technology,Semester 5,5133B,Ethical Hacking,Theory,lessons/lessons-5133B.html
+Information Technology,Semester 5,5133C,Fundamentals of Artificial Intelligence and Machine Learning,Theory,lessons/lessons-5133C.html
+Information Technology,Semester 5,5261,Network Routing Technologies,Theory,lessons/lessons-5261.html
+Information Technology,Semester 5,5262,Object Oriented Web Development,Theory,lessons/lessons-5262.html
+Information Technology,Semester 5,5263,Server Administration,Theory,lessons/lessons-5263.html
+Information Technology,Semester 6,6131A,Internet of Things,Theory,lessons/lessons-6131A.html
+Information Technology,Semester 6,6131C,Software Testing,Theory,lessons/lessons-6131C.html
+Information Technology,Semester 6,6131D,Introduction to 5G,Theory,lessons/lessons-6131D.html
+Information Technology,Semester 6,6132D,Cloud Computing,Theory,lessons/lessons-6132D.html
+Information Technology,Semester 6,6261,Virtualization Technology and Cloud Computing,Theory,lessons/lessons-6261.html
+Information Technology,Semester 6,6262A,Computer Network Administration,Theory,lessons/lessons-6262A.html
+Information Technology,Semester 6,6262B,Computer System Administration,Theory,lessons/lessons-6262B.html
+Information Technology,Semester 6,6262C,Web Design,Theory,lessons/lessons-6262C.html
+Instrumentation Engineering,Semester 2,2081,Electronic Instrumentation,Theory,lessons/lessons-2081.html
+Instrumentation Engineering,Semester 3,3081,Digital Circuits and Systems,Theory,lessons/lessons-3081.html
+Instrumentation Engineering,Semester 3,3082,Sensors and Transducers,Theory,lessons/lessons-3082.html
+Instrumentation Engineering,Semester 3,3083,Analog Circuits for Instrumentation,Theory,lessons/lessons-3083.html
+Instrumentation Engineering,Semester 3,3084,Control Engineering,Theory,lessons/lessons-3084.html
+Instrumentation Engineering,Semester 4,4081,Process Variables Measurement,Theory,lessons/lessons-4081.html
+Instrumentation Engineering,Semester 4,4082,Microcontroller Programming and Applications,Theory,lessons/lessons-4082.html
+Instrumentation Engineering,Semester 4,4083,Process Control Instrumentation,Theory,lessons/lessons-4083.html
+Instrumentation Engineering,Semester 4,4084,Analytical & Biomedical Instruments,Theory,lessons/lessons-4084.html
+Instrumentation Engineering,Semester 5,5081,Industrial Instrumentation,Theory,lessons/lessons-5081.html
+Instrumentation Engineering,Semester 5,5082,Industrial Automation and Control,Theory,lessons/lessons-5082.html
+Instrumentation Engineering,Semester 5,5083A,Industrial Electronics & Drives,Theory,lessons/lessons-5083A.html
+Instrumentation Engineering,Semester 5,5083B,Laser and Optical Instrumentation,Theory,lessons/lessons-5083B.html
+Instrumentation Engineering,Semester 5,5083C,Robotics and Control,Theory,lessons/lessons-5083C.html
+Instrumentation Engineering,Semester 6,6081A,Advanced Biomedical Instrumentation,Theory,lessons/lessons-6081A.html
+Instrumentation Engineering,Semester 6,6081B,Power plant Instruments,Theory,lessons/lessons-6081B.html
+Instrumentation Engineering,Semester 6,6081C,Aircraft Instruments,Theory,lessons/lessons-6081C.html
+Instrumentation Engineering,Semester 6,6082A,Industrial IoT,Theory,lessons/lessons-6082A.html
+Instrumentation Engineering,Semester 6,6082B,Environmental Instrumentation,Theory,lessons/lessons-6082B.html
+Instrumentation Engineering,Semester 6,6082C,MEMS & Nanosensors,Theory,lessons/lessons-6082C.html
+Instrumentation Engineering,Semester 6,6082D,Mechatronics and Control,Theory,lessons/lessons-6082D.html
+Integrated Circuit Design & Fabrication,Semester 3,3371,Introduction to IC Fabrication,Theory,lessons/lessons-3371.html
+Integrated Circuit Design & Fabrication,Semester 3,3372,Solid State Devices,Theory,lessons/lessons-3372.html
+Integrated Circuit Design & Fabrication,Semester 3,3377,Electric Circuits and Instrumentation,Theory,lessons/lessons-3377.html
+Integrated Circuit Design & Fabrication,Semester 4,4371,VLSI Design,Theory,lessons/lessons-4371.html
+Integrated Circuit Design & Fabrication,Semester 4,4372,Verilog HDL & Programmable Logic Devices,Theory,lessons/lessons-4372.html
+Integrated Circuit Design & Fabrication,Semester 4,4373,CAD for VLSI,Drawing,lessons/lessons-4373.html
+Integrated Circuit Design & Fabrication,Semester 5,5243B,Programming in C,Theory,lessons/lessons-5243B.html
+Integrated Circuit Design & Fabrication,Semester 5,5371,Microcontroller and Embedded System,Theory,lessons/lessons-5371.html
+Integrated Circuit Design & Fabrication,Semester 5,5372A,Analog and Digital Communication Systems,Theory,lessons/lessons-5372A.html
+Integrated Circuit Design & Fabrication,Semester 5,5372B,Semiconductor Package and Testing,Theory,lessons/lessons-5372B.html
+Integrated Circuit Design & Fabrication,Semester 6,6021A,Mechatronics,Theory,lessons/lessons-6021A.html
+Integrated Circuit Design & Fabrication,Semester 6,6022C,Renewable Energy Technologies,Theory,lessons/lessons-6022C.html
+Integrated Circuit Design & Fabrication,Semester 6,6022D,Product Design,Theory,lessons/lessons-6022D.html
+Integrated Circuit Design & Fabrication,Semester 6,6371A,Computer Hardware and Networks,Theory,lessons/lessons-6371A.html
+Integrated Circuit Design & Fabrication,Semester 6,6371B,Sensors and Actuators,Theory,lessons/lessons-6371B.html
+Integrated Circuit Design & Fabrication,Semester 6,6371C,Industrial Automation & PLC,Theory,lessons/lessons-6371C.html
+Manufacturing Technology,Semester 2,2701,Basic Production process,Theory,lessons/lessons-2701.html
+Manufacturing Technology,Semester 4,4701,Mechanical Engineering,Theory,lessons/lessons-4701.html
+Manufacturing Technology,Semester 4,4702,CNC Programming,Theory,lessons/lessons-4702.html
+Manufacturing Technology,Semester 5,5112A,"Jigs, Fixtures and Gauges",Theory,lessons/lessons-5112A.html
+Manufacturing Technology,Semester 6,6021A,Mechatronics,Theory,lessons/lessons-6021A.html
+Manufacturing Technology,Semester 6,6021B,Computer Integrated Manufacturing,Theory,lessons/lessons-6021B.html
+Manufacturing Technology,Semester 6,6022A,Computer Aided Design and Manufacturing,Theory,lessons/lessons-6022A.html
+Manufacturing Technology,Semester 6,6022B,Operation Research,Theory,lessons/lessons-6022B.html
+Manufacturing Technology,Semester 6,6022C,Renewable Energy Technologies,Theory,lessons/lessons-6022C.html
+Manufacturing Technology,Semester 6,6022D,Product Design,Theory,lessons/lessons-6022D.html
+Manufacturing Technology,Semester 6,6701,Theory of Power Plants,Theory,lessons/lessons-6701.html
+Mechanical Engineering,Semester 6,6021A,Mechatronics,Theory,lessons/lessons-6021A.html
+Mechanical Engineering,Semester 6,6021B,Computer Integrated Manufacturing,Theory,lessons/lessons-6021B.html
+Mechanical Engineering,Semester 6,6022A,Computer Aided Design and Manufacturing,Theory,lessons/lessons-6022A.html
+Mechanical Engineering,Semester 6,6022B,Operation Research,Theory,lessons/lessons-6022B.html
+Mechanical Engineering,Semester 6,6022C,Renewable Energy Technologies,Theory,lessons/lessons-6022C.html
+Mechanical Engineering,Semester 6,6022D,Product Design,Theory,lessons/lessons-6022D.html
+Mechanical Engineering,Semester 6,6051A,Electric and Hybrid Vehicles,Theory,lessons/lessons-6051A.html
+Mechatronics,Semester 3,3082,Sensors and Transducers,Theory,lessons/lessons-3082.html
+Mechatronics,Semester 3,3332,Mechanics of Materials,Theory,lessons/lessons-3332.html
+Mechatronics,Semester 3,3431,Engineering Materials and Metrology,Theory,lessons/lessons-3431.html
+Mechatronics,Semester 4,4331,Mechanics of Robotics,Theory,lessons/lessons-4331.html
+Mechatronics,Semester 4,4339,Industry 4.0,Theory,lessons/lessons-4339.html
+Mechatronics,Semester 4,4701,Mechanical Engineering,Theory,lessons/lessons-4701.html
+Mechatronics,Semester 5,5333A,Industrial Robotics,Theory,lessons/lessons-5333A.html
+Mechatronics,Semester 5,5431,Computer Integrated Design and Manufacturing,Theory,lessons/lessons-5431.html
+Mechatronics,Semester 5,5432,Automation and Control,Theory,lessons/lessons-5432.html
+Mechatronics,Semester 6,6022B,Operation Research,Theory,lessons/lessons-6022B.html
+Mechatronics,Semester 6,6022C,Renewable Energy Technologies,Theory,lessons/lessons-6022C.html
+Mechatronics,Semester 6,6022D,Product Design,Theory,lessons/lessons-6022D.html
+Mechatronics,Semester 6,6081C,Aircraft Instruments,Theory,lessons/lessons-6081C.html
+Mechatronics,Semester 6,6131A,Internet of Things,Theory,lessons/lessons-6131A.html
+Mechatronics,Semester 6,6301C,Artificial Intelligence,Theory,lessons/lessons-6301C.html
+Mechatronics,Semester 6,6431A,Introduction To Mechatronics,Theory,lessons/lessons-6431A.html
+Micro Electronics,Semester 3,3371,Introduction to IC Fabrication,Theory,lessons/lessons-3371.html
+Micro Electronics,Semester 3,3372,Solid State Devices,Theory,lessons/lessons-3372.html
+Micro Electronics,Semester 4,4371,VLSI Design,Theory,lessons/lessons-4371.html
+Micro Electronics,Semester 4,4372,Verilog HDL & Programmable Logic Devices,Theory,lessons/lessons-4372.html
+Micro Electronics,Semester 4,4491,Networks and Integrated Circuits,Theory,lessons/lessons-4491.html
+Micro Electronics,Semester 4,4492,Introduction to MEMS,Theory,lessons/lessons-4492.html
+Micro Electronics,Semester 5,5491,Digital System Design,Theory,lessons/lessons-5491.html
+Micro Electronics,Semester 5,5492,Microcontrollers and Applications,Theory,lessons/lessons-5492.html
+Micro Electronics,Semester 5,5493A,Low Power VLSI,Theory,lessons/lessons-5493A.html
+Micro Electronics,Semester 5,5493B,Digital CMOS VLSI,Theory,lessons/lessons-5493B.html
+Micro Electronics,Semester 5,5493C,Programming with VHDL,Theory,lessons/lessons-5493C.html
+Micro Electronics,Semester 5,5493D,VLSI Testing,Theory,lessons/lessons-5493D.html
+Micro Electronics,Semester 6,6201B,Embedded Systems,Theory,lessons/lessons-6201B.html
+Micro Electronics,Semester 6,6491B,Nanoelectronics,Theory,lessons/lessons-6491B.html
+Micro Electronics,Semester 6,6491C,RF MEMS,Theory,lessons/lessons-6491C.html
+Micro Electronics,Semester 6,6491D,VLSI for Wireless Communication,Theory,lessons/lessons-6491D.html
+Micro Electronics,Semester 6,6492A,Introduction to IoT,Theory,lessons/lessons-6492A.html
+Micro Electronics,Semester 6,6492B,Basics of Robotics,Theory,lessons/lessons-6492B.html
+Micro Electronics,Semester 6,6492C,Entertainment Electronics,Theory,lessons/lessons-6492C.html
+Micro Electronics,Semester 6,6492D,Medical Electronics,Theory,lessons/lessons-6492D.html
+Polymer Technology,Semester 2,2091,Fundamentals of Polymer science,Theory,lessons/lessons-2091.html
+Polymer Technology,Semester 3,3091,Natural Rubber Production,Theory,lessons/lessons-3091.html
+Polymer Technology,Semester 3,3092,Polymer Science,Theory,lessons/lessons-3092.html
+Polymer Technology,Semester 3,3093,Technology of Elastomers,Theory,lessons/lessons-3093.html
+Polymer Technology,Semester 3,3094,Synthetic Rubbers,Theory,lessons/lessons-3094.html
+Polymer Technology,Semester 3,3095,Basic Mechanical Engineering,Theory,lessons/lessons-3095.html
+Polymer Technology,Semester 4,4091,Polymer processing & Machinery,Theory,lessons/lessons-4091.html
+Polymer Technology,Semester 4,4092,Latex Technology,Theory,lessons/lessons-4092.html
+Polymer Technology,Semester 4,4093,Rubber products,Theory,lessons/lessons-4093.html
+Polymer Technology,Semester 4,4094,Plastic Technology,Theory,lessons/lessons-4094.html
+Polymer Technology,Semester 5,5091,Tyre Technology,Theory,lessons/lessons-5091.html
+Polymer Technology,Semester 5,5092,Quality Assurance &Testing,Theory,lessons/lessons-5092.html
+Polymer Technology,Semester 5,5093A,Injection Mould Design,Theory,lessons/lessons-5093A.html
+Polymer Technology,Semester 5,5093B,Speciality Polymers,Theory,lessons/lessons-5093B.html
+Polymer Technology,Semester 5,5093C,Chemical Engineering,Theory,lessons/lessons-5093C.html
+Polymer Technology,Semester 6,6091A,Plastic Products,Theory,lessons/lessons-6091A.html
+Polymer Technology,Semester 6,6091B,Fibres and Composites,Theory,lessons/lessons-6091B.html
+Polymer Technology,Semester 6,6091C,Polymer Physics,Theory,lessons/lessons-6091C.html
+Polymer Technology,Semester 6,6092A,Adhesives,Theory,lessons/lessons-6092A.html
+Polymer Technology,Semester 6,6092B,Product Design and Development,Theory,lessons/lessons-6092B.html
+Polymer Technology,Semester 6,6092C,Paints & surface coating,Theory,lessons/lessons-6092C.html
+Polymer Technology,Semester 6,6092D,Process Control & Measuring Devices,Theory,lessons/lessons-6092D.html
+Printing Technology,Semester 2,2101,Basics of Printing Processes,Theory,lessons/lessons-2101.html
+Printing Technology,Semester 3,3101,Print Design,Theory,lessons/lessons-3101.html
+Printing Technology,Semester 3,3102,Materials for Printing and Packaging,Theory,lessons/lessons-3102.html
+Printing Technology,Semester 3,3103,Mechanism of Printing Machines-I,Theory,lessons/lessons-3103.html
+Printing Technology,Semester 3,3104,Fundamentals of Color Reproduction,Theory,lessons/lessons-3104.html
+Printing Technology,Semester 5,5101,Packaging Techniques,Theory,lessons/lessons-5101.html
+Printing Technology,Semester 5,5102,Print Marketing Management,Theory,lessons/lessons-5102.html
+Printing Technology,Semester 5,5103A,Advertising Techniques,Theory,lessons/lessons-5103A.html
+Printing Technology,Semester 5,5103B,Maintenance Engineering & Quality Control,Theory,lessons/lessons-5103B.html
+Printing Technology,Semester 5,5103C,Screen Printing,Theory,lessons/lessons-5103C.html
+Printing Technology,Semester 6,6101A,Specialized Printing Applications,Theory,lessons/lessons-6101A.html
+Printing Technology,Semester 6,6101B,Green Printing and Waste Management,Theory,lessons/lessons-6101B.html
+Printing Technology,Semester 6,6101C,Present Printing Industry,Theory,lessons/lessons-6101C.html
+Printing Technology,Semester 6,6102A,News Paper & Periodical Publishing Industry,Theory,lessons/lessons-6102A.html
+Printing Technology,Semester 6,6102B,Advancement in Packaging,Theory,lessons/lessons-6102B.html
+Printing Technology,Semester 6,6102C,Security Printing,Theory,lessons/lessons-6102C.html
+Printing Technology,Semester 6,6102D,Disaster Management (PT),Theory,lessons/lessons-6102D.html
+Renewable Energy,Semester 2,2291,Basic Electrical Engineering & Renewable Technology,Theory,lessons/lessons-2291.html
+Renewable Energy,Semester 3,3033,Fundamentals of Electric Circuits,Theory,lessons/lessons-3033.html
+Renewable Energy,Semester 3,3035,Mechanical Engineering,Theory,lessons/lessons-3035.html
+Renewable Energy,Semester 3,3291,Analog & Optoelectronic Circuits,Theory,lessons/lessons-3291.html
+Renewable Energy,Semester 3,3292,Electrical & Renewable Energy Measuring Systems,Theory,lessons/lessons-3292.html
+Renewable Energy,Semester 3,3293,Renewable Energy Engineering I,Theory,lessons/lessons-3293.html
+Renewable Energy,Semester 3,3299,Basic Renewable Wokshop Practice,Theory,lessons/lessons-3299.html
+Renewable Energy,Semester 4,4291,Electrical System Design & Estimation,Theory,lessons/lessons-4291.html
+Renewable Energy,Semester 4,4292,DC Machines & Transformers,Theory,lessons/lessons-4292.html
+Renewable Energy,Semester 4,4293,Renewable Energy Engineering II,Theory,lessons/lessons-4293.html
+Renewable Energy,Semester 4,4299,Energy Management & Audit,Theory,lessons/lessons-4299.html
+Renewable Energy,Semester 5,5291,Induction & Synchronous Machines,Theory,lessons/lessons-5291.html
+Renewable Energy,Semester 5,5292,Fundamentals of Power Electronics,Theory,lessons/lessons-5292.html
+Renewable Energy,Semester 5,5293A,Control Systems,Theory,lessons/lessons-5293A.html
+Renewable Energy,Semester 5,5293B,Electric Power Generation & Transmission,Theory,lessons/lessons-5293B.html
+Renewable Energy,Semester 5,5293C,Digital Electronics & Microprocessor,Theory,lessons/lessons-5293C.html
+Renewable Energy,Semester 6,6291A,Distributed Generation,Theory,lessons/lessons-6291A.html
+Renewable Energy,Semester 6,6291B,Electric Power Distribution & Protection,Theory,lessons/lessons-6291B.html
+Renewable Energy,Semester 6,6292A,Conventional & Non Conventional Energy Sources,Theory,lessons/lessons-6292A.html
+Renewable Energy,Semester 6,6292B,Electrical Energy Conservation,Theory,lessons/lessons-6292B.html
+Renewable Energy,Semester 6,6292C,Sustainable Engineering,Theory,lessons/lessons-6292C.html
+Renewable Energy,Semester 6,6292D,Hybrid Electric Vehicles,Theory,lessons/lessons-6292D.html
+Robotic Process Automation,Semester 2,2301,Introduction to Computation and Programming,Theory,lessons/lessons-2301.html
+Robotic Process Automation,Semester 3,3133,Database Management Systems,Theory,lessons/lessons-3133.html
+Robotic Process Automation,Semester 3,3301,Problem Solving using Python,Theory,lessons/lessons-3301.html
+Robotic Process Automation,Semester 3,3302,Digital Design & Computer Architecture,Theory,lessons/lessons-3302.html
+Robotic Process Automation,Semester 3,3303,Introduction to RPA,Theory,lessons/lessons-3303.html
+Robotic Process Automation,Semester 3,3304,Introduction to Software Engineering,Theory,lessons/lessons-3304.html
+Robotic Process Automation,Semester 4,4133,Data Structures,Theory,lessons/lessons-4133.html
+Robotic Process Automation,Semester 4,4301,Web Scripting Languages,Theory,lessons/lessons-4301.html
+Robotic Process Automation,Semester 4,4302,Advanced RPA,Theory,lessons/lessons-4302.html
+Robotic Process Automation,Semester 4,4303,Software Testing,Theory,lessons/lessons-4303.html
+Robotic Process Automation,Semester 5,5301,Introduction to Machine Learning,Theory,lessons/lessons-5301.html
+Robotic Process Automation,Semester 5,5302,Data Mining,Theory,lessons/lessons-5302.html
+Robotic Process Automation,Semester 5,5303A,Fundamentals of Digital Marketing,Theory,lessons/lessons-5303A.html
+Robotic Process Automation,Semester 5,5303B,Non Relational Database Management System,Theory,lessons/lessons-5303B.html
+Robotic Process Automation,Semester 5,5303C,Embedded and IoT System Design,Theory,lessons/lessons-5303C.html
+Robotic Process Automation,Semester 6,6301A,Cyber Security,Theory,lessons/lessons-6301A.html
+Robotic Process Automation,Semester 6,6301B,Cloud Computing Fundamentals,Theory,lessons/lessons-6301B.html
+Robotic Process Automation,Semester 6,6301C,Artificial Intelligence,Theory,lessons/lessons-6301C.html
+Robotic Process Automation,Semester 6,6302A,Introduction to Data Mining & Data Analytics,Theory,lessons/lessons-6302A.html
+Robotic Process Automation,Semester 6,6302B,Introduction to Computing Problems,Theory,lessons/lessons-6302B.html
+Robotic Process Automation,Semester 6,6302C,Robotic Process Automation Concepts,Theory,lessons/lessons-6302C.html
+Robotic Process Automation,Semester 6,6302D,Introductory Concepts of Digital Marketing,Theory,lessons/lessons-6302D.html
+Textile Technology,Semester 2,2061,Textile Fibres,Theory,lessons/lessons-2061.html
+Textile Technology,Semester 3,3061,Fabric Manufacture I,Theory,lessons/lessons-3061.html
+Textile Technology,Semester 3,3062,Textile Wet Processing,Theory,lessons/lessons-3062.html
+Textile Technology,Semester 3,3063,Yarn Manufacture I,Theory,lessons/lessons-3063.html
+Textile Technology,Semester 3,3064,Design & Structure of Fabrics,Theory,lessons/lessons-3064.html
+Textile Technology,Semester 3,3065,Yarn Manufacture I Practical,Theory,lessons/lessons-3065.html
+Textile Technology,Semester 3,3066,Fabric Manufacture I Practical,Theory,lessons/lessons-3066.html
+Textile Technology,Semester 3,3067,Textile Wet Processing I Practical,Theory,lessons/lessons-3067.html
+Textile Technology,Semester 4,4061,Yarn Manufacture II,Theory,lessons/lessons-4061.html
+Textile Technology,Semester 4,4062,Fabric Manufacture II,Theory,lessons/lessons-4062.html
+Textile Technology,Semester 4,4063,Textile Colouration and Finishing,Theory,lessons/lessons-4063.html
+Textile Technology,Semester 4,4064,Man made Fibres and knitting,Theory,lessons/lessons-4064.html
+Textile Technology,Semester 4,4067,Yarn Manufacture II Practical,Theory,lessons/lessons-4067.html
+Textile Technology,Semester 4,4068,Fabric Manufacture II Practical,Theory,lessons/lessons-4068.html
+Textile Technology,Semester 5,5061,Textile Testing,Theory,lessons/lessons-5061.html
+Textile Technology,Semester 5,5062,Fashion Design and Apparel Manufacture,Theory,lessons/lessons-5062.html
+Textile Technology,Semester 5,5063A,Non wovens & Technical Textiles,Theory,lessons/lessons-5063A.html
+Textile Technology,Semester 5,5063B,Textile Machine Maintenance,Theory,lessons/lessons-5063B.html
+Textile Technology,Semester 5,5063C,Long Staple Spinning Technology,Theory,lessons/lessons-5063C.html
+Tool & Die Engineering,Semester 2,2111,Production Engineering I,Theory,lessons/lessons-2111.html
+Tool & Die Engineering,Semester 3,3111,Moulds and Dies Technology,Theory,lessons/lessons-3111.html
+Tool & Die Engineering,Semester 3,3112,Production Engineering II,Theory,lessons/lessons-3112.html
+Tool & Die Engineering,Semester 3,3113,Tool Engineering Drawing,Drawing,lessons/lessons-3113.html
+Tool & Die Engineering,Semester 4,4111,Fluid Mechanics and Heat Transfer,Theory,lessons/lessons-4111.html
+Tool & Die Engineering,Semester 4,4112,Press Tool Technology,Theory,lessons/lessons-4112.html
+Tool & Die Engineering,Semester 4,4113,Advanced Mould making,Theory,lessons/lessons-4113.html
+Tool & Die Engineering,Semester 4,4117,Computer aided Moulds and Dies Drawing,Drawing,lessons/lessons-4117.html
+Tool & Die Engineering,Semester 5,5111,Tool Design,Theory,lessons/lessons-5111.html
+Tool & Die Engineering,Semester 5,5112A,"Jigs, Fixtures and Gauges",Theory,lessons/lessons-5112A.html
+Tool & Die Engineering,Semester 5,5112B,Robotics and Automation,Theory,lessons/lessons-5112B.html
+Tool & Die Engineering,Semester 5,5117,Computer Aided Press Tool Drawing,Drawing,lessons/lessons-5117.html
+Tool & Die Engineering,Semester 6,6021A,Mechatronics,Theory,lessons/lessons-6021A.html
+Tool & Die Engineering,Semester 6,6021B,Computer Integrated Manufacturing,Theory,lessons/lessons-6021B.html
+Tool & Die Engineering,Semester 6,6022B,Operation Research,Theory,lessons/lessons-6022B.html
+Tool & Die Engineering,Semester 6,6022C,Renewable Energy Technologies,Theory,lessons/lessons-6022C.html
+Tool & Die Engineering,Semester 6,6022D,Product Design,Theory,lessons/lessons-6022D.html
+Tool & Die Engineering,Semester 6,6111,CAD / CAM,Drawing,lessons/lessons-6111.html
+Tool & Die Engineering,Semester,IP301,Inplant Training after sixth semester for one year 12 months after 6th semester exam,Theory,lessons/lessons-IP301.html
+Wood and Paper Technology,Semester 2,2121,Botany and anatomical structures,Theory,lessons/lessons-2121.html
+Wood and Paper Technology,Semester 3,3121,Pulp Technology,Theory,lessons/lessons-3121.html
+Wood and Paper Technology,Semester 3,3122,Wood Chemistry,Theory,lessons/lessons-3122.html
+Wood and Paper Technology,Semester 3,3123,Wood Processing,Theory,lessons/lessons-3123.html
+Wood and Paper Technology,Semester 3,3124,Mechanical & Electrical Engineering,Theory,lessons/lessons-3124.html
+Wood and Paper Technology,Semester 4,4121,Wood Products I,Theory,lessons/lessons-4121.html
+Wood and Paper Technology,Semester 4,4122,Paper Technology,Theory,lessons/lessons-4122.html
+Wood and Paper Technology,Semester 4,4123,Chemical Engineering,Theory,lessons/lessons-4123.html
+Wood and Paper Technology,Semester 4,4124,Strength of Materials,Theory,lessons/lessons-4124.html
+Wood and Paper Technology,Semester 5,5121,Adhesive Technology,Theory,lessons/lessons-5121.html
+Wood and Paper Technology,Semester 5,5122,Wood Products II,Theory,lessons/lessons-5122.html
+Wood and Paper Technology,Semester 5,5123A,Statistical Quality Assurance,Theory,lessons/lessons-5123A.html
+Wood and Paper Technology,Semester 5,5123B,Quantity Surveying,Theory,lessons/lessons-5123B.html
+Wood and Paper Technology,Semester 5,5123C,Process Control & Instrumentation (WP),Theory,lessons/lessons-5123C.html
+Wood and Paper Technology,Semester 6,6022C,Renewable Energy Technologies,Theory,lessons/lessons-6022C.html
+Wood and Paper Technology,Semester 6,6121A,Interior Design & Furniture Technology,Theory,lessons/lessons-6121A.html
+Wood and Paper Technology,Semester 6,6121B,Paper board & speciality paper,Theory,lessons/lessons-6121B.html
+Wood and Paper Technology,Semester 6,6121C,Timber structures,Theory,lessons/lessons-6121C.html
+Wood and Paper Technology,Semester 6,6122B,Coated and Speciality Papers,Theory,lessons/lessons-6122B.html
+Wood and Paper Technology,Semester 6,6122C,Secondary Fibre Processing,Theory,lessons/lessons-6122C.html

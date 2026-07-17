@@ -1,12 +1,21 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260717-architecture-clean1";
+  const VERSION = "20260717-fixed-header-restore1";
   const SITE_NAME = "POLY PMNA";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
-
-  const studyItems = [
+  const navItems = [
+    {
+      label: "Home",
+      href: "/",
+      matches: path => path === "/" || path.endsWith("/index.html")
+    },
+    {
+      label: "About",
+      href: "/about.html",
+      matches: path => path.endsWith("/about.html")
+    },
     {
       label: "Revision 2026",
       href: "/revision-2026.html",
@@ -18,19 +27,6 @@
       matches: path => path.endsWith("/revision-2021.html") || path.includes("/revision-2021/")
     },
     {
-      label: "2015 Materials",
-      href: "/materials-2015.html",
-      matches: path => path.endsWith("/materials-2015.html")
-    }
-  ];
-
-  const mainItems = [
-    {
-      label: "Home",
-      href: "/",
-      matches: path => path === "/" || path.endsWith("/index.html")
-    },
-    {
       label: "Mock Exams",
       href: "/daily-quiz.html",
       matches: path => path.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/i.test(path)
@@ -39,6 +35,11 @@
       label: "Ask POLY AI",
       href: "/ask-poly.html",
       matches: path => /\/ask-poly(?:-v2)?\.html$/i.test(path)
+    },
+    {
+      label: "2015 Materials",
+      href: "/materials-2015.html",
+      matches: path => path.endsWith("/materials-2015.html")
     },
     {
       label: "Tools",
@@ -59,60 +60,32 @@
 
   function navMarkup() {
     const path = currentPath().toLowerCase();
-    const studyActive = studyItems.some(item => item.matches(path));
-    const studyLinks = studyItems.map(item => linkMarkup(item, path)).join("");
-    const home = linkMarkup(mainItems[0], path);
-    const remaining = mainItems.slice(1).map(item => linkMarkup(item, path)).join("");
-
-    return `${home}<div class="nav-group${studyActive ? " active" : ""}"><button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="study-submenu">Study <span aria-hidden="true">▾</span></button><div class="nav-submenu" id="study-submenu">${studyLinks}</div></div>${remaining}`;
+    return navItems.map(item => linkMarkup(item, path)).join("");
   }
 
   function bindMenu(header) {
     const menuButton = header.querySelector(".menu-toggle");
     const nav = header.querySelector(".navlinks");
-    const studyGroup = header.querySelector(".nav-group");
-    const studyButton = header.querySelector(".nav-group-toggle");
     if (!menuButton || !nav || menuButton.dataset.siteShellBound === "true") return;
 
     menuButton.dataset.siteShellBound = "true";
-
-    const setStudyOpen = open => {
-      if (!studyGroup || !studyButton) return;
-      studyGroup.classList.toggle("open", open);
-      studyButton.setAttribute("aria-expanded", String(open));
-    };
 
     const setMenuOpen = open => {
       nav.classList.toggle("open", open);
       header.classList.toggle("open", open);
       menuButton.setAttribute("aria-expanded", String(open));
-      if (!open) setStudyOpen(false);
       window.dispatchEvent(new CustomEvent("poly-site-header-resize"));
     };
 
     menuButton.addEventListener("click", () => setMenuOpen(!nav.classList.contains("open")));
-    studyButton?.addEventListener("click", event => {
-      event.stopPropagation();
-      setStudyOpen(!studyGroup.classList.contains("open"));
-    });
-
     nav.addEventListener("click", event => {
       if (event.target.closest("a")) setMenuOpen(false);
     });
-
     document.addEventListener("click", event => {
-      if (studyGroup && !studyGroup.contains(event.target)) setStudyOpen(false);
       if (!header.contains(event.target) && nav.classList.contains("open")) setMenuOpen(false);
     });
-
     document.addEventListener("keydown", event => {
-      if (event.key !== "Escape") return;
-      if (studyGroup?.classList.contains("open")) {
-        setStudyOpen(false);
-        studyButton?.focus();
-        return;
-      }
-      if (nav.classList.contains("open")) {
+      if (event.key === "Escape" && nav.classList.contains("open")) {
         setMenuOpen(false);
         menuButton.focus();
       }

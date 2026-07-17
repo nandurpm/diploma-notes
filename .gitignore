@@ -21,6 +21,12 @@ android-app/build/
 android-app/app/google-services.json
 firebase-service-account*.json
 reports/*.tmp.json
+reports/site-structure-validation.json
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
 
 # Signing and certificate material must never be committed.
 *.keystore
