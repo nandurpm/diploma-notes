@@ -141,7 +141,7 @@
     });
     if (alreadyLoaded) return;
     const script = document.createElement("script");
-    script.src = "/assets/js/lesson-availability-hotfix.js?v=20260711-consistency1";
+    script.src = "/assets/js/lesson-availability-hotfix.js?v=20260717-availability-stable1";
     script.defer = true;
     document.head.append(script);
   }

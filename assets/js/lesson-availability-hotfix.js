@@ -6,6 +6,7 @@
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
   const REV2026_INDEX = `${SITTTR_BASE}?r=site%2Fdiploma-modelqp&scheme=REV2026`;
   let programmeLookup = null;
+  const VALIDATION_VERSION = "20260717-availability-stable1";
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -108,43 +109,76 @@
   const lessonExists = url => headOk(url, false);
   const pdfExists = url => headOk(url, true);
 
-  function makeLink(href, className, label, download = false) {
-    const link = document.createElement("a");
-    link.className = className;
-    link.href = href;
-    link.textContent = label;
-    if (download) link.download = "";
-    else if (className.includes("download")) {
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
+  function keepSingle(row, selector) {
+    const items = [...row.querySelectorAll(selector)];
+    items.slice(1).forEach(item => item.remove());
+    return items[0] || null;
+  }
+
+  function ensureUnavailable(row, qp) {
+    row.querySelectorAll(".action.lessons,.action.download").forEach(item => item.remove());
+
+    let lessons = keepSingle(row, ".lessons-status");
+    if (!lessons) {
+      lessons = document.createElement("span");
+      row.insertBefore(lessons, qp || null);
     }
-    return link;
-  }
-
-  function removeStudyControls(row) {
-    row.querySelectorAll(".action.lessons,.action.download,.lessons-status,.notes-status").forEach(item => item.remove());
-  }
-
-  function addUnavailable(row, qp) {
-    const lessons = document.createElement("span");
     lessons.className = "availability-label lessons-status";
     lessons.setAttribute("aria-disabled", "true");
-    lessons.textContent = "Lessons unavailable";
+    if (lessons.textContent !== "Lessons unavailable") lessons.textContent = "Lessons unavailable";
 
-    const notes = document.createElement("span");
+    let notes = keepSingle(row, ".notes-status");
+    if (!notes) {
+      notes = document.createElement("span");
+      row.insertBefore(notes, qp || null);
+    }
     notes.className = "availability-label notes-status";
     notes.setAttribute("aria-disabled", "true");
-    notes.textContent = "Notes unavailable";
+    if (notes.textContent !== "Notes unavailable") notes.textContent = "Notes unavailable";
+  }
 
-    row.insertBefore(lessons, qp || null);
-    row.insertBefore(notes, qp || null);
+  function ensureAvailable(row, qp, lessonHref, notesHref, printHref, notesAvailable) {
+    row.querySelectorAll(".lessons-status,.notes-status").forEach(item => item.remove());
+
+    let lessons = keepSingle(row, ".action.lessons");
+    if (!lessons) {
+      lessons = document.createElement("a");
+      const syllabus = row.querySelector(".action.syllabus");
+      row.insertBefore(lessons, syllabus?.nextSibling || row.firstChild);
+    }
+    lessons.className = "action lessons";
+    if (lessons.getAttribute("href") !== lessonHref) lessons.setAttribute("href", lessonHref);
+    if (lessons.textContent !== "View Lessons") lessons.textContent = "View Lessons";
+    lessons.removeAttribute("aria-disabled");
+
+    let download = keepSingle(row, ".action.download");
+    if (!download) {
+      download = document.createElement("a");
+      row.insertBefore(download, qp || null);
+    }
+    download.className = "action download";
+    const downloadHref = notesAvailable ? notesHref : printHref;
+    if (download.getAttribute("href") !== downloadHref) download.setAttribute("href", downloadHref);
+    if (download.textContent !== "Download Notes") download.textContent = "Download Notes";
+    download.removeAttribute("aria-disabled");
+
+    if (notesAvailable) {
+      download.setAttribute("download", "");
+      download.removeAttribute("target");
+      download.removeAttribute("rel");
+    } else {
+      download.removeAttribute("download");
+      download.target = "_blank";
+      download.rel = "noopener noreferrer";
+    }
   }
 
   async function validateCard(card) {
     const row = card.querySelector(".action-row");
     const code = norm(card.dataset.subjectCode || card.querySelector(".subject-top strong")?.textContent);
     const revision = revisionOf(card);
-    if (!row || !code || checking.has(card)) return;
+    const validationKey = `${VALIDATION_VERSION}:${revision}:${code}`;
+    if (!row || !code || checking.has(card) || card.dataset.availabilityValidated === validationKey) return;
     checking.add(card);
 
     try {
@@ -155,11 +189,10 @@
       const lessonAvailable = await lessonExists(lessonHref);
       if (!card.isConnected) return;
 
-      removeStudyControls(row);
       if (!lessonAvailable) {
         card.dataset.lessonAvailable = "false";
         card.dataset.notesAvailable = "false";
-        addUnavailable(row, qp);
+        ensureUnavailable(row, qp);
         return;
       }
 
@@ -167,21 +200,12 @@
       card.dataset.lessonHref = lessonHref;
       card.dataset.notesHref = notesHref;
 
-      const syllabus = row.querySelector(".action.syllabus");
-      const lessonsLink = makeLink(lessonHref, "action lessons", "View Lessons");
-      row.insertBefore(lessonsLink, syllabus?.nextSibling || row.firstChild);
-
       const notesAvailable = await pdfExists(notesHref);
       if (!card.isConnected) return;
-      const download = makeLink(
-        notesAvailable ? notesHref : printHref,
-        "action download",
-        "Download Notes",
-        notesAvailable
-      );
-      row.insertBefore(download, qp || null);
+      ensureAvailable(row, qp, lessonHref, notesHref, printHref, notesAvailable);
       card.dataset.notesAvailable = String(notesAvailable);
     } finally {
+      if (card.isConnected) card.dataset.availabilityValidated = validationKey;
       checking.delete(card);
     }
   }
@@ -197,5 +221,13 @@
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run, { once: true });
   else run();
-  new MutationObserver(run).observe(document.body, { childList: true, subtree: true });
+
+  new MutationObserver(mutations => {
+    const hasNewCard = mutations.some(mutation =>
+      [...mutation.addedNodes].some(node =>
+        node.nodeType === 1 && (node.matches?.(".subject-card") || node.querySelector?.(".subject-card"))
+      )
+    );
+    if (hasNewCard) run();
+  }).observe(document.body, { childList: true, subtree: true });
 })();
