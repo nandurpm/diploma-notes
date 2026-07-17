@@ -18,7 +18,148 @@
   <link rel="stylesheet" href="/assets/css/style.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/animations.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/responsive.css?v=20260717-architecture-clean1">
-  <link rel="stylesheet" href="/assets/css/revision-2021-department-art-v2.css">
+  <style id="revision-2021-department-art">
+/* Adaptive, decorative department artwork for the Revision 2021 directory. */
+.revision-department-grid .choice-card.department-visual-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 260px;
+  padding: clamp(24px, 2.2vw, 34px);
+  border-color: color-mix(in srgb, var(--department-accent, #2563eb) 24%, #ffffff);
+  background: #ffffff;
+  box-shadow: 0 13px 34px rgba(20, 45, 90, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.58);
+}
+
+.revision-department-grid .choice-card.department-visual-card::before {
+  z-index: 4;
+}
+
+.revision-department-grid .choice-card.department-visual-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  border-radius: inherit;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.99) 0%,
+      rgba(255, 255, 255, 0.97) 36%,
+      rgba(255, 255, 255, 0.86) 54%,
+      rgba(255, 255, 255, 0.58) 72%,
+      rgba(255, 255, 255, 0.12) 100%
+    ),
+    var(--department-art);
+  background-repeat: no-repeat;
+  background-position: center, right center;
+  background-size: cover, cover;
+  opacity: 0.98;
+  pointer-events: none;
+  transform: scale(1.001);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.revision-department-grid .choice-card.department-visual-card:hover::after,
+.revision-department-grid .choice-card.department-visual-card:focus-visible::after {
+  transform: scale(1.035);
+  opacity: 1;
+}
+
+.revision-department-grid .choice-card.department-visual-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.revision-department-grid .choice-card.department-visual-card > span {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: linear-gradient(135deg, var(--department-accent, #2563eb), var(--department-accent-2, #0891b2));
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--department-accent, #2563eb) 24%, transparent);
+}
+
+.revision-department-grid .choice-card.department-visual-card h2,
+.revision-department-grid .choice-card.department-visual-card h3 {
+  max-width: min(72%, 760px);
+  margin: 18px 0 8px;
+  color: #07162c;
+  font-size: clamp(1.65rem, 2.25vw, 2.55rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  text-shadow: 0 1px 0 #ffffff, 0 0 12px rgba(255, 255, 255, 0.96);
+}
+
+.revision-department-grid .choice-card.department-visual-card p {
+  max-width: 68%;
+  margin: 0;
+  color: #526681;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  text-shadow: 0 1px 0 #ffffff, 0 0 12px rgba(255, 255, 255, 0.96);
+}
+
+.revision-department-grid .choice-card.department-visual-card:focus-visible {
+  outline: 4px solid color-mix(in srgb, var(--department-accent, #2563eb) 24%, transparent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1050px) {
+  .revision-department-grid .choice-card.department-visual-card h2,
+  .revision-department-grid .choice-card.department-visual-card h3 {
+    max-width: 78%;
+    font-size: clamp(1.55rem, 3.1vw, 2.25rem);
+  }
+
+  .revision-department-grid .choice-card.department-visual-card p {
+    max-width: 75%;
+  }
+}
+
+@media (max-width: 700px) {
+  .revision-department-grid .choice-card.department-visual-card {
+    min-height: 210px;
+    padding: 22px 18px;
+  }
+
+  .revision-department-grid .choice-card.department-visual-card::after {
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.99) 0%,
+        rgba(255, 255, 255, 0.96) 48%,
+        rgba(255, 255, 255, 0.84) 66%,
+        rgba(255, 255, 255, 0.34) 100%
+      ),
+      var(--department-art);
+    background-position: center, 72% center;
+  }
+
+  .revision-department-grid .choice-card.department-visual-card h2,
+  .revision-department-grid .choice-card.department-visual-card h3 {
+    max-width: 86%;
+    margin-top: 14px;
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .revision-department-grid .choice-card.department-visual-card p {
+    max-width: 88%;
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revision-department-grid .choice-card.department-visual-card::after {
+    transition: none;
+  }
+
+  .revision-department-grid .choice-card.department-visual-card:hover::after,
+  .revision-department-grid .choice-card.department-visual-card:focus-visible::after {
+    transform: none;
+  }
+}
+  </style>
   <link rel="stylesheet" href="/assets/css/hardening.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260717-architecture-clean1">
@@ -99,7 +240,107 @@
     (()=>{const input=document.getElementById('programmeSearch');const clear=document.getElementById('programmeSearchClear');const cards=[...document.querySelectorAll('[data-programme-card]')];const count=document.getElementById('programmeResultCount');const empty=document.getElementById('programmeEmpty');function apply(){const query=(input.value||'').trim().toLowerCase();let shown=0;cards.forEach(card=>{const match=!query||(card.dataset.search||card.textContent).toLowerCase().includes(query);card.hidden=!match;if(match)shown+=1});count.textContent=`${shown} of ${cards.length} programmes`;clear.hidden=!query;empty.hidden=shown!==0}input.addEventListener('input',apply);clear.addEventListener('click',()=>{input.value='';apply();input.focus()});apply()})();
   </script>
   <script src="/assets/js/main.js?v=20260717-architecture-clean1" defer></script>
-  <script src="/assets/js/revision-2021-department-art-v2.js" defer></script>
+  <script id="revision-2021-department-art-loader">
+(() => {
+  "use strict";
+
+  const pagePath = window.location.pathname.toLowerCase().replace(/\/+$/, "");
+  if (!["/revision-2021", "/revision-2021.html"].includes(pagePath)) return;
+
+  const VERSION = "20260717-rev2021-department-art-v1";
+  const PROGRAMME_ART = Object.freeze({
+    "electrical-electronics-engineering": ["#c2410c", "#2563eb"],
+    "electronics-engineering": ["#b45309", "#1d4ed8"],
+    "mechanical-engineering": ["#334155", "#0891b2"],
+    "civil-engineering": ["#1d4ed8", "#0891b2"],
+    "architecture": ["#0f5ea8", "#0e7490"],
+    "artificial-intelligence": ["#4f46e5", "#7c3aed"],
+    "artificial-intelligence-and-machine-learning": ["#4338ca", "#2563eb"],
+    "automation-and-robotics": ["#334155", "#0f766e"],
+    "automobile-engineering": ["#b91c1c", "#f97316"],
+    "biomedical-engineering": ["#0f766e", "#06b6d4"],
+    "chemical-engineering": ["#b45309", "#d97706"],
+    "civil-and-environmental-engineering": ["#15803d", "#0891b2"],
+    "civil-and-rural-engineering": ["#4d7c0f", "#0e7490"],
+    "civil-public-health-and-environment-engineering": ["#047857", "#0284c7"],
+    "civil-engineering-and-planning": ["#1e40af", "#6366f1"],
+    "cloud-computing-and-big-data": ["#4f46e5", "#06b6d4"],
+    "commercial-practice": ["#9a3412", "#d97706"],
+    "communication-and-computer-networking": ["#0369a1", "#0f766e"],
+    "computer-application-and-business-management": ["#6d28d9", "#2563eb"],
+    "computer-engineering": ["#1e3a8a", "#2563eb"],
+    "computer-hardware-engineering": ["#1e40af", "#0891b2"],
+    "computer-science-and-engineering": ["#4f46e5", "#7c3aed"],
+    "cyber-forensics-and-information-security": ["#0f172a", "#2563eb"],
+    "electrical-engineering": ["#1e3a8a", "#0e7490"],
+    "electrical-engineering-and-electric-vehicles-technology": ["#15803d", "#84cc16"],
+    "electronics-and-communication": ["#0369a1", "#06b6d4"],
+    "electronics-and-computer-engineering": ["#4338ca", "#2563eb"],
+    "fire-technology-and-safety": ["#b91c1c", "#f97316"],
+    "food-processing-technology": ["#166534", "#65a30d"],
+    "hotel-management-and-catering-technology": ["#9a3412", "#d97706"],
+    "information-technology": ["#1d4ed8", "#0284c7"],
+    "instrumentation-engineering": ["#0f5c6e", "#2563eb"],
+    "integrated-circuit-design-and-fabrication": ["#6d28d9", "#2563eb"],
+    "manufacturing-technology": ["#334155", "#d97706"],
+    "mechatronics": ["#0f766e", "#2563eb"],
+    "micro-electronics": ["#5b21b6", "#7c3aed"],
+    "polymer-technology": ["#1d4ed8", "#2563eb"],
+    "printing-technology": ["#be123c", "#f59e0b"],
+    "renewable-energy": ["#15803d", "#84cc16"],
+    "robotic-process-automation": ["#4f46e5", "#06b6d4"],
+    "textile-technology": ["#92400e", "#0f766e"],
+    "tool-and-die-engineering": ["#334155", "#d97706"],
+    "wood-and-paper-technology": ["#854d0e", "#65a30d"]
+  });
+
+  function programmeSlug(card) {
+    try {
+      const url = new URL(card.href, window.location.href);
+      const querySlug = url.searchParams.get("dept");
+      if (querySlug) return querySlug;
+
+      const pathMatch = url.pathname.match(/\/revision-2021\/([^/]+)\.html$/i);
+      return pathMatch ? decodeURIComponent(pathMatch[1]) : "";
+    } catch {
+      return "";
+    }
+  }
+
+  function initialise() {
+    const grid = document.getElementById("departmentCards");
+    if (!grid) return;
+
+    document.body.classList.add("revision-2021-directory-page");
+    grid.classList.add("revision-department-grid");
+
+    grid.querySelectorAll(":scope > .choice-card").forEach((card) => {
+      const slug = programmeSlug(card);
+      const colors = PROGRAMME_ART[slug];
+      card.dataset.programmeSlug = slug;
+
+      if (!colors) {
+        card.classList.add("department-art-missing");
+        return;
+      }
+
+      card.classList.add("department-visual-card");
+      card.style.setProperty("--department-accent", colors[0]);
+      card.style.setProperty("--department-accent-2", colors[1]);
+      card.style.setProperty(
+        "--department-art",
+        `url("/assets/media/departments/rev2021/${slug}.webp?v=${VERSION}")`
+      );
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialise, { once: true });
+  } else {
+    initialise();
+  }
+})();
+  </script>
   <script src="/assets/js/site-hardening.js?v=20260717-architecture-clean1" defer></script>
   <script src="/assets/js/fixed-site-header.js?v=20260717-architecture-clean1" defer></script>
 </body>
