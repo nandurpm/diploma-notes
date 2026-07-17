@@ -22,6 +22,11 @@ def count(pattern: str, text: str) -> int:
     return len(re.findall(pattern, text, flags=re.I))
 
 
+def programme_card_count(text: str) -> int:
+    """Count actual programme-card anchor elements, not JavaScript selector strings."""
+    return count(r"<a\b[^>]*\bdata-programme-card\b[^>]*>", text)
+
+
 def main() -> int:
     checks: list[dict[str, object]] = []
 
@@ -58,9 +63,12 @@ def main() -> int:
     check("generic converter excludes RPM", "speed:{" not in tools_js and "rpm:1" not in tools_js, "RPM is angular speed and cannot be directly converted to linear speed.")
     check("RPM calculator requires diameter", "Diameter mm" in tools_js and "Math.PI*diameterM*rpm/60" in tools_js, "Linear speed must use v = pi*D*N/60.")
     check("scientific parser validates function tokens", "Unsupported function:" in tools_js and "evaluateExpression" in tools_js, "Scientific expressions must use one validated parser.")
-    check("Revision 2021 has 43 direct programme cards", count(r"data-programme-card", rev21) == 43, f"Found {count(r'data-programme-card', rev21)} cards; expected 43.")
+
+    rev21_count = programme_card_count(rev21)
+    rev26_count = programme_card_count(rev26)
+    check("Revision 2021 has 43 direct programme cards", rev21_count == 43, f"Found {rev21_count} cards; expected 43.")
     check("Revision 2021 directory avoids query routes", "department-view.html?dept=" not in rev21, "Programme cards must link directly to stable static pages.")
-    check("Revision 2026 retains 38 programme cards", count(r"data-programme-card", rev26) == 38, f"Found {count(r'data-programme-card', rev26)} cards; expected 38.")
+    check("Revision 2026 retains 38 programme cards", rev26_count == 38, f"Found {rev26_count} cards; expected 38.")
 
     core_pages = ["index.html", "about.html", "revision-2021.html", "revision-2026.html", "daily-quiz.html", "ask-poly.html", "materials-2015.html", "tools.html", "contact.html"]
     stale_home_links = []
