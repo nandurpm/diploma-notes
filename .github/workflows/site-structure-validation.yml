@@ -11,6 +11,7 @@ on:
       - "android-app/**"
       - "tools/validate_site_structure.py"
       - "tools/validate_lesson_fullscreen.py"
+      - "tools/update_lesson_assistant.py"
       - ".github/workflows/site-structure-validation.yml"
   push:
     branches: [main]
@@ -23,6 +24,7 @@ on:
       - "android-app/**"
       - "tools/validate_site_structure.py"
       - "tools/validate_lesson_fullscreen.py"
+      - "tools/update_lesson_assistant.py"
       - ".github/workflows/site-structure-validation.yml"
 
 permissions:
@@ -38,6 +40,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Verify shared runtime on every lesson
+        run: python tools/update_lesson_assistant.py --check
       - name: Validate site structure
         run: python tools/validate_site_structure.py
       - name: Validate full-screen lesson standard
