@@ -1,4 +1,4 @@
-name: Update lesson Ask POLY assistant
+name: Synchronize full-screen lesson standard
 
 on:
   workflow_dispatch:
@@ -6,16 +6,22 @@ on:
     branches: [main]
     paths:
       - "lessons/**/*.html"
+      - "revision-2026-content/lessons/**/*.html"
+      - "assets/js/lesson-navigation-fix.js"
       - "assets/js/site-assistant.js"
       - "assets/js/asset-manifest.js"
+      - "assets/css/lesson-page-fix.css"
       - "tools/update_lesson_assistant.py"
       - ".github/workflows/update-lesson-assistant.yml"
   push:
     branches: [main]
     paths:
       - "lessons/**/*.html"
+      - "revision-2026-content/lessons/**/*.html"
+      - "assets/js/lesson-navigation-fix.js"
       - "assets/js/site-assistant.js"
       - "assets/js/asset-manifest.js"
+      - "assets/css/lesson-page-fix.css"
       - "tools/update_lesson_assistant.py"
       - ".github/workflows/update-lesson-assistant.yml"
 
@@ -32,58 +38,84 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Attach Ask POLY and validate scripts
+      - name: Synchronize lesson sources and validate scripts
         run: |
-          python -m py_compile tools/update_lesson_assistant.py
+          python -m py_compile tools/update_lesson_assistant.py tools/validate_lesson_fullscreen.py
           python tools/update_lesson_assistant.py
           python tools/update_lesson_assistant.py --check
+          python tools/validate_lesson_fullscreen.py
+          node --check assets/js/lesson-navigation-fix.js
           node --check assets/js/site-assistant.js
           node --check assets/js/asset-manifest.js
 
-      - name: Browser-test a real lesson doubt
+      - name: Browser-test Revision 2021 lesson rendering
         run: |
           set -euo pipefail
           python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
           for attempt in {1..20}; do
-            curl -fsS http://127.0.0.1:8000/lessons/lessons-3041.html >/dev/null && break
+            curl -fsS http://127.0.0.1:8000/lessons/lessons-1003.html >/dev/null && break
             sleep 1
           done
           CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
-          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=15000 --dump-dom 'http://127.0.0.1:8000/lessons/lessons-3041.html?ask=What%20is%20resonance' >/tmp/lesson.dom 2>/tmp/chrome.log
-
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=20000 --dump-dom 'http://127.0.0.1:8000/lessons/lessons-1003.html' >/tmp/rev2021-lesson.dom 2>/tmp/chrome-rev2021.log
           python - <<'PY'
           from pathlib import Path
-
-          html = Path('/tmp/lesson.dom').read_text(encoding='utf-8')
+          html = Path('/tmp/rev2021-lesson.dom').read_text(encoding='utf-8')
           checks = {
-              'Ask POLY button': 'class="poly-ai-button"',
-              'lesson mode': 'Lesson doubt helper',
-              'local answer': 'Based on this lesson:',
-              'source cards': 'class="poly-ai-sources"',
-              'source action': 'Open source section',
+              'lesson page class': 'lesson-all-content',
+              'dynamic modules expanded': 'poly-expanded-dynamic-list',
+              'end actions': 'polyLessonEndActions',
+              'Revision 2021 identity': 'Revision 2021',
           }
           missing = [name for name, marker in checks.items() if marker not in html]
           if missing:
-              raise SystemExit(f'Ask POLY browser test failed: {missing}')
-          print('Lesson-aware Ask POLY browser test passed.')
+              raise SystemExit(f'REV2021 lesson browser test failed: {missing}')
+          print('REV2021 full-screen lesson browser test passed.')
+          PY
+
+      - name: Browser-test Revision 2026 lesson rendering
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8001 --bind 127.0.0.1 >/tmp/server-2026.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8001/revision-2026-content/lessons/lessons-1003.html >/dev/null && break
+            sleep 1
+          done
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=15000 --dump-dom 'http://127.0.0.1:8001/revision-2026-content/lessons/lessons-1003.html' >/tmp/rev2026-lesson.dom 2>/tmp/chrome-rev2026.log
+          python - <<'PY'
+          from pathlib import Path
+          html = Path('/tmp/rev2026-lesson.dom').read_text(encoding='utf-8')
+          checks = {
+              'lesson page class': 'lesson-all-content',
+              'end actions': 'polyLessonEndActions',
+              'Revision 2026 identity': 'Revision 2026',
+              'current runtime': '20260717-fullscreen3',
+          }
+          missing = [name for name, marker in checks.items() if marker not in html]
+          if missing:
+              raise SystemExit(f'REV2026 lesson browser test failed: {missing}')
+          print('REV2026 full-screen lesson browser test passed.')
           PY
 
       - name: Verify pull requests are already synchronized
         if: github.event_name == 'pull_request'
-        run: git diff --exit-code -- lessons
+        run: git diff --exit-code -- lessons revision-2026-content/lessons assets/css/lesson-page-fix.css
 
-      - name: Commit assistant attachment after uploads or upgrades
+      - name: Commit synchronized lesson standard after uploads or upgrades
         if: github.event_name == 'push'
         run: |
-          if git diff --quiet -- lessons; then
-            echo "All lesson pages already load the current Ask POLY assistant."
+          if git diff --quiet -- lessons revision-2026-content/lessons assets/css/lesson-page-fix.css; then
+            echo "All lesson pages already use the current full-screen lesson standard."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add lessons
-          git commit -m "Attach lesson-aware Ask POLY to lesson pages [skip ci]"
+          git add lessons revision-2026-content/lessons assets/css/lesson-page-fix.css
+          git commit -m "Synchronize full-screen lesson standard [skip ci]"
           git push origin HEAD:main
