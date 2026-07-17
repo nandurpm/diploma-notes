@@ -4,16 +4,22 @@ on:
   pull_request:
     paths:
       - "*.html"
+      - "lessons/**"
+      - "revision-2026-content/lessons/**"
       - "assets/js/**"
       - "assets/css/**"
+      - "android-app/**"
       - "tools/validate_site_structure.py"
       - ".github/workflows/site-structure-validation.yml"
   push:
     branches: [main]
     paths:
       - "*.html"
+      - "lessons/**"
+      - "revision-2026-content/lessons/**"
       - "assets/js/**"
       - "assets/css/**"
+      - "android-app/**"
       - "tools/validate_site_structure.py"
       - ".github/workflows/site-structure-validation.yml"
 

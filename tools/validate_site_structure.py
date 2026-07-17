@@ -46,6 +46,9 @@ def main() -> int:
     quiz_auth = read("assets/js/quiz-auth.js")
     rev21 = read("revision-2021.html")
     rev26 = read("revision-2026.html")
+    lesson_js = read("assets/js/lesson-navigation-fix.js")
+    lesson_css = read("assets/css/lesson-page-fix.css")
+    android_activity = read("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java")
 
     check("homepage has no floating Ask POLY duplicate", "home-ask-poly-float" not in index, "Floating Ask POLY markup/style must be absent.")
     check("homepage revision cards are not repeated", count(r'class="choice-card[^>]*"[^>]+href="/?revision-202[16]\.html"', index) == 0, "Revision destinations belong in the hero, not repeated feature cards.")
@@ -69,6 +72,36 @@ def main() -> int:
     check("Revision 2021 has 43 direct programme cards", rev21_count == 43, f"Found {rev21_count} cards; expected 43.")
     check("Revision 2021 directory avoids query routes", "department-view.html?dept=" not in rev21, "Programme cards must link directly to stable static pages.")
     check("Revision 2026 retains 38 programme cards", rev26_count == 38, f"Found {rev26_count} cards; expected 38.")
+
+    rev21_lessons = sorted((ROOT / "lessons").glob("lessons-*.html"))
+    rev26_lessons = sorted((ROOT / "revision-2026-content" / "lessons").glob("lessons-*.html"))
+    lesson_files = rev21_lessons + rev26_lessons
+    missing_doctype: list[str] = []
+    missing_viewport: list[str] = []
+    missing_shell: list[str] = []
+    for path in lesson_files:
+        source = path.read_text(encoding="utf-8", errors="ignore")
+        relative = path.relative_to(ROOT).as_posix()
+        if not re.match(r"\s*<!doctype\s+html\b", source, flags=re.I):
+            missing_doctype.append(relative)
+        if not re.search(r'<meta\b[^>]*\bname=["\']viewport["\']', source, flags=re.I):
+            missing_viewport.append(relative)
+        if "lesson-navigation-fix.js" not in source:
+            missing_shell.append(relative)
+
+    lesson_count_detail = f"Found {len(rev21_lessons)} REV2021 and {len(rev26_lessons)} REV2026 lesson files."
+    check("all 101 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 10, lesson_count_detail)
+    check("all lesson files have an HTML doctype", not missing_doctype, "Missing: " + (", ".join(missing_doctype) if missing_doctype else "none"))
+    check("all lesson files have responsive viewport metadata", not missing_viewport, "Missing: " + (", ".join(missing_viewport) if missing_viewport else "none"))
+    check("all lesson files load the shared responsive shell", not missing_shell, "Missing: " + (", ".join(missing_shell) if missing_shell else "none"))
+
+    rev26_sources = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in rev26_lessons)
+    check("REV2026 lessons are standalone HTML", "DecompressionStream" not in rev26_sources and "Loading Course" not in rev26_sources, "Compressed browser-only lesson wrappers must not return.")
+    check("REV2026 lessons do not load the public site header", "fixed-site-header.js" not in rev26_sources, "Lesson pages use only their compact internal course navigation.")
+    check("lesson shell recognizes both revision route families", "revision-2026-content" in lesson_js and "lessonPath" in lesson_js and "lessons-" in lesson_js, "REV2021 and REV2026 routes must share one shell.")
+    check("lesson shell uses explicit APK detection", "PolytechnicStudyHubAndroid" in lesson_js and "PolyPmnaAndroid" in lesson_js, "Only the official APK user agents may enable native-app mode.")
+    check("lesson CSS removes width limits", "max-width: none !important" in lesson_css and ".polytechnic-native-app" in lesson_css, "Lessons must fill desktop, mobile and APK viewports.")
+    check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
 
     core_pages = ["index.html", "about.html", "revision-2021.html", "revision-2026.html", "daily-quiz.html", "ask-poly.html", "materials-2015.html", "tools.html", "contact.html"]
     stale_home_links = []

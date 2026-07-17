@@ -42,7 +42,7 @@ const viewMap={overview:overview,roadmap:roadmap,module:module,formula:formula,p
 function init(){renderOverview();renderRoadmap();renderFormula();renderPractice();renderPaper();renderAnswers();document.addEventListener('click',e=>{const t=e.target.closest('[data-view]');if(t){e.preventDefault();showView(t.dataset.view,t.dataset.module||0)}});addEventListener('scroll',()=>{progress.style.width=(scrollY/(document.body.scrollHeight-innerHeight)*100||0)+'%';toTop.classList.toggle('show',scrollY>700)});toTop.onclick=()=>scrollTo({top:0,behavior:'smooth'});if(new URLSearchParams(location.search).get('autoPrintNotes')==='1'){document.body.classList.add('pdf-export-mode');Object.values(viewMap).forEach(el=>el.hidden=false);setTimeout(()=>print(),700)}}
 document.addEventListener('DOMContentLoaded',init);
 </script>
-<script src="/assets/js/revision-back-button.js?v=20260614-1" defer></script><script src="/assets/js/fixed-site-header.js?v=20260616-nativeapp1" defer></script>
+<script src="/assets/js/fixed-site-header.js?v=20260616-nativeapp1" defer></script>
 
   <!-- Ask POLY lesson assistant -->
   <div id="polySiteAssistant"></div>
