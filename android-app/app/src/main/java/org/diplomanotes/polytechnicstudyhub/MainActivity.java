@@ -286,7 +286,7 @@ public class MainActivity extends ComponentActivity {
         target.evaluateJavascript(
                 "(function(){try{" +
                         "var d=document;d.documentElement.classList.add('polytechnic-native-app');" +
-                        "var lesson=/^\\\/(?:revision-2026-content\\\/)?lessons\\\/lessons-[^\\\/]+\\.html$/i.test(location.pathname);" +
+                        "var lesson=/^\\/(?:revision-2026-content\\/)?lessons\\/lessons-[^\\/]+\\.html$/i.test(location.pathname);" +
                         "if(lesson){d.documentElement.classList.add('poly-lesson-page');if(d.body){d.body.classList.add('poly-lesson-page');}}" +
                         "var css='html.polytechnic-native-app .topbar,html.polytechnic-native-app .skip-link{display:none!important;}' +" +
                         "'html.polytechnic-native-app body{padding-top:0!important;margin-top:0!important;}' +" +
