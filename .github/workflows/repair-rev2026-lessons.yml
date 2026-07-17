@@ -1,4 +1,5 @@
 name: Repair REV2026 lessons and model papers
+# Triggered after the initial merge so the repair is published to main.
 
 on:
   workflow_dispatch:
