@@ -1,11 +1,6 @@
 name: Publish REV2026 batch lesson handbooks
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "tools/rev2026-handbook-generator.zb64"
-      - ".github/workflows/publish-rev2026-batch-lessons.yml"
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
@@ -29,26 +24,34 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
+          ref: ${{ github.head_ref }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Decode and validate handbook generator
+      - name: Reconstruct and validate handbook generator
         run: |
           python - <<'PY'
           from pathlib import Path
           import base64
+          import hashlib
           import zlib
 
-          source = Path("tools/rev2026-handbook-generator.zb64")
-          payload = source.read_text(encoding="utf-8").strip()
+          folder = Path("tools/rev2026-handbook-generator-parts")
+          names = [f"part{index:02d}" for index in range(7)]
+          payload = "".join((folder / name).read_text(encoding="utf-8") for name in names)
+          expected_sha256 = "3a98891adc76dcc9481184234212dad190153c709846e98e8d032f8971f9f9ab"
+          actual_sha256 = hashlib.sha256(payload.encode("ascii")).hexdigest()
+          if len(payload) != 35740:
+              raise SystemExit(f"Payload length mismatch: {len(payload)}")
+          if actual_sha256 != expected_sha256:
+              raise SystemExit(f"Payload checksum mismatch: {actual_sha256}")
           decoded = zlib.decompress(base64.b64decode(payload))
           target = Path("/tmp/publish_rev2026_handbooks.py")
           target.write_bytes(decoded)
-          print(f"Decoded {len(decoded):,} bytes to {target}")
+          print(f"Verified {len(payload):,}-character payload and decoded {len(decoded):,} bytes")
           PY
           python -m py_compile /tmp/publish_rev2026_handbooks.py
 
@@ -111,9 +114,9 @@ jobs:
           print("All five lesson files are registered as available.")
           PY
 
-      - name: Commit generated handbooks
+      - name: Commit generated handbooks to pull-request branch
         env:
-          TARGET_BRANCH: ${{ github.event_name == 'pull_request' && github.head_ref || 'main' }}
+          TARGET_BRANCH: ${{ github.head_ref }}
         run: |
           git config user.name "poly-pmna-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -129,13 +132,16 @@ jobs:
             assets/js/asset-manifest.js \
             revision-2026/*.html
 
-          git rm -r --ignore-unmatch tools/rev2026-course-payload tools/rev2026-generator-parts
-          git rm --ignore-unmatch reports/rev2026-batch-generator-error.txt .rev2026-batch-trigger
-
-          if git diff --cached --quiet; then
-            echo "Generated handbooks and availability data are already current."
-            exit 0
-          fi
+          git rm -r --ignore-unmatch \
+            tools/rev2026-course-payload \
+            tools/rev2026-generator-parts \
+            tools/rev2026-handbook-generator-parts
+          git rm --ignore-unmatch \
+            tools/rev2026-handbook-generator.zb64 \
+            reports/rev2026-batch-generator-error.txt \
+            .rev2026-batch-trigger \
+            .rev2026-publish-trigger \
+            .github/workflows/publish-rev2026-batch-lessons.yml
 
           git commit -m "Add five complete REV2026 lesson handbooks"
           git pull --rebase origin "${TARGET_BRANCH}"
