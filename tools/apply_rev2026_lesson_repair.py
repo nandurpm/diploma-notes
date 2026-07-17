@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -221,11 +222,22 @@ def repair_article(match: re.Match[str]) -> str:
     return article[:position] + replacement + article[position:]
 
 
+def revision_department_pages() -> list[Path]:
+    registry_path = ROOT / "assets/data/revision-2026-programmes.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    programmes = registry.get("programmes", [])
+    if len(programmes) != 38:
+        raise RuntimeError(f"expected 38 programme records, found {len(programmes)}")
+    pages = [ROOT / "revision-2026" / f"{item['slug']}.html" for item in programmes]
+    missing = [path.name for path in pages if not path.exists()]
+    if missing:
+        raise RuntimeError("missing REV2026 department pages: " + ", ".join(missing))
+    return pages
+
+
 def repair_revision_pages(check: bool) -> int:
     changed = 0
-    pages = [ROOT / "revision-2026.html", *sorted((ROOT / "revision-2026").glob("*.html"))]
-    if len(pages) != 39:
-        raise RuntimeError(f"expected index + 38 REV2026 pages, found {len(pages)}")
+    pages = [ROOT / "revision-2026.html", *revision_department_pages()]
     for path in pages:
         source = path.read_text(encoding="utf-8")
         updated = re.sub(
@@ -256,7 +268,7 @@ def validate() -> None:
         if LESSON_RUNTIME not in text or len(text) < 15_000 or "</html>" not in text.lower():
             raise RuntimeError(f"incomplete/stale REV2026 lesson: {path.name}")
 
-    pages = sorted((ROOT / "revision-2026").glob("*.html"))
+    pages = revision_department_pages()
     total_cards = 0
     for path in pages:
         text = path.read_text(encoding="utf-8")
