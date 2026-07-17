@@ -48,6 +48,16 @@ jobs:
             tools/rev2026-generator-parts/part5 \
             > /tmp/publish_rev2026_batch.py
           sed -i 's/"Expected Questions"/"Expected questions"/; s/"Syllabus Coverage Checklist"/"Official syllabus coverage checklist"/' /tmp/publish_rev2026_batch.py
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('/tmp/publish_rev2026_batch.py')
+          text = p.read_text()
+          old = '("courses.part1","courses.part2")'
+          new = 'tuple(f"courses.part{i}" for i in range(1,9))'
+          if old not in text:
+              raise SystemExit('Payload reader marker not found')
+          p.write_text(text.replace(old, new, 1))
+          PY
           python -m py_compile /tmp/publish_rev2026_batch.py
 
       - name: Generate and validate separate lesson handbooks
