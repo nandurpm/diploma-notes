@@ -1,29 +1,73 @@
-node_modules/
-dist/
-build/
-.gradle/
-.cache/
-coverage/
-*.log
+# System files
 .DS_Store
 Thumbs.db
-.env
-.env.*
-*.bak
-*.old
-*.tmp
-*.zip
-*.apk
-!/downloads/POLY_PMNA_latest.apk
-!/downloads/POLY_PMNA_v2.0.apk
-android-app/app/build/
-android-app/build/
-android-app/app/google-services.json
-firebase-service-account*.json
-reports/*.tmp.json
 
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
-!.env.example
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.env.local
+.env.*.local
+
+# Build outputs
+node_modules/
+/dist/
+/build/
+*.jar
+*.apk
+*.aar
+
+# Android
+android-app/.gradle/
+android-app/build/
+android-app/local.properties
+android-app/.DS_Store
+android-app/app/build/
+
+# Key material (NEVER commit signing keys)
+*.keystore
+*.jks
+*.p12
+*.pfx
+release.keystore
+downloads/generated-poly-release.keystore
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS
+node_modules
+.next
+out
+.env.local
+.env.*.local
+*.log
