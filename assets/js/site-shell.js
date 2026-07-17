@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const VERSION = "20260717-site-shell1";
+  const VERSION = "20260717-lesson-safe2";
   const SITE_NAME = "POLY PMNA";
   const NAV_ITEMS = [
     { label: "Home", href: "/index.html", matches: p => p === "/" || p.endsWith("/index.html") },
@@ -14,6 +14,7 @@
     { label: "Help", href: "/contact.html", matches: p => p.endsWith("/contact.html") }
   ];
   const path = () => window.location.pathname.replace(/\/+$/, "") || "/";
+  const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(path());
   function navMarkup() {
     const current = path().toLowerCase();
     return NAV_ITEMS.map(item => {
@@ -39,7 +40,8 @@
     });
   }
   function renderHeader(force = false) {
-    const header = document.querySelector("[data-site-header], header.topbar");
+    if (isLessonPage()) return;
+    const header = document.querySelector("[data-site-header]") || document.querySelector("body.portal-page > header.topbar");
     if (!header) return;
     const desired = `<a class="brand" href="/index.html" aria-label="${SITE_NAME} home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>${SITE_NAME}</strong></a><button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button><nav class="navlinks" aria-label="Primary navigation">${navMarkup()}</nav>`;
     if (force || header.dataset.siteShellVersion !== VERSION) {
@@ -51,7 +53,8 @@
     bindMenu(header);
   }
   function renderFooter(force = false) {
-    const footer = document.querySelector("[data-site-footer], footer.footer");
+    if (isLessonPage()) return;
+    const footer = document.querySelector("[data-site-footer]") || document.querySelector("body.portal-page > footer.footer");
     if (!footer) return;
     const desired = `<p>&copy; <span data-year>${new Date().getFullYear()}</span> ${SITE_NAME}.</p><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Connect to Developer</a><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>`;
     if (force || footer.dataset.siteShellVersion !== VERSION) {
@@ -62,6 +65,7 @@
     }
   }
   function render(options = {}) {
+    if (isLessonPage()) return;
     const force = options.force === true;
     renderHeader(force);
     renderFooter(force);
