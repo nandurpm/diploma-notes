@@ -6,7 +6,7 @@
   const ASK_POLY_URL = "/ask-poly.html";
   const LESSON_PAGE = /\/lessons\//.test(window.location.pathname || "");
   const ONAM_VERSION = "20260704-banner6";
-  const SHARED_VERSION = "20260711-consistency1";
+  const SHARED_VERSION = "20260717-site-shell1";
 
   const pathName = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isHomePage = () => pathName() === "/" || pathName() === "/index.html";
@@ -43,8 +43,7 @@
     const style = document.createElement("style");
     style.id = "poly-shared-normalizer-style";
     style.textContent = `
-      .navlinks a .nav-badge{display:inline-flex;align-items:center;justify-content:center;margin-left:.45rem;padding:.12rem .45rem;border-radius:999px;background:linear-gradient(135deg,#f97316,#facc15);color:#111827;font-size:.68rem;font-weight:950;line-height:1;vertical-align:middle;box-shadow:0 4px 10px rgba(249,115,22,.18)}
-      .navlinks a{gap:.35rem}.footer strong,.brand strong{font-weight:950}
+      .footer strong,.brand strong{font-weight:950}
     `;
     document.head.append(style);
   }
@@ -64,34 +63,7 @@
   }
 
   function normalizeNav() {
-    injectSharedStyles();
-    document.querySelectorAll(".brand").forEach((brand) => {
-      brand.href = "/index.html";
-      const strong = brand.querySelector("strong");
-      if (strong) strong.textContent = SITE_NAME;
-      brand.setAttribute("aria-label", `${SITE_NAME} home`);
-    });
-
-    const active = currentPageKey();
-    const links = [
-      ["home", "/index.html", "Home"],
-      ["about", "/about.html", "About"],
-      ["revision2021", "/revision-2021.html", "Revision 2021"],
-      ["revision2026", "/revision-2026.html", "Revision 2026"],
-      ["exams", "/daily-quiz.html", "Mock Exams"],
-      ["ask", ASK_POLY_URL, "Ask POLY AI"],
-      ["materials", "/materials-2015.html", "2015 Materials"],
-      ["tools", TOOLS_URL, 'Tools <span class="nav-badge">New</span>'],
-      ["help", "/contact.html", "Help"]
-    ];
-
-    document.querySelectorAll(".navlinks").forEach((nav) => {
-      nav.setAttribute("aria-label", "Primary navigation");
-      nav.innerHTML = links.map(([key, href, label]) => {
-        const cls = key === active ? ' class="active" aria-current="page"' : "";
-        return `<a${cls} href="${href}">${label}</a>`;
-      }).join("");
-    });
+    if (!LESSON_PAGE) window.PolySiteShell?.render();
   }
 
   function pageTitlePrefix() {
@@ -115,7 +87,7 @@
     if (!LESSON_PAGE) document.title = `${prefix} | ${SITE_NAME}`;
 
     const description = isHomePage()
-      ? `${SITE_NAME} provides Kerala Polytechnic Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers.`
+      ? `${SITE_NAME} provides Kerala Polytechnic Revision 2026 and Revision 2021 syllabus, notes, Ask POLY AI, mock exams, student tools, 2015 materials and question papers.`
       : `${prefix} on ${SITE_NAME} for Kerala Polytechnic students.`;
 
     const metaDescription = document.querySelector('meta[name="description"]') || document.head.appendChild(document.createElement("meta"));
@@ -142,44 +114,11 @@
   }
 
   function normalizeFooter() {
-    if (LESSON_PAGE) return;
-    document.querySelectorAll(".footer").forEach((footer) => {
-      let copyright = footer.querySelector("p");
-      if (!copyright) {
-        copyright = document.createElement("p");
-        footer.prepend(copyright);
-      }
-      copyright.innerHTML = `&copy; <span data-year></span> ${SITE_NAME}.`;
-      if (!footer.querySelector('a[href*="nandakumarm.dpdns.org"]')) {
-        const developer = document.createElement("a");
-        developer.href = "https://nandakumarm.dpdns.org/about.html";
-        developer.target = "_blank";
-        developer.rel = "noopener noreferrer";
-        developer.textContent = "Connect to Developer";
-        footer.append(developer);
-      }
-      let legal = footer.querySelector(".footer-legal");
-      if (!legal) {
-        legal = document.createElement("nav");
-        legal.className = "footer-legal";
-        legal.setAttribute("aria-label", "Legal");
-        footer.append(legal);
-      }
-      legal.innerHTML = '<a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a>';
-    });
+    if (!LESSON_PAGE) window.PolySiteShell?.render();
   }
 
   function setupHomepageToolsAccess() {
-    if (LESSON_PAGE) return;
-    normalizeToolLinks();
-    const actions = document.querySelector(".home-compact-hero .hero-actions");
-    if (actions && !actions.querySelector('a[href="/tools.html"], a[href="tools.html"]')) {
-      const link = document.createElement("a");
-      link.className = "btn ghost";
-      link.href = TOOLS_URL;
-      link.textContent = "Student Tools";
-      actions.insertBefore(link, actions.children[1] || null);
-    }
+    if (!LESSON_PAGE) normalizeToolLinks();
   }
 
   function setupMockExamLabels() {

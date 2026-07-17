@@ -14,7 +14,7 @@
   const isNativeApp = Boolean(appMatch) || isAndroidWebView || Boolean(isStandaloneAndroid);
   const installedVersion = appMatch ? appMatch[1] : null;
   const ONAM_VERSION = "20260704-banner6";
-  const CONSISTENCY_VERSION = "20260711-consistency1";
+  const CONSISTENCY_VERSION = "20260717-site-shell1";
 
   if (isLessonPage) root.classList.add("poly-lesson-page");
 
@@ -115,6 +115,7 @@
   }
 
   function installSharedFixes() {
+    loadScriptOnce("poly-site-shell", `/assets/js/site-shell.js?v=${CONSISTENCY_VERSION}`);
     loadScriptOnce("poly-site-consistency-fix", `/assets/js/site-consistency-fix.js?v=${CONSISTENCY_VERSION}`);
   }
 
@@ -155,55 +156,9 @@
   const header = document.querySelector(".topbar");
   if (!header) return;
 
-  const navItems = [
-    { label: "Home", href: "/index.html", match: (p) => p === "/" || p.endsWith("/index.html") },
-    { label: "About", href: "/about.html", match: (p) => p.endsWith("/about.html") },
-    { label: "Revision 2021", href: "/revision-2021.html", match: (p) => p.endsWith("/revision-2021.html") || p.includes("/revision-2021/") },
-    { label: "Revision 2026", href: "/revision-2026.html", match: (p) => p.endsWith("/revision-2026.html") || p.includes("/revision-2026/") },
-    { label: "Mock Exams", href: "/daily-quiz.html", match: (p) => p.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/.test(p) },
-    { label: "Ask POLY AI", href: "/ask-poly.html", match: (p) => p.endsWith("/ask-poly.html") || p.endsWith("/ask-poly-v2.html") },
-    { label: "2015 Materials", href: "/materials-2015.html", match: (p) => p.endsWith("/materials-2015.html") },
-    { label: "Tools", href: "/tools.html", match: (p) => /\/tools(?:-v2|-v2-original)?\.html$/.test(p) },
-    { label: "Help", href: "/contact.html", match: (p) => p.endsWith("/contact.html") }
-  ];
-
   function buildHeader() {
     body.classList.add("portal-page");
-    let brand = header.querySelector(".brand");
-    if (!brand) { brand = document.createElement("a"); header.prepend(brand); }
-    brand.className = "brand";
-    brand.href = "/index.html";
-    brand.setAttribute("aria-label", "POLY PMNA home");
-    brand.innerHTML = '<span class="brand-symbol" aria-hidden="true">📚</span><strong>POLY PMNA</strong>';
-
-    let toggle = header.querySelector(".menu-toggle, .menu-btn, .toggle");
-    if (!toggle) { toggle = document.createElement("button"); brand.after(toggle); }
-    toggle.className = "menu-toggle";
-    toggle.type = "button";
-    toggle.textContent = "Menu";
-    toggle.setAttribute("aria-label", "Toggle navigation");
-
-    let nav = header.querySelector(".navlinks, .menu");
-    if (!nav) { nav = document.createElement("nav"); header.append(nav); }
-    const wasOpen = nav.classList.contains("open") || header.classList.contains("open");
-    nav.className = wasOpen ? "navlinks open" : "navlinks";
-    nav.setAttribute("aria-label", "Primary navigation");
-    nav.innerHTML = "";
-    const path = pathname.toLowerCase();
-    navItems.forEach((item) => {
-      const link = document.createElement("a");
-      link.href = item.href;
-      link.innerHTML = item.label === "Tools" ? 'Tools <span class="nav-badge">New</span>' : item.label;
-      if (item.match(path)) { link.classList.add("active"); link.setAttribute("aria-current", "page"); }
-      nav.append(link);
-    });
-    toggle.setAttribute("aria-expanded", nav.classList.contains("open") ? "true" : "false");
-    if (toggle.dataset.fixedHeaderBound !== "true") {
-      toggle.dataset.fixedHeaderBound = "true";
-      toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
-      nav.addEventListener("click", (event) => { if (event.target.closest("a")) setOpen(false); });
-      document.addEventListener("keydown", (event) => { if (event.key === "Escape" && nav.classList.contains("open")) { setOpen(false); toggle.focus(); } });
-    }
+    window.PolySiteShell?.render();
   }
 
   let frame = 0;
@@ -214,17 +169,6 @@
       body.classList.add("has-fixed-site-header");
     });
   }
-  function setOpen(open) {
-    const nav = header.querySelector(".navlinks");
-    const toggle = header.querySelector(".menu-toggle");
-    nav?.classList.toggle("open", open);
-    header.classList.toggle("open", open);
-    toggle?.setAttribute("aria-expanded", String(open));
-    updateHeight();
-    setTimeout(updateHeight, 80);
-    setTimeout(updateHeight, 260);
-  }
-
   buildHeader();
   updateHeight();
   if ("ResizeObserver" in window) new ResizeObserver(updateHeight).observe(header);
