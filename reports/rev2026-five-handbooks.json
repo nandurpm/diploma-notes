@@ -1,0 +1,32 @@
+{
+  "1003": {
+    "title": "Engineering Graphics",
+    "modules": 4,
+    "topics": 21,
+    "output": "revision-2026-content/lessons/lessons-1003.html"
+  },
+  "1008": {
+    "title": "Foundational IT Skills",
+    "modules": 4,
+    "topics": 23,
+    "output": "revision-2026-content/lessons/lessons-1008.html"
+  },
+  "1031": {
+    "title": "Basic Electrical and Electronics Engineering",
+    "modules": 4,
+    "topics": 28,
+    "output": "revision-2026-content/lessons/lessons-1031.html"
+  },
+  "2031": {
+    "title": "Elementary Concepts of Electrical & Electronics Engineering",
+    "modules": 4,
+    "topics": 33,
+    "output": "revision-2026-content/lessons/lessons-2031.html"
+  },
+  "2032": {
+    "title": "Electric Circuits and Systems",
+    "modules": 4,
+    "topics": 33,
+    "output": "revision-2026-content/lessons/lessons-2032.html"
+  }
+}
