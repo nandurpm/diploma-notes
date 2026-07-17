@@ -9,7 +9,7 @@
     if (document.getElementById("poly-site-consistency-fix")) return;
     const script = document.createElement("script");
     script.id = "poly-site-consistency-fix";
-    script.src = "/assets/js/site-consistency-fix.js?v=20260716-revision-switch1";
+    script.src = "/assets/js/site-consistency-fix.js?v=20260717-site-shell1";
     script.defer = true;
     document.head.append(script);
   }

@@ -26,6 +26,7 @@
     const q = ($('#q')?.value || '').toLowerCase().trim();
     let shown = list.filter(t => (activeCat === 'All' || t.cat === activeCat) && (!onlyFav || fav(t.id)) && `${t.title} ${t.desc} ${t.cat}`.toLowerCase().includes(q));
     $('#tc') && ($('#tc').textContent = list.length);
+    const countCard = $('#toolCountCard'); if (countCard) countCard.hidden = false;
     $('#shown') && ($('#shown').textContent = `${shown.length} of ${list.length} tools shown`);
     $('#grid') && ($('#grid').innerHTML = shown.map(card).join('') || `<p class='notice'>No tools found.</p>`);
     const r = get(recKey).map(id => list.find(t => t.id === id)).filter(Boolean);

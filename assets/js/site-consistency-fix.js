@@ -1,20 +1,9 @@
 (() => {
   "use strict";
   const SITE = "POLY PMNA";
-  const VERSION = "20260716-revision-switch1";
+  const VERSION = "20260717-site-shell1";
   const path = () => location.pathname.replace(/\/+$/, "") || "/";
   const isLesson = /\/lessons\//i.test(path());
-  const navItems = [
-    ["Home", "/index.html", p => p === "/" || p.endsWith("/index.html")],
-    ["About", "/about.html", p => p.endsWith("/about.html")],
-    ["Revision 2021", "/revision-2021.html", p => p.endsWith("/revision-2021.html") || p.includes("/revision-2021/")],
-    ["Revision 2026", "/revision-2026.html", p => p.endsWith("/revision-2026.html") || p.includes("/revision-2026/")],
-    ["Mock Exams", "/daily-quiz.html", p => p.endsWith("/daily-quiz.html") || /\/mock-exam(?:-|\.html)/i.test(p)],
-    ["Ask POLY AI", "/ask-poly.html", p => /\/ask-poly(?:-v2)?\.html$/i.test(p)],
-    ["2015 Materials", "/materials-2015.html", p => p.endsWith("/materials-2015.html")],
-    ["Tools", "/tools.html", p => /\/tools(?:-v2|-v2-original)?\.html$/i.test(p)],
-    ["Help", "/contact.html", p => p.endsWith("/contact.html")]
-  ];
   const pageNames = [
     [/^\/$|\/index\.html$/i, "Kerala Polytechnic Revision 2026 & 2021 Study Hub"],
     [/\/about\.html$/i, "About"],
@@ -57,33 +46,20 @@
     document.head.append(style);
   }
 
-  function ensureHeader() {
+  function ensureShell() {
     if (isLesson) return;
-    let header = document.querySelector("header.topbar");
-    if (!header) { header = document.createElement("header"); header.className = "topbar"; document.body.prepend(header); }
-    let brand = header.querySelector(".brand");
-    if (!brand) { brand = document.createElement("a"); header.prepend(brand); }
-    brand.className = "brand";
-    brand.href = "/index.html";
-    brand.setAttribute("aria-label", `${SITE} home`);
-    brand.innerHTML = '<span class="brand-symbol" aria-hidden="true">📚</span><strong>POLY PMNA</strong>';
-    let button = header.querySelector(".menu-toggle");
-    if (!button) { button = document.createElement("button"); brand.after(button); }
-    button.className = "menu-toggle";
-    button.type = "button";
-    button.textContent = "Menu";
-    button.setAttribute("aria-label", "Toggle navigation");
-    let nav = header.querySelector(".navlinks");
-    if (!nav) { nav = document.createElement("nav"); header.append(nav); }
-    const wasOpen = nav.classList.contains("open") || header.classList.contains("open");
-    const current = path().toLowerCase();
-    nav.className = wasOpen ? "navlinks open" : "navlinks";
-    nav.setAttribute("aria-label", "Primary navigation");
-    nav.innerHTML = navItems.map(([label, href, match]) => `<a href="${href}"${match(current) ? ' class="active" aria-current="page"' : ""}>${label}${label === "Tools" ? ' <span class="nav-badge">New</span>' : ""}</a>`).join("");
-    button.setAttribute("aria-expanded", String(wasOpen));
-    if (button.dataset.fixedHeaderBound !== "true" && button.dataset.polyNavBound !== "true") {
-      button.dataset.polyNavBound = "true";
-      button.addEventListener("click", () => { const open = !nav.classList.contains("open"); nav.classList.toggle("open", open); header.classList.toggle("open", open); button.setAttribute("aria-expanded", String(open)); });
+    if (window.PolySiteShell) { window.PolySiteShell.render(); return; }
+    let script = document.getElementById("poly-site-shell");
+    if (!script) {
+      script = document.createElement("script");
+      script.id = "poly-site-shell";
+      script.src = "/assets/js/site-shell.js?v=20260717-site-shell1";
+      script.defer = true;
+      document.head.append(script);
+    }
+    if (script.dataset.consistencyBound !== "true") {
+      script.dataset.consistencyBound = "true";
+      script.addEventListener("load", () => { window.PolySiteShell?.render(); }, { once: true });
     }
   }
 
@@ -126,27 +102,6 @@
     document.querySelectorAll('meta[name="description"],meta[property="og:description"],meta[name="twitter:description"]').forEach(meta => { meta.content = (meta.content || "").replace(/Polytechnic Study Hub|Diploma Notes|DN Diploma Notes/g, SITE); });
   }
 
-  function normalizeFooter() {
-    if (isLesson) return;
-    let footer = document.querySelector("footer.footer");
-    if (!footer) { footer = document.createElement("footer"); footer.className = "footer"; document.body.append(footer); }
-    let text = footer.querySelector("p");
-    if (!text) { text = document.createElement("p"); footer.prepend(text); }
-    text.innerHTML = '&copy; <span data-year></span> POLY PMNA.';
-    if (!footer.querySelector('a[href*="nandakumarm.dpdns.org"]')) {
-      const link = document.createElement("a");
-      link.href = "https://nandakumarm.dpdns.org/about.html";
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Connect to Developer";
-      footer.append(link);
-    }
-    let legal = footer.querySelector(".footer-legal");
-    if (!legal) { legal = document.createElement("nav"); legal.className = "footer-legal"; legal.setAttribute("aria-label", "Legal"); footer.append(legal); }
-    legal.innerHTML = '<a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a>';
-    document.querySelectorAll("[data-year],#year").forEach(year => { year.textContent = new Date().getFullYear(); });
-  }
-
   function normalizeBreadcrumbs() {
     const map = {
       "/ask-poly.html": [["Home", "/index.html"], ["Ask POLY AI", null]],
@@ -187,10 +142,9 @@
 
   function run() {
     ensureStyle();
-    ensureHeader();
+    ensureShell();
     ensureRevisionSwitcher();
     normalizeBrandMeta();
-    normalizeFooter();
     normalizeBreadcrumbs();
     loadingFallbacks();
   }
