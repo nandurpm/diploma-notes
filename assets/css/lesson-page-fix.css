@@ -1,15 +1,13 @@
 :root {
-  --lesson-edge: clamp(6px, 0.85vw, 12px);
+  --lesson-edge: clamp(5px, .8vw, 12px);
   --lesson-gap: clamp(8px, 1vw, 15px);
-  --lesson-line: rgba(15, 23, 42, 0.14);
+  --lesson-line: rgba(15, 23, 42, .14);
   --lesson-ink: #0f172a;
   --lesson-muted: #526174;
-  --lesson-surface: #ffffff;
-  --lesson-soft: #f4f8fc;
   --lesson-blue: #0369a1;
   --lesson-cyan: #0891b2;
   --lesson-radius: clamp(12px, 1.2vw, 20px);
-  --lesson-shadow: 0 10px 28px rgba(15, 23, 42, 0.07);
+  --lesson-shadow: 0 10px 28px rgba(15, 23, 42, .07);
 }
 
 html.poly-lesson-page,
@@ -27,8 +25,6 @@ html.poly-lesson-page body {
 }
 
 html.poly-lesson-page body {
-  color: var(--text, var(--ink, var(--lesson-ink)));
-  background-color: var(--bg, var(--lesson-soft));
   padding-bottom: env(safe-area-inset-bottom) !important;
 }
 
@@ -38,7 +34,7 @@ html.poly-lesson-page body.portal-page {
   padding-top: 0 !important;
 }
 
-/* Lesson files never use the public portal header or a separate lesson header. */
+/* Full-screen lesson chrome suppression: lessons never show a second header/menu/sidebar. */
 html.poly-lesson-page :is(
   #site-header,
   .site-header,
@@ -49,6 +45,12 @@ html.poly-lesson-page :is(
   .hb-topbar,
   .lesson-topbar,
   .lesson-header,
+  .toolbar,
+  .hb-toolbar,
+  .lesson-toolbar,
+  .lesson-actions,
+  .course-toolbar,
+  .course-nav,
   body > nav.top,
   body > header.top,
   .chapter-nav,
@@ -99,8 +101,8 @@ html.poly-lesson-page :is(.screen, .wrap, .w, .page, .container) {
 
 html.poly-lesson-page main,
 html.poly-lesson-page .content {
-  padding-top: 0 !important;
   margin-top: 0 !important;
+  padding-top: 0 !important;
 }
 
 html.poly-lesson-page main > :first-child,
@@ -116,7 +118,19 @@ html.poly-lesson-page :is(.cover, .hero, .hero-mini, .hero-card, .hb-hero) {
   margin-top: 0 !important;
 }
 
-html.poly-lesson-page :is(.view-section, .view, .panel, .tab-panel, .tab-content, .module-panel, .lesson-panel, .content-panel, .content-section, .section-panel, [role="tabpanel"]) {
+html.poly-lesson-page :is(
+  .view-section,
+  .view,
+  .panel,
+  .tab-panel,
+  .tab-content,
+  .module-panel,
+  .lesson-panel,
+  .content-panel,
+  .content-section,
+  .section-panel,
+  [role="tabpanel"]
+) {
   visibility: visible !important;
   opacity: 1 !important;
   width: 100% !important;
@@ -128,7 +142,19 @@ html.poly-lesson-page :is(.view-section, .view, .panel, .tab-panel, .tab-content
   position: static !important;
 }
 
-html.poly-lesson-page :is(.view-section, .view, .panel, .tab-panel, .tab-content, .module-panel, .lesson-panel, .content-panel, .content-section, .section-panel, [role="tabpanel"])[hidden],
+html.poly-lesson-page :is(
+  .view-section,
+  .view,
+  .panel,
+  .tab-panel,
+  .tab-content,
+  .module-panel,
+  .lesson-panel,
+  .content-panel,
+  .content-section,
+  .section-panel,
+  [role="tabpanel"]
+)[hidden],
 html.poly-lesson-page .poly-force-visible {
   display: block !important;
 }
@@ -159,11 +185,11 @@ html.poly-lesson-page .poly-expanded-state-label {
   max-width: 100%;
   margin: 0 0 8px;
   padding: 7px 12px;
-  border: 1px solid rgba(3, 105, 161, 0.2);
+  border: 1px solid rgba(3, 105, 161, .2);
   border-radius: 999px;
   background: #e0f2fe;
   color: #075985;
-  font-size: 0.82rem;
+  font-size: .82rem;
   font-weight: 900;
 }
 
@@ -206,7 +232,21 @@ html.poly-lesson-page table {
   max-width: 100% !important;
 }
 
-html.poly-lesson-page :is(.grid, .topic-grid, .lesson-grid, .bilingual, .module-map, .meta, .meta-grid, .formula-grid, .examples-grid, .question-grid, .qa-grid, .answer-grid, .problems) > * {
+html.poly-lesson-page :is(
+  .grid,
+  .topic-grid,
+  .lesson-grid,
+  .bilingual,
+  .module-map,
+  .meta,
+  .meta-grid,
+  .formula-grid,
+  .examples-grid,
+  .question-grid,
+  .qa-grid,
+  .answer-grid,
+  .problems
+) > * {
   min-width: 0;
 }
 
@@ -219,9 +259,7 @@ html.poly-lesson-page :is(a, button, input, select, textarea, summary):focus-vis
   outline-offset: 3px !important;
 }
 
-html.poly-lesson-page .progress,
-html.poly-lesson-page #progress,
-html.poly-lesson-page .prog {
+html.poly-lesson-page :is(.progress, #progress, .prog) {
   position: fixed !important;
   inset: 0 auto auto 0 !important;
   z-index: 7000 !important;
@@ -231,8 +269,6 @@ html.poly-lesson-page .prog {
 }
 
 html.poly-lesson-page .notes-fallback-banner {
-  position: relative;
-  z-index: 10;
   width: calc(100% - (2 * var(--lesson-edge)));
   margin: var(--lesson-edge);
   padding: 11px 14px;
@@ -251,16 +287,16 @@ html.poly-lesson-page .poly-lesson-end-actions {
   padding: clamp(12px, 1.5vw, 20px);
   border: 1px solid var(--lesson-line);
   border-radius: var(--lesson-radius);
-  background: rgba(255, 255, 255, 0.96);
+  background: rgba(255, 255, 255, .96);
   box-shadow: var(--lesson-shadow);
 }
 
 html.poly-lesson-page .poly-lesson-identity {
   margin: 0 0 10px;
   color: var(--lesson-muted);
-  font-size: 0.82rem;
+  font-size: .82rem;
   font-weight: 850;
-  letter-spacing: 0.03em;
+  letter-spacing: .03em;
   text-transform: uppercase;
 }
 
@@ -276,7 +312,7 @@ html.poly-lesson-page .poly-lesson-action {
   justify-content: center;
   min-height: 42px;
   padding: 9px 14px;
-  border: 1px solid rgba(3, 105, 161, 0.22);
+  border: 1px solid rgba(3, 105, 161, .22);
   border-radius: 999px;
   background: #eff6ff;
   color: #075985;
@@ -286,8 +322,7 @@ html.poly-lesson-page .poly-lesson-action {
   cursor: pointer;
 }
 
-html.poly-lesson-page .poly-lesson-print,
-html.poly-lesson-page .poly-lesson-download {
+html.poly-lesson-page :is(.poly-lesson-print, .poly-lesson-download) {
   background: linear-gradient(135deg, var(--lesson-blue), var(--lesson-cyan));
   color: #fff;
   border-color: transparent;
@@ -305,10 +340,6 @@ html.poly-lesson-page.polytechnic-native-app .poly-lesson-back {
 
   html.poly-lesson-page :is(.lesson-shell, body > main, body > .page-shell, body > .shell, body > .main-content) {
     padding: 7px !important;
-  }
-
-  html.poly-lesson-page :is(.cover, .hero, .hero-mini, .hero-card, .hb-hero) {
-    border-radius: clamp(14px, 4vw, 22px) !important;
   }
 }
 
@@ -331,7 +362,7 @@ html.poly-lesson-page.polytechnic-native-app .poly-lesson-back {
   }
 
   html.poly-lesson-page table {
-    font-size: 0.86rem;
+    font-size: .86rem;
   }
 
   html.poly-lesson-page .poly-lesson-end-actions {
@@ -377,6 +408,12 @@ html.poly-lesson-page.polytechnic-native-app .poly-lesson-back {
     .hb-topbar,
     .lesson-topbar,
     .lesson-header,
+    .toolbar,
+    .hb-toolbar,
+    .lesson-toolbar,
+    .lesson-actions,
+    .course-toolbar,
+    .course-nav,
     body > nav.top,
     body > header.top,
     .chapter-nav,
