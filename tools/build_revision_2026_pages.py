@@ -76,7 +76,7 @@ def navigation() -> str:
 
 
 def footer() -> str:
-    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v={VERSION}" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
+    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v=20260717-availability-stable1" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
 
 
 def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
