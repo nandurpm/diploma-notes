@@ -14,6 +14,13 @@ Thumbs.db
 *.tmp
 *.zip
 *.apk
+
+# Signing key material must never be committed (materialize from CI secrets)
+*.keystore
+*.jks
+*.p12
+*.pfx
+release.keystore
 !/downloads/POLY_PMNA_latest.apk
 !/downloads/POLY_PMNA_v2.0.apk
 android-app/app/build/
