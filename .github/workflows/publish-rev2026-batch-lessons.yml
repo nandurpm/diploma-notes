@@ -1,5 +1,6 @@
 name: Publish REV2026 batch lesson handbooks
 
+# Second push intentionally triggers this one-time workflow after registration on main.
 on:
   push:
     branches: [main]
