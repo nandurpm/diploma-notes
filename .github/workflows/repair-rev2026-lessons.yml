@@ -31,9 +31,20 @@ jobs:
           fetch-depth: 0
 
       - name: Apply repair and run static validation
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -o pipefail
           python -m py_compile tools/apply_rev2026_lesson_repair.py
-          python tools/apply_rev2026_lesson_repair.py
+          if ! python tools/apply_rev2026_lesson_repair.py > /tmp/rev2026-repair.log 2>&1; then
+            cat /tmp/rev2026-repair.log
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              { echo "### REV2026 repair validation failed"; echo; echo '```text'; tail -n 80 /tmp/rev2026-repair.log; echo '```'; } > /tmp/rev2026-comment.md
+              gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/rev2026-comment.md
+            fi
+            exit 1
+          fi
+          cat /tmp/rev2026-repair.log
           python tools/apply_rev2026_lesson_repair.py --check
 
       - name: Browser-test complete REV2026 lesson
