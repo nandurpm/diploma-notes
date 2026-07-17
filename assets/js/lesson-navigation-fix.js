@@ -99,7 +99,16 @@
     return view ? document.getElementById(view) || document.querySelector(`[data-view="${view}"]`) : null;
   }
 
-  const frames = () => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  const frames = () => new Promise((resolve) => {
+    let settled = false;
+    const finish = () => {
+      if (settled) return;
+      settled = true;
+      resolve();
+    };
+    setTimeout(finish, 50);
+    requestAnimationFrame(() => requestAnimationFrame(finish));
+  });
   const textOf = (node) => (node.textContent || "").replace(/\s+/g, " ").trim();
 
   function removeCloneIds(clone) {
