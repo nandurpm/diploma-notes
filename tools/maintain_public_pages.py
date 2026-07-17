@@ -22,7 +22,7 @@ SITEMAP = ROOT / "sitemap.xml"
 SITE_ORIGIN = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = f"{SITE_ORIGIN}/assets/media/poly-pmna-study-hub-social-card.png"
 A11Y_CSS = '<link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260614-1">'
-SHELL_SCRIPT = '<script src="/assets/js/site-shell.js?v=20260717-site-shell1" defer></script>'
+SHELL_SCRIPT = '<script src="/assets/js/site-shell.js?v=20260717-fixed-header-restore1" defer></script>'
 HEADER_PLACEHOLDER = '<header class="topbar" data-site-header></header>'
 FOOTER_PLACEHOLDER = '<footer class="footer" data-site-footer></footer>'
 

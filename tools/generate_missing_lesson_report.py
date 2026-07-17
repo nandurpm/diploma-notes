@@ -15,6 +15,12 @@ PATTERN = re.compile(
 )
 
 
+def semester_sort_key(value: str) -> tuple[int, str]:
+    """Sort numbered semesters first without crashing on labels such as 'Yearly'."""
+    match = re.search(r"\d+", value)
+    return (int(match.group()) if match else 999, value.casefold())
+
+
 def main() -> None:
     source = SUBJECTS_FILE.read_text(encoding="utf-8")
     subjects = [match.groupdict() for match in PATTERN.finditer(source)]
@@ -31,7 +37,7 @@ def main() -> None:
         and item["type"] in {"Theory", "Drawing"}
         and item["code"] not in lesson_codes
     ]
-    missing.sort(key=lambda item: (item["department"], int(re.search(r"\d+", item["semester"]).group()), item["code"], item["name"]))
+    missing.sort(key=lambda item: (item["department"], semester_sort_key(item["semester"]), item["code"], item["name"]))
 
     REPORT.parent.mkdir(parents=True, exist_ok=True)
     with REPORT.open("w", newline="", encoding="utf-8-sig") as handle:

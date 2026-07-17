@@ -54,6 +54,9 @@ def main() -> int:
     check("homepage revision cards are not repeated", count(r'class="choice-card[^>]*"[^>]+href="/?revision-202[16]\.html"', index) == 0, "Revision destinations belong in the hero, not repeated feature cards.")
     check("about identifies current curriculum correctly", "Use Revision 2021 for current syllabus preparation" not in about and "Revision 2026 is the current curriculum" in about, "Revision 2026 must be described as current; Revision 2021 as legacy.")
     check("shared shell uses canonical home route", 'href="/"' in shell and 'href="/index.html"' not in shell, "Header logo and Home must use '/'.")
+    header_labels = ["Home", "About", "Revision 2026", "Revision 2021", "Mock Exams", "Ask POLY AI", "2015 Materials", "Tools", "Help"]
+    header_positions = [shell.find(f'label: "{label}"') for label in header_labels]
+    check("shared shell keeps the full direct header menu", all(position >= 0 for position in header_positions) and header_positions == sorted(header_positions) and "nav-group" not in shell, "The fixed header must keep the nine direct menu choices shown on the public website.")
     check("main does not rewrite metadata", "normalizeMetadata" not in main_js and "og:description" not in main_js, "Metadata belongs in source HTML.")
     check("main does not load consistency patch", "site-consistency-fix" not in main_js, "No circular repair-script loading.")
     check("fixed header has explicit native-app detection", "isAndroidWebView" not in fixed and "PolyPmnaAndroid" in fixed, "Normal Android WebViews must not be treated as the POLY PMNA app.")
@@ -95,9 +98,10 @@ def main() -> int:
     check("all lesson files have responsive viewport metadata", not missing_viewport, "Missing: " + (", ".join(missing_viewport) if missing_viewport else "none"))
     check("all lesson files load the shared responsive shell", not missing_shell, "Missing: " + (", ".join(missing_shell) if missing_shell else "none"))
 
+    lesson_sources = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in lesson_files)
     rev26_sources = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in rev26_lessons)
     check("REV2026 lessons are standalone HTML", "DecompressionStream" not in rev26_sources and "Loading Course" not in rev26_sources, "Compressed browser-only lesson wrappers must not return.")
-    check("REV2026 lessons do not load the public site header", "fixed-site-header.js" not in rev26_sources, "Lesson pages use only their compact internal course navigation.")
+    check("lesson files do not load the public site header", "fixed-site-header.js" not in lesson_sources, "Lesson pages use only their compact internal course navigation.")
     check("lesson shell recognizes both revision route families", "revision-2026-content" in lesson_js and "lessonPath" in lesson_js and "lessons-" in lesson_js, "REV2021 and REV2026 routes must share one shell.")
     check("lesson shell uses explicit APK detection", "PolytechnicStudyHubAndroid" in lesson_js and "PolyPmnaAndroid" in lesson_js, "Only the official APK user agents may enable native-app mode.")
     check("lesson CSS removes width limits", "max-width: none !important" in lesson_css and ".polytechnic-native-app" in lesson_css, "Lessons must fill desktop, mobile and APK viewports.")
