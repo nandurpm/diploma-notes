@@ -22,6 +22,12 @@ android-app/app/google-services.json
 firebase-service-account*.json
 reports/*.tmp.json
 
+# Signing and certificate material must never be committed.
+*.keystore
+*.jks
+*.p12
+*.pfx
+
 # wrangler files
 .wrangler
 .dev.vars*

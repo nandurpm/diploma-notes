@@ -286,9 +286,13 @@ public class MainActivity extends ComponentActivity {
         target.evaluateJavascript(
                 "(function(){try{" +
                         "var d=document;d.documentElement.classList.add('polytechnic-native-app');" +
+                        "var lesson=/^\\\/(?:revision-2026-content\\\/)?lessons\\\/lessons-[^\\\/]+\\.html$/i.test(location.pathname);" +
+                        "if(lesson){d.documentElement.classList.add('poly-lesson-page');if(d.body){d.body.classList.add('poly-lesson-page');}}" +
                         "var css='html.polytechnic-native-app .topbar,html.polytechnic-native-app .skip-link{display:none!important;}' +" +
                         "'html.polytechnic-native-app body{padding-top:0!important;margin-top:0!important;}' +" +
                         "'html.polytechnic-native-app main{margin-top:0!important;}' +" +
+                        "'html.polytechnic-native-app.poly-lesson-page .hb-topbar,html.polytechnic-native-app.poly-lesson-page .lesson-topbar,html.polytechnic-native-app.poly-lesson-page .lesson-header,html.polytechnic-native-app.poly-lesson-page body>nav.top,html.polytechnic-native-app.poly-lesson-page body>header.top,html.polytechnic-native-app.poly-lesson-page .chapter-nav,html.polytechnic-native-app.poly-lesson-page .revision-back-button,html.polytechnic-native-app.poly-lesson-page .nav-arrows{display:none!important;height:0!important;min-height:0!important;max-height:0!important;margin:0!important;padding:0!important;border:0!important;overflow:hidden!important;}' +" +
+                        "'html.polytechnic-native-app.poly-lesson-page .lesson-shell,html.polytechnic-native-app.poly-lesson-page main,html.polytechnic-native-app.poly-lesson-page .content{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding-top:7px!important;}' +" +
                         "'html.polytechnic-native-app .app-download:not([data-app-button-state=update]){display:none!important;}';" +
                         "var s=d.getElementById('poly-native-app-header-cleanup');" +
                         "if(!s){s=d.createElement('style');s.id='poly-native-app-header-cleanup';s.textContent=css;(d.head||d.documentElement).appendChild(s);}" +
