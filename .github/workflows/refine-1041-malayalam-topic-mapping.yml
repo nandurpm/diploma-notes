@@ -1,0 +1,56 @@
+name: Refine Course 1041 Malayalam topic mapping
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/refine_1041_malayalam_topic_mapping.py'
+      - '.github/workflows/refine-1041-malayalam-topic-mapping.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refine-course-1041-malayalam-topic-mapping
+  cancel-in-progress: false
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate mapping script
+        run: python -m py_compile tools/refine_1041_malayalam_topic_mapping.py
+      - name: Refine Malayalam topic descriptions
+        run: python tools/refine_1041_malayalam_topic_mapping.py
+      - name: Validate corrected ordering
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text = Path('revision-2026-content/lessons/lessons-1041.html').read_text(encoding='utf-8')
+          required = [
+              'if (/photodiode|photo detector|light sensor/',
+              'if (/led|light-emitting/',
+              'if (/zener|breakdown/',
+              '/\\bac\\b|alternating|sinus|frequency|period|amplitude|phase/',
+              'if (/pcb|printed circuit|track|pad|via|layout|fabrication/',
+          ]
+          missing = [item for item in required if item not in text]
+          if missing:
+              raise SystemExit(f'Mapping validation failed: {missing}')
+          if 'if (/ac|alternating' in text:
+              raise SystemExit('Over-broad AC matcher still present')
+          print('Course 1041 Malayalam mapping validation passed.')
+          PY
+      - name: Commit refinement and remove one-time runner
+        run: |
+          git config user.name 'poly-pmna-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add revision-2026-content/lessons/lessons-1041.html
+          git rm tools/refine_1041_malayalam_topic_mapping.py .github/workflows/refine-1041-malayalam-topic-mapping.yml
+          git commit -m 'Refine Course 1041 Malayalam topic descriptions'
+          git push
