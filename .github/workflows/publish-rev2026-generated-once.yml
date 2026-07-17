@@ -1,0 +1,68 @@
+name: Publish generated REV2026 repair once
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-rev2026-generated-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-push-to-pr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out the pull-request branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - name: Apply and validate the REV2026 repair
+        run: |
+          python -m py_compile tools/apply_rev2026_lesson_repair.py
+          python tools/apply_rev2026_lesson_repair.py
+
+      - name: Browser-test the repaired REV2026 lesson
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/revision-2026-content/lessons/lessons-1041.html >/dev/null && break
+            sleep 1
+          done
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=20000 \
+            --dump-dom 'http://127.0.0.1:8000/revision-2026-content/lessons/lessons-1041.html' >/tmp/rev2026.dom
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path('/tmp/rev2026.dom').read_text(encoding='utf-8')
+          assert 'revision-2026-lesson' in text
+          assert '20260718-fullscreen4' in text
+          assert 'polyLessonEndActions' in text
+          assert set(re.findall(r'data-module="([1-4])"', text)) == {'1','2','3','4'}
+          assert 'poly-expanded-dynamic-list' not in text
+          print('Rendered REV2026 lesson passed.')
+          PY
+
+      - name: Commit generated output to the pull-request branch
+        env:
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          rm .github/workflows/publish-rev2026-generated-once.yml
+          git add assets/js/lesson-navigation-fix.js assets/js/lesson-availability-hotfix.js
+          git add assets/css/lesson-page-fix.css
+          git add tools/update_lesson_assistant.py tools/validate_lesson_fullscreen.py
+          git add tools/build_revision_2026_pages.py tools/enhance_revision_2026_model_qp.py
+          git add .github/workflows/update-lesson-assistant.yml
+          git add lessons revision-2026-content/lessons revision-2026.html revision-2026
+          git add -u .github/workflows/publish-rev2026-generated-once.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Apply generated REV2026 lesson and model-paper repair"
+          git push origin "HEAD:${HEAD_BRANCH}"
