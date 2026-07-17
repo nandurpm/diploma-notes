@@ -24,7 +24,7 @@ window.PolyQuizAuth = (() => {
     const text = String(error?.message || error || "").toLowerCase();
 
     if (isNetworkOrPausedProjectError(error)) {
-      return "Online login service is waking up or unreachable. I restarted the Supabase project; wait 1–2 minutes and try again. You can use Continue as Guest now.";
+      return "The online login service is currently unreachable. Continue as Guest or try online login again later.";
     }
     if (text.includes("invalid login credentials")) {
       return "Wrong email or password. Check the password, or use Forgot password.";
@@ -33,13 +33,13 @@ window.PolyQuizAuth = (() => {
       return "Email is not confirmed yet. Check your inbox/spam and confirm the account, then login.";
     }
     if (text.includes("email rate limit") || text.includes("rate limit") || error?.status === 429) {
-      return "Signup email limit reached. Please wait and try again later, or use Continue as Guest now. Site admin can fix this permanently by enabling Custom SMTP in Supabase.";
+      return "Signup email limit reached. Try again later or use Continue as Guest. The site administrator may need to configure Custom SMTP in Supabase.";
     }
     if (text.includes("already registered") || text.includes("already exists") || text.includes("user already registered")) {
       return "This email is already registered. Please use Login or Forgot password.";
     }
     if (text.includes("not authorized")) {
-      return "This email cannot receive Supabase test emails. Site admin must configure Custom SMTP or add the address to the Supabase team for testing.";
+      return "This email cannot receive Supabase test emails. The site administrator must configure Custom SMTP or update the Supabase email settings.";
     }
     return error?.message || "Authentication failed. Please try again.";
   }
@@ -51,7 +51,7 @@ window.PolyQuizAuth = (() => {
       auth: { flowType: "pkce" },
       global: {
         headers: {
-          "X-Client-Info": "poly-pmna-quiz-auth-20260713",
+          "X-Client-Info": "poly-pmna-quiz-auth-20260717",
         },
       },
     });

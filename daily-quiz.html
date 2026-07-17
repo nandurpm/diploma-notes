@@ -1,2 +1,73 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mock Exams & Daily Quiz | POLY PMNA</title><meta name="description" content="POLY PMNA daily subject quiz and official-pattern mock exam dashboard with login, register, guest mode and saved scores."><meta name="supabase-url" content="https://hwobooljdvynsajtrvnk.supabase.co"><meta name="supabase-publishable-key" content="sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD"><link rel="canonical" href="https://polypmna.dpdns.org/daily-quiz.html"><link rel="stylesheet" href="/assets/css/style.css?v=20260713-quiz-auth1"><link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260713-quiz-auth1"><link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260713-quiz-auth1"><link rel="stylesheet" href="/assets/css/quiz.css?v=20260713-quiz-auth1">  <script src="/assets/js/site-shell.js?v=20260717-site-shell1" defer></script>
-</head><body class="portal-page quiz-page" data-site-revision="20260713-quiz-auth1"><a class="skip-link" href="#main-content">Skip to main content</a><header class="topbar" data-site-header></header><main id="main-content" class="quiz-wrap"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Mock Exams</span></li></ol></nav><section id="authView" class="auth-view"><article class="auth-card"><div class="auth-brand">Q</div><p class="eyebrow">Kerala Polytechnic · Revision 2021</p><h1>Mock Exams Dashboard</h1><p class="auth-intro">Login to save scores online, register a new account, or continue as guest. Guest history is stored only in this browser.</p><div class="auth-tabs" role="tablist" aria-label="Authentication mode"><button id="loginTab" class="auth-tab active" type="button">Login</button><button id="registerTab" class="auth-tab" type="button">Register</button></div><form id="authForm" data-mode="login"><div id="usernameField" class="field hidden"><label for="username">Username</label><input id="username" autocomplete="username" placeholder="Username"></div><div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="student@example.com"></div><div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Minimum 6 characters"></div><div id="confirmField" class="field hidden"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Re-enter password"></div><button id="authSubmit" class="btn primary full" type="submit">Login</button></form><button id="forgotPasswordBtn" class="btn outline full" type="button">Forgot password?</button><div class="divider"><span>or</span></div><button id="guestLogin" class="btn guest full" type="button">Continue as Guest</button><p id="authMessage" class="status" aria-live="polite"></p></article></section><section id="portalView" class="hidden"><section class="hero"><p class="eyebrow" style="color:#dbeafe">Daily quiz and official-pattern exams</p><h1 id="welcomeTitle">Welcome</h1><p>Choose daily practice, official-pattern mock examination, previous-day review or result dashboard. Guest mode works even if online login is unavailable.</p><div class="stats"><div class="stat"><span>Today</span><b id="dateStat">—</b></div><div class="stat"><span>Next Quiz In</span><b id="countdown">—</b></div><div class="stat"><span>Best Today</span><b id="best">0/10</b></div><div class="stat"><span>Progress</span><b id="progress">0/0</b></div></div><div class="modebar"><button class="btn primary" id="openDash" type="button">Dashboard</button><button class="btn soft" id="openDaily" type="button">Daily Quiz</button><button class="btn soft" id="openMocks" type="button">Mock Exams</button><button class="btn soft" id="openReview" type="button">Previous-Day Review</button><button class="btn outline" id="logoutBtn" type="button">Logout</button></div></section><section id="dashboardView" class="panel"><h2>Participation & Result Analysis</h2><p class="info">Scores save online after login. Guest scores stay in this browser only.</p><div id="analysisBox" class="analysis-grid"></div><div id="recentResults" class="notice">No recent results loaded.</div></section><section id="dailyView" class="panel hidden"><h2>Daily Quiz</h2><p class="info">Each subject gets one 10-question attempt per day. After submit, the result is saved and locked for the day.</p><div id="dailySubjectCards" class="subject-grid"></div><div id="quizBox" class="hidden"></div><div id="quizControls" class="controls hidden"><button class="btn primary" id="submitQuiz" type="button">Submit Answers</button></div><p id="quizMsg" class="status" aria-live="polite"></p></section><section id="mockView" class="panel hidden"><h2>Official-Pattern Mock Exams</h2><p class="info">Mock exams follow the official sample-question-paper structure where available. Evaluation shows rubric fallback if the AI endpoint is unavailable.</p><div id="mockSubjectCards" class="subject-grid"></div></section><section id="reviewView" class="panel hidden"><h2>Previous-Day Review</h2><p class="info">Select a subject to review previous answers. Guest review works only for attempts saved in this browser.</p><div id="reviewSubjectCards" class="subject-grid"></div><div id="reviewBox" class="review-list"></div></section></section></main><footer class="footer" data-site-footer></footer><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script><script src="/assets/js/poly-utils.js?v=20260713-quiz-auth1" defer></script><script src="/assets/js/quiz-bank.js?v=20260713-quiz-auth1" defer></script><script src="/assets/js/quiz-auth.js?v=20260713-quiz-auth1" defer></script><script src="/assets/js/quiz-password-reset.js?v=20260713-quiz-auth1" defer></script><script src="/assets/js/quiz-results.js?v=20260713-quiz-auth1" defer></script><script src="/assets/js/quiz-engine.js?v=20260713-quiz-auth1" defer></script><script src="/assets/js/quiz-safe-fallback.js?v=20260713-quiz-auth1" defer></script><script src="/assets/js/main.js?v=20260717-site-shell1" defer></script><script src="/assets/js/site-hardening.js?v=20260717-site-shell1" defer></script><script src="/assets/js/fixed-site-header.js?v=20260717-site-shell1" defer></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Revision 2021 Mock Exams &amp; Daily Quiz | POLY PMNA</title>
+  <meta name="description" content="POLY PMNA Revision 2021 daily subject quiz and mock-exam dashboard with login, register, guest mode and saved scores.">
+  <meta name="supabase-url" content="https://hwobooljdvynsajtrvnk.supabase.co">
+  <meta name="supabase-publishable-key" content="sb_publishable_D8iv2EsMjr3VBzoDXkI7-w_1rWobLMD">
+  <link rel="canonical" href="https://polypmna.dpdns.org/daily-quiz.html">
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/portal-layout.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260717-architecture-clean1">
+  <link rel="stylesheet" href="/assets/css/quiz.css?v=20260717-architecture-clean1">
+  <script src="/assets/js/site-shell.js?v=20260717-architecture-clean1" defer></script>
+</head>
+<body class="portal-page quiz-page" data-site-revision="20260717-architecture-clean1">
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <header class="topbar" data-site-header></header>
+  <main id="main-content" class="quiz-wrap">
+    <nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Revision 2021 Mock Exams</span></li></ol></nav>
+
+    <section id="authView" class="auth-view">
+      <article class="auth-card">
+        <div class="auth-brand">Q</div>
+        <p class="eyebrow">Kerala Polytechnic · Revision 2021</p>
+        <h1>Revision 2021 Mock Exams</h1>
+        <p class="auth-intro">The current quiz bank covers selected Revision 2021 subjects only. Login to save scores online, register a new account, or continue as guest. Guest history is stored only in this browser.</p>
+        <div class="auth-tabs" role="tablist" aria-label="Authentication mode"><button id="loginTab" class="auth-tab active" type="button">Login</button><button id="registerTab" class="auth-tab" type="button">Register</button></div>
+        <form id="authForm" data-mode="login">
+          <div id="usernameField" class="field hidden"><label for="username">Username</label><input id="username" autocomplete="username" placeholder="Username"></div>
+          <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="student@example.com"></div>
+          <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" placeholder="Minimum 6 characters"></div>
+          <div id="confirmField" class="field hidden"><label for="confirmPassword">Confirm password</label><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Re-enter password"></div>
+          <button id="authSubmit" class="btn primary full" type="submit">Login</button>
+        </form>
+        <button id="forgotPasswordBtn" class="btn outline full" type="button">Forgot password?</button>
+        <div class="divider"><span>or</span></div>
+        <button id="guestLogin" class="btn guest full" type="button">Continue as Guest</button>
+        <p id="authMessage" class="status" aria-live="polite"></p>
+      </article>
+    </section>
+
+    <section id="portalView" class="hidden">
+      <section class="hero">
+        <p class="eyebrow" style="color:#dbeafe">Revision 2021 daily quiz and selected mock exams</p>
+        <h1 id="welcomeTitle">Welcome</h1>
+        <p>Choose daily practice, an available mock examination, previous-day review or the result dashboard. Coverage is limited to subjects currently present in the quiz bank.</p>
+        <div class="stats"><div class="stat"><span>Today</span><b id="dateStat">—</b></div><div class="stat"><span>Next Quiz In</span><b id="countdown">—</b></div><div class="stat"><span>Best Today</span><b id="best">0/10</b></div><div class="stat"><span>Progress</span><b id="progress">0/0</b></div></div>
+        <div class="modebar"><button class="btn primary" id="openDash" type="button">Dashboard</button><button class="btn soft" id="openDaily" type="button">Daily Quiz</button><button class="btn soft" id="openMocks" type="button">Mock Exams</button><button class="btn soft" id="openReview" type="button">Previous-Day Review</button><button class="btn outline" id="logoutBtn" type="button">Logout</button></div>
+      </section>
+
+      <section id="dashboardView" class="panel"><h2>Participation &amp; Result Analysis</h2><p class="info">Scores save online after login. Guest scores stay in this browser only.</p><div id="analysisBox" class="analysis-grid"></div><div id="recentResults" class="notice">No recent results loaded.</div></section>
+      <section id="dailyView" class="panel hidden"><h2>Daily Quiz</h2><p class="info">Each supported subject gets one 10-question attempt per day. After submission, the result is saved and locked for the day.</p><div id="dailySubjectCards" class="subject-grid"></div><div id="quizBox" class="hidden"></div><div id="quizControls" class="controls hidden"><button class="btn primary" id="submitQuiz" type="button">Submit Answers</button></div><p id="quizMsg" class="status" aria-live="polite"></p></section>
+      <section id="mockView" class="panel hidden"><h2>Available Mock Exams</h2><p class="info">Only exams with an implemented question structure are shown. Do not assume every subject or official model paper is currently supported.</p><div id="mockSubjectCards" class="subject-grid"></div></section>
+      <section id="reviewView" class="panel hidden"><h2>Previous-Day Review</h2><p class="info">Select a supported subject to review previous answers. Guest review works only for attempts saved in this browser.</p><div id="reviewSubjectCards" class="subject-grid"></div><div id="reviewBox" class="review-list"></div></section>
+    </section>
+  </main>
+  <footer class="footer" data-site-footer></footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+  <script src="/assets/js/poly-utils.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/quiz-bank.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/quiz-auth.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/quiz-password-reset.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/quiz-results.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/quiz-engine.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/quiz-safe-fallback.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/main.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/site-hardening.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/fixed-site-header.js?v=20260717-architecture-clean1" defer></script>
+</body>
+</html>
