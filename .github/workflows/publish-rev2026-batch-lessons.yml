@@ -1,24 +1,18 @@
 name: Publish REV2026 batch lesson handbooks
 
 on:
-  pull_request:
+  push:
     branches: [main]
-    types: [opened, synchronize, reopened]
     paths:
-      - ".rev2026-batch-trigger"
-      - "reports/rev2026-batch-generator-error.txt"
-      - "revision-2026-content/lessons/lessons-1003.html"
-      - "revision-2026-content/lessons/lessons-1008.html"
-      - "revision-2026-content/lessons/lessons-1031.html"
-      - "revision-2026-content/lessons/lessons-2031.html"
-      - "revision-2026-content/lessons/lessons-2032.html"
+      - "tools/rev2026-handbook-generator.zb64"
+      - ".github/workflows/publish-rev2026-batch-lessons.yml"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 concurrency:
-  group: publish-rev2026-batch-${{ github.event.pull_request.number || github.ref }}
+  group: publish-rev2026-batch-lessons-main
   cancel-in-progress: false
 
 jobs:
@@ -26,100 +20,116 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out source branch
+      - name: Check out main
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.head_ref || github.ref_name }}
+          ref: main
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Reconstruct generator
+      - name: Decode and validate handbook generator
         run: |
-          cat \
-            tools/rev2026-generator-parts/part0 \
-            tools/rev2026-generator-parts/part1 \
-            tools/rev2026-generator-parts/part2 \
-            tools/rev2026-generator-parts/part3 \
-            tools/rev2026-generator-parts/part4 \
-            tools/rev2026-generator-parts/part5 \
-            > /tmp/publish_rev2026_batch.py
-          sed -i 's/"Expected Questions"/"Expected questions"/; s/"Syllabus Coverage Checklist"/"Official syllabus coverage checklist"/' /tmp/publish_rev2026_batch.py
           python - <<'PY'
           from pathlib import Path
-          p = Path('/tmp/publish_rev2026_batch.py')
-          text = p.read_text()
-          old = '("courses.part1","courses.part2")'
-          new = '("courses.part1","courses.part2","courses.part3","courses.part4","courses.part5","courses.part6a","courses.part6b","courses.part6c","courses.part6d","courses.part7a","courses.part7rest","courses.part8a2","courses.part8b2")'
-          if old not in text:
-              raise SystemExit('Payload reader marker not found')
-          p.write_text(text.replace(old, new, 1))
-          PY
-          python -m py_compile /tmp/publish_rev2026_batch.py
+          import base64
+          import zlib
 
-      - name: Generate and validate separate lesson handbooks
-        env:
-          HEAD_REF: ${{ github.head_ref }}
+          source = Path("tools/rev2026-handbook-generator.zb64")
+          payload = source.read_text(encoding="utf-8").strip()
+          decoded = zlib.decompress(base64.b64decode(payload))
+          target = Path("/tmp/publish_rev2026_handbooks.py")
+          target.write_bytes(decoded)
+          print(f"Decoded {len(decoded):,} bytes to {target}")
+          PY
+          python -m py_compile /tmp/publish_rev2026_handbooks.py
+
+      - name: Generate five separate REV2026 handbooks
+        run: python /tmp/publish_rev2026_handbooks.py
+
+      - name: Validate generated handbook files
         run: |
-          set +e
-          python /tmp/publish_rev2026_batch.py > /tmp/rev2026-generator.log 2>&1
-          status=$?
-          cat /tmp/rev2026-generator.log
-          if [ "$status" -ne 0 ]; then
-            mkdir -p reports
-            cp /tmp/rev2026-generator.log reports/rev2026-batch-generator-error.txt
-            python - <<'PY' >> reports/rev2026-batch-generator-error.txt
+          python - <<'PY'
+          from html.parser import HTMLParser
           from pathlib import Path
-          import hashlib
-          names = ("courses.part1","courses.part2","courses.part3","courses.part4","courses.part5","courses.part6a","courses.part6b","courses.part6c","courses.part6d","courses.part7a","courses.part7rest","courses.part8a2","courses.part8b2")
-          print("\nPAYLOAD CHUNK DIAGNOSTICS")
-          for name in names:
-              data=(Path("tools/rev2026-course-payload")/name).read_bytes()
-              blob=b"blob "+str(len(data)).encode()+b"\0"+data
-              print(name, len(data), hashlib.sha1(blob).hexdigest(), data[:12].decode(errors="replace"), data[-12:].decode(errors="replace"))
-          joined=b"".join((Path("tools/rev2026-course-payload")/name).read_bytes() for name in names)
-          print("joined",len(joined),hashlib.sha256(joined).hexdigest())
-          PY
-            git config user.name "poly-pmna-bot"
-            git config user.email "actions@users.noreply.github.com"
-            git add reports/rev2026-batch-generator-error.txt
-            if ! git diff --cached --quiet; then
-              git commit -m "Record REV2026 batch generator failure"
-              git push origin HEAD:"${HEAD_REF}"
-            fi
-            exit "$status"
-          fi
 
-      - name: Synchronize lesson availability and generated department pages
+          class Parser(HTMLParser):
+              pass
+
+          codes = ("1003", "1008", "1031", "2031", "2032")
+          for code in codes:
+              path = Path(f"revision-2026-content/lessons/lessons-{code}.html")
+              if not path.is_file():
+                  raise SystemExit(f"Missing generated handbook: {path}")
+              text = path.read_text(encoding="utf-8")
+              required = (
+                  f'content="{code}"',
+                  'content="REV2026"',
+                  "Print / Save PDF",
+                  "Expected questions",
+                  "Official syllabus coverage checklist",
+                  "autoPrintNotes",
+              )
+              missing = [marker for marker in required if marker not in text]
+              if missing:
+                  raise SystemExit(f"{path}: missing markers {missing}")
+              if len(text.encode("utf-8")) < 20000:
+                  raise SystemExit(f"{path}: generated file is unexpectedly small")
+              if not any("\u0d00" <= char <= "\u0d7f" for char in text):
+                  raise SystemExit(f"{path}: Malayalam support is missing")
+              Parser().feed(text)
+              print(f"Validated {path} ({len(text.encode('utf-8')):,} bytes)")
+          PY
+
+      - name: Synchronize lesson availability and programme pages
         run: |
-          rm -f reports/rev2026-batch-generator-error.txt
           python tools/update_asset_manifest.py
           python tools/build_revision_2026_pages.py
           node --check assets/js/subject-browser.js
           node --check assets/js/asset-manifest.js
 
-      - name: Commit generated handbooks to pull-request branch
-        env:
-          HEAD_REF: ${{ github.head_ref }}
+      - name: Verify availability registration
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          manifest = Path("assets/js/asset-manifest.js").read_text(encoding="utf-8")
+          browser = Path("assets/js/subject-browser.js").read_text(encoding="utf-8")
+          for code in ("1003", "1008", "1031", "2031", "2032"):
+              if f'"{code}"' not in manifest:
+                  raise SystemExit(f"Course {code} missing from asset manifest")
+              if f'"{code}"' not in browser:
+                  raise SystemExit(f"Course {code} missing from subject browser availability")
+          print("All five lesson files are registered as available.")
+          PY
+
+      - name: Commit generated handbooks to main
         run: |
           git config user.name "poly-pmna-bot"
           git config user.email "actions@users.noreply.github.com"
+
           git add \
             revision-2026-content/lessons/lessons-1003.html \
             revision-2026-content/lessons/lessons-1008.html \
             revision-2026-content/lessons/lessons-1031.html \
             revision-2026-content/lessons/lessons-2031.html \
             revision-2026-content/lessons/lessons-2032.html \
+            reports/rev2026-five-handbooks.json \
             assets/js/subject-browser.js \
             assets/js/asset-manifest.js \
             revision-2026/*.html
-          git add -u reports/rev2026-batch-generator-error.txt || true
+
+          git rm -r --ignore-unmatch tools/rev2026-course-payload tools/rev2026-generator-parts
+          git rm --ignore-unmatch reports/rev2026-batch-generator-error.txt .rev2026-batch-trigger
+
           if git diff --cached --quiet; then
-            echo "Generated handbooks are already current."
+            echo "Generated handbooks and availability data are already current."
             exit 0
           fi
+
           git commit -m "Add five complete REV2026 lesson handbooks"
-          git push origin HEAD:"${HEAD_REF}"
+          git pull --rebase origin main
+          git push origin HEAD:main
