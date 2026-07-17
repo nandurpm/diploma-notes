@@ -35,7 +35,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import base64, hashlib, zlib
+          import base64, hashlib, json, lzma
 
           expected = {
               "1003": (255789, "08867d711f7b380fcbee1791454e2777970ad456fcebc3fba35a1b384b0108fe"),
@@ -44,12 +44,14 @@ jobs:
               "2031": (346280, "ceeb9248bff12b402288446baed031463bc62637cb1926579f712ac3ba9a77be"),
               "2032": (366300, "461864905fcf2daa18a055b4b541b54911b0dc71def9ba53900967243274e396"),
           }
-          payload_dir = Path("tools/rev2026-detailed-v2-payloads")
+          encoded = Path("tools/rev2026-detailed-v2-payload.xb64").read_text(encoding="ascii").strip()
+          bundle = json.loads(lzma.decompress(base64.b64decode(encoded)).decode("utf-8"))
+          if set(bundle) != set(expected):
+              raise SystemExit(f"Unexpected bundle keys: {sorted(bundle)}")
           output_dir = Path("revision-2026-content/lessons")
           output_dir.mkdir(parents=True, exist_ok=True)
           for code, (expected_size, expected_sha) in expected.items():
-              encoded = (payload_dir / f"{code}.zb64").read_text(encoding="ascii").strip()
-              data = zlib.decompress(base64.b64decode(encoded))
+              data = bundle[code].encode("utf-8")
               actual_sha = hashlib.sha256(data).hexdigest()
               if len(data) != expected_size:
                   raise SystemExit(f"{code}: size mismatch {len(data)} != {expected_size}")
@@ -135,7 +137,7 @@ jobs:
             assets/js/subject-browser.js \
             assets/js/asset-manifest.js \
             revision-2026/*.html
-          git rm -r --ignore-unmatch tools/rev2026-detailed-v2-payloads
+          git rm --ignore-unmatch tools/rev2026-detailed-v2-payload.xb64
           git rm --ignore-unmatch .rev2026-v2-trigger .github/workflows/publish-rev2026-detailed-handbooks-v2.yml
           git commit -m "Rebuild five REV2026 lessons as detailed handbooks"
           git pull --rebase origin "${TARGET_BRANCH}"
