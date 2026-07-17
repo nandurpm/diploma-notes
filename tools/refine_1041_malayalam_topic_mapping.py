@@ -42,7 +42,7 @@ replacement = r'''const ml = title => {
   };'''
 
 pattern = r'const ml = title => \{.*?\n  \};'
-updated, count = re.subn(pattern, replacement, text, count=1, flags=re.S)
+updated, count = re.subn(pattern, lambda _match: replacement, text, count=1, flags=re.S)
 if count != 1:
     raise SystemExit(f"Malayalam mapper replacement count was {count}")
 
