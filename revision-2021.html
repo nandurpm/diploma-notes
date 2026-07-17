@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="/assets/css/style.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/animations.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/responsive.css?v=20260717-architecture-clean1">
-  <link rel="stylesheet" href="/assets/css/department-card-art.css?v=20260717-rev2021-department-art-v2">
+  <link rel="stylesheet" href="/assets/css/revision-2021-department-art-v2.css">
   <link rel="stylesheet" href="/assets/css/hardening.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260717-architecture-clean1">
   <link rel="stylesheet" href="/assets/css/site-brand.css?v=20260717-architecture-clean1">
@@ -99,7 +99,7 @@
     (()=>{const input=document.getElementById('programmeSearch');const clear=document.getElementById('programmeSearchClear');const cards=[...document.querySelectorAll('[data-programme-card]')];const count=document.getElementById('programmeResultCount');const empty=document.getElementById('programmeEmpty');function apply(){const query=(input.value||'').trim().toLowerCase();let shown=0;cards.forEach(card=>{const match=!query||(card.dataset.search||card.textContent).toLowerCase().includes(query);card.hidden=!match;if(match)shown+=1});count.textContent=`${shown} of ${cards.length} programmes`;clear.hidden=!query;empty.hidden=shown!==0}input.addEventListener('input',apply);clear.addEventListener('click',()=>{input.value='';apply();input.focus()});apply()})();
   </script>
   <script src="/assets/js/main.js?v=20260717-architecture-clean1" defer></script>
-  <script src="/assets/js/department-card-art.js?v=20260717-rev2021-department-art-v2" defer></script>
+  <script src="/assets/js/revision-2021-department-art-v2.js" defer></script>
   <script src="/assets/js/site-hardening.js?v=20260717-architecture-clean1" defer></script>
   <script src="/assets/js/fixed-site-header.js?v=20260717-architecture-clean1" defer></script>
 </body>
