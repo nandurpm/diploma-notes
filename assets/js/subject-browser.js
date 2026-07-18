@@ -205,7 +205,21 @@
     if (semester !== "all") list = list.filter(subject => String(subject.semester) === semester);
     if (query) list = list.filter(subject => [subject.code, subject.name, subject.department, subject.semester, subject.type, subject.revision].join(" ").toLowerCase().includes(query));
     list = unique(list).sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
-    if (mode === "home") list = list.filter((subject, index, array) => array.findIndex(item => norm(item.code) === norm(subject.code) && String(item.revision) === String(subject.revision)) === index).slice(0, HOME_LIMIT);
+    if (mode === "home") {
+      // PERFORMANCE OPTIMIZATION: Replacing O(n^2) array.findIndex loop with O(n) Set lookups.
+      // This is crucial on the homepage where 1800+ elements would otherwise trigger millions of iterations.
+      const seenHomeCodes = new Set();
+      const uniqueHomeList = [];
+      for (let i = 0; i < list.length; i++) {
+        const subject = list[i];
+        const uniqueKey = norm(subject.code) + "::" + String(subject.revision || "");
+        if (!seenHomeCodes.has(uniqueKey)) {
+          seenHomeCodes.add(uniqueKey);
+          uniqueHomeList.push(subject);
+        }
+      }
+      list = uniqueHomeList.slice(0, HOME_LIMIT);
+    }
     grid.innerHTML = list.length ? (mode === "home" ? list.map(card).join("") : group(list)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
   }
 
