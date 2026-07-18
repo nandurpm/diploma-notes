@@ -41,7 +41,32 @@
 }
 
 </style>
-<link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css?v=20260717-standard1"></head>
+<link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css?v=20260717-standard1"><style id="rev2026-text-contrast-v1">
+/* Explicit contrast for labels placed on dark/gradient REV2026 covers. */
+html.revision-2026-lesson :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.chip,.badge,.pill,.tag,.meta-chip,.hero-badge,.course-badge),
+html.poly-lesson-page :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.chip,.badge,.pill,.tag,.meta-chip,.hero-badge,.course-badge){
+  color:#0f172a!important;
+  background:rgba(255,255,255,.96)!important;
+  border-color:rgba(255,255,255,.82)!important;
+  text-shadow:none!important;
+  opacity:1!important;
+  -webkit-text-fill-color:#0f172a!important;
+}
+html.revision-2026-lesson :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.facts,.course-facts,.hero-facts) :is(dt,dd,strong,span),
+html.poly-lesson-page :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.facts,.course-facts,.hero-facts) :is(dt,dd,strong,span){
+  color:#fff!important;
+  opacity:1!important;
+  -webkit-text-fill-color:#fff!important;
+}
+@media print{
+  html.poly-lesson-page :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.chip,.badge,.pill,.tag,.meta-chip,.hero-badge,.course-badge){
+    color:#111827!important;
+    background:#fff!important;
+    border-color:#6b7280!important;
+    -webkit-text-fill-color:#111827!important;
+  }
+}
+</style></head>
 <body>
 <a class="skip" href="#main">Skip to handbook</a>
 <div class="progress"><span id="progressBar"></span></div>
