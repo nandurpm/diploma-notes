@@ -25,6 +25,7 @@
 (async()=>{
   const status=document.getElementById('status');
   const base='/assets/data/lesson-handbooks/1003/handbook-';
+  const expectedHash='8d174d32a9195a746e5f3b7568e12a1e1e8659756905ec0ee04fe1619c2db00e';
   const urls=Array.from({length:10},(_,i)=>`${base}${String(i).padStart(2,'0')}.b64`);
   try{
     if(typeof DecompressionStream!=='function') throw new Error('This browser does not support the required local gzip decompression API.');
@@ -41,7 +42,12 @@
     const bytes=Uint8Array.from(binary,character=>character.charCodeAt(0));
     const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
     const html=await new Response(stream).text();
-    if(!html.startsWith('<!doctype html>')||!html.includes('Official Source Declaration and Verified Inconsistencies')) throw new Error('The reconstructed handbook failed its integrity check.');
+    if(globalThis.crypto&&crypto.subtle){
+      const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(html));
+      const hash=Array.from(new Uint8Array(digest),value=>value.toString(16).padStart(2,'0')).join('');
+      if(hash!==expectedHash) throw new Error('The reconstructed handbook failed its SHA-256 integrity check.');
+    }
+    if(!html.startsWith('<!doctype html>')||!html.includes('Official Source Declaration and Verified Inconsistencies')) throw new Error('The reconstructed handbook failed its structural integrity check.');
     document.open();
     document.write(html);
     document.close();
