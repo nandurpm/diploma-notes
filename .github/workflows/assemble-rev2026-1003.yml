@@ -6,6 +6,9 @@ on:
     paths:
       - ".upload/rev2026-1003/**"
       - ".github/workflows/assemble-rev2026-1003.yml"
+  issues:
+    types: [opened]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,7 +19,7 @@ concurrency:
 
 jobs:
   assemble:
-    if: ${{ !contains(github.event.head_commit.message, '[assembled-1003]') }}
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[assembled-1003]') }}
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
