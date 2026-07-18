@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Normalise and verify official model-question-paper links on REV2026 pages."""
+"""Normalise and verify official syllabus and model-question-paper links on REV2026 pages."""
 from __future__ import annotations
 
 import html
@@ -8,8 +8,12 @@ from pathlib import Path
 from urllib.parse import quote
 
 INDEX_URL = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
-COURSE_URL = (
-    "https://sitttrkerala.ac.in/index.php?"
+SYLLABUS_URL = (
+    "https://www.sitttrkerala.ac.in/index.php?"
+    "r=site%2Fdiploma-syllabus-course-contents&course={}"
+)
+MODEL_QP_URL = (
+    "https://www.sitttrkerala.ac.in/index.php?"
     "r=site%2Fdiploma-modelqp-courses-show&course={}"
 )
 COURSE_CODE_RE = re.compile(r"^[0-9]{4}[A-Z]?$", re.ASCII)
@@ -18,6 +22,10 @@ ARTICLE_RE = re.compile(
     re.DOTALL,
 )
 CODE_RE = re.compile(r'\bdata-subject-code="([^"]+)"')
+SYLLABUS_LINK_RE = re.compile(
+    r'<a\b(?=[^>]*\bclass="[^"]*\baction\b[^"]*\bsyllabus\b[^"]*")[^>]*>.*?</a>',
+    re.DOTALL,
+)
 QP_LINK_RE = re.compile(
     r'<a\b(?=[^>]*\bclass="[^"]*\baction\b[^"]*\bqp\b[^"]*")[^>]*>.*?</a>',
     re.DOTALL,
@@ -32,17 +40,32 @@ ACCESS_SECTION = (
 )
 
 
-def model_paper_link(code: str) -> str:
-    """Return one canonical SITTTR course-page link for a REV2026 subject code."""
-    normalised = code.strip().upper()
-    if not COURSE_CODE_RE.fullmatch(normalised):
+def normalise_code(code: str) -> str:
+    value = code.strip().upper()
+    if not COURSE_CODE_RE.fullmatch(value):
         raise ValueError(f"Invalid REV2026 course code: {code!r}")
-    url = COURSE_URL.format(quote(normalised, safe=""))
+    return value
+
+
+def syllabus_link(code: str) -> str:
+    value = normalise_code(code)
+    url = SYLLABUS_URL.format(quote(value, safe=""))
+    return (
+        f'<a class="action syllabus" href="{html.escape(url, quote=True)}" '
+        'target="_blank" rel="noopener noreferrer" '
+        f'data-syllabus-course="{html.escape(value, quote=True)}">'
+        'Open Syllabus</a>'
+    )
+
+
+def model_paper_link(code: str) -> str:
+    value = normalise_code(code)
+    url = MODEL_QP_URL.format(quote(value, safe=""))
     return (
         f'<a class="action qp" href="{html.escape(url, quote=True)}" '
         'target="_blank" rel="noopener noreferrer" '
-        f'data-model-paper-course="{html.escape(normalised, quote=True)}">'
-        'Model Question Paper</a>'
+        f'data-model-paper-course="{html.escape(value, quote=True)}">'
+        'Open Model Question Paper</a>'
     )
 
 
@@ -52,14 +75,51 @@ def normalise_subject_card(match: re.Match[str]) -> str:
     if not code_match:
         raise RuntimeError("REV2026 subject card is missing data-subject-code")
 
-    replacement = model_paper_link(code_match.group(1))
-    if QP_LINK_RE.search(card):
-        return QP_LINK_RE.sub(replacement, card, count=1)
+    code = code_match.group(1)
+    syllabus = syllabus_link(code)
+    model_paper = model_paper_link(code)
 
-    action_end = card.rfind("</div></article>")
-    if action_end < 0:
-        raise RuntimeError(f"Action row not found for course {code_match.group(1)}")
-    return card[:action_end] + replacement + card[action_end:]
+    if SYLLABUS_LINK_RE.search(card):
+        card = SYLLABUS_LINK_RE.sub(syllabus, card, count=1)
+    else:
+        action_row = card.find('<div class="action-row">')
+        if action_row < 0:
+            raise RuntimeError(f"Action row not found for course {code}")
+        insert_at = action_row + len('<div class="action-row">')
+        card = card[:insert_at] + syllabus + card[insert_at:]
+
+    if QP_LINK_RE.search(card):
+        card = QP_LINK_RE.sub(model_paper, card, count=1)
+    else:
+        action_end = card.rfind("</div></article>")
+        if action_end < 0:
+            raise RuntimeError(f"Action row end not found for course {code}")
+        card = card[:action_end] + model_paper + card[action_end:]
+
+    return card
+
+
+def verify_card(article: str, path: Path) -> None:
+    code_match = CODE_RE.search(article)
+    syllabus_match = SYLLABUS_LINK_RE.search(article)
+    qp_match = QP_LINK_RE.search(article)
+    if not code_match or not syllabus_match or not qp_match:
+        raise RuntimeError(f"Missing official course links in {path}")
+
+    code = normalise_code(code_match.group(1))
+    expected_syllabus = html.escape(
+        SYLLABUS_URL.format(quote(code, safe="")), quote=True
+    )
+    expected_qp = html.escape(
+        MODEL_QP_URL.format(quote(code, safe="")), quote=True
+    )
+
+    if f'href="{expected_syllabus}"' not in syllabus_match.group(0):
+        raise RuntimeError(f"Incorrect syllabus link for {code} in {path}")
+    if f'href="{expected_qp}"' not in qp_match.group(0):
+        raise RuntimeError(f"Incorrect model-paper link for {code} in {path}")
+    if "diploma-syllabus-course-contents" in qp_match.group(0):
+        raise RuntimeError(f"Syllabus URL incorrectly used as model paper for {code} in {path}")
 
 
 def enhance(path: Path) -> tuple[bool, int]:
@@ -79,18 +139,7 @@ def enhance(path: Path) -> tuple[bool, int]:
         updated = updated[:end] + ACCESS_SECTION + updated[end:]
 
     for article in ARTICLE_RE.findall(updated):
-        code_match = CODE_RE.search(article)
-        qp_match = QP_LINK_RE.search(article)
-        if not code_match or not qp_match:
-            raise RuntimeError(f"Missing verified model-paper link in {path}")
-        expected = html.escape(
-            COURSE_URL.format(quote(code_match.group(1).strip().upper(), safe="")),
-            quote=True,
-        )
-        if f'href="{expected}"' not in qp_match.group(0):
-            raise RuntimeError(
-                f"Incorrect model-paper link for {code_match.group(1)} in {path}"
-            )
+        verify_card(article, path)
 
     if updated == original:
         return False, card_count
@@ -113,7 +162,7 @@ def main() -> int:
     if cards == 0:
         raise RuntimeError("No REV2026 subject cards were found")
     print(
-        f"Verified {cards} course-specific model-paper links across "
+        f"Verified {cards} syllabus links and model-paper links across "
         f"{len(pages) - 1} department pages; changed {changed} pages"
     )
     return 0
