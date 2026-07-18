@@ -1,0 +1,64 @@
+name: Assemble REV2026 1003 handbook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".upload/rev2026-1003/**"
+      - ".github/workflows/assemble-rev2026-1003.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: assemble-rev2026-1003
+  cancel-in-progress: false
+
+jobs:
+  assemble:
+    if: ${{ !contains(github.event.head_commit.message, '[assembled-1003]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Reconstruct and verify handbook
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          import gzip
+          import hashlib
+          import shutil
+
+          root = Path('.upload/rev2026-1003')
+          chunks = sorted(root.glob('chunk-*.txt'))
+          if len(chunks) != 10:
+              raise SystemExit(f'Expected 10 chunks, found {len(chunks)}')
+
+          encoded = ''.join(path.read_text(encoding='utf-8').strip() for path in chunks)
+          data = gzip.decompress(base64.b64decode(encoded))
+          digest = hashlib.sha256(data).hexdigest()
+          expected = '8d174d32a9195a746e5f3b7568e12a1e1e8659756905ec0ee04fe1619c2db00e'
+          if digest != expected:
+              raise SystemExit(f'SHA mismatch: {digest}')
+
+          target = Path('revision-2026-content/lessons/lessons-1003.html')
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_bytes(data)
+          shutil.rmtree(root)
+          print(f'Wrote {target} ({len(data)} bytes, {digest})')
+          PY
+
+      - name: Commit assembled handbook
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-1003.html .upload
+          git commit -m "Complete REV2026 1003 Engineering Graphics handbook [assembled-1003]"
+          git pull --rebase origin main
+          git push origin HEAD:main
