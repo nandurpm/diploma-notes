@@ -261,8 +261,8 @@ def repair_revision_pages(check: bool) -> int:
 
 def validate() -> None:
     rev26_lessons = sorted((ROOT / "revision-2026-content/lessons").glob("lessons-*.html"))
-    if len(rev26_lessons) != 10:
-        raise RuntimeError(f"expected 10 existing REV2026 lessons, found {len(rev26_lessons)}")
+    if len(rev26_lessons) != 11:
+        raise RuntimeError(f"expected 11 existing REV2026 lessons, found {len(rev26_lessons)}")
     for path in rev26_lessons:
         text = path.read_text(encoding="utf-8", errors="ignore")
         if LESSON_RUNTIME not in text or len(text) < 15_000 or "</html>" not in text.lower():
@@ -295,7 +295,7 @@ def validate() -> None:
 
     subprocess.run(["node", "--check", "assets/js/lesson-navigation-fix.js"], cwd=ROOT, check=True)
     subprocess.run(["node", "--check", "assets/js/lesson-availability-hotfix.js"], cwd=ROOT, check=True)
-    print(f"Validated 10 REV2026 lessons and {total_cards} direct model-paper actions.")
+    print(f"Validated 11 REV2026 lessons and {total_cards} direct model-paper actions.")
 
 
 def main() -> int:
