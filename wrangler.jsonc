@@ -1,1 +1,5 @@
-{"name":"poly-pmna-static-site"}
+{
+  "name": "ask-poly-ai",
+  "main": "workers/ask-poly-ai/src/index.js",
+  "compatibility_date": "2026-06-29"
+}
