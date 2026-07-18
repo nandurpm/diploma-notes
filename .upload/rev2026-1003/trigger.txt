@@ -1,0 +1,1 @@
+trigger assembly after workflow registration
