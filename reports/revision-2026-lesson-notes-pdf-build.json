@@ -4,15 +4,15 @@
   "notesFolder": "revision-2026-content/notes",
   "generated": [
     {
-      "code": "1021",
-      "pages": 137,
-      "bytes": 7634895,
-      "source": "revision-2026-content/lessons/lessons-1021.html",
-      "sourceCharacters": 153303,
-      "pdfCharacters": 153699,
-      "textCoverage": 1.0026,
-      "panelCount": 4,
-      "visiblePanelCount": 4,
+      "code": "1008",
+      "pages": 42,
+      "bytes": 719175,
+      "source": "revision-2026-content/lessons/lessons-1008.html",
+      "sourceCharacters": 61817,
+      "pdfCharacters": 60823,
+      "textCoverage": 0.9839,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
       "removedBlankPages": [],
       "blankPages": [],
       "nearBlankPages": [],
@@ -34,7 +34,7 @@
     "2032"
   ],
   "generatedThisRunCodes": [
-    "1021"
+    "1008"
   ],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
