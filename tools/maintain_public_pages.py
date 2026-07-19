@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""Apply consistent SEO, social, breadcrumb, and accessibility markup.
+"""Normalize public POLY PMNA pages from the sitemap.
 
-Run from the repository root:
-    python tools/maintain_public_pages.py
-
-The sitemap is the source of truth. Lesson documents are intentionally excluded
-because they use their own textbook-oriented layout and maintenance workflow.
+Applies one static, no-JavaScript-safe header/footer, canonical POLY PMNA
+branding, SEO/social metadata, skip links, main targets and breadcrumbs.
+Lesson handbooks are intentionally excluded.
 """
-
 from __future__ import annotations
 
 import html
@@ -20,21 +17,32 @@ from xml.etree import ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 SITEMAP = ROOT / "sitemap.xml"
 SITE_ORIGIN = "https://polypmna.dpdns.org"
+SITE_NAME = "POLY PMNA"
 SOCIAL_IMAGE = f"{SITE_ORIGIN}/assets/media/poly-pmna-study-hub-social-card.png"
-A11Y_CSS = '<link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260614-1">'
-SHELL_SCRIPT = '<script src="/assets/js/site-shell.js?v=20260717-fixed-header-restore1" defer></script>'
-HEADER_PLACEHOLDER = '<header class="topbar" data-site-header></header>'
-FOOTER_PLACEHOLDER = '<footer class="footer" data-site-footer></footer>'
+A11Y_CSS = '<link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v=20260720-audit-fix1">'
+SHELL_SCRIPT = '<script src="/assets/js/site-shell.js?v=20260720-audit-fix1" defer></script>'
+
+NAV_ITEMS = (
+    ("Home", "/"),
+    ("About", "/about.html"),
+    ("Revision 2026", "/revision-2026.html"),
+    ("Revision 2021", "/revision-2021.html"),
+    ("Mock Exams", "/daily-quiz.html"),
+    ("Ask POLY AI", "/ask-poly.html"),
+    ("2015 Materials", "/materials-2015.html"),
+    ("Tools", "/tools.html"),
+    ("Help", "/contact.html"),
+)
 
 PAGE_METADATA: dict[str, tuple[str, str, str]] = {
     "index.html": (
-        "Kerala Polytechnic POLY PMNA & Study Materials | POLY PMNA",
-        "Kerala Polytechnic diploma notes, Revision 2021 syllabus, lesson pages, study materials and question papers for students.",
+        "Kerala Polytechnic Revision 2026 & 2021 Study Hub | POLY PMNA",
+        "POLY PMNA provides Kerala Polytechnic Revision 2026 and Revision 2021 syllabus, subject search, notes, Ask POLY AI, mock exams, tools and question papers.",
         "Home",
     ),
     "about.html": (
-        "About the Kerala Polytechnic Study Hub | POLY PMNA",
-        "Learn how to use POLY PMNA, access Kerala Polytechnic study resources and find official SITTTR Kerala references.",
+        "About POLY PMNA | Kerala Polytechnic Study Hub",
+        "Learn how to use POLY PMNA, access Kerala Polytechnic study resources and verify official SITTTR Kerala information.",
         "About",
     ),
     "contact.html": (
@@ -42,14 +50,29 @@ PAGE_METADATA: dict[str, tuple[str, str, str]] = {
         "Request missing Kerala Polytechnic study content, report broken links and submit corrections to POLY PMNA.",
         "Help",
     ),
+    "daily-quiz.html": (
+        "Revision 2021 Mock Exams & Daily Quiz | POLY PMNA",
+        "Practice supported Revision 2021 subjects with daily quizzes, mock examinations, saved scores and previous-day review.",
+        "Revision 2021 Mock Exams",
+    ),
+    "ask-poly.html": (
+        "Ask POLY AI | POLY PMNA",
+        "Ask POLY AI about Revision 2026, Revision 2021, departments, subjects, lessons, notes, syllabus, mock exams and student tools.",
+        "Ask POLY AI",
+    ),
+    "tools.html": (
+        "Student Tools | POLY PMNA",
+        "Use POLY PMNA engineering calculators, electrical and electronics helpers, civil and mechanical estimators, academic tools and text utilities.",
+        "Student Tools",
+    ),
     "departments.html": (
         "Kerala Polytechnic Departments | POLY PMNA",
-        "Browse Kerala Polytechnic departments and open Revision 2021 semester subjects, syllabus, lessons, notes and question papers.",
+        "Browse Kerala Polytechnic departments and open semester subjects, syllabus, lessons, notes and question papers.",
         "Departments",
     ),
     "disclaimer.html": (
         "Disclaimer | POLY PMNA",
-        "Read the educational-content, accuracy, external-link and official-source disclaimer for the POLY PMNA study portal.",
+        "Read the educational-content, accuracy, external-link and official-source disclaimer for POLY PMNA.",
         "Disclaimer",
     ),
     "lessons.html": (
@@ -59,7 +82,7 @@ PAGE_METADATA: dict[str, tuple[str, str, str]] = {
     ),
     "materials-2015.html": (
         "Kerala Polytechnic 2015 Scheme Materials | POLY PMNA",
-        "Access Kerala Polytechnic 2015 scheme notes, study materials and subject resources separately from Revision 2021 content.",
+        "Access Kerala Polytechnic 2015 scheme notes and study materials separately from newer curriculum revisions.",
         "2015 Materials",
     ),
     "model-question-papers.html": (
@@ -79,8 +102,13 @@ PAGE_METADATA: dict[str, tuple[str, str, str]] = {
     ),
     "revision-2021.html": (
         "Revision 2021 Diploma Departments | POLY PMNA",
-        "Browse Kerala Polytechnic Revision 2021 departments, semester subjects, syllabus, lesson pages, notes and sample question papers.",
+        "Browse Kerala Polytechnic Revision 2021 departments, semester subjects, syllabus, lessons, notes and sample question papers.",
         "Revision 2021",
+    ),
+    "revision-2026.html": (
+        "Revision 2026 Diploma Departments | POLY PMNA",
+        "Browse all official Kerala Polytechnic Revision 2026 programmes with semester subjects, syllabus links, lessons, notes and model question papers.",
+        "Revision 2026",
     ),
     "study-materials.html": (
         "Kerala Polytechnic Study Materials | POLY PMNA",
@@ -106,9 +134,8 @@ def sitemap_entries() -> list[tuple[str, str]]:
     entries: list[tuple[str, str]] = []
     for loc in tree.findall("sm:url/sm:loc", ns):
         url = (loc.text or "").strip()
-        parsed = urlparse(url)
-        route = parsed.path or "/"
-        if route.startswith("/lessons/"):
+        route = urlparse(url).path or "/"
+        if route.startswith("/lessons/") or route.startswith("/revision-2026-content/lessons/"):
             continue
         local = "index.html" if route == "/" else route.lstrip("/")
         entries.append((local, url))
@@ -116,8 +143,7 @@ def sitemap_entries() -> list[tuple[str, str]]:
 
 
 def strip_tags(value: str) -> str:
-    value = re.sub(r"<[^>]+>", " ", value)
-    return " ".join(html.unescape(value).split())
+    return " ".join(html.unescape(re.sub(r"<[^>]+>", " ", value)).split())
 
 
 def existing_h1(text: str) -> str:
@@ -126,34 +152,29 @@ def existing_h1(text: str) -> str:
 
 
 def department_metadata(local: str, text: str) -> tuple[str, str, str]:
-    name = existing_h1(text)
-    if not name:
-        name = Path(local).stem.replace("-", " ").title()
-    title = f"{name} Revision 2021 Subjects | POLY PMNA"
+    name = existing_h1(text) or Path(local).stem.replace("-", " ").title()
+    revision = "2026" if local.startswith("revision-2026/") else "2021"
+    title = f"{name} Revision {revision} Subjects | POLY PMNA"
     description = (
-        f"Browse Revision 2021 {name} semester subjects, syllabus, lesson pages, "
-        "notes and sample question papers for Kerala Polytechnic diploma students."
+        f"Browse Revision {revision} {name} semester subjects, syllabus, lesson pages, "
+        "notes and model or sample question papers for Kerala Polytechnic students."
     )
     return title, description, name
 
 
 def page_metadata(local: str, text: str) -> tuple[str, str, str]:
-    if local.startswith("revision-2021/"):
+    if local.startswith(("revision-2021/", "revision-2026/")):
         return department_metadata(local, text)
     if local in PAGE_METADATA:
         return PAGE_METADATA[local]
     name = existing_h1(text) or Path(local).stem.replace("-", " ").title()
-    title = f"{name} | POLY PMNA"
-    description = f"Kerala Polytechnic {name} resources and student information from POLY PMNA."
-    return title, description, name
+    return f"{name} | POLY PMNA", f"Kerala Polytechnic {name} resources from POLY PMNA.", name
 
 
 def replace_title(text: str, value: str) -> str:
     tag = f"<title>{html.escape(value)}</title>"
     pattern = re.compile(r"<title\b[^>]*>.*?</title>", flags=re.I | re.S)
-    if pattern.search(text):
-        return pattern.sub(tag, text, count=1)
-    return text.replace("</head>", f"  {tag}\n</head>", 1)
+    return pattern.sub(tag, text, count=1) if pattern.search(text) else text.replace("</head>", f"  {tag}\n</head>", 1)
 
 
 def set_meta(text: str, attribute: str, key: str, value: str) -> str:
@@ -162,20 +183,13 @@ def set_meta(text: str, attribute: str, key: str, value: str) -> str:
         flags=re.I,
     )
     tag = f'<meta {attribute}="{key}" content="{html.escape(value, quote=True)}">'
-    if pattern.search(text):
-        return pattern.sub(tag, text, count=1)
-    return text.replace("</head>", f"  {tag}\n</head>", 1)
+    return pattern.sub(tag, text, count=1) if pattern.search(text) else text.replace("</head>", f"  {tag}\n</head>", 1)
 
 
 def set_canonical(text: str, url: str) -> str:
-    pattern = re.compile(
-        r"<link\b(?=[^>]*\brel\s*=\s*(['\"])canonical\1)[^>]*>",
-        flags=re.I,
-    )
+    pattern = re.compile(r"<link\b(?=[^>]*\brel\s*=\s*(['\"])canonical\1)[^>]*>", flags=re.I)
     tag = f'<link rel="canonical" href="{html.escape(url, quote=True)}">'
-    if pattern.search(text):
-        return pattern.sub(tag, text, count=1)
-    return text.replace("</head>", f"  {tag}\n</head>", 1)
+    return pattern.sub(tag, text, count=1) if pattern.search(text) else text.replace("</head>", f"  {tag}\n</head>", 1)
 
 
 def ensure_css(text: str) -> str:
@@ -205,24 +219,91 @@ def ensure_main_target(text: str) -> str:
     if not match:
         return text
     attrs = re.sub(r"\s+id\s*=\s*(['\"]).*?\1", "", match.group(1), flags=re.I)
-    opening = f'<main id="main-content"{attrs}>'
-    return text[: match.start()] + opening + text[match.end() :]
+    return text[:match.start()] + f'<main id="main-content"{attrs}>' + text[match.end():]
+
+
+def nav_active(local: str, href: str) -> bool:
+    path = "/" if local == "index.html" else f"/{local}"
+    if href == "/":
+        return path == "/"
+    if href == "/revision-2026.html":
+        return path == href or path.startswith("/revision-2026/")
+    if href == "/revision-2021.html":
+        return path == href or path.startswith("/revision-2021/")
+    return path == href
+
+
+def canonical_header(local: str) -> str:
+    links = []
+    for label, href in NAV_ITEMS:
+        active = ' class="active" aria-current="page"' if nav_active(local, href) else ""
+        links.append(f'<a href="{href}"{active}>{html.escape(label)}</a>')
+    return (
+        '<header class="topbar" data-site-header>'
+        f'<a class="brand" href="/" aria-label="{SITE_NAME} home">'
+        '<span class="brand-symbol" aria-hidden="true">📚</span>'
+        f'<strong>{SITE_NAME}</strong></a>'
+        '<button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>'
+        f'<nav class="navlinks" aria-label="Primary navigation">{"".join(links)}</nav>'
+        '</header>'
+    )
+
+
+def canonical_footer() -> str:
+    return (
+        '<footer class="footer" data-site-footer>'
+        f'<p>&copy; <span data-year></span> {SITE_NAME}.</p>'
+        '<nav class="footer-links" aria-label="Footer navigation">'
+        '<a href="/about.html">About</a><a href="/contact.html">Help</a>'
+        '<a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Developer</a>'
+        '</nav>'
+        '<nav class="footer-legal" aria-label="Legal">'
+        '<a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a>'
+        '</nav></footer>'
+    )
+
+
+def ensure_site_shell(text: str, local: str) -> str:
+    header_pattern = re.compile(
+        r'<header\b[^>]*class\s*=\s*([\'"])[^\'"]*\btopbar\b[^\'"]*\1[^>]*>.*?</header>',
+        flags=re.I | re.S,
+    )
+    footer_pattern = re.compile(
+        r'<footer\b[^>]*class\s*=\s*([\'"])[^\'"]*\bfooter\b[^\'"]*\1[^>]*>.*?</footer>',
+        flags=re.I | re.S,
+    )
+    header = canonical_header(local)
+    footer = canonical_footer()
+    if header_pattern.search(text):
+        text = header_pattern.sub(header, text, count=1)
+    else:
+        text = re.sub(
+            r'(<a\b[^>]*class\s*=\s*([\'"])[^\'"]*\bskip-link\b[^\'"]*\2[^>]*>.*?</a>)',
+            rf'\1\n  {header}', text, count=1, flags=re.I | re.S
+        )
+    if footer_pattern.search(text):
+        text = footer_pattern.sub(footer, text, count=1)
+    else:
+        text = text.replace("</body>", f"  {footer}\n</body>", 1)
+    if "/assets/js/site-shell.js" not in text:
+        text = text.replace("</head>", f"  {SHELL_SCRIPT}\n</head>", 1)
+    return text
 
 
 def breadcrumb_markup(local: str, label: str) -> str:
     if local == "index.html":
         return ""
     if local.startswith("revision-2021/"):
-        return (
-            '<nav class="site-breadcrumbs" aria-label="Breadcrumb">'
-            '<ol><li><a href="/">Home</a></li>'
-            '<li><a href="/revision-2021.html">Revision 2021</a></li>'
-            f'<li><span aria-current="page">{html.escape(label)}</span></li></ol></nav>'
-        )
+        parent = '<li><a href="/revision-2021.html">Revision 2021</a></li>'
+    elif local.startswith("revision-2026/"):
+        parent = '<li><a href="/revision-2026.html">Revision 2026</a></li>'
+    else:
+        parent = ""
     return (
-        '<nav class="site-breadcrumbs" aria-label="Breadcrumb">'
-        '<ol><li><a href="/">Home</a></li>'
-        f'<li><span aria-current="page">{html.escape(label)}</span></li></ol></nav>'
+        '<nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol>'
+        '<li><a href="/">Home</a></li>'
+        f'{parent}<li><span aria-current="page">{html.escape(label)}</span></li>'
+        '</ol></nav>'
     )
 
 
@@ -236,36 +317,8 @@ def ensure_breadcrumb(text: str, local: str, label: str) -> str:
     markup = breadcrumb_markup(local, label)
     if not markup:
         return text
-    return re.sub(
-        r"(<main\b[^>]*>)",
-        rf"\1\n    {markup}",
-        text,
-        count=1,
-        flags=re.I,
-    )
+    return re.sub(r"(<main\b[^>]*>)", rf"\1\n    {markup}", text, count=1, flags=re.I)
 
-
-def ensure_site_shell(text: str) -> str:
-    """Replace hand-copied shell markup with canonical runtime placeholders."""
-    header_pattern = re.compile(
-        r'<header\b[^>]*class\s*=\s*([\'"])[^\'"]*\btopbar\b[^\'"]*\1[^>]*>.*?</header>',
-        flags=re.I | re.S,
-    )
-    footer_pattern = re.compile(
-        r'<footer\b[^>]*class\s*=\s*([\'"])[^\'"]*\bfooter\b[^\'"]*\1[^>]*>.*?</footer>',
-        flags=re.I | re.S,
-    )
-    if header_pattern.search(text):
-        text = header_pattern.sub(HEADER_PLACEHOLDER, text, count=1)
-    elif HEADER_PLACEHOLDER not in text:
-        text = re.sub(r'(<a\b[^>]*class\s*=\s*([\'"])[^\'"]*\bskip-link\b[^\'"]*\2[^>]*>.*?</a>)', rf'\1\n  {HEADER_PLACEHOLDER}', text, count=1, flags=re.I | re.S)
-    if footer_pattern.search(text):
-        text = footer_pattern.sub(FOOTER_PLACEHOLDER, text, count=1)
-    elif FOOTER_PLACEHOLDER not in text:
-        text = text.replace("</body>", f"  {FOOTER_PLACEHOLDER}\n</body>", 1)
-    if "/assets/js/site-shell.js" not in text:
-        text = text.replace("</head>", f"  {SHELL_SCRIPT}\n</head>", 1)
-    return text
 
 def maintain_page(local: str, canonical_url: str) -> bool:
     path = ROOT / local
@@ -278,23 +331,26 @@ def maintain_page(local: str, canonical_url: str) -> bool:
     text = replace_title(text, title)
     text = set_meta(text, "name", "description", description)
     text = set_canonical(text, canonical_url)
-    text = set_meta(text, "property", "og:type", "website")
-    text = set_meta(text, "property", "og:title", title)
-    text = set_meta(text, "property", "og:description", description)
-    text = set_meta(text, "property", "og:url", canonical_url)
-    text = set_meta(text, "property", "og:image", SOCIAL_IMAGE)
-    text = set_meta(text, "property", "og:image:type", "image/png")
-    text = set_meta(text, "property", "og:image:width", "1200")
-    text = set_meta(text, "property", "og:image:height", "630")
-    text = set_meta(text, "property", "og:image:alt", "POLY PMNA Kerala Polytechnic Study Hub")
-    text = set_meta(text, "name", "twitter:card", "summary_large_image")
-    text = set_meta(text, "name", "twitter:title", title)
-    text = set_meta(text, "name", "twitter:description", description)
-    text = set_meta(text, "name", "twitter:image", SOCIAL_IMAGE)
+    for attribute, key, value in (
+        ("property", "og:type", "website"),
+        ("property", "og:title", title),
+        ("property", "og:description", description),
+        ("property", "og:url", canonical_url),
+        ("property", "og:image", SOCIAL_IMAGE),
+        ("property", "og:image:type", "image/png"),
+        ("property", "og:image:width", "1200"),
+        ("property", "og:image:height", "630"),
+        ("property", "og:image:alt", "POLY PMNA Kerala Polytechnic Study Hub"),
+        ("name", "twitter:card", "summary_large_image"),
+        ("name", "twitter:title", title),
+        ("name", "twitter:description", description),
+        ("name", "twitter:image", SOCIAL_IMAGE),
+    ):
+        text = set_meta(text, attribute, key, value)
     text = ensure_css(text)
     text = ensure_skip_link(text)
-    text = ensure_site_shell(text)
     text = ensure_main_target(text)
+    text = ensure_site_shell(text, local)
     text = ensure_breadcrumb(text, local, label)
 
     if text != original:
