@@ -39,6 +39,29 @@
     document.head.append(script);
   }
 
+  function ensureVisitorPopup() {
+    if (window.POLY_DISABLE_ASSISTANT || /\/ask-poly(?:-v2)?\.html$/i.test(path)) return;
+
+    const popupPath = "/assets/js/visitor-popup.js";
+    const existing = [...document.scripts].find(script => {
+      try {
+        return new URL(script.src || "", window.location.href).pathname === popupPath;
+      } catch (_) {
+        return false;
+      }
+    });
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = `${popupPath}?v=20260719-popup-loader-fix2`;
+    script.defer = true;
+    script.dataset.polyVisitorPopupLoader = "true";
+    script.addEventListener("error", () => {
+      console.error("POLY PMNA visitor popup script failed to load.");
+    }, { once: true });
+    document.head.append(script);
+  }
+
   function normalizeLegacyInternalLinks() {
     document.querySelectorAll('a[href="/index.html"], a[href="../index.html"]').forEach(link => {
       link.setAttribute("href", "/");
@@ -106,6 +129,7 @@
     updateYears();
     normalizeLegacyInternalLinks();
     ensureSiteShell();
+    ensureVisitorPopup();
     watchRev2026Cards();
   }
 
