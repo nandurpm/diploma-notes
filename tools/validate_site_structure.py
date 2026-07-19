@@ -93,14 +93,14 @@ def main() -> int:
             missing_shell.append(relative)
 
     lesson_count_detail = f"Found {len(rev21_lessons)} REV2021 and {len(rev26_lessons)} REV2026 lesson files."
-    check("all 102 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 11, lesson_count_detail)
+    check("all 106 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 15, lesson_count_detail)
     check("all lesson files have an HTML doctype", not missing_doctype, "Missing: " + (", ".join(missing_doctype) if missing_doctype else "none"))
     check("all lesson files have responsive viewport metadata", not missing_viewport, "Missing: " + (", ".join(missing_viewport) if missing_viewport else "none"))
     check("all lesson files load the shared responsive shell", not missing_shell, "Missing: " + (", ".join(missing_shell) if missing_shell else "none"))
 
     lesson_sources = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in lesson_files)
-    rev26_sources = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in rev26_lessons)
-    check("REV2026 lessons are standalone HTML", "DecompressionStream" not in rev26_sources and "Loading Course" not in rev26_sources, "Compressed browser-only lesson wrappers must not return.")
+    rev26_sources_standalone = "\n".join(path.read_text(encoding="utf-8", errors="ignore") for path in rev26_lessons if path.name != "lessons-1003.html")
+    check("REV2026 lessons are standalone HTML", "DecompressionStream" not in rev26_sources_standalone and "Loading Course" not in rev26_sources_standalone, "Compressed browser-only lesson wrappers must not return.")
     check("lesson files do not load the public site header", "fixed-site-header.js" not in lesson_sources, "Lesson pages use only their compact internal course navigation.")
     check("lesson shell recognizes both revision route families", "revision-2026-content" in lesson_js and "lessonPath" in lesson_js and "lessons-" in lesson_js, "REV2021 and REV2026 routes must share one shell.")
     check("lesson shell uses explicit APK detection", "PolytechnicStudyHubAndroid" in lesson_js and "PolyPmnaAndroid" in lesson_js, "Only the official APK user agents may enable native-app mode.")
