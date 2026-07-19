@@ -22,11 +22,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Check JavaScript and theme asset syntax
+      - name: Check JavaScript and theme assets
         shell: bash
         run: |
-          cp functions/_middleware.js /tmp/maintenance-middleware.mjs
-          node --check /tmp/maintenance-middleware.mjs
+          cp functions/_middleware.js /tmp/poly-middleware.mjs
+          node --check /tmp/poly-middleware.mjs
           node --check maintenance/runtime-guard.js
           node --check assets/js/new-year-theme.js
           grep -q "poly-new-year-theme" assets/css/new-year-theme.css
@@ -34,7 +34,6 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import re
-
           html = Path("maintenance/index.html").read_text(encoding="utf-8")
           scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.S | re.I)
           inline = "\n".join(script for script in scripts if script.strip())
@@ -44,14 +43,15 @@ jobs:
           PY
           node --check /tmp/maintenance-inline.js
 
-      - name: Verify all maintenance schedule boundaries
+      - name: Verify maintenance and annual theme boundaries
         shell: bash
         run: |
-          cp functions/_middleware.js /tmp/maintenance-middleware.mjs
+          cp functions/_middleware.js /tmp/poly-middleware.mjs
           node --input-type=module <<'JS'
-          import { onRequest } from "file:///tmp/maintenance-middleware.mjs";
+          import { onRequest } from "file:///tmp/poly-middleware.mjs";
 
           const realNow = Date.now;
+
           async function statusAt(iso) {
             Date.now = () => Date.parse(iso);
             const response = await onRequest({
@@ -62,7 +62,7 @@ jobs:
             return response.json();
           }
 
-          const checks = [
+          const maintenanceChecks = [
             ["2026-07-21T14:29:59.000Z", false, 0],
             ["2026-07-21T14:30:00.000Z", true, 0],
             ["2026-07-21T15:29:59.000Z", true, 0],
@@ -75,17 +75,17 @@ jobs:
             ["2026-12-31T15:29:59.000Z", true, 24]
           ];
 
-          for (const [iso, expectedActive, expectedActivity] of checks) {
+          for (const [iso, expectedActive, expectedActivity] of maintenanceChecks) {
             const status = await statusAt(iso);
             if (status.active !== expectedActive) {
-              throw new Error(`${iso}: expected active=${expectedActive}, got ${status.active}`);
+              throw new Error(`${iso}: expected maintenance active=${expectedActive}, got ${status.active}`);
             }
             const selected = status.currentWindow || status.nextWindow;
             if (!selected || selected.activityIndex !== expectedActivity) {
               throw new Error(`${iso}: expected activity ${expectedActivity}, got ${selected?.activityIndex}`);
             }
             if (status.schedule.totalWindows !== 25) {
-              throw new Error(`Expected 25 total windows, got ${status.schedule.totalWindows}`);
+              throw new Error(`Expected 25 maintenance windows, got ${status.schedule.totalWindows}`);
             }
           }
 
@@ -94,30 +94,8 @@ jobs:
             throw new Error("Maintenance schedule must be fully inactive after the final window");
           }
 
-          Date.now = realNow;
-          console.log("All maintenance schedule boundaries passed.");
-          JS
-
-      - name: Verify annual New Year rollover and global injection
-        shell: bash
-        run: |
-          cp functions/_middleware.js /tmp/maintenance-middleware.mjs
-          node --input-type=module <<'JS'
-          import { onRequest } from "file:///tmp/maintenance-middleware.mjs";
-
-          const realNow = Date.now;
-          async function statusAt(iso) {
-            Date.now = () => Date.parse(iso);
-            const response = await onRequest({
-              request: new Request("https://polypmna.dpdns.org/maintenance-status.json"),
-              env: {},
-              next: () => new Response("next")
-            });
-            return response.json();
-          }
-
-          const checks = [
-            ["2026-12-27T18:29:59.000Z", false, 2026, "inactive"],
+          const annualChecks = [
+            ["2026-12-27T18:29:59.000Z", false, 2027, "inactive"],
             ["2026-12-27T18:30:00.000Z", true, 2027, "approaching"],
             ["2026-12-30T18:30:00.000Z", true, 2027, "countdown"],
             ["2026-12-31T18:29:59.000Z", true, 2027, "countdown"],
@@ -128,7 +106,7 @@ jobs:
             ["2027-12-27T18:30:00.000Z", true, 2028, "approaching"]
           ];
 
-          for (const [iso, active, targetYear, phase] of checks) {
+          for (const [iso, active, targetYear, phase] of annualChecks) {
             const status = await statusAt(iso);
             const theme = status.newYearTheme;
             if (theme.active !== active || theme.targetYear !== targetYear || theme.phase !== phase) {
@@ -138,7 +116,7 @@ jobs:
 
           Date.now = () => Date.parse("2026-12-27T18:30:00.000Z");
           const themed = await onRequest({
-            request: new Request("https://polypmna.dpdns.org/lessons/lessons-1002.html"),
+            request: new Request("https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1002.html"),
             env: {},
             next: () => new Response("<!doctype html><html><head><title>Lesson</title></head><body><main>Lesson</main></body></html>", {
               headers: { "Content-Type": "text/html; charset=UTF-8" }
@@ -160,13 +138,12 @@ jobs:
               headers: { "Content-Type": "text/html; charset=UTF-8" }
             })
           });
-          const normalHtml = await normal.text();
-          if (normalHtml.includes("new-year-theme")) {
+          if ((await normal.text()).includes("new-year-theme")) {
             throw new Error("Theme must not be injected before 28 December IST");
           }
 
           Date.now = realNow;
-          console.log("Annual New Year rollover and global injection passed.");
+          console.log("Maintenance boundaries, year rollover and global injection passed.");
           JS
 
       - name: Verify activity rotation limits
