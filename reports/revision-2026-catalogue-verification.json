@@ -1,12 +1,14 @@
 {
   "scheme": "REV2026",
+  "verifiedAt": "2026-07-19T05:52:31.668443+00:00",
+  "officialIndex": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
   "programmeCount": 38,
   "subjectCount": 2403,
   "staticPageCount": 38,
-  "directoryLayout": "Responsive searchable programme directory",
-  "departmentLayout": "Revision 2021-compatible semester subject cards",
-  "lessonFolder": "revision-2026-content/lessons",
-  "notesFolder": "revision-2026-content/notes",
+  "directoryProgrammeCardCount": 38,
+  "semesterSourceCounts": {
+    "course-code-fallback": 2403
+  },
   "programmeSubjectCounts": {
     "architecture": 56,
     "artificial-intelligence": 67,
@@ -353,5 +355,51 @@
       "Semester 6": 14
     }
   },
-  "newCodeCountComparedWithREV2021": 525
+  "dataHashes": {
+    "programmes": "0ebf282f1f219d310ee83d3262685f4ffdd58a1090f46bc3dc468f7c48d6a390",
+    "subjects": "f39036785d0d2232035f38f654daf2b0218f9f5f349d69e34eb84a5a5611ff1d",
+    "directory": "2b41a58f9f3bbcf4ecc1e6930be02bc7151415a24d7e6763c1ebf53f8ea75112"
+  },
+  "departmentPageHashes": {
+    "architecture": "c57d5f254b81a07a40fdb1925bae8c50dfd5928fe955c77880d5a9dc7a47eaaa",
+    "artificial-intelligence": "ee4d4e905e814f716c58dfcfed51f2e2d4a008974b29137b30a2e3ee5d3fc2d1",
+    "artificial-intelligence-and-machine-learning": "881d70cc6bfd2d78a8897a4ead5584441307e0d141f145b9f637c722cd109cf6",
+    "automation-and-robotics": "5e42413f6002ef14a1eb2d44927295343e2606591803c72f85c51bda555c8665",
+    "automobile-engineering": "714438c1a812bb26093275e9e215ac719a00e9caa901cfca58d0e7977e18ec5e",
+    "biomedical-engineering": "6ded0a374057c3dcb66c145ba6202add7048c9832bdc94a66650bdb3c8e51a52",
+    "chemical-engineering": "ceac3dd32f3ad51afb704b1690d69bf3bf386f605c2a5c4113185be96878fec7",
+    "civil-and-environmental-engineering": "d935badd350d010cdd9a2f322ead6b9dd938349352b3a9a63f3ff2437397328e",
+    "civil-and-rural-engineering": "f2917f2df551b675e0fb882a0dab2e5e9490430d651abbe9841b9f06f4e9dbfa",
+    "civil-engineering": "f228d11f1333852f4b73a77481c4768c34ae8f538df104f4afcf9282b0a26501",
+    "civil-engineering-and-planning": "450ce47b30ee03b41fb99ac54cf914cc45e1b03040acdce67f2598559db2947b",
+    "commercial-practice": "a6a7ea1eb0aa28d7de92b1e1b9196fde5c4a6017e5e7e2b0e5a9f594c8fb0cd7",
+    "computer-application-and-business-management": "81e34bcb99ae8541ab4b5c278f38094f1fdff93b9814e90637aba4fbf3c5d225",
+    "computer-engineering": "23adadab825644b265d15e262fd8a122027dac0c03f7aa40b5488dceed8d09e8",
+    "computer-science-and-engineering": "d3726858a91ff5f3da18c786d0ee8b6981ab2bae355b915a9fcde33376a5b3d7",
+    "computer-science-and-technology": "14d8d04492e88a16cc38ed64b54dcb286e535a06f020c610f00c7ff5699f91d2",
+    "cyber-forensics-and-information-security": "5e632263a561f3795ca0de58919da9f5105d9e6a426e9a98a8c412eaad4d8eee",
+    "electrical-and-electronics-engineering": "f994739bb74569ed6136ea5bd78e9a4013d640d21d0675fefba43777924ec1f4",
+    "electrical-engineering": "f24908126300db39e61e0141a79a2cf1f522b4b683a55f85fa4345ac257bb887",
+    "electrical-engineering-and-electric-vehicles-technology": "b3925d52a640d9fb79a554e7f52c5a3fd93e1c1d14bad90ba826cf919fbe1c5b",
+    "electronics-and-communication": "581f8bb7a8c42a78b0f19a03d36af8d10a9eab35261447d8ebd5791a94499625",
+    "electronics-and-computer-engineering": "4ea8150e86b9b457f68b640faa44e36e1ec950b59567bd5aa02dc5c53d4ed9e2",
+    "electronics-engineering": "81b0a5ef60b585330b2149a5c9b494800bd03a360ac7a6f2a911594b08a77841",
+    "fire-technology-and-safety": "bcb9d20efb12cb3da315c51f4f535a0b4d3acad6bcde30779ed8a880ebcc26ad",
+    "food-processing-technology": "d321986612659d2bd6cecebf863c8e2bb17123c4f2afbd48c3c65e39141dc526",
+    "information-technology": "1ef9ab62a1d1a48616efe0e6123c8cb2c6daa466570f275f407ab5a5b5b9e35e",
+    "instrumentation-engineering": "0f0ccaa0287ddfce967b880133f3ad38e4f3e4133cef9c3174a3037d40315e20",
+    "integrated-circuit-design-and-fabrication": "4e0c666923c9b8edb3a567e01d4b0b7c31fbea1150e388c982af9344937550ee",
+    "interior-design": "c247f92a054632db1c1e4f2453111437808c0a84344c3fcde11705344820a3d9",
+    "mechanical-engineering": "b4a94200e6efecec884b70ad5e070b35aa7ba8c861c5d000a297320adc0b28f2",
+    "mechatronics": "c3483e4ab234b2129faf1a1f24b0910fb0e1034803c1be42e4313e3ab0aa6cb5",
+    "micro-electronics": "df5379e969b5de637038660c84baa1b5bf653b98ebe0821a3c5becf7ed39827e",
+    "polymer-technology": "70f2f99e65bf368892a6e5b0f7288aa5f7878a654c257ce8943e5a5964571802",
+    "printing-technology": "3731e3281681381dd97a81516143f73ca81157b53c9b0ad46c4f5bc0d84127f6",
+    "robotic-process-automation": "53b1debcf401e57ea0e99c74e1cf7e703cf4b5c080afd5446ec1d8d4270ea024",
+    "textile-technology": "5dd0a1bb912bdfd980476b84f02323919616a9e8b7dea484cc2baf5cd797d4b2",
+    "tool-and-die-engineering": "0bb3f481ea7d71e9e778f15e0c43cb9bfabcc954b67b5d10ddcde3e6f3331be8",
+    "wood-and-paper-technology": "da161f57ca17ebca739d2ce817f64236e45f0aad20475755cc664eca11e6f4db"
+  },
+  "issues": [],
+  "status": "passed"
 }
