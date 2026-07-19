@@ -82,4 +82,45 @@
   <url><loc>https://polypmna.dpdns.org/terms.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://polypmna.dpdns.org/daily-quiz.html</loc><changefreq>daily</changefreq><priority>0.8</priority></url>
   <url><loc>https://polypmna.dpdns.org/mock-exam-1004.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://polypmna.dpdns.org/ask-poly.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://polypmna.dpdns.org/tools.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/architecture.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/artificial-intelligence-and-machine-learning.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/artificial-intelligence.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/automation-and-robotics.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/automobile-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/biomedical-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/chemical-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/civil-and-environmental-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/civil-and-rural-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/civil-engineering-and-planning.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/civil-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/commercial-practice.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/computer-application-and-business-management.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/computer-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/computer-science-and-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/computer-science-and-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/cyber-forensics-and-information-security.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/electrical-and-electronics-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/electrical-engineering-and-electric-vehicles-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/electrical-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/electronics-and-communication.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/electronics-and-computer-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/electronics-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/fire-technology-and-safety.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/food-processing-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/information-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/instrumentation-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/integrated-circuit-design-and-fabrication.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/interior-design.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/mechanical-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/mechatronics.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/micro-electronics.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/polymer-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/printing-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/robotic-process-automation.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/textile-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/tool-and-die-engineering.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://polypmna.dpdns.org/revision-2026/wood-and-paper-technology.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
 </urlset>
