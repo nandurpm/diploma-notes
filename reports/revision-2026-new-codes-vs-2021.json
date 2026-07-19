@@ -1018,7 +1018,7 @@
     {
       "code": "2012",
       "subjects": [
-        "Programme core course"
+        "Basic Surveying"
       ],
       "semesters": [
         "Semester 2"
@@ -1119,7 +1119,7 @@
     {
       "code": "2119",
       "subjects": [
-        "Programme core course"
+        "Basic CAD Lab"
       ],
       "semesters": [
         "Semester 2"
@@ -1131,7 +1131,7 @@
     {
       "code": "2132",
       "subjects": [
-        "Programme core course"
+        "Programming in C"
       ],
       "semesters": [
         "Semester 2"
@@ -1432,7 +1432,7 @@
     {
       "code": "3439",
       "subjects": [
-        "Programme core course"
+        "CAD Lab"
       ],
       "semesters": [
         "Semester 3"
@@ -1444,7 +1444,7 @@
     {
       "code": "3491",
       "subjects": [
-        "Programme core course"
+        "Solid State Devices"
       ],
       "semesters": [
         "Semester 3"
@@ -1468,7 +1468,7 @@
     {
       "code": "3493",
       "subjects": [
-        "Programme core course"
+        "Logic Circuit Design"
       ],
       "semesters": [
         "Semester 3"
@@ -1492,7 +1492,7 @@
     {
       "code": "3532",
       "subjects": [
-        "Programme core course"
+        "Space Documentation"
       ],
       "semesters": [
         "Semester 3"
@@ -1718,7 +1718,7 @@
     {
       "code": "4283",
       "subjects": [
-        "Programme core course"
+        "Web Programming"
       ],
       "semesters": [
         "Semester 4"
@@ -1790,7 +1790,7 @@
     {
       "code": "4431",
       "subjects": [
-        "Programme core course"
+        "Mechanics of Robotics"
       ],
       "semesters": [
         "Semester 4"
@@ -2001,7 +2001,7 @@
     {
       "code": "5019B",
       "subjects": [
-        "Program Elective course"
+        "GIS Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2025,7 +2025,7 @@
     {
       "code": "5024A",
       "subjects": [
-        "Program Elective course"
+        "Non-destructive Testing"
       ],
       "semesters": [
         "Semester 5"
@@ -2037,7 +2037,7 @@
     {
       "code": "5024B",
       "subjects": [
-        "Program Elective course"
+        "Power Plant Engineering"
       ],
       "semesters": [
         "Semester 5"
@@ -2049,7 +2049,7 @@
     {
       "code": "5024C",
       "subjects": [
-        "Program Elective course"
+        "Composite Materials"
       ],
       "semesters": [
         "Semester 5"
@@ -2073,7 +2073,7 @@
     {
       "code": "5029A",
       "subjects": [
-        "Program Elective course"
+        "Design and Analysis Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2085,7 +2085,7 @@
     {
       "code": "5029B",
       "subjects": [
-        "Program Elective course"
+        "NDT Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2097,7 +2097,7 @@
     {
       "code": "5033D",
       "subjects": [
-        "Program Elective course"
+        "Renewable Power Plants"
       ],
       "semesters": [
         "Semester 5"
@@ -2202,7 +2202,7 @@
     {
       "code": "5079A",
       "subjects": [
-        "Program Elective course"
+        "Material Testing Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2238,7 +2238,7 @@
     {
       "code": "5093D",
       "subjects": [
-        "Program Elective course"
+        "Polymer Adhesives"
       ],
       "semesters": [
         "Semester 5"
@@ -2274,7 +2274,7 @@
     {
       "code": "5103D",
       "subjects": [
-        "Program Elective course"
+        "Printing and Logistics"
       ],
       "semesters": [
         "Semester 5"
@@ -2322,7 +2322,7 @@
     {
       "code": "5113C",
       "subjects": [
-        "Program Elective course"
+        "CAD/CAM"
       ],
       "semesters": [
         "Semester 5"
@@ -2346,7 +2346,7 @@
     {
       "code": "5119A",
       "subjects": [
-        "Program Elective course"
+        "Advanced Tooling Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2410,7 +2410,7 @@
     {
       "code": "5134C",
       "subjects": [
-        "Program Elective course"
+        "Digital Marketing"
       ],
       "semesters": [
         "Semester 5"
@@ -2465,7 +2465,7 @@
     {
       "code": "5144A",
       "subjects": [
-        "Program Elective course"
+        "Financial Market"
       ],
       "semesters": [
         "Semester 5"
@@ -2477,7 +2477,7 @@
     {
       "code": "5144B",
       "subjects": [
-        "Program Elective course"
+        "Banking & Insurance"
       ],
       "semesters": [
         "Semester 5"
@@ -2501,7 +2501,7 @@
     {
       "code": "5144D",
       "subjects": [
-        "Program Elective course"
+        "GST Law & Practice"
       ],
       "semesters": [
         "Semester 5"
@@ -2525,7 +2525,7 @@
     {
       "code": "5149A",
       "subjects": [
-        "Program Elective course"
+        "Applied ERP with SAP"
       ],
       "semesters": [
         "Semester 5"
@@ -2574,7 +2574,7 @@
     {
       "code": "5183B",
       "subjects": [
-        "Program Elective course"
+        "Vernacular Architecture"
       ],
       "semesters": [
         "Semester 5"
@@ -2587,7 +2587,7 @@
     {
       "code": "5183C",
       "subjects": [
-        "Program Elective course"
+        "Tendering and Valuation"
       ],
       "semesters": [
         "Semester 5"
@@ -2611,7 +2611,7 @@
     {
       "code": "5202A",
       "subjects": [
-        "Program Elective course"
+        "Microwave Communication"
       ],
       "semesters": [
         "Semester 5"
@@ -2671,7 +2671,7 @@
     {
       "code": "5249B",
       "subjects": [
-        "Program Elective course"
+        "C Programming Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2683,7 +2683,7 @@
     {
       "code": "5254D",
       "subjects": [
-        "Program Elective course"
+        "Hospital Administration"
       ],
       "semesters": [
         "Semester 5"
@@ -2743,7 +2743,7 @@
     {
       "code": "5303D",
       "subjects": [
-        "Program Elective course"
+        "Data Mining"
       ],
       "semesters": [
         "Semester 5"
@@ -2755,7 +2755,7 @@
     {
       "code": "5342A",
       "subjects": [
-        "Program Elective course"
+        "Soft Computing"
       ],
       "semesters": [
         "Semester 5"
@@ -2815,7 +2815,7 @@
     {
       "code": "5372",
       "subjects": [
-        "Programme core course"
+        "VLSI Design"
       ],
       "semesters": [
         "Semester 5"
@@ -2839,7 +2839,7 @@
     {
       "code": "5382",
       "subjects": [
-        "Programme core course"
+        "Deep Learning"
       ],
       "semesters": [
         "Semester 5"
@@ -2863,7 +2863,7 @@
     {
       "code": "5383B",
       "subjects": [
-        "Program Elective course"
+        "AI in Cyber Security"
       ],
       "semesters": [
         "Semester 5"
@@ -2875,7 +2875,7 @@
     {
       "code": "5383C",
       "subjects": [
-        "Program Elective course"
+        "IoT and Applications"
       ],
       "semesters": [
         "Semester 5"
@@ -2915,7 +2915,7 @@
     {
       "code": "5388",
       "subjects": [
-        "Programme core course"
+        "Deep Learning Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2927,7 +2927,7 @@
     {
       "code": "5389A",
       "subjects": [
-        "Program Elective course"
+        "MATLAB"
       ],
       "semesters": [
         "Semester 5"
@@ -2939,7 +2939,7 @@
     {
       "code": "5389B",
       "subjects": [
-        "Program Elective course"
+        "Java Programming Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2951,7 +2951,7 @@
     {
       "code": "5389C",
       "subjects": [
-        "Program Elective course"
+        "Julia Programming Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2963,7 +2963,7 @@
     {
       "code": "5389D",
       "subjects": [
-        "Program Elective course"
+        "Power BI Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2975,7 +2975,7 @@
     {
       "code": "5391A",
       "subjects": [
-        "Program Elective course"
+        "Tendering and Contracts"
       ],
       "semesters": [
         "Semester 5"
@@ -2987,7 +2987,7 @@
     {
       "code": "5391B",
       "subjects": [
-        "Program Elective course"
+        "Low-Cost Housing"
       ],
       "semesters": [
         "Semester 5"
@@ -3072,7 +3072,7 @@
     {
       "code": "5433B",
       "subjects": [
-        "Program Elective course"
+        "Automobile Engineering"
       ],
       "semesters": [
         "Semester 5"
@@ -3084,7 +3084,7 @@
     {
       "code": "5433D",
       "subjects": [
-        "Program Elective course"
+        "Network Theory"
       ],
       "semesters": [
         "Semester 5"
@@ -3120,7 +3120,7 @@
     {
       "code": "5439B",
       "subjects": [
-        "Program Elective course"
+        "IoT Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -3132,7 +3132,7 @@
     {
       "code": "5463D",
       "subjects": [
-        "Program Elective course"
+        "Manufacturing Process"
       ],
       "semesters": [
         "Semester 5"
@@ -3144,7 +3144,7 @@
     {
       "code": "5469A",
       "subjects": [
-        "Program Elective course"
+        "Transportation Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -3240,7 +3240,7 @@
     {
       "code": "5532",
       "subjects": [
-        "Programme core course"
+        "Furniture Design I"
       ],
       "semesters": [
         "Semester 5"
@@ -3288,7 +3288,7 @@
     {
       "code": "5539",
       "subjects": [
-        "Programme core course"
+        "Digital Photography"
       ],
       "semesters": [
         "Semester 5"
@@ -3312,7 +3312,7 @@
     {
       "code": "5551B",
       "subjects": [
-        "Program Elective course"
+        "Deep Learning"
       ],
       "semesters": [
         "Semester 5"
@@ -3324,7 +3324,7 @@
     {
       "code": "5551C",
       "subjects": [
-        "Program Elective course"
+        "Cyber Security"
       ],
       "semesters": [
         "Semester 5"
@@ -3350,7 +3350,7 @@
     {
       "code": "5559A",
       "subjects": [
-        "Program Elective course"
+        "Deep Learning Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -3362,7 +3362,7 @@
     {
       "code": "5559B",
       "subjects": [
-        "Program Elective course"
+        "Cyber Security Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -3452,7 +3452,7 @@
     {
       "code": "6013D",
       "subjects": [
-        "Program Elective course"
+        "Habitat Technology"
       ],
       "semesters": [
         "Semester 6"
@@ -3527,7 +3527,7 @@
     {
       "code": "6019A",
       "subjects": [
-        "Program Elective course"
+        "BIM & Modelling Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -3605,8 +3605,7 @@
     {
       "code": "6023B",
       "subjects": [
-        "Additive Manufacturing",
-        "Program Elective course"
+        "Additive Manufacturing"
       ],
       "semesters": [
         "Semester 6"
@@ -3620,7 +3619,7 @@
     {
       "code": "6023C",
       "subjects": [
-        "Program Elective course"
+        "Electric Vehicles"
       ],
       "semesters": [
         "Semester 6"
@@ -3705,7 +3704,7 @@
     {
       "code": "6029B",
       "subjects": [
-        "Program Elective course"
+        "Electric Vehicles Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -3899,7 +3898,7 @@
     {
       "code": "6043B",
       "subjects": [
-        "Program Elective course"
+        "Medical Electronics"
       ],
       "semesters": [
         "Semester 6"
@@ -3925,7 +3924,7 @@
     {
       "code": "6043D",
       "subjects": [
-        "Program Elective course"
+        "Principles of MEMS"
       ],
       "semesters": [
         "Semester 6"
@@ -3956,7 +3955,7 @@
     {
       "code": "6044B",
       "subjects": [
-        "Open Elective course"
+        "Modern Electronics"
       ],
       "semesters": [
         "Semester 6"
@@ -3969,7 +3968,7 @@
     {
       "code": "6044C",
       "subjects": [
-        "Open Elective course"
+        "Drone Technology"
       ],
       "semesters": [
         "Semester 6"
@@ -4164,7 +4163,7 @@
     {
       "code": "6062",
       "subjects": [
-        "Programme core course"
+        "Technical Textiles"
       ],
       "semesters": [
         "Semester 6"
@@ -4200,7 +4199,7 @@
     {
       "code": "6063C",
       "subjects": [
-        "Program Elective course"
+        "Textile Mill Management"
       ],
       "semesters": [
         "Semester 6"
@@ -4212,7 +4211,7 @@
     {
       "code": "6063D",
       "subjects": [
-        "Program Elective course"
+        "High Performance Fibres"
       ],
       "semesters": [
         "Semester 6"
@@ -4236,7 +4235,7 @@
     {
       "code": "6064B",
       "subjects": [
-        "Open Elective course"
+        "Geotextiles"
       ],
       "semesters": [
         "Semester 6"
@@ -4248,7 +4247,7 @@
     {
       "code": "6064C",
       "subjects": [
-        "Open Elective course"
+        "Textile Composites"
       ],
       "semesters": [
         "Semester 6"
@@ -4272,7 +4271,7 @@
     {
       "code": "6069B",
       "subjects": [
-        "Program Elective course"
+        "Fashion Technology Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -4284,7 +4283,7 @@
     {
       "code": "6071P",
       "subjects": [
-        "Programme core course"
+        "Mechanical Operations"
       ],
       "semesters": [
         "Semester 6"
@@ -4296,7 +4295,7 @@
     {
       "code": "6071T",
       "subjects": [
-        "Programme core course"
+        "Mechanical Operations"
       ],
       "semesters": [
         "Semester 6"
@@ -4320,7 +4319,7 @@
     {
       "code": "6073A",
       "subjects": [
-        "Program Elective course"
+        "Plant Utilities"
       ],
       "semesters": [
         "Semester 6"
@@ -4332,7 +4331,7 @@
     {
       "code": "6073B",
       "subjects": [
-        "Program Elective course"
+        "Solid Waste Management"
       ],
       "semesters": [
         "Semester 6"
@@ -4344,7 +4343,7 @@
     {
       "code": "6073C",
       "subjects": [
-        "Program Elective course"
+        "Biochemical Engineering"
       ],
       "semesters": [
         "Semester 6"
@@ -4392,7 +4391,7 @@
     {
       "code": "6074C",
       "subjects": [
-        "Open Elective course"
+        "Disaster Management"
       ],
       "semesters": [
         "Semester 6"
@@ -4404,7 +4403,7 @@
     {
       "code": "6074D",
       "subjects": [
-        "Open Elective course"
+        "Energy Engineering"
       ],
       "semesters": [
         "Semester 6"
@@ -4524,7 +4523,7 @@
     {
       "code": "6084B",
       "subjects": [
-        "Open Elective course"
+        "Industrial IOT"
       ],
       "semesters": [
         "Semester 6"
@@ -4584,7 +4583,7 @@
     {
       "code": "6091P",
       "subjects": [
-        "Programme core course"
+        "Fibres and Composites"
       ],
       "semesters": [
         "Semester 6"
@@ -4596,7 +4595,7 @@
     {
       "code": "6091T",
       "subjects": [
-        "Programme core course"
+        "Fibres and Composites"
       ],
       "semesters": [
         "Semester 6"
@@ -4608,7 +4607,7 @@
     {
       "code": "6092",
       "subjects": [
-        "Programme core course"
+        "Plastic Products"
       ],
       "semesters": [
         "Semester 6"
@@ -4620,7 +4619,7 @@
     {
       "code": "6093A",
       "subjects": [
-        "Program Elective course"
+        "Injection Mould Design"
       ],
       "semesters": [
         "Semester 6"
@@ -4632,7 +4631,7 @@
     {
       "code": "6093B",
       "subjects": [
-        "Program Elective course"
+        "Biopolymers"
       ],
       "semesters": [
         "Semester 6"
@@ -4644,7 +4643,7 @@
     {
       "code": "6093C",
       "subjects": [
-        "Program Elective course"
+        "Speciality Polymers"
       ],
       "semesters": [
         "Semester 6"
@@ -4656,7 +4655,7 @@
     {
       "code": "6093D",
       "subjects": [
-        "Program Elective course"
+        "Paint Technology"
       ],
       "semesters": [
         "Semester 6"
@@ -4692,7 +4691,7 @@
     {
       "code": "6094C",
       "subjects": [
-        "Open Elective course"
+        "Smart Polymers"
       ],
       "semesters": [
         "Semester 6"
@@ -4908,7 +4907,7 @@
     {
       "code": "6113A",
       "subjects": [
-        "Program Elective course"
+        "Production Management"
       ],
       "semesters": [
         "Semester 6"
@@ -4932,7 +4931,7 @@
     {
       "code": "6113C",
       "subjects": [
-        "Program Elective course"
+        "Mechatronics"
       ],
       "semesters": [
         "Semester 6"
@@ -4968,7 +4967,7 @@
     {
       "code": "6114C",
       "subjects": [
-        "Open Elective course"
+        "Product Design"
       ],
       "semesters": [
         "Semester 6"
@@ -4992,7 +4991,7 @@
     {
       "code": "6118A",
       "subjects": [
-        "Program Elective course"
+        "Product Design Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -5040,7 +5039,7 @@
     {
       "code": "6122",
       "subjects": [
-        "Programme core course"
+        "Paper Technology-II"
       ],
       "semesters": [
         "Semester 6"
@@ -5076,7 +5075,7 @@
     {
       "code": "6123C",
       "subjects": [
-        "Program Elective course"
+        "Timber Structure"
       ],
       "semesters": [
         "Semester 6"
@@ -5088,7 +5087,7 @@
     {
       "code": "6124A",
       "subjects": [
-        "Open Elective course"
+        "Project Management"
       ],
       "semesters": [
         "Semester 6"
@@ -5124,7 +5123,7 @@
     {
       "code": "6131P",
       "subjects": [
-        "Programme core course"
+        "Software Testing"
       ],
       "semesters": [
         "Semester 6"
@@ -5137,7 +5136,7 @@
     {
       "code": "6131T",
       "subjects": [
-        "Programme core course"
+        "Software Testing"
       ],
       "semesters": [
         "Semester 6"
@@ -5150,7 +5149,7 @@
     {
       "code": "6132",
       "subjects": [
-        "Programme core course"
+        "Internet of Things"
       ],
       "semesters": [
         "Semester 6"
@@ -5205,7 +5204,7 @@
     {
       "code": "6133D",
       "subjects": [
-        "Program Elective course"
+        "Ethical Hacking"
       ],
       "semesters": [
         "Semester 6"
@@ -5250,7 +5249,7 @@
     {
       "code": "6134C",
       "subjects": [
-        "Open Elective course"
+        "Principles to IoT"
       ],
       "semesters": [
         "Semester 6"
@@ -5280,7 +5279,7 @@
     {
       "code": "6139D",
       "subjects": [
-        "Program Elective course"
+        "Ethical Hacking Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -5320,7 +5319,7 @@
     {
       "code": "6143D",
       "subjects": [
-        "Program Elective course"
+        "Investment Management"
       ],
       "semesters": [
         "Semester 6"
@@ -5404,7 +5403,7 @@
     {
       "code": "6149C",
       "subjects": [
-        "Program Elective course"
+        "Advanced Excel with AI"
       ],
       "semesters": [
         "Semester 6"
@@ -5553,7 +5552,7 @@
     {
       "code": "6203A",
       "subjects": [
-        "Open Elective course"
+        "Applied Electronics"
       ],
       "semesters": [
         "Semester 6"
@@ -5626,7 +5625,7 @@
     {
       "code": "6243B",
       "subjects": [
-        "Program Elective course"
+        "IoMT and Healthcare"
       ],
       "semesters": [
         "Semester 6"
@@ -5638,7 +5637,7 @@
     {
       "code": "6243C",
       "subjects": [
-        "Program Elective course"
+        "Principles of BioMEMS"
       ],
       "semesters": [
         "Semester 6"
@@ -5710,7 +5709,7 @@
     {
       "code": "6251P",
       "subjects": [
-        "Programme core course"
+        "Digital Marketing"
       ],
       "semesters": [
         "Semester 6"
@@ -5722,7 +5721,7 @@
     {
       "code": "6251T",
       "subjects": [
-        "Programme core course"
+        "Digital Marketing"
       ],
       "semesters": [
         "Semester 6"
@@ -5734,7 +5733,7 @@
     {
       "code": "6252",
       "subjects": [
-        "Programme core course"
+        "Retail Management"
       ],
       "semesters": [
         "Semester 6"
@@ -5746,7 +5745,7 @@
     {
       "code": "6253A",
       "subjects": [
-        "Program Elective course"
+        "Airport Management"
       ],
       "semesters": [
         "Semester 6"
@@ -5758,7 +5757,7 @@
     {
       "code": "6253B",
       "subjects": [
-        "Program Elective course"
+        "Business Ethics"
       ],
       "semesters": [
         "Semester 6"
@@ -5842,7 +5841,7 @@
     {
       "code": "6259B",
       "subjects": [
-        "Program Elective course"
+        "Security Market Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -5893,7 +5892,7 @@
     {
       "code": "6263A",
       "subjects": [
-        "Program Elective course"
+        "Cloud and DevOps"
       ],
       "semesters": [
         "Semester 6"
@@ -5906,7 +5905,7 @@
     {
       "code": "6263B",
       "subjects": [
-        "Program Elective course"
+        "Cyber Forensics"
       ],
       "semesters": [
         "Semester 6"
@@ -5918,7 +5917,7 @@
     {
       "code": "6263C",
       "subjects": [
-        "Program Elective course"
+        "Soft Computing"
       ],
       "semesters": [
         "Semester 6"
@@ -5932,7 +5931,7 @@
     {
       "code": "6264A",
       "subjects": [
-        "Open Elective course"
+        "Web Design"
       ],
       "semesters": [
         "Semester 6"
@@ -5968,7 +5967,7 @@
     {
       "code": "6264D",
       "subjects": [
-        "Open Elective course"
+        "Web Programming"
       ],
       "semesters": [
         "Semester 6"
@@ -5980,7 +5979,7 @@
     {
       "code": "6269A",
       "subjects": [
-        "Program Elective course"
+        "Cloud and DevOps Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -5993,7 +5992,7 @@
     {
       "code": "6269B",
       "subjects": [
-        "Program Elective course"
+        "Cyber Forensic Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -6005,7 +6004,7 @@
     {
       "code": "6269C",
       "subjects": [
-        "Program Elective course"
+        "Soft Computing Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -6078,7 +6077,7 @@
     {
       "code": "6283C",
       "subjects": [
-        "Program Elective course"
+        "Cyber Forensics"
       ],
       "semesters": [
         "Semester 6"
@@ -6090,7 +6089,7 @@
     {
       "code": "6284A",
       "subjects": [
-        "Open Elective course"
+        "Data Mining"
       ],
       "semesters": [
         "Semester 6"
@@ -6150,7 +6149,7 @@
     {
       "code": "6303A",
       "subjects": [
-        "Program Elective course"
+        "Software Testing"
       ],
       "semesters": [
         "Semester 6"
@@ -6186,7 +6185,7 @@
     {
       "code": "6304C",
       "subjects": [
-        "Open Elective course"
+        "Digital Marketing"
       ],
       "semesters": [
         "Semester 6"
@@ -6198,7 +6197,7 @@
     {
       "code": "6304D",
       "subjects": [
-        "Open Elective course"
+        "Multimedia"
       ],
       "semesters": [
         "Semester 6"
@@ -6210,7 +6209,7 @@
     {
       "code": "6331P",
       "subjects": [
-        "Programme core course"
+        "Advanced Robotics"
       ],
       "semesters": [
         "Semester 6"
@@ -6222,7 +6221,7 @@
     {
       "code": "6331T",
       "subjects": [
-        "Programme core course"
+        "Advanced Robotics"
       ],
       "semesters": [
         "Semester 6"
@@ -6318,7 +6317,7 @@
     {
       "code": "6334C",
       "subjects": [
-        "Open Elective course"
+        "PLC and Automation"
       ],
       "semesters": [
         "Semester 6"
@@ -6354,7 +6353,7 @@
     {
       "code": "6341",
       "subjects": [
-        "Programme core course"
+        "Deep Learning"
       ],
       "semesters": [
         "Semester 6"
@@ -6414,7 +6413,7 @@
     {
       "code": "6372A",
       "subjects": [
-        "Open Elective course"
+        "Renewable Energy"
       ],
       "semesters": [
         "Semester 6"
@@ -6462,7 +6461,7 @@
     {
       "code": "6383B",
       "subjects": [
-        "Program Elective course"
+        "Reinforcement Learning"
       ],
       "semesters": [
         "Semester 6"
@@ -6474,7 +6473,7 @@
     {
       "code": "6383C",
       "subjects": [
-        "Program Elective course"
+        "AI for Robotics"
       ],
       "semesters": [
         "Semester 6"
@@ -6511,7 +6510,7 @@
     {
       "code": "6384B",
       "subjects": [
-        "Open Elective course"
+        "Generative AI"
       ],
       "semesters": [
         "Semester 6"
@@ -6572,7 +6571,7 @@
     {
       "code": "6389C",
       "subjects": [
-        "Program Elective course"
+        "Virtual Reality Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -6708,7 +6707,7 @@
     {
       "code": "6423A",
       "subjects": [
-        "Program Elective course"
+        "Cereals and Legumes"
       ],
       "semesters": [
         "Semester 6"
@@ -6720,7 +6719,7 @@
     {
       "code": "6423B",
       "subjects": [
-        "Program Elective course"
+        "Spices and Condiments"
       ],
       "semesters": [
         "Semester 6"
@@ -6744,7 +6743,7 @@
     {
       "code": "6423D",
       "subjects": [
-        "Program Elective course"
+        "Food Packing Technology"
       ],
       "semesters": [
         "Semester 6"
@@ -6828,7 +6827,7 @@
     {
       "code": "6431P",
       "subjects": [
-        "Programme core course"
+        "Bio Mechatronics"
       ],
       "semesters": [
         "Semester 6"
@@ -6840,7 +6839,7 @@
     {
       "code": "6431T",
       "subjects": [
-        "Programme core course"
+        "Bio Mechatronics"
       ],
       "semesters": [
         "Semester 6"
@@ -6864,7 +6863,7 @@
     {
       "code": "6433A",
       "subjects": [
-        "Program Elective course"
+        "Thermodynamics"
       ],
       "semesters": [
         "Semester 6"
@@ -6876,7 +6875,7 @@
     {
       "code": "6433B",
       "subjects": [
-        "Program Elective course"
+        "Renewable Energy"
       ],
       "semesters": [
         "Semester 6"
@@ -6888,7 +6887,7 @@
     {
       "code": "6433C",
       "subjects": [
-        "Program Elective course"
+        "Maintenance Engineering"
       ],
       "semesters": [
         "Semester 6"
@@ -6948,7 +6947,7 @@
     {
       "code": "6439A",
       "subjects": [
-        "Program Elective course"
+        "Thermal Engineering Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -6960,7 +6959,7 @@
     {
       "code": "6439B",
       "subjects": [
-        "Program Elective course"
+        "MEMS Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -7056,7 +7055,7 @@
     {
       "code": "6464A",
       "subjects": [
-        "Open Elective course"
+        "Safety Management"
       ],
       "semesters": [
         "Semester 6"
@@ -7128,7 +7127,7 @@
     {
       "code": "6491P",
       "subjects": [
-        "Programme core course"
+        "Principles of IoT"
       ],
       "semesters": [
         "Semester 6"
@@ -7140,7 +7139,7 @@
     {
       "code": "6491T",
       "subjects": [
-        "Programme core course"
+        "Principles of IoT"
       ],
       "semesters": [
         "Semester 6"
@@ -7164,7 +7163,7 @@
     {
       "code": "6493B",
       "subjects": [
-        "Open Elective course"
+        "MEMS"
       ],
       "semesters": [
         "Semester 6"
@@ -7176,7 +7175,7 @@
     {
       "code": "6499A",
       "subjects": [
-        "Program Elective course"
+        "Sensors & Actuators Lab"
       ],
       "semesters": [
         "Semester 6"
@@ -7200,7 +7199,7 @@
     {
       "code": "6531P",
       "subjects": [
-        "Programme core course"
+        "Furniture Design II"
       ],
       "semesters": [
         "Semester 6"
@@ -7212,7 +7211,7 @@
     {
       "code": "6531T",
       "subjects": [
-        "Programme core course"
+        "Furniture Design II"
       ],
       "semesters": [
         "Semester 6"
@@ -7224,7 +7223,7 @@
     {
       "code": "6532A",
       "subjects": [
-        "Program Elective course"
+        "Landscape for Interiors"
       ],
       "semesters": [
         "Semester 6"
@@ -7272,7 +7271,7 @@
     {
       "code": "6551P",
       "subjects": [
-        "Programme core course"
+        "Mobile Programming"
       ],
       "semesters": [
         "Semester 6"
@@ -7284,7 +7283,7 @@
     {
       "code": "6551T",
       "subjects": [
-        "Programme core course"
+        "Mobile Programming"
       ],
       "semesters": [
         "Semester 6"

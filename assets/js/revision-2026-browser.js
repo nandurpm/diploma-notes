@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260720-rev2026-verified-cards";
+  const VERSION = "20260720-rev2026-exact-titles";
   const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
   const PROGRAMME_ART = {
     "architecture": ["#0f5ea8", "#0e7490"],

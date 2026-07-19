@@ -1,0 +1,12 @@
+{
+  "scheme": "REV2026",
+  "subjectCount": 2403,
+  "genericTitleCount": 0,
+  "missingTitleSourceCount": 0,
+  "titleSourceCounts": {
+    "historical-official-sitttr-snapshot": 466
+  },
+  "genericRows": [],
+  "missingTitleSources": [],
+  "status": "passed"
+}
