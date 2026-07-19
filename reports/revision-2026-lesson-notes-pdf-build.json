@@ -2,53 +2,7 @@
   "revision": "2026",
   "lessonFolder": "revision-2026-content/lessons",
   "notesFolder": "revision-2026-content/notes",
-  "generated": [
-    {
-      "code": "1011",
-      "pages": 19,
-      "bytes": 370983,
-      "source": "revision-2026-content/lessons/lessons-1011.html",
-      "sourceCharacters": 25735,
-      "pdfCharacters": 25635,
-      "textCoverage": 0.9961,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    },
-    {
-      "code": "1051",
-      "pages": 13,
-      "bytes": 240686,
-      "source": "revision-2026-content/lessons/lessons-1051.html",
-      "sourceCharacters": 18340,
-      "pdfCharacters": 18323,
-      "textCoverage": 0.9991,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    },
-    {
-      "code": "1131",
-      "pages": 19,
-      "bytes": 317625,
-      "source": "revision-2026-content/lessons/lessons-1131.html",
-      "sourceCharacters": 18931,
-      "pdfCharacters": 18825,
-      "textCoverage": 0.9944,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    }
-  ],
+  "generated": [],
   "errors": [],
   "requiredLessonCodes": [
     "1001",
@@ -66,11 +20,7 @@
     "2031",
     "2032"
   ],
-  "generatedThisRunCodes": [
-    "1011",
-    "1051",
-    "1131"
-  ],
+  "generatedThisRunCodes": [],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
   "minimumPdfBytes": 20000
