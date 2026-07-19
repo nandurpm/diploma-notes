@@ -3,7 +3,7 @@ name: Build lesson notes PDFs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/30 * * * *"
   push:
     branches: [main]
     paths:
@@ -30,59 +30,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  materialize-1009:
-    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip notes]') }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Decode and commit pending REV2026 1009 handbook
-        run: |
-          set -euo pipefail
-          python - <<'PY'
-          from pathlib import Path
-          import base64
-          import gzip
-          import hashlib
-
-          parts = [
-              Path("reports/.materialize-1009-part1.b64"),
-              Path("reports/.materialize-1009-part2.b64"),
-              Path("reports/.materialize-1009-part3.b64"),
-          ]
-          if not all(path.exists() for path in parts):
-              print("No Course 1009 materialization payload found.")
-              raise SystemExit(0)
-          payload = "".join(path.read_text(encoding="utf-8").strip() for path in parts)
-          raw = gzip.decompress(base64.b64decode(payload, validate=True))
-          digest = hashlib.sha256(raw).hexdigest()
-          expected = "ebe69b6ca0b0dcd674d41421e36f08ccaf6ac0a713720701e4121a8258b7817e"
-          if digest != expected:
-              raise SystemExit(f"Course 1009 SHA-256 mismatch: {digest} != {expected}")
-          target = Path("revision-2026-content/lessons/lessons-1009.html")
-          target.parent.mkdir(parents=True, exist_ok=True)
-          target.write_bytes(raw)
-          print(f"Materialized {target} ({len(raw)} bytes, SHA-256 {digest})")
-          PY
-
-          if git diff --quiet -- revision-2026-content/lessons/lessons-1009.html; then
-            echo "Course 1009 handbook is already materialized."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add revision-2026-content/lessons/lessons-1009.html
-          git commit -m "Complete REV2026 1009 Health and Physical Education handbook [skip notes]"
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
-
   build-notes:
-    needs: materialize-1009
-    if: ${{ always() && (github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip notes]')) }}
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip notes]') }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
 
@@ -91,9 +40,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - name: Refresh main after handbook materialization
-        run: git pull --ff-only origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
