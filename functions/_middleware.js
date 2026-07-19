@@ -3,6 +3,7 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const WEEK_MS = 7 * DAY_MS;
 const MAINTENANCE_PAGE = "/maintenance/";
 const STATUS_PATHS = new Set(["/maintenance-status", "/maintenance-status.json"]);
+const MAINTENANCE_ASSET_PATHS = new Set(["/maintenance/runtime-guard.js"]);
 
 const SPECIAL_WINDOW = {
   id: "2026-07-21-special",
@@ -96,6 +97,10 @@ export async function onRequest(context) {
     });
   }
 
+  if (MAINTENANCE_ASSET_PATHS.has(url.pathname)) {
+    return next();
+  }
+
   if (!currentWindow) {
     return next();
   }
@@ -137,7 +142,14 @@ export async function onRequest(context) {
   headers.set("X-POLY-Maintenance-Window", currentWindow.id);
   headers.set("X-POLY-Activity-Index", String(currentWindow.activityIndex));
 
-  return new Response(request.method === "HEAD" ? null : assetResponse.body, {
+  let responseBody = request.method === "HEAD" ? null : assetResponse.body;
+  const contentType = headers.get("Content-Type") || "";
+  if (request.method !== "HEAD" && contentType.includes("text/html")) {
+    const html = await assetResponse.text();
+    responseBody = html.replace("</body>", '<script src="/maintenance/runtime-guard.js"></script></body>');
+  }
+
+  return new Response(responseBody, {
     status: 503,
     statusText: "Service Unavailable",
     headers,
