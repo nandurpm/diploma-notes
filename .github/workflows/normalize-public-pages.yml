@@ -50,8 +50,9 @@ jobs:
           cmp /tmp/normalization-before.diff /tmp/normalization-after.diff
 
       - name: Audit normalized source
-        shell: python
+        shell: bash
         run: |
+          python - <<'PY'
           from pathlib import Path
           import re
           import xml.etree.ElementTree as ET
@@ -105,6 +106,7 @@ jobs:
           if failures:
               raise SystemExit('\n'.join(failures))
           print('Focused audit passed for all non-lesson sitemap pages.')
+          PY
 
       - name: Commit normalized pages
         shell: bash
