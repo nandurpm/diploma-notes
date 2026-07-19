@@ -1,0 +1,83 @@
+name: Materialize REV2026 1009 handbook
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/materialize-rev2026-1009.yml"
+      - ".github/lesson-bundles/rev2026-1009.part-*"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: materialize-rev2026-1009
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Decode, validate and extract handbook
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat .github/lesson-bundles/rev2026-1009.part-* > /tmp/rev2026-1009.b64
+          base64 --decode /tmp/rev2026-1009.b64 > /tmp/rev2026-1009.tar.gz
+          echo "56ebe42426d08ac0f69cba19f3f37d7e6c07542167642c50b541e647e800999c  /tmp/rev2026-1009.tar.gz" | sha256sum --check --strict
+          tar -xzf /tmp/rev2026-1009.tar.gz
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          import tempfile
+
+          html_path = Path('revision-2026-content/lessons/lessons-1009.html')
+          html = html_path.read_text(encoding='utf-8')
+          assert html.startswith('<!doctype html>\n<html class="poly-lesson-page revision-2026-lesson" lang="en">')
+          assert '<title>Health and Physical Education 1009 | Revision 2026 | POLY PMNA</title>' in html
+          assert '/revision-2026-content/notes/downloadable-notes-1009.pdf' in html
+          assert 'Official Source Declaration and Verified Inconsistencies' in html
+          assert all(f'Module {roman}' in html for roman in ('I', 'II', 'III', 'IV'))
+          assert all(f'Experiment {n}' in html for n in range(1, 12))
+          assert html.count('Malayalam support:') >= 10
+          assert '.webp' not in html
+          assets = [
+              'activity-pillars.svg', 'warmup-sequence.svg',
+              'asana-breathing.svg', 'teamwork-sports.svg'
+          ]
+          for name in assets:
+              path = Path('assets/media/lessons/1009') / name
+              text = path.read_text(encoding='utf-8')
+              assert '<svg' in text and '<title>' in text and '<desc>' in text
+              assert f'/assets/media/lessons/1009/{name}' in html
+          ids = re.findall(r'\bid=["\']([^"\']+)', html)
+          assert len(ids) == len(set(ids)), 'Duplicate HTML ids found'
+          targets = re.findall(r'href=["\']#([^"\']+)', html)
+          assert all(target in set(ids) for target in targets), 'Broken internal link'
+          scripts = re.findall(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>', html, flags=re.S | re.I)
+          for index, script in enumerate(scripts):
+              with tempfile.NamedTemporaryFile('w', suffix=f'-{index}.js', encoding='utf-8', delete=False) as handle:
+                  handle.write(script)
+                  temp_path = handle.name
+              subprocess.run(['node', '--check', temp_path], check=True)
+          print(f'Validated {html_path}: {len(html):,} characters, {len(ids)} unique ids, {len(assets)} SVG assets.')
+          PY
+
+      - name: Commit final handbook and remove bootstrap files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-1009.html assets/media/lessons/1009/*.svg
+          git rm .github/workflows/materialize-rev2026-1009.yml .github/lesson-bundles/rev2026-1009.part-*
+          git commit -m "Add REV2026 1009 Health and Physical Education handbook"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
