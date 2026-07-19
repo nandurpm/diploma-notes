@@ -8,6 +8,8 @@ on:
       - ".github/lesson-bundles/rev2026-1009.part-*"
   issues:
     types: [opened]
+  schedule:
+    - cron: "36 7 * * *"
 
 permissions:
   contents: write
@@ -18,7 +20,7 @@ concurrency:
 
 jobs:
   materialize:
-    if: github.event_name == 'push' || github.event.issue.title == 'Materialize REV2026 1009 handbook'
+    if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'issues' && github.event.issue.title == 'Materialize REV2026 1009 handbook')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
