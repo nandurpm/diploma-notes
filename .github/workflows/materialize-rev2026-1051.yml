@@ -1,0 +1,137 @@
+name: Materialize REV2026 1051 handbook
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/materialize-rev2026-1051.yml"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: materialize-rev2026-1051
+  cancel-in-progress: false
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble handbook from validated payload issues
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > /tmp/lessons-1051.html
+          for issue in 74 75 76 77 78 79 80 81 82 83 84 85 86; do
+            gh api "repos/${GITHUB_REPOSITORY}/issues/${issue}" --jq .body >> /tmp/lessons-1051.html
+            printf '\n' >> /tmp/lessons-1051.html
+          done
+          cp /tmp/lessons-1051.html revision-2026-content/lessons/lessons-1051.html
+
+      - name: Validate complete handbook
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import re
+          import subprocess
+          import tempfile
+
+          path = Path('revision-2026-content/lessons/lessons-1051.html')
+          html = path.read_text(encoding='utf-8')
+          assert html.startswith('<!doctype html>\n<html class="poly-lesson-page revision-2026-lesson" lang="en">')
+          assert html.rstrip().endswith('</html>')
+          assert '<title>Basic Automobile Engineering 1051 | Revision 2026 | POLY PMNA</title>' in html
+          assert 'Official Source Declaration and Verified Inconsistencies' in html
+          assert 'Practice Model Paper — not an official SITTTR model question paper' in html
+          assert 'revision-2026-content/notes/downloadable-notes-' in html
+          assert 'autoPrintNotes' in html and 'downloadNotes' in html
+          assert all(f'Module {roman}' in html for roman in ('I', 'II', 'III', 'IV'))
+          assert all(f'Experiment {number}' in html for number in range(1, 25))
+          assert html.count('Malayalam support:') >= 12
+          assert len(html) > 120000, len(html)
+          assert '<script src=' not in html.lower()
+          assert 'TODO' not in html
+
+          class Inspector(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.ids = []
+                  self.targets = []
+                  self.svgs = 0
+                  self.svg_titles = 0
+                  self.svg_descs = 0
+                  self.in_svg = 0
+              def handle_starttag(self, tag, attrs):
+                  data = dict(attrs)
+                  if 'id' in data:
+                      self.ids.append(data['id'])
+                  href = data.get('href', '')
+                  if href.startswith('#') and len(href) > 1:
+                      self.targets.append(href[1:])
+                  if tag == 'svg':
+                      self.svgs += 1
+                      self.in_svg += 1
+                  elif tag == 'title' and self.in_svg:
+                      self.svg_titles += 1
+                  elif tag == 'desc' and self.in_svg:
+                      self.svg_descs += 1
+              def handle_endtag(self, tag):
+                  if tag == 'svg' and self.in_svg:
+                      self.in_svg -= 1
+
+          inspector = Inspector()
+          inspector.feed(html)
+          assert len(inspector.ids) == len(set(inspector.ids)), 'Duplicate HTML ids found'
+          missing = sorted(set(inspector.targets) - set(inspector.ids))
+          assert not missing, f'Broken internal targets: {missing}'
+          assert inspector.svgs >= 12, inspector.svgs
+          assert inspector.svg_titles >= inspector.svgs, (inspector.svg_titles, inspector.svgs)
+          assert inspector.svg_descs >= inspector.svgs, (inspector.svg_descs, inspector.svgs)
+
+          scripts = re.findall(r'<script([^>]*)>(.*?)</script>', html, flags=re.S | re.I)
+          checked = 0
+          for attrs, script in scripts:
+              if 'application/ld+json' in attrs.lower():
+                  continue
+              with tempfile.NamedTemporaryFile('w', suffix='.js', encoding='utf-8', delete=False) as handle:
+                  handle.write(script)
+                  script_path = handle.name
+              subprocess.run(['node', '--check', script_path], check=True)
+              checked += 1
+          assert checked >= 1
+          print(f'Validated {path}: {len(html):,} characters, {len(inspector.ids)} unique ids, {inspector.svgs} SVGs, 24 experiments.')
+          PY
+
+      - name: Commit completed handbook
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-1051.html
+          git rm .github/workflows/materialize-rev2026-1051.yml
+          git commit -m "Complete REV2026 1051 Basic Automobile Engineering handbook"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
+
+      - name: Close temporary payload issues
+        if: success()
+        shell: bash
+        run: |
+          set -euo pipefail
+          for issue in 74 75 76 77 78 79 80 81 82 83 84 85 86; do
+            gh issue close "$issue" --repo "$GITHUB_REPOSITORY" --reason completed || true
+          done
