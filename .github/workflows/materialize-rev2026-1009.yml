@@ -6,6 +6,8 @@ on:
     paths:
       - ".github/workflows/materialize-rev2026-1009.yml"
       - ".github/lesson-bundles/rev2026-1009.part-*"
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
@@ -16,6 +18,7 @@ concurrency:
 
 jobs:
   materialize:
+    if: github.event_name == 'push' || github.event.issue.title == 'Materialize REV2026 1009 handbook'
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
