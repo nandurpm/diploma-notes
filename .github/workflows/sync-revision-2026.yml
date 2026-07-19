@@ -8,6 +8,8 @@ on:
     branches: [main]
     paths:
       - 'tools/sync_revision_2026.py'
+      - 'tools/resolve_rev2026_generic_titles.py'
+      - 'tools/verify_rev2026_titles.py'
       - 'tools/verify_revision_2026_catalogue.py'
       - 'tools/build_revision_2026_pages.py'
       - 'tools/enhance_revision_2026_model_qp.py'
@@ -50,40 +52,40 @@ jobs:
           )
 
           old_catch = '''    } catch (error) {
-                console.error("REV2026 subject loading failed", error);
-                grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
-              }
-            }'''
+            console.error("REV2026 subject loading failed", error);
+            grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
+          }
+        }'''
           new_catch = '''    } catch (error) {
-                console.error("REV2026 subject loading failed", error);
-                if (grid.querySelector(".subject-card")) {
-                  enhanceStaticDepartment();
-                  return;
-                }
-                grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
-              }
-            }'''
+            console.error("REV2026 subject loading failed", error);
+            if (grid.querySelector(".subject-card")) {
+              enhanceStaticDepartment();
+              return;
+            }
+            grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
+          }
+        }'''
           if old_catch in browser:
               browser = browser.replace(old_catch, new_catch, 1)
           elif new_catch not in browser:
               raise SystemExit('Could not locate the REV2026 fetch fallback block')
 
           old_start = '''  function start() {
-              ensureModelPaperAccess();
-              if (isProgrammeIndex()) {
-                enhanceProgrammeIndex();
-                return;
-              }
-              if (!enhanceStaticDepartment()) renderCompatibilityPage();
-            }'''
+            ensureModelPaperAccess();
+            if (isProgrammeIndex()) {
+              enhanceProgrammeIndex();
+              return;
+            }
+            if (!enhanceStaticDepartment()) renderCompatibilityPage();
+          }'''
           new_start = '''  function start() {
-              ensureModelPaperAccess();
-              if (isProgrammeIndex()) {
-                enhanceProgrammeIndex();
-                return;
-              }
-              renderCompatibilityPage();
-            }'''
+            ensureModelPaperAccess();
+            if (isProgrammeIndex()) {
+              enhanceProgrammeIndex();
+              return;
+            }
+            renderCompatibilityPage();
+          }'''
           if old_start in browser:
               browser = browser.replace(old_start, new_start, 1)
           elif new_start not in browser:
@@ -109,12 +111,16 @@ jobs:
         run: >-
           python -m py_compile
           tools/sync_revision_2026.py
+          tools/resolve_rev2026_generic_titles.py
+          tools/verify_rev2026_titles.py
           tools/verify_revision_2026_catalogue.py
           tools/build_revision_2026_pages.py
           tools/enhance_revision_2026_model_qp.py
           tools/apply_revision_2026_department_themes.py
       - name: Download and verify official programme tables
         run: python tools/sync_revision_2026.py
+      - name: Resolve generic labels from official course-content pages
+        run: python tools/resolve_rev2026_generic_titles.py
       - name: Build static Semester 1-6 pages and comparison report
         run: python tools/build_revision_2026_pages.py
       - name: Apply department-specific directory themes
@@ -140,6 +146,8 @@ jobs:
         run: python tools/enhance_revision_2026_model_qp.py
       - name: Verify directory, six semester groups and every subject card
         run: python tools/verify_revision_2026_catalogue.py
+      - name: Verify zero generic REV2026 subject titles
+        run: python tools/verify_rev2026_titles.py
       - name: Commit verified data, pages and reports
         run: |
           git add assets/data/revision-2026-programmes.json assets/data/revision-2026-subjects.json
@@ -147,6 +155,7 @@ jobs:
           git add revision-2026.html revision-2026/*.html
           git add reports/revision-2026-build-summary.json
           git add reports/revision-2026-catalogue-verification.json
+          git add reports/revision-2026-title-resolution.json reports/revision-2026-title-verification.json
           git add reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
           if git diff --cached --quiet; then
             echo 'No verified data or page change.'
@@ -154,6 +163,6 @@ jobs:
           fi
           git config user.name 'poly-pmna-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git commit -m 'Reverify official REV2026 departments and semester subjects'
+          git commit -m 'Resolve official REV2026 subject titles'
           git pull --rebase --autostash origin main
           git push
