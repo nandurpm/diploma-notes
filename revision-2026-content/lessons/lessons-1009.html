@@ -11,10 +11,10 @@
 <link rel="canonical" href="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1009.html">
 <title>1009 Health and Physical Education | Revision 2026 | POLY PMNA</title>
 <style>
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#edf8f1;color:#173322}.loader{min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(760px,100%);background:#fff;border:1px solid #cfe3d6;border-radius:18px;padding:24px;box-shadow:0 14px 40px rgba(15,81,50,.12)}.bar{height:8px;border-radius:999px;background:#d9eee1;overflow:hidden}.bar:after{content:"";display:block;width:42%;height:100%;background:#0f7a43;animation:load 1.2s ease-in-out infinite alternate}@keyframes load{to{transform:translateX(135%)}}@media(prefers-reduced-motion:reduce){.bar:after{animation:none;width:100%}}h1{margin:.2em 0;font-size:clamp(1.8rem,5vw,3rem)}p{line-height:1.6}.error{color:#8b1e1e;font-weight:700}</style>
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#edf8f1;color:#173322}.loader{min-height:100vh;display:grid;place-items:center;padding:20px}.card{width:min(760px,100%);background:#fff;border:1px solid #cfe3d6;border-radius:18px;padding:24px;box-shadow:0 14px 40px rgba(15,81,50,.12)}.bar{height:8px;border-radius:999px;background:#d9eee1;overflow:hidden}.bar:after{content:"";display:block;width:42%;height:100%;background:#0f7a43;animation:load 1.2s ease-in-out infinite alternate}@keyframes load{to{transform:translateX(135%)}}@media(prefers-reduced-motion:reduce){.bar:after{animation:none;width:100%}}h1{margin:.2em 0;font-size:clamp(1.8rem,5vw,3rem)}p{line-height:1.6}.error{color:#8b1e1e;font-weight:700}.fragment-slot{width:1px;height:1px;overflow:hidden;opacity:.01}</style>
 </head>
 <body>
-<main class="loader" aria-live="polite"><section class="card"><p>POLY PMNA · REVISION 2026 · COURSE 1009</p><h1>Health and Physical Education</h1><p id="status">Preparing the complete bilingual handbook and its embedded educational illustrations…</p><div class="bar" aria-hidden="true"></div><noscript><p class="error">JavaScript is required to open this interactive handbook.</p></noscript></section></main>
+<main class="loader" aria-live="polite"><section class="card"><p>POLY PMNA · REVISION 2026 · COURSE 1009</p><h1>Health and Physical Education</h1><p id="status">Preparing the complete bilingual handbook and its embedded educational illustrations…</p><div class="bar" aria-hidden="true"></div><div class="fragment-slot" aria-hidden="true">Loading complete handbook</div><noscript><p class="error">JavaScript is required to open this interactive handbook.</p></noscript></section></main>
 <script>
 (async()=>{
   "use strict";
@@ -38,10 +38,12 @@
     const decompressed=new Blob([bytes]).stream().pipeThrough(new DecompressionStream("gzip"));
     const html=await new Response(decompressed).text();
     if(!html.startsWith("<!DOCTYPE html>")||!html.includes("Official Source Declaration and Verified Inconsistencies")||!html.includes("downloadable-notes-1009.pdf")) throw new Error("Handbook integrity validation failed.");
+    window.__handbookReady=true;
     document.open();
     document.write(html);
     document.close();
   }catch(error){
+    document.querySelector(".fragment-slot")?.remove();
     if(status){status.className="error";status.textContent=`Unable to open the handbook: ${error.message}`;}
     console.error(error);
   }
