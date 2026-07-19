@@ -10,7 +10,9 @@ on:
       - "revision-2021/*.html"
       - "revision-2026/*.html"
       - "sitemap.xml"
+      - "assets/media/poly-pmna-favicon.svg"
       - "tools/maintain_public_pages.py"
+      - "tools/normalize_public_brand_assets.py"
       - ".github/workflows/normalize-public-pages.yml"
 
 permissions:
@@ -35,17 +37,20 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Validate maintenance script
-        run: python -m py_compile tools/maintain_public_pages.py
+      - name: Validate maintenance scripts
+        run: python -m py_compile tools/maintain_public_pages.py tools/normalize_public_brand_assets.py
 
-      - name: Normalize public HTML and sitemap
-        run: python tools/maintain_public_pages.py
+      - name: Normalize public HTML, sitemap and branding
+        run: |
+          python tools/maintain_public_pages.py
+          python tools/normalize_public_brand_assets.py
 
       - name: Confirm normalization is idempotent
         shell: bash
         run: |
           git diff --binary > /tmp/normalization-before.diff
           python tools/maintain_public_pages.py
+          python tools/normalize_public_brand_assets.py
           git diff --binary > /tmp/normalization-after.diff
           cmp /tmp/normalization-before.diff /tmp/normalization-after.diff
 
@@ -66,6 +71,7 @@ jobs:
               'Home', 'About', 'Revision 2026', 'Revision 2021', 'Mock Exams',
               'Ask POLY AI', '2015 Materials', 'Tools', 'Help'
           )
+          favicon = '<link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">'
 
           for node in tree.findall('sm:url/sm:loc', ns):
               url = (node.text or '').strip()
@@ -88,6 +94,7 @@ jobs:
                   'main target': '<main id="main-content"' in source,
                   'static site header': 'data-site-header' in source,
                   'static site footer': 'data-site-footer' in source,
+                  'canonical favicon': favicon in source,
                   'legal footer links': all(f'href="/{name}.html"' in source for name in ('privacy', 'terms', 'disclaimer')),
               }
               header_match = re.search(r'<header\b[^>]*data-site-header[^>]*>(.*?)</header>', source, re.I | re.S)
@@ -118,5 +125,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sitemap.xml '*.html' revision-2021/*.html revision-2026/*.html
-          git commit -m "Normalize public site shell and metadata"
+          git commit -m "Normalize public site shell metadata and branding"
           git push
