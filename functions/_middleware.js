@@ -3,7 +3,14 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const WEEK_MS = 7 * DAY_MS;
 const MAINTENANCE_PAGE = "/maintenance/";
 const STATUS_PATHS = new Set(["/maintenance-status", "/maintenance-status.json"]);
-const MAINTENANCE_ASSET_PATHS = new Set(["/maintenance/runtime-guard.js"]);
+const PASSTHROUGH_ASSET_PATHS = new Set([
+  "/maintenance/runtime-guard.js",
+  "/assets/css/new-year-theme.css",
+  "/assets/js/new-year-theme.js",
+]);
+const NEW_YEAR_STYLESHEET = '<link rel="stylesheet" href="/assets/css/new-year-theme.css?v=annual-midnight-circuit-1">';
+const NEW_YEAR_SCRIPT = '<script src="/assets/js/new-year-theme.js?v=annual-midnight-circuit-1" defer></script>';
+const MAINTENANCE_RUNTIME_SCRIPT = '<script src="/maintenance/runtime-guard.js"></script>';
 
 const SPECIAL_WINDOW = {
   id: "2026-07-21-special",
@@ -41,6 +48,35 @@ function buildThursdayWindows() {
 
 const MAINTENANCE_WINDOWS = [SPECIAL_WINDOW, ...buildThursdayWindows()];
 
+function getIstParts(timestamp) {
+  const date = new Date(timestamp + IST_OFFSET_MS);
+  return {
+    year: date.getUTCFullYear(),
+    month: date.getUTCMonth() + 1,
+    day: date.getUTCDate(),
+    hour: date.getUTCHours(),
+    minute: date.getUTCMinutes(),
+    second: date.getUTCSeconds(),
+  };
+}
+
+function resolveNewYearTheme(now) {
+  const parts = getIstParts(now);
+  const active = (parts.month === 12 && parts.day >= 28) || (parts.month === 1 && parts.day <= 3);
+  const targetYear = parts.month === 12 ? parts.year + 1 : parts.year;
+  const seasonStartYear = parts.month === 12 ? parts.year : parts.year - 1;
+  const startsAt = Date.UTC(seasonStartYear, 11, 28, 0, 0, 0) - IST_OFFSET_MS;
+  const endsAt = Date.UTC(targetYear, 0, 4, 0, 0, 0) - IST_OFFSET_MS;
+  let phase = "inactive";
+
+  if (active && parts.month === 12 && parts.day < 31) phase = "approaching";
+  if (active && parts.month === 12 && parts.day === 31) phase = "countdown";
+  if (active && parts.month === 1 && parts.day === 1) phase = "celebration";
+  if (active && parts.month === 1 && parts.day >= 2) phase = "welcome";
+
+  return { active, targetYear, phase, startsAt, endsAt };
+}
+
 function toIstIso(timestamp) {
   const date = new Date(timestamp + IST_OFFSET_MS);
   return `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, "0")}-${String(date.getUTCDate()).padStart(2, "0")}T${String(date.getUTCHours()).padStart(2, "0")}:${String(date.getUTCMinutes()).padStart(2, "0")}:00+05:30`;
@@ -67,6 +103,7 @@ function resolveSchedule(now) {
 
 function statusPayload(now) {
   const { currentWindow, nextWindow } = resolveSchedule(now);
+  const newYearTheme = resolveNewYearTheme(now);
   return {
     active: Boolean(currentWindow),
     currentTimeUtc: new Date(now).toISOString(),
@@ -79,7 +116,80 @@ function statusPayload(now) {
       totalWindows: MAINTENANCE_WINDOWS.length,
       finalWindowEndsAtIst: "2026-12-31T21:00:00+05:30",
     },
+    newYearTheme: {
+      active: newYearTheme.active,
+      targetYear: newYearTheme.targetYear,
+      phase: newYearTheme.phase,
+      annualSchedule: "28 December 00:00 IST through 4 January 00:00 IST",
+      startsAtIst: toIstIso(newYearTheme.startsAt),
+      endsAtIst: toIstIso(newYearTheme.endsAt),
+    },
   };
+}
+
+function injectHtml(html, options = {}) {
+  let output = html;
+  const scripts = [];
+
+  if (options.newYearTheme?.active && !output.includes("/assets/css/new-year-theme.css")) {
+    if (/<\/head>/i.test(output)) {
+      output = output.replace(/<\/head>/i, `${NEW_YEAR_STYLESHEET}</head>`);
+    } else {
+      output = `${NEW_YEAR_STYLESHEET}${output}`;
+    }
+  }
+
+  if (options.maintenanceRuntime && !output.includes("/maintenance/runtime-guard.js")) {
+    scripts.push(MAINTENANCE_RUNTIME_SCRIPT);
+  }
+
+  if (options.newYearTheme?.active && !output.includes("/assets/js/new-year-theme.js")) {
+    scripts.push(NEW_YEAR_SCRIPT);
+  }
+
+  if (scripts.length > 0) {
+    const scriptMarkup = scripts.join("");
+    if (/<\/body>/i.test(output)) {
+      output = output.replace(/<\/body>/i, `${scriptMarkup}</body>`);
+    } else {
+      output += scriptMarkup;
+    }
+  }
+
+  return output;
+}
+
+function transformedHeaders(sourceHeaders, newYearTheme, additionalHeaders = {}) {
+  const headers = new Headers(sourceHeaders);
+  headers.delete("Content-Length");
+  headers.delete("Content-Encoding");
+  headers.delete("ETag");
+
+  if (newYearTheme?.active) {
+    headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
+    headers.set("Pragma", "no-cache");
+    headers.set("Expires", "0");
+    headers.set("X-POLY-New-Year-Theme", String(newYearTheme.targetYear));
+    headers.set("X-POLY-New-Year-Phase", newYearTheme.phase);
+  }
+
+  Object.entries(additionalHeaders).forEach(([name, value]) => headers.set(name, String(value)));
+  return headers;
+}
+
+async function applyThemeToResponse(response, newYearTheme) {
+  if (!newYearTheme.active || !response || response.status === 204 || response.status === 304) return response;
+  const contentType = response.headers.get("Content-Type") || "";
+  if (!contentType.toLowerCase().includes("text/html")) return response;
+
+  const html = await response.text();
+  const body = injectHtml(html, { newYearTheme });
+  const headers = transformedHeaders(response.headers, newYearTheme);
+  return new Response(body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 export async function onRequest(context) {
@@ -87,6 +197,7 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   const now = Date.now();
   const { currentWindow } = resolveSchedule(now);
+  const newYearTheme = resolveNewYearTheme(now);
 
   if (STATUS_PATHS.has(url.pathname)) {
     return Response.json(statusPayload(now), {
@@ -97,12 +208,14 @@ export async function onRequest(context) {
     });
   }
 
-  if (MAINTENANCE_ASSET_PATHS.has(url.pathname)) {
+  if (PASSTHROUGH_ASSET_PATHS.has(url.pathname)) {
     return next();
   }
 
   if (!currentWindow) {
-    return next();
+    const response = await next();
+    if (request.method === "HEAD") return response;
+    return applyThemeToResponse(response, newYearTheme);
   }
 
   const maintenanceUrl = new URL(MAINTENANCE_PAGE, url.origin);
@@ -132,21 +245,22 @@ export async function onRequest(context) {
     );
   }
 
-  const headers = new Headers(assetResponse.headers);
-  headers.set("Cache-Control", "no-store, no-cache, must-revalidate");
-  headers.set("Pragma", "no-cache");
-  headers.set("Expires", "0");
-  headers.set("Retry-After", String(retryAfterSeconds));
-  headers.set("X-Robots-Tag", "noindex, nofollow");
-  headers.set("X-POLY-Maintenance", "active");
-  headers.set("X-POLY-Maintenance-Window", currentWindow.id);
-  headers.set("X-POLY-Activity-Index", String(currentWindow.activityIndex));
+  const headers = transformedHeaders(assetResponse.headers, newYearTheme, {
+    "Cache-Control": "no-store, no-cache, must-revalidate",
+    Pragma: "no-cache",
+    Expires: "0",
+    "Retry-After": String(retryAfterSeconds),
+    "X-Robots-Tag": "noindex, nofollow",
+    "X-POLY-Maintenance": "active",
+    "X-POLY-Maintenance-Window": currentWindow.id,
+    "X-POLY-Activity-Index": String(currentWindow.activityIndex),
+  });
 
   let responseBody = request.method === "HEAD" ? null : assetResponse.body;
   const contentType = headers.get("Content-Type") || "";
-  if (request.method !== "HEAD" && contentType.includes("text/html")) {
+  if (request.method !== "HEAD" && contentType.toLowerCase().includes("text/html")) {
     const html = await assetResponse.text();
-    responseBody = html.replace("</body>", '<script src="/maintenance/runtime-guard.js"></script></body>');
+    responseBody = injectHtml(html, { maintenanceRuntime: true, newYearTheme });
   }
 
   return new Response(responseBody, {
