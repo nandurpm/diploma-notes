@@ -1,12 +1,14 @@
-name: Sync and build Revision 2026
+name: Sync, build and verify Revision 2026
 
 on:
   workflow_dispatch:
   schedule:
     - cron: '25 2 * * 1,4'
   push:
+    branches: [main]
     paths:
       - 'tools/sync_revision_2026.py'
+      - 'tools/verify_revision_2026_catalogue.py'
       - 'tools/build_revision_2026_pages.py'
       - 'tools/enhance_revision_2026_model_qp.py'
       - 'tools/apply_revision_2026_department_themes.py'
@@ -23,15 +25,24 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4
       - name: Validate scripts
-        run: python -m py_compile tools/sync_revision_2026.py tools/build_revision_2026_pages.py tools/enhance_revision_2026_model_qp.py tools/apply_revision_2026_department_themes.py
-      - name: Download official programme tables
+        run: >-
+          python -m py_compile
+          tools/sync_revision_2026.py
+          tools/verify_revision_2026_catalogue.py
+          tools/build_revision_2026_pages.py
+          tools/enhance_revision_2026_model_qp.py
+          tools/apply_revision_2026_department_themes.py
+      - name: Download and verify official programme tables
         run: python tools/sync_revision_2026.py
       - name: Build static Semester 1-6 pages and comparison report
         run: python tools/build_revision_2026_pages.py
@@ -56,11 +67,14 @@ jobs:
           PY
       - name: Add permanent model-question-paper links
         run: python tools/enhance_revision_2026_model_qp.py
+      - name: Verify directory, six semester groups and every subject card
+        run: python tools/verify_revision_2026_catalogue.py
       - name: Commit verified data, pages and reports
         run: |
           git add assets/data/revision-2026-programmes.json assets/data/revision-2026-subjects.json
           git add revision-2026.html revision-2026/*.html
           git add reports/revision-2026-build-summary.json
+          git add reports/revision-2026-catalogue-verification.json
           git add reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
           if git diff --cached --quiet; then
             echo 'No verified data or page change.'
@@ -68,5 +82,6 @@ jobs:
           fi
           git config user.name 'poly-pmna-bot'
           git config user.email 'actions@users.noreply.github.com'
-          git commit -m 'Sync REV2026 subjects, themes and sample question papers'
+          git commit -m 'Reverify official REV2026 departments and semester subjects'
+          git pull --rebase --autostash origin main
           git push

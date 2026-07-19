@@ -1,10 +1,20 @@
 #!/usr/bin/env python3
+"""Download and verify the official SITTTR Kerala REV2026 programme catalogue.
+
+The synchronizer treats the SITTTR programme index and the 38 programme course
+pages as the source of truth. Semester placement is taken from the official row
+or official table section whenever available. The leading digit of a course code
+is used only as a checked fallback; it is never allowed to contradict an official
+semester label.
+"""
+
 from __future__ import annotations
 
 import json
 import re
 import sys
 import time
+from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import parse_qs, urljoin, urlparse
@@ -13,7 +23,10 @@ import requests
 from bs4 import BeautifulSoup, Tag
 
 BASE = "https://www.sitttrkerala.ac.in/"
-INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026"
+INDEX = (
+    "https://www.sitttrkerala.ac.in/index.php?"
+    "r=site%2Fdiploma-syllabus&scheme=REV2026"
+)
 PROGRAMMES = [
     ("AR", "Architecture", "architecture"),
     ("AI", "Artificial Intelligence", "artificial-intelligence"),
@@ -73,70 +86,139 @@ TYPES = {
     "theory": "Theory",
     "elective": "Elective",
 }
+OUT_DIR = Path("assets/data")
+PROGRAMME_OUT = OUT_DIR / "revision-2026-programmes.json"
+SUBJECT_OUT = OUT_DIR / "revision-2026-subjects.json"
 
 
 def programme_url(code: str) -> str:
-    return f"{BASE}index.php?r=site/diploma-syllabus-courses&prog={code}"
+    return (
+        f"{BASE}index.php?r=site%2Fdiploma-syllabus-courses"
+        f"&prog={code}"
+    )
 
 
-def get(session: requests.Session, url: str) -> requests.Response:
+def normalise_text(value: object) -> str:
+    return " ".join(str(value or "").split())
+
+
+def get(
+    session: requests.Session,
+    url: str,
+    *,
+    referer: str | None = None,
+    tries: int = 5,
+) -> requests.Response:
     last_error: Exception | None = None
-    for attempt in range(5):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (compatible; POLY-PMNA-REV2026-Verifier/5.0)",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        "Accept-Language": "en-IN,en;q=0.9",
+    }
+    if referer:
+        headers["Referer"] = referer
+
+    for attempt in range(tries):
         try:
-            response = session.get(
-                url,
-                headers={"User-Agent": "Mozilla/5.0 POLY-PMNA-REV2026-Sync/4.0"},
-                timeout=50,
-            )
+            response = session.get(url, headers=headers, timeout=60, allow_redirects=True)
             if response.ok and len(response.text) > 500:
                 return response
             last_error = RuntimeError(
                 f"HTTP {response.status_code}, {len(response.text)} bytes, final={response.url}"
             )
-        except Exception as exc:  # requests raises several transport exceptions
+        except Exception as exc:
             last_error = exc
-        time.sleep(min(16, 2**attempt))
+        time.sleep(min(20, 2**attempt))
     raise last_error or RuntimeError(f"Unable to download {url}")
 
 
-def semester_number(text: str) -> int | None:
-    match = SEMESTER.search(" ".join(str(text).split()))
+def extract_programme_code(href: str) -> str:
+    query = parse_qs(urlparse(urljoin(BASE, href)).query)
+    return normalise_text((query.get("prog") or [""])[0]).upper()
+
+
+def validate_official_index(session: requests.Session) -> requests.Response:
+    response = get(session, INDEX)
+    soup = BeautifulSoup(response.text, "html.parser")
+    official: list[tuple[str, str]] = []
+    seen: set[str] = set()
+    for link in soup.select('a[href*="diploma-syllabus-courses"]'):
+        code = extract_programme_code(link.get("href", ""))
+        name = normalise_text(link.get_text(" ", strip=True))
+        if code and name and code not in seen:
+            official.append((code, name))
+            seen.add(code)
+
+    expected = [(code, name) for code, name, _ in PROGRAMMES]
+    if official != expected:
+        missing = [item for item in expected if item not in official]
+        extra = [item for item in official if item not in expected]
+        raise RuntimeError(
+            "Official programme index does not match the expected 38-programme registry. "
+            f"found={len(official)} missing={missing} extra={extra} order={official}"
+        )
+    return response
+
+
+def semester_number(text: object) -> int | None:
+    match = SEMESTER.search(normalise_text(text))
     return int(match.group(1)) if match else None
 
 
-def short_semester_marker(tag: Tag | None) -> int | None:
+def marker_from_tag(tag: Tag | None) -> int | None:
     if not isinstance(tag, Tag):
         return None
-    text = tag.get_text(" ", strip=True)
-    if not text or len(text) > 160:
-        return None
-    return semester_number(text)
-
-
-def preceding_semester(table: Tag) -> int | None:
-    # Semester labels on the SITTTR pages may be headings, captions or panel labels.
-    caption = table.find("caption")
-    value = short_semester_marker(caption)
-    if value:
-        return value
-
-    for previous in table.find_all_previous(limit=80):
-        if not isinstance(previous, Tag):
-            continue
-        if previous.name in {"table", "tr", "td", "th", "script", "style"}:
-            continue
-        value = short_semester_marker(previous)
+    candidates = [
+        tag.get("aria-label", ""),
+        tag.get("data-title", ""),
+        tag.get("id", ""),
+        " ".join(tag.get("class", [])),
+    ]
+    text = normalise_text(tag.get_text(" ", strip=True))
+    if text and len(text) <= 180:
+        candidates.append(text)
+    for candidate in candidates:
+        value = semester_number(candidate)
         if value:
             return value
     return None
 
 
+def semester_from_table_context(table: Tag, index: int, total: int) -> tuple[int | None, str]:
+    for marker in table.select(
+        "caption, thead th, h1, h2, h3, h4, h5, h6, .panel-heading, .card-header, .semester"
+    )[:24]:
+        value = marker_from_tag(marker)
+        if value:
+            return value, "official-table-section"
+
+    node: Tag | None = table
+    for _ in range(5):
+        if not isinstance(node, Tag):
+            break
+        sibling = node.previous_sibling
+        inspected = 0
+        while sibling is not None and inspected < 16:
+            if isinstance(sibling, Tag):
+                inspected += 1
+                if sibling.name not in {"script", "style", "table"}:
+                    value = marker_from_tag(sibling)
+                    if value:
+                        return value, "official-table-section"
+            sibling = sibling.previous_sibling
+        node = node.parent if isinstance(node.parent, Tag) else None
+
+    if total == 6:
+        return index, "official-table-order"
+    return None, ""
+
+
 def subject_name(row: Tag, code: str, link: Tag) -> str:
-    link_text = " ".join(link.stripped_strings).strip()
+    link_text = normalise_text(" ".join(link.stripped_strings))
     if link_text and link_text.upper() != code and not BAD.fullmatch(link_text):
         return link_text
 
-    values = [" ".join(cell.stripped_strings).strip() for cell in row.find_all(["td", "th"])]
+    values = [normalise_text(" ".join(cell.stripped_strings)) for cell in row.find_all(["td", "th"])]
     values = [
         value
         for value in values
@@ -145,8 +227,8 @@ def subject_name(row: Tag, code: str, link: Tag) -> str:
         and not BAD.fullmatch(value)
         and not re.fullmatch(r"[\d\s./():-]+", value)
         and semester_number(value) is None
+        and value.casefold() not in TYPES
     ]
-    values = [value for value in values if value.lower() not in TYPES]
     return max(values, key=len) if values else code
 
 
@@ -161,7 +243,7 @@ def subject_type(name: str, row: Tag) -> str:
 def course_from_row(row: Tag, link: Tag) -> tuple[str, str]:
     href = urljoin(BASE, link.get("href", ""))
     query = parse_qs(urlparse(href).query)
-    code = (query.get("course") or [""])[0].strip().upper()
+    code = normalise_text((query.get("course") or [""])[0]).upper()
     if not code:
         match = COURSE_CODE.search(row.get_text(" ", strip=True))
         code = match.group(1).upper() if match else ""
@@ -169,40 +251,40 @@ def course_from_row(row: Tag, link: Tag) -> tuple[str, str]:
 
 
 def candidate_tables(soup: BeautifulSoup) -> list[Tag]:
-    tables: list[Tag] = []
-    for table in soup.find_all("table"):
-        if table.select_one('a[href*="diploma-syllabus-course-contents"],a[href*="course="]'):
-            tables.append(table)
-    return tables
+    return [
+        table
+        for table in soup.find_all("table")
+        if table.select_one('a[href*="diploma-syllabus-course-contents"],a[href*="course="]')
+    ]
 
 
 def parse_programme(
-    session: requests.Session, programme_code: str, name: str, slug: str
+    session: requests.Session,
+    programme_code: str,
+    name: str,
+    slug: str,
 ) -> list[dict[str, object]]:
-    page = get(session, programme_url(programme_code))
+    url = programme_url(programme_code)
+    page = get(session, url, referer=INDEX)
     soup = BeautifulSoup(page.text, "html.parser")
     tables = candidate_tables(soup)
     if not tables:
-        raise RuntimeError("No subject tables found")
+        raise RuntimeError("No official subject tables found")
 
-    # If the official page contains exactly six course tables, their document order
-    # is an additional safe signal for Semester 1 through Semester 6.
-    six_table_order = len(tables) == 6
     rows: list[dict[str, object]] = []
     seen: set[tuple[int, str, str]] = set()
+    source_counter: Counter[str] = Counter()
 
     for table_index, table in enumerate(tables, start=1):
-        table_semester = short_semester_marker(table) or preceding_semester(table)
-        if table_semester is None and six_table_order:
-            table_semester = table_index
-
+        table_semester, table_source = semester_from_table_context(
+            table, table_index, len(tables)
+        )
         for row in table.select("tr"):
             link = row.select_one(
                 'a[href*="diploma-syllabus-course-contents"],a[href*="course="]'
             )
             if not link:
                 continue
-
             code, href = course_from_row(row, link)
             if not code or code[0] not in "123456":
                 continue
@@ -210,22 +292,28 @@ def parse_programme(
             row_semester = semester_number(row.get_text(" ", strip=True))
             if row_semester is not None:
                 semester = row_semester
-                source = "row"
+                source = "official-row"
             elif table_semester is not None:
                 semester = table_semester
-                source = "official-table-section"
+                source = table_source
             else:
-                # Last-resort fallback is retained only to avoid dropping a valid row.
-                # Validation below rejects a programme unless all six official semester
-                # groups are represented, so this cannot silently collapse the page.
                 semester = int(code[0])
                 source = "course-code-fallback"
 
+            code_semester = int(code[0])
+            if semester != code_semester:
+                raise RuntimeError(
+                    f"Official semester/code mismatch: {code} was parsed in Semester {semester}"
+                )
+
             title = subject_name(row, code, link)
+            if title == code:
+                raise RuntimeError(f"Could not extract a title for course {code}")
             key = (semester, code, title.casefold())
             if key in seen:
                 continue
             seen.add(key)
+            source_counter[source] += 1
             rows.append(
                 {
                     "revision": "2026",
@@ -233,7 +321,7 @@ def parse_programme(
                     "programme": name,
                     "programmeCode": programme_code,
                     "programmeSlug": slug,
-                    "programmeUrl": programme_url(programme_code),
+                    "programmeUrl": url,
                     "semester": f"Semester {semester}",
                     "semesterNumber": semester,
                     "semesterSource": source,
@@ -247,10 +335,19 @@ def parse_programme(
     represented = {int(row["semesterNumber"]) for row in rows}
     missing = sorted(set(range(1, 7)) - represented)
     if len(rows) < 10:
-        raise RuntimeError(f"Only {len(rows)} subject rows found")
+        raise RuntimeError(f"Only {len(rows)} official subject rows found")
     if missing:
         raise RuntimeError(f"Missing official semester groups: {missing}")
 
+    for number in range(1, 7):
+        if not any(int(row["semesterNumber"]) == number for row in rows):
+            raise RuntimeError(f"Semester {number} is empty")
+
+    print(
+        f"{programme_code} {name}: {len(rows)} subjects; "
+        + ", ".join(f"{key}={value}" for key, value in sorted(source_counter.items())),
+        flush=True,
+    )
     return sorted(
         rows,
         key=lambda item: (
@@ -262,11 +359,21 @@ def parse_programme(
 
 
 def main() -> int:
+    session = requests.Session()
+    try:
+        validate_official_index(session)
+    except Exception as exc:
+        print(f"Official index validation failed: {exc}", file=sys.stderr)
+        return 1
+
+    verified_at = datetime.now(timezone.utc)
     registry = {
         "scheme": "REV2026",
         "source": INDEX,
-        "lastVerified": datetime.now(timezone.utc).date().isoformat(),
-        "programmeCount": 38,
+        "lastVerified": verified_at.date().isoformat(),
+        "verifiedAt": verified_at.isoformat(),
+        "programmeCount": len(PROGRAMMES),
+        "codePolicy": "Exact programme codes and names from the official SITTTR REV2026 index.",
         "programmes": [
             {
                 "order": index + 1,
@@ -279,21 +386,24 @@ def main() -> int:
         ],
     }
 
-    session = requests.Session()
     subjects: list[dict[str, object]] = []
     failures: list[dict[str, str]] = []
     counts: dict[str, int] = {}
-    source_counts: dict[str, int] = {}
+    semester_counts: dict[str, dict[str, int]] = {}
+    source_counts: Counter[str] = Counter()
 
     for code, name, slug in PROGRAMMES:
         try:
             programme_rows = parse_programme(session, code, name, slug)
             subjects.extend(programme_rows)
             counts[slug] = len(programme_rows)
-            for row in programme_rows:
-                source = str(row["semesterSource"])
-                source_counts[source] = source_counts.get(source, 0) + 1
-            print(code, name, len(programme_rows), flush=True)
+            semester_counts[slug] = {
+                f"Semester {number}": sum(
+                    1 for row in programme_rows if int(row["semesterNumber"]) == number
+                )
+                for number in range(1, 7)
+            }
+            source_counts.update(str(row["semesterSource"]) for row in programme_rows)
         except Exception as exc:
             failures.append(
                 {
@@ -307,27 +417,41 @@ def main() -> int:
     if failures:
         print(json.dumps(failures, indent=2), file=sys.stderr)
         return 1
+    if len(counts) != 38 or len(subjects) < 1000:
+        print(
+            f"Unsafe catalogue size: programmes={len(counts)} subjects={len(subjects)}",
+            file=sys.stderr,
+        )
+        return 1
 
-    Path("assets/data").mkdir(parents=True, exist_ok=True)
-    Path("assets/data/revision-2026-programmes.json").write_text(
-        json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-    )
     payload = {
         "scheme": "REV2026",
         "source": INDEX,
-        "sourceMethod": "38 exact official programme URLs; official semester table sections",
-        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "sourceMethod": (
+            "Official REV2026 index plus 38 exact official programme URLs; "
+            "semester from official row/table section, with checked code-prefix fallback only."
+        ),
+        "generatedAt": verified_at.isoformat(),
         "programmeCount": 38,
         "subjectCount": len(subjects),
         "programmeSubjectCounts": counts,
-        "semesterSourceCounts": source_counts,
+        "programmeSemesterCounts": semester_counts,
+        "semesterSourceCounts": dict(sorted(source_counts.items())),
         "failures": [],
         "subjects": subjects,
     }
-    Path("assets/data/revision-2026-subjects.json").write_text(
+
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    PROGRAMME_OUT.write_text(
+        json.dumps(registry, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    SUBJECT_OUT.write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
-    print(f"programmes=38 subjects={len(subjects)} failures=0")
+    print(
+        f"Verified programmes=38 subjects={len(subjects)} failures=0 "
+        f"sources={dict(sorted(source_counts.items()))}"
+    )
     return 0
 
 
