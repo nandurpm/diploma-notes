@@ -1,0 +1,120 @@
+name: Normalize public pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "*.html"
+      - "revision-2021/*.html"
+      - "revision-2026/*.html"
+      - "sitemap.xml"
+      - "tools/maintain_public_pages.py"
+      - ".github/workflows/normalize-public-pages.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: normalize-public-pages-main
+  cancel-in-progress: true
+
+jobs:
+  normalize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate maintenance script
+        run: python -m py_compile tools/maintain_public_pages.py
+
+      - name: Normalize public HTML and sitemap
+        run: python tools/maintain_public_pages.py
+
+      - name: Confirm normalization is idempotent
+        shell: bash
+        run: |
+          git diff --binary > /tmp/normalization-before.diff
+          python tools/maintain_public_pages.py
+          git diff --binary > /tmp/normalization-after.diff
+          cmp /tmp/normalization-before.diff /tmp/normalization-after.diff
+
+      - name: Audit normalized source
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+          import xml.etree.ElementTree as ET
+          from urllib.parse import urlparse
+
+          root = Path('.')
+          ns = {'sm': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
+          tree = ET.parse(root / 'sitemap.xml')
+          failures = []
+          required_nav = (
+              'Home', 'About', 'Revision 2026', 'Revision 2021', 'Mock Exams',
+              'Ask POLY AI', '2015 Materials', 'Tools', 'Help'
+          )
+
+          for node in tree.findall('sm:url/sm:loc', ns):
+              url = (node.text or '').strip()
+              route = urlparse(url).path or '/'
+              if route.startswith('/lessons/') or route.startswith('/revision-2026-content/lessons/'):
+                  continue
+              local = 'index.html' if route == '/' else route.lstrip('/')
+              path = root / local
+              if not path.exists():
+                  failures.append(f'{local}: missing file')
+                  continue
+              source = path.read_text(encoding='utf-8', errors='ignore')
+              checks = {
+                  'canonical POLY PMNA title': bool(re.search(r'<title>[^<]*POLY PMNA[^<]*</title>', source, re.I)),
+                  'canonical link': f'<link rel="canonical" href="{url}">' in source,
+                  'Open Graph title': 'property="og:title"' in source,
+                  'Open Graph image': 'property="og:image"' in source,
+                  'Twitter card': 'name="twitter:card"' in source,
+                  'skip link': 'class="skip-link" href="#main-content"' in source,
+                  'main target': '<main id="main-content"' in source,
+                  'static site header': 'data-site-header' in source,
+                  'static site footer': 'data-site-footer' in source,
+                  'legal footer links': all(f'href="/{name}.html"' in source for name in ('privacy', 'terms', 'disclaimer')),
+              }
+              header_match = re.search(r'<header\b[^>]*data-site-header[^>]*>(.*?)</header>', source, re.I | re.S)
+              header = header_match.group(1) if header_match else ''
+              checks['complete navigation'] = all(label in header for label in required_nav)
+              checks['canonical header brand'] = '<strong>POLY PMNA</strong>' in header
+              for label, passed in checks.items():
+                  if not passed:
+                      failures.append(f'{local}: {label}')
+
+          for local in ('contact.html', 'privacy.html'):
+              source = (root / local).read_text(encoding='utf-8', errors='ignore')
+              if 'nandakumarmkdpm@gmail.com' in source:
+                  failures.append(f'{local}: plaintext email remains')
+
+          if failures:
+              raise SystemExit('\n'.join(failures))
+          print('Focused audit passed for all non-lesson sitemap pages.')
+
+      - name: Commit normalized pages
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No generated changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml '*.html' revision-2021/*.html revision-2026/*.html
+          git commit -m "Normalize public site shell and metadata"
+          git push
