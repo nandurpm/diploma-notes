@@ -2,7 +2,7 @@ name: Cleanup scheduled maintenance
 
 on:
   schedule:
-    - cron: "45 15 21 7 *"
+    - cron: "45 15 31 12 *"
   workflow_dispatch:
 
 permissions:
@@ -16,7 +16,7 @@ jobs:
         id: guard
         shell: bash
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(date -u +%F)" == "2026-07-21" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(date -u +%F)" == "2026-12-31" ]]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
@@ -36,5 +36,5 @@ jobs:
           git rm -f .github/workflows/cleanup-scheduled-maintenance.yml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Remove completed maintenance gate"
+          git commit -m "Remove completed 2026 maintenance gate"
           git push origin main
