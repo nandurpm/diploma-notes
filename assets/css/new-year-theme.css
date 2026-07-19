@@ -1,0 +1,394 @@
+/* POLY PMNA annual Midnight Circuit New Year theme.
+   Injected globally by Cloudflare Pages middleware from 28 December through 3 January. */
+
+:root {
+  --poly-ny-midnight: #030817;
+  --poly-ny-navy: #071a38;
+  --poly-ny-blue: #155eef;
+  --poly-ny-cyan: #42ddff;
+  --poly-ny-gold: #f7c948;
+  --poly-ny-soft-gold: #ffe9a8;
+  --poly-ny-text: #f8fbff;
+  --poly-ny-muted: #b8c9e5;
+  --poly-ny-banner-height: 68px;
+}
+
+html.poly-new-year-theme {
+  color-scheme: dark;
+  background: var(--poly-ny-midnight);
+}
+
+html.poly-new-year-theme body {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(21, 94, 239, .26), transparent 34rem),
+    radial-gradient(circle at 94% 14%, rgba(66, 221, 255, .17), transparent 31rem),
+    radial-gradient(circle at 50% 100%, rgba(247, 201, 72, .10), transparent 36rem),
+    linear-gradient(180deg, #07152f 0%, #071a38 36%, #091c3b 72%, #050d20 100%) !important;
+  background-attachment: fixed !important;
+}
+
+html.poly-new-year-theme body::selection {
+  color: #051127;
+  background: var(--poly-ny-soft-gold);
+}
+
+#poly-new-year-banner {
+  position: relative;
+  z-index: 2147483640;
+  width: 100%;
+  min-height: var(--poly-ny-banner-height);
+  overflow: hidden;
+  color: var(--poly-ny-text);
+  border-bottom: 1px solid rgba(247, 201, 72, .40);
+  background:
+    linear-gradient(90deg, rgba(3, 8, 23, .98), rgba(7, 26, 56, .97) 46%, rgba(10, 39, 78, .97)),
+    var(--poly-ny-midnight);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, .28), inset 0 -1px 0 rgba(66, 221, 255, .16);
+  isolation: isolate;
+}
+
+#poly-new-year-banner::before,
+#poly-new-year-banner::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(1px);
+  opacity: .72;
+}
+
+#poly-new-year-banner::before {
+  width: 330px;
+  height: 330px;
+  left: -140px;
+  top: -225px;
+  background: radial-gradient(circle, rgba(66, 221, 255, .34), transparent 68%);
+}
+
+#poly-new-year-banner::after {
+  width: 380px;
+  height: 380px;
+  right: -150px;
+  top: -260px;
+  background: radial-gradient(circle, rgba(247, 201, 72, .27), transparent 68%);
+}
+
+.poly-new-year-banner__circuit {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .30;
+  background-image:
+    linear-gradient(90deg, transparent 0 9%, rgba(66, 221, 255, .25) 9% 9.12%, transparent 9.12% 28%, rgba(247, 201, 72, .21) 28% 28.10%, transparent 28.10% 100%),
+    linear-gradient(0deg, transparent 0 35%, rgba(66, 221, 255, .18) 35% 35.7%, transparent 35.7% 68%, rgba(247, 201, 72, .17) 68% 68.6%, transparent 68.6% 100%);
+  background-size: 270px 68px, 310px 68px;
+  mask-image: linear-gradient(90deg, transparent, #000 11%, #000 89%, transparent);
+}
+
+.poly-new-year-banner__inner {
+  width: min(1440px, calc(100% - 24px));
+  min-height: var(--poly-ny-banner-height);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 9px 4px;
+}
+
+.poly-new-year-banner__mark {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(247, 201, 72, .52);
+  border-radius: 16px;
+  color: var(--poly-ny-soft-gold);
+  background: linear-gradient(145deg, rgba(21, 94, 239, .45), rgba(7, 26, 56, .88));
+  box-shadow: 0 0 0 5px rgba(66, 221, 255, .06), 0 9px 24px rgba(0, 0, 0, .26);
+  font-size: 1.35rem;
+}
+
+.poly-new-year-banner__mark::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed rgba(66, 221, 255, .48);
+  border-radius: 11px;
+  animation: polyNyRotate 14s linear infinite;
+}
+
+.poly-new-year-banner__copy {
+  min-width: 0;
+}
+
+.poly-new-year-banner__title {
+  display: block;
+  overflow: hidden;
+  color: #fff;
+  font-size: clamp(.98rem, 1.6vw, 1.18rem);
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: -.015em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.poly-new-year-banner__message {
+  display: block;
+  margin-top: 3px;
+  overflow: hidden;
+  color: var(--poly-ny-muted);
+  font-size: .82rem;
+  font-weight: 650;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.poly-new-year-banner__countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  padding: 7px 11px;
+  border: 1px solid rgba(66, 221, 255, .28);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .055);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .025);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.poly-new-year-banner__countdown[hidden] {
+  display: none;
+}
+
+.poly-new-year-banner__countdown-label {
+  color: var(--poly-ny-muted);
+  font-size: .72rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.poly-new-year-banner__countdown-value {
+  color: var(--poly-ny-soft-gold);
+  font-size: .94rem;
+  font-weight: 900;
+  letter-spacing: .025em;
+}
+
+.poly-new-year-banner__control {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid rgba(247, 201, 72, .30);
+  border-radius: 999px;
+  color: var(--poly-ny-text);
+  background: rgba(255, 255, 255, .055);
+  cursor: pointer;
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 800;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.poly-new-year-banner__control:hover,
+.poly-new-year-banner__control:focus-visible {
+  border-color: rgba(247, 201, 72, .74);
+  background: rgba(247, 201, 72, .11);
+  transform: translateY(-1px);
+}
+
+#poly-new-year-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: .72;
+}
+
+#poly-new-year-circuit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147482999;
+  pointer-events: none;
+  opacity: .13;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(66, 221, 255, .95) 0 2px, transparent 3px),
+    radial-gradient(circle at 78% 26%, rgba(247, 201, 72, .90) 0 2px, transparent 3px),
+    radial-gradient(circle at 32% 82%, rgba(66, 221, 255, .80) 0 2px, transparent 3px),
+    linear-gradient(90deg, transparent 0 49.6%, rgba(66, 221, 255, .25) 49.6% 50%, transparent 50% 100%),
+    linear-gradient(0deg, transparent 0 49.6%, rgba(247, 201, 72, .18) 49.6% 50%, transparent 50% 100%);
+  background-size: 190px 190px, 260px 260px, 330px 330px, 88px 88px, 88px 88px;
+  mask-image: linear-gradient(180deg, #000, rgba(0, 0, 0, .68) 62%, transparent 98%);
+}
+
+html.poly-new-year-theme .topbar,
+html.poly-new-year-theme [data-site-header] {
+  border-color: rgba(247, 201, 72, .30) !important;
+  background: rgba(5, 16, 37, .91) !important;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, .30), inset 0 -1px 0 rgba(66, 221, 255, .13) !important;
+  backdrop-filter: blur(20px) saturate(135%);
+}
+
+html.poly-new-year-theme .topbar .brand,
+html.poly-new-year-theme [data-site-header] .brand,
+html.poly-new-year-theme .topbar strong,
+html.poly-new-year-theme [data-site-header] strong {
+  color: #fff !important;
+}
+
+html.poly-new-year-theme .topbar .brand-symbol,
+html.poly-new-year-theme [data-site-header] .brand-symbol {
+  color: #061225 !important;
+  background: linear-gradient(135deg, var(--poly-ny-gold), var(--poly-ny-cyan)) !important;
+  box-shadow: 0 12px 30px rgba(66, 221, 255, .24) !important;
+}
+
+html.poly-new-year-theme .navlinks a {
+  border-color: rgba(255, 255, 255, .11) !important;
+  color: #dce9ff !important;
+  background: rgba(255, 255, 255, .055) !important;
+}
+
+html.poly-new-year-theme .navlinks a:hover,
+html.poly-new-year-theme .navlinks a.active {
+  color: #071225 !important;
+  border-color: transparent !important;
+  background: linear-gradient(135deg, var(--poly-ny-gold), var(--poly-ny-cyan)) !important;
+  box-shadow: 0 12px 26px rgba(66, 221, 255, .18) !important;
+}
+
+html.poly-new-year-theme .menu-toggle {
+  color: #061225 !important;
+  background: linear-gradient(135deg, var(--poly-ny-gold), var(--poly-ny-cyan)) !important;
+}
+
+html.poly-new-year-theme :is(.page-title, .hero-copy, .hero-panel, .info-card, .subject-card, .choice-card, .notice, .filters, .home-video-frame, .initiative-strip, .footer) {
+  border-color: rgba(247, 201, 72, .22) !important;
+  box-shadow: 0 18px 48px rgba(0, 0, 0, .24), inset 0 1px 0 rgba(255, 255, 255, .08) !important;
+}
+
+html.poly-new-year-theme :is(.page-title, .hero-copy, .hero-panel, .info-card, .choice-card, .notice, .filters, .initiative-strip, .footer) {
+  color: #edf5ff !important;
+  background: linear-gradient(145deg, rgba(9, 28, 59, .93), rgba(6, 19, 43, .94)) !important;
+}
+
+html.poly-new-year-theme :is(.page-title, .hero-copy, .hero-panel, .info-card, .choice-card, .notice, .filters, .initiative-strip, .footer) :is(h1, h2, h3, strong) {
+  color: #fff !important;
+}
+
+html.poly-new-year-theme :is(.page-title, .hero-copy, .hero-panel, .info-card, .choice-card, .notice, .initiative-strip, .footer) :is(p, span, small) {
+  color: #c9d8ef;
+}
+
+html.poly-new-year-theme main :is(h1, h2) {
+  text-shadow: 0 0 24px rgba(66, 221, 255, .11);
+}
+
+html.poly-new-year-theme :is(.btn.primary, button.primary, .primary-btn) {
+  color: #061225 !important;
+  border-color: transparent !important;
+  background: linear-gradient(135deg, var(--poly-ny-gold), var(--poly-ny-cyan)) !important;
+  box-shadow: 0 12px 28px rgba(66, 221, 255, .17) !important;
+}
+
+html.poly-new-year-theme .footer a {
+  color: #e8f1ff !important;
+}
+
+html.poly-new-year-theme.poly-new-year-effects-paused #poly-new-year-effects,
+html.poly-new-year-theme.poly-new-year-effects-paused #poly-new-year-circuit-overlay {
+  display: none;
+}
+
+@keyframes polyNyRotate {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 760px) {
+  :root { --poly-ny-banner-height: 60px; }
+
+  .poly-new-year-banner__inner {
+    width: min(100% - 14px, 1440px);
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 9px;
+    padding-block: 7px;
+  }
+
+  .poly-new-year-banner__mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 1.15rem;
+  }
+
+  .poly-new-year-banner__message {
+    display: none;
+  }
+
+  .poly-new-year-banner__countdown {
+    grid-column: 2 / 4;
+    justify-self: stretch;
+    justify-content: center;
+    min-height: 32px;
+    margin-top: -2px;
+    padding: 4px 8px;
+  }
+
+  .poly-new-year-banner__control {
+    width: 40px;
+    min-width: 40px;
+    padding-inline: 0;
+    overflow: hidden;
+    color: transparent;
+  }
+
+  .poly-new-year-banner__control::before {
+    content: "Ⅱ";
+    display: grid;
+    place-items: center;
+    color: var(--poly-ny-text);
+  }
+
+  #poly-new-year-effects { opacity: .52; }
+  #poly-new-year-circuit-overlay { opacity: .08; }
+}
+
+@media (max-width: 420px) {
+  .poly-new-year-banner__title { font-size: .88rem; }
+  .poly-new-year-banner__countdown-label { display: none; }
+  .poly-new-year-banner__countdown-value { font-size: .86rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poly-new-year-banner__mark::after { animation: none !important; }
+  #poly-new-year-effects { display: none !important; }
+  * { scroll-behavior: auto !important; }
+}
+
+@media print {
+  #poly-new-year-banner,
+  #poly-new-year-effects,
+  #poly-new-year-circuit-overlay {
+    display: none !important;
+  }
+
+  html.poly-new-year-theme,
+  html.poly-new-year-theme body {
+    color-scheme: light !important;
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  html.poly-new-year-theme * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+}
