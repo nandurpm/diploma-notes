@@ -1,0 +1,117 @@
+name: Validate maintenance schedule
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "functions/_middleware.js"
+      - "maintenance/**"
+      - "reports/maintenance-schedule-2026.md"
+      - ".github/workflows/validate-maintenance-schedule.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          cp functions/_middleware.js /tmp/maintenance-middleware.mjs
+          node --check /tmp/maintenance-middleware.mjs
+          node --check maintenance/runtime-guard.js
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          html = Path("maintenance/index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script(?:\s[^>]*)?>(.*?)</script>", html, flags=re.S | re.I)
+          inline = "\n".join(script for script in scripts if script.strip())
+          if not inline.strip():
+              raise SystemExit("No inline maintenance JavaScript found")
+          Path("/tmp/maintenance-inline.js").write_text(inline, encoding="utf-8")
+          PY
+          node --check /tmp/maintenance-inline.js
+
+      - name: Verify all schedule boundaries
+        shell: bash
+        run: |
+          cp functions/_middleware.js /tmp/maintenance-middleware.mjs
+          node --input-type=module <<'JS'
+          import { onRequest } from "file:///tmp/maintenance-middleware.mjs";
+
+          const realNow = Date.now;
+          async function statusAt(iso) {
+            Date.now = () => Date.parse(iso);
+            const response = await onRequest({
+              request: new Request("https://polypmna.dpdns.org/maintenance-status.json"),
+              env: {},
+              next: () => new Response("next")
+            });
+            return response.json();
+          }
+
+          const checks = [
+            ["2026-07-21T14:29:59.000Z", false, 0],
+            ["2026-07-21T14:30:00.000Z", true, 0],
+            ["2026-07-21T15:29:59.000Z", true, 0],
+            ["2026-07-21T15:30:00.000Z", false, 1],
+            ["2026-07-23T15:14:59.000Z", false, 1],
+            ["2026-07-23T15:15:00.000Z", true, 1],
+            ["2026-07-23T15:29:59.000Z", true, 1],
+            ["2026-07-23T15:30:00.000Z", false, 2],
+            ["2026-12-31T15:15:00.000Z", true, 24],
+            ["2026-12-31T15:29:59.000Z", true, 24]
+          ];
+
+          for (const [iso, expectedActive, expectedActivity] of checks) {
+            const status = await statusAt(iso);
+            if (status.active !== expectedActive) {
+              throw new Error(`${iso}: expected active=${expectedActive}, got ${status.active}`);
+            }
+            const selected = status.currentWindow || status.nextWindow;
+            if (!selected || selected.activityIndex !== expectedActivity) {
+              throw new Error(`${iso}: expected activity ${expectedActivity}, got ${selected?.activityIndex}`);
+            }
+            if (status.schedule.totalWindows !== 25) {
+              throw new Error(`Expected 25 total windows, got ${status.schedule.totalWindows}`);
+            }
+          }
+
+          const afterFinal = await statusAt("2026-12-31T15:30:00.000Z");
+          if (afterFinal.active || afterFinal.nextWindow !== null) {
+            throw new Error("Schedule must be fully inactive after the final window");
+          }
+
+          Date.now = realNow;
+          console.log("All maintenance schedule boundaries passed.");
+          JS
+
+      - name: Verify activity rotation limits
+        shell: bash
+        run: |
+          python - <<'PY'
+          from collections import Counter
+          from pathlib import Path
+          import re
+
+          html = Path("maintenance/index.html").read_text(encoding="utf-8")
+          titles = re.findall(r'title: "([^"]+)"', html)
+          kinds = re.findall(r'kind: "([^"]+)"', html)
+
+          if len(titles) != 25:
+              raise SystemExit(f"Expected 25 activity titles, found {len(titles)}")
+          if len(set(titles)) != 25:
+              raise SystemExit("Activity titles must be unique")
+
+          recurring_counts = Counter(kinds[1:])
+          if any(count > 4 for count in recurring_counts.values()):
+              raise SystemExit(f"A recurring activity category exceeds four uses: {recurring_counts}")
+
+          print("Activity title uniqueness and repetition limits passed:", recurring_counts)
+          PY
