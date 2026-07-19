@@ -10,9 +10,11 @@ on:
       - "revision-2021/*.html"
       - "revision-2026/*.html"
       - "sitemap.xml"
+      - "assets/js/help-comments.js"
       - "assets/media/poly-pmna-favicon.svg"
       - "tools/maintain_public_pages.py"
       - "tools/normalize_public_brand_assets.py"
+      - "tools/protect_help_email.py"
       - ".github/workflows/normalize-public-pages.yml"
 
 permissions:
@@ -38,12 +40,13 @@ jobs:
           python-version: "3.12"
 
       - name: Validate maintenance scripts
-        run: python -m py_compile tools/maintain_public_pages.py tools/normalize_public_brand_assets.py
+        run: python -m py_compile tools/maintain_public_pages.py tools/normalize_public_brand_assets.py tools/protect_help_email.py
 
       - name: Normalize public HTML, sitemap and branding
         run: |
           python tools/maintain_public_pages.py
           python tools/normalize_public_brand_assets.py
+          python tools/protect_help_email.py
 
       - name: Confirm normalization is idempotent
         shell: bash
@@ -51,6 +54,7 @@ jobs:
           git diff --binary > /tmp/normalization-before.diff
           python tools/maintain_public_pages.py
           python tools/normalize_public_brand_assets.py
+          python tools/protect_help_email.py
           git diff --binary > /tmp/normalization-after.diff
           cmp /tmp/normalization-before.diff /tmp/normalization-after.diff
 
@@ -105,10 +109,12 @@ jobs:
                   if not passed:
                       failures.append(f'{local}: {label}')
 
-          for local in ('contact.html', 'privacy.html'):
+          for local in ('contact.html', 'privacy.html', 'assets/js/help-comments.js'):
               source = (root / local).read_text(encoding='utf-8', errors='ignore')
               if 'nandakumarmkdpm@gmail.com' in source:
                   failures.append(f'{local}: plaintext email remains')
+              if 'Diploma%20Notes%20Help' in source:
+                  failures.append(f'{local}: legacy email branding remains')
 
           if failures:
               raise SystemExit('\n'.join(failures))
@@ -124,6 +130,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sitemap.xml '*.html' revision-2021/*.html revision-2026/*.html
-          git commit -m "Normalize public site shell metadata and branding"
+          git add sitemap.xml '*.html' revision-2021/*.html revision-2026/*.html assets/js/help-comments.js
+          git commit -m "Normalize public site shell metadata branding and contact privacy"
           git push
