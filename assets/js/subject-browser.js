@@ -12,7 +12,7 @@
 
   // Revision 2026 assets are detected only inside /revision-2026-content.
   const REV2026_LESSON_CODES = new Set(["1001","1002","1003","1008","1011","1021","1031","1041","1051","1131","2002B","2003A","2031","2032","2131"]);
-  const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1008","1011","1021","1031","1041","1051","1131","2002B","2003A","2031","2032"]);
+  const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1008","1011","1021","1031","1041","1051","1131","2002B","2003A","2031","2032","2131"]);
 
   const MANUAL = [
     {revision:"2021",semester:"Semester 1",code:"1001",name:"Communication Skills in English",department:COMMON,type:"Theory",assetCode:"1001"},
