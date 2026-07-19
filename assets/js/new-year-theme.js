@@ -8,7 +8,9 @@
   const root = document.documentElement;
   const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches === true;
   const compactScreen = window.matchMedia?.("(max-width: 760px)")?.matches === true;
-  const originalThemeColor = document.querySelector('meta[name="theme-color"]')?.getAttribute("content") || "";
+  const initialThemeMeta = document.querySelector('meta[name="theme-color"]');
+  const hadThemeColorMeta = Boolean(initialThemeMeta);
+  const originalThemeColor = initialThemeMeta?.getAttribute("content") || "";
 
   let effectsEnabled = !reducedMotion;
   try {
@@ -31,8 +33,8 @@
   let animationRunning = false;
   let lastFrame = 0;
   let resizeTimer = 0;
+  let updateTimer = 0;
   let currentPhase = "";
-  let currentTargetYear = 0;
   let introPlayed = false;
   let stars = [];
   let sparks = [];
@@ -169,7 +171,6 @@
       return;
     }
 
-    currentTargetYear = season.targetYear;
     root.dataset.polyNewYear = String(season.targetYear);
 
     if (season.phase !== currentPhase) {
@@ -214,6 +215,7 @@
   }
 
   function toggleEffects() {
+    if (reducedMotion) return;
     effectsEnabled = !effectsEnabled;
     root.classList.toggle("poly-new-year-effects-paused", !effectsEnabled);
     try {
@@ -221,15 +223,31 @@
     } catch (error) {
       // Ignore storage restrictions.
     }
-    updateControl();
-    if (effectsEnabled) {
+
+    if (!effectsEnabled) {
+      stopAnimation();
+      sparks = [];
+      confetti = [];
+      context?.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    } else {
       startAnimation();
       playIntroFireworks(true);
     }
+    updateControl();
   }
 
   function updateControl() {
     if (!control) return;
+    if (reducedMotion) {
+      control.textContent = "Reduced motion";
+      control.disabled = true;
+      control.setAttribute("aria-pressed", "true");
+      control.setAttribute("aria-label", "New Year animations disabled by reduced-motion preference");
+      control.title = control.getAttribute("aria-label");
+      return;
+    }
+
+    control.disabled = false;
     control.textContent = effectsEnabled ? "Pause effects" : "Play effects";
     control.setAttribute("aria-pressed", String(!effectsEnabled));
     control.setAttribute("aria-label", effectsEnabled ? "Pause New Year visual effects" : "Play New Year visual effects");
@@ -312,66 +330,63 @@
   }
 
   function drawFrame(timestamp) {
-    if (!context || !canvas) return;
-    if (!animationRunning) return;
+    if (!context || !canvas || !animationRunning) return;
 
     const elapsed = Math.min(.05, Math.max(.001, (timestamp - lastFrame) / 1000 || .016));
     lastFrame = timestamp;
     context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
-    if (effectsEnabled && !document.hidden) {
-      stars.forEach(star => {
-        star.y += star.speed * elapsed;
-        star.pulse += elapsed * 1.7;
-        if (star.y > window.innerHeight + 4) {
-          star.y = -4;
-          star.x = Math.random() * window.innerWidth;
-        }
-        const alpha = star.alpha * (.7 + Math.sin(star.pulse) * .3);
-        context.beginPath();
-        context.fillStyle = `rgba(184, 226, 255, ${Math.max(.04, alpha)})`;
-        context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        context.fill();
-      });
+    stars.forEach(star => {
+      star.y += star.speed * elapsed;
+      star.pulse += elapsed * 1.7;
+      if (star.y > window.innerHeight + 4) {
+        star.y = -4;
+        star.x = Math.random() * window.innerWidth;
+      }
+      const alpha = star.alpha * (.7 + Math.sin(star.pulse) * .3);
+      context.beginPath();
+      context.fillStyle = `rgba(184, 226, 255, ${Math.max(.04, alpha)})`;
+      context.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      context.fill();
+    });
 
-      sparks = sparks.filter(particle => {
-        particle.life -= elapsed;
-        if (particle.life <= 0) return false;
-        particle.vy += particle.gravity * elapsed;
-        particle.x += particle.vx * elapsed;
-        particle.y += particle.vy * elapsed;
-        particle.vx *= .986;
-        particle.vy *= .986;
-        const alpha = Math.min(1, particle.life / particle.maxLife);
-        context.globalAlpha = alpha;
-        context.fillStyle = particle.colour;
-        context.fillRect(particle.x, particle.y, particle.size, particle.size);
-        context.globalAlpha = 1;
-        return true;
-      });
+    sparks = sparks.filter(particle => {
+      particle.life -= elapsed;
+      if (particle.life <= 0) return false;
+      particle.vy += particle.gravity * elapsed;
+      particle.x += particle.vx * elapsed;
+      particle.y += particle.vy * elapsed;
+      particle.vx *= .986;
+      particle.vy *= .986;
+      const alpha = Math.min(1, particle.life / particle.maxLife);
+      context.globalAlpha = alpha;
+      context.fillStyle = particle.colour;
+      context.fillRect(particle.x, particle.y, particle.size, particle.size);
+      context.globalAlpha = 1;
+      return true;
+    });
 
-      confetti = confetti.filter(piece => {
-        piece.life -= elapsed;
-        if (piece.life <= 0 || piece.y > window.innerHeight + 40) return false;
-        piece.vy += 18 * elapsed;
-        piece.x += piece.vx * elapsed;
-        piece.y += piece.vy * elapsed;
-        piece.rotation += piece.spin * elapsed;
-        context.save();
-        context.translate(piece.x, piece.y);
-        context.rotate(piece.rotation);
-        context.fillStyle = piece.colour;
-        context.fillRect(-piece.width / 2, -piece.height / 2, piece.width, piece.height);
-        context.restore();
-        return true;
-      });
-    }
+    confetti = confetti.filter(piece => {
+      piece.life -= elapsed;
+      if (piece.life <= 0 || piece.y > window.innerHeight + 40) return false;
+      piece.vy += 18 * elapsed;
+      piece.x += piece.vx * elapsed;
+      piece.y += piece.vy * elapsed;
+      piece.rotation += piece.spin * elapsed;
+      context.save();
+      context.translate(piece.x, piece.y);
+      context.rotate(piece.rotation);
+      context.fillStyle = piece.colour;
+      context.fillRect(-piece.width / 2, -piece.height / 2, piece.width, piece.height);
+      context.restore();
+      return true;
+    });
 
     animationFrame = requestAnimationFrame(drawFrame);
   }
 
   function startAnimation() {
-    if (animationRunning || reducedMotion) return;
+    if (animationRunning || reducedMotion || !effectsEnabled || document.hidden) return;
     animationRunning = true;
     lastFrame = performance.now();
     animationFrame = requestAnimationFrame(drawFrame);
@@ -385,13 +400,20 @@
 
   function teardown() {
     stopAnimation();
+    window.clearInterval(updateTimer);
+    updateTimer = 0;
     banner?.remove();
     canvas?.remove();
     circuitOverlay?.remove();
     root.classList.remove("poly-new-year-theme", "poly-new-year-effects-paused");
     delete root.dataset.polyNewYear;
+
     const themeMeta = document.querySelector('meta[name="theme-color"]');
-    if (themeMeta && originalThemeColor) themeMeta.content = originalThemeColor;
+    if (themeMeta) {
+      if (hadThemeColorMeta) themeMeta.content = originalThemeColor;
+      else themeMeta.remove();
+    }
+
     window.__POLY_NEW_YEAR_THEME__ = false;
   }
 
@@ -407,15 +429,17 @@
     updateBanner();
     startAnimation();
 
-    window.setInterval(updateBanner, 1000);
+    updateTimer = window.setInterval(updateBanner, 1000);
     window.addEventListener("resize", () => {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(resizeCanvas, 160);
     }, { passive: true });
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
+        stopAnimation();
         sparks = [];
         confetti = [];
+        context?.clearRect(0, 0, window.innerWidth, window.innerHeight);
       } else if (effectsEnabled) {
         startAnimation();
       }
