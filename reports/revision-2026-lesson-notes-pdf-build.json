@@ -3,12 +3,19 @@
   "lessonFolder": "revision-2026-content/lessons",
   "notesFolder": "revision-2026-content/notes",
   "generated": [],
-  "errors": [],
+  "errors": [
+    {
+      "code": "1009",
+      "source": "revision-2026-content/lessons/lessons-1009.html",
+      "error": "prepared lesson text is unexpectedly short (114 characters)"
+    }
+  ],
   "requiredLessonCodes": [
     "1001",
     "1002",
     "1003",
     "1008",
+    "1009",
     "1011",
     "1021",
     "1031",
@@ -22,7 +29,9 @@
     "2131"
   ],
   "generatedThisRunCodes": [],
-  "missingCodes": [],
+  "missingCodes": [
+    "1009"
+  ],
   "renderer": "Playwright Chromium through local HTTP server",
   "minimumPdfBytes": 20000
 }
