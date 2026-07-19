@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replace legacy public-page favicons with the canonical POLY PMNA icon."""
+"""Idempotently replace legacy public-page favicons with the POLY PMNA icon."""
 from __future__ import annotations
 
 import re
