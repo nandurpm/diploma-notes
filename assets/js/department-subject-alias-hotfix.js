@@ -64,11 +64,14 @@
     const semester = document.getElementById("semesterFilter");
     const search = document.getElementById("subjectSearch");
     const text = await fetch(`${root()}assets/js/subjects.js?v=20260630-dept-alias-hotfix1`).then((response) => response.text()).catch(() => "");
-    const all = readSubjects(text);
+    // PERFORMANCE OPTIMIZATION: Deduplicate the full subjects list once at load time
+    // instead of running an O(N) deduplication pass inside the `render` function
+    // on every single user keystroke and filter change event.
+    const all = unique(readSubjects(text));
     const render = () => {
       const sem = semester?.value || "all";
       const query = String(search?.value || "").trim().toLowerCase();
-      let items = unique(all).filter((subject) => String(subject.revision) === revision && (sameDept(subject.department, COMMON) || sameDept(subject.department, dept)));
+      let items = all.filter((subject) => String(subject.revision) === revision && (sameDept(subject.department, COMMON) || sameDept(subject.department, dept)));
       if (sem !== "all") items = items.filter((subject) => String(subject.semester) === sem);
       if (query) items = items.filter((subject) => [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase().includes(query));
       items.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
