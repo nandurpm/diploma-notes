@@ -30,19 +30,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-notes:
+  materialize-1009:
     if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip notes]') }}
     runs-on: ubuntu-latest
-    timeout-minutes: 90
-
+    timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Materialize pending REV2026 1009 handbook
+      - name: Decode and commit pending REV2026 1009 handbook
         run: |
+          set -euo pipefail
           python - <<'PY'
           from pathlib import Path
           import base64
@@ -68,6 +68,32 @@ jobs:
           target.write_bytes(raw)
           print(f"Materialized {target} ({len(raw)} bytes, SHA-256 {digest})")
           PY
+
+          if git diff --quiet -- revision-2026-content/lessons/lessons-1009.html; then
+            echo "Course 1009 handbook is already materialized."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-1009.html
+          git commit -m "Complete REV2026 1009 Health and Physical Education handbook [skip notes]"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
+
+  build-notes:
+    needs: materialize-1009
+    if: ${{ always() && (github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip notes]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh main after handbook materialization
+        run: git pull --ff-only origin main
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -135,20 +161,19 @@ jobs:
           node --check assets/js/subject-browser.js
           node --check assets/js/asset-manifest.js
 
-      - name: Commit generated PDFs, handbook and availability data
+      - name: Commit generated PDFs and availability data
         run: |
-          if git diff --quiet -- revision-2026-content/lessons/lessons-1009.html notes revision-2026-content/notes reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js; then
-            echo "Downloadable notes and Course 1009 handbook are already current."
+          if git diff --quiet -- notes revision-2026-content/notes reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js; then
+            echo "Downloadable notes are already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add revision-2026-content/lessons/lessons-1009.html
           git add notes revision-2026-content/notes
           git add reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json
           git add assets/js/subject-browser.js assets/js/asset-manifest.js
-          git commit -m "Build REV2026 1009 handbook and downloadable notes [skip notes]"
+          git commit -m "Build revision-separated downloadable notes [skip notes]"
           git pull --rebase --autostash origin main
           git push origin HEAD:main
 
