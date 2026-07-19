@@ -260,3 +260,23 @@
   addEventListener("resize", updateProgress, { passive: true });
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", () => { void boot(); }, { once: true }) : void boot();
 })();
+
+(() => {
+  "use strict";
+  const isCourse2131 = /^\/revision-2026-content\/lessons\/lessons-2131\.html$/i.test(location.pathname);
+  if (!isCourse2131 || window.__poly2131EnhancementLoaderInstalled) return;
+  window.__poly2131EnhancementLoaderInstalled = true;
+
+  const load = () => {
+    if (window.__poly2131EnhancementsLoaded || document.querySelector('script[data-poly-course-enhancement="2131"]')) return;
+    const script = document.createElement("script");
+    script.src = "/assets/js/lessons/lesson-2131-enhancements.js?v=20260719";
+    script.defer = true;
+    script.dataset.polyCourseEnhancement = "2131";
+    (document.head || document.documentElement).append(script);
+  };
+
+  document.readyState === "loading"
+    ? document.addEventListener("DOMContentLoaded", load, { once: true })
+    : load();
+})();
