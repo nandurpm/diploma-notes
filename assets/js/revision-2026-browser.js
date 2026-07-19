@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260717-rev2026-department-art-v3";
+  const VERSION = "20260720-rev2026-verified-cards";
   const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
   const PROGRAMME_ART = {
     "architecture": ["#0f5ea8", "#0e7490"],
@@ -285,6 +285,10 @@
       enhanceStaticDepartment();
     } catch (error) {
       console.error("REV2026 subject loading failed", error);
+      if (grid.querySelector(".subject-card")) {
+        enhanceStaticDepartment();
+        return;
+      }
       grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
     }
   }
@@ -295,7 +299,7 @@
       enhanceProgrammeIndex();
       return;
     }
-    if (!enhanceStaticDepartment()) renderCompatibilityPage();
+    renderCompatibilityPage();
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
