@@ -3,7 +3,7 @@ name: Build lesson notes PDFs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "*/5 * * * *"
   push:
     branches: [main]
     paths:
