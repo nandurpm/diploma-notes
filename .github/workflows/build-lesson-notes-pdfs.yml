@@ -41,6 +41,34 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Materialize pending REV2026 1009 handbook
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          import gzip
+          import hashlib
+
+          parts = [
+              Path("reports/.materialize-1009-part1.b64"),
+              Path("reports/.materialize-1009-part2.b64"),
+              Path("reports/.materialize-1009-part3.b64"),
+          ]
+          if not all(path.exists() for path in parts):
+              print("No Course 1009 materialization payload found.")
+              raise SystemExit(0)
+          payload = "".join(path.read_text(encoding="utf-8").strip() for path in parts)
+          raw = gzip.decompress(base64.b64decode(payload, validate=True))
+          digest = hashlib.sha256(raw).hexdigest()
+          expected = "ebe69b6ca0b0dcd674d41421e36f08ccaf6ac0a713720701e4121a8258b7817e"
+          if digest != expected:
+              raise SystemExit(f"Course 1009 SHA-256 mismatch: {digest} != {expected}")
+          target = Path("revision-2026-content/lessons/lessons-1009.html")
+          target.parent.mkdir(parents=True, exist_ok=True)
+          target.write_bytes(raw)
+          print(f"Materialized {target} ({len(raw)} bytes, SHA-256 {digest})")
+          PY
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -107,19 +135,20 @@ jobs:
           node --check assets/js/subject-browser.js
           node --check assets/js/asset-manifest.js
 
-      - name: Commit generated PDFs and availability data
+      - name: Commit generated PDFs, handbook and availability data
         run: |
-          if git diff --quiet -- notes revision-2026-content/notes reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js; then
-            echo "Downloadable notes are already current."
+          if git diff --quiet -- revision-2026-content/lessons/lessons-1009.html notes revision-2026-content/notes reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js; then
+            echo "Downloadable notes and Course 1009 handbook are already current."
             exit 0
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-1009.html
           git add notes revision-2026-content/notes
           git add reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json
           git add assets/js/subject-browser.js assets/js/asset-manifest.js
-          git commit -m "Build revision-separated downloadable notes [skip notes]"
+          git commit -m "Build REV2026 1009 handbook and downloadable notes [skip notes]"
           git pull --rebase --autostash origin main
           git push origin HEAD:main
 
