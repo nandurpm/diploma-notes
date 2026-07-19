@@ -1,64 +1,41 @@
-name: Materialize REV2026 1009 handbook
+name: Validate REV2026 1009 legacy payload
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/materialize-rev2026-1009.yml"
-  issues:
-    types: [opened]
-  schedule:
-    - cron: "*/5 * * * *"
+  workflow_dispatch:
 
 permissions:
-  contents: write
-
-concurrency:
-  group: materialize-rev2026-1009
-  cancel-in-progress: false
+  contents: read
 
 jobs:
-  materialize:
-    if: github.event_name == 'schedule' || github.event_name == 'push' || (github.event_name == 'issues' && github.event.issue.title == 'Materialize REV2026 1009 handbook retry')
+  validate-legacy-payload:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Decode and verify handbook
+      - name: Reject recursive loader payload
         run: |
           python - <<'PY'
           from pathlib import Path
           import base64
           import gzip
-          import hashlib
 
           parts = [
               Path("reports/.materialize-1009-part1.b64"),
               Path("reports/.materialize-1009-part2.b64"),
               Path("reports/.materialize-1009-part3.b64"),
           ]
-          payload = "".join(path.read_text(encoding="utf-8").strip() for path in parts)
-          raw = gzip.decompress(base64.b64decode(payload, validate=True))
-          digest = hashlib.sha256(raw).hexdigest()
-          expected = "ebe69b6ca0b0dcd674d41421e36f08ccaf6ac0a713720701e4121a8258b7817e"
-          if digest != expected:
-              raise SystemExit(f"SHA-256 mismatch: {digest} != {expected}")
-          target = Path("revision-2026-content/lessons/lessons-1009.html")
-          target.parent.mkdir(parents=True, exist_ok=True)
-          target.write_bytes(raw)
-          print(f"Created {target} ({len(raw)} bytes, SHA-256 {digest})")
-          PY
+          if not all(path.exists() for path in parts):
+              raise SystemExit("Legacy payload files are missing.")
 
-      - name: Commit handbook
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add revision-2026-content/lessons/lessons-1009.html
-          git commit -m "Add REV2026 1009 Health and Physical Education handbook"
-          git pull --rebase --autostash origin main
-          git push origin HEAD:main
+          payload = "".join(path.read_text(encoding="utf-8").strip() for path in parts)
+          raw = gzip.decompress(base64.b64decode(payload, validate=True)).decode("utf-8")
+
+          if "materialize-1009-part1.b64" in raw or "DecompressionStream" in raw:
+              raise SystemExit(
+                  "Rejected: the legacy payload expands to another loader page and causes a recursive load/abort loop."
+              )
+
+          print("Legacy payload is not recursive. No repository file was changed.")
+          PY
