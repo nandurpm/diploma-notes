@@ -127,6 +127,55 @@ PAGE_METADATA: dict[str, tuple[str, str, str]] = {
     ),
 }
 
+CORE_SITEMAP_PAGES = (
+    "about.html",
+    "ask-poly.html",
+    "contact.html",
+    "daily-quiz.html",
+    "disclaimer.html",
+    "lessons.html",
+    "materials-2015.html",
+    "model-question-papers.html",
+    "previous-question-papers.html",
+    "privacy.html",
+    "revision-2021.html",
+    "revision-2026.html",
+    "study-materials.html",
+    "syllabus.html",
+    "terms.html",
+    "tools.html",
+)
+
+
+def ensure_sitemap_complete() -> bool:
+    """Add missing core and static department pages without deleting existing URLs."""
+    source = SITEMAP.read_text(encoding="utf-8")
+    existing = set(re.findall(r"<loc>\s*(.*?)\s*</loc>", source, flags=re.I))
+    desired: list[tuple[str, str, str]] = []
+
+    for local in CORE_SITEMAP_PAGES:
+        if (ROOT / local).exists():
+            frequency = "daily" if local == "daily-quiz.html" else "monthly"
+            desired.append((f"{SITE_ORIGIN}/{local}", frequency, "0.8"))
+
+    for directory in ("revision-2021", "revision-2026"):
+        for path in sorted((ROOT / directory).glob("*.html")):
+            if path.name == "department-view.html":
+                continue
+            desired.append((f"{SITE_ORIGIN}/{path.relative_to(ROOT).as_posix()}", "monthly", "0.6"))
+
+    additions = [
+        f"  <url><loc>{html.escape(url)}</loc><changefreq>{frequency}</changefreq><priority>{priority}</priority></url>"
+        for url, frequency, priority in desired
+        if url not in existing
+    ]
+    if not additions:
+        return False
+    updated = source.replace("</urlset>", "\n".join(additions) + "\n</urlset>", 1)
+    SITEMAP.write_text(updated, encoding="utf-8")
+    print(f"Sitemap URLs added: {len(additions)}")
+    return True
+
 
 def sitemap_entries() -> list[tuple[str, str]]:
     tree = ET.parse(SITEMAP)
@@ -360,6 +409,7 @@ def maintain_page(local: str, canonical_url: str) -> bool:
 
 
 def main() -> int:
+    ensure_sitemap_complete()
     changed: list[str] = []
     entries = sitemap_entries()
     for local, url in entries:
