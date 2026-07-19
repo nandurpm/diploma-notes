@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   materialize:
-    if: github.event_name == 'push' || (github.event_name == 'issues' && github.event.issue.title == 'Materialize REV2026 1009 handbook')
+    if: github.event_name == 'push' || (github.event_name == 'issues' && github.event.issue.title == 'Materialize REV2026 1009 handbook retry')
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -51,16 +51,11 @@ jobs:
           print(f"Created {target} ({len(raw)} bytes, SHA-256 {digest})")
           PY
 
-      - name: Commit handbook and remove staging files
+      - name: Commit handbook
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm reports/.materialize-1009-part1.b64
-          git rm reports/.materialize-1009-part2.b64
-          git rm reports/.materialize-1009-part3.b64
-          git rm -f .github/lesson-bundles/rev2026-1009.part-* 2>/dev/null || true
-          git rm .github/workflows/materialize-rev2026-1009.yml
           git add revision-2026-content/lessons/lessons-1009.html
           git commit -m "Add REV2026 1009 Health and Physical Education handbook"
           git pull --rebase --autostash origin main
