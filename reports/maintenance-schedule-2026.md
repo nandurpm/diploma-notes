@@ -44,6 +44,6 @@
 - The one-off Electrical Quiz appears once.
 - No activity category or titled activity repeats more than four times.
 
-## Automatic cleanup
+## Middleware retention
 
-The maintenance middleware and cleanup workflow are scheduled for removal after the final window, at approximately **9:15 PM IST on 31 December 2026**. The date checks inside the middleware also prevent any maintenance activation after the final scheduled window even if cleanup is delayed.
+The middleware remains in the repository after the final 2026 maintenance window because it also supplies the automatic annual New Year theme. The 2026 maintenance windows become permanently inactive after **9:00 PM IST on 31 December 2026**, while the New Year theme continues to activate every year from **28 December through 3 January**.
