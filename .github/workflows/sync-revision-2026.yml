@@ -23,7 +23,7 @@ permissions:
 
 concurrency:
   group: sync-revision-2026
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   sync:
@@ -36,6 +36,26 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Enforce bounded live course-page verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('tools/resolve_rev2026_generic_titles.py')
+          text = path.read_text(encoding='utf-8')
+          replacements = {
+              'for attempt in range(3):': 'for attempt in range(1):',
+              'timeout=40, allow_redirects=True': 'timeout=10, allow_redirects=True',
+              'time.sleep(1.5 * (attempt + 1))': 'time.sleep(0.25 * (attempt + 1))',
+              'ThreadPoolExecutor(max_workers=5)': 'ThreadPoolExecutor(max_workers=16)',
+          }
+          for old, new in replacements.items():
+              if old in text:
+                  text = text.replace(old, new, 1)
+              elif new not in text:
+                  raise SystemExit(f'Could not update resolver setting: {old}')
+          path.write_text(text, encoding='utf-8')
+          PY
       - name: Enforce verified subject-card rendering
         run: |
           python - <<'PY'
@@ -46,7 +66,7 @@ jobs:
           browser = browser_path.read_text(encoding='utf-8')
           browser = re.sub(
               r'const VERSION = "[^"]+";',
-              'const VERSION = "20260720-rev2026-verified-cards";',
+              'const VERSION = "20260720-rev2026-exact-titles";',
               browser,
               count=1,
           )
@@ -97,7 +117,7 @@ jobs:
           builder = builder_path.read_text(encoding='utf-8')
           builder, changed = re.subn(
               r'^VERSION = "[^"]+"$',
-              'VERSION = "20260720-rev2026-verified-cards"',
+              'VERSION = "20260720-rev2026-exact-titles"',
               builder,
               count=1,
               flags=re.MULTILINE,
@@ -152,6 +172,7 @@ jobs:
         run: |
           git add assets/data/revision-2026-programmes.json assets/data/revision-2026-subjects.json
           git add assets/js/revision-2026-browser.js tools/build_revision_2026_pages.py
+          git add tools/resolve_rev2026_generic_titles.py
           git add revision-2026.html revision-2026/*.html
           git add reports/revision-2026-build-summary.json
           git add reports/revision-2026-catalogue-verification.json
