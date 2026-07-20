@@ -1,17 +1,46 @@
 import application from "./index.js";
+import { corsHeaders } from "./http.js";
 import { authenticateStudent, storeMockExamResult } from "./result-store.js";
 
-function json(data, status, headers) {
-  const output = new Headers(headers || {});
+function json(data, status, origin, env, inherited) {
+  const output = new Headers(inherited || corsHeaders(origin, env));
   output.set("Content-Type", "application/json; charset=utf-8");
   output.set("Cache-Control", "no-store");
+  output.set("X-Content-Type-Options", "nosniff");
   output.delete("Content-Length");
   return new Response(JSON.stringify(data), { status, headers: output });
+}
+
+async function allowed(binding, key) {
+  if (!binding || typeof binding.limit !== "function") return true;
+  try {
+    const result = await binding.limit({ key });
+    return Boolean(result?.success);
+  } catch (error) {
+    console.error("Distributed rate-limit binding failed; delegating to application fallback.", error);
+    return true;
+  }
+}
+
+function anonymousKey(request) {
+  const ip = request.headers.get("CF-Connecting-IP")
+    || request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim()
+    || "unknown";
+  return `ask:${ip}`;
 }
 
 export default {
   async fetch(request, env, context) {
     const url = new URL(request.url);
+    const origin = request.headers.get("Origin") || "";
+
+    if (request.method === "POST" && (url.pathname === "/" || url.pathname === "/api/ask-poly")) {
+      if (!(await allowed(env.ASK_RATE_LIMITER, anonymousKey(request)))) {
+        return json({ error: "Too many questions. Please wait a minute and try again." }, 429, origin, env);
+      }
+      return application.fetch(request, env, context);
+    }
+
     if (request.method !== "POST" || url.pathname !== "/api/evaluate-mock-exam") {
       return application.fetch(request, env, context);
     }
@@ -20,24 +49,21 @@ export default {
     try {
       student = await authenticateStudent(request, env);
     } catch (error) {
-      const response = await application.fetch(
-        new Request(new URL("/health", request.url), { method: "GET", headers: request.headers }),
-        env,
-        context,
-      );
       return json(
         { error: error?.message || "Sign in before submitting a mock examination." },
         Number(error?.status || 401),
-        response.headers,
+        origin,
+        env,
       );
+    }
+
+    if (!(await allowed(env.EXAM_RATE_LIMITER, `exam:${student.id}`))) {
+      return json({ error: "Too many mock-exam evaluations. Please wait a minute." }, 429, origin, env);
     }
 
     const requestCopy = request.clone();
     const body = await requestCopy.json().catch(() => null);
-    if (!body) {
-      const response = await application.fetch(request, env, context);
-      return response;
-    }
+    if (!body) return application.fetch(request, env, context);
 
     const evaluationResponse = await application.fetch(request, env, context);
     const result = await evaluationResponse.clone().json().catch(() => null);
@@ -47,7 +73,7 @@ export default {
 
     try {
       const stored = await storeMockExamResult(student, body, result, env);
-      return json({ ...result, ...stored }, evaluationResponse.status, evaluationResponse.headers);
+      return json({ ...result, ...stored }, evaluationResponse.status, origin, env, evaluationResponse.headers);
     } catch (error) {
       console.error("Verified mock-exam storage failed", error);
       return json(
@@ -58,6 +84,8 @@ export default {
           storageError: "The evaluation completed, but verified online history storage is temporarily unavailable."
         },
         evaluationResponse.status,
+        origin,
+        env,
         evaluationResponse.headers,
       );
     }
