@@ -14,7 +14,8 @@ ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
 REQUIRED_CRITICAL = (
     "index.html", "revision-2026.html", "revision-2021.html", "daily-quiz.html",
-    "ask-poly.html", "tools.html", "privacy.html", "terms.html", "disclaimer.html", "404.html"
+    "ask-poly.html", "tools.html", "privacy.html", "terms.html", "disclaimer.html", "404.html",
+    "site.webmanifest",
 )
 
 
@@ -30,6 +31,9 @@ class Parser(HTMLParser):
         self.meta: dict[str, str] = {}
         self.skip = False
         self.main = 0
+        self.jsonld = 0
+        self.favicon = 0
+        self.manifest = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = {k.lower(): (v or "") for k, v in attrs}
@@ -43,10 +47,18 @@ class Parser(HTMLParser):
             self.h1 += 1
         if tag == "main":
             self.main += 1
+        if tag == "script" and values.get("type", "").lower() == "application/ld+json" and "data-poly-structured-data" in values:
+            self.jsonld += 1
         if tag == "a" and "skip-link" in values.get("class", "").split() and values.get("href") == "#main-content":
             self.skip = True
-        if tag == "link" and "canonical" in values.get("rel", "").lower().split():
-            self.canonical = values.get("href", "").strip()
+        if tag == "link":
+            rel = values.get("rel", "").lower().split()
+            if "canonical" in rel:
+                self.canonical = values.get("href", "").strip()
+            if "icon" in rel and values.get("href") == "/assets/media/poly-pmna-favicon.svg":
+                self.favicon += 1
+            if "manifest" in rel and values.get("href") == "/site.webmanifest":
+                self.manifest += 1
         if tag == "meta":
             key = values.get("name") or values.get("property")
             if key:
@@ -124,6 +136,14 @@ def audit_page(url: str) -> list[str]:
     for key in required_meta:
         if not parser.meta.get(key):
             issues.append(f"missing metadata {key}")
+    if parser.favicon != 1:
+        issues.append(f"expected one POLY PMNA favicon; found {parser.favicon}")
+    if parser.manifest != 1:
+        issues.append(f"expected one web manifest link; found {parser.manifest}")
+    if parser.meta.get("theme-color") != "#1d4ed8":
+        issues.append("missing or inconsistent theme-color")
+    if parser.jsonld != 1:
+        issues.append(f"expected one generated JSON-LD block; found {parser.jsonld}")
     broken = []
     for ref in parser.refs:
         target = local_target(local, ref)
@@ -139,6 +159,8 @@ def audit_configuration() -> list[str]:
     config = (ROOT / "assets/js/ask-poly-config.js").read_text(encoding="utf-8")
     if "mockExamEndpoint" not in config or "/api/evaluate-mock-exam" not in config:
         issues.append("Dedicated mockExamEndpoint is missing")
+    if "backupEndpoint" in config:
+        issues.append("Unused Ask POLY backup endpoint remains in browser configuration")
     service = (ROOT / "assets/js/mock-exam-service.js").read_text(encoding="utf-8")
     if 'url.pathname = "/api/evaluate-mock-exam"' in service:
         issues.append("Mock exam service still mutates another endpoint pathname")
@@ -148,7 +170,11 @@ def audit_configuration() -> list[str]:
     if "/revision-2021/:dept.html" in redirects:
         issues.append("Fragile Revision 2021 wildcard redirect remains")
     index = (ROOT / "index.html").read_text(encoding="utf-8")
-    if re.search(r"<script(?![^>]*\bsrc=)[^>]*>\s*\S", index, re.I):
+    executable_inline = re.compile(
+        r'<script(?![^>]*\bsrc=)(?![^>]*\btype=["\']application/ld\+json["\'])[^>]*>\s*\S',
+        re.I,
+    )
+    if executable_inline.search(index):
         issues.append("Homepage contains executable inline script conflicting with CSP")
     for path in REQUIRED_CRITICAL:
         if not (ROOT / path).is_file():
