@@ -6,8 +6,24 @@ workers_dev = true
 [ai]
 binding = "AI"
 
+[[ratelimits]]
+name = "ASK_RATE_LIMITER"
+namespace_id = "202601"
+
+  [ratelimits.simple]
+  limit = 30
+  period = 60
+
+[[ratelimits]]
+name = "EXAM_RATE_LIMITER"
+namespace_id = "202602"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
 [vars]
-ASK_POLY_RELEASE = "2026-07-20-audit-security2"
+ASK_POLY_RELEASE = "2026-07-20-audit-security3"
 AI_PROVIDER_ORDER = "nvidia,openai,gemini"
 PROVIDER_TIMEOUT_MS = "7000"
 OPENAI_MODEL = "gpt-4o-mini"
