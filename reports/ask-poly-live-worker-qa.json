@@ -1,27 +1,10 @@
 {
-  "status": "success",
-  "generatedAt": "2026-07-20T01:38:20Z",
+  "status": "failed",
+  "generatedAt": "2026-07-20T02:27:17Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
+  "askEndpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
-  "health": {
-    "ok": true,
-    "service": "Ask POLY AI",
-    "configured": true,
-    "knowledgeMode": "whole-site-revision-aware-v1",
-    "revisionAware": [
-      "2026",
-      "2021",
-      "2015"
-    ],
-    "wholeSiteContext": true,
-    "localMathFallback": true,
-    "workersAIFallback": false,
-    "providers": [
-      "openai"
-    ],
-    "model": "gpt-4o-mini",
-    "mockExamEvaluation": true,
-    "mockExamPattern": "1004-75-mark-official-model"
-  },
-  "lastError": ""
+  "health": null,
+  "askTest": null,
+  "lastError": "Attempt 30: HTTPError: HTTP Error 502: Bad Gateway"
 }
