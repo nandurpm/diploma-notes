@@ -24,7 +24,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -34,73 +33,12 @@ jobs:
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
           test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
 
-      - name: Generate current deployment metadata and validate source
+      - name: Generate and validate deployable source
         run: |
           GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
           python tools/generate_sitemap.py
           python tools/site_quality_gate.py
-
-      - name: Build public-only deployment directory
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import shutil
-          import subprocess
-
-          root = Path('.')
-          target = Path('_site')
-          if target.exists():
-              shutil.rmtree(target)
-          target.mkdir()
-
-          excluded_roots = {
-              '.git', '.github', 'android', 'android-app', 'docs', 'reports', 'supabase',
-              'tools', 'workers', 'node_modules', '_site'
-          }
-          excluded_suffixes = {
-              '.py', '.pyc', '.cjs', '.mjs', '.ts', '.tsx', '.sql', '.yml',
-              '.yaml', '.md', '.lock', '.toml'
-          }
-          explicit = {
-              'CNAME', '_headers', '_redirects', 'robots.txt', 'sitemap.xml',
-              'build-info.json', 'site.webmanifest'
-          }
-          tracked = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
-          copied = 0
-          for value in tracked:
-              if not value:
-                  continue
-              source = Path(value)
-              if source.parts[0] in excluded_roots:
-                  continue
-              if source.name.startswith('.'):
-                  continue
-              if source.suffix.lower() in excluded_suffixes and value not in explicit:
-                  continue
-              if not source.is_file():
-                  continue
-              destination = target / source
-              destination.parent.mkdir(parents=True, exist_ok=True)
-              shutil.copy2(source, destination)
-              copied += 1
-          for value in explicit:
-              source = root / value
-              if source.is_file():
-                  destination = target / value
-                  destination.parent.mkdir(parents=True, exist_ok=True)
-                  shutil.copy2(source, destination)
-          print(f'Prepared {copied} tracked public files in {target}.')
-          for required in (
-              'index.html', 'revision-2026.html', 'ask-poly.html', 'sitemap.xml',
-              'build-info.json', '_headers', 'site.webmanifest'
-          ):
-              if not (target / required).is_file():
-                  raise SystemExit(f'Missing required deployment file: {required}')
-          PY
-
-      - name: Optimize production assets
-        run: |
-          python tools/optimize_public_build.py --root _site
+          python tools/build_public_site.py --target _site
           test -f _site/build-optimization.json
           grep -q 'assets/build/home.' _site/index.html
 
@@ -123,18 +61,14 @@ jobs:
               payload = json.loads(response.read().decode('utf-8'))
           if not payload.get('success'):
               raise SystemExit(f'Cloudflare project lookup failed: {payload.get("errors")}')
-          projects = payload.get('result') or []
           matches = []
-          for project in projects:
+          for project in payload.get('result') or []:
               domains = set(project.get('domains') or [])
               subdomain = str(project.get('subdomain') or '').replace('https://', '').rstrip('/')
               if domain in domains or domain == subdomain:
                   matches.append(project)
-          if not matches:
-              names = ', '.join(str(item.get('name')) for item in projects)
-              raise SystemExit(f'No Cloudflare Pages project owns {domain}. Available projects: {names}')
-          if len(matches) > 1:
-              raise SystemExit(f'Multiple Cloudflare Pages projects match {domain}: {[item.get("name") for item in matches]}')
+          if len(matches) != 1:
+              raise SystemExit(f'Expected one Cloudflare Pages project for {domain}; found {[item.get("name") for item in matches]}')
           name = str(matches[0]['name'])
           with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
               output.write(f'name={name}\n')
@@ -148,7 +82,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy _site --project-name=${{ steps.project.outputs.name }} --branch=main --commit-hash=${{ github.sha }} --commit-message="Deploy ${{ github.sha }}"
 
-      - name: Verify deployed commit and current homepage
+      - name: Verify deployed commit and optimized homepage
         run: |
           python - <<'PY'
           import json
