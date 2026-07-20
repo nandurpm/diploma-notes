@@ -28,8 +28,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Regenerate sitemap for validation
-        run: python tools/generate_sitemap.py
+      - name: Validate generated source state
+        run: |
+          python tools/generate_sitemap.py --check
+          python tools/materialize_rev2021_subjects.py --check
       - name: Run current site quality gate
         run: python tools/site_quality_gate.py
       - name: Validate critical JavaScript
@@ -39,6 +41,7 @@ jobs:
           node --check assets/js/mock-exam-service.js
           node --check assets/js/mock-exam-1004.js
           node --check workers/ask-poly-ai/src/index.js
+          node --check workers/ask-poly-ai/src/secure-index.js
           node --check workers/ask-poly-ai/src/mock-evaluator.js
           node --check workers/ask-poly-ai/src/result-store.js
       - name: Prevent committed secrets
@@ -46,10 +49,7 @@ jobs:
           python - <<'PY'
           import re
           from pathlib import Path
-          allowed_public = {
-              'assets/js/ask-poly-config.js',
-              'daily-quiz.html',
-          }
+          allowed_public = {'assets/js/ask-poly-config.js', 'daily-quiz.html'}
           patterns = {
               'OpenAI key': re.compile(r'\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}'),
               'Supabase service role': re.compile(r'SUPABASE_SERVICE_ROLE_KEY\s*[:=]\s*["\'][^$\n][^"\']+'),
