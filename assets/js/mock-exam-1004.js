@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260622-ai-eval-fallback10";
+  const MOCK_EXAM_ASSET_VERSION = "20260720-audit-security-fix1";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -55,13 +55,18 @@
 
       try {
         const result = await M.service.evaluate();
-        try {
-          await M.service.saveResult(result);
-          result.savedOnline = true;
-        } catch (error) {
-          console.error(error);
+        if (result.status === "published") {
+          try {
+            await M.service.saveResult(result);
+            result.savedOnline = true;
+          } catch (error) {
+            console.error(error);
+            result.savedOnline = false;
+            result.saveWarning = "The server evaluation is shown below, but verified online history storage was not confirmed. A copy remains in this browser.";
+          }
+        } else {
           result.savedOnline = false;
-          result.saveWarning = "The score was published on this page, but online history storage is temporarily unavailable.";
+          result.saveWarning = "This is a provisional browser-only estimate. It is not an authoritative published score and is not stored online.";
         }
         localStorage.setItem(M.service.key("latest-result"), JSON.stringify(result));
         localStorage.removeItem(M.service.key("draft"));
@@ -84,7 +89,7 @@
     }
 
     function newAttempt() {
-      if (!confirm("Start a new attempt? The published result remains in your history.")) return;
+      if (!confirm("Start a new attempt? Any verified published result remains in your history.")) return;
       M.state.answers = Object.create(null);
       M.state.selections = { partB: [], partC: Object.create(null) };
       ["draft", "started", "latest-result"].forEach((name) => localStorage.removeItem(M.service.key(name)));
