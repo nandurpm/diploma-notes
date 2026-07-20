@@ -8,6 +8,7 @@ on:
     paths:
       - "workers/ask-poly-ai/**"
       - "supabase/functions/ask-poly-proxy/**"
+      - "assets/js/ask-poly-config.js"
       - ".github/workflows/deploy-ask-poly-ai.yml"
 
 permissions:
@@ -28,27 +29,35 @@ jobs:
       OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
       NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY }}
       GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
+      SUPABASE_URL_VALUE: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY_VALUE: ${{ secrets.SUPABASE_ANON_KEY }}
+      SUPABASE_SERVICE_ROLE_KEY_VALUE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate Worker source and public relay configuration
+      - name: Validate Worker source and public route configuration
         run: |
           node --check workers/ask-poly-ai/src/index.js
           node --check workers/ask-poly-ai/src/ask-handler.js
           node --check workers/ask-poly-ai/src/mock-evaluator.js
+          node --check workers/ask-poly-ai/src/result-store.js
+          node --check assets/js/ask-poly-config.js
+          node --check assets/js/mock-exam-service.js
           python - <<'PY'
           from pathlib import Path
           public_config = Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
           for secret_name in (
               'OPENAI_API_KEY', 'NVIDIA_API_KEY', 'GOOGLE_AI_STUDIO',
-              'CLOUDFLARE_AI_API_TOKEN', 'CLOUDFLARE_AI_ACCOUNT_ID'
+              'CLOUDFLARE_AI_API_TOKEN', 'CLOUDFLARE_AI_ACCOUNT_ID',
+              'SUPABASE_SERVICE_ROLE_KEY'
           ):
               assert secret_name not in public_config
-          assert 'supabase.co/functions/v1/ask-poly-proxy' in public_config
           assert 'workers.dev/api/ask-poly' in public_config
+          assert 'mockExamEndpoint' in public_config
+          assert 'workers.dev/api/evaluate-mock-exam' in public_config
           worker_config = Path('workers/ask-poly-ai/wrangler.toml').read_text(encoding='utf-8')
           assert '[ai]' in worker_config and 'binding = "AI"' in worker_config
-          print('Worker source and public relay/fallback configuration validated.')
+          print('Worker source and public route configuration validated.')
           PY
 
       - name: Check deployment secrets
@@ -62,6 +71,9 @@ jobs:
             echo "No Cloudflare AI token is available."
             exit 1
           fi
+          if [ -z "$SUPABASE_URL_VALUE" ] || [ -z "$SUPABASE_ANON_KEY_VALUE" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY_VALUE" ]; then
+            echo "Warning: verified online mock-exam storage will remain disabled until SUPABASE_URL, SUPABASE_ANON_KEY and SUPABASE_SERVICE_ROLE_KEY are configured as repository secrets."
+          fi
 
       - name: Install Wrangler
         run: npm install -g wrangler@4
@@ -72,7 +84,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
 
-      - name: Upload runtime AI credentials
+      - name: Upload runtime credentials
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -81,6 +93,9 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           GOOGLE_AI_STUDIO: ${{ secrets.GOOGLE_AI_STUDIO }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         shell: bash
         run: |
           python - <<'PY'
@@ -89,7 +104,10 @@ jobs:
               "CLOUDFLARE_AI_API_TOKEN": os.environ.get("CLOUDFLARE_AI_API_TOKEN", ""),
               "CLOUDFLARE_AI_ACCOUNT_ID": os.environ.get("CLOUDFLARE_AI_ACCOUNT_ID", ""),
           }
-          for key in ("OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO"):
+          for key in (
+              "OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO",
+              "SUPABASE_URL", "SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY"
+          ):
               value = os.environ.get(key, "")
               if value:
                   secrets[key] = value
@@ -104,7 +122,7 @@ jobs:
           wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
           rm -f ask-poly-secrets.json
 
-      - name: Smoke-test live Worker answer
+      - name: Smoke-test live Worker routes
         shell: bash
         run: |
           python - <<'PY'
@@ -120,7 +138,7 @@ jobs:
                   with urllib.request.urlopen(
                       urllib.request.Request(
                           health_url + f"?deploy_attempt={attempt}",
-                          headers={"User-Agent": "POLY-PMNA-Deploy-QA/4.0", "Cache-Control": "no-cache"},
+                          headers={"User-Agent": "POLY-PMNA-Deploy-QA/5.0", "Cache-Control": "no-cache"},
                       ),
                       timeout=20,
                   ) as response:
@@ -141,7 +159,7 @@ jobs:
                       headers={
                           "Content-Type": "application/json",
                           "Origin": "https://polypmna.dpdns.org",
-                          "User-Agent": "POLY-PMNA-Deploy-QA/4.0"
+                          "User-Agent": "POLY-PMNA-Deploy-QA/5.0"
                       },
                   )
                   with urllib.request.urlopen(request, timeout=45) as response:
@@ -151,6 +169,7 @@ jobs:
                       raise RuntimeError(f"Worker returned no answer: {result}")
                   print(json.dumps({
                       "healthProviders": health.get("providers"),
+                      "verifiedResultStorage": health.get("verifiedResultStorage"),
                       "provider": result.get("provider"),
                       "model": result.get("model"),
                       "answer": answer[:200]
@@ -164,8 +183,9 @@ jobs:
                   time.sleep(10)
           PY
 
-      - name: Confirm relay configuration was not overwritten
+      - name: Confirm public route configuration
         run: |
-          grep -q 'supabase.co/functions/v1/ask-poly-proxy' assets/js/ask-poly-config.js
+          grep -q 'workers.dev/api/ask-poly' assets/js/ask-poly-config.js
+          grep -q 'mockExamEndpoint' assets/js/ask-poly-config.js
           grep -q 'backupEndpoint' assets/js/ask-poly-config.js
-          echo "Supabase relay remains primary; Worker remains backup."
+          echo "Worker is primary, Supabase relay is backup, and mock-exam routing is explicit."
