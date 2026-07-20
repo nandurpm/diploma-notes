@@ -24,6 +24,7 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID_VALUE: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_AI_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
       OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
       NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY }}
       GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
@@ -40,25 +41,33 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           public_config = Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
-          assert 'OPENAI_API_KEY' not in public_config
-          assert 'NVIDIA_API_KEY' not in public_config
-          assert 'GOOGLE_AI_STUDIO' not in public_config
+          for secret_name in (
+              'OPENAI_API_KEY', 'NVIDIA_API_KEY', 'GOOGLE_AI_STUDIO',
+              'CLOUDFLARE_AI_API_TOKEN', 'CLOUDFLARE_AI_ACCOUNT_ID'
+          ):
+              assert secret_name not in public_config
           worker_config = Path('workers/ask-poly-ai/wrangler.toml').read_text(encoding='utf-8')
           assert '[ai]' in worker_config and 'binding = "AI"' in worker_config
-          print('Worker source, Workers AI binding and public configuration validated.')
+          worker_source = Path('workers/ask-poly-ai/src/index.js').read_text(encoding='utf-8')
+          assert 'cloudflare-workers-ai-rest' in worker_source
+          print('Worker source, AI fallbacks and public configuration validated.')
           PY
 
       - name: Check deployment secrets
         shell: bash
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN_VALUE" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID_VALUE" ]; then
-            echo "Ask POLY AI deployment cannot run. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repository Actions secrets."
+            echo "Ask POLY deployment requires CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID repository secrets."
+            exit 1
+          fi
+          if [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
+            echo "No Cloudflare AI token is available. Add CLOUDFLARE_AI_API_TOKEN or permit CLOUDFLARE_API_TOKEN to use Workers AI."
             exit 1
           fi
           if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ]; then
-            echo "No external AI key is configured. Ask POLY will use the Cloudflare Workers AI binding."
+            echo "No external AI key is configured. Ask POLY will use Cloudflare AI."
           else
-            echo "At least one external AI provider is available as an additional fallback."
+            echo "External AI provider keys are available as additional fallbacks."
           fi
 
       - name: Install Wrangler
@@ -70,10 +79,12 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
 
-      - name: Upload optional external AI secrets
+      - name: Upload runtime AI credentials
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_AI_API_TOKEN: ${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_AI_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
           GOOGLE_AI_STUDIO: ${{ secrets.GOOGLE_AI_STUDIO }}
@@ -81,22 +92,26 @@ jobs:
         run: |
           python - <<'PY'
           import json, os
-          secrets = {}
+
+          secrets = {
+              "CLOUDFLARE_AI_API_TOKEN": os.environ.get("CLOUDFLARE_AI_API_TOKEN", ""),
+              "CLOUDFLARE_AI_ACCOUNT_ID": os.environ.get("CLOUDFLARE_AI_ACCOUNT_ID", ""),
+          }
           for key in ("OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO"):
               value = os.environ.get(key, "")
               if value:
                   secrets[key] = value
           if os.environ.get("GOOGLE_AI_STUDIO", ""):
               secrets["GEMINI_API_KEY"] = os.environ["GOOGLE_AI_STUDIO"]
-          with open("ask-poly-secrets.json", "w", encoding="utf-8") as f:
-              json.dump(secrets, f)
-          print("Prepared optional secret names:", ", ".join(secrets.keys()) or "none")
+          missing = [key for key in ("CLOUDFLARE_AI_API_TOKEN", "CLOUDFLARE_AI_ACCOUNT_ID") if not secrets.get(key)]
+          if missing:
+              raise SystemExit("Missing runtime Cloudflare AI credentials: " + ", ".join(missing))
+          with open("ask-poly-secrets.json", "w", encoding="utf-8") as file:
+              json.dump(secrets, file)
+          print("Prepared runtime secret names:", ", ".join(secrets.keys()))
           PY
-          if [ -s ask-poly-secrets.json ] && [ "$(cat ask-poly-secrets.json)" != "{}" ]; then
-            wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
-          else
-            echo "No external provider secrets to upload; Workers AI remains available."
-          fi
+          wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
+          rm -f ask-poly-secrets.json
 
       - name: Smoke-test live AI answer
         shell: bash
@@ -112,12 +127,18 @@ jobs:
           for attempt in range(1, 19):
               try:
                   with urllib.request.urlopen(
-                      urllib.request.Request(health_url, headers={"User-Agent": "POLY-PMNA-Deploy-QA/2.0"}),
+                      urllib.request.Request(
+                          health_url + f"?deploy_attempt={attempt}",
+                          headers={"User-Agent": "POLY-PMNA-Deploy-QA/3.0", "Cache-Control": "no-cache"},
+                      ),
                       timeout=20,
                   ) as response:
                       health = json.loads(response.read().decode("utf-8"))
+                  providers = list(health.get("providers") or [])
                   if not health.get("ok") or not health.get("configured"):
                       raise RuntimeError(f"Worker health is not configured: {health}")
+                  if not any(provider.startswith("cloudflare-workers-ai") for provider in providers):
+                      raise RuntimeError(f"Cloudflare AI fallback is not active: {health}")
 
                   payload = json.dumps({
                       "message": "Reply with exactly: Ask POLY is ready",
@@ -132,7 +153,7 @@ jobs:
                       headers={
                           "Content-Type": "application/json",
                           "Origin": "https://polypmna.dpdns.org",
-                          "User-Agent": "POLY-PMNA-Deploy-QA/2.0"
+                          "User-Agent": "POLY-PMNA-Deploy-QA/3.0"
                       },
                   )
                   with urllib.request.urlopen(request, timeout=45) as response:
@@ -141,7 +162,7 @@ jobs:
                   if not answer:
                       raise RuntimeError(f"Worker returned no answer: {result}")
                   print(json.dumps({
-                      "healthProviders": health.get("providers"),
+                      "healthProviders": providers,
                       "provider": result.get("provider"),
                       "model": result.get("model"),
                       "answer": answer[:200]
@@ -178,7 +199,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Website endpoint configuration is already current."
           else
-            git commit -m "Configure resilient Ask POLY AI endpoint [skip ci]"
+            git commit -m "Configure verified Ask POLY AI endpoint [skip ci]"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
