@@ -13,6 +13,7 @@ const allowAsk = createRateLimiter(30);
 const allowExam = createRateLimiter(5);
 const KNOWLEDGE_MODE = "whole-site-revision-aware-v1";
 const DEFAULT_CLOUDFLARE_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
+const WEBSITE_INTENT_PATTERN = /\b(?:poly\s*pmna|revision|rev\s*20(?:21|26)|sitttr|subject(?:\s+code)?|syllabus|lessons?|notes?|model\s+question(?:\s+paper)?|sample\s+(?:question\s+)?paper|question\s+papers?|mock\s+exams?|department|semester|programme|course|website|web\s*site|page|links?|downloads?|resources?|2015\s+materials?|materials?\s+2015|student\s+tools?)\b/i;
 
 async function readJson(request) {
   try {
@@ -22,18 +23,24 @@ async function readJson(request) {
   }
 }
 
+function wantsWebsiteContext(body) {
+  const message = cleanText(body?.message, 2200);
+  if (!message) return false;
+  return WEBSITE_INTENT_PATTERN.test(message) || /\b[1-6]\d{3,4}[A-Z]?\b/i.test(message);
+}
+
 function enrichAskBody(body) {
-  const suppliedContext = cleanText(body?.pageContext, 12000);
-  const websiteContext = [
-    "POLY PMNA WEBSITE POLICY AND CURRENT STRUCTURE",
-    SYSTEM_INSTRUCTIONS,
-    suppliedContext ? `CURRENT MATCHES FROM THE GENERATED WEBSITE INDEX:\n${suppliedContext}` : "",
-    "Use the matched website records when answering. Keep Revision 2026, Revision 2021 and 2015 materials separate."
-  ].filter(Boolean).join("\n\n");
+  const useWebsiteContext = wantsWebsiteContext(body);
+  const suppliedContext = useWebsiteContext ? cleanText(body?.pageContext, 12000) : "";
+  const websiteContext = suppliedContext
+    ? `MATCHED RECORDS FROM THE POLY PMNA WEBSITE INDEX:\n${suppliedContext}\n\nUse only records directly relevant to the user's request. Ignore unrelated matches.`
+    : "";
 
   return {
     ...body,
-    pageTitle: cleanText(body?.pageTitle, 160) || "POLY PMNA whole-site knowledge",
+    pageTitle: useWebsiteContext
+      ? (cleanText(body?.pageTitle, 160) || "POLY PMNA website question")
+      : "Ask POLY AI general question",
     pageContext: websiteContext
   };
 }
@@ -63,17 +70,17 @@ function cloudflareMessages(body) {
   const question = cleanText(body?.message, 2200);
   const context = cleanText(body?.pageContext, 7000);
   const userContent = context
-    ? `${question}\n\n--- CURRENT POLY PMNA WEBSITE CONTEXT ---\n${context}\n--- END WEBSITE CONTEXT ---`
+    ? `${question}\n\n--- RELEVANT POLY PMNA WEBSITE CONTEXT ---\n${context}\n--- END WEBSITE CONTEXT ---`
     : question;
 
   return [
     {
       role: "system",
       content: [
-        "You are Ask POLY AI, the educational assistant inside POLY PMNA for Kerala Polytechnic students.",
-        "Answer the user's actual question directly. Match the user's language. Be accurate, practical and concise.",
-        "Use supplied website context only when relevant. Never pretend the website contains information that is not present.",
-        "Keep Revision 2026, Revision 2021 and 2015 scheme materials separate. Prioritize electrical and workshop safety.",
+        "You are Ask POLY AI, an educational assistant for Kerala Polytechnic students.",
+        "Answer only the user's actual question. For simple factual questions, answer directly and stop.",
+        "Do not mention POLY PMNA, subjects, syllabus, resources or links unless the user explicitly asks about them.",
+        "Use supplied website context only when it directly answers an explicit website or academic-resource question.",
         SYSTEM_INSTRUCTIONS
       ].join("\n\n")
     },
