@@ -6,9 +6,12 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/finalize-audit-remediation.yml"
+  issues:
+    types: [opened]
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: finalize-audit-remediation-main
@@ -16,10 +19,12 @@ concurrency:
 
 jobs:
   finalize:
+    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Finalize audit remediation'
     runs-on: ubuntu-latest
     timeout-minutes: 40
     env:
       SUPABASE_JS_VERSION: "2.110.7"
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,13 +48,13 @@ jobs:
           grep -q "createClient" "$target.tmp"
           mv "$target.tmp" "$target"
           sha256sum "$target" > "${target}.sha256"
-          cat > assets/vendor/SUPABASE-JS-NOTICE.txt <<EOF
-          @supabase/supabase-js ${SUPABASE_JS_VERSION}
-          Source: ${url}
-          License: MIT
-          Vendored for POLY PMNA browser authentication.
-          Digest: see supabase-js-${SUPABASE_JS_VERSION}.js.sha256
-          EOF
+          printf '%s\n' \
+            "@supabase/supabase-js ${SUPABASE_JS_VERSION}" \
+            "Source: ${url}" \
+            "License: MIT" \
+            "Vendored for POLY PMNA browser authentication." \
+            "Digest: see supabase-js-${SUPABASE_JS_VERSION}.js.sha256" \
+            > assets/vendor/SUPABASE-JS-NOTICE.txt
 
       - name: Replace moving CDN references
         run: |
@@ -120,3 +125,18 @@ jobs:
             sleep $((attempt * 5))
           done
           exit 1
+
+      - name: Record successful issue-triggered run
+        if: success() && github.event_name == 'issues'
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Audit remediation completed successfully in $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Record failed issue-triggered run
+        if: failure() && github.event_name == 'issues'
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Audit remediation failed. Exact workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
