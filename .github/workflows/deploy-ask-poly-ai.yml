@@ -7,11 +7,11 @@ on:
       - main
     paths:
       - "workers/ask-poly-ai/**"
-      - "assets/js/ask-poly-config.js"
+      - "supabase/functions/ask-poly-proxy/**"
       - ".github/workflows/deploy-ask-poly-ai.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: ask-poly-ai-worker-production
@@ -30,10 +30,8 @@ jobs:
       GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Validate Worker source
+      - name: Validate Worker source and public relay configuration
         run: |
           node --check workers/ask-poly-ai/src/index.js
           node --check workers/ask-poly-ai/src/ask-handler.js
@@ -46,11 +44,11 @@ jobs:
               'CLOUDFLARE_AI_API_TOKEN', 'CLOUDFLARE_AI_ACCOUNT_ID'
           ):
               assert secret_name not in public_config
+          assert 'supabase.co/functions/v1/ask-poly-proxy' in public_config
+          assert 'workers.dev/api/ask-poly' in public_config
           worker_config = Path('workers/ask-poly-ai/wrangler.toml').read_text(encoding='utf-8')
           assert '[ai]' in worker_config and 'binding = "AI"' in worker_config
-          worker_source = Path('workers/ask-poly-ai/src/index.js').read_text(encoding='utf-8')
-          assert 'cloudflare-workers-ai-rest' in worker_source
-          print('Worker source, AI fallbacks and public configuration validated.')
+          print('Worker source and public relay/fallback configuration validated.')
           PY
 
       - name: Check deployment secrets
@@ -61,13 +59,8 @@ jobs:
             exit 1
           fi
           if [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
-            echo "No Cloudflare AI token is available. Add CLOUDFLARE_AI_API_TOKEN or permit CLOUDFLARE_API_TOKEN to use Workers AI."
+            echo "No Cloudflare AI token is available."
             exit 1
-          fi
-          if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ]; then
-            echo "No external AI key is configured. Ask POLY will use Cloudflare AI."
-          else
-            echo "External AI provider keys are available as additional fallbacks."
           fi
 
       - name: Install Wrangler
@@ -92,7 +85,6 @@ jobs:
         run: |
           python - <<'PY'
           import json, os
-
           secrets = {
               "CLOUDFLARE_AI_API_TOKEN": os.environ.get("CLOUDFLARE_AI_API_TOKEN", ""),
               "CLOUDFLARE_AI_ACCOUNT_ID": os.environ.get("CLOUDFLARE_AI_ACCOUNT_ID", ""),
@@ -108,12 +100,11 @@ jobs:
               raise SystemExit("Missing runtime Cloudflare AI credentials: " + ", ".join(missing))
           with open("ask-poly-secrets.json", "w", encoding="utf-8") as file:
               json.dump(secrets, file)
-          print("Prepared runtime secret names:", ", ".join(secrets.keys()))
           PY
           wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
           rm -f ask-poly-secrets.json
 
-      - name: Smoke-test live AI answer
+      - name: Smoke-test live Worker answer
         shell: bash
         run: |
           python - <<'PY'
@@ -129,16 +120,13 @@ jobs:
                   with urllib.request.urlopen(
                       urllib.request.Request(
                           health_url + f"?deploy_attempt={attempt}",
-                          headers={"User-Agent": "POLY-PMNA-Deploy-QA/3.0", "Cache-Control": "no-cache"},
+                          headers={"User-Agent": "POLY-PMNA-Deploy-QA/4.0", "Cache-Control": "no-cache"},
                       ),
                       timeout=20,
                   ) as response:
                       health = json.loads(response.read().decode("utf-8"))
-                  providers = list(health.get("providers") or [])
                   if not health.get("ok") or not health.get("configured"):
                       raise RuntimeError(f"Worker health is not configured: {health}")
-                  if not any(provider.startswith("cloudflare-workers-ai") for provider in providers):
-                      raise RuntimeError(f"Cloudflare AI fallback is not active: {health}")
 
                   payload = json.dumps({
                       "message": "Reply with exactly: Ask POLY is ready",
@@ -153,7 +141,7 @@ jobs:
                       headers={
                           "Content-Type": "application/json",
                           "Origin": "https://polypmna.dpdns.org",
-                          "User-Agent": "POLY-PMNA-Deploy-QA/3.0"
+                          "User-Agent": "POLY-PMNA-Deploy-QA/4.0"
                       },
                   )
                   with urllib.request.urlopen(request, timeout=45) as response:
@@ -162,7 +150,7 @@ jobs:
                   if not answer:
                       raise RuntimeError(f"Worker returned no answer: {result}")
                   print(json.dumps({
-                      "healthProviders": providers,
+                      "healthProviders": health.get("providers"),
                       "provider": result.get("provider"),
                       "model": result.get("model"),
                       "answer": answer[:200]
@@ -176,30 +164,8 @@ jobs:
                   time.sleep(10)
           PY
 
-      - name: Configure website with deployed Worker URL
+      - name: Confirm relay configuration was not overwritten
         run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-          endpoint = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
-          source = (
-              "globalThis.ASK_POLY_CONFIG = Object.freeze({\n"
-              f"  endpoint: {json.dumps(endpoint)},\n"
-              "  timeoutMs: 45000,\n"
-              "  maxHistory: 12\n"
-              "});\n"
-          )
-          Path('assets/js/ask-poly-config.js').write_text(source, encoding='utf-8')
-          print(f'Configured Ask POLY endpoint: {endpoint}')
-          PY
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/js/ask-poly-config.js
-          if git diff --cached --quiet; then
-            echo "Website endpoint configuration is already current."
-          else
-            git commit -m "Configure verified Ask POLY AI endpoint [skip ci]"
-            git pull --rebase origin main
-            git push origin HEAD:main
-          fi
+          grep -q 'supabase.co/functions/v1/ask-poly-proxy' assets/js/ask-poly-config.js
+          grep -q 'backupEndpoint' assets/js/ask-poly-config.js
+          echo "Supabase relay remains primary; Worker remains backup."
