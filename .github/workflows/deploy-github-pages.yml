@@ -25,53 +25,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Generate deployment metadata and validate source
+      - name: Generate, validate and optimize public artifact
         run: |
           GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
           python tools/generate_sitemap.py
           python tools/site_quality_gate.py
-      - name: Prepare public artifact
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import shutil
-          import subprocess
-
-          target = Path('_site')
-          if target.exists():
-              shutil.rmtree(target)
-          target.mkdir()
-          excluded = {'.git','.github','android','android-app','docs','reports','supabase','tools','workers','node_modules','_site'}
-          source_suffixes = {'.py','.pyc','.cjs','.mjs','.ts','.tsx','.sql','.yml','.yaml','.md','.lock','.toml'}
-          keep = {'CNAME','_headers','_redirects','robots.txt','sitemap.xml','build-info.json','site.webmanifest'}
-          tracked = subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
-          for name in tracked:
-              if not name:
-                  continue
-              source = Path(name)
-              if source.parts[0] in excluded or source.name.startswith('.'):
-                  continue
-              if source.suffix.lower() in source_suffixes and name not in keep:
-                  continue
-              if not source.is_file():
-                  continue
-              destination = target / source
-              destination.parent.mkdir(parents=True, exist_ok=True)
-              shutil.copy2(source, destination)
-          for name in keep:
-              source = Path(name)
-              if source.is_file():
-                  destination = target / source
-                  destination.parent.mkdir(parents=True, exist_ok=True)
-                  shutil.copy2(source, destination)
-          (target / '.nojekyll').write_text('', encoding='utf-8')
-          for required in ('index.html','revision-2026.html','ask-poly.html','sitemap.xml','build-info.json','CNAME','site.webmanifest'):
-              if not (target / required).is_file():
-                  raise SystemExit(f'Missing deployment file: {required}')
-          PY
-      - name: Optimize production assets
-        run: |
-          python tools/optimize_public_build.py --root _site
+          python tools/build_public_site.py --target _site
           test -f _site/build-optimization.json
           grep -q 'assets/build/home.' _site/index.html
       - uses: actions/configure-pages@v5
