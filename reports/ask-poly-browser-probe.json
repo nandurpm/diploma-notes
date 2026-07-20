@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T11:45:21Z",
+  "generatedAt": "2026-07-20T12:20:21Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Mon, 20 Jul 2026 11:45:18 GMT",
+      "date": "Mon, 20 Jul 2026 12:20:20 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "419",
       "connection": "close",
@@ -19,10 +19,10 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MC7EJlUe7Sopo%2FpJOJ7nvSP7ZiVF6TzhobGSJ13Ug6pFC0lIAjR0jwpX6L7KNZpzSzO%2FHp3C092LHTPWXCcJVpB9sN0QDNX%2FpyS%2BPuTXuV2fGMsLfTsaoqhzJpTMfDRT0cSx5e5V6uXj%2FtiIgHfNefgl2xqI4kDq3Q%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=l9Z5fcz0L%2BrV1K6nTwB2rbGh4sYJVYMpZWXJ7JmtNu%2FkadR8lYlrNj7kkmIR3pIr7uRoh1p2gRnANbNWbY673a3O1hcv3tpTqJc6vdD3RNrqikvuG%2BBtGuAu7BPaHe0mpABXanP5t71HzjaJxmHn%2Bnmg3jasCMGojA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1e1b80a7e2ae645-IAD",
+      "cf-ray": "a1e1eb5e7fa3c380-SEA",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -33,17 +33,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Mon, 20 Jul 2026 11:45:18 GMT",
+      "date": "Mon, 20 Jul 2026 12:20:20 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=fV8gwdRmE8TnOSzepnDtRnt%2Bt8uCLEEt2ie02%2BFVQtY9G0UpxrLwpQLAmr5DwWqrNihpIPMrJBdBpuBoKI8Rj7soGdoBJttpqpXgCtCedHduxe%2FYDMA61tyDTHrcaDkY8SlwyikXolOuReFPxMz7wyfKfKMlTVspnQ%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=17%2B1ow7uIKoMFOtpOwAJi5F9oNhIaNx%2FcD66DMCkWTOfUDbo2hkmKz4h%2FDibTjU2VPv6sn6kaJeyqrBxsdn9TLUoczfJ%2BHwgGegXqy8F2CsdkXXJmGlIjAMNxmEUw3lbIQyNcLry1KCLjF%2Fhv%2BR9QAB5U1sNbxUTtA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1e1b80aabacad11-IAD",
+      "cf-ray": "a1e1eb5ece046805-SEA",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -54,9 +54,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Mon, 20 Jul 2026 11:45:21 GMT",
+      "date": "Mon, 20 Jul 2026 12:20:21 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "1013",
+      "content-length": "448",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -65,13 +65,13 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BBTmf56s2w1eyJTQonzqLRTPZqRPJuWz%2BNuZoe0rdQf4xP6XXww3%2FV30Mku4ZxLX2NMhH2JQ1aFgwMnoWPXPQGo306VFFNaj5DoPfkXUX%2BmLCD6okwq7%2FaXEJMuZp8XrPwSqKYKexDoepj%2FQZ0LhzKw7IMU4TniCEg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hbmmim7UwavmGoLHtQDeHKQr1EI0olnxxSdG4UGa3lGiwuYVy6yMv77A3d5SvlNOjCXqtSqnVorf5S4LTkY90lLUcWk1por0fdFNud%2FI5bvEb3f55feNyEIaJgMRhWPdN%2F2XB4x6mHf8QszqbnihnLY1kIHvc7MZAg%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1e1b80aef3f2fdf-IAD",
+      "cf-ray": "a1e1eb5f0901a3c6-SEA",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY browser path\\\" as I'm a text-based AI assistant. However, if you're referring to the POLY PMNA website, the browser path may vary depending on the user's session and the website's structure.\\n\\nTypically, the POLY PMNA website can be accessed through the Kerala Polytechnic website, and the exact path may be:\\n\\n1. Go to the Kerala Polytechnic website.\\n2. Click on the \\\"Departments\\\" or \\\"Institutes\\\" tab.\\n3. Select the relevant department or institute.\\n4. Look for the \\\"POLY PMNA\\\" or \\\"POLY\\\" section.\\n5. Click on the \\\"POLY PMNA\\\" or \\\"POLY\\\" link to access the website.\\n\\nPlease note that this is a general guideline, and the actual browser path may differ depending on the website's structure and the user's session.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-bb7c2dd4-8f85-4ac8-97df-3f992f1a2c6f\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY browser path\\\" as I'm a text-based AI assistant. However, if you're referring to the POLY PMNA website, the browser path may vary depending on the user's navigation.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-9b98aaef-f145-4cfa-870d-c0ed1d066c77\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
