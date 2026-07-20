@@ -1,6 +1,12 @@
 name: Refine About page UI
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/about-page-refinement-run.txt"
+      - "tools/refine_about_page_ui.py"
+      - ".github/workflows/refine-about-page-ui.yml"
   issues:
     types: [opened]
   workflow_dispatch:
