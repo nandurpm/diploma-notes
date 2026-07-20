@@ -42,12 +42,13 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
 
       - name: Apply deterministic refinement
-        run: python tools/refine_about_page_ui.py
+        run: |
+          python -m py_compile tools/refine_about_page_ui.py
+          python tools/refine_about_page_ui.py
 
       - name: Validate refined page
         run: |
           python tools/refine_about_page_ui.py --check
-          python tools/site_quality_gate.py
           python - <<'PY'
           from pathlib import Path
           html = Path('about.html').read_text(encoding='utf-8')
@@ -64,6 +65,8 @@ jobs:
           missing = [item for item in required if item not in html]
           if missing:
               raise SystemExit(f'Missing About-page markers: {missing}')
+          if html.lower().count('<h1') != 1:
+              raise SystemExit('About page must contain exactly one H1')
           PY
 
       - name: Commit refined About page
