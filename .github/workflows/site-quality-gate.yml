@@ -17,7 +17,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,6 +28,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - name: Install catalogue verifier dependency
+        run: python -m pip install --disable-pip-version-check beautifulsoup4==4.13.4
       - name: Validate generated source state
         run: |
           python tools/generate_sitemap.py --check
@@ -35,6 +37,7 @@ jobs:
           python tools/annotate_rev2026_title_provenance.py --check
           python tools/normalize_public_brand_assets.py --check
           python tools/inject_structured_data.py --check
+          python tools/verify_revision_2026_catalogue.py
       - name: Run current site quality gate
         run: python tools/site_quality_gate.py
       - name: Validate critical JavaScript
