@@ -7,6 +7,7 @@ workers_dev = true
 binding = "AI"
 
 [vars]
+ASK_POLY_RELEASE = "2026-07-20-ai-relay2"
 AI_PROVIDER_ORDER = "nvidia,openai,gemini"
 PROVIDER_TIMEOUT_MS = "7000"
 OPENAI_MODEL = "gpt-4o-mini"
