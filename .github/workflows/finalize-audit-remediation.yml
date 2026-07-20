@@ -107,18 +107,36 @@ jobs:
       - name: Generate complete sitemap
         run: python tools/generate_sitemap.py
 
-      - name: Validate final source state
+      - name: Verify Revision 2021 materialization
+        run: python tools/materialize_rev2021_subjects.py --check
+
+      - name: Verify Revision 2026 provenance notices
+        run: python tools/annotate_rev2026_title_provenance.py --check
+
+      - name: Verify public brand metadata
+        run: python tools/normalize_public_brand_assets.py --check
+
+      - name: Verify structured data
+        run: python tools/inject_structured_data.py --check
+
+      - name: Verify sitemap freshness
+        run: python tools/generate_sitemap.py --check
+
+      - name: Run site quality gate
+        run: python tools/site_quality_gate.py
+
+      - name: Validate critical JavaScript and local dependency
         run: |
-          python tools/materialize_rev2021_subjects.py --check
-          python tools/annotate_rev2026_title_provenance.py --check
-          python tools/normalize_public_brand_assets.py --check
-          python tools/inject_structured_data.py --check
-          python tools/generate_sitemap.py --check
-          python tools/site_quality_gate.py
           node --check "assets/vendor/supabase-js-${SUPABASE_JS_VERSION}.js"
           node --check assets/js/ask-poly-config.js
           node --check assets/js/mock-exam-service.js
-          grep -R "cdn.jsdelivr.net/npm/@supabase/supabase-js@2" daily-quiz.html mock-exam-1004.html mock-exam.html reset-password.html && exit 1 || true
+
+      - name: Confirm moving Supabase CDN reference is gone
+        run: |
+          if grep -R "cdn.jsdelivr.net/npm/@supabase/supabase-js@2" daily-quiz.html mock-exam-1004.html mock-exam.html reset-password.html; then
+            echo "Moving Supabase CDN reference remains."
+            exit 1
+          fi
 
       - name: Commit atomic remediation output
         run: |
