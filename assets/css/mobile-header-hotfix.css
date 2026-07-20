@@ -139,4 +139,20 @@
   html body.portal-page .topbar .navlinks.open,
   body.portal-page .topbar .navlinks.open{grid-template-columns:1fr!important}
 }
+
+/* The Android APK supplies its own toolbar and drawer. Never display the web header there. */
+html.polytechnic-native-app body.portal-page{padding-top:0!important}
+html.polytechnic-native-app body.portal-page .topbar,
+html.polytechnic-native-app body.portal-page header[data-site-header]{
+  display:none!important;
+  visibility:hidden!important;
+  height:0!important;
+  min-height:0!important;
+  max-height:0!important;
+  margin:0!important;
+  padding:0!important;
+  border:0!important;
+  overflow:hidden!important;
+}
+
 @media print{html body.portal-page{padding-top:0!important}}
