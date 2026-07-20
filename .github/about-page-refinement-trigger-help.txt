@@ -1,0 +1,1 @@
+Open an issue titled exactly: [automation] Refine About page UI
