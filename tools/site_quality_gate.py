@@ -12,6 +12,7 @@ from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
+FAILURE_REPORT = ROOT / "reports/site-quality-gate-failures.txt"
 REQUIRED_CRITICAL = (
     "index.html", "revision-2026.html", "revision-2021.html", "daily-quiz.html",
     "ask-poly.html", "tools.html", "privacy.html", "terms.html", "disclaimer.html", "404.html",
@@ -182,22 +183,31 @@ def audit_configuration() -> list[str]:
     return issues
 
 
+def write_failure_report(lines: list[str]) -> None:
+    FAILURE_REPORT.parent.mkdir(parents=True, exist_ok=True)
+    FAILURE_REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     failures: list[str] = []
     try:
         urls = sitemap_urls()
     except Exception as error:
-        print(f"Sitemap failure: {error}")
+        message = f"Sitemap failure: {error}"
+        print(message)
+        write_failure_report([message])
         return 1
     for url in urls:
         for issue in audit_page(url):
             failures.append(f"{url}: {issue}")
     failures.extend(audit_configuration())
     if failures:
-        print("Site quality gate failed:")
-        for item in failures:
-            print(f"- {item}")
+        lines = ["Site quality gate failed:"] + [f"- {item}" for item in failures]
+        print("\n".join(lines))
+        write_failure_report(lines)
         return 1
+    if FAILURE_REPORT.exists():
+        FAILURE_REPORT.unlink()
     print(f"Site quality gate passed for {len(urls)} sitemap resources.")
     return 0
 
