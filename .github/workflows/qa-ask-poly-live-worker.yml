@@ -8,6 +8,7 @@ on:
       - "workers/ask-poly-ai/src/index.js"
       - "workers/ask-poly-ai/src/site-instructions.js"
       - "workers/ask-poly-ai/src/ask-handler.js"
+      - "workers/ask-poly-ai/wrangler.toml"
       - ".github/workflows/deploy-ask-poly-ai.yml"
       - ".github/workflows/qa-ask-poly-live-worker.yml"
 
@@ -19,7 +20,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  health:
+  health-and-answer:
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
@@ -27,54 +28,90 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Wait for deployed Worker and verify knowledge mode
+      - name: Verify live Worker health and real AI answer
         run: |
           python - <<'PY'
           import json
           import time
-          import urllib.error
           import urllib.request
           from datetime import datetime, timezone
           from pathlib import Path
 
-          url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/health"
+          health_url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/health"
+          ask_url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
           last_error = ""
-          payload = None
+          health = None
+          ask_test = None
+
           for attempt in range(1, 31):
               try:
-                  request = urllib.request.Request(url, headers={"User-Agent": "POLY-PMNA-Live-QA/1.0"})
-                  with urllib.request.urlopen(request, timeout=20) as response:
-                      body = response.read().decode("utf-8", "replace")
-                      candidate = json.loads(body)
-                      if (
-                          response.status == 200
-                          and candidate.get("ok") is True
-                          and candidate.get("knowledgeMode") == "whole-site-revision-aware-v1"
-                          and candidate.get("wholeSiteContext") is True
-                          and set(candidate.get("revisionAware") or []) >= {"2026", "2021", "2015"}
-                      ):
-                          payload = candidate
-                          break
-                      last_error = f"Attempt {attempt}: Worker returned old or incomplete health payload: {candidate}"
+                  health_request = urllib.request.Request(
+                      f"{health_url}?attempt={attempt}",
+                      headers={"User-Agent": "POLY-PMNA-Live-QA/2.0", "Cache-Control": "no-cache"},
+                  )
+                  with urllib.request.urlopen(health_request, timeout=20) as response:
+                      candidate = json.loads(response.read().decode("utf-8", "replace"))
+                  if not (
+                      response.status == 200
+                      and candidate.get("ok") is True
+                      and candidate.get("configured") is True
+                      and candidate.get("knowledgeMode") == "whole-site-revision-aware-v1"
+                      and candidate.get("wholeSiteContext") is True
+                      and set(candidate.get("revisionAware") or []) >= {"2026", "2021", "2015"}
+                  ):
+                      raise RuntimeError(f"Worker returned incomplete health payload: {candidate}")
+
+                  body = json.dumps({
+                      "message": "Reply with exactly: Ask POLY is ready",
+                      "history": [],
+                      "pageTitle": "Production QA",
+                      "pageContext": ""
+                  }).encode("utf-8")
+                  ask_request = urllib.request.Request(
+                      ask_url,
+                      data=body,
+                      method="POST",
+                      headers={
+                          "Content-Type": "application/json",
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Live-QA/2.0",
+                      },
+                  )
+                  with urllib.request.urlopen(ask_request, timeout=45) as ask_response:
+                      result = json.loads(ask_response.read().decode("utf-8", "replace"))
+                  answer = str(result.get("answer") or "").strip()
+                  if ask_response.status != 200 or not answer:
+                      raise RuntimeError(f"Worker returned no usable AI answer: {result}")
+
+                  health = candidate
+                  ask_test = {
+                      "ok": True,
+                      "provider": result.get("provider") or "",
+                      "model": result.get("model") or "",
+                      "answerPreview": answer[:240],
+                  }
+                  break
               except Exception as error:
                   last_error = f"Attempt {attempt}: {type(error).__name__}: {error}"
-              print(last_error)
-              time.sleep(10)
+                  print(last_error)
+                  time.sleep(10)
 
           report = {
-              "status": "success" if payload else "failed",
+              "status": "success" if health and ask_test else "failed",
               "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-              "endpoint": url,
+              "endpoint": health_url,
+              "askEndpoint": ask_url,
               "expectedKnowledgeMode": "whole-site-revision-aware-v1",
-              "health": payload,
-              "lastError": "" if payload else last_error,
+              "health": health,
+              "askTest": ask_test,
+              "lastError": "" if health and ask_test else last_error,
           }
           path = Path("reports/ask-poly-live-worker-qa.json")
           path.parent.mkdir(parents=True, exist_ok=True)
           path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
           print(json.dumps(report, indent=2))
-          if not payload:
-              raise SystemExit(last_error or "Live Ask POLY Worker did not report the expected knowledge mode")
+          if not health or not ask_test:
+              raise SystemExit(last_error or "Live Ask POLY Worker did not return a usable answer")
           PY
 
       - name: Commit live Worker QA report
@@ -90,7 +127,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Live Worker QA report is already current."
           else
-            git commit -m "Record live Ask POLY Worker knowledge QA [skip ci]"
+            git commit -m "Record live Ask POLY answer QA [skip ci]"
             git pull --rebase origin main
             git push origin HEAD:main
           fi
