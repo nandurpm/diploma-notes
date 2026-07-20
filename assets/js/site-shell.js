@@ -1,9 +1,10 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260720-audit-residual-fix2";
+  const VERSION = "20260720-mobile-header-fix3";
   const SITE_NAME = "POLY PMNA";
   const FAVICON_HREF = "/assets/media/poly-pmna-favicon.svg";
+  const MOBILE_HEADER_CSS = "/assets/css/mobile-header-hotfix.css?v=20260720-mobile-header-fix3";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
   const navItems = [
@@ -28,6 +29,22 @@
     document.head.append(icon);
   }
 
+  function ensureMobileHeaderStyles() {
+    const existing = [...document.styleSheets].some(sheet => {
+      try {
+        return new URL(sheet.href || "", window.location.href).pathname === "/assets/css/mobile-header-hotfix.css";
+      } catch (_) {
+        return false;
+      }
+    });
+    if (existing || document.querySelector('link[data-poly-mobile-header-fix="true"]')) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = MOBILE_HEADER_CSS;
+    link.dataset.polyMobileHeaderFix = "true";
+    document.head.append(link);
+  }
+
   function navMarkup() {
     const path = currentPath().toLowerCase();
     return navItems.map(([label, href, matches]) => {
@@ -45,11 +62,18 @@
     const setOpen = open => {
       nav.classList.toggle("open", open);
       header.classList.toggle("open", open);
+      document.body.classList.toggle("poly-mobile-menu-open", open);
       button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      button.textContent = open ? "Close" : "Menu";
       window.dispatchEvent(new CustomEvent("poly-site-header-resize"));
     };
 
-    button.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
+    button.addEventListener("click", event => {
+      event.preventDefault();
+      event.stopPropagation();
+      setOpen(!nav.classList.contains("open"));
+    });
     nav.addEventListener("click", event => {
       if (event.target.closest("a")) setOpen(false);
     });
@@ -62,20 +86,62 @@
         button.focus();
       }
     });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 980 && nav.classList.contains("open")) setOpen(false);
+    }, { passive: true });
+  }
+
+  function headerMarkup() {
+    return `<a class="brand" href="/" aria-label="${SITE_NAME} home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>${SITE_NAME}</strong></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">Menu</button><nav class="navlinks" aria-label="Primary navigation">${navMarkup()}</nav>`;
+  }
+
+  function headerIsCanonical(header) {
+    const directChildren = [...header.children];
+    return directChildren.length === 3 &&
+      directChildren[0]?.classList.contains("brand") &&
+      directChildren[1]?.classList.contains("menu-toggle") &&
+      directChildren[2]?.classList.contains("navlinks") &&
+      header.dataset.siteShellVersion === VERSION;
+  }
+
+  function watchHeader(header) {
+    if (header.dataset.siteShellObserved === "true" || !("MutationObserver" in window)) return;
+    header.dataset.siteShellObserved = "true";
+    const observer = new MutationObserver(() => {
+      if (header.dataset.siteShellRepairing === "true" || headerIsCanonical(header)) return;
+      header.dataset.siteShellRepairing = "true";
+      observer.disconnect();
+      header.className = "topbar";
+      header.innerHTML = headerMarkup();
+      header.dataset.siteHeader = "";
+      header.dataset.siteShellVersion = VERSION;
+      bindMenu(header);
+      observer.observe(header, { childList: true });
+      delete header.dataset.siteShellRepairing;
+      window.dispatchEvent(new CustomEvent("poly-site-header-resize"));
+    });
+    observer.observe(header, { childList: true });
   }
 
   function renderHeader(force = false) {
     if (isLessonPage()) return;
-    const header = document.querySelector("[data-site-header]") || document.querySelector("body.portal-page > header.topbar");
+    const candidates = [...new Set([
+      ...document.querySelectorAll("[data-site-header]"),
+      ...document.querySelectorAll("body.portal-page > header.topbar")
+    ])];
+    const header = candidates.find(node => node.hasAttribute("data-site-header")) || candidates[0];
     if (!header) return;
-    const desired = `<a class="brand" href="/" aria-label="${SITE_NAME} home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>${SITE_NAME}</strong></a><button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button><nav class="navlinks" aria-label="Primary navigation">${navMarkup()}</nav>`;
-    if (force || header.dataset.siteShellVersion !== VERSION) {
+    candidates.forEach(node => {
+      if (node !== header) node.remove();
+    });
+    if (force || !headerIsCanonical(header)) {
       header.className = "topbar";
-      header.innerHTML = desired;
+      header.innerHTML = headerMarkup();
       header.dataset.siteHeader = "";
       header.dataset.siteShellVersion = VERSION;
     }
     bindMenu(header);
+    watchHeader(header);
   }
 
   function renderFooter(force = false) {
@@ -94,6 +160,7 @@
   function render(options = {}) {
     ensureFavicon();
     if (isLessonPage()) return;
+    ensureMobileHeaderStyles();
     const force = options.force === true;
     renderHeader(force);
     renderFooter(force);
