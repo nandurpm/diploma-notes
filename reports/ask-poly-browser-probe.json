@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T12:21:03Z",
+  "generatedAt": "2026-07-20T12:34:04Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,9 +8,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Mon, 20 Jul 2026 12:21:02 GMT",
+      "date": "Mon, 20 Jul 2026 12:34:03 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "455",
+      "content-length": "419",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -19,13 +19,13 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2B3xZX2PILei8HByV%2BEXU9l0zhzRPMC%2BKWTGdBaAewMOsKXXKaufe%2F3iybctZMsVqEJqyE5Bz43F8C5V4gjY8ksWOVGfCQ9PNXVKmf%2BI2%2Bd7ExzuArvHmK%2F9gISyto68M0fc9jn7FJE8VPMtGD7kqEa0NO0BsqF7tLA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=BOEl7BIfJfyqOd26L9wGNiKWFvnzrCgGDyMF2kMG845yi%2BpPpgFbXk70KVg5R2mG1fxIuUUHXORGleYNsyUmJ2atiwzRZHFB6qwVyMFS2SMC6yWlFfl2RGDPaP4RV6RlDt13DrzyHCNeUuuW6Nrvwy%2BCMCOpR6YxOQ%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1e1ec60aa2f06e1-IAD",
+      "cf-ray": "a1e1ff748bb9a434-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":true,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai\",\"cloudflare-workers-ai-rest\",\"nvidia\",\"openai\",\"gemini\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
+    "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
     "error": ""
   },
   "preflight": {
@@ -33,17 +33,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Mon, 20 Jul 2026 12:21:02 GMT",
+      "date": "Mon, 20 Jul 2026 12:34:03 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9RNuW3VB918%2BwXtU6xutre25u3O%2FC8aMJv5csc%2FTHMEsgFs257Oba7z46eO%2Feko4v2dT3kndokxfSKWwKCRuOx6lp%2BVLrktrOXjmoers3oyxCxmp%2FbrKamrIUfCXaBIiegDydq0OnvNq8%2BjDJ6NH6dcnqzbCPNl7vg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rZNF%2BJSxy%2F1zHatsXOf0Xnbj9lmbg5ar8mbmi%2F7v6K78MfMp3yYcUiZ%2B9pyH%2Fc7KkOkpXns5l6RWl6y9RDXF7brCtJmQIHC45HRCZL%2F7w6WbBN7EbpC4%2FGH9r3lZzChzxNq8psvjKHsfPnci2IVcEqEPcV4YYNlKpw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1e1ec60eb01d6d0-IAD",
+      "cf-ray": "a1e1ff74e9bee826-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -54,9 +54,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Mon, 20 Jul 2026 12:21:03 GMT",
+      "date": "Mon, 20 Jul 2026 12:34:04 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "990",
+      "content-length": "847",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -65,13 +65,13 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=bDF3SiPzbsNfqjNb37nDh4IwzEmtUEhqtFelSpTMkae8ec9uUYsWhtRKLpVyFN0VE1sNmSfOLyBkZKiTlBPl6jMNRr71NoZiZQau7lxLZNzejQ6CdY3br88gwr3THsW2TAXVUb5IXC8nihL9QCIDQ1fvkD%2FvNz8O4A%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=znssHYTijOIHHCpo7%2Fa4aiKV08ZQ4ZAkOSj5tm31YBvCWP2uylQEJ8X%2FFEaBwULd5d5QzY9a6mmh9benIai8COV30SAGs2KEOzIm0TM0u4nHdu7tGxPjxFpVRzZ0GCZKgRi4%2BcuI1v%2FivEjisdv3p4%2F3uNtnqcCukA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1e1ec61282cb7be-IAD",
+      "cf-ray": "a1e1ff754fbb34d9-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY browser path\\\" as I'm a text-based AI assistant. However, if you're referring to the POLY PMNA website, the browser path may vary depending on the user's navigation.\\n\\nTo access the POLY PMNA website, you can try the following general path:\\n\\n1. Open a web browser (e.g., Google Chrome, Mozilla Firefox).\\n2. Type the website address: [www.poly.ac.in](http://www.poly.ac.in) (or the actual website address of your institution).\\n3. Press Enter to access the website.\\n\\nPlease note that the website path may change, and you should check the official website for the most up-to-date information.\\n\\nIf you could provide more context or clarify which specific path you're looking for, I'll be happy to help.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-98c30782-9d78-43c6-9f85-57ecc8ff385c\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY browser path\\\" as I'm a text-based AI assistant. However, I can provide general information on how to access the Kerala Polytechnic website.\\n\\nTo access the Kerala Polytechnic website, you can follow these steps:\\n\\n1. Open a web browser (e.g., Google Chrome, Mozilla Firefox, Safari).\\n2. Type the website address: [www.poly.ac.in](http://www.poly.ac.in) (or the actual website address of your institution).\\n3. Press Enter to load the website.\\n\\nPlease note that the website address and browser path may vary depending on your institution and browser settings.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-1e66ac7d-e32e-4403-ad26-9d924e95310a\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
