@@ -1,0 +1,85 @@
+name: Deploy static site to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages-production
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate deployment metadata and validate source
+        run: |
+          GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
+          python tools/generate_sitemap.py
+          python tools/site_quality_gate.py
+      - name: Prepare public artifact
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          import subprocess
+
+          target = Path('_site')
+          if target.exists():
+              shutil.rmtree(target)
+          target.mkdir()
+          excluded = {'.git','.github','android','docs','reports','supabase','tools','workers','node_modules','_site'}
+          source_suffixes = {'.py','.pyc','.cjs','.mjs','.ts','.tsx','.sql','.yml','.yaml','.md','.lock','.toml'}
+          keep = {'CNAME','_headers','_redirects','robots.txt','sitemap.xml','build-info.json'}
+          tracked = subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
+          for name in tracked:
+              if not name:
+                  continue
+              source = Path(name)
+              if source.parts[0] in excluded or source.name.startswith('.'):
+                  continue
+              if source.suffix.lower() in source_suffixes and name not in keep:
+                  continue
+              if not source.is_file():
+                  continue
+              destination = target / source
+              destination.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copy2(source, destination)
+          for name in keep:
+              source = Path(name)
+              if source.is_file():
+                  destination = target / source
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copy2(source, destination)
+          (target / '.nojekyll').write_text('', encoding='utf-8')
+          for required in ('index.html','revision-2026.html','ask-poly.html','sitemap.xml','build-info.json','CNAME'):
+              if not (target / required).is_file():
+                  raise SystemExit(f'Missing deployment file: {required}')
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy GitHub Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
