@@ -43,19 +43,22 @@ jobs:
           assert 'OPENAI_API_KEY' not in public_config
           assert 'NVIDIA_API_KEY' not in public_config
           assert 'GOOGLE_AI_STUDIO' not in public_config
-          print('Worker source and public configuration validated.')
+          worker_config = Path('workers/ask-poly-ai/wrangler.toml').read_text(encoding='utf-8')
+          assert '[ai]' in worker_config and 'binding = "AI"' in worker_config
+          print('Worker source, Workers AI binding and public configuration validated.')
           PY
 
       - name: Check deployment secrets
         shell: bash
         run: |
           if [ -z "$CLOUDFLARE_API_TOKEN_VALUE" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID_VALUE" ]; then
-            echo "Ask POLY AI deployment skipped. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repository Actions secrets, then run this workflow manually."
+            echo "Ask POLY AI deployment cannot run. Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID as repository Actions secrets."
             exit 1
           fi
           if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ]; then
-            echo "Ask POLY AI deployment skipped. Add at least one AI key: OPENAI_API_KEY, NVIDIA_API_KEY, or GOOGLE_AI_STUDIO."
-            exit 1
+            echo "No external AI key is configured. Ask POLY will use the Cloudflare Workers AI binding."
+          else
+            echo "At least one external AI provider is available as an additional fallback."
           fi
 
       - name: Install Wrangler
@@ -67,7 +70,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
 
-      - name: Upload AI secrets to Ask POLY Worker
+      - name: Upload optional external AI secrets
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -87,9 +90,70 @@ jobs:
               secrets["GEMINI_API_KEY"] = os.environ["GOOGLE_AI_STUDIO"]
           with open("ask-poly-secrets.json", "w", encoding="utf-8") as f:
               json.dump(secrets, f)
-          print("Prepared secret names:", ", ".join(secrets.keys()))
+          print("Prepared optional secret names:", ", ".join(secrets.keys()) or "none")
           PY
-          wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
+          if [ -s ask-poly-secrets.json ] && [ "$(cat ask-poly-secrets.json)" != "{}" ]; then
+            wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
+          else
+            echo "No external provider secrets to upload; Workers AI remains available."
+          fi
+
+      - name: Smoke-test live AI answer
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          import urllib.request
+
+          health_url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/health"
+          ask_url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
+          last_error = ""
+          for attempt in range(1, 19):
+              try:
+                  with urllib.request.urlopen(
+                      urllib.request.Request(health_url, headers={"User-Agent": "POLY-PMNA-Deploy-QA/2.0"}),
+                      timeout=20,
+                  ) as response:
+                      health = json.loads(response.read().decode("utf-8"))
+                  if not health.get("ok") or not health.get("configured"):
+                      raise RuntimeError(f"Worker health is not configured: {health}")
+
+                  payload = json.dumps({
+                      "message": "Reply with exactly: Ask POLY is ready",
+                      "history": [],
+                      "pageTitle": "Deployment smoke test",
+                      "pageContext": ""
+                  }).encode("utf-8")
+                  request = urllib.request.Request(
+                      ask_url,
+                      data=payload,
+                      method="POST",
+                      headers={
+                          "Content-Type": "application/json",
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Deploy-QA/2.0"
+                      },
+                  )
+                  with urllib.request.urlopen(request, timeout=45) as response:
+                      result = json.loads(response.read().decode("utf-8"))
+                  answer = str(result.get("answer") or "").strip()
+                  if not answer:
+                      raise RuntimeError(f"Worker returned no answer: {result}")
+                  print(json.dumps({
+                      "healthProviders": health.get("providers"),
+                      "provider": result.get("provider"),
+                      "model": result.get("model"),
+                      "answer": answer[:200]
+                  }, indent=2))
+                  break
+              except Exception as error:
+                  last_error = f"Attempt {attempt}: {type(error).__name__}: {error}"
+                  print(last_error)
+                  if attempt == 18:
+                      raise SystemExit(last_error)
+                  time.sleep(10)
+          PY
 
       - name: Configure website with deployed Worker URL
         run: |
@@ -100,7 +164,7 @@ jobs:
           source = (
               "globalThis.ASK_POLY_CONFIG = Object.freeze({\n"
               f"  endpoint: {json.dumps(endpoint)},\n"
-              "  timeoutMs: 30000,\n"
+              "  timeoutMs: 45000,\n"
               "  maxHistory: 12\n"
               "});\n"
           )
@@ -114,6 +178,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Website endpoint configuration is already current."
           else
-            git commit -m "Configure deployed Ask POLY AI endpoint [skip ci]"
+            git commit -m "Configure resilient Ask POLY AI endpoint [skip ci]"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
