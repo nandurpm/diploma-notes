@@ -1,0 +1,75 @@
+name: Site quality gate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Regenerate sitemap for validation
+        run: python tools/generate_sitemap.py
+      - name: Run current site quality gate
+        run: python tools/site_quality_gate.py
+      - name: Validate critical JavaScript
+        run: |
+          node --check assets/js/ask-poly-config.js
+          node --check assets/js/ask-poly-v2.js
+          node --check assets/js/mock-exam-service.js
+          node --check assets/js/mock-exam-1004.js
+          node --check workers/ask-poly-ai/src/index.js
+          node --check workers/ask-poly-ai/src/mock-evaluator.js
+          node --check workers/ask-poly-ai/src/result-store.js
+      - name: Prevent committed secrets
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          allowed_public = {
+              'assets/js/ask-poly-config.js',
+              'daily-quiz.html',
+          }
+          patterns = {
+              'OpenAI key': re.compile(r'\bsk-(?:proj-)?[A-Za-z0-9_-]{20,}'),
+              'Supabase service role': re.compile(r'SUPABASE_SERVICE_ROLE_KEY\s*[:=]\s*["\'][^$\n][^"\']+'),
+              'Cloudflare token': re.compile(r'CLOUDFLARE_API_TOKEN\s*[:=]\s*["\'][^$\n][^"\']+'),
+          }
+          failures = []
+          for path in Path('.').rglob('*'):
+              if not path.is_file() or '.git' in path.parts or path.stat().st_size > 2_000_000:
+                  continue
+              rel = path.as_posix()
+              if rel in allowed_public:
+                  continue
+              try:
+                  text = path.read_text(encoding='utf-8')
+              except Exception:
+                  continue
+              for label, pattern in patterns.items():
+                  if pattern.search(text):
+                      failures.append(f'{rel}: possible {label}')
+          if failures:
+              raise SystemExit('\n'.join(failures))
+          print('No committed server secrets detected.')
+          PY
