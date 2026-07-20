@@ -1,0 +1,129 @@
+name: Diagnose Ask POLY browser path
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/diagnose-ask-poly-browser.yml"
+      - "workers/ask-poly-ai/**"
+      - "assets/js/ask-poly-config.js"
+      - "assets/js/ask-poly-client-recovery.js"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: diagnose-ask-poly-browser
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Probe health, CORS and live answer
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.error
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          ORIGIN = "https://polypmna.dpdns.org"
+          HEALTH = "https://ask-poly-ai.nandakumarkdpm.workers.dev/health"
+          ASK = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
+
+          def perform(name, request, timeout=45):
+              result = {"name": name, "ok": False, "status": None, "headers": {}, "body": "", "error": ""}
+              try:
+                  with urllib.request.urlopen(request, timeout=timeout) as response:
+                      result["status"] = response.status
+                      result["headers"] = {k.lower(): v for k, v in response.headers.items()}
+                      result["body"] = response.read().decode("utf-8", "replace")[:12000]
+                      result["ok"] = 200 <= response.status < 300
+              except urllib.error.HTTPError as error:
+                  result["status"] = error.code
+                  result["headers"] = {k.lower(): v for k, v in error.headers.items()}
+                  result["body"] = error.read().decode("utf-8", "replace")[:12000]
+                  result["error"] = f"HTTPError: {error}"
+              except Exception as error:
+                  result["error"] = f"{type(error).__name__}: {error}"
+              return result
+
+          health = perform("health", urllib.request.Request(
+              HEALTH + "?probe=browser",
+              headers={"User-Agent": "POLY-PMNA-Browser-Probe/1.0", "Cache-Control": "no-cache"},
+          ), 25)
+
+          preflight = perform("preflight", urllib.request.Request(
+              ASK,
+              method="OPTIONS",
+              headers={
+                  "Origin": ORIGIN,
+                  "Access-Control-Request-Method": "POST",
+                  "Access-Control-Request-Headers": "content-type",
+                  "User-Agent": "POLY-PMNA-Browser-Probe/1.0",
+              },
+          ), 25)
+
+          payload = json.dumps({
+              "message": "Reply with exactly: Ask POLY browser path works",
+              "history": [],
+              "pageTitle": "Browser production probe",
+              "pageContext": "",
+          }).encode("utf-8")
+          post = perform("post", urllib.request.Request(
+              ASK,
+              data=payload,
+              method="POST",
+              headers={
+                  "Origin": ORIGIN,
+                  "Content-Type": "application/json",
+                  "Accept": "application/json",
+                  "User-Agent": "POLY-PMNA-Browser-Probe/1.0",
+              },
+          ), 50)
+
+          report = {
+              "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
+              "origin": ORIGIN,
+              "healthUrl": HEALTH,
+              "askUrl": ASK,
+              "health": health,
+              "preflight": preflight,
+              "post": post,
+              "browserPathOk": bool(
+                  health["ok"]
+                  and preflight["status"] == 204
+                  and preflight["headers"].get("access-control-allow-origin") == ORIGIN
+                  and post["ok"]
+                  and post["headers"].get("access-control-allow-origin") == ORIGIN
+              ),
+          }
+          path = Path("reports/ask-poly-browser-probe.json")
+          path.parent.mkdir(parents=True, exist_ok=True)
+          path.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Commit browser-path report
+        if: always()
+        run: |
+          test -f reports/ask-poly-browser-probe.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/ask-poly-browser-probe.json
+          if git diff --cached --quiet; then
+            echo "Browser-path report unchanged."
+          else
+            git commit -m "Record Ask POLY browser-path probe [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
