@@ -42,6 +42,13 @@ function hasWorkersAI(env) {
   return Boolean(env?.AI && typeof env.AI.run === "function");
 }
 
+function hasWorkersAIRest(env) {
+  return Boolean(
+    cleanText(env?.CLOUDFLARE_AI_ACCOUNT_ID, 128)
+    && cleanText(env?.CLOUDFLARE_AI_API_TOKEN, 512)
+  );
+}
+
 function workersAIModel(env) {
   return cleanText(env?.CLOUDFLARE_AI_MODEL, 180) || DEFAULT_CLOUDFLARE_AI_MODEL;
 }
@@ -75,19 +82,31 @@ function cloudflareMessages(body) {
   ];
 }
 
-async function askWithWorkersAI(body, env) {
-  if (!hasWorkersAI(env)) throw new Error("Cloudflare Workers AI binding is unavailable.");
-  const model = workersAIModel(env);
-  const result = await env.AI.run(model, {
+function cloudflareInput(body, env) {
+  return {
     messages: cloudflareMessages(body),
     max_tokens: Math.max(128, Math.min(1400, Number(env.MAX_OUTPUT_TOKENS || 900))),
     temperature: 0.25,
     top_p: 0.9
-  });
-  const answer = cleanText(
-    result?.response || result?.answer || result?.result?.response || result?.output_text,
+  };
+}
+
+function extractCloudflareAnswer(result) {
+  return cleanText(
+    result?.response
+      || result?.answer
+      || result?.result?.response
+      || result?.result?.answer
+      || result?.output_text,
     7000
   );
+}
+
+async function askWithWorkersAI(body, env) {
+  if (!hasWorkersAI(env)) throw new Error("Cloudflare Workers AI binding is unavailable.");
+  const model = workersAIModel(env);
+  const result = await env.AI.run(model, cloudflareInput(body, env));
+  const answer = extractCloudflareAnswer(result);
   if (!answer) throw new Error("Cloudflare Workers AI returned an empty response.");
   return {
     answer,
@@ -99,9 +118,63 @@ async function askWithWorkersAI(body, env) {
   };
 }
 
+function cloudflareRestModelPath(model) {
+  return String(model || "")
+    .split("/")
+    .map((segment) => encodeURIComponent(segment))
+    .join("/");
+}
+
+async function askWithWorkersAIRest(body, env) {
+  if (!hasWorkersAIRest(env)) throw new Error("Cloudflare Workers AI REST credentials are unavailable.");
+  const model = workersAIModel(env);
+  const accountId = cleanText(env.CLOUDFLARE_AI_ACCOUNT_ID, 128);
+  const token = cleanText(env.CLOUDFLARE_AI_API_TOKEN, 512);
+  const url = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/run/${cloudflareRestModelPath(model)}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 18000);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(cloudflareInput(body, env)),
+      signal: controller.signal
+    });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || payload?.success === false) {
+      const detail = payload?.errors?.[0]?.message
+        || payload?.error
+        || `Cloudflare Workers AI REST returned HTTP ${response.status}.`;
+      const error = new Error(cleanText(detail, 300));
+      error.status = response.status;
+      throw error;
+    }
+    const answer = extractCloudflareAnswer(payload);
+    if (!answer) throw new Error("Cloudflare Workers AI REST returned an empty response.");
+    return {
+      answer,
+      citations: [],
+      usedWeb: false,
+      provider: "cloudflare-workers-ai-rest",
+      model,
+      responseId: cleanText(payload?.result?.id || payload?.id, 180)
+    };
+  } catch (error) {
+    if (error?.name === "AbortError") throw new Error("Cloudflare Workers AI REST timed out.");
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function healthProviders(env, externalProviders) {
   return [
     ...(hasWorkersAI(env) ? ["cloudflare-workers-ai"] : []),
+    ...(hasWorkersAIRest(env) ? ["cloudflare-workers-ai-rest"] : []),
     ...externalProviders
   ];
 }
@@ -128,8 +201,9 @@ export default {
         wholeSiteContext: true,
         localMathFallback: true,
         workersAIFallback: hasWorkersAI(env),
+        workersAIRestFallback: hasWorkersAIRest(env),
         providers,
-        model: hasWorkersAI(env)
+        model: (hasWorkersAI(env) || hasWorkersAIRest(env))
           ? workersAIModel(env)
           : externalProviders[0] === "nvidia"
             ? (env.NVIDIA_MODEL || "meta/llama-3.1-8b-instruct")
@@ -191,7 +265,17 @@ export default {
         return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai: ${cleanText(error?.message, 240)}`);
-        console.error("Ask POLY Cloudflare Workers AI failed", error);
+        console.error("Ask POLY Cloudflare Workers AI binding failed", error);
+      }
+    }
+
+    if (hasWorkersAIRest(env)) {
+      try {
+        const result = await askWithWorkersAIRest(enrichedBody, env);
+        return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
+      } catch (error) {
+        providerErrors.push(`cloudflare-workers-ai-rest: ${cleanText(error?.message, 240)}`);
+        console.error("Ask POLY Cloudflare Workers AI REST failed", error);
       }
     }
 
