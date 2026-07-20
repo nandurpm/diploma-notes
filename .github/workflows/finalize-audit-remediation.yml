@@ -41,6 +41,7 @@ jobs:
         run: |
           python -m py_compile \
             tools/repair_legacy_quality_markup.py \
+            tools/normalize_about_page.py \
             tools/normalize_rev2021_noscript.py \
             tools/materialize_rev2021_subjects.py \
             tools/annotate_rev2026_title_provenance.py \
@@ -53,6 +54,11 @@ jobs:
         run: |
           python tools/repair_legacy_quality_markup.py
           python tools/repair_legacy_quality_markup.py --check
+
+      - name: Normalize redesigned About page
+        run: |
+          python tools/normalize_about_page.py
+          python tools/normalize_about_page.py --check
 
       - name: Vendor exact Supabase browser bundle
         run: |
