@@ -1,19 +1,14 @@
 name: Generate daily REV2026 lesson
-# Activated on main: 2026-07-20.
 
 on:
   workflow_dispatch:
   schedule:
     # 20:00 Asia/Kolkata every day (14:30 UTC).
     - cron: "30 14 * * *"
-  push:
-    branches: [main]
-    paths:
-      # Adding or changing this workflow performs one immediate activation run.
-      - ".github/workflows/generate-daily-rev2026-lesson.yml"
 
 permissions:
   contents: write
+  pull-requests: write
   models: read
 
 concurrency:
@@ -24,6 +19,7 @@ jobs:
   generate-next-missing-lesson:
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    environment: lesson-publication
 
     steps:
       - name: Check out main
@@ -39,6 +35,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
 
       - name: Install PDF text extraction
         run: |
@@ -56,47 +57,72 @@ jobs:
           LIVE_SITE_BASE: https://polypmna.dpdns.org
         run: python tools/generate_daily_rev2026_lesson.py
 
-      - name: Refresh lesson and notes availability
-        if: steps.generate.outputs.status == 'generated'
-        run: |
-          python tools/update_asset_manifest.py
-          node --check assets/js/subject-browser.js
-          node --check assets/js/asset-manifest.js
-
-      - name: Commit generated lesson directly to main
+      - name: Refresh indexes and run publication checks
         if: steps.generate.outputs.status == 'generated'
         env:
+          GENERATED_PATH: ${{ steps.generate.outputs.generated_path }}
+        run: |
+          set -euo pipefail
+          test -n "$GENERATED_PATH"
+          test -f "$GENERATED_PATH"
+          python tools/update_asset_manifest.py
+          python tools/generate_sitemap.py
+          python tools/site_quality_gate.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          path = Path(os.environ['GENERATED_PATH'])
+          text = path.read_text(encoding='utf-8')
+          required = ('<title>', '<h1', 'Print', 'Module', 'Malayalam')
+          missing = [item for item in required if item.lower() not in text.lower()]
+          if missing:
+              raise SystemExit(f'{path} is missing required handbook markers: {missing}')
+          if 'data-site-header' in text or 'class="topbar"' in text:
+              raise SystemExit(f'{path} contains a forbidden duplicate site header')
+          if '<script src="http:' in text or '<link rel="stylesheet" href="http:' in text:
+              raise SystemExit(f'{path} contains insecure external assets')
+          print(f'Validated generated handbook: {path}')
+          PY
+
+      - name: Publish through temporary PR branch
+        if: steps.generate.outputs.status == 'generated'
+        id: publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GENERATED_PATH: ${{ steps.generate.outputs.generated_path }}
           COURSE_CODE: ${{ steps.generate.outputs.code }}
           COURSE_TITLE: ${{ steps.generate.outputs.title }}
         run: |
           set -euo pipefail
-          test -n "$GENERATED_PATH"
-          test -f "$GENERATED_PATH"
-
+          branch="automation/rev2026-${COURSE_CODE}-${GITHUB_RUN_ID}"
           git config user.name "REV2026 Lesson Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add "$GENERATED_PATH"
-          git add assets/js/subject-browser.js assets/js/asset-manifest.js
-
+          git switch -c "$branch"
+          git add "$GENERATED_PATH" assets/js/subject-browser.js assets/js/asset-manifest.js sitemap.xml
           if git diff --cached --quiet; then
-            echo "No generated changes to commit."
+            echo "No generated changes to publish."
+            echo "status=no-change" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
           git commit -m "Add REV2026 ${COURSE_CODE} ${COURSE_TITLE} handbook"
+          git push --set-upstream origin "$branch"
+          body=$(cat <<EOF
+          ## Generated REV2026 handbook
 
-          for attempt in 1 2 3; do
-            if git pull --rebase origin main && git push origin HEAD:main; then
-              exit 0
-            fi
-            echo "Push attempt ${attempt} failed; retrying."
-            sleep $((attempt * 5))
-          done
+          - Subject: ${COURSE_CODE} — ${COURSE_TITLE}
+          - Generated file: \`${GENERATED_PATH}\`
+          - Source: queued official syllabus PDF
+          - Validation: sitemap, structural quality gate, JavaScript checks and handbook markers passed
 
-          echo "Unable to push generated lesson after three attempts."
-          exit 1
+          This temporary branch is deleted automatically after merge. Configure required reviewers on the \`lesson-publication\` environment or branch protection when human approval is required.
+          EOF
+          )
+          pr_url=$(gh pr create --base main --head "$branch" --title "Add REV2026 ${COURSE_CODE} ${COURSE_TITLE} handbook" --body "$body")
+          gh pr merge "$pr_url" --squash --auto --delete-branch
+          echo "status=pr-created" >> "$GITHUB_OUTPUT"
+          echo "pr_url=$pr_url" >> "$GITHUB_OUTPUT"
 
       - name: Report result
         if: always()
@@ -104,10 +130,12 @@ jobs:
           {
             echo "## Daily REV2026 lesson generator"
             echo ""
-            echo "- Status: ${{ steps.generate.outputs.status || 'failed' }}"
+            echo "- Generation status: ${{ steps.generate.outputs.status || 'failed' }}"
+            echo "- Publication status: ${{ steps.publish.outputs.status || 'not-run' }}"
             echo "- Subject code: ${{ steps.generate.outputs.code || 'none' }}"
             echo "- Subject title: ${{ steps.generate.outputs.title || 'none' }}"
             echo "- Generated path: ${{ steps.generate.outputs.generated_path || 'none' }}"
             echo "- Provider: ${{ steps.generate.outputs.provider || 'none' }}"
+            echo "- Pull request: ${{ steps.publish.outputs.pr_url || 'none' }}"
             echo "- Daily schedule: 20:00 Asia/Kolkata"
           } >> "$GITHUB_STEP_SUMMARY"
