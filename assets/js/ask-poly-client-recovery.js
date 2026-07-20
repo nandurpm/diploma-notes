@@ -3,47 +3,54 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  const RETRYABLE_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
-  const RETRY_DELAY_MS = 900;
+  const RETRYABLE_STATUS = new Set([401, 403, 408, 425, 429, 500, 502, 503, 504]);
+  const RETRY_DELAY_MS = 700;
   const originalFetch = window.fetch.bind(window);
   let lastHealth = null;
   let lastQuestion = "";
+  let activeEndpoint = "";
 
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const statusNode = () => document.getElementById("chatStatus");
+  const config = () => globalThis.ASK_POLY_CONFIG || {};
 
   function setStatus(text, title = "") {
     const node = statusNode();
     if (!node) return;
     node.textContent = text;
-    if (title) node.title = title;
+    node.title = title;
   }
 
-  function endpointUrl() {
-    return String(globalThis.ASK_POLY_CONFIG?.endpoint || "").trim();
+  function endpointCandidates() {
+    return [...new Set([
+      String(config().endpoint || "").trim(),
+      String(config().backupEndpoint || "").trim()
+    ].filter(Boolean))];
   }
 
-  function healthUrl() {
-    const endpoint = endpointUrl();
-    if (!endpoint) return "";
-    try {
-      const url = new URL(endpoint, location.href);
-      url.pathname = "/health";
-      url.search = "";
-      url.hash = "";
-      return url.href;
-    } catch (_) {
-      return "";
-    }
+  function healthCandidates() {
+    const configured = String(config().healthEndpoint || "").trim();
+    const derived = endpointCandidates().map(endpoint => {
+      try {
+        const url = new URL(endpoint, location.href);
+        if (url.hostname.endsWith("workers.dev")) url.pathname = "/health";
+        url.search = "";
+        url.hash = "";
+        return url.href;
+      } catch (_) {
+        return "";
+      }
+    });
+    return [...new Set([configured, ...derived].filter(Boolean))];
   }
 
-  function isAskRequest(input) {
-    const endpoint = endpointUrl();
-    if (!endpoint) return false;
+  function matchesEndpoint(input) {
     try {
       const requested = new URL(typeof input === "string" ? input : input.url, location.href);
-      const configured = new URL(endpoint, location.href);
-      return requested.origin === configured.origin && requested.pathname === configured.pathname;
+      return endpointCandidates().some(endpoint => {
+        const candidate = new URL(endpoint, location.href);
+        return requested.origin === candidate.origin && requested.pathname === candidate.pathname;
+      });
     } catch (_) {
       return false;
     }
@@ -60,7 +67,22 @@
     }
   }
 
-  function cloneOptions(options = {}) {
+  function authHeadersFor(url) {
+    try {
+      const parsed = new URL(url, location.href);
+      const key = String(config().supabasePublishableKey || "").trim();
+      if (!key || !parsed.hostname.endsWith("supabase.co")) return {};
+      return {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        "X-Client-Info": "poly-pmna-ask-web/3"
+      };
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function cloneOptions(options = {}, endpoint = "") {
     return {
       ...options,
       mode: "cors",
@@ -68,36 +90,58 @@
       cache: "no-store",
       headers: {
         Accept: "application/json",
-        ...(options.headers || {})
+        ...(options.headers || {}),
+        ...authHeadersFor(endpoint)
       }
     };
   }
 
-  async function fetchAskWithRetry(input, options) {
+  async function fetchAskWithFailover(input, options) {
     rememberQuestion(options);
-    const requestOptions = cloneOptions(options);
-    let firstError = null;
+    const candidates = endpointCandidates();
+    if (!candidates.length) throw new Error("Ask POLY endpoint is missing.");
 
-    for (let attempt = 1; attempt <= 2; attempt += 1) {
-      try {
-        const response = await originalFetch(input, requestOptions);
-        if (response.ok || !RETRYABLE_STATUS.has(response.status) || attempt === 2) return response;
-        firstError = new Error(`Ask POLY returned HTTP ${response.status}.`);
-      } catch (error) {
-        firstError = error;
-        if (attempt === 2 || error?.name === "AbortError") throw error;
+    let lastError = null;
+    let lastResponse = null;
+
+    for (let index = 0; index < candidates.length; index += 1) {
+      const endpoint = candidates[index];
+      const attempts = index === 0 ? 2 : 1;
+
+      for (let attempt = 1; attempt <= attempts; attempt += 1) {
+        try {
+          const response = await originalFetch(endpoint, cloneOptions(options, endpoint));
+          if (response.ok) {
+            activeEndpoint = endpoint;
+            if (index > 0) setStatus("Ready on backup AI", "Primary AI route was unavailable; backup route answered.");
+            return response;
+          }
+          lastResponse = response;
+          if (!RETRYABLE_STATUS.has(response.status)) return response;
+          lastError = new Error(`Ask POLY returned HTTP ${response.status}.`);
+        } catch (error) {
+          lastError = error;
+          if (error?.name === "AbortError") throw error;
+        }
+
+        if (attempt < attempts) {
+          setStatus("Retrying AI relay…", lastError?.message || "Temporary AI connection failure");
+          await delay(RETRY_DELAY_MS);
+        }
       }
 
-      setStatus("Retrying AI service…", firstError?.message || "Temporary AI connection failure");
-      await delay(RETRY_DELAY_MS);
+      if (index < candidates.length - 1) {
+        setStatus("Switching AI route…", "The primary endpoint could not be reached from this network.");
+      }
     }
 
-    throw firstError || new Error("Ask POLY request failed.");
+    if (lastResponse) return lastResponse;
+    throw lastError || new Error("Ask POLY request failed on all routes.");
   }
 
   window.fetch = function polyAskFetch(input, options = {}) {
-    if (!isAskRequest(input)) return originalFetch(input, options);
-    return fetchAskWithRetry(input, options);
+    if (!matchesEndpoint(input)) return originalFetch(input, options);
+    return fetchAskWithFailover(input, options);
   };
 
   function questionFromLastUserBubble() {
@@ -131,7 +175,8 @@
       const text = String(bubble.textContent || "").toLowerCase();
       const failed = text.includes("could not reach the ai service")
         || text.includes("live ai service is temporarily unavailable")
-        || text.includes("ai service could not answer right now");
+        || text.includes("ai service could not answer right now")
+        || text.includes("relay could not reach");
       if (!failed) return;
       const button = document.createElement("button");
       button.type = "button";
@@ -159,40 +204,52 @@
       return null;
     }
 
-    const url = healthUrl();
-    if (!url) {
+    const candidates = healthCandidates();
+    if (!candidates.length) {
       setStatus("AI configuration error", "Ask POLY endpoint is missing.");
       return null;
     }
 
-    setStatus("Checking AI service…");
-    try {
-      const response = await originalFetch(`${url}?t=${Date.now()}`, {
-        method: "GET",
-        mode: "cors",
-        credentials: "omit",
-        cache: "no-store",
-        headers: { Accept: "application/json" }
-      });
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok || payload.ok !== true || payload.configured !== true) {
-        throw new Error(payload.error || `Health check failed with HTTP ${response.status}.`);
+    setStatus("Checking AI routes…");
+    let lastError = null;
+
+    for (const url of candidates) {
+      try {
+        const response = await originalFetch(`${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`, {
+          method: "GET",
+          mode: "cors",
+          credentials: "omit",
+          cache: "no-store",
+          headers: {
+            Accept: "application/json",
+            ...authHeadersFor(url)
+          }
+        });
+        const payload = await response.json().catch(() => ({}));
+        if (!response.ok || payload.ok !== true || payload.configured !== true) {
+          throw new Error(payload.error || `Health check failed with HTTP ${response.status}.`);
+        }
+        lastHealth = payload;
+        activeEndpoint = url;
+        const providers = Array.isArray(payload.providers) ? payload.providers.join(", ") : "AI provider";
+        const route = new URL(url).hostname.endsWith("supabase.co") ? "Supabase relay" : "Worker direct";
+        setStatus("Ready", `${route} · ${providers}${payload.model ? ` · ${payload.model}` : ""}`);
+        return payload;
+      } catch (error) {
+        lastError = error;
       }
-      lastHealth = payload;
-      const providers = Array.isArray(payload.providers) ? payload.providers.join(", ") : "AI provider";
-      setStatus("Ready", `Connected: ${providers}${payload.model ? ` · ${payload.model}` : ""}`);
-      return payload;
-    } catch (error) {
-      lastHealth = null;
-      setStatus("AI service reconnecting", error?.message || "Health check failed");
-      return null;
     }
+
+    lastHealth = null;
+    setStatus("AI routes unavailable", lastError?.message || "Health checks failed");
+    return null;
   }
 
   globalThis.AskPolyClientRecovery = Object.freeze({
     checkHealth,
     retryQuestion,
-    getLastHealth: () => lastHealth
+    getLastHealth: () => lastHealth,
+    getActiveEndpoint: () => activeEndpoint
   });
 
   window.addEventListener("online", checkHealth);
