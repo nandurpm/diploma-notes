@@ -1,0 +1,79 @@
+name: Lighthouse quality budget
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.html"
+      - "assets/css/**"
+      - "assets/js/**"
+      - "assets/media/**"
+      - "tools/build_public_site.py"
+      - "tools/optimize_public_build.py"
+      - ".lighthouserc.json"
+      - ".github/workflows/lighthouse-budget.yml"
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Prepare deterministic source state
+        run: |
+          python tools/normalize_rev2021_noscript.py
+          python tools/materialize_rev2021_subjects.py
+          python tools/annotate_rev2026_title_provenance.py
+          python tools/normalize_public_brand_assets.py
+          python tools/inject_structured_data.py
+          python tools/generate_sitemap.py
+          GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" POLY_INJECT_BUILD_ID=1 python tools/write_build_info.py
+          python tools/site_quality_gate.py
+          python tools/build_public_site.py --target _site
+
+      - name: Install Lighthouse CI
+        run: npm install --global @lhci/cli@0.15.1
+
+      - name: Run Lighthouse budgets on deployed artifact
+        run: lhci autorun --config=.lighthouserc.json
+
+      - name: Publish Lighthouse summary
+        if: always()
+        run: |
+          {
+            echo "## Lighthouse quality budget"
+            echo ""
+            echo "- Pages: Home, Revision 2026 directory, Student Tools"
+            echo "- Performance minimum: 0.72"
+            echo "- Accessibility minimum: 0.90"
+            echo "- Best Practices minimum: 0.90"
+            echo "- SEO minimum: 0.90"
+            echo "- CLS maximum: 0.10"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports-${{ github.run_id }}
+          path: reports/lighthouse
+          if-no-files-found: warn
+          retention-days: 30
