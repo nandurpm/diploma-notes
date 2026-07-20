@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-20T04:52:34Z",
+  "origin": "https://polypmna.dpdns.org",
+  "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
+  "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
+  "health": {
+    "name": "health",
+    "ok": true,
+    "status": 200,
+    "headers": {
+      "date": "Mon, 20 Jul 2026 04:52:28 GMT",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "333",
+      "connection": "close",
+      "access-control-allow-origin": "https://polypmna.dpdns.org",
+      "cache-control": "no-store",
+      "vary": "Origin",
+      "access-control-allow-headers": "Content-Type",
+      "access-control-allow-methods": "GET, POST, OPTIONS",
+      "access-control-max-age": "86400",
+      "x-content-type-options": "nosniff",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YI0Z1kqB9fiz7h%2FZAb5K13honPLnOlJm5ZNym0KkMRECcIZOQXI%2Fjk7PSV2Wk0NQHEfZ1QMYPgzcKVWlG%2FFHaVHlxFKNX7t1nsqe0MN5eyIptlEg%2FsW3fFT%2FJEYFyXFQNLEF46O%2BqJ9mzBIPp3zXLTNQVFeBgqnARQ%3D%3D\"}]}",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "server": "cloudflare",
+      "cf-ray": "a1df5b4dbbfe1419-ORD",
+      "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"providers\":[\"openai\"],\"model\":\"gpt-4o-mini\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
+    "error": ""
+  },
+  "preflight": {
+    "name": "preflight",
+    "ok": true,
+    "status": 204,
+    "headers": {
+      "date": "Mon, 20 Jul 2026 04:52:28 GMT",
+      "connection": "close",
+      "access-control-allow-origin": "https://polypmna.dpdns.org",
+      "vary": "Origin",
+      "access-control-allow-headers": "Content-Type",
+      "access-control-allow-methods": "GET, POST, OPTIONS",
+      "access-control-max-age": "86400",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Buse2k%2FQTCTZEt9RJ4gCshy60EAiYjVnfk9Fen2ZMqmEFQq7A%2BhM%2Fkd2%2B56Ai7vDSgis1JVRpOdBQuRfXC7WQvvM%2F%2Bt1ao%2BhzRMwHyzzwNNdLZ6CoyaGkJZWkrEr4y9PYhG0J0Mdb%2BzuoOHAQ%2FVqN1cvRk1P2MZt4A%3D%3D\"}]}",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "server": "cloudflare",
+      "cf-ray": "a1df5b4e0d2df167-ORD",
+      "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "body": "",
+    "error": ""
+  },
+  "post": {
+    "name": "post",
+    "ok": false,
+    "status": 502,
+    "headers": {
+      "date": "Mon, 20 Jul 2026 04:52:34 GMT",
+      "content-type": "application/json; charset=utf-8",
+      "content-length": "110",
+      "connection": "close",
+      "access-control-allow-origin": "https://polypmna.dpdns.org",
+      "cache-control": "no-store",
+      "vary": "Origin",
+      "access-control-allow-headers": "Content-Type",
+      "access-control-allow-methods": "GET, POST, OPTIONS",
+      "access-control-max-age": "86400",
+      "x-content-type-options": "nosniff",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LxbMhQSTsfwQS5qA33zUkjSFwoztJIu%2FMSrNYvhjXMRRqiBlA30dkhW8DrDm%2BoQemW5URa0yaLaPHvfRaYUwXdBbrAonTvPjzR0VGZr%2BTxT5AdZ4KvgOP6FEuETpJExhnCCFW%2BZpBdOWJRdmh8RWL0KrP1mX344Q4A%3D%3D\"}]}",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "server": "cloudflare",
+      "cf-ray": "a1df5b4e6872ae77-ORD",
+      "alt-svc": "h3=\":443\"; ma=86400"
+    },
+    "body": "{\"error\":\"The AI service could not answer right now. Please retry once; your chat is saved.\",\"retryable\":true}",
+    "error": "HTTPError: HTTP Error 502: Bad Gateway"
+  },
+  "browserPathOk": false
+}
