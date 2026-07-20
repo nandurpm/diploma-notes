@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""Pre-render Revision 2021 subject cards into every department HTML page.
-
-JavaScript remains responsible for live filtering, but students, crawlers and
-failed-script sessions receive the complete subject directory from HTML source.
-"""
+"""Pre-render Revision 2021 subject cards into every department HTML page."""
 from __future__ import annotations
 
 import argparse
@@ -16,14 +12,12 @@ ROOT = Path(__file__).resolve().parents[1]
 COMMON = "First Year / Common"
 OBJECT_RE = re.compile(r"\{[^{}]*\brevision\s*:\s*[\"']2021[\"'][^{}]*\}", re.S)
 PAIR_RE = re.compile(r"\b(revision|code|name|department|semester|type|assetCode)\s*:\s*[\"']([^\"']*)[\"']")
-GRID_RE = re.compile(
-    r'(<div\b[^>]*\bid=["\']subjectGrid["\'][^>]*>)[\s\S]*?(</div>\s*<noscript>)',
-    re.I,
-)
+GRID_OPEN_RE = re.compile(r'(<div\b[^>]*\bid=["\']subjectGrid["\'][^>]*>)', re.I)
 DEPARTMENT_RE = re.compile(r'data-department=["\']([^"\']+)["\']', re.I)
 SEMESTER_NUMBER_RE = re.compile(r"(\d+)")
 START = "<!-- STATIC REV2021 SUBJECTS START -->"
 END = "<!-- STATIC REV2021 SUBJECTS END -->"
+STATIC_RE = re.compile(re.escape(START) + r"[\s\S]*?" + re.escape(END), re.I)
 
 
 def parse_records(path: Path) -> list[dict[str, str]]:
@@ -55,7 +49,6 @@ def subject_key(record: dict[str, str]) -> tuple[str, ...]:
 
 def all_records() -> list[dict[str, str]]:
     records = parse_records(ROOT / "assets/js/subjects.js")
-    # Preserve the small set of manually curated records used by the browser.
     records.extend(parse_records(ROOT / "assets/js/subject-browser.js"))
     unique: dict[tuple[str, ...], dict[str, str]] = {}
     for record in records:
@@ -96,18 +89,13 @@ def card(record: dict[str, str]) -> str:
     return (
         f'<article class="subject-card reveal" data-subject-code="{html.escape(code.upper(), quote=True)}" '
         f'data-revision="2021" data-semester="{html.escape(record["semester"], quote=True)}" '
-        f'data-search-text="{html.escape(search, quote=True)}" '
-        f'data-notes-href="{html.escape(notes_href, quote=True)}" '
-        f'data-lesson-href="{html.escape(lesson_href, quote=True)}" '
-        f'data-lesson-available="{str(lesson_ok).lower()}" data-notes-available="{str(notes_ok).lower()}">'
-        f'<div class="subject-top"><span>2021</span><strong>{html.escape(code)}</strong></div>'
-        f'<h3>{html.escape(record["name"])}</h3>'
+        f'data-search-text="{html.escape(search, quote=True)}" data-notes-href="{html.escape(notes_href, quote=True)}" '
+        f'data-lesson-href="{html.escape(lesson_href, quote=True)}" data-lesson-available="{str(lesson_ok).lower()}" '
+        f'data-notes-available="{str(notes_ok).lower()}"><div class="subject-top"><span>2021</span>'
+        f'<strong>{html.escape(code)}</strong></div><h3>{html.escape(record["name"])}</h3>'
         f'<p>{html.escape(record["department"])} / {html.escape(record["semester"])} / {html.escape(record["type"])}</p>'
-        '<div class="action-row">'
-        f'<a class="action syllabus" href="{syllabus}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
-        f'{study}'
-        f'<a class="action qp" href="{model_qp}" target="_blank" rel="noopener noreferrer">Sample QP</a>'
-        '</div></article>'
+        f'<div class="action-row"><a class="action syllabus" href="{syllabus}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
+        f'{study}<a class="action qp" href="{model_qp}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>'
     )
 
 
@@ -138,17 +126,18 @@ def materialized_text(path: Path, records: list[dict[str, str]]) -> str:
     if not match:
         raise ValueError(f"{path.relative_to(ROOT)} has no data-department attribute")
     department = html.unescape(match.group(1))
-    wanted = [
-        record for record in records
-        if normalized(record["department"]) in {normalized(COMMON), normalized(department)}
-    ]
+    accepted = {normalized(COMMON), normalized(department)}
+    wanted = [record for record in records if normalized(record["department"]) in accepted]
     if not wanted:
         raise ValueError(f"No Revision 2021 subjects found for {department}")
     content = render(wanted)
-    replacement = lambda found: found.group(1) + content + found.group(2)
-    updated, count = GRID_RE.subn(replacement, text, count=1)
+    if START in text or END in text:
+        if text.count(START) != 1 or text.count(END) != 1:
+            raise ValueError(f"Invalid static subject markers in {path.relative_to(ROOT)}")
+        return STATIC_RE.sub(content, text, count=1)
+    updated, count = GRID_OPEN_RE.subn(lambda found: found.group(1) + content, text, count=1)
     if count != 1:
-        raise ValueError(f"Could not locate subjectGrid followed by noscript in {path.relative_to(ROOT)}")
+        raise ValueError(f"Could not locate subjectGrid in {path.relative_to(ROOT)}")
     return updated
 
 
@@ -159,9 +148,8 @@ def main() -> int:
     records = all_records()
     changed: list[str] = []
     failures: list[str] = []
-    for path in sorted((ROOT / "revision-2021").glob("*.html")):
-        if path.name == "department-view.html":
-            continue
+    pages = [path for path in sorted((ROOT / "revision-2021").glob("*.html")) if path.name != "department-view.html"]
+    for path in pages:
         try:
             updated = materialized_text(path, records)
         except ValueError as error:
@@ -179,8 +167,7 @@ def main() -> int:
         print("Stale Revision 2021 department pages:")
         print("\n".join(f"- {item}" for item in changed))
         return 1
-    action = "Verified" if args.check else "Materialized"
-    print(f"{action} {len(list((ROOT / 'revision-2021').glob('*.html')))} Revision 2021 department pages; changed {len(changed)}.")
+    print(f"{'Verified' if args.check else 'Materialized'} {len(pages)} Revision 2021 department pages; changed {len(changed)}.")
     return 0
 
 
