@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-20T05:13:48Z",
+  "generatedAt": "2026-07-20T05:16:54Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Mon, 20 Jul 2026 05:13:47 GMT",
+      "date": "Mon, 20 Jul 2026 05:16:53 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "419",
       "connection": "close",
@@ -19,10 +19,10 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=83OlNBnkVyE3IGA9JZ5Eu07waZp%2BbesxykcLWjWOmorD65INvBfJ0J%2B%2BRfoHmDHyxWnWNVdh7r4%2FhDdHrizolrnTaEuwa3J36wvpkhHNC8ENfqrEMR5uKnNsvhrMd%2FnjWacFa6QruLrTDx5L6BUXXIhR7Ko8r9UhIA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=sd8hLNaq8TNStAPZoVC7d0eOLlIeXKoPaAjy0q5B1gcfsVjVeaJsg6C3BpMNmraXjN3S3dYlGKvoCHLp3xPqF12Jjr4vgmAGHGBOIg%2FUCSzR1SbxeBh7j9lb6iRSAoBAYap51ENJdnIE8aAHW%2BQKDu6R332TWusKIg%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1df7a8809610010-ORD",
+      "cf-ray": "a1df7f144a0d133c-SJC",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -33,17 +33,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Mon, 20 Jul 2026 05:13:47 GMT",
+      "date": "Mon, 20 Jul 2026 05:16:53 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=aTmrR0PwgjWa4S%2FH3rS%2B4xWnPtUc3gACY6ejdzrVv8eO%2BVksl19KE2HyuowoR0cOB4uo%2FFewb6VaX45RRSN%2Fc2uYPVoJdZlBnvb64b9vJhrgFVkDtVzk%2FBbVzqA0c4USJ1%2F6YZVmDeYgWNl4rmwTh47W7IcBa9l%2B%2FA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lFcu5qUVV3%2BNWIC0mCsk2aPGN1h4Ph4qvtsMqxR6sn%2BKvtjZ73Nqp0Pthy3hp3fc1VHmaWGQGjBv4p4EamsK86%2BBCcw7DPpyGUGERy1c6teqjLLbrkgb4oLnFF0rEXan%2FaTwKFJR%2FI%2F5cv2N9cXOgP0%2F9htPlb0kQw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1df7a884e980aad-ORD",
+      "cf-ray": "a1df7f148970b1ae-SJC",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -54,9 +54,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Mon, 20 Jul 2026 05:13:48 GMT",
+      "date": "Mon, 20 Jul 2026 05:16:54 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "761",
+      "content-length": "542",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -65,13 +65,13 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=zojwTLyuVaQ2ozygBgCsybh5Hc8ozh3xQQWKwOXCFdmpdKCYpSn%2FWxDGqN3SwVOF%2FZ0huR58L525KbYS%2BK%2FPy6Xa94%2BWZVrdHBzgaPnmPN5YCJNdLN1T3xTvIlq8obwj47YAriMx7Bhl%2FqtyEhvdsysyPfWLTCxjZA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cTpnxoUMMfm1YS4kFRdpFOEpWB%2FQWd3MuKuc7%2Bc4fFukF7rbtnY0kOT2DBwJ%2BO7YQ5M0dwN1rRIy%2FuPVojaRTEnni4l4EaCdFlDctZsEP0D9HGrTqdHhhydUVic6Nyu%2BItldSj2%2BC%2FerjQS6gs76%2BbIqNKhcZSELyw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1df7a887bbdeaf1-ORD",
+      "cf-ray": "a1df7f14bbc50b82-SJC",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"To access the Ask POLY browser path, follow these steps:\\n\\n1. Open the POLY PMNA website: <https://poly-pmana.com/>\\n2. Click on the **Ask POLY AI** link from the main menu.\\n3. You will be directed to the Ask POLY AI page, where you can ask your questions and get assistance.\\n\\nYou can also access the Ask POLY AI page directly by navigating to: <https://poly-pmana.com/ask-poly-ai/>\\n\\nNote: The Ask POLY AI page is available in all revisions (2026, 2021, and 2015) and can be accessed from any page on the website.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-eb8c7d2a-fc87-42a0-b450-b7ac1d6d64b3\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"To access the Ask POLY browser path, follow these steps:\\n\\n1. Open the POLY PMNA website ([Home](https://polypmna.com/)).\\n2. Click on the **Ask POLY AI** tab.\\n3. You will be directed to this chat interface.\\n\\nYou can use this chat interface to ask questions, seek help, and report website issues.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-977467fb-9ab7-4a30-9d6d-62e50d965aea\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
