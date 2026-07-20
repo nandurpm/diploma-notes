@@ -4,7 +4,7 @@
   const { $, esc, mark } = M.ui;
   const DEFAULT_SUPABASE_URL = "https://hwobooljdvynsajtrvnk.supabase.co";
   const DEFAULT_SUPABASE_PUBLISHABLE_KEY = "";
-  const AI_EVALUATION_TIMEOUT_MS = 10000;
+  const DEFAULT_TIMEOUT_MS = 30000;
   const key = (kind) => `poly-mock-exam:${M.paperId}:${M.state.user?.id || "unknown"}:${kind}`;
 
   const chemistryExact = Object.freeze({
@@ -59,12 +59,10 @@
   }
 
   function endpoint() {
-    const configured = String(globalThis.ASK_POLY_CONFIG?.endpoint || "").trim();
+    const configured = String(globalThis.ASK_POLY_CONFIG?.mockExamEndpoint || "").trim();
     if (!configured) return "";
     const url = new URL(configured, location.href);
-    url.pathname = "/api/evaluate-mock-exam";
-    url.search = "";
-    url.hash = "";
+    if (!/^https:$/.test(url.protocol) && url.hostname !== "localhost" && url.hostname !== "127.0.0.1") return "";
     return url.toString();
   }
 
@@ -81,16 +79,12 @@
     return String(value || "").toLowerCase().replace(/×/g, "x").replace(/\s+/g, " ").trim();
   }
 
-  function allowRubricFallback() {
-    return globalThis.ASK_POLY_CONFIG?.mockExamRubricFallback !== false;
-  }
-
   function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   function canUseRubricFallback(error) {
-    if (!allowRubricFallback()) return false;
+    if (globalThis.ASK_POLY_CONFIG?.mockExamRubricFallback === false) return false;
     if (error?.name === "AbortError") return true;
     if (!navigator.onLine) return true;
     if (!error?.status) return true;
@@ -107,7 +101,7 @@
       if (question.section === "A") {
         const accepted = exactAnswers[question.id] || [];
         const correct = accepted.some((term) => normalised.includes(norm(term)));
-        return { id: question.id, awardedMarks: correct ? 1 : 0, maxMarks: 1, confidence: 0.95, feedback: correct ? "Correct." : "The one-word or one-sentence answer does not match the expected concept.", missingPoints: correct ? [] : accepted.slice(0, 2) };
+        return { id: question.id, awardedMarks: correct ? 1 : 0, maxMarks: 1, confidence: 0.7, feedback: correct ? "Keyword matched." : "The answer did not match the expected key concept.", missingPoints: correct ? [] : accepted.slice(0, 2) };
       }
       const terms = keywords[question.id] || [];
       const matched = terms.filter((term) => normalised.includes(norm(term)));
@@ -115,28 +109,59 @@
       const coverage = terms.length ? matched.length / terms.length : 0;
       const lengthCredit = Math.min(0.18, answer.length / 1600);
       const awardedMarks = Math.round(question.marks * Math.min(1, coverage * 1.2 + lengthCredit) * 2) / 2;
-      return { id: question.id, awardedMarks, maxMarks: question.marks, confidence: 0.5, feedback: awardedMarks > 0 ? `Provisional rubric check found ${matched.length} relevant point${matched.length === 1 ? "" : "s"}.` : "The response did not contain enough relevant content to award marks.", missingPoints: missing.slice(0, 5) };
+      return { id: question.id, awardedMarks, maxMarks: question.marks, confidence: 0.35, feedback: awardedMarks > 0 ? `Provisional keyword check found ${matched.length} relevant point${matched.length === 1 ? "" : "s"}.` : "The browser rubric did not find enough relevant content.", missingPoints: missing.slice(0, 5) };
     });
     const score = Math.round(results.reduce((sum, item) => sum + item.awardedMarks, 0) * 2) / 2;
-    return { paperId: M.paperId, subjectCode: M.subjectCode, title: M.examTitle || M.displayName || "Official-Pattern Mock Examination", score, totalMarks: M.totalMarks, percentage: Math.round(score / M.totalMarks * 1000) / 10, status: "published", evaluationMode: "automated_rubric_fallback", model: "browser-rubric-v6", evaluatedAt: new Date().toISOString(), results, overallFeedback: "The AI service was temporarily unavailable, so a provisional rubric-based result was published. The paper structure and maximum marks follow the official model-question-paper pattern.", fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180) };
+    return {
+      paperId: M.paperId,
+      subjectCode: M.subjectCode,
+      title: M.examTitle || M.displayName || "Official-Pattern Mock Examination",
+      score,
+      totalMarks: M.totalMarks,
+      percentage: Math.round(score / M.totalMarks * 1000) / 10,
+      status: "provisional",
+      evaluationMode: "browser-rubric-provisional",
+      model: "browser-rubric-v7",
+      evaluatedAt: new Date().toISOString(),
+      results,
+      overallFeedback: "This is a provisional browser-only estimate because the server evaluator was unavailable. It is not an official or authoritative score and is not saved to online history.",
+      fallbackReason: String(reason?.message || reason || "AI service unavailable").slice(0, 180),
+      savedOnline: false
+    };
+  }
+
+  async function accessToken() {
+    try {
+      const { data } = await M.state.client?.auth?.getSession?.();
+      return data?.session?.access_token || "";
+    } catch (_) {
+      return "";
+    }
   }
 
   async function evaluate() {
     const url = endpoint();
-    if (!url) {
-      const error = new Error("AI evaluation service is not configured.");
-      await delay(AI_EVALUATION_TIMEOUT_MS);
-      if (canUseRubricFallback(error)) return localFallbackEvaluation(error);
-      throw error;
-    }
+    if (!url) throw new Error("The mock-exam evaluation endpoint is not configured correctly.");
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), AI_EVALUATION_TIMEOUT_MS);
+    const timeoutMs = Number(globalThis.ASK_POLY_CONFIG?.mockExamTimeoutMs || DEFAULT_TIMEOUT_MS);
+    const timeout = setTimeout(() => controller.abort(), Math.max(8000, timeoutMs));
     try {
+      const token = await accessToken();
       const response = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {})
+        },
+        cache: "no-store",
         signal: controller.signal,
-        body: JSON.stringify({ paperId: M.paperId, subjectCode: M.subjectCode, title: M.examTitle || M.displayName, selections: M.state.selections, answers: selectedPayload(), questions: M.ui.selectedQuestions() })
+        body: JSON.stringify({
+          paperId: M.paperId,
+          subjectCode: M.subjectCode,
+          title: M.examTitle || M.displayName,
+          selections: M.state.selections,
+          answers: selectedPayload()
+        })
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) {
@@ -144,33 +169,37 @@
         error.status = response.status;
         throw error;
       }
+      if (!data || data.paperId !== M.paperId || !Array.isArray(data.results)) throw new Error("The evaluator returned an invalid result.");
       return data;
     } catch (error) {
-      console.error("AI evaluation unavailable; using provisional rubric result when allowed.", error);
+      console.error("Server evaluation unavailable.", error);
       if (canUseRubricFallback(error)) return localFallbackEvaluation(error);
-      throw new Error(error.message || "AI evaluation is temporarily unavailable. Your answers are still saved; please submit again.");
-    } finally { clearTimeout(timeout); }
+      throw new Error(error.message || "Evaluation is temporarily unavailable. Your answers remain saved; please submit again.");
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   async function saveResult(result) {
-    const now = new Date().toISOString();
-    const payload = { user_id: M.state.user.id, subject_code: M.subjectCode, paper_code: M.paperId, answers: { selections: M.state.selections, responses: selectedPayload() }, ai_feedback: result, score: Number(result.score || 0), max_score: M.totalMarks, status: "published", submitted_at: now, published_at: now, updated_at: now };
-    const { error } = await M.state.client.from("sample_paper_attempts").insert(payload);
-    if (error) throw error;
+    if (result?.status !== "published" || result?.evaluationMode === "browser-rubric-provisional") {
+      throw new Error("Provisional browser results are not stored as authoritative online scores.");
+    }
+    if (result?.savedOnline === true || result?.serverSaved === true) return;
+    throw new Error("The evaluator did not confirm server-side result storage. The result remains available only in this browser.");
   }
 
   async function loadHistory() {
     const box = $("attemptHistory");
     const { data, error } = await M.state.client.from("sample_paper_attempts").select("id,score,max_score,ai_feedback,created_at,status").eq("user_id", M.state.user.id).eq("subject_code", M.subjectCode).eq("paper_code", M.paperId).order("created_at", { ascending: false }).limit(10);
     if (error || !data?.length) {
-      box.innerHTML = `<div class="empty-state">${error ? "Online attempt history is temporarily unavailable." : "No saved mock-exam attempts yet."}</div>`;
+      box.innerHTML = `<div class="empty-state">${error ? "Verified online attempt history is temporarily unavailable." : "No verified online mock-exam attempts yet."}</div>`;
       return;
     }
     box.innerHTML = `<table class="data-table"><thead><tr><th>Date</th><th>Score</th><th>Percentage</th><th>Evaluation</th><th>Status</th></tr></thead><tbody>${data.map((row) => {
       const maximum = Number(row.max_score || M.totalMarks);
       const score = Number(row.score || 0);
       const percentage = maximum > 0 ? score / maximum * 100 : 0;
-      const mode = M.ui.evaluationLabel ? M.ui.evaluationLabel(row.ai_feedback?.evaluationMode) : "Automated Rubric";
+      const mode = M.ui.evaluationLabel ? M.ui.evaluationLabel(row.ai_feedback?.evaluationMode) : "Server evaluation";
       return `<tr><td>${esc(new Date(row.created_at).toLocaleString("en-IN"))}</td><td class="history-score">${mark(score)}/${mark(maximum)}</td><td>${mark(percentage)}%</td><td>${esc(mode)}</td><td>${esc(row.status || "published")}</td></tr>`;
     }).join("")}</tbody></table>`;
   }
