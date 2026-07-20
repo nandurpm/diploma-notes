@@ -8,13 +8,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tools", "workers", "node_modules", "_site"}
+EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html"}
 FAVICON = '<link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">'
 MANIFEST = '<link rel="manifest" href="/site.webmanifest">'
 THEME = '<meta name="theme-color" content="#1d4ed8">'
 HEAD_END_RE = re.compile(r"</head>", re.I)
+DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
 ICON_RE = re.compile(r'<link\b(?=[^>]*\brel\s*=\s*(["\'])[^"\']*\bicon\b[^"\']*\1)[^>]*>\s*', re.I)
 MANIFEST_RE = re.compile(r'<link\b(?=[^>]*\brel\s*=\s*(["\'])[^"\']*\bmanifest\b[^"\']*\1)[^>]*>\s*', re.I)
 THEME_RE = re.compile(r'<meta\b(?=[^>]*\bname\s*=\s*(["\'])theme-color\1)[^>]*>\s*', re.I)
+
+
+def read_page(path: Path) -> str:
+    return path.read_text(encoding="utf-8", errors="replace")
 
 
 def public_pages() -> list[Path]:
@@ -23,14 +29,19 @@ def public_pages() -> list[Path]:
         relative = path.relative_to(ROOT)
         if relative.parts and relative.parts[0] in EXCLUDED_ROOTS:
             continue
-        if path.name in {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html"}:
+        if path.name in EXCLUDED_NAMES:
+            continue
+        source = read_page(path)
+        # The repository contains a few HTML fragments/templates with an .html
+        # suffix. They are not deployable documents and must not receive head tags.
+        if not DOCUMENT_RE.search(source) or not HEAD_END_RE.search(source):
             continue
         result.append(path)
     return sorted(result)
 
 
 def normalized_text(path: Path) -> str:
-    source = path.read_text(encoding="utf-8", errors="strict")
+    source = read_page(path)
     source = ICON_RE.sub("", source)
     source = MANIFEST_RE.sub("", source)
     source = THEME_RE.sub("", source)
@@ -45,15 +56,16 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
+    pages = public_pages()
     changed: list[Path] = []
     failures: list[str] = []
-    for path in public_pages():
+    for path in pages:
         try:
             updated = normalized_text(path)
         except ValueError as error:
             failures.append(str(error))
             continue
-        current = path.read_text(encoding="utf-8")
+        current = read_page(path)
         if current != updated:
             changed.append(path)
             if not args.check:
@@ -65,7 +77,7 @@ def main() -> int:
         print("Stale public brand metadata:")
         print("\n".join(f"- {path.relative_to(ROOT).as_posix()}" for path in changed))
         return 1
-    print(f"{'Verified' if args.check else 'Normalized'} brand metadata on {len(public_pages())} public pages; changed {len(changed)}.")
+    print(f"{'Verified' if args.check else 'Normalized'} brand metadata on {len(pages)} public pages; changed {len(changed)}.")
     return 0
 
 
