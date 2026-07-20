@@ -17,6 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,9 +41,9 @@ jobs:
           if target.exists():
               shutil.rmtree(target)
           target.mkdir()
-          excluded = {'.git','.github','android','docs','reports','supabase','tools','workers','node_modules','_site'}
+          excluded = {'.git','.github','android','android-app','docs','reports','supabase','tools','workers','node_modules','_site'}
           source_suffixes = {'.py','.pyc','.cjs','.mjs','.ts','.tsx','.sql','.yml','.yaml','.md','.lock','.toml'}
-          keep = {'CNAME','_headers','_redirects','robots.txt','sitemap.xml','build-info.json'}
+          keep = {'CNAME','_headers','_redirects','robots.txt','sitemap.xml','build-info.json','site.webmanifest'}
           tracked = subprocess.check_output(['git','ls-files','-z']).decode().split('\0')
           for name in tracked:
               if not name:
@@ -64,10 +65,15 @@ jobs:
                   destination.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copy2(source, destination)
           (target / '.nojekyll').write_text('', encoding='utf-8')
-          for required in ('index.html','revision-2026.html','ask-poly.html','sitemap.xml','build-info.json','CNAME'):
+          for required in ('index.html','revision-2026.html','ask-poly.html','sitemap.xml','build-info.json','CNAME','site.webmanifest'):
               if not (target / required).is_file():
                   raise SystemExit(f'Missing deployment file: {required}')
           PY
+      - name: Optimize production assets
+        run: |
+          python tools/optimize_public_build.py --root _site
+          test -f _site/build-optimization.json
+          grep -q 'assets/build/home.' _site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
