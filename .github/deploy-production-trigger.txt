@@ -1,0 +1,2 @@
+triggered: 2026-07-20T14:58:00+05:30
+purpose: deploy redesigned bilingual About page and publish exact production diagnostic
