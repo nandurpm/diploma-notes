@@ -1,0 +1,85 @@
+name: GitHub Pages production diagnostic
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/github-pages-production-trigger.txt"
+      - ".github/workflows/github-pages-production-diagnostic.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: github-pages-production-diagnostic
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate validated public site
+        run: |
+          GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
+          python tools/generate_sitemap.py
+          python tools/site_quality_gate.py
+          python tools/build_public_site.py --target _site
+          grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html
+          test -f _site/CNAME
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: build
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy GitHub Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  report:
+    if: always()
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Publish Pages deployment result
+        shell: bash
+        run: |
+          status="failed"
+          if [ "${{ needs.build.result }}" = "success" ] && [ "${{ needs.deploy.result }}" = "success" ]; then
+            status="passed"
+          fi
+          {
+            echo "# GitHub Pages production diagnostic: ${status}"
+            echo
+            echo "- Commit: \`$GITHUB_SHA\`"
+            echo "- Build result: \`${{ needs.build.result }}\`"
+            echo "- Deploy result: \`${{ needs.deploy.result }}\`"
+            echo "- Pages URL: \`${{ needs.deploy.outputs.page_url || 'not available' }}\`"
+            echo
+            echo "Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          } > /tmp/pages-result.md
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "[GitHub Pages deployment] ${status} ${GITHUB_SHA:0:7}" --body-file /tmp/pages-result.md
+          test "$status" = "passed"
