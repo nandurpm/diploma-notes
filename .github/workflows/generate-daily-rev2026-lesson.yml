@@ -1,0 +1,112 @@
+name: Generate daily REV2026 lesson
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 20:00 Asia/Kolkata every day (14:30 UTC).
+    - cron: "30 14 * * *"
+  push:
+    branches: [main]
+    paths:
+      # Adding or changing this workflow performs one immediate activation run.
+      - ".github/workflows/generate-daily-rev2026-lesson.yml"
+
+permissions:
+  contents: write
+  models: read
+
+concurrency:
+  group: generate-daily-rev2026-lesson
+  cancel-in-progress: false
+
+jobs:
+  generate-next-missing-lesson:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Synchronize with latest main
+        run: git pull --rebase origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install PDF text extraction
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y poppler-utils
+
+      - name: Validate generator source
+        run: python -m py_compile tools/generate_daily_rev2026_lesson.py
+
+      - name: Generate first missing Revision 2026 lesson
+        id: generate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_MODELS_MODEL: openai/gpt-4.1
+          LIVE_SITE_BASE: https://polypmna.dpdns.org
+        run: python tools/generate_daily_rev2026_lesson.py
+
+      - name: Refresh lesson and notes availability
+        if: steps.generate.outputs.status == 'generated'
+        run: |
+          python tools/update_asset_manifest.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Commit generated lesson directly to main
+        if: steps.generate.outputs.status == 'generated'
+        env:
+          GENERATED_PATH: ${{ steps.generate.outputs.generated_path }}
+          COURSE_CODE: ${{ steps.generate.outputs.code }}
+          COURSE_TITLE: ${{ steps.generate.outputs.title }}
+        run: |
+          set -euo pipefail
+          test -n "$GENERATED_PATH"
+          test -f "$GENERATED_PATH"
+
+          git config user.name "REV2026 Lesson Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "$GENERATED_PATH"
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js
+
+          if git diff --cached --quiet; then
+            echo "No generated changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Add REV2026 ${COURSE_CODE} ${COURSE_TITLE} handbook"
+
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Push attempt ${attempt} failed; retrying."
+            sleep $((attempt * 5))
+          done
+
+          echo "Unable to push generated lesson after three attempts."
+          exit 1
+
+      - name: Report result
+        if: always()
+        run: |
+          {
+            echo "## Daily REV2026 lesson generator"
+            echo ""
+            echo "- Status: ${{ steps.generate.outputs.status || 'failed' }}"
+            echo "- Subject code: ${{ steps.generate.outputs.code || 'none' }}"
+            echo "- Subject title: ${{ steps.generate.outputs.title || 'none' }}"
+            echo "- Generated path: ${{ steps.generate.outputs.generated_path || 'none' }}"
+            echo "- Provider: ${{ steps.generate.outputs.provider || 'none' }}"
+            echo "- Daily schedule: 20:00 Asia/Kolkata"
+          } >> "$GITHUB_STEP_SUMMARY"
