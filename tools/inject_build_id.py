@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ATTRIBUTE_RE = re.compile(r'(?P<prefix>\b(?:src|href|poster)=["\'])(?P<url>/assets/[^"\']+)(?P<suffix>["\'])', re.I)
 META_RE = re.compile(r'<meta\s+name=["\']poly-build-id["\'][^>]*>', re.I)
 HEAD_END_RE = re.compile(r'</head>', re.I)
-EXCLUDED_ROOTS = {"maintenance", "reports", "docs", "workers", "supabase", "android", "tools", ".github"}
+EXCLUDED_ROOTS = {"maintenance", "reports", "docs", "workers", "supabase", "android", "tools", ".github", "tmp"}
 
 
 def versioned(url: str, build_id: str) -> str:
