@@ -37,6 +37,17 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Compile remediation generators
+        run: |
+          python -m py_compile \
+            tools/normalize_rev2021_noscript.py \
+            tools/materialize_rev2021_subjects.py \
+            tools/annotate_rev2026_title_provenance.py \
+            tools/normalize_public_brand_assets.py \
+            tools/inject_structured_data.py \
+            tools/generate_sitemap.py \
+            tools/site_quality_gate.py
+
       - name: Vendor exact Supabase browser bundle
         run: |
           set -euo pipefail
@@ -56,7 +67,7 @@ jobs:
             "Digest: see supabase-js-${SUPABASE_JS_VERSION}.js.sha256" \
             > assets/vendor/SUPABASE-JS-NOTICE.txt
 
-      - name: Replace moving CDN references
+      - name: Replace moving Supabase CDN references
         run: |
           python - <<'PY'
           import os
@@ -78,22 +89,23 @@ jobs:
                   raise SystemExit(f'No Supabase browser client reference found in {path}')
           PY
 
-      - name: Materialize content, branding and structured data
-        run: |
-          python -m py_compile \
-            tools/normalize_rev2021_noscript.py \
-            tools/materialize_rev2021_subjects.py \
-            tools/annotate_rev2026_title_provenance.py \
-            tools/normalize_public_brand_assets.py \
-            tools/inject_structured_data.py \
-            tools/generate_sitemap.py \
-            tools/site_quality_gate.py
-          python tools/normalize_rev2021_noscript.py
-          python tools/materialize_rev2021_subjects.py
-          python tools/annotate_rev2026_title_provenance.py
-          python tools/normalize_public_brand_assets.py
-          python tools/inject_structured_data.py
-          python tools/generate_sitemap.py
+      - name: Normalize Revision 2021 templates
+        run: python tools/normalize_rev2021_noscript.py
+
+      - name: Materialize Revision 2021 subject cards
+        run: python tools/materialize_rev2021_subjects.py
+
+      - name: Annotate Revision 2026 title provenance
+        run: python tools/annotate_rev2026_title_provenance.py
+
+      - name: Normalize public brand metadata
+        run: python tools/normalize_public_brand_assets.py
+
+      - name: Inject structured data
+        run: python tools/inject_structured_data.py
+
+      - name: Generate complete sitemap
+        run: python tools/generate_sitemap.py
 
       - name: Validate final source state
         run: |
