@@ -55,10 +55,14 @@ def hidden_h1(title: str) -> str:
 def insert_hidden_h1(text: str, title: str) -> str:
     if H1_OPEN_RE.search(text):
         return text
-    updated, count = MAIN_OPEN_RE.subn(lambda match: match.group(1) + "\n    " + hidden_h1(title), text, count=1)
-    if count != 1:
-        raise ValueError("No <main> element found")
-    return updated
+    insertion = "\n    " + hidden_h1(title)
+    updated, count = MAIN_OPEN_RE.subn(lambda match: match.group(1) + insertion, text, count=1)
+    if count == 1:
+        return updated
+    updated, count = BODY_OPEN_RE.subn(lambda match: match.group(1) + insertion, text, count=1)
+    if count == 1:
+        return updated
+    raise ValueError("No <main> or <body> element found")
 
 
 def repair_lesson_h1(relative: str) -> bool:
@@ -120,13 +124,10 @@ def repair_mock(relative: str) -> bool:
     canonical_match = CANONICAL_RE.search(text)
     canonical = canonical_match.group(1) if canonical_match else f"https://polypmna.dpdns.org/{relative}"
 
-    # Keep exactly one document-level H1. Dynamic view/state headings become H2.
     text = H1_OPEN_RE.sub(r"<h2\1>", text)
     text = H1_CLOSE_RE.sub("</h2>", text)
     document_title = "Applied Chemistry Mock Examination 1004" if relative == "mock-exam-1004.html" else "Kerala Polytechnic Mock Examination"
-    text, count = MAIN_OPEN_RE.subn(lambda match: match.group(1) + "\n    " + hidden_h1(document_title), text, count=1)
-    if count != 1:
-        raise ValueError(f"No <main> found in {relative}")
+    text = insert_hidden_h1(text, document_title)
 
     if not SKIP_RE.search(text):
         text, count = BODY_OPEN_RE.subn(
