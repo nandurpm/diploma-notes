@@ -14,6 +14,7 @@ MANIFEST = '<link rel="manifest" href="/site.webmanifest">'
 THEME = '<meta name="theme-color" content="#1d4ed8">'
 HEAD_END_RE = re.compile(r"</head>", re.I)
 DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
+STRUCTURED_START_RE = re.compile(r'(?=<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>)', re.I)
 ICON_RE = re.compile(r'<link\b(?=[^>]*\brel\s*=\s*(["\'])[^"\']*\bicon\b[^"\']*\1)[^>]*>\s*', re.I)
 MANIFEST_RE = re.compile(r'<link\b(?=[^>]*\brel\s*=\s*(["\'])[^"\']*\bmanifest\b[^"\']*\1)[^>]*>\s*', re.I)
 THEME_RE = re.compile(r'<meta\b(?=[^>]*\bname\s*=\s*(["\'])theme-color\1)[^>]*>\s*', re.I)
@@ -32,8 +33,6 @@ def public_pages() -> list[Path]:
         if path.name in EXCLUDED_NAMES:
             continue
         source = read_page(path)
-        # The repository contains a few HTML fragments/templates with an .html
-        # suffix. They are not deployable documents and must not receive head tags.
         if not DOCUMENT_RE.search(source) or not HEAD_END_RE.search(source):
             continue
         result.append(path)
@@ -46,9 +45,15 @@ def normalized_text(path: Path) -> str:
     source = MANIFEST_RE.sub("", source)
     source = THEME_RE.sub("", source)
     injection = f"  {FAVICON}\n  {MANIFEST}\n  {THEME}\n"
-    updated, count = HEAD_END_RE.subn(injection + "</head>", source, count=1)
+
+    # Keep a fixed order inside <head>: brand metadata first, generated JSON-LD
+    # second. This makes both independent generators idempotent.
+    if STRUCTURED_START_RE.search(source):
+        updated, count = STRUCTURED_START_RE.subn(injection, source, count=1)
+    else:
+        updated, count = HEAD_END_RE.subn(injection + "</head>", source, count=1)
     if count != 1:
-        raise ValueError(f"Missing </head> in {path.relative_to(ROOT)}")
+        raise ValueError(f"Could not insert brand metadata in {path.relative_to(ROOT)}")
     return updated
 
 
