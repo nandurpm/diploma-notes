@@ -40,6 +40,7 @@ jobs:
       - name: Compile remediation generators
         run: |
           python -m py_compile \
+            tools/repair_legacy_quality_markup.py \
             tools/normalize_rev2021_noscript.py \
             tools/materialize_rev2021_subjects.py \
             tools/annotate_rev2026_title_provenance.py \
@@ -47,6 +48,11 @@ jobs:
             tools/inject_structured_data.py \
             tools/generate_sitemap.py \
             tools/site_quality_gate.py
+
+      - name: Repair legacy release-blocking markup
+        run: |
+          python tools/repair_legacy_quality_markup.py
+          python tools/repair_legacy_quality_markup.py --check
 
       - name: Vendor exact Supabase browser bundle
         run: |
@@ -130,6 +136,7 @@ jobs:
           node --check "assets/vendor/supabase-js-${SUPABASE_JS_VERSION}.js"
           node --check assets/js/ask-poly-config.js
           node --check assets/js/mock-exam-service.js
+          node --check assets/js/about-experience.js
 
       - name: Confirm moving Supabase CDN reference is gone
         run: |
