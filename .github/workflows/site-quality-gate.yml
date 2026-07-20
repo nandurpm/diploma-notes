@@ -17,7 +17,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,6 +32,9 @@ jobs:
         run: |
           python tools/generate_sitemap.py --check
           python tools/materialize_rev2021_subjects.py --check
+          python tools/annotate_rev2026_title_provenance.py --check
+          python tools/normalize_public_brand_assets.py --check
+          python tools/inject_structured_data.py --check
       - name: Run current site quality gate
         run: python tools/site_quality_gate.py
       - name: Validate critical JavaScript
