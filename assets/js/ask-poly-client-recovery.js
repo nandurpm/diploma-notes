@@ -7,6 +7,7 @@
   const RETRY_DELAY_MS = 900;
   const originalFetch = window.fetch.bind(window);
   let lastHealth = null;
+  let lastQuestion = "";
 
   const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
   const statusNode = () => document.getElementById("chatStatus");
@@ -48,6 +49,17 @@
     }
   }
 
+  function rememberQuestion(options = {}) {
+    try {
+      if (typeof options.body !== "string") return;
+      const payload = JSON.parse(options.body);
+      const question = String(payload?.message || "").trim();
+      if (question) lastQuestion = question;
+    } catch (_) {
+      // Ignore non-JSON request bodies.
+    }
+  }
+
   function cloneOptions(options = {}) {
     return {
       ...options,
@@ -62,6 +74,7 @@
   }
 
   async function fetchAskWithRetry(input, options) {
+    rememberQuestion(options);
     const requestOptions = cloneOptions(options);
     let firstError = null;
 
@@ -86,6 +99,58 @@
     if (!isAskRequest(input)) return originalFetch(input, options);
     return fetchAskWithRetry(input, options);
   };
+
+  function questionFromLastUserBubble() {
+    if (lastQuestion) return lastQuestion;
+    const bubbles = [...document.querySelectorAll("#chatMessages .ask-bubble.user")];
+    const latest = bubbles.at(-1);
+    if (!latest) return "";
+    const clone = latest.cloneNode(true);
+    clone.querySelectorAll("time, button").forEach(node => node.remove());
+    return String(clone.textContent || "").trim();
+  }
+
+  function retryQuestion() {
+    const question = questionFromLastUserBubble();
+    const input = document.getElementById("chatInput");
+    const form = document.getElementById("chatForm");
+    if (!question || !input || !form) {
+      setStatus("Retry unavailable", "The previous question could not be recovered.");
+      return;
+    }
+    input.value = question;
+    input.dispatchEvent(new Event("input", { bubbles: true }));
+    input.focus();
+    if (typeof form.requestSubmit === "function") form.requestSubmit();
+    else document.getElementById("sendBtn")?.click();
+  }
+
+  function addRetryButtons() {
+    document.querySelectorAll("#chatMessages .ask-bubble.ai:not([data-poly-retry-checked])").forEach(bubble => {
+      bubble.dataset.polyRetryChecked = "true";
+      const text = String(bubble.textContent || "").toLowerCase();
+      const failed = text.includes("could not reach the ai service")
+        || text.includes("live ai service is temporarily unavailable")
+        || text.includes("ai service could not answer right now");
+      if (!failed) return;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "ask-copy ask-retry";
+      button.textContent = "Retry question";
+      button.addEventListener("click", retryQuestion);
+      bubble.append(button);
+    });
+  }
+
+  function watchFailureMessages() {
+    const messages = document.getElementById("chatMessages");
+    if (!messages || messages.dataset.polyRetryObserved === "true") return;
+    messages.dataset.polyRetryObserved = "true";
+    addRetryButtons();
+    if ("MutationObserver" in window) {
+      new MutationObserver(addRetryButtons).observe(messages, { childList: true, subtree: true });
+    }
+  }
 
   async function checkHealth() {
     if (!navigator.onLine) {
@@ -126,15 +191,21 @@
 
   globalThis.AskPolyClientRecovery = Object.freeze({
     checkHealth,
+    retryQuestion,
     getLastHealth: () => lastHealth
   });
 
   window.addEventListener("online", checkHealth);
   window.addEventListener("offline", () => setStatus("Offline", "Connect to the internet to use Ask POLY AI."));
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", checkHealth, { once: true });
-  } else {
+  const initialise = () => {
+    watchFailureMessages();
     checkHealth();
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initialise, { once: true });
+  } else {
+    initialise();
   }
 })();
