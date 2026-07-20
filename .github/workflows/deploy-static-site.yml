@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
+  issues:
+    types: [opened]
 
 permissions:
   contents: read
+  issues: write
 
 concurrency:
   group: cloudflare-pages-production
@@ -14,15 +17,18 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Deploy static site to production'
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PRODUCTION_DOMAIN: polypmna.dpdns.org
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -41,6 +47,9 @@ jobs:
           python tools/build_public_site.py --target _site
           test -f _site/build-optimization.json
           grep -q 'assets/build/home.' _site/index.html
+          grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html
+          test -f _site/assets/js/about-experience.js
+          test -f _site/assets/css/about-experience.css
 
       - name: Resolve Cloudflare Pages project by production domain
         id: project
@@ -82,7 +91,7 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy _site --project-name=${{ steps.project.outputs.name }} --branch=main --commit-hash=${{ github.sha }} --commit-message="Deploy ${{ github.sha }}"
 
-      - name: Verify deployed commit and optimized homepage
+      - name: Verify deployed commit and redesigned About page
         run: |
           python - <<'PY'
           import json
@@ -95,22 +104,28 @@ jobs:
           last = ''
           for attempt in range(1, 31):
               try:
+                  headers = {'Cache-Control': 'no-cache', 'User-Agent': 'POLY-PMNA-Deploy-QA/7.0'}
                   with urllib.request.urlopen(
-                      urllib.request.Request(base + f'/build-info.json?deploy={attempt}', headers={'Cache-Control': 'no-cache'}),
-                      timeout=20,
+                      urllib.request.Request(base + f'/build-info.json?deploy={attempt}', headers=headers), timeout=20
                   ) as response:
                       info = json.loads(response.read().decode('utf-8'))
                   with urllib.request.urlopen(
-                      urllib.request.Request(base + f'/?deploy={attempt}', headers={'Cache-Control': 'no-cache'}),
-                      timeout=20,
+                      urllib.request.Request(base + f'/?deploy={attempt}', headers=headers), timeout=20
                   ) as response:
                       home = response.read().decode('utf-8', errors='replace')
+                  with urllib.request.urlopen(
+                      urllib.request.Request(base + f'/about.html?deploy={attempt}', headers=headers), timeout=20
+                  ) as response:
+                      about = response.read().decode('utf-8', errors='replace')
                   if info.get('commit') != expected:
                       raise RuntimeError(f"live commit {info.get('commit')} != {expected}")
                   for marker in ('Revision 2026', 'POLY PMNA', '/revision-2026.html', '/assets/build/home.'):
                       if marker not in home:
                           raise RuntimeError(f'homepage missing {marker}')
-                  print(json.dumps({'commit': info.get('commit'), 'branch': info.get('branch'), 'optimized': True}, indent=2))
+                  for marker in ('Bilingual Kerala Polytechnic Study Portal', 'data-about-guide', 'data-about-lang="ml"', '/assets/js/about-experience.js'):
+                      if marker not in about:
+                          raise RuntimeError(f'About page missing {marker}')
+                  print(json.dumps({'commit': info.get('commit'), 'branch': info.get('branch'), 'aboutRedesign': True}, indent=2))
                   raise SystemExit(0)
               except Exception as error:
                   last = f'Attempt {attempt}: {type(error).__name__}: {error}'
@@ -119,3 +134,17 @@ jobs:
                       time.sleep(15)
           raise SystemExit(last)
           PY
+
+      - name: Report successful owner-triggered deployment
+        if: success() && github.event_name == 'issues'
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment and live About-page verification passed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Report failed owner-triggered deployment
+        if: failure() && github.event_name == 'issues'
+        run: gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment failed. Exact workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
