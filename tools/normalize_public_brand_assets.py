@@ -45,9 +45,6 @@ def normalized_text(path: Path) -> str:
     source = MANIFEST_RE.sub("", source)
     source = THEME_RE.sub("", source)
     injection = f"  {FAVICON}\n  {MANIFEST}\n  {THEME}\n"
-
-    # Keep a fixed order inside <head>: brand metadata first, generated JSON-LD
-    # second. This makes both independent generators idempotent.
     if STRUCTURED_START_RE.search(source):
         updated, count = STRUCTURED_START_RE.subn(injection, source, count=1)
     else:
@@ -57,11 +54,34 @@ def normalized_text(path: Path) -> str:
     return updated
 
 
+def metadata_errors(path: Path) -> list[str]:
+    source = read_page(path)
+    relative = path.relative_to(ROOT).as_posix()
+    errors: list[str] = []
+    if len(ICON_RE.findall(source)) != 1 or FAVICON not in source:
+        errors.append(f"{relative}: expected exactly one standard favicon")
+    if len(MANIFEST_RE.findall(source)) != 1 or MANIFEST not in source:
+        errors.append(f"{relative}: expected exactly one standard manifest link")
+    if len(THEME_RE.findall(source)) != 1 or THEME not in source:
+        errors.append(f"{relative}: expected exactly one standard theme-color")
+    return errors
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     pages = public_pages()
+
+    if args.check:
+        failures = [error for path in pages for error in metadata_errors(path)]
+        if failures:
+            print("Invalid public brand metadata:")
+            print("\n".join(f"- {item}" for item in failures))
+            return 1
+        print(f"Verified brand metadata on {len(pages)} public pages.")
+        return 0
+
     changed: list[Path] = []
     failures: list[str] = []
     for path in pages:
@@ -72,17 +92,12 @@ def main() -> int:
             continue
         current = read_page(path)
         if current != updated:
+            path.write_text(updated, encoding="utf-8")
             changed.append(path)
-            if not args.check:
-                path.write_text(updated, encoding="utf-8")
     if failures:
         print("\n".join(f"ERROR: {item}" for item in failures))
         return 1
-    if args.check and changed:
-        print("Stale public brand metadata:")
-        print("\n".join(f"- {path.relative_to(ROOT).as_posix()}" for path in changed))
-        return 1
-    print(f"{'Verified' if args.check else 'Normalized'} brand metadata on {len(pages)} public pages; changed {len(changed)}.")
+    print(f"Normalized brand metadata on {len(pages)} public pages; changed {len(changed)}.")
     return 0
 
 
