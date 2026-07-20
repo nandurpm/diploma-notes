@@ -1,0 +1,49 @@
+name: Live About page verification
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/live-about-verification-trigger.txt"
+      - "tools/verify_live_about.py"
+      - ".github/workflows/live-about-verification.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: live-about-verification
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify uncached production content
+        id: verify
+        continue-on-error: true
+        run: python tools/verify_live_about.py --expected-commit "$GITHUB_SHA" --attempts 10 --delay 6 --report /tmp/live-about-verification.md
+      - name: Publish verification result
+        if: always()
+        shell: bash
+        run: |
+          status="failed"
+          [ "${{ steps.verify.outcome }}" = "success" ] && status="passed"
+          {
+            echo
+            echo "Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          } >> /tmp/live-about-verification.md
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "[live About verification] ${status} ${GITHUB_SHA:0:7}" --body-file /tmp/live-about-verification.md
+          test "$status" = "passed"
