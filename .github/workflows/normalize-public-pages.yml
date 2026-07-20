@@ -76,6 +76,7 @@ jobs:
               'Ask POLY AI', '2015 Materials', 'Tools', 'Help'
           )
           favicon = '<link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">'
+          forbidden_address = 'nandakumarmkdpm' + '@' + 'gmail' + '.com'
 
           for node in tree.findall('sm:url/sm:loc', ns):
               url = (node.text or '').strip()
@@ -111,7 +112,7 @@ jobs:
 
           for local in ('contact.html', 'privacy.html', 'assets/js/help-comments.js'):
               source = (root / local).read_text(encoding='utf-8', errors='ignore')
-              if 'nandakumarmkdpm@gmail.com' in source:
+              if forbidden_address in source:
                   failures.append(f'{local}: plaintext email remains')
               if 'Diploma%20Notes%20Help' in source:
                   failures.append(f'{local}: legacy email branding remains')
