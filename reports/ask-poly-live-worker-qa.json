@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-07-17T17:47:05Z",
+  "generatedAt": "2026-07-20T01:37:19Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
   "health": {
@@ -16,9 +16,9 @@
     "wholeSiteContext": true,
     "localMathFallback": true,
     "providers": [
-      "nvidia"
+      "openai"
     ],
-    "model": "meta/llama-3.1-8b-instruct",
+    "model": "gpt-4o-mini",
     "mockExamEvaluation": true,
     "mockExamPattern": "1004-75-mark-official-model"
   },
