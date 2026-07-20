@@ -1,0 +1,29 @@
+name: REV2015 subject audit
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/rev2015-subject-audit.yml'
+      - 'scripts/rev2015_subject_audit.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests beautifulsoup4 lxml
+      - run: python scripts/rev2015_subject_audit.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: rev2015-subject-audit
+          path: reports/rev2015-subject-audit/
+          if-no-files-found: error
