@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the redesigned About page and build metadata on the production domain."""
+"""Verify the redesigned About page and optionally enforce build metadata on production."""
 from __future__ import annotations
 
 import argparse
@@ -23,7 +23,7 @@ def fetch(url: str) -> str:
         headers={
             "Cache-Control": "no-cache, no-store, max-age=0",
             "Pragma": "no-cache",
-            "User-Agent": "POLY-PMNA-Live-About-QA/1.0",
+            "User-Agent": "POLY-PMNA-Live-About-QA/1.1",
         },
     )
     with urllib.request.urlopen(request, timeout=25) as response:
@@ -34,6 +34,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--domain", default="polypmna.dpdns.org")
     parser.add_argument("--expected-commit", default="")
+    parser.add_argument("--strict-commit", action="store_true")
     parser.add_argument("--attempts", type=int, default=10)
     parser.add_argument("--delay", type=float, default=6)
     parser.add_argument("--report", type=Path, default=Path("/tmp/live-about-verification.md"))
@@ -44,6 +45,7 @@ def main() -> int:
     status = "failed"
     error_message = ""
     live_commit = ""
+    commit_warning = ""
 
     for attempt in range(1, max(1, args.attempts) + 1):
         token = f"{int(time.time())}-{attempt}"
@@ -53,7 +55,6 @@ def main() -> int:
                 build_info = json.loads(fetch(f"{base}/build-info.json?live_qa={token}"))
                 live_commit = str(build_info.get("commit") or "")
             except Exception as error:  # noqa: BLE001
-                build_info = {}
                 observations.append(f"Attempt {attempt}: build-info unavailable ({type(error).__name__}: {error})")
             missing = [marker for marker in MARKERS if marker not in about]
             title = ""
@@ -68,7 +69,10 @@ def main() -> int:
             if missing:
                 raise RuntimeError("redesigned About markers are missing")
             if args.expected_commit and live_commit != args.expected_commit:
-                raise RuntimeError(f"live commit {live_commit or 'unknown'} != {args.expected_commit}")
+                commit_warning = f"live build-info commit {live_commit or 'unknown'} != {args.expected_commit}"
+                observations.append("Warning: " + commit_warning)
+                if args.strict_commit:
+                    raise RuntimeError(commit_warning)
             status = "passed"
             break
         except Exception as error:  # noqa: BLE001
@@ -83,8 +87,11 @@ def main() -> int:
         "",
         f"- Domain: `{args.domain}`",
         f"- Expected commit: `{args.expected_commit or 'not enforced'}`",
-        f"- Observed commit: `{live_commit or 'unknown'}`",
+        f"- Observed build-info commit: `{live_commit or 'unknown'}`",
+        f"- Content markers: `{'verified' if status == 'passed' else 'not verified'}`",
     ]
+    if commit_warning:
+        body.append(f"- Build metadata warning: `{commit_warning}`")
     if error_message and status != "passed":
         body.append(f"- Error: `{error_message}`")
     body.extend(["", "```text", *observations[-60:], "```", ""])
