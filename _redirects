@@ -1,4 +1,3 @@
 /ask-poly-v2.html /ask-poly.html 302
 /first-year-materials.html /materials-2015.html 301
 /departments.html /revision-2021.html 301
-/revision-2021/:dept.html /revision-2021/department-view.html?dept=:dept 302
