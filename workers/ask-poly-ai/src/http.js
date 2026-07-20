@@ -13,12 +13,25 @@ export function cleanText(value, maximum = 10000) {
   return String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 }
 
+let cachedOriginsString = null;
+let cachedOriginsSet = null;
+
 export function allowedOrigins(env) {
-  const configured = String(env.ALLOWED_ORIGINS || "")
+  const raw = env?.ALLOWED_ORIGINS || "";
+  // PERFORMANCE OPTIMIZATION: Cache the parsed origins Set in module scope.
+  // This avoids redundant string splitting, mapping, filtering, and Set creation
+  // on every request, reducing CPU/memory overhead in serverless environments.
+  if (cachedOriginsSet && cachedOriginsString === raw) {
+    return cachedOriginsSet;
+  }
+  const configured = String(raw)
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
-  return new Set(configured.length ? configured : DEFAULT_ORIGINS);
+  const set = new Set(configured.length ? configured : DEFAULT_ORIGINS);
+  cachedOriginsString = raw;
+  cachedOriginsSet = set;
+  return set;
 }
 
 export function isOriginAllowed(origin, env) {
