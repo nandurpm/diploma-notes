@@ -1,0 +1,175 @@
+name: Deploy static site to Cloudflare Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PRODUCTION_DOMAIN: polypmna.dpdns.org
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate deployment credentials
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+
+      - name: Generate current deployment metadata and sitemap
+        run: |
+          GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
+          python tools/generate_sitemap.py
+          python tools/site_quality_gate.py
+
+      - name: Build public-only deployment directory
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          import subprocess
+
+          root = Path('.')
+          target = Path('_site')
+          if target.exists():
+              shutil.rmtree(target)
+          target.mkdir()
+
+          excluded_roots = {
+              '.git', '.github', 'android', 'docs', 'reports', 'supabase',
+              'tools', 'workers', 'node_modules', '_site'
+          }
+          excluded_suffixes = {
+              '.py', '.pyc', '.cjs', '.mjs', '.ts', '.tsx', '.sql', '.yml',
+              '.yaml', '.md', '.lock', '.toml'
+          }
+          explicit = {'CNAME', '_headers', '_redirects', 'robots.txt', 'sitemap.xml', 'build-info.json'}
+          tracked = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
+          copied = 0
+          for value in tracked:
+              if not value:
+                  continue
+              source = Path(value)
+              if source.parts[0] in excluded_roots:
+                  continue
+              if source.name.startswith('.'):
+                  continue
+              if source.suffix.lower() in excluded_suffixes and value not in explicit:
+                  continue
+              if not source.is_file():
+                  continue
+              destination = target / source
+              destination.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copy2(source, destination)
+              copied += 1
+          for value in explicit:
+              source = root / value
+              if source.is_file():
+                  destination = target / value
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copy2(source, destination)
+          print(f'Prepared {copied} tracked public files in {target}.')
+          for required in ('index.html', 'revision-2026.html', 'ask-poly.html', 'sitemap.xml', 'build-info.json', '_headers'):
+              if not (target / required).is_file():
+                  raise SystemExit(f'Missing required deployment file: {required}')
+          PY
+
+      - name: Resolve Cloudflare Pages project by production domain
+        id: project
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          account = os.environ['CLOUDFLARE_ACCOUNT_ID']
+          token = os.environ['CLOUDFLARE_API_TOKEN']
+          domain = os.environ['PRODUCTION_DOMAIN']
+          request = urllib.request.Request(
+              f'https://api.cloudflare.com/client/v4/accounts/{account}/pages/projects',
+              headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = json.loads(response.read().decode('utf-8'))
+          if not payload.get('success'):
+              raise SystemExit(f'Cloudflare project lookup failed: {payload.get("errors")}')
+          projects = payload.get('result') or []
+          matches = []
+          for project in projects:
+              domains = set(project.get('domains') or [])
+              subdomain = str(project.get('subdomain') or '').replace('https://', '').rstrip('/')
+              if domain in domains or domain == subdomain:
+                  matches.append(project)
+          if not matches:
+              names = ', '.join(str(item.get('name')) for item in projects)
+              raise SystemExit(f'No Cloudflare Pages project owns {domain}. Available projects: {names}')
+          if len(matches) > 1:
+              raise SystemExit(f'Multiple Cloudflare Pages projects match {domain}: {[item.get("name") for item in matches]}')
+          name = str(matches[0]['name'])
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write(f'name={name}\n')
+          print(f'Resolved Cloudflare Pages project: {name}')
+          PY
+
+      - name: Deploy repository main to production
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=${{ steps.project.outputs.name }} --branch=main --commit-hash=${{ github.sha }} --commit-message="Deploy ${{ github.sha }}"
+
+      - name: Verify deployed commit and current homepage
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.request
+
+          base = 'https://' + os.environ['PRODUCTION_DOMAIN']
+          expected = os.environ['GITHUB_SHA']
+          last = ''
+          for attempt in range(1, 31):
+              try:
+                  with urllib.request.urlopen(
+                      urllib.request.Request(base + f'/build-info.json?deploy={attempt}', headers={'Cache-Control': 'no-cache'}),
+                      timeout=20,
+                  ) as response:
+                      info = json.loads(response.read().decode('utf-8'))
+                  with urllib.request.urlopen(
+                      urllib.request.Request(base + f'/?deploy={attempt}', headers={'Cache-Control': 'no-cache'}),
+                      timeout=20,
+                  ) as response:
+                      home = response.read().decode('utf-8', errors='replace')
+                  if info.get('commit') != expected:
+                      raise RuntimeError(f"live commit {info.get('commit')} != {expected}")
+                  for marker in ('Revision 2026', 'POLY PMNA', '/revision-2026.html'):
+                      if marker not in home:
+                          raise RuntimeError(f'homepage missing {marker}')
+                  print(json.dumps({'commit': info.get('commit'), 'branch': info.get('branch')}, indent=2))
+                  raise SystemExit(0)
+              except Exception as error:
+                  last = f'Attempt {attempt}: {type(error).__name__}: {error}'
+                  print(last)
+                  if attempt < 30:
+                      time.sleep(15)
+          raise SystemExit(last)
+          PY
