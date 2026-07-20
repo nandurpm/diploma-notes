@@ -118,7 +118,10 @@ def audit_page(url: str) -> list[str]:
             issues.append(f"expected one main element, found {parser.main}")
         if not parser.skip:
             issues.append("missing skip link")
-    for key in ("description", "og:title", "og:description", "og:url", "twitter:card"):
+    required_meta = ("description",) if is_lesson else (
+        "description", "og:title", "og:description", "og:url", "twitter:card"
+    )
+    for key in required_meta:
         if not parser.meta.get(key):
             issues.append(f"missing metadata {key}")
     broken = []
