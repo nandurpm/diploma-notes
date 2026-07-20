@@ -1,2 +1,2 @@
-triggered: 2026-07-20T15:16:00+05:30
-purpose: verify redesigned bilingual About page after successful GitHub Pages deployment
+triggered: 2026-07-20T15:22:00+05:30
+purpose: verify live redesigned bilingual About page content while treating stale build-info metadata as a warning
