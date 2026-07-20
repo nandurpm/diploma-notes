@@ -54,11 +54,13 @@ class Parser(HTMLParser):
             self.skip = True
         if tag == "link":
             rel = values.get("rel", "").lower().split()
+            href = values.get("href", "").strip()
+            href_path = urlparse(href).path
             if "canonical" in rel:
-                self.canonical = values.get("href", "").strip()
-            if "icon" in rel and values.get("href") == "/assets/media/poly-pmna-favicon.svg":
+                self.canonical = href
+            if "icon" in rel and href_path == "/assets/media/poly-pmna-favicon.svg":
                 self.favicon += 1
-            if "manifest" in rel and values.get("href") == "/site.webmanifest":
+            if "manifest" in rel and href_path == "/site.webmanifest":
                 self.manifest += 1
         if tag == "meta":
             key = values.get("name") or values.get("property")
