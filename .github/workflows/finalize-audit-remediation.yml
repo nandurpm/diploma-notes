@@ -17,7 +17,7 @@ concurrency:
 jobs:
   finalize:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     env:
       SUPABASE_JS_VERSION: "2.110.7"
     steps:
@@ -73,23 +73,29 @@ jobs:
                   raise SystemExit(f'No Supabase browser client reference found in {path}')
           PY
 
-      - name: Materialize static content and provenance
+      - name: Materialize content, branding and structured data
         run: |
           python -m py_compile \
             tools/normalize_rev2021_noscript.py \
             tools/materialize_rev2021_subjects.py \
             tools/annotate_rev2026_title_provenance.py \
+            tools/normalize_public_brand_assets.py \
+            tools/inject_structured_data.py \
             tools/generate_sitemap.py \
             tools/site_quality_gate.py
           python tools/normalize_rev2021_noscript.py
           python tools/materialize_rev2021_subjects.py
           python tools/annotate_rev2026_title_provenance.py
+          python tools/normalize_public_brand_assets.py
+          python tools/inject_structured_data.py
           python tools/generate_sitemap.py
 
       - name: Validate final source state
         run: |
           python tools/materialize_rev2021_subjects.py --check
           python tools/annotate_rev2026_title_provenance.py --check
+          python tools/normalize_public_brand_assets.py --check
+          python tools/inject_structured_data.py --check
           python tools/generate_sitemap.py --check
           python tools/site_quality_gate.py
           node --check "assets/vendor/supabase-js-${SUPABASE_JS_VERSION}.js"
@@ -105,7 +111,7 @@ jobs:
           fi
           git config user.name "POLY PMNA Remediation Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/vendor daily-quiz.html mock-exam-1004.html mock-exam.html reset-password.html revision-2021 revision-2026 sitemap.xml
+          git add assets/vendor daily-quiz.html mock-exam-1004.html mock-exam.html reset-password.html revision-2021 revision-2026 lessons revision-2026-content/lessons sitemap.xml site.webmanifest ./*.html
           git commit -m "Finalize static audit remediations"
           for attempt in 1 2 3; do
             if git pull --rebase origin main && git push origin HEAD:main; then
