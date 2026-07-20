@@ -167,6 +167,16 @@ jobs:
       - name: Record failed issue-triggered run
         if: failure() && github.event_name == 'issues'
         run: |
-          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Audit remediation failed. Exact workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          {
+            echo "Audit remediation failed. Exact workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            if [ -f reports/site-quality-gate-failures.txt ]; then
+              echo
+              echo "Site quality failures:"
+              echo '```text'
+              tail -n 120 reports/site-quality-gate-failures.txt
+              echo '```'
+            fi
+          } > /tmp/remediation-failure.md
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file /tmp/remediation-failure.md
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
