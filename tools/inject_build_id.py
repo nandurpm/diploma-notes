@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Inject one build ID into every local asset URL in public HTML."""
+"""Inject one build ID into every local asset URL in complete public HTML documents."""
 from __future__ import annotations
 
 import argparse
@@ -11,7 +11,12 @@ ROOT = Path(__file__).resolve().parents[1]
 ATTRIBUTE_RE = re.compile(r'(?P<prefix>\b(?:src|href|poster)=["\'])(?P<url>/assets/[^"\']+)(?P<suffix>["\'])', re.I)
 META_RE = re.compile(r'<meta\s+name=["\']poly-build-id["\'][^>]*>', re.I)
 HEAD_END_RE = re.compile(r'</head>', re.I)
-EXCLUDED_ROOTS = {"maintenance", "reports", "docs", "workers", "supabase", "android", "tools", ".github"}
+DOCUMENT_RE = re.compile(r'<(?:!doctype\s+html|html\b)', re.I)
+EXCLUDED_ROOTS = {
+    "maintenance", "reports", "docs", "workers", "supabase", "android",
+    "android-app", "tools", ".github", "tmp", "node_modules", "_site",
+}
+EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html"}
 
 
 def versioned(url: str, build_id: str) -> str:
@@ -22,7 +27,9 @@ def versioned(url: str, build_id: str) -> str:
 
 
 def update(path: Path, build_id: str) -> bool:
-    original = path.read_text(encoding="utf-8", errors="strict")
+    original = path.read_text(encoding="utf-8", errors="replace")
+    if not DOCUMENT_RE.search(original) or not HEAD_END_RE.search(original):
+        return False
     text = ATTRIBUTE_RE.sub(
         lambda match: match.group("prefix") + versioned(match.group("url"), build_id) + match.group("suffix"),
         original,
@@ -49,13 +56,18 @@ def main() -> int:
     if not build_id:
         raise SystemExit("A non-empty build ID is required")
     changed = 0
+    skipped = 0
     for path in args.root.rglob("*.html"):
         relative = path.relative_to(args.root)
         if relative.parts and relative.parts[0] in EXCLUDED_ROOTS:
+            skipped += 1
+            continue
+        if path.name in EXCLUDED_NAMES:
+            skipped += 1
             continue
         if update(path, build_id):
             changed += 1
-    print(f"Injected build ID {build_id} into {changed} HTML files.")
+    print(f"Injected build ID {build_id} into {changed} HTML files; skipped {skipped} excluded files.")
     return 0
 
 
