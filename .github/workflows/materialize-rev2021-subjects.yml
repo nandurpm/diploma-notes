@@ -10,6 +10,7 @@ on:
       - "lessons/**"
       - "notes/**"
       - "tools/materialize_rev2021_subjects.py"
+      - "tools/normalize_rev2021_noscript.py"
       - ".github/workflows/materialize-rev2021-subjects.yml"
 
 permissions:
@@ -32,7 +33,8 @@ jobs:
           python-version: "3.12"
       - name: Render static department subject cards
         run: |
-          python -m py_compile tools/materialize_rev2021_subjects.py
+          python -m py_compile tools/normalize_rev2021_noscript.py tools/materialize_rev2021_subjects.py
+          python tools/normalize_rev2021_noscript.py
           python tools/materialize_rev2021_subjects.py
           python tools/generate_sitemap.py
           python tools/site_quality_gate.py
