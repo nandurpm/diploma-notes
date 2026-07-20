@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   audit:
@@ -17,13 +17,76 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml
       - run: python scripts/rev2015_subject_audit.py
+      - name: Build production subject registry
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          source = json.loads(Path('reports/rev2015-subject-audit/revision-2015-subjects-audit.json').read_text(encoding='utf-8'))
+          programmes = []
+          for diagnostic in source['diagnostics']:
+              code = diagnostic['programmeCode']
+              name = diagnostic['programme']
+              records = [item for item in source['subjects'] if item['programmeCode'] == code]
+              programmes.append({
+                  'code': code,
+                  'name': name,
+                  'subjectCount': len(records),
+                  'modelPaperCount': sum(bool(item.get('modelQuestionPaperListed')) for item in records),
+              })
+
+          subjects = []
+          for item in source['subjects']:
+              model_available = bool(item.get('modelQuestionPaperListed'))
+              subjects.append({
+                  'programmeCode': item['programmeCode'],
+                  'semester': item['semester'],
+                  'code': item['code'],
+                  'name': item['name'],
+                  'syllabusUrl': item['syllabusUrl'],
+                  'modelQuestionPaperUrl': item['modelQuestionPaperUrl'] if model_available else None,
+                  'modelAvailable': model_available,
+              })
+
+          registry = {
+              'revision': '2015',
+              'scheme': 'REV2015',
+              'source': 'SITTTR Kerala official programme pages',
+              'generatedAt': source['generatedAt'],
+              'programmeCount': len(programmes),
+              'recordCount': len(subjects),
+              'uniqueSubjectCodeCount': source['uniqueSubjectCodeCount'],
+              'programmes': programmes,
+              'subjects': subjects,
+          }
+          destination = Path('assets/data/revision-2015-subjects.json')
+          destination.parent.mkdir(parents=True, exist_ok=True)
+          destination.write_text(json.dumps(registry, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+          PY
+      - name: Commit generated registry
+        if: github.event_name == 'pull_request'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/data/revision-2015-subjects.json
+          if git diff --cached --quiet; then
+            echo 'Registry is unchanged.'
+          else
+            git commit -m 'Add verified REV2015 subject registry'
+            git push origin HEAD:${{ github.head_ref }}
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: rev2015-subject-audit
-          path: reports/rev2015-subject-audit/
+          path: |
+            reports/rev2015-subject-audit/
+            assets/data/revision-2015-subjects.json
           if-no-files-found: error
