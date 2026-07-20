@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-07-17T17:47:22.708Z",
+  "generatedAt": "2026-07-20T01:37:58.146Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
@@ -24,14 +24,14 @@
       "status": {
         "ok": true,
         "version": "2026-07-whole-site-v1",
-        "generatedAt": "2026-07-17T17:41:14Z",
+        "generatedAt": "2026-07-20T01:23:46Z",
         "counts": {
-          "pages": 226,
+          "pages": 234,
           "programmes2021": 43,
           "programmes2026": 38,
-          "subjectRecords": 4182,
-          "lessonRecordsAvailable": 470,
-          "notesRecordsAvailable": 350
+          "subjectRecords": 4181,
+          "lessonRecordsAvailable": 544,
+          "notesRecordsAvailable": 544
         }
       }
     },
@@ -39,24 +39,24 @@
       "name": "knowledge contains 38 Revision 2026 programmes",
       "passed": true,
       "counts": {
-        "pages": 226,
+        "pages": 234,
         "programmes2021": 43,
         "programmes2026": 38,
-        "subjectRecords": 4182,
-        "lessonRecordsAvailable": 470,
-        "notesRecordsAvailable": 350
+        "subjectRecords": 4181,
+        "lessonRecordsAvailable": 544,
+        "notesRecordsAvailable": 544
       }
     },
     {
       "name": "knowledge contains both curriculum datasets",
       "passed": true,
       "counts": {
-        "pages": 226,
+        "pages": 234,
         "programmes2021": 43,
         "programmes2026": 38,
-        "subjectRecords": 4182,
-        "lessonRecordsAvailable": 470,
-        "notesRecordsAvailable": 350
+        "subjectRecords": 4181,
+        "lessonRecordsAvailable": 544,
+        "notesRecordsAvailable": 544
       }
     },
     {
@@ -117,14 +117,14 @@
   "knowledgeStatus": {
     "ok": true,
     "version": "2026-07-whole-site-v1",
-    "generatedAt": "2026-07-17T17:41:14Z",
+    "generatedAt": "2026-07-20T01:23:46Z",
     "counts": {
-      "pages": 226,
+      "pages": 234,
       "programmes2021": 43,
       "programmes2026": 38,
-      "subjectRecords": 4182,
-      "lessonRecordsAvailable": 470,
-      "notesRecordsAvailable": 350
+      "subjectRecords": 4181,
+      "lessonRecordsAvailable": 544,
+      "notesRecordsAvailable": 544
     }
   },
   "screenshots": [
