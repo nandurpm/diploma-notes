@@ -12,6 +12,20 @@
 /*.html
   Cache-Control: no-cache, must-revalidate
 
+/ask-poly.html
+  Cache-Control: no-store, max-age=0, must-revalidate
+  CDN-Cache-Control: no-store
+  Cloudflare-CDN-Cache-Control: no-store
+
+/assets/js/ask-poly-config.js
+  Cache-Control: no-store, max-age=0, must-revalidate
+
+/assets/js/ask-poly-client-recovery.js
+  Cache-Control: no-store, max-age=0, must-revalidate
+
+/assets/js/ask-poly-v2.js
+  Cache-Control: no-store, max-age=0, must-revalidate
+
 /revision-2026-content/lessons/lessons-1009.html
   Cache-Control: no-store, max-age=0, must-revalidate
   CDN-Cache-Control: no-store
