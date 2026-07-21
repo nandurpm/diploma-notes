@@ -32,49 +32,8 @@
   <meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
   <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
   <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#071426">
+  <meta name="theme-color" content="#1d4ed8">
   <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"AboutPage","name":"About | POLY PMNA","url":"https://polypmna.dpdns.org/about.html","description":"About POLY PMNA, a Bilingual Kerala Polytechnic Study Portal for Revision 2026 and Revision 2021 students.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"]}</script>
-
-<style id="about-modern-overrides">
-:root{
---bg:#f6f9fc;--card:#fff;--text:#0f172a;--muted:#475569;--accent:#2563eb;
-}
-body.portal-page,.about-experience{background:var(--bg)!important;color:var(--text)!important;}
-.about-orb,.about-visual{display:none!important;}
-.about-container{max-width:none!important;width:100%!important;padding-left:4vw!important;padding-right:4vw!important;}
-.about-hero{background:linear-gradient(180deg,#fff,#eef6ff)!important;border-radius:0!important;padding:5rem 0!important;}
-.about-section,.about-scope,.about-initiative{background:#fff!important;border-radius:0!important;margin:0!important;padding:2rem 0!important;}
-.about-feature,.about-story,.about-value-card,.about-guide-shell,.about-contribute,.about-final-cta,.about-ml-panel,.about-scope article{
-background:var(--card)!important;border:1px solid #e5e7eb!important;
-border-radius:20px!important;box-shadow:0 12px 32px rgba(0,0,0,.08)!important;
-}
-h1,h2,h3{color:var(--text)!important}
-p,li,small{color:var(--muted)!important}
-.about-feature-rail,.about-values-grid,.about-story-grid,.about-scope-grid{
-gap:24px!important;
-}
-.about-hero-actions a:first-child{
-background:var(--accent)!important;color:#fff!important;border-radius:14px!important;
-}
-.about-hero-actions a:last-child{
-background:#fff!important;color:var(--accent)!important;border:1px solid #cbd5e1!important;border-radius:14px!important;
-}
-@media(min-width:1200px){
-.about-container{padding-left:6vw!important;padding-right:6vw!important;}
-}
-
-/* Fix: these two components keep their original DARK backgrounds from
-   about-experience.css, but the blanket h1,h2,h3 / p,li,small rules above
-   were forcing dark text onto them too, making it unreadable. */
-.about-guide-slide h3{color:#fff!important;}
-.about-guide-slide p{color:#c7d3e6!important;}
-.about-guide-slide .slide-ml{color:#9ce9d0!important;}
-.about-initiative-inner p,
-.about-initiative-inner strong{color:#fff!important;}
-.about-initiative-inner a{color:#fff!important;}
-.about-guide-fallback{background:#0f1f3d!important;color:#c7d3e6!important;}
-</style>
-
 </head>
 <body class="portal-page" data-site-revision="20260720-about4">
   <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -87,13 +46,18 @@ background:#fff!important;color:var(--accent)!important;border:1px solid #cbd5e1
   </header>
 
   <main id="main-content" class="about-experience">
+    <!-- Visual Backdrops -->
     <div class="about-orb one" aria-hidden="true"></div>
     <div class="about-orb two" aria-hidden="true"></div>
 
     <nav class="site-breadcrumbs about-breadcrumbs" aria-label="Breadcrumb">
-      <ol><li><a href="/">Home</a></li><li><span aria-current="page" data-en="About POLY PMNA" data-ml="POLY PMNAയെ കുറിച്ച്">About POLY PMNA</span></li></ol>
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><span aria-current="page" data-en="About POLY PMNA" data-ml="POLY PMNAയെ കുറിച്ച്">About POLY PMNA</span></li>
+      </ol>
     </nav>
 
+    <!-- Language Selector -->
     <div class="about-language-bar" aria-label="Page language">
       <div class="about-language-switch">
         <button type="button" data-about-lang="en" aria-pressed="true">English</button>
@@ -101,128 +65,554 @@ background:#fff!important;color:var(--accent)!important;border:1px solid #cbd5e1
       </div>
     </div>
 
-    <section class="about-hero">
+    <!-- 1. Hero Section -->
+    <section class="about-hero-section">
       <div class="about-container about-hero-grid">
         <div class="about-hero-copy" data-about-reveal>
-          <h1><span data-en="About" data-ml="പരിചയപ്പെടാം:">About</span> <span class="gradient-text">POLY PMNA</span></h1>
-          <p class="hero-lead" data-en="A student-focused portal that connects the correct curriculum, programme, semester and subject code to lessons, notes, official links, practice and guidance." data-ml="ശരിയായ curriculum, programme, semester, subject code എന്നിവയിൽ നിന്ന് lessons, notes, official links, practice, guidance എന്നിവയിലേക്ക് വിദ്യാർത്ഥികളെ എളുപ്പത്തിൽ എത്തിക്കുന്ന student-focused portal ആണ് POLY PMNA.">A student-focused portal that connects the correct curriculum, programme, semester and subject code to lessons, notes, official links, practice and guidance.</p>
+          <div class="kicker-badge" data-en="PREMIUM EDUCATION HUB" data-ml="പ്രീമിയം വിദ്യാഭ്യാസ ഹബ്ബ്">PREMIUM EDUCATION HUB</div>
+          <h1><span data-en="Discover" data-ml="പരിചയപ്പെടാം:">Discover</span> <span class="gradient-text">POLY PMNA</span></h1>
+          <p class="hero-lead" data-en="A highly polished, student-centered portal linking curriculum, programmes, semesters, and subject codes with premium lessons, notes, practice exams, and automated AI guidance." data-ml="Curriculum, programme, semester, subject code എന്നിവയിൽ നിന്ന് lessons, notes, mock exams, AI guidance എന്നിവയിലേക്ക് വിദ്യാർത്ഥികളെ എളുപ്പത്തിൽ എത്തിക്കുന്ന പ്രീമിയം സ്റ്റഡി പോർട്ടൽ ആണ് POLY PMNA.">A highly polished, student-centered portal linking curriculum, programmes, semesters, and subject codes with premium lessons, notes, practice exams, and automated AI guidance.</p>
           <p class="hero-ml">പഠനം എളുപ്പമാക്കുക • ശരിയായ revision തിരഞ്ഞെടുക്കുക • ആത്മവിശ്വാസത്തോടെ practice ചെയ്യുക</p>
           <div class="about-hero-actions">
-            <a href="/revision-2026.html"><span data-en="Explore Revision 2026" data-ml="Revision 2026 തുറക്കുക">Explore Revision 2026</span><span aria-hidden="true">→</span></a>
-            <a href="#how-to-use"><span data-en="Watch How to Use" data-ml="എങ്ങനെ ഉപയോഗിക്കാം">Watch How to Use</span><span aria-hidden="true">▶</span></a>
+            <a href="/revision-2026.html" class="btn-primary-gradient"><span data-en="Explore Revision 2026" data-ml="Revision 2026 തുറക്കുക">Explore Revision 2026</span><span aria-hidden="true">→</span></a>
+            <a href="#how-to-use" class="btn-outline-glow"><span data-en="Interactive Guide" data-ml="ഇന്ററാക്ടീവ് ഗൈഡ്">Interactive Guide</span><span aria-hidden="true">▼</span></a>
           </div>
           <ul class="about-hero-proof" aria-label="Platform principles">
-            <li data-en="Free study access" data-ml="സൗജന്യ പഠന സഹായം">Free study access</li>
-            <li data-en="Revision-separated resources" data-ml="Revision വേർതിരിച്ച resources">Revision-separated resources</li>
-            <li data-en="Mobile, desktop and print ready" data-ml="Mobile, desktop, print സൗഹൃദം">Mobile, desktop and print ready</li>
+            <li data-en="100% Free & Open Access" data-ml="പൂർണ്ണമായും സൗജന്യവും തുറന്നതുമാണ്">100% Free & Open Access</li>
+            <li data-en="Strict Revision Separation" data-ml="വ്യക്തമായി വേർതിരിച്ച റീവിഷൻ പഠനം">Strict Revision Separation</li>
+            <li data-en="Bilingual Interface support" data-ml="മലയാളം, ഇംഗ്ലീഷ് ഭാഷാ പിന്തുണ">Bilingual Interface support</li>
           </ul>
         </div>
 
-        <div class="about-visual" aria-label="Animated POLY PMNA learning network" data-about-reveal>
-          <div class="floating-phrase one" data-en="Revision 2026" data-ml="Revision 2026">Revision 2026</div>
-          <div class="floating-phrase two" data-en="Mock Exams" data-ml="Mock Exams">Mock Exams</div>
-          <div class="floating-phrase three" data-en="Study Tools" data-ml="Study Tools">Study Tools</div>
-          <div class="floating-phrase four" data-en="Ask POLY AI" data-ml="Ask POLY AI">Ask POLY AI</div>
-          <div class="floating-phrase five" data-en="Subject Code" data-ml="Subject Code">Subject Code</div>
-          <div class="floating-phrase six" data-en="പഠിക്കാം" data-ml="പഠിക്കാം">പഠിക്കാം</div>
-          <div class="about-core">
-            <span class="about-pulse" aria-hidden="true"></span><span class="about-pulse second" aria-hidden="true"></span><span class="about-pulse third" aria-hidden="true"></span>
-            <div class="about-book" aria-hidden="true">
-              <svg viewBox="0 0 160 120" role="img" aria-label="Open book"><path d="M12 18c24-4 46 2 68 20v68C57 91 35 86 12 91V18Z" fill="#fff"/><path d="M148 18c-24-4-46 2-68 20v68c23-15 45-20 68-15V18Z" fill="#e8f3ff"/><path d="M80 38v68" stroke="#70bfff" stroke-width="4"/><path d="M25 36c17-1 32 4 45 13M25 53c17-1 32 4 45 13M135 36c-17-1-32 4-45 13M135 53c-17-1-32 4-45 13" fill="none" stroke="#80a4d5" stroke-width="4" stroke-linecap="round"/></svg>
+        <div class="about-visual-network" aria-label="Animated learning network illustration" data-about-reveal>
+          <div class="floating-bubble bubble-1" data-en="Revision 2026" data-ml="Revision 2026">Revision 2026</div>
+          <div class="floating-bubble bubble-2" data-en="Mock Exams" data-ml="Mock Exams">Mock Exams</div>
+          <div class="floating-bubble bubble-3" data-en="Study Tools" data-ml="Study Tools">Study Tools</div>
+          <div class="floating-bubble bubble-4" data-en="Ask POLY AI" data-ml="Ask POLY AI">Ask POLY AI</div>
+          <div class="floating-bubble bubble-5" data-en="Subject Code" data-ml="Subject Code">Subject Code</div>
+          <div class="floating-bubble bubble-6" data-en="പഠിക്കാം" data-ml="പഠിക്കാം">പഠിക്കാം</div>
+          <div class="about-core-card">
+            <div class="ring-animation ring-1" aria-hidden="true"></div>
+            <div class="ring-animation ring-2" aria-hidden="true"></div>
+            <div class="ring-animation ring-3" aria-hidden="true"></div>
+            <div class="core-logo-container" aria-hidden="true">
+              <svg viewBox="0 0 160 120" role="img" aria-label="Open book"><path d="M12 18c24-4 46 2 68 20v68C57 91 35 86 12 91V18Z" fill="#fff"/><path d="M148 18c-24-4-46 2-68 20v68c23-15 45-20 68-15V18Z" fill="#e8f3ff"/><path d="M80 38v68" stroke="#2563eb" stroke-width="4"/><path d="M25 36c17-1 32 4 45 13M25 53c17-1 32 4 45 13M135 36c-17-1-32 4-45 13M135 53c-17-1-32 4-45 13" fill="none" stroke="#60a5fa" stroke-width="4" stroke-linecap="round"/></svg>
             </div>
-            <strong>POLY PMNA</strong>
-            <small data-en="Learn with clarity" data-ml="വ്യക്തമായി പഠിക്കാം">Learn with clarity</small>
+            <strong class="core-logo-title">POLY PMNA</strong>
+            <span class="core-logo-subtitle" data-en="Learn with clarity" data-ml="വ്യക്തമായി പഠിക്കാം">Learn with clarity</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="about-scope" aria-label="Current website scope">
-      <div class="about-container about-scope-grid" data-about-reveal>
-        <article><strong data-about-count="38">38</strong><span data-en="Revision 2026 programme directories" data-ml="Revision 2026 programme directories">Revision 2026 programme directories</span></article>
-        <article><strong data-about-count="43">43</strong><span data-en="Revision 2021 programme directories" data-ml="Revision 2021 programme directories">Revision 2021 programme directories</span></article>
-        <article><strong data-about-count="3">3</strong><span data-en="curriculum areas kept separate" data-ml="വേർതിരിച്ച curriculum മേഖലകൾ">curriculum areas kept separate</span></article>
-        <article><strong data-about-count="1">1</strong><span data-en="AI website and study guide" data-ml="AI website, study guide">AI website and study guide</span></article>
+    <!-- 2. Animated Stats Section -->
+    <section class="about-scope-section">
+      <div class="about-container">
+        <div class="about-scope-grid" data-about-reveal>
+          <article class="stat-card">
+            <div class="stat-icon" aria-hidden="true">📂</div>
+            <strong data-about-count="38">38</strong>
+            <span data-en="Revision 2026 Programmes" data-ml="Revision 2026 വകുപ്പുകൾ">Revision 2026 Programmes</span>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon" aria-hidden="true">📚</div>
+            <strong data-about-count="43">43</strong>
+            <span data-en="Revision 2021 Programmes" data-ml="Revision 2021 വകുപ്പുകൾ">Revision 2021 Programmes</span>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon" aria-hidden="true">⚡</div>
+            <strong data-about-count="3">3</strong>
+            <span data-en="Separate Curriculums" data-ml="വേർതിരിച്ച പാഠ്യപദ്ധതികൾ">Separate Curriculums</span>
+          </article>
+          <article class="stat-card">
+            <div class="stat-icon" aria-hidden="true">🤖</div>
+            <strong data-about-count="1">1</strong>
+            <span data-en="AI-Powered Assistant" data-ml="കൃത്രിമബുദ്ധി പഠന സഹായി">AI-Powered Assistant</span>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="about-section" aria-labelledby="offer-heading">
+    <!-- 3. Our Story & Why PolyPMNA Exists -->
+    <section class="about-narrative-section">
+      <div class="about-container narrative-container">
+        <div class="narrative-grid">
+          <div class="narrative-main" data-about-reveal>
+            <div class="narrative-kicker" data-en="WHY WE EXIST" data-ml="ഞങ്ങളുടെ ലക്ഷ്യം">WHY WE EXIST</div>
+            <h2 data-en="Bridging the gap between official syllabus and active study." data-ml="ഔദ്യോഗിക സിലബസും മികച്ച പഠനരീതിയും തമ്മിലുള്ള ദൂരം കുറയ്ക്കുന്നു.">Bridging the gap between official syllabus and active study.</h2>
+            <p data-en="Navigating fragmented technical curriculums can be exhausting for polytechnic students. Information is often scattered across outdated lists, slow-loading portals, and confusing document formats. POLY PMNA was engineered to provide structured, mobile-responsive, and bilingual course catalogs that bring clarity to every semester." data-ml="പോളിടെക്നിക് വിദ്യാർത്ഥികൾക്ക് ഔദ്യോഗിക വിവരങ്ങൾ കണ്ടെത്തുന്നത് പലപ്പോഴും ബുദ്ധിമുട്ടേറിയതാണ്. പല സ്രോതസ്സുകളിലായി ചിതറിക്കിടക്കുന്ന വിവരങ്ങൾ ലളിതമായി, മൊബൈലിന് അനുയോജ്യമായി ഒരു കുടക്കീഴിൽ എത്തിക്കുക എന്നതാണ് POLY PMNA കൊണ്ട് ഞങ്ങൾ ലക്ഷ്യമിടുന്നത്.">Navigating fragmented technical curriculums can be exhausting for polytechnic students. Information is often scattered across outdated lists, slow-loading portals, and confusing document formats. POLY PMNA was engineered to provide structured, mobile-responsive, and bilingual course catalogs that bring clarity to every semester.</p>
+            <div class="concept-banner">
+              <span class="concept-icon">💡</span>
+              <p data-en="Revision 2026 is the current curriculum for all ongoing standard semesters, designed for modern engineering fields." data-ml="പഠന രംഗത്തുള്ള എല്ലാ പ്രധാന സെമസ്റ്ററുകൾക്കും നിലവിൽ Revision 2026 is the current curriculum.">Revision 2026 is the current curriculum for all ongoing standard semesters, designed for modern engineering fields.</p>
+            </div>
+          </div>
+          <div class="narrative-sidebar" data-about-reveal>
+            <div class="narrative-card shadow-premium">
+              <h3 data-en="Core Philosophy" data-ml="ഞങ്ങളുടെ പഠന തത്വം">Core Philosophy</h3>
+              <p data-en="We believe learning resources must be robust, reliable, and instantaneous. By keeping legacy schemes completely separate from current ones, we prevent subject code mixups." data-ml="പഠനവിഭവങ്ങൾ എപ്പോഴും വിശ്വസനീയവും വേഗത്തിൽ ലഭ്യമാകുന്നതുമായിരിക്കണം. പഴയ സ്കീമുകൾ വേർതിരിച്ചു നിർത്തുന്നതിലൂടെ തെറ്റായ കോഡുകൾ ഉപയോഗിക്കുന്നത് ഒഴിവാകുന്നു.">We believe learning resources must be robust, reliable, and instantaneous. By keeping legacy schemes completely separate from current ones, we prevent subject code mixups.</p>
+              <ul class="philosophy-bullets">
+                <li data-en="Active practice over plain reading" data-ml="വെറുതെ വായിക്കുന്നതിനേക്കാൾ മികച്ച പരിശീലനം">Active practice over plain reading</li>
+                <li data-en="Verified sources of academic truth" data-ml="ഔദ്യോഗിക വിവരങ്ങൾ മാത്രം ഉൾക്കൊള്ളുന്നു">Verified sources of academic truth</li>
+                <li data-en="Inclusive bilingual translations" data-ml="ഇംഗ്ലീഷിലും മലയാളത്തിലുമുള്ള ലളിതമായ സഹായം">Inclusive bilingual translations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Bento Feature Showcase -->
+    <section class="about-bento-section">
       <div class="about-container">
         <div class="about-heading" data-about-reveal>
-          <h2 id="offer-heading" data-en="One clear path from syllabus to practice." data-ml="Syllabus മുതൽ practice വരെ വ്യക്തമായ ഒരു വഴി.">One clear path from syllabus to practice.</h2>
-          <p data-en="Current and older curriculum resources remain separate, while common actions follow the same card-based design used across the rest of the website." data-ml="Current, older curriculum resources വേർതിരിച്ചിരിക്കുന്നു. Websiteന്റെ മറ്റു pages പോലെ card-based design ഉപയോഗിച്ചാണ് പ്രധാന actions ക്രമീകരിച്ചിരിക്കുന്നത്.">Current and older curriculum resources remain separate, while common actions follow the same card-based design used across the rest of the website.</p>
+          <h2 data-en="One streamlined path from syllabus to practice." data-ml="സിലബസ് മുതൽ പരീക്ഷാ പരിശീലനം വരെ ലളിതമായ ഒരു പാത.">One streamlined path from syllabus to practice.</h2>
+          <p data-en="Our features are organized to prevent clutter, maintaining visual consistency with the portal's brand identity." data-ml="വകുപ്പുകളും സെമസ്റ്ററുകളും കൃത്യമായി ക്രമീകരിച്ചിരിക്കുന്നു. വെബ്സൈറ്റിന്റെ മറ്റെല്ലാ പേജുകളുമായും ചേരുന്ന ഡിസൈൻ ആണിത്.">Our features are organized to prevent clutter, maintaining visual consistency with the portal's brand identity.</p>
         </div>
-        <div class="about-feature-rail">
-          <article class="about-feature" data-about-reveal><span class="feature-icon" aria-hidden="true">▤</span><h3 data-en="Subject directories" data-ml="Subject directories">Subject directories</h3><p data-en="Browse the correct programme and semester under Revision 2026 or Revision 2021." data-ml="Revision 2026 അല്ലെങ്കിൽ Revision 2021ൽ ശരിയായ programme, semester browse ചെയ്യുക.">Browse the correct programme and semester under Revision 2026 or Revision 2021.</p></article>
-          <article class="about-feature" data-about-reveal><span class="feature-icon" aria-hidden="true">✓</span><h3 data-en="Official links" data-ml="Official links">Official links</h3><p data-en="Open syllabus and model-question-paper sources associated with the subject code." data-ml="Subject codeനോട് ബന്ധപ്പെട്ട syllabus, model-question-paper sources തുറക്കുക.">Open syllabus and model-question-paper sources associated with the subject code.</p></article>
-          <article class="about-feature" data-about-reveal><span class="feature-icon" aria-hidden="true">✎</span><h3 data-en="Lessons and notes" data-ml="Lessons, notes">Lessons and notes</h3><p data-en="Use module-wise handbooks, Malayalam support and printable study notes where available." data-ml="ലഭ്യമായിടത്ത് module-wise handbooks, Malayalam support, printable notes ഉപയോഗിക്കുക.">Use module-wise handbooks, Malayalam support and printable study notes where available.</p></article>
-          <article class="about-feature" data-about-reveal><span class="feature-icon" aria-hidden="true">AI</span><h3 data-en="Ask POLY AI" data-ml="Ask POLY AI">Ask POLY AI</h3><p data-en="Find pages, understand general topics and get website guidance from one assistant." data-ml="Pages കണ്ടെത്താനും general topics മനസ്സിലാക്കാനും website guidance നേടാനും ഉപയോഗിക്കുക.">Find pages, understand general topics and get website guidance from one assistant.</p></article>
-          <article class="about-feature" data-about-reveal><span class="feature-icon" aria-hidden="true">▶</span><h3 data-en="Practice and exams" data-ml="Practice, exams">Practice and exams</h3><p data-en="Use quizzes and mock exams after studying to identify topics that need revision." data-ml="പഠിച്ചതിന് ശേഷം വീണ്ടും പഠിക്കേണ്ട topics കണ്ടെത്താൻ quizzes, mock exams ഉപയോഗിക്കുക.">Use quizzes and mock exams after studying to identify topics that need revision.</p></article>
-          <article class="about-feature" data-about-reveal><span class="feature-icon" aria-hidden="true">മ</span><h3 data-en="Malayalam support" data-ml="മലയാളം സഹായം">Malayalam support</h3><p data-en="Switch this page to Malayalam while keeping essential technical terms in English." data-ml="Technical terms Englishൽ നിലനിർത്തിക്കൊണ്ട് ഈ page Malayalamലേക്ക് മാറ്റാം.">Switch this page to Malayalam while keeping essential technical terms in English.</p></article>
+
+        <div class="bento-grid">
+          <!-- Item 1: Subject Directories -->
+          <article class="bento-card col-span-2 card-blue" data-about-reveal>
+            <div class="bento-icon">📂</div>
+            <div class="bento-content">
+              <h3 data-en="Subject Directories" data-ml="വിഷയങ്ങളുടെ ഡയറക്ടറി">Subject Directories</h3>
+              <p data-en="Quickly browse the correct programme and semester under Revision 2026 or Revision 2021. Avoid code mixups entirely." data-ml="Revision 2026 അല്ലെങ്കിൽ 2021 ലെ ശരിയായ വകുപ്പും സെമസ്റ്ററും തിരഞ്ഞെടുത്ത് സിലബസ് കാണാം.">Quickly browse the correct programme and semester under Revision 2026 or Revision 2021. Avoid code mixups entirely.</p>
+            </div>
+          </article>
+
+          <!-- Item 2: Official Links -->
+          <article class="bento-card card-green" data-about-reveal>
+            <div class="bento-icon">🔗</div>
+            <div class="bento-content">
+              <h3 data-en="Official SITTTR Links" data-ml="ഔദ്യോഗിക ലിങ്കുകൾ">Official SITTTR Links</h3>
+              <p data-en="Direct links to SITTTR Kerala syllabus PDFs and sample question papers." data-ml="സിലബസ് പി.ഡി.എഫുകളും മാതൃകാ ചോദ്യപേപ്പറുകളും നേരിട്ട് ഡൗൺലോഡ് ചെയ്യാം.">Direct links to SITTTR Kerala syllabus PDFs and sample question papers.</p>
+            </div>
+          </article>
+
+          <!-- Item 3: Lessons and Notes -->
+          <article class="bento-card card-orange" data-about-reveal>
+            <div class="bento-icon">📄</div>
+            <div class="bento-content">
+              <h3 data-en="Handbooks & Notes" data-ml="ഹാൻഡ്‌ബുക്കുകളും നോട്ടുകളും">Handbooks & Notes</h3>
+              <p data-en="Module-wise handbooks, diagram breakdowns, and printable PDF study materials." data-ml="ഓരോ മോഡ്യൂൾ തിരിച്ചുള്ള നോട്ടുകളും പരീക്ഷാ ചോദ്യോത്തരങ്ങളും.">Module-wise handbooks, diagram breakdowns, and printable PDF study materials.</p>
+            </div>
+          </article>
+
+          <!-- Item 4: Ask POLY AI -->
+          <article class="bento-card col-span-2 card-purple" data-about-reveal>
+            <div class="bento-icon">🤖</div>
+            <div class="bento-content">
+              <h3 data-en="Ask POLY AI Assistant" data-ml="ആസ്ക് പോളി എ.ഐ">Ask POLY AI Assistant</h3>
+              <p data-en="An intelligent study assistant trained on syllabus structure to find resources, explain complex engineering concepts, and guide your studies." data-ml="പഠനവിഷയങ്ങളിലെ സംശയങ്ങൾ നിമിഷനേരം കൊണ്ട് പരിഹരിക്കാൻ പോളിടെക്നിക്കിനായുള്ള പ്രത്യേക AI സഹായി.">An intelligent study assistant trained on syllabus structure to find resources, explain complex engineering concepts, and guide your studies.</p>
+            </div>
+          </article>
+
+          <!-- Item 5: Quizzes and Exams -->
+          <article class="bento-card card-rose" data-about-reveal>
+            <div class="bento-icon">✏️</div>
+            <div class="bento-content">
+              <h3 data-en="Mock Exams" data-ml="മോക്ക് പരീക്ഷകൾ">Mock Exams</h3>
+              <p data-en="Test your understanding with continuous daily quizzes and instant evaluation." data-ml="പഠിച്ച പാഠഭാഗങ്ങൾ സ്വയം വിലയിരുത്താൻ ദിവസേനയുള്ള പരീക്ഷകളും ഫീഡ്ബാക്കുകളും.">Test your understanding with continuous daily quizzes and instant evaluation.</p>
+            </div>
+          </article>
+
+          <!-- Item 6: Bilingual Support -->
+          <article class="bento-card card-teal" data-about-reveal>
+            <div class="bento-icon">മ</div>
+            <div class="bento-content">
+              <h3 data-en="Bilingual Malayalam" data-ml="മലയാളം പിന്തുണ">Bilingual Malayalam</h3>
+              <p data-en="Toggle complex descriptions into natural Malayalam while preserving important technical terms in English." data-ml="സാങ്കേതിക വാക്കുകൾ ഇംഗ്ലീഷിൽ നിലനിർത്തിക്കൊണ്ടു തന്നെ വിവരങ്ങൾ മലയാളത്തിൽ ലഭ്യമാക്കുന്നു.">Toggle complex descriptions into natural Malayalam while preserving important technical terms in English.</p>
+            </div>
+          </article>
         </div>
+
         <nav class="about-quick-nav" aria-label="Quick links">
-          <a href="/revision-2026.html">Revision 2026</a><a href="/revision-2021.html">Revision 2021</a><a href="/daily-quiz.html">Mock Exams</a><a href="/ask-poly.html">Ask POLY AI</a><a href="/tools.html">Tools</a><a href="/contact.html">Help</a>
+          <a href="/revision-2026.html">Revision 2026</a>
+          <a href="/revision-2021.html">Revision 2021</a>
+          <a href="/daily-quiz.html">Mock Exams</a>
+          <a href="/ask-poly.html">Ask POLY AI</a>
+          <a href="/tools.html">Tools</a>
+          <a href="/contact.html">Help</a>
         </nav>
       </div>
     </section>
 
+    <!-- 5. Interactive Slideshow Section -->
     <section class="about-section" id="how-to-use" aria-labelledby="guide-heading">
       <div class="about-container">
         <div class="about-heading" data-about-reveal>
-          <h2 id="guide-heading"><span data-en="How to use" data-ml="എങ്ങനെ ഉപയോഗിക്കാം">How to use</span> <span class="gradient-text">POLY PMNA</span></h2>
-          <p data-en="The guide advances automatically. Pause it, use the arrows or dots, swipe on mobile, or use the keyboard." data-ml="Guide സ്വയം മാറും. Pause ചെയ്യാം, arrows അല്ലെങ്കിൽ dots ഉപയോഗിക്കാം, mobileൽ swipe ചെയ്യാം, keyboard ഉപയോഗിക്കാം.">The guide advances automatically. Pause it, use the arrows or dots, swipe on mobile, or use the keyboard.</p>
+          <h2 id="guide-heading"><span data-en="How to study effectively with" data-ml="എങ്ങനെ ഫലപ്രദമായി ഉപയോഗിക്കാം:">How to study effectively with</span> <span class="gradient-text">POLY PMNA</span></h2>
+          <p data-en="This interactive guide advances automatically. Pause, use controls, keyboard arrows, or swipe on mobile devices." data-ml="ഈ ഗൈഡ് സ്വയം മാറും. താത്കാലികമായി നിർത്താനും നിയന്ത്രിക്കാനും താഴെയുള്ള ബട്ടണുകൾ അല്ലെങ്കിൽ സ്വൈപ്പ് ഉപയോഗിക്കുക.">This interactive guide advances automatically. Pause, use controls, keyboard arrows, or swipe on mobile devices.</p>
         </div>
+
         <div class="about-guide-shell" data-about-guide data-about-reveal tabindex="0" aria-roledescription="carousel" aria-label="How to use POLY PMNA">
           <div class="about-guide-toolbar">
-            <div class="about-guide-status" aria-live="polite"><span aria-hidden="true">●</span><span data-guide-status>Autoplay on · Guide step 1 of 6</span></div>
-            <div class="about-guide-controls"><button type="button" data-guide-previous aria-label="Previous guide step">←</button><button type="button" data-guide-toggle aria-label="Pause autoplay"><span data-guide-toggle-icon aria-hidden="true">Ⅱ</span></button><button type="button" data-guide-next aria-label="Next guide step">→</button></div>
-          </div>
-          <div class="about-guide-viewport">
-            <div class="about-guide-track" data-guide-track>
-              <article class="about-guide-slide" data-guide-slide><div><span class="step-number" data-en="Step 1 · Revision" data-ml="ഘട്ടം 1 · Revision">Step 1 · Revision</span><h3 data-en="Choose the correct curriculum first." data-ml="ആദ്യം ശരിയായ curriculum തിരഞ്ഞെടുക്കുക.">Choose the correct curriculum first.</h3><p data-en="Use Revision 2026 for the current curriculum. Open Revision 2021 or the 2015 archive only when your batch follows that scheme." data-ml="Current curriculumയ്ക്ക് Revision 2026 ഉപയോഗിക്കുക. നിങ്ങളുടെ batch പഴയ scheme പിന്തുടരുമ്പോൾ മാത്രം Revision 2021 അല്ലെങ്കിൽ 2015 archive തുറക്കുക.">Use Revision 2026 for the current curriculum. Open Revision 2021 or the 2015 archive only when your batch follows that scheme.</p><p class="slide-ml">Revision മാറിയാൽ subject code, title, syllabus, exam pattern എന്നിവ മാറാം.</p></div><div class="about-guide-illustration" aria-hidden="true"><div class="guide-mock"><div class="guide-mock-top"><span></span><span></span><span></span></div><div class="guide-mock-line short"></div><div class="guide-mock-line medium"></div><div class="guide-mock-cards"><span></span><span></span><span></span></div></div></div></article>
-              <article class="about-guide-slide" data-guide-slide><div><span class="step-number" data-en="Step 2 · Programme" data-ml="ഘട്ടം 2 · Programme">Step 2 · Programme</span><h3 data-en="Open your department and semester." data-ml="Department, semester തുറക്കുക.">Open your department and semester.</h3><p data-en="Select the correct programme page, then move to the semester you are studying. Common subjects may appear under several departments." data-ml="ശരിയായ programme page തിരഞ്ഞെടുത്ത ശേഷം നിങ്ങൾ പഠിക്കുന്ന semester തുറക്കുക. Common subjects പല departmentsലും കാണാം.">Select the correct programme page, then move to the semester you are studying. Common subjects may appear under several departments.</p><p class="slide-ml">Department പേരും semester നമ്പറും വീണ്ടും പരിശോധിക്കുക.</p></div><div class="about-guide-illustration" aria-hidden="true"><div class="guide-mock"><div class="guide-mock-top"><span></span><span></span><span></span></div><div class="guide-mock-cards"><span></span><span></span><span></span></div><div class="guide-mock-line medium"></div></div></div></article>
-              <article class="about-guide-slide" data-guide-slide><div><span class="step-number" data-en="Step 3 · Subject" data-ml="ഘട്ടം 3 · Subject">Step 3 · Subject</span><h3 data-en="Verify the subject code." data-ml="Subject code ഉറപ്പാക്കുക.">Verify the subject code.</h3><p data-en="Read the subject title and code on the card. Use the official syllabus link to confirm modules, hours, marks and course outcomes." data-ml="Cardലുള്ള subject title, code വായിക്കുക. Modules, hours, marks, course outcomes ഉറപ്പാക്കാൻ official syllabus link ഉപയോഗിക്കുക.">Read the subject title and code on the card. Use the official syllabus link to confirm modules, hours, marks and course outcomes.</p><p class="slide-ml">Subject name മാത്രം നോക്കാതെ code കൂടി പരിശോധിക്കുക.</p></div><div class="about-guide-illustration" aria-hidden="true"><div class="guide-mock"><div class="guide-mock-top"><span></span><span></span><span></span></div><div class="guide-mock-line short"></div><div class="guide-mock-cards"><span></span><span></span><span></span></div></div></div></article>
-              <article class="about-guide-slide" data-guide-slide><div><span class="step-number" data-en="Step 4 · Learn" data-ml="ഘട്ടം 4 · Learn">Step 4 · Learn</span><h3 data-en="Study module by module." data-ml="Module വീതം പഠിക്കുക.">Study module by module.</h3><p data-en="Open the lesson when available, follow the explanations and diagrams, and use Print or Save PDF for offline revision." data-ml="Lesson ലഭ്യമെങ്കിൽ explanations, diagrams പഠിക്കുക. Offline revisionയ്ക്ക് Print അല്ലെങ്കിൽ Save PDF ഉപയോഗിക്കുക.">Open the lesson when available, follow the explanations and diagrams, and use Print or Save PDF for offline revision.</p><p class="slide-ml">Technical terms Englishലും supporting explanation Malayalamലും ലഭ്യമായേക്കാം.</p></div><div class="about-guide-illustration" aria-hidden="true"><div class="guide-mock"><div class="guide-mock-top"><span></span><span></span><span></span></div><div class="guide-mock-line medium"></div><div class="guide-mock-line"></div><div class="guide-mock-line short"></div></div></div></article>
-              <article class="about-guide-slide" data-guide-slide><div><span class="step-number" data-en="Step 5 · Practise" data-ml="ഘട്ടം 5 · Practise">Step 5 · Practise</span><h3 data-en="Test your understanding." data-ml="പഠിച്ചതിന്റെ understanding പരിശോധിക്കുക.">Test your understanding.</h3><p data-en="Attempt quizzes and mock papers after studying. Use feedback to find weak topics; mock scores are not official examination records." data-ml="പഠിച്ചതിന് ശേഷം quizzes, mock papers attempt ചെയ്യുക. Weak topics കണ്ടെത്താൻ feedback ഉപയോഗിക്കുക; mock scores official records അല്ല.">Attempt quizzes and mock papers after studying. Use feedback to find weak topics; mock scores are not official examination records.</p><p class="slide-ml">Scoreനേക്കാൾ തെറ്റായ answers മനസ്സിലാക്കുന്നതിന് മുൻഗണന നൽകുക.</p></div><div class="about-guide-illustration" aria-hidden="true"><div class="guide-mock"><div class="guide-mock-top"><span></span><span></span><span></span></div><div class="guide-mock-cards"><span></span><span></span><span></span></div><div class="guide-mock-cards"><span></span><span></span><span></span></div></div></div></article>
-              <article class="about-guide-slide" data-guide-slide><div><span class="step-number" data-en="Step 6 · Guidance" data-ml="ഘട്ടം 6 · Guidance">Step 6 · Guidance</span><h3 data-en="Ask for help or report a problem." data-ml="Help ചോദിക്കുകയോ problem report ചെയ്യുകയോ ചെയ്യുക.">Ask for help or report a problem.</h3><p data-en="Use Ask POLY AI for website and study guidance. Use Help when a code, title, lesson, note or link is missing or incorrect." data-ml="Website, study guidanceയ്ക്ക് Ask POLY AI ഉപയോഗിക്കുക. Code, title, lesson, note, link എന്നിവ തെറ്റാണെങ്കിൽ Help ഉപയോഗിക്കുക.">Use Ask POLY AI for website and study guidance. Use Help when a code, title, lesson, note or link is missing or incorrect.</p><p class="slide-ml">Correction reportൽ revision, subject code, page URL, screenshot എന്നിവ ചേർക്കുക.</p></div><div class="about-guide-illustration" aria-hidden="true"><div class="guide-mock"><div class="guide-mock-top"><span></span><span></span><span></span></div><div class="guide-mock-line short"></div><div class="guide-mock-line medium"></div><div class="guide-mock-cards"><span></span><span></span><span></span></div></div></div></article>
+            <div class="about-guide-status" aria-live="polite">
+              <span aria-hidden="true">●</span><span data-guide-status>Autoplay on · Guide step 1 of 6</span>
+            </div>
+            <div class="about-guide-controls">
+              <button type="button" data-guide-previous aria-label="Previous guide step">←</button>
+              <button type="button" data-guide-toggle aria-label="Pause autoplay"><span data-guide-toggle-icon aria-hidden="true">Ⅱ</span></button>
+              <button type="button" data-guide-next aria-label="Next guide step">→</button>
             </div>
           </div>
+
+          <div class="about-guide-viewport">
+            <div class="about-guide-track" data-guide-track>
+              <!-- Slide 1 -->
+              <article class="about-guide-slide" data-guide-slide>
+                <div class="slide-copy">
+                  <span class="step-number" data-en="Step 1 · Curriculum" data-ml="ഘട്ടം 1 · കാറ്റലോഗ്">Step 1 · Curriculum</span>
+                  <h3 data-en="Choose the correct revision first." data-ml="ആദ്യം ശരിയായ റെവിഷൻ തിരഞ്ഞെടുക്കുക.">Choose the correct revision first.</h3>
+                  <p data-en="Always verify your batch. Revision 2026 is the current curriculum for ongoing classes, while Revision 2021 remains available as a legacy archive." data-ml="നിങ്ങളുടെ അധ്യയന ബാച്ച് അനുസരിച്ച് സ്കീം തിരഞ്ഞെടുക്കുക. നിലവിലുള്ള ക്ലാസുകൾക്ക് Revision 2026 ആണ് ഉപയോഗിക്കേണ്ടത്.">Always verify your batch. Revision 2026 is the current curriculum for ongoing classes, while Revision 2021 remains available as a legacy archive.</p>
+                  <p class="slide-ml">റീവിഷൻ മാറുമ്പോൾ സിലബസ്സ് ഘടനയും വിഷയങ്ങളും മാറാം.</p>
+                </div>
+                <div class="about-guide-illustration" aria-hidden="true">
+                  <div class="guide-mock">
+                    <div class="guide-mock-top"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-line short"></div>
+                    <div class="guide-mock-line medium"></div>
+                    <div class="guide-mock-cards"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 2 -->
+              <article class="about-guide-slide" data-guide-slide>
+                <div class="slide-copy">
+                  <span class="step-number" data-en="Step 2 · Department" data-ml="ഘട്ടം 2 · വകുപ്പ്">Step 2 · Department</span>
+                  <h3 data-en="Select your programme and semester." data-ml="നിങ്ങളുടെ വകുപ്പും സെമസ്റ്ററും തിരഞ്ഞെടുക്കുക.">Select your programme and semester.</h3>
+                  <p data-en="Navigate to your specific department page and scroll to your current semester. Common core subjects are visible across multiple directories." data-ml="നിങ്ങളുടെ വകുപ്പ് തിരഞ്ഞെടുത്ത് പഠിക്കുന്ന സെമസ്റ്റർ ഓപ്പൺ ചെയ്യുക. പല ഡിപ്പാർട്ടുമെന്റുകൾക്കുമുള്ള പൊതുവിഷയങ്ങൾ ഇതിൽ കാണാം.">Navigate to your specific department page and scroll to your current semester. Common core subjects are visible across multiple directories.</p>
+                  <p class="slide-ml">ശരിയായ പേരും സെമസ്റ്റർ നമ്പറും പരിശോധിക്കുക.</p>
+                </div>
+                <div class="about-guide-illustration" aria-hidden="true">
+                  <div class="guide-mock">
+                    <div class="guide-mock-top"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-cards"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-line medium"></div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 3 -->
+              <article class="about-guide-slide" data-guide-slide>
+                <div class="slide-copy">
+                  <span class="step-number" data-en="Step 3 · Subject Code" data-ml="ഘട്ടം 3 · കോഡ്">Step 3 · Subject Code</span>
+                  <h3 data-en="Always verify the subject code." data-ml="സബ്ജക്ട് കോഡ് പരിശോധിക്കുക.">Always verify the subject code.</h3>
+                  <p data-en="Read the precise subject code displayed on each card. Cross-check modules, credits, and evaluation weights with the official SITTTR syllabus link." data-ml="വിഷയങ്ങളുടെ പേരിനൊപ്പം കോഡ് കൂടി പരിശോധിക്കുക. ഔദ്യോഗിക വിവരങ്ങൾ സിലബസ് ലിങ്ക് വഴി ഉറപ്പാക്കാം.">Read the precise subject code displayed on each card. Cross-check modules, credits, and evaluation weights with the official SITTTR syllabus link.</p>
+                  <p class="slide-ml">പേരുകൾ ഒരുപോലെയാണെങ്കിലും കോഡുകൾ വ്യത്യസ്തമായിരിക്കാം.</p>
+                </div>
+                <div class="about-guide-illustration" aria-hidden="true">
+                  <div class="guide-mock">
+                    <div class="guide-mock-top"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-line short"></div>
+                    <div class="guide-mock-cards"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 4 -->
+              <article class="about-guide-slide" data-guide-slide>
+                <div class="slide-copy">
+                  <span class="step-number" data-en="Step 4 · Active Learning" data-ml="ഘട്ടം 4 · നോട്ട്സ്">Step 4 · Active Learning</span>
+                  <h3 data-en="Study with handbooks and notes." data-ml="ഹാൻഡ്ബുക്കുകൾ വഴി പഠനം നടത്തുക.">Study with handbooks and notes.</h3>
+                  <p data-en="Access structured module layouts, concise explanations, and high-fidelity diagrams. Use the Print option to save PDF copies for offline study." data-ml="മോഡ്യൂളുകൾ, ചിത്രങ്ങൾ, ലളിതമായ മലയാളം വിശദീകരണങ്ങൾ എന്നിവ കാണുക. ഓഫ്‌ലൈനായി ഉപയോഗിക്കാൻ പി.ഡി.എഫ് ഡൗൺലോഡ് ചെയ്യാം.">Access structured module layouts, concise explanations, and high-fidelity diagrams. Use the Print option to save PDF copies for offline study.</p>
+                  <p class="slide-ml">പ്രധാന ആശയങ്ങൾ മലയാളത്തിലും സാങ്കേതിക വിവരങ്ങൾ ഇംഗ്ലീഷിലും നൽകിയിരിക്കുന്നു.</p>
+                </div>
+                <div class="about-guide-illustration" aria-hidden="true">
+                  <div class="guide-mock">
+                    <div class="guide-mock-top"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-line medium"></div>
+                    <div class="guide-mock-line"></div>
+                    <div class="guide-mock-line short"></div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 5 -->
+              <article class="about-guide-slide" data-guide-slide>
+                <div class="slide-copy">
+                  <span class="step-number" data-en="Step 5 · Practice Exams" data-ml="ഘട്ടം 5 · പരിശീലനം">Step 5 · Practice Exams</span>
+                  <h3 data-en="Assess yourself with mock exams." data-ml="മോക്ക് പരീക്ഷകളിൽ പങ്കെടുക്കുക.">Assess yourself with mock exams.</h3>
+                  <p data-en="Attempt daily practice quizzes and full mock assessments. Identify gaps in your knowledge through instant performance breakdown." data-ml="പഠനം പൂർത്തിയാക്കിയ ശേഷം ക്വിസുകൾ വഴി സ്വയം വിലയിരുത്തുക. മോക്ക് സ്കോറുകൾ ഔദ്യോഗിക പരീക്ഷാ ഫലങ്ങളല്ല.">Attempt daily practice quizzes and full mock assessments. Identify gaps in your knowledge through instant performance breakdown.</p>
+                  <p class="slide-ml">തെറ്റുകൾ തിരുത്തി പഠിക്കുന്നതിന് മുൻഗണന നൽകുക.</p>
+                </div>
+                <div class="about-guide-illustration" aria-hidden="true">
+                  <div class="guide-mock">
+                    <div class="guide-mock-top"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-cards"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-cards"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Slide 6 -->
+              <article class="about-guide-slide" data-guide-slide>
+                <div class="slide-copy">
+                  <span class="step-number" data-en="Step 6 · Continuous Help" data-ml="ഘട്ടം 6 · സഹായം">Step 6 · Continuous Help</span>
+                  <h3 data-en="Ask the AI or report corrections." data-ml="എ.ഐ സംശയനിവാരണവും സഹായവും">Ask the AI or report corrections.</h3>
+                  <p data-en="Query Ask POLY AI for prompt resource directions or study explanations. If you notice any missing resource, report it using the Help form." data-ml="വെബ്സൈറ്റ് സംശയങ്ങൾക്ക് Ask POLY AI അസിസ്റ്റന്റും വിവരങ്ങളിലെ തെറ്റുകൾ തിരുത്താൻ Help ഫോമും ഉപയോഗിക്കുക.">Query Ask POLY AI for prompt resource directions or study explanations. If you notice any missing resource, report it using the Help form.</p>
+                  <p class="slide-ml">റിപ്പോർട്ട് ചെയ്യുമ്പോൾ വകുപ്പ്, കോഡ്, പേജ് യു.ആർ.എൽ എന്നിവ ഉൾപ്പെടുത്തുക.</p>
+                </div>
+                <div class="about-guide-illustration" aria-hidden="true">
+                  <div class="guide-mock">
+                    <div class="guide-mock-top"><span></span><span></span><span></span></div>
+                    <div class="guide-mock-line short"></div>
+                    <div class="guide-mock-line medium"></div>
+                    <div class="guide-mock-cards"><span></span><span></span><span></span></div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+
           <div class="about-guide-progress" aria-hidden="true"><span data-guide-progress></span></div>
           <div class="about-guide-dots" data-guide-dots aria-label="Guide slide selection"></div>
         </div>
-        <noscript><div class="about-guide-fallback"><strong>How to use POLY PMNA</strong><ol><li>Choose the correct revision.</li><li>Open the department and semester.</li><li>Verify the subject code.</li><li>Study the lesson and notes.</li><li>Practise with questions and mock exams.</li><li>Use Ask POLY AI or Help when needed.</li></ol></div></noscript>
+        <noscript>
+          <div class="about-guide-fallback">
+            <strong>How to use POLY PMNA</strong>
+            <ol>
+              <li>Choose the correct revision scheme (Revision 2026 is the current curriculum).</li>
+              <li>Open your department and current semester list.</li>
+              <li>Always check the subject code for academic accuracy.</li>
+              <li>Study module-wise handbooks and downloadable notes.</li>
+              <li>Test yourself with daily practice and full mock papers.</li>
+              <li>Ask Ask POLY AI or report problems to help keep the platform accurate.</li>
+            </ol>
+          </div>
+        </noscript>
       </div>
     </section>
 
+    <!-- 6. Bilingual Malayalam Banner -->
     <section class="about-section" aria-labelledby="malayalam-heading">
-      <div class="about-container"><div class="about-ml-panel" data-about-reveal><div class="about-ml-mark" aria-hidden="true"></div><div class="about-ml-copy"><h2 id="malayalam-heading">മലയാളത്തിലും ഉപയോഗിക്കാം</h2><p>മുകളിൽ കാണുന്ന <strong>മലയാളം</strong> button അമർത്തിയാൽ ഈ About pageന്റെ പ്രധാന ഉള്ളടക്കം മലയാളത്തിലേക്ക് മാറും. Lessonsലുള്ള technical terms സാധാരണയായി Englishൽ തന്നെ നിലനിർത്തി, ആവശ്യമായിടത്ത് Malayalam supporting explanation നൽകുന്നതാണ് ലക്ഷ്യം.</p><ul class="about-ml-list"><li>Revision, department, semester എന്നിവ ശരിയായി തിരഞ്ഞെടുക്കുക.</li><li>Subject titleനൊപ്പം subject codeയും ഉറപ്പാക്കുക.</li><li>Final syllabus, marks, exam instructions എന്നിവ official sourceൽ പരിശോധിക്കുക.</li></ul></div></div></div>
-    </section>
-
-    <section class="about-section" aria-labelledby="mission-heading">
-      <div class="about-container about-story-grid">
-        <article class="about-story" data-about-reveal><h2 id="mission-heading" data-en="Our mission is clarity, not content confusion." data-ml="Content confusion ഒഴിവാക്കി വ്യക്തത നൽകുകയാണ് ലക്ഷ്യം.">Our mission is clarity, not content confusion.</h2><p data-en="POLY PMNA organises study support around curriculum, programme, semester and subject code, helping students reach the correct academic resource faster." data-ml="Curriculum, programme, semester, subject code എന്നിവയെ അടിസ്ഥാനമാക്കി study support ക്രമീകരിച്ച് ശരിയായ academic resource വേഗത്തിൽ കണ്ടെത്താൻ സഹായിക്കുന്നു.">POLY PMNA organises study support around curriculum, programme, semester and subject code, helping students reach the correct academic resource faster.</p><ul><li data-en="Keep Revision 2026, Revision 2021 and the 2015 archive distinct." data-ml="Revision 2026, Revision 2021, 2015 archive എന്നിവ വേർതിരിക്കുക.">Keep Revision 2026, Revision 2021 and the 2015 archive distinct.</li><li data-en="Make lessons readable on phone, desktop and printable PDF." data-ml="Lessons phone, desktop, printable PDF എന്നിവയിൽ വായിക്കാവുന്നതാക്കുക.">Make lessons readable on phone, desktop and printable PDF.</li><li data-en="Improve the portal when students report missing or incorrect material." data-ml="Missing അല്ലെങ്കിൽ incorrect material report ലഭിക്കുമ്പോൾ portal മെച്ചപ്പെടുത്തുക.">Improve the portal when students report missing or incorrect material.</li></ul><span class="story-symbol" aria-hidden="true">◎</span></article>
-        <article class="about-story transparency" data-about-reveal><h2 data-en="What students should always verify." data-ml="വിദ്യാർത്ഥികൾ നിർബന്ധമായും പരിശോധിക്കേണ്ടത്.">What students should always verify.</h2><p data-en="POLY PMNA is an independent study-support platform. It does not replace official SITTTR documents, institution instructions, approved textbooks, teachers or examination notifications." data-ml="POLY PMNA ഒരു independent study-support platform ആണ്. Official SITTTR documents, institution instructions, approved textbooks, teachers, examination notifications എന്നിവയ്ക്ക് പകരമല്ല.">POLY PMNA is an independent study-support platform. It does not replace official SITTTR documents, institution instructions, approved textbooks, teachers or examination notifications.</p><ul><li data-en="Confirm the revision, subject code and syllabus." data-ml="Revision, subject code, syllabus ഉറപ്പാക്കുക.">Confirm the revision, subject code and syllabus.</li><li data-en="Confirm marks, duration and examination pattern from official notices." data-ml="Marks, duration, exam pattern official noticesൽ പരിശോധിക്കുക.">Confirm marks, duration and examination pattern from official notices.</li><li data-en="Treat AI explanations and mock scores as study guidance, not official decisions." data-ml="AI explanations, mock scores എന്നിവ study guidance ആയി മാത്രം കാണുക.">Treat AI explanations and mock scores as study guidance, not official decisions.</li></ul><span class="story-symbol" aria-hidden="true">!</span></article>
+      <div class="about-container">
+        <div class="about-ml-panel" data-about-reveal>
+          <div class="about-ml-mark" aria-hidden="true"></div>
+          <div class="about-ml-copy">
+            <h2 id="malayalam-heading">മലയാളത്തിലും ഉപയോഗിക്കാം</h2>
+            <p>പഠന വിവരങ്ങൾ കൂടുതൽ വ്യക്തമായി മനസ്സിലാക്കാൻ മുകളിലുള്ള <strong>മലയാളം</strong> ബട്ടൺ ഉപയോഗിക്കാം. സാങ്കേതിക പദങ്ങൾ മാറ്റമില്ലാതെ ഇംഗ്ലീഷിൽ നിലനിർത്തിക്കൊണ്ടുതന്നെ, മനസ്സിലാക്കാൻ പ്രയാസമുള്ള ആശയങ്ങൾ ലളിതമായ മലയാളത്തിൽ ഹാൻഡ്‌ബുക്കുകളിൽ ലഭ്യമാക്കിയിട്ടുണ്ട്.</p>
+            <ul class="about-ml-list">
+              <li>കരിക്കുലം, ഡിപ്പാർട്ട്മെന്റ്, സെമസ്റ്റർ എന്നിവ ഉറപ്പാക്കുക.</li>
+              <li>വിഷയങ്ങളുടെ പേരുകൾക്കൊപ്പം കോഡും പരിശോധിക്കുക.</li>
+              <li>ഔദ്യോഗിക വിവരങ്ങൾ എപ്പോഴും ഗവൺമെന്റ് വെബ്സൈറ്റിൽ ഒത്തുനോക്കുക.</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="about-section about-values-section" aria-labelledby="values-heading">
-      <div class="about-container"><div class="about-heading" data-about-reveal><h2 id="values-heading" data-en="What makes this About page different from Home." data-ml="Home pageൽ നിന്ന് ഈ About pageനെ വ്യത്യസ്തമാക്കുന്നത്.">What makes this About page different from Home.</h2><p data-en="Home provides quick actions. About explains the platform structure, technology choices, correction process and improvement roadmap." data-ml="Home quick actions നൽകുന്നു. About platform structure, technology choices, correction process, improvement roadmap എന്നിവ വിശദീകരിക്കുന്നു.">Home provides quick actions. About explains the platform structure, technology choices, correction process and improvement roadmap.</p></div><div class="about-values-grid"><article class="about-value-card" data-about-reveal><span class="about-value-icon" aria-hidden="true">◇</span><h3 data-en="Student-first structure" data-ml="Student-first structure">Student-first structure</h3><p data-en="Resources are organised so students can verify context before opening a lesson, note or paper." data-ml="Lesson, note, paper എന്നിവ തുറക്കുന്നതിന് മുമ്പ് context ഉറപ്പാക്കാൻ resources ക്രമീകരിച്ചിരിക്കുന്നു.">Resources are organised so students can verify context before opening a lesson, note or paper.</p></article><article class="about-value-card" data-about-reveal><span class="about-value-icon" aria-hidden="true">{ }</span><h3 data-en="Transparent technology" data-ml="Transparent technology">Transparent technology</h3><p data-en="The public experience is static-first HTML, CSS and JavaScript. Optional online services support accounts, saved results, Help discussions and AI guidance." data-ml="Public experience static-first HTML, CSS, JavaScript അടിസ്ഥാനത്തിലാണ്. Accounts, saved results, Help discussions, AI guidance എന്നിവയ്ക്ക് online services ഉപയോഗിക്കുന്നു.">The public experience is static-first HTML, CSS and JavaScript. Optional online services support accounts, saved results, Help discussions and AI guidance.</p></article><article class="about-value-card" data-about-reveal><span class="about-value-icon" aria-hidden="true">↻</span><h3 data-en="Corrections guide the roadmap" data-ml="Corrections roadmapനെ നയിക്കുന്നു">Corrections guide the roadmap</h3><p data-en="Verified corrections to broken links, codes and resources are prioritised over adding unconfirmed content." data-ml="Broken links, codes, resources എന്നിവയിലെ verified correctionsന് unconfirmed contentനേക്കാൾ മുൻഗണന നൽകുന്നു.">Verified corrections to broken links, codes and resources are prioritised over adding unconfirmed content.</p></article></div></div>
+    <!-- 7. GitHub Repository Integration Section -->
+    <section class="about-section github-section" aria-labelledby="github-heading">
+      <div class="about-container">
+        <div class="about-heading" data-about-reveal>
+          <h2 id="github-heading"><span data-en="Open-Source Excellence &" data-ml="തുറന്ന കോഡിംഗും">Open-Source Excellence &</span> <span class="gradient-text">GitHub Integration</span></h2>
+          <p data-en="Our entire static-first platform is completely open-source and hosted publicly on GitHub. Explore code architecture, contribute content, or follow our deployments." data-ml="വെബ്സൈറ്റിന്റെ വിവരങ്ങളും കരിക്കുലങ്ങളും പൂർണ്ണമായും ഓപ്പൺ സോഴ്സ് ആണ്. ഡെവലപ്പർമാർക്കും വിദ്യാർത്ഥികൾക്കും ഇതിലേക്ക് സംഭാവനകൾ നൽകാം.">Our entire static-first platform is completely open-source and hosted publicly on GitHub. Explore code architecture, contribute content, or follow our deployments.</p>
+        </div>
+
+        <div class="github-grid">
+          <!-- Card 1: Repository Profile -->
+          <article class="github-card repo-profile" data-about-reveal>
+            <div class="repo-header">
+              <span class="github-icon-svg" aria-hidden="true">🐙</span>
+              <div>
+                <h3>nandurpm/diploma-notes</h3>
+                <span class="repo-badge">Public Repository</span>
+              </div>
+            </div>
+            <p class="repo-desc" data-en="The official GitHub home of the POLY PMNA study portal, maintaining 280+ high-quality syllabus, lesson, and notes assets published via optimized static-first web pipelines." data-ml="POLY PMNA പോർട്ടലിന്റെ ഒഫീഷ്യൽ ഗിറ്റ്‌ഹബ്ബ് ഹோம். 280-ൽ അധികം സിലബസ്, നോട്ടുകൾ എന്നിവ ഇതിലൂടെ പബ്ലിഷ് ചെയ്യുന്നു.">The official GitHub home of the POLY PMNA study portal, maintaining 280+ high-quality syllabus, lesson, and notes assets published via optimized static-first web pipelines.</p>
+            <div class="repo-stats-strip">
+              <div class="stat-bubble">
+                <span class="bubble-num">282</span>
+                <span class="bubble-label" data-en="Canonical Pages" data-ml="കാനോനിക്കൽ പേജുകൾ">Canonical Pages</span>
+              </div>
+              <div class="stat-bubble">
+                <span class="bubble-num">100%</span>
+                <span class="bubble-label" data-en="Static-First" data-ml="സ്റ്റാറ്റിക് കോഡ്">Static-First</span>
+              </div>
+              <div class="stat-bubble">
+                <span class="bubble-num">174+</span>
+                <span class="bubble-label" data-en="Indexed HTML" data-ml="ഇൻഡക്സ്ഡ് HTML">Indexed HTML</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Contribution Workflow -->
+          <article class="github-card workflow-card" data-about-reveal>
+            <div class="card-kicker">WORKFLOW</div>
+            <h4 data-en="How to Contribute Content" data-ml="പഠന വിവരങ്ങൾ എങ്ങനെ ചേർക്കാം">How to Contribute Content</h4>
+            <p data-en="Students and developers can submit missing subject codes, improve translations, or fix broken official links. Every pull request undergoes extensive automated static analysis and site audits before merging." data-ml="ലഭ്യമല്ലാത്ത കോഡുകൾ ചേർക്കാനും വിവർത്തനങ്ങൾ മെച്ചപ്പെടുത്താനും ആർക്കും കോൺട്രിബ്യൂഷൻ നടത്താം. പുൾ റിക്വസ്റ്റുകൾ സി.ഐ ടെസ്റ്റുകൾ വഴിയാണ് വെരിഫൈ ചെയ്യുന്നത്.">Students and developers can submit missing subject codes, improve translations, or fix broken official links. Every pull request undergoes extensive automated static analysis and site audits before merging.</p>
+            <div class="workflow-steps">
+              <div class="wf-step"><span>1</span><p data-en="Fork & Clone" data-ml="ഫോർക്ക് ചെയ്യുക">Fork & Clone</p></div>
+              <div class="wf-step"><span>2</span><p data-en="Audit Site" data-ml="ഓഡിറ്റ് സൈറ്റ്">Audit Site</p></div>
+              <div class="wf-step"><span>3</span><p data-en="Pull Request" data-ml="പുൾ റിക്വസ്റ്റ്">Pull Request</p></div>
+            </div>
+          </article>
+
+          <!-- Card 3: Automation & Verification -->
+          <article class="github-card automation-card" data-about-reveal>
+            <div class="card-kicker">AUTOMATION</div>
+            <h4 data-en="Post-Deployment Verification" data-ml="പോസ്റ്റ് ഡെപ്ലോയ്‌മെന്റ് വെരിഫിക്കേഷൻ">Post-Deployment Verification</h4>
+            <p data-en="Our continuous integration suite checks metadata compliance, sitemap integrity, JSON-LD validity, and routing structures on every commit. No broken links survive the production site quality gates." data-ml="കണ്ണികൾ തകരാറിലല്ല എന്ന് ഉറപ്പാക്കാൻ ഓരോ ഡെപ്ലോയ്മെന്റിനും ശേഷവും ഓട്ടോമേറ്റഡ് ചെക്കുകൾ സിഗ്നേച്ചറുകൾ പരിശോധിക്കുന്നു.">Our continuous integration suite checks metadata compliance, sitemap integrity, JSON-LD validity, and routing structures on every commit. No broken links survive the production site quality gates.</p>
+            <div class="tech-tag-row">
+              <span class="tech-tag">GitHub Actions</span>
+              <span class="tech-tag">Site Audit PY</span>
+              <span class="tech-tag">Playwright QA</span>
+              <span class="tech-tag">Sitemap XML</span>
+            </div>
+          </article>
+
+          <!-- Card 4: Open Source CTA -->
+          <article class="github-card cta-card" data-about-reveal>
+            <div class="card-kicker">EXPLORE CODE</div>
+            <h4 data-en="Browse the Repository" data-ml="കോഡ് കാണുക">Browse the Repository</h4>
+            <p data-en="Want to review the code behind our calculators, the subject browser, or the Ask POLY AI integrations? All codebase files are public." data-ml="ഞങ്ങളുടെ കാൽക്കുലേറ്റർ, അസിസ്റ്റന്റ് പ്രോഗ്രാമുകൾ എന്നിവയുടെ പിന്നിലെ കോഡ് കാണാൻ താല്പര്യമുണ്ടോ? ഫയലുകൾ ലഭ്യമാണ്.">Want to review the code behind our calculators, the subject browser, or the Ask POLY AI integrations? All codebase files are public.</p>
+            <a href="https://github.com/nandurpm/diploma-notes" target="_blank" rel="noopener noreferrer" class="btn-github-link">
+              <span data-en="Open Repository" data-ml="ഗിറ്റ്‌ഹബ്ബ് തുറക്കുക">Open Repository</span> <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="about-section" aria-labelledby="contribute-heading">
-      <div class="about-container"><div class="about-contribute" data-about-reveal><div><h2 id="contribute-heading" data-en="Help improve POLY PMNA." data-ml="POLY PMNA മെച്ചപ്പെടുത്താൻ സഹായിക്കുക.">Help improve POLY PMNA.</h2><p data-en="Report missing subjects, broken official links, incorrect course codes or accessibility problems. Include the revision, department, semester, subject code and page URL whenever possible." data-ml="Missing subjects, broken official links, incorrect course codes, accessibility problems എന്നിവ report ചെയ്യുക. സാധ്യമെങ്കിൽ revision, department, semester, subject code, page URL എന്നിവ ചേർക്കുക.">Report missing subjects, broken official links, incorrect course codes or accessibility problems. Include the revision, department, semester, subject code and page URL whenever possible.</p></div><div class="about-contribute-actions"><a href="/contact.html"><span data-en="Report a correction" data-ml="Correction report ചെയ്യുക">Report a correction</span><span aria-hidden="true">→</span></a><a href="/ask-poly.html"><span data-en="Ask POLY AI" data-ml="Ask POLY AI തുറക്കുക">Ask POLY AI</span><span aria-hidden="true">→</span></a></div></div></div>
+    <!-- 8. Technologies Used Grid -->
+    <section class="about-section tech-stack-section">
+      <div class="about-container">
+        <div class="about-heading" data-about-reveal>
+          <h2 data-en="Engineered for maximum speed and simplicity." data-ml="അതിവേഗത്തിലുള്ള നിർമ്മിതി">Engineered for maximum speed and simplicity.</h2>
+          <p data-en="We rely on lightweight, standards-compliant web technologies that render instantaneously across low-end mobile devices." data-ml="കുറഞ്ഞ വേഗതയുള്ള മൊബൈൽ ഫോണുകളിലും സുഗമമായി പ്രവർത്തിക്കാൻ ലൈറ്റ് വെയിറ്റ് സാങ്കേതികവിദ്യകളാണ് ഞങ്ങൾ തിരഞ്ഞെടുത്തിരിക്കുന്നത്.">We rely on lightweight, standards-compliant web technologies that render instantaneously across low-end mobile devices.</p>
+        </div>
+
+        <div class="tech-grid" data-about-reveal>
+          <article class="tech-card">
+            <span class="tech-icon-circle html">HTML</span>
+            <h4>Vanilla HTML5</h4>
+            <p data-en="Semantic structure for high keyboard accessibility and screen-reader indexing." data-ml="കീബോർഡ് ഉപയോഗിക്കുന്നവർക്കും കാഴ്ചാപരിമിതിയുള്ളവർക്കും സഹായകരമാകുന്ന രീതിയിലുള്ള എച്ച്.ടി.എം.എൽ ഘടന.">Semantic structure for high keyboard accessibility and screen-reader indexing.</p>
+          </article>
+
+          <article class="tech-card">
+            <span class="tech-icon-circle css">CSS</span>
+            <h4>Modern CSS3</h4>
+            <p data-en="Variable-driven styling, smooth hardware-accelerated animations, and robust layouts." data-ml="സി.എസ്.എസ് അനിമേഷൻ വഴിയുള്ള വേഗതയേറിയതും മനോഹരവുമായ രൂപകൽപ്പന.">Variable-driven styling, smooth hardware-accelerated animations, and robust layouts.</p>
+          </article>
+
+          <article class="tech-card">
+            <span class="tech-icon-circle js">JS</span>
+            <h4>Native JavaScript</h4>
+            <p data-en="Zero heavyweight framework dependencies. Pure vanilla JS for interactive slider, search, and UI state." data-ml="ഫ്രെയിംവർക്കുകൾ ഇല്ലാതെ വേഗത്തിൽ ലോഡാകുന്ന ജാവാസ്ക്രിപ്റ്റ് കോഡുകൾ.">Zero heavyweight framework dependencies. Pure vanilla JS for interactive slider, search, and UI state.</p>
+          </article>
+
+          <article class="tech-card">
+            <span class="tech-icon-circle workers">CF</span>
+            <h4>Cloudflare Workers</h4>
+            <p data-en="Edge-computed API gateway serving AI questions and mock examinations with zero latency." data-ml="മൊബൈൽ ഉപയോക്താക്കൾക്ക് അതിവേഗത്തിൽ ആർട്ടിഫിഷ്യൽ ഇന്റലിജൻസ് ഉത്തരങ്ങൾ നൽകുന്നു.">Edge-computed API gateway serving AI questions and mock examinations with zero latency.</p>
+          </article>
+
+          <article class="tech-card">
+            <span class="tech-icon-circle supabase">Supa</span>
+            <h4>Supabase Backend</h4>
+            <p data-en="Optional secure storage for authoritatively verified student mock exam progress and results." data-ml="മോക്ക് പരീക്ഷകളുടെ റെക്കോർഡുകൾ സൂക്ഷിക്കാൻ ഉപയോഗിക്കുന്ന സുരക്ഷിതമായ ഡാറ്റാബേസ്.">Optional secure storage for authoritatively verified student mock exam progress and results.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="about-section" aria-labelledby="start-heading">
-      <div class="about-container"><div class="about-final-cta" data-about-reveal><div class="about-final-cta-inner"><div><h2 id="start-heading" data-en="Start with the correct revision. Build confidence one module at a time." data-ml="ശരിയായ revisionൽ തുടങ്ങുക. ഓരോ module വീതം ആത്മവിശ്വാസം വളർത്തുക.">Start with the correct revision. Build confidence one module at a time.</h2><p data-en="Browse the current curriculum, ask for guidance when needed, and report anything that prevents students from reaching the correct material." data-ml="Current curriculum browse ചെയ്യുക, ആവശ്യമെങ്കിൽ guidance ചോദിക്കുക, ശരിയായ material ലഭിക്കാൻ തടസ്സമുള്ളത് report ചെയ്യുക.">Browse the current curriculum, ask for guidance when needed, and report anything that prevents students from reaching the correct material.</p></div><div class="about-final-actions"><a href="/revision-2026.html" data-en="Explore now" data-ml="ഇപ്പോൾ തുറക്കുക">Explore now</a><a href="/contact.html" data-en="Report a problem" data-ml="Problem report ചെയ്യുക">Report a problem</a></div></div></div></div>
+    <!-- 9. Interactive Development Timeline -->
+    <section class="about-section timeline-section" aria-labelledby="timeline-heading">
+      <div class="about-container">
+        <div class="about-heading" data-about-reveal>
+          <h2 id="timeline-heading"><span data-en="Development Journey &" data-ml="വളർച്ചയുടെ വഴികൾ">Development Journey &</span> <span class="gradient-text">Future Roadmap</span></h2>
+          <p data-en="A timeline of our major milestones and what we plan next to support polytechnic students." data-ml="ഞങ്ങളുടെ ഇതുവരെയുള്ള വളർച്ചയും ഭാവി പ്രവർത്തനങ്ങളും താഴെ കാണാം.">A timeline of our major milestones and what we plan next to support polytechnic students.</p>
+        </div>
+
+        <div class="timeline-interactive" data-about-reveal>
+          <div class="timeline-line"></div>
+
+          <div class="timeline-node left">
+            <div class="timeline-badge">2021</div>
+            <div class="timeline-content-card">
+              <h4 data-en="Portal Conception & Legacy Revision 2021" data-ml="തുടക്കം - Revision 2021">Portal Conception & Legacy Revision 2021</h4>
+              <p data-en="Initially launched to support 43 department pages under the Revision 2021 syllabus, organizing directories by core subject cards and syllabus linkages." data-ml="ആദ്യമായി 43 വകുപ്പുകളിലെയും വിവരങ്ങൾ ചിട്ടപ്പെടുത്തിക്കൊണ്ടാണ് ഈ സംരംഭം ആരംഭിച്ചത്.">Initially launched to support 43 department pages under the Revision 2021 syllabus, organizing directories by core subject cards and syllabus linkages.</p>
+            </div>
+          </div>
+
+          <div class="timeline-node right">
+            <div class="timeline-badge">2023</div>
+            <div class="timeline-content-card">
+              <h4 data-en="Interactive Quiz Platform & Student Tools" data-ml="ക്വിസ് പ്ലാറ്റ്ഫോം, ടൂളുകൾ">Interactive Quiz Platform & Student Tools</h4>
+              <p data-en="Introduced continuous daily practice quizzes and lightweight student tools including attendance and CGPA calculators." data-ml="ദിവസേനയുള്ള പരിശീലന ക്വിസുകൾ, സി.ജി.പി.എ കാൽക്കുലേറ്ററുകൾ തുടങ്ങിയവ ഉൾപ്പെടുത്തി.">Introduced continuous daily practice quizzes and lightweight student tools including attendance and CGPA calculators.</p>
+            </div>
+          </div>
+
+          <div class="timeline-node left">
+            <div class="timeline-badge">2024</div>
+            <div class="timeline-content-card">
+              <h4 data-en="Ask POLY AI Integration" data-ml="എ.ഐ സഹായിയുടെ നിർമ്മിതി">Ask POLY AI Integration</h4>
+              <p data-en="Deployed edge-computed AI study guides and search assistance using secure Supabase and Cloudflare relays." data-ml="എല്ലാ സബ്ജക്ട് വിവരങ്ങളും ക്രോഡീകരിച്ചുകൊണ്ടുള്ള ആർട്ടിഫിഷ്യൽ ഇന്റലിജൻസ് ചാറ്റ് സിസ്റ്റം ഡെപ്ലോയ് ചെയ്തു.">Deployed edge-computed AI study guides and search assistance using secure Supabase and Cloudflare relays.</p>
+            </div>
+          </div>
+
+          <div class="timeline-node right active-node">
+            <div class="timeline-badge">2026</div>
+            <div class="timeline-content-card">
+              <h4 data-en="Curriculum Revision 2026 & Bilingual Support" data-ml="Revision 2026 current syllabus">Curriculum Revision 2026 & Bilingual Support</h4>
+              <p data-en="Transitioned standard classes to Revision 2026 as the current curriculum, deploying complete bilingual Malayalam toggle and high-fidelity mobile-responsive layouts." data-ml="Revision 2026 കരിക്കുലത്തിലേക്ക് കമ്മ്യൂണിറ്റി പിന്തുണ നൽകിക്കൊണ്ട് മലയാളത്തിലും വെബ്സൈറ്റ് ലഭ്യമാക്കി.">Transitioned standard classes to Revision 2026 as the current curriculum, deploying complete bilingual Malayalam toggle and high-fidelity mobile-responsive layouts.</p>
+            </div>
+          </div>
+
+          <div class="timeline-node left roadmap-node">
+            <div class="timeline-badge">Future</div>
+            <div class="timeline-content-card">
+              <h4 data-en="Roadmap: Deeper Interactive Subject Coverage" data-ml="ഭാവി പദ്ധതികൾ">Roadmap: Deeper Interactive Subject Coverage</h4>
+              <p data-en="Expanding printable study notes for all minor courses under Revision 2026, delivering enhanced visual simulators, and releasing progressive offline mobile apps." data-ml="Revision 2026 ലെ എല്ലാ വിഷയങ്ങൾക്കുമുള്ള നോട്ടുകളും മൊബൈൽ ആപ്പ് അപ്ഡേറ്റുകളും വരാൻ പോകുന്നു.">Expanding printable study notes for all minor courses under Revision 2026, delivering enhanced visual simulators, and releasing progressive offline mobile apps.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
+    <!-- 10. Community Initiative Banner -->
     <section class="about-initiative" aria-label="SFI Perinthalmanna Poly Unit initiative">
-      <div class="about-container about-initiative-inner" data-about-reveal><p><span data-en="An initiative by" data-ml="ഒരു സംരംഭം:">An initiative by</span> <strong>SFI Perinthalmanna Poly Unit</strong></p><a href="https://www.instagram.com/sfi_gptcpmna/" target="_blank" rel="noopener noreferrer" data-en="Follow on Instagram" data-ml="Instagramൽ പിന്തുടരുക">Follow on Instagram</a></div>
+      <div class="about-container">
+        <div class="about-initiative-inner" data-about-reveal>
+          <div class="initiative-text-block">
+            <span class="initiative-badge">COMMUNITY</span>
+            <p><span data-en="An initiative by" data-ml="ഒരു സംരംഭം:">An initiative by</span> <strong>SFI Perinthalmanna Poly Unit</strong></p>
+          </div>
+          <a href="https://www.instagram.com/sfi_gptcpmna/" target="_blank" rel="noopener noreferrer" data-en="Follow on Instagram" data-ml="Instagramൽ പിന്തുടരുക" class="btn-initiative-social">Follow on Instagram</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. High-Impact Call To Action -->
+    <section class="about-section">
+      <div class="about-container">
+        <div class="about-final-cta" data-about-reveal>
+          <div class="about-final-cta-inner">
+            <div class="cta-text">
+              <h2 id="start-heading" data-en="Start with the correct revision. Build confidence one module at a time." data-ml="ശരിയായ റെവിഷനിൽ തുടങ്ങുക. ഓരോ മോഡ്യൂളും ആത്മവിശ്വാസത്തോടെ പഠിക്കുക.">Start with the correct revision. Build confidence one module at a time.</h2>
+              <p data-en="Browse 38 current departments, consult our Ask POLY AI assistant, or help keep the study hub accurate by reporting issues." data-ml="സിലബസ്സ് പരിശോധിക്കാനും സഹായങ്ങൾ ചോദിക്കാനും തെറ്റുകൾ തിരുത്താൻ സപ്പോർട്ട് ചെയ്യാനും ആരംഭിക്കാം.">Browse 38 current departments, consult our Ask POLY AI assistant, or help keep the study hub accurate by reporting issues.</p>
+            </div>
+            <div class="about-final-actions">
+              <a href="/revision-2026.html" class="btn-cta-primary" data-en="Explore now" data-ml="ഇപ്പോൾ തുറക്കുക">Explore now</a>
+              <a href="/contact.html" class="btn-cta-secondary" data-en="Report a problem" data-ml="Problem report ചെയ്യുക">Report a problem</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer class="footer" data-site-footer><p>&copy; <span data-year></span> POLY PMNA.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/about.html">About</a><a href="/contact.html">Help</a><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Developer</a></nav><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>
+  <footer class="footer" data-site-footer>
+    <p>&copy; <span data-year></span> POLY PMNA.</p>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/about.html">About</a><a href="/contact.html">Help</a><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Developer</a>
+    </nav>
+    <nav class="footer-legal" aria-label="Legal">
+      <a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a>
+    </nav>
+  </footer>
+
   <script src="/assets/js/about-experience.js?v=20260720-about4" defer></script>
   <script src="/assets/js/main.js?v=20260720-about4" defer></script>
   <script src="/assets/js/site-hardening.js?v=20260720-about4" defer></script>
