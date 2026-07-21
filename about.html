@@ -62,6 +62,17 @@ background:#fff!important;color:var(--accent)!important;border:1px solid #cbd5e1
 @media(min-width:1200px){
 .about-container{padding-left:6vw!important;padding-right:6vw!important;}
 }
+
+/* Fix: these two components keep their original DARK backgrounds from
+   about-experience.css, but the blanket h1,h2,h3 / p,li,small rules above
+   were forcing dark text onto them too, making it unreadable. */
+.about-guide-slide h3{color:#fff!important;}
+.about-guide-slide p{color:#c7d3e6!important;}
+.about-guide-slide .slide-ml{color:#9ce9d0!important;}
+.about-initiative-inner p,
+.about-initiative-inner strong{color:#fff!important;}
+.about-initiative-inner a{color:#fff!important;}
+.about-guide-fallback{background:#0f1f3d!important;color:#c7d3e6!important;}
 </style>
 
 </head>
