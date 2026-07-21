@@ -13,12 +13,22 @@ export function cleanText(value, maximum = 10000) {
   return String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 }
 
+let lastAllowedOriginsString = null;
+let cachedAllowedOriginsSet = null;
+
 export function allowedOrigins(env) {
-  const configured = String(env.ALLOWED_ORIGINS || "")
+  const envVal = String(env.ALLOWED_ORIGINS || "");
+  if (cachedAllowedOriginsSet !== null && lastAllowedOriginsString === envVal) {
+    return cachedAllowedOriginsSet;
+  }
+  const configured = envVal
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
-  return new Set(configured.length ? configured : DEFAULT_ORIGINS);
+  const result = new Set(configured.length ? configured : DEFAULT_ORIGINS);
+  lastAllowedOriginsString = envVal;
+  cachedAllowedOriginsSet = result;
+  return result;
 }
 
 export function isOriginAllowed(origin, env) {
