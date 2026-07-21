@@ -44,7 +44,7 @@
 }
 
 .about-container {
-  width: min(1340px, calc(100% - 48px));
+  width: min(1680px, calc(100% - 48px));
   margin-inline: auto;
 }
 
