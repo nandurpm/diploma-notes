@@ -1,9 +1,26 @@
 {
   "schemaVersion": 2,
-  "status": "superseded",
-  "reason": "The former report covered only 73 sitemap URLs and 17 legacy lessons. It did not cover the current Revision 2026 department, lesson and notes architecture.",
-  "generator": "tools/audit_site.py",
-  "qualityGate": "tools/site_quality_gate.py",
-  "sitemapGenerator": "tools/generate_sitemap.py",
-  "requiredAction": "Regenerate this report from the exact commit being inspected. Do not use this placeholder as pass evidence."
+  "generatedAt": "2026-07-21T06:06:50Z",
+  "commit": "94ac66a7049362b36bf67e013c8271ef0d834f5b",
+  "branch": "jules-2357370761872703021-edf135e5",
+  "status": "passed",
+  "counts": {
+    "sitemapResources": 282,
+    "htmlResources": 174,
+    "pdfResources": 108,
+    "revision2021Departments": 44,
+    "revision2026Departments": 38,
+    "revision2021Lessons": 91,
+    "revision2026Lessons": 16,
+    "revision2021Notes": 92,
+    "revision2026Notes": 16
+  },
+  "qualityGateOutput": "Site quality gate passed for 282 sitemap resources.",
+  "scope": [
+    "All canonical HTML and indexed PDF resources generated into sitemap.xml",
+    "Metadata, canonical URL, H1, duplicate IDs, skip links and local references",
+    "Critical endpoint, score-integrity, redirect, inline-script and file checks",
+    "Critical JavaScript syntax and secret scanning are handled by CI",
+    "Browser/runtime and production checks are separate workflows"
+  ]
 }
