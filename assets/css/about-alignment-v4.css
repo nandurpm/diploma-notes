@@ -500,6 +500,7 @@
 }
 
 /* 11. High Impact Bottom Call To Action */
+/* final CTA panel for revision selection and issue reporting */
 .about-final-cta {
   padding: clamp(30px, 5vw, 64px);
   border: 1px solid rgba(29, 78, 216, 0.15);
@@ -540,6 +541,7 @@
   line-height: 1.6;
 }
 
+/* CTA button container holding the action links */
 .about-final-actions {
   display: flex;
   flex-wrap: wrap;
@@ -561,21 +563,21 @@
 }
 
 .btn-cta-primary {
-  color: #1d4ed8;
-  background: #ffffff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  background: #1d4ed8;
+  box-shadow: 0 10px 28px rgba(29, 78, 216, 0.22);
 }
 
 .btn-cta-primary:hover,
 .btn-cta-primary:focus-visible {
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 14px 34px rgba(29, 78, 216, 0.28);
 }
 
 .btn-cta-secondary {
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .btn-cta-secondary:hover,
