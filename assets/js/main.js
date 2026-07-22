@@ -7,12 +7,14 @@
   const REV2026_SYLLABUS_ROUTE = "site%2Fdiploma-syllabus-course-contents";
   const REV2026_MODEL_QP_ROUTE = "site%2Fdiploma-modelqp-courses-show";
 
+  /* Updates all elements with data-year or #year to the current year for the footer copyright */
   function updateYears() {
     document.querySelectorAll("[data-year], #year").forEach(node => {
       node.textContent = String(new Date().getFullYear());
     });
   }
 
+  /* Ensures the global site navigation and header (site-shell.js) is loaded and rendered */
   function ensureSiteShell() {
     if (isLessonPage || window.PolySiteShell) {
       window.PolySiteShell?.render();
@@ -78,6 +80,7 @@
     link.removeAttribute("download");
   }
 
+  /* Automatically points syllabus and model paper buttons to the official SITTTR Kerala website */
   function normalizeRev2026OfficialLinks(scope = document) {
     const cards = [];
     if (scope.nodeType === 1 && scope.matches?.('.subject-card[data-revision="2026"]')) cards.push(scope);
