@@ -1,25 +1,49 @@
 (() => {
   'use strict';
+
+  /* Utility functions for DOM selection and data formatting */
   const $ = s => document.querySelector(s);
   const $$ = s => [...document.querySelectorAll(s)];
+  
+  /* Escapes HTML special characters to prevent XSS when rendering user input */
   const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+  
+  /* Formats numbers using Indian numbering system with up to 6 decimal places */
   const fmt = v => Number.isFinite(Number(v)) ? new Intl.NumberFormat('en-IN',{maximumFractionDigits:6}).format(Number(v)) : '—';
+  
+  /* Validates that a value is a finite number */
   const n = (v,l='Value') => { const x = Number(String(v).trim()); if(!Number.isFinite(x)) throw new Error(l + ' must be a valid number.'); return x; };
+  
+  /* Validates that a value is a positive number greater than zero */
   const p = (v,l='Value') => { const x = n(v,l); if(x <= 0) throw new Error(l + ' must be greater than zero.'); return x; };
+  /* Master list of all available tools with their metadata */
   const list = [
+    /* Scientific and basic mathematical calculators */
     ['sci','Calculator','🧮','Scientific Calculator','Scientific expression calculator with DEG trigonometry.'],['basic','Calculator','➕','Basic Calculator','Fast expression calculator for +, −, ×, ÷ and %.'],['unit','Calculator','↔️','Unit Converter','Length, mass, area, volume and pressure conversion.'],['percent','Calculator','%','Percentage Calculator','Percentage value and percentage change.'],['ratio','Calculator','∶','Ratio Calculator','Simplify two-number ratios.'],['avg','Calculator','📊','Average Calculator','Average, sum and count of comma-separated values.'],
+    /* Electrical and electronics engineering tools */
     ['ohm','Electrical / Electronics','Ω','Ohm’s Law Calculator','Calculate V, I or R by leaving one box blank.'],['power','Electrical / Electronics','⚡','Power Calculator','Calculate electrical power using P = VI.'],['divider','Electrical / Electronics','🔌','Voltage Divider Calculator','Find Vout from Vin, R1 and R2.'],['color','Electrical / Electronics','🎨','Resistor Color Code Calculator','4-band resistor value calculator.'],['res','Electrical / Electronics','🔗','Series / Parallel Resistance Calculator','Equivalent resistance for comma-separated values.'],['cap','Electrical / Electronics','▭','Capacitor Code Calculator','Decode 3-digit capacitor codes.'],['led','Electrical / Electronics','💡','LED Resistor Calculator','Select LED series resistor.'],['tr','Electrical / Electronics','🧲','Transformer Ratio Calculator','Turns ratio and secondary voltage.'],['bat','Electrical / Electronics','🔋','Battery Backup Calculator','Approximate battery backup time.'],['drop','Electrical / Electronics','📏','Wire Size / Voltage Drop Calculator','Copper wire voltage drop estimate.'],
+    /* Civil engineering and construction estimators */
     ['mix','Civil','🧱','Concrete Mix Calculator','Dry material estimate from mix ratio.'],['brick','Civil','🧱','Brick Quantity Calculator','Brick estimate for a wall.'],['csa','Civil','🏗️','Cement/Sand/Aggregate Estimator','Concrete materials and cement bags.'],['area','Civil','📐','Area Calculator','Rectangle, triangle and circle area.'],['vol','Civil','📦','Volume Calculator','Cuboid, cylinder and cone volume.'],['uw','Civil','⚖️','Unit Weight Converter','kg/m³ and kN/m³ conversion.'],
+    /* Mechanical engineering and physics calculators */
     ['rpm','Mechanical','🔄','Rotational to Linear Speed','Calculate surface speed from diameter and RPM using v = πDN/60.'],['torque','Mechanical','🔧','Torque Calculator','Torque = force × radius.'],['ptr','Mechanical','⚙️','Power-Torque-RPM Calculator','P = 2πNT/60.'],['gear','Mechanical','⚙️','Gear Ratio Calculator','Gear ratio and output speed.'],['press','Mechanical','🧯','Pressure Converter','Pa, kPa, bar, psi and atm.'],['temp','Mechanical','🌡️','Temperature Converter','Celsius, Fahrenheit and Kelvin.'],
+    /* Academic and student performance tools */
     ['cgpa','Academic','🎓','CGPA / SGPA Calculator','Weighted grade point calculator.'],['att','Academic','✅','Attendance Percentage Calculator','Attendance percentage and classes needed.'],['internal','Academic','📝','Internal Marks Calculator','Add internal marks components.'],['pass','Academic','🎯','Exam Passing Marks Calculator','Marks needed to pass.'],['plan','Academic','📅','Study Planner','Split topics across days.'],['timer','Academic','⏱️','Daily Revision Timer','Pomodoro style revision timer.'],
+    /* Text processing and document helpers */
     ['grammar','Text / Document','✍️','Grammar Checker Frontend Helper','Rule-based spacing, capitalization and common typo helper.'],['words','Text / Document','🔢','Word Counter','Words, characters and reading time.'],['case','Text / Document','Aa','Case Converter','Upper, lower, title and sentence case.'],['clean','Text / Document','🧹','Text Cleaner','Remove extra spaces and blank lines.'],['letter','Text / Document','📄','Application Letter Helper','Editable application letter template.'],['lab','Text / Document','📘','Lab Record Formatting Helper','Aim, apparatus, theory, procedure and result format.']
   ].map(x => ({id:x[0],cat:x[1],icon:x[2],title:x[3],desc:x[4]}));
   const cats = ['All',...new Set(list.map(t => t.cat))];
   const favKey = 'polyToolsFav2', recKey = 'polyToolsRecent2';
   let activeCat = 'All', onlyFav = false, lastOpener = null;
+  /* Helper to retrieve data from localStorage with a fallback default */
   const get = (k,d=[]) => { try { return JSON.parse(localStorage.getItem(k)||'null') ?? d; } catch { return d; } };
+  
+  /* Helper to save data to localStorage */
   const set = (k,v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} };
+  
+  /* Checks if a tool ID is in the user's favorites list */
   const fav = id => get(favKey).includes(id);
+  
+  /* Adds a tool ID to the recently used list, keeping only the latest 8 */
   const recent = id => set(recKey,[id,...get(recKey).filter(x=>x!==id)].slice(0,8));
   function card(t){ return `<article class='card'><button class='tool-open' data-tool='${esc(t.id)}' type='button' aria-label='Open ${esc(t.title)}'><span class='tool-icon' aria-hidden='true'>${t.icon}</span><h3>${esc(t.title)}</h3><p>${esc(t.desc)}</p><span class='tag'>${esc(t.cat)}</span></button><button class='btn fav2' data-id='${esc(t.id)}' type='button' aria-label='${fav(t.id)?'Remove':'Add'} ${esc(t.title)} ${fav(t.id)?'from':'to'} favorites'>${fav(t.id)?'★':'☆'} Favorite</button></article>`; }
   function render(){
@@ -35,18 +59,33 @@
     $$('.tool-open').forEach(button => button.onclick = () => openTool(button.dataset.tool, button));
     $$('.fav2').forEach(b => b.onclick = e => { e.stopPropagation(); const a=get(favKey); set(favKey, a.includes(b.dataset.id) ? a.filter(x=>x!==b.dataset.id) : [...a,b.dataset.id]); render(); });
   }
+  /* Dynamically generates input fields and action buttons for a specific tool */
   function fields(defs, calc, note=''){
     $('#body').innerHTML = `<form class='form' id='toolForm'>${defs.map((d,index)=>{const id=`tool-field-${index}`;return `<div class='field'><label for='${id}'>${esc(d[1])}</label><input id='${id}' name='${esc(d[0])}' value='${esc(d[2]??'')}' placeholder='${esc(d[3]??'')}'></div>`;}).join('')}</form>${note?`<div class='notice'>${note}</div>`:''}<div class='tool-actions'><button class='btn primary' id='calcBtn' type='button'>Calculate</button><button class='btn' id='resetBtn' type='button'>Reset</button></div><div class='result' id='res' role='status' aria-live='polite'>Enter values and press Calculate.</div>`;
+    
+    /* Handle calculation logic and display results or errors */
     $('#calcBtn').onclick = () => { try { const f = new FormData($('#toolForm')); $('#res').className = 'result'; $('#res').innerHTML = calc(f); } catch(e){ $('#res').className = 'result err'; $('#res').textContent = e.message || 'Calculation failed.'; } };
+    
+    /* Reset the form fields and result display */
     $('#resetBtn').onclick = () => { $('#toolForm').reset(); $('#res').textContent='Enter values and press Calculate.'; };
   }
+  /* Parses and evaluates mathematical expressions securely */
   function evaluateExpression(raw){
+    /* Pre-process the expression: handle pi, power operator, and percentages */
     let expression=String(raw||'').trim().toLowerCase().replace(/π/g,'pi').replace(/\^/g,'**').replace(/(\d+(?:\.\d+)?)%/g,'($1/100)');
     if(!expression) throw new Error('Enter an expression.');
+    
+    /* Security check: allow only specific mathematical characters and symbols */
     if(/[^0-9+\-*/%().,\sA-Za-z_]/.test(expression)) throw new Error('Unsupported character.');
+    
+    /* Define available mathematical functions and constants (trig in degrees) */
     const scope={pi:Math.PI,e:Math.E,sin:x=>Math.sin(x*Math.PI/180),cos:x=>Math.cos(x*Math.PI/180),tan:x=>Math.tan(x*Math.PI/180),asin:x=>Math.asin(x)*180/Math.PI,acos:x=>Math.acos(x)*180/Math.PI,atan:x=>Math.atan(x)*180/Math.PI,sqrt:Math.sqrt,cbrt:Math.cbrt,log:Math.log10,ln:Math.log,abs:Math.abs,pow:Math.pow,min:Math.min,max:Math.max,round:Math.round,floor:Math.floor,ceil:Math.ceil};
+    
+    /* Ensure only allowed functions are called in the expression */
     const allowed=new Set(Object.keys(scope));
     for(const token of expression.match(/[A-Za-z_]\w*/g)||[]){if(!allowed.has(token)) throw new Error('Unsupported function: '+token);}
+    
+    /* Execute the expression within the restricted scope */
     const value=Function(...Object.keys(scope),'"use strict";return ('+expression+');')(...Object.values(scope));
     if(!Number.isFinite(value)) throw new Error('Result is not finite.');
     return value;
