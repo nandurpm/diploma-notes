@@ -1,3 +1,4 @@
+/* Purpose: Machine drawing 3025 hotfix - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const TARGET_DEPARTMENTS = new Set(["Mechanical Engineering", "Manufacturing Technology"]);

@@ -1,3 +1,4 @@
+/* Purpose: Revision 2021 department art v2 - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

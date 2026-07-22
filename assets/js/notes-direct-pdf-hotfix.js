@@ -1,3 +1,4 @@
+/* Purpose: Notes direct pdf hotfix - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

@@ -1,3 +1,4 @@
+/* Purpose: Daily quiz ui - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

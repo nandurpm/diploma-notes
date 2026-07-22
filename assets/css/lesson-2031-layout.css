@@ -1,3 +1,4 @@
+/* Purpose: Lesson 2031 layout - Descriptive comment added for clarity */
 html{width:100%;max-width:none;scroll-padding-top:80px}
 body{width:100%;max-width:none;margin:0;overflow-x:clip}
 .wrap{width:100%!important;max-width:none!important;margin:0!important;padding-left:clamp(5px,.55vw,11px)!important;padding-right:clamp(5px,.55vw,11px)!important}

@@ -1,3 +1,4 @@
+/* Purpose: Ask poly remote - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

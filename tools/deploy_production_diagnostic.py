@@ -1,3 +1,4 @@
+# Purpose: Deploy production diagnostic - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Build, deploy and verify POLY PMNA production while recording safe diagnostics."""
 from __future__ import annotations

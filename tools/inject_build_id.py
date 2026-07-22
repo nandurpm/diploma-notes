@@ -1,3 +1,4 @@
+# Purpose: Inject build id - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Inject one build ID into every local asset URL in complete public HTML documents."""
 from __future__ import annotations

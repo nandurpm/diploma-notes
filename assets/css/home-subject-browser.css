@@ -1,3 +1,4 @@
+/* Purpose: Home subject browser - Descriptive comment added for clarity */
 /* Homepage subject browser: keep status and semester headings outside the card columns. */
 #subject-browser .subject-browser-status {
   display: inline-flex;

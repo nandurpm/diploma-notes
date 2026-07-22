@@ -1,3 +1,4 @@
+/* Purpose:  middleware - Descriptive comment added for clarity */
 const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const WEEK_MS = 7 * DAY_MS;

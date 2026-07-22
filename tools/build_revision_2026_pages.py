@@ -1,3 +1,4 @@
+# Purpose: Build revision 2026 pages - Descriptive comment added for clarity
 #!/usr/bin/env python3
 from __future__ import annotations
 

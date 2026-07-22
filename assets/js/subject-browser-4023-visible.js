@@ -1,3 +1,4 @@
+/* Purpose: Subject browser 4023 visible - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const href = "../lessons/lessons-4023.html";

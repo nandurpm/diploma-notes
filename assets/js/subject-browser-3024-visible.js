@@ -1,3 +1,4 @@
+/* Purpose: Subject browser 3024 visible - Descriptive comment added for clarity */
 (()=>{
   'use strict';
   const COMMON='First Year / Common';

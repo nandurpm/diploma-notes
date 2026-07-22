@@ -1,3 +1,4 @@
+/* Purpose: Runtime guard - Descriptive comment added for clarity */
 (() => {
   document.addEventListener("click", event => {
     const button = event.target.closest(".activity-area .primary-btn");

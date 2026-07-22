@@ -1,3 +1,4 @@
+# Purpose: Maintain public pages - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Normalize public POLY PMNA pages from the sitemap.
 

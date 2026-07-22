@@ -1,3 +1,4 @@
+/* Purpose: Ask poly general ai extension - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

@@ -1,3 +1,4 @@
+/* Purpose: Revision config - Descriptive comment added for clarity */
 // Central curriculum revision registry for POLY PMNA.
 const CURRICULUM_REVISIONS = Object.freeze({
   "2021": Object.freeze({

@@ -1,3 +1,4 @@
+/* Purpose: Lesson page fix - Descriptive comment added for clarity */
 :root {
   --lesson-edge: clamp(5px, .8vw, 12px);
   --lesson-gap: clamp(8px, 1vw, 15px);

@@ -1,3 +1,4 @@
+/* Purpose: Ask poly config - Descriptive comment added for clarity */
 globalThis.ASK_POLY_CONFIG = Object.freeze({
   endpoint: "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   healthEndpoint: "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",

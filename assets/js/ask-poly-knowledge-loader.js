@@ -1,3 +1,4 @@
+/* Purpose: Ask poly knowledge loader - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

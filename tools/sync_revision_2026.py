@@ -1,3 +1,4 @@
+# Purpose: Sync revision 2026 - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Download and verify the official SITTTR Kerala REV2026 programme catalogue.
 

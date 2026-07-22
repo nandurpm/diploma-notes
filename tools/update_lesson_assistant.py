@@ -1,3 +1,4 @@
+# Purpose: Update lesson assistant - Descriptive comment added for clarity
 from __future__ import annotations
 
 import argparse

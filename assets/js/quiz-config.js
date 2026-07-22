@@ -1,3 +1,4 @@
+/* Purpose: Quiz config - Descriptive comment added for clarity */
 (() => {
   "use strict";
   if (!window.PolyQuiz?.config) {

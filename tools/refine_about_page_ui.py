@@ -1,3 +1,4 @@
+# Purpose: Refine about page ui - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Refine and validate the POLY PMNA About page without removing its bilingual guide."""
 from __future__ import annotations

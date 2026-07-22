@@ -1,3 +1,4 @@
+# Purpose: Verify rev2026 titles - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Fail when any REV2026 subject card still uses a generic category label."""
 

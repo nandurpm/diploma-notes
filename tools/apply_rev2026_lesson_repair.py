@@ -1,3 +1,4 @@
+# Purpose: Apply rev2026 lesson repair - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Repair REV2026 lesson rendering and official model-paper navigation."""
 from __future__ import annotations

@@ -1,3 +1,4 @@
+# Purpose: Chrome runtime audit - Descriptive comment added for clarity
 #!/usr/bin/env python3
 import json, re, shutil, subprocess, sys, time
 from pathlib import Path

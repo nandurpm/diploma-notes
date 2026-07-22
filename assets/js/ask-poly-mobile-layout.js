@@ -1,3 +1,4 @@
+/* Purpose: Ask poly mobile layout - Descriptive comment added for clarity */
 (() => {
   "use strict";
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;

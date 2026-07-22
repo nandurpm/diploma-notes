@@ -1,3 +1,4 @@
+/* Purpose: Tools page - Descriptive comment added for clarity */
 /* Global variables for theme colors, shadows and typography */
 :root{--b:#2457f5;--c:#08a8c8;--ink:#102033;--m:#64748b;--l:#d9e7f7;--sh:0 18px 45px rgba(15,43,90,.11)}/* Base reset and body styling for the tools page background */
 *{box-sizing:border-box}body{background:linear-gradient(180deg,#eef6ff,#fff 430px);color:var(--ink)}button,input,select,textarea{font:inherit}.wrap{width:100%;max-width:none;padding:clamp(12px,2.5vw,34px)}/* Styling for the hero section at the top of the tools page */

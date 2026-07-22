@@ -1,3 +1,4 @@
+/* Purpose: Portal layout - Descriptive comment added for clarity */
 /* Full-width, compact layout for the standard Polytechnic Study Hub pages. */
 body.portal-page {
   --portal-gutter: clamp(12px, 1.25vw, 22px);

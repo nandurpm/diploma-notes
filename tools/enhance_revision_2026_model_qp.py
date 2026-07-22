@@ -1,3 +1,4 @@
+# Purpose: Enhance revision 2026 model qp - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Normalise and verify official syllabus and model-question-paper links on REV2026 pages."""
 from __future__ import annotations

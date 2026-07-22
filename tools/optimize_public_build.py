@@ -1,3 +1,4 @@
+# Purpose: Optimize public build - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Apply deployment-only optimizations to a prepared public directory."""
 from __future__ import annotations

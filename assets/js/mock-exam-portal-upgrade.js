@@ -1,3 +1,4 @@
+/* Purpose: Mock exam portal upgrade - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

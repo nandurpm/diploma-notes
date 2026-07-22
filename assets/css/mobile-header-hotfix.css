@@ -1,3 +1,4 @@
+/* Purpose: Mobile header hotfix - Descriptive comment added for clarity */
 /* Canonical mobile header override. Loaded after all legacy responsive files. */
 @media screen and (max-width:980px){
   :root{--fixed-site-header-height:64px!important;--fixed-site-header-gap:6px!important}

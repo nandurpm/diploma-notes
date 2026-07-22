@@ -1,3 +1,4 @@
+/* Purpose: Lesson 2131 enhancements - Descriptive comment added for clarity */
 (() => {
   "use strict";
   if (window.__poly2131EnhancementsLoaded) return;

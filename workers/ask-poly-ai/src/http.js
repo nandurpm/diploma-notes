@@ -1,3 +1,4 @@
+/* Purpose: Http - Descriptive comment added for clarity */
 const DEFAULT_ORIGINS = [
   "https://polypmna.dpdns.org",
   "https://www.polypmna.dpdns.org",

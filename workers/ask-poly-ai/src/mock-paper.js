@@ -1,3 +1,4 @@
+/* Purpose: Mock paper - Descriptive comment added for clarity */
 const q = (id, maxMarks, section, question, modelPoints, rubric, pair = "") => ({
   id, maxMarks, section, pair, question, modelPoints, rubric
 });

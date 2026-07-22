@@ -1,3 +1,4 @@
+/* Purpose: About reveal - Descriptive comment added for clarity */
 .about-experience .about-reveal-ready{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,.75,.18,1)}
 .about-experience .about-reveal-ready.about-reveal-visible{opacity:1;transform:none}
 .about-experience [data-about-reveal]:nth-child(2){transition-delay:.06s}

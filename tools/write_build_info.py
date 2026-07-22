@@ -1,3 +1,4 @@
+# Purpose: Write build info - Descriptive comment added for clarity
 from __future__ import annotations
 
 import json

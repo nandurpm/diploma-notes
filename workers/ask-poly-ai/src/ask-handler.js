@@ -1,3 +1,4 @@
+/* Purpose: Ask handler - Descriptive comment added for clarity */
 import { cleanText } from "./http.js";
 
 const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";

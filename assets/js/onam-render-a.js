@@ -1,3 +1,4 @@
+/* Purpose: Onam render a - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

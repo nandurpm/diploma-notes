@@ -1,3 +1,4 @@
+/* Purpose: Department subject alias hotfix - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

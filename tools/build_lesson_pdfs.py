@@ -1,3 +1,4 @@
+# Purpose: Build lesson pdfs - Descriptive comment added for clarity
 from __future__ import annotations
 
 import json

@@ -1,3 +1,4 @@
+/* Purpose: Ask poly ai worker - Descriptive comment added for clarity */
 // Ask POLY Cloudflare Worker
 // Multi-provider fallback: Website/RAG context -> Cache -> Local deterministic maths -> NVIDIA -> OpenAI -> Gemini -> OpenRouter -> safe local fallback.
 // Keep all API keys as Cloudflare Worker secrets. Never put keys in frontend files.

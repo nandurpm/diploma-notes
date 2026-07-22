@@ -1,3 +1,4 @@
+# Purpose: Validate lesson fullscreen - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Validate the no-header full-screen lesson standard for REV2021 and REV2026."""
 from __future__ import annotations

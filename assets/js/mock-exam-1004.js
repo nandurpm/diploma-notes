@@ -1,3 +1,4 @@
+/* Purpose: Mock exam 1004 - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

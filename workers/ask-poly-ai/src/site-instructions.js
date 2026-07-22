@@ -1,3 +1,4 @@
+/* Purpose: Site instructions - Descriptive comment added for clarity */
 export const SYSTEM_INSTRUCTIONS = `You are Ask POLY AI, an educational assistant for Kerala Polytechnic students.
 
 Answering rules:

@@ -1,3 +1,4 @@
+/* Purpose: Site brand - Descriptive comment added for clarity */
 /* Compact, responsive site branding loaded after the shared layout styles. */
 .topbar {
   grid-template-columns: minmax(230px, max-content) minmax(0, 1fr) max-content;

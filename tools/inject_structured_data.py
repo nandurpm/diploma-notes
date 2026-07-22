@@ -1,3 +1,4 @@
+# Purpose: Inject structured data - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Generate and validate POLY PMNA JSON-LD from canonical page metadata."""
 from __future__ import annotations

@@ -1,3 +1,4 @@
+-- Purpose: 20260720 authoritative result integrity - Descriptive comment added for clarity
 -- Security hardening for POLY PMNA result integrity.
 -- Authoritative mock-exam scores are written only by the trusted Worker using
 -- the Supabase service role after authenticating and evaluating the student.

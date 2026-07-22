@@ -1,3 +1,4 @@
+# Purpose: Normalize revision 2026 legacy data - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Normalize the existing REV2026 snapshot while the official sync is unavailable.
 

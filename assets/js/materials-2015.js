@@ -1,3 +1,4 @@
+/* Purpose: Materials 2015 - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

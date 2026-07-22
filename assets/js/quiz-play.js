@@ -1,3 +1,4 @@
+/* Purpose: Quiz play - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const Q = window.PolyQuiz;

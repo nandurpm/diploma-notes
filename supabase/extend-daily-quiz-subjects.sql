@@ -1,3 +1,4 @@
+-- Purpose: Extend daily quiz subjects - Descriptive comment added for clarity
 -- Applied to Supabase project hwobooljdvynsajtrvnk.
 -- Expands syllabus daily quiz storage to include Semester 2 subjects while preserving GK.
 

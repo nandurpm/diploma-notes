@@ -1,3 +1,4 @@
+/* Purpose: Home subject filter cleaner - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

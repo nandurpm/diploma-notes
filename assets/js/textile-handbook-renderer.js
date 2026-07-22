@@ -1,3 +1,4 @@
+/* Purpose: Textile handbook renderer - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

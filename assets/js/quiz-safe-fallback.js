@@ -1,3 +1,4 @@
+/* Purpose: Quiz safe fallback - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

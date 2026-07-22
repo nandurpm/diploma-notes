@@ -1,3 +1,4 @@
+/* Purpose: Department semester layout - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

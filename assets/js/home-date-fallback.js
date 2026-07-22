@@ -1,3 +1,4 @@
+/* Purpose: Home date fallback - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const dateEl = document.querySelector("[data-important-date]");

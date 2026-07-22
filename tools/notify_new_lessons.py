@@ -1,3 +1,4 @@
+# Purpose: Notify new lessons - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Send one FCM topic notification for each newly added POLY PMNA lesson HTML file."""
 from __future__ import annotations

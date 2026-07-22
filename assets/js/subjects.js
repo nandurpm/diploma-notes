@@ -1,3 +1,4 @@
+/* Purpose: Subjects - Descriptive comment added for clarity */
 // SUBJECTS: REV2021 data is generated from the cleaned SITTTR source workbook.
 // Shared common subjects are listed once; department-specific duplicate codes stay with their departments.
 // Uploaded lessons/notes are discovered from standard file paths.

@@ -1,3 +1,4 @@
+/* Purpose: Mock evaluator - Descriptive comment added for clarity */
 import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 
 const DEFAULT_MODEL = "gpt-4o-mini";

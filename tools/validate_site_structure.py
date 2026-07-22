@@ -1,3 +1,4 @@
+# Purpose: Validate site structure - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Validate high-risk POLY PMNA site structure and regression rules."""
 from __future__ import annotations

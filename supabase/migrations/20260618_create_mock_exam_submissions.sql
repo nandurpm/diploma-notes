@@ -1,3 +1,4 @@
+-- Purpose: 20260618 create mock exam submissions - Descriptive comment added for clarity
 create table if not exists public.mock_exam_submissions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,

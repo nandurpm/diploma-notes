@@ -1,3 +1,4 @@
+/* Purpose: Poly helper card - Descriptive comment added for clarity */
 (() => {
   "use strict";
   function install() {

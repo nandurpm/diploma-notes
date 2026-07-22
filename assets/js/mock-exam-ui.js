@@ -1,3 +1,4 @@
+/* Purpose: Mock exam ui - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const M = globalThis.PolyMock1004;

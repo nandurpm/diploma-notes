@@ -1,3 +1,4 @@
+/* Purpose: Mock paper a - Descriptive comment added for clarity */
 export const QUESTIONS_A = [
   {
     id: "Q1", maxMarks: 3,
