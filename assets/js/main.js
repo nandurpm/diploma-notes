@@ -129,7 +129,16 @@
     }).observe(document.body, { childList: true, subtree: true });
   }
 
+  function ensureMaintenanceController() {
+    if (window.location.pathname.startsWith("/maintenance/")) return;
+    const script = document.createElement("script");
+    script.src = "/assets/js/maintenance-controller.js?v=20260722-main-ctrl1";
+    script.defer = true;
+    document.head.append(script);
+  }
+
   function init() {
+    ensureMaintenanceController();
     updateYears();
     normalizeLegacyInternalLinks();
     ensureSiteShell();

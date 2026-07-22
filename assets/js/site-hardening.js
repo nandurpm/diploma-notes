@@ -36,6 +36,15 @@
     document.getElementById("subjectGrid")?.style.setProperty("min-height", "45vh", "important");
   }
 
+  function ensureMaintenanceController() {
+    if (window.location.pathname.startsWith("/maintenance/")) return;
+    if (document.querySelector('script[src*="maintenance-controller.js"]')) return;
+    const script = document.createElement("script");
+    script.src = "/assets/js/maintenance-controller.js?v=20260722-hardening-ctrl1";
+    script.defer = true;
+    document.head.append(script);
+  }
+
   function basicLessonFixes() {
     if (!isLessonPage()) return;
     document.querySelectorAll("details").forEach(detail => {
@@ -43,9 +52,11 @@
     });
   }
 
+  ensureMaintenanceController();
   loadConsistencyFix();
   restoreScrolling();
   document.addEventListener("DOMContentLoaded", () => {
+    ensureMaintenanceController();
     loadConsistencyFix();
     normalizeLinks();
     restoreScrolling();
