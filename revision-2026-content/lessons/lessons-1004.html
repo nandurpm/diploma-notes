@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="poly-lesson-page revision-2026-lesson" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2563eb">
+    <title>Engineering Drawing with CAD (1004) - Revision 2026 Handbook</title>
+    <meta name="description" content="Complete Revision 2026 student handbook for Engineering Drawing with CAD (Course Code 1004). Covers all modules, CAD basics, orthographic projections, and sectional views with bilingual English-Malayalam support.">
+    <meta name="keywords" content="Engineering Drawing, CAD, AutoCAD, Orthographic Projections, Sectional Views, Polytechnic Kerala, Revision 2026">
+    
+    <!-- Metadata -->
+    <meta property="og:title" content="Engineering Drawing with CAD (1004) Handbook">
+    <meta property="og:description" content="Complete Revision 2026 student handbook for Engineering Drawing with CAD (Course Code 1004).">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css">
+    
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --bg-light: #f8fafc;
+            --bg-dark: #0f172a;
+            --text-light: #1e293b;
+            --text-dark: #f1f5f9;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #1e293b;
+            --ml-note-bg: #fef3c7;
+            --ml-note-text: #92400e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--bg-dark);
+                color: var(--text-dark);
+            }
+            .card {
+                background-color: var(--card-bg-dark);
+            }
+        }
+
+        .lesson-shell {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: clamp(6px, 0.9vw, 12px);
+        }
+
+        .cover-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: clamp(20px, 4vw, 40px);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .cover-section h1 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin: 0 0 10px 0;
+        }
+
+        .cover-section .subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            opacity: 0.9;
+        }
+
+        .cover-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: white;
+            color: var(--primary-color);
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            min-height: 44px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        section {
+            background: var(--card-bg-light);
+            border-radius: 8px;
+            padding: clamp(16px, 2.2vw, 34px);
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            section {
+                background: var(--card-bg-dark);
+            }
+        }
+
+        h2 {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 24px;
+        }
+
+        .ml-note {
+            background-color: var(--ml-note-bg);
+            color: var(--ml-note-text);
+            padding: 16px;
+            border-left: 4px solid #f59e0b;
+            border-radius: 4px;
+            margin: 16px 0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .ml-note {
+                background-color: rgba(245, 158, 11, 0.1);
+                color: #fcd34d;
+            }
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            th, td {
+                border-color: #475569;
+            }
+        }
+
+        th {
+            background-color: rgba(37, 99, 235, 0.1);
+            font-weight: 600;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: rgba(37, 99, 235, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .lesson-shell {
+                padding: 0;
+            }
+            section {
+                box-shadow: none;
+                page-break-inside: avoid;
+            }
+            .cover-actions {
+                display: none;
+            }
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 6px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+
+        .formula {
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 16px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="lesson-shell">
+        
+        <!-- Cover Section -->
+        <div class="cover-section">
+            <h2>POLY PMNA</h2>
+            <p class="subtitle">Revision 2026</p>
+            <h1>Engineering Drawing with CAD</h1>
+            <p>Course Code: 1004 | Semester: I</p>
+            <p>Lab Course | 1.5 Credits | 45 Contact Hours</p>
+            <div class="cover-actions">
+                <button class="btn" onclick="window.scrollTo(0, document.getElementById('module1').offsetTop)">Start Learning</button>
+                <button class="btn btn-outline" onclick="window.print()">Print / Save PDF</button>
+                <a href="/revision-2026-content/notes/downloadable-notes-1004.pdf" class="btn btn-outline">Download Notes</a>
+            </div>
+        </div>
+
+        <!-- Official Source Declaration -->
+        <section>
+            <h2>Official Source Declaration</h2>
+            <p>This handbook is based entirely on the official SITTTR Kerala Revision 2026 syllabus PDF for Course Code 1004.</p>
+            <p><strong>Verified Inconsistencies:</strong> No major inconsistencies were found in the provided syllabus document. The course is structured as a pure Lab course (0 Theory, 0 Tutorial, 3 Practical hours per week).</p>
+            <p><strong>Missing Fields:</strong> None. All course outcomes, modules, and assessment schemes are clearly defined.</p>
+        </section>
+
+        <!-- Course Dashboard -->
+        <section>
+            <h2>Course Dashboard</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Course Information</h3>
+                    <table>
+                        <tr><th>Course Code</th><td>1004</td></tr>
+                        <tr><th>Course Type</th><td>Lab</td></tr>
+                        <tr><th>Credits</th><td>1.5</td></tr>
+                        <tr><th>Contact Hours</th><td>45 Hours</td></tr>
+                        <tr><th>Prerequisites</th><td>Basic Geometry (Secondary Education)</td></tr>
+                    </table>
+                </div>
+                <div class="card">
+                    <h3>Assessment Scheme</h3>
+                    <table>
+                        <tr><th>Internal Assessment (CIE)</th><td>60 Marks</td></tr>
+                        <tr><th>End Semester (ESE)</th><td>40 Marks</td></tr>
+                        <tr><th>Total</th><td>100 Marks</td></tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Course Outcomes -->
+        <section>
+            <h2>Objectives and Course Outcomes</h2>
+            <h3>Course Outcomes (CO)</h3>
+            <table>
+                <tr><th>CO Code</th><th>Course Outcome</th><th>Cognitive Level</th></tr>
+                <tr><td>CO1</td><td>Construct geometrical figures and illustrate development of surfaces.</td><td>Apply</td></tr>
+                <tr><td>CO2</td><td>Interpret projections of points and lines, orthographic projections and sectional views.</td><td>Apply</td></tr>
+                <tr><td>CO3</td><td>Familiarization in using CAD software.</td><td>Apply</td></tr>
+                <tr><td>CO4</td><td>Develop orthographic projections and sectional views in CAD.</td><td>Apply</td></tr>
+            </table>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> ഈ കോഴ്‌സ് പൂർത്തിയാക്കുമ്പോൾ വിദ്യാർത്ഥികൾക്ക് പലഭുജങ്ങൾ (Polygons), ശങ്കു ഖണ്ഡങ്ങൾ (Conic Sections) എന്നിവ വരയ്ക്കാനും, 3D വസ്തുക്കളുടെ ഉപരിതലങ്ങൾ വികസിപ്പിക്കാനും (Development of Surfaces) കഴിയും. കൂടാതെ CAD സോഫ്‌റ്റ്‌വെയർ ഉപയോഗിച്ച് വസ്തുക്കളുടെ ഓർത്തോഗ്രാഫിക് പ്രൊജക്ഷനുകളും (Orthographic Projections) സെക്ഷണൽ വ്യൂകളും (Sectional Views) കൃത്യമായി നിർമ്മിക്കാൻ ഈ കോഴ്‌സ് സഹായിക്കുന്നു.
+            </div>
+        </section>
+
+        <!-- Module I -->
+        <section id="module1">
+            <h2>Module I: Geometrical Constructions and Developments</h2>
+            <p><strong>Instructional Hours:</strong> 9 Hours</p>
+            <p><strong>Course Outcome Mapping:</strong> CO1</p>
+            
+            <h3>1. Regular Polygons</h3>
+            <p>Construction of Regular Polygons - A) Pentagon, B) Hexagon (Any suitable method for each type when side length is given).</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> നൽകിയിരിക്കുന്ന വശത്തിന്റെ നീളം (Side length) ഉപയോഗിച്ച് പെന്റഗൺ (Pentagon - 5 വശങ്ങൾ), ഹെക്സഗൺ (Hexagon - 6 വശങ്ങൾ) എന്നിവ വരയ്ക്കുന്ന രീതികൾ ഈ വിഭാഗത്തിൽ ഉൾപ്പെടുത്തിയിരിക്കുന്നു. ഇതിനായി സെർക്കിൾ രീതിയോ (General method) ത്രികോണമിതീയ രീതിയോ ഉപയോഗിക്കാം.
+            </div>
+
+            <h3>2. Conic Sections</h3>
+            <p>Construct Ellipse by A) Rectangular Method & B) Concentric Circle Method.</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> ഒരു ദീർഘവൃത്തം (Ellipse) വരയ്ക്കുന്നതിനുള്ള രണ്ട് പ്രധാന രീതികളാണ് ഇവിടെ വിശദീകരിച്ചിരിക്കുന്നത്. ആയതക്ഷമ രീതി (Rectangular Method), ഏകകേന്ദ്ര വൃത്തരീതി (Concentric Circle Method) എന്നിവ ഉപയോഗിച്ച് നൽകിയിരിക്കുന്ന അളവുകൾ അനുസരിച്ച് എലിപ്സ് കൃത്യമായി വരയ്ക്കാൻ ശീലിക്കുക.
+            </div>
+
+            <h3>3. Development of Surfaces</h3>
+            <p>Draw Development of following items A) Rectangular Prism B) Cylinder.</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> ഒരു ത്രിമാന വസ്തുവിന്റെ ഉപരിതലം (3D Surface) പരന്നാൽ എങ്ങനെ ഇരിക്കുമെന്ന് കാണിക്കുന്നതിനാണ് 'ഡെവലപ്‌മെന്റ് ഓഫ് സർഫേസസ്' (Development of Surfaces) ഉപയോഗിക്കുന്നത്. റെക്ടാംഗുലാർ പ്രിസം, സിലിണ്ടർ എന്നിവയുടെ ഉപരിതലങ്ങൾ വിരിച്ചു കാണിക്കുന്ന രീതി ഇവിടെ ഉൾപ്പെടുത്തിയിരിക്കുന്നു.
+            </div>
+        </section>
+
+        <!-- Module II -->
+        <section id="module2">
+            <h2>Module II: Orthographic Projections and Sectional Views</h2>
+            <p><strong>Instructional Hours:</strong> 15 Hours</p>
+            <p><strong>Course Outcome Mapping:</strong> CO2</p>
+            
+            <h3>1. Basic Projections</h3>
+            <p>Outline the theory of projection (First angle and Third angle projections).</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> പ്രൊജക്ഷൻ രീതികളെക്കുറിച്ചുള്ള അടിസ്ഥാന തത്ത്വമാണ് ഇവിടെ വിശദീകരിച്ചിരിക്കുന്നത്. ഫസ്റ്റ് ആംഗിൾ പ്രൊജക്ഷൻ (First Angle Projection), തേർഡ് ആംഗിൾ പ്രൊജക്ഷൻ (Third Angle Projection) എന്നിവ തമ്മിലുള്ള വ്യത്യാസം മനസ്സിലാക്കുക. ഇന്ത്യയിൽ സാധാരണയായി ഫസ്റ്റ് ആംഗിൾ പ്രൊജക്ഷനാണ് ഉപയോഗിക്കുന്നത്.
+            </div>
+
+            <h3>2. Projections of Points and Lines</h3>
+            <p>Demonstrate and develop the projections of points in all 4 quadrants. Demonstrate and develop the projections of lines in First quadrant only.</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> നാല് ക്വാഡ്രന്റുകളിലുമുള്ള (Quadrants) ബിന്ദുക്കളുടെയും (Points) രേഖകളുടെയും (Lines) പ്രൊജക്ഷനുകൾ വരയ്ക്കുന്ന രീതി. ആദ്യ ക്വാഡ്രന്റിലെ രേഖകളുടെ പ്രൊജക്ഷൻ (Projections of lines in First quadrant) വളരെ പ്രധാനമാണ്.
+            </div>
+
+            <h3>3. Orthographic Projections & Sectional Views</h3>
+            <p>Demonstrate and develop orthographic projections & sectional views of various simple engineering objects from Isometric figures. (Orthographic - Minimum 3 exercises, Sectional - Minimum 2 exercises).</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> ഐസോമെട്രിക് വ്യൂകളിൽ (Isometric figures) തന്നിരിക്കുന്ന വസ്തുക്കളുടെ ഓർത്തോഗ്രാഫിക് പ്രൊജക്ഷനുകൾ (മുകളിലുള്ള വ്യൂ, മുൻവശത്തെ വ്യൂ, വശത്തെ വ്യൂ) വരയ്ക്കുന്ന രീതി. കൂടാതെ വസ്തുവിന്റെ ഉള്ളിലുള്ള ഭാഗം കാണിക്കാൻ ഉപയോഗിക്കുന്ന സെക്ഷണൽ വ്യൂകൾ (Sectional Views) വരയ്ക്കുന്ന രീതിയും ഇതിൽ ഉൾപ്പെടുന്നു.
+            </div>
+        </section>
+
+        <!-- Module III -->
+        <section id="module3">
+            <h2>Module III: Introduction to CAD Software</h2>
+            <p><strong>Instructional Hours:</strong> 9 Hours</p>
+            <p><strong>Course Outcome Mapping:</strong> CO3</p>
+            
+            <h3>1. CAD Basics and Commands</h3>
+            <p>Introduction, application, open and save new drawing, draft settings, draw commands, modify commands, property change, dimensioning and text. Simple exercises.</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> CAD സോഫ്‌റ്റ്‌വെയർ (ഉദാഹരണത്തിന് AutoCAD) തുറക്കുക, സേവ് ചെയ്യുക, പുതിയ ഡ്രോയിംഗ് തുടങ്ങുക എന്നിവ ഈ വിഭാഗത്തിൽ പഠിക്കുന്നു. Line, Circle, Arc എന്നീ Draw കമാൻഡുകളും, Erase, Copy, Move എന്നീ Modify കമാൻഡുകളും പ്രാക്ടീസ് ചെയ്യേണ്ടതുണ്ട്.
+            </div>
+
+            <h3>2. Advanced Settings and Modify Commands</h3>
+            <p>Limits of drawing, units, grid, snap, object co-ordinates, ortho mode. Draw commands - line, circle, arc, ellipse, rectangle, polygon, spline, polyline, hatch etc. Modify commands - erase, copy, array, rotate, mirror, offset, scale move, trim, fillet, chamfer, extend, stretch, p-line edit, explode etc.</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> ഡ്രോയിംഗിന്റെ അളവുകൾ (Limits), യൂണിറ്റുകൾ (Units), ഗ്രിഡ് (Grid) എന്നിവ സെറ്റ് ചെയ്യുന്നത് എങ്ങനെയെന്ന് ഇവിടെ കാണാം. കൂടാതെ Array, Rotate, Mirror, Offset, Trim, Fillet, Chamfer തുടങ്ങിയ അഡ്വാൻസ്ഡ് Modify കമാൻഡുകളുടെ ഉപയോഗം വിശദീകരിച്ചിരിക്കുന്നു.
+            </div>
+        </section>
+
+        <!-- Module IV -->
+        <section id="module4">
+            <h2>Module IV: 2D CAD Drafting</h2>
+            <p><strong>Instructional Hours:</strong> 9 Hours</p>
+            <p><strong>Course Outcome Mapping:</strong> CO4</p>
+            
+            <h3>1. CAD Orthographic Projections</h3>
+            <p>Develop orthographic projections (minimum 3nos) & sectional views (minimum 2nos) of simple engineering objects. (Draw same exercises practiced in module-II).</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong> മോഡ്യൂൾ 2-ൽ കടലാസിൽ ചെയ്ത അതേ വ്യായാമങ്ങൾ (Exercises) CAD സോഫ്‌റ്റ്‌വെയർ ഉപയോഗിച്ച് ചെയ്യുക. വസ്തുക്കളുടെ ഓർത്തോഗ്രാഫിക് പ്രൊജക്ഷനുകളും സെക്ഷണൽ വ്യൂകളും കമ്പ്യൂട്ടറിൽ അത്യന്തം കൃത്യതയോടെ വരയ്ക്കാൻ ഇത് സഹായിക്കുന്നു.
+            </div>
+        </section>
+
+        <!-- References -->
+        <section>
+            <h2>References and Learning Resources</h2>
+            <h3>Text Books</h3>
+            <ol>
+                <li>Engineering Graphics with AUTOCAD by P I Varghese (VIP Publishers)</li>
+                <li>Engineering Graphics by K. C. John (PHI Learning Private Limited)</li>
+                <li>Engineering Graphics unique methods easy solutions by K N Anilkumar (Adhyuth Narayan Publishers)</li>
+                <li>Engineering Drawing with CAD Applications by N. D. Bhatt & V. M. Panchal (Charotar Publishing House)</li>
+            </ol>
+            
+            <h3>Web Resources</h3>
+            <ul>
+                <li><a href="https://youtube.com/playlist?list=PLQGNZSdsWdVgAXvO3xHivktSvlm_6JS4&si" target="_blank">YouTube Playlist</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1-p6TeikApOvRg3dqjk9BYLaWb8vcYuOE" target="_blank">Google Drive Resource 1</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1ECRoqHjYeOeS66XkRXVZo36RBjBjwy3jW" target="_blank">Google Drive Resource 2</a></li>
+                <li><a href="https://drive.google.com/drive/folders/1guvFlob8HvDVaAf_RjZ5zszh7BJQ91" target="_blank">Google Drive Resource 3</a></li>
+            </ul>
+        </section>
+
+    </div>
+</body>
+</html>
