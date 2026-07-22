@@ -7,19 +7,28 @@ import shutil
 import subprocess
 from pathlib import Path
 
+# Root directory of the project
 ROOT = Path(__file__).resolve().parents[1]
+
+# Directories that should not be included in the public build
 EXCLUDED_ROOTS = {
     ".git", ".github", "android", "android-app", "docs", "reports", "supabase",
     "tools", "workers", "node_modules", "_site",
 }
+
+# File extensions considered source code and excluded by default
 SOURCE_SUFFIXES = {
     ".py", ".pyc", ".cjs", ".mjs", ".ts", ".tsx", ".sql", ".yml",
     ".yaml", ".md", ".lock", ".toml",
 }
+
+# Specific files that must be copied even if they match excluded patterns
 EXPLICIT = {
     "CNAME", "_headers", "_redirects", "robots.txt", "sitemap.xml",
     "build-info.json", "site.webmanifest",
 }
+
+# Critical files that must exist for a successful deployment
 REQUIRED = {
     "index.html", "revision-2026.html", "revision-2021.html", "ask-poly.html",
     "daily-quiz.html", "tools.html", "privacy.html", "sitemap.xml",
@@ -27,17 +36,21 @@ REQUIRED = {
 }
 
 
+# Retrieves a list of all files currently tracked by Git
 def tracked_files() -> list[str]:
     output = subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT)
     return [value for value in output.decode().split("\0") if value]
 
 
+# Determines if a file should be copied to the public build directory
 def should_copy(relative: str) -> bool:
     path = Path(relative)
     if not path.parts:
         return False
+    # Skip excluded directories and hidden files
     if path.parts[0] in EXCLUDED_ROOTS or path.name.startswith("."):
         return False
+    # Skip source files unless explicitly required
     if path.suffix.lower() in SOURCE_SUFFIXES and relative not in EXPLICIT:
         return False
     return True

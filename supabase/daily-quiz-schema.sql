@@ -2,6 +2,7 @@
 -- Project: diploma-notes (hwobooljdvynsajtrvnk)
 -- This schema has already been applied to the connected Supabase project.
 
+/* User profile table extending the default Supabase auth.users */
 create table if not exists public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
   username text unique not null,
@@ -10,6 +11,7 @@ create table if not exists public.profiles (
   role text not null default 'student' check (role in ('student', 'admin'))
 );
 
+/* Table to store daily quiz performance for each student and subject */
 create table if not exists public.daily_quiz_results (
   id bigint generated always as identity primary key,
   user_id uuid not null references auth.users(id) on delete cascade,
@@ -44,6 +46,7 @@ drop policy if exists "daily_results_select_own" on public.daily_quiz_results;
 drop policy if exists "daily_results_insert_own" on public.daily_quiz_results;
 drop policy if exists "daily_results_update_own" on public.daily_quiz_results;
 
+/* Row Level Security: Allow users to view only their own profile */
 create policy "profiles_select_own" on public.profiles
 for select to authenticated
 using ((select auth.uid()) = id);
@@ -57,6 +60,7 @@ for update to authenticated
 using ((select auth.uid()) = id)
 with check ((select auth.uid()) = id);
 
+/* Row Level Security: Allow users to view only their own quiz results */
 create policy "daily_results_select_own" on public.daily_quiz_results
 for select to authenticated
 using ((select auth.uid()) = user_id);

@@ -2,12 +2,14 @@
 // Multi-provider fallback: Website/RAG context -> Cache -> Local deterministic maths -> NVIDIA -> OpenAI -> Gemini -> OpenRouter -> safe local fallback.
 // Keep all API keys as Cloudflare Worker secrets. Never put keys in frontend files.
 
+/* List of domains authorized to call this worker */
 const ALLOWED_ORIGINS = new Set([
   "https://polypmna.dpdns.org",
   "https://www.polypmna.dpdns.org",
   "http://localhost:8787"
 ]);
 
+/* Configuration for various AI model providers used as fallbacks */
 const MODEL_CONFIG = {
   nvidia: {
     url: "https://integrate.api.nvidia.com/v1/chat/completions",
@@ -62,6 +64,7 @@ function roundSmart(value) {
   return String(Number(value.toFixed(10))).replace(/\.0+$/, "");
 }
 
+/* Pre-processes natural language math queries into standard mathematical notation */
 function cleanMathInput(value) {
   return String(value || "")
     .replace(/[“”]/g, '"')
@@ -89,6 +92,7 @@ function isMathLike(text) {
     || /\b\d+(?:\.\d+)?\s*%\s*of\s*\d/.test(q);
 }
 
+/* Recursive descent parser to evaluate mathematical expressions locally */
 function evalMathExpression(source, vars = {}, options = {}) {
   const trigInRadians = Boolean(options.radians);
   const s = cleanMathInput(source).toLowerCase().replace(/\s+/g, "").replace(/\[/g, "(").replace(/\]/g, ")");
