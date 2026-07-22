@@ -114,7 +114,7 @@ p{margin:.55rem 0}.muted{color:#536b82}.bar{height:10px;margin-top:18px;border-r
     const html=await new Response(stream).text();
     const hash=await sha256(html);
     if(hash&&hash!==expectedHash) throw new Error("The reconstructed handbook failed its SHA-256 integrity check.");
-    if(!html.startsWith("<!doctype html>")||!html.includes("Official Source Declaration and Verified Inconsistencies")||!html.includes("downloadable-notes-1003.pdf")){
+    if(!html.startsWith("<!doctype html>")||!html.includes("Official Source Declaration and Verified Inconsistencies")||!html.includes("downloadable-notes-")){
       throw new Error("The reconstructed handbook failed its structural integrity check.");
     }
     document.open();
