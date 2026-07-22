@@ -9,16 +9,41 @@ const DEFAULT_ORIGINS = [
   "http://127.0.0.1:8000"
 ];
 
+const DEFAULT_ORIGINS_SET = new Set(DEFAULT_ORIGINS);
+
+// Module-scope cache for parsed ALLOWED_ORIGINS to avoid parsing on every request.
+let cachedOriginsSet = null;
+let cachedAllowedOriginsString = null;
+
 export function cleanText(value, maximum = 10000) {
   return String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 }
 
+/**
+ * Returns a Set of allowed origins.
+ * PERFORMANCE OPTIMIZATION: Caches the parsed Set of allowed origins in module scope.
+ * This avoids calling split(), map(), trim(), and Set construction on every API request
+ * when the configured ALLOWED_ORIGINS value has not changed.
+ */
 export function allowedOrigins(env) {
-  const configured = String(env.ALLOWED_ORIGINS || "")
+  const rawConfig = env.ALLOWED_ORIGINS || "";
+
+  if (cachedOriginsSet !== null && cachedAllowedOriginsString === rawConfig) {
+    return cachedOriginsSet;
+  }
+
+  const configured = String(rawConfig)
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
-  return new Set(configured.length ? configured : DEFAULT_ORIGINS);
+
+  const result = configured.length ? new Set(configured) : DEFAULT_ORIGINS_SET;
+
+  // Cache the result and the input config string
+  cachedOriginsSet = result;
+  cachedAllowedOriginsString = rawConfig;
+
+  return result;
 }
 
 export function isOriginAllowed(origin, env) {
