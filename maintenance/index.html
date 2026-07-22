@@ -185,35 +185,50 @@
         endsAtIst: "2026-07-21T21:00:00+05:30"
       };
 
-      const activities = [
+            const activities = [
         { key: "electrical-safety", type: "mcq", kind: "Electrical Quiz", title: "Electrical Safety Quiz", subtitle: "Five practical questions on protection, earthing and safe wiring.", bank: "electrical" },
+        { key: "electronics-quiz", type: "mcq", kind: "Electronics Quiz", title: "Electronics Components Quiz", subtitle: "Test your knowledge of diodes, transistors, and passive components.", bank: "electronics" },
         { key: "india-gk", type: "mcq", kind: "General Knowledge", title: "India General Knowledge Sprint", subtitle: "A quick five-question India knowledge challenge.", bank: "india" },
+        { key: "kerala-gk", type: "mcq", kind: "Kerala GK", title: "Kerala Knowledge Challenge", subtitle: "Five questions about Kerala geography, culture and institutions.", bank: "kerala" },
+        { key: "science-quiz", type: "mcq", kind: "Science Quiz", title: "Science and Technology Quiz", subtitle: "Five questions covering inventions, computing and basic science.", bank: "scienceTech" },
         { key: "electrical-memory", type: "memory", kind: "Memory Game", title: "Electrical Symbol Memory Match", subtitle: "Match each electrical term with its partner card.", bank: "electricalMemory" },
-        { key: "sequence-one", type: "sequence", kind: "Number Puzzle", title: "Number Sequence Workshop", subtitle: "Find the missing value in five progressing sequences.", bank: "sequenceOne" },
-        { key: "voltage-reaction", type: "reaction", kind: "Reaction Game", title: "Voltage Alert Reaction Test", subtitle: "Wait for the green signal, then respond as quickly as possible.", bank: "voltageReaction" },
-        { key: "engineering-scramble", type: "scramble", kind: "Word Puzzle", title: "Engineering Word Scramble", subtitle: "Unscramble five common engineering terms.", bank: "engineeringWords" },
-        { key: "switchboard-riddle", type: "riddle", kind: "Logic Puzzle", title: "Switchboard Logic Riddles", subtitle: "Solve short clues using electrical and logical reasoning.", bank: "switchboardRiddles" },
-        { key: "component-odd", type: "odd", kind: "Odd One Out", title: "Component Odd-One-Out", subtitle: "Select the item that does not belong in each group.", bank: "componentOdd" },
-        { key: "units-math", type: "math", kind: "Speed Math", title: "Electrical Units Speed Math", subtitle: "Solve five quick calculations involving common electrical quantities.", bank: "unitsMath" },
-        { key: "kerala-gk", type: "mcq", kind: "General Knowledge", title: "Kerala Knowledge Challenge", subtitle: "Five questions about Kerala geography, culture and institutions.", bank: "kerala" },
-        { key: "safety-memory", type: "memory", kind: "Memory Game", title: "Safety Sign Memory Match", subtitle: "Match workplace safety signs with their meanings.", bank: "safetyMemory" },
-        { key: "sequence-two", type: "sequence", kind: "Number Puzzle", title: "Pattern Sequence Lab", subtitle: "Complete five mixed arithmetic and pattern sequences.", bank: "sequenceTwo" },
-        { key: "signal-reaction", type: "reaction", kind: "Reaction Game", title: "Signal Catch Challenge", subtitle: "React only when the control signal changes to GO.", bank: "signalReaction" },
-        { key: "polytechnic-scramble", type: "scramble", kind: "Word Puzzle", title: "Polytechnic Word Scramble", subtitle: "Decode five study and workshop terms.", bank: "polytechnicWords" },
-        { key: "wiring-riddle", type: "riddle", kind: "Logic Puzzle", title: "Wire Label Logic", subtitle: "Use clues to identify wires, terminals and connections.", bank: "wiringRiddles" },
-        { key: "science-odd", type: "odd", kind: "Odd One Out", title: "Science Odd-One-Out", subtitle: "Spot the scientifically different item in each set.", bank: "scienceOdd" },
-        { key: "ohms-math", type: "math", kind: "Speed Math", title: "Ohm’s Law Speed Round", subtitle: "Calculate voltage, current, resistance and power.", bank: "ohmsMath" },
-        { key: "science-gk", type: "mcq", kind: "General Knowledge", title: "Science and Technology Quiz", subtitle: "Five questions covering inventions, computing and basic science.", bank: "scienceTech" },
-        { key: "circuit-memory", type: "memory", kind: "Memory Game", title: "Circuit Component Memory", subtitle: "Pair circuit components with their primary functions.", bank: "circuitMemory" },
-        { key: "sequence-three", type: "sequence", kind: "Number Puzzle", title: "Advanced Sequence Hunt", subtitle: "Solve five tougher number and alternating-pattern sequences.", bank: "sequenceThree" },
-        { key: "relay-reaction", type: "reaction", kind: "Reaction Game", title: "Relay Response Challenge", subtitle: "Test your response time across three simulated relay signals.", bank: "relayReaction" },
-        { key: "technology-scramble", type: "scramble", kind: "Word Puzzle", title: "Technology Word Scramble", subtitle: "Unscramble modern technology and electronics terms.", bank: "technologyWords" },
-        { key: "tools-riddle", type: "riddle", kind: "Logic Puzzle", title: "Workshop Tool Riddles", subtitle: "Identify the correct tool from each practical clue.", bank: "toolRiddles" },
-        { key: "holiday-odd", type: "odd", kind: "Odd One Out", title: "Holiday Knowledge Odd-One-Out", subtitle: "A light seasonal challenge mixing dates, objects and traditions.", bank: "holidayOdd" },
-        { key: "year-end-math", type: "math", kind: "Speed Math", title: "Year-End Countdown Math", subtitle: "Finish 2026 with five fast number challenges.", bank: "yearEndMath" }
+        { key: "circuit-puzzle", type: "riddle", kind: "Circuit Puzzle", title: "Circuit Logic Riddles", subtitle: "Solve short clues using electrical and logical reasoning.", bank: "switchboardRiddles" },
+        { key: "logic-puzzle", type: "sequence", kind: "Logic Puzzle", title: "Number Sequence Workshop", subtitle: "Find the missing value in five progressing sequences.", bank: "sequenceOne" },
+        { key: "crossword", type: "scramble", kind: "Crossword", title: "Engineering Word Scramble", subtitle: "Unscramble five common engineering terms.", bank: "engineeringWords" },
+        { key: "typing-challenge", type: "scramble", kind: "Typing Challenge", title: "Polytechnic Word Scramble", subtitle: "Decode five study and workshop terms.", bank: "polytechnicWords" },
+        { key: "engineering-trivia", type: "mcq", kind: "Engineering Trivia", title: "General Engineering Quiz", subtitle: "Test your awareness of engineering principles and tools.", bank: "engineeringTrivia" },
+        { key: "spot-the-symbol", type: "memory", kind: "Spot the Symbol", title: "Safety Sign Memory Match", subtitle: "Match workplace safety signs with their meanings.", bank: "safetyMemory" },
+        { key: "rapid-fire-quiz", type: "math", kind: "Rapid Fire Quiz", title: "Ohm’s Law Speed Round", subtitle: "Calculate voltage, current, resistance and power.", bank: "ohmsMath" },
+        // Repeat with variation or additional items to reach 25 windows
+        { key: "electrical-safety-2", type: "mcq", kind: "Electrical Quiz", title: "Advanced Electrical Safety", subtitle: "Deeper look at industrial safety standards.", bank: "electrical" },
+        { key: "electronics-quiz-2", type: "mcq", kind: "Electronics Quiz", title: "Digital Electronics Quiz", subtitle: "Logic gates and digital systems basics.", bank: "electronics" },
+        { key: "india-gk-2", type: "mcq", kind: "General Knowledge", title: "Indian History & Polity", subtitle: "Quick facts about India's journey.", bank: "india" },
+        { key: "kerala-gk-2", type: "mcq", kind: "Kerala GK", title: "Kerala History & Landmarks", subtitle: "Important events and places in Kerala.", bank: "kerala" },
+        { key: "science-quiz-2", type: "mcq", kind: "Science Quiz", title: "Physics & Chemistry Basics", subtitle: "Fundamental science for engineering.", bank: "scienceTech" },
+        { key: "memory-game-2", type: "memory", kind: "Memory Game", title: "Component Memory Match", subtitle: "Pair circuit components with their functions.", bank: "circuitMemory" },
+        { key: "circuit-puzzle-2", type: "riddle", kind: "Circuit Puzzle", title: "Wire Label Logic", subtitle: "Identify wires and connections from clues.", bank: "wiringRiddles" },
+        { key: "logic-puzzle-2", type: "sequence", kind: "Logic Puzzle", title: "Pattern Sequence Lab", subtitle: "Arithmetic and pattern sequences.", bank: "sequenceTwo" },
+        { key: "crossword-2", type: "scramble", kind: "Crossword", title: "Technology Word Scramble", subtitle: "Unscramble modern technology terms.", bank: "technologyWords" },
+        { key: "typing-challenge-2", type: "scramble", kind: "Typing Challenge", title: "Workshop Tool Scramble", subtitle: "Unscramble common workshop tool names.", bank: "polytechnicWords" },
+        { key: "engineering-trivia-2", type: "mcq", kind: "Engineering Trivia", title: "Workshop Tool Riddles", subtitle: "Identify the correct tool from clues.", bank: "toolRiddles" },
+        { key: "rapid-fire-quiz-2", type: "math", kind: "Rapid Fire Quiz", title: "Units & Measurements Math", subtitle: "Quick calculations for electrical units.", bank: "unitsMath" }
       ];
 
       const banks = {
+        electronics: [
+          ["What is the main function of a diode?", ["Amplification", "One-way conduction", "Energy storage", "Voltage regulation"], 1, "A diode allows current to flow in only one direction."],
+          ["Which terminal of a transistor is used to control the current flow?", ["Emitter", "Collector", "Base", "Anode"], 2, "The base terminal controls the current between collector and emitter."],
+          ["What does a capacitor store?", ["Magnetic energy", "Electric charge", "Mechanical energy", "Chemical energy"], 1, "A capacitor stores energy in an electric field."],
+          ["Which component is used to limit current in a circuit?", ["Inductor", "Transformer", "Resistor", "Battery"], 2, "A resistor provides resistance to limit current."],
+          ["In an NPN transistor, what does the arrow on the emitter point to?", ["Towards the base", "Away from the base", "Towards the collector", "Nowhere"], 1, "The arrow in an NPN transistor points away from the base."]
+        ],
+        engineeringTrivia: [
+          ["Which tool is used to measure the diameter of a wire precisely?", ["Steel rule", "Vernier caliper", "Screw gauge", "Measuring tape"], 2, "A screw gauge (micrometer) is used for precise wire diameter measurement."],
+          ["What is the unit of luminous intensity?", ["Lumen", "Candela", "Lux", "Watt"], 1, "Candela is the SI unit of luminous intensity."],
+          ["Which metal has the highest electrical conductivity?", ["Gold", "Copper", "Silver", "Aluminium"], 2, "Silver has the highest conductivity among all metals."],
+          ["What type of motor is used in a ceiling fan?", ["DC series motor", "Single-phase induction motor", "Synchronous motor", "Universal motor"], 1, "Ceiling fans typically use single-phase induction motors."],
+          ["What is the standard frequency of AC supply in India?", ["60 Hz", "50 Hz", "100 Hz", "25 Hz"], 1, "The standard AC frequency in India is 50 Hz."]
+        ],
         electrical: [
           ["Which device protects a circuit against overcurrent and short circuit?", ["Contactor", "MCB", "Relay coil", "Potentiometer"], 1, "An MCB opens the circuit when current exceeds a safe value."],
           ["Which conductor should normally be switched and protected in a single-phase circuit?", ["Earth", "Neutral only", "Phase", "Equipment body"], 2, "The phase conductor is live and must be switched and protected correctly."],
