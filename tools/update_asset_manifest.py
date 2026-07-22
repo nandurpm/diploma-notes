@@ -1,3 +1,4 @@
+# Purpose: Update asset manifest - Descriptive comment added for clarity
 from __future__ import annotations
 
 import argparse

@@ -1,3 +1,4 @@
+/* Purpose: Tools scientific full - Descriptive comment added for clarity */
 (() => {
   'use strict';
   const $ = s => document.querySelector(s);

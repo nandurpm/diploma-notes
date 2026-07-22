@@ -1,3 +1,4 @@
+/* Purpose: Home subject dropdown cleanup - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

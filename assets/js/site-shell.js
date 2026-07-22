@@ -1,3 +1,4 @@
+/* Purpose: Site shell - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

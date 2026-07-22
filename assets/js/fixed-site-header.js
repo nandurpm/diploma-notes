@@ -1,3 +1,4 @@
+/* Purpose: Fixed site header - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

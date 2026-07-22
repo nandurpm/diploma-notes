@@ -1,3 +1,4 @@
+/* Purpose: Subject browser 4024 hotfix - Descriptive comment added for clarity */
 (() => {
   'use strict';
   const VALID_DEPARTMENTS = new Set(['Mechanical Engineering', 'Tool and Die Engineering', 'Manufacturing Technology']);

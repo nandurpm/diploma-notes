@@ -1,3 +1,4 @@
+# Purpose: Protect help email - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Ensure the Help fallback does not contain a directly scrapeable address."""
 from __future__ import annotations

@@ -1,3 +1,4 @@
+/* Purpose: Department card art - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

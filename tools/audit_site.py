@@ -1,3 +1,4 @@
+# Purpose: Audit site - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Generate the current POLY PMNA repository integrity report."""
 from __future__ import annotations

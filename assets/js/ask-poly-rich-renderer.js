@@ -1,3 +1,4 @@
+/* Purpose: Ask poly rich renderer - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

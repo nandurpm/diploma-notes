@@ -1,3 +1,4 @@
+/* Purpose: Site consistency fix - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

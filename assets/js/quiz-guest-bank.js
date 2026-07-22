@@ -1,3 +1,4 @@
+/* Purpose: Quiz guest bank - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

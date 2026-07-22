@@ -1,3 +1,4 @@
+/* Purpose: Lesson availability hotfix - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

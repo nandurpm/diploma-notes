@@ -1,3 +1,4 @@
+/* Purpose: Daily important day - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

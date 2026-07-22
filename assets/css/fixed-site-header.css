@@ -1,3 +1,4 @@
+/* Purpose: Fixed site header - Descriptive comment added for clarity */
 /* Fixed, responsive Polytechnic Study Hub header. Scoped to portal pages so lesson navigation is not broken. */
 :root{--fixed-site-header-height:0px;--fixed-site-header-gap:10px}
 .skip-link,.new-badge{display:none!important}

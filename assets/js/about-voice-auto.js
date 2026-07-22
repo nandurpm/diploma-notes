@@ -1,3 +1,4 @@
+/* Purpose: About voice auto - Descriptive comment added for clarity */
 (() => {
   const target = document.querySelector('[data-about-voice], #site-guide, #about');
   const manualButton = document.querySelector('[data-about-voice-button]');

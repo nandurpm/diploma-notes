@@ -1,3 +1,4 @@
+/* Purpose: Daily important day - Descriptive comment added for clarity */
 .home-compact-hero.page-title {
   grid-template-columns: minmax(0, 1fr) minmax(300px, 0.46fr);
   gap: clamp(18px, 2.2vw, 36px);

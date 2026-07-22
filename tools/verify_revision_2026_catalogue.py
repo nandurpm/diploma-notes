@@ -1,3 +1,4 @@
+# Purpose: Verify revision 2026 catalogue - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Verify the complete REV2026 department directory and semester card placement."""
 

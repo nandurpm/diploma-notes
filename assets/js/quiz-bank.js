@@ -1,3 +1,4 @@
+/* Purpose: Quiz bank - Descriptive comment added for clarity */
 window.POLY_QUIZ_BANK={
 subjects:{
 1001:'Communication Skills in English',1002:'Mathematics I',1003:'Applied Physics-I',1004:'Applied Chemistry',2001:'Environmental Science',2002:'Mathematics II',2003:'Applied Physics-II'

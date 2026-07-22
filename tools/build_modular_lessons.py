@@ -1,3 +1,4 @@
+# Purpose: Build modular lessons - Descriptive comment added for clarity
 from __future__ import annotations
 
 import re

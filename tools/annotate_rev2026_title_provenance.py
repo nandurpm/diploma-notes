@@ -1,3 +1,4 @@
+# Purpose: Annotate rev2026 title provenance - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Add visible provenance notices for REV2026 titles restored from snapshots."""
 from __future__ import annotations

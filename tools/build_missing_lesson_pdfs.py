@@ -1,3 +1,4 @@
+# Purpose: Build missing lesson pdfs - Descriptive comment added for clarity
 from __future__ import annotations
 
 from pathlib import Path

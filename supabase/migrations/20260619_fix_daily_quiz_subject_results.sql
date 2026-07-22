@@ -1,3 +1,4 @@
+-- Purpose: 20260619 fix daily quiz subject results - Descriptive comment added for clarity
 -- Allow one saved daily quiz result per user, date and subject.
 alter table public.profiles
   add column if not exists role text not null default 'student';

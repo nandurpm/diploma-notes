@@ -1,3 +1,4 @@
+/* Purpose: Daily important day fallback fix - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

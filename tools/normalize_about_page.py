@@ -1,3 +1,4 @@
+# Purpose: Normalize about page - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Keep the redesigned About page asset links and key bilingual copy current."""
 from __future__ import annotations

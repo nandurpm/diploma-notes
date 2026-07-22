@@ -1,3 +1,4 @@
+/* Purpose: Ask poly upgrade - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

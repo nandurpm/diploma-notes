@@ -1,3 +1,4 @@
+/* Purpose: Http - Descriptive comment added for clarity */
 import test from "node:test";
 import assert from "node:assert/strict";
 

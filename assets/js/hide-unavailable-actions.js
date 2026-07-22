@@ -1,3 +1,4 @@
+/* Purpose: Hide unavailable actions - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

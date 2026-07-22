@@ -1,3 +1,4 @@
+/* Purpose: Quiz bank 2003 - Descriptive comment added for clarity */
 (() => {
   "use strict";
   window.QuizGuestSubjects = window.QuizGuestSubjects || {};

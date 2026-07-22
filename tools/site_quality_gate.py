@@ -1,3 +1,4 @@
+# Purpose: Site quality gate - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Fail CI for structural, routing, metadata and security regressions."""
 from __future__ import annotations

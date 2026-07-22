@@ -1,3 +1,4 @@
+/* Purpose: Mock exam ai evaluator - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const M = globalThis.PolyMock1004;

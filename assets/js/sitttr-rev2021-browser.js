@@ -1,3 +1,4 @@
+/* Purpose: Sitttr rev2021 browser - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const VERSION = "20260706-sitttr-complete1";

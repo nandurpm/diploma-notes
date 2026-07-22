@@ -1,3 +1,4 @@
+# Purpose: Generate sitemap - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Generate sitemap.xml from canonical public HTML and downloadable study PDFs."""
 from __future__ import annotations

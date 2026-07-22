@@ -1,3 +1,4 @@
+/* Purpose: Poly utils - Descriptive comment added for clarity */
 /*
  * Shared browser utilities for POLY PMNA pages.
  *

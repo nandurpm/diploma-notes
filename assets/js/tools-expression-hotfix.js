@@ -1,3 +1,4 @@
+/* Purpose: Tools expression hotfix - Descriptive comment added for clarity */
 (() => {
   'use strict';
   const src = '/assets/js/tools-scientific-full.js?v=20260701-sci-full1';

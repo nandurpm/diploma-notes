@@ -1,3 +1,4 @@
+/* Purpose: Ask poly intent fix - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

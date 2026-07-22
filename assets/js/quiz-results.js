@@ -1,3 +1,4 @@
+/* Purpose: Quiz results - Descriptive comment added for clarity */
 window.PolyQuizResults = (() => {
   const LOCAL = 'poly-quiz-results-v4-single-submit';
   const memoryStore = Object.create(null);

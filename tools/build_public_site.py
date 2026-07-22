@@ -1,3 +1,4 @@
+# Purpose: Build public site - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Build the public-only POLY PMNA deployment artifact from tracked files."""
 from __future__ import annotations

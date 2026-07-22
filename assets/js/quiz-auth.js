@@ -1,3 +1,4 @@
+/* Purpose: Quiz auth - Descriptive comment added for clarity */
 window.PolyQuizAuth = (() => {
   "use strict";
 

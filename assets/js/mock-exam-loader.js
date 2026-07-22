@@ -1,3 +1,4 @@
+/* Purpose: Mock exam loader - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

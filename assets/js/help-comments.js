@@ -1,3 +1,4 @@
+/* Purpose: Help comments - Descriptive comment added for clarity */
 const FALLBACK_MESSAGE = "Discussion is currently unavailable. Use the protected email support link below.";
 const EMAIL_TOKEN = "5a343b343e3b312f373b2837313e2a371a3d373b333674393537";
 const PAGE_SIZE = 40;

@@ -1,3 +1,4 @@
+# Purpose: Generate missing lesson report - Descriptive comment added for clarity
 from __future__ import annotations
 
 import csv

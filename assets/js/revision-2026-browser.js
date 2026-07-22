@@ -1,3 +1,4 @@
+/* Purpose: Revision 2026 browser - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

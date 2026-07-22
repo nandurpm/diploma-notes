@@ -1,3 +1,4 @@
+/* Purpose: Secure index - Descriptive comment added for clarity */
 import application from "./index.js";
 import { corsHeaders } from "./http.js";
 import { authenticateStudent, storeMockExamResult } from "./result-store.js";

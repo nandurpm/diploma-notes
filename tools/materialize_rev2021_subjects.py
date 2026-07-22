@@ -1,3 +1,4 @@
+# Purpose: Materialize rev2021 subjects - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Pre-render Revision 2021 subject cards into every department HTML page."""
 from __future__ import annotations

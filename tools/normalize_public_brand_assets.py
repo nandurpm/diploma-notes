@@ -1,3 +1,4 @@
+# Purpose: Normalize public brand assets - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Idempotently normalize POLY PMNA icon, manifest and theme metadata."""
 from __future__ import annotations

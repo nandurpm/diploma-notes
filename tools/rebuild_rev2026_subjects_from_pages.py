@@ -1,3 +1,4 @@
+# Purpose: Rebuild rev2026 subjects from pages - Descriptive comment added for clarity
 #!/usr/bin/env python3
 from __future__ import annotations
 

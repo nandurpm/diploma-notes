@@ -1,3 +1,4 @@
+/* Purpose: Tools stable rebuild - Descriptive comment added for clarity */
 (() => {
   'use strict';
 

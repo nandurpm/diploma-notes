@@ -1,3 +1,4 @@
+/* Purpose: Quiz password reset - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

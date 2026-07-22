@@ -1,3 +1,4 @@
+# Purpose: Verify live about - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Verify the redesigned About page and optionally enforce build metadata on production."""
 from __future__ import annotations

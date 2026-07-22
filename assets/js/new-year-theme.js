@@ -1,3 +1,4 @@
+/* Purpose: New year theme - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

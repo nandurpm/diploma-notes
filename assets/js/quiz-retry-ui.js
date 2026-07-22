@@ -1,3 +1,4 @@
+/* Purpose: Quiz retry ui - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

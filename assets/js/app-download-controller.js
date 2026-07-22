@@ -1,3 +1,4 @@
+/* Purpose: App download controller - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

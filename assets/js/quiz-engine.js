@@ -1,3 +1,4 @@
+/* Purpose: Quiz engine - Descriptive comment added for clarity */
 (() => {
   const B = window.POLY_QUIZ_BANK;
   const R = window.PolyQuizResults;

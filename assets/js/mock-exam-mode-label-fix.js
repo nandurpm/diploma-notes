@@ -1,3 +1,4 @@
+/* Purpose: Mock exam mode label fix - Descriptive comment added for clarity */
 (() => {
   "use strict";
   let attempts = 0;

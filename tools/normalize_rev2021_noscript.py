@@ -1,3 +1,4 @@
+# Purpose: Normalize rev2021 noscript - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Add the standard no-JavaScript fallback to older Revision 2021 templates."""
 from __future__ import annotations

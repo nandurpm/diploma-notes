@@ -1,3 +1,4 @@
+/* Purpose: Subjects global - Descriptive comment added for clarity */
 try {
   if (typeof SUBJECTS !== 'undefined' && Array.isArray(SUBJECTS)) {
     window.SUBJECTS = SUBJECTS;

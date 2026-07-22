@@ -1,3 +1,4 @@
+-- Purpose: Daily quiz schema - Descriptive comment added for clarity
 -- Supabase schema for Diploma Notes Daily Quiz
 -- Project: diploma-notes (hwobooljdvynsajtrvnk)
 -- This schema has already been applied to the connected Supabase project.

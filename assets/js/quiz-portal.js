@@ -1,3 +1,4 @@
+/* Purpose: Quiz portal - Descriptive comment added for clarity */
 (() => {
   "use strict";
   const parts = ["01","02","03","04","05"].map((part) => `/assets/js/quiz-portal-parts/part-${part}.txt?v=20260618-v2`);

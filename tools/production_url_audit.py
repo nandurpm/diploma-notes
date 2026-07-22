@@ -1,3 +1,4 @@
+# Purpose: Production url audit - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Audit production resources with GET requests and release signatures."""
 from __future__ import annotations

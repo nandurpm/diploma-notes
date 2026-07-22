@@ -1,3 +1,4 @@
+/* Purpose: Index - Descriptive comment added for clarity */
 import { askPoly, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";

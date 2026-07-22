@@ -1,3 +1,4 @@
+# Purpose: Build ask poly knowledge - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Build the Ask POLY whole-site retrieval index from the actual repository.
 

@@ -1,3 +1,4 @@
+/* Purpose: Quiz admin actions - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

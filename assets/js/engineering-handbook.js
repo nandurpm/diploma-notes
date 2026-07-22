@@ -1,3 +1,4 @@
+/* Purpose: Engineering handbook - Descriptive comment added for clarity */
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),esc=s=>String(s??'').replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 const data=JSON.parse($('#courseData').textContent);

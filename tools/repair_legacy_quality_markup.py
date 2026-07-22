@@ -1,3 +1,4 @@
+# Purpose: Repair legacy quality markup - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Repair legacy lesson and mock-exam markup that blocks the release quality gate."""
 from __future__ import annotations

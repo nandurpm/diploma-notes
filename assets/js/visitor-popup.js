@@ -1,3 +1,4 @@
+/* Purpose: Visitor popup - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

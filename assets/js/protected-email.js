@@ -1,3 +1,4 @@
+/* Purpose: Protected email - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

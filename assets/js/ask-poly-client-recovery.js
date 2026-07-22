@@ -1,3 +1,4 @@
+/* Purpose: Ask poly client recovery - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

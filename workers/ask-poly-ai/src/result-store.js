@@ -1,3 +1,4 @@
+/* Purpose: Result store - Descriptive comment added for clarity */
 const clean = (value, maximum = 500) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
 function supabaseBase(env) {

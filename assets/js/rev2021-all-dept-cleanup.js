@@ -1,3 +1,4 @@
+/* Purpose: Rev2021 all dept cleanup - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

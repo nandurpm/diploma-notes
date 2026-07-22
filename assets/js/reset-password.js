@@ -1,3 +1,4 @@
+/* Purpose: Reset password - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

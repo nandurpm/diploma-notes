@@ -1,3 +1,4 @@
+/* Purpose: About experience - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

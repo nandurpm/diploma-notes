@@ -1,3 +1,4 @@
+# Purpose: Resolve rev2026 generic titles - Descriptive comment added for clarity
 #!/usr/bin/env python3
 """Replace generic REV2026 subject-card labels with official course titles.
 

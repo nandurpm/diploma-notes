@@ -1,3 +1,4 @@
+/* Purpose: Site assistant loader - Descriptive comment added for clarity */
 (() => {
   "use strict";
 

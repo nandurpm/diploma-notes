@@ -1,3 +1,4 @@
+/* Purpose: Subject browser - Descriptive comment added for clarity */
 (() => {
   "use strict";
 
