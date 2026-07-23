@@ -49,7 +49,11 @@ function jsonResponse(request, data, status = 200) {
     headers: {
       ...corsHeaders(request),
       "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store"
+      "Cache-Control": "no-store",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "Content-Security-Policy": "default-src 'none'",
+      "Referrer-Policy": "no-referrer"
     }
   });
 }
