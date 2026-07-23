@@ -1,11 +1,11 @@
 # Production URL Audit
 
-- Generated: **2026-07-21T05:57:14Z**
-- Expected commit: `94ac66a7049362b36bf67e013c8271ef0d834f5b`
+- Generated: **2026-07-23T09:19:53Z**
+- Expected commit: `319edbd43245243646054fa71806985998a83fb8`
 - Live commit: `missing`
-- Resources checked with GET: **282**
+- Resources checked with GET: **285**
 - Failures: **1**
 
 ## Failures
 
-- production commit missing does not match 94ac66a7049362b36bf67e013c8271ef0d834f5b
+- production commit missing does not match 319edbd43245243646054fa71806985998a83fb8
