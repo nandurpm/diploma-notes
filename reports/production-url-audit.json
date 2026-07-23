@@ -1,31 +1,31 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-21T05:57:14Z",
-  "expectedCommit": "94ac66a7049362b36bf67e013c8271ef0d834f5b",
+  "generatedAt": "2026-07-23T09:19:53Z",
+  "expectedCommit": "319edbd43245243646054fa71806985998a83fb8",
   "productionBuildInfo": {
     "status": 206,
     "contentType": "application/json; charset=utf-8",
     "bytesRead": 166,
     "body": ""
   },
-  "resourcesChecked": 282,
+  "resourcesChecked": 285,
   "failureCount": 1,
   "failures": [
-    "production commit missing does not match 94ac66a7049362b36bf67e013c8271ef0d834f5b"
+    "production commit missing does not match 319edbd43245243646054fa71806985998a83fb8"
   ],
   "resources": [
     {
       "url": "https://polypmna.dpdns.org/",
       "status": 206,
       "contentType": "text/html; charset=utf-8",
-      "bytesRead": 11852,
+      "bytesRead": 11855,
       "missingSignatures": []
     },
     {
       "url": "https://polypmna.dpdns.org/about.html",
       "status": 206,
       "contentType": "text/html; charset=utf-8",
-      "bytesRead": 39157,
+      "bytesRead": 45727,
       "missingSignatures": []
     },
     {
@@ -95,7 +95,7 @@
       "url": "https://polypmna.dpdns.org/lessons/lessons-1004.html",
       "status": 206,
       "contentType": "text/html; charset=utf-8",
-      "bytesRead": 111577,
+      "bytesRead": 112500,
       "missingSignatures": []
     },
     {
@@ -1495,7 +1495,14 @@
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1003.html",
       "status": 206,
       "contentType": "text/html; charset=utf-8",
-      "bytesRead": 8703,
+      "bytesRead": 8905,
+      "missingSignatures": []
+    },
+    {
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html",
+      "status": 206,
+      "contentType": "text/html; charset=utf-8",
+      "bytesRead": 70547,
       "missingSignatures": []
     },
     {
@@ -1509,7 +1516,7 @@
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1009.html",
       "status": 206,
       "contentType": "text/html; charset=utf-8",
-      "bytesRead": 45243,
+      "bytesRead": 45331,
       "missingSignatures": []
     },
     {
@@ -1538,6 +1545,13 @@
       "status": 206,
       "contentType": "text/html; charset=utf-8",
       "bytesRead": 190878,
+      "missingSignatures": []
+    },
+    {
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1061.html",
+      "status": 206,
+      "contentType": "text/html; charset=utf-8",
+      "bytesRead": 132685,
       "missingSignatures": []
     },
     {
@@ -1587,6 +1601,13 @@
       "status": 206,
       "contentType": "application/pdf",
       "bytesRead": 262144,
+      "missingSignatures": []
+    },
+    {
+      "url": "https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1004.pdf",
+      "status": 206,
+      "contentType": "application/pdf",
+      "bytesRead": 98926,
       "missingSignatures": []
     },
     {
