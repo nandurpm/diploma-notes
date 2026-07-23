@@ -136,3 +136,25 @@
     font-size: .74rem;
   }
 }
+
+/* Brand logo image styling */
+.brand-logo {
+  display: block;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(29, 78, 216, .15);
+}
+
+/* Responsive brand logo sizing */
+@media (max-width: 1400px) and (min-width: 1201px) {
+  .brand-logo { flex-basis: 39px !important; width: 39px !important; height: 39px !important; }
+}
+@media (max-width: 620px) {
+  .brand-logo { flex-basis: 36px !important; width: 36px !important; height: 36px !important; border-radius: 10px !important; }
+}
+@media (max-width: 380px) {
+  .brand-logo { flex-basis: 33px !important; width: 33px !important; height: 33px !important; border-radius: 9px !important; }
+}
