@@ -36,29 +36,7 @@
 
     questionPapers: [
       { label: "Official REV2015 Model Question Paper Index", url: MODEL_QP_INDEX },
-      { label: "Architecture — Official Model Papers (AR)", url: MODEL_QP_BASE + "AR" },
-      { label: "Automobile Engineering — Official Model Papers (AU)", url: MODEL_QP_BASE + "AU" },
-      { label: "Biomedical Engineering — Official Model Papers (BM)", url: MODEL_QP_BASE + "BM" },
-      { label: "Computer Application & Business Management — Official Model Papers (CB)", url: MODEL_QP_BASE + "CB" },
-      { label: "Civil Engineering — Official Model Papers (CE)", url: MODEL_QP_BASE + "CE" },
-      { label: "Chemical Engineering — Official Model Papers (CH)", url: MODEL_QP_BASE + "CH" },
-      { label: "Computer Hardware Engineering — Official Model Papers (CM)", url: MODEL_QP_BASE + "CM" },
-      { label: "Commercial Practice — Official Model Papers (CP)", url: MODEL_QP_BASE + "CP" },
-      { label: "Computer Engineering — Official Model Papers (CT)", url: MODEL_QP_BASE + "CT" },
-      { label: "Electronics and Communication — Official Model Papers (EC)", url: MODEL_QP_BASE + "EC" },
-      { label: "Electrical & Electronics Engineering — Official Model Papers (EE)", url: MODEL_QP_BASE + "EE" },
-      { label: "Electronics Engineering — Official Model Papers (EL)", url: MODEL_QP_BASE + "EL" },
-      { label: "Instrumentation Engineering — Official Model Papers (IE)", url: MODEL_QP_BASE + "IE" },
-      { label: "Information Technology — Official Model Papers (IF)", url: MODEL_QP_BASE + "IF" },
-      { label: "Mechanical Engineering — Official Model Papers (ME)", url: MODEL_QP_BASE + "ME" },
-      { label: "Manufacturing Technology — Official Model Papers (MT)", url: MODEL_QP_BASE + "MT" },
-      { label: "Polymer Technology — Official Model Papers (PL)", url: MODEL_QP_BASE + "PL" },
-      { label: "Printing Technology — Official Model Papers (PT)", url: MODEL_QP_BASE + "PT" },
-      { label: "Tool & Die Engineering — Official Model Papers (TD)", url: MODEL_QP_BASE + "TD" },
-      { label: "Textile Technology — Official Model Papers (TT)", url: MODEL_QP_BASE + "TT" },
-      { label: "Wood and Paper Technology — Official Model Papers (WP)", url: MODEL_QP_BASE + "WP" },
-      { label: "Archived Question Paper Availability Index", url: "https://drive.google.com/file/d/1pgfggWTCouquaTPglpK4FfgLTC_9bdYq/view?usp=drivesdk" },
-      { label: "Archived First Year Question Papers", url: "https://drive.google.com/open?id=1vHbZ0D-QOHVMEIbcj5FLSHbD_UOWB0LQ" }
+      { label: "Official REV2015 Syllabus Index", url: SYLLABUS_INDEX }
     ],
 
     alternativeNotes: [
