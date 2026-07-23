@@ -1,85 +1,136 @@
-# POLY PMNA
+# 📚 POLY PMNA
 
-POLY PMNA is a static-first Kerala Polytechnic study portal published from the `main` branch of `nandurpm/diploma-notes` to `https://polypmna.dpdns.org/`.
+<p align="center">
+<img src="docs/images/logo.png" width="180" alt="POLY PMNA Logo">
+</p>
 
-## Public areas
+<p align="center">
+<b>Kerala Polytechnic Digital Learning Platform</b>
+</p>
 
-- Revision 2026: 38 programme pages and dedicated content under `revision-2026-content/`
-- Revision 2021: 43 department pages, legacy lessons under `lessons/` and notes under `notes/`
-- Revision 2015 archive: `materials-2015.html`
-- Ask POLY AI: `ask-poly.html` with a Cloudflare Worker primary route and Supabase relay backup
-- Daily Quiz and supported mock exams: `daily-quiz.html` and `mock-exam-1004.html`
-- Student calculators and helpers: `tools.html`
+<p align="center">
 
-## Source-of-truth rules
+Revision 2026 • Revision 2021 • Ask Poly AI • Daily Quiz • Engineering Tools
 
-- Official curriculum and course links must come from SITTTR Kerala.
-- Revision 2026 and Revision 2021 content must never share lesson or notes paths.
-- Revision 2026 lessons: `revision-2026-content/lessons/lessons-CODE.html`
-- Revision 2026 notes: `revision-2026-content/notes/downloadable-notes-CODE.pdf`
-- Revision 2021 lessons: `lessons/lessons-CODE.html`
-- Do not label historical snapshot data as current without recording the source date.
+</p>
 
-## Architecture
+---
 
-The public site is vanilla HTML, CSS and JavaScript. Major data and service areas are:
+## 🌐 Website
 
-- `assets/js/subjects.js`: Revision 2021 subject records
-- Revision 2026 generated department HTML and supporting manifests
-- `workers/ask-poly-ai/`: Cloudflare Worker for AI questions and mock-exam evaluation
-- `supabase/`: account, quiz and result schemas/functions/migrations
-- `.github/workflows/`: validation, content generation, deployment and post-deploy verification
-- `tools/`: repository audits, page generation and maintenance scripts
+https://polypmna.dpdns.org/
 
-## Security and result integrity
+---
 
-- Supabase public/anon keys may appear in browser code; service-role keys must never be committed.
-- Authoritative mock-exam scores must be written only by trusted server-side code after authentication and evaluation.
-- Browser rubric fallback scores are provisional and must not be uploaded as authoritative results.
-- Daily Quiz scores are personal practice records, not official or proctored marks.
-- Apply `supabase/migrations/20260720_authoritative_result_integrity.sql` to enforce the current result policy.
+# 📖 Overview
 
-## Ask POLY deployment secrets
+POLY PMNA is a comprehensive digital learning platform designed for Kerala Polytechnic students.
 
-The deployment workflow can use these GitHub repository secrets:
+The platform provides syllabus-based learning resources, AI-powered academic assistance, revision notes, quizzes, model question papers, and engineering tools through a responsive web application.
 
-- `CLOUDFLARE_API_TOKEN`
-- `CLOUDFLARE_ACCOUNT_ID`
-- `CLOUDFLARE_AI_API_TOKEN`
-- one or more AI provider keys such as `OPENAI_API_KEY`, `NVIDIA_API_KEY`, `GOOGLE_AI_STUDIO`
-- `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` for verified server-side mock-exam storage
+---
 
-Never put secret values in HTML, JavaScript, reports, issues or workflow logs.
+# ✨ Features
 
-## Deployment contract
+- 📘 Revision 2026 Learning Portal
+- 📗 Revision 2021 Resources
+- 📕 Revision 2015 Archive
+- 🤖 Ask Poly AI
+- 📝 Daily Quiz
+- 📄 Model Question Papers
+- 📚 Lesson Notes
+- 🧮 Engineering Tools
+- 📱 Mobile Friendly
+- ☁️ Cloud Powered
 
-Production must publish the repository root from `main` and run:
+---
 
-```bash
-python tools/write_build_info.py
+# 📂 Repository Structure
+
+```
+revision-2026-content/
+lessons/
+notes/
+assets/
+workers/
+supabase/
+docs/
+tools/
 ```
 
-The live `/build-info.json` commit must match the deployed `main` commit. `.github/workflows/post-deploy-verify.yml` checks the commit and key page signatures after every push.
+---
 
-## Validation
+# 🏗 Technology Stack
 
-Run the relevant checks before publication:
+- HTML5
+- CSS3
+- JavaScript
+- Cloudflare Workers
+- Supabase
+- GitHub Pages
+- GitHub Actions
 
-```bash
-python tools/audit_site.py
-python tools/production_url_audit.py
-python tools/validate_site_structure.py
-node --check assets/js/ask-poly-config.js
-node --check assets/js/mock-exam-service.js
-node --check workers/ask-poly-ai/src/index.js
-```
+---
 
-A HTTP 200 alone is not enough. Important interactive pages also require browser/runtime testing.
+# 📚 Documentation
 
-## Content generation
+Complete project documentation is available in the Wiki.
 
-AI-generated lesson content must pass HTML, path, syllabus coverage, accessibility and security checks. Generated text is educational support and must not be presented as official curriculum wording without verification.
+Topics include
 
-## Reporting errors
+- Getting Started
+- Website Architecture
+- System Architecture
+- Revision 2026
+- Revision 2021
+- Ask Poly AI
+- Daily Quiz
+- Deployment
+- Coding Standards
+- FAQ
 
-Use `contact.html` to report a broken link, wrong subject code, incorrect title, incomplete lesson, privacy problem or grading issue. Include the affected URL and exact error.
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+Please read the documentation before submitting pull requests.
+
+---
+
+# 🔒 Security
+
+Please read SECURITY.md before reporting security vulnerabilities.
+
+---
+
+# 📄 License
+
+Released under the MIT License.
+
+---
+
+# 👨‍💻 Developer
+
+Nandakumar M
+
+Electrical & Electronics Design Engineer
+
+Johnson Lifts & Escalators
+
+---
+
+## 🌐 Links
+
+Website
+
+https://polypmna.dpdns.org/
+
+Documentation
+
+https://github.com/nandurpm/diploma-notes/wiki
+
+GitHub Repository
+
+https://github.com/nandurpm/diploma-notes
