@@ -39,7 +39,20 @@
   function uniq(list) { const seen = new Set(); return list.filter(s => { const k = [s.revision,keyDept(s.department),s.semester,norm(s.code),String(s.name||"").toLowerCase()].join("::"); if (seen.has(k)) return false; seen.add(k); return true; }); }
   function parse(text) { const m = String(text || "").match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m); if (!m) return []; try { return Function(`"use strict";return (${m[1]});`)(); } catch { return []; } }
   async function data() { let base = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : []; if (!base.length) { const text = await fetch(`${root()}assets/js/subjects.js?v=${VERSION}`, {cache:"no-store"}).then(r => r.ok ? r.text() : "").catch(()=>""); base = parse(text); } return uniq([...base, ...supplemental]); }
-  function hasLesson(s) { const m = globalThis.POLY_ASSET_MANIFEST; if (m && Array.isArray(m.lessonCodes)) return m.lessonCodes.map(norm).includes(norm(asset(s))); return LESSONS.has(norm(asset(s))); }
+
+  // PERFORMANCE OPTIMIZATION: Cache the normalized lessonCodes from POLY_ASSET_MANIFEST as a Set
+  // to avoid O(M) mapping/iterating and O(M) search per subject on every render.
+  let cachedLessonSet = null;
+  function hasLesson(s) {
+    const m = globalThis.POLY_ASSET_MANIFEST;
+    if (m && Array.isArray(m.lessonCodes)) {
+      if (!cachedLessonSet) {
+        cachedLessonSet = new Set(m.lessonCodes.map(norm));
+      }
+      return cachedLessonSet.has(norm(asset(s)));
+    }
+    return LESSONS.has(norm(asset(s)));
+  }
   function syllabus(s) { return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021"; }
   function qp(s) { return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(s.code)}`; }
   function card(s) { const r = root(), ac = asset(s), lesson = `${r}lessons/lessons-${encodeURIComponent(ac)}.html`, pdf = `${r}notes/downloadable-notes-${encodeURIComponent(ac)}.pdf`, ok = hasLesson(s), meta = [displayDept(s.department), s.semester, s.type].filter(Boolean).join(" / "); return `<article class="subject-card reveal" data-subject-code="${esc(norm(s.code))}" data-notes-href="${esc(pdf)}" data-lesson-href="${esc(lesson)}" data-lesson-available="${ok}"><div class="subject-top"><span>${esc(s.revision)}</span><strong>${esc(s.code)}</strong></div><h3>${esc(s.name)}</h3><p>${esc(meta)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus(s))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${ok ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(pdf)}" download>Download Notes</a>` : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`}<a class="action qp" href="${esc(qp(s))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`; }
@@ -48,7 +61,10 @@
   function preferDeptRows(list, dept) { const departmentRows = new Set(list.filter(s=>sameDept(s.department,dept)).map(s=>`${s.semester}::${norm(s.code)}`)); return list.filter(s => !(sameDept(s.department,COMMON) && departmentRows.has(`${s.semester}::${norm(s.code)}`))); }
   function applyExact(list, dept) { const dk = keyDept(dept); return list.filter(s => { const set = exact.get(`${dk}::${s.semester}`); return !set || set.has(norm(s.code)); }); }
   function filtered(all, dept) { return applyExact(preferDeptRows(all.filter(s => String(s.revision)==="2021" && (sameDept(s.department,dept) || sameDept(s.department,COMMON))), dept), dept); }
-  function render(all, grid, dept) { const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all"; let list = filtered(all, dept); if (sem !== "all") list = list.filter(s=>String(s.semester)===sem); if (q) list = list.filter(s => [s.code,s.name,s.department,s.semester,s.type].join(" ").toLowerCase().includes(q)); list = uniq(list).sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true})); grid.innerHTML = list.length ? groups(list) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`; }
+  // PERFORMANCE OPTIMIZATION: Remove the redundant uniq(list) call from the render loop.
+  // The base list from data() is already guaranteed to be unique. Avoiding uniq()
+  // on every keystroke/render prevents hundreds of unnecessary string joins/regex allocations.
+  function render(all, grid, dept) { const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all"; let list = filtered(all, dept); if (sem !== "all") list = list.filter(s=>String(s.semester)===sem); if (q) list = list.filter(s => [s.code,s.name,s.department,s.semester,s.type].join(" ").toLowerCase().includes(q)); list = list.sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true})); grid.innerHTML = list.length ? groups(list) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`; }
   async function init() { const grid = $("subjectGrid"); if (!grid) return; grid.innerHTML = `<div class="empty-state">Loading subjects...</div>`; const dept = grid.dataset.department || ""; const all = await data(); fillSem($("semesterFilter"), filtered(all, dept)); const rr = () => render(all, grid, dept); $("subjectSearch")?.addEventListener("input", rr); $("semesterFilter")?.addEventListener("change", rr); rr(); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true}); else init();
 })();
