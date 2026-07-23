@@ -1,21 +1,21 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-23T09:39:05Z",
-  "commit": "319edbd43245243646054fa71806985998a83fb8",
-  "branch": "jules-4985644891467677084-483bebf4",
+  "generatedAt": "2026-07-23T08:38:59Z",
+  "commit": "6d2e4ffacf06ce6c1a349bae686520c2de0a2d50",
+  "branch": "jules-13062104562068987416-e73de18f",
   "status": "passed",
   "counts": {
-    "sitemapResources": 285,
-    "htmlResources": 176,
+    "sitemapResources": 284,
+    "htmlResources": 175,
     "pdfResources": 109,
     "revision2021Departments": 44,
     "revision2026Departments": 38,
     "revision2021Lessons": 91,
-    "revision2026Lessons": 18,
+    "revision2026Lessons": 17,
     "revision2021Notes": 92,
     "revision2026Notes": 17
   },
-  "qualityGateOutput": "Site quality gate passed for 285 sitemap resources.",
+  "qualityGateOutput": "Site quality gate passed for 284 sitemap resources.",
   "scope": [
     "All canonical HTML and indexed PDF resources generated into sitemap.xml",
     "Metadata, canonical URL, H1, duplicate IDs, skip links and local references",

@@ -1894,8 +1894,8 @@ const MATERIALS_2015 = {
     // Lab Manual Set 2 link removed due to dead blogspot URL
   ],
   questionPapers: [
-    { label: "Question Paper Availability",      url: "https://drive.google.com/file/d/1pgfggWTCouquaTPglpK4FfgLTC_9bdYq/view?usp=drivesdk" },
-    { label: "SITTTR REV2021 Model QP Page", url: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021" }
+    { label: "Official REV2015 Model Question Paper Index", url: "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2015" },
+    { label: "Official REV2015 Syllabus Index", url: "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2015" }
   ],
   alternativeNotes: [
     { label: "First Year", url: "https://drive.google.com/open?id=1qHCYDCt2yg2VToC5RbU78ZGD_TN3EtUZ" },
@@ -1915,7 +1915,10 @@ const MATERIALS_2015 = {
 const SITTTR_SYLLABUS_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=";
 const SITTTR_MODEL_QP_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=";
 
-function syllabusLink(subjectCode) {
+function syllabusLink(subjectCode, revision) {
+  if (revision === "2021") {
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
+  }
   return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
 }
 

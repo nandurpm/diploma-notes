@@ -533,7 +533,10 @@
       const links = createElement("div", { className: "poly-ai-links" });
       if (subject.lessonAvailable) addLink(links, "Open lesson", `/lessons/lessons-${encodeURIComponent(subject.code)}.html`);
       else addUnavailable(links, "Lesson unavailable");
-      addLink(links, "Syllabus", `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`);
+      const syllabusUrl = String(subject.revision) === "2021"
+        ? "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021"
+        : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+      addLink(links, "Syllabus", syllabusUrl);
       if (subject.notesAvailable) addLink(links, "Download notes", `/notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`);
       else addUnavailable(links, "Notes unavailable");
       addLink(links, "Model QP", `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`);
