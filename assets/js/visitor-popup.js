@@ -12,7 +12,8 @@
   document.head.append(readyFlag);
 
   const POPUPS = [
-  { id: "popup-1", type: "image", src: "/assets/popup/popup-1.jpg" },
+  { id: "popup-1", type: "image", src: "/assets/popup/popup-1.png" },
+  { id: "popup-2", type: "image", src: "/assets/popup/popup-2.png" },
   { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" }
 ];
 
@@ -51,7 +52,7 @@
 
   async function exists(item) {
     try {
-      const response = await fetch(`${item.src}?v=20260706-popup-check`, {
+      const response = await fetch(`${item.src}?v=20260723-popup-fix`, {
         method: "HEAD",
         cache: "no-store"
       });
@@ -65,7 +66,7 @@
     }
 
     try {
-      const response = await fetch(`${item.src}?v=20260706-popup-check`, {
+      const response = await fetch(`${item.src}?v=20260723-popup-fix`, {
         cache: "no-store",
         headers: { Range: "bytes=0-0" }
       });
