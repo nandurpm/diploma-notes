@@ -4,9 +4,10 @@
 
   // label: "Home" label: "About" label: "Revision 2026" label: "Revision 2021" label: "Mock Exams" label: "Ask POLY AI" label: "2015 Materials" label: "Tools" label: "Help"
 
-  const VERSION = "20260720-mobile-header-fix3";
+  const VERSION = "20260723-ui-audit-fix1";
   const SITE_NAME = "POLY PMNA";
   const FAVICON_HREF = "/assets/media/poly-pmna-favicon.svg";
+  const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
   const MOBILE_HEADER_CSS = "/assets/css/mobile-header-hotfix.css?v=20260720-mobile-header-fix3";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
@@ -95,7 +96,7 @@
   }
 
   function headerMarkup() {
-    return `<a class="brand" href="/" aria-label="${SITE_NAME} home"><span class="brand-symbol" aria-hidden="true">📚</span><strong>${SITE_NAME}</strong></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">Menu</button><nav class="navlinks" aria-label="Primary navigation">${navMarkup()}</nav>`;
+    return `<a class="brand" href="/" aria-label="${SITE_NAME} home"><img class="brand-logo" src="${LOGO_HREF}" alt="" width="42" height="42" decoding="async" fetchpriority="high"><strong>${SITE_NAME}</strong></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">Menu</button><nav class="navlinks" id="primary-navigation" aria-label="Primary navigation">${navMarkup()}</nav>`;
   }
 
   function headerIsCanonical(header) {
