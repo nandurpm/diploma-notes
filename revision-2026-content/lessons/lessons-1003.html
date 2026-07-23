@@ -120,6 +120,8 @@ p{margin:.55rem 0}.muted{color:#536b82}.bar{height:10px;margin-top:18px;border-r
     document.open();
     document.write(html);
     document.close();
+    document.documentElement.classList.add("poly-lesson-page", "lesson-all-content", "revision-2026-lesson");
+    document.body?.classList.add("poly-lesson-page", "lesson-all-content", "revision-2026-lesson");
   };
 
   void boot().catch(fail);

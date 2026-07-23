@@ -3,7 +3,7 @@
   "use strict";
 
   const lessonPath = /^\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i;
-  if (!lessonPath.test(location.pathname) || window.__polyLessonStandardLoaded) return;
+  if (!lessonPath.test(location.pathname) || (window.__polyLessonStandardLoaded && document.documentElement.classList.contains("lesson-all-content"))) return;
   window.__polyLessonStandardLoaded = true;
 
   const root = document.documentElement;
