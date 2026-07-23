@@ -302,3 +302,59 @@ body.portal-page .filters {
     padding: 17px !important;
   }
 }
+
+/* 2026-07-23 UI audit: let page heroes size to content instead of reserving fixed vertical space. */
+body.portal-page .page-title {
+  min-height: 0 !important;
+  margin-top: clamp(8px, 1vw, 14px) !important;
+  padding: clamp(22px, 2.8vw, 42px) !important;
+  align-content: start !important;
+  overflow: hidden !important;
+}
+
+body.portal-page .page-title h1,
+body.portal-page .page-title > p:not(.kicker) {
+  max-width: min(100%, 980px) !important;
+}
+
+body.portal-page .page-title::after {
+  width: clamp(54px, 6vw, 88px) !important;
+  height: clamp(54px, 6vw, 88px) !important;
+  opacity: .36 !important;
+}
+
+body.portal-page .section,
+body.portal-page .cards {
+  margin-block: clamp(14px, 1.8vw, 26px) !important;
+}
+
+body.portal-page .cards {
+  align-items: stretch !important;
+}
+
+body.portal-page .info-card,
+body.portal-page .choice-card,
+body.portal-page .subject-card {
+  min-width: 0 !important;
+  height: 100%;
+  overflow: hidden;
+}
+
+body.portal-page img,
+body.portal-page svg,
+body.portal-page video,
+body.portal-page canvas,
+body.portal-page iframe {
+  max-width: 100%;
+}
+
+@media (max-width: 620px) {
+  body.portal-page .page-title {
+    min-height: 0 !important;
+    padding: 18px 14px !important;
+  }
+
+  body.portal-page .page-title h1 {
+    max-width: 100% !important;
+  }
+}
