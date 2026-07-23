@@ -63,7 +63,12 @@
   const asset = subject => String(subject.assetCode || subject.code || "");
   const sameDept = (a, b) => depKey(a) === depKey(b);
   const key = subject => [subject.revision, subject.department, subject.semester, norm(subject.code), String(subject.name || "").toLowerCase()].join("::");
-  const syllabusUrl = subject => subject.syllabusUrl || `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+  const syllabusUrl = subject => {
+    if (String(subject.revision) === "2021") {
+      return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
+    }
+    return subject.syllabusUrl || `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+  };
   const questionPaperUrl = subject => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
 
   function unique(list) {
@@ -174,7 +179,7 @@
     if (!select) return;
     const old = select.value || preferred || "2026";
     const configured = globalThis.CURRICULUM_REVISIONS || {};
-    const ids = [...new Set([...Object.keys(configured), ...subjects.map(subject => String(subject.revision)).filter(Boolean)])].sort().reverse();
+    const ids = [...new Set([...Object.keys(configured), ...subjects.map(subject => String(subject.revision)).filter(Boolean)])].filter(id => id !== "2015").sort().reverse();
     select.replaceChildren();
     ids.forEach(id => {
       const config = configured[id] || {};
