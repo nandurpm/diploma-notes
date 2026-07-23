@@ -31,7 +31,7 @@
 
   const STORAGE_DATE = "polyVisitorPopupMediaDateV3";
   const STORAGE_INDEX = "polyVisitorPopupMediaIndexV3";
-  const WAIT_MS = 2500;
+  const WAIT_MS = 60000;
   const AUTO_CLOSE_MS = 60000;
   const forceShow = /(?:[?&]showPopup=1\b|#showPopup\b)/i.test(location.search + location.hash);
 
@@ -52,7 +52,7 @@
 
   async function exists(item) {
     try {
-      const response = await fetch(`${item.src}?v=20260723-popup-fix`, {
+      const response = await fetch(`${item.src}?v=20260723-popup-1min`, {
         method: "HEAD",
         cache: "no-store"
       });
@@ -66,7 +66,7 @@
     }
 
     try {
-      const response = await fetch(`${item.src}?v=20260723-popup-fix`, {
+      const response = await fetch(`${item.src}?v=20260723-popup-1min`, {
         cache: "no-store",
         headers: { Range: "bytes=0-0" }
       });
