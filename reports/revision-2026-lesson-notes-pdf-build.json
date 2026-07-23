@@ -2,23 +2,7 @@
   "revision": "2026",
   "lessonFolder": "revision-2026-content/lessons",
   "notesFolder": "revision-2026-content/notes",
-  "generated": [
-    {
-      "code": "1061",
-      "pages": 26,
-      "bytes": 1298851,
-      "source": "revision-2026-content/lessons/lessons-1061.html",
-      "sourceCharacters": 48120,
-      "pdfCharacters": 47301,
-      "textCoverage": 0.983,
-      "panelCount": 9,
-      "visiblePanelCount": 9,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    }
-  ],
+  "generated": [],
   "errors": [],
   "requiredLessonCodes": [
     "1001",
@@ -40,9 +24,7 @@
     "2032",
     "2131"
   ],
-  "generatedThisRunCodes": [
-    "1061"
-  ],
+  "generatedThisRunCodes": [],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
   "minimumPdfBytes": 20000
