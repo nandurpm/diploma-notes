@@ -1,7 +1,7 @@
 # 📚 POLY PMNA
 
 <p align="center">
-  <img src="docs/images/logo.png" width="180" alt="POLY PMNA Logo">
+  <img src="docs/images/logo.png" width="360" alt="POLY PMNA Logo">
 </p>
 
 <h1 align="center">POLY PMNA</h1>
