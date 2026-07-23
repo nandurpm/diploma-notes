@@ -30,20 +30,23 @@ CANONICAL_RE_REVERSED = re.compile(r'<link\s+[^>]*href=["\']([^"\']+)["\'][^>]*r
 NOINDEX_RE = re.compile(r'<meta\s+[^>]*name=["\']robots["\'][^>]*content=["\'][^"\']*noindex', re.I)
 
 
+import datetime
+
 def git_lastmod(path: Path) -> str:
     relative = path.relative_to(ROOT).as_posix()
     try:
         value = subprocess.check_output(
-            ["git", "log", "-1", "--format=%cs", "--", relative],
+            ["git", "log", "-1", "--format=%ct", "--", relative],
             cwd=ROOT,
             text=True,
             stderr=subprocess.DEVNULL,
         ).strip()
-        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
-            return value
+        if value.isdigit():
+            dt = datetime.datetime.fromtimestamp(int(value), datetime.timezone.utc)
+            return dt.strftime("%Y-%m-%d")
     except Exception:
         pass
-    return date.today().isoformat()
+    return datetime.datetime.now(datetime.timezone.utc).date().isoformat()
 
 
 def canonical_for(path: Path) -> str | None:
