@@ -4,9 +4,9 @@ Upload popup media files here when you want visitor popups to appear on the webs
 
 Supported ordered popup file names:
 
-1. `popup-1.jpg`
-2. `popup-2.jpg`
-3. `popup-3.jpg`
+1. `popup-1.png`
+2. `popup-2.png`
+3. `popup-3.png`
 4. `popup-1.mp4`
 5. `popup-2.mp4`
 
@@ -25,16 +25,16 @@ Example:
 
 If only these files exist:
 
-- `popup-1.jpg`
-- `popup-3.jpg`
+- `popup-1.png`
+- `popup-3.png`
 - `popup-2.mp4`
 
 The showing order becomes:
 
-1. `popup-1.jpg`
-2. `popup-3.jpg`
+1. `popup-1.png`
+2. `popup-3.png`
 3. `popup-2.mp4`
-4. Repeat again from `popup-1.jpg`
+4. Repeat again from `popup-1.png`
 
 Recommended image size: 1200 × 700 px or 1080 × 1080 px.
 Recommended video: MP4, compressed, short duration, preferably below 10 MB for faster loading.
