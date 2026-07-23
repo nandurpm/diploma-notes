@@ -246,7 +246,34 @@ function render(section, target=app) {
 function selectSection(section) { active=section; document.querySelectorAll('.tabbtn').forEach(b=>b.classList.toggle('active', b.dataset.target===section)); render(section); }
 document.querySelectorAll('.tabbtn').forEach(btn=>btn.addEventListener('click',()=>selectSection(btn.dataset.target)));
 function renderPrint() { printRoot.innerHTML = overview() + formulaBank() + modulePage('m1') + modulePage('m2') + modulePage('m3') + modulePage('m4') + revision() + answerKey(); }
-document.getElementById('downloadPdf').addEventListener('click',()=>{ renderPrint(); setTimeout(()=>window.print(),250); });
+const pdfUrl = '../notes/downloadable-notes-1004.pdf';
+document.getElementById('downloadPdf').addEventListener('click', async () => {
+  const btn = document.getElementById('downloadPdf');
+  btn.disabled = true;
+  btn.textContent = 'Checking notes…';
+  let pdfAvailable = false;
+  try {
+    const head = await fetch(pdfUrl, { method: 'HEAD', cache: 'no-store' });
+    const ct = (head.headers.get('content-type') || '').toLowerCase();
+    pdfAvailable = head.ok && !/html/i.test(ct);
+  } catch (_) { /* HEAD unsupported — try small GET */ }
+  if (!pdfAvailable) {
+    try {
+      const small = await fetch(pdfUrl, { method: 'GET', headers: { Range: 'bytes=0-4' }, cache: 'no-store' });
+      pdfAvailable = small.ok || small.status === 206;
+    } catch (_) {}
+  }
+  if (pdfAvailable) {
+    window.location.assign(pdfUrl);
+    btn.disabled = false;
+    btn.textContent = 'Print / Save as PDF';
+  } else {
+    btn.disabled = false;
+    btn.textContent = 'Print / Save as PDF';
+    renderPrint();
+    setTimeout(() => window.print(), 250);
+  }
+});
 window.addEventListener('afterprint',()=>{ printRoot.innerHTML=''; });
 window.addEventListener('scroll',()=>{ const h=document.documentElement; document.getElementById('progress').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'; document.getElementById('toTop').classList.toggle('show', h.scrollTop>500); });
 document.getElementById('toTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
