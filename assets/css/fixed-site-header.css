@@ -172,3 +172,58 @@ body.portal-page .topbar .navlinks a.active{border-color:transparent!important}
 }
 
 @media print{body.portal-page .topbar{position:static!important;inset:auto!important;transform:none!important}body.has-fixed-site-header{padding-top:0!important}html{scroll-padding-top:0!important}}
+
+/* 2026-07-23 UI audit: use real logo, keep desktop nav in one measured row, and avoid viewport overflow. */
+body.portal-page .brand-logo {
+  display: block !important;
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  object-fit: contain !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: 0 8px 20px rgba(29, 78, 216, .16) !important;
+}
+
+body.portal-page .topbar .menu-toggle {
+  display: none !important;
+}
+
+@media screen and (min-width:1101px){
+  body.portal-page .topbar{
+    grid-template-columns:minmax(150px,auto) minmax(0,1fr)!important;
+    column-gap:clamp(10px,1vw,18px)!important;
+  }
+
+  body.portal-page .topbar .brand{grid-column:1!important;}
+  body.portal-page .topbar .menu-toggle{display:none!important;}
+  body.portal-page .topbar .navlinks{
+    grid-column:2!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    justify-content:flex-end!important;
+    gap:clamp(4px,.55vw,8px)!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    max-width:100%!important;
+  }
+
+  body.portal-page .topbar .navlinks a{
+    flex:0 1 auto!important;
+    padding-inline:clamp(8px,.75vw,14px)!important;
+    font-size:clamp(.74rem,.72vw,.88rem)!important;
+  }
+}
+
+@media (max-width:1100px){
+  body.portal-page .topbar .menu-toggle{display:inline-flex!important;}
+}
+
+@media (max-width:620px){
+  body.portal-page .brand-logo{flex-basis:36px!important;width:36px!important;height:36px!important;min-width:36px!important;border-radius:10px!important;}
+}
+
+@media (max-width:380px){
+  body.portal-page .brand-logo{flex-basis:33px!important;width:33px!important;height:33px!important;min-width:33px!important;border-radius:9px!important;}
+}
