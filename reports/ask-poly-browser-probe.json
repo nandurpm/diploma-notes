@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T15:24:20Z",
+  "generatedAt": "2026-07-24T05:27:27Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 22 Jul 2026 15:24:19 GMT",
+      "date": "Fri, 24 Jul 2026 05:27:27 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "419",
       "connection": "close",
@@ -19,10 +19,10 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=z9gepJ8TDdud3YqDsc2MwmqRFZ6h3EQNfMyfDpRdkjIUzDaS7RfjDvuhj6ZFab4MImcSqgr%2BaAm3e%2FdOykeuKLj%2BmcfKZDVl6BjLMZKAh%2BzmGphMYFf88IsuJWcAppYG5YlO0sadLlMTbu7jhM50m%2FeHnowOZ0f%2FEA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Ut9CI0sFt23N8WzfKWv18%2FJRnKSOddwJm75417hcXXRnXYihl46CDrquyHDuiuG%2By%2BQI2rNAIUUaLPsHFAaz2M92Z%2FeVxoEZO5e5yrXOnimnUhB2daj%2F7lEUszMcJJyshAJ16ZtTVKkPLHEtW9ZkBPjQeV8Qrm8Ksw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1f3739d8a59c044-LAX",
+      "cf-ray": "a200840a5b85ae29-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -33,17 +33,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Wed, 22 Jul 2026 15:24:19 GMT",
+      "date": "Fri, 24 Jul 2026 05:27:27 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=QGkxaMx%2FKaLajTpxNZE8MuSBv%2BOLb%2FaC6ynzVbPbXgXIQZBSpfmWKOWgQzXwnf7NTt5vYRTdiK9zLyVpsA6bOBsZT6D9ycEbjc9uHv0rTJrtVVVM1ObTl5sIvHHEpNdazhCYIvJ4k6NwVUHBI8U9wtx4w9gnqbCmPw%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qY909alH6qUYXIQN5EFhIlKj80SuANVq9lpaHJrlqwEs8GDZ77VaqlaWsqV6P%2BHK1h2Jgvxtff%2BCXc1Se2aeUIz6sAWfSs7w7Ou4sYDpnzmlKu2ZZZ8HaHD8zo2197zqqRybQpY02w4geY7o%2BEX64bTyq4hfRMqUJw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1f3739dd988e13e-LAX",
+      "cf-ray": "a200840a99bb98c3-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -54,9 +54,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 22 Jul 2026 15:24:20 GMT",
+      "date": "Fri, 24 Jul 2026 05:27:27 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "661",
+      "content-length": "467",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -65,13 +65,13 @@
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
       "x-content-type-options": "nosniff",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=LBaZq9W0uS%2FU%2Fwa2R5Tw46bCAq890d4e6Snlhje%2BmMX6DyE3b9EkpSwKJkauChKRjN6V9rDYxK1QnF5h2B8PuTGTjItP5ij6Q82MI9ZbKY4O%2BZCCo6UeDZk%2F1fitR5b6i%2FHNrfRXGoJ3dsMxOjC7%2FsSxAplUColdkA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=YbUWV65RMO9z7%2BhERCn7goDa0NQoJcr9uGzxFX%2Fzx5CDsqG5blCMIPCWPxSGs53sbXQHW%2BLXKltU3UlFajKtLf0%2BPItfkBUV5aoDwHF0FNRoRQ5NvYCrYjsdh3ECP3%2FJjXOolmVAs6AUpjGUyNEnkVZVJiUV0asLQw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a1f3739e4c37314f-LAX",
+      "cf-ray": "a200840accc8123d-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY browser path\\\" as I'm a text-based AI assistant. However, if you're referring to the POLY website, the browser path may vary depending on the specific page or section you're trying to access.\\n\\nCould you please provide more context or clarify which specific page or section you're trying to access on the POLY website? I'll do my best to help you with the correct browser path.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-a2013e85-c2a3-4354-9f81-6294e18ead9f\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY browser path\\\" as our conversations are text-based. However, if you are referring to the POLY PMNA website, the browser path is typically the website's URL: https://poly.kerala.gov.in/\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-d48d1e8e-0ff8-4cf8-a860-c458abc587f5\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
