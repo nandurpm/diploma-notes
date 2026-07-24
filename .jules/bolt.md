@@ -1,3 +1,7 @@
+## 2026-07-25 - [Cached Static Mock Paper Question Bank Map]
+**Learning:** Found a performance bottleneck where the mock exam evaluation API was recreating a `Map` of all questions from a static configuration `MOCK_PAPER.questions` on every single request. Although the list has only 33 entries, constructing a new `Map` on every invocation wastes CPU cycles, allocates unnecessary memory, and triggers garbage collection overhead on hot API endpoints.
+**Action:** Pre-compile and cache static maps or lookup indices in the module-level scope at load time, rather than reconstructing them dynamically inside request handlers.
+
 ## 2026-07-24 - [Removed Redundant Deduplication inside Search-Filter Render Loop]
 **Learning:** Found a redundant O(N) deduplication call `unique(list)` inside the active `render()` loop of `assets/js/subject-browser.js` which executes on every single keypress, search input, and filter change event. Since the master dataset `all` is already deduplicated once at initial load inside `getSubjects()`, this call was fully redundant and wasted CPU cycles and memory allocations.
 **Action:** Remove unnecessary operations (such as deduplication or heavy map transformations) from input/filter change rendering handlers when the underlying data is already known to be clean and unique.
