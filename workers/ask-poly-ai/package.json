@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "check": "node --check src/index.js",
-    "test": "node --test test/",
-    "coverage": "node --test --experimental-test-coverage test/",
+    "test": "node --test test/*.test.js",
+    "coverage": "node --test --experimental-test-coverage test/*.test.js",
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
