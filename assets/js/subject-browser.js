@@ -210,7 +210,9 @@
     if (mode === "lessons") list = list.filter(hasLesson);
     if (semester !== "all") list = list.filter(subject => String(subject.semester) === semester);
     if (query) list = list.filter(subject => [subject.code, subject.name, subject.department, subject.semester, subject.type, subject.revision].join(" ").toLowerCase().includes(query));
-    list = unique(list).sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
+    // PERFORMANCE OPTIMIZATION: Removed redundant unique() deduplication inside the render loop.
+    // The master subjects array (all) is already deduplicated once at initial load inside getSubjects().
+    list.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
     if (mode === "home") {
       // PERFORMANCE OPTIMIZATION: Replacing O(n^2) array.findIndex loop with O(n) Set lookups.
       // This is crucial on the homepage where 1800+ elements would otherwise trigger millions of iterations.
