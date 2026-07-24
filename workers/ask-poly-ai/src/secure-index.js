@@ -8,6 +8,9 @@ function json(data, status, origin, env, inherited) {
   output.set("Content-Type", "application/json; charset=utf-8");
   output.set("Cache-Control", "no-store");
   output.set("X-Content-Type-Options", "nosniff");
+  output.set("X-Frame-Options", "DENY");
+  output.set("Content-Security-Policy", "default-src 'none'");
+  output.set("Referrer-Policy", "no-referrer");
   output.delete("Content-Length");
   return new Response(JSON.stringify(data), { status, headers: output });
 }

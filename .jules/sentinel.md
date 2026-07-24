@@ -1,0 +1,4 @@
+## 2026-07-24 - [Harden JSON Response Headers in Cloudflare Workers]
+**Vulnerability:** Missing strict security response headers on JSON endpoints which can expose endpoints to content-type sniffing, clickjacking inside iframes, or cross-site scripting vulnerabilities if user data is rendered.
+**Learning:** By default, Cloudflare Workers do not set defensive security headers on custom Response objects. While standard HTML pages have these headers set at the proxy level or via static files, Worker endpoints returning JSON must manually include `X-Frame-Options: DENY`, `Content-Security-Policy: default-src 'none'`, and `Referrer-Policy: no-referrer` alongside CORS headers.
+**Prevention:** Always use the centralized response sanitizers (`jsonResponse` or equivalent) that enforce these headers instead of instantiating naked `new Response()` objects for JSON payloads.
