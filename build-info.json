@@ -1,6 +1,6 @@
 {
-  "commit": "a95e13555aa3e5af49080435f9bc075cbfbd77f2",
-  "builtAt": "2026-07-25T14:43:30Z",
-  "branch": "jules-16080332618358374329-8fb19aaa",
-  "buildId": "a95e13555aa3"
+  "commit": "a5f2315cb86cb83265fa2c19415074498527e56f",
+  "builtAt": "2026-07-19T18:58:13Z",
+  "branch": "main",
+  "release": "rev2026-1009-cache-purge-20260720"
 }
