@@ -35,7 +35,7 @@ body {
   color: var(--text);
   line-height: 1.55;
 }
-.wrap { max-width: 1280px; margin: 0 auto; padding: 0 1rem; }
+.wrap { width: 100%; max-width: 100%; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 3rem); }
 
 /* TOP BAR */
 .topbar {
@@ -72,12 +72,13 @@ body {
 .hero {
   background: linear-gradient(135deg, #0f766e 0%, #0d9488 60%, #14b8a6 100%);
   color: #fff; border-radius: var(--radius); margin: .85rem 0 1rem;
-  padding: 1.4rem 1.5rem; display: grid;
+  padding: 1.4rem clamp(1.5rem, 3vw, 3rem); display: grid;
   grid-template-columns: 1.4fr 1fr; gap: 1.25rem; align-items: start;
+  width: 100%;
 }
 .hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.35rem); font-weight: 800; line-height: 1.15; margin-bottom: .35rem; }
 .hero .meta { font-size: .9rem; opacity: .95; margin-bottom: .6rem; }
-.hero .desc { font-size: .9rem; opacity: .92; max-width: 34rem; margin-bottom: .7rem; }
+.hero .desc { font-size: .9rem; opacity: .92; max-width: 42rem; margin-bottom: .7rem; }
 .badges { display: flex; flex-wrap: wrap; gap: .4rem; }
 .badge {
   background: rgba(255,255,255,.18); padding: .25rem .7rem;
@@ -136,7 +137,7 @@ tr:nth-child(even) { background: var(--primary-light); }
 }
 .mod-head {
   background: linear-gradient(135deg, #0f766e, #0d9488);
-  color: #fff; padding: .9rem 1.15rem; border-radius: var(--radius);
+  color: #fff; padding: .9rem clamp(1.15rem, 2.5vw, 2rem); border-radius: var(--radius);
   margin-bottom: .85rem;
 }
 .mod-head h2 { font-size: 1.2rem; margin-bottom: .15rem; }
