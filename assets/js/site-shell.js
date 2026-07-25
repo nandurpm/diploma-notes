@@ -4,11 +4,12 @@
 
   // label: "Home" label: "About" label: "Revision 2026" label: "Revision 2021" label: "Mock Exams" label: "Ask POLY AI" label: "2015 Materials" label: "Tools" label: "Help"
 
-  const VERSION = "20260723-ui-audit-fix1";
+  const VERSION = "20260725-watermark2";
   const SITE_NAME = "POLY PMNA";
   const FAVICON_HREF = "/assets/media/poly-pmna-favicon.svg";
   const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
   const MOBILE_HEADER_CSS = "/assets/css/mobile-header-hotfix.css?v=20260720-mobile-header-fix3";
+  const WATERMARK_CSS = "/assets/css/lesson-watermark.css?v=20260725-watermark1";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
   const navItems = [
@@ -31,6 +32,29 @@
     icon.href = FAVICON_HREF;
     icon.dataset.polyPmnaFavicon = "true";
     document.head.append(icon);
+  }
+
+  function ensureWatermarkCss() {
+    if (document.querySelector('link[data-poly-watermark-css="true"]')) return;
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = WATERMARK_CSS;
+    link.dataset.polyWatermarkCss = "true";
+    document.head.append(link);
+  }
+
+  function ensureWatermarkDom() {
+    const MARKER = "data-poly-watermark";
+    if (document.querySelector(`[${MARKER}]`)) return;
+    if (window.matchMedia && window.matchMedia("print").matches) return;
+    const overlay = document.createElement("div");
+    overlay.className = "poly-watermark";
+    overlay.setAttribute(MARKER, "");
+    overlay.setAttribute("aria-hidden", "true");
+    const inner = document.createElement("div");
+    inner.className = "poly-watermark-inner";
+    overlay.appendChild(inner);
+    document.body.insertBefore(overlay, document.body.firstChild);
   }
 
   function ensureMobileHeaderStyles() {
@@ -163,7 +187,11 @@
 
   function render(options = {}) {
     ensureFavicon();
-    if (isLessonPage()) return;
+    if (isLessonPage()) {
+      ensureWatermarkCss();
+      ensureWatermarkDom();
+      return;
+    }
     ensureMobileHeaderStyles();
     const force = options.force === true;
     renderHeader(force);

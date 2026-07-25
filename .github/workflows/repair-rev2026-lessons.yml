@@ -68,7 +68,7 @@ jobs:
           from pathlib import Path
           import re
           text = Path('/tmp/rev2026.dom').read_text(encoding='utf-8')
-          required = ['lesson-all-content', 'revision-2026-lesson', '20260718-fullscreen4', 'polyLessonEndActions']
+          required = ['lesson-all-content', 'revision-2026-lesson', '20260725-watermark1', 'polyLessonEndActions']
           missing = [token for token in required if token not in text]
           modules = set(re.findall(r'data-module="([1-4])"', text))
           if modules != {'1', '2', '3', '4'}:

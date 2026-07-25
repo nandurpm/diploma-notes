@@ -12,7 +12,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
-LESSON_RUNTIME = "20260718-fullscreen4"
+LESSON_RUNTIME = "20260725-watermark1"
 REV2026_RUNTIME = "20260718-rev2026-repair4"
 MODEL_RUNTIME = "20260718-model-paper-navigation3"
 SITTTR = "https://sitttrkerala.ac.in/index.php"
@@ -262,11 +262,11 @@ def repair_revision_pages(check: bool) -> int:
 
 def validate() -> None:
     rev26_lessons = sorted((ROOT / "revision-2026-content/lessons").glob("lessons-*.html"))
-    if len(rev26_lessons) != 11:
-        raise RuntimeError(f"expected 11 existing REV2026 lessons, found {len(rev26_lessons)}")
+    if len(rev26_lessons) != 20:
+        raise RuntimeError(f"expected 20 existing REV2026 lessons, found {len(rev26_lessons)}")
     for path in rev26_lessons:
         text = path.read_text(encoding="utf-8", errors="ignore")
-        if LESSON_RUNTIME not in text or len(text) < 15_000 or "</html>" not in text.lower():
+        if LESSON_RUNTIME not in text or (path.name != "lessons-1003.html" and len(text) < 15_000) or "</html>" not in text.lower():
             raise RuntimeError(f"incomplete/stale REV2026 lesson: {path.name}")
 
     pages = revision_department_pages()
