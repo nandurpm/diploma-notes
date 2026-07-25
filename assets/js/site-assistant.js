@@ -340,6 +340,17 @@
     let currentHeading = lessonTitle || "Lesson";
     let sourceCounter = 0;
 
+    // PERFORMANCE OPTIMIZATION: Cache [data-target] panel buttons in a Map outside the main loop.
+    // This avoids performing a slow O(N) DOM lookup and document-wide querySelectorAll for every single
+    // content element indexed, cutting DOM overhead dramatically and converting lookups to O(1).
+    const panelButtonsMap = new Map();
+    document.querySelectorAll("[data-target]").forEach((item) => {
+      const targetId = item.getAttribute("data-target");
+      if (targetId && !panelButtonsMap.has(targetId)) {
+        panelButtonsMap.set(targetId, item);
+      }
+    });
+
     elements.forEach((element) => {
       if (isSkippedContent(element)) return;
       if (/^H[1-4]$/.test(element.tagName)) {
@@ -359,9 +370,7 @@
 
       const panelElement = element.closest(".panel");
       const panelId = panelElement?.id || "";
-      const panelButton = panelId
-        ? [...document.querySelectorAll("[data-target]")].find((item) => item.dataset.target === panelId)
-        : null;
+      const panelButton = panelId ? panelButtonsMap.get(panelId) : null;
       const panelLabel = cleanText(panelButton?.textContent || panelElement?.querySelector("h2, h3")?.textContent || "");
       const localHeading = cleanText(element.closest(".card,.answer-card,.info-box")?.querySelector("h2,h3,h4,b")?.textContent || currentHeading);
       const sourceTitle = [...new Set([panelLabel, localHeading].filter(Boolean))].join(" — ") || lessonTitle || "Lesson source";
