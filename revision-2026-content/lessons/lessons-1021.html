@@ -15,6 +15,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <title>Basic Mechanical Engineering 1021 | Revision 2026 | POLY PMNA</title>
 <link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css?v=20260718-fullscreen4">
+<link rel="stylesheet" href="/assets/css/lesson-watermark.css?v=20260725-watermark1" class="poly-watermark-css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Basic Mechanical Engineering","courseCode":"1021","educationalLevel":"Kerala Diploma Semester I","provider":{"@type":"Organization","name":"POLY PMNA"},"description":"Revision 2026 practicum handbook covering mechanical engineering fundamentals, thermodynamics, fluid power, power transmission, manufacturing and safety."}</script>
 <style>
 :root{--ink:#102033;--muted:#526579;--paper:#fff;--soft:#f2f7fb;--line:#cad7e2;--navy:#17324d;--steel:#3f5f78;--cyan:#078ca8;--orange:#d96522;--green:#26734d;--red:#b4232d;--shadow:0 12px 30px rgba(16,32,51,.08);--radius:18px;--module:#078ca8;color-scheme:light}
@@ -251,6 +252,7 @@ async function downloadNotes(){const fallback=`${location.pathname}?autoPrintNot
 function setupUI(){document.querySelectorAll("[data-print]").forEach(button=>button.addEventListener("click",()=>{const title=document.title;preparePrint();addEventListener("afterprint",()=>{document.title=title},{once:true});setTimeout(()=>print(),180)}));document.querySelectorAll("[data-download]").forEach(button=>button.addEventListener("click",downloadNotes));document.getElementById("themeToggle").addEventListener("click",()=>document.body.classList.toggle("dark"));document.getElementById("motionToggle").addEventListener("click",()=>document.body.classList.toggle("reduced"));if(matchMedia("(prefers-reduced-motion: reduce)").matches)document.body.classList.add("reduced");if(new URLSearchParams(location.search).has("autoPrintNotes")){addEventListener("load",()=>{preparePrint();setTimeout(()=>print(),650)},{once:true})}}
 renderModules();renderPracticals();renderFormulas();renderExamples();renderDiagrams();renderAnimations();renderWeeks();renderQuestions();renderAssessment();renderRevision();setupUI();
 </script>
+<script src="/assets/js/lesson-watermark.js?v=20260725-watermark1" defer></script>
 <script src="/assets/js/lesson-navigation-fix.js?v=20260718-fullscreen4" defer></script>
 </body>
 </html>
