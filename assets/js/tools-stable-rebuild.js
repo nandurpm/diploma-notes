@@ -64,6 +64,17 @@
   function fields(defs, calc, note=''){
     $('#body').innerHTML = `<form class='form' id='toolForm'>${defs.map((d,index)=>{const id=`tool-field-${index}`;return `<div class='field'><label for='${id}'>${esc(d[1])}</label><input id='${id}' name='${esc(d[0])}' value='${esc(d[2]??'')}' placeholder='${esc(d[3]??'')}'></div>`;}).join('')}</form>${note?`<div class='notice'>${note}</div>`:''}<div class='tool-actions'><button class='btn primary' id='calcBtn' type='button'>Calculate</button><button class='btn' id='resetBtn' type='button'>Reset</button></div><div class='result' id='res' role='status' aria-live='polite'>Enter values and press Calculate.</div>`;
     
+    /* Intercept Enter key inside the form to programmatically trigger calculation */
+    const tf = $('#toolForm');
+    if (tf) {
+      tf.onkeydown = e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          $('#calcBtn')?.click();
+        }
+      };
+    }
+
     /* Handle calculation logic and display results or errors */
     $('#calcBtn').onclick = () => { try { const f = new FormData($('#toolForm')); $('#res').className = 'result'; $('#res').innerHTML = calc(f); } catch(e){ $('#res').className = 'result err'; $('#res').textContent = e.message || 'Calculation failed.'; } };
     

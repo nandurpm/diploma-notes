@@ -1,0 +1,3 @@
+## 2026-07-24 - Dynamic Single-Page Form Submission
+**Learning:** In dynamically generated single-page forms with multiple input fields, pressing Enter does not trigger standard `onsubmit` events if there is no native submit button. Binding an `onkeydown` listener for Enter on the parent form element is the standard, robust UX workaround to prevent form submission friction.
+**Action:** Always intercept the 'Enter' keypress on dynamically rendered forms and programmatically click or trigger the corresponding action button or validation process to keep interaction frictionless for keyboard users.
