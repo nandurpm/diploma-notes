@@ -94,7 +94,7 @@ jobs:
               'lesson page class': 'lesson-all-content',
               'end actions': 'polyLessonEndActions',
               'Revision 2026 identity': 'Revision 2026',
-              'current runtime': '20260718-fullscreen4',
+              'current runtime': '20260725-watermark1',
           }
           missing = [name for name, marker in checks.items() if marker not in html]
           if missing:

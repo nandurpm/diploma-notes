@@ -68,7 +68,10 @@ export function jsonResponse(data, status, origin, env) {
       ...corsHeaders(origin, env),
       "Content-Type": "application/json; charset=utf-8",
       "Cache-Control": "no-store",
-      "X-Content-Type-Options": "nosniff"
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "Content-Security-Policy": "default-src 'none'",
+      "Referrer-Policy": "no-referrer"
     }
   });
 }

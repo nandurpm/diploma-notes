@@ -1,0 +1,73 @@
+/*
+ * POLY PMNA — Lesson Watermark Component
+ * Shared CSS for the watermark overlay loaded on all lesson pages.
+ *
+ * Accessibility guarantees:
+ *   - Never blocks text content
+ *   - Never intercepts clicks
+ *   - Never affects scrolling
+ *   - Never affects text selection
+ *   - Never reduces readability
+ *   - GPU-accelerated and lightweight
+ *   - Hidden during print
+ */
+
+:root {
+  --poly-watermark-opacity: 0.07;
+  --poly-watermark-size: 180px;
+  --poly-watermark-gap: 220px;
+  --poly-watermark-rotation: -30deg;
+  --poly-watermark-image: url("/assets/media/poly-pmna-watermark-sm.png");
+  --poly-watermark-z-index: 0;
+}
+
+.poly-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: var(--poly-watermark-z-index);
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden;
+  opacity: var(--poly-watermark-opacity);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: transform;
+}
+
+.poly-watermark-inner {
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: calc(100% + 200px);
+  height: calc(100% + 200px);
+  transform: rotate(var(--poly-watermark-rotation));
+  transform-origin: center center;
+  background-image: var(--poly-watermark-image);
+  background-repeat: repeat;
+  background-size: var(--poly-watermark-size);
+  background-position: 0 0;
+  will-change: transform;
+}
+
+/* Ensure the watermark sits behind all interactive content */
+.poly-watermark ~ *,
+body > *:not(.poly-watermark) {
+  position: relative;
+}
+
+/* Print: hide watermark completely */
+@media print {
+  .poly-watermark {
+    display: none !important;
+  }
+}
+
+/* Reduced motion: keep static, no animations */
+@media (prefers-reduced-motion: reduce) {
+  .poly-watermark,
+  .poly-watermark-inner {
+    animation: none !important;
+    transition: none !important;
+  }
+}

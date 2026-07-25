@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "lesson-fullscreen-validation.json"
-LESSON_RUNTIME = "20260718-fullscreen4"
+LESSON_RUNTIME = "20260725-watermark1"
 
 
 def read(path: Path) -> str:
@@ -42,7 +42,7 @@ def main() -> int:
         if not re.match(r"\s*<!doctype\s+html\b", source, flags=re.I):
             missing_doctype.append(rel)
 
-    if len(rev21) != 91 or len(rev26) != 19:
+    if len(rev21) != 91 or len(rev26) != 20:
         failures.append(f"lesson inventory mismatch: REV2021={len(rev21)}, REV2026={len(rev26)}")
     if missing_runtime:
         failures.append("missing shared runtime: " + ", ".join(missing_runtime))
