@@ -267,5 +267,5 @@ $$('[data-download]').forEach(button=>button.addEventListener('click',downloadNo
 async function preparePrint(){setDetails(true);const wasReduced=document.body.classList.contains('reduce');document.body.classList.add('reduce');$$('.animation').forEach(animation=>animation.classList.add('paused'));addEventListener('afterprint',()=>{if(!wasReduced)document.body.classList.remove('reduce')},{once:true});try{await document.fonts.ready}catch{}await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));setTimeout(()=>window.print(),250)}
 if(new URLSearchParams(location.search).get('autoPrintNotes')==='1'){const autoPrint=()=>setTimeout(preparePrint,700);if(document.readyState==='complete')autoPrint();else addEventListener('load',autoPrint,{once:true})}
 </script>
-<script src="/assets/js/lesson-navigation-fix.js?v=20260718-fullscreen4" defer></script></body>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script></body>
 </html>

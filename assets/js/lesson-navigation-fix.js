@@ -35,6 +35,15 @@
     root.style.setProperty("--topbar-h", "0px");
     root.style.setProperty("--toolbar-h", "0px");
     root.style.setProperty("--top", "0px");
+    root.style.setProperty("--topbar-h", "0px");
+    root.style.setProperty("--toolbar-h", "0px");
+    root.style.setProperty("--top", "0px");
+    root.style.setProperty("--topbar-h", "0px");
+    root.style.setProperty("--toolbar-h", "0px");
+    root.style.setProperty("--top", "0px");
+    root.style.setProperty("--topbar-h", "0px");
+    root.style.setProperty("--toolbar-h", "0px");
+    root.style.setProperty("--top", "0px");
   }
 
   function installWatermark() {
@@ -74,7 +83,7 @@
       link.rel = "stylesheet";
       (document.head || root).append(link);
     }
-    link.href = "/assets/css/lesson-page-fix.css?v=20260718-fullscreen4";
+    link.href = "/assets/css/lesson-page-fix.css?v=20260725-watermark1";
   }
 
   function ensureViewport() {
