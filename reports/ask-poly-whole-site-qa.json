@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-07-23T10:47:34.183Z",
+  "generatedAt": "2026-07-25T14:10:40.374Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
@@ -24,14 +24,14 @@
       "status": {
         "ok": true,
         "version": "2026-07-whole-site-v1",
-        "generatedAt": "2026-07-23T09:08:15Z",
+        "generatedAt": "2026-07-25T13:28:20Z",
         "counts": {
-          "pages": 238,
+          "pages": 240,
           "programmes2021": 43,
           "programmes2026": 38,
           "subjectRecords": 4181,
-          "lessonRecordsAvailable": 562,
-          "notesRecordsAvailable": 561
+          "lessonRecordsAvailable": 564,
+          "notesRecordsAvailable": 564
         }
       }
     },
@@ -39,24 +39,24 @@
       "name": "knowledge contains 38 Revision 2026 programmes",
       "passed": true,
       "counts": {
-        "pages": 238,
+        "pages": 240,
         "programmes2021": 43,
         "programmes2026": 38,
         "subjectRecords": 4181,
-        "lessonRecordsAvailable": 562,
-        "notesRecordsAvailable": 561
+        "lessonRecordsAvailable": 564,
+        "notesRecordsAvailable": 564
       }
     },
     {
       "name": "knowledge contains both curriculum datasets",
       "passed": true,
       "counts": {
-        "pages": 238,
+        "pages": 240,
         "programmes2021": 43,
         "programmes2026": 38,
         "subjectRecords": 4181,
-        "lessonRecordsAvailable": 562,
-        "notesRecordsAvailable": 561
+        "lessonRecordsAvailable": 564,
+        "notesRecordsAvailable": 564
       }
     },
     {
@@ -117,14 +117,14 @@
   "knowledgeStatus": {
     "ok": true,
     "version": "2026-07-whole-site-v1",
-    "generatedAt": "2026-07-23T09:08:15Z",
+    "generatedAt": "2026-07-25T13:28:20Z",
     "counts": {
-      "pages": 238,
+      "pages": 240,
       "programmes2021": 43,
       "programmes2026": 38,
       "subjectRecords": 4181,
-      "lessonRecordsAvailable": 562,
-      "notesRecordsAvailable": 561
+      "lessonRecordsAvailable": 564,
+      "notesRecordsAvailable": 564
     }
   },
   "screenshots": [
