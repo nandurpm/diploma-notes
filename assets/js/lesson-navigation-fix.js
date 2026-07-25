@@ -44,6 +44,9 @@
     root.style.setProperty("--topbar-h", "0px");
     root.style.setProperty("--toolbar-h", "0px");
     root.style.setProperty("--top", "0px");
+    root.style.setProperty("--topbar-h", "0px");
+    root.style.setProperty("--toolbar-h", "0px");
+    root.style.setProperty("--top", "0px");
   }
 
   function installWatermark() {
