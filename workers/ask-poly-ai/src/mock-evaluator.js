@@ -4,6 +4,10 @@ import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 const DEFAULT_MODEL = "gpt-4o-mini";
 const clean = (value, maximum) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
+// PERFORMANCE OPTIMIZATION: Cache the mock paper question bank Map to avoid O(N) array mapping
+// and Map instantiation on every single API evaluation request.
+const MOCK_QUESTION_BANK_MAP = new Map(MOCK_PAPER.questions.map((question) => [question.id, question]));
+
 function selectedQuestionsFrom(body) {
   if (body?.paperId !== MOCK_PAPER.id || body?.subjectCode !== MOCK_PAPER.subjectCode) {
     throw new Error("Unknown mock examination paper.");
@@ -12,7 +16,7 @@ function selectedQuestionsFrom(body) {
     throw new Error("The official-pattern paper requires exactly 23 selected answers.");
   }
 
-  const bank = new Map(MOCK_PAPER.questions.map((question) => [question.id, question]));
+  const bank = MOCK_QUESTION_BANK_MAP;
   const supplied = new Map();
   for (const item of body.answers) {
     const id = clean(item?.id, 10);
