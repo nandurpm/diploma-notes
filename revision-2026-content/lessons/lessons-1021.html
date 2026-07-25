@@ -251,6 +251,6 @@ async function downloadNotes(){const fallback=`${location.pathname}?autoPrintNot
 function setupUI(){document.querySelectorAll("[data-print]").forEach(button=>button.addEventListener("click",()=>{const title=document.title;preparePrint();addEventListener("afterprint",()=>{document.title=title},{once:true});setTimeout(()=>print(),180)}));document.querySelectorAll("[data-download]").forEach(button=>button.addEventListener("click",downloadNotes));document.getElementById("themeToggle").addEventListener("click",()=>document.body.classList.toggle("dark"));document.getElementById("motionToggle").addEventListener("click",()=>document.body.classList.toggle("reduced"));if(matchMedia("(prefers-reduced-motion: reduce)").matches)document.body.classList.add("reduced");if(new URLSearchParams(location.search).has("autoPrintNotes")){addEventListener("load",()=>{preparePrint();setTimeout(()=>print(),650)},{once:true})}}
 renderModules();renderPracticals();renderFormulas();renderExamples();renderDiagrams();renderAnimations();renderWeeks();renderQuestions();renderAssessment();renderRevision();setupUI();
 </script>
-<script src="/assets/js/lesson-navigation-fix.js?v=20260718-fullscreen4" defer></script>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
 </body>
 </html>
