@@ -9,3 +9,7 @@
 ## 2026-07-18 - [Optimized Homepage Subject Card Filter]
 **Learning:** Found an $O(n^2)$ filtering function `array.findIndex` inside `assets/js/subject-browser.js` on the static homepage which processed 1800+ dynamically fetched elements. Replacing it with an $O(n)$ hash Set lookup reduces iterations from ~3.2 million down to just ~1800.
 **Action:** Use standard hash Set/map objects for dynamic filtering logic on lists that can scale beyond 100+ elements on the client side.
+
+## 2026-07-25 - [Cached DOM Queries in Site Assistant Indexing Loop]
+**Learning:** Discovered an $O(N \times M)$ DOM querying bottleneck inside `buildLessonChunks()` in `assets/js/site-assistant.js`, which runs dynamically on page interactions/mutations. For every DOM element processed (up to hundreds of elements), the script executed a full-document query selector search `document.querySelectorAll("[data-target]")` to find matching buttons. Building a lookup Map of targets before entering the loop reduces DOM querying to $O(1)$ per iteration.
+**Action:** Avoid performing repetitive, document-wide DOM query selector searches (like `document.querySelectorAll`) inside loops. Query once and cache the results in a Map/object lookup.
