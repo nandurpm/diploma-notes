@@ -37,6 +37,29 @@
     root.style.setProperty("--top", "0px");
   }
 
+  function installWatermark() {
+    /* Inject watermark CSS link (guarded by data attribute to prevent duplicates) */
+    if (!document.querySelector('link[data-poly-watermark-css="true"]')) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = "/assets/css/lesson-watermark.css?v=20260725-watermark1";
+      link.dataset.polyWatermarkCss = "true";
+      (document.head || root).append(link);
+    }
+    /* Inject watermark DOM overlay (guarded by data attribute to prevent duplicates) */
+    const MARKER = "data-poly-watermark";
+    if (document.querySelector(`[${MARKER}]`)) return;
+    if (window.matchMedia && window.matchMedia("print").matches) return;
+    const overlay = document.createElement("div");
+    overlay.className = "poly-watermark";
+    overlay.setAttribute(MARKER, "");
+    overlay.setAttribute("aria-hidden", "true");
+    const inner = document.createElement("div");
+    inner.className = "poly-watermark-inner";
+    overlay.appendChild(inner);
+    document.body.insertBefore(overlay, document.body.firstChild);
+  }
+
   function installStyles() {
     if (!document.getElementById("poly-lesson-critical")) {
       const style = document.createElement("style");
@@ -240,6 +263,7 @@
     markPage();
     ensureViewport();
     installStyles();
+    installWatermark();
     revealAllLessonSections();
     await new Promise((resolve) => setTimeout(resolve, 120));
     if (!revision2026) await expandDynamicModuleViews();
