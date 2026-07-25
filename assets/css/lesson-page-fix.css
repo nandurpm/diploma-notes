@@ -491,6 +491,7 @@ html.poly-lesson-page.polytechnic-native-app .poly-lesson-back {
 
 
 
+
 /* REV2026 full-screen repair v4: preserve complete modules, remove duplicate sidebar, and eliminate top gaps. */
 html.poly-lesson-page {
   --fixed-site-header-height:0px!important;
