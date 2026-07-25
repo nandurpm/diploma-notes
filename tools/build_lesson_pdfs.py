@@ -31,7 +31,7 @@ PANEL_SELECTORS = [
 ]
 
 PRINT_CSS = r"""
-@page { size: A4; margin: 0 !important; }
+@page { size: A4; margin: 8mm !important; }
 @media print {
   html, body {
     width: 100% !important;
@@ -43,7 +43,28 @@ PRINT_CSS = r"""
     overflow: visible !important;
     background: #fff !important;
   }
-  body::before, body::after { display: none !important; }
+  body::before { display: none !important; }
+  body::after {
+    content: "" !important;
+    display: block !important;
+    position: fixed !important;
+    z-index: 0 !important;
+    pointer-events: none !important;
+    top: -45mm !important;
+    left: -45mm !important;
+    width: calc(100% + 90mm) !important;
+    height: calc(100% + 90mm) !important;
+    opacity: 0.07 !important;
+    transform: rotate(-30deg) !important;
+    transform-origin: center center !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='160' viewBox='0 0 360 160'%3E%3Ctext x='0' y='82' fill='%231e3a8a' fill-opacity='1' font-family='Arial, sans-serif' font-size='18' font-weight='700' letter-spacing='2'%3EPOLYPMNA.DPDNS.ORG%3C/text%3E%3C/svg%3E") !important;
+    background-repeat: repeat !important;
+    background-size: 360px 160px !important;
+  }
+  body > * {
+    position: relative !important;
+    z-index: 1 !important;
+  }
   header, nav, .topbar, .bar, .lesson-nav, .reading-progress,
   .revision-back-button, #toTop, #hbToTop, .download-pdf-btn, .pdf-button,
   .search-tools, button, #polySiteAssistant {
