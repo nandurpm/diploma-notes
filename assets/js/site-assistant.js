@@ -1,4 +1,33 @@
-/* Purpose: Site assistant - Descriptive comment added for clarity */
+/* =========================================================
+   POLY SITE ASSISTANT — In-Page AI Help Panel
+   ---------------------------------------------------------
+   Provides an interactive floating assistant panel on every
+   page (portal and lesson). The panel lets students ask
+   questions and receives answers generated from the page's
+   own content (lessons) and the global subject knowledge base.
+
+   Key capabilities:
+   - Indexes lesson page content into searchable chunks
+   - Matches user queries against lesson content and synonyms
+   - Renders a collapsible chat-like panel with query input
+   - Shows answer previews with source attribution
+   - Maintains per-page query history in sessionStorage
+   - Supports both English and Malayalam search terms
+
+   Loaded by:
+   - assets/js/site-assistant-loader.js (lazy loads this script)
+
+   Related files:
+   - assets/css/site-assistant.css
+   - assets/css/site-assistant-fix.css
+   - assets/js/subjects.js (subject knowledge base)
+   - assets/js/asset-manifest.js (asset index)
+   - data/knowledge-base.json (global site knowledge)
+
+   Warning: This script indexes DOM content and performs
+   text matching. Changes to the indexing logic affect
+   answer quality across all pages.
+   ========================================================= */
 (() => {
   "use strict";
 

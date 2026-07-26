@@ -1,4 +1,31 @@
-/* Purpose: Revision 2026 browser - Descriptive comment added for clarity */
+/* =========================================================
+   REVISION 2026 BROWSER — Department and Programme Navigator
+   ---------------------------------------------------------
+   This script powers the Revision 2026 department listing page
+   (/revision-2026.html) and individual department pages
+   (/revision-2026/[department].html). It renders department
+   cards, programme listings, and subject grids from JSON data.
+
+   Responsibilities:
+   - Renders the Revision 2026 programme index page with
+     all department cards and search/filter functionality
+   - Renders individual department pages with semester-wise
+     subject grids (course code, title, lessons, notes, syllabus)
+   - Configures Syllabus and Model QP links to SITTTR website
+   - Applies department-specific colour gradients and artwork
+   - Handles search filtering across all departments
+
+   Related files:
+   - assets/data/revision-2026-programmes.json
+   - assets/data/revision-2026-subjects.json
+   - assets/data/rev2026-programme-status.json
+   - assets/css/revision-2026-department-themes.css
+   - assets/css/revision-2026-directory.css
+   - assets/media/departments/rev2026/
+
+   Warning: Changes to data loading or rendering affect
+   the entire Revision 2026 experience.
+   ========================================================= */
 (() => {
   "use strict";
 

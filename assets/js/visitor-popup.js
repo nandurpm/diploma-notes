@@ -1,4 +1,27 @@
-/* Purpose: Visitor popup - Descriptive comment added for clarity */
+/* =========================================================
+   VISITOR POPUP — Promotional Popup Rotation System
+   ---------------------------------------------------------
+   Shows a rotating popup on non-Ask-POLY pages. Popups can
+   be images (PNG) or videos (MP4) loaded from assets/popup/.
+   Each visitor sees one popup per day, cycling through
+   available popup files in order.
+
+   Popup files (in order of priority):
+   - /assets/popup/popup-1.png
+   - /assets/popup/popup-2.png
+   - /assets/popup/popup-1.mp4
+   - /assets/popup/popup-2.mp4
+
+   If no popup files exist, a fallback HTML promotional card
+   for Ask POLY AI is shown instead.
+
+   Related files:
+   - assets/popup/ (popup media files)
+   - assets/popup/README.md (popup usage guide)
+
+   Warning: The popup probes media availability via HEAD
+   requests on page load. Missing files add network latency.
+   ========================================================= */
 (() => {
   "use strict";
 
