@@ -40,16 +40,27 @@ export async function authenticateStudent(request, env) {
   const anonKey = clean(env?.SUPABASE_ANON_KEY, 4096);
   if (!base || !anonKey) throw Object.assign(new Error("Verified result storage is not configured."), { status: 503 });
 
-  const response = await fetchWithTimeout(`${base}/auth/v1/user`, {
-    headers: {
-      apikey: anonKey,
-      Authorization: `Bearer ${token}`,
-      "X-Client-Info": "poly-pmna-worker/verified-results"
+  try {
+    const response = await fetchWithTimeout(`${base}/auth/v1/user`, {
+      headers: {
+        apikey: anonKey,
+        Authorization: `Bearer ${token}`,
+        "X-Client-Info": "poly-pmna-worker/verified-results"
+      }
+    });
+    const user = await response.json().catch(() => ({}));
+    if (!response.ok || !user?.id) throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
+    return { id: clean(user.id, 80), token };
+  } catch (error) {
+    if (error && typeof error === "object" && "status" in error) {
+      throw error;
     }
-  });
-  const user = await response.json().catch(() => ({}));
-  if (!response.ok || !user?.id) throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
-  return { id: clean(user.id, 80), token };
+    console.error("Unexpected student authentication failure:", error);
+    throw Object.assign(
+      new Error("The authentication service is temporarily unavailable. Please try again."),
+      { status: 502 }
+    );
+  }
 }
 
 export async function storeMockExamResult(user, body, result, env) {
