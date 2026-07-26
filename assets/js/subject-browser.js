@@ -107,7 +107,21 @@
     ]);
     if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
-    return unique([...revision2021, ...MANUAL, ...revision2026]);
+    const merged = unique([...revision2021, ...MANUAL, ...revision2026]);
+
+    // PERFORMANCE OPTIMIZATION: Pre-calculate search text for all subjects once at load time
+    // to avoid array allocation, joining, and lowercase coercion of 1900+ elements on every keystroke.
+    merged.forEach(subject => {
+      subject._searchText = [
+        subject.code,
+        subject.name,
+        subject.department,
+        subject.semester,
+        subject.type,
+        subject.revision
+      ].join(" ").toLowerCase();
+    });
+    return merged;
   }
 
   function hasLesson(subject) {
@@ -209,7 +223,7 @@
     }
     if (mode === "lessons") list = list.filter(hasLesson);
     if (semester !== "all") list = list.filter(subject => String(subject.semester) === semester);
-    if (query) list = list.filter(subject => [subject.code, subject.name, subject.department, subject.semester, subject.type, subject.revision].join(" ").toLowerCase().includes(query));
+    if (query) list = list.filter(subject => (subject._searchText || "").includes(query));
     // PERFORMANCE OPTIMIZATION: Removed redundant unique() deduplication inside the render loop.
     // The master subjects array (all) is already deduplicated once at initial load inside getSubjects().
     list.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));

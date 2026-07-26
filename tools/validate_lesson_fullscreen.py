@@ -42,7 +42,7 @@ def main() -> int:
         if not re.match(r"\s*<!doctype\s+html\b", source, flags=re.I):
             missing_doctype.append(rel)
 
-    if len(rev21) != 91 or len(rev26) != 20:
+    if len(rev21) != 91 or len(rev26) != 22:
         failures.append(f"lesson inventory mismatch: REV2021={len(rev21)}, REV2026={len(rev26)}")
     if missing_runtime:
         failures.append("missing shared runtime: " + ", ".join(missing_runtime))
