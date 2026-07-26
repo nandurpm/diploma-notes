@@ -1,4 +1,36 @@
-/* Purpose: Site shell - Descriptive comment added for clarity */
+/* =========================================================
+   POLY SITE SHELL — Global Header, Navigation, and Footer
+   ---------------------------------------------------------
+   This module is responsible for rendering and maintaining the
+   site-wide header (brand logo + navigation menu) and footer
+   on every non-lesson page. It is loaded on every portal page
+   via main.js and is also referenced directly in some HTML pages.
+
+   Key responsibilities:
+   - Injects the canonical favicon across all pages
+   - Renders a consistent top navigation bar with active-page detection
+   - Renders the site footer with copyright year and legal links
+   - Manages the mobile hamburger menu (open/close, Escape, click-outside)
+   - Automatically repairs the header if other scripts modify it
+   - On lesson pages, injects watermark CSS and DOM overlay instead
+   - Injects mobile header hotfix CSS on portal pages
+
+   Page detection:
+   - Lesson pages are identified by the pathname pattern
+     /lessons/lessons-[CODE].html or
+     /revision-2026-content/lessons/lessons-[CODE].html
+   - Portal pages are all other pages
+
+   Related files:
+   - main.js (calls PolySiteShell.render())
+   - assets/css/mobile-header-hotfix.css
+   - assets/css/lesson-watermark.css
+   - assets/media/poly-pmna-logo.png
+   - assets/media/poly-pmna-favicon.svg
+
+   Warning: Changes to navItems affect every page's navigation.
+   Changes to headerMarkup or footer markup affect every page's layout.
+   ========================================================= */
 (() => {
   "use strict";
 
@@ -12,6 +44,16 @@
   const WATERMARK_CSS = "/assets/css/lesson-watermark.css?v=20260725-watermark1";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
+
+  /* =========================================================
+     NAVIGATION CONFIGURATION
+     ---------------------------------------------------------
+     Defines all navigation items with their display labels,
+     target URLs, and active-page matching functions.
+     Each entry is [label, href, activeMatchFn].
+     The activeMatchFn receives the current pathname and returns
+     true when the navigation item should be highlighted as active.
+     ========================================================= */
   const navItems = [
     ["Home", "/", path => path === "/" || path.endsWith("/index.html")],
     ["About", "/about.html", path => path.endsWith("/about.html")],
@@ -24,6 +66,13 @@
     ["Help", "/contact.html", path => path.endsWith("/contact.html")]
   ];
 
+  /* =========================================================
+     FAVICON MANAGEMENT
+     ---------------------------------------------------------
+     Removes any existing favicon links and injects the canonical
+     POLY PMNA SVG favicon. Prevents duplicate or conflicting
+     favicons from other scripts or server-side templates.
+     ========================================================= */
   function ensureFavicon() {
     document.head.querySelectorAll('link[rel~="icon"], link[rel="shortcut icon"]').forEach(node => node.remove());
     const icon = document.createElement("link");
@@ -34,6 +83,14 @@
     document.head.append(icon);
   }
 
+  /* =========================================================
+     LESSON WATERMARK (CSS)
+     ---------------------------------------------------------
+     Injects the lesson watermark stylesheet on lesson pages.
+     The watermark is a subtle brand overlay on all lesson content.
+     Guarded by a data attribute to prevent duplicate injection.
+     Related: assets/css/lesson-watermark.css
+     ========================================================= */
   function ensureWatermarkCss() {
     if (document.querySelector('link[data-poly-watermark-css="true"]')) return;
     const link = document.createElement("link");
@@ -43,6 +100,13 @@
     document.head.append(link);
   }
 
+  /* =========================================================
+     LESSON WATERMARK (DOM)
+     ---------------------------------------------------------
+     Creates the watermark overlay element and prepends it to
+     the document body. The overlay is hidden during print
+     and on pages that already have the marker attribute.
+     ========================================================= */
   function ensureWatermarkDom() {
     const MARKER = "data-poly-watermark";
     if (document.querySelector(`[${MARKER}]`)) return;
@@ -57,6 +121,14 @@
     document.body.insertBefore(overlay, document.body.firstChild);
   }
 
+  /* =========================================================
+     MOBILE HEADER HOTFIX CSS
+     ---------------------------------------------------------
+     Injects a CSS fix for mobile header rendering issues.
+     Only loaded on portal pages (not lesson pages).
+     Guarded against duplicate injection via data attribute.
+     Related: assets/css/mobile-header-hotfix.css
+     ========================================================= */
   function ensureMobileHeaderStyles() {
     const existing = [...document.styleSheets].some(sheet => {
       try {
@@ -73,6 +145,13 @@
     document.head.append(link);
   }
 
+  /* =========================================================
+     NAVIGATION MARKUP GENERATION
+     ---------------------------------------------------------
+     Builds the HTML for the navigation links. Each link is
+     compared against the current pathname to determine if it
+     should be marked as the active page (aria-current="page").
+     ========================================================= */
   function navMarkup() {
     const path = currentPath().toLowerCase();
     return navItems.map(([label, href, matches]) => {
@@ -81,6 +160,18 @@
     }).join("");
   }
 
+  /* =========================================================
+     MOBILE MENU BINDING
+     ---------------------------------------------------------
+     Attaches event listeners to the hamburger menu toggle
+     and navigation container. Handles:
+     - Click to toggle open/close
+     - Click on a nav link closes the menu
+     - Click outside the header closes the menu
+     - Escape key closes the menu and refocuses the toggle
+     - Window resize above 980px closes the menu
+     - Dispatches a custom event for header resize observers
+     ========================================================= */
   function bindMenu(header) {
     const button = header.querySelector(".menu-toggle");
     const nav = header.querySelector(".navlinks");
@@ -119,10 +210,27 @@
     }, { passive: true });
   }
 
+  /* =========================================================
+     HEADER MARKUP GENERATION
+     ---------------------------------------------------------
+     Produces the full header HTML including:
+     - Brand logo with link to homepage
+     - Hamburger menu toggle button
+     - Navigation links container
+     All attributes include accessibility labels.
+     ========================================================= */
   function headerMarkup() {
     return `<a class="brand" href="/" aria-label="${SITE_NAME} home"><img class="brand-logo" src="${LOGO_HREF}" alt="" width="42" height="42" decoding="async" fetchpriority="high"><strong>${SITE_NAME}</strong></a><button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-navigation">Menu</button><nav class="navlinks" id="primary-navigation" aria-label="Primary navigation">${navMarkup()}</nav>`;
   }
 
+  /* =========================================================
+     HEADER CANONICAL CHECK
+     ---------------------------------------------------------
+     Verifies whether the current header matches the expected
+     canonical structure (brand + menu-toggle + navlinks) and
+     the current shell version. Returns false if the header
+     has been modified by another script or contains extra elements.
+     ========================================================= */
   function headerIsCanonical(header) {
     const directChildren = [...header.children];
     return directChildren.length === 3 &&
@@ -132,6 +240,14 @@
       header.dataset.siteShellVersion === VERSION;
   }
 
+  /* =========================================================
+     HEADER MUTATION OBSERVER
+     ---------------------------------------------------------
+     Watches the header element for DOM changes. If the header
+     is modified (e.g., by another script injecting elements),
+     this observer restores the canonical header structure.
+     Prevents other scripts from breaking the navigation.
+     ========================================================= */
   function watchHeader(header) {
     if (header.dataset.siteShellObserved === "true" || !("MutationObserver" in window)) return;
     header.dataset.siteShellObserved = "true";
@@ -151,6 +267,14 @@
     observer.observe(header, { childList: true });
   }
 
+  /* =========================================================
+     HEADER RENDERING
+     ---------------------------------------------------------
+     Finds the header element (via data-site-header attribute
+     or portal-page fallback) and renders the canonical header.
+     Skips rendering on lesson pages.
+     Removes any duplicate header candidates.
+     ========================================================= */
   function renderHeader(force = false) {
     if (isLessonPage()) return;
     const candidates = [...new Set([
@@ -172,6 +296,15 @@
     watchHeader(header);
   }
 
+  /* =========================================================
+     FOOTER RENDERING
+     ---------------------------------------------------------
+     Renders the site footer with:
+     - Copyright notice with dynamic year
+     - About / Help / Developer links
+     - Privacy / Terms / Disclaimer links
+     Skips rendering on lesson pages.
+     ========================================================= */
   function renderFooter(force = false) {
     if (isLessonPage()) return;
     const footer = document.querySelector("[data-site-footer]") || document.querySelector("body.portal-page > footer.footer");
@@ -185,6 +318,16 @@
     }
   }
 
+  /* =========================================================
+     PUBLIC RENDER API
+     ---------------------------------------------------------
+     Main entry point called by main.js on every page.
+     On lesson pages: injects favicon, watermark CSS, and
+     watermark DOM element. Returns early.
+     On portal pages: ensures mobile header CSS, then renders
+     header and footer.
+     Exposed as window.PolySiteShell.render().
+     ========================================================= */
   function render(options = {}) {
     ensureFavicon();
     if (isLessonPage()) {
@@ -198,6 +341,7 @@
     renderFooter(force);
   }
 
+  /* Expose the public API and trigger initial render */
   window.PolySiteShell = Object.freeze({ render, version: VERSION, siteName: SITE_NAME });
   ensureFavicon();
   if (document.readyState === "loading") {

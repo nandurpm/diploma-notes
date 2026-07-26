@@ -1,7 +1,46 @@
-/* Purpose: Lesson navigation fix - Descriptive comment added for clarity */
+/* =========================================================
+   LESSON NAVIGATION FIX — Shared Lesson Page Runtime
+   ---------------------------------------------------------
+   This script is the universal runtime for every lesson page
+   on the POLY PMNA platform. It normalizes the lesson page
+   layout, hides the global site header, reveals all hidden
+   content sections, and adds end-of-lesson navigation actions.
+
+   Loaded by every lesson page via:
+     <script src="/assets/js/lesson-navigation-fix.js" defer></script>
+
+   Key responsibilities:
+   - Marks the page as a lesson page (CSS classes + data attributes)
+   - Removes the site header, navigation, and any portal chrome
+   - Injects lesson-specific critical CSS (full-width, no header gap)
+   - Injects the lesson watermark
+   - Reveals all hidden/collapsed lesson sections
+   - Expands dynamic tabbed module views into a continuous document
+   - Creates end-of-lesson actions (back button, PDF download, print)
+   - Handles auto-print mode for notes PDF generation
+   - Supports both Revision 2021 and Revision 2026 lesson paths
+   - Detects the Android native app via user agent
+
+   Related files:
+   - assets/css/lesson-page-fix.css
+   - assets/css/lesson-watermark.css
+   - assets/js/lessons/lesson-2131-enhancements.js (Rev 2026 course 2131)
+
+   Warning: Changes here affect EVERY lesson page on the site.
+   Test on both desktop and mobile before committing.
+   ========================================================= */
 (() => {
   "use strict";
 
+  /* =========================================================
+     PAGE DETECTION AND CONSTANTS
+     ---------------------------------------------------------
+     Identifies the current page as a lesson page using the
+     pathname pattern. Detects revision year and course code.
+     Detects the Android native app via user agent string.
+     Defines the CSS selector for all lesson content sections
+     that should be revealed.
+     ========================================================= */
   const lessonPath = /^\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i;
   if (!lessonPath.test(location.pathname) || (window.__polyLessonStandardLoaded && document.documentElement.classList.contains("lesson-all-content"))) return;
   window.__polyLessonStandardLoaded = true;
@@ -13,6 +52,15 @@
   const sectionSelector = ".view-section,.view,.panel,.tab-panel,.tab-content,.module-panel,.lesson-panel,.content-panel,.content-section,.section-panel,[role='tabpanel']";
   const originalUrl = `${location.pathname}${location.search}${location.hash}`;
 
+  /* =========================================================
+     PAGE MARKING
+     ---------------------------------------------------------
+     Applies CSS classes and data attributes to both <html> and
+     <body> elements to identify this as a lesson page.
+     Removes portal-specific classes (portal-page, has-fixed-site-header).
+     Resets all header-height CSS variables to 0 to eliminate
+     the fixed header gap that portal pages normally need.
+     ========================================================= */
   function markPage() {
     root.classList.add("poly-lesson-page", "lesson-all-content");
     root.classList.toggle("revision-2026-lesson", revision2026);
@@ -35,22 +83,18 @@
     root.style.setProperty("--topbar-h", "0px");
     root.style.setProperty("--toolbar-h", "0px");
     root.style.setProperty("--top", "0px");
-    root.style.setProperty("--topbar-h", "0px");
-    root.style.setProperty("--toolbar-h", "0px");
-    root.style.setProperty("--top", "0px");
-    root.style.setProperty("--topbar-h", "0px");
-    root.style.setProperty("--toolbar-h", "0px");
-    root.style.setProperty("--top", "0px");
-    root.style.setProperty("--topbar-h", "0px");
-    root.style.setProperty("--toolbar-h", "0px");
-    root.style.setProperty("--top", "0px");
-    root.style.setProperty("--topbar-h", "0px");
-    root.style.setProperty("--toolbar-h", "0px");
-    root.style.setProperty("--top", "0px");
   }
 
+  /* =========================================================
+     WATERMARK INSTALLATION
+     ---------------------------------------------------------
+     Injects the lesson watermark CSS and DOM overlay.
+     The watermark is a semi-transparent brand mark on lesson
+     content. Guarded against duplicate injection and hidden
+     during print media queries.
+     Related: assets/css/lesson-watermark.css
+     ========================================================= */
   function installWatermark() {
-    /* Inject watermark CSS link (guarded by data attribute to prevent duplicates) */
     if (!document.querySelector('link[data-poly-watermark-css="true"]')) {
       const link = document.createElement("link");
       link.rel = "stylesheet";
@@ -58,7 +102,6 @@
       link.dataset.polyWatermarkCss = "true";
       (document.head || root).append(link);
     }
-    /* Inject watermark DOM overlay (guarded by data attribute to prevent duplicates) */
     const MARKER = "data-poly-watermark";
     if (document.querySelector(`[${MARKER}]`)) return;
     if (window.matchMedia && window.matchMedia("print").matches) return;
@@ -72,6 +115,17 @@
     document.body.insertBefore(overlay, document.body.firstChild);
   }
 
+  /* =========================================================
+     CRITICAL LESSON STYLES
+     ---------------------------------------------------------
+     Injects inline critical CSS that:
+     - Forces full-width layout (100%, no max-width)
+     - Hides all header-related elements (site header, topbar,
+       lesson topbar, chapter nav, back buttons, skip links)
+     - Removes margins and padding on main content containers
+     Also loads the external lesson-page-fix.css stylesheet.
+     Related: assets/css/lesson-page-fix.css
+     ========================================================= */
   function installStyles() {
     if (!document.getElementById("poly-lesson-critical")) {
       const style = document.createElement("style");
@@ -89,6 +143,13 @@
     link.href = "/assets/css/lesson-page-fix.css?v=20260725-watermark1";
   }
 
+  /* =========================================================
+     VIEWPORT ENFORCEMENT
+     ---------------------------------------------------------
+     Ensures the page has a proper responsive viewport meta tag
+     with viewport-fit=cover for notch-safe display on mobile.
+     Creates the meta tag if missing.
+     ========================================================= */
   function ensureViewport() {
     let viewport = document.querySelector('meta[name="viewport"]');
     if (!viewport) {
@@ -99,6 +160,15 @@
     viewport.content = "width=device-width,initial-scale=1,viewport-fit=cover";
   }
 
+  /* =========================================================
+     SECTION DETECTION AND REVEAL
+     ---------------------------------------------------------
+     Identifies elements that represent lesson content sections
+     (using multiple CSS selectors for compatibility with
+     different lesson HTML structures). The reveal function
+     makes hidden sections visible by clearing hidden attributes,
+     aria-hidden, display:none, opacity, and height constraints.
+     ========================================================= */
   function isLessonSection(node) {
     return node instanceof HTMLElement && (node.matches(sectionSelector) || node.matches("main section[id],main article[id],main>section,main>article"));
   }
@@ -123,6 +193,18 @@
     document.querySelectorAll("details").forEach((item) => { item.open = true; });
   }
 
+  /* =========================================================
+     DYNAMIC MODULE VIEW EXPANSION
+     ---------------------------------------------------------
+     Some lessons use tabbed/module interfaces where content
+     is only visible when a user clicks a module button.
+     This function programmatically clicks each module button,
+     captures the revealed content, and creates a continuous
+     document with all modules expanded in sequence.
+     This ensures the entire lesson is printable as a single
+     continuous document without requiring user interaction.
+     Skipped on Revision 2026 lessons (they use a different structure).
+     ========================================================= */
   function targetFor(control) {
     const id = control.getAttribute("aria-controls") || control.dataset.target || control.dataset.go || control.dataset.v || control.dataset.tab || control.dataset.open || control.dataset.jump || control.dataset.panel;
     if (id) return document.getElementById(id.replace(/^#/, ""));
@@ -223,6 +305,13 @@
     revealAllLessonSections();
   }
 
+  /* =========================================================
+     PRINT MODE PREPARATION
+     ---------------------------------------------------------
+     Adds the pdf-export-mode class to the page, reveals all
+     content, and optionally shows a banner instructing the
+     user to use "Save as PDF" in the print dialog.
+     ========================================================= */
   function preparePrintMode(showBanner = false) {
     root.classList.add("pdf-export-mode");
     document.body?.classList.add("pdf-export-mode");
@@ -236,6 +325,15 @@
     scrollTo(0, 0);
   }
 
+  /* =========================================================
+     END-OF-LESSON ACTIONS
+     ---------------------------------------------------------
+     Creates a section at the bottom of every lesson page with:
+     - Course code and revision label
+     - Back button (links to the appropriate revision page)
+     - PDF download button (if a PDF link exists in the lesson)
+     - Print / Save PDF button (triggers window.print())
+     ========================================================= */
   function createEndActions() {
     if (document.getElementById("polyLessonEndActions")) return;
     const main = document.querySelector("main") || document.querySelector(".lesson-shell") || document.body;
@@ -264,6 +362,12 @@
 
   function printWindow() { window.print(); }
 
+  /* =========================================================
+     SCROLL PROGRESS
+     ---------------------------------------------------------
+     Updates a progress bar element (if present) to reflect
+     the user's scroll position within the lesson.
+     ========================================================= */
   function updateProgress() {
     const progress = document.querySelector("#progress,.progress,.prog");
     if (!progress) return;
@@ -271,6 +375,18 @@
     progress.style.width = `${Math.min(100, Math.max(0, scrollY / total * 100))}%`;
   }
 
+  /* =========================================================
+     BOOT SEQUENCE
+     ---------------------------------------------------------
+     Executes the full lesson page initialization:
+     1. Mark the page as a lesson page
+     2. Ensure responsive viewport
+     3. Install critical styles and watermark
+     4. Reveal all content sections
+     5. Expand dynamic module views (Rev 2021 only)
+     6. Create end-of-lesson navigation
+     7. Handle auto-print URL parameters
+     ========================================================= */
   async function boot() {
     markPage();
     ensureViewport();
@@ -298,6 +414,16 @@
   document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", () => { void boot(); }, { once: true }) : void boot();
 })();
 
+/* =========================================================
+   COURSE 2131 ENHANCEMENT LOADER
+   ---------------------------------------------------------
+   Revision 2026 course 2131 (Electrical Circuits) requires
+   additional content enhancement tables (taxonomy hours,
+   subtopic allocation) that are dynamically injected.
+   This section lazily loads the course-specific enhancement
+   script only on the matching lesson page.
+   Related: assets/js/lessons/lesson-2131-enhancements.js
+   ========================================================= */
 (() => {
   "use strict";
   const isCourse2131 = /^\/revision-2026-content\/lessons\/lessons-2131\.html$/i.test(location.pathname);
@@ -310,10 +436,12 @@
     script.src = "/assets/js/lessons/lesson-2131-enhancements.js?v=20260719";
     script.defer = true;
     script.dataset.polyCourseEnhancement = "2131";
-    (document.head || document.documentElement).append(script);
+    document.head.append(script);
   };
 
-  document.readyState === "loading"
-    ? document.addEventListener("DOMContentLoaded", load, { once: true })
-    : load();
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", load, { once: true });
+  } else {
+    load();
+  }
 })();
