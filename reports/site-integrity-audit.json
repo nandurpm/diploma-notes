@@ -1,11 +1,8 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-24T21:01:03Z",
-  "commit": "0dd704f0931f115cb24d6516d45256d86e2d885c",
-  "branch": "jules-16054746731056989170-4040bf48",
-  "generatedAt": "2026-07-25T14:59:50Z",
-  "commit": "a95e13555aa3e5af49080435f9bc075cbfbd77f2",
-  "branch": "jules-16080332618358374329-8fb19aaa",
+  "generatedAt": "2026-07-25T21:58:06Z",
+  "commit": "0303e5cb88fdb02cc7d895ce3919e0eed5ec6dca",
+  "branch": "jules-12886986010366217512-51ec56e7",
   "status": "passed",
   "counts": {
     "sitemapResources": 289,
