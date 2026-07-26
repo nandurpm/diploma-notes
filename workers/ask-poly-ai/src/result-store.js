@@ -1,6 +1,24 @@
 /* Purpose: Result store - Descriptive comment added for clarity */
 const clean = (value, maximum = 500) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
+/* Secure fetch wrapper with AbortController timeout to prevent hanging connections */
+async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } catch (error) {
+    if (error?.name === "AbortError" || String(error?.message || "").toLowerCase().includes("abort")) {
+      const timeoutError = new Error("Database request timed out.");
+      timeoutError.status = 504;
+      throw timeoutError;
+    }
+    throw error;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
 function supabaseBase(env) {
   return clean(env?.SUPABASE_URL, 300).replace(/\/$/, "");
 }
@@ -22,7 +40,7 @@ export async function authenticateStudent(request, env) {
   const anonKey = clean(env?.SUPABASE_ANON_KEY, 4096);
   if (!base || !anonKey) throw Object.assign(new Error("Verified result storage is not configured."), { status: 503 });
 
-  const response = await fetch(`${base}/auth/v1/user`, {
+  const response = await fetchWithTimeout(`${base}/auth/v1/user`, {
     headers: {
       apikey: anonKey,
       Authorization: `Bearer ${token}`,
@@ -56,7 +74,7 @@ export async function storeMockExamResult(user, body, result, env) {
     updated_at: now
   };
 
-  const response = await fetch(`${base}/rest/v1/sample_paper_attempts`, {
+  const response = await fetchWithTimeout(`${base}/rest/v1/sample_paper_attempts`, {
     method: "POST",
     headers: {
       apikey: serviceKey,
