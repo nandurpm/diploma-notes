@@ -1,9 +1,9 @@
 {
   "summary": {
     "passed": true,
-    "lesson_files": 111,
+    "lesson_files": 113,
     "revision_2021": 91,
-    "revision_2026": 20,
+    "revision_2026": 22,
     "runtime": "20260725-watermark1",
     "failure_count": 0
   },
