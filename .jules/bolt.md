@@ -21,3 +21,7 @@
 ## 2026-07-26 - [Pre-computed and Cached Search Text on Page Elements]
 **Learning:** Found a severe performance bottleneck where search/filtering input handlers dynamically joined multiple dataset attributes and performed heavy string operations (like Unicode normalization `normalize("NFKD")` or lowercase coercion) on every single keystroke across hundreds/thousands of elements. Pre-computing and caching the search string as an object property (`_searchText`) during initialization completely eliminates CPU-intensive operations and garbage-collection overhead on the active render loop.
 **Action:** Always pre-calculate and cache static/normalized search indexes on objects/elements before entering interactive filtering or rendering loops.
+
+## 2026-07-27 - [Cached Search Text in Revision 2021 Directory Browser]
+**Learning:** Found an unoptimized search input handler in `assets/js/sitttr-rev2021-browser.js` that concatenated multiple subject attributes on every keystroke/render invocation. This caused excessive memory allocation and frequent garbage collection cycles for large datasets. Pre-computing and caching the combined string (`_searchText`) directly on each subject object at load time solves this and makes search smooth.
+**Action:** Avoid performing repetitive string joins or case coercions on dataset items inside interactive render and keypress event loops. Pre-compute and cache search keys during initial loading instead.
