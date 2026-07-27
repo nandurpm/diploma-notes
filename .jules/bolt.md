@@ -17,3 +17,7 @@
 ## 2026-07-25 - [Cached DOM Queries in Site Assistant Indexing Loop]
 **Learning:** Discovered an $O(N \times M)$ DOM querying bottleneck inside `buildLessonChunks()` in `assets/js/site-assistant.js`, which runs dynamically on page interactions/mutations. For every DOM element processed (up to hundreds of elements), the script executed a full-document query selector search `document.querySelectorAll("[data-target]")` to find matching buttons. Building a lookup Map of targets before entering the loop reduces DOM querying to $O(1)$ per iteration.
 **Action:** Avoid performing repetitive, document-wide DOM query selector searches (like `document.querySelectorAll`) inside loops. Query once and cache the results in a Map/object lookup.
+
+## 2026-07-26 - [Pre-computed and Cached Search Text on Page Elements]
+**Learning:** Found a severe performance bottleneck where search/filtering input handlers dynamically joined multiple dataset attributes and performed heavy string operations (like Unicode normalization `normalize("NFKD")` or lowercase coercion) on every single keystroke across hundreds/thousands of elements. Pre-computing and caching the search string as an object property (`_searchText`) during initialization completely eliminates CPU-intensive operations and garbage-collection overhead on the active render loop.
+**Action:** Always pre-calculate and cache static/normalized search indexes on objects/elements before entering interactive filtering or rendering loops.
