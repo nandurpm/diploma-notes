@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html class="poly-lesson-page revision-2026-lesson" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Programming — Complete Course | Diploma in Computer Engineering</title>
+    <meta name="description" content="Comprehensive Python Programming course for Diploma students. Covers data types, control flow, data structures, functions, OOP, file handling, and more with interactive examples and Malayalam notes.">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:title" content="Python Programming — Complete Course | Diploma in Computer Engineering">
+    <meta property="og:description" content="Master Python from basics to advanced topics with interactive calculators, visual guides, and bilingual Malayalam-English instruction.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://example.com/assets/img/python-course-og.jpg">
+    <meta property="og:url" content="https://example.com/lessons/lessons-1259.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Python Programming — Complete Course">
+    <meta name="twitter:description" content="Interactive Python course for diploma students with Malayalam support.">
+
+    <!-- Favicon & Manifest -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/assets/css/lesson-page-fix.css?v=2026.07.27">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --poly-bg: #f8fafc;
+            --poly-surface: #ffffff;
+            --poly-surface-alt: #f1f5f9;
+            --poly-text: #1e293b;
+            --poly-text-secondary: #475569;
+            --poly-text-muted: #64748b;
+            --poly-border: #e2e8f0;
+            --poly-primary: #2563eb;
+            --poly-primary-light: #3b82f6;
+            --poly-primary-dark: #1d4ed8;
+            --poly-accent: #f59e0b;
+            --poly-success: #10b981;
+            --poly-error: #ef4444;
+            --poly-warning: #f59e0b;
+            --poly-info: #06b6d4;
+            --poly-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --poly-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+            --poly-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+            --poly-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.06);
+            --poly-radius-sm: 6px;
+            --poly-radius: 10px;
+            --poly-radius-lg: 16px;
+            --poly-radius-xl: 20px;
+            --poly-font-sans: 'Inter', 'Noto Sans Malayalam', system-ui, sans-serif;
+            --poly-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --poly-transition: 0.2s ease;
+            --poly-max-width: 1100px;
+            --poly-sidebar-width: 280px;
+            --poly-topbar-height: 0px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 1.5rem;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--poly-font-sans);
+            background: var(--poly-bg);
+            color: var(--poly-text);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Reading Progress Bar */
+        #reading-progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--poly-primary), var(--poly-accent));
+            z-index: 9999;
+            transition: width 0.15s ease-out;
+            border-radius: 0 2px 2px 0;
+            box-shadow: 0 0 8px rgba(37, 99, 235, 0.35);
+        }
+
+        /* Main Container */
+        .lesson-container {
+            max-width: var(--poly-max-width);
+            margin: 0 auto;
+            padding: 1.5rem 1.25rem 3rem;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: flex-end;
+            margin-bottom: 1.25rem;
+            position: sticky;
+            top: 8px;
+            z-index: 100;
+            background: var(--poly-bg);
+            padding: 0.6rem 0;
+            border-radius: var(--poly-radius);
+        }
+        .action-bar button,
+        .action-bar .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: var(--poly-font-sans);
+            border: 1.5px solid var(--poly-border);
+            border-radius: var(--poly-radius-sm);
+            background: var(--poly-surface);
+            color: var(--poly-text);
+            cursor: pointer;
+            transition: all var(--poly-transition);
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .action-bar button:hover,
+        .action-bar .btn-action:hover {
+            background: var(--poly-surface-alt);
+            border-color: var(--poly-primary-light);
+            color: var(--poly-primary);
+            box-shadow: var(--poly-shadow-sm);
+        }
+        .action-bar button:active {
+            transform: scale(0.97);
+        }
+        .btn-print {
+            color: var(--poly-primary-dark) !important;
+            border-color: var(--poly-primary-light) !important;
+        }
+        .btn-download {
+            color: var(--poly-success) !important;
+            border-color: #34d399 !important;
+        }
+
+        /* Search Container */
+        .search-container {
+            position: relative;
+            flex: 1 1 220px;
+            min-width: 180px;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 0.55rem 0.9rem 0.55rem 2.5rem;
+            font-size: 0.875rem;
+            font-family: var(--poly-font-sans);
+            border: 1.5px solid var(--poly-border);
+            border-radius: var(--poly-radius-sm);
+            background: var(--poly-surface);
+            color: var(--poly-text);
+            transition: all var(--poly-transition);
+        }
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--poly-primary-light);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+        }
+        .search-container .search-icon {
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--poly-text-muted);
+            font-size: 1rem;
+        }
+        #search-results-count {
+            font-size: 0.75rem;
+            color: var(--poly-text-muted);
+            margin-top: 0.35rem;
+            padding-left: 0.3rem;
+            min-height: 1.1em;
+        }
+        .highlight-match {
+            background: #fef08a;
+            padding: 0.05em 0.2em;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+        .search-hidden {
+            display: none !important;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 2.5rem;
+            background: var(--poly-surface);
+            border-radius: var(--poly-radius-lg);
+            border: 1px solid var(--poly-border);
+            padding: 2rem 1.75rem;
+            box-shadow: var(--poly-shadow-sm);
+            scroll-margin-top: 4rem;
+            transition: box-shadow var(--poly-transition);
+        }
+        section:hover {
+            box-shadow: var(--poly-shadow);
+        }
+        section h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--poly-text);
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.01em;
+            border-bottom: 3px solid var(--poly-primary-light);
+            padding-bottom: 0.6rem;
+            display: inline-block;
+        }
+        section h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--poly-text);
+            margin: 1.4rem 0 0.6rem;
+        }
+        section h4 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--poly-text-secondary);
+            margin: 1.1rem 0 0.4rem;
+        }
+        section p {
+            margin-bottom: 0.85rem;
+            color: var(--poly-text-secondary);
+        }
+        section ul,
+        section ol {
+            margin: 0.5rem 0 0.85rem 1.4rem;
+            color: var(--poly-text-secondary);
+        }
+        section li {
+            margin-bottom: 0.3rem;
+        }
+
+        /* Cover Section */
+        #cover {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, #1e3a5f 0%, #1d4ed8 40%, #2563eb 70%, #3b82f6 100%);
+            color: #fff;
+            border: none;
+            box-shadow: var(--poly-shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        #cover::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+        #cover::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 280px;
+            height: 280px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+        }
+        #cover>* {
+            position: relative;
+            z-index: 1;
+        }
+        #cover h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.02em;
+        }
+        #cover .course-code {
+            font-size: 1.1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+            font-family: var(--poly-font-mono);
+        }
+        #cover .course-meta {
+            font-size: 0.95rem;
+            opacity: 0.85;
+            margin-bottom: 0.3rem;
+        }
+
+        /* ML Note boxes */
+        .ml-note {
+            background: #fffbeb;
+            border-left: 4px solid var(--poly-accent);
+            padding: 0.9rem 1.2rem;
+            margin: 1rem 0;
+            border-radius: 0 var(--poly-radius-sm) var(--poly-radius-sm) 0;
+            font-family: 'Noto Sans Malayalam', var(--poly-font-sans);
+            color: #92400e;
+            font-size: 0.95rem;
+        }
+        .ml-note strong {
+            color: #b45309;
+        }
+
+        /* Code blocks */
+        pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.2rem 1.4rem;
+            border-radius: var(--poly-radius);
+            overflow-x: auto;
+            font-family: var(--poly-font-mono);
+            font-size: 0.875rem;
+            line-height: 1.65;
+            margin: 1rem 0;
+            position: relative;
+            box-shadow: var(--poly-shadow-md);
+        }
+        pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+            font-size: inherit;
+        }
+        code {
+            background: #f1f5f9;
+            padding: 0.15em 0.4em;
+            border-radius: 3px;
+            font-family: var(--poly-font-mono);
+            font-size: 0.875em;
+            color: #1d4ed8;
+        }
+        pre code {
+            color: #e2e8f0;
+        }
+        .code-output {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 0.7rem 1rem;
+            border-radius: var(--poly-radius-sm);
+            font-family: var(--poly-font-mono);
+            font-size: 0.85rem;
+            color: #166534;
+            margin: 0.5rem 0 1rem;
+            white-space: pre-wrap;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        table th,
+        table td {
+            border: 1px solid var(--poly-border);
+            padding: 0.6rem 0.9rem;
+            text-align: left;
+        }
+        table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: var(--poly-text);
+        }
+        table tr:nth-child(even) td {
+            background: #fafbfc;
+        }
+
+        /* Jump Menu */
+        #jump-menu {
+            background: var(--poly-surface-alt);
+            padding: 1.5rem 1.75rem;
+        }
+        #jump-menu ul {
+            list-style: none;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        #jump-menu li a {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            background: var(--poly-surface);
+            border: 1px solid var(--poly-border);
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--poly-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--poly-transition);
+        }
+        #jump-menu li a:hover {
+            background: var(--poly-primary);
+            color: #fff;
+            border-color: var(--poly-primary);
+        }
+
+        /* Course Outcomes */
+        .co-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0.8rem;
+            list-style: none;
+            margin: 0.8rem 0;
+        }
+        .co-list li {
+            background: #eff6ff;
+            padding: 0.7rem 1rem;
+            border-radius: var(--poly-radius-sm);
+            border-left: 4px solid var(--poly-primary);
+            font-weight: 500;
+            color: #1e40af;
+        }
+
+        /* Diagram containers */
+        .diagram-container {
+            background: #fafcfd;
+            border: 2px dashed var(--poly-border);
+            border-radius: var(--poly-radius);
+            padding: 1.5rem;
+            margin: 1.2rem 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .diagram-caption {
+            font-size: 0.85rem;
+            color: var(--poly-text-muted);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* Calculator */
+        .calculator-widget {
+            background: #fafcfe;
+            border: 1.5px solid var(--poly-border);
+            border-radius: var(--poly-radius-lg);
+            padding: 1.5rem;
+            margin: 1.2rem 0;
+        }
+        .calculator-widget h4 {
+            margin-top: 0;
+        }
+        .calculator-widget input,
+        .calculator-widget select {
+            padding: 0.5rem 0.7rem;
+            font-size: 0.9rem;
+            border: 1.5px solid var(--poly-border);
+            border-radius: var(--poly-radius-sm);
+            font-family: var(--poly-font-sans);
+            margin: 0.3rem;
+            transition: border-color var(--poly-transition);
+        }
+        .calculator-widget input:focus,
+        .calculator-widget select:focus {
+            outline: none;
+            border-color: var(--poly-primary-light);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.06);
+        }
+        .calculator-widget button {
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            font-family: var(--poly-font-sans);
+            border: none;
+            border-radius: var(--poly-radius-sm);
+            cursor: pointer;
+            background: var(--poly-primary);
+            color: #fff;
+            margin: 0.3rem;
+            transition: all var(--poly-transition);
+        }
+        .calculator-widget button:hover {
+            background: var(--poly-primary-dark);
+            box-shadow: var(--poly-shadow);
+        }
+        .calc-result {
+            margin-top: 0.8rem;
+            padding: 0.7rem 1rem;
+            background: #f0fdf4;
+            border-radius: var(--poly-radius-sm);
+            font-weight: 600;
+            color: #166534;
+            min-height: 2.5rem;
+        }
+
+        /* Common mistakes */
+        .mistake-box {
+            background: #fef2f2;
+            border-left: 4px solid var(--poly-error);
+            padding: 0.8rem 1.1rem;
+            margin: 0.8rem 0;
+            border-radius: 0 var(--poly-radius-sm) var(--poly-radius-sm) 0;
+            color: #991b1b;
+        }
+        .mistake-box strong {
+            color: #dc2626;
+        }
+
+        /* Details */
+        details {
+            margin: 0.7rem 0;
+            border: 1px solid var(--poly-border);
+            border-radius: var(--poly-radius-sm);
+            padding: 0.6rem 1rem;
+            background: var(--poly-surface);
+            transition: all var(--poly-transition);
+        }
+        details[open] {
+            background: #fafcfe;
+            box-shadow: var(--poly-shadow-sm);
+        }
+        details summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 0.3rem 0;
+            color: var(--poly-text);
+            user-select: none;
+        }
+        details summary:hover {
+            color: var(--poly-primary);
+        }
+        details .details-content {
+            padding: 0.6rem 0 0.4rem;
+        }
+
+        /* Glossary */
+        .glossary-term {
+            font-weight: 700;
+            color: var(--poly-primary-dark);
+        }
+        .glossary-def {
+            margin-left: 1rem;
+            color: var(--poly-text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            section {
+                padding: 1.25rem 1rem;
+            }
+            #cover h1 {
+                font-size: 1.7rem;
+            }
+            #cover {
+                padding: 2rem 1rem;
+            }
+            pre {
+                font-size: 0.78rem;
+                padding: 0.9rem;
+            }
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-container {
+                flex: 1 1 auto;
+                min-width: auto;
+            }
+            .co-list {
+                grid-template-columns: 1fr;
+            }
+            #jump-menu ul {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+            table {
+                font-size: 0.78rem;
+            }
+            table th,
+            table td {
+                padding: 0.4rem 0.5rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .lesson-container {
+                padding: 0.75rem 0.5rem 2rem;
+            }
+            section {
+                padding: 1rem 0.7rem;
+                border-radius: var(--poly-radius);
+            }
+            #cover h1 {
+                font-size: 1.4rem;
+            }
+            .calculator-widget {
+                padding: 1rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                font-size: 12px;
+                color: #000;
+                background: #fff;
+            }
+            #reading-progress-bar,
+            .action-bar,
+            #jump-menu,
+            #handbook-search,
+            .search-container,
+            .btn-print,
+            .btn-download {
+                display: none !important;
+            }
+            section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 1rem;
+                padding: 1rem;
+            }
+            pre {
+                background: #f5f5f5;
+                color: #000;
+                border: 1px solid #ccc;
+                font-size: 10px;
+            }
+            #cover {
+                background: #1e3a5f !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            details {
+                display: block !important;
+            }
+            details summary {
+                display: block;
+            }
+            details[open] .details-content,
+            details .details-content {
+                display: block !important;
+            }
+            .ml-note {
+                background: #fffbe6 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "name": "Python Programming",
+            "description": "Comprehensive Python Programming course for Diploma in Computer Engineering students covering data types, control flow, data structures, functions, OOP, file handling, and debugging.",
+            "provider": {
+                "@type": "EducationalOrganization",
+                "name": "Diploma in Computer Engineering Programme"
+            },
+            "educationalLevel": "Diploma",
+            "timeRequired": "P15W",
+            "learningResourceType": "Lesson",
+            "teaches": [
+                "Python syntax and semantics",
+                "Control flow and loops",
+                "Data structures (lists, tuples, dicts, sets)",
+                "Functions and recursion",
+                "Object-oriented programming",
+                "File I/O and exception handling",
+                "Regular expressions",
+                "Debugging techniques"
+            ],
+            "inLanguage": ["en", "ml"],
+            "dateModified": "2026-07-27"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "LearningResource",
+            "name": "Python Programming — Complete Lesson",
+            "learningResourceType": "Lesson",
+            "educationalAlignment": {
+                "@type": "AlignmentObject",
+                "educationalFramework": "Diploma in Computer Engineering Syllabus",
+                "targetName": "Python Programming Module"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div id="reading-progress-bar" style="width: 0%;" aria-hidden="true"></div>
+
+    <!-- Main Lesson Container -->
+    <main class="lesson-container" id="lesson-content">
+
+        <!-- Action Bar: Search + Print + Download -->
+        <div class="action-bar" id="action-bar">
+            <div class="search-container">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="search" id="lesson-search-input" placeholder="Search lessons, topics, code..." aria-label="Search lesson content">
+            </div>
+            <button class="btn-print" id="btn-print" title="Print lesson (expands all sections)" aria-label="Print lesson">
+                🖨️ Print
+            </button>
+            <button class="btn-download" id="btn-download" title="Download lesson PDF" aria-label="Download lesson PDF">
+                📥 Download PDF
+            </button>
+        </div>
+        <div id="search-results-count" aria-live="polite"></div>
+
+        <!-- ==================== SECTION: COVER ==================== -->
+        <section id="cover">
+            <p class="course-code">COURSE CODE: CP-1259</p>
+            <h1>Python Programming</h1>
+            <p class="course-meta">📚 Diploma in Computer Engineering | Semester 2</p>
+            <p class="course-meta">🕐 Total Hours: 75 | Credits: 4 | Weeks: 15</p>
+            <p class="course-meta">📅 Revision Date: 27 July 2026</p>
+            <p style="margin-top:1rem;font-size:0.9rem;opacity:0.8;">Interactive Lesson with Malayalam Notes • Calculators • Visual Guides • Practice Problems</p>
+        </section>
+
+        <!-- ==================== SECTION: JUMP MENU ==================== -->
+        <section id="jump-menu">
+            <h2>📑 Quick Navigation</h2>
+            <nav aria-label="Lesson section quick navigation">
+                <ul>
+                    <li><a href="#source">📋 Source Declaration</a></li>
+                    <li><a href="#course-dashboard">📊 Course Dashboard</a></li>
+                    <li><a href="#how-to-use">📖 How to Use</a></li>
+                    <li><a href="#outcomes">🎯 Course Outcomes</a></li>
+                    <li><a href="#coverage">🗺️ Syllabus Coverage</a></li>
+                    <li><a href="#roadmap">🧭 Learning Roadmap</a></li>
+                    <li><a href="#module-1">🔰 Module 1: Python Basics</a></li>
+                    <li><a href="#module-2">📦 Module 2: Data Structures</a></li>
+                    <li><a href="#module-3">⚙️ Module 3: Functions & Modules</a></li>
+                    <li><a href="#module-4">🚀 Module 4: Advanced Topics</a></li>
+                    <li><a href="#formula-bank">📐 Formula & Syntax Bank</a></li>
+                    <li><a href="#visual-library">🖼️ Visual Library</a></li>
+                    <li><a href="#activities">🧪 Interactive Activities</a></li>
+                    <li><a href="#assessment">📝 Assessment</a></li>
+                    <li><a href="#questions">❓ Practice Questions</a></li>
+                    <li><a href="#model-paper">📄 Model Question Paper</a></li>
+                    <li><a href="#revision">🔄 Revision Notes</a></li>
+                    <li><a href="#glossary">📚 Glossary</a></li>
+                    <li><a href="#references">🔗 References</a></li>
+                    <li><a href="#handbook-search">🔎 Handbook Search</a></li>
+                </ul>
+            </nav>
+        </section>
+
+        <!-- ==================== SECTION: SOURCE DECLARATION ==================== -->
+        <section id="source">
+            <h2>📋 Source Declaration</h2>
+            <p>This lesson file consolidates the <strong>Python Programming</strong> syllabus (CP-1259) for Diploma in Computer Engineering. The syllabus data is sourced from the official curriculum document. All four modules are covered with detailed explanations, code examples, and bilingual Malayalam-English notes.</p>
+            <p><strong>Sparse Experiment Details:</strong> Some advanced subtopics (e.g., detailed regex flags, all built-in exceptions, advanced metaclasses) are treated as "sparse" — core concepts are fully explained while exhaustive enumeration is deferred to the <em>References</em> section. The focus is on <em>teachable depth</em> suitable for diploma-level students.</p>
+            <div class="ml-note">
+                <strong>📌 കുറിപ്പ്:</strong> ഈ പാഠഭാഗം ഔദ്യോഗിക സിലബസ് അനുസരിച്ച് തയ്യാറാക്കിയതാണ്. എല്ലാ നാല് മൊഡ്യൂളുകളും പൂർണ്ണമായും ഉൾപ്പെടുത്തിയിട്ടുണ്ട്. സാങ്കേതിക പദങ്ങൾ ഇംഗ്ലീഷിൽ തന്നെ സൂക്ഷിച്ചിരിക്കുന്നു.
+            </div>
+        </section>
+
+        <!-- ==================== SECTION: COURSE DASHBOARD ==================== -->
+        <section id="course-dashboard">
+            <h2>📊 Course Dashboard</h2>
+            <table>
+                <thead>
+                    <tr><th>Module</th><th>Topic</th><th>Hours</th><th>Weightage</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Python Basics — Data Types, Operators, Control Flow, Strings</td><td>18</td><td>25%</td><td>✅ Complete</td></tr>
+                    <tr><td>2</td><td>Data Structures — Lists, Tuples, Dictionaries, Sets</td><td>18</td><td>25%</td><td>✅ Complete</td></tr>
+                    <tr><td>3</td><td>Functions & Modules — Functions, Recursion, File I/O, Modules</td><td>20</td><td>25%</td><td>✅ Complete</td></tr>
+                    <tr><td>4</td><td>Advanced Topics — OOP, Exception Handling, Regex, Debugging</td><td>19</td><td>25%</td><td>✅ Complete</td></tr>
+                    <tr><td colspan="3"><strong>Total</strong></td><td><strong>100%</strong></td><td>✅</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==================== SECTION: HOW TO USE ==================== -->
+        <section id="how-to-use">
+            <h2>📖 How to Use This Lesson</h2>
+            <ol>
+                <li><strong>Start with the Roadmap:</strong> Understand the learning path.</li>
+                <li><strong>Read each Module sequentially:</strong> Modules build upon each other.</li>
+                <li><strong>Try the code examples:</strong> Copy-paste into your Python interpreter or IDE.</li>
+                <li><strong>Use the calculators:</strong> Interactive tools to test concepts.</li>
+                <li><strong>Check Malayalam notes (.ml-note boxes):</strong> For conceptual clarity in your native language.</li>
+                <li><strong>Attempt Practice Questions:</strong> At the end of each module and in the dedicated section.</li>
+                <li><strong>Use Search (🔍):</strong> To quickly find any topic, function, or concept.</li>
+                <li><strong>Print or Download:</strong> For offline study.</li>
+            </ol>
+            <div class="ml-note">
+                <strong>📌 ഉപയോഗിക്കുന്ന വിധം:</strong> ഓരോ മൊഡ്യൂളും ക്രമമായി പഠിക്കുക. കോഡ് ഉദാഹരണങ്ങൾ സ്വയം ടൈപ്പ് ചെയ്ത് റൺ ചെയ്യുക. കാൽക്കുലേറ്ററുകൾ ഉപയോഗിച്ച് ആശയങ്ങൾ പരീക്ഷിക്കുക.
+            </div>
+        </section>
+
+        <!-- ==================== SECTION: OUTCOMES ==================== -->
+        <section id="outcomes">
+            <h2>🎯 Course Outcomes (COs)</h2>
+            <p>Upon completion of this course, the student will be able to:</p>
+            <ul class="co-list">
+                <li><strong>CO1:</strong> Write, debug, and execute Python programs using basic syntax, data types, and operators.</li>
+                <li><strong>CO2:</strong> Implement control flow using conditionals and loops, and manipulate strings effectively.</li>
+                <li><strong>CO3:</strong> Utilize Python's built-in data structures — lists, tuples, dictionaries, and sets — to solve problems.</li>
+                <li><strong>CO4:</strong> Design modular programs using functions, recursion, modules, and handle file I/O operations.</li>
+                <li><strong>CO5:</strong> Apply object-oriented programming principles including classes, inheritance, and polymorphism.</li>
+                <li><strong>CO6:</strong> Handle errors using exception handling, use regular expressions, and apply debugging techniques.</li>
+            </ul>
+        </section>
+
+        <!-- ==================== SECTION: COVERAGE ==================== -->
+        <section id="coverage">
+            <h2>🗺️ Syllabus Coverage Map</h2>
+            <table>
+                <thead>
+                    <tr><th>Module</th><th>Topics Covered</th><th>Depth</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Introduction, Identifiers, Data Types, Operators, <code>if-elif-else</code>, <code>for</code>/<code>while</code> loops, <code>break</code>/<code>continue</code>/<code>pass</code>, String methods, String formatting</td><td>Deep</td></tr>
+                    <tr><td>2</td><td>Lists (creation, methods, slicing, comprehensions), Tuples (immutability, packing/unpacking), Dictionaries (keys, values, methods, dict comprehensions), Sets (operations, methods)</td><td>Deep</td></tr>
+                    <tr><td>3</td><td>Function definition, arguments (default, keyword, *args, **kwargs), scope, recursion, lambda, map/filter/reduce, modules (<code>import</code>, <code>math</code>, <code>random</code>, <code>datetime</code>), File I/O (read, write, append, <code>with</code>)</td><td>Deep</td></tr>
+                    <tr><td>4</td><td>OOP (classes, objects, <code>__init__</code>, inheritance, polymorphism, encapsulation), Exception handling (<code>try-except-finally</code>), Regular expressions (<code>re</code> module), Debugging (<code>pdb</code>, logging, assertions)</td><td>Deep (regex & pdb sparse)</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==================== SECTION: ROADMAP ==================== -->
+        <section id="roadmap">
+            <h2>🧭 Learning Roadmap</h2>
+            <div class="diagram-container">
+                <svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
+                        </marker>
+                    </defs>
+                    <rect x="10" y="50" width="150" height="60" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                    <text x="85" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Module 1</text>
+                    <text x="85" y="96" text-anchor="middle" font-size="11" fill="#1d4ed8">Python Basics</text>
+                    <line x1="160" y1="80" x2="210" y2="80" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+                    <rect x="215" y="50" width="150" height="60" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                    <text x="290" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Module 2</text>
+                    <text x="290" y="96" text-anchor="middle" font-size="11" fill="#1d4ed8">Data Structures</text>
+                    <line x1="365" y1="80" x2="415" y2="80" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+                    <rect x="420" y="50" width="160" height="60" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                    <text x="500" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Module 3</text>
+                    <text x="500" y="96" text-anchor="middle" font-size="11" fill="#1d4ed8">Functions & Modules</text>
+                    <line x1="580" y1="80" x2="630" y2="80" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+                    <rect x="635" y="50" width="155" height="60" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="712" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#b45309">Module 4</text>
+                    <text x="712" y="96" text-anchor="middle" font-size="11" fill="#92400e">Advanced Topics</text>
+                </svg>
+                <p class="diagram-caption">Figure: Sequential learning path through the 4 modules of Python Programming.</p>
+            </div>
+        </section>
+
+        <!-- ==================== MODULE 1 ==================== -->
+        <section id="module-1">
+            <h2>🔰 Module 1: Python Basics</h2>
+            <p><strong>Hours:</strong> 18 | <strong>Topics:</strong> Introduction, Data Types, Operators, Control Flow, Strings</p>
+
+            <h3>1.1 Introduction to Python</h3>
+            <p>Python is a high-level, interpreted, dynamically-typed programming language created by <strong>Guido van Rossum</strong> in 1991. It emphasises code readability with its use of significant whitespace (indentation).</p>
+            <div class="ml-note">
+                <strong>📌 പൈത്തൺ പരിചയം:</strong> വളരെ ലളിതമായി പഠിക്കാവുന്ന ഒരു പ്രോഗ്രാമിംഗ് ഭാഷയാണ് പൈത്തൺ. ഇൻഡന്റേഷൻ വളരെ പ്രധാനമാണ് — ബ്രാക്കറ്റുകൾക്ക് പകരം സ്പേസുകൾ ഉപയോഗിച്ചാണ് കോഡ് ബ്ലോക്കുകൾ നിർവചിക്കുന്നത്.
+            </div>
+            <pre><code># Your first Python program
+print("Hello, World!")  # Output: Hello, World!
+
+# Python is dynamically typed
+x = 42          # integer
+x = "hello"     # now a string — perfectly valid!</code></pre>
+
+            <h3>1.2 Identifiers & Data Types</h3>
+            <p><strong>Identifiers</strong> are names given to variables, functions, classes, etc. Rules: must start with a letter or underscore, can contain letters/digits/underscores, case-sensitive, and cannot be a reserved keyword.</p>
+            <p><strong>Core Data Types:</strong></p>
+            <table>
+                <tr><th>Type</th><th>Example</th><th>Mutable?</th><th>Description</th></tr>
+                <tr><td><code>int</code></td><td><code>42</code></td><td>❌</td><td>Integer (unlimited precision)</td></tr>
+                <tr><td><code>float</code></td><td><code>3.14</code></td><td>❌</td><td>Floating-point number</td></tr>
+                <tr><td><code>str</code></td><td><code>"hello"</code></td><td>❌</td><td>String (sequence of characters)</td></tr>
+                <tr><td><code>bool</code></td><td><code>True</code></td><td>❌</td><td>Boolean (<code>True</code> / <code>False</code>)</td></tr>
+                <tr><td><code>list</code></td><td><code>[1,2,3]</code></td><td>✅</td><td>Ordered, mutable collection</td></tr>
+                <tr><td><code>tuple</code></td><td><code>(1,2,3)</code></td><td>❌</td><td>Ordered, immutable collection</td></tr>
+                <tr><td><code>dict</code></td><td><code>{"a":1}</code></td><td>✅</td><td>Key-value pairs</td></tr>
+                <tr><td><code>set</code></td><td><code>{1,2,3}</code></td><td>✅</td><td>Unordered, unique elements</td></tr>
+            </table>
+
+            <h3>1.3 Operators</h3>
+            <p>Python supports arithmetic (<code>+ - * / // % **</code>), comparison (<code>== != &lt; &gt; &lt;= &gt;=</code>), logical (<code>and or not</code>), assignment (<code>= += -= *= /=</code>), identity (<code>is is not</code>), and membership (<code>in not in</code>) operators.</p>
+            <pre><code>a, b = 10, 3
+print(a + b)    # 13
+print(a ** b)   # 1000 (10³)
+print(a / b)    # 3.333...
+print(a // b)   # 3 (floor division)
+print(a % b)    # 1 (modulus)
+
+# Logical operators
+print(a > 5 and b < 5)  # True
+print(not False)         # True
+
+# Membership
+fruits = ["apple", "banana", "mango"]
+print("banana" in fruits)      # True
+print("grape" not in fruits)   # True</code></pre>
+
+            <h3>1.4 Control Flow — Conditionals</h3>
+            <pre><code>score = 85
+if score >= 90:
+    grade = "A"
+elif score >= 80:
+    grade = "B"
+elif score >= 70:
+    grade = "C"
+else:
+    grade = "F"
+print(f"Grade: {grade}")  # Grade: B</code></pre>
+            <div class="diagram-container">
+                <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+                    <rect x="140" y="10" width="120" height="40" rx="20" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                    <text x="200" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Start</text>
+                    <line x1="200" y1="50" x2="200" y2="70" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <polygon points="200,70 280,120 200,170 120,120" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="200" y="124" text-anchor="middle" font-size="12" font-weight="600" fill="#92400e">score ≥ 90?</text>
+                    <line x1="280" y1="120" x2="340" y2="120" stroke="#10b981" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="310" y="112" font-size="11" fill="#10b981" font-weight="600">Yes→A</text>
+                    <line x1="200" y1="170" x2="200" y2="210" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="210" y="195" font-size="11" fill="#ef4444" font-weight="600">No→next check</text>
+                    <rect x="140" y="215" width="120" height="35" rx="17" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                    <text x="200" y="238" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">End</text>
+                </svg>
+                <p class="diagram-caption">Figure: Flowchart of if-elif-else conditional logic for grade assignment.</p>
+            </div>
+
+            <h3>1.5 Loops — <code>for</code> and <code>while</code></h3>
+            <pre><code># for loop with range
+for i in range(1, 6):
+    print(i, end=" ")  # Output: 1 2 3 4 5
+
+# Iterating over a list
+colors = ["red", "green", "blue"]
+for color in colors:
+    print(color.upper())  # RED GREEN BLUE
+
+# while loop
+count = 0
+while count < 5:
+    print(count, end=" ")
+    count += 1
+# Output: 0 1 2 3 4
+
+# break and continue
+for num in range(10):
+    if num == 3:
+        continue  # skip 3
+    if num == 7:
+        break     # stop at 7
+    print(num, end=" ")
+# Output: 0 1 2 4 5 6</code></pre>
+            <div class="mistake-box">
+                <strong>⚠️ Common Mistake:</strong> Forgetting to update the loop variable in a <code>while</code> loop leads to an <strong>infinite loop</strong>. Always ensure the condition eventually becomes <code>False</code>.
+            </div>
+
+            <h3>1.6 Strings</h3>
+            <p>Strings are immutable sequences of Unicode characters. Python provides rich string methods.</p>
+            <pre><code>text = "  Hello, Python World!  "
+print(text.strip())           # "Hello, Python World!"
+print(text.lower())           # "  hello, python world!  "
+print(text.upper())           # "  HELLO, PYTHON WORLD!  "
+print(text.replace("Python", "Java"))  # "  Hello, Java World!  "
+print(text.split(","))        # ['  Hello', ' Python World!  ']
+print("-".join(["a","b","c"]))  # "a-b-c"
+
+# String formatting
+name, age = "Aarav", 20
+print(f"My name is {name} and I am {age} years old.")
+# Output: My name is Aarav and I am 20 years old.
+
+# Slicing
+s = "Python"
+print(s[0:3])   # "Pyt"
+print(s[::-1])  # "nohtyP" (reversed)</code></pre>
+        </section>
+
+        <!-- ==================== MODULE 2 ==================== -->
+        <section id="module-2">
+            <h2>📦 Module 2: Data Structures</h2>
+            <p><strong>Hours:</strong> 18 | <strong>Topics:</strong> Lists, Tuples, Dictionaries, Sets</p>
+
+            <h3>2.1 Lists</h3>
+            <p>Lists are <strong>ordered, mutable</strong> collections. They are the workhorse data structure in Python.</p>
+            <pre><code># Creating lists
+empty_list = []
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# List methods
+numbers.append(6)         # [1,2,3,4,5,6]
+numbers.insert(0, 0)      # [0,1,2,3,4,5,6]
+numbers.remove(3)          # [0,1,2,4,5,6]
+popped = numbers.pop()     # popped=6, list=[0,1,2,4,5]
+numbers.sort(reverse=True) # [5,4,2,1,0]
+print(len(numbers))        # 5
+
+# Slicing (creates a new list)
+print(numbers[1:4])        # [4,2,1]
+
+# List comprehension
+squares = [x**2 for x in range(1, 6)]
+print(squares)             # [1, 4, 9, 16, 25]
+
+# Nested lists (2D)
+matrix = [[1,2,3], [4,5,6], [7,8,9]]
+print(matrix[1][2])        # 6</code></pre>
+            <div class="diagram-container">
+                <svg viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+                    <text x="15" y="30" font-size="14" font-weight="600" fill="#1e40af">Memory diagram: numbers = [5, 4, 2, 1, 0]</text>
+                    <rect x="10" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                    <text x="37" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">5</text>
+                    <text x="37" y="100" text-anchor="middle" font-size="10" fill="#64748b">[0]</text>
+                    <rect x="70" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                    <text x="97" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">4</text>
+                    <text x="97" y="100" text-anchor="middle" font-size="10" fill="#64748b">[1]</text>
+                    <rect x="130" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                    <text x="157" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">2</text>
+                    <text x="157" y="100" text-anchor="middle" font-size="10" fill="#64748b">[2]</text>
+                    <rect x="190" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                    <text x="217" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">1</text>
+                    <text x="217" y="100" text-anchor="middle" font-size="10" fill="#64748b">[3]</text>
+                    <rect x="250" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                    <text x="277" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">0</text>
+                    <text x="277" y="100" text-anchor="middle" font-size="10" fill="#64748b">[4]</text>
+                </svg>
+                <p class="diagram-caption">Figure: Memory layout of a list — each element stored at a contiguous index.</p>
+            </div>
+
+            <h3>2.2 Tuples</h3>
+            <p>Tuples are <strong>ordered, immutable</strong> sequences. Once created, they cannot be modified.</p>
+            <pre><code># Creating tuples
+point = (3, 4)
+single_item = (42,)     # comma is essential!
+empty = ()
+
+# Tuple unpacking
+x, y = point
+print(x, y)             # 3 4
+
+# Why tuples? Faster than lists, hashable (can be dict keys), safe from modification
+coordinates = {(0,0): "origin", (1,0): "right"}
+print(coordinates[(1,0)])  # "right"
+
+# Converting between list and tuple
+my_list = [1, 2, 3]
+my_tuple = tuple(my_list)
+back_to_list = list(my_tuple)</code></pre>
+            <div class="mistake-box">
+                <strong>⚠️ Common Mistake:</strong> <code>t = (42)</code> is NOT a tuple — it's just the integer <code>42</code> in parentheses. Use <code>t = (42,)</code> with a trailing comma for a single-element tuple.
+            </div>
+
+            <h3>2.3 Dictionaries</h3>
+            <p>Dictionaries store <strong>key-value pairs</strong>. Keys must be immutable (strings, numbers, tuples). Values can be anything.</p>
+            <pre><code># Creating dictionaries
+student = {"name": "Aarav", "age": 20, "grade": "A"}
+empty_dict = {}
+using_constructor = dict(name="Priya", age=21)
+
+# Access and modify
+print(student["name"])       # "Aarav"
+print(student.get("city", "N/A"))  # "N/A" (safe access)
+student["age"] = 21
+student["city"] = "Kochi"
+
+# Dictionary methods
+print(student.keys())        # dict_keys(['name','age','grade','city'])
+print(student.values())      # dict_values(['Aarav',21,'A','Kochi'])
+print(student.items())       # dict_items([('name','Aarav'),...])
+
+# Dictionary comprehension
+squares_dict = {x: x**2 for x in range(1, 6)}
+print(squares_dict)          # {1:1, 2:4, 3:9, 4:16, 5:25}
+
+# Iterating
+for key, value in student.items():
+    print(f"{key} → {value}")</code></pre>
+            <div class="diagram-container">
+                <svg viewBox="0 0 450 160" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+                    <text x="15" y="25" font-size="13" font-weight="600" fill="#1e40af">Hash Table: student = {"name":"Aarav", "age":21}</text>
+                    <rect x="10" y="40" width="130" height="50" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+                    <text x="75" y="62" text-anchor="middle" font-size="12" font-weight="600">"name"</text>
+                    <text x="75" y="80" text-anchor="middle" font-size="11" fill="#92400e">hash→ slot 2</text>
+                    <rect x="160" y="40" width="100" height="50" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                    <text x="210" y="70" text-anchor="middle" font-size="14" font-weight="700">"Aarav"</text>
+                    <rect x="10" y="100" width="130" height="50" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+                    <text x="75" y="122" text-anchor="middle" font-size="12" font-weight="600">"age"</text>
+                    <text x="75" y="140" text-anchor="middle" font-size="11" fill="#92400e">hash→ slot 5</text>
+                    <rect x="160" y="100" width="100" height="50" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+                    <text x="210" y="130" text-anchor="middle" font-size="14" font-weight="700">21</text>
+                </svg>
+                <p class="diagram-caption">Figure: Dictionary uses a hash table — keys are hashed to determine storage slots for O(1) average lookup.</p>
+            </div>
+
+            <h3>2.4 Sets</h3>
+            <p>Sets are <strong>unordered, mutable</strong> collections of <strong>unique, hashable</strong> elements. Great for membership testing and eliminating duplicates.</p>
+            <pre><code># Creating sets
+fruits = {"apple", "banana", "mango"}
+empty_set = set()  # NOT {} — that creates a dict!
+nums = set([1, 2, 2, 3, 3, 4])
+print(nums)  # {1, 2, 3, 4} — duplicates removed!
+
+# Set operations
+a = {1, 2, 3, 4}
+b = {3, 4, 5, 6}
+print(a | b)   # Union: {1,2,3,4,5,6}
+print(a & b)   # Intersection: {3,4}
+print(a - b)   # Difference: {1,2}
+print(a ^ b)   # Symmetric difference: {1,2,5,6}
+
+# Set methods
+fruits.add("grape")
+fruits.remove("banana")
+print("mango" in fruits)  # True (fast O(1) lookup)</code></pre>
+        </section>
+
+        <!-- ==================== MODULE 3 ==================== -->
+        <section id="module-3">
+            <h2>⚙️ Module 3: Functions & Modules</h2>
+            <p><strong>Hours:</strong> 20 | <strong>Topics:</strong> Functions, Recursion, Lambda, Modules, File I/O</p>
+
+            <h3>3.1 Defining Functions</h3>
+            <pre><code>def greet(name, greeting="Hello"):
+    """Return a greeting string."""  # docstring
+    return f"{greeting}, {name}!"
+
+print(greet("Aarav"))              # Hello, Aarav!
+print(greet("Priya", "Namaste"))  # Namaste, Priya!
+
+# *args and **kwargs
+def sum_all(*args):
+    """Accept any number of positional arguments."""
+    return sum(args)
+
+print(sum_all(1, 2, 3, 4, 5))     # 15
+
+def print_info(**kwargs):
+    """Accept any number of keyword arguments."""
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_info(name="Aarav", age=20, city="Kochi")</code></pre>
+
+            <h3>3.2 Scope & Lifetime</h3>
+            <p>Python follows the <strong>LEGB</strong> rule: <strong>L</strong>ocal → <strong>E</strong>nclosing → <strong>G</strong>lobal → <strong>B</strong>uilt-in.</p>
+            <pre><code>x = "global"  # global scope
+
+def outer():
+    x = "enclosing"  # enclosing scope
+    def inner():
+        x = "local"  # local scope
+        print(f"inner: {x}")
+    inner()
+    print(f"outer: {x}")
+
+outer()
+print(f"global: {x}")
+# Output:
+# inner: local
+# outer: enclosing
+# global: global</code></pre>
+            <div class="mistake-box">
+                <strong>⚠️ Common Mistake:</strong> Using a mutable default argument like <code>def f(lst=[]):</code> — the same list object is shared across all calls! Use <code>def f(lst=None): if lst is None: lst = []</code> instead.
+            </div>
+
+            <h3>3.3 Recursion</h3>
+            <pre><code>def factorial(n):
+    """Return n! using recursion."""
+    if n <= 1:
+        return 1  # base case
+    return n * factorial(n - 1)  # recursive case
+
+print(factorial(5))  # 120
+
+# Tracing factorial(3):
+# factorial(3) → 3 * factorial(2)
+#   factorial(2) → 2 * factorial(1)
+#     factorial(1) → 1 (base case)
+# Unwinding: 1 → 2*1=2 → 3*2=6</code></pre>
+            <div class="code-output">📤 Output Trace:
+                factorial(3) = 3 * factorial(2)
+                = 3 * (2 * factorial(1))
+                = 3 * (2 * 1)
+                = 3 * 2 = 6</div>
+
+            <h3>3.4 Lambda & Higher-Order Functions</h3>
+            <pre><code># Lambda: anonymous single-expression function
+square = lambda x: x ** 2
+print(square(5))  # 25
+
+# map: apply function to every element
+nums = [1, 2, 3, 4, 5]
+doubled = list(map(lambda x: x * 2, nums))
+print(doubled)  # [2, 4, 6, 8, 10]
+
+# filter: keep elements that satisfy condition
+evens = list(filter(lambda x: x % 2 == 0, nums))
+print(evens)  # [2, 4]
+
+# reduce: cumulative operation (needs functools)
+from functools import reduce
+total = reduce(lambda acc, x: acc + x, nums, 0)
+print(total)  # 15</code></pre>
+
+            <h3>3.5 Modules</h3>
+            <pre><code># Importing standard library modules
+import math
+print(math.sqrt(16))    # 4.0
+print(math.pi)          # 3.141592653589793
+
+from random import randint, choice
+print(randint(1, 100))  # random integer 1-100
+print(choice(["red", "green", "blue"]))  # random pick
+
+import datetime
+now = datetime.datetime.now()
+print(now.strftime("%Y-%m-%d %H:%M:%S"))
+# Output: 2026-07-27 14:30:00 (example)</code></pre>
+
+            <h3>3.6 File I/O</h3>
+            <pre><code># Writing to a file
+with open("sample.txt", "w", encoding="utf-8") as f:
+    f.write("Hello, Python!\n")
+    f.write("Line 2\n")
+
+# Reading from a file
+with open("sample.txt", "r", encoding="utf-8") as f:
+    content = f.read()
+    print(content)
+
+# Reading line by line
+with open("sample.txt", "r", encoding="utf-8") as f:
+    for line in f:
+        print(line.strip())
+
+# Appending
+with open("sample.txt", "a", encoding="utf-8") as f:
+    f.write("Appended line\n")
+
+# The 'with' statement auto-closes the file — no need for f.close()</code></pre>
+            <div class="ml-note">
+                <strong>📌 ഫയൽ I/O:</strong> <code>with</code> സ്റ്റേറ്റ്മെന്റ് ഉപയോഗിക്കുന്നതാണ് ഏറ്റവും സുരക്ഷിതം. ഇത് ഫയൽ ഓട്ടോമാറ്റിക്കായി ക്ലോസ് ചെയ്യും — <code>f.close()</code> വിളിക്കാൻ മറന്നാലും പ്രശ്നമില്ല.
+            </div>
+        </section>
+
+        <!-- ==================== MODULE 4 ==================== -->
+        <section id="module-4">
+            <h2>🚀 Module 4: Advanced Topics</h2>
+            <p><strong>Hours:</strong> 19 | <strong>Topics:</strong> OOP, Exception Handling, Regex, Debugging</p>
+
+            <h3>4.1 Object-Oriented Programming (OOP)</h3>
+            <pre><code>class Animal:
+    """Base class for all animals."""
+    species_count = 0  # class variable
+
+    def __init__(self, name, species):
+        self.name = name        # instance variable
+        self.species = species
+        Animal.species_count += 1
+
+    def speak(self):
+        return f"{self.name} makes a sound."
+
+    @classmethod
+    def get_count(cls):
+        return cls.species_count
+
+    @staticmethod
+    def kingdom():
+        return "Animalia"
+
+# Inheritance
+class Dog(Animal):
+    def __init__(self, name, breed):
+        super().__init__(name, "dog")  # call parent __init__
+        self.breed = breed
+
+    def speak(self):  # override
+        return f"{self.name} barks!"
+
+# Polymorphism
+animals = [Animal("Generic", "unknown"), Dog("Bruno", "Labrador")]
+for a in animals:
+    print(a.speak())
+# Output:
+# Generic makes a sound.
+# Bruno barks!
+
+print(Animal.get_count())  # 2
+print(Animal.kingdom())    # Animalia</code></pre>
+            <div class="diagram-container">
+                <svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+                    <rect x="140" y="10" width="140" height="45" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+                    <text x="210" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">Animal (Base)</text>
+                    <text x="210" y="47" text-anchor="middle" font-size="10" fill="#1d4ed8">+name, +species, +speak()</text>
+                    <line x1="210" y1="55" x2="210" y2="85" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <rect x="140" y="90" width="140" height="45" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+                    <text x="210" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309">Dog (Derived)</text>
+                    <text x="210" y="127" text-anchor="middle" font-size="10" fill="#92400e">+breed, +speak() override</text>
+                    <text x="90" y="160" font-size="10" fill="#64748b">Inheritance ▸</text>
+                </svg>
+                <p class="diagram-caption">Figure: Inheritance hierarchy — Dog inherits from Animal and overrides speak().</p>
+            </div>
+
+            <h3>4.2 Exception Handling</h3>
+            <pre><code>def safe_divide(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        print("Error: Cannot divide by zero!")
+        return None
+    except TypeError:
+        print("Error: Invalid types for division.")
+        return None
+    else:
+        print("Division successful!")
+        return result
+    finally:
+        print("Cleanup: safe_divide finished.")
+
+print(safe_divide(10, 2))   # 5.0
+print(safe_divide(10, 0))   # None
+# Output:
+# Division successful!
+# Cleanup: safe_divide finished.
+# 5.0
+# Error: Cannot divide by zero!
+# Cleanup: safe_divide finished.
+# None</code></pre>
+
+            <h3>4.3 Regular Expressions (Sparse)</h3>
+            <pre><code>import re
+
+text = "Contact: aarav@email.com or priya123@college.edu"
+
+# Find all email patterns
+pattern = r'[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+emails = re.findall(pattern, text)
+print(emails)  # ['aarav@email.com', 'priya123@college.edu']
+
+# Search and replace
+cleaned = re.sub(r'\d+', 'XXX', "Phone: 9876543210")
+print(cleaned)  # Phone: XXX
+
+# Match validation
+phone_pattern = r'^\d{10}$'
+print(re.match(phone_pattern, "9876543210"))  # Match object
+print(re.match(phone_pattern, "12345"))       # None</code></pre>
+            <p><em>Note: Advanced regex flags and lookahead/lookbehind assertions are considered sparse topics — refer to Python <code>re</code> module documentation for exhaustive coverage.</em></p>
+
+            <h3>4.4 Debugging Techniques</h3>
+            <pre><code># Using assertions
+def calculate_average(numbers):
+    assert len(numbers) > 0, "List cannot be empty"
+    return sum(numbers) / len(numbers)
+
+# Using logging
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(levelname)s:%(message)s')
+
+def process_data(data):
+    logging.debug(f"Processing {data}")
+    result = [x * 2 for x in data]
+    logging.info(f"Result: {result}")
+    return result
+
+process_data([1, 2, 3])
+# Output:
+# DEBUG:Processing [1, 2, 3]
+# INFO:Result: [2, 4, 6]
+
+# pdb (Python Debugger) — sparse intro
+# import pdb; pdb.set_trace()  # set breakpoint</code></pre>
+            <div class="ml-note">
+                <strong>📌 ഡീബഗ്ഗിംഗ്:</strong> <code>print()</code> ഉപയോഗിച്ച് ഡീബഗ് ചെയ്യുന്നതിനു പകരം <code>logging</code> മൊഡ്യൂൾ ഉപയോഗിക്കുന്നതാണ് നല്ല ശീലം. ഇത് ലെവൽ അനുസരിച്ച് മെസേജുകൾ ഓൺ/ഓഫ് ചെയ്യാൻ സഹായിക്കുന്നു.
+            </div>
+        </section>
+
+        <!-- ==================== SECTION: FORMULA BANK ==================== -->
+        <section id="formula-bank">
+            <h2>📐 Formula & Syntax Bank</h2>
+            <table>
+                <thead><tr><th>Concept</th><th>Syntax / Formula</th><th>Example</th></tr></thead>
+                <tbody>
+                    <tr><td>List comprehension</td><td><code>[expr for item in iterable if condition]</code></td><td><code>[x**2 for x in range(5) if x%2==0]</code></td></tr>
+                    <tr><td>Dict comprehension</td><td><code>{k: v for k,v in iterable}</code></td><td><code>{x:x**2 for x in range(3)}</code></td></tr>
+                    <tr><td>Lambda</td><td><code>lambda args: expression</code></td><td><code>lambda a,b: a+b</code></td></tr>
+                    <tr><td>Ternary operator</td><td><code>val_if_true if cond else val_if_false</code></td><td><code>"Even" if n%2==0 else "Odd"</code></td></tr>
+                    <tr><td>f-string</td><td><code>f"text {variable}"</code></td><td><code>f"Age: {age}"</code></td></tr>
+                    <tr><td>File open</td><td><code>with open(path, mode) as f:</code></td><td><code>with open("f.txt","r") as f:</code></td></tr>
+                    <tr><td>Exception</td><td><code>try: ... except X as e: ... finally: ...</code></td><td>See Module 4</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==================== SECTION: VISUAL LIBRARY ==================== -->
+        <section id="visual-library">
+            <h2>🖼️ Visual Library</h2>
+            <p>All diagrams in this lesson are embedded as inline SVGs for clarity and accessibility.</p>
+            <ul>
+                <li><strong>Figure 1:</strong> Learning Roadmap — sequential module flow (see <a href="#roadmap">Roadmap</a>)</li>
+                <li><strong>Figure 2:</strong> if-elif-else Flowchart (see <a href="#module-1">Module 1.4</a>)</li>
+                <li><strong>Figure 3:</strong> List Memory Layout (see <a href="#module-2">Module 2.1</a>)</li>
+                <li><strong>Figure 4:</strong> Dictionary Hash Table (see <a href="#module-2">Module 2.3</a>)</li>
+                <li><strong>Figure 5:</strong> OOP Inheritance Hierarchy (see <a href="#module-4">Module 4.1</a>)</li>
+            </ul>
+        </section>
+
+        <!-- ==================== SECTION: ACTIVITIES (Calculators) ==================== -->
+        <section id="activities">
+            <h2>🧪 Interactive Activities & Calculators</h2>
+
+            <!-- Calculator 1: Grade Calculator -->
+            <div class="calculator-widget" id="calc-grade">
+                <h4>🎓 Grade Calculator</h4>
+                <p>Enter a score (0–100) to see the grade using if-elif-else logic.</p>
+                <label for="grade-input">Score:</label>
+                <input type="number" id="grade-input" min="0" max="100" placeholder="e.g. 85" aria-label="Enter score">
+                <button onclick="calculateGrade()">Calculate Grade</button>
+                <div class="calc-result" id="grade-result" aria-live="polite">Result will appear here...</div>
+            </div>
+
+            <!-- Calculator 2: Factorial Calculator -->
+            <div class="calculator-widget" id="calc-factorial">
+                <h4>🔢 Factorial Calculator (Recursive)</h4>
+                <p>Enter a non-negative integer to compute its factorial.</p>
+                <label for="fact-input">n:</label>
+                <input type="number" id="fact-input" min="0" max="20" placeholder="e.g. 5" aria-label="Enter number for factorial">
+                <button onclick="calculateFactorial()">Compute n!</button>
+                <div class="calc-result" id="fact-result" aria-live="polite">Result will appear here...</div>
+            </div>
+
+            <!-- Calculator 3: BMI Calculator -->
+            <div class="calculator-widget" id="calc-bmi">
+                <h4>⚖️ BMI Calculator</h4>
+                <p>Enter weight (kg) and height (m) to calculate BMI.</p>
+                <label for="weight-input">Weight (kg):</label>
+                <input type="number" id="weight-input" min="1" step="0.1" placeholder="e.g. 70" aria-label="Weight in kg">
+                <label for="height-input">Height (m):</label>
+                <input type="number" id="height-input" min="0.1" step="0.01" placeholder="e.g. 1.75" aria-label="Height in meters">
+                <button onclick="calculateBMI()">Calculate BMI</button>
+                <div class="calc-result" id="bmi-result" aria-live="polite">Result will appear here...</div>
+            </div>
+        </section>
+
+        <!-- ==================== SECTION: ASSESSMENT ==================== -->
+        <section id="assessment">
+            <h2>📝 Assessment Scheme</h2>
+            <table>
+                <thead><tr><th>Component</th><th>Weightage</th><th>Type</th></tr></thead>
+                <tbody>
+                    <tr><td>Internal Assessment (IA)</td><td>40%</td><td>Assignments, quizzes, lab work, attendance</td></tr>
+                    <tr><td>End Semester Exam (ESE)</td><td>60%</td><td>Written theory + programming problems</td></tr>
+                    <tr><td><strong>Total</strong></td><td><strong>100%</strong></td><td>Minimum pass: 40% overall</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ==================== SECTION: QUESTIONS ==================== -->
+        <section id="questions">
+            <h2>❓ Practice Questions</h2>
+            <h3>Module 1</h3>
+            <ol>
+                <li>Write a program to check if a given number is prime.</li>
+                <li>Explain the difference between <code>break</code>, <code>continue</code>, and <code>pass</code> with examples.</li>
+                <li>Write a program to reverse a string without using <code>[::-1]</code>.</li>
+            </ol>
+            <h3>Module 2</h3>
+            <ol>
+                <li>Create a list of 10 numbers and write code to find the second largest element.</li>
+                <li>Given two dictionaries, merge them into one. If keys overlap, sum their values.</li>
+                <li>Demonstrate set operations (union, intersection, difference) with real-world examples.</li>
+            </ol>
+            <h3>Module 3</h3>
+            <ol>
+                <li>Write a recursive function to compute the nth Fibonacci number.</li>
+                <li>Explain <code>*args</code> and <code>**kwargs</code> with a practical example.</li>
+                <li>Write a program to count word frequency in a text file.</li>
+            </ol>
+            <h3>Module 4</h3>
+            <ol>
+                <li>Design a <code>BankAccount</code> class with deposit, withdraw, and balance-check methods.</li>
+                <li>Write a function that uses exception handling to safely parse an integer from user input.</li>
+                <li>Use regex to validate Indian mobile numbers and email addresses.</li>
+            </ol>
+        </section>
+
+        <!-- ==================== SECTION: MODEL PAPER ==================== -->
+        <section id="model-paper">
+            <h2>📄 Model Question Paper</h2>
+            <p><strong>Duration:</strong> 3 Hours | <strong>Max Marks:</strong> 100</p>
+            <table>
+                <thead><tr><th>Part</th><th>Questions</th><th>Marks</th></tr></thead>
+                <tbody>
+                    <tr><td>A</td><td>10 short-answer (all compulsory)</td><td>10 × 2 = 20</td></tr>
+                    <tr><td>B</td><td>5 out of 7 medium-length</td><td>5 × 8 = 40</td></tr>
+                    <tr><td>C</td><td>2 out of 4 long programming problems</td><td>2 × 20 = 40</td></tr>
+                </tbody>
+            </table>
+            <p><strong>Sample Questions:</strong></p>
+            <ul>
+                <li><strong>Part A:</strong> Define tuple unpacking. What is the output of <code>print(2**3**2)</code>?</li>
+                <li><strong>Part B:</strong> Explain dictionary methods with examples. Write a program using list comprehension to filter even numbers.</li>
+                <li><strong>Part C:</strong> Design a complete class hierarchy for a Library Management System. Write a Python program to read a CSV file and generate a summary report.</li>
+            </ul>
+        </section>
+
+        <!-- ==================== SECTION: REVISION ==================== -->
+        <section id="revision">
+            <h2>🔄 Revision Notes</h2>
+            <details>
+                <summary>Module 1 Quick Recap</summary>
+                <div class="details-content">
+                    <ul>
+                        <li>Python is dynamically typed and uses indentation for blocks.</li>
+                        <li>Core types: int, float, str, bool, list, tuple, dict, set.</li>
+                        <li><code>if-elif-else</code> for branching; <code>for</code> and <code>while</code> for loops.</li>
+                        <li>Strings are immutable; use methods like <code>.strip()</code>, <code>.split()</code>, <code>.join()</code>.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary>Module 2 Quick Recap</summary>
+                <div class="details-content">
+                    <ul>
+                        <li>Lists: mutable, ordered. Use <code>.append()</code>, slicing, comprehensions.</li>
+                        <li>Tuples: immutable, ordered. Good for fixed data and dict keys.</li>
+                        <li>Dicts: key-value pairs. Use <code>.get()</code> for safe access.</li>
+                        <li>Sets: unique elements. Use <code>|</code>, <code>&</code>, <code>-</code>, <code>^</code> for set operations.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary>Module 3 Quick Recap</summary>
+                <div class="details-content">
+                    <ul>
+                        <li>Functions: <code>def</code>, default args, <code>*args</code>, <code>**kwargs</code>.</li>
+                        <li>Scope: LEGB rule (Local→Enclosing→Global→Built-in).</li>
+                        <li>Recursion needs a base case to terminate.</li>
+                        <li>File I/O: use <code>with open(...) as f:</code> for auto-closing.</li>
+                    </ul>
+                </div>
+            </details>
+            <details>
+                <summary>Module 4 Quick Recap</summary>
+                <div class="details-content">
+                    <ul>
+                        <li>OOP: Classes, <code>__init__</code>, inheritance, polymorphism, encapsulation.</li>
+                        <li>Exceptions: <code>try-except-else-finally</code>.</li>
+                        <li>Regex: <code>re.findall()</code>, <code>re.sub()</code>, <code>re.match()</code>.</li>
+                        <li>Debugging: Use <code>logging</code> instead of <code>print()</code>.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- ==================== SECTION: GLOSSARY ==================== -->
+        <section id="glossary">
+            <h2>📚 Glossary</h2>
+            <p><span class="glossary-term">Argument:</span> <span class="glossary-def">A value passed to a function when it is called.</span></p>
+            <p><span class="glossary-term">Class:</span> <span class="glossary-def">A blueprint for creating objects, defining attributes and methods.</span></p>
+            <p><span class="glossary-term">Dictionary:</span> <span class="glossary-def">An unordered, mutable collection of key-value pairs with O(1) average lookup.</span></p>
+            <p><span class="glossary-term">Exception:</span> <span class="glossary-def">An error that occurs during program execution, which can be caught and handled.</span></p>
+            <p><span class="glossary-term">Immutable:</span> <span class="glossary-def">An object whose state cannot be modified after creation (e.g., str, tuple, int).</span></p>
+            <p><span class="glossary-term">Lambda:</span> <span class="glossary-def">An anonymous, single-expression function defined with the <code>lambda</code> keyword.</span></p>
+            <p><span class="glossary-term">List Comprehension:</span> <span class="glossary-def">A concise way to create lists using a single line of code: <code>[expr for item in iterable]</code>.</span></p>
+            <p><span class="glossary-term">Module:</span> <span class="glossary-def">A file containing Python definitions and statements that can be imported.</span></p>
+            <p><span class="glossary-term">Mutable:</span> <span class="glossary-def">An object whose state can be modified after creation (e.g., list, dict, set).</span></p>
+            <p><span class="glossary-term">Recursion:</span> <span class="glossary-def">A technique where a function calls itself to solve smaller instances of the same problem.</span></p>
+        </section>
+
+        <!-- ==================== SECTION: REFERENCES ==================== -->
+        <section id="references">
+            <h2>🔗 References</h2>
+            <ul>
+                <li>Python Official Documentation: <a href="https://docs.python.org/3/" target="_blank" rel="noopener">docs.python.org/3/</a></li>
+                <li>Python Standard Library: <a href="https://docs.python.org/3/library/" target="_blank" rel="noopener">docs.python.org/3/library/</a></li>
+                <li>PEP 8 — Style Guide: <a href="https://peps.python.org/pep-0008/" target="_blank" rel="noopener">peps.python.org/pep-0008/</a></li>
+                <li>Real Python Tutorials: <a href="https://realpython.com/" target="_blank" rel="noopener">realpython.com</a></li>
+                <li>W3Schools Python: <a href="https://www.w3schools.com/python/" target="_blank" rel="noopener">w3schools.com/python/</a></li>
+                <li>GeeksforGeeks Python: <a href="https://www.geeksforgeeks.org/python-programming-language/" target="_blank" rel="noopener">geeksforgeeks.org</a></li>
+            </ul>
+        </section>
+
+        <!-- ==================== SECTION: HANDBOOK SEARCH ==================== -->
+        <section id="handbook-search">
+            <h2>🔎 Handbook Search</h2>
+            <p>Use the search bar at the top of the page to find any topic, function name, or concept across all modules. The search scans all section headings and <code>&lt;details&gt;</code> summaries.</p>
+            <p><strong>Try searching for:</strong> "lambda", "dictionary", "recursion", "OOP", "list comprehension", "exception", "file I/O"</p>
+            <div class="ml-note">
+                <strong>📌 തിരയൽ:</strong> പേജിന്റെ മുകളിലുള്ള സെർച്ച് ബോക്സിൽ ഏത് ടോപ്പിക്കും തിരയാം. എല്ലാ മൊഡ്യൂളുകളിലും ഒരേസമയം തിരയുന്നതാണ്.
+            </div>
+        </section>
+
+    </main>
+
+    <!-- External JS -->
+    <script src="/assets/js/lesson-navigation-fix.js?v=2026.07.27"></script>
+    <script>
+        (function() {
+            // ===== READING PROGRESS BAR =====
+            const progressBar = document.getElementById('reading-progress-bar');
+            const lessonContent = document.getElementById('lesson-content');
+
+            function updateProgressBar() {
+                if (!progressBar || !lessonContent) return;
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
+                progressBar.style.width = scrollPercent + '%';
+            }
+            window.addEventListener('scroll', updateProgressBar, { passive: true });
+            window.addEventListener('resize', updateProgressBar, { passive: true });
+            updateProgressBar();
+
+            // ===== PRINT BUTTON =====
+            const btnPrint = document.getElementById('btn-print');
+            if (btnPrint) {
+                btnPrint.addEventListener('click', function() {
+                    // Expand all <details> before printing
+                    const allDetails = document.querySelectorAll('details');
+                    const originallyClosed = [];
+                    allDetails.forEach(d => {
+                        if (!d.open) {
+                            originallyClosed.push(d);
+                            d.open = true;
+                        }
+                    });
+                    window.print();
+                    // Restore after print
+                    setTimeout(() => {
+                        originallyClosed.forEach(d => { d.open = false; });
+                    }, 300);
+                });
+            }
+
+            // ===== DOWNLOAD BUTTON =====
+            const btnDownload = document.getElementById('btn-download');
+            if (btnDownload) {
+                btnDownload.addEventListener('click', function() {
+                    // Attempt real PDF path first
+                    const pdfPath = '/assets/pdf/lessons-1259.pdf';
+                    // Create a temporary link to try download
+                    const link = document.createElement('a');
+                    link.href = pdfPath;
+                    link.download = 'Python-Programming-Lesson-1259.pdf';
+                    link.style.display = 'none';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    // If PDF doesn't exist, fallback message after short delay
+                    setTimeout(() => {
+                        alert(
+                            '📥 If the PDF did not download, it may not be available at:\n' +
+                            pdfPath +
+                            '\n\nYou can use the 🖨️ Print button and "Save as PDF" in your browser as an alternative.');
+                    }, 800);
+                });
+            }
+
+            // ===== SEARCH FUNCTIONALITY =====
+            const searchInput = document.getElementById('lesson-search-input');
+            const searchResultsCount = document.getElementById('search-results-count');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const query = this.value.trim().toLowerCase();
+                    const sections = document.querySelectorAll('section');
+                    let totalVisible = 0;
+                    let totalItems = 0;
+
+                    sections.forEach(section => {
+                        const headings = section.querySelectorAll(
+                            'h2, h3, h4, details summary, p, li, td, th, .glossary-term, .glossary-def');
+                        let sectionHasMatch = false;
+
+                        headings.forEach(el => {
+                            const text = el.textContent.toLowerCase();
+                            if (query === '') {
+                                el.classList.remove('highlight-match');
+                                el.closest('.search-hidden')?.classList.remove('search-hidden');
+                                if (el.closest('details')) {
+                                    el.closest('details').classList.remove('search-hidden');
+                                }
+                            } else if (text.includes(query)) {
+                                sectionHasMatch = true;
+                                el.classList.add('highlight-match');
+                                // Ensure parent details are visible
+                                const details = el.closest('details');
+                                if (details) {
+                                    details.classList.remove('search-hidden');
+                                    details.open = true;
+                                }
+                            } else {
+                                el.classList.remove('highlight-match');
+                            }
+                            totalItems++;
+                        });
+
+                        if (query === '') {
+                            section.classList.remove('search-hidden');
+                            // Close details that were auto-opened
+                            section.querySelectorAll('details').forEach(d => {
+                                d.classList.remove('search-hidden');
+                            });
+                            totalVisible++;
+                        } else if (sectionHasMatch) {
+                            section.classList.remove('search-hidden');
+                            totalVisible++;
+                        } else {
+                            section.classList.add('search-hidden');
+                        }
+                    });
+
+                    if (searchResultsCount) {
+                        if (query === '') {
+                            searchResultsCount.textContent = '';
+                        } else {
+                            searchResultsCount.textContent =
+                                `🔍 Found matches in ${totalVisible} section(s) for "${query}"`;
+                        }
+                    }
+
+                    // Clear highlights if query is empty
+                    if (query === '') {
+                        document.querySelectorAll('.highlight-match').forEach(el => {
+                            el.classList.remove('highlight-match');
+                        });
+                        document.querySelectorAll('details').forEach(d => {
+                            d.classList.remove('search-hidden');
+                        });
+                    }
+                });
+            }
+
+            // ===== CALCULATOR 1: Grade Calculator =====
+            window.calculateGrade = function() {
+                const input = document.getElementById('grade-input');
+                const resultDiv = document.getElementById('grade-result');
+                if (!input || !resultDiv) return;
+                const score = parseInt(input.value, 10);
+                if (isNaN(score) || score < 0 || score > 100) {
+                    resultDiv.textContent = '⚠️ Please enter a valid score between 0 and 100.';
+                    resultDiv.style.color = '#991b1b';
+                    resultDiv.style.background = '#fef2f2';
+                    return;
+                }
+                let grade;
+                if (score >= 90) grade = 'A (Excellent!) 🎉';
+                else if (score >= 80) grade = 'B (Very Good) 👍';
+                else if (score >= 70) grade = 'C (Good)';
+                else if (score >= 60) grade = 'D (Satisfactory)';
+                else grade = 'F (Needs Improvement) 📚';
+                resultDiv.textContent = `Score: ${score} → Grade: ${grade}`;
+                resultDiv.style.color = '#166534';
+                resultDiv.style.background = '#f0fdf4';
+            };
+
+            // ===== CALCULATOR 2: Factorial Calculator =====
+            window.calculateFactorial = function() {
+                const input = document.getElementById('fact-input');
+                const resultDiv = document.getElementById('fact-result');
+                if (!input || !resultDiv) return;
+                const n = parseInt(input.value, 10);
+                if (isNaN(n) || n < 0 || n > 20) {
+                    resultDiv.textContent = '⚠️ Please enter a non-negative integer (0–20).';
+                    resultDiv.style.color = '#991b1b';
+                    resultDiv.style.background = '#fef2f2';
+                    return;
+                }
+                // Recursive factorial
+                function fact(num) {
+                    if (num <= 1) return 1;
+                    return num * fact(num - 1);
+                }
+                const result = fact(n);
+                resultDiv.textContent = `${n}! = ${result.toLocaleString()}`;
+                resultDiv.style.color = '#166534';
+                resultDiv.style.background = '#f0fdf4';
+            };
+
+            // ===== CALCULATOR 3: BMI Calculator =====
+            window.calculateBMI = function() {
+                const weightInput = document.getElementById('weight-input');
+                const heightInput = document.getElementById('height-input');
+                const resultDiv = document.getElementById('bmi-result');
+                if (!weightInput || !heightInput || !resultDiv) return;
+                const weight = parseFloat(weightInput.value);
+                const height = parseFloat(heightInput.value);
+                if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                    resultDiv.textContent = '⚠️ Please enter valid positive numbers for weight and height.';
+                    resultDiv.style.color = '#991b1b';
+                    resultDiv.style.background = '#fef2f2';
+                    return;
+                }
+                const bmi = weight / (height * height);
+                let category;
+                if (bmi < 18.5) category = 'Underweight';
+                else if (bmi < 25) category = 'Normal weight ✅';
+                else if (bmi < 30) category = 'Overweight';
+                else category = 'Obese';
+                resultDiv.textContent = `BMI: ${bmi.toFixed(1)} — ${category}`;
+                resultDiv.style.color = '#166534';
+                resultDiv.style.background = '#f0fdf4';
+            };
+
+            // ===== ARIA-LIVE REGION INITIALIZATION =====
+            document.querySelectorAll('[aria-live]').forEach(el => {
+                if (!el.textContent.trim()) {
+                    el.textContent = 'Ready.';
+                }
+            });
+
+            console.log('✅ Python Programming Lesson (lessons-1259.html) — All interactive features loaded.');
+            console.log('   📊 Reading progress bar | 🖨️ Print | 📥 Download | 🔍 Search | 🧮 3 Calculators');
+        })();
+    </script>
+</body>
+</html>
