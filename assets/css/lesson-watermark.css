@@ -9,7 +9,7 @@
  *   - Never affects text selection
  *   - Never reduces readability
  *   - GPU-accelerated and lightweight
- *   - Hidden during print
+ *   - Always visible, including in print/PDF output
  */
 
 :root {
@@ -56,10 +56,15 @@ body > *:not(.poly-watermark) {
   position: relative;
 }
 
-/* Print: hide watermark completely */
+/* Print: watermark remains visible in PDF / printed output */
 @media print {
   .poly-watermark {
-    display: none !important;
+    position: absolute !important;
+    opacity: 0.04 !important;
+    z-index: 0 !important;
+  }
+  .poly-watermark-inner {
+    position: absolute !important;
   }
 }
 

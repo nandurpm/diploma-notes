@@ -451,7 +451,30 @@ def validate_html(document: str, code: str, title: str, syllabus_text: str) -> l
     if re.search(r"<(?:script|link)[^>]+(?:cdn\.|cdnjs|unpkg|jsdelivr|bootstrap|tailwind)", lower):
         errors.append("external CDN dependency detected")
 
+    if '/assets/js/lesson-navigation-fix.js' not in lower:
+        errors.append("shared runtime (lesson-navigation-fix.js) is missing")
+
     return errors
+
+
+def inject_shared_runtime(document: str) -> str:
+    """Ensure lesson-navigation-fix.js is included before </body>.
+
+    The shared runtime provides watermark injection, full-width layout,
+    navigation fixes, and other lesson-page enhancements.  Any generated
+    handbook that does not already reference this script will have it
+    injected automatically.
+    """
+    marker = '/assets/js/lesson-navigation-fix.js'
+    if marker in document.lower():
+        return document
+    script_tag = '\n<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>'
+    body_end = re.search(r'</body\s*>', document, flags=re.I)
+    if body_end:
+        document = document[:body_end.start()] + script_tag + '\n' + document[body_end.start():]
+    else:
+        document += script_tag + '\n'
+    return document
 
 
 def repair_html(code: str, title: str, syllabus_text: str, draft: str, errors: list[str]) -> str:
@@ -528,6 +551,8 @@ def main() -> int:
         log(f"Skip write for {code}: target was created concurrently.")
         write_github_output(status="skipped", code=code, title=title, generated_path="")
         return 0
+
+    document = inject_shared_runtime(document)
 
     temporary_target = target.with_suffix(".html.tmp")
     temporary_target.write_text(document, encoding="utf-8")
