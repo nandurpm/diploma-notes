@@ -21,3 +21,7 @@
 ## 2026-07-26 - [Pre-computed and Cached Search Text on Page Elements]
 **Learning:** Found a severe performance bottleneck where search/filtering input handlers dynamically joined multiple dataset attributes and performed heavy string operations (like Unicode normalization `normalize("NFKD")` or lowercase coercion) on every single keystroke across hundreds/thousands of elements. Pre-computing and caching the search string as an object property (`_searchText`) during initialization completely eliminates CPU-intensive operations and garbage-collection overhead on the active render loop.
 **Action:** Always pre-calculate and cache static/normalized search indexes on objects/elements before entering interactive filtering or rendering loops.
+
+## 2026-07-27 - [Optimized SITTTR Revision 2021 Search Render Loop]
+**Learning:** Discovered a redundant and expensive $O(N)$ `uniq(list)` call inside the active `render()` loop of `sitttr-rev2021-browser.js` that was executing on every user keypress, and search input change. Combined with repetitive string joining and case coercion on subject elements, this was causing significant CPU usage and memory churn. Pre-computing `_searchText` during `init()` and removing the redundant `uniq()` call ensures a lightning-fast render response.
+**Action:** Remove redundant deduplication passes from active UI render loops if the underlying data has already been uniquely loaded and cached.
