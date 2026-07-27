@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-26T03:39:11Z",
+  "generatedAt": "2026-07-27T04:42:30Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Sun, 26 Jul 2026 03:39:11 GMT",
+      "date": "Mon, 27 Jul 2026 04:42:30 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "419",
       "connection": "close",
@@ -22,10 +22,10 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=xjPAmaQQnGrgMUlayrnjGsSGvMM1n%2FuGwmwsJx3v%2F1Yq2Z5C7TX%2FnpkQ6OU8SpBL2zh6MAv0oSN85GSMjc9zGc0kBUxyp4hTFD3OBmkTIDgIq5Eimmvm9HBu%2BO9SqIh3j9rDnCp4CGpEkgNlrdUVprnvdrGpEKhUhg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Qs1ApjmKv%2BFrDNJUcv%2BBki%2BHtFWx7Ryh5owG7xmMrCOJwuTOWBNfNhmz8ikL6vmkLA4Tja6C18QFez9AaHUXZG%2BrddFAiiq259kEIZsZKAQeL1ZDRUk1sVo5z3YhUidAkDhGTgi32YPoCaJLLxxRicJ01DjTOwek%2FQ%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2106031eda7c655-IAD",
+      "cf-ray": "a218fa55cd98d91c-IAD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Sun, 26 Jul 2026 03:39:11 GMT",
+      "date": "Mon, 27 Jul 2026 04:42:30 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2ekzF4q96vgssD9kz4QNXkW9r5vEdwG9CsOrf9UFhaZJgPpDq6l3mrX8Vltx606Q7%2BV3Et4xwB8IPy6agRwCRVoSLVmIFfLvAUrEmugi0VDTir90bNgKRsOSYAb7zKBfT4Et%2FrDe4MnEHNlPS03fuEDXjyJ7WpAbEA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6HdmbS9h5qRrX538p7DvhpKxLJfEWQTiZ9JE0c59BuXOeFofFVDn3yo0nPhWIJo38JyCE2Mj7TFoM3xSsfJRXcGiZX3KTagIUqZvtM2E8vsQI%2Bu6Xi5VRDD%2BAu6mNmX1wHlSJTA9DcJ%2B5z%2B%2BZBB9WcBtVMoEZHZpSA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a21060322dfa0434-IAD",
+      "cf-ray": "a218fa560df3d6ab-IAD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Sun, 26 Jul 2026 03:39:11 GMT",
+      "date": "Mon, 27 Jul 2026 04:42:30 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "346",
+      "content-length": "343",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=NZvM5T0uZ%2BU2%2FMBQ8hGY6nq2wGP%2BxlfLY1L0dP0tLi%2BA9vl2Scx8saUD62wC6onGXqd0wsh3rmIKOIJwDBo5XasGOLpBapBIzrzg%2BnOpfDfDSSdm6Qx6D%2BTIb4GaDkAXw%2Fh4vD99l%2F%2F3i0KXh%2B1oD0OVFtTHe0%2BtHQ%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=HIrTFiupC6gYHQ8pwKv4e%2FoDsL3vaokXWphtQj9pUqErmcvYf8EucXoqiZyChKb%2F4dfFknxA0Am9mlqFrdAZBKxrxObwQqfE34kXTGMMt%2FB6Yj2FLtDtzGEHmIZpMpC8zfFnffgcKwd4I%2FBZM6eDs1V9F1KUpa256w%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a210603258a80602-IAD",
+      "cf-ray": "a218fa5629f6c6d1-IAD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"Unfortunately, I'm not aware of any specific \\\"Ask POLY\\\" browser path as I'm a text-based AI assistant.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-64b0ad87-9b3d-497f-9578-1373c3acac87\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"Unfortunately, I'm a text-based AI assistant and do not have information about the POLY browser path.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-b2d041cf-51e9-4a6b-8324-28e05e9c5f01\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true

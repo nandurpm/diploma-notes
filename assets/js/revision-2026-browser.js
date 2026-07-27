@@ -168,6 +168,12 @@
         "--department-art",
         `url("/assets/media/departments/rev2026/${programmeSlug}.webp?v=${VERSION}")`
       );
+      // PERFORMANCE OPTIMIZATION: Pre-compute and cache the normalized search text
+      // to avoid expensive dataset access and Unicode normalization on every keystroke.
+      card._searchText = normaliseSearch(
+        card.dataset.searchText ||
+        [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent].join(" ")
+      );
     });
 
     const updateUrl = query => {
@@ -187,10 +193,7 @@
       let visible = 0;
 
       cards.forEach(card => {
-        const haystack = normaliseSearch(
-          card.dataset.searchText ||
-          [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent].join(" ")
-        );
+        const haystack = card._searchText || "";
         const show = !query || haystack.includes(query);
         card.hidden = !show;
         card.setAttribute("aria-hidden", String(!show));
@@ -256,13 +259,20 @@
     if (!grid || grid.dataset.staticRev2026 !== "true") return false;
     const cards = [...grid.querySelectorAll(".subject-card")];
     const sections = [...grid.querySelectorAll(".semester-subject-section")];
+
+    // PERFORMANCE OPTIMIZATION: Cache the normalized search text for each subject card
+    // at initialization time to avoid repeating Unicode normalization/regex replace on every keystroke.
+    cards.forEach(card => {
+      card._searchText = normaliseSearch(card.dataset.searchText || card.textContent);
+    });
+
     const draw = () => {
       const query = normaliseSearch(search?.value || "");
       const selected = semester?.value || "all";
       let visibleTotal = 0;
       cards.forEach(card => {
         const matchesSemester = selected === "all" || card.dataset.semester === selected;
-        const haystack = normaliseSearch(card.dataset.searchText || card.textContent);
+        const haystack = card._searchText || "";
         const show = matchesSemester && (!query || haystack.includes(query));
         card.hidden = !show;
         if (show) visibleTotal += 1;
