@@ -4,13 +4,28 @@
   "notesFolder": "revision-2026-content/notes",
   "generated": [
     {
-      "code": "1144",
-      "pages": 37,
-      "bytes": 27534574,
-      "source": "revision-2026-content/lessons/lessons-1144.html",
-      "sourceCharacters": 44080,
-      "pdfCharacters": 44177,
-      "textCoverage": 1.0022,
+      "code": "1143",
+      "pages": 45,
+      "bytes": 33609069,
+      "source": "revision-2026-content/lessons/lessons-1143.html",
+      "sourceCharacters": 51723,
+      "pdfCharacters": 51554,
+      "textCoverage": 0.9967,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "1259",
+      "pages": 19,
+      "bytes": 17680831,
+      "source": "revision-2026-content/lessons/lessons-1259.html",
+      "sourceCharacters": 22679,
+      "pdfCharacters": 21994,
+      "textCoverage": 0.9698,
       "panelCount": 0,
       "visiblePanelCount": 0,
       "removedBlankPages": [],
@@ -38,8 +53,10 @@
     "1131",
     "1141",
     "1142",
+    "1143",
     "1144",
     "1182",
+    "1259",
     "2002B",
     "2003A",
     "2031",
@@ -47,7 +64,8 @@
     "2131"
   ],
   "generatedThisRunCodes": [
-    "1144"
+    "1143",
+    "1259"
   ],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
