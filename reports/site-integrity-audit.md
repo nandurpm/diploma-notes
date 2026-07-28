@@ -3,6 +3,9 @@
 - Generated: **2026-07-28T10:04:32Z**
 - Commit: `bea861e0d24b445eaa4cabc48f57472a046ad5e6`
 - Branch: `jules-17753566321363108910-c62b1d02`
+- Generated: **2026-07-28T10:49:25Z**
+- Commit: `0795d667cdb3c4d720c5fc04e7059f1df87033b1`
+- Branch: `jules-8811860194840888603-41fe4deb`
 - Result: **PASSED**
 
 ## Current scope
@@ -15,18 +18,18 @@
 
 ## Inventory
 
-- Sitemap resources: **298**
-- Indexed HTML resources: **180**
+- Sitemap resources: **299**
+- Indexed HTML resources: **181**
 - Indexed PDFs: **118**
 - Revision 2021 department files: **44**
 - Revision 2026 department files: **38**
 - Revision 2021 lesson files: **91**
-- Revision 2026 lesson files: **26**
+- Revision 2026 lesson files: **27**
 - Revision 2021 note PDFs: **92**
 - Revision 2026 note PDFs: **26**
 
 ## Quality gate output
 
 ```text
-Site quality gate passed for 298 sitemap resources.
+Site quality gate passed for 299 sitemap resources.
 ```
