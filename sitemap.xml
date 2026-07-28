@@ -2,35 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://polypmna.dpdns.org/</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/about.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/ask-poly.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/contact.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/daily-quiz.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/departments.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/disclaimer.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/departments.html</loc>
+    <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/disclaimer.html</loc>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/lessons.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/lessons/lessons-1001.html</loc>
@@ -274,19 +284,19 @@
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/materials-2015.html</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/mock-exam-1004.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/mock-exam.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/model-question-papers.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/notes/downloadable-notes-1001.pdf</loc>
@@ -658,11 +668,11 @@
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/privacy.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/revision-2021.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/revision-2021/architecture.html</loc>
@@ -849,10 +859,6 @@
     <lastmod>2026-07-25</lastmod>
   </url>
   <url>
-    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html</loc>
-    <lastmod>2026-07-25</lastmod>
-  </url>
-  <url>
     <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1008.html</loc>
     <lastmod>2026-07-25</lastmod>
   </url>
@@ -886,7 +892,144 @@
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1131.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1142.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1143.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1144.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1182.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1254.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2031.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2032.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2131.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1001.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1002.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1003.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1004.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1008.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1009.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1011.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1021.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1031.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1041.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1051.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1061.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1091.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1101.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1131.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1141.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1142.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1143.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1144.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1182.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
     <lastmod>2026-07-25</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1142.html</loc>
+    <lastmod>2026-07-27</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1143.html</loc>
+    <lastmod>2026-07-27</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1144.html</loc>
+    <lastmod>2026-07-27</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1182.html</loc>
+    <lastmod>2026-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1254.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1254.html</loc>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2031.html</loc>
@@ -959,6 +1102,107 @@
   <url>
     <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1131.pdf</loc>
     <lastmod>2026-07-19</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1141.pdf</loc>
+    <lastmod>2026-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1142.pdf</loc>
+    <lastmod>2026-07-27</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1143.pdf</loc>
+    <lastmod>2026-07-27</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1144.pdf</loc>
+    <lastmod>2026-07-27</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1182.pdf</loc>
+    <lastmod>2026-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1254.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-1259.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-2002B.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-2003A.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-2031.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-2032.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-2131.pdf</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/architecture.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/artificial-intelligence-and-machine-learning.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/artificial-intelligence.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/automation-and-robotics.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/automobile-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/biomedical-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/chemical-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/civil-and-environmental-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/civil-and-rural-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/civil-engineering-and-planning.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/civil-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/commercial-practice.html</loc>
+    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-27</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/revision-2026-content/notes/downloadable-notes-2002B.pdf</loc>
@@ -1034,10 +1278,127 @@
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/revision-2026/computer-application-and-business-management.html</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-07-28</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/revision-2026/computer-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/computer-science-and-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/computer-science-and-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/cyber-forensics-and-information-security.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/electrical-and-electronics-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/electrical-engineering-and-electric-vehicles-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/electrical-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/electronics-and-communication.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/electronics-and-computer-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/electronics-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/fire-technology-and-safety.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/food-processing-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/information-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/instrumentation-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/integrated-circuit-design-and-fabrication.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/interior-design.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/mechanical-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/mechatronics.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/micro-electronics.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/polymer-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/printing-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/robotic-process-automation.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/textile-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/tool-and-die-engineering.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/revision-2026/wood-and-paper-technology.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/study-materials.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/syllabus.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/terms.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/tools-catalog.html</loc>
+    <lastmod>2026-07-28</lastmod>
+  </url>
+  <url>
+    <loc>https://polypmna.dpdns.org/tools.html</loc>
+    <lastmod>2026-07-28</lastmod>
     <lastmod>2026-07-25</lastmod>
   </url>
   <url>
@@ -1138,22 +1499,22 @@
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/study-materials.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/syllabus.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/terms.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/tools-catalog.html</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-07-25</lastmod>
   </url>
   <url>
     <loc>https://polypmna.dpdns.org/tools.html</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-07-26</lastmod>
   </url>
 </urlset>

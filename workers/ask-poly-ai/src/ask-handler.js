@@ -256,7 +256,7 @@ function tryPercentage(text) {
 function equationParts(raw) {
   const eq = cleanMathInput(raw)
     .toLowerCase()
-    .replace(/\b(solve|find|value|of|for|x|y|equation|simultaneous|linear|quadratic)\b(?=.*=)/g, " ")
+    .replace(/\b(solve|find|value|of|for|equation|simultaneous|linear|quadratic)\b(?=.*=)/g, " ")
     .replace(/\s+/g, "");
   const split = eq.split("=");
   if (split.length !== 2 || !split[0] || !split[1]) return null;

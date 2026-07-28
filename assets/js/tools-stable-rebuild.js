@@ -59,11 +59,23 @@
     if($('#recent')) $('#recent').innerHTML = r.map(card).join('');
     $$('.tool-open').forEach(button => button.onclick = () => openTool(button.dataset.tool, button));
     $$('.fav2').forEach(b => b.onclick = e => { e.stopPropagation(); const a=get(favKey); set(favKey, a.includes(b.dataset.id) ? a.filter(x=>x!==b.dataset.id) : [...a,b.dataset.id]); render(); });
+    const favBtn = $('#fav'); if (favBtn) favBtn.setAttribute('aria-pressed', onlyFav ? 'true' : 'false');
   }
   /* Dynamically generates input fields and action buttons for a specific tool */
   function fields(defs, calc, note=''){
     $('#body').innerHTML = `<form class='form' id='toolForm'>${defs.map((d,index)=>{const id=`tool-field-${index}`;return `<div class='field'><label for='${id}'>${esc(d[1])}</label><input id='${id}' name='${esc(d[0])}' value='${esc(d[2]??'')}' placeholder='${esc(d[3]??'')}'></div>`;}).join('')}</form>${note?`<div class='notice'>${note}</div>`:''}<div class='tool-actions'><button class='btn primary' id='calcBtn' type='button'>Calculate</button><button class='btn' id='resetBtn' type='button'>Reset</button></div><div class='result' id='res' role='status' aria-live='polite'>Enter values and press Calculate.</div>`;
     
+    /* Intercept Enter key inside the form to programmatically trigger calculation */
+    const tf = $('#toolForm');
+    if (tf) {
+      tf.onkeydown = e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          $('#calcBtn')?.click();
+        }
+      };
+    }
+
     /* Handle calculation logic and display results or errors */
     $('#calcBtn').onclick = () => { try { const f = new FormData($('#toolForm')); $('#res').className = 'result'; $('#res').innerHTML = calc(f); } catch(e){ $('#res').className = 'result err'; $('#res').textContent = e.message || 'Calculation failed.'; } };
     
@@ -131,12 +143,58 @@
     timer:()=>timer(), grammar:()=>textTool('grammar'), words:()=>textTool('words'), case:()=>textTool('case'), clean:()=>textTool('clean'), letter:()=>letter(), lab:()=>lab()
   };
   function concrete(f){const vol=p(f.get('vol'),'Volume')*1.54, parts=String(f.get('ratio')).split(':').map(Number); if(parts.length!==3||!parts.every(x=>x>0)) throw new Error('Ratio format must be 1:2:4'); const sum=parts.reduce((s,x)=>s+x,0), cement=vol*parts[0]/sum, sand=vol*parts[1]/sum, agg=vol*parts[2]/sum; return `<b>Cement ≈ ${fmt(cement*1440/50)} bags</b><br>Sand ≈ ${fmt(sand)} m³<br>Aggregate ≈ ${fmt(agg)} m³`;}
-  function timer(){ $('#body').innerHTML=`<div class='result'><b id='time'>25:00</b><br>Revision timer</div><div class='tool-actions'><button class='btn primary' id='start' type='button'>Start</button><button class='btn' id='pause' type='button'>Pause</button><button class='btn' id='reset' type='button'>Reset</button></div>`; let left=1500, run=null; const show=()=>$('#time').textContent=`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`; $('#start').onclick=()=>{if(run)return;run=setInterval(()=>{left=Math.max(0,left-1);show();if(!left){clearInterval(run);run=null;}},1000)}; $('#pause').onclick=()=>{clearInterval(run);run=null}; $('#reset').onclick=()=>{clearInterval(run);run=null;left=1500;show()}; }
+  /* Revision Pomodoro timer with accessible state-change announcements */
+  function timer(){
+    $('#body').innerHTML=`<div class='result'><b id='time'>25:00</b><br>Revision timer</div><div class='tool-actions'><button class='btn primary' id='start' type='button'>Start</button><button class='btn' id='pause' type='button'>Pause</button><button class='btn' id='reset' type='button'>Reset</button></div><div id='timer-status' class='result' role='status' aria-live='polite' style='font-size:0.95rem; margin-top:12px; font-weight:500;'>Ready to start.</div>`;
+    let left=1500, run=null;
+    const statusEl = $('#timer-status');
+    const show=()=>$('#time').textContent=`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`;
+    $('#start').onclick=()=>{
+      if(run)return;
+      if (statusEl) {
+        statusEl.style.borderLeftColor = '';
+        statusEl.style.background = '';
+        statusEl.textContent = 'Timer started. Focus on your revision!';
+      }
+      run=setInterval(()=>{
+        left=Math.max(0,left-1);
+        show();
+        if(!left){
+          clearInterval(run);
+          run=null;
+          if (statusEl) {
+            statusEl.style.borderLeftColor = '#059669';
+            statusEl.style.background = '#ecfdf5';
+            statusEl.innerHTML = '<b>Time’s up!</b> Revision session completed. Take a short break!';
+          }
+        }
+      },1000);
+    };
+    $('#pause').onclick=()=>{
+      if(!run)return;
+      clearInterval(run);
+      run=null;
+      if (statusEl) {
+        statusEl.textContent = 'Timer paused.';
+      }
+    };
+    $('#reset').onclick=()=>{
+      clearInterval(run);
+      run=null;
+      left=1500;
+      show();
+      if (statusEl) {
+        statusEl.style.borderLeftColor = '';
+        statusEl.style.background = '';
+        statusEl.textContent = 'Timer reset to 25 minutes.';
+      }
+    };
+  }
   function textTool(kind){ $('#body').innerHTML=`<label class='sr-only' for='text'>Text</label><textarea id='text' rows='9' placeholder='Paste or type text here'></textarea><div class='tool-actions'><button class='btn primary' id='run' type='button'>Run Tool</button></div><div class='result' id='res' role='status' aria-live='polite'>Ready.</div>`; $('#run').onclick=()=>{let t=$('#text').value; if(kind==='words'){const w=t.trim()?t.trim().split(/\s+/).length:0;$('#res').innerHTML=`<b>${w}</b> words<br>${t.length} characters<br>Reading time ≈ ${fmt(w/180)} min`;return;} if(kind==='case'){ $('#text').value=t.toLowerCase().replace(/(^|\.\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()); $('#res').textContent='Converted to sentence case.'; return;} if(kind==='clean'){ $('#text').value=t.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim(); $('#res').textContent='Cleaned.'; return;} $('#text').value=t.replace(/\s+([,.!?])/g,'$1').replace(/(^|\.\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bi\b/g,'I'); $('#res').textContent='Basic rule-based cleanup completed. It is not a full AI grammar checker.';}; }
   function letter(){ $('#body').innerHTML=`<label class='sr-only' for='letterText'>Application letter</label><textarea id='letterText' rows='13'>To\nThe Principal\n\nSubject: Application for leave\n\nRespected Sir/Madam,\nI request leave for ______ due to ______. Kindly grant permission.\n\nYours faithfully,\nName:\nClass:\nRoll No:</textarea>`; }
   function lab(){ $('#body').innerHTML=`<label class='sr-only' for='labText'>Lab record format</label><textarea id='labText' rows='14'>Experiment No:\nDate:\nAim:\nApparatus / Software Required:\nTheory:\nProcedure:\nObservation / Drawing Details:\nResult:\nPrecautions:\nViva Questions:</textarea>`; }
   function closeModal(){ const modal=$('#modal'); if(!modal)return; modal.hidden=true; document.body.style.overflow=''; lastOpener?.focus?.(); lastOpener=null; }
-  function openTool(id, opener){ const t=list.find(x=>x.id===id); if(!t)return; lastOpener=opener||document.activeElement; recent(id); $('#cat').textContent=t.cat; $('#ttl').textContent=t.title; $('#desc').textContent=t.desc; $('#modal').hidden=false; document.body.style.overflow='hidden'; (calc[id]||(()=>{$('#body').innerHTML='<div class="result">Tool not configured.</div>'}))(); $('#x')?.focus(); render(); }
-  function init(){ const style=document.createElement('style'); style.textContent='.card{cursor:default}.tool-open{display:flex;flex:1;flex-direction:column;gap:10px;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.tool-open:focus-visible{outline:3px solid rgba(36,87,245,.24);outline-offset:4px;border-radius:14px}.tool-icon{font-size:34px}.field input:focus,textarea:focus{outline:3px solid rgba(36,87,245,.18);border-color:#2457f5}.notice{font-size:.92rem}.result{font-size:1rem}.result b{font-size:clamp(26px,4vw,42px)}'; document.head.appendChild(style); $('#chips') && ($('#chips').innerHTML=cats.map(c=>`<button class='chip ${c==='All'?'on':''}' data-cat='${esc(c)}' type='button'>${esc(c)}</button>`).join('')); $$('.chip').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;$$('.chip').forEach(x=>x.classList.toggle('on',x===b));render();}); $('#q') && ($('#q').oninput=render); $('#fav') && ($('#fav').onclick=()=>{onlyFav=!onlyFav;$('#fav').classList.toggle('primary',onlyFav);render();}); $('#clear') && ($('#clear').onclick=()=>{set(recKey,[]);render();}); $('#x') && ($('#x').onclick=closeModal); $('#modal') && ($('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()}); document.addEventListener('keydown',e=>{const modal=$('#modal');if(!modal||modal.hidden)return;if(e.key==='Escape'){closeModal();return}if(e.key==='Tab'){const focusable=[...modal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.disabled&&!node.hidden);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}); document.querySelectorAll('[data-year]').forEach(node=>node.textContent=new Date().getFullYear()); render(); }
+  function openTool(id, opener){ const t=list.find(x=>x.id===id); if(!t)return; lastOpener=opener||document.activeElement; recent(id); $('#cat').textContent=t.cat; $('#ttl').textContent=t.title; $('#desc').textContent=t.desc; $('#modal').hidden=false; document.body.style.overflow='hidden'; (calc[id]||(()=>{$('#body').innerHTML='<div class="result">Tool not configured.</div>'}))(); const firstInput = $('#body input, #body textarea'); if (firstInput) { firstInput.focus(); if (typeof firstInput.select === 'function') firstInput.select(); } else { $('#x')?.focus(); } render(); }
+  function init(){ const style=document.createElement('style'); style.textContent='.card{cursor:default}.tool-open{display:flex;flex:1;flex-direction:column;gap:10px;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.tool-open:focus-visible{outline:3px solid rgba(36,87,245,.24);outline-offset:4px;border-radius:14px}.tool-icon{font-size:34px}.field input:focus,textarea:focus{outline:3px solid rgba(36,87,245,.18);border-color:#2457f5}.notice{font-size:.92rem}.result{font-size:1rem}.result b{font-size:clamp(26px,4vw,42px)}'; document.head.appendChild(style); $('#chips') && ($('#chips').innerHTML=cats.map(c=>`<button class='chip ${c==='All'?'on':''}' data-cat='${esc(c)}' type='button' aria-pressed='${c==='All'?'true':'false'}'>${esc(c)}</button>`).join('')); $$('.chip').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;$$('.chip').forEach(x=>{const active=x===b;x.classList.toggle('on',active);x.setAttribute('aria-pressed',active?'true':'false');});render();}); $('#q') && ($('#q').oninput=render); $('#fav') && ($('#fav').onclick=()=>{onlyFav=!onlyFav;$('#fav').classList.toggle('primary',onlyFav);render();}); $('#clear') && ($('#clear').onclick=()=>{set(recKey,[]);render();}); $('#x') && ($('#x').onclick=closeModal); $('#modal') && ($('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()}); document.addEventListener('keydown',e=>{const modal=$('#modal');if(!modal||modal.hidden)return;if(e.key==='Escape'){closeModal();return}if(e.key==='Tab'){const focusable=[...modal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.disabled&&!node.hidden);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}); document.querySelectorAll('[data-year]').forEach(node=>node.textContent=new Date().getFullYear()); render(); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
 })();

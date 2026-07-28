@@ -1,4 +1,33 @@
-/* Purpose: Site assistant - Descriptive comment added for clarity */
+/* =========================================================
+   POLY SITE ASSISTANT — In-Page AI Help Panel
+   ---------------------------------------------------------
+   Provides an interactive floating assistant panel on every
+   page (portal and lesson). The panel lets students ask
+   questions and receives answers generated from the page's
+   own content (lessons) and the global subject knowledge base.
+
+   Key capabilities:
+   - Indexes lesson page content into searchable chunks
+   - Matches user queries against lesson content and synonyms
+   - Renders a collapsible chat-like panel with query input
+   - Shows answer previews with source attribution
+   - Maintains per-page query history in sessionStorage
+   - Supports both English and Malayalam search terms
+
+   Loaded by:
+   - assets/js/site-assistant-loader.js (lazy loads this script)
+
+   Related files:
+   - assets/css/site-assistant.css
+   - assets/css/site-assistant-fix.css
+   - assets/js/subjects.js (subject knowledge base)
+   - assets/js/asset-manifest.js (asset index)
+   - data/knowledge-base.json (global site knowledge)
+
+   Warning: This script indexes DOM content and performs
+   text matching. Changes to the indexing logic affect
+   answer quality across all pages.
+   ========================================================= */
 (() => {
   "use strict";
 
@@ -340,6 +369,17 @@
     let currentHeading = lessonTitle || "Lesson";
     let sourceCounter = 0;
 
+    // PERFORMANCE OPTIMIZATION: Cache [data-target] panel buttons in a Map outside the main loop.
+    // This avoids performing a slow O(N) DOM lookup and document-wide querySelectorAll for every single
+    // content element indexed, cutting DOM overhead dramatically and converting lookups to O(1).
+    const panelButtonsMap = new Map();
+    document.querySelectorAll("[data-target]").forEach((item) => {
+      const targetId = item.getAttribute("data-target");
+      if (targetId && !panelButtonsMap.has(targetId)) {
+        panelButtonsMap.set(targetId, item);
+      }
+    });
+
     elements.forEach((element) => {
       if (isSkippedContent(element)) return;
       if (/^H[1-4]$/.test(element.tagName)) {
@@ -359,9 +399,7 @@
 
       const panelElement = element.closest(".panel");
       const panelId = panelElement?.id || "";
-      const panelButton = panelId
-        ? [...document.querySelectorAll("[data-target]")].find((item) => item.dataset.target === panelId)
-        : null;
+      const panelButton = panelId ? panelButtonsMap.get(panelId) : null;
       const panelLabel = cleanText(panelButton?.textContent || panelElement?.querySelector("h2, h3")?.textContent || "");
       const localHeading = cleanText(element.closest(".card,.answer-card,.info-box")?.querySelector("h2,h3,h4,b")?.textContent || currentHeading);
       const sourceTitle = [...new Set([panelLabel, localHeading].filter(Boolean))].join(" — ") || lessonTitle || "Lesson source";

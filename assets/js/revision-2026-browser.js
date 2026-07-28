@@ -1,4 +1,31 @@
-/* Purpose: Revision 2026 browser - Descriptive comment added for clarity */
+/* =========================================================
+   REVISION 2026 BROWSER — Department and Programme Navigator
+   ---------------------------------------------------------
+   This script powers the Revision 2026 department listing page
+   (/revision-2026.html) and individual department pages
+   (/revision-2026/[department].html). It renders department
+   cards, programme listings, and subject grids from JSON data.
+
+   Responsibilities:
+   - Renders the Revision 2026 programme index page with
+     all department cards and search/filter functionality
+   - Renders individual department pages with semester-wise
+     subject grids (course code, title, lessons, notes, syllabus)
+   - Configures Syllabus and Model QP links to SITTTR website
+   - Applies department-specific colour gradients and artwork
+   - Handles search filtering across all departments
+
+   Related files:
+   - assets/data/revision-2026-programmes.json
+   - assets/data/revision-2026-subjects.json
+   - assets/data/rev2026-programme-status.json
+   - assets/css/revision-2026-department-themes.css
+   - assets/css/revision-2026-directory.css
+   - assets/media/departments/rev2026/
+
+   Warning: Changes to data loading or rendering affect
+   the entire Revision 2026 experience.
+   ========================================================= */
 (() => {
   "use strict";
 
@@ -141,6 +168,12 @@
         "--department-art",
         `url("/assets/media/departments/rev2026/${programmeSlug}.webp?v=${VERSION}")`
       );
+      // PERFORMANCE OPTIMIZATION: Pre-compute and cache the normalized search text
+      // to avoid expensive dataset access and Unicode normalization on every keystroke.
+      card._searchText = normaliseSearch(
+        card.dataset.searchText ||
+        [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent].join(" ")
+      );
     });
 
     const updateUrl = query => {
@@ -160,10 +193,7 @@
       let visible = 0;
 
       cards.forEach(card => {
-        const haystack = normaliseSearch(
-          card.dataset.searchText ||
-          [card.dataset.programmeSlug, card.dataset.officialCode, card.textContent].join(" ")
-        );
+        const haystack = card._searchText || "";
         const show = !query || haystack.includes(query);
         card.hidden = !show;
         card.setAttribute("aria-hidden", String(!show));
@@ -229,13 +259,20 @@
     if (!grid || grid.dataset.staticRev2026 !== "true") return false;
     const cards = [...grid.querySelectorAll(".subject-card")];
     const sections = [...grid.querySelectorAll(".semester-subject-section")];
+
+    // PERFORMANCE OPTIMIZATION: Cache the normalized search text for each subject card
+    // at initialization time to avoid repeating Unicode normalization/regex replace on every keystroke.
+    cards.forEach(card => {
+      card._searchText = normaliseSearch(card.dataset.searchText || card.textContent);
+    });
+
     const draw = () => {
       const query = normaliseSearch(search?.value || "");
       const selected = semester?.value || "all";
       let visibleTotal = 0;
       cards.forEach(card => {
         const matchesSemester = selected === "all" || card.dataset.semester === selected;
-        const haystack = normaliseSearch(card.dataset.searchText || card.textContent);
+        const haystack = card._searchText || "";
         const show = matchesSemester && (!query || haystack.includes(query));
         card.hidden = !show;
         if (show) visibleTotal += 1;

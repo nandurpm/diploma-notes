@@ -82,11 +82,11 @@ jobs:
           SERVER_PID=$!
           trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
           for attempt in {1..20}; do
-            curl -fsS http://127.0.0.1:8001/revision-2026-content/lessons/lessons-1003.html >/dev/null && break
+            curl -fsS http://127.0.0.1:8001/revision-2026-content/lessons/lessons-1011.html >/dev/null && break
             sleep 1
           done
           CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
-          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=15000 --dump-dom 'http://127.0.0.1:8001/revision-2026-content/lessons/lessons-1003.html' >/tmp/rev2026-lesson.dom 2>/tmp/chrome-rev2026.log
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage --virtual-time-budget=15000 --dump-dom 'http://127.0.0.1:8001/revision-2026-content/lessons/lessons-1011.html' >/tmp/rev2026-lesson.dom 2>/tmp/chrome-rev2026.log
           python - <<'PY'
           from pathlib import Path
           html = Path('/tmp/rev2026-lesson.dom').read_text(encoding='utf-8')

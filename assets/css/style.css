@@ -227,20 +227,7 @@ main { width: 100%; max-width: none; margin: 0; padding-inline: var(--page-gutte
     linear-gradient(135deg, #ffffff 0%, #eff6ff 56%, #f8fbff 100%);
   box-shadow: var(--shadow);
 }
-.page-title::before {
-  content: "KERALA POLY STUDY HELPER";
-  position: absolute;
-  right: clamp(18px, 4vw, 62px);
-  top: clamp(20px, 4vw, 54px);
-  padding: 10px 14px;
-  border-radius: 999px;
-  color: #075985;
-  background: rgba(14,165,233,.10);
-  border: 1px solid rgba(14,165,233,.18);
-  font-size: .72rem;
-  font-weight: 950;
-  letter-spacing: .14em;
-}
+/* Removed duplicate "KERALA POLY STUDY HELPER" badge — kept the HTML .kicker "Kerala Polytechnic Study Helper" instead */
 .page-title::after {
   content: "📚";
   position: absolute;

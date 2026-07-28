@@ -21,6 +21,12 @@ window.PolyQuizAuth = (() => {
     );
   }
 
+  /* Robust helper to perform client-side email format input validation */
+  function isValidEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email || "").toLowerCase());
+  }
+
   function friendly(error) {
     const text = String(error?.message || error || "").toLowerCase();
 
@@ -95,6 +101,9 @@ window.PolyQuizAuth = (() => {
       if (!username || !email || !password || password !== confirm) {
         throw new Error("Check username, email, password and confirmation.");
       }
+      if (!isValidEmail(email)) {
+        throw new Error("Please enter a valid email address.");
+      }
       if (password.length < 6) {
         throw new Error("Password must be at least 6 characters.");
       }
@@ -130,6 +139,9 @@ window.PolyQuizAuth = (() => {
       email = String(email || "").trim();
       if (!db) throw new Error("Password reset system did not load. Check internet and try again.");
       if (!email) throw new Error("Enter your registered email first.");
+      if (!isValidEmail(email)) {
+        throw new Error("Please enter a valid email address.");
+      }
 
       const result = await db.auth.resetPasswordForEmail(email, { redirectTo: `${SITE_URL}/reset-password.html` });
       if (result.error) throw result.error;

@@ -1,4 +1,25 @@
-/* Purpose: Global maintenance controller for GitHub Pages */
+/* =========================================================
+   MAINTENANCE CONTROLLER — Client-Side Maintenance Redirector
+   ---------------------------------------------------------
+   Checks whether the current time falls within a scheduled
+   maintenance window. If so, redirects non-exempt pages to
+   the maintenance page (/maintenance/).
+
+   Passthrough exceptions:
+   - /maintenance/ (the maintenance page itself)
+   - /assets/ (static resources needed by the maintenance page)
+   - /functions/ (Firebase functions)
+   - /robots.txt, /sitemap.xml, /favicon.ico
+
+   Maintenance windows:
+   - One-off windows defined in specialWindow
+   - Recurring windows every Thursday 9:00 PM - 9:05 PM IST
+
+   Related files:
+   - functions/_middleware.js (server-side maintenance)
+   - maintenance/index.html (maintenance page)
+   - maintenance/runtime-guard.js (maintenance page guard)
+   ========================================================= */
 (() => {
   "use strict";
 
