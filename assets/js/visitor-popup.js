@@ -1,4 +1,27 @@
-/* Purpose: Visitor popup - Descriptive comment added for clarity */
+/* =========================================================
+   VISITOR POPUP — Promotional Popup Rotation System
+   ---------------------------------------------------------
+   Shows a rotating popup on non-Ask-POLY pages. Popups can
+   be images (PNG) or videos (MP4) loaded from assets/popup/.
+   Each visitor sees one popup per day, cycling through
+   available popup files in order.
+
+   Popup files (in order of priority):
+   - /assets/popup/popup-1.png
+   - /assets/popup/popup-2.png
+   - /assets/popup/popup-1.mp4
+   - /assets/popup/popup-2.mp4
+
+   If no popup files exist, a fallback HTML promotional card
+   for Ask POLY AI is shown instead.
+
+   Related files:
+   - assets/popup/ (popup media files)
+   - assets/popup/README.md (popup usage guide)
+
+   Warning: The popup probes media availability via HEAD
+   requests. Deferred to avoid network latency on page load.
+   ========================================================= */
 (() => {
   "use strict";
 
@@ -12,10 +35,10 @@
   document.head.append(readyFlag);
 
   const POPUPS = [
-  { id: "popup-1", type: "image", src: "/assets/popup/popup-1.png" },
-  { id: "popup-2", type: "image", src: "/assets/popup/popup-2.png" },
-  { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" }
-];
+    { id: "popup-1", type: "image", src: "/assets/popup/popup-1.png" },
+    { id: "popup-2", type: "image", src: "/assets/popup/popup-2.png" },
+    { id: "popup-1-video", type: "video", src: "/assets/popup/popup-1.mp4" }
+  ];
 
   const FALLBACK_POPUP = {
     id: "ask-poly-fallback",
@@ -31,6 +54,7 @@
 
   const STORAGE_DATE = "polyVisitorPopupMediaDateV3";
   const STORAGE_INDEX = "polyVisitorPopupMediaIndexV3";
+  const SESSION_CACHE_KEY = "polyVisitorPopupAvailableV3";
   const WAIT_MS = 60000;
   const AUTO_CLOSE_MS = 60000;
   const forceShow = /(?:[?&]showPopup=1\b|#showPopup\b)/i.test(location.search + location.hash);
@@ -121,6 +145,7 @@
       if (localStorage.getItem(STORAGE_DATE) !== today()) {
         localStorage.setItem(STORAGE_DATE, today());
         localStorage.setItem(STORAGE_INDEX, "-1");
+        sessionStorage.removeItem(SESSION_CACHE_KEY);
       }
     } catch (_) {}
   }
@@ -205,10 +230,39 @@
   async function install() {
     if (window.POLY_DISABLE_ASSISTANT || document.getElementById("polyVisitorPopup")) return;
     resetDailySequenceIfNeeded();
-    const available = await availablePopups();
-    if (!shouldShowForThisVisit(available.length)) return;
-    const index = nextIndex(available.length);
-    setTimeout(() => openPopup(available[index], index), forceShow ? 500 : WAIT_MS);
+
+    // PERFORMANCE OPTIMIZATION: Early return if the user has already seen all possible
+    // popups today, completely avoiding any timers, network probes, or layout latency.
+    const maxPossibleCount = Math.max(POPUPS.length, 1);
+    if (!forceShow && getSavedIndex() >= maxPossibleCount - 1) return;
+
+    const delay = forceShow ? 500 : WAIT_MS;
+    setTimeout(async () => {
+      if (window.POLY_DISABLE_ASSISTANT || document.getElementById("polyVisitorPopup")) return;
+
+      // PERFORMANCE OPTIMIZATION: Cache the resolved list of available popups in sessionStorage
+      // to avoid triggering redundant network HEAD/GET requests on subsequent page loads within the session.
+      let available = null;
+      try {
+        const cached = sessionStorage.getItem(SESSION_CACHE_KEY);
+        if (cached) {
+          available = JSON.parse(cached);
+        }
+      } catch (_) {}
+
+      // PERFORMANCE OPTIMIZATION: Defer network probing of popups from page load to inside the
+      // timeout. This ensures that users who navigate away quickly do not incur any network requests.
+      if (!Array.isArray(available) || !available.length) {
+        available = await availablePopups();
+        try {
+          sessionStorage.setItem(SESSION_CACHE_KEY, JSON.stringify(available));
+        } catch (_) {}
+      }
+
+      if (!shouldShowForThisVisit(available.length)) return;
+      const index = nextIndex(available.length);
+      openPopup(available[index], index);
+    }, delay);
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", install, { once: true });

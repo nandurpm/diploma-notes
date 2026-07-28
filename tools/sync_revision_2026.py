@@ -20,7 +20,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import parse_qs, urljoin, urlparse
 
-import requests
+try:
+    import requests
+except ImportError:
+    requests = None
+
 from bs4 import BeautifulSoup, Tag
 
 BASE = "https://www.sitttrkerala.ac.in/"
@@ -360,6 +364,8 @@ def parse_programme(
 
 
 def main() -> int:
+    if requests is None:
+        raise ImportError("The 'requests' library is required to run the sync script but is not installed.")
     session = requests.Session()
     try:
         validate_official_index(session)

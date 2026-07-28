@@ -1,4 +1,32 @@
-/* Purpose: Mock exam ui - Descriptive comment added for clarity */
+/* =========================================================
+   MOCK EXAM UI — Mock Exam Portal Interface (Course 1004)
+   ---------------------------------------------------------
+   Renders the full mock exam interface for the Engineering
+   Mechanics (1004) exam. Manages question selection, answer
+   input, validation, status tracking, and evaluation display.
+
+   Key responsibilities:
+   - Part A: short-answer questions with text input
+   - Part B: selection of 8 from a pool of questions
+   - Part C: paired internal-choice questions
+   - Answer validation (completeness checking)
+   - Progress/status indicators per question
+   - Selection synchronization between controls and answers
+
+   Related files:
+   - assets/js/mock-exam-1004.js (exam data)
+   - assets/js/mock-exam-loader.js (loading controller)
+   - assets/js/mock-exam-ai-evaluator.js (AI scoring)
+   - assets/js/mock-exam-service.js (evaluation backend)
+   - assets/js/mock-exam-paper.js (paper rendering)
+   - assets/js/mock-exam-papers.js (paper registry)
+   - assets/js/mock-exam-portal-upgrade.js (portal enhancements)
+   - assets/css/mock-exam.css
+
+   Warning: This script is tightly coupled to the 1004 exam
+   data structure. Changes to question format require updates
+   here and in mock-exam-1004.js.
+   ========================================================= */
 (() => {
   "use strict";
   const M = globalThis.PolyMock1004;

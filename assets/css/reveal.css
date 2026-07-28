@@ -1,0 +1,122 @@
+/* =========================================================
+   POLY PMNA — Global Reveal Animation Framework
+   ---------------------------------------------------------
+   Reusable, opt-in scroll reveal utilities for site pages.
+   Pair with assets/js/reveal.js and add data-reveal or .reveal
+   to elements that should animate when they enter the viewport.
+   ========================================================= */
+
+:root {
+  --reveal-duration: 700ms;
+  --reveal-delay: 0ms;
+  --reveal-distance: 24px;
+  --reveal-scale: 0.96;
+  --reveal-blur: 0px;
+  --reveal-easing: cubic-bezier(0.22, 0.75, 0.18, 1);
+}
+
+[data-reveal],
+.reveal {
+  --reveal-translate-x: 0px;
+  --reveal-translate-y: var(--reveal-distance);
+  --reveal-start-scale: 1;
+  --reveal-start-blur: var(--reveal-blur);
+  opacity: 0;
+  transform: translate3d(var(--reveal-translate-x), var(--reveal-translate-y), 0) scale(var(--reveal-start-scale));
+  filter: blur(var(--reveal-start-blur));
+  transition:
+    opacity var(--reveal-duration) var(--reveal-easing) var(--reveal-delay),
+    transform var(--reveal-duration) var(--reveal-easing) var(--reveal-delay),
+    filter var(--reveal-duration) var(--reveal-easing) var(--reveal-delay);
+  will-change: opacity, transform, filter;
+}
+
+[data-reveal="fade"],
+.reveal--fade {
+  --reveal-translate-y: 0px;
+}
+
+[data-reveal="up"],
+.reveal--up {
+  --reveal-translate-y: var(--reveal-distance);
+}
+
+[data-reveal="down"],
+.reveal--down {
+  --reveal-translate-y: calc(var(--reveal-distance) * -1);
+}
+
+[data-reveal="left"],
+.reveal--left {
+  --reveal-translate-x: var(--reveal-distance);
+  --reveal-translate-y: 0px;
+}
+
+[data-reveal="right"],
+.reveal--right {
+  --reveal-translate-x: calc(var(--reveal-distance) * -1);
+  --reveal-translate-y: 0px;
+}
+
+[data-reveal="zoom"],
+.reveal--zoom {
+  --reveal-translate-y: 0px;
+  --reveal-start-scale: var(--reveal-scale);
+}
+
+[data-reveal="blur"],
+.reveal--blur {
+  --reveal-start-blur: 10px;
+}
+
+[data-reveal].is-revealed,
+[data-reveal].reveal-visible,
+.reveal.is-revealed,
+.reveal.reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+}
+
+[data-reveal].is-revealed,
+.reveal.is-revealed {
+  will-change: auto;
+}
+
+[data-reveal][data-reveal-delay="1"], .reveal-delay-1 { --reveal-delay: 80ms; }
+[data-reveal][data-reveal-delay="2"], .reveal-delay-2 { --reveal-delay: 160ms; }
+[data-reveal][data-reveal-delay="3"], .reveal-delay-3 { --reveal-delay: 240ms; }
+[data-reveal][data-reveal-delay="4"], .reveal-delay-4 { --reveal-delay: 320ms; }
+[data-reveal][data-reveal-delay="5"], .reveal-delay-5 { --reveal-delay: 400ms; }
+[data-reveal][data-reveal-delay="6"], .reveal-delay-6 { --reveal-delay: 480ms; }
+
+.reveal-stagger > [data-reveal],
+.reveal-stagger > .reveal {
+  --reveal-delay: calc(var(--reveal-stagger-index, 0) * var(--reveal-stagger-step, 80ms));
+}
+
+html.reveal-no-motion [data-reveal],
+html.reveal-no-motion .reveal,
+html.reveal-no-js [data-reveal],
+html.reveal-no-js .reveal,
+html.reveal-disabled [data-reveal],
+html.reveal-disabled .reveal,
+body[data-reveal-disabled="true"] [data-reveal],
+body[data-reveal-disabled="true"] .reveal {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition: none;
+  will-change: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  .reveal {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+    will-change: auto;
+  }
+}
