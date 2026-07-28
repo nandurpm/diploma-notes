@@ -2,3 +2,8 @@
 **Vulnerability:** Missing strict security response headers on JSON endpoints which can expose endpoints to content-type sniffing, clickjacking inside iframes, or cross-site scripting vulnerabilities if user data is rendered.
 **Learning:** By default, Cloudflare Workers do not set defensive security headers on custom Response objects. While standard HTML pages have these headers set at the proxy level or via static files, Worker endpoints returning JSON must manually include `X-Frame-Options: DENY`, `Content-Security-Policy: default-src 'none'`, and `Referrer-Policy: no-referrer` alongside CORS headers.
 **Prevention:** Always use the centralized response sanitizers (`jsonResponse` or equivalent) that enforce these headers instead of instantiating naked `new Response()` objects for JSON payloads.
+
+## 2026-07-25 - [Add Fetch Timeout Protection for Cloudflare Workers]
+**Vulnerability:** Missing timeout configurations on downstream API/Database requests (e.g. Supabase auth and rest calls in `result-store.js`) which can cause the Cloudflare Worker to hang indefinitely, depleting execution time limits and exposing the service to Denial of Service (DoS) or resource exhaustion risks.
+**Learning:** While the worker had timeout protection for AI provider calls, the critical database-integration endpoints did not have any timeout controls. Standard serverless functions and edge workers must enforce strict timeout limits on all network requests to prevent cascading performance degradation.
+**Prevention:** Use a reusable `fetchWithTimeout` helper that wraps native `fetch` with an `AbortController` and `setTimeout`, ensuring that any unresponsive downstream requests are canceled early and resources are released cleanly.

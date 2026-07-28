@@ -4,6 +4,10 @@ import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 const DEFAULT_MODEL = "gpt-4o-mini";
 const clean = (value, maximum) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
+// PERFORMANCE OPTIMIZATION: Cache the mock paper question bank Map to avoid O(N) array mapping
+// and Map instantiation on every single API evaluation request.
+const MOCK_QUESTION_BANK_MAP = new Map(MOCK_PAPER.questions.map((question) => [question.id, question]));
+
 function selectedQuestionsFrom(body) {
   if (body?.paperId !== MOCK_PAPER.id || body?.subjectCode !== MOCK_PAPER.subjectCode) {
     throw new Error("Unknown mock examination paper.");
@@ -12,7 +16,7 @@ function selectedQuestionsFrom(body) {
     throw new Error("The official-pattern paper requires exactly 23 selected answers.");
   }
 
-  const bank = new Map(MOCK_PAPER.questions.map((question) => [question.id, question]));
+  const bank = MOCK_QUESTION_BANK_MAP;
   const supplied = new Map();
   for (const item of body.answers) {
     const id = clean(item?.id, 10);
@@ -114,18 +118,35 @@ function normalize(parsed, selectedQuestions, data, model) {
 }
 
 async function requestEvaluation(payload, env) {
-  const response = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify(payload)
-  });
-  const data = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    const error = new Error(data?.error?.message || `OpenAI evaluation failed with HTTP ${response.status}.`);
-    error.status = response.status;
+  const parsedTimeout = Number(env.MOCK_EXAM_TIMEOUT_MS);
+  const timeoutMs = Math.max(5000, Math.min(60000, isNaN(parsedTimeout) ? 30000 : parsedTimeout));
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch("https://api.openai.com/v1/responses", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: controller.signal
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = new Error(data?.error?.message || `OpenAI evaluation failed with HTTP ${response.status}.`);
+      error.status = response.status;
+      throw error;
+    }
+    return data;
+  } catch (error) {
+    if (error?.name === "AbortError" || String(error?.message || "").toLowerCase().includes("abort")) {
+      const timeoutError = new Error(`OpenAI evaluation timed out after ${timeoutMs}ms.`);
+      timeoutError.status = 504;
+      throw timeoutError;
+    }
     throw error;
+  } finally {
+    clearTimeout(id);
   }
-  return data;
 }
 
 function shouldRetryDefaultModel(error, model) {
