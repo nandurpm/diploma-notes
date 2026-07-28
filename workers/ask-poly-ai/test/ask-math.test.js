@@ -75,6 +75,15 @@ test("tryEquation solves quadratics with an explicit leading coefficient", () =>
   assert.match(T.tryEquation("1x^2 - 4 = 0"), /x = 2 or x = -2/);
 });
 
+test("tryEquation solves quadratics with implicit coefficients and negative terms", () => {
+  assert.match(T.tryEquation("x^2 - 5x + 6 = 0"), /x = 3 or x = 2/);
+  assert.match(T.tryEquation("x^2 - 4 = 0"), /x = 2 or x = -2/);
+});
+
+test("tryEquation solves standalone single variable linear equations", () => {
+  assert.match(T.tryEquation("x = 5"), /Answer: x = 5\b/);
+});
+
 test("tryEquation returns null for non-equation input", () => {
   assert.equal(T.tryEquation("2 + 2"), null);
 });

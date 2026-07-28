@@ -1,8 +1,8 @@
 # Site Integrity Audit
 
-- Generated: **2026-07-28T09:04:28Z**
-- Commit: `bea861e0d24b445eaa4cabc48f57472a046ad5e6`
-- Branch: `jules-14422654224576881940-43371015`
+- Generated: **2026-07-28T09:27:47Z**
+- Commit: `b12dbbe4227a342c00152a7cc3dbd778e8b2b45d`
+- Branch: `jules-17249788158833995678-34c09e68`
 - Result: **PASSED**
 
 ## Current scope
