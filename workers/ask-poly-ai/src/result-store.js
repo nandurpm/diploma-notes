@@ -26,7 +26,7 @@ function supabaseBase(env) {
 function bearerToken(request) {
   const value = request.headers.get("Authorization") || "";
   const match = value.match(/^Bearer\s+(.+)$/i);
-  return match ? clean(match[1], 4096) : "";
+  return match ? clean(match[1], 4096).replace(/[\x00-\x1F\x7F]/g, "") : "";
 }
 
 export function canStoreVerifiedResults(env) {
