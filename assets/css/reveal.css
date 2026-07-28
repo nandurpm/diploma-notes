@@ -98,7 +98,11 @@
 html.reveal-no-motion [data-reveal],
 html.reveal-no-motion .reveal,
 html.reveal-no-js [data-reveal],
-html.reveal-no-js .reveal {
+html.reveal-no-js .reveal,
+html.reveal-disabled [data-reveal],
+html.reveal-disabled .reveal,
+body[data-reveal-disabled="true"] [data-reveal],
+body[data-reveal-disabled="true"] .reveal {
   opacity: 1;
   transform: none;
   filter: none;
