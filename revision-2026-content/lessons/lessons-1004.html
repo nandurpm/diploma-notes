@@ -44,1441 +44,343 @@
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulseScale{from{transform:scale(0.96)}to{transform:scale(1.04)}}
 </style>
-<link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css?v=20260718-fullscreen4">
-<link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
-  <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#1d4ed8">
-<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Engineering Drawing with CAD 1004 | Revision 2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html","description":"Complete Revision 2026 Engineering Drawing with CAD handbook for Course 1004: geometrical constructions, polygons, conic sections, developments, orthographic projections, sectional views, CAD basics, commands, 2D drafting, Malayalam support, interactive tools, and model papers.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"1004"}</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#1d4ed8">
-    <title>Engineering Drawing with CAD (1004) - Revision 2026 Handbook</title>
-    <meta name="description" content="Complete Revision 2026 student handbook for Engineering Drawing with CAD (Course Code 1004). Covers all modules, CAD basics, orthographic projections, and sectional views with bilingual English-Malayalam support.">
-    <meta name="keywords" content="Engineering Drawing, CAD, AutoCAD, Orthographic Projections, Sectional Views, Polytechnic Kerala, Revision 2026">
-    
-    <!-- Metadata -->
-    <meta property="og:title" content="Engineering Drawing with CAD (1004) Handbook">
-    <meta property="og:description" content="Complete Revision 2026 student handbook for Engineering Drawing with CAD (Course Code 1004).">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html">
-    <meta name="twitter:card" content="summary_large_image">
-    
-    <link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css">
-    
-    <style>
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --bg-light: #f8fafc;
-            --bg-dark: #0f172a;
-            --text-light: #1e293b;
-            --text-dark: #f1f5f9;
-            --card-bg-light: #ffffff;
-            --card-bg-dark: #1e293b;
-            --ml-note-bg: #fef3c7;
-            --ml-note-text: #92400e;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-light);
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: var(--bg-dark);
-                color: var(--text-dark);
-            }
-            .card {
-                background-color: var(--card-bg-dark);
-            }
-        }
-
-        .lesson-shell {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: clamp(12px, 2vw, 24px);
-        }
-
-        .cover-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: clamp(30px, 6vw, 60px);
-            border-radius: 16px;
-            margin-bottom: 32px;
-            text-align: center;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-
-        .cover-section h2 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-            color: rgba(255, 255, 255, 0.9);
-            border: none;
-        }
-
-        .cover-section h1 {
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            margin: 10px 0;
-            line-height: 1.2;
-        }
-
-        .cover-section .subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            opacity: 0.95;
-            font-weight: 500;
-        }
-
-        .cover-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 32px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            background: white;
-            color: var(--primary-color);
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--primary-color);
-        }
-
-        section {
-            background: var(--card-bg-light);
-            border-radius: 12px;
-            padding: clamp(20px, 4vw, 40px);
-            margin-bottom: 32px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            section {
-                background: var(--card-bg-dark);
-                border-color: #334155;
-            }
-        }
-
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 12px;
-            margin-top: 0;
-            margin-bottom: 24px;
-            font-size: 1.75rem;
-        }
-
-        h3 {
-            color: var(--secondary-color);
-            margin-top: 32px;
-            margin-bottom: 16px;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h3::before {
-            content: "";
-            display: inline-block;
-            width: 4px;
-            height: 24px;
-            background: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        .ml-note {
-            background-color: var(--ml-note-bg);
-            color: var(--ml-note-text);
-            padding: 20px;
-            border-left: 5px solid #f59e0b;
-            border-radius: 8px;
-            margin: 24px 0;
-            font-family: 'Noto Sans Malayalam', sans-serif;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .ml-note {
-                background-color: rgba(245, 158, 11, 0.1);
-                color: #fcd34d;
-            }
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 24px 0;
-            font-size: 0.95rem;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-        }
-
-        th, td {
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            table { border-color: #475569; }
-            th, td { border-color: #475569; }
-        }
-
-        th {
-            background-color: rgba(37, 99, 235, 0.05);
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .card {
-            background: rgba(37, 99, 235, 0.03);
-            padding: 24px;
-            border-radius: 12px;
-            border: 1px solid rgba(37, 99, 235, 0.1);
-        }
-
-        .info-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            background: #e2e8f0;
-            color: #475569;
-            margin-bottom: 12px;
-        }
-
-        .primary-tag {
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--primary-color);
-        }
-
-        .list-item {
-            margin-bottom: 12px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .list-item::before {
-            content: "•";
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        @media print {
-            body { background: white; color: black; }
-            .lesson-shell { padding: 0; max-width: none; }
-            section { box-shadow: none; border: 1px solid #eee; page-break-inside: avoid; }
-            .cover-actions { display: none; }
-        }
-    </style>
 </head>
 <body>
-<div class="lesson-shell"><main id="handbook">
-
-<section class="cover" id="cover">
-  <div>
-    <p class="eyebrow">POLY PMNA · Diploma Curriculum Revision 2026</p>
-    <div class="badges">
-      <span class="badge">Course 1004</span>
-      <span class="badge">Semester I</span>
-      <span class="badge">Laboratory Course</span>
-      <span class="badge">Bilingual Handbook</span>
-    </div>
-    <h1>Engineering Drawing with CAD</h1>
-    <p class="subtitle">Complete student handbook for Geometrical Constructions, Projections of Points/Lines, Orthographic Projections, Sectional Views, and 2D CAD Drafting with English-Malayalam support.</p>
-    <div class="actions">
-      <a class="btn primary" href="#source">Start Learning</a>
-      <button class="btn light" id="printButton" type="button">Print / Save PDF</button>
-      <button class="btn ghost" id="downloadButton" type="button">Download Notes</button>
-    </div>
-  </div>
-  <aside class="course-facts" aria-label="Course facts">
-    <h2>POLY PMNA</h2>
-    <dl>
-      <dt>Course code</dt><dd>1004</dd>
-      <dt>Programme</dt><dd>Diploma in Engineering and Technology</dd>
-      <dt>Semester</dt><dd>I</dd>
-      <dt>Type</dt><dd>Lab</dd>
-      <dt>Teaching scheme</dt><dd>0:0:3:0</dd>
-      <dt>Contact hours</dt><dd>45</dd>
-      <dt>Self-learning</dt><dd>22.5</dd>
-      <dt>Credits</dt><dd>1.5</dd>
-      <dt>CIE / ESE</dt><dd>60 / 40</dd>
-    </dl>
-  </aside>
-</section>
-
-<section class="section no-print" aria-label="Handbook tools">
-  <div class="utility-bar">
-    <div class="search-wrap">
-      <input id="handbookSearch" type="search" placeholder="Search polygons, projection, CAD commands, or questions" aria-label="Search handbook">
-      <button id="clearSearch" type="button">Clear</button>
-    </div>
-    <nav class="jump-links" aria-label="Handbook jump menu">
-      <a href="#beginner-guide">Basics</a>
-      <a href="#module-I">M1</a>
-      <a href="#module-II">M2</a>
-      <a href="#module-III">M3</a>
-      <a href="#module-IV">M4</a>
-      <a href="#questions">Questions</a>
-    </nav>
-  </div>
-  <div class="search-results" id="searchResults" aria-live="polite"></div>
-</section>
-
-<section class="section" id="source">
-  <p class="eyebrow">Official Source Declaration and Verified Inconsistencies</p>
-  <h2>Curriculum identity and source control</h2>
-  <div class="grid two">
-    <article class="card">
-      <h3>Official source used</h3>
-      <p>The academic blueprint of this handbook matches the official SITTTR Kerala <strong>Diploma Curriculum Revision 2026</strong> syllabus PDF for <strong>Course Code 1004 - Engineering Drawing with CAD</strong>. The course is structures as a pure Practical/Lab course (0 Theory, 0 Tutorial, 3 Practical hours per week).</p>
-      <dl>
-        <dt>Programme / department</dt><dd>Diploma in Engineering and Technology. Structured for all first-year engineering branches.</dd>
-        <dt>Course category</dt><dd>Engineering Science Lab.</dd>
-        <dt>Prerequisite</dt><dd>Basic geometry from secondary school education.</dd>
-      </dl>
-    </article>
-    <article class="card">
-      <h3>Verified consistency &amp; assessment</h3>
-      <p>The overall assessment breakdown is defined as <strong>CIE 60 + ESE 40 = 100</strong>. No major contradictions or missing requirements were identified in the syllabus document.</p>
-      <p><strong>CIE Component Scheme:</strong> Marks are systematically awarded across Attendance (5 Marks), Continuous Assessment of sheets/CAD exercises (30 Marks), Practical Tests (15 Marks), and an Open-Ended Project/Viva (10 Marks), forming the final 60 CIE internal marks.</p>
-      <p><strong>Drawing standards notice:</strong> All drawings and CAD files must conform to the Bureau of Indian Standards (BIS) and SP 46:2003 drawing standards. First-angle projection is standard unless specified otherwise.</p>
-    </article>
-  </div>
-</section>
-
-<section class="section" id="dashboard">
-  <p class="eyebrow">Course Dashboard</p>
-  <h2>Scheme, purpose, and outcomes at one glance</h2>
-  <div class="grid four">
-    <article class="card stat"><strong>45</strong>contact hours</article>
-    <article class="card stat"><strong>22.5</strong>self-learning hours</article>
-    <article class="card stat"><strong>1.5</strong>credits</article>
-    <article class="card stat"><strong>60 / 40</strong>CIE / ESE marks</article>
-  </div>
-  <div class="grid two" style="margin-top:12px">
-    <article class="card">
-      <h3>Official course objectives</h3>
-      <ol>
-        <li>Construct regular geometrical figures and illustrate the development of surfaces.</li>
-        <li>Interpret orthographic projections and sectional views of various simple engineering objects.</li>
-        <li>Gain complete hands-on familiarity with professional 2D CAD drafting software.</li>
-        <li>Develop accurate orthographic projections and sectional views using CAD commands.</li>
-      </ol>
-    </article>
-    <article class="card">
-      <h3>Study methodology</h3>
-      <ol>
-        <li>Understand the projection theory before trying to draw on paper.</li>
-        <li>Trace coordinate axes and quadrants to predict point/line projections.</li>
-        <li>Master standard keyboard commands and shortcuts in CAD for efficiency.</li>
-        <li>Verify drawings for dimensions, scale, and line-types (solid, dashed, thin).</li>
-      </ol>
-    </article>
-  </div>
-  <div class="table-wrap">
-    <table>
-      <caption>Official Course Outcomes</caption>
-      <thead>
-        <tr><th>CO Code</th><th>Course Outcome Description</th><th>Cognitive Level</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>CO1</td><td>Construct geometrical figures and illustrate the development of surfaces.</td><td>Apply</td></tr>
-        <tr><td>CO2</td><td>Interpret projections of points and lines, orthographic projections, and sectional views.</td><td>Apply</td></tr>
-        <tr><td>CO3</td><td>Familiarization in using CAD software.</td><td>Apply</td></tr>
-        <tr><td>CO4</td><td>Develop orthographic projections and sectional views in CAD.</td><td>Apply</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="section" id="coverage">
-  <p class="eyebrow">Curriculum Coverage Map</p>
-  <h2>Every official area mapped to a handbook section</h2>
-  <div class="table-wrap">
-    <table>
-      <caption>Coverage matrix verified against the SITTTR PDF</caption>
-      <thead>
-        <tr><th>Module</th><th>Official topics</th><th>Hours</th><th>CO</th><th>Cognitive level</th><th>Handbook section</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>I</td><td>Geometrical Constructions (Pentagon, Hexagon), Conic Sections (Ellipse by Rectangular and Concentric Circle Methods), and Development of Surfaces (Rectangular Prism, Cylinder).</td><td>9</td><td>CO1</td><td>Apply</td><td>Module I</td></tr>
-        <tr><td>II</td><td>Orthographic Projections (First Angle &amp; Third Angle theory), Projections of Points (4 Quadrants), Projections of Lines (1st Quadrant), and Orthographic &amp; Sectional Views from Isometric models.</td><td>15</td><td>CO2</td><td>Apply</td><td>Module II</td></tr>
-        <tr><td>III</td><td>CAD Basics (open/save, limits, units, grid, coordinate systems, ortho mode) and CAD Commands (Draw commands, Modify commands, Dimensions, Text, Properties).</td><td>9</td><td>CO3</td><td>Apply</td><td>Module III</td></tr>
-        <tr><td>IV</td><td>2D CAD Drafting: Drafting orthographic projections and sectional views of simple engineering objects modeled in Module II.</td><td>9</td><td>CO4</td><td>Apply</td><td>Module IV</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <h3>Learning roadmap</h3>
-  <div class="roadmap">
-    <a href="#module-I">I. Geometrical &amp; Surface Construction</a>
-    <a href="#module-II">II. Projections &amp; Sections (Paper)</a>
-    <a href="#module-III">III. CAD Basics &amp; Controls</a>
-    <a href="#module-IV">IV. 2D CAD Drafting (Computer)</a>
-  </div>
-</section>
-
-<section class="section" id="beginner-guide">
-  <p class="eyebrow">Detailed Learner Guide</p>
-  <h2>How to study Engineering Drawing with CAD from zero</h2>
-  <p class="lead">This course is not a memorisation subject. Marks come from neat construction, correct projection placement, proper CAD command use, and the ability to explain why each line is drawn. Use this section as the descriptive foundation before starting the module-wise lab sheets.</p>
-  <div class="grid two">
-    <article class="card">
-      <h3>1. What an engineering drawing communicates</h3>
-      <p>An engineering drawing is a precise graphical language used to manufacture, inspect, assemble, or repair an object. A good drawing answers four questions: <strong>shape</strong> of the object, <strong>size</strong> of every feature, <strong>position</strong> of each feature, and <strong>material/finish</strong> or special instruction when required. Unlike a freehand sketch, every line has meaning and must follow a standard.</p>
-      <ul>
-        <li><strong>Visible outlines</strong> show edges directly seen by the observer and are drawn thick and continuous.</li>
-        <li><strong>Hidden lines</strong> show edges not directly visible and are drawn as thin dashed lines.</li>
-        <li><strong>Centre lines</strong> show axes of circles, holes, cylinders, and symmetry using long-short chain pattern.</li>
-        <li><strong>Construction lines</strong> are temporary thin lines used to locate points; they should not dominate the final answer.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h3>2. Standard sheet workflow</h3>
-      <p>Before starting any sheet, reserve margins, draw a title block, select scale, and keep the reference line or datum clear. Read the question fully, underline the given dimensions, identify the final view required, and only then start construction. The examiner checks not only the final shape but also the method of construction and neatness.</p>
-      <ol>
-        <li>Write problem number, scale, date, and name/roll number in the title block.</li>
-        <li>Draw all construction/reference lines lightly first.</li>
-        <li>Locate points using measured distances, perpendiculars, projectors, or arcs as required.</li>
-        <li>Darken final object outlines only after confirming the construction is correct.</li>
-        <li>Add dimensions, labels, hatching, and projection symbols clearly.</li>
-      </ol>
-    </article>
-    <article class="card">
-      <h3>3. Projection logic in simple words</h3>
-      <p>Projection means showing a 3D object on 2D planes. Imagine light rays from the observer falling perpendicular to a transparent sheet. The shadow formed on that sheet is a view. The three most common views are front view/elevation, top view/plan, and side view/end view. The position of each view depends on first-angle or third-angle convention.</p>
-      <p>For Kerala polytechnic practice, use <strong>first-angle projection unless the question says otherwise</strong>. In first-angle projection, the object lies between observer and plane; therefore, the top view is placed below the front view, and the right-side view is placed on the left side of the front view.</p>
-    </article>
-    <article class="card">
-      <h3>4. CAD drawing mindset</h3>
-      <p>CAD is not just a digital pencil. It is an accuracy tool. Use coordinates, object snaps, layers, ortho/polar tracking, trim/extend, hatch, and dimension styles to produce repeatable drawings. If the paper method teaches the geometry, CAD teaches speed, precision, editing, and professional plotting.</p>
-      <ul>
-        <li>Set units to millimetres before drawing engineering objects.</li>
-        <li>Use layers for outline, construction, hidden, centre, dimension, hatch, and text.</li>
-        <li>Use OSNAP modes such as endpoint, midpoint, centre, intersection, and perpendicular.</li>
-        <li>Use dimensions only after the geometry is complete and cleaned.</li>
-      </ul>
-    </article>
-  </div>
-  <div class="notice info">
-    <strong>Exam-friendly answer pattern:</strong> For every construction/projection question, write a short heading, show the reference line/axes, label points consistently, use correct line types, and finish with dimensions or hatching. For CAD viva, explain the command name, shortcut, purpose, and one example of use.
-  </div>
-  <div class="table-wrap">
-    <table>
-      <caption>Detailed drawing standards checklist</caption>
-      <thead><tr><th>Area</th><th>What to do</th><th>Why it matters</th></tr></thead>
-      <tbody>
-        <tr><td>Scale</td><td>Use full scale when possible; otherwise write the selected scale clearly.</td><td>Prevents mismatch between drawing size and actual object size.</td></tr>
-        <tr><td>Lettering</td><td>Keep labels upright, uniform, and readable; avoid decorative handwriting.</td><td>Drawing must be understood by any engineer or technician.</td></tr>
-        <tr><td>Dimensions</td><td>Place dimensions outside the view where possible and avoid crossing dimension lines.</td><td>Improves readability and reduces interpretation errors.</td></tr>
-        <tr><td>Hatching</td><td>Use thin 45° parallel hatch lines only on cut solid surfaces.</td><td>Clearly separates sectioned material from visible surfaces.</td></tr>
-        <tr><td>CAD layers</td><td>Separate outline, hidden, centre, hatch, text, and dimension layers.</td><td>Allows quick editing, plotting, and lineweight control.</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="module" id="module-I">
-  <div class="module-head">
-    <div>
-      <p class="eyebrow">Module I</p>
-      <h2>Geometrical Constructions and Developments</h2>
-      <p class="lead">Draw regular polygons, construct exact ellipses, and visualize how flat surfaces wrap to form 3D solids.</p>
-    </div>
-    <div class="module-meta">
-      <span>9 hours</span><span>CO1</span><span>Apply</span>
-    </div>
-  </div>
-  <div class="ml-note" lang="ml">
-    <strong>Malayalam support:</strong> തന്നിരിക്കുന്ന വശത്തിന്റെ നീളം (Side length) ഉപയോഗിച്ച് പെന്റഗൺ (5 വശങ്ങൾ), ഹെക്സഗൺ (6 വശങ്ങൾ) എന്നിവ വരയ്ക്കാൻ ശീലിക്കുക. എലിപ്സ് (Ellipse) വരയ്ക്കാൻ Concentric Circle രീതിയും Rectangular രീതിയും ഉപയോഗിക്കാം. സിലിണ്ടറും പ്രിസവും പരത്തി വെക്കുമ്പോൾ ലഭിക്കുന്ന ഡെവലപ്‌മെന്റ് (Development of Surfaces) ഷീറ്റിൽ കൃത്യമായി അടയാളപ്പെടുത്തുക.
-  </div>
-  <section class="concepts">
-    <h3>Concept handbook</h3>
-    <div class="topic-grid">
-      <article class="topic-card">
-        <h3>Regular Polygons</h3>
-        <p>A polygon is regular when all sides and angles are equal. General method (using perpendicular bisectors or angle calculations) or semi-circle methods are used to draw a pentagon or hexagon given the side length <em>'a'</em>. For a pentagon, the interior angle is 108°. For a hexagon, it is 120°.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Ellipse: Rectangular Method</h3>
-        <p>In the rectangular (or oblong) method, the major axis and minor axis form a bounding rectangle. The axes are divided into equal segments, and lines are projected from the vertices of the minor axis through these points to find the locus of the ellipse.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Ellipse: Concentric Circle Method</h3>
-        <p>Draw two concentric circles with diameters equal to the major and minor axes. Divide the circles into equal angular divisions (usually 12 parts). From points on the outer circle, draw vertical lines, and from points on the inner circle, draw horizontal lines. Their intersections trace the ellipse.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Development of Surfaces</h3>
-        <p>The development of a solid is the flat, 2D pattern representing its entire outer surface when unfolded. For a rectangular prism, the development consists of a series of joined rectangles. For a cylinder, the development is a single large rectangle with width equal to the circumference &pi;D, plus the two circular bases.</p>
-      </article>
-    </div>
-    <div class="notice info">
-      <strong>How to decide the correct construction method:</strong> If the question gives side length, start from the side and construct the polygon outward. If it gives major/minor axes, choose an ellipse method. If it gives a solid such as prism or cylinder, first identify all faces, then unfold them in their true size. Development problems are about surface length, not pictorial appearance.
-    </div>
-    <div class="grid two">
-      <article class="worked">
-        <h3>Detailed example: cylinder development</h3>
-        <p>For a cylinder of diameter 50 mm and height 80 mm, the curved surface development is a rectangle. Its height is 80 mm and its length is the circumference: &pi;D = 3.1416 × 50 = 157.1 mm. Draw a rectangle 157.1 mm × 80 mm, divide the length into equal generators if required, and add two circles of diameter 50 mm for the top and bottom bases.</p>
-      </article>
-      <article class="worked">
-        <h3>Neatness checklist for Module I</h3>
-        <ul><li>Keep all construction arcs visible but light.</li><li>Mark centre points, axes, and vertices using small clear letters.</li><li>Do not erase important construction because it shows the method.</li><li>Use a smooth curve through ellipse points; never join ellipse points by straight lines.</li></ul>
-      </article>
-    </div>
-  </section>
-
-  <section class="practical-centre">
-    <h3>Practical Centre / Lab Sheet</h3>
-    <article class="experiment" id="exp-m1-1">
-      <header><span class="exp-no">Ex. I.1</span><div><h3>Polygon Construction</h3></div></header>
-      <div class="official-outcome"><strong>Outcome:</strong> Construct a regular pentagon and hexagon of side 40mm on paper.</div>
-      <div class="exp-grid">
-        <section><h4>Procedure</h4><ol><li>Draw a line segment AB = 40mm.</li><li>For a Pentagon: Draw 108° lines from A and B. Mark sides of 40mm. From the top vertices, swing 40mm arcs to intersect at the apex C. Join the points.</li><li>For a Hexagon: Draw AB = 40mm. Using AB as radius, swing arcs from A and B to find center O. Draw a circle of radius AB. Step off the 40mm radius around the circumference to find all 6 vertices. Join in order.</li></ol></section>
-        <section class="safety"><h4>Drawing tips</h4><p>Ensure your compass pencil is sharp. Construction lines must be thin (2H), and final outline must be thick and dark (H/HB).</p></section>
-      </div>
-    </article>
-    <article class="experiment" id="exp-m1-2">
-      <header><span class="exp-no">Ex. I.2</span><div><h3>Ellipse Construction</h3></div></header>
-      <div class="official-outcome"><strong>Outcome:</strong> Construct an ellipse of major axis 100mm and minor axis 60mm using the Concentric Circle Method.</div>
-      <div class="exp-grid">
-        <section><h4>Procedure</h4><ol><li>Draw a horizontal major axis AB = 100mm and a vertical minor axis CD = 60mm, intersecting at O.</li><li>Draw two circles from center O with diameters 100mm and 60mm.</li><li>Divide the circles into 12 equal sectors of 30° each using a protractor.</li><li>For each sector line, draw a vertical line downwards/upwards from the outer circle intersection and a horizontal line from the inner circle intersection.</li><li>Plot the intersection points and draw a smooth, continuous curve through them.</li></ol></section>
-        <section class="safety"><h4>Common errors</h4><p>Drawing straight line segments between plotted points instead of a smooth freehand curve. Keep the curve continuous.</p></section>
-      </div>
-    </article>
-  </section>
-</section>
-
-<section class="module" id="module-II">
-  <div class="module-head">
-    <div>
-      <p class="eyebrow">Module II</p>
-      <h2>Orthographic Projections and Sectional Views</h2>
-      <p class="lead">Visualize objects in three dimensions and represent them accurately on 2D planes using standards.</p>
-    </div>
-    <div class="module-meta">
-      <span>15 hours</span><span>CO2</span><span>Apply</span>
-    </div>
-  </div>
-  <div class="ml-note" lang="ml">
-    <strong>Malayalam support:</strong> ഫസ്റ്റ് ആംഗിൾ പ്രൊജക്ഷനിൽ (First Angle Projection) വസ്തുവിനെ നോക്കുന്ന ദിശയ്ക്ക് എതിർവശത്താണ് പ്രൊജക്ഷൻ ലഭിക്കുന്നത് (വസ്തു ഒബ്സർവർക്കും പ്രൊജക്ഷൻ പ്ലെയിനും ഇടയിലായിരിക്കും). നാല് ക്വാഡ്രന്റുകളിലുമുള്ള പോയിന്റുകളുടെയും ഒന്നാം ക്വാഡ്രന്റിലെ രേഖകളുടെയും പ്രൊജക്ഷനുകൾ വരയ്ക്കുക. ഒരു 3D ഐസോമെട്രിക് ചിത്രത്തിൽ നിന്നും ഓർത്തോഗ്രാഫിക് വ്യൂകളും (Front, Top, Side Views) ഉള്ളിലെ ഘടന കാണിക്കുന്ന സെക്ഷണൽ വ്യൂകളും (Sectional Views) വരയ്ക്കാൻ പഠിക്കുക.
-  </div>
-  <section class="concepts">
-    <h3>Concept handbook</h3>
-    <div class="topic-grid">
-      <article class="topic-card">
-        <h3>First Angle vs Third Angle</h3>
-        <p>In <strong>First Angle Projection</strong>, the object is placed between the observer and the plane of projection. The Front View is above the XY line, and the Top View is below it. In <strong>Third Angle Projection</strong>, the plane of projection is between the observer and the object. The Top View is above the XY line, and the Front View is below it.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Projections of Points</h3>
-        <p>A point is defined by its distances from the Horizontal Plane (HP) and Vertical Plane (VP). In the 1st Quadrant: Point is Above HP, In Front of VP. 2nd Quadrant: Above HP, Behind VP. 3rd Quadrant: Below HP, Behind VP. 4th Quadrant: Below HP, In Front of VP.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Projections of Lines</h3>
-        <p>When a straight line is parallel to a plane, its projection on that plane shows its true length. If it is perpendicular to a plane, its projection on that plane is a single point. If it is inclined to HP or VP, its projection on that plane is foreshortened.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Sectional Views</h3>
-        <p>A sectional view represents an object as if it has been cut along a cutting plane. This reveals the internal features. The cut surface is marked using thin, inclined parallel hatching lines, typically drawn at an angle of 45°.</p>
-      </article>
-    </div>
-    <div class="notice info">
-      <strong>Projection memory rule:</strong> Elevation tells distance from HP; plan tells distance from VP. Above HP gives elevation above XY. Below HP gives elevation below XY. In front of VP gives plan below XY. Behind VP gives plan above XY. This single rule solves most point-projection problems.
-    </div>
-    <div class="grid two">
-      <article class="worked">
-        <h3>Detailed example: line inclined to HP</h3>
-        <p>If a 65 mm line is inclined 30° to HP and parallel to VP, draw the front view at the true length of 65 mm making 30° with XY. Then project both endpoints downward to obtain the top view. Because the line is parallel to VP, front view shows the true length; because it is inclined to HP, top view becomes shorter than the actual length.</p>
-      </article>
-      <article class="worked">
-        <h3>Section view explanation</h3>
-        <p>A section is used when hidden internal details would make the normal view confusing. Imagine cutting the object with a plane and removing the front portion. Only the material actually touched by the cutting plane is hatched. Holes, voids, and empty spaces are not hatched.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="practical-centre">
-    <h3>Practical Centre / Lab Sheet</h3>
-    <article class="experiment" id="exp-m2-1">
-      <header><span class="exp-no">Ex. II.1</span><div><h3>Projections of Points</h3></div></header>
-      <div class="official-outcome"><strong>Outcome:</strong> Draw the projections of points in all four quadrants with respect to HP and VP.</div>
-      <div class="exp-grid">
-        <section><h4>Procedure</h4><ol><li>Draw a horizontal reference line XY.</li><li>Plot Point A (1st Quadrant, e.g., 25mm above HP, 35mm in front of VP): Elevation a' is 25mm above XY; Plan a is 35mm below XY.</li><li>Plot Point B (2nd Quadrant, 30mm above HP, 20mm behind VP): Elevation b' is 30mm above XY; Plan b is 20mm above XY.</li><li>Plot Point C (3rd Quadrant, 25mm below HP, 40mm behind VP): Elevation c' is 25mm below XY; Plan c is 40mm above XY.</li><li>Plot Point D (4th Quadrant, 40mm below HP, 30mm in front of VP): Elevation d' is 40mm below XY; Plan d is 30mm below XY.</li></ol></section>
-        <section class="safety"><h4>Key rule</h4><p>Elevations are always denoted with a prime symbol (a', b') and plans with plain letters (a, b). Elevation projections represent HP distances; plans represent VP distances.</p></section>
-      </div>
-    </article>
-    <article class="experiment" id="exp-m2-2">
-      <header><span class="exp-no">Ex. II.2</span><div><h3>Sectional Views of Objects</h3></div></header>
-      <div class="official-outcome"><strong>Outcome:</strong> Draw Front, Top, and a Sectional View of a hollow step-block from a given Isometric projection.</div>
-      <div class="exp-grid">
-        <section><h4>Procedure</h4><ol><li>Analyze the 3D model, its dimensions, and the specified cutting plane.</li><li>Draw the Front View showing external shapes and the cutting plane line.</li><li>Draw the Sectional view (e.g. Sectional Front View) by hatching the solid regions cut by the plane with thin parallel lines at 45°.</li><li>Draw the Top View showing the cutting plane indicator.</li><li>Add overall and detail dimensions matching BIS SP 46 standards.</li></ol></section>
-        <section class="safety"><h4>Common mistakes</h4><p>Forgetting to hatch cut surfaces or hatching rib and web thin-walled structures, which should normally remain solid according to standards. Keep hatch spacing uniform (1mm to 3mm).</p></section>
-      </div>
-    </article>
-  </section>
-</section>
-
-<section class="module" id="module-III">
-  <div class="module-head">
-    <div>
-      <p class="eyebrow">Module III</p>
-      <h2>Introduction to CAD Software</h2>
-      <p class="lead">Master digital drafting: coordinate setups, drawing elements, modify tools, properties, and text dimensioning.</p>
-    </div>
-    <div class="module-meta">
-      <span>9 hours</span><span>CO3</span><span>Apply</span>
-    </div>
-  </div>
-  <div class="ml-note" lang="ml">
-    <strong>Malayalam support:</strong> CAD സോഫ്റ്റ്‌വെയറുകൾ (ഉദാഹരണത്തിന് AutoCAD) പ്രവർത്തിപ്പിക്കാൻ കമാൻഡുകൾ (Commands) മനസ്സിലാക്കുക. യൂണിറ്റുകൾ (Units), ലിമിറ്റുകൾ (Limits), ഗ്രിഡ് (Grid), ഓർത്തോ മോഡ് (Ortho Mode - നേരെ വരയ്ക്കാൻ) എന്നിവ സെറ്റ് ചെയ്യുക. ലൈൻ (Line), സർക്കിൾ (Circle), ആർക്ക് (Arc), എലിപ്സ് (Ellipse) എന്നിവ വരയ്ക്കാനും; ഇറേസ് (Erase), കോപ്പി (Copy), റൊട്ടേറ്റ് (Rotate), മിറർ (Mirror), ട്രിം (Trim), ഫില്ലറ്റ് (Fillet), ഓഫ്‌സെറ്റ് (Offset) എന്നിവ ഉപയോഗിച്ച് മാറ്റങ്ങൾ വരുത്താനും പരിശീലിക്കുക.
-  </div>
-  <section class="concepts">
-    <h3>Concept handbook</h3>
-    <div class="topic-grid">
-      <article class="topic-card">
-        <h3>CAD Coordinate Systems</h3>
-        <p>CAD software uses three main coordinates: <strong>Absolute Coordinates</strong> (X,Y from origin 0,0), <strong>Relative Coordinates</strong> (@X,Y from the last point), and <strong>Polar Coordinates</strong> (@Distance&lt;Angle from the last point). For example, a line 50mm long at 45° is drawn using `@50&lt;45`.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Initial Setup Commands</h3>
-        <p>Before drawing, set the units using `UNITS` (e.g. Millimeters, Decimal). Set the drawing boundaries using `LIMITS` (e.g. 0,0 to 297,210 for an A4 sheet), followed by `ZOOM` &gt; `All` to refresh the workspace. Use `GRID` and `SNAP` for precision alignment.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Key Draw Commands</h3>
-        <p><strong>LINE (L):</strong> Creates individual straight segments.<br><strong>CIRCLE (C):</strong> Creates circles (specify Center-Radius or Diameter).<br><strong>RECTANGLE (REC):</strong> Draws a closed rectangular polyline.<br><strong>HATCH (H):</strong> Fills an enclosed boundary with patterns like ANSI31 for sectioning.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Key Modify Commands</h3>
-        <p><strong>TRIM (TR):</strong> Cuts lines at intersections.<br><strong>OFFSET (O):</strong> Creates parallel lines or concentric curves.<br><strong>FILLET (F):</strong> Rounds corners with a specified radius.<br><strong>MIRROR (MI):</strong> Creates a symmetric mirrored copy across an axis.</p>
-      </article>
-    </div>
-    <div class="grid two">
-      <article class="worked">
-        <h3>Recommended CAD setup sequence</h3>
-        <ol><li>Open a new drawing and save with course code, exercise number, and name.</li><li>Run UNITS and set Decimal + Millimeters.</li><li>Run LIMITS for the sheet size, then ZOOM All.</li><li>Create layers: OUTLINE, CONSTRUCTION, HIDDEN, CENTRE, DIMENSION, TEXT, HATCH.</li><li>Turn on ORTHO or POLAR, and enable useful OSNAP modes.</li></ol>
-      </article>
-      <article class="worked">
-        <h3>Command choice guide</h3>
-        <p>Use LINE for independent edges, POLYLINE when the shape must behave as one object, OFFSET for parallel edges and wall thickness, TRIM/EXTEND for cleaning intersections, MIRROR for symmetry, ARRAY for repeated holes or slots, HATCH for cut surfaces, and DIM commands only after final geometry is complete.</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="practical-centre">
-    <h3>CAD Interactive Command Searcher</h3>
-    <div class="interactive-dashboard" id="cadCmdSearcher">
+<div class="lesson-shell">
+  <main>
+    <section class="cover">
       <div>
-        <h3>Command Explorer</h3>
-        <p>Select a standard CAD command to instantly view its keyboard shortcut, action, and Malayalam guide.</p>
-        <label for="cadCmdFilter">Select Command:</label>
-        <select id="cadCmdFilter">
-          <option value="LINE">LINE (L)</option>
-          <option value="CIRCLE">CIRCLE (C)</option>
-          <option value="RECTANGLE">RECTANGLE (REC)</option>
-          <option value="OFFSET">OFFSET (O)</option>
-          <option value="TRIM">TRIM (TR)</option>
-          <option value="EXTEND">EXTEND (EX)</option>
-          <option value="FILLET">FILLET (F)</option>
-          <option value="CHAMFER">CHAMFER (CHA)</option>
-          <option value="MIRROR">MIRROR (MI)</option>
-          <option value="ARRAY">ARRAY (AR)</option>
-          <option value="HATCH">HATCH (H)</option>
-          <option value="LIMITS">LIMITS</option>
-          <option value="UNITS">UNITS</option>
-        </select>
-        <p class="demo-total">Shortcut: <strong id="cadShortcut">L</strong></p>
+        <p class="eyebrow">Revision 2026 Handbook</p>
+        <h1>Engineering Drawing with CAD</h1>
+        <p class="subtitle">A comprehensive bilingual laboratory guide covering geometrical constructions, projections, sectional views, and professional 2D CAD drafting standards for Diploma Course 1004.</p>
+        <div class="badges">
+          <span class="badge">Course 1004</span>
+          <span class="badge">REV2026</span>
+          <span class="badge">1.5 Credits</span>
+          <span class="badge">Bilingual (EN/ML)</span>
+        </div>
+        <div class="actions no-print">
+          <a class="btn primary" href="#roadmap">Start Learning</a>
+          <a class="btn ghost" href="/notes/downloadable-notes-1004.pdf">Download PDF</a>
+        </div>
       </div>
-      <div id="cadCmdDetails" class="worked">
-        <h3>Command Details</h3>
-        <p id="cadCmdDesc">Draws straight line segments from one point to another.</p>
-        <p class="ml-note" id="cadCmdMal">സ്ട്രെയിറ്റ് ലൈനുകൾ വളരെ വേഗത്തിൽ വരയ്ക്കാൻ LINE കമാൻഡ് സഹായിക്കുന്നു.</p>
+      <aside class="course-facts">
+        <h2>Course Overview</h2>
+        <dl>
+          <dt>Course Code</dt><dd>1004</dd>
+          <dt>Semester</dt><dd>I</dd>
+          <dt>Instructional Hours</dt><dd>45 Hours</dd>
+          <dt>Internal (CIE)</dt><dd>60 Marks</dd>
+          <dt>External (ESE)</dt><dd>40 Marks</dd>
+          <dt>Course Outcomes</dt><dd>CO1, CO2, CO3, CO4</dd>
+        </dl>
+      </aside>
+    </section>
+
+    <section class="section no-print" id="roadmap">
+      <h2>Learning Roadmap</h2>
+      <div class="roadmap">
+        <a href="#intro">Introduction</a>
+        <a href="#module-I">Geometrical & Dev.</a>
+        <a href="#module-II">Projections & Sections</a>
+        <a href="#module-III">CAD Basics</a>
+        <a href="#module-IV">CAD Practice</a>
       </div>
-    </div>
-  </section>
-</section>
+    </section>
 
-<section class="module" id="module-IV">
-  <div class="module-head">
-    <div>
-      <p class="eyebrow">Module IV</p>
-      <h2>2D CAD Drafting</h2>
-      <p class="lead">Apply your CAD commands to develop exact digital orthographic projections and sectional views of complex engineering objects.</p>
-    </div>
-    <div class="module-meta">
-      <span>9 hours</span><span>CO4</span><span>Apply</span>
-    </div>
-  </div>
-  <div class="ml-note" lang="ml">
-    <strong>Malayalam support:</strong> മോഡ്യൂൾ 2-ൽ പേപ്പറിൽ ചെയ്ത അതേ പ്രൊജക്ഷൻ അഭ്യാസങ്ങൾ കമ്പ്യൂട്ടറിൽ CAD കമാൻഡുകൾ ഉപയോഗിച്ച് ഡിജിറ്റലായി വരയ്ക്കുക. കട്ട് ചെയ്ത ഭാഗങ്ങൾ കാണിക്കാൻ HATCH കമാൻഡ് ഉപയോഗിക്കുക. കൃത്യമായ വലിപ്പം രേഖപ്പെടുത്താൻ DIMENSION ടൂളുകൾ പ്രയോജനപ്പെടുത്തുക. ഒടുവിൽ A4/A3 ഫോർമാറ്റിൽ ഡ്രോയിംഗ് പ്ലോട്ട് ചെയ്യുക.
-  </div>
-  <section class="concepts">
-    <h3>Concept handbook</h3>
-    <div class="topic-grid">
-      <article class="topic-card">
-        <h3>Drafting Projections in CAD</h3>
-        <p>Draw reference line XY. Create layers for construction lines (thin, light), outline (thick, dark), hidden lines (dashed), and dimension lines. Project lines vertically and horizontally using Ortho mode to keep views aligned.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Creating Sectional Views in CAD</h3>
-        <p>Use `TRIM` to clean lines representing cut boundaries. Execute `HATCH` (`H`), select the ANSI31 pattern, set the scale (adjust to avoid too dense or too sparse lines), and pick points inside the closed boundaries representing cut metal surfaces.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Dimensioning &amp; Text Standards</h3>
-        <p>Configure dimension styles using `DIMSTYLE`. Set text heights, arrow sizes, and extension line gaps according to BIS SP 46 standards. Use `DIMLINEAR`, `DIMALIGNED`, `DIMRADIUS`, and `DIMDIAMETER` for measuring.</p>
-      </article>
-      <article class="topic-card">
-        <h3>Plotting and Export</h3>
-        <p>Draft title blocks containing Name, Roll Number, Course, Scale, and date. Use `PLOT` or `EXPORT` to generate high-resolution print-ready PDF files in layout mode.</p>
-      </article>
-    </div>
-    <div class="notice info">
-      <strong>Paper-to-CAD transfer method:</strong> Treat each view as a construction problem. Draw the front view first, project lines for the top and side views using construction layers, convert only the final visible edges to outline layer, add hidden/centre lines, hatch cut areas, and finally dimension the drawing.
-    </div>
-    <div class="grid two">
-      <article class="worked">
-        <h3>Layer and plotting explanation</h3>
-        <p>Layers make CAD drawings professional. For example, OUTLINE can be thick white/black continuous line, HIDDEN can be dashed, CENTRE can be chain line, CONSTRUCTION can be thin cyan, HATCH can be green or grey, and DIMENSION can be a separate readable layer. During plotting, lineweights and layer colors control print clarity.</p>
-      </article>
-      <article class="worked">
-        <h3>Final checking before submission</h3>
-        <ul><li>All views aligned vertically/horizontally with projectors.</li><li>All object dimensions shown once, not repeated unnecessarily.</li><li>Hidden features and centre lines use correct linetypes.</li><li>Sectional surfaces are hatched uniformly.</li><li>Title block and scale are filled before exporting PDF.</li></ul>
-      </article>
-    </div>
-  </section>
-
-  <section class="practical-centre">
-    <h3>Practical Centre / Lab Sheet</h3>
-    <article class="experiment" id="exp-m4-1">
-      <header><span class="exp-no">Ex. IV.1</span><div><h3>2D CAD Drafting</h3></div></header>
-      <div class="official-outcome"><strong>Outcome:</strong> Draft the aligned Front View, Top View, and Sectional Side View of an engineering block in CAD with complete dimensions.</div>
-      <div class="exp-grid">
-        <section><h4>Procedure</h4><ol><li>Initialize CAD. Run `UNITS` &gt; decimal, millimeters. Run `LIMITS` &gt; 0,0 to 297,210. `ZOOM` &gt; `All`.</li><li>Create layers: "OUTLINE" (color white, lineweight 0.4mm), "CONSTRUCTION" (color cyan, 0.15mm), "HATCH" (color green, 0.2mm), "DIM" (color yellow, 0.2mm).</li><li>Draw the Front View on the OUTLINE layer.</li><li>Project construction lines vertically down from the Front View vertices to align the Top View.</li><li>Project lines horizontally to the side to create the Sectional Side View. Use the `HATCH` command with the ANSI31 pattern on the HATCH layer for the cut faces.</li><li>Run `DIMLINEAR` on the DIM layer to place clear, non-overlapping dimensions. Add title block and export to PDF.</li></ol></section>
-        <section class="safety"><h4>Pro Tip</h4><p>Ensure that SNAP is on to easily catch endpoints, midpoints, and intersections. This guarantees absolute coordinate precision in CAD drawings.</p></section>
+    <section class="section" id="intro">
+      <h2>1. Introduction to Engineering Graphics</h2>
+      <p class="lead">Engineering Graphics is the universal language of engineers. It allows for the precise communication of technical ideas, designs, and specifications without language barriers.</p>
+      
+      <div class="grid two">
+        <article class="card">
+          <h3>Drawing Standards (BIS SP 46)</h3>
+          <p>All drawings must follow the Bureau of Indian Standards (BIS) code SP 46. This ensures uniformity in line types, dimensioning, lettering, and scales across the industry.</p>
+          <ul>
+            <li><strong>Line Types:</strong> Continuous thick (outlines), Continuous thin (construction/extension), Short dashes (hidden), Long chain (center lines).</li>
+            <li><strong>Lettering:</strong> Use single-stroke Gothic lettering (upright or inclined). Standard heights: 3.5mm, 5mm, 7mm.</li>
+            <li><strong>Scales:</strong> Full scale (1:1), Reduced scale (1:2, 1:5, 1:10), Enlarged scale (2:1, 5:1).</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Drawing Instruments</h3>
+          <p>Professional manual drafting requires a set of precision tools. Even in the CAD era, understanding these tools builds the foundation for spatial visualization.</p>
+          <div class="glossary-grid">
+            <div><dt>Mini Drafter</dt><dd>Used for drawing parallel, perpendicular, and inclined lines quickly.</dd></div>
+            <div><dt>Set Squares</dt><dd>30°-60° and 45° squares for standard angles.</dd></div>
+            <div><dt>Pencils</dt><dd>H/2H for construction (light), HB/H for outlines (dark).</dd></div>
+          </div>
+        </article>
       </div>
-    </article>
-  </section>
-</section>
 
-<section class="section" id="visual-library">
-  <p class="eyebrow">Diagram and Visual Library</p>
-  <h2>Engineering drawing concepts visualized</h2>
-  <div class="diagram-grid">
-    <article class="diagram-card">
-      <h3>First Angle Projection Symbol</h3>
-      <svg viewBox="0 0 500 240" role="img" aria-labelledby="symbolTitle symbolDesc">
-        <title id="symbolTitle">First Angle Projection Standard Symbol</title>
-        <desc id="symbolDesc">Standard symbol of first angle projection showing frustum of a cone with views.</desc>
-        <g fill="none" stroke="#000" stroke-width="2.5">
-          <!-- Center lines -->
-          <line x1="40" y1="120" x2="310" y2="120" stroke="#0b5fbd" stroke-width="1.5" stroke-dasharray="16 5 3 5"/>
-          <line x1="100" y1="40" x2="100" y2="200" stroke="#0b5fbd" stroke-width="1.5" stroke-dasharray="16 5 3 5"/>
+      <div class="table-wrap">
+        <table>
+          <caption>Drawing Standards Checklist</caption>
+          <thead><tr><th>Feature</th><th>Standard/Rule</th><th>Application</th></tr></thead>
+          <tbody>
+            <tr><td>Dimensioning</td><td>Aligned or Unidirectional system</td><td>Placing sizes on drawings</td></tr>
+            <tr><td>Arrowheads</td><td>Length = 3 × Width (closed & filled)</td><td>Ending dimension lines</td></tr>
+            <tr><td>Hatching</td><td>Thin lines at 45° to the axis</td><td>Representing cut surfaces</td></tr>
+            <tr><td>Title Block</td><td>Bottom right corner (170mm x 65mm)</td><td>Drawing identification</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-          <!-- Concentric circles on left -->
-          <circle cx="100" cy="120" r="30" stroke="#000" stroke-width="3" class="pulse-anim"/>
-          <circle cx="100" cy="120" r="55" stroke="#000" stroke-width="3" class="pulse-anim"/>
+    <section class="module" id="module-I">
+      <div class="module-head">
+        <div>
+          <p class="eyebrow">Module I</p>
+          <h2>Geometrical Constructions and Developments</h2>
+          <p class="lead">Construct regular polygons, exact conic sections, and visualize 3D surfaces unfolded into 2D patterns.</p>
+        </div>
+        <div class="module-meta">
+          <span>9 Hours</span><span>CO1</span><span>Apply</span>
+        </div>
+      </div>
+      
+      <div class="ml-note" lang="ml">
+        <strong>Malayalam Support:</strong> വശങ്ങളുടെ നീളം നൽകിയാൽ പെന്റഗൺ, ഹെക്സഗൺ എന്നിവ നിർമ്മിക്കാൻ പഠിക്കുക. എലിപ്സ് വരയ്ക്കാൻ Rectangular രീതിയും Concentric Circle രീതിയും ഉപയോഗിക്കാം. ഒരു പ്രിസമോ സിലിണ്ടറോ പരത്തി വെക്കുമ്പോൾ ലഭിക്കുന്ന രൂപമാണ് ഡെവലപ്‌മെന്റ് (Development of Surfaces).
+      </div>
 
-          <!-- Frustum on right -->
-          <line x1="180" y1="120" x2="420" y2="120" stroke="#0b5fbd" stroke-width="1.5" stroke-dasharray="16 5 3 5"/>
-          <polygon points="210,95 210,145 270,165 270,75" stroke="#000" stroke-width="3"/>
-        </g>
-        <text x="250" y="220" text-anchor="middle" font-weight="900" fill="#075985" font-size="16">BIS Standard First Angle Projection Symbol</text>
-      </svg>
-      <p class="caption">First angle projection places the side view on the opposite side of the face being viewed.</p>
-    </article>
-    <article class="diagram-card">
-      <h3>Concentric Circle Ellipse Method</h3>
-      <svg viewBox="0 0 500 240" role="img" aria-labelledby="ellipseTitle ellipseDesc">
-        <title id="ellipseTitle">Concentric Circle Ellipse Method</title>
-        <desc id="ellipseDesc">Visual depiction of the concentric circle method for trace plotting.</desc>
-        <g fill="none" stroke="#334155" stroke-width="2">
-          <!-- Main axes -->
-          <line x1="50" y1="120" x2="450" y2="120" stroke="#64748b" stroke-width="1.5"/>
-          <line x1="250" y1="20" x2="250" y2="220" stroke="#64748b" stroke-width="1.5"/>
-          <!-- Outer circle -->
-          <circle cx="250" cy="120" r="90" stroke="#0b5fbd" stroke-width="2" class="rotate-anim"/>
-          <!-- Inner circle -->
-          <circle cx="250" cy="120" r="50" stroke="#0f766e" stroke-width="2" class="rotate-anim"/>
-          <!-- 30 degree line example -->
-          <line x1="172" y1="75" x2="328" y2="165" stroke="#b45309" stroke-dasharray="4 4" stroke-width="1.5"/>
-          <!-- Intersections -->
-          <line x1="328" y1="165" x2="328" y2="145" stroke="#ef4444" stroke-width="2"/>
-          <line x1="293" y1="145" x2="328" y2="145" stroke="#ef4444" stroke-width="2"/>
-          <circle cx="328" cy="145" r="5" fill="#ef4444"/>
-        </g>
-        <text x="250" y="215" text-anchor="middle" font-weight="900" fill="#0f766e" font-size="15">Tracing Ellipse via Concentric Intersections</text>
-      </svg>
-      <p class="caption">Horizontal line from inner intersection and vertical from outer intersection locate points on the ellipse.</p>
-    </article>
-
-    <article class="diagram-card">
-      <h3>Orthographic Views from One Block</h3>
-      <svg class="drawing-svg" viewBox="0 0 620 360" role="img" aria-labelledby="orthoTitle orthoDesc">
-        <title id="orthoTitle">Orthographic front top and side views</title>
-        <desc id="orthoDesc">Clean engineering drawing showing aligned front view, top view and right side view from a stepped block.</desc>
-        <rect x="12" y="12" width="596" height="336" rx="18" fill="#fff" stroke="#d9e4ef"/>
-        <text x="310" y="38" text-anchor="middle" font-size="18" font-weight="900" fill="#061e3b">Aligned Orthographic Views</text>
-        <line class="construction-line" x1="48" y1="174" x2="572" y2="174"/>
-        <text x="54" y="166" font-size="13" fill="#64748b">XY reference line</text>
-        <g transform="translate(72 62)">
-          <text x="70" y="0" text-anchor="middle" font-size="14" font-weight="800" fill="#0b5fbd">Front View</text>
-          <path class="drawing-line" d="M0 90 H42 V42 H96 V90 H140 V142 H0 Z"/>
-          <line class="hidden-line" x1="42" y1="90" x2="96" y2="90"/>
-          <line class="dimension-line" x1="0" y1="158" x2="140" y2="158" marker-start="url(#arrRed)" marker-end="url(#arrRed)"/>
-          <text x="70" y="178" text-anchor="middle" font-size="12" fill="#dc2626">width</text>
-        </g>
-        <g transform="translate(72 202)">
-          <text x="70" y="135" text-anchor="middle" font-size="14" font-weight="800" fill="#0f766e">Top View / Plan</text>
-          <rect class="drawing-line" x="0" y="0" width="140" height="92"/>
-          <line class="hidden-line" x1="42" y1="0" x2="42" y2="92"/>
-          <line class="hidden-line" x1="96" y1="0" x2="96" y2="92"/>
-          <line class="construction-line" x1="0" y1="-132" x2="0" y2="0"/><line class="construction-line" x1="42" y1="-132" x2="42" y2="0"/><line class="construction-line" x1="96" y1="-132" x2="96" y2="0"/><line class="construction-line" x1="140" y1="-132" x2="140" y2="0"/>
-        </g>
-        <g transform="translate(390 80)">
-          <text x="65" y="0" text-anchor="middle" font-size="14" font-weight="800" fill="#7c3aed">Right Side View</text>
-          <path class="drawing-line" d="M0 72 H130 V142 H0 Z"/>
-          <line class="hidden-line" x1="0" y1="104" x2="130" y2="104"/>
-          <line class="construction-line" x1="-178" y1="72" x2="0" y2="72"/><line class="construction-line" x1="-178" y1="142" x2="0" y2="142"/>
-        </g>
-        <defs><marker id="arrRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#dc2626"/></marker></defs>
-      </svg>
-      <p class="caption">The same object is explained through three aligned views. Light blue projectors show how points are transferred between views.</p>
-    </article>
-    <article class="diagram-card">
-      <h3>CAD Layered Section Drawing</h3>
-      <svg class="drawing-svg" viewBox="0 0 620 360" role="img" aria-labelledby="cadLayerTitle cadLayerDesc">
-        <title id="cadLayerTitle">CAD layered section drawing example</title>
-        <desc id="cadLayerDesc">Simple CAD section drawing with outline, construction, hatch, centre, hidden and dimension layers labelled.</desc>
-        <rect x="12" y="12" width="596" height="336" rx="18" fill="#fff" stroke="#d9e4ef"/>
-        <text x="310" y="38" text-anchor="middle" font-size="18" font-weight="900" fill="#061e3b">CAD Layers: clean section output</text>
-        <g transform="translate(58 70)">
-          <rect x="0" y="0" width="285" height="190" fill="#f8fafc" stroke="#d9e4ef"/>
-          <path class="construction-line" d="M20 155 H265 M55 20 V175 M150 20 V175 M245 20 V175"/>
-          <path class="drawing-line" d="M55 135 V55 H245 V135 H190 V90 H110 V135 Z"/>
-          <path class="hidden-line" d="M110 90 H190"/>
-          <path class="dimension-line" d="M55 168 H245" marker-start="url(#arrRed2)" marker-end="url(#arrRed2)"/>
-          <text x="150" y="185" text-anchor="middle" font-size="12" fill="#dc2626">DIMENSION layer</text>
-          <g>
-            <line class="hatch-line" x1="70" y1="132" x2="116" y2="86"/><line class="hatch-line" x1="90" y1="135" x2="135" y2="90"/><line class="hatch-line" x1="185" y1="90" x2="230" y2="135"/><line class="hatch-line" x1="205" y1="88" x2="250" y2="133"/>
-          </g>
-          <line x1="150" y1="45" x2="150" y2="145" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="16 5 4 5"/>
-        </g>
-        <g transform="translate(380 82)">
-          <rect x="0" y="0" width="185" height="195" rx="14" fill="#f8fafc" stroke="#d9e4ef"/>
-          <text x="18" y="30" font-size="13" font-weight="900" fill="#061e3b">Layer checklist</text>
-          <line x1="18" y1="52" x2="58" y2="52" class="drawing-line"/><text x="70" y="56" font-size="12">OUTLINE</text>
-          <line x1="18" y1="78" x2="58" y2="78" class="construction-line"/><text x="70" y="82" font-size="12">CONSTRUCTION</text>
-          <line x1="18" y1="104" x2="58" y2="104" class="hidden-line"/><text x="70" y="108" font-size="12">HIDDEN</text>
-          <line x1="18" y1="130" x2="58" y2="130" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="16 5 4 5"/><text x="70" y="134" font-size="12">CENTRE</text>
-          <line x1="18" y1="156" x2="58" y2="156" class="dimension-line"/><text x="70" y="160" font-size="12">DIMENSION</text>
-        </g>
-        <defs><marker id="arrRed2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#dc2626"/></marker></defs>
-      </svg>
-      <p class="caption">This CAD-style example separates construction, outline, hidden, centre, hatch, and dimension information so the final drawing stays readable.</p>
-    </article>
-  </div>
-</section>
-
-<section class="section" id="questions">
-  <p class="eyebrow">Expected / Practice Questions</p>
-  <h2>Module-wise answer bank</h2>
-  <p class="notice info">These are handbook practice questions, not official SITTTR questions. Use them to prepare for sheets viva and laboratory examinations.</p>
-
-  <h3>Module I</h3>
-  <div class="question-grid">
-    <article class="question-card">
-      <span class="qtype">1 Mark</span>
-      <h3>What is the interior angle of a regular pentagon?</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>The interior angle is 108° (calculated using formula: (n-2)*180/n, where n=5).</p>
-      </details>
-    </article>
-    <article class="question-card">
-      <span class="qtype">3 Marks</span>
-      <h3>Explain the Concentric Circle Method for drawing an ellipse.</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>1. Draw major and minor concentric circles.<br>2. Divide circles into 12 equal sectors (30° each).<br>3. From outer circle points, draw vertical lines. From inner circle points, draw horizontal lines to intersect and trace points on the ellipse.<br>4. Join with a smooth freehand curve.</p>
-      </details>
-    </article>
-    <article class="question-card">
-      <span class="qtype">7 Marks</span>
-      <h3>Explain the step-by-step surface development of a cylinder of diameter 50mm and height 70mm.</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>1. The development of a cylinder surface is a rectangle.<br>
-        2. Calculate the circumference: &pi;D = 3.1416 &times; 50mm &approx; 157.1mm.<br>
-        3. Draw a rectangle of length 157.1mm (width of development) and height 70mm.<br>
-        4. Draw the two circular bases of diameter 50mm attached to the top and bottom edges of the rectangle to form the complete development sheet.<br>
-        5. Use thin outlines for fold/construction lines and thick outlines for boundaries.</p>
-      </details>
-    </article>
-  </div>
-
-  <h3>Module II</h3>
-  <div class="question-grid">
-    <article class="question-card">
-      <span class="qtype">1 Mark</span>
-      <h3>Where is the top view located in First Angle Projection?</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>The Top View is located directly below the Front View (below the XY reference line).</p>
-      </details>
-    </article>
-    <article class="question-card">
-      <span class="qtype">3 Marks</span>
-      <h3>Define projections of points in all 4 quadrants.</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>1st Quadrant: Point is above HP, in front of VP (elevation above XY, plan below XY).<br>
-        2nd Quadrant: Point is above HP, behind VP (both elevation and plan above XY).<br>
-        3rd Quadrant: Point is below HP, behind VP (elevation below XY, plan above XY).<br>
-        4th Quadrant: Point is below HP, in front of VP (both elevation and plan below XY).</p>
-      </details>
-    </article>
-    <article class="question-card">
-      <span class="qtype">7 Marks</span>
-      <h3>A line AB, 65mm long, is parallel to HP and inclined at 30° to VP. Its end A is 15mm above HP and 20mm in front of VP. Draw its projections.</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>1. Draw reference line XY.<br>
-        2. Mark elevation a' 15mm above XY, and plan a 20mm below XY.<br>
-        3. Since the line is parallel to HP, its elevation a'b' is a horizontal line of length equal to the plan's horizontal span. Wait, since it is inclined to VP, the plan ab shows the true length of 65mm inclined at 30° to XY. Draw ab = 65mm at 30° to XY starting from a.<br>
-        4. Draw projectors vertically up from b to find b' on the horizontal line starting from a'.<br>
-        5. The line a'b' is a horizontal line of length equal to 65 &times; cos(30°) &approx; 56.3mm. Join a'b' and ab.</p>
-      </details>
-    </article>
-  </div>
-
-  <h3>Module III</h3>
-  <div class="question-grid">
-    <article class="question-card">
-      <span class="qtype">1 Mark</span>
-      <h3>What is the keyboard shortcut for the TRIM command in CAD?</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>The keyboard shortcut is <strong>TR</strong>.</p>
-      </details>
-    </article>
-    <article class="question-card">
-      <span class="qtype">3 Marks</span>
-      <h3>Compare absolute, relative, and polar coordinate systems in CAD.</h3>
-      <details>
-        <summary>Answer / model points</summary>
-        <p>1. Absolute coordinates use `X,Y` referencing the 0,0 origin.<br>
-        2. Relative coordinates use `@X,Y` referencing the last entered point as 0,0.<br>
-        3. Polar coordinates use `@Distance&lt;Angle` referencing the last point at a specific distance and inclination angle.</p>
-      </details>
-    </article>
-  </div>
-</section>
-
-<section class="section model-paper" id="model-paper">
-  <p class="eyebrow">Practice Model Paper - not an official SITTTR model question paper</p>
-  <h2>Practical examination preparation set</h2>
-  <h3>Part A - Written Procedure / Write-Up (10 Marks)</h3>
-  <ol>
-    <li>State the difference between First Angle and Third Angle projections. Draw their respective standard projection symbols.</li>
-    <li>List at least 5 CAD draw commands and 5 CAD modify commands with their keyboard shortcuts.</li>
-  </ol>
-  <h3>Part B - Geometrical &amp; Point/Line Projections (10 Marks)</h3>
-  <ol>
-    <li>Construct a regular hexagon of side length 45mm on paper.</li>
-    <li>Draw the projections of a point P, which is 30mm below HP and 40mm in front of VP. State the quadrant it belongs to.</li>
-  </ol>
-  <h3>Part C - Orthographic &amp; Sectional CAD Drafting (20 Marks)</h3>
-  <ol>
-    <li>Draft the Front View, Top View, and Sectional Side View of a step-shaft or guide-bracket using CAD layers. Use the `HATCH` command with the standard ANSI31 pattern for cut surfaces. Apply clear linear dimensions and include a completed title block with Name and Roll Number. Plot the final drawing to A4 PDF.</li>
-  </ol>
-</section>
-
-<section class="section" id="quick-revision">
-  <p class="eyebrow">Quick Revision</p>
-  <h2>Final checklist and common mistakes</h2>
-  <div class="grid two">
-    <article class="card">
-      <h3>One-look rules</h3>
-      <ul class="checklist">
-        <li>Pentagon interior angle: 108°. Hexagon interior angle: 120°.</li>
-        <li>First angle: object is in front of the projection plane. Front View is above XY, Top View below.</li>
-        <li>Hatching lines: thin, drawn at 45° angle, spaced 1-3mm apart.</li>
-        <li>Before drawing in CAD: always set `UNITS` and `LIMITS` first, then run `ZOOM` &gt; `All`.</li>
-        <li>Keep separate layers for outline, hidden lines, construction lines, and dimensions.</li>
-        <li>Use SNAP and Ortho mode for absolute coordinate accuracy.</li>
-      </ul>
-    </article>
-    <article class="card">
-      <h3>Common drawing mistakes</h3>
-      <ul class="checklist">
-        <li>Confusing elevations (primed letters like a') and plans (plain letters like a).</li>
-        <li>Joining ellipse points with rigid straight line segments instead of a smooth curve.</li>
-        <li>Hatching solid ribs, webs, or shafts in sectional views (not allowed by standards).</li>
-        <li>Retaining draft/construction lines with the same thick weight as the final outline.</li>
-        <li>Forgetting to run `ZOOM` &gt; `All` after setting `LIMITS` in CAD, leading to grid confusion.</li>
-      </ul>
-    </article>
-  </div>
-</section>
-
-<section class="section" id="self-learning">
-  <p class="eyebrow">Self-Learning Activities</p>
-  <h2>Official week-wise activity structure</h2>
-  <div class="table-wrap">
-    <table>
-      <caption>15-week lab and self-learning schedule (45 contact hours)</caption>
-      <thead>
-        <tr><th>Week</th><th>Activity</th><th>Contact Hours</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>1</td><td>Introduction to drawing instruments, scales, and sheet layout. Practise line styles.</td><td>3 Hours</td></tr>
-        <tr><td>2</td><td>Geometrical Constructions: construction of regular Pentagon and Hexagon.</td><td>3 Hours</td></tr>
-        <tr><td>3</td><td>Conic Sections: Ellipse by Rectangular Method and Concentric Circle Method.</td><td>3 Hours</td></tr>
-        <tr><td>4</td><td>Development of Surfaces: Surface development of a Rectangular Prism.</td><td>3 Hours</td></tr>
-        <tr><td>5</td><td>Development of Surfaces: Surface development of a Cylinder.</td><td>3 Hours</td></tr>
-        <tr><td>6</td><td>Theory of projection: Projections of Points in all four quadrants.</td><td>3 Hours</td></tr>
-        <tr><td>7</td><td>Projections of straight Lines in First quadrant only. Series Test 1.</td><td>3 Hours</td></tr>
-        <tr><td>8</td><td>Orthographic Projections: Front, Top, and Side views of simple engineering blocks on paper.</td><td>3 Hours</td></tr>
-        <tr><td>9</td><td>Sectional Views: drawing cutting plane representations and hatched sectional views on paper.</td><td>3 Hours</td></tr>
-        <tr><td>10</td><td>Introduction to CAD software: interface, open/save, units, limits, coordinate systems.</td><td>3 Hours</td></tr>
-        <tr><td>11</td><td>CAD Commands: drawing lines, circles, arcs, rectangles, and ellipses.</td><td>3 Hours</td></tr>
-        <tr><td>12</td><td>CAD Commands: copying, rotating, mirroring, trimming, filleting, and offset commands.</td><td>3 Hours</td></tr>
-        <tr><td>13</td><td>CAD Projections: Drafting aligned orthographic projections in CAD using layers.</td><td>3 Hours</td></tr>
-        <tr><td>14</td><td>CAD Sections: Drafting sectional views using the HATCH command. Series Test 2.</td><td>3 Hours</td></tr>
-        <tr><td>15</td><td>Title blocks, dimensions, plot setup, and Open-Ended Lab Evaluation.</td><td>3 Hours</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section class="section" id="resources">
-  <p class="eyebrow">Equipment, Software, and References</p>
-  <h2>Official learning resources</h2>
-  <div class="table-wrap">
-    <table>
-      <caption>Required CAD lab equipment (Batch of 30 students)</caption>
-      <thead>
-        <tr><th>Particular / Component</th><th>Minimum Specification</th><th>Quantity</th></tr>
-      </thead>
-      <tbody>
-        <tr><td>CAD Workstation PCs</td><td>Intel Core i5, 16GB RAM, 512GB SSD, dedicated Graphics Card, 21" LED Monitor.</td><td>30</td></tr>
-        <tr><td>Professional CAD Software</td><td>AutoCAD Educational Version, GstarCAD, or LibreCAD (Open Source 2D).</td><td>30 Licenses</td></tr>
-        <tr><td>Plotter / Printer</td><td>A3 size high-resolution laser printer.</td><td>1</td></tr>
-        <tr><td>Standard Drawing Tables</td><td>Equipped with adjustable drafting boards and clamps.</td><td>30</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="grid two">
-    <article class="card">
-      <h3>Recommended Textbooks</h3>
-      <ol class="note-list">
-        <li><cite>Engineering Graphics with AUTOCAD</cite> - P. I. Varghese, VIP Publishers.</li>
-        <li><cite>Engineering Graphics</cite> - K. C. John, PHI Learning Private Limited.</li>
-        <li><cite>Engineering Drawing with CAD Applications</cite> - N. D. Bhatt &amp; V. M. Panchal, Charotar Publishing.</li>
-      </ol>
-    </article>
-    <article class="card">
-      <h3>Official Web Resources</h3>
-      <ul>
-        <li><a href="https://youtube.com/playlist?list=PLQGNZSdsWdVgAXvO3xHivktSvlm_6JS4" target="_blank" rel="noopener">SITTTR Kerala YouTube Channel</a></li>
-        <li><a href="https://www.sitttrkerala.ac.in" target="_blank" rel="noopener">SITTTR Kerala Web Portal</a></li>
-      </ul>
-    </article>
-  </div>
-</section>
-
-<footer class="footer">
-  <p>&copy; <span data-year></span> POLY PMNA · Revision 2026 · Course 1004 Engineering Drawing with CAD</p>
-</footer>
-
-</main></div>
-
-<script>
-(() => {
-  'use strict';
-  if (window.__drawing1004Loaded) return;
-  window.__drawing1004Loaded = true;
-
-  const courseCode = '1004';
-  const pdfUrl = `/revision-2026-content/notes/downloadable-notes-${courseCode}.pdf`;
-  const root = document.documentElement;
-  const originalTitle = document.title;
-  let restoredTimer = 0;
-
-  function prepareForPrint() {
-    root.classList.add('pdf-export-mode');
-    document.body.classList.add('pdf-export-mode');
-    document.querySelectorAll('details').forEach(d => d.open = true);
-    document.title = `downloadable-notes-${courseCode}`;
-    scrollTo(0,0);
-  }
-
-  function restoreAfterPrint() {
-    clearTimeout(restoredTimer);
-    restoredTimer = setTimeout(() => { document.title = originalTitle; }, 250);
-  }
-
-  function printHandbook() { prepareForPrint(); setTimeout(() => { window.print(); restoreAfterPrint(); }, 90); }
-
-  async function downloadNotes() {
-    prepareForPrint();
-    setTimeout(() => { window.print(); restoreAfterPrint(); }, 100);
-  }
-
-  const searchInput = document.getElementById('handbookSearch');
-  const results = document.getElementById('searchResults');
-
-  function runSearch() {
-    if (!searchInput || !results) return;
-    const q = searchInput.value.trim().toLowerCase();
-    if (q.length < 2) { results.className = 'search-results'; results.innerHTML = ''; return; }
-    const candidates = [...document.querySelectorAll('main h2, main h3, main h4, .q-item h3, .topic-card h3')];
-    const matches = candidates.filter(n => (n.textContent||'').toLowerCase().includes(q)).slice(0, 15);
-    results.className = 'search-results active';
-    results.innerHTML = matches.length ? matches.map((n, i) => {
-      let target = n.closest('[id]');
-      if (!target) { target = n.closest('section,article,details'); if (target && !target.id) target.id = `search-hit-${i}`; }
-      return `<a href="#${target?.id || 'handbook'}">${(n.textContent || '').trim()}</a>`;
-    }).join('') : '<p>No matching drawing topic or question found.</p>';
-  }
-
-  searchInput?.addEventListener('input', runSearch);
-  document.getElementById('clearSearch')?.addEventListener('click', () => { if(searchInput) searchInput.value=''; if(results){results.className='search-results';results.innerHTML='';} searchInput?.focus(); });
-  document.getElementById('printButton')?.addEventListener('click', printHandbook);
-  document.getElementById('downloadButton')?.addEventListener('click', downloadNotes);
-
-  const cadCommands = {
-    LINE: {
-      shortcut: 'L',
-      desc: 'Draws straight line segments from one point to another.',
-      mal: 'സ്ട്രെയിറ്റ് ലൈനുകൾ വളരെ വേഗത്തിൽ വരയ്ക്കാൻ LINE കമാൻഡ് സഹായിക്കുന്നു. (ക്ലിക്കുകൾ വഴിയോ കോർഡിനേറ്റുകൾ നൽകിയോ ലൈൻ വരയ്ക്കാം).'
-    },
-    CIRCLE: {
-      shortcut: 'C',
-      desc: 'Creates a circle based on a center point and a radius or diameter.',
-      mal: 'വൃത്തങ്ങൾ നിർമ്മിക്കാൻ CIRCLE കമാൻഡ് പ്രയോജനപ്പെടുത്താം. (റേഡിയസോ ഡയമീറ്ററോ സെറ്റ് ചെയ്തു നൽകുക).'
-    },
-    RECTANGLE: {
-      shortcut: 'REC',
-      desc: 'Draws a closed rectangular polyline segment.',
-      mal: 'ലളിതമായി ചതുരങ്ങൾ വരയ്ക്കാൻ RECTANGLE കമാൻഡ് ഉപയോഗിക്കുന്നു. (നീളവും വീതിയും നൽകി തയാറാക്കാം).'
-    },
-    OFFSET: {
-      shortcut: 'O',
-      desc: 'Creates concentric circles, parallel lines, and parallel curves.',
-      mal: 'സമാന്തര വരകളും (Parallel Lines) ഏകകേന്ദ്ര വൃത്തങ്ങളും (Concentric Circles) നിർമ്മിക്കാൻ ഓഫ്‌സെറ്റ് വളരെ ഉപയോഗപ്രദമാണ്.'
-    },
-    TRIM: {
-      shortcut: 'TR',
-      desc: 'Trims objects to meet the edges of other objects.',
-      mal: 'അനാവശ്യമായോ അധികമുള്ളതോ ആയ വരകളുടെ ഭാഗങ്ങൾ മുറിച്ചു മാറ്റാൻ TRIM കമാൻഡ് സഹായിക്കുന്നു.'
-    },
-    EXTEND: {
-      shortcut: 'EX',
-      desc: 'Extends objects to meet the edges of other objects.',
-      mal: 'വരകൾ മറ്റൊരു അതിർത്തി വരെ നീട്ടി യോജിപ്പിക്കാൻ EXTEND കമാൻഡ് പ്രയോജനപ്പെടുത്താം.'
-    },
-    FILLET: {
-      shortcut: 'F',
-      desc: 'Rounds and fillets the edges of objects.',
-      mal: 'രണ്ട് വരകൾ കൂട്ടിമുട്ടുന്ന കോണുകൾ നിശ്ചിത റേഡിയസിൽ വളച്ചു സുഗമമാക്കാൻ (Round corners) ഫില്ലറ്റ് ടൂൾ സഹായിക്കുന്നു.'
-    },
-    CHAMFER: {
-      shortcut: 'CHA',
-      desc: 'Bevels the edges of objects.',
-      mal: 'രണ്ട് വരകളുടെ അരികുകൾ ചരിഞ്ഞ രീതിയിൽ (Beveled edges) മുറിച്ചു ബന്ധിപ്പിക്കാൻ CHAMFER ഉപയോഗിക്കാം.'
-    },
-    MIRROR: {
-      shortcut: 'MI',
-      desc: 'Creates a mirrored copy of selected objects.',
-      mal: 'തിരഞ്ഞെടുത്ത ഡ്രോയിംഗിന്റെ ഒരു സമമിതിയുള്ള പ്രതിബിംബം (Mirror image) എതിർവശത്ത് നിർമ്മിക്കാൻ ഇത് സഹായിക്കുന്നു.'
-    },
-    ARRAY: {
-      shortcut: 'AR',
-      desc: 'Creates multiple copies of objects in a rectangular or polar (circular) pattern.',
-      mal: 'ഒരേപോലെയുള്ള നിരവധി കോപ്പികൾ വരികളായോ വൃത്തത്തിലോ പാറ്റേൺ അനുസരിച്ച് ക്രമീകരിക്കാൻ ARRAY കമാൻഡ് ഉപയോഗിക്കുന്നു.'
-    },
-    HATCH: {
-      shortcut: 'H',
-      desc: 'Fills an enclosed area or selected objects with a hatch pattern, solid fill, or gradient.',
-      mal: 'ഒരു അടഞ്ഞ വശത്തിന്റെ ഉള്ളിൽ ഷേഡിംഗും സെക്ഷണൽ വരകളും (ANSI31 പാറ്റേൺ) നൽകാൻ HATCH കമാൻഡ് ഉപയോഗിക്കാം.'
-    },
-    LIMITS: {
-      shortcut: 'LIMITS',
-      desc: 'Sets and controls the invisible grid boundaries of the drawing area.',
-      mal: 'നമ്മൾ വരയ്ക്കുന്ന ഷീറ്റിന്റെ വലിപ്പം (ഉദാഹരണത്തിന് A4 പേപ്പർ അളവ് 297x210) മുൻകൂട്ടി നിശ്ചയിക്കാൻ ഇത് ഉപയോഗിക്കുന്നു.'
-    },
-    UNITS: {
-      shortcut: 'UNITS',
-      desc: 'Controls the precision and display formats for coordinates, angles, and distances.',
-      mal: 'ഡ്രോയിംഗിലെ അളവുകളുടെ ഫോർമാറ്റും (Decimal) അടിസ്ഥാന യൂണിറ്റും (Millimeters) സെറ്റ് ചെയ്യാൻ UNITS ഉപയോഗിക്കുന്നു.'
-    }
-  };
-
-  const cadFilter = document.getElementById('cadCmdFilter');
-  const cadShortcut = document.getElementById('cadShortcut');
-  const cadDesc = document.getElementById('cadCmdDesc');
-  const cadMal = document.getElementById('cadCmdMal');
-
-  cadFilter?.addEventListener('change', e => {
-    const cmd = e.target.value;
-    const info = cadCommands[cmd];
-    if (info) {
-      if (cadShortcut) cadShortcut.textContent = info.shortcut;
-      if (cadDesc) cadDesc.textContent = info.desc;
-      if (cadMal) cadMal.textContent = info.mal;
-    }
-  });
-
-  window.addEventListener('beforeprint', prepareForPrint);
-  window.addEventListener('afterprint', restoreAfterPrint);
-
-  const params = new URLSearchParams(location.search);
-  if (params.has('autoPrintNotes') || params.has('downloadNotes')) {
-    prepareForPrint();
-    setTimeout(() => { window.print(); restoreAfterPrint(); }, 900);
-  }
-})();
-</script>
-<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
-</body>
-    <div class="lesson-shell">
-        
-        <!-- Cover Section -->
-        <div class="cover-section">
-            <h2>POLY PMNA</h2>
-            <p class="subtitle">Revision 2026 Student Handbook</p>
-            <h1>Engineering Drawing with CAD</h1>
-            <p>Course Code: 1004 | Semester: I | Lab Course</p>
-            <p>1.5 Credits | 45 Contact Hours | 22.5 Self-Learning Hours</p>
-            <div class="cover-actions">
-                <a href="#dashboard" class="btn">Start Learning</a>
-                <button class="btn btn-outline" onclick="window.print()">Print / Save PDF</button>
-                <a href="/revision-2026-content/notes/downloadable-notes-1004.pdf" class="btn btn-outline">Download Notes</a>
-            </div>
+      <section class="concepts">
+        <h3>1.1 Regular Polygons</h3>
+        <p>A regular polygon has all sides and internal angles equal. For Course 1004, you must master the construction of Pentagons (5 sides) and Hexagons (6 sides).</p>
+        <div class="topic-grid">
+          <article class="topic-card">
+            <h3>General Method</h3>
+            <p>Can be used for any polygon. Draw the given side AB. At B, draw a perpendicular. With B as center and AB as radius, draw a quadrant. Bisect AB and the quadrant arc to find centers for circumscribing circles.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Angle Method</h3>
+            <p>Internal angle of Pentagon = 108°. Internal angle of Hexagon = 120°. Use a protractor to set these angles from the base line and mark side lengths.</p>
+          </article>
         </div>
 
-        <!-- Official Source Declaration -->
-        <section>
-            <h2>Official Source Declaration</h2>
-            <p>This handbook is based entirely on the official SITTTR Kerala Revision 2026 syllabus for Course Code 1004. It is designed to assist students in mastering engineering graphics and CAD fundamentals.</p>
-            <div class="ml-note">
-                ഈ ഹാൻഡ്‌ബുക്ക് കേരള സ്റ്റേറ്റ് ഇൻസ്റ്റിറ്റ്യൂട്ട് ഓഫ് ടെക്നിക്കൽ ടീച്ചേഴ്സ് ട്രെയിനിംഗ് ആൻഡ് റിസർച്ച് (SITTTR) പുറത്തിറക്കിയ ഒഫീഷ്യൽ സിലബസ് അടിസ്ഥാനമാക്കി തയ്യാറാക്കിയതാണ്.
-            </div>
-        </section>
+        <h3>1.2 Conic Sections: The Ellipse</h3>
+        <p>An ellipse is a curve where the sum of distances from two fixed points (foci) is constant. In 1004, we focus on construction based on Major and Minor axes.</p>
+        <div class="grid two">
+          <article class="worked">
+            <h3>Rectangular (Oblong) Method</h3>
+            <ol>
+              <li>Draw a rectangle with sides equal to the Major and Minor axes.</li>
+              <li>Divide the axes and the rectangle sides into equal segments (e.g., 4 parts).</li>
+              <li>Project lines from the vertices of the minor axis through these points to find the curve points.</li>
+            </ol>
+          </article>
+          <article class="worked">
+            <h3>Concentric Circle Method</h3>
+            <ol>
+              <li>Draw two circles with diameters equal to the Major and Minor axes.</li>
+              <li>Divide circles into 12 equal sectors (30° each).</li>
+              <li>From outer circle points, draw vertical lines; from inner circle points, draw horizontal lines. Their intersections form the ellipse.</li>
+            </ol>
+          </article>
+        </div>
 
-        <!-- Course Dashboard -->
-        <section id="dashboard">
-            <h2>Course Dashboard</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <span class="info-tag primary-tag">Course Details</span>
-                    <table>
-                        <tr><th>Course Code</th><td>1004</td></tr>
-                        <tr><th>Course Title</th><td>Engineering Drawing with CAD</td></tr>
-                        <tr><th>Semester</th><td>I</td></tr>
-                        <tr><th>Credits</th><td>1.5</td></tr>
-                        <tr><th>Contact Hours</th><td>45 Hours (Lab)</td></tr>
-                    </table>
-                </div>
-                <div class="card">
-                    <span class="info-tag primary-tag">Assessment Scheme</span>
-                    <table>
-                        <tr><th>CIE (Internal)</th><td>60 Marks</td></tr>
-                        <tr><th>ESE (External)</th><td>40 Marks</td></tr>
-                        <tr><th>Total Marks</th><td>100 Marks</td></tr>
-                        <tr><th>ESE Duration</th><td>3 Hours (CAD)</td></tr>
-                    </table>
-                </div>
-            </div>
-        </section>
+        <h3>1.3 Development of Surfaces</h3>
+        <p>Development is the unfolding of a solid's surface onto a single plane. This is critical in sheet metal work and packaging.</p>
+        <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Rectangular Prism</h3>
+            <p>The development consists of four rectangles (lateral faces) joined side-by-side, plus two rectangles for the top and bottom bases. Total length = Perimeter of base.</p>
+          </article>
+          <article class="topic-card">
+            <h3>Cylinder</h3>
+            <p>The development of the curved surface is a rectangle. <strong>Height = Cylinder Height</strong>, <strong>Length = Circumference (&pi;D)</strong>. Add two circles for the bases.</p>
+          </article>
+        </div>
+      </section>
 
-        <!-- Course Outcomes -->
-        <section>
-            <h2>Course Outcomes (CO)</h2>
-            <p>Upon completion of this course, students will be able to:</p>
-            <table>
-                <thead>
-                    <tr><th>CO Code</th><th>Course Outcome</th><th>Cognitive Level</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>CO1</td><td>Construct geometrical figures and illustrate development of surfaces.</td><td>Apply</td></tr>
-                    <tr><td>CO2</td><td>Interpret projections of points and lines, orthographic projections and sectional views.</td><td>Apply</td></tr>
-                    <tr><td>CO3</td><td>Familiarization in using CAD software.</td><td>Apply</td></tr>
-                    <tr><td>CO4</td><td>Develop orthographic projections and sectional views in CAD.</td><td>Apply</td></tr>
-                </tbody>
-            </table>
-            <div class="ml-note">
-                <strong>മലയാളം സംഗ്രഹം:</strong> ജ്യാമിതീയ രൂപങ്ങൾ വരയ്ക്കാനും, പ്രൊജക്ഷനുകൾ മനസ്സിലാക്കാനും, CAD സോഫ്റ്റ്‌വെയർ ഉപയോഗിച്ച് എഞ്ചിനീയറിംഗ് ഡ്രോയിംഗുകൾ നിർമ്മിക്കാനും ഈ കോഴ്സ് വിദ്യാർത്ഥികളെ പ്രാപ്തരാക്കുന്നു.
-            </div>
-        </section>
+      <section class="practical-centre">
+        <h3>Lab Exercises (Module I)</h3>
+        <article class="experiment" id="exp-i-1">
+          <header><span class="exp-no">Ex. I.1</span><div><h3>Polygon Construction</h3></div></header>
+          <div class="official-outcome"><strong>Outcome:</strong> Construct a regular pentagon and hexagon of side 40mm.</div>
+          <div class="exp-grid">
+            <section><h4>Procedure (Hexagon)</h4><ol><li>Draw base AB = 40mm.</li><li>With A and B as centers and 40mm radius, draw arcs to intersect at O.</li><li>Draw a circle with center O and radius 40mm.</li><li>Step off 40mm arcs around the circle to find all vertices. Join them.</li></ol></section>
+            <section class="safety"><h4>Pro Tip</h4><p>For a pentagon, use the 108° method for highest accuracy on paper. Keep construction lines (2H) very light.</p></section>
+          </div>
+        </article>
+        <article class="experiment" id="exp-i-2">
+          <header><span class="exp-no">Ex. I.2</span><div><h3>Cylinder Development</h3></div></header>
+          <div class="official-outcome"><strong>Outcome:</strong> Draw the development of a cylinder (Dia 50mm, Height 70mm).</div>
+          <div class="exp-grid">
+            <section><h4>Procedure</h4><ol><li>Calculate Circumference: 3.14 * 50 = 157mm.</li><li>Draw a rectangle 157mm (length) by 70mm (height).</li><li>Divide the length into 12 equal parts to show generators.</li><li>Add top and bottom circles of 50mm diameter.</li></ol></section>
+            <section><h4>Calculation</h4><p>C = &pi;D<br>C = 3.14159 &times; 50 &approx; 157.1 mm</p></section>
+          </div>
+        </article>
+      </section>
+    </section>
 
-        <!-- Module I -->
-        <section id="module1">
-            <h2>Module I: Geometrical Constructions and Developments</h2>
-            <div class="info-tag">Instructional Hours: 9</div>
-            <div class="info-tag primary-tag">Mapping: CO1</div>
-            
-            <h3>1. Regular Polygons</h3>
-            <p>Construction of Regular Polygons - A) Pentagon, B) Hexagon (Any suitable method for each type when side length is given).</p>
-            <div class="ml-note">
-                വശത്തിന്റെ നീളം തന്നിരുന്നാൽ പെന്റഗൺ, ഹെക്സഗൺ എന്നിവ വരയ്ക്കുന്ന രീതികൾ പഠിക്കുക.
-            </div>
-            
-            <h3>2. Conic Sections</h3>
-            <p>Develop the idea of conic sections. Construct Ellipse by A) Rectangular Method & B) Concentric Circle Method.</p>
-            <div class="ml-note">
-                റെക്ടാംഗുലാർ രീതിയും കോൺസെൻട്രിക് സർക്കിൾ രീതിയും ഉപയോഗിച്ച് എലിപ്സ് വരയ്ക്കാൻ ശീലിക്കുക.
-            </div>
+    <section class="module" id="module-II">
+      <div class="module-head">
+        <div>
+          <p class="eyebrow">Module II</p>
+          <h2>Orthographic Projections and Sectional Views</h2>
+          <p class="lead">Master the theory of 2D representation of 3D objects and internal detailing through sectioning.</p>
+        </div>
+        <div class="module-meta">
+          <span>15 Hours</span><span>CO2</span><span>Apply</span>
+        </div>
+      </div>
 
-            <h3>3. Development of Surfaces</h3>
-            <p>Extend knowledge about 'Development' of surfaces. Draw Development of following items A) Rectangular Prism B) Cylinder.</p>
-            <div class="ml-note">
-                റെക്ടാംഗുലാർ പ്രിസം, സിലിണ്ടർ എന്നിവയുടെ ഉപരിതല വികസനം (Development) വരയ്ക്കുക.
-            </div>
-        </section>
+      <div class="ml-note" lang="ml">
+        <strong>Malayalam Support:</strong> ഒരു വസ്തുവിനെ വിവിധ വശങ്ങളിൽ നിന്ന് നോക്കുമ്പോൾ ലഭിക്കുന്ന ചിത്രങ്ങളാണ് ഓർത്തോഗ്രാഫിക് പ്രൊജക്ഷനുകൾ. ഫസ്റ്റ് ആംഗിൾ പ്രൊജക്ഷനിൽ ഫ്രണ്ട് വ്യൂ മുകളിലും ടോപ്പ് വ്യൂ താഴെയുമായിരിക്കും. വസ്തുവിനെ മുറിച്ചു മാറ്റിയാൽ ഉള്ളിലെ ഭാഗങ്ങൾ കാണിക്കുന്നതാണ് സെക്ഷണൽ വ്യൂ.
+      </div>
 
-        <!-- Module II -->
-        <section id="module2">
-            <h2>Module II: Projections and Sectional Views</h2>
-            <div class="info-tag">Instructional Hours: 15</div>
-            <div class="info-tag primary-tag">Mapping: CO2</div>
-            
-            <h3>1. Basic Projections</h3>
-            <p>Outline the theory of projection (First angle and Third angle projections). Understanding the quadrant system is crucial for engineering drawings.</p>
-            
-            <h3>2. Projections of Points and Lines</h3>
-            <p>Demonstrate and develop the projections of points in all 4 quadrants. Demonstrate and develop the projections of lines in First quadrant only.</p>
-            <div class="ml-note">
-                ബിന്ദുക്കളുടെയും രേഖകളുടെയും പ്രൊജക്ഷനുകൾ വരയ്ക്കുന്ന രീതി.
-            </div>
+      <section class="concepts">
+        <h3>2.1 Theory of Projection</h3>
+        <div class="grid two">
+          <article class="card">
+            <h3>First Angle Projection</h3>
+            <p>Standard in India and Europe. The object is between the observer and the plane. <strong>Front View (FV)</strong> is above the XY line, <strong>Top View (TV)</strong> is below the XY line.</p>
+          </article>
+          <article class="card">
+            <h3>Third Angle Projection</h3>
+            <p>Standard in USA. The plane is between the observer and the object. <strong>Top View (TV)</strong> is above the XY line, <strong>Front View (FV)</strong> is below the XY line.</p>
+          </article>
+        </div>
 
-            <h3>3. Orthographic Projections & Sectional Views</h3>
-            <p>Demonstrate and develop orthographic projections & sectional views of various simple engineering objects from Isometric figures.</p>
-            <div class="list-item">Orthographic - Minimum 3 exercises</div>
-            <div class="list-item">Sectional - Minimum 2 exercises</div>
-        </section>
+        <h3>2.2 Projections of Points and Lines</h3>
+        <div class="topic-grid">
+          <article class="topic-card">
+            <h3>Points in 4 Quadrants</h3>
+            <ul>
+              <li><strong>1st Quadrant:</strong> Above HP, In front of VP (FV above XY, TV below).</li>
+              <li><strong>2nd Quadrant:</strong> Above HP, Behind VP (Both above XY).</li>
+              <li><strong>3rd Quadrant:</strong> Below HP, Behind VP (TV above XY, FV below).</li>
+              <li><strong>4th Quadrant:</strong> Below HP, In front of VP (Both below XY).</li>
+            </ul>
+          </article>
+          <article class="topic-card">
+            <h3>Lines (1st Quadrant)</h3>
+            <p>A line can be parallel to both planes, parallel to one and perpendicular to the other, or parallel to one and inclined to the other. <strong>True Length (TL)</strong> is only seen on the plane to which the line is parallel.</p>
+          </article>
+        </div>
 
-        <!-- Module III -->
-        <section id="module3">
-            <h2>Module III: Computer Aided Drafting (CAD) Basics</h2>
-            <div class="info-tag">Instructional Hours: 9</div>
-            <div class="info-tag primary-tag">Mapping: CO3</div>
-            
-            <h3>1. Introduction to CAD</h3>
-            <p>Application, advantages over manual drafting, hardware and software requirements. CAD basics – new drawing, open, save, exit, drawing editor, entering commands using mouse and menus.</p>
-            
-            <h3>2. CAD Commands</h3>
-            <p><strong>Draw Commands:</strong> Line, Circle, Arc, Ellipse, Rectangle, Polygon, Spline, Polyline, Hatch etc.</p>
-            <p><strong>Modify Commands:</strong> Erase, Copy, Array, Rotate, Mirror, Offset, Scale, Move, Trim, Fillet, Chamfer, Extend, Stretch, Explode etc.</p>
-            <p><strong>Settings:</strong> Limits, Units, Grid, Snap, OSNAP, Ortho mode, Properties (Color, Line weight, Line type).</p>
-            <div class="ml-note">
-                CAD സോഫ്റ്റ്‌വെയറിലെ അടിസ്ഥാന കമാൻഡുകളും സെറ്റിംഗുകളും മനസ്സിലാക്കുക.
-            </div>
-        </section>
+        <h3>2.3 Sectional Views</h3>
+        <p>Used to show internal features clearly. Imagine a <strong>Cutting Plane</strong> passing through the object. The part between the observer and the plane is removed.</p>
+        <div class="notice info">
+          <strong>Hatching Rules:</strong> Use thin parallel lines at 45°. Hatching is only done on the solid material cut by the plane. Hidden lines are usually omitted in sectional views unless necessary for clarity.
+        </div>
+      </section>
 
-        <!-- Module IV -->
-        <section id="module4">
-            <h2>Module IV: CAD Drafting Practice</h2>
-            <div class="info-tag">Instructional Hours: 9</div>
-            <div class="info-tag primary-tag">Mapping: CO4</div>
-            
-            <h3>1. 2D Drafting in CAD</h3>
-            <p>Developing orthographic views and sectional views of simple components with dimensions and text. Students should draw the same exercises practiced in Module II using CAD software.</p>
-            <div class="list-item">Orthographic projections (minimum 3 nos)</div>
-            <div class="list-item">Sectional views (minimum 2 nos)</div>
-            <div class="ml-note">
-                കമ്പ്യൂട്ടർ ഉപയോഗിച്ച് ഓർത്തോഗ്രാഫിക് പ്രൊജക്ഷനുകളും സെക്ഷണൽ വ്യൂകളും വരയ്ക്കുക.
-            </div>
-        </section>
+      <section class="practical-centre">
+        <h3>Lab Exercises (Module II)</h3>
+        <article class="experiment" id="exp-ii-1">
+          <header><span class="exp-no">Ex. II.1</span><div><h3>Orthographic Projection</h3></div></header>
+          <div class="official-outcome"><strong>Outcome:</strong> Draw FV, TV, and Side View of a given step-block.</div>
+          <div class="exp-grid">
+            <section><h4>Steps</h4><ol><li>Identify the direction of Front View (usually marked by an arrow).</li><li>Draw XY line. Project FV above and TV below (First Angle).</li><li>Ensure all views are aligned using vertical/horizontal projectors.</li><li>Add dimensions using BIS standards.</li></ol></section>
+            <section class="safety"><h4>Checklist</h4><ul><li>Are all visible edges thick?</li><li>Are hidden edges dashed?</li><li>Are projection lines thin?</li><li>Is the spacing between views uniform?</li></ul></section>
+          </div>
+        </article>
+      </section>
+    </section>
 
-        <!-- Learning Resources -->
-        <section>
-            <h2>Learning Resources</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>Text Books</h3>
-                    <ol>
-                        <li>Engineering Graphics with AUTOCAD - P I Varghese</li>
-                        <li>Engineering Graphics - K. C. John</li>
-                        <li>Engineering Drawing with CAD Applications - N. D. Bhatt</li>
-                    </ol>
-                </div>
-                <div class="card">
-                    <h3>Web Resources</h3>
-                    <ul>
-                        <li><a href="https://youtube.com/playlist?list=PL0GNZSidsWdVsGAfX3xHlvkbSvlm_6JSM" target="_blank">Official YouTube Playlist</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1-p6TelKApOVRg3dqiK98YLaWB8vCYUOE" target="_blank">Syllabus Resources (Drive)</a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+    <section class="module" id="module-III">
+      <div class="module-head">
+        <div>
+          <p class="eyebrow">Module III</p>
+          <h2>CAD Basics</h2>
+          <p class="lead">Transition from paper to screen. Learn the fundamental commands and settings of Computer-Aided Drafting.</p>
+        </div>
+        <div class="module-meta">
+          <span>9 Hours</span><span>CO3</span><span>Familiarize</span>
+        </div>
+      </div>
 
-        <!-- Evaluation Scheme -->
-        <section>
-            <h2>Evaluation Scheme</h2>
-            <div class="card">
-                <h3>Practical ESE Split-up (40 Marks)</h3>
-                <table>
-                    <tr><td>Ten short questions (CO1 & CO2)</td><td>10 Marks</td></tr>
-                    <tr><td>CAD Drawing (CO3 & CO4)</td><td>18 Marks</td></tr>
-                    <tr><td>Viva Voce</td><td>8 Marks</td></tr>
-                    <tr><td>Record</td><td>4 Marks</td></tr>
-                </table>
-            </div>
-            <p style="margin-top: 20px; font-size: 0.9rem; color: #64748b;">*Note: Students must maintain a certified fair record with figures from all modules.</p>
-        </section>
+      <div class="grid two">
+        <article class="card">
+          <h3>Initial Setup</h3>
+          <ul>
+            <li><strong>UNITS:</strong> Set to Millimeters, Precision 0.00.</li>
+            <li><strong>LIMITS:</strong> Set drawing area (e.g., 297,210 for A4). Use 'Zoom All'.</li>
+            <li><strong>OSNAP:</strong> Enable Endpoint, Midpoint, Center, Intersection for precision.</li>
+            <li><strong>ORTHO:</strong> Toggle F8 for perfectly horizontal/vertical lines.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>The CAD Workflow</h3>
+          <p>1. Setup Environment &rarr; 2. Draw Geometry &rarr; 3. Modify/Edit &rarr; 4. Add Layers/Colors &rarr; 5. Dimension & Text &rarr; 6. Plot/Print.</p>
+        </article>
+      </div>
 
-    </div>
-<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script></body>
+      <div class="table-wrap">
+        <table>
+          <caption>Essential CAD Command Reference</caption>
+          <thead><tr><th>Category</th><th>Command / Shortcut</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>Draw</td><td>L (Line), C (Circle), REC (Rectangle), POL (Polygon)</td><td>Creating basic shapes</td></tr>
+            <tr><td>Modify</td><td>TR (Trim), EX (Extend), O (Offset), M (Move), CO (Copy)</td><td>Editing existing geometry</td></tr>
+            <tr><td>Modify</td><td>MI (Mirror), AR (Array), RO (Rotate), SC (Scale)</td><td>Transforming objects</td></tr>
+            <tr><td>Detailing</td><td>H (Hatch), D (Dimension), T (Text)</td><td>Adding annotations</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="module" id="module-IV">
+      <div class="module-head">
+        <div>
+          <p class="eyebrow">Module IV</p>
+          <h2>CAD Drafting Practice</h2>
+          <p class="lead">Apply your CAD skills to produce professional-grade orthographic and sectional drawings.</p>
+        </div>
+        <div class="module-meta">
+          <span>9 Hours</span><span>CO4</span><span>Apply</span>
+        </div>
+      </div>
+
+      <div class="worked">
+        <h3>CAD Project: Sectional Front View</h3>
+        <p>Convert your manual exercise from Module II into a digital drawing.</p>
+        <ol>
+          <li><strong>Layer Management:</strong> Create layers for 'Outline' (0.5mm), 'Hidden' (0.2mm dashed), 'Center' (0.2mm chain), and 'Hatch' (0.15mm).</li>
+          <li><strong>Drafting:</strong> Use 'Line' and 'Offset' to build the views. Use 'Trim' to clean up intersections.</li>
+          <li><strong>Sectioning:</strong> Draw the cutting plane line. Use the 'HATCH' command (Pattern: ANSI31) for cut surfaces.</li>
+          <li><strong>Dimensioning:</strong> Use 'DIMLINEAR' and 'DIMCONTINUE'. Adjust 'DIMSTYLE' for readable text and arrow sizes.</li>
+        </ol>
+      </div>
+
+      <div class="notice danger">
+        <strong>Common CAD Errors:</strong> Drawing everything on 'Layer 0', overlapping lines (use OVERKILL to fix), and inconsistent scale in dimension styles. Always verify your 'Units' before starting.
+      </div>
+    </section>
+
+    <section class="section" id="evaluation">
+      <h2>Evaluation & Exam Prep</h2>
+      <div class="grid two">
+        <article class="question-card">
+          <span class="qtype">Viva Voce</span>
+          <h3>Common Viva Questions</h3>
+          <ul>
+            <li>What is the difference between 1st and 3rd angle projection?</li>
+            <li>Why do we use 45° for hatching?</li>
+            <li>What does OSNAP stand for and why is it used?</li>
+            <li>How do you find the true length of an inclined line?</li>
+          </ul>
+        </article>
+        <article class="question-card">
+          <span class="qtype">Practical ESE</span>
+          <h3>Exam Marking Scheme (40 Marks)</h3>
+          <table>
+            <tr><td>10 Short Questions (Theory/Manual)</td><td>10 Marks</td></tr>
+            <tr><td>CAD Drawing (Orthographic/Sectional)</td><td>18 Marks</td></tr>
+            <tr><td>Viva Voce</td><td>8 Marks</td></tr>
+            <tr><td>Record Book</td><td>4 Marks</td></tr>
+          </table>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2026 POLY PMNA | Revision 2026 Educational Resource</p>
+      <p>Course 1004: Engineering Drawing with CAD</p>
+    </footer>
+  </main>
+</div>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
+</body>
 </html>
