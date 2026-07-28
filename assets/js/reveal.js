@@ -24,6 +24,14 @@
 
   documentElement.classList.remove("reveal-no-js");
 
+  function isRevealDisabledPage() {
+    const path = window.location.pathname.replace(/\/+$/, "") || "/";
+    return document.body?.dataset.revealDisabled === "true" ||
+      documentElement.dataset.revealDisabled === "true" ||
+      path === "/" ||
+      path.endsWith("/index.html");
+  }
+
   function toNumber(value, fallback) {
     const parsed = Number(value);
     return Number.isFinite(parsed) ? parsed : fallback;
@@ -90,6 +98,14 @@
   }
 
   function init(options = {}) {
+    if (isRevealDisabledPage()) {
+      destroy();
+      documentElement.classList.add("reveal-disabled", "reveal-no-motion");
+      document.querySelectorAll(DEFAULT_SELECTOR).forEach(revealElement);
+      return { observed: 0, disabled: true };
+    }
+
+    documentElement.classList.remove("reveal-disabled");
     const settings = readOptions(options);
     const elements = [...document.querySelectorAll(settings.selector || DEFAULT_SELECTOR)];
 
