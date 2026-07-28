@@ -11927,7 +11927,7 @@
       "semesterNumber": 1,
       "semesterSource": "course-code-fallback",
       "code": "1251",
-      "name": "Foundation Courses",
+      "name": "Basic Accounting",
       "type": "Theory",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=1251"
     },
@@ -11942,7 +11942,7 @@
       "semesterNumber": 1,
       "semesterSource": "course-code-fallback",
       "code": "1252",
-      "name": "Foundation Courses",
+      "name": "Business Economics",
       "type": "Theory",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=1252"
     },
@@ -11957,7 +11957,7 @@
       "semesterNumber": 1,
       "semesterSource": "course-code-fallback",
       "code": "1253",
-      "name": "Foundation Courses",
+      "name": "Business Studies",
       "type": "Theory",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=1253"
     },
@@ -12032,7 +12032,7 @@
       "semesterNumber": 2,
       "semesterSource": "course-code-fallback",
       "code": "2251",
-      "name": "Foundation Courses",
+      "name": "AI for Business",
       "type": "Course",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2251"
     },
@@ -12062,7 +12062,7 @@
       "semesterNumber": 2,
       "semesterSource": "course-code-fallback",
       "code": "2253",
-      "name": "Foundation Courses",
+      "name": "Cost Accounting",
       "type": "Theory",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2253"
     },
@@ -12092,7 +12092,7 @@
       "semesterNumber": 2,
       "semesterSource": "course-code-fallback",
       "code": "2258",
-      "name": "Foundation Courses",
+      "name": "C Programming Lab",
       "type": "Lab",
       "syllabusUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2258"
     },
