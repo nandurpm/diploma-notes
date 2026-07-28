@@ -95,6 +95,7 @@
       <button id="clearSearch" type="button">Clear</button>
     </div>
     <nav class="jump-links" aria-label="Handbook jump menu">
+      <a href="#beginner-guide">Basics</a>
       <a href="#module-I">M1</a>
       <a href="#module-II">M2</a>
       <a href="#module-III">M3</a>
@@ -198,6 +199,66 @@
   </div>
 </section>
 
+<section class="section" id="beginner-guide">
+  <p class="eyebrow">Detailed Learner Guide</p>
+  <h2>How to study Engineering Drawing with CAD from zero</h2>
+  <p class="lead">This course is not a memorisation subject. Marks come from neat construction, correct projection placement, proper CAD command use, and the ability to explain why each line is drawn. Use this section as the descriptive foundation before starting the module-wise lab sheets.</p>
+  <div class="grid two">
+    <article class="card">
+      <h3>1. What an engineering drawing communicates</h3>
+      <p>An engineering drawing is a precise graphical language used to manufacture, inspect, assemble, or repair an object. A good drawing answers four questions: <strong>shape</strong> of the object, <strong>size</strong> of every feature, <strong>position</strong> of each feature, and <strong>material/finish</strong> or special instruction when required. Unlike a freehand sketch, every line has meaning and must follow a standard.</p>
+      <ul>
+        <li><strong>Visible outlines</strong> show edges directly seen by the observer and are drawn thick and continuous.</li>
+        <li><strong>Hidden lines</strong> show edges not directly visible and are drawn as thin dashed lines.</li>
+        <li><strong>Centre lines</strong> show axes of circles, holes, cylinders, and symmetry using long-short chain pattern.</li>
+        <li><strong>Construction lines</strong> are temporary thin lines used to locate points; they should not dominate the final answer.</li>
+      </ul>
+    </article>
+    <article class="card">
+      <h3>2. Standard sheet workflow</h3>
+      <p>Before starting any sheet, reserve margins, draw a title block, select scale, and keep the reference line or datum clear. Read the question fully, underline the given dimensions, identify the final view required, and only then start construction. The examiner checks not only the final shape but also the method of construction and neatness.</p>
+      <ol>
+        <li>Write problem number, scale, date, and name/roll number in the title block.</li>
+        <li>Draw all construction/reference lines lightly first.</li>
+        <li>Locate points using measured distances, perpendiculars, projectors, or arcs as required.</li>
+        <li>Darken final object outlines only after confirming the construction is correct.</li>
+        <li>Add dimensions, labels, hatching, and projection symbols clearly.</li>
+      </ol>
+    </article>
+    <article class="card">
+      <h3>3. Projection logic in simple words</h3>
+      <p>Projection means showing a 3D object on 2D planes. Imagine light rays from the observer falling perpendicular to a transparent sheet. The shadow formed on that sheet is a view. The three most common views are front view/elevation, top view/plan, and side view/end view. The position of each view depends on first-angle or third-angle convention.</p>
+      <p>For Kerala polytechnic practice, use <strong>first-angle projection unless the question says otherwise</strong>. In first-angle projection, the object lies between observer and plane; therefore, the top view is placed below the front view, and the right-side view is placed on the left side of the front view.</p>
+    </article>
+    <article class="card">
+      <h3>4. CAD drawing mindset</h3>
+      <p>CAD is not just a digital pencil. It is an accuracy tool. Use coordinates, object snaps, layers, ortho/polar tracking, trim/extend, hatch, and dimension styles to produce repeatable drawings. If the paper method teaches the geometry, CAD teaches speed, precision, editing, and professional plotting.</p>
+      <ul>
+        <li>Set units to millimetres before drawing engineering objects.</li>
+        <li>Use layers for outline, construction, hidden, centre, dimension, hatch, and text.</li>
+        <li>Use OSNAP modes such as endpoint, midpoint, centre, intersection, and perpendicular.</li>
+        <li>Use dimensions only after the geometry is complete and cleaned.</li>
+      </ul>
+    </article>
+  </div>
+  <div class="notice info">
+    <strong>Exam-friendly answer pattern:</strong> For every construction/projection question, write a short heading, show the reference line/axes, label points consistently, use correct line types, and finish with dimensions or hatching. For CAD viva, explain the command name, shortcut, purpose, and one example of use.
+  </div>
+  <div class="table-wrap">
+    <table>
+      <caption>Detailed drawing standards checklist</caption>
+      <thead><tr><th>Area</th><th>What to do</th><th>Why it matters</th></tr></thead>
+      <tbody>
+        <tr><td>Scale</td><td>Use full scale when possible; otherwise write the selected scale clearly.</td><td>Prevents mismatch between drawing size and actual object size.</td></tr>
+        <tr><td>Lettering</td><td>Keep labels upright, uniform, and readable; avoid decorative handwriting.</td><td>Drawing must be understood by any engineer or technician.</td></tr>
+        <tr><td>Dimensions</td><td>Place dimensions outside the view where possible and avoid crossing dimension lines.</td><td>Improves readability and reduces interpretation errors.</td></tr>
+        <tr><td>Hatching</td><td>Use thin 45° parallel hatch lines only on cut solid surfaces.</td><td>Clearly separates sectioned material from visible surfaces.</td></tr>
+        <tr><td>CAD layers</td><td>Separate outline, hidden, centre, hatch, text, and dimension layers.</td><td>Allows quick editing, plotting, and lineweight control.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <section class="module" id="module-I">
   <div class="module-head">
     <div>
@@ -230,6 +291,19 @@
       <article class="topic-card">
         <h3>Development of Surfaces</h3>
         <p>The development of a solid is the flat, 2D pattern representing its entire outer surface when unfolded. For a rectangular prism, the development consists of a series of joined rectangles. For a cylinder, the development is a single large rectangle with width equal to the circumference &pi;D, plus the two circular bases.</p>
+      </article>
+    </div>
+    <div class="notice info">
+      <strong>How to decide the correct construction method:</strong> If the question gives side length, start from the side and construct the polygon outward. If it gives major/minor axes, choose an ellipse method. If it gives a solid such as prism or cylinder, first identify all faces, then unfold them in their true size. Development problems are about surface length, not pictorial appearance.
+    </div>
+    <div class="grid two">
+      <article class="worked">
+        <h3>Detailed example: cylinder development</h3>
+        <p>For a cylinder of diameter 50 mm and height 80 mm, the curved surface development is a rectangle. Its height is 80 mm and its length is the circumference: &pi;D = 3.1416 × 50 = 157.1 mm. Draw a rectangle 157.1 mm × 80 mm, divide the length into equal generators if required, and add two circles of diameter 50 mm for the top and bottom bases.</p>
+      </article>
+      <article class="worked">
+        <h3>Neatness checklist for Module I</h3>
+        <ul><li>Keep all construction arcs visible but light.</li><li>Mark centre points, axes, and vertices using small clear letters.</li><li>Do not erase important construction because it shows the method.</li><li>Use a smooth curve through ellipse points; never join ellipse points by straight lines.</li></ul>
       </article>
     </div>
   </section>
@@ -289,6 +363,19 @@
         <p>A sectional view represents an object as if it has been cut along a cutting plane. This reveals the internal features. The cut surface is marked using thin, inclined parallel hatching lines, typically drawn at an angle of 45°.</p>
       </article>
     </div>
+    <div class="notice info">
+      <strong>Projection memory rule:</strong> Elevation tells distance from HP; plan tells distance from VP. Above HP gives elevation above XY. Below HP gives elevation below XY. In front of VP gives plan below XY. Behind VP gives plan above XY. This single rule solves most point-projection problems.
+    </div>
+    <div class="grid two">
+      <article class="worked">
+        <h3>Detailed example: line inclined to HP</h3>
+        <p>If a 65 mm line is inclined 30° to HP and parallel to VP, draw the front view at the true length of 65 mm making 30° with XY. Then project both endpoints downward to obtain the top view. Because the line is parallel to VP, front view shows the true length; because it is inclined to HP, top view becomes shorter than the actual length.</p>
+      </article>
+      <article class="worked">
+        <h3>Section view explanation</h3>
+        <p>A section is used when hidden internal details would make the normal view confusing. Imagine cutting the object with a plane and removing the front portion. Only the material actually touched by the cutting plane is hatched. Holes, voids, and empty spaces are not hatched.</p>
+      </article>
+    </div>
   </section>
 
   <section class="practical-centre">
@@ -344,6 +431,16 @@
       <article class="topic-card">
         <h3>Key Modify Commands</h3>
         <p><strong>TRIM (TR):</strong> Cuts lines at intersections.<br><strong>OFFSET (O):</strong> Creates parallel lines or concentric curves.<br><strong>FILLET (F):</strong> Rounds corners with a specified radius.<br><strong>MIRROR (MI):</strong> Creates a symmetric mirrored copy across an axis.</p>
+      </article>
+    </div>
+    <div class="grid two">
+      <article class="worked">
+        <h3>Recommended CAD setup sequence</h3>
+        <ol><li>Open a new drawing and save with course code, exercise number, and name.</li><li>Run UNITS and set Decimal + Millimeters.</li><li>Run LIMITS for the sheet size, then ZOOM All.</li><li>Create layers: OUTLINE, CONSTRUCTION, HIDDEN, CENTRE, DIMENSION, TEXT, HATCH.</li><li>Turn on ORTHO or POLAR, and enable useful OSNAP modes.</li></ol>
+      </article>
+      <article class="worked">
+        <h3>Command choice guide</h3>
+        <p>Use LINE for independent edges, POLYLINE when the shape must behave as one object, OFFSET for parallel edges and wall thickness, TRIM/EXTEND for cleaning intersections, MIRROR for symmetry, ARRAY for repeated holes or slots, HATCH for cut surfaces, and DIM commands only after final geometry is complete.</p>
       </article>
     </div>
   </section>
@@ -413,6 +510,19 @@
       <article class="topic-card">
         <h3>Plotting and Export</h3>
         <p>Draft title blocks containing Name, Roll Number, Course, Scale, and date. Use `PLOT` or `EXPORT` to generate high-resolution print-ready PDF files in layout mode.</p>
+      </article>
+    </div>
+    <div class="notice info">
+      <strong>Paper-to-CAD transfer method:</strong> Treat each view as a construction problem. Draw the front view first, project lines for the top and side views using construction layers, convert only the final visible edges to outline layer, add hidden/centre lines, hatch cut areas, and finally dimension the drawing.
+    </div>
+    <div class="grid two">
+      <article class="worked">
+        <h3>Layer and plotting explanation</h3>
+        <p>Layers make CAD drawings professional. For example, OUTLINE can be thick white/black continuous line, HIDDEN can be dashed, CENTRE can be chain line, CONSTRUCTION can be thin cyan, HATCH can be green or grey, and DIMENSION can be a separate readable layer. During plotting, lineweights and layer colors control print clarity.</p>
+      </article>
+      <article class="worked">
+        <h3>Final checking before submission</h3>
+        <ul><li>All views aligned vertically/horizontally with projectors.</li><li>All object dimensions shown once, not repeated unnecessarily.</li><li>Hidden features and centre lines use correct linetypes.</li><li>Sectional surfaces are hatched uniformly.</li><li>Title block and scale are filled before exporting PDF.</li></ul>
       </article>
     </div>
   </section>
