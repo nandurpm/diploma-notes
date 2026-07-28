@@ -203,28 +203,24 @@
       .filter((c) => !q || `${c.title} ${c.updatedAt}`.toLowerCase().includes(q));
     els.list.replaceChildren();
     chats.forEach((chat) => {
+      const container = document.createElement("div");
+      container.className = "ask-item-wrap";
+
       const btn = document.createElement("button");
       btn.className = `ask-item ${chat.id === activeChatId ? "active" : ""}`;
       btn.type = "button";
       btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt))}</small>`;
       btn.addEventListener("click", async () => { activeChatId = chat.id; await renderAll(); });
 
-      const del = document.createElement("span");
+      const del = document.createElement("button");
       del.className = "ask-delete";
-      del.setAttribute("role", "button");
-      del.setAttribute("tabindex", "0");
+      del.type = "button";
       del.setAttribute("aria-label", `Delete ${chat.title || "saved chat"}`);
       del.textContent = "×";
       del.addEventListener("click", async (event) => { event.stopPropagation(); await deleteSavedChat(chat); });
-      del.addEventListener("keydown", async (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          event.stopPropagation();
-          await deleteSavedChat(chat);
-        }
-      });
-      btn.append(del);
-      els.list.append(btn);
+
+      container.append(btn, del);
+      els.list.append(container);
     });
   }
 
