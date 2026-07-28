@@ -8,6 +8,9 @@
   const STORE = "poly-quiz-safe-fallback-results";
 
   function dateKey(date = new Date()) {
+    if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
+      return window.PolyUtils.formatDateKey(date);
+    }
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
   }
 
