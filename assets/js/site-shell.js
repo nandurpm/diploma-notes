@@ -49,6 +49,10 @@
   const REVEAL_JS = "/assets/js/reveal.js?v=20260728-global-reveal1";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
+  const isRevealDisabledPage = () => {
+    const path = currentPath();
+    return path === "/" || path.endsWith("/index.html") || document.body?.dataset.revealDisabled === "true";
+  };
 
   function hasAsset(selector, pathname) {
     return [...document.querySelectorAll(selector)].some(node => {
@@ -105,6 +109,8 @@
      that load the site shell directly without main.js.
      ========================================================= */
   function ensureRevealAssets() {
+    if (isRevealDisabledPage()) return;
+
     if (!hasAsset('link[rel="stylesheet"]', "/assets/css/reveal.css")) {
       const link = document.createElement("link");
       link.rel = "stylesheet";

@@ -32,6 +32,7 @@
 
   const path = window.location.pathname || "/";
   const isLessonPage = /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(path);
+  const isHomePage = path === "/" || /\/index\.html$/i.test(path);
   const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php";
   const REV2026_SYLLABUS_ROUTE = "site%2Fdiploma-syllabus-course-contents";
   const REV2026_MODEL_QP_ROUTE = "site%2Fdiploma-modelqp-courses-show";
@@ -58,6 +59,8 @@
      Related: assets/css/reveal.css, assets/js/reveal.js
      ========================================================= */
   function ensureRevealAssets() {
+    if (isHomePage || document.body?.dataset.revealDisabled === "true") return;
+
     if (!assetAlreadyLoaded('link[rel="stylesheet"]', REVEAL_CSS_PATH)) {
       const link = document.createElement("link");
       link.rel = "stylesheet";
