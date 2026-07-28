@@ -243,6 +243,19 @@
       list = uniqueHomeList.slice(0, HOME_LIMIT);
     }
     grid.innerHTML = list.length ? (mode === "home" ? list.map(card).join("") : group(list)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
+
+    let announcer = $("subjectBrowserAnnouncer");
+    if (!announcer && grid.parentNode) {
+      announcer = document.createElement("div");
+      announcer.id = "subjectBrowserAnnouncer";
+      announcer.className = "sr-only";
+      announcer.setAttribute("role", "status");
+      announcer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(announcer, grid);
+    }
+    if (announcer) {
+      announcer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+    }
   }
 
   async function init() {
@@ -255,6 +268,12 @@
     const preferredRevision = grid.dataset.defaultRevision || $("revisionFilter")?.value || (mode === "lessons" ? "2021" : "2026");
     const all = await getSubjects();
     fillRevision($("revisionFilter"), all, preferredRevision);
+
+    const searchInput = $("subjectSearch");
+    if (searchInput) {
+      searchInput.setAttribute("aria-controls", "subjectGrid");
+      searchInput.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
+    }
     const activeRevision = fixedRevision || $("revisionFilter")?.value || preferredRevision;
     const activeSubjects = all.filter(subject => activeRevision === "all" || String(subject.revision) === activeRevision);
     const preferredDepartment = activeRevision === "2021" && mode === "home" ? COMMON_VALUE : ALL_DEPARTMENTS;
