@@ -4,6 +4,11 @@
 
 ## 2026-07-26 - Accessible Filter Toggles and Autofocus
 **Learning:** Toggle controls like filter buttons and chips must communicate their selected state to screen readers via dynamic `aria-pressed` states. Furthermore, opening single-page interactive modals should focus and auto-select the first input/textarea element rather than the generic modal close button, allowing keyboard users to immediately type values without manual navigation.
+**Action:** Always synchronize visual toggle states (e.g. '.on' or '.primary' class) on filter buttons and chips with their corresponding `aria-pressed` attributes, and design modal open transitions to focus and auto-select the main interactive entry fields.
+
+## 2026-07-28 - No Nested Interactive Controls
+**Learning:** Nesting focusable or interactive elements (e.g., elements with roles like "button" or native `<button>`) inside another native `<button>` element is a violation of HTML5 and WCAG specifications. Assistive technologies and screen readers cannot interpret nested actions reliably, and keyboard/voice-control navigation becomes highly unpredictable.
+**Action:** Always structure parent and child interactive controls (such as list item cards containing delete or close actions) as sibling semantic `<button>` elements wrapped inside a relative-positioned container `div` (e.g., `.ask-item-wrap`), ensuring the child remains absolute-positioned without breaking the accessibility tree.
 **Action:** Always synchronize visual toggle states (e.g. '.on' or '.primary' class) with their corresponding `aria-pressed` attributes, and design modal open transitions to focus and auto-select the main interactive entry fields.
 
 ## 2026-07-28 - Accessible Timer Status Announcements
