@@ -1,26 +1,59 @@
 /* =========================================================
    POLY PMNA — Global Reveal Animation Framework
    ---------------------------------------------------------
-   Initializes opt-in reveal animations for elements matching
-   [data-reveal] or .reveal. Uses IntersectionObserver with a
-   no-motion and no-observer fallback for safe production use.
+   Initializes reveal animations for elements matching [data-reveal]
+   or .reveal, and auto-tags standard educational content on
+   lesson-related pages. Uses IntersectionObserver with safe fallbacks.
    ========================================================= */
 (() => {
   "use strict";
 
   const DEFAULT_SELECTOR = "[data-reveal], .reveal";
+  const AUTO_REVEAL_SELECTOR = [
+    "main section",
+    "main article",
+    ".lesson-card",
+    ".lesson-content",
+    ".lesson-block",
+    ".subject-card",
+    ".notes-card",
+    ".chapter",
+    ".topic",
+    ".module",
+    ".paper-card",
+    ".syllabus-card",
+    ".hero",
+    ".feature",
+    ".card",
+    ".cards",
+    ".grid",
+    ".image",
+    ".video",
+    ".table-container",
+    ".table-wrap",
+    ".content",
+    ".container",
+    ".row",
+    ".col"
+  ].join(",");
+  const EDUCATIONAL_PAGE_PATTERN = /\/(?:revision-2026-content\/)?(?:lessons|notes|question-papers|model-question-papers|previous-question-papers|syllabus|lab-manuals|mock-exam)[^/]*|\/(?:revision-2026|revision-2021)\//i;
   const DEFAULT_OPTIONS = {
     root: null,
     rootMargin: "0px 0px -10% 0px",
     threshold: 0.12,
     once: true,
-    staggerStep: 80
+    staggerStep: 80,
+    autoReveal: true,
+    autoSelector: AUTO_REVEAL_SELECTOR,
+    autoAnimation: "up"
   };
 
   const documentElement = document.documentElement;
   const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const observed = new WeakSet();
   let observer = null;
+  let autoObserver = null;
+  let refreshTimer = 0;
 
   documentElement.classList.remove("reveal-no-js");
 
@@ -30,6 +63,50 @@
       documentElement.dataset.revealDisabled === "true" ||
       path === "/" ||
       path.endsWith("/index.html");
+  }
+
+  function isEducationalContentPage() {
+    if (document.body?.dataset.revealAuto === "true") return true;
+    if (document.body?.classList.contains("poly-lesson-page")) return true;
+    return EDUCATIONAL_PAGE_PATTERN.test(window.location.pathname);
+  }
+
+  function shouldAutoTag(element) {
+    if (!(element instanceof Element)) return false;
+    if (element.matches(DEFAULT_SELECTOR)) return false;
+    if (element.closest("header, footer, nav, script, style, template, noscript, [hidden], [data-reveal-skip]")) return false;
+    return true;
+  }
+
+  function applyAutomaticRevealAttributes(settings, scope = document) {
+    if (!settings.autoReveal || !isEducationalContentPage()) return 0;
+
+    const candidates = scope instanceof Element && scope.matches(settings.autoSelector)
+      ? [scope, ...scope.querySelectorAll(settings.autoSelector)]
+      : [...scope.querySelectorAll(settings.autoSelector)];
+
+    let tagged = 0;
+    candidates.forEach((element) => {
+      if (!shouldAutoTag(element)) return;
+      element.dataset.reveal = settings.autoAnimation;
+      tagged += 1;
+    });
+    return tagged;
+  }
+
+  function watchAutomaticReveal(settings) {
+    if (autoObserver || !settings.autoReveal || !isEducationalContentPage() || !("MutationObserver" in window)) return;
+
+    autoObserver = new MutationObserver((mutations) => {
+      const hasNewElements = mutations.some((mutation) =>
+        [...mutation.addedNodes].some((node) => node.nodeType === 1)
+      );
+      if (!hasNewElements) return;
+
+      clearTimeout(refreshTimer);
+      refreshTimer = window.setTimeout(() => init(settings), 80);
+    });
+    autoObserver.observe(document.body, { childList: true, subtree: true });
   }
 
   function toNumber(value, fallback) {
@@ -107,6 +184,7 @@
 
     documentElement.classList.remove("reveal-disabled");
     const settings = readOptions(options);
+    applyAutomaticRevealAttributes(settings);
     const elements = [...document.querySelectorAll(settings.selector || DEFAULT_SELECTOR)];
 
     if (!elements.length) return { observed: 0 };
@@ -124,6 +202,7 @@
     elements.forEach((element) => {
       if (!element.classList.contains("is-revealed")) observer.observe(element);
     });
+    watchAutomaticReveal(settings);
 
     return { observed: elements.length };
   }
@@ -134,7 +213,11 @@
 
   function destroy() {
     observer?.disconnect();
+    autoObserver?.disconnect();
+    clearTimeout(refreshTimer);
     observer = null;
+    autoObserver = null;
+    refreshTimer = 0;
   }
 
   window.PolyReveal = {
