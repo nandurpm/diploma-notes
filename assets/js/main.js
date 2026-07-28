@@ -6,6 +6,8 @@
    other shared scripts and performs cross-page normalization.
 
    Responsibilities:
+   - Loads the global reveal animation framework
+     (CSS + IntersectionObserver controller)
    - Loads the site shell (header/footer/navigation renderer)
    - Loads the visitor popup rotation system
    - Loads the maintenance mode controller
@@ -15,6 +17,8 @@
      to point to the official SITTTR Kerala website
 
    Related files:
+   - assets/css/reveal.css (loaded by this script)
+   - assets/js/reveal.js (loaded by this script)
    - assets/js/site-shell.js (loaded by this script)
    - assets/js/visitor-popup.js (loaded by this script)
    - assets/js/maintenance-controller.js (loaded by this script)
@@ -31,6 +35,45 @@
   const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php";
   const REV2026_SYLLABUS_ROUTE = "site%2Fdiploma-syllabus-course-contents";
   const REV2026_MODEL_QP_ROUTE = "site%2Fdiploma-modelqp-courses-show";
+  const REVEAL_CSS_PATH = "/assets/css/reveal.css";
+  const REVEAL_JS_PATH = "/assets/js/reveal.js";
+  const REVEAL_VERSION = "20260728-global-reveal1";
+
+  function assetAlreadyLoaded(selector, pathname) {
+    return [...document.querySelectorAll(selector)].some(node => {
+      try {
+        return new URL(node.href || node.src || "", window.location.href).pathname === pathname;
+      } catch (_) {
+        return false;
+      }
+    });
+  }
+
+  /* =========================================================
+     GLOBAL REVEAL ASSET LOADER
+     ---------------------------------------------------------
+     Loads the reusable reveal animation stylesheet and script
+     once per page. The framework remains opt-in: only elements
+     with data-reveal or .reveal are affected.
+     Related: assets/css/reveal.css, assets/js/reveal.js
+     ========================================================= */
+  function ensureRevealAssets() {
+    if (!assetAlreadyLoaded('link[rel="stylesheet"]', REVEAL_CSS_PATH)) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = `${REVEAL_CSS_PATH}?v=${REVEAL_VERSION}`;
+      link.dataset.polyRevealCss = "true";
+      document.head.append(link);
+    }
+
+    if (window.PolyReveal || assetAlreadyLoaded("script[src]", REVEAL_JS_PATH)) return;
+
+    const script = document.createElement("script");
+    script.src = `${REVEAL_JS_PATH}?v=${REVEAL_VERSION}`;
+    script.defer = true;
+    script.dataset.polyRevealLoader = "true";
+    document.head.append(script);
+  }
 
   /* =========================================================
      COPYRIGHT YEAR UPDATER
@@ -232,6 +275,7 @@
      If the document is still loading, waits for DOMContentLoaded.
      ========================================================= */
   function init() {
+    ensureRevealAssets();
     ensureMaintenanceController();
     updateYears();
     normalizeLegacyInternalLinks();
