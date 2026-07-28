@@ -46,5 +46,30 @@ window.PolyUtils = (() => {
     return window.supabase.createClient(url, key, clientOptions);
   }
 
-  return { escapeHtml, getMetaContent, createSupabaseBrowserClient };
+  /**
+   * Formats a Date object as a YYYY-MM-DD string in the specified timezone.
+   * Encourages code reuse and standardizes timezone calculations across all portal/quiz/special-day modules.
+   */
+  function formatDateKey(date = new Date(), timeZone = "Asia/Kolkata") {
+    const d = date ? new Date(date) : new Date();
+    try {
+      const parts = new Intl.DateTimeFormat("en-CA", {
+        timeZone,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }).formatToParts(d);
+
+      const value = (type) => parts.find((item) => item.type === type)?.value ?? "";
+      const y = value("year");
+      const m = value("month");
+      const day = value("day");
+      if (y && m && day) return `${y}-${m}-${day}`;
+    } catch (_) {
+      // Fallback if Intl.DateTimeFormat is not supported or fails
+    }
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  return { escapeHtml, getMetaContent, createSupabaseBrowserClient, formatDateKey };
 })();

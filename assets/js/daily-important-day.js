@@ -55,6 +55,9 @@
   }
 
   function getIndiaDateKey(date = new Date()) {
+    if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
+      return window.PolyUtils.formatDateKey(date);
+    }
     const formatter = new Intl.DateTimeFormat("en", {
       timeZone: "Asia/Kolkata",
       year: "numeric",
