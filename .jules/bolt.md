@@ -25,6 +25,11 @@
 ## 2026-07-27 - [Cached Search Text in Revision 2021 Directory Browser]
 **Learning:** Found an unoptimized search input handler in `assets/js/sitttr-rev2021-browser.js` that concatenated multiple subject attributes on every keystroke/render invocation. This caused excessive memory allocation and frequent garbage collection cycles for large datasets. Pre-computing and caching the combined string (`_searchText`) directly on each subject object at load time solves this and makes search smooth.
 **Action:** Avoid performing repetitive string joins or case coercions on dataset items inside interactive render and keypress event loops. Pre-compute and cache search keys during initial loading instead.
+
 ## 2026-07-27 - [Optimized SITTTR Revision 2021 Search Render Loop]
 **Learning:** Discovered a redundant and expensive $O(N)$ `uniq(list)` call inside the active `render()` loop of `sitttr-rev2021-browser.js` that was executing on every user keypress, and search input change. Combined with repetitive string joining and case coercion on subject elements, this was causing significant CPU usage and memory churn. Pre-computing `_searchText` during `init()` and removing the redundant `uniq()` call ensures a lightning-fast render response.
 **Action:** Remove redundant deduplication passes from active UI render loops if the underlying data has already been uniquely loaded and cached.
+
+## 2026-07-28 - [Optimized Visitor Popup Loader & Media Probing]
+**Learning:** Probing available popup files (via network HEAD/GET requests) immediately on page load blockage introduced unnecessary network latency, blocked rendering, and generated redundant network roundtrips on internal page transitions. Deferring the network exists checks to the delayed timeout prevents page load interference, while caching results in `sessionStorage` completely avoids repetitive checks across internal navigations. Finally, checking whether all possible popups have already been shown today allows a zero-latency early return.
+**Action:** Postpone non-critical/deferred network probes (such as file existence/integrity checks) from page load to inside their delayed timeout blocks, cache the outcomes in `sessionStorage` for internal navigation, and early-exit when state constraints (e.g. daily limits) are already reached.
