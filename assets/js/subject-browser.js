@@ -55,7 +55,9 @@
   ];
 
   const $ = id => document.getElementById(id);
-  const esc = value => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+  const esc = value => window.PolyUtils?.escapeHtml
+    ? window.PolyUtils.escapeHtml(value)
+    : String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
   const norm = value => String(value || "").trim().toUpperCase();
   const depKey = value => String(value || "").toLowerCase().replaceAll("&", " and ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
   const semRank = value => Number(String(value || "").match(/\d+/)?.[0] || 999);
