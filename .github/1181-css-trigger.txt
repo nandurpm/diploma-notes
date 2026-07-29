@@ -1,0 +1,1 @@
+Temporary trigger for Course 1181 stylesheet application. This file will be removed after the CSS link is applied.
