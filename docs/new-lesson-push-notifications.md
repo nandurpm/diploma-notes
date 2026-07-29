@@ -1,7 +1,6 @@
 # Automatic new-lesson app notifications
 
 POLY PMNA Android v3.3 includes Firebase Cloud Messaging support. The repository also contains a GitHub Actions workflow that detects newly added lesson HTML files and sends one notification per new lesson.
-POLY PMNA Android v3.2 includes Firebase Cloud Messaging support. The repository also contains a GitHub Actions workflow that detects newly added lesson HTML files and sends one notification per new lesson.
 
 ## Supported lesson paths
 
