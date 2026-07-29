@@ -1,0 +1,687 @@
+/* Course 1181 — Architectural Graphics | REV2026
+   Dedicated lesson styling. Loaded after lesson-page-fix.css so the
+   lesson's own components have complete visual styling without changing
+   the shared site stylesheet.
+*/
+
+html.poly-lesson-page.revision-2026-lesson {
+  --bg: #eef4fb;
+  --surface: #ffffff;
+  --surface-2: #f7fbff;
+  --text: #122033;
+  --muted: #5a6d84;
+  --navy: #07192e;
+  --navy-2: #0b2747;
+  --blue: #2563eb;
+  --cyan: #00b8d9;
+  --green: #0f9f6e;
+  --amber: #f59e0b;
+  --red: #c2413a;
+  --line: #d7e2ee;
+  --shadow: 0 14px 38px rgba(8, 31, 58, .10);
+  --radius: 18px;
+  --reading: 0%;
+  background: var(--bg);
+  color: var(--text);
+  color-scheme: light;
+}
+
+html.poly-lesson-page.revision-2026-lesson *,
+html.poly-lesson-page.revision-2026-lesson *::before,
+html.poly-lesson-page.revision-2026-lesson *::after {
+  box-sizing: border-box;
+}
+
+html.poly-lesson-page.revision-2026-lesson body {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 16px;
+}
+
+html.poly-lesson-page.revision-2026-lesson a {
+  color: var(--blue);
+  text-underline-offset: 3px;
+}
+
+html.poly-lesson-page.revision-2026-lesson button,
+html.poly-lesson-page.revision-2026-lesson input,
+html.poly-lesson-page.revision-2026-lesson select,
+html.poly-lesson-page.revision-2026-lesson textarea {
+  font: inherit;
+}
+
+html.poly-lesson-page.revision-2026-lesson button {
+  cursor: pointer;
+}
+
+html.poly-lesson-page.revision-2026-lesson h1,
+html.poly-lesson-page.revision-2026-lesson h2,
+html.poly-lesson-page.revision-2026-lesson h3,
+html.poly-lesson-page.revision-2026-lesson h4 {
+  line-height: 1.25;
+}
+
+html.poly-lesson-page.revision-2026-lesson p {
+  margin: .65em 0;
+}
+
+/* Reading progress */
+html.poly-lesson-page.revision-2026-lesson .reading-progress {
+  position: fixed !important;
+  inset: 0 0 auto 0 !important;
+  width: var(--reading);
+  height: 4px !important;
+  max-height: 4px !important;
+  z-index: 7000 !important;
+  background: linear-gradient(90deg, var(--cyan), var(--blue));
+  pointer-events: none;
+}
+
+/* Main page canvas */
+html.poly-lesson-page.revision-2026-lesson .lesson-shell {
+  background: var(--bg);
+  padding: 18px !important;
+}
+
+html.poly-lesson-page.revision-2026-lesson main#main-content {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+/* Cover */
+html.poly-lesson-page.revision-2026-lesson .cover {
+  min-height: 0 !important;
+  margin: 0 0 20px;
+  padding: 0;
+  background: transparent;
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(280px, .55fr);
+  gap: 28px;
+  align-items: stretch;
+  padding: clamp(24px, 4vw, 48px);
+  min-height: 420px;
+  overflow: hidden;
+  position: relative;
+  color: #fff;
+  background: linear-gradient(145deg, #06162a 0%, #0b3157 58%, #0a5f73 100%);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 24px;
+  box-shadow: 0 20px 55px rgba(7, 25, 46, .20);
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: .18;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 10px 10px, #61e7ff 1.2px, transparent 1.5px);
+  background-size: 28px 28px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+html.poly-lesson-page.revision-2026-lesson .eyebrow {
+  display: inline-block;
+  color: #73e7ff;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+html.poly-lesson-page.revision-2026-lesson .badge-row,
+html.poly-lesson-page.revision-2026-lesson .actions,
+html.poly-lesson-page.revision-2026-lesson .module-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+html.poly-lesson-page.revision-2026-lesson .badge-row {
+  margin: 14px 0 10px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.11);
+  border: 1px solid rgba(255,255,255,.20);
+  color: inherit;
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover h1 {
+  margin: .15em 0 .22em;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -.035em;
+}
+
+html.poly-lesson-page.revision-2026-lesson .lead {
+  color: #d2eafb;
+  max-width: 850px;
+  font-size: 1.08rem;
+}
+
+html.poly-lesson-page.revision-2026-lesson .actions {
+  margin-top: 24px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 10px 15px;
+  border: 1px solid rgba(255,255,255,.20);
+  border-radius: 12px;
+  font-weight: 850;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+html.poly-lesson-page.revision-2026-lesson .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.16);
+}
+
+html.poly-lesson-page.revision-2026-lesson .btn.primary {
+  background: var(--cyan);
+  color: #001825;
+  border-color: transparent;
+}
+
+html.poly-lesson-page.revision-2026-lesson .btn.light {
+  background: #fff;
+  color: var(--navy);
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover-info {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  padding: 22px;
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover-info dl {
+  width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover-info dt {
+  color: #aed3e8;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+}
+
+html.poly-lesson-page.revision-2026-lesson .cover-info dd {
+  margin: 2px 0 0;
+  font-weight: 850;
+}
+
+/* Jump navigation */
+html.poly-lesson-page.revision-2026-lesson .jump-menu {
+  position: sticky;
+  top: 8px;
+  z-index: 100;
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 0 0 20px;
+  background: rgba(255,255,255,.94);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  box-shadow: 0 8px 24px rgba(8,31,58,.08);
+  backdrop-filter: blur(12px);
+}
+
+html.poly-lesson-page.revision-2026-lesson .jump-menu a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 10px;
+  border-radius: 9px;
+  color: var(--text);
+  background: var(--surface-2);
+  text-decoration: none;
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+html.poly-lesson-page.revision-2026-lesson .jump-menu a:hover {
+  color: #fff;
+  background: var(--blue);
+}
+
+/* General sections */
+html.poly-lesson-page.revision-2026-lesson .section,
+html.poly-lesson-page.revision-2026-lesson .module {
+  width: 100%;
+  margin: 0 0 20px;
+  padding: clamp(18px, 2.5vw, 34px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+
+html.poly-lesson-page.revision-2026-lesson .section > h2 {
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: clamp(1.55rem, 3vw, 2.35rem);
+  color: var(--navy);
+}
+
+/* Grids and cards */
+html.poly-lesson-page.revision-2026-lesson .grid {
+  display: grid;
+  gap: 14px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .grid.two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+html.poly-lesson-page.revision-2026-lesson .grid.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+html.poly-lesson-page.revision-2026-lesson .grid.four {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+html.poly-lesson-page.revision-2026-lesson .card,
+html.poly-lesson-page.revision-2026-lesson .formula-card,
+html.poly-lesson-page.revision-2026-lesson .activity-card,
+html.poly-lesson-page.revision-2026-lesson .exam-card,
+html.poly-lesson-page.revision-2026-lesson .worked {
+  min-width: 0;
+  padding: 17px;
+  margin: 12px 0;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .grid > .card,
+html.poly-lesson-page.revision-2026-lesson .grid > .activity-card {
+  margin: 0;
+}
+
+html.poly-lesson-page.revision-2026-lesson .card h4,
+html.poly-lesson-page.revision-2026-lesson .formula-card h4,
+html.poly-lesson-page.revision-2026-lesson .activity-card h4 {
+  margin: 0 0 7px;
+  color: var(--navy-2);
+}
+
+html.poly-lesson-page.revision-2026-lesson .step {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 7px;
+  border-radius: 10px;
+  background: var(--blue);
+  color: #fff;
+  font-weight: 900;
+}
+
+/* Modules */
+html.poly-lesson-page.revision-2026-lesson .module {
+  border-top: 6px solid var(--module-color, var(--blue));
+}
+
+html.poly-lesson-page.revision-2026-lesson .module-head {
+  margin-bottom: 18px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .kicker {
+  display: inline-block;
+  color: var(--module-color, var(--blue));
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+html.poly-lesson-page.revision-2026-lesson .module h3 {
+  margin: .18em 0 .3em;
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  color: var(--navy);
+}
+
+html.poly-lesson-page.revision-2026-lesson .module-meta {
+  color: var(--muted);
+  font-size: .84rem;
+  font-weight: 750;
+}
+
+html.poly-lesson-page.revision-2026-lesson .module-meta span {
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+}
+
+/* Details / topics / Q&A */
+html.poly-lesson-page.revision-2026-lesson details.topic,
+html.poly-lesson-page.revision-2026-lesson details.qa {
+  margin: 14px 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+html.poly-lesson-page.revision-2026-lesson details > summary {
+  padding: 14px 16px;
+  background: var(--surface-2);
+  color: var(--navy-2);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+html.poly-lesson-page.revision-2026-lesson details[open] > summary {
+  color: var(--blue);
+  border-bottom: 1px solid var(--line);
+}
+
+html.poly-lesson-page.revision-2026-lesson .topic-body,
+html.poly-lesson-page.revision-2026-lesson .qa-body {
+  padding: 4px 17px 17px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .topic-body > :first-child,
+html.poly-lesson-page.revision-2026-lesson .qa-body > :first-child {
+  margin-top: 10px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .ml-note {
+  margin: 14px 0;
+  padding: 12px 14px;
+  border-left: 5px solid var(--cyan);
+  border-radius: 0 12px 12px 0;
+  background: #ecfeff;
+  color: #164e63;
+}
+
+/* Tables */
+html.poly-lesson-page.revision-2026-lesson .table-wrap {
+  width: 100%;
+  margin: 14px 0;
+  overflow-x: auto !important;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+html.poly-lesson-page.revision-2026-lesson table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+}
+
+html.poly-lesson-page.revision-2026-lesson caption {
+  padding: 12px 13px;
+  text-align: left;
+  font-weight: 900;
+  background: var(--navy-2);
+  color: #fff;
+}
+
+html.poly-lesson-page.revision-2026-lesson th,
+html.poly-lesson-page.revision-2026-lesson td {
+  padding: 10px 11px;
+  border: 1px solid var(--line);
+  vertical-align: top;
+  text-align: left;
+}
+
+html.poly-lesson-page.revision-2026-lesson th {
+  background: var(--surface-2);
+  color: var(--navy-2);
+  font-weight: 850;
+}
+
+html.poly-lesson-page.revision-2026-lesson tr:nth-child(even) td {
+  background: rgba(247,251,255,.55);
+}
+
+/* Callouts */
+html.poly-lesson-page.revision-2026-lesson .tip,
+html.poly-lesson-page.revision-2026-lesson .source-note {
+  margin: 14px 0;
+  padding: 12px 14px;
+  border-left: 5px solid var(--green);
+  border-radius: 0 12px 12px 0;
+  background: rgba(15,159,110,.09);
+}
+
+html.poly-lesson-page.revision-2026-lesson .source-note {
+  border-left-color: var(--blue);
+  background: rgba(37,99,235,.08);
+}
+
+/* Diagrams */
+html.poly-lesson-page.revision-2026-lesson .diagram {
+  margin: 14px 0;
+  padding: 10px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-2);
+}
+
+html.poly-lesson-page.revision-2026-lesson .diagram figure {
+  margin: 0;
+}
+
+html.poly-lesson-page.revision-2026-lesson .diagram svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 120px;
+  color: var(--text);
+}
+
+html.poly-lesson-page.revision-2026-lesson .diagram figcaption {
+  padding: 8px 4px 2px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+/* Formula and exam blocks */
+html.poly-lesson-page.revision-2026-lesson .formula-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .formula-card {
+  border-top: 4px solid var(--blue);
+}
+
+html.poly-lesson-page.revision-2026-lesson .exam-card {
+  border-left: 5px solid var(--amber);
+  background: #fffbeb;
+}
+
+/* Search */
+html.poly-lesson-page.revision-2026-lesson .search-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 9px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .search-bar input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 13px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--surface-2);
+  color: var(--text);
+  outline: none;
+}
+
+html.poly-lesson-page.revision-2026-lesson .search-bar input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+
+html.poly-lesson-page.revision-2026-lesson .search-results {
+  display: none;
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+html.poly-lesson-page.revision-2026-lesson .search-results:not(:empty) {
+  display: block;
+}
+
+html.poly-lesson-page.revision-2026-lesson .search-results a {
+  display: block;
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+}
+
+/* Focus accessibility */
+html.poly-lesson-page.revision-2026-lesson :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #38bdf8 !important;
+  outline-offset: 3px !important;
+}
+
+/* Mobile */
+@media (max-width: 980px) {
+  html.poly-lesson-page.revision-2026-lesson .cover-card {
+    grid-template-columns: 1fr;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .grid.three,
+  html.poly-lesson-page.revision-2026-lesson .grid.four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  html.poly-lesson-page.revision-2026-lesson .lesson-shell {
+    padding: 8px !important;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .cover-card,
+  html.poly-lesson-page.revision-2026-lesson .section,
+  html.poly-lesson-page.revision-2026-lesson .module {
+    border-radius: 14px;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .cover-card {
+    padding: 22px 17px;
+    min-height: 0;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .cover h1 {
+    font-size: clamp(2rem, 11vw, 3.2rem);
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .cover-info dl,
+  html.poly-lesson-page.revision-2026-lesson .grid.two,
+  html.poly-lesson-page.revision-2026-lesson .grid.three,
+  html.poly-lesson-page.revision-2026-lesson .grid.four,
+  html.poly-lesson-page.revision-2026-lesson .formula-grid,
+  html.poly-lesson-page.revision-2026-lesson .search-bar {
+    grid-template-columns: 1fr;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .jump-menu {
+    position: static;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .jump-menu a {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .actions .btn,
+  html.poly-lesson-page.revision-2026-lesson .search-bar .btn {
+    width: 100%;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson table {
+    min-width: 560px;
+    font-size: .88rem;
+  }
+}
+
+/* Print */
+@media print {
+  html.poly-lesson-page.revision-2026-lesson,
+  html.poly-lesson-page.revision-2026-lesson body {
+    background: #fff !important;
+    color: #111827 !important;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .lesson-shell,
+  html.poly-lesson-page.revision-2026-lesson main#main-content {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .cover-card {
+    min-height: 0;
+    box-shadow: none;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .jump-menu,
+  html.poly-lesson-page.revision-2026-lesson .no-print {
+    display: none !important;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .section,
+  html.poly-lesson-page.revision-2026-lesson .module {
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson .table-wrap {
+    overflow: visible !important;
+  }
+
+  html.poly-lesson-page.revision-2026-lesson table {
+    min-width: 0;
+    font-size: 8.5pt;
+  }
+}
