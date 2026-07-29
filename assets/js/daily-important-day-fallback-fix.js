@@ -19,8 +19,20 @@
     ["Finish one pending thing.", "Closing one pending task gives more confidence than starting five new ones.\nപുതിയ അഞ്ച് കാര്യങ്ങൾ തുടങ്ങുന്നതിനെക്കാൾ ഒരു ബാക്കി ജോലി തീർക്കുന്നത് കൂടുതൽ ആത്മവിശ്വാസം നൽകും."]
   ];
 
+  // PERFORMANCE OPTIMIZATION: Pre-compile and cache the DateTimeFormat instance in module-scoped variable
+  // to avoid reconstructing the object repeatedly inside scheduling/observing loops.
+  let cachedFormatter = null;
+
   function indiaDateKey(date = new Date()) {
-    const parts = new Intl.DateTimeFormat("en", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(date).reduce((acc, part) => {
+    if (!cachedFormatter) {
+      cachedFormatter = new Intl.DateTimeFormat("en", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+    }
+    const parts = cachedFormatter.formatToParts(date).reduce((acc, part) => {
       if (part.type !== "literal") acc[part.type] = part.value;
       return acc;
     }, {});
