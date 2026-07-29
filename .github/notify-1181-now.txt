@@ -1,1 +1,1 @@
-Send Course 1181 update notification now.
+Send Course 1181 update notification now. Retry with corrected FCM workflow.
