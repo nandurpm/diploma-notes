@@ -68,7 +68,7 @@ jobs:
                   "topic": "all-users",
                   "notification": {
                       "title": "📢 POLY PMNA – Course 1181 Updated",
-                      "body": "The Course 1181 — Architectural Graphics lesson has been updated with improved layout and CSS. 👉 Open Course 1181 now."
+                      "body": "The Course 1181 📋— Architectural Graphics lesson has been updated  👉 Open Course 1181 now."
                   },
                   "data": {
                       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1181.html",
