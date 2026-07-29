@@ -11,6 +11,10 @@
 **Action:** Always structure parent and child interactive controls (such as list item cards containing delete or close actions) as sibling semantic `<button>` elements wrapped inside a relative-positioned container `div` (e.g., `.ask-item-wrap`), ensuring the child remains absolute-positioned without breaking the accessibility tree.
 **Action:** Always synchronize visual toggle states (e.g. '.on' or '.primary' class) with their corresponding `aria-pressed` attributes, and design modal open transitions to focus and auto-select the main interactive entry fields.
 
+## 2026-07-28 - Visually Hidden ARIA-live Announcer for Real-Time Search Results
+**Learning:** Real-time client-side search and filtering inputs on dynamic subject grids do not inherently announce DOM content changes to assistive technologies. Placing a visually hidden announcer (`role="status"`, `aria-live="polite"`) that updates on every search/filter render allows screen readers to immediately announce the matched result counts. Linking the search input to the grid and announcer via `aria-controls` and `aria-describedby` completes the semantic association.
+**Action:** Always include a visually hidden ARIA-live polite status announcer for real-time, dynamic filtering controls, and link the input selector with its corresponding target containers and announcers.
+
 ## 2026-07-28 - Accessible Timer Status Announcements
 **Learning:** When implementing interactive timers or countdown clocks, applying `aria-live` or `role="status"` directly to the rapidly updating time string element causes screen readers to constantly announce the updated digits every second, creating extreme verbal noise and blocking user interaction. Instead, a separate live status region should be used to announce key state transitions (start, pause, reset, complete) while keeping the countdown numbers quiet.
 **Action:** Always separate visual countdown elements from live announcements. Use a dedicated, quiet live region to notify assistive technologies of meaningful timer events such as start, pause, reset, and completion without introducing persistent auditory clutter.
