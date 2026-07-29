@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "versionCode": 9,
-  "versionName": "3.0",
-  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.0/POLY_PMNA_v3.0.apk",
-  "sha256": "8d8e4f7382b9e6d0358af8d55f7978a8a8e8022e61e37f73c2d0cc39cfe0b352",
-  "publishedAt": "2026-07-16T09:28:18Z",
+  "versionCode": 11,
+  "versionName": "3.2",
+  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.2/POLY_PMNA_v3.2.apk",
+  "sha256": "",
+  "publishedAt": "2026-07-29T00:00:00Z",
   "forceUpdate": true,
-  "title": "POLY PMNA Android app 3.0",
-  "message": "The native app and sidebar match the current POLY PMNA website, including Revision 2026.",
+  "title": "POLY PMNA Android app 3.2",
+  "message": "Install this signed release update to replace the older debug APK and receive future app updates from the homepage.",
   "releaseNotes": [
-    "Revision 2026 and Revision 2021 are separate native drawer destinations.",
-    "Revision 2026 lessons and notes use dedicated content folders.",
-    "Ask POLY AI uses the current whole-site revision-aware knowledge system.",
-    "Mock Exams, Tools, Question Papers, 2015 Materials, About and Help remain available."
+    "Signed public release APK for Android installs and upgrades.",
+    "Homepage Download Our App button points to the GitHub Release APK.",
+    "Existing app users see an in-app update button when their installed version is older.",
+    "Future Android release workflows refuse to publish debug or unsigned APKs."
   ]
 }
