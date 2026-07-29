@@ -1,6 +1,6 @@
 {
   "scheme": "REV2026",
-  "verifiedAt": "2026-07-27T17:30:35.808268+00:00",
+  "verifiedAt": "2026-07-28T22:25:50.869576+00:00",
   "officialIndex": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
   "programmeCount": 38,
   "subjectCount": 2403,
@@ -357,7 +357,7 @@
   },
   "dataHashes": {
     "programmes": "2c607a24c03bc26155fc67120b89b661cd3ffbd882b6975d4a5246fd86463575",
-    "subjects": "16c61bdaff4327ec387e63eb4608a6e54eb3fdf7a16e695b004007f6d0e7faf6",
+    "subjects": "bea19508af407fe9a283ed905caeb83497d9188d183020348ac353b26d72032d",
     "directory": "714ebeec31154d6b706ede76c2255b2fc0b8842a8555008725fce625bdcf0a75"
   },
   "departmentPageHashes": {
@@ -373,7 +373,7 @@
     "civil-engineering": "b66683fbec25f5bc8043dba417c20b656727dae188250eda605635e4d394019e",
     "civil-engineering-and-planning": "642ef62001c78ad795ed03c0eb554883538248e30dc555bff022089cc0169d67",
     "commercial-practice": "50e101dad313e7851ca4fe72f5ba83bb192b6b56d0cebe6f2af8536f14a18cb0",
-    "computer-application-and-business-management": "98947a633c52d65c8e909a11bd3f97a6b8117eb5a31b0e7c2f5ed19eff97d6b4",
+    "computer-application-and-business-management": "747de6bc56c330a04600c790c87947dea25d1f2baf5612f90cfa3a625867139a",
     "computer-engineering": "f39151e63c582414d6551a2400307fd243db5257feea45cbfa2e8adc39a4c27d",
     "computer-science-and-engineering": "96ddadd9856d4bfa105a8dc7e7d1874f60ca10985466af503ae5bbbe29dd3e8c",
     "computer-science-and-technology": "754b5864c868f645c0d1801c4b7d3070c55283d40e6f982ccb71fd7e1789e41e",
