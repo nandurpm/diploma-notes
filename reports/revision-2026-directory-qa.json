@@ -1,9 +1,9 @@
 {
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
-  "status": "failed",
-  "sourceCommit": "35d188470fe746bb7ce5bcf8c839bdd0a55fbddc",
-  "generatedAt": "2026-07-27T04:42:17.590Z",
+  "status": "success",
+  "sourceCommit": "6e597eac0450c74353c53038d133851d6670e702",
+  "generatedAt": "2026-07-29T20:15:13.294Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -150,84 +150,21 @@
     },
     {
       "name": "no relevant console errors",
-      "passed": false,
-      "consoleErrors": [
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.png?v=20260723-popup-1min",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.png?v=20260723-popup-1min",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        }
-      ]
+      "passed": true,
+      "consoleErrors": []
     }
   ],
-  "failures": [
-    {
-      "name": "no relevant console errors",
-      "passed": false,
-      "consoleErrors": [
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.png?v=20260723-popup-1min",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        },
-        {
-          "type": "error",
-          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-          "location": {
-            "url": "http://127.0.0.1:8000/assets/popup/popup-2.png?v=20260723-popup-1min",
-            "lineNumber": 0,
-            "columnNumber": 0
-          }
-        }
-      ]
-    }
-  ],
+  "failures": [],
   "console": {
-    "errors": [
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-2.png?v=20260723-popup-1min",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/assets/popup/popup-2.png?v=20260723-popup-1min",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      }
-    ],
+    "errors": [],
     "warnings": []
   },
   "screenshots": [
     {
       "label": "desktop",
       "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 3124516,
-      "sha256": "bed8add28c47b8935f792176ec06dbc02515bdce9da3c33f8cb220a9c44c9c45",
+      "bytes": 3144182,
+      "sha256": "c5746894e600cf42958decc857313be0ef9e6c1babf5fcd544236fdfe6ca1a10",
       "viewport": {
         "width": 1440,
         "height": 1000
