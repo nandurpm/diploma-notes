@@ -94,7 +94,7 @@ def main() -> int:
             missing_shell.append(relative)
 
     minimum_rev21_lessons = 91
-    minimum_rev26_lessons = 27
+    minimum_rev26_lessons = 32
     lesson_count_detail = f"Found {len(rev21_lessons)} REV2021 and {len(rev26_lessons)} REV2026 lesson files."
     check("all 123 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 32, lesson_count_detail)
     check(
