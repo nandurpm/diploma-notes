@@ -46,6 +46,10 @@ window.PolyUtils = (() => {
     return window.supabase.createClient(url, key, clientOptions);
   }
 
+  /**
+   * Formats a Date object as a YYYY-MM-DD string in the specified timezone.
+   * Encourages code reuse and standardizes timezone calculations across all portal/quiz/special-day modules.
+   */
   // PERFORMANCE OPTIMIZATION: Cache Intl.DateTimeFormat instances in module scope to prevent
   // redundant object creation on repetitive calls (e.g. from timers and observers).
   const formatterCache = Object.create(null);
