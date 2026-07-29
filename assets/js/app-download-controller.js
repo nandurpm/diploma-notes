@@ -127,7 +127,7 @@
   };
 
   button.addEventListener("click", (event) => {
-    if (button.dataset.appButtonState === "download") return;
+    if (["download", "update"].includes(button.dataset.appButtonState)) return;
     event.preventDefault();
     window.alert(button.getAttribute("aria-label") || "The Android app download is temporarily unavailable.");
   });
