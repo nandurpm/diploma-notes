@@ -23,24 +23,45 @@ jobs:
           python - <<'PY'
           import json
           import os
+          import sys
           import requests
           from google.auth.transport.requests import Request
           from google.oauth2 import service_account
+          from google.auth.exceptions import GoogleAuthError
 
           raw = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
-          if not raw:
-              raise SystemExit("FIREBASE_SERVICE_ACCOUNT_JSON is not configured.")
+          if not raw.strip():
+              raise SystemExit("ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is empty or unavailable to this workflow.")
 
-          account = json.loads(raw)
-          project_id = account.get("project_id")
-          if not project_id:
-              raise SystemExit("Firebase service account JSON has no project_id.")
+          print(f"Secret received: yes (length={len(raw)})")
 
-          credentials = service_account.Credentials.from_service_account_info(
-              account,
-              scopes=["https://www.googleapis.com/auth/firebase.messaging"],
-          )
-          credentials.refresh(Request())
+          try:
+              account = json.loads(raw)
+          except json.JSONDecodeError as exc:
+              raise SystemExit(f"ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON: {exc}")
+
+          required = ["project_id", "client_email", "private_key"]
+          missing = [key for key in required if not account.get(key)]
+          if missing:
+              raise SystemExit(f"ERROR: Firebase service account JSON is missing required field(s): {', '.join(missing)}")
+
+          project_id = account["project_id"]
+          print(f"Firebase project detected: {project_id}")
+          print(f"Service account detected: {account['client_email']}")
+
+          try:
+              credentials = service_account.Credentials.from_service_account_info(
+                  account,
+                  scopes=["https://www.googleapis.com/auth/firebase.messaging"],
+              )
+              credentials.refresh(Request())
+          except Exception as exc:
+              raise SystemExit(f"ERROR: Firebase service-account authentication failed: {type(exc).__name__}: {exc}")
+
+          if not credentials.token:
+              raise SystemExit("ERROR: Google OAuth token was not obtained.")
+
+          print("Google OAuth token obtained successfully.")
 
           payload = {
               "message": {
@@ -56,7 +77,7 @@ jobs:
                       "contentType": "lesson-update"
                   },
                   "android": {
-                      "priority": "high",
+                      "priority": "HIGH",
                       "ttl": "86400s"
                   }
               }
@@ -72,5 +93,13 @@ jobs:
               json=payload,
               timeout=30,
           )
-          response.raise_for_status()
-          print("FCM notification sent successfully:", response.text)
+
+          print(f"FCM HTTP status: {response.status_code}")
+          if not response.ok:
+              print("FCM response:")
+              print(response.text)
+              sys.exit(1)
+
+          print("SUCCESS: FCM accepted the Course 1181 notification.")
+          print(response.text)
+          PY
