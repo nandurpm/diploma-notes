@@ -1,17 +1,8 @@
 # Site Integrity Audit
 
-- Generated: **2026-07-29T10:09:35Z**
-- Commit: `6925fd6929caccde7df44a8070a1617a53e19a8a`
-- Branch: `jules-16167821361512621106-0dd5c669`
-- Generated: **2026-07-29T09:53:00Z**
-- Commit: `6f7e71feb608efbf0f90965f9f4db2960e9a387a`
-- Branch: `jules-461001481936596949-bdbab62a`
-- Generated: **2026-07-29T09:25:24Z**
-- Commit: `74d14ac9d70ba8f76c1ef059a185058580b31a90`
-- Branch: `jules-679962270539500356-c05f56c8`
-- Generated: **2026-07-29T09:11:27Z**
-- Commit: `74d14ac9d70ba8f76c1ef059a185058580b31a90`
-- Branch: `jules-4014087179845219257-39962d43`
+- Generated: **2026-07-29T14:37:04Z**
+- Commit: `7c6ff260a366223e290f1246016d2e379cd6befb`
+- Branch: `jules-16853770500538167357-9b37efd1`
 - Result: **PASSED**
 
 ## Current scope
@@ -24,18 +15,18 @@
 
 ## Inventory
 
-- Sitemap resources: **305**
-- Indexed HTML resources: **184**
-- Indexed PDFs: **121**
+- Sitemap resources: **311**
+- Indexed HTML resources: **187**
+- Indexed PDFs: **124**
 - Revision 2021 department files: **44**
 - Revision 2026 department files: **38**
 - Revision 2021 lesson files: **91**
-- Revision 2026 lesson files: **29**
+- Revision 2026 lesson files: **32**
 - Revision 2021 note PDFs: **92**
-- Revision 2026 note PDFs: **29**
+- Revision 2026 note PDFs: **32**
 
 ## Quality gate output
 
 ```text
-Site quality gate passed for 305 sitemap resources.
+Site quality gate passed for 311 sitemap resources.
 ```
