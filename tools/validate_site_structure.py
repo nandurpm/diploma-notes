@@ -102,7 +102,7 @@ def main() -> int:
         len(rev21_lessons) >= minimum_rev21_lessons and len(rev26_lessons) >= minimum_rev26_lessons,
         f"{lesson_count_detail} Minimums: REV2021={minimum_rev21_lessons}, REV2026={minimum_rev26_lessons}.",
     )
-    check("all 119 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 28, lesson_count_detail)
+    check("all 120 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 29, lesson_count_detail)
     check("all lesson files have an HTML doctype", not missing_doctype, "Missing: " + (", ".join(missing_doctype) if missing_doctype else "none"))
     check("all lesson files have responsive viewport metadata", not missing_viewport, "Missing: " + (", ".join(missing_viewport) if missing_viewport else "none"))
     check("all lesson files load the shared responsive shell", not missing_shell, "Missing: " + (", ".join(missing_shell) if missing_shell else "none"))
