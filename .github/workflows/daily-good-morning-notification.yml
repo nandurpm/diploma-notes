@@ -59,9 +59,35 @@ jobs:
           if not credentials.token:
               raise SystemExit("ERROR: Google OAuth token was not obtained.")
 
-          # Use the Indian calendar date so the quote changes at midnight IST,
-          # matching the 07:00 AM IST delivery schedule.
+          # Use the Indian calendar date so the quote/message changes according
+          # to the IST date, matching the 07:00 AM IST delivery schedule.
           today_ist = datetime.now(ZoneInfo("Asia/Kolkata")).date()
+          date_key = today_ist.isoformat()
+
+          # Special Onam notifications override the normal daily motivational
+          # quote on these two dates. They are sent at the same 07:00 AM IST
+          # schedule as the regular Good Morning notification.
+          onam_messages = {
+              "2026-08-25": {
+                  "title": "🌼 ഒന്നാം ഓണം ആശംസകൾ – POLY PMNA",
+                  "body": (
+                      "ഉത്രാടത്തിന്റെ ഈ പുണ്യദിനത്തിൽ സന്തോഷവും സമാധാനവും പ്രതീക്ഷയും "
+                      "നിങ്ങളുടെ ജീവിതത്തിൽ നിറയട്ടെ. 🌾 നല്ല നാളെയ്ക്കായി ഇന്ന് ചെയ്യുന്ന "
+                      "ഓരോ ചെറിയ ശ്രമവും വിജയത്തിലേക്കുള്ള ഒരു ചുവടാണ്. 💛 ഒന്നാം ഓണം ആശംസകൾ!"
+                  ),
+                  "notificationType": "onam-first-day",
+              },
+              "2026-08-26": {
+                  "title": "🌸 ഹൃദയം നിറഞ്ഞ തിരുവോണം ആശംസകൾ – POLY PMNA",
+                  "body": (
+                      "പൂക്കളത്തിന്റെ നിറങ്ങളും ഓണസദ്യയുടെ രുചിയും സ്നേഹത്തിന്റെ നന്മയും "
+                      "നമ്മുടെ ജീവിതത്തിൽ എന്നും നിറഞ്ഞുനിൽക്കട്ടെ. 🌿 അറിവും സ്നേഹവും "
+                      "പങ്കുവെക്കുമ്പോഴാണ് ജീവിതം കൂടുതൽ മനോഹരമാകുന്നത്. ✨ എല്ലാവർക്കും "
+                      "ഹൃദയം നിറഞ്ഞ തിരുവോണം ആശംസകൾ!"
+                  ),
+                  "notificationType": "onam-thiruvonam",
+              },
+          }
 
           quotes = [
               "Success is the sum of small efforts, repeated day in and day out. Have a great day!",
@@ -80,17 +106,25 @@ jobs:
               "Start the day with a clear goal, a curious mind, and the courage to learn.",
           ]
 
-          quote = quotes[today_ist.toordinal() % len(quotes)]
+          if date_key in onam_messages:
+              selected = onam_messages[date_key]
+              title = selected["title"]
+              body = selected["body"]
+              notification_type = selected["notificationType"]
+          else:
+              title = "🌅 Good Morning – POLY PMNA"
+              body = quotes[today_ist.toordinal() % len(quotes)]
+              notification_type = "daily-motivation"
 
           message = {
               "topic": "all-users",
               "data": {
-                  "title": "🌅 Good Morning – POLY PMNA",
-                  "body": quote,
+                  "title": title,
+                  "body": body,
                   "url": "https://polypmna.dpdns.org/",
                   "contentType": "daily-good-morning",
-                  "notificationType": "daily-motivation",
-                  "date": today_ist.isoformat(),
+                  "notificationType": notification_type,
+                  "date": date_key,
               },
               "android": {
                   "priority": "high",
@@ -110,13 +144,14 @@ jobs:
               timeout=30,
           )
 
-          print(f"IST date: {today_ist.isoformat()}")
-          print(f"Selected quote: {quote}")
+          print(f"IST date: {date_key}")
+          print(f"Notification title: {title}")
+          print(f"Notification type: {notification_type}")
           print(f"FCM HTTP status: {response.status_code}")
 
           if not response.ok:
               print(response.text)
               sys.exit(1)
 
-          print("SUCCESS: Daily Good Morning notification accepted by FCM.")
+          print("SUCCESS: Notification accepted by FCM.")
           print(response.text)
