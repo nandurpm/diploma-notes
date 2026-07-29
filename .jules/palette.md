@@ -22,3 +22,7 @@
 ## 2026-07-29 - Keyboard Focus Restoration on Dynamically Toggled Panels and Modals
 **Learning:** Dynamically toggled overlays and panels (such as promotion popups and floating help assistants) can strand keyboard focus when they are opened or dismissed. If focus is not explicitly managed, dismissing these overlays can drop keyboard navigation focus back to the top of the viewport or keep it lost, forcing keyboard/screen-reader users to traverse the entire DOM again to resume their prior context.
 **Action:** Always capture `document.activeElement` when a modal or panel is triggered, auto-focus the most relevant interactive control inside it when opened, and restore the captured focus to the trigger element immediately upon panel closure if the user's focus was active inside the modal/panel.
+
+## 2026-07-29 - Accessible Tablist Arrow Navigation and Aria Selected States
+**Learning:** In standard-compliant accessible interfaces, multi-tab layout components (such as login/register auth tabs) inside a `role="tablist"` container must support seamless left/right arrow key navigation to cycle between active tabs. Furthermore, the selection change must immediately synchronize the `aria-selected` state on each tab button to provide screen readers with accurate audio cues of the active tab.
+**Action:** Always bind ArrowLeft and ArrowRight keyboard event listeners on tab elements inside custom tablists, and explicitly toggle their `aria-selected` attributes alongside their visual active classes.
