@@ -1,13 +1,17 @@
 package org.diplomanotes.polytechnicstudyhub;
 
+import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+
+import androidx.core.app.ActivityCompat;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -48,6 +52,10 @@ public class PolyPmnaMessagingService extends FirebaseMessagingService {
     private void showNotification(String title, String body, String url, String subjectCode) {
         NotificationManager manager = getSystemService(NotificationManager.class);
         if (manager == null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         ensureChannel(manager);
 
         Intent openLesson = new Intent(this, MainActivity.class)

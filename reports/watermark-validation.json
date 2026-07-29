@@ -1,0 +1,13 @@
+{
+  "summary": {
+    "passed": true,
+    "lesson_files": 119,
+    "revision_2021": 91,
+    "revision_2026": 28,
+    "failure_count": 0,
+    "runtime": "20260725-watermark1",
+    "watermark_css": "assets/css/lesson-watermark.css",
+    "watermark_image": "assets/media/poly-pmna-watermark-sm.png"
+  },
+  "failures": []
+}
