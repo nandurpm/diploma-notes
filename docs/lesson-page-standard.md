@@ -56,7 +56,7 @@ python tools/validate_site_structure.py
 python tools/validate_lesson_fullscreen.py
 ```
 
-The fullscreen validator checks the complete lesson inventory: 91 Revision 2021 lessons and 10 Revision 2026 lessons.
+The fullscreen validator checks every lesson file and enforces the current minimum inventory baseline: at least 91 Revision 2021 lessons and at least 27 Revision 2026 lessons. New lesson additions must increase the count without failing the validator.
 
 ## Prohibited regressions
 

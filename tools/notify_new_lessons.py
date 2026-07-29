@@ -139,10 +139,15 @@ def main() -> int:
             title = f"New {revision} Lesson Available"
             body = f"{name} · {code} is now available on POLY PMNA."
 
-            # Data-only delivery ensures the Android service creates the notification
-            # and the tap always opens the exact lesson URL in the native WebView.
+            # Include both notification and data payloads. Android can display the
+            # notification while the app is backgrounded, and the data payload lets
+            # the native app open the exact lesson URL when tapped.
             message = {
                 "topic": args.topic,
+                "notification": {
+                    "title": title,
+                    "body": body,
+                },
                 "data": {
                     "title": title,
                     "body": body,
@@ -155,6 +160,9 @@ def main() -> int:
                     "priority": "high",
                     "ttl": "86400s",
                     "collapse_key": f"lesson-{revision.lower()}-{code.lower()}",
+                    "notification": {
+                        "channel_id": "new_lessons",
+                    },
                 },
             }
             # A single failed send must not abort the whole batch: that would leave

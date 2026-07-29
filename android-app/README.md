@@ -6,16 +6,16 @@ https://polypmna.dpdns.org/
 
 ## Current source release
 
-- Version: `3.2`
-- Version code: `11`
+- Version: `3.3`
+- Version code: `12`
 - Application ID: `org.diplomanotes.polytechnicstudyhub`
 - Minimum Android version: Android 6.0 (API 23)
 - Target SDK: API 35
 
-## Version 3.2 signed release
+## Version 3.3 signed release
 
 - Publishes the public APK only as a signed release build.
-- Makes the homepage Android download/update button target the GitHub Release APK for version 3.2.
+- Makes the homepage Android download/update button target the GitHub Release APK for version 3.3.
 - Existing Android app users on an older version see an in-app update button on the homepage.
 - Adds **Revision 2026** as a dedicated native drawer destination.
 - Keeps **Revision 2021** as a separate destination for legacy batches.
@@ -28,6 +28,7 @@ https://polypmna.dpdns.org/
 - Enables WebView database storage and normal cache mode while preserving the exact-page offline retry screen.
 - Opens approved SITTTR, Google Drive and GitHub links through the appropriate external app.
 - Keeps Ask POLY AI, Mock Exams, Tools, Question Papers, 2015 Materials, About and Contact.
+- Re-registers for Firebase lesson-notification topics from the main app activity as well as the notification bootstrap activity.
 
 ## Content separation
 

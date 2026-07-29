@@ -178,6 +178,9 @@
     installStyles();
     document.getElementById("polyVisitorPopup")?.remove();
 
+    // ACCESSIBILITY: Save the currently active element to restore focus when the modal popup closes.
+    const triggerElement = document.activeElement;
+
     const backdrop = document.createElement("div");
     backdrop.id = "polyVisitorPopup";
     backdrop.className = "poly-media-popup-backdrop";
@@ -208,7 +211,13 @@
 
     const close = () => {
       backdrop.classList.remove("open");
-      setTimeout(() => backdrop.remove(), 220);
+      setTimeout(() => {
+        backdrop.remove();
+        // ACCESSIBILITY: Restore keyboard focus back to the triggering element.
+        if (triggerElement && typeof triggerElement.focus === "function") {
+          triggerElement.focus();
+        }
+      }, 220);
     };
 
     backdrop.querySelector(".poly-media-popup-close")?.addEventListener("click", close);
@@ -222,7 +231,14 @@
     });
 
     document.body.append(backdrop);
-    requestAnimationFrame(() => backdrop.classList.add("open"));
+    requestAnimationFrame(() => {
+      backdrop.classList.add("open");
+      // ACCESSIBILITY: Auto-focus the first meaningful interactive element inside the modal popup.
+      const focusTarget = backdrop.querySelector(".poly-media-popup-primary") || backdrop.querySelector(".poly-media-popup-close");
+      if (focusTarget) {
+        setTimeout(() => focusTarget.focus(), 60);
+      }
+    });
     markShown(index);
     setTimeout(close, AUTO_CLOSE_MS);
   }
