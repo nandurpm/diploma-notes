@@ -13,5 +13,16 @@
     "Homepage Download Our App button points to the GitHub Release APK.",
     "Existing app users see an in-app update button when their installed version is older.",
     "Future Android release workflows refuse to publish debug or unsigned APKs."
+  "sha256": "62b3144d81eb9726723129935237bf1d419afc1b0f6ae120f40ad16eed9ea067",
+  "publishedAt": "2026-07-29T06:43:49Z",
+  "forceUpdate": true,
+  "title": "POLY PMNA Android app 3.2",
+  "message": "Install this signed release update to replace older debug builds and keep receiving future app updates from the homepage.",
+  "releaseNotes": [
+    "Signed public release APK for Android installs and upgrades.",
+    "New lesson push notifications through Firebase Cloud Messaging.",
+    "Homepage Download Our App button points to this GitHub Release APK.",
+    "Existing app users see an in-app update button when their installed version is older.",
+    "Revision 2026 and Revision 2021 remain separate content destinations."
   ]
 }
