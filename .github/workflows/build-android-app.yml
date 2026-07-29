@@ -1,4 +1,4 @@
-﻿name: Build and publish Android app
+name: Build and publish Android app
 
 on:
   workflow_dispatch:
@@ -45,9 +45,7 @@ jobs:
           if [ -z "$FIREBASE_GOOGLE_SERVICES_JSON" ]; then
             echo "configured=false" >> "$GITHUB_OUTPUT"
             echo "FIREBASE_MESSAGING=false" >> "$GITHUB_ENV"
-            echo "::warning::FIREBASE_GOOGLE_SERVICES_JSON is not configured; building the signed release APK without Firebase push registration."
-            exit 0
-            echo "::error::FIREBASE_GOOGLE_SERVICES_JSON is required for the public signed release APK."
+            echo "::error::FIREBASE_GOOGLE_SERVICES_JSON is required for the public signed release APK. Without it, Firebase Cloud Messaging cannot register the app and users will not receive new-lesson notifications."
             exit 1
           fi
           printf '%s' "$FIREBASE_GOOGLE_SERVICES_JSON" > android-app/app/google-services.json
