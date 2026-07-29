@@ -102,8 +102,9 @@
   async function getSubjects() {
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
     const [subjectText, revision2026Payload] = await Promise.all([
-      revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`, { cache: "no-store" }).then(response => response.ok ? response.text() : "").catch(() => ""),
-      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-content`, { cache: "no-store" }).then(response => response.ok ? response.json() : null).catch(() => null)
+      // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
+      revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
+      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-content`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
