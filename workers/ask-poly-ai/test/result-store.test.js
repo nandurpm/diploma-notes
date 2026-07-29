@@ -56,14 +56,43 @@ test("authenticateStudent handles successful auth response", async () => {
     assert.equal(options.headers.apikey, "anon-key");
     return {
       ok: true,
-      json: async () => ({ id: "user-123" })
+      json: async () => ({ id: "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6" })
     };
   };
 
   try {
     const student = await authenticateStudent(request, env);
-    assert.equal(student.id, "user-123");
+    assert.equal(student.id, "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6");
     assert.equal(student.token, "test-token");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("authenticateStudent rejects non-UUID user id format", async () => {
+  const request = fakeRequest({ Authorization: "Bearer test-token" });
+  const env = {
+    SUPABASE_URL: "https://example.supabase.co",
+    SUPABASE_ANON_KEY: "anon-key"
+  };
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => {
+    return {
+      ok: true,
+      json: async () => ({ id: "invalid-user-id" })
+    };
+  };
+
+  try {
+    await assert.rejects(
+      authenticateStudent(request, env),
+      (err) => {
+        assert.equal(err.status, 401);
+        assert.equal(err.message, "Your login session is invalid or expired.");
+        return true;
+      }
+    );
   } finally {
     globalThis.fetch = originalFetch;
   }
@@ -85,7 +114,7 @@ test("canStoreVerifiedResults evaluates configuration correctly", () => {
 });
 
 test("storeMockExamResult returns configured false when env is incomplete", async () => {
-  const user = { id: "user-123" };
+  const user = { id: "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6" };
   const body = { selections: { q1: "A" }, answers: ["Option A"] };
   const result = { subjectCode: "1004", paperId: "paper-A", score: 65, totalMarks: 75 };
   const env = { SUPABASE_URL: "https://example.supabase.co" }; // Missing keys
@@ -95,7 +124,7 @@ test("storeMockExamResult returns configured false when env is incomplete", asyn
 });
 
 test("storeMockExamResult submits correct payload on success", async () => {
-  const user = { id: "user-123" };
+  const user = { id: "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6" };
   const body = { selections: { q1: "A" }, answers: ["Option A"] };
   const result = { subjectCode: "1004", paperId: "paper-A", score: 65, totalMarks: 75 };
   const env = {
@@ -129,7 +158,7 @@ test("storeMockExamResult submits correct payload on success", async () => {
     assert.equal(capturedOptions.headers.Prefer, "return=minimal");
 
     const payload = JSON.parse(capturedOptions.body);
-    assert.equal(payload.user_id, "user-123");
+    assert.equal(payload.user_id, "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6");
     assert.equal(payload.subject_code, "1004");
     assert.equal(payload.paper_code, "paper-A");
     assert.deepEqual(payload.answers, {
@@ -149,7 +178,7 @@ test("storeMockExamResult submits correct payload on success", async () => {
 });
 
 test("storeMockExamResult handles fallback default shapes for body", async () => {
-  const user = { id: "user-123" };
+  const user = { id: "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6" };
   const body = null; // Test defaults/fallbacks
   const result = { subjectCode: "1004", paperId: "paper-B" };
   const env = {
@@ -184,7 +213,7 @@ test("storeMockExamResult handles fallback default shapes for body", async () =>
 });
 
 test("storeMockExamResult throws 502 with details on non-ok HTTP status", async () => {
-  const user = { id: "user-123" };
+  const user = { id: "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6" };
   const body = {};
   const result = { subjectCode: "1004", paperId: "paper-A" };
   const env = {
