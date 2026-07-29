@@ -1,6 +1,6 @@
 # Automatic new-lesson app notifications
 
-POLY PMNA Android v3.1 includes Firebase Cloud Messaging support. The repository also contains a GitHub Actions workflow that detects newly added lesson HTML files and sends one notification per new lesson.
+POLY PMNA Android v3.2 includes Firebase Cloud Messaging support. The repository also contains a GitHub Actions workflow that detects newly added lesson HTML files and sends one notification per new lesson.
 
 ## Supported lesson paths
 
@@ -72,6 +72,18 @@ Editing an existing lesson does not send a new-lesson notification. Only a newly
 - All installations subscribe to `new-lessons` and `all-users`.
 - Notification links are restricted to `https://polypmna.dpdns.org`.
 - The notification tap opens either the Revision 2021 or the separate Revision 2026 lesson path.
+
+
+## Why notifications may not appear
+
+If a new lesson appears on GitHub but Android users do not receive a push notification, check these items first:
+
+1. The lesson must be a newly added file in one of the supported lesson paths. Editing an existing lesson does not trigger a new-lesson notification.
+2. The push workflow runs only for commits pushed to `main`, unless it is started manually with `workflow_dispatch` and a `lesson_path`.
+3. `FIREBASE_SERVICE_ACCOUNT_JSON` must be configured so `notify-new-lessons.yml` can send the FCM topic message.
+4. The public APK must be built with `FIREBASE_GOOGLE_SERVICES_JSON`; otherwise the app cannot register with Firebase or subscribe to the `new-lessons` topic. The Android release workflow now fails instead of publishing an APK without Firebase messaging.
+5. On Android 13 or newer, the user must allow notification permission when the app asks.
+6. `notifications/new-lessons-log.json` records only successfully sent lesson notifications; if it stays empty after a new lesson is added, the send workflow did not complete successfully.
 
 ## Publishing the updated APK
 
