@@ -1,0 +1,122 @@
+name: Daily Good Morning Notification
+
+on:
+  schedule:
+    # 07:00 AM IST = 01:30 UTC
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install FCM sender dependencies
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Send daily Good Morning notification
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        shell: python
+        run: |
+          import json
+          import os
+          import sys
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          import requests
+          from google.auth.transport.requests import Request
+          from google.oauth2 import service_account
+
+          raw = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
+          if not raw.strip():
+              raise SystemExit("ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is empty or unavailable to this workflow.")
+
+          try:
+              account = json.loads(raw)
+          except json.JSONDecodeError as exc:
+              raise SystemExit(f"ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON: {exc}")
+
+          required = ["project_id", "client_email", "private_key"]
+          missing = [key for key in required if not account.get(key)]
+          if missing:
+              raise SystemExit(
+                  "ERROR: Firebase service account JSON is missing required field(s): "
+                  + ", ".join(missing)
+              )
+
+          project_id = account["project_id"]
+
+          credentials = service_account.Credentials.from_service_account_info(
+              account,
+              scopes=["https://www.googleapis.com/auth/firebase.messaging"],
+          )
+          credentials.refresh(Request())
+
+          if not credentials.token:
+              raise SystemExit("ERROR: Google OAuth token was not obtained.")
+
+          # Use the Indian calendar date so the quote changes at midnight IST,
+          # matching the 07:00 AM IST delivery schedule.
+          today_ist = datetime.now(ZoneInfo("Asia/Kolkata")).date()
+
+          quotes = [
+              "Success is the sum of small efforts, repeated day in and day out. Have a great day!",
+              "Learn something new today. Small improvements become big results over time.",
+              "Your future is built by what you do today. Start with one useful step.",
+              "Consistency beats intensity. Keep learning, keep improving, and keep moving forward.",
+              "Every problem is an opportunity to understand something better. Have a productive day!",
+              "Do not wait for the perfect moment. Use today to make meaningful progress.",
+              "Knowledge becomes power when you apply it. Learn, practice, and improve today.",
+              "A good engineer keeps asking why. Stay curious and keep learning.",
+              "Small progress is still progress. Complete one important task today.",
+              "The best way to master a skill is to practice it regularly. Keep going!",
+              "Focus on progress, not perfection. One better step today is enough.",
+              "Challenges are part of learning. Solve one, understand it, and become stronger.",
+              "Build your skills one day at a time. Your effort today matters tomorrow.",
+              "Start the day with a clear goal, a curious mind, and the courage to learn.",
+          ]
+
+          quote = quotes[today_ist.toordinal() % len(quotes)]
+
+          message = {
+              "topic": "all-users",
+              "data": {
+                  "title": "🌅 Good Morning – POLY PMNA",
+                  "body": quote,
+                  "url": "https://polypmna.dpdns.org/",
+                  "contentType": "daily-good-morning",
+                  "notificationType": "daily-motivation",
+                  "date": today_ist.isoformat(),
+              },
+              "android": {
+                  "priority": "high",
+                  "ttl": "86400s",
+                  "collapse_key": "daily-good-morning",
+              },
+          }
+
+          endpoint = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+          response = requests.post(
+              endpoint,
+              headers={
+                  "Authorization": f"Bearer {credentials.token}",
+                  "Content-Type": "application/json; charset=UTF-8",
+              },
+              json={"message": message},
+              timeout=30,
+          )
+
+          print(f"IST date: {today_ist.isoformat()}")
+          print(f"Selected quote: {quote}")
+          print(f"FCM HTTP status: {response.status_code}")
+
+          if not response.ok:
+              print(response.text)
+              sys.exit(1)
+
+          print("SUCCESS: Daily Good Morning notification accepted by FCM.")
+          print(response.text)
