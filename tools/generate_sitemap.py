@@ -34,7 +34,7 @@ def git_lastmod(path: Path) -> str:
     relative = path.relative_to(ROOT).as_posix()
     try:
         value = subprocess.check_output(
-            ["git", "log", "-1", "--format=%cs", "--", relative],
+            ["git", "log", "-1", "--no-merges", "--format=%cs", "--", relative],
             cwd=ROOT,
             text=True,
             stderr=subprocess.DEVNULL,
@@ -98,6 +98,14 @@ def main() -> int:
         current = target.read_text(encoding="utf-8") if target.exists() else ""
         if current != generated:
             print("sitemap.xml is stale. Run: python tools/generate_sitemap.py")
+            import difflib
+            diff = difflib.unified_diff(
+                current.splitlines(keepends=True),
+                generated.splitlines(keepends=True),
+                fromfile="current sitemap.xml",
+                tofile="generated sitemap.xml"
+            )
+            print("".join(diff))
             return 1
         print(f"sitemap.xml is current with {generated.count('<url>')} entries.")
         return 0
