@@ -94,7 +94,7 @@
           <strong class="poly-new-year-banner__title"></strong>
           <span class="poly-new-year-banner__message"></span>
         </div>
-        <div class="poly-new-year-banner__countdown" aria-live="polite">
+        <div class="poly-new-year-banner__countdown">
           <span class="poly-new-year-banner__countdown-label"></span>
           <strong class="poly-new-year-banner__countdown-value"></strong>
         </div>

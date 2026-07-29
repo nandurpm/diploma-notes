@@ -1,0 +1,79 @@
+name: Repair Course 1181 watermark
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/fix-1181-watermark.txt"
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Restore watermark assets on Course 1181
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path("revision-2026-content/lessons/lessons-1181.html")
+          text = path.read_text(encoding="utf-8")
+
+          css = '<link rel="stylesheet" href="/assets/css/lesson-watermark.css?v=20260725-watermark1">'
+          js = '<script src="/assets/js/lesson-watermark.js?v=20260725-watermark1" defer></script>'
+          marker = '<link rel="stylesheet" href="/assets/css/lesson-1181.css?v=20260729">'
+
+          if css not in text:
+              if marker not in text:
+                  raise SystemExit("Course 1181 stylesheet marker not found; refusing to modify lesson content.")
+              text = text.replace(marker, marker + "\n    " + css, 1)
+
+          if js not in text:
+              if css not in text:
+                  raise SystemExit("Watermark CSS marker not found; refusing to modify lesson content.")
+              text = text.replace(css, css + "\n    " + js, 1)
+
+          path.write_text(text, encoding="utf-8")
+          print("Watermark CSS and JS references restored.")
+          PY
+
+      - name: Validate lesson content was not structurally rewritten
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html = Path("revision-2026-content/lessons/lessons-1181.html").read_text(encoding="utf-8")
+          required = [
+              '/assets/css/lesson-1181.css?v=20260729',
+              '/assets/css/lesson-watermark.css?v=20260725-watermark1',
+              '/assets/js/lesson-watermark.js?v=20260725-watermark1',
+              '<title>Course 1181 — Architectural Graphics | REV2026 | POLY PMNA</title>',
+          ]
+          missing = [x for x in required if x not in html]
+          if missing:
+              raise SystemExit(f"Required markers missing: {missing}")
+          if html.count('<html') != 1 or html.count('</html>') != 1:
+              raise SystemExit("Unexpected HTML document structure; refusing commit.")
+          PY
+
+      - name: Commit only watermark references
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add revision-2026-content/lessons/lessons-1181.html
+          if git diff --cached --quiet; then
+            echo "No watermark changes required."
+            exit 0
+          fi
+          git diff --cached --check
+          git commit -m "Restore Course 1181 watermark assets"
+          git push origin main
