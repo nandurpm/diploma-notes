@@ -47,6 +47,8 @@ jobs:
             echo "FIREBASE_MESSAGING=false" >> "$GITHUB_ENV"
             echo "::warning::FIREBASE_GOOGLE_SERVICES_JSON is not configured; building the signed release APK without Firebase push registration."
             exit 0
+            echo "::error::FIREBASE_GOOGLE_SERVICES_JSON is required for the public signed release APK."
+            exit 1
           fi
           printf '%s' "$FIREBASE_GOOGLE_SERVICES_JSON" > android-app/app/google-services.json
           python -m json.tool android-app/app/google-services.json >/dev/null
@@ -172,6 +174,17 @@ jobs:
               "releaseApkBytes": int(os.environ["RELEASE_BYTES"]),
               "releaseSha256": os.environ["RELEASE_SHA"],
               "builtAt": os.environ["PUBLISHED_AT"],
+          JSON
+          cat > reports/android-v3-build-status.json <<JSON
+          {
+            "applicationId": "org.diplomanotes.polytechnicstudyhub",
+            "versionCode": ${VERSION_CODE},
+            "versionName": "${VERSION_NAME}",
+            "firebaseMessaging": true,
+            "status": "success",
+            "releaseApkBytes": ${RELEASE_BYTES},
+            "releaseSha256": "${RELEASE_SHA}",
+            "builtAt": "${PUBLISHED_AT}"
           }
           publication = {
               "status": "success",
