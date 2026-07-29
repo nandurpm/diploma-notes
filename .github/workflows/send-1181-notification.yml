@@ -1,0 +1,76 @@
+name: Send Course 1181 update notification
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/notify-1181-now.txt"
+
+permissions:
+  contents: read
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install FCM sender dependencies
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Send FCM notification
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import requests
+          from google.auth.transport.requests import Request
+          from google.oauth2 import service_account
+
+          raw = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
+          if not raw:
+              raise SystemExit("FIREBASE_SERVICE_ACCOUNT_JSON is not configured.")
+
+          account = json.loads(raw)
+          project_id = account.get("project_id")
+          if not project_id:
+              raise SystemExit("Firebase service account JSON has no project_id.")
+
+          credentials = service_account.Credentials.from_service_account_info(
+              account,
+              scopes=["https://www.googleapis.com/auth/firebase.messaging"],
+          )
+          credentials.refresh(Request())
+
+          payload = {
+              "message": {
+                  "topic": "all-users",
+                  "notification": {
+                      "title": "📢 POLY PMNA – Course 1181 Updated",
+                      "body": "The Course 1181 — Architectural Graphics lesson has been updated with improved layout and CSS. 👉 Open Course 1181 now."
+                  },
+                  "data": {
+                      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1181.html",
+                      "subjectCode": "1181",
+                      "revision": "REV2026",
+                      "contentType": "lesson-update"
+                  },
+                  "android": {
+                      "priority": "high",
+                      "ttl": "86400s"
+                  }
+              }
+          }
+
+          endpoint = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+          response = requests.post(
+              endpoint,
+              headers={
+                  "Authorization": f"Bearer {credentials.token}",
+                  "Content-Type": "application/json; charset=UTF-8",
+              },
+              json=payload,
+              timeout=30,
+          )
+          response.raise_for_status()
+          print("FCM notification sent successfully:", response.text)
