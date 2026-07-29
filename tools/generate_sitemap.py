@@ -34,7 +34,7 @@ def git_lastmod(path: Path) -> str:
     relative = path.relative_to(ROOT).as_posix()
     try:
         value = subprocess.check_output(
-            ["git", "log", "-1", "--format=%cs", "--", relative],
+            ["git", "log", "-1", "--no-merges", "--format=%cs", "--", relative],
             cwd=ROOT,
             text=True,
             stderr=subprocess.DEVNULL,
