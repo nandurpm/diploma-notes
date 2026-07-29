@@ -46,6 +46,10 @@ window.PolyUtils = (() => {
     return window.supabase.createClient(url, key, clientOptions);
   }
 
+  // PERFORMANCE OPTIMIZATION: Cache Intl.DateTimeFormat instances in module scope to prevent
+  // redundant object creation on repetitive calls (e.g. from timers and observers).
+  const formatterCache = Object.create(null);
+
   /**
    * Formats a Date object as a YYYY-MM-DD string in the specified timezone.
    * Encourages code reuse and standardizes timezone calculations across all portal/quiz/special-day modules.
@@ -53,12 +57,17 @@ window.PolyUtils = (() => {
   function formatDateKey(date = new Date(), timeZone = "Asia/Kolkata") {
     const d = date ? new Date(date) : new Date();
     try {
-      const parts = new Intl.DateTimeFormat("en-CA", {
-        timeZone,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }).formatToParts(d);
+      let formatter = formatterCache[timeZone];
+      if (!formatter) {
+        formatter = new Intl.DateTimeFormat("en-CA", {
+          timeZone,
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        });
+        formatterCache[timeZone] = formatter;
+      }
+      const parts = formatter.formatToParts(d);
 
       const value = (type) => parts.find((item) => item.type === type)?.value ?? "";
       const y = value("year");

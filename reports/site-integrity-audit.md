@@ -1,23 +1,14 @@
 # Site Integrity Audit
 
-- Generated: **2026-07-28T14:01:49Z**
-- Commit: `e1738d6ed6a94a1a8a5664dd029459257710651a`
-- Branch: `jules-9480860868246645904-51d4a4e9`
-- Generated: **2026-07-28T14:01:17Z**
-- Commit: `36f695b371abeaa6daa35a9cc4c9b5a85708390f`
-- Branch: `jules-12981293919032446104-1d7f238e`
-- Generated: **2026-07-28T13:43:20Z**
-- Commit: `2abed56cc5c9c6bce84216708bb2f2639c928ea4`
-- Branch: `jules-9877015152039715252-f91888be`
-- Generated: **2026-07-28T13:33:56Z**
-- Commit: `2abed56cc5c9c6bce84216708bb2f2639c928ea4`
-- Branch: `jules-5707631822361627329-6d2986e6`
-- Generated: **2026-07-28T10:04:32Z**
-- Commit: `bea861e0d24b445eaa4cabc48f57472a046ad5e6`
-- Branch: `jules-17753566321363108910-c62b1d02`
-- Generated: **2026-07-28T10:49:25Z**
-- Commit: `0795d667cdb3c4d720c5fc04e7059f1df87033b1`
-- Branch: `jules-8811860194840888603-41fe4deb`
+- Generated: **2026-07-29T09:53:00Z**
+- Commit: `6f7e71feb608efbf0f90965f9f4db2960e9a387a`
+- Branch: `jules-461001481936596949-bdbab62a`
+- Generated: **2026-07-29T09:25:24Z**
+- Commit: `74d14ac9d70ba8f76c1ef059a185058580b31a90`
+- Branch: `jules-679962270539500356-c05f56c8`
+- Generated: **2026-07-29T09:11:27Z**
+- Commit: `74d14ac9d70ba8f76c1ef059a185058580b31a90`
+- Branch: `jules-4014087179845219257-39962d43`
 - Result: **PASSED**
 
 ## Current scope
@@ -30,18 +21,18 @@
 
 ## Inventory
 
-- Sitemap resources: **300**
-- Indexed HTML resources: **181**
-- Indexed PDFs: **119**
+- Sitemap resources: **305**
+- Indexed HTML resources: **184**
+- Indexed PDFs: **121**
 - Revision 2021 department files: **44**
 - Revision 2026 department files: **38**
 - Revision 2021 lesson files: **91**
-- Revision 2026 lesson files: **27**
+- Revision 2026 lesson files: **29**
 - Revision 2021 note PDFs: **92**
-- Revision 2026 note PDFs: **27**
+- Revision 2026 note PDFs: **29**
 
 ## Quality gate output
 
 ```text
-Site quality gate passed for 300 sitemap resources.
+Site quality gate passed for 305 sitemap resources.
 ```
