@@ -4,13 +4,13 @@
   "notesFolder": "revision-2026-content/notes",
   "generated": [
     {
-      "code": "1181",
-      "pages": 12,
-      "bytes": 8631468,
-      "source": "revision-2026-content/lessons/lessons-1181.html",
-      "sourceCharacters": 19953,
-      "pdfCharacters": 19802,
-      "textCoverage": 0.9924,
+      "code": "1251",
+      "pages": 40,
+      "bytes": 29619060,
+      "source": "revision-2026-content/lessons/lessons-1251.html",
+      "sourceCharacters": 48925,
+      "pdfCharacters": 48449,
+      "textCoverage": 0.9903,
       "panelCount": 0,
       "visiblePanelCount": 0,
       "removedBlankPages": [],
@@ -43,6 +43,7 @@
     "1149",
     "1181",
     "1182",
+    "1251",
     "1254",
     "1259",
     "2002B",
@@ -52,7 +53,7 @@
     "2131"
   ],
   "generatedThisRunCodes": [
-    "1181"
+    "1251"
   ],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
