@@ -71,12 +71,14 @@
     "tool-and-die-engineering": ["#334155", "#d97706"],
     "wood-and-paper-technology": ["#854d0e", "#65a30d"]
   };
-  const esc = value => String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+  const esc = value => window.PolyUtils?.escapeHtml
+    ? window.PolyUtils.escapeHtml(value)
+    : String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
   const slug = value => String(value || "")
     .toLowerCase()
     .replace(/&/g, " and ")
