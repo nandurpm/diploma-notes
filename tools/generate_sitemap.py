@@ -98,6 +98,14 @@ def main() -> int:
         current = target.read_text(encoding="utf-8") if target.exists() else ""
         if current != generated:
             print("sitemap.xml is stale. Run: python tools/generate_sitemap.py")
+            import difflib
+            diff = difflib.unified_diff(
+                current.splitlines(keepends=True),
+                generated.splitlines(keepends=True),
+                fromfile="current sitemap.xml",
+                tofile="generated sitemap.xml"
+            )
+            print("".join(diff))
             return 1
         print(f"sitemap.xml is current with {generated.count('<url>')} entries.")
         return 0
