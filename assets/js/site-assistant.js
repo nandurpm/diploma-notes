@@ -225,8 +225,8 @@
     createElement("div", { className: "poly-ai-title", text: "Ask POLY PMNA" }),
     createElement("div", { className: "poly-ai-subtitle", text: IS_LESSON_PAGE ? "Answers from this lesson" : "Local website assistant" })
   );
-  const copyButton = createElement("button", { className: "poly-ai-icon", type: "button", text: "Copy" });
-  const clearButton = createElement("button", { className: "poly-ai-icon", type: "button", text: "Clear" });
+  const copyButton = createElement("button", { className: "poly-ai-icon", type: "button", text: "Copy", attributes: { "aria-label": "Copy last answer" } });
+  const clearButton = createElement("button", { className: "poly-ai-icon", type: "button", text: "Clear", attributes: { "aria-label": "Clear conversation history" } });
   const closeButton = createElement("button", { className: "poly-ai-icon", type: "button", text: "×", attributes: { "aria-label": "Close assistant" } });
   header.append(headingCopy, copyButton, clearButton, closeButton);
 
@@ -680,6 +680,9 @@
     if (open) {
       captureSelection();
       window.setTimeout(() => input.focus(), 30);
+    } else if (document.activeElement && panel.contains(document.activeElement)) {
+      // ACCESSIBILITY: Return keyboard focus to the trigger button when the panel closes
+      openButton.focus();
     }
   }
 
