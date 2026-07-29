@@ -1,8 +1,8 @@
 /* Course 1181 — Architectural Graphics | REV2026
    Dedicated lesson styling. Loaded after lesson-page-fix.css so the
    lesson's own components have complete visual styling without changing
-   lesson content.
-*/
+   the shared site stylesheet.
+ */
 
 html.poly-lesson-page.revision-2026-lesson {
   --bg: #eef4fb;
@@ -21,7 +21,7 @@ html.poly-lesson-page.revision-2026-lesson {
   --shadow: 0 14px 38px rgba(8, 31, 58, .10);
   --radius: 18px;
   --reading: 0%;
-  background: linear-gradient(180deg, #eaf4ff 0, #f8fbff 300px, #f4f7fb 100%);
+  background: var(--bg);
   color: var(--text);
   color-scheme: light;
 }
@@ -34,41 +34,30 @@ html.poly-lesson-page.revision-2026-lesson *::after {
 
 html.poly-lesson-page.revision-2026-lesson body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  background: transparent;
+  background: var(--bg);
   color: var(--text);
-  line-height: 1.62;
+  line-height: 1.65;
   font-size: 16px;
-  min-height: 100vh;
 }
 
 /* Course 1181 watermark visibility fix.
-   The shared watermark was previously placed below an opaque lesson canvas,
-   making it invisible. Keep it non-interactive but above the lesson canvas
-   at very low opacity so it is visibly present without affecting usability.
-*/
+   The shared watermark uses z-index: 0. This page has its own full-page
+   background, so keep the watermark above the background but below all
+   lesson content. This changes presentation only; no lesson content is
+   modified. */
 html.poly-lesson-page.revision-2026-lesson .poly-watermark {
-  z-index: 2500 !important;
-  opacity: .065 !important;
-  pointer-events: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
+  z-index: 5 !important;
+  opacity: .08 !important;
 }
 
+html.poly-lesson-page.revision-2026-lesson body > *:not(.poly-watermark) {
+  position: relative;
+  z-index: 10;
+}
+
+html.poly-lesson-page.revision-2026-lesson .poly-watermark,
 html.poly-lesson-page.revision-2026-lesson .poly-watermark-inner {
   pointer-events: none !important;
-}
-
-html.poly-lesson-page.revision-2026-lesson .lesson-shell {
-  position: relative;
-  z-index: 1;
-  background: transparent !important;
-  padding: 18px !important;
-}
-
-html.poly-lesson-page.revision-2026-lesson main#main-content {
-  width: 100%;
-  max-width: 1320px;
-  margin: 0 auto;
 }
 
 html.poly-lesson-page.revision-2026-lesson a {
@@ -98,6 +87,7 @@ html.poly-lesson-page.revision-2026-lesson p {
   margin: .65em 0;
 }
 
+/* Reading progress */
 html.poly-lesson-page.revision-2026-lesson .reading-progress {
   position: fixed !important;
   inset: 0 0 auto 0 !important;
@@ -107,6 +97,18 @@ html.poly-lesson-page.revision-2026-lesson .reading-progress {
   z-index: 7000 !important;
   background: linear-gradient(90deg, var(--cyan), var(--blue));
   pointer-events: none;
+}
+
+/* Main page canvas */
+html.poly-lesson-page.revision-2026-lesson .lesson-shell {
+  background: var(--bg);
+  padding: 18px !important;
+}
+
+html.poly-lesson-page.revision-2026-lesson main#main-content {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
 }
 
 /* Cover */
@@ -127,7 +129,7 @@ html.poly-lesson-page.revision-2026-lesson .cover-card {
   overflow: hidden;
   position: relative;
   color: #fff;
-  background: linear-gradient(135deg, #071f3f 0%, #0b4b91 48%, #0891b2 100%);
+  background: linear-gradient(145deg, #06162a 0%, #0b3157 58%, #0a5f73 100%);
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 24px;
   box-shadow: 0 20px 55px rgba(7, 25, 46, .20);
@@ -137,10 +139,10 @@ html.poly-lesson-page.revision-2026-lesson .cover-card::before {
   content: "";
   position: absolute;
   inset: 0;
-  opacity: .16;
+  opacity: .18;
   pointer-events: none;
-  background-image: radial-gradient(circle at 12% 18%, #fff 0 2px, transparent 3px), radial-gradient(circle at 78% 24%, #67e8f9 0 3px, transparent 4px), linear-gradient(32deg, transparent 47%, rgba(255,255,255,.24) 48% 49%, transparent 50%);
-  background-size: 76px 76px, 122px 122px, 190px 190px;
+  background-image: radial-gradient(circle at 10px 10px, #61e7ff 1.2px, transparent 1.5px);
+  background-size: 28px 28px;
 }
 
 html.poly-lesson-page.revision-2026-lesson .cover-card > * {
@@ -220,8 +222,8 @@ html.poly-lesson-page.revision-2026-lesson .btn:hover {
 }
 
 html.poly-lesson-page.revision-2026-lesson .btn.primary {
-  background: #22d3ee;
-  color: #083344;
+  background: var(--cyan);
+  color: #001825;
   border-color: transparent;
 }
 
@@ -262,67 +264,6 @@ html.poly-lesson-page.revision-2026-lesson .cover-info dd {
   font-weight: 850;
 }
 
-/* Common handbook cards */
-html.poly-lesson-page.revision-2026-lesson .section {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: clamp(18px, 2.5vw, 34px);
-  margin: 0 0 20px;
-  min-width: 0;
-}
-
-html.poly-lesson-page.revision-2026-lesson .section > h2 {
-  color: var(--navy);
-  font-size: clamp(1.72rem, 3vw, 2.65rem);
-  letter-spacing: -.035em;
-  line-height: 1.08;
-  margin: 3px 0 14px;
-}
-
-html.poly-lesson-page.revision-2026-lesson .card,
-html.poly-lesson-page.revision-2026-lesson .formula-card,
-html.poly-lesson-page.revision-2026-lesson .worked,
-html.poly-lesson-page.revision-2026-lesson .activity-card,
-html.poly-lesson-page.revision-2026-lesson .exam-card,
-html.poly-lesson-page.revision-2026-lesson .procedure-card {
-  background: var(--surface-2);
-  border: 1px solid var(--line);
-  border-radius: 15px;
-  box-shadow: 0 7px 20px rgba(15,43,75,.06);
-}
-
-html.poly-lesson-page.revision-2026-lesson .table-wrap {
-  overflow: auto;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  margin: 12px 0;
-  background: var(--surface);
-}
-
-html.poly-lesson-page.revision-2026-lesson table {
-  border-collapse: collapse;
-  width: 100%;
-  min-width: 620px;
-  background: var(--surface);
-  font-size: .94rem;
-}
-
-html.poly-lesson-page.revision-2026-lesson th,
-html.poly-lesson-page.revision-2026-lesson td {
-  border: 1px solid var(--line);
-  padding: 8px 9px;
-  text-align: left;
-  vertical-align: top;
-}
-
-html.poly-lesson-page.revision-2026-lesson th {
-  background: #eef5ff;
-  color: #0a467f;
-  font-weight: 900;
-}
-
 /* Jump navigation */
 html.poly-lesson-page.revision-2026-lesson .jump-menu {
   position: sticky;
@@ -337,17 +278,66 @@ html.poly-lesson-page.revision-2026-lesson .jump-menu {
   border: 1px solid var(--line);
   border-radius: 15px;
   box-shadow: 0 8px 24px rgba(8,31,58,.08);
-  backdrop-filter: blur(8px);
 }
 
-/* Mobile */
+/* Final visual alignment with the established Revision 2026 lesson theme.
+   Keep the existing 1181 HTML structure/content; only presentation is changed. */
+html.poly-lesson-page.revision-2026-lesson {
+  background: linear-gradient(180deg,#eaf4ff 0,#f8fbff 300px,#f4f7fb 100%);
+}
+
+html.poly-lesson-page.revision-2026-lesson body {
+  background: transparent;
+}
+
+html.poly-lesson-page.revision-2026-lesson .lesson-shell {
+  background: transparent !important;
+}
+
+html.poly-lesson-page.revision-2026-lesson .section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(18px,2.5vw,34px);
+  margin: 0 0 20px;
+  min-width: 0;
+}
+
+html.poly-lesson-page.revision-2026-lesson .section > h2 {
+  color: var(--navy);
+  font-size: clamp(1.72rem,3vw,2.65rem);
+  letter-spacing: -.035em;
+  line-height: 1.08;
+  margin: 3px 0 14px;
+}
+
+html.poly-lesson-page.revision-2026-lesson .card,
+html.poly-lesson-page.revision-2026-lesson .formula-card,
+html.poly-lesson-page.revision-2026-lesson .worked,
+html.poly-lesson-page.revision-2026-lesson .activity-card,
+html.poly-lesson-page.revision-2026-lesson .exam-card,
+html.poly-lesson-page.revision-2026-lesson .procedure-card {
+  box-shadow: 0 7px 20px rgba(15,43,75,.06);
+}
+
+/* Critical: watermark must be visible over opaque lesson cards. It remains
+   completely non-interactive and is intentionally very faint. */
+html.poly-lesson-page.revision-2026-lesson .poly-watermark {
+  z-index: 2500 !important;
+  opacity: .065 !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+html.poly-lesson-page.revision-2026-lesson .poly-watermark-inner {
+  pointer-events: none !important;
+}
+
 @media (max-width: 900px) {
   html.poly-lesson-page.revision-2026-lesson .cover-card {
     grid-template-columns: 1fr;
-  }
-
-  html.poly-lesson-page.revision-2026-lesson .cover-info dl {
-    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -362,7 +352,7 @@ html.poly-lesson-page.revision-2026-lesson .jump-menu {
   }
 
   html.poly-lesson-page.revision-2026-lesson .cover h1 {
-    font-size: clamp(2rem, 12vw, 3rem);
+    font-size: clamp(2rem,12vw,3rem);
   }
 
   html.poly-lesson-page.revision-2026-lesson .cover-info dl {
@@ -371,10 +361,6 @@ html.poly-lesson-page.revision-2026-lesson .jump-menu {
 
   html.poly-lesson-page.revision-2026-lesson .btn {
     width: 100%;
-  }
-
-  html.poly-lesson-page.revision-2026-lesson .jump-menu {
-    top: 4px;
   }
 }
 
@@ -387,11 +373,5 @@ html.poly-lesson-page.revision-2026-lesson .jump-menu {
 
   html.poly-lesson-page.revision-2026-lesson .lesson-shell {
     background: transparent !important;
-  }
-
-  html.poly-lesson-page.revision-2026-lesson .no-print,
-  html.poly-lesson-page.revision-2026-lesson .reading-progress,
-  html.poly-lesson-page.revision-2026-lesson .jump-menu {
-    display: none !important;
   }
 }
