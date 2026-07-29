@@ -7,3 +7,8 @@
 **Vulnerability:** Missing timeout configurations on downstream API/Database requests (e.g. Supabase auth and rest calls in `result-store.js`) which can cause the Cloudflare Worker to hang indefinitely, depleting execution time limits and exposing the service to Denial of Service (DoS) or resource exhaustion risks.
 **Learning:** While the worker had timeout protection for AI provider calls, the critical database-integration endpoints did not have any timeout controls. Standard serverless functions and edge workers must enforce strict timeout limits on all network requests to prevent cascading performance degradation.
 **Prevention:** Use a reusable `fetchWithTimeout` helper that wraps native `fetch` with an `AbortController` and `setTimeout`, ensuring that any unresponsive downstream requests are canceled early and resources are released cleanly.
+
+## 2026-07-28 - [Fail-Fast Origin Validation Order to Protect Downstream Handlers]
+**Vulnerability:** Checking request origin inside endpoint handlers AFTER rate-limiting and database-driven authentication middleware allows unauthorized cross-origin requests to exhaust rate-limit capacities or trigger intensive upstream database requests, creating resource exhaustion and DDoS opportunities.
+**Learning:** Input validation and origin verification must always occur at the absolute entry point of serverless workers before any stateful rate-limiter, database, or network-bound call is invoked.
+**Prevention:** Validate the `Origin` header as the very first operation in multi-layered edge handlers, returning a quick and lightweight HTTP 403 response for unauthorized origins.

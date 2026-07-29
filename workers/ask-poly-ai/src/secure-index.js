@@ -1,6 +1,6 @@
 /* Purpose: Secure index - Descriptive comment added for clarity */
 import application from "./index.js";
-import { corsHeaders } from "./http.js";
+import { corsHeaders, isOriginAllowed } from "./http.js";
 import { authenticateStudent, storeMockExamResult } from "./result-store.js";
 
 function json(data, status, origin, env, inherited) {
@@ -37,6 +37,10 @@ export default {
   async fetch(request, env, context) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
+
+    if (request.method === "POST" && !isOriginAllowed(origin, env)) {
+      return json({ error: "This website origin is not allowed." }, 403, origin, env);
+    }
 
     if (request.method === "POST" && (url.pathname === "/" || url.pathname === "/api/ask-poly")) {
       if (!(await allowed(env.ASK_RATE_LIMITER, anonymousKey(request)))) {
