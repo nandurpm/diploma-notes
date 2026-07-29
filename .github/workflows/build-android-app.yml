@@ -1,4 +1,4 @@
-name: Build and publish Android app
+﻿name: Build and publish Android app
 
 on:
   workflow_dispatch:
@@ -174,18 +174,8 @@ jobs:
               "releaseApkBytes": int(os.environ["RELEASE_BYTES"]),
               "releaseSha256": os.environ["RELEASE_SHA"],
               "builtAt": os.environ["PUBLISHED_AT"],
-          JSON
-          cat > reports/android-v3-build-status.json <<JSON
-          {
-            "applicationId": "org.diplomanotes.polytechnicstudyhub",
-            "versionCode": ${VERSION_CODE},
-            "versionName": "${VERSION_NAME}",
-            "firebaseMessaging": true,
-            "status": "success",
-            "releaseApkBytes": ${RELEASE_BYTES},
-            "releaseSha256": "${RELEASE_SHA}",
-            "builtAt": "${PUBLISHED_AT}"
           }
+
           publication = {
               "status": "success",
               "versionCode": int(os.environ["VERSION_CODE"]),
@@ -214,3 +204,4 @@ jobs:
           git commit -m "Publish Android app v${VERSION_NAME} metadata [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
+
