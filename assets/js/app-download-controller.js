@@ -26,14 +26,20 @@
   if (!button) return;
 
   const appMatch = navigator.userAgent.match(/(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/([0-9]+(?:\.[0-9]+)*)/i);
-  if (appMatch) {
-    button.hidden = true;
-    button.setAttribute("aria-hidden", "true");
-    button.style.setProperty("display", "none", "important");
-    button.removeAttribute("href");
-    button.removeAttribute("download");
-    return;
-  }
+  const currentAppVersion = appMatch ? appMatch[1] : null;
+
+  const isNewer = (latest, current) => {
+    if (!latest || !current) return false;
+    const l = latest.split(".").map(Number);
+    const c = current.split(".").map(Number);
+    for (let i = 0; i < Math.max(l.length, c.length); i++) {
+      const lv = l[i] || 0;
+      const cv = c[i] || 0;
+      if (lv > cv) return true;
+      if (lv < cv) return false;
+    }
+    return false;
+  };
 
   const validApkUrl = (value) => {
     if (!value) return "";
@@ -92,6 +98,21 @@
     button.hidden = false;
     button.removeAttribute("aria-hidden");
     button.style.removeProperty("display");
+
+    if (currentAppVersion) {
+      if (isNewer(update.versionName, currentAppVersion)) {
+        button.dataset.appButtonState = "update";
+        button.textContent = `✨ Update Available v${update.versionName}`;
+        button.classList.remove("ghost");
+        button.classList.add("primary");
+        // Ensure the button is visible in the app when an update is available
+        button.style.setProperty("display", "inline-flex", "important");
+      } else {
+        button.hidden = true;
+        button.setAttribute("aria-hidden", "true");
+        button.style.setProperty("display", "none", "important");
+      }
+    }
   };
 
   const activateLatestAvailable = async () => {
