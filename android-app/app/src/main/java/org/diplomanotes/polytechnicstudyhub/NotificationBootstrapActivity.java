@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.ComponentActivity;
@@ -62,7 +63,24 @@ public class NotificationBootstrapActivity extends ComponentActivity {
 
     private void openMainApp() {
         Intent target = new Intent(this, MainActivity.class);
-        if (getIntent() != null && getIntent().getData() != null) target.setData(getIntent().getData());
+        Intent source = getIntent();
+        if (source != null) {
+            if (source.getData() != null) {
+                target.setData(source.getData());
+            } else {
+                String notificationUrl = source.getStringExtra("url");
+                if (notificationUrl != null && !notificationUrl.trim().isEmpty()) {
+                    try {
+                        target.setData(Uri.parse(notificationUrl.trim()));
+                    } catch (Exception ignored) {
+                        // Ignore malformed notification URLs and open the home page.
+                    }
+                }
+            }
+            if (source.getExtras() != null) {
+                target.putExtras(source.getExtras());
+            }
+        }
         target.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(target);
         finish();

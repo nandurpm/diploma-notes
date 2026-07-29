@@ -1,0 +1,1 @@
+Repair Course 1181 watermark asset references without changing lesson content.
