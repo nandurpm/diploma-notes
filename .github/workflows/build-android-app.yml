@@ -44,6 +44,9 @@ jobs:
           set -euo pipefail
           if [ -z "$FIREBASE_GOOGLE_SERVICES_JSON" ]; then
             echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "FIREBASE_MESSAGING=false" >> "$GITHUB_ENV"
+            echo "::warning::FIREBASE_GOOGLE_SERVICES_JSON is not configured; building the signed release APK without Firebase push registration."
+            exit 0
             echo "::error::FIREBASE_GOOGLE_SERVICES_JSON is required for the public signed release APK."
             exit 1
           fi
@@ -51,6 +54,7 @@ jobs:
           python -m json.tool android-app/app/google-services.json >/dev/null
           grep -q 'org.diplomanotes.polytechnicstudyhub' android-app/app/google-services.json
           echo "configured=true" >> "$GITHUB_OUTPUT"
+          echo "FIREBASE_MESSAGING=true" >> "$GITHUB_ENV"
 
       - name: Read app version
         run: |
@@ -130,26 +134,46 @@ jobs:
       - name: Update website manifest and build reports
         run: |
           set -e
-          APK_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${APK_NAME}"
-          PUBLISHED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-          cat > downloads/app-update.json <<JSON
-          {
-            "schemaVersion": 1,
-            "versionCode": ${VERSION_CODE},
-            "versionName": "${VERSION_NAME}",
-            "apkUrl": "${APK_URL}",
-            "sha256": "${RELEASE_SHA}",
-            "publishedAt": "${PUBLISHED_AT}",
-            "forceUpdate": true,
-            "title": "POLY PMNA Android app ${VERSION_NAME}",
-            "message": "Install this update to receive automatic notifications when new lessons are published.",
-            "releaseNotes": [
-              "New lesson push notifications through Firebase Cloud Messaging.",
-              "Notification taps open the exact Revision 2021 or Revision 2026 lesson.",
-              "Android 13 and newer notification permission support.",
-              "Revision 2026 and Revision 2021 remain separate content destinations."
-            ]
+          export APK_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${APK_NAME}"
+          echo "APK_URL=$APK_URL" >> "$GITHUB_ENV"
+          export PUBLISHED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          echo "PUBLISHED_AT=$PUBLISHED_AT" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          firebase_messaging = os.environ.get("FIREBASE_MESSAGING") == "true"
+          release_notes = [
+              "Signed public release APK for Android installs and upgrades.",
+              "Homepage Download Our App button points to this GitHub Release APK.",
+              "Existing app users see an in-app update button when their installed version is older.",
+              "Revision 2026 and Revision 2021 remain separate content destinations.",
+          ]
+          if firebase_messaging:
+              release_notes.insert(1, "New lesson push notifications through Firebase Cloud Messaging.")
+
+          app_update = {
+              "schemaVersion": 1,
+              "versionCode": int(os.environ["VERSION_CODE"]),
+              "versionName": os.environ["VERSION_NAME"],
+              "apkUrl": os.environ["APK_URL"],
+              "sha256": os.environ["RELEASE_SHA"],
+              "publishedAt": os.environ["PUBLISHED_AT"],
+              "forceUpdate": True,
+              "title": f"POLY PMNA Android app {os.environ['VERSION_NAME']}",
+              "message": "Install this signed release update to replace older debug builds and keep receiving future app updates from the homepage.",
+              "releaseNotes": release_notes,
           }
+          build_status = {
+              "applicationId": "org.diplomanotes.polytechnicstudyhub",
+              "versionCode": int(os.environ["VERSION_CODE"]),
+              "versionName": os.environ["VERSION_NAME"],
+              "firebaseMessaging": firebase_messaging,
+              "status": "success",
+              "releaseApkBytes": int(os.environ["RELEASE_BYTES"]),
+              "releaseSha256": os.environ["RELEASE_SHA"],
+              "builtAt": os.environ["PUBLISHED_AT"],
           JSON
           cat > reports/android-v3-build-status.json <<JSON
           {
@@ -162,19 +186,20 @@ jobs:
             "releaseSha256": "${RELEASE_SHA}",
             "builtAt": "${PUBLISHED_AT}"
           }
-          JSON
-          cat > reports/android-v3-publication.json <<JSON
-          {
-            "status": "success",
-            "versionCode": ${VERSION_CODE},
-            "versionName": "${VERSION_NAME}",
-            "firebaseMessaging": true,
-            "apkUrl": "${APK_URL}",
-            "apkBytes": ${RELEASE_BYTES},
-            "sha256": "${RELEASE_SHA}",
-            "publishedAt": "${PUBLISHED_AT}"
+          publication = {
+              "status": "success",
+              "versionCode": int(os.environ["VERSION_CODE"]),
+              "versionName": os.environ["VERSION_NAME"],
+              "firebaseMessaging": firebase_messaging,
+              "apkUrl": os.environ["APK_URL"],
+              "apkBytes": int(os.environ["RELEASE_BYTES"]),
+              "sha256": os.environ["RELEASE_SHA"],
+              "publishedAt": os.environ["PUBLISHED_AT"],
           }
-          JSON
+          Path("downloads/app-update.json").write_text(json.dumps(app_update, indent=2) + "\n")
+          Path("reports/android-v3-build-status.json").write_text(json.dumps(build_status, indent=2) + "\n")
+          Path("reports/android-v3-publication.json").write_text(json.dumps(publication, indent=2) + "\n")
+          PY
 
       - name: Commit website update metadata
         run: |
