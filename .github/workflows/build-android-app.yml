@@ -188,15 +188,16 @@ jobs:
           Path("reports/android-v3-build-status.json").write_text(json.dumps(build_status, indent=2) + "\n")
           Path("reports/android-v3-publication.json").write_text(json.dumps(publication, indent=2) + "\n")
           PY
+          python tools/update_app_manifest.py
 
       - name: Commit website update metadata
         run: |
           set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add downloads/app-update.json reports/android-v3-build-status.json reports/android-v3-publication.json
+          git add index.html downloads/app-update.json reports/android-v3-build-status.json reports/android-v3-publication.json
           if git diff --cached --quiet; then
-            echo "Android release metadata is already current."
+            echo "Android release metadata and homepage download button are already current."
             exit 0
           fi
           git commit -m "Publish Android app v${VERSION_NAME} metadata [skip ci]"

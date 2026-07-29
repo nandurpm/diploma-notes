@@ -40,10 +40,11 @@ jobs:
 
       - name: Synchronize lesson sources and validate scripts
         run: |
-          python -m py_compile tools/update_lesson_assistant.py tools/validate_lesson_fullscreen.py
+          python -m py_compile tools/update_lesson_assistant.py tools/validate_lesson_fullscreen.py tools/validate_watermark.py
           python tools/update_lesson_assistant.py
           python tools/update_lesson_assistant.py --check
           python tools/validate_lesson_fullscreen.py
+          python tools/validate_watermark.py
           node --check assets/js/lesson-navigation-fix.js
           node --check assets/js/site-assistant.js
           node --check assets/js/asset-manifest.js
