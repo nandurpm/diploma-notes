@@ -48,8 +48,6 @@
   function preferDeptRows(list, dept) { const departmentRows = new Set(list.filter(s=>sameDept(s.department,dept)).map(s=>`${s.semester}::${norm(s.code)}`)); return list.filter(s => !(sameDept(s.department,COMMON) && departmentRows.has(`${s.semester}::${norm(s.code)}`))); }
   function applyExact(list, dept) { const dk = keyDept(dept); return list.filter(s => { const set = exact.get(`${dk}::${s.semester}`); return !set || set.has(norm(s.code)); }); }
   function filtered(all, dept) { return applyExact(preferDeptRows(all.filter(s => String(s.revision)==="2021" && (sameDept(s.department,dept) || sameDept(s.department,COMMON))), dept), dept); }
-  function render(all, grid, dept) { const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all"; let list = filtered(all, dept); if (sem !== "all") list = list.filter(s=>String(s.semester)===sem); if (q) list = list.filter(s => s._searchText && s._searchText.includes(q)); list = uniq(list).sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true})); grid.innerHTML = list.length ? groups(list) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`; }
-  async function init() { const grid = $("subjectGrid"); if (!grid) return; grid.innerHTML = `<div class="empty-state">Loading subjects...</div>`; const dept = grid.dataset.department || ""; const all = await data(); fillSem($("semesterFilter"), filtered(all, dept)); const rr = () => render(all, grid, dept); $("subjectSearch")?.addEventListener("input", rr); $("semesterFilter")?.addEventListener("change", rr); rr(); }
   function render(all, grid, dept) {
     const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all";
     let list = filtered(all, dept);
@@ -66,6 +64,19 @@
     // The master dataset is already unique and deduplicated at load time.
     list = list.sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true}));
     grid.innerHTML = list.length ? groups(list) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`;
+
+    let announcer = $("subjectBrowserAnnouncer");
+    if (!announcer && grid.parentNode) {
+      announcer = document.createElement("div");
+      announcer.id = "subjectBrowserAnnouncer";
+      announcer.className = "sr-only";
+      announcer.setAttribute("role", "status");
+      announcer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(announcer, grid);
+    }
+    if (announcer) {
+      announcer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+    }
   }
   async function init() {
     const grid = $("subjectGrid");
@@ -79,6 +90,12 @@
     all.forEach(s => {
       s._searchText = [s.code, s.name, s.department, s.semester, s.type].join(" ").toLowerCase();
     });
+
+    const searchInput = $("subjectSearch");
+    if (searchInput) {
+      searchInput.setAttribute("aria-controls", "subjectGrid");
+      searchInput.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
+    }
 
     fillSem($("semesterFilter"), filtered(all, dept));
     const rr = () => render(all, grid, dept);

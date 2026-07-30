@@ -94,15 +94,15 @@ def main() -> int:
             missing_shell.append(relative)
 
     minimum_rev21_lessons = 91
-    minimum_rev26_lessons = 33
+    minimum_rev26_lessons = 36
     lesson_count_detail = f"Found {len(rev21_lessons)} REV2021 and {len(rev26_lessons)} REV2026 lesson files."
-    check("all 124 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 33, lesson_count_detail)
+    check("all 127 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 36, lesson_count_detail)
     check(
         "lesson files do not drop below the known baseline",
         len(rev21_lessons) >= minimum_rev21_lessons and len(rev26_lessons) >= minimum_rev26_lessons,
         f"{lesson_count_detail} Minimums: REV2021={minimum_rev21_lessons}, REV2026={minimum_rev26_lessons}.",
     )
-    check("all 124 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 33, lesson_count_detail)
+    check("all 127 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 36, lesson_count_detail)
     check("all lesson files have an HTML doctype", not missing_doctype, "Missing: " + (", ".join(missing_doctype) if missing_doctype else "none"))
     check("all lesson files have responsive viewport metadata", not missing_viewport, "Missing: " + (", ".join(missing_viewport) if missing_viewport else "none"))
     check("all lesson files load the shared responsive shell", not missing_shell, "Missing: " + (", ".join(missing_shell) if missing_shell else "none"))
