@@ -348,6 +348,11 @@
         code,
         lessonAvailable: lessonCodes.has(code),
         notesAvailable: notesCodes.has(code),
+        // PERFORMANCE OPTIMIZATION: Pre-compute and cache normalized text attributes
+        // to avoid calling the expensive normalize() function inside the active searchSubjects() loop.
+        _normCode: normalize(code),
+        _normName: normalize(subject.name),
+        _normDept: normalize(subject.department),
         searchBlob: normalize([code, subject.name, subject.department, subject.semester, subject.type, subject.revision].join(" "))
       };
     });
@@ -545,13 +550,19 @@
     const tokens = tokenize(query);
     return subjectRecords.map((subject) => {
       let score = 0;
-      if (normalize(subject.code) === normalizedQuery) score += 220;
-      if (normalize(subject.name) === normalizedQuery) score += 150;
+      // PERFORMANCE OPTIMIZATION: Uses pre-computed, cached normalized values
+      // to avoid doing heavy Unicode normalization or regex replacement on every single item in subjectRecords.
+      const nCode = subject._normCode || "";
+      const nName = subject._normName || "";
+      const nDept = subject._normDept || "";
+
+      if (nCode === normalizedQuery) score += 220;
+      if (nName === normalizedQuery) score += 150;
       if (subject.searchBlob.includes(normalizedQuery)) score += 70;
       tokens.forEach((token) => {
-        if (normalize(subject.code) === token) score += 130;
-        if (normalize(subject.name).includes(token)) score += 35;
-        if (normalize(subject.department).includes(token)) score += 28;
+        if (nCode === token) score += 130;
+        if (nName.includes(token)) score += 35;
+        if (nDept.includes(token)) score += 28;
         if (subject.searchBlob.includes(token)) score += 14;
       });
       return { subject, score };
