@@ -89,12 +89,15 @@
   }
 
   function mode(nextMode) {
-    $('loginTab')?.classList.toggle('active', nextMode === 'login');
-    $('registerTab')?.classList.toggle('active', nextMode === 'register');
-    $('usernameField')?.classList.toggle('hidden', nextMode === 'login');
-    $('confirmField')?.classList.toggle('hidden', nextMode === 'login');
+    const isLogin = nextMode === 'login';
+    $('loginTab')?.classList.toggle('active', isLogin);
+    $('loginTab')?.setAttribute('aria-selected', String(isLogin));
+    $('registerTab')?.classList.toggle('active', !isLogin);
+    $('registerTab')?.setAttribute('aria-selected', String(!isLogin));
+    $('usernameField')?.classList.toggle('hidden', isLogin);
+    $('confirmField')?.classList.toggle('hidden', isLogin);
     $('authForm').dataset.mode = nextMode;
-    $('authSubmit').textContent = nextMode === 'login' ? 'Login' : 'Register';
+    $('authSubmit').textContent = isLogin ? 'Login' : 'Register';
     msg('');
   }
 
@@ -294,8 +297,21 @@
     ensureGeneralKnowledge();
     document.querySelectorAll('[data-year],#year').forEach((node) => { node.textContent = new Date().getFullYear(); });
     $('dateStat').textContent = R.dateKey();
-    $('loginTab').onclick = () => mode('login');
-    $('registerTab').onclick = () => mode('register');
+    const loginTab = $('loginTab');
+    const registerTab = $('registerTab');
+    if (loginTab) loginTab.onclick = () => mode('login');
+    if (registerTab) registerTab.onclick = () => mode('register');
+
+    const handleTabKey = (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const nextMode = e.currentTarget.id === 'loginTab' ? 'register' : 'login';
+        mode(nextMode);
+        $(nextMode + 'Tab')?.focus();
+      }
+    };
+    loginTab?.addEventListener('keydown', handleTabKey);
+    registerTab?.addEventListener('keydown', handleTabKey);
     $('authForm').onsubmit = async (event) => {
       event.preventDefault();
       $('authSubmit').disabled = true;
