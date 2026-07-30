@@ -63,7 +63,7 @@ test("corsHeaders echoes allowed origin and defaults otherwise", () => {
   );
   const headers = corsHeaders("", {});
   assert.equal(headers["Access-Control-Allow-Methods"], "GET, POST, OPTIONS");
-  assert.equal(headers["Access-Control-Allow-Headers"], "Content-Type");
+  assert.equal(headers["Access-Control-Allow-Headers"], "Content-Type, Authorization");
   assert.equal(headers.Vary, "Origin");
 });
 
@@ -101,4 +101,22 @@ test("createRateLimiter tracks callers independently and reads X-Forwarded-For",
   assert.equal(limiter(b), false);
   assert.equal(limiter(unknown), true);
   assert.equal(limiter(unknown), false);
+});
+
+test("createRateLimiter sanitizes and limits key length for IP address", () => {
+  const limiter = createRateLimiter(1);
+  const malicious = fakeRequest({ "CF-Connecting-IP": "1.2.3.4; ghk xyz" });
+  const superLong = fakeRequest({ "CF-Connecting-IP": "a".repeat(100) });
+
+  // "1.2.3.4; ghk xyz" should be sanitized to "1.2.3.4"
+  // "a".repeat(100) should be sanitized to "a".repeat(45) and allowed (since a-f are valid hex chars)
+  assert.equal(limiter(malicious), true);
+  assert.equal(limiter(malicious), false);
+
+  // A different request with the same sanitized IP "1.2.3.4" should be blocked because it maps to the same sanitized key
+  const identicalSanitized = fakeRequest({ "CF-Connecting-IP": "1.2.3.4" });
+  assert.equal(limiter(identicalSanitized), false);
+
+  assert.equal(limiter(superLong), true);
+  assert.equal(limiter(superLong), false);
 });

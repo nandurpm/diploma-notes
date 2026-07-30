@@ -27,9 +27,10 @@ async function allowed(binding, key) {
 }
 
 function anonymousKey(request) {
-  const ip = request.headers.get("CF-Connecting-IP")
+  const rawIp = request.headers.get("CF-Connecting-IP")
     || request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim()
     || "unknown";
+  const ip = rawIp.replace(/[^0-9a-fA-F.:%_-]/g, "").slice(0, 45) || "unknown";
   return `ask:${ip}`;
 }
 
