@@ -2,42 +2,7 @@
   "revision": "2026",
   "lessonFolder": "revision-2026-content/lessons",
   "notesFolder": "revision-2026-content/notes",
-  "generated": [
-    {
-      "code": "1253",
-      "pages": 35,
-      "bytes": 25986442,
-      "source": "revision-2026-content/lessons/lessons-1253.html",
-      "sourceCharacters": 42749,
-      "pdfCharacters": 42597,
-      "textCoverage": 0.9964,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [],
-      "warnings": []
-    },
-    {
-      "code": "1421",
-      "pages": 37,
-      "bytes": 27622864,
-      "source": "revision-2026-content/lessons/lessons-1421.html",
-      "sourceCharacters": 50302,
-      "pdfCharacters": 50422,
-      "textCoverage": 1.0024,
-      "panelCount": 0,
-      "visiblePanelCount": 0,
-      "removedBlankPages": [],
-      "blankPages": [],
-      "nearBlankPages": [
-        37
-      ],
-      "warnings": [
-        "near-empty pages require review: [37]"
-      ]
-    }
-  ],
+  "generated": [],
   "errors": [],
   "requiredLessonCodes": [
     "1001",
@@ -76,10 +41,7 @@
     "2032",
     "2131"
   ],
-  "generatedThisRunCodes": [
-    "1253",
-    "1421"
-  ],
+  "generatedThisRunCodes": [],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
   "minimumPdfBytes": 20000
