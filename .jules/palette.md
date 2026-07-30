@@ -26,3 +26,7 @@
 ## 2026-07-29 - Accessible Tablist Arrow Navigation and Aria Selected States
 **Learning:** In standard-compliant accessible interfaces, multi-tab layout components (such as login/register auth tabs) inside a `role="tablist"` container must support seamless left/right arrow key navigation to cycle between active tabs. Furthermore, the selection change must immediately synchronize the `aria-selected` state on each tab button to provide screen readers with accurate audio cues of the active tab.
 **Action:** Always bind ArrowLeft and ArrowRight keyboard event listeners on tab elements inside custom tablists, and explicitly toggle their `aria-selected` attributes alongside their visual active classes.
+
+## 2026-07-30 - Accessible Show Password Toggles on Auth Forms
+**Learning:** Providing a native, semantic, and focusable 'Show Password' checkbox toggle under authentication form password fields is an excellent WCAG accessibility practice that reduces motor and cognitive entry errors. To maintain user privacy, the visibility must be securely reset to masked whenever the user toggles modes or switches contexts.
+**Action:** Always include a beautifully styled semantic checkbox toggle for password input fields, and ensure that the password visibility is reset to masked when changing tabs or forms.
