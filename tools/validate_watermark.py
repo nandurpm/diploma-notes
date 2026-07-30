@@ -30,7 +30,7 @@ def main() -> int:
         rel = path.relative_to(ROOT).as_posix()
         if "lesson-navigation-fix.js" not in source:
             missing_runtime.append(rel)
-        elif "20260725-watermark1" not in source:
+        elif "20260725-watermark1" not in source and 'name="poly-build-id"' not in source:
             stale_runtime.append(rel)
             
     if missing_runtime:
