@@ -8,15 +8,15 @@ on:
     - cron: "30 3 * * *"
   workflow_dispatch:
     inputs:
-      time_slot:
-        description: "Send for which time slot?"
+      notification_mode:
+        description: "Which notification to send?"
         required: true
-        default: "both"
+        default: "Auto"
         type: choice
         options:
-          - both
-          - "7am"
-          - "9am"
+          - "Auto"
+          - "Good Morning"
+          - "Special Day"
 
 permissions:
   contents: read
@@ -24,17 +24,18 @@ permissions:
 jobs:
   send-notification:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        slot: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.time_slot == 'both' && fromJSON('["7am","9am"]') || fromJSON(format('["{0}"]', github.event.inputs.time_slot))) || fromJSON('["7am","9am"]') }}
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Install FCM sender dependencies
         run: python -m pip install --disable-pip-version-check google-auth requests
 
-      - name: Send notification for ${{ matrix.slot }} slot
+      - name: Send notification
         env:
           FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
-          TIME_SLOT: ${{ matrix.slot }}
+          NOTIFICATION_MODE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.notification_mode || 'Auto' }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
         shell: python
         run: |
           import json
@@ -42,14 +43,13 @@ jobs:
           import sys
           from datetime import datetime
           from zoneinfo import ZoneInfo
-
           import requests
           from google.auth.transport.requests import Request
           from google.oauth2 import service_account
 
           raw = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
           if not raw.strip():
-              raise SystemExit("ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is empty or unavailable to this workflow.")
+              raise SystemExit("ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is empty or unavailable.")
 
           try:
               account = json.loads(raw)
@@ -66,6 +66,91 @@ jobs:
 
           project_id = account["project_id"]
 
+          # Determine the date/time in IST (Asia/Kolkata)
+          today_ist_dt = datetime.now(ZoneInfo("Asia/Kolkata"))
+          today_ist = today_ist_dt.date()
+          date_key = today_ist.isoformat()
+          mm_dd_key = f"{today_ist.month:02d}-{today_ist.day:02d}"
+
+          # Load the notifications database
+          db_path = "notifications/notifications_db.json"
+          try:
+              with open(db_path, "r", encoding="utf-8") as f:
+                  db = json.load(f)
+          except Exception as exc:
+              raise SystemExit(f"ERROR: Failed to load notification database: {exc}")
+
+          good_morning_list = db.get("good_morning", [])
+          special_day_list = db.get("special_day", [])
+
+          mode = os.environ.get("NOTIFICATION_MODE", "Auto")
+          schedule_cron = os.environ.get("EVENT_SCHEDULE", "")
+
+          print(f"Trigger Mode: {mode}")
+          print(f"Schedule Cron: {schedule_cron}")
+          print(f"Current IST Date & Time: {today_ist_dt}")
+          print(f"Date Key (YYYY-MM-DD): {date_key}")
+          print(f"MM-DD Key: {mm_dd_key}")
+
+          # Resolve "Auto" mode to a specific notification type
+          if mode == "Auto":
+              if schedule_cron == "30 1 * * *":
+                  resolved_mode = "Good Morning"
+              elif schedule_cron == "30 3 * * *":
+                  resolved_mode = "Special Day"
+              else:
+                  # Fallback for manual run under "Auto" mode based on local IST hour
+                  ist_hour = today_ist_dt.hour
+                  print(f"Auto mode fallback checking IST hour: {ist_hour}")
+                  if ist_hour in [7, 8]:
+                      resolved_mode = "Good Morning"
+                  elif ist_hour in [9, 10]:
+                      resolved_mode = "Special Day"
+                  else:
+                      # If outside typical slots, check if a special day exists today
+                      has_special_day = any(item.get("date") == mm_dd_key for item in special_day_list)
+                      if has_special_day:
+                          resolved_mode = "Special Day"
+                      else:
+                          resolved_mode = "Good Morning"
+          else:
+              resolved_mode = mode
+
+          print(f"Resolved Mode: {resolved_mode}")
+
+          # Retrieve message details
+          if resolved_mode == "Good Morning":
+              if not good_morning_list:
+                  raise SystemExit("ERROR: Good Morning list is empty in the database.")
+              index = today_ist.toordinal() % len(good_morning_list)
+              selected = good_morning_list[index]
+              title = selected.get("title")
+              body = selected.get("body")
+              notification_type = selected.get("notification_type", "daily-motivation-7am")
+              category = selected.get("category", "Good Morning")
+              target_url = selected.get("url", "https://polypmna.dpdns.org/")
+              collapse_key = "daily-good-morning-7am"
+
+          elif resolved_mode == "Special Day":
+              matched_events = [item for item in special_day_list if item.get("date") == mm_dd_key]
+              if not matched_events:
+                  print(f"No special event found for date: {mm_dd_key}. Skipping notification.")
+                  sys.exit(0)
+              selected = matched_events[0]
+              title = selected.get("title")
+              body = selected.get("body")
+              notification_type = selected.get("notification_type", "special-day-9am")
+              category = selected.get("category", "Special Day")
+              target_url = selected.get("url", "https://polypmna.dpdns.org/")
+              collapse_key = "special-day-9am"
+
+          else:
+              raise SystemExit(f"ERROR: Unknown resolved mode: {resolved_mode}")
+
+          if not title or not body:
+              raise SystemExit("ERROR: Selected notification has empty title or body.")
+
+          # Authenticate with Google API
           credentials = service_account.Credentials.from_service_account_info(
               account,
               scopes=["https://www.googleapis.com/auth/firebase.messaging"],
@@ -75,113 +160,16 @@ jobs:
           if not credentials.token:
               raise SystemExit("ERROR: Google OAuth token was not obtained.")
 
-          # Use the Indian calendar date so the message changes according
-          # to the IST date.
-          today_ist = datetime.now(ZoneInfo("Asia/Kolkata")).date()
-          date_key = today_ist.isoformat()
-
-          time_slot = os.environ.get("TIME_SLOT", "7am")
-
-          # Special Onam notifications override the normal daily messages
-          # on these two dates. Only sent for the 7 AM slot.
-          onam_messages = {
-              "2026-08-25": {
-                  "title": "🌼 ഒന്നാം ഓണം ആശംസകൾ – POLY PMNA",
-                  "body": (
-                      "ഉത്രാടത്തിന്റെ ഈ പുണ്യദിനത്തിൽ സന്തോഷവും സമാധാനവും പ്രതീക്ഷയും "
-                      "നിങ്ങളുടെ ജീവിതത്തിൽ നിറയട്ടെ. 🌾 നല്ല നാളെയ്ക്കായി ഇന്ന് ചെയ്യുന്ന "
-                      "ഓരോ ചെറിയ ശ്രമവും വിജയത്തിലേക്കുള്ള ഒരു ചുവടാണ്. 💛 ഒന്നാം ഓണം ആശംസകൾ!"
-                  ),
-              },
-              "2026-08-26": {
-                  "title": "🌸 ഹൃദയം നിറഞ്ഞ തിരുവോണം ആശംസകൾ – POLY PMNA",
-                  "body": (
-                      "പൂക്കളത്തിന്റെ നിറങ്ങളും ഓണസദ്യയുടെ രുചിയും സ്നേഹത്തിന്റെ നന്മയും "
-                      "നമ്മുടെ ജീവിതത്തിൽ എന്നും നിറഞ്ഞുനിൽക്കട്ടെ. 🌿 അറിവും സ്നേഹവും "
-                      "പങ്കുവെക്കുമ്പോഴാണ് ജീവിതം കൂടുതൽ മനോഹരമാകുന്നത്. ✨ എല്ലാവർക്കും "
-                      "ഹൃദയം നിറഞ്ഞ തിരുവോണം ആശംസകൾ!"
-                  ),
-              },
-          }
-
-          # 50 unique daily messages that rotate based on the IST date.
-          # Each day gets a different title and body, cycling back to #1 after day 50.
-          daily_messages = [
-              {"title": "🌅 Good Morning – POLY PMNA", "body": "പുതിയൊരു ദിവസം... പുതിയൊരു അവസരം. ഇന്ന് എന്തെങ്കിലും പുതിയത് പഠിക്കൂ! 📚"},
-              {"title": "☀️ സുപ്രഭാതം!", "body": "Every expert was once a beginner. ഇന്ന് പഠനം ആരംഭിക്കൂ."},
-              {"title": "📚 Good Morning!", "body": "ഒരു Lesson പൂർത്തിയാക്കി ഇന്നത്തെ ദിവസം വിജയകരമാക്കൂ."},
-              {"title": "🌼 സുപ്രഭാതം!", "body": "Dream Big. Learn Daily. Achieve More. 🚀"},
-              {"title": "💡 Good Morning!", "body": "അറിവാണ് നിങ്ങളുടെ ഏറ്റവും വലിയ ശക്തി. ഇന്ന് അത് വർധിപ്പിക്കൂ."},
-              {"title": "🌞 സുപ്രഭാതം!", "body": "Today's effort becomes tomorrow's success."},
-              {"title": "📖 Good Morning!", "body": "Learn something new today. Your future will thank you."},
-              {"title": "🌿 സുപ്രഭാതം!", "body": "ഓരോ ദിവസവും ഒരു പുതിയ തുടക്കമാണ്. മുന്നോട്ട് പോവൂ."},
-              {"title": "🚀 Good Morning!", "body": "Small progress every day leads to big achievements."},
-              {"title": "🎯 സുപ്രഭാതം!", "body": "ഇന്നത്തെ ലക്ഷ്യം: ഒരു Chapter പൂർത്തിയാക്കുക."},
-              {"title": "🌅 Good Morning!", "body": "പഠനം നിർത്തരുത്... വിജയം നിങ്ങളെ കാത്തിരിക്കുന്നു."},
-              {"title": "📘 സുപ്രഭാതം!", "body": "Consistency is the key to success. പഠനം തുടരൂ."},
-              {"title": "✨ Good Morning!", "body": "One lesson today, one step closer to your dream."},
-              {"title": "🌸 സുപ്രഭാതം!", "body": "ഇന്ന് ഒരു പുതിയ Concept മനസ്സിലാക്കൂ."},
-              {"title": "📚 Good Morning!", "body": "Stay curious. Stay focused. Keep learning."},
-              {"title": "🌞 സുപ്രഭാതം!", "body": "സമയം വിലപ്പെട്ടതാണ്. അത് അറിവാക്കി മാറ്റൂ."},
-              {"title": "💙 Good Morning!", "body": "Believe in yourself. Great things take time."},
-              {"title": "📖 സുപ്രഭാതം!", "body": "ഇന്നത്തെ പഠനം നാളത്തെ ആത്മവിശ്വാസമാണ്."},
-              {"title": "🌼 Good Morning!", "body": "Make today productive. Start with one lesson."},
-              {"title": "🚀 സുപ്രഭാതം!", "body": "Learn Today. Lead Tomorrow."},
-              {"title": "🌅 Good Morning!", "body": "നിങ്ങളുടെ സ്വപ്നങ്ങളിലേക്ക് ഇന്ന് ഒരു ചുവടുകൂടി."},
-              {"title": "📚 സുപ്രഭാതം!", "body": "Every page you read builds your future."},
-              {"title": "💡 Good Morning!", "body": "Questions lead to knowledge. Never stop asking."},
-              {"title": "🌿 സുപ്രഭാതം!", "body": "ഇന്ന് ഒരു Quiz ശ്രമിക്കൂ."},
-              {"title": "📘 Good Morning!", "body": "Learning is the best investment you can make."},
-              {"title": "🌞 സുപ്രഭാതം!", "body": "ഓരോ ദിവസവും പുതിയ അവസരങ്ങളാണ്."},
-              {"title": "🚀 Good Morning!", "body": "Focus on progress, not perfection."},
-              {"title": "📖 സുപ്രഭാതം!", "body": "POLY PMNA-യോടൊപ്പം ഇന്നും പഠനം തുടരൂ."},
-              {"title": "🌸 Good Morning!", "body": "Success begins with today's effort."},
-              {"title": "🎯 സുപ്രഭാതം!", "body": "ഇന്നത്തെ Challenge: ഒരു പുതിയ Topic പഠിക്കുക."},
-              {"title": "🌅 Good Morning!", "body": "Make every morning count."},
-              {"title": "📚 സുപ്രഭാതം!", "body": "പഠനം നിങ്ങളുടെ ഭാവിയെ രൂപപ്പെടുത്തുന്നു."},
-              {"title": "💙 Good Morning!", "body": "Never stop learning."},
-              {"title": "🌞 സുപ്രഭാതം!", "body": "ഇന്ന് ചെയ്യുന്ന പരിശ്രമം നാളത്തെ വിജയം."},
-              {"title": "📖 Good Morning!", "body": "Read. Learn. Improve."},
-              {"title": "🌼 സുപ്രഭാതം!", "body": "നിങ്ങളുടെ കഴിവിൽ വിശ്വസിക്കൂ."},
-              {"title": "🚀 Good Morning!", "body": "One small step today makes a big difference tomorrow."},
-              {"title": "📚 സുപ്രഭാതം!", "body": "അറിവ് പങ്കുവെച്ചാൽ മാത്രമേ വളരൂ."},
-              {"title": "💡 Good Morning!", "body": "Stay positive. Stay productive."},
-              {"title": "🌿 സുപ്രഭാതം!", "body": "ഇന്നത്തെ ദിവസം പഠനത്തിനായി മാറ്റിവെക്കൂ."},
-              {"title": "📘 Good Morning!", "body": "Keep moving. Keep improving."},
-              {"title": "🌸 സുപ്രഭാതം!", "body": "ഒരു Lesson ഇന്ന്... ഒരു വിജയം നാളെ."},
-              {"title": "🌅 Good Morning!", "body": "Learn with confidence. Grow with knowledge."},
-              {"title": "📖 സുപ്രഭാതം!", "body": "നല്ല ശീലങ്ങൾ നല്ല ഭാവി സൃഷ്ടിക്കുന്നു."},
-              {"title": "🚀 Good Morning!", "body": "Push yourself. Nobody else will do it for you."},
-              {"title": "☀️ സുപ്രഭാതം!", "body": "POLY PMNA-യിൽ പുതിയ Notes പരിശോധിക്കൂ."},
-              {"title": "📚 Good Morning!", "body": "Knowledge opens new opportunities."},
-              {"title": "🌞 സുപ്രഭാതം!", "body": "പുതിയൊരു ദിവസം... പുതിയൊരു പഠനം."},
-              {"title": "💙 Good Morning!", "body": "Learn today, inspire tomorrow."},
-              {"title": "🌅 സുപ്രഭാതം – POLY PMNA", "body": "പുഞ്ചിരിയോടെ ദിവസം ആരംഭിക്കൂ... അറിവോടെ ദിവസം അവസാനിപ്പിക്കൂ. 🌟"},
-          ]
-
-          # Determine title, body, and collapse_key based on time slot
-          if time_slot == "7am" and date_key in onam_messages:
-              title = onam_messages[date_key]["title"]
-              body = onam_messages[date_key]["body"]
-              notification_type = f"onam-{time_slot}"
-          else:
-              index = today_ist.toordinal() % len(daily_messages)
-              selected = daily_messages[index]
-              title = selected["title"]
-              body = selected["body"]
-              notification_type = f"daily-motivation-{time_slot}"
-
-          collapse_key = f"daily-good-morning-{time_slot}"
-
           message = {
               "topic": "all-users",
               "data": {
                   "title": title,
                   "body": body,
-                  "url": "https://polypmna.dpdns.org/",
-                  "contentType": "daily-good-morning",
+                  "url": target_url,
+                  "contentType": "daily-good-morning" if resolved_mode == "Good Morning" else "special-day",
                   "notificationType": notification_type,
                   "date": date_key,
+                  "category": category,
               },
               "android": {
                   "priority": "high",
@@ -191,6 +179,8 @@ jobs:
           }
 
           endpoint = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+          print(f"Sending FCM message payload: {json.dumps(message, ensure_ascii=False, indent=2)}")
+
           response = requests.post(
               endpoint,
               headers={
@@ -201,13 +191,7 @@ jobs:
               timeout=30,
           )
 
-          print(f"Time slot: {time_slot}")
-          print(f"IST date: {date_key}")
-          print(f"Notification title: {title}")
-          print(f"Notification type: {notification_type}")
-          print(f"Collapse key: {collapse_key}")
           print(f"FCM HTTP status: {response.status_code}")
-
           if not response.ok:
               print(response.text)
               sys.exit(1)
