@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T16:10:26Z",
+  "generatedAt": "2026-07-30T16:13:20Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 30 Jul 2026 16:10:26 GMT",
+      "date": "Thu, 30 Jul 2026 16:13:19 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "419",
       "connection": "close",
@@ -22,10 +22,10 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=hQ7VlWWssNCF8%2B2B%2BOmm8o12pCJPHpyoui7HC%2FEuclpAQg4aXxBax57s34TcC6h5Ry6xUTc48lYSPlrepNTnG2gJKvDwK2YYhncG6%2FI4HJ8unCD%2F5cyzaIEZmUVX9iGOpKLYqse8pxTx1qEhcuyjVV4EE0VOUa%2Bm3g%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0WlMr0BuJKePZcncrlQovUzTyORiY%2FRgRM7alMcGDV3Nh3aFvNumA6OqQ7gM4z5dwFElXbn8k0fa6Z%2BUv%2F%2BxZcSljdxtoISVFjvtCW09OzaNs8MWg1RxOYFv6GgxrE4xnYIQaVbI2%2FwBwQvLF7IWr%2BBiizcdBCSMFg%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a235a229a89ef784-IAD",
+      "cf-ray": "a235a6645e03c365-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Thu, 30 Jul 2026 16:10:26 GMT",
+      "date": "Thu, 30 Jul 2026 16:13:19 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=AkT8I004ry8%2FBXOToBILIeetWr4oaO9MTESrntMP9qTRuGFeUwiq8bur%2Fae1BxVj%2FYZhgV8FPV62IH3zoZOLjn5A%2B47BK9GLkGqhJSJKZBRNrno0STw0sfDrn8v%2BPSWyuHfpQ%2FhDKgWG99m0jiAWtpd8l%2BVJqpYr4Q%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=GDzRVEhlB6Iof4Dyb8p95eWxmdyKrpwR1tAHR6JPmndBunz3YCTSg5wOanZVALCD3%2F5Uy4Kj5OnYDf9v6vd4PwEB8JOYVaXFj6utCGL6msvremYPoqGYiYhTg5%2FAyhh2YPv3D6e3dIdk%2BLQPdD5mFXZSDWfz2xNDgA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a235a229cf3dd6c4-IAD",
+      "cf-ray": "a235a664ae475810-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 30 Jul 2026 16:10:26 GMT",
+      "date": "Thu, 30 Jul 2026 16:13:20 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "617",
+      "content-length": "895",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6%2BoW2kAxi5y1X94H2WfxuA6Q9SH8U85QROE4cfdcvp3w6xRtwmjCIYZm473q0TmqCKqHKhC%2FXuCDZR5WFv9zxLDyXkO5M%2BcOA2emJZv%2FayCIgJPYqTcbgXzpD7B2R80DVpdlh4Fp6dMCtFbqAM3p%2FwXfIq4EewMQQQ%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7erJOpWZ7%2Bw%2FUExefLmT43tL2MOF9FJ4O%2FgQFoMCUoa5OSWhouDUxtyHVhuiVDk4oE6%2FlUgsK58TlCCUPy%2Fa%2FoHx5tuQCY8npZygwZAwqSLnjULglOIAFZHN2Bs9yFR2onlL%2BINP04MEbm5CqVxNTISZdwcjm1IFEA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a235a22a0fabc890-IAD",
+      "cf-ray": "a235a664fffa11cd-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY browser path\\\" as I'm a text-based AI assistant. However, if you're referring to accessing the Kerala Polytechnic website, the path may vary depending on the browser and the specific website you're trying to access. \\n\\nIf you could provide more context or clarify which website you're trying to access, I'll do my best to assist you.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-781a1f82-f5ce-4057-9429-fdcfff1a692b\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY\\\" browser path. However, if you are referring to the Kerala Polytechnic website, the browser path may vary depending on the specific page or resource you are trying to access.\\n\\nTypically, the Kerala Polytechnic website can be accessed at [www.polytechnic.kerala.gov.in](http://www.polytechnic.kerala.gov.in). From there, you can navigate to various sections and resources, including the \\\"Revision\\\" section for past question papers and study materials.\\n\\nIf you could provide more context or clarify which specific resource or page you are trying to access, I may be able to provide more detailed assistance.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-f0504ae9-044f-4095-92c2-02b9e56fc725\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
