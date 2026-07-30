@@ -4,21 +4,37 @@ on:
   schedule:
     # 07:00 AM IST = 01:30 UTC
     - cron: "30 1 * * *"
+    # 09:00 AM IST = 03:30 UTC
+    - cron: "30 3 * * *"
   workflow_dispatch:
+    inputs:
+      time_slot:
+        description: "Send for which time slot?"
+        required: true
+        default: "both"
+        type: choice
+        options:
+          - both
+          - "7am"
+          - "9am"
 
 permissions:
   contents: read
 
 jobs:
-  send:
+  send-notification:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        slot: ${{ github.event_name == 'workflow_dispatch' && (github.event.inputs.time_slot == 'both' && fromJSON('["7am","9am"]') || fromJSON(format('["{0}"]', github.event.inputs.time_slot))) || fromJSON('["7am","9am"]') }}
     steps:
       - name: Install FCM sender dependencies
         run: python -m pip install --disable-pip-version-check google-auth requests
 
-      - name: Send daily Good Morning notification
+      - name: Send notification for ${{ matrix.slot }} slot
         env:
           FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          TIME_SLOT: ${{ matrix.slot }}
         shell: python
         run: |
           import json
@@ -60,13 +76,14 @@ jobs:
               raise SystemExit("ERROR: Google OAuth token was not obtained.")
 
           # Use the Indian calendar date so the message changes according
-          # to the IST date, matching the 07:00 AM IST delivery schedule.
+          # to the IST date.
           today_ist = datetime.now(ZoneInfo("Asia/Kolkata")).date()
           date_key = today_ist.isoformat()
 
+          time_slot = os.environ.get("TIME_SLOT", "7am")
+
           # Special Onam notifications override the normal daily messages
-          # on these two dates. They are sent at the same 07:00 AM IST
-          # schedule as the regular Good Morning notification.
+          # on these two dates. Only sent for the 7 AM slot.
           onam_messages = {
               "2026-08-25": {
                   "title": "🌼 ഒന്നാം ഓണം ആശംസകൾ – POLY PMNA",
@@ -75,7 +92,6 @@ jobs:
                       "നിങ്ങളുടെ ജീവിതത്തിൽ നിറയട്ടെ. 🌾 നല്ല നാളെയ്ക്കായി ഇന്ന് ചെയ്യുന്ന "
                       "ഓരോ ചെറിയ ശ്രമവും വിജയത്തിലേക്കുള്ള ഒരു ചുവടാണ്. 💛 ഒന്നാം ഓണം ആശംസകൾ!"
                   ),
-                  "notificationType": "onam-first-day",
               },
               "2026-08-26": {
                   "title": "🌸 ഹൃദയം നിറഞ്ഞ തിരുവോണം ആശംസകൾ – POLY PMNA",
@@ -85,7 +101,6 @@ jobs:
                       "പങ്കുവെക്കുമ്പോഴാണ് ജീവിതം കൂടുതൽ മനോഹരമാകുന്നത്. ✨ എല്ലാവർക്കും "
                       "ഹൃദയം നിറഞ്ഞ തിരുവോണം ആശംസകൾ!"
                   ),
-                  "notificationType": "onam-thiruvonam",
               },
           }
 
@@ -144,18 +159,19 @@ jobs:
               {"title": "🌅 സുപ്രഭാതം – POLY PMNA", "body": "പുഞ്ചിരിയോടെ ദിവസം ആരംഭിക്കൂ... അറിവോടെ ദിവസം അവസാനിപ്പിക്കൂ. 🌟"},
           ]
 
-          if date_key in onam_messages:
-              selected = onam_messages[date_key]
-              title = selected["title"]
-              body = selected["body"]
-              notification_type = selected["notificationType"]
+          # Determine title, body, and collapse_key based on time slot
+          if time_slot == "7am" and date_key in onam_messages:
+              title = onam_messages[date_key]["title"]
+              body = onam_messages[date_key]["body"]
+              notification_type = f"onam-{time_slot}"
           else:
-              # Rotate through the 50 messages based on the ordinal day number
               index = today_ist.toordinal() % len(daily_messages)
               selected = daily_messages[index]
               title = selected["title"]
               body = selected["body"]
-              notification_type = "daily-motivation"
+              notification_type = f"daily-motivation-{time_slot}"
+
+          collapse_key = f"daily-good-morning-{time_slot}"
 
           message = {
               "topic": "all-users",
@@ -170,7 +186,7 @@ jobs:
               "android": {
                   "priority": "high",
                   "ttl": "86400s",
-                  "collapse_key": "daily-good-morning",
+                  "collapse_key": collapse_key,
               },
           }
 
@@ -185,9 +201,11 @@ jobs:
               timeout=30,
           )
 
+          print(f"Time slot: {time_slot}")
           print(f"IST date: {date_key}")
           print(f"Notification title: {title}")
           print(f"Notification type: {notification_type}")
+          print(f"Collapse key: {collapse_key}")
           print(f"FCM HTTP status: {response.status_code}")
 
           if not response.ok:
