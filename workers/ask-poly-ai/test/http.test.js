@@ -10,6 +10,7 @@ import {
   jsonResponse,
   createRateLimiter
 } from "../src/http.js";
+import secureIndex from "../src/secure-index.js";
 
 function fakeRequest(headers = {}) {
   return {
@@ -119,4 +120,23 @@ test("createRateLimiter sanitizes and limits key length for IP address", () => {
 
   assert.equal(limiter(superLong), true);
   assert.equal(limiter(superLong), false);
+});
+
+test("secureIndex fetch rejects oversized POST request early", async () => {
+  const request = {
+    method: "POST",
+    url: "https://example.com/api/ask-poly",
+    headers: {
+      get: (name) => {
+        if (name.toLowerCase() === "content-length") return "1000000"; // > 40000
+        if (name.toLowerCase() === "origin") return "https://polypmna.dpdns.org";
+        return null;
+      }
+    }
+  };
+  const env = {};
+  const response = await secureIndex.fetch(request, env, {});
+  assert.equal(response.status, 413);
+  const data = await response.json();
+  assert.equal(data.error, "The request is too large.");
 });
