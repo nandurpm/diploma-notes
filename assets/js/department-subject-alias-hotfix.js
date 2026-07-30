@@ -74,12 +74,26 @@
     // instead of running an O(N) deduplication pass inside the `render` function
     // on every single user keystroke and filter change event.
     const all = unique(readSubjects(text));
+
+    // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for each subject
+    // to avoid redundant string joins and lowercase conversions on every keystroke.
+    all.forEach((subject) => {
+      subject._searchText = [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
+    });
+
     const render = () => {
       const sem = semester?.value || "all";
       const query = String(search?.value || "").trim().toLowerCase();
       let items = all.filter((subject) => String(subject.revision) === revision && (sameDept(subject.department, COMMON) || sameDept(subject.department, dept)));
       if (sem !== "all") items = items.filter((subject) => String(subject.semester) === sem);
-      if (query) items = items.filter((subject) => [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase().includes(query));
+      if (query) {
+        items = items.filter((subject) => {
+          if (!subject._searchText) {
+            subject._searchText = [subject.code, subject.name, subject.department, subject.semester, subject.type].join(" ").toLowerCase();
+          }
+          return subject._searchText.includes(query);
+        });
+      }
       items.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
       if (items.length) renderGroups(grid, items);
     };
