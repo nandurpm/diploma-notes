@@ -1,7 +1,7 @@
 # Site Integrity Audit
 
-- Generated: **2026-07-30T09:15:59Z**
-- Commit: `dd53f26be01e00e364fc2ac31ffdad5e2ed3921a`
+- Generated: **2026-07-30T09:59:10Z**
+- Commit: `9091d2dbe0d925fe526564e57a18a2fd90058134`
 - Branch: `jules-18296231972373989761-abe7a512`
 - Result: **PASSED**
 
@@ -15,18 +15,18 @@
 
 ## Inventory
 
-- Sitemap resources: **317**
-- Indexed HTML resources: **190**
+- Sitemap resources: **318**
+- Indexed HTML resources: **191**
 - Indexed PDFs: **127**
 - Revision 2021 department files: **44**
 - Revision 2026 department files: **38**
 - Revision 2021 lesson files: **91**
-- Revision 2026 lesson files: **35**
+- Revision 2026 lesson files: **36**
 - Revision 2021 note PDFs: **92**
 - Revision 2026 note PDFs: **35**
 
 ## Quality gate output
 
 ```text
-Site quality gate passed for 317 sitemap resources.
+Site quality gate passed for 318 sitemap resources.
 ```
