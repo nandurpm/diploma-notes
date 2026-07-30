@@ -98,6 +98,16 @@
     $('confirmField')?.classList.toggle('hidden', isLogin);
     $('authForm').dataset.mode = nextMode;
     $('authSubmit').textContent = isLogin ? 'Login' : 'Register';
+
+    const showPw = $('showPasswordToggle');
+    if (showPw) {
+      showPw.checked = false;
+    }
+    const pw = $('password');
+    const cp = $('confirmPassword');
+    if (pw) pw.type = 'password';
+    if (cp) cp.type = 'password';
+
     msg('');
   }
 
@@ -328,6 +338,16 @@
         $('authSubmit').disabled = false;
       }
     };
+    const showPw = $('showPasswordToggle');
+    if (showPw) {
+      showPw.onchange = () => {
+        const type = showPw.checked ? 'text' : 'password';
+        const pw = $('password');
+        const cp = $('confirmPassword');
+        if (pw) pw.type = type;
+        if (cp) cp.type = type;
+      };
+    }
     $('guestLogin').onclick = () => enter(A.asGuest().name);
     $('logoutBtn').onclick = async () => { await A.logout(); location.reload(); };
     $('openDash').onclick = () => { show('dashboardView'); stats(); recent(); };
