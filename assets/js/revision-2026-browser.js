@@ -286,7 +286,24 @@
         if (count) count.textContent = `${visibleCards.length} ${visibleCards.length === 1 ? "subject" : "subjects"}`;
       });
       if (empty) empty.hidden = visibleTotal !== 0;
+
+      let announcer = document.getElementById("subjectBrowserAnnouncer");
+      if (!announcer && grid.parentNode) {
+        announcer = document.createElement("div");
+        announcer.id = "subjectBrowserAnnouncer";
+        announcer.className = "sr-only";
+        announcer.setAttribute("role", "status");
+        announcer.setAttribute("aria-live", "polite");
+        grid.parentNode.insertBefore(announcer, grid);
+      }
+      if (announcer) {
+        announcer.textContent = visibleTotal === 0 ? "No subjects found." : (visibleTotal === 1 ? "1 subject found." : `${visibleTotal} subjects found.`);
+      }
     };
+    if (search) {
+      search.setAttribute("aria-controls", "subjectGrid");
+      search.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
+    }
     search?.addEventListener("input", draw);
     semester?.addEventListener("change", draw);
     draw();
