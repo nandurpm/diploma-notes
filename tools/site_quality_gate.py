@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 from collections import Counter
 from html.parser import HTMLParser
@@ -193,6 +194,21 @@ def write_failure_report(lines: list[str]) -> None:
 
 def main() -> int:
     failures: list[str] = []
+
+    # Run high-risk sub-validations before general page auditing
+    sub_validations = [
+        ("validate_site_structure.py", "Site Structure Validation"),
+        ("validate_lesson_fullscreen.py", "Lesson Fullscreen Validation"),
+        ("validate_watermark.py", "Lesson Watermark Validation"),
+    ]
+    for script, name in sub_validations:
+        try:
+            res = subprocess.run([sys.executable, str(ROOT / f"tools/{script}")], capture_output=True, text=True, check=False)
+            if res.returncode != 0:
+                failures.append(f"{name} failed. Error:\n{res.stderr or res.stdout}")
+        except Exception as error:
+            failures.append(f"{name} execution failed: {error}")
+
     try:
         urls = sitemap_urls()
     except Exception as error:
