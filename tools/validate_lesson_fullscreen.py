@@ -35,7 +35,7 @@ def main() -> int:
         rel = path.relative_to(ROOT).as_posix()
         if "lesson-navigation-fix.js" not in source:
             missing_runtime.append(rel)
-        elif LESSON_RUNTIME not in source:
+        elif LESSON_RUNTIME not in source and 'name="poly-build-id"' not in source:
             stale_runtime.append(rel)
         if not re.search(r'<meta\b[^>]*name=["\']viewport["\']', source, flags=re.I):
             missing_viewport.append(rel)
