@@ -13,3 +13,9 @@ This journal documents key project-specific SEO patterns, crawlability constrain
 **Learning:** Running automated Lighthouse audits in headless virtualized continuous integration environments (like GitHub Actions runners) often leads to significant performance score degradation and flakiness due to CPU throttling and noisy-neighbor virtualization overhead. Setting excessively strict performance baseline scores (such as 0.70) results in false negative build failures, despite zero code changes affecting real-world rendering or user load speeds.
 
 **Action:** Adjust Lighthouse CI performance budget thresholds (e.g. reducing target performance category minScore to 0.55) to reflect the realistic constraints of the hosting build environment, ensuring a stable deployment pipeline without compromising user-facing quality gates.
+
+## 2026-07-30 - [Optimizing Search Engine Indexing of Offline and Utility Pages]
+
+**Learning:** Service worker offline fallback pages (like `offline.html`) and user account utility pages (like `reset-password.html`) should never be indexed by search engines. If crawled, they result in poor user experience, empty search listings, and potential security leaks (in the case of password reset URLs).
+
+**Action:** Always append explicit `<meta name="robots" content="noindex, follow">` to service worker offline templates, and `<meta name="robots" content="noindex, nofollow">` to password reset/utility portals, ensuring they are excluded from crawl indexing while maintaining link graph traversal on fallback pages.
