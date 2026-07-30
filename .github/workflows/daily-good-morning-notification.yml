@@ -59,13 +59,13 @@ jobs:
           if not credentials.token:
               raise SystemExit("ERROR: Google OAuth token was not obtained.")
 
-          # Use the Indian calendar date so the quote/message changes according
+          # Use the Indian calendar date so the message changes according
           # to the IST date, matching the 07:00 AM IST delivery schedule.
           today_ist = datetime.now(ZoneInfo("Asia/Kolkata")).date()
           date_key = today_ist.isoformat()
 
-          # Special Onam notifications override the normal daily motivational
-          # quote on these two dates. They are sent at the same 07:00 AM IST
+          # Special Onam notifications override the normal daily messages
+          # on these two dates. They are sent at the same 07:00 AM IST
           # schedule as the regular Good Morning notification.
           onam_messages = {
               "2026-08-25": {
@@ -89,21 +89,59 @@ jobs:
               },
           }
 
-          quotes = [
-              "Success is the sum of small efforts, repeated day in and day out. Have a great day!",
-              "Learn something new today. Small improvements become big results over time.",
-              "Your future is built by what you do today. Start with one useful step.",
-              "Consistency beats intensity. Keep learning, keep improving, and keep moving forward.",
-              "Every problem is an opportunity to understand something better. Have a productive day!",
-              "Do not wait for the perfect moment. Use today to make meaningful progress.",
-              "Knowledge becomes power when you apply it. Learn, practice, and improve today.",
-              "A good engineer keeps asking why. Stay curious and keep learning.",
-              "Small progress is still progress. Complete one important task today.",
-              "The best way to master a skill is to practice it regularly. Keep going!",
-              "Focus on progress, not perfection. One better step today is enough.",
-              "Challenges are part of learning. Solve one, understand it, and become stronger.",
-              "Build your skills one day at a time. Your effort today matters tomorrow.",
-              "Start the day with a clear goal, a curious mind, and the courage to learn.",
+          # 50 unique daily messages that rotate based on the IST date.
+          # Each day gets a different title and body, cycling back to #1 after day 50.
+          daily_messages = [
+              {"title": "🌅 Good Morning – POLY PMNA", "body": "പുതിയൊരു ദിവസം... പുതിയൊരു അവസരം. ഇന്ന് എന്തെങ്കിലും പുതിയത് പഠിക്കൂ! 📚"},
+              {"title": "☀️ സുപ്രഭാതം!", "body": "Every expert was once a beginner. ഇന്ന് പഠനം ആരംഭിക്കൂ."},
+              {"title": "📚 Good Morning!", "body": "ഒരു Lesson പൂർത്തിയാക്കി ഇന്നത്തെ ദിവസം വിജയകരമാക്കൂ."},
+              {"title": "🌼 സുപ്രഭാതം!", "body": "Dream Big. Learn Daily. Achieve More. 🚀"},
+              {"title": "💡 Good Morning!", "body": "അറിവാണ് നിങ്ങളുടെ ഏറ്റവും വലിയ ശക്തി. ഇന്ന് അത് വർധിപ്പിക്കൂ."},
+              {"title": "🌞 സുപ്രഭാതം!", "body": "Today's effort becomes tomorrow's success."},
+              {"title": "📖 Good Morning!", "body": "Learn something new today. Your future will thank you."},
+              {"title": "🌿 സുപ്രഭാതം!", "body": "ഓരോ ദിവസവും ഒരു പുതിയ തുടക്കമാണ്. മുന്നോട്ട് പോവൂ."},
+              {"title": "🚀 Good Morning!", "body": "Small progress every day leads to big achievements."},
+              {"title": "🎯 സുപ്രഭാതം!", "body": "ഇന്നത്തെ ലക്ഷ്യം: ഒരു Chapter പൂർത്തിയാക്കുക."},
+              {"title": "🌅 Good Morning!", "body": "പഠനം നിർത്തരുത്... വിജയം നിങ്ങളെ കാത്തിരിക്കുന്നു."},
+              {"title": "📘 സുപ്രഭാതം!", "body": "Consistency is the key to success. പഠനം തുടരൂ."},
+              {"title": "✨ Good Morning!", "body": "One lesson today, one step closer to your dream."},
+              {"title": "🌸 സുപ്രഭാതം!", "body": "ഇന്ന് ഒരു പുതിയ Concept മനസ്സിലാക്കൂ."},
+              {"title": "📚 Good Morning!", "body": "Stay curious. Stay focused. Keep learning."},
+              {"title": "🌞 സുപ്രഭാതം!", "body": "സമയം വിലപ്പെട്ടതാണ്. അത് അറിവാക്കി മാറ്റൂ."},
+              {"title": "💙 Good Morning!", "body": "Believe in yourself. Great things take time."},
+              {"title": "📖 സുപ്രഭാതം!", "body": "ഇന്നത്തെ പഠനം നാളത്തെ ആത്മവിശ്വാസമാണ്."},
+              {"title": "🌼 Good Morning!", "body": "Make today productive. Start with one lesson."},
+              {"title": "🚀 സുപ്രഭാതം!", "body": "Learn Today. Lead Tomorrow."},
+              {"title": "🌅 Good Morning!", "body": "നിങ്ങളുടെ സ്വപ്നങ്ങളിലേക്ക് ഇന്ന് ഒരു ചുവടുകൂടി."},
+              {"title": "📚 സുപ്രഭാതം!", "body": "Every page you read builds your future."},
+              {"title": "💡 Good Morning!", "body": "Questions lead to knowledge. Never stop asking."},
+              {"title": "🌿 സുപ്രഭാതം!", "body": "ഇന്ന് ഒരു Quiz ശ്രമിക്കൂ."},
+              {"title": "📘 Good Morning!", "body": "Learning is the best investment you can make."},
+              {"title": "🌞 സുപ്രഭാതം!", "body": "ഓരോ ദിവസവും പുതിയ അവസരങ്ങളാണ്."},
+              {"title": "🚀 Good Morning!", "body": "Focus on progress, not perfection."},
+              {"title": "📖 സുപ്രഭാതം!", "body": "POLY PMNA-യോടൊപ്പം ഇന്നും പഠനം തുടരൂ."},
+              {"title": "🌸 Good Morning!", "body": "Success begins with today's effort."},
+              {"title": "🎯 സുപ്രഭാതം!", "body": "ഇന്നത്തെ Challenge: ഒരു പുതിയ Topic പഠിക്കുക."},
+              {"title": "🌅 Good Morning!", "body": "Make every morning count."},
+              {"title": "📚 സുപ്രഭാതം!", "body": "പഠനം നിങ്ങളുടെ ഭാവിയെ രൂപപ്പെടുത്തുന്നു."},
+              {"title": "💙 Good Morning!", "body": "Never stop learning."},
+              {"title": "🌞 സുപ്രഭാതം!", "body": "ഇന്ന് ചെയ്യുന്ന പരിശ്രമം നാളത്തെ വിജയം."},
+              {"title": "📖 Good Morning!", "body": "Read. Learn. Improve."},
+              {"title": "🌼 സുപ്രഭാതം!", "body": "നിങ്ങളുടെ കഴിവിൽ വിശ്വസിക്കൂ."},
+              {"title": "🚀 Good Morning!", "body": "One small step today makes a big difference tomorrow."},
+              {"title": "📚 സുപ്രഭാതം!", "body": "അറിവ് പങ്കുവെച്ചാൽ മാത്രമേ വളരൂ."},
+              {"title": "💡 Good Morning!", "body": "Stay positive. Stay productive."},
+              {"title": "🌿 സുപ്രഭാതം!", "body": "ഇന്നത്തെ ദിവസം പഠനത്തിനായി മാറ്റിവെക്കൂ."},
+              {"title": "📘 Good Morning!", "body": "Keep moving. Keep improving."},
+              {"title": "🌸 സുപ്രഭാതം!", "body": "ഒരു Lesson ഇന്ന്... ഒരു വിജയം നാളെ."},
+              {"title": "🌅 Good Morning!", "body": "Learn with confidence. Grow with knowledge."},
+              {"title": "📖 സുപ്രഭാതം!", "body": "നല്ല ശീലങ്ങൾ നല്ല ഭാവി സൃഷ്ടിക്കുന്നു."},
+              {"title": "🚀 Good Morning!", "body": "Push yourself. Nobody else will do it for you."},
+              {"title": "☀️ സുപ്രഭാതം!", "body": "POLY PMNA-യിൽ പുതിയ Notes പരിശോധിക്കൂ."},
+              {"title": "📚 Good Morning!", "body": "Knowledge opens new opportunities."},
+              {"title": "🌞 സുപ്രഭാതം!", "body": "പുതിയൊരു ദിവസം... പുതിയൊരു പഠനം."},
+              {"title": "💙 Good Morning!", "body": "Learn today, inspire tomorrow."},
+              {"title": "🌅 സുപ്രഭാതം – POLY PMNA", "body": "പുഞ്ചിരിയോടെ ദിവസം ആരംഭിക്കൂ... അറിവോടെ ദിവസം അവസാനിപ്പിക്കൂ. 🌟"},
           ]
 
           if date_key in onam_messages:
@@ -112,8 +150,11 @@ jobs:
               body = selected["body"]
               notification_type = selected["notificationType"]
           else:
-              title = "🌅 Good Morning – POLY PMNA"
-              body = quotes[today_ist.toordinal() % len(quotes)]
+              # Rotate through the 50 messages based on the ordinal day number
+              index = today_ist.toordinal() % len(daily_messages)
+              selected = daily_messages[index]
+              title = selected["title"]
+              body = selected["body"]
               notification_type = "daily-motivation"
 
           message = {
