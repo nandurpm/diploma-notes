@@ -156,3 +156,30 @@ test("sanitizeHistory keeps only the last four entries", () => {
   assert.equal(cleaned[0].content, "m2");
   assert.equal(cleaned[3].content, "m5");
 });
+
+test("tryEquation solves simultaneous linear equations and handles edge cases", () => {
+  // Simultaneous equations with unique solution
+  assert.match(T.tryEquation("2x + y = 5; x - y = 1"), /Answer: x = 2, y = 1/);
+  // Parallel/dependent simultaneous equations with no unique solution
+  assert.match(T.tryEquation("2x + 2y = 4; x + y = 2"), /Answer: no unique solution/);
+  // Linear equation with no solution (e.g. 0x = 5)
+  assert.match(T.tryEquation("0x = 5"), /Answer: no solution\./);
+  // Linear equation with infinitely many solutions (e.g. 0x = 0)
+  assert.match(T.tryEquation("0x = 0"), /Answer: infinitely many solutions\./);
+  // Quadratic equation with complex roots (e.g. x^2 + x + 1 = 0)
+  assert.match(T.tryEquation("x^2 + x + 1 = 0"), /Answer: x = -0.5 ± 0.8660254038i/);
+});
+
+test("tryCalculus handles more polynomial differentiation and integration edge cases", () => {
+  // Differentiating/integrating non-x constants returns null (simple parser limit)
+  assert.equal(T.tryCalculus("differentiate 5"), null);
+  assert.equal(T.tryCalculus("integrate 5"), null);
+  // Linear variable differentiation
+  assert.equal(T.tryCalculus("differentiate x"), "Answer: 1");
+  // Multi-term integration
+  assert.equal(T.tryCalculus("integrate x^2 - x + 1"), "Answer: 0.3333333333x^3 -0.5x^2 +x + C");
+});
+
+test("tryGeometry computes circle circumference", () => {
+  assert.match(T.tryGeometry("circumference of circle radius 7"), /Answer: 43\.982/);
+});
