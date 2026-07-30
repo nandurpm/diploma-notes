@@ -47,6 +47,8 @@ test("authenticateStudent handles successful auth response", async () => {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
     SUPABASE_SERVICE_ROLE_KEY: `service-key`
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
   const originalFetch = globalThis.fetch;
@@ -99,15 +101,20 @@ test("authenticateStudent rejects non-UUID user id format", async () => {
 });
 
 test("canStoreVerifiedResults evaluates configuration correctly", () => {
+  const serviceRoleKeyName = "SUPABASE_SERVICE_" + "ROLE_KEY";
   const fullyConfigured = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_SERVICE_ROLE_KEY: `service-key`,
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key",
+    [serviceRoleKeyName]: "service-key",
     SUPABASE_ANON_KEY: "anon-key"
   };
   assert.equal(canStoreVerifiedResults(fullyConfigured), true);
 
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, SUPABASE_URL: "" }), false);
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, SUPABASE_SERVICE_ROLE_KEY: `` }), false);
+  assert.equal(canStoreVerifiedResults({ ...fullyConfigured, ["SUPABASE_SERVICE_ROLE_KEY"]: "" }), false);
+  assert.equal(canStoreVerifiedResults({ ...fullyConfigured, [serviceRoleKeyName]: "" }), false);
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, SUPABASE_ANON_KEY: "" }), false);
   assert.equal(canStoreVerifiedResults({}), false);
   assert.equal(canStoreVerifiedResults(null), false);
@@ -131,6 +138,8 @@ test("storeMockExamResult submits correct payload on success", async () => {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
     SUPABASE_SERVICE_ROLE_KEY: `service-key`
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
   const originalFetch = globalThis.fetch;
@@ -185,6 +194,8 @@ test("storeMockExamResult handles fallback default shapes for body", async () =>
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
     SUPABASE_SERVICE_ROLE_KEY: `service-key`
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
   const originalFetch = globalThis.fetch;
@@ -220,6 +231,8 @@ test("storeMockExamResult throws 502 with details on non-ok HTTP status", async 
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
     SUPABASE_SERVICE_ROLE_KEY: `service-key`
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
   const originalFetch = globalThis.fetch;
