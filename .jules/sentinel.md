@@ -17,3 +17,8 @@
 **Vulnerability:** Downstream storage handlers and rate limiters trust authentication metadata (like `user.id`) and remote request headers (like `CF-Connecting-IP` / `X-Forwarded-For`) without strict format or character verification. This can lead to injection attacks, key spoofing, database query failures, and in-memory Map key bloat/exhaustion.
 **Learning:** Edge-computed state must validate all external system and connection parameters using strict schemas or character filters before use in key construction, database payloads, or cross-origin headers.
 **Prevention:** Enforce strict regex validation for structural keys (e.g., UUID format check for user IDs) and sanitize client IP headers to allow only valid IP characters up to 45 characters max, ensuring consistent defense-in-depth across the entire worker pipeline.
+
+## 2026-07-30 - [Edge-Level Early Request Size Verification to Avoid Resource Exhaustion]
+**Vulnerability:** Downstream middleware (such as rate limiters or Supabase authentication fetches) running before request payload size limits are evaluated. This allows unauthenticated or unauthorized clients to send extremely large payloads (e.g. DoS attempts) that trigger stateful rate limiter or auth database requests, exhausting server resources and rate-limiting capacities.
+**Learning:** Request size verification must be performed at the absolute entry point of edge routers (such as Cloudflare Worker fetch handlers) prior to executing any stateful rate limiting, remote authentication lookups, or payload parsing.
+**Prevention:** Enforce Content-Length checks at the absolute entrance level of edge workers, rejecting oversized requests with an HTTP 413 response immediately.

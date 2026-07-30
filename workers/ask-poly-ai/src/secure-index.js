@@ -39,6 +39,15 @@ export default {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
 
+    /* Fail early on oversized requests to prevent resource/database-query exhaustion and DoS attacks */
+    if (request.method === "POST") {
+      const isExam = url.pathname === "/api/evaluate-mock-exam";
+      const maximumSize = isExam ? 120000 : 40000;
+      if (Number(request.headers.get("Content-Length") || 0) > maximumSize) {
+        return json({ error: "The request is too large." }, 413, origin, env);
+      }
+    }
+
     if (request.method === "POST" && !isOriginAllowed(origin, env)) {
       return json({ error: "This website origin is not allowed." }, 403, origin, env);
     }
