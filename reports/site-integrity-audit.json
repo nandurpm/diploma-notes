@@ -1,5 +1,13 @@
 {
   "schemaVersion": 2,
+  "generatedAt": "2026-07-30T10:32:33Z",
+  "commit": "3711fabf467023864a9bca76e31b549d43579b10",
+  "branch": "jules-5216654730726554637-e976db49",
+  "status": "passed",
+  "counts": {
+    "sitemapResources": 319,
+    "htmlResources": 191,
+    "pdfResources": 128,
   "generatedAt": "2026-07-30T09:59:10Z",
   "commit": "9091d2dbe0d925fe526564e57a18a2fd90058134",
   "branch": "jules-18296231972373989761-abe7a512",
@@ -16,6 +24,9 @@
     "revision2021Lessons": 91,
     "revision2026Lessons": 36,
     "revision2021Notes": 92,
+    "revision2026Notes": 36
+  },
+  "qualityGateOutput": "Site quality gate passed for 319 sitemap resources.",
     "revision2026Notes": 35
   },
   "qualityGateOutput": "Site quality gate passed for 318 sitemap resources.",
