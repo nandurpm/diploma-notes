@@ -24,3 +24,11 @@ Only record long-term testing insights here.
 **Learning:** Hardcoded exact-match assertions on total file or directory counts in test and validation suites create artificial build breaks when contents are legitimately added (e.g., going from 29 to 32 lesson files).
 
 **Action:** Ensure structural validation suites are kept in lockstep with codebase milestones or designed to use flexible bounds (such as minimum baseline ranges) unless strict exact equality is absolutely necessary for regression protection.
+
+## 2026-07-30 - Eliminating Deterministic Solver Coverage Gaps
+
+**Scenario:** Testing complex mathematical logic flows (such as simultaneous linear equation solving, quadratic complex roots, multi-term calculus differentiation/integration, and shape circumference/area rules) inside deterministic local solvers.
+
+**Learning:** Complex math parsing and coordinate math helpers contain subtle edge cases (e.g., parallel/dependent linear systems, repeated roots, complex conjugates, and non-x constants) that can fail silently if not protected. Even if an AI provider acts as a fallback, local deterministic solvers must be fully covered by direct unit tests to ensure high-accuracy responses without expensive API round-trips.
+
+**Action:** Always identify deterministic parsing/calculation helpers and aggressively write unit tests covering standard inputs, complex coordinate/algebra solutions, boundary/null values (like zero coefficients), and all conditional branches.
