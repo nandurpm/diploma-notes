@@ -37,3 +37,7 @@
 ## 2026-07-29 - [Cached Intl.DateTimeFormat Instantiations]
 **Learning:** Instantiating `Intl.DateTimeFormat` objects in frequently executed scheduling loops, MutationObserver triggers, or timer tick events (such as `formatDateKey` in `poly-utils.js` and `indiaDateKey` in `daily-important-day-fallback-fix.js`) has high performance overhead due to locale resolution and internal timezone setup. Caching these instances in module scope completely eliminates this initialization latency and memory allocation.
 **Action:** Always pre-compile and cache `Intl.DateTimeFormat` objects in module-level scope when formatting dates within hot paths, timers, or DOM observation handlers.
+
+## 2026-07-30 - [Pre-computed Search Text on Department Alias Hotfix and Subject Browser]
+**Learning:** Found that search/filter operations on `assets/js/department-subject-alias-hotfix.js` and `assets/js/subject-browser.js` were dynamically instantiating strings, joining arrays, and converting to lowercase for hundreds of elements on every user keystroke. Pre-computing and caching the `_searchText` property directly on each subject object once during data loading reduces runtime processing from O(N) allocations down to simple and fast string containment checks.
+**Action:** Always pre-compute and cache unified, normalized search indices on list data objects during initial loading to completely eliminate string join/lowercasing CPU overhead inside render-blocking keypress event listeners.
