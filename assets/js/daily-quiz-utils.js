@@ -44,16 +44,20 @@
     if (type) element.classList.add(type);
   };
 
+  let cachedFallbackFormatter = null;
   DQ.localDateKeyIST = () => {
     if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
       return window.PolyUtils.formatDateKey();
     }
-    const parts = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).formatToParts(new Date());
+    if (!cachedFallbackFormatter) {
+      cachedFallbackFormatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    }
+    const parts = cachedFallbackFormatter.formatToParts(new Date());
 
     const value = (type) =>
       parts.find((item) => item.type === type)?.value ?? "";

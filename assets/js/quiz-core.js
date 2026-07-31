@@ -64,13 +64,17 @@
     Q.elements.serviceWarning?.classList.add("hidden");
   };
 
+  let cachedFallbackFormatter = null;
   Q.dateKeyIST = () => {
     if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
       return window.PolyUtils.formatDateKey();
     }
-    const parts = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit",
-    }).formatToParts(new Date());
+    if (!cachedFallbackFormatter) {
+      cachedFallbackFormatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit",
+      });
+    }
+    const parts = cachedFallbackFormatter.formatToParts(new Date());
     const pick = (type) => parts.find((part) => part.type === type)?.value || "";
     return `${pick("year")}-${pick("month")}-${pick("day")}`;
   };
