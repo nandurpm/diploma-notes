@@ -6,6 +6,7 @@
   const DEFAULT_SUPABASE_URL = "https://hwobooljdvynsajtrvnk.supabase.co";
   const DEFAULT_SUPABASE_PUBLISHABLE_KEY = "";
   const DEFAULT_TIMEOUT_MS = 30000;
+  const GUEST_RESULTS_KEY = "polypmna_guest_mock_exam_results";
   const key = (kind) => `poly-mock-exam:${M.paperId}:${M.state.user?.id || "unknown"}:${kind}`;
 
   const chemistryExact = Object.freeze({
@@ -182,6 +183,34 @@
   }
 
   async function saveResult(result) {
+    if (M.state.guest) {
+      try {
+        const results = JSON.parse(localStorage.getItem(GUEST_RESULTS_KEY) || "[]");
+        const entry = {
+          attemptId: `guest-${Date.now()}`,
+          paperId: M.paperId,
+          subjectCode: M.subjectCode,
+          title: result.title || M.displayName,
+          score: result.score,
+          totalMarks: result.totalMarks || M.totalMarks,
+          percentage: result.percentage,
+          evaluationMode: result.evaluationMode,
+          status: result.status,
+          evaluatedAt: result.evaluatedAt || new Date().toISOString(),
+          overallFeedback: result.overallFeedback,
+          attemptedCount: (result.results || []).length,
+          timeTakenSeconds: Math.floor((Date.now() - M.state.startedAt) / 1000),
+          revision: M.heroEyebrow || "",
+        };
+        results.unshift(entry);
+        localStorage.setItem(GUEST_RESULTS_KEY, JSON.stringify(results.slice(0, 100)));
+        return;
+      } catch (error) {
+        console.error("Guest result storage failed", error);
+        throw new Error("Could not save result to browser history.");
+      }
+    }
+
     if (result?.status !== "published" || result?.evaluationMode === "browser-rubric-provisional") {
       throw new Error("Provisional browser results are not stored as authoritative online scores.");
     }
@@ -191,18 +220,64 @@
 
   async function loadHistory() {
     const box = $("attemptHistory");
-    const { data, error } = await M.state.client.from("sample_paper_attempts").select("id,score,max_score,ai_feedback,created_at,status").eq("user_id", M.state.user.id).eq("subject_code", M.subjectCode).eq("paper_code", M.paperId).order("created_at", { ascending: false }).limit(10);
-    if (error || !data?.length) {
-      box.innerHTML = `<div class="empty-state">${error ? "Verified online attempt history is temporarily unavailable." : "No verified online mock-exam attempts yet."}</div>`;
+    let history = [];
+    let isGuest = M.state.guest;
+
+    if (isGuest) {
+      try {
+        const all = JSON.parse(localStorage.getItem(GUEST_RESULTS_KEY) || "[]");
+        history = all.filter(r => r.paperId === M.paperId);
+      } catch (error) {
+        console.error("Failed to load guest history", error);
+      }
+    } else {
+      const { data, error } = await M.state.client.from("sample_paper_attempts").select("id,score,max_score,ai_feedback,created_at,status").eq("user_id", M.state.user.id).eq("subject_code", M.subjectCode).eq("paper_code", M.paperId).order("created_at", { ascending: false }).limit(10);
+      if (error) {
+        box.innerHTML = `<div class="empty-state">Verified online attempt history is temporarily unavailable.</div>`;
+        return;
+      }
+      history = (data || []).map(row => ({
+        evaluatedAt: row.created_at,
+        score: row.score,
+        totalMarks: row.max_score || M.totalMarks,
+        evaluationMode: row.ai_feedback?.evaluationMode || "Server evaluation",
+        status: row.status || "published"
+      }));
+    }
+
+    if (!history.length) {
+      box.innerHTML = `<div class="empty-state">${isGuest ? "No local guest attempts yet." : "No verified online mock-exam attempts yet."}</div>`;
       return;
     }
-    box.innerHTML = `<table class="data-table"><thead><tr><th>Date</th><th>Score</th><th>Percentage</th><th>Evaluation</th><th>Status</th></tr></thead><tbody>${data.map((row) => {
-      const maximum = Number(row.max_score || M.totalMarks);
+
+    box.innerHTML = `<table class="data-table"><thead><tr><th>Date</th><th>Score</th><th>Percentage</th><th>Evaluation</th><th>Status</th></tr></thead><tbody>${history.map((row) => {
+      const maximum = Number(row.totalMarks || M.totalMarks);
       const score = Number(row.score || 0);
       const percentage = maximum > 0 ? score / maximum * 100 : 0;
-      const mode = M.ui.evaluationLabel ? M.ui.evaluationLabel(row.ai_feedback?.evaluationMode) : "Server evaluation";
-      return `<tr><td>${esc(new Date(row.created_at).toLocaleString("en-IN"))}</td><td class="history-score">${mark(score)}/${mark(maximum)}</td><td>${mark(percentage)}%</td><td>${esc(mode)}</td><td>${esc(row.status || "published")}</td></tr>`;
+      const mode = M.ui.evaluationLabel ? M.ui.evaluationLabel(row.evaluationMode) : (row.evaluationMode || "Evaluation");
+      return `<tr><td>${esc(new Date(row.evaluatedAt).toLocaleString("en-IN"))}</td><td class="history-score">${mark(score)}/${mark(maximum)}</td><td>${mark(percentage.toFixed(1))}%</td><td>${esc(mode)}</td><td>${esc(row.status)}</td></tr>`;
     }).join("")}</tbody></table>`;
+    
+    if (isGuest) {
+      const notice = document.createElement("p");
+      notice.className = "info";
+      notice.style.marginTop = "12px";
+      notice.textContent = "Guest Result: Your Mock Exam history is saved only on this device/browser. Logging in may provide account-based result storage.";
+      box.appendChild(notice);
+      
+      const clearBtn = $("clearGuestHistory");
+      if (clearBtn) {
+        clearBtn.classList.remove("hidden");
+        clearBtn.onclick = () => {
+          if (confirm("Clear all guest mock exam history from this browser? This cannot be undone.")) {
+            localStorage.removeItem(GUEST_RESULTS_KEY);
+            loadHistory();
+          }
+        };
+      }
+    } else {
+      $("clearGuestHistory")?.classList.add("hidden");
+    }
   }
 
   M.service = { key, loadSupabaseConfig, restoreDraft, saveDraft, startTimer, evaluate, saveResult, loadHistory };

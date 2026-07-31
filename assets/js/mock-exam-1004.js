@@ -121,13 +121,16 @@
         });
         const { data: { session }, error } = await M.state.client.auth.getSession();
         if (error) throw error;
-        if (!session?.user) {
-          hide("loadingView");
-          show("authRequired");
-          return;
+
+        if (session?.user) {
+          M.state.user = session.user;
+          M.state.guest = false;
+          $("studentName").textContent = session.user.user_metadata?.username || session.user.email || "Authenticated student";
+        } else {
+          M.state.user = null;
+          M.state.guest = true;
+          $("studentName").textContent = "Guest Student";
         }
-        M.state.user = session.user;
-        $("studentName").textContent = session.user.user_metadata?.username || session.user.email || "Authenticated student";
         M.service.restoreDraft();
         M.ui.renderQuestions(scheduleSave);
         M.service.startTimer();

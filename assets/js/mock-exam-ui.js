@@ -146,7 +146,8 @@
     const percent = Math.max(0, Math.min(100, Number(result.percentage ?? score / M.totalMarks * 100)));
     $("resultScore").textContent = `${mark(score)}/${M.totalMarks}`;
     $("resultPercent").textContent = `${mark(percent)}%`;
-    $("resultMeta").textContent = `${new Date().toLocaleString("en-IN")} · ${result.savedOnline === false ? "Published on this page" : "Saved to your account"}`;
+    const storageMsg = M.state.guest ? "Saved to browser history" : (result.savedOnline === false ? "Published on this page" : "Saved to your account");
+    $("resultMeta").textContent = `${new Date().toLocaleString("en-IN")} · ${storageMsg}`;
     $("evaluationMode").textContent = evaluationLabel(result.evaluationMode);
     $("overallFeedback").textContent = `${result.overallFeedback || "Review the question-wise feedback below."}${result.saveWarning ? ` ${result.saveWarning}` : ""}`;
     const questionMap = new Map(M.questions.map((q) => [q.id, q]));
