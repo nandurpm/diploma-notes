@@ -32,3 +32,11 @@ Only record long-term testing insights here.
 **Learning:** Complex math parsing and coordinate math helpers contain subtle edge cases (e.g., parallel/dependent linear systems, repeated roots, complex conjugates, and non-x constants) that can fail silently if not protected. Even if an AI provider acts as a fallback, local deterministic solvers must be fully covered by direct unit tests to ensure high-accuracy responses without expensive API round-trips.
 
 **Action:** Always identify deterministic parsing/calculation helpers and aggressively write unit tests covering standard inputs, complex coordinate/algebra solutions, boundary/null values (like zero coefficients), and all conditional branches.
+
+## 2026-07-31 - Deterministic Rate Limiter Eviction & Pruning Validation
+
+**Scenario:** Verifying rate-limiting map-pruning routines that automatically evict expired entries to prevent memory exhaustion when active entries exceed maximum limits.
+
+**Learning:** Rate-limiting components that utilize internal Map objects for storage are susceptible to memory leaks if old or inactive keys are never purged. Validating this eviction behavior under high load is challenging using real-time delays, but mock-time stubbing allows for highly deterministic assertion of both the eviction trigger and the preservation of non-expired entries in the collection.
+
+**Action:** Always test cache-eviction, map-pruning, and collection-cleanup routines by stubbing global time references (such as `Date.now()`) to simulate multi-minute or multi-hour time increments deterministically, ensuring eviction occurs exactly at specified thresholds and retains expected active elements.
