@@ -19,6 +19,7 @@ EXCLUDED_PREFIXES = (
 EXCLUDED_FILES = {
     "404.html",
     "ask-poly-v2.html",
+    "departments.html",
     "new-year-theme-preview.html",
     "reset-password.html",
     "tools-v2.html",
