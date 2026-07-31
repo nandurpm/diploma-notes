@@ -1,0 +1,22 @@
+{
+  "generated": [],
+  "errors": [],
+  "requiredLessonCodes": [],
+  "generatedCodes": [],
+  "missingCodes": [],
+  "preservedExistingPdfCodes": [
+    "1003",
+    "1004"
+  ],
+  "renderer": "Playwright Chromium through local HTTP server",
+  "validation": {
+    "everyLessonHtmlRequiresPdf": true,
+    "allKnownPanelsForcedVisible": true,
+    "largeContainersAllowedToSplit": true,
+    "genuinelyBlankPagesRemoved": true,
+    "blankPageTextThreshold": 10,
+    "minimumPdfBytes": 20000,
+    "textCoverageReported": true,
+    "buildContinuesAfterNonCriticalWaits": true
+  }
+}

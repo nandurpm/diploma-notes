@@ -1,0 +1,54 @@
+name: Release redesigned About page
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  trigger:
+    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Release redesigned About page'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Normalize and validate About page
+        run: |
+          python tools/normalize_about_page.py
+          python tools/normalize_about_page.py --check
+          node --check assets/js/about-experience.js
+      - name: Commit About normalization when needed
+        run: |
+          if git diff --quiet; then
+            echo "About page is already normalized."
+          else
+            git config user.name "POLY PMNA About Bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add about.html
+            git commit -m "Finalize redesigned About page"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Trigger final audit remediation
+        if: github.event_name == 'issues'
+        run: |
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "[automation] Finalize audit remediation" --body "Release the redesigned About page after repairing legacy quality-gate blockers and regenerating public metadata."
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "About page normalization passed. The final audit remediation and deployment sequence has been triggered."
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}

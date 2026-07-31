@@ -1,0 +1,225 @@
+<section id="m4" class="panel">
+<div class="module-hero"><span class="module-code">CO4 • 18 hours • Applying</span><h2>Module 4 — Python Programming</h2><p>Translate algorithms into Python 3 programs using interactive input/output, arithmetic expressions, selection and iteration.</p></div>
+<section class="section searchable"><div class="section-head"><span class="tag">M4.01 • 1L + 2P</span><h2>Python environment, input, output and arithmetic expressions</h2></div>
+<div class="grid"><article class="card third"><h3>Interactive mode</h3><p>Commands execute immediately at the prompt. It is useful for testing expressions and small statements.</p></article><article class="card third"><h3>Script mode</h3><p>Statements are saved in a <code>.py</code> file and executed as a complete program.</p></article><article class="card third"><h3>Indentation</h3><p>Python uses indentation to define blocks. Inconsistent indentation causes an error or incorrect structure.</p></article></div>
+<div class="table-wrap"><table><thead><tr><th>Item</th><th>Explanation</th><th>Example</th></tr></thead><tbody><tr><td>Comment</td><td>Text ignored by Python; explains code.</td><td><code># calculate total</code></td></tr><tr><td>Variable</td><td>Name referring to a value.</td><td><code>total = 50</code></td></tr><tr><td>int</td><td>Whole number.</td><td><code>25</code></td></tr><tr><td>float</td><td>Number with fractional part.</td><td><code>12.5</code></td></tr><tr><td>str</td><td>Text sequence.</td><td><code>"Kerala"</code></td></tr><tr><td>bool</td><td>Truth value.</td><td><code>True</code>, <code>False</code></td></tr><tr><td>input()</td><td>Reads text from the user.</td><td><code>name = input("Name: ")</code></td></tr><tr><td>print()</td><td>Displays values.</td><td><code>print(total)</code></td></tr><tr><td>Conversion</td><td>Changes input text to a numeric type.</td><td><code>age = int(input("Age: "))</code></td></tr><tr><td>f-string</td><td>Embeds values in formatted text.</td><td><code>print(f"Total = {total}")</code></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr></thead><tbody><tr><td>+</td><td>Addition</td><td><code>5 + 2</code></td><td>7</td></tr><tr><td>-</td><td>Subtraction</td><td><code>5 - 2</code></td><td>3</td></tr><tr><td>*</td><td>Multiplication</td><td><code>5 * 2</code></td><td>10</td></tr><tr><td>/</td><td>True division</td><td><code>5 / 2</code></td><td>2.5</td></tr><tr><td>//</td><td>Floor division</td><td><code>5 // 2</code></td><td>2</td></tr><tr><td>%</td><td>Remainder</td><td><code>5 % 2</code></td><td>1</td></tr><tr><td>**</td><td>Power</td><td><code>2 ** 3</code></td><td>8</td></tr></tbody></table></div>
+<div class="callout"><b>Input conversion:</b> <code>input()</code> returns text. Without <code>int()</code> or <code>float()</code>, <code>"2" + "3"</code> gives <code>"23"</code>, not 5.</div>
+</section>
+<section class="section searchable"><div class="section-head"><span class="tag">M4.02 • 2L + 4P</span><h2>Selection statements, relational and logical operators</h2></div>
+<div class="table-wrap"><table><thead><tr><th>Group</th><th>Operators</th><th>Example</th></tr></thead><tbody><tr><td>Relational</td><td><code>== != &lt; &lt;= &gt; &gt;=</code></td><td><code>mark &gt;= 50</code></td></tr><tr><td>Logical AND</td><td><code>and</code></td><td>Both conditions must be true.</td></tr><tr><td>Logical OR</td><td><code>or</code></td><td>At least one condition is true.</td></tr><tr><td>Logical NOT</td><td><code>not</code></td><td>Reverses the truth value.</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th>A</th><th>B</th><th>A and B</th><th>A or B</th><th>not A</th></tr></thead><tbody><tr><td>False</td><td>False</td><td>False</td><td>False</td><td>True</td></tr><tr><td>False</td><td>True</td><td>False</td><td>True</td><td>True</td></tr><tr><td>True</td><td>False</td><td>False</td><td>True</td><td>False</td></tr><tr><td>True</td><td>True</td><td>True</td><td>True</td><td>False</td></tr></tbody></table></div>
+<div class="grid"><article class="card third blue"><h3>Simple if</h3><p>Executes a block only when the condition is true.</p></article><article class="card third green"><h3>if-else</h3><p>Selects exactly one of two paths.</p></article><article class="card third yellow"><h3>Nested if / elif</h3><p>Handles multiple related decisions, ranges and priorities.</p></article></div>
+<div class="callout warning"><b>Boundary testing:</b> For marks, units, age or salary, test values just below, equal to and just above every boundary.</div>
+</section>
+<section class="section searchable"><div class="section-head"><span class="tag">M4.03 • 1L + 2P</span><h2>Iteration with for and while</h2></div>
+<div class="table-wrap"><table><thead><tr><th>Construct</th><th>Best use</th><th>Critical point</th></tr></thead><tbody><tr><td><code>for</code></td><td>Known sequence or count-controlled repetition</td><td><code>range</code> stop is excluded.</td></tr><tr><td><code>while</code></td><td>Repeat while a condition is true</td><td>Initialise and update state.</td></tr><tr><td>Counter</td><td>Counts events or iterations</td><td>Usually increases by one.</td></tr><tr><td>Accumulator</td><td>Builds sum, product or result</td><td>Choose correct initial value.</td></tr><tr><td><code>break</code></td><td>Leaves nearest loop</td><td>Use intentionally.</td></tr><tr><td><code>continue</code></td><td>Skips to next iteration</td><td>Do not skip a required update.</td></tr></tbody></table></div>
+</section>
+<section class="section"><div class="section-head"><h2>Thirty-four solved Python programs</h2><p>Every program is complete Python 3. Copy it, run it, change input and compare the output with a manual dry run.</p></div><div class="search-tools"><input id="programSearch" type="search" placeholder="Search program: factorial, bill, prime…"><button type="button" data-clear="programSearch">Clear</button></div><div class="program-grid" id="programGrid">
+<article class="program-card searchable"><div class="program-head"><span>Program 1</span><h4>Welcome message</h4></div><pre><code>print("Welcome to Introduction to IT Systems Lab")</code></pre><p><b>Output:</b> Welcome to Introduction to IT Systems Lab</p><p><b>Practice:</b> Display course code and semester on separate lines.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 2</span><h4>Read and display student details</h4></div><pre><code>name = input("Name: ")
+roll = input("Roll number: ")
+print(f"{roll} - {name}")</code></pre><p><b>Logic:</b> Input remains text and an f-string formats the output.</p><div class="ml">Roll number arithmetic ചെയ്യേണ്ടതില്ലെങ്കിൽ string ആയി സൂക്ഷിക്കാം.</div></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 3</span><h4>Add two numbers</h4></div><pre><code>a = float(input("First number: "))
+b = float(input("Second number: "))
+print(f"Sum = {a + b}")</code></pre><p><b>Sample:</b> 12.5 and 3 → Sum = 15.5.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 4</span><h4>All arithmetic operations</h4></div><pre><code>a = float(input("a: "))
+b = float(input("b: "))
+print("Add:", a + b)
+print("Subtract:", a - b)
+print("Multiply:", a * b)
+if b != 0:
+    print("Divide:", a / b)
+else:
+    print("Division undefined")</code></pre><p><b>Common mistake:</b> Division must be protected when b is zero.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 5</span><h4>Rectangle area and perimeter</h4></div><pre><code>length = float(input("Length: "))
+breadth = float(input("Breadth: "))
+print("Area =", length * breadth)
+print("Perimeter =", 2 * (length + breadth))</code></pre><p><b>Dry run:</b> 5 and 3 → area 15, perimeter 16.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 6</span><h4>Circle area and circumference</h4></div><pre><code>import math
+radius = float(input("Radius: "))
+print(f"Area = {math.pi * radius ** 2:.2f}")
+print(f"Circumference = {2 * math.pi * radius:.2f}")</code></pre><p><b>Practice:</b> Reject a negative radius.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 7</span><h4>Celsius to Fahrenheit</h4></div><pre><code>celsius = float(input("Celsius: "))
+fahrenheit = celsius * 9 / 5 + 32
+print(f"Fahrenheit = {fahrenheit:.2f}")</code></pre><p><b>Test:</b> 0 → 32; 100 → 212.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 8</span><h4>Simple interest</h4></div><pre><code>principal = float(input("Principal: "))
+rate = float(input("Rate %: "))
+time = float(input("Time in years: "))
+interest = principal * rate * time / 100
+print(f"Simple interest = {interest:.2f}")</code></pre><p><b>Dry run:</b> 10000, 8, 2 → 1600.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 9</span><h4>Total, average and percentage</h4></div><pre><code>m1 = float(input("Mark 1: "))
+m2 = float(input("Mark 2: "))
+m3 = float(input("Mark 3: "))
+total = m1 + m2 + m3
+print("Total =", total)
+print("Average =", total / 3)
+print("Percentage =", total / 300 * 100)</code></pre><p><b>Practice:</b> Validate every mark between 0 and 100.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 10</span><h4>Swap two variables</h4></div><pre><code>a = input("a: ")
+b = input("b: ")
+a, b = b, a
+print("a =", a, "b =", b)</code></pre><p>Python supports tuple unpacking, so a temporary variable is not required here.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 11</span><h4>Convert total seconds</h4></div><pre><code>seconds = int(input("Total seconds: "))
+hours = seconds // 3600
+remaining = seconds % 3600
+minutes = remaining // 60
+seconds_left = remaining % 60
+print(hours, "h", minutes, "m", seconds_left, "s")</code></pre><p><b>Sample:</b> 3672 → 1 h 1 m 12 s.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 12</span><h4>Gross salary</h4></div><pre><code>basic = float(input("Basic pay: "))
+hra = basic * 0.20
+da = basic * 0.10
+gross = basic + hra + da
+print(f"Gross salary = {gross:.2f}")</code></pre><p><b>Practice:</b> Add a deduction and calculate net salary.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 13</span><h4>Positive, negative or zero</h4></div><pre><code>number = float(input("Number: "))
+if number &gt; 0:
+    print("Positive")
+elif number &lt; 0:
+    print("Negative")
+else:
+    print("Zero")</code></pre><p>Test -4, 0 and 7.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 14</span><h4>Even or odd</h4></div><pre><code>number = int(input("Integer: "))
+if number % 2 == 0:
+    print("Even")
+else:
+    print("Odd")</code></pre><p>Zero is even because <code>0 % 2</code> is zero.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 15</span><h4>Largest of three</h4></div><pre><code>a = float(input("a: "))
+b = float(input("b: "))
+c = float(input("c: "))
+largest = a
+if b &gt; largest:
+    largest = b
+if c &gt; largest:
+    largest = c
+print("Largest =", largest)</code></pre><p>This method handles equal values without complex nesting.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 16</span><h4>Grade with input validation</h4></div><pre><code>mark = float(input("Mark: "))
+if not 0 &lt;= mark &lt;= 100:
+    print("Invalid mark")
+elif mark &gt;= 90:
+    print("A+")
+elif mark &gt;= 80:
+    print("A")
+elif mark &gt;= 70:
+    print("B")
+elif mark &gt;= 60:
+    print("C")
+elif mark &gt;= 50:
+    print("D")
+else:
+    print("F")</code></pre><p><b>Boundary tests:</b> -1, 0, 49, 50, 89, 90, 100 and 101.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 17</span><h4>Voting eligibility</h4></div><pre><code>age = int(input("Age: "))
+if age &gt;= 18:
+    print("Eligible to vote")
+else:
+    print("Not eligible")</code></pre><p><b>Practice:</b> Reject negative age.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 18</span><h4>Leap year</h4></div><pre><code>year = int(input("Year: "))
+if year % 400 == 0 or (year % 4 == 0 and year % 100 != 0):
+    print("Leap year")
+else:
+    print("Not a leap year")</code></pre><p>Test 1900, 2000, 2023 and 2024.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 19</span><h4>Divisible by 3 and 5</h4></div><pre><code>number = int(input("Integer: "))
+if number % 3 == 0 and number % 5 == 0:
+    print("Divisible by both")
+else:
+    print("Not divisible by both")</code></pre><p>Both conditions must be true.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 20</span><h4>Simple calculator</h4></div><pre><code>a = float(input("First: "))
+op = input("Operator (+ - * /): ")
+b = float(input("Second: "))
+if op == "+":
+    print(a + b)
+elif op == "-":
+    print(a - b)
+elif op == "*":
+    print(a * b)
+elif op == "/" and b != 0:
+    print(a / b)
+else:
+    print("Invalid operation")</code></pre><p>Validate both the operator and the zero-divisor case.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 21</span><h4>Electricity bill using slabs</h4></div><pre><code>units = int(input("Units: "))
+if units &lt; 0:
+    print("Invalid units")
+elif units &lt;= 100:
+    charge = units * 1.50
+elif units &lt;= 200:
+    charge = 100 * 1.50 + (units - 100) * 2.50
+else:
+    charge = 100 * 1.50 + 100 * 2.50 + (units - 200) * 4.00
+if units &gt;= 0:
+    print(f"Charge = {charge:.2f}")</code></pre><p><b>For 250 units:</b> 150 + 250 + 200 = 600.</p><div class="ml">Highest rate എല്ലാം units-ലും apply ചെയ്യരുത്. ഓരോ slab വേർതിരിച്ച് calculate ചെയ്യണം.</div></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 22</span><h4>Triangle validity and type</h4></div><pre><code>a = float(input("Side a: "))
+b = float(input("Side b: "))
+c = float(input("Side c: "))
+if a &lt;= 0 or b &lt;= 0 or c &lt;= 0 or a+b &lt;= c or a+c &lt;= b or b+c &lt;= a:
+    print("Invalid triangle")
+elif a == b == c:
+    print("Equilateral")
+elif a == b or b == c or a == c:
+    print("Isosceles")
+else:
+    print("Scalene")</code></pre><p>Validity must be checked before classification.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 23</span><h4>Print 1 to n</h4></div><pre><code>n = int(input("n: "))
+for number in range(1, n + 1):
+    print(number, end=" ")</code></pre><p><code>range</code> excludes its stop value, so use <code>n + 1</code>.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 24</span><h4>Sum 1 to n</h4></div><pre><code>n = int(input("n: "))
+total = 0
+for number in range(1, n + 1):
+    total += number
+print("Sum =", total)</code></pre><p><b>Trace for 5:</b> 0 → 1 → 3 → 6 → 10 → 15.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 25</span><h4>Multiplication table</h4></div><pre><code>number = int(input("Number: "))
+for multiplier in range(1, 11):
+    print(f"{number} x {multiplier} = {number * multiplier}")</code></pre><p>Count-controlled repetition from 1 to 10.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 26</span><h4>Factorial</h4></div><pre><code>n = int(input("n: "))
+if n &lt; 0:
+    print("Undefined for negative integers")
+else:
+    factorial = 1
+    for value in range(2, n + 1):
+        factorial *= value
+    print("Factorial =", factorial)</code></pre><p>The product accumulator must begin at 1.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 27</span><h4>Sum of digits</h4></div><pre><code>number = abs(int(input("Integer: ")))
+total = 0
+while number &gt; 0:
+    total += number % 10
+    number //= 10
+print("Digit sum =", total)</code></pre><p><b>Trace 572:</b> 2 + 7 + 5 = 14.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 28</span><h4>Reverse a number</h4></div><pre><code>number = abs(int(input("Integer: ")))
+reverse = 0
+while number &gt; 0:
+    reverse = reverse * 10 + number % 10
+    number //= 10
+print("Reverse =", reverse)</code></pre><p>Each extracted digit is appended to the right of reverse.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 29</span><h4>Palindrome number</h4></div><pre><code>number = int(input("Positive integer: "))
+copy = number
+reverse = 0
+while copy &gt; 0:
+    reverse = reverse * 10 + copy % 10
+    copy //= 10
+print("Palindrome" if number == reverse else "Not palindrome")</code></pre><p>Keep the original number for the final comparison.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 30</span><h4>Armstrong number</h4></div><pre><code>number = int(input("Non-negative integer: "))
+digits = str(number)
+power = len(digits)
+total = sum(int(digit) ** power for digit in digits)
+print("Armstrong" if total == number else "Not Armstrong")</code></pre><p>153 = 1³ + 5³ + 3³.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 31</span><h4>Prime-number test</h4></div><pre><code>number = int(input("Integer: "))
+prime = number &gt;= 2
+divisor = 2
+while divisor * divisor &lt;= number and prime:
+    if number % divisor == 0:
+        prime = False
+    divisor += 1
+print("Prime" if prime else "Not prime")</code></pre><p>Testing up to the square root is sufficient.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 32</span><h4>Fibonacci series</h4></div><pre><code>terms = int(input("Number of terms: "))
+a, b = 0, 1
+for _ in range(max(0, terms)):
+    print(a, end=" ")
+    a, b = b, a + b</code></pre><p>Six terms: 0 1 1 2 3 5.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 33</span><h4>Greatest common divisor</h4></div><pre><code>a = abs(int(input("a: ")))
+b = abs(int(input("b: ")))
+while b != 0:
+    a, b = b, a % b
+print("GCD =", a)</code></pre><p>Euclid's algorithm repeatedly replaces the pair with divisor and remainder.</p></article>
+<article class="program-card searchable"><div class="program-head"><span>Program 34</span><h4>Star triangle</h4></div><pre><code>rows = int(input("Rows: "))
+for row in range(1, rows + 1):
+    print("*" * row)</code></pre><p><b>Output for 4:</b><br>*<br>**<br>***<br>****</p></article>
+</div></section>
+<section class="section"><div class="section-head"><span class="tag">Series Test II • 1 hour</span><h2>Original practice test — Algorithms and Python</h2></div><div class="paper"><ol><li>Define algorithm and state three characteristics.</li><li>Draw and name four flowchart symbols.</li><li>Write an algorithm to find the larger of two numbers.</li><li>Dry-run the sum-of-digits algorithm for 572.</li><li>Predict the output of <code>print(17 // 5, 17 % 5)</code>.</li><li>Correct: <code>if mark &gt;= 50 print("Pass")</code>.</li><li>Write a Python program to calculate simple interest.</li><li>Write a Python program to classify a number as positive, negative or zero.</li><li>Write a loop to print the multiplication table of a number.</li><li>Explain how an infinite while loop occurs and how to prevent it.</li></ol></div></section>
+</section>

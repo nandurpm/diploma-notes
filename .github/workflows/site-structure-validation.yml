@@ -1,0 +1,62 @@
+name: Site Structure Validation
+
+on:
+  pull_request:
+    paths:
+      - "*.html"
+      - "lessons/**"
+      - "revision-2026-content/lessons/**"
+      - "assets/js/**"
+      - "assets/css/**"
+      - "android-app/**"
+      - "tools/validate_site_structure.py"
+      - "tools/validate_lesson_fullscreen.py"
+      - "tools/validate_watermark.py"
+      - "tools/update_lesson_assistant.py"
+      - ".github/workflows/site-structure-validation.yml"
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "lessons/**"
+      - "revision-2026-content/lessons/**"
+      - "assets/js/**"
+      - "assets/css/**"
+      - "android-app/**"
+      - "tools/validate_site_structure.py"
+      - "tools/validate_lesson_fullscreen.py"
+      - "tools/validate_watermark.py"
+      - "tools/update_lesson_assistant.py"
+      - ".github/workflows/site-structure-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify shared runtime on every lesson
+        run: python tools/update_lesson_assistant.py --check
+      - name: Validate site structure
+        run: python tools/validate_site_structure.py
+      - name: Validate full-screen lesson standard
+        run: python tools/validate_lesson_fullscreen.py
+      - name: Validate lesson watermark coverage
+        run: python tools/validate_watermark.py
+      - name: Upload validation reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-structure-validation
+          path: |
+            reports/site-structure-validation.json
+            reports/lesson-fullscreen-validation.json
+            reports/watermark-validation.json
+          if-no-files-found: warn

@@ -1,0 +1,696 @@
+<section class="section searchable" id="practice">
+<div class="head"><span class="tag">Programming Practice</span><h2>Recommended program laboratory</h2><p>Write, compile, test, trace and improve every program. The objective is to understand the algorithm and memory behaviour—not merely memorise source code.</p></div>
+<div class="grid">
+<div class="card quarter blue"><h3>Control flow</h3><ol><li>Largest of three</li><li>Grade classification</li><li>Calculator using switch</li><li>Prime-number test</li><li>Armstrong number</li><li>Pattern printing</li></ol></div>
+<div class="card quarter green"><h3>Functions</h3><ol><li>GCD and LCM</li><li>Function-based menu</li><li>Static call counter</li><li>Recursive factorial</li><li>Recursive Fibonacci</li><li>Recursive digit sum</li></ol></div>
+<div class="card quarter yellow"><h3>Arrays</h3><ol><li>Average and maximum</li><li>Second largest</li><li>Matrix addition</li><li>Matrix multiplication</li><li>Linear/binary search</li><li>Selection sort</li></ol></div>
+<div class="card quarter violet"><h3>Strings</h3><ol><li>Length without strlen</li><li>Copy without strcpy</li><li>Concatenate</li><li>Palindrome</li><li>Word count</li><li>Substring search</li></ol></div>
+<div class="card quarter red"><h3>Pointers</h3><ol><li>Swap</li><li>Array sum by pointer</li><li>Reverse array</li><li>String traversal</li><li>Dynamic array</li><li>Resize using realloc</li></ol></div>
+<div class="card quarter"><h3>Structures</h3><ol><li>Student record</li><li>Array of students</li><li>Highest scorer</li><li>Sort records</li><li>Pointer to structure</li><li>Tagged union</li></ol></div>
+<div class="card quarter green"><h3>Files</h3><ol><li>Write/read marks</li><li>Character/word/line count</li><li>File copy</li><li>Append record</li><li>Search record</li><li>Update report file</li></ol></div>
+<div class="card quarter blue"><h3>Command line</h3><ol><li>Sum numbers</li><li>Display arguments</li><li>Copy file by names</li><li>Find maximum</li><li>Validate options</li><li>Count words in a file</li></ol></div>
+</div>
+<div class="call rule"><b>Testing checklist:</b> Test normal input, boundary values, invalid input, zero and negative values, empty data, one-element data, duplicates, already sorted input, reverse-sorted input, missing files and allocation-failure paths.</div>
+</section>
+
+<section class="section searchable" id="solved-problems">
+<div class="head"><span class="tag">Solved Problem Laboratory</span><h2>Twenty-one fully worked programming problems</h2><p>Each worked problem contains the requirement, reasoning, program, test case and an exam-oriented Malayalam explanation. Programs use standard C11 and explicit error checks wherever input, files or dynamic memory are involved.</p></div>
+
+<h3>Module 1 solved problems — control flow, functions and recursion</h3>
+<div class="grid">
+<article class="card unit wide">
+<span class="code-id">Solved Problem 1</span><span class="hour">Selection structure</span>
+<h3>Electricity-bill calculation using an else-if ladder</h3>
+<p><b>Problem:</b> Calculate the energy charge for the following simplified slabs: first 100 units at ₹1.50, next 100 at ₹2.50 and remaining units at ₹4.00. Reject negative units.</p>
+<div class="steps"><div class="step">Read the unit value and validate it.</div><div class="step">Apply only the first slab when units are at most 100.</div><div class="step">For 101–200 units, add the complete first slab and the used part of the second slab.</div><div class="step">Above 200, add both complete lower slabs and the remaining upper-slab charge.</div></div>
+<div class="codebox"><div class="code-title"><span>electricity_bill.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int units;
+    double charge;
+
+    printf("Enter consumed units: ");
+    if (scanf("%d", &amp;units) != 1 || units &lt; 0) {
+        fprintf(stderr, "Invalid unit value\n");
+        return 1;
+    }
+
+    if (units &lt;= 100) {
+        charge = units * 1.50;
+    } else if (units &lt;= 200) {
+        charge = 100 * 1.50 + (units - 100) * 2.50;
+    } else {
+        charge = 100 * 1.50 + 100 * 2.50
+               + (units - 200) * 4.00;
+    }
+
+    printf("Energy charge = Rs. %.2f\n", charge);
+    return 0;
+}</code></pre></div>
+<div class="output">Input: 250
+Energy charge = Rs. 600.00</div>
+<div class="ml"><b>മലയാളം:</b> Slab calculation-ൽ മുഴുവൻ units-നും അവസാന rate multiply ചെയ്യരുത്. ഓരോ slab-ലുള്ള units വേർതിരിച്ചാണ് charge കണക്കാക്കുന്നത്.</div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 2</span><span class="hour">switch</span>
+<h3>Menu-driven arithmetic calculator</h3>
+<p><b>Problem:</b> Read two numbers and an operator. Perform addition, subtraction, multiplication or division. Prevent division by zero.</p>
+<div class="codebox"><div class="code-title"><span>calculator.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    double a, b;
+    char operation;
+
+    printf("Enter expression (example 12.5 * 4): ");
+    if (scanf("%lf %c %lf", &amp;a, &amp;operation, &amp;b) != 3) {
+        fprintf(stderr, "Invalid expression\n");
+        return 1;
+    }
+
+    switch (operation) {
+    case '+': printf("Result = %.2f\n", a + b); break;
+    case '-': printf("Result = %.2f\n", a - b); break;
+    case '*': printf("Result = %.2f\n", a * b); break;
+    case '/':
+        if (b == 0.0) {
+            fprintf(stderr, "Division by zero is not allowed\n");
+            return 1;
+        }
+        printf("Result = %.2f\n", a / b);
+        break;
+    default:
+        fprintf(stderr, "Unknown operator\n");
+        return 1;
+    }
+    return 0;
+}</code></pre></div>
+<div class="ml">Discrete operator choices-ന് switch അനുയോജ്യമാണ്. Division case-ൽ divisor zero ആണോ പരിശോധിക്കണം.</div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 3</span><span class="hour">Loop tracing</span>
+<h3>Armstrong number for a three-digit value</h3>
+<p><b>Problem:</b> Check whether a three-digit integer equals the sum of the cubes of its digits.</p>
+<div class="codebox"><div class="code-title"><span>armstrong.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int number, copy, sum = 0;
+
+    printf("Enter a three-digit positive integer: ");
+    if (scanf("%d", &amp;number) != 1
+        || number &lt; 100 || number &gt; 999) {
+        fprintf(stderr, "Expected a three-digit integer\n");
+        return 1;
+    }
+
+    copy = number;
+    while (copy != 0) {
+        int digit = copy % 10;
+        sum += digit * digit * digit;
+        copy /= 10;
+    }
+
+    printf("%d is %san Armstrong number\n",
+           number, sum == number ? "" : "not ");
+    return 0;
+}</code></pre></div>
+<div class="table-wrap"><table><thead><tr><th>For 153</th><th>Digit</th><th>Cube</th><th>Running sum</th></tr></thead><tbody><tr><td>1st iteration</td><td>3</td><td>27</td><td>27</td></tr><tr><td>2nd iteration</td><td>5</td><td>125</td><td>152</td></tr><tr><td>3rd iteration</td><td>1</td><td>1</td><td>153</td></tr></tbody></table></div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 4</span><span class="hour">Function</span>
+<h3>GCD and LCM using a reusable function</h3>
+<p><b>Problem:</b> Find GCD using Euclid’s algorithm and calculate LCM without duplicating logic.</p>
+<div class="codebox"><div class="code-title"><span>gcd_lcm.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int gcd(int a, int b)
+{
+    a = abs(a);
+    b = abs(b);
+    while (b != 0) {
+        int remainder = a % b;
+        a = b;
+        b = remainder;
+    }
+    return a;
+}
+
+int main(void)
+{
+    int x, y;
+    printf("Enter two integers: ");
+    if (scanf("%d %d", &amp;x, &amp;y) != 2) {
+        return 1;
+    }
+
+    int divisor = gcd(x, y);
+    long long lcm = (x == 0 || y == 0)
+                  ? 0
+                  : llabs((long long)x / divisor * y);
+
+    printf("GCD = %d\nLCM = %lld\n", divisor, lcm);
+    return 0;
+}</code></pre></div>
+<div class="ml">GCD logic function-ലാക്കിയതിനാൽ അതേ function മറ്റു programs-ലും reuse ചെയ്യാം. LCM multiplication overflow കുറയ്ക്കാൻ division ആദ്യം ചെയ്യുന്നു.</div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 5</span><span class="hour">Recursion</span>
+<h3>Recursive sum of digits</h3>
+<p><b>Recursive definition:</b> digitSum(n) = n when n &lt; 10; otherwise n % 10 + digitSum(n / 10).</p>
+<div class="codebox"><div class="code-title"><span>recursive_digit_sum.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+unsigned int digit_sum(unsigned int number)
+{
+    if (number &lt; 10U) {
+        return number;
+    }
+    return number % 10U + digit_sum(number / 10U);
+}
+
+int main(void)
+{
+    unsigned int number;
+    if (scanf("%u", &amp;number) != 1) {
+        return 1;
+    }
+    printf("Digit sum = %u\n", digit_sum(number));
+    return 0;
+}</code></pre></div>
+<div class="output">digit_sum(5729)
+= 9 + digit_sum(572)
+= 9 + 2 + digit_sum(57)
+= 9 + 2 + 7 + digit_sum(5)
+= 23</div>
+<div class="ml">Recursive call-ലേക്ക് പോകുമ്പോൾ number / 10 ഉപയോഗിച്ച് problem size കുറയുന്നു. number &lt; 10 base case ആണ്.</div>
+</article>
+</div>
+
+<h3>Module 2 solved problems — arrays, search, sort and strings</h3>
+<div class="grid">
+<article class="card unit">
+<span class="code-id">Solved Problem 6</span><span class="hour">1D array</span>
+<h3>Find the largest and second-largest distinct values</h3>
+<div class="codebox"><div class="code-title"><span>second_largest.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;limits.h&gt;
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int values[] = {14, 7, 21, 21, 9, 18};
+    int size = (int)(sizeof values / sizeof values[0]);
+    int largest = INT_MIN;
+    int second = INT_MIN;
+
+    for (int i = 0; i &lt; size; i++) {
+        if (values[i] &gt; largest) {
+            second = largest;
+            largest = values[i];
+        } else if (values[i] &gt; second &amp;&amp; values[i] != largest) {
+            second = values[i];
+        }
+    }
+
+    if (second == INT_MIN) {
+        printf("No distinct second-largest value\n");
+    } else {
+        printf("Largest = %d, second largest = %d\n",
+               largest, second);
+    }
+    return 0;
+}</code></pre></div>
+<div class="ml">Duplicate maximum value second-largest ആയി എടുക്കാതിരിക്കാൻ <span class="inline-code">values[i] != largest</span> പരിശോധിക്കുന്നു.</div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 7</span><span class="hour">2D array</span>
+<h3>Matrix multiplication</h3>
+<p>For A of order r₁ × c₁ and B of order r₂ × c₂, multiplication is possible only when c₁ = r₂.</p>
+<div class="codebox"><div class="code-title"><span>2 × 3 multiplied by 3 × 2</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a[2][3] = {{1, 2, 3}, {4, 5, 6}};
+    int b[3][2] = {{7, 8}, {9, 10}, {11, 12}};
+    int product[2][2] = {{0, 0}, {0, 0}};
+
+    for (int row = 0; row &lt; 2; row++) {
+        for (int col = 0; col &lt; 2; col++) {
+            for (int k = 0; k &lt; 3; k++) {
+                product[row][col] += a[row][k] * b[k][col];
+            }
+        }
+    }
+
+    for (int row = 0; row &lt; 2; row++) {
+        for (int col = 0; col &lt; 2; col++) {
+            printf("%d%c", product[row][col], col == 1 ? '\n' : ' ');
+        }
+    }
+    return 0;
+}</code></pre></div>
+<div class="output">58 64
+139 154</div>
+</article>
+
+<article class="card unit wide">
+<span class="code-id">Solved Problem 8</span><span class="hour">Linear and binary search</span>
+<h3>Search comparison with a dry run</h3>
+<p>Search for 31 in the sorted array {4, 9, 15, 22, 31, 47, 53}.</p>
+<div class="table-wrap"><table><thead><tr><th>Binary-search step</th><th>low</th><th>high</th><th>mid</th><th>a[mid]</th><th>Decision</th></tr></thead><tbody><tr><td>1</td><td>0</td><td>6</td><td>3</td><td>22</td><td>Target is larger; low = 4</td></tr><tr><td>2</td><td>4</td><td>6</td><td>5</td><td>47</td><td>Target is smaller; high = 4</td></tr><tr><td>3</td><td>4</td><td>4</td><td>4</td><td>31</td><td>Found at index 4</td></tr></tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Both search functions</span><button class="copy-code" type="button">Copy</button></div><pre><code>int linear_search(const int a[], int size, int target)
+{
+    for (int i = 0; i &lt; size; i++) {
+        if (a[i] == target) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int binary_search(const int a[], int size, int target)
+{
+    int low = 0;
+    int high = size - 1;
+
+    while (low &lt;= high) {
+        int mid = low + (high - low) / 2;
+        if (a[mid] == target) return mid;
+        if (a[mid] &lt; target) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}</code></pre></div>
+<div class="ml">Linear search unsorted data-ലും പ്രവർത്തിക്കും. Binary search വേഗമാണ്, പക്ഷേ data sorted ആയിരിക്കണം.</div>
+</article>
+
+<article class="card unit wide">
+<span class="code-id">Solved Problem 9</span><span class="hour">Selection sort trace</span>
+<h3>Trace selection sort for 29, 10, 14, 37, 13</h3>
+<div class="table-wrap"><table><thead><tr><th>Pass</th><th>Smallest in unsorted part</th><th>Array after swap</th></tr></thead><tbody><tr><td>Initial</td><td>—</td><td>29, 10, 14, 37, 13</td></tr><tr><td>1</td><td>10</td><td>10, 29, 14, 37, 13</td></tr><tr><td>2</td><td>13</td><td>10, 13, 14, 37, 29</td></tr><tr><td>3</td><td>14</td><td>10, 13, 14, 37, 29</td></tr><tr><td>4</td><td>29</td><td>10, 13, 14, 29, 37</td></tr></tbody></table></div>
+<p>After pass <i>i</i>, position <i>i</i> contains the correct smallest remaining element. Time complexity remains O(n²) even for already sorted input.</p>
+</article>
+
+<article class="card unit wide">
+<span class="code-id">Solved Problem 10</span><span class="hour">Quicksort partition</span>
+<h3>Understand one Lomuto partition step</h3>
+<p>For {8, 3, 1, 7, 0, 10, 2}, choose the final element 2 as pivot. Values less than or equal to 2 move left. After partition, the array becomes {1, 0, 2, 7, 3, 10, 8}; pivot 2 reaches its final index 2. Quicksort then processes the left and right subarrays independently.</p>
+<div class="call exam"><b>Exam point:</b> Explain the base condition <span class="inline-code">low &lt; high</span>, partition function, pivot placement and two recursive calls. Average complexity is O(n log n), while poor pivots can produce O(n²).</div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 11</span><span class="hour">String</span>
+<h3>Palindrome string ignoring letter case</h3>
+<div class="codebox"><div class="code-title"><span>palindrome.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;ctype.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void)
+{
+    char text[100];
+    if (fgets(text, sizeof text, stdin) == NULL) return 1;
+    text[strcspn(text, "\n")] = '\0';
+
+    size_t left = 0;
+    size_t right = strlen(text);
+    if (right &gt; 0) right--;
+
+    int palindrome = 1;
+    while (left &lt; right) {
+        if (tolower((unsigned char)text[left])
+            != tolower((unsigned char)text[right])) {
+            palindrome = 0;
+            break;
+        }
+        left++;
+        right--;
+    }
+
+    printf("%s\n", palindrome ? "Palindrome" : "Not palindrome");
+    return 0;
+}</code></pre></div>
+<div class="ml">Left index മുന്നോട്ടും right index പിന്നോട്ടും നീക്കി corresponding characters compare ചെയ്യുന്നു.</div>
+</article>
+</div>
+
+<h3>Module 3 solved problems — pointers and dynamic memory</h3>
+<div class="grid">
+<article class="card unit">
+<span class="code-id">Solved Problem 12</span><span class="hour">Pointer output parameters</span>
+<h3>Return quotient and remainder from one function</h3>
+<div class="codebox"><div class="code-title"><span>Multiple outputs through pointers</span><button class="copy-code" type="button">Copy</button></div><pre><code>int divide_values(int dividend, int divisor,
+                  int *quotient, int *remainder)
+{
+    if (divisor == 0 || quotient == NULL || remainder == NULL) {
+        return 0;
+    }
+    *quotient = dividend / divisor;
+    *remainder = dividend % divisor;
+    return 1;
+}</code></pre></div>
+<p>Call with <span class="inline-code">divide_values(17, 5, &amp;q, &amp;r)</span>. The function returns success/failure normally and writes two calculated values through pointers.</p>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 13</span><span class="hour">Pointer arithmetic</span>
+<h3>Reverse an array using two pointers</h3>
+<div class="codebox"><div class="code-title"><span>reverse_array.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>void reverse(int *first, int *last)
+{
+    while (first &lt; last) {
+        int temporary = *first;
+        *first = *last;
+        *last = temporary;
+        first++;
+        last--;
+    }
+}
+
+/* For int a[5], call reverse(a, a + 4); */</code></pre></div>
+<div class="ml">Pointers array-ന്റെ രണ്ട് അറ്റങ്ങളിൽ നിന്ന് നടുവിലേക്ക് നീങ്ങുന്നു. Pointer comparison same array-ലുള്ള elements-ക്കിടയിൽ ഉപയോഗിക്കുന്നു.</div>
+</article>
+
+<article class="card unit wide">
+<span class="code-id">Solved Problem 14</span><span class="hour">calloc</span>
+<h3>Dynamically read marks and calculate average</h3>
+<div class="codebox"><div class="code-title"><span>dynamic_average.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void)
+{
+    size_t count;
+    printf("Number of students: ");
+    if (scanf("%zu", &amp;count) != 1 || count == 0) {
+        fprintf(stderr, "Invalid count\n");
+        return 1;
+    }
+
+    double *marks = calloc(count, sizeof *marks);
+    if (marks == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        return 1;
+    }
+
+    double total = 0.0;
+    for (size_t i = 0; i &lt; count; i++) {
+        printf("Mark %zu: ", i + 1);
+        if (scanf("%lf", &amp;marks[i]) != 1
+            || marks[i] &lt; 0.0 || marks[i] &gt; 100.0) {
+            fprintf(stderr, "Invalid mark\n");
+            free(marks);
+            return 1;
+        }
+        total += marks[i];
+    }
+
+    printf("Average = %.2f\n", total / count);
+    free(marks);
+    return 0;
+}</code></pre></div>
+<div class="ml">Runtime-ൽ count ലഭിക്കുന്നതിനാൽ dynamic allocation ഉപയോഗിക്കുന്നു. Error path-ലും normal path-ലും memory free ചെയ്യണം.</div>
+</article>
+
+<article class="card unit wide">
+<span class="code-id">Solved Problem 15</span><span class="hour">realloc</span>
+<h3>Grow an integer list without losing the original allocation</h3>
+<p>Suppose an existing list contains four values and two more values must be added. The safe pattern is:</p>
+<div class="codebox"><div class="code-title"><span>Safe resize pattern</span><button class="copy-code" type="button">Copy</button></div><pre><code>size_t old_count = 4;
+size_t new_count = 6;
+int *temporary = realloc(values, new_count * sizeof *values);
+
+if (temporary == NULL) {
+    /* values still points to the old valid block */
+    free(values);
+    values = NULL;
+    return 1;
+}
+
+values = temporary;
+values[old_count] = 50;
+values[old_count + 1] = 60;</code></pre></div>
+<div class="call mist"><b>Incorrect:</b> <span class="inline-code">values = realloc(values, ...)</span>. If allocation fails, NULL overwrites the only address of the original block and causes a memory leak.</div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 16</span><span class="hour">Array of pointers</span>
+<h3>Print subject names in alphabetical order</h3>
+<div class="codebox"><div class="code-title"><span>Sort pointers, not string literals</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void)
+{
+    const char *names[] = {"Pointers", "Arrays", "Files", "Functions"};
+    int count = (int)(sizeof names / sizeof names[0]);
+
+    for (int i = 0; i &lt; count - 1; i++) {
+        for (int j = i + 1; j &lt; count; j++) {
+            if (strcmp(names[i], names[j]) &gt; 0) {
+                const char *temporary = names[i];
+                names[i] = names[j];
+                names[j] = temporary;
+            }
+        }
+    }
+
+    for (int i = 0; i &lt; count; i++) puts(names[i]);
+    return 0;
+}</code></pre></div>
+</article>
+</div>
+
+<h3>Module 4 solved problems — structures, union, files and command line</h3>
+<div class="grid">
+<article class="card unit wide">
+<span class="code-id">Solved Problem 17</span><span class="hour">Array of structures</span>
+<h3>Find the highest-scoring student</h3>
+<div class="codebox"><div class="code-title"><span>student_topper.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+struct Student {
+    int roll;
+    char name[40];
+    float mark;
+};
+
+int topper_index(const struct Student students[], int count)
+{
+    if (count &lt;= 0) return -1;
+    int best = 0;
+    for (int i = 1; i &lt; count; i++) {
+        if (students[i].mark &gt; students[best].mark) {
+            best = i;
+        }
+    }
+    return best;
+}
+
+int main(void)
+{
+    struct Student students[] = {
+        {1, "Anu", 83.5f},
+        {2, "Basil", 91.0f},
+        {3, "Chitra", 88.5f}
+    };
+    int count = (int)(sizeof students / sizeof students[0]);
+    int best = topper_index(students, count);
+
+    printf("Topper: %s, mark %.1f\n",
+           students[best].name, students[best].mark);
+    return 0;
+}</code></pre></div>
+<div class="ml">Structure array-യിൽ ഓരോ element ഒരു complete student record ആണ്. Index മാത്രം return ചെയ്യുന്നതിനാൽ caller-ക്ക് മുഴുവൻ record access ചെയ്യാം.</div>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 18</span><span class="hour">Structure calculation</span>
+<h3>Employee gross salary</h3>
+<div class="codebox"><div class="code-title"><span>Structure-returning function</span><button class="copy-code" type="button">Copy</button></div><pre><code>struct Employee {
+    int id;
+    char name[40];
+    double basic;
+};
+
+double gross_salary(const struct Employee *employee)
+{
+    double hra = employee-&gt;basic * 0.20;
+    double da = employee-&gt;basic * 0.10;
+    return employee-&gt;basic + hra + da;
+}</code></pre></div>
+<p>For a basic salary of ₹20,000, HRA = ₹4,000 and DA = ₹2,000, so gross salary = ₹26,000.</p>
+</article>
+
+<article class="card unit">
+<span class="code-id">Solved Problem 19</span><span class="hour">Tagged union</span>
+<h3>Safely store either an integer or real value</h3>
+<div class="codebox"><div class="code-title"><span>Enum tag + union</span><button class="copy-code" type="button">Copy</button></div><pre><code>enum DataType { TYPE_INTEGER, TYPE_REAL };
+
+struct DataValue {
+    enum DataType type;
+    union {
+        int integer;
+        double real;
+    } value;
+};
+
+void print_value(const struct DataValue *data)
+{
+    if (data-&gt;type == TYPE_INTEGER) {
+        printf("%d\n", data-&gt;value.integer);
+    } else {
+        printf("%.2f\n", data-&gt;value.real);
+    }
+}</code></pre></div>
+<div class="ml">Enum tag ഏത് union member ഇപ്പോൾ valid ആണെന്ന് സൂചിപ്പിക്കുന്നു. Wrong member read ചെയ്യുന്നത് ഒഴിവാക്കാം.</div>
+</article>
+
+<article class="card unit wide">
+<span class="code-id">Solved Problem 20</span><span class="hour">File statistics</span>
+<h3>Count characters, words and lines in a text file</h3>
+<div class="codebox"><div class="code-title"><span>file_statistics.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;ctype.h&gt;
+#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    FILE *file = fopen("input.txt", "r");
+    if (file == NULL) {
+        perror("input.txt");
+        return 1;
+    }
+
+    long characters = 0;
+    long words = 0;
+    long lines = 0;
+    int previous_space = 1;
+    int character;
+
+    while ((character = fgetc(file)) != EOF) {
+        characters++;
+        if (character == '\n') lines++;
+
+        if (isspace((unsigned char)character)) {
+            previous_space = 1;
+        } else if (previous_space) {
+            words++;
+            previous_space = 0;
+        }
+    }
+
+    if (characters &gt; 0) {
+        /* Count a final line even when it has no trailing newline. */
+        rewind(file);
+        int last = 0;
+        while ((character = fgetc(file)) != EOF) last = character;
+        if (last != '\n') lines++;
+    }
+
+    fclose(file);
+    printf("Characters: %ld\nWords: %ld\nLines: %ld\n",
+           characters, words, lines);
+    return 0;
+}</code></pre></div>
+<div class="ml">Word തുടങ്ങുന്നത് previous character whitespace ആയിരിക്കുമ്പോൾ current character non-whitespace ആകുന്ന സമയത്താണ്.</div>
+</article>
+
+<article class="card unit wide">
+<span class="code-id">Solved Problem 21</span><span class="hour">Command line + files</span>
+<h3>Copy one file to another using command-line filenames</h3>
+<div class="codebox"><div class="code-title"><span>file_copy.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(int argc, char *argv[])
+{
+    if (argc != 3) {
+        fprintf(stderr, "Usage: %s source destination\n", argv[0]);
+        return 1;
+    }
+
+    FILE *source = fopen(argv[1], "rb");
+    if (source == NULL) {
+        perror(argv[1]);
+        return 1;
+    }
+
+    FILE *destination = fopen(argv[2], "wb");
+    if (destination == NULL) {
+        perror(argv[2]);
+        fclose(source);
+        return 1;
+    }
+
+    unsigned char buffer[4096];
+    size_t count;
+    int failed = 0;
+
+    while ((count = fread(buffer, 1, sizeof buffer, source)) &gt; 0) {
+        if (fwrite(buffer, 1, count, destination) != count) {
+            failed = 1;
+            break;
+        }
+    }
+    if (ferror(source)) failed = 1;
+
+    if (fclose(source) != 0) failed = 1;
+    if (fclose(destination) != 0) failed = 1;
+
+    if (failed) {
+        fprintf(stderr, "File copy failed\n");
+        return 1;
+    }
+    printf("File copied successfully\n");
+    return 0;
+}</code></pre></div>
+<div class="output">gcc -std=c11 -Wall -Wextra file_copy.c -o file_copy
+./file_copy source.txt backup.txt</div>
+<div class="ml">Source, destination filenames command line-ൽ ലഭിക്കുന്നു. രണ്ട് files-നും separate error handling വേണം.</div>
+</article>
+</div>
+</section>
+
+<section class="section searchable" id="workbook">
+<div class="head"><span class="tag">Workbook</span><h2>Practice questions with checkpoints</h2><p>Attempt each task before opening the checkpoint. Modify at least one condition and retest the program.</p></div>
+<details><summary>Workbook 1 — Number classification</summary><p>Write one program that reports whether an integer is positive/negative/zero, even/odd and divisible by both 3 and 5.</p><p><b>Checkpoint:</b> Use separate decisions because the classifications are independent. The “divisible by both” condition is <span class="inline-code">number % 3 == 0 &amp;&amp; number % 5 == 0</span>.</p></details>
+<details><summary>Workbook 2 — Recursive power</summary><p>Implement <span class="inline-code">power(base, exponent)</span> for a non-negative integer exponent.</p><p><b>Checkpoint:</b> Base case exponent 0 returns 1. Recursive case returns base × power(base, exponent − 1).</p></details>
+<details><summary>Workbook 3 — Matrix transpose</summary><p>Read a 2 × 3 matrix and produce a 3 × 2 transpose.</p><p><b>Checkpoint:</b> Assign <span class="inline-code">transpose[col][row] = original[row][col]</span>.</p></details>
+<details><summary>Workbook 4 — Binary-search precondition</summary><p>Modify a program so it refuses binary search when the array is not in ascending order.</p><p><b>Checkpoint:</b> Before searching, loop from index 1 and check whether <span class="inline-code">a[i] &lt; a[i - 1]</span>.</p></details>
+<details><summary>Workbook 5 — Implement my_strcmp</summary><p>Compare two strings without calling <span class="inline-code">strcmp</span>.</p><p><b>Checkpoint:</b> Advance while both characters are equal and non-null. Return the difference of the first unequal unsigned characters.</p></details>
+<details><summary>Workbook 6 — Dynamic growing list</summary><p>Begin with capacity 2. Double capacity with realloc whenever the list becomes full.</p><p><b>Checkpoint:</b> Maintain separate <span class="inline-code">size</span> and <span class="inline-code">capacity</span>. Use a temporary pointer for realloc.</p></details>
+<details><summary>Workbook 7 — Sort structures</summary><p>Sort student records in descending order of mark, then ascending name when marks are equal.</p><p><b>Checkpoint:</b> Compare marks first; use <span class="inline-code">strcmp</span> only for the tie.</p></details>
+<details><summary>Workbook 8 — Append and search a record file</summary><p>Append a student record to a text file, then reopen it and search by roll number.</p><p><b>Checkpoint:</b> Use append mode for insertion and read mode for searching. Loop while all expected fields are read successfully.</p></details>
+</section>
+
+<section class="section searchable">
+<div class="head"><span class="tag">Debugging Handbook</span><h2>Common mistakes and corrections</h2></div>
+<div class="table-wrap"><table><thead><tr><th>Mistake</th><th>Why it fails</th><th>Correction</th></tr></thead><tbody>
+<tr><td><span class="inline-code">if (x = 5)</span></td><td>Assignment, not comparison.</td><td>Use <span class="inline-code">if (x == 5)</span>.</td></tr>
+<tr><td>Missing <span class="inline-code">&amp;</span> in numeric scanf</td><td><span class="inline-code">scanf</span> needs an address.</td><td><span class="inline-code">scanf("%d", &amp;x)</span> and check the return value.</td></tr>
+<tr><td>Using integer division accidentally</td><td><span class="inline-code">sum / count</span> discards the fraction when both are integers.</td><td>Cast one operand: <span class="inline-code">(double)sum / count</span>.</td></tr>
+<tr><td>Array index equals size</td><td>Out-of-bounds access.</td><td>Loop while <span class="inline-code">i &lt; size</span>.</td></tr>
+<tr><td>Binary search on unsorted input</td><td>Ordering assumption is violated.</td><td>Sort first, verify order or use linear search.</td></tr>
+<tr><td>String without <span class="inline-code">'\0'</span></td><td>String functions read beyond intended data.</td><td>Reserve and preserve terminator space.</td></tr>
+<tr><td>Using <span class="inline-code">gets()</span></td><td>No buffer-size limit; unsafe.</td><td>Use <span class="inline-code">fgets()</span>.</td></tr>
+<tr><td>Dereferencing NULL/uninitialized pointer</td><td>No valid target object.</td><td>Initialize, validate, then dereference.</td></tr>
+<tr><td>Overwriting a pointer with failed realloc</td><td>Original block address is lost.</td><td>Use a temporary pointer.</td></tr>
+<tr><td>Using memory after free</td><td>The object lifetime has ended.</td><td>Do not dereference it; set the pointer to NULL when useful.</td></tr>
+<tr><td>Reading an inactive union member</td><td>Stored representation may not match.</td><td>Track the active member with an enum tag.</td></tr>
+<tr><td><span class="inline-code">while (!feof(file))</span></td><td>EOF is set only after a failed read.</td><td>Loop on the input function’s return value.</td></tr>
+<tr><td>Ignoring fopen failure</td><td>Later operations dereference a NULL file pointer.</td><td>Check <span class="inline-code">file == NULL</span> immediately.</td></tr>
+<tr><td>Forgetting <span class="inline-code">fclose</span> or <span class="inline-code">free</span></td><td>Resource leak or incomplete output.</td><td>Release every successfully acquired resource.</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="section searchable" id="revision">
+<div class="head"><span class="tag">Final Revision</span><h2>One-page memory map</h2></div>
+<div class="grid">
+<div class="card quarter blue"><h3>Module 1</h3><ul><li>Program structure</li><li>if/switch/loops</li><li>#include/#define</li><li>Function prototype and call</li><li>Storage classes</li><li>Base and recursive cases</li></ul></div>
+<div class="card quarter green"><h3>Module 2</h3><ul><li>1D/2D arrays</li><li>Row-major storage</li><li>Linear/binary search</li><li>Selection/quicksort</li><li>Null-terminated strings</li><li>Array parameters</li></ul></div>
+<div class="card quarter yellow"><h3>Module 3</h3><ul><li>Address and dereference</li><li>Pointer arithmetic</li><li>Output parameters</li><li>malloc/calloc</li><li>Safe realloc/free</li><li>Arrays and pointers</li></ul></div>
+<div class="card quarter violet"><h3>Module 4</h3><ul><li>Structures and arrays</li><li>Dot and arrow</li><li>Union and enum</li><li>File modes</li><li>Sequential I/O</li><li>argc/argv</li></ul></div>
+</div>
+<div class="call exam"><b>Malayalam last-day cue:</b> Control flow → Functions → Recursion → Arrays → Search/Sort → Strings → Pointers → Dynamic memory → Structures → Union/Enum → Files → Command line എന്ന ക്രമത്തിൽ revise ചെയ്യുക. ഓരോ topic-നും കുറഞ്ഞത് ഒരു program dry run ചെയ്യുക.</div>
+<div class="grid">
+<div class="card third"><h3>Likely one-mark areas</h3><ul><li>Define recursion.</li><li>Purpose of a function prototype.</li><li>Meaning of static local variable.</li><li>Requirement for binary search.</li><li>String terminator.</li><li>Meaning of NULL.</li><li>Difference between dot and arrow.</li><li>Purpose of free().</li></ul></div>
+<div class="card third"><h3>Likely short answers</h3><ul><li>Storage classes.</li><li>Selection versus repetition.</li><li>Linear versus binary search.</li><li>Selection sort versus quicksort.</li><li>Array–pointer relationship.</li><li>malloc versus calloc.</li><li>Structure versus union.</li><li>File modes.</li></ul></div>
+<div class="card third"><h3>Likely programs</h3><ul><li>Recursive factorial/GCD.</li><li>Matrix multiplication.</li><li>Search and sort.</li><li>String functions.</li><li>Dynamic array and realloc.</li><li>Student structure.</li><li>Sequential file processing.</li><li>Command-line file copy.</li></ul></div>
+</div>
+</section>

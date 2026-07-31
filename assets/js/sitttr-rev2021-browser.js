@@ -1,0 +1,107 @@
+/* Purpose: Sitttr rev2021 browser - Descriptive comment added for clarity */
+(() => {
+  "use strict";
+  const VERSION = "20260706-sitttr-complete1";
+  const COMMON = "First Year / Common";
+  const LESSONS = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5031","5041","5042","5043","5043A","6001","6002","6007","6009","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
+  const eee = "Electrical & Electronics Engineering";
+  const supplemental = [
+    sub("Semester 1","1001","Communication Skills in English",COMMON,"Theory","1001"),sub("Semester 1","1002","Mathematics I",COMMON,"Theory","1002"),sub("Semester 1","1003","Applied Physics I",COMMON,"Theory","1003"),sub("Semester 1","1004","Applied Chemistry",COMMON,"Theory","1004"),sub("Semester 1","1005","Engineering Graphics",COMMON,"Drawing","1005"),sub("Semester 1","1007","Applied Chemistry Lab",COMMON,"Lab","1007"),sub("Semester 1","1008","Introduction to IT systems Lab",COMMON,"Lab","1008"),sub("Semester 1","1009","Sports and Yoga",COMMON,"Theory","1009"),sub("Semester 2","2001","Environmental Science",COMMON,"Theory","2001"),sub("Semester 2","2002","Mathematics II",COMMON,"Theory","2002"),sub("Semester 2","2003","Applied Physics II",COMMON,"Theory","2003"),sub("Semester 2","2006","Applied Physics Lab",COMMON,"Lab","2006"),sub("Semester 2","2008","Communication Skills in English Lab",COMMON,"Lab","2008"),sub("Semester 2","2009","Engineering Workshop Practice",COMMON,"Workshop","2009"),
+    sub("Semester 6","6001","Entrepreneurship and Startup",eee,"Humanities & Social Sciences","6001",{courseCategory:"Humanities & Social Sciences",L:3,T:1,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"I",credits:4}),
+    sub("Semester 6","6031A","Energy Conservation & Audit (EE)",eee,"Program Elective course","6031A",{electiveGroup:"Program Elective 1",L:3,T:1,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"B",credits:4}),
+    sub("Semester 6","6031C","Microcontroller & PLC",eee,"Program Elective course","6031C",{electiveGroup:"Program Elective 1",L:3,T:1,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"B",credits:4}),
+    sub("Semester 6","6031D","Electric Vehicles",eee,"Program Elective course","6031D",{electiveGroup:"Program Elective 1",L:3,T:1,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"B",credits:4}),
+    sub("Semester 6","6032A","Solar Power Technologies",eee,"Open Elective course","6032A",{electiveGroup:"Open Elective",L:4,T:0,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"I",credits:4}),
+    sub("Semester 6","6032B","Energy Conservation & Management",eee,"Open Elective course","6032B",{electiveGroup:"Open Elective",L:4,T:0,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"I",credits:4}),
+    sub("Semester 6","6032C","Electrification of Residential Buildings",eee,"Open Elective course","6032C",{electiveGroup:"Open Elective",L:4,T:0,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"I",credits:4}),
+    sub("Semester 6","6032D","Electric Vehicles & Traction",eee,"Open Elective course","6032D",{electiveGroup:"Open Elective",L:4,T:0,P:0,totalContactHours:4,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"I",credits:4}),
+    sub("Semester 6","6002","Indian Constitution",eee,"Common Courses","6002",{L:2,T:0,P:0,totalContactHours:2,CA:50,ESA:75,totalMarks:125,examType:"T",courseType:"I",credits:0}),
+    sub("Semester 6","6037","Electrical Computer Aided Drafting Lab",eee,"Programme core course","6037",{L:0,T:0,P:3,totalContactHours:3,CA:75,ESA:50,totalMarks:125,examType:"P",courseType:"I",credits:1.5}),
+    sub("Semester 6","6038","Industrial Automation Lab",eee,"Programme core course","6038",{L:0,T:1,P:3,totalContactHours:4,CA:75,ESA:50,totalMarks:125,examType:"P",courseType:"I",credits:2.5}),
+    sub("Semester 6","6039A","Applied Electrical Testing Lab",eee,"Program Elective course","6039A",{electiveGroup:"Program Elective Lab",L:0,T:0,P:3,totalContactHours:3,CA:75,ESA:50,totalMarks:125,examType:"P",courseType:"B",credits:1.5}),
+    sub("Semester 6","6039B","Modelling and simulation Lab",eee,"Program Elective course","6039B",{electiveGroup:"Program Elective Lab",L:0,T:0,P:3,totalContactHours:3,CA:75,ESA:50,totalMarks:125,examType:"P",courseType:"B",credits:1.5}),
+    sub("Semester 6","6039C","Advanced Solar Photovoltaic Lab",eee,"Program Elective course","6039C",{electiveGroup:"Program Elective Lab",L:0,T:0,P:3,totalContactHours:3,CA:75,ESA:50,totalMarks:125,examType:"P",courseType:"B",credits:1.5}),
+    sub("Semester 6","6009","Major Project",eee,"Major Project","6009",{L:0,T:0,P:6,totalContactHours:6,CA:75,ESA:50,totalMarks:125,examType:"P",courseType:"I",credits:4}),
+    sub("Semester 6","6041A","Medical Electronics","Electronics Engineering","Program Elective","6041A"),sub("Semester 6","6041B","Verilog HDL and Programmable Logic Devices","Electronics Engineering","Program Elective","6041B"),sub("Semester 6","6041C","Consumer Electronics","Electronics Engineering","Program Elective","6041C"),sub("Semester 6","6041A","Medical Electronics","Electronics and Communication","Program Elective","6041A"),sub("Semester 6","6041B","Verilog HDL and Programmable Logic Devices","Electronics and Communication","Program Elective","6041B"),sub("Semester 6","6041C","Consumer Electronics","Electronics and Communication","Program Elective","6041C"),sub("Semester 6","6041A","Medical Electronics","Biomedical Engineering","Program Elective","6041A")
+  ];
+  const exact = new Map([[`${keyDept(eee)}::Semester 6`, new Set(["6001","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6002","6037","6038","6039A","6039B","6039C","6009"])]]);
+  const canonical = new Map([[keyDept("Electrical and Electronics Engineering"),eee],[keyDept(eee),eee],[keyDept("Civil and Environmental Engineering"),"Civil & Environmental Engineering"],[keyDept("Civil & Environmental Engineering"),"Civil & Environmental Engineering"],[keyDept("Communication and Computer Networking"),"Communication & Computer Networking"],[keyDept("Communication & Computer Networking"),"Communication & Computer Networking"],[keyDept("Computer Application and Business Management"),"Computer Application & Business Management"],[keyDept("Computer Application & Business Management"),"Computer Application & Business Management"],[keyDept("Computer Science and Engineering"),"Computer Science & Engineering"],[keyDept("Computer Science & Engineering"),"Computer Science & Engineering"],[keyDept("Tool and Die Engineering"),"Tool & Die Engineering"],[keyDept("Tool & Die Engineering"),"Tool & Die Engineering"],[keyDept("Artificial Intelligence and Machine Learning"),"Artificial Intelligence & Machine Learning"],[keyDept("Artificial Intelligence & Machine Learning"),"Artificial Intelligence & Machine Learning"]]);
+  const $ = id => document.getElementById(id);
+  function sub(semester, code, name, department, type, assetCode, extra = {}) { return { revision:"2021", semester, code, name, department, type, assetCode, courseCode:code, courseName:name, ...extra }; }
+  function esc(v) { return window.PolyUtils?.escapeHtml ? window.PolyUtils.escapeHtml(v) : String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
+  function norm(v) { return String(v || "").trim().toUpperCase(); }
+  function keyDept(v) { return String(v || "").toLowerCase().replaceAll("&"," and ").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," "); }
+  function sameDept(a,b) { return keyDept(a) === keyDept(b); }
+  function displayDept(v) { return canonical.get(keyDept(v)) || v; }
+  function semRank(v) { return Number(String(v || "").match(/\d+/)?.[0] || 999); }
+  function root() { const d = location.pathname.replace(/\/[^/]*$/,"").split("/").filter(Boolean).length; return d ? "../".repeat(d) : ""; }
+  function asset(s) { return String(s.assetCode || s.code || ""); }
+  function uniq(list) { const seen = new Set(); return list.filter(s => { const k = [s.revision,keyDept(s.department),s.semester,norm(s.code),String(s.name||"").toLowerCase()].join("::"); if (seen.has(k)) return false; seen.add(k); return true; }); }
+  function parse(text) { const m = String(text || "").match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m); if (!m) return []; try { return Function(`"use strict";return (${m[1]});`)(); } catch { return []; } }
+  async function data() { let base = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : []; if (!base.length) { const text = await fetch(`${root()}assets/js/subjects.js?v=${VERSION}`, {cache:"no-store"}).then(r => r.ok ? r.text() : "").catch(()=>""); base = parse(text); } const merged = uniq([...base, ...supplemental]); /* PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for each subject to avoid redundant string joins and lowercase conversions on every keystroke. */ merged.forEach(s => { s._searchText = [s.code, s.name, s.department, s.semester, s.type].join(" ").toLowerCase(); }); return merged; }
+  function hasLesson(s) { const m = globalThis.POLY_ASSET_MANIFEST; if (m && Array.isArray(m.lessonCodes)) return m.lessonCodes.map(norm).includes(norm(asset(s))); return LESSONS.has(norm(asset(s))); }
+  function syllabus(s) { return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021"; }
+  function qp(s) { return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(s.code)}`; }
+  function card(s) { const r = root(), ac = asset(s), lesson = `${r}lessons/lessons-${encodeURIComponent(ac)}.html`, pdf = `${r}notes/downloadable-notes-${encodeURIComponent(ac)}.pdf`, ok = hasLesson(s), meta = [displayDept(s.department), s.semester, s.type].filter(Boolean).join(" / "); return `<article class="subject-card reveal" data-subject-code="${esc(norm(s.code))}" data-notes-href="${esc(pdf)}" data-lesson-href="${esc(lesson)}" data-lesson-available="${ok}"><div class="subject-top"><span>${esc(s.revision)}</span><strong>${esc(s.code)}</strong></div><h3>${esc(s.name)}</h3><p>${esc(meta)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus(s))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${ok ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(pdf)}" download>Download Notes</a>` : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`}<a class="action qp" href="${esc(qp(s))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`; }
+  function groups(list) { const map = new Map(); list.forEach(s => { const sem = String(s.semester || "Other subjects"); if (!map.has(sem)) map.set(sem, []); map.get(sem).push(s); }); return [...map.entries()].map(([sem,items]) => `<section class="semester-subject-section" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3>${esc(sem)}</h3><span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">${items.map(card).join("")}</div></section>`).join(""); }
+  function fillSem(sel, list) { const old = sel.value || "all"; sel.replaceChildren(); sel.append(Object.assign(document.createElement("option"),{value:"all",textContent:"All semesters"})); [...new Set(list.map(s=>s.semester).filter(Boolean))].sort((a,b)=>semRank(a)-semRank(b)||String(a).localeCompare(String(b))).forEach(v=>sel.append(Object.assign(document.createElement("option"),{value:v,textContent:v}))); sel.value = [...sel.options].some(o=>o.value===old) ? old : "all"; }
+  function preferDeptRows(list, dept) { const departmentRows = new Set(list.filter(s=>sameDept(s.department,dept)).map(s=>`${s.semester}::${norm(s.code)}`)); return list.filter(s => !(sameDept(s.department,COMMON) && departmentRows.has(`${s.semester}::${norm(s.code)}`))); }
+  function applyExact(list, dept) { const dk = keyDept(dept); return list.filter(s => { const set = exact.get(`${dk}::${s.semester}`); return !set || set.has(norm(s.code)); }); }
+  function filtered(all, dept) { return applyExact(preferDeptRows(all.filter(s => String(s.revision)==="2021" && (sameDept(s.department,dept) || sameDept(s.department,COMMON))), dept), dept); }
+  function render(all, grid, dept) {
+    const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all";
+    let list = filtered(all, dept);
+    if (sem !== "all") list = list.filter(s=>String(s.semester)===sem);
+    if (q) {
+      list = list.filter(s => {
+        if (!s._searchText) {
+          s._searchText = [s.code, s.name, s.department, s.semester, s.type].join(" ").toLowerCase();
+        }
+        return s._searchText.includes(q);
+      });
+    }
+    // PERFORMANCE OPTIMIZATION: Removed redundant uniq() call inside the render loop.
+    // The master dataset is already unique and deduplicated at load time.
+    list = list.sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true}));
+    grid.innerHTML = list.length ? groups(list) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`;
+
+    let announcer = $("subjectBrowserAnnouncer");
+    if (!announcer && grid.parentNode) {
+      announcer = document.createElement("div");
+      announcer.id = "subjectBrowserAnnouncer";
+      announcer.className = "sr-only";
+      announcer.setAttribute("role", "status");
+      announcer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(announcer, grid);
+    }
+    if (announcer) {
+      announcer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+    }
+  }
+  async function init() {
+    const grid = $("subjectGrid");
+    if (!grid) return;
+    grid.innerHTML = `<div class="empty-state">Loading subjects...</div>`;
+    const dept = grid.dataset.department || "";
+    const all = await data();
+
+    // PERFORMANCE OPTIMIZATION: Precompute and cache the normalized/lowercase search text
+    // to avoid expensive array joins and case conversions on every keypress inside the render loop.
+    all.forEach(s => {
+      s._searchText = [s.code, s.name, s.department, s.semester, s.type].join(" ").toLowerCase();
+    });
+
+    const searchInput = $("subjectSearch");
+    if (searchInput) {
+      searchInput.setAttribute("aria-controls", "subjectGrid");
+      searchInput.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
+    }
+
+    fillSem($("semesterFilter"), filtered(all, dept));
+    const rr = () => render(all, grid, dept);
+    $("subjectSearch")?.addEventListener("input", rr);
+    $("semesterFilter")?.addEventListener("change", rr);
+    rr();
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true}); else init();
+})();

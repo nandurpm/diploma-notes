@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Electronics and Computer Engineering department artwork">
+  <rect width="640" height="360" fill="#ffedd5"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <rect x="156" y="78" width="328" height="204" rx="28" fill="#ea580c"/><rect x="246" y="124" width="148" height="112" rx="14" fill="#ecfeff"/><path d="M156 130h-54M156 230h-54M484 130h54M484 230h54M320 78V36M320 282v42" stroke="#64748b" stroke-width="12" stroke-linecap="round"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#ea580c" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">ECE</text>
+</svg>

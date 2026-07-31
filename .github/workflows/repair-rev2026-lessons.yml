@@ -1,0 +1,105 @@
+name: Repair REV2026 lessons and model papers
+# Triggered after the initial merge so the repair is published to main.
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - "tools/apply_rev2026_lesson_repair.py"
+      - ".github/workflows/repair-rev2026-lessons.yml"
+  push:
+    branches: [main]
+    paths:
+      - "tools/apply_rev2026_lesson_repair.py"
+      - ".github/workflows/repair-rev2026-lessons.yml"
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: repair-rev2026-lessons
+  cancel-in-progress: false
+
+jobs:
+  apply-test-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Apply repair and run static validation
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -o pipefail
+          python -m py_compile tools/apply_rev2026_lesson_repair.py
+          if ! python tools/apply_rev2026_lesson_repair.py > /tmp/rev2026-repair.log 2>&1; then
+            cat /tmp/rev2026-repair.log
+            if [ "${{ github.event_name }}" = "pull_request" ]; then
+              { echo "### REV2026 repair validation failed"; echo; echo '```text'; tail -n 80 /tmp/rev2026-repair.log; echo '```'; } > /tmp/rev2026-comment.md
+              gh pr comment "${{ github.event.pull_request.number }}" --body-file /tmp/rev2026-comment.md
+            fi
+            exit 1
+          fi
+          cat /tmp/rev2026-repair.log
+
+      - name: Browser-test complete REV2026 lesson
+        run: |
+          set -euo pipefail
+          python3 -m http.server 8000 --bind 127.0.0.1 >/tmp/server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" 2>/dev/null || true' EXIT
+          for attempt in {1..20}; do
+            curl -fsS http://127.0.0.1:8000/revision-2026-content/lessons/lessons-1041.html >/dev/null && break
+            sleep 1
+          done
+          CHROME="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser)"
+          "$CHROME" --headless=new --no-sandbox --disable-gpu --disable-dev-shm-usage \
+            --virtual-time-budget=20000 --dump-dom \
+            'http://127.0.0.1:8000/revision-2026-content/lessons/lessons-1041.html' \
+            >/tmp/rev2026.dom 2>/tmp/chrome.log
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path('/tmp/rev2026.dom').read_text(encoding='utf-8')
+          required = ['lesson-all-content', 'revision-2026-lesson', '20260725-watermark1', 'polyLessonEndActions']
+          missing = [token for token in required if token not in text]
+          modules = set(re.findall(r'data-module="([1-4])"', text))
+          if modules != {'1', '2', '3', '4'}:
+              missing.append(f'four modules; found {sorted(modules)}')
+          if 'poly-expanded-dynamic-list' in text:
+              missing.append('duplicate cloned module list')
+          if missing:
+              raise SystemExit(f'Browser validation failed: {missing}')
+          print('Rendered REV2026 lesson contains all four modules without clone corruption.')
+          PY
+
+      - name: Publish repaired source and generated pages
+        if: github.event_name == 'push'
+        run: |
+          git add assets/js/lesson-navigation-fix.js assets/js/lesson-availability-hotfix.js
+          git add assets/css/lesson-page-fix.css
+          git add tools/update_lesson_assistant.py tools/validate_lesson_fullscreen.py
+          git add tools/build_revision_2026_pages.py tools/enhance_revision_2026_model_qp.py
+          git add .github/workflows/update-lesson-assistant.yml
+          git add lessons revision-2026-content/lessons revision-2026.html revision-2026
+          if git diff --cached --quiet; then
+            echo "REV2026 repair is already published."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Repair REV2026 lessons and model-paper navigation"
+          for attempt in 1 2 3; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+          exit 1

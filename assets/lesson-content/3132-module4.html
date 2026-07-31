@@ -1,0 +1,168 @@
+<section class="section module searchable" id="m4">
+<div class="head"><span class="tag">CO4 • 11 Hours + Series Test II</span><h2>Module 4 — Structures, Unions, Enumerations, Files and Command-Line Arguments</h2><p>Represent real records and preserve program data using user-defined types and sequential files.</p></div>
+<div class="grid">
+<article class="card unit wide">
+<span class="code-id">M4.01–M4.05</span><span class="hour">6 hours</span>
+<h3>Structures and structure processing</h3>
+<p>A structure groups related members that may have different types. Use the dot operator for an object and the arrow operator for a pointer to a structure.</p>
+<div class="codebox"><div class="code-title"><span>Student record, array of structures and function parameter</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+#define NAME_SIZE 40
+
+struct Student {
+    int roll;
+    char name[NAME_SIZE];
+    float mark;
+};
+
+void print_student(const struct Student *student)
+{
+    printf("%d | %s | %.1f\n",
+           student-&gt;roll,
+           student-&gt;name,
+           student-&gt;mark);
+}
+
+int main(void)
+{
+    struct Student students[] = {
+        {1, "Anu", 86.5f},
+        {2, "Basil", 74.0f},
+        {3, "Chitra", 91.0f}
+    };
+
+    int count = (int)(sizeof students / sizeof students[0]);
+
+    for (int i = 0; i &lt; count; i++) {
+        print_student(&amp;students[i]);
+    }
+    return 0;
+}</code></pre></div>
+<div class="table-wrap"><table><thead><tr><th>Form</th><th>Example</th><th>Meaning</th></tr></thead><tbody>
+<tr><td>Structure definition</td><td><span class="inline-code">struct Student { ... };</span></td><td>Creates a structure type tag.</td></tr>
+<tr><td>Object</td><td><span class="inline-code">struct Student s;</span></td><td>Creates one record.</td></tr>
+<tr><td>Member access</td><td><span class="inline-code">s.mark</span></td><td>Accesses a member through an object.</td></tr>
+<tr><td>Pointer member</td><td><span class="inline-code">p-&gt;mark</span></td><td>Equivalent to <span class="inline-code">(*p).mark</span>.</td></tr>
+<tr><td>Array</td><td><span class="inline-code">struct Student class[60];</span></td><td>Stores many records.</td></tr>
+</tbody></table></div>
+<div class="ml">Structure ഓരോ member-നും വേറെ storage നൽകുന്നു. Function-ലേക്ക് വലിയ structure copy ചെയ്യുന്നതിന് പകരം <span class="inline-code">const struct Student *</span> pass ചെയ്യുന്നത് efficient ആണ്.</div>
+</article>
+<article class="card unit">
+<span class="code-id">M4.06</span><span class="hour">1 hour</span>
+<h3>Union</h3>
+<p>All union members share the same memory. At a given time, only the most recently written member should normally be read.</p>
+<div class="codebox"><div class="code-title"><span>Tagged union concept</span><button class="copy-code" type="button">Copy</button></div><pre><code>enum ValueType { INTEGER_VALUE, REAL_VALUE };
+
+struct Value {
+    enum ValueType type;
+    union {
+        int integer;
+        double real;
+    } data;
+};</code></pre></div>
+<div class="ml">Union members same memory share ചെയ്യും. ഏത് member valid ആണെന്ന് സൂചിപ്പിക്കാൻ enum tag ഉപയോഗിക്കുന്നത് നല്ല design ആണ്.</div>
+</article>
+<article class="card unit">
+<span class="code-id">M4.06</span><span class="hour">Included</span>
+<h3>Enumeration</h3>
+<p>An enumeration creates named integral constants, improving readability and restricting states conceptually.</p>
+<div class="codebox"><div class="code-title"><span>Enum example</span><button class="copy-code" type="button">Copy</button></div><pre><code>enum MenuChoice {
+    ADD = 1,
+    SEARCH,
+    DISPLAY,
+    EXIT
+};</code></pre></div>
+<div class="ml">Magic numbers-ന് പകരം meaningful names നൽകാൻ enum ഉപയോഗിക്കുക.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M4.07</span><span class="hour">3 hours</span>
+<h3>Sequential files</h3>
+<p>A file pointer of type <span class="inline-code">FILE *</span> represents an open stream. Always check whether <span class="inline-code">fopen()</span> succeeded and close the file after use.</p>
+<div class="table-wrap"><table><thead><tr><th>Mode</th><th>Meaning</th><th>Existing content</th></tr></thead><tbody>
+<tr><td>r</td><td>Read</td><td>File must exist.</td></tr>
+<tr><td>w</td><td>Write</td><td>Truncated; new file created if needed.</td></tr>
+<tr><td>a</td><td>Append</td><td>Writes at end; new file created if needed.</td></tr>
+<tr><td>r+</td><td>Read and write</td><td>File must exist.</td></tr>
+<tr><td>w+</td><td>Read and write</td><td>Truncated.</td></tr>
+<tr><td>a+</td><td>Read and append</td><td>Writes at end.</td></tr>
+</tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Write and read student records in a text file</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    FILE *file = fopen("marks.txt", "w");
+    if (file == NULL) {
+        perror("marks.txt");
+        return 1;
+    }
+
+    fprintf(file, "%d %s %.1f\n", 1, "Anu", 86.5);
+    fprintf(file, "%d %s %.1f\n", 2, "Basil", 74.0);
+
+    if (fclose(file) != 0) {
+        perror("fclose");
+        return 1;
+    }
+
+    file = fopen("marks.txt", "r");
+    if (file == NULL) {
+        perror("marks.txt");
+        return 1;
+    }
+
+    int roll;
+    char name[40];
+    float mark;
+
+    while (fscanf(file, "%d %39s %f",
+                  &amp;roll, name, &amp;mark) == 3) {
+        printf("%d %s %.1f\n", roll, name, mark);
+    }
+
+    fclose(file);
+    return 0;
+}</code></pre></div>
+<div class="call mist"><b>Do not use <span class="inline-code">while (!feof(file))</span> as the input loop:</b> test the return value of the actual input function, as shown above.</div>
+<div class="ml"><span class="inline-code">fopen()</span> NULL ആണോ പരിശോധിക്കുക. Read loop-ൽ <span class="inline-code">fscanf</span>/<span class="inline-code">fgets</span> return value test ചെയ്യണം. അവസാനം <span class="inline-code">fclose()</span> വിളിക്കുക.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M4.08</span><span class="hour">1 hour</span>
+<h3>Command-line arguments</h3>
+<p><span class="inline-code">argc</span> is the number of command-line strings, including the program name. <span class="inline-code">argv</span> is an array of pointers to those strings.</p>
+<div class="codebox"><div class="code-title"><span>Sum integers supplied on the command line</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;errno.h&gt;
+#include &lt;limits.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(int argc, char *argv[])
+{
+    long total = 0;
+
+    if (argc &lt; 2) {
+        fprintf(stderr, "Usage: %s number...\n", argv[0]);
+        return 1;
+    }
+
+    for (int i = 1; i &lt; argc; i++) {
+        char *end;
+        errno = 0;
+        long value = strtol(argv[i], &amp;end, 10);
+
+        if (errno != 0 || *end != '\0') {
+            fprintf(stderr, "Invalid integer: %s\n", argv[i]);
+            return 1;
+        }
+        total += value;
+    }
+
+    printf("Total = %ld\n", total);
+    return 0;
+}</code></pre></div>
+<div class="output">Example:
+program 10 20 30
+Total = 60</div>
+<div class="ml"><span class="inline-code">argv[0]</span> program name ആണ്. User arguments <span class="inline-code">argv[1]</span> മുതൽ തുടങ്ങും. Text-to-number conversion validate ചെയ്യണം.</div>
+</article>
+</div>
+<div class="call exam"><b>Series Test II focus:</b> structure definition and processing, array of structures, passing structures and structure pointers, union versus structure, enum, file modes and functions, sequential file programs and command-line arguments.</div>
+</section>

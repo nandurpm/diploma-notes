@@ -1,0 +1,195 @@
+name: Finalize audit remediation
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/finalize-audit-remediation.yml"
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: finalize-audit-remediation-main
+  cancel-in-progress: false
+
+jobs:
+  finalize:
+    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Finalize audit remediation'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SUPABASE_JS_VERSION: "2.110.7"
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Compile remediation generators
+        run: |
+          python -m py_compile \
+            tools/repair_legacy_quality_markup.py \
+            tools/normalize_about_page.py \
+            tools/normalize_rev2021_noscript.py \
+            tools/materialize_rev2021_subjects.py \
+            tools/annotate_rev2026_title_provenance.py \
+            tools/normalize_public_brand_assets.py \
+            tools/inject_structured_data.py \
+            tools/generate_sitemap.py \
+            tools/site_quality_gate.py
+
+      - name: Repair legacy release-blocking markup
+        run: |
+          python tools/repair_legacy_quality_markup.py
+          python tools/repair_legacy_quality_markup.py --check
+
+      - name: Normalize redesigned About page
+        run: |
+          python tools/normalize_about_page.py
+          python tools/normalize_about_page.py --check
+
+      - name: Vendor exact Supabase browser bundle
+        run: |
+          set -euo pipefail
+          mkdir -p assets/vendor
+          url="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@${SUPABASE_JS_VERSION}/dist/umd/supabase.js"
+          target="assets/vendor/supabase-js-${SUPABASE_JS_VERSION}.js"
+          curl --fail --location --retry 3 --connect-timeout 20 "$url" -o "$target.tmp"
+          test "$(wc -c < "$target.tmp")" -gt 100000
+          grep -q "createClient" "$target.tmp"
+          mv "$target.tmp" "$target"
+          sha256sum "$target" > "${target}.sha256"
+          printf '%s\n' \
+            "@supabase/supabase-js ${SUPABASE_JS_VERSION}" \
+            "Source: ${url}" \
+            "License: MIT" \
+            "Vendored for POLY PMNA browser authentication." \
+            "Digest: see supabase-js-${SUPABASE_JS_VERSION}.js.sha256" \
+            > assets/vendor/SUPABASE-JS-NOTICE.txt
+
+      - name: Replace moving Supabase CDN references
+        run: |
+          python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          version = os.environ['SUPABASE_JS_VERSION']
+          local = f'/assets/vendor/supabase-js-{version}.js?v={version}'
+          pattern = re.compile(r'https://cdn\.jsdelivr\.net/npm/@supabase/supabase-js@2(?:\.[0-9]+(?:\.[0-9]+)?)?(?:/dist/umd/supabase(?:\.min)?\.js)?')
+          files = [Path(name) for name in ('daily-quiz.html','mock-exam-1004.html','mock-exam.html','reset-password.html')]
+          for path in files:
+              if not path.is_file():
+                  continue
+              text = path.read_text(encoding='utf-8')
+              updated, count = pattern.subn(local, text)
+              if count:
+                  path.write_text(updated, encoding='utf-8')
+              elif local not in text:
+                  raise SystemExit(f'No Supabase browser client reference found in {path}')
+          PY
+
+      - name: Normalize Revision 2021 templates
+        run: python tools/normalize_rev2021_noscript.py
+
+      - name: Materialize Revision 2021 subject cards
+        run: python tools/materialize_rev2021_subjects.py
+
+      - name: Annotate Revision 2026 title provenance
+        run: python tools/annotate_rev2026_title_provenance.py
+
+      - name: Normalize public brand metadata
+        run: python tools/normalize_public_brand_assets.py
+
+      - name: Inject structured data
+        run: python tools/inject_structured_data.py
+
+      - name: Generate complete sitemap
+        run: python tools/generate_sitemap.py
+
+      - name: Verify Revision 2021 materialization
+        run: python tools/materialize_rev2021_subjects.py --check
+
+      - name: Verify Revision 2026 provenance notices
+        run: python tools/annotate_rev2026_title_provenance.py --check
+
+      - name: Verify public brand metadata
+        run: python tools/normalize_public_brand_assets.py --check
+
+      - name: Verify structured data
+        run: python tools/inject_structured_data.py --check
+
+      - name: Verify sitemap freshness
+        run: python tools/generate_sitemap.py --check
+
+      - name: Run site quality gate
+        run: python tools/site_quality_gate.py
+
+      - name: Validate critical JavaScript and local dependency
+        run: |
+          node --check "assets/vendor/supabase-js-${SUPABASE_JS_VERSION}.js"
+          node --check assets/js/ask-poly-config.js
+          node --check assets/js/mock-exam-service.js
+          node --check assets/js/about-experience.js
+
+      - name: Confirm moving Supabase CDN reference is gone
+        run: |
+          if grep -R "cdn.jsdelivr.net/npm/@supabase/supabase-js@2" daily-quiz.html mock-exam-1004.html mock-exam.html reset-password.html; then
+            echo "Moving Supabase CDN reference remains."
+            exit 1
+          fi
+
+      - name: Commit atomic remediation output
+        run: |
+          if git diff --quiet; then
+            echo "All deterministic audit remediations are already current."
+            exit 0
+          fi
+          git config user.name "POLY PMNA Remediation Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/vendor daily-quiz.html mock-exam-1004.html mock-exam.html reset-password.html revision-2021 revision-2026 lessons revision-2026-content/lessons sitemap.xml site.webmanifest ./*.html
+          git commit -m "Finalize static audit remediations"
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          exit 1
+
+      - name: Record successful issue-triggered run
+        if: success() && github.event_name == 'issues'
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Audit remediation completed successfully in $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Record failed issue-triggered run
+        if: failure() && github.event_name == 'issues'
+        run: |
+          {
+            echo "Audit remediation failed. Exact workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            if [ -f reports/site-quality-gate-failures.txt ]; then
+              echo
+              echo "Site quality failures:"
+              echo '```text'
+              tail -n 120 reports/site-quality-gate-failures.txt
+              echo '```'
+            fi
+          } > /tmp/remediation-failure.md
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file /tmp/remediation-failure.md
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}

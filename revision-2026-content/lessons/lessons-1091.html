@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<title>1091 · Introduction to Polymer Science | Revision 2026</title>
+<style>
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --primary: #0f766e;
+  --primary-light: #ccfbf1;
+  --accent: #f59e0b;
+  --border: #e2e8f0;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --primary: #2dd4bf;
+  --primary-light: #134e4a;
+  --border: #334155;
+  --shadow: 0 1px 3px rgba(0,0,0,.3);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+body {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+.wrap { width: 100%; max-width: 100%; margin: 0 auto; padding: 0 clamp(1rem, 3vw, 3rem); }
+
+/* TOP BAR */
+.topbar {
+  position: sticky; top: 0; z-index: 200;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.topbar-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: .75rem; padding: .55rem 0; flex-wrap: wrap;
+}
+.brand { font-weight: 800; color: var(--primary); font-size: 1.05rem; white-space: nowrap; }
+.nav { display: flex; gap: .25rem; flex-wrap: wrap; }
+.nav a {
+  color: var(--text); text-decoration: none; padding: .3rem .55rem;
+  border-radius: 6px; font-size: .82rem; font-weight: 500;
+}
+.nav a:hover { background: var(--primary-light); color: var(--primary); }
+.top-actions { display: flex; gap: .4rem; align-items: center; }
+.btn {
+  border: none; cursor: pointer; font-weight: 600; font-size: .82rem;
+  padding: .4rem .9rem; border-radius: 999px; transition: .15s;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { filter: brightness(1.1); }
+.btn-ghost {
+  background: transparent; color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-ghost:hover { background: var(--primary-light); }
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 60%, #14b8a6 100%);
+  color: #fff; border-radius: var(--radius); margin: .85rem 0 1rem;
+  padding: 1.4rem clamp(1.5rem, 3vw, 3rem); display: grid;
+  grid-template-columns: 1.4fr 1fr; gap: 1.25rem; align-items: start;
+  width: 100%;
+}
+.hero h1 { font-size: clamp(1.6rem, 3.5vw, 2.35rem); font-weight: 800; line-height: 1.15; margin-bottom: .35rem; }
+.hero .meta { font-size: .9rem; opacity: .95; margin-bottom: .6rem; }
+.hero .desc { font-size: .9rem; opacity: .92; max-width: 42rem; margin-bottom: .7rem; }
+.badges { display: flex; flex-wrap: wrap; gap: .4rem; }
+.badge {
+  background: rgba(255,255,255,.18); padding: .25rem .7rem;
+  border-radius: 999px; font-size: .78rem; font-weight: 600;
+}
+.hero-side {
+  background: rgba(255,255,255,.12); border-radius: 10px;
+  padding: 1rem 1.1rem; font-size: .88rem;
+}
+.hero-side h3 { font-size: .95rem; margin-bottom: .45rem; }
+.hero-side ul { margin-left: 1.1rem; }
+.hero-side li { margin-bottom: .2rem; }
+
+/* SECTIONS */
+section { padding: 1.1rem 0 .3rem; }
+.sec-title {
+  font-size: 1.35rem; font-weight: 800; color: var(--primary);
+  margin-bottom: .75rem; padding-bottom: .25rem;
+  border-bottom: 2.5px solid var(--primary); display: inline-block;
+}
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: .85rem; }
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.15rem;
+  box-shadow: var(--shadow); margin-bottom: .85rem;
+}
+.card h3 { color: var(--primary); font-size: 1.05rem; margin-bottom: .45rem; }
+.card h4 { color: var(--primary); font-size: .95rem; margin: .7rem 0 .3rem; }
+p { margin-bottom: .55rem; }
+ul, ol { margin: .3rem 0 .55rem 1.25rem; }
+li { margin-bottom: .2rem; }
+table { width: 100%; border-collapse: collapse; font-size: .88rem; margin: .5rem 0; }
+th, td { border: 1px solid var(--border); padding: .4rem .55rem; text-align: left; }
+th { background: var(--primary); color: #fff; font-weight: 600; }
+tr:nth-child(even) { background: var(--primary-light); }
+[data-theme="dark"] tr:nth-child(even) { background: #334155; }
+
+.ml {
+  background: #ecfdf5; border-left: 3px solid #059669;
+  padding: .55rem .8rem; margin: .55rem 0; border-radius: 0 6px 6px 0;
+  font-size: .88rem;
+}
+[data-theme="dark"] .ml { background: #064e3b; }
+.ml strong { color: #059669; display: block; margin-bottom: .15rem; }
+.note {
+  background: #fffbeb; border-left: 3px solid var(--accent);
+  padding: .55rem .8rem; margin: .55rem 0; border-radius: 0 6px 6px 0;
+  font-size: .88rem;
+}
+[data-theme="dark"] .note { background: #451a03; }
+.formula {
+  background: var(--primary-light); border: 1px solid var(--border);
+  padding: .6rem .9rem; border-radius: 6px; text-align: center;
+  font-family: 'Courier New', monospace; font-size: .95rem; margin: .55rem 0;
+}
+.mod-head {
+  background: linear-gradient(135deg, #0f766e, #0d9488);
+  color: #fff; padding: .9rem clamp(1.15rem, 2.5vw, 2rem); border-radius: var(--radius);
+  margin-bottom: .85rem;
+}
+.mod-head h2 { font-size: 1.2rem; margin-bottom: .15rem; }
+.mod-head p { font-size: .85rem; opacity: .92; margin: 0; }
+
+.diagram {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 8px; padding: .75rem; margin: .55rem 0; text-align: center; overflow-x: auto;
+}
+.diagram-caption { font-size: .78rem; color: var(--muted); margin-top: .3rem; }
+
+.qa details {
+  border: 1px solid var(--border); border-radius: 6px;
+  margin-bottom: .4rem; overflow: hidden; background: var(--card);
+}
+.qa summary {
+  padding: .5rem .75rem; cursor: pointer; font-weight: 600;
+  background: var(--primary-light); list-style: none; font-size: .9rem;
+}
+.qa summary::-webkit-details-marker { display: none; }
+.qa summary::before { content: '▸ '; font-size: .7rem; }
+.qa details[open] summary::before { content: '▾ '; }
+.qa .ans { padding: .55rem .75rem; border-top: 1px solid var(--border); font-size: .9rem; }
+
+.footer {
+  text-align: center; padding: 1.25rem 0; color: var(--muted);
+  font-size: .82rem; border-top: 1px solid var(--border); margin-top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+}
+@media print {
+  .topbar, .top-actions, .btn { display: none !important; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .card, section { break-inside: avoid; }
+  .hero { background: #0f766e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  details[open] .ans { display: block; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar no-print">
+  <div class="wrap topbar-inner">
+    <div class="brand">POLY PMNA · 1091 Introduction to Polymer Science</div>
+    <nav class="nav">
+      <a href="#info">Course</a>
+      <a href="#m1">M1</a>
+      <a href="#m2">M2</a>
+      <a href="#m3">M3</a>
+      <a href="#m4">M4</a>
+      <a href="#self">Self-Learn</a>
+      <a href="#assess">Assessment</a>
+      <a href="#qbank">Q-Bank</a>
+      <a href="#rev">Revision</a>
+      <a href="#gloss">Glossary</a>
+    </nav>
+    <div class="top-actions">
+      <button class="btn btn-primary" onclick="document.getElementById('info').scrollIntoView({behavior:'smooth'})">Start Learning</button>
+      <button class="btn btn-ghost" onclick="preparePrint()">Print / Save PDF</button>
+      <button class="btn btn-ghost" id="themeBtn" onclick="toggleTheme()">Theme</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <div class="badge" style="display:inline-block;margin-bottom:.5rem;">Revision 2026</div>
+    <h1>Introduction to Polymer Science</h1>
+    <div class="meta">Polymer Technology · Semester I · Practicum · Credits 4.5 · Contact Hours 90</div>
+    <p class="desc">This is a full handbook-style HTML learning resource built strictly from the supplied curriculum PDF and expanded into a textbook-like format for first-semester diploma students.</p>
+    <div class="badges">
+      <span class="badge">Course Code 1091</span>
+      <span class="badge">Theory 20 CIE + 60 ESE</span>
+      <span class="badge">Practical 20 CIE + 40 ESE</span>
+      <span class="badge">Total Marks 140</span>
+      <span class="badge">Malayalam Support</span>
+    </div>
+  </div>
+  <div class="hero-side">
+    <h3>Covered in this handbook</h3>
+    <ul>
+      <li>Course information and outcomes</li>
+      <li>Four complete modules</li>
+      <li>Practical modules</li>
+      <li>Self-learning activities</li>
+      <li>Textbooks, references, web resources</li>
+      <li>Assessment and evaluation</li>
+      <li>Large question bank with answers</li>
+      <li>Quick revision and glossary</li>
+    </ul>
+  </div>
+</header>
+
+<!-- COURSE INFO -->
+<section id="info">
+  <h2 class="sec-title">Course Information</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Course Description</h3>
+      <p>Polymers are crucial to modern life because they are lightweight, durable, and versatile. They are used in clothing, packaging, medical devices, vehicles, electronics, and many other products. The course introduces different types of polymers, their chemical structure, properties, and applications.</p>
+      <p>Students also prepare an album of polymer products available in the market and identify the polymeric material used in each product. This practical orientation makes the course useful for industry awareness and material identification.</p>
+      <div class="ml"><strong>Malayalam</strong>ഈ course-ൽ polymers-ന്റെ structure, properties, applications എന്നിവ പഠിക്കുന്നു. Market-ലുള്ള polymer products തിരിച്ചറിയാനും album തയ്യാറാക്കാനും ഇത് സഹായിക്കുന്നു.</div>
+    </div>
+    <div class="card">
+      <h3>Course Objectives</h3>
+      <ol>
+        <li>To summarise the history, general characteristic and classification of polymers.</li>
+        <li>To understand Natural rubber and different forms of natural rubber.</li>
+        <li>To understand about the commercially available Synthetic rubbers.</li>
+        <li>To understand about different types of plastics and fibres.</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>Course Outcomes (COs)</h3>
+      <table>
+        <tr><th>CO</th><th>Outcome</th><th>Level</th></tr>
+        <tr><td>CO1</td><td>Explain history, general characteristic &amp; classification of polymers</td><td>Understand</td></tr>
+        <tr><td>CO2</td><td>Explain structure, property &amp; applications of Natural rubber</td><td>Understand</td></tr>
+        <tr><td>CO3</td><td>Comprehend synthetic rubbers – structure, properties &amp; applications</td><td>Understand</td></tr>
+        <tr><td>CO4</td><td>Explain classification, structure, property &amp; applications of Plastics &amp; fibres</td><td>Understand</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Prerequisites</h3>
+      <table>
+        <tr><th>Topic</th><th>Level</th></tr>
+        <tr><td>Hydrocarbons, alkane, alkene, alkynes</td><td>Secondary Education</td></tr>
+        <tr><td>Polymers</td><td>Secondary school</td></tr>
+      </table>
+      <h4 style="margin-top:.7rem;">Teaching Scheme</h4>
+      <table>
+        <tr><th>L</th><th>T</th><th>P</th><th>S</th><th>SS/Week</th><th>Hours</th><th>Credits</th></tr>
+        <tr><td>3</td><td>0</td><td>3</td><td>0</td><td>6</td><td>90</td><td>4.5</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>CO–PO Mapping</h3>
+    <table>
+      <tr><th>CO</th><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th><th>PO8</th><th>PO9</th><th>PO10</th><th>PO11</th></tr>
+      <tr><td>CO1</td><td>3</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>3</td></tr>
+      <tr><td>CO2</td><td>3</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>3</td></tr>
+      <tr><td>CO3</td><td>3</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>3</td></tr>
+      <tr><td>CO4</td><td>3</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>3</td></tr>
+      <tr><td><b>Total</b></td><td>12</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>12</td></tr>
+    </table>
+    <p style="font-size:.85rem;margin-top:.35rem;">Legends: 1–Low · 2–Medium · 3–High · – No Correlation</p>
+  </div>
+
+  <div class="card">
+    <h3>Examination Scheme (Total 140)</h3>
+    <table>
+      <tr><th></th><th>CIE</th><th>ESE</th><th>Total</th></tr>
+      <tr><td>Theory</td><td>20</td><td>60</td><td>80</td></tr>
+      <tr><td>Practical</td><td>20</td><td>40</td><td>60</td></tr>
+      <tr><td><b>Grand Total</b></td><td></td><td></td><td><b>140</b></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== MODULE 1 ===================== -->
+<section id="m1">
+  <div class="mod-head">
+    <h2>Module I — History of Polymers and Classification of Polymers</h2>
+    <p>Theory 12 h · Practical 12 h · Mapped CO: CO1</p>
+  </div>
+
+  <div class="card">
+    <h3>1.1 History of Polymers</h3>
+    <p>Polymers have been used by humans for thousands of years long before their chemical nature was understood. Natural materials such as cotton, wool, silk, wood and natural rubber were the earliest polymer materials.</p>
+    <ul>
+      <li><b>Ancient times</b> — Mesoamerican civilisations used natural rubber for balls and waterproofing. Cotton, wool and silk were used for textiles.</li>
+      <li><b>1839</b> — Charles Goodyear discovered vulcanisation of natural rubber with sulphur, making rubber useful over a wide temperature range.</li>
+      <li><b>1860s–1900s</b> — Cellulose nitrate (Parkesine, Celluloid) and regenerated cellulose (Rayon) marked the start of man-made polymers.</li>
+      <li><b>1907</b> — Leo Baekeland invented Bakelite, the first fully synthetic thermosetting plastic.</li>
+      <li><b>1920s–1930s</b> — Hermann Staudinger proposed the macromolecular hypothesis. Wallace Carothers developed Nylon at DuPont.</li>
+      <li><b>1930s–1950s</b> — Commercialisation of polyethylene, PVC, polystyrene and synthetic rubbers (SBR, NBR, CR).</li>
+      <li><b>1950s onwards</b> — Stereoregular polymers (Ziegler–Natta), engineering plastics, carbon &amp; aramid fibres, biomedical polymers.</li>
+    </ul>
+    <div class="ml"><strong>Malayalam</strong>പോളിമറുകൾ ആയിരക്കണക്കിന് വർഷങ്ങളായി ഉപയോഗത്തിലുണ്ട്. 1839-ൽ ഗുഡ്‌യിയർ വൾക്കനൈസേഷൻ കണ്ടെത്തി. 1907-ൽ ബേക്കലൈറ്റ് എന്ന ആദ്യത്തെ പൂർണ്ണ കൃത്രിമ പ്ലാസ്റ്റിക് ഉണ്ടായി. ഇന്ന് പാക്കേജിംഗ്, വാഹനങ്ങൾ, ഇലക്‌ട്രോണിക്സ്, മെഡിസിൻ എന്നിവയിൽ പോളിമറുകൾ അത്യാവശ്യമാണ്.</div>
+  </div>
+
+  <div class="card">
+    <h3>1.2 Hydrocarbons</h3>
+    <p><b>Definition:</b> Compounds containing only carbon and hydrogen.</p>
+    <div class="grid-2">
+      <div>
+        <h4>Saturated Hydrocarbons</h4>
+        <p>Only single C–C bonds. General formula of alkanes: C<sub>n</sub>H<sub>2n+2</sub>. Less reactive. Examples: Methane (CH<sub>4</sub>), Ethane (C<sub>2</sub>H<sub>6</sub>), Propane (C<sub>3</sub>H<sub>8</sub>).</p>
+        <h4>Unsaturated Hydrocarbons</h4>
+        <p>Contain C=C (alkenes) or C≡C (alkynes). More reactive. Examples: Ethene (C<sub>2</sub>H<sub>4</sub>), Ethyne (C<sub>2</sub>H<sub>2</sub>).</p>
+      </div>
+      <div>
+        <h4>Aliphatic Hydrocarbons</h4>
+        <p>Open-chain or non-aromatic cyclic compounds (methane, ethene, cyclohexane).</p>
+        <h4>Aromatic Hydrocarbons</h4>
+        <p>Contain benzene rings with delocalised π-electrons. Examples: Benzene, Toluene, Naphthalene.</p>
+      </div>
+    </div>
+    <div class="diagram">
+      <svg width="500" height="110" viewBox="0 0 500 110">
+        <text x="30" y="18" fill="currentColor" font-size="12" font-weight="bold">Methane</text>
+        <circle cx="55" cy="60" r="16" fill="#0f766e"/><text x="48" y="64" fill="#fff" font-size="11">C</text>
+        <text x="30" y="42" fill="currentColor" font-size="10">H</text><text x="70" y="42" fill="currentColor" font-size="10">H</text>
+        <text x="30" y="85" fill="currentColor" font-size="10">H</text><text x="70" y="85" fill="currentColor" font-size="10">H</text>
+        <text x="150" y="18" fill="currentColor" font-size="12" font-weight="bold">Ethene</text>
+        <circle cx="155" cy="60" r="14" fill="#0f766e"/><text x="149" y="64" fill="#fff" font-size="10">C</text>
+        <circle cx="195" cy="60" r="14" fill="#0f766e"/><text x="189" y="64" fill="#fff" font-size="10">C</text>
+        <line x1="169" y1="56" x2="181" y2="56" stroke="#0f766e" stroke-width="2.5"/>
+        <line x1="169" y1="64" x2="181" y2="64" stroke="#0f766e" stroke-width="2.5"/>
+        <text x="140" y="42" fill="currentColor" font-size="10">H</text><text x="140" y="85" fill="currentColor" font-size="10">H</text>
+        <text x="205" y="42" fill="currentColor" font-size="10">H</text><text x="205" y="85" fill="currentColor" font-size="10">H</text>
+        <text x="300" y="18" fill="currentColor" font-size="12" font-weight="bold">Benzene</text>
+        <polygon points="330,35 355,50 355,75 330,90 305,75 305,50" fill="none" stroke="#0f766e" stroke-width="2"/>
+        <circle cx="330" cy="62" r="11" fill="none" stroke="#0f766e" stroke-width="1.5"/>
+      </svg>
+      <div class="diagram-caption">Structural sketches of methane, ethene and benzene</div>
+    </div>
+    <div class="ml"><strong>Malayalam</strong>ഹൈഡ്രോകാർബണുകൾ C, H മാത്രം അടങ്ങിയവ. Saturated-ൽ ഒറ്റ ബോണ്ട്; Unsaturated-ൽ ഡബിൾ/ട്രിപ്പിൾ ബോണ്ട്. Aliphatic തുറന്ന ശൃംഖല; Aromatic ബെൻസീൻ വലയം.</div>
+  </div>
+
+  <div class="card">
+    <h3>1.3 Homologous Series · Alkanes · Alkenes · Alkynes</h3>
+    <p><b>Homologous series:</b> Organic compounds with the same functional group and similar chemical properties; successive members differ by –CH<sub>2</sub>–.</p>
+    <div class="grid-3">
+      <div>
+        <h4>Alkanes</h4>
+        <p>C<sub>n</sub>H<sub>2n+2</sub>. Only single bonds. sp<sup>3</sup>, bond angle ≈109.5°. Relatively inert. Examples: CH<sub>4</sub>, C<sub>2</sub>H<sub>6</sub>, C<sub>3</sub>H<sub>8</sub>.</p>
+      </div>
+      <div>
+        <h4>Alkenes</h4>
+        <p>C<sub>n</sub>H<sub>2n</sub>. One C=C. sp<sup>2</sup>, planar. Undergo addition. Examples: Ethene, Propene. Many polymer monomers are alkenes.</p>
+      </div>
+      <div>
+        <h4>Alkynes</h4>
+        <p>C<sub>n</sub>H<sub>2n–2</sub>. One C≡C. sp, linear. Highly reactive. Example: Ethyne (acetylene).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>1.4 Micromolecules &amp; Macromolecules</h3>
+    <p><b>Micromolecules:</b> Small molecules, MW usually &lt; 1000 g/mol (NaCl 58.5, water, glucose, monomers).</p>
+    <p><b>Macromolecules:</b> Very large molecules, MW thousands to millions (NR ≈ 10<sup>5</sup>–10<sup>6</sup>, proteins, cellulose, plastics). The large size produces strength, elasticity and special physical properties.</p>
+  </div>
+
+  <div class="card">
+    <h3>1.5 Monomers, Oligomers, Polymers, Repeating Units</h3>
+    <ul>
+      <li><b>Monomer</b> — Small molecule that can join to form a polymer (ethene, vinyl chloride, isoprene, styrene).</li>
+      <li><b>Oligomer</b> — Short chain of a few (2–10) monomer units.</li>
+      <li><b>Polymer</b> — Large molecule of many repeating units (DP usually &gt; 100).</li>
+      <li><b>Repeating unit</b> — The structural unit that repeats; for PE it is –CH<sub>2</sub>–CH<sub>2</sub>–.</li>
+    </ul>
+    <div class="formula">n CH<sub>2</sub>=CH<sub>2</sub> → [–CH<sub>2</sub>–CH<sub>2</sub>–]<sub>n</sub> &nbsp;&nbsp;(Polyethylene)</div>
+  </div>
+
+  <div class="card">
+    <h3>1.6 Polymerisation &amp; Degree of Polymerisation</h3>
+    <p><b>Polymerisation:</b> Process by which monomers join to form a polymer.</p>
+    <ul>
+      <li><b>Addition (chain-growth)</b> — No loss of atoms (PE, PS, PVC).</li>
+      <li><b>Condensation (step-growth)</b> — Small molecule (usually H<sub>2</sub>O) eliminated (Nylon, polyester).</li>
+    </ul>
+    <p><b>Degree of Polymerisation (DP):</b> Average number of repeating units in the chain.</p>
+    <div class="formula">M<sub>w</sub> (polymer) = DP × M<sub>0</sub> (repeating unit) &nbsp;&nbsp;|&nbsp;&nbsp; DP = M<sub>w</sub> / M<sub>0</sub></div>
+    <h4>Worked Example 1</h4>
+    <p>PE sample M<sub>w</sub> = 84 000 g/mol; repeating unit = 28 g/mol. DP = 84 000 / 28 = <b>3000</b>.</p>
+    <h4>Worked Example 2</h4>
+    <p>Polystyrene DP = 500; repeating unit = 104 g/mol. M<sub>w</sub> = 500 × 104 = <b>52 000 g/mol</b>.</p>
+    <div class="ml"><strong>Malayalam</strong>പോളിമറൈസേഷൻ = മോണോമറുകൾ ചേർന്ന് ശൃംഖല ഉണ്ടാക്കൽ. DP = ശൃംഖലയിലെ ആവർത്തന യൂണിറ്റുകളുടെ ശരാശരി എണ്ണം. M<sub>w</sub> = DP × M<sub>0</sub>.</div>
+  </div>
+
+  <div class="card">
+    <h3>1.7 Classification of Polymers</h3>
+    <h4>By Origin</h4>
+    <ul>
+      <li><b>Natural</b> — NR, cellulose, starch, proteins, silk, wool.</li>
+      <li><b>Synthetic</b> — PE, PVC, Nylon, SBR, Bakelite.</li>
+      <li><b>Derived (semi-synthetic)</b> — Cellulose acetate, vulcanised rubber, rayon.</li>
+    </ul>
+    <h4>By Backbone</h4>
+    <ul>
+      <li><b>Organic</b> — Carbon main chain (most commercial polymers).</li>
+      <li><b>Inorganic</b> — Non-carbon main chain (Silicone rubber –Si–O–).</li>
+      <li><b>Homochain</b> — All atoms in chain same (PE, PS).</li>
+      <li><b>Heterochain</b> — Different atoms in chain (Nylon C+N, Polyester C+O, Silicone Si+O).</li>
+    </ul>
+    <h4>By Monomer Type</h4>
+    <ul>
+      <li><b>Homopolymer</b> — One monomer (PE, PVC, NR).</li>
+      <li><b>Copolymer</b> — Two or more monomers.
+        <ul>
+          <li>Random — monomers arranged randomly (SBR).</li>
+          <li>Alternating — regular A–B–A–B sequence.</li>
+        </ul>
+      </li>
+    </ul>
+    <h4>By Architecture</h4>
+    <ul>
+      <li><b>Linear</b> — Continuous chain, packs well, higher crystallinity (HDPE).</li>
+      <li><b>Branched</b> — Side chains, lower density (LDPE).</li>
+      <li><b>Cross-linked</b> — 3-D network, does not melt or dissolve (vulcanised rubber, Bakelite).</li>
+    </ul>
+    <div class="diagram">
+      <svg width="540" height="90" viewBox="0 0 540 90">
+        <text x="30" y="16" fill="currentColor" font-size="11" font-weight="bold">Linear</text>
+        <line x1="15" y1="45" x2="130" y2="45" stroke="#0f766e" stroke-width="4"/>
+        <text x="180" y="16" fill="currentColor" font-size="11" font-weight="bold">Branched</text>
+        <line x1="160" y1="45" x2="280" y2="45" stroke="#0f766e" stroke-width="4"/>
+        <line x1="200" y1="45" x2="200" y2="20" stroke="#0f766e" stroke-width="3"/>
+        <line x1="240" y1="45" x2="240" y2="70" stroke="#0f766e" stroke-width="3"/>
+        <text x="350" y="16" fill="currentColor" font-size="11" font-weight="bold">Cross-linked</text>
+        <line x1="320" y1="35" x2="460" y2="35" stroke="#0f766e" stroke-width="3"/>
+        <line x1="320" y1="60" x2="460" y2="60" stroke="#0f766e" stroke-width="3"/>
+        <line x1="350" y1="35" x2="350" y2="60" stroke="#0f766e" stroke-width="3"/>
+        <line x1="390" y1="35" x2="390" y2="60" stroke="#0f766e" stroke-width="3"/>
+        <line x1="430" y1="35" x2="430" y2="60" stroke="#0f766e" stroke-width="3"/>
+      </svg>
+      <div class="diagram-caption">Linear · Branched · Cross-linked chains</div>
+    </div>
+    <div class="ml"><strong>Malayalam</strong>Origin: Natural / Synthetic / Derived. Structure: Linear / Branched / Cross-linked. Homopolymer = ഒരു മോണോമർ; Copolymer = രണ്ടോ അധികമോ.</div>
+  </div>
+
+  <div class="card">
+    <h3>Practical Module I — Specimen Collection &amp; Album</h3>
+    <p><b>Objective:</b> Collect natural, synthetic, organic and inorganic polymer samples; record name, 3 properties and applications; prepare an album.</p>
+    <table>
+      <tr><th>Category</th><th>Samples</th><th>Typical Properties</th><th>Applications</th></tr>
+      <tr><td>Natural</td><td>Cotton, wood, NR band, silk</td><td>Biodegradable, renewable</td><td>Textiles, paper, tyres</td></tr>
+      <tr><td>Synthetic</td><td>PE bag, PVC pipe, Nylon line, Polyester cloth</td><td>Durable, processable</td><td>Packaging, pipes, clothing</td></tr>
+      <tr><td>Organic</td><td>PE, PP, Nylon, Polyester, PVC</td><td>Carbon backbone</td><td>Everyday plastics &amp; fibres</td></tr>
+      <tr><td>Inorganic</td><td>Silicone rubber (spatula, sealant, tubing)</td><td>Heat resistant, flexible</td><td>Seals, medical, cookware</td></tr>
+    </table>
+    <h4>Album page format</h4>
+    <ol>
+      <li>Photo / glued sample</li>
+      <li>Polymer name &amp; category</li>
+      <li>Three key properties</li>
+      <li>Two applications</li>
+      <li>Source of sample</li>
+    </ol>
+    <div class="note"><b>Precautions:</b> Collect only clean, dry, non-hazardous samples. Label clearly. Avoid sharp or contaminated pieces.</div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 2 ===================== -->
+<section id="m2">
+  <div class="mod-head">
+    <h2>Module II — Natural Rubber</h2>
+    <p>Theory 11 h · Practical 11 h · Mapped CO: CO2</p>
+  </div>
+
+  <div class="card">
+    <h3>2.1 Origin, Monomer &amp; Structure</h3>
+    <p><b>Source:</b> Latex of <i>Hevea brasiliensis</i>. Kerala is India’s leading producer. Rubber Board (Kottayam) supports research, quality and marketing.</p>
+    <p><b>Monomer:</b> Isoprene (2-methyl-1,3-butadiene), C<sub>5</sub>H<sub>8</sub>.</p>
+    <p><b>Polymer:</b> cis-1,4-Polyisoprene. Nearly 100 % cis configuration gives high elasticity. Molecular weight typically 10<sup>5</sup>–10<sup>6</sup> g/mol.</p>
+    <div class="formula">n CH<sub>2</sub>=C(CH<sub>3</sub>)–CH=CH<sub>2</sub> → [–CH<sub>2</sub>–C(CH<sub>3</sub>)=CH–CH<sub>2</sub>–]<sub>n</sub> &nbsp;(cis-1,4-polyisoprene)</div>
+  </div>
+
+  <div class="card">
+    <h3>2.2 Properties of Natural Rubber</h3>
+    <ol>
+      <li>High elasticity and resilience</li>
+      <li>Good tensile strength (after vulcanisation)</li>
+      <li>Excellent abrasion resistance</li>
+      <li>Low hysteresis (good for dynamic uses)</li>
+      <li>Gas permeable; attacked by oils, solvents and ozone (needs protection)</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>2.3 Latex Forms &amp; Preservation</h3>
+    <div class="grid-3">
+      <div>
+        <h4>Field Latex</h4>
+        <p>Fresh from tree. DRC ≈ 30–35 %. Contains proteins, resins, sugars. Unstable; coagulates on standing.</p>
+      </div>
+      <div>
+        <h4>Concentrated Latex</h4>
+        <p>DRC ≈ 60 % by centrifuging or creaming. Easier to transport and process.</p>
+      </div>
+      <div>
+        <h4>Double Centrifuged</h4>
+        <p>Centrifuged twice; higher purity. Used for medical gloves and high-quality goods.</p>
+      </div>
+    </div>
+    <p><b>Preservation:</b> Ammonia (0.2–0.7 %) is the main preservative; prevents bacterial action and coagulation. Low-ammonia systems use secondary preservatives (TMTD, ZnO etc.).</p>
+    <p><b>Concentration methods:</b> Centrifuging (high-speed separation) and Creaming (creaming agents such as ammonium alginate).</p>
+  </div>
+
+  <div class="card">
+    <h3>2.4 Forms of Dry Rubber — RSS, TSR, ISNR</h3>
+    <ul>
+      <li><b>RSS (Ribbed Smoked Sheet)</b> — Coagulated, sheeted, ribbed, smoked. Graded visually RSS 1–5.</li>
+      <li><b>TSR (Technically Specified Rubber)</b> — Graded by dirt, ash, nitrogen, volatile matter, plasticity. Consistent quality.</li>
+      <li><b>ISNR (Indian Standard Natural Rubber)</b> — Indian TSR grades (ISNR 5, 10, 20, 50) under BIS.</li>
+      <li>Other forms: Crepe rubber, ADS (Air Dried Sheet).</li>
+    </ul>
+    <h4>RSS Production (outline)</h4>
+    <ol>
+      <li>Dilution &amp; sieving of latex</li>
+      <li>Coagulation with formic/acetic acid</li>
+      <li>Milling into sheets → ribbing</li>
+      <li>Smoking 4–7 days → grading &amp; packing</li>
+    </ol>
+    <h4>ISNR / TSR (simplified)</h4>
+    <ol>
+      <li>Coagulation → crumb</li>
+      <li>Washing &amp; drying → blending to specs → baling</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h3>2.5 Cis-NR vs Trans-NR (Gutta-percha)</h3>
+    <p><b>cis-1,4-Polyisoprene (NR)</b> — Soft, highly elastic at room temperature.</p>
+    <p><b>trans-1,4-Polyisoprene (Gutta-percha / balata)</b> — Harder, more crystalline, lower elasticity. Used historically for golf balls, insulation, dental work.</p>
+    <p>Geometric isomerism around the double bond causes the large property difference.</p>
+  </div>
+
+  <div class="card">
+    <h3>2.6 Latex Industries &amp; Kerala Rubber Industry</h3>
+    <p>Kerala produces the major share of Indian NR. Important product groups:</p>
+    <ul>
+      <li><b>Latex products</b> — gloves, balloons, catheters, condoms, foam, adhesives.</li>
+      <li><b>Dry rubber products</b> — tyres, tubes, Hawaii slippers, belts, hoses, moulded goods.</li>
+    </ul>
+    <p>Rubber Board (Kottayam) provides technical support and market promotion. Many SMEs in Kottayam, Ernakulam and Pathanamthitta process latex and dry rubber.</p>
+    <div class="ml"><strong>Malayalam</strong>NR പ്രധാനമായും Hevea മരത്തിൽ നിന്നുള്ള ലാറ്റക്സിൽ നിന്ന്. കേരളം ഇന്ത്യയിലെ പ്രധാന ഉൽപാദക സംസ്ഥാനം. Rubber Board കോട്ടയത്ത്. cis = elastic; trans = gutta-percha. RSS, TSR, ISNR പ്രധാന dry forms.</div>
+  </div>
+
+  <div class="card">
+    <h3>Practical Module II</h3>
+    <ul>
+      <li>Prepare / observe RSS and ISNR samples; note visual &amp; tactile differences.</li>
+      <li>Demonstrate coagulation of NR latex (acid → gel → sheet).</li>
+      <li>Demonstrate preservation of NR latex (ammonia, stability observation).</li>
+      <li>Album of 6 NR products: Tyre, Inner tube, Latex gloves, Balloon, Hawaii slippers, Latex foam/sponge — record properties &amp; applications.</li>
+    </ul>
+    <p><b>Lab Series Exam – I</b> covers the above (observation, procedure, viva).</p>
+    <div class="note"><b>Precautions:</b> Handle ammonia in ventilated area. Use dilute acids; wear gloves &amp; goggles. Dispose latex waste properly.</div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 3 ===================== -->
+<section id="m3">
+  <div class="mod-head">
+    <h2>Module III — Synthetic Rubber</h2>
+    <p>Theory 11 h · Practical 11 h · Mapped CO: CO3</p>
+  </div>
+
+  <div class="card">
+    <h3>3.1 Introduction</h3>
+    <p>Synthetic rubbers are elastomers made from petrochemical monomers. They overcome NR limitations (supply, oil resistance, temperature range, etc.).</p>
+    <p><b>General purpose (GP):</b> SBR, BR, IR — large-volume tyre &amp; general goods.</p>
+    <p><b>Special purpose (SP):</b> NBR (oil), CR (weather/flame), IIR (gas barrier), EPDM (weather), CSM, Silicone (extreme temperature).</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>3.2 IR — Isoprene Rubber</h3>
+      <p><b>Raw material:</b> Isoprene (C5 stream).</p>
+      <p><b>Structure:</b> Predominantly cis-1,4-polyisoprene (NR-like).</p>
+      <p><b>5 properties:</b> High resilience, good tensile strength, low hysteresis, good building tack, similar to NR.</p>
+      <p><b>Applications:</b> Tyre sidewalls/carcass, medical goods, adhesives, footwear.</p>
+    </div>
+    <div class="card">
+      <h3>3.3 SBR — Styrene-Butadiene Rubber</h3>
+      <p><b>Raw materials:</b> Styrene + Butadiene (random copolymer, ~23–25 % styrene for tyres).</p>
+      <p><b>5 properties:</b> Good abrasion, good aging, moderate resilience, lower cost than NR, processable.</p>
+      <p><b>Applications:</b> Passenger tyre treads, belts, footwear, hoses, adhesives.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>3.4 BR — Butadiene Rubber</h3>
+      <p><b>Raw material:</b> 1,3-Butadiene.</p>
+      <p><b>Structure:</b> High-cis or medium-cis polybutadiene.</p>
+      <p><b>5 properties:</b> Excellent resilience, low T<sub>g</sub>, good abrasion, low heat build-up, poor wet grip (usually blended).</p>
+      <p><b>Applications:</b> Tyre treads/sidewalls (blends), golf balls, impact modifiers.</p>
+    </div>
+    <div class="card">
+      <h3>3.5 IIR — Butyl Rubber</h3>
+      <p><b>Raw materials:</b> Isobutylene + small isoprene.</p>
+      <p><b>Structure:</b> Mostly saturated polyisobutylene with occasional unsaturation for cure.</p>
+      <p><b>5 properties:</b> Outstanding gas impermeability, good weather/ozone resistance, high damping, chemical resistance, low resilience.</p>
+      <p><b>Applications:</b> Inner tubes, tubeless liners, pharma stoppers, vibration mounts, sealants.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>3.6 EPDM</h3>
+      <p><b>Raw materials:</b> Ethylene + Propylene + diene (ENB/DCPD).</p>
+      <p><b>Structure:</b> Saturated main chain + side-chain unsaturation for vulcanisation.</p>
+      <p><b>5 properties:</b> Excellent ozone/weather/heat resistance, good electrical insulation, water resistance, moderate oil resistance, colourable.</p>
+      <p><b>Applications:</b> Automotive weather-strips, roofing membranes, cable insulation, radiator hoses, window seals.</p>
+    </div>
+    <div class="card">
+      <h3>3.7 NBR — Nitrile Rubber</h3>
+      <p><b>Raw materials:</b> Acrylonitrile + Butadiene (ACN 18–50 %).</p>
+      <p><b>Structure:</b> Random copolymer; higher ACN → better oil resistance.</p>
+      <p><b>5 properties:</b> Excellent oil/fuel resistance, good abrasion, moderate heat resistance, poor ozone resistance, good tensile strength.</p>
+      <p><b>Applications:</b> Oil seals, O-rings, fuel hoses, gaskets, printing rolls, industrial gloves.</p>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>3.8 CR — Chloroprene Rubber (Neoprene)</h3>
+      <p><b>Raw material:</b> Chloroprene (2-chloro-1,3-butadiene).</p>
+      <p><b>Structure:</b> Predominantly trans-1,4-polychloroprene.</p>
+      <p><b>5 properties:</b> Good oil resistance, excellent weather/ozone/flame resistance, good mechanical properties, moderate heat resistance, self-extinguishing tendency.</p>
+      <p><b>Applications:</b> Wetsuits, cable jackets, gaskets, adhesives, belts, hoses, vibration mounts.</p>
+    </div>
+    <div class="card">
+      <h3>3.9 CSM — Chlorosulphonated PE</h3>
+      <p><b>Raw material:</b> PE modified by chlorination + chlorosulphonation.</p>
+      <p><b>Structure:</b> PE backbone with Cl and –SO<sub>2</sub>Cl groups.</p>
+      <p><b>5 properties:</b> Outstanding ozone/weather resistance, good chemical resistance, colour retention, flame resistance, moderate oil resistance.</p>
+      <p><b>Applications:</b> Cable sheathing, coated fabrics, pond liners, automotive hoses, protective coatings.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>3.10 Silicone Rubber</h3>
+    <p><b>Raw material:</b> Organosiloxanes (dimethylsiloxane etc.).</p>
+    <p><b>Structure:</b> –Si–O– inorganic backbone with organic side groups (usually methyl).</p>
+    <p><b>5 properties:</b> Extreme temperature range (–60 °C to +250 °C), excellent weather/ozone resistance, physiological inertness, good electrical insulation, moderate mechanical strength.</p>
+    <p><b>Applications:</b> Medical implants &amp; tubing, kitchenware, extreme-environment seals, electrical insulation, baby products, aerospace seals.</p>
+    <div class="ml"><strong>Malayalam</strong>GP: SBR, BR, IR. SP: NBR (oil), CR (weather+flame), IIR (gas barrier), EPDM (weather), Silicone (extreme temp). ഓരോന്നിന്റെയും പ്രത്യേക property അനുസരിച്ച് application തിരഞ്ഞെടുക്കുക.</div>
+  </div>
+
+  <div class="card">
+    <h3>Comparison Table — Major Synthetic Rubbers</h3>
+    <table>
+      <tr><th>Rubber</th><th>Key Strength</th><th>Main Limitation</th><th>Typical Use</th></tr>
+      <tr><td>SBR</td><td>Abrasion, cost</td><td>Resilience &lt; NR</td><td>Tyre treads</td></tr>
+      <tr><td>BR</td><td>Resilience, low T<sub>g</sub></td><td>Wet grip</td><td>Tyre blends</td></tr>
+      <tr><td>IIR</td><td>Gas barrier</td><td>Low resilience</td><td>Inner liners</td></tr>
+      <tr><td>EPDM</td><td>Weather/ozone</td><td>Oil resistance</td><td>Weather-strips</td></tr>
+      <tr><td>NBR</td><td>Oil/fuel</td><td>Ozone</td><td>Seals, hoses</td></tr>
+      <tr><td>CR</td><td>Weather + oil + flame</td><td>Cost</td><td>Wetsuits, cables</td></tr>
+      <tr><td>Silicone</td><td>Temperature extremes</td><td>Strength, cost</td><td>Medical, high-T seals</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>Practical Module III</h3>
+    <p>Collect product samples of SBR, BR, IIR, EPDM, NBR, CR, CSM and Silicone rubber. For each: label polymer name, list 3 properties and 3 applications. Prepare a neat album and observe differences in feel, flexibility and typical end-use.</p>
+  </div>
+</section>
+
+<!-- ===================== MODULE 4 ===================== -->
+<section id="m4">
+  <div class="mod-head">
+    <h2>Module IV — Plastics and Fibres</h2>
+    <p>Theory 11 h · Practical 11 h · Mapped CO: CO4</p>
+  </div>
+
+  <div class="card">
+    <h3>4.1 Thermoplastics vs Thermosets</h3>
+    <div class="grid-2">
+      <div>
+        <h4>Thermoplastics</h4>
+        <p>Soften on heating, harden on cooling; process is reversible. Linear/branched chains held by secondary forces.</p>
+        <p><b>5 examples:</b> PE, PP, PVC, PS, Nylon (also PET, ABS).</p>
+      </div>
+      <div>
+        <h4>Thermosets</h4>
+        <p>Irreversible cross-linking on curing; cannot be remelted. 3-D network.</p>
+        <p><b>5 examples:</b> Bakelite, Melamine-formaldehyde, Urea-formaldehyde, Epoxy, Unsaturated polyester.</p>
+      </div>
+    </div>
+    <table>
+      <tr><th>Property</th><th>Thermoplastics</th><th>Thermosets</th></tr>
+      <tr><td>Softening</td><td>Reversible</td><td>Irreversible (degrade)</td></tr>
+      <tr><td>Solubility</td><td>Often soluble</td><td>Insoluble</td></tr>
+      <tr><td>Recyclability</td><td>Generally recyclable</td><td>Difficult</td></tr>
+      <tr><td>High-T dimensional stability</td><td>Lower</td><td>Higher</td></tr>
+      <tr><td>Impact resistance</td><td>Often tougher</td><td>Often more brittle</td></tr>
+    </table>
+    <p><b>Advantages of plastics:</b> Lightweight, corrosion resistant, easy moulding, electrical insulation, wide property range, low cost for many grades.</p>
+    <p><b>Disadvantages:</b> Most non-biodegradable, limited high-T performance, environmental concerns (waste, microplastics), toxic fumes on burning for some types.</p>
+  </div>
+
+  <div class="card">
+    <h3>4.2 Household Plastics</h3>
+    <div class="grid-2">
+      <div>
+        <h4>Kitchen &amp; Food Storage</h4>
+        <ul>
+          <li>Water/milk bottles → PET, HDPE</li>
+          <li>Food containers → PP, HDPE, LDPE</li>
+          <li>Bags &amp; wrap → LDPE, PVC cling film</li>
+          <li>Cutlery, microwave dishes → PP, PS</li>
+          <li>Caps, dustbins, buckets, straws → PP, HDPE, PS</li>
+        </ul>
+        <h4>Bathroom &amp; Personal Care</h4>
+        <ul>
+          <li>Toothbrush → PP handle, Nylon bristles</li>
+          <li>Cosmetic containers → PET, PP, ABS</li>
+          <li>Shower curtains → PVC, PE</li>
+          <li>Shampoo bottles → HDPE, PET, PP</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Cleaning &amp; Storage</h4>
+        <ul>
+          <li>Spray bottles → PET, HDPE, PP</li>
+          <li>Trash bags → LDPE, HDPE</li>
+          <li>Bins, hoses, pipes → PP, HDPE, PVC, PE</li>
+        </ul>
+        <h4>Electronics, Toys, Furniture</h4>
+        <ul>
+          <li>Phone covers → TPU, PC, ABS, Silicone</li>
+          <li>Toys → ABS, PE, PP</li>
+          <li>Pens, notebook covers → PP, ABS, PS</li>
+          <li>Chairs, tables, crates → PP, HDPE, ABS</li>
+          <li>Insulation sheets → EPS, XPS, PU foam</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>4.3 Fibres</h3>
+    <p><b>Definition:</b> Long, thin, flexible structures with high length-to-diameter ratio used for textiles, ropes and composites.</p>
+    <p><b>Natural:</b> Cotton, wool, silk, coir, jute, arecanut fibre, flax.</p>
+    <p><b>Synthetic:</b> Nylon, Polyester, Acrylic, PP, PE (UHMWPE), Carbon fibre, Glass fibre, Aramid.</p>
+    <table>
+      <tr><th>Fibre</th><th>Key Properties</th><th>Applications</th></tr>
+      <tr><td>Wool</td><td>Warm, resilient, moisture absorbing</td><td>Clothing, carpets, blankets</td></tr>
+      <tr><td>Silk</td><td>Lustrous, strong, smooth</td><td>Luxury textiles, sutures</td></tr>
+      <tr><td>Coir</td><td>Coarse, durable, salt-water resistant</td><td>Mats, ropes, geo-textiles</td></tr>
+      <tr><td>Arecanut</td><td>Natural, biodegradable</td><td>Composite boards, eco-products</td></tr>
+      <tr><td>Nylon</td><td>High strength, abrasion resistant, elastic</td><td>Apparel, ropes, tyres, carpets</td></tr>
+      <tr><td>Acrylic</td><td>Wool-like, colourfast, light</td><td>Sweaters, blankets, awnings</td></tr>
+      <tr><td>PE / PP</td><td>Light, chemical resistant, low cost</td><td>Ropes, non-wovens, geotextiles</td></tr>
+      <tr><td>Carbon</td><td>Very high strength &amp; stiffness, light</td><td>Aerospace, sports, auto composites</td></tr>
+      <tr><td>Glass</td><td>High strength, insulating, low cost</td><td>Composites, insulation, PCBs</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3>4.4 Liquid Resins, Adhesives &amp; Sealants</h3>
+    <ul>
+      <li><b>Liquid resins</b> — Reactive liquids that cure to solid. Examples: Epoxy, unsaturated polyester, polyurethane resin.</li>
+      <li><b>Adhesives</b> — Join surfaces. Examples: PVA (white glue), epoxy adhesive, cyanoacrylate (super glue), rubber-based adhesives.</li>
+      <li><b>Sealants</b> — Fill gaps, stop fluid/gas passage. Examples: Silicone sealant, polyurethane sealant, acrylic sealant.</li>
+    </ul>
+    <div class="ml"><strong>Malayalam</strong>Thermoplastics = ചൂടാക്കി വീണ്ടും ഉപയോഗിക്കാം. Thermosets = ക്യൂർ ചെയ്താൽ ഉരുകില്ല. Fibres: Natural (wool, silk, coir…) &amp; Synthetic (Nylon, Acrylic, Carbon, Glass…). Resins, adhesives, sealants — joining &amp; sealing-ന്.</div>
+  </div>
+
+  <div class="card">
+    <h3>Practical Module IV</h3>
+    <ul>
+      <li>Collect 3 raw thermoplastic + 3 thermoset samples; label polymer name.</li>
+      <li>Collect 3 product samples each of LDPE, HDPE, PVC; record name, 3 properties, application.</li>
+      <li>Collect 3 natural + 3 synthetic fibre samples; label name, 3 properties, application.</li>
+      <li>Prepare systematic album.</li>
+    </ul>
+    <p><b>Lab Series Exam – II</b> covers the above practical work.</p>
+  </div>
+</section>
+
+<!-- SELF LEARNING -->
+<section id="self">
+  <h2 class="sec-title">Self-Learning Activities (15 weeks · 90 hours)</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Module I — Weeks 1–4</h3>
+      <ol>
+        <li><b>W1</b> Relate molecular structure to strength, flexibility, transparency. Collect 2 natural polymer samples; learn 3 properties &amp; applications.</li>
+        <li><b>W2</b> Illustrate polymer molecules by linking simple units. Collect 2 synthetic polymer samples; study properties &amp; applications.</li>
+        <li><b>W3</b> Explore Bakelite. Collect 5 organic polymer samples; learn properties &amp; applications.</li>
+        <li><b>W4</b> List 10 monomers and their polymers. Collect inorganic polymer (silicone); learn properties &amp; applications.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Module II — Weeks 5–8</h3>
+      <ol start="5">
+        <li><b>W5</b> Explore latex-yielding trees. Collect RSS &amp; ISNR; compare properties.</li>
+        <li><b>W6</b> Compare creaming vs centrifuging. Study preservatives for NR latex.</li>
+        <li><b>W7</b> Find centrifuging units in Kerala. Visit/study latex &amp; dry-rubber industry. Learn coagulation chemistry.</li>
+        <li><b>W8</b> Learn chemical name &amp; structure of NR. Differentiate latex product vs dry-rubber product.</li>
+      </ol>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Module III — Weeks 9–12</h3>
+      <ol start="9">
+        <li><b>W9</b> Search synthetic-rubber products. Collect SBR &amp; BR samples; study 3 properties + 3 applications.</li>
+        <li><b>W10</b> Learn CSM &amp; Silicone structures. Collect IR &amp; EPDM samples; study properties &amp; applications.</li>
+        <li><b>W11</b> Learn SBR, IR, BR structures. Collect NBR &amp; CR samples; study properties &amp; applications.</li>
+        <li><b>W12</b> Learn EPDM, NBR, CR structures. Collect CSM &amp; Silicone samples; study properties &amp; applications.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>Module IV — Weeks 13–15</h3>
+      <ol start="13">
+        <li><b>W13</b> Find 10 thermoplastic &amp; thermoset products. Collect 3 raw thermoplastic + 3 thermoset samples; study name, properties, applications.</li>
+        <li><b>W14</b> Learn fibre-forming polymer properties. Collect 3 natural fibre samples; study name, properties, applications.</li>
+        <li><b>W15</b> Learn fibre applications. Collect 3 synthetic fibre samples; study name, properties, applications.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES -->
+<section id="res">
+  <h2 class="sec-title">Learning Resources</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Text Books</h3>
+      <table>
+        <tr><th>#</th><th>Title</th><th>Author</th><th>Publication</th></tr>
+        <tr><td>1</td><td>Polymer Science</td><td>Jayadev Sreedhar, V.R. Gowariker, N.V. Viswanathan</td><td>New Age International, 2005</td></tr>
+        <tr><td>2</td><td>Text Book of Polymer Science</td><td>Billmeyer F.W.</td><td>John Wiley (Asia), 2008</td></tr>
+        <tr><td>3</td><td>Man Made Fibres</td><td>R.W. Moncrieff</td><td>Wiley, 5th ed., 1970</td></tr>
+        <tr><td>4</td><td>Handbook of NR Production</td><td>RRI, Kottayam / Rubber Board</td><td>—</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>References &amp; Web</h3>
+      <table>
+        <tr><th>#</th><th>Title / URL</th><th>Author / Modules</th></tr>
+        <tr><td>1</td><td>Introductory Polymer Chemistry</td><td>G.S. Misra · New Age, 2005</td></tr>
+        <tr><td>2</td><td>Introduction to Polymer Science and Technology</td><td>Mustafa Akay · bookboon.com</td></tr>
+        <tr><td>3</td><td>https://study.com</td><td>Module I</td></tr>
+        <tr><td>4</td><td>https://www.osborneindustries.com</td><td>Module III</td></tr>
+        <tr><td>5</td><td>https://www.sealsdirect.co.uk</td><td>Module II</td></tr>
+        <tr><td>6</td><td>https://www.sciencedirect.com</td><td>All</td></tr>
+      </table>
+      <p style="margin-top:.5rem;font-size:.88rem;"><b>Major Equipment / Software:</b> NIL (as per syllabus). Work is sample collection, coagulation/preservation demos and album preparation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ASSESSMENT -->
+<section id="assess">
+  <h2 class="sec-title">Assessment Methodology — Practicum</h2>
+  <div class="card">
+    <h3>Overall Scheme</h3>
+    <table>
+      <tr><th>Component</th><th>Details</th><th>Duration</th><th>Marks</th><th>Converted</th></tr>
+      <tr><td>Attendance</td><td>—</td><td>—</td><td>—</td><td>5</td></tr>
+      <tr><td>CA1</td><td>Avg of self-learning activities</td><td>—</td><td>10</td><td>5</td></tr>
+      <tr><td>CE</td><td>Continuous evaluation</td><td>—</td><td>50</td><td>10</td></tr>
+      <tr><td>CA2</td><td>Practical test (1st half)</td><td>3 h</td><td>40</td><td>10</td></tr>
+      <tr><td>CA3</td><td>Practical test (2nd half)</td><td>3 h</td><td>40</td><td>10</td></tr>
+      <tr><td>CA4</td><td>Series Exam (2 modules)</td><td>2 h</td><td>50</td><td>10</td></tr>
+      <tr><td>CA5</td><td>Series Exam (2 modules)</td><td>2 h</td><td>50</td><td>10</td></tr>
+      <tr><td>ESE Theory</td><td>Written</td><td>2.5 h</td><td>60</td><td>60</td></tr>
+      <tr><td>ESE Lab</td><td>Lab examination (internal)</td><td>3 h</td><td>40</td><td>40</td></tr>
+    </table>
+    <p style="font-size:.85rem;margin-top:.35rem;">Schedule: CA1 by 4th wk · CE by 7th · CA2 by 11th · CA3 by 14th · Series 1 in 8th wk · Series 2 in 15th wk · ESE end of semester.</p>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>CIE Practical Evaluation (50)</h3>
+      <table>
+        <tr><th>#</th><th>Criteria</th><th>Marks</th></tr>
+        <tr><td>1</td><td>Preparation &amp; Punctuality</td><td>10</td></tr>
+        <tr><td>2</td><td>Setup &amp; Procedure</td><td>10</td></tr>
+        <tr><td>3</td><td>Observation &amp; Recording</td><td>5</td></tr>
+        <tr><td>4</td><td>Analysis &amp; Interpretation</td><td>10</td></tr>
+        <tr><td>5</td><td>Viva / Concept</td><td>10</td></tr>
+        <tr><td>6</td><td>Workmanship &amp; Teamwork</td><td>5</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Practical Test (40)</h3>
+      <table>
+        <tr><th>Category</th><th>Marks</th></tr>
+        <tr><td>Write-up / Procedure</td><td>10</td></tr>
+        <tr><td>Setup &amp; Execution</td><td>10</td></tr>
+        <tr><td>Observation &amp; Result</td><td>8</td></tr>
+        <tr><td>Viva Voce</td><td>8</td></tr>
+        <tr><td>Record</td><td>4</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Series Exam (2 h, 50 marks) &amp; ESE Theory (2.5 h, 60 marks)</h3>
+    <p><b>Series:</b> Any two modules. Part A: 4×1 · Part B: 6×3 · Part C: 4×7 (with choice) = 50.</p>
+    <p><b>ESE:</b> All four modules. Per module: Part A 2×1, Part B 2×3 (from 3), Part C 1×7 (choice) → 15 marks × 4 = 60.</p>
+  </div>
+</section>
+
+<!-- QUESTION BANK -->
+<section id="qbank">
+  <h2 class="sec-title">Question Bank (with Answers)</h2>
+  <div class="card">
+    <h3>Module I</h3>
+    <div class="qa">
+      <details><summary>1. Define polymer and monomer. Give two examples of each. (2)</summary><div class="ans"><b>Answer:</b> Monomer = small molecule that can join to form a polymer (ethene, isoprene). Polymer = large molecule of many repeating units (polyethylene, natural rubber).</div></details>
+      <details><summary>2. State the relationship between DP and molecular weight. (2)</summary><div class="ans"><b>Answer:</b> M<sub>w</sub> = DP × M<sub>0</sub> where M<sub>0</sub> is molecular weight of the repeating unit.</div></details>
+      <details><summary>3. Distinguish thermoplastics and thermosets with two examples each. (3)</summary><div class="ans"><b>Answer:</b> Thermoplastics soften reversibly on heating (PE, PVC). Thermosets form permanent cross-links and cannot be remelted (Bakelite, epoxy).</div></details>
+      <details><summary>4. PE sample M<sub>w</sub> = 56 000; repeating unit = 28. Calculate DP. (3)</summary><div class="ans"><b>Answer:</b> DP = 56 000 / 28 = 2000.</div></details>
+      <details><summary>5. Explain classification by structure (linear, branched, cross-linked). (7)</summary><div class="ans"><b>Answer:</b> Linear — continuous chain, high packing/crystallinity (HDPE). Branched — side chains, lower density (LDPE). Cross-linked — 3-D network, insoluble, non-melting (vulcanised rubber, Bakelite). Include property consequences and sketches.</div></details>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Module II</h3>
+    <div class="qa">
+      <details><summary>1. What is the monomer of NR? Write its structure. (2)</summary><div class="ans"><b>Answer:</b> Isoprene (2-methyl-1,3-butadiene), CH<sub>2</sub>=C(CH<sub>3</sub>)–CH=CH<sub>2</sub>.</div></details>
+      <details><summary>2. Differentiate field latex and concentrated latex. (3)</summary><div class="ans"><b>Answer:</b> Field latex — fresh, DRC ~30–35 %, unstable. Concentrated — DRC ~60 % by centrifuging/creaming, more stable and transportable.</div></details>
+      <details><summary>3. Outline RSS production. (7)</summary><div class="ans"><b>Answer:</b> Dilution → sieving → acid coagulation → milling/ribbing → smoking 4–7 days → grading (RSS 1–5) → packing. Explain each step briefly.</div></details>
+      <details><summary>4. Why is cis configuration important in NR? (3)</summary><div class="ans"><b>Answer:</b> Cis-1,4 allows flexible chains that coil/uncoil easily → high elasticity. Trans (gutta-percha) is more crystalline and less elastic.</div></details>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Module III</h3>
+    <div class="qa">
+      <details><summary>1. Name two GP and two SP synthetic rubbers. (2)</summary><div class="ans"><b>Answer:</b> GP — SBR, BR (or IR). SP — NBR, CR (or IIR, EPDM, Silicone).</div></details>
+      <details><summary>2. Why is NBR preferred for oil seals? (3)</summary><div class="ans"><b>Answer:</b> Polar acrylonitrile groups resist swelling in non-polar oils/fuels; oil resistance rises with ACN content.</div></details>
+      <details><summary>3. Compare SBR and NR for tyre applications. (7)</summary><div class="ans"><b>Answer:</b> SBR — better abrasion &amp; aging, lower cost, poorer resilience &amp; tack. NR — higher resilience, better tear &amp; tack. Blends are common.</div></details>
+      <details><summary>4. List five properties and three applications of Silicone rubber. (5)</summary><div class="ans"><b>Answer:</b> Properties — extreme T range, weather/ozone resistance, biocompatibility, electrical insulation, flexibility. Applications — medical tubing, high-T seals, kitchenware.</div></details>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Module IV</h3>
+    <div class="qa">
+      <details><summary>1. Give five examples each of thermoplastics and thermosets. (3)</summary><div class="ans"><b>Answer:</b> TP — PE, PP, PVC, PS, Nylon. TS — Bakelite, melamine-formaldehyde, epoxy, unsaturated polyester, urea-formaldehyde.</div></details>
+      <details><summary>2. Which plastic is common for water bottles and why? (2)</summary><div class="ans"><b>Answer:</b> PET — clear, tough, good gas barrier, recyclable, food-safe.</div></details>
+      <details><summary>3. Distinguish natural and synthetic fibres with examples. (5)</summary><div class="ans"><b>Answer:</b> Natural — cotton (absorbent), wool (warm), silk (lustrous), coir (durable). Synthetic — Nylon (strong/elastic), Polyester (crease-resistant), Acrylic (wool-like), Carbon (high stiffness).</div></details>
+      <details><summary>4. What are liquid resins, adhesives and sealants? Two examples each. (5)</summary><div class="ans"><b>Answer:</b> Liquid resins — epoxy, unsaturated polyester. Adhesives — PVA, cyanoacrylate. Sealants — silicone sealant, PU sealant.</div></details>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Viva / Lab Sample Questions</h3>
+    <ul>
+      <li>How do you preserve NR latex in the laboratory?</li>
+      <li>What acid is commonly used for latex coagulation?</li>
+      <li>How can you distinguish LDPE from HDPE by simple observation?</li>
+      <li>Why is silicone preferred for medical applications?</li>
+      <li>Name the polymer used in most plastic chairs.</li>
+      <li>What is the repeating unit of polyethylene?</li>
+      <li>Why are thermosets not recycled by simple melting?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- QUICK REVISION -->
+<section id="rev">
+  <h2 class="sec-title">Quick Revision</h2>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Module I Summary</h3>
+      <ul>
+        <li>Polymer = macromolecule from monomers via polymerisation.</li>
+        <li>DP = M<sub>w</sub> / M<sub>0</sub>.</li>
+        <li>Classify by origin, backbone, monomer type, architecture.</li>
+        <li>Hydrocarbons: saturated / unsaturated · aliphatic / aromatic.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Module II Summary</h3>
+      <ul>
+        <li>NR = cis-1,4-polyisoprene from Hevea latex.</li>
+        <li>Latex: field → concentrated → double centrifuged.</li>
+        <li>Preserve with ammonia. Dry forms: RSS, TSR/ISNR.</li>
+        <li>Cis = elastic; Trans = gutta-percha. Kerala + Rubber Board central to Indian NR.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h3>Module III Summary</h3>
+      <ul>
+        <li>GP: SBR, BR, IR — tyres &amp; general goods.</li>
+        <li>SP: NBR (oil), CR (weather+oil+flame), IIR (gas), EPDM (weather), Silicone (T extremes).</li>
+        <li>Always link special property → application.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Module IV Summary</h3>
+      <ul>
+        <li>TP = remeltable; TS = permanent network.</li>
+        <li>Household: PET bottles, PP containers, HDPE pipes, PVC pipes, PS cutlery, ABS toys.</li>
+        <li>Fibres: natural vs synthetic. Resins / adhesives / sealants for joining &amp; sealing.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Formula · Common Mistakes · Exam Tips</h3>
+    <div class="formula">M<sub>w</sub> = DP × M<sub>0</sub> &nbsp;&nbsp;|&nbsp;&nbsp; DP = M<sub>w</sub> / M<sub>0</sub></div>
+    <ul>
+      <li>Do not confuse cis-NR with trans (gutta-percha).</li>
+      <li>Thermoplastics can be reshaped; thermosets cannot — remember with examples.</li>
+      <li>For synthetic rubbers link key property to application (NBR→oil, IIR→air retention…).</li>
+      <li>Check MW units in numericals. Album: neat labels + 3 properties + applications.</li>
+      <li>Read questions carefully — “list five” vs “explain with structure”.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section id="gloss">
+  <h2 class="sec-title">Glossary</h2>
+  <div class="card">
+    <div class="grid-2">
+      <ul>
+        <li><b>Monomer</b> — Small molecule that can polymerise.</li>
+        <li><b>Polymer</b> — Large molecule of repeating units.</li>
+        <li><b>DP</b> — Average number of repeating units.</li>
+        <li><b>Homopolymer</b> — One monomer type.</li>
+        <li><b>Copolymer</b> — Two or more monomer types.</li>
+        <li><b>Vulcanisation</b> — Cross-linking of rubber (usually sulphur).</li>
+        <li><b>Latex</b> — Aqueous dispersion of polymer particles.</li>
+        <li><b>Coagulation</b> — Conversion of latex to solid rubber.</li>
+      </ul>
+      <ul>
+        <li><b>Thermoplastic</b> — Softens reversibly on heating.</li>
+        <li><b>Thermoset</b> — Forms permanent network on curing.</li>
+        <li><b>Elastomer</b> — Polymer that stretches largely and recovers.</li>
+        <li><b>Fibre</b> — High aspect-ratio structure for textiles/composites.</li>
+        <li><b>Repeating unit</b> — Structural unit that repeats in the chain.</li>
+        <li><b>Cross-link</b> — Covalent bridge between chains.</li>
+        <li><b>T<sub>g</sub></b> — Glass transition temperature (glassy below it).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</div><!-- /.wrap -->
+
+<footer class="footer">
+  <div class="wrap">
+    <p><b>1091 – Introduction to Polymer Science</b> · Diploma Curriculum Revision 2026 · Polymer Technology · Semester I</p>
+    <p>Prepared strictly from the official syllabus PDF. Follow institutional safety guidelines in laboratory work.</p>
+  </div>
+</footer>
+
+<script>
+function toggleTheme(){
+  const h=document.documentElement, b=document.getElementById('themeBtn');
+  if(h.getAttribute('data-theme')==='dark'){ h.removeAttribute('data-theme'); b.textContent='Theme'; }
+  else { h.setAttribute('data-theme','dark'); b.textContent='Light'; }
+}
+function preparePrint(){
+  document.querySelectorAll('details').forEach(d=>d.setAttribute('open',''));
+  window.print();
+}
+</script>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
+</body>
+</html>

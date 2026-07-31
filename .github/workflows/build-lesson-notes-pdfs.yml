@@ -1,0 +1,131 @@
+name: Build lesson notes PDFs
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "lessons/**/*.html"
+      - "notes/**/*.pdf"
+      - "revision-2026-content/lessons/**/*.html"
+      - "revision-2026-content/notes/**/*.pdf"
+      - "revision-2021/**/*.html"
+      - "revision-2026/**/*.html"
+      - "assets/js/subject-browser.js"
+      - "assets/js/asset-manifest.js"
+      - "assets/js/lesson-availability-hotfix.js"
+      - "tools/build_lesson_pdfs.py"
+      - "tools/build_missing_lesson_pdfs.py"
+      - "tools/build_missing_revision_2026_lesson_pdfs.py"
+      - "tools/update_asset_manifest.py"
+      - ".github/workflows/build-lesson-notes-pdfs.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: lesson-notes-pdfs-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-notes:
+    if: ${{ github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip notes]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PDF build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright pypdf
+          python -m playwright install --with-deps chromium
+
+      - name: Start local static server
+        run: |
+          python -m http.server 8000 > /tmp/lesson-site.log 2>&1 &
+          echo $! > /tmp/lesson-site.pid
+          sleep 3
+
+      - name: Build missing Revision 2021 PDFs
+        run: python tools/build_missing_lesson_pdfs.py
+
+      - name: Build missing Revision 2026 PDFs
+        run: |
+          python -m py_compile tools/build_missing_revision_2026_lesson_pdfs.py
+          python tools/build_missing_revision_2026_lesson_pdfs.py
+
+      - name: Report separated notes coverage
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          import re
+
+          root = Path.cwd()
+
+          def coverage(lesson_dir, notes_dir):
+              lesson_codes = set()
+              notes_codes = set()
+              for path in lesson_dir.glob('lessons-*.html'):
+                  match = re.fullmatch(r'lessons-([0-9]+[A-Za-z]*)\.html', path.name)
+                  if match:
+                      lesson_codes.add(match.group(1).upper())
+              for path in notes_dir.glob('downloadable-notes-*.pdf'):
+                  match = re.fullmatch(r'downloadable-notes-([0-9]+[A-Za-z]*)\.pdf', path.name)
+                  if match and path.stat().st_size >= 20000:
+                      notes_codes.add(match.group(1).upper())
+              return {
+                  'lessonCount': len(lesson_codes),
+                  'notesCount': len(notes_codes),
+                  'missing': sorted(lesson_codes - notes_codes),
+              }
+
+          print(json.dumps({
+              'revision2021': coverage(root / 'lessons', root / 'notes'),
+              'revision2026': coverage(
+                  root / 'revision-2026-content' / 'lessons',
+                  root / 'revision-2026-content' / 'notes',
+              ),
+          }, indent=2))
+          PY
+
+      - name: Synchronize independent lesson and notes availability
+        run: |
+          python tools/update_asset_manifest.py
+          node --check assets/js/subject-browser.js
+          node --check assets/js/asset-manifest.js
+
+      - name: Commit generated PDFs and availability data
+        run: |
+          if git diff --quiet -- notes revision-2026-content/notes reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json assets/js/subject-browser.js assets/js/asset-manifest.js; then
+            echo "Downloadable notes are already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add notes revision-2026-content/notes
+          git add reports/lesson-notes-pdf-build.json reports/revision-2026-lesson-notes-pdf-build.json
+          git add assets/js/subject-browser.js assets/js/asset-manifest.js
+          git commit -m "Build revision-separated downloadable notes [skip notes]"
+          git pull --rebase --autostash origin main
+          git push origin HEAD:main
+
+      - name: Stop local static server
+        if: always()
+        run: |
+          if [ -f /tmp/lesson-site.pid ]; then
+            kill "$(cat /tmp/lesson-site.pid)" || true
+          fi

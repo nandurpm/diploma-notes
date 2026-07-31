@@ -1,0 +1,87 @@
+name: Send Course 1181 update notification once
+
+on:
+  push:
+    paths:
+      - ".github/workflows/send-1181-notification-once.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install FCM sender dependencies
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Send notification to all Android users
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        shell: python
+        run: |
+          import json
+          import os
+          import requests
+          from google.auth.transport.requests import Request
+          from google.oauth2 import service_account
+
+          raw = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
+          if not raw:
+              raise SystemExit("FIREBASE_SERVICE_ACCOUNT_JSON is not configured.")
+          account = json.loads(raw)
+          project_id = account.get("project_id")
+          if not project_id:
+              raise SystemExit("Firebase service account JSON has no project_id.")
+
+          creds = service_account.Credentials.from_service_account_info(
+              account,
+              scopes=["https://www.googleapis.com/auth/firebase.messaging"],
+          )
+          creds.refresh(Request())
+
+          message = {
+              "topic": "all-users",
+              "data": {
+                  "title": "📢 POLY PMNA – Course 1181 Updated",
+                  "body": "The Course 1181 — Architectural Graphics lesson has been updated with improved layout and CSS. 👉 Open Course 1181 now.",
+                  "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1181.html",
+                  "subjectCode": "1181",
+                  "revision": "REV2026",
+                  "contentType": "lesson-update"
+              },
+              "android": {
+                  "priority": "high",
+                  "ttl": "86400s",
+                  "collapse_key": "course-1181-update"
+              }
+          }
+
+          endpoint = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+          response = requests.post(
+              endpoint,
+              headers={
+                  "Authorization": f"Bearer {creds.token}",
+                  "Content-Type": "application/json; charset=UTF-8",
+              },
+              json={"message": message},
+              timeout=30,
+          )
+          response.raise_for_status()
+          print("FCM notification sent successfully:", response.text)
+
+      - name: Remove one-time workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -f .github/workflows/send-1181-notification-once.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A .github/workflows/send-1181-notification-once.yml
+          git commit -m "Remove one-time Course 1181 notification workflow [skip ci]"
+          git push origin HEAD:main

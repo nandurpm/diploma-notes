@@ -1,0 +1,16 @@
+name: Trigger About page release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open release automation issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh issue create --repo "$GITHUB_REPOSITORY" --title "[automation] Release redesigned About page" --body "Normalize, validate, finalize and deploy the redesigned bilingual About page."
