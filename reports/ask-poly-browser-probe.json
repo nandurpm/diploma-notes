@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-30T16:15:38Z",
+  "generatedAt": "2026-07-31T00:50:55Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 30 Jul 2026 16:15:37 GMT",
+      "date": "Fri, 31 Jul 2026 00:50:54 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "419",
       "connection": "close",
@@ -22,10 +22,10 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=dRuUudkHAw4g6EqyncosgOqdGuCsbb%2BakcvPA6bO05eIFFMNFmGz5Cbbjedmu32q0J%2BJ%2FjkXyLpDMnPWt3FTHj8SS7HQ8l3AZvgR0Rho5vJh%2B99PyRwc9OUB1jz62LLiFHDjsqWV%2Bnt7eNID9nfCkPfFzdyWUWZJCw%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=TL7GdQNQG5wPHPu17UowOUDVCnvQJ6draUEkldVW4qsOmvfu2ZEN7c4gyptlamHZAByeWo4ABFqsrJECLlxLRs3ddeDrcmMsItaOtVSlbnacvu%2FNOEHik1ZM453IwFt%2BP2zL5rGbEZILvq7RKufKyt19TkK6NlbQxA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a235a9c0bc7e7b06-DEN",
+      "cf-ray": "a2389c949e8149ad-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Thu, 30 Jul 2026 16:15:37 GMT",
+      "date": "Fri, 31 Jul 2026 00:50:54 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=3M51rM9bvapiwRI982iPM8noVYDOw7OpYHAmscgD7GDoWr0ue6Sbo7wZREGSDAE4SC1nsrcxuzN7t3vStC3gMJB1lQtL5lY%2FmRYDAXJkJEOd2cATK3xqMIAryN2MtRslSbxCjgSdD51UjOyksiB7MSbVoDe0TVkZZQ%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=fxRr%2FvLeWpOiV4yb5giowaTZmYS09DS0GAIvVWkjlpMkKlv3GOt9ym%2BgOrOZN4zbLyb9DMQAqqTN68ohlP1lGzCQ8V2ElvB0y1Je%2Bn7Hi5YEh96BtWrbP%2FyvU2AF%2B5N3VQfkR9GM%2FIcq6c7fxuwJ0FqpE5%2BCdtp54w%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a235a9c138a2e829-ORD",
+      "cf-ray": "a2389c94ca6a7b1b-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 30 Jul 2026 16:15:38 GMT",
+      "date": "Fri, 31 Jul 2026 00:50:55 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "827",
+      "content-length": "333",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=K0xS6GfRzWrv5jLaWR1tcOYLoMPD9UWvsysfI3%2Bc%2Fg84lxMACKqgnLgpYSgPzYoWAk4C1ZGtFaQt2oK7XRNe4t48Rtx5tX9fMmFMKnB9eLokFFCzMMAiiKL1FvOAWrcH4LUQQRtCmN0BQRGKFZpQb0%2FUZjSaO7ohIg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=8uiwUwCc1UKmwMwhRE%2BfMXPPgVq1F%2FCsWSxAHWpuXVjaG8muHEanBsKBm7%2FKqWfWDRk7Rum%2Fiw1gty8OYT57zsCDMbT7hBHxiyaGLuYlT3DdWevjzsBQVm%2BodlUq2Gz7zupFZy0M7OFBif8raQsleztaeWaVpq9z%2FQ%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a235a9c1a8c4a700-ORD",
+      "cf-ray": "a2389c95089b0285-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"I'm not aware of any specific \\\"Ask POLY\\\" browser path. However, if you are referring to the Kerala Polytechnic website, the browser path may vary depending on the specific page or section you are trying to access.\\n\\nTypically, the Kerala Polytechnic website can be accessed through the following path:\\n\\nwww.polytechnic.kerala.gov.in\\n\\nPlease note that this is the main website, and you may need to navigate to specific sections or departments from there. If you could provide more context or clarify which specific page or section you are trying to access, I'll be happy to help.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-1f6793e5-cacc-4a9c-bab4-636457b6b284\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"Unfortunately, I'm a text-based AI and do not have information about the POLY browser path.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-5bdb904c-f605-44e1-a81b-80ad7928b807\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
