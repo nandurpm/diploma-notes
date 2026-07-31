@@ -30,3 +30,7 @@
 ## 2026-07-30 - Accessible Show Password Toggles on Auth Forms
 **Learning:** Providing a native, semantic, and focusable 'Show Password' checkbox toggle under authentication form password fields is an excellent WCAG accessibility practice that reduces motor and cognitive entry errors. To maintain user privacy, the visibility must be securely reset to masked whenever the user toggles modes or switches contexts.
 **Action:** Always include a beautifully styled semantic checkbox toggle for password input fields, and ensure that the password visibility is reset to masked when changing tabs or forms.
+
+## 2026-07-31 - Tabbed Authentication Forms Clarity and Context-Specific Actions
+**Learning:** When building dual-mode tabbed authentication forms (e.g. Login vs Register), showing elements like "Forgot password?" in the Register tab creates high user friction and motor confusion, as new users have no password to recover. Hiding context-irrelevant buttons when switching tabs significantly clarifies form purposes. Furthermore, when the user explicitly triggers a tab toggle, auto-focusing the first visible field (such as Email for login or Username for register) creates an immediate, seamless typing flow for both keyboard and screen-reader users without forcing manual navigation down the DOM.
+**Action:** Always toggle the visibility of mode-specific helper links and buttons when switching form modes, and programmatically focus the first visible semantic input field when tabs are explicitly clicked or activated.
