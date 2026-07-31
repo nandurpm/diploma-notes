@@ -6,7 +6,7 @@
     {
       "code": "1001",
       "pages": 40,
-      "bytes": 29962993,
+      "bytes": 29962286,
       "source": "revision-2026-content/lessons/lessons-1001.html",
       "sourceCharacters": 53831,
       "pdfCharacters": 53708,
@@ -21,7 +21,7 @@
     {
       "code": "1002",
       "pages": 23,
-      "bytes": 17111733,
+      "bytes": 17111721,
       "source": "revision-2026-content/lessons/lessons-1002.html",
       "sourceCharacters": 24463,
       "pdfCharacters": 24501,
@@ -36,7 +36,7 @@
     {
       "code": "1003",
       "pages": 54,
-      "bytes": 40411633,
+      "bytes": 40411507,
       "source": "revision-2026-content/lessons/lessons-1003.html",
       "sourceCharacters": 70922,
       "pdfCharacters": 70907,
@@ -70,7 +70,7 @@
     {
       "code": "1008",
       "pages": 45,
-      "bytes": 33574169,
+      "bytes": 33574167,
       "source": "revision-2026-content/lessons/lessons-1008.html",
       "sourceCharacters": 61817,
       "pdfCharacters": 60826,
@@ -115,7 +115,7 @@
     {
       "code": "1021",
       "pages": 146,
-      "bytes": 115022303,
+      "bytes": 115022289,
       "source": "revision-2026-content/lessons/lessons-1021.html",
       "sourceCharacters": 153303,
       "pdfCharacters": 153692,
@@ -149,7 +149,7 @@
     {
       "code": "1041",
       "pages": 254,
-      "bytes": 191314752,
+      "bytes": 191314045,
       "source": "revision-2026-content/lessons/lessons-1041.html",
       "sourceCharacters": 303000,
       "pdfCharacters": 295407,
@@ -171,7 +171,7 @@
     {
       "code": "1051",
       "pages": 73,
-      "bytes": 55103090,
+      "bytes": 55103071,
       "source": "revision-2026-content/lessons/lessons-1051.html",
       "sourceCharacters": 90538,
       "pdfCharacters": 90403,
@@ -186,7 +186,7 @@
     {
       "code": "1061",
       "pages": 28,
-      "bytes": 21594050,
+      "bytes": 21594016,
       "source": "revision-2026-content/lessons/lessons-1061.html",
       "sourceCharacters": 48496,
       "pdfCharacters": 47630,
@@ -231,7 +231,7 @@
     {
       "code": "1131",
       "pages": 62,
-      "bytes": 46485866,
+      "bytes": 46485817,
       "source": "revision-2026-content/lessons/lessons-1131.html",
       "sourceCharacters": 63253,
       "pdfCharacters": 63501,
@@ -291,7 +291,7 @@
     {
       "code": "1144",
       "pages": 37,
-      "bytes": 27534574,
+      "bytes": 27534571,
       "source": "revision-2026-content/lessons/lessons-1144.html",
       "sourceCharacters": 44080,
       "pdfCharacters": 44177,
@@ -321,7 +321,7 @@
     {
       "code": "1181",
       "pages": 18,
-      "bytes": 13880190,
+      "bytes": 13880123,
       "source": "revision-2026-content/lessons/lessons-1181.html",
       "sourceCharacters": 19961,
       "pdfCharacters": 19813,
@@ -338,7 +338,7 @@
     {
       "code": "1182",
       "pages": 82,
-      "bytes": 61171733,
+      "bytes": 61171641,
       "source": "revision-2026-content/lessons/lessons-1182.html",
       "sourceCharacters": 103948,
       "pdfCharacters": 103923,
@@ -368,7 +368,7 @@
     {
       "code": "1252",
       "pages": 39,
-      "bytes": 29025016,
+      "bytes": 29025014,
       "source": "revision-2026-content/lessons/lessons-1252.html",
       "sourceCharacters": 52628,
       "pdfCharacters": 52535,
@@ -383,7 +383,7 @@
     {
       "code": "1253",
       "pages": 35,
-      "bytes": 25986442,
+      "bytes": 25986406,
       "source": "revision-2026-content/lessons/lessons-1253.html",
       "sourceCharacters": 42749,
       "pdfCharacters": 42597,
@@ -398,7 +398,7 @@
     {
       "code": "1254",
       "pages": 54,
-      "bytes": 40310526,
+      "bytes": 40310509,
       "source": "revision-2026-content/lessons/lessons-1254.html",
       "sourceCharacters": 70479,
       "pdfCharacters": 70328,
@@ -432,7 +432,7 @@
     {
       "code": "1421",
       "pages": 37,
-      "bytes": 27622864,
+      "bytes": 27622868,
       "source": "revision-2026-content/lessons/lessons-1421.html",
       "sourceCharacters": 50302,
       "pdfCharacters": 50422,
@@ -466,7 +466,7 @@
     {
       "code": "2001B",
       "pages": 30,
-      "bytes": 22347977,
+      "bytes": 22347668,
       "source": "revision-2026-content/lessons/lessons-2001B.html",
       "sourceCharacters": 24313,
       "pdfCharacters": 24499,
@@ -485,7 +485,7 @@
     {
       "code": "2002B",
       "pages": 34,
-      "bytes": 27969637,
+      "bytes": 27969585,
       "source": "revision-2026-content/lessons/lessons-2002B.html",
       "sourceCharacters": 30754,
       "pdfCharacters": 29981,
@@ -500,7 +500,7 @@
     {
       "code": "2003A",
       "pages": 231,
-      "bytes": 176886175,
+      "bytes": 176886114,
       "source": "revision-2026-content/lessons/lessons-2003A.html",
       "sourceCharacters": 255127,
       "pdfCharacters": 269377,
@@ -517,7 +517,7 @@
     {
       "code": "2031",
       "pages": 15,
-      "bytes": 11008698,
+      "bytes": 11008688,
       "source": "revision-2026-content/lessons/lessons-2031.html",
       "sourceCharacters": 17604,
       "pdfCharacters": 17376,
@@ -532,7 +532,7 @@
     {
       "code": "2032",
       "pages": 16,
-      "bytes": 11742819,
+      "bytes": 11742807,
       "source": "revision-2026-content/lessons/lessons-2032.html",
       "sourceCharacters": 18159,
       "pdfCharacters": 17994,
@@ -547,7 +547,7 @@
     {
       "code": "2041",
       "pages": 40,
-      "bytes": 29753957,
+      "bytes": 29753349,
       "source": "revision-2026-content/lessons/lessons-2041.html",
       "sourceCharacters": 47614,
       "pdfCharacters": 47424,
@@ -562,7 +562,7 @@
     {
       "code": "2131",
       "pages": 50,
-      "bytes": 37377312,
+      "bytes": 37375776,
       "source": "revision-2026-content/lessons/lessons-2131.html",
       "sourceCharacters": 45564,
       "pdfCharacters": 44950,
