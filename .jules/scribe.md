@@ -15,3 +15,9 @@
 **Learning:** Crucial architectural patterns, accessibility improvements (avoiding verbal clutter on dynamic clocks, matching screen-reader announcements on search fields, non-nested buttons), worker-side mathematical sanitization safety boundaries, cache optimizations, local PDF-building conditions, and indexation crawler rules were distributed across separate code blocks without developer guidelines, risking quality regressions.
 
 **Action:** Consolidate these specific, highly relevant design conventions and technical requirements into a structured "Advanced Portal & Tooling Standards" section inside `CODING_GUIDELINES.md` to guarantee complete backward-compatibility, SEO excellence, and performance cohesion for future development.
+
+## 2026-07-31 - Mapping Relational Schemas and Security Boundaries
+
+**Learning:** Appending accurate SQL descriptions, Row Level Security (RLS) policies, database triggers, and client-versus-server-side evaluation security boundaries to backend README documentation clarifies key technical trade-offs and prevents accidental browser-side security regressions.
+
+**Action:** Keep backend README files in sync with real-world SQL schemas and migrations, highlighting check constraints, revoked write privileges, and privileged API tokens (`service_role` pattern) to ensure proper onboarding and development continuity.
