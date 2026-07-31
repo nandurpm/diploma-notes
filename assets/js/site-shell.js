@@ -8,6 +8,7 @@
 
    Key responsibilities:
    - Injects the canonical favicon across all pages
+   - Injects the global reveal animation assets across all pages
    - Renders a consistent top navigation bar with active-page detection
    - Renders the site footer with copyright year and legal links
    - Manages the mobile hamburger menu (open/close, Escape, click-outside)
@@ -23,6 +24,8 @@
 
    Related files:
    - main.js (calls PolySiteShell.render())
+   - assets/css/reveal.css
+   - assets/js/reveal.js
    - assets/css/mobile-header-hotfix.css
    - assets/css/lesson-watermark.css
    - assets/media/poly-pmna-logo.png
@@ -42,8 +45,24 @@
   const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
   const MOBILE_HEADER_CSS = "/assets/css/mobile-header-hotfix.css?v=20260720-mobile-header-fix3";
   const WATERMARK_CSS = "/assets/css/lesson-watermark.css?v=20260725-watermark1";
+  const REVEAL_CSS = "/assets/css/reveal.css?v=20260728-global-reveal1";
+  const REVEAL_JS = "/assets/js/reveal.js?v=20260728-global-reveal1";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
+  const isRevealDisabledPage = () => {
+    const path = currentPath();
+    return path === "/" || path.endsWith("/index.html") || document.body?.dataset.revealDisabled === "true";
+  };
+
+  function hasAsset(selector, pathname) {
+    return [...document.querySelectorAll(selector)].some(node => {
+      try {
+        return new URL(node.href || node.src || "", window.location.href).pathname === pathname;
+      } catch (_) {
+        return false;
+      }
+    });
+  }
 
   /* =========================================================
      NAVIGATION CONFIGURATION
@@ -81,6 +100,32 @@
     icon.href = FAVICON_HREF;
     icon.dataset.polyPmnaFavicon = "true";
     document.head.append(icon);
+  }
+
+  /* =========================================================
+     GLOBAL REVEAL ASSETS
+     ---------------------------------------------------------
+     Ensures the reusable reveal framework is present on pages
+     that load the site shell directly without main.js.
+     ========================================================= */
+  function ensureRevealAssets() {
+    if (isRevealDisabledPage()) return;
+
+    if (!hasAsset('link[rel="stylesheet"]', "/assets/css/reveal.css")) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = REVEAL_CSS;
+      link.dataset.polyRevealCss = "true";
+      document.head.append(link);
+    }
+
+    if (window.PolyReveal || hasAsset("script[src]", "/assets/js/reveal.js")) return;
+
+    const script = document.createElement("script");
+    script.src = REVEAL_JS;
+    script.defer = true;
+    script.dataset.polyRevealLoader = "true";
+    document.head.append(script);
   }
 
   /* =========================================================
@@ -330,6 +375,7 @@
      ========================================================= */
   function render(options = {}) {
     ensureFavicon();
+    ensureRevealAssets();
     if (isLessonPage()) {
       ensureWatermarkCss();
       ensureWatermarkDom();

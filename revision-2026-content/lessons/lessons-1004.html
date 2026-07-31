@@ -1,465 +1,2520 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="poly-lesson-page revision-2026-lesson" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#1d4ed8">
-    <title>Engineering Drawing with CAD (1004) - Revision 2026 Handbook</title>
-    <meta name="description" content="Complete Revision 2026 student handbook for Engineering Drawing with CAD (Course Code 1004). Covers all modules, CAD basics, orthographic projections, and sectional views with bilingual English-Malayalam support.">
-    <meta name="keywords" content="Engineering Drawing, CAD, AutoCAD, Orthographic Projections, Sectional Views, Polytechnic Kerala, Revision 2026">
-    
-    <!-- Metadata -->
-    <meta property="og:title" content="Engineering Drawing with CAD (1004) Handbook">
-    <meta property="og:description" content="Complete Revision 2026 student handbook for Engineering Drawing with CAD (Course Code 1004).">
-    <meta property="og:type" content="article">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="description" content="Complete Kerala Diploma Revision 2026 handbook for Course 1004 Engineering Drawing with CAD: Regular Polygons, Conic Sections, Development of Surfaces, Projections, Orthographic & Sectional Views, CAD software, Malayalam support, diagrams, calculators, questions and printable notes.">
+    <meta name="course-code" content="1004">
+    <meta name="course-title" content="Engineering Drawing with CAD">
+    <meta name="curriculum" content="REV2026">
+    <meta name="revision" content="REV2026">
+    <link rel="canonical" href="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Course 1004 — Engineering Drawing with CAD | REV2026">
+    <meta property="og:description" content="Complete handbook for Engineering Drawing with CAD covering regular polygons, conic sections, surface development, projections, orthographic & sectional views, and CAD software.">
     <meta property="og:url" content="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html">
+    <meta property="og:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+    <meta property="og:image:alt" content="POLY PMNA Revision 2026 Course 1004 handbook">
     <meta name="twitter:card" content="summary_large_image">
-    
-    <link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css">
-    
+    <meta name="twitter:title" content="Course 1004 | REV2026 | POLY PMNA">
+    <meta name="twitter:description" content="Complete handbook for Engineering Drawing with CAD covering regular polygons, conic sections, surface development, projections, orthographic & sectional views, and CAD software.">
+    <meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+    <title>Course 1004 — Engineering Drawing with CAD | REV2026 | POLY PMNA</title>
+    <link id="poly-lesson-page-fix" rel="stylesheet" href="/assets/css/lesson-page-fix.css?v=20260718-fullscreen4">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Course",
+            "name": "Engineering Drawing with CAD",
+            "courseCode": "1004",
+            "description": "Complete handbook for Engineering Drawing with CAD covering regular polygons, conic sections, surface development, projections, orthographic & sectional views, and CAD software.",
+            "provider": { "@type": "EducationalOrganization", "name": "POLY PMNA" },
+            "educationalLevel": "Diploma Semester I",
+            "inLanguage": ["en", "ml"]
+        }
+    </script>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --secondary-color: #1e40af;
-            --bg-light: #f8fafc;
-            --bg-dark: #0f172a;
-            --text-light: #1e293b;
-            --text-dark: #f1f5f9;
-            --card-bg-light: #ffffff;
-            --card-bg-dark: #1e293b;
-            --ml-note-bg: #fef3c7;
-            --ml-note-text: #92400e;
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #fff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+            color-scheme: light;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-light);
-            color: var(--text-light);
+        .module {
+            --module-color: var(--blue);
+            border-top: 4px solid var(--module-color);
+            border-radius: var(--radius);
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            padding: 2rem 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+        .module .module-head .kicker {
+            color: var(--module-color);
+        }
+
+        .cover {
+            background: linear-gradient(135deg, #0b1a33 0%, #1a3a6b 50%, #0f2a4a 100%);
+            color: #fff;
+            border-radius: var(--radius);
+            padding: 2.5rem 2rem;
+            margin-bottom: 2rem;
+        }
+        .cover .badge {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .cover .badge-row .badge:first-child {
+            background: var(--blue);
+            border-color: var(--blue);
+        }
+        .cover h1 {
+            color: #fff;
+        }
+        .cover .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .cover .cover-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        .cover .cover-card dt {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .cover .cover-card dd {
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+        }
+        .cover .btn.ghost {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+        .cover .btn.ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .cover .btn.primary {
+            background: #fff;
+            color: #0b1a33;
+        }
+        .cover .btn.primary:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .jump-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem 0.7rem;
+            padding: 0.75rem 1rem;
+            background: var(--soft);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--line);
+        }
+        .jump-menu a {
+            font-size: 0.8rem;
+            color: var(--ink);
+            text-decoration: none;
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .jump-menu a:hover {
+            background: var(--soft2);
+            color: var(--blue);
+        }
+
+        .grid.two {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .grid.three {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+        .grid.four {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+        .card .stat {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--blue);
+            line-height: 1.2;
+        }
+        .card .stat-label {
+            font-size: 0.8rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .topic {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            background: var(--paper);
+        }
+        .topic>summary {
+            padding: 0.9rem 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--soft);
+            border-radius: 12px;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+        .topic>summary::-webkit-details-marker {
+            display: none;
+        }
+        .topic>summary::after {
+            content: "▸";
+            margin-left: auto;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+            color: var(--muted);
+        }
+        .topic[open]>summary::after {
+            transform: rotate(90deg);
+        }
+        .topic>summary:hover {
+            background: var(--soft2);
+        }
+        .topic-body {
+            padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+        }
+
+        .qa {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            background: var(--paper);
+        }
+        .qa>summary {
+            padding: 0.7rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            background: var(--soft);
+            border-radius: 10px;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.2s;
+        }
+        .qa>summary::-webkit-details-marker {
+            display: none;
+        }
+        .qa>summary::after {
+            content: "▸";
+            margin-left: auto;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+            color: var(--muted);
+        }
+        .qa[open]>summary::after {
+            transform: rotate(90deg);
+        }
+        .qa-body {
+            padding: 1rem 1.2rem 1.2rem 1.2rem;
+        }
+
+        .worked {
+            background: var(--soft);
+            border-left: 4px solid var(--teal);
+            padding: 1rem 1.2rem;
+            border-radius: 10px;
+            margin: 0.8rem 0;
+        }
+        .worked .label {
+            font-weight: 700;
+            color: var(--teal);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .formula {
+            background: var(--soft2);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0.8rem 0;
+            border: 1px solid rgba(11, 94, 215, 0.12);
+        }
+        .formula-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+        .formula-card .title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--ink);
+            margin-bottom: 0.3rem;
+        }
+        .formula-card .math {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--blue);
+        }
+        .formula-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .diagram {
+            background: var(--soft);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--line);
+        }
+        .diagram svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .diagram figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .ml-note {
+            background: #f0f7ee;
+            border-left: 4px solid #2d7d2d;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+        .ml-note strong {
+            color: #2d7d2d;
+        }
+
+        .tip {
+            background: #eaf7f0;
+            border-left: 4px solid var(--teal);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+        }
+        .tip strong {
+            color: var(--teal);
+        }
+        .warning {
+            background: #fef3e8;
+            border-left: 4px solid var(--amber);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+        }
+        .warning strong {
+            color: var(--amber);
+        }
+        .safety {
+            background: #fde8e8;
+            border-left: 4px solid var(--red);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+        }
+        .safety strong {
+            color: var(--red);
+        }
+        .source-note {
+            background: #f0f0f5;
+            border-left: 4px solid var(--violet);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+            font-size: 0.9rem;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        .table-wrap table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            min-width: 500px;
+        }
+        .table-wrap table caption {
+            font-weight: 600;
+            text-align: left;
+            margin-bottom: 0.4rem;
+            color: var(--ink);
+        }
+        .table-wrap th,
+        .table-wrap td {
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--line);
+            text-align: left;
+            vertical-align: top;
+        }
+        .table-wrap th {
+            background: var(--soft);
+            font-weight: 600;
+        }
+
+        .roadmap {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+        .roadmap .step {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            text-align: center;
+            position: relative;
+        }
+        .roadmap .step .num {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue);
+        }
+        .roadmap .step .label {
+            font-weight: 600;
+            margin-top: 0.2rem;
+        }
+        .roadmap .step .desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+        .roadmap .arrow {
+            display: none;
+        }
+
+        .activity-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+        .activity-card .title {
+            font-weight: 600;
+        }
+        .activity-card .hours {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .exam-card {
+            background: var(--soft);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--line);
+        }
+
+        .procedure-card {
+            background: var(--paper);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+        .procedure-card ol {
+            padding-left: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .calculator {
+            background: var(--soft);
+            border-radius: 12px;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid var(--line);
+            margin: 1rem 0;
+        }
+        .calculator .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0.8rem;
+            align-items: end;
+        }
+        .calculator .calc-grid label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+        .calculator .calc-grid input,
+        .calculator .calc-grid select {
+            width: 100%;
+            padding: 0.4rem 0.6rem;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: var(--paper);
+        }
+        .calculator .result {
+            margin-top: 0.8rem;
+            padding: 0.6rem 0.8rem;
+            background: var(--paper);
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            font-weight: 500;
+            min-height: 2.4rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin: 0.5rem 0;
+        }
+        .controls button {
+            padding: 0.3rem 0.9rem;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .controls button:hover {
+            background: var(--soft2);
+        }
+        .controls select {
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+            background: var(--paper);
+            font-size: 0.85rem;
+        }
+
+        .rotating {
+            animation: spin 4s linear infinite;
+        }
+        .rotating.slow {
+            animation-duration: 8s;
+        }
+        .rotating.fast {
+            animation-duration: 2s;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            width: 0%;
+            z-index: 9999;
+            transition: width 0.1s;
+            border-radius: 0 2px 2px 0;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .search-bar input {
+            flex: 1;
+            min-width: 180px;
+            padding: 0.6rem 0.9rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: var(--paper);
+        }
+        .search-bar button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            background: var(--blue);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        .search-bar button:hover {
+            background: #0a4fc7;
+        }
+        .search-results {
+            margin-top: 0.8rem;
+        }
+        .search-results .result-item {
+            padding: 0.4rem 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .search-results .result-item a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+        .search-results .result-item a:hover {
+            text-decoration: underline;
+        }
+        .search-results .result-item .context {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .btn.primary {
+            background: var(--blue);
+            color: #fff;
+        }
+        .btn.primary:hover {
+            background: #0a4fc7;
+        }
+        .btn.light {
+            background: var(--soft);
+            color: var(--ink);
+            border: 1px solid var(--line);
+        }
+        .btn.light:hover {
+            background: var(--soft2);
+        }
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid var(--line);
+            color: var(--ink);
+        }
+        .btn.ghost:hover {
+            background: var(--soft);
+        }
+        .btn.danger {
+            background: var(--red);
+            color: #fff;
+        }
+        .btn.danger:hover {
+            background: #a01a10;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--soft);
+            color: var(--ink);
+            border: 1px solid var(--line);
+        }
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .badge.blue {
+            background: var(--blue);
+            color: #fff;
+            border-color: var(--blue);
+        }
+        .badge.teal {
+            background: var(--teal);
+            color: #fff;
+            border-color: var(--teal);
+        }
+        .badge.amber {
+            background: var(--amber);
+            color: #fff;
+            border-color: var(--amber);
+        }
+        .badge.violet {
+            background: var(--violet);
+            color: #fff;
+            border-color: var(--violet);
+        }
+        .badge.green {
+            background: var(--green);
+            color: #fff;
+            border-color: var(--green);
+        }
+        .badge.cyan {
+            background: var(--cyan);
+            color: #fff;
+            border-color: var(--cyan);
+        }
+
+        .no-print {
+            display: initial;
+        }
+        .print-only {
+            display: none;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1rem;
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+        .section>h2 {
+            font-size: 1.6rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--ink);
+            border-bottom: 2px solid var(--line);
+            padding-bottom: 0.3rem;
+        }
+
+        .module .module-head h3 {
+            font-size: 1.4rem;
+            margin: 0 0 0.2rem 0;
+        }
+        .module .module-head .kicker {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+            color: var(--module-color, var(--blue));
+        }
+        .module .module-head .lead {
+            font-size: 1rem;
+            color: var(--muted);
+            margin: 0.2rem 0 0.6rem 0;
+        }
+        .module .module-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+        }
+        .module .module-meta .chip {
+            background: var(--soft);
+            padding: 0.1rem 0.6rem;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            font-size: 0.75rem;
+        }
+        .module .module-meta .chip strong {
+            color: var(--ink);
+        }
+
+        .kicker {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .lead {
+            font-size: 1.1rem;
+            color: var(--muted);
             line-height: 1.6;
         }
 
-        @media (prefers-color-scheme: dark) {
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--muted);
+        }
+
+        @media(max-width:900px) {
+            .grid.two,
+            .grid.three {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid.four {
+                grid-template-columns: 1fr 1fr;
+            }
+            .roadmap {
+                grid-template-columns: 1fr 1fr;
+            }
+            .formula-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .diagram-grid {
+                grid-template-columns: 1fr;
+            }
+            .cover {
+                padding: 1.8rem 1.2rem;
+            }
+            .module {
+                padding: 1.5rem 1rem;
+            }
+            .calculator .calc-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media(max-width:640px) {
+            .grid.two,
+            .grid.three,
+            .grid.four {
+                grid-template-columns: 1fr;
+            }
+            .roadmap {
+                grid-template-columns: 1fr;
+            }
+            .formula-grid {
+                grid-template-columns: 1fr;
+            }
+            .roadmap .arrow {
+                display: none;
+            }
+            .calculator .calc-grid {
+                grid-template-columns: 1fr;
+            }
+            .cover h1 {
+                font-size: 1.6rem;
+            }
+            .cover .cover-card {
+                padding: 0.8rem 1rem;
+            }
+            .actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+            .jump-menu {
+                gap: 0.3rem 0.5rem;
+            }
+            .jump-menu a {
+                font-size: 0.7rem;
+                padding: 0.15rem 0.5rem;
+            }
+            .module .module-head h3 {
+                font-size: 1.2rem;
+            }
+            .topic>summary {
+                padding: 0.7rem 0.9rem;
+                font-size: 0.95rem;
+            }
+            .topic-body {
+                padding: 0.8rem 1rem 1rem 1rem;
+            }
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: initial !important;
+            }
+            .reading-progress {
+                display: none !important;
+            }
+            .cover {
+                background: #0b1a33 !important;
+                color: #fff !important;
+                border-radius: 0 !important;
+                padding: 1.5rem !important;
+                page-break-after: always;
+            }
+            .cover .badge {
+                background: rgba(255, 255, 255, 0.12) !important;
+                border-color: rgba(255, 255, 255, 0.2) !important;
+                color: #fff !important;
+            }
+            .cover .badge-row .badge:first-child {
+                background: var(--blue) !important;
+                border-color: var(--blue) !important;
+            }
+            .cover h1 {
+                color: #fff !important;
+            }
+            .cover .subtitle {
+                color: rgba(255, 255, 255, 0.8) !important;
+            }
+            .cover .cover-card {
+                background: rgba(255, 255, 255, 0.06) !important;
+                border-color: rgba(255, 255, 255, 0.12) !important;
+                color: rgba(255, 255, 255, 0.9) !important;
+            }
+            .cover .btn.ghost {
+                color: #fff !important;
+                border-color: rgba(255, 255, 255, 0.3) !important;
+            }
+            .cover .btn.primary {
+                background: #fff !important;
+                color: #0b1a33 !important;
+            }
             body {
-                background-color: var(--bg-dark);
-                color: var(--text-dark);
+                background: #fff !important;
+                font-size: 10pt;
+            }
+            .lesson-shell {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+            .module {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                padding: 0.8rem 0 !important;
+                margin-bottom: 1.2rem !important;
+                border-top-width: 2px !important;
             }
             .card {
-                background-color: var(--card-bg-dark);
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                border-radius: 4px !important;
+            }
+            .topic {
+                border: 1px solid #ccc !important;
+                border-radius: 4px !important;
+            }
+            .topic>summary {
+                background: #f5f5f5 !important;
+                border-radius: 4px !important;
+            }
+            .topic-body {
+                padding: 0.6rem 0.8rem !important;
+            }
+            .qa {
+                border: 1px solid #ccc !important;
+                border-radius: 4px !important;
+            }
+            .qa>summary {
+                background: #f5f5f5 !important;
+                border-radius: 4px !important;
+            }
+            .qa-body {
+                padding: 0.6rem 0.8rem !important;
+            }
+            .diagram {
+                border: 1px solid #ccc !important;
+                background: #fafafa !important;
+                break-inside: avoid;
+            }
+            .table-wrap table {
+                font-size: 8.3pt;
+                min-width: auto;
+            }
+            .table-wrap table th,
+            .table-wrap table td {
+                padding: 0.3rem 0.5rem;
+            }
+            .formula {
+                background: #f5f5f5 !important;
+                border: 1px solid #ddd !important;
+            }
+            .formula-card {
+                border: 1px solid #ddd !important;
+                break-inside: avoid;
+            }
+            .worked {
+                background: #f5f5f5 !important;
+                border-left-color: #0f766e !important;
+                break-inside: avoid;
+            }
+            .ml-note {
+                background: #f0f7ee !important;
+                border-left-color: #2d7d2d !important;
+            }
+            .tip {
+                background: #eaf7f0 !important;
+                border-left-color: #0f766e !important;
+            }
+            .warning {
+                background: #fef3e8 !important;
+                border-left-color: #b45309 !important;
+            }
+            .safety {
+                background: #fde8e8 !important;
+                border-left-color: #b42318 !important;
+            }
+            .source-note {
+                background: #f0f0f5 !important;
+                border-left-color: #6d28d9 !important;
+            }
+            .activity-card,
+            .exam-card,
+            .procedure-card {
+                border: 1px solid #ddd !important;
+                break-inside: avoid;
+            }
+            .calculator {
+                border: 1px solid #ddd !important;
+                background: #fafafa !important;
+                break-inside: avoid;
+            }
+            .section {
+                margin-bottom: 1.2rem !important;
+            }
+            .section>h2 {
+                font-size: 1.2rem !important;
+                border-bottom-width: 1px !important;
+            }
+            .jump-menu {
+                display: none !important;
+            }
+            .actions {
+                display: none !important;
+            }
+            .controls {
+                display: none !important;
+            }
+            .search-bar {
+                display: none !important;
+            }
+            .search-results {
+                display: none !important;
+            }
+            details {
+                display: block !important;
+            }
+            details[open] {
+                display: block !important;
+            }
+            details:not([open])>summary::after {
+                content: "▸" !important;
+            }
+            details[open]>summary::after {
+                content: "▾" !important;
+            }
+            .rotating {
+                animation: none !important;
+            }
+            .cover .actions .btn {
+                display: none !important;
+            }
+            .cover-card dd {
+                margin-bottom: 0.2rem !important;
+            }
+            .roadmap .step .num {
+                font-size: 1.2rem !important;
+            }
+        }
+        @media(prefers-reduced-motion:reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .rotating {
+                animation: none !important;
+            }
+            .topic>summary::after,
+            .qa>summary::after {
+                transition: none !important;
             }
         }
 
         .lesson-shell {
-            width: 100%;
-            max-width: 1000px;
+            max-width: 1080px;
             margin: 0 auto;
-            padding: clamp(12px, 2vw, 24px);
+            padding: 1rem 1.2rem 3rem 1.2rem;
         }
-
-        .cover-section {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: clamp(30px, 6vw, 60px);
-            border-radius: 16px;
-            margin-bottom: 32px;
-            text-align: center;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        body {
+            margin: 0;
+            background: var(--soft);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            font-size: 16px;
         }
-
-        .cover-section h2 {
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 8px;
-            color: rgba(255, 255, 255, 0.9);
-            border: none;
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1.3;
         }
-
-        .cover-section h1 {
-            font-size: clamp(1.8rem, 5vw, 3rem);
-            margin: 10px 0;
-            line-height: 1.2;
+        a {
+            color: var(--blue);
         }
-
-        .cover-section .subtitle {
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            opacity: 0.95;
-            font-weight: 500;
-        }
-
-        .cover-actions {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 32px;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            background: white;
-            color: var(--primary-color);
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-outline:hover {
-            background: white;
-            color: var(--primary-color);
-        }
-
-        section {
-            background: var(--card-bg-light);
-            border-radius: 12px;
-            padding: clamp(20px, 4vw, 40px);
-            margin-bottom: 32px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            section {
-                background: var(--card-bg-dark);
-                border-color: #334155;
-            }
-        }
-
-        h2 {
-            color: var(--primary-color);
-            border-bottom: 3px solid var(--primary-color);
-            padding-bottom: 12px;
-            margin-top: 0;
-            margin-bottom: 24px;
-            font-size: 1.75rem;
-        }
-
-        h3 {
-            color: var(--secondary-color);
-            margin-top: 32px;
-            margin-bottom: 16px;
-            font-size: 1.4rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        h3::before {
-            content: "";
-            display: inline-block;
-            width: 4px;
-            height: 24px;
-            background: var(--primary-color);
-            border-radius: 2px;
-        }
-
-        .ml-note {
-            background-color: var(--ml-note-bg);
-            color: var(--ml-note-text);
-            padding: 20px;
-            border-left: 5px solid #f59e0b;
-            border-radius: 8px;
-            margin: 24px 0;
-            font-family: 'Noto Sans Malayalam', sans-serif;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            .ml-note {
-                background-color: rgba(245, 158, 11, 0.1);
-                color: #fcd34d;
-            }
-        }
-
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 24px 0;
-            font-size: 0.95rem;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-        }
-
-        th, td {
-            padding: 14px 18px;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            table { border-color: #475569; }
-            th, td { border-color: #475569; }
-        }
-
-        th {
-            background-color: rgba(37, 99, 235, 0.05);
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
-        }
-
-        .card {
-            background: rgba(37, 99, 235, 0.03);
-            padding: 24px;
-            border-radius: 12px;
-            border: 1px solid rgba(37, 99, 235, 0.1);
-        }
-
-        .info-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 999px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            background: #e2e8f0;
-            color: #475569;
-            margin-bottom: 12px;
-        }
-
-        .primary-tag {
-            background: rgba(37, 99, 235, 0.1);
-            color: var(--primary-color);
-        }
-
-        .list-item {
-            margin-bottom: 12px;
-            display: flex;
-            gap: 12px;
-        }
-
-        .list-item::before {
-            content: "•";
-            color: var(--primary-color);
-            font-weight: bold;
-        }
-
-        @media print {
-            body { background: white; color: black; }
-            .lesson-shell { padding: 0; max-width: none; }
-            section { box-shadow: none; border: 1px solid #eee; page-break-inside: avoid; }
-            .cover-actions { display: none; }
+        img {
+            max-width: 100%;
+            height: auto;
         }
     </style>
+    <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+    <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#1d4ed8">
+    <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 1004 — Engineering Drawing with CAD | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1004.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 1004 Engineering Drawing with CAD: Regular Polygons, Conic Sections, Development of Surfaces, Projections, Orthographic & Sectional Views, CAD software, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"1004"}</script>
 </head>
 <body>
+    <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
     <div class="lesson-shell">
-        
-        <!-- Cover Section -->
-        <div class="cover-section">
-            <h2>POLY PMNA</h2>
-            <p class="subtitle">Revision 2026 Student Handbook</p>
-            <h1>Engineering Drawing with CAD</h1>
-            <p>Course Code: 1004 | Semester: I | Lab Course</p>
-            <p>1.5 Credits | 45 Contact Hours | 22.5 Self-Learning Hours</p>
-            <div class="cover-actions">
-                <a href="#dashboard" class="btn">Start Learning</a>
-                <button class="btn btn-outline" onclick="window.print()">Print / Save PDF</button>
-                <a href="/revision-2026-content/notes/downloadable-notes-1004.pdf" class="btn btn-outline">Download Notes</a>
-            </div>
-        </div>
+        <main id="main-content">
 
-        <!-- Official Source Declaration -->
-        <section>
-            <h2>Official Source Declaration</h2>
-            <p>This handbook is based entirely on the official SITTTR Kerala Revision 2026 syllabus for Course Code 1004. It is designed to assist students in mastering engineering graphics and CAD fundamentals.</p>
-            <div class="ml-note">
-                ഈ ഹാൻഡ്‌ബുക്ക് കേരള സ്റ്റേറ്റ് ഇൻസ്റ്റിറ്റ്യൂട്ട് ഓഫ് ടെക്നിക്കൽ ടീച്ചേഴ്സ് ട്രെയിനിംഗ് ആൻഡ് റിസർച്ച് (SITTTR) പുറത്തിറക്കിയ ഒഫീഷ്യൽ സിലബസ് അടിസ്ഥാനമാക്കി തയ്യാറാക്കിയതാണ്.
-            </div>
-        </section>
-
-        <!-- Course Dashboard -->
-        <section id="dashboard">
-            <h2>Course Dashboard</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <span class="info-tag primary-tag">Course Details</span>
-                    <table>
-                        <tr><th>Course Code</th><td>1004</td></tr>
-                        <tr><th>Course Title</th><td>Engineering Drawing with CAD</td></tr>
-                        <tr><th>Semester</th><td>I</td></tr>
-                        <tr><th>Credits</th><td>1.5</td></tr>
-                        <tr><th>Contact Hours</th><td>45 Hours (Lab)</td></tr>
-                    </table>
+            <!-- ===== COVER ===== -->
+            <section class="cover" id="cover">
+                <div class="badge-row">
+                    <span class="badge" style="background:var(--blue);border-color:var(--blue);color:#fff;">REV 2026</span>
+                    <span class="badge">Semester I</span>
+                    <span class="badge">Lab Course</span>
+                    <span class="badge">1.5 Credits</span>
+                    <span class="badge">45 Hours</span>
                 </div>
-                <div class="card">
-                    <span class="info-tag primary-tag">Assessment Scheme</span>
-                    <table>
-                        <tr><th>CIE (Internal)</th><td>60 Marks</td></tr>
-                        <tr><th>ESE (External)</th><td>40 Marks</td></tr>
-                        <tr><th>Total Marks</th><td>100 Marks</td></tr>
-                        <tr><th>ESE Duration</th><td>3 Hours (CAD)</td></tr>
-                    </table>
+                <h1>Engineering Drawing with CAD</h1>
+                <p class="subtitle">Course Code 1004 &mdash; Complete Polytechnic Revision 2026 Handbook</p>
+                <div class="actions no-print">
+                    <button class="btn primary" id="printBtn" aria-label="Print or save as PDF">📄 Print / Download Notes</button>
+                    <button class="btn light" id="downloadBtn" aria-label="Download printable PDF notes">⬇️ Download Notes (PDF)</button>
                 </div>
-            </div>
-        </section>
-
-        <!-- Course Outcomes -->
-        <section>
-            <h2>Course Outcomes (CO)</h2>
-            <p>Upon completion of this course, students will be able to:</p>
-            <table>
-                <thead>
-                    <tr><th>CO Code</th><th>Course Outcome</th><th>Cognitive Level</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>CO1</td><td>Construct geometrical figures and illustrate development of surfaces.</td><td>Apply</td></tr>
-                    <tr><td>CO2</td><td>Interpret projections of points and lines, orthographic projections and sectional views.</td><td>Apply</td></tr>
-                    <tr><td>CO3</td><td>Familiarization in using CAD software.</td><td>Apply</td></tr>
-                    <tr><td>CO4</td><td>Develop orthographic projections and sectional views in CAD.</td><td>Apply</td></tr>
-                </tbody>
-            </table>
-            <div class="ml-note">
-                <strong>മലയാളം സംഗ്രഹം:</strong> ജ്യാമിതീയ രൂപങ്ങൾ വരയ്ക്കാനും, പ്രൊജക്ഷനുകൾ മനസ്സിലാക്കാനും, CAD സോഫ്റ്റ്‌വെയർ ഉപയോഗിച്ച് എഞ്ചിനീയറിംഗ് ഡ്രോയിംഗുകൾ നിർമ്മിക്കാനും ഈ കോഴ്സ് വിദ്യാർത്ഥികളെ പ്രാപ്തരാക്കുന്നു.
-            </div>
-        </section>
-
-        <!-- Module I -->
-        <section id="module1">
-            <h2>Module I: Geometrical Constructions and Developments</h2>
-            <div class="info-tag">Instructional Hours: 9</div>
-            <div class="info-tag primary-tag">Mapping: CO1</div>
-            
-            <h3>1. Regular Polygons</h3>
-            <p>Construction of Regular Polygons - A) Pentagon, B) Hexagon (Any suitable method for each type when side length is given).</p>
-            <div class="ml-note">
-                വശത്തിന്റെ നീളം തന്നിരുന്നാൽ പെന്റഗൺ, ഹെക്സഗൺ എന്നിവ വരയ്ക്കുന്ന രീതികൾ പഠിക്കുക.
-            </div>
-            
-            <h3>2. Conic Sections</h3>
-            <p>Develop the idea of conic sections. Construct Ellipse by A) Rectangular Method & B) Concentric Circle Method.</p>
-            <div class="ml-note">
-                റെക്ടാംഗുലാർ രീതിയും കോൺസെൻട്രിക് സർക്കിൾ രീതിയും ഉപയോഗിച്ച് എലിപ്സ് വരയ്ക്കാൻ ശീലിക്കുക.
-            </div>
-
-            <h3>3. Development of Surfaces</h3>
-            <p>Extend knowledge about 'Development' of surfaces. Draw Development of following items A) Rectangular Prism B) Cylinder.</p>
-            <div class="ml-note">
-                റെക്ടാംഗുലാർ പ്രിസം, സിലിണ്ടർ എന്നിവയുടെ ഉപരിതല വികസനം (Development) വരയ്ക്കുക.
-            </div>
-        </section>
-
-        <!-- Module II -->
-        <section id="module2">
-            <h2>Module II: Projections and Sectional Views</h2>
-            <div class="info-tag">Instructional Hours: 15</div>
-            <div class="info-tag primary-tag">Mapping: CO2</div>
-            
-            <h3>1. Basic Projections</h3>
-            <p>Outline the theory of projection (First angle and Third angle projections). Understanding the quadrant system is crucial for engineering drawings.</p>
-            
-            <h3>2. Projections of Points and Lines</h3>
-            <p>Demonstrate and develop the projections of points in all 4 quadrants. Demonstrate and develop the projections of lines in First quadrant only.</p>
-            <div class="ml-note">
-                ബിന്ദുക്കളുടെയും രേഖകളുടെയും പ്രൊജക്ഷനുകൾ വരയ്ക്കുന്ന രീതി.
-            </div>
-
-            <h3>3. Orthographic Projections & Sectional Views</h3>
-            <p>Demonstrate and develop orthographic projections & sectional views of various simple engineering objects from Isometric figures.</p>
-            <div class="list-item">Orthographic - Minimum 3 exercises</div>
-            <div class="list-item">Sectional - Minimum 2 exercises</div>
-        </section>
-
-        <!-- Module III -->
-        <section id="module3">
-            <h2>Module III: Computer Aided Drafting (CAD) Basics</h2>
-            <div class="info-tag">Instructional Hours: 9</div>
-            <div class="info-tag primary-tag">Mapping: CO3</div>
-            
-            <h3>1. Introduction to CAD</h3>
-            <p>Application, advantages over manual drafting, hardware and software requirements. CAD basics – new drawing, open, save, exit, drawing editor, entering commands using mouse and menus.</p>
-            
-            <h3>2. CAD Commands</h3>
-            <p><strong>Draw Commands:</strong> Line, Circle, Arc, Ellipse, Rectangle, Polygon, Spline, Polyline, Hatch etc.</p>
-            <p><strong>Modify Commands:</strong> Erase, Copy, Array, Rotate, Mirror, Offset, Scale, Move, Trim, Fillet, Chamfer, Extend, Stretch, Explode etc.</p>
-            <p><strong>Settings:</strong> Limits, Units, Grid, Snap, OSNAP, Ortho mode, Properties (Color, Line weight, Line type).</p>
-            <div class="ml-note">
-                CAD സോഫ്റ്റ്‌വെയറിലെ അടിസ്ഥാന കമാൻഡുകളും സെറ്റിംഗുകളും മനസ്സിലാക്കുക.
-            </div>
-        </section>
-
-        <!-- Module IV -->
-        <section id="module4">
-            <h2>Module IV: CAD Drafting Practice</h2>
-            <div class="info-tag">Instructional Hours: 9</div>
-            <div class="info-tag primary-tag">Mapping: CO4</div>
-            
-            <h3>1. 2D Drafting in CAD</h3>
-            <p>Developing orthographic views and sectional views of simple components with dimensions and text. Students should draw the same exercises practiced in Module II using CAD software.</p>
-            <div class="list-item">Orthographic projections (minimum 3 nos)</div>
-            <div class="list-item">Sectional views (minimum 2 nos)</div>
-            <div class="ml-note">
-                കമ്പ്യൂട്ടർ ഉപയോഗിച്ച് ഓർത്തോഗ്രാഫിക് പ്രൊജക്ഷനുകളും സെക്ഷണൽ വ്യൂകളും വരയ്ക്കുക.
-            </div>
-        </section>
-
-        <!-- Learning Resources -->
-        <section>
-            <h2>Learning Resources</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>Text Books</h3>
-                    <ol>
-                        <li>Engineering Graphics with AUTOCAD - P I Varghese</li>
-                        <li>Engineering Graphics - K. C. John</li>
-                        <li>Engineering Drawing with CAD Applications - N. D. Bhatt</li>
-                    </ol>
+                <div class="cover-card" style="margin-top:1.2rem;">
+                    <dl style="display:grid;grid-template-columns:auto 1fr;gap:0.2rem 1.2rem;margin:0;">
+                        <dt>Programme(s)</dt>
+                        <dd>AI, AI &amp; ML, Biomedical Engg, Cloud &amp; Big Data, Cyber Forensics, CS &amp; Tech, CS &amp; Engg, Computer Engg, CS &amp; Engg (AI &amp; ML), Electronics &amp; Comm, Electronics Engg, Electronics Engg (Embedded Systems), Electronics &amp; Computer Engg, IC Design &amp; Fabrication, Instrumentation Engg, IT, Micro Electronics, Automation &amp; Robotics, RPA, Textile Tech</dd>
+                        <dt>Subject Code</dt>
+                        <dd><strong>1004</strong></dd>
+                        <dt>Semester</dt>
+                        <dd>I</dd>
+                        <dt>Course Type</dt>
+                        <dd>Lab</dd>
+                        <dt>Teaching Scheme (L:T:P:R)</dt>
+                        <dd>0:0:3:0</dd>
+                        <dt>Contact Hours</dt>
+                        <dd>45</dd>
+                        <dt>Credits</dt>
+                        <dd>1.5</dd>
+                        <dt>CIE Marks</dt>
+                        <dd>60</dd>
+                        <dt>ESE Marks</dt>
+                        <dd>40</dd>
+                    </dl>
                 </div>
-                <div class="card">
-                    <h3>Web Resources</h3>
-                    <ul>
-                        <li><a href="https://youtube.com/playlist?list=PL0GNZSidsWdVsGAfX3xHlvkbSvlm_6JSM" target="_blank">Official YouTube Playlist</a></li>
-                        <li><a href="https://drive.google.com/drive/folders/1-p6TelKApOVRg3dqiK98YLaWB8vCYUOE" target="_blank">Syllabus Resources (Drive)</a></li>
+            </section>
+
+            <!-- ===== JUMP MENU ===== -->
+            <nav class="jump-menu no-print" aria-label="Handbook sections">
+                <a href="#source">Source</a>
+                <a href="#course-dashboard">Dashboard</a>
+                <a href="#how-to-use">How to Use</a>
+                <a href="#outcomes">Outcomes</a>
+                <a href="#coverage">Coverage</a>
+                <a href="#roadmap">Roadmap</a>
+                <a href="#module-1">Module I</a>
+                <a href="#module-2">Module II</a>
+                <a href="#module-3">Module III</a>
+                <a href="#module-4">Module IV</a>
+                <a href="#formula-bank">Formula Bank</a>
+                <a href="#visual-library">Diagrams</a>
+                <a href="#activities">Activities</a>
+                <a href="#assessment">Assessment</a>
+                <a href="#questions">Q&amp;A</a>
+                <a href="#model-paper">Model Paper</a>
+                <a href="#revision">Revision</a>
+                <a href="#glossary">Glossary</a>
+                <a href="#references">References</a>
+            </nav>
+
+            <!-- ===== SOURCE DECLARATION ===== -->
+            <section class="section" id="source">
+                <h2>Official Source Declaration</h2>
+                <div class="source-note">
+                    <strong>📄 Source:</strong> Kerala Polytechnic Revision 2026 Syllabus &mdash; Course 1004 (Engineering Drawing with CAD). This handbook is prepared strictly from the official syllabus document provided. All module headings, topics, subtopics, practical outcomes, assessment schemes, and learning resources are derived directly from the source.
+                </div>
+                <div class="source-note" style="border-left-color:var(--amber);">
+                    <strong>⚠️ Verified Inconsistencies:</strong> The syllabus lists the Teaching Scheme as 0:0:3:0 (L:T:P:R) with 45 contact hours and 1.5 credits. The assessment table shows CIE 60 and ESE 40. The self-learning description in the detailed syllabus table (Page 2) is partially cut off in the PDF. The open-ended experiment description states that drawing sheets from Modules I and II may be considered open-ended experiments. The series test schedule is noted as "Series test - I (module ll/ll)" and "Series test- ll (module ll/ll)" — the module numbering appears to use Roman numerals inconsistently (ll vs II). This handbook treats "module ll" as Module II and "module lll/IV" as Modules III/IV respectively, following the context. The CO-PO matrix is presented with correlation levels; this handbook reproduces it as given. All other content is faithfully extracted.
+                </div>
+            </section>
+
+            <!-- ===== COURSE DASHBOARD ===== -->
+            <section class="section" id="course-dashboard">
+                <h2>Course Dashboard</h2>
+                <div class="grid four" style="margin-bottom:1.2rem;">
+                    <div class="card"><div class="stat">45</div><div class="stat-label">Contact Hours</div></div>
+                    <div class="card"><div class="stat">1.5</div><div class="stat-label">Credits</div></div>
+                    <div class="card"><div class="stat">4</div><div class="stat-label">Modules</div></div>
+                    <div class="card"><div class="stat">60+40</div><div class="stat-label">CIE + ESE</div></div>
+                </div>
+                <div class="card" style="margin-bottom:1rem;">
+                    <h3 style="margin-top:0;">Course Introduction</h3>
+                    <p>Engineering graphics is the fundamental language of engineers used to visually communicate ideas, designs, and technical information without any language barriers. Its objectives include developing the ability to interpret and create accurate drawings. Understanding the shape, size, and relationship of components, and applying standards for clear communication. It also enhances spatial visualization and supports the effective planning and manufacture of engineering products. Introduction of CAD software and practicing the development of drawings along with Engineering graphics give an insight to students regarding development of drawings with accuracy and efficiency without paper usage in engineering design.</p>
+                </div>
+                <div class="card" style="margin-bottom:1rem;">
+                    <h3 style="margin-top:0;">Pre-requisites</h3>
+                    <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;">
+                        <li>Basic Geometry (Secondary Education)</li>
                     </ul>
                 </div>
-            </div>
-        </section>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Teaching &amp; Assessment Scheme</caption>
+                        <thead>
+                            <tr><th>L</th><th>T</th><th>P</th><th>S</th><th>Self-learning (SS)/Week</th><th>Total Hrs/Sem</th><th>Credits C</th><th>CIE</th><th>ESE</th><th>Total</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>3</td><td>0</td><td>1.5</td><td>45</td><td>1.5</td><td>60</td><td>40</td><td>100</td></tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size:0.85rem;color:var(--muted);margin-top:0.3rem;">L: Lecture (1 credit), T: Tutorial (1 credit), P: Practical (0.5 credit), S: Project (0.5 credit), SS: Self-Learning, CIE: Continuous Internal Evaluation, ESE: End Semester Examination</p>
+                </div>
+            </section>
 
-        <!-- Evaluation Scheme -->
-        <section>
-            <h2>Evaluation Scheme</h2>
-            <div class="card">
-                <h3>Practical ESE Split-up (40 Marks)</h3>
-                <table>
-                    <tr><td>Ten short questions (CO1 & CO2)</td><td>10 Marks</td></tr>
-                    <tr><td>CAD Drawing (CO3 & CO4)</td><td>18 Marks</td></tr>
-                    <tr><td>Viva Voce</td><td>8 Marks</td></tr>
-                    <tr><td>Record</td><td>4 Marks</td></tr>
-                </table>
-            </div>
-            <p style="margin-top: 20px; font-size: 0.9rem; color: #64748b;">*Note: Students must maintain a certified fair record with figures from all modules.</p>
-        </section>
+            <!-- ===== HOW TO USE ===== -->
+            <section class="section" id="how-to-use">
+                <h2>How to Use This Handbook</h2>
+                <div class="roadmap">
+                    <div class="step"><div class="num">1</div><div class="label">Understand</div><div class="desc">Read each module's concepts, definitions, and principles.</div></div>
+                    <div class="step"><div class="num">2</div><div class="label">Visualise</div><div class="desc">Study the diagrams, SVGs, and worked examples to see the geometry in action.</div></div>
+                    <div class="step"><div class="num">3</div><div class="label">Apply</div><div class="desc">Practice with the module-wise questions, calculators, and CAD exercises.</div></div>
+                    <div class="step"><div class="num">4</div><div class="label">Revise</div><div class="desc">Use the quick-revision cards, formula bank, and model paper before exams.</div></div>
+                </div>
+                <div class="tip"><strong>💡 Tip:</strong> Use the <kbd>Print / Download Notes</kbd> button to save a printable PDF of the entire handbook. The <kbd>Search</kbd> box at the bottom helps you quickly find topics across all modules.</div>
+            </section>
 
+            <!-- ===== OUTCOMES ===== -->
+            <section class="section" id="outcomes">
+                <h2>Course Outcomes &amp; CO–PO Mapping</h2>
+                <h3>Course Objectives</h3>
+                <ol style="margin-bottom:1.2rem;">
+                    <li>To familiarize the language of graphics which is used to express ideas, convey instructions while carrying out engineering jobs.</li>
+                    <li>Provide skills to translate ideas into sketches and to draw and read various engineering curves, conic sections and the generation of 3D solid surfaces into plane areas.</li>
+                    <li>To apply basic skill to develop projection of points, lines, orthographic views and sectional views of objects.</li>
+                    <li>To familiarize the use of CAD software.</li>
+                    <li>To acquire skill in developing orthographic and sectional views using CAD.</li>
+                </ol>
+                <h3>Course Outcomes (CO)</h3>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Course Outcomes and Bloom's Taxonomy Level</caption>
+                        <thead><tr><th>CO</th><th>Course Outcome</th><th>Bloom's Level</th></tr></thead>
+                        <tbody>
+                            <tr><td><strong>CO1</strong></td><td>Construct geometrical figures and illustrate development of surfaces.</td><td>Apply</td></tr>
+                            <tr><td><strong>CO2</strong></td><td>Interpret projections of points and lines, orthographic projections and sectional views.</td><td>Apply</td></tr>
+                            <tr><td><strong>CO3</strong></td><td>Familiarization in using CAD software.</td><td>Apply</td></tr>
+                            <tr><td><strong>CO4</strong></td><td>Develop orthographic projections and sectional views in CAD.</td><td>Apply</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>CO–PO Mapping</h3>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Course Articulation Matrix</caption>
+                        <thead>
+                            <tr><th rowspan="2">Course Outcomes</th><th colspan="11">PROGRAM OUTCOMES</th></tr>
+                            <tr><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th><th>PO8</th><th>PO9</th><th>PO10</th><th>PO11</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>CO1</td><td>3</td><td>2</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                            <tr><td>CO2</td><td>3</td><td>3</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                            <tr><td>CO3</td><td>3</td><td>-</td><td>2</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                            <tr><td>CO4</td><td>3</td><td>2</td><td>3</td><td>3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr><td colspan="12" style="font-size:0.85rem;color:var(--muted);">Legends: 1 – Low; 2 – Medium; 3 – High; No Correlation – “-”</td></tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ===== COVERAGE MAP ===== -->
+            <section class="section" id="coverage">
+                <h2>Curriculum Coverage Map</h2>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Module-wise Topics, Hours, CO &amp; Handbook Anchor</caption>
+                        <thead>
+                            <tr><th>Module</th><th>Topics</th><th>Hours</th><th>CO</th><th>Anchor</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>I</td><td>Regular Polygons, Conic Sections, Development of Surfaces</td><td>9</td><td>CO1</td><td><a href="#module-1">Module I</a></td></tr>
+                            <tr><td>II</td><td>Basic Projections, Projections of Points &amp; Lines, Orthographic &amp; Sectional Views</td><td>15</td><td>CO2</td><td><a href="#module-2">Module II</a></td></tr>
+                            <tr><td>III</td><td>CAD Software Familiarization &amp; Basic Commands</td><td>9</td><td>CO3</td><td><a href="#module-3">Module III</a></td></tr>
+                            <tr><td>IV</td><td>Orthographic &amp; Sectional Views in CAD</td><td>9</td><td>CO4</td><td><a href="#module-4">Module IV</a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ===== ROADMAP ===== -->
+            <section class="section" id="roadmap">
+                <h2>How the Modules Connect</h2>
+                <div class="roadmap">
+                    <div class="step" style="border-top:3px solid var(--blue);"><div class="num" style="color:var(--blue);">I</div><div class="label">Manual Drawing</div><div class="desc">Polygons, Conics, Surface Development</div></div>
+                    <div class="step" style="border-top:3px solid var(--teal);"><div class="num" style="color:var(--teal);">II</div><div class="label">Projections &amp; Views</div><div class="desc">Points, Lines, Orthographic, Sectional</div></div>
+                    <div class="step" style="border-top:3px solid var(--amber);"><div class="num" style="color:var(--amber);">III</div><div class="label">CAD Basics</div><div class="desc">Software, Commands, Setup</div></div>
+                    <div class="step" style="border-top:3px solid var(--violet);"><div class="num" style="color:var(--violet);">IV</div><div class="label">CAD Views</div><div class="desc">Orthographic &amp; Sectional in CAD</div></div>
+                </div>
+                <p style="font-size:0.9rem;color:var(--muted);">Modules I &amp; II build manual drawing skills; Modules III &amp; IV transfer those skills to CAD software, ending with digital orthographic and sectional views.</p>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== MODULE I ===== -->
+            <!-- ================================================================ -->
+            <section class="module" id="module-1" style="--module-color:var(--blue);">
+                <div class="module-head">
+                    <div class="kicker">Module I</div>
+                    <h3>Drawing — Regular Polygons, Conic Sections &amp; Development of Surfaces</h3>
+                    <p class="lead">Learn to construct regular polygons, draw conic sections (ellipse, parabola, hyperbola), and develop surfaces of 3D solids into 2D patterns.</p>
+                    <div class="module-meta">
+                        <span class="chip"><strong>Hours:</strong> 9</span>
+                        <span class="chip"><strong>CO:</strong> CO1</span>
+                        <span class="chip"><strong>Bloom:</strong> Apply</span>
+                        <span class="chip"><strong>Type:</strong> Manual Drawing</span>
+                    </div>
+                </div>
+
+                <!-- Topic 1: Regular Polygons -->
+                <details class="topic" open>
+                    <summary>1.1 Regular Polygons — Construction of Pentagon &amp; Hexagon</summary>
+                    <div class="topic-body">
+                        <p><strong>Definition:</strong> A regular polygon is a closed plane figure with all sides equal in length and all interior angles equal. Common regular polygons used in engineering drawing include pentagon (5 sides), hexagon (6 sides), heptagon (7 sides), and octagon (8 sides).</p>
+                        <p><strong>Key Terminology:</strong></p>
+                        <ul>
+                            <li><strong>Side (s):</strong> Length of each equal side.</li>
+                            <li><strong>Interior angle:</strong> <span class="formula">(n − 2) × 180° / n</span> where n is the number of sides.</li>
+                            <li><strong>Exterior angle:</strong> <span class="formula">360° / n</span></li>
+                            <li><strong>Circumradius (R):</strong> Radius of the circle passing through all vertices.</li>
+                            <li><strong>Apothem (r):</strong> Distance from centre to midpoint of a side.</li>
+                        </ul>
+                        <div class="formula">For a regular polygon with n sides and side length s: <br> Circumradius R = s / (2 × sin(180°/n)) &nbsp;|&nbsp; Apothem r = s / (2 × tan(180°/n))</div>
+
+                        <h4>Construction of a Regular Pentagon (Side Length Given)</h4>
+                        <p><strong>Method: General method using circumcircle</strong></p>
+                        <ol>
+                            <li>Calculate the circumradius using R = s / (2 × sin(36°)).</li>
+                            <li>Draw a circle with radius R and mark the centre O.</li>
+                            <li>Draw a vertical diameter AB.</li>
+                            <li>Divide the circle into 5 equal parts (72° each) using a protractor or compass.</li>
+                            <li>Join the consecutive points to form the pentagon.</li>
+                        </ol>
+                        <div class="worked">
+                            <div class="label">Worked Example</div>
+                            <p><strong>Given:</strong> Side length = 40 mm. Construct a regular pentagon.</p>
+                            <p>R = 40 / (2 × sin 36°) = 40 / (2 × 0.5878) = 40 / 1.1756 ≈ 34.03 mm.</p>
+                            <p>Draw circle of radius 34.03 mm, divide into 5 equal parts (72°), join the points.</p>
+                        </div>
+
+                        <h4>Construction of a Regular Hexagon (Side Length Given)</h4>
+                        <p><strong>Method: Using circumcircle</strong></p>
+                        <ol>
+                            <li>Calculate R = s (since sin 30° = 0.5, R = s / (2 × 0.5) = s).</li>
+                            <li>Draw a circle with radius equal to the given side length.</li>
+                            <li>Mark any point on the circle as the first vertex.</li>
+                            <li>Using the same radius, step off 6 equal divisions around the circle (60° each).</li>
+                            <li>Join the points to get the hexagon.</li>
+                        </ol>
+                        <div class="worked">
+                            <div class="label">Worked Example</div>
+                            <p><strong>Given:</strong> Side length = 30 mm. Construct a regular hexagon.</p>
+                            <p>Since R = s = 30 mm, draw a circle of radius 30 mm. Step off 6 divisions of 30 mm along the circumference. Join the points.</p>
+                        </div>
+                        <div class="diagram">
+                            <svg viewBox="0 0 400 180" role="img" aria-labelledby="poly-diag-title poly-diag-desc" style="max-width:100%;height:auto;">
+                                <title id="poly-diag-title">Construction of Regular Pentagon and Hexagon</title>
+                                <desc id="poly-diag-desc">Schematic showing a pentagon and hexagon constructed using circumcircle method with labelled vertices and centre.</desc>
+                                <!-- Pentagon -->
+                                <circle cx="80" cy="90" r="50" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="4 4"/>
+                                <circle cx="80" cy="90" r="2" fill="var(--blue)"/>
+                                <text x="80" y="88" font-size="9" text-anchor="middle" fill="var(--muted)">O</text>
+                                <polygon points="80,40 122.4,61.2 113.7,110 46.3,110 37.6,61.2" fill="none" stroke="var(--blue)" stroke-width="2"/>
+                                <text x="80" y="32" font-size="10" text-anchor="middle" fill="var(--blue)">Pentagon</text>
+                                <!-- Hexagon -->
+                                <circle cx="280" cy="90" r="50" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="4 4"/>
+                                <circle cx="280" cy="90" r="2" fill="var(--teal)"/>
+                                <text x="280" y="88" font-size="9" text-anchor="middle" fill="var(--muted)">O</text>
+                                <polygon points="280,40 323.3,55 323.3,125 280,140 236.7,125 236.7,55" fill="none" stroke="var(--teal)" stroke-width="2"/>
+                                <text x="280" y="32" font-size="10" text-anchor="middle" fill="var(--teal)">Hexagon</text>
+                            </svg>
+                            <figcaption>Regular Pentagon (left) and Hexagon (right) constructed using the circumcircle method. The dashed circle shows the circumcircle.</figcaption>
+                        </div>
+                        <div class="tip"><strong>💡 Tip:</strong> For a hexagon, the side length equals the circumradius — this is a useful shortcut. Always label all vertices and show construction arcs lightly in pencil.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> സമബഹുഭുജങ്ങൾ (Regular Polygons) — എല്ലാ വശങ്ങളും കോണുകളും തുല്യമായ ബഹുഭുജങ്ങൾ. പെന്റഗൺ (5 വശങ്ങൾ), ഹെക്സഗൺ (6 വശങ്ങൾ) എന്നിവ സാധാരണ ഉപയോഗിക്കുന്നു. വൃത്തത്തിന്റെ ആരം (circumradius) ഉപയോഗിച്ച് നിർമ്മിക്കുമ്പോൾ, പെന്റഗണിന് R = s/(2 sin 36°), ഹെക്സഗണിന് R = s ആണ്.</div>
+                    </div>
+                </details>
+
+                <!-- Topic 2: Conic Sections -->
+                <details class="topic" open>
+                    <summary>1.2 Conic Sections — Ellipse (Rectangular &amp; Concentric Circle Methods)</summary>
+                    <div class="topic-body">
+                        <p><strong>Definition:</strong> Conic sections are curves obtained by intersecting a right circular cone with a plane. The three main conic sections are:</p>
+                        <ul>
+                            <li><strong>Ellipse:</strong> Plane cuts all generators of the cone (angle between plane and axis > semi-vertical angle).</li>
+                            <li><strong>Parabola:</strong> Plane is parallel to one generator (angle = semi-vertical angle).</li>
+                            <li><strong>Hyperbola:</strong> Plane cuts both nappes (angle &lt; semi-vertical angle).</li>
+                        </ul>
+
+                        <h4>Ellipse — Rectangular Method</h4>
+                        <p>This method is used when the major and minor axes are given.</p>
+                        <ol>
+                            <li>Draw the major axis AB and minor axis CD intersecting at O.</li>
+                            <li>Construct a rectangle with sides equal to AB and CD.</li>
+                            <li>Divide the rectangle into equal parts horizontally and vertically.</li>
+                            <li>Draw lines from the ends of the axes through the division points.</li>
+                            <li>Mark the intersections and draw a smooth curve through them.</li>
+                        </ol>
+
+                        <h4>Ellipse — Concentric Circle Method</h4>
+                        <p>This method uses two concentric circles with diameters equal to the major and minor axes.</p>
+                        <ol>
+                            <li>Draw two concentric circles with diameters equal to the major axis (outer) and minor axis (inner).</li>
+                            <li>Divide the circles into 12 equal parts (30° intervals).</li>
+                            <li>From each division on the outer circle, draw a vertical line downward.</li>
+                            <li>From each division on the inner circle, draw a horizontal line outward.</li>
+                            <li>The intersections of these lines give points on the ellipse.</li>
+                            <li>Join the points with a smooth curve.</li>
+                        </ol>
+                        <div class="worked">
+                            <div class="label">Worked Example — Concentric Circle Method</div>
+                            <p><strong>Given:</strong> Major axis = 80 mm, Minor axis = 50 mm.</p>
+                            <p>Draw circles of radii 40 mm and 25 mm. Divide into 12 parts. Project vertically from outer circle and horizontally from inner circle. Intersection points trace the ellipse.</p>
+                        </div>
+                        <div class="diagram">
+                            <svg viewBox="0 0 400 200" role="img" aria-labelledby="conic-title conic-desc" style="max-width:100%;height:auto;">
+                                <title id="conic-title">Conic Sections — Ellipse Construction</title>
+                                <desc id="conic-desc">Schematic showing the concentric circle method for constructing an ellipse with major axis 80mm and minor axis 50mm.</desc>
+                                <ellipse cx="200" cy="100" rx="70" ry="40" fill="none" stroke="var(--blue)" stroke-width="2"/>
+                                <circle cx="200" cy="100" r="70" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="4 4"/>
+                                <circle cx="200" cy="100" r="40" fill="none" stroke="#ccc" stroke-width="1" stroke-dasharray="4 4"/>
+                                <line x1="130" y1="100" x2="270" y2="100" stroke="var(--muted)" stroke-width="1"/>
+                                <line x1="200" y1="60" x2="200" y2="140" stroke="var(--muted)" stroke-width="1"/>
+                                <text x="200" y="54" font-size="10" text-anchor="middle" fill="var(--blue)">Major Axis</text>
+                                <text x="274" y="104" font-size="10" text-anchor="start" fill="var(--teal)">Minor Axis</text>
+                                <text x="200" y="190" font-size="10" text-anchor="middle" fill="var(--muted)">Concentric Circle Method — Ellipse</text>
+                            </svg>
+                            <figcaption>Ellipse construction using the concentric circle method. The outer circle radius = half major axis, inner circle radius = half minor axis.</figcaption>
+                        </div>
+                        <div class="tip"><strong>💡 Tip:</strong> The ellipse is a closed curve with two axes of symmetry. The sum of distances from any point on the ellipse to the two foci is constant and equal to the major axis length.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> കോണിക് വിഭാഗങ്ങൾ (Conic Sections) — ഒരു കോണിനെ ഒരു തലം മുറിക്കുമ്പോൾ ലഭിക്കുന്ന വക്രങ്ങൾ. ദീർഘവൃത്തം (Ellipse), പരവലയം (Parabola), അതിപരവലയം (Hyperbola) എന്നിവ പ്രധാനം. രണ്ട് കേന്ദ്രീകൃത വൃത്തങ്ങൾ ഉപയോഗിച്ച് ദീർഘവൃത്തം നിർമ്മിക്കാം.</div>
+                    </div>
+                </details>
+
+                <!-- Topic 3: Development of Surfaces -->
+                <details class="topic" open>
+                    <summary>1.3 Development of Surfaces — Rectangular Prism &amp; Cylinder</summary>
+                    <div class="topic-body">
+                        <p><strong>Definition:</strong> Development of a surface is the process of unfolding a 3D solid's surface into a 2D plane (a net). It is used in sheet metal work, packaging, and fabrication to determine the exact shape and size of material needed.</p>
+                        <p><strong>Key Principle:</strong> The developed surface must have the same area as the original surface, and the edges of the development correspond to the edges of the solid.</p>
+
+                        <h4>Development of a Rectangular Prism</h4>
+                        <p>A rectangular prism (cuboid) has 6 rectangular faces. Its development consists of 4 side rectangles arranged in a strip, plus 2 end rectangles (top and bottom).</p>
+                        <ol>
+                            <li>Draw the four side faces in a row: each face has height = prism height, width = corresponding side length.</li>
+                            <li>Attach the top and bottom faces to the appropriate edges.</li>
+                            <li>Add fold lines (dashed) and tabs if required.</li>
+                        </ol>
+                        <div class="worked">
+                            <div class="label">Worked Example</div>
+                            <p><strong>Given:</strong> Prism dimensions: length = 50 mm, width = 30 mm, height = 40 mm.</p>
+                            <p>Development: Four rectangles of size 50×40, 30×40, 50×40, 30×40 arranged in a strip. Top and bottom: 50×30 each attached to the top and bottom edges.</p>
+                        </div>
+
+                        <h4>Development of a Cylinder</h4>
+                        <p>A cylinder consists of a curved lateral surface and two circular bases.</p>
+                        <ul>
+                            <li><strong>Lateral surface:</strong> Develops into a rectangle of height = cylinder height and width = circumference = 2πr.</li>
+                            <li><strong>Bases:</strong> Two circles of radius r attached to the top and bottom edges of the rectangle.</li>
+                        </ul>
+                        <div class="formula">Lateral surface area = 2πrh &nbsp;|&nbsp; Total surface area = 2πr(r + h)</div>
+                        <div class="worked">
+                            <div class="label">Worked Example</div>
+                            <p><strong>Given:</strong> Cylinder radius r = 20 mm, height h = 60 mm.</p>
+                            <p>Lateral development: rectangle of width (circumference) = 2π × 20 = 125.66 mm, height = 60 mm.</p>
+                            <p>Bases: two circles of radius 20 mm.</p>
+                        </div>
+                        <div class="diagram">
+                            <svg viewBox="0 0 400 160" role="img" aria-labelledby="dev-title dev-desc" style="max-width:100%;height:auto;">
+                                <title id="dev-title">Development of Surfaces — Prism and Cylinder</title>
+                                <desc id="dev-desc">Schematic showing the development (net) of a rectangular prism and a cylinder.</desc>
+                                <!-- Prism development -->
+                                <rect x="10" y="20" width="40" height="50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+                                <rect x="50" y="20" width="30" height="50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+                                <rect x="80" y="20" width="40" height="50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+                                <rect x="120" y="20" width="30" height="50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+                                <rect x="20" y="70" width="40" height="30" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                <rect x="80" y="70" width="40" height="30" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                <text x="75" y="12" font-size="10" text-anchor="middle" fill="var(--blue)">Prism Development</text>
+                                <!-- Cylinder development -->
+                                <rect x="230" y="30" width="100" height="50" fill="none" stroke="var(--teal)" stroke-width="1.5"/>
+                                <ellipse cx="280" cy="30" rx="20" ry="10" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                <ellipse cx="280" cy="80" rx="20" ry="10" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                                <text x="280" y="16" font-size="10" text-anchor="middle" fill="var(--teal)">Cylinder Development</text>
+                                <text x="280" y="110" font-size="9" text-anchor="middle" fill="var(--muted)">Rectangle = 2πr × h &nbsp;|&nbsp; Circles = πr²</text>
+                            </svg>
+                            <figcaption>Development (net) of a rectangular prism (left) showing side faces and top/bottom faces, and a cylinder (right) showing lateral rectangle and circular bases.</figcaption>
+                        </div>
+                        <div class="tip"><strong>💡 Tip:</strong> For cylinder development, the length of the rectangle is the circumference (2πr), not the diameter. Always include seam allowance in practical applications.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> ഉപരിതല വികാസം (Development of Surfaces) — 3D വസ്തുക്കളുടെ ഉപരിതലം 2D ആയി വികസിപ്പിക്കൽ. ഷീറ്റ് മെറ്റൽ ജോലികളിൽ ഇത് വളരെ പ്രധാനമാണ്. ചതുരസ്തംഭത്തിന്റെ (prism) വികാസത്തിൽ 6 ചതുരങ്ങളും, സിലിണ്ടറിന്റെ വികാസത്തിൽ ഒരു ദീർഘചതുരവും 2 വൃത്തങ്ങളും ഉൾപ്പെടുന്നു.</div>
+                    </div>
+                </details>
+
+                <div class="tip"><strong>📌 Module I Summary:</strong> Regular polygons are constructed using circumcircles (R = s/(2 sin(π/n))). Conic sections (ellipse, parabola, hyperbola) are obtained by cutting a cone. Ellipse can be drawn using the rectangular or concentric circle method. Surface development unfolds 3D solids into 2D nets — rectangular prisms give 4 side faces + 2 ends; cylinders give a rectangle (2πr × h) + 2 circles.</div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== MODULE II ===== -->
+            <!-- ================================================================ -->
+            <section class="module" id="module-2" style="--module-color:var(--teal);">
+                <div class="module-head">
+                    <div class="kicker">Module II</div>
+                    <h3>Drawing — Basic Projections, Points, Lines, Orthographic &amp; Sectional Views</h3>
+                    <p class="lead">Understand first-angle and third-angle projections, draw projections of points and lines, and develop orthographic and sectional views of engineering objects.</p>
+                    <div class="module-meta">
+                        <span class="chip"><strong>Hours:</strong> 15</span>
+                        <span class="chip"><strong>CO:</strong> CO2</span>
+                        <span class="chip"><strong>Bloom:</strong> Apply</span>
+                        <span class="chip"><strong>Type:</strong> Manual Drawing</span>
+                    </div>
+                </div>
+
+                <!-- Topic 1: Basic Projections -->
+                <details class="topic" open>
+                    <summary>2.1 Theory of Projection — First Angle &amp; Third Angle</summary>
+                    <div class="topic-body">
+                        <p><strong>Definition:</strong> Projection is the method of representing a 3D object on a 2D plane by projecting its points along parallel lines (orthographic projection) or from a point (perspective projection). Engineering drawing uses <strong>orthographic projection</strong>.</p>
+                        <p><strong>Two main systems:</strong></p>
+                        <ul>
+                            <li><strong>First Angle Projection (European system):</strong> Object is placed in the first quadrant (between the observer and the planes). The view is projected onto the plane behind the object.</li>
+                            <li><strong>Third Angle Projection (American system):</strong> Object is placed in the third quadrant (between the planes and the observer). The view is projected onto the plane in front of the object.</li>
+                        </ul>
+                        <div class="table-wrap">
+                            <table>
+                                <caption>Comparison of First Angle and Third Angle Projection</caption>
+                                <thead><tr><th>Feature</th><th>First Angle</th><th>Third Angle</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Object position</td><td>Between observer and plane</td><td>Between plane and observer</td></tr>
+                                    <tr><td>View placement</td><td>Front view above, top view below</td><td>Front view below, top view above</td></tr>
+                                    <tr><td>Symbol</td><td>Concentric circles (European)</td><td>Truncated cone (American)</td></tr>
+                                    <tr><td>Commonly used</td><td>Europe, Asia (including India)</td><td>USA, Canada</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="diagram">
+                            <svg viewBox="0 0 500 120" role="img" aria-labelledby="proj-title proj-desc" style="max-width:100%;height:auto;">
+                                <title id="proj-title">First Angle and Third Angle Projection Symbols</title>
+                                <desc id="proj-desc">Schematic showing the standard symbols for first-angle (concentric circles) and third-angle (truncated cone) projection.</desc>
+                                <circle cx="100" cy="60" r="20" fill="none" stroke="var(--blue)" stroke-width="2"/>
+                                <circle cx="100" cy="60" r="14" fill="none" stroke="var(--blue)" stroke-width="2"/>
+                                <circle cx="100" cy="60" r="8" fill="none" stroke="var(--blue)" stroke-width="2"/>
+                                <text x="100" y="98" font-size="11" text-anchor="middle" fill="var(--blue)">First Angle</text>
+                                <circle cx="300" cy="60" r="20" fill="none" stroke="var(--teal)" stroke-width="2"/>
+                                <circle cx="300" cy="60" r="14" fill="none" stroke="var(--teal)" stroke-width="2"/>
+                                <text x="300" y="98" font-size="11" text-anchor="middle" fill="var(--teal)">Third Angle</text>
+                                <text x="200" y="24" font-size="10" text-anchor="middle" fill="var(--muted)">Projection Symbols</text>
+                            </svg>
+                            <figcaption>Standard projection symbols: First Angle (concentric circles) and Third Angle (truncated cone).</figcaption>
+                        </div>
+                        <div class="tip"><strong>💡 Tip:</strong> In India, the First Angle Projection method is standard for engineering drawings. Always check the projection symbol on the drawing sheet.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> പ്രക്ഷേപണം (Projection) — 3D വസ്തുവിനെ 2D തലത്തിൽ പ്രതിനിധീകരിക്കുന്ന രീതി. ഫസ്റ്റ് ആംഗിൾ (ഇന്ത്യയിൽ ഉപയോഗിക്കുന്നത്), തേർഡ് ആംഗിൾ (അമേരിക്കയിൽ) എന്നിവ പ്രധാനം. ഫസ്റ്റ് ആംഗിളിൽ വസ്തു നിരീക്ഷകനും തലത്തിനും ഇടയിലാണ്.</div>
+                    </div>
+                </details>
+
+                <!-- Topic 2: Projections of Points & Lines -->
+                <details class="topic" open>
+                    <summary>2.2 Projections of Points &amp; Lines</summary>
+                    <div class="topic-body">
+                        <p><strong>Projection of Points:</strong> A point is a zero-dimensional element. Its projection is a point on the reference plane. The position of the point relative to the Horizontal Plane (HP) and Vertical Plane (VP) determines its projection.</p>
+                        <ul>
+                            <li><strong>First quadrant:</strong> Point is above HP and in front of VP.</li>
+                            <li><strong>Second quadrant:</strong> Point is above HP and behind VP.</li>
+                            <li><strong>Third quadrant:</strong> Point is below HP and behind VP.</li>
+                            <li><strong>Fourth quadrant:</strong> Point is below HP and in front of VP.</li>
+                        </ul>
+                        <p><strong>Projection of Lines:</strong> A line is defined by two points. Its projections are obtained by projecting the two endpoints.</p>
+                        <ul>
+                            <li><strong>Parallel to both planes:</strong> True length appears in both views.</li>
+                            <li><strong>Parallel to one plane, inclined to the other:</strong> One view shows true length, the other shows foreshortened length.</li>
+                            <li><strong>Inclined to both planes:</strong> Both views show foreshortened lengths.</li>
+                        </ul>
+                        <div class="table-wrap">
+                            <table>
+                                <caption>Projection of Lines — Key Cases (First Quadrant)</caption>
+                                <thead><tr><th>Line Position</th><th>Front View</th><th>Top View</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Parallel to HP &amp; VP</td><td>True length (horizontal)</td><td>True length (horizontal)</td></tr>
+                                    <tr><td>Parallel to HP, inclined to VP</td><td>Foreshortened</td><td>True length</td></tr>
+                                    <tr><td>Parallel to VP, inclined to HP</td><td>True length</td><td>Foreshortened</td></tr>
+                                    <tr><td>Inclined to both HP &amp; VP</td><td>Foreshortened</td><td>Foreshortened</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="worked">
+                            <div class="label">Worked Example — Projection of a Line</div>
+                            <p><strong>Given:</strong> Line AB, length 60 mm, parallel to HP and inclined 30° to VP. End A is 20 mm above HP and 15 mm in front of VP.</p>
+                            <p><strong>Front View:</strong> Project A' at 20 mm above XY. Draw a line of length 60 × cos 30° = 51.96 mm at the given angle.</p>
+                            <p><strong>Top View:</strong> Project A at 15 mm below XY. Draw the true length 60 mm at 30° to the reference line.</p>
+                        </div>
+                        <div class="tip"><strong>💡 Tip:</strong> Always start with the projection of the endpoint that has the most constraints. Use construction lines lightly in pencil. The top view shows the line's inclination to HP; the front view shows inclination to VP.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> ബിന്ദുക്കളുടെയും രേഖകളുടെയും പ്രക്ഷേപണം — ഒരു രേഖയുടെ പ്രക്ഷേപണം അതിന്റെ അറ്റങ്ങളുടെ പ്രക്ഷേപണം വഴി ലഭിക്കുന്നു. രേഖ HP-യ്ക്ക് സമാന്തരവും VP-യോട് ചരിഞ്ഞും ആണെങ്കിൽ, മുകൾ വശത്ത് (top view) യഥാർത്ഥ നീളം ലഭിക്കും.</div>
+                    </div>
+                </details>
+
+                <!-- Topic 3: Orthographic & Sectional Views -->
+                <details class="topic" open>
+                    <summary>2.3 Orthographic Projections &amp; Sectional Views of Objects</summary>
+                    <div class="topic-body">
+                        <p><strong>Orthographic Projection:</strong> The representation of a 3D object using multiple 2D views — typically front view, top view, and side view. Each view shows the object as seen from a specific direction.</p>
+                        <ul>
+                            <li><strong>Front View:</strong> Projected on the Vertical Plane (VP).</li>
+                            <li><strong>Top View:</strong> Projected on the Horizontal Plane (HP).</li>
+                            <li><strong>Side View:</strong> Projected on the Profile Plane (PP).</li>
+                        </ul>
+                        <p><strong>Sectional Views:</strong> When an object has internal features (holes, cavities, ribs), a <strong>sectional view</strong> is used to show the internal details. The object is imagined as cut by a cutting plane, and the portion in front of the cutting plane is removed.</p>
+                        <ul>
+                            <li><strong>Cutting plane:</strong> A phantom line (chain line with thick ends) showing where the cut is made.</li>
+                            <li><strong>Section lines (hatching):</strong> Thin equidistant lines drawn at 45° on the cut surface.</li>
+                            <li><strong>Types:</strong> Full section, half section, offset section, revolved section.</li>
+                        </ul>
+                        <div class="tip"><strong>💡 Tip:</strong> In orthographic projection, align the views properly — front view above top view, and side view to the side. Use hidden lines (dashed) for edges that are not visible in that view.</div>
+                        <div class="safety"><strong>⚠️ Common Mistake:</strong> Forgetting to draw hidden lines in orthographic views, or drawing section lines (hatching) on non-sectioned areas. Also, cutting plane lines should be clearly shown with arrowheads indicating the direction of viewing.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> ഓർത്തോഗ്രാഫിക് പ്രക്ഷേപണം — 3D വസ്തുവിനെ മുൻവശം, മുകൾവശം, പാർശ്വവശം എന്നീ 2D കാഴ്ചകളായി പ്രതിനിധീകരിക്കൽ. വിഭാഗീയ കാഴ്ച (Sectional view) വസ്തുവിന്റെ അകത്തെ വിശദാംശങ്ങൾ കാണിക്കുന്നു.</div>
+                    </div>
+                </details>
+
+                <div class="tip"><strong>📌 Module II Summary:</strong> First-angle projection is used in India. Points are projected based on their quadrant. Lines show true length when parallel to a plane. Orthographic views (front, top, side) describe 3D objects. Sectional views reveal internal features using a cutting plane and hatching.</div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== MODULE III ===== -->
+            <!-- ================================================================ -->
+            <section class="module" id="module-3" style="--module-color:var(--amber);">
+                <div class="module-head">
+                    <div class="kicker">Module III</div>
+                    <h3>Lab — CAD Software Familiarization &amp; Basic Commands</h3>
+                    <p class="lead">Learn to use CAD software — open/save drawings, draft settings, draw commands, modify commands, dimensioning, and text.</p>
+                    <div class="module-meta">
+                        <span class="chip"><strong>Hours:</strong> 9</span>
+                        <span class="chip"><strong>CO:</strong> CO3</span>
+                        <span class="chip"><strong>Bloom:</strong> Apply</span>
+                        <span class="chip"><strong>Type:</strong> CAD Lab</span>
+                    </div>
+                </div>
+
+                <details class="topic" open>
+                    <summary>3.1 Introduction to CAD — Interface, Commands &amp; Settings</summary>
+                    <div class="topic-body">
+                        <p><strong>Computer-Aided Drafting (CAD):</strong> The use of computer software to create, modify, analyse, and optimise designs. CAD replaces manual drafting with digital tools that improve accuracy, efficiency, and ease of modification.</p>
+
+                        <h4>Advantages of CAD over Manual Drafting</h4>
+                        <ul>
+                            <li><strong>Accuracy:</strong> CAD allows precise measurements and alignment.</li>
+                            <li><strong>Efficiency:</strong> Repeatable commands, copy-paste, and libraries save time.</li>
+                            <li><strong>Modification:</strong> Edit drawings easily without redrawing.</li>
+                            <li><strong>Storage:</strong> Digital files are easy to store, share, and version-control.</li>
+                            <li><strong>Standardisation:</strong> Layers, linetypes, and text styles ensure consistency.</li>
+                        </ul>
+
+                        <h4>Basic CAD Commands</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <caption>Common CAD Commands</caption>
+                                <thead><tr><th>Category</th><th>Command</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td rowspan="4">Draw</td><td>LINE</td><td>Draw straight line segments</td></tr>
+                                    <tr><td>CIRCLE</td><td>Draw a circle (centre + radius / diameter)</td></tr>
+                                    <tr><td>RECTANGLE</td><td>Draw a rectangle by specifying corners</td></tr>
+                                    <tr><td>POLYGON</td><td>Draw a regular polygon (specify sides and centre)</td></tr>
+                                    <tr><td rowspan="5">Modify</td><td>ERASE</td><td>Delete selected objects</td></tr>
+                                    <tr><td>COPY</td><td>Duplicate objects</td></tr>
+                                    <tr><td>MIRROR</td><td>Create a mirrored copy</td></tr>
+                                    <tr><td>OFFSET</td><td>Create parallel copies at a specified distance</td></tr>
+                                    <tr><td>TRIM</td><td>Cut objects at intersections</td></tr>
+                                    <tr><td rowspan="3">Settings</td><td>GRID / SNAP</td><td>Snap to grid points for precise placement</td></tr>
+                                    <tr><td>OSNAP</td><td>Object snap — snap to endpoints, midpoints, centres, etc.</td></tr>
+                                    <tr><td>DIMENSION</td><td>Add dimensions (linear, aligned, radius, diameter)</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>CAD Workflow</h4>
+                        <ol>
+                            <li><strong>Setup:</strong> Set units, limits, grid, and snap settings.</li>
+                            <li><strong>Draw:</strong> Use draw commands to create the geometry.</li>
+                            <li><strong>Modify:</strong> Edit using modify commands.</li>
+                            <li><strong>Annotate:</strong> Add dimensions, text, and notes.</li>
+                            <li><strong>Save:</strong> Save the drawing as a .dwg file or export as PDF.</li>
+                        </ol>
+                        <div class="tip"><strong>💡 Tip:</strong> Use keyboard shortcuts for common commands (e.g., L for LINE, C for CIRCLE, E for ERASE, TR for TRIM). This speeds up your workflow significantly.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> CAD (Computer-Aided Drafting) — കമ്പ്യൂട്ടർ ഉപയോഗിച്ച് ഡ്രോയിംഗ് നിർമ്മിക്കുന്ന സോഫ്റ്റ്വെയർ. LINE, CIRCLE, RECTANGLE തുടങ്ങിയ കമാൻഡുകൾ ഉപയോഗിച്ച് രേഖകൾ വരയ്ക്കാം. ERASE, COPY, MIRROR, TRIM എന്നിവ ഉപയോഗിച്ച് പരിഷ്കരിക്കാം.</div>
+                    </div>
+                </details>
+
+                <div class="tip"><strong>📌 Module III Summary:</strong> CAD software replaces manual drafting with digital tools. Key commands include LINE, CIRCLE, RECTANGLE, POLYGON (draw), and ERASE, COPY, MIRROR, OFFSET, TRIM (modify). Settings like GRID, SNAP, OSNAP help with precision. Dimensioning and text add annotations.</div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== MODULE IV ===== -->
+            <!-- ================================================================ -->
+            <section class="module" id="module-4" style="--module-color:var(--violet);">
+                <div class="module-head">
+                    <div class="kicker">Module IV</div>
+                    <h3>Lab — Orthographic &amp; Sectional Views in CAD</h3>
+                    <p class="lead">Develop orthographic projections and sectional views of engineering objects using CAD software.</p>
+                    <div class="module-meta">
+                        <span class="chip"><strong>Hours:</strong> 9</span>
+                        <span class="chip"><strong>CO:</strong> CO4</span>
+                        <span class="chip"><strong>Bloom:</strong> Apply</span>
+                        <span class="chip"><strong>Type:</strong> CAD Lab</span>
+                    </div>
+                </div>
+
+                <details class="topic" open>
+                    <summary>4.1 Creating Orthographic &amp; Sectional Views in CAD</summary>
+                    <div class="topic-body">
+                        <p>This module applies the manual drawing skills from Module II using CAD software. The same principles of orthographic and sectional views are used, but with digital tools.</p>
+
+                        <h4>Step-by-Step Procedure in CAD</h4>
+                        <ol>
+                            <li><strong>Analyse the object:</strong> Identify the principal views (front, top, side) and the cutting plane for sectional views.</li>
+                            <li><strong>Set up layers:</strong> Create layers for construction lines, object lines, hidden lines, centre lines, section lines, and dimensions.</li>
+                            <li><strong>Draw the front view:</strong> Use LINE, CIRCLE, RECTANGLE, and other draw commands to create the front view geometry.</li>
+                            <li><strong>Project to top view:</strong> Use projection lines (using OFFSET, COPY, or construction lines) to create the top view aligned below the front view.</li>
+                            <li><strong>Project to side view:</strong> Similarly, project the side view from the front view.</li>
+                            <li><strong>Add hidden lines:</strong> Use dashed linetypes for edges not visible in each view.</li>
+                            <li><strong>For sectional views:</strong> Draw the cutting plane line, then hatch the cut area using the HATCH command with 45° lines.</li>
+                            <li><strong>Dimension and annotate:</strong> Add dimensions and text notes.</li>
+                            <li><strong>Plot/Print:</strong> Set up the layout, scale, and plot to PDF or print.</li>
+                        </ol>
+
+                        <div class="table-wrap">
+                            <table>
+                                <caption>CAD Layers for Engineering Drawings</caption>
+                                <thead><tr><th>Layer Name</th><th>Colour</th><th>Linetype</th><th>Lineweight</th><th>Purpose</th></tr></thead>
+                                <tbody>
+                                    <tr><td>Construction</td><td>Gray</td><td>Continuous</td><td>0.25 mm</td><td>Construction/projection lines</td></tr>
+                                    <tr><td>Object</td><td>Black/White</td><td>Continuous</td><td>0.50 mm</td><td>Visible edges</td></tr>
+                                    <tr><td>Hidden</td><td>Red</td><td>Dashed</td><td>0.25 mm</td><td>Hidden edges</td></tr>
+                                    <tr><td>Centre</td><td>Blue</td><td>Centre (long dash–short dash)</td><td>0.25 mm</td><td>Centre lines</td></tr>
+                                    <tr><td>Section</td><td>Green</td><td>Continuous</td><td>0.25 mm</td><td>Section/hatch lines</td></tr>
+                                    <tr><td>Dimension</td><td>Cyan</td><td>Continuous</td><td>0.25 mm</td><td>Dimensions and text</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="warning"><strong>⚠️ Important:</strong> Always use layers for different line types. This allows you to control visibility, plot styles, and edit efficiently. Do not draw everything on a single layer.</div>
+                        <div class="tip"><strong>💡 Tip:</strong> Use the <kbd>HATCH</kbd> command with the "ANSI31" pattern (45° lines) for section hatching. Adjust the scale to get the right spacing. For CAD orthographic views, use <kbd>PROJECT</kbd> or construction lines to maintain alignment between views.</div>
+                        <div class="ml-note"><strong>Malayalam support:</strong> CAD-യിൽ ഓർത്തോഗ്രാഫിക്, വിഭാഗീയ കാഴ്ചകൾ — മാനുവൽ ഡ്രോയിംഗിലെ അതേ തത്ത്വങ്ങൾ തന്നെ. ലെയറുകൾ ഉപയോഗിച്ച് വ്യത്യസ്ത രേഖകൾ വേർതിരിക്കുക. HATCH കമാൻഡ് ഉപയോഗിച്ച് വിഭാഗീയ പ്രതലം ഹാച്ച് ചെയ്യുക.</div>
+                    </div>
+                </details>
+
+                <div class="tip"><strong>📌 Module IV Summary:</strong> Use CAD software to create orthographic views (front, top, side) and sectional views. Organise drawing elements using layers (Object, Hidden, Centre, Section, Dimension). Use HATCH for section lines. Project views using construction lines to maintain alignment.</div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== FORMULA BANK ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="formula-bank">
+                <h2>Formula Bank</h2>
+                <div class="formula-grid">
+                    <div class="formula-card">
+                        <div class="title">Regular Polygon — Interior Angle</div>
+                        <div class="math">(n − 2) × 180° / n</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">n = number of sides</div>
+                    </div>
+                    <div class="formula-card">
+                        <div class="title">Regular Polygon — Exterior Angle</div>
+                        <div class="math">360° / n</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">n = number of sides</div>
+                    </div>
+                    <div class="formula-card">
+                        <div class="title">Circumradius (Polygon)</div>
+                        <div class="math">R = s / (2 × sin(180°/n))</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">s = side length, n = number of sides</div>
+                    </div>
+                    <div class="formula-card">
+                        <div class="title">Apothem (Polygon)</div>
+                        <div class="math">r = s / (2 × tan(180°/n))</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">s = side length, n = number of sides</div>
+                    </div>
+                    <div class="formula-card">
+                        <div class="title">Hexagon — Circumradius</div>
+                        <div class="math">R = s</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">Side length equals circumradius</div>
+                    </div>
+                    <div class="formula-card">
+                        <div class="title">Cylinder — Lateral Surface Area</div>
+                        <div class="math">2πrh</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">r = radius, h = height</div>
+                    </div>
+                    <div class="formula-card">
+                        <div class="title">Cylinder — Total Surface Area</div>
+                        <div class="math">2πr(r + h)</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">r = radius, h = height</div>
+                    </div>
+                    <div class="formula-card">
+                        <div class="title">Cylinder — Circumference</div>
+                        <div class="math">2πr</div>
+                        <div style="font-size:0.8rem;color:var(--muted);">Used for cylinder development</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== VISUAL LIBRARY ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="visual-library">
+                <h2>Diagram Library for Rapid Revision</h2>
+                <div class="grid three">
+                    <div class="card"><strong>🔷 Regular Polygons</strong><br><a href="#module-1">Module I</a> — Pentagon and Hexagon construction using circumcircle method.</div>
+                    <div class="card"><strong>🔶 Conic Sections</strong><br><a href="#module-1">Module I</a> — Ellipse using concentric circle method.</div>
+                    <div class="card"><strong>📐 Surface Development</strong><br><a href="#module-1">Module I</a> — Nets for rectangular prism and cylinder.</div>
+                    <div class="card"><strong>📏 Projection Symbols</strong><br><a href="#module-2">Module II</a> — First-angle and third-angle projection symbols.</div>
+                    <div class="card"><strong>📊 Orthographic Views</strong><br><a href="#module-2">Module II</a> — Front, top, and side view alignment.</div>
+                    <div class="card"><strong>✂️ Sectional Views</strong><br><a href="#module-2">Module II</a> — Cutting plane and hatching for sectional views.</div>
+                </div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== ACTIVITIES ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="activities">
+                <h2>Self-Learning Activities (Official)</h2>
+                <div class="grid two">
+                    <div class="activity-card">
+                        <div class="title">📐 Module I — Regular Polygon Terminology</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Definition and terminology of regular polygons. Construction of pentagon, hexagon, heptagon, octagon with given side length.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">📐 Module I — Conic Sections</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Methodology and terminology of conic sections. Construction of ellipse, parabola, and hyperbola.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">📐 Module I — Development of Surfaces</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Procedure familiarisation for engineering applications of surface development.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">📏 Module II — Theory of Projection</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Outline the theory of projection, first-angle and third-angle projections. Projection of points and lines.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">📏 Module II — Orthographic &amp; Isometric</div>
+                        <div class="hours">3 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Practice more exercises on orthographic and isometric projection.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">📏 Module II — Sectional Views</div>
+                        <div class="hours">3 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Draw sectional views of various simple engineering objects. Practice more exercises.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">💻 Module III — CAD Basics</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Introduction to Computer Aided Drafting: applications, advantages, hardware/software requirements, CAD basics.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">💻 Module III — Draw &amp; Modify Commands</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Limits of drawing, units, grid, snap, osnap, co-ordinates, ortho mode. Draw and modify commands.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">💻 Module III — Properties &amp; Dimensioning</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Working with CAD: properties of lines (colour, line weight, line type), dimensions and text on drawings.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">💻 Module IV — Orthographic Views in CAD</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Developing orthographic views of simple components with dimensions and text. More practice exercises.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">💻 Module IV — Sectional Views in CAD</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Draw sectional views of simple engineering objects. More practice exercises.</p>
+                    </div>
+                    <div class="activity-card">
+                        <div class="title">📝 Series Exam Preparation</div>
+                        <div class="hours">1.5 hours</div>
+                        <p style="font-size:0.9rem;margin:0.3rem 0 0 0;">Series exam preparation (Modules I &amp; II / Modules III &amp; IV).</p>
+                    </div>
+                </div>
+                <p style="font-size:0.85rem;color:var(--muted);margin-top:0.5rem;"><strong>Total Self-Learning Hours:</strong> 22.5</p>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== ASSESSMENT ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="assessment">
+                <h2>Assessment Methodology</h2>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Assessment Breakdown — Lab</caption>
+                        <thead>
+                            <tr><th>Mode</th><th>Attendance</th><th>CE</th><th>CA1</th><th>CA2</th><th>OEE</th><th>ESE</th><th>Total</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Continuous evaluation</strong></td><td rowspan="2">—</td><td rowspan="2">10</td><td rowspan="2">15</td><td rowspan="2">15</td><td rowspan="2">10</td><td rowspan="2">—</td><td rowspan="2">—</td></tr>
+                            <tr><td><strong>Practical test</strong> (first half)</td></tr>
+                            <tr><td><strong>Practical test</strong> (second half)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><td><strong>Open-ended experiment</strong></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><td><strong>Practical</strong> (Duration 3h)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>40</td><td>40</td></tr>
+                            <tr><td><strong>Converted to</strong></td><td>—</td><td>5</td><td>5</td><td>10</td><td>—</td><td>—</td><td>—</td></tr>
+                            <tr><td><strong>Total marks</strong></td><td>—</td><td>15</td><td>15</td><td>10</td><td>—</td><td>40</td><td><strong>100</strong></td></tr>
+                        </tbody>
+                        <tfoot>
+                            <tr><td colspan="7" style="font-size:0.85rem;color:var(--muted);">CIE: 60 marks (Attendance 5 + CE 15 + CA1 15 + CA2 15 + OEE 10) &nbsp;|&nbsp; ESE: 40 marks &nbsp;|&nbsp; Total: 100</td></tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="grid two" style="margin-top:1.2rem;">
+                    <div class="exam-card">
+                        <h4 style="margin-top:0;">Scheme of Evaluation — Practical (CIE)</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li><strong>Preparation &amp; Punctuality:</strong> 10 marks</li>
+                            <li><strong>Experimental Setup &amp; Procedure:</strong> 10 marks</li>
+                            <li><strong>Observation &amp; Data Recording:</strong> 5 marks</li>
+                            <li><strong>Analysis &amp; Result Interpretation:</strong> 10 marks</li>
+                            <li><strong>Viva Voce / Concept Understanding:</strong> 10 marks</li>
+                            <li><strong>Workmanship, Discipline &amp; Teamwork:</strong> 5 marks</li>
+                            <li style="list-style:none;font-weight:600;margin-top:0.3rem;">Total: 50 marks</li>
+                        </ul>
+                    </div>
+                    <div class="exam-card">
+                        <h4 style="margin-top:0;">Scheme of Evaluation — ESE (Practical)</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li><strong>Write-up / Procedure:</strong> 10 marks</li>
+                            <li><strong>Experiment Setup &amp; Execution:</strong> 10 marks</li>
+                            <li><strong>Observation &amp; Result / Output:</strong> 8 marks</li>
+                            <li><strong>Viva Voce:</strong> 8 marks</li>
+                            <li><strong>Record:</strong> 4 marks</li>
+                            <li style="list-style:none;font-weight:600;margin-top:0.3rem;">Total: 40 marks</li>
+                        </ul>
+                    </div>
+                    <div class="exam-card">
+                        <h4 style="margin-top:0;">Open-Ended Experiment (OEE)</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li><strong>Originality &amp; Relevance:</strong> 10 marks</li>
+                            <li><strong>Clarity of Objectives &amp; Plan:</strong> 10 marks</li>
+                            <li><strong>Correctness of Execution &amp; Recording:</strong> 10 marks</li>
+                            <li><strong>Analysis, Interpretation &amp; Presentation:</strong> 10 marks</li>
+                            <li><strong>Teamwork &amp; Innovation:</strong> 10 marks</li>
+                            <li style="list-style:none;font-weight:600;margin-top:0.3rem;">Total: 50 marks</li>
+                        </ul>
+                    </div>
+                    <div class="exam-card">
+                        <h4 style="margin-top:0;">Series Test &amp; ESE Pattern</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li><strong>Series Test I:</strong> Modules I &amp; II (1.5 hrs)</li>
+                            <li><strong>Series Test II:</strong> Modules III &amp; IV (1.5 hrs in CAD)</li>
+                            <li><strong>ESE Split-up:</strong></li>
+                            <li style="padding-left:1rem;">• 10 MCQs/Fill-ups (CO1 &amp; CO2) — 10 marks</li>
+                            <li style="padding-left:1rem;">• CAD Drawing (CO3 &amp; CO4) — 18 marks</li>
+                            <li style="padding-left:1rem;">• Viva Voce — 8 marks</li>
+                            <li style="padding-left:1rem;">• Record — 4 marks</li>
+                            <li style="list-style:none;font-weight:600;margin-top:0.3rem;">ESE Total: 40 marks</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tip"><strong>📌 Note:</strong> Students need to draw exercises from Module II on A2/A4 size sheets. If using A4, include sheet size, margin, title block, and angle of projection. The Module II sheets may be considered as the open-ended project. End semester examination is conducted in CAD only. Students must submit a certified fair record for ESE with figures and construction procedure (Module II, Part A) and CAD drawings (Modules III &amp; IV, Part B).</div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== QUESTIONS ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="questions">
+                <h2>Module-wise Questions with Answers</h2>
+
+                <h3>Module I — Regular Polygons, Conic Sections, Surface Development</h3>
+
+                <details class="qa">
+                    <summary>Q1: What is a regular polygon? How do you construct a regular hexagon given the side length?</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong> A regular polygon is a closed plane figure with all sides equal and all interior angles equal.</p>
+                        <p><strong>Construction of hexagon (side length s):</strong></p>
+                        <ol>
+                            <li>Since R = s for a hexagon, draw a circle of radius s.</li>
+                            <li>Mark any point on the circle as the first vertex.</li>
+                            <li>Using the same radius s, step off 6 equal divisions around the circle (60° each).</li>
+                            <li>Join the consecutive points to form the hexagon.</li>
+                        </ol>
+                        <p><strong>Formula:</strong> Interior angle = (6−2)×180°/6 = 120°. Exterior angle = 360°/6 = 60°.</p>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q2: Explain the concentric circle method for constructing an ellipse.</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong> The concentric circle method is used to construct an ellipse when the major and minor axes are given.</p>
+                        <ol>
+                            <li>Draw two concentric circles with diameters equal to the major axis (outer circle) and minor axis (inner circle).</li>
+                            <li>Divide the circles into 12 equal parts (30° intervals) using radial lines from the centre.</li>
+                            <li>From each intersection on the outer circle, draw a vertical line downward.</li>
+                            <li>From each intersection on the inner circle, draw a horizontal line outward.</li>
+                            <li>The intersections of these vertical and horizontal lines give points on the ellipse.</li>
+                            <li>Join the points with a smooth curve.</li>
+                        </ol>
+                        <p><strong>Key principle:</strong> The ellipse is the locus of points whose sum of distances to two foci is constant.</p>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q3: What is meant by "development of surfaces"? Draw the development of a cylinder.</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong> Development of a surface is the process of unfolding a 3D solid's surface into a 2D plane (a net) without distortion.</p>
+                        <p><strong>Cylinder development:</strong></p>
+                        <ul>
+                            <li><strong>Lateral surface:</strong> A rectangle with height = cylinder height (h) and width = circumference (2πr).</li>
+                            <li><strong>Bases:</strong> Two circles of radius r attached to the top and bottom edges of the rectangle.</li>
+                        </ul>
+                        <p><strong>Area formulas:</strong> Lateral = 2πrh, Total = 2πr(r + h).</p>
+                        <p><strong>Application:</strong> Used in sheet metal work to determine the material needed to make a cylindrical object.</p>
+                    </div>
+                </details>
+
+                <h3>Module II — Projections, Orthographic &amp; Sectional Views</h3>
+
+                <details class="qa">
+                    <summary>Q4: Distinguish between first-angle and third-angle projection.</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>First-angle projection:</strong> Object is placed between the observer and the projection plane. The front view is above the top view. Used in Europe and India. Symbol: concentric circles.</li>
+                            <li><strong>Third-angle projection:</strong> Object is placed between the projection plane and the observer. The front view is below the top view. Used in USA and Canada. Symbol: truncated cone.</li>
+                        </ul>
+                        <p>In India, the <strong>first-angle projection</strong> method is standard.</p>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q5: How do you project a line that is parallel to HP and inclined to VP?</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong> For a line parallel to HP and inclined to VP:</p>
+                        <ul>
+                            <li><strong>Top view (on HP):</strong> Shows the true length of the line, since the line is parallel to HP.</li>
+                            <li><strong>Front view (on VP):</strong> Shows the foreshortened length (length × cos θ), where θ is the angle of inclination to VP.</li>
+                        </ul>
+                        <p><strong>Procedure:</strong> First draw the top view with the true length at the given angle to the reference line (XY). Then project the front view vertically, showing the foreshortened length.</p>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q6: What is a sectional view? Why is it used in engineering drawing?</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong> A sectional view is a drawing that shows the internal features of an object by imagining it cut by a cutting plane. The portion in front of the cutting plane is removed to reveal the interior.</p>
+                        <p><strong>Uses:</strong></p>
+                        <ul>
+                            <li>Reveals hidden internal details (holes, cavities, ribs).</li>
+                            <li>Clarifies complex assemblies.</li>
+                            <li>Reduces the need for hidden lines.</li>
+                        </ul>
+                        <p><strong>Key elements:</strong> Cutting plane line (phantom line with arrowheads), section lines (hatching at 45°) on the cut surface.</p>
+                    </div>
+                </details>
+
+                <h3>Module III &amp; IV — CAD Software</h3>
+
+                <details class="qa">
+                    <summary>Q7: List the advantages of CAD over manual drafting.</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>Accuracy:</strong> Precise measurements and alignment.</li>
+                            <li><strong>Efficiency:</strong> Commands like COPY, ARRAY, MIRROR save time.</li>
+                            <li><strong>Modification:</strong> Easy to edit without redrawing.</li>
+                            <li><strong>Storage:</strong> Digital files are compact and easy to share.</li>
+                            <li><strong>Standardisation:</strong> Layers and templates ensure consistency.</li>
+                            <li><strong>Reusability:</strong> Components can be reused from libraries.</li>
+                            <li><strong>Visualisation:</strong> 3D modelling and rendering capabilities.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q8: Explain the use of layers in CAD. Name the common layers used in engineering drawing.</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong> Layers in CAD are like transparent overlays that organise different types of drawing elements. Each layer can have its own colour, linetype, and lineweight.</p>
+                        <p><strong>Common layers:</strong></p>
+                        <ul>
+                            <li><strong>Construction:</strong> Construction/projection lines (gray, continuous, thin).</li>
+                            <li><strong>Object:</strong> Visible edges (black/white, continuous, thick).</li>
+                            <li><strong>Hidden:</strong> Hidden edges (red, dashed).</li>
+                            <li><strong>Centre:</strong> Centre lines (blue, long dash–short dash).</li>
+                            <li><strong>Section:</strong> Section/hatch lines (green, continuous).</li>
+                            <li><strong>Dimension:</strong> Dimensions and text (cyan, continuous).</li>
+                        </ul>
+                        <p>Using layers makes editing, plotting, and visibility control easier.</p>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q9: Describe the procedure to create a sectional view in CAD.</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong></p>
+                        <ol>
+                            <li>Draw the orthographic view of the object.</li>
+                            <li>Draw the cutting plane line (phantom line) with arrowheads showing the direction of viewing.</li>
+                            <li>Use the <kbd>TRIM</kbd> or <kbd>EXTEND</kbd> commands to prepare the cut geometry.</li>
+                            <li>Use the <kbd>HATCH</kbd> command to apply hatching (45° lines, ANSI31 pattern) to the cut surface.</li>
+                            <li>Add dimensions and text to complete the sectional view.</li>
+                            <li>Place the sectional view on the drawing layout with proper alignment.</li>
+                        </ol>
+                        <p><strong>Tip:</strong> Use a separate layer for the hatch pattern so it can be turned off if needed.</p>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q10: What are the key settings to configure before starting a CAD drawing?</summary>
+                    <div class="qa-body answer">
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>Units:</strong> Set to millimeters (mm) for engineering drawings.</li>
+                            <li><strong>Limits:</strong> Define the drawing boundary.</li>
+                            <li><strong>Grid &amp; Snap:</strong> Enable grid display and snap to grid points for precision.</li>
+                            <li><strong>Object Snap (OSNAP):</strong> Enable endpoints, midpoints, centres, intersections, etc.</li>
+                            <li><strong>Layers:</strong> Create and assign layers for different line types.</li>
+                            <li><strong>Text Style:</strong> Set a standard text height and font.</li>
+                            <li><strong>Dimension Style:</strong> Set arrowheads, text offset, and precision.</li>
+                        </ul>
+                        <p>Proper initial setup saves time and ensures consistency throughout the drawing.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== MODEL PAPER ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="model-paper">
+                <h2>Practice Model Paper</h2>
+                <p style="font-size:0.9rem;color:var(--muted);margin-bottom:1rem;"><em>Based on the official pattern. This is a practice paper, not an official SITTTR model question paper.</em></p>
+                <div class="card">
+                    <h3 style="margin-top:0;">Course 1004 — Engineering Drawing with CAD</h3>
+                    <p><strong>End Semester Examination (ESE) — Practice Paper</strong><br>
+                    <strong>Duration:</strong> 3 hours &nbsp;|&nbsp; <strong>Total Marks:</strong> 40</p>
+                    <hr style="border:1px solid var(--line);margin:0.6rem 0;">
+
+                    <h4>Part A — Theory (CO1 &amp; CO2)</h4>
+                    <p><em>Answer any <strong>5</strong> of the following. Each question carries 2 marks. (5 × 2 = 10 marks)</em></p>
+                    <ol style="margin-bottom:0.8rem;">
+                        <li>Define a regular polygon. Write the formula for its interior angle.</li>
+                        <li>Explain the concentric circle method for constructing an ellipse.</li>
+                        <li>What is meant by the development of surfaces? Give one engineering application.</li>
+                        <li>Distinguish between first-angle and third-angle projection with sketches.</li>
+                        <li>How do you project a line that is parallel to VP and inclined to HP?</li>
+                        <li>Why are sectional views used in engineering drawing?</li>
+                    </ol>
+
+                    <h4>Part B — CAD Drawing (CO3 &amp; CO4)</h4>
+                    <p><em>Answer any <strong>1</strong> of the following. Each question carries 18 marks. (1 × 18 = 18 marks)</em></p>
+                    <ol>
+                        <li>Using CAD software, draw the orthographic views (front, top, and side) of a given isometric object (Figure provided in the exam). Show all dimensions and hidden lines.</li>
+                        <li>Using CAD software, draw the sectional view of a given engineering component, showing the cutting plane and hatching. Include all dimensions.</li>
+                    </ol>
+
+                    <h4>Part C — Viva Voce &amp; Record</h4>
+                    <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;">
+                        <li><strong>Viva Voce:</strong> 8 marks — Questions based on concepts from all modules.</li>
+                        <li><strong>Record:</strong> 4 marks — Completion and neatness of practical record, certified by faculty.</li>
+                    </ul>
+                    <p style="font-size:0.9rem;color:var(--muted);margin-top:0.6rem;"><strong>Total:</strong> 10 + 18 + 8 + 4 = 40 marks</p>
+                </div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== REVISION ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="revision">
+                <h2>Quick Revision</h2>
+
+                <div class="grid two">
+                    <div class="card" style="border-top:4px solid var(--blue);">
+                        <h4 style="margin-top:0;">Module I — Polygons, Conics, Development</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li>Regular polygon: all sides &amp; angles equal.</li>
+                            <li>Interior angle = (n−2)×180°/n; Exterior = 360°/n.</li>
+                            <li>Hexagon: R = s (circumradius = side length).</li>
+                            <li>Ellipse: concentric circle method uses 2 circles (major/minor axes).</li>
+                            <li>Development: unfolding 3D → 2D net.</li>
+                            <li>Cylinder development: rectangle (2πr × h) + 2 circles.</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="border-top:4px solid var(--teal);">
+                        <h4 style="margin-top:0;">Module II — Projections &amp; Views</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li>First-angle: object between observer &amp; plane (India).</li>
+                            <li>Third-angle: plane between object &amp; observer (USA).</li>
+                            <li>Line parallel to HP → true length in top view.</li>
+                            <li>Line parallel to VP → true length in front view.</li>
+                            <li>Orthographic views: front, top, side.</li>
+                            <li>Sectional views: cutting plane + hatching (45°).</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="border-top:4px solid var(--amber);">
+                        <h4 style="margin-top:0;">Module III — CAD Basics</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li>CAD: Computer-Aided Drafting — digital drawing.</li>
+                            <li>Advantages: accuracy, efficiency, easy modification.</li>
+                            <li>Draw commands: LINE, CIRCLE, RECTANGLE, POLYGON.</li>
+                            <li>Modify commands: ERASE, COPY, MIRROR, OFFSET, TRIM.</li>
+                            <li>Settings: GRID, SNAP, OSNAP, UNITS, LIMITS.</li>
+                            <li>Dimensioning: linear, aligned, radius, diameter.</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="border-top:4px solid var(--violet);">
+                        <h4 style="margin-top:0;">Module IV — CAD Views</h4>
+                        <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;font-size:0.9rem;">
+                            <li>Use layers: Object, Hidden, Centre, Section, Dimension.</li>
+                            <li>Project views using construction lines.</li>
+                            <li>HATCH command for section lines (ANSI31 pattern).</li>
+                            <li>Apply dimensions and text annotations.</li>
+                            <li>Plot/print with proper scale and layout.</li>
+                            <li>Save as .dwg or export as PDF.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:1rem;">
+                    <h4 style="margin-top:0;">Common Mistakes to Avoid</h4>
+                    <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;">
+                        <li>❌ Forgetting hidden lines in orthographic views.</li>
+                        <li>❌ Using the wrong projection method symbol on the drawing sheet.</li>
+                        <li>❌ Incorrect hatching (section lines drawn on non-cut areas).</li>
+                        <li>❌ Drawing all CAD elements on a single layer (no organisation).</li>
+                        <li>❌ Forgetting to set units and limits before starting a CAD drawing.</li>
+                        <li>❌ Misaligning front, top, and side views in orthographic projection.</li>
+                        <li>❌ Using the wrong formula for polygon circumradius (especially hexagon).</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="margin-top:1rem;">
+                    <h4 style="margin-top:0;">Exam Checklist</h4>
+                    <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;">
+                        <li>✅ Know the projection symbols (First-angle vs Third-angle).</li>
+                        <li>✅ Practice constructing pentagon and hexagon with given side length.</li>
+                        <li>✅ Be able to draw ellipse using both rectangular and concentric circle methods.</li>
+                        <li>✅ Understand surface development for prism and cylinder.</li>
+                        <li>✅ Practice orthographic projection of simple objects (front, top, side).</li>
+                        <li>✅ Practice sectional views with cutting plane and hatching.</li>
+                        <li>✅ Know CAD commands (draw, modify, settings, dimensioning).</li>
+                        <li>✅ Use layers properly in CAD drawings.</li>
+                        <li>✅ Prepare a neat record with all exercises and construction procedures.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== GLOSSARY ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="glossary">
+                <h2>Glossary</h2>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Key Terms and Meanings</caption>
+                        <thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+                        <tbody>
+                            <tr><td>Regular Polygon</td><td>A closed plane figure with all sides and angles equal.</td></tr>
+                            <tr><td>Circumradius</td><td>Radius of the circle passing through all vertices of a polygon.</td></tr>
+                            <tr><td>Apothem</td><td>Distance from the centre to the midpoint of a side of a polygon.</td></tr>
+                            <tr><td>Conic Section</td><td>Curve obtained by intersecting a cone with a plane (ellipse, parabola, hyperbola).</td></tr>
+                            <tr><td>Ellipse</td><td>Conic section where the plane cuts all generators of the cone.</td></tr>
+                            <tr><td>Development (of a surface)</td><td>Unfolding a 3D surface into a 2D plane (net).</td></tr>
+                            <tr><td>Orthographic Projection</td><td>Representing a 3D object using multiple 2D views from perpendicular directions.</td></tr>
+                            <tr><td>First-Angle Projection</td><td>Projection method where the object is between the observer and the plane (used in India).</td></tr>
+                            <tr><td>Third-Angle Projection</td><td>Projection method where the plane is between the observer and the object (used in USA).</td></tr>
+                            <tr><td>Sectional View</td><td>A view showing internal details by cutting the object with a plane.</td></tr>
+                            <tr><td>Cutting Plane</td><td>A phantom line showing where the object is cut for a sectional view.</td></tr>
+                            <tr><td>Hatching</td><td>Thin 45° lines drawn on the cut surface in a sectional view.</td></tr>
+                            <tr><td>CAD (Computer-Aided Drafting)</td><td>Software used to create and modify digital engineering drawings.</td></tr>
+                            <tr><td>Layer</td><td>An organisational tool in CAD that groups drawing elements with common properties.</td></tr>
+                            <tr><td>OSNAP (Object Snap)</td><td>CAD setting that snaps to specific points (endpoint, midpoint, centre, etc.).</td></tr>
+                            <tr><td>HATCH</td><td>CAD command used to fill an area with a pattern (e.g., section lines).</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== REFERENCES ===== -->
+            <!-- ================================================================ -->
+            <section class="section" id="references">
+                <h2>Learning Resources</h2>
+                <h3>Textbooks</h3>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Recommended Textbooks</caption>
+                        <thead><tr><th>Sl. No.</th><th>Title</th><th>Author</th><th>Publication</th></tr></thead>
+                        <tbody>
+                            <tr><td>1</td><td>Engineering Graphics with AUTOCAD</td><td>P I Varghese</td><td>VIP Publishers</td></tr>
+                            <tr><td>2</td><td>Engineering Graphics</td><td>K. C John</td><td>PHI Learning Private Limited</td></tr>
+                            <tr><td>3</td><td>Engineering Graphics unique methods easy solutions</td><td>K N Anilkumar</td><td>Adhyuth Narayan Publishers</td></tr>
+                            <tr><td>4</td><td>Engineering Drawing with CAD Applications</td><td>N. D. Bhatt &amp; V. M. Panchal</td><td>Charotar Publishing House</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>References</h3>
+                <div class="table-wrap">
+                    <table>
+                        <caption>Reference Books</caption>
+                        <thead><tr><th>Sl. No.</th><th>Title</th><th>Author</th><th>Publication</th></tr></thead>
+                        <tbody>
+                            <tr><td>1</td><td>Engineering Drawing</td><td>N. D. Bhatt</td><td>Charotar Publishing House, Anand, Gujarat</td></tr>
+                            <tr><td>2</td><td>Engineering Graphics with AutoCAD</td><td>D.M. Kulkarni, A.P. Rastogi, A.K. Sarkar</td><td>PHI Learning Private Limited</td></tr>
+                            <tr><td>3</td><td>Engineering Drawing</td><td>M. B. Shah and B.C. Rana</td><td>Pearson Publications</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>Web Resources</h3>
+                <ul style="margin:0.2rem 0 0 0;padding-left:1.2rem;">
+                    <li><a href="https://youtube.com/playlist?list=PL0GNZSidsWdVsGAFX3xHlvkbSvlm_6JSM&amp;si=ZGC3FA6JUX4OOU0" target="_blank" rel="noopener">YouTube Playlist — Engineering Drawing</a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1-p6TelKApOVRg3dqik9BYLawBB8vCYUOE" target="_blank" rel="noopener">Google Drive — Resource 1</a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1ECRoqHYUeOs66ksK8vZlo36RIBywl3yW" target="_blank" rel="noopener">Google Drive — Resource 2</a></li>
+                    <li><a href="https://drive.google.com/drive/folders/1guvFtoaBoHvDVaaF_Rj25zeziH7BJQ91" target="_blank" rel="noopener">Google Drive — Resource 3</a></li>
+                    <li><a href="https://t.me/+WlappvUQXwoyOGM1" target="_blank" rel="noopener">Telegram Group</a></li>
+                </ul>
+                <div style="margin-top:1rem;font-size:0.85rem;color:var(--muted);">
+                    <p><strong>Major Equipment (for a batch of 30 students):</strong> 30 Desktop Computers (Intel i3/i5, 8GB RAM, 500GB HDD/SSD, Ubuntu 22.04 / Windows 10).</p>
+                    <p><strong>Major Software:</strong> Suitable version of CAD software (open access/licensed) — 30 licenses.</p>
+                </div>
+            </section>
+
+            <!-- ================================================================ -->
+            <!-- ===== SEARCH ===== -->
+            <!-- ================================================================ -->
+            <section class="section no-print" id="handbook-search">
+                <h2>🔍 Search Handbook</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search for topics, keywords, formulas..." aria-label="Search handbook content">
+                    <button id="searchButton">Search</button>
+                    <button id="clearSearch" class="btn light" style="font-size:0.9rem;">Clear</button>
+                </div>
+                <div class="search-results" id="searchResults" aria-live="polite"></div>
+            </section>
+
+        </main>
     </div>
-<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script></body>
+
+    <script>
+        "use strict";
+        (function() {
+            // ===== READING PROGRESS =====
+            const progress = document.getElementById('readingProgress');
+            function updateProgress() {
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                progress.style.width = Math.min(pct, 100) + '%';
+            }
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            window.addEventListener('resize', updateProgress, { passive: true });
+            updateProgress();
+
+            // ===== PRINT =====
+            const printBtn = document.getElementById('printBtn');
+            function doPrint() {
+                const details = document.querySelectorAll('details:not([open])');
+                details.forEach(d => d.setAttribute('open', ''));
+                const anims = document.querySelectorAll('.rotating, .rotating.slow, .rotating.fast');
+                anims.forEach(el => el.classList.remove('rotating', 'slow', 'fast'));
+                document.title = 'downloadable-notes-1004';
+                window.scrollTo(0, 0);
+                window.print();
+                details.forEach(d => d.removeAttribute('open'));
+            }
+            if (printBtn) printBtn.addEventListener('click', doPrint);
+
+            // ===== DOWNLOAD =====
+            const downloadBtn = document.getElementById('downloadBtn');
+            function downloadNotes() {
+                const url = '/revision-2026-content/notes/downloadable-notes-1004.pdf';
+                fetch(url, { method: 'HEAD', cache: 'no-store' })
+                    .then(function(resp) {
+                        if (resp.ok) {
+                            window.location.href = url;
+                        } else {
+                            return fetch(url, { method: 'GET', headers: { 'Range': 'bytes=0-0' }, cache: 'no-store' });
+                        }
+                    })
+                    .then(function(resp2) {
+                        if (!resp2) return;
+                        if (resp2.ok || resp2.status === 206) {
+                            window.location.href = url;
+                        } else {
+                            doPrint();
+                        }
+                    })
+                    .catch(function() { doPrint(); });
+            }
+            if (downloadBtn) downloadBtn.addEventListener('click', downloadNotes);
+
+            // ===== AUTO PRINT =====
+            const qs = new URLSearchParams(window.location.search);
+            const autoKey = 'autoPrintDone_1004';
+            if ((qs.has('autoPrintNotes') || qs.has('downloadNotes')) && !sessionStorage.getItem(autoKey)) {
+                sessionStorage.setItem(autoKey, '1');
+                window.addEventListener('load', function() {
+                    setTimeout(function() {
+                        const imgs = document.querySelectorAll('img');
+                        let loaded = 0;
+                        if (imgs.length === 0) { doPrint(); return; }
+                        imgs.forEach(function(img) {
+                            if (img.complete) { loaded++; if (loaded === imgs.length) doPrint(); }
+                            else { img.addEventListener('load', function() { loaded++; if (loaded === imgs
+                                        .length) doPrint(); }); }
+                        });
+                    }, 400);
+                });
+            }
+
+            // ===== SEARCH =====
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.getElementById('searchButton');
+            const clearSearch = document.getElementById('clearSearch');
+            const searchResults = document.getElementById('searchResults');
+
+            function performSearch() {
+                const query = searchInput.value.trim().toLowerCase();
+                if (!query) { searchResults.innerHTML = ''; return; }
+                const targets = [];
+                const headings = document.querySelectorAll('main [id] h2, main [id] h3, main [id] h4');
+                headings.forEach(function(h) {
+                    const text = h.textContent.toLowerCase();
+                    if (text.includes(query)) {
+                        const container = h.closest('section, details, .module');
+                        const id = container && container.id ? container.id : (h.closest('[id]') ? h.closest('[id]')
+                            .id : '');
+                        targets.push({ text: h.textContent.trim(), id: id, type: 'heading' });
+                    }
+                });
+                const details = document.querySelectorAll('main details[id], main details.topic');
+                details.forEach(function(d) {
+                    const summary = d.querySelector('summary');
+                    if (summary) {
+                        const text = summary.textContent.toLowerCase();
+                        if (text.includes(query)) {
+                            const id = d.id || (d.closest('[id]') ? d.closest('[id]').id : '');
+                            targets.push({ text: summary.textContent.trim(), id: id, type: 'topic' });
+                        }
+                    }
+                });
+                if (targets.length === 0) {
+                    searchResults.innerHTML = '<p style="color:var(--muted);">No results found for "' + query +
+                        '".</p>';
+                    return;
+                }
+                let html = '<p style="font-weight:600;margin-bottom:0.4rem;">' + targets.length + ' result(s):</p>';
+                const limit = 25;
+                targets.slice(0, limit).forEach(function(item) {
+                    const anchor = item.id ? '#' + item.id : '';
+                    html += '<div class="result-item"><a href="' + anchor + '">' + item.text +
+                        '</a> <span class="context">(' + item.type + ')</span></div>';
+                });
+                if (targets.length > limit) html += '<p style="color:var(--muted);font-size:0.85rem;">... and ' + (
+                    targets.length - limit) + ' more.</p>';
+                searchResults.innerHTML = html;
+                const links = searchResults.querySelectorAll('a');
+                links.forEach(function(a) {
+                    a.addEventListener('click', function(e) {
+                        const href = a.getAttribute('href');
+                        if (href && href.startsWith('#')) {
+                            const target = document.querySelector(href);
+                            if (target) {
+                                e.preventDefault();
+                                const details = target.closest('details');
+                                if (details && !details.hasAttribute('open')) details.setAttribute('open',
+                                '');
+                                setTimeout(function() { target.scrollIntoView({ behavior: 'smooth' }); },
+                                    100);
+                            }
+                        }
+                    });
+                });
+            }
+
+            if (searchButton) searchButton.addEventListener('click', performSearch);
+            if (searchInput) {
+                searchInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') performSearch();
+                });
+            }
+            if (clearSearch) {
+                clearSearch.addEventListener('click', function() {
+                    if (searchInput) { searchInput.value = '';
+                        searchResults.innerHTML = ''; }
+                });
+            }
+
+            // ===== KEYBOARD SHORTCUT: Ctrl+/ = focus search =====
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+                    e.preventDefault();
+                    if (searchInput) searchInput.focus();
+                }
+            });
+
+            // ===== RESPECT REDUCED MOTION =====
+            const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (prefersReduced.matches) {
+                document.querySelectorAll('.rotating, .rotating.slow, .rotating.fast').forEach(function(el) {
+                    el.classList.remove('rotating', 'slow', 'fast');
+                });
+            }
+
+            // ===== OPEN TOPICS ON INTERNAL LINK =====
+            document.addEventListener('click', function(e) {
+                const a = e.target.closest('a');
+                if (!a) return;
+                const href = a.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    const targetId = href.substring(1);
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        const details = target.closest('details');
+                        if (details && !details.hasAttribute('open')) {
+                            details.setAttribute('open', '');
+                        }
+                    }
+                }
+            });
+
+        })();
+    </script>
+    <script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
+</body>
 </html>

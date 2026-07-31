@@ -12,8 +12,9 @@
   const NOTES_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5001","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
 
   // Revision 2026 assets are detected only inside /revision-2026-content.
-  const REV2026_LESSON_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1182","1259","2002B","2003A","2031","2032","2131"]);
-  const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1182","1259","2002B","2003A","2031","2032","2131"]);
+  const REV2026_LESSON_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2002B","2003A","2031","2032","2041","2131"]);
+  const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2002B","2003A","2031","2032","2131"]);
+  const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2002B","2003A","2031","2032","2041","2131"]);
 
   const MANUAL = [
     {revision:"2021",semester:"Semester 1",code:"1001",name:"Communication Skills in English",department:COMMON,type:"Theory",assetCode:"1001"},
@@ -55,7 +56,9 @@
   ];
 
   const $ = id => document.getElementById(id);
-  const esc = value => String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+  const esc = value => window.PolyUtils?.escapeHtml
+    ? window.PolyUtils.escapeHtml(value)
+    : String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
   const norm = value => String(value || "").trim().toUpperCase();
   const depKey = value => String(value || "").toLowerCase().replaceAll("&", " and ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
   const semRank = value => Number(String(value || "").match(/\d+/)?.[0] || 999);
@@ -102,8 +105,9 @@
   async function getSubjects() {
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
     const [subjectText, revision2026Payload] = await Promise.all([
-      revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`, { cache: "no-store" }).then(response => response.ok ? response.text() : "").catch(() => ""),
-      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-content`, { cache: "no-store" }).then(response => response.ok ? response.json() : null).catch(() => null)
+      // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
+      revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
+      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-content`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
@@ -243,6 +247,19 @@
       list = uniqueHomeList.slice(0, HOME_LIMIT);
     }
     grid.innerHTML = list.length ? (mode === "home" ? list.map(card).join("") : group(list)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
+
+    let announcer = $("subjectBrowserAnnouncer");
+    if (!announcer && grid.parentNode) {
+      announcer = document.createElement("div");
+      announcer.id = "subjectBrowserAnnouncer";
+      announcer.className = "sr-only";
+      announcer.setAttribute("role", "status");
+      announcer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(announcer, grid);
+    }
+    if (announcer) {
+      announcer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+    }
   }
 
   async function init() {
@@ -255,6 +272,12 @@
     const preferredRevision = grid.dataset.defaultRevision || $("revisionFilter")?.value || (mode === "lessons" ? "2021" : "2026");
     const all = await getSubjects();
     fillRevision($("revisionFilter"), all, preferredRevision);
+
+    const searchInput = $("subjectSearch");
+    if (searchInput) {
+      searchInput.setAttribute("aria-controls", "subjectGrid");
+      searchInput.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
+    }
     const activeRevision = fixedRevision || $("revisionFilter")?.value || preferredRevision;
     const activeSubjects = all.filter(subject => activeRevision === "all" || String(subject.revision) === activeRevision);
     const preferredDepartment = activeRevision === "2021" && mode === "home" ? COMMON_VALUE : ALL_DEPARTMENTS;

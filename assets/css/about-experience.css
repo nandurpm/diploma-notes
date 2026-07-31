@@ -45,8 +45,8 @@
 }
 
 .about-container {
-  width: min(1680px, calc(100% - 48px));
-  margin-inline: auto;
+  width: 100%;
+  margin-inline: 0;
 }
 
 /* Section styling */

@@ -28,7 +28,7 @@
   const canonical = new Map([[keyDept("Electrical and Electronics Engineering"),eee],[keyDept(eee),eee],[keyDept("Civil and Environmental Engineering"),"Civil & Environmental Engineering"],[keyDept("Civil & Environmental Engineering"),"Civil & Environmental Engineering"],[keyDept("Communication and Computer Networking"),"Communication & Computer Networking"],[keyDept("Communication & Computer Networking"),"Communication & Computer Networking"],[keyDept("Computer Application and Business Management"),"Computer Application & Business Management"],[keyDept("Computer Application & Business Management"),"Computer Application & Business Management"],[keyDept("Computer Science and Engineering"),"Computer Science & Engineering"],[keyDept("Computer Science & Engineering"),"Computer Science & Engineering"],[keyDept("Tool and Die Engineering"),"Tool & Die Engineering"],[keyDept("Tool & Die Engineering"),"Tool & Die Engineering"],[keyDept("Artificial Intelligence and Machine Learning"),"Artificial Intelligence & Machine Learning"],[keyDept("Artificial Intelligence & Machine Learning"),"Artificial Intelligence & Machine Learning"]]);
   const $ = id => document.getElementById(id);
   function sub(semester, code, name, department, type, assetCode, extra = {}) { return { revision:"2021", semester, code, name, department, type, assetCode, courseCode:code, courseName:name, ...extra }; }
-  function esc(v) { return String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
+  function esc(v) { return window.PolyUtils?.escapeHtml ? window.PolyUtils.escapeHtml(v) : String(v ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
   function norm(v) { return String(v || "").trim().toUpperCase(); }
   function keyDept(v) { return String(v || "").toLowerCase().replaceAll("&"," and ").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," "); }
   function sameDept(a,b) { return keyDept(a) === keyDept(b); }
@@ -48,8 +48,6 @@
   function preferDeptRows(list, dept) { const departmentRows = new Set(list.filter(s=>sameDept(s.department,dept)).map(s=>`${s.semester}::${norm(s.code)}`)); return list.filter(s => !(sameDept(s.department,COMMON) && departmentRows.has(`${s.semester}::${norm(s.code)}`))); }
   function applyExact(list, dept) { const dk = keyDept(dept); return list.filter(s => { const set = exact.get(`${dk}::${s.semester}`); return !set || set.has(norm(s.code)); }); }
   function filtered(all, dept) { return applyExact(preferDeptRows(all.filter(s => String(s.revision)==="2021" && (sameDept(s.department,dept) || sameDept(s.department,COMMON))), dept), dept); }
-  function render(all, grid, dept) { const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all"; let list = filtered(all, dept); if (sem !== "all") list = list.filter(s=>String(s.semester)===sem); if (q) list = list.filter(s => s._searchText && s._searchText.includes(q)); list = uniq(list).sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true})); grid.innerHTML = list.length ? groups(list) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`; }
-  async function init() { const grid = $("subjectGrid"); if (!grid) return; grid.innerHTML = `<div class="empty-state">Loading subjects...</div>`; const dept = grid.dataset.department || ""; const all = await data(); fillSem($("semesterFilter"), filtered(all, dept)); const rr = () => render(all, grid, dept); $("subjectSearch")?.addEventListener("input", rr); $("semesterFilter")?.addEventListener("change", rr); rr(); }
   function render(all, grid, dept) {
     const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all";
     let list = filtered(all, dept);
@@ -66,6 +64,19 @@
     // The master dataset is already unique and deduplicated at load time.
     list = list.sort((a,b)=>semRank(a.semester)-semRank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true}));
     grid.innerHTML = list.length ? groups(list) : `<div class="empty-state">No subjects found. Try a different search or semester.</div>`;
+
+    let announcer = $("subjectBrowserAnnouncer");
+    if (!announcer && grid.parentNode) {
+      announcer = document.createElement("div");
+      announcer.id = "subjectBrowserAnnouncer";
+      announcer.className = "sr-only";
+      announcer.setAttribute("role", "status");
+      announcer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(announcer, grid);
+    }
+    if (announcer) {
+      announcer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+    }
   }
   async function init() {
     const grid = $("subjectGrid");
@@ -79,6 +90,12 @@
     all.forEach(s => {
       s._searchText = [s.code, s.name, s.department, s.semester, s.type].join(" ").toLowerCase();
     });
+
+    const searchInput = $("subjectSearch");
+    if (searchInput) {
+      searchInput.setAttribute("aria-controls", "subjectGrid");
+      searchInput.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
+    }
 
     fillSem($("semesterFilter"), filtered(all, dept));
     const rr = () => render(all, grid, dept);

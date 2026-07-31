@@ -55,7 +55,7 @@ export function corsHeaders(origin, env) {
   return {
     "Access-Control-Allow-Origin": origin && allowedOrigins(env).has(origin) ? origin : DEFAULT_ORIGINS[0],
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
     "Access-Control-Max-Age": "86400",
     "Vary": "Origin"
   };
@@ -79,9 +79,10 @@ export function jsonResponse(data, status, origin, env) {
 export function createRateLimiter(maximum, windowMs = 10 * 60 * 1000) {
   const buckets = new Map();
   return (request) => {
-    const key = request.headers.get("CF-Connecting-IP")
+    const rawIp = request.headers.get("CF-Connecting-IP")
       || request.headers.get("X-Forwarded-For")?.split(",")[0]?.trim()
       || "unknown";
+    const key = rawIp.replace(/[^0-9a-fA-F.:%_-]/g, "").slice(0, 45) || "unknown";
     const now = Date.now();
     const recent = (buckets.get(key) || []).filter((timestamp) => now - timestamp < windowMs);
     if (recent.length >= maximum) {

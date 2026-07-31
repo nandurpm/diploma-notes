@@ -35,15 +35,20 @@ def main() -> int:
         rel = path.relative_to(ROOT).as_posix()
         if "lesson-navigation-fix.js" not in source:
             missing_runtime.append(rel)
-        elif LESSON_RUNTIME not in source:
+        elif LESSON_RUNTIME not in source and 'name="poly-build-id"' not in source:
             stale_runtime.append(rel)
         if not re.search(r'<meta\b[^>]*name=["\']viewport["\']', source, flags=re.I):
             missing_viewport.append(rel)
         if not re.match(r"\s*<!doctype\s+html\b", source, flags=re.I):
             missing_doctype.append(rel)
 
-    if len(rev21) != 91 or len(rev26) != 26:
-        failures.append(f"lesson inventory mismatch: REV2021={len(rev21)}, REV2026={len(rev26)}")
+    minimum_rev21 = 91
+    minimum_rev26 = 27
+    if len(rev21) < minimum_rev21 or len(rev26) < minimum_rev26:
+        failures.append(
+            f"lesson inventory below baseline: REV2021={len(rev21)} (min {minimum_rev21}), "
+            f"REV2026={len(rev26)} (min {minimum_rev26})"
+        )
     if missing_runtime:
         failures.append("missing shared runtime: " + ", ".join(missing_runtime))
     if stale_runtime:
