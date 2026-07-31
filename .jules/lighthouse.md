@@ -28,3 +28,9 @@ This journal documents key project-specific SEO patterns, crawlability constrain
 **Learning:** Service worker offline fallback pages (like `offline.html`) and user account utility pages (like `reset-password.html`) should never be indexed by search engines. If crawled, they result in poor user experience, empty search listings, and potential security leaks (in the case of password reset URLs).
 
 **Action:** Always append explicit `<meta name="robots" content="noindex, follow">` to service worker offline templates, and `<meta name="robots" content="noindex, nofollow">` to password reset/utility portals, ensuring they are excluded from crawl indexing while maintaining link graph traversal on fallback pages.
+
+## 2026-07-31 - [Retiring Duplicate Index Pages and Preventing Canonical Search Conflicts]
+
+**Learning:** Static-hosted redirect pages (like `departments.html` redirecting to `revision-2021.html` via `_redirects` and http-equiv refresh) must never have canonical links pointing to themselves or be included in `sitemap.xml`. If indexed or included, they trigger major canonical discrepancies, crawl errors, and waste crawl budget, degrading search discoverability. Standardizing them to load `noindex, nofollow` metadata, setting their canonical URL to point to the destination page, and explicitly excluding them from sitemap generator configurations resolves these issues.
+
+**Action:** Always add `<meta name="robots" content="noindex, nofollow">` and update the canonical link to the destination URL in static redirect fallback templates. Ensure any retired redirecting paths are appended to sitemap generator exclusion settings (like `EXCLUDED_FILES` in `tools/generate_sitemap.py`) to prevent duplicate indexing conflicts.
