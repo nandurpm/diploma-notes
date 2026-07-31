@@ -34,13 +34,17 @@
     document.head.append(link);
   }
 
+  let cachedISTFormatter = null;
   function getISTDate() {
-    const p = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
-    }).formatToParts(new Date()).reduce((a, x) => {
+    if (!cachedISTFormatter) {
+      cachedISTFormatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+    }
+    const p = cachedISTFormatter.formatToParts(new Date()).reduce((a, x) => {
       if (x.type !== "literal") a[x.type] = x.value;
       return a;
     }, {});
