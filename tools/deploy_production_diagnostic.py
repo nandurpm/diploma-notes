@@ -123,9 +123,7 @@ def main() -> int:
         run([sys.executable, "tools/generate_sitemap.py"], "sitemap generation")
         run([sys.executable, "tools/site_quality_gate.py"], "site quality gate")
         run([sys.executable, "tools/build_public_site.py", "--target", "_site"], "public site build")
-        about = (ROOT / "_site/about.html").read_text(encoding="utf-8")
-        if "Bilingual Kerala Polytechnic Study Portal" not in about:
-            raise RuntimeError("redesigned About page is missing from the public build")
+        run([sys.executable, "tools/site_quality_gate.py", "--build-dir", "_site"], "public build quality gate")
         project = cloudflare_project()
         log(f"Resolved Cloudflare Pages project: {project}")
         run(
