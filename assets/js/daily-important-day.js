@@ -54,18 +54,21 @@
     return /^\d{4}-\d{2}-\d{2}$/.test(String(value || ""));
   }
 
+  let cachedFallbackFormatter = null;
   function getIndiaDateKey(date = new Date()) {
     if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
       return window.PolyUtils.formatDateKey(date);
     }
-    const formatter = new Intl.DateTimeFormat("en", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
+    if (!cachedFallbackFormatter) {
+      cachedFallbackFormatter = new Intl.DateTimeFormat("en", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    }
 
-    const parts = formatter.formatToParts(date).reduce((acc, part) => {
+    const parts = cachedFallbackFormatter.formatToParts(date).reduce((acc, part) => {
       if (part.type !== "literal") acc[part.type] = part.value;
       return acc;
     }, {});

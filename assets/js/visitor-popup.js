@@ -59,14 +59,18 @@
   const AUTO_CLOSE_MS = 60000;
   const forceShow = /(?:[?&]showPopup=1\b|#showPopup\b)/i.test(location.search + location.hash);
 
+  let cachedTodayFormatter = null;
   const today = () => {
     try {
-      const parts = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Asia/Kolkata",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).formatToParts(new Date());
+      if (!cachedTodayFormatter) {
+        cachedTodayFormatter = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Asia/Kolkata",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
+        });
+      }
+      const parts = cachedTodayFormatter.formatToParts(new Date());
       const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
       return `${values.year}-${values.month}-${values.day}`;
     } catch (_) {
