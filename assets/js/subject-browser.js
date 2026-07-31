@@ -13,7 +13,6 @@
 
   // Revision 2026 assets are detected only inside /revision-2026-content.
   const REV2026_LESSON_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2002B","2003A","2031","2032","2041","2131"]);
-  const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2002B","2003A","2031","2032","2131"]);
   const REV2026_NOTES_CODES = new Set(["1001","1002","1003","1004","1008","1009","1011","1021","1031","1041","1051","1061","1091","1101","1131","1141","1142","1143","1144","1149","1181","1182","1251","1252","1253","1254","1259","1421","2001A","2001B","2002B","2003A","2031","2032","2041","2131"]);
 
   const MANUAL = [
@@ -214,19 +213,7 @@
     if (mode === "lessons") list = list.filter(hasLesson);
     if (semester !== "all") list = list.filter(subject => String(subject.semester) === semester);
     if (query) {
-      list = list.filter(subject => {
-        if (!subject._searchText) {
-          subject._searchText = [
-            subject.code,
-            subject.name,
-            subject.department,
-            subject.semester,
-            subject.type,
-            subject.revision
-          ].join(" ").toLowerCase();
-        }
-        return subject._searchText.includes(query);
-      });
+      list = list.filter(subject => (subject._searchText || "").includes(query));
     }
     // PERFORMANCE OPTIMIZATION: Removed redundant unique() deduplication inside the render loop.
     // The master subjects array (all) is already deduplicated once at initial load inside getSubjects().
@@ -271,6 +258,20 @@
     const department = grid.dataset.department;
     const preferredRevision = grid.dataset.defaultRevision || $("revisionFilter")?.value || (mode === "lessons" ? "2021" : "2026");
     const all = await getSubjects();
+
+    // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for each subject
+    // to avoid redundant string joins and lowercase conversions on every keystroke.
+    all.forEach(subject => {
+      subject._searchText = [
+        subject.code,
+        subject.name,
+        subject.department,
+        subject.semester,
+        subject.type,
+        subject.revision
+      ].join(" ").toLowerCase();
+    });
+
     fillRevision($("revisionFilter"), all, preferredRevision);
 
     const searchInput = $("subjectSearch");
