@@ -38,3 +38,7 @@
 ## 2026-08-01 - Real-Time Accessible Character Counters for Constrained Text Inputs
 **Learning:** For forms containing textareas or inputs with strict length constraints (e.g. 1500-character limit on comments), relying solely on the browser-level `maxlength` attribute results in a frustrating UX when users suddenly hit the cap or copy-paste long logs. Integrating a real-time character counter under the input field keeps users fully informed, and adding `aria-live="polite"` makes it completely accessible without overwhelming screen readers.
 **Action:** Always provide a real-time, screen-reader friendly character counter for any prominent multi-line textarea or message input field that enforces a strict maximum length constraint.
+
+## 2026-08-02 - Universal '/' Keyboard Shortcut Loader and Input Association
+**Learning:** Dynamic layout files without individual scripts might miss critical global shortcuts (like focusing search via `/`). Dynamically injecting the hotkey script via a global main script is a highly effective, low-friction integration pattern. Additionally, to ensure screen reader compatibility, any hotkeyed input selector should specify `aria-controls` linking it to the dynamic content it filters, and `aria-describedby` linking it to its feedback/announcer node.
+**Action:** Always implement a main-script-driven dynamic loader to inject global utility scripts like keyboard shortcuts across all standard layout files, and link target inputs to their grid/announcer containers via aria attribute pairs.
