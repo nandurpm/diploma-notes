@@ -11,3 +11,9 @@
 **Learning:** In static-site or asset-heavy repositories, hardcoding exact file counts (e.g. asserting that there are exactly 27 lesson files) in site-structure validation gates introduces brittleness. Normal content updates (such as generating a new lesson page) will inadvertently break these quality gates, requiring manual updates to test scripts and causing build/validation failures.
 
 **Action:** Prefer dynamic schema/layout validation (verifying that every lesson file is valid and compliant) over absolute count validation. When absolute counts are absolutely necessary for regression prevention, ensure they are centralized, clearly labeled, and easily maintainable.
+
+## 2026-07-30 - Defensive Runtime Delegation and Self-Contained Fallbacks
+
+**Learning:** Highly optimized public-facing pages (such as index.html, tools.html, and revision browsers) often exclude larger centralized utilities like `poly-utils.js` to minimize page weight and network overhead. In such architectures, individual client-side scripts must remain self-contained and avoid throwing runtime exceptions by using defensive conditional checks (delegating to `window.PolyUtils` APIs if present, with reliable local fallbacks if absent).
+
+**Action:** When refactoring duplicate helper functions across highly optimized static pages, always inspect the HTML layout's imported script tags first to confirm dependency availability. Use dynamic delegation with robust local fallbacks rather than assuming global namespaces are always present.
