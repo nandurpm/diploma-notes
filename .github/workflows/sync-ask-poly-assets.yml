@@ -1,0 +1,63 @@
+name: Sync Ask POLY asset versions
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "assets/js/site-assistant-loader.js"
+      - "assets/js/ask-poly-rich-renderer.js"
+      - "assets/css/ask-poly-rich-content.css"
+      - ".github/workflows/sync-ask-poly-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  synchronize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh loader references
+        run: |
+          python - <<'PY'
+          from hashlib import sha256
+          from pathlib import Path
+          import re
+
+          loader = Path("assets/js/site-assistant-loader.js")
+          version = sha256(loader.read_bytes()).hexdigest()[:12]
+          pattern = re.compile(r'((?:/|\.\./)*assets/js/site-assistant-loader\.js)(?:\?v=[^"\']*)?')
+          changed = 0
+
+          for path in Path(".").rglob("*.html"):
+              source = path.read_text(encoding="utf-8")
+              updated = pattern.sub(lambda match: f"{match.group(1)}?v={version}", source)
+              if updated != source:
+                  path.write_text(updated, encoding="utf-8")
+                  changed += 1
+
+          print(f"Updated {changed} HTML files to Ask POLY loader version {version}.")
+          PY
+
+      - name: Validate assistant JavaScript
+        run: |
+          node --check assets/js/site-assistant-loader.js
+          node --check assets/js/ask-poly-rich-renderer.js
+
+      - name: Commit updated references
+        run: |
+          if git diff --quiet -- '*.html'; then
+            echo "Ask POLY asset references are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- '*.html'
+          git commit -m "Refresh Ask POLY response assets [skip ci]"
+          git push origin HEAD:main

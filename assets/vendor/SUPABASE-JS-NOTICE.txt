@@ -1,0 +1,5 @@
+@supabase/supabase-js 2.110.7
+Source: https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.7/dist/umd/supabase.js
+License: MIT
+Vendored for POLY PMNA browser authentication.
+Digest: see supabase-js-2.110.7.js.sha256

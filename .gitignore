@@ -1,0 +1,48 @@
+node_modules/
+dist/
+build/
+.gradle/
+.cache/
+coverage/
+*.log
+.DS_Store
+Thumbs.db
+.env
+.env.*
+*.bak
+*.old
+*.tmp
+*.zip
+*.apk
+
+# Signing key material must never be committed (materialize from CI secrets)
+*.keystore
+*.jks
+*.p12
+*.pfx
+release.keystore
+!/downloads/POLY_PMNA_latest.apk
+!/downloads/POLY_PMNA_v2.0.apk
+android-app/app/build/
+android-app/build/
+android-app/app/google-services.json
+firebase-service-account*.json
+reports/*.tmp.json
+reports/site-structure-validation.json
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Signing and certificate material must never be committed.
+*.keystore
+*.jks
+*.p12
+*.pfx
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+!.env.example

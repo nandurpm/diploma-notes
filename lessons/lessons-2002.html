@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mathematics II 2002 complete Kerala Polytechnic handbook covering determinants, matrices, vectors, integration, applications of integration and first-order differential equations with solved examples and full model answers.">
+<link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-2002.html">
+<title>Mathematics II 2002 | Complete Diploma Handbook</title>
+<style>
+/* =========================================================
+   MATHEMATICS II (2002) - standalone handbook styles
+   Desktop shell deliberately uses the full viewport width.
+   ========================================================= */
+:root{
+  --ink:#122033;--muted:#5a6b80;--paper:#ffffff;--bg:#eef4f9;--line:#cad8e6;
+  --navy:#123b66;--blue:#1665a8;--cyan:#0c8794;--green:#18785e;--violet:#6946ad;
+  --amber:#b66a11;--rose:#b53855;--soft-blue:#edf6ff;--soft-cyan:#edfcfd;
+  --soft-green:#eefbf5;--soft-violet:#f5f1ff;--soft-amber:#fff7e8;--soft-rose:#fff1f4;
+  --shadow:0 12px 28px rgba(18,45,72,.09);--radius:18px;--mal:"Noto Sans Malayalam","Kartika","Manjari",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:118px}
+body{margin:0;background:linear-gradient(180deg,#eaf3fa 0,#f7fafc 34rem,#eef4f9 100%);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.62;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 2% 3%,rgba(22,101,168,.12),transparent 28rem),radial-gradient(circle at 98% 8%,rgba(12,135,148,.10),transparent 27rem);z-index:-1}
+a{color:var(--blue)}
+button,input{font:inherit}
+.progress{position:fixed;left:0;top:0;height:4px;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--violet));z-index:1000}
+.topbar{position:sticky;top:0;z-index:600;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 22px rgba(18,45,72,.08)}
+.top-main{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:.65rem;padding:.48rem clamp(6px,.8vw,16px);width:100%}
+.brand{display:flex;align-items:center;gap:.58rem;min-width:0;text-decoration:none;color:var(--ink)}
+.brand-badge{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--navy),var(--cyan));color:#fff;display:grid;place-items:center;font-weight:950;box-shadow:var(--shadow);flex:0 0 auto}
+.brand-copy{font-weight:900;line-height:1.12;white-space:nowrap}.brand-copy small{display:block;color:var(--muted);font-size:.72rem;font-weight:700;margin-top:.15rem}
+.nav-scroll{display:flex;gap:.35rem;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding:.12rem .08rem .22rem}
+.nav-scroll a{flex:0 0 auto;text-decoration:none;color:#20334a;background:#f6f9fc;border:1px solid #d6e1ec;border-radius:999px;padding:.48rem .68rem;font-size:.78rem;font-weight:850;white-space:nowrap}
+.nav-scroll a:hover,.nav-scroll a.active{background:#e6f2ff;color:#0e568e;border-color:#9fc8e7}
+.pdf-btn{border:0;border-radius:999px;background:linear-gradient(135deg,var(--navy),var(--cyan));color:#fff;font-weight:900;padding:.62rem .82rem;cursor:pointer;white-space:nowrap;box-shadow:0 8px 18px rgba(18,59,102,.22)}
+.page-shell{width:100%;max-width:none;margin:0;padding-inline:clamp(6px,.8vw,16px);padding-bottom:1.2rem}
+main{width:100%;max-width:none;margin:0}
+.hero,.section{width:100%;margin:.72rem 0;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+.hero{display:grid;grid-template-columns:minmax(0,1.22fr) minmax(340px,.78fr);gap:.8rem;padding:clamp(.9rem,1.5vw,1.6rem);min-height:62vh;align-items:stretch;overflow:hidden;position:relative}
+.hero:after{content:"∫  det  →  ×  dy/dx";position:absolute;right:1.2rem;bottom:-1.1rem;font-family:"Cambria Math",serif;font-size:clamp(3rem,7vw,8rem);font-weight:900;color:rgba(22,101,168,.055);letter-spacing:.12em;pointer-events:none}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;min-width:0;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:.35rem;width:max-content;max-width:100%;border-radius:999px;padding:.28rem .58rem;background:#e8f3ff;color:#0f568c;text-transform:uppercase;font-size:.72rem;font-weight:950;letter-spacing:.08em}
+h1,h2,h3,h4{line-height:1.15;color:#10253b;margin-top:0}h1{font-size:clamp(2.45rem,5.1vw,5.7rem);letter-spacing:-.045em;margin:.55rem 0 .6rem}h2{font-size:clamp(1.75rem,2.5vw,2.8rem);letter-spacing:-.025em;margin:.12rem 0 .55rem}h3{font-size:1.32rem;margin:.95rem 0 .4rem}h4{font-size:1.06rem;margin:.75rem 0 .3rem}
+p{margin:.35rem 0 .68rem}.lead{font-size:clamp(1rem,1.22vw,1.24rem);color:#314860;max-width:78ch}
+.meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.52rem;margin:.8rem 0}.meta-grid div{border:1px solid #cfe0ed;background:#f6fbff;border-radius:14px;padding:.62rem}.meta-grid span{display:block;color:var(--muted);font-size:.73rem;font-weight:800}.meta-grid b{display:block;margin-top:.15rem;font-size:.92rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.35rem}.action{border:0;border-radius:999px;padding:.7rem .9rem;text-decoration:none;font-weight:900;cursor:pointer}.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff}.secondary{background:#fff;border:1px solid #b8cde0;color:var(--navy)}
+.hero-visual{background:linear-gradient(145deg,#102f51,#0b6471);color:#effcff;border-radius:20px;padding:clamp(.85rem,1.4vw,1.35rem);display:grid;align-content:center;gap:.7rem;min-width:0}.hero-visual h2,.hero-visual h3{color:#fff}.math-orbit{height:220px;position:relative;display:grid;place-items:center;overflow:hidden}.matrix-core{width:128px;height:128px;border:4px solid rgba(255,255,255,.85);border-left:0;border-right:0;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);place-items:center;font-family:"Cambria Math",serif;font-size:2rem;font-weight:900;position:relative;animation:float 4s ease-in-out infinite}.matrix-core:before,.matrix-core:after{content:"";position:absolute;top:-5px;bottom:-5px;width:14px;border:4px solid rgba(255,255,255,.85)}.matrix-core:before{left:-19px;border-right:0}.matrix-core:after{right:-19px;border-left:0}.orbit{position:absolute;border:1px dashed rgba(255,255,255,.35);border-radius:50%;animation:spin 14s linear infinite}.orbit.one{width:205px;height:205px}.orbit.two{width:170px;height:110px;animation-direction:reverse;animation-duration:10s}.orbit span{position:absolute;background:#fff;color:#123b66;border-radius:50%;width:38px;height:38px;display:grid;place-items:center;font-family:"Cambria Math",serif;font-weight:950;box-shadow:0 7px 16px rgba(0,0,0,.25)}.orbit.one span{left:80px;top:-18px}.orbit.two span{right:-18px;top:34px}
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes float{50%{transform:translateY(-8px)}}
+.module-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.48rem}.module-tile{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:13px;padding:.58rem;font-size:.87rem}.module-tile b{display:block;color:#fff;margin-bottom:.15rem}
+.section{padding:clamp(.82rem,1.35vw,1.35rem)}.section-head{border-bottom:1px solid #d8e2ec;padding-bottom:.55rem;margin-bottom:.72rem}.section-head p{color:var(--muted);max-width:105ch}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:.68rem}.card{grid-column:span 6;min-width:0;border:1px solid var(--line);background:#fff;border-radius:16px;padding:.78rem;box-shadow:0 6px 16px rgba(20,55,85,.04);transition:transform .18s ease,box-shadow .18s ease}.card:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(20,55,85,.08)}.third{grid-column:span 4}.quarter{grid-column:span 3}.eight{grid-column:span 8}.wide{grid-column:span 12}.blue{background:var(--soft-blue)}.cyan{background:var(--soft-cyan)}.green{background:var(--soft-green)}.violet{background:var(--soft-violet)}.amber{background:var(--soft-amber)}.rose{background:var(--soft-rose)}
+.module-banner{border-left:7px solid var(--accent,var(--blue));background:linear-gradient(90deg,#edf6ff,#fff);border-radius:16px;padding:.75rem .9rem;margin-bottom:.75rem}.module-banner h2{margin:.2rem 0}.module-banner p{color:#41566c;margin-bottom:0}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.5rem}.toc a{display:flex;align-items:center;justify-content:space-between;gap:.55rem;border:1px solid var(--line);border-radius:13px;background:#f8fbfe;padding:.62rem .7rem;text-decoration:none;color:#173653;font-weight:850}.toc a:hover{background:#eaf5ff}
+.table-wrap{width:100%;max-width:100%;overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:690px}th,td{border-bottom:1px solid #d9e3ec;padding:.56rem .62rem;text-align:left;vertical-align:top}th{background:#eaf4fc;color:#123b66;font-weight:950}tr:last-child td{border-bottom:0}.compact th,.compact td{font-size:.89rem;padding:.42rem .48rem}
+.formula{font-family:"Cambria Math","Times New Roman",serif;font-size:1.13rem;background:#f7fbff;border:1px solid #c9ddeb;border-left:5px solid var(--blue);border-radius:12px;padding:.6rem .72rem;margin:.48rem 0;overflow-wrap:anywhere}.formula small{display:block;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--muted);font-size:.78rem;margin-top:.18rem}
+.math-line{font-family:"Cambria Math","Times New Roman",serif;font-size:1.08em}.matrix{display:inline-grid;grid-template-columns:repeat(var(--cols,2),auto);gap:.16rem .7rem;position:relative;padding:.18rem .72rem;margin:.1rem .25rem;vertical-align:middle;font-family:"Cambria Math",serif}.matrix:before,.matrix:after{content:"";position:absolute;top:0;bottom:0;width:.38rem;border:2px solid currentColor}.matrix:before{left:0;border-right:0}.matrix:after{right:0;border-left:0}.matrix span{text-align:center}
+.callout{border:1px solid #a9d5ed;background:#edf8ff;border-radius:14px;padding:.7rem .8rem;margin:.64rem 0;break-inside:avoid}.callout b:first-child{color:#0f5d94}.remember{border-color:#8ad8b0;background:#effbf5}.exam{border-color:#e6c46b;background:#fff9e9}.mistake{border-color:#efa5b4;background:#fff2f4}.insight{border-color:#c4b4ef;background:#f6f2ff}.try{border-color:#74ced4;background:#effdfe}
+.ml{font-family:var(--mal);background:#edf9f4;border-left:4px solid var(--green);border-radius:10px;padding:.48rem .62rem;color:#1d5045;font-size:.92rem;margin:.42rem 0}
+.steps{counter-reset:st;display:grid;gap:.4rem}.step{position:relative;border:1px solid var(--line);border-radius:12px;background:#f9fcfe;padding:.58rem .65rem .58rem 2.35rem}.step:before{counter-increment:st;content:counter(st);position:absolute;left:.58rem;top:.55rem;width:1.3rem;height:1.3rem;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-weight:950;font-size:.75rem}
+.solution{background:#102f51;color:#f2f8ff;border-radius:15px;padding:.78rem;margin:.62rem 0;break-inside:avoid}.solution h4{color:#fff;margin-top:0}.solution .line{border-top:1px solid rgba(255,255,255,.18);padding-top:.45rem;margin-top:.45rem}.solution .formula{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.28);color:#fff}.answer{background:#effbf5;border:1px solid #96d6b4;border-radius:13px;padding:.65rem;margin:.46rem 0}
+.diagram,.graph{width:100%;max-width:100%;border:1px solid var(--line);border-radius:15px;background:#fff;padding:.65rem;overflow:auto;break-inside:avoid}.diagram svg,.graph svg{display:block;width:100%;height:auto;max-height:430px}.diagram figcaption,.graph figcaption{font-size:.88rem;color:var(--muted);margin-top:.38rem}
+.question-bank{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:.62rem}.qcard{border:1px solid var(--line);border-radius:14px;background:#fff;padding:.68rem}.tag{display:inline-block;border-radius:999px;background:#e8f3ff;color:#0f568c;font-size:.7rem;font-weight:950;padding:.18rem .44rem;text-transform:uppercase;letter-spacing:.04em}
+details{border:1px solid var(--line);border-radius:13px;padding:.62rem .7rem;background:#fff;margin:.5rem 0}summary{cursor:pointer;font-weight:900;color:#124e7b}
+.checklist{list-style:none;padding:0}.checklist li{position:relative;padding:.26rem 0 .26rem 1.55rem}.checklist li:before{content:"✓";position:absolute;left:0;top:.28rem;width:1.05rem;height:1.05rem;border-radius:50%;display:grid;place-items:center;background:#dcfce7;color:#047857;font-weight:950;font-size:.72rem}
+.paper{border:2px solid #183952;border-radius:14px;background:#fff;padding:.85rem}.paper h3{text-align:center}.part{border-top:2px solid #20384f;margin-top:.8rem;padding-top:.65rem}.marks{float:right;color:#5a6b80;font-weight:850}
+.quick-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:.48rem}.quick{border:1px solid var(--line);border-radius:13px;background:#f8fbfe;padding:.62rem}.quick b{color:#0e568e}
+.backtop{position:fixed;right:14px;bottom:14px;z-index:500;width:44px;height:44px;border:0;border-radius:50%;background:var(--navy);color:#fff;font-size:1.16rem;cursor:pointer;box-shadow:0 9px 22px rgba(18,59,102,.28)}
+footer{text-align:center;color:var(--muted);padding:1rem .5rem 1.7rem}
+@media(max-width:1100px){.top-main{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"brand pdf" "nav nav"}.brand{grid-area:brand}.nav-scroll{grid-area:nav}.pdf-btn{grid-area:pdf;justify-self:end}.hero{grid-template-columns:1fr}.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card,.third,.quarter,.eight{grid-column:span 12}}
+@media(max-width:640px){html{scroll-padding-top:142px}.top-main{padding:.38rem 5px}.brand-copy{font-size:.84rem}.brand-copy small{font-size:.64rem}.brand-badge{width:40px;height:40px}.pdf-btn{padding:.5rem .62rem;font-size:.76rem}.nav-scroll a{font-size:.72rem;padding:.42rem .55rem}.page-shell{padding-inline:5px}.hero,.section{border-radius:15px}.hero{padding:.75rem;min-height:auto}.hero:after{display:none}.meta-grid,.module-map{grid-template-columns:1fr}.section{padding:.72rem}table{font-size:.87rem}.matrix-core{transform:scale(.9)}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+@page{size:A4;margin:12mm}
+@media print{
+  body{background:#fff!important;color:#000!important;font-size:9.7pt;line-height:1.38}body:before,.topbar,.progress,.backtop,.hero-actions{display:none!important}
+  .page-shell{padding:0!important}.hero,.section{width:100%;margin:0 0 4mm;background:#fff!important;border:1px solid #777!important;border-radius:0!important;box-shadow:none!important}
+  .hero{display:block;min-height:auto;page-break-after:always}.hero-visual{background:#fff!important;color:#000!important;border:1px solid #777}.hero-visual h2,.hero-visual h3{color:#000!important}.math-orbit{height:150px}.orbit{animation:none!important}.matrix-core{animation:none!important;color:#000;border-color:#000}.matrix-core:before,.matrix-core:after{border-color:#000}.orbit span{border:1px solid #000}
+  .module{page-break-before:always}.grid{display:block}.card{margin:2.5mm 0;background:#fff!important;border:1px solid #888!important;box-shadow:none!important;break-inside:avoid}.solution{background:#fff!important;color:#000!important;border:1px solid #777!important;border-radius:0}.solution h4{color:#000!important}.formula,.diagram,.graph,.callout,.table-wrap,.paper,details{break-inside:avoid;page-break-inside:avoid;background:#fff!important;color:#000!important;border-color:#888!important}
+  h1,h2,h3,h4{color:#000!important;break-after:avoid}table{min-width:0!important;font-size:8.4pt}th{background:#eee!important;color:#000!important}svg{max-width:100%!important;max-height:215mm!important}details:not([open])>*:not(summary){display:block!important}a{color:#000;text-decoration:none}
+}
+</style>
+  <link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260616-nativeapp1">
+  <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Mathematics II 2002 | Complete Diploma Handbook","url":"https://polypmna.dpdns.org/lessons/lessons-2002.html","description":"Mathematics II 2002 complete Kerala Polytechnic handbook covering determinants, matrices, vectors, integration, applications of integration and first-order differential equations with solved examples and full model answers.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"}}</script>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <div class="top-main">
+    <a class="brand" href="#cover"><span class="brand-badge">2002</span><span class="brand-copy">Mathematics II<small>Diploma • Semester 2 • Basic Science</small></span></a>
+    <nav class="nav-scroll" aria-label="Handbook navigation">
+      <a href="#overview">Overview</a><a href="#toc">Contents</a><a href="#module1">Module 1</a><a href="#module2">Module 2</a><a href="#module3">Module 3</a><a href="#module4">Module 4</a><a href="#formula-bank">Formula Bank</a><a href="#solved-bank">Solved Problems</a><a href="#model-paper">Model Paper</a><a href="#answer-key">Answer Key</a>
+    </nav>
+    <button class="pdf-btn" type="button" onclick="window.print()">Download as PDF</button>
+  </div>
+</header>
+<div class="page-shell"><main>
+
+<section class="hero" id="cover">
+  <div class="hero-copy">
+    <span class="eyebrow">Complete Mathematics Handbook • Revision 2021</span>
+    <h1>Mathematics II</h1>
+    <p class="lead">A complete student textbook for determinants, matrices, vector algebra, integral calculus, applications of integration and first-order differential equations—with methods, diagrams, solved problems, practice, quick revision and full model answers.</p>
+    <div class="meta-grid">
+      <div><span>Course Code</span><b>2002</b></div><div><span>Programme</span><b>Diploma in Engineering and Technology</b></div><div><span>Semester</span><b>2</b></div>
+      <div><span>Credits</span><b>4</b></div><div><span>Category</span><b>Basic Science</b></div><div><span>Periods</span><b>4/week • 60/semester</b></div>
+    </div>
+    <div class="hero-actions"><a class="action primary" href="#module1">Start Module 1</a><button class="action secondary" type="button" onclick="window.print()">Download as PDF</button></div>
+    <div class="callout remember"><b>Student promise</b><div>Every official syllabus item is developed through concepts, methods, worked examples and examination practice. The handbook does not add advanced topics beyond the level needed to understand and apply the prescribed syllabus.</div></div>
+  </div>
+  <div class="hero-visual">
+    <div class="math-orbit" aria-label="Animated matrix, integration and vector symbols">
+      <div class="orbit one"><span>∫</span></div><div class="orbit two"><span>→</span></div>
+      <div class="matrix-core"><span>2</span><span>1</span><span>3</span><span>4</span></div>
+    </div>
+    <h2>Four-module learning path</h2>
+    <div class="module-map">
+      <div class="module-tile"><b>Module 1</b>Determinants, matrices, Cramer’s rule and inverse method</div>
+      <div class="module-tile"><b>Module 2</b>Vectors, dot product, cross product, work and moment</div>
+      <div class="module-tile"><b>Module 3</b>Indefinite and definite integration</div>
+      <div class="module-tile"><b>Module 4</b>Area and first-order differential equations</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="overview">
+  <div class="section-head"><span class="eyebrow">Course Overview</span><h2>Mathematics as an engineering problem-solving language</h2><p>Mathematics II continues the algebra and calculus foundation developed in Mathematics I. It teaches four connected tools: matrices for simultaneous systems, vectors for magnitude and direction, integration for accumulation, and differential equations for changing systems.</p></div>
+  <div class="grid">
+    <article class="card third blue"><h3>Linear systems</h3><p>Determinants and matrices organise several equations and provide systematic methods such as Cramer’s rule and inverse matrices.</p></article>
+    <article class="card third cyan"><h3>Magnitude and direction</h3><p>Vectors describe force, displacement, velocity and moment. Dot and cross products translate geometry into calculation.</p></article>
+    <article class="card third green"><h3>Accumulation and change</h3><p>Integration finds accumulated quantity and area. Differential equations describe relations involving a quantity and its rate of change.</p></article>
+  </div>
+  <h3>Where diploma students use these ideas</h3>
+  <div class="grid">
+    <div class="card quarter"><h4>Electrical networks</h4><p>Simultaneous equations for currents and voltages.</p></div>
+    <div class="card quarter"><h4>Mechanics</h4><p>Force resolution, work and turning moment.</p></div>
+    <div class="card quarter"><h4>Geometry and design</h4><p>Area enclosed by curves and coordinate axes.</p></div>
+    <div class="card quarter"><h4>Dynamic systems</h4><p>Simple growth, decay and linear first-order models.</p></div>
+  </div>
+</section>
+
+<section class="section" id="use">
+  <div class="section-head"><span class="eyebrow">How to Use This Handbook</span><h2>Understand the method before memorising the formula</h2></div>
+  <div class="grid">
+    <div class="card quarter"><h3>1. Read</h3><p>Begin with the meaning, notation and conditions of the concept.</p></div>
+    <div class="card quarter"><h3>2. Follow</h3><p>Trace each worked example line by line, especially signs and limits.</p></div>
+    <div class="card quarter"><h3>3. Practise</h3><p>Close the solution and repeat the problem independently.</p></div>
+    <div class="card quarter"><h3>4. Check</h3><p>Use substitution, differentiation, dimensions or geometric sense to verify.</p></div>
+  </div>
+  <div class="callout exam"><b>Examination method</b><div>Write the formula or method first, show essential steps, simplify carefully, box the final answer, and include units for work, moment and engineering quantities.</div></div>
+</section>
+
+<section class="section" id="toc">
+  <div class="section-head"><span class="eyebrow">Table of Contents</span><h2>Clickable handbook map</h2></div>
+  <div class="toc">
+    <a href="#objectives">Objectives &amp; Prerequisite <span>→</span></a><a href="#outcomes">Outcomes &amp; CO-PO <span>→</span></a><a href="#roadmap">Learning Roadmap <span>→</span></a>
+    <a href="#module1">Module 1: Determinants &amp; Matrices <span>→</span></a><a href="#module2">Module 2: Vector Algebra <span>→</span></a><a href="#module3">Module 3: Integral Calculus <span>→</span></a><a href="#module4">Module 4: Applications &amp; Differential Equations <span>→</span></a>
+    <a href="#formula-bank">Formula Bank <span>→</span></a><a href="#method-bank">Method Bank <span>→</span></a><a href="#diagram-bank">Diagram Bank <span>→</span></a><a href="#solved-bank">Solved Problem Bank <span>→</span></a>
+    <a href="#expected">Expected Questions <span>→</span></a><a href="#practice">Practice Section <span>→</span></a><a href="#revision">Quick Revision <span>→</span></a><a href="#model-paper">Model Question Paper <span>→</span></a><a href="#model-answers">Full Model Answers <span>→</span></a><a href="#answer-key">Answer Key <span>→</span></a><a href="#references">References <span>→</span></a><a href="#checklist">Final Checklist <span>→</span></a>
+  </div>
+</section>
+
+<section class="section" id="objectives">
+  <div class="section-head"><span class="eyebrow">Official Syllabus Analysis</span><h2>Course objective and prerequisite</h2></div>
+  <div class="grid">
+    <div class="card eight blue"><h3>Official objective</h3><p>To give a comprehensive coverage at an introductory level to Determinants and Matrices, Integral Calculus, basic elements of Vector Algebra and First Order Differential Equations as applicable to solve engineering problems.</p><h4>Student-friendly meaning</h4><p>The course is not about memorising isolated formulas. It develops four practical methods that help organise equations, represent directed quantities, calculate accumulation and model change.</p></div>
+    <div class="card third green"><h3>Prerequisite</h3><p><b>Course:</b> Mathematics I, Semester 1</p><p><b>Required topics:</b> Complex Numbers, Coordinate Geometry, Trigonometry, Limits and Derivatives.</p></div>
+  </div>
+  <div class="quick-strip">
+    <div class="quick"><b>Derivatives</b><br>needed to understand integration as the reverse operation.</div>
+    <div class="quick"><b>Coordinate geometry</b><br>needed for vectors, position vectors and areas.</div>
+    <div class="quick"><b>Trigonometry</b><br>needed for vector angles and standard integrals.</div>
+    <div class="quick"><b>Algebra</b><br>needed for determinants, matrices and differential equations.</div>
+  </div>
+</section>
+
+<section class="section" id="outcomes">
+  <div class="section-head"><span class="eyebrow">Official Course Outcomes</span><h2>What students must be able to do</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>CO</th><th>Official outcome</th><th>Duration</th><th>Cognitive level</th><th>Student meaning</th></tr></thead><tbody>
+    <tr><td>CO1</td><td>Make use of Determinants and Matrices in finding the solutions of a linear system.</td><td>12 h</td><td>Applying</td><td>Evaluate determinants and solve simultaneous equations.</td></tr>
+    <tr><td>CO2</td><td>Identify the concept of scalar and vector quantities and apply it in engineering problems.</td><td>16 h</td><td>Applying</td><td>Use vector operations for work, angle and moment.</td></tr>
+    <tr><td>CO3</td><td>Build the concept of integration as the inverse operation of differentiation.</td><td>18 h</td><td>Applying</td><td>Integrate using standard results, substitution, parts and limits.</td></tr>
+    <tr><td>CO4</td><td>Apply integration techniques to solve different engineering problems and differential equations.</td><td>12 h</td><td>Applying</td><td>Find area and solve simple first-order differential equations.</td></tr>
+    <tr><td>—</td><td>Series tests</td><td>2 h</td><td>—</td><td>One hour after Module 2 and one hour after Module 4.</td></tr>
+  </tbody></table></div>
+  <h3>CO-PO mapping</h3>
+  <div class="table-wrap"><table class="compact"><thead><tr><th>Course outcome</th><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th><th>Interpretation</th></tr></thead><tbody>
+    <tr><td>CO1</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO2</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO3</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+    <tr><td>CO4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1</td></tr>
+  </tbody></table></div>
+  <div class="callout remember"><b>Mapping scale</b><div>3 - Strongly mapped; 2 - Moderately mapped; 1 - Weakly mapped.</div></div>
+</section>
+
+<section class="section" id="roadmap">
+  <div class="section-head"><span class="eyebrow">Official Module Roadmap</span><h2>Module outcomes, hours and level</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Module outcome</th><th>Description</th><th>Hours</th><th>Level</th></tr></thead><tbody>
+    <tr><td>M1.01</td><td>Outline the second and third order determinants.</td><td>5</td><td>Understanding</td></tr>
+    <tr><td>M1.02</td><td>Apply Cramer’s Rule to solve a linear system of equations.</td><td>2</td><td>Applying</td></tr>
+    <tr><td>M1.03</td><td>Solve a system of equations in two unknowns by inverse matrix.</td><td>5</td><td>Applying</td></tr>
+    <tr><td>M2.01</td><td>Compare vector and scalar quantities.</td><td>4</td><td>Understanding</td></tr>
+    <tr><td>M2.02</td><td>Explain vector operations, scalar product and vector product.</td><td>6</td><td>Understanding</td></tr>
+    <tr><td>M2.03</td><td>Apply dot and cross products to work and moment.</td><td>6</td><td>Applying</td></tr>
+    <tr><td>Series Test I</td><td>Modules 1 and 2</td><td>1</td><td>—</td></tr>
+    <tr><td>M3.01</td><td>Relate integration to reverse differentiation and rules of integration.</td><td>3</td><td>Understanding</td></tr>
+    <tr><td>M3.02</td><td>Solve integration problems by substitution and by parts.</td><td>8</td><td>Applying</td></tr>
+    <tr><td>M3.03</td><td>Explain definite integrals and solve problems.</td><td>7</td><td>Applying</td></tr>
+    <tr><td>M4.01</td><td>Apply integration to find area bounded by a curve and the axes.</td><td>7</td><td>Applying</td></tr>
+    <tr><td>M4.02</td><td>Outline and solve first-order, first-degree differential equations.</td><td>5</td><td>Applying</td></tr>
+    <tr><td>Series Test II</td><td>Modules 3 and 4</td><td>1</td><td>—</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section module" id="module1" style="--accent:#1665a8">
+  <div class="module-banner"><span class="eyebrow">Module 1 • CO1 • 12 Hours</span><h2>Determinants and Matrices</h2><p>Second- and third-order determinants, matrix operations, Cramer’s rule for three variables, inverse of a matrix, and inverse method for two variables.</p></div>
+
+  <h3>1. Determinants: meaning, order and notation</h3>
+  <p>A determinant is a single number associated with a square arrangement of numbers. It helps test whether a linear system has a unique solution and is used in inverse matrices and Cramer’s rule.</p>
+  <div class="formula">Second order: |A| = <span class="matrix" style="--cols:2"><span>a</span><span>b</span><span>c</span><span>d</span></span> = ad - bc</div>
+  <div class="ml"><b>Malayalam Support:</b> Determinant ഒരു square array-യിൽ നിന്ന് ലഭിക്കുന്ന ഒറ്റ സംഖ്യയാണ്. Equations-ന് unique solution ഉണ്ടോ എന്ന് പരിശോധിക്കാനും inverse കണ്ടെത്താനും ഇത് ഉപയോഗിക്കുന്നു.</div>
+  <div class="grid">
+    <div class="card blue"><h4>Order</h4><p>A determinant with n rows and n columns has order n. A 2×2 determinant is second order; a 3×3 determinant is third order.</p></div>
+    <div class="card cyan"><h4>Rows and columns</h4><p>Horizontal entries form rows; vertical entries form columns. Determinants are defined only for square arrays.</p></div>
+  </div>
+
+  <div class="solution"><h4>Solved Example 1: Second-order determinant</h4><p>Evaluate <span class="math-line">| 4  3; 2  5 |</span>.</p><div class="formula">|A| = (4×5) - (3×2) = 20 - 6 = 14</div><p class="line"><b>Answer:</b> 14.</p></div>
+
+  <h3>2. Third-order determinants</h3>
+  <p>A third-order determinant may be expanded along any row or column. Signs of cofactors follow the checkerboard pattern:</p>
+  <div class="formula">Sign pattern = <span class="matrix" style="--cols:3"><span>+</span><span>-</span><span>+</span><span>-</span><span>+</span><span>-</span><span>+</span><span>-</span><span>+</span></span></div>
+  <div class="formula">For A = <span class="matrix" style="--cols:3"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span><span>i</span></span>, |A| = a(ei-fh) - b(di-fg) + c(dh-eg)</div>
+  <div class="callout mistake"><b>Common mistake</b><div>The middle term is negative. Write the sign pattern before expanding.</div></div>
+
+  <figure class="diagram"><svg viewBox="0 0 900 360" role="img" aria-label="Cofactor expansion of a third order determinant">
+    <rect x="40" y="55" width="300" height="230" rx="15" fill="#eef7ff" stroke="#1665a8" stroke-width="4"/>
+    <text x="75" y="110" font-size="36">a</text><text x="170" y="110" font-size="36">b</text><text x="265" y="110" font-size="36">c</text>
+    <text x="75" y="185" font-size="36">d</text><text x="170" y="185" font-size="36">e</text><text x="265" y="185" font-size="36">f</text>
+    <text x="75" y="260" font-size="36">g</text><text x="170" y="260" font-size="36">h</text><text x="265" y="260" font-size="36">i</text>
+    <path d="M370 95H445" stroke="#1665a8" stroke-width="5"/><path d="M430 80L450 95L430 110" fill="none" stroke="#1665a8" stroke-width="5"/>
+    <text x="480" y="95" font-size="28" font-weight="700">a(ei - fh)</text><text x="480" y="175" font-size="28" font-weight="700">- b(di - fg)</text><text x="480" y="255" font-size="28" font-weight="700">+ c(dh - eg)</text>
+  </svg><figcaption>Expansion along the first row. Each entry multiplies the determinant left after deleting its row and column.</figcaption></figure>
+
+  <div class="solution"><h4>Solved Example 2: Third-order determinant</h4><p>Evaluate <span class="matrix" style="--cols:3"><span>1</span><span>2</span><span>3</span><span>0</span><span>1</span><span>4</span><span>2</span><span>0</span><span>1</span></span>.</p><div class="formula">Δ = 1(1×1-4×0) - 2(0×1-4×2) + 3(0×0-1×2)</div><div class="formula">Δ = 1 - 2(-8) + 3(-2) = 1+16-6 = 11</div><p class="line"><b>Answer:</b> 11.</p></div>
+
+  <h3>3. Matrices</h3>
+  <p>A matrix is a rectangular arrangement of numbers in rows and columns. Unlike a determinant, a matrix itself is an array, not a single numerical value.</p>
+  <div class="formula">A = [a<sub>ij</sub>]<sub>m×n</sub> means m rows and n columns.</div>
+  <div class="table-wrap"><table><thead><tr><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+    <tr><td>Row matrix</td><td>One row</td><td>[2  5  -1]</td></tr><tr><td>Column matrix</td><td>One column</td><td>[2; 5; -1]</td></tr><tr><td>Rectangular</td><td>Rows ≠ columns</td><td>2×3 matrix</td></tr><tr><td>Square</td><td>Rows = columns</td><td>2×2 or 3×3</td></tr><tr><td>Zero/null</td><td>Every entry is zero</td><td>O</td></tr><tr><td>Diagonal</td><td>Non-diagonal entries are zero</td><td>diag(2,3)</td></tr><tr><td>Scalar</td><td>Diagonal entries equal</td><td>diag(4,4)</td></tr><tr><td>Identity/unit</td><td>Diagonal entries 1; others 0</td><td>I</td></tr><tr><td>Upper/lower triangular</td><td>Entries below/above main diagonal are zero</td><td>Square triangular matrix</td></tr>
+  </tbody></table></div>
+
+  <h3>4. Equality, addition and subtraction</h3>
+  <p>Two matrices are equal only when they have the same order and every corresponding entry is equal. Addition and subtraction are possible only for matrices of the same order.</p>
+  <div class="formula">[a<sub>ij</sub>] ± [b<sub>ij</sub>] = [a<sub>ij</sub> ± b<sub>ij</sub>]</div>
+  <div class="solution"><h4>Solved Example 3: Matrix addition</h4><p>Let A=<span class="matrix" style="--cols:2"><span>2</span><span>-1</span><span>3</span><span>4</span></span>, B=<span class="matrix" style="--cols:2"><span>1</span><span>5</span><span>-2</span><span>0</span></span>.</p><div class="formula">A+B = <span class="matrix" style="--cols:2"><span>3</span><span>4</span><span>1</span><span>4</span></span>; A-B = <span class="matrix" style="--cols:2"><span>1</span><span>-6</span><span>5</span><span>4</span></span></div></div>
+
+  <h3>5. Matrix multiplication</h3>
+  <p>The product AB exists when the number of columns of A equals the number of rows of B. If A is m×n and B is n×p, then AB is m×p.</p>
+  <div class="formula">(AB)<sub>ij</sub> = sum of products of row i of A with column j of B.</div>
+  <figure class="diagram"><svg viewBox="0 0 1000 340" role="img" aria-label="Matrix multiplication row by column">
+    <rect x="50" y="70" width="245" height="190" rx="15" fill="#edf6ff" stroke="#1665a8" stroke-width="4"/><text x="78" y="125" font-size="30">a</text><text x="175" y="125" font-size="30">b</text><text x="78" y="210" font-size="30">c</text><text x="175" y="210" font-size="30">d</text><path d="M65 90H275" stroke="#1665a8" stroke-width="8" opacity=".22"/>
+    <text x="340" y="175" font-size="45">×</text>
+    <rect x="420" y="70" width="245" height="190" rx="15" fill="#edfcfd" stroke="#0c8794" stroke-width="4"/><text x="455" y="125" font-size="30">e</text><text x="555" y="125" font-size="30">f</text><text x="455" y="210" font-size="30">g</text><text x="555" y="210" font-size="30">h</text><path d="M442 82V245" stroke="#0c8794" stroke-width="12" opacity=".22"/>
+    <text x="705" y="175" font-size="45">=</text><rect x="785" y="100" width="160" height="130" rx="15" fill="#f5f1ff" stroke="#6946ad" stroke-width="4"/><text x="815" y="175" font-size="28">ae+bg</text>
+    <text x="80" y="315" font-size="22">Row of A</text><text x="465" y="315" font-size="22">Column of B</text><text x="805" y="315" font-size="22">Entry (1,1)</text>
+  </svg><figcaption>Row-by-column rule. Matrix multiplication is generally not commutative: AB may not equal BA.</figcaption></figure>
+  <div class="solution"><h4>Solved Example 4: Matrix product</h4><p>A=<span class="matrix" style="--cols:2"><span>1</span><span>2</span><span>3</span><span>4</span></span>, B=<span class="matrix" style="--cols:2"><span>2</span><span>0</span><span>1</span><span>5</span></span>.</p><div class="formula">AB = <span class="matrix" style="--cols:2"><span>1×2+2×1</span><span>1×0+2×5</span><span>3×2+4×1</span><span>3×0+4×5</span></span> = <span class="matrix" style="--cols:2"><span>4</span><span>10</span><span>10</span><span>20</span></span></div></div>
+
+  <h3>6. Inverse of a 2×2 matrix</h3>
+  <p>A square matrix A has an inverse only when |A|≠0. Such a matrix is nonsingular.</p>
+  <div class="formula">If A=<span class="matrix" style="--cols:2"><span>a</span><span>b</span><span>c</span><span>d</span></span>, then A<sup>-1</sup> = 1/(ad-bc) <span class="matrix" style="--cols:2"><span>d</span><span>-b</span><span>-c</span><span>a</span></span></div>
+  <div class="solution"><h4>Solved Example 5: Inverse</h4><p>Find the inverse of A=<span class="matrix" style="--cols:2"><span>3</span><span>1</span><span>2</span><span>1</span></span>.</p><p>|A|=3×1-1×2=1.</p><div class="formula">A<sup>-1</sup>=<span class="matrix" style="--cols:2"><span>1</span><span>-1</span><span>-2</span><span>3</span></span></div><p>Check: AA<sup>-1</sup>=I.</p></div>
+
+  <h3>7. Solving two equations by inverse matrix</h3>
+  <div class="formula">AX=B ⇒ X=A<sup>-1</sup>B</div>
+  <div class="solution"><h4>Solved Example 6: Inverse method</h4><p>Solve 3x+y=7 and 2x+y=5.</p><div class="formula">A=<span class="matrix" style="--cols:2"><span>3</span><span>1</span><span>2</span><span>1</span></span>, X=<span class="matrix" style="--cols:1"><span>x</span><span>y</span></span>, B=<span class="matrix" style="--cols:1"><span>7</span><span>5</span></span></div><div class="formula">X=A<sup>-1</sup>B=<span class="matrix" style="--cols:2"><span>1</span><span>-1</span><span>-2</span><span>3</span></span><span class="matrix" style="--cols:1"><span>7</span><span>5</span></span>=<span class="matrix" style="--cols:1"><span>2</span><span>1</span></span></div><p class="line"><b>Answer:</b> x=2, y=1.</p></div>
+
+  <h3>8. Cramer’s rule for three variables</h3>
+  <p>For a system AX=B with Δ=|A|≠0, replace one coefficient column at a time by the constants column.</p>
+  <div class="formula">x=Δ<sub>x</sub>/Δ, y=Δ<sub>y</sub>/Δ, z=Δ<sub>z</sub>/Δ</div>
+  <div class="steps"><div class="step">Write coefficients in the same variable order.</div><div class="step">Evaluate coefficient determinant Δ.</div><div class="step">Form Δx, Δy and Δz by replacing the corresponding column.</div><div class="step">Divide each replaced determinant by Δ.</div><div class="step">Substitute values into the original equations to verify.</div></div>
+  <div class="solution"><h4>Solved Example 7: Cramer’s rule</h4><p>Solve x+y+z=6, 2x-y+z=3, x+2y-z=2.</p><p>Coefficient determinant:</p><div class="formula">Δ=<span class="matrix" style="--cols:3"><span>1</span><span>1</span><span>1</span><span>2</span><span>-1</span><span>1</span><span>1</span><span>2</span><span>-1</span></span>=7</div><div class="formula">Δx=7, Δy=14, Δz=21</div><p class="line"><b>Answer:</b> x=1, y=2, z=3.</p></div>
+
+  <div class="callout exam"><b>Module 1 exam tip</b><div>For Cramer’s rule, preserve the variable order x, y, z in every determinant. For inverse method, first confirm |A|≠0.</div></div>
+  <details open><summary>Module 1 Quick Check and Answers</summary><ol><li>Evaluate |5 2; 3 1|. <b>Answer:</b> -1.</li><li>Can a 2×3 matrix have a determinant? <b>Answer:</b> No.</li><li>State the order of AB if A is 2×3 and B is 3×4. <b>Answer:</b> 2×4.</li><li>When does A<sup>-1</sup> exist? <b>Answer:</b> When A is square and |A|≠0.</li></ol></details>
+</section>
+
+<section class="section module" id="module2" style="--accent:#0c8794">
+  <div class="module-banner"><span class="eyebrow">Module 2 • CO2 • 16 Hours • Series Test I</span><h2>Vector Algebra</h2><p>Scalars and vectors, types of vectors, algebra, position vector, scalar product, vector product, work and moment.</p></div>
+
+  <h3>1. Scalars and vectors</h3>
+  <div class="grid"><div class="card blue"><h4>Scalar</h4><p>A quantity having magnitude only. Examples: mass, time, temperature, energy and speed.</p></div><div class="card cyan"><h4>Vector</h4><p>A quantity having magnitude and direction and obeying vector addition. Examples: displacement, velocity, acceleration, force and moment.</p></div></div>
+  <div class="ml"><b>Malayalam Support:</b> Scalar-ന് magnitude മാത്രം. Vector-ന് magnitude-ഉം direction-ഉം ഉണ്ട്. Force, displacement എന്നിവ vectors ആണ്.</div>
+
+  <h3>2. Vector notation, magnitude and unit vector</h3>
+  <div class="formula">a = a<sub>x</sub>i + a<sub>y</sub>j + a<sub>z</sub>k</div>
+  <div class="formula">|a| = √(a<sub>x</sub><sup>2</sup> + a<sub>y</sub><sup>2</sup> + a<sub>z</sub><sup>2</sup>), &nbsp; â = a/|a|</div>
+  <div class="table-wrap"><table><thead><tr><th>Type</th><th>Meaning</th></tr></thead><tbody><tr><td>Zero vector</td><td>Magnitude zero; direction not definite.</td></tr><tr><td>Unit vector</td><td>Magnitude one.</td></tr><tr><td>Equal vectors</td><td>Same magnitude and same direction.</td></tr><tr><td>Negative vectors</td><td>Same magnitude, opposite directions.</td></tr><tr><td>Parallel/collinear</td><td>One is a scalar multiple of the other.</td></tr><tr><td>Like/unlike vectors</td><td>Parallel vectors with same/opposite direction.</td></tr><tr><td>Position vector</td><td>Vector from origin to a point.</td></tr></tbody></table></div>
+
+  <h3>3. Vector addition and subtraction</h3>
+  <div class="formula">a+b=(a<sub>x</sub>+b<sub>x</sub>)i+(a<sub>y</sub>+b<sub>y</sub>)j+(a<sub>z</sub>+b<sub>z</sub>)k</div>
+  <figure class="diagram"><svg viewBox="0 0 920 370" role="img" aria-label="Parallelogram law of vector addition">
+    <defs><marker id="va" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#1665a8"/></marker><marker id="vb" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#0c8794"/></marker><marker id="vr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#6946ad"/></marker></defs>
+    <line x1="130" y1="290" x2="500" y2="290" stroke="#1665a8" stroke-width="8" marker-end="url(#va)"/><line x1="130" y1="290" x2="340" y2="85" stroke="#0c8794" stroke-width="8" marker-end="url(#vb)"/><line x1="340" y1="85" x2="710" y2="85" stroke="#0c8794" stroke-width="4" stroke-dasharray="10 8"/><line x1="500" y1="290" x2="710" y2="85" stroke="#1665a8" stroke-width="4" stroke-dasharray="10 8"/><line x1="130" y1="290" x2="710" y2="85" stroke="#6946ad" stroke-width="9" marker-end="url(#vr)"/>
+    <text x="300" y="330" font-size="25" fill="#1665a8">a</text><text x="205" y="170" font-size="25" fill="#0c8794">b</text><text x="420" y="165" font-size="25" fill="#6946ad">R = a + b</text>
+  </svg><figcaption>Parallelogram law: the diagonal from the common tail represents the resultant a+b.</figcaption></figure>
+  <div class="solution"><h4>Solved Example 8: Magnitude and unit vector</h4><p>For a=3i-4j+12k, |a|=√(9+16+144)=13.</p><div class="formula">â=(3/13)i-(4/13)j+(12/13)k</div></div>
+
+  <h3>4. Position vector</h3>
+  <div class="formula">If P(x,y,z), OP = xi+yj+zk.</div>
+  <div class="formula">Vector AB = OB-OA = (x<sub>2</sub>-x<sub>1</sub>)i+(y<sub>2</sub>-y<sub>1</sub>)j+(z<sub>2</sub>-z<sub>1</sub>)k</div>
+  <div class="solution"><h4>Solved Example 9: Vector between points</h4><p>A(1,2,-1), B(4,-2,3).</p><div class="formula">AB=(4-1)i+(-2-2)j+(3+1)k=3i-4j+4k</div><p>|AB|=√(9+16+16)=√41.</p></div>
+
+  <h3>5. Scalar or dot product</h3>
+  <div class="formula">a·b = |a||b|cosθ = a<sub>x</sub>b<sub>x</sub>+a<sub>y</sub>b<sub>y</sub>+a<sub>z</sub>b<sub>z</sub></div>
+  <div class="grid"><div class="card"><h4>Angle</h4><div class="formula">cosθ=(a·b)/(|a||b|)</div></div><div class="card"><h4>Perpendicular test</h4><p>For nonzero vectors, a·b=0 means a is perpendicular to b.</p></div></div>
+  <div class="solution"><h4>Solved Example 10: Dot product and angle</h4><p>a=2i+j-2k, b=i+2j+2k.</p><p>a·b=2+2-4=0.</p><p class="line"><b>Conclusion:</b> The vectors are perpendicular.</p></div>
+
+  <h3>6. Work done by a constant force</h3>
+  <div class="formula">Work W = F·s = |F||s|cosθ</div>
+  <p>Only the component of force along the displacement contributes to work.</p>
+  <div class="solution"><h4>Solved Example 11: Work</h4><p>A force F=4i-2j+3k N moves a body through s=2i+j-4k m.</p><div class="formula">W=F·s=4×2+(-2)×1+3×(-4)=8-2-12=-6 J</div><p class="line"><b>Answer:</b> -6 J. Negative work means the force has a component opposing displacement.</p></div>
+
+  <h3>7. Vector or cross product</h3>
+  <div class="formula">a×b = |a||b|sinθ n̂</div>
+  <div class="formula">a×b = <span class="matrix" style="--cols:3"><span>i</span><span>j</span><span>k</span><span>a<sub>x</sub></span><span>a<sub>y</sub></span><span>a<sub>z</sub></span><span>b<sub>x</sub></span><span>b<sub>y</sub></span><span>b<sub>z</sub></span></span></div>
+  <div class="callout remember"><b>Direction</b><div>The direction is perpendicular to both a and b and follows the right-hand rule. Also a×b=-(b×a).</div></div>
+  <div class="solution"><h4>Solved Example 12: Cross product</h4><p>a=i+2j+3k, b=2i-j+k.</p><div class="formula">a×b = 5i+5j-5k</div><p>|a×b|=5√3, which equals the area of the parallelogram formed by a and b.</p></div>
+
+  <h3>8. Moment of a force</h3>
+  <div class="formula">Moment about O: M = r×F</div>
+  <p>Here r is the position vector from the moment centre to any point on the line of action of F.</p>
+  <figure class="diagram"><svg viewBox="0 0 900 360" role="img" aria-label="Moment of a force as r cross F">
+    <defs><marker id="mf" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#b66a11"/></marker><marker id="mr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0 0L9 3L0 6z" fill="#1665a8"/></marker></defs>
+    <circle cx="170" cy="285" r="12" fill="#122033"/><text x="140" y="330" font-size="24">O</text><line x1="170" y1="285" x2="505" y2="135" stroke="#1665a8" stroke-width="8" marker-end="url(#mr)"/><text x="315" y="250" font-size="25" fill="#1665a8">r</text><line x1="505" y1="135" x2="720" y2="55" stroke="#b66a11" stroke-width="8" marker-end="url(#mf)"/><text x="630" y="135" font-size="25" fill="#b66a11">F</text><path d="M135 240C70 160 110 70 215 55" fill="none" stroke="#6946ad" stroke-width="7" marker-end="url(#mr)"/><text x="65" y="100" font-size="24" fill="#6946ad">Moment direction</text>
+  </svg><figcaption>The moment vector is normal to the plane containing r and F. Its magnitude is force × perpendicular distance.</figcaption></figure>
+  <div class="solution"><h4>Solved Example 13: Moment</h4><p>r=2i+j m and F=3i+4j N.</p><div class="formula">M=r×F=(2×4-1×3)k=5k N·m</div><p class="line"><b>Answer:</b> 5 N·m in the positive k direction.</p></div>
+
+  <div class="callout exam"><b>Series Test I preparation</b><div>Practise one 3×3 determinant, one matrix product, one Cramer problem, one inverse problem, one dot-product/work problem and one cross-product/moment problem.</div></div>
+  <details open><summary>Module 2 Quick Check and Answers</summary><ol><li>Is speed scalar or vector? <b>Scalar.</b></li><li>When are two nonzero vectors perpendicular? <b>When their dot product is zero.</b></li><li>What does |a×b| represent geometrically? <b>Area of the parallelogram.</b></li><li>State the SI unit of moment. <b>N·m.</b></li></ol></details>
+</section>
+
+<section class="section module" id="module3" style="--accent:#18785e">
+  <div class="module-banner"><span class="eyebrow">Module 3 • CO3 • 18 Hours</span><h2>Integral Calculus</h2><p>Integration as inverse differentiation, standard results, substitution, integration by parts and definite integrals.</p></div>
+
+  <h3>1. Integration as reverse differentiation</h3>
+  <p>If dF/dx=f(x), then F is an antiderivative of f and</p>
+  <div class="formula">∫f(x)dx = F(x)+C</div>
+  <p>The constant C is essential because the derivative of every constant is zero.</p>
+  <div class="ml"><b>Malayalam Support:</b> Differentiation-ന്റെ reverse operation ആണ് integration. Indefinite integral എഴുതുമ്പോൾ +C ഒഴിവാക്കരുത്.</div>
+  <div class="callout remember"><b>Verification</b><div>Differentiate your final answer. If its derivative equals the original integrand, the integration is correct.</div></div>
+
+  <h3>2. Standard integrals</h3>
+  <div class="table-wrap"><table><thead><tr><th>Integrand</th><th>Integral</th><th>Condition / note</th></tr></thead><tbody>
+    <tr><td>x<sup>n</sup></td><td>x<sup>n+1</sup>/(n+1)+C</td><td>n≠-1</td></tr><tr><td>1/x</td><td>ln|x|+C</td><td>x≠0</td></tr><tr><td>e<sup>x</sup></td><td>e<sup>x</sup>+C</td><td>—</td></tr><tr><td>a<sup>x</sup></td><td>a<sup>x</sup>/ln a + C</td><td>a&gt;0, a≠1</td></tr><tr><td>sin x</td><td>-cos x+C</td><td>—</td></tr><tr><td>cos x</td><td>sin x+C</td><td>—</td></tr><tr><td>sec²x</td><td>tan x+C</td><td>—</td></tr><tr><td>cosec²x</td><td>-cot x+C</td><td>—</td></tr><tr><td>sec x tan x</td><td>sec x+C</td><td>—</td></tr><tr><td>cosec x cot x</td><td>-cosec x+C</td><td>—</td></tr><tr><td>1/(1+x²)</td><td>tan<sup>-1</sup>x+C</td><td>—</td></tr><tr><td>1/√(1-x²)</td><td>sin<sup>-1</sup>x+C</td><td>|x|&lt;1</td></tr>
+  </tbody></table></div>
+
+  <h3>3. Basic rules</h3>
+  <div class="formula">∫[af(x)±bg(x)]dx = a∫f(x)dx ± b∫g(x)dx</div>
+  <div class="solution"><h4>Solved Example 14: Standard results</h4><p>Evaluate ∫(3x²-4x+5)dx.</p><div class="formula">=x³-2x²+5x+C</div><p><b>Check:</b> d/dx(x³-2x²+5x+C)=3x²-4x+5.</p></div>
+
+  <h3>4. Integration by substitution</h3>
+  <p>Substitution is useful when part of the integrand is the derivative of another part. Replace the inner expression by a new variable.</p>
+  <div class="steps"><div class="step">Choose u=g(x).</div><div class="step">Find du=g'(x)dx.</div><div class="step">Rewrite the entire integral in u.</div><div class="step">Integrate with respect to u.</div><div class="step">Substitute back and add C for indefinite integrals.</div></div>
+  <div class="solution"><h4>Solved Example 15: Substitution</h4><p>Evaluate ∫2x(x²+1)⁴dx.</p><p>Let u=x²+1, du=2x dx.</p><div class="formula">∫u⁴du=u⁵/5+C=(x²+1)⁵/5+C</div></div>
+  <div class="solution"><h4>Solved Example 16: Logarithmic pattern</h4><p>Evaluate ∫(3x²)/(x³+5) dx.</p><p>Let u=x³+5, du=3x²dx.</p><div class="formula">∫du/u=ln|u|+C=ln|x³+5|+C</div></div>
+  <div class="callout mistake"><b>Common mistake</b><div>Do not substitute only the denominator. Every factor and dx must be rewritten consistently.</div></div>
+
+  <h3>5. Integration by parts</h3>
+  <div class="formula">∫u dv = uv - ∫v du</div>
+  <p>Choose u using the practical priority ILATE: Inverse trigonometric, Logarithmic, Algebraic, Trigonometric, Exponential.</p>
+  <div class="solution"><h4>Solved Example 17: ∫x eˣ dx</h4><p>Choose u=x, dv=eˣdx. Then du=dx and v=eˣ.</p><div class="formula">∫xeˣdx = xeˣ-∫eˣdx = eˣ(x-1)+C</div></div>
+  <div class="solution"><h4>Solved Example 18: ∫x sin x dx</h4><p>u=x, dv=sin x dx; du=dx, v=-cos x.</p><div class="formula">∫x sin x dx = -x cos x + ∫cos x dx = -x cos x + sin x + C</div></div>
+
+  <h3>6. Definite integrals</h3>
+  <p>A definite integral has fixed lower and upper limits and gives a numerical value. If F'(x)=f(x),</p>
+  <div class="formula">∫<sub>a</sub><sup>b</sup> f(x)dx = [F(x)]<sub>a</sub><sup>b</sup> = F(b)-F(a)</div>
+  <div class="ml"><b>Malayalam Support:</b> Definite integral-ൽ +C വേണ്ട. Upper limit substitute ചെയ്ത value-ൽ നിന്ന് lower limit value കുറയ്ക്കണം.</div>
+  <div class="grid"><div class="card"><h4>Limit reversal</h4><div class="formula">∫<sub>a</sub><sup>b</sup>f dx = -∫<sub>b</sub><sup>a</sup>f dx</div></div><div class="card"><h4>Same limits</h4><div class="formula">∫<sub>a</sub><sup>a</sup>f dx = 0</div></div><div class="card"><h4>Interval splitting</h4><div class="formula">∫<sub>a</sub><sup>c</sup>f dx = ∫<sub>a</sub><sup>b</sup>f dx + ∫<sub>b</sub><sup>c</sup>f dx</div></div><div class="card"><h4>Linearity</h4><p>Constants, sums and differences can be separated as in indefinite integration.</p></div></div>
+  <div class="solution"><h4>Solved Example 19: Definite polynomial integral</h4><p>Evaluate ∫₀²(3x²+2x)dx.</p><div class="formula">[x³+x²]₀²=(8+4)-0=12</div><p class="line"><b>Answer:</b> 12.</p></div>
+  <div class="solution"><h4>Solved Example 20: Definite integral by substitution</h4><p>Evaluate ∫₀¹ 2x(x²+1) dx.</p><p>u=x²+1. When x=0, u=1; when x=1, u=2.</p><div class="formula">∫₁²u du=[u²/2]₁²=(4-1)/2=3/2</div></div>
+
+  <h3>7. Choosing a method</h3>
+  <div class="table-wrap"><table><thead><tr><th>Pattern</th><th>Preferred method</th><th>Example</th></tr></thead><tbody><tr><td>Direct standard form</td><td>Standard result</td><td>∫x⁵dx</td></tr><tr><td>g'(x)[g(x)]ⁿ or g'(x)/g(x)</td><td>Substitution</td><td>∫2x(x²+1)³dx</td></tr><tr><td>Product of unlike functions</td><td>By parts</td><td>∫xeˣdx</td></tr><tr><td>Fixed limits</td><td>Find antiderivative, then apply limits</td><td>∫₀²x²dx</td></tr></tbody></table></div>
+  <div class="callout exam"><b>Module 3 exam tip</b><div>Before integrating, simplify algebraically and identify the pattern. A correct method choice saves most of the work.</div></div>
+  <details open><summary>Module 3 Quick Check and Answers</summary><ol><li>∫4x³dx = <b>x⁴+C</b>.</li><li>∫cos x dx = <b>sin x+C</b>.</li><li>Why is +C omitted in a definite integral? <b>It cancels in F(b)-F(a).</b></li><li>State integration by parts. <b>∫u dv=uv-∫v du.</b></li></ol></details>
+</section>
+
+<section class="section module" id="module4" style="--accent:#6946ad">
+  <div class="module-banner"><span class="eyebrow">Module 4 • CO4 • 12 Hours • Series Test II</span><h2>Applications of Integration and Differential Equations</h2><p>Area bounded by a curve and the axes; first-order, first-degree differential equations by variable separable and linear methods.</p></div>
+
+  <h3>1. Area bounded by a curve and axes</h3>
+  <p>If y=f(x) lies above the x-axis from x=a to x=b, the area is</p>
+  <div class="formula">A = ∫<sub>a</sub><sup>b</sup> y dx = ∫<sub>a</sub><sup>b</sup> f(x)dx</div>
+  <p>If the region is described more easily by x=g(y), use A=∫x dy. Area is positive, so split the interval if the curve crosses an axis.</p>
+  <div class="ml"><b>Malayalam Support:</b> Curve-നും axis-നും ഇടയിലെ area കണ്ടെത്താൻ graph നോക്കി limits ശരിയായി എഴുതണം. Curve axis-ന്റെ താഴെയാണെങ്കിൽ integral negative ആകാം; geometric area positive ആയി എടുക്കണം.</div>
+  <figure class="graph"><svg viewBox="0 0 950 450" role="img" aria-label="Area under y equals x squared from zero to two">
+    <defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6946ad" stop-opacity=".55"/><stop offset="1" stop-color="#6946ad" stop-opacity=".12"/></linearGradient></defs>
+    <line x1="90" y1="385" x2="880" y2="385" stroke="#27384b" stroke-width="4"/><line x1="110" y1="420" x2="110" y2="40" stroke="#27384b" stroke-width="4"/>
+    <path d="M110 385 C230 375 350 340 470 275 C590 205 700 115 820 55 L820 385 Z" fill="url(#areaFill)"/>
+    <path d="M110 385 C230 375 350 340 470 275 C590 205 700 115 820 55" fill="none" stroke="#6946ad" stroke-width="8"/>
+    <line x1="820" y1="55" x2="820" y2="385" stroke="#b66a11" stroke-width="4" stroke-dasharray="9 7"/>
+    <text x="825" y="415" font-size="23">x=2</text><text x="665" y="100" font-size="25" fill="#6946ad">y=x²</text><text x="370" y="335" font-size="25">Area = ∫₀²x²dx</text><text x="865" y="420" font-size="25">x</text><text x="75" y="50" font-size="25">y</text>
+  </svg><figcaption>For y=x², x=0, x=2 and the x-axis, the required area is the shaded region.</figcaption></figure>
+  <div class="solution"><h4>Solved Example 21: Area under a parabola</h4><p>Find the area bounded by y=x², x=0, x=2 and the x-axis.</p><div class="formula">A=∫₀²x²dx=[x³/3]₀²=8/3 square units</div></div>
+  <div class="solution"><h4>Solved Example 22: Area bounded by a line and axes</h4><p>The line y=6-2x meets the y-axis at (0,6) and x-axis at (3,0).</p><div class="formula">A=∫₀³(6-2x)dx=[6x-x²]₀³=18-9=9 square units</div><p>Check by triangle area: ½×3×6=9.</p></div>
+
+  <h3>2. Differential equations: basic concepts</h3>
+  <p>A differential equation contains derivatives of an unknown function. The <b>order</b> is the highest derivative order. The <b>degree</b> is the power of the highest-order derivative after the equation is polynomial in derivatives.</p>
+  <div class="grid"><div class="card blue"><h4>First order</h4><p>Highest derivative is dy/dx.</p></div><div class="card cyan"><h4>First degree</h4><p>The highest derivative occurs to power one.</p></div><div class="card green"><h4>General solution</h4><p>Contains an arbitrary constant.</p></div><div class="card violet"><h4>Particular solution</h4><p>Obtained after applying an initial/boundary condition.</p></div></div>
+  <div class="solution"><h4>Solved Example 23: Order and degree</h4><p>(dy/dx)² + y = x has order 1 and degree 2. The equation d²y/dx² + 3dy/dx + y=0 has order 2 and degree 1.</p></div>
+
+  <h3>3. Variable separable equations</h3>
+  <p>An equation is separable when it can be rearranged so all y terms occur with dy and all x terms occur with dx.</p>
+  <div class="formula">dy/dx = f(x)g(y) ⇒ dy/g(y) = f(x)dx</div>
+  <div class="steps"><div class="step">Separate variables.</div><div class="step">Integrate both sides.</div><div class="step">Add one arbitrary constant.</div><div class="step">Simplify the relation.</div><div class="step">Use initial data if provided.</div></div>
+  <div class="solution"><h4>Solved Example 24: Separable equation</h4><p>Solve dy/dx=xy.</p><div class="formula">dy/y = x dx</div><div class="formula">ln|y|=x²/2+C ⇒ y=Ce<sup>x²/2</sup></div></div>
+  <div class="solution"><h4>Solved Example 25: Initial condition</h4><p>Solve dy/dx=2xy, y=3 when x=0.</p><p>dy/y=2x dx ⇒ ln|y|=x²+C ⇒ y=Ceˣ².</p><p>At x=0, y=3, hence C=3.</p><p class="line"><b>Answer:</b> y=3eˣ².</p></div>
+
+  <h3>4. Linear differential equations</h3>
+  <p>The standard first-order linear form is</p>
+  <div class="formula">dy/dx + P(x)y = Q(x)</div>
+  <div class="formula">Integrating factor (I.F.) = e<sup>∫P(x)dx</sup></div>
+  <div class="formula">Solution: y·I.F. = ∫Q(x)·I.F. dx + C</div>
+  <div class="ml"><b>Malayalam Support:</b> Linear equation ആദ്യം dy/dx + Py = Q എന്ന standard form-ൽ എഴുതുക. ശേഷം I.F.=e^(∫Pdx) കണ്ടെത്തി formula ഉപയോഗിക്കുക.</div>
+  <div class="solution"><h4>Solved Example 26: Linear equation</h4><p>Solve dy/dx+y=eˣ.</p><p>P=1, Q=eˣ. I.F.=e<sup>∫1dx</sup>=eˣ.</p><div class="formula">yeˣ=∫eˣ·eˣdx+C=∫e²ˣdx+C=e²ˣ/2+C</div><div class="formula">y=eˣ/2+Ce<sup>-x</sup></div></div>
+  <div class="solution"><h4>Solved Example 27: Linear equation with variable coefficient</h4><p>Solve dy/dx+(1/x)y=x², x&gt;0.</p><p>I.F.=e<sup>∫(1/x)dx</sup>=e<sup>ln x</sup>=x.</p><div class="formula">xy=∫x·x²dx+C=x⁴/4+C</div><div class="formula">y=x³/4+C/x</div></div>
+
+  <h3>5. Choosing the differential-equation method</h3>
+  <div class="table-wrap"><table><thead><tr><th>Form</th><th>Method</th><th>First action</th></tr></thead><tbody><tr><td>dy/dx=f(x)g(y)</td><td>Variable separable</td><td>Move y factors with dy and x factors with dx.</td></tr><tr><td>dy/dx+P(x)y=Q(x)</td><td>Linear</td><td>Identify P and Q; calculate I.F.</td></tr><tr><td>Can be rearranged into either form</td><td>Choose shorter route</td><td>Simplify before deciding.</td></tr></tbody></table></div>
+  <div class="callout exam"><b>Series Test II preparation</b><div>Practise standard integrals, one substitution, one by-parts problem, one definite integral, one area problem, one separable equation and one linear equation.</div></div>
+  <details open><summary>Module 4 Quick Check and Answers</summary><ol><li>What determines the order of a differential equation? <b>The highest derivative.</b></li><li>State the I.F. for dy/dx+Py=Q. <b>e<sup>∫Pdx</sup>.</b></li><li>Find area under y=x from 0 to 2. <b>2 square units.</b></li><li>Is dy/dx=xy separable? <b>Yes.</b></li></ol></details>
+</section>
+
+<section class="section" id="formula-bank">
+  <div class="section-head"><span class="eyebrow">Formula Bank</span><h2>Essential formulas with conditions</h2></div>
+  <div class="grid">
+    <div class="card third blue"><h3>2×2 determinant</h3><div class="formula">|a b; c d|=ad-bc</div></div>
+    <div class="card third blue"><h3>2×2 inverse</h3><div class="formula">A⁻¹=1/(ad-bc)[d -b; -c a]</div><p>Only if ad-bc≠0.</p></div>
+    <div class="card third blue"><h3>Cramer’s rule</h3><div class="formula">x=Δx/Δ, y=Δy/Δ, z=Δz/Δ</div><p>Requires Δ≠0.</p></div>
+    <div class="card third cyan"><h3>Magnitude</h3><div class="formula">|a|=√(aₓ²+aᵧ²+a_z²)</div></div>
+    <div class="card third cyan"><h3>Dot product</h3><div class="formula">a·b=|a||b|cosθ=Σaᵢbᵢ</div></div>
+    <div class="card third cyan"><h3>Cross product</h3><div class="formula">a×b=|a||b|sinθ n̂</div></div>
+    <div class="card third cyan"><h3>Work</h3><div class="formula">W=F·s</div><p>SI unit: joule.</p></div>
+    <div class="card third cyan"><h3>Moment</h3><div class="formula">M=r×F</div><p>SI unit: N·m.</p></div>
+    <div class="card third green"><h3>Power rule</h3><div class="formula">∫xⁿdx=xⁿ⁺¹/(n+1)+C</div><p>n≠-1.</p></div>
+    <div class="card third green"><h3>Log rule</h3><div class="formula">∫dx/x=ln|x|+C</div></div>
+    <div class="card third green"><h3>By parts</h3><div class="formula">∫u dv=uv-∫v du</div></div>
+    <div class="card third green"><h3>Definite integral</h3><div class="formula">∫ₐᵇf(x)dx=F(b)-F(a)</div></div>
+    <div class="card third violet"><h3>Area</h3><div class="formula">A=∫ₐᵇy dx</div><p>Split intervals if the curve crosses an axis.</p></div>
+    <div class="card third violet"><h3>Separable DE</h3><div class="formula">dy/g(y)=f(x)dx</div></div>
+    <div class="card third violet"><h3>Linear DE</h3><div class="formula">dy/dx+Py=Q; IF=e^(∫Pdx)</div></div>
+  </div>
+</section>
+
+<section class="section" id="method-bank">
+  <div class="section-head"><span class="eyebrow">Method Bank</span><h2>Problem-solving procedures</h2></div>
+  <div class="grid">
+    <div class="card third"><h3>3×3 determinant</h3><ol><li>Choose a row or column.</li><li>Write + - + signs.</li><li>Form each 2×2 minor.</li><li>Simplify carefully.</li></ol></div>
+    <div class="card third"><h3>Matrix inverse solution</h3><ol><li>Write AX=B.</li><li>Find |A|.</li><li>Find A⁻¹.</li><li>Compute X=A⁻¹B.</li><li>Verify.</li></ol></div>
+    <div class="card third"><h3>Cramer’s rule</h3><ol><li>Write Δ.</li><li>Form Δx, Δy, Δz.</li><li>Evaluate.</li><li>Divide by Δ.</li><li>Check original equations.</li></ol></div>
+    <div class="card third"><h3>Vector application</h3><ol><li>Write components.</li><li>Choose dot or cross product.</li><li>Calculate.</li><li>State direction/unit.</li></ol></div>
+    <div class="card third"><h3>Integration</h3><ol><li>Simplify.</li><li>Identify standard/substitution/parts.</li><li>Integrate.</li><li>Add C or apply limits.</li><li>Differentiate to check.</li></ol></div>
+    <div class="card third"><h3>Differential equation</h3><ol><li>Identify separable or linear form.</li><li>Apply method.</li><li>Integrate.</li><li>Add C.</li><li>Use condition and verify.</li></ol></div>
+  </div>
+</section>
+
+<section class="section" id="diagram-bank">
+  <div class="section-head"><span class="eyebrow">Important Diagram and Graph Bank</span><h2>Visual ideas to reproduce in answers</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Visual</th><th>Must show</th><th>Why it matters</th></tr></thead><tbody>
+    <tr><td>Matrix multiplication</td><td>Row of first matrix, column of second, product entry</td><td>Prevents order mistakes</td></tr><tr><td>Parallelogram law</td><td>a, b and resultant a+b</td><td>Shows vector addition geometrically</td></tr><tr><td>Dot product angle</td><td>Two vectors and included angle θ</td><td>Connects product with projection/work</td></tr><tr><td>Cross product / moment</td><td>r, F and perpendicular moment direction</td><td>Shows right-hand rule and torque</td></tr><tr><td>Area under curve</td><td>Curve, axes, limits and shaded region</td><td>Helps choose correct integral</td></tr><tr><td>Linear DE flow</td><td>Standard form → IF → solution formula</td><td>Organises steps</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="solved-bank">
+  <div class="section-head"><span class="eyebrow">Solved Problem Bank</span><h2>Additional examination-style worked examples</h2></div>
+  <div class="solution"><h4>S1. Solve two equations by inverse method</h4><p>2x+3y=13, x+2y=8.</p><p>A=[2 3;1 2], |A|=1, A⁻¹=[2 -3;-1 2].</p><div class="formula">X=A⁻¹B=[2 -3;-1 2][13;8]=[2;3]</div><p class="line"><b>Answer:</b> x=2, y=3.</p></div>
+  <div class="solution"><h4>S2. Cramer’s rule</h4><p>Solve x+y+z=6, x-y+z=2, 2x+y-z=1.</p><p>Δ=6, Δx=6, Δy=12, Δz=18.</p><p class="line"><b>Answer:</b> x=1, y=2, z=3.</p></div>
+  <div class="solution"><h4>S3. Work by a force</h4><p>F=5i+2j-k N, s=3i-j+4k m.</p><div class="formula">W=F·s=15-2-4=9 J</div></div>
+  <div class="solution"><h4>S4. Moment</h4><p>r=i+2j+3k m, F=2i-j+k N.</p><div class="formula">M=r×F=5i+5j-5k N·m</div></div>
+  <div class="solution"><h4>S5. Substitution</h4><p>∫x/√(x²+4) dx. Let u=x²+4, du=2x dx.</p><div class="formula">=½∫u⁻¹/²du=√u+C=√(x²+4)+C</div></div>
+  <div class="solution"><h4>S6. By parts</h4><p>∫x ln x dx. Let u=ln x, dv=x dx.</p><div class="formula">=x²ln x/2 - ½∫x dx = x²ln x/2 - x²/4 + C</div></div>
+  <div class="solution"><h4>S7. Definite integral</h4><p>∫₀^(π/2) sin x dx=[-cos x]₀^(π/2)=1.</p></div>
+  <div class="solution"><h4>S8. Area</h4><p>Area under y=4-x² from x=0 to x=2:</p><div class="formula">A=∫₀²(4-x²)dx=[4x-x³/3]₀²=16/3 square units</div></div>
+  <div class="solution"><h4>S9. Separable DE</h4><p>dy/dx=x/y.</p><div class="formula">y dy=x dx ⇒ y²/2=x²/2+C ⇒ y²=x²+C</div></div>
+  <div class="solution"><h4>S10. Linear DE</h4><p>dy/dx+2y=4.</p><p>IF=e²ˣ.</p><div class="formula">ye²ˣ=∫4e²ˣdx+C=2e²ˣ+C ⇒ y=2+Ce⁻²ˣ</div></div>
+</section>
+
+<section class="section" id="expected">
+  <div class="section-head"><span class="eyebrow">Expected Questions</span><h2>Module-wise high-priority practice</h2><p>These are fresh syllabus-based practice patterns, not a claim about the exact examination paper.</p></div>
+  <div class="grid">
+    <div class="card blue"><h3>Module 1</h3><ul><li>Define determinant, matrix and order.</li><li>Evaluate second- and third-order determinants.</li><li>List and identify matrix types.</li><li>Add, subtract and multiply matrices.</li><li>Solve three equations by Cramer’s rule.</li><li>Solve two equations using inverse matrix.</li></ul></div>
+    <div class="card cyan"><h3>Module 2</h3><ul><li>Differentiate scalar and vector quantities.</li><li>Find magnitude and unit vector.</li><li>Find vector between two points.</li><li>Use dot product to find angle or work.</li><li>Use cross product to find area or moment.</li><li>Interpret product sign and direction.</li></ul></div>
+    <div class="card green"><h3>Module 3</h3><ul><li>Explain integration as reverse differentiation.</li><li>State standard integral results.</li><li>Solve polynomial and trigonometric integrals.</li><li>Apply substitution.</li><li>Apply integration by parts.</li><li>Evaluate definite integrals.</li></ul></div>
+    <div class="card violet"><h3>Module 4</h3><ul><li>Set limits from a graph.</li><li>Find area bounded by curve and axes.</li><li>Define order and degree.</li><li>Solve separable equations.</li><li>Solve linear first-order equations.</li><li>Apply an initial condition.</li></ul></div>
+  </div>
+</section>
+
+<section class="section" id="practice">
+  <div class="section-head"><span class="eyebrow">Practice Section</span><h2>Objective, short-answer and problem practice</h2></div>
+  <h3>A. Objective questions</h3>
+  <ol>
+    <li>The determinant of [2 3;1 4] is: (a) 5 (b) 8 (c) 11 (d) -5.</li>
+    <li>A matrix with all diagonal entries 1 and all others 0 is: (a) zero (b) identity (c) row (d) rectangular.</li>
+    <li>If a·b=0 for nonzero vectors, they are: (a) parallel (b) equal (c) perpendicular (d) opposite.</li>
+    <li>|a×b| gives the area of a: (a) triangle (b) circle (c) parallelogram (d) rectangle only.</li>
+    <li>∫dx/x equals: (a) 1/x² (b) ln|x|+C (c) x²/2 (d) eˣ.</li>
+    <li>The I.F. of dy/dx+3y=x is: (a) eˣ (b) e³ˣ (c) 3eˣ (d) x³.</li>
+  </ol>
+  <h3>B. Short problems</h3>
+  <ol start="7"><li>Evaluate |1 2 0; 3 -1 2; 2 1 1|.</li><li>Find AB for A=[1 2;0 3], B=[2 1;4 -1].</li><li>Find a unit vector along 2i-2j+k.</li><li>Find work when F=2i+3j N and s=4i-j m.</li><li>Evaluate ∫(4x³+2/x)dx.</li><li>Evaluate ∫₀¹(x²+1)dx.</li><li>Find area under y=2x from x=0 to x=3.</li><li>Solve dy/dx=3x²y.</li><li>Solve dy/dx+y=1.</li></ol>
+  <h3>C. Long/application problems</h3>
+  <ol start="16"><li>Solve x+y+z=6, 2x+y-z=1, x-y+2z=5 by Cramer’s rule.</li><li>Solve 4x+y=11, 2x+3y=13 using inverse matrix.</li><li>For r=2i-j+k and F=i+3j-2k, find moment and magnitude.</li><li>Evaluate ∫x²eˣdx using repeated integration by parts.</li><li>Find the area bounded by y=x(4-x), the x-axis, x=0 and x=4.</li></ol>
+  <details><summary>Practice final answers</summary><ol><li>5</li><li>Identity</li><li>Perpendicular</li><li>Parallelogram</li><li>ln|x|+C</li><li>e³ˣ</li><li>-1</li><li>[10 -1;12 -3]</li><li>(2i-2j+k)/3</li><li>5 J</li><li>x⁴+2ln|x|+C</li><li>4/3</li><li>9 square units</li><li>y=Ceˣ³</li><li>y=1+Ce⁻ˣ</li><li>x=1, y=2, z=3</li><li>x=2, y=3</li><li>M=-i+5j+7k; |M|=√75</li><li>eˣ(x²-2x+2)+C</li><li>32/3 square units</li></ol></details>
+  <h3>Self-assessment</h3><ul class="checklist"><li>I can identify the order and type of a matrix.</li><li>I can evaluate a 3×3 determinant without sign errors.</li><li>I can decide between dot and cross product.</li><li>I can choose standard, substitution or by-parts integration.</li><li>I can read integration limits from a graph.</li><li>I can distinguish separable and linear differential equations.</li></ul>
+</section>
+
+<section class="section" id="revision">
+  <div class="section-head"><span class="eyebrow">Quick Revision</span><h2>Last-day revision sheet</h2></div>
+  <div class="quick-strip">
+    <div class="quick"><b>Determinant</b><br>2×2: ad-bc; 3×3: + - + expansion.</div><div class="quick"><b>Inverse</b><br>Exists only if determinant is nonzero.</div><div class="quick"><b>Matrix product</b><br>Inner dimensions must match.</div><div class="quick"><b>Dot product</b><br>Scalar result; angle and work.</div><div class="quick"><b>Cross product</b><br>Vector result; area and moment.</div><div class="quick"><b>Integration</b><br>Reverse differentiation; include +C.</div><div class="quick"><b>Definite integral</b><br>F(b)-F(a), no +C in final value.</div><div class="quick"><b>Area</b><br>Sketch, select limits, integrate positive region.</div><div class="quick"><b>Separable DE</b><br>Separate x and y before integrating.</div><div class="quick"><b>Linear DE</b><br>Standard form, I.F., then solution formula.</div>
+  </div>
+  <div class="callout mistake"><b>Ten common mistakes</b><div>Wrong cofactor sign; changing variable order in Cramer’s rule; multiplying matrices entry-by-entry; forgetting |A|≠0; confusing dot and cross products; omitting units for work/moment; forgetting +C; incorrect substitution differential; applying limits in reverse; using the linear-DE formula before standardising the equation.</div></div>
+</section>
+
+<section class="section" id="model-paper">
+  <div class="section-head"><span class="eyebrow">Fresh Syllabus-Based Model</span><h2>Model Question Paper</h2><p>The paper follows the common 75-mark diploma theory structure and is newly written from the official Mathematics II syllabus.</p></div>
+  <div class="paper">
+    <h3>MATHEMATICS II - 2002</h3><p style="text-align:center"><b>Time: 3 Hours &nbsp; | &nbsp; Maximum Marks: 75</b></p>
+    <p><b>Instructions:</b> Answer as directed. Show essential working. Assume suitable missing data only where necessary. Use exact values unless approximation is requested.</p>
+    <div class="part"><h4>PART A <span class="marks">5×1=5</span></h4><p>Answer all questions.</p><ol><li>Evaluate |3 1;2 4|.</li><li>State the condition for the inverse of a square matrix to exist.</li><li>What is the dot product of perpendicular nonzero vectors?</li><li>Write ∫cos x dx.</li><li>State the integrating factor of dy/dx+P(x)y=Q(x).</li></ol></div>
+    <div class="part"><h4>PART B <span class="marks">5×8=40</span></h4><p>Answer any five questions.</p><ol start="6"><li>(a) Evaluate |2 1 3;1 0 2;3 2 1|. (b) Add and multiply A=[1 2;3 1], B=[2 0;1 4].</li><li>Solve x+y+z=6, 2x-y+z=3, x+2y-z=2 by Cramer’s rule.</li><li>For a=2i-j+2k and b=i+3j-k, find a·b, a×b and the angle between them.</li><li>A force F=3i+4j-2k N acts at position r=2i-j+k m. Find the moment about the origin and its magnitude.</li><li>Evaluate (a) ∫2x(x²+4)³dx and (b) ∫xeˣdx.</li><li>Evaluate (a) ∫₀²(x²+2x)dx and (b) find the area under y=3x from x=0 to x=2.</li><li>Solve (a) dy/dx=xy and (b) dy/dx+2y=6.</li></ol></div>
+    <div class="part"><h4>PART C <span class="marks">2×15=30</span></h4><p>Answer any two questions.</p><ol start="13"><li>(a) Explain important matrix types with examples. (b) Solve 3x+y=7 and 2x+y=5 by inverse method. (c) Verify the answer.</li><li>(a) Explain scalar and vector products. (b) A force F=4i-2j+3k N moves a point through s=2i+j-4k m; find work. (c) At r=i+2j m, a force 3i+4j N acts; find moment.</li><li>(a) Evaluate ∫x sin x dx. (b) Find the area bounded by y=4-x², the x-axis and x=0 in the first quadrant. (c) Solve dy/dx+(1/x)y=x², x&gt;0.</li></ol></div>
+  </div>
+</section>
+
+<section class="section" id="model-answers">
+  <div class="section-head"><span class="eyebrow">Complete Model Answers</span><h2>Full procedures and final answers</h2></div>
+  <h3>Part A</h3>
+  <div class="answer"><b>1.</b> 3×4-1×2=10.</div><div class="answer"><b>2.</b> The determinant must be nonzero: |A|≠0.</div><div class="answer"><b>3.</b> Zero.</div><div class="answer"><b>4.</b> sin x+C.</div><div class="answer"><b>5.</b> e<sup>∫P(x)dx</sup>.</div>
+  <h3>Part B</h3>
+  <div class="solution"><h4>6. Determinant and matrix operations</h4><p>(a) Δ=2(0×1-2×2)-1(1×1-2×3)+3(1×2-0×3)=-8+5+6=3.</p><p>(b) A+B=[3 2;4 5].</p><div class="formula">AB=[1×2+2×1, 1×0+2×4; 3×2+1×1, 3×0+1×4]=[4 8;7 4]</div></div>
+  <div class="solution"><h4>7. Cramer’s rule</h4><p>Δ=7, Δx=7, Δy=14, Δz=21.</p><p class="line"><b>Answer:</b> x=1, y=2, z=3. Substitution satisfies all three equations.</p></div>
+  <div class="solution"><h4>8. Vector products and angle</h4><p>a·b=2×1+(-1)×3+2×(-1)=-3.</p><div class="formula">a×b = -5i+4j+7k</div><p>|a|=3, |b|=√11. cosθ=-3/(3√11)=-1/√11.</p><p class="line"><b>Answer:</b> θ=cos⁻¹(-1/√11).</p></div>
+  <div class="solution"><h4>9. Moment</h4><div class="formula">M=r×F=<span class="matrix" style="--cols:3"><span>i</span><span>j</span><span>k</span><span>2</span><span>-1</span><span>1</span><span>3</span><span>4</span><span>-2</span></span>=-2i+7j+11k</div><p>|M|=√(4+49+121)=√174 N·m.</p></div>
+  <div class="solution"><h4>10. Integration</h4><p>(a) u=x²+4, du=2x dx.</p><div class="formula">∫u³du=u⁴/4+C=(x²+4)⁴/4+C</div><p>(b) u=x, dv=eˣdx.</p><div class="formula">∫xeˣdx=xeˣ-eˣ+C=eˣ(x-1)+C</div></div>
+  <div class="solution"><h4>11. Definite integral and area</h4><p>(a) [x³/3+x²]₀²=8/3+4=20/3.</p><p>(b) A=∫₀²3x dx=[3x²/2]₀²=6 square units.</p></div>
+  <div class="solution"><h4>12. Differential equations</h4><p>(a) dy/y=x dx ⇒ ln|y|=x²/2+C ⇒ y=Ce<sup>x²/2</sup>.</p><p>(b) IF=e²ˣ. ye²ˣ=∫6e²ˣdx+C=3e²ˣ+C. Hence y=3+Ce⁻²ˣ.</p></div>
+  <h3>Part C</h3>
+  <div class="solution"><h4>13. Matrices and inverse method</h4><p><b>(a)</b> A row matrix has one row; column matrix one column; rectangular matrix unequal rows and columns; square matrix equal rows and columns; zero matrix all entries zero; diagonal matrix non-diagonal entries zero; scalar matrix equal diagonal entries; identity matrix diagonal entries one and other entries zero.</p><p><b>(b)</b> A=[3 1;2 1], X=[x;y], B=[7;5]. |A|=1.</p><div class="formula">A⁻¹=[1 -1;-2 3], X=A⁻¹B=[2;1]</div><p><b>(c) Verification:</b> 3(2)+1=7 and 2(2)+1=5. Therefore x=2,y=1.</p></div>
+  <div class="solution"><h4>14. Scalar/vector products, work and moment</h4><p><b>(a)</b> Dot product a·b=|a||b|cosθ is a scalar and is used for angle, projection and work. Cross product a×b=|a||b|sinθ n̂ is a vector perpendicular to both and is used for area and moment.</p><p><b>(b)</b> W=F·s=4×2+(-2)×1+3×(-4)=-6 J.</p><p><b>(c)</b> r= i+2j, F=3i+4j.</p><div class="formula">M=r×F=(1×4-2×3)k=-2k N·m</div><p>The negative k direction indicates clockwise sense in the xy-plane.</p></div>
+  <div class="solution"><h4>15. Integration, area and linear differential equation</h4><p><b>(a)</b> u=x,dv=sin x dx. Then v=-cos x.</p><div class="formula">∫x sin x dx=-x cos x+sin x+C</div><p><b>(b)</b> In the first quadrant, y=4-x² meets x-axis at x=2.</p><div class="formula">A=∫₀²(4-x²)dx=[4x-x³/3]₀²=16/3 square units</div><p><b>(c)</b> P=1/x, IF=e<sup>∫dx/x</sup>=x.</p><div class="formula">xy=∫x·x²dx+C=x⁴/4+C ⇒ y=x³/4+C/x</div></div>
+</section>
+
+<section class="section" id="answer-key">
+  <div class="section-head"><span class="eyebrow">Answer Key</span><h2>Compact answer index</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Area</th><th>Key answers / checks</th></tr></thead><tbody>
+    <tr><td>Module 1</td><td>Determinant sign pattern + - +; AB exists when inner dimensions match; inverse exists for |A|≠0.</td></tr>
+    <tr><td>Module 2</td><td>a·b scalar; a×b vector; work=F·s; moment=r×F.</td></tr>
+    <tr><td>Module 3</td><td>Always add C to indefinite integrals; definite integral uses upper minus lower.</td></tr>
+    <tr><td>Module 4</td><td>Area needs graph and limits; separable equations separate variables; linear equations use IF.</td></tr>
+    <tr><td>Practice MCQ</td><td>1-a, 2-b, 3-c, 4-c, 5-b, 6-b.</td></tr>
+  </tbody></table></div>
+</section>
+
+<section class="section" id="references">
+  <div class="section-head"><span class="eyebrow">Official References</span><h2>Textbooks and online resource guidance</h2></div>
+  <div class="table-wrap"><table><thead><tr><th>Code</th><th>Reference</th></tr></thead><tbody>
+    <tr><td>T1</td><td>B. S. Grewal, <i>Higher Engineering Mathematics</i>, Khanna Publishers, New Delhi, 40th Edition, 2007.</td></tr>
+    <tr><td>R1</td><td>G. B. Thomas and R. L. Finney, <i>Calculus and Analytic Geometry</i>, Addison Wesley, 9th Edition, 1995.</td></tr>
+    <tr><td>R2</td><td>Reena Garg, <i>Engineering Mathematics</i>, Khanna Publishing House, New Delhi, Revised Edition, 2018.</td></tr>
+    <tr><td>R3</td><td>S. S. Sabharwal and Sunita Jain, <i>Applied Mathematics, Vol. I &amp; II</i>, Eagle Parkashan, Jalandhar.</td></tr>
+  </tbody></table></div>
+  <div class="callout insight"><b>Online resources listed by the syllabus</b><div>Use e-books, e-tools, learning mathematics software and suitable mathematics websites for additional visualisation and practice. The official syllabus does not specify individual web addresses.</div></div>
+</section>
+
+<section class="section" id="checklist">
+  <div class="section-head"><span class="eyebrow">Final Exam Revision Checklist</span><h2>Before entering the examination hall</h2></div>
+  <div class="grid">
+    <div class="card"><h3>Concept checklist</h3><ul class="checklist"><li>Determinant order and 3×3 sign pattern</li><li>Matrix types and multiplication condition</li><li>Dot versus cross product</li><li>Standard integrals and method selection</li><li>Area limits from graph</li><li>Separable versus linear DE</li></ul></div>
+    <div class="card"><h3>Presentation checklist</h3><ul class="checklist"><li>Write formula before substitution</li><li>Keep variable order consistent</li><li>Show vector units and direction</li><li>Add +C where required</li><li>Apply upper minus lower limit</li><li>Box the final answer and verify</li></ul></div>
+  </div>
+  <div class="callout remember"><b>Final reminder</b><div>Mathematics marks are earned through correct method and visible working. Even when the final arithmetic is wrong, a clearly stated formula and correct intermediate steps may receive partial credit.</div></div>
+</section>
+
+<footer><b>Mathematics II • Course 2002</b><br>Standalone student handbook prepared from the official syllabus. Use the Download as PDF button for an offline A4 copy.</footer>
+</main></div>
+<button class="backtop" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+/* Lightweight offline interactions */
+const progress=document.getElementById('progress');
+const navLinks=[...document.querySelectorAll('.nav-scroll a')];
+const sections=navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
+function updateScroll(){
+  const h=document.documentElement.scrollHeight-innerHeight;
+  progress.style.width=(h>0?(scrollY/h)*100:0)+'%';
+  let current='';
+  for(const s of sections){if(s.getBoundingClientRect().top<=150)current='#'+s.id;}
+  navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')===current));
+}
+addEventListener('scroll',updateScroll,{passive:true});updateScroll();
+</script>
+
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
+</body>
+</html>

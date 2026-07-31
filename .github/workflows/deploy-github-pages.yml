@@ -1,0 +1,50 @@
+name: Deploy static site to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages-production
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate, validate and optimize public artifact
+        run: |
+          GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
+          python tools/generate_sitemap.py
+          python tools/site_quality_gate.py
+          python tools/build_public_site.py --target _site
+          test -f _site/build-optimization.json
+          grep -q 'assets/build/home.' _site/index.html
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy GitHub Pages artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,200 @@
+name: Daily Good Morning Notification
+
+on:
+  schedule:
+    # 07:00 AM IST = 01:30 UTC
+    - cron: "30 1 * * *"
+    # 09:00 AM IST = 03:30 UTC
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+    inputs:
+      notification_mode:
+        description: "Which notification to send?"
+        required: true
+        default: "Auto"
+        type: choice
+        options:
+          - "Auto"
+          - "Good Morning"
+          - "Special Day"
+
+permissions:
+  contents: read
+
+jobs:
+  send-notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install FCM sender dependencies
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Send notification
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          NOTIFICATION_MODE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.notification_mode || 'Auto' }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+        shell: python
+        run: |
+          import json
+          import os
+          import sys
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          import requests
+          from google.auth.transport.requests import Request
+          from google.oauth2 import service_account
+
+          raw = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
+          if not raw.strip():
+              raise SystemExit("ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is empty or unavailable.")
+
+          try:
+              account = json.loads(raw)
+          except json.JSONDecodeError as exc:
+              raise SystemExit(f"ERROR: FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON: {exc}")
+
+          required = ["project_id", "client_email", "private_key"]
+          missing = [key for key in required if not account.get(key)]
+          if missing:
+              raise SystemExit(
+                  "ERROR: Firebase service account JSON is missing required field(s): "
+                  + ", ".join(missing)
+              )
+
+          project_id = account["project_id"]
+
+          # Determine the date/time in IST (Asia/Kolkata)
+          today_ist_dt = datetime.now(ZoneInfo("Asia/Kolkata"))
+          today_ist = today_ist_dt.date()
+          date_key = today_ist.isoformat()
+          mm_dd_key = f"{today_ist.month:02d}-{today_ist.day:02d}"
+
+          # Load the notifications database
+          db_path = "notifications/notifications_db.json"
+          try:
+              with open(db_path, "r", encoding="utf-8") as f:
+                  db = json.load(f)
+          except Exception as exc:
+              raise SystemExit(f"ERROR: Failed to load notification database: {exc}")
+
+          good_morning_list = db.get("good_morning", [])
+          special_day_list = db.get("special_day", [])
+
+          mode = os.environ.get("NOTIFICATION_MODE", "Auto")
+          schedule_cron = os.environ.get("EVENT_SCHEDULE", "")
+
+          print(f"Trigger Mode: {mode}")
+          print(f"Schedule Cron: {schedule_cron}")
+          print(f"Current IST Date & Time: {today_ist_dt}")
+          print(f"Date Key (YYYY-MM-DD): {date_key}")
+          print(f"MM-DD Key: {mm_dd_key}")
+
+          # Resolve "Auto" mode to a specific notification type
+          if mode == "Auto":
+              if schedule_cron == "30 1 * * *":
+                  resolved_mode = "Good Morning"
+              elif schedule_cron == "30 3 * * *":
+                  resolved_mode = "Special Day"
+              else:
+                  # Fallback for manual run under "Auto" mode based on local IST hour
+                  ist_hour = today_ist_dt.hour
+                  print(f"Auto mode fallback checking IST hour: {ist_hour}")
+                  if ist_hour in [7, 8]:
+                      resolved_mode = "Good Morning"
+                  elif ist_hour in [9, 10]:
+                      resolved_mode = "Special Day"
+                  else:
+                      # If outside typical slots, check if a special day exists today
+                      has_special_day = any(item.get("date") == mm_dd_key for item in special_day_list)
+                      if has_special_day:
+                          resolved_mode = "Special Day"
+                      else:
+                          resolved_mode = "Good Morning"
+          else:
+              resolved_mode = mode
+
+          print(f"Resolved Mode: {resolved_mode}")
+
+          # Retrieve message details
+          if resolved_mode == "Good Morning":
+              if not good_morning_list:
+                  raise SystemExit("ERROR: Good Morning list is empty in the database.")
+              index = today_ist.toordinal() % len(good_morning_list)
+              selected = good_morning_list[index]
+              title = selected.get("title")
+              body = selected.get("body")
+              notification_type = selected.get("notification_type", "daily-motivation-7am")
+              category = selected.get("category", "Good Morning")
+              target_url = selected.get("url", "https://polypmna.dpdns.org/")
+              collapse_key = "daily-good-morning-7am"
+
+          elif resolved_mode == "Special Day":
+              matched_events = [item for item in special_day_list if item.get("date") == mm_dd_key]
+              if not matched_events:
+                  print(f"No special event found for date: {mm_dd_key}. Skipping notification.")
+                  sys.exit(0)
+              selected = matched_events[0]
+              title = selected.get("title")
+              body = selected.get("body")
+              notification_type = selected.get("notification_type", "special-day-9am")
+              category = selected.get("category", "Special Day")
+              target_url = selected.get("url", "https://polypmna.dpdns.org/")
+              collapse_key = "special-day-9am"
+
+          else:
+              raise SystemExit(f"ERROR: Unknown resolved mode: {resolved_mode}")
+
+          if not title or not body:
+              raise SystemExit("ERROR: Selected notification has empty title or body.")
+
+          # Authenticate with Google API
+          credentials = service_account.Credentials.from_service_account_info(
+              account,
+              scopes=["https://www.googleapis.com/auth/firebase.messaging"],
+          )
+          credentials.refresh(Request())
+
+          if not credentials.token:
+              raise SystemExit("ERROR: Google OAuth token was not obtained.")
+
+          message = {
+              "topic": "all-users",
+              "data": {
+                  "title": title,
+                  "body": body,
+                  "url": target_url,
+                  "contentType": "daily-good-morning" if resolved_mode == "Good Morning" else "special-day",
+                  "notificationType": notification_type,
+                  "date": date_key,
+                  "category": category,
+              },
+              "android": {
+                  "priority": "high",
+                  "ttl": "86400s",
+                  "collapse_key": collapse_key,
+              },
+          }
+
+          endpoint = f"https://fcm.googleapis.com/v1/projects/{project_id}/messages:send"
+          print(f"Sending FCM message payload: {json.dumps(message, ensure_ascii=False, indent=2)}")
+
+          response = requests.post(
+              endpoint,
+              headers={
+                  "Authorization": f"Bearer {credentials.token}",
+                  "Content-Type": "application/json; charset=UTF-8",
+              },
+              json={"message": message},
+              timeout=30,
+          )
+
+          print(f"FCM HTTP status: {response.status_code}")
+          if not response.ok:
+              print(response.text)
+              sys.exit(1)
+
+          print("SUCCESS: Notification accepted by FCM.")
+          print(response.text)

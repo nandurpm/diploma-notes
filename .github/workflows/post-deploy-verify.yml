@@ -1,0 +1,76 @@
+name: Post-deploy verification
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-deploy-verification
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify production commit and page signatures
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.request
+
+          base = "https://polypmna.dpdns.org"
+          expected = os.environ["EXPECTED_SHA"]
+          signatures = {
+              "/": ["Revision 2026", "Ask POLY AI", "POLY PMNA"],
+              "/revision-2026.html": ["Choose your department", "38", "Revision 2026"],
+              "/ask-poly.html": ["Ask POLY AI", "chatForm", "ask-poly-config.js"],
+              "/daily-quiz.html": ["Revision 2021 Mock Exams", "supabase-url"],
+          }
+          last_error = ""
+
+          for attempt in range(1, 31):
+              try:
+                  request = urllib.request.Request(
+                      base + f"/build-info.json?verify={attempt}",
+                      headers={"User-Agent": "POLY-PMNA-Deploy-Verify/2.0", "Cache-Control": "no-cache"},
+                  )
+                  with urllib.request.urlopen(request, timeout=20) as response:
+                      info = json.loads(response.read().decode("utf-8"))
+                  live_sha = str(info.get("commit") or "")
+                  if live_sha != expected:
+                      raise RuntimeError(f"live commit {live_sha or 'missing'} != expected {expected}")
+
+                  for path, required in signatures.items():
+                      request = urllib.request.Request(
+                          base + path + f"?verify={expected[:12]}",
+                          headers={"User-Agent": "POLY-PMNA-Deploy-Verify/2.0", "Cache-Control": "no-cache"},
+                      )
+                      with urllib.request.urlopen(request, timeout=25) as response:
+                          if response.status != 200:
+                              raise RuntimeError(f"{path} returned HTTP {response.status}")
+                          text = response.read().decode("utf-8", errors="replace")
+                      missing = [value for value in required if value not in text]
+                      if missing:
+                          raise RuntimeError(f"{path} is missing signatures: {missing}")
+
+                  print(json.dumps({"verifiedCommit": live_sha, "pages": list(signatures)}, indent=2))
+                  raise SystemExit(0)
+              except Exception as error:
+                  last_error = f"Attempt {attempt}: {type(error).__name__}: {error}"
+                  print(last_error)
+                  if attempt < 30:
+                      time.sleep(20)
+
+          raise SystemExit(f"Deployment verification failed: {last_error}")
+          PY

@@ -1,0 +1,229 @@
+/* Purpose: Fixed site header - Descriptive comment added for clarity */
+/* Fixed, responsive Polytechnic Study Hub header. Scoped to portal pages so lesson navigation is not broken. */
+:root{--fixed-site-header-height:0px;--fixed-site-header-gap:10px}
+.skip-link,.new-badge{display:none!important}
+.quiz-page #openReview,.quiz-page #reviewView{display:none!important}
+.quiz-page #portalView>.hero>p:not(.eyebrow){font-size:0!important;line-height:0!important;margin-bottom:0!important}
+.quiz-page #portalView>.hero>p:not(.eyebrow)::after{content:"Choose daily practice, official-pattern mock examination, or result dashboard.";display:block;font-size:1rem;line-height:1.5;color:#eaf0ff;margin-top:8px}
+html{scroll-padding-top:calc(var(--fixed-site-header-height) + 16px)!important}
+body.has-fixed-site-header{padding-top:calc(var(--fixed-site-header-height) + var(--fixed-site-header-gap))!important}
+body.has-fixed-site-header [id]{scroll-margin-top:calc(var(--fixed-site-header-height) + 16px)}
+html.polytechnic-native-app{--fixed-site-header-height:0px!important;--fixed-site-header-gap:0px!important;scroll-padding-top:0!important}
+html.polytechnic-native-app .topbar,html.polytechnic-native-app .skip-link{display:none!important}
+html.polytechnic-native-app .app-download{display:none!important}
+html.polytechnic-native-app .app-download[data-app-button-state="update"]{display:inline-flex!important}
+html.polytechnic-native-app body.has-fixed-site-header{padding-top:0!important}
+html.poly-lesson-page{--fixed-site-header-height:0px!important;--fixed-site-header-gap:0px!important;scroll-padding-top:0!important}
+html.poly-lesson-page body{padding-top:0!important}
+
+body.portal-page .topbar{position:fixed!important;inset:0 0 auto 0!important;z-index:10000!important;display:grid!important;grid-template-columns:auto minmax(220px,1fr) max-content!important;align-items:center!important;gap:10px!important;width:100%!important;max-width:none!important;margin:0!important;padding:8px 14px!important;border-radius:0 0 28px 28px!important;transform:translateZ(0);backface-visibility:hidden;isolation:isolate}
+body.portal-page .progress,body.portal-page .reading-progress,body.portal-page #readingProgress{z-index:10020!important}
+body.portal-page .brand{min-width:0!important;display:inline-flex!important;align-items:center!important;gap:8px!important;color:inherit!important}
+body.portal-page .brand>.brand-symbol+.brand-copy,body.portal-page .brand>.brand-symbol+span{display:grid!important;width:auto!important;height:auto!important;min-width:0!important;padding:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:inherit!important;line-height:1.1!important;animation:none!important;transform:none!important}
+body.portal-page .brand strong,body.portal-page .brand small,body.portal-page .brand>.brand-symbol+span strong,body.portal-page .brand>.brand-symbol+span small{max-width:100%!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important}
+body.portal-page .site-notice{min-width:0!important;width:100%!important;color:#0f3f8a}
+body.portal-page .site-notice::before{display:none!important;content:none!important}
+body.portal-page .site-notice>.site-notice-label{flex:0 0 auto!important;display:inline-flex!important;align-items:center!important;width:auto!important;margin:0 8px 0 0!important;border-radius:999px!important;color:#fff!important;background:linear-gradient(135deg,#1d4ed8,#0f9fba)!important;box-shadow:0 10px 22px rgba(29,78,216,.18)!important;animation:none!important;transform:none!important;white-space:nowrap!important}
+body.portal-page .site-notice>.site-notice-viewport{flex:1 1 auto!important;display:block!important;width:auto!important;min-width:0!important;height:auto!important;padding:0!important;overflow:hidden!important;background:transparent!important;box-shadow:none!important;animation:none!important;transform:none!important}
+@keyframes siteInstructionScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+body.portal-page .site-notice .site-notice-track{display:inline-flex!important;align-items:center!important;width:max-content!important;min-width:100%!important;height:auto!important;padding-left:0!important;gap:16px!important;background:transparent!important;box-shadow:none!important;white-space:nowrap!important;animation:siteInstructionScroll 42s linear infinite!important}
+body.portal-page .topbar .navlinks{min-width:0!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important}
+body.portal-page .topbar .navlinks a{box-sizing:border-box!important;white-space:nowrap!important;transform:none!important;border-width:1px!important;border-style:solid!important}
+body.portal-page .topbar .navlinks a:hover,body.portal-page .topbar .navlinks a.active{transform:none!important}
+body.portal-page .topbar .navlinks a.active{border-color:transparent!important}
+
+.native-app-update-banner{position:sticky;top:0;z-index:9999;display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:10px;margin:0;padding:12px 14px;border-bottom:1px solid rgba(37,99,235,.2);background:linear-gradient(135deg,#eff6ff,#eef2ff);box-shadow:0 8px 22px rgba(15,23,42,.12);color:#10213c}
+.native-app-update-banner[hidden]{display:none!important}.native-app-update-copy{display:grid;min-width:0;gap:2px}.native-app-update-copy strong{font-size:.92rem}.native-app-update-message{overflow:hidden;color:#526078;font-size:.78rem;text-overflow:ellipsis;white-space:nowrap}.native-app-update-action,.native-app-update-dismiss{min-height:40px;border-radius:12px;white-space:nowrap}.native-app-update-action{padding:9px 14px}.native-app-update-dismiss{padding:8px 10px;border:0;background:transparent;color:#334155;font:inherit;font-weight:700}
+.service-recovery-card{grid-column:1/-1;padding:22px;border:1px solid rgba(37,99,235,.2);border-radius:18px;background:#f8fbff;color:#10213c}
+
+@media screen and (min-width:761px){
+  body.portal-page .topbar{min-height:64px!important;max-height:64px!important;padding:8px 14px!important;gap:10px!important;align-items:center!important;overflow:hidden!important}
+  body.portal-page .topbar .brand{height:44px!important;min-height:44px!important;gap:8px!important;align-items:center!important}
+  body.portal-page .topbar .brand .brand-symbol,body.portal-page .topbar .brand>span:first-child{width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;border-radius:14px!important;font-size:1.18rem!important}
+  body.portal-page .topbar .brand strong{font-size:.95rem!important;line-height:1.05!important;white-space:nowrap!important}
+  body.portal-page .topbar .site-notice{height:42px!important;min-height:42px!important;max-height:42px!important}
+  body.portal-page .topbar .site-notice>.site-notice-label{height:42px!important;min-height:42px!important;padding:0 14px!important;font-size:.82rem!important}
+  body.portal-page .topbar .navlinks{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;justify-content:flex-end!important;gap:8px!important;min-height:42px!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important}
+  body.portal-page .topbar .navlinks::-webkit-scrollbar{display:none!important}
+  body.portal-page .topbar .navlinks a{height:42px!important;min-height:42px!important;max-height:42px!important;padding:0 14px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;font-size:.88rem!important;line-height:1!important;white-space:nowrap!important;transform:none!important;flex:0 0 auto!important}
+  body.portal-page .topbar .menu-toggle{height:42px!important;min-height:42px!important;padding:0 16px!important;font-size:.88rem!important;line-height:1!important}
+}
+
+@media (max-width:1100px){
+  body.portal-page .topbar{grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important;padding:10px!important;max-height:100svh;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+  body.portal-page .brand{grid-column:1!important;grid-row:1!important;width:100%!important;max-width:100%!important}body.portal-page .brand strong{max-width:calc(100vw - 118px)!important}
+  body.portal-page .menu-toggle{grid-column:2!important;grid-row:1!important;order:2!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-height:42px!important;padding:9px 14px!important;white-space:nowrap!important}
+  body.portal-page .site-notice{grid-column:1/-1!important;grid-row:2!important;order:3!important;width:100%!important;height:38px!important}body.portal-page .site-notice>.site-notice-label{padding:7px 11px!important;font-size:.76rem!important}body.portal-page .site-notice .site-notice-track{font-size:.78rem!important}
+  body.portal-page .topbar .navlinks{grid-column:1/-1!important;grid-row:3!important;order:4!important;display:none!important;width:100%!important;min-width:0!important;padding:4px 0 0!important}body.portal-page .topbar .navlinks.open{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:7px!important}body.portal-page .topbar .navlinks a{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;min-height:40px!important;padding:8px 10px!important;font-size:.78rem!important;text-align:center!important;overflow:hidden!important;text-overflow:ellipsis!important}
+}
+
+@media (max-width:620px){:root{--fixed-site-header-gap:6px}body.portal-page .topbar{padding:8px!important;border-radius:0 0 18px 18px!important}body.portal-page .brand span{width:40px!important;height:40px!important}body.portal-page .brand strong{font-size:.88rem!important;max-width:calc(100vw - 112px)!important}body.portal-page .menu-toggle{min-height:40px!important;padding:8px 12px!important;font-size:.86rem!important}body.portal-page .topbar .navlinks.open{grid-template-columns:1fr!important}.native-app-update-banner{grid-template-columns:minmax(0,1fr) auto}.native-app-update-copy{grid-column:1/-1}.native-app-update-action,.native-app-update-dismiss{width:100%;justify-content:center}}
+
+@media (max-width:760px){html,body{max-width:100%!important;overflow-x:hidden!important}body.portal-page .topbar{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;grid-auto-rows:auto!important;align-items:center!important;width:100%!important;max-width:100%!important;margin:0!important;padding:8px 8px 10px!important;gap:8px!important;border-radius:0 0 18px 18px!important;overflow-x:hidden!important}body.portal-page .topbar .brand{grid-column:1!important;grid-row:1!important;display:flex!important;align-items:center!important;gap:8px!important;width:100%!important;min-width:0!important;max-width:100%!important}body.portal-page .topbar .brand .brand-symbol,body.portal-page .topbar .brand>span:first-child{flex:0 0 42px!important;width:42px!important;height:42px!important;min-width:42px!important;border-radius:14px!important}body.portal-page .topbar .brand strong{display:block!important;max-width:calc(100vw - 155px)!important;overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;font-size:clamp(.92rem,4.2vw,1.18rem)!important;line-height:1.05!important}body.portal-page .topbar .menu-toggle{grid-column:2!important;grid-row:1!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;min-width:76px!important;min-height:44px!important;padding:9px 15px!important;border-radius:999px!important;font-size:1rem!important;line-height:1!important;white-space:nowrap!important}body.portal-page .topbar .site-notice{grid-column:1/-1!important;grid-row:2!important;display:flex!important;align-items:center!important;width:100%!important;max-width:calc(100vw - 16px)!important;min-width:0!important;height:38px!important;margin:0!important;overflow:hidden!important}body.portal-page .topbar .site-notice>.site-notice-label{height:100%!important;padding:0 13px!important;margin:0 7px 0 0!important;display:inline-flex!important;align-items:center!important;font-size:.82rem!important}body.portal-page .topbar .site-notice>.site-notice-viewport{min-width:0!important;overflow:hidden!important}body.portal-page .topbar .site-notice .site-notice-track{font-size:.82rem!important}body.portal-page .topbar .navlinks{grid-column:1/-1!important;grid-row:3!important;display:none!important;width:100%!important;padding-top:3px!important}body.portal-page .topbar .navlinks.open{display:grid!important;grid-template-columns:1fr!important;gap:7px!important}body.portal-page .topbar .navlinks a{min-width:0!important;width:100%!important;min-height:42px!important;justify-content:center!important;padding:10px!important;text-align:center!important;font-size:.86rem!important}}
+
+/* 2026-06-22 final mobile correction: no right/left dropdown. Menu opens as a centered full-width panel under the brand row. */
+@media (max-width:760px){
+  body.portal-page .topbar,
+  html body.portal-page .topbar{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    grid-template-areas:"brand menu" "nav nav"!important;
+    align-items:center!important;
+    justify-items:stretch!important;
+    width:100%!important;
+    max-width:100%!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:10px 12px 12px!important;
+    gap:10px!important;
+    overflow-x:hidden!important;
+    overflow-y:auto!important;
+    border-radius:0 0 22px 22px!important;
+  }
+  body.portal-page .topbar .brand,
+  html body.portal-page .topbar .brand{
+    grid-area:brand!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:100%!important;
+    justify-self:start!important;
+  }
+  body.portal-page .topbar .brand strong,
+  html body.portal-page .topbar .brand strong{
+    max-width:calc(100vw - 150px)!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  body.portal-page .topbar .menu-toggle,
+  html body.portal-page .topbar .menu-toggle{
+    grid-area:menu!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    justify-self:end!important;
+    min-width:86px!important;
+    min-height:46px!important;
+    padding:10px 18px!important;
+    border-radius:999px!important;
+  }
+  body.portal-page .topbar .site-notice,
+  html body.portal-page .topbar .site-notice{
+    display:none!important;
+  }
+  body.portal-page .topbar .navlinks,
+  html body.portal-page .topbar .navlinks,
+  body.portal-page .topbar .navlinks:not(.open),
+  html body.portal-page .topbar .navlinks:not(.open){
+    grid-area:nav!important;
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+    justify-self:center!important;
+    align-self:start!important;
+    display:none!important;
+    width:min(100%,560px)!important;
+    max-width:calc(100vw - 24px)!important;
+    min-width:0!important;
+    margin:0 auto!important;
+    padding:0!important;
+    position:static!important;
+    inset:auto!important;
+    transform:none!important;
+    overflow:visible!important;
+  }
+  body.portal-page .topbar .navlinks.open,
+  html body.portal-page .topbar .navlinks.open{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    justify-items:stretch!important;
+    gap:8px!important;
+    margin:2px auto 0!important;
+    padding:10px!important;
+    border-radius:24px!important;
+    background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(239,247,255,.88))!important;
+    box-shadow:0 18px 42px rgba(15,43,84,.12)!important;
+  }
+  body.portal-page .topbar .navlinks.open a,
+  html body.portal-page .topbar .navlinks.open a{
+    width:100%!important;
+    max-width:100%!important;
+    min-width:0!important;
+    min-height:46px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    padding:11px 14px!important;
+    border-radius:999px!important;
+    text-align:center!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    transform:none!important;
+  }
+}
+
+@media (max-width:380px){
+  body.portal-page .topbar .brand strong,
+  html body.portal-page .topbar .brand strong{max-width:calc(100vw - 136px)!important;font-size:.92rem!important}
+  body.portal-page .topbar .menu-toggle,
+  html body.portal-page .topbar .menu-toggle{min-width:78px!important;padding-inline:14px!important;font-size:.9rem!important}
+}
+
+@media print{body.portal-page .topbar{position:static!important;inset:auto!important;transform:none!important}body.has-fixed-site-header{padding-top:0!important}html{scroll-padding-top:0!important}}
+
+/* 2026-07-23 UI audit: use real logo, keep desktop nav in one measured row, and avoid viewport overflow. */
+body.portal-page .brand-logo {
+  display: block !important;
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  object-fit: contain !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: 0 8px 20px rgba(29, 78, 216, .16) !important;
+}
+
+body.portal-page .topbar .menu-toggle {
+  display: none !important;
+}
+
+@media screen and (min-width:1101px){
+  body.portal-page .topbar{
+    grid-template-columns:minmax(150px,auto) minmax(0,1fr)!important;
+    column-gap:clamp(10px,1vw,18px)!important;
+  }
+
+  body.portal-page .topbar .brand{grid-column:1!important;}
+  body.portal-page .topbar .menu-toggle{display:none!important;}
+  body.portal-page .topbar .navlinks{
+    grid-column:2!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    justify-content:flex-end!important;
+    gap:clamp(4px,.55vw,8px)!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    max-width:100%!important;
+  }
+
+  body.portal-page .topbar .navlinks a{
+    flex:0 1 auto!important;
+    padding-inline:clamp(8px,.75vw,14px)!important;
+    font-size:clamp(.74rem,.72vw,.88rem)!important;
+  }
+}
+
+@media (max-width:1100px){
+  body.portal-page .topbar .menu-toggle{display:inline-flex!important;}
+}
+
+@media (max-width:620px){
+  body.portal-page .brand-logo{flex-basis:36px!important;width:36px!important;height:36px!important;min-width:36px!important;border-radius:10px!important;}
+}
+
+@media (max-width:380px){
+  body.portal-page .brand-logo{flex-basis:33px!important;width:33px!important;height:33px!important;min-width:33px!important;border-radius:9px!important;}
+}

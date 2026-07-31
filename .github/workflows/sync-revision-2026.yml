@@ -1,0 +1,189 @@
+name: Sync, build and verify Revision 2026
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '25 2 * * 1,4'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/sync_revision_2026.py'
+      - 'tools/resolve_rev2026_generic_titles.py'
+      - 'tools/verify_rev2026_titles.py'
+      - 'tools/verify_revision_2026_catalogue.py'
+      - 'tools/build_revision_2026_pages.py'
+      - 'tools/enhance_revision_2026_model_qp.py'
+      - 'tools/apply_revision_2026_department_themes.py'
+      - 'assets/js/revision-2026-browser.js'
+      - 'assets/css/revision-2026-department-themes.css'
+      - '.github/workflows/sync-revision-2026.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-revision-2026
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Enforce bounded live course-page verification
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          path = Path('tools/resolve_rev2026_generic_titles.py')
+          text = path.read_text(encoding='utf-8')
+          replacements = {
+              'for attempt in range(3):': 'for attempt in range(1):',
+              'timeout=40, allow_redirects=True': 'timeout=10, allow_redirects=True',
+              'time.sleep(1.5 * (attempt + 1))': 'time.sleep(0.25 * (attempt + 1))',
+              'ThreadPoolExecutor(max_workers=5)': 'ThreadPoolExecutor(max_workers=16)',
+          }
+          for old, new in replacements.items():
+              if old in text:
+                  text = text.replace(old, new, 1)
+              elif new not in text:
+                  raise SystemExit(f'Could not update resolver setting: {old}')
+          path.write_text(text, encoding='utf-8')
+          PY
+      - name: Enforce verified subject-card rendering
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          browser_path = Path('assets/js/revision-2026-browser.js')
+          browser = browser_path.read_text(encoding='utf-8')
+          browser = re.sub(
+              r'const VERSION = "[^"]+";',
+              'const VERSION = "20260720-rev2026-exact-titles";',
+              browser,
+              count=1,
+          )
+
+          old_catch = '''    } catch (error) {
+            console.error("REV2026 subject loading failed", error);
+            grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
+          }
+        }'''
+          new_catch = '''    } catch (error) {
+            console.error("REV2026 subject loading failed", error);
+            if (grid.querySelector(".subject-card")) {
+              enhanceStaticDepartment();
+              return;
+            }
+            grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
+          }
+        }'''
+          if old_catch in browser:
+              browser = browser.replace(old_catch, new_catch, 1)
+          elif new_catch not in browser:
+              raise SystemExit('Could not locate the REV2026 fetch fallback block')
+
+          old_start = '''  function start() {
+            ensureModelPaperAccess();
+            if (isProgrammeIndex()) {
+              enhanceProgrammeIndex();
+              return;
+            }
+            if (!enhanceStaticDepartment()) renderCompatibilityPage();
+          }'''
+          new_start = '''  function start() {
+            ensureModelPaperAccess();
+            if (isProgrammeIndex()) {
+              enhanceProgrammeIndex();
+              return;
+            }
+            renderCompatibilityPage();
+          }'''
+          if old_start in browser:
+              browser = browser.replace(old_start, new_start, 1)
+          elif new_start not in browser:
+              raise SystemExit('Could not locate the REV2026 start function')
+
+          browser_path.write_text(browser, encoding='utf-8')
+
+          builder_path = Path('tools/build_revision_2026_pages.py')
+          builder = builder_path.read_text(encoding='utf-8')
+          builder, changed = re.subn(
+              r'^VERSION = "[^"]+"$',
+              'VERSION = "20260720-rev2026-exact-titles"',
+              builder,
+              count=1,
+              flags=re.MULTILINE,
+          )
+          if changed != 1:
+              raise SystemExit('Could not update the REV2026 page cache version')
+          builder_path.write_text(builder, encoding='utf-8')
+          PY
+      - run: pip install requests beautifulsoup4
+      - name: Validate scripts
+        run: >-
+          python -m py_compile
+          tools/sync_revision_2026.py
+          tools/resolve_rev2026_generic_titles.py
+          tools/verify_rev2026_titles.py
+          tools/verify_revision_2026_catalogue.py
+          tools/build_revision_2026_pages.py
+          tools/enhance_revision_2026_model_qp.py
+          tools/apply_revision_2026_department_themes.py
+      - name: Download and verify official programme tables
+        run: python tools/sync_revision_2026.py
+      - name: Resolve generic labels from official course-content pages
+        run: python tools/resolve_rev2026_generic_titles.py
+      - name: Build static Semester 1-6 pages and comparison report
+        run: python tools/build_revision_2026_pages.py
+      - name: Apply department-specific directory themes
+        run: python tools/apply_revision_2026_department_themes.py
+      - name: Verify all official programme cards have semantic themes
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          registry = json.loads(Path('assets/data/revision-2026-programmes.json').read_text(encoding='utf-8'))
+          css = Path('assets/css/revision-2026-department-themes.css').read_text(encoding='utf-8')
+          page = Path('revision-2026.html').read_text(encoding='utf-8')
+          codes = [str(item['officialCode']) for item in registry['programmes']]
+          missing = [code for code in codes if f'data-official-code="{code}"' not in css]
+          assert len(codes) == 38, f'Expected 38 programmes, found {len(codes)}'
+          assert not missing, f'Missing card themes: {missing}'
+          assert 'revision-2026-department-themes.css' in page
+          assert page.count('data-programme-card') == 38
+          print('All 38 Revision 2026 department cards have semantic themes.')
+          PY
+      - name: Add permanent model-question-paper links
+        run: python tools/enhance_revision_2026_model_qp.py
+      - name: Verify directory, six semester groups and every subject card
+        run: python tools/verify_revision_2026_catalogue.py
+      - name: Verify zero generic REV2026 subject titles
+        run: python tools/verify_rev2026_titles.py
+      - name: Commit verified data, pages and reports
+        run: |
+          git add assets/data/revision-2026-programmes.json assets/data/revision-2026-subjects.json
+          git add assets/js/revision-2026-browser.js tools/build_revision_2026_pages.py
+          git add tools/resolve_rev2026_generic_titles.py
+          git add revision-2026.html revision-2026/*.html
+          git add reports/revision-2026-build-summary.json
+          git add reports/revision-2026-catalogue-verification.json
+          git add reports/revision-2026-title-resolution.json reports/revision-2026-title-verification.json
+          git add reports/revision-2026-new-codes-vs-2021.json reports/revision-2026-new-codes-vs-2021.md
+          if git diff --cached --quiet; then
+            echo 'No verified data or page change.'
+            exit 0
+          fi
+          git config user.name 'poly-pmna-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit -m 'Resolve official REV2026 subject titles'
+          git pull --rebase --autostash origin main
+          git push

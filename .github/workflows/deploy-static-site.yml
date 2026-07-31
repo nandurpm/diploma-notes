@@ -1,0 +1,156 @@
+name: Deploy static site to Cloudflare Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: cloudflare-pages-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Deploy static site to production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      PRODUCTION_DOMAIN: polypmna.dpdns.org
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Report deployment start
+        if: github.event_name == 'issues'
+        run: gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment started: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Validate deployment credentials
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "Missing CLOUDFLARE_API_TOKEN"; exit 1; }
+          test -n "$CLOUDFLARE_ACCOUNT_ID" || { echo "Missing CLOUDFLARE_ACCOUNT_ID"; exit 1; }
+
+      - name: Generate and validate deployable source
+        run: |
+          GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py
+          python tools/generate_sitemap.py
+          python tools/site_quality_gate.py
+          python tools/build_public_site.py --target _site
+          test -f _site/build-optimization.json
+          grep -q 'assets/build/home.' _site/index.html
+          grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html
+          test -f _site/assets/js/about-experience.js
+          test -f _site/assets/css/about-experience.css
+
+      - name: Resolve Cloudflare Pages project by production domain
+        id: project
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import urllib.request
+
+          account = os.environ['CLOUDFLARE_ACCOUNT_ID']
+          token = os.environ['CLOUDFLARE_API_TOKEN']
+          domain = os.environ['PRODUCTION_DOMAIN']
+          request = urllib.request.Request(
+              f'https://api.cloudflare.com/client/v4/accounts/{account}/pages/projects',
+              headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = json.loads(response.read().decode('utf-8'))
+          if not payload.get('success'):
+              raise SystemExit(f'Cloudflare project lookup failed: {payload.get("errors")}')
+          matches = []
+          for project in payload.get('result') or []:
+              domains = set(project.get('domains') or [])
+              subdomain = str(project.get('subdomain') or '').replace('https://', '').rstrip('/')
+              if domain in domains or domain == subdomain:
+                  matches.append(project)
+          if len(matches) != 1:
+              raise SystemExit(f'Expected one Cloudflare Pages project for {domain}; found {[item.get("name") for item in matches]}')
+          name = str(matches[0]['name'])
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
+              output.write(f'name={name}\n')
+          print(f'Resolved Cloudflare Pages project: {name}')
+          PY
+
+      - name: Deploy repository main to production
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy _site --project-name=${{ steps.project.outputs.name }} --branch=main --commit-hash=${{ github.sha }} --commit-message="Deploy ${{ github.sha }}"
+
+      - name: Verify deployed commit and redesigned About page
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.request
+
+          base = 'https://' + os.environ['PRODUCTION_DOMAIN']
+          expected = os.environ['GITHUB_SHA']
+          last = ''
+          for attempt in range(1, 7):
+              try:
+                  headers = {'Cache-Control': 'no-cache', 'User-Agent': 'POLY-PMNA-Deploy-QA/7.1'}
+                  with urllib.request.urlopen(
+                      urllib.request.Request(base + f'/build-info.json?deploy={attempt}', headers=headers), timeout=20
+                  ) as response:
+                      info = json.loads(response.read().decode('utf-8'))
+                  with urllib.request.urlopen(
+                      urllib.request.Request(base + f'/?deploy={attempt}', headers=headers), timeout=20
+                  ) as response:
+                      home = response.read().decode('utf-8', errors='replace')
+                  with urllib.request.urlopen(
+                      urllib.request.Request(base + f'/about.html?deploy={attempt}', headers=headers), timeout=20
+                  ) as response:
+                      about = response.read().decode('utf-8', errors='replace')
+                  if info.get('commit') != expected:
+                      raise RuntimeError(f"live commit {info.get('commit')} != {expected}")
+                  for marker in ('Revision 2026', 'POLY PMNA', '/revision-2026.html', '/assets/build/home.'):
+                      if marker not in home:
+                          raise RuntimeError(f'homepage missing {marker}')
+                  for marker in ('Bilingual Kerala Polytechnic Study Portal', 'data-about-guide', 'data-about-lang="ml"', '/assets/js/about-experience.js'):
+                      if marker not in about:
+                          raise RuntimeError(f'About page missing {marker}')
+                  print(json.dumps({'commit': info.get('commit'), 'branch': info.get('branch'), 'aboutRedesign': True}, indent=2))
+                  raise SystemExit(0)
+              except Exception as error:
+                  last = f'Attempt {attempt}: {type(error).__name__}: {error}'
+                  print(last)
+                  if attempt < 6:
+                      time.sleep(8)
+          raise SystemExit(last)
+          PY
+
+      - name: Report successful owner-triggered deployment
+        if: success() && github.event_name == 'issues'
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment and live About-page verification passed: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Report failed owner-triggered deployment
+        if: failure() && github.event_name == 'issues'
+        run: gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment failed. Exact workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}

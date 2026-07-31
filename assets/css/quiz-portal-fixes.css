@@ -1,0 +1,262 @@
+/* Purpose: Quiz portal fixes - Descriptive comment added for clarity */
+/* Quiz portal header and admin layout corrections. */
+.quiz-portal-page .topbar {
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: nowrap;
+  gap: 12px !important;
+  min-height: 64px;
+  overflow: visible !important;
+}
+
+.quiz-portal-page .topbar .brand {
+  display: inline-flex !important;
+  align-items: center !important;
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 0 !important;
+  max-width: min(520px, calc(100vw - 220px));
+  gap: 10px !important;
+}
+
+.quiz-portal-page .topbar .brand > .brand-symbol {
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+}
+
+/* The shared stylesheet styles every span inside .brand as an icon.
+   Reset the text wrapper so the name and subtitle are not squeezed into 42px. */
+.quiz-portal-page .topbar .brand > .brand-copy {
+  display: grid !important;
+  place-items: start !important;
+  flex: 1 1 auto !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  color: inherit !important;
+  background: none !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  line-height: 1.15 !important;
+}
+
+.quiz-portal-page .topbar .brand-copy strong,
+.quiz-portal-page .topbar .brand-copy small {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quiz-portal-page .topbar .brand-copy strong {
+  font-size: clamp(.9rem, 1.2vw, 1.05rem) !important;
+}
+
+.quiz-portal-page .topbar .brand-copy small {
+  margin-top: 3px;
+  color: #667085;
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.quiz-portal-page .topbar .navlinks {
+  margin-left: auto;
+}
+
+.quiz-portal-page .topbar .menu-toggle {
+  margin-left: auto;
+  flex: 0 0 auto;
+}
+
+.quiz-portal-page .topbar .app-download {
+  flex: 0 0 auto;
+  margin-left: 0;
+}
+
+/* Prevent action-button class names from also receiving the result-panel box style. */
+.quiz-portal-page button.admin-results {
+  margin-top: 0;
+  padding: 6px 9px;
+  border-radius: 11px;
+  background: var(--quiz-soft);
+  box-shadow: none;
+}
+
+.quiz-portal-page #adminUserResults.admin-results {
+  margin-top: 15px;
+  padding: 14px;
+  border: 1px solid var(--quiz-line);
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+/* Grid and table children must be allowed to shrink inside a phone viewport. */
+.quiz-portal-page .analytics-layout,
+.quiz-portal-page .analytics-layout > *,
+.quiz-portal-page .analysis-list,
+.quiz-portal-page .analysis-row,
+.quiz-portal-page .table-wrap,
+.quiz-portal-page .section-card {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.quiz-portal-page .analysis-track {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.quiz-portal-page .table-wrap {
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 980px) {
+  .quiz-portal-page .topbar {
+    flex-wrap: wrap;
+  }
+
+  .quiz-portal-page .topbar .brand {
+    max-width: calc(100vw - 92px);
+  }
+
+  .quiz-portal-page .topbar .navlinks {
+    order: 3;
+    flex: 1 0 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 660px) {
+  /* Put the subject title on its own row so the bar and percentage cannot run off-screen. */
+  .quiz-portal-page .analysis-row {
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    gap: 7px 10px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--quiz-line);
+  }
+
+  .quiz-portal-page .analysis-row:last-child {
+    border-bottom: 0;
+  }
+
+  .quiz-portal-page .analysis-label {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .quiz-portal-page .analysis-label b,
+  .quiz-portal-page .analysis-label span {
+    overflow-wrap: anywhere;
+  }
+
+  .quiz-portal-page .analysis-track {
+    grid-column: 1;
+    grid-row: 2;
+    width: 100%;
+  }
+
+  .quiz-portal-page .analysis-score {
+    grid-column: 2;
+    grid-row: 2;
+    white-space: nowrap;
+  }
+
+  /* Replace the wide recent-results table with readable two-column result cards. */
+  .quiz-portal-page #recentResults {
+    overflow: visible;
+  }
+
+  .quiz-portal-page #recentResults .data-table {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .quiz-portal-page #recentResults .data-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .quiz-portal-page #recentResults .data-table tbody {
+    display: grid;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .quiz-portal-page #recentResults .data-table tr {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3px 8px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--quiz-line);
+    border-radius: 13px;
+    background: #f8fafc;
+  }
+
+  .quiz-portal-page #recentResults .data-table td {
+    display: block;
+    min-width: 0;
+    padding: 7px 8px;
+    border: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .quiz-portal-page #recentResults .data-table td::before {
+    display: block;
+    margin-bottom: 3px;
+    color: #667085;
+    font-size: 11px;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+
+  .quiz-portal-page #recentResults .data-table td:nth-child(1)::before { content: "Date"; }
+  .quiz-portal-page #recentResults .data-table td:nth-child(2)::before { content: "Subject"; }
+  .quiz-portal-page #recentResults .data-table td:nth-child(3)::before { content: "Best score"; }
+  .quiz-portal-page #recentResults .data-table td:nth-child(4)::before { content: "Attempts"; }
+}
+
+@media (max-width: 620px) {
+  .quiz-portal-page .topbar {
+    min-height: 56px;
+    padding: 7px 8px !important;
+  }
+
+  .quiz-portal-page .topbar .brand {
+    max-width: calc(100vw - 78px);
+    gap: 7px !important;
+  }
+
+  .quiz-portal-page .topbar .brand > .brand-symbol {
+    flex-basis: 36px !important;
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .quiz-portal-page .topbar .brand-copy strong {
+    font-size: .84rem !important;
+  }
+
+  .quiz-portal-page .topbar .brand-copy small {
+    font-size: .68rem;
+  }
+}

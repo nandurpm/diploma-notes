@@ -1,0 +1,2 @@
+requested: 2026-07-20
+scope: breadcrumb, title consistency, About-specific content, initiative attribution, shared header/footer retention, bilingual autoplay guide retention

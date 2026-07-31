@@ -1,0 +1,206 @@
+name: Build and publish Android app
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "android-app/**"
+      - ".github/workflows/build-android-app.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: poly-pmna-android-release
+  cancel-in-progress: false
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+
+      - name: Configure Firebase Android app
+        id: firebase
+        env:
+          FIREBASE_GOOGLE_SERVICES_JSON: ${{ secrets.FIREBASE_GOOGLE_SERVICES_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -z "$FIREBASE_GOOGLE_SERVICES_JSON" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "FIREBASE_MESSAGING=false" >> "$GITHUB_ENV"
+            echo "::error::FIREBASE_GOOGLE_SERVICES_JSON is required for the public signed release APK. Without it, Firebase Cloud Messaging cannot register the app and users will not receive new-lesson notifications."
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_GOOGLE_SERVICES_JSON" > android-app/app/google-services.json
+          python -m json.tool android-app/app/google-services.json >/dev/null
+          grep -q 'org.diplomanotes.polytechnicstudyhub' android-app/app/google-services.json
+          echo "configured=true" >> "$GITHUB_OUTPUT"
+          echo "FIREBASE_MESSAGING=true" >> "$GITHUB_ENV"
+
+      - name: Read app version
+        run: |
+          VERSION_CODE=$(sed -n "s/^[[:space:]]*versionCode[[:space:]]\+\([0-9][0-9]*\).*$/\1/p" android-app/app/build.gradle | head -n 1)
+          VERSION_NAME=$(sed -n "s/^[[:space:]]*versionName[[:space:]]\+'\([^']*\)'.*$/\1/p" android-app/app/build.gradle | head -n 1)
+          test -n "$VERSION_CODE"
+          test -n "$VERSION_NAME"
+          echo "VERSION_CODE=$VERSION_CODE" >> "$GITHUB_ENV"
+          echo "VERSION_NAME=$VERSION_NAME" >> "$GITHUB_ENV"
+          echo "RELEASE_TAG=android-v$VERSION_NAME" >> "$GITHUB_ENV"
+          echo "APK_NAME=POLY_PMNA_v$VERSION_NAME.apk" >> "$GITHUB_ENV"
+
+      - name: Validate release signing configuration
+        id: signing
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ] || [ -z "$ANDROID_KEYSTORE_PASSWORD" ] || [ -z "$ANDROID_KEY_ALIAS" ] || [ -z "$ANDROID_KEY_PASSWORD" ]; then
+            echo "available=false" >> "$GITHUB_OUTPUT"
+            echo "::error::Release signing secrets are required. Refusing to publish a debug or unsigned APK."
+            exit 1
+          fi
+          echo "$ANDROID_KEYSTORE_BASE64" | tr -d '\n\r ' | base64 --decode > android-app/release.keystore
+          test -s android-app/release.keystore
+          keytool -list -keystore android-app/release.keystore \
+            -storepass "$ANDROID_KEYSTORE_PASSWORD" \
+            -alias "$ANDROID_KEY_ALIAS" >/dev/null
+          echo "available=true" >> "$GITHUB_OUTPUT"
+
+      - name: Build signed release APK
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          gradle -p android-app :app:assembleRelease --no-daemon \
+            -PANDROID_KEYSTORE_FILE="$PWD/android-app/release.keystore" \
+            -PANDROID_KEYSTORE_PASSWORD="$ANDROID_KEYSTORE_PASSWORD" \
+            -PANDROID_KEY_ALIAS="$ANDROID_KEY_ALIAS" \
+            -PANDROID_KEY_PASSWORD="$ANDROID_KEY_PASSWORD"
+
+      - name: Prepare signed release
+        run: |
+          set -e
+          mkdir -p release-output reports downloads
+          RELEASE_APK=$(find android-app/app/build/outputs/apk/release -name '*.apk' | head -n 1)
+          test -n "$RELEASE_APK"
+          cp "$RELEASE_APK" "release-output/$APK_NAME"
+          RELEASE_SHA=$(sha256sum "release-output/$APK_NAME" | awk '{print $1}')
+          RELEASE_BYTES=$(stat -c '%s' "release-output/$APK_NAME")
+          echo "RELEASE_SHA=$RELEASE_SHA" >> "$GITHUB_ENV"
+          echo "RELEASE_BYTES=$RELEASE_BYTES" >> "$GITHUB_ENV"
+
+      - name: Publish signed APK as GitHub Release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "release-output/$APK_NAME" --clobber
+          else
+            gh release create "$RELEASE_TAG" "release-output/$APK_NAME" \
+              --title "POLY PMNA Android $VERSION_NAME" \
+              --notes "Signed POLY PMNA Android release with automatic new-lesson push notifications, Revision 2026, Revision 2021, Ask POLY AI, mock exams and tools."
+          fi
+
+      - name: Upload signed APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: POLY_PMNA_v${{ env.VERSION_NAME }}_signed_apk
+          path: release-output/${{ env.APK_NAME }}
+          if-no-files-found: error
+
+      - name: Update website manifest and build reports
+        run: |
+          set -e
+          export APK_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${RELEASE_TAG}/${APK_NAME}"
+          echo "APK_URL=$APK_URL" >> "$GITHUB_ENV"
+          export PUBLISHED_AT=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+          echo "PUBLISHED_AT=$PUBLISHED_AT" >> "$GITHUB_ENV"
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          firebase_messaging = os.environ.get("FIREBASE_MESSAGING") == "true"
+          release_notes = [
+              "Signed public release APK for Android installs and upgrades.",
+              "Homepage Download Our App button points to this GitHub Release APK.",
+              "Existing app users see an in-app update button when their installed version is older.",
+              "Revision 2026 and Revision 2021 remain separate content destinations.",
+          ]
+          if firebase_messaging:
+              release_notes.insert(1, "New lesson push notifications through Firebase Cloud Messaging.")
+
+          app_update = {
+              "schemaVersion": 1,
+              "versionCode": int(os.environ["VERSION_CODE"]),
+              "versionName": os.environ["VERSION_NAME"],
+              "apkUrl": os.environ["APK_URL"],
+              "sha256": os.environ["RELEASE_SHA"],
+              "publishedAt": os.environ["PUBLISHED_AT"],
+              "forceUpdate": True,
+              "title": f"POLY PMNA Android app {os.environ['VERSION_NAME']}",
+              "message": "Install this signed release update to replace older debug builds and keep receiving future app updates from the homepage.",
+              "releaseNotes": release_notes,
+          }
+          build_status = {
+              "applicationId": "org.diplomanotes.polytechnicstudyhub",
+              "versionCode": int(os.environ["VERSION_CODE"]),
+              "versionName": os.environ["VERSION_NAME"],
+              "firebaseMessaging": firebase_messaging,
+              "status": "success",
+              "releaseApkBytes": int(os.environ["RELEASE_BYTES"]),
+              "releaseSha256": os.environ["RELEASE_SHA"],
+              "builtAt": os.environ["PUBLISHED_AT"],
+          }
+
+          publication = {
+              "status": "success",
+              "versionCode": int(os.environ["VERSION_CODE"]),
+              "versionName": os.environ["VERSION_NAME"],
+              "firebaseMessaging": firebase_messaging,
+              "apkUrl": os.environ["APK_URL"],
+              "apkBytes": int(os.environ["RELEASE_BYTES"]),
+              "sha256": os.environ["RELEASE_SHA"],
+              "publishedAt": os.environ["PUBLISHED_AT"],
+          }
+          Path("downloads/app-update.json").write_text(json.dumps(app_update, indent=2) + "\n")
+          Path("reports/android-v3-build-status.json").write_text(json.dumps(build_status, indent=2) + "\n")
+          Path("reports/android-v3-publication.json").write_text(json.dumps(publication, indent=2) + "\n")
+          PY
+          python tools/update_app_manifest.py
+
+      - name: Commit website update metadata
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html downloads/app-update.json reports/android-v3-build-status.json reports/android-v3-publication.json
+          if git diff --cached --quiet; then
+            echo "Android release metadata and homepage download button are already current."
+            exit 0
+          fi
+          git commit -m "Publish Android app v${VERSION_NAME} metadata [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+

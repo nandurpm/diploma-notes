@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" data-curriculum="REV2021">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="course-code" content="1008">
+<meta name="curriculum" content="REV2021">
+<meta name="description" content="Introduction to IT Systems Lab 1008 complete Kerala Polytechnic Revision 2021 handbook covering computer fundamentals, operating systems, Internet, OpenOffice, cloud tools, algorithms, flowcharts, Python, Malayalam notes, practicals, projects and answer keys.">
+<title>Introduction to IT Systems Lab 1008 | Revision 2021 Handbook</title>
+<link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-1008.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Introduction to IT Systems Lab 1008 | Revision 2021 Handbook">
+<meta property="og:description" content="A complete bilingual Revision 2021 laboratory handbook for computer use, office tools, algorithms, flowcharts and Python.">
+<meta property="og:url" content="https://polypmna.dpdns.org/lessons/lessons-1008.html">
+<meta property="og:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Introduction to IT Systems Lab 1008 | Revision 2021 Handbook">
+<meta name="twitter:description" content="Complete practical handbook with Malayalam support, projects, viva and answer keys.">
+<meta name="twitter:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+<style>
+:root{--ink:#10243a;--muted:#5b6b7f;--paper:#fff;--bg:#eef6fb;--line:#ccdce9;--navy:#0d3558;--blue:#1167a8;--cyan:#078a96;--green:#15745d;--amber:#b36b12;--rose:#b33d5b;--violet:#6b4bb1;--soft:#edf7ff;--mint:#ecfaf4;--yellow:#fff7e5;--pink:#fff1f4;--purple:#f5f1ff;--shadow:0 14px 36px rgba(16,50,80,.09);--radius:20px;--mal:"Noto Sans Malayalam","Nirmala UI","Kartika","Manjari",sans-serif;--toolbar-height:76px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--toolbar-height) + 14px)}
+body{margin:0;background:radial-gradient(circle at 0 0,rgba(17,103,168,.13),transparent 32rem),radial-gradient(circle at 100% 0,rgba(7,138,150,.12),transparent 30rem),var(--bg);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.65;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background-image:linear-gradient(rgba(17,103,168,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(17,103,168,.035) 1px,transparent 1px);background-size:36px 36px}
+button,input{font:inherit}a{color:var(--blue)}[hidden]{display:none!important}
+.progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--green),var(--amber));z-index:1200}
+.lesson-toolbar{position:sticky;top:0;z-index:1000;width:100%;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);box-shadow:0 8px 24px rgba(16,36,58,.08)}
+.toolbar-inner{width:100%;display:flex;align-items:center;gap:.6rem;padding:.55rem clamp(10px,1vw,18px)}
+.course-badge{width:68px;height:56px;flex:0 0 68px;border-radius:16px;background:linear-gradient(135deg,var(--navy),var(--cyan));color:#fff;display:grid;place-items:center;align-content:center;font-weight:950;line-height:1;text-decoration:none;box-shadow:var(--shadow)}
+.course-badge strong{font-size:1.05rem}.course-badge small{margin-top:.25rem;font-size:.58rem;letter-spacing:.06em;opacity:.9}
+.lesson-tabs{display:flex;flex:1 1 auto;gap:.38rem;min-width:0;overflow-x:auto;overflow-y:hidden;padding:.15rem 0;scrollbar-width:thin;white-space:nowrap}
+.lesson-tab,.pdf-btn,.revision-switch{border:1px solid var(--line);border-radius:999px;background:#f8fbfe;color:#23384e;padding:.62rem .78rem;font-size:.82rem;font-weight:850;white-space:nowrap;cursor:pointer;text-decoration:none;min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+.lesson-tab:hover,.lesson-tab:focus-visible,.revision-switch:hover,.revision-switch:focus-visible{border-color:#7fb5d6;outline:none;box-shadow:0 0 0 3px rgba(17,103,168,.12)}
+.lesson-tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+.toolbar-actions{display:flex;align-items:center;gap:.4rem;flex:0 0 auto}
+.revision-switch{background:#fff7e5;color:#7b4a08;border-color:#e8c77b}
+.pdf-btn{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;border:0;box-shadow:0 8px 18px rgba(17,103,168,.17)}
+.page-shell{width:100%;max-width:none;margin:0;padding:clamp(8px,1vw,16px) clamp(8px,1.2vw,22px) 1.5rem}
+main{width:100%;max-width:none;margin:0}.panel{width:100%;padding:0}.panel.is-entering{animation:fade .2s ease}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.load-status{width:min(900px,calc(100% - 20px));margin:.4rem auto .8rem;padding:.72rem .9rem;border:1px solid #a9d7ed;border-radius:14px;background:#eef8ff;color:#174867;text-align:center;font-weight:800}
+.fragment-slot{min-height:180px;border:1px dashed #9bb8ca;border-radius:18px;background:rgba(255,255,255,.72);display:grid;place-items:center;margin:.75rem 0;padding:1rem;color:var(--muted);font-weight:800}
+.fragment-error{margin:.75rem 0}.retry-fragment{margin-top:.65rem;border:0;border-radius:999px;padding:.6rem .9rem;background:var(--blue);color:#fff;font-weight:850;cursor:pointer}
+.hero,.section{width:100%;background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);margin:.75rem 0;padding:clamp(1rem,1.6vw,1.7rem)}
+.hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:1rem;align-items:stretch;border-top:7px solid var(--blue)}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;min-width:0}.eyebrow,.tag{display:inline-flex;width:max-content;max-width:100%;border-radius:999px;padding:.28rem .58rem;background:#e7f3ff;color:#0d5489;font-size:.76rem;font-weight:950;letter-spacing:.05em;text-transform:uppercase}
+h1,h2,h3,h4,h5{color:#102a43;line-height:1.18;margin-top:0}h1{font-size:clamp(2.35rem,4.5vw,4.8rem);letter-spacing:-.05em;margin:.55rem 0}h2{font-size:clamp(1.7rem,2.8vw,3rem);letter-spacing:-.035em;margin:.25rem 0 .65rem}h3{font-size:1.35rem;margin:.9rem 0 .4rem}h4{font-size:1.1rem;margin:.65rem 0 .3rem}h5{font-size:1rem;margin:.65rem 0 .25rem}p{margin:.35rem 0 .7rem}.lead{font-size:clamp(1rem,1.2vw,1.18rem);color:#38516a;max-width:90ch}
+.hero-visual{border-radius:20px;padding:1rem;color:#fff;background:linear-gradient(145deg,#0c2b49,#1167a8 55%,#078a96);display:grid;align-content:center;overflow:hidden;min-height:320px}.hero-visual h2,.hero-visual p{color:#fff}.hero-visual svg{width:100%;height:auto;max-height:350px}
+.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.55rem;margin-top:.8rem}.meta{border:1px solid var(--line);background:#f7fbff;border-radius:14px;padding:.65rem;color:var(--ink)}.meta span{display:block;font-size:.72rem;color:var(--muted);font-weight:800}.meta b{display:block;margin-top:.15rem;color:var(--navy);font-size:.95rem}
+.section-head{border-bottom:1px solid var(--line);padding-bottom:.6rem;margin-bottom:.75rem}.section-head p{color:var(--muted);max-width:110ch}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:.72rem}.card{grid-column:span 6;min-width:0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:.85rem;box-shadow:0 7px 18px rgba(16,50,80,.045);break-inside:avoid}.wide{grid-column:span 12}.eight{grid-column:span 8}.six{grid-column:span 6}.third{grid-column:span 4}.quarter{grid-column:span 3}.blue{background:var(--soft)}.green{background:var(--mint)}.yellow{background:var(--yellow)}.rose{background:var(--pink)}.violet{background:var(--purple)}
+.module-hero{background:linear-gradient(135deg,var(--navy),var(--blue),var(--cyan));color:#fff;border-radius:24px;padding:clamp(1rem,2vw,1.6rem);box-shadow:var(--shadow);margin:.75rem 0}.module-hero h2,.module-hero p{color:#fff}.module-code{display:inline-flex;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:.28rem .6rem;font-size:.78rem;font-weight:900}
+.ml{font-family:var(--mal);background:#edf9f4;border-left:4px solid var(--green);border-radius:11px;padding:.62rem .72rem;color:#164d40;margin:.55rem 0}.callout{border:1px solid #a9d7ed;background:#eef8ff;border-left:5px solid var(--blue);border-radius:14px;padding:.72rem .82rem;margin:.65rem 0;break-inside:avoid}.callout.warning{background:var(--pink);border-color:#e7a5b4;border-left-color:var(--rose)}.callout.exam{background:var(--yellow);border-color:#e7c871;border-left-color:var(--amber)}.callout.success{background:var(--mint);border-color:#92d2b0;border-left-color:var(--green)}
+.table-wrap{width:100%;overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:720px}th,td{border-bottom:1px solid #d9e4ed;padding:.58rem .66rem;text-align:left;vertical-align:top}th{background:#eaf4fc;color:var(--navy);font-weight:950}tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.inline{background:#eef2f6;border:1px solid #dce5ec;border-radius:6px;padding:.05rem .28rem}pre{margin:.45rem 0;background:#0c1728;color:#eaf4ff;border-radius:14px;padding:.85rem;overflow:auto;white-space:pre;tab-size:4}.program-card pre,.solution pre{white-space:pre-wrap}.copy{float:right;border:1px solid #34506d;background:#182b41;color:#fff;border-radius:999px;padding:.3rem .55rem;font-size:.72rem;cursor:pointer}
+.steps{counter-reset:s;padding:0;list-style:none;display:grid;gap:.4rem}.steps li{counter-increment:s;position:relative;padding:.58rem .65rem .58rem 2.35rem;border:1px solid var(--line);background:#f9fcfe;border-radius:12px}.steps li::before{content:counter(s);position:absolute;left:.58rem;top:.58rem;width:1.3rem;height:1.3rem;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-weight:950;font-size:.74rem}.checklist{list-style:none;padding:0}.checklist li{position:relative;padding:.32rem 0 .32rem 1.65rem}.checklist li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:950}
+.tree{background:#f8fbff;border:1px dashed #a8bdd0;border-radius:14px;padding:.75rem;white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.diagram{border:1px solid var(--line);border-radius:16px;background:#fff;padding:.7rem;overflow:auto;break-inside:avoid}.diagram svg{width:100%;height:auto;max-height:430px}.diagram figcaption{color:var(--muted);font-size:.88rem;margin-top:.4rem}
+.experiment,.solution,.program-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:.9rem;margin:.7rem 0;box-shadow:0 8px 20px rgba(16,50,80,.05);break-inside:avoid}.experiment-title,.program-head{display:flex;align-items:center;gap:.6rem;border-bottom:1px solid var(--line);padding-bottom:.5rem;margin-bottom:.6rem}.experiment-title span,.program-head span{background:#e8f4ff;color:var(--navy);border-radius:999px;padding:.26rem .5rem;font-size:.76rem;font-weight:950}.program-head h4,.experiment-title h4{margin:0}.program-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:.75rem}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem}
+details{background:#fff;border:1px solid var(--line);border-radius:14px;padding:.72rem .85rem;margin:.55rem 0;break-inside:avoid}summary{cursor:pointer;font-weight:900;color:var(--blue)}.search-tools{display:flex;gap:.5rem;flex-wrap:wrap;margin:.7rem 0}.search-tools input{flex:1 1 300px;border:1px solid var(--line);border-radius:999px;padding:.7rem .9rem}.search-tools button{border:1px solid var(--line);border-radius:999px;background:#fff;padding:.65rem .8rem;font-weight:800;cursor:pointer}.quick-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:.55rem}.quick{border:1px solid var(--line);border-radius:13px;padding:.65rem;background:#f8fbff}.paper{background:#fff;border:1px solid var(--line);border-radius:18px;padding:1rem;margin:.7rem 0}.paper .part{border-top:1px solid var(--line);padding-top:.6rem;margin-top:.6rem}
+.footer{width:100%;padding:1.5rem clamp(10px,1.2vw,22px);text-align:center;color:var(--muted)}#toTop{position:fixed;right:18px;bottom:18px;border:0;border-radius:50%;width:46px;height:46px;background:var(--navy);color:#fff;font-weight:950;box-shadow:var(--shadow);display:none;z-index:700;cursor:pointer}#toTop.show{display:block}
+@media(max-width:1100px){.hero{grid-template-columns:1fr}.card,.third,.quarter,.eight,.six{grid-column:span 12}.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.hero-visual{min-height:280px}}
+@media(max-width:760px){:root{--toolbar-height:126px}.toolbar-inner{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.45rem}.course-badge{grid-column:1;grid-row:1}.toolbar-actions{grid-column:2;grid-row:1;justify-content:flex-end;min-width:0}.lesson-tabs{grid-column:1/-1;grid-row:2;width:100%}.revision-switch,.pdf-btn{padding:.55rem .65rem;font-size:.74rem}.lesson-tab{font-size:.76rem;padding:.55rem .65rem}.page-shell{padding-inline:8px}}
+@media(max-width:520px){.revision-switch{font-size:0}.revision-switch::after{content:"REV2026";font-size:.72rem}.pdf-btn{font-size:0}.pdf-btn::after{content:"Print / PDF";font-size:.72rem}.meta-grid{grid-template-columns:1fr}.program-grid{grid-template-columns:1fr}h1{font-size:2.35rem}.hero,.section{border-radius:18px}.hero-visual{min-height:230px;padding:.7rem}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@page{size:A4;margin:12mm}
+@media print{body{background:#fff!important;color:#000;font-size:9.5pt}body::before,.lesson-toolbar,.progress,#toTop,.search-tools,.copy,#loadStatus,#polySiteAssistant{display:none!important}.page-shell{padding:0}.panel,.panel[hidden]{display:block!important;padding:0!important}.hero,.section,.module-hero,.card,.experiment,.solution,.program-card,.paper,details,.callout,.diagram{box-shadow:none!important;background:#fff!important;color:#000!important;border-color:#aaa!important;border-radius:0!important}.hero{display:block;page-break-after:always;border-top:0}.hero-visual{color:#000!important;background:#fff!important;border:1px solid #999;margin-top:8mm;min-height:0}.hero-visual h2,.hero-visual p,.module-hero h2,.module-hero p{color:#000!important}.meta b{color:#000!important}.module-hero{page-break-before:always}.grid,.program-grid,.two{display:block}.card,.experiment,.solution,.program-card{margin:3mm 0;break-inside:avoid}table{min-width:0;font-size:8.2pt}th,td{padding:4px}pre{white-space:pre-wrap;overflow-wrap:anywhere;color:#000;background:#fff;border:1px solid #aaa;font-size:8pt}details>*{display:block!important}details{break-inside:avoid}svg{max-height:95mm}}
+</style>
+  <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Introduction to IT Systems Lab 1008 | Revision 2021 Handbook","url":"https://polypmna.dpdns.org/lessons/lessons-1008.html","description":"Introduction to IT Systems Lab 1008 complete Kerala Polytechnic Revision 2021 handbook covering computer fundamentals, operating systems, Internet, OpenOffice, cloud tools, algorithms, flowcharts, Python, Malayalam notes, practicals, projects and answer keys.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"1008"}</script>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="lesson-toolbar" aria-label="Course navigation">
+  <div class="toolbar-inner">
+    <a class="course-badge" href="/revision-2021.html" aria-label="Course 1008, Revision 2021 subject directory"><strong>1008</strong><small>REV2021</small></a>
+    <nav class="lesson-tabs" role="tablist" aria-label="Lesson sections">
+      <button class="lesson-tab active" type="button" role="tab" aria-selected="true" data-target="overview">Overview</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="orientation">Lab Orientation</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="keybank">IT Key Bank</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="m1">Module 1</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="m2">Module 2</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="m3">Module 3</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="m4">Module 4</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="projects">Projects</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="practice">Practice Lab</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="revision">Revision</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="viva">Viva</button>
+      <button class="lesson-tab" type="button" role="tab" aria-selected="false" data-target="answers">Master Answer Key</button>
+    </nav>
+    <div class="toolbar-actions">
+      <a class="revision-switch" href="/revision-2026-content/lessons/lessons-1008.html" title="Open the separate Revision 2026 Course 1008 handbook">Open REV2026</a>
+      <button class="pdf-btn" id="downloadPdf" type="button">Print / Save PDF</button>
+    </div>
+  </div>
+</header>
+<main class="page-shell" id="lessonContent">
+    <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Introduction to IT Systems Lab 1008 | Revision 2021 Handbook</h1>
+  <div class="load-status" id="loadStatus" role="status" aria-live="polite">Loading the complete handbook sections…</div>
+  <noscript><section class="section"><div class="callout warning"><b>JavaScript is required:</b> this handbook loads its six content sections from local site files. Enable JavaScript, then reload the page.</div></section></noscript>
+  <div class="fragment-slot" data-fragment="/assets/lesson-content/1008-overview.html" aria-busy="true">Loading course overview…</div>
+  <div class="fragment-slot" data-fragment="/assets/lesson-content/1008-module1.html" aria-busy="true">Loading Module 1…</div>
+  <div class="fragment-slot" data-fragment="/assets/lesson-content/1008-module2.html" aria-busy="true">Loading Module 2…</div>
+  <div class="fragment-slot" data-fragment="/assets/lesson-content/1008-module3.html" aria-busy="true">Loading Module 3…</div>
+  <div class="fragment-slot" data-fragment="/assets/lesson-content/1008-module4.html" aria-busy="true">Loading Module 4…</div>
+  <div class="fragment-slot" data-fragment="/assets/lesson-content/1008-study.html" aria-busy="true">Loading projects, practice, revision, viva and answers…</div>
+</main>
+<footer class="footer"><b>Introduction to IT Systems Lab 1008 • Revision 2021 Handbook</b><br>Author: Nandakumar.M • POLY PMNA</footer>
+<button id="toTop" type="button" aria-label="Back to top">↑</button>
+<script>
+(() => {
+  "use strict";
+  const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+  const loadStatus = document.getElementById("loadStatus");
+  const tabs = $$(".lesson-tab");
+  const progress = document.getElementById("progress");
+  const topButton = document.getElementById("toTop");
+  const printButton = document.getElementById("downloadPdf");
+  let activePanel = "overview";
+  let printState = null;
+  let originalTitle = document.title;
+
+  function createFragmentError(slot, message) {
+    slot.className = "fragment-error";
+    slot.setAttribute("aria-busy", "false");
+    slot.replaceChildren();
+    const section = document.createElement("section");
+    section.className = "section";
+    const warning = document.createElement("div");
+    warning.className = "callout warning";
+    const strong = document.createElement("b");
+    strong.textContent = "Section could not be loaded. ";
+    const text = document.createElement("span");
+    text.textContent = message;
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "retry-fragment";
+    retry.textContent = "Retry this section";
+    retry.addEventListener("click", () => loadFragment(slot));
+    warning.append(strong, text, document.createElement("br"), retry);
+    section.append(warning);
+    slot.append(section);
+  }
+
+  async function loadFragment(slot) {
+    const source = slot.dataset.fragment;
+    slot.className = "fragment-slot";
+    slot.setAttribute("aria-busy", "true");
+    slot.textContent = `Loading ${source.split("/").pop().replace(".html", "")}…`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    try {
+      const response = await fetch(source, { cache: "no-cache", signal: controller.signal });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const html = await response.text();
+      if (!html.trim()) throw new Error("The section file is empty.");
+      const template = document.createElement("template");
+      template.innerHTML = html;
+      slot.replaceWith(template.content);
+      hydrateDynamicContent();
+      return true;
+    } catch (error) {
+      const message = error.name === "AbortError" ? "The request timed out." : error.message;
+      createFragmentError(slot, message);
+      return false;
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  function hydrateDynamicContent() {
+    const panels = $$(".panel");
+    panels.forEach(panel => {
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", `tab-${panel.id}`);
+    });
+    tabs.forEach(tab => {
+      tab.id = `tab-${tab.dataset.target}`;
+      tab.setAttribute("aria-controls", tab.dataset.target);
+    });
+    $$("pre").forEach(pre => {
+      if (pre.previousElementSibling?.classList.contains("copy")) return;
+      const button = document.createElement("button");
+      button.className = "copy";
+      button.type = "button";
+      button.textContent = "Copy";
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(pre.innerText);
+          button.textContent = "Copied";
+          setTimeout(() => { button.textContent = "Copy"; }, 1200);
+        } catch {
+          button.textContent = "Select and copy";
+        }
+      });
+      pre.parentElement.insertBefore(button, pre);
+    });
+    bindSearch("keySearch", "#keybank .searchable");
+    bindSearch("programSearch", "#programGrid .program-card");
+    showPanel(activePanel, { scroll: false, updateHash: false });
+  }
+
+  function bindSearch(inputId, selector) {
+    const input = document.getElementById(inputId);
+    if (!input || input.dataset.searchBound === "true") return;
+    input.dataset.searchBound = "true";
+    const apply = () => {
+      const query = input.value.trim().toLowerCase();
+      $$(selector).forEach(item => { item.hidden = Boolean(query) && !item.innerText.toLowerCase().includes(query); });
+    };
+    input.addEventListener("input", apply);
+    document.querySelector(`[data-clear="${inputId}"]`)?.addEventListener("click", () => {
+      input.value = "";
+      apply();
+      input.focus();
+    });
+  }
+
+  function showPanel(id, { scroll = true, updateHash = true } = {}) {
+    const target = document.getElementById(id);
+    if (!target?.classList.contains("panel")) id = "overview";
+    activePanel = id;
+    $$(".panel").forEach(panel => {
+      const active = panel.id === id;
+      panel.hidden = !active;
+      panel.classList.toggle("active", active);
+      panel.setAttribute("aria-hidden", String(!active));
+      if (active) {
+        panel.classList.remove("is-entering");
+        requestAnimationFrame(() => panel.classList.add("is-entering"));
+      }
+    });
+    tabs.forEach(tab => {
+      const active = tab.dataset.target === id;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-selected", String(active));
+      tab.tabIndex = active ? 0 : -1;
+    });
+    if (updateHash) history.replaceState(null, "", `${location.pathname}${location.search}#${encodeURIComponent(id)}`);
+    if (scroll) window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener("click", () => showPanel(tab.dataset.target));
+    tab.addEventListener("keydown", event => {
+      if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      let next = index;
+      if (event.key === "ArrowRight") next = (index + 1) % tabs.length;
+      if (event.key === "ArrowLeft") next = (index - 1 + tabs.length) % tabs.length;
+      if (event.key === "Home") next = 0;
+      if (event.key === "End") next = tabs.length - 1;
+      tabs[next].focus();
+      showPanel(tabs[next].dataset.target);
+    });
+  });
+
+  addEventListener("scroll", () => {
+    const root = document.documentElement;
+    progress.style.width = `${root.scrollTop / Math.max(1, root.scrollHeight - root.clientHeight) * 100}%`;
+    topButton.classList.toggle("show", root.scrollTop > 700);
+  }, { passive: true });
+  topButton.addEventListener("click", () => scrollTo({ top: 0, behavior: "smooth" }));
+
+  addEventListener("beforeprint", () => {
+    const panels = $$(".panel");
+    const details = $$("details");
+    printState = {
+      hidden: panels.map(panel => panel.hidden),
+      open: details.map(detail => detail.open)
+    };
+    panels.forEach(panel => { panel.hidden = false; });
+    details.forEach(detail => { detail.open = true; });
+    originalTitle = document.title;
+    document.title = "downloadable-notes-1008-REV2021";
+  });
+
+  addEventListener("afterprint", () => {
+    if (printState) {
+      $$(".panel").forEach((panel, index) => { panel.hidden = printState.hidden[index] ?? panel.id !== activePanel; });
+      $$("details").forEach((detail, index) => { detail.open = printState.open[index] ?? detail.open; });
+    }
+    document.title = originalTitle;
+  });
+
+  printButton.addEventListener("click", () => window.print());
+
+  async function start() {
+    const slots = $$("[data-fragment]");
+    const results = await Promise.all(slots.map(loadFragment));
+    const loaded = results.filter(Boolean).length;
+    if (loaded === slots.length) {
+      loadStatus.hidden = true;
+    } else {
+      loadStatus.hidden = false;
+      loadStatus.textContent = `${loaded} of ${slots.length} handbook files loaded. Use the retry button in each missing section.`;
+    }
+    const requested = decodeURIComponent(location.hash.slice(1));
+    const valid = tabs.some(tab => tab.dataset.target === requested);
+    activePanel = valid ? requested : "overview";
+    hydrateDynamicContent();
+    const params = new URLSearchParams(location.search);
+    if (params.has("autoPrintNotes") || params.has("downloadNotes")) setTimeout(() => window.print(), 500);
+  }
+
+  start();
+})();
+</script>
+<div id="polySiteAssistant"></div>
+<script src="/assets/js/site-assistant.js?v=20260717-lesson-isolated1" defer></script>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script></body>
+</html>
