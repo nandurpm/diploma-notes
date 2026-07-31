@@ -28,7 +28,7 @@ This document serves as the official Release and Deployment Guide for POLY PMNA.
 Before committing any release or submitting a Pull Request, you **must** run the local validation suite. The main quality gate automatically aggregates these checks.
 
 ### Run All Quality Gates
-Execute the following unified quality gate command:
+Execute the following unified quality gate command to validate the source directory:
 ```bash
 python3 tools/site_quality_gate.py
 ```
@@ -36,6 +36,11 @@ This script runs the following sub-validations:
 1.  **Site Structure Validation (`validate_site_structure.py`):** Ensures menu hierarchies, doctypes, viewports, and baseline resource counts (e.g., at least 91 REV2021 and 36 REV2026 files) are intact.
 2.  **Fullscreen Standard (`validate_lesson_fullscreen.py`):** Checks that all lessons load correct no-header navigation assets.
 3.  **Watermark Verification (`validate_watermark.py`):** Checks the presence and validity of lesson watermark CSS and images.
+
+To validate a compiled public build directory, append the `--build-dir` argument:
+```bash
+python3 tools/site_quality_gate.py --build-dir _site
+```
 
 ---
 
@@ -54,9 +59,9 @@ Compile and optimize assets (e.g., bundling home page CSS, cache-busting, and mi
 ```bash
 python3 tools/build_public_site.py --target _site
 ```
-Ensure that `_site/build-optimization.json` is generated successfully and the bundle is verified:
+Ensure that the compiled build conforms to all quality gates, build assets are generated correctly, and optimizations are verified:
 ```bash
-test -f _site/build-optimization.json
+python3 tools/site_quality_gate.py --build-dir _site
 ```
 
 ---
