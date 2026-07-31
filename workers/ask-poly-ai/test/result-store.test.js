@@ -46,8 +46,8 @@ test("authenticateStudent handles successful auth response", async () => {
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
-    SUPABASE_SERVICE_ROLE_KEY: `service-key`
-    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    SUPABASE_SERVICE_ROLE_KEY: `service-key`,
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key",
     ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
@@ -137,8 +137,8 @@ test("storeMockExamResult submits correct payload on success", async () => {
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
-    SUPABASE_SERVICE_ROLE_KEY: `service-key`
-    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    SUPABASE_SERVICE_ROLE_KEY: `service-key`,
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key",
     ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
@@ -193,8 +193,8 @@ test("storeMockExamResult handles fallback default shapes for body", async () =>
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
-    SUPABASE_SERVICE_ROLE_KEY: `service-key`
-    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    SUPABASE_SERVICE_ROLE_KEY: `service-key`,
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key",
     ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
@@ -230,8 +230,8 @@ test("storeMockExamResult throws 502 with details on non-ok HTTP status", async 
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
-    SUPABASE_SERVICE_ROLE_KEY: `service-key`
-    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key"
+    SUPABASE_SERVICE_ROLE_KEY: `service-key`,
+    ["SUPABASE_SERVICE_ROLE_KEY"]: "service-key",
     ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
   };
 
