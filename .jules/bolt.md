@@ -45,3 +45,7 @@
 ## 2026-07-31 - [Cached Fallback and Load-Time Intl.DateTimeFormat Instantiations]
 **Learning:** Found that repeated instantiations of `Intl.DateTimeFormat` objects in browser utility files (such as `help-comments.js` render loop, `daily-quiz-utils.js`, `quiz-core.js`, `onam-render-a.js`, `daily-important-day.js`, and `visitor-popup.js`) had high initialization, timezone setup, and locale resolution overhead. In the comment feed rendering pathway, this was happening up to 40+ times per single render cycle. Caching the formatters in module/file scope variables completely eliminates this latency and memory allocation.
 **Action:** Always pre-compile and cache `Intl.DateTimeFormat` objects in module-level or file scope when formatting dates within hot paths, timers, snapshot loops, or utility fallbacks.
+
+## 2026-08-01 - [Cached RegExp Compilations in Site Assistant Query Loop]
+**Learning:** Found that the in-page site assistant ranking algorithm in assets/js/site-assistant.js compiled a new RegExp for every query token and every candidate chunk on every single user search. With hundreds of candidates and multiple query tokens, this compiled hundreds of redundant RegExp instances in a single query execution. Pre-compiling RegExp objects outside the candidates map loop reduces compiled RegExps from O(N * K) down to O(K).
+**Action:** Pre-compile and cache dynamic RegExp patterns outside loops or search/render pathways whenever the regex is independent of the individual candidate item.
