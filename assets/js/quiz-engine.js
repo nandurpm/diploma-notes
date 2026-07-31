@@ -96,6 +96,7 @@
     $('registerTab')?.setAttribute('aria-selected', String(!isLogin));
     $('usernameField')?.classList.toggle('hidden', isLogin);
     $('confirmField')?.classList.toggle('hidden', isLogin);
+    $('forgotPasswordBtn')?.classList.toggle('hidden', !isLogin);
     $('authForm').dataset.mode = nextMode;
     $('authSubmit').textContent = isLogin ? 'Login' : 'Register';
 
@@ -107,6 +108,16 @@
     const cp = $('confirmPassword');
     if (pw) pw.type = 'password';
     if (cp) cp.type = 'password';
+
+    const active = document.activeElement;
+    const isTabClick = active && (active.id === 'loginTab' || active.id === 'registerTab');
+    if (isTabClick) {
+      if (isLogin) {
+        $('email')?.focus();
+      } else {
+        $('username')?.focus();
+      }
+    }
 
     msg('');
   }
@@ -286,7 +297,12 @@
     el.className = 'subject-card';
     el.dataset.code = code;
     const label = kind === 'review' ? 'Open Review' : kind === 'mock' ? 'Start Exam' : 'Start / View Result';
-    el.innerHTML = `<span class="chip">${esc(code)}</span><h3>${esc(name)}</h3><p>${kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.'}</p><button class="btn ${kind === 'mock' ? 'primary' : 'soft'}" type="button">${label}</button>`;
+    const ariaLabel = kind === 'review'
+      ? `Open Previous-Day Review for ${code} - ${name}`
+      : kind === 'mock'
+        ? `Start Mock Exam for ${code} - ${name}`
+        : `Start Daily Quiz for ${code} - ${name}`;
+    el.innerHTML = `<span class="chip">${esc(code)}</span><h3>${esc(name)}</h3><p>${kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.'}</p><button class="btn ${kind === 'mock' ? 'primary' : 'soft'}" type="button" aria-label="${esc(ariaLabel)}">${label}</button>`;
     el.onclick = () => {
       if (kind === 'daily') render(code);
       else if (kind === 'review') review(code);
