@@ -5,15 +5,39 @@ build/
 .cache/
 coverage/
 *.log
-.DS_Store
-Thumbs.db
-.env
-.env.*
+*.out
+*.pid
+*.swp
+*.swo
+*.tmp
+*.temp
 *.bak
 *.old
-*.tmp
+*.orig
 *.zip
 *.apk
+*.7z
+*.tar
+*.gz
+.DS_Store
+Thumbs.db
+
+# Scratch/staging files must not be committed (see tmp/README.md)
+tmp/*
+!tmp/README.md
+
+.env
+.env.*
+.vscode/
+.idea/
+.pyc
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
 
 # Signing key material must never be committed (materialize from CI secrets)
 *.keystore
@@ -29,17 +53,7 @@ android-app/app/google-services.json
 firebase-service-account*.json
 reports/*.tmp.json
 reports/site-structure-validation.json
-
-# Python caches
-__pycache__/
-*.py[cod]
-.pytest_cache/
-
-# Signing and certificate material must never be committed.
-*.keystore
-*.jks
-*.p12
-*.pfx
+reports/generated/
 
 # wrangler files
 .wrangler
