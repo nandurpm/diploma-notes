@@ -5,8 +5,8 @@
 .about-experience .about-breadcrumbs {
   position: relative;
   z-index: 10;
-  width: min(1340px, calc(100% - 48px));
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 20px 0 0;
 }
 

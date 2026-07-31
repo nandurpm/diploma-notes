@@ -4,6 +4,9 @@ window.PolyQuizResults = (() => {
   const memoryStore = Object.create(null);
 
   const dateKey = (d) => {
+    if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
+      return window.PolyUtils.formatDateKey(d);
+    }
     d = d ? new Date(d) : new Date();
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   };

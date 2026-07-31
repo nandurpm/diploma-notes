@@ -79,6 +79,15 @@
     const now = Date.now();
     const path = window.location.pathname;
     
+    // Bypass maintenance on local development environment or automated local lighthouse runs
+    if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1" ||
+      window.location.search.includes("bypass-maintenance")
+    ) {
+      return;
+    }
+
     // Allow access to maintenance page and assets
     if (PASSTHROUGH_PATHS.some(p => path.startsWith(p))) {
       return;

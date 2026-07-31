@@ -143,7 +143,53 @@
     timer:()=>timer(), grammar:()=>textTool('grammar'), words:()=>textTool('words'), case:()=>textTool('case'), clean:()=>textTool('clean'), letter:()=>letter(), lab:()=>lab()
   };
   function concrete(f){const vol=p(f.get('vol'),'Volume')*1.54, parts=String(f.get('ratio')).split(':').map(Number); if(parts.length!==3||!parts.every(x=>x>0)) throw new Error('Ratio format must be 1:2:4'); const sum=parts.reduce((s,x)=>s+x,0), cement=vol*parts[0]/sum, sand=vol*parts[1]/sum, agg=vol*parts[2]/sum; return `<b>Cement ≈ ${fmt(cement*1440/50)} bags</b><br>Sand ≈ ${fmt(sand)} m³<br>Aggregate ≈ ${fmt(agg)} m³`;}
-  function timer(){ $('#body').innerHTML=`<div class='result'><b id='time'>25:00</b><br>Revision timer</div><div class='tool-actions'><button class='btn primary' id='start' type='button'>Start</button><button class='btn' id='pause' type='button'>Pause</button><button class='btn' id='reset' type='button'>Reset</button></div>`; let left=1500, run=null; const show=()=>$('#time').textContent=`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`; $('#start').onclick=()=>{if(run)return;run=setInterval(()=>{left=Math.max(0,left-1);show();if(!left){clearInterval(run);run=null;}},1000)}; $('#pause').onclick=()=>{clearInterval(run);run=null}; $('#reset').onclick=()=>{clearInterval(run);run=null;left=1500;show()}; }
+  /* Revision Pomodoro timer with accessible state-change announcements */
+  function timer(){
+    $('#body').innerHTML=`<div class='result'><b id='time'>25:00</b><br>Revision timer</div><div class='tool-actions'><button class='btn primary' id='start' type='button'>Start</button><button class='btn' id='pause' type='button'>Pause</button><button class='btn' id='reset' type='button'>Reset</button></div><div id='timer-status' class='result' role='status' aria-live='polite' style='font-size:0.95rem; margin-top:12px; font-weight:500;'>Ready to start.</div>`;
+    let left=1500, run=null;
+    const statusEl = $('#timer-status');
+    const show=()=>$('#time').textContent=`${String(Math.floor(left/60)).padStart(2,'0')}:${String(left%60).padStart(2,'0')}`;
+    $('#start').onclick=()=>{
+      if(run)return;
+      if (statusEl) {
+        statusEl.style.borderLeftColor = '';
+        statusEl.style.background = '';
+        statusEl.textContent = 'Timer started. Focus on your revision!';
+      }
+      run=setInterval(()=>{
+        left=Math.max(0,left-1);
+        show();
+        if(!left){
+          clearInterval(run);
+          run=null;
+          if (statusEl) {
+            statusEl.style.borderLeftColor = '#059669';
+            statusEl.style.background = '#ecfdf5';
+            statusEl.innerHTML = '<b>Time’s up!</b> Revision session completed. Take a short break!';
+          }
+        }
+      },1000);
+    };
+    $('#pause').onclick=()=>{
+      if(!run)return;
+      clearInterval(run);
+      run=null;
+      if (statusEl) {
+        statusEl.textContent = 'Timer paused.';
+      }
+    };
+    $('#reset').onclick=()=>{
+      clearInterval(run);
+      run=null;
+      left=1500;
+      show();
+      if (statusEl) {
+        statusEl.style.borderLeftColor = '';
+        statusEl.style.background = '';
+        statusEl.textContent = 'Timer reset to 25 minutes.';
+      }
+    };
+  }
   function textTool(kind){ $('#body').innerHTML=`<label class='sr-only' for='text'>Text</label><textarea id='text' rows='9' placeholder='Paste or type text here'></textarea><div class='tool-actions'><button class='btn primary' id='run' type='button'>Run Tool</button></div><div class='result' id='res' role='status' aria-live='polite'>Ready.</div>`; $('#run').onclick=()=>{let t=$('#text').value; if(kind==='words'){const w=t.trim()?t.trim().split(/\s+/).length:0;$('#res').innerHTML=`<b>${w}</b> words<br>${t.length} characters<br>Reading time ≈ ${fmt(w/180)} min`;return;} if(kind==='case'){ $('#text').value=t.toLowerCase().replace(/(^|\.\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()); $('#res').textContent='Converted to sentence case.'; return;} if(kind==='clean'){ $('#text').value=t.replace(/[ \t]+/g,' ').replace(/\n{3,}/g,'\n\n').trim(); $('#res').textContent='Cleaned.'; return;} $('#text').value=t.replace(/\s+([,.!?])/g,'$1').replace(/(^|\.\s+)([a-z])/g,(m,a,b)=>a+b.toUpperCase()).replace(/\bi\b/g,'I'); $('#res').textContent='Basic rule-based cleanup completed. It is not a full AI grammar checker.';}; }
   function letter(){ $('#body').innerHTML=`<label class='sr-only' for='letterText'>Application letter</label><textarea id='letterText' rows='13'>To\nThe Principal\n\nSubject: Application for leave\n\nRespected Sir/Madam,\nI request leave for ______ due to ______. Kindly grant permission.\n\nYours faithfully,\nName:\nClass:\nRoll No:</textarea>`; }
   function lab(){ $('#body').innerHTML=`<label class='sr-only' for='labText'>Lab record format</label><textarea id='labText' rows='14'>Experiment No:\nDate:\nAim:\nApparatus / Software Required:\nTheory:\nProcedure:\nObservation / Drawing Details:\nResult:\nPrecautions:\nViva Questions:</textarea>`; }

@@ -17,19 +17,30 @@ def main() -> int:
     lessons = rev21 + rev26
     
     js = read(ROOT / "assets/js/lesson-navigation-fix.js")
-    css = read(ROOT / "assets/css/lesson-watermark.css")
+    watermark_css_path = ROOT / "assets/css/lesson-watermark.css"
+    watermark_image_path = ROOT / "assets/media/poly-pmna-watermark-sm.png"
+    css = read(watermark_css_path)
     
     failures: list[str] = []
     missing_runtime: list[str] = []
+    stale_runtime: list[str] = []
     
     for path in lessons:
         source = read(path)
         rel = path.relative_to(ROOT).as_posix()
         if "lesson-navigation-fix.js" not in source:
             missing_runtime.append(rel)
+        elif "20260725-watermark1" not in source and 'name="poly-build-id"' not in source:
+            stale_runtime.append(rel)
             
     if missing_runtime:
         failures.append("missing shared runtime (watermark will not appear): " + ", ".join(missing_runtime))
+    if stale_runtime:
+        failures.append("stale shared runtime (watermark may not use current assets): " + ", ".join(stale_runtime))
+    if not watermark_css_path.is_file():
+        failures.append("shared watermark CSS file is missing: assets/css/lesson-watermark.css")
+    if not watermark_image_path.is_file():
+        failures.append("watermark image is missing: assets/media/poly-pmna-watermark-sm.png")
         
     required_js = {
         "watermark injection logic": "installWatermark",
@@ -57,6 +68,9 @@ def main() -> int:
             "revision_2021": len(rev21),
             "revision_2026": len(rev26),
             "failure_count": len(failures),
+            "runtime": "20260725-watermark1",
+            "watermark_css": watermark_css_path.relative_to(ROOT).as_posix(),
+            "watermark_image": watermark_image_path.relative_to(ROOT).as_posix(),
         },
         "failures": failures,
     }

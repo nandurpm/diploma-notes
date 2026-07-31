@@ -43,6 +43,37 @@
   function parse(text){const m=text.match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);try{return m?Function(`'use strict';return (${m[1]});`)():[]}catch{return[]}}
   function card(s){const r=root(),ac=asset(s),les=`${r}lessons/lessons-${encodeURIComponent(ac)}.html`,pdf=`${r}notes/downloadable-notes-${encodeURIComponent(ac)}.pdf`,has=LESSONS.has(code(ac));return `<article class='subject-card reveal'><div class='subject-top'><span>${esc(s.revision)}</span><strong>${esc(s.code)}</strong></div><h3>${esc(s.name)}</h3><p>${esc(s.department)} / ${esc(s.semester)} / ${esc(s.type)}</p><div class='action-row'><a class='action syllabus' href='${esc(syllabus(s))}' target='_blank' rel='noopener noreferrer'>Open Syllabus</a>${has?`<a class='action lessons' href='${esc(les)}'>View Lessons</a><a class='action download' href='${esc(pdf)}' download>Download Notes</a>`:`<span class='availability-label'>Lessons unavailable</span><span class='availability-label'>Notes unavailable</span>`}<a class='action qp' href='${esc(qp(s))}' target='_blank' rel='noopener noreferrer'>Sample QP</a></div></article>`}
   function groups(grid,list){const map=new Map();list.forEach(s=>{const sem=String(s.semester||'Other subjects');if(!map.has(sem))map.set(sem,[]);map.get(sem).push(s)});grid.innerHTML=[...map.entries()].map(([sem,items])=>`<section class='semester-subject-section' style='grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px'><div class='semester-group-heading' style='display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)'><h3>${esc(sem)}</h3><span>${items.length} ${items.length===1?'subject':'subjects'}</span></div><div class='semester-card-grid' style='display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%'>${items.map(card).join('')}</div></section>`).join('')}
-  async function start(){const grid=document.getElementById('subjectGrid');if(!grid||grid.dataset.mode!=='department')return;const dep=grid.dataset.department||'';const rev=grid.dataset.revision||'2021';const text=await fetch(`${root()}assets/js/subjects.js?v=20260630-2022-lesson1`).then(r=>r.text()).catch(()=>'');const all=unique([...parse(text),...manual]);const render=()=>{const sem=document.getElementById('semesterFilter')?.value||'all';const q=String(document.getElementById('subjectSearch')?.value||'').trim().toLowerCase();let list=all.filter(s=>String(s.revision)===rev&&(same(s.department,COMMON)||same(s.department,dep)));if(sem!=='all')list=list.filter(s=>String(s.semester)===sem);if(q)list=list.filter(s=>[s.code,s.name,s.department,s.semester,s.type].join(' ').toLowerCase().includes(q));list.sort((a,b)=>semrank(a.semester)-semrank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true}));if(list.length)groups(grid,list)};render();['subjectSearch','semesterFilter'].forEach(id=>{const el=document.getElementById(id);if(el){el.addEventListener('input',render);el.addEventListener('change',render)}})}
+  async function start(){
+    const grid=document.getElementById('subjectGrid');
+    if(!grid||grid.dataset.mode!=='department')return;
+    const dep=grid.dataset.department||'';
+    const rev=grid.dataset.revision||'2021';
+    const text=await fetch(`${root()}assets/js/subjects.js?v=20260630-2022-lesson1`).then(r=>r.text()).catch(()=>'');
+    const all=unique([...parse(text),...manual]);
+
+    // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for each subject
+    // to avoid redundant string joins and lowercase conversions on every keystroke.
+    all.forEach(s => {
+      s._searchText = [s.code, s.name, s.department, s.semester, s.type].join(' ').toLowerCase();
+    });
+
+    const render=()=>{
+      const sem=document.getElementById('semesterFilter')?.value||'all';
+      const q=String(document.getElementById('subjectSearch')?.value||'').trim().toLowerCase();
+      let list=all.filter(s=>String(s.revision)===rev&&(same(s.department,COMMON)||same(s.department,dep)));
+      if(sem!=='all')list=list.filter(s=>String(s.semester)===sem);
+      if(q)list=list.filter(s=>s._searchText && s._searchText.includes(q));
+      list.sort((a,b)=>semrank(a.semester)-semrank(b.semester)||String(a.code).localeCompare(String(b.code),undefined,{numeric:true}));
+      if(list.length)groups(grid,list)
+    };
+    render();
+    ['subjectSearch','semesterFilter'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el){
+        el.addEventListener('input',render);
+        el.addEventListener('change',render)
+      }
+    })
+  }
   document.readyState==='loading'?document.addEventListener('DOMContentLoaded',start,{once:true}):start();
 })();

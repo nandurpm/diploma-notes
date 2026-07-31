@@ -570,6 +570,56 @@ Always inspect first.
 
 ---
 
+# 🚀 Advanced Portal & Tooling Standards
+
+## ⚡ Performance & Caching Patterns
+
+- **Pre-compute & Cache Lookup Values**:
+  - Avoid computing dynamic strings (e.g., lowercase conversion, string concatenation, or regex-based normalization) inside active loops or event handlers (like scroll, search keypress, or render loops).
+  - Cache lowercase search strings (`_searchText`) during initialization (`init()`).
+  - Pre-compute and cache normalized search fields (`_normCode`, `_normName`, `_normDept`) during initialization to keep the site-assistant's query loops ultra-fast.
+- **Cache Expensive Objects**:
+  - Cache costly repeated instantiations like `Intl.DateTimeFormat` in module scope (e.g., in `PolyUtils.formatDateKey`) to bypass heavy localization lookup overhead in dynamic clocks and countdowns.
+
+## 🔗 Shared Code Reuse (PolyUtils)
+
+- **Avoid Utility Duplication**:
+  - Do not write local HTML-escaping functions (`esc` or custom `escapeHtml`) in individual files. Always delegate to the global helper `window.PolyUtils.escapeHtml(value)` to ensure security and maintainability.
+  - Leverage `window.PolyUtils` for Supabase browser-client initialization (`createSupabaseBrowserClient`) and standard timezone-aware date conversions (`formatDateKey`).
+
+## ♿ Advanced Accessibility (a11y)
+
+- **Dynamic Search Feedback**:
+  - Real-time search query fields must announce match results count to screen readers immediately. Link query inputs with a visually hidden ARIA-live polite status announcer (`#subjectBrowserAnnouncer`, `role="status"`) via `aria-controls` and `aria-describedby`.
+- **Non-nested Interactive Elements**:
+  - Never nest interactive elements (e.g., placing a secondary button or icon-only delete button with `role="button"` inside a parent `<button>` list item) as it breaks keyboard navigation and WCAG specifications. Wrap them as semantic siblings within a relative container instead.
+- **Rapidly Updating Timers**:
+  - Do not place `aria-live="polite"` or `role="status"` directly on rapidly-updating strings (such as dynamic countdown timers) to prevent screen reader verbal clutter. Use a separate status region to announce transition changes (e.g. starting, pausing, resetting, and completing).
+- **Show/Hide Password Accessibility**:
+  - When implementing "Show Password" checkboxes, mask the password visibility back to secret when the user toggles tabs, switches forms, or closes the view to protect sensitive user credentials.
+
+## 🔍 Crawlability & SEO
+
+- **Prevent Incorrect Indexation**:
+  - Service worker fallback pages (`offline.html`) must load `<meta name="robots" content="noindex, follow">`.
+  - Sensitive form-utility pages (like `reset-password.html`) must load `<meta name="robots" content="noindex, nofollow">` to prevent search engine crawler indexation.
+
+## 🧠 Backend & Mathematical Processing (Workers)
+
+- **Input Sanitization without Variable Loss**:
+  - Worker mathematical pre-processors (such as `equationParts` in Ask Poly AI) must clean math input by removing stop words using word boundaries (`\b`), but must never include variable names like `x` or `y` in the stop word list to prevent stripping essential variables and causing parser crashes.
+
+## 🛠 Developer Toolchain & Testing
+
+- **PDF Generation Local Prerequisite**:
+  - Local PDF generation scripts (e.g., `tools/build_missing_lesson_pdfs.py`) require capturing the fully rendered HTML. You must start a local Python HTTP server on port 8000 (`python3 -m http.server 8000`) before running the builders.
+- **Wrangler Configuration Integrity**:
+  - Cloudflare Wrangler prioritizes `wrangler.jsonc` over `wrangler.toml` when checking parent directories. Never leave an incomplete or broken `wrangler.jsonc` file in the repository root as it will fail production deployments.
+- **Dynamic Document Writing Overwrites**:
+  - When overwriting document markup dynamically (e.g., using `document.write()`), ensure that critical classes (`poly-lesson-page`, `lesson-all-content`, and `revision-2026-lesson`) are re-appended to `document.documentElement` and `document.body` to avoid headless verification and layout test failures.
+
+---
+
 # Project Goal
 
 POLY PMNA should feel like a professional educational platform.

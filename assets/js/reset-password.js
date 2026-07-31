@@ -29,6 +29,17 @@
 
     await db.auth.getSession().catch(() => null);
 
+    const showPw = $("showPasswordToggle");
+    if (showPw) {
+      showPw.addEventListener("change", () => {
+        const type = showPw.checked ? "text" : "password";
+        const pw = $("newPassword");
+        const cp = $("confirmPassword");
+        if (pw) pw.type = type;
+        if (cp) cp.type = type;
+      });
+    }
+
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
       const password = $("newPassword")?.value || "";

@@ -174,6 +174,7 @@ Each directory contains a `README.md` file with detailed documentation:
 | `supabase/` | Database schema and edge functions |
 | `functions/` | Cloudflare Pages middleware |
 | `workers/` | Cloudflare Worker deployment |
+| `tools/` | Developer automation, site validation, and maintenance scripts (`README-maintenance.md`) |
 | `docs/` | Internal architecture documentation |
 
 ---

@@ -6,14 +6,17 @@ https://polypmna.dpdns.org/
 
 ## Current source release
 
-- Version: `3.0`
-- Version code: `9`
+- Version: `3.3`
+- Version code: `12`
 - Application ID: `org.diplomanotes.polytechnicstudyhub`
 - Minimum Android version: Android 6.0 (API 23)
 - Target SDK: API 35
 
-## Version 3.0 major update
+## Version 3.3 signed release
 
+- Publishes the public APK only as a signed release build.
+- Makes the homepage Android download/update button target the GitHub Release APK for version 3.3.
+- Existing Android app users on an older version see an in-app update button on the homepage.
 - Adds **Revision 2026** as a dedicated native drawer destination.
 - Keeps **Revision 2021** as a separate destination for legacy batches.
 - Supports nested Revision 2026 department pages and dedicated lesson/notes paths.
@@ -25,6 +28,7 @@ https://polypmna.dpdns.org/
 - Enables WebView database storage and normal cache mode while preserving the exact-page offline retry screen.
 - Opens approved SITTTR, Google Drive and GitHub links through the appropriate external app.
 - Keeps Ask POLY AI, Mock Exams, Tools, Question Papers, 2015 Materials, About and Contact.
+- Re-registers for Firebase lesson-notification topics from the main app activity as well as the notification bootstrap activity.
 
 ## Content separation
 
@@ -45,13 +49,17 @@ The APK does not bundle or copy Revision 2021 lessons into Revision 2026. It ope
 From the repository root:
 
 ```bash
-gradle -p android-app :app:assembleDebug --no-daemon
+gradle -p android-app :app:assembleRelease --no-daemon \
+  -PANDROID_KEYSTORE_FILE=/path/to/release.keystore \
+  -PANDROID_KEYSTORE_PASSWORD=... \
+  -PANDROID_KEY_ALIAS=... \
+  -PANDROID_KEY_PASSWORD=...
 ```
 
-Debug APK output:
+Signed release APK output:
 
 ```text
-android-app/app/build/outputs/apk/debug/app-debug.apk
+android-app/app/build/outputs/apk/release/app-release.apk
 ```
 
 ## Signed public release

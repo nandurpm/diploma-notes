@@ -1,6 +1,8 @@
 /* Purpose: Result store - Descriptive comment added for clarity */
 const clean = (value, maximum = 500) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 /* Secure fetch wrapper with AbortController timeout to prevent hanging connections */
 async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
   const controller = new AbortController();
@@ -26,7 +28,7 @@ function supabaseBase(env) {
 function bearerToken(request) {
   const value = request.headers.get("Authorization") || "";
   const match = value.match(/^Bearer\s+(.+)$/i);
-  return match ? clean(match[1], 4096) : "";
+  return match ? clean(match[1], 4096).replace(/[\x00-\x1F\x7F]/g, "") : "";
 }
 
 export function canStoreVerifiedResults(env) {
@@ -49,8 +51,11 @@ export async function authenticateStudent(request, env) {
       }
     });
     const user = await response.json().catch(() => ({}));
-    if (!response.ok || !user?.id) throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
-    return { id: clean(user.id, 80), token };
+    const userId = clean(user?.id, 80);
+    if (!response.ok || !userId || !UUID_REGEX.test(userId)) {
+      throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
+    }
+    return { id: userId, token };
   } catch (error) {
     if (error && typeof error === "object" && "status" in error) {
       throw error;
