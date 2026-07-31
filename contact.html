@@ -90,7 +90,11 @@
         <div class="discussion-head"><div><p class="kicker">Student Help Forum</p><h2 id="discussionTitle">Public Help Discussion</h2><p>Ask a question, report a problem, suggest an improvement, or reply to an existing comment.</p></div><span class="discussion-count" id="commentCount" aria-live="polite">0 comments</span></div>
         <form class="comment-form" id="helpCommentForm">
           <div class="comment-form-row"><div><label for="commentName">Your name</label><input id="commentName" name="name" type="text" minlength="2" maxlength="40" autocomplete="name" placeholder="Enter your name" required></div><button class="comment-submit" id="commentSubmit" type="submit" disabled>Post Comment</button></div>
-          <div><label for="commentMessage">Comment or question</label><textarea id="commentMessage" name="message" maxlength="1500" placeholder="Include the page URL, revision, subject code and exact problem…" required></textarea></div>
+          <div>
+            <label for="commentMessage">Comment or question</label>
+            <textarea id="commentMessage" name="message" maxlength="1500" placeholder="Include the page URL, revision, subject code and exact problem…" required></textarea>
+            <div class="comment-char-counter" id="commentCharCounter" aria-live="polite">0 / 1500 characters</div>
+          </div>
         </form>
         <p class="comment-status" id="commentStatus" role="status" aria-live="polite"></p>
         <p class="discussion-note">Comments are public. Avoid sharing passwords, phone numbers, email addresses or private information.</p>

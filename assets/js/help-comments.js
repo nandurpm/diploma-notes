@@ -21,6 +21,13 @@ const submitButton = document.querySelector("#commentSubmit");
 const statusBox = document.querySelector("#commentStatus");
 const list = document.querySelector("#commentsList");
 const countBox = document.querySelector("#commentCount");
+const charCounter = document.querySelector("#commentCharCounter");
+
+if (messageInput && charCounter) {
+  messageInput.addEventListener("input", () => {
+    charCounter.textContent = `${messageInput.value.length} / 1500 characters`;
+  });
+}
 
 function protectedMailto(subject = "POLY PMNA Help") {
   return `mailto:${decodeEmail(EMAIL_TOKEN)}?subject=${encodeURIComponent(subject)}`;
@@ -159,11 +166,21 @@ async function initializeDiscussion() {
     textarea.required = true;
     textarea.placeholder = "Write your reply…";
     textarea.setAttribute("aria-label", "Reply message");
+
+    const counter = document.createElement("div");
+    counter.className = "comment-char-counter";
+    counter.textContent = "0 / 1500 characters";
+    counter.setAttribute("aria-live", "polite");
+
+    textarea.addEventListener("input", () => {
+      counter.textContent = `${textarea.value.length} / 1500 characters`;
+    });
+
     const submit = document.createElement("button");
     submit.type = "submit";
     submit.className = "comment-submit";
     submit.textContent = "Post Reply";
-    replyForm.append(textarea, submit);
+    replyForm.append(textarea, counter, submit);
     replyForm.addEventListener("submit", async event => {
       event.preventDefault();
       const author = nameInput.value.trim();
@@ -280,6 +297,7 @@ async function initializeDiscussion() {
       localStorage.setItem("diplomaNotesCommentName", author);
       rememberPost(message);
       messageInput.value = "";
+      if (charCounter) charCounter.textContent = "0 / 1500 characters";
       setStatus("Comment posted.", "success");
     } catch (error) {
       console.error("Could not post comment.", error);
