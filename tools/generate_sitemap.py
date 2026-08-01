@@ -93,6 +93,34 @@ def entries() -> list[tuple[str, str]]:
         except Exception:
             pass
 
+    # Parse existing sitemap.xml to preserve ignored revision-2026-content PDFs in environments lacking them (e.g. CI)
+    sitemap_path = ROOT / "sitemap.xml"
+    if sitemap_path.exists():
+        try:
+            from xml.etree import ElementTree as ET
+            ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+            root = ET.parse(sitemap_path)
+            for url_node in root.findall("sm:url", ns):
+                loc = url_node.find("sm:loc", ns)
+                lastmod = url_node.find("sm:lastmod", ns)
+                if loc is not None and lastmod is not None:
+                    url_str = loc.text.strip()
+                    if "/revision-2026-content/notes/" in url_str:
+                        if url_str not in found:
+                            found[url_str] = lastmod.text.strip()
+        except Exception:
+            pass
+
+    for path in ROOT.glob("notes/*.pdf"):
+        if path.is_file():
+            url = f"{ORIGIN}/{path.relative_to(ROOT).as_posix()}"
+            found[url] = git_lastmod(path)
+    for path in ROOT.glob("revision-2026-content/lessons/lessons-*.html"):
+        match = re.fullmatch(r"lessons-([0-9]+[A-Za-z]*)\.html", path.name)
+        if match:
+            code = match.group(1).upper()
+            url = f"{ORIGIN}/revision-2026-content/notes/downloadable-notes-{code}.pdf"
+            found[url] = git_lastmod(path)
     return sorted(found.items(), key=lambda item: (item[0] != f"{ORIGIN}/", item[0]))
 
 
