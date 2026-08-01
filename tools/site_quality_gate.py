@@ -116,6 +116,8 @@ def audit_page(url: str) -> list[str]:
         # Skip checking file existence for revision-2026-content/notes/*.pdf as they are hosted on GitHub Releases and git-ignored
         if local.startswith("revision-2026-content/notes/"):
             return issues
+        if local.startswith("revision-2026-content/notes/"):
+            return []
         return issues if path.is_file() else [f"Missing sitemap PDF: {local}"]
     if not path.is_file():
         return [f"Missing sitemap page: {local}"]
