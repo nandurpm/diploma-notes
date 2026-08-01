@@ -65,9 +65,33 @@ def canonical_for(path: Path) -> str | None:
     return url
 
 
+def parse_existing_sitemap() -> dict[str, str]:
+    existing: dict[str, str] = {}
+    target = ROOT / "sitemap.xml"
+    if not target.exists():
+        return existing
+    try:
+        ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        root = ET.parse(target)
+        for url_node in root.findall("sm:url", ns):
+            loc_node = url_node.find("sm:loc", ns)
+            lastmod_node = url_node.find("sm:lastmod", ns)
+            if loc_node is not None and lastmod_node is not None:
+                url = (loc_node.text or "").strip()
+                existing[url] = (lastmod_node.text or "").strip()
+    except Exception:
+        pass
+    return existing
+
+
 def entries() -> list[tuple[str, str]]:
+    existing = parse_existing_sitemap()
     found: dict[str, str] = {}
 
+    def get_lastmod(url: str, path: Path) -> str:
+        if url in existing:
+            return existing[url]
+        return git_lastmod(path)
     # Preserve existing revision-2026-content/notes/*.pdf sitemap entries
     # to avoid failing in clean checkouts where these PDFs are git-ignored.
     existing_pdfs: dict[str, str] = {}
@@ -90,11 +114,19 @@ def entries() -> list[tuple[str, str]]:
     for path in ROOT.rglob("*.html"):
         url = canonical_for(path)
         if url:
-            found[url] = git_lastmod(path)
+            found[url] = get_lastmod(url, path)
     for pattern in ("notes/*.pdf", "revision-2026-content/notes/*.pdf"):
         for path in ROOT.glob(pattern):
             if path.is_file():
                 url = f"{ORIGIN}/{path.relative_to(ROOT).as_posix()}"
+                found[url] = get_lastmod(url, path)
+
+    # Dynamically preserve any Revision 2026 PDF sitemap entries if missing from disk
+    for url, lastmod in existing.items():
+        if "revision-2026-content/notes/" in url and url.endswith(".pdf"):
+            if url not in found:
+                found[url] = lastmod
+
                 found[url] = git_lastmod(path)
 
     for url, lastmod in existing_pdfs.items():
