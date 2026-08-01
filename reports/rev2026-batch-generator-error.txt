@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/tmp/publish_rev2026_batch.py", line 181, in <module>
+    courses = json.loads(zlib.decompress(base64.b64decode(payload)).decode("utf-8"))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+zlib.error: Error -3 while decompressing data: incorrect data check
+
+PAYLOAD CHUNK DIAGNOSTICS
+courses.part1 7100 91e9b447cae2fc50fa209881d17a6ed6b5ef8080 eNqsvXtvJNl1 NAHHpK9EN8m7
+courses.part2 7100 055a29171074c3cf07ac7e6769f0be1151872982 KzfrqGwuTART oceJm8q03ikQ
+courses.part3 7100 a1f610331209274fe8ee9e523bab198cd5ae8fd8 6gQZKZr156DV hb5STFCCbylX
+courses.part4 7100 325b75961012489b3af6b032ffe8431d89d2eac7 C/2oJjsLvtak PALyB37b3M1O
+courses.part5 7100 402863f117f11eb7afacd79944fda2a13a611a0a 66rYbsuKQkGN +QLT8sxdbGzx
+courses.part6a 2000 09b055bba503d1144ea625344e2ef518062d5dc0 6YdnTkQyQYgu OkUcSkzlzRdU
+courses.part6b 2000 e16538cb07fca691267fce694e571168a31f9269 U2wfzNeSizo7 7iL6N5dV+mq+
+courses.part6c 2000 2b1f16dd4a4e1419420e4743c51cba964a0911e6 pPcmbTYbmyi2 QQxnJdUq6ADt
+courses.part6d 1100 454be8dc01d9e3e29238b1f6ddc3cc1c7734d28d kchAVAGBTrzS 8dI5wi+vb8Ve
+courses.part7a 2000 ef6d381edfa1d1909c8298a8dc90b48ce93b41e2 cIhkDF+6xSKM XM6dKTyBg8mp
+courses.part7rest 5100 d69efd029c752d54be28d8a6188353163684e8e8 f5vzwtJeUHS+ o2q907IX6CRP
+courses.part8a2 4000 cc27a75916ffda89510119fbf4587141fcb4bca2 7DQ9Xy2z3CgH O7f+7kMfu7Nf
+courses.part8b2 2504 bc3ee7e3a9ebf546e498af1fe05304fd0bfe4f11 HOr8iK2E7MR7 hI9/+b87t/Pr
+joined 56204 ae7b4570316dd7529069e4da62f7a4b548d3e50f14c4a545ed8ed65df32511dd

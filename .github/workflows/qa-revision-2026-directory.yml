@@ -1,0 +1,110 @@
+name: QA Revision 2026 directory
+
+# Rerun after the Revision 2026 metadata, navigation and missing-asset corrections.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "revision-2026.html"
+      - "assets/css/revision-2026-directory.css"
+      - "assets/js/revision-2026-browser.js"
+      - "assets/js/lesson-availability-hotfix.js"
+      - "tools/build_revision_2026_pages.py"
+      - "tools/qa_revision_2026_directory.mjs"
+      - ".github/workflows/qa-revision-2026-directory.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: qa-revision-2026-directory
+  cancel-in-progress: true
+
+jobs:
+  rendered-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save --package-lock=false playwright@1.54.2
+          npx playwright install --with-deps chromium
+
+      - name: Start local site server
+        run: |
+          python -m http.server 8000 > /tmp/revision-2026-directory-server.log 2>&1 &
+          echo $! > /tmp/revision-2026-directory-server.pid
+          sleep 3
+
+      - name: Run rendered desktop and mobile QA
+        id: qa
+        continue-on-error: true
+        run: |
+          set +e
+          QA_BASE_URL="http://127.0.0.1:8000" \
+          QA_SCREENSHOT_DIR="/tmp/revision-2026-directory-qa" \
+          node tools/qa_revision_2026_directory.mjs
+          echo $? > /tmp/revision-2026-directory-qa-status
+          exit 0
+
+      - name: Upload rendered QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: revision-2026-directory-rendered-qa
+          path: |
+            reports/revision-2026-directory-qa.json
+            /tmp/revision-2026-directory-qa/*.png
+            /tmp/revision-2026-directory-server.log
+          if-no-files-found: warn
+
+      - name: Commit QA report
+        if: always()
+        run: |
+          if [ ! -f reports/revision-2026-directory-qa.json ]; then
+            echo "QA report was not generated."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/revision-2026-directory-qa.json
+          if git diff --cached --quiet; then
+            echo "QA report is already current."
+          else
+            git commit -m "Record Revision 2026 directory rendered QA [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+
+      - name: Finish with QA result
+        if: always()
+        run: |
+          if [ ! -f /tmp/revision-2026-directory-qa-status ]; then
+            echo "QA status file is missing."
+            exit 1
+          fi
+          STATUS=$(cat /tmp/revision-2026-directory-qa-status)
+          if [ "$STATUS" != "0" ]; then
+            echo "Rendered Revision 2026 directory QA failed."
+            cat reports/revision-2026-directory-qa.json || true
+            exit "$STATUS"
+          fi
+          echo "Rendered Revision 2026 directory QA passed."
+
+      - name: Stop local site server
+        if: always()
+        run: |
+          if [ -f /tmp/revision-2026-directory-server.pid ]; then
+            kill "$(cat /tmp/revision-2026-directory-server.pid)" || true
+          fi

@@ -1,0 +1,155 @@
+<section class="section module searchable" id="m3">
+<div class="head"><span class="tag">CO3 • 10 Hours</span><h2>Module 3 — Pointers and Dynamic Memory Allocation</h2><p>Understand addresses and use pointers to share data, traverse arrays and allocate memory at run time.</p></div>
+<div class="grid">
+<article class="card unit wide">
+<span class="code-id">M3.01</span><span class="hour">2 hours</span>
+<h3>Pointer fundamentals and operations</h3>
+<p>A pointer variable stores the address of another object. <span class="inline-code">&amp;</span> obtains an address; unary <span class="inline-code">*</span> dereferences a valid pointer to access the pointed object.</p>
+<div class="codebox"><div class="code-title"><span>Pointer declaration and dereferencing</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int value = 25;
+    int *pointer = &amp;value;
+
+    printf("value = %d\n", value);
+    printf("address = %p\n", (void *)pointer);
+    printf("through pointer = %d\n", *pointer);
+
+    *pointer = 40;
+    printf("new value = %d\n", value);
+    return 0;
+}</code></pre></div>
+<div class="table-wrap"><table><thead><tr><th>Expression</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><span class="inline-code">int *p;</span></td><td>Declares a pointer to int; it is not yet pointing to a valid int.</td></tr>
+<tr><td><span class="inline-code">p = &amp;x;</span></td><td>Stores the address of x.</td></tr>
+<tr><td><span class="inline-code">*p</span></td><td>Accesses the int at the stored address.</td></tr>
+<tr><td><span class="inline-code">p + 1</span></td><td>Moves to the next int object, not merely the next byte.</td></tr>
+<tr><td><span class="inline-code">p == NULL</span></td><td>Checks that the pointer points to no object.</td></tr>
+</tbody></table></div>
+<div class="ml">Uninitialized pointer dereference ചെയ്യരുത്. Valid object address അല്ലെങ്കിൽ allocated memory address മാത്രം pointer-ൽ സൂക്ഷിക്കുക.</div>
+</article>
+<article class="card unit">
+<span class="code-id">M3.02</span><span class="hour">1 hour</span>
+<h3>Passing pointers to functions</h3>
+<p>Pointers let a function modify caller variables and return multiple results.</p>
+<div class="codebox"><div class="code-title"><span>Swap using pointers</span><button class="copy-code" type="button">Copy</button></div><pre><code>void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+/* Call: swap(&amp;x, &amp;y); */</code></pre></div>
+<div class="ml">C arguments value ആയി pass ചെയ്യുന്നു. Address pass ചെയ്താൽ function ആ address dereference ചെയ്ത് original variable മാറ്റാം.</div>
+</article>
+<article class="card unit">
+<span class="code-id">M3.03</span><span class="hour">1 hour</span>
+<h3>Dynamic memory allocation</h3>
+<div class="table-wrap"><table><thead><tr><th>Function</th><th>Purpose</th></tr></thead><tbody>
+<tr><td>malloc</td><td>Allocates uninitialized bytes.</td></tr>
+<tr><td>calloc</td><td>Allocates an array and initializes bytes to zero.</td></tr>
+<tr><td>realloc</td><td>Changes the size of an existing allocation.</td></tr>
+<tr><td>free</td><td>Releases allocated memory.</td></tr>
+</tbody></table></div>
+<div class="ml">Allocation failure ആണെങ്കിൽ NULL ലഭിക്കും. ഉപയോഗം കഴിഞ്ഞാൽ <span class="inline-code">free()</span> വിളിക്കണം; അതിനു ശേഷം pointer വീണ്ടും dereference ചെയ്യരുത്.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M3.03</span><span class="hour">Example</span>
+<h3>Dynamic array with safe reallocation</h3>
+<div class="codebox"><div class="code-title"><span>malloc + realloc + free</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void)
+{
+    int count;
+
+    printf("How many values? ");
+    if (scanf("%d", &amp;count) != 1 || count &lt;= 0) {
+        fprintf(stderr, "Invalid count\n");
+        return 1;
+    }
+
+    int *values = malloc((size_t)count * sizeof *values);
+    if (values == NULL) {
+        fprintf(stderr, "Allocation failed\n");
+        return 1;
+    }
+
+    for (int i = 0; i &lt; count; i++) {
+        values[i] = (i + 1) * 10;
+    }
+
+    int new_count = count + 2;
+    int *temporary = realloc(values,
+                             (size_t)new_count * sizeof *values);
+    if (temporary == NULL) {
+        free(values);
+        fprintf(stderr, "Reallocation failed\n");
+        return 1;
+    }
+    values = temporary;
+
+    values[count] = 100;
+    values[count + 1] = 200;
+
+    for (int i = 0; i &lt; new_count; i++) {
+        printf("%d%c", values[i],
+               i == new_count - 1 ? '\n' : ' ');
+    }
+
+    free(values);
+    values = NULL;
+    return 0;
+}</code></pre></div>
+<div class="call rule"><b>Correct realloc pattern:</b> Store the result in a temporary pointer first. Assign it back only after checking for NULL, otherwise the original allocation could be lost.</div>
+</article>
+<article class="card unit wide">
+<span class="code-id">M3.04–M3.05</span><span class="hour">6 hours</span>
+<h3>Arrays, strings and pointers</h3>
+<p>In most expressions, an array name is converted to a pointer to its first element. Therefore <span class="inline-code">a[i]</span> is equivalent to <span class="inline-code">*(a + i)</span>.</p>
+<div class="codebox"><div class="code-title"><span>Traverse a 1D array with a pointer</span><button class="copy-code" type="button">Copy</button></div><pre><code>int sum_array(const int *begin, int size)
+{
+    int sum = 0;
+
+    for (int i = 0; i &lt; size; i++) {
+        sum += *(begin + i);
+    }
+    return sum;
+}</code></pre></div>
+<div class="codebox"><div class="code-title"><span>Access a 2D array using pointer notation</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int matrix[2][3] = {{1, 2, 3}, {4, 5, 6}};
+
+    for (int row = 0; row &lt; 2; row++) {
+        for (int col = 0; col &lt; 3; col++) {
+            printf("%d%c", *(*(matrix + row) + col),
+                   col == 2 ? '\n' : ' ');
+        }
+    }
+    return 0;
+}</code></pre></div>
+<div class="codebox"><div class="code-title"><span>Array of pointers to strings</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    const char *subjects[] = {
+        "C Programming",
+        "Database Management",
+        "Digital Fundamentals"
+    };
+
+    int count = (int)(sizeof subjects / sizeof subjects[0]);
+
+    for (int i = 0; i &lt; count; i++) {
+        printf("%s\n", subjects[i]);
+    }
+    return 0;
+}</code></pre></div>
+<div class="ml">Array name സാധാരണ first element-ന്റെ address ആയി decay ചെയ്യും. എന്നാൽ <span class="inline-code">sizeof array</span> same scope-ൽ മുഴുവൻ array size നൽകുന്നു; function parameter-ൽ അത് pointer size മാത്രമായിരിക്കും.</div>
+</article>
+</div>
+<div class="call exam"><b>Module 3 exam focus:</b> address and dereference operators, pointer arithmetic, swap via pointers, NULL checks, malloc/calloc/realloc/free, array–pointer equivalence, strings through pointers and array of pointers.</div>
+</section>

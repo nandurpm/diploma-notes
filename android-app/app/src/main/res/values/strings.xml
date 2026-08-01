@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">POLY PMNA</string>
+    <string name="app_subtitle">Revision 2026 &amp; 2021 • Ask POLY AI</string>
+    <string name="menu">Open navigation menu</string>
+    <string name="refresh">Refresh current page</string>
+    <string name="loading_title">POLY PMNA</string>
+    <string name="loading_subtitle">Revision 2026 and 2021 syllabus, lessons, notes, Ask POLY AI and mock exams</string>
+    <string name="loading_status">Preparing your study dashboard…</string>
+    <string name="loading_page">Loading…</string>
+    <string name="loading_slow">Connection is taking longer than usual…</string>
+    <string name="download_started">Download started</string>
+    <string name="downloading_file">Downloading study material</string>
+    <string name="download_blocked">This download source is not approved</string>
+    <string name="download_failed">The download could not be started. Please try again.</string>
+    <string name="no_app_found">No compatible app was found</string>
+    <string name="no_file_picker">No file picker is available</string>
+    <string name="unsafe_page_blocked">Unsupported or unsafe link blocked</string>
+    <string name="intent_link_blocked">This app link was blocked for your safety</string>
+    <string name="notification_channel_new_lessons">New Lessons</string>
+    <string name="notification_channel_new_lessons_description">Notifications when new Revision 2021 or Revision 2026 lessons are published.</string>
+    <string name="notification_default_title">New Lesson Available</string>
+    <string name="notification_default_body">A new POLY PMNA lesson handbook has been published.</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_revision_2026">Revision 2026</string>
+    <string name="nav_revision_2021">Revision 2021</string>
+    <string name="nav_lessons">Lessons</string>
+    <string name="nav_study_materials">Question Papers</string>
+    <string name="nav_daily_quiz">Mock Exams</string>
+    <string name="nav_ask_poly_ai">Ask POLY AI</string>
+    <string name="nav_tools">Tools</string>
+    <string name="nav_daily_quiz_description">Open the quiz dashboard, results and subject analysis</string>
+    <string name="nav_syllabus">Syllabus</string>
+    <string name="nav_previous_questions">Previous Question Papers</string>
+    <string name="nav_model_questions">Model Question Papers</string>
+    <string name="nav_materials_2015">2015 Materials</string>
+    <string name="nav_about">About</string>
+    <string name="nav_contact">Contact</string>
+    <string name="drawer_study">STUDY</string>
+    <string name="drawer_resources">RESOURCES</string>
+    <string name="drawer_support">SUPPORT</string>
+</resources>

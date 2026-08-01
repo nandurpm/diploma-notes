@@ -1,0 +1,514 @@
+/* Purpose: Lesson page fix - Descriptive comment added for clarity */
+:root {
+  --lesson-edge: clamp(5px, .8vw, 12px);
+  --lesson-gap: clamp(8px, 1vw, 15px);
+  --lesson-line: rgba(15, 23, 42, .14);
+  --lesson-ink: #0f172a;
+  --lesson-muted: #526174;
+  --lesson-blue: #0369a1;
+  --lesson-cyan: #0891b2;
+  --lesson-radius: clamp(12px, 1.2vw, 20px);
+  --lesson-shadow: 0 10px 28px rgba(15, 23, 42, .07);
+}
+
+html.poly-lesson-page,
+html.poly-lesson-page body {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  min-height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: clip !important;
+  scroll-padding-top: 0 !important;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html.poly-lesson-page body {
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+
+html.poly-lesson-page body.has-fixed-site-header,
+html.poly-lesson-page body.portal-page {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Full-screen lesson chrome suppression: lessons never show a second header/menu/sidebar. */
+html.poly-lesson-page :is(
+  #site-header,
+  .site-header,
+  .fixed-site-header,
+  [data-site-header],
+  [data-site-shell-header],
+  .topbar,
+  .hb-topbar,
+  .lesson-topbar,
+  .lesson-header,
+  .toolbar,
+  .hb-toolbar,
+  .lesson-toolbar,
+  .lesson-actions,
+  .course-toolbar,
+  .course-nav,
+  body > nav.top,
+  body > header.top,
+  .chapter-nav,
+  .revision-back-button,
+  .nav-arrows,
+  .skip-link
+) {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 0 !important;
+  max-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+
+html.poly-lesson-page :is(main, .lesson-shell, .page-shell, .shell, .main-content, .content) {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+}
+
+html.poly-lesson-page :is(.lesson-shell, body > main, body > .page-shell, body > .shell, body > .main-content) {
+  padding: var(--lesson-edge) !important;
+}
+
+html.poly-lesson-page .lesson-shell {
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: 0 !important;
+}
+
+html.poly-lesson-page main:is(.screen, .wrap, .w, .page, .container, .content),
+html.poly-lesson-page main > :is(.screen, .wrap, .w, .page, .container, .content),
+html.poly-lesson-page .lesson-shell > .content,
+html.poly-lesson-page :is(.screen, .wrap, .w, .page, .container) {
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-inline: 0 !important;
+}
+
+html.poly-lesson-page main,
+html.poly-lesson-page .content {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+html.poly-lesson-page main > :first-child,
+html.poly-lesson-page .content > :first-child,
+html.poly-lesson-page .lesson-shell > :first-child {
+  margin-top: 0 !important;
+}
+
+html.poly-lesson-page :is(.cover, .hero, .hero-mini, .hero-card, .hb-hero) {
+  min-height: 0 !important;
+  height: auto !important;
+  max-width: none !important;
+  margin-top: 0 !important;
+}
+
+html.poly-lesson-page :is(
+  .view-section,
+  .view,
+  .panel,
+  .tab-panel,
+  .tab-content,
+  .module-panel,
+  .lesson-panel,
+  .content-panel,
+  .content-section,
+  .section-panel,
+  [role="tabpanel"]
+) {
+  visibility: visible !important;
+  opacity: 1 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: auto !important;
+  max-height: none !important;
+  margin-inline: 0 !important;
+  overflow: visible !important;
+  position: static !important;
+}
+
+html.poly-lesson-page :is(
+  .view-section,
+  .view,
+  .panel,
+  .tab-panel,
+  .tab-content,
+  .module-panel,
+  .lesson-panel,
+  .content-panel,
+  .content-section,
+  .section-panel,
+  [role="tabpanel"]
+)[hidden],
+html.poly-lesson-page .poly-force-visible {
+  display: block !important;
+}
+
+html.poly-lesson-page .poly-dynamic-source {
+  display: none !important;
+}
+
+html.poly-lesson-page .poly-expanded-dynamic-list {
+  display: grid !important;
+  width: 100% !important;
+  max-width: none !important;
+  gap: var(--lesson-gap) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html.poly-lesson-page .poly-expanded-dynamic-view {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html.poly-lesson-page .poly-expanded-state-label {
+  width: max-content;
+  max-width: 100%;
+  margin: 0 0 8px;
+  padding: 7px 12px;
+  border: 1px solid rgba(3, 105, 161, .2);
+  border-radius: 999px;
+  background: #e0f2fe;
+  color: #075985;
+  font-size: .82rem;
+  font-weight: 900;
+}
+
+html.poly-lesson-page details {
+  display: block !important;
+}
+
+html.poly-lesson-page details > * {
+  visibility: visible !important;
+}
+
+html.poly-lesson-page :is(img, svg, canvas, video, iframe) {
+  max-width: 100% !important;
+}
+
+html.poly-lesson-page :is(img, svg, video) {
+  height: auto;
+}
+
+html.poly-lesson-page iframe {
+  width: 100% !important;
+  border: 0;
+}
+
+html.poly-lesson-page :is(pre, code, .formula, .equation, .command) {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+html.poly-lesson-page :is(.table-wrap, .tbl, .table-responsive) {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+html.poly-lesson-page table {
+  max-width: 100% !important;
+}
+
+html.poly-lesson-page :is(
+  .grid,
+  .topic-grid,
+  .lesson-grid,
+  .bilingual,
+  .module-map,
+  .meta,
+  .meta-grid,
+  .formula-grid,
+  .examples-grid,
+  .question-grid,
+  .qa-grid,
+  .answer-grid,
+  .problems
+) > * {
+  min-width: 0;
+}
+
+html.poly-lesson-page :is(.section, .sec, .panel, .hb-section, .content-section, .module-panel, .lesson, .card, .topic-card, .formula-card, .problem, .qa) {
+  max-width: 100% !important;
+}
+
+html.poly-lesson-page :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #38bdf8 !important;
+  outline-offset: 3px !important;
+}
+
+html.poly-lesson-page :is(.progress, #progress, .prog) {
+  position: fixed !important;
+  inset: 0 auto auto 0 !important;
+  z-index: 7000 !important;
+  height: 3px !important;
+  max-height: 3px !important;
+  pointer-events: none;
+}
+
+html.poly-lesson-page .notes-fallback-banner {
+  width: calc(100% - (2 * var(--lesson-edge)));
+  margin: var(--lesson-edge);
+  padding: 11px 14px;
+  border: 1px solid #bae6fd;
+  border-radius: 12px;
+  background: #ecfeff;
+  color: #083344;
+  box-shadow: var(--lesson-shadow);
+  font-weight: 750;
+}
+
+html.poly-lesson-page .poly-lesson-end-actions {
+  width: calc(100% - (2 * var(--lesson-edge)));
+  max-width: none;
+  margin: var(--lesson-gap) var(--lesson-edge) var(--lesson-edge);
+  padding: clamp(12px, 1.5vw, 20px);
+  border: 1px solid var(--lesson-line);
+  border-radius: var(--lesson-radius);
+  background: rgba(255, 255, 255, .96);
+  box-shadow: var(--lesson-shadow);
+}
+
+html.poly-lesson-page .poly-lesson-identity {
+  margin: 0 0 10px;
+  color: var(--lesson-muted);
+  font-size: .82rem;
+  font-weight: 850;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+html.poly-lesson-page .poly-lesson-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+html.poly-lesson-page .poly-lesson-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 1px solid rgba(3, 105, 161, .22);
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #075985;
+  font: inherit;
+  font-weight: 850;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+html.poly-lesson-page :is(.poly-lesson-print, .poly-lesson-download) {
+  background: linear-gradient(135deg, var(--lesson-blue), var(--lesson-cyan));
+  color: #fff;
+  border-color: transparent;
+}
+
+html.poly-lesson-page.polytechnic-native-app .poly-lesson-back {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  :root {
+    --lesson-edge: 7px;
+    --lesson-gap: 9px;
+  }
+
+  html.poly-lesson-page :is(.lesson-shell, body > main, body > .page-shell, body > .shell, body > .main-content) {
+    padding: 7px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --lesson-edge: max(5px, env(safe-area-inset-left));
+    --lesson-radius: 13px;
+  }
+
+  html.poly-lesson-page :is(.lesson-shell, body > main, body > .page-shell, body > .shell, body > .main-content) {
+    padding: 5px max(5px, env(safe-area-inset-right)) 5px max(5px, env(safe-area-inset-left)) !important;
+  }
+
+  html.poly-lesson-page :is(.grid, .topic-grid, .lesson-grid, .bilingual, .module-map, .meta, .meta-grid, .formula-grid, .examples-grid, .question-grid, .qa-grid, .answer-grid, .problems) {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  html.poly-lesson-page :is(.grid, .topic-grid, .lesson-grid, .bilingual, .module-map, .meta, .meta-grid, .formula-grid, .examples-grid, .question-grid, .qa-grid, .answer-grid, .problems) > * {
+    grid-column: 1 / -1 !important;
+  }
+
+  html.poly-lesson-page table {
+    font-size: .86rem;
+  }
+
+  html.poly-lesson-page .poly-lesson-end-actions {
+    width: calc(100% - 10px);
+    margin: 8px 5px 5px;
+    padding: 11px;
+  }
+
+  html.poly-lesson-page .poly-lesson-action-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  html.poly-lesson-page .poly-lesson-action {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 7mm;
+  }
+
+  html.poly-lesson-page,
+  html.poly-lesson-page body {
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    scroll-padding-top: 0 !important;
+    color: #111827 !important;
+    background: #fff !important;
+  }
+
+  html.poly-lesson-page :is(
+    #site-header,
+    .site-header,
+    .fixed-site-header,
+    [data-site-header],
+    [data-site-shell-header],
+    .topbar,
+    .hb-topbar,
+    .lesson-topbar,
+    .lesson-header,
+    .toolbar,
+    .hb-toolbar,
+    .lesson-toolbar,
+    .lesson-actions,
+    .course-toolbar,
+    .course-nav,
+    body > nav.top,
+    body > header.top,
+    .chapter-nav,
+    .revision-back-button,
+    .nav-arrows,
+    .skip-link,
+    #polySiteAssistant,
+    #hbToTop,
+    #toTop,
+    #progress,
+    .progress,
+    .prog,
+    .notes-fallback-banner,
+    .poly-lesson-end-actions
+  ) {
+    display: none !important;
+  }
+
+  html.poly-lesson-page :is(main, .lesson-shell, .page-shell, .shell, .main-content, .content, .screen, .wrap, .w, .container) {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #fff !important;
+  }
+
+  html.poly-lesson-page :is(.view-section, .view, .panel, .tab-panel, .tab-content, .module-panel, .lesson-panel, .content-panel, .content-section, .section-panel, [role="tabpanel"], .poly-expanded-dynamic-view) {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    position: static !important;
+  }
+
+  html.poly-lesson-page .poly-dynamic-source {
+    display: none !important;
+  }
+
+  html.poly-lesson-page details,
+  html.poly-lesson-page details > * {
+    display: block !important;
+  }
+
+  html.poly-lesson-page :is(.grid, .topic-grid, .lesson-grid, .bilingual, .module-map, .meta-grid, .formula-grid, .examples-grid, .question-grid, .qa-grid, .answer-grid, .problems) {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  html.poly-lesson-page :is(.card, .lesson, .topic-card, .formula-card, .problem, .qa, .hb-section, .content-section, .module-panel, section, article) {
+    box-shadow: none !important;
+    break-inside: auto;
+  }
+
+  html.poly-lesson-page :is(.table-wrap, .tbl, .table-responsive) {
+    overflow: visible !important;
+  }
+
+  html.poly-lesson-page table {
+    min-width: 0 !important;
+    font-size: 8.5pt;
+  }
+
+  html.poly-lesson-page.pdf-export-mode * {
+    animation: none !important;
+    transition: none !important;
+    filter: none !important;
+  }
+}
+
+
+
+
+
+/* REV2026 full-screen repair v4: preserve complete modules, remove duplicate sidebar, and eliminate top gaps. */
+html.poly-lesson-page {
+  --fixed-site-header-height:0px!important;
+  --fixed-site-header-gap:0px!important;
+  --header-h:0px!important;
+  --topbar-h:0px!important;
+  --toolbar-h:0px!important;
+  --top:0px!important;
+}
+html.poly-lesson-page :is(.sidebar,#chapterNav,.lesson-sidebar,.chapter-sidebar,.side-nav,[data-lesson-sidebar]) {
+  display:none!important;visibility:hidden!important;width:0!important;height:0!important;
+  min-width:0!important;max-width:0!important;margin:0!important;padding:0!important;
+  border:0!important;overflow:hidden!important;
+}
+html.poly-lesson-page :is(.shell,.lesson-shell,.page-shell,.main-content) {
+  width:100%!important;max-width:none!important;min-width:0!important;margin:0!important;
+  padding-top:var(--lesson-edge)!important;grid-template-columns:minmax(0,1fr)!important;
+}
+html.revision-2026-lesson .poly-dynamic-source {display:block!important;visibility:visible!important;opacity:1!important}
+html.revision-2026-lesson .poly-expanded-dynamic-list {display:none!important}

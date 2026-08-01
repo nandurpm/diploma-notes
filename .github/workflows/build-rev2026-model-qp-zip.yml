@@ -1,0 +1,81 @@
+name: Build REV2026 Model QP ZIP
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/download_rev2026_model_qp.py'
+      - 'tools/rebuild_rev2026_subjects_from_pages.py'
+      - 'revision-2026/**.html'
+      - 'assets/data/revision-2026-subjects.json'
+      - 'assets/data/revision-2026-programmes.json'
+      - '.github/workflows/build-rev2026-model-qp-zip.yml'
+
+permissions:
+  contents: read
+
+env:
+  PYTHONUNBUFFERED: '1'
+
+jobs:
+  build-zip:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install downloader dependencies
+        run: python -m pip install --upgrade pip requests beautifulsoup4
+
+      - name: Rebuild REV2026 subject data
+        run: python tools/rebuild_rev2026_subjects_from_pages.py
+
+      - name: Validate rebuilt subject data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path('assets/data/revision-2026-subjects.json')
+          rows = json.loads(path.read_text(encoding='utf-8'))
+          assert isinstance(rows, list) and rows, 'REV2026 subject data is empty'
+          departments = {row['programmeSlug'] for row in rows}
+          assert len(departments) == 38, f'Expected 38 departments, found {len(departments)}'
+          print(f'Validated {len(rows)} subject rows across {len(departments)} departments')
+          PY
+
+      - name: Download and arrange official papers
+        run: python tools/download_rev2026_model_qp.py
+
+      - name: Show generated summary
+        if: always()
+        run: |
+          test -f artifacts/REV2026_Model_Question_Papers_Department_Wise/SUMMARY.json && cat artifacts/REV2026_Model_Question_Papers_Department_Wise/SUMMARY.json || true
+          find artifacts -maxdepth 3 -type f | head -100 || true
+
+      - name: Upload department-wise ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: REV2026-Model-Question-Papers-Department-Wise
+          path: artifacts/REV2026_Model_Question_Papers_Department_Wise.zip
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+
+      - name: Upload manifest and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: REV2026-Model-QP-Manifest
+          path: |
+            artifacts/REV2026_Model_Question_Papers_Department_Wise/DOWNLOAD_MANIFEST.csv
+            artifacts/REV2026_Model_Question_Papers_Department_Wise/SUMMARY.json
+            artifacts/REV2026_Model_Question_Papers_Department_Wise/README.txt
+          if-no-files-found: warn
+          retention-days: 30

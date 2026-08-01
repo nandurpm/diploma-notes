@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Engineering Graphics Using CAD Software 2038 complete Kerala Polytechnic lab handbook with CAD tools, 2D construction exercises, isometric drawing, lab exams, open-ended project and master procedures.">
+<link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-2038.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Engineering Graphics Using CAD Software 2038 | Complete Lab Handbook">
+<meta property="og:description" content="A complete practical CAD drawing handbook for Diploma Semester 2 with command guides, dimensioned exercises, isometric drawing, lab exams and full procedures.">
+<meta property="og:url" content="https://polypmna.dpdns.org/lessons/lessons-2038.html">
+<title>Engineering Graphics Using CAD Software 2038 | Complete Lab Handbook</title>
+<style>
+:root{
+  --ink:#122236;--muted:#5d6d7e;--paper:#fff;--bg:#edf3f7;--line:#cad7e1;
+  --navy:#0b3a53;--blue:#126b9a;--cyan:#0c8a91;--green:#23755b;--violet:#5d4aa8;
+  --amber:#b66a14;--red:#b43b4d;--soft:#f6f9fb;--softblue:#eef7ff;--softcyan:#eefcfc;
+  --softgreen:#effaf5;--softviolet:#f5f2ff;--softamber:#fff8e9;--softred:#fff2f4;
+  --shadow:0 12px 30px rgba(12,44,67,.10);--radius:18px;--mal:"Noto Sans Malayalam","Kartika","Manjari",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:122px}
+body{margin:0;background:linear-gradient(180deg,#e7f0f6 0,#f7fafc 30rem,#edf3f7 100%);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.62;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(circle at 2% 1%,rgba(18,107,154,.13),transparent 26rem),radial-gradient(circle at 98% 4%,rgba(12,138,145,.10),transparent 28rem)}
+a{color:var(--blue)}button,input{font:inherit}
+.progress{position:fixed;left:0;top:0;height:4px;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan),var(--violet));z-index:1200}
+.topbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 22px rgba(12,44,67,.08)}
+.top-main{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.55rem;align-items:center;width:100%;padding:.45rem clamp(5px,.7vw,14px)}
+.code-badge{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--navy),var(--cyan));display:grid;place-items:center;color:#fff;font-weight:950;box-shadow:var(--shadow)}
+.tabstrip{display:flex;gap:.34rem;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin;padding:.12rem .06rem .22rem}
+.tab-btn{flex:0 0 auto;border:1px solid #d5e1e9;background:#f7fafc;color:#20364b;border-radius:999px;padding:.5rem .68rem;font-size:.77rem;font-weight:850;white-space:nowrap;cursor:pointer}
+.tab-btn:hover,.tab-btn.active{background:#e4f3fb;border-color:#8bc3db;color:#0b557d}
+.pdf-link{display:inline-flex;align-items:center;gap:.38rem;border-radius:999px;background:linear-gradient(135deg,var(--navy),var(--cyan));color:#fff;text-decoration:none;font-weight:900;padding:.62rem .8rem;white-space:nowrap;box-shadow:0 8px 18px rgba(11,58,83,.22)}
+.page-shell{width:100%;max-width:none;margin:0;padding:0 clamp(6px,.8vw,16px) 1.2rem}
+main{width:100%;max-width:none;margin:0}
+.panel{display:none;width:100%;max-width:none;margin:.72rem 0}.panel.active{display:block;animation:rise .24s ease both}@keyframes rise{from{opacity:.2;transform:translateY(6px)}to{opacity:1;transform:none}}
+.hero,.section{width:100%;background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);margin:.72rem 0;padding:clamp(.82rem,1.35vw,1.4rem)}
+.hero{display:grid;grid-template-columns:minmax(0,1.18fr) minmax(330px,.82fr);gap:.8rem;min-height:65vh;align-items:stretch;overflow:hidden;position:relative}
+.hero:after{content:"LINE  OFFSET  TRIM  ISO";position:absolute;right:1.2rem;bottom:-.8rem;font:900 clamp(2.8rem,6.8vw,7rem)/1 "Segoe UI",sans-serif;letter-spacing:.11em;color:rgba(18,107,154,.052);pointer-events:none}
+.hero-copy{display:flex;flex-direction:column;justify-content:center;min-width:0;position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;width:max-content;max-width:100%;padding:.28rem .58rem;border-radius:999px;background:#e7f4fb;color:#0c587e;font-weight:950;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+h1,h2,h3,h4{color:#10283d;line-height:1.17;margin-top:0}h1{font-size:clamp(2.35rem,4.8vw,5.45rem);letter-spacing:-.045em;margin:.58rem 0 .6rem}h2{font-size:clamp(1.72rem,2.45vw,2.72rem);letter-spacing:-.025em;margin:.12rem 0 .55rem}h3{font-size:1.32rem;margin:.95rem 0 .4rem}h4{font-size:1.06rem;margin:.75rem 0 .3rem}p{margin:.35rem 0 .68rem}.lead{font-size:clamp(1rem,1.2vw,1.22rem);color:#314b61;max-width:78ch}
+.meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:.8rem 0}.meta-grid div{border:1px solid #cfe0ea;background:#f6fbfe;border-radius:14px;padding:.62rem}.meta-grid span{display:block;color:var(--muted);font-size:.72rem;font-weight:800}.meta-grid b{display:block;font-size:.9rem;margin-top:.14rem}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.35rem}.action{border:0;border-radius:999px;padding:.7rem .9rem;text-decoration:none;font-weight:900;cursor:pointer}.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff}.secondary{background:#fff;border:1px solid #b9cedd;color:var(--navy)}
+.hero-visual{background:linear-gradient(145deg,#0b314a,#0b6b72);color:#eefcff;border-radius:20px;padding:clamp(.84rem,1.4vw,1.35rem);display:grid;align-content:center;gap:.62rem;min-width:0}.hero-visual h2,.hero-visual h3{color:#fff}.cad-screen{border:2px solid rgba(255,255,255,.45);border-radius:16px;background:#071f2e;padding:.55rem;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}.cad-toolbar{display:flex;gap:.28rem;margin-bottom:.4rem}.cad-toolbar span{width:9px;height:9px;border-radius:50%;background:#f8d36a}.cad-toolbar span:nth-child(2){background:#6bd6bc}.cad-toolbar span:nth-child(3){background:#e67f91}.cad-screen svg{width:100%;height:auto;display:block}.cursor-dot{animation:cursorMove 5.2s ease-in-out infinite;transform-origin:center}@keyframes cursorMove{0%,100%{transform:translate(0,0)}35%{transform:translate(130px,-38px)}65%{transform:translate(205px,72px)}}
+.module-map{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.45rem}.module-tile{border:1px solid rgba(255,255,255,.23);background:rgba(255,255,255,.09);border-radius:13px;padding:.56rem;font-size:.85rem}.module-tile b{display:block;color:#fff}
+.section-head{border-bottom:1px solid #d8e2e9;padding-bottom:.56rem;margin-bottom:.72rem}.section-head p{color:var(--muted);max-width:110ch}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:.66rem}.card{grid-column:span 6;min-width:0;border:1px solid var(--line);background:#fff;border-radius:16px;padding:.76rem;box-shadow:0 6px 16px rgba(17,53,76,.04);break-inside:avoid}.card:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(17,53,76,.08)}.third{grid-column:span 4}.quarter{grid-column:span 3}.eight{grid-column:span 8}.wide{grid-column:span 12}.blue{background:var(--softblue)}.cyan{background:var(--softcyan)}.green{background:var(--softgreen)}.violet{background:var(--softviolet)}.amber{background:var(--softamber)}.red{background:var(--softred)}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.5rem}.toc button{display:flex;align-items:center;justify-content:space-between;gap:.5rem;border:1px solid var(--line);border-radius:13px;background:#f8fbfd;padding:.62rem .7rem;color:#17384f;font-weight:850;cursor:pointer;text-align:left}.toc button:hover{background:#eaf5fb}
+.table-wrap{width:100%;max-width:100%;overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}table{width:100%;border-collapse:collapse;min-width:690px}th,td{border-bottom:1px solid #d9e3e9;padding:.55rem .6rem;text-align:left;vertical-align:top}th{background:#eaf4f9;color:#0b3a53;font-weight:950}tr:last-child td{border-bottom:0}.compact th,.compact td{font-size:.88rem;padding:.42rem .47rem}
+.callout{border:1px solid #9ed2e8;background:#eef9ff;border-radius:14px;padding:.68rem .78rem;margin:.62rem 0;break-inside:avoid}.callout b:first-child{color:#0f5d84}.remember{border-color:#83d1ad;background:#effaf5}.exam{border-color:#e4bf61;background:#fff9e9}.mistake{border-color:#eca4b1;background:#fff2f4}.practice{border-color:#9bbbed;background:#f1f6ff}.safety{border-color:#e9a67f;background:#fff5ee}.ml{font-family:var(--mal);background:#edf9f4;border-left:4px solid var(--green);border-radius:10px;padding:.48rem .62rem;color:#1d5146;font-size:.91rem;margin:.42rem 0}
+.command{font-family:"Cascadia Code",Consolas,monospace;background:#0b2638;color:#dff8ff;border-radius:10px;padding:.56rem .65rem;margin:.45rem 0;overflow:auto}.command b{color:#74e4d0}.kbd{display:inline-block;font-family:"Cascadia Code",Consolas,monospace;background:#eef2f5;border:1px solid #bdcbd6;border-bottom-width:3px;border-radius:6px;padding:.06rem .35rem;font-size:.86em}
+.steps{counter-reset:step;display:grid;gap:.4rem}.step{position:relative;border:1px solid var(--line);border-radius:12px;background:#f9fcfd;padding:.57rem .65rem .57rem 2.35rem}.step:before{counter-increment:step;content:counter(step);position:absolute;left:.58rem;top:.54rem;width:1.3rem;height:1.3rem;border-radius:50%;display:grid;place-items:center;background:var(--blue);color:#fff;font-size:.74rem;font-weight:950}
+.diagram{width:100%;max-width:100%;border:1px solid var(--line);border-radius:15px;background:#fff;padding:.58rem;overflow:auto;break-inside:avoid}.diagram svg{display:block;width:100%;height:auto;max-height:420px}.diagram figcaption{font-size:.86rem;color:var(--muted);margin-top:.35rem}.dim{stroke:#6c7480;stroke-width:2;fill:none;marker-start:url(#arr);marker-end:url(#arr)}.object{stroke:#0f3650;stroke-width:5;fill:#e8f5fb}.center{stroke:#b43b4d;stroke-width:2;stroke-dasharray:8 6}.hidden{stroke:#6a7480;stroke-width:2;stroke-dasharray:7 6}.isoA{fill:#dff3f6;stroke:#0b4f68;stroke-width:4}.isoB{fill:#c3e4ea;stroke:#0b4f68;stroke-width:4}.isoC{fill:#eef9fb;stroke:#0b4f68;stroke-width:4}
+.command-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:.4rem}.cmd-chip{border:1px solid #bdd1dd;background:#f6fafc;border-radius:10px;padding:.48rem .55rem;font-weight:850;color:#123e58;cursor:pointer}.cmd-chip:hover,.cmd-chip.active{background:#dff3fa;border-color:#78b7ce}.cmd-display{border:1px solid var(--line);border-radius:15px;background:#0b2638;color:#eafaff;padding:.78rem;margin-top:.55rem;min-height:120px}.cmd-display h3{color:#fff}.cmd-display code{color:#79e5d2}
+.lab-sheet{border:2px solid #1b4058;background:#fff;border-radius:14px;padding:.8rem;margin:.65rem 0;break-inside:avoid}.lab-sheet header{display:flex;justify-content:space-between;gap:.7rem;align-items:flex-start;border-bottom:1px solid #cad7df;padding-bottom:.48rem;margin-bottom:.55rem}.lab-sheet .spec{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.4rem}.spec div{border:1px solid #d4e0e7;border-radius:10px;background:#f8fbfc;padding:.45rem}.checklist{list-style:none;padding:0}.checklist li{position:relative;padding:.25rem 0 .25rem 1.5rem}.checklist li:before{content:"✓";position:absolute;left:0;top:.28rem;width:1.02rem;height:1.02rem;border-radius:50%;display:grid;place-items:center;background:#dcfce7;color:#047857;font-size:.7rem;font-weight:950}
+.qbank{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.6rem}.qcard{border:1px solid var(--line);border-radius:14px;background:#fff;padding:.67rem}.tag{display:inline-block;border-radius:999px;background:#e5f3fa;color:#0b587e;padding:.17rem .43rem;font-size:.69rem;font-weight:950;text-transform:uppercase;letter-spacing:.04em}
+details{border:1px solid var(--line);border-radius:13px;background:#fff;padding:.6rem .68rem;margin:.48rem 0}summary{cursor:pointer;font-weight:900;color:#0f5478}.answer{background:#effaf5;border:1px solid #8bd0ad;border-radius:13px;padding:.64rem;margin:.45rem 0}.rubric{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.45rem}.rubric div{border:1px solid var(--line);border-radius:12px;background:#f8fbfc;padding:.55rem}.rubric b{display:block;color:#0b587e}
+.footer{margin:.8rem 0 0;background:#0b314a;color:#eaf7fb;border-radius:18px;padding:1rem;text-align:center}.footer a{color:#8ee9dc}.backtop{position:fixed;right:14px;bottom:14px;z-index:800;width:44px;height:44px;border:0;border-radius:50%;background:var(--navy);color:#fff;font-size:1.15rem;box-shadow:0 9px 22px rgba(11,58,83,.28);cursor:pointer}
+@media(max-width:1100px){.hero{grid-template-columns:1fr}.card,.third,.quarter,.eight{grid-column:span 12}.meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.top-main{grid-template-columns:auto minmax(0,1fr);grid-template-areas:"code pdf" "tabs tabs"}.code-badge{grid-area:code}.tabstrip{grid-area:tabs}.pdf-link{grid-area:pdf;justify-self:end}}
+@media(max-width:640px){html{scroll-padding-top:145px}.page-shell{padding-inline:5px}.top-main{padding:.38rem 5px}.code-badge{width:40px;height:40px;font-size:.84rem}.pdf-link{font-size:.75rem;padding:.5rem .62rem}.tab-btn{font-size:.71rem;padding:.42rem .54rem}.hero,.section{border-radius:15px;padding:.72rem}.hero{min-height:auto}.hero:after{display:none}.meta-grid,.module-map{grid-template-columns:1fr}.lab-sheet header{display:block}table{font-size:.86rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+@page{size:A4;margin:11mm 9mm 13mm}
+@media print{
+  body{background:#fff!important;color:#000!important;font-size:9.5pt;line-height:1.36}.progress,.topbar,.backtop,.hero-actions{display:none!important}.page-shell{padding:0!important}.panel{display:block!important;margin:0!important}.hero,.section{width:100%!important;margin:0 0 4mm!important;background:#fff!important;border:1px solid #777!important;border-radius:0!important;box-shadow:none!important;padding:4mm!important}.hero{display:block!important;min-height:auto!important;page-break-after:always}.hero-visual{background:#fff!important;color:#000!important;border:1px solid #777}.hero-visual h2,.hero-visual h3{color:#000!important}.cad-screen{background:#fff!important;border-color:#777!important}.cad-screen text{fill:#000!important}.module-panel{page-break-before:always}.grid{display:block}.card{margin:2mm 0;background:#fff!important;border:1px solid #888!important;box-shadow:none!important}.diagram,.lab-sheet,.callout,.table-wrap,.command,.cmd-display,.qcard,details{break-inside:avoid;page-break-inside:avoid;background:#fff!important;color:#000!important;border-color:#777!important}.command b,.cmd-display h3,.cmd-display code{color:#000!important}h1,h2,h3,h4{color:#000!important;break-after:avoid}table{min-width:0!important;font-size:8.2pt}th{background:#eee!important;color:#000!important}svg{max-width:100%!important;max-height:210mm!important}.cursor-dot{animation:none!important}a{color:#000;text-decoration:none}.footer{background:#fff!important;color:#000!important;border:1px solid #777;border-radius:0}details:not([open])>*:not(summary){display:block!important}
+}
+</style>
+<link rel="stylesheet" href="/assets/css/fixed-site-header.css?v=20260616-nativeapp1">
+  <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Engineering Graphics Using CAD Software 2038 | Complete Lab Handbook","url":"https://polypmna.dpdns.org/lessons/lessons-2038.html","description":"Engineering Graphics Using CAD Software 2038 complete Kerala Polytechnic lab handbook with CAD tools, 2D construction exercises, isometric drawing, lab exams, open-ended project and master procedures.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"}}</script>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="topbar">
+  <div class="top-main">
+    <div class="code-badge" aria-label="Course code 2038">2038</div>
+    <nav class="tabstrip" aria-label="Handbook sections">
+      <button class="tab-btn active" data-panel="overview">Course Overview</button>
+      <button class="tab-btn" data-panel="syllabus">Syllabus Structure</button>
+      <button class="tab-btn" data-panel="module1">Module 1</button>
+      <button class="tab-btn" data-panel="module2">Module 2</button>
+      <button class="tab-btn" data-panel="module3">Module 3</button>
+      <button class="tab-btn" data-panel="module4">Module 4</button>
+      <button class="tab-btn" data-panel="commands">Command Bank</button>
+      <button class="tab-btn" data-panel="workbook">Lab Workbook</button>
+      <button class="tab-btn" data-panel="exam">Lab Exams</button>
+      <button class="tab-btn" data-panel="activity">Open-ended Activity</button>
+      <button class="tab-btn" data-panel="answers">Master Answer Key</button>
+      <button class="tab-btn" data-panel="references">References</button>
+    </nav>
+    <a class="pdf-link" href="../notes/downloadable-notes-2038.pdf" download>Download PDF</a>
+  </div>
+</header>
+<div class="page-shell"><main>
+
+<section class="panel active" id="overview" data-title="Course Overview">
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Complete Practical CAD Handbook • Revision 2021</span>
+      <h1>Engineering Graphics Using CAD Software</h1>
+      <p class="lead">A full laboratory handbook for learning CAD tools, precision drafting, six foundational figures, four isometric drawings, two complete 2D engineering drawings, plotting, lab examination workflow and open-ended project reporting.</p>
+      <div class="meta-grid">
+        <div><span>Course Code</span><b>2038</b></div><div><span>Programme</span><b>Electrical &amp; Electronics / Renewable Energy / Electrical &amp; EV Technology</b></div><div><span>Semester</span><b>2</b></div>
+        <div><span>Credits</span><b>No Credit</b></div><div><span>Category</span><b>Engineering Science</b></div><div><span>Periods</span><b>3 practical/week • 45/semester</b></div>
+      </div>
+      <div class="hero-actions"><button class="action primary" data-open="module1">Start CAD Foundations</button><a class="action secondary" href="../notes/downloadable-notes-2038.pdf" download>Download PDF Notes</a></div>
+      <div class="callout remember"><b>How this handbook matches the official syllabus</b><div>The official syllabus specifies basic CAD tools, at least six CAD figures, at least four isometric figures, at least two complete two-dimensional figures, two three-hour lab examinations and a 15-mark open-ended group activity. Every one of those requirements is built into this handbook. Verified again against the uploaded three-page official syllabus: programme, no-credit status, 45 practical periods, CO-PO mapping, lab-exam split, references, online resources and the open-ended experiment requirement are reflected here.</div></div>
+    </div>
+    <div class="hero-visual">
+      <div class="cad-screen" aria-label="Animated CAD drafting screen">
+        <div class="cad-toolbar"><span></span><span></span><span></span></div>
+        <svg viewBox="0 0 620 360" role="img" aria-label="CAD drawing of a slotted mounting plate">
+          <rect x="32" y="26" width="556" height="302" rx="10" fill="#082435" stroke="#4cb5c7" stroke-width="2"/>
+          <g stroke="#1d657b" stroke-width="1" opacity=".45"><path d="M60 50V305M100 50V305M140 50V305M180 50V305M220 50V305M260 50V305M300 50V305M340 50V305M380 50V305M420 50V305M460 50V305M500 50V305M540 50V305"/><path d="M55 70H560M55 110H560M55 150H560M55 190H560M55 230H560M55 270H560"/></g>
+          <path d="M150 95H450A35 35 0 0 1 485 130V250A35 35 0 0 1 450 285H150A35 35 0 0 1 115 250V130A35 35 0 0 1 150 95Z" fill="none" stroke="#8ef0df" stroke-width="5"/>
+          <circle cx="180" cy="150" r="22" fill="none" stroke="#f6c66b" stroke-width="4"/><circle cx="420" cy="150" r="22" fill="none" stroke="#f6c66b" stroke-width="4"/>
+          <path d="M250 225H350A18 18 0 0 1 368 243A18 18 0 0 1 350 261H250A18 18 0 0 1 232 243A18 18 0 0 1 250 225Z" fill="none" stroke="#f08ca0" stroke-width="4"/>
+          <g class="cursor-dot"><path d="M310 170l18 45 9-17 18 9z" fill="#fff" stroke="#0b3a53" stroke-width="2"/><circle cx="333" cy="211" r="5" fill="#74e4d0"/></g>
+          <text x="68" y="315" fill="#9be4ef" font-size="18" font-family="monospace">Command: _DIMLINEAR</text>
+        </svg>
+      </div>
+      <h2>Official practical path</h2>
+      <div class="module-map">
+        <div class="module-tile"><b>Module 1 • 9 h</b>Identify tools and apply them to sketches.</div>
+        <div class="module-tile"><b>Module 2 • 12 h</b>Develop at least six CAD figures.</div>
+        <div class="module-tile"><b>Module 3 • 12 h</b>Develop at least four isometric figures.</div>
+        <div class="module-tile"><b>Module 4 • 6 h</b>Construct at least two complete 2D figures.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Why This Course Matters</span><h2>CAD converts engineering ideas into precise, editable drawings</h2><p>Manual drawing develops visualisation; CAD adds speed, accuracy, revision control, layers, reusable geometry and professional plotting. Electrical and renewable-energy students use CAD for layouts, mounting plates, panel drawings, cable routes, component details and equipment arrangement.</p></div>
+    <div class="grid">
+      <article class="card third blue"><h3>Accuracy</h3><p>Coordinates, object snaps and constraints reduce measurement and alignment errors.</p></article>
+      <article class="card third cyan"><h3>Editability</h3><p>MOVE, COPY, OFFSET, TRIM and grips modify geometry without redrawing the entire sheet.</p></article>
+      <article class="card third green"><h3>Communication</h3><p>Layers, dimensions, line types, text and plotting turn geometry into an engineering document.</p></article>
+    </div>
+    <h3>How to use this handbook</h3>
+    <div class="grid">
+      <div class="card quarter"><h4>1. Set up</h4><p>Study units, workspace, coordinates, layers and object snaps before drawing.</p></div>
+      <div class="card quarter"><h4>2. Observe</h4><p>Follow the command sequence and the geometric reason behind each step.</p></div>
+      <div class="card quarter"><h4>3. Draw</h4><p>Complete every minimum syllabus figure and save each file with a clear name.</p></div>
+      <div class="card quarter"><h4>4. Verify</h4><p>Check dimensions, symmetry, layer use, line type, title block and plot preview.</p></div>
+    </div>
+    <div class="callout exam"><b>Lab exam habit</b><div>Read the complete question first. Plan layers and construction lines, save immediately, then draw. Use object snaps instead of visual guessing. Dimension only after geometry is complete and verified.</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Clickable Contents</span><h2>Open any handbook section</h2></div>
+    <div class="toc">
+      <button data-open="syllabus">Official syllabus structure <span>→</span></button><button data-open="module1">Module 1: CAD tools <span>→</span></button><button data-open="module2">Module 2: Six CAD figures <span>→</span></button><button data-open="module3">Module 3: Four isometric figures <span>→</span></button><button data-open="module4">Module 4: Two complete 2D figures <span>→</span></button><button data-open="commands">CAD command bank <span>→</span></button><button data-open="workbook">Lab workbook &amp; checklists <span>→</span></button><button data-open="exam">Model lab exams <span>→</span></button><button data-open="activity">Open-ended activity <span>→</span></button><button data-open="answers">Master answer key <span>→</span></button><button data-open="references">References &amp; resources <span>→</span></button>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="syllabus" data-title="Syllabus Structure">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Official Syllabus Analysis</span><h2>Course identity, objectives and prerequisites</h2></div>
+    <div class="table-wrap"><table><tbody>
+      <tr><th>Programme</th><td>Diploma in Electrical and Electronics Engineering / Renewable Energy / Electrical Engineering &amp; Electric Vehicle Technology</td><th>Semester</th><td>2</td></tr>
+      <tr><th>Course Code</th><td>2038</td><th>Credits</th><td>No Credit</td></tr>
+      <tr><th>Official Course Title</th><td>Engineering Graphic using CAD software</td><th>Course Category</th><td>Engineering Science</td></tr>
+      <tr><th>Periods per week</th><td>3 (L:0, T:0, P:3)</td><th>Periods per semester</th><td>45</td></tr>
+    </tbody></table></div>
+    <div class="grid">
+      <div class="card blue"><h3>Course Objective 1</h3><p>To use CAD software for drafting and modelling.</p><p><b>Student meaning:</b> operate the interface, choose tools correctly, create precise geometry and edit drawings efficiently.</p></div>
+      <div class="card cyan"><h3>Course Objective 2</h3><p>To learn the basics of 2D modelling of engineering components.</p><p><b>Student meaning:</b> convert dimensions and geometry into a complete, readable engineering drawing.</p></div>
+    </div>
+    <h3>Prerequisites</h3>
+    <div class="table-wrap"><table><thead><tr><th>Topic</th><th>Course name</th><th>Semester/level</th></tr></thead><tbody><tr><td>Basics of engineering graphics</td><td>Engineering Graphics</td><td>Semester 1</td></tr><tr><td>Geometry</td><td>Mathematics</td><td>Secondary School</td></tr></tbody></table></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Course Outcomes</span><h2>What the student must demonstrate</h2></div>
+    <div class="table-wrap"><table><thead><tr><th>CO</th><th>Official outcome</th><th>Hours</th><th>Cognitive level</th><th>Evidence in this handbook</th></tr></thead><tbody>
+      <tr><td>CO1</td><td>Identify the tools in CAD software.</td><td>9</td><td>Applying</td><td>Interface, setup, coordinates, precision, draw/modify/annotation tools.</td></tr>
+      <tr><td>CO2</td><td>Develop and draw figures using CAD software.</td><td>12</td><td>Applying</td><td>Six dimensioned 2D construction exercises.</td></tr>
+      <tr><td>CO3</td><td>Sketch and practice isometric drawings using CAD software.</td><td>12</td><td>Applying</td><td>Four isometric exercises and isoplane workflow.</td></tr>
+      <tr><td>CO4</td><td>Construct two dimensional figures using CAD software.</td><td>6</td><td>Applying</td><td>Two complete engineering drawing sheets.</td></tr>
+      <tr><td>—</td><td>Lab Exam</td><td>6</td><td>—</td><td>Two three-hour model lab examinations.</td></tr>
+    </tbody></table></div>
+    <h3>CO-PO mapping</h3>
+    <div class="table-wrap"><table class="compact"><thead><tr><th>CO</th><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th><th>Interpretation</th></tr></thead><tbody>
+      <tr><td>CO1</td><td>—</td><td>—</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO3.</td></tr>
+      <tr><td>CO2</td><td>3</td><td>—</td><td>—</td><td>3</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1 and PO4.</td></tr>
+      <tr><td>CO3</td><td>3</td><td>—</td><td>—</td><td>3</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1 and PO4.</td></tr>
+      <tr><td>CO4</td><td>3</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>Strongly mapped to PO1.</td></tr>
+    </tbody></table></div>
+    <div class="callout remember"><b>Mapping scale</b><div>3 - Strongly mapped, 2 - Moderately mapped, 1 - Weakly mapped.</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Module-wise Roadmap</span><h2>Official hours and minimum drawing count</h2></div>
+    <div class="table-wrap"><table><thead><tr><th>Module outcome</th><th>Description</th><th>Hours</th><th>Level</th><th>Minimum evidence</th></tr></thead><tbody>
+      <tr><td>M1.01</td><td>Study basic tools of CAD software and drawings.</td><td>3</td><td>Understanding</td><td>Interface and tool identification record.</td></tr>
+      <tr><td>M1.02</td><td>Apply software tools and draw the sketches.</td><td>6</td><td>Applying</td><td>Precision setup and guided sketches.</td></tr>
+      <tr><td>M2.01</td><td>Develop and draw figures using CAD.</td><td>12</td><td>Applying</td><td>At least 6 figures.</td></tr>
+      <tr><td>Lab Exam 1</td><td>Practical examination after Module 2.</td><td>3</td><td>—</td><td>One complete precision drawing task.</td></tr>
+      <tr><td>M3.01</td><td>Develop and draw isometric figures using CAD.</td><td>12</td><td>Applying</td><td>At least 4 figures.</td></tr>
+      <tr><td>M4.01</td><td>Develop and draw two dimensional figures using CAD.</td><td>6</td><td>Applying</td><td>At least 2 figures.</td></tr>
+      <tr><td>Lab Exam 2</td><td>Practical examination after Module 4.</td><td>3</td><td>—</td><td>Isometric/2D complete drawing task.</td></tr>
+    </tbody></table></div>
+    <div class="callout exam"><b>Hour check</b><div>9 + 12 + 3 + 12 + 6 + 3 = 45 periods, exactly matching the semester allocation.</div></div>
+  </div>
+</section>
+
+<section class="panel module-panel" id="module1" data-title="Module 1">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Module 1 • CO1 • 9 Hours</span><h2>CAD Tools, Workspace and Precision Drafting</h2><p>M1.01: Study basic tools and drawings. M1.02: Apply software tools and draw sketches.</p></div>
+    <h3>1. CAD workspace</h3>
+    <div class="grid">
+      <div class="card third blue"><h4>Drawing area</h4><p>The model space where geometry is created at full scale.</p></div>
+      <div class="card third cyan"><h4>Command line</h4><p>Shows prompts, options and entered values. Read it continuously.</p></div>
+      <div class="card third green"><h4>Ribbon/toolbars</h4><p>Groups Draw, Modify, Annotation, Layers and Properties tools.</p></div>
+      <div class="card third violet"><h4>Status bar</h4><p>Controls GRID, SNAP, ORTHO, POLAR, OSNAP, OTRACK and isometric drafting.</p></div>
+      <div class="card third amber"><h4>Model and layout</h4><p>Model space holds full-size geometry; layout space prepares paper and plot scale.</p></div>
+      <div class="card third red"><h4>Navigation</h4><p>ZOOM and PAN change the view without changing object dimensions.</p></div>
+    </div>
+    <div class="ml"><b>Malayalam Support:</b> Model space-ൽ object actual size-ൽ draw ചെയ്യുക. Zoom/Pan view മാത്രം മാറ്റും; drawing size മാറ്റില്ല.</div>
+
+    <h3>2. Start every drawing correctly</h3>
+    <div class="steps">
+      <div class="step">Create a new drawing using a suitable metric template.</div>
+      <div class="step">Run <span class="kbd">UNITS</span>; choose Decimal and millimetres where required.</div>
+      <div class="step">Save immediately with a meaningful name such as <span class="kbd">2038_M2_Figure01.dwg</span>.</div>
+      <div class="step">Create layers for OBJECT, CENTRE, HIDDEN, DIMENSION, CONSTRUCTION and TEXT.</div>
+      <div class="step">Set OSNAP modes: Endpoint, Midpoint, Centre, Intersection, Quadrant and Tangent as needed.</div>
+      <div class="step">Use ZOOM Extents after major stages and save repeatedly.</div>
+    </div>
+
+    <h3>3. Coordinate entry</h3>
+    <div class="table-wrap"><table><thead><tr><th>Method</th><th>Syntax</th><th>Use</th><th>Example</th></tr></thead><tbody>
+      <tr><td>Absolute Cartesian</td><td>x,y</td><td>Point measured from origin.</td><td>50,30</td></tr>
+      <tr><td>Relative Cartesian</td><td>@Δx,Δy</td><td>Point measured from previous point.</td><td>@80,0</td></tr>
+      <tr><td>Relative polar</td><td>@distance&lt;angle</td><td>Length and direction from previous point.</td><td>@60&lt;30</td></tr>
+      <tr><td>Direct distance</td><td>Point cursor + type length</td><td>Fast orthogonal/polar drawing.</td><td>Move right, type 100</td></tr>
+    </tbody></table></div>
+    <div class="ml"><b>Malayalam Support:</b> @ ചേർത്ത coordinate previous point-നെ reference ആക്കും. @50,0 എന്നത് നിലവിലെ point-ൽ നിന്ന് 50 mm right എന്നർത്ഥം.</div>
+
+    <h3>4. Precision controls</h3>
+    <div class="grid">
+      <div class="card"><h4>ORTHO</h4><p>Restricts cursor movement to horizontal and vertical directions.</p></div>
+      <div class="card"><h4>POLAR</h4><p>Tracks selected angles such as 30°, 45° or 90°.</p></div>
+      <div class="card"><h4>OSNAP</h4><p>Locks the cursor to exact geometric points; never estimate visually.</p></div>
+      <div class="card"><h4>Object tracking</h4><p>Projects temporary alignment paths from snapped points.</p></div>
+    </div>
+    <div class="callout mistake"><b>Common mistake</b><div>Clicking near an endpoint is not the same as snapping to it. Confirm the OSNAP marker and tooltip before clicking.</div></div>
+
+    <h3>5. Core draw and modify tools</h3>
+    <div class="table-wrap"><table class="compact"><thead><tr><th>Group</th><th>Commands</th><th>Purpose</th></tr></thead><tbody>
+      <tr><td>Draw</td><td>LINE, PLINE, CIRCLE, ARC, RECTANGLE, POLYGON, ELLIPSE</td><td>Create primary geometry.</td></tr>
+      <tr><td>Modify</td><td>MOVE, COPY, ROTATE, MIRROR, OFFSET, TRIM, EXTEND, FILLET, CHAMFER, SCALE, STRETCH, ARRAY</td><td>Edit and repeat geometry.</td></tr>
+      <tr><td>Properties</td><td>LAYER, MATCHPROP, PROPERTIES</td><td>Control colour, line type, line weight and organisation.</td></tr>
+      <tr><td>Annotation</td><td>TEXT/MTEXT, DIM, MLEADER, HATCH</td><td>Add dimensions, notes, leaders and section patterns.</td></tr>
+      <tr><td>View/file</td><td>ZOOM, PAN, SAVE, SAVEAS, PLOT</td><td>Navigate, protect and output the work.</td></tr>
+    </tbody></table></div>
+
+    <h3>6. Drawing standards refresher</h3>
+    <div class="table-wrap"><table><thead><tr><th>Layer</th><th>Suggested line type</th><th>Typical use</th></tr></thead><tbody>
+      <tr><td>OBJECT</td><td>Continuous, thick</td><td>Visible outlines.</td></tr>
+      <tr><td>CENTRE</td><td>Centre line, thin</td><td>Axes and centres of circles.</td></tr>
+      <tr><td>HIDDEN</td><td>Dashed, thin</td><td>Invisible edges.</td></tr>
+      <tr><td>DIMENSION</td><td>Continuous, thin</td><td>Dimension and extension lines.</td></tr>
+      <tr><td>CONSTRUCTION</td><td>Continuous, very thin</td><td>Temporary layout geometry.</td></tr>
+      <tr><td>TEXT</td><td>Continuous</td><td>Notes and title block.</td></tr>
+    </tbody></table></div>
+
+    <h3>7. Guided starter sketch: centred rectangle with holes</h3>
+    <div class="lab-sheet">
+      <header><div><span class="tag">Guided Sketch</span><h4>100 × 60 plate with four Ø10 corner holes</h4></div><b>Target time: 20 minutes</b></header>
+      <div class="spec"><div><b>Plate</b><br>100 × 60</div><div><b>Hole centres</b><br>15 from adjacent edges</div><div><b>Hole size</b><br>Ø10</div><div><b>Tools</b><br>RECTANGLE, OFFSET, CIRCLE, COPY</div></div>
+      <div class="command"><b>Suggested sequence:</b> RECTANGLE → OFFSET 15 from four sides → CIRCLE R5 at first intersection → COPY to other intersections → erase/trim construction lines → DIM.</div>
+    </div>
+
+    <h3>Module 1 practice questions</h3>
+    <div class="qbank">
+      <div class="qcard"><span class="tag">Very short</span><p>Differentiate model space and layout space.</p></div>
+      <div class="qcard"><span class="tag">Command</span><p>Write the relative polar coordinate entry for a 75 mm line at 30°.</p></div>
+      <div class="qcard"><span class="tag">Application</span><p>List the OSNAP modes needed to draw a line tangent to two circles.</p></div>
+      <div class="qcard"><span class="tag">Procedure</span><p>Write the correct startup procedure for a metric engineering drawing.</p></div>
+      <div class="qcard"><span class="tag">Error analysis</span><p>A drawing looks aligned but gaps appear when zoomed. Identify likely causes and corrections.</p></div>
+      <div class="qcard"><span class="tag">Practical</span><p>Create the 100 × 60 plate, apply dimensions and save it with the specified file name.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="panel module-panel" id="module2" data-title="Module 2">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Module 2 • CO2 • 12 Hours</span><h2>Six Foundational CAD Figures</h2><p>The official syllabus requires at least six figures. The following exercises progress from simple offsets to tangent geometry, arrays and complete dimensioning.</p></div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Figure 1</span><h3>Slotted mounting plate</h3></div><b>Commands: RECTANGLE, FILLET, CIRCLE, OFFSET, TRIM</b></header>
+      <div class="spec"><div><b>Overall</b><br>120 × 70</div><div><b>Corner radius</b><br>R10</div><div><b>Holes</b><br>2 × Ø12</div><div><b>Slot</b><br>50 × 14</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 360" role="img" aria-label="Slotted mounting plate">
+        <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M8 0L0 4L8 8Z" fill="#6c7480"/></marker></defs>
+        <path class="object" d="M150 70H610A35 35 0 0 1 645 105V255A35 35 0 0 1 610 290H150A35 35 0 0 1 115 255V105A35 35 0 0 1 150 70Z"/>
+        <circle class="object" cx="210" cy="135" r="25" fill="#fff"/><circle class="object" cx="550" cy="135" r="25" fill="#fff"/>
+        <path class="object" fill="#fff" d="M300 220H460A22 22 0 0 1 482 242A22 22 0 0 1 460 264H300A22 22 0 0 1 278 242A22 22 0 0 1 300 220Z"/>
+        <path class="center" d="M80 180H680M380 35V325"/>
+        <path class="dim" d="M115 325H645"/><text x="365" y="348" font-size="22">120</text><path class="dim" d="M80 70V290"/><text x="35" y="188" font-size="22">70</text>
+      </svg><figcaption>Suggested construction: outer rectangle → fillet corners → centre lines → two holes → slot from two circles and tangent lines → trim → dimension.</figcaption></figure>
+      <div class="steps"><div class="step">Draw a 120 × 70 rectangle.</div><div class="step">FILLET all corners with radius 10.</div><div class="step">Create horizontal and vertical centre lines.</div><div class="step">Locate hole centres and draw Ø12 circles.</div><div class="step">Create the slot using two R7 circles 50 mm centre-to-centre and tangent lines; TRIM inner arcs.</div><div class="step">Apply dimensions and centre marks.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Figure 2</span><h3>Four-hole circular flange</h3></div><b>Commands: CIRCLE, ARRAYPOLAR, CENTERMARK, DIMDIAMETER</b></header>
+      <div class="spec"><div><b>Outer</b><br>Ø120</div><div><b>Bore</b><br>Ø40</div><div><b>Pitch circle</b><br>Ø80</div><div><b>Bolt holes</b><br>4 × Ø12</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 370" role="img" aria-label="Four hole flange"><circle class="object" cx="380" cy="185" r="140"/><circle class="object" cx="380" cy="185" r="48" fill="#fff"/><circle cx="380" cy="185" r="95" fill="none" class="center"/><g fill="#fff" stroke="#0f3650" stroke-width="5"><circle cx="380" cy="90" r="16"/><circle cx="475" cy="185" r="16"/><circle cx="380" cy="280" r="16"/><circle cx="285" cy="185" r="16"/></g><path class="center" d="M190 185H570M380 15V355"/><text x="520" y="60" font-size="22">4 × Ø12 on PCD Ø80</text></svg><figcaption>Draw one bolt hole on the pitch circle, then create a four-item polar array around the flange centre.</figcaption></figure>
+      <div class="steps"><div class="step">Draw concentric Ø120, Ø80 construction and Ø40 circles.</div><div class="step">Place one Ø12 hole at the top quadrant of the pitch circle.</div><div class="step">Use ARRAYPOLAR: centre = flange centre, items = 4, fill angle = 360°.</div><div class="step">Place centre marks and diameter dimensions.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Figure 3</span><h3>Tangent cam profile</h3></div><b>Commands: CIRCLE, LINE TAN, FILLET, TRIM</b></header>
+      <div class="spec"><div><b>Base circle</b><br>Ø60</div><div><b>Top circle</b><br>Ø30</div><div><b>Centre distance</b><br>70 vertical</div><div><b>Sides</b><br>Common tangents</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 390" role="img" aria-label="Tangent cam profile"><circle class="object" cx="380" cy="265" r="95"/><circle class="object" cx="380" cy="95" r="48"/><path class="object" d="M335 116L292 226M425 116L468 226" fill="none"/><path class="center" d="M380 25V365"/><text x="500" y="115" font-size="22">Use TAN snap</text></svg><figcaption>The profile is built from two circles joined by common external tangents; unwanted arcs are trimmed.</figcaption></figure>
+      <div class="steps"><div class="step">Draw the two circles on a common vertical centre line.</div><div class="step">Use LINE with Tangent OSNAP from the small circle to the large circle on each side.</div><div class="step">TRIM internal circle portions and retain a closed cam outline.</div><div class="step">Add centre marks and dimensions.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Figure 4</span><h3>Stepped support profile</h3></div><b>Commands: PLINE, OFFSET, CHAMFER, FILLET, MIRROR</b></header>
+      <div class="spec"><div><b>Base</b><br>140 × 20</div><div><b>Web</b><br>60 high</div><div><b>Top</b><br>80 × 20</div><div><b>Corner</b><br>R8 / 10×10 chamfer</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 360" role="img" aria-label="Stepped support profile"><path class="object" d="M120 290V245H265V110H495V245H640V290Z"/><path class="center" d="M380 70V320"/><circle class="object" cx="380" cy="175" r="30" fill="#fff"/><text x="515" y="105" font-size="22">Symmetric profile</text></svg><figcaption>Draw half of the symmetric outline accurately and MIRROR about the vertical centre line.</figcaption></figure>
+      <div class="steps"><div class="step">Draw the base and vertical centre line.</div><div class="step">Use PLINE for one half of the stepped outline.</div><div class="step">Apply required fillet/chamfer.</div><div class="step">MIRROR the completed half, then draw the central hole.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Figure 5</span><h3>Keyhole plate</h3></div><b>Commands: RECTANGLE, CIRCLE, LINE, TRIM, HATCH</b></header>
+      <div class="spec"><div><b>Plate</b><br>100 × 80</div><div><b>Upper circle</b><br>Ø30</div><div><b>Stem</b><br>14 wide × 30</div><div><b>Position</b><br>Centred</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 360" role="img" aria-label="Keyhole plate"><rect class="object" x="145" y="60" width="470" height="250" rx="8"/><circle class="object" cx="380" cy="145" r="55" fill="#fff"/><path class="object" fill="#fff" d="M355 188H405V270H355Z"/><path class="center" d="M380 35V330"/></svg><figcaption>Create the circular opening and rectangular stem, then TRIM their overlapping boundary to form one keyhole opening.</figcaption></figure>
+      <div class="steps"><div class="step">Draw the outer plate and centre lines.</div><div class="step">Draw Ø30 at the specified centre.</div><div class="step">Draw a 14 mm wide centred stem below the circle.</div><div class="step">TRIM the common circle segment and internal top line of the stem.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Figure 6</span><h3>Electrical panel mounting layout</h3></div><b>Commands: RECTANGLE, OFFSET, COPY, ARRAYRECT, TEXT, DIM</b></header>
+      <div class="spec"><div><b>Panel</b><br>180 × 120</div><div><b>Border</b><br>10 internal</div><div><b>DIN devices</b><br>4 modules 25 × 50</div><div><b>Cable entry</b><br>3 × Ø20</div></div>
+      <figure class="diagram"><svg viewBox="0 0 820 390" role="img" aria-label="Electrical panel layout"><rect class="object" x="80" y="45" width="660" height="300"/><rect x="110" y="75" width="600" height="240" fill="none" stroke="#0f3650" stroke-width="3"/><g fill="#eef7ff" stroke="#126b9a" stroke-width="4"><rect x="180" y="125" width="85" height="120"/><rect x="275" y="125" width="85" height="120"/><rect x="370" y="125" width="85" height="120"/><rect x="465" y="125" width="85" height="120"/></g><g fill="#fff" stroke="#0f3650" stroke-width="4"><circle cx="250" cy="285" r="20"/><circle cx="410" cy="285" r="20"/><circle cx="570" cy="285" r="20"/></g><text x="185" y="115" font-size="20">DEVICE ROW</text><text x="200" y="335" font-size="20">CABLE ENTRIES</text></svg><figcaption>A practical layout exercise combining borders, repeated components, holes, labels and dimensions.</figcaption></figure>
+      <div class="steps"><div class="step">Draw panel outline and OFFSET 10 for the inner border.</div><div class="step">Draw one device rectangle, then COPY or ARRAYRECT for four modules.</div><div class="step">Draw one Ø20 cable entry and array/copy to three positions.</div><div class="step">Add labels and overall/spacing dimensions on separate layers.</div></div>
+    </div>
+
+    <div class="callout exam"><b>Module 2 completion evidence</b><div>Submit six separate DWG files or one organised workbook drawing containing all six figures, with correct layers, dimensions and file names.</div></div>
+    <h3>Module 2 practice questions</h3>
+    <div class="qbank"><div class="qcard"><span class="tag">Procedure</span><p>Write a command sequence for the four-hole flange.</p></div><div class="qcard"><span class="tag">Error analysis</span><p>A polar array rotates the hole incorrectly. Explain which array settings must be checked.</p></div><div class="qcard"><span class="tag">Geometry</span><p>Explain why Tangent OSNAP is essential for Figure 3.</p></div><div class="qcard"><span class="tag">Practical</span><p>Create any one of the six figures from dimensions without tracing the sample.</p></div><div class="qcard"><span class="tag">Editing</span><p>Compare OFFSET, COPY and ARRAY for repeated geometry.</p></div><div class="qcard"><span class="tag">Plot</span><p>Prepare Figure 6 for A4 plotting with readable dimensions.</p></div></div>
+  </div>
+</section>
+
+<section class="panel module-panel" id="module3" data-title="Module 3">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Module 3 • CO3 • 12 Hours</span><h2>Isometric Drawing Using CAD</h2><p>The official syllabus requires at least four isometric figures. These exercises build from a box to an engineering machine outline.</p></div>
+    <h3>1. Isometric drafting essentials</h3>
+    <div class="grid"><div class="card third blue"><h4>Isometric axes</h4><p>One vertical axis and two receding axes at 30° to the horizontal.</p></div><div class="card third cyan"><h4>Isoplane</h4><p>Left, Top and Right isoplanes control cursor orientation and isocircle plane.</p></div><div class="card third green"><h4>Isocircle</h4><p>Circles appear as ellipses; use ELLIPSE → Isocircle in isometric snap mode.</p></div></div>
+    <div class="command"><b>Typical setup:</b> SNAP → Style → Isometric &nbsp; | &nbsp; toggle isoplane with <b>F5</b> or <b>Ctrl+E</b> &nbsp; | &nbsp; use ORTHO and POLAR.</div>
+    <div class="ml"><b>Malayalam Support:</b> Isometric mode-ൽ F5 ഉപയോഗിച്ച് Left/Top/Right isoplane മാറ്റാം. Circle draw ചെയ്യാൻ normal CIRCLE അല്ല, ELLIPSE → Isocircle ഉപയോഗിക്കുക.</div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Isometric 1</span><h3>Rectangular block with through hole</h3></div><b>Minimum figure 1 of 4</b></header>
+      <div class="spec"><div><b>Block</b><br>80 × 50 × 40</div><div><b>Hole</b><br>Ø20 through top</div><div><b>Tools</b><br>LINE, OFFSET, ELLIPSE Isocircle, TRIM</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 420" role="img" aria-label="Isometric block with hole"><polygon class="isoA" points="160,180 380,70 610,185 390,300"/><polygon class="isoB" points="160,180 390,300 390,375 160,255"/><polygon class="isoC" points="390,300 610,185 610,260 390,375"/><ellipse cx="380" cy="185" rx="62" ry="31" fill="#fff" stroke="#0b4f68" stroke-width="4"/><ellipse cx="380" cy="200" rx="62" ry="31" fill="none" class="hidden"/><text x="480" y="80" font-size="22">Top isoplane</text></svg><figcaption>Construct the isometric box first. Locate the hole centre on the top face and create an isocircle.</figcaption></figure>
+      <div class="steps"><div class="step">Draw the three isometric axes from one corner.</div><div class="step">Create the 80 × 50 × 40 bounding box.</div><div class="step">Locate the top-face centre with diagonals/construction offsets.</div><div class="step">Select Top isoplane and create Ø20 isocircle.</div><div class="step">Add hidden lower ellipse only if the drawing convention/instructor requires it.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Isometric 2</span><h3>Stepped block</h3></div><b>Minimum figure 2 of 4</b></header>
+      <div class="spec"><div><b>Overall</b><br>90 × 60 × 60</div><div><b>Step</b><br>45 length × 30 height</div><div><b>Tools</b><br>LINE, OFFSET, TRIM</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 430" role="img" aria-label="Isometric stepped block"><polygon class="isoB" points="130,225 390,360 390,405 130,270"/><polygon class="isoC" points="390,360 650,225 650,270 390,405"/><polygon class="isoA" points="130,225 390,90 520,157 390,225 520,292 390,360"/><polygon class="isoB" points="130,225 390,360 390,225 260,157"/><polygon class="isoC" points="390,225 520,157 520,292 390,360"/></svg><figcaption>Use an overall box, then remove the upper front portion conceptually. Construction-box thinking reduces errors.</figcaption></figure>
+      <div class="steps"><div class="step">Draw the complete 90 × 60 × 60 bounding box lightly.</div><div class="step">Mark the step length and height on the correct axes.</div><div class="step">Draw the new visible edges and TRIM construction edges.</div><div class="step">Check that all receding lines remain parallel to the isometric axes.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Isometric 3</span><h3>U-shaped bracket</h3></div><b>Minimum figure 3 of 4</b></header>
+      <div class="spec"><div><b>Outer</b><br>90 × 50 × 60</div><div><b>Wall</b><br>12</div><div><b>Base</b><br>12</div><div><b>Tools</b><br>LINE, OFFSET, COPY, TRIM</div></div>
+      <figure class="diagram"><svg viewBox="0 0 760 430" role="img" aria-label="Isometric U bracket"><polygon class="isoA" points="130,220 390,90 630,210 370,340"/><polygon class="isoB" points="130,220 370,340 370,385 130,265"/><polygon class="isoC" points="370,340 630,210 630,255 370,385"/><polygon points="235,220 390,143 525,210 370,287" fill="#fff" stroke="#0b4f68" stroke-width="4"/><polygon class="isoB" points="130,220 235,220 235,120 130,170"/><polygon class="isoC" points="525,210 630,210 630,160 525,110"/></svg><figcaption>Build the base slab, then two equal side walls. Use offsets to maintain constant wall thickness.</figcaption></figure>
+      <div class="steps"><div class="step">Draw the base plate as an isometric slab.</div><div class="step">OFFSET/construct 12 mm wall thickness on left and right.</div><div class="step">Raise both walls to 60 mm height.</div><div class="step">Remove hidden/construction geometry and verify symmetry.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Isometric 4</span><h3>Simplified electric motor</h3></div><b>Minimum figure 4 of 4 • Industry-themed</b></header>
+      <div class="spec"><div><b>Body</b><br>Ø60 × 100</div><div><b>Shaft</b><br>Ø16 × 35</div><div><b>Base</b><br>120 × 55 × 10</div><div><b>Tools</b><br>ELLIPSE Isocircle, LINE, OFFSET, TRIM</div></div>
+      <figure class="diagram"><svg viewBox="0 0 840 430" role="img" aria-label="Simplified isometric electric motor"><polygon class="isoA" points="120,300 390,165 690,315 420,405"/><polygon class="isoB" points="120,300 420,405 420,430 120,325"/><polygon class="isoC" points="420,405 690,315 690,340 420,430"/><ellipse cx="325" cy="235" rx="82" ry="42" fill="#dff3f6" stroke="#0b4f68" stroke-width="4"/><ellipse cx="520" cy="275" rx="82" ry="42" fill="#c3e4ea" stroke="#0b4f68" stroke-width="4"/><path d="M325 193L520 233M325 277L520 317" stroke="#0b4f68" stroke-width="4"/><ellipse cx="610" cy="295" rx="24" ry="12" fill="#fff" stroke="#0b4f68" stroke-width="4"/><path d="M520 263L610 283M520 287L610 307" stroke="#0b4f68" stroke-width="4"/><text x="560" y="120" font-size="22">Simplified training form</text></svg><figcaption>A simplified training model, not a manufacturing drawing. It integrates isocircles, cylindrical form, shaft and base.</figcaption></figure>
+      <div class="steps"><div class="step">Draw the base plate.</div><div class="step">Use the correct side isoplane to draw the motor-body end isocircles.</div><div class="step">Join corresponding tangent points to form the cylinder.</div><div class="step">Repeat for the shaft and add simple mounting feet.</div><div class="step">Clean up hidden overlaps and add a descriptive title.</div></div>
+    </div>
+
+    <div class="callout mistake"><b>Isometric common mistakes</b><div>Using normal circles; changing to the wrong isoplane; measuring along the screen instead of isometric axes; allowing receding lines to drift away from 30°; trimming visible edges needed for the final form.</div></div>
+    <h3>Module 3 practice questions</h3>
+    <div class="qbank"><div class="qcard"><span class="tag">Very short</span><p>Name the three isoplanes.</p></div><div class="qcard"><span class="tag">Command</span><p>Explain how to draw a circle on an isometric top face.</p></div><div class="qcard"><span class="tag">Application</span><p>Write a procedure for creating a cylindrical object in isometric CAD.</p></div><div class="qcard"><span class="tag">Practical</span><p>Draw any one of the four isometric exercises from dimensions.</p></div><div class="qcard"><span class="tag">Error analysis</span><p>An isocircle appears on the wrong plane. State the correction.</p></div><div class="qcard"><span class="tag">Visualisation</span><p>Describe how a bounding box helps create a stepped block.</p></div></div>
+  </div>
+</section>
+
+<section class="panel module-panel" id="module4" data-title="Module 4">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Module 4 • CO4 • 6 Hours</span><h2>Two Complete Two-Dimensional Engineering Drawings</h2><p>The official syllabus requires at least two figures. Unlike the shorter Module 2 exercises, these are complete sheets with layers, annotation, title, dimensions and plot preparation.</p></div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Complete 2D Figure 1</span><h3>Motor base plate</h3></div><b>Drawing sheet workflow</b></header>
+      <div class="spec"><div><b>Overall</b><br>200 × 120</div><div><b>Corner holes</b><br>4 × Ø14, 20 from edges</div><div><b>Motor slots</b><br>2 × 70 × 16</div><div><b>Centre distance</b><br>80 between slots</div></div>
+      <figure class="diagram"><svg viewBox="0 0 900 430" role="img" aria-label="Motor base plate complete two dimensional drawing"><rect class="object" x="110" y="65" width="680" height="300" rx="12"/><g fill="#fff" stroke="#0f3650" stroke-width="5"><circle cx="175" cy="125" r="20"/><circle cx="725" cy="125" r="20"/><circle cx="175" cy="305" r="20"/><circle cx="725" cy="305" r="20"/></g><path class="object" fill="#fff" d="M255 165H405A24 24 0 0 1 429 189A24 24 0 0 1 405 213H255A24 24 0 0 1 231 189A24 24 0 0 1 255 165Z"/><path class="object" fill="#fff" d="M495 217H645A24 24 0 0 1 669 241A24 24 0 0 1 645 265H495A24 24 0 0 1 471 241A24 24 0 0 1 495 217Z"/><path class="center" d="M70 215H830M450 30V400"/><text x="600" y="405" font-size="22">MOTOR BASE PLATE</text></svg><figcaption>A complete plate drawing with visible outlines, centre lines, holes, slots, dimensions, note and title.</figcaption></figure>
+      <div class="steps"><div class="step">Create layer set and assign line types.</div><div class="step">Draw 200 × 120 outer profile and centre lines.</div><div class="step">OFFSET 20 from edges to locate four hole centres; draw Ø14 holes.</div><div class="step">Construct two 70 × 16 slots at the specified centre spacing.</div><div class="step">Add centre marks, overall dimensions, hole note and slot dimensions.</div><div class="step">Add title and inspect plot preview on A4 landscape.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Complete 2D Figure 2</span><h3>Electrical terminal mounting plate</h3></div><b>Drawing sheet workflow</b></header>
+      <div class="spec"><div><b>Plate</b><br>180 × 100</div><div><b>Terminal row</b><br>6 × 20 × 30</div><div><b>Fixing holes</b><br>4 × Ø8</div><div><b>Cable entries</b><br>2 × Ø24</div></div>
+      <figure class="diagram"><svg viewBox="0 0 900 430" role="img" aria-label="Electrical terminal mounting plate complete drawing"><rect class="object" x="95" y="70" width="710" height="280" rx="8"/><g fill="#fff" stroke="#0f3650" stroke-width="4"><circle cx="145" cy="120" r="14"/><circle cx="755" cy="120" r="14"/><circle cx="145" cy="300" r="14"/><circle cx="755" cy="300" r="14"/></g><g fill="#eef7ff" stroke="#126b9a" stroke-width="4"><rect x="205" y="150" width="65" height="100"/><rect x="280" y="150" width="65" height="100"/><rect x="355" y="150" width="65" height="100"/><rect x="430" y="150" width="65" height="100"/><rect x="505" y="150" width="65" height="100"/><rect x="580" y="150" width="65" height="100"/></g><g fill="#fff" stroke="#0f3650" stroke-width="4"><circle cx="330" cy="300" r="28"/><circle cx="570" cy="300" r="28"/></g><text x="565" y="395" font-size="22">TERMINAL MOUNTING PLATE</text></svg><figcaption>The completed sheet should show arrayed terminal modules, fixing holes, cable entries, dimensions and component labels.</figcaption></figure>
+      <div class="steps"><div class="step">Draw outer plate and inner construction margins.</div><div class="step">Create one terminal block rectangle and use ARRAYRECT/COPY for six.</div><div class="step">Locate four Ø8 fixing holes with offsets.</div><div class="step">Create two Ø24 cable-entry holes on the lower centre line.</div><div class="step">Add component numbers T1-T6, diameter notes and overall/spacing dimensions.</div><div class="step">Prepare title block and plot preview.</div></div>
+    </div>
+
+    <h3>Dimensioning and plotting checklist</h3>
+    <div class="grid"><div class="card third blue"><h4>Geometry</h4><ul class="checklist"><li>Closed profiles</li><li>No duplicate lines</li><li>Exact centres and tangencies</li></ul></div><div class="card third cyan"><h4>Annotation</h4><ul class="checklist"><li>No repeated dimensions</li><li>Diameter/radius symbols correct</li><li>Text height readable</li></ul></div><div class="card third green"><h4>Plot</h4><ul class="checklist"><li>Correct paper size/orientation</li><li>Line weights visible</li><li>Drawing centred</li></ul></div></div>
+    <h3>Module 4 practice questions</h3>
+    <div class="qbank"><div class="qcard"><span class="tag">Procedure</span><p>Prepare a layer and dimension plan for the motor base plate.</p></div><div class="qcard"><span class="tag">Application</span><p>Explain how ARRAYRECT reduces work in the terminal plate.</p></div><div class="qcard"><span class="tag">Quality</span><p>List checks to perform before plotting a complete 2D drawing.</p></div><div class="qcard"><span class="tag">Practical</span><p>Complete either figure with title, dimensions and plot setup.</p></div></div>
+  </div>
+</section>
+
+<section class="panel" id="commands" data-title="Command Bank">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">CAD Command Bank</span><h2>Purpose, syntax and practical use</h2><p>Command names follow common AutoCAD terminology. Other CAD packages may use different icons or names, but the geometric operations remain similar.</p></div>
+    <div class="command-grid" id="commandGrid">
+      <button class="cmd-chip active" data-cmd="LINE">LINE</button><button class="cmd-chip" data-cmd="PLINE">PLINE</button><button class="cmd-chip" data-cmd="CIRCLE">CIRCLE</button><button class="cmd-chip" data-cmd="ARC">ARC</button><button class="cmd-chip" data-cmd="RECTANGLE">RECTANGLE</button><button class="cmd-chip" data-cmd="POLYGON">POLYGON</button><button class="cmd-chip" data-cmd="ELLIPSE">ELLIPSE</button><button class="cmd-chip" data-cmd="OFFSET">OFFSET</button><button class="cmd-chip" data-cmd="TRIM">TRIM</button><button class="cmd-chip" data-cmd="EXTEND">EXTEND</button><button class="cmd-chip" data-cmd="FILLET">FILLET</button><button class="cmd-chip" data-cmd="CHAMFER">CHAMFER</button><button class="cmd-chip" data-cmd="MOVE">MOVE</button><button class="cmd-chip" data-cmd="COPY">COPY</button><button class="cmd-chip" data-cmd="ROTATE">ROTATE</button><button class="cmd-chip" data-cmd="MIRROR">MIRROR</button><button class="cmd-chip" data-cmd="ARRAY">ARRAY</button><button class="cmd-chip" data-cmd="SCALE">SCALE</button><button class="cmd-chip" data-cmd="STRETCH">STRETCH</button><button class="cmd-chip" data-cmd="HATCH">HATCH</button><button class="cmd-chip" data-cmd="LAYER">LAYER</button><button class="cmd-chip" data-cmd="DIM">DIM</button><button class="cmd-chip" data-cmd="OSNAP">OSNAP</button><button class="cmd-chip" data-cmd="PLOT">PLOT</button>
+    </div>
+    <div class="cmd-display" id="cmdDisplay" aria-live="polite"></div>
+
+    <h3>Keyboard and workflow shortcuts</h3>
+    <div class="table-wrap"><table class="compact"><thead><tr><th>Key/action</th><th>Purpose</th><th>Lab use</th></tr></thead><tbody>
+      <tr><td>Esc</td><td>Cancel current command.</td><td>Recover from an incorrect option safely.</td></tr><tr><td>Enter / Space</td><td>Accept option or repeat last command.</td><td>Faster repeated operations.</td></tr><tr><td>F3</td><td>Toggle OSNAP.</td><td>Precision point selection.</td></tr><tr><td>F8</td><td>Toggle ORTHO.</td><td>Horizontal/vertical drawing.</td></tr><tr><td>F10</td><td>Toggle POLAR.</td><td>Angle tracking.</td></tr><tr><td>F5 / Ctrl+E</td><td>Cycle isoplanes.</td><td>Isometric drawing.</td></tr><tr><td>Ctrl+S</td><td>Save.</td><td>Protect work frequently.</td></tr><tr><td>Ctrl+Z</td><td>Undo.</td><td>Reverse the last action.</td></tr>
+    </tbody></table></div>
+    <div class="callout safety"><b>File safety</b><div>Save after setup, after main geometry, after annotation and before plotting. Keep a backup copy. Do not overwrite another student’s file.</div></div>
+  </div>
+</section>
+
+<section class="panel" id="workbook" data-title="Lab Workbook">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Lab Workbook</span><h2>Record format, submission checklist and self-assessment</h2></div>
+    <h3>Recommended record format for every exercise</h3>
+    <div class="table-wrap"><table><thead><tr><th>Record item</th><th>What to write</th></tr></thead><tbody>
+      <tr><td>Experiment number and title</td><td>Example: M2-F3 - Tangent cam profile.</td></tr><tr><td>Aim</td><td>One sentence stating the required CAD drawing.</td></tr><tr><td>Software/tools</td><td>CAD package and important commands.</td></tr><tr><td>Given data</td><td>Dimensions, quantities and assumptions.</td></tr><tr><td>Procedure</td><td>Ordered command and construction steps.</td></tr><tr><td>Result</td><td>Drawing completed, checked, saved and plotted/exported.</td></tr><tr><td>File evidence</td><td>DWG/DXF filename and screenshot/print.</td></tr><tr><td>Learning reflection</td><td>One error faced and how it was corrected.</td></tr>
+    </tbody></table></div>
+
+    <h3>Minimum semester drawing register</h3>
+    <div class="table-wrap"><table class="compact"><thead><tr><th>No.</th><th>Exercise</th><th>Official minimum category</th><th>File name</th><th>Checked</th></tr></thead><tbody>
+      <tr><td>1</td><td>Starter plate with four holes</td><td>M1 sketch</td><td>2038_M1_Starter.dwg</td><td>□</td></tr><tr><td>2</td><td>Slotted mounting plate</td><td>M2 Figure 1</td><td>2038_M2_F1.dwg</td><td>□</td></tr><tr><td>3</td><td>Circular flange</td><td>M2 Figure 2</td><td>2038_M2_F2.dwg</td><td>□</td></tr><tr><td>4</td><td>Tangent cam</td><td>M2 Figure 3</td><td>2038_M2_F3.dwg</td><td>□</td></tr><tr><td>5</td><td>Stepped support</td><td>M2 Figure 4</td><td>2038_M2_F4.dwg</td><td>□</td></tr><tr><td>6</td><td>Keyhole plate</td><td>M2 Figure 5</td><td>2038_M2_F5.dwg</td><td>□</td></tr><tr><td>7</td><td>Panel mounting layout</td><td>M2 Figure 6</td><td>2038_M2_F6.dwg</td><td>□</td></tr><tr><td>8</td><td>Block with hole</td><td>M3 Isometric 1</td><td>2038_M3_I1.dwg</td><td>□</td></tr><tr><td>9</td><td>Stepped block</td><td>M3 Isometric 2</td><td>2038_M3_I2.dwg</td><td>□</td></tr><tr><td>10</td><td>U bracket</td><td>M3 Isometric 3</td><td>2038_M3_I3.dwg</td><td>□</td></tr><tr><td>11</td><td>Electric motor form</td><td>M3 Isometric 4</td><td>2038_M3_I4.dwg</td><td>□</td></tr><tr><td>12</td><td>Motor base plate</td><td>M4 2D Figure 1</td><td>2038_M4_D1.dwg</td><td>□</td></tr><tr><td>13</td><td>Terminal mounting plate</td><td>M4 2D Figure 2</td><td>2038_M4_D2.dwg</td><td>□</td></tr>
+    </tbody></table></div>
+
+    <h3>Drawing quality checklist</h3>
+    <div class="grid"><div class="card third blue"><h4>Accuracy</h4><ul class="checklist"><li>All specified dimensions used</li><li>No visual guessing</li><li>Centres and tangencies exact</li><li>Closed profiles where required</li></ul></div><div class="card third cyan"><h4>CAD method</h4><ul class="checklist"><li>Correct commands selected</li><li>Layers used logically</li><li>No unnecessary duplicate entities</li><li>File saved with correct name</li></ul></div><div class="card third green"><h4>Presentation</h4><ul class="checklist"><li>Dimensions readable</li><li>Line types visible</li><li>Title and labels present</li><li>Plot preview checked</li></ul></div></div>
+
+    <h3>Viva practice</h3>
+    <div class="qbank"><div class="qcard"><span class="tag">Viva</span><p>Why is OSNAP more reliable than visual selection?</p></div><div class="qcard"><span class="tag">Viva</span><p>Differentiate OFFSET and COPY.</p></div><div class="qcard"><span class="tag">Viva</span><p>Why should dimensions be placed on a separate layer?</p></div><div class="qcard"><span class="tag">Viva</span><p>What is the purpose of plot preview?</p></div><div class="qcard"><span class="tag">Viva</span><p>How is an isocircle created?</p></div><div class="qcard"><span class="tag">Viva</span><p>What happens if the wrong units are used?</p></div></div>
+  </div>
+</section>
+
+<section class="panel" id="exam" data-title="Lab Exams">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Official Evaluation Timing</span><h2>Two model three-hour lab examinations</h2><p>The syllabus allocates Lab Exam 1 after Module 2 and Lab Exam 2 after Module 4, three hours each. The following are fresh practice models, not an official mark scheme.</p></div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Model Lab Exam 1</span><h3>Precision 2D CAD figure</h3></div><b>Time: 3 hours</b></header>
+      <p><b>Task:</b> Draw a 160 × 100 mounting plate with R12 rounded corners, four Ø12 holes located 20 mm from adjacent edges, a central Ø40 opening, and two horizontal slots 50 × 12 placed symmetrically above and below the centre. Use separate object, centre and dimension layers. Add all essential dimensions and prepare A4 landscape plot preview.</p>
+      <h4>Expected submission</h4><ul class="checklist"><li>DWG/DXF source file</li><li>Correct layer structure</li><li>Fully dimensioned drawing</li><li>Plot preview or PDF</li></ul>
+      <div class="rubric"><div><b>Planning</b>Units, file and layers set before drawing.</div><div><b>Geometry</b>Dimensions, centres, radii and slots accurate.</div><div><b>Technique</b>Appropriate use of OFFSET, COPY/MIRROR, FILLET and TRIM.</div><div><b>Presentation</b>Readable annotation and plot setup.</div></div>
+    </div>
+
+    <div class="lab-sheet">
+      <header><div><span class="tag">Model Lab Exam 2</span><h3>Isometric equipment support</h3></div><b>Time: 3 hours</b></header>
+      <p><b>Task:</b> Create an isometric drawing of a U-shaped equipment support having an overall base 100 × 60 × 12, two side walls 12 thick and 70 high, and one Ø20 through hole in each side wall at equal height. Add a suitable title and prepare plot preview.</p>
+      <h4>Expected submission</h4><ul class="checklist"><li>Correct isometric snap and isoplane use</li><li>Base and equal wall thickness</li><li>Two correctly oriented isocircles</li><li>Clean visible outline and title</li></ul>
+      <div class="rubric"><div><b>Visualisation</b>Correct interpretation of dimensions.</div><div><b>Isometric method</b>Axes, isoplanes and isocircles used correctly.</div><div><b>Accuracy</b>Constant thickness and aligned holes.</div><div><b>Output</b>Saved file and clear plot preview.</div></div>
+    </div>
+
+    <h3>Lab exam strategy</h3>
+    <div class="steps"><div class="step">Spend the first 10 minutes reading, listing dimensions and planning commands.</div><div class="step">Set units, save and create layers before geometry.</div><div class="step">Create construction geometry first; do not dimension incomplete geometry.</div><div class="step">Use symmetry, arrays and offsets to reduce repeated manual work.</div><div class="step">Reserve the final 25 minutes for checking, annotation, title, save and plot preview.</div></div>
+  </div>
+</section>
+
+<section class="panel" id="activity" data-title="Open-ended Activity">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Student Activity • Continuous Internal Evaluation</span><h2>Open-ended group experiment</h2><p>The official syllabus specifies groups of 3-5, no duplication between groups, a separate report and 15 marks. The given example is an isometric drawing of an electric machine using CAD software.</p></div>
+    <div class="callout remember"><b>Official conditions</b><div>Work in a group of 3-5. Select a unique experiment not duplicated by another group. Prepare and submit a separate report. The activity is intended for continuous internal evaluation with a score of 15 marks.</div></div>
+    <h3>Suggested project themes</h3>
+    <div class="grid"><div class="card third blue"><h4>Electric machine</h4><p>Develop a simplified isometric drawing of a motor or generator with base, body, shaft and terminal box.</p></div><div class="card third cyan"><h4>Renewable-energy frame</h4><p>Model a simplified solar-panel mounting frame or battery rack.</p></div><div class="card third green"><h4>Electrical panel</h4><p>Create a 2D panel layout with device rows, cable entries and mounting dimensions.</p></div><div class="card third violet"><h4>EV component support</h4><p>Develop a mounting bracket or battery-module tray using 2D and isometric views.</p></div><div class="card third amber"><h4>Workshop fixture</h4><p>Draw a simple jig, clamp or equipment support.</p></div><div class="card third red"><h4>Campus utility</h4><p>Prepare a dimensioned equipment-base or cable-tray support drawing.</p></div></div>
+
+    <h3>Project workflow</h3>
+    <div class="steps"><div class="step">Choose a unique object and obtain instructor approval.</div><div class="step">Measure or define safe simplified dimensions.</div><div class="step">Prepare a freehand concept sketch and drawing plan.</div><div class="step">Assign group roles: geometry, layers/annotation, verification, report and presentation.</div><div class="step">Create CAD drawing, review dimensions and produce plot/PDF.</div><div class="step">Write the report and present the method, difficulties and corrections.</div></div>
+
+    <h3>Separate report structure</h3>
+    <div class="table-wrap"><table><thead><tr><th>Section</th><th>Required content</th></tr></thead><tbody><tr><td>Title page</td><td>Course, project title, group members, register numbers and date.</td></tr><tr><td>Objective</td><td>What the group intended to draft/model.</td></tr><tr><td>Object description</td><td>Function, main parts and simplified assumptions.</td></tr><tr><td>Dimensions/data</td><td>Dimension table and source of data.</td></tr><tr><td>CAD plan</td><td>Layers, commands and drawing sequence.</td></tr><tr><td>Procedure</td><td>Step-by-step execution with screenshots.</td></tr><tr><td>Final output</td><td>Dimensioned 2D/isometric drawing and plot.</td></tr><tr><td>Challenges</td><td>Errors, corrections and team learning.</td></tr><tr><td>Conclusion</td><td>Result and possible improvement.</td></tr></tbody></table></div>
+    <div class="callout practice"><b>Suggested 15-mark rubric (instructor adaptable)</b><div>Planning and uniqueness: 3; CAD accuracy: 5; use of tools/layers: 3; report: 2; teamwork/presentation: 2. This is a suggested handbook rubric, not an official distribution stated in the syllabus.</div></div>
+  </div>
+</section>
+
+<section class="panel" id="answers" data-title="Master Answer Key">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Master Answer Key</span><h2>Complete answers and procedure-based solutions</h2><p>This section contains answers to module questions, viva questions and full model lab-exam procedures.</p></div>
+
+    <h3>Module 1 answers</h3>
+    <div class="answer"><b>Model space vs layout space:</b> Model space is used to create full-size geometry. Layout space represents the paper sheet and viewports used for plotting at a selected scale.</div>
+    <div class="answer"><b>75 mm at 30°:</b> Enter <span class="kbd">@75&lt;30</span> after selecting the start point.</div>
+    <div class="answer"><b>Tangent line between circles:</b> Enable Tangent OSNAP and select the first circle at the tangent marker, then the second circle at its tangent marker.</div>
+    <div class="answer"><b>Metric startup:</b> New drawing → UNITS Decimal/mm → SAVEAS → create layers → set line types → set OSNAP/ORTHO/POLAR → begin construction.</div>
+    <div class="answer"><b>Gaps after zooming:</b> Likely causes are visual clicking without OSNAP, wrong snap mode, incomplete TRIM/EXTEND or duplicate objects. Turn on Endpoint/Intersection snaps, use EXTEND/TRIM, and inspect with zoom.</div>
+
+    <h3>Module 2 answers</h3>
+    <details open><summary>Four-hole flange procedure</summary><ol><li>Set units and layers.</li><li>Draw concentric circles Ø120, Ø80 and Ø40.</li><li>Use the Ø80 circle as a construction pitch circle.</li><li>At one quadrant, draw a Ø12 bolt hole.</li><li>ARRAYPOLAR around the common centre with 4 items and 360° fill.</li><li>Add centre marks and diameter/PCD note.</li><li>Freeze/delete construction circle only if required by the instructor.</li></ol></details>
+    <div class="answer"><b>Array rotates holes incorrectly:</b> Check the array centre, item count, fill angle, association option and whether “rotate items” affects a non-circular object. For circular holes, centre location and item count are the critical settings.</div>
+    <div class="answer"><b>Why Tangent OSNAP:</b> It computes the exact contact point where a line touches a circle without crossing it. Visual placement cannot guarantee tangency.</div>
+    <div class="answer"><b>OFFSET vs COPY vs ARRAY:</b> OFFSET creates a parallel/concentric object at a fixed distance; COPY duplicates selected objects using displacement; ARRAY produces multiple copies in a rectangular, polar or path pattern.</div>
+    <div class="answer"><b>A4 plot preparation:</b> Open layout/plot, select A4 and orientation, choose printer/PDF, select plot area/layout, centre the drawing, set scale or Fit only when appropriate, apply line-weight plot style, preview, then plot.</div>
+
+    <h3>Module 3 answers</h3>
+    <div class="answer"><b>Three isoplanes:</b> Left, Top and Right.</div>
+    <div class="answer"><b>Circle on top face:</b> Activate isometric snap, switch to Top isoplane, run ELLIPSE, select Isocircle, choose centre and enter radius/diameter.</div>
+    <details open><summary>Cylindrical object procedure</summary><ol><li>Select the isoplane perpendicular to the cylinder axis.</li><li>Draw the near-end isocircle.</li><li>Project the cylinder length along the correct isometric axis.</li><li>Copy/draw the far-end isocircle.</li><li>Join corresponding extreme tangent points.</li><li>Trim or suppress hidden portions according to the required convention.</li></ol></details>
+    <div class="answer"><b>Wrong isocircle plane:</b> Undo/delete it, cycle to the correct isoplane with F5/Ctrl+E, then recreate the isocircle.</div>
+    <div class="answer"><b>Bounding box method:</b> First draw the maximum overall length, width and height. Mark cuts/steps on the box edges, join corresponding points, then remove construction edges. This preserves proportions and axis directions.</div>
+
+    <h3>Module 4 answers</h3>
+    <div class="answer"><b>Layer plan:</b> OBJECT continuous/thick; CENTRE centre line/thin; HIDDEN dashed/thin when needed; DIMENSION continuous/thin; CONSTRUCTION light; TEXT continuous. Draw geometry first, then dimensions.</div>
+    <div class="answer"><b>ARRAYRECT in terminal plate:</b> It creates equally spaced copies in rows/columns from one accurate terminal rectangle, reducing repeated measurement and maintaining uniform spacing.</div>
+    <div class="answer"><b>Pre-plot checks:</b> Units, overall size, duplicate/gapped entities, layer assignment, dimension completeness, text height, line-type scale, line weights, paper size, orientation, plot area, scale and preview.</div>
+
+    <h3>Viva answers</h3>
+    <div class="table-wrap"><table><thead><tr><th>Question</th><th>Model answer</th></tr></thead><tbody><tr><td>Why OSNAP?</td><td>It selects exact endpoints, centres, intersections, quadrants and tangencies, ensuring geometric accuracy.</td></tr><tr><td>OFFSET vs COPY?</td><td>OFFSET creates parallel/concentric geometry at a distance; COPY produces a duplicate at a chosen displacement.</td></tr><tr><td>Separate dimension layer?</td><td>Dimensions can be controlled, hidden, printed and edited independently from object geometry.</td></tr><tr><td>Purpose of plot preview?</td><td>It reveals clipping, scale, orientation, line-weight and readability problems before final output.</td></tr><tr><td>How is an isocircle created?</td><td>Isometric snap → correct isoplane → ELLIPSE → Isocircle.</td></tr><tr><td>Wrong units effect?</td><td>All entered distances and scale relationships become incorrect, causing an unusable engineering drawing.</td></tr></tbody></table></div>
+
+    <h3>Complete Model Lab Exam 1 solution</h3>
+    <div class="lab-sheet"><header><div><span class="tag">Full Procedure</span><h4>160 × 100 precision mounting plate</h4></div><b>Expected method</b></header>
+      <ol><li>Start metric drawing; save as <span class="kbd">2038_LabExam1.dwg</span>.</li><li>Create OBJECT, CENTRE, DIMENSION and CONSTRUCTION layers.</li><li>RECTANGLE from 0,0 to @160,100. FILLET radius 12 on all corners.</li><li>OFFSET 20 inward from left/right/top/bottom construction references. Their four intersections are hole centres.</li><li>Draw one CIRCLE diameter 12 and COPY to the other three centres.</li><li>Draw centre lines through plate centre. Draw central CIRCLE diameter 40.</li><li>For the upper slot, mark two centres 50 mm apart on a horizontal line. Draw two R6 circles, join with tangent horizontal lines and TRIM inner arcs. Place the slot symmetrically above centre.</li><li>MIRROR or COPY the slot to an equal distance below centre.</li><li>Remove unnecessary construction lines; apply centre marks.</li><li>Dimension overall size, R12, 4×Ø12, Ø40, slot 50×12 and location/spacing dimensions.</li><li>Add title, save, open A4 landscape plot preview and check line weights/readability.</li></ol>
+      <p><b>Expected final view:</b> one symmetric rounded rectangular plate with four corner holes, central circular opening and two equal horizontal slots.</p>
+    </div>
+
+    <h3>Complete Model Lab Exam 2 solution</h3>
+    <div class="lab-sheet"><header><div><span class="tag">Full Procedure</span><h4>Isometric U-shaped equipment support</h4></div><b>Expected method</b></header>
+      <ol><li>Start metric drawing, save as <span class="kbd">2038_LabExam2.dwg</span>, enable isometric snap.</li><li>Draw the 100 × 60 top outline of the base along isometric axes.</li><li>Project 12 mm downward and close the base slab.</li><li>On the left and right edges, construct 12 mm wall thickness.</li><li>From the top of the base, project both walls to 70 mm height and close their top faces.</li><li>Mark equal hole centres on both walls using offsets from base and wall edges.</li><li>Switch to the correct left/right isoplane and create Ø20 isocircles.</li><li>Trim construction lines and retain clean visible outlines.</li><li>Add a title; optional dimensions may be placed if required by the instructor.</li><li>Save and prepare plot preview.</li></ol>
+      <p><b>Expected final view:</b> a symmetric isometric U bracket with a 12 mm base, equal 12 mm side walls and aligned circular holes represented by correctly oriented isocircles.</p>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="references" data-title="References">
+  <div class="section">
+    <div class="section-head"><span class="eyebrow">Official References</span><h2>Textbooks and online resources from the syllabus</h2></div>
+    <div class="table-wrap"><table><thead><tr><th>Code</th><th>Book / author</th></tr></thead><tbody>
+      <tr><td>T1</td><td><i>Engineering Graphics with Auto CAD</i> - R. B. Choudary, Anuradha Publishers.</td></tr>
+      <tr><td>T2</td><td>K. C. John, <i>Engineering Graphics</i>, PHI Learning Private Limited.</td></tr>
+      <tr><td>R1</td><td>P. I. Varghese, <i>Engineering Graphics</i>, VIP Publishers.</td></tr>
+      <tr><td>R2</td><td>Anilkumar K. N., <i>Engineering Graphics</i>, Adhyuth Narayan Publishers.</td></tr>
+      <tr><td>R3</td><td>N. D. Bhatt, <i>Engineering Drawing</i>, Charotar Publishing House, Anand, Gujarat, 2010; ISBN 978-93-80358-17-8.</td></tr>
+      <tr><td>R4</td><td>M. B. Shah and B. C. Rana, <i>Engineering Drawing</i>, Pearson Publications.</td></tr>
+    </tbody></table></div>
+    <h3>Online resources</h3>
+    <div class="table-wrap"><table><thead><tr><th>No.</th><th>Resource</th><th>How it supports the course</th></tr></thead><tbody>
+      <tr><td>1</td><td><a href="https://en.wikipedia.org/wiki/AutoCAD" target="_blank" rel="noopener noreferrer">AutoCAD overview</a></td><td>General software background and terminology.</td></tr>
+      <tr><td>2</td><td><a href="https://nptel.ac.in/courses/112102101/" target="_blank" rel="noopener noreferrer">NPTEL course 112102101</a></td><td>Engineering drawing/CAD learning support.</td></tr>
+      <tr><td>3</td><td><a href="https://www.youtube.com/watch?v=cmR9cfWJRUU" target="_blank" rel="noopener noreferrer">YouTube CAD tutorial</a></td><td>Video demonstration.</td></tr>
+      <tr><td>4</td><td><a href="https://web.iit.edu/sites/web/files/departments/academic-affairs/academic-resource-center/pdfs/Introduction_to_AutoCAD.pdf" target="_blank" rel="noopener noreferrer">Introduction to AutoCAD PDF</a></td><td>Introductory command and interface reference.</td></tr>
+      <tr><td>5</td><td><a href="https://tuto-computer.com/autocad-tutorial-pdf.html" target="_blank" rel="noopener noreferrer">AutoCAD tutorial PDF page</a></td><td>Additional guided practice.</td></tr>
+      <tr><td>6</td><td><a href="https://wiki.auckland.ac.nz/download/attachments/31851381/AutoCAD+Tutorial+002.pdf" target="_blank" rel="noopener noreferrer">AutoCAD Tutorial 002</a></td><td>Supplementary tutorial material.</td></tr>
+    </tbody></table></div>
+    <div class="callout safety"><b>Software note</b><div>Interfaces and command options vary by software version. Use the installed laboratory version and follow instructor guidance. The handbook focuses on stable geometric methods rather than one specific screen layout.</div></div>
+
+    <h3>Final practical checklist</h3>
+    <div class="grid"><div class="card"><h4>Before drawing</h4><ul class="checklist"><li>Question read completely</li><li>Units set</li><li>File saved</li><li>Layers created</li><li>OSNAP selected</li></ul></div><div class="card"><h4>Before submission</h4><ul class="checklist"><li>Geometry checked</li><li>No duplicates/gaps</li><li>Dimensions complete</li><li>Title present</li><li>Plot preview checked</li><li>Final save completed</li></ul></div></div>
+  </div>
+</section>
+
+<footer class="footer"><b>Engineering Graphics Using CAD Software • Course 2038</b><br>Author: Nandakumar.M &nbsp; | &nbsp; Visit: <a href="https://nandakumarm.dpdns.org" target="_blank" rel="noopener noreferrer">nandakumarm.dpdns.org</a><br>Standalone practical handbook prepared from the official syllabus.</footer>
+</main></div>
+<button class="backtop" type="button" aria-label="Back to top">↑</button>
+<script>
+const panels=[...document.querySelectorAll('.panel')];
+const tabs=[...document.querySelectorAll('.tab-btn')];
+const progress=document.getElementById('progress');
+function showPanel(id,updateHash=true){
+  const target=document.getElementById(id)||document.getElementById('overview');
+  panels.forEach(p=>p.classList.toggle('active',p===target));
+  tabs.forEach(b=>b.classList.toggle('active',b.dataset.panel===target.id));
+  document.title=`${target.dataset.title} | Engineering Graphics Using CAD Software 2038`;
+  if(updateHash) history.replaceState(null,'','#'+target.id);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+tabs.forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.panel)));
+document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>showPanel(b.dataset.open)));
+const initial=location.hash.slice(1);showPanel(document.getElementById(initial)?initial:'overview',false);
+addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(document.getElementById(id))showPanel(id,false)});
+addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-innerHeight;progress.style.width=(h>0?(scrollY/h)*100:0)+'%'},{passive:true});
+document.querySelector('.backtop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+const commandData={
+LINE:{purpose:'Creates straight line segments.',syntax:'LINE → specify first point → specify next point(s) → Enter',tip:'Use absolute, relative or polar coordinates. Each segment is a separate object.'},
+PLINE:{purpose:'Creates connected line/arc segments as one polyline.',syntax:'PLINE → first point → next points/options → Enter',tip:'Useful for closed outlines and width-controlled paths.'},
+CIRCLE:{purpose:'Creates a circle by centre-radius, centre-diameter or other options.',syntax:'CIRCLE → centre → radius/diameter',tip:'Use Centre OSNAP and enter exact diameter.'},
+ARC:{purpose:'Creates part of a circle.',syntax:'ARC → choose 3-point or centre/start/end method',tip:'Select a method that matches the given geometry.'},
+RECTANGLE:{purpose:'Creates a closed rectangular polyline.',syntax:'RECTANGLE → first corner → opposite corner',tip:'Use relative coordinate @length,width for exact size.'},
+POLYGON:{purpose:'Creates a regular polygon.',syntax:'POLYGON → number of sides → centre/edge → inscribed/circumscribed → radius',tip:'Choose inscribed or circumscribed carefully.'},
+ELLIPSE:{purpose:'Creates ellipses and isocircles.',syntax:'ELLIPSE → axis endpoints / Isocircle',tip:'In isometric mode choose Isocircle on the correct isoplane.'},
+OFFSET:{purpose:'Creates parallel or concentric copies at a fixed distance.',syntax:'OFFSET → distance → select object → side',tip:'Excellent for wall thickness, borders and centre distances.'},
+TRIM:{purpose:'Cuts objects at selected boundaries.',syntax:'TRIM → select boundaries or Enter → select portions',tip:'Zoom in and select only unwanted portions.'},
+EXTEND:{purpose:'Lengthens objects to meet boundaries.',syntax:'EXTEND → select boundaries or Enter → select objects',tip:'Useful when lines stop short of an exact edge.'},
+FILLET:{purpose:'Joins two objects with a tangent arc.',syntax:'FILLET → Radius → value → select first and second object',tip:'Radius 0 can cleanly join two lines.'},
+CHAMFER:{purpose:'Joins two objects with a bevel.',syntax:'CHAMFER → Distance/Angle → values → select objects',tip:'Confirm both chamfer distances before selection.'},
+MOVE:{purpose:'Relocates selected objects.',syntax:'MOVE → select → base point → second point',tip:'Use exact snaps for both base and destination.'},
+COPY:{purpose:'Duplicates selected objects.',syntax:'COPY → select → base point → destination(s)',tip:'Multiple option creates several copies.'},
+ROTATE:{purpose:'Turns objects about a base point.',syntax:'ROTATE → select → base point → angle/reference',tip:'Reference option is useful when the current angle is unknown.'},
+MIRROR:{purpose:'Creates a reflected copy about a mirror line.',syntax:'MIRROR → select → two mirror-line points → erase source? No',tip:'Ideal for symmetric components.'},
+ARRAY:{purpose:'Creates patterned copies.',syntax:'ARRAYRECT / ARRAYPOLAR / ARRAYPATH',tip:'Set rows/columns or centre/item count and verify preview.'},
+SCALE:{purpose:'Changes object size by a factor or reference.',syntax:'SCALE → select → base point → factor/reference',tip:'Do not use SCALE to compensate for wrong drawing units unless instructed.'},
+STRETCH:{purpose:'Moves selected vertices while preserving connected geometry.',syntax:'STRETCH → crossing window → base point → displacement',tip:'Selection must use a crossing window over vertices to move.'},
+HATCH:{purpose:'Fills a closed boundary with a pattern.',syntax:'HATCH → pattern/scale → pick point or select boundary',tip:'Check that the boundary is closed.'},
+LAYER:{purpose:'Organises objects and controls colour, line type and line weight.',syntax:'LAYER → New / Set Current / properties',tip:'Create and name layers before drawing.'},
+DIM:{purpose:'Adds linear, aligned, angular, radius and diameter dimensions.',syntax:'DIM → select object/points → place dimension',tip:'Use a suitable dimension style and avoid duplicate dimensions.'},
+OSNAP:{purpose:'Selects exact geometric points.',syntax:'OSNAP settings → enable Endpoint, Midpoint, Centre, Intersection, etc.',tip:'Temporary overrides can be chosen from the snap menu.'},
+PLOT:{purpose:'Outputs the drawing to paper or PDF.',syntax:'PLOT → printer → paper → area → scale → style → preview → plot',tip:'Always preview before final output.'}
+};
+function renderCommand(name){const d=commandData[name];document.getElementById('cmdDisplay').innerHTML=`<h3>${name}</h3><p>${d.purpose}</p><p><code>${d.syntax}</code></p><p><b>Practical tip:</b> ${d.tip}</p>`;document.querySelectorAll('.cmd-chip').forEach(b=>b.classList.toggle('active',b.dataset.cmd===name));}
+document.querySelectorAll('.cmd-chip').forEach(b=>b.addEventListener('click',()=>renderCommand(b.dataset.cmd)));renderCommand('LINE');
+</script>
+
+
+  <!-- Ask POLY lesson assistant -->
+  <div id="polySiteAssistant"></div>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
+  <script src="/assets/js/site-assistant.js?v=20260616-lesson3" defer></script>
+</body>
+</html>

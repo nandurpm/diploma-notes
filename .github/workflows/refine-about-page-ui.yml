@@ -1,0 +1,103 @@
+name: Refine About page UI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/about-page-refinement-run.txt"
+      - "tools/refine_about_page_ui.py"
+      - ".github/workflows/refine-about-page-ui.yml"
+  issues:
+    types: [opened]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: refine-about-page-ui
+  cancel-in-progress: false
+
+jobs:
+  refine:
+    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Refine About page UI'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Report start
+        if: github.event_name == 'issues'
+        run: gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "About-page refinement started: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Apply deterministic refinement
+        run: |
+          python -m py_compile tools/refine_about_page_ui.py
+          python tools/refine_about_page_ui.py
+
+      - name: Validate refined page
+        run: |
+          python tools/refine_about_page_ui.py --check
+          python - <<'PY'
+          from pathlib import Path
+          html = Path('about.html').read_text(encoding='utf-8')
+          required = (
+              '<title>About | POLY PMNA</title>',
+              'class="site-breadcrumbs about-breadcrumbs"',
+              'data-site-header',
+              'data-about-lang="ml"',
+              'data-about-guide',
+              'id="about-values-heading"',
+              'class="about-initiative"',
+              'data-site-footer',
+          )
+          missing = [item for item in required if item not in html]
+          if missing:
+              raise SystemExit(f'Missing About-page markers: {missing}')
+          if html.lower().count('<h1') != 1:
+              raise SystemExit('About page must contain exactly one H1')
+          PY
+
+      - name: Commit refined About page
+        id: commit
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add about.html assets/css/about-experience.css tools/verify_live_about.py .github/workflows/deploy-static-site.yml
+          git commit -m "Align About page with shared site UI"
+          git push origin main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Report success
+        if: success() && github.event_name == 'issues'
+        shell: bash
+        run: |
+          commit="${{ steps.commit.outputs.commit }}"
+          [ -n "$commit" ] || commit="no new commit required"
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "About-page refinement passed. Commit: $commit. The main-branch push has triggered the production deployment workflow."
+          gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+
+      - name: Report failure
+        if: failure() && github.event_name == 'issues'
+        run: gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "About-page refinement failed. Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}

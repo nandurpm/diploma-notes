@@ -1,0 +1,108 @@
+name: About page quality
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "about.html"
+      - "assets/css/about-experience.css"
+      - "assets/js/about-experience.js"
+      - ".github/workflows/about-page-qa.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: about-page-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate About page JavaScript
+        run: node --check assets/js/about-experience.js
+      - name: Validate About page structure and assets
+        run: |
+          python - <<'PY'
+          import json
+          import re
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlsplit
+
+          root = Path('.')
+          page = root / 'about.html'
+          text = page.read_text(encoding='utf-8')
+
+          class AboutParser(HTMLParser):
+              def __init__(self):
+                  super().__init__(convert_charrefs=True)
+                  self.h1 = 0
+                  self.main = 0
+                  self.ids = []
+                  self.refs = []
+                  self.lang_buttons = 0
+                  self.slides = 0
+                  self.jsonld = []
+                  self.inline_executable = 0
+                  self._jsonld = False
+                  self._json_text = []
+              def handle_starttag(self, tag, attrs):
+                  values = dict(attrs)
+                  if tag == 'h1': self.h1 += 1
+                  if tag == 'main': self.main += 1
+                  if values.get('id'): self.ids.append(values['id'])
+                  for key in ('href','src'):
+                      if values.get(key): self.refs.append(values[key])
+                  if 'data-about-lang' in values: self.lang_buttons += 1
+                  if 'data-guide-slide' in values: self.slides += 1
+                  if tag == 'script':
+                      if values.get('type') == 'application/ld+json' and 'data-poly-structured-data' in values:
+                          self._jsonld = True
+                          self._json_text = []
+                      elif not values.get('src'):
+                          self.inline_executable += 1
+              def handle_endtag(self, tag):
+                  if tag == 'script' and self._jsonld:
+                      self.jsonld.append(''.join(self._json_text))
+                      self._jsonld = False
+              def handle_data(self, data):
+                  if self._jsonld: self._json_text.append(data)
+
+          parser = AboutParser()
+          parser.feed(text)
+          failures = []
+          if parser.h1 != 1: failures.append(f'Expected one H1, found {parser.h1}')
+          if parser.main != 1: failures.append(f'Expected one main, found {parser.main}')
+          if len(parser.ids) != len(set(parser.ids)): failures.append('Duplicate IDs found')
+          if parser.lang_buttons != 2: failures.append(f'Expected two language buttons, found {parser.lang_buttons}')
+          if parser.slides != 6: failures.append(f'Expected six guide slides, found {parser.slides}')
+          if len(parser.jsonld) != 1: failures.append(f'Expected one generated JSON-LD block, found {len(parser.jsonld)}')
+          else:
+              data = json.loads(parser.jsonld[0])
+              if data.get('@type') != 'AboutPage': failures.append('JSON-LD type is not AboutPage')
+          if parser.inline_executable: failures.append('Executable inline script found')
+          if 'data-guide-toggle' not in text or 'data-guide-progress' not in text or 'data-guide-dots' not in text:
+              failures.append('Autoplay guide controls are incomplete')
+          if 'data-en=' not in text or 'data-ml=' not in text:
+              failures.append('Bilingual content attributes are missing')
+          for ref in parser.refs:
+              if not ref.startswith('/') or ref.startswith('//'):
+                  continue
+              path = urlsplit(ref).path.lstrip('/') or 'index.html'
+              if path.endswith('/'): path += 'index.html'
+              if not (root / path).exists(): failures.append(f'Missing local asset: {ref}')
+          if failures:
+              raise SystemExit('\n'.join(failures))
+          print('About page structure, bilingual content, autoplay guide and local assets validated.')
+          PY

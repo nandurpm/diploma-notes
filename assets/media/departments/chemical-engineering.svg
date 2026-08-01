@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Chemical Engineering department artwork">
+  <rect width="640" height="360" fill="#ffedd5"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <path d="M236 70h168M282 70v80L190 290h260l-92-140V70" fill="#fed7aa" stroke="#ea580c" stroke-width="14" stroke-linejoin="round"/><path d="M232 246h176" stroke="#64748b" stroke-width="20" stroke-linecap="round"/><circle cx="320" cy="266" r="16" fill="#ea580c"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#ea580c" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">CE</text>
+</svg>

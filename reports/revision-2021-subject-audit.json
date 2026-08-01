@@ -1,0 +1,37 @@
+{
+  "version": "20260706-sitttr-complete3",
+  "officialTopLevelSource": "SITTTR Kerala Diploma Revision 2021 syllabus page",
+  "officialProgrammeCount": 43,
+  "departmentMappingStatus": "pass",
+  "allDepartmentBrowserCleanupStatus": "pass",
+  "allSemesterCleanupStatus": "pass",
+  "rowLevelScrapeStatus": "partial",
+  "note": "All 43 department names are explicitly mapped in the department viewer. The browser cleanup now checks every rendered semester section in every department page, not only Semester 6. If a suffix-code card exists in any semester, the matching collapsed base-code card is removed from that same semester. Full automated row-level scrape of every SITTTR programme page is still marked partial because the SITTTR programme-course endpoint fails when the query order is changed by the fetch layer.",
+  "globalFixes": [
+    "Loaded rev2021-all-dept-cleanup.js on the department viewer",
+    "Cleanup runs on DOMContentLoaded, delayed passes, and MutationObserver so late-rendered semester sections are also checked",
+    "All semester sections are scanned, not only Semester 6",
+    "Removed collapsed base-code cards when matching suffix-code subjects exist in the same semester",
+    "Removed forced First Year / Common 6007 Internship cards",
+    "Kept suffix subjects such as 6031A, 6031C, 6031D, 6032A-D, 6039A-C, 6041A-C and similar suffix codes as separate cards"
+  ],
+  "criticalFixes": [
+    {
+      "department": "Electrical & Electronics Engineering",
+      "semester": "Semester 6",
+      "officialSubjectCount": 15,
+      "websiteSubjectCountAfterFix": 15,
+      "requiredCodes": ["6001", "6031A", "6031C", "6031D", "6032A", "6032B", "6032C", "6032D", "6002", "6037", "6038", "6039A", "6039B", "6039C", "6009"],
+      "removedCollapsedCodes": ["6031", "6032", "6036", "6039", "6007"],
+      "missingSubjects": [],
+      "extraSubjects": [],
+      "suffixCodeCheck": "pass"
+    },
+    {
+      "department": "All departments",
+      "semesterScope": "All rendered semesters",
+      "rule": "If a suffix-code card exists in any semester section, the matching collapsed base-code card is removed only from that same semester section.",
+      "suffixCodeCheck": "pass"
+    }
+  ]
+}

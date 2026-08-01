@@ -1,0 +1,99 @@
+/* Purpose: Home subject browser - Descriptive comment added for clarity */
+/* Homepage subject browser: keep status and semester headings outside the card columns. */
+#subject-browser .subject-browser-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 12px;
+  padding: 9px 14px;
+  border: 1px solid rgba(29, 78, 216, 0.14);
+  border-radius: 999px;
+  color: #334155;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.07);
+  font-size: 0.88rem;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+#subject-browser .subject-browser-status::before {
+  content: "✓";
+  display: grid;
+  place-items: center;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: linear-gradient(135deg, #2563eb, #0d9488);
+  font-size: 0.72rem;
+  font-weight: 950;
+}
+
+#subjectGrid[data-mode="homepage-search"] {
+  align-items: stretch;
+}
+
+#subjectGrid[data-mode="homepage-search"] > .semester-group-heading {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  min-height: 58px;
+  margin: 2px 0 0;
+  padding: 12px 16px;
+  border: 1px solid rgba(29, 78, 216, 0.14);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.96), rgba(236, 253, 245, 0.96));
+  box-shadow: 0 10px 24px rgba(20, 45, 90, 0.07);
+}
+
+#subjectGrid[data-mode="homepage-search"] > .semester-group-heading span {
+  color: #0f3f8a;
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.35rem);
+  font-weight: 950;
+  letter-spacing: -0.025em;
+}
+
+#subjectGrid[data-mode="homepage-search"] > .semester-group-heading small {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: #047857;
+  background: rgba(255, 255, 255, 0.94);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+#subjectGrid[data-mode="homepage-search"] > .subject-card {
+  min-width: 0;
+  height: 100%;
+}
+
+@media (max-width: 620px) {
+  #subject-browser .subject-browser-status {
+    width: 100%;
+    border-radius: 16px;
+    font-size: 0.82rem;
+  }
+
+  #subjectGrid[data-mode="homepage-search"] > .semester-group-heading {
+    min-height: 52px;
+    padding: 10px 12px;
+    border-radius: 15px;
+  }
+
+  #subjectGrid[data-mode="homepage-search"] > .semester-group-heading span {
+    font-size: 1rem;
+  }
+
+  #subjectGrid[data-mode="homepage-search"] > .semester-group-heading small {
+    padding: 6px 9px;
+    font-size: 0.72rem;
+  }
+}

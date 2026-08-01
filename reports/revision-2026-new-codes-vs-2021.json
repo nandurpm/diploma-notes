@@ -1,0 +1,7333 @@
+{
+  "comparison": "REV2026 dataset versus the current POLY PMNA REV2021 catalogue",
+  "revision2021UniqueCodeCount": 1248,
+  "revision2026UniqueCodeCount": 1142,
+  "newCodeCount": 525,
+  "newCodes": [
+    "1011",
+    "1021",
+    "1031",
+    "1041",
+    "1051",
+    "1061",
+    "1091",
+    "1101",
+    "1131",
+    "1181",
+    "1182",
+    "1421",
+    "2001A",
+    "2001B",
+    "2001C",
+    "2001D",
+    "2001E",
+    "2002A",
+    "2002B",
+    "2003A",
+    "2003B",
+    "2005",
+    "2009A",
+    "2009B",
+    "2012",
+    "2018",
+    "2042",
+    "2048",
+    "2052",
+    "2058",
+    "2073",
+    "2119",
+    "2132",
+    "2138",
+    "2147",
+    "2183",
+    "2187",
+    "2188",
+    "2331",
+    "2432",
+    "2439",
+    "2532",
+    "2539",
+    "3114",
+    "3144",
+    "3283",
+    "3383",
+    "3384",
+    "3387",
+    "3388",
+    "3432",
+    "3433",
+    "3434",
+    "3437",
+    "3438",
+    "3439",
+    "3491",
+    "3492",
+    "3493",
+    "3531",
+    "3532",
+    "3533",
+    "3538",
+    "3539",
+    "4002",
+    "4009A",
+    "4009B",
+    "4009C",
+    "4009D",
+    "4009E",
+    "4026",
+    "4146",
+    "4248",
+    "4283",
+    "4307",
+    "4361",
+    "4382",
+    "4418",
+    "4419",
+    "4431",
+    "4432",
+    "4433",
+    "4437",
+    "4438",
+    "4439",
+    "4502",
+    "4531",
+    "4538",
+    "4539",
+    "4541",
+    "5007",
+    "5014D",
+    "5019A",
+    "5019B",
+    "5023",
+    "5024A",
+    "5024B",
+    "5024C",
+    "5024D",
+    "5029A",
+    "5029B",
+    "5033D",
+    "5039A",
+    "5039B",
+    "5043C",
+    "5053D",
+    "5059D",
+    "5063D",
+    "5073D",
+    "5079A",
+    "5083D",
+    "5089D",
+    "5093D",
+    "5099A",
+    "5099B",
+    "5103D",
+    "5112",
+    "5113A",
+    "5113B",
+    "5113C",
+    "5113D",
+    "5119A",
+    "5119B",
+    "5133",
+    "5134A",
+    "5134B",
+    "5134C",
+    "5134D",
+    "5139D",
+    "5143",
+    "5144A",
+    "5144B",
+    "5144C",
+    "5144D",
+    "5148",
+    "5149A",
+    "5149B",
+    "5182",
+    "5183A",
+    "5183B",
+    "5183C",
+    "5183D",
+    "5202A",
+    "5208",
+    "5209A",
+    "5243C",
+    "5249A",
+    "5249B",
+    "5254D",
+    "5259D",
+    "5263A",
+    "5269A",
+    "5283D",
+    "5303D",
+    "5342A",
+    "5342B",
+    "5351A",
+    "5359A",
+    "5361A",
+    "5372",
+    "5373A",
+    "5382",
+    "5383A",
+    "5383B",
+    "5383C",
+    "5383D",
+    "5387",
+    "5388",
+    "5389A",
+    "5389B",
+    "5389C",
+    "5389D",
+    "5391A",
+    "5391B",
+    "5399A",
+    "5411A",
+    "5423D",
+    "5429A",
+    "5429B",
+    "5433A",
+    "5433B",
+    "5433D",
+    "5437",
+    "5439A",
+    "5439B",
+    "5463D",
+    "5469A",
+    "5469B",
+    "5502",
+    "5503A",
+    "5503B",
+    "5508",
+    "5509A",
+    "5531",
+    "5532",
+    "5533A",
+    "5533B",
+    "5538",
+    "5539",
+    "5551A",
+    "5551B",
+    "5551C",
+    "5558",
+    "5559A",
+    "5559B",
+    "6011P",
+    "6011T",
+    "6012",
+    "6013A",
+    "6013B",
+    "6013C",
+    "6013D",
+    "6014A",
+    "6014B",
+    "6014C",
+    "6014D",
+    "6019A",
+    "6019B",
+    "6021P",
+    "6021T",
+    "6022",
+    "6023A",
+    "6023B",
+    "6023C",
+    "6023D",
+    "6024A",
+    "6024B",
+    "6024C",
+    "6024D",
+    "6029A",
+    "6029B",
+    "6031P",
+    "6031T",
+    "6033A",
+    "6033B",
+    "6033C",
+    "6033D",
+    "6034A",
+    "6034B",
+    "6034C",
+    "6034D",
+    "6041P",
+    "6041T",
+    "6043A",
+    "6043B",
+    "6043C",
+    "6043D",
+    "6044A",
+    "6044B",
+    "6044C",
+    "6044D",
+    "6051P",
+    "6051T",
+    "6052",
+    "6053A",
+    "6053B",
+    "6053C",
+    "6053D",
+    "6054A",
+    "6054B",
+    "6054C",
+    "6054D",
+    "6059D",
+    "6061P",
+    "6061T",
+    "6062",
+    "6063A",
+    "6063B",
+    "6063C",
+    "6063D",
+    "6064A",
+    "6064B",
+    "6064C",
+    "6069A",
+    "6069B",
+    "6071P",
+    "6071T",
+    "6072",
+    "6073A",
+    "6073B",
+    "6073C",
+    "6073D",
+    "6074A",
+    "6074B",
+    "6074C",
+    "6074D",
+    "6079A",
+    "6081P",
+    "6081T",
+    "6082",
+    "6083A",
+    "6083B",
+    "6083C",
+    "6083D",
+    "6084A",
+    "6084B",
+    "6084C",
+    "6084D",
+    "6089A",
+    "6089B",
+    "6091P",
+    "6091T",
+    "6092",
+    "6093A",
+    "6093B",
+    "6093C",
+    "6093D",
+    "6094A",
+    "6094B",
+    "6094C",
+    "6094D",
+    "6099A",
+    "6099B",
+    "6101P",
+    "6101T",
+    "6102",
+    "6103A",
+    "6103B",
+    "6103C",
+    "6103D",
+    "6104A",
+    "6104B",
+    "6104C",
+    "6104D",
+    "6111P",
+    "6111T",
+    "6112",
+    "6113A",
+    "6113B",
+    "6113C",
+    "6114A",
+    "6114B",
+    "6114C",
+    "6114D",
+    "6118A",
+    "6118B",
+    "6121P",
+    "6121T",
+    "6122",
+    "6123A",
+    "6123B",
+    "6123C",
+    "6124A",
+    "6124B",
+    "6124C",
+    "6131P",
+    "6131T",
+    "6132",
+    "6133A",
+    "6133B",
+    "6133C",
+    "6133D",
+    "6134A",
+    "6134B",
+    "6134C",
+    "6134D",
+    "6139D",
+    "6141P",
+    "6141T",
+    "6143D",
+    "6144A",
+    "6144B",
+    "6144C",
+    "6144D",
+    "6149A",
+    "6149B",
+    "6149C",
+    "6149D",
+    "6181",
+    "6182P",
+    "6182T",
+    "6183A",
+    "6183B",
+    "6183C",
+    "6184A",
+    "6184B",
+    "6201",
+    "6202A",
+    "6203A",
+    "6203B",
+    "6241P",
+    "6241T",
+    "6242",
+    "6243A",
+    "6243B",
+    "6243C",
+    "6244A",
+    "6244B",
+    "6244C",
+    "6244D",
+    "6249B",
+    "6251P",
+    "6251T",
+    "6252",
+    "6253A",
+    "6253B",
+    "6253C",
+    "6254A",
+    "6254B",
+    "6254C",
+    "6254D",
+    "6259A",
+    "6259B",
+    "6261P",
+    "6261T",
+    "6262",
+    "6263A",
+    "6263B",
+    "6263C",
+    "6264A",
+    "6264B",
+    "6264C",
+    "6264D",
+    "6269A",
+    "6269B",
+    "6269C",
+    "6281P",
+    "6281T",
+    "6282",
+    "6283A",
+    "6283B",
+    "6283C",
+    "6284A",
+    "6284B",
+    "6301P",
+    "6301T",
+    "6302",
+    "6303A",
+    "6304A",
+    "6304B",
+    "6304C",
+    "6304D",
+    "6331P",
+    "6331T",
+    "6332",
+    "6333A",
+    "6333B",
+    "6333C",
+    "6333D",
+    "6334A",
+    "6334B",
+    "6334C",
+    "6334D",
+    "6339D",
+    "6341",
+    "6342D",
+    "6343A",
+    "6343B",
+    "6361B",
+    "6372A",
+    "6381P",
+    "6381T",
+    "6382",
+    "6383B",
+    "6383C",
+    "6383D",
+    "6384A",
+    "6384B",
+    "6384C",
+    "6388",
+    "6389A",
+    "6389B",
+    "6389C",
+    "6389D",
+    "6391P",
+    "6391T",
+    "6392A",
+    "6392B",
+    "6411",
+    "6419",
+    "6421P",
+    "6421T",
+    "6422",
+    "6423A",
+    "6423B",
+    "6423C",
+    "6423D",
+    "6424A",
+    "6424B",
+    "6424C",
+    "6424D",
+    "6429A",
+    "6429B",
+    "6431P",
+    "6431T",
+    "6432",
+    "6433A",
+    "6433B",
+    "6433C",
+    "6433D",
+    "6434B",
+    "6434C",
+    "6438",
+    "6439A",
+    "6439B",
+    "6461P",
+    "6461T",
+    "6462",
+    "6463A",
+    "6463B",
+    "6463C",
+    "6463D",
+    "6464A",
+    "6464B",
+    "6464C",
+    "6464D",
+    "6469A",
+    "6469B",
+    "6491P",
+    "6491T",
+    "6493A",
+    "6493B",
+    "6499A",
+    "6502A",
+    "6531P",
+    "6531T",
+    "6532A",
+    "6538",
+    "6541P",
+    "6541T",
+    "6551P",
+    "6551T",
+    "6552",
+    "6553B",
+    "6559"
+  ],
+  "newCodeDetails": [
+    {
+      "code": "1011",
+      "subjects": [
+        "Fundamentals of Civil Engineering"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "1021",
+      "subjects": [
+        "Basic Mechanical Engineering"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Fire Technology and Safety",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "1031",
+      "subjects": [
+        "Basic Electrical and Electronics Engineering"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "1041",
+      "subjects": [
+        "Elementary Concepts of Electronics"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Biomedical Engineering",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "1051",
+      "subjects": [
+        "Basic Automobile Engineering"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "1061",
+      "subjects": [
+        "Engineering Science"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "1091",
+      "subjects": [
+        "Introduction to Polymer Science"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "1101",
+      "subjects": [
+        "Introduction to Printing Technology"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "1131",
+      "subjects": [
+        "Problem Solving and Python Programming"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Information Technology",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "1181",
+      "subjects": [
+        "Architectural Graphics"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "1182",
+      "subjects": [
+        "Fundamentals of Architecture"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "1421",
+      "subjects": [
+        "Fundamentals of Food Processing Technology"
+      ],
+      "semesters": [
+        "Semester 1"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "2001A",
+      "subjects": [
+        "Mathematics for Industrial Engineering"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture",
+        "Automobile Engineering",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Fire Technology and Safety",
+        "Interior Design",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "2001B",
+      "subjects": [
+        "Mathematics for Electrical Sciences"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Biomedical Engineering",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "2001C",
+      "subjects": [
+        "Mathematics for Computer Technology"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Information Technology",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "2001D",
+      "subjects": [
+        "Mathematics for Applied Engineering"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Chemical Engineering",
+        "Food Processing Technology",
+        "Polymer Technology",
+        "Printing Technology",
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "2001E",
+      "subjects": [
+        "Business Mathematics"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "2002A",
+      "subjects": [
+        "Applied Physics for Mechanical, Structural and Industrial Applications"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture",
+        "Automobile Engineering",
+        "Chemical Engineering",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Interior Design",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Polymer Technology",
+        "Printing Technology",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "2002B",
+      "subjects": [
+        "Engineering Physics for Applied Electrical Technology and Computing"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Biomedical Engineering",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Information Technology",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics",
+        "Robotic Process Automation",
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "2003A",
+      "subjects": [
+        "Chemistry for Engineering Practices"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture",
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Automobile Engineering",
+        "Biomedical Engineering",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Information Technology",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Interior Design",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Micro Electronics",
+        "Robotic Process Automation",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "2003B",
+      "subjects": [
+        "Chemistry for Technical Practices"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Chemical Engineering",
+        "Polymer Technology",
+        "Printing Technology",
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "2005",
+      "subjects": [
+        "Environmental Sustainability and Ethics"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture",
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Automobile Engineering",
+        "Biomedical Engineering",
+        "Chemical Engineering",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Commercial Practice",
+        "Computer Application & Business Management",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Information Technology",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Interior Design",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Micro Electronics",
+        "Polymer Technology",
+        "Printing Technology",
+        "Robotic Process Automation",
+        "Textile Technology",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "2009A",
+      "subjects": [
+        "General Engineering Workshop"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture",
+        "Automobile Engineering",
+        "Chemical Engineering",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Interior Design",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Polymer Technology",
+        "Printing Technology",
+        "Textile Technology",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "2009B",
+      "subjects": [
+        "Engineering Workshop Practice"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Biomedical Engineering",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Information Technology",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "2012",
+      "subjects": [
+        "Basic Surveying"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "2018",
+      "subjects": [
+        "Construction Materials Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "2042",
+      "subjects": [
+        "Electronic Devices and Applications"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Biomedical Engineering",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "2048",
+      "subjects": [
+        "Elements of Electrical & Electronics Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Biomedical Engineering",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "2052",
+      "subjects": [
+        "Fundamentals of Internal Combustion Engines"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "2058",
+      "subjects": [
+        "Basic Electrical and Electronics Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "2073",
+      "subjects": [
+        "Industrial Safety - Principles and Practices"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "2119",
+      "subjects": [
+        "Basic CAD Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "2132",
+      "subjects": [
+        "Programming in C"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Information Technology",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "2138",
+      "subjects": [
+        "Fundamentals of Electrical and Electronics Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Information Technology",
+        "Mechatronics",
+        "Polymer Technology",
+        "Printing Technology",
+        "Robotic Process Automation",
+        "Textile Technology",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "2147",
+      "subjects": [
+        "Digital Marketing and AI Tools for Business"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "2183",
+      "subjects": [
+        "History of Architecture - I"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "2187",
+      "subjects": [
+        "Masonry & Service Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "2188",
+      "subjects": [
+        "Architectural Design & Drafting I"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "2331",
+      "subjects": [
+        "Foundations of Robotics"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "2432",
+      "subjects": [
+        "Fundamentals of Computer Programming"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "2439",
+      "subjects": [
+        "Computer Programming Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "2532",
+      "subjects": [
+        "History of Interior Design - I"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "2539",
+      "subjects": [
+        "Interior Design & Drafting I"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "3114",
+      "subjects": [
+        "Mould and Die Technology"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "3144",
+      "subjects": [
+        "Business Statistics & Data Analysis"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "3283",
+      "subjects": [
+        "Fundamentals of Cryptography and Information Security Study"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "3383",
+      "subjects": [
+        "Principles of Computer Systems"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "3384",
+      "subjects": [
+        "Data Preprocessing and Visualization"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "3387",
+      "subjects": [
+        "Object Oriented Programming using Python Lab"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "3388",
+      "subjects": [
+        "Fundamentals of Artificial Intelligence Lab"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "3432",
+      "subjects": [
+        "Analog and Digital Circuits"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "3433",
+      "subjects": [
+        "Mechanics of Materials"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "3434",
+      "subjects": [
+        "Engineering Materials and Metrology"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "3437",
+      "subjects": [
+        "Sensors and Transducers Lab"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "3438",
+      "subjects": [
+        "Analog and Digital Circuits Lab"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "3439",
+      "subjects": [
+        "CAD Lab"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "3491",
+      "subjects": [
+        "Solid State Devices"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "3492",
+      "subjects": [
+        "Analog Electronic Circuits"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "3493",
+      "subjects": [
+        "Logic Circuit Design"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "3531",
+      "subjects": [
+        "History of Interior Design - II"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "3532",
+      "subjects": [
+        "Space Documentation"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "3533",
+      "subjects": [
+        "Architectural Appreciation"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "3538",
+      "subjects": [
+        "Interior Design & Drafting II"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "3539",
+      "subjects": [
+        "Interior Working Drawing I"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "4002",
+      "subjects": [
+        "Career Readiness and Communication"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Architecture",
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Automobile Engineering",
+        "Biomedical Engineering",
+        "Chemical Engineering",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Commercial Practice",
+        "Computer Application & Business Management",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Information Technology",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Interior Design",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Micro Electronics",
+        "Polymer Technology",
+        "Printing Technology",
+        "Robotic Process Automation",
+        "Textile Technology",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "4009A",
+      "subjects": [
+        "Minor Project"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Automobile Engineering",
+        "Biomedical Engineering",
+        "Computer Application & Business Management",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Micro Electronics",
+        "Polymer Technology",
+        "Printing Technology",
+        "Textile Technology",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "4009B",
+      "subjects": [
+        "Minor Project"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Information Technology",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "4009C",
+      "subjects": [
+        "Minor Project"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Architecture",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "4009D",
+      "subjects": [
+        "Minor Project"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "4009E",
+      "subjects": [
+        "Minor Project"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "4026",
+      "subjects": [
+        "Material Testing and Metallography Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "4146",
+      "subjects": [
+        "Typewriting English 45 wpm"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "4248",
+      "subjects": [
+        "Biomedical Sensors and Circuits Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "4283",
+      "subjects": [
+        "Web Programming"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "4307",
+      "subjects": [
+        "Advanced Robotic Process Automation Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "4361",
+      "subjects": [
+        "Rural Infrastructure Management"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Civil & Rural Engineering"
+      ]
+    },
+    {
+      "code": "4382",
+      "subjects": [
+        "Fundamentals of Data Mining and Machine Learning"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "4418",
+      "subjects": [
+        "Electrical Vehicle Computer Aided Drafting Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "4419",
+      "subjects": [
+        "Electric Vehicle Body and Circuits Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "4431",
+      "subjects": [
+        "Mechanics of Robotics"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "4432",
+      "subjects": [
+        "Electrical Drives and Control"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "4433",
+      "subjects": [
+        "Manufacturing and Machine Tools"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "4437",
+      "subjects": [
+        "Mechanics of Robotics Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "4438",
+      "subjects": [
+        "Electrical Drives and Control Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "4439",
+      "subjects": [
+        "Mechatronics Systems and PLC Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "4502",
+      "subjects": [
+        "Introduction to AI & ML"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "4531",
+      "subjects": [
+        "Specification, Estimation & Costing"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "4538",
+      "subjects": [
+        "Interior Design & Drafting III"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "4539",
+      "subjects": [
+        "Interior Working Drawing II"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "4541",
+      "subjects": [
+        "Introduction to Electric Vehicles"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electrical Engineering"
+      ]
+    },
+    {
+      "code": "5007",
+      "subjects": [
+        "Summer Internship"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Architecture",
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Automobile Engineering",
+        "Biomedical Engineering",
+        "Chemical Engineering",
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning",
+        "Commercial Practice",
+        "Computer Application & Business Management",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security",
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology",
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Fire Technology and Safety",
+        "Food Processing Technology",
+        "Information Technology",
+        "Instrumentation Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Interior Design",
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Micro Electronics",
+        "Polymer Technology",
+        "Printing Technology",
+        "Robotic Process Automation",
+        "Textile Technology",
+        "Tool & Die Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "5014D",
+      "subjects": [
+        "Building Maintenance & Services"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "5019A",
+      "subjects": [
+        "Computer Applications Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "5019B",
+      "subjects": [
+        "GIS Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil Engineering"
+      ]
+    },
+    {
+      "code": "5023",
+      "subjects": [
+        "Automobile Engineering"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "5024A",
+      "subjects": [
+        "Non-destructive Testing"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "5024B",
+      "subjects": [
+        "Power Plant Engineering"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "5024C",
+      "subjects": [
+        "Composite Materials"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "5024D",
+      "subjects": [
+        "Advanced Production Process"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "5029A",
+      "subjects": [
+        "Design and Analysis Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "5029B",
+      "subjects": [
+        "NDT Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "5033D",
+      "subjects": [
+        "Renewable Power Plants"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "5039A",
+      "subjects": [
+        "Modeling and Simulation Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "5039B",
+      "subjects": [
+        "Electronic Design and Prototyping Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "5043C",
+      "subjects": [
+        "Telecommunication Networks"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "5053D",
+      "subjects": [
+        "Alternative Fuel Vehicle Technology"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "5059D",
+      "subjects": [
+        "Alternative Fuel Vehicle Workshop"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "5063D",
+      "subjects": [
+        "Sustainability in Textile Manufacturing"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "5073D",
+      "subjects": [
+        "Sustainable Materials and Technologies"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "5079A",
+      "subjects": [
+        "Material Testing Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "5083D",
+      "subjects": [
+        "Artificial Intelligence and Machine Learning (IE)"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "5089D",
+      "subjects": [
+        "Artificial Intelligence and Machine Learning Lab (IE)"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "5093D",
+      "subjects": [
+        "Polymer Adhesives"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "5099A",
+      "subjects": [
+        "Compound Design Workshop"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "5099B",
+      "subjects": [
+        "Latex Products Testing Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "5103D",
+      "subjects": [
+        "Printing and Logistics"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "5112",
+      "subjects": [
+        "Production Technology II"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "5113A",
+      "subjects": [
+        "Advanced Plastic Processing Techniques"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "5113B",
+      "subjects": [
+        "Hydraulics and Pneumatics"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "5113C",
+      "subjects": [
+        "CAD/CAM"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "5113D",
+      "subjects": [
+        "Maintenance Engineering and Practices"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "5119A",
+      "subjects": [
+        "Advanced Tooling Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "5119B",
+      "subjects": [
+        "Hydraulics and Pneumatics Circuits Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "5133",
+      "subjects": [
+        "Artificial Intelligence & Machine Learning"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "5134A",
+      "subjects": [
+        "Mobile application development"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "5134B",
+      "subjects": [
+        "Network Infrastructure Management"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering"
+      ]
+    },
+    {
+      "code": "5134C",
+      "subjects": [
+        "Digital Marketing"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "5134D",
+      "subjects": [
+        "Data Science and Analytics"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "5139D",
+      "subjects": [
+        "Data Science & Analytics Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "5143",
+      "subjects": [
+        "Shorthand English (Elaboration) 100wpm"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5144A",
+      "subjects": [
+        "Financial Market"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5144B",
+      "subjects": [
+        "Banking & Insurance"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5144C",
+      "subjects": [
+        "Income Tax Law & Practice"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5144D",
+      "subjects": [
+        "GST Law & Practice"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5148",
+      "subjects": [
+        "Typewriting Malayalam II"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5149A",
+      "subjects": [
+        "Applied ERP with SAP"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5149B",
+      "subjects": [
+        "Advanced Computerized Financial Accounting"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "5182",
+      "subjects": [
+        "Landscape Architecture"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "5183A",
+      "subjects": [
+        "Sustainable Building Technologies"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5183B",
+      "subjects": [
+        "Vernacular Architecture"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5183C",
+      "subjects": [
+        "Tendering and Valuation"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "5183D",
+      "subjects": [
+        "Advanced Building Technology"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "5202A",
+      "subjects": [
+        "Microwave Communication"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Communication"
+      ]
+    },
+    {
+      "code": "5208",
+      "subjects": [
+        "Digital Communication Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Communication"
+      ]
+    },
+    {
+      "code": "5209A",
+      "subjects": [
+        "Microwave Communication Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Communication"
+      ]
+    },
+    {
+      "code": "5243C",
+      "subjects": [
+        "Medical Embedded Systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "5249A",
+      "subjects": [
+        "Embedded Systems for Medical Devices Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "5249B",
+      "subjects": [
+        "C Programming Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "5254D",
+      "subjects": [
+        "Hospital Administration"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "5259D",
+      "subjects": [
+        "Hospital Administration Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "5263A",
+      "subjects": [
+        "Full Stack Web Development"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "5269A",
+      "subjects": [
+        "Full Stack Development Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "5283D",
+      "subjects": [
+        "Mobile & Wireless Security"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "5303D",
+      "subjects": [
+        "Data Mining"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "5342A",
+      "subjects": [
+        "Soft Computing"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "5342B",
+      "subjects": [
+        "Introduction to Social Networks"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "5351A",
+      "subjects": [
+        "Environmental Geotechnology"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering"
+      ]
+    },
+    {
+      "code": "5359A",
+      "subjects": [
+        "Solid Waste Composting and Air Quality Monitoring Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering"
+      ]
+    },
+    {
+      "code": "5361A",
+      "subjects": [
+        "Repair and Rehabilitation of Structures"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil & Rural Engineering"
+      ]
+    },
+    {
+      "code": "5372",
+      "subjects": [
+        "VLSI Design"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "5373A",
+      "subjects": [
+        "Analog and Digital Communication Systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "5382",
+      "subjects": [
+        "Deep Learning"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5383A",
+      "subjects": [
+        "AI in Practice and Ethics"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5383B",
+      "subjects": [
+        "AI in Cyber Security"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5383C",
+      "subjects": [
+        "IoT and Applications"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning",
+        "Automation and Robotics",
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "5383D",
+      "subjects": [
+        "Computational Intelligence"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5387",
+      "subjects": [
+        "Big Data Analytics Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "5388",
+      "subjects": [
+        "Deep Learning Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5389A",
+      "subjects": [
+        "MATLAB"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5389B",
+      "subjects": [
+        "Java Programming Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5389C",
+      "subjects": [
+        "Julia Programming Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5389D",
+      "subjects": [
+        "Power BI Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "5391A",
+      "subjects": [
+        "Tendering and Contracts"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "5391B",
+      "subjects": [
+        "Low-Cost Housing"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "5399A",
+      "subjects": [
+        "Structural Health Monitoring Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Civil & Rural Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "5411A",
+      "subjects": [
+        "Vehicle Power Train Control System"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "5423D",
+      "subjects": [
+        "Fat and Oil Processing Technology"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "5429A",
+      "subjects": [
+        "Fat and Oil Processing Technology Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "5429B",
+      "subjects": [
+        "Bakery and Confectionery Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "5433A",
+      "subjects": [
+        "Biomedical Instrumentation"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "5433B",
+      "subjects": [
+        "Automobile Engineering"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "5433D",
+      "subjects": [
+        "Network Theory"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "5437",
+      "subjects": [
+        "Computer Integrated Design and Manufacturing Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "5439A",
+      "subjects": [
+        "Automobile Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "5439B",
+      "subjects": [
+        "IoT Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "5463D",
+      "subjects": [
+        "Manufacturing Process"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "5469A",
+      "subjects": [
+        "Transportation Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "5469B",
+      "subjects": [
+        "Safety Infrastructure and Planning Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "5502",
+      "subjects": [
+        "Introduction to Computer Networks"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "5503A",
+      "subjects": [
+        "Fundamentals of Electronic Communication"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "5503B",
+      "subjects": [
+        "Microwave Devices & Circuits"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "5508",
+      "subjects": [
+        "Embedded Systems & RTOS Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "5509A",
+      "subjects": [
+        "Fundamentals of Electronic Communication Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "5531",
+      "subjects": [
+        "Tendering & Valuation for Interiors"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5532",
+      "subjects": [
+        "Furniture Design I"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5533A",
+      "subjects": [
+        "Maintenance & Retrofitting"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5533B",
+      "subjects": [
+        "Advanced Lighting & Acoustics in Interiors"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5538",
+      "subjects": [
+        "Interior Design & Drafting - IV"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5539",
+      "subjects": [
+        "Digital Photography"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "5551A",
+      "subjects": [
+        "Network Routing and Switching"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "5551B",
+      "subjects": [
+        "Deep Learning"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "5551C",
+      "subjects": [
+        "Cyber Security"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "5558",
+      "subjects": [
+        "Internet of Things Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "5559A",
+      "subjects": [
+        "Deep Learning Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "5559B",
+      "subjects": [
+        "Cyber Security Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6011P",
+      "subjects": [
+        "Transportation Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil Engineering"
+      ]
+    },
+    {
+      "code": "6011T",
+      "subjects": [
+        "Transportation Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil Engineering"
+      ]
+    },
+    {
+      "code": "6012",
+      "subjects": [
+        "Environmental Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6013A",
+      "subjects": [
+        "3D Printing in Construction"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil Engineering"
+      ]
+    },
+    {
+      "code": "6013B",
+      "subjects": [
+        "Solid Waste Management & Air Pollution"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil Engineering"
+      ]
+    },
+    {
+      "code": "6013C",
+      "subjects": [
+        "Harbour, Tunnel & Airport Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6013D",
+      "subjects": [
+        "Habitat Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6014A",
+      "subjects": [
+        "Renewable Energy and Environment"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6014B",
+      "subjects": [
+        "Sustainable Development"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6014C",
+      "subjects": [
+        "Green Building and Energy Conservation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6014D",
+      "subjects": [
+        "Environmental Laws & Policies"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6019A",
+      "subjects": [
+        "BIM & Modelling Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6019B",
+      "subjects": [
+        "Emerging Trends in Civil Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6021P",
+      "subjects": [
+        "Refrigeration and Air Conditioning"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6021T",
+      "subjects": [
+        "Refrigeration and Air Conditioning"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6022",
+      "subjects": [
+        "Mechatronics and Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6023A",
+      "subjects": [
+        "Logistics and Supply Chain Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6023B",
+      "subjects": [
+        "Additive Manufacturing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering",
+        "Mechatronics",
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6023C",
+      "subjects": [
+        "Electric Vehicles"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6023D",
+      "subjects": [
+        "Computer Integrated Manufacturing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6024A",
+      "subjects": [
+        "Computer Aided Design and Manufacturing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6024B",
+      "subjects": [
+        "Product Design and Development"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6024C",
+      "subjects": [
+        "Production Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6024D",
+      "subjects": [
+        "Renewable Energy Technologies"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering",
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6029A",
+      "subjects": [
+        "Advanced Manufacturing Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6029B",
+      "subjects": [
+        "Electric Vehicles Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering"
+      ]
+    },
+    {
+      "code": "6031P",
+      "subjects": [
+        "Microcontroller and PLC"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6031T",
+      "subjects": [
+        "Microcontroller and PLC"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6033A",
+      "subjects": [
+        "Energy Conservation and Audit"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6033B",
+      "subjects": [
+        "Embedded System Design with PIC"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6033C",
+      "subjects": [
+        "Inductrial Drives and Control"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6033D",
+      "subjects": [
+        "Power System Economics and Distributed Generation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6034A",
+      "subjects": [
+        "Solar Power Technologies"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6034B",
+      "subjects": [
+        "Energy Conservation and Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6034C",
+      "subjects": [
+        "Electrification of Residential Buildings"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6034D",
+      "subjects": [
+        "Electric Vehicles and Traction"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical & Electronics Engineering",
+        "Electrical Engineering",
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6041P",
+      "subjects": [
+        "Verilog Programming & Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "6041T",
+      "subjects": [
+        "Verilog Programming & Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "6043A",
+      "subjects": [
+        "Fundamentals of Hybrid & Electric Vehicles"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "6043B",
+      "subjects": [
+        "Medical Electronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering"
+      ]
+    },
+    {
+      "code": "6043C",
+      "subjects": [
+        "Electronics Product Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6043D",
+      "subjects": [
+        "Principles of MEMS"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "6044A",
+      "subjects": [
+        "IoT Concepts and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Integrated Circuit Design & Fabrication",
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6044B",
+      "subjects": [
+        "Modern Electronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "6044C",
+      "subjects": [
+        "Drone Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering",
+        "Electronics and Communication",
+        "Electronics and Computer Engineering",
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6044D",
+      "subjects": [
+        "Healthcare Electronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering"
+      ]
+    },
+    {
+      "code": "6051P",
+      "subjects": [
+        "Electric and Hybrid Vehicles"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6051T",
+      "subjects": [
+        "Electric and Hybrid Vehicles"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6052",
+      "subjects": [
+        "Design of Automotive Components"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6053A",
+      "subjects": [
+        "Vehicle Diagnostics and Service"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6053B",
+      "subjects": [
+        "Automotive Control Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6053C",
+      "subjects": [
+        "Vehicle Body Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6053D",
+      "subjects": [
+        "Transport Operations and Logistics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6054A",
+      "subjects": [
+        "Automobile Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6054B",
+      "subjects": [
+        "Automobile Safety and Maintenance"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6054C",
+      "subjects": [
+        "Automotive Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6054D",
+      "subjects": [
+        "Automobile Electrical Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6059D",
+      "subjects": [
+        "Transport Operations and Logistics Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automobile Engineering"
+      ]
+    },
+    {
+      "code": "6061P",
+      "subjects": [
+        "Knitting and Nonwoven Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6061T",
+      "subjects": [
+        "Knitting and Nonwoven Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6062",
+      "subjects": [
+        "Technical Textiles"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6063A",
+      "subjects": [
+        "Textile Machine Maintenance"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6063B",
+      "subjects": [
+        "Management of Textile Effluents"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6063C",
+      "subjects": [
+        "Textile Mill Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6063D",
+      "subjects": [
+        "High Performance Fibres"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6064A",
+      "subjects": [
+        "Total Quality Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6064B",
+      "subjects": [
+        "Geotextiles"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6064C",
+      "subjects": [
+        "Textile Composites"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6069A",
+      "subjects": [
+        "Textile Product Analysis & Costing Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6069B",
+      "subjects": [
+        "Fashion Technology Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Textile Technology"
+      ]
+    },
+    {
+      "code": "6071P",
+      "subjects": [
+        "Mechanical Operations"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6071T",
+      "subjects": [
+        "Mechanical Operations"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6072",
+      "subjects": [
+        "Mass Transfer Operations II"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6073A",
+      "subjects": [
+        "Plant Utilities"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6073B",
+      "subjects": [
+        "Solid Waste Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6073C",
+      "subjects": [
+        "Biochemical Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6073D",
+      "subjects": [
+        "Sustainable Energy Technologies"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6074A",
+      "subjects": [
+        "Project Management - Process Plants"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6074B",
+      "subjects": [
+        "Energy Management and Audit"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6074C",
+      "subjects": [
+        "Disaster Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6074D",
+      "subjects": [
+        "Energy Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6079A",
+      "subjects": [
+        "Fuels and Combustion Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Chemical Engineering"
+      ]
+    },
+    {
+      "code": "6081P",
+      "subjects": [
+        "Analytical and Biomedical Instrumentation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6081T",
+      "subjects": [
+        "Analytical and Biomedical Instrumentation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6082",
+      "subjects": [
+        "Instrumentation Applications in Industry 5.0"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6083A",
+      "subjects": [
+        "Aircraft Instrumentation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6083B",
+      "subjects": [
+        "Power Plant Instrumentation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6083C",
+      "subjects": [
+        "Industrial Communication and Networking"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6083D",
+      "subjects": [
+        "Instrumentation in Agriculture"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6084A",
+      "subjects": [
+        "Biomedical Instrumentation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6084B",
+      "subjects": [
+        "Industrial IOT"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6084C",
+      "subjects": [
+        "Transducer Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6084D",
+      "subjects": [
+        "Industrial Process Control"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6089A",
+      "subjects": [
+        "Maintenance and Calibration Workshop"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6089B",
+      "subjects": [
+        "Biomedical Equipment Service Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Instrumentation Engineering"
+      ]
+    },
+    {
+      "code": "6091P",
+      "subjects": [
+        "Fibres and Composites"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6091T",
+      "subjects": [
+        "Fibres and Composites"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6092",
+      "subjects": [
+        "Plastic Products"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6093A",
+      "subjects": [
+        "Injection Mould Design"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6093B",
+      "subjects": [
+        "Biopolymers"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6093C",
+      "subjects": [
+        "Speciality Polymers"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6093D",
+      "subjects": [
+        "Paint Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6094A",
+      "subjects": [
+        "Process Control and Measuring Devices"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6094B",
+      "subjects": [
+        "Polymers and Environment"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6094C",
+      "subjects": [
+        "Smart Polymers"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6094D",
+      "subjects": [
+        "Nanomaterials and Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6099A",
+      "subjects": [
+        "Rubber Products Testing Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6099B",
+      "subjects": [
+        "Plastics Quality Assurance Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Polymer Technology"
+      ]
+    },
+    {
+      "code": "6101P",
+      "subjects": [
+        "Press Standardization and Print Quality Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6101T",
+      "subjects": [
+        "Press Standardization and Print Quality Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6102",
+      "subjects": [
+        "Print and Media Business Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6103A",
+      "subjects": [
+        "Food and Pharmaceutical Packging"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6103B",
+      "subjects": [
+        "Printed Electronics for Smart and Flexible Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6103C",
+      "subjects": [
+        "Security Printing and Anti-Counterfeiting Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6103D",
+      "subjects": [
+        "AI Enabled Printing and Packaging Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6104A",
+      "subjects": [
+        "E-publishing and Content Design"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6104B",
+      "subjects": [
+        "Fundamentals of Renewabale Energy"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6104C",
+      "subjects": [
+        "Disaster Risk Management Principles"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6104D",
+      "subjects": [
+        "Digital and Social Media Marketing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Printing Technology"
+      ]
+    },
+    {
+      "code": "6111P",
+      "subjects": [
+        "Jigs, Fixtures and Material Handling Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6111T",
+      "subjects": [
+        "Jigs, Fixtures and Material Handling Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6112",
+      "subjects": [
+        "Robotics and Automation in Manufacturing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6113A",
+      "subjects": [
+        "Production Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6113B",
+      "subjects": [
+        "Quality Control and Inspection Techniques"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6113C",
+      "subjects": [
+        "Mechatronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6114A",
+      "subjects": [
+        "Total Quality Management (TD)"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6114B",
+      "subjects": [
+        "3D Printing & Rapid Prototyping"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6114C",
+      "subjects": [
+        "Product Design"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6114D",
+      "subjects": [
+        "Sustainable Manufacturing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6118A",
+      "subjects": [
+        "Product Design Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6118B",
+      "subjects": [
+        "Quality Control and Inspection Techniques Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Tool & Die Engineering"
+      ]
+    },
+    {
+      "code": "6121P",
+      "subjects": [
+        "Applied Estimation for Furniture and Interior Projects"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6121T",
+      "subjects": [
+        "Applied Estimation for Furniture and Interior Projects"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6122",
+      "subjects": [
+        "Paper Technology-II"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6123A",
+      "subjects": [
+        "Interior Design and Furniture Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6123B",
+      "subjects": [
+        "Paper Board and Speciality Papers"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6123C",
+      "subjects": [
+        "Timber Structure"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6124A",
+      "subjects": [
+        "Project Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6124B",
+      "subjects": [
+        "Coated and Speciality Paper"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6124C",
+      "subjects": [
+        "Secondary Fibre Processing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Wood and Paper Technology"
+      ]
+    },
+    {
+      "code": "6131P",
+      "subjects": [
+        "Software Testing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning",
+        "Computer Engineering"
+      ]
+    },
+    {
+      "code": "6131T",
+      "subjects": [
+        "Software Testing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning",
+        "Computer Engineering"
+      ]
+    },
+    {
+      "code": "6132",
+      "subjects": [
+        "Internet of Things"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Engineering"
+      ]
+    },
+    {
+      "code": "6133A",
+      "subjects": [
+        "Virtualization Technology & Cloud Computing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Computer Engineering",
+        "Computer Science & Engineering"
+      ]
+    },
+    {
+      "code": "6133B",
+      "subjects": [
+        "Prompt Engineering and Generative AI"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6133C",
+      "subjects": [
+        "Full Stack Web Development"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6133D",
+      "subjects": [
+        "Ethical Hacking"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Cyber Forensics and Information Security",
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "6134A",
+      "subjects": [
+        "Concepts of Web Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "6134B",
+      "subjects": [
+        "Cyber Security Essentials"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6134C",
+      "subjects": [
+        "Principles to IoT"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6134D",
+      "subjects": [
+        "Artificial Intelligence and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Computer Science and Technology",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6139D",
+      "subjects": [
+        "Ethical Hacking Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning",
+        "Computer Engineering",
+        "Computer Science & Engineering",
+        "Cyber Forensics and Information Security",
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "6141P",
+      "subjects": [
+        "Shorthand English (Speed & Theory) 120 wpm"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6141T",
+      "subjects": [
+        "Shorthand English (Speed & Theory) 120 wpm"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6143D",
+      "subjects": [
+        "Investment Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6144A",
+      "subjects": [
+        "Personal Finance and Planning"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6144B",
+      "subjects": [
+        "Project Planning and Development"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6144C",
+      "subjects": [
+        "Engineering Economics and Accountancy"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6144D",
+      "subjects": [
+        "Organisational Behaviour"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6149A",
+      "subjects": [
+        "Stock Market Investment and Trading"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6149B",
+      "subjects": [
+        "Operational Secretarial Practice"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6149C",
+      "subjects": [
+        "Advanced Excel with AI"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6149D",
+      "subjects": [
+        "Applied GST and E-Filing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Commercial Practice"
+      ]
+    },
+    {
+      "code": "6181",
+      "subjects": [
+        "Project Management in Architecture"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6182P",
+      "subjects": [
+        "Landscape Design &Drafting"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "6182T",
+      "subjects": [
+        "Landscape Design &Drafting"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "6183A",
+      "subjects": [
+        "Interior Art and Accessories"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6183B",
+      "subjects": [
+        "Inclusive Design and Ergonomics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6183C",
+      "subjects": [
+        "Disaster Resilient buildings"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture"
+      ]
+    },
+    {
+      "code": "6184A",
+      "subjects": [
+        "AI in Design and Visual Communication"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6184B",
+      "subjects": [
+        "Fundamentals of Design"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Architecture",
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6201",
+      "subjects": [
+        "Mobile and Wireless Communication"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics and Communication"
+      ]
+    },
+    {
+      "code": "6202A",
+      "subjects": [
+        "Modern Communication Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics and Communication"
+      ]
+    },
+    {
+      "code": "6203A",
+      "subjects": [
+        "Applied Electronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics and Communication",
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "6203B",
+      "subjects": [
+        "Emerging Trends in Electronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics and Communication"
+      ]
+    },
+    {
+      "code": "6241P",
+      "subjects": [
+        "Healthcare Systems and Equipment Servicing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6241T",
+      "subjects": [
+        "Healthcare Systems and Equipment Servicing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6242",
+      "subjects": [
+        "Medical Lasers and Radiotherapy Devices"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6243A",
+      "subjects": [
+        "Intelligent Medical Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6243B",
+      "subjects": [
+        "IoMT and Healthcare"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6243C",
+      "subjects": [
+        "Principles of BioMEMS"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6244A",
+      "subjects": [
+        "Biomedical Equipment Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6244B",
+      "subjects": [
+        "AI in Biomedical Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6244C",
+      "subjects": [
+        "Healthcare Information Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6244D",
+      "subjects": [
+        "Mobility and Assistive Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6249B",
+      "subjects": [
+        "Computer Hardware and Networking Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Biomedical Engineering"
+      ]
+    },
+    {
+      "code": "6251P",
+      "subjects": [
+        "Digital Marketing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6251T",
+      "subjects": [
+        "Digital Marketing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6252",
+      "subjects": [
+        "Retail Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6253A",
+      "subjects": [
+        "Airport Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6253B",
+      "subjects": [
+        "Business Ethics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6253C",
+      "subjects": [
+        "Shipping & Port Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6254A",
+      "subjects": [
+        "Fundamentals of Marketing Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6254B",
+      "subjects": [
+        "Introduction to Human Resource Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6254C",
+      "subjects": [
+        "Basics of Production & Operations Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6254D",
+      "subjects": [
+        "Fundamentals of Accounting & Finance"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6259A",
+      "subjects": [
+        "Business Communication Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6259B",
+      "subjects": [
+        "Security Market Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Application & Business Management"
+      ]
+    },
+    {
+      "code": "6261P",
+      "subjects": [
+        "Web and Mobile Development Frameworks"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science & Engineering",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6261T",
+      "subjects": [
+        "Web and Mobile Development Frameworks"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science & Engineering",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6262",
+      "subjects": [
+        "Cyber Security Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science & Engineering",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6263A",
+      "subjects": [
+        "Cloud and DevOps"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6263B",
+      "subjects": [
+        "Cyber Forensics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6263C",
+      "subjects": [
+        "Soft Computing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology",
+        "Information Technology",
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6264A",
+      "subjects": [
+        "Web Design"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6264B",
+      "subjects": [
+        "System Administration"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6264C",
+      "subjects": [
+        "Network Routing and Switching"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6264D",
+      "subjects": [
+        "Web Programming"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6269A",
+      "subjects": [
+        "Cloud and DevOps Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6269B",
+      "subjects": [
+        "Cyber Forensic Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6269C",
+      "subjects": [
+        "Soft Computing Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology",
+        "Information Technology"
+      ]
+    },
+    {
+      "code": "6281P",
+      "subjects": [
+        "Advanced Digital Forensics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6281T",
+      "subjects": [
+        "Advanced Digital Forensics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6282",
+      "subjects": [
+        "Preserving & Recovering Digital Evidence"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6283A",
+      "subjects": [
+        "Computer Communications & Networks"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6283B",
+      "subjects": [
+        "Mobile Application Security"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6283C",
+      "subjects": [
+        "Cyber Forensics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6284A",
+      "subjects": [
+        "Data Mining"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6284B",
+      "subjects": [
+        "Digital Forensics and Incident Response"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Cyber Forensics and Information Security"
+      ]
+    },
+    {
+      "code": "6301P",
+      "subjects": [
+        "Robotics Process Automation Tools"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6301T",
+      "subjects": [
+        "Robotics Process Automation Tools"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6302",
+      "subjects": [
+        "Data Analytics & Visualization"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6303A",
+      "subjects": [
+        "Software Testing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6304A",
+      "subjects": [
+        "Introduction to Computing Problems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6304B",
+      "subjects": [
+        "Robotic Process Automation Concepts"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6304C",
+      "subjects": [
+        "Digital Marketing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6304D",
+      "subjects": [
+        "Multimedia"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6331P",
+      "subjects": [
+        "Advanced Robotics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6331T",
+      "subjects": [
+        "Advanced Robotics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6332",
+      "subjects": [
+        "Robotics Process Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6333A",
+      "subjects": [
+        "Electric Drives and Control"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6333B",
+      "subjects": [
+        "Advanced Microprocessor and Microcontroller"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6333C",
+      "subjects": [
+        "Mechatronics and Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6333D",
+      "subjects": [
+        "Manufacturing Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6334A",
+      "subjects": [
+        "Robot Navigation System"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6334B",
+      "subjects": [
+        "Introduction to Industrial Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6334C",
+      "subjects": [
+        "PLC and Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6334D",
+      "subjects": [
+        "Fundamentals of Robotics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6339D",
+      "subjects": [
+        "Advanced Microprocessor and Microcontroller Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "6341",
+      "subjects": [
+        "Deep Learning"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "6342D",
+      "subjects": [
+        "Robotic Process Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "6343A",
+      "subjects": [
+        "Smart Device Programming"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "6343B",
+      "subjects": [
+        "Virtualisation Technology and Cloud Computing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "6361B",
+      "subjects": [
+        "Rural Construction Engineering & Farm Infrastructure"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Rural Engineering"
+      ]
+    },
+    {
+      "code": "6372A",
+      "subjects": [
+        "Renewable Energy"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Integrated Circuit Design & Fabrication"
+      ]
+    },
+    {
+      "code": "6381P",
+      "subjects": [
+        "Visual Data Processing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6381T",
+      "subjects": [
+        "Visual Data Processing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6382",
+      "subjects": [
+        "Natural Language Processing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6383B",
+      "subjects": [
+        "Reinforcement Learning"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6383C",
+      "subjects": [
+        "AI for Robotics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6383D",
+      "subjects": [
+        "Virtual Reality and Augmented Reality"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "6384A",
+      "subjects": [
+        "Machine Learning Concepts"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6384B",
+      "subjects": [
+        "Generative AI"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6384C",
+      "subjects": [
+        "AI Applications and Ethics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence",
+        "Artificial Intelligence & Machine Learning"
+      ]
+    },
+    {
+      "code": "6388",
+      "subjects": [
+        "Natural Language Processing Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6389A",
+      "subjects": [
+        "IOT and Applications Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6389B",
+      "subjects": [
+        "Mobile Application Development Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6389C",
+      "subjects": [
+        "Virtual Reality Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6389D",
+      "subjects": [
+        "Full Stack Development Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Artificial Intelligence"
+      ]
+    },
+    {
+      "code": "6391P",
+      "subjects": [
+        "Soil Mechanics &Transportation Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6391T",
+      "subjects": [
+        "Soil Mechanics &Transportation Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil & Environmental Engineering",
+        "Civil & Rural Engineering",
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6392A",
+      "subjects": [
+        "Building Bye Laws and Statutory Drawings"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6392B",
+      "subjects": [
+        "Water Proofing Protection and Repairs"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Civil Engineering & Planning"
+      ]
+    },
+    {
+      "code": "6411",
+      "subjects": [
+        "Electric Vehicle Technology & Design Consideration"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6419",
+      "subjects": [
+        "Electric Vehicle Hardware Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical Engineering & Electric Vehicles Technology"
+      ]
+    },
+    {
+      "code": "6421P",
+      "subjects": [
+        "Dairy Processing Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6421T",
+      "subjects": [
+        "Dairy Processing Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6422",
+      "subjects": [
+        "Fruit and Vegetable Processing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6423A",
+      "subjects": [
+        "Cereals and Legumes"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6423B",
+      "subjects": [
+        "Spices and Condiments"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6423C",
+      "subjects": [
+        "Processing of Meat and Fish"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6423D",
+      "subjects": [
+        "Food Packing Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6424A",
+      "subjects": [
+        "By-Product Utilization"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6424B",
+      "subjects": [
+        "Food Waste Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6424C",
+      "subjects": [
+        "Food Laws and Regulation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6424D",
+      "subjects": [
+        "Non-Thermal Processing Techniques"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6429A",
+      "subjects": [
+        "Value Added Processing Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6429B",
+      "subjects": [
+        "Cereals and Legumes Processing Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Food Processing Technology"
+      ]
+    },
+    {
+      "code": "6431P",
+      "subjects": [
+        "Bio Mechatronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6431T",
+      "subjects": [
+        "Bio Mechatronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6432",
+      "subjects": [
+        "Fluid Power Automation"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6433A",
+      "subjects": [
+        "Thermodynamics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6433B",
+      "subjects": [
+        "Renewable Energy"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6433C",
+      "subjects": [
+        "Maintenance Engineering"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6433D",
+      "subjects": [
+        "Micro Electro Mechanical Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6434B",
+      "subjects": [
+        "Non Destructive Testing"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6434C",
+      "subjects": [
+        "Environmental Impact Assessment"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6438",
+      "subjects": [
+        "Hydraulics and Pneumatics Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6439A",
+      "subjects": [
+        "Thermal Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6439B",
+      "subjects": [
+        "MEMS Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6461P",
+      "subjects": [
+        "Automobile Engineering and Safety"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6461T",
+      "subjects": [
+        "Automobile Engineering and Safety"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6462",
+      "subjects": [
+        "Regulations for Safety Health and Environment"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6463A",
+      "subjects": [
+        "Explosion Theory and Control"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6463B",
+      "subjects": [
+        "Advanced Safety Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6463C",
+      "subjects": [
+        "Advanced Fire Control Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6463D",
+      "subjects": [
+        "Safety in Oil and Gas Industries"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6464A",
+      "subjects": [
+        "Safety Management"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6464B",
+      "subjects": [
+        "Basic Fire Control Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6464C",
+      "subjects": [
+        "Transportation Safety"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6464D",
+      "subjects": [
+        "Basic Safety in Material Handling"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6469A",
+      "subjects": [
+        "Chemical Safety Analysis Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6469B",
+      "subjects": [
+        "Computer Aided Risk Analysis Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Fire Technology and Safety"
+      ]
+    },
+    {
+      "code": "6491P",
+      "subjects": [
+        "Principles of IoT"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6491T",
+      "subjects": [
+        "Principles of IoT"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6493A",
+      "subjects": [
+        "Entertainment Electronics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6493B",
+      "subjects": [
+        "MEMS"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6499A",
+      "subjects": [
+        "Sensors & Actuators Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Micro Electronics"
+      ]
+    },
+    {
+      "code": "6502A",
+      "subjects": [
+        "Fundamentals of AI and ML"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics and Computer Engineering"
+      ]
+    },
+    {
+      "code": "6531P",
+      "subjects": [
+        "Furniture Design II"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6531T",
+      "subjects": [
+        "Furniture Design II"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6532A",
+      "subjects": [
+        "Landscape for Interiors"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6538",
+      "subjects": [
+        "3D Printing and Prototyping"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Interior Design"
+      ]
+    },
+    {
+      "code": "6541P",
+      "subjects": [
+        "Power System Protection"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical Engineering"
+      ]
+    },
+    {
+      "code": "6541T",
+      "subjects": [
+        "Power System Protection"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electrical Engineering"
+      ]
+    },
+    {
+      "code": "6551P",
+      "subjects": [
+        "Mobile Programming"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6551T",
+      "subjects": [
+        "Mobile Programming"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6552",
+      "subjects": [
+        "Data Science & Analytics"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6553B",
+      "subjects": [
+        "Cyber Security Essentials"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Robotic Process Automation"
+      ]
+    },
+    {
+      "code": "6559",
+      "subjects": [
+        "Data Science & Analytics Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    }
+  ],
+  "limitation": "The REV2021 repository catalogue is not fully certified for every official programme row."
+}

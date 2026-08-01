@@ -1,0 +1,43 @@
+name: Refresh sitemap
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.html"
+      - "**/*.pdf"
+      - "tools/generate_sitemap.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-sitemap-main
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Generate sitemap from canonical files
+        run: python tools/generate_sitemap.py
+      - name: Commit deterministic sitemap update
+        run: |
+          if git diff --quiet -- sitemap.xml; then
+            echo "sitemap.xml is already current."
+            exit 0
+          fi
+          git config user.name "POLY PMNA Sitemap Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml
+          git commit -m "Refresh complete sitemap"
+          git pull --rebase origin main
+          git push origin HEAD:main

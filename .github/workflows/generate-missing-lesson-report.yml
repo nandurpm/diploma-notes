@@ -1,0 +1,41 @@
+name: Generate missing lesson report
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "assets/js/subjects.js"
+      - "lessons/**/*.html"
+      - "tools/generate_missing_lesson_report.py"
+      - ".github/workflows/generate-missing-lesson-report.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate report
+        run: python tools/generate_missing_lesson_report.py
+
+      - name: Commit updated report
+        run: |
+          if git diff --quiet -- reports/missing-theory-drawing-lessons.csv; then
+            echo "Report is already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/missing-theory-drawing-lessons.csv
+          git commit -m "Update missing Theory and Drawing lesson report [skip ci]"
+          git push origin HEAD:main
+
+# Triggered to generate the first complete report.

@@ -1,0 +1,109 @@
+name: Notify users about new lessons
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lessons/lessons-*.html"
+      - "revision-2026-content/lessons/lessons-*.html"
+      - "tools/notify_new_lessons.py"
+      - ".github/workflows/notify-new-lessons.yml"
+  workflow_dispatch:
+    inputs:
+      lesson_path:
+        description: "Optional lesson path to notify manually"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: notify-new-lessons-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find newly added lesson files
+        id: lessons
+        shell: bash
+        run: |
+          set -euo pipefail
+          : > /tmp/new-lessons.txt
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.lesson_path }}" ]; then
+            printf '%s\n' "${{ inputs.lesson_path }}" >> /tmp/new-lessons.txt
+          else
+            BEFORE="${{ github.event.before }}"
+            AFTER="${{ github.sha }}"
+            if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              BEFORE="$(git rev-list --max-parents=0 HEAD | tail -n 1)"
+            fi
+            git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" -- \
+              'lessons/lessons-*.html' \
+              'revision-2026-content/lessons/lessons-*.html' \
+              >> /tmp/new-lessons.txt
+          fi
+
+          sort -u /tmp/new-lessons.txt -o /tmp/new-lessons.txt
+          echo "New lesson files:"
+          cat /tmp/new-lessons.txt
+
+          if [ ! -s /tmp/new-lessons.txt ]; then
+            echo "has_lessons=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_lessons=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate Firebase service-account secret
+        if: steps.lessons.outputs.has_lessons == 'true'
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          set -euo pipefail
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON is not configured in repository secrets." >&2
+            exit 1
+          fi
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON" > /tmp/firebase-service-account.json
+          python -m json.tool /tmp/firebase-service-account.json >/dev/null
+
+      - name: Install notification sender dependencies
+        if: steps.lessons.outputs.has_lessons == 'true'
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Send one notification for each new lesson
+        if: steps.lessons.outputs.has_lessons == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t LESSONS < /tmp/new-lessons.txt
+          python tools/notify_new_lessons.py \
+            --service-account /tmp/firebase-service-account.json \
+            --log notifications/new-lessons-log.json \
+            "${LESSONS[@]}"
+
+      - name: Commit notification log
+        # Run even when the send step reported partial failures so that the
+        # notifications that DID succeed are recorded and never re-sent.
+        if: ${{ !cancelled() && steps.lessons.outputs.has_lessons == 'true' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add notifications/new-lessons-log.json
+          if git diff --cached --quiet; then
+            echo "Notification log is already current."
+            exit 0
+          fi
+          git commit -m "Record sent lesson notifications [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main

@@ -1,0 +1,184 @@
+{
+  "page": "/revision-2026.html",
+  "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
+  "status": "success",
+  "sourceCommit": "6e597eac0450c74353c53038d133851d6670e702",
+  "generatedAt": "2026-07-29T20:15:13.294Z",
+  "environment": {
+    "browser": "Playwright Chromium",
+    "browserPlugin": "not available; regular Playwright used",
+    "baseUrl": "http://127.0.0.1:8000",
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ]
+  },
+  "checks": [
+    {
+      "name": "page returns successfully",
+      "passed": true,
+      "status": 200,
+      "url": "http://127.0.0.1:8000/revision-2026.html"
+    },
+    {
+      "name": "page identity is correct",
+      "passed": true,
+      "title": "Revision 2026 Diploma Departments | POLY PMNA"
+    },
+    {
+      "name": "page has one primary heading",
+      "passed": true,
+      "h1Count": 1
+    },
+    {
+      "name": "directory stylesheet is loaded",
+      "passed": true
+    },
+    {
+      "name": "department-only stylesheet is not loaded on directory",
+      "passed": true
+    },
+    {
+      "name": "all 38 department cards render",
+      "passed": true,
+      "cardCount": 38
+    },
+    {
+      "name": "revision switch is present",
+      "passed": true
+    },
+    {
+      "name": "Revision 2026 switch is active",
+      "passed": true
+    },
+    {
+      "name": "official source actions are present",
+      "passed": true
+    },
+    {
+      "name": "desktop has no horizontal overflow",
+      "passed": true,
+      "viewportWidth": 1440,
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "heroHeight": 335.140625
+    },
+    {
+      "name": "desktop hero is compact",
+      "passed": true,
+      "viewportWidth": 1440,
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "heroHeight": 335.140625
+    },
+    {
+      "name": "desktop uses a compact multi-column grid",
+      "passed": true,
+      "firstRowCount": 4
+    },
+    {
+      "name": "department search filters correctly",
+      "passed": true,
+      "visibleElectrical": 3
+    },
+    {
+      "name": "search result count updates",
+      "passed": true,
+      "resultText": "Showing 3 of 38 departments"
+    },
+    {
+      "name": "search query is preserved in URL",
+      "passed": true,
+      "url": "http://127.0.0.1:8000/revision-2026.html?q=electrical"
+    },
+    {
+      "name": "clear control appears for active search",
+      "passed": true
+    },
+    {
+      "name": "clear control restores all departments",
+      "passed": true,
+      "visibleAfterClear": 38,
+      "url": "http://127.0.0.1:8000/revision-2026.html"
+    },
+    {
+      "name": "no-results state is visible",
+      "passed": true
+    },
+    {
+      "name": "no-results clear action restores directory",
+      "passed": true
+    },
+    {
+      "name": "mobile has no horizontal overflow",
+      "passed": true,
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "firstCardLeft": 12,
+      "firstCardRight": 378,
+      "firstCardWidth": 366
+    },
+    {
+      "name": "mobile card fits the viewport",
+      "passed": true,
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "firstCardLeft": 12,
+      "firstCardRight": 378,
+      "firstCardWidth": 366
+    },
+    {
+      "name": "mobile grid uses one card per row",
+      "passed": true,
+      "mobileFirstRowCount": 1
+    },
+    {
+      "name": "mobile menu button is visible",
+      "passed": true
+    },
+    {
+      "name": "mobile menu opens",
+      "passed": true
+    },
+    {
+      "name": "no relevant console errors",
+      "passed": true,
+      "consoleErrors": []
+    }
+  ],
+  "failures": [],
+  "console": {
+    "errors": [],
+    "warnings": []
+  },
+  "screenshots": [
+    {
+      "label": "desktop",
+      "fileName": "revision-2026-directory-desktop.png",
+      "bytes": 3144182,
+      "sha256": "c5746894e600cf42958decc857313be0ef9e6c1babf5fcd544236fdfe6ca1a10",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "label": "mobile",
+      "fileName": "revision-2026-directory-mobile.png",
+      "bytes": 2614859,
+      "sha256": "8e0a648708d21dfd8638330014c5bc0e38c36f242f52db80c9e71e36c5db8039",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ]
+}

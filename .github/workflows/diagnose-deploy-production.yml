@@ -1,0 +1,172 @@
+name: Diagnose and deploy production
+
+on:
+  workflow_dispatch:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: diagnose-deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Diagnose and deploy production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PRODUCTION_DOMAIN: polypmna.dpdns.org
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Report diagnostic start
+        if: github.event_name == 'issues'
+        run: gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production diagnostic started: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+
+      - name: Diagnose, build, deploy and verify
+        id: diagnostic
+        continue-on-error: true
+        shell: bash
+        run: |
+          set +e
+          : > /tmp/deploy-diagnostic.log
+          status=0
+
+          log() { printf '%s\n' "$*" | tee -a /tmp/deploy-diagnostic.log; }
+          fail() { log "ERROR: $*"; status=1; }
+
+          log "Commit: $GITHUB_SHA"
+          log "Cloudflare token configured: $([ -n "$CLOUDFLARE_API_TOKEN" ] && echo yes || echo no)"
+          log "Cloudflare account configured: $([ -n "$CLOUDFLARE_ACCOUNT_ID" ] && echo yes || echo no)"
+          [ -n "$CLOUDFLARE_API_TOKEN" ] || fail "CLOUDFLARE_API_TOKEN is missing"
+          [ -n "$CLOUDFLARE_ACCOUNT_ID" ] || fail "CLOUDFLARE_ACCOUNT_ID is missing"
+
+          if [ "$status" -eq 0 ]; then
+            log "Running site quality gate..."
+            GITHUB_SHA="$GITHUB_SHA" GITHUB_REF_NAME="main" python tools/write_build_info.py >> /tmp/deploy-diagnostic.log 2>&1 || fail "build-info generation failed"
+            python tools/generate_sitemap.py >> /tmp/deploy-diagnostic.log 2>&1 || fail "sitemap generation failed"
+            python tools/site_quality_gate.py >> /tmp/deploy-diagnostic.log 2>&1 || fail "site quality gate failed"
+            python tools/build_public_site.py --target _site >> /tmp/deploy-diagnostic.log 2>&1 || fail "public build failed"
+            grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html || fail "redesigned About page missing from build"
+          fi
+
+          if [ "$status" -eq 0 ]; then
+            log "Resolving Cloudflare Pages project..."
+            python - <<'PY' > /tmp/cloudflare-project.txt 2>> /tmp/deploy-diagnostic.log
+          import json, os, urllib.request
+          account = os.environ['CLOUDFLARE_ACCOUNT_ID']
+          token = os.environ['CLOUDFLARE_API_TOKEN']
+          domain = os.environ['PRODUCTION_DOMAIN']
+          request = urllib.request.Request(
+              f'https://api.cloudflare.com/client/v4/accounts/{account}/pages/projects',
+              headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              payload = json.loads(response.read().decode('utf-8'))
+          if not payload.get('success'):
+              raise SystemExit(f'API errors: {payload.get("errors")}')
+          projects = payload.get('result') or []
+          matches = []
+          for project in projects:
+              domains = set(project.get('domains') or [])
+              subdomain = str(project.get('subdomain') or '').replace('https://', '').rstrip('/')
+              if domain in domains or domain == subdomain:
+                  matches.append(project)
+          print('Available projects: ' + ', '.join(str(item.get('name')) for item in projects))
+          print('Matching projects: ' + ', '.join(str(item.get('name')) for item in matches))
+          if len(matches) != 1:
+              raise SystemExit(f'Expected exactly one project matching {domain}; found {len(matches)}')
+          print(str(matches[0]['name']))
+          PY
+            project_status=$?
+            cat /tmp/cloudflare-project.txt >> /tmp/deploy-diagnostic.log
+            if [ "$project_status" -ne 0 ]; then
+              fail "Cloudflare Pages project lookup failed"
+            else
+              project_name="$(tail -n 1 /tmp/cloudflare-project.txt)"
+              log "Resolved project: $project_name"
+            fi
+          fi
+
+          if [ "$status" -eq 0 ]; then
+            log "Installing Wrangler and deploying..."
+            npm install --global wrangler@4 >> /tmp/deploy-diagnostic.log 2>&1 || fail "Wrangler installation failed"
+          fi
+          if [ "$status" -eq 0 ]; then
+            wrangler pages deploy _site --project-name="$project_name" --branch=main --commit-hash="$GITHUB_SHA" --commit-message="Deploy $GITHUB_SHA" >> /tmp/deploy-diagnostic.log 2>&1 || fail "Cloudflare Pages deployment failed"
+          fi
+
+          if [ "$status" -eq 0 ]; then
+            log "Verifying live domain..."
+            python - <<'PY' >> /tmp/deploy-diagnostic.log 2>&1
+          import json, os, time, urllib.request
+          base = 'https://' + os.environ['PRODUCTION_DOMAIN']
+          expected = os.environ['GITHUB_SHA']
+          last = ''
+          headers = {'Cache-Control': 'no-cache', 'User-Agent': 'POLY-PMNA-Deploy-QA/8.0'}
+          for attempt in range(1, 7):
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(base + f'/build-info.json?qa={attempt}', headers=headers), timeout=20) as response:
+                      info = json.loads(response.read().decode('utf-8'))
+                  with urllib.request.urlopen(urllib.request.Request(base + f'/about.html?qa={attempt}', headers=headers), timeout=20) as response:
+                      about = response.read().decode('utf-8', errors='replace')
+                  if info.get('commit') != expected:
+                      raise RuntimeError(f"live commit {info.get('commit')} != {expected}")
+                  for marker in ('Bilingual Kerala Polytechnic Study Portal', 'data-about-guide', 'data-about-lang="ml"', '/assets/js/about-experience.js'):
+                      if marker not in about:
+                          raise RuntimeError(f'About page missing {marker}')
+                  print(json.dumps({'liveCommit': info.get('commit'), 'aboutRedesign': True}, indent=2))
+                  raise SystemExit(0)
+              except Exception as error:
+                  last = f'Attempt {attempt}: {type(error).__name__}: {error}'
+                  print(last)
+                  if attempt < 6:
+                      time.sleep(8)
+          raise SystemExit(last)
+          PY
+            [ "$?" -eq 0 ] || fail "Live-domain verification failed"
+          fi
+
+          echo "$status" > /tmp/deploy-status
+          exit "$status"
+
+      - name: Publish diagnostic result
+        if: always() && github.event_name == 'issues'
+        shell: bash
+        run: |
+          result="failed"
+          [ -f /tmp/deploy-status ] && [ "$(cat /tmp/deploy-status)" = "0" ] && result="passed"
+          {
+            echo "Production diagnostic **${result}**."
+            echo
+            echo "Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            echo
+            echo '```text'
+            tail -n 100 /tmp/deploy-diagnostic.log 2>/dev/null || echo "No diagnostic log was produced."
+            echo '```'
+          } > /tmp/deploy-comment.md
+          gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body-file /tmp/deploy-comment.md
+          if [ "$result" = "passed" ]; then
+            gh issue close "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --reason completed
+          fi
+
+      - name: Fail workflow when diagnostic failed
+        if: always()
+        run: test -f /tmp/deploy-status && test "$(cat /tmp/deploy-status)" = "0"

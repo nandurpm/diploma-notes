@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Artificial Intelligence department artwork">
+  <rect width="640" height="360" fill="#ffe4e6"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <path d="M196 116 316 178 444 104M196 116l18 134 102-72 118 78 10-152M214 250l220 6" stroke="#be123c" stroke-width="10" fill="none"/><g fill="#e11d48" stroke="#ffffff" stroke-width="8"><circle cx="196" cy="116" r="30"/><circle cx="316" cy="178" r="34"/><circle cx="444" cy="104" r="30"/><circle cx="214" cy="250" r="30"/><circle cx="434" cy="256" r="30"/></g>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#be123c" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">AI</text>
+</svg>
