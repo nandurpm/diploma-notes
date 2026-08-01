@@ -9,6 +9,7 @@ This directory contains key architecture documentation, project standards, and m
 | File | Description |
 |------|-------------|
 | [`README.md`](README.md) | Index and overview of all developer and architecture documentation in this folder. |
+| [`RELEASE-CHECKLIST.md`](RELEASE-CHECKLIST.md) | Centralized checklists covering pre-release validation gates, site build/optimization, Cloudflare Page deployment, and rollback strategies. |
 | [`1004-model-structure-note.md`](1004-model-structure-note.md) | Structural details and question/marks breakdown of the Course Code 1004 Mock Examination (Engineering Mechanics). |
 | [`AUDIT-FINDINGS.md`](AUDIT-FINDINGS.md) | Comprehensive audit of the repository structure, dependencies, and architectural patterns. |
 | [`AUDIT-REPORT.md`](AUDIT-REPORT.md) | Detailed audit report of front-end site components, department pages, and lesson pages. |
