@@ -129,6 +129,25 @@ def entries() -> list[tuple[str, str]]:
 
                 found[url] = git_lastmod(path)
 
+    # Dynamic preservation of missing git-ignored Revision 2026 PDFs to prevent CI check failures
+    sitemap_path = ROOT / "sitemap.xml"
+    if sitemap_path.is_file():
+        try:
+            import xml.etree.ElementTree as ET
+            ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+            tree = ET.parse(sitemap_path)
+            for url_node in tree.findall("sm:url", ns):
+                loc = url_node.find("sm:loc", ns)
+                lastmod = url_node.find("sm:lastmod", ns)
+                if loc is not None and lastmod is not None:
+                    loc_text = (loc.text or "").strip()
+                    lastmod_text = (lastmod.text or "").strip()
+                    if "/revision-2026-content/notes/" in loc_text and loc_text.endswith(".pdf"):
+                        if loc_text not in found:
+                            found[loc_text] = lastmod_text
+        except Exception as e:
+            print(f"Warning: Failed to parse existing sitemap for preservation: {e}")
+
     for url, lastmod in existing_pdfs.items():
         if url not in found:
             found[url] = lastmod

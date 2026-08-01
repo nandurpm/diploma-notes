@@ -164,6 +164,7 @@ def audit_page(url: str) -> list[str]:
     broken = []
     for ref in parser.refs:
         target = local_target(local, ref)
+        if target:
         if target and not (ROOT / target).exists():
             if target.startswith("revision-2026-content/notes/") and target.endswith(".pdf"):
                 continue

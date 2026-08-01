@@ -26,17 +26,19 @@
   DQ.byId = (id) => document.getElementById(id);
 
   DQ.escapeHtml = (value) =>
-    String(value ?? "").replace(
-      /[&<>"']/g,
-      (character) =>
-        ({
-          "&": "&amp;",
-          "<": "&lt;",
-          ">": "&gt;",
-          '"': "&quot;",
-          "'": "&#039;",
-        })[character],
-    );
+    window.PolyUtils?.escapeHtml
+      ? window.PolyUtils.escapeHtml(value)
+      : String(value ?? "").replace(
+          /[&<>"']/g,
+          (character) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#039;",
+            })[character],
+        );
 
   DQ.showMessage = (element, text, type = "") => {
     element.textContent = text;

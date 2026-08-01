@@ -110,12 +110,14 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
   });
 
   function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+    return window.PolyUtils?.escapeHtml
+      ? window.PolyUtils.escapeHtml(value)
+      : String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
   }
 
   function renderMarkdownLite(text) {
