@@ -113,6 +113,9 @@ def audit_page(url: str) -> list[str]:
     path = ROOT / local
     issues: list[str] = []
     if path.suffix.lower() == ".pdf":
+        # Skip checking file existence for revision-2026-content/notes/*.pdf as they are hosted on GitHub Releases and git-ignored
+        if local.startswith("revision-2026-content/notes/"):
+            return issues
         if local.startswith("revision-2026-content/notes/"):
             return []
         return issues if path.is_file() else [f"Missing sitemap PDF: {local}"]
@@ -154,6 +157,7 @@ def audit_page(url: str) -> list[str]:
     for ref in parser.refs:
         target = local_target(local, ref)
         if target:
+            # Skip checking local file existence for revision-2026-content/notes/ PDFs as they are hosted on GitHub Releases and ignored in Git
             if target.startswith("revision-2026-content/notes/") and target.endswith(".pdf"):
                 continue
             if not (ROOT / target).exists():
