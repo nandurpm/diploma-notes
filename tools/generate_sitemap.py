@@ -64,7 +64,7 @@ def canonical_for(path: Path) -> str | None:
     return url
 
 
-def parse_existing_sitemap_notes() -> dict[str, str]:
+def parse_existing_sitemap() -> dict[str, str]:
     existing: dict[str, str] = {}
     target = ROOT / "sitemap.xml"
     if not target.exists():
@@ -77,30 +77,36 @@ def parse_existing_sitemap_notes() -> dict[str, str]:
             lastmod_node = url_node.find("sm:lastmod", ns)
             if loc_node is not None and lastmod_node is not None:
                 url = (loc_node.text or "").strip()
-                if "revision-2026-content/notes/" in url and url.endswith(".pdf"):
-                    existing[url] = (lastmod_node.text or "").strip()
+                existing[url] = (lastmod_node.text or "").strip()
     except Exception:
         pass
     return existing
 
 
 def entries() -> list[tuple[str, str]]:
+    existing = parse_existing_sitemap()
     found: dict[str, str] = {}
+
+    def get_lastmod(url: str, path: Path) -> str:
+        if url in existing:
+            return existing[url]
+        return git_lastmod(path)
+
     for path in ROOT.rglob("*.html"):
         url = canonical_for(path)
         if url:
-            found[url] = git_lastmod(path)
+            found[url] = get_lastmod(url, path)
     for pattern in ("notes/*.pdf", "revision-2026-content/notes/*.pdf"):
         for path in ROOT.glob(pattern):
             if path.is_file():
                 url = f"{ORIGIN}/{path.relative_to(ROOT).as_posix()}"
-                found[url] = git_lastmod(path)
+                found[url] = get_lastmod(url, path)
 
     # Dynamically preserve any Revision 2026 PDF sitemap entries if missing from disk
-    existing_notes = parse_existing_sitemap_notes()
-    for url, lastmod in existing_notes.items():
-        if url not in found:
-            found[url] = lastmod
+    for url, lastmod in existing.items():
+        if "revision-2026-content/notes/" in url and url.endswith(".pdf"):
+            if url not in found:
+                found[url] = lastmod
 
     return sorted(found.items(), key=lambda item: (item[0] != f"{ORIGIN}/", item[0]))
 
