@@ -22,3 +22,8 @@
 **Vulnerability:** Downstream middleware (such as rate limiters or Supabase authentication fetches) running before request payload size limits are evaluated. This allows unauthenticated or unauthorized clients to send extremely large payloads (e.g. DoS attempts) that trigger stateful rate limiter or auth database requests, exhausting server resources and rate-limiting capacities.
 **Learning:** Request size verification must be performed at the absolute entry point of edge routers (such as Cloudflare Worker fetch handlers) prior to executing any stateful rate limiting, remote authentication lookups, or payload parsing.
 **Prevention:** Enforce Content-Length checks at the absolute entrance level of edge workers, rejecting oversized requests with an HTTP 413 response immediately.
+
+## 2026-07-31 - [Strict Pre-Fetch Input Validation for JWT Authentication Tokens]
+**Vulnerability:** Downstream serverless handlers or authentication endpoints (such as Supabase Auth) receiving arbitrary, malformed, or oversized strings inside Authorization Bearer headers can result in unnecessary network requests, resource/rate-limit capacity consumption, or unexpected downstream parser errors.
+**Learning:** Edge-level serverless routers should sanitize and strictly validate JWT structure formats (e.g. verifying three dot-separated, base64url-encoded segments) prior to triggering network fetch queries or authentication lookups, failing fast with standard, secure 401 statuses.
+**Prevention:** Always validate Bearer authentication token formats using a precise regex pattern (e.g. `/^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$/i`) before transmitting them to database or auth providers.

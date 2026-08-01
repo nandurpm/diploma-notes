@@ -7,6 +7,8 @@ import {
   storeMockExamResult
 } from "../src/result-store.js";
 
+const MOCK_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.signature-part";
+
 function fakeRequest(headers = {}) {
   return {
     headers: {
@@ -29,7 +31,7 @@ test("authenticateStudent throws 401 when Authorization header is missing", asyn
 });
 
 test("authenticateStudent throws 503 when Supabase URL or keys are missing", async () => {
-  const request = fakeRequest({ Authorization: "Bearer test-token" });
+  const request = fakeRequest({ Authorization: `Bearer ${MOCK_JWT}` });
   const env = { SUPABASE_URL: "" };
   await assert.rejects(
     authenticateStudent(request, env),
@@ -42,7 +44,7 @@ test("authenticateStudent throws 503 when Supabase URL or keys are missing", asy
 });
 
 test("authenticateStudent handles successful auth response", async () => {
-  const request = fakeRequest({ Authorization: "Bearer test-token" });
+  const request = fakeRequest({ Authorization: `Bearer ${MOCK_JWT}` });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
@@ -54,7 +56,7 @@ test("authenticateStudent handles successful auth response", async () => {
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url, options) => {
     assert.equal(url, "https://example.supabase.co/auth/v1/user");
-    assert.equal(options.headers.Authorization, "Bearer test-token");
+    assert.equal(options.headers.Authorization, `Bearer ${MOCK_JWT}`);
     assert.equal(options.headers.apikey, "anon-key");
     return {
       ok: true,
@@ -65,14 +67,14 @@ test("authenticateStudent handles successful auth response", async () => {
   try {
     const student = await authenticateStudent(request, env);
     assert.equal(student.id, "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6");
-    assert.equal(student.token, "test-token");
+    assert.equal(student.token, MOCK_JWT);
   } finally {
     globalThis.fetch = originalFetch;
   }
 });
 
 test("authenticateStudent rejects non-UUID user id format", async () => {
-  const request = fakeRequest({ Authorization: "Bearer test-token" });
+  const request = fakeRequest({ Authorization: `Bearer ${MOCK_JWT}` });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key"
@@ -258,7 +260,7 @@ test("storeMockExamResult throws 502 with details on non-ok HTTP status", async 
   }
 });
 
-test("authenticateStudent throws 401 when login session is invalid", async () => {
+test("authenticateStudent throws 401 when login session is invalid (malformed JWT token format)", async () => {
   const request = fakeRequest({ Authorization: "Bearer invalid-token" });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
@@ -266,7 +268,9 @@ test("authenticateStudent throws 401 when login session is invalid", async () =>
   };
 
   const originalFetch = globalThis.fetch;
+  let fetchCalled = false;
   globalThis.fetch = async () => {
+    fetchCalled = true;
     return {
       ok: false,
       json: async () => ({ error: "invalid session" })
@@ -282,13 +286,46 @@ test("authenticateStudent throws 401 when login session is invalid", async () =>
         return true;
       }
     );
+    assert.equal(fetchCalled, false);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("authenticateStudent throws 401 when login session is invalid (valid JWT format but expired session)", async () => {
+  const request = fakeRequest({ Authorization: `Bearer ${MOCK_JWT}` });
+  const env = {
+    SUPABASE_URL: "https://example.supabase.co",
+    SUPABASE_ANON_KEY: "anon-key"
+  };
+
+  const originalFetch = globalThis.fetch;
+  let fetchCalled = false;
+  globalThis.fetch = async () => {
+    fetchCalled = true;
+    return {
+      ok: false,
+      json: async () => ({ error: "invalid session" })
+    };
+  };
+
+  try {
+    await assert.rejects(
+      authenticateStudent(request, env),
+      (err) => {
+        assert.equal(err.status, 401);
+        assert.equal(err.message, "Your login session is invalid or expired.");
+        return true;
+      }
+    );
+    assert.equal(fetchCalled, true);
   } finally {
     globalThis.fetch = originalFetch;
   }
 });
 
 test("authenticateStudent handles unexpected platform fetch failure and throws 502 with generic error", async () => {
-  const request = fakeRequest({ Authorization: "Bearer test-token" });
+  const request = fakeRequest({ Authorization: `Bearer ${MOCK_JWT}` });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key"
@@ -315,7 +352,7 @@ test("authenticateStudent handles unexpected platform fetch failure and throws 5
 });
 
 test("authenticateStudent handles fetch timeout and throws 504 with generic error", async () => {
-  const request = fakeRequest({ Authorization: "Bearer test-token" });
+  const request = fakeRequest({ Authorization: `Bearer ${MOCK_JWT}` });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key"
