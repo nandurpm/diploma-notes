@@ -140,3 +140,55 @@ test("secureIndex fetch rejects oversized POST request early", async () => {
   const data = await response.json();
   assert.equal(data.error, "The request is too large.");
 });
+
+test("createRateLimiter prunes expired buckets when size exceeds 2000", () => {
+  const originalDateNow = Date.now;
+  let mockTime = 1000000;
+  Date.now = () => mockTime;
+
+  try {
+    const limiter = createRateLimiter(1, 1000); // 1-request maximum, 1000ms window
+
+    // Request for 10.0.0.0 is allowed once, but blocked on the second request at the same mockTime
+    const initialRequest = fakeRequest({ "CF-Connecting-IP": "10.0.0.0" });
+    assert.equal(limiter(initialRequest), true);
+    assert.equal(limiter(initialRequest), false);
+
+    // Populate remaining 1999 unique IP buckets at mockTime = 1000000
+    for (let i = 1; i < 2000; i++) {
+      const request = fakeRequest({ "CF-Connecting-IP": `10.0.0.${i}` });
+      assert.equal(limiter(request), true);
+    }
+
+    // Advance time so all 2000 entries are expired (more than 1000ms later)
+    mockTime += 5000;
+
+    // Add a 2001st unique IP bucket. This triggers the pruning process.
+    const triggeringRequest = fakeRequest({ "CF-Connecting-IP": "10.0.0.2000" });
+    assert.equal(limiter(triggeringRequest), true);
+
+    // Revert mockTime to verify which buckets were pruned and which were retained.
+    // Since pruning reduces the map size to exactly 1500 elements, the oldest 501
+    // buckets (10.0.0.0 to 10.0.0.500) should have been deleted (thus are no longer blocked).
+    // The remaining buckets (10.0.0.501 to 10.0.0.1999) should have been retained (thus are still blocked).
+    mockTime -= 5000;
+
+    // 10.0.0.0 (oldest) should be pruned/deleted, so querying it at the original mockTime is allowed again
+    assert.equal(limiter(initialRequest), true);
+
+    // 10.0.0.500 (also in the first 501) should be pruned
+    const prunedRequest = fakeRequest({ "CF-Connecting-IP": "10.0.0.500" });
+    assert.equal(limiter(prunedRequest), true);
+
+    // 10.0.0.501 (the 502nd element) should NOT be pruned and still be blocked at initial mockTime
+    const retainedRequest = fakeRequest({ "CF-Connecting-IP": "10.0.0.501" });
+    assert.equal(limiter(retainedRequest), false);
+
+    // 10.0.0.1999 should also NOT be pruned and still be blocked
+    const anotherRetained = fakeRequest({ "CF-Connecting-IP": "10.0.0.1999" });
+    assert.equal(limiter(anotherRetained), false);
+
+  } finally {
+    Date.now = originalDateNow;
+  }
+});
