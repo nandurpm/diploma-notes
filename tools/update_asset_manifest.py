@@ -52,6 +52,16 @@ def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[st
     if not directory.exists():
         return []
 
+    # If collecting Revision 2026 notes, dynamically infer them from lesson files
+    # since these PDFs are hosted on CDN/Releases and ignored in git.
+    if directory.as_posix().endswith("revision-2026-content/notes"):
+        lessons_dir = directory.parent / "lessons"
+        for path in lessons_dir.glob("lessons-*.html"):
+            match = re.fullmatch(r"lessons-([0-9]+[A-Za-z]*)\.html", path.name, re.IGNORECASE)
+            if match:
+                codes.add(match.group(1).upper())
+        return natural_sorted(codes)
+
     for path in directory.rglob("*"):
         if not path.is_file():
             continue
