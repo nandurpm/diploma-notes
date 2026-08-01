@@ -87,7 +87,10 @@
 
     const lessonAlreadyLinked = Boolean(row.querySelector(".action.lessons")) || card.dataset.lessonAvailable === "true";
     const lessonExists = lessonAlreadyLinked || await urlExists(lessonPathFor(code), { expectHtml: true });
-    const staticPdfExists = lessonExists ? false : await urlExists(notesUrlFor(code), { expectPdf: true });
+
+    // Direct LFS CDN URL for actual files stored on GitHub CDN
+    const mediaNotesUrl = `https://media.githubusercontent.com/media/nandurpm/diploma-notes/main/notes/downloadable-notes-${esc(code)}.pdf`;
+    const staticPdfExists = lessonExists ? false : await urlExists(mediaNotesUrl, { expectPdf: true });
 
     if (!card.isConnected) return;
     clearNotes(row);
@@ -97,7 +100,7 @@
       card.dataset.lessonAvailable = "true";
       card.dataset.notesSource = "lesson-html";
     } else if (staticPdfExists) {
-      row.insertBefore(makeLink(notesUrlFor(code), "pdf"), qp || null);
+      row.insertBefore(makeLink(mediaNotesUrl, "pdf"), qp || null);
       card.dataset.notesSource = "static-pdf";
     } else {
       const unavailable = document.createElement("span");

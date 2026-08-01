@@ -248,26 +248,40 @@
     try {
       const qp = normalizeQuestionPaperLink(card, row, code, revision);
       const lessonHref = lessonUrlFor(code, revision);
-      const notesHref = notesUrlFor(code, revision);
       const printHref = lessonUrlFor(code, revision, true);
+
+      // Direct LFS CDN URL for actual files stored on GitHub CDN
+      const mediaNotesUrl = revision === "2026"
+        ? `https://media.githubusercontent.com/media/nandurpm/diploma-notes/main/revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`
+        : `https://media.githubusercontent.com/media/nandurpm/diploma-notes/main/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+
       const lessonAvailable = await lessonExists(lessonHref);
       if (!card.isConnected) return;
 
-      if (!lessonAvailable) {
-        card.dataset.lessonAvailable = "false";
+      if (lessonAvailable) {
+        card.dataset.lessonAvailable = "true";
+        card.dataset.lessonHref = lessonHref;
+        // Prefer printHref (generating PDF from lesson HTML) over static PDF
+        card.dataset.notesHref = printHref;
+        ensureAvailable(row, qp, lessonHref, printHref, printHref, false);
         card.dataset.notesAvailable = "false";
-        ensureUnavailable(row, qp);
         return;
       }
 
-      card.dataset.lessonAvailable = "true";
-      card.dataset.lessonHref = lessonHref;
-      card.dataset.notesHref = notesHref;
-
-      const notesAvailable = await pdfExists(notesHref);
+      // No lesson available, let's fall back to direct LFS CDN PDF notes if present
+      const notesAvailable = await pdfExists(mediaNotesUrl);
       if (!card.isConnected) return;
-      ensureAvailable(row, qp, lessonHref, notesHref, printHref, notesAvailable);
-      card.dataset.notesAvailable = String(notesAvailable);
+
+      if (notesAvailable) {
+        card.dataset.lessonAvailable = "false";
+        card.dataset.notesHref = mediaNotesUrl;
+        ensureAvailable(row, qp, lessonHref, mediaNotesUrl, printHref, true);
+        card.dataset.notesAvailable = "true";
+      } else {
+        card.dataset.lessonAvailable = "false";
+        card.dataset.notesAvailable = "false";
+        ensureUnavailable(row, qp);
+      }
     } finally {
       if (card.isConnected) card.dataset.availabilityValidated = validationKey;
       checking.delete(card);
