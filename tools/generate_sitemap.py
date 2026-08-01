@@ -10,6 +10,7 @@ import subprocess
 from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
+import xml.etree.ElementTree as ET
 from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -66,6 +67,26 @@ def canonical_for(path: Path) -> str | None:
 
 def entries() -> list[tuple[str, str]]:
     found: dict[str, str] = {}
+
+    # Preserve existing revision-2026-content/notes/*.pdf sitemap entries
+    # to avoid failing in clean checkouts where these PDFs are git-ignored.
+    existing_pdfs: dict[str, str] = {}
+    target_sitemap = ROOT / "sitemap.xml"
+    if target_sitemap.exists():
+        try:
+            ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+            root_el = ET.parse(target_sitemap)
+            for node in root_el.findall("sm:url", ns):
+                loc_node = node.find("sm:loc", ns)
+                lastmod_node = node.find("sm:lastmod", ns)
+                if loc_node is not None:
+                    loc = (loc_node.text or "").strip()
+                    if "revision-2026-content/notes/" in loc and loc.endswith(".pdf"):
+                        lastmod = (lastmod_node.text or "").strip() if lastmod_node is not None else date.today().isoformat()
+                        existing_pdfs[loc] = lastmod
+        except Exception:
+            pass
+
     for path in ROOT.rglob("*.html"):
         url = canonical_for(path)
         if url:
@@ -75,6 +96,10 @@ def entries() -> list[tuple[str, str]]:
             if path.is_file():
                 url = f"{ORIGIN}/{path.relative_to(ROOT).as_posix()}"
                 found[url] = git_lastmod(path)
+
+    for url, lastmod in existing_pdfs.items():
+        if url not in found:
+            found[url] = lastmod
 
     # Preserves existing sitemap XML entries for git-ignored revision-2026 notes PDFs if they are not present on disk
     target = ROOT / "sitemap.xml"

@@ -113,6 +113,9 @@ def audit_page(url: str) -> list[str]:
     path = ROOT / local
     issues: list[str] = []
     if path.suffix.lower() == ".pdf":
+        # Bypass local file existence audits for Git-ignored Revision 2026 PDF notes
+        if "revision-2026-content/notes/" in local:
+            return issues
         # Bypass local file existence audits for revision-2026-content note PDFs to support clean checkouts / lack of LFS
         if local.startswith("revision-2026-content/notes/") and local.endswith(".pdf"):
             return issues
@@ -160,6 +163,8 @@ def audit_page(url: str) -> list[str]:
     for ref in parser.refs:
         target = local_target(local, ref)
         if target:
+            # Bypass reference existence checking if the target is a Revision 2026 PDF note
+            if "revision-2026-content/notes/" in target and target.endswith(".pdf"):
             # Bypass broken local reference audits for revision-2026-content note PDFs
             # Skip checking local file existence for revision-2026-content/notes/ PDFs as they are hosted on GitHub Releases and ignored in Git
             if target.startswith("revision-2026-content/notes/") and target.endswith(".pdf"):
