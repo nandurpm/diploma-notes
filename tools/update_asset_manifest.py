@@ -61,14 +61,14 @@ def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[st
             codes.add(match.group("code").upper())
 
     # Dynamic preservation of Revision 2026 git-ignored notes codes in clean checkouts
-    if not codes and directory == ROOT / "revision-2026-content" / "notes":
+    if directory == ROOT / "revision-2026-content" / "notes":
         try:
             manifest_path = ROOT / "assets/js/asset-manifest.js"
             if manifest_path.is_file():
                 text = manifest_path.read_text(encoding="utf-8")
                 match = re.search(r'revision2026NotesCodes:\s*Object\.freeze\(\s*(\[[^\]]*\])\s*\)', text)
                 if match:
-                    codes = set(json.loads(match.group(1)))
+                    codes.update(json.loads(match.group(1)))
         except Exception as e:
             print(f"Warning: Failed to preserve existing Revision 2026 note codes: {e}")
 
