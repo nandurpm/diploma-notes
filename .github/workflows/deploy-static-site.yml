@@ -53,11 +53,7 @@ jobs:
           python tools/generate_sitemap.py
           python tools/site_quality_gate.py
           python tools/build_public_site.py --target _site
-          test -f _site/build-optimization.json
-          grep -q 'assets/build/home.' _site/index.html
-          grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html
-          test -f _site/assets/js/about-experience.js
-          test -f _site/assets/css/about-experience.css
+          python tools/site_quality_gate.py --build-dir _site
 
       - name: Resolve Cloudflare Pages project by production domain
         id: project
