@@ -10,6 +10,7 @@ import subprocess
 from datetime import date
 from pathlib import Path
 from urllib.parse import urlparse
+from xml.etree import ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
@@ -74,6 +75,24 @@ def entries() -> list[tuple[str, str]]:
             if path.is_file():
                 url = f"{ORIGIN}/{path.relative_to(ROOT).as_posix()}"
                 found[url] = git_lastmod(path)
+
+    # Preserves existing sitemap XML entries for git-ignored revision-2026 notes PDFs if they are not present on disk
+    target = ROOT / "sitemap.xml"
+    if target.exists():
+        try:
+            ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+            tree = ET.parse(target)
+            for node in tree.findall("sm:url", ns):
+                loc_node = node.find("sm:loc", ns)
+                lastmod_node = node.find("sm:lastmod", ns)
+                if loc_node is not None:
+                    loc = (loc_node.text or "").strip()
+                    if "/revision-2026-content/notes/" in loc and loc.endswith(".pdf"):
+                        if loc not in found:
+                            found[loc] = (lastmod_node.text or "").strip() or date.today().isoformat()
+        except Exception:
+            pass
+
     return sorted(found.items(), key=lambda item: (item[0] != f"{ORIGIN}/", item[0]))
 
 
