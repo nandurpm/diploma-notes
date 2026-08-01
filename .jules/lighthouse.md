@@ -2,6 +2,12 @@
 
 This journal documents key project-specific SEO patterns, crawlability constraints, metadata conventions, structured data decisions, and important indexing lessons discovered during Lighthouse audits and improvements.
 
+## 2026-08-01 - [Applying Robots Meta Directives to Service Worker Offline Fallbacks and Password Reset Forms]
+
+**Learning:** Service worker offline fallback pages (`offline.html`) and dynamic password reset forms (`reset-password.html`) should be excluded from search engine indexation to optimize overall crawling budgets, avoid search console warnings, and prevent raw placeholders or unauthenticated utility states from showing in public search listings.
+
+**Action:** Standardize use of `<meta name="robots" content="noindex, follow">` inside `<head>` for service worker offline fallbacks (`offline.html`), and `<meta name="robots" content="noindex, nofollow">` for account recovery actions (`reset-password.html`), to keep indexing concentrated on high-quality curriculum landing pages.
+
 ## 2026-07-29 - [Aligning Hardcoded Fallback Headers and Repairing Misleading Login Required SEO Metadata]
 
 **Learning:** Hardcoded HTML navigation headers and footer blocks in pages that bypass early JS-shell loading (like `mock-exam.html` or `reset-password.html`) can drift from the global canonical schema, leading to stale `/index.html` references, outdated links, and inconsistent navigation for search crawlers. Additionally, template-cloned pages (like `mock-exam-1004.html`) can accidentally inherit generic metadata such as "Login required" for their title, description, and JSON-LD block, which destroys their search discoverability and relevance.
