@@ -499,13 +499,22 @@
 
     const activePanelId = activePanel()?.id || "";
     const normalizedQuery = normalize(query);
+
+    // PERFORMANCE OPTIMIZATION: Pre-compile and cache word-boundary RegExp objects for all query tokens
+    // once outside the main loop. This prevents compiling up to N * K regular expressions (where N is
+    // candidates count and K is tokens count) during lesson section ranking.
+    const tokenRegexes = queryTokens.map((token) => ({
+      token,
+      regex: new RegExp(`(^|\\s)${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}($|\\s)`, "i")
+    }));
+
     const ranked = candidates.map((chunk) => {
       let score = 0;
       if (normalizedQuery.length > 3 && chunk.normalized.includes(normalizedQuery)) score += 120;
-      queryTokens.forEach((token) => {
+      tokenRegexes.forEach(({ token, regex }) => {
         if (chunk.heading.includes(token)) score += 28;
         if (chunk.normalized.includes(token)) score += 13;
-        if (new RegExp(`(^|\\s)${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}($|\\s)`, "i").test(chunk.normalized)) score += 7;
+        if (regex.test(chunk.normalized)) score += 7;
       });
       if (activePanelId && chunk.panelId === activePanelId) score += 5;
       if (intent.formulas && /formula|=|ω|π|√/.test(`${chunk.title} ${chunk.text}`)) score += 35;
