@@ -46,3 +46,11 @@ __pycache__/
 .dev.vars*
 !.dev.vars.example
 !.env.example
+
+# Revision 2026 downloadable PDFs (hosted on GitHub Releases instead)
+revision-2026-content/notes/*.pdf
+
+# notes/ PDFs stay in repo (actively referenced from lessons/)
+
+# Temp directories
+tmp/
