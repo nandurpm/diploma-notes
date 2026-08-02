@@ -21,6 +21,18 @@ const submitButton = document.querySelector("#commentSubmit");
 const statusBox = document.querySelector("#commentStatus");
 const list = document.querySelector("#commentsList");
 const countBox = document.querySelector("#commentCount");
+const mainCounter = document.querySelector("#commentMessageCounter");
+
+function updateCharCounter(textarea, counterElement, maxLen = 1500) {
+  if (!textarea || !counterElement) return;
+  const remaining = maxLen - textarea.value.length;
+  counterElement.textContent = `${remaining} ${remaining === 1 ? "character" : "characters"} remaining`;
+  if (remaining < 0) {
+    counterElement.classList.add("poly-char-counter--error");
+  } else {
+    counterElement.classList.remove("poly-char-counter--error");
+  }
+}
 
 function protectedMailto(subject = "POLY PMNA Help") {
   return `mailto:${decodeEmail(EMAIL_TOKEN)}?subject=${encodeURIComponent(subject)}`;
@@ -161,11 +173,24 @@ async function initializeDiscussion() {
     textarea.required = true;
     textarea.placeholder = "Write your reply…";
     textarea.setAttribute("aria-label", "Reply message");
+
+    const replyCounter = document.createElement("div");
+    replyCounter.className = "poly-char-counter";
+    replyCounter.setAttribute("aria-live", "polite");
+    const uniqueId = `replyCounter-${parent.id}`;
+    replyCounter.id = uniqueId;
+    textarea.setAttribute("aria-describedby", uniqueId);
+
+    updateCharCounter(textarea, replyCounter, 1500);
+    textarea.addEventListener("input", () => {
+      updateCharCounter(textarea, replyCounter, 1500);
+    });
+
     const submit = document.createElement("button");
     submit.type = "submit";
     submit.className = "comment-submit";
     submit.textContent = "Post Reply";
-    replyForm.append(textarea, submit);
+    replyForm.append(textarea, replyCounter, submit);
     replyForm.addEventListener("submit", async event => {
       event.preventDefault();
       const author = nameInput.value.trim();
@@ -282,6 +307,7 @@ async function initializeDiscussion() {
       localStorage.setItem("diplomaNotesCommentName", author);
       rememberPost(message);
       messageInput.value = "";
+      updateCharCounter(messageInput, mainCounter, 1500);
       setStatus("Comment posted.", "success");
     } catch (error) {
       console.error("Could not post comment.", error);
@@ -290,6 +316,13 @@ async function initializeDiscussion() {
       submitButton.disabled = false;
     }
   });
+
+  if (messageInput && mainCounter) {
+    messageInput.addEventListener("input", () => {
+      updateCharCounter(messageInput, mainCounter, 1500);
+    });
+    updateCharCounter(messageInput, mainCounter, 1500);
+  }
 
   authModule.onAuthStateChanged(auth, user => {
     currentUser = user;
