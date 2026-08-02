@@ -570,6 +570,67 @@ Always inspect first.
 
 ---
 
+# 🏗 Advanced Portal & Tooling Standards
+
+This section outlines advanced engineering, performance caching, accessibility, SEO, and tooling constraints enforced across the POLY PMNA codebase. Developers must strictly adhere to these patterns when adding features or refactoring codebase subsystems.
+
+## ⚡ Client-Side Performance Caching
+To maintain a high-frequency, responsive interface across all devices and low-end mobile hardware, follow these mandatory performance caching practices:
+
+1. **Search Index Optimization:**
+   - Always cache lowercase representations of search parameters (e.g. `_searchText`) to bypass redundant runtime string manipulation in search loops.
+   - Pre-compute and cache normalized subject fields (`_normCode`, `_normName`, and `_normDept`) inside initialization functions (e.g., `buildSubjectRecords()`) rather than invoking Regex-heavy, Unicode-normalizing `normalize()` functions inside active keypress loops.
+2. **Localization & Date Formatters:**
+   - Costly repeated instantiations of `Intl.DateTimeFormat` (such as `formatDateKey` or `indiaDateKey`) must be avoided.
+   - Cache precompiled `Intl.DateTimeFormat` objects in module/file scope to bypass localization lookup and heap allocation overhead in high-frequency rendering and layout generation loops.
+
+## ♿ Advanced Accessibility & ARIA Rules
+Accessibility is a core tier-1 priority for the POLY PMNA platform. All interactive elements must strictly comply with these standards:
+
+1. **Live Filter Announcers:**
+   - Real-time search and filter inputs must announce matched result counts immediately to screen readers.
+   - Link search inputs to results lists via `aria-controls` and `aria-describedby`, directing to a visually-hidden, ARIA-live polite status announcer region (e.g., `#subjectBrowserAnnouncer`, `role="status"`, `aria-live="polite"`).
+2. **Interactive Elements:**
+   - **Never nest interactive elements.** Placing buttons inside other buttons, or anchor links inside button tags, is strictly prohibited as it violates the HTML specification and breaks keyboard/screen-reader focus trees.
+3. **Quiet vs. Polite Live Regions:**
+   - Rapidly-updating widgets (such as second-by-second holiday countdowns or clock ticks in countdown banners) must **not** use `aria-live="polite"` tags. Keep these regions quiet to prevent screen-readers from being constantly overloaded with audio announcements.
+4. **Accessible Password Toggles:**
+   - Password inputs on authentication forms must provide a native, semantic "Show Password" checkbox.
+   - **Context safety:** When the user toggles tabs (e.g., switching between Login and Registration) or switches context, password visibility must automatically be reset back to masked to prevent sensitive user data from remaining visible.
+5. **Form Character Counters:**
+   - Forms containing strict input constraints (e.g., the 1500-character contact form or dynamic replies) must include a real-time character counter with `aria-live="polite"`. This provides immediate, non-intrusive feedback to screen-reader and visual users alike.
+
+## 🌐 SEO, Indexing & Crawlability
+To optimize search engine crawlability, prevent duplicate indexing, and satisfy search engine quality policies:
+
+1. **Robots Meta Directives:**
+   - Specialized account, offline, and utility tools must use strict indexing meta headers:
+     - Account/utility forms (e.g. `reset-password.html`) must use `<meta name="robots" content="noindex, nofollow">` to prevent credentials-adjacent paths from being indexed.
+     - Offline service worker files (e.g. `offline.html`) must use `<meta name="robots" content="noindex, follow">` to preserve crawl links without cluttering index records.
+2. **Static-Hosted Redirect Fallbacks:**
+   - Any static redirect fallback page (e.g., `departments.html`) must utilize `<meta http-equiv="refresh" content="0; url=...">`, standard brand assets, a clean user fallback card, a canonical link pointing to the destination URL, and a `<meta name="robots" content="noindex, nofollow">` tag.
+   - All redirect fallback files must be explicitly added to the `EXCLUDED_FILES` set in `tools/generate_sitemap.py` to prevent duplicate indexing and canonical conflicts.
+
+## ☁️ Serverless & Cloudflare Worker Constraints
+When developing or modifying Cloudflare Workers and Pages Functions (e.g. `ask-poly-ai` or middleware):
+
+1. **Input Sanitization:**
+   - Implement robust sanitization on input parameters, particularly around mathematics/processing commands, to prevent script injection and serverless compute exploitation.
+2. **Error Handling & Response Types:**
+   - Always wrap database queries and external AI requests in defensive try-catch blocks and return standardized JSON error schemas rather than allowing raw environment traces to escape to client browsers.
+
+## 🛠 Developer Tooling & Site Quality Gates
+Automation and validation scripts under the `tools/` folder enforce the platform's stability. Be aware of these rules:
+
+1. **Git-Ignored PDF Notes Bypasses:**
+   - Revision 2026 downloadable PDF notes are hosted on GitHub Releases and are ignored in Git.
+   - To prevent local developer CI check failures on clean checkouts, `tools/site_quality_gate.py` bypasses local file existence audits and broken reference checks for paths starting with `revision-2026-content/notes/`.
+   - Likewise, `tools/generate_sitemap.py` dynamically preserves sitemap entries for these PDFs if they are missing on disk.
+2. **Structural Inventory Baselines:**
+   - `tools/validate_site_structure.py` enforces exact minimum baselines (e.g., 91 Revision 2021 and 35 Revision 2026 files, totaling 126 lessons) and verifies that every lesson file successfully loads the shared navigation script (`lesson-navigation-fix.js`) and features a correct HTML5 layout.
+
+---
+
 # Project Goal
 
 POLY PMNA should feel like a professional educational platform.

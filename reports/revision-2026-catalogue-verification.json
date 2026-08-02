@@ -1,0 +1,405 @@
+{
+  "scheme": "REV2026",
+  "verifiedAt": "2026-08-01T21:32:26.108394+00:00",
+  "officialIndex": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
+  "programmeCount": 38,
+  "subjectCount": 2403,
+  "staticPageCount": 38,
+  "directoryProgrammeCardCount": 38,
+  "semesterSourceCounts": {
+    "course-code-fallback": 2403
+  },
+  "programmeSubjectCounts": {
+    "architecture": 56,
+    "artificial-intelligence": 67,
+    "artificial-intelligence-and-machine-learning": 63,
+    "automation-and-robotics": 65,
+    "automobile-engineering": 66,
+    "biomedical-engineering": 63,
+    "chemical-engineering": 61,
+    "civil-and-environmental-engineering": 63,
+    "civil-and-rural-engineering": 63,
+    "civil-engineering": 63,
+    "civil-engineering-and-planning": 63,
+    "commercial-practice": 66,
+    "computer-application-and-business-management": 64,
+    "computer-engineering": 67,
+    "computer-science-and-engineering": 67,
+    "computer-science-and-technology": 67,
+    "cyber-forensics-and-information-security": 62,
+    "electrical-and-electronics-engineering": 63,
+    "electrical-engineering": 63,
+    "electrical-engineering-and-electric-vehicles-technology": 63,
+    "electronics-and-communication": 64,
+    "electronics-and-computer-engineering": 64,
+    "electronics-engineering": 64,
+    "fire-technology-and-safety": 62,
+    "food-processing-technology": 63,
+    "information-technology": 67,
+    "instrumentation-engineering": 65,
+    "integrated-circuit-design-and-fabrication": 63,
+    "interior-design": 56,
+    "mechanical-engineering": 62,
+    "mechatronics": 62,
+    "micro-electronics": 63,
+    "polymer-technology": 63,
+    "printing-technology": 63,
+    "robotic-process-automation": 63,
+    "textile-technology": 62,
+    "tool-and-die-engineering": 63,
+    "wood-and-paper-technology": 59
+  },
+  "programmeSemesterCounts": {
+    "architecture": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 8,
+      "Semester 5": 12,
+      "Semester 6": 12
+    },
+    "artificial-intelligence": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 18
+    },
+    "artificial-intelligence-and-machine-learning": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "automation-and-robotics": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 18
+    },
+    "automobile-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 8,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 18
+    },
+    "biomedical-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "chemical-engineering": {
+      "Semester 1": 5,
+      "Semester 2": 10,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 13,
+      "Semester 6": 15
+    },
+    "civil-and-environmental-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "civil-and-rural-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "civil-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "civil-engineering-and-planning": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "commercial-practice": {
+      "Semester 1": 7,
+      "Semester 2": 8,
+      "Semester 3": 9,
+      "Semester 4": 10,
+      "Semester 5": 14,
+      "Semester 6": 18
+    },
+    "computer-application-and-business-management": {
+      "Semester 1": 7,
+      "Semester 2": 8,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 15
+    },
+    "computer-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 18
+    },
+    "computer-science-and-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 18
+    },
+    "computer-science-and-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 18
+    },
+    "cyber-forensics-and-information-security": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 15
+    },
+    "electrical-and-electronics-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "electrical-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "electrical-engineering-and-electric-vehicles-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "electronics-and-communication": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 15,
+      "Semester 6": 16
+    },
+    "electronics-and-computer-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 15,
+      "Semester 6": 16
+    },
+    "electronics-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 15,
+      "Semester 6": 16
+    },
+    "fire-technology-and-safety": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 8,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "food-processing-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "information-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 18
+    },
+    "instrumentation-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 16,
+      "Semester 6": 16
+    },
+    "integrated-circuit-design-and-fabrication": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "interior-design": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 8,
+      "Semester 5": 12,
+      "Semester 6": 12
+    },
+    "mechanical-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 8,
+      "Semester 4": 10,
+      "Semester 5": 13,
+      "Semester 6": 16
+    },
+    "mechatronics": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 15
+    },
+    "micro-electronics": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "polymer-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "printing-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "robotic-process-automation": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "textile-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 15
+    },
+    "tool-and-die-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 16
+    },
+    "wood-and-paper-technology": {
+      "Semester 1": 6,
+      "Semester 2": 9,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 12,
+      "Semester 6": 14
+    }
+  },
+  "dataHashes": {
+    "programmes": "2c607a24c03bc26155fc67120b89b661cd3ffbd882b6975d4a5246fd86463575",
+    "subjects": "bea19508af407fe9a283ed905caeb83497d9188d183020348ac353b26d72032d",
+    "directory": "a0bfd0031186f1ee05c82a79fa064c5efb274058587f0dbafdf33a6ef58f97ac"
+  },
+  "departmentPageHashes": {
+    "architecture": "ba65cb9fe1e0ddbbf19a2823986d44b0fdb73b4b29c281b91a742da7b232a4ab",
+    "artificial-intelligence": "c6ca081c510c3eec78372366d5baf2eaa33ed63c0d65efdb370750c2fcac6a0e",
+    "artificial-intelligence-and-machine-learning": "779912d1437ebcb9ef77617a8e0bf7143e02d58cc6ab1343422d2900f27f0a12",
+    "automation-and-robotics": "04a85f37099ea19de31a501e99a8960a888f826f84438994bd28aadc9df65a79",
+    "automobile-engineering": "725d917095850423c3b3d25159e96a7a9fd66b3e445a339d68bd75ae9acdcd17",
+    "biomedical-engineering": "6a09a7c91ad657d3b14ebd7d62166b4c944adf9f8ca196a0724b6b37ab42010a",
+    "chemical-engineering": "6a233ca37aae55128360587d37b1fdc9075d819b9d30ccd3fdb8fa5366f45a0e",
+    "civil-and-environmental-engineering": "dd0b3916a747e91eeb86adef776f0d9f8bd78dbe87fa76ff2f61553a20851b6a",
+    "civil-and-rural-engineering": "a389de584ddf2718aa5a5f1d4a788d3597af17afa76c77ec4d57242c331a0f0e",
+    "civil-engineering": "20c85c908da4643269bbecb57d85bb6196b9bf6d28b26ff6f963f1c428299bdc",
+    "civil-engineering-and-planning": "0cb977b15ebf71f1023c7b193adb850dcde1cf2e43eb228ee6ab400a8aceb6c9",
+    "commercial-practice": "ce3814a5784d6ae7a19b345ab295666ae6db3209b783a66936b42a80516ac3ba",
+    "computer-application-and-business-management": "23344c17681021b10bd3fcdb8863ce8098ab7e4306fd6318b99d7a430a0afb87",
+    "computer-engineering": "c3d3ace45c8e90f8ae9e7d235964f4fd9e7114900bcf45fbbd3b2f5c96a28fd4",
+    "computer-science-and-engineering": "09a2fd11b76c9c4adac1e308439a6642913e791f02637f2d648c5dc40fe5e904",
+    "computer-science-and-technology": "99d054b3dfe9f742aec3c160a3dfc4c235fe76caa9c719c07d3c75d7d67bc002",
+    "cyber-forensics-and-information-security": "1f41ec7b89d70a522ddecfb977c19e251bede704093cd8c6b0434c69e6835bd6",
+    "electrical-and-electronics-engineering": "97f2b3a0516ae9f6dbcab4c0e8b3295d2de6f7211df4fb56ad17f30af62d5a97",
+    "electrical-engineering": "a1115f6c0fef639758b6588871de7df359e9c8f61d868132c086caa270545fd3",
+    "electrical-engineering-and-electric-vehicles-technology": "1b351c4bbe67df8d0d3e2ce73e9d35e7faa84b23c95f494655232c5856ad56e8",
+    "electronics-and-communication": "68db56d527cb5dd77f98b37b91ac75a3a2fc4348815e4d687cba9bedf53aabc2",
+    "electronics-and-computer-engineering": "39f2c98c194fd85a4777dd218171b4937c82e50f09188097fa30704c73068068",
+    "electronics-engineering": "06c4f87f2361114b8ea9c98e9064351163212bb1ef5555d49249f6aaee59ed60",
+    "fire-technology-and-safety": "09407d0ca2a29aa4eb31f79d522d24b663b35d86afff78088442786af60f57e6",
+    "food-processing-technology": "1986f8a0cd9439f55e67a1b62bca2572b61a95c3846bdc67ebb6fcf7044f0b76",
+    "information-technology": "06307554dc56de5ccfb122c9030f110ee72d940d819d9d3237310f11746bd7af",
+    "instrumentation-engineering": "f5a0cd29e29d199d5be428cb0d68885faec226f916b1223a7d5c17b338143933",
+    "integrated-circuit-design-and-fabrication": "01a3b4894b123f98bb34b41cb46cd7043c126dce2edf7ec896c174797a6e0218",
+    "interior-design": "f4c14ee35a3328d4e6fe5fd99e6b81334b42fb68b0303b27cbb481de00bb191b",
+    "mechanical-engineering": "bb7d58ec85c168c69b4c6957a858fb29d562a33be3e76b8058300da02f7a0e4f",
+    "mechatronics": "f5f6a3fd0b88855e5c72183d2e1c88217d02d55c3e354b219d8f87908d8f1820",
+    "micro-electronics": "53da5dd7a34caefda0dca2551cb44d51ed1a7854240c8ec6029ad9509b74d036",
+    "polymer-technology": "ff6d75bdfc90e3d7d699138263e992354a0b1c1d5c8d92d4e269f5f726fb2039",
+    "printing-technology": "6aefd898f89869da6c38d271f27bf0262c963eb5b830771ceb3a2424c1c3f759",
+    "robotic-process-automation": "b2b384d5534dd5d6b3c6410e1e8c5b1f293084efdb4b9312814fa6545b0a08cb",
+    "textile-technology": "1690e2e14a3967dc727dd8c6179ebf0fe7645b299ea3c05bd52ba15334cb646a",
+    "tool-and-die-engineering": "e51fa342430fe91a04d24c993cdfd574d79814cd26e9771fd4850c0655274a18",
+    "wood-and-paper-technology": "cf87ba50d9d6e01966e9b71b832bfe617a2f9d575e8d38bc57434691aa11c518"
+  },
+  "issues": [],
+  "status": "passed"
+}

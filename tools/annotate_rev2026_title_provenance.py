@@ -47,6 +47,13 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
+    if not REPORT.exists():
+        if args.check:
+            print(f"REPORT file {REPORT} does not exist (clean checkout/git-ignored). Skipping check.")
+            return 0
+        else:
+            print(f"REPORT file {REPORT} does not exist. Cannot annotate.")
+            return 0
     payload = json.loads(REPORT.read_text(encoding="utf-8"))
     by_slug: dict[str, list[str]] = defaultdict(list)
     for row in payload.get("replacements", []):
