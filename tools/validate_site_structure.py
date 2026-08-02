@@ -12,11 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "site-structure-validation.json"
 
 
-def read(path: str, optional: bool = False) -> str:
+def read(path: str) -> str:
     file_path = ROOT / path
     if not file_path.exists():
-        if optional:
-            return ""
         raise FileNotFoundError(path)
     return file_path.read_text(encoding="utf-8", errors="ignore")
 
@@ -51,13 +49,7 @@ def main() -> int:
     rev26 = read("revision-2026.html")
     lesson_js = read("assets/js/lesson-navigation-fix.js")
     lesson_css = read("assets/css/lesson-page-fix.css")
-
-    android_path = ROOT / "android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java"
-    if android_path.exists():
-        android_activity = android_path.read_text(encoding="utf-8", errors="ignore")
-    else:
-        android_activity = None
-    android_activity = read("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java", optional=True)
+    android_activity = read("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java")
 
     check("homepage has no floating Ask POLY duplicate", "home-ask-poly-float" not in index, "Floating Ask POLY markup/style must be absent.")
     check("homepage revision cards are not repeated", count(r'class="choice-card[^>]*"[^>]+href="/?revision-202[16]\.html"', index) == 0, "Revision destinations belong in the hero, not repeated feature cards.")
@@ -110,6 +102,7 @@ def main() -> int:
         len(rev21_lessons) >= minimum_rev21_lessons and len(rev26_lessons) >= minimum_rev26_lessons,
         f"{lesson_count_detail} Minimums: REV2021={minimum_rev21_lessons}, REV2026={minimum_rev26_lessons}.",
     )
+    check("all 126 lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 35, lesson_count_detail)
     check("all lesson files have an HTML doctype", not missing_doctype, "Missing: " + (", ".join(missing_doctype) if missing_doctype else "none"))
     check("all lesson files have responsive viewport metadata", not missing_viewport, "Missing: " + (", ".join(missing_viewport) if missing_viewport else "none"))
     check("all lesson files load the shared responsive shell", not missing_shell, "Missing: " + (", ".join(missing_shell) if missing_shell else "none"))
@@ -121,14 +114,7 @@ def main() -> int:
     check("lesson shell recognizes both revision route families", "revision-2026-content" in lesson_js and "lessonPath" in lesson_js and "lessons-" in lesson_js, "REV2021 and REV2026 routes must share one shell.")
     check("lesson shell uses explicit APK detection", "PolytechnicStudyHubAndroid" in lesson_js and "PolyPmnaAndroid" in lesson_js, "Only the official APK user agents may enable native-app mode.")
     check("lesson CSS removes width limits", "max-width: none !important" in lesson_css and ".polytechnic-native-app" in lesson_css, "Lessons must fill desktop, mobile and APK viewports.")
-    if android_activity is not None:
-        check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
-    else:
-        check("Android WebView removes duplicate lesson chrome", True, "Skipped (Android app source not present in this checkout).")
-    if android_activity:
-        check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
-    else:
-        check("Android WebView removes duplicate lesson chrome", True, "Android app source code is not present in checkout (optional).")
+    check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
 
     core_pages = ["index.html", "about.html", "revision-2021.html", "revision-2026.html", "daily-quiz.html", "ask-poly.html", "materials-2015.html", "tools.html", "contact.html"]
     stale_home_links = []

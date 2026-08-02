@@ -71,12 +71,14 @@
   globalThis.MATERIALS_2015 = MATERIALS_2015;
 
   function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+    return window.PolyUtils?.escapeHtml
+      ? window.PolyUtils.escapeHtml(value)
+      : String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
   }
 
   function safeExternalUrl(value) {
