@@ -18,3 +18,9 @@ This journal documents project-specific release practices, deployment constraint
 **Learning:** Valid metadata configuration and structured release steps are essential for automated environments. Duplicate keys and invalid formatting inside `build-info.json` break JSON parsers, causing automation scripts to fail. Furthermore, the absence of a centralized, developer-facing release and deployment checklist can lead to missing validation checks or inconsistent manual rollbacks.
 
 **Action:** Maintain single valid JSON schemas in metadata files like `build-info.json` and compile formal documentation in `RELEASE-CHECKLIST.md` to guarantee robust and repeatable release pipelines.
+
+## 2026-08-02 - Enhancing Quality Gate Robustness for Clean Web Checkouts
+
+**Learning:** Pre-deployment validation scripts like `validate_site_structure.py` that depend on non-website project directories (such as the Android application source `MainActivity.java`) can throw fatal exceptions in clean, web-only checkout environments where those directories are excluded. This prevents running local or automated quality assurance checks on the web frontend.
+
+**Action:** Always check for the physical existence of optional or platform-specific source directories before initiating structural validations. If they are missing, handle the scenario gracefully by skipping the dependent tests with a clear skipped status while allowing other critical checks to complete successfully.
