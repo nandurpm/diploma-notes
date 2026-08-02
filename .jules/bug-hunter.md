@@ -17,3 +17,13 @@
 **Learning:** Querying file modification dates via `git log -1` on PR branches is susceptible to automated test environment merge commits. Adding `--no-merges` instructs `git log` to bypass the merge commit and resolve the true author commit dates.
 
 **Action:** Always append `--no-merges` when using `git log -1` to fetch file-specific commit properties during automated CI checks.
+
+## 2026-08-02 - Premature Test Failures due to Hardened JWT Regex Checks
+
+**Bug:** Multiple backend authentication tests in `workers/ask-poly-ai/test/result-store.test.js` failed out-of-the-box, throwing unexpected 401 errors instead of assertions checking the intended logic (like 502/503/504).
+
+**Root Cause:** Production code in `result-store.js` was hardened to enforce strict format checks via `JWT_REGEX` on incoming Bearer tokens. Several older tests passed dummy strings like `"test-token"` or `"invalid-token"` which failed this format pre-validation, terminating the authentication function early before reaching the mock fetch handlers.
+
+**Learning:** When hardening validation patterns in production helper libraries, always ensure associated mock data/test cases in the unit tests are fully synchronized to pass those structural filters before checking downstream logical outcomes.
+
+**Action:** Before debugging complex error handling or downstream fetches in tests, always verify that mock inputs successfully pass early validation filters like regex or schemas.
