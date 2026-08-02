@@ -64,13 +64,19 @@
     Q.elements.serviceWarning?.classList.add("hidden");
   };
 
+  // PERFORMANCE OPTIMIZATION: Cache the fallback Intl.DateTimeFormat instance in module-level scope
+  // to avoid redundant timezone resolution and constructor overhead on Date IST formatting.
+  let fallbackFormatter = null;
   Q.dateKeyIST = () => {
     if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
       return window.PolyUtils.formatDateKey();
     }
-    const parts = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit",
-    }).formatToParts(new Date());
+    if (!fallbackFormatter) {
+      fallbackFormatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit",
+      });
+    }
+    const parts = fallbackFormatter.formatToParts(new Date());
     const pick = (type) => parts.find((part) => part.type === type)?.value || "";
     return `${pick("year")}-${pick("month")}-${pick("day")}`;
   };

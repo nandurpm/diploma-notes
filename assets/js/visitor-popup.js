@@ -59,14 +59,20 @@
   const AUTO_CLOSE_MS = 60000;
   const forceShow = /(?:[?&]showPopup=1\b|#showPopup\b)/i.test(location.search + location.hash);
 
+  // PERFORMANCE OPTIMIZATION: Cache the fallback Intl.DateTimeFormat instance in module-level scope
+  // to avoid redundant timezone resolution and constructor overhead on today() queries.
+  let cachedFormatter = null;
   const today = () => {
     try {
-      const parts = new Intl.DateTimeFormat("en-GB", {
-        timeZone: "Asia/Kolkata",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit"
-      }).formatToParts(new Date());
+      if (!cachedFormatter) {
+        cachedFormatter = new Intl.DateTimeFormat("en-GB", {
+          timeZone: "Asia/Kolkata",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
+        });
+      }
+      const parts = cachedFormatter.formatToParts(new Date());
       const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
       return `${values.year}-${values.month}-${values.day}`;
     } catch (_) {
