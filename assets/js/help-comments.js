@@ -125,9 +125,16 @@ async function initializeDiscussion() {
     return true;
   };
 
-  const formatDate = timestamp => timestamp?.toDate
-    ? new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" }).format(timestamp.toDate())
-    : "Posting…";
+  // PERFORMANCE OPTIMIZATION: Cache the Intl.DateTimeFormat instance in module-level scope
+  // to avoid redundant object creation when formatting lists of comments on render passes.
+  let cachedFormatter = null;
+  const formatDate = timestamp => {
+    if (!timestamp?.toDate) return "Posting…";
+    if (!cachedFormatter) {
+      cachedFormatter = new Intl.DateTimeFormat("en-IN", { dateStyle: "medium", timeStyle: "short" });
+    }
+    return cachedFormatter.format(timestamp.toDate());
+  };
 
   const initials = name => name.trim().split(/\s+/).slice(0, 2).map(part => part[0]?.toUpperCase() || "").join("") || "S";
   const isDeleted = item => item.deleted === true || (item.author === "Deleted" && item.message === "This comment was deleted.");

@@ -46,16 +46,22 @@
     if (type) element.classList.add(type);
   };
 
+  // PERFORMANCE OPTIMIZATION: Cache the fallback Intl.DateTimeFormat instance in module-level scope
+  // to avoid redundant timezone resolution and constructor overhead on every interval clock tick.
+  let fallbackFormatter = null;
   DQ.localDateKeyIST = () => {
     if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
       return window.PolyUtils.formatDateKey();
     }
-    const parts = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    }).formatToParts(new Date());
+    if (!fallbackFormatter) {
+      fallbackFormatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    }
+    const parts = fallbackFormatter.formatToParts(new Date());
 
     const value = (type) =>
       parts.find((item) => item.type === type)?.value ?? "";

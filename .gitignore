@@ -54,3 +54,19 @@ revision-2026-content/notes/*.pdf
 
 # Temp directories
 tmp/
+
+# Non-website source code (external services/apps)
+android-app/
+workers/
+supabase/
+functions/
+firebase.json
+wrangler.toml
+wrangler.jsonc
+
+# Build utility data (not served on site)
+data/
+docs/
+notifications/
+reports/
+automation/

@@ -2,6 +2,7 @@
 const clean = (value, maximum = 500) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const JWT_REGEX = /^[a-z0-9_-]+\.[a-z0-9_-]+\.[a-z0-9_-]+$/i;
 
 /* Secure fetch wrapper with AbortController timeout to prevent hanging connections */
 async function fetchWithTimeout(url, options = {}, timeoutMs = 7000) {
@@ -38,6 +39,9 @@ export function canStoreVerifiedResults(env) {
 export async function authenticateStudent(request, env) {
   const token = bearerToken(request);
   if (!token) throw Object.assign(new Error("Sign in before submitting a mock examination."), { status: 401 });
+  if (!JWT_REGEX.test(token)) {
+    throw Object.assign(new Error("Your login session is invalid or expired."), { status: 401 });
+  }
   const base = supabaseBase(env);
   const anonKey = clean(env?.SUPABASE_ANON_KEY, 4096);
   if (!base || !anonKey) throw Object.assign(new Error("Verified result storage is not configured."), { status: 503 });
