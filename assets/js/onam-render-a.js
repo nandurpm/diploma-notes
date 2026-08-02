@@ -34,13 +34,19 @@
     document.head.append(link);
   }
 
+  // PERFORMANCE OPTIMIZATION: Cache the fallback Intl.DateTimeFormat instance in module-level scope
+  // to avoid redundant timezone resolution and constructor overhead on festive day calculations.
+  let fallbackFormatter = null;
   function getISTDate() {
-    const p = new Intl.DateTimeFormat("en-CA", {
-      timeZone: "Asia/Kolkata",
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
-    }).formatToParts(new Date()).reduce((a, x) => {
+    if (!fallbackFormatter) {
+      fallbackFormatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+    }
+    const p = fallbackFormatter.formatToParts(new Date()).reduce((a, x) => {
       if (x.type !== "literal") a[x.type] = x.value;
       return a;
     }, {});

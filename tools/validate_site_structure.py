@@ -12,9 +12,11 @@ ROOT = Path(__file__).resolve().parents[1]
 REPORT = ROOT / "reports" / "site-structure-validation.json"
 
 
-def read(path: str) -> str:
+def read(path: str, optional: bool = False) -> str:
     file_path = ROOT / path
     if not file_path.exists():
+        if optional:
+            return ""
         raise FileNotFoundError(path)
     return file_path.read_text(encoding="utf-8", errors="ignore")
 
@@ -55,6 +57,7 @@ def main() -> int:
         android_activity = android_path.read_text(encoding="utf-8", errors="ignore")
     else:
         android_activity = None
+    android_activity = read("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java", optional=True)
 
     check("homepage has no floating Ask POLY duplicate", "home-ask-poly-float" not in index, "Floating Ask POLY markup/style must be absent.")
     check("homepage revision cards are not repeated", count(r'class="choice-card[^>]*"[^>]+href="/?revision-202[16]\.html"', index) == 0, "Revision destinations belong in the hero, not repeated feature cards.")
@@ -122,6 +125,10 @@ def main() -> int:
         check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
     else:
         check("Android WebView removes duplicate lesson chrome", True, "Skipped (Android app source not present in this checkout).")
+    if android_activity:
+        check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
+    else:
+        check("Android WebView removes duplicate lesson chrome", True, "Android app source code is not present in checkout (optional).")
 
     core_pages = ["index.html", "about.html", "revision-2021.html", "revision-2026.html", "daily-quiz.html", "ask-poly.html", "materials-2015.html", "tools.html", "contact.html"]
     stale_home_links = []
