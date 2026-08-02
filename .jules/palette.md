@@ -26,3 +26,8 @@
 ## 2026-07-29 - Accessible Tablist Arrow Navigation and Aria Selected States
 **Learning:** In standard-compliant accessible interfaces, multi-tab layout components (such as login/register auth tabs) inside a `role="tablist"` container must support seamless left/right arrow key navigation to cycle between active tabs. Furthermore, the selection change must immediately synchronize the `aria-selected` state on each tab button to provide screen readers with accurate audio cues of the active tab.
 **Action:** Always bind ArrowLeft and ArrowRight keyboard event listeners on tab elements inside custom tablists, and explicitly toggle their `aria-selected` attributes alongside their visual active classes.
+
+
+## 2026-08-02 - Accessible Real-Time Character Counters and ARIA-Live Polite
+**Learning:** Real-time character counters associated with textareas must utilize `aria-live="polite"` rather than `aria-live="assertive"`, and must be associated with the textarea using `aria-describedby` referencing the counter's ID. This guarantees that when a keyboard user focuses or types into the input, the count of remaining characters is announced without interrupting active typing voice feedback, avoiding screen-reader auditory clutter.
+**Action:** Always link textareas with their real-time character counters using `aria-describedby` and set `aria-live="polite"` on the counter container to ensure an optimal balance of visual feedback and screen-reader friendliness.
