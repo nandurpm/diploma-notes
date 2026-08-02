@@ -24,6 +24,12 @@
   let cachedFormatter = null;
 
   function indiaDateKey(date = new Date()) {
+    if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
+      return window.PolyUtils.formatDateKey(date);
+    }
+    if (window.DiplomaImportantDays && typeof window.DiplomaImportantDays.getIndiaDateKey === "function") {
+      return window.DiplomaImportantDays.getIndiaDateKey(date);
+    }
     if (!cachedFormatter) {
       cachedFormatter = new Intl.DateTimeFormat("en", {
         timeZone: "Asia/Kolkata",

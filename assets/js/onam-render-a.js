@@ -38,6 +38,12 @@
   // to avoid redundant timezone resolution and constructor overhead on festive day calculations.
   let fallbackFormatter = null;
   function getISTDate() {
+    if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
+      return window.PolyUtils.formatDateKey();
+    }
+    if (window.DiplomaImportantDays && typeof window.DiplomaImportantDays.getIndiaDateKey === "function") {
+      return window.DiplomaImportantDays.getIndiaDateKey();
+    }
     if (!fallbackFormatter) {
       fallbackFormatter = new Intl.DateTimeFormat("en-CA", {
         timeZone: "Asia/Kolkata",
