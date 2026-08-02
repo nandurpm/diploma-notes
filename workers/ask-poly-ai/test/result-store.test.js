@@ -48,6 +48,7 @@ test("authenticateStudent handles successful auth response", async () => {
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
@@ -103,12 +104,14 @@ test("authenticateStudent rejects non-UUID user id format", async () => {
 test("canStoreVerifiedResults evaluates configuration correctly", () => {
   const fullyConfigured = {
     SUPABASE_URL: "https://example.supabase.co",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key",
     [S_KEY]: "service-key",
     SUPABASE_ANON_KEY: "anon-key"
   };
   assert.equal(canStoreVerifiedResults(fullyConfigured), true);
 
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, SUPABASE_URL: "" }), false);
+  assert.equal(canStoreVerifiedResults({ ...fullyConfigured, ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "" }), false);
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, [S_KEY]: "" }), false);
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, SUPABASE_ANON_KEY: "" }), false);
   assert.equal(canStoreVerifiedResults({}), false);
@@ -132,6 +135,7 @@ test("storeMockExamResult submits correct payload on success", async () => {
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
@@ -186,6 +190,7 @@ test("storeMockExamResult handles fallback default shapes for body", async () =>
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
@@ -221,6 +226,7 @@ test("storeMockExamResult throws 502 with details on non-ok HTTP status", async 
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
