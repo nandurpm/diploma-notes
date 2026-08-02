@@ -51,6 +51,12 @@ def main() -> int:
     rev26 = read("revision-2026.html")
     lesson_js = read("assets/js/lesson-navigation-fix.js")
     lesson_css = read("assets/css/lesson-page-fix.css")
+
+    android_path = ROOT / "android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java"
+    if android_path.exists():
+        android_activity = android_path.read_text(encoding="utf-8", errors="ignore")
+    else:
+        android_activity = None
     android_activity = read("android-app/app/src/main/java/org/diplomanotes/polytechnicstudyhub/MainActivity.java", optional=True)
 
     check("homepage has no floating Ask POLY duplicate", "home-ask-poly-float" not in index, "Floating Ask POLY markup/style must be absent.")
@@ -115,6 +121,10 @@ def main() -> int:
     check("lesson shell recognizes both revision route families", "revision-2026-content" in lesson_js and "lessonPath" in lesson_js and "lessons-" in lesson_js, "REV2021 and REV2026 routes must share one shell.")
     check("lesson shell uses explicit APK detection", "PolytechnicStudyHubAndroid" in lesson_js and "PolyPmnaAndroid" in lesson_js, "Only the official APK user agents may enable native-app mode.")
     check("lesson CSS removes width limits", "max-width: none !important" in lesson_css and ".polytechnic-native-app" in lesson_css, "Lessons must fill desktop, mobile and APK viewports.")
+    if android_activity is not None:
+        check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
+    else:
+        check("Android WebView removes duplicate lesson chrome", True, "Skipped (Android app source not present in this checkout).")
     if android_activity:
         check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
     else:

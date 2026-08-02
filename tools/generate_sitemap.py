@@ -63,12 +63,39 @@ def canonical_for(path: Path) -> str | None:
     return url
 
 
+def get_existing_pdf_entries() -> dict[str, str]:
+    existing: dict[str, str] = {}
+    target = ROOT / "sitemap.xml"
+    if not target.exists():
+        return existing
+    try:
+        from xml.etree import ElementTree as ET
+        ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        root = ET.parse(target)
+        for url_node in root.findall("sm:url", ns):
+            loc_node = url_node.find("sm:loc", ns)
+            lastmod_node = url_node.find("sm:lastmod", ns)
+            if loc_node is not None and lastmod_node is not None:
+                url = (loc_node.text or "").strip()
+                lastmod = (lastmod_node.text or "").strip()
+                if url.endswith(".pdf"):
+                    existing[url] = lastmod
+    except Exception:
+        pass
+    return existing
+
+
 def entries() -> list[tuple[str, str]]:
     found: dict[str, str] = {}
     for path in ROOT.rglob("*.html"):
         url = canonical_for(path)
         if url:
             found[url] = git_lastmod(path)
+
+    # Preserve existing PDF sitemap entries if files are not present on disk
+    for url, lastmod in get_existing_pdf_entries().items():
+        found[url] = lastmod
+
     for pattern in ("notes/*.pdf", "revision-2026-content/notes/*.pdf"):
         for path in ROOT.glob(pattern):
             if path.is_file():
