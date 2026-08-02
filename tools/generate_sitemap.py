@@ -24,6 +24,7 @@ EXCLUDED_FILES = {
     "tools-v2.html",
     "tools-v2-original.html",
     "revision-2026/department-view.html",
+    "first-year-materials.html",
 }
 CANONICAL_RE = re.compile(r'<link\s+[^>]*rel=["\'][^"\']*canonical[^"\']*["\'][^>]*href=["\']([^"\']+)', re.I)
 CANONICAL_RE_REVERSED = re.compile(r'<link\s+[^>]*href=["\']([^"\']+)["\'][^>]*rel=["\'][^"\']*canonical', re.I)
