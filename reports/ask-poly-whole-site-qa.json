@@ -1,0 +1,134 @@
+{
+  "page": "/ask-poly.html",
+  "status": "success",
+  "generatedAt": "2026-08-01T20:29:45.918Z",
+  "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
+  "checks": [
+    {
+      "name": "Ask POLY page returns successfully",
+      "passed": true,
+      "status": 200
+    },
+    {
+      "name": "page title identifies Ask POLY",
+      "passed": true,
+      "title": "Ask POLY AI | POLY PMNA"
+    },
+    {
+      "name": "Revision 2026 navigation exists",
+      "passed": true
+    },
+    {
+      "name": "whole-site knowledge loads",
+      "passed": true,
+      "status": {
+        "ok": true,
+        "version": "2026-07-whole-site-v1",
+        "generatedAt": "2026-08-01T19:09:13Z",
+        "counts": {
+          "pages": 253,
+          "programmes2021": 43,
+          "programmes2026": 38,
+          "subjectRecords": 4181,
+          "lessonRecordsAvailable": 601,
+          "notesRecordsAvailable": 275
+        }
+      }
+    },
+    {
+      "name": "knowledge contains 38 Revision 2026 programmes",
+      "passed": true,
+      "counts": {
+        "pages": 253,
+        "programmes2021": 43,
+        "programmes2026": 38,
+        "subjectRecords": 4181,
+        "lessonRecordsAvailable": 601,
+        "notesRecordsAvailable": 275
+      }
+    },
+    {
+      "name": "knowledge contains both curriculum datasets",
+      "passed": true,
+      "counts": {
+        "pages": 253,
+        "programmes2021": 43,
+        "programmes2026": 38,
+        "subjectRecords": 4181,
+        "lessonRecordsAvailable": 601,
+        "notesRecordsAvailable": 275
+      }
+    },
+    {
+      "name": "desktop has no horizontal overflow",
+      "passed": true,
+      "viewport": 1440,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "name": "AI request was sent",
+      "passed": true
+    },
+    {
+      "name": "user question stays separate from context",
+      "passed": true,
+      "message": "Where can I find Revision 2026 Electrical & Electronics Engineering subject 1008 and what resources are available?"
+    },
+    {
+      "name": "generated website context is attached",
+      "passed": true
+    },
+    {
+      "name": "Revision 2026 subject match is attached",
+      "passed": true
+    },
+    {
+      "name": "Revision 2026 department link is attached",
+      "passed": true
+    },
+    {
+      "name": "current user message is not duplicated in history",
+      "passed": true
+    },
+    {
+      "name": "mobile has no horizontal overflow",
+      "passed": true,
+      "viewport": 390,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "name": "mobile saved chats control is visible",
+      "passed": true
+    },
+    {
+      "name": "mobile saved chats panel opens",
+      "passed": true
+    },
+    {
+      "name": "no relevant console errors",
+      "passed": true,
+      "consoleErrors": []
+    }
+  ],
+  "consoleErrors": [],
+  "requestContextLength": 9000,
+  "knowledgeStatus": {
+    "ok": true,
+    "version": "2026-07-whole-site-v1",
+    "generatedAt": "2026-08-01T19:09:13Z",
+    "counts": {
+      "pages": 253,
+      "programmes2021": 43,
+      "programmes2026": 38,
+      "subjectRecords": 4181,
+      "lessonRecordsAvailable": 601,
+      "notesRecordsAvailable": 275
+    }
+  },
+  "screenshots": [
+    "ask-poly-whole-site-desktop.png",
+    "ask-poly-whole-site-mobile.png"
+  ]
+}

@@ -49,9 +49,47 @@ def natural_sorted(codes: set[str] | list[str]) -> list[str]:
 
 def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[str]:
     codes: set[str] = set()
+    if directory.exists():
+        for path in directory.rglob("*"):
+            if not path.is_file():
+                continue
+            match = filename_pattern.fullmatch(path.name)
+            if not match:
+                continue
+            if path.suffix.lower() == ".pdf" and path.stat().st_size < MIN_VALID_PDF_BYTES:
+                continue
+            codes.add(match.group("code").upper())
+
+    # Dynamic preservation of Revision 2026 git-ignored notes codes from HEAD in clean checkouts
+    if directory == ROOT / "revision-2026-content" / "notes":
+        try:
+            import subprocess
+            text = subprocess.check_output(
+                ["git", "show", "HEAD:assets/js/asset-manifest.js"],
+                cwd=ROOT,
+                text=True,
+                stderr=subprocess.DEVNULL,
+            )
+            match = re.search(r'revision2026NotesCodes:\s*Object\.freeze\(\s*(\[[^\]]*\])\s*\)', text)
+            if match:
+                codes.update(json.loads(match.group(1)))
+        except Exception as e:
+            print(f"Warning: Failed to preserve existing Revision 2026 note codes from HEAD: {e}")
     if not directory.exists():
         return []
 
+    # If collecting Revision 2026 notes, we also dynamically infer them from lesson files
+    # since these PDFs are hosted on CDN/Releases and ignored in git.
+    if directory.as_posix().endswith("revision-2026-content/notes"):
+        lessons_dir = directory.parent / "lessons"
+        if lessons_dir.exists():
+            for path in lessons_dir.glob("lessons-*.html"):
+                match = re.fullmatch(r"lessons-([A-Za-z0-9-]+)\.html", path.name, re.IGNORECASE)
+                if match:
+                    codes.add(match.group(1).upper())
+
+    # We always scan the actual directory as well so that any files physically present on disk
+    # (such as local build output, checked-in files, or test mocks) are correctly detected.
     for path in directory.rglob("*"):
         if not path.is_file():
             continue

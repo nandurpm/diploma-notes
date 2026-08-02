@@ -24,3 +24,11 @@ Only record long-term testing insights here.
 **Learning:** Hardcoded exact-match assertions on total file or directory counts in test and validation suites create artificial build breaks when contents are legitimately added (e.g., going from 29 to 32 lesson files).
 
 **Action:** Ensure structural validation suites are kept in lockstep with codebase milestones or designed to use flexible bounds (such as minimum baseline ranges) unless strict exact equality is absolutely necessary for regression protection.
+
+## 2026-07-30 - Resolving Indentation and Syntax Anomalies in Local Quality Gate Runner Logic
+
+**Scenario:** Running local quality gates or pre-deployment test suites on newly introduced or modified content files.
+
+**Learning:** Syntactic anomalies (such as misaligned Python indentation) or duplicate markup block insertions in dynamic content templates can quietly bypass compiler checks but trigger fatal exceptions during full-tree XML/HTML schema validations or CI quality gate steps.
+
+**Action:** Regularly audit the internal syntax of quality gate runners, assert schema uniqueness in generated HTML metadata, and verify that HTML-normalizer scripts do not duplicate structure blocks.

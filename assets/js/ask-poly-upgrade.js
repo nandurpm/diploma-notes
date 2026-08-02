@@ -34,12 +34,14 @@ Rules:
   function $(id) { return document.getElementById(id); }
 
   function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+    return window.PolyUtils?.escapeHtml
+      ? window.PolyUtils.escapeHtml(value)
+      : String(value ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
   }
 
   function renderMarkdownLite(text) {

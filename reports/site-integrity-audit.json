@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-01T21:05:38Z",
+  "commit": "16e7702f3a0d9d230a825b365013c463500bf944",
+  "branch": "jules-12098420286073598626-ff46d731",
+  "status": "passed",
+  "counts": {
+    "sitemapResources": 317,
+    "htmlResources": 190,
+    "pdfResources": 127,
+    "revision2021Departments": 44,
+    "revision2026Departments": 38,
+    "revision2021Lessons": 91,
+    "revision2026Lessons": 35,
+    "revision2021Notes": 92,
+    "revision2026Notes": 0
+  },
+  "qualityGateOutput": "Site quality gate passed for 317 sitemap resources.",
+  "scope": [
+    "All canonical HTML and indexed PDF resources generated into sitemap.xml",
+    "Metadata, canonical URL, H1, duplicate IDs, skip links and local references",
+    "Critical endpoint, score-integrity, redirect, inline-script and file checks",
+    "Critical JavaScript syntax and secret scanning are handled by CI",
+    "Browser/runtime and production checks are separate workflows"
+  ]
+}

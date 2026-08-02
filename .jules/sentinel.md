@@ -17,3 +17,8 @@
 **Vulnerability:** Downstream storage handlers and rate limiters trust authentication metadata (like `user.id`) and remote request headers (like `CF-Connecting-IP` / `X-Forwarded-For`) without strict format or character verification. This can lead to injection attacks, key spoofing, database query failures, and in-memory Map key bloat/exhaustion.
 **Learning:** Edge-computed state must validate all external system and connection parameters using strict schemas or character filters before use in key construction, database payloads, or cross-origin headers.
 **Prevention:** Enforce strict regex validation for structural keys (e.g., UUID format check for user IDs) and sanitize client IP headers to allow only valid IP characters up to 45 characters max, ensuring consistent defense-in-depth across the entire worker pipeline.
+
+## 2026-08-01 - [Pre-validation of JWT Structure in Edge Worker Handlers]
+**Vulnerability:** Downstream authentication and database APIs are subjected to malformed, blank, or spoofed bearer token payloads, triggering unnecessary network subrequests and exposing the system to resource exhaustion or denial of service.
+**Learning:** Serverless and edge architectures should validate token structure and headers locally before invoking remote identity providers or databases. Rejecting malformed headers early protects billing and rate limit allocations.
+**Prevention:** Always use regex structure validation (like checking for standard three-part JWTs) right after extracting authorization headers and before executing any remote requests.
