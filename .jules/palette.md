@@ -26,3 +26,7 @@
 ## 2026-07-29 - Accessible Tablist Arrow Navigation and Aria Selected States
 **Learning:** In standard-compliant accessible interfaces, multi-tab layout components (such as login/register auth tabs) inside a `role="tablist"` container must support seamless left/right arrow key navigation to cycle between active tabs. Furthermore, the selection change must immediately synchronize the `aria-selected` state on each tab button to provide screen readers with accurate audio cues of the active tab.
 **Action:** Always bind ArrowLeft and ArrowRight keyboard event listeners on tab elements inside custom tablists, and explicitly toggle their `aria-selected` attributes alongside their visual active classes.
+
+## 2026-08-01 - Dynamic Aria-Pressed Toggle State Synchronization
+**Learning:** When using filter buttons that toggle active/inactive states (such as a "Favorites" filter toggle), the visual state change (such as toggling a CSS class like `.primary`) must always be accompanied by a corresponding update to the button's `aria-pressed` attribute. Without this dynamic synchronization, screen readers cannot communicate the toggled selection status to assistive technology users.
+**Action:** Always synchronize visual toggle states on custom filtering and toggle buttons with their dynamic `aria-pressed` values during action triggers.
