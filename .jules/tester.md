@@ -32,3 +32,11 @@ Only record long-term testing insights here.
 **Learning:** Syntactic anomalies (such as misaligned Python indentation) or duplicate markup block insertions in dynamic content templates can quietly bypass compiler checks but trigger fatal exceptions during full-tree XML/HTML schema validations or CI quality gate steps.
 
 **Action:** Regularly audit the internal syntax of quality gate runners, assert schema uniqueness in generated HTML metadata, and verify that HTML-normalizer scripts do not duplicate structure blocks.
+
+## 2026-07-31 - Avoiding Masked Test Gaps and False Passes in Regex-Validated Auth Flows
+
+**Scenario:** Testing downstream user-identity/session validation handlers when early token format validation (such as `JWT_REGEX`) is introduced or tightened in production.
+
+**Learning:** When input validation regexes (like JWT formats) are introduced into production code, pre-existing unit tests that mock external downstream service requests (e.g. Supabase auth user fetch) with generic test strings (e.g., `test-token` or `invalid-token`) will unexpectedly fail early during validation. Even worse, some tests designed to verify downstream service errors (such as non-UUID response rejections) can produce "false passes" (masked coverage) because they throw the expected error status early due to the format regex validation, completely bypassing the downstream logic and mock fetch assertions they were intended to verify.
+
+**Action:** Ensure mock inputs and headers in testing suites are updated to satisfy format requirements (e.g. using `mock.jwt.token` containing standard header.payload.signature structure) so that tests actually execute their target downstream code paths. Add specific, dedicated unit tests to test the format validation independently.
