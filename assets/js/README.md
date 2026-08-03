@@ -1,3 +1,12 @@
+# Quick Overview — English
+
+- Purpose: Client-side JavaScript for the POLY PMNA site. Scripts are grouped by role: site bootstrap, lesson runtime, assistant, quiz, and revision-specific utilities.
+- When editing: update version query strings in HTML to bust cache (e.g., `?v=YYYYMMDD-...`).
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: സൈറ്റ്-സൈഡ് ജാവാസ്ക്രിപ്റ്റ് ഫയലുകൾ ഇവിടെ സ്ഥിതി ചെയ്യുന്നു. ഡാറ്റ/വേർഷൻ മാറ്റങ്ങൾ ഉണ്ടെങ്കിൽ ആസറ്റ് query-string പരിഷ്കരിക്കുക.
+
 # JavaScript Assets
 
 This directory contains all client-side JavaScript files for the POLY PMNA portal. Scripts are organized into several categories:

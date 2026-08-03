@@ -1,3 +1,12 @@
+# Quick Overview — English
+
+- Purpose: Contains the maintenance landing page and runtime guard used during scheduled maintenance windows.
+- To change schedule: edit `assets/js/maintenance-controller.js` and coordinate Deployment.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: മെയിന്റനൻസ് സമയത്ത് കാണിക്കുന്ന പേജ്, അതിന്റെ സ്‌ക്രിപ്റ്റുകൾ എന്നിവ ഇവിടെ സൂക്ഷിക്കുന്നു. ഷെഡ്യൂൾ മാറ്റാൻ `assets/js/maintenance-controller.js` ഞങ്ങൾ എഡിറ്റ് ചെയ്യുക.
+
 # Maintenance Page
 
 The maintenance page displayed to visitors during scheduled maintenance windows.

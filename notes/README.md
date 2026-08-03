@@ -1,3 +1,12 @@
+# Quick Overview — English
+
+- Purpose: This folder contains downloadable Revision 2021 study notes in PDF format named `notes-[CODE].pdf`.
+- These PDFs are linked from the Revision 2021 subject cards and optimized for printing.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: Revision 2021-ന്‌ പിന്തുണയുള്ള PDF ഫയലുകൾ ഇവിടെ സൂക്ഷിക്കുന്നു; ഫയൽ നാമം `notes-[CODE].pdf` ആണ്.
+
 # Notes (Revision 2021)
 
 Downloadable study notes for KSBTE Revision 2021 diploma courses.

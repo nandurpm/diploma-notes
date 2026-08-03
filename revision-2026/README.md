@@ -1,3 +1,12 @@
+# Quick Overview — English
+
+- Purpose: Department landing pages for the Revision 2026 syllabus. These pages are rendered dynamically from `assets/data/revision-2026-subjects.json`.
+- To update data: edit `assets/data/revision-2026-subjects.json` and open a PR.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: Revision 2026-ന്‍റെ ഡിപ്പാർട്ട്‌മെന്റ് ലാൻഡിംഗ് പേജുകൾ ഇവിടെ സൂക്ഷിക്കുന്നു. ഡാറ്റ് ഫയലുകൾ `assets/data/`-ൽ അപ്ഡേറ്റ് ചെയ്യുക.
+
 # Revision 2026 Department Pages
 
 Department landing pages for the KSBTE Revision 2026 diploma programmes.

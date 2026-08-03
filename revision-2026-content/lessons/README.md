@@ -1,3 +1,18 @@
+# Quick Overview — English
+
+- Purpose: Add Revision 2026 lesson HTML files here. Filenames must follow `lessons-[SUBJECT_CODE].html`.
+- After commit: GitHub Actions will detect new lessons and enable site links automatically. If PDFs are missing, the site opens the lesson in print mode so a PDF can be created.
+- Local preview: start a static server and open the lesson HTML in a browser to check layout and print behaviour.
+
+```bash
+python -m http.server 8000
+```
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: Revision 2026-ന് അനുയോജ്യമായ lesson HTML ഫയലുകൾ ഇവിടെ ചേർക്കുക. ഫയൽ നാമം `lessons-[CODE].html` എന്നതായിരിക്കണം.
+- commit ചെയ്തശേഷം GitHub Actions പുതുക്കലുകൾ അവതരിപ്പിക്കും. PDF ഇല്ലെങ്കിൽ സൈറ്റ് lesson പിൻവലിച്ച് print mode വഴി PDF സൃഷ്ടിക്കാൻ സത്യവാങ്മൂലം നൽകും.
+
 # Revision 2026 lesson HTML files
 
 Add Revision 2026 lesson pages here using this exact filename format:
