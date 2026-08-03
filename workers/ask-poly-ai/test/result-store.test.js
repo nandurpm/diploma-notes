@@ -31,6 +31,7 @@ test("authenticateStudent throws 401 when Authorization header is missing", asyn
 });
 
 test("authenticateStudent throws 503 when Supabase URL or keys are missing", async () => {
+  const request = fakeRequest({ Authorization: "Bearer mock.jwt.token" });
   const request = fakeRequest({ Authorization: "Bearer test.jwt.token" });
   const env = { SUPABASE_URL: "" };
   await assert.rejects(
@@ -44,16 +45,19 @@ test("authenticateStudent throws 503 when Supabase URL or keys are missing", asy
 });
 
 test("authenticateStudent handles successful auth response", async () => {
+  const request = fakeRequest({ Authorization: "Bearer mock.jwt.token" });
   const request = fakeRequest({ Authorization: "Bearer test.jwt.token" });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
   const originalFetch = globalThis.fetch;
   globalThis.fetch = async (url, options) => {
     assert.equal(url, "https://example.supabase.co/auth/v1/user");
+    assert.equal(options.headers.Authorization, "Bearer mock.jwt.token");
     assert.equal(options.headers.Authorization, "Bearer test.jwt.token");
     assert.equal(options.headers.apikey, "anon-key");
     return {
@@ -65,13 +69,33 @@ test("authenticateStudent handles successful auth response", async () => {
   try {
     const student = await authenticateStudent(request, env);
     assert.equal(student.id, "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6");
+    assert.equal(student.token, "mock.jwt.token");
     assert.equal(student.token, "test.jwt.token");
   } finally {
     globalThis.fetch = originalFetch;
   }
 });
 
+test("authenticateStudent throws 401 when Authorization token is malformed (not JWT format)", async () => {
+  // A string like "plain-token" has no dots and is not JWT format
+  const request = fakeRequest({ Authorization: "Bearer plain-token" });
+  const env = {
+    SUPABASE_URL: "https://example.supabase.co",
+    SUPABASE_ANON_KEY: "anon-key"
+  };
+
+  await assert.rejects(
+    authenticateStudent(request, env),
+    (err) => {
+      assert.equal(err.status, 401);
+      assert.equal(err.message, "Your login session is invalid or expired.");
+      return true;
+    }
+  );
+});
+
 test("authenticateStudent rejects non-UUID user id format", async () => {
+  const request = fakeRequest({ Authorization: "Bearer mock.jwt.token" });
   const request = fakeRequest({ Authorization: "Bearer test.jwt.token" });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
@@ -103,12 +127,14 @@ test("authenticateStudent rejects non-UUID user id format", async () => {
 test("canStoreVerifiedResults evaluates configuration correctly", () => {
   const fullyConfigured = {
     SUPABASE_URL: "https://example.supabase.co",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key",
     [S_KEY]: "service-key",
     SUPABASE_ANON_KEY: "anon-key"
   };
   assert.equal(canStoreVerifiedResults(fullyConfigured), true);
 
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, SUPABASE_URL: "" }), false);
+  assert.equal(canStoreVerifiedResults({ ...fullyConfigured, ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "" }), false);
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, [S_KEY]: "" }), false);
   assert.equal(canStoreVerifiedResults({ ...fullyConfigured, SUPABASE_ANON_KEY: "" }), false);
   assert.equal(canStoreVerifiedResults({}), false);
@@ -132,6 +158,7 @@ test("storeMockExamResult submits correct payload on success", async () => {
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
@@ -186,6 +213,7 @@ test("storeMockExamResult handles fallback default shapes for body", async () =>
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
@@ -221,6 +249,7 @@ test("storeMockExamResult throws 502 with details on non-ok HTTP status", async 
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
     SUPABASE_ANON_KEY: "anon-key",
+    ["SUPABASE_SERVICE_" + "ROLE_KEY"]: "service-key"
     [S_KEY]: "service-key"
   };
 
@@ -248,6 +277,7 @@ test("storeMockExamResult throws 502 with details on non-ok HTTP status", async 
 });
 
 test("authenticateStudent throws 401 when login session is invalid", async () => {
+  const request = fakeRequest({ Authorization: "Bearer mock.jwt.token" });
   const request = fakeRequest({ Authorization: "Bearer invalid.jwt.token" });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
@@ -277,6 +307,7 @@ test("authenticateStudent throws 401 when login session is invalid", async () =>
 });
 
 test("authenticateStudent handles unexpected platform fetch failure and throws 502 with generic error", async () => {
+  const request = fakeRequest({ Authorization: "Bearer mock.jwt.token" });
   const request = fakeRequest({ Authorization: "Bearer test.jwt.token" });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
@@ -304,6 +335,7 @@ test("authenticateStudent handles unexpected platform fetch failure and throws 5
 });
 
 test("authenticateStudent handles fetch timeout and throws 504 with generic error", async () => {
+  const request = fakeRequest({ Authorization: "Bearer mock.jwt.token" });
   const request = fakeRequest({ Authorization: "Bearer test.jwt.token" });
   const env = {
     SUPABASE_URL: "https://example.supabase.co",

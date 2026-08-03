@@ -124,6 +124,10 @@ def main() -> int:
     else:
         android_detail += " (Android directory absent; check skipped)"
     check("Android WebView removes duplicate lesson chrome", android_passed, android_detail)
+    if has_android:
+        check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
+    else:
+        check("Android WebView removes duplicate lesson chrome (skipped)", True, "Android app source directory is not present in this checkout.")
 
     core_pages = ["index.html", "about.html", "revision-2021.html", "revision-2026.html", "daily-quiz.html", "ask-poly.html", "materials-2015.html", "tools.html", "contact.html"]
     stale_home_links = []
