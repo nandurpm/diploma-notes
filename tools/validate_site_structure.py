@@ -116,6 +116,14 @@ def main() -> int:
     check("lesson shell recognizes both revision route families", "revision-2026-content" in lesson_js and "lessonPath" in lesson_js and "lessons-" in lesson_js, "REV2021 and REV2026 routes must share one shell.")
     check("lesson shell uses explicit APK detection", "PolytechnicStudyHubAndroid" in lesson_js and "PolyPmnaAndroid" in lesson_js, "Only the official APK user agents may enable native-app mode.")
     check("lesson CSS removes width limits", "max-width: none !important" in lesson_css and ".polytechnic-native-app" in lesson_css, "Lessons must fill desktop, mobile and APK viewports.")
+
+    android_passed = True
+    android_detail = "The APK must keep only its native app bar around lessons."
+    if has_android:
+        android_passed = "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity
+    else:
+        android_detail += " (Android directory absent; check skipped)"
+    check("Android WebView removes duplicate lesson chrome", android_passed, android_detail)
     if has_android:
         check("Android WebView removes duplicate lesson chrome", "revision-2026-content" in android_activity and "poly-lesson-page" in android_activity and "lesson-header" in android_activity, "The APK must keep only its native app bar around lessons.")
     else:

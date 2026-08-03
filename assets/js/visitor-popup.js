@@ -64,6 +64,12 @@
   let cachedFormatter = null;
   const today = () => {
     try {
+      if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
+        return window.PolyUtils.formatDateKey();
+      }
+      if (window.DiplomaImportantDays && typeof window.DiplomaImportantDays.getIndiaDateKey === "function") {
+        return window.DiplomaImportantDays.getIndiaDateKey();
+      }
       if (!cachedFormatter) {
         cachedFormatter = new Intl.DateTimeFormat("en-GB", {
           timeZone: "Asia/Kolkata",

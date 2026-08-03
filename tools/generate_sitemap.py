@@ -128,8 +128,6 @@ def entries() -> list[tuple[str, str]]:
             if url not in found:
                 found[url] = lastmod
 
-                found[url] = git_lastmod(path)
-
     # Dynamic preservation of missing git-ignored Revision 2026 PDFs to prevent CI check failures
     sitemap_path = ROOT / "sitemap.xml"
     if sitemap_path.is_file():
@@ -191,13 +189,13 @@ def entries() -> list[tuple[str, str]]:
     for path in ROOT.glob("notes/*.pdf"):
         if path.is_file():
             url = f"{ORIGIN}/{path.relative_to(ROOT).as_posix()}"
-            found[url] = git_lastmod(path)
+            found[url] = get_lastmod(url, path)
     for path in ROOT.glob("revision-2026-content/lessons/lessons-*.html"):
         match = re.fullmatch(r"lessons-([0-9]+[A-Za-z]*)\.html", path.name)
         if match:
             code = match.group(1).upper()
             url = f"{ORIGIN}/revision-2026-content/notes/downloadable-notes-{code}.pdf"
-            found[url] = git_lastmod(path)
+            found[url] = get_lastmod(url, path)
     return sorted(found.items(), key=lambda item: (item[0] != f"{ORIGIN}/", item[0]))
 
 
