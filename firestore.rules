@@ -21,6 +21,37 @@ service cloud.firestore {
         !get(/databases/$(database)/documents/helpComments/$(parentId)).data.keys().hasAny(["deleted"]);
     }
 
+    function isValidRateLimitUpdate(uid) {
+      return isSignedIn() &&
+        uid == request.auth.uid &&
+        request.resource.data.keys().hasAll(["lastPostAt", "dailyCount", "lastDay"]) &&
+        request.resource.data.keys().hasOnly(["lastPostAt", "dailyCount", "lastDay"]) &&
+        request.resource.data.lastPostAt == request.time &&
+        request.resource.data.dailyCount is int &&
+        request.resource.data.lastDay is string &&
+        (
+          (
+            !exists(/databases/$(database)/documents/rateLimits/$(uid)) &&
+            request.resource.data.dailyCount == 1
+          ) ||
+          (
+            exists(/databases/$(database)/documents/rateLimits/$(uid)) &&
+            request.time > get(/databases/$(database)/documents/rateLimits/$(uid)).data.lastPostAt + duration.value(60, 's') &&
+            (
+              (
+                request.resource.data.lastDay != get(/databases/$(database)/documents/rateLimits/$(uid)).data.lastDay &&
+                request.resource.data.dailyCount == 1
+              ) ||
+              (
+                request.resource.data.lastDay == get(/databases/$(database)/documents/rateLimits/$(uid)).data.lastDay &&
+                request.resource.data.dailyCount == get(/databases/$(database)/documents/rateLimits/$(uid)).data.dailyCount + 1 &&
+                request.resource.data.dailyCount <= 50
+              )
+            )
+          )
+        );
+    }
+
     function isValidNewComment() {
       return isSignedIn() &&
         request.resource.data.keys().hasAll(["pageId", "author", "message", "parentId", "uid", "createdAt"]) &&
@@ -38,7 +69,9 @@ service cloud.firestore {
         (
           request.resource.data.parentId == null ||
           isActiveTopLevelParent(request.resource.data.parentId)
-        );
+        ) &&
+        // Securely require that the user's rateLimit doc is updated in the same transaction
+        getAfter(/databases/$(database)/documents/rateLimits/$(request.auth.uid)).data.lastPostAt == request.time;
     }
 
     function isValidParentSoftDelete() {
@@ -63,6 +96,11 @@ service cloud.firestore {
       allow delete: if ownsExistingComment() &&
         resource.data.pageId == "help" &&
         resource.data.parentId is string;
+    }
+
+    match /rateLimits/{uid} {
+      allow read: if isSignedIn() && uid == request.auth.uid;
+      allow create, update: if isValidRateLimitUpdate(uid);
     }
 
     match /{document=**} {

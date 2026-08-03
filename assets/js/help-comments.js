@@ -102,6 +102,48 @@ async function initializeDiscussion() {
     return authPromise;
   };
 
+  const postCommentAndRateLimit = async (author, message, parentId = null) => {
+    const user = await ensureAuthenticated();
+    const todayStr = new Date().toISOString().split("T")[0];
+    const rateLimitRef = firestoreModule.doc(db, "rateLimits", user.uid);
+
+    // Fetch the rate limit record first to increment and enforce dailyCount
+    const rateLimitSnap = await firestoreModule.getDoc(rateLimitRef);
+    let dailyCount = 1;
+    if (rateLimitSnap.exists()) {
+      const data = rateLimitSnap.data();
+      if (data.lastDay === todayStr) {
+        dailyCount = (data.dailyCount || 0) + 1;
+        if (dailyCount > 50) {
+          throw new Error("Daily comment limit exceeded.");
+        }
+      }
+    }
+
+    const batch = firestoreModule.writeBatch(db);
+
+    // 1. Create reference for the new comment with auto-generated ID
+    const newCommentRef = firestoreModule.doc(commentsRef);
+    batch.set(newCommentRef, {
+      pageId: "help",
+      author,
+      message,
+      parentId,
+      uid: user.uid,
+      createdAt: firestoreModule.serverTimestamp()
+    });
+
+    // 2. Set/Update the rateLimit document in the same transaction
+    batch.set(rateLimitRef, {
+      lastPostAt: firestoreModule.serverTimestamp(),
+      dailyCount,
+      lastDay: todayStr
+    }, { merge: true });
+
+    // 3. Commit transaction atomic write
+    await batch.commit();
+  };
+
   const savedName = localStorage.getItem("diplomaNotesCommentName");
   if (savedName) nameInput.value = savedName;
 
@@ -198,18 +240,18 @@ async function initializeDiscussion() {
       if (!validate(author, message, textarea, "Reply")) return;
       submit.disabled = true;
       try {
-        const user = await ensureAuthenticated();
-        await firestoreModule.addDoc(commentsRef, {
-          pageId: "help", author, message, parentId: parent.id, uid: user.uid,
-          createdAt: firestoreModule.serverTimestamp()
-        });
+        await postCommentAndRateLimit(author, message, parent.id);
         localStorage.setItem("diplomaNotesCommentName", author);
         rememberPost(message);
         replyForm.remove();
         setStatus("Reply posted.", "success");
       } catch (error) {
         console.error("Could not post reply.", error);
-        setStatus("Could not post the reply.", "error");
+        if (error.message === "Daily comment limit exceeded.") {
+          setStatus("You have reached your daily comment limit.", "error");
+        } else {
+          setStatus("Could not post the reply.", "error");
+        }
         submit.disabled = false;
       }
     });
@@ -299,11 +341,7 @@ async function initializeDiscussion() {
     submitButton.disabled = true;
     setStatus("Posting…");
     try {
-      const user = await ensureAuthenticated();
-      await firestoreModule.addDoc(commentsRef, {
-        pageId: "help", author, message, parentId: null, uid: user.uid,
-        createdAt: firestoreModule.serverTimestamp()
-      });
+      await postCommentAndRateLimit(author, message, null);
       localStorage.setItem("diplomaNotesCommentName", author);
       rememberPost(message);
       messageInput.value = "";
@@ -311,7 +349,11 @@ async function initializeDiscussion() {
       setStatus("Comment posted.", "success");
     } catch (error) {
       console.error("Could not post comment.", error);
-      setStatus("Could not post. Please try again later.", "error");
+      if (error.message === "Daily comment limit exceeded.") {
+        setStatus("You have reached your daily comment limit of 50 comments.", "error");
+      } else {
+        setStatus("Could not post. Please try again later.", "error");
+      }
     } finally {
       submitButton.disabled = false;
     }
