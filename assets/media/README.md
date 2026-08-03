@@ -1,3 +1,11 @@
+# Quick Overview — English
+
+- Purpose: Central media library for images, SVGs, and videos used across the site. Prefer WebP for photos and SVG for logos.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: വെബ്‌സൈറ്റിനായി ഉപയോഗിക്കുന്ന പ്രധാന മീഡിയ ഫയലുകൾ ഇവിടെ സൂക്ഷിക്കപ്പെടുന്നു. ഫോർമാറ്റ് നിർദ്ദേശങ്ങൾ പാലിക്കുക (WebP/SVG).
+
 # Media Assets
 
 Static media files (images, SVGs, videos) used across the POLY PMNA portal.

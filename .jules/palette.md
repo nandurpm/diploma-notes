@@ -34,3 +34,7 @@
 ## 2026-08-01 - Dynamic Aria-Pressed Toggle State Synchronization
 **Learning:** When using filter buttons that toggle active/inactive states (such as a "Favorites" filter toggle), the visual state change (such as toggling a CSS class like `.primary`) must always be accompanied by a corresponding update to the button's `aria-pressed` attribute. Without this dynamic synchronization, screen readers cannot communicate the toggled selection status to assistive technology users.
 **Action:** Always synchronize visual toggle states on custom filtering and toggle buttons with their dynamic `aria-pressed` values during action triggers.
+
+## 2026-08-03 - Global Page-Specific Search Input Focus on Keypress
+**Learning:** Keyboard-driven portals benefit immensely from a single global shortcut listener (e.g. `/` key) to focus active search filters. However, instead of hardcoding a single input ID, general utility scripts must dynamically target a prioritized list of site-wide search selectors (such as `#subjectSearch`, `#q`, `#programmeSearch`, `#rev2015Search`, and `#chatSearch`) and be dynamically loaded by the main site initializer to function correctly on all portal subpages.
+**Action:** Always write generalized query selectors for keyboard shortcuts to automatically target page-specific focusable inputs, and ensure utility files are dynamically requested by the main engine.

@@ -1,3 +1,12 @@
+# Quick Overview — English
+
+- Purpose: The `tools/` folder contains site utilities, calculators, and build scripts used by POLY PMNA.
+- For maintainers: see `tools/build_missing_revision_2026_lesson_pdfs.py` and `tools/build_lesson_pdfs.py` for PDF generation flow.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: വി സൈറ്റിലെ ഉപയോക്തൃ ഉപകരണങ്ങൾക്കും ബിൽഡ് സ്ക്രിപ്റ്റുകൾക്കും വേണ്ടി ഈ ഫോൾഡർ ഉപയോഗിക്കുന്നു.
+
 # Tools
 
 Educational tools and utilities for students of Kerala State Board of Technical Education (KSBTE) diploma programmes.

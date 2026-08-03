@@ -1,3 +1,11 @@
+# Quick Overview — English
+
+- Purpose: Vector and bitmap icons used across the site. Prefer SVGs and consistent sizing.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: സൈറ്റിലെ ഐക്കൺ ഫയലുകൾ ഇവിടെ സൂക്ഷിക്കുന്നു; scalabilityക്കായി SVG പ്രഥമ്യം നൽകുക.
+
 # Icons
 
 UI icons used throughout the POLY PMNA portal interface.

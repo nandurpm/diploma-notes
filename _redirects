@@ -2,5 +2,3 @@
 /first-year-materials.html /materials-2015.html 301
 /departments.html /revision-2021.html 301
 
-# Redirect Revision 2026 downloadable notes PDFs to GitHub Releases
-/revision-2026-content/notes/* https://github.com/nandurpm/diploma-notes/releases/download/revision-2026-notes/:splat 302

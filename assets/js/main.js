@@ -158,6 +158,32 @@
   }
 
   /* =========================================================
+     GLOBAL SEARCH SHORTCUT UTILITY LOADER
+     ---------------------------------------------------------
+     Loads the search shortcut utility on all portal pages
+     except lesson pages. It listens for the '/' key to focus
+     the first available page-specific search input.
+     ========================================================= */
+  function ensureSearchShortcut() {
+    if (isLessonPage) return;
+
+    const shortcutPath = "/assets/js/search.js";
+    const existing = [...document.scripts].find(script => {
+      try {
+        return new URL(script.src || "", window.location.href).pathname === shortcutPath;
+      } catch (_) {
+        return false;
+      }
+    });
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = `${shortcutPath}?v=20260803-search-shortcut1`;
+    script.defer = true;
+    document.head.append(script);
+  }
+
+  /* =========================================================
      LEGACY LINK NORMALIZER
      ---------------------------------------------------------
      Converts old internal link patterns (/index.html,
@@ -284,6 +310,7 @@
     normalizeLegacyInternalLinks();
     ensureSiteShell();
     ensureVisitorPopup();
+    ensureSearchShortcut();
     watchRev2026Cards();
   }
 
