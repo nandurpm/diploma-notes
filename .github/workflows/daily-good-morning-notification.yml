@@ -26,6 +26,7 @@ jobs:
           import sys
           from datetime import datetime
           from zoneinfo import ZoneInfo
+          import time
 
           import requests
           from google.auth.transport.requests import Request
@@ -181,6 +182,10 @@ jobs:
               timeout=30,
           )
 
+          # Diagnostic timestamps
+          now_utc = datetime.now(ZoneInfo("UTC"))
+          now_ist = datetime.now(ZoneInfo("Asia/Kolkata"))
+          print(f"Run UTC: {now_utc.isoformat()} | Run IST: {now_ist.isoformat()} | epoch: {int(time.time())}")
           print(f"IST date: {date_key}")
           print(f"Notification title: {title}")
           print(f"Notification type: {notification_type}")

@@ -1,3 +1,18 @@
+# Quick Overview — English
+
+- Purpose: This folder contains Revision 2021 lesson HTML pages used by the site.
+- Preview: run a local static server and open `lessons/lessons-[CODE].html` to view.
+- PDF notes: downloadable PDFs live in `notes/` and are linked from lesson cards.
+
+```bash
+python -m http.server 8000
+```
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: Revision 2021-ലെ lesson HTML ഫയലുകൾ ഇവിടെ സൂക്ഷിക്കുന്നു. ഫയലിന്റെ പേര് `lessons-[COURSE_CODE].html` ആണെന്ന് ഉറപ്പാക്കി ചേർക്കുക.
+- ലോക്കൽ പ്രിവ്യൂ: മുകളിൽ കാണുന്ന കോമാൻഡ് ഉപയോഗിക്കുക.
+
 # Lessons (Revision 2021)
 
 Lesson pages for the KSBTE Revision 2021 diploma syllabus.

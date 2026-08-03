@@ -1,3 +1,11 @@
+# Quick Overview — English
+
+- Purpose: Configuration for the Jules automation agent that assists with repository maintenance tasks.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: Jules ഓട്ടോമേഷൻ ഏജന്റിന്റെ കോൺഫിഗറേഷൻ ഫയലുകൾ ഇവിടെ ഉള്ളത്.
+
 # Jules Configuration
 
 Configuration files for the Jules automation agent that manages this repository.

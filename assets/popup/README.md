@@ -1,3 +1,11 @@
+# Quick Overview — English
+
+- Purpose: Upload visitor popup media here (popup-1.png, popup-2.png, popup-1.mp4 etc.). The site shows one popup per day based on available files.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: ദർശകർക്കുള്ള പോപ്-അപ് മീഡിയ ഇവിടെ അപ്ലോഡ് ചെയ്യുക. ഫയൽ നാമവിന്യാസം പാലിക്കുക.
+
 # Visitor Popup Upload Folder
 
 Upload popup media files here when you want visitor popups to appear on the website.

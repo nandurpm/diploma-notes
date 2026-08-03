@@ -1,3 +1,12 @@
+# Quick Overview — English
+
+- Purpose: Stylesheets for the POLY PMNA portal. Keep rules modular and document any global custom properties in `poly-constants.js`.
+- Lesson styles: `lesson-page-fix.css` and `lesson-watermark.css` are required for lesson HTML pages.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: സൈറ്റ് സ്റ്റൈലുകൾ ഇവിടെ സൂക്ഷിക്കുന്നു. ഗ്ലോബൽ CSS variables `poly-constants.js`-ൽ വിശദീകരിച്ചിരിക്കുന്നു.
+
 # CSS Assets
 
 Stylesheets for the POLY PMNA portal, organized by scope and purpose.

@@ -1,3 +1,23 @@
+# Quick Start — English
+
+- Purpose: POLY PMNA is a free, syllabus-aligned digital learning platform for Kerala Polytechnic students. It provides lesson pages, downloadable notes, quizzes, and learning tools.
+- Preview locally: start a static server and open the lesson HTML files under `revision-2026-content/lessons/` or `lessons/`.
+- Generate PDFs: GitHub Actions automatically builds PDFs into `revision-2026-content/notes/` and `notes/`. To build locally:
+
+```bash
+python -m http.server 8000 &
+python tools/build_missing_revision_2026_lesson_pdfs.py
+```
+
+- Contributing: add or update lesson HTML in the correct folder and open a PR. See the `tools/` scripts for automation details.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: POLY PMNA കേരള പോളിടെക്‌നിക് വിദ്യാര്‍ത്ഥികള്‍ക്കായി തയ്യാറാക്കിയ സിലബസ്-അനുസരിച്ചുള്ള ഡിജിറ്റല്‍ പഠന പ്ലാറ്റ്ഫോമാണ്. പാഠങ്ങള്‍, ഡൗണ്‍ലോഡബിള്‍ നോട്ട്‌സ്, ക്വീസ്, ടൂളുകള്‍ എന്നിവ നല്‍കുന്നു.
+- ലോക്കലായി കാണുക: `python -m http.server 8000` പ്രവർത്തിപ്പിച്ച് `revision-2026-content/lessons/` അല്ലെങ്കിൽ `lessons/` തുറക്കുക.
+- PDF നിർമ്മിതി: GitHub Actions സ്വയം PDFs സൃഷ്ടിച്ച് `revision-2026-content/notes/` (അഥവാ `notes/`) ലേക്ക്_commit ചെയ്യുന്നു. ലോക്കല്‍ നിർമ്മിക്കാന്‍ മുകളിൽ തന്നിരിക്കുന്ന കമാൻഡുകൾ നടത്തുക.
+- സംഭാവനകൾ: ശരിയായ ഫോൾഡറിലേക്ക് lesson HTML ചേർത്ത് PR നൽകുക. `tools/` ഫോൾഡറിൽ സ്ക്രിപ്റ്റ്സ് വിശദീകരിച്ചിരിക്കുന്നു.
+
 # POLY PMNA
 
 <p align="center">

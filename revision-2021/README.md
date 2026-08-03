@@ -1,3 +1,12 @@
+# Quick Overview — English
+
+- Purpose: Static department pages for Revision 2021 listing subjects, lessons, and notes.
+- To add or fix content: update the corresponding HTML file in this folder and open a PR.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: Revision 2021-ന്റെ ഡിപ്പാർട്‌മെന്റ് പേജുകൾ ഇവിടെ വാലിഡേറ്റ് ചെയ്യുക. HTML ഫയലുകൾ അപ്ഡേറ്റ് ചെയ്ത് PR അയയ്ക്കുക.
+
 # Revision 2021 Department Pages
 
 Department landing pages for the KSBTE Revision 2021 diploma programmes.

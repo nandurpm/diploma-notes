@@ -1,3 +1,11 @@
+# Quick Overview — English
+
+- Purpose: Shared lesson fragments and reusable content blocks loaded into lesson pages. Use short, semantic HTML fragments for best printing results.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: പാഠങ്ങളുടെ പങ്കുകളായി ഉപയോഗിക്കുന്ന ഫ്രീഗ്മന്റുകൾ ഇവിടെ സൂക്ഷിക്കുന്നു. ക്ലീൻ semantic HTML ഉപയോഗിക്കുക; പ്രിന്റ് റിസൾട്ടുകൾ പരിശോധിക്കുക.
+
 # Lesson Content
 
 Shared lesson content fragments and reusable components loaded by lesson pages.

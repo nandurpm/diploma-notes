@@ -1,3 +1,11 @@
+# Quick Overview — English
+
+- Purpose: Third-party vendor libraries and assets bundled for offline use. Document license and source for each file.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: ആവശ്യമായ vendor ഫയലുകൾ ഇവിടെ സൂക്ഷിക്കുക; ഓരോ ഫയലിനും ലൈസൻസ് ഇപ്പോഴും രേഖപ്പെടുത്തുക.
+
 # Vendor Assets
 
 Third-party libraries, fonts, and externally sourced assets used by the POLY PMNA portal.

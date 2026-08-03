@@ -1,3 +1,11 @@
+# Quick Overview — English
+
+- Purpose: Standard well-known files for domain verification and security (e.g., `security.txt`).
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: ഡൊമെയ്ൻ verification-നും security contact-നും ഉപയോഗിക്കുന്ന standard ഫയലുകൾ ഇവിടെയാണ് സൂക്ഷിക്കുന്നത്.
+
 # .well-known
 
 Standard web well-known files for domain verification and service discovery.

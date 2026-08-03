@@ -1,3 +1,22 @@
+# Quick Overview — English
+
+- Purpose: This folder holds Revision 2026 lesson HTML files and generated PDF notes for POLY PMNA.
+- Add lessons: place `lessons-[CODE].html` in `revision-2026-content/lessons/`.
+- PDF generation: GitHub Actions will build PDFs into `revision-2026-content/notes/` automatically. To build locally, run the local static server and the tools script.
+
+```bash
+python -m http.server 8000 &
+python tools/build_missing_revision_2026_lesson_pdfs.py
+```
+
+- Contributing: create or update lesson HTML files with the correct filename and open a PR.
+
+## ലഘു ഗൈഡ് — മലയാളം
+
+- ഉദ്ദേശ്യം: ഈ ഫോൾഡർ Revision 2026 പാഠങ്ങൾ (HTML) және അവയുടെ PDF നോട്ടുകൾ (downloadable-notes-*.pdf) സൂക്ഷിക്കുന്നു.
+- പാഠം ചേർക്കാൻ: `revision-2026-content/lessons/lessons-[CODE].html` എന്ന ഫോർമാറ്റിൽ ഫയൽ ചേർക്കുക.
+- PDF നിർമ്മാണം: GitHub Actions സ്വയം PDFs `revision-2026-content/notes/` ലേക്ക് സൃഷ്ടിക്കുന്നു. ലോക്കലായി പരീക്ഷിക്കുവാൻ മുകളിൽ കാണുന്ന കമാന്റുകൾ ഉപയോഗിക്കുക.
+
 # Revision 2026 lesson and notes content
 
 This directory is exclusively for SITTTR Kerala Revision 2026 learning content.
