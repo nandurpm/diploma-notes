@@ -1,0 +1,60 @@
+name: Jules Auto-Approve & Auto-Merge
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  auto-approve-and-merge:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: Detect if Pull Request is created by Jules
+        id: jules_detector
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          PR_USER: ${{ github.event.pull_request.user.login }}
+        run: |
+          IS_JULES=false
+          # Dynamically check that:
+          # 1. The PR creator matches the authorized repository owner token (nandurpm) used by the Jules agent
+          # 2. The PR branch name starts with "jules-" (the dedicated branch prefix created by the Jules platform)
+          # 3. The PR title starts with "Repository Quality:"
+          # 4. The PR body contains all required Jules template headers
+          if [[ "$PR_USER" == "nandurpm" ]]; then
+            if [[ "$PR_HEAD_REF" =~ ^jules- ]]; then
+              if [[ "$PR_TITLE" =~ ^Repository\ Quality: ]]; then
+                if [[ "$PR_BODY" == *"## Summary"* && "$PR_BODY" == *"## Why"* && "$PR_BODY" == *"## Changes"* && "$PR_BODY" == *"## Verification"* && "$PR_BODY" == *"## Risk"* ]]; then
+                  IS_JULES=true
+                fi
+              fi
+            fi
+          fi
+
+          echo "is_jules=$IS_JULES" >> "$GITHUB_OUTPUT"
+          echo "Detected Jules PR: $IS_JULES (Author: $PR_USER, Branch: $PR_HEAD_REF)"
+
+      - name: Auto-Approve Pull Request
+        if: steps.jules_detector.outputs.is_jules == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Approving Pull Request #${{ github.event.pull_request.number }}..."
+          gh pr review "${{ github.event.pull_request.number }}" --approve --body "Automatically approved by Jules Auto-Approve Workflow."
+
+      - name: Enable Auto-Merge
+        if: steps.jules_detector.outputs.is_jules == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Enabling Auto-Merge for Pull Request #${{ github.event.pull_request.number }}..."
+          # Enable auto-merge so it merges automatically once all required status checks pass successfully.
+          gh pr merge "${{ github.event.pull_request.number }}" --auto --merge --delete-branch || {
+            echo "Auto-merge enablement via CLI failed. Please verify that 'Allow auto-merge' is enabled in Repository Settings."
+          }
