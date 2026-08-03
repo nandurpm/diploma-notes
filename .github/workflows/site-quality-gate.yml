@@ -55,22 +55,6 @@ jobs:
               node --check "$file"
             else
               echo "Skipping validation for missing file: $file"
-          node --check assets/js/ask-poly-config.js
-          node --check assets/js/ask-poly-v2.js
-          node --check assets/js/mock-exam-service.js
-          node --check assets/js/mock-exam-1004.js
-          node --check workers/ask-poly-ai/src/result-store.js
-          for file in \
-            assets/js/ask-poly-config.js \
-            assets/js/ask-poly-v2.js \
-            assets/js/mock-exam-service.js \
-            assets/js/mock-exam-1004.js \
-            workers/ask-poly-ai/src/index.js \
-            workers/ask-poly-ai/src/secure-index.js \
-            workers/ask-poly-ai/src/mock-evaluator.js \
-            workers/ask-poly-ai/src/result-store.js; do
-            if [ -f "$file" ]; then
-              node --check "$file"
             fi
           done
       - name: Prevent committed secrets
