@@ -15,6 +15,7 @@ EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "r
 EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html"}
 BLOCK_RE = re.compile(r'<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>[\s\S]*?</script>\s*', re.I)
 HEAD_END_RE = re.compile(r"</head>", re.I)
+THEME_COLOR_RE = re.compile(r'<meta\s+[^>]*\bname=["\']theme-color["\'][^>]*>\s*', re.I)
 DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
 TITLE_RE = re.compile(r"<title>([\s\S]*?)</title>", re.I)
 CANONICAL_RE = re.compile(r'<link\s+[^>]*rel=["\'][^"\']*canonical[^"\']*["\'][^>]*href=["\']([^"\']+)', re.I)
@@ -111,8 +112,10 @@ def public_pages() -> list[Path]:
 def updated_text(path: Path) -> str:
     relative = path.relative_to(ROOT).as_posix()
     source = BLOCK_RE.sub("", read_page(path))
+    # Keep browser chrome consistent and satisfy the public-page metadata contract.
+    source = THEME_COLOR_RE.sub("", source)
     data = payload(relative, source)
-    block = '<script type="application/ld+json" data-poly-structured-data>' + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "</script>\n"
+    block = '<meta name="theme-color" content="#1d4ed8">\n<script type="application/ld+json" data-poly-structured-data>' + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "</script>\n"
     updated, count = HEAD_END_RE.subn(block + "</head>", source, count=1)
     if count != 1:
         raise ValueError(f"Missing </head> in {relative}")
