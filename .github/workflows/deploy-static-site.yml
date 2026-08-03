@@ -17,7 +17,9 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Deploy static site to production'
+    if: >-
+      github.event_name != 'issues' ||
+      github.event.issue.title == '[automation] Deploy static site to production'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
@@ -96,7 +98,8 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy _site --project-name=${{ steps.project.outputs.name }} --branch=main --commit-hash=${{ github.sha }} --commit-message="Deploy ${{ github.sha }}"
+          command: >-
+            pages deploy _site --project-name=${{ steps.project.outputs.name }} --branch=main --commit-hash=${{ github.sha }} --commit-message="Deploy ${{ github.sha }}"
 
       - name: Verify deployed commit and redesigned About page
         run: |
