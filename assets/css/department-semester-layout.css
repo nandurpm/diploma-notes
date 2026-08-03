@@ -13,7 +13,6 @@
   font-size: clamp(2rem, 3.35vw, 3.65rem) !important;
   line-height: 1.05 !important;
   letter-spacing: -0.045em !important;
-  text-wrap: balance;
 }
 
 .page-title > p:not(.kicker) {
