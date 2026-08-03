@@ -21,6 +21,16 @@ service cloud.firestore {
         !get(/databases/$(database)/documents/helpComments/$(parentId)).data.keys().hasAny(["deleted"]);
     }
 
+    // --- NEW: server-side rate limit check ---
+    // Reads the caller's own rateLimits/{uid} doc (readable/writable only by
+    // that uid, see rules below) and requires at least 60s since lastPostAt.
+    // If the doc doesn't exist yet, this is the user's first post — allowed.
+    function respectsCooldown() {
+      let rl = /databases/$(database)/documents/rateLimits/$(request.auth.uid);
+      return !exists(rl) ||
+        request.time > get(rl).data.lastPostAt + duration.value(60, 's');
+    }
+
     function isValidNewComment() {
       return isSignedIn() &&
         request.resource.data.keys().hasAll(["pageId", "author", "message", "parentId", "uid", "createdAt"]) &&
@@ -35,6 +45,7 @@ service cloud.firestore {
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.createdAt is timestamp &&
         request.resource.data.createdAt == request.time &&
+        respectsCooldown() &&
         (
           request.resource.data.parentId == null ||
           isActiveTopLevelParent(request.resource.data.parentId)
@@ -63,6 +74,18 @@ service cloud.firestore {
       allow delete: if ownsExistingComment() &&
         resource.data.pageId == "help" &&
         resource.data.parentId is string;
+    }
+
+    // --- NEW: per-user rate limit tracker ---
+    // Only the owning uid may read/write their own doc. Must contain exactly
+    // one field, lastPostAt, set to the server request time (no spoofing a
+    // past or future timestamp).
+    match /rateLimits/{uid} {
+      allow read: if isSignedIn() && request.auth.uid == uid;
+      allow write: if isSignedIn() && request.auth.uid == uid &&
+        request.resource.data.keys().hasOnly(["lastPostAt"]) &&
+        request.resource.data.lastPostAt is timestamp &&
+        request.resource.data.lastPostAt == request.time;
     }
 
     match /{document=**} {
