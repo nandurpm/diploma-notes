@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-08-04T06:11:52.989Z",
+  "generatedAt": "2026-08-04T06:36:19.750Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
@@ -24,13 +24,13 @@
       "status": {
         "ok": true,
         "version": "2026-07-whole-site-v1",
-        "generatedAt": "2026-07-31T01:22:28Z",
+        "generatedAt": "2026-08-04T06:17:24Z",
         "counts": {
-          "pages": 254,
+          "pages": 259,
           "programmes2021": 43,
           "programmes2026": 38,
           "subjectRecords": 4336,
-          "lessonRecordsAvailable": 644,
+          "lessonRecordsAvailable": 693,
           "notesRecordsAvailable": 644
         }
       }
@@ -39,11 +39,11 @@
       "name": "knowledge contains 38 Revision 2026 programmes",
       "passed": true,
       "counts": {
-        "pages": 254,
+        "pages": 259,
         "programmes2021": 43,
         "programmes2026": 38,
         "subjectRecords": 4336,
-        "lessonRecordsAvailable": 644,
+        "lessonRecordsAvailable": 693,
         "notesRecordsAvailable": 644
       }
     },
@@ -51,11 +51,11 @@
       "name": "knowledge contains both curriculum datasets",
       "passed": true,
       "counts": {
-        "pages": 254,
+        "pages": 259,
         "programmes2021": 43,
         "programmes2026": 38,
         "subjectRecords": 4336,
-        "lessonRecordsAvailable": 644,
+        "lessonRecordsAvailable": 693,
         "notesRecordsAvailable": 644
       }
     },
@@ -117,13 +117,13 @@
   "knowledgeStatus": {
     "ok": true,
     "version": "2026-07-whole-site-v1",
-    "generatedAt": "2026-07-31T01:22:28Z",
+    "generatedAt": "2026-08-04T06:17:24Z",
     "counts": {
-      "pages": 254,
+      "pages": 259,
       "programmes2021": 43,
       "programmes2026": 38,
       "subjectRecords": 4336,
-      "lessonRecordsAvailable": 644,
+      "lessonRecordsAvailable": 693,
       "notesRecordsAvailable": 644
     }
   },
