@@ -22,11 +22,11 @@
       if (option.value !== COMMON_VALUE && blocked(option.textContent || option.value)) option.remove();
     });
 
-    if (![...select.options].some((option) => option.value === select.value)) {
-      select.value = COMMON_VALUE;
+  if (![...select.options].some((option) => option.value === select.value)) {
+      const hasCommonOption = [...select.options].some((option) => option.value === COMMON_VALUE);
+      select.value = hasCommonOption ? COMMON_VALUE : "all";
       select.dispatchEvent(new Event("change", { bubbles: true }));
     }
-  };
 
   const start = () => {
     const select = document.getElementById("departmentFilter");
