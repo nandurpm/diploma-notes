@@ -2,7 +2,110 @@
   "revision": "2026",
   "lessonFolder": "revision-2026-content/lessons",
   "notesFolder": "revision-2026-content/notes",
-  "generated": [],
+  "generated": [
+    {
+      "code": "2001C",
+      "pages": 18,
+      "bytes": 13198931,
+      "source": "revision-2026-content/lessons/lessons-2001C.html",
+      "sourceCharacters": 12824,
+      "pdfCharacters": 12731,
+      "textCoverage": 0.9927,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "2001D",
+      "pages": 27,
+      "bytes": 20031823,
+      "source": "revision-2026-content/lessons/lessons-2001D.html",
+      "sourceCharacters": 23417,
+      "pdfCharacters": 23304,
+      "textCoverage": 0.9952,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        27
+      ],
+      "warnings": [
+        "near-empty pages require review: [27]"
+      ]
+    },
+    {
+      "code": "2001E",
+      "pages": 46,
+      "bytes": 34279007,
+      "source": "revision-2026-content/lessons/lessons-2001E.html",
+      "sourceCharacters": 49744,
+      "pdfCharacters": 49524,
+      "textCoverage": 0.9956,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "2002A",
+      "pages": 37,
+      "bytes": 27579372,
+      "source": "revision-2026-content/lessons/lessons-2002A.html",
+      "sourceCharacters": 42647,
+      "pdfCharacters": 42570,
+      "textCoverage": 0.9982,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        37
+      ],
+      "warnings": [
+        "near-empty pages require review: [37]"
+      ]
+    },
+    {
+      "code": "2003B",
+      "pages": 25,
+      "bytes": 18566530,
+      "source": "revision-2026-content/lessons/lessons-2003B.html",
+      "sourceCharacters": 22869,
+      "pdfCharacters": 22509,
+      "textCoverage": 0.9843,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        25
+      ],
+      "warnings": [
+        "near-empty pages require review: [25]"
+      ]
+    },
+    {
+      "code": "2011",
+      "pages": 24,
+      "bytes": 17747662,
+      "source": "revision-2026-content/lessons/lessons-2011.html",
+      "sourceCharacters": 22948,
+      "pdfCharacters": 22838,
+      "textCoverage": 0.9952,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    }
+  ],
   "errors": [],
   "requiredLessonCodes": [
     "1001",
@@ -35,14 +138,27 @@
     "1421",
     "2001A",
     "2001B",
+    "2001C",
+    "2001D",
+    "2001E",
+    "2002A",
     "2002B",
     "2003A",
+    "2003B",
+    "2011",
     "2031",
     "2032",
     "2041",
     "2131"
   ],
-  "generatedThisRunCodes": [],
+  "generatedThisRunCodes": [
+    "2001C",
+    "2001D",
+    "2001E",
+    "2002A",
+    "2003B",
+    "2011"
+  ],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
   "minimumPdfBytes": 20000
