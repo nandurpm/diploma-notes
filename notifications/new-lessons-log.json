@@ -63,6 +63,13 @@
       "subjectName": "Applied Physics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2002A.html"
+    },
+    "REV2026:2001E:revision-2026-content/lessons/lessons-2001E.html": {
+      "messageId": "projects/poly-pmna/messages/1824608839043339432",
+      "subjectCode": "2001E",
+      "subjectName": "Business Mathematics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2001E.html"
     }
   }
 }
