@@ -20,5 +20,10 @@
 
 ## 2026-08-01 - [Pre-validation of JWT Structure in Edge Worker Handlers]
 **Vulnerability:** Downstream authentication and database APIs are subjected to malformed, blank, or spoofed bearer token payloads, triggering unnecessary network subrequests and exposing the system to resource exhaustion or denial of service.
-**Learning:** Serverless and edge architectures should validate token structure and headers locally before invoking remote identity providers or databases. Rejecting malformed headers early protects billing and rate limit allocations.
+**Learning:** Serverless and edge architectures should validate token structure and headers locally before invoking remote identity providers or databases. Rejecting malformed headers early protects funding and rate limit allocations.
 **Prevention:** Always use regex structure validation (like checking for standard three-part JWTs) right after extracting authorization headers and before executing any remote requests.
+
+## 2026-08-04 - [Harden Downstream Authentication Error Status Code Mapping]
+**Vulnerability:** Mapping dynamic downstream error status codes directly to HTTP responses without validation can lead to passing invalid, non-numeric, or malformed status values (like NaN) to the Response constructor. This triggers unhandled RangeErrors and crashes edge execution, causing Denial of Service and leaking raw logs.
+**Learning:** Unhandled platform exceptions at the edge must be avoided at all costs. Any dynamically obtained status codes must be validated and sanitized before inclusion in response options.
+**Prevention:** Explicitly validate that the mapped HTTP status is a safe integer within the 100-599 range and default to a secure fallback (e.g., 401 Unauthorized or 500 Internal Server Error) upon failure.
