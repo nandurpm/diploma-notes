@@ -56,6 +56,13 @@
       "subjectName": "Building Materials & Construction Techniques",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2011.html"
+    },
+    "REV2026:2002A:revision-2026-content/lessons/lessons-2002A.html": {
+      "messageId": "projects/poly-pmna/messages/3860662019776497603",
+      "subjectCode": "2002A",
+      "subjectName": "Applied Physics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2002A.html"
     }
   }
 }
