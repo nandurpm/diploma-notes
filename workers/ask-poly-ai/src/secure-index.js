@@ -58,9 +58,11 @@ export default {
     try {
       student = await authenticateStudent(request, env);
     } catch (error) {
+      const rawStatus = Number(error?.status);
+      const safeStatus = (Number.isInteger(rawStatus) && rawStatus >= 100 && rawStatus < 600) ? rawStatus : 401;
       return json(
         { error: error?.message || "Sign in before submitting a mock examination." },
-        Number(error?.status || 401),
+        safeStatus,
         origin,
         env,
       );

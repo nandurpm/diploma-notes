@@ -1,8 +1,8 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-03T19:01:56Z",
-  "commit": "4ae2b2eb02e4f2b2d656bd27699f1dde769f51b0",
-  "branch": "main",
+  "generatedAt": "2026-08-04T03:07:37Z",
+  "commit": "725751dd0c6c864bbf218bfe20a402f0c1e0f183",
+  "branch": "jules-3238132120483670044-125b961e",
   "status": "passed",
   "counts": {
     "sitemapResources": 321,
