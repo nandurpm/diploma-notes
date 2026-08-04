@@ -502,7 +502,7 @@ function localMathAnswer(message) {
   return null;
 }
 
-function sanitizeHistory(value) {
+export function sanitizeHistory(value) {
   if (!Array.isArray(value)) return [];
   return value.slice(-4).map((item) => ({
     role: item?.role === "assistant" ? "assistant" : "user",
@@ -510,7 +510,7 @@ function sanitizeHistory(value) {
   })).filter((item) => item.content);
 }
 
-function buildUserContent(body) {
+export function buildUserContent(body) {
   const message = cleanText(body.message, 2200);
   const parts = [];
   const pageTitle = cleanText(body.pageTitle, 160);
@@ -595,7 +595,7 @@ function providerOrder(env) {
 }
 
 function openAiPayload(model, input, env) {
-  return { model, instructions: SYSTEM_INSTRUCTIONS, input, max_output_tokens: Number(env.MAX_OUTPUT_TOKENS || 450) };
+  return { model, instructions: SYSTEM_INSTRUCTIONS, input, max_output_tokens: Number(env.MAX_OUTPUT_TOKENS || 4096) };
 }
 
 function messagesFromInput(input) {
@@ -649,13 +649,41 @@ async function requestOpenAIWithPayloadFallback(payload, env) {
 
 async function askOpenAI(input, env) {
   let lastError;
+  const maxOutputTokens = Number(env.MAX_OUTPUT_TOKENS || 4096);
   for (const model of uniqueModels(env.OPENAI_MODEL, [DEFAULT_OPENAI_MODEL, ...OPENAI_FALLBACK_MODELS])) {
-    const payload = openAiPayload(model, input, env);
+    let currentInput = [...input];
+    let fullAnswer = "";
+    let citations = [];
+    let usedWeb = false;
+    let iterations = 0;
+    let responseId = "";
+
     try {
-      const data = await requestOpenAIWithPayloadFallback(payload, env);
-      const result = extractOpenAIAnswer(data);
-      if (!result.answer) throw new Error("OpenAI returned an empty response.");
-      return { ...result, provider: "openai", model: data.model || model, responseId: data.id || "" };
+      while (iterations < 3) {
+        const payload = { ...openAiPayload(model, currentInput, env), max_output_tokens: maxOutputTokens };
+        const data = await requestOpenAIWithPayloadFallback(payload, env);
+        const result = extractOpenAIAnswer(data);
+        if (!result.answer) {
+          if (fullAnswer) break;
+          throw new Error("OpenAI returned an empty response.");
+        }
+
+        fullAnswer += (fullAnswer ? " " : "") + result.answer;
+        citations = result.citations || citations;
+        usedWeb = result.usedWeb || usedWeb;
+        responseId = data.id || responseId;
+
+        const status = data?.output?.[0]?.status || data?.status;
+        const isTruncated = status === "incomplete" || data?.choices?.[0]?.finish_reason === "length";
+        if (isTruncated) {
+          currentInput.push({ role: "assistant", content: result.answer });
+          currentInput.push({ role: "user", content: "Please continue your response exactly from where you left off, without repeating anything." });
+          iterations++;
+        } else {
+          break;
+        }
+      }
+      return { answer: fullAnswer, citations, usedWeb, provider: "openai", model: model, responseId };
     } catch (error) {
       lastError = error;
       if (!openAiRetryableModelError(error)) throw error;
@@ -664,43 +692,130 @@ async function askOpenAI(input, env) {
   throw lastError;
 }
 
-async function askNvidia(input, env) {
+export async function askNvidia(input, env, stream = false) {
   const model = cleanText(env.NVIDIA_MODEL, 140) || DEFAULT_NVIDIA_MODEL;
-  const { response, data } = await fetchJsonWithTimeout("https://integrate.api.nvidia.com/v1/chat/completions", {
-    method: "POST",
-    headers: { "Authorization": `Bearer ${env.NVIDIA_API_KEY}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ model, messages: messagesFromInput(input), temperature: Number(env.AI_TEMPERATURE || 0.35), top_p: Number(env.AI_TOP_P || 0.9), max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450), stream: false })
-  }, env, "nvidia");
-  if (!response.ok) {
-    const error = new Error(data?.error?.message || data?.detail || `NVIDIA request failed with HTTP ${response.status}.`);
-    error.status = response.status;
-    error.provider = "nvidia";
-    error.data = data;
-    throw error;
+  const maxOutputTokens = Number(env.MAX_OUTPUT_TOKENS || 4096);
+
+  if (stream) {
+    const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${env.NVIDIA_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model,
+        messages: messagesFromInput(input),
+        temperature: Number(env.AI_TEMPERATURE || 0.35),
+        top_p: Number(env.AI_TOP_P || 0.9),
+        max_tokens: maxOutputTokens,
+        stream: true
+      })
+    });
+    if (!response.ok) {
+      throw new Error(`NVIDIA streaming request failed with HTTP ${response.status}.`);
+    }
+    return response.body;
   }
-  const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
-  if (!answer) throw new Error("NVIDIA returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "nvidia", model: data?.model || model, responseId: data?.id || "" };
+
+  let currentInput = [...input];
+  let fullAnswer = "";
+  let iterations = 0;
+  let responseId = "";
+
+  while (iterations < 3) {
+    const { response, data } = await fetchJsonWithTimeout("https://integrate.api.nvidia.com/v1/chat/completions", {
+      method: "POST",
+      headers: { "Authorization": `Bearer ${env.NVIDIA_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model,
+        messages: messagesFromInput(currentInput),
+        temperature: Number(env.AI_TEMPERATURE || 0.35),
+        top_p: Number(env.AI_TOP_P || 0.9),
+        max_tokens: maxOutputTokens,
+        stream: false
+      })
+    }, env, "nvidia");
+
+    if (!response.ok) {
+      const error = new Error(data?.error?.message || data?.detail || `NVIDIA request failed with HTTP ${response.status}.`);
+      error.status = response.status;
+      error.provider = "nvidia";
+      error.data = data;
+      throw error;
+    }
+
+    const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 64000);
+    if (!answer) {
+      if (fullAnswer) break;
+      throw new Error("NVIDIA returned an empty response.");
+    }
+
+    fullAnswer += (fullAnswer ? " " : "") + answer;
+    responseId = data?.id || responseId;
+
+    const finishReason = data?.choices?.[0]?.finish_reason;
+    if (finishReason === "length") {
+      currentInput.push({ role: "assistant", content: answer });
+      currentInput.push({ role: "user", content: "Please continue your response exactly from where you left off, without repeating anything." });
+      iterations++;
+    } else {
+      break;
+    }
+  }
+
+  return { answer: fullAnswer, citations: [], usedWeb: false, provider: "nvidia", model: model, responseId };
 }
 
 async function askGemini(input, env) {
   const apiKey = env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
   const model = cleanText(env.GEMINI_MODEL, 120) || DEFAULT_GEMINI_MODEL;
-  const { response, data } = await fetchJsonWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
-    method: "POST",
-    headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
-    body: JSON.stringify({ system_instruction: { parts: [{ text: SYSTEM_INSTRUCTIONS }] }, contents: geminiContentsFromInput(input), generationConfig: { temperature: Number(env.AI_TEMPERATURE || 0.35), maxOutputTokens: Number(env.MAX_OUTPUT_TOKENS || 450) } })
-  }, env, "gemini");
-  if (!response.ok) {
-    const error = new Error(data?.error?.message || `Gemini request failed with HTTP ${response.status}.`);
-    error.status = response.status;
-    error.provider = "gemini";
-    error.data = data;
-    throw error;
+  const maxOutputTokens = Number(env.MAX_OUTPUT_TOKENS || 4096);
+
+  let currentInput = [...input];
+  let fullAnswer = "";
+  let iterations = 0;
+  let responseId = "";
+
+  while (iterations < 3) {
+    const { response, data } = await fetchJsonWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
+      method: "POST",
+      headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: SYSTEM_INSTRUCTIONS }] },
+        contents: geminiContentsFromInput(currentInput),
+        generationConfig: {
+          temperature: Number(env.AI_TEMPERATURE || 0.35),
+          maxOutputTokens: maxOutputTokens
+        }
+      })
+    }, env, "gemini");
+
+    if (!response.ok) {
+      const error = new Error(data?.error?.message || `Gemini request failed with HTTP ${response.status}.`);
+      error.status = response.status;
+      error.provider = "gemini";
+      error.data = data;
+      throw error;
+    }
+
+    const answer = cleanText((data?.candidates || []).flatMap((candidate) => candidate?.content?.parts || []).map((part) => part?.text || "").filter(Boolean).join("\n\n"), 64000);
+    if (!answer) {
+      if (fullAnswer) break;
+      throw new Error("Gemini returned an empty response.");
+    }
+
+    fullAnswer += (fullAnswer ? " " : "") + answer;
+    responseId = data?.responseId || responseId;
+
+    const finishReason = data?.candidates?.[0]?.finishReason;
+    if (finishReason === "MAX_TOKENS" || finishReason === "length") {
+      currentInput.push({ role: "assistant", content: answer });
+      currentInput.push({ role: "user", content: "Please continue your response exactly from where you left off, without repeating anything." });
+      iterations++;
+    } else {
+      break;
+    }
   }
-  const answer = cleanText((data?.candidates || []).flatMap((candidate) => candidate?.content?.parts || []).map((part) => part?.text || "").filter(Boolean).join("\n\n"), 6000);
-  if (!answer) throw new Error("Gemini returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "gemini", model, responseId: data?.responseId || "" };
+
+  return { answer: fullAnswer, citations: [], usedWeb: false, provider: "gemini", model, responseId };
 }
 
 async function askAnyProvider(input, env) {

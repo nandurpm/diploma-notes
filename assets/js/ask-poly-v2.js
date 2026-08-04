@@ -141,7 +141,12 @@
   const escapeHtml = window.PolyUtils.escapeHtml;
 
   function renderText(text) {
-    let html = escapeHtml(text);
+    let textToRender = text;
+    const codeBlockCount = (text.match(/```/g) || []).length;
+    if (codeBlockCount % 2 !== 0) {
+      textToRender += "\n```";
+    }
+    let html = escapeHtml(textToRender);
     html = html.replace(/```([\s\S]*?)```/g, (_, code) => `<pre><code>${code.trim()}</code></pre>`);
     html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
     html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
@@ -328,14 +333,127 @@
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
       const history = previousMessages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
       retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
-      const result = await callAI(clean, history, retrieval?.context || "");
-      removeTyping();
-      await addMessage("assistant", result.answer, {
-        provider: result.provider,
-        model: result.model,
-        websiteKnowledge: Boolean(retrieval?.context),
-        knowledgeVersion: retrieval?.version || ""
+
+      const endpoint = window.ASK_POLY_CONFIG?.endpoint;
+      if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
+      const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), Math.max(5000, timeoutMs));
+
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        cache: "no-store",
+        signal: controller.signal,
+        body: JSON.stringify({
+          message: clean,
+          history,
+          stream: true,
+          pageTitle: "Ask POLY whole-site knowledge",
+          pageContext: retrieval?.context || ""
+        })
       });
+
+      removeTyping();
+
+      const contentType = response.headers.get("Content-Type") || "";
+      if (response.ok && contentType.includes("text/event-stream")) {
+        clearTimeout(timer);
+
+        const bubbleDiv = document.createElement("div");
+        bubbleDiv.className = "ask-bubble ai streaming";
+        els.messages.append(bubbleDiv);
+        els.messages.scrollTop = els.messages.scrollHeight;
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let fullText = "";
+
+        try {
+          while (true) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            buffer = lines.pop();
+
+            for (const line of lines) {
+              const trimmed = line.trim();
+              if (!trimmed) continue;
+
+              if (trimmed.startsWith("data: ")) {
+                const dataStr = trimmed.slice(6);
+                if (dataStr === "[DONE]") continue;
+                try {
+                  const parsed = JSON.parse(dataStr);
+                  const chunk = parsed.response || parsed.choices?.[0]?.delta?.content || parsed.text || "";
+                  if (chunk) {
+                    fullText += chunk;
+                    bubbleDiv.innerHTML = renderText(fullText);
+                    els.messages.scrollTop = els.messages.scrollHeight;
+                  }
+                } catch (_) {
+                  // Ignore partial or malformed JSON during streaming
+                }
+              }
+            }
+          }
+        } catch (streamError) {
+          console.error("Error while reading response stream:", streamError);
+        } finally {
+          reader.releaseLock();
+        }
+
+        bubbleDiv.remove();
+
+        await addMessage("assistant", fullText || "I couldn't generate a response.", {
+          provider: "streamed-ai",
+          model: "streamed-model",
+          websiteKnowledge: Boolean(retrieval?.context),
+          knowledgeVersion: retrieval?.version || ""
+        });
+
+      } else {
+        clearTimeout(timer);
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
+
+        const answer = data.answer || data.message || data.reply || "No answer received.";
+
+        const bubbleDiv = document.createElement("div");
+        bubbleDiv.className = "ask-bubble ai typewriter";
+        els.messages.append(bubbleDiv);
+        els.messages.scrollTop = els.messages.scrollHeight;
+
+        const words = answer.split(" ");
+        let currentText = "";
+        let wordIndex = 0;
+
+        await new Promise((resolve) => {
+          const intervalId = setInterval(() => {
+            if (wordIndex < words.length) {
+              currentText += (wordIndex > 0 ? " " : "") + words[wordIndex];
+              bubbleDiv.innerHTML = renderText(currentText);
+              els.messages.scrollTop = els.messages.scrollHeight;
+              wordIndex++;
+            } else {
+              clearInterval(intervalId);
+              resolve();
+            }
+          }, 30);
+        });
+
+        bubbleDiv.remove();
+
+        await addMessage("assistant", answer, {
+          provider: data.provider || "ai",
+          model: data.model || "",
+          websiteKnowledge: Boolean(retrieval?.context),
+          knowledgeVersion: retrieval?.version || ""
+        });
+      }
+
     } catch (error) {
       removeTyping();
       const fallback = retrieval?.fallbackAnswer || retrieval?.answer;

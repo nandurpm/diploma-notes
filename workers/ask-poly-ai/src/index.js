@@ -1,5 +1,5 @@
 /* Purpose: Index - Descriptive comment added for clarity */
-import { askPoly, configuredProviders } from "./ask-handler.js";
+import { askPoly, configuredProviders, askNvidia, sanitizeHistory, buildUserContent } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
 import {
@@ -93,7 +93,7 @@ function cloudflareMessages(body) {
 function cloudflareInput(body, env) {
   return {
     messages: cloudflareMessages(body),
-    max_tokens: Math.max(128, Math.min(1400, Number(env.MAX_OUTPUT_TOKENS || 900))),
+    max_tokens: Math.max(128, Math.min(8192, Number(env.MAX_OUTPUT_TOKENS || 4096))),
     temperature: 0.25,
     top_p: 0.9
   };
@@ -106,7 +106,7 @@ function extractCloudflareAnswer(result) {
       || result?.result?.response
       || result?.result?.answer
       || result?.output_text,
-    7000
+    64000
   );
 }
 
@@ -266,6 +266,79 @@ export default {
 
     const enrichedBody = enrichAskBody(body);
     const providerErrors = [];
+    const isStreamRequested = body.stream === true;
+
+    if (isStreamRequested) {
+      if (hasWorkersAI(env)) {
+        try {
+          const model = workersAIModel(env);
+          const resultStream = await env.AI.run(model, {
+            ...cloudflareInput(enrichedBody, env),
+            stream: true
+          });
+          return new Response(resultStream, {
+            headers: {
+              "Content-Type": "text/event-stream; charset=utf-8",
+              "Cache-Control": "no-cache",
+              "Connection": "keep-alive",
+              ...corsHeaders(origin, env)
+            }
+          });
+        } catch (error) {
+          console.error("Streaming Cloudflare Workers AI failed", error);
+        }
+      }
+
+      if (hasWorkersAIRest(env)) {
+        try {
+          const model = workersAIModel(env);
+          const accountId = cleanText(env.CLOUDFLARE_AI_ACCOUNT_ID, 128);
+          const token = cleanText(env.CLOUDFLARE_AI_API_TOKEN, 512);
+          const url = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/run/${cloudflareRestModelPath(model)}`;
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              ...cloudflareInput(enrichedBody, env),
+              stream: true
+            })
+          });
+          if (response.ok) {
+            return new Response(response.body, {
+              headers: {
+                "Content-Type": "text/event-stream; charset=utf-8",
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                ...corsHeaders(origin, env)
+              }
+            });
+          }
+        } catch (error) {
+          console.error("Streaming Cloudflare Workers AI REST failed", error);
+        }
+      }
+
+      if (externalProviders.includes("nvidia") && env.NVIDIA_API_KEY) {
+        try {
+          const input = sanitizeHistory(enrichedBody.history);
+          input.push({ role: "user", content: buildUserContent(enrichedBody) });
+          const resultStream = await askNvidia(input, env, true);
+          return new Response(resultStream, {
+            headers: {
+              "Content-Type": "text/event-stream; charset=utf-8",
+              "Cache-Control": "no-cache",
+              "Connection": "keep-alive",
+              ...corsHeaders(origin, env)
+            }
+          });
+        } catch (error) {
+          console.error("Streaming external provider failed", error);
+        }
+      }
+    }
 
     if (hasWorkersAI(env)) {
       try {
