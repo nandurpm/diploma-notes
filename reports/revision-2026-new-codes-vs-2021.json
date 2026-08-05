@@ -1,8 +1,8 @@
 {
   "comparison": "REV2026 dataset versus the current POLY PMNA REV2021 catalogue",
   "revision2021UniqueCodeCount": 1248,
-  "revision2026UniqueCodeCount": 1142,
-  "newCodeCount": 525,
+  "revision2026UniqueCodeCount": 1143,
+  "newCodeCount": 526,
   "newCodes": [
     "1011",
     "1021",
@@ -209,6 +209,7 @@
     "5558",
     "5559A",
     "5559B",
+    "5559C",
     "6011P",
     "6011T",
     "6012",
@@ -586,6 +587,7 @@
       ],
       "programmes": [
         "Biomedical Engineering",
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -609,7 +611,7 @@
     {
       "code": "1061",
       "subjects": [
-        "Engineering Science"
+        "Fibre Science"
       ],
       "semesters": [
         "Semester 1"
@@ -1005,6 +1007,7 @@
         "Computer Science & Engineering",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -1055,6 +1058,7 @@
       ],
       "programmes": [
         "Biomedical Engineering",
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -1072,6 +1076,7 @@
       ],
       "programmes": [
         "Biomedical Engineering",
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -2145,6 +2150,7 @@
         "Semester 5"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -2761,6 +2767,7 @@
         "Semester 5"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -2773,6 +2780,7 @@
         "Semester 5"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -2981,6 +2989,7 @@
         "Semester 5"
       ],
       "programmes": [
+        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -2993,6 +3002,7 @@
         "Semester 5"
       ],
       "programmes": [
+        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -3006,6 +3016,7 @@
       ],
       "programmes": [
         "Civil & Rural Engineering",
+        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -3363,6 +3374,18 @@
       "code": "5559B",
       "subjects": [
         "Cyber Security Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "5559C",
+      "subjects": [
+        "Network Routing and Switching Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -3860,6 +3883,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -3875,6 +3899,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -3890,6 +3915,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering"
@@ -3904,6 +3930,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering"
       ]
     },
@@ -3916,6 +3943,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Integrated Circuit Design & Fabrication",
         "Micro Electronics"
@@ -3930,6 +3958,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -3945,6 +3974,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -3961,6 +3991,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Integrated Circuit Design & Fabrication"
       ]
@@ -3974,6 +4005,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -3989,6 +4021,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electrical & Electronics Engineering",
         "Electronics Engineering"
       ]
     },
@@ -5129,6 +5162,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering"
       ]
@@ -5142,6 +5176,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering"
       ]
@@ -5285,6 +5320,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering",
         "Computer Science & Engineering",
@@ -6359,6 +6395,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6371,6 +6408,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6383,6 +6421,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6395,6 +6434,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6603,6 +6643,7 @@
       "programmes": [
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
+        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -6617,6 +6658,7 @@
       "programmes": [
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
+        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -6629,6 +6671,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -6641,6 +6684,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },

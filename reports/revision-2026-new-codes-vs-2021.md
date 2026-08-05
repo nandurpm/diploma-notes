@@ -1,8 +1,8 @@
 # Revision 2026 new subject codes compared with Revision 2021
 
 - REV2021 unique codes in repository catalogue: **1248**
-- REV2026 unique codes: **1142**
-- Codes in REV2026 but absent from the current REV2021 catalogue: **525**
+- REV2026 unique codes: **1143**
+- Codes in REV2026 but absent from the current REV2021 catalogue: **526**
 
 > Limitation: the REV2021 repository catalogue is not fully certified for every official programme row.
 
@@ -11,9 +11,9 @@
 - **1011** — Fundamentals of Civil Engineering — Semester 1 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning
 - **1021** — Basic Mechanical Engineering — Semester 1 — Fire Technology and Safety, Mechanical Engineering, Mechatronics, Tool & Die Engineering, Wood and Paper Technology
 - **1031** — Basic Electrical and Electronics Engineering — Semester 1 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
-- **1041** — Elementary Concepts of Electronics — Semester 1 — Biomedical Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **1041** — Elementary Concepts of Electronics — Semester 1 — Biomedical Engineering, Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
 - **1051** — Basic Automobile Engineering — Semester 1 — Automobile Engineering
-- **1061** — Engineering Science — Semester 1 — Textile Technology
+- **1061** — Fibre Science — Semester 1 — Textile Technology
 - **1091** — Introduction to Polymer Science — Semester 1 — Polymer Technology
 - **1101** — Introduction to Printing Technology — Semester 1 — Printing Technology
 - **1131** — Problem Solving and Python Programming — Semester 1 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Cyber Forensics and Information Security, Information Technology, Robotic Process Automation
@@ -31,11 +31,11 @@
 - **2003B** — Chemistry for Technical Practices — Semester 2 — Chemical Engineering, Polymer Technology, Printing Technology, Textile Technology
 - **2005** — Environmental Sustainability and Ethics — Semester 2 — Architecture, Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Automobile Engineering, Biomedical Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Commercial Practice, Computer Application & Business Management, Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Fire Technology and Safety, Food Processing Technology, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Interior Design, Mechanical Engineering, Mechatronics, Micro Electronics, Polymer Technology, Printing Technology, Robotic Process Automation, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
 - **2009A** — General Engineering Workshop — Semester 2 — Architecture, Automobile Engineering, Chemical Engineering, Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning, Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology, Fire Technology and Safety, Food Processing Technology, Interior Design, Mechanical Engineering, Mechatronics, Polymer Technology, Printing Technology, Textile Technology, Tool & Die Engineering, Wood and Paper Technology
-- **2009B** — Engineering Workshop Practice — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Biomedical Engineering, Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Cyber Forensics and Information Security, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics, Robotic Process Automation
+- **2009B** — Engineering Workshop Practice — Semester 2 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Automation and Robotics, Biomedical Engineering, Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Cyber Forensics and Information Security, Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Information Technology, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics, Robotic Process Automation
 - **2012** — Basic Surveying — Semester 2 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning
 - **2018** — Construction Materials Lab — Semester 2 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning
-- **2042** — Electronic Devices and Applications — Semester 2 — Biomedical Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
-- **2048** — Elements of Electrical & Electronics Engineering Lab — Semester 2 — Biomedical Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **2042** — Electronic Devices and Applications — Semester 2 — Biomedical Engineering, Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **2048** — Elements of Electrical & Electronics Engineering Lab — Semester 2 — Biomedical Engineering, Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Instrumentation Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
 - **2052** — Fundamentals of Internal Combustion Engines — Semester 2 — Automobile Engineering
 - **2058** — Basic Electrical and Electronics Lab — Semester 2 — Automobile Engineering
 - **2073** — Industrial Safety - Principles and Practices — Semester 2 — Chemical Engineering
@@ -112,7 +112,7 @@
 - **5033D** — Renewable Power Plants — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
 - **5039A** — Modeling and Simulation Lab — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
 - **5039B** — Electronic Design and Prototyping Lab — Semester 5 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
-- **5043C** — Telecommunication Networks — Semester 5 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **5043C** — Telecommunication Networks — Semester 5 — Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
 - **5053D** — Alternative Fuel Vehicle Technology — Semester 5 — Automobile Engineering
 - **5059D** — Alternative Fuel Vehicle Workshop — Semester 5 — Automobile Engineering
 - **5063D** — Sustainability in Textile Manufacturing — Semester 5 — Textile Technology
@@ -162,8 +162,8 @@
 - **5269A** — Full Stack Development Lab — Semester 5 — Information Technology
 - **5283D** — Mobile & Wireless Security — Semester 5 — Cyber Forensics and Information Security
 - **5303D** — Data Mining — Semester 5 — Robotic Process Automation
-- **5342A** — Soft Computing — Semester 5 — Artificial Intelligence & Machine Learning
-- **5342B** — Introduction to Social Networks — Semester 5 — Artificial Intelligence & Machine Learning
+- **5342A** — Soft Computing — Semester 5 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **5342B** — Introduction to Social Networks — Semester 5 — Artificial Intelligence, Artificial Intelligence & Machine Learning
 - **5351A** — Environmental Geotechnology — Semester 5 — Civil & Environmental Engineering
 - **5359A** — Solid Waste Composting and Air Quality Monitoring Lab — Semester 5 — Civil & Environmental Engineering
 - **5361A** — Repair and Rehabilitation of Structures — Semester 5 — Civil & Rural Engineering
@@ -180,9 +180,9 @@
 - **5389B** — Java Programming Lab — Semester 5 — Artificial Intelligence
 - **5389C** — Julia Programming Lab — Semester 5 — Artificial Intelligence
 - **5389D** — Power BI Lab — Semester 5 — Artificial Intelligence
-- **5391A** — Tendering and Contracts — Semester 5 — Civil Engineering & Planning
-- **5391B** — Low-Cost Housing — Semester 5 — Civil Engineering & Planning
-- **5399A** — Structural Health Monitoring Lab — Semester 5 — Civil & Rural Engineering, Civil Engineering & Planning
+- **5391A** — Tendering and Contracts — Semester 5 — Civil Engineering, Civil Engineering & Planning
+- **5391B** — Low-Cost Housing — Semester 5 — Civil Engineering, Civil Engineering & Planning
+- **5399A** — Structural Health Monitoring Lab — Semester 5 — Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning
 - **5411A** — Vehicle Power Train Control System — Semester 5 — Electrical Engineering & Electric Vehicles Technology
 - **5423D** — Fat and Oil Processing Technology — Semester 5 — Food Processing Technology
 - **5429A** — Fat and Oil Processing Technology Lab — Semester 5 — Food Processing Technology
@@ -213,6 +213,7 @@
 - **5558** — Internet of Things Lab — Semester 5 — Computer Science & Engineering, Computer Science and Technology, Robotic Process Automation
 - **5559A** — Deep Learning Lab — Semester 5 — Computer Science and Technology
 - **5559B** — Cyber Security Lab — Semester 5 — Computer Science and Technology
+- **5559C** — Network Routing and Switching Lab — Semester 5 — Computer Science and Technology
 - **6011P** — Transportation Engineering — Semester 6 — Civil Engineering
 - **6011T** — Transportation Engineering — Semester 6 — Civil Engineering
 - **6012** — Environmental Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning
@@ -249,16 +250,16 @@
 - **6034B** — Energy Conservation and Management — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
 - **6034C** — Electrification of Residential Buildings — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
 - **6034D** — Electric Vehicles and Traction — Semester 6 — Electrical & Electronics Engineering, Electrical Engineering, Electrical Engineering & Electric Vehicles Technology
-- **6041P** — Verilog Programming & Applications — Semester 6 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
-- **6041T** — Verilog Programming & Applications — Semester 6 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
-- **6043A** — Fundamentals of Hybrid & Electric Vehicles — Semester 6 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering
-- **6043B** — Medical Electronics — Semester 6 — Electronics Engineering
-- **6043C** — Electronics Product Engineering — Semester 6 — Electronics Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
-- **6043D** — Principles of MEMS — Semester 6 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
-- **6044A** — IoT Concepts and Applications — Semester 6 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
-- **6044B** — Modern Electronics — Semester 6 — Electronics Engineering, Integrated Circuit Design & Fabrication
-- **6044C** — Drone Technology — Semester 6 — Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Micro Electronics
-- **6044D** — Healthcare Electronics — Semester 6 — Electronics Engineering
+- **6041P** — Verilog Programming & Applications — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **6041T** — Verilog Programming & Applications — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **6043A** — Fundamentals of Hybrid & Electric Vehicles — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering
+- **6043B** — Medical Electronics — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering
+- **6043C** — Electronics Product Engineering — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **6043D** — Principles of MEMS — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication
+- **6044A** — IoT Concepts and Applications — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Integrated Circuit Design & Fabrication, Micro Electronics
+- **6044B** — Modern Electronics — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Integrated Circuit Design & Fabrication
+- **6044C** — Drone Technology — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering, Electronics and Communication, Electronics and Computer Engineering, Micro Electronics
+- **6044D** — Healthcare Electronics — Semester 6 — Electrical & Electronics Engineering, Electronics Engineering
 - **6051P** — Electric and Hybrid Vehicles — Semester 6 — Automobile Engineering
 - **6051T** — Electric and Hybrid Vehicles — Semester 6 — Automobile Engineering
 - **6052** — Design of Automotive Components — Semester 6 — Automobile Engineering
@@ -353,8 +354,8 @@
 - **6124A** — Project Management — Semester 6 — Wood and Paper Technology
 - **6124B** — Coated and Speciality Paper — Semester 6 — Wood and Paper Technology
 - **6124C** — Secondary Fibre Processing — Semester 6 — Wood and Paper Technology
-- **6131P** — Software Testing — Semester 6 — Artificial Intelligence & Machine Learning, Computer Engineering
-- **6131T** — Software Testing — Semester 6 — Artificial Intelligence & Machine Learning, Computer Engineering
+- **6131P** — Software Testing — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Engineering
+- **6131T** — Software Testing — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Engineering
 - **6132** — Internet of Things — Semester 6 — Computer Engineering
 - **6133A** — Virtualization Technology & Cloud Computing — Semester 6 — Artificial Intelligence, Computer Engineering, Computer Science & Engineering
 - **6133B** — Prompt Engineering and Generative AI — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Information Technology
@@ -364,7 +365,7 @@
 - **6134B** — Cyber Security Essentials — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Cyber Forensics and Information Security
 - **6134C** — Principles to IoT — Semester 6 — Computer Engineering, Computer Science & Engineering, Computer Science and Technology
 - **6134D** — Artificial Intelligence and Applications — Semester 6 — Artificial Intelligence, Computer Engineering, Computer Science & Engineering, Computer Science and Technology, Robotic Process Automation
-- **6139D** — Ethical Hacking Lab — Semester 6 — Artificial Intelligence & Machine Learning, Computer Engineering, Computer Science & Engineering, Cyber Forensics and Information Security, Electronics and Computer Engineering
+- **6139D** — Ethical Hacking Lab — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning, Computer Engineering, Computer Science & Engineering, Cyber Forensics and Information Security, Electronics and Computer Engineering
 - **6141P** — Shorthand English (Speed & Theory) 120 wpm — Semester 6 — Commercial Practice
 - **6141T** — Shorthand English (Speed & Theory) 120 wpm — Semester 6 — Commercial Practice
 - **6143D** — Investment Management — Semester 6 — Commercial Practice
@@ -452,10 +453,10 @@
 - **6334C** — PLC and Automation — Semester 6 — Automation and Robotics
 - **6334D** — Fundamentals of Robotics — Semester 6 — Automation and Robotics
 - **6339D** — Advanced Microprocessor and Microcontroller Lab — Semester 6 — Automation and Robotics
-- **6341** — Deep Learning — Semester 6 — Artificial Intelligence & Machine Learning
-- **6342D** — Robotic Process Automation — Semester 6 — Artificial Intelligence & Machine Learning
-- **6343A** — Smart Device Programming — Semester 6 — Artificial Intelligence & Machine Learning
-- **6343B** — Virtualisation Technology and Cloud Computing — Semester 6 — Artificial Intelligence & Machine Learning
+- **6341** — Deep Learning — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **6342D** — Robotic Process Automation — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **6343A** — Smart Device Programming — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning
+- **6343B** — Virtualisation Technology and Cloud Computing — Semester 6 — Artificial Intelligence, Artificial Intelligence & Machine Learning
 - **6361B** — Rural Construction Engineering & Farm Infrastructure — Semester 6 — Civil & Rural Engineering
 - **6372A** — Renewable Energy — Semester 6 — Integrated Circuit Design & Fabrication
 - **6381P** — Visual Data Processing — Semester 6 — Artificial Intelligence
@@ -472,10 +473,10 @@
 - **6389B** — Mobile Application Development Lab — Semester 6 — Artificial Intelligence
 - **6389C** — Virtual Reality Lab — Semester 6 — Artificial Intelligence
 - **6389D** — Full Stack Development Lab — Semester 6 — Artificial Intelligence
-- **6391P** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning
-- **6391T** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering & Planning
-- **6392A** — Building Bye Laws and Statutory Drawings — Semester 6 — Civil Engineering & Planning
-- **6392B** — Water Proofing Protection and Repairs — Semester 6 — Civil Engineering & Planning
+- **6391P** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning
+- **6391T** — Soil Mechanics &Transportation Engineering — Semester 6 — Civil & Environmental Engineering, Civil & Rural Engineering, Civil Engineering, Civil Engineering & Planning
+- **6392A** — Building Bye Laws and Statutory Drawings — Semester 6 — Civil Engineering, Civil Engineering & Planning
+- **6392B** — Water Proofing Protection and Repairs — Semester 6 — Civil Engineering, Civil Engineering & Planning
 - **6411** — Electric Vehicle Technology & Design Consideration — Semester 6 — Electrical Engineering & Electric Vehicles Technology
 - **6419** — Electric Vehicle Hardware Lab — Semester 6 — Electrical Engineering & Electric Vehicles Technology
 - **6421P** — Dairy Processing Technology — Semester 6 — Food Processing Technology
