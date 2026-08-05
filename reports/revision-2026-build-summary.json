@@ -1,7 +1,7 @@
 {
   "scheme": "REV2026",
   "programmeCount": 38,
-  "subjectCount": 2403,
+  "subjectCount": 2485,
   "staticPageCount": 38,
   "directoryLayout": "Responsive searchable programme directory",
   "departmentLayout": "Revision 2021-compatible semester subject cards",
@@ -9,7 +9,7 @@
   "notesFolder": "revision-2026-content/notes",
   "programmeSubjectCounts": {
     "architecture": 56,
-    "artificial-intelligence": 67,
+    "artificial-intelligence": 96,
     "artificial-intelligence-and-machine-learning": 63,
     "automation-and-robotics": 65,
     "automobile-engineering": 66,
@@ -17,7 +17,7 @@
     "chemical-engineering": 61,
     "civil-and-environmental-engineering": 63,
     "civil-and-rural-engineering": 63,
-    "civil-engineering": 63,
+    "civil-engineering": 71,
     "civil-engineering-and-planning": 63,
     "commercial-practice": 66,
     "computer-application-and-business-management": 64,
@@ -25,7 +25,7 @@
     "computer-science-and-engineering": 67,
     "computer-science-and-technology": 67,
     "cyber-forensics-and-information-security": 62,
-    "electrical-and-electronics-engineering": 63,
+    "electrical-and-electronics-engineering": 108,
     "electrical-engineering": 63,
     "electrical-engineering-and-electric-vehicles-technology": 63,
     "electronics-and-communication": 64,
@@ -59,10 +59,10 @@
     "artificial-intelligence": {
       "Semester 1": 6,
       "Semester 2": 9,
-      "Semester 3": 9,
-      "Semester 4": 9,
-      "Semester 5": 16,
-      "Semester 6": 18
+      "Semester 3": 14,
+      "Semester 4": 14,
+      "Semester 5": 23,
+      "Semester 6": 30
     },
     "artificial-intelligence-and-machine-learning": {
       "Semester 1": 6,
@@ -124,9 +124,9 @@
       "Semester 1": 6,
       "Semester 2": 9,
       "Semester 3": 9,
-      "Semester 4": 9,
-      "Semester 5": 14,
-      "Semester 6": 16
+      "Semester 4": 10,
+      "Semester 5": 17,
+      "Semester 6": 20
     },
     "civil-engineering-and-planning": {
       "Semester 1": 6,
@@ -185,12 +185,12 @@
       "Semester 6": 15
     },
     "electrical-and-electronics-engineering": {
-      "Semester 1": 6,
-      "Semester 2": 9,
-      "Semester 3": 9,
-      "Semester 4": 9,
-      "Semester 5": 14,
-      "Semester 6": 16
+      "Semester 1": 8,
+      "Semester 2": 14,
+      "Semester 3": 16,
+      "Semester 4": 15,
+      "Semester 5": 25,
+      "Semester 6": 30
     },
     "electrical-engineering": {
       "Semester 1": 6,
@@ -353,5 +353,5 @@
       "Semester 6": 14
     }
   },
-  "newCodeCountComparedWithREV2021": 525
+  "newCodeCountComparedWithREV2021": 526
 }
