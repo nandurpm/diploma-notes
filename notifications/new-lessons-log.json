@@ -70,6 +70,13 @@
       "subjectName": "Business Mathematics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2001E.html"
+    },
+    "REV2026:2009A:revision-2026-content/lessons/lessons-2009A.html": {
+      "messageId": "projects/poly-pmna/messages/5756164162143799456",
+      "subjectCode": "2009A",
+      "subjectName": "Engineering Workshop Practice",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2009A.html"
     }
   }
 }
