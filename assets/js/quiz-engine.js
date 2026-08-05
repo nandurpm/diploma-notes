@@ -1,6 +1,7 @@
 /* Purpose: Quiz engine - Descriptive comment added for clarity */
 (() => {
   const B = window.POLY_QUIZ_BANK;
+  const CURR = window.POLY_QUIZ_BANK_CURRICULUM;
   const R = window.PolyQuizResults;
   const A = window.PolyQuizAuth;
   const $ = (id) => document.getElementById(id);
@@ -111,7 +112,7 @@
     msg('');
   }
 
-  function select(container, code) {
+  function selectCard(container, code) {
     document.querySelectorAll('#' + container + ' .subject-card').forEach((card) => {
       card.classList.toggle('selected', card.dataset.code === code);
     });
@@ -127,7 +128,7 @@
   function renderReadOnly(code, row, date = R.dateKey()) {
     subject = code;
     current = qset(code, date);
-    select('dailySubjectCards', code);
+    selectCard('dailySubjectCards', code);
     $('quizBox').classList.remove('hidden');
     hideQuizControls();
 
@@ -150,9 +151,13 @@
     $('quizMsg').className = 'status ok';
   }
 
-  async function render(code) {
+  async function renderQuiz(code) {
+    if (!B.questions[code] || B.questions[code].length === 0) {
+      alert(`Daily practice questions for Course Code ${code} are currently under development.\n\nPlease try our First-Year Common Quizzes (Math, Physics, Chemistry, English, Environment, Constitution) or General Knowledge in the meantime!`);
+      return;
+    }
     subject = code;
-    select('dailySubjectCards', code);
+    selectCard('dailySubjectCards', code);
     $('quizMsg').textContent = '';
     $('quizBox').classList.remove('hidden');
     $('quizBox').innerHTML = '<div class="notice">Checking today’s saved attempt…</div>';
@@ -264,7 +269,7 @@
   }
 
   async function review(code) {
-    select('reviewSubjectCards', code);
+    selectCard('reviewSubjectCards', code);
     const row = await R.previous(code);
     if (!row) {
       $('reviewBox').innerHTML = `<p class="notice">No previous-day attempt found for ${esc(code)} - ${esc(title(code))}.</p>`;
@@ -285,14 +290,90 @@
     const el = document.createElement('article');
     el.className = 'subject-card';
     el.dataset.code = code;
-    const label = kind === 'review' ? 'Open Review' : kind === 'mock' ? 'Start Exam' : 'Start / View Result';
-    el.innerHTML = `<span class="chip">${esc(code)}</span><h3>${esc(name)}</h3><p>${kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.'}</p><button class="btn ${kind === 'mock' ? 'primary' : 'soft'}" type="button">${label}</button>`;
+    const isSupported = Boolean(B.questions[code] && B.questions[code].length > 0);
+    const label = isSupported
+      ? (kind === 'review' ? 'Open Review' : kind === 'mock' ? 'Start Exam' : 'Start / View Result')
+      : 'Under Development';
+
+    el.innerHTML = `<span class="chip ${isSupported ? 'supported-chip' : 'dev-chip'}" style="background: ${isSupported ? '#059669' : '#475569'}">${esc(code)}</span>
+      <h3>${esc(name)}</h3>
+      <p style="font-size:12px; opacity:0.8; margin-top:4px;">${isSupported ? 'Quiz is fully active.' : 'Branch curriculum subject. Questions under development.'}</p>
+      <p>${kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.'}</p>
+      <button class="btn ${!isSupported ? 'outline' : (kind === 'mock' ? 'primary' : 'soft')}" type="button" style="width:100%; margin-top:auto;">${label}</button>`;
+
     el.onclick = () => {
-      if (kind === 'daily') render(code);
+      if (!isSupported) {
+        alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease practice with our first-year Common Subjects (English, Mathematics, Physics, Chemistry, Environment, Constitution) or General Knowledge in the meantime!`);
+        return;
+      }
+      if (kind === 'daily') renderQuiz(code);
       else if (kind === 'review') review(code);
       else location.href = (code === '1004' ? '/mock-exam-1004.html' : '/mock-exam.html?subject=' + encodeURIComponent(code));
     };
     $(target).appendChild(el);
+  }
+
+  function renderCurriculumCards(kind) {
+    const targetId = kind === 'daily' ? 'dailySubjectCards' : kind === 'review' ? 'reviewSubjectCards' : 'mockSubjectCards';
+    const container = $(targetId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    const category = kind === 'daily' ? $('dailyCategory').value : kind === 'review' ? $('reviewCategory').value : $('mockCategory').value;
+    const dept = kind === 'daily' ? $('dailyDept').value : kind === 'review' ? $('reviewDept').value : $('mockDept').value;
+
+    if (category === 'common') {
+      CURR.common.forEach((sub) => {
+        card(targetId, sub.code, sub.name, kind);
+      });
+      // Add GK specifically to common daily/review lists
+      if (kind !== 'mock') {
+        card(targetId, 'GK', 'General Knowledge', kind);
+      }
+    } else {
+      const branch = CURR.departments[dept];
+      if (branch && branch.subjects && branch.subjects.length > 0) {
+        branch.subjects.forEach((sub) => {
+          card(targetId, sub.code, sub.name, kind);
+        });
+      } else {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 32px; background: rgba(0,0,0,0.1); border-radius: 8px;">
+          <p style="font-size: 16px; font-weight: bold; margin-bottom: 8px;">No branch-specific subjects found in Semester 1 &amp; 2</p>
+          <p style="font-size: 14px; opacity: 0.8;">The ${esc(branch?.name || dept)} department uses common first-year subjects for the first semesters. Please select "Common First-Year Subjects" above to practice!</p>
+        </div>`;
+      }
+    }
+  }
+
+  function setupFilters() {
+    const sortedDepts = Object.entries(CURR.departments).sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+    ['dailyDept', 'mockDept', 'reviewDept'].forEach((id) => {
+      const select = $(id);
+      if (!select) return;
+      select.innerHTML = sortedDepts.map(([code, d]) => `<option value="${esc(code)}">${esc(d.name)} (${esc(code)})</option>`).join('');
+    });
+
+    // Daily Filters
+    $('dailyCategory').onchange = (e) => {
+      $('dailyDeptGroup').classList.toggle('hidden', e.target.value !== 'department');
+      renderCurriculumCards('daily');
+    };
+    $('dailyDept').onchange = () => renderCurriculumCards('daily');
+
+    // Mock Filters
+    $('mockCategory').onchange = (e) => {
+      $('mockDeptGroup').classList.toggle('hidden', e.target.value !== 'department');
+      renderCurriculumCards('mock');
+    };
+    $('mockDept').onchange = () => renderCurriculumCards('mock');
+
+    // Review Filters
+    $('reviewCategory').onchange = (e) => {
+      $('reviewDeptGroup').classList.toggle('hidden', e.target.value !== 'department');
+      renderCurriculumCards('review');
+    };
+    $('reviewDept').onchange = () => renderCurriculumCards('review');
   }
 
   function tick() {
@@ -351,18 +432,16 @@
     $('guestLogin').onclick = () => enter(A.asGuest().name);
     $('logoutBtn').onclick = async () => { await A.logout(); location.reload(); };
     $('openDash').onclick = () => { show('dashboardView'); stats(); recent(); };
-    $('openDaily').onclick = () => show('dailyView');
-    $('openMocks').onclick = () => show('mockView');
-    $('openReview').onclick = () => show('reviewView');
+    $('openDaily').onclick = () => { show('dailyView'); renderCurriculumCards('daily'); };
+    $('openMocks').onclick = () => { show('mockView'); renderCurriculumCards('mock'); };
+    $('openReview').onclick = () => { show('reviewView'); renderCurriculumCards('review'); };
     $('submitQuiz').onclick = submit;
     $('retryQuiz')?.remove();
 
-    Object.entries(B.subjects).forEach(([code, value]) => {
-      const name = title(code);
-      card('dailySubjectCards', code, name, 'daily');
-      card('reviewSubjectCards', code, name, 'review');
-      if (code !== '1001' && code !== 'GK') card('mockSubjectCards', code, name, 'mock');
-    });
+    setupFilters();
+    renderCurriculumCards('daily');
+    renderCurriculumCards('review');
+    renderCurriculumCards('mock');
 
     setInterval(tick, 1000);
     tick();
@@ -371,6 +450,6 @@
     stats();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bind);
+  if (document.readyState === 'loading') document.addEventListener("DOMContentLoaded", bind);
   else bind();
 })();
