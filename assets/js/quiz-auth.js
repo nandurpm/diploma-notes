@@ -6,7 +6,7 @@ window.PolyQuizAuth = (() => {
   let user = null;
   let guest = false;
 
-  const SITE_URL = "https://polypmna.dpdns.org";
+  const SITE_URL = window.location.origin;
 
   function isNetworkOrPausedProjectError(error) {
     const text = String(error?.message || error || "").toLowerCase();
