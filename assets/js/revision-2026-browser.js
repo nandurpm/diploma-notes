@@ -318,6 +318,15 @@
       grid.innerHTML = '<div class="empty-state">No Revision 2026 department was selected.</div>';
       return;
     }
+    // If the page already has static subject cards (individual department HTML pages),
+    // do NOT fetch JSON and replace them. Just enhance the existing cards with search/filter.
+    // This prevents the "flash and disappear" bug where static cards are replaced by
+    // dynamically loaded cards that have a "reveal" animation class.
+    if (grid.dataset.staticRev2026 === "true" && grid.querySelector(".subject-card")) {
+      ensureModelPaperAccess();
+      enhanceStaticDepartment();
+      return;
+    }
     try {
       const [programmes, data] = await Promise.all([
         json(`/assets/data/revision-2026-programmes.json?v=${VERSION}`),
