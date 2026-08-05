@@ -6,6 +6,8 @@
   const esc = window.PolyUtils.escapeHtml;
 
   const STORE = "poly-quiz-safe-fallback-results";
+  const B = window.POLY_QUIZ_BANK;
+  const CURR = window.POLY_QUIZ_BANK_CURRICULUM;
 
   function dateKey(date = new Date()) {
     if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
@@ -58,8 +60,7 @@
   function startQuiz(code) {
     const qs = questions(code);
     if (!qs.length) {
-      $("quizBox").classList.remove("hidden");
-      $("quizBox").innerHTML = `<p class="notice">No quiz questions are available for ${esc(code)}.</p>`;
+      alert(`Daily practice questions for Course Code ${code} are currently under development.\n\nPlease try our First-Year Common Quizzes (Math, Physics, Chemistry, English, Environment, Constitution) or General Knowledge in the meantime!`);
       return;
     }
     const existing = storageGet().find((row) => row.date === dateKey() && row.code === code);
@@ -103,36 +104,102 @@
     resultStats();
   }
 
-  function fillCards() {
-    const subjects = window.POLY_QUIZ_BANK?.subjects || {};
-    const daily = $("dailySubjectCards");
-    const mocks = $("mockSubjectCards");
-    const review = $("reviewSubjectCards");
-    if (!daily || daily.children.length) return false;
+  function card(target, code, name, kind) {
+    const el = document.createElement('article');
+    el.className = 'subject-card';
+    el.dataset.code = code;
+    const isSupported = Boolean(B.questions[code] && B.questions[code].length > 0);
+    const label = isSupported
+      ? (kind === 'review' ? 'Open Review' : kind === 'mock' ? 'Start Exam' : 'Start / View Result')
+      : 'Under Development';
 
-    Object.entries(subjects).forEach(([code, value]) => {
-      const name = typeof value === "string" ? value : value?.title || code;
-      const dailyCard = document.createElement("article");
-      dailyCard.className = "subject-card";
-      dailyCard.innerHTML = `<span class="chip">${esc(code)}</span><h3>${esc(name)}</h3><p>Guest/local safe quiz mode.</p><button class="btn soft" type="button">Start / View Result</button>`;
-      dailyCard.onclick = () => startQuiz(code);
-      daily.appendChild(dailyCard);
+    el.innerHTML = `<span class="chip ${isSupported ? 'supported-chip' : 'dev-chip'}" style="background: ${isSupported ? '#059669' : '#475569'}">${esc(code)}</span>
+      <h3>${esc(name)}</h3>
+      <p style="font-size:12px; opacity:0.8; margin-top:4px;">${isSupported ? 'Quiz is fully active.' : 'Branch curriculum subject. Questions under development.'}</p>
+      <p>Guest/local safe quiz mode.</p>
+      <button class="btn ${!isSupported ? 'outline' : (kind === 'mock' ? 'primary' : 'soft')}" type="button" style="width:100%; margin-top:auto;">${label}</button>`;
 
-      if (review) {
-        const reviewCard = dailyCard.cloneNode(true);
-        reviewCard.onclick = () => {
-          const row = storageGet().find((item) => item.code === code);
-          $("reviewBox").innerHTML = row ? `<p class="notice">Latest local score for ${esc(code)} - ${esc(name)}: ${row.score}/10 on ${esc(row.date)}</p>` : `<p class="notice">No local result found for ${esc(code)}.</p>`;
-        };
-        review.appendChild(reviewCard);
+    el.onclick = () => {
+      if (!isSupported) {
+        alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease practice with our first-year Common Subjects (English, Mathematics, Physics, Chemistry, Environment, Constitution) or General Knowledge in the meantime!`);
+        return;
       }
-
-      if (mocks && code !== "GK") {
-        const mockCard = dailyCard.cloneNode(true);
-        mockCard.onclick = () => { location.href = code === "1004" ? "/mock-exam-1004.html" : `/mock-exam.html?subject=${encodeURIComponent(code)}`; };
-        mocks.appendChild(mockCard);
+      if (kind === 'daily') startQuiz(code);
+      else if (kind === 'review') {
+        const row = storageGet().find((item) => item.code === code);
+        $("reviewBox").innerHTML = row ? `<p class="notice">Latest local score for ${esc(code)} - ${esc(name)}: ${row.score}/10 on ${esc(row.date)}</p>` : `<p class="notice">No local result found for ${esc(code)}.</p>`;
       }
+      else if (kind === 'mock') {
+        location.href = code === "1004" ? "/mock-exam-1004.html" : `/mock-exam.html?subject=${encodeURIComponent(code)}`;
+      }
+    };
+    $(target).appendChild(el);
+  }
+
+  function renderCurriculumCards(kind) {
+    const targetId = kind === 'daily' ? 'dailySubjectCards' : kind === 'review' ? 'reviewSubjectCards' : 'mockSubjectCards';
+    const container = $(targetId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    const category = kind === 'daily' ? $('dailyCategory').value : kind === 'review' ? $('reviewCategory').value : $('mockCategory').value;
+    const dept = kind === 'daily' ? $('dailyDept').value : kind === 'review' ? $('reviewDept').value : $('mockDept').value;
+
+    if (category === 'common') {
+      CURR.common.forEach((sub) => {
+        card(targetId, sub.code, sub.name, kind);
+      });
+      if (kind !== 'mock') {
+        card(targetId, 'GK', 'General Knowledge', kind);
+      }
+    } else {
+      const branch = CURR.departments[dept];
+      if (branch && branch.subjects && branch.subjects.length > 0) {
+        branch.subjects.forEach((sub) => {
+          card(targetId, sub.code, sub.name, kind);
+        });
+      } else {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 32px; background: rgba(0,0,0,0.1); border-radius: 8px;">
+          <p style="font-size: 16px; font-weight: bold; margin-bottom: 8px;">No branch-specific subjects found in Semester 1 &amp; 2</p>
+          <p style="font-size: 14px; opacity: 0.8;">The ${esc(branch?.name || dept)} department uses common first-year subjects for the first semesters. Please select "Common First-Year Subjects" above to practice!</p>
+        </div>`;
+      }
+    }
+  }
+
+  function setupFilters() {
+    const sortedDepts = Object.entries(CURR.departments).sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+    ['dailyDept', 'mockDept', 'reviewDept'].forEach((id) => {
+      const select = $(id);
+      if (!select) return;
+      select.innerHTML = sortedDepts.map(([code, d]) => `<option value="${esc(code)}">${esc(d.name)} (${esc(code)})</option>`).join('');
     });
+
+    $('dailyCategory').onchange = (e) => {
+      $('dailyDeptGroup').classList.toggle('hidden', e.target.value !== 'department');
+      renderCurriculumCards('daily');
+    };
+    $('dailyDept').onchange = () => renderCurriculumCards('daily');
+
+    $('mockCategory').onchange = (e) => {
+      $('mockDeptGroup').classList.toggle('hidden', e.target.value !== 'department');
+      renderCurriculumCards('mock');
+    };
+    $('mockDept').onchange = () => renderCurriculumCards('mock');
+
+    $('reviewCategory').onchange = (e) => {
+      $('reviewDeptGroup').classList.toggle('hidden', e.target.value !== 'department');
+      renderCurriculumCards('review');
+    };
+    $('reviewDept').onchange = () => renderCurriculumCards('review');
+  }
+
+  function fillCards() {
+    setupFilters();
+    renderCurriculumCards('daily');
+    renderCurriculumCards('review');
+    renderCurriculumCards('mock');
     return true;
   }
 
