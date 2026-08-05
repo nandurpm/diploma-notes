@@ -238,18 +238,7 @@
 
   /* Reveal sections without hiding content when JavaScript fails. */
   const revealItems = [...root.querySelectorAll("[data-about-reveal]")];
-  if ("IntersectionObserver" in window && !reduceMotion.matches) {
-    revealItems.forEach((item) => item.classList.add("about-reveal-ready"));
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("about-reveal-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.14, rootMargin: "0px 0px -6%" });
-    revealItems.forEach((item) => observer.observe(item));
-  }
+  revealItems.forEach((item) => item.classList.add("about-reveal-visible"));
 
   /* Verified scope-number animation. */
   const countItems = [...root.querySelectorAll("[data-about-count]")];
