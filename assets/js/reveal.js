@@ -58,11 +58,7 @@
   documentElement.classList.remove("reveal-no-js");
 
   function isRevealDisabledPage() {
-    const path = window.location.pathname.replace(/\/+$/, "") || "/";
-    return document.body?.dataset.revealDisabled === "true" ||
-      documentElement.dataset.revealDisabled === "true" ||
-      path === "/" ||
-      path.endsWith("/index.html");
+    return true; // Reveal animations are globally disabled to fix display issues.
   }
 
   function isEducationalContentPage() {

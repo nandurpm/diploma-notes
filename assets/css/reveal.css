@@ -18,17 +18,14 @@
 [data-reveal],
 .reveal {
   --reveal-translate-x: 0px;
-  --reveal-translate-y: var(--reveal-distance);
+  --reveal-translate-y: 0px;
   --reveal-start-scale: 1;
-  --reveal-start-blur: var(--reveal-blur);
-  opacity: 0;
-  transform: translate3d(var(--reveal-translate-x), var(--reveal-translate-y), 0) scale(var(--reveal-start-scale));
-  filter: blur(var(--reveal-start-blur));
-  transition:
-    opacity var(--reveal-duration) var(--reveal-easing) var(--reveal-delay),
-    transform var(--reveal-duration) var(--reveal-easing) var(--reveal-delay),
-    filter var(--reveal-duration) var(--reveal-easing) var(--reveal-delay);
-  will-change: opacity, transform, filter;
+  --reveal-start-blur: 0px;
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  transition: none !important;
+  will-change: auto !important;
 }
 
 [data-reveal="fade"],
