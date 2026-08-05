@@ -64820,7 +64820,7 @@
   },
   "semesterNormalization": {
     "method": "course-code-leading-digit",
-    "changedRows": 1733,
+    "changedRows": 0,
     "reason": "Legacy scraper semester labels were not aligned with official Semester 1-6 ordering."
   }
 }
