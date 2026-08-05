@@ -97,6 +97,7 @@ def main() -> int:
     minimum_rev26_lessons = 35
     lesson_count_detail = f"Found {len(rev21_lessons)} REV2021 and {len(rev26_lessons)} REV2026 lesson files."
     check("lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) in (35, 36, 42), lesson_count_detail)
+    check("lesson files are in the validation set", len(rev21_lessons) == 91 and len(rev26_lessons) == 42, lesson_count_detail)
     check(
         "lesson files do not drop below the known baseline",
         len(rev21_lessons) >= minimum_rev21_lessons and len(rev26_lessons) >= minimum_rev26_lessons,
