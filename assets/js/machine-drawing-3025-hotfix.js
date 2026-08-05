@@ -25,7 +25,7 @@
     return "";
   }
   function card(dept) {
-    return `<article class="subject-card reveal" data-subject-code="${CODE}" data-notes-href="${esc(notes())}" data-lesson-href="${esc(lesson())}" data-lesson-available="true">
+    return `<article class="subject-card" data-subject-code="${CODE}" data-notes-href="${esc(notes())}" data-lesson-href="${esc(lesson())}" data-lesson-available="true">
       <div class="subject-top"><span>${revision}</span><strong>${CODE}</strong></div>
       <h3>${NAME}</h3>
       <p>${esc(dept)} / ${semester} / ${type}</p>

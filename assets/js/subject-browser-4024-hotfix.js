@@ -13,7 +13,7 @@
     if (!VALID_DEPARTMENTS.has(department)) return;
     const root = rootPrefix();
     const card = document.createElement('article');
-    card.className = 'subject-card reveal';
+    card.className = 'subject-card';
     card.dataset.subjectCode = '4024';
     card.innerHTML = '<div class="subject-top"><span>2021</span><strong>4024</strong></div><h3>Industrial Engineering</h3><p>' + department + ' / Semester 4 / Program Core</p><div class="action-row"><a class="action syllabus" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021" target="_blank" rel="noopener noreferrer">Open Syllabus</a><a class="action lessons" href="' + root + 'lessons/lessons-4024.html">View Lessons</a><a class="action download" href="' + root + 'notes/downloadable-notes-4024.pdf" download>Download Notes</a><a class="action qp" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=4024" target="_blank" rel="noopener noreferrer">Sample QP</a></div>';
     let target = [...grid.querySelectorAll('.semester-subject-section')].find((section) => /Semester\s*4/i.test(section.innerText));
