@@ -2,8 +2,8 @@
 (() => {
   "use strict";
 
-  const files = ["1001", "1002", "1003", "1004", "2001", "2002", "2003", "gk"].map(
-    (code) => `/assets/js/quiz-bank-${code}.js?v=20260619-pdfbank`
+  const files = ["1001", "1002", "2002b", "2003a", "2005", "3001", "gk"].map(
+    (code) => `/assets/js/quiz-bank-${code}.js?v=20260720-audit-quiz2`
   );
 
   function hash(text) {
