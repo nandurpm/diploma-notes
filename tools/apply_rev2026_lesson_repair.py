@@ -262,8 +262,8 @@ def repair_revision_pages(check: bool) -> int:
 
 def validate() -> None:
     rev26_lessons = sorted((ROOT / "revision-2026-content/lessons").glob("lessons-*.html"))
-    if len(rev26_lessons) != 20:
-        raise RuntimeError(f"expected 20 existing REV2026 lessons, found {len(rev26_lessons)}")
+    if len(rev26_lessons) != 44:
+        raise RuntimeError(f"expected 44 existing REV2026 lessons, found {len(rev26_lessons)}")
     for path in rev26_lessons:
         text = path.read_text(encoding="utf-8", errors="ignore")
         if LESSON_RUNTIME not in text or (path.name != "lessons-1003.html" and len(text) < 15_000) or "</html>" not in text.lower():
