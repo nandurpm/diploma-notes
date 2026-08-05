@@ -29,6 +29,7 @@ window.PolyUtils = (() => {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
+    flowType: "pkce",
   };
 
   function createSupabaseBrowserClient(options = {}) {
