@@ -65,6 +65,7 @@ questions:{
 {id:'2005-05',topic:'Solid Waste',en:'The best first step in waste management is _____.',ml:'മാലിന്യ സംസ്കരണത്തിലെ ഏറ്റവും മികച്ച ആദ്യ ഘട്ടം ഏതാണ്?',options:['Reduction','Landfilling','Incineration','Dumping'],answer:0},
 {id:'2005-06',topic:'Air Pollution',en:'The major indoor air pollutant in rural households is _____.',ml:'ഗ്രാമീണ വീടുകളിൽ കാണുന്ന പ്രധാന വായുമലിനീകരണ ഉപാധി ഏതാണ്?',options:['Biomass smoke','Carbon monoxide','Asbestos','Ozone'],answer:0},
 {id:'2005-07',topic:'Ozone Depletion',en:'The ozone layer is primarily depleted by gases called _____.',ml:'ഓസോൺ പാളി പ്രധാനമായും നശിപ്പിക്കുന്നത് ഏത് വാതകങ്ങളാണ്?',options:['Chlorofluorocarbons (CFCs)','Carbon dioxide','Sulfur dioxide','Helium'],answer:0},
+{id:'2005-08',topic:'Environmental Ethics',en:'The principle that humans are part of nature, not its masters, is called _____.',ml:'മനുഷ്യൻ പ്രകൃതിയുടെ यജമാനനല്ല, മറിച്ച് പ്രകൃതിയുടെ ഭാഗമാണെന്ന തത്വം ഏതാണ്?',options:['Ecological ethics','Anthropocentrism','Technocentrism','Utilitarianism'],answer:0},
 {id:'2005-08',topic:'Environmental Ethics',en:'The principle that humans are part of nature, not its masters, is called _____.',ml:'മനുഷ്യൻ പ്രകൃതിയുടെ യജമാനനല്ല, മറിച്ച് പ്രകൃതിയുടെ ഭാഗമാണെന്ന തത്വം ഏതാണ്?',options:['Ecological ethics','Anthropocentrism','Technocentrism','Utilitarianism'],answer:0},
 {id:'2005-09',topic:'Sustainable Development',en:'Sustainable development meets the needs of the present without compromising the ability of _____.',ml:'സുസ്ഥിര വികസനം എന്നത് എന്തിനെ തടസ്സപ്പെടുത്താതെ ഇന്നത്തെ ആവശ്യങ്ങൾ നിറവേറ്റുന്നതാണ്?',options:['future generations','past industries','rich nations','corporate profit'],answer:0},
 {id:'2005-10',topic:'Environmental Protection',en:'ISO 14001 certification is awarded for standard _____.',ml:'ISO 14001 സർട്ടിഫിക്കേഷൻ നൽകുന്നത് എന്തിനാണ്?',options:['Environmental Management System','Quality Management System','Food Safety System','Information Security'],answer:0}
@@ -82,4 +83,179 @@ questions:{
 {id:'3001-10',topic:'Election Commission',en:'Elections in India are conducted by which constitutional body?',ml:'ഇന്ത്യയിൽ തെരഞ്ഞെടുപ്പുകൾ നടത്തുന്നത് ഏത് ഭരണഘടനാ സ്ഥാപനമാണ്?',options:['Election Commission of India','UPSC','NITI Aayog','Finance Commission'],answer:0}
 ]
 }
+};
+
+window.POLY_QUIZ_BANK_CURRICULUM = {
+  common: [
+    { code: "1001", name: "English for Technical Communication", sem: "S1", type: "Course" },
+    { code: "1002", name: "Fundamentals of Engineering Mathematics", sem: "S1", type: "Theory" },
+    { code: "1003", name: "Engineering Graphics", sem: "S1", type: "Drawing" },
+    { code: "1004", name: "Engineering Drawing with CAD", sem: "S1", type: "Lab" },
+    { code: "1008", name: "Foundational IT Skills", sem: "S1", type: "Lab" },
+    { code: "1009", name: "Health and Physical Education", sem: "S1", type: "Lab" },
+    { code: "1011", name: "Fundamentals of Civil Engineering", sem: "S1", type: "Course" },
+    { code: "1021", name: "Basic Mechanical Engineering", sem: "S1", type: "Course" },
+    { code: "1031", name: "Basic Electrical and Electronics Engineering", sem: "S1", type: "Course" },
+    { code: "1041", name: "Elementary Concepts of Electronics", sem: "S1", type: "Course" },
+    { code: "1131", name: "Problem Solving and Python Programming", sem: "S1", type: "Practicum" },
+    { code: "1181", name: "Architectural Graphics", sem: "S1", type: "Drawing" },
+    { code: "1182", name: "Fundamentals of Architecture", sem: "S1", type: "Practicum" },
+    { code: "2002A", name: "Applied Physics for Mechanical, Structural and Industrial Applications", sem: "S1/S2", type: "Course" },
+    { code: "2003A", name: "Chemistry for Engineering Practices", sem: "S1/S2", type: "Course" },
+    { code: "2003B", name: "Chemistry for Technical Practices", sem: "S1/S2", type: "Practicum" },
+    { code: "2001A", name: "Mathematics for Industrial Engineering", sem: "S2", type: "Theory" },
+    { code: "2001B", name: "Mathematics for Electrical Sciences", sem: "S2", type: "Theory" },
+    { code: "2001C", name: "Mathematics for Computer Technology", sem: "S2", type: "Theory" },
+    { code: "2001D", name: "Mathematics for Applied Engineering", sem: "S2", type: "Theory" },
+    { code: "2002B", name: "Engineering Physics for Applied Electrical Technology and Computing", sem: "S2", type: "Practicum" },
+    { code: "2005", name: "Environmental Sustainability and Ethics", sem: "S2", type: "Theory" },
+    { code: "2009A", name: "General Engineering Workshop", sem: "S2", type: "Lab" },
+    { code: "2009B", name: "Engineering Workshop Practice", sem: "S2", type: "Lab" },
+    { code: "2011", name: "Building Materials & Construction Techniques", sem: "S2", type: "Theory" },
+    { code: "2012", name: "Basic Surveying", sem: "S2", type: "Theory" },
+    { code: "2018", name: "Construction Materials Lab", sem: "S2", type: "Lab" },
+    { code: "2019", name: "Basic Surveying Lab", sem: "S2", type: "Lab" },
+    { code: "2031", name: "Elementary Concepts of Electrical & Electronics Engineering", sem: "S2", type: "Theory" },
+    { code: "2032", name: "Electric Circuits and Systems", sem: "S2", type: "Theory" },
+    { code: "2038", name: "Electrical and Electronics Practice Lab", sem: "S2", type: "Lab" },
+    { code: "2039", name: "Fundamentals of Electrical Engineering Lab", sem: "S2", type: "Lab" },
+    { code: "2041", name: "Elements of Electrical & Electronics Engineering", sem: "S2", type: "Theory" },
+    { code: "2042", name: "Electronic Devices and Applications", sem: "S2", type: "Theory" },
+    { code: "2048", name: "Elements of Electrical & Electronics Engineering Lab", sem: "S2", type: "Lab" },
+    { code: "2049", name: "Electronic Devices and Applications Lab", sem: "S2", type: "Lab" },
+    { code: "2131", name: "Fundamentals of Electrical and Electronics Engineering", sem: "S2", type: "Theory" },
+    { code: "2132", name: "Programming in C", sem: "S2", type: "Theory" },
+    { code: "2138", name: "Fundamentals of Electrical and Electronics Engineering Lab", sem: "S2", type: "Lab" },
+    { code: "2139", name: "Programming in C Lab", sem: "S2", type: "Lab" },
+    { code: "2182", name: "Building Materials & Technology", sem: "S2", type: "Theory" },
+    { code: "2187", name: "Masonry & Service Lab", sem: "S2", type: "Lab" },
+    { code: "3009", name: "Digital 101", sem: "S2", type: "Course" }
+  ],
+  departments: {
+    "AR": { name: "Architecture", subjects: [
+      { code: "2183", name: "History of Architecture - I", sem: "S2", type: "Theory" },
+      { code: "2188", name: "Architectural Design & Drafting I", sem: "S2", type: "Studio" }
+    ]},
+    "AI": { name: "Artificial Intelligence", subjects: [] },
+    "AM": { name: "Artificial Intelligence & Machine Learning", subjects: [] },
+    "RA": { name: "Automation and Robotics", subjects: [
+      { code: "2331", name: "Foundations of Robotics", sem: "S2", type: "Theory" },
+      { code: "2339", name: "Foundations of Robotics Lab", sem: "S2", type: "Lab" }
+    ]},
+    "AU": { name: "Automobile Engineering", subjects: [
+      { code: "1051", name: "Basic Automobile Engineering", sem: "S1", type: "Practicum" },
+      { code: "2051", name: "Basic Electrical and Electronics Engineering", sem: "S2", type: "Theory" },
+      { code: "2052", name: "Fundamentals of Internal Combustion Engines", sem: "S2", type: "Theory" },
+      { code: "2058", name: "Basic Electrical and Electronics Lab", sem: "S2", type: "Lab" },
+      { code: "2059", name: "Automobile Service Lab", sem: "S2", type: "Lab" }
+    ]},
+    "BM": { name: "Biomedical Engineering", subjects: [] },
+    "CH": { name: "Chemical Engineering", subjects: [
+      { code: "2071", name: "Fundamentals of Engineering Chemistry", sem: "S2", type: "Practicum" },
+      { code: "2072", name: "Fundamentals of Chemical Engineering", sem: "S2", type: "Theory" },
+      { code: "2073", name: "Industrial Safety - Principles and Practices", sem: "S2", type: "Theory" },
+      { code: "2078", name: "Industrial Safety Lab", sem: "S2", type: "Lab" },
+      { code: "2079", name: "CAD Lab", sem: "S2", type: "Lab" }
+    ]},
+    "CV": { name: "Civil & Environmental Engineering", subjects: [] },
+    "CR": { name: "Civil & Rural Engineering", subjects: [] },
+    "CE": { name: "Civil Engineering", subjects: [] },
+    "CL": { name: "Civil Engineering & Planning", subjects: [] },
+    "CO": { name: "Civil Engineering (Construction Technology)", subjects: [] },
+    "CP": { name: "Commercial Practice", subjects: [
+      { code: "1141", name: "Fundamentals of Business", sem: "S1", type: "Theory" },
+      { code: "1142", name: "Financial Accounting with Tally I", sem: "S1", type: "Practicum" },
+      { code: "1143", name: "Managerial Economics", sem: "S1", type: "Practicum" },
+      { code: "1144", name: "Shorthand English Theory I", sem: "S1", type: "Practicum" },
+      { code: "1149", name: "Visual Design and Smart Publishing", sem: "S1", type: "Lab" },
+      { code: "2141", name: "Business Regulatory Framework", sem: "S2", type: "Theory" },
+      { code: "2142", name: "Financial Accounting with Tally II", sem: "S2", type: "Practicum" },
+      { code: "2143", name: "Co-operative Theory and Practice", sem: "S2", type: "Theory" },
+      { code: "2144", name: "Shorthand English Theory II", sem: "S2", type: "Practicum" },
+      { code: "2147", name: "Digital Marketing and AI Tools for Business", sem: "S2", type: "Lab" },
+      { code: "2148", name: "Data Entry Operations and Applications", sem: "S2", type: "Lab" },
+      { code: "2149", name: "Typewriting and Word Processing", sem: "S2", type: "Lab" }
+    ]},
+    "CB": { name: "Computer Application & Business Management", subjects: [
+      { code: "1251", name: "Basic Accounting", sem: "S1", type: "Theory" },
+      { code: "1252", name: "Business Economics", sem: "S1", type: "Theory" },
+      { code: "1253", name: "Business Studies", sem: "S1", type: "Theory" },
+      { code: "1254", name: "Computer Applications in Management", sem: "S1", type: "Practicum" },
+      { code: "1259", name: "Introduction to Python Lab", sem: "S1", type: "Lab" },
+      { code: "2001E", name: "Business Mathematics", sem: "S2", type: "Theory" },
+      { code: "2251", name: "AI for Business", sem: "S2", type: "Practicum" },
+      { code: "2252", name: "Management Concepts and Organisational Behavior", sem: "S2", type: "Theory" },
+      { code: "2253", name: "Cost Accounting", sem: "S2", type: "Theory" },
+      { code: "2257", name: "Computerised Accounting Lab", sem: "S2", type: "Lab" },
+      { code: "2258", name: "C Programming Lab", sem: "S2", type: "Lab" },
+      { code: "2259", name: "Office Automation Software Lab", sem: "S2", type: "Lab" }
+    ]},
+    "CT": { name: "Computer Engineering", subjects: [] },
+    "CS": { name: "Computer Science & Engineering", subjects: [] },
+    "CZ": { name: "Computer Science & Engineering (AI & ML)", subjects: [] },
+    "CG": { name: "Computer Science and Technology", subjects: [] },
+    "CF": { name: "Cyber Forensics and Information Security", subjects: [] },
+    "EE": { name: "Electrical & Electronics Engineering", subjects: [] },
+    "EG": { name: "Electrical Engineering", subjects: [] },
+    "EV": { name: "Electrical Engineering & Electric Vehicles Technology", subjects: [] },
+    "EL": { name: "Electronics Engineering", subjects: [] },
+    "EC": { name: "Electronics and Communication", subjects: [] },
+    "ET": { name: "Electronics and Computer Engineering", subjects: [] },
+    "ES": { name: "Electronics Engineering (Embedded Systems)", subjects: [] },
+    "FS": { name: "Fire Technology and Safety", subjects: [
+      { code: "2461", name: "Principles of Safety Management", sem: "S2", type: "Theory" },
+      { code: "2469", name: "Computer Applications in Fire Technology & Safety", sem: "S2", type: "Lab" }
+    ]},
+    "FT": { name: "Food Processing Technology", subjects: [
+      { code: "1421", name: "Fundamentals of Food Processing Technology", sem: "S1", type: "Practicum" },
+      { code: "2421", name: "Food Processing Technology", sem: "S2", type: "Theory" },
+      { code: "2429", name: "Food Processing Technology lab", sem: "S2", type: "Lab" }
+    ]},
+    "IF": { name: "Information Technology", subjects: [] },
+    "IE": { name: "Instrumentation Engineering", subjects: [
+      { code: "2081", name: "Basics of Instrumentation and Transducers", sem: "S2", type: "Theory" },
+      { code: "2089", name: "Basic Instrumentation Lab", sem: "S2", type: "Lab" }
+    ]},
+    "IC": { name: "Integrated Circuit Design & Fabrication", subjects: [] },
+    "ID": { name: "Interior Design", subjects: [
+      { code: "2532", name: "History of Interior Design - I", sem: "S2", type: "Theory" },
+      { code: "2539", name: "Interior Design & Drafting I", sem: "S2", type: "Studio" }
+    ]},
+    "ME": { name: "Mechanical Engineering", subjects: [
+      { code: "2021", name: "Engineering Materials and Measurements", sem: "S2", type: "Theory" },
+      { code: "2022", name: "Engineering Mechanics and Design Thinking", sem: "S2", type: "Theory" },
+      { code: "2028", name: "Materials and Measurements Laboratory", sem: "S2", type: "Lab" },
+      { code: "2029", name: "Engineering Mechanics Lab", sem: "S2", type: "Lab" }
+    ]},
+    "MA": { name: "Mechanical Engineering (Automobile Engineering)", subjects: [] },
+    "MC": { name: "Mechatronics", subjects: [
+      { code: "2432", name: "Fundamentals of Computer Programming", sem: "S2", type: "Theory" },
+      { code: "2439", name: "Computer Programming Lab", sem: "S2", type: "Lab" }
+    ]},
+    "MI": { name: "Micro Electronics", subjects: [] },
+    "PL": { name: "Polymer Technology", subjects: [
+      { code: "1091", name: "Introduction to Polymer Science", sem: "S1", type: "Course" },
+      { code: "2091", name: "Polymer Science", sem: "S2", type: "Theory" },
+      { code: "2099", name: "Polymer Science Lab", sem: "S2", type: "Lab" }
+    ]},
+    "PT": { name: "Printing Technology", subjects: [
+      { code: "1101", name: "Introduction to Printing Technology", sem: "S1", type: "Practicum" },
+      { code: "2101", name: "Fundamentals of Printing Science", sem: "S2", type: "Theory" },
+      { code: "2109", name: "Digital Office Systems and Documentation", sem: "S2", type: "Lab" }
+    ]},
+    "RP": { name: "Robotic Process Automation", subjects: [] },
+    "TT": { name: "Textile Technology", subjects: [
+      { code: "1061", name: "Fibre Science", sem: "S1", type: "Practicum" },
+      { code: "2061", name: "Technology of Manmade Fibres", sem: "S2", type: "Theory" },
+      { code: "2069", name: "Fundamentals of Textile Mechanics Lab", sem: "S2", type: "Lab" }
+    ]},
+    "TD": { name: "Tool & Die Engineering", subjects: [
+      { code: "2111", name: "Fundamentals of Manufacturing and Tool Engineering", sem: "S2", type: "Theory" },
+      { code: "2119", name: "Basic CAD Lab", sem: "S2", type: "Lab" }
+    ]},
+    "WP": { name: "Wood and Paper Technology", subjects: [
+      { code: "2121", name: "Botany and Anatomical Structure", sem: "S2", type: "Theory" },
+      { code: "2129", name: "Botany Lab", sem: "S2", type: "Lab" }
+    ]}
+  }
 };
