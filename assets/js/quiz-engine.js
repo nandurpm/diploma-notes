@@ -250,15 +250,36 @@
   }
 
   async function stats() {
-    const rows = await R.recent();
-    const today = rows.filter((row) => row.quiz_date === R.dateKey());
-    const bank = Object.values(B.questions).reduce((sum, arr) => sum + arr.length, 0);
-    const done = new Set();
-    rows.forEach((row) => (row.question_keys || []).forEach((key) => done.add(key)));
-    $('dateStat').textContent = R.dateKey();
-    $('best').textContent = today.length ? Math.max(...today.map((row) => row.best_score ?? row.score ?? 0)) + '/10' : '0/10';
-    $('progress').textContent = done.size + '/' + bank;
-    $('analysisBox').innerHTML = `<div class="analysis-card"><span>Mode</span><b>${A?.guest ? 'Guest' : 'Login'}</b></div><div class="analysis-card"><span>Question Bank</span><b>${bank}</b></div><div class="analysis-card"><span>Saved Results</span><b>${rows.length}</b></div><div class="analysis-card"><span>Today</span><b>${today.length}</b></div>`;
+    if ($('dateStat')) $('dateStat').innerHTML = '<span class="quiz-spinner"></span>';
+    if ($('best')) $('best').innerHTML = '<span class="quiz-spinner"></span>';
+    if ($('progress')) $('progress').innerHTML = '<span class="quiz-spinner"></span>';
+    if ($('analysisBox')) $('analysisBox').innerHTML = '<div class="empty-state"><span class="quiz-spinner-dark"></span> Loading practice records...</div>';
+
+    try {
+      const rows = await R.recent();
+      const today = rows.filter((row) => row.quiz_date === R.dateKey());
+      const bank = Object.values(B.questions).reduce((sum, arr) => sum + arr.length, 0);
+      const done = new Set();
+      rows.forEach((row) => (row.question_keys || []).forEach((key) => done.add(key)));
+
+      if ($('dateStat')) $('dateStat').textContent = R.dateKey();
+      if ($('best')) $('best').textContent = today.length ? Math.max(...today.map((row) => row.best_score ?? row.score ?? 0)) + '/10' : '0/10';
+      if ($('progress')) $('progress').textContent = done.size + '/' + bank;
+      if ($('analysisBox')) {
+        $('analysisBox').innerHTML = `<div class="analysis-card"><span>Mode</span><b>${A?.guest ? 'Guest' : 'Login'}</b></div><div class="analysis-card"><span>Question Bank</span><b>${bank}</b></div><div class="analysis-card"><span>Saved Results</span><b>${rows.length}</b></div><div class="analysis-card"><span>Today</span><b>${today.length}</b></div>`;
+      }
+    } catch (err) {
+      console.error("Failed to load quiz statistics", err);
+      if ($('dateStat')) $('dateStat').textContent = 'Error';
+      if ($('best')) $('best').textContent = 'Error';
+      if ($('progress')) $('progress').textContent = 'Error';
+      if ($('analysisBox')) {
+        $('analysisBox').innerHTML = `<div class="empty-state status error" style="grid-column: 1/-1; text-align: center; padding: 20px;">
+          <p>Unable to load practice records. Please check your connection and try again.</p>
+          <button class="btn outline btn-sm" onclick="location.reload()" type="button" style="margin-top: 10px; display: inline-flex;">Retry Connection</button>
+        </div>`;
+      }
+    }
   }
 
   async function recent() {
@@ -385,6 +406,7 @@
   }
 
   function bind() {
+    window.PolyQuizEngineLoaded = true;
     ensureGeneralKnowledge();
     document.querySelectorAll('[data-year],#year').forEach((node) => { node.textContent = new Date().getFullYear(); });
     $('dateStat').textContent = R.dateKey();
