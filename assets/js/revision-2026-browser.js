@@ -43,6 +43,7 @@
     "civil-and-rural-engineering": ["#4d7c0f", "#0e7490"],
     "civil-engineering": ["#1d4ed8", "#0891b2"],
     "civil-engineering-and-planning": ["#1e40af", "#6366f1"],
+    "civil-engineering-construction-technology": ["#b91c1c", "#f59e0b"],
     "commercial-practice": ["#9a3412", "#d97706"],
     "computer-application-and-business-management": ["#6d28d9", "#2563eb"],
     "computer-engineering": ["#1e3a8a", "#2563eb"],
@@ -69,7 +70,10 @@
     "robotic-process-automation": ["#4f46e5", "#06b6d4"],
     "textile-technology": ["#92400e", "#0f766e"],
     "tool-and-die-engineering": ["#334155", "#d97706"],
-    "wood-and-paper-technology": ["#854d0e", "#65a30d"]
+    "wood-and-paper-technology": ["#854d0e", "#65a30d"],
+    "computer-science-and-engineering-artificial-intelligence-and-machine-learning": ["#4338ca", "#7c3aed"],
+    "electronics-engineering-embedded-systems": ["#c2410c", "#0f766e"],
+    "mechanical-engineering-automobile-engineering": ["#334155", "#2563eb"]
   };
   const esc = value => window.PolyUtils?.escapeHtml
     ? window.PolyUtils.escapeHtml(value)
