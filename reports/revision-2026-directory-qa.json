@@ -2,8 +2,8 @@
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
   "status": "failed",
-  "sourceCommit": "ad69c8527282ed0b4a9214267a6698476ac7c3f0",
-  "generatedAt": "2026-08-06T09:16:56.319Z",
+  "sourceCommit": "0df54ad433c5fa6f9657ec21014a677bd33bb50c",
+  "generatedAt": "2026-08-06T17:50:23.680Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -33,8 +33,8 @@
     },
     {
       "name": "page has one primary heading",
-      "passed": false,
-      "h1Count": 2
+      "passed": true,
+      "h1Count": 1
     },
     {
       "name": "directory stylesheet is loaded",
@@ -47,41 +47,118 @@
     {
       "name": "all 38 department cards render",
       "passed": false,
-      "cardCount": 84
+      "cardCount": 42
     },
     {
       "name": "revision switch is present",
+      "passed": true
+    },
+    {
+      "name": "Revision 2026 switch is active",
+      "passed": true
+    },
+    {
+      "name": "official source actions are present",
+      "passed": true
+    },
+    {
+      "name": "desktop has no horizontal overflow",
+      "passed": true,
+      "viewportWidth": 1440,
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "heroHeight": 335.140625
+    },
+    {
+      "name": "desktop hero is compact",
+      "passed": true,
+      "viewportWidth": 1440,
+      "documentWidth": 1440,
+      "bodyWidth": 1440,
+      "heroHeight": 335.140625
+    },
+    {
+      "name": "desktop uses a compact multi-column grid",
+      "passed": true,
+      "firstRowCount": 4
+    },
+    {
+      "name": "department search filters correctly",
+      "passed": false,
+      "visibleElectrical": 42
+    },
+    {
+      "name": "search result count updates",
+      "passed": false,
+      "resultText": "42 departments available"
+    },
+    {
+      "name": "search query is preserved in URL",
+      "passed": false,
+      "url": "http://127.0.0.1:8000/revision-2026.html"
+    },
+    {
+      "name": "clear control appears for active search",
       "passed": false
     },
     {
       "name": "QA script completed without an unhandled exception",
       "passed": false,
-      "error": "locator.getAttribute: Error: strict mode violation: locator('.revision-directory-switch a[aria-current=\\'page\\']') resolved to 2 elements:\n    1) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(1)\n    2) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(2)\n\nCall log:\n  - waiting for locator('.revision-directory-switch a[aria-current=\\'page\\']')\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:84:116"
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#programmeSearchClear')\n    - locator resolved to <button hidden=\"\" type=\"button\" id=\"programmeSearchClear\" class=\"revision-directory-clear\">Clear</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    56 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:114:47"
     }
   ],
   "failures": [
     {
-      "name": "page has one primary heading",
-      "passed": false,
-      "h1Count": 2
-    },
-    {
       "name": "all 38 department cards render",
       "passed": false,
-      "cardCount": 84
+      "cardCount": 42
     },
     {
-      "name": "revision switch is present",
+      "name": "department search filters correctly",
+      "passed": false,
+      "visibleElectrical": 42
+    },
+    {
+      "name": "search result count updates",
+      "passed": false,
+      "resultText": "42 departments available"
+    },
+    {
+      "name": "search query is preserved in URL",
+      "passed": false,
+      "url": "http://127.0.0.1:8000/revision-2026.html"
+    },
+    {
+      "name": "clear control appears for active search",
       "passed": false
     },
     {
       "name": "QA script completed without an unhandled exception",
       "passed": false,
-      "error": "locator.getAttribute: Error: strict mode violation: locator('.revision-directory-switch a[aria-current=\\'page\\']') resolved to 2 elements:\n    1) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(1)\n    2) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(2)\n\nCall log:\n  - waiting for locator('.revision-directory-switch a[aria-current=\\'page\\']')\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:84:116"
+      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#programmeSearchClear')\n    - locator resolved to <button hidden=\"\" type=\"button\" id=\"programmeSearchClear\" class=\"revision-directory-clear\">Clear</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    56 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:114:47"
     }
   ],
   "console": {
-    "errors": [],
+    "errors": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "location": {
+          "url": "http://127.0.0.1:8000/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js",
+          "lineNumber": 0,
+          "columnNumber": 0
+        }
+      },
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "location": {
+          "url": "http://127.0.0.1:8000/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+          "lineNumber": 0,
+          "columnNumber": 0
+        }
+      }
+    ],
     "warnings": []
   },
   "screenshots": []
