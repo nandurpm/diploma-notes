@@ -25,7 +25,20 @@
   const button = ensureButton();
   if (!button) return;
 
-  const appMatch = navigator.userAgent.match(/(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/([0-9]+(?:\.[0-9]+)*)/i);
+  const root = document.documentElement;
+  const userAgent = navigator.userAgent || "";
+  const nativeUserAgent = /(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/([0-9]+(?:\.[0-9]+)*)/i.test(userAgent);
+  const nativeBridge = window.POLY_PMNA_NATIVE_APP === true || root.dataset.nativeApp === "poly-pmna";
+  const isNativeApp = nativeUserAgent || nativeBridge;
+
+  // Initially hide the button if we are in the Android App (avoiding flash of "Download Our App" button)
+  if (isNativeApp) {
+    button.hidden = true;
+    button.setAttribute("aria-hidden", "true");
+    button.style.setProperty("display", "none", "important");
+  }
+
+  const appMatch = userAgent.match(/(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/([0-9]+(?:\.[0-9]+)*)/i);
   const currentAppVersion = appMatch ? appMatch[1] : null;
 
   const isNewer = (latest, current) => {
@@ -45,7 +58,8 @@
     if (!value) return "";
     try {
       const url = new URL(value, window.location.origin);
-      if (url.protocol !== "https:") return "";
+      const isLocal = url.hostname === "localhost" || url.hostname === "127.0.0.1";
+      if (url.protocol !== "https:" && !isLocal) return "";
 
       const sameSiteApk = url.origin === window.location.origin
         && url.pathname.startsWith("/downloads/")
@@ -62,6 +76,12 @@
   };
 
   const showUnavailable = (message = "The Android app download is temporarily unavailable.") => {
+    if (isNativeApp) {
+      button.hidden = true;
+      button.setAttribute("aria-hidden", "true");
+      button.style.setProperty("display", "none", "important");
+      return;
+    }
     button.dataset.appButtonState = "unavailable";
     button.textContent = "📱 App Download Unavailable";
     button.href = "/downloads/";
@@ -83,34 +103,56 @@
     const apkUrl = new URL(apkHref);
     const filename = decodeURIComponent(apkUrl.pathname.split("/").pop() || `POLY_PMNA_v${update.versionName}.apk`);
 
-    button.dataset.appButtonState = "download";
-    button.textContent = `📱 Download Our App v${update.versionName}`;
-    button.href = apkUrl.href;
-
-    // The download attribute is reliable for same-origin files. GitHub Release
-    // assets provide their own attachment response, so normal navigation starts
-    // the APK download on Android without opening an intermediate website page.
-    if (apkUrl.origin === window.location.origin) button.download = filename;
-    else button.removeAttribute("download");
-
-    button.removeAttribute("aria-disabled");
-    button.setAttribute("aria-label", `Download POLY PMNA Android app version ${update.versionName}`);
-    button.hidden = false;
-    button.removeAttribute("aria-hidden");
-    button.style.removeProperty("display");
-
-    if (currentAppVersion) {
-      if (isNewer(update.versionName, currentAppVersion)) {
+    if (isNativeApp) {
+      if (currentAppVersion && isNewer(update.versionName, currentAppVersion)) {
         button.dataset.appButtonState = "update";
         button.textContent = `✨ Update Available v${update.versionName}`;
+        button.href = apkUrl.href;
         button.classList.remove("ghost");
         button.classList.add("primary");
+        button.removeAttribute("aria-disabled");
+        button.setAttribute("aria-label", `Download POLY PMNA Android app version ${update.versionName}`);
+        button.hidden = false;
+        button.removeAttribute("aria-hidden");
         // Ensure the button is visible in the app when an update is available
         button.style.setProperty("display", "inline-flex", "important");
       } else {
+        // Either currentAppVersion is missing, or installed_version == latest_version
         button.hidden = true;
         button.setAttribute("aria-hidden", "true");
         button.style.setProperty("display", "none", "important");
+      }
+    } else {
+      // Web Version: Keep the "Download Our App" button visible
+      button.dataset.appButtonState = "download";
+      button.textContent = `📱 Download Our App v${update.versionName}`;
+      button.href = apkUrl.href;
+
+      // The download attribute is reliable for same-origin files. GitHub Release
+      // assets provide their own attachment response, so normal navigation starts
+      // the APK download on Android without opening an intermediate website page.
+      if (apkUrl.origin === window.location.origin) button.download = filename;
+      else button.removeAttribute("download");
+
+      button.removeAttribute("aria-disabled");
+      button.setAttribute("aria-label", `Download POLY PMNA Android app version ${update.versionName}`);
+      button.hidden = false;
+      button.removeAttribute("aria-hidden");
+      button.style.removeProperty("display");
+
+      // Keep the existing update/version logic for the website unchanged
+      if (currentAppVersion) {
+        if (isNewer(update.versionName, currentAppVersion)) {
+          button.dataset.appButtonState = "update";
+          button.textContent = `✨ Update Available v${update.versionName}`;
+          button.classList.remove("ghost");
+          button.classList.add("primary");
+          button.style.setProperty("display", "inline-flex", "important");
+        } else {
+          button.hidden = true;
+          button.setAttribute("aria-hidden", "true");
+          button.style.setProperty("display", "none", "important");
+        }
       }
     }
   };
