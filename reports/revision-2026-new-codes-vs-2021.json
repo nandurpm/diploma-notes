@@ -1,8 +1,8 @@
 {
   "comparison": "REV2026 dataset versus the current POLY PMNA REV2021 catalogue",
   "revision2021UniqueCodeCount": 1248,
-  "revision2026UniqueCodeCount": 1143,
-  "newCodeCount": 526,
+  "revision2026UniqueCodeCount": 1180,
+  "newCodeCount": 563,
   "newCodes": [
     "1011",
     "1021",
@@ -47,6 +47,8 @@
     "2439",
     "2532",
     "2539",
+    "2561",
+    "2569",
     "3114",
     "3144",
     "3283",
@@ -68,6 +70,10 @@
     "3533",
     "3538",
     "3539",
+    "3561",
+    "3571",
+    "3572",
+    "3579",
     "4002",
     "4009A",
     "4009B",
@@ -90,10 +96,16 @@
     "4438",
     "4439",
     "4502",
+    "4511",
+    "4521",
+    "4529",
     "4531",
     "4538",
     "4539",
     "4541",
+    "4571",
+    "4578",
+    "4579",
     "5007",
     "5014D",
     "5019A",
@@ -197,6 +209,12 @@
     "5503B",
     "5508",
     "5509A",
+    "5521",
+    "5522",
+    "5523A",
+    "5523B",
+    "5528",
+    "5529A",
     "5531",
     "5532",
     "5533A",
@@ -210,6 +228,12 @@
     "5559A",
     "5559B",
     "5559C",
+    "5561",
+    "5562A",
+    "5562B",
+    "5569A",
+    "5571",
+    "5579",
     "6011P",
     "6011T",
     "6012",
@@ -519,6 +543,10 @@
     "6493B",
     "6499A",
     "6502A",
+    "6521",
+    "6522A",
+    "6528",
+    "6529A",
     "6531P",
     "6531T",
     "6532A",
@@ -529,7 +557,16 @@
     "6551T",
     "6552",
     "6553B",
-    "6559"
+    "6559",
+    "6561",
+    "6562A",
+    "6569",
+    "6571P",
+    "6571T",
+    "6572A",
+    "6579A",
+    "6579B",
+    "6579C"
   ],
   "newCodeDetails": [
     {
@@ -544,7 +581,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -558,6 +596,7 @@
       "programmes": [
         "Fire Technology and Safety",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Tool & Die Engineering",
         "Wood and Paper Technology"
@@ -589,6 +628,7 @@
         "Biomedical Engineering",
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Instrumentation Engineering",
@@ -658,6 +698,7 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -717,9 +758,11 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Fire Technology and Safety",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Tool & Die Engineering",
         "Wood and Paper Technology"
@@ -739,6 +782,7 @@
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Instrumentation Engineering",
@@ -760,6 +804,7 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -810,10 +855,12 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Fire Technology and Safety",
         "Food Processing Technology",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Polymer Technology",
         "Printing Technology",
@@ -842,6 +889,7 @@
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Information Technology",
@@ -871,14 +919,17 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -888,6 +939,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Robotic Process Automation",
@@ -930,16 +982,19 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Commercial Practice",
         "Computer Application & Business Management",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -949,6 +1004,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -975,6 +1031,7 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
@@ -982,6 +1039,7 @@
         "Food Processing Technology",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Polymer Technology",
         "Printing Technology",
@@ -1005,10 +1063,12 @@
         "Biomedical Engineering",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Information Technology",
@@ -1030,7 +1090,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -1045,7 +1106,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -1060,6 +1122,7 @@
         "Biomedical Engineering",
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication",
@@ -1078,6 +1141,7 @@
         "Biomedical Engineering",
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Instrumentation Engineering",
@@ -1146,6 +1210,7 @@
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -1166,11 +1231,13 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Fire Technology and Safety",
         "Food Processing Technology",
         "Information Technology",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Polymer Technology",
         "Printing Technology",
@@ -1287,6 +1354,30 @@
       ],
       "programmes": [
         "Interior Design"
+      ]
+    },
+    {
+      "code": "2561",
+      "subjects": [
+        "Basics of Automobile Engineering"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "2569",
+      "subjects": [
+        "Basics of Automobile Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -1543,6 +1634,54 @@
       ]
     },
     {
+      "code": "3561",
+      "subjects": [
+        "Automobile Electrical systems (Lab based theory)"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "3571",
+      "subjects": [
+        "Object Oriented Programming Concepts"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "3572",
+      "subjects": [
+        "Logic Design and Computer Organization"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "3579",
+      "subjects": [
+        "Web Design and Development Lab"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
       "code": "4002",
       "subjects": [
         "Career Readiness and Communication"
@@ -1562,16 +1701,19 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Commercial Practice",
         "Computer Application & Business Management",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -1581,6 +1723,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -1607,6 +1750,7 @@
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -1614,6 +1758,7 @@
         "Instrumentation Engineering",
         "Integrated Circuit Design & Fabrication",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -1637,6 +1782,7 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -1657,6 +1803,7 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Interior Design"
       ]
     },
@@ -1693,7 +1840,8 @@
         "Semester 4"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -1765,7 +1913,8 @@
         "Semester 4"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -1877,6 +2026,42 @@
       ]
     },
     {
+      "code": "4511",
+      "subjects": [
+        "Advanced Construction Technology"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Civil Engineering (Construction Technology)"
+      ]
+    },
+    {
+      "code": "4521",
+      "subjects": [
+        "Embedded Systems and Programming"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "4529",
+      "subjects": [
+        "Embedded Systems and Programming Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
       "code": "4531",
       "subjects": [
         "Specification, Estimation & Costing"
@@ -1925,6 +2110,42 @@
       ]
     },
     {
+      "code": "4571",
+      "subjects": [
+        "Data Communication and Networking"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "4578",
+      "subjects": [
+        "Data Analytics and Visualization Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "4579",
+      "subjects": [
+        "Computer Networks Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
       "code": "5007",
       "subjects": [
         "Summer Internship"
@@ -1944,16 +2165,19 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Commercial Practice",
         "Computer Application & Business Management",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -1963,6 +2187,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -1985,7 +2210,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -2000,7 +2226,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -2166,7 +2393,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -2410,7 +2638,8 @@
       ],
       "programmes": [
         "Computer Engineering",
-        "Computer Science & Engineering"
+        "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -2424,6 +2653,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Information Technology"
       ]
@@ -2439,13 +2669,15 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Information Technology"
       ]
     },
     {
       "code": "5139D",
       "subjects": [
-        "Data Science & Analytics Lab"
+        "Data Science & Analytics Lab",
+        "Data Science and Analytics Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2453,6 +2685,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Information Technology"
       ]
     },
@@ -2817,7 +3050,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Civil & Rural Engineering"
+        "Civil & Rural Engineering",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -2853,7 +3087,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -2865,7 +3100,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -2929,7 +3165,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -2941,7 +3178,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -2977,7 +3215,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -2990,7 +3229,8 @@
       ],
       "programmes": [
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3017,7 +3257,8 @@
       "programmes": [
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3237,6 +3478,78 @@
       ]
     },
     {
+      "code": "5521",
+      "subjects": [
+        "IoT and Real-Time Embedded Systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5522",
+      "subjects": [
+        "Fundamentals of Robotics and AI"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5523A",
+      "subjects": [
+        "Autotronics Engineering"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5523B",
+      "subjects": [
+        "Advanced Communication Systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5528",
+      "subjects": [
+        "IoT and Real-Time Embedded Systems Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5529A",
+      "subjects": [
+        "Fundamentals of Robotics and AI Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
       "code": "5531",
       "subjects": [
         "Tendering & Valuation for Interiors"
@@ -3395,6 +3708,78 @@
       ]
     },
     {
+      "code": "5561",
+      "subjects": [
+        "Automobile Chassis and transmission systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5562A",
+      "subjects": [
+        "Sensors ,Actuators and Automotive Mechatronics"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5562B",
+      "subjects": [
+        "Modern Automotive Technology"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5569A",
+      "subjects": [
+        "Sensors, Actuators and Automotive Mechatronics Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5571",
+      "subjects": [
+        "Data Structures and Algorithms"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "5579",
+      "subjects": [
+        "Data Structures and Algorithms Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
       "code": "6011P",
       "subjects": [
         "Transportation Engineering"
@@ -3430,7 +3815,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3442,7 +3828,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Civil Engineering"
+        "Civil Engineering",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3469,7 +3856,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3484,7 +3872,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3499,7 +3888,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3514,7 +3904,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3529,7 +3920,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3544,7 +3936,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3559,7 +3952,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3574,7 +3968,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3672,7 +4067,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -3684,7 +4080,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -3696,7 +4093,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -3709,6 +4107,7 @@
       ],
       "programmes": [
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Wood and Paper Technology"
       ]
     },
@@ -3885,6 +4284,7 @@
       "programmes": [
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication"
@@ -3901,6 +4301,7 @@
       "programmes": [
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication"
@@ -3917,6 +4318,7 @@
       "programmes": [
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering"
       ]
@@ -3931,7 +4333,8 @@
       ],
       "programmes": [
         "Electrical & Electronics Engineering",
-        "Electronics Engineering"
+        "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)"
       ]
     },
     {
@@ -3945,6 +4348,7 @@
       "programmes": [
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Integrated Circuit Design & Fabrication",
         "Micro Electronics"
       ]
@@ -3960,6 +4364,7 @@
       "programmes": [
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication"
@@ -3976,6 +4381,7 @@
       "programmes": [
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication",
@@ -4007,6 +4413,7 @@
       "programmes": [
         "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Micro Electronics"
@@ -4022,7 +4429,8 @@
       ],
       "programmes": [
         "Electrical & Electronics Engineering",
-        "Electronics Engineering"
+        "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)"
       ]
     },
     {
@@ -4034,7 +4442,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4046,7 +4455,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4070,7 +4480,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4094,7 +4505,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4106,7 +4518,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -5196,7 +5609,8 @@
     {
       "code": "6133A",
       "subjects": [
-        "Virtualization Technology & Cloud Computing"
+        "Virtualization Technology & Cloud Computing",
+        "Virtualization Technology and Cloud Computing"
       ],
       "semesters": [
         "Semester 6"
@@ -5204,7 +5618,8 @@
       "programmes": [
         "Artificial Intelligence",
         "Computer Engineering",
-        "Computer Science & Engineering"
+        "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -5277,6 +5692,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security"
       ]
@@ -5284,6 +5700,7 @@
     {
       "code": "6134C",
       "subjects": [
+        "Principles of IoT",
         "Principles to IoT"
       ],
       "semesters": [
@@ -5292,6 +5709,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology"
       ]
     },
@@ -5307,6 +5725,7 @@
         "Artificial Intelligence",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Robotic Process Automation"
       ]
@@ -5607,6 +6026,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication"
       ]
     },
@@ -5922,6 +6342,7 @@
       ],
       "programmes": [
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Information Technology"
       ]
     },
@@ -6507,7 +6928,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6532,7 +6954,8 @@
       ],
       "programmes": [
         "Artificial Intelligence",
-        "Artificial Intelligence & Machine Learning"
+        "Artificial Intelligence & Machine Learning",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6544,7 +6967,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6556,7 +6980,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6605,7 +7030,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6617,7 +7043,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6629,7 +7056,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6644,7 +7072,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -6659,7 +7088,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -7241,6 +7671,54 @@
       ]
     },
     {
+      "code": "6521",
+      "subjects": [
+        "ARM Microcontroller and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "6522A",
+      "subjects": [
+        "Drone Systems and UAV Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "6528",
+      "subjects": [
+        "ARM Microcontroller and Applications Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "6529A",
+      "subjects": [
+        "Embedded MicroPython Programming Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
       "code": "6531P",
       "subjects": [
         "Furniture Design II"
@@ -7370,6 +7848,114 @@
       ],
       "programmes": [
         "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6561",
+      "subjects": [
+        "Refrigeration and HVAC"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "6562A",
+      "subjects": [
+        "Automotive Pollution and Control"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "6569",
+      "subjects": [
+        "Refrigeration and HVAC Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "6571P",
+      "subjects": [
+        "Internet of Things and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6571T",
+      "subjects": [
+        "Internet of Things and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6572A",
+      "subjects": [
+        "Generative AI with Large Language Models"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6579A",
+      "subjects": [
+        "Generative AI with Large Language Models Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6579B",
+      "subjects": [
+        "Julia Programming Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6579C",
+      "subjects": [
+        "Java Programming Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     }
   ],

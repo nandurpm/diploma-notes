@@ -1,8 +1,8 @@
 {
   "scheme": "REV2026",
-  "programmeCount": 38,
-  "subjectCount": 2485,
-  "staticPageCount": 38,
+  "programmeCount": 42,
+  "subjectCount": 2761,
+  "staticPageCount": 42,
   "directoryLayout": "Responsive searchable programme directory",
   "departmentLayout": "Revision 2021-compatible semester subject cards",
   "lessonFolder": "revision-2026-content/lessons",
@@ -19,10 +19,12 @@
     "civil-and-rural-engineering": 63,
     "civil-engineering": 71,
     "civil-engineering-and-planning": 63,
+    "civil-engineering-construction-technology": 67,
     "commercial-practice": 66,
     "computer-application-and-business-management": 64,
     "computer-engineering": 67,
     "computer-science-and-engineering": 67,
+    "computer-science-and-engineering-artificial-intelligence-machine-learning": 74,
     "computer-science-and-technology": 67,
     "cyber-forensics-and-information-security": 62,
     "electrical-and-electronics-engineering": 108,
@@ -31,6 +33,7 @@
     "electronics-and-communication": 64,
     "electronics-and-computer-engineering": 64,
     "electronics-engineering": 64,
+    "electronics-engineering-embedded-systems": 69,
     "fire-technology-and-safety": 62,
     "food-processing-technology": 63,
     "information-technology": 67,
@@ -38,6 +41,7 @@
     "integrated-circuit-design-and-fabrication": 63,
     "interior-design": 56,
     "mechanical-engineering": 62,
+    "mechanical-engineering-automobile-engineering": 66,
     "mechatronics": 62,
     "micro-electronics": 63,
     "polymer-technology": 63,
@@ -136,6 +140,14 @@
       "Semester 5": 14,
       "Semester 6": 16
     },
+    "civil-engineering-construction-technology": {
+      "Semester 1": 6,
+      "Semester 2": 12,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 14,
+      "Semester 6": 17
+    },
     "commercial-practice": {
       "Semester 1": 7,
       "Semester 2": 8,
@@ -167,6 +179,14 @@
       "Semester 4": 9,
       "Semester 5": 16,
       "Semester 6": 18
+    },
+    "computer-science-and-engineering-artificial-intelligence-machine-learning": {
+      "Semester 1": 6,
+      "Semester 2": 10,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 17,
+      "Semester 6": 23
     },
     "computer-science-and-technology": {
       "Semester 1": 6,
@@ -232,6 +252,14 @@
       "Semester 5": 15,
       "Semester 6": 16
     },
+    "electronics-engineering-embedded-systems": {
+      "Semester 1": 6,
+      "Semester 2": 12,
+      "Semester 3": 9,
+      "Semester 4": 9,
+      "Semester 5": 15,
+      "Semester 6": 18
+    },
     "fire-technology-and-safety": {
       "Semester 1": 6,
       "Semester 2": 9,
@@ -285,6 +313,14 @@
       "Semester 2": 9,
       "Semester 3": 8,
       "Semester 4": 10,
+      "Semester 5": 13,
+      "Semester 6": 16
+    },
+    "mechanical-engineering-automobile-engineering": {
+      "Semester 1": 6,
+      "Semester 2": 12,
+      "Semester 3": 8,
+      "Semester 4": 11,
       "Semester 5": 13,
       "Semester 6": 16
     },
@@ -353,5 +389,5 @@
       "Semester 6": 14
     }
   },
-  "newCodeCountComparedWithREV2021": 526
+  "newCodeCountComparedWithREV2021": 563
 }

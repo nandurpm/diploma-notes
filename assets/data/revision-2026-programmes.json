@@ -3,7 +3,7 @@
   "source": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
   "lastVerified": "2026-07-31",
   "verifiedAt": "2026-07-31T00:33:46.278925Z",
-  "programmeCount": 38,
+  "programmeCount": 42,
   "codePolicy": "Exact programme codes and names from the official SITTTR REV2026 index.",
   "programmes": [
     {
@@ -84,189 +84,217 @@
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CL"
     },
     {
-      "order": 12,
+      "officialCode": "CO",
+      "name": "Civil Engineering (Construction Technology)",
+      "slug": "civil-engineering-construction-technology",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CO",
+      "order": 12
+    },
+    {
+      "order": 13,
       "officialCode": "CP",
       "name": "Commercial Practice",
       "slug": "commercial-practice",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CP"
     },
     {
-      "order": 13,
+      "order": 14,
       "officialCode": "CB",
       "name": "Computer Application & Business Management",
       "slug": "computer-application-and-business-management",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CB"
     },
     {
-      "order": 14,
+      "order": 15,
       "officialCode": "CT",
       "name": "Computer Engineering",
       "slug": "computer-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CT"
     },
     {
-      "order": 15,
+      "order": 16,
       "officialCode": "CS",
       "name": "Computer Science & Engineering",
       "slug": "computer-science-and-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CS"
     },
     {
-      "order": 16,
+      "officialCode": "CZ",
+      "name": "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
+      "slug": "computer-science-and-engineering-artificial-intelligence-machine-learning",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CZ",
+      "order": 17
+    },
+    {
+      "order": 18,
       "officialCode": "CG",
       "name": "Computer Science and Technology",
       "slug": "computer-science-and-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CG"
     },
     {
-      "order": 17,
+      "order": 19,
       "officialCode": "CF",
       "name": "Cyber Forensics and Information Security",
       "slug": "cyber-forensics-and-information-security",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CF"
     },
     {
-      "order": 18,
+      "order": 20,
       "officialCode": "EE",
       "name": "Electrical & Electronics Engineering",
       "slug": "electrical-and-electronics-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=EE"
     },
     {
-      "order": 19,
+      "order": 21,
       "officialCode": "EG",
       "name": "Electrical Engineering",
       "slug": "electrical-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=EG"
     },
     {
-      "order": 20,
+      "order": 22,
       "officialCode": "EV",
       "name": "Electrical Engineering & Electric Vehicles Technology",
       "slug": "electrical-engineering-and-electric-vehicles-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=EV"
     },
     {
-      "order": 21,
+      "order": 23,
       "officialCode": "EC",
       "name": "Electronics and Communication",
       "slug": "electronics-and-communication",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=EC"
     },
     {
-      "order": 22,
+      "order": 24,
       "officialCode": "ET",
       "name": "Electronics and Computer Engineering",
       "slug": "electronics-and-computer-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=ET"
     },
     {
-      "order": 23,
+      "order": 25,
       "officialCode": "EL",
       "name": "Electronics Engineering",
       "slug": "electronics-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=EL"
     },
     {
-      "order": 24,
+      "officialCode": "ES",
+      "name": "Electronics Engineering (Embedded Systems)",
+      "slug": "electronics-engineering-embedded-systems",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=ES",
+      "order": 26
+    },
+    {
+      "order": 27,
       "officialCode": "FS",
       "name": "Fire Technology and Safety",
       "slug": "fire-technology-and-safety",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=FS"
     },
     {
-      "order": 25,
+      "order": 28,
       "officialCode": "FT",
       "name": "Food Processing Technology",
       "slug": "food-processing-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=FT"
     },
     {
-      "order": 26,
+      "order": 29,
       "officialCode": "IF",
       "name": "Information Technology",
       "slug": "information-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=IF"
     },
     {
-      "order": 27,
+      "order": 30,
       "officialCode": "IE",
       "name": "Instrumentation Engineering",
       "slug": "instrumentation-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=IE"
     },
     {
-      "order": 28,
+      "order": 31,
       "officialCode": "IC",
       "name": "Integrated Circuit Design & Fabrication",
       "slug": "integrated-circuit-design-and-fabrication",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=IC"
     },
     {
-      "order": 29,
+      "order": 32,
       "officialCode": "ID",
       "name": "Interior Design",
       "slug": "interior-design",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=ID"
     },
     {
-      "order": 30,
+      "order": 33,
       "officialCode": "ME",
       "name": "Mechanical Engineering",
       "slug": "mechanical-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=ME"
     },
     {
-      "order": 31,
+      "officialCode": "MA",
+      "name": "Mechanical Engineering (Automobile Engineering)",
+      "slug": "mechanical-engineering-automobile-engineering",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=MA",
+      "order": 34
+    },
+    {
+      "order": 35,
       "officialCode": "MC",
       "name": "Mechatronics",
       "slug": "mechatronics",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=MC"
     },
     {
-      "order": 32,
+      "order": 36,
       "officialCode": "MI",
       "name": "Micro Electronics",
       "slug": "micro-electronics",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=MI"
     },
     {
-      "order": 33,
+      "order": 37,
       "officialCode": "PL",
       "name": "Polymer Technology",
       "slug": "polymer-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=PL"
     },
     {
-      "order": 34,
+      "order": 38,
       "officialCode": "PT",
       "name": "Printing Technology",
       "slug": "printing-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=PT"
     },
     {
-      "order": 35,
+      "order": 39,
       "officialCode": "RP",
       "name": "Robotic Process Automation",
       "slug": "robotic-process-automation",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=RP"
     },
     {
-      "order": 36,
+      "order": 40,
       "officialCode": "TT",
       "name": "Textile Technology",
       "slug": "textile-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=TT"
     },
     {
-      "order": 37,
+      "order": 41,
       "officialCode": "TD",
       "name": "Tool & Die Engineering",
       "slug": "tool-and-die-engineering",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=TD"
     },
     {
-      "order": 38,
+      "order": 42,
       "officialCode": "WP",
       "name": "Wood and Paper Technology",
       "slug": "wood-and-paper-technology",
