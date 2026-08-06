@@ -3,7 +3,7 @@
   "source": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
   "lastVerified": "2026-07-31",
   "verifiedAt": "2026-07-31T00:33:46.278925Z",
-  "programmeCount": 38,
+  "programmeCount": 42,
   "codePolicy": "Exact programme codes and names from the official SITTTR REV2026 index.",
   "programmes": [
     {
@@ -271,6 +271,34 @@
       "name": "Wood and Paper Technology",
       "slug": "wood-and-paper-technology",
       "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=WP"
+    },
+    {
+      "order": 39,
+      "officialCode": "CO",
+      "name": "Civil Engineering (Construction Technology)",
+      "slug": "civil-engineering-construction-technology",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CO"
+    },
+    {
+      "order": 40,
+      "officialCode": "CZ",
+      "name": "Computer Science & Engineering (Artificial Intelligence & Machine Learning)",
+      "slug": "computer-science-and-engineering-artificial-intelligence-and-machine-learning",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=CZ"
+    },
+    {
+      "order": 41,
+      "officialCode": "ES",
+      "name": "Electronics Engineering (Embedded Systems)",
+      "slug": "electronics-engineering-embedded-systems",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=ES"
+    },
+    {
+      "order": 42,
+      "officialCode": "MA",
+      "name": "Mechanical Engineering (Automobile Engineering)",
+      "slug": "mechanical-engineering-automobile-engineering",
+      "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=MA"
     }
   ]
 }
