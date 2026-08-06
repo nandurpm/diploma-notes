@@ -2,8 +2,8 @@
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
   "status": "failed",
-  "sourceCommit": "c8eb8312260e6ea8ea21130c9ac8df5331ef4fb4",
-  "generatedAt": "2026-08-06T07:05:07.915Z",
+  "sourceCommit": "ad69c8527282ed0b4a9214267a6698476ac7c3f0",
+  "generatedAt": "2026-08-06T09:16:56.319Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -33,8 +33,8 @@
     },
     {
       "name": "page has one primary heading",
-      "passed": true,
-      "h1Count": 1
+      "passed": false,
+      "h1Count": 2
     },
     {
       "name": "directory stylesheet is loaded",
@@ -47,159 +47,42 @@
     {
       "name": "all 38 department cards render",
       "passed": false,
-      "cardCount": 42
+      "cardCount": 84
     },
     {
       "name": "revision switch is present",
-      "passed": true
-    },
-    {
-      "name": "Revision 2026 switch is active",
-      "passed": true
-    },
-    {
-      "name": "official source actions are present",
-      "passed": true
-    },
-    {
-      "name": "desktop has no horizontal overflow",
-      "passed": true,
-      "viewportWidth": 1440,
-      "documentWidth": 1440,
-      "bodyWidth": 1440,
-      "heroHeight": 335.140625
-    },
-    {
-      "name": "desktop hero is compact",
-      "passed": true,
-      "viewportWidth": 1440,
-      "documentWidth": 1440,
-      "bodyWidth": 1440,
-      "heroHeight": 335.140625
-    },
-    {
-      "name": "desktop uses a compact multi-column grid",
-      "passed": true,
-      "firstRowCount": 4
-    },
-    {
-      "name": "department search filters correctly",
-      "passed": true,
-      "visibleElectrical": 3
-    },
-    {
-      "name": "search result count updates",
-      "passed": false,
-      "resultText": "Showing 3 of 42 departments"
-    },
-    {
-      "name": "search query is preserved in URL",
-      "passed": true,
-      "url": "http://127.0.0.1:8000/revision-2026.html?q=electrical"
-    },
-    {
-      "name": "clear control appears for active search",
-      "passed": true
-    },
-    {
-      "name": "clear control restores all departments",
-      "passed": false,
-      "visibleAfterClear": 42,
-      "url": "http://127.0.0.1:8000/revision-2026.html"
-    },
-    {
-      "name": "no-results state is visible",
-      "passed": true
-    },
-    {
-      "name": "no-results clear action restores directory",
       "passed": false
     },
     {
-      "name": "mobile has no horizontal overflow",
-      "passed": true,
-      "viewportWidth": 390,
-      "documentWidth": 390,
-      "bodyWidth": 390,
-      "firstCardLeft": 12,
-      "firstCardRight": 378,
-      "firstCardWidth": 366
-    },
-    {
-      "name": "mobile card fits the viewport",
-      "passed": true,
-      "viewportWidth": 390,
-      "documentWidth": 390,
-      "bodyWidth": 390,
-      "firstCardLeft": 12,
-      "firstCardRight": 378,
-      "firstCardWidth": 366
-    },
-    {
-      "name": "mobile grid uses one card per row",
-      "passed": true,
-      "mobileFirstRowCount": 1
-    },
-    {
-      "name": "mobile menu button is visible",
-      "passed": true
-    },
-    {
-      "name": "mobile menu opens",
-      "passed": true
-    },
-    {
-      "name": "no relevant console errors",
-      "passed": true,
-      "consoleErrors": []
+      "name": "QA script completed without an unhandled exception",
+      "passed": false,
+      "error": "locator.getAttribute: Error: strict mode violation: locator('.revision-directory-switch a[aria-current=\\'page\\']') resolved to 2 elements:\n    1) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(1)\n    2) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(2)\n\nCall log:\n  - waiting for locator('.revision-directory-switch a[aria-current=\\'page\\']')\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:84:116"
     }
   ],
   "failures": [
     {
+      "name": "page has one primary heading",
+      "passed": false,
+      "h1Count": 2
+    },
+    {
       "name": "all 38 department cards render",
       "passed": false,
-      "cardCount": 42
+      "cardCount": 84
     },
     {
-      "name": "search result count updates",
-      "passed": false,
-      "resultText": "Showing 3 of 42 departments"
-    },
-    {
-      "name": "clear control restores all departments",
-      "passed": false,
-      "visibleAfterClear": 42,
-      "url": "http://127.0.0.1:8000/revision-2026.html"
-    },
-    {
-      "name": "no-results clear action restores directory",
+      "name": "revision switch is present",
       "passed": false
+    },
+    {
+      "name": "QA script completed without an unhandled exception",
+      "passed": false,
+      "error": "locator.getAttribute: Error: strict mode violation: locator('.revision-directory-switch a[aria-current=\\'page\\']') resolved to 2 elements:\n    1) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(1)\n    2) <a class=\"active\" aria-current=\"page\" href=\"/revision-2026.html\">Revision 2026</a> aka getByRole('link', { name: 'Revision 2026' }).nth(2)\n\nCall log:\n  - waiting for locator('.revision-directory-switch a[aria-current=\\'page\\']')\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:84:116"
     }
   ],
   "console": {
     "errors": [],
     "warnings": []
   },
-  "screenshots": [
-    {
-      "label": "desktop",
-      "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 3494833,
-      "sha256": "3c15868b47ed559d9858c32d6d2e6288e1d7edcd7590637194292920ec3566b7",
-      "viewport": {
-        "width": 1440,
-        "height": 1000
-      }
-    },
-    {
-      "label": "mobile",
-      "fileName": "revision-2026-directory-mobile.png",
-      "bytes": 2863416,
-      "sha256": "aa144a3e5e4ac113d5ecb4d134a8e7c245b731b7d99f100ccbe47ef4d1b0b88b",
-      "viewport": {
-        "width": 390,
-        "height": 844
-      }
-    }
-  ]
+  "screenshots": []
 }
