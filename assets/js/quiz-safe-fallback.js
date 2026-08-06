@@ -204,6 +204,10 @@
   }
 
   function bindFallback() {
+    if (window.PolyQuizEngineLoaded) {
+      console.log("Supabase Quiz Engine is active. Disabling offline safe fallback.");
+      return;
+    }
     if (!window.POLY_QUIZ_BANK) return;
     const filled = fillCards();
     if (!filled) return;
