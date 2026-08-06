@@ -712,3 +712,7 @@ p { color: var(--muted); line-height: 1.68; }
     white-space: normal;
   }
 }
+
+[hidden] {
+  display: none !important;
+}
