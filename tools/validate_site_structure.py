@@ -75,7 +75,7 @@ def main() -> int:
     rev26_count = programme_card_count(rev26)
     check("Revision 2021 has 43 direct programme cards", rev21_count == 43, f"Found {rev21_count} cards; expected 43.")
     check("Revision 2021 directory avoids query routes", "department-view.html?dept=" not in rev21, "Programme cards must link directly to stable static pages.")
-    check("Revision 2026 retains 38 programme cards", rev26_count == 38, f"Found {rev26_count} cards; expected 38.")
+    check("Revision 2026 retains 42 programme cards", rev26_count == 42, f"Found {rev26_count} cards; expected 42.")
 
     rev21_lessons = sorted((ROOT / "lessons").glob("lessons-*.html"))
     rev26_lessons = sorted((ROOT / "revision-2026-content" / "lessons").glob("lessons-*.html"))
