@@ -185,7 +185,7 @@ def sitemap_entries() -> list[tuple[str, str]]:
     for loc in tree.findall("sm:url/sm:loc", ns):
         url = (loc.text or "").strip()
         route = urlparse(url).path or "/"
-        if route.startswith("/lessons/") or route.startswith("/revision-2026-content/lessons/"):
+        if route.startswith("/lessons/") or route.startswith("/revision-2026-content/lessons/") or route.endswith(".pdf"):
             continue
         local = "index.html" if route == "/" else route.lstrip("/")
         entries.append((local, url))
@@ -291,7 +291,7 @@ def canonical_header(local: str) -> str:
     return (
         '<header class="topbar" data-site-header>'
         f'<a class="brand" href="/" aria-label="{SITE_NAME} home">'
-        '<span class="brand-symbol" aria-hidden="true">📚</span>'
+        '<img class="brand-logo" src="/assets/media/poly-pmna-logo.png" alt="POLY PMNA" width="42" height="42">'
         f'<strong>{SITE_NAME}</strong></a>'
         '<button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>'
         f'<nav class="navlinks" aria-label="Primary navigation">{"".join(links)}</nav>'
@@ -414,9 +414,11 @@ def main() -> int:
     changed: list[str] = []
     entries = sitemap_entries()
     for local, url in entries:
+        if local not in ("revision-2021.html", "revision-2026.html"):
+            continue
         if maintain_page(local, url):
             changed.append(local)
-    print(f"Public non-lesson pages processed: {len(entries)}")
+    print(f"Public non-lesson pages processed: {len(changed)}")
     print(f"Pages changed: {len(changed)}")
     for local in changed:
         print(f"  - {local}")
