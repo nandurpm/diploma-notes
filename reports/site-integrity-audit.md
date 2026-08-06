@@ -1,9 +1,9 @@
 # Site Integrity Audit
 
-- Generated: **2026-08-05T05:39:13Z**
-- Commit: `bc16d01052fea19b2199c993c5dc0e578c18d49a`
-- Branch: `jules-16419072501553225451-8022f33d`
-- Result: **FAILED**
+- Generated: **2026-08-06T07:08:23Z**
+- Commit: `7dc857e9d0fc0f59f18b69521e6e8a7e3782e2ef`
+- Branch: `jules-5796405707841256809-8c7c7159`
+- Result: **PASSED**
 
 ## Current scope
 
@@ -15,135 +15,18 @@
 
 ## Inventory
 
-- Sitemap resources: **331**
-- Indexed HTML resources: **197**
-- Indexed PDFs: **134**
+- Sitemap resources: **339**
+- Indexed HTML resources: **203**
+- Indexed PDFs: **136**
 - Revision 2021 department files: **44**
-- Revision 2026 department files: **38**
+- Revision 2026 department files: **42**
 - Revision 2021 lesson files: **91**
-- Revision 2026 lesson files: **42**
+- Revision 2026 lesson files: **44**
 - Revision 2021 note PDFs: **92**
-- Revision 2026 note PDFs: **42**
+- Revision 2026 note PDFs: **44**
 
 ## Quality gate output
 
 ```text
-Site quality gate failed:
-- https://polypmna.dpdns.org/revision-2026.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/architecture.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/architecture.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/architecture.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence-and-machine-learning.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence-and-machine-learning.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence-and-machine-learning.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/automation-and-robotics.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/automation-and-robotics.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/automation-and-robotics.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/automobile-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/automobile-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/automobile-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/biomedical-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/biomedical-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/biomedical-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/chemical-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/chemical-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/chemical-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/civil-and-environmental-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-and-environmental-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-and-environmental-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/civil-and-rural-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-and-rural-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-and-rural-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/civil-engineering-and-planning.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-engineering-and-planning.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-engineering-and-planning.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/civil-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/commercial-practice.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/commercial-practice.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/commercial-practice.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/computer-application-and-business-management.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-application-and-business-management.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-application-and-business-management.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/computer-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-technology.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/cyber-forensics-and-information-security.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/cyber-forensics-and-information-security.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/cyber-forensics-and-information-security.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/electrical-and-electronics-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-and-electronics-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-and-electronics-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering-and-electric-vehicles-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering-and-electric-vehicles-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering-and-electric-vehicles-technology.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/electronics-and-communication.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-and-communication.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-and-communication.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/electronics-and-computer-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-and-computer-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-and-computer-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/electronics-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/fire-technology-and-safety.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/fire-technology-and-safety.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/fire-technology-and-safety.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/food-processing-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/food-processing-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/food-processing-technology.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/information-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/information-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/information-technology.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/instrumentation-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/instrumentation-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/instrumentation-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/integrated-circuit-design-and-fabrication.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/integrated-circuit-design-and-fabrication.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/integrated-circuit-design-and-fabrication.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/interior-design.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/interior-design.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/interior-design.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/mechanical-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/mechanical-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/mechanical-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/mechatronics.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/mechatronics.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/mechatronics.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/micro-electronics.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/micro-electronics.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/micro-electronics.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/polymer-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/polymer-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/polymer-technology.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/printing-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/printing-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/printing-technology.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/robotic-process-automation.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/robotic-process-automation.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/robotic-process-automation.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/textile-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/textile-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/textile-technology.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/tool-and-die-engineering.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/tool-and-die-engineering.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/tool-and-die-engineering.html: missing or inconsistent theme-color
-- https://polypmna.dpdns.org/revision-2026/wood-and-paper-technology.html: expected one POLY PMNA favicon; found 0
-- https://polypmna.dpdns.org/revision-2026/wood-and-paper-technology.html: expected one web manifest link; found 0
-- https://polypmna.dpdns.org/revision-2026/wood-and-paper-technology.html: missing or inconsistent theme-color
+Site quality gate passed for 339 sitemap resources.
 ```
