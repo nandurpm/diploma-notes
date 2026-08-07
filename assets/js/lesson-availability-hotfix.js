@@ -279,6 +279,8 @@
     clearTimeout(timer);
     timer = setTimeout(() => {
       enhanceDepartmentPaperAccess();
+      const grid = document.getElementById("subjectGrid");
+      if (grid?.dataset.mode === "papers") return;
       document.querySelectorAll(".subject-card").forEach(validateCard);
     }, 120);
   }
