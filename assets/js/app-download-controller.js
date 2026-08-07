@@ -104,24 +104,12 @@
     const filename = decodeURIComponent(apkUrl.pathname.split("/").pop() || `POLY_PMNA_v${update.versionName}.apk`);
 
     if (isNativeApp) {
-      if (currentAppVersion && isNewer(update.versionName, currentAppVersion)) {
-        button.dataset.appButtonState = "update";
-        button.textContent = `✨ Update Available v${update.versionName}`;
-        button.href = apkUrl.href;
-        button.classList.remove("ghost");
-        button.classList.add("primary");
-        button.removeAttribute("aria-disabled");
-        button.setAttribute("aria-label", `Download POLY PMNA Android app version ${update.versionName}`);
-        button.hidden = false;
-        button.removeAttribute("aria-hidden");
-        // Ensure the button is visible in the app when an update is available
-        button.style.setProperty("display", "inline-flex", "important");
-      } else {
-        // Either currentAppVersion is missing, or installed_version == latest_version
-        button.hidden = true;
-        button.setAttribute("aria-hidden", "true");
-        button.style.setProperty("display", "none", "important");
-      }
+      // Android App: Always hide the download/update button completely.
+      // Updates are managed through the app store, not via an in-page button.
+      button.dataset.appButtonState = "hidden";
+      button.hidden = true;
+      button.setAttribute("aria-hidden", "true");
+      button.style.setProperty("display", "none", "important");
     } else {
       // Web Version: Keep the "Download Our App" button visible
       button.dataset.appButtonState = "download";
