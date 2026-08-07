@@ -1,10 +1,10 @@
 {
   "applicationId": "org.diplomanotes.polytechnicstudyhub",
-  "versionCode": 12,
-  "versionName": "3.3",
+  "versionCode": 13,
+  "versionName": "3.4",
   "firebaseMessaging": true,
   "status": "success",
-  "releaseApkBytes": 3447847,
-  "releaseSha256": "d8837e318db7a9b5298c55ffd1bd4e196d4417ee4a1af72b4f6f4930a349be7f",
-  "builtAt": "2026-07-29T10:23:40Z"
+  "releaseApkBytes": 3447841,
+  "releaseSha256": "18e9c32f3f9b697e5e5b9156eed866556e31ec5e144268d956cf73f691bae6d3",
+  "builtAt": "2026-08-07T02:40:34Z"
 }
