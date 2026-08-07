@@ -23,8 +23,8 @@ android {
         applicationId 'org.diplomanotes.polytechnicstudyhub'
         minSdk 23
         targetSdk 35
-        versionCode 13
-        versionName '3.4'
+        versionCode 14
+        versionName '3.5'
     }
 
     buildFeatures {
@@ -61,7 +61,8 @@ android {
         }
         release {
             debuggable false
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             if (hasReleaseSigning) {
                 signingConfig signingConfigs.release
             }

@@ -63,7 +63,7 @@ public class PolyPmnaMessagingService extends FirebaseMessagingService {
                 .setData(Uri.parse(url))
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        int requestCode = Math.abs((url + firstNonBlank(subjectCode, "lesson")).hashCode());
+        int requestCode = (url + firstNonBlank(subjectCode, "lesson")).hashCode() & Integer.MAX_VALUE;
         PendingIntent pendingIntent = PendingIntent.getActivity(
                 this,
                 requestCode,
