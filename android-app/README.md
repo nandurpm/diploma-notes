@@ -6,16 +6,17 @@ https://polypmna.dpdns.org/
 
 ## Current source release
 
-- Version: `3.3`
-- Version code: `12`
+- Version: `3.4`
+- Version code: `13`
 - Application ID: `org.diplomanotes.polytechnicstudyhub`
 - Minimum Android version: Android 6.0 (API 23)
 - Target SDK: API 35
 
-## Version 3.3 signed release
+## Version 3.4 signed release
 
-- Publishes the public APK only as a signed release build.
-- Makes the homepage Android download/update button target the GitHub Release APK for version 3.3.
+- Publishes the public APK only as a signed release build (`POLY_PMNA_v3.4.apk`).
+- Makes the homepage Android download/update button target the GitHub Release APK for version 3.4.
+- The internal `versionName`/`versionCode` in `build.gradle` match the release asset name and `downloads/app-update.json`.
 - Existing Android app users on an older version see an in-app update button on the homepage.
 - Adds **Revision 2026** as a dedicated native drawer destination.
 - Keeps **Revision 2021** as a separate destination for legacy batches.
