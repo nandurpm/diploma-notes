@@ -287,7 +287,7 @@
     const activeRevision = fixedRevision || $("revisionFilter")?.value || preferredRevision;
     const activeSubjects = all.filter(subject => activeRevision === "all" || String(subject.revision) === activeRevision);
     const preferredDepartment = activeRevision === "2021" && mode === "home" ? COMMON_VALUE : ALL_DEPARTMENTS;
-    if (["home", "syllabus", "lessons"].includes(mode)) fillDepartment($("departmentFilter"), activeSubjects, preferredDepartment);
+    if (["home", "syllabus", "lessons", "papers"].includes(mode)) fillDepartment($("departmentFilter"), activeSubjects, preferredDepartment);
     fillSemester($("semesterFilter"), activeSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
 
     let timer = 0;
