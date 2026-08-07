@@ -87,6 +87,10 @@ def local_target(page: str, ref: str) -> str | None:
     if parsed.netloc and parsed.netloc != urlparse(ORIGIN).netloc:
         return None
     path = unquote(parsed.path).lstrip("/")
+    # Cloudflare infrastructure scripts and endpoints are injected at runtime
+    # and must not be treated as broken local references.
+    if path.startswith("cdn-cgi/"):
+        return None
     if not path:
         return "index.html"
     if path.endswith("/"):
