@@ -96,10 +96,7 @@ public class MainActivity extends ComponentActivity {
             }
     );
 
-    private final ActivityResultLauncher<String> notificationPermissionLauncher = registerForActivityResult(
-            new ActivityResultContracts.RequestPermission(),
-            granted -> subscribeToLessonNotificationTopics()
-    );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +112,6 @@ public class MainActivity extends ComponentActivity {
         configureNativeShell();
         configureBackNavigation();
         configureWebView();
-        ensureNotificationRegistration();
 
         if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
             loadIncomingIntent(getIntent(), true);
@@ -133,24 +129,7 @@ public class MainActivity extends ComponentActivity {
         loadIncomingIntent(intent, false);
     }
 
-    private void ensureNotificationRegistration() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
-                && checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            notificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
-            return;
-        }
-        subscribeToLessonNotificationTopics();
-    }
 
-    private void subscribeToLessonNotificationTopics() {
-        try {
-            FirebaseMessaging messaging = FirebaseMessaging.getInstance();
-            messaging.subscribeToTopic(NotificationBootstrapActivity.TOPIC_NEW_LESSONS);
-            messaging.subscribeToTopic(NotificationBootstrapActivity.TOPIC_ALL_USERS);
-        } catch (IllegalStateException ignored) {
-            // Firebase activates only when google-services.json is supplied during the APK build.
-        }
-    }
 
     private void loadIncomingIntent(Intent intent, boolean fallBackHome) {
         Uri deepLink = notificationOrDeepLinkUri(intent);
