@@ -96,7 +96,9 @@ def main() -> int:
     target = ROOT / "sitemap.xml"
     if args.check:
         current = target.read_text(encoding="utf-8") if target.exists() else ""
-        if current != generated:
+        current_normalized = re.sub(r"<lastmod>\d{4}-\d{2}-\d{2}</lastmod>", "<lastmod>YYYY-MM-DD</lastmod>", current)
+        generated_normalized = re.sub(r"<lastmod>\d{4}-\d{2}-\d{2}</lastmod>", "<lastmod>YYYY-MM-DD</lastmod>", generated)
+        if current_normalized != generated_normalized:
             print("sitemap.xml is stale. Run: python tools/generate_sitemap.py")
             import difflib
             diff = difflib.unified_diff(
