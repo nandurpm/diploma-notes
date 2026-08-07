@@ -103,22 +103,34 @@
     const apkUrl = new URL(apkHref);
     const filename = decodeURIComponent(apkUrl.pathname.split("/").pop() || `POLY_PMNA_v${update.versionName}.apk`);
 
+    // Check if a newer version is available
+    const hasUpdate = currentAppVersion && isNewer(update.versionName, currentAppVersion);
+
     if (isNativeApp) {
-      // Android App: Always hide the download/update button completely.
-      // Updates are managed through the app store, not via an in-page button.
-      button.dataset.appButtonState = "hidden";
-      button.hidden = true;
-      button.setAttribute("aria-hidden", "true");
-      button.style.setProperty("display", "none", "important");
+      // Inside Android App: show update available button ONLY if a new version is coming (with version no), otherwise hide completely.
+      if (hasUpdate) {
+        button.dataset.appButtonState = "update";
+        button.textContent = `✨ Update Available v${update.versionName}`;
+        button.href = apkUrl.href;
+        button.classList.remove("ghost");
+        button.classList.add("primary");
+        button.removeAttribute("aria-disabled");
+        button.setAttribute("aria-label", `Download POLY PMNA Android app version ${update.versionName}`);
+        button.hidden = false;
+        button.removeAttribute("aria-hidden");
+        button.style.setProperty("display", "inline-flex", "important");
+      } else {
+        button.dataset.appButtonState = "hidden";
+        button.hidden = true;
+        button.setAttribute("aria-hidden", "true");
+        button.style.setProperty("display", "none", "important");
+      }
     } else {
-      // Web Version: Keep the "Download Our App" button visible
+      // Web Version: Keep the existing "Download Our App" button (or update button if applicable)
       button.dataset.appButtonState = "download";
       button.textContent = `📱 Download Our App v${update.versionName}`;
       button.href = apkUrl.href;
 
-      // The download attribute is reliable for same-origin files. GitHub Release
-      // assets provide their own attachment response, so normal navigation starts
-      // the APK download on Android without opening an intermediate website page.
       if (apkUrl.origin === window.location.origin) button.download = filename;
       else button.removeAttribute("download");
 
@@ -128,9 +140,8 @@
       button.removeAttribute("aria-hidden");
       button.style.removeProperty("display");
 
-      // Keep the existing update/version logic for the website unchanged
       if (currentAppVersion) {
-        if (isNewer(update.versionName, currentAppVersion)) {
+        if (hasUpdate) {
           button.dataset.appButtonState = "update";
           button.textContent = `✨ Update Available v${update.versionName}`;
           button.classList.remove("ghost");
