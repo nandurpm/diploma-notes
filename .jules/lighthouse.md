@@ -28,3 +28,11 @@ This journal documents key project-specific SEO patterns, crawlability constrain
 **Learning:** Service worker offline fallback pages (like `offline.html`) and user account utility pages (like `reset-password.html`) should never be indexed by search engines. If crawled, they result in poor user experience, empty search listings, and potential security leaks (in the case of password reset URLs).
 
 **Action:** Always append explicit `<meta name="robots" content="noindex, follow">` to service worker offline templates, and `<meta name="robots" content="noindex, nofollow">` to password reset/utility portals, ensuring they are excluded from crawl indexing while maintaining link graph traversal on fallback pages.
+
+## 2026-08-08 - Resolving Syntax-Broken Merge Conflict Markers on Key Landing Pages
+
+**Finding:** Accidental check-in of raw Git merge conflict markers (e.g., `<<<<<<< HEAD`, `=======`, `>>>>>>>`) inside high-traffic entry points like `index.html` breaks valid HTML syntax, triggers search crawler parsing errors, and causes duplicate loading of scripts which degrades page-load speeds.
+
+**Learning:** Search engine crawlers heavily rely on correct document parsing rules to extract page content, structure, and metadata. Introducing raw conflict syntax blocks confuses modern scrapers, potentially leading to incorrect index classification, degraded ranking weight, and execution errors for real users.
+
+**Prevention:** Ensure strict code reviews, validate syntax using automated HTML parsers before staging, and verify page build pipelines prior to checking in release changes to prevent unmerged conflict fragments from reaching production.
