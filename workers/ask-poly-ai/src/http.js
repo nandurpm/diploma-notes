@@ -27,7 +27,7 @@ export function cleanText(value, maximum = 10000) {
  * when the configured ALLOWED_ORIGINS value has not changed.
  */
 export function allowedOrigins(env) {
-  const rawConfig = env.ALLOWED_ORIGINS || "";
+  const rawConfig = env?.ALLOWED_ORIGINS || "";
 
   if (cachedOriginsSet !== null && cachedAllowedOriginsString === rawConfig) {
     return cachedOriginsSet;
