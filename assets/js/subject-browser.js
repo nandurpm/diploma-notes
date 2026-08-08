@@ -159,7 +159,7 @@
     if (mode === "papers") {
       // Question-papers page: show only the sample question paper link,
       // not syllabus/lessons/notes (those belong on syllabus.html / lessons.html).
-      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
+      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer external">Open Model Question Paper</a></div></article>`;
     }
     const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
@@ -173,14 +173,20 @@
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
-  // changes at runtime, so card(subject) is pure; caching it avoids re-escaping
+  // changes at runtime, so card(subject, mode) is pure; caching it avoids re-escaping
   // and string concatenation on every re-render.
-  const cardCache = new WeakMap();
-  function cachedCard(subject) {
-    const cached = cardCache.get(subject);
+  const cardCache = new Map();
+  function cachedCard(subject, mode) {
+    const modeKey = mode || "default";
+    let modeCache = cardCache.get(modeKey);
+    if (!modeCache) {
+      modeCache = new WeakMap();
+      cardCache.set(modeKey, modeCache);
+    }
+    const cached = modeCache.get(subject);
     if (cached !== undefined) return cached;
-    const html = card(subject);
-    cardCache.set(subject, html);
+    const html = card(subject, mode);
+    modeCache.set(subject, html);
     return html;
   }
 
@@ -190,13 +196,13 @@
   const SEMESTER_SECTION_STYLE = "grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px";
   const SEMESTER_CARD_GRID_STYLE = "display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%";
 
-  function group(list) {
+  function group(list, mode) {
     const groups = new Map();
     list.forEach(subject => { const semester = String(subject.semester || "Other subjects"); if (!groups.has(semester)) groups.set(semester, []); groups.get(semester).push(subject); });
     const out = [];
     for (const [semester, items] of groups) {
       out.push(`<section class="semester-subject-section" style="${SEMESTER_SECTION_STYLE}"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3>${esc(semester)}</h3><span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="${SEMESTER_CARD_GRID_STYLE}">`);
-      items.forEach(subject => out.push(cachedCard(subject)));
+      items.forEach(subject => out.push(cachedCard(subject, mode)));
       out.push("</div></section>");
     }
     return out.join("");
@@ -279,7 +285,7 @@
       }
       list = uniqueHomeList.slice(0, HOME_LIMIT);
     }
-    grid.innerHTML = list.length ? (mode === "home" ? list.map(cachedCard).join("") : group(list)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
+    grid.innerHTML = list.length ? (mode === "home" ? list.map(s => cachedCard(s, mode)).join("") : group(list, mode)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
 
     // PERFORMANCE OPTIMIZATION: create the announcer only once and keep it in a
     // module-level variable instead of querying the DOM on every render.

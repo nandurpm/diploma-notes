@@ -713,6 +713,18 @@ p { color: var(--muted); line-height: 1.68; }
   }
 }
 
+.empty-state {
+  grid-column: 1 / -1;
+  padding: 36px 20px;
+  text-align: center;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px dashed rgba(29, 78, 216, 0.15);
+  border-radius: 20px;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
 [hidden] {
   display: none !important;
 }
