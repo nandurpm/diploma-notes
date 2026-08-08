@@ -200,6 +200,7 @@
   }
 
   function emptyMessage(mode, revision) {
+    if (mode === "papers") return `Choose a department, semester, or enter a subject code/title to list Revision ${esc(revision)} model question papers.`;
     if (mode === "lessons" && revision === "2026") return "No Revision 2026 lesson HTML files are published in the dedicated 2026 folder yet.";
     return "No verified subjects found for this revision and filter selection.";
   }
@@ -209,7 +210,10 @@
     const semester = $("semesterFilter")?.value || "all";
     const chosenDepartment = $("departmentFilter")?.value || ALL_DEPARTMENTS;
     const selectedRevision = fixedRevision || $("revisionFilter")?.value || "all";
+    const requireFilter = grid.dataset.requireFilter === "true";
+    const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS;
     let list = all.filter(subject => selectedRevision === "all" || String(subject.revision) === selectedRevision);
+    if (mode === "papers" && requireFilter && !hasUserFilter) list = [];
     if (mode === "department") list = list.filter(subject => sameDept(subject.department, department) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
     else if (mode === "home" || mode === "syllabus" || mode === "lessons" || mode === "papers") {
       if (chosenDepartment === COMMON_VALUE) list = list.filter(subject => sameDept(subject.department, COMMON));
