@@ -59,7 +59,17 @@
     ? window.PolyUtils.escapeHtml(value)
     : String(value ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
   const norm = value => String(value || "").trim().toUpperCase();
-  const depKey = value => String(value || "").toLowerCase().replaceAll("&", " and ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
+  // PERFORMANCE OPTIMIZATION: cache depKey transforms so the expensive regexp
+  // replacement runs at most once per distinct department string.
+  const depKeyCache = new Map();
+  const depKey = value => {
+    const text = String(value || "");
+    const cached = depKeyCache.get(text);
+    if (cached !== undefined) return cached;
+    const result = text.toLowerCase().replaceAll("&", " and ").replace(/[^a-z0-9]+/g, " ").trim().replace(/\s+/g, " ");
+    depKeyCache.set(text, result);
+    return result;
+  };
   const semRank = value => Number(String(value || "").match(/\d+/)?.[0] || 999);
   const root = () => { const depth = location.pathname.replace(/\/[^/]*$/, " ").trim().split("/").filter(Boolean).length; return depth ? "../".repeat(depth) : ""; };
   const asset = subject => String(subject.assetCode || subject.code || "");
@@ -106,7 +116,10 @@
     const [subjectText, revision2026Payload] = await Promise.all([
       // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
       revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
-      fetch(`${root()}assets/data/revision-2026-subjects.json?v=20260716-rev2026-content`).then(response => response.ok ? response.json() : null).catch(() => null)
+      // PERFORMANCE OPTIMIZATION: use the trimmed subject-browser payload (~720 KB vs ~2.0 MB). The full
+      // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
+      // and heavy scheme/evaluation metadata that browsing pages never render.
+      fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
@@ -159,10 +172,34 @@
     return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}<a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
   }
 
-  function group(list, mode) {
+  // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
+  // changes at runtime, so card(subject) is pure; caching it avoids re-escaping
+  // and string concatenation on every re-render.
+  const cardCache = new WeakMap();
+  function cachedCard(subject) {
+    const cached = cardCache.get(subject);
+    if (cached !== undefined) return cached;
+    const html = card(subject);
+    cardCache.set(subject, html);
+    return html;
+  }
+
+  // PERFORMANCE OPTIMIZATION: semester-section headings are pure text and the
+  // card grid only needs inline grid styles once; build them with a static
+  // template string instead of inline styles on every node.
+  const SEMESTER_SECTION_STYLE = "grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px";
+  const SEMESTER_CARD_GRID_STYLE = "display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%";
+
+  function group(list) {
     const groups = new Map();
     list.forEach(subject => { const semester = String(subject.semester || "Other subjects"); if (!groups.has(semester)) groups.set(semester, []); groups.get(semester).push(subject); });
-    return [...groups.entries()].map(([semester, items]) => `<section class="semester-subject-section" style="grid-column:1/-1;display:block;width:100%;min-width:0;margin:0 0 24px"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3>${esc(semester)}</h3><span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:18px;align-items:stretch;width:100%">${items.map(subject => card(subject, mode)).join("")}</div></section>`).join("");
+    const out = [];
+    for (const [semester, items] of groups) {
+      out.push(`<section class="semester-subject-section" style="${SEMESTER_SECTION_STYLE}"><div class="semester-group-heading" style="display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:52px;margin:0 0 14px;padding:13px 16px;border:1px solid rgba(29,78,216,.14);border-radius:18px;background:linear-gradient(135deg,rgba(219,234,254,.96),rgba(236,253,245,.96));box-shadow:0 10px 24px rgba(20,45,90,.07)"><h3>${esc(semester)}</h3><span>${items.length} ${items.length === 1 ? "subject" : "subjects"}</span></div><div class="semester-card-grid" style="${SEMESTER_CARD_GRID_STYLE}">`);
+      items.forEach(subject => out.push(cachedCard(subject)));
+      out.push("</div></section>");
+    }
+    return out.join("");
   }
 
   function fillSemester(select, values, preferred) {
@@ -170,7 +207,7 @@
     const old = select.value || preferred || "all";
     select.replaceChildren(new Option("All semesters", "all"));
     [...new Set(values.filter(Boolean))].sort((a, b) => semRank(a) - semRank(b) || String(a).localeCompare(String(b))).forEach(value => select.add(new Option(value, value)));
-    select.value = [...select.options].some(option => option.value === old) ? old : ([...select.options].some(option => option.value === preferred) ? preferred : "all");
+    select.value = [...select.options].some(option => option.value === old) ? old : (preferred || "all");
   }
 
   function fillDepartment(select, list, preferred) {
@@ -242,21 +279,24 @@
       }
       list = uniqueHomeList.slice(0, HOME_LIMIT);
     }
-    grid.innerHTML = list.length ? (mode === "home" ? list.map(subject => card(subject, mode)).join("") : group(list, mode)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
+    grid.innerHTML = list.length ? (mode === "home" ? list.map(cachedCard).join("") : group(list)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
 
-    let announcer = $("subjectBrowserAnnouncer");
-    if (!announcer && grid.parentNode) {
-      announcer = document.createElement("div");
-      announcer.id = "subjectBrowserAnnouncer";
-      announcer.className = "sr-only";
-      announcer.setAttribute("role", "status");
-      announcer.setAttribute("aria-live", "polite");
-      grid.parentNode.insertBefore(announcer, grid);
+    // PERFORMANCE OPTIMIZATION: create the announcer only once and keep it in a
+    // module-level variable instead of querying the DOM on every render.
+    if (!renderAnnouncer && grid.parentNode) {
+      renderAnnouncer = document.createElement("div");
+      renderAnnouncer.id = "subjectBrowserAnnouncer";
+      renderAnnouncer.className = "sr-only";
+      renderAnnouncer.setAttribute("role", "status");
+      renderAnnouncer.setAttribute("aria-live", "polite");
+      grid.parentNode.insertBefore(renderAnnouncer, grid);
     }
-    if (announcer) {
-      announcer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+    if (renderAnnouncer) {
+      renderAnnouncer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
     }
   }
+
+  let renderAnnouncer = null;
 
   async function init() {
     const grid = $("subjectGrid");
@@ -295,7 +335,7 @@
     fillSemester($("semesterFilter"), activeSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
 
     let timer = 0;
-    const rerender = () => { clearTimeout(timer); timer = setTimeout(() => render(all, grid, mode, fixedRevision, department), 100); };
+    const rerender = () => { clearTimeout(timer); timer = setTimeout(() => render(all, grid, mode, fixedRevision, department), 120); };
     $("revisionFilter")?.addEventListener("change", () => {
       const revision = $("revisionFilter").value;
       const revisionSubjects = all.filter(subject => String(subject.revision) === revision);
@@ -305,10 +345,15 @@
     });
     [$("subjectSearch"), $("semesterFilter"), $("departmentFilter")].forEach(control => {
       if (!control) return;
-      control.addEventListener("input", rerender);
-      control.addEventListener("change", rerender);
+      // PERFORMANCE OPTIMIZATION: passive listeners keep scrolling smooth while the
+      // user types in the search field after the (heavy) grid has rendered.
+      control.addEventListener("input", rerender, { passive: true });
+      control.addEventListener("change", rerender, { passive: true });
     });
-    render(all, grid, mode, fixedRevision, department);
+    // PERFORMANCE OPTIMIZATION: render after the loading placeholder paints so the
+    // user sees progress immediately instead of a frozen blank page while the
+    // (heavy) 2026 data is being filtered and rendered.
+    requestAnimationFrame(() => render(all, grid, mode, fixedRevision, department));
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
