@@ -75,9 +75,9 @@ def main() -> None:
     if registry.get("source") != INDEX:
         issues.append("Programme registry source URL is not the official REV2026 index")
     if programmes != expected:
-        issues.append("Programme registry does not exactly match the 38 official code/name/URL rows")
-    if subject_payload.get("programmeCount") != 38:
-        issues.append("Subject payload programmeCount is not 38")
+        issues.append("Programme registry does not exactly match the 42 official code/name/URL rows")
+    if subject_payload.get("programmeCount") != 42:
+        issues.append("Subject payload programmeCount is not 42")
     if subject_payload.get("subjectCount") != len(subjects):
         issues.append("Subject payload subjectCount does not match the stored rows")
     if subject_payload.get("failures"):
@@ -149,8 +149,8 @@ def main() -> None:
 
     directory = BeautifulSoup(INDEX_PAGE.read_text(encoding="utf-8"), "html.parser")
     programme_cards = directory.select("[data-programme-card]")
-    if len(programme_cards) != 38:
-        issues.append(f"Directory contains {len(programme_cards)} programme cards, expected 38")
+    if len(programme_cards) != 42:
+        issues.append(f"Directory contains {len(programme_cards)} programme cards, expected 42")
     actual_directory = []
     for index, card in enumerate(programme_cards, start=1):
         actual_directory.append(
@@ -249,7 +249,7 @@ def main() -> None:
     if issues:
         raise SystemExit("REV2026 catalogue verification failed:\n- " + "\n- ".join(issues))
     print(
-        f"Verified all 38 departments, {len(subjects)} subject rows, six semesters per department, "
+        f"Verified all 42 departments, {len(subjects)} subject rows, six semesters per department, "
         f"and {static_page_count} static pages."
     )
 

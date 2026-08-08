@@ -164,7 +164,7 @@ def build_index(programmes: list[dict[str, object]]) -> str:
     cards = "".join(programme_card(programme) for programme in programmes)
     count = len(programmes)
     title = "Revision 2026 Diploma Departments | POLY PMNA"
-    description = "Browse all 38 official SITTTR Kerala Revision 2026 programmes with semester-wise subjects, syllabus links, lessons, notes and sample question papers."
+    description = "Browse all 42 official SITTTR Kerala Revision 2026 programmes with semester-wise subjects, syllabus links, lessons, notes and sample question papers."
     return head(title, description, SITE + "/revision-2026.html", directory=True) + f'''<body class="portal-page revision-2026-directory-page" data-revision="2026">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Revision 2026</span></li></ol></nav><section class="page-title revision-directory-hero reveal"><div class="revision-directory-hero-copy"><p class="kicker">Revision 2026</p><h1>Choose your department</h1><p>Open the official Semester 1 to Semester 6 subject list for any Revision 2026 diploma programme.</p><nav class="revision-directory-switch" aria-label="Choose curriculum revision"><a href="/revision-2021.html">Revision 2021</a><a class="active" aria-current="page" href="/revision-2026.html">Revision 2026</a></nav></div><div class="revision-directory-summary" aria-label="Revision 2026 summary"><div><strong>{count}</strong><span>Departments</span></div><div><strong>6</strong><span>Semesters</span></div><div><strong>2026</strong><span>Current revision</span></div></div></section><section class="revision-directory-shell" aria-labelledby="revisionDirectoryHeading"><div class="revision-directory-head"><div><p class="kicker">Programme Browser</p><h2 id="revisionDirectoryHeading">Find your department</h2></div><p class="revision-directory-results" id="programmeResultCount" aria-live="polite">{count} departments available</p></div><div class="revision-directory-toolbar" role="search"><label class="revision-directory-search-field" for="programmeSearch"><span aria-hidden="true">⌕</span><span class="sr-only">Search departments</span><input id="programmeSearch" type="search" placeholder="Search department name or code" autocomplete="off" aria-controls="departmentCards" aria-describedby="programmeResultCount"></label><button class="revision-directory-clear" id="programmeSearchClear" type="button" hidden>Clear</button></div><div class="revision-directory-grid" id="departmentCards" role="list">{cards}</div><div class="revision-directory-empty" id="programmeEmptyState" hidden><strong>No department matches that search.</strong><p>Check the spelling or search using the official department code.</p><button class="revision-directory-clear" id="programmeEmptyClear" type="button">Clear search</button></div></section><section class="section notice revision-directory-source" id="rev2026-model-qp-access"><div class="revision-directory-source-copy"><strong>Official SITTTR Revision 2026 sources</strong><p>Use the official syllabus and sample-question-paper pages to verify published curriculum information.</p></div><div class="revision-directory-source-actions"><a class="btn ghost" href="{SYLLABUS_INDEX}" target="_blank" rel="noopener noreferrer">Open official syllabus</a><a class="btn primary" href="{MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open sample papers</a></div></section></main>{footer()}</body></html>\n'''
 
 
@@ -258,8 +258,8 @@ def write_new_code_report(subjects: list[dict[str, object]]) -> dict[str, object
 def main() -> None:
     programmes = json.loads(REGISTRY.read_text(encoding="utf-8"))["programmes"]
     subjects = json.loads(DATA.read_text(encoding="utf-8"))["subjects"]
-    if len(programmes) != 38:
-        raise SystemExit("Expected 38 programmes")
+    if len(programmes) != 42:
+        raise SystemExit("Expected 42 programmes")
 
     by_programme: dict[str, list[dict[str, object]]] = defaultdict(list)
     for row in subjects:
@@ -302,9 +302,9 @@ def main() -> None:
         json.dumps(
             {
                 "scheme": "REV2026",
-                "programmeCount": 38,
+                "programmeCount": 42,
                 "subjectCount": len(subjects),
-                "staticPageCount": 38,
+                "staticPageCount": 42,
                 "directoryLayout": "Responsive searchable programme directory",
                 "departmentLayout": "Revision 2021-compatible semester subject cards",
                 "lessonFolder": "revision-2026-content/lessons",
@@ -319,7 +319,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(
-        f"Built a responsive REV2026 directory and 38 department pages from {len(subjects)} records; "
+        f"Built a responsive REV2026 directory and 42 department pages from {len(subjects)} records; "
         f"new codes versus REV2021={comparison['newCodeCount']}"
     )
 
