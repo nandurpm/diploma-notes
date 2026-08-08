@@ -1,8 +1,8 @@
 {
   "comparison": "REV2026 dataset versus the current POLY PMNA REV2021 catalogue",
   "revision2021UniqueCodeCount": 1248,
-  "revision2026UniqueCodeCount": 1143,
-  "newCodeCount": 526,
+  "revision2026UniqueCodeCount": 1180,
+  "newCodeCount": 565,
   "newCodes": [
     "1011",
     "1021",
@@ -47,6 +47,8 @@
     "2439",
     "2532",
     "2539",
+    "2561",
+    "2569",
     "3114",
     "3144",
     "3283",
@@ -68,6 +70,10 @@
     "3533",
     "3538",
     "3539",
+    "3561",
+    "3571",
+    "3572",
+    "3579",
     "4002",
     "4009A",
     "4009B",
@@ -90,10 +96,16 @@
     "4438",
     "4439",
     "4502",
+    "4511",
+    "4521",
+    "4529",
     "4531",
     "4538",
     "4539",
     "4541",
+    "4571",
+    "4578",
+    "4579",
     "5007",
     "5014D",
     "5019A",
@@ -158,6 +170,7 @@
     "5269A",
     "5283D",
     "5303D",
+    "5333D",
     "5342A",
     "5342B",
     "5351A",
@@ -197,6 +210,12 @@
     "5503B",
     "5508",
     "5509A",
+    "5521",
+    "5522",
+    "5523A",
+    "5523B",
+    "5528",
+    "5529A",
     "5531",
     "5532",
     "5533A",
@@ -210,6 +229,12 @@
     "5559A",
     "5559B",
     "5559C",
+    "5561",
+    "5562A",
+    "5562B",
+    "5569A",
+    "5571",
+    "5579",
     "6011P",
     "6011T",
     "6012",
@@ -495,6 +520,7 @@
     "6433B",
     "6433C",
     "6433D",
+    "6434A",
     "6434B",
     "6434C",
     "6438",
@@ -519,6 +545,10 @@
     "6493B",
     "6499A",
     "6502A",
+    "6521",
+    "6522A",
+    "6528",
+    "6529A",
     "6531P",
     "6531T",
     "6532A",
@@ -529,7 +559,16 @@
     "6551T",
     "6552",
     "6553B",
-    "6559"
+    "6559",
+    "6561",
+    "6562A",
+    "6569",
+    "6571P",
+    "6571T",
+    "6572A",
+    "6579A",
+    "6579B",
+    "6579C"
   ],
   "newCodeDetails": [
     {
@@ -544,7 +583,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -558,6 +598,7 @@
       "programmes": [
         "Fire Technology and Safety",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Tool & Die Engineering",
         "Wood and Paper Technology"
@@ -587,8 +628,8 @@
       ],
       "programmes": [
         "Biomedical Engineering",
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Instrumentation Engineering",
@@ -611,7 +652,7 @@
     {
       "code": "1061",
       "subjects": [
-        "Fibre Science"
+        "Engineering Science"
       ],
       "semesters": [
         "Semester 1"
@@ -658,6 +699,7 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -717,9 +759,11 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Fire Technology and Safety",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Tool & Die Engineering",
         "Wood and Paper Technology"
@@ -739,6 +783,7 @@
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Instrumentation Engineering",
@@ -760,6 +805,7 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -810,10 +856,12 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Fire Technology and Safety",
         "Food Processing Technology",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Polymer Technology",
         "Printing Technology",
@@ -842,6 +890,7 @@
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Information Technology",
@@ -871,14 +920,17 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -888,6 +940,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Robotic Process Automation",
@@ -930,16 +983,19 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Commercial Practice",
         "Computer Application & Business Management",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -949,6 +1005,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -975,6 +1032,7 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
@@ -982,6 +1040,7 @@
         "Food Processing Technology",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Polymer Technology",
         "Printing Technology",
@@ -1005,10 +1064,11 @@
         "Biomedical Engineering",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Information Technology",
@@ -1021,7 +1081,7 @@
     {
       "code": "2012",
       "subjects": [
-        "Basic Surveying"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 2"
@@ -1030,7 +1090,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -1045,7 +1106,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -1058,8 +1120,8 @@
       ],
       "programmes": [
         "Biomedical Engineering",
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication",
@@ -1076,8 +1138,8 @@
       ],
       "programmes": [
         "Biomedical Engineering",
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Instrumentation Engineering",
@@ -1124,7 +1186,7 @@
     {
       "code": "2119",
       "subjects": [
-        "Basic CAD Lab"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 2"
@@ -1136,7 +1198,7 @@
     {
       "code": "2132",
       "subjects": [
-        "Programming in C"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 2"
@@ -1146,6 +1208,7 @@
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -1166,11 +1229,13 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Fire Technology and Safety",
         "Food Processing Technology",
         "Information Technology",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Polymer Technology",
         "Printing Technology",
@@ -1287,6 +1352,30 @@
       ],
       "programmes": [
         "Interior Design"
+      ]
+    },
+    {
+      "code": "2561",
+      "subjects": [
+        "Basics of Automobile Engineering"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "2569",
+      "subjects": [
+        "Basics of Automobile Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 2"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -1437,7 +1526,7 @@
     {
       "code": "3439",
       "subjects": [
-        "CAD Lab"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 3"
@@ -1449,7 +1538,7 @@
     {
       "code": "3491",
       "subjects": [
-        "Solid State Devices"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 3"
@@ -1473,7 +1562,7 @@
     {
       "code": "3493",
       "subjects": [
-        "Logic Circuit Design"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 3"
@@ -1497,7 +1586,7 @@
     {
       "code": "3532",
       "subjects": [
-        "Space Documentation"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 3"
@@ -1543,6 +1632,54 @@
       ]
     },
     {
+      "code": "3561",
+      "subjects": [
+        "Automobile Electrical systems (Lab based theory)"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "3571",
+      "subjects": [
+        "Object Oriented Programming Concepts"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "3572",
+      "subjects": [
+        "Logic Design and Computer Organization"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "3579",
+      "subjects": [
+        "Web Design and Development Lab"
+      ],
+      "semesters": [
+        "Semester 3"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
       "code": "4002",
       "subjects": [
         "Career Readiness and Communication"
@@ -1562,16 +1699,19 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Commercial Practice",
         "Computer Application & Business Management",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -1581,6 +1721,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -1607,6 +1748,7 @@
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -1614,6 +1756,7 @@
         "Instrumentation Engineering",
         "Integrated Circuit Design & Fabrication",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -1637,6 +1780,7 @@
         "Automation and Robotics",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Information Technology",
@@ -1657,6 +1801,7 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Interior Design"
       ]
     },
@@ -1693,7 +1838,8 @@
         "Semester 4"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -1723,7 +1869,7 @@
     {
       "code": "4283",
       "subjects": [
-        "Web Programming"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 4"
@@ -1765,7 +1911,8 @@
         "Semester 4"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -1795,7 +1942,7 @@
     {
       "code": "4431",
       "subjects": [
-        "Mechanics of Robotics"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 4"
@@ -1877,6 +2024,42 @@
       ]
     },
     {
+      "code": "4511",
+      "subjects": [
+        "Advanced Construction Technology"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Civil Engineering (Construction Technology)"
+      ]
+    },
+    {
+      "code": "4521",
+      "subjects": [
+        "Embedded Systems and Programming"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "4529",
+      "subjects": [
+        "Embedded Systems and Programming Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
       "code": "4531",
       "subjects": [
         "Specification, Estimation & Costing"
@@ -1925,6 +2108,42 @@
       ]
     },
     {
+      "code": "4571",
+      "subjects": [
+        "Data Communication and Networking"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "4578",
+      "subjects": [
+        "Data Analytics and Visualization Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "4579",
+      "subjects": [
+        "Computer Networks Engineering Lab"
+      ],
+      "semesters": [
+        "Semester 4"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
       "code": "5007",
       "subjects": [
         "Summer Internship"
@@ -1944,16 +2163,19 @@
         "Civil & Rural Engineering",
         "Civil Engineering",
         "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)",
         "Commercial Practice",
         "Computer Application & Business Management",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security",
         "Electrical & Electronics Engineering",
         "Electrical Engineering",
         "Electrical Engineering & Electric Vehicles Technology",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Fire Technology and Safety",
@@ -1963,6 +2185,7 @@
         "Integrated Circuit Design & Fabrication",
         "Interior Design",
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Mechatronics",
         "Micro Electronics",
         "Polymer Technology",
@@ -1985,7 +2208,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -2000,13 +2224,14 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
       "code": "5019B",
       "subjects": [
-        "GIS Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2030,7 +2255,7 @@
     {
       "code": "5024A",
       "subjects": [
-        "Non-destructive Testing"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2042,7 +2267,7 @@
     {
       "code": "5024B",
       "subjects": [
-        "Power Plant Engineering"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2054,7 +2279,7 @@
     {
       "code": "5024C",
       "subjects": [
-        "Composite Materials"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2078,7 +2303,7 @@
     {
       "code": "5029A",
       "subjects": [
-        "Design and Analysis Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2090,7 +2315,7 @@
     {
       "code": "5029B",
       "subjects": [
-        "NDT Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2102,7 +2327,7 @@
     {
       "code": "5033D",
       "subjects": [
-        "Renewable Power Plants"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2150,7 +2375,6 @@
         "Semester 5"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
@@ -2166,7 +2390,8 @@
         "Semester 5"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -2208,7 +2433,7 @@
     {
       "code": "5079A",
       "subjects": [
-        "Material Testing Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2244,7 +2469,7 @@
     {
       "code": "5093D",
       "subjects": [
-        "Polymer Adhesives"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2280,7 +2505,7 @@
     {
       "code": "5103D",
       "subjects": [
-        "Printing and Logistics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2328,7 +2553,7 @@
     {
       "code": "5113C",
       "subjects": [
-        "CAD/CAM"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2352,7 +2577,7 @@
     {
       "code": "5119A",
       "subjects": [
-        "Advanced Tooling Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2376,7 +2601,7 @@
     {
       "code": "5133",
       "subjects": [
-        "Artificial Intelligence & Machine Learning"
+        "Artificial Intelligence and Machine Learning"
       ],
       "semesters": [
         "Semester 5"
@@ -2410,13 +2635,14 @@
       ],
       "programmes": [
         "Computer Engineering",
-        "Computer Science & Engineering"
+        "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "5134C",
       "subjects": [
-        "Digital Marketing"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2424,6 +2650,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Information Technology"
       ]
@@ -2439,13 +2666,14 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Information Technology"
       ]
     },
     {
       "code": "5139D",
       "subjects": [
-        "Data Science & Analytics Lab"
+        "Data Science and Analytics Lab"
       ],
       "semesters": [
         "Semester 5"
@@ -2453,6 +2681,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Information Technology"
       ]
     },
@@ -2471,7 +2700,7 @@
     {
       "code": "5144A",
       "subjects": [
-        "Financial Market"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2483,7 +2712,7 @@
     {
       "code": "5144B",
       "subjects": [
-        "Banking & Insurance"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2507,7 +2736,7 @@
     {
       "code": "5144D",
       "subjects": [
-        "GST Law & Practice"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2531,7 +2760,7 @@
     {
       "code": "5149A",
       "subjects": [
-        "Applied ERP with SAP"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2580,7 +2809,7 @@
     {
       "code": "5183B",
       "subjects": [
-        "Vernacular Architecture"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2593,7 +2822,7 @@
     {
       "code": "5183C",
       "subjects": [
-        "Tendering and Valuation"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2617,7 +2846,7 @@
     {
       "code": "5202A",
       "subjects": [
-        "Microwave Communication"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2677,7 +2906,7 @@
     {
       "code": "5249B",
       "subjects": [
-        "C Programming Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2689,7 +2918,7 @@
     {
       "code": "5254D",
       "subjects": [
-        "Hospital Administration"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2749,7 +2978,7 @@
     {
       "code": "5303D",
       "subjects": [
-        "Data Mining"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2759,15 +2988,26 @@
       ]
     },
     {
-      "code": "5342A",
+      "code": "5333D",
       "subjects": [
-        "Soft Computing"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence",
+        "Automation and Robotics"
+      ]
+    },
+    {
+      "code": "5342A",
+      "subjects": [
+        "Program Elective course"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -2780,7 +3020,6 @@
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -2817,13 +3056,14 @@
         "Semester 5"
       ],
       "programmes": [
-        "Civil & Rural Engineering"
+        "Civil & Rural Engineering",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
       "code": "5372",
       "subjects": [
-        "VLSI Design"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 5"
@@ -2847,13 +3087,14 @@
     {
       "code": "5382",
       "subjects": [
-        "Deep Learning"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -2865,13 +3106,14 @@
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "5383B",
       "subjects": [
-        "AI in Cyber Security"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2883,7 +3125,7 @@
     {
       "code": "5383C",
       "subjects": [
-        "IoT and Applications"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2891,7 +3133,6 @@
       "programmes": [
         "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning",
-        "Automation and Robotics",
         "Mechatronics"
       ]
     },
@@ -2923,31 +3164,33 @@
     {
       "code": "5388",
       "subjects": [
-        "Deep Learning Lab"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "5389A",
       "subjects": [
-        "MATLAB"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "5389B",
       "subjects": [
-        "Java Programming Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2959,7 +3202,7 @@
     {
       "code": "5389C",
       "subjects": [
-        "Julia Programming Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -2971,38 +3214,38 @@
     {
       "code": "5389D",
       "subjects": [
-        "Power BI Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "5391A",
       "subjects": [
-        "Tendering and Contracts"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
       ],
       "programmes": [
-        "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
       "code": "5391B",
       "subjects": [
-        "Low-Cost Housing"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
       ],
       "programmes": [
-        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -3016,8 +3259,8 @@
       ],
       "programmes": [
         "Civil & Rural Engineering",
-        "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3083,7 +3326,7 @@
     {
       "code": "5433B",
       "subjects": [
-        "Automobile Engineering"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3095,7 +3338,7 @@
     {
       "code": "5433D",
       "subjects": [
-        "Network Theory"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3131,7 +3374,7 @@
     {
       "code": "5439B",
       "subjects": [
-        "IoT Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3143,7 +3386,7 @@
     {
       "code": "5463D",
       "subjects": [
-        "Manufacturing Process"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3155,7 +3398,7 @@
     {
       "code": "5469A",
       "subjects": [
-        "Transportation Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3237,6 +3480,78 @@
       ]
     },
     {
+      "code": "5521",
+      "subjects": [
+        "IoT and Real-Time Embedded Systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5522",
+      "subjects": [
+        "Fundamentals of Robotics and AI"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5523A",
+      "subjects": [
+        "Program Elective course"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5523B",
+      "subjects": [
+        "Advanced Communication Systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5528",
+      "subjects": [
+        "IoT and Real-Time Embedded Systems Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "5529A",
+      "subjects": [
+        "Fundamentals of Robotics and AI Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
       "code": "5531",
       "subjects": [
         "Tendering & Valuation for Interiors"
@@ -3251,7 +3566,7 @@
     {
       "code": "5532",
       "subjects": [
-        "Furniture Design I"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 5"
@@ -3299,7 +3614,7 @@
     {
       "code": "5539",
       "subjects": [
-        "Digital Photography"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 5"
@@ -3323,7 +3638,7 @@
     {
       "code": "5551B",
       "subjects": [
-        "Deep Learning"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3335,7 +3650,7 @@
     {
       "code": "5551C",
       "subjects": [
-        "Cyber Security"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3361,7 +3676,7 @@
     {
       "code": "5559A",
       "subjects": [
-        "Deep Learning Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3373,7 +3688,7 @@
     {
       "code": "5559B",
       "subjects": [
-        "Cyber Security Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 5"
@@ -3392,6 +3707,78 @@
       ],
       "programmes": [
         "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "5561",
+      "subjects": [
+        "Automobile Chassis and transmission systems"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5562A",
+      "subjects": [
+        "Sensors ,Actuators and Automotive Mechatronics"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5562B",
+      "subjects": [
+        "Modern Automotive Technology"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5569A",
+      "subjects": [
+        "Sensors, Actuators and Automotive Mechatronics Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "5571",
+      "subjects": [
+        "Data Structures and Algorithms"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "5579",
+      "subjects": [
+        "Data Structures and Algorithms Lab"
+      ],
+      "semesters": [
+        "Semester 5"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -3430,7 +3817,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3442,7 +3830,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Civil Engineering"
+        "Civil Engineering",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3469,13 +3858,14 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
       "code": "6013D",
       "subjects": [
-        "Habitat Technology"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -3484,7 +3874,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3499,7 +3890,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3514,7 +3906,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3529,7 +3922,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3544,13 +3938,14 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
       "code": "6019A",
       "subjects": [
-        "BIM & Modelling Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -3559,7 +3954,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3574,7 +3970,8 @@
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
         "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -3628,7 +4025,8 @@
     {
       "code": "6023B",
       "subjects": [
-        "Additive Manufacturing"
+        "Additive Manufacturing",
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -3642,7 +4040,7 @@
     {
       "code": "6023C",
       "subjects": [
-        "Electric Vehicles"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -3672,7 +4070,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -3684,7 +4083,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -3696,7 +4096,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Mechanical Engineering"
+        "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -3709,6 +4110,7 @@
       ],
       "programmes": [
         "Mechanical Engineering",
+        "Mechanical Engineering (Automobile Engineering)",
         "Wood and Paper Technology"
       ]
     },
@@ -3727,7 +4129,7 @@
     {
       "code": "6029B",
       "subjects": [
-        "Electric Vehicles Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -3883,8 +4285,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication"
@@ -3899,8 +4301,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication"
@@ -3915,8 +4317,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering"
       ]
@@ -3924,14 +4326,14 @@
     {
       "code": "6043B",
       "subjects": [
-        "Medical Electronics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
-        "Electronics Engineering"
+        "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)"
       ]
     },
     {
@@ -3943,8 +4345,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Integrated Circuit Design & Fabrication",
         "Micro Electronics"
       ]
@@ -3952,14 +4354,14 @@
     {
       "code": "6043D",
       "subjects": [
-        "Principles of MEMS"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication"
@@ -3974,8 +4376,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Integrated Circuit Design & Fabrication",
@@ -3985,13 +4387,12 @@
     {
       "code": "6044B",
       "subjects": [
-        "Modern Electronics"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
         "Integrated Circuit Design & Fabrication"
       ]
@@ -3999,14 +4400,14 @@
     {
       "code": "6044C",
       "subjects": [
-        "Drone Technology"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
         "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication",
         "Electronics and Computer Engineering",
         "Micro Electronics"
@@ -4021,8 +4422,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Electrical & Electronics Engineering",
-        "Electronics Engineering"
+        "Electronics Engineering",
+        "Electronics Engineering (Embedded Systems)"
       ]
     },
     {
@@ -4034,7 +4435,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4046,7 +4448,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4070,7 +4473,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4094,7 +4498,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4106,7 +4511,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Automobile Engineering"
+        "Automobile Engineering",
+        "Mechanical Engineering (Automobile Engineering)"
       ]
     },
     {
@@ -4196,7 +4602,7 @@
     {
       "code": "6062",
       "subjects": [
-        "Technical Textiles"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -4232,7 +4638,7 @@
     {
       "code": "6063C",
       "subjects": [
-        "Textile Mill Management"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4244,7 +4650,7 @@
     {
       "code": "6063D",
       "subjects": [
-        "High Performance Fibres"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4268,7 +4674,7 @@
     {
       "code": "6064B",
       "subjects": [
-        "Geotextiles"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4280,7 +4686,7 @@
     {
       "code": "6064C",
       "subjects": [
-        "Textile Composites"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4304,7 +4710,7 @@
     {
       "code": "6069B",
       "subjects": [
-        "Fashion Technology Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4316,7 +4722,7 @@
     {
       "code": "6071P",
       "subjects": [
-        "Mechanical Operations"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -4328,7 +4734,7 @@
     {
       "code": "6071T",
       "subjects": [
-        "Mechanical Operations"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -4352,7 +4758,7 @@
     {
       "code": "6073A",
       "subjects": [
-        "Plant Utilities"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4364,7 +4770,7 @@
     {
       "code": "6073B",
       "subjects": [
-        "Solid Waste Management"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4376,7 +4782,7 @@
     {
       "code": "6073C",
       "subjects": [
-        "Biochemical Engineering"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4424,7 +4830,7 @@
     {
       "code": "6074C",
       "subjects": [
-        "Disaster Management"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4436,7 +4842,7 @@
     {
       "code": "6074D",
       "subjects": [
-        "Energy Engineering"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4556,7 +4962,7 @@
     {
       "code": "6084B",
       "subjects": [
-        "Industrial IOT"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4616,7 +5022,7 @@
     {
       "code": "6091P",
       "subjects": [
-        "Fibres and Composites"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -4628,7 +5034,7 @@
     {
       "code": "6091T",
       "subjects": [
-        "Fibres and Composites"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -4640,7 +5046,7 @@
     {
       "code": "6092",
       "subjects": [
-        "Plastic Products"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -4652,7 +5058,7 @@
     {
       "code": "6093A",
       "subjects": [
-        "Injection Mould Design"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4664,7 +5070,7 @@
     {
       "code": "6093B",
       "subjects": [
-        "Biopolymers"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4676,7 +5082,7 @@
     {
       "code": "6093C",
       "subjects": [
-        "Speciality Polymers"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4688,7 +5094,7 @@
     {
       "code": "6093D",
       "subjects": [
-        "Paint Technology"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4724,7 +5130,7 @@
     {
       "code": "6094C",
       "subjects": [
-        "Smart Polymers"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4940,7 +5346,7 @@
     {
       "code": "6113A",
       "subjects": [
-        "Production Management"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -4964,7 +5370,7 @@
     {
       "code": "6113C",
       "subjects": [
-        "Mechatronics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5000,7 +5406,7 @@
     {
       "code": "6114C",
       "subjects": [
-        "Product Design"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5024,7 +5430,7 @@
     {
       "code": "6118A",
       "subjects": [
-        "Product Design Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5072,7 +5478,7 @@
     {
       "code": "6122",
       "subjects": [
-        "Paper Technology-II"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -5108,7 +5514,7 @@
     {
       "code": "6123C",
       "subjects": [
-        "Timber Structure"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5120,7 +5526,7 @@
     {
       "code": "6124A",
       "subjects": [
-        "Project Management"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5156,13 +5562,12 @@
     {
       "code": "6131P",
       "subjects": [
-        "Software Testing"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering"
       ]
@@ -5170,13 +5575,12 @@
     {
       "code": "6131T",
       "subjects": [
-        "Software Testing"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering"
       ]
@@ -5184,7 +5588,7 @@
     {
       "code": "6132",
       "subjects": [
-        "Internet of Things"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -5196,7 +5600,7 @@
     {
       "code": "6133A",
       "subjects": [
-        "Virtualization Technology & Cloud Computing"
+        "Virtualization Technology and Cloud Computing"
       ],
       "semesters": [
         "Semester 6"
@@ -5204,7 +5608,8 @@
       "programmes": [
         "Artificial Intelligence",
         "Computer Engineering",
-        "Computer Science & Engineering"
+        "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -5239,7 +5644,7 @@
     {
       "code": "6133D",
       "subjects": [
-        "Ethical Hacking"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5277,6 +5682,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Cyber Forensics and Information Security"
       ]
@@ -5284,7 +5690,7 @@
     {
       "code": "6134C",
       "subjects": [
-        "Principles to IoT"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5292,6 +5698,7 @@
       "programmes": [
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology"
       ]
     },
@@ -5307,6 +5714,7 @@
         "Artificial Intelligence",
         "Computer Engineering",
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Computer Science and Technology",
         "Robotic Process Automation"
       ]
@@ -5314,13 +5722,12 @@
     {
       "code": "6139D",
       "subjects": [
-        "Ethical Hacking Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning",
         "Computer Engineering",
         "Computer Science & Engineering",
@@ -5355,7 +5762,7 @@
     {
       "code": "6143D",
       "subjects": [
-        "Investment Management"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5439,7 +5846,7 @@
     {
       "code": "6149C",
       "subjects": [
-        "Advanced Excel with AI"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5588,7 +5995,7 @@
     {
       "code": "6203A",
       "subjects": [
-        "Applied Electronics"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5607,6 +6014,7 @@
         "Semester 6"
       ],
       "programmes": [
+        "Electronics Engineering (Embedded Systems)",
         "Electronics and Communication"
       ]
     },
@@ -5661,7 +6069,7 @@
     {
       "code": "6243B",
       "subjects": [
-        "IoMT and Healthcare"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5673,7 +6081,7 @@
     {
       "code": "6243C",
       "subjects": [
-        "Principles of BioMEMS"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5745,7 +6153,7 @@
     {
       "code": "6251P",
       "subjects": [
-        "Digital Marketing"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -5757,7 +6165,7 @@
     {
       "code": "6251T",
       "subjects": [
-        "Digital Marketing"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -5769,7 +6177,7 @@
     {
       "code": "6252",
       "subjects": [
-        "Retail Management"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -5781,7 +6189,7 @@
     {
       "code": "6253A",
       "subjects": [
-        "Airport Management"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5793,7 +6201,7 @@
     {
       "code": "6253B",
       "subjects": [
-        "Business Ethics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5877,7 +6285,7 @@
     {
       "code": "6259B",
       "subjects": [
-        "Security Market Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5922,13 +6330,14 @@
       ],
       "programmes": [
         "Computer Science & Engineering",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)",
         "Information Technology"
       ]
     },
     {
       "code": "6263A",
       "subjects": [
-        "Cloud and DevOps"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5941,7 +6350,7 @@
     {
       "code": "6263B",
       "subjects": [
-        "Cyber Forensics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5953,7 +6362,7 @@
     {
       "code": "6263C",
       "subjects": [
-        "Soft Computing"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -5967,7 +6376,7 @@
     {
       "code": "6264A",
       "subjects": [
-        "Web Design"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6003,7 +6412,7 @@
     {
       "code": "6264D",
       "subjects": [
-        "Web Programming"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6015,7 +6424,7 @@
     {
       "code": "6269A",
       "subjects": [
-        "Cloud and DevOps Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6028,7 +6437,7 @@
     {
       "code": "6269B",
       "subjects": [
-        "Cyber Forensic Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6040,7 +6449,7 @@
     {
       "code": "6269C",
       "subjects": [
-        "Soft Computing Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6113,7 +6522,7 @@
     {
       "code": "6283C",
       "subjects": [
-        "Cyber Forensics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6125,7 +6534,7 @@
     {
       "code": "6284A",
       "subjects": [
-        "Data Mining"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6185,7 +6594,7 @@
     {
       "code": "6303A",
       "subjects": [
-        "Software Testing"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6221,7 +6630,7 @@
     {
       "code": "6304C",
       "subjects": [
-        "Digital Marketing"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6233,7 +6642,7 @@
     {
       "code": "6304D",
       "subjects": [
-        "Multimedia"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6245,7 +6654,7 @@
     {
       "code": "6331P",
       "subjects": [
-        "Advanced Robotics"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -6257,7 +6666,7 @@
     {
       "code": "6331T",
       "subjects": [
-        "Advanced Robotics"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -6353,7 +6762,7 @@
     {
       "code": "6334C",
       "subjects": [
-        "PLC and Automation"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6389,13 +6798,12 @@
     {
       "code": "6341",
       "subjects": [
-        "Deep Learning"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6408,7 +6816,6 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6421,7 +6828,6 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6434,7 +6840,6 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence",
         "Artificial Intelligence & Machine Learning"
       ]
     },
@@ -6453,7 +6858,7 @@
     {
       "code": "6372A",
       "subjects": [
-        "Renewable Energy"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6501,19 +6906,20 @@
     {
       "code": "6383B",
       "subjects": [
-        "Reinforcement Learning"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "6383C",
       "subjects": [
-        "AI for Robotics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6532,7 +6938,8 @@
       ],
       "programmes": [
         "Artificial Intelligence",
-        "Artificial Intelligence & Machine Learning"
+        "Artificial Intelligence & Machine Learning",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6544,19 +6951,21 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "6384B",
       "subjects": [
-        "Generative AI"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6605,19 +7014,21 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
       "code": "6389C",
       "subjects": [
-        "Virtual Reality Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6629,7 +7040,8 @@
         "Semester 6"
       ],
       "programmes": [
-        "Artificial Intelligence"
+        "Artificial Intelligence",
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     },
     {
@@ -6643,8 +7055,8 @@
       "programmes": [
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
-        "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -6658,8 +7070,8 @@
       "programmes": [
         "Civil & Environmental Engineering",
         "Civil & Rural Engineering",
-        "Civil Engineering",
-        "Civil Engineering & Planning"
+        "Civil Engineering & Planning",
+        "Civil Engineering (Construction Technology)"
       ]
     },
     {
@@ -6671,7 +7083,6 @@
         "Semester 6"
       ],
       "programmes": [
-        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -6684,7 +7095,6 @@
         "Semester 6"
       ],
       "programmes": [
-        "Civil Engineering",
         "Civil Engineering & Planning"
       ]
     },
@@ -6751,7 +7161,7 @@
     {
       "code": "6423A",
       "subjects": [
-        "Cereals and Legumes"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6763,7 +7173,7 @@
     {
       "code": "6423B",
       "subjects": [
-        "Spices and Condiments"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6787,7 +7197,7 @@
     {
       "code": "6423D",
       "subjects": [
-        "Food Packing Technology"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6871,7 +7281,7 @@
     {
       "code": "6431P",
       "subjects": [
-        "Bio Mechatronics"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -6883,7 +7293,7 @@
     {
       "code": "6431T",
       "subjects": [
-        "Bio Mechatronics"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -6907,7 +7317,7 @@
     {
       "code": "6433A",
       "subjects": [
-        "Thermodynamics"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6919,7 +7329,7 @@
     {
       "code": "6433B",
       "subjects": [
-        "Renewable Energy"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6931,7 +7341,7 @@
     {
       "code": "6433C",
       "subjects": [
-        "Maintenance Engineering"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -6944,6 +7354,18 @@
       "code": "6433D",
       "subjects": [
         "Micro Electro Mechanical Systems"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechatronics"
+      ]
+    },
+    {
+      "code": "6434A",
+      "subjects": [
+        "Robot Safety and Standards"
       ],
       "semesters": [
         "Semester 6"
@@ -6991,7 +7413,7 @@
     {
       "code": "6439A",
       "subjects": [
-        "Thermal Engineering Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -7003,7 +7425,7 @@
     {
       "code": "6439B",
       "subjects": [
-        "MEMS Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -7099,7 +7521,7 @@
     {
       "code": "6464A",
       "subjects": [
-        "Safety Management"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -7171,7 +7593,7 @@
     {
       "code": "6491P",
       "subjects": [
-        "Principles of IoT"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -7183,7 +7605,7 @@
     {
       "code": "6491T",
       "subjects": [
-        "Principles of IoT"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -7207,7 +7629,7 @@
     {
       "code": "6493B",
       "subjects": [
-        "MEMS"
+        "Open Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -7219,7 +7641,7 @@
     {
       "code": "6499A",
       "subjects": [
-        "Sensors & Actuators Lab"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -7241,9 +7663,57 @@
       ]
     },
     {
+      "code": "6521",
+      "subjects": [
+        "ARM Microcontroller and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "6522A",
+      "subjects": [
+        "Drone Systems and UAV Technology"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "6528",
+      "subjects": [
+        "ARM Microcontroller and Applications Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
+      "code": "6529A",
+      "subjects": [
+        "Embedded MicroPython Programming Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Electronics Engineering (Embedded Systems)"
+      ]
+    },
+    {
       "code": "6531P",
       "subjects": [
-        "Furniture Design II"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -7255,7 +7725,7 @@
     {
       "code": "6531T",
       "subjects": [
-        "Furniture Design II"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -7267,7 +7737,7 @@
     {
       "code": "6532A",
       "subjects": [
-        "Landscape for Interiors"
+        "Program Elective course"
       ],
       "semesters": [
         "Semester 6"
@@ -7315,7 +7785,7 @@
     {
       "code": "6551P",
       "subjects": [
-        "Mobile Programming"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -7327,7 +7797,7 @@
     {
       "code": "6551T",
       "subjects": [
-        "Mobile Programming"
+        "Programme core course"
       ],
       "semesters": [
         "Semester 6"
@@ -7339,7 +7809,7 @@
     {
       "code": "6552",
       "subjects": [
-        "Data Science & Analytics"
+        "Data Science and Analytics"
       ],
       "semesters": [
         "Semester 6"
@@ -7363,13 +7833,121 @@
     {
       "code": "6559",
       "subjects": [
-        "Data Science & Analytics Lab"
+        "Data Science and Analytics Lab"
       ],
       "semesters": [
         "Semester 6"
       ],
       "programmes": [
         "Computer Science and Technology"
+      ]
+    },
+    {
+      "code": "6561",
+      "subjects": [
+        "Refrigeration and HVAC"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "6562A",
+      "subjects": [
+        "Automotive Pollution and Control"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "6569",
+      "subjects": [
+        "Refrigeration and HVAC Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Mechanical Engineering (Automobile Engineering)"
+      ]
+    },
+    {
+      "code": "6571P",
+      "subjects": [
+        "Internet of Things and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6571T",
+      "subjects": [
+        "Internet of Things and Applications"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6572A",
+      "subjects": [
+        "Generative AI with Large Language Models"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6579A",
+      "subjects": [
+        "Generative AI with Large Language Models Lab"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6579B",
+      "subjects": [
+        "Program Elective course"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
+      ]
+    },
+    {
+      "code": "6579C",
+      "subjects": [
+        "Program Elective course"
+      ],
+      "semesters": [
+        "Semester 6"
+      ],
+      "programmes": [
+        "Computer Science and Engineering (Artificial Intelligence & Machine Learning)"
       ]
     }
   ],
