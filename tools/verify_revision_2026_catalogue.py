@@ -26,6 +26,7 @@ ALLOWED_SEMESTER_SOURCES = {
     "official-table-section",
     "official-table-order",
     "course-code-fallback",
+    "legacy-course-code-normalization",
 }
 
 
