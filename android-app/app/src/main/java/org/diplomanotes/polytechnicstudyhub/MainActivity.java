@@ -66,8 +66,6 @@ public class MainActivity extends ComponentActivity {
     private static final String TRUSTED_HOST = "polypmna.dpdns.org";
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
-    private static final String QUESTION_PAPERS_URL =
-            "https://github.com/nandurpm/diploma-notes/blob/main/model-question-papers.html";
     private static final Set<String> APPROVED_EXTERNAL_HOSTS = Set.of(
             "sitttrkerala.ac.in",
             "www.sitttrkerala.ac.in",
@@ -97,7 +95,6 @@ public class MainActivity extends ComponentActivity {
     private TextView toolbarTitle;
     private TextView toolbarSubtitle;
     private TextView drawerVersion;
-    private TextView navStudyMaterials;
     private TextView navSaveOffline;
     private TextView navSavedPages;
     private TextView navShareApp;
@@ -161,7 +158,6 @@ public class MainActivity extends ComponentActivity {
         toolbarTitle = findViewById(R.id.toolbarTitle);
         toolbarSubtitle = findViewById(R.id.toolbarSubtitle);
         drawerVersion = findViewById(R.id.drawerVersion);
-        navStudyMaterials = findViewById(R.id.navStudyMaterials);
         navSaveOffline = findViewById(R.id.navSaveOffline);
         navSavedPages = findViewById(R.id.navSavedPages);
         navShareApp = findViewById(R.id.navShareApp);
@@ -248,10 +244,10 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navDailyQuiz, "/daily-quiz.html");
         bindNavigation(R.id.navAskPoly, "/ask-poly.html");
         bindNavigation(R.id.navTools, "/tools.html");
+        bindNavigation(R.id.navStudyMaterials, "/model-question-papers.html");
         bindNavigation(R.id.navMaterials2015, "/materials-2015.html");
         bindNavigation(R.id.navAbout, "/about.html");
         bindNavigation(R.id.navContact, "/contact.html");
-        bindQuestionPapersNavigation();
 
         // Section labels take part in theming but not in the search filter.
         int[] labelIds = {
@@ -280,20 +276,6 @@ public class MainActivity extends ComponentActivity {
             if (webView != null && !target.equals(webView.getUrl())) {
                 webView.loadUrl(target);
             }
-        });
-    }
-
-    private void bindQuestionPapersNavigation() {
-        if (navStudyMaterials == null) {
-            return;
-        }
-        themableTextViews.add(navStudyMaterials);
-        navStudyMaterials.setOnClickListener(view -> {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            openExternal(
-                    new Intent(Intent.ACTION_VIEW, Uri.parse(QUESTION_PAPERS_URL)),
-                    R.string.no_app_found
-            );
         });
     }
 
