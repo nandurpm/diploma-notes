@@ -5,6 +5,6 @@
   "firebaseMessaging": true,
   "status": "success",
   "releaseApkBytes": 956848,
-  "releaseSha256": "80ccfcd2fe541b20cea551ca2e67f5a7762644dbdcffad3b0b076dc29e9e4f37",
-  "builtAt": "2026-08-09T06:22:55Z"
+  "releaseSha256": "abc4fdfde56c10b9b70a09f0019c546a3de73db69520f7c43bc8d06148d755a0",
+  "builtAt": "2026-08-09T06:27:42Z"
 }
