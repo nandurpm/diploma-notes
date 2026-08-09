@@ -74,7 +74,8 @@
   const root = () => { const depth = location.pathname.replace(/\/[^/]*$/, " ").trim().split("/").filter(Boolean).length; return depth ? "../".repeat(depth) : ""; };
   const asset = subject => String(subject.assetCode || subject.code || "");
   const sameDept = (a, b) => depKey(a) === depKey(b);
-  const key = subject => [subject.revision, subject.department, subject.semester, norm(subject.code), String(subject.name || "").toLowerCase()].join("::");
+  // PERFORMANCE OPTIMIZATION: Simplified key generation to reduce string concatenation and array allocation.
+  const key = s => `${s.revision}|${s.code}|${s.department}`;
   const syllabusUrl = subject => {
     if (String(subject.revision) === "2021") {
       return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";

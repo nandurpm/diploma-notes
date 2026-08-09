@@ -32,7 +32,8 @@
     const select = document.getElementById("departmentFilter");
     clean();
     if (select) new MutationObserver(clean).observe(select, { childList: true });
-    [100, 300, 700, 1200, 2000, 3500].forEach((delay) => setTimeout(clean, delay));
+    /* PERFORMANCE FIX: Removed redundant setTimeout calls that trigger re-renders. The initial clean and MutationObserver are sufficient. */
+    setTimeout(clean, 500);
   };
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
