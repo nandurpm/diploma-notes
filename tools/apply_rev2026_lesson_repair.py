@@ -227,8 +227,8 @@ def revision_department_pages() -> list[Path]:
     registry_path = ROOT / "assets/data/revision-2026-programmes.json"
     registry = json.loads(registry_path.read_text(encoding="utf-8"))
     programmes = registry.get("programmes", [])
-    if len(programmes) != 38:
-        raise RuntimeError(f"expected 38 programme records, found {len(programmes)}")
+    if len(programmes) != 42:
+        raise RuntimeError(f"expected 42 programme records, found {len(programmes)}")
     pages = [ROOT / "revision-2026" / f"{item['slug']}.html" for item in programmes]
     missing = [path.name for path in pages if not path.exists()]
     if missing:

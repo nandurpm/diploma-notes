@@ -2,8 +2,8 @@
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
   "status": "failed",
-  "sourceCommit": "9260c3bf4c1f6f53873ffc3bd48a1bf6e9807569",
-  "generatedAt": "2026-08-07T06:43:25.301Z",
+  "sourceCommit": "0f612e03c1e4574eb456c8977b374f93174ea5a6",
+  "generatedAt": "2026-08-09T02:55:30.883Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -84,27 +84,74 @@
     },
     {
       "name": "department search filters correctly",
-      "passed": false,
-      "visibleElectrical": 42
+      "passed": true,
+      "visibleElectrical": 3
     },
     {
       "name": "search result count updates",
       "passed": false,
-      "resultText": "42 departments available"
+      "resultText": "Showing 3 of 42 departments"
     },
     {
       "name": "search query is preserved in URL",
-      "passed": false,
-      "url": "http://127.0.0.1:8000/revision-2026.html"
+      "passed": true,
+      "url": "http://127.0.0.1:8000/revision-2026.html?q=electrical"
     },
     {
       "name": "clear control appears for active search",
+      "passed": true
+    },
+    {
+      "name": "clear control restores all departments",
+      "passed": false,
+      "visibleAfterClear": 42,
+      "url": "http://127.0.0.1:8000/revision-2026.html"
+    },
+    {
+      "name": "no-results state is visible",
+      "passed": true
+    },
+    {
+      "name": "no-results clear action restores directory",
       "passed": false
     },
     {
-      "name": "QA script completed without an unhandled exception",
-      "passed": false,
-      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#programmeSearchClear')\n    - locator resolved to <button hidden=\"\" type=\"button\" id=\"programmeSearchClear\" class=\"revision-directory-clear\">Clear</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    56 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:114:47"
+      "name": "mobile has no horizontal overflow",
+      "passed": true,
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "firstCardLeft": 12,
+      "firstCardRight": 378,
+      "firstCardWidth": 366
+    },
+    {
+      "name": "mobile card fits the viewport",
+      "passed": true,
+      "viewportWidth": 390,
+      "documentWidth": 390,
+      "bodyWidth": 390,
+      "firstCardLeft": 12,
+      "firstCardRight": 378,
+      "firstCardWidth": 366
+    },
+    {
+      "name": "mobile grid uses one card per row",
+      "passed": true,
+      "mobileFirstRowCount": 1
+    },
+    {
+      "name": "mobile menu button is visible",
+      "passed": true
+    },
+    {
+      "name": "mobile menu opens",
+      "passed": true
+    },
+    {
+      "name": "no relevant console errors",
+      "passed": true,
+      "consoleErrors": []
     }
   ],
   "failures": [
@@ -114,52 +161,45 @@
       "cardCount": 42
     },
     {
-      "name": "department search filters correctly",
-      "passed": false,
-      "visibleElectrical": 42
-    },
-    {
       "name": "search result count updates",
       "passed": false,
-      "resultText": "42 departments available"
+      "resultText": "Showing 3 of 42 departments"
     },
     {
-      "name": "search query is preserved in URL",
+      "name": "clear control restores all departments",
       "passed": false,
+      "visibleAfterClear": 42,
       "url": "http://127.0.0.1:8000/revision-2026.html"
     },
     {
-      "name": "clear control appears for active search",
+      "name": "no-results clear action restores directory",
       "passed": false
-    },
-    {
-      "name": "QA script completed without an unhandled exception",
-      "passed": false,
-      "error": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('#programmeSearchClear')\n    - locator resolved to <button hidden=\"\" type=\"button\" id=\"programmeSearchClear\" class=\"revision-directory-clear\">Clear</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    56 × waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_revision_2026_directory.mjs:114:47"
     }
   ],
   "console": {
-    "errors": [
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      },
-      {
-        "type": "error",
-        "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
-        "location": {
-          "url": "http://127.0.0.1:8000/cdn-cgi/challenge-platform/scripts/jsd/main.js",
-          "lineNumber": 0,
-          "columnNumber": 0
-        }
-      }
-    ],
+    "errors": [],
     "warnings": []
   },
-  "screenshots": []
+  "screenshots": [
+    {
+      "label": "desktop",
+      "fileName": "revision-2026-directory-desktop.png",
+      "bytes": 3674272,
+      "sha256": "6c2b21d800a49cc60fb56bb6c970bb6a74c665b5dca9fa43a46d4125e002961f",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      }
+    },
+    {
+      "label": "mobile",
+      "fileName": "revision-2026-directory-mobile.png",
+      "bytes": 2894167,
+      "sha256": "f980de4f1987ab1865ddc384b0fea4c231f13caccce2c6548e9bab7d6d7ffc40",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ]
 }
