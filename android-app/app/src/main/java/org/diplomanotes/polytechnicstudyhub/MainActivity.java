@@ -18,8 +18,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -34,12 +32,8 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +66,8 @@ public class MainActivity extends ComponentActivity {
     private static final String TRUSTED_HOST = "polypmna.dpdns.org";
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
+    private static final String QUESTION_PAPERS_URL =
+            "https://github.com/nandurpm/diploma-notes/blob/main/model-question-papers.html";
     private static final Set<String> APPROVED_EXTERNAL_HOSTS = Set.of(
             "sitttrkerala.ac.in",
             "www.sitttrkerala.ac.in",
@@ -83,7 +79,6 @@ public class MainActivity extends ComponentActivity {
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
     private final List<TextView> themableTextViews = new ArrayList<>();
-    private final List<TextView> searchableTextViews = new ArrayList<>();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private DrawerLayout drawerLayout;
@@ -102,10 +97,7 @@ public class MainActivity extends ComponentActivity {
     private TextView toolbarTitle;
     private TextView toolbarSubtitle;
     private TextView drawerVersion;
-    private EditText drawerSearch;
-    private LinearLayout darkModeRow;
-    private ImageView darkModeIcon;
-    private Switch darkModeSwitch;
+    private TextView navStudyMaterials;
     private TextView navSaveOffline;
     private TextView navSavedPages;
     private TextView navShareApp;
@@ -169,10 +161,7 @@ public class MainActivity extends ComponentActivity {
         toolbarTitle = findViewById(R.id.toolbarTitle);
         toolbarSubtitle = findViewById(R.id.toolbarSubtitle);
         drawerVersion = findViewById(R.id.drawerVersion);
-        drawerSearch = findViewById(R.id.drawerSearch);
-        darkModeRow = findViewById(R.id.darkModeRow);
-        darkModeIcon = findViewById(R.id.darkModeIcon);
-        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        navStudyMaterials = findViewById(R.id.navStudyMaterials);
         navSaveOffline = findViewById(R.id.navSaveOffline);
         navSavedPages = findViewById(R.id.navSavedPages);
         navShareApp = findViewById(R.id.navShareApp);
@@ -180,20 +169,17 @@ public class MainActivity extends ComponentActivity {
         offlineCache = new OfflineCacheManager(getApplicationContext());
         bookmarks = new BookmarkManager(this);
         prefs = bookmarks.preferences();
-        darkMode = prefs.getBoolean("dark_mode", false);
+        darkMode = false;
 
         configureNativeShell();
         configureBackNavigation();
         configureWebView();
         configureSwipeRefresh();
-        configureSearch();
         configureBookmarkButton();
         configureShareButton();
-        configureDarkModeToggle();
         configureSupportRow();
 
         applyTheme(darkMode);
-        darkModeIcon.setImageResource(darkMode ? R.drawable.ic_sun : R.drawable.ic_moon);
 
         if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
             loadIncomingIntent(getIntent(), true);
@@ -265,6 +251,7 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navMaterials2015, "/materials-2015.html");
         bindNavigation(R.id.navAbout, "/about.html");
         bindNavigation(R.id.navContact, "/contact.html");
+        bindQuestionPapersNavigation();
 
         // Section labels take part in theming but not in the search filter.
         int[] labelIds = {
@@ -285,9 +272,7 @@ public class MainActivity extends ComponentActivity {
         View item = findViewById(viewId);
         navigationItems.put(item, path);
         if (item instanceof TextView) {
-            TextView textView = (TextView) item;
-            themableTextViews.add(textView);
-            searchableTextViews.add(textView);
+            themableTextViews.add((TextView) item);
         }
         item.setOnClickListener(view -> {
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -295,6 +280,20 @@ public class MainActivity extends ComponentActivity {
             if (webView != null && !target.equals(webView.getUrl())) {
                 webView.loadUrl(target);
             }
+        });
+    }
+
+    private void bindQuestionPapersNavigation() {
+        if (navStudyMaterials == null) {
+            return;
+        }
+        themableTextViews.add(navStudyMaterials);
+        navStudyMaterials.setOnClickListener(view -> {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            openExternal(
+                    new Intent(Intent.ACTION_VIEW, Uri.parse(QUESTION_PAPERS_URL)),
+                    R.string.no_app_found
+            );
         });
     }
 
@@ -392,35 +391,6 @@ public class MainActivity extends ComponentActivity {
         });
     }
 
-    private void configureSearch() {
-        if (drawerSearch == null) {
-            return;
-        }
-        drawerSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterDrawer(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-    }
-
-    private void filterDrawer(String query) {
-        String normalizedQuery = query.trim().toLowerCase(Locale.ROOT);
-        for (TextView item : searchableTextViews) {
-            boolean matches = normalizedQuery.isEmpty()
-                    || item.getText().toString().toLowerCase(Locale.ROOT).contains(normalizedQuery);
-            item.setVisibility(matches ? View.VISIBLE : View.GONE);
-        }
-    }
-
     private void configureBookmarkButton() {
         if (bookmarkButton == null) {
             return;
@@ -467,25 +437,6 @@ public class MainActivity extends ComponentActivity {
                     R.string.no_app_found
             );
         });
-    }
-
-    private void configureDarkModeToggle() {
-        if (darkModeRow == null || darkModeSwitch == null) {
-            return;
-        }
-        darkModeSwitch.setChecked(darkMode);
-        darkModeRow.setOnClickListener(v -> setDarkMode(!darkMode));
-    }
-
-    private void setDarkMode(boolean enabled) {
-        darkMode = enabled;
-        prefs.edit().putBoolean("dark_mode", enabled).apply();
-        darkModeSwitch.setChecked(enabled);
-        darkModeIcon.setImageResource(enabled ? R.drawable.ic_sun : R.drawable.ic_moon);
-        applyTheme(enabled);
-        if (webView != null) {
-            injectNativeAppChrome(webView);
-        }
     }
 
     private void configureSupportRow() {
@@ -659,12 +610,6 @@ public class MainActivity extends ComponentActivity {
         toolbarTitle.setTextColor(textPrimary);
         toolbarSubtitle.setTextColor(textSecondary);
         drawerVersion.setTextColor(textSecondary);
-
-        if (drawerSearch != null) {
-            drawerSearch.setBackgroundResource(dark ? R.drawable.bg_search_box_dark : R.drawable.bg_search_box);
-            drawerSearch.setTextColor(textPrimary);
-            drawerSearch.setHintTextColor(textSecondary);
-        }
 
         for (TextView item : themableTextViews) {
             applyItemThemeColors(item, textPrimary, iconTint);
