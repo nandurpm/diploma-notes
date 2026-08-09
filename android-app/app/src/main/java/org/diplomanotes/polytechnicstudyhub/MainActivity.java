@@ -8,7 +8,9 @@ import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -16,6 +18,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -26,24 +30,39 @@ import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.ComponentActivity;
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
+import androidx.core.widget.TextViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -63,13 +82,39 @@ public class MainActivity extends ComponentActivity {
     );
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
+    private final List<TextView> themableTextViews = new ArrayList<>();
+    private final List<TextView> searchableTextViews = new ArrayList<>();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private DrawerLayout drawerLayout;
+    private View navigationDrawer;
+    private View rootColumn;
+    private View appBar;
+    private View drawerFooterDivider;
     private WebView webView;
+    private SwipeRefreshLayout swipeRefresh;
     private ProgressBar progressBar;
     private View launchOverlay;
+    private ImageButton menuButton;
+    private ImageButton refreshButton;
+    private ImageButton bookmarkButton;
+    private ImageButton shareButton;
+    private TextView toolbarTitle;
     private TextView toolbarSubtitle;
+    private TextView drawerVersion;
+    private EditText drawerSearch;
+    private LinearLayout darkModeRow;
+    private ImageView darkModeIcon;
+    private Switch darkModeSwitch;
+    private TextView navSaveOffline;
+    private TextView navSavedPages;
+    private TextView navShareApp;
+
+    private OfflineCacheManager offlineCache;
+    private BookmarkManager bookmarks;
+    private SharedPreferences prefs;
+    private boolean darkMode;
+
     private ValueCallback<Uri[]> fileChooserCallback;
     private boolean launchOverlayDismissed;
     private String lastFailedUrl = HOME_URL;
@@ -96,6 +141,11 @@ public class MainActivity extends ComponentActivity {
             }
     );
 
+    private final ActivityResultLauncher<Intent> savedPagesLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            this::handleSavedPagesResult
+    );
+
 
 
     @Override
@@ -104,14 +154,46 @@ public class MainActivity extends ComponentActivity {
         setContentView(R.layout.activity_main);
 
         drawerLayout = findViewById(R.id.drawerLayout);
+        navigationDrawer = findViewById(R.id.navigationDrawer);
+        rootColumn = findViewById(R.id.rootColumn);
+        appBar = findViewById(R.id.appBar);
+        drawerFooterDivider = findViewById(R.id.drawerFooterDivider);
         webView = findViewById(R.id.webView);
+        swipeRefresh = findViewById(R.id.swipeRefresh);
         progressBar = findViewById(R.id.progressBar);
         launchOverlay = findViewById(R.id.launchOverlay);
+        menuButton = findViewById(R.id.menuButton);
+        refreshButton = findViewById(R.id.refreshButton);
+        bookmarkButton = findViewById(R.id.bookmarkButton);
+        shareButton = findViewById(R.id.shareButton);
+        toolbarTitle = findViewById(R.id.toolbarTitle);
         toolbarSubtitle = findViewById(R.id.toolbarSubtitle);
+        drawerVersion = findViewById(R.id.drawerVersion);
+        drawerSearch = findViewById(R.id.drawerSearch);
+        darkModeRow = findViewById(R.id.darkModeRow);
+        darkModeIcon = findViewById(R.id.darkModeIcon);
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        navSaveOffline = findViewById(R.id.navSaveOffline);
+        navSavedPages = findViewById(R.id.navSavedPages);
+        navShareApp = findViewById(R.id.navShareApp);
+
+        offlineCache = new OfflineCacheManager(getApplicationContext());
+        bookmarks = new BookmarkManager(this);
+        prefs = bookmarks.preferences();
+        darkMode = prefs.getBoolean("dark_mode", false);
 
         configureNativeShell();
         configureBackNavigation();
         configureWebView();
+        configureSwipeRefresh();
+        configureSearch();
+        configureBookmarkButton();
+        configureShareButton();
+        configureDarkModeToggle();
+        configureSupportRow();
+
+        applyTheme(darkMode);
+        darkModeIcon.setImageResource(darkMode ? R.drawable.ic_sun : R.drawable.ic_moon);
 
         if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
             loadIncomingIntent(getIntent(), true);
@@ -119,6 +201,7 @@ public class MainActivity extends ComponentActivity {
             hideLaunchOverlay();
         }
 
+        offlineCache.preloadEssentialPages(HOME_URL, TRUSTED_HOST);
         mainHandler.postDelayed(slowLoadRunnable, 15000L);
     }
 
@@ -161,10 +244,8 @@ public class MainActivity extends ComponentActivity {
 
     private void configureNativeShell() {
         drawerLayout.setScrimColor(0x66081733);
-        findViewById(R.id.menuButton).setOnClickListener(
-                view -> drawerLayout.openDrawer(GravityCompat.START)
-        );
-        findViewById(R.id.refreshButton).setOnClickListener(view -> {
+        menuButton.setOnClickListener(view -> drawerLayout.openDrawer(GravityCompat.START));
+        refreshButton.setOnClickListener(view -> {
             if (webView == null) {
                 return;
             }
@@ -180,19 +261,34 @@ public class MainActivity extends ComponentActivity {
         bindNavigation(R.id.navRevision2021, "/revision-2021.html");
         bindNavigation(R.id.navDailyQuiz, "/daily-quiz.html");
         bindNavigation(R.id.navAskPoly, "/ask-poly.html");
-        bindNavigation(R.id.navTools, "/tools-v2.html");
-        bindNavigation(R.id.navStudyMaterials, "/model-question-papers.html");
+        bindNavigation(R.id.navTools, "/tools.html");
         bindNavigation(R.id.navMaterials2015, "/materials-2015.html");
         bindNavigation(R.id.navAbout, "/about.html");
         bindNavigation(R.id.navContact, "/contact.html");
 
-        TextView version = findViewById(R.id.drawerVersion);
-        version.setText("Version " + BuildConfig.VERSION_NAME + "  •  REV2026 content ready");
+        // Section labels take part in theming but not in the search filter.
+        int[] labelIds = {
+                R.id.labelStudy,
+                R.id.labelResources
+        };
+        for (int id : labelIds) {
+            View label = findViewById(id);
+            if (label instanceof TextView) {
+                themableTextViews.add((TextView) label);
+            }
+        }
+
+        drawerVersion.setText("Version " + BuildConfig.VERSION_NAME + "  \u2022  Offline ready");
     }
 
     private void bindNavigation(int viewId, String path) {
         View item = findViewById(viewId);
         navigationItems.put(item, path);
+        if (item instanceof TextView) {
+            TextView textView = (TextView) item;
+            themableTextViews.add(textView);
+            searchableTextViews.add(textView);
+        }
         item.setOnClickListener(view -> {
             drawerLayout.closeDrawer(GravityCompat.START);
             String target = buildTrustedUrl(path);
@@ -216,6 +312,11 @@ public class MainActivity extends ComponentActivity {
                 .toString();
     }
 
+    private String normalizedPath(Uri uri) {
+        String path = uri == null ? null : uri.getPath();
+        return (path == null || path.isEmpty()) ? "/" : path;
+    }
+
     private void markActiveNavigation(String pageUrl) {
         String currentPath = "/";
         try {
@@ -232,7 +333,7 @@ public class MainActivity extends ComponentActivity {
         } else if ("/ask-poly-v2.html".equals(currentPath)) {
             currentPath = "/ask-poly.html";
         } else if ("/tools.html".equals(currentPath)) {
-            currentPath = "/tools-v2.html";
+            currentPath = "/tools.html";
         }
 
         for (Map.Entry<View, String> entry : navigationItems.entrySet()) {
@@ -274,6 +375,322 @@ public class MainActivity extends ComponentActivity {
         });
     }
 
+    private void configureSwipeRefresh() {
+        if (swipeRefresh == null) {
+            return;
+        }
+        swipeRefresh.setColorSchemeResources(R.color.brand_blue, R.color.brand_cyan, R.color.brand_teal);
+        swipeRefresh.setOnRefreshListener(() -> {
+            if (webView != null) {
+                if (webView.getUrl() != null && webView.getUrl().startsWith(ERROR_PAGE_URL)) {
+                    retryLastFailedUrl();
+                } else {
+                    webView.reload();
+                }
+            }
+            mainHandler.postDelayed(() -> swipeRefresh.setRefreshing(false), 900L);
+        });
+    }
+
+    private void configureSearch() {
+        if (drawerSearch == null) {
+            return;
+        }
+        drawerSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterDrawer(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void filterDrawer(String query) {
+        String normalizedQuery = query.trim().toLowerCase(Locale.ROOT);
+        for (TextView item : searchableTextViews) {
+            boolean matches = normalizedQuery.isEmpty()
+                    || item.getText().toString().toLowerCase(Locale.ROOT).contains(normalizedQuery);
+            item.setVisibility(matches ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    private void configureBookmarkButton() {
+        if (bookmarkButton == null) {
+            return;
+        }
+        bookmarkButton.setOnClickListener(v -> {
+            if (webView == null || webView.getUrl() == null) {
+                return;
+            }
+            Uri uri = Uri.parse(webView.getUrl());
+            if (!isTrustedUri(uri)) {
+                return;
+            }
+            String path = normalizedPath(uri);
+            webView.evaluateJavascript("document.title", value -> {
+                String title = decodeJsString(value);
+                if (title == null || title.trim().isEmpty()) {
+                    title = path;
+                }
+                bookmarks.toggleBookmark(path, title);
+                boolean nowBookmarked = bookmarks.isBookmarked(path);
+                Toast.makeText(
+                        MainActivity.this,
+                        nowBookmarked ? R.string.bookmark_added : R.string.bookmark_removed,
+                        Toast.LENGTH_SHORT
+                ).show();
+                updateBookmarkButtonState(webView.getUrl());
+            });
+        });
+    }
+
+    private void configureShareButton() {
+        if (shareButton == null) {
+            return;
+        }
+        shareButton.setOnClickListener(v -> {
+            if (webView == null || webView.getUrl() == null) {
+                return;
+            }
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
+            if (webView.getTitle() != null) {
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, webView.getTitle());
+            }
+            openExternal(
+                    Intent.createChooser(shareIntent, getString(R.string.share_page_chooser)),
+                    R.string.no_app_found
+            );
+        });
+    }
+
+    private void configureDarkModeToggle() {
+        if (darkModeRow == null || darkModeSwitch == null) {
+            return;
+        }
+        darkModeSwitch.setChecked(darkMode);
+        darkModeRow.setOnClickListener(v -> setDarkMode(!darkMode));
+    }
+
+    private void setDarkMode(boolean enabled) {
+        darkMode = enabled;
+        prefs.edit().putBoolean("dark_mode", enabled).apply();
+        darkModeSwitch.setChecked(enabled);
+        darkModeIcon.setImageResource(enabled ? R.drawable.ic_sun : R.drawable.ic_moon);
+        applyTheme(enabled);
+        if (webView != null) {
+            injectNativeAppChrome(webView);
+        }
+    }
+
+    private void configureSupportRow() {
+        if (navSaveOffline != null) {
+            themableTextViews.add(navSaveOffline);
+            navSaveOffline.setOnClickListener(v -> saveCurrentPageOffline());
+        }
+        if (navSavedPages != null) {
+            themableTextViews.add(navSavedPages);
+            navSavedPages.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                savedPagesLauncher.launch(new Intent(MainActivity.this, SavedPagesActivity.class));
+            });
+        }
+        if (navShareApp != null) {
+            themableTextViews.add(navShareApp);
+            navShareApp.setOnClickListener(v -> {
+                drawerLayout.closeDrawer(GravityCompat.START);
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text));
+                openExternal(
+                        Intent.createChooser(shareIntent, getString(R.string.share_page_chooser)),
+                        R.string.no_app_found
+                );
+            });
+        }
+    }
+
+    private void handleSavedPagesResult(ActivityResult result) {
+        if (result.getResultCode() != RESULT_OK || result.getData() == null) {
+            return;
+        }
+        String path = result.getData().getStringExtra("path");
+        if (path != null && webView != null) {
+            webView.loadUrl(buildTrustedUrl(path));
+        }
+    }
+
+    private void saveCurrentPageOffline() {
+        if (webView == null || webView.getUrl() == null) {
+            Toast.makeText(this, R.string.offline_save_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Uri uri = Uri.parse(webView.getUrl());
+        if (!isTrustedUri(uri)) {
+            Toast.makeText(this, R.string.offline_save_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String path = normalizedPath(uri);
+        String pageUrl = webView.getUrl();
+        webView.evaluateJavascript(
+                "(function(){return document.title + '\\u0001' + document.documentElement.outerHTML;})();",
+                value -> {
+                    if (value == null || "null".equals(value)) {
+                        Toast.makeText(MainActivity.this, R.string.offline_save_failed, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String decoded = decodeJsString(value);
+                    int sep = decoded.indexOf('\u0001');
+                    String title = sep > 0 ? decoded.substring(0, sep) : path;
+                    String html = sep > 0 ? decoded.substring(sep + 1) : decoded;
+                    if (html.trim().isEmpty()) {
+                        Toast.makeText(MainActivity.this, R.string.offline_save_failed, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    offlineCache.saveCurrentPageAsync(path, title, html, pageUrl, TRUSTED_HOST);
+                    Toast.makeText(MainActivity.this, R.string.offline_saved, Toast.LENGTH_SHORT).show();
+                }
+        );
+    }
+
+    private void updateBookmarkButtonState(String url) {
+        if (bookmarkButton == null) {
+            return;
+        }
+        boolean bookmarked = false;
+        if (url != null) {
+            Uri uri = Uri.parse(url);
+            if (isTrustedUri(uri)) {
+                bookmarked = bookmarks.isBookmarked(normalizedPath(uri));
+            }
+        }
+        bookmarkButton.setImageResource(bookmarked ? R.drawable.ic_star_filled : R.drawable.ic_star_outline);
+        if (darkMode && !bookmarked) {
+            bookmarkButton.setColorFilter(ContextCompat.getColor(this, R.color.dark_icon_tint));
+        } else {
+            bookmarkButton.clearColorFilter();
+        }
+    }
+
+    private String decodeJsString(String raw) {
+        if (raw == null) {
+            return "";
+        }
+        String s = raw;
+        if (s.length() >= 2 && s.startsWith("\"") && s.endsWith("\"")) {
+            s = s.substring(1, s.length() - 1);
+        }
+        StringBuilder out = new StringBuilder(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '\\' && i + 1 < s.length()) {
+                char next = s.charAt(i + 1);
+                switch (next) {
+                    case 'n':
+                        out.append('\n');
+                        i++;
+                        break;
+                    case 'r':
+                        out.append('\r');
+                        i++;
+                        break;
+                    case 't':
+                        out.append('\t');
+                        i++;
+                        break;
+                    case '"':
+                        out.append('"');
+                        i++;
+                        break;
+                    case '\\':
+                        out.append('\\');
+                        i++;
+                        break;
+                    case 'u':
+                        if (i + 5 < s.length()) {
+                            String hex = s.substring(i + 2, i + 6);
+                            try {
+                                out.append((char) Integer.parseInt(hex, 16));
+                                i += 5;
+                            } catch (NumberFormatException e) {
+                                out.append(c);
+                            }
+                        } else {
+                            out.append(c);
+                        }
+                        break;
+                    default:
+                        out.append(next);
+                        i++;
+                }
+            } else {
+                out.append(c);
+            }
+        }
+        return out.toString();
+    }
+
+    private void applyItemThemeColors(TextView item, int textColor, int iconTint) {
+        item.setTextColor(textColor);
+        TextViewCompat.setCompoundDrawableTintList(item, ColorStateList.valueOf(iconTint));
+    }
+
+    private void applyTheme(boolean dark) {
+        int bgColor = ContextCompat.getColor(this, dark ? R.color.dark_app_background : R.color.app_background);
+        int surfaceColor = ContextCompat.getColor(this, dark ? R.color.dark_surface : R.color.surface);
+        int textPrimary = ContextCompat.getColor(this, dark ? R.color.dark_text_primary : R.color.text_primary);
+        int textSecondary = ContextCompat.getColor(this, dark ? R.color.dark_text_secondary : R.color.text_secondary);
+        int dividerColor = ContextCompat.getColor(this, dark ? R.color.dark_divider : R.color.divider);
+        int iconTint = ContextCompat.getColor(this, dark ? R.color.dark_icon_tint : R.color.brand_indigo);
+
+        rootColumn.setBackgroundColor(bgColor);
+        appBar.setBackgroundColor(surfaceColor);
+        navigationDrawer.setBackgroundColor(surfaceColor);
+        drawerFooterDivider.setBackgroundColor(dividerColor);
+        if (webView != null) {
+            webView.setBackgroundColor(bgColor);
+        }
+
+        toolbarTitle.setTextColor(textPrimary);
+        toolbarSubtitle.setTextColor(textSecondary);
+        drawerVersion.setTextColor(textSecondary);
+
+        if (drawerSearch != null) {
+            drawerSearch.setBackgroundResource(dark ? R.drawable.bg_search_box_dark : R.drawable.bg_search_box);
+            drawerSearch.setTextColor(textPrimary);
+            drawerSearch.setHintTextColor(textSecondary);
+        }
+
+        for (TextView item : themableTextViews) {
+            applyItemThemeColors(item, textPrimary, iconTint);
+        }
+
+        for (ImageButton button : new ImageButton[]{menuButton, refreshButton, shareButton}) {
+            if (button == null) {
+                continue;
+            }
+            if (dark) {
+                button.setColorFilter(iconTint);
+            } else {
+                button.clearColorFilter();
+            }
+        }
+        updateBookmarkButtonState(webView == null ? null : webView.getUrl());
+
+        getWindow().setStatusBarColor(
+                ContextCompat.getColor(this, dark ? R.color.dark_surface : R.color.status_bar)
+        );
+        getWindow().setNavigationBarColor(surfaceColor);
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     private void configureWebView() {
         WebSettings settings = webView.getSettings();
@@ -311,9 +728,13 @@ public class MainActivity extends ComponentActivity {
         if (target == null) {
             return;
         }
+        String darkClassOp = darkMode
+                ? "d.documentElement.classList.add('poly-dark-mode');"
+                : "d.documentElement.classList.remove('poly-dark-mode');";
         target.evaluateJavascript(
                 "(function(){try{" +
                         "var d=document;d.documentElement.classList.add('polytechnic-native-app');" +
+                        darkClassOp +
                         "var lesson=/^\\/(?:revision-2026-content\\/)?lessons\\/lessons-[^\\/]+\\.html$/i.test(location.pathname);" +
                         "if(lesson){d.documentElement.classList.add('poly-lesson-page');if(d.body){d.body.classList.add('poly-lesson-page');}}" +
                         "var css='html.polytechnic-native-app .topbar,html.polytechnic-native-app .skip-link{display:none!important;}' +" +
@@ -321,9 +742,12 @@ public class MainActivity extends ComponentActivity {
                         "'html.polytechnic-native-app main{margin-top:0!important;}' +" +
                         "'html.polytechnic-native-app.poly-lesson-page .hb-topbar,html.polytechnic-native-app.poly-lesson-page .lesson-topbar,html.polytechnic-native-app.poly-lesson-page .lesson-header,html.polytechnic-native-app.poly-lesson-page body>nav.top,html.polytechnic-native-app.poly-lesson-page body>header.top,html.polytechnic-native-app.poly-lesson-page .chapter-nav,html.polytechnic-native-app.poly-lesson-page .revision-back-button,html.polytechnic-native-app.poly-lesson-page .nav-arrows{display:none!important;height:0!important;min-height:0!important;max-height:0!important;margin:0!important;padding:0!important;border:0!important;overflow:hidden!important;}' +" +
                         "'html.polytechnic-native-app.poly-lesson-page .lesson-shell,html.polytechnic-native-app.poly-lesson-page main,html.polytechnic-native-app.poly-lesson-page .content{display:block!important;width:100%!important;max-width:none!important;margin:0!important;padding-top:7px!important;}' +" +
-                        "'html.polytechnic-native-app .app-download:not([data-app-button-state=update]){display:none!important;}';" +
+                        "'html.polytechnic-native-app .app-download:not([data-app-button-state=update]){display:none!important;}' +" +
+                        "'html.poly-dark-mode{filter:invert(1) hue-rotate(180deg);background:#0b1220!important;}' +" +
+                        "'html.poly-dark-mode img,html.poly-dark-mode svg,html.poly-dark-mode video,html.poly-dark-mode iframe,html.poly-dark-mode picture{filter:invert(1) hue-rotate(180deg);}';" +
                         "var s=d.getElementById('poly-native-app-header-cleanup');" +
-                        "if(!s){s=d.createElement('style');s.id='poly-native-app-header-cleanup';s.textContent=css;(d.head||d.documentElement).appendChild(s);}" +
+                        "if(!s){s=d.createElement('style');s.id='poly-native-app-header-cleanup';(d.head||d.documentElement).appendChild(s);}" +
+                        "s.textContent=css;" +
                         "var h=d.querySelector('.topbar');if(h){h.hidden=true;h.setAttribute('aria-hidden','true');}" +
                         "var skip=d.querySelector('.skip-link');if(skip){skip.hidden=true;}" +
                         "}catch(e){}})();",
@@ -420,6 +844,32 @@ public class MainActivity extends ComponentActivity {
         }
     }
 
+    private String buildCachedListParam() {
+        StringBuilder builder = new StringBuilder();
+        for (OfflineCacheManager.CachedPage page : offlineCache.listCachedPages()) {
+            if (builder.length() > 0) {
+                builder.append(',');
+            }
+            try {
+                builder.append(URLEncoder.encode(page.path, "UTF-8"))
+                        .append('|')
+                        .append(URLEncoder.encode(page.title, "UTF-8"));
+            } catch (Exception ignored) {
+                // Skip this entry if it can't be encoded.
+            }
+        }
+        return builder.toString();
+    }
+
+    private String buildOfflinePageUrl(String reason) {
+        StringBuilder builder = new StringBuilder(ERROR_PAGE_URL).append('?');
+        if (reason != null) {
+            builder.append("reason=").append(reason).append('&');
+        }
+        builder.append("cached=").append(buildCachedListParam());
+        return builder.toString();
+    }
+
     private void hideLaunchOverlay() {
         if (launchOverlayDismissed || launchOverlay == null) {
             return;
@@ -479,14 +929,63 @@ public class MainActivity extends ComponentActivity {
             if (isTrustedUri(uri)) {
                 return false;
             }
+            if (uri != null && APP_ACTION_SCHEME.equalsIgnoreCase(uri.getScheme())) {
+                handleAppAction(uri);
+                return true;
+            }
             if (isApprovedExternalHttps(uri) || isSafeExternalScheme(uri)) {
                 openExternal(new Intent(Intent.ACTION_VIEW, uri), R.string.no_app_found);
-            } else if (uri != null && APP_ACTION_SCHEME.equalsIgnoreCase(uri.getScheme())) {
-                Toast.makeText(MainActivity.this, R.string.intent_link_blocked, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(MainActivity.this, R.string.unsafe_page_blocked, Toast.LENGTH_SHORT).show();
             }
             return true;
+        }
+
+        private void handleAppAction(Uri uri) {
+            String action = uri.getHost();
+            if ("retry".equalsIgnoreCase(action)) {
+                retryLastFailedUrl();
+            } else if ("home".equalsIgnoreCase(action)) {
+                webView.loadUrl(HOME_URL);
+            } else if ("open".equalsIgnoreCase(action)) {
+                String path = uri.getQueryParameter("path");
+                webView.loadUrl(buildTrustedUrl(path == null ? "/" : path));
+            } else {
+                Toast.makeText(MainActivity.this, R.string.intent_link_blocked, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            if (request != null && offlineCache != null && !offlineCache.isOnline()) {
+                Uri uri = request.getUrl();
+                if (isTrustedUri(uri)) {
+                    if (request.isForMainFrame()) {
+                        File cachedPage = offlineCache.getCachedFile(normalizedPath(uri));
+                        if (cachedPage != null) {
+                            try {
+                                return new WebResourceResponse(
+                                        "text/html", "utf-8", new FileInputStream(cachedPage)
+                                );
+                            } catch (Exception ignored) {
+                                // Fall through to default handling.
+                            }
+                        }
+                    } else {
+                        String assetPath = uri.getPath();
+                        File cachedAsset = assetPath == null ? null : offlineCache.getCachedAsset(assetPath);
+                        if (cachedAsset != null) {
+                            try {
+                                String mime = offlineCache.getCachedAssetMimeType(assetPath);
+                                return new WebResourceResponse(mime, "utf-8", new FileInputStream(cachedAsset));
+                            } catch (Exception ignored) {
+                                // Fall through to default handling.
+                            }
+                        }
+                    }
+                }
+            }
+            return super.shouldInterceptRequest(view, request);
         }
 
         @Override
@@ -507,7 +1006,11 @@ public class MainActivity extends ComponentActivity {
             view.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             markActiveNavigation(url);
             injectNativeAppChrome(view);
+            updateBookmarkButtonState(url);
             hideLaunchOverlay();
+            if (swipeRefresh != null) {
+                swipeRefresh.setRefreshing(false);
+            }
             super.onPageFinished(view, url);
         }
 
@@ -517,7 +1020,8 @@ public class MainActivity extends ComponentActivity {
                 Uri failingUri = request.getUrl();
                 lastFailedUrl = failingUri == null ? HOME_URL : failingUri.toString();
                 view.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-                view.loadUrl(ERROR_PAGE_URL);
+                String reason = offlineCache != null && offlineCache.isOnline() ? "error" : null;
+                view.loadUrl(buildOfflinePageUrl(reason));
             }
             super.onReceivedError(view, request, error);
         }
