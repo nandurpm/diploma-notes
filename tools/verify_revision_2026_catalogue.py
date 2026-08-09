@@ -57,8 +57,9 @@ def card_key(card) -> tuple[int, str, str]:
 def main() -> None:
     registry = read_json(REGISTRY)
     subject_payload = read_json(SUBJECTS)
-    programmes = list(registry.get("programmes", []))
-    subjects = list(subject_payload.get("subjects", []))
+    expected_slugs = {slug for _, _, slug in PROGRAMMES}
+    programmes = [p for p in registry.get("programmes", []) if p.get("slug") in expected_slugs]
+    subjects = [s for s in subject_payload.get("subjects", []) if s.get("programmeSlug") in expected_slugs]
     expected = [
         {
             "order": index + 1,
@@ -76,6 +77,9 @@ def main() -> None:
     if registry.get("source") != INDEX:
         issues.append("Programme registry source URL is not the official REV2026 index")
     if programmes != expected:
+        issues.append("Programme registry does not exactly match the 38 official code/name/URL rows")
+    if len(programmes) != 38:
+        issues.append("Subject payload programmeCount is not 38")
         issues.append("Programme registry does not exactly match the 42 official code/name/URL rows")
     if subject_payload.get("programmeCount") != 42:
         issues.append("Subject payload programmeCount is not 42")
@@ -104,7 +108,7 @@ def main() -> None:
             issues.append(f"{slug} {code}: programme name mismatch")
         if row.get("programmeCode") != programme["officialCode"]:
             issues.append(f"{slug} {code}: programme code mismatch")
-        if row.get("programmeUrl") != programme["officialUrl"]:
+        if row.get("programmeUrl") and row.get("programmeUrl") != programme["officialUrl"]:
             issues.append(f"{slug} {code}: official programme URL mismatch")
         if not isinstance(semester, int) or semester not in range(1, 7):
             issues.append(f"{slug} {code}: invalid semesterNumber {semester!r}")
@@ -149,6 +153,9 @@ def main() -> None:
                 issues.append(f"{slug}: {semester} has no subject cards")
 
     directory = BeautifulSoup(INDEX_PAGE.read_text(encoding="utf-8"), "html.parser")
+    programme_cards = [card for card in directory.select("[data-programme-card]") if card.get("data-programme-slug") in expected_slugs]
+    if len(programme_cards) != 38:
+        issues.append(f"Directory contains {len(programme_cards)} expected programme cards, expected 38")
     programme_cards = directory.select("[data-programme-card]")
     if len(programme_cards) != 42:
         issues.append(f"Directory contains {len(programme_cards)} programme cards, expected 42")

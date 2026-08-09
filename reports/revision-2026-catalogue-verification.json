@@ -1,5 +1,13 @@
 {
   "scheme": "REV2026",
+  "verifiedAt": "2026-08-09T03:09:47.294864+00:00",
+  "officialIndex": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
+  "programmeCount": 38,
+  "subjectCount": 2485,
+  "staticPageCount": 38,
+  "directoryProgrammeCardCount": 38,
+  "semesterSourceCounts": {
+    "legacy-course-code-normalization": 2485
   "verifiedAt": "2026-08-08T15:15:44.845141+00:00",
   "officialIndex": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
   "programmeCount": 42,
@@ -11,7 +19,7 @@
   },
   "programmeSubjectCounts": {
     "architecture": 56,
-    "artificial-intelligence": 67,
+    "artificial-intelligence": 96,
     "artificial-intelligence-and-machine-learning": 63,
     "automation-and-robotics": 65,
     "automobile-engineering": 66,
@@ -19,7 +27,7 @@
     "chemical-engineering": 61,
     "civil-and-environmental-engineering": 63,
     "civil-and-rural-engineering": 63,
-    "civil-engineering": 63,
+    "civil-engineering": 71,
     "civil-engineering-and-planning": 63,
     "civil-engineering-construction-technology": 63,
     "commercial-practice": 66,
@@ -29,7 +37,7 @@
     "computer-science-and-engineering-artificial-intelligence-and-machine-learning": 71,
     "computer-science-and-technology": 67,
     "cyber-forensics-and-information-security": 62,
-    "electrical-and-electronics-engineering": 63,
+    "electrical-and-electronics-engineering": 108,
     "electrical-engineering": 63,
     "electrical-engineering-and-electric-vehicles-technology": 63,
     "electronics-and-communication": 64,
@@ -65,10 +73,10 @@
     "artificial-intelligence": {
       "Semester 1": 6,
       "Semester 2": 9,
-      "Semester 3": 9,
-      "Semester 4": 9,
-      "Semester 5": 16,
-      "Semester 6": 18
+      "Semester 3": 14,
+      "Semester 4": 14,
+      "Semester 5": 23,
+      "Semester 6": 30
     },
     "artificial-intelligence-and-machine-learning": {
       "Semester 1": 6,
@@ -130,9 +138,9 @@
       "Semester 1": 6,
       "Semester 2": 9,
       "Semester 3": 9,
-      "Semester 4": 9,
-      "Semester 5": 14,
-      "Semester 6": 16
+      "Semester 4": 10,
+      "Semester 5": 17,
+      "Semester 6": 20
     },
     "civil-engineering-and-planning": {
       "Semester 1": 6,
@@ -207,12 +215,12 @@
       "Semester 6": 15
     },
     "electrical-and-electronics-engineering": {
-      "Semester 1": 6,
-      "Semester 2": 9,
-      "Semester 3": 9,
-      "Semester 4": 9,
-      "Semester 5": 14,
-      "Semester 6": 16
+      "Semester 1": 8,
+      "Semester 2": 14,
+      "Semester 3": 16,
+      "Semester 4": 15,
+      "Semester 5": 25,
+      "Semester 6": 30
     },
     "electrical-engineering": {
       "Semester 1": 6,
@@ -392,6 +400,49 @@
     }
   },
   "dataHashes": {
+    "programmes": "ea92e504e870a0fbff8e4f1c3b22ba6786ad14dd12e57e65cb9a23c981edf0b7",
+    "subjects": "d8710955235fb7f2a6ebca3c81ea4fadc303ce08765131ea404720b13852e6e0",
+    "directory": "f607740888146f6955b3ad63a11929133c04c4badd7d664b511ce7c881439e0d"
+  },
+  "departmentPageHashes": {
+    "architecture": "8d520b8ee98cc6af244d9662abc27a20980c9ac41fabc614840a9b0181b85cc7",
+    "artificial-intelligence": "c988beb8dfe1e3d2d6e6f168e10e3c62d640be4b7d1dc7339b9d58218ccf0c27",
+    "artificial-intelligence-and-machine-learning": "4b348c6bc514cea35415cd8e2884c6936c332aec97feaf6d67df7714735f7dd5",
+    "automation-and-robotics": "89dbd55e4ed3806f43300b8be13653a2d5525ecfaeed18bbb2689ddca1b126ee",
+    "automobile-engineering": "1d388d2a3b897bbc95d3123ccd674b2bc385bf8bba1f7f77a1f15d33edca0eba",
+    "biomedical-engineering": "3cde49d2d10da07781feed69344fbfd5c0d51b35509b78a8fa20cfd77829c3ef",
+    "chemical-engineering": "a0f8a4465c5200433acd0c85b0b3f219b4b11f8d03f37b462500b05b5baf8a1b",
+    "civil-and-environmental-engineering": "3bab46ba6bb3ebf25cbbcf6db82d2ac3982d90da0631a148c2645388e7eed134",
+    "civil-and-rural-engineering": "c2114c71a248835808bd41f3dfb3ba880573c71625038e37b7d0cf1a31e23039",
+    "civil-engineering": "250df9e451ac649137b79dad943d7298910d8a30015acde5c39fd3ca64472f86",
+    "civil-engineering-and-planning": "e5340f55c4fbf0462ad2cc4287a2aa7d924b21efce0b4342b8d012002119b571",
+    "commercial-practice": "8d2c0e93c0b11165a4fda815204b9325cec6588d877dbe3d5efeec34b0f71fb4",
+    "computer-application-and-business-management": "94a5e7fd6df9bad8f91fed98da8b882385d63e8a91e775c5c0b71626fa0e0aa5",
+    "computer-engineering": "5be459730d7c61b79a3363b3fd74f8dca9e7d0770780782036bc952a06fdc27c",
+    "computer-science-and-engineering": "a87493155a350c42b3851f8289ce774047ae322ba11378b8aaf06a5fb2fd377a",
+    "computer-science-and-technology": "0eea7a76ff1833b227d02d5fd25433fd9224ba9af0409bbc6be6934fc5406b05",
+    "cyber-forensics-and-information-security": "a8c8bf1370a8cd28320fc286423d139664d52f572f37fe012eb54ddc9a0bc6f5",
+    "electrical-and-electronics-engineering": "dadb1e0afbe47eeedab85b3f77757e4ae54285b0908603e392b5274b8e998171",
+    "electrical-engineering": "9ffb121e4a73a22511faecbc3dc50c95cf5f862eb0d00039cde18ef65de54679",
+    "electrical-engineering-and-electric-vehicles-technology": "f250c7c1f6ac7c5b26ecf0b93f295de98243aeaad28e114b77831cf627514844",
+    "electronics-and-communication": "13b299c26488b5e1a6a4c5b0a26093a2fcdaf23b7dfd1c4a0453f75dd7cd4585",
+    "electronics-and-computer-engineering": "ce2c338fa42b5056ed3dbee93a0297901e75a0aeb3f8e1e98e53df287997c90e",
+    "electronics-engineering": "72f0ea409e897e580074dc6dd887fcab3ea394ef23ba2c35741ee3257767ac65",
+    "fire-technology-and-safety": "be34e2e51793e1c45f926825b3b1c20086e18ffedcc744d3bf6db426b2201043",
+    "food-processing-technology": "16e0b9a25211bba69933bec504938f86b4b124a6fc3c44fa6e0093542ca66616",
+    "information-technology": "8ab8ddd0e06cd72726456558780f5d541dc70c508418a3ce7634c56bc97a029a",
+    "instrumentation-engineering": "f6c2c9419f82a3d49d09a03baa1a38ac8cf84a95652a802eb949fd265ad8ecf2",
+    "integrated-circuit-design-and-fabrication": "048aebf623e74f6f7ad4b9ee39df92919077b660b0a4996b56fb1a7736074a96",
+    "interior-design": "98a984bcda1df28191c3902338231009faa2ec3614f6f12be4693ee27b99b919",
+    "mechanical-engineering": "a03149ba9d3e9a4f52114da3a9513eda8d870078e7cee3c111572e487591cda5",
+    "mechatronics": "8ad1c275cddea2a356d24f4c0c82e25c35680ffdfb3603eaf356e2e273709ab0",
+    "micro-electronics": "6b0d19dd98198fad0ce7a8c0c7edf8a71f88d678c5d57d7759c513a541fcef17",
+    "polymer-technology": "42e019bad8855a79cd1beb055b23034b9b199f0d70a1b108e634a76bde913af6",
+    "printing-technology": "0792bc8df7e76673b0b7ba7468ebaf2332c668dd02ff8b77378b6a8a40d8b541",
+    "robotic-process-automation": "34a31ec651b614ed18ef6f32e02a22d7cd3986b1e6c3bb1e74fc1d829662771d",
+    "textile-technology": "b43ddc0dfc021c5a4065ec1f4047e59ff55b30a958b8a69e80291ed8080d2ca5",
+    "tool-and-die-engineering": "c27614e0886a2b98f1f3dbe34355dc9177506804f04310ccb614762653513f14",
+    "wood-and-paper-technology": "dec9a914945fbc8e274a1f93d4bd47ff96049a3c53554852a1edecb23fc9acd6"
     "programmes": "2b31141852b1978687f9faca1511d2d0d9c180a2ad59217df014b19d2b5565ec",
     "subjects": "90ff7c602d96962f81bc3c3619eca2053b68eaaad46549d13daa61551cd3f683",
     "directory": "ff959f403051cccc7e713261b11ce70336384824dd1574414e4d32878a71aa4e"
