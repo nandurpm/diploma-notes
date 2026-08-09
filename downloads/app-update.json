@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "versionCode": 16,
-  "versionName": "3.7",
-  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.7/POLY_PMNA_v3.7.apk",
-  "sha256": "abc4fdfde56c10b9b70a09f0019c546a3de73db69520f7c43bc8d06148d755a0",
-  "publishedAt": "2026-08-09T06:27:42Z",
+  "versionCode": 17,
+  "versionName": "3.8",
+  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.8/POLY_PMNA_v3.8.apk",
+  "sha256": "946d22bc5169e7eb11cf8636b1ced7b68b941a3698d51ad21edb5d812b671d12",
+  "publishedAt": "2026-08-09T06:38:12Z",
   "forceUpdate": true,
-  "title": "POLY PMNA Android app 3.7",
+  "title": "POLY PMNA Android app 3.8",
   "message": "Install this signed release update to replace older debug builds and keep receiving future app updates from the homepage.",
   "releaseNotes": [
     "Signed public release APK for Android installs and upgrades.",
