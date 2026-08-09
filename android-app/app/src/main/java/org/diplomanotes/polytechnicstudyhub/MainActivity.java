@@ -441,11 +441,8 @@ public class MainActivity extends ComponentActivity {
                 }
                 bookmarks.toggleBookmark(path, title);
                 boolean nowBookmarked = bookmarks.isBookmarked(path);
-                Toast.makeText(
-                        MainActivity.this,
-                        nowBookmarked ? R.string.bookmark_added : R.string.bookmark_removed,
-                        Toast.LENGTH_SHORT
-                ).show();
+                int bookmarkMessageRes = nowBookmarked ? R.string.bookmark_added : R.string.bookmark_removed;
+                Toast.makeText(MainActivity.this, bookmarkMessageRes, Toast.LENGTH_SHORT).show();
                 updateBookmarkButtonState(webView.getUrl());
             });
         });
