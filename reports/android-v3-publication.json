@@ -4,7 +4,7 @@
   "versionName": "3.7",
   "firebaseMessaging": true,
   "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.7/POLY_PMNA_v3.7.apk",
-  "apkBytes": 956851,
-  "sha256": "401999e84c3dd3c600948d2a07b85b9bbc88e573a11452fff4c7e154bd6b3641",
-  "publishedAt": "2026-08-09T05:56:30Z"
+  "apkBytes": 956848,
+  "sha256": "80ccfcd2fe541b20cea551ca2e67f5a7762644dbdcffad3b0b076dc29e9e4f37",
+  "publishedAt": "2026-08-09T06:22:55Z"
 }
