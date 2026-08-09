@@ -50,12 +50,11 @@
     <string name="offline_save_failed">Couldn\'t save this page for offline use</string>
     <string name="offline_saved">Page saved for offline viewing</string>
     <string name="nav_save_offline">Save page offline</string>
-    <string name="nav_saved_pages">Saved pages</string>
+    <string name="nav_saved_pages">Saved Pages and Bookmarks</string>
     <string name="nav_share_app">Share app</string>
-    <string name="nav_dark_mode">Dark mode</string>
-    <string name="drawer_search_hint">Search menu</string>
     <string name="back">Back</string>
-    <string name="saved_pages_title">Saved pages</string>
+    <string name="saved_pages_title">Saved Pages and Bookmarks</string>
+    <string name="saved_pages_subtitle">Your bookmarked and offline pages</string>
     <string name="saved_pages_empty">You haven\'t bookmarked or saved any pages yet.</string>
     <string name="saved_pages_offline_tag">Offline</string>
     <string name="saved_page_removed">Removed</string>
