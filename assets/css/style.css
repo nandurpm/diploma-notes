@@ -75,9 +75,8 @@ img, video { max-width: 100%; }
   padding: 12px 14px;
   border: 1px solid rgba(255,255,255,.9);
   border-radius: 0 0 28px 28px;
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.96);
   box-shadow: 0 16px 45px rgba(15, 35, 65, 0.12);
-  backdrop-filter: blur(20px) saturate(140%);
 }
 .brand {
   display: inline-flex;
