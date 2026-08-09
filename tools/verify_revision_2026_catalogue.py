@@ -80,6 +80,9 @@ def main() -> None:
         issues.append("Programme registry does not exactly match the 38 official code/name/URL rows")
     if len(programmes) != 38:
         issues.append("Subject payload programmeCount is not 38")
+        issues.append("Programme registry does not exactly match the 42 official code/name/URL rows")
+    if subject_payload.get("programmeCount") != 42:
+        issues.append("Subject payload programmeCount is not 42")
     if subject_payload.get("subjectCount") != len(subjects):
         issues.append("Subject payload subjectCount does not match the stored rows")
     if subject_payload.get("failures"):
@@ -153,6 +156,9 @@ def main() -> None:
     programme_cards = [card for card in directory.select("[data-programme-card]") if card.get("data-programme-slug") in expected_slugs]
     if len(programme_cards) != 38:
         issues.append(f"Directory contains {len(programme_cards)} expected programme cards, expected 38")
+    programme_cards = directory.select("[data-programme-card]")
+    if len(programme_cards) != 42:
+        issues.append(f"Directory contains {len(programme_cards)} programme cards, expected 42")
     actual_directory = []
     for index, card in enumerate(programme_cards, start=1):
         actual_directory.append(
@@ -251,7 +257,7 @@ def main() -> None:
     if issues:
         raise SystemExit("REV2026 catalogue verification failed:\n- " + "\n- ".join(issues))
     print(
-        f"Verified all 38 departments, {len(subjects)} subject rows, six semesters per department, "
+        f"Verified all 42 departments, {len(subjects)} subject rows, six semesters per department, "
         f"and {static_page_count} static pages."
     )
 

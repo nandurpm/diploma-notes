@@ -22,6 +22,34 @@ function problemLab(){return `<section class="hb-section" id="problem-lab"><div 
 function practice(){return `<section class="hb-section" id="practice"><div class="hb-section-head"><span class="hb-pill">Practice</span><h2>Expected questions by module</h2></div><div class="hb-grid">${data.chapters.map((c,i)=>`<div class="hb-card hb-span6"><h3>Module ${i+1}</h3><ol class="hb-q-list">${c.questions.map(q=>`<li>${q}</li>`).join('')}</ol></div>`).join('')}</div></section>`}
 function paper(){return `<section class="hb-section" id="model-paper"><div class="hb-section-head"><span class="hb-pill">Model Paper</span><h2>Full practice question paper and answer guide</h2><p>This model follows the syllabus order and avoids copying official papers.</p></div><div class="hb-paper">${esc(data.modelPaper)}</div><details class="hb-details" open><summary>Answer writing guide</summary>${list(data.answerGuide)}</details></section>`}
 function references(){return `<section class="hb-section" id="references"><div class="hb-section-head"><span class="hb-pill">References</span><h2>Books and resources</h2></div>${table(['Type','Reference'],data.references.map(r=>[esc(r[0]),esc(r[1])]))}<div class="hb-callout hb-exam"><b>Final revision rule:</b> Prepare one diagram, one formula, one application and one common mistake for every major topic.</div></section>`}
-function wire(){const progress=$('#hbProgress'),top=$('#hbToTop'),links=[...document.querySelectorAll('.hb-left a')],secs=links.map(a=>$(a.getAttribute('href'))).filter(Boolean);addEventListener('scroll',()=>{const h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;progress.style.width=p+'%';top.classList.toggle('show',h.scrollTop>500)});new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-25% 0px -65% 0px'}).observe(secs[0]||document.body);secs.slice(1).forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))}),{rootMargin:'-25% 0px -65% 0px'}).observe(s));$('#hbSearch')?.addEventListener('input',e=>{const q=e.target.value.toLowerCase().trim();document.querySelectorAll('.hb-hero,.hb-section').forEach(s=>s.classList.toggle('hb-search-hidden',q&&!s.innerText.toLowerCase().includes(q)))})}
+function wire(){
+  const progress=$('#hbProgress'),top=$('#hbToTop'),links=[...document.querySelectorAll('.hb-left a')],secs=links.map(a=>$(a.getAttribute('href'))).filter(Boolean);
+  addEventListener('scroll',()=>{
+    const h=document.documentElement,p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+    progress.style.width=p+'%';
+    top.classList.toggle('show',h.scrollTop>500)
+  });
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))
+  }),{rootMargin:'-25% 0px -65% 0px'}).observe(secs[0]||document.body);
+  secs.slice(1).forEach(s=>new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting)links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id))
+  }),{rootMargin:'-25% 0px -65% 0px'}).observe(s));
+
+  // PERFORMANCE OPTIMIZATION: Cache section search target elements and pre-compute
+  // their lowercase textContent at setup-time. This eliminates redundant O(N) DOM
+  // querying and layout-thrashing .innerText calls inside the active input loop.
+  const searchSections = [...document.querySelectorAll('.hb-hero,.hb-section')];
+  searchSections.forEach(s => {
+    s._searchText = (s.textContent || '').toLowerCase();
+  });
+
+  $('#hbSearch')?.addEventListener('input',e=>{
+    const q=e.target.value.toLowerCase().trim();
+    searchSections.forEach(s=>{
+      s.classList.toggle('hb-search-hidden',q&&!s._searchText.includes(q))
+    })
+  });
+}
 render();
 })();
