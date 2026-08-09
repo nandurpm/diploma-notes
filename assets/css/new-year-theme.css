@@ -25,7 +25,7 @@ html.poly-new-year-theme body {
     radial-gradient(circle at 94% 14%, rgba(66, 221, 255, .17), transparent 31rem),
     radial-gradient(circle at 50% 100%, rgba(247, 201, 72, .10), transparent 36rem),
     linear-gradient(180deg, #07152f 0%, #071a38 36%, #091c3b 72%, #050d20 100%) !important;
-  background-attachment: fixed !important;
+  /* PERFORMANCE FIX: background-attachment: fixed removed */ background-attachment: scroll !important;
 }
 
 html.poly-new-year-theme body::selection {
