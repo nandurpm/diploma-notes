@@ -23,8 +23,8 @@ android {
         applicationId 'org.diplomanotes.polytechnicstudyhub'
         minSdk 23
         targetSdk 35
-        versionCode 14
-        versionName '3.5'
+        versionCode 15
+        versionName '3.6'
     }
 
     buildFeatures {
