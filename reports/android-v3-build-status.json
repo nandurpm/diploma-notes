@@ -4,7 +4,7 @@
   "versionName": "3.6",
   "firebaseMessaging": true,
   "status": "success",
-  "releaseApkBytes": 962951,
-  "releaseSha256": "71a297d1818890009a5e00a58f3375c9c0de780afc3080a0b6f6ed4a942dbad1",
-  "builtAt": "2026-08-09T05:47:57Z"
+  "releaseApkBytes": 956850,
+  "releaseSha256": "3e8b7d8655d1a5cba335decb1bea002bf1d24df2d683b809bc5e7b5a6a0cfc64",
+  "builtAt": "2026-08-09T05:50:03Z"
 }
