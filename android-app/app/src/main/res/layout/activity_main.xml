@@ -274,24 +274,6 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/drawerSearch"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_search_box"
-            android:drawablePadding="8dp"
-            android:drawableStart="@drawable/ic_search"
-            android:hint="@string/drawer_search_hint"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingStart="14dp"
-            android:paddingEnd="14dp"
-            android:textColor="@color/text_primary"
-            android:textColorHint="@color/text_secondary"
-            android:textSize="14sp" />
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -397,44 +379,6 @@
                     style="@style/DrawerMenuItem"
                     android:drawableStart="@drawable/ic_share"
                     android:text="@string/nav_share_app" />
-
-                <LinearLayout
-                    android:id="@+id/darkModeRow"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginTop="2dp"
-                    android:background="@drawable/bg_drawer_item"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="16dp">
-
-                    <ImageView
-                        android:id="@+id/darkModeIcon"
-                        android:layout_width="22dp"
-                        android:layout_height="22dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_moon" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:text="@string/nav_dark_mode"
-                        android:textColor="@color/text_primary"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <Switch
-                        android:id="@+id/darkModeSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="false"
-                        android:focusable="false" />
-                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 
