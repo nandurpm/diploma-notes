@@ -39,4 +39,24 @@
     <string name="drawer_study">STUDY</string>
     <string name="drawer_resources">RESOURCES</string>
     <string name="drawer_support">SUPPORT</string>
+
+    <!-- Added for bookmarks / offline pages / dark mode / share (previously missing, caused build failure) -->
+    <string name="bookmark_page">Bookmark this page</string>
+    <string name="share_page">Share this page</string>
+    <string name="bookmark_added">Page bookmarked</string>
+    <string name="bookmark_removed">Bookmark removed</string>
+    <string name="share_page_chooser">Share page via</string>
+    <string name="share_app_text">Check out POLY PMNA — Revision 2026 &amp; 2021 notes, mock exams and Ask POLY AI: https://polypmna.dpdns.org/</string>
+    <string name="offline_save_failed">Couldn\'t save this page for offline use</string>
+    <string name="offline_saved">Page saved for offline viewing</string>
+    <string name="nav_save_offline">Save page offline</string>
+    <string name="nav_saved_pages">Saved pages</string>
+    <string name="nav_share_app">Share app</string>
+    <string name="nav_dark_mode">Dark mode</string>
+    <string name="drawer_search_hint">Search menu</string>
+    <string name="back">Back</string>
+    <string name="saved_pages_title">Saved pages</string>
+    <string name="saved_pages_empty">You haven\'t bookmarked or saved any pages yet.</string>
+    <string name="saved_pages_offline_tag">Offline</string>
+    <string name="saved_page_removed">Removed</string>
 </resources>
