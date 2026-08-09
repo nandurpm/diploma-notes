@@ -4,7 +4,7 @@
   "versionName": "3.5",
   "firebaseMessaging": true,
   "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.5/POLY_PMNA_v3.5.apk",
-  "apkBytes": 928492,
-  "sha256": "7a6ebdd609b6a6b4cad8e0da69cec5d8e4c3ff4810860a13eca0ff187583befa",
-  "publishedAt": "2026-08-07T04:26:29Z"
+  "apkBytes": 960300,
+  "sha256": "e1f270dfce8df8ebe82e29ef0db4d56175e65b7adfffa2d97d864e16604d8c54",
+  "publishedAt": "2026-08-09T05:07:28Z"
 }
