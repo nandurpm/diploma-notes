@@ -272,6 +272,31 @@
   }
 
   /* =========================================================
+     GLOBAL SEARCH SHORTCUT LOADER
+     ---------------------------------------------------------
+     Loads the search shortcut utility script on all pages.
+     The shortcut listens for the '/' key to focus the first
+     available page-specific search input.
+     Related: assets/js/search.js
+     ========================================================= */
+  function ensureSearchShortcut() {
+    const searchPath = "/assets/js/search.js";
+    const existing = [...document.scripts].some(script => {
+      try {
+        return new URL(script.src || "", window.location.href).pathname === searchPath;
+      } catch (_) {
+        return false;
+      }
+    });
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = `${searchPath}?v=20260804-search-shortcut`;
+    script.defer = true;
+    document.head.append(script);
+  }
+
+  /* =========================================================
      INITIALIZATION
      ---------------------------------------------------------
      Runs all initialization steps in order.
@@ -285,6 +310,7 @@
     ensureSiteShell();
     ensureVisitorPopup();
     watchRev2026Cards();
+    ensureSearchShortcut();
   }
 
   if (document.readyState === "loading") {
