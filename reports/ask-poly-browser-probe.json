@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-11T08:05:52Z",
+  "generatedAt": "2026-08-11T08:52:20Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Tue, 11 Aug 2026 08:05:49 GMT",
+      "date": "Tue, 11 Aug 2026 08:52:17 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "398",
       "connection": "close",
@@ -22,10 +22,10 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=uwe3alWxxsYNOn0pkI1ABOwxXBUzI%2FqnG7OCk7Esr2qANBpHi2DAl8dwNui6dPzA8ibW9cDVlXx1jGjHGYt%2Fi%2FRWn7qBh%2B5KE1pDsyzLervz2Zif7fHs9DBBMxNPuTt5M5rO30S1FiVeiTF17q17MlmvbnnBn3goKQ%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=SVWkw0A5PBKhPD9tH5hQUb3Y1pauZjImIJR3jotbNnqK3YaC7OcWSCpvyIdjsWaGP%2FjFhaOJ85p4W8RwS%2FThyIVOy2nnmmIzw5EyqI6GH6Obm5%2F2Zqqi3VTiI2FKBtviUsYLkpveZb%2BjmkAD2Bq%2FogPqqt69Y%2Bz%2BDw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a295bcc99f31f44f-LAX",
+      "cf-ray": "a29600d91d7a2672-SEA",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":false,\"providers\":[\"nvidia\"],\"model\":\"meta/llama-3.1-8b-instruct\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Tue, 11 Aug 2026 08:05:49 GMT",
+      "date": "Tue, 11 Aug 2026 08:52:17 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=N1M%2B%2FNjPzNfbM3c%2F5ZjFu20u1wHXaDD1iDofnAt7hf3hDVR%2B1EwNvRLvoOvC1iqrEI6kg5xlbdfpw6tZ41moMvW9vx49GCxPOEhseKPhSB0KfSLpKx0hnda%2F2ImfdzYbGIezl2utSemTg2hAgpJKouneJg%2Fcuy8dhg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KWmTmC5ucVz50vQ%2Fr4PX%2Ffgsy8YBJ%2Fvsb4k0sdWujY%2B%2F7CIHGTmAw7zGP7GZr15kCv6J%2BTTZphfQrNURYP3PROD5RxwooLk9yzyG2kQvcjVBgFqJQaXQtNiji0ifGWscWt8c%2BfYiTCw02UGLu0ySvaBUQ6QG%2BgFLcw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a295bcc9fbc33dc4-LAX",
+      "cf-ray": "a29600d96b25ed00-SEA",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Tue, 11 Aug 2026 08:05:52 GMT",
+      "date": "Tue, 11 Aug 2026 08:52:20 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "951",
+      "content-length": "697",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=eattWKPcyef%2F0ZsK8YG9Fy0FsYAHtxeYvnD6XHHTS%2BstdTJ7qdHx%2Fm%2B%2Bi48WGA9aZ3Bb9pW9U6voKHbtO%2BCl2PjoveEWDW0f0aCfCVmoTUqaQHmSTGgjZTuAJBBTM6wZC9X5Bs4Ozc2E4ZbbtOCQfujm2H28XJCh0w%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=319HrXYXfnyt1bnW6kmQmeB9GCM6XQoSGvQm3TIswHsMTB86819ReTFDV%2BWl2bdh9XbjAeg9ud%2BCIrqO9XQAjwRTdcMIwr71a%2B3oqty6vc%2F5%2FV2eTeKL%2BtmzdenRUOBvCJzosHjaPH8xPULfMjxdI%2B0bi7GWOY7HGg%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a295bcca6cb62b8d-LAX",
+      "cf-ray": "a29600d9aa689343-SEA",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"The browser path for Ask POLY is not a fixed path, as it's a web application. However, you can access it through the Kerala Polytechnic website or a direct link provided by the institution. \\n\\nIf you're using a mobile app, you can search for \\\"Ask POLY\\\" in the app store and download the app. \\n\\nTo access Ask POLY, you can follow these general steps:\\n\\n1. Open a web browser (e.g., Google Chrome, Mozilla Firefox).\\n2. Type the Kerala Polytechnic website URL or search for \\\"Ask POLY\\\" in the search bar.\\n3. Click on the Ask POLY link or icon to access the application.\\n4. You can then ask a question or select a topic to get started.\\n\\nPlease note that the exact steps may vary depending on your device and the institution's website.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-d245b1cd-e64d-4445-8888-70cc6d1952b0\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"The browser path for Ask POLY is not explicitly mentioned. However, you can try the following paths to access the Ask POLY AI:\\n\\n1. Go to the Kerala Polytechnic website and search for 'Ask POLY' in the search bar.\\n2. Click on the 'Ask POLY' link to access the AI assistant.\\n3. You can also try accessing the Ask POLY AI through the Kerala Polytechnic's intranet or portal, if available.\\n\\nPlease note that the exact browser path may vary depending on the website structure and layout.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-21db2d51-51e8-4cb3-9001-3174f86a09cf\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
