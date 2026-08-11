@@ -6,6 +6,8 @@ const DEFAULT_ORIGINS = [
   "https://www.polypmna.dpdns.com",
   "https://polypmna.blogspot.com",
   "https://polypmna.blogspot.in",
+  "https://gptcperinthalamanna.dpdns.org",
+  "https://www.gptcperinthalamanna.dpdns.org",
   "http://localhost:8000",
   "http://127.0.0.1:8000"
 ];
