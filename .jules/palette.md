@@ -30,3 +30,7 @@
 ## 2026-07-30 - Accessible Show Password Toggles on Auth Forms
 **Learning:** Providing a native, semantic, and focusable 'Show Password' checkbox toggle under authentication form password fields is an excellent WCAG accessibility practice that reduces motor and cognitive entry errors. To maintain user privacy, the visibility must be securely reset to masked whenever the user toggles modes or switches contexts.
 **Action:** Always include a beautifully styled semantic checkbox toggle for password input fields, and ensure that the password visibility is reset to masked when changing tabs or forms.
+
+## 2026-08-04 - Global Keyboard Search Shortcut
+**Learning:** In keyboard-driven navigation, providing a fast and intuitive way to access the primary search or filter interface reduces user friction tremendously. Implementing a global keyboard event listener (such as the '/' key) that dynamically detects and shifts focus to the first available page-specific search input (e.g. `#subjectSearch`, `#q`, `#programmeSearch`, etc.) allows immediate search interaction without requiring manual mouse clicks or tab traversals. To preserve accessibility, this shortcut must never hijack keys when the user is already interacting with text inputs or form fields.
+**Action:** Always map a standard, non-disruptive key trigger to focus the primary page-level input elements, ensuring the listener ignores active input/textarea focus states to avoid disrupting standard user typing.
