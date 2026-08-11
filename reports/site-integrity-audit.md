@@ -1,9 +1,9 @@
 # Site Integrity Audit
 
-- Generated: **2026-08-11T03:23:16Z**
-- Commit: `66b5041ada4ccb754c4f6af01feacef46c27a064`
-- Branch: `jules-11964444647171482212-f0444214`
-- Result: **FAILED**
+- Generated: **2026-08-09T03:10:42Z**
+- Commit: `7f182eac860dd01aaeb12ea93bfc0b141e7cecb0`
+- Branch: `jules-2443313239238308706-fe905266`
+- Result: **PASSED**
 
 ## Current scope
 
@@ -15,66 +15,18 @@
 
 ## Inventory
 
-- Sitemap resources: **343**
-- Indexed HTML resources: **205**
-- Indexed PDFs: **138**
+- Sitemap resources: **339**
+- Indexed HTML resources: **203**
+- Indexed PDFs: **136**
 - Revision 2021 department files: **44**
 - Revision 2026 department files: **42**
 - Revision 2021 lesson files: **91**
-- Revision 2026 lesson files: **46**
+- Revision 2026 lesson files: **44**
 - Revision 2021 note PDFs: **92**
-- Revision 2026 note PDFs: **46**
+- Revision 2026 note PDFs: **44**
 
 ## Quality gate output
 
 ```text
-Site quality gate failed:
-- Site Structure Validation failed. Error:
-FAIL: lesson files are in the validation set — Found 91 REV2021 and 46 REV2026 lesson files.
-FAIL: lesson files are in the validation set — Found 91 REV2021 and 46 REV2026 lesson files.
-FAIL: lesson files are in the validation set — Found 91 REV2021 and 46 REV2026 lesson files.
-
-- https://polypmna.dpdns.org/revision-2026.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/architecture.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence-and-machine-learning.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/artificial-intelligence.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/automation-and-robotics.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/automobile-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/biomedical-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/chemical-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-and-environmental-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-and-rural-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-engineering-and-planning.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-engineering-construction-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/civil-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/commercial-practice.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-application-and-business-management.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-engineering-artificial-intelligence-and-machine-learning.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/computer-science-and-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/cyber-forensics-and-information-security.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-and-electronics-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering-and-electric-vehicles-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/electrical-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-and-communication.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-and-computer-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-engineering-embedded-systems.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/electronics-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/fire-technology-and-safety.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/food-processing-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/information-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/instrumentation-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/integrated-circuit-design-and-fabrication.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/interior-design.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/mechanical-engineering-automobile-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/mechanical-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/mechatronics.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/micro-electronics.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/polymer-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/printing-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/robotic-process-automation.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/textile-technology.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/tool-and-die-engineering.html: expected one generated JSON-LD block; found 0
-- https://polypmna.dpdns.org/revision-2026/wood-and-paper-technology.html: expected one generated JSON-LD block; found 0
+Site quality gate passed for 339 sitemap resources.
 ```
