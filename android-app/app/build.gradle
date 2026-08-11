@@ -77,6 +77,28 @@ android {
     }
 }
 
+// The GitHub connector can commit text files but not binary PNG/WebP files directly.
+// Decode the committed base64 icon before Android resource processing so both CI and
+// local Gradle builds use the same POLY PMNA launcher icon.
+def appIconB64 = file("$projectDir/src/main/app-icon/poly_pmna_logo.webp.b64")
+def appIconWebp = file("$projectDir/src/main/res/drawable/poly_pmna_logo.webp")
+
+tasks.register('preparePolyPmnaAppIcon') {
+    inputs.file(appIconB64)
+    outputs.file(appIconWebp)
+    doLast {
+        if (!appIconB64.exists()) {
+            throw new GradleException("Missing app icon source: ${appIconB64}")
+        }
+        appIconWebp.parentFile.mkdirs()
+        appIconWebp.bytes = appIconB64.text.replaceAll(/\s+/, '').decodeBase64()
+    }
+}
+
+tasks.named('preBuild').configure {
+    dependsOn('preparePolyPmnaAppIcon')
+}
+
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
     implementation 'androidx.activity:activity:1.10.1'
