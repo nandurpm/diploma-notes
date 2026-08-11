@@ -7,6 +7,8 @@
 const ALLOWED_ORIGINS = new Set([
   "https://polypmna.dpdns.org",
   "https://www.polypmna.dpdns.org",
+  "https://gptcperinthalamanna.dpdns.org",
+  "https://www.gptcperinthalamanna.dpdns.org",
   "http://localhost:8787"
 ]);
 
