@@ -2,6 +2,7 @@
 import { askPoly, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
+import { matchFaq } from "./faq-match.js";
 import {
   cleanText,
   corsHeaders,
@@ -208,6 +209,7 @@ export default {
         revisionAware: ["2026", "2021", "2015"],
         wholeSiteContext: true,
         localMathFallback: true,
+        preloadedFaq: true,
         workersAIFallback: hasWorkersAI(env),
         workersAIRestFallback: hasWorkersAIRest(env),
         providers,
@@ -262,6 +264,15 @@ export default {
 
     if (!allowAsk(request)) {
       return jsonResponse({ error: "Too many questions. Please wait a few minutes and try again." }, 429, origin, env);
+    }
+
+    // Preloaded FAQ check: runs before any AI provider, so a matched
+    // question gets an instant, guaranteed-consistent answer at zero AI cost.
+    // Edit workers/ask-poly-ai/src/faq-data.js to add or change entries.
+    const faqMessage = cleanText(body?.message, 2200);
+    const faqMatch = matchFaq(faqMessage);
+    if (faqMatch) {
+      return jsonResponse({ ...faqMatch, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
     }
 
     const enrichedBody = enrichAskBody(body);
