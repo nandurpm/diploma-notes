@@ -8,7 +8,9 @@ subjects:{
 2005:'Environmental Sustainability and Ethics',
 3001:'Essence of Indian Constitution',
 3011:'Advanced Surveying',
-3012:'Concrete Technology'
+3012:'Concrete Technology',
+6012:'Environmental Engineering',
+'6024A':'Computer Aided Design and Manufacturing'
 },
 questions:{
 1001:[
@@ -90,12 +92,38 @@ questions:{
 3012:[
 {id:'3012-01',topic:'Concrete',en:'The process of hardening of concrete in the presence of water is called _____.',ml:'വെള്ളത്തിന്റെ സാന്നിധ്യത്തിൽ കോൺക്രീറ്റ് കഠിനമാകുന്ന പ്രക്രിയയെ എന്ത് വിളിക്കുന്നു?',options:['Curing','Setting','Hardening','Hydration'],answer:0},
 {id:'3012-02',topic:'Workability',en:'Slump test is used to determine the _____ of concrete.',ml:'സ്ലംപ് ടെസ്റ്റ് കോൺക്രീറ്റിന്റെ എന്ത് അളക്കാനാണ് ഉപയോഗിക്കുന്നത്?',options:['Workability','Strength','Durability','Density'],answer:0}
+],
+6012:[
+{id:'6012-01',topic:'Wastewater Characteristics',en:'Biochemical oxygen demand (BOD) is primarily an indicator of _____.',ml:'ബയോകെമിക്കൽ ഓക്സിജൻ ഡിമാൻഡ് (BOD) പ്രധാനമായും എന്തിന്റെ സൂചകമാണ്?',options:['biodegradable organic pollution','water hardness only','dissolved salt content','pipe corrosion'],answer:0},
+{id:'6012-02',topic:'Water Treatment',en:'The purpose of sedimentation in a water-treatment plant is to remove _____.',ml:'വാട്ടർ ട്രീറ്റ്മെന്റ് പ്ലാന്റിലെ സെഡിമെന്റേഷന്റെ ഉദ്ദേശ്യം എന്ത് നീക്കുക എന്നതാണ്?',options:['settleable suspended solids','all dissolved salts','pathogens only','odour only'],answer:0},
+{id:'6012-03',topic:'Disinfection',en:'Which process is commonly used to disinfect treated drinking water?',ml:'ശുദ്ധീകരിച്ച കുടിവെള്ളം അണുവിമുക്തമാക്കാൻ സാധാരണ ഉപയോഗിക്കുന്ന പ്രക്രിയ ഏതാണ്?',options:['Chlorination','Aeration','Screening','Grit removal'],answer:0},
+{id:'6012-04',topic:'Sewage Treatment',en:'The activated-sludge process depends mainly on _____.',ml:'ആക്ടിവേറ്റഡ് സ്ലഡ്ജ് പ്രക്രിയ പ്രധാനമായും എന്തിനെ ആശ്രയിക്കുന്നു?',options:['aerobic microorganisms','high-pressure filtration','chemical softening','manual screening'],answer:0},
+{id:'6012-05',topic:'Sewerage',en:'A water seal in a sanitary trap prevents _____.',ml:'സാനിറ്ററി ട്രാപ്പിലെ വാട്ടർ സീൽ എന്താണ് തടയുന്നത്?',options:['foul gases entering the building','water from entering the drain','solids entering the sewer','rainwater runoff'],answer:0},
+{id:'6012-06',topic:'Air Pollution',en:'The standard unit used to express environmental noise level is _____.',ml:'പരിസ്ഥിതി ശബ്ദനില പ്രകടിപ്പിക്കാൻ ഉപയോഗിക്കുന്ന സ്റ്റാൻഡേർഡ് യൂണിറ്റ് ഏതാണ്?',options:['decibel (dB)','pascal (Pa)','neper (Np)','hertz (Hz)'],answer:0},
+{id:'6012-07',topic:'Solid Waste',en:'Which option follows the preferred first step in the waste-management hierarchy?',ml:'മാലിന്യ സംസ്കരണ ക്രമത്തിലെ ഏറ്റവും മുൻഗണനയുള്ള ആദ്യ ഘട്ടം ഏതാണ്?',options:['Source reduction','Open dumping','Landfilling','Incineration without recovery'],answer:0},
+{id:'6012-08',topic:'Water Quality',en:'Dissolved oxygen (DO) is important because it supports _____.',ml:'ഡിസോൾവ്ഡ് ഓക്സിജൻ (DO) പ്രധാനമാണ്, കാരണം അത് എന്തിനെ പിന്തുണയ്ക്കുന്നു?',options:['aquatic life','water hardness','pipe thickness','soil compaction'],answer:0},
+{id:'6012-09',topic:'Sludge Management',en:'A sludge-drying bed is used mainly to _____.',ml:'സ്ലഡ്ജ് ഡ്രൈയിംഗ് ബെഡ് പ്രധാനമായും ഉപയോഗിക്കുന്നത് എന്തിനാണ്?',options:['reduce moisture in sludge','increase chlorine residual','measure turbidity','separate grit'],answer:0},
+{id:'6012-10',topic:'Sanitation',en:'A separate system of sewerage carries sanitary sewage and storm water through _____.',ml:'സെപ്പറേറ്റ് സെവർേജ് സിസ്റ്റത്തിൽ സാനിറ്ററി മലിനജലവും മഴവെള്ളവും എങ്ങനെ കൊണ്ടുപോകുന്നു?',options:['different sewers','one combined sewer','open channels only','the same house drain'],answer:0}
+],
+'6024A':[
+{id:'6024A-01',topic:'CAD',en:'CAD is primarily used to create and modify _____.',ml:'CAD പ്രധാനമായും എന്ത് സൃഷ്ടിക്കാനും മാറ്റം വരുത്താനും ഉപയോഗിക്കുന്നു?',options:['engineering drawings and models','only spreadsheets','only text documents','only photographs'],answer:0},
+{id:'6024A-02',topic:'CAM',en:'Computer-aided manufacturing (CAM) is used to help plan and control _____.',ml:'കമ്പ്യൂട്ടർ എയ്ഡഡ് മാനുഫാക്ചറിംഗ് (CAM) എന്തിന്റെ പ്ലാനിംഗിനും നിയന്ത്രണത്തിനും സഹായിക്കുന്നു?',options:['manufacturing operations','library records','water treatment plants','building occupancy'],answer:0},
+{id:'6024A-03',topic:'Parametric Modelling',en:'In parametric modelling, a change to a controlling dimension will _____.',ml:'പാരാമെട്രിക് മോഡലിംഗിൽ ഒരു കൺട്രോളിംഗ് ഡൈമെൻഷൻ മാറ്റുമ്പോൾ എന്ത് സംഭവിക്കും?',options:['update related geometry','delete the model permanently','change only the screen colour','remove all constraints'],answer:0},
+{id:'6024A-04',topic:'CNC',en:'In a CNC program, G-codes generally specify _____.',ml:'ഒരു CNC പ്രോഗ്രാമിൽ G-codes സാധാരണയായി എന്താണ് നിർദ്ദേശിക്കുന്നത്?',options:['machine motion and machining functions','operator attendance','material purchase cost','workshop lighting'],answer:0},
+{id:'6024A-05',topic:'3D Modelling',en:'A solid model differs from a wireframe model because it represents _____.',ml:'ഒരു സോളിഡ് മോഡൽ വയർഫ്രെയിം മോഡലിൽ നിന്ന് വ്യത്യസ്തമാകുന്നത് അത് എന്തിനെ പ്രതിനിധീകരിക്കുന്നതിനാലാണ്?',options:['volume and mass properties','only edge lines','only text labels','a 2D drawing sheet'],answer:0},
+{id:'6024A-06',topic:'CAE',en:'Finite element analysis (FEA) is commonly used to study _____.',ml:'ഫിനൈറ്റ് എലമെന്റ് അനാലിസിസ് (FEA) സാധാരണയായി എന്ത് പഠിക്കാൻ ഉപയോഗിക്കുന്നു?',options:['stress, deformation and related response','ink colour in drawings','attendance records','inventory labels'],answer:0},
+{id:'6024A-07',topic:'Additive Manufacturing',en:'Which file format is widely used to transfer 3D geometry to many 3D-printing workflows?',ml:'പല 3D പ്രിന്റിംഗ് വർക്ക്‌ഫ്ലോകളിലേക്കും 3D ജ്യാമിതി കൈമാറാൻ വ്യാപകമായി ഉപയോഗിക്കുന്ന ഫയൽ ഫോർമാറ്റ് ഏതാണ്?',options:['STL','TXT','CSV','MP3'],answer:0},
+{id:'6024A-08',topic:'Drawing Standards',en:'A CAD layer is useful for _____.',ml:'ഒരു CAD ലെയർ എന്തിനാണ് ഉപയോഗപ്രദം?',options:['organising related drawing entities','increasing material hardness','measuring surface roughness','calculating BOD'],answer:0},
+{id:'6024A-09',topic:'Manufacturing Integration',en:'The main benefit of CAD/CAM integration is a more direct flow from _____.',ml:'CAD/CAM ഇന്റഗ്രേഷന്റെ പ്രധാന ഗുണം ഏതിൽ നിന്ന് ഏതിലേക്കുള്ള കൂടുതൽ നേരിട്ടുള്ള പ്രവാഹമാണ്?',options:['design data to manufacturing instructions','attendance to examination marks','water supply to drainage','purchase order to payroll'],answer:0},
+{id:'6024A-10',topic:'Quality',en:'Computer-aided inspection can compare a manufactured part with _____.',ml:'കമ്പ്യൂട്ടർ എയ്ഡഡ് ഇൻസ്പെക്ഷൻ നിർമ്മിച്ച ഭാഗത്തെ എന്തുമായി താരതമ്യം ചെയ്യാൻ കഴിയും?',options:['the nominal CAD model or specification','a random photograph','the operator name','the workshop timetable'],answer:0}
 ]
 	}
 	};
 
 window.POLY_QUIZ_BANK_CURRICULUM = {
   common: [
+    { code: "6012", name: "Environmental Engineering (REV2026)", sem: "S6", type: "Theory" },
+    { code: "6024A", name: "Computer Aided Design and Manufacturing (REV2026)", sem: "S6", type: "Theory" },
     { code: "3011", name: "Advanced Surveying (REV2021)", sem: "S3", type: "Theory" },
     { code: "3012", name: "Concrete Technology (REV2021)", sem: "S3", type: "Theory" },
     { code: "1001", name: "English for Technical Communication", sem: "S1", type: "Course" },
