@@ -78,12 +78,15 @@
   const key = s => `${s.revision}|${s.code}|${s.department}`;
   const syllabusUrl = subject => {
     if (subject.syllabusUrl) return subject.syllabusUrl;
-    // BUG FIX: previously REV2021 always linked to the generic scheme index
-    // page instead of this subject's own course-contents page. Course codes
-    // are reused across revisions on the SITTTR site, so &scheme=REV2021 is
-    // appended to tell the site which curriculum this code belongs to.
-    const scheme = String(subject.revision) === "2021" ? "&scheme=REV2021" : "";
-    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}${scheme}`;
+    if (String(subject.revision) === "2021") {
+      // REVERTED: appending &scheme=REV2021 to the course-contents URL does
+      // NOT disambiguate the course — that param is ignored by the government
+      // site, so 2021 subjects were opening whichever 2026 course happens to
+      // share the same numeric code. No verified per-course REV2021 page
+      // exists, so the scheme index is the only safe target.
+      return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
+    }
+    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
   };
   const questionPaperUrl = subject => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
 
