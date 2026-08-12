@@ -373,6 +373,21 @@ public class MainActivity extends ComponentActivity {
         });
     }
 
+    private void updateSwipeRefreshForPage(String pageUrl) {
+        if (swipeRefresh == null) {
+            return;
+        }
+        String path = normalizedPath(pageUrl == null ? null : Uri.parse(pageUrl));
+        boolean isAskPoly = "/ask-poly.html".equals(path) || "/ask-poly-v2.html".equals(path);
+        // SwipeRefreshLayout sits above the WebView. On Ask POLY it can intercept the
+        // downward portion of a nested message-list gesture, so use the toolbar refresh
+        // action there and leave the WebView's scroll events entirely to the chat.
+        swipeRefresh.setEnabled(!isAskPoly);
+        if (isAskPoly) {
+            swipeRefresh.setRefreshing(false);
+        }
+    }
+
     private void configureBookmarkButton() {
         if (bookmarkButton == null) {
             return;
@@ -914,6 +929,7 @@ public class MainActivity extends ComponentActivity {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            updateSwipeRefreshForPage(url);
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setIndeterminate(true);
             toolbarSubtitle.setText(R.string.loading_page);
@@ -929,6 +945,7 @@ public class MainActivity extends ComponentActivity {
             toolbarSubtitle.setText(R.string.app_subtitle);
             view.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
             markActiveNavigation(url);
+            updateSwipeRefreshForPage(url);
             injectNativeAppChrome(view);
             updateBookmarkButtonState(url);
             hideLaunchOverlay();
