@@ -114,3 +114,18 @@ html.polytechnic-native-app .ask-messages{overscroll-behavior:contain;-webkit-ov
 
 /* The Clear action is intentionally removed from the Ask POLY composer. */
 .ask-form .ask-clear{display:none!important}
+
+/* Android WebView: make the chat transcript the explicit gesture-scrolling surface. */
+html.polytechnic-native-app .ask-chat{overflow:hidden!important;min-height:0!important}
+html.polytechnic-native-app .ask-messages{
+  flex:1 1 0!important;
+  height:0!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow-x:hidden!important;
+  overflow-y:scroll!important;
+  overscroll-behavior-y:contain!important;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y!important;
+}
+html.polytechnic-native-app .ask-messages > *{touch-action:pan-y}
