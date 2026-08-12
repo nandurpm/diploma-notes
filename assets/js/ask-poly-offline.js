@@ -167,6 +167,33 @@
     return null;
   }
 
+  function numberWithUnit(q, unitPattern) {
+    const match = q.match(new RegExp(`(-?\\d+(?:\\.\\d+)?)\\s*(?:${unitPattern})\\b`, "i"));
+    return match ? Number(match[1]) : null;
+  }
+
+  function valueAfterPhrase(q, phrasePattern, unitPattern = "") {
+    const unit = unitPattern ? `\\s*(?:${unitPattern})\\b` : "";
+    const match = q.match(new RegExp(`\\b(?:${phrasePattern})\\b\\s*(?:=|:|is|of|at|with|over|for)?\\s*(-?\\d+(?:\\.\\d+)?)(?:${unit})`, "i"));
+    return match ? Number(match[1]) : null;
+  }
+
+  function mechanicsChain(q) {
+    const wantsForce = /\b(?:force|newton(?:s)?)\b/.test(q);
+    const wantsWork = /\b(?:work|joule(?:s)?)\b/.test(q);
+    if (!wantsForce || !wantsWork) return null;
+
+    const mass = named(q, ["mass"]) ?? numberWithUnit(q, "kg|kilograms?");
+    const acceleration = named(q, ["acceleration", "accel"]) ?? numberWithUnit(q, "m\\s*/\\s*s(?:\\^?2|2)|m\\s*s\\^-?2");
+    const workDistance = q.match(/\bwork\s*\/\s*(-?\d+(?:\.\d+)?)\s*(?:m|meters?)\b/i);
+    const distance = named(q, ["distance", "displacement", "length"]) ?? valueAfterPhrase(q, "over|distance|displacement|through|travel(?:s|led)?", "m|meters?") ?? (workDistance ? Number(workDistance[1]) : null);
+    if (![mass, acceleration, distance].every(Number.isFinite)) return null;
+
+    const force = mass * acceleration;
+    const work = force * distance;
+    return `Step 1: F = ma = ${fmt(mass)} × ${fmt(acceleration)} = ${fmt(force)} N.\n\nStep 2: W = Fd = ${fmt(force)} × ${fmt(distance)} = ${fmt(work)} J.\n\nChained calculation: force was used as the input for work.\n\nLocal calculation completed without an external AI provider.`;
+  }
+
   function science(q) {
     const mass = named(q, ["mass", "m"]);
     const acceleration = named(q, ["acceleration", "a"]);
@@ -183,7 +210,7 @@
     const frequency = named(q, ["frequency", "f"]);
     const wavelength = named(q, ["wavelength", "lambda"]);
 
-    if ((/ohm|resistance|voltage|current/.test(q)) && (voltage !== null || current !== null || resistance !== null)) {
+    if (!/power|electrical power/.test(q) && (/ohm|resistance|voltage|current/.test(q)) && (voltage !== null || current !== null || resistance !== null)) {
       if (voltage === null && current !== null && resistance !== null) return `Answer: V = ${fmt(current * resistance)} V\n\nOhm's law: V = IR.`;
       if (current === null && voltage !== null && resistance !== null && resistance !== 0) return `Answer: I = ${fmt(voltage / resistance)} A\n\nOhm's law: I = V/R.`;
       if (resistance === null && voltage !== null && current !== null && current !== 0) return `Answer: R = ${fmt(voltage / current)} Ω\n\nOhm's law: R = V/I.`;
@@ -252,10 +279,10 @@
     const q = String(message || "").trim();
     if (!q) return null;
     const normalized = clean(q).toLowerCase();
-    return science(normalized) || conversion(normalized) || geometry(normalized) || arithmetic(normalized) || websiteAnswer(normalized) || retrieval?.fallbackAnswer || retrieval?.answer || null;
+    return mechanicsChain(normalized) || science(normalized) || conversion(normalized) || geometry(normalized) || arithmetic(normalized) || websiteAnswer(normalized) || retrieval?.fallbackAnswer || retrieval?.answer || null;
   }
 
-  globalThis.AskPolyOffline = Object.freeze({ answer, evaluate, version: "20260813-offline-science1" });
+  globalThis.AskPolyOffline = Object.freeze({ answer, evaluate, version: "20260813-offline-science2" });
 })();
 
 /* End of provider-independent Ask POLY assistant. */
