@@ -36,7 +36,7 @@ jobs:
 
       - name: Report deployment start
         if: github.event_name == 'issues'
-        run: gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment started: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+        run: 'gh issue comment "$ISSUE_NUMBER" --repo "$GITHUB_REPOSITORY" --body "Production deployment started: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"'
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
 
