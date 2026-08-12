@@ -35,7 +35,7 @@ jobs:
               "/": ["Revision 2026", "Ask POLY AI", "POLY PMNA"],
               "/revision-2026.html": ["Choose your department", "38", "Revision 2026"],
               "/ask-poly.html": ["Ask POLY AI", "chatForm", "ask-poly-config.js"],
-              "/daily-quiz.html": ["Revision 2021 Mock Exams", "supabase-url"],
+              "/daily-quiz.html": ["Mock Exams & Daily Quiz", "supabase-url"],
           }
           last_error = ""
 
