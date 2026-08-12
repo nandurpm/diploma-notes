@@ -420,6 +420,13 @@
       "subjectName": "Industrial Management and Safety",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5021.html"
+    },
+    "REV2026:5024A:revision-2026-content/lessons/lessons-5024A.html": {
+      "messageId": "projects/poly-pmna/messages/8008675978516751419",
+      "subjectCode": "5024A",
+      "subjectName": "Non-destructive Testing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5024A.html"
     }
   }
 }
