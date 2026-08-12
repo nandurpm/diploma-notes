@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-11T07:08:41Z",
+  "generatedAt": "2026-08-12T21:50:01Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askEndpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -16,6 +16,7 @@
     ],
     "wholeSiteContext": true,
     "localMathFallback": true,
+    "preloadedFaq": true,
     "workersAIFallback": false,
     "workersAIRestFallback": false,
     "providers": [
@@ -29,7 +30,7 @@
     "ok": true,
     "provider": "nvidia",
     "model": "meta/llama-3.1-8b-instruct",
-    "answerPreview": "Ask POLY is ready"
+    "answerPreview": "Ask POLY is ready. What's your question?"
   },
   "relevanceTest": {
     "ok": true,
