@@ -5,8 +5,6 @@
   const cache = new Map();
   const checking = new WeakSet();
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
-  const REV2026_INDEX = `${SITTTR_BASE}?r=site%2Fdiploma-modelqp&scheme=REV2026`;
-  let programmeLookup = null;
   const VALIDATION_VERSION = "20260718-model-paper-navigation3";
 
   const root = () => {
@@ -30,8 +28,8 @@
   const questionPaperUrlFor = code =>
     `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
 
-  const programmeQuestionPaperUrlFor = programmeCode =>
-    `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses&prog=${encodeURIComponent(programmeCode)}`;
+  const modelPaperUnavailableMessage = (revision, code) =>
+    `Model Question Paper not available for Revision ${revision} for course ${code}.`;
 
   function bindReliableOfficialNavigation(link) {
     if (!link) return;
@@ -55,26 +53,44 @@
     if (!link || !code) return link;
     link.dataset.courseCode = code;
     link.dataset.modelPaperCourse = code;
-    if (revision === "2026") link.dataset.scheme = "REV2026";
+    link.dataset.modelPaperRevision = revision;
+    if (revision === "2026") {
+      const message = modelPaperUnavailableMessage(revision, code);
+      link.textContent = "Open Model Question Paper";
+      link.title = message;
+      link.setAttribute("aria-label", message);
+      link.setAttribute("aria-disabled", "true");
+      link.dataset.modelPaperUnavailable = "true";
+      link.removeAttribute("href");
+      link.removeAttribute("target");
+      link.removeAttribute("download");
+      link.setAttribute("role", "button");
+      link.tabIndex = 0;
+      if (!link.dataset.modelPaperUnavailableBound) {
+        link.dataset.modelPaperUnavailableBound = "true";
+        link.addEventListener("click", event => {
+          event.preventDefault();
+          window.alert(link.title || message);
+        });
+        link.addEventListener("keydown", event => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          window.alert(link.title || message);
+        });
+      }
+      return link;
+    }
+    link.removeAttribute("aria-disabled");
+    delete link.dataset.modelPaperUnavailable;
     return configureOfficialLink(
       link,
       questionPaperUrlFor(code),
       "Open Model Question Paper",
-      `Open the official SITTTR model-question-paper page for course ${code}.`
+      `Open the official SITTTR Revision 2021 model-question-paper page for course ${code}.`
     );
   }
 
-  function findLinkByUrl(links, predicate) {
-    return links.find(link => {
-      try {
-        return predicate(new URL(link.href, location.href));
-      } catch {
-        return false;
-      }
-    }) || null;
-  }
-
-  function rebuildModelPaperNotice(notice, programmeCode = "") {
+  function rebuildModelPaperNotice(notice) {
     if (!notice) return;
     let label = notice.querySelector("strong");
     if (!label) {
@@ -82,52 +98,8 @@
       notice.prepend(label);
     }
     label.textContent = "Official Revision 2026 model question papers:";
-
-    const links = [...notice.querySelectorAll("a")];
-    let indexLink = notice.querySelector("a[data-model-qp-index]") || findLinkByUrl(links, url =>
-      /diploma-modelqp$/i.test(url.searchParams.get("r") || "") &&
-      norm(url.searchParams.get("scheme")) === "REV2026"
-    );
-    if (!indexLink) {
-      indexLink = document.createElement("a");
-      indexLink.className = "btn ghost";
-    }
-    indexLink.dataset.modelQpIndex = "REV2026";
-    configureOfficialLink(
-      indexLink,
-      REV2026_INDEX,
-      "Open all REV2026 model papers",
-      "Open the official SITTTR Revision 2026 model-question-paper index."
-    );
-
-    let departmentLink = null;
-    if (programmeCode) {
-      departmentLink = notice.querySelector("a[data-model-qp-programme]") || findLinkByUrl(links, url =>
-        /diploma-modelqp-courses$/i.test(url.searchParams.get("r") || "") &&
-        norm(url.searchParams.get("prog")) === programmeCode
-      );
-      if (!departmentLink) {
-        departmentLink = document.createElement("a");
-        departmentLink.className = "btn ghost";
-      }
-      departmentLink.dataset.modelQpProgramme = programmeCode;
-      configureOfficialLink(
-        departmentLink,
-        programmeQuestionPaperUrlFor(programmeCode),
-        `Open ${programmeCode} department model papers`,
-        `Open the official SITTTR model-question-paper list for department ${programmeCode}.`
-      );
-    }
-
-    links.forEach(link => {
-      if (link !== indexLink && link !== departmentLink) link.remove();
-    });
-    [...notice.childNodes].forEach(node => {
-      if (node !== label && node !== indexLink && node !== departmentLink) node.remove();
-    });
-    notice.append(label, document.createTextNode(" "));
-    if (departmentLink) notice.append(departmentLink, document.createTextNode(" "));
-    notice.append(indexLink);
+    [...notice.childNodes].forEach(node => { if (node !== label) node.remove(); });
+    notice.append(label, document.createTextNode(" Not available on the official SITTTR model-question-paper pages yet."));
   }
 
   async function enhanceDepartmentPaperAccess() {
@@ -138,20 +110,6 @@
     if (!slug) return;
 
     rebuildModelPaperNotice(notice);
-
-    if (!programmeLookup) {
-      programmeLookup = fetch(`${root()}assets/data/revision-2026-programmes.json?v=20260718-model-paper-navigation3`, { cache: "no-store" })
-        .then(response => response.ok ? response.json() : null)
-        .catch(() => null);
-    }
-
-    const payload = await programmeLookup;
-    const programme = payload?.programmes?.find(item => item.slug === slug);
-    const programmeCode = norm(programme?.officialCode);
-    if (!programmeCode || !notice.isConnected) return;
-
-    document.body.dataset.programmeCode = programmeCode;
-    rebuildModelPaperNotice(notice, programmeCode);
   }
 
   async function headOk(url, rejectHtml = false) {

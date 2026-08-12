@@ -35,7 +35,6 @@
   const isHomePage = path === "/" || /\/index\.html$/i.test(path);
   const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php";
   const REV2026_SYLLABUS_ROUTE = "site%2Fdiploma-syllabus-course-contents";
-  const REV2026_MODEL_QP_ROUTE = "site%2Fdiploma-modelqp-courses-show";
   const REVEAL_CSS_PATH = "/assets/css/reveal.css";
   const REVEAL_JS_PATH = "/assets/js/reveal.js";
   const REVEAL_VERSION = "20260728-global-reveal1";
@@ -190,6 +189,34 @@
     link.removeAttribute("download");
   }
 
+  function configureUnavailableModelPaper(link, code) {
+    if (!link) return;
+    const message = `Model Question Paper not available for Revision 2026 for course ${code}.`;
+    link.textContent = "Open Model Question Paper";
+    link.title = message;
+    link.setAttribute("aria-label", message);
+    link.setAttribute("aria-disabled", "true");
+    link.dataset.modelPaperUnavailable = "true";
+    link.dataset.modelPaperRevision = "2026";
+    link.dataset.modelPaperCourse = code;
+    link.removeAttribute("href");
+    link.removeAttribute("target");
+    link.removeAttribute("download");
+    link.setAttribute("role", "button");
+    link.tabIndex = 0;
+    if (link.dataset.modelPaperUnavailableBound) return;
+    link.dataset.modelPaperUnavailableBound = "true";
+    const showUnavailable = event => {
+      event.preventDefault();
+      window.alert(message);
+    };
+    link.addEventListener("click", showUnavailable);
+    link.addEventListener("keydown", event => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      showUnavailable(event);
+    });
+  }
+
   /* =========================================================
      REVISION 2026 CARD LINK NORMALIZER
      ---------------------------------------------------------
@@ -216,12 +243,7 @@
         "Open Syllabus",
         `Open the official SITTTR syllabus for Revision 2026 course ${code}.`
       );
-      configureOfficialLink(
-        card.querySelector(".action.qp"),
-        `${SITTTR_BASE}?r=${REV2026_MODEL_QP_ROUTE}&course=${encodedCode}`,
-        "Open Model Question Paper",
-        `Open the official SITTTR model-question-paper page for Revision 2026 course ${code}.`
-      );
+      configureUnavailableModelPaper(card.querySelector(".action.qp"), code);
     });
   }
 
