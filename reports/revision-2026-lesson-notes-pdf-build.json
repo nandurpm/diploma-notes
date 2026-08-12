@@ -2,7 +2,748 @@
   "revision": "2026",
   "lessonFolder": "revision-2026-content/lessons",
   "notesFolder": "revision-2026-content/notes",
-  "generated": [],
+  "generated": [
+    {
+      "code": "5013",
+      "pages": 33,
+      "bytes": 24562767,
+      "source": "revision-2026-content/lessons/lessons-5013.html",
+      "sourceCharacters": 42960,
+      "pdfCharacters": 42523,
+      "textCoverage": 0.9898,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5014A",
+      "pages": 31,
+      "bytes": 23051740,
+      "source": "revision-2026-content/lessons/lessons-5014A.html",
+      "sourceCharacters": 43396,
+      "pdfCharacters": 43031,
+      "textCoverage": 0.9916,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5014B",
+      "pages": 28,
+      "bytes": 20821301,
+      "source": "revision-2026-content/lessons/lessons-5014B.html",
+      "sourceCharacters": 40023,
+      "pdfCharacters": 39642,
+      "textCoverage": 0.9905,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5014C",
+      "pages": 29,
+      "bytes": 21561839,
+      "source": "revision-2026-content/lessons/lessons-5014C.html",
+      "sourceCharacters": 39547,
+      "pdfCharacters": 39166,
+      "textCoverage": 0.9904,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5014D",
+      "pages": 28,
+      "bytes": 20819009,
+      "source": "revision-2026-content/lessons/lessons-5014D.html",
+      "sourceCharacters": 38173,
+      "pdfCharacters": 37811,
+      "textCoverage": 0.9905,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5021",
+      "pages": 34,
+      "bytes": 25305392,
+      "source": "revision-2026-content/lessons/lessons-5021.html",
+      "sourceCharacters": 42614,
+      "pdfCharacters": 42262,
+      "textCoverage": 0.9917,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5022",
+      "pages": 32,
+      "bytes": 23815553,
+      "source": "revision-2026-content/lessons/lessons-5022.html",
+      "sourceCharacters": 39581,
+      "pdfCharacters": 39232,
+      "textCoverage": 0.9912,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5024A",
+      "pages": 27,
+      "bytes": 20068017,
+      "source": "revision-2026-content/lessons/lessons-5024A.html",
+      "sourceCharacters": 33101,
+      "pdfCharacters": 32798,
+      "textCoverage": 0.9908,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        27
+      ],
+      "warnings": [
+        "near-empty pages require review: [27]"
+      ]
+    },
+    {
+      "code": "5024B",
+      "pages": 27,
+      "bytes": 20071399,
+      "source": "revision-2026-content/lessons/lessons-5024B.html",
+      "sourceCharacters": 32789,
+      "pdfCharacters": 32485,
+      "textCoverage": 0.9907,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        27
+      ],
+      "warnings": [
+        "near-empty pages require review: [27]"
+      ]
+    },
+    {
+      "code": "5024C",
+      "pages": 29,
+      "bytes": 21567310,
+      "source": "revision-2026-content/lessons/lessons-5024C.html",
+      "sourceCharacters": 40237,
+      "pdfCharacters": 39871,
+      "textCoverage": 0.9909,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5024D",
+      "pages": 29,
+      "bytes": 21566815,
+      "source": "revision-2026-content/lessons/lessons-5024D.html",
+      "sourceCharacters": 40153,
+      "pdfCharacters": 39803,
+      "textCoverage": 0.9913,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5031",
+      "pages": 28,
+      "bytes": 20818739,
+      "source": "revision-2026-content/lessons/lessons-5031.html",
+      "sourceCharacters": 38850,
+      "pdfCharacters": 38548,
+      "textCoverage": 0.9922,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5032",
+      "pages": 29,
+      "bytes": 21566529,
+      "source": "revision-2026-content/lessons/lessons-5032.html",
+      "sourceCharacters": 39385,
+      "pdfCharacters": 39059,
+      "textCoverage": 0.9917,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5033A",
+      "pages": 29,
+      "bytes": 21562548,
+      "source": "revision-2026-content/lessons/lessons-5033A.html",
+      "sourceCharacters": 38624,
+      "pdfCharacters": 38285,
+      "textCoverage": 0.9912,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5033B",
+      "pages": 29,
+      "bytes": 21559057,
+      "source": "revision-2026-content/lessons/lessons-5033B.html",
+      "sourceCharacters": 38511,
+      "pdfCharacters": 38226,
+      "textCoverage": 0.9926,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5033C",
+      "pages": 29,
+      "bytes": 21564047,
+      "source": "revision-2026-content/lessons/lessons-5033C.html",
+      "sourceCharacters": 39527,
+      "pdfCharacters": 39200,
+      "textCoverage": 0.9917,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5033D",
+      "pages": 29,
+      "bytes": 21562836,
+      "source": "revision-2026-content/lessons/lessons-5033D.html",
+      "sourceCharacters": 38958,
+      "pdfCharacters": 38670,
+      "textCoverage": 0.9926,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5041",
+      "pages": 29,
+      "bytes": 21560741,
+      "source": "revision-2026-content/lessons/lessons-5041.html",
+      "sourceCharacters": 38399,
+      "pdfCharacters": 38097,
+      "textCoverage": 0.9921,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5042",
+      "pages": 29,
+      "bytes": 21562059,
+      "source": "revision-2026-content/lessons/lessons-5042.html",
+      "sourceCharacters": 38436,
+      "pdfCharacters": 38116,
+      "textCoverage": 0.9917,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5043A",
+      "pages": 28,
+      "bytes": 20820806,
+      "source": "revision-2026-content/lessons/lessons-5043A.html",
+      "sourceCharacters": 38754,
+      "pdfCharacters": 38437,
+      "textCoverage": 0.9918,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5043B",
+      "pages": 28,
+      "bytes": 20821986,
+      "source": "revision-2026-content/lessons/lessons-5043B.html",
+      "sourceCharacters": 38475,
+      "pdfCharacters": 38124,
+      "textCoverage": 0.9909,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5043C",
+      "pages": 29,
+      "bytes": 21563969,
+      "source": "revision-2026-content/lessons/lessons-5043C.html",
+      "sourceCharacters": 39554,
+      "pdfCharacters": 39244,
+      "textCoverage": 0.9922,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "5043D",
+      "pages": 28,
+      "bytes": 20819663,
+      "source": "revision-2026-content/lessons/lessons-5043D.html",
+      "sourceCharacters": 38575,
+      "pdfCharacters": 38208,
+      "textCoverage": 0.9905,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "5051",
+      "pages": 29,
+      "bytes": 21562407,
+      "source": "revision-2026-content/lessons/lessons-5051.html",
+      "sourceCharacters": 38773,
+      "pdfCharacters": 38467,
+      "textCoverage": 0.9921,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6011T",
+      "pages": 28,
+      "bytes": 20819445,
+      "source": "revision-2026-content/lessons/lessons-6011T.html",
+      "sourceCharacters": 39018,
+      "pdfCharacters": 38685,
+      "textCoverage": 0.9915,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6012",
+      "pages": 29,
+      "bytes": 21559116,
+      "source": "revision-2026-content/lessons/lessons-6012.html",
+      "sourceCharacters": 39588,
+      "pdfCharacters": 39276,
+      "textCoverage": 0.9921,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6013A",
+      "pages": 28,
+      "bytes": 20822093,
+      "source": "revision-2026-content/lessons/lessons-6013A.html",
+      "sourceCharacters": 39420,
+      "pdfCharacters": 39073,
+      "textCoverage": 0.9912,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6013B",
+      "pages": 28,
+      "bytes": 20822629,
+      "source": "revision-2026-content/lessons/lessons-6013B.html",
+      "sourceCharacters": 38731,
+      "pdfCharacters": 38397,
+      "textCoverage": 0.9914,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6013C",
+      "pages": 28,
+      "bytes": 20822838,
+      "source": "revision-2026-content/lessons/lessons-6013C.html",
+      "sourceCharacters": 38885,
+      "pdfCharacters": 38562,
+      "textCoverage": 0.9917,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6013D",
+      "pages": 29,
+      "bytes": 21562009,
+      "source": "revision-2026-content/lessons/lessons-6013D.html",
+      "sourceCharacters": 39017,
+      "pdfCharacters": 38651,
+      "textCoverage": 0.9906,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6014A",
+      "pages": 28,
+      "bytes": 20818244,
+      "source": "revision-2026-content/lessons/lessons-6014A.html",
+      "sourceCharacters": 38764,
+      "pdfCharacters": 38450,
+      "textCoverage": 0.9919,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6014B",
+      "pages": 29,
+      "bytes": 21562072,
+      "source": "revision-2026-content/lessons/lessons-6014B.html",
+      "sourceCharacters": 39701,
+      "pdfCharacters": 39375,
+      "textCoverage": 0.9918,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6014C",
+      "pages": 29,
+      "bytes": 21573400,
+      "source": "revision-2026-content/lessons/lessons-6014C.html",
+      "sourceCharacters": 40187,
+      "pdfCharacters": 39787,
+      "textCoverage": 0.99,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6014D",
+      "pages": 29,
+      "bytes": 21568851,
+      "source": "revision-2026-content/lessons/lessons-6014D.html",
+      "sourceCharacters": 39997,
+      "pdfCharacters": 39702,
+      "textCoverage": 0.9926,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6021T",
+      "pages": 29,
+      "bytes": 21567956,
+      "source": "revision-2026-content/lessons/lessons-6021T.html",
+      "sourceCharacters": 40610,
+      "pdfCharacters": 40265,
+      "textCoverage": 0.9915,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6022",
+      "pages": 29,
+      "bytes": 21565660,
+      "source": "revision-2026-content/lessons/lessons-6022.html",
+      "sourceCharacters": 39783,
+      "pdfCharacters": 39470,
+      "textCoverage": 0.9921,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6023A",
+      "pages": 29,
+      "bytes": 21570585,
+      "source": "revision-2026-content/lessons/lessons-6023A.html",
+      "sourceCharacters": 39989,
+      "pdfCharacters": 39664,
+      "textCoverage": 0.9919,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6023B",
+      "pages": 29,
+      "bytes": 21570148,
+      "source": "revision-2026-content/lessons/lessons-6023B.html",
+      "sourceCharacters": 42126,
+      "pdfCharacters": 41778,
+      "textCoverage": 0.9917,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6023C",
+      "pages": 29,
+      "bytes": 21566206,
+      "source": "revision-2026-content/lessons/lessons-6023C.html",
+      "sourceCharacters": 41343,
+      "pdfCharacters": 41032,
+      "textCoverage": 0.9925,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6023D",
+      "pages": 29,
+      "bytes": 21567942,
+      "source": "revision-2026-content/lessons/lessons-6023D.html",
+      "sourceCharacters": 40946,
+      "pdfCharacters": 40607,
+      "textCoverage": 0.9917,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6024A",
+      "pages": 29,
+      "bytes": 21570425,
+      "source": "revision-2026-content/lessons/lessons-6024A.html",
+      "sourceCharacters": 40216,
+      "pdfCharacters": 39858,
+      "textCoverage": 0.9911,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6024B",
+      "pages": 29,
+      "bytes": 21563460,
+      "source": "revision-2026-content/lessons/lessons-6024B.html",
+      "sourceCharacters": 40681,
+      "pdfCharacters": 40390,
+      "textCoverage": 0.9928,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    },
+    {
+      "code": "6024C",
+      "pages": 28,
+      "bytes": 20815107,
+      "source": "revision-2026-content/lessons/lessons-6024C.html",
+      "sourceCharacters": 37597,
+      "pdfCharacters": 37271,
+      "textCoverage": 0.9913,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [],
+      "warnings": []
+    },
+    {
+      "code": "6024D",
+      "pages": 29,
+      "bytes": 21562373,
+      "source": "revision-2026-content/lessons/lessons-6024D.html",
+      "sourceCharacters": 39165,
+      "pdfCharacters": 38826,
+      "textCoverage": 0.9913,
+      "panelCount": 0,
+      "visiblePanelCount": 0,
+      "removedBlankPages": [],
+      "blankPages": [],
+      "nearBlankPages": [
+        29
+      ],
+      "warnings": [
+        "near-empty pages require review: [29]"
+      ]
+    }
+  ],
   "errors": [],
   "requiredLessonCodes": [
     "1001",
@@ -74,9 +815,98 @@
     "4031",
     "4041",
     "5011",
-    "5012"
+    "5012",
+    "5013",
+    "5014A",
+    "5014B",
+    "5014C",
+    "5014D",
+    "5021",
+    "5022",
+    "5024A",
+    "5024B",
+    "5024C",
+    "5024D",
+    "5031",
+    "5032",
+    "5033A",
+    "5033B",
+    "5033C",
+    "5033D",
+    "5041",
+    "5042",
+    "5043A",
+    "5043B",
+    "5043C",
+    "5043D",
+    "5051",
+    "6011T",
+    "6012",
+    "6013A",
+    "6013B",
+    "6013C",
+    "6013D",
+    "6014A",
+    "6014B",
+    "6014C",
+    "6014D",
+    "6021T",
+    "6022",
+    "6023A",
+    "6023B",
+    "6023C",
+    "6023D",
+    "6024A",
+    "6024B",
+    "6024C",
+    "6024D"
   ],
-  "generatedThisRunCodes": [],
+  "generatedThisRunCodes": [
+    "5013",
+    "5014A",
+    "5014B",
+    "5014C",
+    "5014D",
+    "5021",
+    "5022",
+    "5024A",
+    "5024B",
+    "5024C",
+    "5024D",
+    "5031",
+    "5032",
+    "5033A",
+    "5033B",
+    "5033C",
+    "5033D",
+    "5041",
+    "5042",
+    "5043A",
+    "5043B",
+    "5043C",
+    "5043D",
+    "5051",
+    "6011T",
+    "6012",
+    "6013A",
+    "6013B",
+    "6013C",
+    "6013D",
+    "6014A",
+    "6014B",
+    "6014C",
+    "6014D",
+    "6021T",
+    "6022",
+    "6023A",
+    "6023B",
+    "6023C",
+    "6023D",
+    "6024A",
+    "6024B",
+    "6024C",
+    "6024D"
+  ],
   "missingCodes": [],
   "renderer": "Playwright Chromium through local HTTP server",
   "minimumPdfBytes": 20000
