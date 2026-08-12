@@ -24,9 +24,17 @@
       ? globalThis.syllabusLink(subject.code, subject.revision)
       : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
   };
-  const qpHref = (subject) => typeof globalThis.modelQuestionPaperLink === "function"
-    ? globalThis.modelQuestionPaperLink(subject.code)
-    : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+  const qpHref = (subject) => String(subject.revision) === "2021"
+    ? (typeof globalThis.modelQuestionPaperLink === "function"
+      ? globalThis.modelQuestionPaperLink(subject.code, subject.revision)
+      : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`)
+    : "";
+  const qpAction = (subject) => {
+    const href = qpHref(subject);
+    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(subject.revision)}" data-model-paper-course="${esc(code(subject.code))}">Sample QP</a>`;
+    const message = `Model Question Paper not available for Revision ${esc(subject.revision)} for course ${esc(subject.code)}.`;
+    return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(subject.revision)}" data-model-paper-course="${esc(code(subject.code))}" aria-label="${message}" title="${message}" onclick="window.alert(this.title)">Sample QP</button>`;
+  };
 
   function readSubjects(text) {
     const match = text.match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);
@@ -49,7 +57,7 @@
     const hasLesson = LESSONS.has(code(assetCode(subject)));
     const lesson = lessonHref(subject);
     const notes = notesHref(subject);
-    return `<article class="subject-card"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusHref(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${hasLesson ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a>` : `<span class="availability-label">Lessons unavailable</span>`}${hasLesson ? `<a class="action download" href="${esc(notes)}" download>Download Notes</a>` : `<span class="availability-label">Notes unavailable</span>`}<a class="action qp" href="${esc(qpHref(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(code(subject.code))}" data-revision="${esc(subject.revision)}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusHref(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${hasLesson ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a>` : `<span class="availability-label">Lessons unavailable</span>`}${hasLesson ? `<a class="action download" href="${esc(notes)}" download>Download Notes</a>` : `<span class="availability-label">Notes unavailable</span>`}${qpAction(subject)}</div></article>`;
   }
 
   function renderGroups(grid, subjects) {
