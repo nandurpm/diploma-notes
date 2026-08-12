@@ -73,7 +73,7 @@ body.portal-page.ask-poly-page{
   .ask-shell{padding:10px!important}.ask-app{display:grid!important;grid-template-columns:1fr!important;grid-template-rows:auto 1fr!important;height:calc(100dvh - 88px)!important;min-height:520px!important;gap:10px!important}.ask-mobile-controls{display:flex!important;gap:8px;align-items:center}.ask-mobile-chats-btn,.ask-mobile-new{min-height:40px;border-radius:999px;border:1px solid rgba(15,35,65,.12);background:#fff;color:#0f172a;font-weight:900;padding:0 12px}.ask-mobile-new{background:linear-gradient(135deg,#1d4ed8,#0891b2);color:#fff;border-color:transparent}
   .ask-sidebar{position:fixed!important;z-index:11000!important;left:10px;right:10px;top:76px;height:min(480px,calc(100dvh - 96px))!important;display:none!important;border-radius:22px!important}.ask-sidebar.open{display:flex!important}.ask-chat{height:100%!important;min-height:0!important;border-radius:22px!important}.ask-chat-head{padding:13px 14px!important}.ask-chat-head h2{font-size:19px!important}.ask-chat-head p{font-size:12px!important}.ask-status{font-size:12px!important;padding:6px 9px!important}.ask-messages{padding:16px!important;gap:12px!important}.ask-bubble{max-width:94%!important;font-size:14px!important;padding:12px 13px!important;border-radius:18px!important}.ask-prompts{flex-wrap:nowrap!important;overflow:auto!important;padding:8px 10px!important}.ask-form{display:grid!important;grid-template-columns:minmax(0,1fr) 74px!important;gap:8px!important;padding:10px!important}.ask-input{grid-column:1!important;min-height:46px!important;max-height:110px!important;border-radius:18px!important;padding:11px 12px!important}.ask-send{grid-column:2!important;width:74px!important;min-height:46px!important;padding:0!important;border-radius:18px!important}.ask-clear{grid-column:1/3!important;min-height:34px!important;width:100%!important;border-radius:16px!important}
 }
-@media(max-width:560px){.ask-poly-page .brand strong{font-size:13px}.ask-shell{padding:6px!important}.ask-app{height:calc(100dvh - 80px)!important}.ask-chat-head{align-items:flex-start;flex-direction:column}.ask-messages{padding:12px!important}.ask-bubble{max-width:100%!important}.ask-prompts button{font-size:12px}.ask-form{grid-template-columns:minmax(0,1fr) 68px!important}.ask-send{width:68px!important}}
+@media(max-width:560px){.ask-poly-page .brand strong{font-size:13px}.ask-shell{padding:6px!important}.ask-app{height:calc(100dvh - 80px)!important}.ask-chat-head{align-items:flex-start;flex-direction:column;padding:8px 12px!important}.ask-chat-head h2{font-size:16px!important}.ask-chat-head p{font-size:11px!important}.ask-messages{padding:12px!important}.ask-bubble{max-width:100%!important}.ask-prompts button{font-size:12px}.ask-form{grid-template-columns:minmax(0,1fr) 68px!important}.ask-send{width:68px!important}}
 html.polytechnic-native-app body.portal-page.ask-poly-page{min-height:100dvh!important;overflow:hidden!important;background:linear-gradient(180deg,#f8fbff 0%,#eef6ff 100%)!important}
 /* The native APK already provides its own app shell; keep the web footer for browsers only. */
 html.polytechnic-native-app body.portal-page.ask-poly-page > footer[data-site-footer]{display:none!important}
@@ -202,6 +202,14 @@ html.polytechnic-native-app .ask-send{
 }
 @media(max-width:560px){
   html.polytechnic-native-app .ask-shell{padding:5px 7px 3px!important}
+  /* Compact chat header in the APK: mobile controls + title + status */
+  html.polytechnic-native-app .ask-shell .site-breadcrumbs{margin:0 0 3px!important;min-height:18px!important}
+  html.polytechnic-native-app .ask-mobile-controls{min-height:44px!important}
+  html.polytechnic-native-app .ask-mobile-chats-btn,html.polytechnic-native-app .ask-mobile-new{min-height:38px;padding:0 12px}
+  html.polytechnic-native-app .ask-chat-head{padding:8px 12px!important}
+  html.polytechnic-native-app .ask-chat-head h2{font-size:16px!important}
+  html.polytechnic-native-app .ask-chat-head p{font-size:11px!important}
+  html.polytechnic-native-app .ask-status{font-size:11px!important;padding:5px 8px!important}
   html.polytechnic-native-app .ask-chat{grid-template-rows:auto minmax(104px,1fr) auto!important}
   html.polytechnic-native-app .ask-messages{min-height:104px!important;padding:12px!important}
   html.polytechnic-native-app .ask-form{grid-template-columns:minmax(0,1fr) 72px!important;min-height:70px!important;padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important}
