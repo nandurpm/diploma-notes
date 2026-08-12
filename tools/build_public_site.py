@@ -36,6 +36,27 @@ REQUIRED = {
     "build-info.json", "site.webmanifest",
 }
 
+INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">'
+INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1"></script>'
+
+
+def inject_independence_assets(relative: str, content: str) -> str:
+    """Load the centralized annual theme on every public HTML page.
+
+    Cloudflare Pages may serve this repository as a static artifact without
+    executing the source-level Functions middleware. Build-time injection keeps
+    the same client-side date controller available in that deployment mode.
+    """
+    if Path(relative).suffix.lower() != ".html":
+        return content
+    if "independence-day-theme.css" in content or "independence-day-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {INDEPENDENCE_CSS_TAG}\n    {INDEPENDENCE_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
 
 # Retrieves a list of all files currently tracked by Git
 def tracked_files() -> list[str]:
@@ -74,7 +95,11 @@ def build(target: Path, optimize: bool) -> None:
             continue
         destination = target / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source, destination)
+        if source.suffix.lower() == ".html":
+            html = source.read_text(encoding="utf-8")
+            destination.write_text(inject_independence_assets(relative, html), encoding="utf-8")
+        else:
+            shutil.copy2(source, destination)
         copied += 1
 
     for relative in EXPLICIT:
