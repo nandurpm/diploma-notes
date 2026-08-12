@@ -219,6 +219,7 @@
     const div = document.createElement("div");
     div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
+    if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
     time.dateTime = message.createdAt;
