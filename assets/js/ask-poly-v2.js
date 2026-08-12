@@ -140,16 +140,80 @@
 
   const escapeHtml = window.PolyUtils.escapeHtml;
 
-  function renderText(text) {
-    let html = escapeHtml(text);
-    // NOTE: `html` is already fully HTML-escaped above, so the captured
-    // `code`/inline-code groups below are ALSO already escaped. Do not
-    // escape them again here (that caused &lt; to render as &amp;lt; etc.)
-    html = html.replace(/```([\s\S]*?)```/g, (_, code) => `<pre><code>${code.trim()}</code></pre>`);
+  function splitMarkdownRow(line) {
+    let value = String(line || "").trim();
+    if (!value.includes("|")) return [];
+    if (value.startsWith("|")) value = value.slice(1);
+    if (value.endsWith("|") && !value.endsWith("\\|")) value = value.slice(0, -1);
+    return value.split(/(?<!\\)\|/).map((cell) => cell.replace(/\\\|/g, "|").trim());
+  }
+
+  function isMarkdownTableDivider(line) {
+    const cells = splitMarkdownRow(line);
+    return cells.length >= 2 && cells.every((cell) => /^:?-{3,}:?$/.test(cell));
+  }
+
+  function renderInlineMarkdown(value) {
+    let html = escapeHtml(value);
     html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
     html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    html = html.replace(/(^|\n)#{1,3}\s+([^\n]+)/g, "$1<strong>$2</strong>");
-    return html.replace(/\n/g, "<br>");
+    html = html.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+    html = html.replace(/__([^_\n]+)__/g, "<strong>$1</strong>");
+    html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+    html = html.replace(/_([^_\n]+)_/g, "<em>$1</em>");
+    return html;
+  }
+
+  function renderMarkdownTable(headerLine, bodyLines) {
+    const headers = splitMarkdownRow(headerLine);
+    const rows = bodyLines.map(splitMarkdownRow).filter((cells) => cells.length > 0);
+    const headerHtml = headers.map((cell) => `<th scope="col">${renderInlineMarkdown(cell)}</th>`).join("");
+    const bodyHtml = rows.map((cells) => {
+      const padded = headers.map((_, index) => cells[index] || "");
+      return `<tr>${padded.map((cell) => `<td>${renderInlineMarkdown(cell)}</td>`).join("")}</tr>`;
+    }).join("");
+    return `<div class="ask-table-wrap" role="region" aria-label="Response table" tabindex="0"><table class="ask-table"><thead><tr>${headerHtml}</tr></thead><tbody>${bodyHtml}</tbody></table></div>`;
+  }
+
+  function renderText(text) {
+    const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
+    const blocks = [];
+    let index = 0;
+
+    while (index < lines.length) {
+      const line = lines[index];
+      if (/^\s*```/.test(line)) {
+        const code = [];
+        index += 1;
+        while (index < lines.length && !/^\s*```/.test(lines[index])) {
+          code.push(lines[index]);
+          index += 1;
+        }
+        if (index < lines.length) index += 1;
+        blocks.push(`<pre><code>${escapeHtml(code.join("\n")).trim()}</code></pre>`);
+        continue;
+      }
+
+      if (index + 1 < lines.length && line.includes("|") && isMarkdownTableDivider(lines[index + 1])) {
+        const body = [];
+        index += 2;
+        while (index < lines.length && lines[index].includes("|") && lines[index].trim()) {
+          body.push(lines[index]);
+          index += 1;
+        }
+        blocks.push(renderMarkdownTable(line, body));
+        continue;
+      }
+
+      if (/^\s*#{1,3}\s+/.test(line)) {
+        blocks.push(`<strong>${renderInlineMarkdown(line.replace(/^\s*#{1,3}\s+/, ""))}</strong>`);
+      } else {
+        blocks.push(renderInlineMarkdown(line));
+      }
+      index += 1;
+    }
+
+    return blocks.join("<br>");
   }
 
   function bubble(message) {
@@ -547,16 +611,80 @@
 
   const escapeHtml = window.PolyUtils.escapeHtml;
 
-  function renderText(text) {
-    let html = escapeHtml(text);
-    // NOTE: `html` is already fully HTML-escaped above, so the captured
-    // `code`/inline-code groups below are ALSO already escaped. Do not
-    // escape them again here (that caused &lt; to render as &amp;lt; etc.)
-    html = html.replace(/```([\s\S]*?)```/g, (_, code) => `<pre><code>${code.trim()}</code></pre>`);
+  function splitMarkdownRow(line) {
+    let value = String(line || "").trim();
+    if (!value.includes("|")) return [];
+    if (value.startsWith("|")) value = value.slice(1);
+    if (value.endsWith("|") && !value.endsWith("\\|")) value = value.slice(0, -1);
+    return value.split(/(?<!\\)\|/).map((cell) => cell.replace(/\\\|/g, "|").trim());
+  }
+
+  function isMarkdownTableDivider(line) {
+    const cells = splitMarkdownRow(line);
+    return cells.length >= 2 && cells.every((cell) => /^:?-{3,}:?$/.test(cell));
+  }
+
+  function renderInlineMarkdown(value) {
+    let html = escapeHtml(value);
     html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
     html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    html = html.replace(/(^|\n)#{1,3}\s+([^\n]+)/g, "$1<strong>$2</strong>");
-    return html.replace(/\n/g, "<br>");
+    html = html.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
+    html = html.replace(/__([^_\n]+)__/g, "<strong>$1</strong>");
+    html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
+    html = html.replace(/_([^_\n]+)_/g, "<em>$1</em>");
+    return html;
+  }
+
+  function renderMarkdownTable(headerLine, bodyLines) {
+    const headers = splitMarkdownRow(headerLine);
+    const rows = bodyLines.map(splitMarkdownRow).filter((cells) => cells.length > 0);
+    const headerHtml = headers.map((cell) => `<th scope="col">${renderInlineMarkdown(cell)}</th>`).join("");
+    const bodyHtml = rows.map((cells) => {
+      const padded = headers.map((_, index) => cells[index] || "");
+      return `<tr>${padded.map((cell) => `<td>${renderInlineMarkdown(cell)}</td>`).join("")}</tr>`;
+    }).join("");
+    return `<div class="ask-table-wrap" role="region" aria-label="Response table" tabindex="0"><table class="ask-table"><thead><tr>${headerHtml}</tr></thead><tbody>${bodyHtml}</tbody></table></div>`;
+  }
+
+  function renderText(text) {
+    const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
+    const blocks = [];
+    let index = 0;
+
+    while (index < lines.length) {
+      const line = lines[index];
+      if (/^\s*```/.test(line)) {
+        const code = [];
+        index += 1;
+        while (index < lines.length && !/^\s*```/.test(lines[index])) {
+          code.push(lines[index]);
+          index += 1;
+        }
+        if (index < lines.length) index += 1;
+        blocks.push(`<pre><code>${escapeHtml(code.join("\n")).trim()}</code></pre>`);
+        continue;
+      }
+
+      if (index + 1 < lines.length && line.includes("|") && isMarkdownTableDivider(lines[index + 1])) {
+        const body = [];
+        index += 2;
+        while (index < lines.length && lines[index].includes("|") && lines[index].trim()) {
+          body.push(lines[index]);
+          index += 1;
+        }
+        blocks.push(renderMarkdownTable(line, body));
+        continue;
+      }
+
+      if (/^\s*#{1,3}\s+/.test(line)) {
+        blocks.push(`<strong>${renderInlineMarkdown(line.replace(/^\s*#{1,3}\s+/, ""))}</strong>`);
+      } else {
+        blocks.push(renderInlineMarkdown(line));
+      }
+      index += 1;
+    }
+
+    return blocks.join("<br>");
   }
 
   function bubble(message) {

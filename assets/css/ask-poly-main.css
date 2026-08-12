@@ -82,3 +82,15 @@ html.polytechnic-native-app .ask-prompts{padding:8px 10px!important}
 html.polytechnic-native-app .ask-form{padding:8px 10px calc(8px + env(safe-area-inset-bottom))!important}
 html.polytechnic-native-app .ask-sidebar{top:10px!important;height:min(520px,calc(100dvh - 20px))!important}
 @media(max-width:560px){html.polytechnic-native-app .ask-shell{padding:6px 8px 0!important}html.polytechnic-native-app .ask-app{height:calc(100dvh - 6px)!important;gap:6px!important}html.polytechnic-native-app .ask-mobile-controls{min-height:58px!important;align-items:center!important}html.polytechnic-native-app .ask-chat{border-radius:24px 24px 18px 18px!important}html.polytechnic-native-app .ask-chat-head{padding:14px 16px!important}html.polytechnic-native-app .ask-messages{padding:14px!important}html.polytechnic-native-app .ask-form{padding:8px 10px calc(6px + env(safe-area-inset-bottom))!important}}
+
+/* Ask POLY rich Markdown tables */
+.ask-bubble.ai .ask-table-wrap{width:100%;max-width:100%;margin:12px 0 4px;overflow-x:auto;border:1px solid rgba(15,35,65,.12);border-radius:14px;background:#fff;box-shadow:0 5px 14px rgba(15,35,65,.06)}
+.ask-bubble.ai .ask-table-wrap:focus{outline:3px solid rgba(37,99,235,.22);outline-offset:2px}
+.ask-bubble.ai table.ask-table{width:100%;min-width:560px;border-collapse:collapse;table-layout:auto;font-size:13px;line-height:1.45;white-space:normal}
+.ask-bubble.ai .ask-table th,.ask-bubble.ai .ask-table td{padding:10px 12px;border-bottom:1px solid rgba(15,35,65,.10);border-right:1px solid rgba(15,35,65,.08);text-align:left;vertical-align:top}
+.ask-bubble.ai .ask-table th:last-child,.ask-bubble.ai .ask-table td:last-child{border-right:0}
+.ask-bubble.ai .ask-table th{background:linear-gradient(135deg,#eff6ff,#e0f2fe);color:#0f3b72;font-weight:950;white-space:nowrap}
+.ask-bubble.ai .ask-table tbody tr:nth-child(even){background:#f8fbff}
+.ask-bubble.ai .ask-table tbody tr:last-child td{border-bottom:0}
+.ask-bubble.ai .ask-table code{font-size:.92em}
+@media(max-width:560px){.ask-bubble.ai .ask-table-wrap{margin-left:-2px;margin-right:-2px;width:calc(100% + 4px)}.ask-bubble.ai table.ask-table{min-width:500px;font-size:12px}.ask-bubble.ai .ask-table th,.ask-bubble.ai .ask-table td{padding:8px 10px}}
