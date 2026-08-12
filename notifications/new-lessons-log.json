@@ -504,6 +504,13 @@
       "subjectName": "Remote Sensing and GIS",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5014B.html"
+    },
+    "REV2026:5014C:revision-2026-content/lessons/lessons-5014C.html": {
+      "messageId": "projects/poly-pmna/messages/6990706605502372711",
+      "subjectCode": "5014C",
+      "subjectName": "Water Resource Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5014C.html"
     }
   }
 }
