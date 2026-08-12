@@ -588,6 +588,48 @@
       "subjectName": "Electrical Machines II",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5031.html"
+    },
+    "REV2021:1009:lessons/lessons-1009.html": {
+      "messageId": "projects/poly-pmna/messages/2997098983287810649",
+      "subjectCode": "1009",
+      "subjectName": "Sports and Yoga",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1009.html"
+    },
+    "REV2021:1141:lessons/lessons-1141.html": {
+      "messageId": "projects/poly-pmna/messages/2240574139684926653",
+      "subjectCode": "1141",
+      "subjectName": "Foundation Courses Financial Accounting I",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1141.html"
+    },
+    "REV2021:1142:lessons/lessons-1142.html": {
+      "messageId": "projects/poly-pmna/messages/7381143677674330592",
+      "subjectCode": "1142",
+      "subjectName": "Foundation Courses Fundamentals of Business",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1142.html"
+    },
+    "REV2021:1143:lessons/lessons-1143.html": {
+      "messageId": "projects/poly-pmna/messages/8409482727419185139",
+      "subjectCode": "1143",
+      "subjectName": "Foundation Courses Managerial Economics",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1143.html"
+    },
+    "REV2021:1144:lessons/lessons-1144.html": {
+      "messageId": "projects/poly-pmna/messages/2203351612049456804",
+      "subjectCode": "1144",
+      "subjectName": "Foundation Courses Shorthand English Theory I",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1144.html"
+    },
+    "REV2021:1149:lessons/lessons-1149.html": {
+      "messageId": "projects/poly-pmna/messages/709760883151755296",
+      "subjectCode": "1149",
+      "subjectName": "Basic Technology Courses Word Processing (Open office writer based) I",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1149.html"
     }
   }
 }
