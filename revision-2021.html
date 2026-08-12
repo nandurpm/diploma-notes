@@ -250,7 +250,7 @@
   <script>
     (()=>{const input=document.getElementById('programmeSearch');const clear=document.getElementById('programmeSearchClear');const cards=[...document.querySelectorAll('[data-programme-card]')];const count=document.getElementById('programmeResultCount');const empty=document.getElementById('programmeEmpty');function apply(){const query=(input.value||'').trim().toLowerCase();let shown=0;cards.forEach(card=>{const match=!query||(card.dataset.search||card.textContent).toLowerCase().includes(query);card.hidden=!match;if(match)shown+=1});count.textContent=`${shown} of ${cards.length} programmes`;clear.hidden=!query;empty.hidden=shown!==0}input.addEventListener('input',apply);clear.addEventListener('click',()=>{input.value='';apply();input.focus()});apply()})();
   </script>
-  <script src="/assets/js/main.js?v=20260717-architecture-clean1" defer></script>
+  <script src="/assets/js/main.js?v=20260812-revision-tag-normalization1" defer></script>
   <script id="revision-2021-department-art-loader">
 (() => {
   "use strict";

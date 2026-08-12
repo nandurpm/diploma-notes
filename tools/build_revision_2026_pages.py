@@ -20,7 +20,7 @@ SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syll
 MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 REPORT_JSON = Path("reports/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260720-rev2026-exact-titles"
+VERSION = "20260812-revision-tag-normalization1"
 MIN_VALID_PDF_BYTES = 20000
 
 
@@ -59,6 +59,19 @@ def valid_notes(code: str) -> bool:
     return path.exists() and path.stat().st_size >= MIN_VALID_PDF_BYTES
 
 
+def structured_data(title: str, description: str, canonical: str) -> str:
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": title,
+        "description": description,
+        "url": canonical,
+        "isPartOf": {"@type": "WebSite", "name": "POLY PMNA", "url": SITE + "/"},
+    }
+    data = json.dumps(payload, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    return f'<script type="application/ld+json" data-poly-structured-data>{data}</script>'
+
+
 def head(title: str, description: str, canonical: str, *, directory: bool = False) -> str:
     page_styles = (
         f'<link rel="stylesheet" href="/assets/css/revision-2026-directory.css?v={VERSION}">'
@@ -69,7 +82,7 @@ def head(title: str, description: str, canonical: str, *, directory: bool = Fals
             '#subjectGrid{min-height:45vh}.semester-card-grid .subject-card{height:100%}</style>'
         )
     )
-    return f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="{esc(description)}"><title>{esc(title)}</title><link rel="canonical" href="{esc(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(canonical)}"><meta property="og:image" content="{SOCIAL_IMAGE}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="POLY PMNA Kerala Polytechnic Study Hub"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(title)}"><meta name="twitter:description" content="{esc(description)}"><meta name="twitter:image" content="{SOCIAL_IMAGE}"><link rel="stylesheet" href="/assets/css/style.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/animations.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/responsive.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/hardening.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-brand.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/portal-layout.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/fixed-site-header.css?v={VERSION}">{page_styles}<script src="/assets/js/site-shell.js?v={VERSION}" defer></script><link rel="icon" type="image/png" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg"><link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#1d4ed8"></head>'''
+    return f'''<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><meta name="description" content="{esc(description)}"><title>{esc(title)}</title><link rel="canonical" href="{esc(canonical)}"><meta property="og:type" content="website"><meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(canonical)}"><meta property="og:image" content="{SOCIAL_IMAGE}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="POLY PMNA Kerala Polytechnic Study Hub"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(title)}"><meta name="twitter:description" content="{esc(description)}"><meta name="twitter:image" content="{SOCIAL_IMAGE}"><link rel="stylesheet" href="/assets/css/style.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/animations.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/responsive.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/hardening.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-navigation-a11y.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/site-brand.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/portal-layout.css?v={VERSION}"><link rel="stylesheet" href="/assets/css/fixed-site-header.css?v={VERSION}">{page_styles}<script src="/assets/js/site-shell.js?v={VERSION}" defer></script><link rel="icon" type="image/png" href="/favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg"><link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#1d4ed8">{structured_data(title, description, canonical)}</head>'''
 
 
 def navigation() -> str:
@@ -77,7 +90,7 @@ def navigation() -> str:
 
 
 def footer() -> str:
-    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v=20260718-model-paper-navigation3" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
+    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v=20260812-revision-tag-normalization1" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
 
 
 def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
@@ -89,13 +102,20 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     notes_url = f"/revision-2026-content/notes/downloadable-notes-{esc(code)}.pdf"
     lesson_ok = lesson_file(code).exists()
     notes_ok = valid_notes(code)
-    syllabus_url = str(row.get("syllabusUrl", "")).strip() or (
+    syllabus_unavailable = bool(row.get("syllabusUnavailable"))
+    syllabus_url = "" if syllabus_unavailable else (str(row.get("syllabusUrl", "")).strip() or (
         "https://www.sitttrkerala.ac.in/index.php?"
-        f"r=site%2Fdiploma-syllabus-course-contents&course={code}"
+        f"r=site%2Fdiploma-syllabus-course-contents&course={code}&scheme=REV2026"
+    ))
+    syllabus_message = f"Official syllabus is not published for Revision 2026 course {code}."
+    syllabus_action = (
+        f'<a class="action syllabus" href="{esc(syllabus_url)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
+        if syllabus_url else
+        f'<button class="action syllabus" type="button" data-syllabus-unavailable="true" aria-label="{esc(syllabus_message)}" title="{esc(syllabus_message)}" onclick="window.alert(this.title)">Open Syllabus</button>'
     )
     qp_url = (
         "https://sitttrkerala.ac.in/index.php?"
-        f"r=site%2Fdiploma-modelqp-courses-show&course={code}"
+        f"r=site%2Fdiploma-modelqp-courses-show&course={code}&scheme=REV2026"
     )
 
     if lesson_ok:
@@ -112,7 +132,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     ).casefold()
     return (
         f'<article class="subject-card reveal" data-subject-code="{esc(code)}" '
-        f'data-revision="2026" data-semester="{esc(semester)}" '
+        f'data-revision="REV2026" data-semester="{esc(semester)}" '
         f'data-search-text="{esc(search_text)}" data-notes-href="{notes_url}" '
         f'data-lesson-href="{lesson_url}" data-lesson-available="{str(lesson_ok).lower()}" '
         f'data-notes-available="{str(notes_ok).lower()}">'
@@ -120,9 +140,9 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'<h3>{esc(name)}</h3>'
         f'<p>{esc(programme["name"])} / {esc(semester)} / {esc(subject_type)}</p>'
         f'<div class="action-row">'
-        f'<a class="action syllabus" href="{esc(syllabus_url)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
+        f'{syllabus_action}'
         f'{lesson_action}{notes_action}'
-        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer">Open Model Question Paper</a>'
+        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open Model Question Paper</a>'
         f'</div></article>'
     )
 

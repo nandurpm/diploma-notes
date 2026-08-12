@@ -5,31 +5,41 @@
   const cache = new Map();
   const checking = new WeakSet();
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
-  const VALIDATION_VERSION = "20260718-model-paper-navigation3";
+  const VALIDATION_VERSION = "20260812-revision-tag-normalization1";
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
     return depth ? "../".repeat(depth) : "";
   };
   const norm = value => String(value || "").trim().toUpperCase();
-  const revisionOf = card => String(card.dataset.revision || "2021").trim();
+  // Cards use stable IDs (REV2021 / REV2026). Normalize older year-only
+  // markup as well, so no REV2026 card can fall through to the 2021 branch.
+  const revisionOf = card => {
+    const value = String(card.dataset.revision || "REV2021").trim().toUpperCase();
+    if (value === "2021" || value === "REV2021") return "REV2021";
+    if (value === "2026" || value === "REV2026") return "REV2026";
+    return value;
+  };
 
-  const notesUrlFor = (code, revision) => revision === "2026"
+  const notesUrlFor = (code, revision) => revision === "REV2026"
     ? `${root()}revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`
     : `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
 
   const lessonUrlFor = (code, revision, printMode = false) => {
-    const href = revision === "2026"
+    const href = revision === "REV2026"
       ? `${root()}revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`
       : `${root()}lessons/lessons-${encodeURIComponent(code)}.html`;
     return `${href}${printMode ? "?autoPrintNotes=1" : ""}`;
   };
 
-  const questionPaperUrlFor = code =>
-    `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
+  const questionPaperUrlFor = (code, revision) => {
+    const tag = String(revision || "").toUpperCase();
+    const scheme = tag === "REV2026" ? "&scheme=REV2026" : "";
+    return `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}${scheme}`;
+  };
 
   const modelPaperUnavailableMessage = (revision, code) =>
-    `Model Question Paper not available for Revision ${revision} for course ${code}.`;
+    `Model Question Paper not available for Revision ${String(revision || "").replace(/^REV/, "")} for course ${code}.`;
 
   function bindReliableOfficialNavigation(link) {
     if (!link) return;
@@ -54,39 +64,14 @@
     link.dataset.courseCode = code;
     link.dataset.modelPaperCourse = code;
     link.dataset.modelPaperRevision = revision;
-    if (revision === "2026") {
-      const message = modelPaperUnavailableMessage(revision, code);
-      link.textContent = "Open Model Question Paper";
-      link.title = message;
-      link.setAttribute("aria-label", message);
-      link.setAttribute("aria-disabled", "true");
-      link.dataset.modelPaperUnavailable = "true";
-      link.removeAttribute("href");
-      link.removeAttribute("target");
-      link.removeAttribute("download");
-      link.setAttribute("role", "button");
-      link.tabIndex = 0;
-      if (!link.dataset.modelPaperUnavailableBound) {
-        link.dataset.modelPaperUnavailableBound = "true";
-        link.addEventListener("click", event => {
-          event.preventDefault();
-          window.alert(link.title || message);
-        });
-        link.addEventListener("keydown", event => {
-          if (event.key !== "Enter" && event.key !== " ") return;
-          event.preventDefault();
-          window.alert(link.title || message);
-        });
-      }
-      return link;
-    }
+    const revisionLabel = String(revision || "").replace(/^REV/, "");
     link.removeAttribute("aria-disabled");
     delete link.dataset.modelPaperUnavailable;
     return configureOfficialLink(
       link,
-      questionPaperUrlFor(code),
+      questionPaperUrlFor(code, revision),
       "Open Model Question Paper",
-      `Open the official SITTTR Revision 2021 model-question-paper page for course ${code}.`
+      `Open the official SITTTR Revision ${revisionLabel} model-question-paper page for course ${code}.`
     );
   }
 
@@ -130,6 +115,12 @@
 
   const lessonExists = url => headOk(url, false);
   const pdfExists = url => headOk(url, true);
+  const declaredAvailability = (card, field) => {
+    const value = String(card?.dataset?.[field] || "").trim().toLowerCase();
+    if (value === "true") return true;
+    if (value === "false") return false;
+    return null;
+  };
 
   function keepSingle(row, selector) {
     const items = [...row.querySelectorAll(selector)];
@@ -208,7 +199,10 @@
       const lessonHref = lessonUrlFor(code, revision);
       const notesHref = notesUrlFor(code, revision);
       const printHref = lessonUrlFor(code, revision, true);
-      const lessonAvailable = await lessonExists(lessonHref);
+      const declaredLesson = declaredAvailability(card, "lessonAvailable");
+      const lessonAvailable = declaredLesson === null
+        ? await lessonExists(lessonHref)
+        : declaredLesson;
       if (!card.isConnected) return;
 
       if (!lessonAvailable) {
@@ -222,7 +216,10 @@
       card.dataset.lessonHref = lessonHref;
       card.dataset.notesHref = notesHref;
 
-      const notesAvailable = await pdfExists(notesHref);
+      const declaredNotes = declaredAvailability(card, "notesAvailable");
+      const notesAvailable = declaredNotes === null
+        ? await pdfExists(notesHref)
+        : declaredNotes;
       if (!card.isConnected) return;
       ensureAvailable(row, qp, lessonHref, notesHref, printHref, notesAvailable);
       card.dataset.notesAvailable = String(notesAvailable);
