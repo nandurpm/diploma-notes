@@ -147,6 +147,13 @@
       "subjectName": "Electrical Machines I",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3032.html"
+    },
+    "REV2026:3041:revision-2026-content/lessons/lessons-3041.html": {
+      "messageId": "projects/poly-pmna/messages/2494988105674273074",
+      "subjectCode": "3041",
+      "subjectName": "Electrical Technology and Instrumentation",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3041.html"
     }
   }
 }
