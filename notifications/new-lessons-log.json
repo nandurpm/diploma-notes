@@ -658,6 +658,13 @@
       "subjectName": "Renewable Power Plants",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5033D.html"
+    },
+    "REV2026:5041:revision-2026-content/lessons/lessons-5041.html": {
+      "messageId": "projects/poly-pmna/messages/7713522757317584174",
+      "subjectCode": "5041",
+      "subjectName": "Embedded System Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5041.html"
     }
   }
 }
