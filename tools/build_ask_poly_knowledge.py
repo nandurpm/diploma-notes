@@ -27,6 +27,7 @@ EXCLUDED_DIRS = {
     "reports",
     "tools",
     "workers",
+    "_site",
 }
 EXCLUDED_NAME_PARTS = (
     "backup",
