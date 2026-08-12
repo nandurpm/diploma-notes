@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-12T21:54:13Z",
+  "generatedAt": "2026-08-12T23:48:51Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 12 Aug 2026 21:54:12 GMT",
+      "date": "Wed, 12 Aug 2026 23:48:50 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "398",
       "connection": "close",
@@ -22,10 +22,10 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jnKHMJDew%2FbkOUZ7tNQy0xdYj7wilfHD%2BwTcMQV9sXk46ZfibnJOGrtPf%2Fxp%2BMrEfThyuxqtfLKxBOX%2FRHFlqI4d0A%2Fq%2FbgIluaBr6g%2B0Vs5PqJ%2BHejQnuBWxTBRwwzqLF%2BGAPMALS2biwiPNSqvQcRCPpQ2CExVvw%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=U5ukJv%2Fbr9N8%2BSzQoC8nFBTZe0CIlRO668r2TnWuOrVUhabNU9ZbQdmf9o%2Fu779v6egBps73EXIcmbTfVVlt7PPkfsuV%2BLOU7VQIyrJIuF7RQ9K5jCrhBq%2FzLSIbZg5g%2BmgQl7yeGtWwf%2F1H5keulvuiQZy%2Bl4sCrA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2a2b79e4f3713aa-LAX",
+      "cf-ray": "a2a35f867cfc36e8-SJC",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":false,\"providers\":[\"nvidia\"],\"model\":\"meta/llama-3.1-8b-instruct\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Wed, 12 Aug 2026 21:54:12 GMT",
+      "date": "Wed, 12 Aug 2026 23:48:50 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=2oc8EB6b%2BWZJHDrcAxwd0fnbpuwQmX5dCQ0fHcSjNkg7GsoG2dKtZMrVMQErQe72VHULzCd6zm0U0e6d5vqKXhgsKJRxD9WCa%2FLXTu%2FLlcoNzL4EZVUxzqVhGO1uSDPaDSf577bg%2F1Y3IUHWo%2Fa2pr583eaxOlbA%2BQ%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Q5TpIE%2FE9IV8pMebiV3N5l2z2InQdKFw6jNrNw5bn3uBo7UobYHZwRQpmJxlXRGBKYAoCldR4EOIKdid4VOFJJ0vQyj1ST2qBkT5eJTkahRi5gdYX1Kno4uTYNrvOhiqbU84u8rsEgwiy7z6oEAur6oDxd3Sit23nw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2a2b79efd3b72e0-LAX",
+      "cf-ray": "a2a35f86bb075c18-SJC",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 12 Aug 2026 21:54:13 GMT",
+      "date": "Wed, 12 Aug 2026 23:48:51 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "624",
+      "content-length": "581",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IbWbkxzQ2pydhxu59HlauZJmGaiAvdmqa1yN7bvF5YeNvhW1Ac1GbqVNsZGnc30Idod4s95f4hVPlU4b3Sk3m9Djkki6HOssLUg700fpAyPIZlM4YPN%2FPsMFwboAex5ialNFer86ay%2BmUIhv2oPIWLgzQjFkJTg3fg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=qyr%2FU6HSsPyAH%2BOS53qkELxs4tqgqzTkGB2xZwftc40IEmQBuoL3WUZ6S01ROVTNWR32t9AHQnH52d5mAM8VkATralNmmB%2FWxirjNw84JVAG6PhtOe%2F4plx%2Bxe3CtIFuKSvCEk%2FgW7WYGEuTlmadY6Aj6FpbaULryg%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2a2b79f5e1e7085-LAX",
+      "cf-ray": "a2a35f86fe151990-SJC",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"The browser path to access Ask POLY is typically as follows:\\n\\n1. Open the browser of your choice (e.g., Google Chrome, Mozilla Firefox).\\n2. Type the URL `https://www.askpoly.in/` in the address bar.\\n3. Press Enter to load the page.\\n4. You can now interact with Ask POLY by asking a question or providing a topic for discussion.\\n\\nNote: The exact steps might vary depending on your device and browser settings.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-d5960d81-43fa-4ac5-8c28-3cd375f919fc\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"The browser path for Ask POLY is typically: \\n\\n1. Open Google Chrome or Mozilla Firefox browser.\\n2. Type 'polytechnic.kerala.gov.in' in the address bar.\\n3. Click on the 'Ask POLY' icon or link.\\n4. Select the 'Chat with POLY' option.\\n5. Start asking your questions or seeking help.\\n\\nNote: The exact steps might vary slightly based on the browser version and updates.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-34ecb379-13dd-4ffb-aa9c-36fff4fa0a54\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
