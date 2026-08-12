@@ -125,6 +125,55 @@
     if ($('submitQuiz')) $('submitQuiz').disabled = true;
   }
 
+  function renderScoreTracker(rows) {
+    const target = $('scoreTracker');
+    if (!target) return;
+
+    if (!rows.length) {
+      target.innerHTML = '<p class="tracker-empty">Complete a Daily Quiz to start your private score tracker. Your guest history stays in this browser; signed-in history may also be saved online.</p>';
+      return;
+    }
+
+    const bySubject = new Map();
+    const dates = new Set();
+    let totalScore = 0;
+    let totalQuestions = 0;
+
+    rows.forEach((row) => {
+      const score = Number(row.best_score ?? row.score ?? 0) || 0;
+      const total = Number(row.total_questions ?? 10) || 10;
+      totalScore += score;
+      totalQuestions += total;
+      if (row.quiz_date) dates.add(row.quiz_date);
+      const current = bySubject.get(row.subject_code) || { code: row.subject_code, best: 0, attempts: 0, latest: '' };
+      current.best = Math.max(current.best, score);
+      current.attempts += 1;
+      current.latest = String(current.latest || '') > String(row.quiz_date || '') ? current.latest : (row.quiz_date || '');
+      bySubject.set(row.subject_code, current);
+    });
+
+    const lastDate = [...dates].sort().at(-1);
+    let streak = 0;
+    if (lastDate) {
+      const cursor = new Date(lastDate + 'T00:00:00');
+      while (dates.has(R.dateKey(cursor))) {
+        streak += 1;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+    }
+
+    const average = totalQuestions ? Math.round((totalScore / totalQuestions) * 100) : 0;
+    const leaders = [...bySubject.values()]
+      .sort((a, b) => b.best - a.best || b.attempts - a.attempts || String(a.code).localeCompare(String(b.code)))
+      .slice(0, 8);
+
+    target.innerHTML = `<div class="tracker-metrics">
+      <article><span>Total points</span><strong>${totalScore}</strong><small>across ${rows.length} saved attempt${rows.length === 1 ? '' : 's'}</small></article>
+      <article><span>Average score</span><strong>${average}%</strong><small>best recorded score per submitted attempt</small></article>
+      <article><span>Study streak</span><strong>${streak} day${streak === 1 ? '' : 's'}</strong><small>consecutive days ending on your latest attempt</small></article>
+    </div><ol class="personal-leaderboard">${leaders.map((entry, index) => `<li><span class="leader-rank">${index + 1}</span><div><strong>${esc(entry.code)} — ${esc(title(entry.code))}</strong><small>${entry.attempts} attempt${entry.attempts === 1 ? '' : 's'} · last saved ${esc(entry.latest || '—')}</small></div><b>${entry.best}/10</b></li>`).join('')}</ol>`;
+  }
+
   function renderReadOnly(code, row, date = R.dateKey()) {
     subject = code;
     current = qset(code, date);
@@ -268,6 +317,7 @@
       if ($('analysisBox')) {
         $('analysisBox').innerHTML = `<div class="analysis-card"><span>Mode</span><b>${A?.guest ? 'Guest' : 'Login'}</b></div><div class="analysis-card"><span>Question Bank</span><b>${bank}</b></div><div class="analysis-card"><span>Saved Results</span><b>${rows.length}</b></div><div class="analysis-card"><span>Today</span><b>${today.length}</b></div>`;
       }
+      renderScoreTracker(rows);
     } catch (err) {
       console.error("Failed to load quiz statistics", err);
       if ($('dateStat')) $('dateStat').textContent = 'Error';
@@ -279,6 +329,7 @@
           <button class="btn outline btn-sm" onclick="location.reload()" type="button" style="margin-top: 10px; display: inline-flex;">Retry Connection</button>
         </div>`;
       }
+      if ($('scoreTracker')) $('scoreTracker').innerHTML = '<p class="tracker-empty">Your score tracker is temporarily unavailable because saved practice records could not be loaded.</p>';
     }
   }
 
@@ -324,7 +375,7 @@
 
     el.onclick = () => {
       if (!isSupported) {
-        alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease practice with our first-year Common Subjects (English, Mathematics, Physics, Chemistry, Environment, Constitution) or General Knowledge in the meantime!`);
+        alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease choose another supported subject or General Knowledge while more question banks are being prepared.`);
         return;
       }
       if (kind === 'daily') renderQuiz(code);
