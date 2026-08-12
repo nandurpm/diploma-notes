@@ -357,6 +357,13 @@
       "subjectName": "Building Materials & Construction Techniques",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-6043.html"
+    },
+    "REV2026:4012:revision-2026-content/lessons/lessons-4012.html": {
+      "messageId": "projects/poly-pmna/messages/5312292037010677077",
+      "subjectCode": "4012",
+      "subjectName": "Theory of Structures",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4012.html"
     }
   }
 }
