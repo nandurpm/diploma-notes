@@ -403,15 +403,24 @@
       });
     } catch (error) {
       removeTyping();
-      const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
-      if (fallback) {
-        await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
-          provider: "local-knowledge-fallback",
+      const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
+      if (offline) {
+        await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {
+          provider: "local-offline-assistant",
           error: error.message,
           knowledgeVersion: retrieval?.version || ""
         });
       } else {
-        await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. You can still open Revision 2026, Revision 2021, Student Tools, Mock Exams, 2015 Materials or Help from the menu.", { error: error.message });
+        const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
+        if (fallback) {
+          await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
+            provider: "local-knowledge-fallback",
+            error: error.message,
+            knowledgeVersion: retrieval?.version || ""
+          });
+        } else {
+          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message });
+        }
       }
     } finally {
       setWaiting(false);
