@@ -6,7 +6,9 @@ subjects:{
 '2002B':'Engineering Physics for Applied Electrical Technology and Computing',
 '2003A':'Chemistry for Engineering Practices',
 2005:'Environmental Sustainability and Ethics',
-3001:'Essence of Indian Constitution'
+3001:'Essence of Indian Constitution',
+3011:'Advanced Surveying',
+3012:'Concrete Technology'
 },
 questions:{
 1001:[
@@ -80,12 +82,22 @@ questions:{
 {id:'3001-08',topic:'Judiciary',en:'The highest court of appeal in India is the _____.',ml:'ഇന്ത്യയിലെ ഏറ്റവും ഉയർന്ന അപ്പീൽ കോടതി ഏതാണ്?',options:['Supreme Court','High Court','District Court','Subordinate Court'],answer:0},
 {id:'3001-09',topic:'Local Self Government',en:'Which amendment added the Panchayati Raj system to the Constitution?',ml:'പഞ്ചായത്തീരാജ് സംവിധാനം ഭരണഘടനയിൽ കൂട്ടിച്ചേർത്ത ഭേദഗതി ഏത്?',options:['73rd Amendment','74th Amendment','42nd Amendment','52nd Amendment'],answer:0},
 {id:'3001-10',topic:'Election Commission',en:'Elections in India are conducted by which constitutional body?',ml:'ഇന്ത്യയിൽ തെരഞ്ഞെടുപ്പുകൾ നടത്തുന്നത് ഏത് ഭരണഘടനാ സ്ഥാപനമാണ്?',options:['Election Commission of India','UPSC','NITI Aayog','Finance Commission'],answer:0}
+	],
+3011:[
+{id:'3011-01',topic:'Theodolite',en:'The process of turning the telescope about its vertical axis in a horizontal plane is called _____.',ml:'ടെലിസ്കോപ്പിനെ അതിന്റെ വെർട്ടിക്കൽ ആക്സിസിൽ ഹൊറിസോണ്ടൽ പ്ലെയിനിൽ തിരിക്കുന്ന പ്രക്രിയയെ എന്ത് വിളിക്കുന്നു?',options:['Swinging','Transiting','Plunging','Reversing'],answer:0},
+{id:'3011-02',topic:'Curves',en:'The degree of a curve is defined as the angle subtended at its centre by an arc of length _____.',ml:'ഒരു കർവിന്റെ ഡിഗ്രി എന്നത് എത്ര നീളമുള്ള ആർക്ക് അതിന്റെ കേന്ദ്രത്തിൽ ഉണ്ടാക്കുന്ന കോണാണ്?',options:['30 m','20 m','10 m','100 m'],answer:0}
+],
+3012:[
+{id:'3012-01',topic:'Concrete',en:'The process of hardening of concrete in the presence of water is called _____.',ml:'വെള്ളത്തിന്റെ സാന്നിധ്യത്തിൽ കോൺക്രീറ്റ് കഠിനമാകുന്ന പ്രക്രിയയെ എന്ത് വിളിക്കുന്നു?',options:['Curing','Setting','Hardening','Hydration'],answer:0},
+{id:'3012-02',topic:'Workability',en:'Slump test is used to determine the _____ of concrete.',ml:'സ്ലംപ് ടെസ്റ്റ് കോൺക്രീറ്റിന്റെ എന്ത് അളക്കാനാണ് ഉപയോഗിക്കുന്നത്?',options:['Workability','Strength','Durability','Density'],answer:0}
 ]
-}
-};
+	}
+	};
 
 window.POLY_QUIZ_BANK_CURRICULUM = {
   common: [
+    { code: "3011", name: "Advanced Surveying (REV2021)", sem: "S3", type: "Theory" },
+    { code: "3012", name: "Concrete Technology (REV2021)", sem: "S3", type: "Theory" },
     { code: "1001", name: "English for Technical Communication", sem: "S1", type: "Course" },
     { code: "1002", name: "Fundamentals of Engineering Mathematics", sem: "S1", type: "Theory" },
     { code: "1003", name: "Engineering Graphics", sem: "S1", type: "Drawing" },
