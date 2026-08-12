@@ -112,6 +112,13 @@
       "subjectName": "Engineering Mechanics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3011.html"
+    },
+    "REV2021:2011:lessons/lessons-2011.html": {
+      "messageId": "projects/poly-pmna/messages/859817458002235901",
+      "subjectCode": "2011",
+      "subjectName": "Building Materials & Construction Techniques",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2011.html"
     }
   }
 }
