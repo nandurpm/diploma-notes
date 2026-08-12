@@ -1,4 +1,4 @@
-/* Purpose: Home subject filter cleaner - Descriptive comment added for clarity */
+/* Purpose: Home subject filter cleaner */
 (() => {
   "use strict";
 
@@ -20,7 +20,9 @@
     const grid = document.getElementById("subjectGrid");
     const select = document.getElementById("departmentFilter");
 
-    if (!grid || !select || grid.dataset.mode !== "home") return;
+    if (!grid || !select || grid.dataset.mode !== "home") {
+      return;
+    }
 
     [...select.options].forEach((option) => {
       if (
@@ -31,17 +33,20 @@
       }
     });
 
-    if (
-      ![...select.options].some(
-        (option) => option.value === select.value
-      )
-    ) {
+    const selectedStillExists = [...select.options].some(
+      (option) => option.value === select.value
+    );
+
+    if (!selectedStillExists) {
       const hasCommonOption = [...select.options].some(
         (option) => option.value === COMMON_VALUE
       );
 
       select.value = hasCommonOption ? COMMON_VALUE : "all";
-      select.dispatchEvent(new Event("change", { bubbles: true }));
+
+      select.dispatchEvent(
+        new Event("change", { bubbles: true })
+      );
     }
   };
 
@@ -55,12 +60,12 @@
         childList: true
       });
     }
-
-    // No redundant setTimeout re-render.
   };
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start, { once: true });
+    document.addEventListener("DOMContentLoaded", start, {
+      once: true
+    });
   } else {
     start();
   }
