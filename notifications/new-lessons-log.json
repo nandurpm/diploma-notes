@@ -476,6 +476,13 @@
       "subjectName": "Computer Integrated Manufacturing",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6023D.html"
+    },
+    "REV2026:6024A:revision-2026-content/lessons/lessons-6024A.html": {
+      "messageId": "projects/poly-pmna/messages/7511437702170010025",
+      "subjectCode": "6024A",
+      "subjectName": "Computer Aided Design and Manufacturing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6024A.html"
     }
   }
 }
