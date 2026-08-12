@@ -455,6 +455,13 @@
       "subjectName": "Refrigeration and Air Conditioning",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6021T.html"
+    },
+    "REV2026:6023B:revision-2026-content/lessons/lessons-6023B.html": {
+      "messageId": "projects/poly-pmna/messages/1510464102383517881",
+      "subjectCode": "6023B",
+      "subjectName": "Additive Manufacturing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6023B.html"
     }
   }
 }
