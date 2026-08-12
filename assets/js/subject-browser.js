@@ -107,9 +107,12 @@
     return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${tag ? `&scheme=${encodeURIComponent(tag)}` : ""}`;
   };
   const syllabusUrl = subject => subject.syllabusUrl || directCourseUrl(subject.code, subject.revision);
-  const questionPaperUrl = subject => revisionTag(subject.revision) === "REV2021"
-    ? `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`
-    : "";
+  const questionPaperUrl = subject => {
+    const tag = revisionTag(subject.revision);
+    if (tag === "REV2021") return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+    if (tag === "REV2026") return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}&scheme=REV2026`;
+    return "";
+  };
   const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
   const questionPaperAction = (subject, label) => {
     const href = questionPaperUrl(subject);

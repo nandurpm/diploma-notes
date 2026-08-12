@@ -21,7 +21,7 @@ const CURRICULUM_REVISIONS = Object.freeze({
     status: "published",
     syllabusAvailable: true,
     subjectDataPublished: true,
-    modelQuestionPapersAvailable: false,
+    modelQuestionPapersAvailable: true,
     programmeCount: 42,
     officialSyllabusUrl: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
     newlyListedProgrammes: Object.freeze([
@@ -37,7 +37,7 @@ const CURRICULUM_REVISIONS = Object.freeze({
       "Manufacturing Technology",
       "Renewable Energy"
     ]),
-    notice: "The official Revision 2026 programme list and semester-wise subjects are published for all 42 programmes. Official Revision 2026 model question papers are not published by SITTTR yet; dedicated handbooks and downloadable notes are added separately when available."
+    notice: "The official Revision 2026 programme list, semester-wise subjects and model question papers are published. Official SITTTR model papers are linked directly where available; dedicated handbooks and downloadable notes are added separately."
   })
 });
 
