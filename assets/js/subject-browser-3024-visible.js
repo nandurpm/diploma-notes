@@ -37,7 +37,7 @@
   const root=()=>{const x=location.pathname.replace(/\/[^/]*$/,'').split('/').filter(Boolean).length;return x?'../'.repeat(x):''};
   const asset=s=>String(s.assetCode||s.code||'');
   const key=s=>[s.revision,s.department,s.semester,code(s.code),String(s.name||'').toLowerCase()].join('::');
-  const syllabus=s=>String(s.revision)==='2021'?'https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021':(typeof globalThis.syllabusLink==='function'?globalThis.syllabusLink(s.code, s.revision):`https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(s.code)}`);
+  const syllabus=s=>typeof globalThis.syllabusLink==='function'?globalThis.syllabusLink(s.code, s.revision):`https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(s.code)}&scheme=REV${encodeURIComponent(s.revision)}`;
   const qp=s=>typeof globalThis.modelQuestionPaperLink==='function'?globalThis.modelQuestionPaperLink(s.code):`https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(s.code)}`;
   function unique(list){const seen=new Set();return list.filter(s=>{const k=key(s);if(seen.has(k))return false;seen.add(k);return true})}
   function parse(text){const m=text.match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);try{return m?Function(`'use strict';return (${m[1]});`)():[]}catch{return[]}}
