@@ -1,8 +1,6 @@
 ﻿department,semester,code,subject,type,expected_lesson_file
 Architecture,Semester 2,2181,Basic Architectural Drawing,Drawing,lessons/lessons-2181.html
 Architecture,Semester 2,2182,Fundamentals of Architecture,Theory,lessons/lessons-2182.html
-Architecture,Semester 3,3013,Building Construction and Construction Materials,Theory,lessons/lessons-3013.html
-Architecture,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
 Architecture,Semester 3,3181,History of Human settlement,Theory,lessons/lessons-3181.html
 Architecture,Semester 3,3182,Climate Responsive Architecture,Theory,lessons/lessons-3182.html
 Architecture,Semester 3,3183,Architectural Drawing I,Drawing,lessons/lessons-3183.html
@@ -13,8 +11,6 @@ Architecture,Semester 4,4183,Building Services,Theory,lessons/lessons-4183.html
 Architecture,Semester 4,4184,Architectural Appreciation,Theory,lessons/lessons-4184.html
 Architecture,Semester 4,4185,Architecture Drawing II,Drawing,lessons/lessons-4185.html
 Architecture,Semester 4,4189,Working Drawing II (CAD),Drawing,lessons/lessons-4189.html
-Architecture,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
-Architecture,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
 Architecture,Semester 5,5181,Town Planning,Theory,lessons/lessons-5181.html
 Architecture,Semester 5,5182A,Vernacular Architecture,Theory,lessons/lessons-5182A.html
 Architecture,Semester 5,5182B,Green Building and Energy Conservation,Theory,lessons/lessons-5182B.html
@@ -154,15 +150,11 @@ Chemical Engineering,Semester 6,6071C,Energy Engineering,Theory,lessons/lessons-
 Chemical Engineering,Semester 6,6072A,Sustainable Energy Technologies,Theory,lessons/lessons-6072A.html
 Chemical Engineering,Semester 6,6072C,Energy Conservation & Audit (CH),Theory,lessons/lessons-6072C.html
 Chemical Engineering,Semester 6,6072D,Disaster Management (CH),Theory,lessons/lessons-6072D.html
-Civil & Environmental Engineering,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
-Civil & Environmental Engineering,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
 Civil & Environmental Engineering,Semester 3,3351,Building Materials and Construction,Theory,lessons/lessons-3351.html
 Civil & Environmental Engineering,Semester 3,3352,Mechanics of Fluids,Theory,lessons/lessons-3352.html
 Civil & Environmental Engineering,Semester 4,4351,Soil Mechanics and Transportation Enginering,Theory,lessons/lessons-4351.html
 Civil & Environmental Engineering,Semester 4,4352,Environmental chemistry and Microbiology,Theory,lessons/lessons-4352.html
 Civil & Environmental Engineering,Semester 4,4353,Sustainable Engineering,Theory,lessons/lessons-4353.html
-Civil & Environmental Engineering,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
-Civil & Environmental Engineering,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
 Civil & Environmental Engineering,Semester 5,5351,Environmental Engineering,Theory,lessons/lessons-5351.html
 Civil & Environmental Engineering,Semester 5,5352A,Sustainable Construction Practices,Theory,lessons/lessons-5352A.html
 Civil & Environmental Engineering,Semester 5,5352B,Environmental Impact Assessment,Theory,lessons/lessons-5352B.html
@@ -174,64 +166,12 @@ Civil & Environmental Engineering,Semester 6,6352A,Industrial Pollution and its 
 Civil & Environmental Engineering,Semester 6,6352B,Green Building,Theory,lessons/lessons-6352B.html
 Civil & Environmental Engineering,Semester 6,6352C,Climate Change and Sustainability,Theory,lessons/lessons-6352C.html
 Civil & Environmental Engineering,Semester 6,6352D,Water Resources Engineering,Theory,lessons/lessons-6352D.html
-Civil & Rural Engineering,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
-Civil & Rural Engineering,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
 Civil & Rural Engineering,Semester 3,3361,Rural Development,Theory,lessons/lessons-3361.html
 Civil & Rural Engineering,Semester 3,3362,Construction Technology,Theory,lessons/lessons-3362.html
-Civil & Rural Engineering,Semester 4,4011,Geotechnical Engineering,Theory,lessons/lessons-4011.html
-Civil & Rural Engineering,Semester 4,4012,Hydraulics and Irrigation Engineering,Theory,lessons/lessons-4012.html
-Civil & Rural Engineering,Semester 4,4013,Estimating & Costing,Theory,lessons/lessons-4013.html
-Civil & Rural Engineering,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
-Civil & Rural Engineering,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
-Civil & Rural Engineering,Semester 5,5013,Transportation Engineering,Theory,lessons/lessons-5013.html
-Civil & Rural Engineering,Semester 5,5014A,Habitat Technology,Theory,lessons/lessons-5014A.html
-Civil & Rural Engineering,Semester 5,5014B,Ground Improvement Techniques,Theory,lessons/lessons-5014B.html
-Civil & Rural Engineering,Semester 5,5014C,Precast and Prestressed Concrete,Theory,lessons/lessons-5014C.html
-Civil & Rural Engineering,Semester 6,6011B,Building Maintenance and Services,Theory,lessons/lessons-6011B.html
-Civil & Rural Engineering,Semester 6,6011C,Pavement Design and Maintenance,Theory,lessons/lessons-6011C.html
-Civil & Rural Engineering,Semester 6,6012A,Renewable Energy and Environment,Theory,lessons/lessons-6012A.html
-Civil & Rural Engineering,Semester 6,6012B,Sustainable Development,Theory,lessons/lessons-6012B.html
-Civil & Rural Engineering,Semester 6,6012C,Disaster Management (CE),Theory,lessons/lessons-6012C.html
-Civil & Rural Engineering,Semester 6,6012D,Rural Technology,Theory,lessons/lessons-6012D.html
 Civil & Rural Engineering,Semester 6,6361A,Water Supply and Sanitation Engineering,Theory,lessons/lessons-6361A.html
-Civil Engineering,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
-Civil Engineering,Semester 3,3012,Concrete Technology,Theory,lessons/lessons-3012.html
-Civil Engineering,Semester 3,3013,Building Construction and Construction Materials,Theory,lessons/lessons-3013.html
-Civil Engineering,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
-Civil Engineering,Semester 4,4011,Geotechnical Engineering,Theory,lessons/lessons-4011.html
-Civil Engineering,Semester 4,4012,Hydraulics and Irrigation Engineering,Theory,lessons/lessons-4012.html
-Civil Engineering,Semester 4,4013,Estimating & Costing,Theory,lessons/lessons-4013.html
-Civil Engineering,Semester 5,5011,Construction Management and Safety Engineering,Theory,lessons/lessons-5011.html
-Civil Engineering,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
-Civil Engineering,Semester 5,5013,Transportation Engineering,Theory,lessons/lessons-5013.html
-Civil Engineering,Semester 5,5014A,Habitat Technology,Theory,lessons/lessons-5014A.html
-Civil Engineering,Semester 5,5014B,Ground Improvement Techniques,Theory,lessons/lessons-5014B.html
-Civil Engineering,Semester 5,5014C,Precast and Prestressed Concrete,Theory,lessons/lessons-5014C.html
-Civil Engineering,Semester 6,6011A,Public Health Engineering,Theory,lessons/lessons-6011A.html
-Civil Engineering,Semester 6,6011B,Building Maintenance and Services,Theory,lessons/lessons-6011B.html
-Civil Engineering,Semester 6,6011C,Pavement Design and Maintenance,Theory,lessons/lessons-6011C.html
-Civil Engineering,Semester 6,6012A,Renewable Energy and Environment,Theory,lessons/lessons-6012A.html
-Civil Engineering,Semester 6,6012B,Sustainable Development,Theory,lessons/lessons-6012B.html
-Civil Engineering,Semester 6,6012C,Disaster Management (CE),Theory,lessons/lessons-6012C.html
-Civil Engineering,Semester 6,6012D,Rural Technology,Theory,lessons/lessons-6012D.html
-Civil Engineering & Planning,Semester 3,3011,Advanced Surveying,Theory,lessons/lessons-3011.html
-Civil Engineering & Planning,Semester 3,3012,Concrete Technology,Theory,lessons/lessons-3012.html
-Civil Engineering & Planning,Semester 3,3013,Building Construction and Construction Materials,Theory,lessons/lessons-3013.html
-Civil Engineering & Planning,Semester 3,3014,Theory of Structures,Theory,lessons/lessons-3014.html
-Civil Engineering & Planning,Semester 4,4012,Hydraulics and Irrigation Engineering,Theory,lessons/lessons-4012.html
 Civil Engineering & Planning,Semester 4,4391,Fundamentals of Town Planning,Theory,lessons/lessons-4391.html
 Civil Engineering & Planning,Semester 4,4392,"Estimation,Tendering and Valuation",Theory,lessons/lessons-4392.html
-Civil Engineering & Planning,Semester 5,5012,Design of Steel and RCC Structures,Theory,lessons/lessons-5012.html
-Civil Engineering & Planning,Semester 5,5013,Transportation Engineering,Theory,lessons/lessons-5013.html
-Civil Engineering & Planning,Semester 5,5014A,Habitat Technology,Theory,lessons/lessons-5014A.html
-Civil Engineering & Planning,Semester 5,5014B,Ground Improvement Techniques,Theory,lessons/lessons-5014B.html
-Civil Engineering & Planning,Semester 5,5014C,Precast and Prestressed Concrete,Theory,lessons/lessons-5014C.html
 Civil Engineering & Planning,Semester 5,5391,Construction Planning and Management,Theory,lessons/lessons-5391.html
-Civil Engineering & Planning,Semester 6,6011B,Building Maintenance and Services,Theory,lessons/lessons-6011B.html
-Civil Engineering & Planning,Semester 6,6012A,Renewable Energy and Environment,Theory,lessons/lessons-6012A.html
-Civil Engineering & Planning,Semester 6,6012B,Sustainable Development,Theory,lessons/lessons-6012B.html
-Civil Engineering & Planning,Semester 6,6012C,Disaster Management (CE),Theory,lessons/lessons-6012C.html
-Civil Engineering & Planning,Semester 6,6012D,Rural Technology,Theory,lessons/lessons-6012D.html
 Civil Engineering & Planning,Semester 6,6391A,Basic Geotechnical Engineeing,Theory,lessons/lessons-6391A.html
 Civil Engineering & Planning,Semester 6,6391B,Environmental Engineering,Theory,lessons/lessons-6391B.html
 Cloud Computing and Big Data,Semester 2,2131,Problem Solving and Programming,Theory,lessons/lessons-2131.html
@@ -450,11 +390,6 @@ Electrical Engineering & Electric Vehicles Technology,Semester 5,5033C,Switch Ge
 Electrical Engineering & Electric Vehicles Technology,Semester 5,5411,Electric Vehicle Technology & Design Considerations,Theory,lessons/lessons-5411.html
 Electrical Engineering & Electric Vehicles Technology,Semester 6,6411A,Vehicle Power Train Control Systems,Theory,lessons/lessons-6411A.html
 Electrical Engineering & Electric Vehicles Technology,Semester 6,6412A,Fundamentals of Electric Vehicle Technology,Theory,lessons/lessons-6412A.html
-Electrical and Electronics Engineering,Semester 4,4032,Electrical Installation Design and Estimation,Theory,lessons/lessons-4032.html
-Electrical and Electronics Engineering,Semester 6,6031,Electrical Energy Management,Theory,lessons/lessons-6031.html
-Electrical and Electronics Engineering,Semester 6,6032,Industrial Drives and Control,Theory,lessons/lessons-6032.html
-Electronics Engineering,Semester 6,6042,Optical Fiber Communication,Theory,lessons/lessons-6042.html
-Electronics Engineering,Semester 6,6043,VLSI and DSP Fundamentals,Theory,lessons/lessons-6043.html
 Electronics and Communication,Semester 5,5043B,Microwave Devices and Radar,Theory,lessons/lessons-5043B.html
 Electronics and Communication,Semester 5,5043D,Digital Communication,Theory,lessons/lessons-5043D.html
 Electronics and Communication,Semester 5,5043E,Telecommunication Networks,Theory,lessons/lessons-5043E.html
