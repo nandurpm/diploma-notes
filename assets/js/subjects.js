@@ -1917,12 +1917,16 @@ const SITTTR_MODEL_QP_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2
 
 function syllabusLink(subjectCode, revision) {
   if (revision === "2021") {
-    // BUG FIX: previously always returned the generic REV2021 scheme index
-    // page, ignoring subjectCode, so "Open Syllabus" never opened a specific
-    // course. Course codes are reused across revisions on the SITTTR site, so
-    // &scheme=REV2021 is required to disambiguate which curriculum's course
-    // this code refers to.
-    return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode) + "&scheme=REV2021";
+    // REVERTED: the previous attempt appended &scheme=REV2021, assuming the
+    // "course" query param was scoped per revision. It is NOT — course IDs on
+    // the government site are not namespaced by scheme, so that fix caused
+    // REV2021 subjects to silently open the wrong (REV2026) course whenever
+    // the code numbers collided. No verified per-course REV2021 resource
+    // exists (confirmed: only a whole-scheme index page and a per-programme
+    // combined page are published for this revision), so linking to the
+    // scheme index is the only option that is guaranteed not to show the
+    // wrong subject's content.
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
   }
   return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
 }
