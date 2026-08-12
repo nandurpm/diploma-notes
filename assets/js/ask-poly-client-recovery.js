@@ -23,10 +23,7 @@
   }
 
   function endpointCandidates() {
-    return [...new Set([
-      String(config().endpoint || "").trim(),
-      String(config().backupEndpoint || "").trim()
-    ].filter(Boolean))];
+    return [String(config().endpoint || "").trim()].filter(Boolean);
   }
 
   function healthCandidates() {
@@ -105,16 +102,12 @@
     let lastError = null;
     let lastResponse = null;
 
-    for (let index = 0; index < candidates.length; index += 1) {
-      const endpoint = candidates[index];
-      const attempts = index === 0 ? 2 : 1;
-
-      for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    for (const endpoint of candidates) {
+      for (let attempt = 1; attempt <= 2; attempt += 1) {
         try {
           const response = await originalFetch(endpoint, cloneOptions(options, endpoint));
           if (response.ok) {
             activeEndpoint = endpoint;
-            if (index > 0) setStatus("Ready on backup AI", "Primary AI route was unavailable; backup route answered.");
             return response;
           }
           lastResponse = response;
@@ -125,19 +118,15 @@
           if (error?.name === "AbortError") throw error;
         }
 
-        if (attempt < attempts) {
+        if (attempt === 1) {
           setStatus("Retrying AI relay…", lastError?.message || "Temporary AI connection failure");
           await delay(RETRY_DELAY_MS);
         }
       }
-
-      if (index < candidates.length - 1) {
-        setStatus("Switching AI route…", "The primary endpoint could not be reached from this network.");
-      }
     }
 
     if (lastResponse) return lastResponse;
-    throw lastError || new Error("Ask POLY request failed on all routes.");
+    throw lastError || new Error("Ask POLY request failed after retries.");
   }
 
   window.fetch = function polyAskFetch(input, options = {}) {
@@ -173,12 +162,7 @@
   function addRetryButtons() {
     document.querySelectorAll("#chatMessages .ask-bubble.ai:not([data-poly-retry-checked])").forEach(bubble => {
       bubble.dataset.polyRetryChecked = "true";
-      const text = String(bubble.textContent || "").toLowerCase();
-      const failed = text.includes("could not reach the ai service")
-        || text.includes("live ai service is temporarily unavailable")
-        || text.includes("ai service could not answer right now")
-        || text.includes("relay could not reach");
-      if (!failed) return;
+      if (bubble.dataset.polyError !== "true") return;
       const button = document.createElement("button");
       button.type = "button";
       button.className = "ask-copy ask-retry";
