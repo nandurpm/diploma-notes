@@ -8,9 +8,13 @@ const PASSTHROUGH_ASSET_PATHS = new Set([
   "/maintenance/runtime-guard.js",
   "/assets/css/new-year-theme.css",
   "/assets/js/new-year-theme.js",
+  "/assets/css/independence-day-theme.css",
+  "/assets/js/independence-day-theme.js",
 ]);
 const NEW_YEAR_STYLESHEET = '<link rel="stylesheet" href="/assets/css/new-year-theme.css?v=annual-midnight-circuit-1">';
 const NEW_YEAR_SCRIPT = '<script src="/assets/js/new-year-theme.js?v=annual-midnight-circuit-1" defer></script>';
+const INDEPENDENCE_DAY_STYLESHEET = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">';
+const INDEPENDENCE_DAY_SCRIPT = '<script src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1" defer></script>';
 const MAINTENANCE_RUNTIME_SCRIPT = '<script src="/maintenance/runtime-guard.js"></script>';
 
 const SPECIAL_WINDOW = {
@@ -132,6 +136,14 @@ function injectHtml(html, options = {}) {
   let output = html;
   const scripts = [];
 
+  if (!output.includes("/assets/css/independence-day-theme.css")) {
+    if (/<\/head>/i.test(output)) {
+      output = output.replace(/<\/head>/i, `${INDEPENDENCE_DAY_STYLESHEET}</head>`);
+    } else {
+      output = `${INDEPENDENCE_DAY_STYLESHEET}${output}`;
+    }
+  }
+
   if (options.newYearTheme?.active && !output.includes("/assets/css/new-year-theme.css")) {
     if (/<\/head>/i.test(output)) {
       output = output.replace(/<\/head>/i, `${NEW_YEAR_STYLESHEET}</head>`);
@@ -142,6 +154,10 @@ function injectHtml(html, options = {}) {
 
   if (options.maintenanceRuntime && !output.includes("/maintenance/runtime-guard.js")) {
     scripts.push(MAINTENANCE_RUNTIME_SCRIPT);
+  }
+
+  if (!output.includes("/assets/js/independence-day-theme.js")) {
+    scripts.push(INDEPENDENCE_DAY_SCRIPT);
   }
 
   if (options.newYearTheme?.active && !output.includes("/assets/js/new-year-theme.js")) {
@@ -178,13 +194,14 @@ function transformedHeaders(sourceHeaders, newYearTheme, additionalHeaders = {})
   return headers;
 }
 
-async function applyThemeToResponse(response, newYearTheme) {
-  if (!newYearTheme.active || !response || response.status === 204 || response.status === 304) return response;
+async function applyThemeToResponse(response, newYearTheme = { active: false }) {
+  if (!response || response.status === 204 || response.status === 304) return response;
   const contentType = response.headers.get("Content-Type") || "";
   if (!contentType.toLowerCase().includes("text/html")) return response;
 
   const html = await response.text();
   const body = injectHtml(html, { newYearTheme });
+  if (body === html) return response;
   const headers = transformedHeaders(response.headers, newYearTheme);
   return new Response(body, {
     status: response.status,
