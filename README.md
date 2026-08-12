@@ -230,6 +230,26 @@ Kerala, India
 
 ---
 
+## Content Availability Policy (Audit 2026-08)
+
+The subject catalogues reference lesson pages and notes PDFs that have not been
+built yet. The site does **not** link students to 404 pages: the subject-card
+rendering pipeline already shows **"Lessons unavailable" / "Notes unavailable"**
+labels in place of those links (see `assets/js/subject-browser.js`, the
+`subject-browser-*.js` variants, `lesson-availability-hotfix.js`, and
+`hide-unavailable-actions.js`). Static department pages ship the same
+unavailable markup server-side, so the fallback works without JavaScript.
+Only codes with an existing `lessons-*.html` page or `downloadable-notes-*.pdf`
+get clickable action links, and the workflow in *Adding a New Lesson*
+automatically activates the buttons when the matching file appears.
+
+The build-info writer (`tools/write_build_info.py`) was also hardened: it
+now validates the JSON payload and writes atomically (temp file + replace),
+so a future pipeline glitch cannot concatenate or corrupt `build-info.json`
+again.
+
+---
+
 ## Official Links
 
 | Resource | URL |
