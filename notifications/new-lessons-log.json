@@ -693,6 +693,13 @@
       "subjectName": "Optoelectronics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5043D.html"
+    },
+    "REV2026:5051:revision-2026-content/lessons/lessons-5051.html": {
+      "messageId": "projects/poly-pmna/messages/3346610671054036950",
+      "subjectCode": "5051",
+      "subjectName": "Software Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5051.html"
     }
   }
 }
