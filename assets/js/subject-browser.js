@@ -93,28 +93,28 @@
   const asset = subject => String(subject.assetCode || subject.code || "");
   const sameDept = (a, b) => depKey(a) === depKey(b);
   // PERFORMANCE OPTIMIZATION: Simplified key generation to reduce string concatenation and array allocation.
-  const key = s => `${s.revision}|${s.code}|${s.department}`;
-  const directCourseUrl = (code, revision) => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${revision ? `&scheme=REV${encodeURIComponent(revision)}` : ""}`;
-  const syllabusUrl = subject => {
-    if (String(subject.revision) === "2021") {
-      // Keep syllabus lookup revision-aware. Shared course codes such as 3024
-      // must include the selected REV2021 scheme instead of falling through to
-      // the unscoped course URL, which can resolve to a different revision.
-      return subject.syllabusUrl || directCourseUrl(subject.code, "2021");
-    }
-    if (String(subject.revision) === "2026") {
-      return subject.syllabusUrl || directCourseUrl(subject.code, "2026");
-    }
-    return subject.syllabusUrl || directCourseUrl(subject.code);
+  const revisionTag = revision => {
+    const value = String(revision || "").trim().toUpperCase();
+    if (value === "2021" || value === "REV2021") return "REV2021";
+    if (value === "2026" || value === "REV2026") return "REV2026";
+    return value.startsWith("REV") ? value : (value ? `REV${value}` : "");
   };
-  const questionPaperUrl = subject => String(subject.revision) === "2021"
+  const revisionYear = revision => revisionTag(revision).replace(/^REV/, "");
+  const makeCourseKey = subject => `${revisionTag(subject.revision)}-${norm(subject.code)}`;
+  const key = s => `${makeCourseKey(s)}|${s.department}`;
+  const directCourseUrl = (code, revision) => {
+    const tag = revisionTag(revision);
+    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${tag ? `&scheme=${encodeURIComponent(tag)}` : ""}`;
+  };
+  const syllabusUrl = subject => subject.syllabusUrl || directCourseUrl(subject.code, subject.revision);
+  const questionPaperUrl = subject => revisionTag(subject.revision) === "REV2021"
     ? `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`
     : "";
-  const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(subject.revision)} for course ${esc(subject.code)}.`;
+  const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
   const questionPaperAction = (subject, label) => {
     const href = questionPaperUrl(subject);
-    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(subject.revision)}" data-model-paper-course="${esc(norm(subject.code))}">${esc(label)}</a>`;
-    return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(subject.revision)}" data-model-paper-course="${esc(norm(subject.code))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
+    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
+    return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
   };
 
   function unique(list) {
@@ -193,7 +193,7 @@
     if (mode === "papers") {
       // Question-papers page: show only the sample question paper link,
       // not syllabus/lessons/notes (those belong on syllabus.html / lessons.html).
-      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
+      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
     }
     const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
@@ -203,7 +203,7 @@
     const studyActions = handbookAvailable
       ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer external" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open Syllabus</a>${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
