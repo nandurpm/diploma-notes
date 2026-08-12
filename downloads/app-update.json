@@ -1,18 +1,17 @@
 {
   "schemaVersion": 1,
-  "versionCode": 17,
-  "versionName": "3.8",
-  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.8/POLY_PMNA_v3.8.apk",
-  "sha256": "66d40098a26303368d97b9c9c11dc1787f6b10a8527b745f3426bf0a9e184317",
-  "publishedAt": "2026-08-11T08:50:01Z",
+  "versionCode": 18,
+  "versionName": "3.9",
+  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.9/POLY_PMNA_v3.9.apk",
+  "sha256": "8adde5d934e5c4971d000057cfa76dc5de558fa941069e925285e66e00f7afe8",
+  "publishedAt": "2026-08-12T17:31:48Z",
   "forceUpdate": true,
-  "title": "POLY PMNA Android app 3.8",
-  "message": "Install this signed release update to replace older debug builds and keep receiving future app updates from the homepage.",
+  "title": "POLY PMNA Android app 3.9",
+  "message": "Install this signed release update to replace older builds and keep receiving future app updates from the homepage.",
   "releaseNotes": [
     "Signed public release APK for Android installs and upgrades.",
     "New lesson push notifications through Firebase Cloud Messaging.",
-    "Homepage Download Our App button points to this GitHub Release APK.",
-    "Existing app users see an in-app update button when their installed version is older.",
-    "Revision 2026 and Revision 2021 remain separate content destinations."
+    "Fixes the Recent Apps lifecycle so minimized POLY PMNA remains available in Android's app switcher.",
+    "Includes the improved Ask POLY mobile chat experience."
   ]
 }
