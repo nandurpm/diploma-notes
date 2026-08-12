@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-08-12T20:10:55.238Z",
+  "generatedAt": "2026-08-12T20:36:00.640Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
