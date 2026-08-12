@@ -1922,7 +1922,8 @@ function syllabusLink(subjectCode, revision) {
   return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
 }
 
-function modelQuestionPaperLink(subjectCode) {
+function modelQuestionPaperLink(subjectCode, revision) {
+  if (revision === "2026") return "";
   return SITTTR_MODEL_QP_BASE + encodeURIComponent(subjectCode);
 }
 

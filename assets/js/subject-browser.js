@@ -107,7 +107,15 @@
     }
     return subject.syllabusUrl || directCourseUrl(subject.code);
   };
-  const questionPaperUrl = subject => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
+  const questionPaperUrl = subject => String(subject.revision) === "2021"
+    ? `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`
+    : "";
+  const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(subject.revision)} for course ${esc(subject.code)}.`;
+  const questionPaperAction = (subject, label) => {
+    const href = questionPaperUrl(subject);
+    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(subject.revision)}" data-model-paper-course="${esc(norm(subject.code))}">${esc(label)}</a>`;
+    return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(subject.revision)}" data-model-paper-course="${esc(norm(subject.code))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
+  };
 
   function unique(list) {
     const seen = new Set();
@@ -185,7 +193,7 @@
     if (mode === "papers") {
       // Question-papers page: show only the sample question paper link,
       // not syllabus/lessons/notes (those belong on syllabus.html / lessons.html).
-      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer external">Open Model Question Paper</a></div></article>`;
+      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
     }
     const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
@@ -195,7 +203,7 @@
     const studyActions = handbookAvailable
       ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}<a class="action qp" href="${esc(questionPaperUrl(subject))}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(subject.revision)}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
