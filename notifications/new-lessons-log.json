@@ -469,6 +469,13 @@
       "subjectName": "Electric Vehicles",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6023C.html"
+    },
+    "REV2026:6023D:revision-2026-content/lessons/lessons-6023D.html": {
+      "messageId": "projects/poly-pmna/messages/5607089905449635138",
+      "subjectCode": "6023D",
+      "subjectName": "Computer Integrated Manufacturing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6023D.html"
     }
   }
 }
