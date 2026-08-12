@@ -483,6 +483,13 @@
       "subjectName": "Computer Aided Design and Manufacturing",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6024A.html"
+    },
+    "REV2026:6024B:revision-2026-content/lessons/lessons-6024B.html": {
+      "messageId": "projects/poly-pmna/messages/4607023246160669965",
+      "subjectCode": "6024B",
+      "subjectName": "Product Design and Development",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6024B.html"
     }
   }
 }
