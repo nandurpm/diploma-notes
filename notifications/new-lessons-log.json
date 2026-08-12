@@ -119,6 +119,13 @@
       "subjectName": "Building Materials & Construction Techniques",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2011.html"
+    },
+    "REV2026:3021:revision-2026-content/lessons/lessons-3021.html": {
+      "messageId": "projects/poly-pmna/messages/7678406941640770657",
+      "subjectCode": "3021",
+      "subjectName": "Thermal Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3021.html"
     }
   }
 }
