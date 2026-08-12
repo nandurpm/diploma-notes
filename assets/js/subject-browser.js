@@ -110,11 +110,9 @@
   // revisions for shared course codes. Until a course-specific REV2021 URL is
   // verified in the data record, do not send a student to a potentially 2026 page.
   const syllabusUrl = subject => {
-    if (subject.syllabusUnavailable) return "";
-    const revision = revisionTag(subject.revision);
-    const code = norm(subject.code);
-    if (revision === "REV2021" && SHARED_CODE_COLLISIONS.has(code) && !subject.syllabusUrl) return "";
-    return subject.syllabusUrl || directCourseUrl(subject.code, revision);
+    const tag = revisionTag(subject.revision);
+    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
   };
   const syllabusUnavailableMessage = subject =>
     `Official syllabus link has not been verified for Revision ${esc(revisionYear(subject.revision))} course ${esc(subject.code)}.`;
@@ -126,9 +124,8 @@
   };
   const questionPaperUrl = subject => {
     const tag = revisionTag(subject.revision);
-    if (tag === "REV2021") return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
-    if (tag === "REV2026") return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}&scheme=REV2026`;
-    return "";
+    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
   };
   const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
   const questionPaperAction = (subject, label) => {
