@@ -34,8 +34,8 @@
 
   const questionPaperUrlFor = (code, revision) => {
     const tag = String(revision || "").toUpperCase();
-    const scheme = tag === "REV2026" ? "&scheme=REV2026" : "";
-    return `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}${scheme}`;
+    if (tag === "REV2026" || tag === "2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
   };
 
   const modelPaperUnavailableMessage = (revision, code) =>

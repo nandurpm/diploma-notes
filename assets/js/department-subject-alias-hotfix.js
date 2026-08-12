@@ -17,18 +17,15 @@
   const lessonHref = (subject) => `${root()}lessons/lessons-${encodeURIComponent(assetCode(subject))}.html`;
   const notesHref = (subject) => `${root()}notes/downloadable-notes-${encodeURIComponent(assetCode(subject))}.pdf`;
   const syllabusHref = (subject) => {
-    if (String(subject.revision) === "2021") {
-      return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
-    }
-    return typeof globalThis.syllabusLink === "function"
-      ? globalThis.syllabusLink(subject.code, subject.revision)
-      : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
+    const tag = String(subject.revision || "").toUpperCase();
+    if (tag === "REV2026" || tag === "2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
   };
-  const qpHref = (subject) => String(subject.revision) === "2021"
-    ? (typeof globalThis.modelQuestionPaperLink === "function"
-      ? globalThis.modelQuestionPaperLink(subject.code, subject.revision)
-      : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`)
-    : "";
+  const qpHref = (subject) => {
+    const tag = String(subject.revision || "").toUpperCase();
+    if (tag === "REV2026" || tag === "2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
+  };
   const qpAction = (subject) => {
     const href = qpHref(subject);
     if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(subject.revision)}" data-model-paper-course="${esc(code(subject.code))}">Sample QP</a>`;
