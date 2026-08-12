@@ -94,26 +94,16 @@
   const sameDept = (a, b) => depKey(a) === depKey(b);
   // PERFORMANCE OPTIMIZATION: Simplified key generation to reduce string concatenation and array allocation.
   const key = s => `${s.revision}|${s.code}|${s.department}`;
-  const directCourseUrl = code => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}`;
+  const directCourseUrl = (code, revision) => `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${revision ? `&scheme=REV${encodeURIComponent(revision)}` : ""}`;
   const syllabusUrl = subject => {
-    const code = norm(subject.code);
     if (String(subject.revision) === "2021") {
-      // Direct per-course link only when the code is collision-free (see
-      // REV2021_SAFE_CODES above). For a colliding code the government site
-      // has no reliable way to tell which revision's course we mean, so we
-      // fall back to the REV2021 scheme index rather than risk wrong content.
-      return REV2021_SAFE_CODES.has(code)
-        ? directCourseUrl(subject.code)
-        : "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
+      // Keep syllabus lookup revision-aware. Shared course codes such as 3024
+      // must include the selected REV2021 scheme instead of falling through to
+      // the unscoped course URL, which can resolve to a different revision.
+      return subject.syllabusUrl || directCourseUrl(subject.code, "2021");
     }
-    if (String(subject.revision) === "2026" && SHARED_CODE_COLLISIONS.has(code)) {
-      // Same collision, same unreliable course= lookup — confirmed live that
-      // a colliding code can serve EITHER revision's content on any given
-      // request. Route to that programme's REV2026 course list instead of a
-      // direct course link, since programmeCode is always present.
-      return subject.programmeCode
-        ? `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-courses&prog=${encodeURIComponent(subject.programmeCode)}`
-        : "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026";
+    if (String(subject.revision) === "2026") {
+      return subject.syllabusUrl || directCourseUrl(subject.code, "2026");
     }
     return subject.syllabusUrl || directCourseUrl(subject.code);
   };
