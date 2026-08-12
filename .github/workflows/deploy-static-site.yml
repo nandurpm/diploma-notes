@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
+          fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -57,38 +57,14 @@ jobs:
           test -f _site/assets/js/about-experience.js
           test -f _site/assets/css/about-experience.css
 
-      - name: Resolve Cloudflare Pages project by production domain
+      - name: Set Cloudflare Pages project
         id: project
         run: |
-          python - <<'PY'
-          import json
-          import os
-          import urllib.request
-
-          account = os.environ['CLOUDFLARE_ACCOUNT_ID']
-          token = os.environ['CLOUDFLARE_API_TOKEN']
-          domain = os.environ['PRODUCTION_DOMAIN']
-          request = urllib.request.Request(
-              f'https://api.cloudflare.com/client/v4/accounts/{account}/pages/projects',
-              headers={'Authorization': f'Bearer {token}', 'Content-Type': 'application/json'},
-          )
-          with urllib.request.urlopen(request, timeout=30) as response:
-              payload = json.loads(response.read().decode('utf-8'))
-          if not payload.get('success'):
-              raise SystemExit(f'Cloudflare project lookup failed: {payload.get("errors")}')
-          matches = []
-          for project in payload.get('result') or []:
-              domains = set(project.get('domains') or [])
-              subdomain = str(project.get('subdomain') or '').replace('https://', '').rstrip('/')
-              if domain in domains or domain == subdomain:
-                  matches.append(project)
-          if len(matches) != 1:
-              raise SystemExit(f'Expected one Cloudflare Pages project for {domain}; found {[item.get("name") for item in matches]}')
-          name = str(matches[0]['name'])
-          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as output:
-              output.write(f'name={name}\n')
-          print(f'Resolved Cloudflare Pages project: {name}')
-          PY
+          # The deployment token can deploy but no longer has permission to list
+          # every Pages project in the account. Keep the known project name here
+          # so deployment does not depend on an account-wide read permission.
+          echo 'name=diploma-notes' >> "$GITHUB_OUTPUT"
+          echo 'Using Cloudflare Pages project: diploma-notes'
 
       - name: Deploy repository main to production
         uses: cloudflare/wrangler-action@v3
