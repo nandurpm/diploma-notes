@@ -679,6 +679,13 @@
       "subjectName": "Power Electronics & Automation",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5043A.html"
+    },
+    "REV2026:5043B:revision-2026-content/lessons/lessons-5043B.html": {
+      "messageId": "projects/poly-pmna/messages/8737902406610889880",
+      "subjectCode": "5043B",
+      "subjectName": "Microwave Devices & Radar",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5043B.html"
     }
   }
 }
