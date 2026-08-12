@@ -6,6 +6,7 @@
   const COMMON_VALUE = "__common__";
   const ALL_DEPARTMENTS = "all";
   const HOME_LIMIT = 36;
+  const PAPERS_RENDER_LIMIT = 160;
 
   // Revision 2021 assets remain in /lessons and /notes.
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5001","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6031A","6031C","6031D","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
@@ -274,6 +275,7 @@
     const selectedRevision = fixedRevision || $("revisionFilter")?.value || "all";
     const requireFilter = grid.dataset.requireFilter === "true";
     const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS;
+    const narrowPaperSearch = mode === "papers" && Boolean(query || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS);
     let list = all.filter(subject => selectedRevision === "all" || String(subject.revision) === selectedRevision);
     if (mode === "papers" && requireFilter && !hasUserFilter) list = [];
     if (mode === "department") list = list.filter(subject => sameDept(subject.department, department) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
@@ -289,6 +291,12 @@
     // PERFORMANCE OPTIMIZATION: Removed redundant unique() deduplication inside the render loop.
     // The master subjects array (all) is already deduplicated once at initial load inside getSubjects().
     list.sort((a, b) => semRank(a.semester) - semRank(b.semester) || String(a.code).localeCompare(String(b.code), undefined, { numeric: true }));
+    if (mode === "papers" && narrowPaperSearch && list.length > PAPERS_RENDER_LIMIT) {
+      list = list.slice(0, PAPERS_RENDER_LIMIT);
+      grid.dataset.resultLimited = "true";
+    } else {
+      delete grid.dataset.resultLimited;
+    }
     if (mode === "home") {
       // PERFORMANCE OPTIMIZATION: Replacing O(n^2) array.findIndex loop with O(n) Set lookups.
       // This is crucial on the homepage where 1800+ elements would otherwise trigger millions of iterations.
@@ -304,7 +312,10 @@
       }
       list = uniqueHomeList.slice(0, HOME_LIMIT);
     }
-    grid.innerHTML = list.length ? (mode === "home" ? list.map(s => cachedCard(s, mode)).join("") : group(list, mode)) : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
+    const limitNotice = grid.dataset.resultLimited === "true"
+      ? `<div class="empty-state result-limit-note">Showing the first ${PAPERS_RENDER_LIMIT} matches. Add a subject code/title or another filter to narrow the list.</div>`
+      : "";
+    grid.innerHTML = list.length ? `${limitNotice}${mode === "home" ? list.map(s => cachedCard(s, mode)).join("") : group(list, mode)}` : `<div class="empty-state">${esc(emptyMessage(mode, selectedRevision))}</div>`;
 
     // PERFORMANCE OPTIMIZATION: create the announcer only once and keep it in a
     // module-level variable instead of querying the DOM on every render.
@@ -317,7 +328,7 @@
       grid.parentNode.insertBefore(renderAnnouncer, grid);
     }
     if (renderAnnouncer) {
-      renderAnnouncer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length} subjects found.`);
+      renderAnnouncer.textContent = list.length === 0 ? "No subjects found." : (list.length === 1 ? "1 subject found." : `${list.length}${grid.dataset.resultLimited === "true" ? " visible" : ""} subjects found.`);
     }
   }
 
@@ -360,7 +371,17 @@
     fillSemester($("semesterFilter"), activeSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
 
     let timer = 0;
-    const rerender = () => { clearTimeout(timer); timer = setTimeout(() => render(all, grid, mode, fixedRevision, department), 120); };
+    let pendingFrame = 0;
+    const rerender = () => {
+      clearTimeout(timer);
+      if (pendingFrame) cancelAnimationFrame(pendingFrame);
+      timer = setTimeout(() => {
+        pendingFrame = requestAnimationFrame(() => {
+          pendingFrame = 0;
+          render(all, grid, mode, fixedRevision, department);
+        });
+      }, mode === "papers" ? 180 : 120);
+    };
     $("revisionFilter")?.addEventListener("change", () => {
       const revision = $("revisionFilter").value;
       const revisionSubjects = all.filter(subject => String(subject.revision) === revision);
