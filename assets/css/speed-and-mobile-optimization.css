@@ -1,0 +1,94 @@
+/* =========================================================
+   POLY PMNA - SPEED AND MOBILE OPTIMIZATION
+   Enhances loading performance, rendering speed, and mobile responsiveness.
+   ========================================================= */
+
+/* Performance & Rendering Speed */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, video, canvas, svg {
+  content-visibility: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+img:not([loading]) {
+  loading: lazy;
+}
+
+/* Reduced Motion for Performance & Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Mobile Responsiveness Enhancements */
+@media (max-width: 768px) {
+  body {
+    font-size: 16px; /* Prevents iOS Safari auto-zoom on form inputs */
+    -webkit-tap-highlight-color: rgba(29, 78, 216, 0.15);
+  }
+
+  /* Expand touch targets for accessibility and mobile ergonomics */
+  button, 
+  .btn, 
+  .action, 
+  input, 
+  select, 
+  textarea,
+  .navlinks a {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  /* Responsive grids fallback for small mobile screens */
+  .cards.two,
+  .cards.three,
+  .subject-grid,
+  .poly-tools {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Prevent horizontal overflow */
+  body, main, section, article, div {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  
+  .page-title {
+    padding: 20px 12px;
+  }
+
+  h1 {
+    font-size: 1.65rem !important;
+  }
+
+  h2 {
+    font-size: 1.3rem !important;
+  }
+}
