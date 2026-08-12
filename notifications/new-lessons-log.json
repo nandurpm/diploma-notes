@@ -497,6 +497,13 @@
       "subjectName": "Sustainable Construction Practices",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5014A.html"
+    },
+    "REV2026:5014B:revision-2026-content/lessons/lessons-5014B.html": {
+      "messageId": "projects/poly-pmna/messages/3120167495765328582",
+      "subjectCode": "5014B",
+      "subjectName": "Remote Sensing and GIS",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5014B.html"
     }
   }
 }
