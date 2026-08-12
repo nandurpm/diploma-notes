@@ -31,7 +31,8 @@
 
         <activity
             android:name=".NotificationBootstrapActivity"
-            android:excludeFromRecents="true"
+            android:excludeFromRecents="false"
+            android:alwaysRetainTaskState="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
