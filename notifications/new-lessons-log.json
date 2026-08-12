@@ -161,6 +161,13 @@
       "subjectName": "Applied Electronics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3042.html"
+    },
+    "REV2026:3051:revision-2026-content/lessons/lessons-3051.html": {
+      "messageId": "projects/poly-pmna/messages/1489254002624016994",
+      "subjectCode": "3051",
+      "subjectName": "Computer Programming",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3051.html"
     }
   }
 }
