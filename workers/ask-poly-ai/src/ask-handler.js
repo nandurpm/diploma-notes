@@ -510,9 +510,10 @@ function tryArithmeticEquality(text) {
   if (!/[+\-*/^()]|sin|cos|tan|sqrt|log|ln|abs|pi|%/.test(leftClean)) return null;
 
   const radians = /\b(rad|radian|radians)\b/i.test(text);
+  const leftValue = leftClean.replace(/(\d+(?:\.\d+)?)%/g, "($1/100)");
   let value;
   try {
-    value = evalMathExpression(leftClean, {}, { radians });
+    value = evalMathExpression(leftValue, {}, { radians });
   } catch (_) {
     return null;
   }
