@@ -637,6 +637,13 @@
       "subjectName": "Power Electronics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5032.html"
+    },
+    "REV2026:5033A:revision-2026-content/lessons/lessons-5033A.html": {
+      "messageId": "projects/poly-pmna/messages/3020703556120113995",
+      "subjectCode": "5033A",
+      "subjectName": "Fundamentals of Control Systems",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5033A.html"
     }
   }
 }
