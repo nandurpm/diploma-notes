@@ -145,6 +145,50 @@ test("tryArithmeticEquality verifies numeric equalities with the correct value",
   assert.equal(T.tryArithmeticEquality("what is 2 + 3"), null);
 });
 
+test("equality checker handles complex power expressions", () => {
+  /* Multi-digit powers and chained exponentiation (right-associative). */
+  assert.match(T.tryArithmeticEquality("3^5 = 243"), /3\^5 = 243 is correct/);
+  assert.match(T.tryArithmeticEquality("3^5 = 240"), /3\^5 = 243/);
+  assert.match(T.tryArithmeticEquality("4^2 = 16"), /is correct/);
+  assert.match(T.tryArithmeticEquality("3^3^2 = 19683"), /is correct/);
+  assert.match(T.tryArithmeticEquality("3^3^2 = 729"), /3\^3\^2 = 19683/);
+  /* Powers combined with other operators on the left side. */
+  assert.match(T.tryArithmeticEquality("2^3 + 5*2 = 18"), /is correct/);
+  assert.match(T.tryArithmeticEquality("2^3 + 5*2 = 20"), /2\^3\+5\*2 = 18/);
+  /* Grouped bases, decimal exponents and negative exponents. */
+  assert.match(T.tryArithmeticEquality("(2+3)^2 = 25"), /is correct/);
+  assert.match(T.tryArithmeticEquality("(2+3)^2 = 13"), /\(2\+3\)\^2 = 25/);
+  assert.match(T.tryArithmeticEquality("2^(-3) = 0.125"), /is correct/);
+  assert.match(T.tryArithmeticEquality("2^(-3) = 0.12"), /2\^\(-3\) = 0\.125/);
+  /* Square roots and decimal coefficients. */
+  assert.match(T.tryArithmeticEquality("sqrt(144) = 12"), /is correct/);
+  assert.match(T.tryArithmeticEquality("sqrt(144) = 10"), /sqrt\(144\) = 12/);
+  assert.match(T.tryArithmeticEquality("3.5 * 8 = 28"), /is correct/);
+  assert.match(T.tryArithmeticEquality("1000/8 = 125"), /is correct/);
+  assert.match(T.tryArithmeticEquality("is 2^8 = 256 correct"), /2\^8 = 256 is correct/);
+  /* Factorials are outside the arithmetic grammar and must fall through. */
+  assert.equal(T.tryArithmeticEquality("5! = 120"), null);
+});
+
+test("equality claims with percentages are resolved deterministically", () => {
+  /* The single equality checker bails on percentage-of phrasings that contain
+   * prose like "of"; those are resolved by the earlier tryPercentage solver
+   * in the local-math chain, so verify the full chain here. */
+  assert.match(T.localMathAnswer("125% of 160 = 200").answer, /Answer: 200/);
+  assert.match(T.localMathAnswer("125% of 160 = 210").answer, /Answer: 200/);
+  assert.match(T.localMathAnswer("25% of 200 = 50").answer, /Answer: 50/);
+  assert.match(T.localMathAnswer("80 increased by 25% = 100").answer, /Answer: 100/);
+  assert.match(T.localMathAnswer("80 increased by 25% = 110").answer, /Answer: 100/);
+  assert.match(T.localMathAnswer("200 decreased by 10% = 180").answer, /Answer: 180/);
+  assert.match(T.localMathAnswer("200 decreased by 10% = 190").answer, /Answer: 180/);
+  /* Dual-percentage comparisons land on the tryPercentage solver too, so the
+   * chain must return the left-hand value, not silently validate the claim. */
+  assert.match(T.localMathAnswer("20% of 50 = 10% of 100").answer, /Answer: 10/);
+  /* The bare equality checker still handles plain percentage arithmetic. */
+  assert.match(T.tryArithmeticEquality("50% + 50% = 1"), /is correct/);
+  assert.match(T.tryArithmeticEquality("75% + 75% = 1"), /1\.5/);
+});
+
 test("localMathAnswer wraps deterministic answers and ignores prose", () => {
   const result = T.localMathAnswer("what is 2 + 2");
   assert.equal(result.answer, "Answer: 4");
