@@ -385,6 +385,13 @@
       "subjectName": "Switch Gear and Protection",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4031.html"
+    },
+    "REV2026:4041:revision-2026-content/lessons/lessons-4041.html": {
+      "messageId": "projects/poly-pmna/messages/844050560744721382",
+      "subjectCode": "4041",
+      "subjectName": "Analog Communication",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4041.html"
     }
   }
 }
