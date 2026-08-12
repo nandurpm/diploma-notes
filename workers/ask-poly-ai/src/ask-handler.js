@@ -458,6 +458,80 @@ function expressionCandidate(text) {
   return allowed.replace(/\s+/g, "").replace(/,$/, "");
 }
 
+/* Deterministic checker/evaluator for numeric equality questions such as
+ * "2 + 78 = 80" or "is 12 * 8 = 96 correct". The worker computes the true
+ * value locally instead of sending such questions to the LLM, because the
+ * LLM was answering with vague "that is not correct" text without the
+ * correct value. */
+function tryArithmeticEquality(text) {
+  const q = cleanMathInput(text).toLowerCase();
+  if (!q.includes("=")) return null;
+  if (!/[0-9][\s]*(?:[+\-*/^()%])/.test(q)) return null;
+
+  /* Keep only a single "=" equation; extra "=" (e.g. "what is 2+3 = what is 4+5")
+   * is not a simple numeric check and should fall through to the AI. */
+  const parts = q.split("=");
+  if (parts.length !== 2) return null;
+
+  const [rawLeft, rawRight] = parts.map((part) => part.replace(/\s+/g, ""));
+
+  /* The claimed value is the leading number (optionally with %) of the right side.
+   * Trailing prose such as "is 12 * 8 = 96 correct" must not disqualify the check. */
+  const rightMatch = /^(-?\d+(?:\.\d+)?(%?))/.exec(rawRight);
+  if (!rightMatch) return null;
+
+  /* Likewise, any prose prefix on the left side (e.g. "is" in "is 12 * 8" or
+   * "the correct answer is:" in "the correct answer is: 2 + 78") is dropped;
+   * the arithmetic suffix is what gets evaluated. */
+  const cleanLeft = rawLeft.replace(/^[^0-9+\-*/^(]+/, "");
+
+  /* Rebuild the left-hand expression from the text that precedes the claim.
+   * Search the cleaned question for " =<claimed value>" and take everything
+   * before it; stripQuestionWords then removes phrasings like
+   * "the correct answer is" or "is ... correct". */
+  const cleanedQuestion = cleanMathInput(text);
+  const normalised = cleanedQuestion.replace(/\s*=\s*/g, " =");
+  const claimedToken = rightMatch[0];
+  const claimIndex = normalised.lastIndexOf(` =${claimedToken}`);
+  if (claimIndex === -1) return null;
+  let leftClean = expressionCandidate(normalised.slice(0, claimIndex) + " =").replace(/=$/, "");
+  if (leftClean.includes("=")) return null;
+
+  /* If stripping question words leaves leftover prose tokens (e.g. "the correct"),
+   * fall back to the raw left side (prose prefix already removed), which
+   * expressionCandidate filters to arithmetic tokens only. */
+  const leftoverProse = leftClean.replace(/[^a-z]/g, "").replace(/sin|cos|tan|asin|acos|atan|sqrt|abs|log|ln|exp|pi|e/g, "");
+  if (/[a-z]/.test(leftoverProse)) leftClean = expressionCandidate(cleanLeft + " =").replace(/=$/, "");
+
+  /* Left-hand side must be a computable pure-arithmetic expression. */
+  const unknownLeft = leftClean.match(/[a-z_]+/g) || [];
+  const allowedWords = new Set(["sin", "cos", "tan", "asin", "acos", "atan", "sqrt", "abs", "log", "ln", "exp", "pi", "e"]);
+  if (unknownLeft.some((word) => !allowedWords.has(word))) return null;
+  if (!/[+\-*/^()]|sin|cos|tan|sqrt|log|ln|abs|pi|%/.test(leftClean)) return null;
+
+  const radians = /\b(rad|radian|radians)\b/i.test(text);
+  let value;
+  try {
+    value = evalMathExpression(leftClean, {}, { radians });
+  } catch (_) {
+    return null;
+  }
+  if (!Number.isFinite(value)) return null;
+
+  const claimed = Number(claimedToken.replace(/%$/, ""));
+  const divisor = claimedToken.endsWith("%") ? 100 : 1;
+  if (Math.abs(value - claimed / divisor) < EPSILON) {
+    return `Answer: Yes, ${cleanText(leftClean, 120)} = ${roundSmart(claimed)} is correct.
+
+Verification: ${cleanText(leftClean, 120)} evaluates to ${roundSmart(value)} locally.`;
+  }
+  return `Answer: No, ${cleanText(leftClean, 120)} = ${roundSmart(claimed)} is not correct.
+
+The correct value is ${cleanText(leftClean, 120)} = ${roundSmart(value)}.
+
+Calculation performed locally.`;
+}
+
 function tryArithmetic(text) {
   let expr = expressionCandidate(text);
   if (!expr || expr.includes("=")) return null;
@@ -479,7 +553,7 @@ function localMathAnswer(message) {
   const q = cleanText(message, 2200);
   if (!isMathLike(q)) return null;
 
-  const solvers = [tryPercentage, tryEquation, tryCalculus, tryGeometry, tryArithmetic];
+  const solvers = [tryPercentage, tryEquation, tryCalculus, tryGeometry, tryArithmeticEquality, tryArithmetic];
   for (const solver of solvers) {
     try {
       const answer = solver(q);
@@ -762,6 +836,7 @@ export const __testables = {
   tryGeometry,
   expressionCandidate,
   tryArithmetic,
+  tryArithmeticEquality,
   localMathAnswer,
   sanitizeHistory
 };
