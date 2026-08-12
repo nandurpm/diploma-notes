@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "failed",
-  "generatedAt": "2026-08-12T21:04:11.490Z",
+  "generatedAt": "2026-08-12T21:06:54.788Z",
   "error": "Error: no relevant console errors failed\n    at check (file:///home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:20:22)\n    at file:///home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:83:3",
   "checks": [
     {
