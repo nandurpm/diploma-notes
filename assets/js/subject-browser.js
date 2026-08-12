@@ -106,7 +106,24 @@
     const tag = revisionTag(revision);
     return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${tag ? `&scheme=${encodeURIComponent(tag)}` : ""}`;
   };
-  const syllabusUrl = subject => subject.syllabusUrl || directCourseUrl(subject.code, subject.revision);
+  // SITTTR's public course endpoint does not reliably distinguish the two
+  // revisions for shared course codes. Until a course-specific REV2021 URL is
+  // verified in the data record, do not send a student to a potentially 2026 page.
+  const syllabusUrl = subject => {
+    if (subject.syllabusUnavailable) return "";
+    const revision = revisionTag(subject.revision);
+    const code = norm(subject.code);
+    if (revision === "REV2021" && SHARED_CODE_COLLISIONS.has(code) && !subject.syllabusUrl) return "";
+    return subject.syllabusUrl || directCourseUrl(subject.code, revision);
+  };
+  const syllabusUnavailableMessage = subject =>
+    `Official syllabus link has not been verified for Revision ${esc(revisionYear(subject.revision))} course ${esc(subject.code)}.`;
+  const syllabusAction = subject => {
+    const href = syllabusUrl(subject);
+    if (href) return `<a class="action syllabus" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open Syllabus</a>`;
+    const message = syllabusUnavailableMessage(subject);
+    return `<button class="action syllabus" type="button" data-syllabus-unavailable="true" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${message}" title="${message}" onclick="window.alert(this.title)">Open Syllabus</button>`;
+  };
   const questionPaperUrl = subject => {
     const tag = revisionTag(subject.revision);
     if (tag === "REV2021") return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`;
@@ -144,7 +161,8 @@
       syllabusUrl: subject.syllabusUrl,
       programmeSlug: subject.programmeSlug,
       programmeCode: subject.programmeCode,
-      programmeUrl: subject.programmeUrl
+      programmeUrl: subject.programmeUrl,
+      syllabusUnavailable: Boolean(subject.syllabusUnavailable)
     };
   }
 
@@ -206,7 +224,7 @@
     const studyActions = handbookAvailable
       ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabusUrl(subject))}" target="_blank" rel="noopener noreferrer external" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open Syllabus</a>${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never

@@ -227,8 +227,9 @@
      ========================================================= */
   function normalizeRev2026OfficialLinks(scope = document) {
     const cards = [];
-    if (scope.nodeType === 1 && scope.matches?.('.subject-card[data-revision="2026"]')) cards.push(scope);
-    scope.querySelectorAll?.('.subject-card[data-revision="2026"]').forEach(card => cards.push(card));
+    const revision2026Selector = '.subject-card[data-revision="2026"], .subject-card[data-revision="REV2026"]';
+    if (scope.nodeType === 1 && scope.matches?.(revision2026Selector)) cards.push(scope);
+    scope.querySelectorAll?.(revision2026Selector).forEach(card => cards.push(card));
 
     cards.forEach(card => {
       const code = String(
@@ -239,11 +240,16 @@
       const encodedCode = encodeURIComponent(code);
       configureOfficialLink(
         card.querySelector(".action.syllabus"),
-        `${SITTTR_BASE}?r=${REV2026_SYLLABUS_ROUTE}&course=${encodedCode}`,
+        `${SITTTR_BASE}?r=${REV2026_SYLLABUS_ROUTE}&course=${encodedCode}&scheme=REV2026`,
         "Open Syllabus",
         `Open the official SITTTR syllabus for Revision 2026 course ${code}.`
       );
-      configureUnavailableModelPaper(card.querySelector(".action.qp"), code);
+      configureOfficialLink(
+        card.querySelector(".action.qp"),
+        `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodedCode}&scheme=REV2026`,
+        "Open Model Question Paper",
+        `Open the official SITTTR Revision 2026 model-question-paper page for course ${code}.`
+      );
     });
   }
 
@@ -265,8 +271,8 @@
       const relevant = mutations.some(mutation =>
         [...mutation.addedNodes].some(node =>
           node.nodeType === 1 && (
-            node.matches?.('.subject-card[data-revision="2026"]') ||
-            node.querySelector?.('.subject-card[data-revision="2026"]')
+            node.matches?.('.subject-card[data-revision="2026"], .subject-card[data-revision="REV2026"]') ||
+            node.querySelector?.('.subject-card[data-revision="2026"], .subject-card[data-revision="REV2026"]')
           )
         )
       );
