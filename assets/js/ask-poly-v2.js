@@ -152,6 +152,82 @@
     return cells.length >= 2 && cells.every((cell) => /^:?-{3,}:?$/.test(cell));
   }
 
+  /* Lightweight code syntax highlighting for Ask POLY code fences.
+   * Returns HTML with <span class="hl-*> wrappers; colors are defined in
+   * ask-poly-main.css (.ask-code .hl-keyword, .hl-string, ...). */
+  const HIGHLIGHT_RULES = [
+    /* strings (must come first) */
+    { pattern: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|"""[\s\S]*?"""|'''[\s\S]*?''')/g, cls: "hl-string" },
+    /* comments */
+    { pattern: /(#[^\n]*|\/\/[^\n]*|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->)/g, cls: "hl-comment" },
+    /* numbers */
+    { pattern: /\b(\d[\d._]*)\b/g, cls: "hl-number" }
+  ];
+  const LANGUAGE_KEYWORDS = {
+    python: "and|as|assert|async|await|break|class|continue|def|del|elif|else|except|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|raise|return|try|while|with|yield|True|False|None|print|input|float|int|str|range|len|self|math|def|if|else|elif|for|while|import|from|return|break|continue|pass|try|except|finally|raise|with|as|async|await|True|False|None|bool|list|dict|set|tuple",
+    py: "python",
+    javascript: "async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|false|finally|for|from|function|if|import|in|instanceof|let|new|null|of|return|static|super|switch|this|throw|true|try|typeof|undefined|var|void|while|with|yield|console|function|=>",
+    js: "javascript",
+    typescript: "javascript|interface|type|namespace|abstract|implements|private|protected|public|readonly",
+    ts: "typescript",
+    java: "abstract|assert|boolean|break|byte|case|catch|char|class|continue|default|do|double|else|enum|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|native|new|null|package|private|protected|public|return|short|static|strictfp|super|switch|synchronized|this|throw|throws|transient|try|void|volatile|while|true|false|String|System|Scanner|Math",
+    c: "auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|inline|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while|#include|#define|#ifndef|#endif|#pragma|NULL|printf|scanf|return",
+    cpp: "asm|catch|class|const_cast|delete|dynamic_cast|explicit|export|friend|inline|mutable|namespace|new|operator|private|protected|public|register|reinterpret_cast|static_cast|template|throw|try|typeid|typename|using|virtual|goto|bool|true|false|nullptr|std|cout|cin|endl|include|define",
+    html: "html|head|body|div|span|a|p|img|ul|ol|li|table|thead|tbody|tr|th|td|form|input|button|select|option|textarea|script|style|link|meta|title|br|hr|h1|h2|h3|h4|h5|h6|nav|header|footer|main|section|article|aside",
+    css: "align-items|background|border|color|display|flex|font-size|font-weight|height|justify-content|margin|padding|position|width|height|px|em|rem|%|!important|rgba|var|@media|@keyframes|display|flex|grid|none|auto|relative|absolute|fixed|sticky|inherit|initial|unset|hover|focus|active|media|keyframes|import|font-face",
+    sql: "SELECT|FROM|WHERE|INSERT|INTO|VALUES|UPDATE|SET|DELETE|CREATE|TABLE|ALTER|DROP|JOIN|LEFT|RIGHT|INNER|OUTER|ON|AND|OR|NOT|IN|IS|NULL|AS|ORDER|BY|GROUP|HAVING|LIMIT|COUNT|SUM|AVG|MAX|MIN|DISTINCT|INDEX|PRIMARY|KEY|FOREIGN|REFERENCES|UNION|ALL|EXISTS|BETWEEN|LIKE|ANY|ASC|DESC|INTEGER|VARCHAR|TEXT|REAL|BLOB|DATETIME|BOOLEAN",
+    json: "true|false|null",
+    bash: "if|then|else|elif|fi|for|while|do|done|case|esac|function|return|exit|export|local|source|cd|ls|cat|echo|grep|sed|awk|find|cp|mv|rm|mkdir|chmod|sudo|apt|pip|npm|git|curl|wget",
+    sh: "bash",
+    xml: "html|head|body|div|span|p|a|img|ul|ol|li|table|form|input|button|script|style|link|meta|title|version|encoding"
+  };
+  function highlightCode(code, language) {
+    const lang = String(language || "").toLowerCase().trim();
+    let tokens = [];
+    let remaining = code;
+    /* Collect string and comment tokens first so their contents are never keyword-colored */
+    const stringCommentPattern = /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|"""[\s\S]*?"""|'''[\s\S]*?'''|#[^\n]*|\/\/[^\n]*|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->)/g;
+    let match;
+    let cursor = 0;
+    const spans = [];
+    while ((match = stringCommentPattern.exec(remaining)) !== null) {
+      spans.push({ start: match.index, end: match.index + match[0].length, cls: /^\s*[#\/\/\/\*]|^<!--|^-->/.test(match[0]) ? "hl-comment" : "hl-string" });
+    }
+    stringCommentPattern.lastIndex = 0;
+    /* Keyword and number highlighting on segments not inside spans */
+    const keywords = LANGUAGE_KEYWORDS[lang] || null;
+    let out = "";
+    cursor = 0;
+    for (const span of spans) {
+      out += highlightKeywordsAndNumbers(remaining.slice(cursor, span.start), keywords);
+      out += `<span class="${span.cls}">${remaining.slice(span.start, span.end)}</span>`;
+      cursor = span.end;
+    }
+    out += highlightKeywordsAndNumbers(remaining.slice(cursor), keywords);
+    return out;
+  }
+  function highlightKeywordsAndNumbers(segment, keywords) {
+    let html = segment.replace(/\b(\d[\d._]*)\b/g, '<span class="hl-number">$1</span>');
+    if (keywords) {
+      const kwPattern = new RegExp(`\\b(${keywords})\\b`, "g");
+      /* Apply keywords without touching already-highlighted numbers: split on hl-number spans */
+      const parts = html.split(/(<span class="hl-number">[\s\S]*?<\/span>)/);
+      html = parts.map((part) => part.startsWith("<span class=\"hl-number\"") ? part : part.replace(kwPattern, '<span class="hl-keyword">$1</span>')).join("");
+    }
+    return html;
+  }
+  function renderCodeBlock(codeLines) {
+    const firstLine = codeLines[0] || "";
+    const langMatch = /^\s*([a-z0-9+._#-]+)\s*$/i.exec(firstLine);
+    const hasLang = langMatch && codeLines.length > 1;
+    const language = hasLang ? langMatch[1] : "";
+    const code = (hasLang ? codeLines.slice(1) : codeLines).join("\n").trim();
+    if (!code) return "";
+    const label = language ? `<span class="ask-code-lang">${escapeHtml(language)}</span>` : "";
+    const copyBtn = `<button type="button" class="ask-code-copy" aria-label="Copy code">Copy</button>`;
+    return `<figure class="ask-code"><figcaption><span class="ask-code-head">${label}Code</span>${copyBtn}</figcaption><pre><code class="hljs">${highlightCode(code, language)}</code></pre></figure>`;
+  }
+
   function renderInlineMarkdown(value) {
     let html = escapeHtml(value);
     html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
@@ -189,7 +265,7 @@
           index += 1;
         }
         if (index < lines.length) index += 1;
-        blocks.push(`<pre><code>${escapeHtml(code.join("\n")).trim()}</code></pre>`);
+        blocks.push(renderCodeBlock(code));
         continue;
       }
 
@@ -225,6 +301,17 @@
     time.dateTime = message.createdAt;
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
+    div.addEventListener("click", (event) => {
+      const target = event.target.closest("button.ask-code-copy");
+      if (!target) return;
+      const code = target.closest(".ask-code")?.querySelector("code");
+      if (!code) return;
+      event.stopPropagation();
+      navigator.clipboard.writeText(code.textContent).then(() => {
+        target.textContent = "Copied";
+        setTimeout(() => { target.textContent = "Copy"; }, 1100);
+      }).catch(() => {});
+    });
     if (message.role === "assistant") {
       const copy = document.createElement("button");
       copy.className = "ask-copy";
