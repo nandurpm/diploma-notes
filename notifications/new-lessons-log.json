@@ -630,6 +630,13 @@
       "subjectName": "Basic Technology Courses Word Processing (Open office writer based) I",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-1149.html"
+    },
+    "REV2026:5032:revision-2026-content/lessons/lessons-5032.html": {
+      "messageId": "projects/poly-pmna/messages/9036337363514857407",
+      "subjectCode": "5032",
+      "subjectName": "Power Electronics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5032.html"
     }
   }
 }
