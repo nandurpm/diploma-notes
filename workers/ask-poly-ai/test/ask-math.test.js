@@ -125,6 +125,26 @@ test("tryArithmetic evaluates plain and percentage expressions", () => {
   assert.equal(T.tryArithmetic("x + y"), null);
 });
 
+test("tryArithmeticEquality verifies numeric equalities with the correct value", () => {
+  assert.match(T.tryArithmeticEquality("2 + 78 = 80"), /2\+78 = 80 is correct/);
+  assert.match(T.tryArithmeticEquality("2 + 78 = 81"), /not correct/);
+  assert.match(T.tryArithmeticEquality("2 + 78 = 81"), /2\+78 = 80/);
+  assert.match(T.tryArithmeticEquality("is 12 * 8 = 96 correct"), /is correct/);
+  assert.match(T.tryArithmeticEquality("100 - 37 = 63"), /is correct/);
+  assert.match(T.tryArithmeticEquality("2^10 = 1024"), /is correct/);
+  assert.match(T.tryArithmeticEquality("2^10 = 1000"), /2\^10 = 1024/);
+  /* "50% of 80 = 40" is already answered by the tryPercentage solver earlier
+   * in the local-math chain, so verify the full chain instead of the single
+   * equality checker. */
+  assert.match(T.localMathAnswer("50% of 80 = 40").answer, /Answer: 40/);
+  assert.match(T.localMathAnswer("50% of 80 = 50").answer, /Answer: 40/);
+  assert.match(T.tryArithmeticEquality("the correct answer is: 2 + 78 = 80"), /is correct/);
+  assert.equal(T.tryArithmeticEquality("x + 5 = 10"), null);
+  assert.equal(T.tryArithmeticEquality("2 + 3 = 5 = 5"), null);
+  assert.equal(T.tryArithmeticEquality("hello = 5"), null);
+  assert.equal(T.tryArithmeticEquality("what is 2 + 3"), null);
+});
+
 test("localMathAnswer wraps deterministic answers and ignores prose", () => {
   const result = T.localMathAnswer("what is 2 + 2");
   assert.equal(result.answer, "Answer: 4");
