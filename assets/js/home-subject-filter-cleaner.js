@@ -45,7 +45,9 @@
       select.value = hasCommonOption ? COMMON_VALUE : "all";
 
       select.dispatchEvent(
-        new Event("change", { bubbles: true })
+        new Event("change", {
+          bubbles: true
+        })
       );
     }
   };
