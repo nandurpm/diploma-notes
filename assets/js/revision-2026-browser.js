@@ -30,7 +30,6 @@
   "use strict";
 
   const VERSION = "20260720-rev2026-exact-titles";
-  const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
   const PROGRAMME_ART = {
     "architecture": ["#0f5ea8", "#0e7490"],
     "artificial-intelligence": ["#4f46e5", "#7c3aed"],
@@ -144,7 +143,7 @@
     const section = document.createElement("section");
     section.className = "section notice";
     section.id = "rev2026-model-qp-access";
-    section.innerHTML = `<strong>Official Revision 2026 sample question papers:</strong> <a class="btn ghost" href="${MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open all REV2026 sample papers</a>`;
+    section.innerHTML = `<strong>Official Revision 2026 sample question papers:</strong> Not available on the official SITTTR model-question-paper pages yet.`;
     title.after(section);
   }
 
@@ -245,11 +244,11 @@
     const name = String(subject.name || "Untitled subject").trim();
     const type = String(subject.type || "Course").trim();
     const syllabus = subject.syllabusUrl || `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}`;
-    const qp = `https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(code)}`;
+    const qpMessage = `Model Question Paper not available for Revision 2026 for course ${code}.`;
     const lesson = `/revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`;
     const notes = `/revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
-    return `<article class="subject-card" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="false" data-notes-available="false"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a><span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span><a class="action qp" href="${esc(qp)}" target="_blank" rel="noopener noreferrer">Sample Question Paper</a></div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="false" data-notes-available="false"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a><span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span><button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="2026" data-model-paper-course="${esc(code.toUpperCase())}" aria-label="${esc(qpMessage)}" title="${esc(qpMessage)}" onclick="window.alert(this.title)">Sample Question Paper</button></div></article>`;
   }
 
   function semesterSection(number, subjects, programmeName) {
@@ -359,7 +358,7 @@
         enhanceStaticDepartment();
         return;
       }
-      grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> or <a href="https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026" target="_blank" rel="noopener noreferrer">open official sample papers</a>.</div>';
+      grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> ; official Revision 2026 sample papers are not published yet.</div>';
     }
   }
 
