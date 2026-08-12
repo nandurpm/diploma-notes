@@ -91,6 +91,13 @@
       "subjectName": "Basic Surveying",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2012.html"
+    },
+    "REV2026:2042:revision-2026-content/lessons/lessons-2042.html": {
+      "messageId": "projects/poly-pmna/messages/2228196269156892735",
+      "subjectCode": "2042",
+      "subjectName": "Electronic Devices and Applications",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2042.html"
     }
   }
 }
