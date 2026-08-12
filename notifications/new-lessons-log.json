@@ -581,6 +581,13 @@
       "subjectName": "Production Technology",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6024C.html"
+    },
+    "REV2026:5031:revision-2026-content/lessons/lessons-5031.html": {
+      "messageId": "projects/poly-pmna/messages/2905836275025633246",
+      "subjectCode": "5031",
+      "subjectName": "Electrical Machines II",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5031.html"
     }
   }
 }
