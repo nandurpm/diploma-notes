@@ -129,3 +129,82 @@ html.polytechnic-native-app .ask-messages{
   touch-action:pan-y!important;
 }
 html.polytechnic-native-app .ask-messages > *{touch-action:pan-y}
+
+/* 2026-08 APK chat viewport repair: the transcript owns all remaining WebView height. */
+html.polytechnic-native-app,
+html.polytechnic-native-app body.portal-page.ask-poly-page{
+  height:100dvh!important;
+  min-height:100dvh!important;
+  max-height:100dvh!important;
+  overflow:hidden!important;
+}
+html.polytechnic-native-app .ask-shell{
+  display:grid!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  height:100dvh!important;
+  min-height:0!important;
+  max-height:100dvh!important;
+  padding:6px 8px 4px!important;
+  overflow:hidden!important;
+}
+html.polytechnic-native-app .ask-shell .site-breadcrumbs{
+  margin:0 0 6px!important;
+  min-height:24px!important;
+}
+html.polytechnic-native-app .ask-app{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  align-content:stretch!important;
+}
+html.polytechnic-native-app .ask-chat{
+  display:grid!important;
+  grid-template-rows:auto minmax(120px,1fr) auto!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+/* Quick chips are optional in the APK; removing them preserves the reading area. */
+html.polytechnic-native-app .ask-prompts{display:none!important}
+html.polytechnic-native-app .ask-messages{
+  display:flex!important;
+  min-height:120px!important;
+  height:auto!important;
+  overflow-x:hidden!important;
+  overflow-y:scroll!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  touch-action:pan-y!important;
+  scrollbar-gutter:stable!important;
+}
+html.polytechnic-native-app .ask-form{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) 82px!important;
+  align-items:end!important;
+  min-height:76px!important;
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom))!important;
+}
+html.polytechnic-native-app .ask-input{
+  min-height:58px!important;
+  height:58px!important;
+  max-height:58px!important;
+  overflow-y:auto!important;
+}
+html.polytechnic-native-app .ask-send{
+  width:82px!important;
+  min-height:58px!important;
+  height:58px!important;
+}
+@media(max-width:560px){
+  html.polytechnic-native-app .ask-shell{padding:5px 7px 3px!important}
+  html.polytechnic-native-app .ask-chat{grid-template-rows:auto minmax(104px,1fr) auto!important}
+  html.polytechnic-native-app .ask-messages{min-height:104px!important;padding:12px!important}
+  html.polytechnic-native-app .ask-form{grid-template-columns:minmax(0,1fr) 72px!important;min-height:70px!important;padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important}
+  html.polytechnic-native-app .ask-input{min-height:54px!important;height:54px!important;max-height:54px!important}
+  html.polytechnic-native-app .ask-send{width:72px!important;min-height:54px!important;height:54px!important}
+}
