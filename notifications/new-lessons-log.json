@@ -126,6 +126,13 @@
       "subjectName": "Thermal Engineering",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3021.html"
+    },
+    "REV2026:3022:revision-2026-content/lessons/lessons-3022.html": {
+      "messageId": "projects/poly-pmna/messages/6500966575563029887",
+      "subjectCode": "3022",
+      "subjectName": "Fluid Mechanics and Hydraulic Machines",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3022.html"
     }
   }
 }
