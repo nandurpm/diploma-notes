@@ -395,10 +395,12 @@
     const dept = kind === 'daily' ? $('dailyDept').value : kind === 'review' ? $('reviewDept').value : $('mockDept').value;
 
     if (category === 'common') {
-      CURR.common.forEach((sub) => {
-        card(targetId, sub.code, sub.name, kind);
-      });
-      // Add GK specifically to common daily/review lists
+      CURR.common
+        .filter((sub) => Array.isArray(B.questions[sub.code]) && B.questions[sub.code].length > 0)
+        .forEach((sub) => {
+          card(targetId, sub.code, sub.name, kind);
+        });
+      // Add GK specifically to common daily/review lists.
       if (kind !== 'mock') {
         card(targetId, 'GK', 'General Knowledge', kind);
       }
