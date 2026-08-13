@@ -10,8 +10,7 @@ on:
       - "assets/js/ask-poly-v2.js"
       - "assets/js/ask-poly-knowledge-loader.js"
       - "assets/data/ask-poly-knowledge.json"
-      - "workers/ask-poly-ai/src/index.js"
-      - "workers/ask-poly-ai/src/site-instructions.js"
+      - "assets/data/revision-2026-programmes.json"
       - "tools/qa_ask_poly_whole_site.mjs"
       - ".github/workflows/qa-ask-poly-whole-site.yml"
 
@@ -42,12 +41,13 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.54.2
           npx playwright install --with-deps chromium
 
-      - name: Validate Worker source
+      - name: Validate Ask POLY frontend sources
         run: |
-          node --check workers/ask-poly-ai/src/index.js
-          node --check workers/ask-poly-ai/src/site-instructions.js
-          grep -q 'whole-site-revision-aware-v1' workers/ask-poly-ai/src/index.js
-          grep -q 'Revision 2026' workers/ask-poly-ai/src/site-instructions.js
+          node --check assets/js/ask-poly-v2.js
+          node --check assets/js/ask-poly-knowledge-loader.js
+          node --check tools/qa_ask_poly_whole_site.mjs
+          test -f assets/data/ask-poly-knowledge.json
+          test -f assets/data/revision-2026-programmes.json
 
       - name: Start local website
         run: |

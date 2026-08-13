@@ -48,6 +48,11 @@ try {
       })
     });
   });
+  await page.route(/https:\/\/ask-poly-ai\.nandakumarkdpm\.workers\.dev\/health(?:\?.*)?$/, (route) => route.fulfill({
+    status: 200,
+    contentType: "application/json",
+    body: JSON.stringify({ ok: true, service: "qa-stub" })
+  }));
   await page.route(/https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com)\/.*/, (route) => route.fulfill({ status: 204, body: "" }));
 
   const response = await page.goto(`${BASE_URL}/ask-poly.html`, { waitUntil: "networkidle", timeout: 60000 });

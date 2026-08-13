@@ -1,8 +1,8 @@
 {
   "page": "/ask-poly.html",
-  "status": "failed",
-  "generatedAt": "2026-08-13T05:52:02.584Z",
-  "error": "Error: knowledge contains 38 Revision 2026 programmes failed\n    at check (file:///home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:20:22)\n    at file:///home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:55:3",
+  "status": "success",
+  "generatedAt": "2026-08-13T12:42:31.822Z",
+  "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
       "name": "Ask POLY page returns successfully",
@@ -24,7 +24,7 @@
       "status": {
         "ok": true,
         "version": "2026-08-offline-science1",
-        "generatedAt": "2026-08-12T21:16:11Z",
+        "generatedAt": "2026-08-13T12:35:38Z",
         "counts": {
           "pages": 368,
           "programmes2021": 43,
@@ -36,8 +36,21 @@
       }
     },
     {
-      "name": "knowledge contains 38 Revision 2026 programmes",
-      "passed": false,
+      "name": "knowledge contains 42 Revision 2026 programmes",
+      "passed": true,
+      "counts": {
+        "pages": 368,
+        "programmes2021": 43,
+        "programmes2026": 42,
+        "subjectRecords": 4442,
+        "lessonRecordsAvailable": 1153,
+        "notesRecordsAvailable": 1153
+      },
+      "expectedProgrammes": 42
+    },
+    {
+      "name": "knowledge contains both curriculum datasets",
+      "passed": true,
       "counts": {
         "pages": 368,
         "programmes2021": 43,
@@ -46,8 +59,77 @@
         "lessonRecordsAvailable": 1153,
         "notesRecordsAvailable": 1153
       }
+    },
+    {
+      "name": "desktop has no horizontal overflow",
+      "passed": true,
+      "viewport": 1440,
+      "document": 1440,
+      "body": 1440
+    },
+    {
+      "name": "AI request was sent",
+      "passed": true
+    },
+    {
+      "name": "user question stays separate from context",
+      "passed": true,
+      "message": "Where can I find Revision 2026 Electrical & Electronics Engineering subject 1008 and what resources are available?"
+    },
+    {
+      "name": "generated website context is attached",
+      "passed": true
+    },
+    {
+      "name": "Revision 2026 subject match is attached",
+      "passed": true
+    },
+    {
+      "name": "Revision 2026 department link is attached",
+      "passed": true
+    },
+    {
+      "name": "current user message is not duplicated in history",
+      "passed": true
+    },
+    {
+      "name": "mobile has no horizontal overflow",
+      "passed": true,
+      "viewport": 390,
+      "document": 390,
+      "body": 390
+    },
+    {
+      "name": "mobile saved chats control is visible",
+      "passed": true
+    },
+    {
+      "name": "mobile saved chats panel opens",
+      "passed": true
+    },
+    {
+      "name": "no relevant console errors",
+      "passed": true,
+      "consoleErrors": []
     }
   ],
   "consoleErrors": [],
-  "request": null
+  "requestContextLength": 9000,
+  "knowledgeStatus": {
+    "ok": true,
+    "version": "2026-08-offline-science1",
+    "generatedAt": "2026-08-13T12:35:38Z",
+    "counts": {
+      "pages": 368,
+      "programmes2021": 43,
+      "programmes2026": 42,
+      "subjectRecords": 4442,
+      "lessonRecordsAvailable": 1153,
+      "notesRecordsAvailable": 1153
+    }
+  },
+  "screenshots": [
+    "ask-poly-whole-site-desktop.png",
+    "ask-poly-whole-site-mobile.png"
+  ]
 }
