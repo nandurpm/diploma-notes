@@ -1,0 +1,461 @@
+<section class="section searchable" id="paper">
+<div class="head"><span class="tag">Practice Model Question Paper</span><h2>PROGRAMMING IN C • Maximum Marks: 75 • Time: 3 Hours</h2><p>This original practice paper follows the uploaded syllabus coverage. It is not an official board question paper. A complete master answer guide is provided below.</p></div>
+<div class="card wide"><h3>PART A — Answer all questions. Each carries 1 mark. [5 × 1 = 5]</h3>
+<ol><li>What is the purpose of a function prototype?</li><li>State the essential requirement for binary search.</li><li>What does the null character do in a C string?</li><li>Name the function used to release dynamically allocated memory.</li><li>What is the difference between <span class="inline-code">.</span> and <span class="inline-code">-&gt;</span> in structure access?</li></ol>
+</div>
+<div class="card wide"><h3>PART B — Answer any five. Each carries 8 marks. [5 × 8 = 40]</h3>
+<ol><li>Explain control structures with suitable C fragments.</li><li>Explain storage classes, scope, lifetime and visibility.</li><li>Write and explain a recursive program to find factorial.</li><li>Compare linear and binary search and write a binary-search function.</li><li>Explain selection sort and quicksort.</li><li>Explain strings in C and write functions for length and comparison.</li><li>Explain pointer arithmetic and dynamic memory allocation.</li><li>Explain structures, unions and enumerations with examples.</li></ol>
+</div>
+<div class="card wide"><h3>PART C — Answer any two. Each carries 15 marks. [2 × 15 = 30]</h3>
+<ol><li>Develop a menu-driven array program supporting input, display, linear search, selection sort and average.</li><li>Explain pointers and write programs for swap, dynamic array allocation and two-dimensional array access using pointer notation.</li><li>Develop a student-record program using an array of structures and sequential file storage. Include proper file-error handling.</li></ol>
+</div>
+</section>
+
+<section class="section searchable" id="master-answer-key">
+<div class="head"><span class="tag">Master Answer Key</span><h2>Complete model answers</h2><p>Use these answers to understand structure and marking points. In the examination, explain the logic in your own words and keep programs properly indented.</p></div>
+
+<h3>Part A answers</h3>
+<div class="table-wrap"><table><thead><tr><th>Q</th><th>Model answer</th></tr></thead><tbody>
+<tr><td>1</td><td>A function prototype declares the function name, return type and parameter types before the function is called, enabling compile-time type checking.</td></tr>
+<tr><td>2</td><td>The array must be sorted in the same order assumed by the binary-search algorithm.</td></tr>
+<tr><td>3</td><td>The null character <span class="inline-code">'\0'</span> marks the end of a C string.</td></tr>
+<tr><td>4</td><td><span class="inline-code">free()</span>.</td></tr>
+<tr><td>5</td><td>The dot operator accesses a member through a structure object; the arrow operator accesses a member through a pointer to a structure.</td></tr>
+</tbody></table></div>
+
+<h3>Part B complete answers</h3>
+<details open><summary>B1 — Control structures</summary>
+<p>Control structures determine the order in which statements execute.</p>
+<div class="table-wrap"><table><thead><tr><th>Type</th><th>Purpose</th><th>Examples</th></tr></thead><tbody><tr><td>Sequence</td><td>Statements run one after another.</td><td>Input → calculation → output</td></tr><tr><td>Selection</td><td>Selects one path according to a condition.</td><td>if, if-else, else-if, switch</td></tr><tr><td>Repetition</td><td>Repeats a block.</td><td>for, while, do-while</td></tr><tr><td>Unconditional transfer</td><td>Changes normal flow directly.</td><td>break, continue, goto, return</td></tr></tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Representative fragments</span><button class="copy-code" type="button">Copy</button></div><pre><code>if (mark &gt;= 50) {
+    printf("Pass\n");
+} else {
+    printf("Fail\n");
+}
+
+for (int i = 1; i &lt;= 5; i++) {
+    printf("%d ", i);
+}
+
+switch (choice) {
+case 1: printf("Add\n"); break;
+case 2: printf("Search\n"); break;
+default: printf("Invalid\n");
+}</code></pre></div>
+<div class="ml">Condition true/false അനുസരിച്ച് selection path മാറുന്നു. Loop condition false ആകുന്നതുവരെ repetition നടക്കും.</div>
+</details>
+
+<details><summary>B2 — Storage classes, scope, lifetime and visibility</summary>
+<p><b>Scope</b> specifies where a name can be used. <b>Lifetime</b> specifies how long the object exists. <b>Visibility</b> is whether a declaration can be seen at a particular program point.</p>
+<div class="table-wrap"><table><thead><tr><th>Class</th><th>Default use</th><th>Lifetime</th><th>Important feature</th></tr></thead><tbody><tr><td>auto</td><td>Local variables</td><td>During block execution</td><td>Default local storage class</td></tr><tr><td>register</td><td>Frequently accessed local variable</td><td>During block execution</td><td>Compiler optimisation hint</td></tr><tr><td>static local</td><td>Local variable retaining state</td><td>Entire program</td><td>Block scope, persistent value</td></tr><tr><td>static file-scope</td><td>Private global object/function</td><td>Entire program</td><td>Internal linkage</td></tr><tr><td>extern</td><td>Object defined in another location/file</td><td>Entire program</td><td>External declaration</td></tr></tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Static local example</span><button class="copy-code" type="button">Copy</button></div><pre><code>void counter(void)
+{
+    static int calls = 0;
+    calls++;
+    printf("%d\n", calls);
+}</code></pre></div>
+</details>
+
+<details><summary>B3 — Recursive factorial</summary>
+<p>Factorial is defined as 0! = 1 and n! = n × (n − 1)! for n &gt; 0. The first rule is the base case; the second is the recursive case.</p>
+<div class="codebox"><div class="code-title"><span>Complete answer</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+unsigned long long factorial(unsigned int n)
+{
+    if (n &lt;= 1U) {
+        return 1ULL;
+    }
+    return n * factorial(n - 1U);
+}
+
+int main(void)
+{
+    unsigned int n;
+    printf("Enter n (0 to 20): ");
+    if (scanf("%u", &amp;n) != 1 || n &gt; 20U) {
+        fprintf(stderr, "Invalid input\n");
+        return 1;
+    }
+    printf("%u! = %llu\n", n, factorial(n));
+    return 0;
+}</code></pre></div>
+<p>Trace for 4!: factorial(4) = 4 × factorial(3) = 4 × 3 × factorial(2) = 4 × 3 × 2 × factorial(1) = 24.</p>
+</details>
+
+<details><summary>B4 — Linear search versus binary search</summary>
+<div class="table-wrap"><table><thead><tr><th>Point</th><th>Linear search</th><th>Binary search</th></tr></thead><tbody><tr><td>Data order</td><td>Any order</td><td>Must be sorted</td></tr><tr><td>Method</td><td>Checks elements one by one</td><td>Repeatedly halves the search range</td></tr><tr><td>Worst time</td><td>O(n)</td><td>O(log n)</td></tr><tr><td>Suitable for</td><td>Small or unsorted data</td><td>Large sorted arrays</td></tr></tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Binary-search function</span><button class="copy-code" type="button">Copy</button></div><pre><code>int binary_search(const int a[], int size, int target)
+{
+    int low = 0;
+    int high = size - 1;
+
+    while (low &lt;= high) {
+        int mid = low + (high - low) / 2;
+        if (a[mid] == target) return mid;
+        if (a[mid] &lt; target) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}</code></pre></div>
+</details>
+
+<details><summary>B5 — Selection sort and quicksort</summary>
+<p><b>Selection sort:</b> In each pass, find the smallest element in the unsorted part and swap it with the first unsorted position. It is in-place and O(n²).</p>
+<p><b>Quicksort:</b> Choose a pivot, partition the array into values not greater than the pivot and values greater than it, place the pivot in its final position, and recursively sort both parts. Average time is O(n log n); worst time is O(n²).</p>
+<div class="codebox"><div class="code-title"><span>Selection-sort core</span><button class="copy-code" type="button">Copy</button></div><pre><code>for (int i = 0; i &lt; size - 1; i++) {
+    int min_index = i;
+    for (int j = i + 1; j &lt; size; j++) {
+        if (a[j] &lt; a[min_index]) min_index = j;
+    }
+    int temporary = a[i];
+    a[i] = a[min_index];
+    a[min_index] = temporary;
+}</code></pre></div>
+</details>
+
+<details><summary>B6 — Strings, length and comparison</summary>
+<p>A C string is an array of characters terminated by <span class="inline-code">'\0'</span>. Input must not exceed the destination buffer. Standard operations include length, copy, concatenation, comparison and substring searching.</p>
+<div class="codebox"><div class="code-title"><span>Custom length and comparison</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stddef.h&gt;
+
+size_t my_strlen(const char text[])
+{
+    size_t length = 0;
+    while (text[length] != '\0') length++;
+    return length;
+}
+
+int my_strcmp(const char left[], const char right[])
+{
+    size_t i = 0;
+    while (left[i] != '\0' &amp;&amp; left[i] == right[i]) i++;
+    return (unsigned char)left[i] - (unsigned char)right[i];
+}</code></pre></div>
+<p>A zero comparison result means equal strings; a negative or positive result indicates lexical order.</p>
+</details>
+
+<details><summary>B7 — Pointer arithmetic and dynamic memory</summary>
+<p>A pointer stores an address. <span class="inline-code">&amp;x</span> gives the address of x and <span class="inline-code">*p</span> accesses the pointed object. Adding one to an int pointer advances by <span class="inline-code">sizeof(int)</span> bytes to the next int object.</p>
+<div class="table-wrap"><table><thead><tr><th>Function</th><th>Use</th></tr></thead><tbody><tr><td>malloc</td><td>Allocate uninitialised storage</td></tr><tr><td>calloc</td><td>Allocate an array and zero-initialise its bytes</td></tr><tr><td>realloc</td><td>Resize an existing allocation</td></tr><tr><td>free</td><td>Release allocated storage</td></tr></tbody></table></div>
+<div class="codebox"><div class="code-title"><span>Allocation pattern</span><button class="copy-code" type="button">Copy</button></div><pre><code>int *values = malloc((size_t)count * sizeof *values);
+if (values == NULL) {
+    return 1;
+}
+/* use values */
+free(values);
+values = NULL;</code></pre></div>
+</details>
+
+<details><summary>B8 — Structure, union and enumeration</summary>
+<p>A structure allocates storage for every member and groups different data types into one record. A union shares one storage area among all members. An enumeration creates named integer constants.</p>
+<div class="codebox"><div class="code-title"><span>Example</span><button class="copy-code" type="button">Copy</button></div><pre><code>enum ValueType { INTEGER_VALUE, REAL_VALUE };
+
+struct Student {
+    int roll;
+    char name[40];
+    float mark;
+};
+
+struct Value {
+    enum ValueType type;
+    union {
+        int integer;
+        double real;
+    } data;
+};</code></pre></div>
+<p>Use <span class="inline-code">student.mark</span> for an object and <span class="inline-code">student_pointer-&gt;mark</span> for a pointer. The enum tag records which union member is active.</p>
+</details>
+
+<h3>Part C full solutions</h3>
+<details open><summary>C1 — Complete menu-driven array program</summary>
+<div class="codebox"><div class="code-title"><span>menu_array.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+#define CAPACITY 100
+
+void read_array(int a[], int *size)
+{
+    int requested;
+    printf("Number of elements (1-%d): ", CAPACITY);
+    if (scanf("%d", &amp;requested) != 1
+        || requested &lt; 1 || requested &gt; CAPACITY) {
+        printf("Invalid size\n");
+        *size = 0;
+        return;
+    }
+
+    for (int i = 0; i &lt; requested; i++) {
+        printf("a[%d] = ", i);
+        if (scanf("%d", &amp;a[i]) != 1) {
+            printf("Invalid input\n");
+            *size = 0;
+            return;
+        }
+    }
+    *size = requested;
+}
+
+void display_array(const int a[], int size)
+{
+    if (size == 0) {
+        printf("Array is empty\n");
+        return;
+    }
+    for (int i = 0; i &lt; size; i++) {
+        printf("%d%c", a[i], i == size - 1 ? '\n' : ' ');
+    }
+}
+
+int linear_search(const int a[], int size, int target)
+{
+    for (int i = 0; i &lt; size; i++) {
+        if (a[i] == target) return i;
+    }
+    return -1;
+}
+
+void selection_sort(int a[], int size)
+{
+    for (int i = 0; i &lt; size - 1; i++) {
+        int min_index = i;
+        for (int j = i + 1; j &lt; size; j++) {
+            if (a[j] &lt; a[min_index]) min_index = j;
+        }
+        int temporary = a[i];
+        a[i] = a[min_index];
+        a[min_index] = temporary;
+    }
+}
+
+double average(const int a[], int size)
+{
+    long long total = 0;
+    for (int i = 0; i &lt; size; i++) total += a[i];
+    return size &gt; 0 ? (double)total / size : 0.0;
+}
+
+int main(void)
+{
+    int values[CAPACITY];
+    int size = 0;
+    int choice;
+
+    do {
+        printf("\n1 Read\n2 Display\n3 Search\n");
+        printf("4 Selection sort\n5 Average\n0 Exit\nChoice: ");
+        if (scanf("%d", &amp;choice) != 1) return 1;
+
+        switch (choice) {
+        case 1:
+            read_array(values, &amp;size);
+            break;
+        case 2:
+            display_array(values, size);
+            break;
+        case 3: {
+            int target;
+            printf("Target: ");
+            if (scanf("%d", &amp;target) != 1) return 1;
+            int index = linear_search(values, size, target);
+            if (index &gt;= 0) printf("Found at index %d\n", index);
+            else printf("Not found\n");
+            break;
+        }
+        case 4:
+            selection_sort(values, size);
+            printf("Array sorted\n");
+            break;
+        case 5:
+            if (size == 0) printf("Array is empty\n");
+            else printf("Average = %.2f\n", average(values, size));
+            break;
+        case 0:
+            printf("Exiting\n");
+            break;
+        default:
+            printf("Invalid choice\n");
+        }
+    } while (choice != 0);
+
+    return 0;
+}</code></pre></div>
+<div class="ml">Program functions ആയി വിഭജിച്ചിരിക്കുന്നു. Size validation, empty-array check, search not-found case എന്നിവ mark ലഭിക്കാൻ സഹായിക്കുന്ന പ്രധാന points ആണ്.</div>
+</details>
+
+<details><summary>C2 — Pointer explanation and complete program set</summary>
+<p><b>Definition:</b> A pointer is a variable containing the address of an object. Pointer parameters allow modification of caller data. Pointer arithmetic traverses arrays. Dynamic allocation creates objects whose required size is known only at run time.</p>
+<h4>(a) Swap</h4>
+<div class="codebox"><div class="code-title"><span>swap.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>void swap(int *left, int *right)
+{
+    int temporary = *left;
+    *left = *right;
+    *right = temporary;
+}
+
+/* int x = 10, y = 20; swap(&amp;x, &amp;y); */</code></pre></div>
+<h4>(b) Dynamic array</h4>
+<div class="codebox"><div class="code-title"><span>dynamic_array.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+
+int main(void)
+{
+    int count;
+    if (scanf("%d", &amp;count) != 1 || count &lt;= 0) return 1;
+
+    int *values = malloc((size_t)count * sizeof *values);
+    if (values == NULL) return 1;
+
+    long long total = 0;
+    for (int i = 0; i &lt; count; i++) {
+        if (scanf("%d", &amp;values[i]) != 1) {
+            free(values);
+            return 1;
+        }
+        total += values[i];
+    }
+
+    printf("Average = %.2f\n", (double)total / count);
+    free(values);
+    return 0;
+}</code></pre></div>
+<h4>(c) Two-dimensional array through pointer notation</h4>
+<div class="codebox"><div class="code-title"><span>Equivalent notation</span><button class="copy-code" type="button">Copy</button></div><pre><code>int matrix[2][3] = {{1, 2, 3}, {4, 5, 6}};
+
+for (int row = 0; row &lt; 2; row++) {
+    for (int col = 0; col &lt; 3; col++) {
+        printf("%d ", *(*(matrix + row) + col));
+    }
+    putchar('\n');
+}</code></pre></div>
+<p><span class="inline-code">matrix + row</span> points to a row; dereferencing it gives that row, adding col moves to the required element, and the final dereference reads the integer.</p>
+</details>
+
+<details><summary>C3 — Student structures with sequential file storage</summary>
+<div class="codebox"><div class="code-title"><span>student_file.c</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
+
+#define MAX_STUDENTS 50
+
+struct Student {
+    int roll;
+    char name[40];
+    float mark;
+};
+
+int read_students(struct Student students[], int capacity)
+{
+    int count;
+    printf("Number of students: ");
+    if (scanf("%d", &amp;count) != 1
+        || count &lt; 1 || count &gt; capacity) {
+        return 0;
+    }
+
+    for (int i = 0; i &lt; count; i++) {
+        printf("Roll name mark: ");
+        if (scanf("%d %39s %f",
+                  &amp;students[i].roll,
+                  students[i].name,
+                  &amp;students[i].mark) != 3) {
+            return 0;
+        }
+    }
+    return count;
+}
+
+int save_students(const char *filename,
+                  const struct Student students[], int count)
+{
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        perror(filename);
+        return 0;
+    }
+
+    for (int i = 0; i &lt; count; i++) {
+        if (fprintf(file, "%d %s %.2f\n",
+                    students[i].roll,
+                    students[i].name,
+                    students[i].mark) &lt; 0) {
+            fclose(file);
+            return 0;
+        }
+    }
+
+    return fclose(file) == 0;
+}
+
+void display_file(const char *filename)
+{
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror(filename);
+        return;
+    }
+
+    struct Student student;
+    printf("\nStored records\n");
+    while (fscanf(file, "%d %39s %f",
+                  &amp;student.roll,
+                  student.name,
+                  &amp;student.mark) == 3) {
+        printf("%d %-15s %.2f\n",
+               student.roll, student.name, student.mark);
+    }
+    fclose(file);
+}
+
+int main(void)
+{
+    struct Student students[MAX_STUDENTS];
+    int count = read_students(students, MAX_STUDENTS);
+    if (count == 0) {
+        fprintf(stderr, "Invalid student data\n");
+        return 1;
+    }
+
+    if (!save_students("students.txt", students, count)) {
+        fprintf(stderr, "Could not save records\n");
+        return 1;
+    }
+
+    display_file("students.txt");
+    return 0;
+}</code></pre></div>
+<p>The solution demonstrates structure definition, array of structures, structure members, passing an array to functions, text-file writing, text-file reading, checking <span class="inline-code">fopen</span>, validating formatted input and closing every opened file.</p>
+</details>
+</section>
+
+<section class="section searchable" id="viva">
+<div class="head"><span class="tag">Viva Preparation</span><h2>Twenty important questions and answers</h2></div>
+<details><summary>1. Why does array indexing start at zero?</summary><p>Because <span class="inline-code">a[i]</span> is defined as <span class="inline-code">*(a+i)</span>; index zero means zero element offsets from the base address.</p></details>
+<details><summary>2. Declaration versus definition of a function?</summary><p>A declaration states the interface. A definition provides the executable body.</p></details>
+<details><summary>3. Why does recursion need a base case?</summary><p>Without a base case, calls continue until stack memory is exhausted.</p></details>
+<details><summary>4. What is a function’s activation record?</summary><p>It is the stack information for one function call, commonly including parameters, local variables, return address and saved execution state.</p></details>
+<details><summary>5. Why must binary search use sorted data?</summary><p>Its decision to discard the left or right half depends on order.</p></details>
+<details><summary>6. What is row-major order?</summary><p>Elements of one row of a multidimensional array are stored contiguously before the next row.</p></details>
+<details><summary>7. Why does a string need one extra character position?</summary><p>The extra position stores the terminating null character.</p></details>
+<details><summary>8. What is pointer arithmetic scaled by?</summary><p>By the size of the pointed type. Adding one moves to the next object of that type.</p></details>
+<details><summary>9. What is a dangling pointer?</summary><p>A pointer referring to an object whose lifetime has ended, for example memory that has already been freed.</p></details>
+<details><summary>10. malloc versus calloc?</summary><p><span class="inline-code">malloc</span> allocates uninitialised storage; <span class="inline-code">calloc</span> allocates an array and zero-initialises its bytes.</p></details>
+<details><summary>11. Why use a temporary pointer with realloc?</summary><p>On failure, realloc returns NULL while the old block remains valid. Direct assignment could lose the old address.</p></details>
+<details><summary>12. What is a memory leak?</summary><p>Allocated memory that is no longer reachable and therefore cannot be released or reused by the program.</p></details>
+<details><summary>13. Structure versus union?</summary><p>A structure allocates storage for all members; union members share the same storage.</p></details>
+<details><summary>14. What does the arrow operator mean?</summary><p><span class="inline-code">pointer-&gt;member</span> is shorthand for <span class="inline-code">(*pointer).member</span>.</p></details>
+<details><summary>15. Why combine enum with union?</summary><p>The enum records which shared union member currently contains a valid value.</p></details>
+<details><summary>16. Why is while(!feof(file)) incorrect?</summary><p>EOF becomes true only after a read attempts to go past the end. Test the read function’s return value instead.</p></details>
+<details><summary>17. Difference between w and a file modes?</summary><p>Write mode truncates existing content; append mode preserves it and writes new data at the end.</p></details>
+<details><summary>18. What does perror do?</summary><p>It prints a supplied message followed by the system description of the most recent library/system error.</p></details>
+<details><summary>19. What are argc and argv?</summary><p><span class="inline-code">argc</span> is the count of command-line strings; <span class="inline-code">argv</span> is the array of pointers to those strings.</p></details>
+<details><summary>20. Why is argv[0] useful?</summary><p>It normally contains the program invocation name and can be displayed in a usage message.</p></details>
+</section>
+
+<section class="section searchable">
+<div class="head"><span class="tag">References from the Syllabus</span><h2>Books and online learning resources</h2></div>
+<div class="table-wrap"><table><thead><tr><th>Code</th><th>Book / Resource</th></tr></thead><tbody>
+<tr><td>T1</td><td>E. Balagurusamy, <i>Programming in ANSI C</i>, 7th Edition.</td></tr>
+<tr><td>R1</td><td>Yashavant Kanetkar, <i>Let Us C</i>.</td></tr>
+<tr><td>R2</td><td>Paul J. Deitel and Harvey Deitel, <i>C How to Program</i>.</td></tr>
+<tr><td>R3</td><td>Brian W. Kernighan and Dennis M. Ritchie, <i>The C Programming Language</i>, 2nd Edition.</td></tr>
+<tr><td>R4</td><td>Herbert Schildt, <i>C: The Complete Reference</i>.</td></tr>
+<tr><td>R5</td><td>Byron Gottfried, <i>Schaum's Outline of Programming with C</i>.</td></tr>
+<tr><td>Online</td><td>NPTEL course 106104128; Programiz C Programming; TutorialsPoint C Programming.</td></tr>
+</tbody></table></div>
+</section>

@@ -1,0 +1,12 @@
+/* Purpose: Wide layout - Descriptive comment added for clarity */
+@media (min-width: 1200px) {
+  main {
+    width: 100%;
+    max-width: none;
+    padding-inline: var(--page-gutter);
+  }
+
+  .subject-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}

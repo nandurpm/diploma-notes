@@ -1,0 +1,4 @@
+/* Purpose: Animations - Descriptive comment added for clarity */
+/* Reveal animations DISABLED globally to fix subject card visibility */
+.reveal { opacity: 1; transform: none; animation: none; }
+.subject-card, .choice-card, .info-card { opacity: 1; transform: none; animation: none; }

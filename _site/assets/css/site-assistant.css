@@ -1,0 +1,513 @@
+/* Purpose: Site assistant - Descriptive comment added for clarity */
+#polySiteAssistant {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 500;
+  width: max-content;
+  max-width: calc(100vw - 24px);
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #0f172a;
+}
+
+.poly-ai-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 142px;
+  height: 60px;
+  padding: 8px 15px 8px 9px;
+  border: 0;
+  border-radius: 18px;
+  color: #fff;
+  background:
+    radial-gradient(circle at 24% 20%, rgba(255, 255, 255, 0.36), transparent 26%),
+    linear-gradient(135deg, #1d4ed8 0%, #0891b2 54%, #059669 100%);
+  box-shadow: 0 18px 42px rgba(29, 78, 216, 0.30), 0 8px 18px rgba(8, 145, 178, 0.20);
+  cursor: pointer;
+  font-weight: 900;
+  letter-spacing: 0;
+  isolation: isolate;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.poly-ai-button::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(29, 78, 216, 0.28), rgba(5, 150, 105, 0.18));
+  opacity: 0.72;
+  filter: blur(8px);
+}
+
+.poly-ai-button::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  width: 9px;
+  height: 9px;
+  border: 2px solid rgba(255, 255, 255, 0.84);
+  border-radius: 999px;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.18);
+}
+
+.poly-ai-button-mark {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  font-size: 0.95rem;
+}
+
+.poly-ai-button-copy {
+  display: grid;
+  gap: 1px;
+  text-align: left;
+}
+
+.poly-ai-button-text {
+  padding-right: 2px;
+  font-size: 0.92rem;
+  line-height: 1.1;
+}
+
+.poly-ai-button-subtext {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.poly-ai-button:hover {
+  transform: translateY(-3px);
+  filter: saturate(1.05);
+  box-shadow: 0 24px 54px rgba(29, 78, 216, 0.36), 0 10px 22px rgba(8, 145, 178, 0.24);
+}
+
+.poly-ai-button:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+.poly-ai-panel {
+  position: absolute;
+  right: 0;
+  bottom: 72px;
+  width: min(430px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  height: min(680px, calc(100dvh - 110px));
+  max-height: calc(100dvh - 24px);
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  border: 1px solid rgba(148, 163, 184, 0.36);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.24);
+  backdrop-filter: blur(18px);
+  transform: translateY(16px) scale(0.96);
+  transform-origin: bottom right;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.poly-ai-panel.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.poly-ai-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 15px;
+  color: #fff;
+  background: linear-gradient(135deg, #1d4ed8, #0f766e);
+}
+
+.poly-ai-avatar {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.16);
+  font-weight: 900;
+}
+
+.poly-ai-title {
+  overflow: hidden;
+  font-weight: 900;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.poly-ai-subtitle {
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.77rem;
+}
+
+.poly-ai-icon {
+  display: inline-grid;
+  place-items: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 11px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 0.68rem;
+}
+
+.poly-ai-status {
+  padding: 8px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #475569;
+  background: rgba(248, 250, 252, 0.92);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.poly-ai-tabs,
+.poly-ai-quick {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  max-height: 96px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 10px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  scrollbar-width: thin;
+}
+
+.poly-ai-tabs button,
+.poly-ai-quick button {
+  flex: 0 0 auto;
+  border: 1px solid #dbe3ef;
+  border-radius: 999px;
+  padding: 7px 10px;
+  color: #334155;
+  background: #f8fafc;
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.poly-ai-tabs button.active {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, #2563eb, #0d9488);
+}
+
+.poly-ai-body {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 13px;
+  background: linear-gradient(180deg, rgba(239, 246, 255, 0.72), rgba(255, 255, 255, 0.86));
+}
+
+.poly-ai-msg {
+  max-width: 92%;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 15px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.poly-ai-msg.bot {
+  border: 1px solid #dbeafe;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.poly-ai-msg.user {
+  margin-left: auto;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+}
+
+.poly-ai-results {
+  display: grid;
+  gap: 9px;
+  margin: 7px 0 13px;
+}
+
+.poly-ai-card {
+  border: 1px solid #dbe3ef;
+  border-radius: 16px;
+  padding: 11px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+}
+
+.poly-ai-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.poly-ai-card h3 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 0.92rem;
+}
+
+.poly-ai-pill {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: #1d4ed8;
+  background: #eff6ff;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.poly-ai-card p {
+  margin: 7px 0 0;
+  color: #475569;
+  font-size: 0.8rem;
+}
+
+.poly-ai-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.poly-ai-links a {
+  border-radius: 10px;
+  padding: 7px 9px;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  font-size: 0.75rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.poly-ai-links a.download {
+  background: linear-gradient(135deg, #059669, #0891b2);
+}
+
+.poly-ai-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 11px;
+  border-top: 1px solid #e2e8f0;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.poly-ai-input-wrap {
+  position: relative;
+}
+
+.poly-ai-form input {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  padding: 0 12px;
+  color: #0f172a;
+  background: #fff;
+  font: inherit;
+}
+
+.poly-ai-form input:focus {
+  outline: 2px solid rgba(37, 99, 235, 0.18);
+  border-color: #2563eb;
+}
+
+.poly-ai-send {
+  min-height: 44px;
+  border: 0;
+  border-radius: 14px;
+  padding: 0 15px;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #0d9488);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.poly-ai-suggestions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 8px);
+  display: none;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #dbe3ef;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.16);
+}
+
+.poly-ai-suggestions.open {
+  display: block;
+}
+
+.poly-ai-suggestions button {
+  display: block;
+  width: 100%;
+  border: 0;
+  padding: 9px 11px;
+  color: #334155;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.poly-ai-suggestions button:hover {
+  background: #eff6ff;
+}
+
+@media (max-width: 700px) {
+  #polySiteAssistant {
+    right: 10px;
+    bottom: 10px;
+    max-width: calc(100vw - 20px);
+  }
+
+  #polySiteAssistant.poly-ai-open .poly-ai-button {
+    display: none;
+  }
+
+  .poly-ai-button {
+    min-width: 54px;
+    width: 54px;
+    height: 54px;
+    padding: 6px;
+    border-radius: 20px;
+  }
+
+  .poly-ai-button-mark {
+    width: 42px;
+    height: 42px;
+  }
+
+  .poly-ai-button-text {
+    display: none;
+  }
+
+  .poly-ai-button-copy {
+    display: none;
+  }
+
+  .poly-ai-button::after {
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+  }
+
+  .poly-ai-panel {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    width: auto;
+    max-width: none;
+    height: min(640px, calc(100dvh - 20px));
+    max-height: calc(100dvh - 20px);
+    border-radius: 20px;
+  }
+
+  .poly-ai-head {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    gap: 7px;
+    padding: 10px;
+  }
+
+  .poly-ai-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+  }
+
+  .poly-ai-title {
+    font-size: 0.95rem;
+  }
+
+  .poly-ai-subtitle {
+    font-size: 0.68rem;
+    line-height: 1.25;
+  }
+
+  .poly-ai-icon {
+    min-width: 29px;
+    height: 29px;
+    padding: 0 6px;
+    border-radius: 10px;
+    font-size: 0.62rem;
+  }
+
+  .poly-ai-tabs,
+  .poly-ai-quick {
+    gap: 6px;
+    padding: 8px 9px;
+  }
+
+  .poly-ai-tabs button,
+  .poly-ai-quick button {
+    padding: 7px 9px;
+    font-size: 0.72rem;
+  }
+
+  .poly-ai-body {
+    padding: 10px;
+  }
+
+  .poly-ai-msg {
+    max-width: 96%;
+    font-size: 0.82rem;
+  }
+
+  .poly-ai-card-top {
+    display: grid;
+    gap: 7px;
+  }
+
+  .poly-ai-pill {
+    width: fit-content;
+  }
+
+  .poly-ai-links {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .poly-ai-links a {
+    text-align: center;
+  }
+
+  .poly-ai-form {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 7px;
+    padding: 9px;
+  }
+
+  .poly-ai-send {
+    min-width: 72px;
+  }
+}

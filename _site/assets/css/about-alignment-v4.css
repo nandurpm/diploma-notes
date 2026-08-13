@@ -1,0 +1,675 @@
+/* Purpose: About alignment v4 - Descriptive comment added for clarity */
+/* POLY PMNA About Page - Cross-Page Alignment, GitHub Section, Tech Stack, & Timeline CSS */
+
+/* Breadcrumbs Alignment */
+.about-experience .about-breadcrumbs {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  margin: 0;
+  padding: 20px 0 0;
+}
+
+.about-experience .about-breadcrumbs ol {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-experience .about-breadcrumbs li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--about-muted);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.about-experience .about-breadcrumbs li + li::before {
+  content: "/";
+  color: rgba(15, 35, 65, 0.2);
+}
+
+.about-experience .about-breadcrumbs a {
+  color: var(--about-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.about-experience .about-breadcrumbs a:hover,
+.about-experience .about-breadcrumbs a:focus-visible {
+  color: var(--about-secondary);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* 7. GitHub Section Styling */
+.github-section {
+  background: radial-gradient(circle at 90% 90%, rgba(37, 99, 235, 0.04), transparent 32rem);
+}
+
+.github-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.github-card {
+  padding: clamp(24px, 3.5vw, 36px);
+  border: 1px solid var(--about-border);
+  border-radius: 24px;
+  background: #ffffff;
+  box-shadow: var(--about-shadow-premium);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.github-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--about-border-hover);
+  box-shadow: var(--about-shadow-hover);
+}
+
+.repo-profile {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #ffffff, #fcfdfe 70%, #f0f7ff);
+}
+
+.repo-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.github-icon-svg {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.repo-header h3 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+  font-weight: 800;
+  color: var(--about-ink-strong);
+  margin: 0;
+}
+
+.repo-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: #0d9488;
+  background: #f0fdfa;
+  border: 1px solid rgba(13, 148, 136, 0.15);
+  padding: 4px 10px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 4px;
+}
+
+.repo-desc {
+  font-size: 1rem;
+  color: var(--about-muted);
+  line-height: 1.6;
+  margin: 0 0 24px;
+  max-width: 900px;
+}
+
+.repo-stats-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(12px, 3vw, 32px);
+  padding: 16px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px dashed var(--about-border);
+}
+
+.stat-bubble {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bubble-num {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--about-primary);
+  line-height: 1.1;
+}
+
+.bubble-label {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: var(--about-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-kicker {
+  font-size: 0.72rem;
+  font-weight: 900;
+  color: var(--about-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.github-card h4 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--about-ink-strong);
+  margin: 0 0 12px;
+}
+
+.github-card p {
+  font-size: 0.95rem;
+  color: var(--about-muted);
+  line-height: 1.62;
+  margin: 0 0 20px;
+}
+
+.workflow-steps {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.wf-step {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f8fafc;
+  border: 1px solid var(--about-border);
+}
+
+.wf-step span {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 900;
+  background: var(--about-primary);
+  color: #ffffff;
+}
+
+.wf-step p {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #334155;
+}
+
+.tech-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.tech-tag {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #475569;
+  background: #f1f5f9;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 35, 65, 0.05);
+}
+
+.btn-github-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 0.9rem;
+  color: #ffffff;
+  background: #0f172a;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+  margin-top: auto;
+  align-self: flex-start;
+  transition: all 0.2s ease;
+}
+
+.btn-github-link:hover,
+.btn-github-link:focus-visible {
+  background: #1e293b;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.25);
+  outline: none;
+}
+
+/* 8. Tech Stack Section Styling */
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.tech-card {
+  padding: 24px;
+  border: 1px solid var(--about-border);
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: var(--about-shadow-premium);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tech-icon-circle {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  font-size: 0.85rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 20px rgba(15, 35, 65, 0.05);
+}
+
+.tech-icon-circle.html { background: #fff5eb; color: #ea580c; border: 1px solid rgba(234, 88, 12, 0.15); }
+.tech-icon-circle.css { background: #eff6ff; color: #2563eb; border: 1px solid rgba(37, 99, 235, 0.15); }
+.tech-icon-circle.js { background: #fefbeb; color: #ca8a04; border: 1px solid rgba(202, 138, 4, 0.15); }
+.tech-icon-circle.workers { background: #fff7ed; color: #d97706; border: 1px solid rgba(217, 119, 6, 0.15); }
+.tech-icon-circle.supabase { background: #f0fdf4; color: #16a34a; border: 1px solid rgba(22, 163, 74, 0.15); }
+
+.tech-card h4 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--about-ink-strong);
+  margin: 0 0 10px;
+}
+
+.tech-card p {
+  font-size: 0.85rem;
+  color: var(--about-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 9. Interactive Development Timeline Styling */
+.timeline-section {
+  background: radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.03), transparent 32rem);
+}
+
+.timeline-interactive {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, rgba(29, 78, 216, 0.1) 0%, var(--about-primary) 50%, rgba(15, 159, 186, 0.1) 100%);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.timeline-node {
+  position: relative;
+  width: 50%;
+  padding: 0 35px;
+  z-index: 2;
+  margin-bottom: 30px;
+}
+
+.timeline-node.left {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-node.right {
+  left: 50%;
+  text-align: left;
+}
+
+.timeline-badge {
+  position: absolute;
+  top: 15px;
+  width: 50px;
+  height: 28px;
+  border-radius: 99px;
+  background: #ffffff;
+  border: 2px solid var(--about-primary);
+  color: var(--about-primary);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--about-shadow-premium);
+  transition: all 0.25s ease;
+}
+
+.timeline-node.left .timeline-badge {
+  right: -25px;
+}
+
+.timeline-node.right .timeline-badge {
+  left: -25px;
+}
+
+.timeline-content-card {
+  padding: 24px;
+  border-radius: 18px;
+  border: 1px solid var(--about-border);
+  background: #ffffff;
+  box-shadow: var(--about-shadow-premium);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.timeline-content-card:hover {
+  transform: scale(1.02);
+  border-color: var(--about-border-hover);
+  box-shadow: var(--about-shadow-hover);
+}
+
+.timeline-content-card h4 {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--about-ink-strong);
+  margin: 0 0 8px;
+}
+
+.timeline-content-card p {
+  font-size: 0.9rem;
+  color: var(--about-muted);
+  line-height: 1.58;
+  margin: 0;
+}
+
+/* Highlight Active / Roadmap states */
+.active-node .timeline-badge {
+  background: var(--about-primary);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(29, 78, 216, 0.35);
+}
+
+.active-node .timeline-content-card {
+  border-color: rgba(29, 78, 216, 0.25);
+  background: linear-gradient(135deg, #ffffff, #f0f7ff);
+}
+
+.roadmap-node .timeline-badge {
+  border-color: var(--about-secondary);
+  color: var(--about-secondary);
+}
+
+.roadmap-node .timeline-content-card {
+  border-color: rgba(15, 159, 186, 0.15);
+  background: linear-gradient(135deg, #ffffff, #f0fdfa);
+}
+
+/* 10. Community Banner */
+.about-initiative {
+  padding: 0 0 clamp(40px, 6vw, 80px) !important;
+}
+
+.about-initiative-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(20px, 3.5vw, 36px) clamp(24px, 4vw, 42px);
+  border: 1px solid rgba(225, 29, 72, 0.12);
+  border-radius: 24px;
+  background: linear-gradient(135deg, #fef2f2, #ffffff 60%, #fff5f5);
+  box-shadow: var(--about-shadow-premium);
+}
+
+.initiative-text-block {
+  text-align: left;
+}
+
+.initiative-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: #e11d48;
+  background: #ffe4e6;
+  padding: 3px 8px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.about-initiative p {
+  margin: 0;
+  color: var(--about-ink);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 700;
+}
+
+.about-initiative strong {
+  color: #e11d48;
+}
+
+.btn-initiative-social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 22px;
+  border: 1px solid rgba(225, 29, 72, 0.25);
+  border-radius: 12px;
+  color: #e11d48;
+  background: #ffffff;
+  text-decoration: none;
+  font-weight: 900;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.05);
+}
+
+.btn-initiative-social:hover,
+.btn-initiative-social:focus-visible {
+  color: #ffffff;
+  background: #e11d48;
+  box-shadow: 0 8px 24px rgba(225, 29, 72, 0.22);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* 11. High Impact Bottom Call To Action */
+/* final CTA panel for revision selection and issue reporting */
+.about-final-cta {
+  padding: clamp(30px, 5vw, 64px);
+  border: 1px solid rgba(29, 78, 216, 0.15);
+  border-radius: 30px;
+  background: linear-gradient(135deg, #1d4ed8, #1e40af 50%, #0f9fba);
+  box-shadow: 0 20px 50px rgba(29, 78, 216, 0.15);
+  color: #ffffff;
+}
+
+.about-final-cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  text-align: left;
+}
+
+.cta-text {
+  flex: 1;
+}
+
+.about-final-cta h2 {
+  max-width: 780px;
+  margin: 0;
+  color: #ffffff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.about-final-cta p {
+  max-width: 700px;
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+/* CTA button container holding the action links */
+.about-final-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.btn-cta-primary,
+.btn-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.btn-cta-primary {
+  color: #ffffff;
+  background: #1d4ed8;
+  box-shadow: 0 10px 28px rgba(29, 78, 216, 0.22);
+}
+
+.btn-cta-primary:hover,
+.btn-cta-primary:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(29, 78, 216, 0.28);
+}
+
+.btn-cta-secondary {
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.btn-cta-secondary:hover,
+.btn-cta-secondary:focus-visible {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #ffffff;
+}
+
+/* Fallback list style */
+.about-guide-fallback {
+  margin-top: 18px;
+  padding: 24px;
+  border: 1px solid var(--about-border);
+  border-radius: 20px;
+  color: var(--about-muted);
+  background: #ffffff;
+}
+
+.about-guide-fallback ol {
+  display: grid;
+  gap: 12px;
+  margin: 14px 0 0;
+  padding-left: 20px;
+}
+
+.about-guide-fallback li {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Responsive Styles for Alignment CSS */
+@media (max-width: 1024px) {
+  .github-grid {
+    grid-template-columns: 1fr;
+  }
+  .repo-profile {
+    grid-column: auto;
+  }
+  .timeline-line {
+    left: 20px;
+  }
+  .timeline-node {
+    width: 100%;
+    padding-left: 55px;
+    padding-right: 0;
+  }
+  .timeline-node.left {
+    text-align: left;
+    left: 0;
+  }
+  .timeline-node.right {
+    left: 0;
+  }
+  .timeline-badge {
+    left: -5px !important;
+  }
+  .about-final-cta-inner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  .about-final-cta h2,
+  .about-final-cta p {
+    margin-inline: auto;
+  }
+  .about-final-actions {
+    justify-content: center;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 820px) {
+  .about-initiative-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .btn-initiative-social {
+    width: 100%;
+  }
+}
+
+@media (max-width: 760px) {
+  .about-experience .about-breadcrumbs {
+    width: min(100% - 24px, 1340px);
+    padding-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-final-actions a {
+    width: 100%;
+  }
+}

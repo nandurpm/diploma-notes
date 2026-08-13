@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Electrical and Electronics Engineering department artwork">
+  <rect width="640" height="360" fill="#dbeafe"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <path d="M86 302 190 62l104 240M138 180h104M116 236h148" fill="none" stroke="#1d4ed8" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><path d="M382 52h92l-48 90h78L374 302l42-120h-70z" fill="#f59e0b" stroke="#0f172a" stroke-width="9" stroke-linejoin="round"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#1d4ed8" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">EEE</text>
+</svg>

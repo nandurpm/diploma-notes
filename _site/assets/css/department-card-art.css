@@ -1,0 +1,141 @@
+/* Purpose: Department card art - Descriptive comment added for clarity */
+/* Adaptive, decorative department artwork for the Revision 2021 directory. */
+.revision-department-grid .choice-card.department-visual-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 260px;
+  padding: clamp(24px, 2.2vw, 34px);
+  border-color: color-mix(in srgb, var(--department-accent, #2563eb) 24%, #ffffff);
+  background: #ffffff;
+  box-shadow: 0 13px 34px rgba(20, 45, 90, 0.11), inset 0 0 0 1px rgba(255, 255, 255, 0.58);
+}
+
+.revision-department-grid .choice-card.department-visual-card::before {
+  z-index: 4;
+}
+
+.revision-department-grid .choice-card.department-visual-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: auto;
+  height: auto;
+  border-radius: inherit;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.99) 0%,
+      rgba(255, 255, 255, 0.97) 36%,
+      rgba(255, 255, 255, 0.86) 54%,
+      rgba(255, 255, 255, 0.58) 72%,
+      rgba(255, 255, 255, 0.12) 100%
+    ),
+    var(--department-art);
+  background-repeat: no-repeat;
+  background-position: center, right center;
+  background-size: cover, cover;
+  opacity: 0.98;
+  pointer-events: none;
+  transform: scale(1.001);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.revision-department-grid .choice-card.department-visual-card:hover::after,
+.revision-department-grid .choice-card.department-visual-card:focus-visible::after {
+  transform: scale(1.035);
+  opacity: 1;
+}
+
+.revision-department-grid .choice-card.department-visual-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+.revision-department-grid .choice-card.department-visual-card > span {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: linear-gradient(135deg, var(--department-accent, #2563eb), var(--department-accent-2, #0891b2));
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--department-accent, #2563eb) 24%, transparent);
+}
+
+.revision-department-grid .choice-card.department-visual-card h2,
+.revision-department-grid .choice-card.department-visual-card h3 {
+  max-width: min(72%, 760px);
+  margin: 18px 0 8px;
+  color: #07162c;
+  font-size: clamp(1.65rem, 2.25vw, 2.55rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+  text-shadow: 0 1px 0 #ffffff, 0 0 12px rgba(255, 255, 255, 0.96);
+}
+
+.revision-department-grid .choice-card.department-visual-card p {
+  max-width: 68%;
+  margin: 0;
+  color: #526681;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  text-shadow: 0 1px 0 #ffffff, 0 0 12px rgba(255, 255, 255, 0.96);
+}
+
+.revision-department-grid .choice-card.department-visual-card:focus-visible {
+  outline: 4px solid color-mix(in srgb, var(--department-accent, #2563eb) 24%, transparent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1050px) {
+  .revision-department-grid .choice-card.department-visual-card h2,
+  .revision-department-grid .choice-card.department-visual-card h3 {
+    max-width: 78%;
+    font-size: clamp(1.55rem, 3.1vw, 2.25rem);
+  }
+
+  .revision-department-grid .choice-card.department-visual-card p {
+    max-width: 75%;
+  }
+}
+
+@media (max-width: 700px) {
+  .revision-department-grid .choice-card.department-visual-card {
+    min-height: 210px;
+    padding: 22px 18px;
+  }
+
+  .revision-department-grid .choice-card.department-visual-card::after {
+    background-image:
+      linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.99) 0%,
+        rgba(255, 255, 255, 0.96) 48%,
+        rgba(255, 255, 255, 0.84) 66%,
+        rgba(255, 255, 255, 0.34) 100%
+      ),
+      var(--department-art);
+    background-position: center, 72% center;
+  }
+
+  .revision-department-grid .choice-card.department-visual-card h2,
+  .revision-department-grid .choice-card.department-visual-card h3 {
+    max-width: 86%;
+    margin-top: 14px;
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .revision-department-grid .choice-card.department-visual-card p {
+    max-width: 88%;
+    font-size: 0.9rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .revision-department-grid .choice-card.department-visual-card::after {
+    transition: none;
+  }
+
+  .revision-department-grid .choice-card.department-visual-card:hover::after,
+  .revision-department-grid .choice-card.department-visual-card:focus-visible::after {
+    transform: none;
+  }
+}

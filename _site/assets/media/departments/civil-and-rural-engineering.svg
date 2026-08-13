@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Civil &amp; Rural Engineering department artwork">
+  <rect width="640" height="360" fill="#cffafe"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <path d="M72 264h496M112 264c62-112 354-112 416 0" fill="none" stroke="#0e7490" stroke-width="18" stroke-linecap="round"/><path d="M160 264V150M240 264V118M320 264V136M400 264V118M480 264V150" stroke="#2563eb" stroke-width="12" stroke-linecap="round"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#0e7490" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">CRE</text>
+</svg>
