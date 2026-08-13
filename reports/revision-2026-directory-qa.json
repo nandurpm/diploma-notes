@@ -1,9 +1,9 @@
 {
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
-  "status": "failed",
-  "sourceCommit": "6fcc8f270c05558d120ce4238cd7ae9f3dbe8a64",
-  "generatedAt": "2026-08-13T12:22:14.724Z",
+  "status": "success",
+  "sourceCommit": "444ee30481f90190ce0f9bdc7bef26bf07367653",
+  "generatedAt": "2026-08-13T12:25:26.194Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -45,8 +45,8 @@
       "passed": true
     },
     {
-      "name": "all 38 department cards render",
-      "passed": false,
+      "name": "all 42 department cards render",
+      "passed": true,
       "cardCount": 42
     },
     {
@@ -89,7 +89,7 @@
     },
     {
       "name": "search result count updates",
-      "passed": false,
+      "passed": true,
       "resultText": "Showing 3 of 42 departments"
     },
     {
@@ -103,7 +103,7 @@
     },
     {
       "name": "clear control restores all departments",
-      "passed": false,
+      "passed": true,
       "visibleAfterClear": 42,
       "url": "http://127.0.0.1:8000/revision-2026.html"
     },
@@ -113,7 +113,7 @@
     },
     {
       "name": "no-results clear action restores directory",
-      "passed": false
+      "passed": true
     },
     {
       "name": "mobile has no horizontal overflow",
@@ -154,28 +154,7 @@
       "consoleErrors": []
     }
   ],
-  "failures": [
-    {
-      "name": "all 38 department cards render",
-      "passed": false,
-      "cardCount": 42
-    },
-    {
-      "name": "search result count updates",
-      "passed": false,
-      "resultText": "Showing 3 of 42 departments"
-    },
-    {
-      "name": "clear control restores all departments",
-      "passed": false,
-      "visibleAfterClear": 42,
-      "url": "http://127.0.0.1:8000/revision-2026.html"
-    },
-    {
-      "name": "no-results clear action restores directory",
-      "passed": false
-    }
-  ],
+  "failures": [],
   "console": {
     "errors": [],
     "warnings": []
@@ -184,8 +163,8 @@
     {
       "label": "desktop",
       "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 3778394,
-      "sha256": "3acc12151b8b8b4c620caf5e7779e96bfe21d6c9fe0e57883e213e218b51e295",
+      "bytes": 3777060,
+      "sha256": "539adf99ea5911204fe99e0b5a6bc7a542105f6344eeef618d718cb80e86d487",
       "viewport": {
         "width": 1440,
         "height": 1000
