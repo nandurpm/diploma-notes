@@ -48,6 +48,7 @@ jobs:
           registry = json.loads(registry_path.read_text(encoding='utf-8'))
           assert isinstance(rows, list) and rows, 'REV2026 subject data is empty'
           departments = {row['programmeSlug'] for row in rows}
+          assert len(departments) == 42, f'Expected 42 departments, found {len(departments)}'
           expected_departments = {row['slug'] for row in registry.get('programmes', [])}
           assert expected_departments, 'Revision 2026 programme registry is empty'
           assert registry.get('programmeCount') == len(expected_departments), registry

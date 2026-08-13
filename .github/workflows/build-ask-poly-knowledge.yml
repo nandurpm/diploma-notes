@@ -50,6 +50,7 @@ jobs:
           data = json.loads(Path("assets/data/ask-poly-knowledge.json").read_text(encoding="utf-8"))
           registry = json.loads(Path("assets/data/revision-2026-programmes.json").read_text(encoding="utf-8"))
           counts = data.get("counts", {})
+          assert counts.get("programmes2026") == 42, counts
           expected_programmes = len(registry.get("programmes", []))
           declared_programmes = registry.get("programmeCount")
           assert expected_programmes > 0, registry
