@@ -52,6 +52,37 @@
   const sectionSelector = ".view-section,.view,.panel,.tab-panel,.tab-content,.module-panel,.lesson-panel,.content-panel,.content-section,.section-panel,[role='tabpanel']";
   const originalUrl = `${location.pathname}${location.search}${location.hash}`;
 
+  function installNativePrintOverride() {
+    if (!nativeApp || window.__polyNativePrintOverride) return;
+    const browserPrint = typeof window.print === "function" ? window.print.bind(window) : null;
+    window.__polyNativePrintOverride = true;
+    window.polyRequestLessonPrint = () => {
+      const bridge = window.PolyNativePrint;
+      if (bridge && typeof bridge.printLesson === "function") {
+        if (window.__polyNativePrintBusy) return true;
+        try {
+          window.__polyNativePrintBusy = true;
+          window.setTimeout(() => { window.__polyNativePrintBusy = false; }, 1500);
+          bridge.printLesson(document.title || "POLY PMNA printable notes");
+          return true;
+        } catch (_) {
+          // A non-standard bridge may fail; use browser printing only as a fallback.
+        }
+      }
+      if (!browserPrint) return false;
+      try {
+        browserPrint();
+        return true;
+      } catch (_) {
+        return false;
+      }
+    };
+    // Many older lesson files still invoke window.print() directly from inline controls.
+    window.print = window.polyRequestLessonPrint;
+  }
+
+  installNativePrintOverride();
+
   /* =========================================================
      PAGE MARKING
      ---------------------------------------------------------
@@ -388,12 +419,17 @@
   }
 
   function printWindow() {
-    if (typeof window.print !== "function") {
+    const print = window.polyRequestLessonPrint || window.print;
+    if (typeof print !== "function") {
       preparePrintMode(true);
       return false;
     }
     try {
-      window.print();
+      const started = print();
+      if (started === false) {
+        preparePrintMode(true);
+        return false;
+      }
       return true;
     } catch (_) {
       preparePrintMode(true);

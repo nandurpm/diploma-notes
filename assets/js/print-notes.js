@@ -3,7 +3,39 @@
   'use strict';
   const params = new URLSearchParams(window.location.search);
   const requested = params.has('autoPrintNotes') || params.has('downloadNotes');
-  const printSupported = typeof window.print === 'function';
+  const browserPrint = typeof window.print === 'function' ? window.print.bind(window) : null;
+  const nativeApp = /(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/[0-9]+(?:\.[0-9]+)*/i.test(navigator.userAgent || '');
+
+  function requestPrint() {
+    const bridge = window.PolyNativePrint;
+    if (nativeApp && bridge && typeof bridge.printLesson === 'function') {
+      if (window.__polyNativePrintBusy) return true;
+      try {
+        window.__polyNativePrintBusy = true;
+        window.setTimeout(() => { window.__polyNativePrintBusy = false; }, 1500);
+        bridge.printLesson(document.title || 'POLY PMNA printable notes');
+        return true;
+      } catch (_) {
+        // Fall through to the browser printer when a non-standard WebView bridge fails.
+      }
+    }
+    if (!browserPrint) return false;
+    try {
+      browserPrint();
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  // Expose one print entry point for shared lesson controls and replace window.print only
+  // inside the trusted Android APK. This also covers older inline lesson buttons.
+  if (!window.__polyNativePrintOverride) {
+    window.__polyNativePrintOverride = true;
+    window.polyRequestLessonPrint = requestPrint;
+    if (nativeApp) window.print = requestPrint;
+  }
+  const printSupported = typeof window.polyRequestLessonPrint === 'function' || typeof window.print === 'function';
 
   const guide = document.createElement('div');
   guide.className = 'print-notes-guide no-print';
@@ -32,7 +64,10 @@
     if (!requested) return;
     preparePrint();
     if (printSupported) {
-      window.setTimeout(() => window.print(), 700);
+      window.setTimeout(() => {
+        const print = window.polyRequestLessonPrint || window.print;
+        if (typeof print === 'function') print();
+      }, 700);
     }
   }
 

@@ -18,11 +18,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.print.PrintAttributes;
+import android.print.PrintManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
+import android.webkit.JavascriptInterface;
 import android.webkit.URLUtil;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -654,6 +657,10 @@ public class MainActivity extends ComponentActivity {
         cookieManager.setAcceptCookie(true);
         cookieManager.setAcceptThirdPartyCookies(webView, false);
 
+        // Lesson pages use window.print(). Android WebView does not supply a browser
+        // print dialog, so expose a narrow bridge that only prints trusted lesson URLs.
+        webView.addJavascriptInterface(new NativePrintBridge(), "PolyNativePrint");
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             settings.setSafeBrowsingEnabled(true);
         }
@@ -851,6 +858,63 @@ public class MainActivity extends ComponentActivity {
             webView = null;
         }
         super.onDestroy();
+    }
+
+    private boolean isTrustedLessonUrl(String url) {
+        try {
+            Uri uri = Uri.parse(url == null ? "" : url);
+            if (!isTrustedUri(uri)) {
+                return false;
+            }
+            String path = uri.getPath();
+            return path != null && path.matches(
+                    "^/(?:revision-2026-content/)?lessons/lessons-[A-Za-z0-9_-]+\\.html$"
+            );
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    private String safePrintJobName(String requestedTitle) {
+        String fallback = "POLY PMNA printable notes";
+        String cleaned = requestedTitle == null ? "" : requestedTitle
+                .replaceAll("[\\r\\n\\t]+", " ")
+                .replaceAll("\\s+", " ")
+                .trim();
+        if (cleaned.isEmpty()) {
+            return fallback;
+        }
+        return cleaned.length() > 96 ? cleaned.substring(0, 96).trim() : cleaned;
+    }
+
+    private void printCurrentLesson(String requestedTitle) {
+        if (webView == null || !isTrustedLessonUrl(webView.getUrl())) {
+            Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        try {
+            PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
+            if (printManager == null) {
+                Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String jobName = safePrintJobName(requestedTitle);
+            PrintAttributes attributes = new PrintAttributes.Builder()
+                    .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
+                    .build();
+            printManager.print(jobName, webView.createPrintDocumentAdapter(jobName), attributes);
+        } catch (Exception error) {
+            Toast.makeText(this, R.string.print_failed, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private final class NativePrintBridge {
+        @JavascriptInterface
+        public void printLesson(String title) {
+            // JavaScript interfaces may be called off the UI thread; the Android
+            // print framework and WebView adapter must always run on the main thread.
+            mainHandler.post(() -> printCurrentLesson(title));
+        }
     }
 
     private final class HubWebViewClient extends WebViewClient {
