@@ -1,0 +1,95 @@
+/* 2026 Onam site-wide celebration layer — intentionally lighter than the homepage banner. */
+:root {
+  --poly-onam-saffron: #f97316;
+  --poly-onam-gold: #facc15;
+  --poly-onam-leaf: #65a30d;
+  --poly-onam-teal: #0d9488;
+}
+
+html.poly-onam-sitewide,
+body.poly-onam-sitewide {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(250, 204, 21, 0.13), transparent 20rem),
+    radial-gradient(circle at 94% 0%, rgba(22, 101, 52, 0.08), transparent 23rem),
+    var(--site-bg, #fffdf7);
+}
+
+body.poly-onam-sitewide .topbar,
+body.poly-onam-sitewide [data-site-header] {
+  border-bottom-color: rgba(216, 155, 24, 0.34) !important;
+  box-shadow: 0 12px 26px rgba(120, 74, 0, 0.08);
+}
+
+.poly-onam-sitewide-ribbon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  z-index: 1100;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--poly-onam-teal), var(--poly-onam-leaf), var(--poly-onam-gold), var(--poly-onam-saffron), var(--poly-onam-gold), var(--poly-onam-leaf), var(--poly-onam-teal));
+  background-size: 200% 100%;
+  box-shadow: 0 1px 8px rgba(120, 74, 0, 0.22);
+  animation: polyOnamRibbonShift 15s ease-in-out infinite alternate;
+}
+
+.poly-onam-sitewide-petals {
+  position: fixed;
+  top: 5px;
+  left: 0;
+  right: 0;
+  height: 112px;
+  z-index: 1090;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.poly-onam-sitewide-petal {
+  position: absolute;
+  top: -18px;
+  left: var(--x, 50vw);
+  width: var(--size, 10px);
+  height: calc(var(--size, 10px) * 0.72);
+  border-radius: 85% 15% 85% 15%;
+  opacity: 0;
+  background: linear-gradient(135deg, #fb923c, #fef3c7 52%, #f97316);
+  box-shadow: 0 2px 5px rgba(120, 74, 0, 0.15);
+  transform: rotate(22deg);
+  animation: polyOnamPetalDrift var(--duration, 13s) linear var(--delay, 0s) infinite;
+}
+
+@keyframes polyOnamRibbonShift {
+  from { background-position: 0 50%; }
+  to { background-position: 100% 50%; }
+}
+
+@keyframes polyOnamPetalDrift {
+  0% { opacity: 0; transform: translate3d(0, -18px, 0) rotate(20deg); }
+  12% { opacity: 0.68; }
+  100% { opacity: 0; transform: translate3d(var(--drift, 20px), 130px, 0) rotate(230deg); }
+}
+
+@media (max-width: 980px) {
+  .poly-onam-sitewide-ribbon { height: 4px; }
+  .poly-onam-sitewide-petals { height: 94px; }
+}
+
+@media (max-width: 680px), (orientation: landscape) and (max-height: 560px) {
+  .poly-onam-sitewide-petals { display: none; }
+  .poly-onam-sitewide-ribbon {
+    height: 3px;
+    animation: none;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .poly-onam-sitewide-ribbon { animation: none; }
+  .poly-onam-sitewide-petals { display: none; }
+}
+
+@media print {
+  .poly-onam-sitewide-ribbon,
+  .poly-onam-sitewide-petals { display: none !important; }
+}
