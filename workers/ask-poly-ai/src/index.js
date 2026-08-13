@@ -1,6 +1,7 @@
 /* Purpose: Index - Descriptive comment added for clarity */
 import { askPoly, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
+import { canStoreVerifiedResults } from "./result-store.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
 import { matchFaq } from "./faq-match.js";
 import {
@@ -205,6 +206,7 @@ export default {
         ok: true,
         service: "Ask POLY AI",
         configured: providers.length > 0,
+        verifiedResultStorage: canStoreVerifiedResults(env),
         knowledgeMode: KNOWLEDGE_MODE,
         revisionAware: ["2026", "2021", "2015"],
         wholeSiteContext: true,
