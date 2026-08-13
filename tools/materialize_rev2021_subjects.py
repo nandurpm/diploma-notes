@@ -57,21 +57,16 @@ def all_records() -> list[dict[str, str]]:
     return list(unique.values())
 
 
-def paths(record: dict[str, str]) -> tuple[str, str, bool, bool]:
+def paths(record: dict[str, str]) -> tuple[str, str, bool]:
     code = record["assetCode"]
     lesson_local = Path("lessons") / f"lessons-{code}.html"
-    notes_local = Path("notes") / f"downloadable-notes-{code}.pdf"
-    return (
-        "/" + lesson_local.as_posix(),
-        "/" + notes_local.as_posix(),
-        (ROOT / lesson_local).is_file(),
-        (ROOT / notes_local).is_file(),
-    )
+    lesson_href = "/" + lesson_local.as_posix()
+    return lesson_href, lesson_href + "?autoPrintNotes=1", (ROOT / lesson_local).is_file()
 
 
 def card(record: dict[str, str]) -> str:
     code = record["code"]
-    lesson_href, notes_href, lesson_ok, notes_ok = paths(record)
+    lesson_href, notes_href, lesson_ok = paths(record)
     # Notes are generated from the lesson HTML in the browser; static PDFs
     # are excluded from the deployment artifact to stay below the Pages limit.
     notes_href = lesson_href + "?autoPrintNotes=1"
@@ -82,7 +77,7 @@ def card(record: dict[str, str]) -> str:
         download_attr = ''
         study = (
             f'<a class="action lessons" href="{html.escape(lesson_href, quote=True)}">View Lessons</a>'
-            f'<a class="action download" href="{html.escape(download_href, quote=True)}"{download_attr}>Download Notes</a>'
+            f'<a class="action download" href="{html.escape(download_href, quote=True)}"{download_attr}>Save as PDF</a>'
         )
     else:
         study = (

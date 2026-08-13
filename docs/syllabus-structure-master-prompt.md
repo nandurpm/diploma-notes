@@ -523,43 +523,30 @@ Provide complete answers after the question paper.
 DOWNLOAD NOTES / PDF BUTTON RULE
 ===============================================================================
 
-Add a Download Notes button, not a fake print button.
+Add a **Save as PDF** button that opens the matching lesson page in print mode.
 
-The button must directly link to:
+The button must link to:
 
-../notes/downloadable-notes-[SUBJECT_CODE].pdf
+`lessons/lessons-[SUBJECT_CODE].html?autoPrintNotes=1`
 
-or the correct relative path from the lesson file.
-
-Examples:
-
-../notes/downloadable-notes-1002.pdf
-../notes/downloadable-notes-6041A.pdf
+or the correct relative lesson path from the subject browser.
 
 The button text should be:
 
-Download Notes
+**Save as PDF**
 
 The button behavior must match the POLY PMNA subject cards:
 
-If the PDF exists, clicking Download Notes downloads/opens the PDF directly.
-If the PDF is not yet generated, the website may fall back to opening the lesson HTML for PDF generation/printing.
+Clicking **Save as PDF** opens the canonical lesson page with the `autoPrintNotes=1` query. The shared print-notes script prepares the page, expands printable sections where supported, and opens the browser print flow. Students can then choose **Save as PDF** on desktop or use the browser/app print or share menu on mobile.
 
 Do NOT use:
 
-window.print()
-html2pdf
-html2canvas
-jsPDF
-Browser-side PDF generation
-Fake PDF buttons
-Dead links
+- Unmaintained client-side PDF generators such as html2pdf, html2canvas or jsPDF.
+- Fake buttons that do not open the lesson or print flow.
+- Direct links to removed site-local PDF payloads.
+- Dead or revision-mismatched lesson links.
 
-The lesson HTML must be PDF-build friendly so the website/server/build script can generate:
-
-notes/downloadable-notes-[SUBJECT_CODE].pdf
-
-The generated PDF must not contain unused blank space.
+The lesson HTML must be print-friendly and must not contain unused blank space, hidden navigation, or action controls in the printed output.
 
 ===============================================================================
 SEARCH FUNCTION
@@ -651,7 +638,6 @@ Subject name
 Department
 Semester
 Revision 2021
-PDF filename
 Lesson filename
 
 Suffix subjects must be indexed separately.
@@ -659,8 +645,7 @@ Suffix subjects must be indexed separately.
 Example:
 
 6041A Medical Electronics
-lessons-6041A.html
-notes/downloadable-notes-6041A.pdf
+lessons-6041A.html?autoPrintNotes=1
 
 Do not list it as 6041.
 

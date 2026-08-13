@@ -44,7 +44,7 @@ def main() -> int:
         if path in lesson_pages and "lesson-navigation-fix.js" not in source:
             lessons_without_runtime.append(relative)
         for anchor in soup.find_all("a"):
-            if normalized_text(anchor.get_text(" ", strip=True)) != "download notes":
+            if normalized_text(anchor.get_text(" ", strip=True)) != "save as pdf":
                 continue
             button_count += 1
             href = str(anchor.get("href", ""))
@@ -62,8 +62,8 @@ def main() -> int:
         "artifact": str(target),
         "note_pdf_files": len(note_pdfs),
         "legacy_pdf_reference_files": len(legacy_refs),
-        "download_notes_buttons": button_count,
-        "invalid_download_notes_buttons": len(invalid_buttons),
+        "save_as_pdf_buttons": button_count,
+        "invalid_save_as_pdf_buttons": len(invalid_buttons),
         "lesson_pages": len(lesson_pages),
         "lesson_pages_without_shared_runtime": len(lessons_without_runtime),
     }
@@ -77,7 +77,7 @@ def main() -> int:
         print("Files with legacy note PDF references:")
         print("\n".join(f"- {path}" for path in legacy_refs[:20]))
     if invalid_buttons:
-        print("Invalid Download Notes actions:")
+        print("Invalid Save as PDF actions:")
         print("\n".join(f"- {item}" for item in invalid_buttons[:20]))
     if lessons_without_runtime:
         print("Lessons without the shared runtime:")

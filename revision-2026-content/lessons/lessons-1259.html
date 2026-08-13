@@ -715,6 +715,8 @@
   <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1d4ed8">
+<link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
+<script src="/assets/js/print-notes.js?v=20260813-print-notes1" defer></script>
 </head>
 <body>
 
@@ -733,8 +735,8 @@
             <button class="btn-print" id="btn-print" title="Print lesson (expands all sections)" aria-label="Print lesson">
                 🖨️ Print
             </button>
-            <button class="btn-download" id="btn-download" title="Download lesson PDF" aria-label="Download lesson PDF">
-                📥 Download PDF
+            <button class="btn-download" id="btn-download" title="Open print view and save as PDF" aria-label="Open print view and save as PDF">
+                🖨️ Save as PDF
             </button>
         </div>
         <div id="search-results-count" aria-live="polite"></div>
@@ -1671,27 +1673,21 @@ process_data([1, 2, 3])
                 });
             }
 
-            // ===== DOWNLOAD BUTTON =====
+            // ===== SAVE AS PDF BUTTON =====
             const btnDownload = document.getElementById('btn-download');
             if (btnDownload) {
                 btnDownload.addEventListener('click', function() {
-                    // Attempt real PDF path first
-                    const pdfPath = '/assets/pdf/lessons-1259.pdf';
-                    // Create a temporary link to try download
-                    const link = document.createElement('a');
-                    link.href = pdfPath;
-                    link.download = 'Python-Programming-Lesson-1259.pdf';
-                    link.style.display = 'none';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    // If PDF doesn't exist, fallback message after short delay
-                    setTimeout(() => {
-                        alert(
-                            '📥 If the PDF did not download, it may not be available at:\n' +
-                            pdfPath +
-                            '\n\nYou can use the 🖨️ Print button and "Save as PDF" in your browser as an alternative.');
-                    }, 800);
+                    document.querySelectorAll('details').forEach(d => { d.open = true; });
+                    document.body.classList.add('pdf-export-mode');
+                    document.title = 'downloadable-notes-1259';
+                    window.scrollTo(0, 0);
+                    window.setTimeout(() => {
+                        window.print();
+                        window.setTimeout(() => {
+                            document.body.classList.remove('pdf-export-mode');
+                            document.title = 'Python Programming 1259 | Revision 2026 | POLY PMNA';
+                        }, 600);
+                    }, 80);
                 });
             }
 
