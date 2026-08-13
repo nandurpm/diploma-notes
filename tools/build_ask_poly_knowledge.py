@@ -492,8 +492,13 @@ def main() -> int:
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps(payload["counts"], indent=2))
 
-    if len(programmes_2026) < 38:
-        raise SystemExit(f"Expected at least 38 Revision 2026 programmes, found {len(programmes_2026)}")
+    registry_2026 = load_json(ROOT / "assets/data/revision-2026-programmes.json")
+    expected_programmes_2026 = registry_2026.get("programmeCount")
+    if not isinstance(expected_programmes_2026, int) or expected_programmes_2026 != len(programmes_2026):
+        raise SystemExit(
+            "Revision 2026 programme registry count mismatch: "
+            f"declared {expected_programmes_2026!r}, found {len(programmes_2026)} usable programmes"
+        )
     if len(subjects) < 300:
         raise SystemExit(f"Knowledge index has too few subject records: {len(subjects)}")
     if not any(row.get("revision") == "2026" for row in subjects):
