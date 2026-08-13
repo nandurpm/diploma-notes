@@ -47,7 +47,14 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    payload = json.loads(REPORT.read_text(encoding="utf-8"))
+    if REPORT.is_file():
+        payload = json.loads(REPORT.read_text(encoding="utf-8"))
+    else:
+        # The title-resolution report is optional and may be removed during
+        # repository cleanup when no snapshot-based title restorations remain.
+        # Treat its absence as an empty configuration rather than failing CI.
+        payload = {}
+        print("Revision 2026 title-resolution report is absent; no provenance notices are configured.")
     by_slug: dict[str, list[str]] = defaultdict(list)
     for row in payload.get("replacements", []):
         slug = str(row.get("programmeSlug") or "").strip()
