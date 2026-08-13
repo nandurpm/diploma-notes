@@ -1,8 +1,8 @@
-/* Purpose: Onam render a - Descriptive comment added for clarity */
+/* 2026 Onam integrated banner renderer */
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260704-banner6";
+  const ASSET_VERSION = "20260813-onam-perf1";
   const REV2026_THEME_VERSION = "20260716-rev2026-department-themes1";
 
   const ONAM_DATES = [
@@ -13,10 +13,10 @@
   ];
 
   const ONAM_BANNERS = {
-    1: { day: "Uthradam", src: "/assets/media/onam-2026/uthradam-banner.png", alt: "Happy Onam Uthradam banner" },
-    2: { day: "Thiruvonam", src: "/assets/media/onam-2026/thiruvonam-banner.png", alt: "Happy Onam Thiruvonam banner" },
-    3: { day: "Avittam", src: "/assets/media/onam-2026/avittam-banner.png", alt: "Happy Onam Avittam banner" },
-    4: { day: "Chathayam", src: "/assets/media/onam-2026/chathayam-banner.png", alt: "Happy Onam Chathayam banner" }
+    1: { day: "Uthradam", slug: "uthradam", alt: "Happy Onam Uthradam banner" },
+    2: { day: "Thiruvonam", slug: "thiruvonam", alt: "Happy Onam Thiruvonam banner" },
+    3: { day: "Avittam", slug: "avittam", alt: "Happy Onam Avittam banner" },
+    4: { day: "Chathayam", slug: "chathayam", alt: "Happy Onam Chathayam banner" }
   };
 
   function withVersion(src) {
@@ -68,6 +68,10 @@
     return index >= 0 ? index + 1 : 0;
   }
 
+  function isCompactViewport() {
+    return window.matchMedia("(max-width: 520px), (orientation: landscape) and (max-height: 520px)").matches;
+  }
+
   function addFestiveAnimationLayer() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     document.querySelector(".onam-petal-layer")?.remove();
@@ -75,24 +79,31 @@
 
     const layer = document.createElement("div");
     layer.className = "onam-petal-layer";
+    layer.setAttribute("aria-hidden", "true");
     const petals = ["🌼", "🌸", "🏵️", "🍂"];
+    const count = window.matchMedia("(max-width: 900px)").matches ? 10 : 12;
 
-    for (let i = 0; i < 22; i += 1) {
+    for (let i = 0; i < count; i += 1) {
       const p = document.createElement("span");
       p.className = "onam-petal";
+      p.setAttribute("aria-hidden", "true");
       p.textContent = petals[i % petals.length];
       p.style.setProperty("--x", `${Math.round(Math.random() * 94)}vw`);
-      p.style.setProperty("--s", `${14 + Math.round(Math.random() * 11)}px`);
-      p.style.setProperty("--d", `${10 + Math.round(Math.random() * 9)}s`);
+      p.style.setProperty("--s", `${14 + Math.round(Math.random() * 8)}px`);
+      p.style.setProperty("--d", `${15 + Math.round(Math.random() * 8)}s`);
       p.style.setProperty("--delay", `${Math.random() * 8}s`);
-      p.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 70)}px`);
+      p.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 56)}px`);
       layer.appendChild(p);
     }
 
+    document.body.append(layer);
+
+    if (isCompactViewport()) return;
     const lamp = document.createElement("div");
     lamp.className = "onam-floating-lamp";
+    lamp.setAttribute("aria-hidden", "true");
     lamp.textContent = "🪔";
-    document.body.append(layer, lamp);
+    document.body.append(lamp);
   }
 
   function moveSubjectBrowserBelowBanner(wrap) {
@@ -109,6 +120,33 @@
     addFestiveAnimationLayer();
   }
 
+  function createBannerPicture(config) {
+    const picture = document.createElement("picture");
+    picture.className = "onam-day-banner-picture";
+
+    const mobileWebp = document.createElement("source");
+    mobileWebp.media = "(max-width: 520px)";
+    mobileWebp.type = "image/webp";
+    mobileWebp.srcset = withVersion(`/assets/media/onam-2026/${config.slug}-banner-768.webp`);
+
+    const desktopWebp = document.createElement("source");
+    desktopWebp.type = "image/webp";
+    desktopWebp.srcset = withVersion(`/assets/media/onam-2026/${config.slug}-banner-1536.webp`);
+
+    const img = document.createElement("img");
+    img.className = "onam-day-banner";
+    img.alt = config.alt;
+    img.width = 1536;
+    img.height = 512;
+    img.loading = "eager";
+    img.fetchPriority = "high";
+    img.decoding = "async";
+    img.src = withVersion(`/assets/media/onam-2026/${config.slug}-banner.png`);
+
+    picture.append(mobileWebp, desktopWebp, img);
+    return { picture, img };
+  }
+
   function injectBanner(dayNo) {
     const config = ONAM_BANNERS[dayNo];
     if (!config) return;
@@ -122,12 +160,7 @@
     wrap.className = "onam-day-banner-wrap";
     wrap.setAttribute("aria-label", `${config.day} Onam banner`);
 
-    const img = document.createElement("img");
-    img.className = "onam-day-banner";
-    img.alt = config.alt;
-    img.loading = "eager";
-    img.decoding = "async";
-
+    const { picture, img } = createBannerPicture(config);
     img.onload = () => { applyOnamMode(dayNo, wrap); };
     img.onerror = () => {
       wrap.remove();
@@ -135,8 +168,7 @@
       document.body.classList.remove("poly-onam-banner-mode", `poly-onam-day-${dayNo}`);
     };
 
-    img.src = withVersion(config.src);
-    wrap.appendChild(img);
+    wrap.appendChild(picture);
     heroTarget.parentNode.insertBefore(wrap, heroTarget);
   }
 
