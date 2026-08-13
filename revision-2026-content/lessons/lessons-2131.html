@@ -274,7 +274,7 @@
 </div>
 <script>
 (()=>{"use strict";
-const courseCode="2131";const pdfUrl=`/revision-2026-content/notes/downloadable-notes-${courseCode}.pdf`;const originalTitle=document.title;let printRequested=false;
+const courseCode="2131";const pdfUrl=`/revision-2026-content/lessons/lessons-${courseCode}.html?autoPrintNotes=1`;const originalTitle=document.title;let printRequested=false;
 const $=id=>document.getElementById(id);const num=id=>Number($(id)?.value);
 function expandAll(){document.querySelectorAll("details").forEach(d=>d.open=true);}
 function prepareForPrint(){document.documentElement.classList.add("pdf-export-mode");document.body.classList.add("pdf-export-mode");expandAll();const gen=$("acGenerator");gen?.classList.remove("rotating","slow","fast");document.title=`downloadable-notes-${courseCode}`;window.scrollTo(0,0);}

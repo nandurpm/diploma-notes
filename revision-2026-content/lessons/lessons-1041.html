@@ -4137,7 +4137,7 @@ $("#prevChapter")?.addEventListener("click",()=>{nearestSection();navSections[Ma
 $("#nextChapter")?.addEventListener("click",()=>{nearestSection();navSections[Math.min(navSections.length-1,currentIndex+1)]?.scrollIntoView({behavior:"smooth"});});
 
 async function openNotes(){
- const pdf="/revision-2026-content/notes/downloadable-notes-1041.pdf";
+ const pdf="/revision-2026-content/lessons/lessons-1041.html?autoPrintNotes=1";
  try{
    const r=await fetch(pdf,{method:"HEAD",cache:"no-store"});
    const len=Number(r.headers.get("content-length")||0);

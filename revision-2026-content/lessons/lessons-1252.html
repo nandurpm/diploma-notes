@@ -2225,7 +2225,7 @@
 
             function downloadNotes() {
                 const courseCode = '1252';
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-' + courseCode + '.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-' + courseCode + '.html?autoPrintNotes=1';
                 // Try HEAD first to check if PDF exists
                 fetch(pdfPath, { method: 'HEAD' })
                     .then(res => {

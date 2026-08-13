@@ -2974,7 +2974,7 @@
 
             function downloadNotes() {
                 // Try to fetch the existing PDF
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-2005.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-2005.html?autoPrintNotes=1';
                 fetch(pdfPath, { method: 'HEAD' })
                     .then(function(resp) {
                         if (resp.ok) {

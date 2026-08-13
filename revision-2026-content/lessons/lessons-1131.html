@@ -544,7 +544,7 @@ print(c_to_f(25))</code></pre>
 <section class="hb-section search-panel no-print" id="search-section"><p class="eyebrow">Handbook search</p><h2>Find a Topic, Method or Question</h2><div class="search-row"><label for="searchInput" class="btn primary">Search</label><input id="searchInput" type="search" placeholder="Try: flowchart, range, dictionary, scope" autocomplete="off"><button class="btn alt" id="searchBtn" type="button">Find</button><button class="btn alt" id="clearSearch" type="button">Clear</button></div><div id="searchResults" class="search-results" aria-live="polite"></div></section>
 </main></div>
 <script>
-(()=>{"use strict";const courseCode="1131";const pdfUrl=`/revision-2026-content/notes/downloadable-notes-${courseCode}.pdf`;const originalTitle=document.title;let printBusy=false;let autoHandled=false;
+(()=>{"use strict";const courseCode="1131";const pdfUrl=`/revision-2026-content/lessons/lessons-${courseCode}.html?autoPrintNotes=1`;const originalTitle=document.title;let printBusy=false;let autoHandled=false;
 function revealAll(){document.querySelectorAll("details").forEach(d=>{d.open=true});document.documentElement.classList.add("pdf-export-mode");document.body?.classList.add("pdf-export-mode");document.querySelectorAll(".animation-card").forEach(a=>a.classList.remove("running"));window.scrollTo(0,0)}
 function prepareForPrint(){revealAll();document.title=`downloadable-notes-${courseCode}`}
 function restoreAfterPrint(){document.title=originalTitle;printBusy=false}

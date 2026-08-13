@@ -97,6 +97,14 @@ def should_copy(relative: str) -> bool:
     # Skip excluded directories and hidden files
     if path.parts[0] in EXCLUDED_ROOTS or path.name.startswith("."):
         return False
+    # Revision 2021/2026 note PDFs are intentionally not part of the
+    # deployable artifact. The corresponding lesson HTML pages are the
+    # printable source and keep the Pages artifact below its 1 GB limit.
+    if path.suffix.lower() == ".pdf" and (
+        path.parts[:1] == ("notes",)
+        or path.parts[:2] == ("revision-2026-content", "notes")
+    ):
+        return False
     # Skip source files unless explicitly required
     if path.suffix.lower() in SOURCE_SUFFIXES and relative not in EXPLICIT:
         return False

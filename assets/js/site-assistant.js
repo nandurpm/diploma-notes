@@ -580,13 +580,15 @@
         createElement("p", { text: subject.lessonAvailable ? "Lesson available." : "Lesson not available yet." })
       );
       const links = createElement("div", { className: "poly-ai-links" });
-      if (subject.lessonAvailable) addLink(links, "Open lesson", `/lessons/lessons-${encodeURIComponent(subject.code)}.html`);
+      const revision2026 = String(subject.revision || "").includes("2026");
+      const lessonPath = `${revision2026 ? "/revision-2026-content/lessons" : "/lessons"}/lessons-${encodeURIComponent(subject.code)}.html`;
+      if (subject.lessonAvailable) addLink(links, "Open lesson", lessonPath);
       else addUnavailable(links, "Lesson unavailable");
       const syllabusUrl = String(subject.revision) === "2021"
         ? "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021"
         : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
       addLink(links, "Syllabus", syllabusUrl);
-      if (subject.notesAvailable) addLink(links, "Download notes", `/notes/downloadable-notes-${encodeURIComponent(subject.code)}.pdf`);
+      if (subject.lessonAvailable) addLink(links, "Download notes", `${lessonPath}?autoPrintNotes=1`);
       else addUnavailable(links, "Notes unavailable");
       addLink(links, "Model QP", `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`);
       card.append(links);

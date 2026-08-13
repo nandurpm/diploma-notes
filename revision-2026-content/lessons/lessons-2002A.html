@@ -2441,7 +2441,7 @@
 
             // ---- DOWNLOAD NOTES ----
             function downloadNotes() {
-                const pdfUrl = '/revision-2026-content/notes/downloadable-notes-2002A.pdf';
+                const pdfUrl = '/revision-2026-content/lessons/lessons-2002A.html?autoPrintNotes=1';
                 fetch(pdfUrl, { method: 'HEAD', mode: 'same-origin' })
                     .then(res => {
                         if (res.ok) {

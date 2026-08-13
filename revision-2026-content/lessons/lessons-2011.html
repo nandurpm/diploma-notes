@@ -1490,7 +1490,7 @@
             };
 
             window.downloadNotes = function() {
-                const url = '/revision-2026-content/notes/downloadable-notes-2011.pdf';
+                const url = '/revision-2026-content/lessons/lessons-2011.html?autoPrintNotes=1';
                 fetch(url, { method: 'HEAD' })
                     .then(resp => {
                         if (resp.ok) {

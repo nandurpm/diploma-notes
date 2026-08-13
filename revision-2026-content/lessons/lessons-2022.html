@@ -2271,7 +2271,7 @@
 
         // ---- DOWNLOAD NOTES ----
         window.downloadNotes = function() {
-            const url = '/revision-2026-content/notes/downloadable-notes-2022.pdf';
+            const url = '/revision-2026-content/lessons/lessons-2022.html?autoPrintNotes=1';
             fetch(url, { method: 'HEAD' })
                 .then(function(res) {
                     if (res.ok) {

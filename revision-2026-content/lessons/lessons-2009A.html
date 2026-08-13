@@ -1596,7 +1596,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
 
   // Download Function
   function downloadNotes() {
-    const pdfUrl = '/revision-2026-content/notes/downloadable-notes-2009A.pdf';
+    const pdfUrl = '/revision-2026-content/lessons/lessons-2009A.html?autoPrintNotes=1';
     fetch(pdfUrl, { method: 'HEAD' })
       .then(res => {
         if(res.ok) {

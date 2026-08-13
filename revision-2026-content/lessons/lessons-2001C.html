@@ -737,7 +737,7 @@ function doPrint() {
 
 // Download Notes: try to fetch PDF, fallback to print
 function downloadNotes() {
-  const url = '/revision-2026-content/notes/downloadable-notes-2001C.pdf';
+  const url = '/revision-2026-content/lessons/lessons-2001C.html?autoPrintNotes=1';
   fetch(url, { method: 'HEAD', cache: 'no-cache' })
     .then(res => {
       if (res.ok) {

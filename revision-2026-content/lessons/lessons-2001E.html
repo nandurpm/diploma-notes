@@ -3284,7 +3284,7 @@
             // ---- download ----
             const downloadBtn = document.getElementById('downloadBtn');
             const downloadNotes = function() {
-                const pdfUrl = '/revision-2026-content/notes/downloadable-notes-2001E.pdf';
+                const pdfUrl = '/revision-2026-content/lessons/lessons-2001E.html?autoPrintNotes=1';
                 // try HEAD request to check if PDF exists
                 fetch(pdfUrl, { method: 'HEAD', cache: 'no-store' })
                     .then(function(resp) {

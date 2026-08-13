@@ -283,7 +283,7 @@ OUTPUT CONTRACT — NON-NEGOTIABLE
 - Do not use Markdown fences, explanations, status reports, TODOs, placeholders, or abbreviated sections.
 - The exact output path will be revision-2026-content/lessons/lessons-{code}.html.
 - Preserve the full code including suffix letters.
-- Use the correct notes path /revision-2026-content/notes/downloadable-notes-{code}.pdf.
+- Make Download Notes link to /revision-2026-content/lessons/lessons-{code}.html?autoPrintNotes=1 in the same tab; do not reference or generate a static notes PDF.
 - Include Print / Save PDF and Download Notes controls.
 - Support ?autoPrintNotes=1 and ?downloadNotes=1.
 - Use full-width responsive layout with no duplicate website header, no fixed site header, and no permanent left sidebar.
@@ -423,9 +423,9 @@ def validate_html(document: str, code: str, title: str, syllabus_text: str) -> l
     for phrase in ("print / save pdf", "download notes"):
         if phrase not in plain:
             errors.append(f"required control is missing: {phrase}")
-    expected_pdf = f"/revision-2026-content/notes/downloadable-notes-{code}.pdf".lower()
-    if expected_pdf not in lower:
-        errors.append("correct Revision 2026 notes PDF path is missing")
+    expected_print_url = f"/revision-2026-content/lessons/lessons-{code}.html?autoprintnotes=1".lower()
+    if expected_print_url not in lower:
+        errors.append("correct Revision 2026 print-mode lesson URL is missing")
     if "autoprintnotes" not in lower or "downloadnotes" not in lower:
         errors.append("required notes query-parameter handling is missing")
     if len(re.findall(r"<h2\b", lower)) < 6:

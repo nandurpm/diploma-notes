@@ -2083,7 +2083,7 @@
 
             function downloadNotes() {
                 const code = '1421';
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-' + code + '.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-' + code + '.html?autoPrintNotes=1';
                 // Try HEAD request to check existence
                 fetch(pdfPath, { method: 'HEAD' })
                     .then(res => {
