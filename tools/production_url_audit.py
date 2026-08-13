@@ -5,9 +5,10 @@ from __future__ import annotations
 
 import json
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.error import HTTPError
+from urllib.error import HTTPError, URLError
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
@@ -16,15 +17,34 @@ ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
 REPORT_JSON = ROOT / "reports/production-url-audit.json"
 REPORT_MD = ROOT / "reports/production-url-audit.md"
-SIGNATURES = {
-    "/": ("Revision 2026", "POLY PMNA", "/revision-2026.html"),
-    "/revision-2026.html": ("Choose your department", "38 departments available"),
-    "/revision-2021.html": ("Revision 2021", "department"),
-    "/ask-poly.html": ("Ask POLY AI", "chatForm", "ask-poly-config.js"),
-    "/daily-quiz.html": ("Revision 2021 Mock Exams", "supabase-url"),
-    "/tools.html": ("Student Tools", "tools-catalog.html"),
-    "/privacy.html": ("Ask POLY AI", "Supabase accounts", "Browser storage"),
-}
+REV2026_CATALOGUE = ROOT / "assets/data/revision-2026-programmes.json"
+
+
+def revision_2026_programme_count() -> int:
+    """Read the current official programme count instead of retaining a stale UI string."""
+    catalogue = json.loads(REV2026_CATALOGUE.read_text(encoding="utf-8"))
+    programmes = catalogue.get("programmes", [])
+    if not isinstance(programmes, list) or not programmes:
+        raise ValueError("Revision 2026 programme catalogue has no programmes list")
+    declared_count = catalogue.get("programmeCount")
+    if declared_count is not None and declared_count != len(programmes):
+        raise ValueError(
+            f"Revision 2026 programme count mismatch: declared {declared_count}, found {len(programmes)}"
+        )
+    return len(programmes)
+
+
+def required_signatures() -> dict[str, tuple[str, ...]]:
+    programme_count = revision_2026_programme_count()
+    return {
+        "/": ("Revision 2026", "POLY PMNA", "/revision-2026.html"),
+        "/revision-2026.html": ("Choose your department", f"{programme_count} departments available"),
+        "/revision-2021.html": ("Revision 2021", "department"),
+        "/ask-poly.html": ("Ask POLY AI", "chatForm", "ask-poly-config.js"),
+        "/daily-quiz.html": ("Mock Exams &amp; Daily Quiz", "supabase-url"),
+        "/tools.html": ("Student Tools", "tools-catalog.html"),
+        "/privacy.html": ("Ask POLY AI", "Supabase accounts", "Browser storage"),
+    }
 
 
 def expected_commit() -> str:
@@ -44,23 +64,32 @@ def get_resource(url: str) -> dict[str, object]:
             "Range": "bytes=0-262143",
         },
     )
-    try:
-        with urlopen(request, timeout=25) as response:
-            data = response.read(262144)
-            return {
-                "status": response.status,
-                "contentType": response.headers.get("Content-Type", ""),
-                "bytesRead": len(data),
-                "text": data.decode("utf-8", errors="replace") if "html" in response.headers.get("Content-Type", "").lower() or url.endswith(("/", ".html", ".json")) else "",
-            }
-    except HTTPError as exc:
-        return {"status": exc.code, "contentType": exc.headers.get("Content-Type", ""), "bytesRead": 0, "text": "", "error": str(exc)}
-    except Exception as exc:
-        return {"status": "error", "contentType": "", "bytesRead": 0, "text": "", "error": f"{type(exc).__name__}: {exc}"}
+    last_error = ""
+    for attempt in range(1, 4):
+        try:
+            with urlopen(request, timeout=25) as response:
+                data = response.read(262144)
+                return {
+                    "status": response.status,
+                    "contentType": response.headers.get("Content-Type", ""),
+                    "bytesRead": len(data),
+                    "text": data.decode("utf-8", errors="replace") if "html" in response.headers.get("Content-Type", "").lower() or url.endswith(("/", ".html", ".json")) else "",
+                }
+        except HTTPError as exc:
+            return {"status": exc.code, "contentType": exc.headers.get("Content-Type", ""), "bytesRead": 0, "text": "", "error": str(exc)}
+        except URLError as exc:
+            last_error = f"{type(exc).__name__}: {exc}"
+            if attempt < 3:
+                time.sleep(attempt)
+        except Exception as exc:
+            return {"status": "error", "contentType": "", "bytesRead": 0, "text": "", "error": f"{type(exc).__name__}: {exc}"}
+    return {"status": "error", "contentType": "", "bytesRead": 0, "text": "", "error": last_error}
 
 
-def build_info() -> dict[str, object]:
-    result = get_resource(f"{ORIGIN}/build-info.json?audit=1")
+def build_info(expected: str) -> dict[str, object]:
+    # A commit-specific query key avoids accepting a stale Cloudflare cache entry.
+    cache_key = expected[:12] if expected else "latest"
+    result = get_resource(f"{ORIGIN}/build-info.json?audit={cache_key}")
     body: object = result.get("text", "")
     if result.get("status") in (200, 206):
         try:
@@ -75,11 +104,12 @@ def main() -> int:
     urls = [(loc.text or "").strip() for loc in ET.parse(ROOT / "sitemap.xml").findall("sm:url/sm:loc", ns)]
     resources: list[dict[str, object]] = []
     failures: list[str] = []
+    signatures = required_signatures()
     for url in urls:
         result = get_resource(url + ("&" if "?" in url else "?") + "audit=1")
         text = str(result.pop("text", ""))
         route = urlparse(url).path or "/"
-        missing = [marker for marker in SIGNATURES.get(route, ()) if marker not in text]
+        missing = [marker for marker in signatures.get(route, ()) if marker not in text]
         item = {"url": url, **result, "missingSignatures": missing}
         resources.append(item)
         if result.get("status") not in (200, 206):
@@ -90,8 +120,8 @@ def main() -> int:
             if text and "<title" not in text.lower():
                 failures.append(f"{url}: missing HTML title in response")
 
-    info = build_info()
     expected = expected_commit()
+    info = build_info(expected)
     live_commit = info.get("body", {}).get("commit", "") if isinstance(info.get("body"), dict) else ""
     if info.get("status") not in (200, 206):
         failures.append(f"build-info.json: HTTP {info.get('status')}")
@@ -99,7 +129,8 @@ def main() -> int:
         failures.append(f"production commit {live_commit or 'missing'} does not match {expected}")
 
     payload = {
-        "schemaVersion": 2,
+        "schemaVersion": 3,
+        "revision2026ProgrammeCount": revision_2026_programme_count(),
         "generatedAt": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "expectedCommit": expected,
         "productionBuildInfo": info,
