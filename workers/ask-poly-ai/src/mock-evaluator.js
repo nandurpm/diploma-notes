@@ -2,6 +2,7 @@
 import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 
 const DEFAULT_MODEL = "gpt-4o-mini";
+const DEFAULT_NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
 const clean = (value, maximum) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
 
 // PERFORMANCE OPTIMIZATION: Cache the mock paper question bank Map to avoid O(N) array mapping
@@ -80,7 +81,83 @@ function outputText(data) {
   return "";
 }
 
-function normalize(parsed, selectedQuestions, data, model) {
+function extractNvidiaContent(data) {
+  return String(data?.choices?.[0]?.message?.content || "");
+}
+
+/* Fallback path: NVIDIA chat completions (no structured-output schema support).
+   The model is instructed to emit ONLY the evaluation JSON; we strip fences
+   and parse the result, reusing the same normalizer so the response shape is
+   identical to the OpenAI path. */
+async function requestNvidiaEvaluation(env, questions) {
+  const model = clean(env.NVIDIA_MODEL || "", 140) || DEFAULT_NVIDIA_MODEL;
+  const timeoutMs = Math.max(5000, Math.min(60000, Number(env.MOCK_EXAM_TIMEOUT_MS || 30000) || 30000));
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch("https://integrate.api.nvidia.com/v1/chat/completions", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${env.NVIDIA_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model,
+        messages: [
+          {
+            role: "system",
+            content: "You are a strict exam evaluator. Evaluate each student answer against the supplied rubric and return ONLY a JSON object. Never include explanations outside the JSON."
+          },
+          {
+            role: "user",
+            content: "Return a JSON object with exactly two keys: \"results\" (an array of 23 objects, one per question, each with id, awardedMarks (0 to " + MOCK_PAPER.totalMarks + ", half-mark steps where the question allows, else integers), confidence (0-1), feedback, missingPoints (up to 6 short strings)) and \"overallFeedback\" (a single paragraph, max 1200 characters).\n\n" + MOCK_INSTRUCTIONS + "\n\nExamination data:\n" + JSON.stringify({
+              examination: {
+                id: MOCK_PAPER.id,
+                subjectCode: MOCK_PAPER.subjectCode,
+                title: MOCK_PAPER.title,
+                totalMarks: MOCK_PAPER.totalMarks,
+                structure: "Part A 9x1; Part B any 8 of 10 at 3 marks; Part C six OR pairs at 7 marks"
+              },
+              questions
+            })
+          }
+        ],
+        temperature: Number(env.AI_TEMPERATURE || 0.3),
+        top_p: Number(env.AI_TOP_P || 0.9),
+        max_tokens: Number(env.MOCK_EXAM_MAX_OUTPUT_TOKENS || 4000),
+        stream: false
+      }),
+      signal: controller.signal
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      const error = new Error(data?.error?.message || data?.detail || `NVIDIA evaluation failed with HTTP ${response.status}.`);
+      error.status = response.status;
+      error.provider = "nvidia";
+      throw error;
+    }
+    const raw = extractNvidiaContent(data);
+    if (!raw) throw new Error("NVIDIA returned an empty evaluation response.");
+    let parsed;
+    try {
+      const stripped = raw.replace(/```json\s*/i, "").replace(/```/g, "").trim();
+      parsed = JSON.parse(stripped);
+    } catch {
+      throw new Error("The NVIDIA evaluator returned an invalid structured result.");
+    }
+    return { parsed, model, data };
+  } catch (error) {
+    if (error?.name === "AbortError" || String(error?.message || "").toLowerCase().includes("abort")) {
+      const timeoutError = new Error(`NVIDIA evaluation timed out after ${timeoutMs}ms.`);
+      timeoutError.status = 504;
+      throw timeoutError;
+    }
+    throw error;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
+
+function normalize(parsed, selectedQuestions, data, model, evaluationMode) {
   const returned = new Map((parsed?.results || []).map((item) => [String(item?.id || ""), item]));
   const results = selectedQuestions.map((question) => {
     const item = returned.get(question.id) || {};
@@ -108,7 +185,7 @@ function normalize(parsed, selectedQuestions, data, model) {
     totalMarks: MOCK_PAPER.totalMarks,
     percentage: Math.round(score / MOCK_PAPER.totalMarks * 1000) / 10,
     status: "published",
-    evaluationMode: "openai",
+    evaluationMode: evaluationMode || "openai",
     model: data.model || model,
     responseId: data.id || "",
     evaluatedAt: new Date().toISOString(),
@@ -155,8 +232,15 @@ function shouldRetryDefaultModel(error, model) {
 }
 
 export async function evaluateMockExam(body, env) {
-  if (!env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
   const questions = selectedQuestionsFrom(body);
+  const useNvidia = env.NVIDIA_API_KEY && !env.OPENAI_API_KEY;
+  if (!useNvidia && !env.OPENAI_API_KEY) throw new Error("Ask POLY AI is not configured yet.");
+
+  if (useNvidia) {
+    const { parsed, model, data } = await requestNvidiaEvaluation(env, questions);
+    return normalize(parsed, questions, { id: data?.id || "", model: data?.model || model }, model, "nvidia");
+  }
+
   let model = env.MOCK_EXAM_MODEL || env.OPENAI_MODEL || DEFAULT_MODEL;
   const payload = {
     model,
@@ -200,5 +284,5 @@ export async function evaluateMockExam(body, env) {
   let parsed;
   try { parsed = JSON.parse(text); }
   catch { throw new Error("The AI evaluator returned an invalid structured result."); }
-  return normalize(parsed, questions, data, model);
+    return normalize(parsed, questions, data, model);
 }

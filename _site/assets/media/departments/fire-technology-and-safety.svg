@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Fire Technology and Safety department artwork">
+  <rect width="640" height="360" fill="#ede9fe"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <path d="M320 60 474 116c-8 102-54 166-154 218-100-52-146-116-154-218z" fill="#ffffff" stroke="#4338ca" stroke-width="14" stroke-linejoin="round"/><path d="M320 122c42 46-20 58 22 112-54-26-68-60-22-112z" fill="#7c3aed"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#4338ca" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">FTS</text>
+</svg>

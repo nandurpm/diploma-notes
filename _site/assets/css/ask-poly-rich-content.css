@@ -1,0 +1,169 @@
+/* Purpose: Ask poly rich content - Descriptive comment added for clarity */
+#polySiteAssistant .poly-ai-msg.bot.poly-ai-rich-message {
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+}
+
+#polySiteAssistant .poly-ai-rich-message > :first-child {
+  margin-top: 0;
+}
+
+#polySiteAssistant .poly-ai-rich-message > :last-child {
+  margin-bottom: 0;
+}
+
+#polySiteAssistant .poly-ai-rich-message p,
+#polySiteAssistant .poly-ai-rich-message ul,
+#polySiteAssistant .poly-ai-rich-message ol,
+#polySiteAssistant .poly-ai-rich-message blockquote {
+  margin: 0 0 0.75rem;
+}
+
+#polySiteAssistant .poly-ai-rich-message ul,
+#polySiteAssistant .poly-ai-rich-message ol {
+  padding-left: 1.25rem;
+}
+
+#polySiteAssistant .poly-ai-rich-message li + li {
+  margin-top: 0.32rem;
+}
+
+#polySiteAssistant .poly-ai-rich-message h3,
+#polySiteAssistant .poly-ai-rich-message h4,
+#polySiteAssistant .poly-ai-rich-message h5,
+#polySiteAssistant .poly-ai-rich-message h6 {
+  margin: 0.9rem 0 0.45rem;
+  color: #10213d;
+  line-height: 1.25;
+}
+
+#polySiteAssistant .poly-ai-rich-message a {
+  color: #075bd8;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#polySiteAssistant .poly-ai-rich-message a:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, 0.28);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+#polySiteAssistant .poly-ai-rich-message a.poly-ai-download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0.25rem 0;
+  padding: 0.48rem 0.7rem;
+  border-radius: 10px;
+  color: #fff;
+  background: linear-gradient(135deg, #059669, #0891b2);
+  text-decoration: none;
+  box-shadow: 0 6px 16px rgba(5, 150, 105, 0.2);
+}
+
+#polySiteAssistant .poly-ai-rich-message a.poly-ai-download-link::before {
+  content: "↓";
+  font-size: 1rem;
+}
+
+#polySiteAssistant .poly-ai-rich-message code {
+  padding: 0.12rem 0.32rem;
+  border: 1px solid #dbeafe;
+  border-radius: 6px;
+  color: #0f3b78;
+  background: #eff6ff;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+#polySiteAssistant .poly-ai-rich-message blockquote {
+  padding: 0.65rem 0.8rem;
+  border-left: 4px solid #0891b2;
+  border-radius: 0 10px 10px 0;
+  color: #334155;
+  background: #ecfeff;
+}
+
+#polySiteAssistant .poly-ai-rich-message hr {
+  margin: 0.9rem 0;
+  border: 0;
+  border-top: 1px solid #dbe3ef;
+}
+
+#polySiteAssistant .poly-ai-placeholder-link {
+  color: #9a3412;
+  font-weight: 800;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+
+#polySiteAssistant .poly-ai-placeholder-warning {
+  display: block;
+  margin: 0.35rem 0 0.7rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #fed7aa;
+  border-radius: 9px;
+  color: #9a3412;
+  background: #fff7ed;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+#polySiteAssistant .poly-ai-code-block {
+  margin: 0.8rem 0;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  border-radius: 13px;
+  background: #0f172a;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+}
+
+#polySiteAssistant .poly-ai-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  color: #dbeafe;
+  background: #1e293b;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+#polySiteAssistant .poly-ai-code-header button {
+  min-height: 32px;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #0891b2);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 900;
+  touch-action: manipulation;
+}
+
+#polySiteAssistant .poly-ai-code-block pre {
+  max-height: 320px;
+  margin: 0;
+  overflow: auto;
+  padding: 0.8rem;
+  color: #e2e8f0;
+  background: #0f172a;
+  white-space: pre;
+  tab-size: 2;
+}
+
+#polySiteAssistant .poly-ai-code-block pre code {
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}

@@ -1,0 +1,216 @@
+/* Purpose: Onam theme - Descriptive comment added for clarity */
+/* 2026 Onam integrated banner theme */
+:root{
+  --onam-cream:#fff8e8;
+  --onam-gold:#facc15;
+  --onam-orange:#f97316;
+  --onam-green:#166534;
+  --onam-teal:#0d9488;
+  --onam-shadow:0 18px 45px rgba(120,74,0,.14);
+}
+
+html.poly-onam-banner-mode,
+body.poly-onam-banner-mode{
+  width:100% !important;
+  max-width:100% !important;
+  background:radial-gradient(circle at 12% 4%,rgba(250,204,21,.28),transparent 260px),radial-gradient(circle at 88% 10%,rgba(22,101,52,.14),transparent 280px),linear-gradient(180deg,#fff8e8 0%,#fff3c4 46%,#fffaf0 100%) !important;
+  overflow-x:hidden !important;
+}
+
+body.poly-onam-banner-mode::before{
+  content:"";
+  position:fixed;
+  left:0;
+  right:0;
+  top:0;
+  height:9px;
+  z-index:9999;
+  pointer-events:none;
+  background:radial-gradient(circle at 8px 5px,#f97316 0 5px,transparent 6px),radial-gradient(circle at 23px 5px,#facc15 0 5px,transparent 6px),radial-gradient(circle at 38px 5px,#65a30d 0 5px,transparent 6px);
+  background-size:45px 9px;
+}
+
+body.poly-onam-banner-mode::after{
+  content:"";
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  height:17px;
+  z-index:9997;
+  pointer-events:none;
+  background:radial-gradient(circle at 8px 8px,#f97316 0 6px,transparent 7px),radial-gradient(circle at 25px 8px,#facc15 0 6px,transparent 7px),radial-gradient(circle at 42px 8px,#65a30d 0 6px,transparent 7px);
+  background-size:50px 17px;
+}
+
+body.poly-onam-banner-mode .topbar{
+  background:rgba(255,255,255,.94) !important;
+  border-bottom:1px solid rgba(216,155,24,.32) !important;
+  box-shadow:0 14px 30px rgba(120,74,0,.10) !important;
+  backdrop-filter:blur(16px) saturate(1.12);
+}
+
+body.poly-onam-banner-mode .brand{color:#102016 !important}
+body.poly-onam-banner-mode .brand-symbol{background:linear-gradient(135deg,#16a34a,#0ea5e9,#f97316) !important;box-shadow:0 8px 18px rgba(120,74,0,.18) !important}
+body.poly-onam-banner-mode .navlinks a{border-color:rgba(216,155,24,.20) !important;background:rgba(255,255,255,.70) !important}
+body.poly-onam-banner-mode .navlinks a.active{background:linear-gradient(135deg,#fff7ed,#fef3c7) !important;color:#ea580c !important;box-shadow:inset 0 -2px 0 #ea580c,0 8px 18px rgba(120,74,0,.08) !important}
+body.poly-onam-banner-mode .home-compact-hero{display:none !important}
+
+.onam-day-banner-wrap{
+  position:relative;
+  width:100% !important;
+  max-width:100% !important;
+  height:clamp(255px,31vw,520px);
+  margin:0 0 18px 0 !important;
+  padding:0;
+  overflow:hidden;
+  box-sizing:border-box !important;
+  background:#fff8e8;
+  border-radius:0 0 28px 28px;
+  box-shadow:0 22px 48px rgba(120,74,0,.18);
+  isolation:isolate;
+}
+
+.onam-day-banner-wrap::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  background:linear-gradient(90deg,rgba(255,248,232,.16),transparent 16%,transparent 84%,rgba(255,248,232,.18)),linear-gradient(180deg,rgba(255,255,255,.18),transparent 35%,rgba(255,248,232,.08));
+}
+
+.onam-day-banner-wrap::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:58px;
+  z-index:3;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent,rgba(255,248,232,.84));
+}
+
+.onam-day-banner{
+  display:block;
+  width:100%;
+  height:100%;
+  max-height:none;
+  object-fit:cover;
+  object-position:center center;
+  transform:scale(1.006);
+  filter:saturate(1.06) contrast(1.02);
+}
+
+body.poly-onam-banner-mode main{
+  position:relative;
+  z-index:1;
+  width:100% !important;
+  max-width:100% !important;
+  overflow-x:hidden !important;
+  background:radial-gradient(circle at 0% 20%,rgba(249,115,22,.12),transparent 260px),radial-gradient(circle at 100% 22%,rgba(22,101,52,.10),transparent 280px);
+}
+
+body.poly-onam-banner-mode .section,
+body.poly-onam-banner-mode .selection-grid,
+body.poly-onam-banner-mode #subject-browser,
+body.poly-onam-banner-mode .home-feature{position:relative;z-index:2}
+
+body.poly-onam-banner-mode #subject-browser{
+  margin-top:0 !important;
+  padding-top:0 !important;
+  background:rgba(255,255,255,.45);
+  border:1px solid rgba(216,155,24,.18);
+  border-radius:24px;
+  box-shadow:var(--onam-shadow);
+  backdrop-filter:blur(10px) saturate(1.06);
+}
+
+body.poly-onam-banner-mode #subject-browser .section-heading{display:none !important}
+body.poly-onam-banner-mode .home-subject-filters{background:rgba(255,255,255,.90) !important;border:1px solid rgba(216,155,24,.22) !important;border-radius:18px !important;padding:14px !important;box-shadow:0 12px 28px rgba(120,74,0,.08) !important}
+body.poly-onam-banner-mode .home-subject-filters input,
+body.poly-onam-banner-mode .home-subject-filters select{background:#fff !important;border-color:rgba(216,155,24,.25) !important;box-shadow:inset 0 1px 0 rgba(255,255,255,.75) !important}
+body.poly-onam-banner-mode .subject-grid{gap:18px !important}
+
+body.poly-onam-banner-mode .subject-card,
+body.poly-onam-banner-mode .choice-card,
+body.poly-onam-banner-mode .daily-special-card{
+  background:linear-gradient(145deg,rgba(255,255,255,.95),rgba(255,248,232,.88)) !important;
+  border:1px solid rgba(216,155,24,.28) !important;
+  border-radius:20px !important;
+  box-shadow:0 16px 32px rgba(120,74,0,.10) !important;
+  overflow:hidden;
+}
+
+body.poly-onam-banner-mode .subject-card::before,
+body.poly-onam-banner-mode .choice-card::before{content:"" !important;position:absolute !important;left:0 !important;right:0 !important;top:0 !important;height:5px !important;background:linear-gradient(90deg,#2563eb,#0d9488,#65a30d,#facc15,#f97316) !important}
+body.poly-onam-banner-mode .choice-card{transform:none !important;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease !important}
+body.poly-onam-banner-mode .choice-card:hover,
+body.poly-onam-banner-mode .subject-card:hover{transform:translateY(-4px) !important;box-shadow:0 24px 48px rgba(120,74,0,.15) !important;border-color:rgba(249,115,22,.38) !important}
+body.poly-onam-banner-mode .choice-card span,
+body.poly-onam-banner-mode .subject-card .badge,
+body.poly-onam-banner-mode .subject-code,
+body.poly-onam-banner-mode .subject-year{background:linear-gradient(135deg,#e0f2fe,#fef3c7) !important;color:#0f5132 !important}
+body.poly-onam-banner-mode .btn,
+body.poly-onam-banner-mode .subject-card a,
+body.poly-onam-banner-mode .subject-card button{border-radius:11px !important}
+body.poly-onam-banner-mode .selection-grid{margin-top:20px !important}
+body.poly-onam-banner-mode .home-feature{padding:14px !important;border-radius:24px !important;background:rgba(255,255,255,.52) !important;border:1px solid rgba(216,155,24,.20) !important;box-shadow:var(--onam-shadow) !important}
+body.poly-onam-banner-mode .home-video-frame,
+body.poly-onam-banner-mode .home-video{border-radius:20px !important;overflow:hidden !important}
+body.poly-onam-banner-mode .initiative-strip{background:linear-gradient(90deg,#fff7ed,#fef3c7,#ecfccb) !important;border:1px solid rgba(216,155,24,.22) !important;border-radius:16px !important}
+body.poly-onam-banner-mode .footer{background:rgba(255,255,255,.88) !important;border-top:1px solid rgba(216,155,24,.22) !important;box-shadow:0 -10px 24px rgba(120,74,0,.08) !important}
+body.poly-onam-banner-mode .home-ask-poly-float{background:linear-gradient(135deg,#166534,#0d9488,#f97316) !important;box-shadow:0 18px 38px rgba(22,101,52,.24) !important}
+
+body.poly-onam-banner-mode .onam-petal-layer{
+  position:fixed;
+  inset:0;
+  width:100% !important;
+  max-width:100% !important;
+  z-index:9996;
+  pointer-events:none;
+  overflow:hidden !important;
+}
+
+body.poly-onam-banner-mode .onam-petal{
+  position:absolute;
+  top:-42px;
+  left:min(var(--x,50vw),calc(100vw - 32px)) !important;
+  font-size:var(--s,18px);
+  line-height:1;
+  opacity:.82;
+  animation:onamPetalFall var(--d,12s) linear var(--delay,0s) infinite;
+  filter:drop-shadow(0 4px 4px rgba(120,74,0,.18));
+}
+
+@keyframes onamPetalFall{
+  0%{transform:translate3d(0,-48px,0) rotate(0deg);opacity:0}
+  10%{opacity:.85}
+  100%{transform:translate3d(var(--drift,35px),110vh,0) rotate(380deg);opacity:0}
+}
+
+body.poly-onam-banner-mode .onam-floating-lamp{position:fixed;right:18px;top:112px;z-index:9995;font-size:34px;pointer-events:none;animation:onamLampFloat 3.8s ease-in-out infinite;filter:drop-shadow(0 8px 10px rgba(120,74,0,.22))}
+@keyframes onamLampFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+@media (max-width:900px){
+  .onam-day-banner-wrap{height:clamp(210px,54vw,330px);border-radius:0 0 22px 22px;margin-bottom:14px !important}
+  .onam-day-banner{object-position:center center}
+  body.poly-onam-banner-mode main{padding-top:0 !important}
+  body.poly-onam-banner-mode .selection-grid{margin-top:14px !important}
+  body.poly-onam-banner-mode #subject-browser{border-radius:18px}
+}
+
+@media (max-width:520px){
+  .onam-day-banner-wrap{height:clamp(200px,58vw,280px);box-shadow:0 14px 30px rgba(120,74,0,.16)}
+  .onam-day-banner{object-position:center center}
+  body.poly-onam-banner-mode .topbar{border-radius:0 0 18px 18px !important}
+  body.poly-onam-banner-mode .choice-card,
+  body.poly-onam-banner-mode .subject-card{border-radius:18px !important}
+  body.poly-onam-banner-mode .onam-floating-lamp{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.poly-onam-banner-mode .onam-petal,
+  body.poly-onam-banner-mode .onam-floating-lamp{animation:none !important}
+}

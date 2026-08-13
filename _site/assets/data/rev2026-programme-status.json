@@ -1,0 +1,84 @@
+{
+  "scheme": "REV2026",
+  "officialUrl": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
+  "verifiedDate": "2026-07-15",
+  "officialProgrammeCount": 38,
+  "publicationStatus": "programme-list-verified-subject-level-data-pending",
+  "programmes": [
+    "Architecture",
+    "Artificial Intelligence",
+    "Artificial Intelligence & Machine Learning",
+    "Automation and Robotics",
+    "Automobile Engineering",
+    "Biomedical Engineering",
+    "Chemical Engineering",
+    "Civil & Environmental Engineering",
+    "Civil & Rural Engineering",
+    "Civil Engineering",
+    "Civil Engineering & Planning",
+    "Commercial Practice",
+    "Computer Application & Business Management",
+    "Computer Engineering",
+    "Computer Science & Engineering",
+    "Computer Science and Technology",
+    "Cyber Forensics and Information Security",
+    "Electrical & Electronics Engineering",
+    "Electrical Engineering",
+    "Electrical Engineering & Electric Vehicles Technology",
+    "Electronics and Communication",
+    "Electronics and Computer Engineering",
+    "Electronics Engineering",
+    "Fire Technology and Safety",
+    "Food Processing Technology",
+    "Information Technology",
+    "Instrumentation Engineering",
+    "Integrated Circuit Design & Fabrication",
+    "Interior Design",
+    "Mechanical Engineering",
+    "Mechatronics",
+    "Micro Electronics",
+    "Polymer Technology",
+    "Printing Technology",
+    "Robotic Process Automation",
+    "Textile Technology",
+    "Tool & Die Engineering",
+    "Wood and Paper Technology"
+  ],
+  "newlyListedComparedWithCurrentPOLYPMNAData": [
+    "Computer Science and Technology",
+    "Interior Design"
+  ],
+  "uncertainOrMissingComparedWithREV2021": [
+    {
+      "name": "Hotel Management and Catering Technology",
+      "status": "uncertain-not-deleted",
+      "note": "Absent from current REV2026 programme list. Existing REV2021 material remains protected."
+    },
+    {
+      "name": "Cloud Computing and Big Data",
+      "status": "uncertain-not-deleted"
+    },
+    {
+      "name": "Communication & Computer Networking",
+      "status": "uncertain-not-deleted"
+    },
+    {
+      "name": "Computer Hardware Engineering",
+      "status": "uncertain-not-deleted"
+    },
+    {
+      "name": "Renewable Energy",
+      "status": "uncertain-not-deleted"
+    },
+    {
+      "name": "Other REV2021 civil specialisations not shown in the current REV2026 list",
+      "status": "uncertain-reconciliation-required"
+    }
+  ],
+  "rules": {
+    "deleteMissingProgrammes": false,
+    "publishSubjectCardsWithoutVerifiedPDF": false,
+    "overwriteREV2021Handbooks": false,
+    "periodicRecheckRequired": true
+  }
+}

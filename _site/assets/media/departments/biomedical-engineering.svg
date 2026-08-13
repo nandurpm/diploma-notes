@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Biomedical Engineering department artwork">
+  <rect width="640" height="360" fill="#dcfce7"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <rect x="156" y="76" width="328" height="208" rx="30" fill="#ffffff" stroke="#047857" stroke-width="14"/><path d="M194 190h70l26-54 44 104 32-50h82" fill="none" stroke="#14b8a6" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#047857" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">BE</text>
+</svg>

@@ -1,0 +1,505 @@
+/*
+ * POLY PMNA — Annual Independence Day theme
+ *
+ * The JavaScript module adds `poly-independence-day` to <html> only on
+ * 15 August in the visitor's local calendar. Keeping the overrides under
+ * one root class makes the theme reversible and prevents date checks from
+ * leaking into individual components.
+ */
+
+html.poly-independence-day {
+  color-scheme: light;
+  --id-saffron: #f28c28;
+  --id-saffron-deep: #d86b16;
+  --id-white: #fffdf8;
+  --id-green: #138a58;
+  --id-green-deep: #08633f;
+  --id-navy: #123d63;
+  --id-ink: #142a40;
+  --id-muted: #526579;
+  --id-line: rgba(18, 61, 99, .16);
+  --id-surface: rgba(255, 253, 248, .94);
+  --id-surface-strong: #fffdf8;
+  --id-shadow: 0 24px 70px rgba(18, 61, 99, .16);
+  --id-soft-shadow: 0 14px 38px rgba(18, 61, 99, .11);
+
+  /* Bridge the legacy and unified POLY PMNA design-token maps. */
+  --ink: var(--id-ink);
+  --ink-strong: #0b2338;
+  --muted: var(--id-muted);
+  --bg: #f3f7f2;
+  --surface: var(--id-surface-strong);
+  --surface-soft: #fbfaf4;
+  --line: var(--id-line);
+  --blue: var(--id-navy);
+  --blue-2: #1a638d;
+  --sky: #287da0;
+  --cyan: #248aa2;
+  --green: var(--id-green);
+  --amber: var(--id-saffron);
+  --poly-ink: var(--id-ink);
+  --poly-ink-strong: #0b2338;
+  --poly-muted: var(--id-muted);
+  --poly-bg: #f3f7f2;
+  --poly-surface: var(--id-surface-strong);
+  --poly-surface-soft: #fbfaf4;
+  --poly-line: var(--id-line);
+  --poly-blue: var(--id-navy);
+  --poly-blue-2: #1a638d;
+  --poly-sky: #287da0;
+  --poly-cyan: #248aa2;
+  --poly-green: var(--id-green);
+  --poly-amber: var(--id-saffron);
+  --poly-shadow: var(--id-shadow);
+  --poly-soft-shadow: var(--id-soft-shadow);
+}
+
+html.poly-independence-day body {
+  color: var(--id-ink);
+  background:
+    radial-gradient(circle at 6% 4%, rgba(242, 140, 40, .18), transparent 26rem),
+    radial-gradient(circle at 96% 20%, rgba(19, 138, 88, .16), transparent 30rem),
+    linear-gradient(180deg, #fffdf8 0%, #f3f7f2 48%, #f9fbf6 100%) !important;
+}
+
+html.poly-independence-day body::before {
+  background-image:
+    linear-gradient(rgba(18, 61, 99, .045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 61, 99, .045) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(242, 140, 40, .035), transparent 44%, rgba(19, 138, 88, .035));
+  background-size: 48px 48px, 48px 48px, 100% 100%;
+  opacity: .58;
+}
+
+html.poly-independence-day body::after {
+  background:
+    linear-gradient(90deg, transparent, rgba(242, 140, 40, .10), transparent 35%, rgba(19, 138, 88, .10), transparent),
+    radial-gradient(ellipse at center, rgba(18, 61, 99, .08), transparent 72%);
+}
+
+/* Compact hero banner: it sits in normal document flow below the measured
+   fixed header, so it does not overlap navigation or move scroll anchors. */
+.poly-independence-banner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  width: calc(100% - (2 * var(--poly-gutter, 14px)));
+  min-height: 76px;
+  margin: 0 var(--poly-gutter, 14px) 12px;
+  padding: 10px 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 253, 248, .94);
+  border-radius: 20px;
+  background:
+    linear-gradient(90deg, rgba(242, 140, 40, .17) 0 33%, rgba(255, 253, 248, .72) 33% 66%, rgba(19, 138, 88, .16) 66% 100%),
+    rgba(255, 253, 248, .92);
+  box-shadow: var(--id-soft-shadow);
+  isolation: isolate;
+}
+
+.poly-independence-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: -1;
+  width: 5px;
+  background: linear-gradient(180deg, var(--id-saffron), var(--id-white) 50%, var(--id-green));
+}
+
+.poly-independence-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 34%, rgba(255, 255, 255, .56) 48%, transparent 61%);
+  transform: translateX(-110%);
+  animation: poly-independence-shimmer 9s ease-in-out infinite;
+}
+
+.poly-independence-banner__flag {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 62px;
+  height: 42px;
+  overflow: hidden;
+  border: 1px solid rgba(18, 61, 99, .14);
+  border-radius: 10px 4px 10px 4px;
+  background: linear-gradient(180deg, var(--id-saffron) 0 33.33%, var(--id-white) 33.33% 66.66%, var(--id-green) 66.66% 100%);
+  box-shadow: 0 9px 20px rgba(18, 61, 99, .12);
+  transform-origin: left center;
+  animation: poly-independence-flag-wave 8s ease-in-out infinite;
+}
+
+.poly-independence-banner__flag::after {
+  content: "☸";
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  color: var(--id-navy);
+  font-size: 1.1rem;
+  line-height: 1;
+  animation: poly-independence-chakra 24s linear infinite;
+}
+
+.poly-independence-banner__copy {
+  min-width: 0;
+}
+
+.poly-independence-banner__eyebrow {
+  display: block;
+  margin: 0 0 2px;
+  color: var(--id-navy);
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .14em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.poly-independence-banner__title {
+  display: block;
+  color: var(--id-ink);
+  font-family: var(--poly-heading, Inter, sans-serif);
+  font-size: clamp(1rem, 2vw, 1.34rem);
+  font-weight: 950;
+  letter-spacing: -.03em;
+  line-height: 1.1;
+}
+
+.poly-independence-banner__message {
+  display: block;
+  margin: 3px 0 0;
+  overflow: hidden;
+  color: var(--id-muted);
+  font-size: .78rem;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.poly-independence-banner__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--id-navy);
+  font-size: .72rem;
+  font-weight: 900;
+  letter-spacing: .05em;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.poly-independence-banner__meta::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--id-saffron);
+  box-shadow: 0 0 0 4px rgba(242, 140, 40, .15);
+}
+
+.poly-independence-banner__dismiss {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid rgba(18, 61, 99, .16);
+  border-radius: 50%;
+  background: rgba(255, 253, 248, .72);
+  color: var(--id-navy);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .18s ease, transform .18s ease, border-color .18s ease;
+}
+
+.poly-independence-banner__dismiss:hover,
+.poly-independence-banner__dismiss:focus-visible {
+  border-color: var(--id-saffron);
+  background: var(--id-white);
+  outline: none;
+  transform: scale(1.06);
+}
+
+.poly-independence-particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.poly-independence-particle {
+  position: absolute;
+  top: -12px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--particle-color, var(--id-saffron));
+  box-shadow: 0 0 14px color-mix(in srgb, var(--particle-color, var(--id-saffron)) 45%, transparent);
+  opacity: .38;
+  animation: poly-independence-float var(--particle-duration, 14s) linear var(--particle-delay, 0s) infinite;
+}
+
+/* Global component translation. Selectors mirror the existing unified layer,
+   then add common legacy controls so pages outside the portal shell are also
+   covered without touching their markup or JavaScript. */
+html.poly-independence-day .topbar {
+  border-color: rgba(255, 253, 248, .92) !important;
+  background: linear-gradient(90deg, rgba(255, 253, 248, .94), rgba(255, 253, 248, .88)) !important;
+  box-shadow: 0 16px 45px rgba(18, 61, 99, .15) !important;
+}
+
+html.poly-independence-day .brand,
+html.poly-independence-day .brand strong,
+html.poly-independence-day .brand span:last-child {
+  color: var(--id-ink) !important;
+}
+
+html.poly-independence-day .brand-symbol,
+html.poly-independence-day .brand span:first-child {
+  background: linear-gradient(135deg, var(--id-saffron), var(--id-navy) 52%, var(--id-green)) !important;
+  box-shadow: 0 14px 30px rgba(18, 61, 99, .22) !important;
+}
+
+html.poly-independence-day .menu-toggle,
+html.poly-independence-day .menu-btn,
+html.poly-independence-day .navlinks a:hover,
+html.poly-independence-day .navlinks a.active,
+html.poly-independence-day .navlinks a[aria-current="page"] {
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--id-saffron-deep), var(--id-navy) 50%, var(--id-green-deep)) !important;
+  border-color: transparent !important;
+  box-shadow: 0 12px 25px rgba(18, 61, 99, .22) !important;
+}
+
+html.poly-independence-day .navlinks a {
+  color: var(--id-navy) !important;
+  border-color: var(--id-line) !important;
+  background: rgba(255, 253, 248, .76) !important;
+}
+
+html.poly-independence-day .page-title,
+html.poly-independence-day .hero,
+html.poly-independence-day .hero-copy,
+html.poly-independence-day .hero-panel {
+  background:
+    radial-gradient(circle at 86% 18%, rgba(19, 138, 88, .16), transparent 18rem),
+    radial-gradient(circle at 12% 88%, rgba(242, 140, 40, .17), transparent 19rem),
+    linear-gradient(135deg, var(--id-white) 0%, #f6faf6 56%, #fffaf2 100%) !important;
+  border-color: rgba(255, 253, 248, .96) !important;
+  box-shadow: var(--id-shadow) !important;
+}
+
+html.poly-independence-day h1,
+html.poly-independence-day h2,
+html.poly-independence-day h3,
+html.poly-independence-day h4 {
+  color: var(--id-ink) !important;
+}
+
+html.poly-independence-day p,
+html.poly-independence-day label,
+html.poly-independence-day small {
+  color: var(--id-muted);
+}
+
+html.poly-independence-day .kicker,
+html.poly-independence-day .eyebrow {
+  color: var(--id-navy) !important;
+  background: rgba(242, 140, 40, .14) !important;
+  border: 1px solid rgba(242, 140, 40, .24);
+}
+
+html.poly-independence-day .section,
+html.poly-independence-day .panel,
+html.poly-independence-day .notice,
+html.poly-independence-day .info-card,
+html.poly-independence-day .choice-card,
+html.poly-independence-day .subject-card,
+html.poly-independence-day .card,
+html.poly-independence-day .quiz-card,
+html.poly-independence-day .tools-card,
+html.poly-independence-day .tool-panel,
+html.poly-independence-day .auth-card,
+html.poly-independence-day .modal,
+html.poly-independence-day .dialog,
+html.poly-independence-day .popup,
+html.poly-independence-day .toast,
+html.poly-independence-day .notification {
+  border-color: rgba(255, 253, 248, .94) !important;
+  background: var(--id-surface) !important;
+  box-shadow: var(--id-soft-shadow) !important;
+}
+
+html.poly-independence-day .choice-card::before,
+html.poly-independence-day .info-card::before,
+html.poly-independence-day .subject-card::before,
+html.poly-independence-day .card::before {
+  background: linear-gradient(90deg, var(--id-saffron), var(--id-white) 50%, var(--id-green)) !important;
+}
+
+html.poly-independence-day .choice-card:hover,
+html.poly-independence-day .info-card:hover,
+html.poly-independence-day .subject-card:hover,
+html.poly-independence-day .card:hover {
+  border-color: rgba(18, 61, 99, .28) !important;
+  box-shadow: 0 28px 70px rgba(18, 61, 99, .18) !important;
+}
+
+html.poly-independence-day .btn.primary,
+html.poly-independence-day .primary,
+html.poly-independence-day .action.lessons,
+html.poly-independence-day .open,
+html.poly-independence-day .btn.guest,
+html.poly-independence-day .guest {
+  color: #fff !important;
+  background: linear-gradient(135deg, var(--id-saffron-deep), var(--id-navy) 50%, var(--id-green-deep)) !important;
+  box-shadow: 0 16px 34px rgba(18, 61, 99, .23) !important;
+}
+
+html.poly-independence-day .btn.ghost,
+html.poly-independence-day .btn.soft,
+html.poly-independence-day .btn.outline,
+html.poly-independence-day .ghost,
+html.poly-independence-day .soft,
+html.poly-independence-day .outline,
+html.poly-independence-day .action {
+  color: var(--id-navy) !important;
+  border-color: rgba(18, 61, 99, .18) !important;
+  background: var(--id-white) !important;
+  box-shadow: 0 10px 24px rgba(18, 61, 99, .09) !important;
+}
+
+html.poly-independence-day input,
+html.poly-independence-day select,
+html.poly-independence-day textarea,
+html.poly-independence-day button:not(.menu-toggle):not(.menu-btn) {
+  border-color: rgba(18, 61, 99, .18);
+}
+
+html.poly-independence-day input:focus,
+html.poly-independence-day select:focus,
+html.poly-independence-day textarea:focus,
+html.poly-independence-day button:focus-visible,
+html.poly-independence-day a:focus-visible {
+  outline: 3px solid rgba(242, 140, 40, .34);
+  outline-offset: 2px;
+}
+
+html.poly-independence-day table thead,
+html.poly-independence-day th {
+  color: #fff;
+  background: linear-gradient(135deg, var(--id-navy), var(--id-green-deep)) !important;
+}
+
+html.poly-independence-day table tr:nth-child(even) td {
+  background: rgba(19, 138, 88, .045);
+}
+
+html.poly-independence-day .footer {
+  border-color: rgba(255, 253, 248, .94) !important;
+  background: var(--id-white) !important;
+  box-shadow: var(--id-soft-shadow) !important;
+  color: var(--id-muted) !important;
+}
+
+html.poly-independence-day .footer a,
+html.poly-independence-day a:not(.btn):not(.action):not(.navlinks a) {
+  color: var(--id-navy);
+}
+
+html.poly-independence-day .loader,
+html.poly-independence-day .loading,
+html.poly-independence-day .loading-screen,
+html.poly-independence-day [aria-busy="true"] {
+  accent-color: var(--id-saffron);
+}
+
+html.poly-independence-day .progress,
+html.poly-independence-day progress::-webkit-progress-value {
+  background: linear-gradient(90deg, var(--id-saffron), var(--id-navy), var(--id-green)) !important;
+}
+
+html.poly-independence-day .site-notice,
+html.poly-independence-day .announcement,
+html.poly-independence-day .alert {
+  border-color: rgba(242, 140, 40, .24) !important;
+  background: linear-gradient(90deg, rgba(242, 140, 40, .11), rgba(255, 253, 248, .84), rgba(19, 138, 88, .10)) !important;
+  color: var(--id-navy) !important;
+}
+
+html.poly-independence-day .daily-special-card,
+html.poly-independence-day .home-feature,
+html.poly-independence-day .initiative-strip {
+  border-color: rgba(255, 253, 248, .92) !important;
+}
+
+html.poly-independence-day .daily-special-card {
+  background: linear-gradient(135deg, rgba(242, 140, 40, .18), rgba(255, 253, 248, .88) 48%, rgba(19, 138, 88, .16)) !important;
+}
+
+@keyframes poly-independence-shimmer {
+  0%, 56% { transform: translateX(-110%); }
+  76%, 100% { transform: translateX(110%); }
+}
+
+@keyframes poly-independence-flag-wave {
+  0%, 100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
+  50% { transform: perspective(300px) rotateY(-7deg) skewY(1deg); }
+}
+
+@keyframes poly-independence-chakra {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes poly-independence-float {
+  0% { transform: translate3d(0, -12px, 0) scale(.6); opacity: 0; }
+  12% { opacity: .38; }
+  88% { opacity: .18; }
+  100% { transform: translate3d(var(--particle-drift, 24px), 105vh, 0) scale(1); opacity: 0; }
+}
+
+@media (max-width: 760px) {
+  .poly-independence-banner {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 10px;
+    min-height: 68px;
+    margin-bottom: 9px;
+    padding: 9px 11px;
+    border-radius: 16px;
+  }
+  .poly-independence-banner__flag { width: 50px; height: 36px; }
+  .poly-independence-banner__flag::after { width: 17px; height: 17px; font-size: .95rem; }
+  .poly-independence-banner__eyebrow { font-size: .59rem; letter-spacing: .1em; }
+  .poly-independence-banner__title { font-size: .96rem; }
+  .poly-independence-banner__message { font-size: .7rem; }
+  .poly-independence-banner__meta { display: none; }
+  .poly-independence-banner__dismiss { width: 27px; min-width: 27px; height: 27px; font-size: .96rem; }
+}
+
+@media (max-width: 420px) {
+  .poly-independence-banner { width: calc(100% - 12px); margin-inline: 6px; }
+  .poly-independence-banner__message { max-width: 39vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.poly-independence-day *,
+  html.poly-independence-day *::before,
+  html.poly-independence-day *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .poly-independence-particles { display: none; }
+}

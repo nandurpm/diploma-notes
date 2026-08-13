@@ -1,0 +1,111 @@
+/* Purpose: Home hero tight - Descriptive comment added for clarity */
+body.portal-page .home-compact-hero.page-title {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 430px) !important;
+  column-gap: clamp(18px, 2vw, 34px) !important;
+  row-gap: clamp(7px, 0.8vw, 12px) !important;
+  min-height: clamp(245px, 19vw, 315px) !important;
+  padding: clamp(16px, 2vw, 30px) clamp(18px, 2.3vw, 34px) !important;
+  align-content: center !important;
+}
+
+body.portal-page .home-compact-hero.page-title > :not(.daily-special-card) {
+  max-width: 760px !important;
+}
+
+body.portal-page .home-compact-hero.page-title .kicker {
+  margin-bottom: 0 !important;
+  padding: 6px 10px !important;
+  font-size: 0.62rem !important;
+}
+
+body.portal-page .home-compact-hero.page-title h1 {
+  max-width: 720px !important;
+  margin: 2px 0 4px !important;
+  font-size: clamp(1.9rem, 2.45vw, 2.75rem) !important;
+  line-height: 1.05 !important;
+}
+
+body.portal-page .home-compact-hero.page-title > p:not(.kicker) {
+  max-width: 720px !important;
+  margin: 0 !important;
+  font-size: clamp(0.88rem, 0.95vw, 0.98rem) !important;
+  line-height: 1.45 !important;
+}
+
+body.portal-page .home-compact-hero.page-title .hero-actions {
+  gap: 8px !important;
+  margin-top: 6px !important;
+}
+
+body.portal-page .home-compact-hero.page-title .btn {
+  min-height: 38px !important;
+  padding: 8px 13px !important;
+  border-radius: 13px !important;
+  font-size: 0.86rem !important;
+}
+
+body.portal-page .home-compact-hero.page-title::after {
+  display: none !important;
+  content: none !important;
+}
+
+body.portal-page .home-compact-hero.page-title .daily-special-card {
+  width: min(100%, 430px) !important;
+  padding: clamp(12px, 1.05vw, 16px) !important;
+  border-radius: 18px !important;
+  box-shadow: 0 10px 24px rgba(26, 74, 135, 0.10) !important;
+}
+
+body.portal-page .daily-special-card__date {
+  margin-bottom: 8px !important;
+  padding: 5px 9px !important;
+  font-size: 0.68rem !important;
+}
+
+body.portal-page .daily-special-card__title {
+  margin-bottom: 7px !important;
+  font-size: clamp(1rem, 1.12vw, 1.28rem) !important;
+  line-height: 1.12 !important;
+}
+
+body.portal-page .daily-special-card__message {
+  font-size: clamp(0.78rem, 0.8vw, 0.9rem) !important;
+  line-height: 1.42 !important;
+}
+
+body.portal-page .daily-special-card__badges {
+  margin-top: 9px !important;
+}
+
+body.portal-page .daily-special-card__badge {
+  min-height: 21px !important;
+  padding: 4px 7px !important;
+  font-size: 0.58rem !important;
+}
+
+@media (max-width: 900px) {
+  body.portal-page .home-compact-hero.page-title {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    min-height: auto !important;
+    padding: 18px 16px !important;
+  }
+
+  body.portal-page .home-compact-hero.page-title h1,
+  body.portal-page .home-compact-hero.page-title > p:not(.kicker) {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 620px) {
+  body.portal-page .home-compact-hero.page-title {
+    padding: 16px 12px !important;
+    gap: 12px !important;
+    border-radius: 18px !important;
+  }
+
+  body.portal-page .home-compact-hero.page-title h1 {
+    font-size: clamp(1.42rem, 6.5vw, 1.82rem) !important;
+    line-height: 1.1 !important;
+  }
+}

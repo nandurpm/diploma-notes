@@ -147,3 +147,155 @@ test("evaluateMockExam throws on bad OpenAI API non-ok response", async () => {
     globalThis.fetch = originalFetch;
   }
 });
+
+test("evaluateMockExam falls back to NVIDIA when OpenAI key is missing", async () => {
+  const answers = buildValidAnswers();
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers
+  };
+  const env = {
+    NVIDIA_API_KEY: "nvidia-test-key",
+    MOCK_EXAM_TIMEOUT_MS: "5000"
+  };
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, "https://integrate.api.nvidia.com/v1/chat/completions");
+    assert.equal(options.headers.Authorization, "Bearer nvidia-test-key");
+    const payload = JSON.parse(options.body);
+    assert.equal(payload.model, "meta/llama-3.1-8b-instruct");
+    assert.equal(payload.stream, false);
+    assert.equal(payload.messages.length, 2);
+
+    const mockResponseText = JSON.stringify({
+      results: answers.map((a) => ({
+        id: a.id,
+        awardedMarks: 2,
+        confidence: 0.9,
+        feedback: "NVIDIA-evaluated feedback",
+        missingPoints: ["Missing example"]
+      })),
+      overallFeedback: "Solid attempt using the NVIDIA fallback path."
+    });
+
+    return {
+      ok: true,
+      json: async () => ({
+        id: "nv-456",
+        model: "meta/llama-3.1-8b-instruct",
+        choices: [{ message: { content: "```json\n" + mockResponseText + "\n```" } }]
+      })
+    };
+  };
+
+  try {
+    const result = await evaluateMockExam(body, env);
+    assert.equal(result.paperId, MOCK_PAPER.id);
+    assert.equal(result.evaluationMode, "nvidia");
+    assert.equal(result.model, "meta/llama-3.1-8b-instruct");
+    assert.equal(result.overallFeedback, "Solid attempt using the NVIDIA fallback path.");
+    assert.equal(result.status, "published");
+    assert.ok(result.score > 0);
+    assert.equal(result.results.length, answers.length);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("evaluateMockExam prefers OpenAI when both keys are present", async () => {
+  const answers = buildValidAnswers();
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers
+  };
+  const env = {
+    OPENAI_API_KEY: "openai-key",
+    NVIDIA_API_KEY: "nvidia-key",
+    MOCK_EXAM_TIMEOUT_MS: "5000"
+  };
+
+  const originalFetch = globalThis.fetch;
+  let nvidiaCalled = false;
+  globalThis.fetch = async (url) => {
+    if (url.includes("nvidia.com")) nvidiaCalled = true;
+    return {
+      ok: true,
+      json: async () => ({
+        output: [
+          {
+            type: "message",
+            content: [
+              {
+                type: "output_text",
+                text: JSON.stringify({
+                  results: answers.map((a) => ({ id: a.id, awardedMarks: 1, confidence: 0.8, feedback: "ok", missingPoints: [] })),
+                  overallFeedback: "OpenAI path used."
+                })
+              }
+            ]
+          }
+        ]
+      })
+    };
+  };
+
+  try {
+    const result = await evaluateMockExam(body, env);
+    assert.equal(nvidiaCalled, false);
+    assert.equal(result.evaluationMode, "openai");
+    assert.equal(result.overallFeedback, "OpenAI path used.");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("evaluateMockExam rejects with configured error when neither key is present", async () => {
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers: buildValidAnswers()
+  };
+
+  await assert.rejects(
+    evaluateMockExam(body, {}),
+    (err) => {
+      assert.match(err.message, /not configured/i);
+      return true;
+    }
+  );
+});
+
+test("evaluateMockExam rejects malformed NVIDIA JSON response", async () => {
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers: buildValidAnswers()
+  };
+  const env = {
+    NVIDIA_API_KEY: "nvidia-key",
+    MOCK_EXAM_TIMEOUT_MS: "5000"
+  };
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    ok: true,
+    json: async () => ({
+      choices: [{ message: { content: "this is not JSON at all" } }]
+    })
+  });
+
+  try {
+    await assert.rejects(
+      evaluateMockExam(body, env),
+      (err) => {
+        assert.match(err.message, /invalid structured result/i);
+        return true;
+      }
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

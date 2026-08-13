@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Wood and Paper Technology department artwork">
+  <rect width="640" height="360" fill="#ffedd5"/>
+  <rect x="34" y="34" width="572" height="292" rx="38" fill="#ffffff" opacity=".34"/>
+  <path d="M320 296V174" stroke="#ea580c" stroke-width="22" stroke-linecap="round"/><path d="M320 80c-84 28-118 92-92 146 34-10 58-28 92-66 34 38 58 56 92 66 26-54-8-118-92-146z" fill="#64748b" stroke="#ea580c" stroke-width="12" stroke-linejoin="round"/><path d="M206 304h228" stroke="#ea580c" stroke-width="14" stroke-linecap="round"/>
+  <rect x="40" y="268" width="176" height="58" rx="22" fill="#ea580c" opacity=".92"/>
+  <text x="128" y="307" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="800" fill="#ffffff">WPT</text>
+</svg>
