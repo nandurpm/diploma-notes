@@ -174,7 +174,7 @@
     // Always open the lesson HTML in print mode. This works in desktop browsers,
     // mobile browsers, and Android WebViews without requiring a PDF asset.
     if (download.getAttribute("href") !== printHref) download.setAttribute("href", printHref);
-    if (download.textContent !== "Download Notes") download.textContent = "Download Notes";
+    if (download.textContent !== "Save as PDF") download.textContent = "Save as PDF";
     download.removeAttribute("aria-disabled");
     download.removeAttribute("download");
     download.removeAttribute("target");

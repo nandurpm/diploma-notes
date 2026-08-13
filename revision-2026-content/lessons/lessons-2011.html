@@ -637,6 +637,7 @@
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1d4ed8">
 <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 2011 — Building Materials & Construction Techniques | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2011.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 2011 Building Materials & Construction Techniques: stone, timber, brick, flooring, foundations, doors, windows, stairs, and roof trusses. Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"2011"}</script>
+<link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
 </head>
 
 <body>
@@ -675,7 +676,7 @@
                 <div class="actions no-print">
                     <button class="btn primary" id="startBtn">📖 Start Learning</button>
                     <button class="btn light" id="printBtn">🖨️ Print / PDF</button>
-                    <button class="btn light" id="downloadBtn">⬇️ Download Notes</button>
+                    <button class="btn light" id="downloadBtn">⬇️ Save as PDF</button>
                 </div>
             </section>
 
@@ -1464,7 +1465,7 @@
                 });
             }
 
-            // ---------- Download Notes ----------
+            // ---------- Save as PDF ----------
             const downloadBtn = document.getElementById('downloadBtn');
             if (downloadBtn) {
                 downloadBtn.addEventListener('click', function() {

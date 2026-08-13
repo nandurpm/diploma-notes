@@ -365,7 +365,7 @@
     // implement new-window callbacks, while same-tab navigation works reliably.
     download.removeAttribute("target");
     download.removeAttribute("rel");
-    download.textContent = "Download Notes";
+    download.textContent = "Save as PDF";
     download.title = "Open the lesson in print mode and save it as a PDF.";
     row.append(download);
     const print = document.createElement("button");

@@ -32,15 +32,6 @@
 /build-info.json
   Cache-Control: no-cache, max-age=0, must-revalidate
 
-/notes/*
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
-
-/revision-2026-content/notes/*
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
-
-/*.pdf
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
-
 /downloads/*.apk
   Cache-Control: no-cache, max-age=0, must-revalidate
   Content-Type: application/vnd.android.package-archive

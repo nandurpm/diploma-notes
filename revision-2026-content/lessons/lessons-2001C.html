@@ -129,6 +129,7 @@ a:hover{text-decoration:underline;}
   <link rel="manifest" href="/site.webmanifest">
   <meta name="theme-color" content="#1d4ed8">
 <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 2001C — Mathematics for Computer Technology | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2001C.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 2001C Mathematics for Computer Technology: complex numbers, integral calculus, logic & stats, graph theory, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"2001C"}</script>
+<link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
 </head>
 <body>
 <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
@@ -149,7 +150,7 @@ a:hover{text-decoration:underline;}
     <div class="actions no-print">
       <button class="btn primary" id="startLearningBtn" onclick="document.getElementById('how-to-use').scrollIntoView({behavior:'smooth'})">📖 Start Learning</button>
       <button class="btn" id="printBtn" onclick="doPrint()">🖨️ Print / PDF</button>
-      <button class="btn" id="downloadBtn" onclick="downloadNotes()">⬇️ Download Notes</button>
+      <button class="btn" id="downloadBtn" onclick="downloadNotes()">⬇️ Save as PDF</button>
     </div>
   </div>
   <div class="cover-card course-info">
@@ -735,7 +736,7 @@ function doPrint() {
   window.print();
 }
 
-// Download Notes: try to fetch PDF, fallback to print
+// Save as PDF: try to fetch PDF, fallback to print
 function downloadNotes() {
   const url = '/revision-2026-content/lessons/lessons-2001C.html?autoPrintNotes=1';
   fetch(url, { method: 'HEAD', cache: 'no-cache' })

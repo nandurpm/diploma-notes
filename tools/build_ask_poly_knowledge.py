@@ -402,11 +402,11 @@ def main() -> int:
             },
             {
                 "topic": "revision 2026 resources",
-                "fact": "Revision 2026 lessons and notes use dedicated /revision-2026-content/lessons/ and /revision-2026-content/notes/ paths.",
+                "fact": "Revision 2026 lessons are served from /revision-2026-content/lessons/; Download Notes opens the matching lesson in print mode so students can save it as a PDF.",
             },
             {
                 "topic": "revision 2021 resources",
-                "fact": "Revision 2021 uses its own department pages and the existing /lessons/ and notes resource paths.",
+                "fact": "Revision 2021 uses its own department pages; Download Notes opens the matching /lessons/ lesson in print mode so students can save it as a PDF.",
             },
             {
                 "topic": "website navigation",
