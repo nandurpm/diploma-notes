@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "failed",
-  "generatedAt": "2026-08-13T05:45:29.829Z",
+  "generatedAt": "2026-08-13T05:52:02.584Z",
   "error": "Error: knowledge contains 38 Revision 2026 programmes failed\n    at check (file:///home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:20:22)\n    at file:///home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:55:3",
   "checks": [
     {
