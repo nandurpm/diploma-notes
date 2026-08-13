@@ -137,7 +137,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'data-revision="REV2026" data-semester="{esc(semester)}" '
         f'data-search-text="{esc(search_text)}" data-notes-href="{notes_url}" '
         f'data-lesson-href="{lesson_url}" data-lesson-available="{str(lesson_ok).lower()}" '
-        f'data-notes-available="{str(lesson_ok).lower()}"'
+        f'data-notes-available="{str(lesson_ok).lower()}">'
         f'<div class="subject-top"><span>2026</span><strong>{esc(code)}</strong></div>'
         f'<h3>{esc(name)}</h3>'
         f'<p>{esc(programme["name"])} / {esc(semester)} / {esc(subject_type)}</p>'
