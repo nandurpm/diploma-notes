@@ -46,7 +46,7 @@ jobs:
           rows = json.loads(path.read_text(encoding='utf-8'))
           assert isinstance(rows, list) and rows, 'REV2026 subject data is empty'
           departments = {row['programmeSlug'] for row in rows}
-          assert len(departments) == 38, f'Expected 38 departments, found {len(departments)}'
+          assert len(departments) == 42, f'Expected 42 departments, found {len(departments)}'
           print(f'Validated {len(rows)} subject rows across {len(departments)} departments')
           PY
 
