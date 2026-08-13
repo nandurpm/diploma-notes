@@ -1,0 +1,335 @@
+{
+  "generated_at": "2026-08-12T23:54:47Z",
+  "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
+  "samples_per_case": 4,
+  "local_math": {
+    "summary": {
+      "case_count": 10,
+      "warm_mean_overall_ms": 1644.7,
+      "warm_median_overall_ms": 1625.2,
+      "warm_min_ms": 1414.2,
+      "warm_max_ms": 1966.6,
+      "cold_start_mean_ms": 1571.9,
+      "providers_seen": [
+        "local-math"
+      ]
+    },
+    "cases": [
+      {
+        "question": "2 + 78 = 80",
+        "provider": "local-math",
+        "cold_start_ms": 1767.5,
+        "warm_times_ms": [
+          1868.5,
+          2723.3,
+          1308.1
+        ],
+        "warm_mean_ms": 1966.6,
+        "warm_median_ms": 1868.5,
+        "warm_min_ms": 1308.1,
+        "warm_max_ms": 2723.3,
+        "warm_p95_ms": 1868.5
+      },
+      {
+        "question": "3^5 = 243",
+        "provider": "local-math",
+        "cold_start_ms": 1273.6,
+        "warm_times_ms": [
+          1813.2,
+          1732.9,
+          1627.1
+        ],
+        "warm_mean_ms": 1724.4,
+        "warm_median_ms": 1732.9,
+        "warm_min_ms": 1627.1,
+        "warm_max_ms": 1813.2,
+        "warm_p95_ms": 1732.9
+      },
+      {
+        "question": "125% of 160 = 200",
+        "provider": "local-math",
+        "cold_start_ms": 1760.6,
+        "warm_times_ms": [
+          1546.8,
+          1782.1,
+          1552.6
+        ],
+        "warm_mean_ms": 1627.2,
+        "warm_median_ms": 1552.6,
+        "warm_min_ms": 1546.8,
+        "warm_max_ms": 1782.1,
+        "warm_p95_ms": 1552.6
+      },
+      {
+        "question": "is 12 * 8 = 96 correct",
+        "provider": "local-math",
+        "cold_start_ms": 1599.4,
+        "warm_times_ms": [
+          1542.5,
+          1763.4,
+          1563.6
+        ],
+        "warm_mean_ms": 1623.2,
+        "warm_median_ms": 1563.6,
+        "warm_min_ms": 1542.5,
+        "warm_max_ms": 1763.4,
+        "warm_p95_ms": 1563.6
+      },
+      {
+        "question": "sqrt(144) = 12",
+        "provider": "local-math",
+        "cold_start_ms": 1775.8,
+        "warm_times_ms": [
+          1667.2,
+          1855.0,
+          1773.2
+        ],
+        "warm_mean_ms": 1765.1,
+        "warm_median_ms": 1773.2,
+        "warm_min_ms": 1667.2,
+        "warm_max_ms": 1855.0,
+        "warm_p95_ms": 1773.2
+      },
+      {
+        "question": "50% + 50% = 1",
+        "provider": "local-math",
+        "cold_start_ms": 1221.2,
+        "warm_times_ms": [
+          1805.6,
+          1782.1,
+          1370.0
+        ],
+        "warm_mean_ms": 1652.6,
+        "warm_median_ms": 1782.1,
+        "warm_min_ms": 1370.0,
+        "warm_max_ms": 1805.6,
+        "warm_p95_ms": 1782.1
+      },
+      {
+        "question": "2^3 + 5*2 = 18",
+        "provider": "local-math",
+        "cold_start_ms": 1421.4,
+        "warm_times_ms": [
+          1851.0,
+          1408.7,
+          1372.8
+        ],
+        "warm_mean_ms": 1544.2,
+        "warm_median_ms": 1408.7,
+        "warm_min_ms": 1372.8,
+        "warm_max_ms": 1851.0,
+        "warm_p95_ms": 1408.7
+      },
+      {
+        "question": "1000/8 = 125",
+        "provider": "local-math",
+        "cold_start_ms": 1558.3,
+        "warm_times_ms": [
+          1866.3,
+          1167.1,
+          1209.1
+        ],
+        "warm_mean_ms": 1414.2,
+        "warm_median_ms": 1209.1,
+        "warm_min_ms": 1167.1,
+        "warm_max_ms": 1866.3,
+        "warm_p95_ms": 1209.1
+      },
+      {
+        "question": "(2+3)^2 = 25",
+        "provider": "local-math",
+        "cold_start_ms": 1811.6,
+        "warm_times_ms": [
+          1300.5,
+          1777.3,
+          1781.3
+        ],
+        "warm_mean_ms": 1619.7,
+        "warm_median_ms": 1777.3,
+        "warm_min_ms": 1300.5,
+        "warm_max_ms": 1781.3,
+        "warm_p95_ms": 1777.3
+      },
+      {
+        "question": "2^(-3) = 0.125",
+        "provider": "local-math",
+        "cold_start_ms": 1529.4,
+        "warm_times_ms": [
+          1648.7,
+          1572.5,
+          1308.6
+        ],
+        "warm_mean_ms": 1509.9,
+        "warm_median_ms": 1572.5,
+        "warm_min_ms": 1308.6,
+        "warm_max_ms": 1648.7,
+        "warm_p95_ms": 1572.5
+      }
+    ]
+  },
+  "ai_fallback": {
+    "summary": {
+      "case_count": 10,
+      "warm_mean_overall_ms": 2551.6,
+      "warm_median_overall_ms": 2503.8,
+      "warm_min_ms": 1998.3,
+      "warm_max_ms": 3065.2,
+      "cold_start_mean_ms": 3092.2,
+      "providers_seen": [
+        "nvidia"
+      ]
+    },
+    "cases": [
+      {
+        "question": "what is the capital of Kerala",
+        "provider": "nvidia",
+        "cold_start_ms": 2075.6,
+        "warm_times_ms": [
+          2026.3,
+          2506.9,
+          2163.5
+        ],
+        "warm_mean_ms": 2232.2,
+        "warm_median_ms": 2163.5,
+        "warm_min_ms": 2026.3,
+        "warm_max_ms": 2506.9,
+        "warm_p95_ms": 2163.5
+      },
+      {
+        "question": "explain Ohm's law briefly",
+        "provider": "nvidia",
+        "cold_start_ms": 3100.8,
+        "warm_times_ms": [
+          2125.1,
+          2687.2,
+          2332.8
+        ],
+        "warm_mean_ms": 2381.7,
+        "warm_median_ms": 2332.8,
+        "warm_min_ms": 2125.1,
+        "warm_max_ms": 2687.2,
+        "warm_p95_ms": 2332.8
+      },
+      {
+        "question": "what is a diode",
+        "provider": "nvidia",
+        "cold_start_ms": 2407.0,
+        "warm_times_ms": [
+          2827.8,
+          2611.3,
+          1953.9
+        ],
+        "warm_mean_ms": 2464.3,
+        "warm_median_ms": 2611.3,
+        "warm_min_ms": 1953.9,
+        "warm_max_ms": 2827.8,
+        "warm_p95_ms": 2611.3
+      },
+      {
+        "question": "list the types of microscopes",
+        "provider": "nvidia",
+        "cold_start_ms": 4036.1,
+        "warm_times_ms": [
+          2311.6,
+          3186.0,
+          3418.8
+        ],
+        "warm_mean_ms": 2972.1,
+        "warm_median_ms": 3186.0,
+        "warm_min_ms": 2311.6,
+        "warm_max_ms": 3418.8,
+        "warm_p95_ms": 3186.0
+      },
+      {
+        "question": "how does a transformer work",
+        "provider": "nvidia",
+        "cold_start_ms": 3396.4,
+        "warm_times_ms": [
+          2539.7,
+          3465.5,
+          3089.5
+        ],
+        "warm_mean_ms": 3031.6,
+        "warm_median_ms": 3089.5,
+        "warm_min_ms": 2539.7,
+        "warm_max_ms": 3465.5,
+        "warm_p95_ms": 3089.5
+      },
+      {
+        "question": "what is the difference between AC and DC",
+        "provider": "nvidia",
+        "cold_start_ms": 2606.5,
+        "warm_times_ms": [
+          2506.7,
+          3008.6,
+          2114.6
+        ],
+        "warm_mean_ms": 2543.3,
+        "warm_median_ms": 2506.7,
+        "warm_min_ms": 2114.6,
+        "warm_max_ms": 3008.6,
+        "warm_p95_ms": 2506.7
+      },
+      {
+        "question": "define thermodynamics",
+        "provider": "nvidia",
+        "cold_start_ms": 5304.3,
+        "warm_times_ms": [
+          2472.6,
+          2619.4,
+          3180.5
+        ],
+        "warm_mean_ms": 2757.5,
+        "warm_median_ms": 2619.4,
+        "warm_min_ms": 2472.6,
+        "warm_max_ms": 3180.5,
+        "warm_p95_ms": 2619.4
+      },
+      {
+        "question": "who is credited with discovering the electron",
+        "provider": "nvidia",
+        "cold_start_ms": 2247.2,
+        "warm_times_ms": [
+          2248.3,
+          2309.7,
+          1652.3
+        ],
+        "warm_mean_ms": 2070.1,
+        "warm_median_ms": 2248.3,
+        "warm_min_ms": 1652.3,
+        "warm_max_ms": 2309.7,
+        "warm_p95_ms": 2248.3
+      },
+      {
+        "question": "what does CPU stand for",
+        "provider": "nvidia",
+        "cold_start_ms": 2089.2,
+        "warm_times_ms": [
+          2237.7,
+          1700.9,
+          2056.3
+        ],
+        "warm_mean_ms": 1998.3,
+        "warm_median_ms": 2056.3,
+        "warm_min_ms": 1700.9,
+        "warm_max_ms": 2237.7,
+        "warm_p95_ms": 2056.3
+      },
+      {
+        "question": "explain the water cycle",
+        "provider": "nvidia",
+        "cold_start_ms": 3659.4,
+        "warm_times_ms": [
+          2562.8,
+          3450.1,
+          3182.7
+        ],
+        "warm_mean_ms": 3065.2,
+        "warm_median_ms": 3182.7,
+        "warm_min_ms": 2562.8,
+        "warm_max_ms": 3450.1,
+        "warm_p95_ms": 3182.7
+      }
+    ]
+  }
+}
