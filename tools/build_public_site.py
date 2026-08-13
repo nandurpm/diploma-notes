@@ -38,10 +38,6 @@ REQUIRED = {
 
 INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">'
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1"></script>'
-ONAM_SITEWIDE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/onam-sitewide.css?v=20260813-onam-sitewide1">'
-ONAM_SITEWIDE_JS_TAG = '<script defer src="/assets/js/onam-sitewide.js?v=20260813-onam-sitewide1"></script>'
-
-
 def inject_independence_assets(relative: str, content: str) -> str:
     """Load the centralized annual theme on every public HTML page.
 
@@ -58,29 +54,6 @@ def inject_independence_assets(relative: str, content: str) -> str:
         return content
     tags = f"    {INDEPENDENCE_CSS_TAG}\n    {INDEPENDENCE_JS_TAG}\n"
     return content.replace(marker, tags + marker, 1)
-
-
-def inject_onam_sitewide_assets(relative: str, content: str) -> str:
-    """Load the lightweight Onam layer on every built public HTML page.
-
-    The client-side controller self-disables outside its scheduled dates and
-    skips the homepage, where the richer banner renderer is responsible for
-    the celebration. Build-time injection also covers standalone lesson pages
-    that intentionally do not load the portal shell.
-    """
-    if Path(relative).suffix.lower() != ".html":
-        return content
-    marker = "</head>"
-    if marker not in content:
-        return content
-    tags = []
-    if "onam-sitewide.css" not in content:
-        tags.append(f"    {ONAM_SITEWIDE_CSS_TAG}")
-    if "onam-sitewide.js" not in content:
-        tags.append(f"    {ONAM_SITEWIDE_JS_TAG}")
-    if not tags:
-        return content
-    return content.replace(marker, "\n".join(tags) + "\n" + marker, 1)
 
 
 # Retrieves a list of all files currently tracked by Git
@@ -131,7 +104,6 @@ def build(target: Path, optimize: bool) -> None:
         if source.suffix.lower() == ".html":
             html = source.read_text(encoding="utf-8")
             html = inject_independence_assets(relative, html)
-            html = inject_onam_sitewide_assets(relative, html)
             destination.write_text(html, encoding="utf-8")
         else:
             shutil.copy2(source, destination)
