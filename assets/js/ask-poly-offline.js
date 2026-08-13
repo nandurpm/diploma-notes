@@ -194,6 +194,39 @@
     return `Step 1: F = ma = ${fmt(mass)} × ${fmt(acceleration)} = ${fmt(force)} N.\n\nStep 2: W = Fd = ${fmt(force)} × ${fmt(distance)} = ${fmt(work)} J.\n\nChained calculation: force was used as the input for work.\n\nLocal calculation completed without an external AI provider.`;
   }
 
+  function forceWorkKineticChain(q) {
+    const wantsForce = /\b(?:force|newton(?:s)?)\b/.test(q);
+    const wantsWork = /\b(?:work|joule(?:s)?)\b/.test(q);
+    const wantsKinetic = /\b(?:kinetic(?:\s+energy)?|ke)\b/.test(q);
+    if (!wantsForce || !wantsWork || !wantsKinetic) return null;
+
+    const mass = named(q, ["mass"]) ?? numberWithUnit(q, "kg|kilograms?");
+    const acceleration = named(q, ["acceleration", "accel"]) ?? numberWithUnit(q, "m\\s*/\\s*s(?:\\^?2|2)|m\\s*s\\^-?2");
+    const workDistance = q.match(/\bwork\s*\/\s*(-?\d+(?:\.\d+)?)\s*(?:m|meters?)\b/i);
+    const distance = named(q, ["distance", "displacement", "length"]) ?? valueAfterPhrase(q, "over|distance|displacement|through|travel(?:s|led)?", "m|meters?") ?? (workDistance ? Number(workDistance[1]) : null);
+    if (![mass, acceleration, distance].every(Number.isFinite)) return null;
+
+    const force = mass * acceleration;
+    const work = force * distance;
+    const kinetic = work;
+    return `Step 1: F = ma = ${fmt(mass)} × ${fmt(acceleration)} = ${fmt(force)} N.\n\nStep 2: W = Fd = ${fmt(force)} × ${fmt(distance)} = ${fmt(work)} J.\n\nStep 3: KE = W = ${fmt(kinetic)} J.\n\nChained calculation: work was used as the kinetic-energy gain (assuming the object starts from rest or reporting energy gained).\n\nLocal calculation completed without an external AI provider.`;
+  }
+
+  function potentialSpeedChain(q) {
+    const asksPotential = /\b(?:potential\s+energy|gravitational|falls?|falling|drop(?:s|ped)?|impact)\b/.test(q);
+    const asksSpeed = /\b(?:speed|velocity|impact\s+speed)\b/.test(q);
+    if (!asksPotential || !asksSpeed) return null;
+
+    const mass = named(q, ["mass"]) ?? numberWithUnit(q, "kg|kilograms?");
+    const height = named(q, ["height", "elevation"]) ?? valueAfterPhrase(q, "through|from|height|elevation|drop(?:ped)?", "m|meters?") ?? numberWithUnit(q, "m|meters?");
+    const gravity = named(q, ["gravity", "g"]) ?? 9.80665;
+    if (![mass, height, gravity].every(Number.isFinite) || height < 0 || gravity <= 0) return null;
+
+    const potential = mass * gravity * height;
+    const speed = Math.sqrt(2 * gravity * height);
+    return `Step 1: PE = mgh = ${fmt(mass)} × ${fmt(gravity)} × ${fmt(height)} = ${fmt(potential)} J.\n\nStep 2: v = √(2gh) = √(2 × ${fmt(gravity)} × ${fmt(height)}) = ${fmt(speed)} m/s.\n\nChained calculation: gravitational potential energy was converted to kinetic energy, ignoring losses.\n\nLocal calculation completed without an external AI provider.`;
+  }
+
   function science(q) {
     const mass = named(q, ["mass", "m"]);
     const acceleration = named(q, ["acceleration", "a"]);
@@ -279,10 +312,10 @@
     const q = String(message || "").trim();
     if (!q) return null;
     const normalized = clean(q).toLowerCase();
-    return mechanicsChain(normalized) || science(normalized) || conversion(normalized) || geometry(normalized) || arithmetic(normalized) || websiteAnswer(normalized) || retrieval?.fallbackAnswer || retrieval?.answer || null;
+    return forceWorkKineticChain(normalized) || potentialSpeedChain(normalized) || mechanicsChain(normalized) || science(normalized) || conversion(normalized) || geometry(normalized) || arithmetic(normalized) || websiteAnswer(normalized) || retrieval?.fallbackAnswer || retrieval?.answer || null;
   }
 
-  globalThis.AskPolyOffline = Object.freeze({ answer, evaluate, version: "20260813-offline-science2" });
+  globalThis.AskPolyOffline = Object.freeze({ answer, evaluate, version: "20260813-offline-science3" });
 })();
 
 /* End of provider-independent Ask POLY assistant. */
