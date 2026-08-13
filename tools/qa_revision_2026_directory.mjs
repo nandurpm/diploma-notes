@@ -8,6 +8,8 @@ const BASE_URL = process.env.QA_BASE_URL || "http://127.0.0.1:8000";
 const PAGE_URL = `${BASE_URL}/revision-2026.html`;
 const REPORT_PATH = path.resolve("reports/revision-2026-directory-qa.json");
 const SCREENSHOT_DIR = process.env.QA_SCREENSHOT_DIR || "/tmp/revision-2026-directory-qa";
+const programmeRegistry = JSON.parse(fs.readFileSync("assets/data/revision-2026-programmes.json", "utf8"));
+const EXPECTED_DEPARTMENT_COUNT = Array.isArray(programmeRegistry) ? programmeRegistry.length : programmeRegistry.programmes.length;
 
 fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
 fs.mkdirSync(SCREENSHOT_DIR, { recursive: true });
@@ -77,7 +79,7 @@ try {
   ));
 
   const cards = page.locator("[data-programme-card]");
-  record("all 38 department cards render", await cards.count() === 38, {
+  record(`all ${EXPECTED_DEPARTMENT_COUNT} department cards render`, await cards.count() === EXPECTED_DEPARTMENT_COUNT, {
     cardCount: await cards.count()
   });
   record("revision switch is present", await page.locator(".revision-directory-switch a").count() === 2);
@@ -107,14 +109,14 @@ try {
   const visibleElectrical = await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length);
   const resultText = await page.locator("#programmeResultCount").textContent();
   record("department search filters correctly", visibleElectrical === 3, { visibleElectrical });
-  record("search result count updates", String(resultText).trim() === "Showing 3 of 38 departments", { resultText: String(resultText).trim() });
+  record("search result count updates", String(resultText).trim() === `Showing 3 of ${EXPECTED_DEPARTMENT_COUNT} departments`, { resultText: String(resultText).trim() });
   record("search query is preserved in URL", new URL(page.url()).searchParams.get("q") === "electrical", { url: page.url() });
   record("clear control appears for active search", await page.locator("#programmeSearchClear").isVisible());
 
   await page.locator("#programmeSearchClear").click();
   await page.waitForTimeout(120);
   const visibleAfterClear = await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length);
-  record("clear control restores all departments", visibleAfterClear === 38 && !new URL(page.url()).searchParams.has("q"), {
+  record("clear control restores all departments", visibleAfterClear === EXPECTED_DEPARTMENT_COUNT && !new URL(page.url()).searchParams.has("q"), {
     visibleAfterClear,
     url: page.url()
   });
@@ -124,7 +126,7 @@ try {
   record("no-results state is visible", await page.locator("#programmeEmptyState").isVisible());
   await page.locator("#programmeEmptyClear").click();
   await page.waitForTimeout(120);
-  record("no-results clear action restores directory", await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length) === 38);
+  record("no-results clear action restores directory", await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length) === EXPECTED_DEPARTMENT_COUNT);
 
   const desktopScreenshot = path.join(SCREENSHOT_DIR, "revision-2026-directory-desktop.png");
   await page.screenshot({ path: desktopScreenshot, fullPage: true });
