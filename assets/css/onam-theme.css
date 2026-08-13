@@ -214,3 +214,34 @@ body.poly-onam-banner-mode .onam-floating-lamp{position:fixed;right:18px;top:112
   body.poly-onam-banner-mode .onam-petal,
   body.poly-onam-banner-mode .onam-floating-lamp{animation:none !important}
 }
+
+
+/* 2026 release refinements: preserve the banner as the primary festive accent. */
+.onam-day-banner-picture{display:block;width:100%;height:100%}
+body.poly-onam-banner-mode .subject-card::before,
+body.poly-onam-banner-mode .choice-card::before{height:3px !important;background:linear-gradient(90deg,#0d9488,#65a30d,#facc15) !important;opacity:.78}
+body.poly-onam-banner-mode::before{height:6px;background-size:45px 6px;opacity:.72}
+body.poly-onam-banner-mode::after{height:10px;background-size:50px 10px;opacity:.55}
+body.poly-onam-banner-mode .onam-petal{opacity:.62;filter:drop-shadow(0 3px 3px rgba(120,74,0,.12))}
+
+@media (max-width:900px){
+  body.poly-onam-banner-mode::after{display:none}
+  body.poly-onam-banner-mode .subject-grid{gap:14px !important}
+}
+
+@media (orientation:landscape) and (max-height:520px){
+  .onam-day-banner-wrap{height:clamp(160px,42vh,220px);margin-bottom:8px !important;border-radius:0 0 18px 18px;box-shadow:0 12px 26px rgba(120,74,0,.14)}
+  .onam-day-banner{object-position:center 46%;transform:none}
+  .onam-day-banner-wrap::after{height:34px}
+  body.poly-onam-banner-mode::before,
+  body.poly-onam-banner-mode::after,
+  body.poly-onam-banner-mode .onam-petal-layer,
+  body.poly-onam-banner-mode .onam-floating-lamp{display:none !important}
+  body.poly-onam-banner-mode #subject-browser{border-radius:14px}
+  body.poly-onam-banner-mode .home-subject-filters{padding:10px !important}
+}
+
+@media (max-width:520px){
+  body.poly-onam-banner-mode::before{display:none}
+  body.poly-onam-banner-mode .onam-petal{opacity:.48}
+}
