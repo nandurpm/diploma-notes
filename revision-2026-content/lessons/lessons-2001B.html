@@ -1962,7 +1962,7 @@
             // ---- Download ----
             async function downloadNotes() {
                 const code = '2001B';
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-' + code + '.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-' + code + '.html?autoPrintNotes=1';
                 try {
                     const resp = await fetch(pdfPath, { method: 'HEAD' });
                     if (resp.ok) {

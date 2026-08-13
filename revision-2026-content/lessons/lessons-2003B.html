@@ -928,7 +928,7 @@ document.getElementById('downloadBtn').addEventListener('click', function(){
 });
 
 function downloadNotes(){
-  var pdfUrl = '/revision-2026-content/notes/downloadable-notes-2003B.pdf';
+  var pdfUrl = '/revision-2026-content/lessons/lessons-2003B.html?autoPrintNotes=1';
   fetch(pdfUrl, { method: 'HEAD' }).then(function(res){
     if(res.ok){
       window.location.href = pdfUrl;

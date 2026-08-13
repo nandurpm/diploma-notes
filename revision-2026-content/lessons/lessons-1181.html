@@ -840,7 +840,7 @@
             document.getElementById('printBtn').addEventListener('click', doPrint);
 
             document.getElementById('downloadBtn').addEventListener('click', function() {
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-1181.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-1181.html?autoPrintNotes=1';
                 // Attempt to fetch HEAD to see if PDF exists
                 fetch(pdfPath, { method: 'HEAD' })
                     .then(res => {

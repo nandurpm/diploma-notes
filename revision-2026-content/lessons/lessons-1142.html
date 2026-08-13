@@ -1196,7 +1196,7 @@ footer.note{text-align:center;color:var(--muted);font-size:.8rem;margin:30px 0}
   }
 
   function downloadNotes(){
-    var url = '/revision-2026-content/notes/downloadable-notes-1142.pdf';
+    var url = '/revision-2026-content/lessons/lessons-1142.html?autoPrintNotes=1';
     fetch(url, {method:'HEAD'}).then(function(res){
       if(res && res.ok){ window.location.href = url; }
       else { doPrint(); }

@@ -99,7 +99,9 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     name = str(row.get("name", "")).strip()
     subject_type = str(row.get("type", "Course")).strip() or "Course"
     lesson_url = f"/revision-2026-content/lessons/lessons-{esc(code)}.html"
-    notes_url = f"/revision-2026-content/notes/downloadable-notes-{esc(code)}.pdf"
+    # Notes are produced from the lesson HTML through the browser print
+    # dialog; static Revision 2026 PDFs are excluded from the deployment.
+    notes_url = f"{lesson_url}?autoPrintNotes=1"
     lesson_ok = lesson_file(code).exists()
     notes_ok = valid_notes(code)
     syllabus_unavailable = bool(row.get("syllabusUnavailable"))
@@ -120,8 +122,8 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
 
     if lesson_ok:
         lesson_action = f'<a class="action lessons" href="{lesson_url}">View Lessons</a>'
-        download_href = notes_url if notes_ok else lesson_url + "?autoPrintNotes=1"
-        download_attrs = " download" if notes_ok else ' target="_blank" rel="noopener noreferrer"'
+        download_href = notes_url
+        download_attrs = ''
         notes_action = f'<a class="action download" href="{download_href}"{download_attrs}>Download Notes</a>'
     else:
         lesson_action = '<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span>'
@@ -135,7 +137,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'data-revision="REV2026" data-semester="{esc(semester)}" '
         f'data-search-text="{esc(search_text)}" data-notes-href="{notes_url}" '
         f'data-lesson-href="{lesson_url}" data-lesson-available="{str(lesson_ok).lower()}" '
-        f'data-notes-available="{str(notes_ok).lower()}">'
+        f'data-notes-available="{str(lesson_ok).lower()}"'
         f'<div class="subject-top"><span>2026</span><strong>{esc(code)}</strong></div>'
         f'<h3>{esc(name)}</h3>'
         f'<p>{esc(programme["name"])} / {esc(semester)} / {esc(subject_type)}</p>'

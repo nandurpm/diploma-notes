@@ -1679,7 +1679,7 @@ a:hover{text-decoration:underline}
   // --- Download ---
   function downloadNotes() {
     const courseCode = '1144';
-    const url = '/revision-2026-content/notes/downloadable-notes-' + courseCode + '.pdf';
+    const url = '/revision-2026-content/lessons/lessons-' + courseCode + '.html?autoPrintNotes=1';
     fetch(url, { method: 'HEAD' })
       .then(resp => {
         if (resp.ok) {

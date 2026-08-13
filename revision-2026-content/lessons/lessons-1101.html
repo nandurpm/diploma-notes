@@ -66,7 +66,7 @@ html.poly-lesson-page :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.fact
     <a class="btn light" href="#declaration">Source Declaration</a>
     <a class="btn ghost" href="#practice">Expected Questions</a>
     <button class="btn light" type="button" data-print>Print / Save as PDF</button>
-    <a class="btn ghost" id="downloadNotes" href="../notes/downloadable-notes-1101.pdf">Download Notes</a>
+    <a class="btn ghost" id="downloadNotes" href="/revision-2026-content/lessons/lessons-1101.html?autoPrintNotes=1">Download Notes</a>
     <a class="btn ghost" href="/revision-2026.html">Back to Revision 2026</a>
   </div>
 </div>
@@ -956,9 +956,9 @@ html.poly-lesson-page :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.fact
   addEventListener('afterprint',restorePrint);
   
   const pdfLink=qs('#downloadNotes');
-  fetch('../notes/downloadable-notes-1101.pdf',{method:'HEAD',cache:'no-store'}).then(r=>{
+  fetch('/revision-2026-content/lessons/lessons-1101.html?autoPrintNotes=1',{method:'HEAD',cache:'no-store'}).then(r=>{
     if(!r.ok)throw 0;
-    pdfLink.href='../notes/downloadable-notes-1101.pdf';
+    pdfLink.href='/revision-2026-content/lessons/lessons-1101.html?autoPrintNotes=1';
   }).catch(()=>{
     pdfLink.href=location.pathname+'?autoPrintNotes=1';
   });

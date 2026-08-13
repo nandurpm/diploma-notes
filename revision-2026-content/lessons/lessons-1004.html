@@ -2362,7 +2362,7 @@
             // ===== DOWNLOAD =====
             const downloadBtn = document.getElementById('downloadBtn');
             function downloadNotes() {
-                const url = '/revision-2026-content/notes/downloadable-notes-1004.pdf';
+                const url = '/revision-2026-content/lessons/lessons-1004.html?autoPrintNotes=1';
                 fetch(url, { method: 'HEAD', cache: 'no-store' })
                     .then(function(resp) {
                         if (resp.ok) {

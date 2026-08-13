@@ -2488,7 +2488,7 @@
             // ===== DOWNLOAD =====
             const downloadBtn = document.getElementById('downloadBtn');
             function downloadNotes() {
-                const url = '/revision-2026-content/notes/downloadable-notes-1149.pdf';
+                const url = '/revision-2026-content/lessons/lessons-1149.html?autoPrintNotes=1';
                 fetch(url, { method: 'HEAD', cache: 'no-store' })
                     .then(function(resp) {
                         if (resp.ok) {
