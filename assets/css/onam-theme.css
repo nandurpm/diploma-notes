@@ -144,7 +144,7 @@ body.poly-onam-banner-mode .daily-special-card{
 }
 
 body.poly-onam-banner-mode .subject-card::before,
-body.poly-onam-banner-mode .choice-card::before{content:"" !important;position:absolute !important;left:0 !important;right:0 !important;top:0 !important;height:5px !important;background:linear-gradient(90deg,#2563eb,#0d9488,#65a30d,#facc15,#f97316) !important}
+body.poly-onam-banner-mode .choice-card::before{content:"" !important;position:absolute !important;top:0 !important;left:16px !important;right:16px !important;height:6px !important;border-radius:999px !important;background:linear-gradient(90deg,#2563eb,#0d9488,#65a30d,#facc15,#f97316) !important}
 body.poly-onam-banner-mode .choice-card{transform:none !important;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease !important}
 body.poly-onam-banner-mode .choice-card:hover,
 body.poly-onam-banner-mode .subject-card:hover{transform:translateY(-4px) !important;box-shadow:0 24px 48px rgba(120,74,0,.15) !important;border-color:rgba(249,115,22,.38) !important}
