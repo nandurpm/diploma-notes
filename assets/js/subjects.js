@@ -2,8 +2,8 @@
 // SUBJECTS: REV2021 data is generated from the cleaned SITTTR source workbook.
 // Shared common subjects are listed once; department-specific duplicate codes stay with their departments.
 // Uploaded lessons/notes are discovered from standard file paths.
-// 1003 and 1004 use the hand-uploaded notes/ PDFs. Other subjects use the
-// same lessons/downloadable-notes-CODE.pdf target as the lesson-page button.
+// Notes are generated from lesson HTML through the browser print dialog;
+// static Revision 2021/2026 note PDFs are not shipped in the deployment.
 const SUBJECTS = [
   // First Year / Common
   { revision: "2021", code: "1001", name: "Communication Skills in English", department: "First Year / Common", semester: "Semester 1", type: "Theory" },
@@ -1936,14 +1936,8 @@ function lessonLink(subject) {
 }
 
 function notesLink(subject) {
-  const depth = window.location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
-  const prefix = depth > 0 ? "../".repeat(depth) : "";
-  if (subject.notesFile) return prefix + subject.notesFile;
-  const code = String(subject.code);
-  if (code === "1003" || code === "1004") {
-    return `${prefix}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
-  }
-  return `${prefix}lessons/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+  const lesson = lessonLink(subject);
+  return `${lesson}?autoPrintNotes=1`;
 }
 
 // Explicit exports for shared scripts and resilient component initialization.

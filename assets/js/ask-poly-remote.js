@@ -27,13 +27,13 @@ Website structure:
 - Department viewer shows Semester 1 to Semester 6 subject cards.
 - Open Syllabus and Sample QP are official SITTTR links.
 - View Lessons appears only when a local /lessons/lessons-CODE.html file exists.
-- Download Notes appears only when a local /notes/downloadable-notes-CODE.pdf file exists.
+- Save as PDF appears when the corresponding local lesson HTML exists; it opens that lesson in print mode so the user can save it as a PDF.
 - Mock Exams are at /daily-quiz.html.
 - 2015 Materials are at /materials-2015.html.
 - Tools are at /tools.html.
 - Help and issue reporting are at /contact.html.
 Rules:
-- Never invent local lesson pages, notes PDFs, ZIP files, source files, or download URLs.
+- Never invent local lesson pages, downloadable PDFs, ZIP files, source files, or download URLs.
 - If a lesson or notes button is missing, say the local file is not uploaded yet.
 - For broken links, ask for page URL, subject code, button/link name, screenshot, and what happened.
 - Keep answers short, clear, practical, and student-friendly.
@@ -143,7 +143,7 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
       `[Sample QP](https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${code})`
     ];
     if (LESSON_CODES.has(String(subject.code))) urls.push(`[View Lessons](/lessons/lessons-${code}.html)`);
-    if (NOTES_CODES.has(String(subject.code))) urls.push(`[Download Notes](/notes/downloadable-notes-${code}.pdf)`);
+    if (LESSON_CODES.has(String(subject.code))) urls.push(`[Save as PDF](/lessons/lessons-${code}.html?autoPrintNotes=1)`);
     return urls.join(" | ");
   }
 
@@ -267,7 +267,7 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
       prompts.push(["Report issue", "Mock exam page is not working. What should I send?"]);
     } else {
       prompts.push(["Find subjects", "Where can I find Revision 2021 subjects?"]);
-      prompts.push(["Missing notes", "Why is the Download Notes button missing?"]);
+      prompts.push(["Missing notes", "Why is the Save as PDF button missing?"]);
       prompts.push(["Mock exams", "Explain how to use the mock exams page."]);
       prompts.push(["Report issue", "I found a broken link. What details should I send?"]);
     }

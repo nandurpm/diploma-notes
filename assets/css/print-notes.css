@@ -1,0 +1,55 @@
+/* Shared POLY PMNA printable-notes presentation. */
+.print-notes-guide {
+  margin: 0 auto 1rem;
+  max-width: 1120px;
+  padding: .75rem 1rem;
+  border: 1px solid #bfdbfe;
+  border-radius: .75rem;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font: 600 .95rem/1.5 system-ui, sans-serif;
+}
+.print-notes-guide strong { font-weight: 800; }
+html.print-notes-mode body { background: #fff !important; }
+html.print-notes-mode .print-notes-guide { display: block; }
+@media print {
+  .no-print,
+  nav,
+  header nav,
+  button,
+  .topbar,
+  .navbar,
+  .site-header,
+  .site-footer,
+  footer,
+  .print-notes-guide,
+  [aria-label="Primary navigation"] { display: none !important; }
+  *, *::before, *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+  html, body {
+    background: #fff !important;
+    color: #111827 !important;
+    min-width: 0 !important;
+  }
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 11pt !important;
+    line-height: 1.45 !important;
+  }
+  main, article, .page, .container, .shell, .content, .lesson {
+    max-width: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: #fff !important;
+  }
+  section, .section, .module, .card, .lesson-card, figure {
+    break-inside: avoid;
+  }
+  a { color: inherit !important; text-decoration: none !important; }
+  img, svg { max-width: 100% !important; }
+}

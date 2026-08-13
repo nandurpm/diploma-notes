@@ -1053,11 +1053,12 @@
         }
     </style>
     <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
     <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#1d4ed8">
-    <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 2041 — Elements of Electrical & Electronics Engineering | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2041.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 2041 Elements of Electrical & Electronics Engineering: circuit laws, domestic supply, ESD protection, digital electronics, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"2041"}</script>
+      <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 2041 — Elements of Electrical & Electronics Engineering | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2041.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 2041 Elements of Electrical & Electronics Engineering: circuit laws, domestic supply, ESD protection, digital electronics, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"2041"}</script>
 </head>
 <body>
 
@@ -1081,7 +1082,7 @@
                 <div class="actions no-print">
                     <button class="btn primary" id="startLearningBtn">📘 Start Learning</button>
                     <button class="btn" id="printBtn">🖨️ Print / PDF</button>
-                    <button class="btn" id="downloadBtn">⬇️ Download Notes</button>
+                    <button class="btn" id="downloadBtn">⬇️ Save as PDF</button>
                 </div>
                 <div class="cover-card">
                     <dl>
@@ -2568,7 +2569,7 @@
 
             function downloadNotes() {
                 const code = '2041';
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-' + code + '.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-' + code + '.html?autoPrintNotes=1';
                 // try HEAD first
                 fetch(pdfPath, { method: 'HEAD' })
                     .then(function(res) {

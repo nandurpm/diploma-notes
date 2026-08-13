@@ -1,1 +1,0 @@
-The redesigned About page release automation should run now.

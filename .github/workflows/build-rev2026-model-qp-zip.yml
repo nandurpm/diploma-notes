@@ -43,10 +43,16 @@ jobs:
           import json
           from pathlib import Path
           path = Path('assets/data/revision-2026-subjects.json')
+          registry_path = Path('assets/data/revision-2026-programmes.json')
           rows = json.loads(path.read_text(encoding='utf-8'))
+          registry = json.loads(registry_path.read_text(encoding='utf-8'))
           assert isinstance(rows, list) and rows, 'REV2026 subject data is empty'
           departments = {row['programmeSlug'] for row in rows}
           assert len(departments) == 42, f'Expected 42 departments, found {len(departments)}'
+          expected_departments = {row['slug'] for row in registry.get('programmes', [])}
+          assert expected_departments, 'Revision 2026 programme registry is empty'
+          assert registry.get('programmeCount') == len(expected_departments), registry
+          assert departments == expected_departments, f'Expected {len(expected_departments)} departments, found {len(departments)}; missing={sorted(expected_departments - departments)}; unexpected={sorted(departments - expected_departments)}'
           print(f'Validated {len(rows)} subject rows across {len(departments)} departments')
           PY
 

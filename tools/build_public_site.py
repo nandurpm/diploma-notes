@@ -38,8 +38,6 @@ REQUIRED = {
 
 INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">'
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1"></script>'
-
-
 def inject_independence_assets(relative: str, content: str) -> str:
     """Load the centralized annual theme on every public HTML page.
 
@@ -72,6 +70,14 @@ def should_copy(relative: str) -> bool:
     # Skip excluded directories and hidden files
     if path.parts[0] in EXCLUDED_ROOTS or path.name.startswith("."):
         return False
+    # Revision 2021/2026 note PDFs are intentionally not part of the
+    # deployable artifact. The corresponding lesson HTML pages are the
+    # printable source and keep the Pages artifact below its 1 GB limit.
+    if path.suffix.lower() == ".pdf" and (
+        path.parts[:1] == ("notes",)
+        or path.parts[:2] == ("revision-2026-content", "notes")
+    ):
+        return False
     # Skip source files unless explicitly required
     if path.suffix.lower() in SOURCE_SUFFIXES and relative not in EXPLICIT:
         return False
@@ -97,7 +103,8 @@ def build(target: Path, optimize: bool) -> None:
         destination.parent.mkdir(parents=True, exist_ok=True)
         if source.suffix.lower() == ".html":
             html = source.read_text(encoding="utf-8")
-            destination.write_text(inject_independence_assets(relative, html), encoding="utf-8")
+            html = inject_independence_assets(relative, html)
+            destination.write_text(html, encoding="utf-8")
         else:
             shutil.copy2(source, destination)
         copied += 1

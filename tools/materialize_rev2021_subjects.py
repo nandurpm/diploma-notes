@@ -57,29 +57,27 @@ def all_records() -> list[dict[str, str]]:
     return list(unique.values())
 
 
-def paths(record: dict[str, str]) -> tuple[str, str, bool, bool]:
+def paths(record: dict[str, str]) -> tuple[str, str, bool]:
     code = record["assetCode"]
     lesson_local = Path("lessons") / f"lessons-{code}.html"
-    notes_local = Path("notes") / f"downloadable-notes-{code}.pdf"
-    return (
-        "/" + lesson_local.as_posix(),
-        "/" + notes_local.as_posix(),
-        (ROOT / lesson_local).is_file(),
-        (ROOT / notes_local).is_file(),
-    )
+    lesson_href = "/" + lesson_local.as_posix()
+    return lesson_href, lesson_href + "?autoPrintNotes=1", (ROOT / lesson_local).is_file()
 
 
 def card(record: dict[str, str]) -> str:
     code = record["code"]
-    lesson_href, notes_href, lesson_ok, notes_ok = paths(record)
+    lesson_href, notes_href, lesson_ok = paths(record)
+    # Notes are generated from the lesson HTML in the browser; static PDFs
+    # are excluded from the deployment artifact to stay below the Pages limit.
+    notes_href = lesson_href + "?autoPrintNotes=1"
     syllabus = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&amp;course=" + html.escape(code, quote=True)
     model_qp = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&amp;course=" + html.escape(code, quote=True)
     if lesson_ok:
-        download_href = notes_href if notes_ok else lesson_href + "?autoPrintNotes=1"
-        download_attr = " download" if notes_ok else ' target="_blank" rel="noopener noreferrer"'
+        download_href = notes_href
+        download_attr = ''
         study = (
             f'<a class="action lessons" href="{html.escape(lesson_href, quote=True)}">View Lessons</a>'
-            f'<a class="action download" href="{html.escape(download_href, quote=True)}"{download_attr}>Download Notes</a>'
+            f'<a class="action download" href="{html.escape(download_href, quote=True)}"{download_attr}>Save as PDF</a>'
         )
     else:
         study = (
@@ -92,7 +90,7 @@ def card(record: dict[str, str]) -> str:
         f'data-revision="2021" data-semester="{html.escape(record["semester"], quote=True)}" '
         f'data-search-text="{html.escape(search, quote=True)}" data-notes-href="{html.escape(notes_href, quote=True)}" '
         f'data-lesson-href="{html.escape(lesson_href, quote=True)}" data-lesson-available="{str(lesson_ok).lower()}" '
-        f'data-notes-available="{str(notes_ok).lower()}"><div class="subject-top"><span>2021</span>'
+        f'data-notes-available="{str(lesson_ok).lower()}"><div class="subject-top"><span>2021</span>'
         f'<strong>{html.escape(code)}</strong></div><h3>{html.escape(record["name"])}</h3>'
         f'<p>{html.escape(record["department"])} / {html.escape(record["semester"])} / {html.escape(record["type"])}</p>'
         f'<div class="action-row"><a class="action syllabus" href="{syllabus}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'

@@ -1,5 +1,0 @@
--- Purpose: 20260720 deduplicate sample paper select policy - Descriptive comment added for clarity
--- Keep one ownership policy for mock-exam history reads.
--- Both existing policies used the same auth.uid() = user_id condition.
-
-drop policy if exists sample_paper_select_own on public.sample_paper_attempts;

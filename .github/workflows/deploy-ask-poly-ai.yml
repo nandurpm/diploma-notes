@@ -72,12 +72,13 @@ jobs:
           [ -n "$CLOUDFLARE_API_TOKEN_VALUE" ] || missing+=(CLOUDFLARE_API_TOKEN)
           [ -n "$CLOUDFLARE_ACCOUNT_ID_VALUE" ] || missing+=(CLOUDFLARE_ACCOUNT_ID)
           [ -n "$CLOUDFLARE_AI_API_TOKEN_VALUE" ] || missing+=(CLOUDFLARE_AI_API_TOKEN)
-          [ -n "$SUPABASE_URL_VALUE" ] || missing+=(SUPABASE_URL)
-          [ -n "$SUPABASE_ANON_KEY_VALUE" ] || missing+=(SUPABASE_ANON_KEY)
-          [ -n "$SUPABASE_SERVICE_ROLE_KEY_VALUE" ] || missing+=(SUPABASE_SERVICE_ROLE_KEY)
           if [ "${#missing[@]}" -gt 0 ]; then
             printf 'Missing required repository secrets: %s\n' "${missing[*]}"
             exit 1
+          fi
+          if [ -z "$SUPABASE_URL_VALUE" ] || [ -z "$SUPABASE_ANON_KEY_VALUE" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY_VALUE" ]; then
+            echo "Supabase secrets are not present in repository secrets."
+            echo "The existing Cloudflare Worker secrets will remain unchanged by the upload step."
           fi
           if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
             echo "At least one AI provider credential is required."
@@ -105,14 +106,12 @@ jobs:
           import json
           import os
 
-          secrets = {
-              "CLOUDFLARE_AI_API_TOKEN": os.environ["CLOUDFLARE_AI_API_TOKEN"],
-              "CLOUDFLARE_AI_ACCOUNT_ID": os.environ["CLOUDFLARE_AI_ACCOUNT_ID"],
-              "SUPABASE_URL": os.environ["SUPABASE_URL"],
-              "SUPABASE_ANON_KEY": os.environ["SUPABASE_ANON_KEY"],
-              "SUPABASE_SERVICE_ROLE_KEY": os.environ["SUPABASE_SERVICE_ROLE_KEY"],
-          }
-          for key in ("OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO"):
+          secrets = {}
+          for key in (
+              "CLOUDFLARE_AI_API_TOKEN", "CLOUDFLARE_AI_ACCOUNT_ID",
+              "SUPABASE_URL", "SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY",
+              "OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO",
+          ):
               value = os.environ.get(key, "")
               if value:
                   secrets[key] = value
