@@ -152,8 +152,18 @@ jobs:
                       health = json.loads(response.read().decode("utf-8"))
                   if not health.get("ok") or not health.get("configured"):
                       raise RuntimeError(f"Worker health is not configured: {health}")
-                  if not health.get("verifiedResultStorage"):
-                      raise RuntimeError(f"Verified result storage is disabled: {health}")
+
+                  # Supabase credentials are deliberately optional for deployment:
+                  # an existing Worker may keep them as Cloudflare secrets, while a
+                  # standard Ask POLY deployment may run without verified-result
+                  # storage. Require the feature only when this repository supplied
+                  # all three credentials in the current deployment.
+                  storage_credentials_supplied = all(
+                      __import__("os").environ.get(name)
+                      for name in ("SUPABASE_URL_VALUE", "SUPABASE_ANON_KEY_VALUE", "SUPABASE_SERVICE_ROLE_KEY_VALUE")
+                  )
+                  if storage_credentials_supplied and not health.get("verifiedResultStorage"):
+                      raise RuntimeError(f"Verified result storage is disabled despite supplied Supabase credentials: {health}")
 
                   ask_payload = json.dumps({
                       "message": "Reply with exactly: Ask POLY is ready",
@@ -196,6 +206,7 @@ jobs:
                   print(json.dumps({
                       "providers": health.get("providers"),
                       "verifiedResultStorage": health.get("verifiedResultStorage"),
+                      "storageCredentialsSupplied": storage_credentials_supplied,
                       "provider": answer.get("provider"),
                       "model": answer.get("model"),
                       "mockRoute": "401 without login"
