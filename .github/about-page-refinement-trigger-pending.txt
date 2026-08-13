@@ -1,1 +1,0 @@
-pending: [automation] Refine About page UI
