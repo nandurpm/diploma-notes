@@ -1,8 +1,0 @@
-{
-  "scheme": "REV2026",
-  "method": "deterministic historical official-SITTTR snapshot fallback",
-  "historicalReference": "b82decdf58f1e518f2802e3ce019f4d1a4633162",
-  "resolvedRows": 509,
-  "genericRowsAfter": 0,
-  "unresolved": []
-}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-13T02:44:06Z",
+  "generatedAt": "2026-08-13T06:07:14Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,9 +8,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 13 Aug 2026 02:44:06 GMT",
+      "date": "Thu, 13 Aug 2026 06:07:13 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "398",
+      "content-length": "468",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -22,13 +22,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=x3Oeier%2FGFHtHUgPo6k8pF3J9En5Gqs%2F8pfTr9QamVomSAggjF%2FuHi4wKmOLVkHo1h5tnhUN9p%2BN%2BarpBo3WC56Hu6MCtW3ICO5Qd%2FGazAeZZUwbKpIm3P4XDYT%2FXmP8f6udE%2FEmcuq8zRC1n%2BqCw%2FqPYmilGq4KHg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=azorv38kA3qrTuyhJCzaWgsi6v3iQxRIJi6xXvoE%2BWhYTReNwVhvy5M4lDcz2Gg4OUPJ%2BfMG64pxMycpqTPwuDrvIw7WKxubn3uuDxX%2FilgXzofUqCvYB0ElkF4mpR3WO5tJr%2BnfqFDpK87nW1Ch51BgW%2BTeibhnYw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2a460426d1b5708-LAX",
+      "cf-ray": "a2a589ce6ee20b74-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":false,\"providers\":[\"nvidia\"],\"model\":\"meta/llama-3.1-8b-instruct\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
+    "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"verifiedResultStorage\":true,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":false,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai-rest\",\"openai\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\"}",
     "error": ""
   },
   "preflight": {
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Thu, 13 Aug 2026 02:44:06 GMT",
+      "date": "Thu, 13 Aug 2026 06:07:13 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Gndxu038Kejn5g7PCXZq4DC5XppuSVS6CpkF4T0u4nhX8k6ZagjuPiA5D9jsOcTQ6PydBu4tky%2F8kkc%2B2%2FQaV6QvtZtW9yh08bL3O3SOuF3MWWQfgOf6LcdtNVoV8I7jPk7%2BUkJplr47kjagP5U3alseQWjGOctK%2BA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=pPz%2Ff86uk2xEI1M8%2BMwnFtiUBL8zhVm3Rw79B0UJ37E05dcuEI25JyjfpysZ0x8fPGUFtTDNi101feEEwMhKQgqPAf8A%2BReCrf9YZbFiwjLWO28isijdmrij%2B4ciGhA6KrVcPMTjVHTvMZ%2Fqx6yxOTbnfLjTF4dapA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2a46042df192f58-LAX",
+      "cf-ray": "a2a589ce9f532c32-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 13 Aug 2026 02:44:06 GMT",
+      "date": "Thu, 13 Aug 2026 06:07:14 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "494",
+      "content-length": "335",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6j4hSlTX82DIVrv6Nr9WLnbbjooXZ27s%2FWTqjLx2RBfyf1IlspBM9PJGki%2BC0j76zwKNOQZ6LQJrvR3z%2F%2BoxGOwjDph0FbbAjMutPb9J1qhJ4PfeBuMD7vTVrkejMCLoUmTka7sUfNzKFo0fD1jnU%2Be6Y4ikZpqHIA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nQMl58xN3OrMlRdkc0xS6olDjsT7OtrQIQKNIob9U4kF5An%2Be27xZg0kPigpiPxsQZem6x3if1RUwqog9c67JKJQEM8%2FVL1RmJ6iTHWrMrzMYMiryXjX1j9nQr9nsr4J5MPWlKzLPup2UeelF28%2BjWGbuA4q9JAGyw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2a460435f3f1d3e-LAX",
+      "cf-ray": "a2a589cecf42e26a-ORD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"The path to access Ask POLY is:\\n\\n1. Open the Kerala Polytechnic website.\\n2. Click on the 'Student Resources' or 'Support' tab.\\n3. Look for the 'Ask POLY' icon or link.\\n4. Click on it to access the chat interface.\\n\\nYou can now ask me any questions or seek help on various topics.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-49c5000b-09c4-46f3-ab6b-5dcc07ed8db5\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"Unfortunately, I don't have information about the specific browser path for the POLY website.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai-rest\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8-fast\",\"responseId\":\"chatcmpl-691e2bc5-b599-4c8e-a9a9-6f94746f51dc\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true

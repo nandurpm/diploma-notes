@@ -48,8 +48,14 @@ jobs:
           from pathlib import Path
 
           data = json.loads(Path("assets/data/ask-poly-knowledge.json").read_text(encoding="utf-8"))
+          registry = json.loads(Path("assets/data/revision-2026-programmes.json").read_text(encoding="utf-8"))
           counts = data.get("counts", {})
           assert counts.get("programmes2026") == 42, counts
+          expected_programmes = len(registry.get("programmes", []))
+          declared_programmes = registry.get("programmeCount")
+          assert expected_programmes > 0, registry
+          assert declared_programmes == expected_programmes, registry
+          assert counts.get("programmes2026") == expected_programmes, (counts, expected_programmes)
           assert counts.get("pages", 0) >= 40, counts
           assert counts.get("subjectRecords", 0) >= 300, counts
           revisions = {str(row.get("revision")) for row in data.get("subjects", [])}

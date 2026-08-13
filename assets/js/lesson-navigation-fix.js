@@ -16,8 +16,8 @@
    - Injects the lesson watermark
    - Reveals all hidden/collapsed lesson sections
    - Expands dynamic tabbed module views into a continuous document
-   - Creates end-of-lesson actions (back button, PDF download, print)
-   - Handles auto-print mode for notes PDF generation
+   - Creates end-of-lesson navigation actions (back button, printable notes, print)
+   - Handles auto-print mode for browser-generated PDF notes
    - Supports both Revision 2021 and Revision 2026 lesson paths
    - Detects the Android native app via user agent
 
@@ -355,14 +355,19 @@
     actions.className = "poly-lesson-end-actions";
     actions.innerHTML = `<p class="poly-lesson-identity">${courseCode ? `Course ${courseCode} · ` : ""}${revision2026 ? "Revision 2026" : "Revision 2021"}</p><div class="poly-lesson-action-row"><a class="poly-lesson-action poly-lesson-back" href="${revision2026 ? "/revision-2026.html" : "/revision-2021.html"}">Back to ${revision2026 ? "Revision 2026" : "Revision 2021"}</a></div>`;
     const row = actions.querySelector(".poly-lesson-action-row");
-    const pdf = [...document.querySelectorAll("a[href]")].find((link) => /\.pdf(?:$|[?#])|autoPrintNotes|downloadNotes/i.test(link.getAttribute("href") || ""));
-    if (pdf) {
-      const download = document.createElement("a");
-      download.className = "poly-lesson-action poly-lesson-download";
-      download.href = pdf.href;
-      download.textContent = "Download PDF";
-      row.append(download);
-    }
+    const printable = new URL(location.href);
+    printable.search = "?autoPrintNotes=1";
+    printable.hash = "";
+    const download = document.createElement("a");
+    download.className = "poly-lesson-action poly-lesson-download";
+    download.href = printable.href;
+    // Keep this navigation in the current tab. Android WebViews often do not
+    // implement new-window callbacks, while same-tab navigation works reliably.
+    download.removeAttribute("target");
+    download.removeAttribute("rel");
+    download.textContent = "Save as PDF";
+    download.title = "Open the lesson in print mode and save it as a PDF.";
+    row.append(download);
     const print = document.createElement("button");
     print.className = "poly-lesson-action poly-lesson-print";
     print.type = "button";
@@ -372,7 +377,29 @@
     main === document.body ? main.append(actions) : main.after(actions);
   }
 
-  function printWindow() { window.print(); }
+  function installPrintOnlyDownloadHandler() {
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target.closest("#downloadBtn,.download-btn,[data-download-notes]") : null;
+      if (!target) return;
+      event.preventDefault();
+      preparePrintMode(false);
+      setTimeout(() => printWindow(), 80);
+    }, true);
+  }
+
+  function printWindow() {
+    if (typeof window.print !== "function") {
+      preparePrintMode(true);
+      return false;
+    }
+    try {
+      window.print();
+      return true;
+    } catch (_) {
+      preparePrintMode(true);
+      return false;
+    }
+  }
 
   /* =========================================================
      SCROLL PROGRESS
@@ -409,6 +436,7 @@
     if (!revision2026) await expandDynamicModuleViews();
     revealAllLessonSections();
     createEndActions();
+    installPrintOnlyDownloadHandler();
     updateProgress();
     const params = new URLSearchParams(location.search);
     if (params.has("autoPrintNotes") || params.has("downloadNotes")) {

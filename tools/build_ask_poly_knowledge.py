@@ -239,24 +239,16 @@ def availability(revision: str, code: str) -> dict[str, Any]:
     code = compact(code, 40).upper()
     if revision == "2026":
         lesson = ROOT / f"revision-2026-content/lessons/lessons-{code}.html"
-        notes_candidates = [ROOT / f"revision-2026-content/notes/downloadable-notes-{code}.pdf"]
         lesson_url = f"/revision-2026-content/lessons/lessons-{code}.html"
-        notes_url = f"/revision-2026-content/notes/downloadable-notes-{code}.pdf"
     else:
         lesson = ROOT / f"lessons/lessons-{code}.html"
-        notes_candidates = [
-            ROOT / f"notes/downloadable-notes-{code}.pdf",
-            ROOT / f"lessons/downloadable-notes-{code}.pdf",
-            ROOT / f"downloadable-notes-{code}.pdf",
-        ]
         lesson_url = f"/lessons/lessons-{code}.html"
-        notes_url = next(("/" + path.relative_to(ROOT).as_posix() for path in notes_candidates if path.exists()), f"/notes/downloadable-notes-{code}.pdf")
-    notes_exists = any(path.exists() and path.stat().st_size > 0 for path in notes_candidates)
+    lesson_exists = lesson.exists()
     return {
-        "lessonAvailable": lesson.exists(),
-        "notesAvailable": notes_exists,
-        "lessonUrl": lesson_url if lesson.exists() else "",
-        "notesUrl": notes_url if notes_exists else "",
+        "lessonAvailable": lesson_exists,
+        "notesAvailable": lesson_exists,
+        "lessonUrl": lesson_url if lesson_exists else "",
+        "notesUrl": f"{lesson_url}?autoPrintNotes=1" if lesson_exists else "",
     }
 
 
@@ -410,11 +402,11 @@ def main() -> int:
             },
             {
                 "topic": "revision 2026 resources",
-                "fact": "Revision 2026 lessons and notes use dedicated /revision-2026-content/lessons/ and /revision-2026-content/notes/ paths.",
+                "fact": "Revision 2026 lessons are served from /revision-2026-content/lessons/; Download Notes opens the matching lesson in print mode so students can save it as a PDF.",
             },
             {
                 "topic": "revision 2021 resources",
-                "fact": "Revision 2021 uses its own department pages and the existing /lessons/ and notes resource paths.",
+                "fact": "Revision 2021 uses its own department pages; Download Notes opens the matching /lessons/ lesson in print mode so students can save it as a PDF.",
             },
             {
                 "topic": "website navigation",
@@ -447,7 +439,7 @@ def main() -> int:
             },
             {
                 "question": "Why is Download Notes unavailable?",
-                "answer": "The button is available only when the corresponding notes PDF exists in the correct revision-specific folder. The official syllabus link can still be used when local notes are unavailable.",
+                "answer": "The button is available only when the corresponding lesson HTML exists in the correct revision-specific folder. It opens the lesson in print mode so the student can save it as a PDF. The official syllabus link remains available when a lesson is not yet published.",
             },
             {
                 "question": "Where are official syllabus and sample question papers?",
@@ -500,8 +492,13 @@ def main() -> int:
     OUTPUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
     print(json.dumps(payload["counts"], indent=2))
 
-    if len(programmes_2026) < 38:
-        raise SystemExit(f"Expected at least 38 Revision 2026 programmes, found {len(programmes_2026)}")
+    registry_2026 = load_json(ROOT / "assets/data/revision-2026-programmes.json")
+    expected_programmes_2026 = registry_2026.get("programmeCount")
+    if not isinstance(expected_programmes_2026, int) or expected_programmes_2026 != len(programmes_2026):
+        raise SystemExit(
+            "Revision 2026 programme registry count mismatch: "
+            f"declared {expected_programmes_2026!r}, found {len(programmes_2026)} usable programmes"
+        )
     if len(subjects) < 300:
         raise SystemExit(f"Knowledge index has too few subject records: {len(subjects)}")
     if not any(row.get("revision") == "2026" for row in subjects):

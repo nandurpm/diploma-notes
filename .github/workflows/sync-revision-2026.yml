@@ -155,12 +155,19 @@ jobs:
           css = Path('assets/css/revision-2026-department-themes.css').read_text(encoding='utf-8')
           page = Path('revision-2026.html').read_text(encoding='utf-8')
           codes = [str(item['officialCode']) for item in registry['programmes']]
+          expected_count = registry.get('programmeCount')
           missing = [code for code in codes if f'data-official-code="{code}"' not in css]
           assert len(codes) == 42, f'Expected 42 programmes, found {len(codes)}'
           assert not missing, f'Missing card themes: {missing}'
           assert 'revision-2026-department-themes.css' in page
           assert page.count('data-programme-card') == 42
           print('All 42 Revision 2026 department cards have semantic themes.')
+          assert codes, 'Revision 2026 programme registry is empty'
+          assert expected_count == len(codes), f'Registry declares {expected_count} programmes, found {len(codes)}'
+          assert not missing, f'Missing card themes: {missing}'
+          assert 'revision-2026-department-themes.css' in page
+          assert page.count('data-programme-card') == len(codes)
+          print(f'All {len(codes)} Revision 2026 department cards have semantic themes.')
           PY
       - name: Add permanent model-question-paper links
         run: python tools/enhance_revision_2026_model_qp.py

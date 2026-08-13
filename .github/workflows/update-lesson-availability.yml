@@ -6,9 +6,7 @@ on:
     branches: [main]
     paths:
       - "lessons/**/*.html"
-      - "notes/**/*.pdf"
       - "revision-2026-content/lessons/**/*.html"
-      - "revision-2026-content/notes/**/*.pdf"
       - "assets/js/subject-browser.js"
       - "assets/js/asset-manifest.js"
       - "tools/update_asset_manifest.py"
@@ -17,9 +15,7 @@ on:
     branches: [main]
     paths:
       - "lessons/**/*.html"
-      - "notes/**/*.pdf"
       - "revision-2026-content/lessons/**/*.html"
-      - "revision-2026-content/notes/**/*.pdf"
       - "assets/js/subject-browser.js"
       - "assets/js/asset-manifest.js"
       - "tools/update_asset_manifest.py"
@@ -61,12 +57,6 @@ jobs:
           <!doctype html><html lang="en"><head><meta charset="utf-8"><title>REV2026 test</title></head><body><main>Revision 2026 manifest test lesson.</main></body></html>
           HTML
 
-          python - <<'PY'
-          from pathlib import Path
-          Path('notes/downloadable-notes-9998.pdf').write_bytes(b'%PDF-1.4\n' + b'0' * 21000)
-          Path('revision-2026-content/notes/downloadable-notes-6888B.pdf').write_bytes(b'%PDF-1.4\n' + b'0' * 21000)
-          PY
-
           python tools/update_asset_manifest.py
 
           python - <<'PY'
@@ -82,19 +72,18 @@ jobs:
 
           assert '"9999"' in line_2021_lessons
           assert '"9999"' not in line_2026_lessons
-          assert '"9998"' in line_2021_notes
+          assert '"9998"' not in line_2021_notes
           assert '"9998"' not in line_2026_notes
           assert '"6888A"' in line_2026_lessons
           assert '"6888A"' not in line_2021_lessons
-          assert '"6888B"' in line_2026_notes
+          assert '"6888B"' not in line_2026_notes
           assert '"6888B"' not in line_2021_notes
           assert 'revision2026LessonCodes' in manifest
           assert 'revision2026NotesCodes' in manifest
           PY
 
-          rm lessons/lessons-9999.html notes/downloadable-notes-9998.pdf
+          rm lessons/lessons-9999.html
           rm revision-2026-content/lessons/lessons-6888A.html
-          rm revision-2026-content/notes/downloadable-notes-6888B.pdf
           python tools/update_asset_manifest.py
           git diff --exit-code -- assets/js/subject-browser.js assets/js/asset-manifest.js
 

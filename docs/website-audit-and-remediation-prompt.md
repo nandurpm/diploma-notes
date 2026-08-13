@@ -9,7 +9,7 @@ This audit covers the repository versions of the ten requested public routes: `/
 ### P0 — broken destinations and content integrity
 
 1. Three lesson pages still link to the nonexistent `/revision.html`: `lessons/lessons-5043.html`, `lessons/lessons-4043.html`, and `lessons/lessons-5041.html`. Route each link to the correct curriculum directory, not merely to a guessed replacement.
-2. `revision-2026-content/lessons/lessons-2002B.html` references a missing `revision-2026-content/notes/downloadable-notes-2002B.pdf`. Either add the verified PDF or render the resource as unavailable without a clickable link.
+2. Note actions must open the matching Revision 2026 lesson in print mode with `?autoPrintNotes=1`; do not restore direct links to removed PDF payloads.
 3. The sitemap omits the whole Revision 2026 directory, all 38 Revision 2026 programme pages, Ask POLY, Tools, and many existing lesson pages. Generate the sitemap from the actual publishable route set so it cannot drift manually.
 4. Treat `/` as the canonical homepage. Keep `/index.html` working, but ensure it has the same canonical URL and avoid presenting both as separate URLs in navigation, analytics, or the sitemap.
 

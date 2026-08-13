@@ -1220,11 +1220,12 @@
         }
     </style>
     <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
     <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#1d4ed8">
-    <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 1253 — Business Studies | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1253.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 1253 Business Studies: nature of business, forms of organisation, business functions, environment & ethics, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"1253"}</script>
+      <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 1253 — Business Studies | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1253.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 1253 Business Studies: nature of business, forms of organisation, business functions, environment & ethics, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"1253"}</script>
 </head>
 <body>
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
@@ -1245,8 +1246,8 @@
                     <h1>Business Studies</h1>
                     <p class="subtitle">Complete handbook covering business fundamentals, forms of organisation, marketing, finance, HRM, business environment, ethics, and CSR — with Malayalam support, diagrams, calculators, and practice questions.</p>
                     <div class="actions no-print">
-                        <button class="btn primary" id="printBtn" aria-label="Print or save as PDF">📄 Print / Download Notes</button>
-                        <button class="btn light" id="downloadBtn" aria-label="Download printable notes PDF">⬇ Download PDF</button>
+                        <button class="btn primary" id="printBtn" aria-label="Print or save as PDF">📄 Print / Save as PDF</button>
+                        <button class="btn light" id="downloadBtn" aria-label="Download printable notes PDF">⬇ Save as PDF</button>
                     </div>
                 </div>
                 <div class="cover-card">
@@ -2694,9 +2695,9 @@
                 window.print();
             }
 
-            // ---- Download Notes ----
+            // ---- Save as PDF ----
             function downloadNotes() {
-                const url = '/revision-2026-content/notes/downloadable-notes-1253-Business-Studies.pdf';
+                const url = '/revision-2026-content/lessons/lessons-1253-Business-Studies.html?autoPrintNotes=1';
                 // Try HEAD request to see if PDF exists
                 fetch(url, { method: 'HEAD', cache: 'no-cache' })
                     .then(function(res) {

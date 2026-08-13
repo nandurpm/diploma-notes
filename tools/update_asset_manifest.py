@@ -17,22 +17,11 @@ ASSET_SPECS = (
         re.compile(r"^lessons-(?P<code>[A-Za-z0-9-]+)\.html$", re.IGNORECASE),
     ),
     (
-        "NOTES_CODES",
-        ROOT / "notes",
-        re.compile(r"^downloadable-notes-(?P<code>[A-Za-z0-9-]+)\.pdf$", re.IGNORECASE),
-    ),
-    (
         "REV2026_LESSON_CODES",
         ROOT / "revision-2026-content" / "lessons",
         re.compile(r"^lessons-(?P<code>[A-Za-z0-9-]+)\.html$", re.IGNORECASE),
     ),
-    (
-        "REV2026_NOTES_CODES",
-        ROOT / "revision-2026-content" / "notes",
-        re.compile(r"^downloadable-notes-(?P<code>[A-Za-z0-9-]+)\.pdf$", re.IGNORECASE),
-    ),
 )
-MIN_VALID_PDF_BYTES = 20000
 
 
 def natural_key(value: str) -> tuple[object, ...]:
@@ -57,8 +46,6 @@ def collect_codes(directory: Path, filename_pattern: re.Pattern[str]) -> list[st
             continue
         match = filename_pattern.fullmatch(path.name)
         if not match:
-            continue
-        if path.suffix.lower() == ".pdf" and path.stat().st_size < MIN_VALID_PDF_BYTES:
             continue
         codes.add(match.group("code").upper())
 
@@ -149,16 +136,24 @@ def generated_manifest_source(manifests: dict[str, list[str]]) -> str:
 
 
 def collect_manifests() -> dict[str, list[str]]:
-    return {
+    lesson_manifests = {
         name: collect_codes(directory, filename_pattern)
         for name, directory, filename_pattern in ASSET_SPECS
+    }
+    # Retain empty notes fields so older browser bundles and integrations remain
+    # schema-compatible while no deployed PDF payloads are generated.
+    return {
+        "LESSON_CODES": lesson_manifests["LESSON_CODES"],
+        "NOTES_CODES": [],
+        "REV2026_LESSON_CODES": lesson_manifests["REV2026_LESSON_CODES"],
+        "REV2026_NOTES_CODES": [],
     }
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Synchronize Revision 2021 and Revision 2026 lesson/PDF availability "
+            "Synchronize Revision 2021 and Revision 2026 lesson availability "
             "without mixing their folders."
         )
     )

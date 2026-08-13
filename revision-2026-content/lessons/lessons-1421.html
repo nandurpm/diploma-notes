@@ -661,11 +661,12 @@
         }
     </style>
     <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
     <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#1d4ed8">
-    <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 1421 — Fundamentals of Food Processing Technology | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1421.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 1421 Fundamentals of Food Processing Technology: water activity, carbohydrates, proteins, lipids, vitamins, minerals, practical experiments, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"1421"}</script>
+      <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 1421 — Fundamentals of Food Processing Technology | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1421.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 1421 Fundamentals of Food Processing Technology: water activity, carbohydrates, proteins, lipids, vitamins, minerals, practical experiments, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"1421"}</script>
 </head>
 <body>
     <div class="reading-progress" id="readingProgress" aria-hidden="true"></div>
@@ -685,7 +686,7 @@
                 <p class="subtitle">Course 1421 — Introductory core subject covering macro &amp; micronutrients, water activity, carbohydrates, proteins, lipids, vitamins, minerals, and practical food processing operations.</p>
                 <div class="actions no-print">
                     <button class="btn primary" id="printBtn" aria-label="Print or save as PDF">📄 Print / PDF Notes</button>
-                    <button class="btn light" id="downloadBtn" aria-label="Download printable notes">⬇ Download Notes</button>
+                    <button class="btn light" id="downloadBtn" aria-label="Download printable notes">⬇ Save as PDF</button>
                 </div>
                 <div class="cover-card">
                     <dl>
@@ -2083,7 +2084,7 @@
 
             function downloadNotes() {
                 const code = '1421';
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-' + code + '.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-' + code + '.html?autoPrintNotes=1';
                 // Try HEAD request to check existence
                 fetch(pdfPath, { method: 'HEAD' })
                     .then(res => {

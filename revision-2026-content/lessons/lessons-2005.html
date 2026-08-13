@@ -1101,11 +1101,12 @@
         }
     </style>
     <link rel="icon" type="image/png" href="/favicon.ico" sizes="any">
-    <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
     <link rel="apple-touch-icon" href="/assets/media/poly-pmna-apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#1d4ed8">
-    <script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 2005 — Environmental Sustainability and Professional Ethics | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2005.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 2005 Environmental Sustainability and Professional Ethics: ecosystem, pollution, ethics, sustainable development, zero waste, green chemistry, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"2005"}</script>
+      <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#1d4ed8">
+<link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"Course 2005 — Environmental Sustainability and Professional Ethics | REV2026 | POLY PMNA","url":"https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2005.html","description":"Complete Kerala Diploma Revision 2026 handbook for Course 2005 Environmental Sustainability and Professional Ethics: ecosystem, pollution, ethics, sustainable development, zero waste, green chemistry, Malayalam support, diagrams, calculators, questions and printable notes.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"},"identifier":"2005"}</script>
 </head>
 <body>
 
@@ -1129,7 +1130,7 @@
                 <div class="actions no-print">
                     <button class="btn primary" id="startLearningBtn">📖 Start Learning</button>
                     <button class="btn" id="printBtn">🖨️ Print / PDF</button>
-                    <button class="btn" id="downloadBtn">⬇️ Download Notes</button>
+                    <button class="btn" id="downloadBtn">⬇️ Save as PDF</button>
                 </div>
                 <div class="cover-card">
                     <div><dt>Programme</dt><dd>Diploma Engineering</dd></div>
@@ -2964,7 +2965,7 @@
                 }, 400);
             }
 
-            // ---- Download Notes ----
+            // ---- Save as PDF ----
             const downloadBtn = document.getElementById('downloadBtn');
             if (downloadBtn) {
                 downloadBtn.addEventListener('click', function() {
@@ -2974,7 +2975,7 @@
 
             function downloadNotes() {
                 // Try to fetch the existing PDF
-                const pdfPath = '/revision-2026-content/notes/downloadable-notes-2005.pdf';
+                const pdfPath = '/revision-2026-content/lessons/lessons-2005.html?autoPrintNotes=1';
                 fetch(pdfPath, { method: 'HEAD' })
                     .then(function(resp) {
                         if (resp.ok) {
