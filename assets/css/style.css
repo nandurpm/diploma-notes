@@ -345,9 +345,13 @@ p { color: var(--muted); line-height: 1.68; }
 .subject-card::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto;
+  top: 0;
+  left: 16px;
+  right: 16px;
   height: 6px;
+  border-radius: 999px;
   background: linear-gradient(90deg, var(--blue), var(--cyan), var(--green), var(--amber));
+  z-index: 1;
 }
 .info-card::after,
 .choice-card::after,
@@ -368,6 +372,8 @@ p { color: var(--muted); line-height: 1.68; }
 .choice-card { display: grid; min-height: 238px; align-content: space-between; background: linear-gradient(180deg, #fff, #f7fbff); }
 .choice-card span,
 .info-card span {
+  position: relative;
+  z-index: 2;
   display: inline-grid;
   place-items: center;
   width: fit-content;
@@ -379,6 +385,10 @@ p { color: var(--muted); line-height: 1.68; }
   background: linear-gradient(135deg, var(--blue), var(--cyan));
   font-weight: 950;
   box-shadow: 0 10px 24px rgba(29,78,216,.18);
+  max-width: calc(100% - 52px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .choice-card.legacy span { background: linear-gradient(135deg, var(--green), var(--cyan)); }
 .contact-card span { background: linear-gradient(135deg, var(--blue), var(--violet)); }

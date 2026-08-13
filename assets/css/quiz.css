@@ -35,8 +35,11 @@
 .subject-card::before {
   content: "" !important;
   position: absolute !important;
-  inset: 0 0 auto 0 !important;
+  top: 0 !important;
+  left: 16px !important;
+  right: 16px !important;
   height: 6px !important;
+  border-radius: 999px !important;
   background: linear-gradient(90deg, #1d4ed8, #0f9fba, #059669, #f59e0b) !important;
   z-index: 2 !important;
   pointer-events: none !important;

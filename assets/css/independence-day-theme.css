@@ -345,6 +345,11 @@ html.poly-independence-day .choice-card::before,
 html.poly-independence-day .info-card::before,
 html.poly-independence-day .subject-card::before,
 html.poly-independence-day .card::before {
+  top: 0 !important;
+  left: 16px !important;
+  right: 16px !important;
+  height: 6px !important;
+  border-radius: 999px !important;
   background: linear-gradient(90deg, var(--id-saffron), var(--id-white) 50%, var(--id-green)) !important;
 }
 
