@@ -69,11 +69,18 @@ def get_resource(url: str) -> dict[str, object]:
         try:
             with urlopen(request, timeout=25) as response:
                 data = response.read(262144)
+                content_type = response.headers.get("Content-Type", "")
+                resource_path = urlparse(url).path
+                is_text_resource = (
+                    "html" in content_type.lower()
+                    or "json" in content_type.lower()
+                    or resource_path.endswith(("/", ".html", ".json"))
+                )
                 return {
                     "status": response.status,
-                    "contentType": response.headers.get("Content-Type", ""),
+                    "contentType": content_type,
                     "bytesRead": len(data),
-                    "text": data.decode("utf-8", errors="replace") if "html" in response.headers.get("Content-Type", "").lower() or url.endswith(("/", ".html", ".json")) else "",
+                    "text": data.decode("utf-8", errors="replace") if is_text_resource else "",
                 }
         except HTTPError as exc:
             return {"status": exc.code, "contentType": exc.headers.get("Content-Type", ""), "bytesRead": 0, "text": "", "error": str(exc)}
