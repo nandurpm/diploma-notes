@@ -111,6 +111,7 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         shell: bash
+        working-directory: workers/ask-poly-ai
         run: |
           python - <<'PY'
           import json
@@ -130,7 +131,10 @@ jobs:
           with open("ask-poly-secrets.json", "w", encoding="utf-8") as file:
               json.dump(secrets, file)
           PY
-          wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
+          # Keep secret bulk aligned with the module Worker manifest. Running
+          # this command from the repository root can create an asset-only
+          # version and replace the module version on the canonical hostname.
+          wrangler secret bulk ask-poly-secrets.json
           rm -f ask-poly-secrets.json
 
       - name: Smoke-test live Worker and protected mock route
