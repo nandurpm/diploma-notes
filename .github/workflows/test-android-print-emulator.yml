@@ -46,11 +46,12 @@ jobs:
       - name: Install APK and verify native print dialog in emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 35
+          api-level: 34
           target: google_apis
           arch: x86_64
           profile: pixel_2
-          emulator-options: -no-window -no-snapshot-save -noaudio -no-boot-anim -gpu swiftshader_indirect
+          force-avd-creation: true
+          emulator-options: -no-window -no-snapshot -no-snapshot-save -noaudio -no-boot-anim -gpu swiftshader_indirect
           disable-animations: true
           script: |
             # Keep the complete test in one POSIX shell script. The runner invokes
