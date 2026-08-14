@@ -70,6 +70,76 @@
       "subjectName": "Major Project",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6009.html"
+    },
+    "REV2021:1251:lessons/lessons-1251.html": {
+      "messageId": "projects/poly-pmna/messages/3924326841819027823",
+      "subjectCode": "1251",
+      "subjectName": "Basic Accounting",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1251.html"
+    },
+    "REV2021:1252:lessons/lessons-1252.html": {
+      "messageId": "projects/poly-pmna/messages/7325675131806373915",
+      "subjectCode": "1252",
+      "subjectName": "Business Economics",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1252.html"
+    },
+    "REV2021:1253:lessons/lessons-1253.html": {
+      "messageId": "projects/poly-pmna/messages/5508590283271738516",
+      "subjectCode": "1253",
+      "subjectName": "Subject 1253",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1253.html"
+    },
+    "REV2021:1259:lessons/lessons-1259.html": {
+      "messageId": "projects/poly-pmna/messages/7685002059064759237",
+      "subjectCode": "1259",
+      "subjectName": "Office Automation Software Lab",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-1259.html"
+    },
+    "REV2021:4007:lessons/lessons-4007.html": {
+      "messageId": "projects/poly-pmna/messages/6499637448177569895",
+      "subjectCode": "4007",
+      "subjectName": "Minor Project ()",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-4007.html"
+    },
+    "REV2026:2018:revision-2026-content/lessons/lessons-2018.html": {
+      "messageId": "projects/poly-pmna/messages/3412710124761421558",
+      "subjectCode": "2018",
+      "subjectName": "Construction Materials Lab",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2018.html"
+    },
+    "REV2026:2019:revision-2026-content/lessons/lessons-2019.html": {
+      "messageId": "projects/poly-pmna/messages/4461542821048672313",
+      "subjectCode": "2019",
+      "subjectName": "Basic Surveying Lab",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2019.html"
+    },
+    "REV2026:2028:revision-2026-content/lessons/lessons-2028.html": {
+      "messageId": "projects/poly-pmna/messages/2465377296865299198",
+      "subjectCode": "2028",
+      "subjectName": "Materials and Measurements Laboratory",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2028.html"
+    },
+    "REV2026:2051:revision-2026-content/lessons/lessons-2051.html": {
+      "messageId": "projects/poly-pmna/messages/1284252429618038057",
+      "subjectCode": "2051",
+      "subjectName": "Basic Electrical and Electronics Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2051.html"
+    },
+    "REV2026:2071:revision-2026-content/lessons/lessons-2071.html": {
+      "messageId": "projects/poly-pmna/messages/4556293799174607918",
+      "subjectCode": "2071",
+      "subjectName": "Subject 2071",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2071.html"
     }
   }
 }
