@@ -128,11 +128,11 @@
         const modules = Array.isArray(outcome.modules)
           ? outcome.modules.map(module => `${module.code} ${module.title} (${module.hours}h; ${module.level})`).join("; ")
           : "";
-        return `${outcome.code} ${outcome.title} (${outcome.hours} hours; ${outcome.level}). Modules: ${modules}. Content: ${outcome.content || "not specified"}`;
+        return `${outcome.code} ${outcome.title} (${outcome.hours} hours; ${outcome.level}). Modules: ${modules}`;
       }).join("\n")
       : "";
     const syllabusDetail = detail
-      ? ` | official detail source: ${detail.sourceUrl || subject.syllabusUrl || "unavailable"} | credits: ${detail.credits ?? "not specified"} | periods: ${detail.periodsPerSemester ?? "not specified"}\n  Verified unit-level syllabus:\n  ${detailLines}`
+      ? ` | official detail source: ${detail.sourceUrl || subject.syllabusUrl || "unavailable"}\n  Verified unit-level syllabus:\n  ${detailLines}`
       : "";
     return `- ${revision} ${subject.code} — ${subject.name} | ${department} | ${semester} | ${subject.type || "Course"} | department page: ${subject.departmentUrl || "unavailable"} | syllabus: ${subject.syllabusUrl || "unavailable"} | sample paper: ${subject.questionPaperUrl || "unavailable"} | ${availability}${syllabusDetail}`;
   }
