@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-08-14T04:32:57.204Z",
+  "generatedAt": "2026-08-14T04:39:16.793Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
@@ -24,7 +24,7 @@
       "status": {
         "ok": true,
         "version": "2026-08-offline-science1",
-        "generatedAt": "2026-08-14T04:32:02Z",
+        "generatedAt": "2026-08-14T04:32:28Z",
         "counts": {
           "pages": 368,
           "programmes2021": 43,
@@ -134,7 +134,7 @@
   "knowledgeStatus": {
     "ok": true,
     "version": "2026-08-offline-science1",
-    "generatedAt": "2026-08-14T04:32:02Z",
+    "generatedAt": "2026-08-14T04:32:28Z",
     "counts": {
       "pages": 368,
       "programmes2021": 43,
