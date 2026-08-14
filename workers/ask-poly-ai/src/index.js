@@ -95,7 +95,7 @@ function cloudflareMessages(body) {
 function cloudflareInput(body, env) {
   return {
     messages: cloudflareMessages(body),
-    max_tokens: Math.max(128, Math.min(2200, Number(env.MAX_OUTPUT_TOKENS || 1600))),
+    max_tokens: Math.max(128, Math.min(4000, Number(env.MAX_OUTPUT_TOKENS || 1600))),
     temperature: 0.25,
     top_p: 0.9
   };
