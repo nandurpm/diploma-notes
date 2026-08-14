@@ -47,6 +47,8 @@ def metadata(text: str) -> tuple[str, str, str, str]:
 def page_type(relative: str) -> str:
     if relative == "index.html":
         return "WebSite"
+    if relative == "about.html":
+        return "AboutPage"
     if relative in {"revision-2021.html", "revision-2026.html", "materials-2015.html", "tools-catalog.html"}:
         return "CollectionPage"
     if relative.startswith(("revision-2021/", "revision-2026/")):

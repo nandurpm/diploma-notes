@@ -79,7 +79,6 @@ try {
   ));
 
   const cards = page.locator("[data-programme-card]");
-  record("all 42 department cards render", await cards.count() === 42, {
   record(`all ${EXPECTED_DEPARTMENT_COUNT} department cards render`, await cards.count() === EXPECTED_DEPARTMENT_COUNT, {
     cardCount: await cards.count()
   });
@@ -110,7 +109,6 @@ try {
   const visibleElectrical = await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length);
   const resultText = await page.locator("#programmeResultCount").textContent();
   record("department search filters correctly", visibleElectrical === 3, { visibleElectrical });
-  record("search result count updates", String(resultText).trim() === "Showing 3 of 42 departments", { resultText: String(resultText).trim() });
   record("search result count updates", String(resultText).trim() === `Showing 3 of ${EXPECTED_DEPARTMENT_COUNT} departments`, { resultText: String(resultText).trim() });
   record("search query is preserved in URL", new URL(page.url()).searchParams.get("q") === "electrical", { url: page.url() });
   record("clear control appears for active search", await page.locator("#programmeSearchClear").isVisible());
@@ -118,7 +116,6 @@ try {
   await page.locator("#programmeSearchClear").click();
   await page.waitForTimeout(120);
   const visibleAfterClear = await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length);
-  record("clear control restores all departments", visibleAfterClear === 42 && !new URL(page.url()).searchParams.has("q"), {
   record("clear control restores all departments", visibleAfterClear === EXPECTED_DEPARTMENT_COUNT && !new URL(page.url()).searchParams.has("q"), {
     visibleAfterClear,
     url: page.url()
@@ -129,7 +126,6 @@ try {
   record("no-results state is visible", await page.locator("#programmeEmptyState").isVisible());
   await page.locator("#programmeEmptyClear").click();
   await page.waitForTimeout(120);
-  record("no-results clear action restores directory", await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length) === 42);
   record("no-results clear action restores directory", await cards.evaluateAll(elements => elements.filter(element => !element.hidden).length) === EXPECTED_DEPARTMENT_COUNT);
 
   const desktopScreenshot = path.join(SCREENSHOT_DIR, "revision-2026-directory-desktop.png");
