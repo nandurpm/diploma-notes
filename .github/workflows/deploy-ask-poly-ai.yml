@@ -142,7 +142,21 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         working-directory: workers/ask-poly-ai
-        run: wrangler deploy
+        shell: bash
+        run: |
+          set -o pipefail
+          wrangler deploy 2>&1 | tee /tmp/ask-poly-final-deploy.log
+          version_id="$(grep 'Current Version ID:' /tmp/ask-poly-final-deploy.log | tail -1 | awk '{print $NF}')"
+          if [[ ! "$version_id" =~ ^[0-9a-f-]{36}$ ]]; then
+            echo "Could not determine the final module version ID: $version_id" >&2
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error --request POST \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts/ask-poly-ai/deployments" \
+            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            --header 'Content-Type: application/json' \
+            --data "{\"strategy\":\"percentage\",\"versions\":[{\"percentage\":100,\"version_id\":\"${version_id}\"}],\"annotations\":{\"workers/message\":\"Promote verified Ask POLY module after credential synchronization\"}}"
+          echo "Promoted module version $version_id to 100% production traffic."
 
       - name: Smoke-test live Worker and protected mock route
         shell: bash
