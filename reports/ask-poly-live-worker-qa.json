@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-14T05:36:10Z",
+  "generatedAt": "2026-08-14T12:09:59Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askEndpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -24,8 +24,10 @@
       "cloudflare-workers-ai",
       "cloudflare-workers-ai-rest",
       "nvidia",
+      "openrouter",
       "openai",
-      "gemini"
+      "gemini",
+      "google-ai-studio"
     ],
     "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
     "mockExamEvaluation": true,
