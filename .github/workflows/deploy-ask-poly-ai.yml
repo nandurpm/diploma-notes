@@ -27,7 +27,9 @@ jobs:
       CLOUDFLARE_AI_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
       OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
       NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY }}
+      OPENROUTER_API_KEY_VALUE: ${{ secrets.OPENROUTER_API_KEY }}
       GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
+      FREE_API_KEY_VALUE: ${{ secrets.FREE_API_KEY }}
       SUPABASE_URL_VALUE: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY_VALUE: ${{ secrets.SUPABASE_ANON_KEY }}
       SUPABASE_SERVICE_ROLE_KEY_VALUE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -48,8 +50,9 @@ jobs:
 
           public_config = Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
           for secret_name in (
-              'OPENAI_API_KEY', 'NVIDIA_API_KEY', 'GOOGLE_AI_STUDIO',
-              'CLOUDFLARE_AI_API_TOKEN', 'CLOUDFLARE_AI_ACCOUNT_ID',
+              'OPENAI_API_KEY', 'NVIDIA_API_KEY', 'OPENROUTER_API_KEY',
+              'GOOGLE_AI_STUDIO', 'FREE_API_KEY', 'CLOUDFLARE_AI_API_TOKEN',
+              'CLOUDFLARE_AI_ACCOUNT_ID',
               'SUPABASE_SERVICE_ROLE_KEY'
           ):
               assert secret_name not in public_config
@@ -80,7 +83,7 @@ jobs:
             echo "Supabase secrets are not present in repository secrets."
             echo "The existing Cloudflare Worker secrets will remain unchanged by the upload step."
           fi
-          if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
+          if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$OPENROUTER_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$FREE_API_KEY_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
             echo "At least one AI provider credential is required."
             exit 1
           fi
@@ -106,7 +109,9 @@ jobs:
           CLOUDFLARE_AI_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           GOOGLE_AI_STUDIO: ${{ secrets.GOOGLE_AI_STUDIO }}
+          FREE_API_KEY: ${{ secrets.FREE_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
@@ -121,7 +126,7 @@ jobs:
           for key in (
               "CLOUDFLARE_AI_API_TOKEN", "CLOUDFLARE_AI_ACCOUNT_ID",
               "SUPABASE_URL", "SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY",
-              "OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO",
+              "OPENAI_API_KEY", "NVIDIA_API_KEY", "OPENROUTER_API_KEY", "GOOGLE_AI_STUDIO", "FREE_API_KEY",
           ):
               value = os.environ.get(key, "")
               if value:

@@ -5,6 +5,8 @@ const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const OPENAI_FALLBACK_MODELS = ["gpt-4o-mini"];
 const DEFAULT_NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
 const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash";
+const DEFAULT_OPENROUTER_MODEL = "openrouter/free";
+const DEFAULT_FREE_API_MODEL = "";
 
 const SYSTEM_INSTRUCTIONS = `You are Ask POLY, a compact educational assistant for Kerala Polytechnic and diploma students.
 
@@ -659,13 +661,19 @@ function providerOrder(env) {
   const usable = requested.filter((provider) => {
     if (provider === "openai") return Boolean(env.OPENAI_API_KEY);
     if (provider === "nvidia") return Boolean(env.NVIDIA_API_KEY);
-    if (provider === "gemini" || provider === "google") return Boolean(env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO);
+    if (provider === "openrouter") return Boolean(env.OPENROUTER_API_KEY);
+    if (provider === "gemini") return Boolean(env.GEMINI_API_KEY);
+    if (provider === "google" || provider === "google-ai-studio") return Boolean(env.GOOGLE_AI_STUDIO);
+    if (provider === "free" || provider === "free-api") return Boolean(env.FREE_API_URL);
     return false;
   });
   return usable.length ? usable : [
-    ...(env.OPENAI_API_KEY ? ["openai"] : []),
     ...(env.NVIDIA_API_KEY ? ["nvidia"] : []),
-    ...(env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO ? ["gemini"] : [])
+    ...(env.OPENROUTER_API_KEY ? ["openrouter"] : []),
+    ...(env.OPENAI_API_KEY ? ["openai"] : []),
+    ...(env.GEMINI_API_KEY ? ["gemini"] : []),
+    ...(env.GOOGLE_AI_STUDIO ? ["google-ai-studio"] : []),
+    ...(env.FREE_API_URL ? ["free-api"] : [])
   ];
 }
 
@@ -758,33 +766,98 @@ async function askNvidia(input, env) {
   return { answer, citations: [], usedWeb: false, provider: "nvidia", model: data?.model || model, responseId: data?.id || "" };
 }
 
-async function askGemini(input, env) {
-  const apiKey = env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
+async function askOpenRouter(input, env) {
+  const model = cleanText(env.OPENROUTER_MODEL, 180) || DEFAULT_OPENROUTER_MODEL;
+  const { response, data } = await fetchJsonWithTimeout("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${env.OPENROUTER_API_KEY}`,
+      "Content-Type": "application/json",
+      "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
+      "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
+    },
+    body: JSON.stringify({
+      model,
+      messages: messagesFromInput(input),
+      temperature: Number(env.AI_TEMPERATURE || 0.35),
+      top_p: Number(env.AI_TOP_P || 0.9),
+      max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
+      stream: false
+    })
+  }, env, "openrouter");
+  if (!response.ok) {
+    const error = new Error(data?.error?.message || `OpenRouter request failed with HTTP ${response.status}.`);
+    error.status = response.status;
+    error.provider = "openrouter";
+    error.data = data;
+    throw error;
+  }
+  const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
+  if (!answer) throw new Error("OpenRouter returned an empty response.");
+  return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "" };
+}
+
+async function askFreeApi(input, env) {
+  const url = cleanText(env.FREE_API_URL, 800);
+  if (!url) throw new Error("FREE_API_URL is not configured.");
+  const model = cleanText(env.FREE_API_MODEL, 180) || DEFAULT_FREE_API_MODEL;
+  const headers = { "Content-Type": "application/json" };
+  if (cleanText(env.FREE_API_KEY, 800)) headers.Authorization = `Bearer ${env.FREE_API_KEY}`;
+  const { response, data } = await fetchJsonWithTimeout(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      ...(model ? { model } : {}),
+      messages: messagesFromInput(input),
+      temperature: Number(env.AI_TEMPERATURE || 0.35),
+      top_p: Number(env.AI_TOP_P || 0.9),
+      max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
+      stream: false
+    })
+  }, env, "free-api");
+  if (!response.ok) {
+    const error = new Error(data?.error?.message || data?.detail || `Free API request failed with HTTP ${response.status}.`);
+    error.status = response.status;
+    error.provider = "free-api";
+    error.data = data;
+    throw error;
+  }
+  const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || data?.response || data?.output_text || "", 6000);
+  if (!answer) throw new Error("Free API returned an empty response.");
+  return { answer, citations: [], usedWeb: false, provider: "free-api", model: data?.model || model || "configured-free-api", responseId: data?.id || "" };
+}
+
+async function askGemini(input, env, apiKey, provider = "gemini") {
+  const resolvedApiKey = apiKey || env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
   const model = cleanText(env.GEMINI_MODEL, 120) || DEFAULT_GEMINI_MODEL;
   const { response, data } = await fetchJsonWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
     method: "POST",
-    headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
+    headers: { "x-goog-api-key": resolvedApiKey, "Content-Type": "application/json" },
     body: JSON.stringify({ system_instruction: { parts: [{ text: SYSTEM_INSTRUCTIONS }] }, contents: geminiContentsFromInput(input), generationConfig: { temperature: Number(env.AI_TEMPERATURE || 0.35), maxOutputTokens: Number(env.MAX_OUTPUT_TOKENS || 450) } })
-  }, env, "gemini");
+  }, env, provider);
   if (!response.ok) {
     const error = new Error(data?.error?.message || `Gemini request failed with HTTP ${response.status}.`);
     error.status = response.status;
-    error.provider = "gemini";
+    error.provider = provider;
+
     error.data = data;
     throw error;
   }
   const answer = cleanText((data?.candidates || []).flatMap((candidate) => candidate?.content?.parts || []).map((part) => part?.text || "").filter(Boolean).join("\n\n"), 6000);
   if (!answer) throw new Error("Gemini returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "gemini", model, responseId: data?.responseId || "" };
+  return { answer, citations: [], usedWeb: false, provider, model, responseId: data?.responseId || "" };
 }
 
 async function askAnyProvider(input, env) {
   const errors = [];
   for (const provider of providerOrder(env)) {
     try {
-      if (provider === "openai") return await askOpenAI(input, env);
       if (provider === "nvidia") return await askNvidia(input, env);
-      if (provider === "gemini" || provider === "google") return await askGemini(input, env);
+      if (provider === "openrouter") return await askOpenRouter(input, env);
+      if (provider === "openai") return await askOpenAI(input, env);
+      if (provider === "gemini") return await askGemini(input, env, env.GEMINI_API_KEY, "gemini");
+      if (provider === "google" || provider === "google-ai-studio") return await askGemini(input, env, env.GOOGLE_AI_STUDIO, "google-ai-studio");
+      if (provider === "free" || provider === "free-api") return await askFreeApi(input, env);
     } catch (error) {
       errors.push(`${provider}: ${error?.status || "error"} ${cleanText(error?.message, 180)}`);
       console.error(`Ask POLY ${provider} provider failed`, error);
