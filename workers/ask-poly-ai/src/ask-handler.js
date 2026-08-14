@@ -848,6 +848,194 @@ async function askGemini(input, env, apiKey, provider = "gemini") {
   return { answer, citations: [], usedWeb: false, provider, model, responseId: data?.responseId || "" };
 }
 
+async function fetchStreamWithTimeout(url, options, env, provider) {
+  const timeoutMs = providerTimeoutMs(env);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(timer);
+    if (!response.ok || !response.body) {
+      const detail = cleanText(await response.text().catch(() => ""), 300);
+      const error = new Error(detail || `${provider} streaming request failed with HTTP ${response.status}.`);
+      error.status = response.status;
+      error.provider = provider;
+      throw error;
+    }
+    return response;
+  } catch (error) {
+    clearTimeout(timer);
+    if (error?.name === "AbortError") {
+      const wrapped = new Error(`${provider} streaming timed out after ${timeoutMs} ms.`);
+      wrapped.status = 504;
+      wrapped.provider = provider;
+      throw wrapped;
+    }
+    throw error;
+  }
+}
+
+function openAiCompatibleStreamPayload(model, input, env) {
+  return {
+    ...(model ? { model } : {}),
+    messages: messagesFromInput(input),
+    temperature: Number(env.AI_TEMPERATURE || 0.35),
+    top_p: Number(env.AI_TOP_P || 0.9),
+    max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
+    stream: true
+  };
+}
+
+function normalizeGeminiStream(response, provider, model) {
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  let buffer = "";
+
+  const extractText = (eventText) => {
+    const data = eventText.split(/\r?\n/)
+      .filter((line) => line.startsWith("data:"))
+      .map((line) => line.slice(5).trimStart())
+      .join("\n")
+      .trim();
+    if (!data || data === "[DONE]") return { done: data === "[DONE]", text: "" };
+    try {
+      const payload = JSON.parse(data);
+      const text = (payload?.candidates || [])
+        .flatMap((candidate) => candidate?.content?.parts || [])
+        .map((part) => part?.text || "")
+        .filter(Boolean)
+        .join("");
+      return { done: false, text };
+    } catch (_) {
+      return { done: false, text: "" };
+    }
+  };
+
+  const stream = new ReadableStream({
+    async pull(controller) {
+      try {
+        const { value, done } = await reader.read();
+        buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+        const events = buffer.split(/\r?\n\r?\n/);
+        buffer = events.pop() || "";
+        for (const event of events) {
+          const parsed = extractText(event);
+          if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
+          if (parsed.done) {
+            controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+            controller.close();
+            return;
+          }
+        }
+        if (done) {
+          if (buffer.trim()) {
+            const parsed = extractText(buffer);
+            if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
+          }
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+        }
+      } catch (error) {
+        controller.error(error);
+      }
+    },
+    cancel(reason) {
+      return reader.cancel(reason);
+    }
+  });
+  return { stream, provider, model };
+}
+
+async function askOpenAiCompatibleStream(input, env, provider, url, apiKey, model, extraHeaders = {}) {
+  const response = await fetchStreamWithTimeout(url, {
+    method: "POST",
+    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", Accept: "text/event-stream", ...extraHeaders },
+    body: JSON.stringify(openAiCompatibleStreamPayload(model, input, env))
+  }, env, provider);
+  return { stream: response.body, provider, model };
+}
+
+async function askGeminiStream(input, env, apiKey, provider = "gemini") {
+  const resolvedApiKey = apiKey || env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
+  const model = cleanText(env.GEMINI_MODEL, 120) || DEFAULT_GEMINI_MODEL;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`;
+  const response = await fetchStreamWithTimeout(url, {
+    method: "POST",
+    headers: { "x-goog-api-key": resolvedApiKey, "Content-Type": "application/json", Accept: "text/event-stream" },
+    body: JSON.stringify({
+      system_instruction: { parts: [{ text: SYSTEM_INSTRUCTIONS }] },
+      contents: geminiContentsFromInput(input),
+      generationConfig: { temperature: Number(env.AI_TEMPERATURE || 0.35), maxOutputTokens: Number(env.MAX_OUTPUT_TOKENS || 450) }
+    })
+  }, env, provider);
+  return normalizeGeminiStream(response, provider, model);
+}
+
+async function askExternalProviderStream(input, env, provider) {
+  if (provider === "nvidia") {
+    const model = cleanText(env.NVIDIA_MODEL, 140) || DEFAULT_NVIDIA_MODEL;
+    return askOpenAiCompatibleStream(input, env, provider, "https://integrate.api.nvidia.com/v1/chat/completions", env.NVIDIA_API_KEY, model);
+  }
+  if (provider === "openrouter") {
+    const model = cleanText(env.OPENROUTER_MODEL, 180) || DEFAULT_OPENROUTER_MODEL;
+    return askOpenAiCompatibleStream(input, env, provider, "https://openrouter.ai/api/v1/chat/completions", env.OPENROUTER_API_KEY, model, {
+      "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
+      "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
+    });
+  }
+  if (provider === "openai") {
+    const model = cleanText(env.OPENAI_MODEL, 120) || DEFAULT_OPENAI_MODEL;
+    return askOpenAiCompatibleStream(input, env, provider, "https://api.openai.com/v1/chat/completions", env.OPENAI_API_KEY, model);
+  }
+  if (provider === "gemini") return askGeminiStream(input, env, env.GEMINI_API_KEY, "gemini");
+  if (provider === "google" || provider === "google-ai-studio") return askGeminiStream(input, env, env.GOOGLE_AI_STUDIO, "google-ai-studio");
+  if (provider === "free" || provider === "free-api") {
+    const url = cleanText(env.FREE_API_URL, 800);
+    if (!url) throw new Error("FREE_API_URL is not configured.");
+    const model = cleanText(env.FREE_API_MODEL, 180) || DEFAULT_FREE_API_MODEL;
+    return askOpenAiCompatibleStream(input, env, provider, url, cleanText(env.FREE_API_KEY, 800), model);
+  }
+  throw new Error(`Unsupported streaming provider: ${provider}`);
+}
+
+function textAnswerStream(answer, provider = "local-offline-assistant", model = "") {
+  const encoder = new TextEncoder();
+  const text = String(answer || "");
+  return {
+    stream: new ReadableStream({
+      start(controller) {
+        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: text } })}\n\n`));
+        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+        controller.close();
+      }
+    }),
+    provider,
+    model
+  };
+}
+
+export async function askPolyStream(body, env) {
+  const message = cleanText(body?.message, 2200);
+  if (!message) throw new Error("Please enter a question.");
+  const localMath = localMathAnswer(message);
+  if (localMath) return textAnswerStream(localMath.answer || localMath, localMath.provider, localMath.model);
+  const input = sanitizeHistory(body.history);
+  input.push({ role: "user", content: buildUserContent(body) });
+  const errors = [];
+  for (const provider of providerOrder(env)) {
+    try {
+      return await askExternalProviderStream(input, env, provider);
+    } catch (error) {
+      errors.push(`${provider}: ${error?.status || "error"} ${cleanText(error?.message, 180)}`);
+      console.error(`Ask POLY ${provider} streaming provider failed`, error);
+    }
+  }
+  const finalError = new Error(`All configured AI providers failed. ${errors.join(" | ")}`);
+  finalError.providerErrors = errors;
+  throw finalError;
+}
+
 async function askAnyProvider(input, env) {
   const errors = [];
   for (const provider of providerOrder(env)) {

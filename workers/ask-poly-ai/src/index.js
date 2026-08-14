@@ -1,5 +1,5 @@
 /* Purpose: Index - Descriptive comment added for clarity */
-import { askPoly, configuredProviders } from "./ask-handler.js";
+import { askPoly, askPolyStream, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
 import { canStoreVerifiedResults } from "./result-store.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
@@ -349,6 +349,16 @@ export default {
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai-rest-stream: ${cleanText(error?.message, 240)}`);
         console.error("Ask POLY Cloudflare Workers AI REST streaming failed", error);
+      }
+    }
+
+    if (streamRequested) {
+      try {
+        const result = await askPolyStream(enrichedBody, env);
+        return streamResponse(result.stream, origin, env, result);
+      } catch (error) {
+        providerErrors.push(`external-providers-stream: ${cleanText(error?.message, 240)}`);
+        console.error("Ask POLY external provider streaming failed", error);
       }
     }
 
