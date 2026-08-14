@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "sent": {
+    "REV2021:2131:lessons/lessons-2131.html": {
+      "messageId": "projects/poly-pmna/messages/873740013538655133",
+      "subjectCode": "2131",
+      "subjectName": "Problem Solving and Programming",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2131.html"
+    },
+    "REV2021:2139:lessons/lessons-2139.html": {
+      "messageId": "projects/poly-pmna/messages/5513709309641147533",
+      "subjectCode": "2139",
+      "subjectName": "Problem Solving and Programming Lab",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2139.html"
+    },
+    "REV2021:4006:lessons/lessons-4006.html": {
+      "messageId": "projects/poly-pmna/messages/7599429431168780751",
+      "subjectCode": "4006",
+      "subjectName": "Minor Project",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-4006.html"
+    },
+    "REV2021:4009:lessons/lessons-4009.html": {
+      "messageId": "projects/poly-pmna/messages/1464332661402472179",
+      "subjectCode": "4009",
+      "subjectName": "Minor Project",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-4009.html"
+    },
+    "REV2021:5002:lessons/lessons-5002.html": {
+      "messageId": "projects/poly-pmna/messages/5041220355839745718",
+      "subjectCode": "5002",
+      "subjectName": "Project Management and Software Engineering",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-5002.html"
+    },
+    "REV2026:3009:revision-2026-content/lessons/lessons-3009.html": {
+      "messageId": "projects/poly-pmna/messages/7621495725131910921",
+      "subjectCode": "3009",
+      "subjectName": "Digital 101",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3009.html"
+    },
+    "REV2026:4002:revision-2026-content/lessons/lessons-4002.html": {
+      "messageId": "projects/poly-pmna/messages/4056089295368456548",
+      "subjectCode": "4002",
+      "subjectName": "Career Readiness and Communication",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4002.html"
+    },
+    "REV2026:5007:revision-2026-content/lessons/lessons-5007.html": {
+      "messageId": "projects/poly-pmna/messages/6225261011645809212",
+      "subjectCode": "5007",
+      "subjectName": "Summer Internship",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5007.html"
+    },
+    "REV2026:5009:revision-2026-content/lessons/lessons-5009.html": {
+      "messageId": "projects/poly-pmna/messages/929179257117620967",
+      "subjectCode": "5009",
+      "subjectName": "Major Project",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5009.html"
+    },
+    "REV2026:6009:revision-2026-content/lessons/lessons-6009.html": {
+      "messageId": "projects/poly-pmna/messages/377227978935861876",
+      "subjectCode": "6009",
+      "subjectName": "Major Project",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6009.html"
+    }
+  }
+}
