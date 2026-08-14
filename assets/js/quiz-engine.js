@@ -6,26 +6,13 @@
   const A = window.PolyQuizAuth;
   const $ = (id) => document.getElementById(id);
   const esc = window.PolyUtils.escapeHtml;
+  const optionText = (option) => typeof option === 'string' ? option : (option?.text || '');
 
   let current = [];
   let subject = '';
 
   function ensureGeneralKnowledge() {
-    if (!B.subjects.GK) B.subjects.GK = 'General Knowledge';
-    if (!Array.isArray(B.questions.GK)) {
-      B.questions.GK = [
-        { id: 'GK-01', topic: 'India', en: 'What is the capital of India?', ml: 'ഇന്ത്യയുടെ തലസ്ഥാനം ഏത്?', options: ['New Delhi', 'Mumbai', 'Kolkata', 'Chennai'], answer: 0 },
-        { id: 'GK-02', topic: 'Kerala', en: 'What is the capital of Kerala?', ml: 'കേരളത്തിന്റെ തലസ്ഥാനം ഏത്?', options: ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur'], answer: 0 },
-        { id: 'GK-03', topic: 'India', en: 'Which document is the supreme law of India?', ml: 'ഇന്ത്യയുടെ പരമോന്നത നിയമം ഏത് രേഖയാണ്?', options: ['The Constitution of India', 'The Union Budget', 'The Census', 'The Penal Code only'], answer: 0 },
-        { id: 'GK-04', topic: 'Kerala', en: 'Kerala was formed as a state on which date?', ml: 'കേരളം സംസ്ഥാനമായി രൂപീകരിച്ചത് ഏത് തീയതി?', options: ['1 November 1956', '15 August 1947', '26 January 1950', '1 May 1960'], answer: 0 },
-        { id: 'GK-05', topic: 'Science', en: 'What is the chemical symbol for oxygen?', ml: 'Oxygen-ന്റെ chemical symbol എന്ത്?', options: ['O', 'Ox', 'Og', 'On'], answer: 0 },
-        { id: 'GK-06', topic: 'Science', en: 'Water freezes at what temperature on the Celsius scale?', ml: 'Celsius scale-ൽ വെള്ളം ഏത് temperature-ൽ തണുത്തുറയും?', options: ['0°C', '100°C', '32°C', '-100°C'], answer: 0 },
-        { id: 'GK-07', topic: 'Technology', en: 'What does CPU stand for?', ml: 'CPU എന്നത് എന്തിന്റെ ചുരുക്കപ്പേരാണ്?', options: ['Central Processing Unit', 'Computer Primary Utility', 'Central Power Unit', 'Control Program User'], answer: 0 },
-        { id: 'GK-08', topic: 'Technology', en: 'Which protocol is normally used for secure web browsing?', ml: 'Secure web browsing-ന് സാധാരണ ഉപയോഗിക്കുന്ന protocol ഏത്?', options: ['HTTPS', 'FTP only', 'SMTP', 'Bluetooth'], answer: 0 },
-        { id: 'GK-09', topic: 'Environment', en: 'Which layer protects Earth from much harmful ultraviolet radiation?', ml: 'ഹാനികരമായ UV radiation-ൽ നിന്ന് ഭൂമിയെ സംരക്ഷിക്കുന്ന layer ഏത്?', options: ['Ozone layer', 'Troposphere only', 'Ocean layer', 'Core'], answer: 0 },
-        { id: 'GK-10', topic: 'Geography', en: 'Which is the largest continent by area?', ml: 'വിസ്തീർണ്ണത്തിൽ ഏറ്റവും വലിയ ഭൂഖണ്ഡം ഏത്?', options: ['Asia', 'Africa', 'Europe', 'Australia'], answer: 0 }
-      ];
-    }
+    if (B.questions.GK && !B.subjects.GK) B.subjects.GK = 'General Knowledge';
   }
 
   function title(code) {
@@ -64,10 +51,30 @@
   function qset(code, date = R.dateKey()) {
     const random = rng(hash(date + code));
     const picked = shuffle(B.questions[code] || [], random).slice(0, 10);
-    return picked.map((q) => {
-      const options = q.options.map((text, index) => ({ text, ok: index === q.answer }));
-      return { ...q, options: shuffle(options, rng(hash(date + code + q.id + ':single'))) };
+    return picked.map((q) => ({
+      ...q,
+      options: shuffle(q.options.map((text) => ({ text })), rng(hash(date + code + q.id + ':single')))
+    }));
+  }
+
+  async function gradeDailyQuiz(code, date, answers) {
+    const configured = String(globalThis.ASK_POLY_CONFIG?.dailyQuizEndpoint || '').trim();
+    const endpoint = configured || 'https://ask-poly-ai.nandakumarkdpm.workers.dev/api/grade-daily-quiz';
+    const url = new URL(endpoint, location.href);
+    if (url.protocol !== 'https:' && !['localhost', '127.0.0.1'].includes(url.hostname)) {
+      throw new Error('The secure quiz grading endpoint is not configured correctly.');
+    }
+    const response = await fetch(url.toString(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store',
+      body: JSON.stringify({ subject: code, date, mode: 'first', answers })
     });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data || !Array.isArray(data.review)) {
+      throw new Error(data.error || 'Secure quiz grading is temporarily unavailable. Your answers were not saved.');
+    }
+    return data;
   }
 
   function show(id) {
@@ -182,19 +189,24 @@
     hideQuizControls();
 
     const answers = row?.answers || {};
-    let score = 0;
+    const reviewById = new Map((row?.review || []).map((item) => [String(item.id), item]));
     const html = current.map((q, index) => {
-      const right = q.options.find((option) => option.ok)?.text || '';
-      const userAnswer = answers[q.id] || 'Not answered';
-      const ok = userAnswer === right;
-      if (ok) score += 1;
-      return `<div class="question ${ok ? 'correct' : 'wrong'}" id="q${esc(q.id)}">
+      const stored = reviewById.get(String(q.id));
+      const userAnswer = answers[q.id] || stored?.userAnswer || 'Not answered';
+      const right = stored?.correctAnswer || '';
+      const known = Boolean(right);
+      const ok = known && userAnswer === right;
+      const status = known ? (ok ? 'Correct' : 'Wrong') : 'Saved';
+      const answerReview = known
+        ? `<div><strong>Correct Answer:</strong> ${esc(right)}</div><div><strong>Status:</strong> ${status}</div>`
+        : '<div class="notice">Correct answer is withheld after reload to protect quiz integrity.</div>';
+      return `<div class="question ${known ? (ok ? 'correct' : 'wrong') : ''}" id="q${esc(q.id)}">
         <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <div class="answer review-answer"><div><strong>Your Answer:</strong> ${esc(userAnswer)}</div><div><strong>Correct Answer:</strong> ${esc(right)}</div><div><strong>Status:</strong> ${ok ? 'Correct' : 'Wrong'}</div></div>
+        <div class="answer review-answer"><div><strong>Your Answer:</strong> ${esc(userAnswer)}</div>${answerReview}</div>
       </div>`;
     }).join('');
 
-    const finalScore = Number(row?.score ?? row?.best_score ?? score);
+    const finalScore = Number(row?.score ?? row?.best_score ?? 0);
     $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">Already submitted today. Your answer is locked and cannot be edited.</p><p class="status ok">Saved result: ${finalScore}/10</p>${html}`;
     $('quizMsg').textContent = A?.guest ? 'Guest result is stored only in this browser.' : 'This result is saved online. Editing is disabled for today.';
     $('quizMsg').className = 'status ok';
@@ -226,7 +238,8 @@
     $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">One attempt only. After submit, the result saves online and cannot be edited today.</p>` + current.map((q, index) => `
       <div class="question" id="q${esc(q.id)}">
         <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <div class="options">${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op.text)}</span></label>`).join('')}</div>
+        <div class="options">${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(optionText(op))}</span></label>`).join('')}
+</div>
         <div class="answer hidden" id="a${esc(q.id)}"></div>
       </div>`).join('');
   }
@@ -238,7 +251,6 @@
       return;
     }
 
-    let score = 0;
     const missing = [];
     const answers = {};
 
@@ -252,13 +264,8 @@
         return;
       }
       const selected = q.options[Number(chosen.value)];
-      answers[q.id] = selected.text;
-      if (selected.ok) {
-        score += 1;
-        card?.classList.add('correct');
-      } else {
-        card?.classList.add('wrong');
-      }
+      answers[q.id] = optionText(selected);
+      card?.classList.add('answered');
     });
 
     if (missing.length) {
@@ -268,14 +275,26 @@
     }
 
     $('submitQuiz').disabled = true;
-    $('quizMsg').textContent = 'Saving result online…';
+    $('quizMsg').textContent = 'Checking answers securely…';
     $('quizMsg').className = 'status';
 
+    let graded;
+    try {
+      graded = await gradeDailyQuiz(subject, R.dateKey(), answers);
+    } catch (error) {
+      $('submitQuiz').disabled = false;
+      $('quizMsg').textContent = error.message || 'Secure quiz grading is temporarily unavailable. Try again.';
+      $('quizMsg').className = 'status error';
+      return;
+    }
+
+    const score = Number(graded.score || 0);
     const row = {
       quiz_date: R.dateKey(),
       subject_code: subject,
       score,
       best_score: score,
+      review: graded.review,
       total_questions: 10,
       answers,
       question_ids: current.map((q) => q.id),
@@ -293,7 +312,7 @@
       return;
     }
 
-    renderReadOnly(subject, saved.row || row, R.dateKey());
+    renderReadOnly(subject, { ...(saved.row || row), review: graded.review }, R.dateKey());
     stats();
     recent();
   }
@@ -352,9 +371,13 @@
     const qs = qset(code, R.dateKey(d));
     $('reviewBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><div class="review-list">${qs.map((q, index) => {
       const userAnswer = (row.answers || {})[q.id] || 'Not answered';
-      const right = q.options.find((o) => o.ok)?.text || '';
-      const ok = userAnswer === right;
-      return `<article class="review-card ${ok ? 'ok' : 'bad'}"><span class="badge">Q${index + 1}</span> <span class="badge ${ok ? 'ok' : 'bad'}">${ok ? 'Correct' : 'Wrong'}</span><div class="qtext" style="margin-top:8px">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="answers"><div class="answerbox"><strong>Your Answer</strong>${esc(userAnswer)}</div><div class="answerbox"><strong>Correct Answer</strong>${esc(right)}</div></div></article>`;
+      const stored = (row.review || []).find((item) => String(item.id) === String(q.id));
+      const right = stored?.correctAnswer || '';
+      const known = Boolean(right);
+      const ok = known && userAnswer === right;
+      const status = known ? (ok ? 'Correct' : 'Wrong') : 'Saved';
+      const answerReview = known ? `<div class="answerbox"><strong>Correct Answer</strong>${esc(right)}</div>` : '<div class="answerbox"><strong>Review</strong>Correct answer withheld after reload.</div>';
+      return `<article class="review-card ${known ? (ok ? 'ok' : 'bad') : ''}"><span class="badge">Q${index + 1}</span> <span class="badge ${known ? (ok ? 'ok' : 'bad') : ''}">${status}</span><div class="qtext" style="margin-top:8px">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="answers"><div class="answerbox"><strong>Your Answer</strong>${esc(userAnswer)}</div>${answerReview}</div></article>`;
     }).join('')}</div>`;
   }
 

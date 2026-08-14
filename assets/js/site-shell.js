@@ -45,14 +45,11 @@
   const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
   const MOBILE_HEADER_CSS = "/assets/css/mobile-header-hotfix.css?v=20260720-mobile-header-fix3";
   const WATERMARK_CSS = "/assets/css/lesson-watermark.css?v=20260725-watermark1";
-  const REVEAL_CSS = "/assets/css/reveal.css?v=20260728-global-reveal1";
-  const REVEAL_JS = "/assets/js/reveal.js?v=20260728-global-reveal1";
+  const REVEAL_CSS = "/assets/css/reveal.css?v=20260814-audit-remediation1";
+  const REVEAL_JS = "/assets/js/reveal.js?v=20260814-audit-remediation1";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
-  const isRevealDisabledPage = () => {
-    const path = currentPath();
-    return path === "/" || path.endsWith("/index.html") || document.body?.dataset.revealDisabled === "true";
-  };
+  const isRevealDisabledPage = () => document.body?.dataset.revealDisabled === "true";
 
   function hasAsset(selector, pathname) {
     return [...document.querySelectorAll(selector)].some(node => {

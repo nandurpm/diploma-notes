@@ -186,6 +186,8 @@ jobs:
                       health = json.loads(response.read().decode("utf-8"))
                   if not health.get("ok") or not health.get("configured"):
                       raise RuntimeError(f"Worker health is not configured: {health}")
+                  if not health.get("dailyQuizGrading"):
+                      raise RuntimeError(f"Daily quiz grading capability is missing: {health}")
 
                   # Supabase credentials are deliberately optional for deployment:
                   # an existing Worker may keep them as Cloudflare secrets, while a
@@ -237,13 +239,31 @@ jobs:
                       if error.code != 401:
                           raise RuntimeError(f"Protected mock route returned HTTP {error.code}, expected 401")
 
+                  quiz_request = urllib.request.Request(
+                      base + "/api/grade-daily-quiz",
+                      data=json.dumps({"subject": "1001", "answers": {}}).encode("utf-8"),
+                      method="POST",
+                      headers={
+                          "Content-Type": "application/json",
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Deploy-QA/6.0"
+                      },
+                  )
+                  try:
+                      urllib.request.urlopen(quiz_request, timeout=20)
+                      raise RuntimeError("Malformed daily quiz submission unexpectedly succeeded")
+                  except urllib.error.HTTPError as error:
+                      if error.code != 400:
+                          raise RuntimeError(f"Malformed daily quiz route returned HTTP {error.code}, expected 400")
+
                   print(json.dumps({
                       "providers": health.get("providers"),
                       "verifiedResultStorage": health.get("verifiedResultStorage"),
                       "storageCredentialsSupplied": storage_credentials_supplied,
                       "provider": answer.get("provider"),
                       "model": answer.get("model"),
-                      "mockRoute": "401 without login"
+                      "mockRoute": "401 without login",
+                      "dailyQuizRoute": "400 for malformed submission"
                   }, indent=2))
                   break
               except Exception as error:

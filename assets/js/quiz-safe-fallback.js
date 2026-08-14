@@ -10,10 +10,39 @@
   const CURR = window.POLY_QUIZ_BANK_CURRICULUM;
 
   function dateKey(date = new Date()) {
-    if (window.PolyUtils && typeof window.PolyUtils.formatDateKey === "function") {
-      return window.PolyUtils.formatDateKey(date);
+    const parts = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit'
+    }).formatToParts(new Date(date));
+    const pick = (type) => parts.find((part) => part.type === type)?.value || '';
+    return `${pick('year')}-${pick('month')}-${pick('day')}`;
+  }
+
+  function hash(text) {
+    let value = 2166136261;
+    for (let index = 0; index < text.length; index += 1) {
+      value ^= text.charCodeAt(index);
+      value = Math.imul(value, 16777619);
     }
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    return value >>> 0;
+  }
+
+  function randomFrom(seed) {
+    return () => {
+      seed += 0x6d2b79f5;
+      let value = seed;
+      value = Math.imul(value ^ (value >>> 15), value | 1);
+      value ^= value + Math.imul(value ^ (value >>> 7), value | 61);
+      return ((value ^ (value >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function shuffle(items, random) {
+    const output = [...items];
+    for (let index = output.length - 1; index > 0; index -= 1) {
+      const target = Math.floor(random() * (index + 1));
+      [output[index], output[target]] = [output[target], output[index]];
+    }
+    return output;
   }
 
   function storageGet() {
@@ -33,8 +62,27 @@
   }
 
   function questions(code) {
-    const q = window.POLY_QUIZ_BANK?.questions?.[code] || [];
-    return q.slice(0, 10);
+    const date = dateKey();
+    const source = window.POLY_QUIZ_BANK?.questions?.[code] || [];
+    const daily = shuffle(source, randomFrom(hash(date + code))).slice(0, 10);
+    return daily.map((question) => ({
+      ...question,
+      options: shuffle(question.options, randomFrom(hash(date + code + question.id + ':single')))
+    }));
+  }
+
+  async function gradeSecurely(code, answers) {
+    const response = await fetch('https://ask-poly-ai.nandakumarkdpm.workers.dev/api/grade-daily-quiz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      cache: 'no-store',
+      body: JSON.stringify({ subject: code, answers })
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !Array.isArray(result.review)) {
+      throw new Error(result.error || 'Secure quiz grading is temporarily unavailable. Try again.');
+    }
+    return result;
   }
 
   function showPortal(name = "Guest") {
@@ -72,19 +120,19 @@
       return;
     }
     $("quizBox").dataset.safeCode = code;
-    $("quizBox").innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">Safe guest mode. Result saves only in this browser.</p>${qs.map((q, i) => `<div class="question"><div class="qhead"><div class="qnum">${i + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div><div class="options">${q.options.map((op, j) => `<label><input type="radio" name="safe-${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op)}</span></label>`).join("")}</div></div>`).join("")}`;
+    $("quizBox").innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">Guest mode. Answers are checked securely; only the result is saved in this browser.</p>${qs.map((q, i) => `<div class="question"><div class="qhead"><div class="qnum">${i + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div><div class="options">${q.options.map((op, j) => `<label><input type="radio" name="safe-${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op)}</span></label>`).join("")}</div></div>`).join("")}`;
   }
 
-  function submitSafeQuiz() {
+  async function submitSafeQuiz() {
     const code = $("quizBox")?.dataset.safeCode;
     if (!code) return;
     const qs = questions(code);
-    let score = 0;
+    const answers = {};
     const missing = [];
     qs.forEach((q, index) => {
       const selected = document.querySelector(`input[name="safe-${CSS.escape(q.id)}"]:checked`);
       if (!selected) missing.push(index + 1);
-      else if (Number(selected.value) === Number(q.answer)) score += 1;
+      else answers[q.id] = q.options[Number(selected.value)];
     });
     if (missing.length) {
       if ($("quizMsg")) {
@@ -93,15 +141,29 @@
       }
       return;
     }
-    const rows = storageGet().filter((row) => !(row.date === dateKey() && row.code === code));
-    rows.unshift({ date: dateKey(), code, score, submittedAt: new Date().toISOString() });
-    storageSet(rows.slice(0, 100));
+    if ($("submitQuiz")) $("submitQuiz").disabled = true;
     if ($("quizMsg")) {
-      $("quizMsg").textContent = `Saved locally. Score: ${score}/10`;
-      $("quizMsg").className = "status ok";
+      $("quizMsg").textContent = "Checking answers securely…";
+      $("quizMsg").className = "status";
     }
-    startQuiz(code);
-    resultStats();
+    try {
+      const graded = await gradeSecurely(code, answers);
+      const rows = storageGet().filter((row) => !(row.date === dateKey() && row.code === code));
+      rows.unshift({ date: dateKey(), code, score: Number(graded.score || 0), review: graded.review, submittedAt: new Date().toISOString() });
+      storageSet(rows.slice(0, 100));
+      if ($("quizMsg")) {
+        $("quizMsg").textContent = `Saved locally. Secure score: ${Number(graded.score || 0)}/10`;
+        $("quizMsg").className = "status ok";
+      }
+      startQuiz(code);
+      resultStats();
+    } catch (error) {
+      if ($("submitQuiz")) $("submitQuiz").disabled = false;
+      if ($("quizMsg")) {
+        $("quizMsg").textContent = error.message || "Secure quiz grading is temporarily unavailable. Try again.";
+        $("quizMsg").className = "status error";
+      }
+    }
   }
 
   function card(target, code, name, kind) {

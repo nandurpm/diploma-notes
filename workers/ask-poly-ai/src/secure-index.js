@@ -2,6 +2,7 @@
 import application from "./index.js";
 import { corsHeaders, isOriginAllowed } from "./http.js";
 import { authenticateStudent, storeMockExamResult } from "./result-store.js";
+import { handleDailyQuizGrading } from "./daily-quiz.js";
 
 function json(data, status, origin, env, inherited) {
   const output = new Headers(inherited || corsHeaders(origin, env));
@@ -57,6 +58,13 @@ export default {
         return json({ error: "Too many questions. Please wait a minute and try again." }, 429, origin, env);
       }
       return application.fetch(request, env, context);
+    }
+
+    if (request.method === "POST" && url.pathname === "/api/grade-daily-quiz") {
+      if (!(await allowed(env.EXAM_RATE_LIMITER, `daily:${anonymousKey(request)}`))) {
+        return json({ error: "Too many quiz submissions. Please wait a minute." }, 429, origin, env);
+      }
+      return handleDailyQuizGrading(request, env, origin);
     }
 
     if (request.method !== "POST" || url.pathname !== "/api/evaluate-mock-exam") {

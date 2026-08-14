@@ -58,7 +58,7 @@
   documentElement.classList.remove("reveal-no-js");
 
   function isRevealDisabledPage() {
-    return true; // Reveal animations are globally disabled to fix display issues.
+    return document.body?.dataset.revealDisabled === "true";
   }
 
   function isEducationalContentPage() {
