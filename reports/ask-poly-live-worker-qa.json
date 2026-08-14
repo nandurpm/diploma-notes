@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-14T12:50:32Z",
+  "generatedAt": "2026-08-14T19:44:19Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askEndpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -31,7 +31,8 @@
     ],
     "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
     "mockExamEvaluation": true,
-    "mockExamPattern": "1004-75-mark-official-model"
+    "mockExamPattern": "1004-75-mark-official-model",
+    "dailyQuizGrading": true
   },
   "askTest": {
     "ok": true,
