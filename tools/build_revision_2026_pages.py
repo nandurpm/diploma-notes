@@ -17,8 +17,8 @@ SITE = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = SITE + "/assets/media/poly-pmna-study-hub-social-card.png"
 SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026"
 MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
-REPORT_JSON = Path("reports/revision-2026-new-codes-vs-2021.json")
-REPORT_MD = Path("reports/revision-2026-new-codes-vs-2021.md")
+REPORT_JSON = Path("reports/archive/revision-2026-new-codes-vs-2021.json")
+REPORT_MD = Path("reports/archive/revision-2026-new-codes-vs-2021.md")
 VERSION = "20260812-revision-tag-normalization1"
 
 
@@ -243,7 +243,7 @@ def write_new_code_report(subjects: list[dict[str, object]]) -> dict[str, object
         "newCodeDetails": details,
         "limitation": "The REV2021 repository catalogue is not fully certified for every official programme row.",
     }
-    REPORT_JSON.parent.mkdir(exist_ok=True)
+    REPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
     REPORT_JSON.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     lines = [
         "# Revision 2026 new subject codes compared with Revision 2021",
