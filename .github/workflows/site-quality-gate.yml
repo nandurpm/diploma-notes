@@ -39,6 +39,7 @@ jobs:
           python tools/inject_structured_data.py --check
           python tools/verify_revision_2026_catalogue.py
           python tools/verify_malayalam_language.py
+          python tools/verify_mock_exam_public.py
       - name: Run current site quality gate
         run: python tools/site_quality_gate.py
       - name: Validate critical JavaScript

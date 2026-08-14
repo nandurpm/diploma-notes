@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260813-audit-fix1";
+  const MOCK_EXAM_ASSET_VERSION = "20260815-server-only-grading1";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -50,7 +50,6 @@
     })
     .then(() => loadScript("/assets/js/mock-exam-ui.js"))
     .then(() => loadScript("/assets/js/mock-exam-service.js"))
-    .then(() => loadScript("/assets/js/mock-exam-ai-evaluator.js"))
     .then(start)
     .catch((error) => {
       console.error(error);
