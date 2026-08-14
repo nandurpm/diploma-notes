@@ -38,6 +38,9 @@ REQUIRED = {
 
 INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">'
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1"></script>'
+PDF_RESOLVER_JS_TAG = '<script defer src="/assets/js/conditional-pdf-notes.js?v=pdf-releases-v1"></script>'
+
+
 def inject_independence_assets(relative: str, content: str) -> str:
     """Load the centralized annual theme on every public HTML page.
 
@@ -54,6 +57,36 @@ def inject_independence_assets(relative: str, content: str) -> str:
         return content
     tags = f"    {INDEPENDENCE_CSS_TAG}\n    {INDEPENDENCE_JS_TAG}\n"
     return content.replace(marker, tags + marker, 1)
+
+
+def page_has_notes_download(relative: str, content: str) -> bool:
+    """Return whether a page can render a Download Notes control."""
+    path = Path(relative)
+    if path.parts[:1] == ("lessons",) or path.parts[:3] == ("revision-2026-content", "lessons"):
+        return True
+    return any(marker in content for marker in (
+        "data-notes-href=",
+        'class="action download"',
+        "class='action download'",
+        "poly-lesson-download",
+    ))
+
+
+def inject_pdf_resolver(relative: str, content: str) -> str:
+    """Load conditional direct-PDF/print-fallback behavior where needed."""
+    if Path(relative).suffix.lower() != ".html":
+        return content
+    if "conditional-pdf-notes.js" in content or not page_has_notes_download(relative, content):
+        return content
+    marker = "</body>"
+    if marker not in content:
+        return content
+    return content.replace(marker, f"    {PDF_RESOLVER_JS_TAG}\n{marker}", 1)
+
+
+def inject_public_runtime_assets(relative: str, content: str) -> str:
+    content = inject_independence_assets(relative, content)
+    return inject_pdf_resolver(relative, content)
 
 
 # Retrieves a list of all files currently tracked by Git
@@ -103,7 +136,7 @@ def build(target: Path, optimize: bool) -> None:
         destination.parent.mkdir(parents=True, exist_ok=True)
         if source.suffix.lower() == ".html":
             html = source.read_text(encoding="utf-8")
-            html = inject_independence_assets(relative, html)
+            html = inject_public_runtime_assets(relative, html)
             destination.write_text(html, encoding="utf-8")
         else:
             shutil.copy2(source, destination)
