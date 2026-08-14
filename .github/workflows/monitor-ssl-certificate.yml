@@ -1,0 +1,78 @@
+name: Monitor SSL certificate
+
+on:
+  schedule:
+    # Run daily at 03:17 UTC. An unusual minute reduces hourly contention.
+    - cron: '17 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-certificate:
+    name: Check live TLS certificate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      HOSTNAME: polypmna.dpdns.org
+      WARNING_DAYS: '30'
+
+    steps:
+      - name: Check certificate expiry and hostname
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          host="${HOSTNAME}"
+          warning_days="${WARNING_DAYS}"
+          certificate_file="$(mktemp)"
+          trap 'rm -f "${certificate_file}"' EXIT
+
+          if ! timeout 20s openssl s_client \
+            -connect "${host}:443" \
+            -servername "${host}" \
+            -verify_hostname "${host}" \
+            </dev/null 2>/dev/null \
+            | openssl x509 -out "${certificate_file}"; then
+            echo "::error::Could not retrieve a valid TLS certificate from ${host}:443"
+            exit 1
+          fi
+
+          end_date="$(openssl x509 -in "${certificate_file}" -noout -enddate | sed 's/^notAfter=//')"
+          issuer="$(openssl x509 -in "${certificate_file}" -noout -issuer | sed 's/^issuer=//')"
+          subject="$(openssl x509 -in "${certificate_file}" -noout -subject | sed 's/^subject=//')"
+          san_names="$(openssl x509 -in "${certificate_file}" -noout -ext subjectAltName | tr '\n' ' ' | sed 's/^.*Subject Alternative Name:[[:space:]]*//')"
+
+          if [[ -z "${end_date}" ]]; then
+            echo "::error::The certificate for ${host} did not contain an expiry date."
+            exit 1
+          fi
+
+          expires_epoch="$(date -d "${end_date}" +%s)"
+          now_epoch="$(date +%s)"
+          remaining_days="$(( (expires_epoch - now_epoch) / 86400 ))"
+
+          {
+            echo "## SSL certificate check"
+            echo ""
+            echo "| Field | Value |"
+            echo "|---|---|"
+            echo "| Hostname | \\`${host}\\` |"
+            echo "| Subject | \\`${subject}\\` |"
+            echo "| Issuer | \\`${issuer}\\` |"
+            echo "| Expires | \\`${end_date}\\` |"
+            echo "| Remaining | \\`${remaining_days} days\\` |"
+            echo "| Subject Alternative Names | \\`${san_names}\\` |"
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          echo "${host} certificate expires on ${end_date} (${remaining_days} days remaining)."
+          echo "Subject Alternative Names: ${san_names}"
+
+          if (( remaining_days <= 0 )); then
+            echo "::error::The TLS certificate for ${host} has expired."
+            exit 1
+          elif (( remaining_days <= warning_days )); then
+            echo "::error::The TLS certificate for ${host} expires in ${remaining_days} days."
+            exit 1
+          fi
