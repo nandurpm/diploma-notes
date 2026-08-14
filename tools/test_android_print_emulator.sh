@@ -19,27 +19,45 @@ printf '%s\n' '--- adb devices ---' > "$ARTIFACT_DIR/adb-readiness.txt"
 timeout "$ADB_TIMEOUT_SECONDS" adb devices >> "$ARTIFACT_DIR/adb-readiness.txt" 2>&1 || true
 
 device_ready=false
+boot_ready=false
 attempt=1
-while [ "$attempt" -le 60 ]; do
+while [ "$attempt" -le 90 ]; do
   state=$(timeout "$ADB_TIMEOUT_SECONDS" adb get-state 2>&1 || true)
-  printf 'readiness-attempt-%s: %s\n' "$attempt" "$state" >> "$ARTIFACT_DIR/adb-readiness.txt"
+  boot_completed=$(timeout "$ADB_TIMEOUT_SECONDS" adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || true)
+  dev_boot_completed=$(timeout "$ADB_TIMEOUT_SECONDS" adb shell getprop dev.bootcomplete 2>/dev/null | tr -d '\r' || true)
+  printf 'readiness-attempt-%s: state=%s sys.boot_completed=%s dev.bootcomplete=%s\n' "$attempt" "$state" "$boot_completed" "$dev_boot_completed" >> "$ARTIFACT_DIR/adb-readiness.txt"
   if [ "$state" = "device" ]; then
     device_ready=true
+  fi
+  if [ "$device_ready" = true ] && [ "$boot_completed" = "1" ] && [ "$dev_boot_completed" = "1" ]; then
+    boot_ready=true
     break
   fi
   sleep 2
   attempt=$((attempt + 1))
 done
-if [ "$device_ready" != true ]; then
-  echo 'Android emulator did not reach adb device state.' >&2
+if [ "$device_ready" != true ] || [ "$boot_ready" != true ]; then
+  echo 'Android emulator did not reach a fully booted adb device state.' >&2
   cat "$ARTIFACT_DIR/adb-readiness.txt" >&2 || true
   exit 1
 fi
 
-install_status=0
-timeout 60 adb install -r "$ARTIFACT_DIR/POLY_PMNA.apk" > "$ARTIFACT_DIR/install.txt" 2>&1 || install_status=$?
+install_status=1
+install_attempt=1
+: > "$ARTIFACT_DIR/install.txt"
+while [ "$install_attempt" -le 3 ]; do
+  printf 'install-attempt-%s\n' "$install_attempt" >> "$ARTIFACT_DIR/install.txt"
+  install_status=0
+  timeout 120 adb install -r "$ARTIFACT_DIR/POLY_PMNA.apk" >> "$ARTIFACT_DIR/install.txt" 2>&1 || install_status=$?
+  if [ "$install_status" -eq 0 ]; then
+    break
+  fi
+  printf 'install-attempt-%s-failed-status-%s\n' "$install_attempt" "$install_status" >> "$ARTIFACT_DIR/install.txt"
+  sleep 5
+  install_attempt=$((install_attempt + 1))
+done
 if [ "$install_status" -ne 0 ]; then
-  echo "APK install failed with status $install_status." >&2
+  echo "APK install failed after retries with status $install_status." >&2
   cat "$ARTIFACT_DIR/install.txt" >&2 || true
   exit 1
 fi
