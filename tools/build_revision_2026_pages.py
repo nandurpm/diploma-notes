@@ -93,7 +93,6 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     # dialog; static Revision 2026 PDFs are excluded from the deployment.
     notes_url = f"{lesson_url}?autoPrintNotes=1"
     lesson_ok = lesson_file(code).exists()
-    notes_ok = valid_notes(code)
     syllabus_unavailable = bool(row.get("syllabusUnavailable"))
     syllabus_url = "" if syllabus_unavailable else (str(row.get("syllabusUrl", "")).strip() or (
         "https://www.sitttrkerala.ac.in/index.php?"
