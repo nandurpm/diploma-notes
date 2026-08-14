@@ -78,6 +78,24 @@ export function jsonResponse(data, status, origin, env) {
   });
 }
 
+export function streamResponse(stream, origin, env, metadata = {}) {
+  return new Response(stream, {
+    status: 200,
+    headers: {
+      ...corsHeaders(origin, env),
+      "Content-Type": "text/event-stream; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
+      "X-Accel-Buffering": "no",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "Content-Security-Policy": "default-src 'none'",
+      "Referrer-Policy": "no-referrer",
+      ...(metadata.provider ? { "X-Ask-Poly-Provider": metadata.provider } : {}),
+      ...(metadata.model ? { "X-Ask-Poly-Model": metadata.model } : {})
+    }
+  });
+}
+
 export function createRateLimiter(maximum, windowMs = 10 * 60 * 1000) {
   const buckets = new Map();
   return (request) => {

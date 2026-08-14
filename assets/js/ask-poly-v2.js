@@ -418,6 +418,71 @@
   }
   function removeTyping() { $("typingBubble")?.remove(); }
 
+  function addStreamingBubble() {
+    const div = document.createElement("div");
+    div.id = "streamingBubble";
+    div.className = "ask-bubble ai";
+    const content = document.createElement("div");
+    content.className = "ask-stream-content";
+    content.textContent = "";
+    div.append(content);
+    els.messages.append(div);
+    els.messages.scrollTop = els.messages.scrollHeight;
+    return { div, content };
+  }
+
+  function updateStreamingBubble(streamBubble, text) {
+    if (!streamBubble?.content) return;
+    streamBubble.content.innerHTML = renderText(text || "");
+    els.messages.scrollTop = els.messages.scrollHeight;
+  }
+
+  function streamChunkFromPayload(payload) {
+    if (!payload) return "";
+    if (typeof payload === "string") return payload;
+    return payload.response
+      || payload.answer
+      || payload.delta?.content
+      || payload.choices?.[0]?.delta?.content
+      || payload.result?.response
+      || "";
+  }
+
+  async function readAnswerStream(response, onChunk) {
+    if (!response.body?.getReader) throw new Error("The AI stream is unavailable.");
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let answer = "";
+    const consumeEvent = (eventText) => {
+      const data = eventText.split(/\r?\n/)
+        .filter((line) => line.startsWith("data:"))
+        .map((line) => line.slice(5).trimStart())
+        .join("\n")
+        .trim();
+      if (!data || data === "[DONE]") return data === "[DONE]";
+      let payload = data;
+      try { payload = JSON.parse(data); } catch (_) {}
+      const chunk = String(streamChunkFromPayload(payload) || "");
+      if (chunk) {
+        answer += chunk;
+        onChunk?.(answer);
+      }
+      return false;
+    };
+
+    while (true) {
+      const { value, done } = await reader.read();
+      buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+      const events = buffer.split(/\r?\n\r?\n/);
+      buffer = events.pop() || "";
+      for (const event of events) if (consumeEvent(event)) return answer.trim();
+      if (done) break;
+    }
+    if (buffer.trim()) consumeEvent(buffer);
+    return answer.trim();
+  }
+
   async function knowledgeSearch(message) {
     try {
       if (window.AskPolyKnowledge?.searchKnowledge) return await window.AskPolyKnowledge.searchKnowledge(message);
@@ -434,31 +499,50 @@
     return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
   }
 
-  async function callAI(message, history, localContext) {
+  async function callAI(message, history, localContext, onChunk) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
-    const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
+    const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 45000);
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), Math.max(5000, timeoutMs));
+    const timer = setTimeout(() => controller.abort(), Math.max(10000, timeoutMs));
     try {
       const response = await fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "text/event-stream, application/json"
+        },
         cache: "no-store",
         signal: controller.signal,
         body: JSON.stringify({
           message,
           history,
+          stream: true,
           pageTitle: "Ask POLY whole-site knowledge",
           pageContext: localContext || ""
         })
       });
+      const contentType = response.headers.get("content-type") || "";
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
+      }
+      if (contentType.includes("text/event-stream")) {
+        const answer = await readAnswerStream(response, onChunk);
+        if (!answer) throw new Error("The AI stream returned an empty response.");
+        return {
+          answer,
+          provider: response.headers.get("X-Ask-Poly-Provider") || "ai-stream",
+          model: response.headers.get("X-Ask-Poly-Model") || "",
+          streamed: true
+        };
+      }
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
       return {
         answer: data.answer || data.message || data.reply || "No answer received.",
         provider: data.provider || "ai",
-        model: data.model || ""
+        model: data.model || "",
+        streamed: false
       };
     } finally {
       clearTimeout(timer);
@@ -478,13 +562,19 @@
     addTyping();
 
     let retrieval = null;
+    let streamBubble = null;
     try {
       const messages = await getMessages(activeChatId);
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
       const history = previousMessages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
       retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
-      const result = await callAI(clean, history, retrieval?.context || "");
       removeTyping();
+      streamBubble = addStreamingBubble();
+      const result = await callAI(clean, history, retrieval?.context || "", (partial) => {
+        els.status.textContent = "POLY is writing...";
+        updateStreamingBubble(streamBubble, partial);
+      });
+      streamBubble?.div.remove();
       await addMessage("assistant", result.answer, {
         provider: result.provider,
         model: result.model,
@@ -493,6 +583,7 @@
       });
     } catch (error) {
       removeTyping();
+      streamBubble?.div.remove();
       const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
       if (offline) {
         await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {

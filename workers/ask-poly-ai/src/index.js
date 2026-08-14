@@ -9,7 +9,8 @@ import {
   corsHeaders,
   createRateLimiter,
   isOriginAllowed,
-  jsonResponse
+  jsonResponse,
+  streamResponse
 } from "./http.js";
 
 const allowAsk = createRateLimiter(30);
@@ -92,12 +93,13 @@ function cloudflareMessages(body) {
   ];
 }
 
-function cloudflareInput(body, env) {
+function cloudflareInput(body, env, stream = false) {
   return {
     messages: cloudflareMessages(body),
     max_tokens: Math.max(128, Math.min(6000, Number(env.MAX_OUTPUT_TOKENS || 1600))),
     temperature: 0.25,
-    top_p: 0.9
+    top_p: 0.9,
+    ...(stream ? { stream: true } : {})
   };
 }
 
@@ -128,11 +130,56 @@ async function askWithWorkersAI(body, env) {
   };
 }
 
+async function askWithWorkersAIStream(body, env) {
+  if (!hasWorkersAI(env)) throw new Error("Cloudflare Workers AI binding is unavailable.");
+  const model = workersAIModel(env);
+  const stream = await env.AI.run(model, cloudflareInput(body, env, true));
+  if (!stream || typeof stream.getReader !== "function") {
+    throw new Error("Cloudflare Workers AI did not return a stream.");
+  }
+  return { stream, provider: "cloudflare-workers-ai", model };
+}
+
 function cloudflareRestModelPath(model) {
   return String(model || "")
     .split("/")
     .map((segment) => encodeURIComponent(segment))
     .join("/");
+}
+
+async function askWithWorkersAIRestStream(body, env) {
+  if (!hasWorkersAIRest(env)) throw new Error("Cloudflare Workers AI REST credentials are unavailable.");
+  const model = workersAIModel(env);
+  const accountId = cleanText(env.CLOUDFLARE_AI_ACCOUNT_ID, 128);
+  const token = cleanText(env.CLOUDFLARE_AI_API_TOKEN, 512);
+  const url = `https://api.cloudflare.com/client/v4/accounts/${encodeURIComponent(accountId)}/ai/run/${cloudflareRestModelPath(model)}`;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 18000);
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "text/event-stream"
+      },
+      body: JSON.stringify(cloudflareInput(body, env, true)),
+      signal: controller.signal
+    });
+    if (!response.ok || !response.body) {
+      const detail = await response.text().catch(() => "");
+      const error = new Error(cleanText(detail || `Cloudflare Workers AI REST returned HTTP ${response.status}.`, 300));
+      error.status = response.status;
+      throw error;
+    }
+    return { stream: response.body, provider: "cloudflare-workers-ai-rest", model };
+  } catch (error) {
+    if (error?.name === "AbortError") throw new Error("Cloudflare Workers AI REST streaming timed out.");
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function askWithWorkersAIRest(body, env) {
@@ -179,6 +226,10 @@ async function askWithWorkersAIRest(body, env) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+function wantsStreaming(body, request) {
+  return body?.stream === true || /text\/event-stream/i.test(request.headers.get("Accept") || "");
 }
 
 function healthProviders(env, externalProviders) {
@@ -279,6 +330,27 @@ export default {
 
     const enrichedBody = enrichAskBody(body);
     const providerErrors = [];
+    const streamRequested = wantsStreaming(body, request);
+
+    if (streamRequested && hasWorkersAI(env)) {
+      try {
+        const result = await askWithWorkersAIStream(enrichedBody, env);
+        return streamResponse(result.stream, origin, env, result);
+      } catch (error) {
+        providerErrors.push(`cloudflare-workers-ai-stream: ${cleanText(error?.message, 240)}`);
+        console.error("Ask POLY Cloudflare Workers AI streaming failed", error);
+      }
+    }
+
+    if (streamRequested && hasWorkersAIRest(env)) {
+      try {
+        const result = await askWithWorkersAIRestStream(enrichedBody, env);
+        return streamResponse(result.stream, origin, env, result);
+      } catch (error) {
+        providerErrors.push(`cloudflare-workers-ai-rest-stream: ${cleanText(error?.message, 240)}`);
+        console.error("Ask POLY Cloudflare Workers AI REST streaming failed", error);
+      }
+    }
 
     if (hasWorkersAI(env)) {
       try {
