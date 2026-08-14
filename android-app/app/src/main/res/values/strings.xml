@@ -14,7 +14,8 @@
     <string name="download_blocked">This download source is not approved</string>
     <string name="download_failed">The download could not be started. Please try again.</string>
     <string name="print_unavailable">Printing is available only for POLY PMNA lesson pages.</string>
-    <string name="print_failed">Couldn\'t open the Android print dialog. Please try again.</string>
+    <string name="print_saved">PDF saved successfully.</string>
+    <string name="print_failed">Couldn\'t save the PDF. Please try again.</string>
     <string name="no_app_found">No compatible app was found</string>
     <string name="no_file_picker">No file picker is available</string>
     <string name="unsafe_page_blocked">Unsupported or unsafe link blocked</string>

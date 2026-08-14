@@ -15,10 +15,14 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CancellationSignal;
 import android.os.Environment;
+import android.os.ParcelFileDescriptor;
 import android.os.Handler;
 import android.os.Looper;
 import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintDocumentInfo;
 import android.print.PrintManager;
 import android.util.Log;
 import android.view.View;
@@ -112,6 +116,9 @@ public class MainActivity extends ComponentActivity {
     private ValueCallback<Uri[]> fileChooserCallback;
     private boolean launchOverlayDismissed;
     private boolean nativePrintBusy;
+    private PrintDocumentAdapter pendingPdfAdapter;
+    private PrintAttributes pendingPdfAttributes;
+    private String pendingPdfJobName;
     private String lastTrustedLessonUrl;
     private String lastFailedUrl = HOME_URL;
 
@@ -142,6 +149,10 @@ public class MainActivity extends ComponentActivity {
             this::handleSavedPagesResult
     );
 
+    private final ActivityResultLauncher<Intent> pdfSaveLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            this::handlePdfSaveResult
+    );
 
 
     @Override
@@ -893,7 +904,7 @@ public class MainActivity extends ComponentActivity {
 
     private void printCurrentLesson(String requestedTitle) {
         if (nativePrintBusy) {
-            Log.i(PRINT_LOG_TAG, "Ignoring duplicate print request while the system dialog is opening.");
+            Log.i(PRINT_LOG_TAG, "Ignoring duplicate print request while the system save dialog is opening.");
             return;
         }
         if (webView == null) {
@@ -910,25 +921,111 @@ public class MainActivity extends ComponentActivity {
             Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
             return;
         }
+        String jobName = safePrintJobName(requestedTitle);
+        PrintAttributes attributes = new PrintAttributes.Builder()
+                .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                .setResolution(new PrintAttributes.Resolution("poly_pdf", "PDF", 300, 300))
+                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
+                .build();
+        nativePrintBusy = true;
+        Log.i(PRINT_LOG_TAG, "Opening system Save as PDF picker for " + currentUrl + " as " + jobName);
+        openDirectPdfSave(jobName, attributes);
+    }
+
+    private void openDirectPdfSave(String jobName, PrintAttributes attributes) {
+        if (webView == null) {
+            nativePrintBusy = false;
+            Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        pendingPdfJobName = jobName;
+        pendingPdfAttributes = attributes;
+        pendingPdfAdapter = webView.createPrintDocumentAdapter(jobName);
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/pdf");
+        intent.putExtra(Intent.EXTRA_TITLE, jobName.endsWith(".pdf") ? jobName : jobName + ".pdf");
         try {
-            PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
-            if (printManager == null) {
-                Log.e(PRINT_LOG_TAG, "Android PrintManager is unavailable.");
-                Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
-                return;
+            pdfSaveLauncher.launch(intent);
+        } catch (ActivityNotFoundException error) {
+            pendingPdfAdapter = null;
+            pendingPdfAttributes = null;
+            pendingPdfJobName = null;
+            nativePrintBusy = false;
+            Log.e(PRINT_LOG_TAG, "No system document picker is available for direct PDF save", error);
+            Toast.makeText(this, R.string.print_failed, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void handlePdfSaveResult(ActivityResult result) {
+        PrintDocumentAdapter adapter = pendingPdfAdapter;
+        PrintAttributes attributes = pendingPdfAttributes;
+        pendingPdfAdapter = null;
+        pendingPdfAttributes = null;
+        pendingPdfJobName = null;
+        if (result.getResultCode() != RESULT_OK || result.getData() == null || result.getData().getData() == null || adapter == null || attributes == null) {
+            nativePrintBusy = false;
+            Log.i(PRINT_LOG_TAG, "Save as PDF picker was cancelled.");
+            return;
+        }
+        Uri outputUri = result.getData().getData();
+        try {
+            ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(outputUri, "w");
+            if (descriptor == null) {
+                throw new IllegalStateException("Could not open selected PDF destination");
             }
-            String jobName = safePrintJobName(requestedTitle);
-            PrintAttributes attributes = new PrintAttributes.Builder()
-                    .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
-                    .build();
-            nativePrintBusy = true;
-            Log.i(PRINT_LOG_TAG, "Opening native print preview for " + currentUrl + " as " + jobName);
-            printManager.print(jobName, webView.createPrintDocumentAdapter(jobName), attributes);
-            mainHandler.postDelayed(() -> nativePrintBusy = false, 4000L);
+            CancellationSignal cancellation = new CancellationSignal();
+            adapter.onLayout(null, attributes, cancellation, new PrintDocumentAdapter.LayoutResultCallback() {
+                @Override
+                public void onLayoutFinished(PrintDocumentInfo info, boolean changed) {
+                    adapter.onWrite(
+                            new android.print.PageRange[]{android.print.PageRange.ALL_PAGES},
+                            descriptor,
+                            cancellation,
+                            new PrintDocumentAdapter.WriteResultCallback() {
+                                @Override
+                                public void onWriteFinished(android.print.PageRange[] pages) {
+                                    closeQuietly(descriptor);
+                                    nativePrintBusy = false;
+                                    Toast.makeText(MainActivity.this, R.string.print_saved, Toast.LENGTH_SHORT).show();
+                                    Log.i(PRINT_LOG_TAG, "Direct PDF save completed.");
+                                }
+
+                                @Override
+                                public void onWriteFailed(CharSequence error) {
+                                    closeQuietly(descriptor);
+                                    nativePrintBusy = false;
+                                    Log.e(PRINT_LOG_TAG, "Direct PDF save failed: " + error);
+                                    Toast.makeText(MainActivity.this, R.string.print_failed, Toast.LENGTH_SHORT).show();
+                                }
+                            },
+                            null
+                    );
+                }
+
+                @Override
+                public void onLayoutFailed(CharSequence error) {
+                    closeQuietly(descriptor);
+                    nativePrintBusy = false;
+                    Log.e(PRINT_LOG_TAG, "Direct PDF layout failed: " + error);
+                    Toast.makeText(MainActivity.this, R.string.print_failed, Toast.LENGTH_SHORT).show();
+                }
+            }, null);
         } catch (Exception error) {
             nativePrintBusy = false;
-            Log.e(PRINT_LOG_TAG, "Native PrintManager.print() failed", error);
+            Log.e(PRINT_LOG_TAG, "Direct PDF save could not be started", error);
             Toast.makeText(this, R.string.print_failed, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void closeQuietly(ParcelFileDescriptor descriptor) {
+        try {
+            if (descriptor != null) {
+                descriptor.close();
+            }
+        } catch (Exception ignored) {
+            // Nothing else to do after a print write callback.
         }
     }
 

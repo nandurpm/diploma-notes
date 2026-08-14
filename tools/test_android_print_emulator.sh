@@ -74,8 +74,9 @@ while [ "$attempt" -le 30 ]; do
   timeout "$ADB_TIMEOUT_SECONDS" adb shell dumpsys window windows > "$window_state" 2>&1 || true
   timeout "$ADB_TIMEOUT_SECONDS" adb shell dumpsys activity activities > "$activity_state" 2>&1 || true
   # The lesson itself contains “Save as PDF”, so labels alone are insufficient.
-  # Require Android Print Spooler or a print activity in the system state.
-  if grep -Eqi 'com\.android\.printspooler|PrintActivity|SelectPrinterActivity|PrintPreview' "$ui_dump" "$ui_err" "$window_state" "$activity_state" 2>/dev/null; then
+  # Require Android Print Spooler, a print activity, or the system document picker
+  # activity used by ACTION_CREATE_DOCUMENT for the direct PDF save path.
+  if grep -Eqi 'com\.android\.printspooler|PrintActivity|SelectPrinterActivity|PrintPreview|com\.android\.documentsui|com\.google\.android\.documentsui|CreateDocumentActivity' "$window_state" "$activity_state" "$ui_dump" "$ui_err" 2>/dev/null; then
     print_dialog=true
     break
   fi
@@ -102,4 +103,4 @@ if [ "$print_dialog" != true ]; then
   exit 1
 fi
 
-echo 'Native Android Print Spooler / Save as PDF dialog detected with no Android runtime exception.'
+echo 'Native Android print or system Save as PDF dialog detected with no Android runtime exception.'
