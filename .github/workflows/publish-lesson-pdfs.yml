@@ -1,0 +1,224 @@
+name: Publish changed lesson PDFs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "lessons/lessons-*.html"
+      - "revision-2026-content/lessons/lessons-*.html"
+      - "tools/generate_all_lesson_pdfs.py"
+      - "tools/merge_pdf_manifests.py"
+      - ".github/workflows/publish-lesson-pdfs.yml"
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "Regenerate every lesson PDF instead of only changed lessons"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-lesson-pdfs-main
+  cancel-in-progress: false
+
+env:
+  PDF_REPO: nandurpm/poly-pmna-pdf-files
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out main repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Detect changed lesson pages
+        id: changed
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          FULL_RUN: ${{ inputs.all || false }}
+        run: |
+          set -euo pipefail
+          changed=/tmp/changed-lesson-files.txt
+          : > "$changed"
+
+          if [[ "$EVENT_NAME" == "workflow_dispatch" && "$FULL_RUN" == "true" ]]; then
+            {
+              find lessons -maxdepth 1 -type f -name 'lessons-*.html' -print
+              find revision-2026-content/lessons -maxdepth 1 -type f -name 'lessons-*.html' -print
+            } | sort -u > "$changed"
+          else
+            base="$EVENT_BEFORE"
+            if [[ -z "$base" || "$base" =~ ^0+$ ]]; then
+              base="$(git rev-list --max-parents=0 HEAD | tail -n 1)"
+            fi
+            git diff --diff-filter=ACMR --name-only "$base" "$GITHUB_SHA" -- \
+              'lessons/lessons-*.html' \
+              'revision-2026-content/lessons/lessons-*.html' \
+              | sort -u > "$changed"
+          fi
+
+          echo "Changed lesson files:"
+          cat "$changed"
+          if [[ -s "$changed" ]]; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
+          cp "$changed" "$GITHUB_WORKSPACE/changed-lesson-files.txt"
+
+      - name: Stop when no lesson pages changed
+        if: steps.changed.outputs.has_changes != 'true'
+        run: echo "No lesson HTML changes require PDF publication."
+
+      - name: Set up Python
+        if: steps.changed.outputs.has_changes == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Chromium
+        if: steps.changed.outputs.has_changes == 'true'
+        id: chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 131
+          install-dependencies: true
+
+      - name: Verify PDF publisher credential
+        if: steps.changed.outputs.has_changes == 'true'
+        env:
+          PDF_REPO_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
+        run: |
+          if [[ -z "$PDF_REPO_TOKEN" ]]; then
+            echo "Missing required secret PDF_ARCHIVE_REPO_TOKEN."
+            echo "Create a fine-grained token with Contents read/write access to $PDF_REPO."
+            exit 1
+          fi
+
+      - name: Start local lesson server
+        if: steps.changed.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 9876 --bind 127.0.0.1 > /tmp/poly-pmna-http.log 2>&1 &
+          echo $! > /tmp/poly-pmna-http.pid
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:9876/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/poly-pmna-http.log
+          exit 1
+
+      - name: Render and validate changed PDFs
+        if: steps.changed.outputs.has_changes == 'true'
+        env:
+          CHROME_PATH: ${{ steps.chrome.outputs.chrome-path }}
+          FULL_RUN: ${{ inputs.all || false }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          suffix="run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
+          output=/tmp/poly-pmna-generated-pdfs
+          rm -rf "$output"
+          args=(
+            --source-root "$GITHUB_WORKSPACE"
+            --output-root "$output"
+            --base-url http://127.0.0.1:9876
+            --workers 4
+            --source-commit "$GITHUB_SHA"
+            --release-suffix "$suffix"
+          )
+          if [[ "$FULL_RUN" != "true" ]]; then
+            args+=(--files-from "$GITHUB_WORKSPACE/changed-lesson-files.txt")
+          fi
+          CHROMIUM_BIN="$CHROME_PATH" python3 tools/generate_all_lesson_pdfs.py "${args[@]}"
+          jq -e '.failed == 0 and .published == .total' "$output/generation-report.json"
+          if find "$output" -type f -name '*.pdf' -print0 | xargs -0 -r file --mime-type | grep -v 'application/pdf'; then
+            echo "A generated file is not identified as application/pdf."
+            exit 1
+          fi
+
+      - name: Create draft releases and upload PDF assets
+        if: steps.changed.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          output=/tmp/poly-pmna-generated-pdfs
+          for revision in 2021 2026; do
+            manifest="$output/notes-${revision}.json"
+            count="$(jq '.subjects | length' "$manifest")"
+            if [[ "$count" == "0" ]]; then
+              continue
+            fi
+            tag="$(jq -r '.releaseTag' "$manifest")"
+            gh release create "$tag" \
+              --repo "$PDF_REPO" \
+              --target main \
+              --draft \
+              --title "POLY PMNA Notes ${revision} update ${GITHUB_RUN_ID}" \
+              --notes "Immutable PDF assets generated from diploma-notes commit ${GITHUB_SHA}."
+            while IFS= read -r -d '' pdf; do
+              gh release upload "$tag" "$pdf" --repo "$PDF_REPO"
+            done < <(find "$output/$revision" -maxdepth 1 -type f -name '*.pdf' -print0 | sort -z)
+            assets="$(gh api "repos/$PDF_REPO/releases/tags/$tag" --jq '.assets | length')"
+            if [[ "$assets" != "$count" ]]; then
+              echo "Asset count mismatch for $tag: expected $count, got $assets"
+              exit 1
+            fi
+            gh release edit "$tag" --repo "$PDF_REPO" --draft=false
+          done
+
+      - name: Update manifests in the PDF repository
+        if: steps.changed.outputs.has_changes == 'true'
+        env:
+          PDF_REPO_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/poly-pmna-pdf-repo
+          git clone --depth=1 "https://x-access-token:${PDF_REPO_TOKEN}@github.com/${PDF_REPO}.git" /tmp/poly-pmna-pdf-repo
+          revisions=()
+          for revision in 2021 2026; do
+            count="$(jq '.subjects | length' "/tmp/poly-pmna-generated-pdfs/notes-${revision}.json")"
+            if [[ "$count" != "0" ]]; then
+              revisions+=(--revision "$revision")
+            fi
+          done
+          python3 tools/merge_pdf_manifests.py \
+            --pdf-repo-root /tmp/poly-pmna-pdf-repo \
+            --generated-root /tmp/poly-pmna-generated-pdfs \
+            --source-commit "$GITHUB_SHA" \
+            "${revisions[@]}"
+          cd /tmp/poly-pmna-pdf-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add manifests/notes-2021.json manifests/notes-2026.json
+          if git diff --cached --quiet; then
+            echo "No manifest changes to commit."
+            exit 0
+          fi
+          git commit -m "Update lesson PDF manifests for ${GITHUB_SHA::12}"
+          git push origin main
+
+      - name: Upload generation report
+        if: always() && steps.changed.outputs.has_changes == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: lesson-pdf-generation-${{ github.run_id }}
+          path: |
+            /tmp/poly-pmna-generated-pdfs/generation-report.json
+            /tmp/changed-lesson-files.txt
+          if-no-files-found: ignore
