@@ -1,10 +1,10 @@
 {
   "status": "success",
-  "versionCode": 19,
-  "versionName": "3.10",
+  "versionCode": 20,
+  "versionName": "3.11",
   "firebaseMessaging": true,
-  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.10/POLY_PMNA_v3.10.apk",
-  "apkBytes": 961306,
-  "sha256": "c21644184afec2bff0e4bc86528bd7a1a7e2f896c4f194f52d3708d39deeb2b0",
-  "publishedAt": "2026-08-13T18:07:42Z"
+  "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.11/POLY_PMNA_v3.11.apk",
+  "apkBytes": 961320,
+  "sha256": "d9a47cba66cf364dbddd167c94aff79fdfadc5c6ded8bd66f96963114e12acbb",
+  "publishedAt": "2026-08-14T01:11:50Z"
 }
