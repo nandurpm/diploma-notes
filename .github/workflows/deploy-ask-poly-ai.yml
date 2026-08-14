@@ -127,7 +127,11 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
+        # Wrangler resolves the main entrypoint and any assets relative to the
+        # working directory. Deploy from the Worker directory so the API
+        # handler is uploaded instead of the repository root as an asset bundle.
+        working-directory: workers/ask-poly-ai
+        run: wrangler deploy
 
       - name: Smoke-test live Worker and protected mock route
         shell: bash
