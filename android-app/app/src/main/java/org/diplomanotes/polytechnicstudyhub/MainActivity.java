@@ -12,18 +12,16 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Picture;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.CancellationSignal;
 import android.os.Environment;
-import android.os.ParcelFileDescriptor;
 import android.os.Handler;
 import android.os.Looper;
-import android.print.PrintAttributes;
-import android.print.PrintDocumentAdapter;
-import android.print.PrintDocumentInfo;
-import android.print.PrintManager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +59,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -116,8 +115,6 @@ public class MainActivity extends ComponentActivity {
     private ValueCallback<Uri[]> fileChooserCallback;
     private boolean launchOverlayDismissed;
     private boolean nativePrintBusy;
-    private PrintDocumentAdapter pendingPdfAdapter;
-    private PrintAttributes pendingPdfAttributes;
     private String pendingPdfJobName;
     private String lastTrustedLessonUrl;
     private String lastFailedUrl = HOME_URL;
@@ -922,35 +919,20 @@ public class MainActivity extends ComponentActivity {
             return;
         }
         String jobName = safePrintJobName(requestedTitle);
-        PrintAttributes attributes = new PrintAttributes.Builder()
-                .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-                .setResolution(new PrintAttributes.Resolution("poly_pdf", "PDF", 300, 300))
-                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
-                .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
-                .build();
         nativePrintBusy = true;
         Log.i(PRINT_LOG_TAG, "Opening system Save as PDF picker for " + currentUrl + " as " + jobName);
-        openDirectPdfSave(jobName, attributes);
+        openDirectPdfSave(jobName);
     }
 
-    private void openDirectPdfSave(String jobName, PrintAttributes attributes) {
-        if (webView == null) {
-            nativePrintBusy = false;
-            Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
-            return;
-        }
-        pendingPdfJobName = jobName;
-        pendingPdfAttributes = attributes;
-        pendingPdfAdapter = webView.createPrintDocumentAdapter(jobName);
+    private void openDirectPdfSave(String jobName) {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("application/pdf");
         intent.putExtra(Intent.EXTRA_TITLE, jobName.endsWith(".pdf") ? jobName : jobName + ".pdf");
+        pendingPdfJobName = jobName;
         try {
             pdfSaveLauncher.launch(intent);
         } catch (ActivityNotFoundException error) {
-            pendingPdfAdapter = null;
-            pendingPdfAttributes = null;
             pendingPdfJobName = null;
             nativePrintBusy = false;
             Log.e(PRINT_LOG_TAG, "No system document picker is available for direct PDF save", error);
@@ -959,73 +941,53 @@ public class MainActivity extends ComponentActivity {
     }
 
     private void handlePdfSaveResult(ActivityResult result) {
-        PrintDocumentAdapter adapter = pendingPdfAdapter;
-        PrintAttributes attributes = pendingPdfAttributes;
-        pendingPdfAdapter = null;
-        pendingPdfAttributes = null;
+        String jobName = pendingPdfJobName;
         pendingPdfJobName = null;
-        if (result.getResultCode() != RESULT_OK || result.getData() == null || result.getData().getData() == null || adapter == null || attributes == null) {
+        if (result.getResultCode() != RESULT_OK || result.getData() == null || result.getData().getData() == null || webView == null) {
             nativePrintBusy = false;
             Log.i(PRINT_LOG_TAG, "Save as PDF picker was cancelled.");
             return;
         }
         Uri outputUri = result.getData().getData();
-        try {
-            ParcelFileDescriptor descriptor = getContentResolver().openFileDescriptor(outputUri, "w");
-            if (descriptor == null) {
+        PdfDocument document = null;
+        try (OutputStream output = getContentResolver().openOutputStream(outputUri, "w")) {
+            if (output == null) {
                 throw new IllegalStateException("Could not open selected PDF destination");
             }
-            CancellationSignal cancellation = new CancellationSignal();
-            adapter.onLayout(null, attributes, cancellation, new PrintDocumentAdapter.LayoutResultCallback() {
-                @Override
-                public void onLayoutFinished(PrintDocumentInfo info, boolean changed) {
-                    adapter.onWrite(
-                            new android.print.PageRange[]{android.print.PageRange.ALL_PAGES},
-                            descriptor,
-                            cancellation,
-                            new PrintDocumentAdapter.WriteResultCallback() {
-                                @Override
-                                public void onWriteFinished(android.print.PageRange[] pages) {
-                                    closeQuietly(descriptor);
-                                    nativePrintBusy = false;
-                                    Toast.makeText(MainActivity.this, R.string.print_saved, Toast.LENGTH_SHORT).show();
-                                    Log.i(PRINT_LOG_TAG, "Direct PDF save completed.");
-                                }
-
-                                @Override
-                                public void onWriteFailed(CharSequence error) {
-                                    closeQuietly(descriptor);
-                                    nativePrintBusy = false;
-                                    Log.e(PRINT_LOG_TAG, "Direct PDF save failed: " + error);
-                                    Toast.makeText(MainActivity.this, R.string.print_failed, Toast.LENGTH_SHORT).show();
-                                }
-                            },
-                            null
-                    );
-                }
-
-                @Override
-                public void onLayoutFailed(CharSequence error) {
-                    closeQuietly(descriptor);
-                    nativePrintBusy = false;
-                    Log.e(PRINT_LOG_TAG, "Direct PDF layout failed: " + error);
-                    Toast.makeText(MainActivity.this, R.string.print_failed, Toast.LENGTH_SHORT).show();
-                }
-            }, null);
-        } catch (Exception error) {
-            nativePrintBusy = false;
-            Log.e(PRINT_LOG_TAG, "Direct PDF save could not be started", error);
-            Toast.makeText(this, R.string.print_failed, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void closeQuietly(ParcelFileDescriptor descriptor) {
-        try {
-            if (descriptor != null) {
-                descriptor.close();
+            Picture picture = webView.capturePicture();
+            int contentWidth = picture.getWidth();
+            int contentHeight = picture.getHeight();
+            if (contentWidth <= 0 || contentHeight <= 0) {
+                throw new IllegalStateException("Printable lesson has no renderable content");
             }
-        } catch (Exception ignored) {
-            // Nothing else to do after a print write callback.
+            final int pageWidth = 595;
+            final int pageHeight = 842;
+            float scale = pageWidth / (float) contentWidth;
+            int scaledHeight = Math.max(1, Math.round(contentHeight * scale));
+            int pageCount = Math.max(1, (scaledHeight + pageHeight - 1) / pageHeight);
+            document = new PdfDocument();
+            for (int pageNumber = 0; pageNumber < pageCount; pageNumber++) {
+                PdfDocument.Page page = document.startPage(new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, pageNumber + 1).create());
+                Canvas canvas = page.getCanvas();
+                canvas.drawColor(Color.WHITE);
+                canvas.save();
+                canvas.scale(scale, scale);
+                canvas.translate(0, -(pageNumber * pageHeight) / scale);
+                picture.draw(canvas);
+                canvas.restore();
+                document.finishPage(page);
+            }
+            document.writeTo(output);
+            Log.i(PRINT_LOG_TAG, "Direct PDF save completed for " + jobName + " with " + pageCount + " pages.");
+            Toast.makeText(this, R.string.print_saved, Toast.LENGTH_SHORT).show();
+        } catch (Exception error) {
+            Log.e(PRINT_LOG_TAG, "Direct PDF save failed", error);
+            Toast.makeText(this, R.string.print_failed, Toast.LENGTH_SHORT).show();
+        } finally {
+            if (document != null) {
+                document.close();
+            }
+            nativePrintBusy = false;
         }
     }
 
