@@ -6,6 +6,7 @@ on:
     paths:
       - 'tools/normalize_revision_2026_legacy_data.py'
       - 'tools/build_revision_2026_pages.py'
+      - 'revision-2026-content/lessons/**'
       - 'tools/bump_subject_card_assets.py'
       - '.github/workflows/rebuild-revision-2026-current-data.yml'
 
