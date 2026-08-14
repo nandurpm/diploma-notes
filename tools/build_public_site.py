@@ -36,8 +36,8 @@ REQUIRED = {
     "build-info.json", "site.webmanifest",
 }
 
-INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">'
-INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1"></script>'
+INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-2">'
+INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-2"></script>'
 PDF_RESOLVER_JS_TAG = '<script defer src="/assets/js/conditional-pdf-notes.js?v=pdf-releases-v1"></script>'
 
 

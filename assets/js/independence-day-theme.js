@@ -57,7 +57,7 @@
     if (existing || document.querySelector(`link[data-poly-independence-day-css="true"]`)) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `${STYLE_PATH}?v=annual-tricolour-circuit-1`;
+    link.href = `${STYLE_PATH}?v=annual-tricolour-circuit-2`;
     link.dataset.polyIndependenceDayCss = "true";
     document.head.append(link);
     cleanupTasks.push(() => link.remove());
@@ -215,7 +215,7 @@
     isIndependenceDay,
     activate,
     deactivate,
-    version: "annual-tricolour-circuit-1",
+    version: "annual-tricolour-circuit-2",
   });
   window.PolyIndependenceDayTheme = api;
 
