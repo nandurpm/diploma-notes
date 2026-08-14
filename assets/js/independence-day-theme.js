@@ -1,8 +1,8 @@
 /*
  * POLY PMNA — Annual Independence Day theme controller
  *
- * The only date decision in the theme lives here. It uses the visitor's
- * local calendar, activates on 15 August every year, and removes every
+ * The only date decision in the theme lives here. It uses India Standard
+ * Time, activates on 15 August every year, and removes every
  * temporary class/node/listener when the date changes or the page is reused.
  */
 (() => {
@@ -14,7 +14,14 @@
   const body = document.body;
   const STYLE_PATH = "/assets/css/independence-day-theme.css";
   const THEME_CLASS = "poly-independence-day";
-  const PARTICLE_COUNT = 18;
+  const PARTICLE_COUNT = 30;
+  const THEME_TIME_ZONE = "Asia/Kolkata";
+  const indiaDateFormatter = new Intl.DateTimeFormat("en-IN", {
+    timeZone: THEME_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
   const originalThemeColor = document.querySelector('meta[name="theme-color"]')?.getAttribute("content") || "";
   const cleanupTasks = [];
   let banner = null;
@@ -25,16 +32,19 @@
   let dismissed = false;
   let lastDateKey = "";
 
-  const localDateParts = (date = new Date()) => ({
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate(),
-  });
+  const indiaDateParts = (date = new Date()) => {
+    const parts = Object.fromEntries(
+      indiaDateFormatter.formatToParts(date)
+        .filter(({ type }) => type === "year" || type === "month" || type === "day")
+        .map(({ type, value }) => [type, Number(value)])
+    );
+    return { year: parts.year, month: parts.month, day: parts.day };
+  };
 
   const getDateKey = (parts) => `${parts.year}-${String(parts.month).padStart(2, "0")}-${String(parts.day).padStart(2, "0")}`;
 
   const isIndependenceDay = (date = new Date()) => {
-    const parts = localDateParts(date);
+    const parts = indiaDateParts(date);
     return parts.month === 8 && parts.day === 15;
   };
 
@@ -164,7 +174,7 @@
     removeCompetingOnamTheme();
     ensureThemeStylesheet();
     updateThemeColor();
-    const parts = localDateParts();
+    const parts = indiaDateParts();
     addBanner(parts);
     addParticles();
     watchForCompetingTheme();
@@ -192,7 +202,7 @@
   }
 
   function checkDate() {
-    const parts = localDateParts();
+    const parts = indiaDateParts();
     const dateKey = getDateKey(parts);
     if (dateKey === lastDateKey && active) return;
     if (isIndependenceDay()) activate();

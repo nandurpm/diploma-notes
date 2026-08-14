@@ -75,6 +75,7 @@ html.poly-independence-day body::after {
   background:
     linear-gradient(90deg, transparent, rgba(242, 140, 40, .10), transparent 35%, rgba(19, 138, 88, .10), transparent),
     radial-gradient(ellipse at center, rgba(18, 61, 99, .08), transparent 72%);
+  animation: poly-independence-glow 12s ease-in-out infinite alternate;
 }
 
 /* Compact hero banner: it sits in normal document flow below the measured
@@ -87,16 +88,18 @@ html.poly-independence-day body::after {
   align-items: center;
   gap: 14px;
   width: calc(100% - (2 * var(--poly-gutter, 14px)));
-  min-height: 76px;
-  margin: 0 var(--poly-gutter, 14px) 12px;
-  padding: 10px 16px;
+  min-height: 104px;
+  margin: 6px var(--poly-gutter, 14px) 16px;
+  padding: 15px 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 253, 248, .94);
-  border-radius: 20px;
+  border: 2px solid rgba(255, 253, 248, .98);
+  border-radius: 24px;
   background:
-    linear-gradient(90deg, rgba(242, 140, 40, .17) 0 33%, rgba(255, 253, 248, .72) 33% 66%, rgba(19, 138, 88, .16) 66% 100%),
-    rgba(255, 253, 248, .92);
-  box-shadow: var(--id-soft-shadow);
+    linear-gradient(90deg, rgba(242, 140, 40, .33) 0 31%, rgba(255, 253, 248, .94) 31% 67%, rgba(19, 138, 88, .30) 67% 100%),
+    radial-gradient(circle at 16% 50%, rgba(242, 140, 40, .34), transparent 25%),
+    radial-gradient(circle at 86% 50%, rgba(19, 138, 88, .32), transparent 27%),
+    rgba(255, 253, 248, .96);
+  box-shadow: 0 18px 44px rgba(18, 61, 99, .18), 0 4px 0 rgba(242, 140, 40, .46), 0 8px 0 rgba(255, 253, 248, .88), 0 12px 0 rgba(19, 138, 88, .42);
   isolation: isolate;
 }
 
@@ -105,8 +108,10 @@ html.poly-independence-day body::after {
   position: absolute;
   inset: 0 auto 0 0;
   z-index: -1;
-  width: 5px;
+  width: 9px;
+  border-radius: 0 8px 8px 0;
   background: linear-gradient(180deg, var(--id-saffron), var(--id-white) 50%, var(--id-green));
+  box-shadow: 3px 0 0 rgba(18, 61, 99, .08);
 }
 
 .poly-independence-banner::after {
@@ -115,36 +120,54 @@ html.poly-independence-day body::after {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(105deg, transparent 34%, rgba(255, 255, 255, .56) 48%, transparent 61%);
+  background: linear-gradient(105deg, transparent 28%, rgba(255, 255, 255, .84) 46%, transparent 62%);
   transform: translateX(-110%);
-  animation: poly-independence-shimmer 9s ease-in-out infinite;
+  animation: poly-independence-shimmer 5.8s ease-in-out infinite;
 }
 
 .poly-independence-banner__flag {
   position: relative;
   display: grid;
   place-items: center;
-  width: 62px;
-  height: 42px;
-  overflow: hidden;
-  border: 1px solid rgba(18, 61, 99, .14);
-  border-radius: 10px 4px 10px 4px;
-  background: linear-gradient(180deg, var(--id-saffron) 0 33.33%, var(--id-white) 33.33% 66.66%, var(--id-green) 66.66% 100%);
-  box-shadow: 0 9px 20px rgba(18, 61, 99, .12);
+  width: 96px;
+  height: 62px;
+  overflow: visible;
+  border: 2px solid rgba(18, 61, 99, .22);
+  border-radius: 5px 14px 14px 5px;
+  background:
+    linear-gradient(180deg, var(--id-saffron) 0 33.33%, var(--id-white) 33.33% 66.66%, var(--id-green) 66.66% 100%),
+    var(--id-white);
+  box-shadow: 0 12px 24px rgba(18, 61, 99, .22), inset 0 0 0 1px rgba(255, 255, 255, .46);
   transform-origin: left center;
-  animation: poly-independence-flag-wave 8s ease-in-out infinite;
+  animation: poly-independence-flag-wave 4.6s ease-in-out infinite;
+}
+
+.poly-independence-banner__flag::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  left: -10px;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #d9a441, #8a5a22 78%, #4b351d);
+  box-shadow: 2px 0 0 rgba(255, 255, 255, .5), 0 4px 10px rgba(18, 61, 99, .24);
 }
 
 .poly-independence-banner__flag::after {
   content: "☸";
+  position: absolute;
+  inset: 50% auto auto 50%;
   display: grid;
   place-items: center;
-  width: 20px;
-  height: 20px;
+  width: 26px;
+  height: 26px;
+  transform: translate(-50%, -50%);
   color: var(--id-navy);
-  font-size: 1.1rem;
+  font-size: 1.55rem;
   line-height: 1;
-  animation: poly-independence-chakra 24s linear infinite;
+  text-shadow: 0 0 0 rgba(18, 61, 99, .2);
+  animation: poly-independence-chakra 8s linear infinite;
 }
 
 .poly-independence-banner__copy {
@@ -233,7 +256,7 @@ html.poly-independence-day body::after {
 .poly-independence-particles {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 5;
   overflow: hidden;
   pointer-events: none;
 }
@@ -241,12 +264,13 @@ html.poly-independence-day body::after {
 .poly-independence-particle {
   position: absolute;
   top: -12px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
   background: var(--particle-color, var(--id-saffron));
-  box-shadow: 0 0 14px color-mix(in srgb, var(--particle-color, var(--id-saffron)) 45%, transparent);
-  opacity: .38;
+  box-shadow: 0 0 18px color-mix(in srgb, var(--particle-color, var(--id-saffron)) 75%, transparent), 0 0 3px rgba(255, 255, 255, .85);
+  opacity: .72;
+  rotate: 45deg;
   animation: poly-independence-float var(--particle-duration, 14s) linear var(--particle-delay, 0s) infinite;
 }
 
@@ -453,6 +477,11 @@ html.poly-independence-day .daily-special-card {
   background: linear-gradient(135deg, rgba(242, 140, 40, .18), rgba(255, 253, 248, .88) 48%, rgba(19, 138, 88, .16)) !important;
 }
 
+@keyframes poly-independence-glow {
+  from { opacity: .48; transform: scale(1); }
+  to { opacity: .82; transform: scale(1.06); }
+}
+
 @keyframes poly-independence-shimmer {
   0%, 56% { transform: translateX(-110%); }
   76%, 100% { transform: translateX(110%); }
@@ -460,7 +489,7 @@ html.poly-independence-day .daily-special-card {
 
 @keyframes poly-independence-flag-wave {
   0%, 100% { transform: perspective(300px) rotateY(0deg) skewY(0deg); }
-  50% { transform: perspective(300px) rotateY(-7deg) skewY(1deg); }
+  50% { transform: perspective(300px) rotateY(-13deg) skewY(2deg) translateY(-2px); }
 }
 
 @keyframes poly-independence-chakra {
@@ -469,25 +498,27 @@ html.poly-independence-day .daily-special-card {
 
 @keyframes poly-independence-float {
   0% { transform: translate3d(0, -12px, 0) scale(.6); opacity: 0; }
-  12% { opacity: .38; }
-  88% { opacity: .18; }
+  12% { opacity: .84; }
+  88% { opacity: .42; }
   100% { transform: translate3d(var(--particle-drift, 24px), 105vh, 0) scale(1); opacity: 0; }
 }
 
 @media (max-width: 760px) {
+
   .poly-independence-banner {
     grid-template-columns: auto minmax(0, 1fr) auto;
     gap: 10px;
-    min-height: 68px;
-    margin-bottom: 9px;
-    padding: 9px 11px;
+    min-height: 86px;
+    margin-bottom: 12px;
+    padding: 12px 13px;
     border-radius: 16px;
   }
-  .poly-independence-banner__flag { width: 50px; height: 36px; }
-  .poly-independence-banner__flag::after { width: 17px; height: 17px; font-size: .95rem; }
+  .poly-independence-banner__flag { width: 70px; height: 46px; }
+  .poly-independence-banner__flag::before { left: -8px; width: 3px; }
+  .poly-independence-banner__flag::after { width: 21px; height: 21px; font-size: 1.2rem; }
   .poly-independence-banner__eyebrow { font-size: .59rem; letter-spacing: .1em; }
-  .poly-independence-banner__title { font-size: .96rem; }
-  .poly-independence-banner__message { font-size: .7rem; }
+  .poly-independence-banner__title { font-size: 1.02rem; }
+  .poly-independence-banner__message { font-size: .72rem; white-space: normal; }
   .poly-independence-banner__meta { display: none; }
   .poly-independence-banner__dismiss { width: 27px; min-width: 27px; height: 27px; font-size: .96rem; }
 }
