@@ -220,7 +220,7 @@ test("evaluateMockExam prefers OpenAI when both keys are present", async () => {
   const originalFetch = globalThis.fetch;
   let nvidiaCalled = false;
   globalThis.fetch = async (url) => {
-    if (url.includes("nvidia.com")) nvidiaCalled = true;
+    if (new URL(url).hostname === "integrate.api.nvidia.com") nvidiaCalled = true;
     return {
       ok: true,
       json: async () => ({

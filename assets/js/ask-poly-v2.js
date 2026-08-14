@@ -159,7 +159,7 @@
     /* strings (must come first) */
     { pattern: /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|"""[\s\S]*?"""|'''[\s\S]*?''')/g, cls: "hl-string" },
     /* comments */
-    { pattern: /(#[^\n]*|\/\/[^\n]*|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->)/g, cls: "hl-comment" },
+    { pattern: /(#[^\n]*|\/\/[^\n]*|\/\*[\s\S]*?\*\/|<!--[\s\S]*?--!?>)/g, cls: "hl-comment" },
     /* numbers */
     { pattern: /\b(\d[\d._]*)\b/g, cls: "hl-number" }
   ];
@@ -191,7 +191,9 @@
     let cursor = 0;
     const spans = [];
     while ((match = stringCommentPattern.exec(remaining)) !== null) {
-      spans.push({ start: match.index, end: match.index + match[0].length, cls: /^\s*[#\/\/\/\*]|^<!--|^-->/.test(match[0]) ? "hl-comment" : "hl-string" });
+      const token = match[0];
+      const isComment = token.startsWith('#') || token.startsWith('//') || token.startsWith('/*') || token.startsWith('<!--');
+      spans.push({ start: match.index, end: match.index + token.length, cls: isComment ? "hl-comment" : "hl-string" });
     }
     stringCommentPattern.lastIndex = 0;
     /* Keyword and number highlighting on segments not inside spans */
