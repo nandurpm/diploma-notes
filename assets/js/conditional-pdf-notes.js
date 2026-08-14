@@ -112,7 +112,13 @@
   function installConditionalDownloadHandler() {
     document.addEventListener("click", async (event) => {
       const link = event.target.closest(
-        "a.action.download, a.poly-lesson-download, a[data-notes-link]"
+        [
+          "a[data-notes-link]",
+          "a.poly-lesson-download",
+          "a.action.download[href*='autoPrintNotes=1']",
+          "a.action.download[data-pdf-code]",
+          "a.action.download[data-note-code]"
+        ].join(", ")
       );
       if (!link) return;
 

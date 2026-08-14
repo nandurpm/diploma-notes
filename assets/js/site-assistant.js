@@ -270,9 +270,12 @@
     parent.append(createElement("span", { className: "unavailable", text, attributes: { "aria-disabled": "true" } }));
   }
 
-  function addLink(parent, label, href) {
+  function addLink(parent, label, href, attributes = {}) {
     if (!href) return;
-    const anchor = createElement("a", { text: label, attributes: { href } });
+    const anchor = createElement("a", {
+      text: label,
+      attributes: { href, ...attributes }
+    });
     if (/^https?:/i.test(href)) {
       anchor.target = "_blank";
       anchor.rel = "noopener noreferrer";
@@ -588,7 +591,13 @@
         ? "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021"
         : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
       addLink(links, "Syllabus", syllabusUrl);
-      if (subject.lessonAvailable) addLink(links, "Download notes", `${lessonPath}?autoPrintNotes=1`);
+      if (subject.lessonAvailable) {
+        addLink(links, "Download notes", `${lessonPath}?autoPrintNotes=1`, {
+          "data-notes-link": "true",
+          "data-pdf-code": String(subject.code || ""),
+          "data-pdf-revision": revision2026 ? "2026" : "2021"
+        });
+      }
       else addUnavailable(links, "Notes unavailable");
       addLink(links, "Model QP", `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`);
       card.append(links);
