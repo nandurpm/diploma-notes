@@ -58,10 +58,19 @@ jobs:
             ACTIVITY=org.diplomanotes.polytechnicstudyhub/.MainActivity
             LESSON_URL='https://polypmna.dpdns.org/lessons/lessons-1001.html?autoPrintNotes=1&androidEmulatorPrintTest=1'
 
-            adb install -r emulator-artifacts/POLY_PMNA.apk
-            adb logcat -c
-            adb shell am force-stop "$PACKAGE"
-            adb shell am start -W -n "$ACTIVITY" -a android.intent.action.VIEW -d "$LESSON_URL"
+            set +e
+            adb install -r emulator-artifacts/POLY_PMNA.apk > emulator-artifacts/install.txt 2>&1
+            install_status=$?
+            adb logcat -c >> emulator-artifacts/install.txt 2>&1
+            adb shell am force-stop "$PACKAGE" >> emulator-artifacts/install.txt 2>&1
+            adb shell am start -W -n "$ACTIVITY" -a android.intent.action.VIEW -d "$LESSON_URL" > emulator-artifacts/activity-start.txt 2>&1
+            start_status=$?
+            set -e
+            if [ "$install_status" -ne 0 ] || [ "$start_status" -ne 0 ]; then
+              echo "APK install or lesson activity launch failed (install=$install_status start=$start_status)." >&2
+              cat emulator-artifacts/install.txt emulator-artifacts/activity-start.txt >&2 || true
+              exit 1
+            fi
 
             # The lesson’s shared script waits briefly after WebView load before invoking
             # the trusted Android print bridge. Poll the system UI for the print preview.
@@ -75,8 +84,13 @@ jobs:
               if adb shell uiautomator dump /sdcard/window.xml >"$ui_err" 2>&1; then
                 adb pull /sdcard/window.xml "$ui_dump" >>"$ui_err" 2>&1 || true
               fi
-              adb shell dumpsys window windows > "emulator-artifacts/window-${attempt}.txt" 2>&1 || true
-              if grep -Eqi 'Save as PDF|Select a printer|Print preview|Print Spooler|com\.android\.printspooler|Print' "$ui_dump" "$ui_err" "emulator-artifacts/window-${attempt}.txt" 2>/dev/null; then
+              window_state="emulator-artifacts/window-${attempt}.txt"
+              activity_state="emulator-artifacts/activity-${attempt}.txt"
+              adb shell dumpsys window windows > "$window_state" 2>&1 || true
+              adb shell dumpsys activity activities > "$activity_state" 2>&1 || true
+              # The lesson itself contains the words “Save as PDF”, so labels alone
+              # are not sufficient. Require the Android Print Spooler/print activity.
+              if grep -Eqi 'com\.android\.printspooler|PrintActivity|SelectPrinterActivity|PrintPreview' "$ui_dump" "$window_state" "$activity_state" 2>/dev/null; then
                 print_dialog=true
                 break
               fi
@@ -94,12 +108,14 @@ jobs:
             fi
 
             if [ "$print_dialog" != true ]; then
-              echo 'Native Android print preview was not detected after lesson auto-print.' >&2
+              echo 'Native Android Print Spooler preview was not detected after lesson auto-print.' >&2
+              echo 'Captured PolyNativePrint and PrintManager lines:' >&2
+              grep -Ein -C 3 'PolyNativePrint|PrintManager|printspooler|PrintActivity|SelectPrinterActivity' emulator-artifacts/logcat.txt || true
               tail -100 emulator-artifacts/logcat.txt || true
               exit 1
             fi
 
-            echo 'Native Print / Save as PDF dialog detected with no Android runtime exception.'
+            echo 'Native Android Print Spooler / Save as PDF dialog detected with no Android runtime exception.'
 
       - name: Upload emulator UI and logcat evidence
         if: always()
