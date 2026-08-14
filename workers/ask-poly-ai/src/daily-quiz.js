@@ -44,7 +44,7 @@ function cleanSubject(value) {
   return String(value || '').trim().slice(0, 12);
 }
 
-function selectedQuestions(subjectCode, dateKey, mode) {
+export function selectedQuestions(subjectCode, dateKey, mode) {
   const source = DAILY_QUIZ_BANK.questions[subjectCode];
   if (!Array.isArray(source) || source.length < QUESTIONS_PER_DAY) return null;
   const daily = shuffle(source, randomFrom(hash(`${dateKey}${subjectCode}`))).slice(0, QUESTIONS_PER_DAY);

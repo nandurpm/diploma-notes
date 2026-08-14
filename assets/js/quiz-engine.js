@@ -10,6 +10,7 @@
 
   let current = [];
   let subject = '';
+  let quizDate = '';
 
   function ensureGeneralKnowledge() {
     if (B.questions.GK && !B.subjects.GK) B.subjects.GK = 'General Knowledge';
@@ -183,6 +184,7 @@
 
   function renderReadOnly(code, row, date = R.dateKey()) {
     subject = code;
+    quizDate = date;
     current = qset(code, date);
     selectCard('dailySubjectCards', code);
     $('quizBox').classList.remove('hidden');
@@ -230,7 +232,8 @@
       return;
     }
 
-    current = qset(code, R.dateKey());
+    quizDate = R.dateKey();
+    current = qset(code, quizDate);
     $('quizControls').classList.remove('hidden');
     $('submitQuiz').disabled = false;
     $('retryQuiz')?.classList.add('hidden');
@@ -246,6 +249,13 @@
 
   async function submit() {
     const existing = await R.today(subject);
+    const gradingDate = R.dateKey();
+    if (quizDate && gradingDate !== quizDate) {
+      $('submitQuiz').disabled = false;
+      $('quizMsg').textContent = 'The daily quiz has rolled over. Reload today’s question set before submitting.';
+      $('quizMsg').className = 'status error';
+      return;
+    }
     if (existing) {
       renderReadOnly(subject, existing, R.dateKey());
       return;
@@ -280,7 +290,7 @@
 
     let graded;
     try {
-      graded = await gradeDailyQuiz(subject, R.dateKey(), answers);
+      graded = await gradeDailyQuiz(subject, quizDate, answers);
     } catch (error) {
       $('submitQuiz').disabled = false;
       $('quizMsg').textContent = error.message || 'Secure quiz grading is temporarily unavailable. Try again.';
