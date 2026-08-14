@@ -53,71 +53,9 @@ jobs:
           emulator-options: -no-window -no-snapshot-save -noaudio -no-boot-anim -gpu swiftshader_indirect
           disable-animations: true
           script: |
-            # reactivecircus executes this block with POSIX /usr/bin/sh (dash),
-            # so use POSIX errexit/nounset rather than the Bash-only pipefail flag.
-            set -eu
-            PACKAGE=org.diplomanotes.polytechnicstudyhub
-            ACTIVITY=org.diplomanotes.polytechnicstudyhub/.MainActivity
-            LESSON_URL='https://polypmna.dpdns.org/lessons/lessons-1001.html?autoPrintNotes=1&androidEmulatorPrintTest=1'
-
-            set +e
-            adb install -r emulator-artifacts/POLY_PMNA.apk > emulator-artifacts/install.txt 2>&1
-            install_status=$?
-            adb logcat -c >> emulator-artifacts/install.txt 2>&1
-            adb shell am force-stop "$PACKAGE" >> emulator-artifacts/install.txt 2>&1
-            adb shell am start -W -n "$ACTIVITY" -a android.intent.action.VIEW -d "$LESSON_URL" > emulator-artifacts/activity-start.txt 2>&1
-            start_status=$?
-            set -e
-            if [ "$install_status" -ne 0 ] || [ "$start_status" -ne 0 ]; then
-              echo "APK install or lesson activity launch failed (install=$install_status start=$start_status)." >&2
-              cat emulator-artifacts/install.txt emulator-artifacts/activity-start.txt >&2 || true
-              exit 1
-            fi
-
-            # The lesson’s shared script waits briefly after WebView load before invoking
-            # the trusted Android print bridge. Poll the system UI for the print preview.
-            # uiautomator can transiently return exit code 2 while Android is changing
-            # windows; capture that diagnostic instead of aborting before logcat is saved.
-            print_dialog=false
-            for attempt in $(seq 1 30); do
-              sleep 1
-              ui_dump="emulator-artifacts/window-${attempt}.xml"
-              ui_err="emulator-artifacts/uiautomator-${attempt}.txt"
-              if adb shell uiautomator dump /sdcard/window.xml >"$ui_err" 2>&1; then
-                adb pull /sdcard/window.xml "$ui_dump" >>"$ui_err" 2>&1 || true
-              fi
-              window_state="emulator-artifacts/window-${attempt}.txt"
-              activity_state="emulator-artifacts/activity-${attempt}.txt"
-              adb shell dumpsys window windows > "$window_state" 2>&1 || true
-              adb shell dumpsys activity activities > "$activity_state" 2>&1 || true
-              # The lesson itself contains the words “Save as PDF”, so labels alone
-              # are not sufficient. Require the Android Print Spooler/print activity.
-              if grep -Eqi 'com\.android\.printspooler|PrintActivity|SelectPrinterActivity|PrintPreview' "$ui_dump" "$window_state" "$activity_state" 2>/dev/null; then
-                print_dialog=true
-                break
-              fi
-            done
-
-            adb logcat -d -v threadtime > emulator-artifacts/logcat.txt
-            adb shell dumpsys activity activities > emulator-artifacts/activity-stack.txt || true
-            adb shell dumpsys window windows > emulator-artifacts/final-window-state.txt || true
-            adb shell dumpsys print > emulator-artifacts/print-state.txt || true
-
-            if grep -Eqi 'FATAL EXCEPTION|AndroidRuntime:.*(Exception|Error)|Process: org\.diplomanotes\.polytechnicstudyhub.*(Exception|Error)' emulator-artifacts/logcat.txt; then
-              echo 'Android runtime exception found in logcat.' >&2
-              grep -Ein -C 4 'FATAL EXCEPTION|AndroidRuntime|Process: org\.diplomanotes\.polytechnicstudyhub' emulator-artifacts/logcat.txt || true
-              exit 1
-            fi
-
-            if [ "$print_dialog" != true ]; then
-              echo 'Native Android Print Spooler preview was not detected after lesson auto-print.' >&2
-              echo 'Captured PolyNativePrint and PrintManager lines:' >&2
-              grep -Ein -C 3 'PolyNativePrint|PrintManager|printspooler|PrintActivity|SelectPrinterActivity' emulator-artifacts/logcat.txt || true
-              tail -100 emulator-artifacts/logcat.txt || true
-              exit 1
-            fi
-
-            echo 'Native Android Print Spooler / Save as PDF dialog detected with no Android runtime exception.'
+            # Keep the complete test in one POSIX shell script. The runner invokes
+            # this block with /usr/bin/sh, and the script captures all adb evidence.
+            sh tools/test_android_print_emulator.sh
 
       - name: Upload emulator UI and logcat evidence
         if: always()
