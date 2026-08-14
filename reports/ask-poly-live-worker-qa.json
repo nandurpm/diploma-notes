@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-14T05:26:06Z",
+  "generatedAt": "2026-08-14T05:34:37Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askEndpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -19,9 +19,13 @@
     "localMathFallback": true,
     "preloadedFaq": true,
     "workersAIFallback": true,
-    "workersAIRestFallback": false,
+    "workersAIRestFallback": true,
     "providers": [
-      "cloudflare-workers-ai"
+      "cloudflare-workers-ai",
+      "cloudflare-workers-ai-rest",
+      "nvidia",
+      "openai",
+      "gemini"
     ],
     "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
     "mockExamEvaluation": true,
