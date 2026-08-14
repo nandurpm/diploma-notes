@@ -288,6 +288,7 @@ OUTPUT CONTRACT — NON-NEGOTIABLE
 - Support ?autoPrintNotes=1 and ?downloadNotes=1.
 - Use full-width responsive layout with no duplicate website header, no fixed site header, and no permanent left sidebar.
 - Include substantial Malayalam support for major concepts; keep technical terms, formulas, units, standards and component names in English.
+- Mark every Malayalam-support container with lang="ml" (and use lang="en" for English-only containers); do not leave visible Malayalam prose under an English-only ancestor.
 - Include every official module/topic/outcome/experiment/activity from the source.
 - Disclose official-source inconsistencies instead of silently correcting them.
 - Use semantic HTML, internal CSS, vanilla JavaScript, inline SVG and local/root-relative assets only.

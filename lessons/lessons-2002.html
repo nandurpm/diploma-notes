@@ -224,7 +224,7 @@ footer{text-align:center;color:var(--muted);padding:1rem .5rem 1.7rem}
   <h3>1. Determinants: meaning, order and notation</h3>
   <p>A determinant is a single number associated with a square arrangement of numbers. It helps test whether a linear system has a unique solution and is used in inverse matrices and Cramer’s rule.</p>
   <div class="formula">Second order: |A| = <span class="matrix" style="--cols:2"><span>a</span><span>b</span><span>c</span><span>d</span></span> = ad - bc</div>
-  <div class="ml"><b>Malayalam Support:</b> Determinant ഒരു square array-യിൽ നിന്ന് ലഭിക്കുന്ന ഒറ്റ സംഖ്യയാണ്. Equations-ന് unique solution ഉണ്ടോ എന്ന് പരിശോധിക്കാനും inverse കണ്ടെത്താനും ഇത് ഉപയോഗിക്കുന്നു.</div>
+  <div class="ml" lang="ml"><b>Malayalam Support:</b> Determinant ഒരു square array-യിൽ നിന്ന് ലഭിക്കുന്ന ഒറ്റ സംഖ്യയാണ്. Equations-ന് unique solution ഉണ്ടോ എന്ന് പരിശോധിക്കാനും inverse കണ്ടെത്താനും ഇത് ഉപയോഗിക്കുന്നു.</div>
   <div class="grid">
     <div class="card blue"><h4>Order</h4><p>A determinant with n rows and n columns has order n. A 2×2 determinant is second order; a 3×3 determinant is third order.</p></div>
     <div class="card cyan"><h4>Rows and columns</h4><p>Horizontal entries form rows; vertical entries form columns. Determinants are defined only for square arrays.</p></div>
@@ -297,7 +297,7 @@ footer{text-align:center;color:var(--muted);padding:1rem .5rem 1.7rem}
 
   <h3>1. Scalars and vectors</h3>
   <div class="grid"><div class="card blue"><h4>Scalar</h4><p>A quantity having magnitude only. Examples: mass, time, temperature, energy and speed.</p></div><div class="card cyan"><h4>Vector</h4><p>A quantity having magnitude and direction and obeying vector addition. Examples: displacement, velocity, acceleration, force and moment.</p></div></div>
-  <div class="ml"><b>Malayalam Support:</b> Scalar-ന് magnitude മാത്രം. Vector-ന് magnitude-ഉം direction-ഉം ഉണ്ട്. Force, displacement എന്നിവ vectors ആണ്.</div>
+  <div class="ml" lang="ml"><b>Malayalam Support:</b> Scalar-ന് magnitude മാത്രം. Vector-ന് magnitude-ഉം direction-ഉം ഉണ്ട്. Force, displacement എന്നിവ vectors ആണ്.</div>
 
   <h3>2. Vector notation, magnitude and unit vector</h3>
   <div class="formula">a = a<sub>x</sub>i + a<sub>y</sub>j + a<sub>z</sub>k</div>
@@ -354,7 +354,7 @@ footer{text-align:center;color:var(--muted);padding:1rem .5rem 1.7rem}
   <p>If dF/dx=f(x), then F is an antiderivative of f and</p>
   <div class="formula">∫f(x)dx = F(x)+C</div>
   <p>The constant C is essential because the derivative of every constant is zero.</p>
-  <div class="ml"><b>Malayalam Support:</b> Differentiation-ന്റെ reverse operation ആണ് integration. Indefinite integral എഴുതുമ്പോൾ +C ഒഴിവാക്കരുത്.</div>
+  <div class="ml" lang="ml"><b>Malayalam Support:</b> Differentiation-ന്റെ reverse operation ആണ് integration. Indefinite integral എഴുതുമ്പോൾ +C ഒഴിവാക്കരുത്.</div>
   <div class="callout remember"><b>Verification</b><div>Differentiate your final answer. If its derivative equals the original integrand, the integration is correct.</div></div>
 
   <h3>2. Standard integrals</h3>
@@ -382,7 +382,7 @@ footer{text-align:center;color:var(--muted);padding:1rem .5rem 1.7rem}
   <h3>6. Definite integrals</h3>
   <p>A definite integral has fixed lower and upper limits and gives a numerical value. If F'(x)=f(x),</p>
   <div class="formula">∫<sub>a</sub><sup>b</sup> f(x)dx = [F(x)]<sub>a</sub><sup>b</sup> = F(b)-F(a)</div>
-  <div class="ml"><b>Malayalam Support:</b> Definite integral-ൽ +C വേണ്ട. Upper limit substitute ചെയ്ത value-ൽ നിന്ന് lower limit value കുറയ്ക്കണം.</div>
+  <div class="ml" lang="ml"><b>Malayalam Support:</b> Definite integral-ൽ +C വേണ്ട. Upper limit substitute ചെയ്ത value-ൽ നിന്ന് lower limit value കുറയ്ക്കണം.</div>
   <div class="grid"><div class="card"><h4>Limit reversal</h4><div class="formula">∫<sub>a</sub><sup>b</sup>f dx = -∫<sub>b</sub><sup>a</sup>f dx</div></div><div class="card"><h4>Same limits</h4><div class="formula">∫<sub>a</sub><sup>a</sup>f dx = 0</div></div><div class="card"><h4>Interval splitting</h4><div class="formula">∫<sub>a</sub><sup>c</sup>f dx = ∫<sub>a</sub><sup>b</sup>f dx + ∫<sub>b</sub><sup>c</sup>f dx</div></div><div class="card"><h4>Linearity</h4><p>Constants, sums and differences can be separated as in indefinite integration.</p></div></div>
   <div class="solution"><h4>Solved Example 19: Definite polynomial integral</h4><p>Evaluate ∫₀²(3x²+2x)dx.</p><div class="formula">[x³+x²]₀²=(8+4)-0=12</div><p class="line"><b>Answer:</b> 12.</p></div>
   <div class="solution"><h4>Solved Example 20: Definite integral by substitution</h4><p>Evaluate ∫₀¹ 2x(x²+1) dx.</p><p>u=x²+1. When x=0, u=1; when x=1, u=2.</p><div class="formula">∫₁²u du=[u²/2]₁²=(4-1)/2=3/2</div></div>
@@ -400,7 +400,7 @@ footer{text-align:center;color:var(--muted);padding:1rem .5rem 1.7rem}
   <p>If y=f(x) lies above the x-axis from x=a to x=b, the area is</p>
   <div class="formula">A = ∫<sub>a</sub><sup>b</sup> y dx = ∫<sub>a</sub><sup>b</sup> f(x)dx</div>
   <p>If the region is described more easily by x=g(y), use A=∫x dy. Area is positive, so split the interval if the curve crosses an axis.</p>
-  <div class="ml"><b>Malayalam Support:</b> Curve-നും axis-നും ഇടയിലെ area കണ്ടെത്താൻ graph നോക്കി limits ശരിയായി എഴുതണം. Curve axis-ന്റെ താഴെയാണെങ്കിൽ integral negative ആകാം; geometric area positive ആയി എടുക്കണം.</div>
+  <div class="ml" lang="ml"><b>Malayalam Support:</b> Curve-നും axis-നും ഇടയിലെ area കണ്ടെത്താൻ graph നോക്കി limits ശരിയായി എഴുതണം. Curve axis-ന്റെ താഴെയാണെങ്കിൽ integral negative ആകാം; geometric area positive ആയി എടുക്കണം.</div>
   <figure class="graph"><svg viewBox="0 0 950 450" role="img" aria-label="Area under y equals x squared from zero to two">
     <defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6946ad" stop-opacity=".55"/><stop offset="1" stop-color="#6946ad" stop-opacity=".12"/></linearGradient></defs>
     <line x1="90" y1="385" x2="880" y2="385" stroke="#27384b" stroke-width="4"/><line x1="110" y1="420" x2="110" y2="40" stroke="#27384b" stroke-width="4"/>
@@ -429,7 +429,7 @@ footer{text-align:center;color:var(--muted);padding:1rem .5rem 1.7rem}
   <div class="formula">dy/dx + P(x)y = Q(x)</div>
   <div class="formula">Integrating factor (I.F.) = e<sup>∫P(x)dx</sup></div>
   <div class="formula">Solution: y·I.F. = ∫Q(x)·I.F. dx + C</div>
-  <div class="ml"><b>Malayalam Support:</b> Linear equation ആദ്യം dy/dx + Py = Q എന്ന standard form-ൽ എഴുതുക. ശേഷം I.F.=e^(∫Pdx) കണ്ടെത്തി formula ഉപയോഗിക്കുക.</div>
+  <div class="ml" lang="ml"><b>Malayalam Support:</b> Linear equation ആദ്യം dy/dx + Py = Q എന്ന standard form-ൽ എഴുതുക. ശേഷം I.F.=e^(∫Pdx) കണ്ടെത്തി formula ഉപയോഗിക്കുക.</div>
   <div class="solution"><h4>Solved Example 26: Linear equation</h4><p>Solve dy/dx+y=eˣ.</p><p>P=1, Q=eˣ. I.F.=e<sup>∫1dx</sup>=eˣ.</p><div class="formula">yeˣ=∫eˣ·eˣdx+C=∫e²ˣdx+C=e²ˣ/2+C</div><div class="formula">y=eˣ/2+Ce<sup>-x</sup></div></div>
   <div class="solution"><h4>Solved Example 27: Linear equation with variable coefficient</h4><p>Solve dy/dx+(1/x)y=x², x&gt;0.</p><p>I.F.=e<sup>∫(1/x)dx</sup>=e<sup>ln x</sup>=x.</p><div class="formula">xy=∫x·x²dx+C=x⁴/4+C</div><div class="formula">y=x³/4+C/x</div></div>
 

@@ -250,7 +250,7 @@
 
     function moduleHTML(m, index) {
       return `<article class="module" style="--moduleAccent:${m.accent}" data-module-text="${escapeHTML(JSON.stringify(m).toLowerCase())}">
-        <section class="module-header"><span class="pill">${escapeHTML(m.short)} • ${escapeHTML(m.hours)}</span><h2>${escapeHTML(m.title)}</h2><p>${escapeHTML(m.co)}</p><p class="mal">${escapeHTML(m.ml)}</p></section>
+        <section class="module-header"><span class="pill">${escapeHTML(m.short)} • ${escapeHTML(m.hours)}</span><h2>${escapeHTML(m.title)}</h2><p>${escapeHTML(m.co)}</p><p class="mal" lang="ml">${escapeHTML(m.ml)}</p></section>
         <div class="grid" style="margin-top:1rem"><div class="card col-6 diagram-card"><h3 class="diagram-title">Visual diagram</h3>${diagrams[moduleKey(index)] || diagrams.default}</div><div class="card col-6"><span class="badge">Learning outcomes</span>${ul(m.lessons.map(l => l.title))}</div></div>
         <div class="lesson-grid">${m.lessons.map((l, li) => lessonHTML(l, li)).join('')}</div>
         <div class="section-title"><div><h2>Solved Problems</h2><p>Exam-friendly method: Given Data → Formula Used → Substitution → Final Answer.</p></div></div><div class="problems">${m.problems.map((p,i)=>`<article class="problem"><h4>Problem ${i+1}</h4><div class="step">${escapeHTML(p[0])}</div><div class="step answer">${escapeHTML(p[1])}</div></article>`).join('')}</div>
@@ -261,7 +261,7 @@
 
     function lessonHTML(l, i) {
       return `<article class="lesson" data-lesson-text="${escapeHTML(JSON.stringify(l).toLowerCase())}"><div class="lesson-head"><h3>${escapeHTML(l.title)}</h3><span class="lesson-no">Lesson ${i+1}</span></div>
-        <div class="bilingual"><div class="lang-box"><h4>ENGLISH</h4><p>${escapeHTML(l.en)}</p></div><div class="lang-box"><h4>MALAYALAM HELPER</h4><p class="mal">${escapeHTML(l.ml)}</p></div></div>
+        <div class="bilingual"><div class="lang-box"><h4>ENGLISH</h4><p>${escapeHTML(l.en)}</p></div><div class="lang-box"><h4>MALAYALAM HELPER</h4><p class="mal" lang="ml">${escapeHTML(l.ml)}</p></div></div>
         <div class="chip-list">${l.formula.map(f=>`<span class="chip">${escapeHTML(f)}</span>`).join('')}</div>
         <div class="grid" style="margin-top:.9rem"><div class="card col-6" style="box-shadow:none"><span class="badge">Key points</span>${ul(l.points)}</div><div class="card col-6" style="box-shadow:none"><span class="badge">Application</span><p style="line-height:1.65;color:#334155">${escapeHTML(l.application)}</p></div></div>
         <div class="tip"><b>Study tip:</b> ${escapeHTML(l.tip)}</div>

@@ -96,7 +96,7 @@
   </table>
 </div>
 <p>This course builds a bridge between basic electronics and real-world electronic circuits. It covers both <strong>analog circuits</strong> (amplifiers, oscillators, op-amps) and <strong>digital circuits</strong> (logic gates, Boolean algebra, flip-flops, counters, DAC/ADC).</p>
-<div class="ml-hint">ഈ subject-ൽ analog circuits (amplifiers, oscillators, op-amps) ഉം digital circuits (logic gates, flip-flops, counters) ഉം ഒരുമിച്ചു പഠിക്കും. Electronics Engineering-ന്റെ core topic ആണ് ഇത്.</div>
+<div class="ml-hint" lang="ml">ഈ subject-ൽ analog circuits (amplifiers, oscillators, op-amps) ഉം digital circuits (logic gates, flip-flops, counters) ഉം ഒരുമിച്ചു പഠിക്കും. Electronics Engineering-ന്റെ core topic ആണ് ഇത്.</div>
 </div>
 </section>
 
@@ -282,7 +282,7 @@
   <div class="term">Amplifier</div>
   <p>A device that increases the strength (voltage, current, or power) of an electrical signal without changing its shape. It uses a small input signal to control a larger output signal drawn from a DC power supply.</p>
 </div>
-<div class="ml-hint">Amplifier = ചെറിയ signal-നെ വലുതാക്കുന്ന device. Input signal ചെറുത്, output signal വലുത്. Shape മാറില്ല, strength മാറും.</div>
+<div class="ml-hint" lang="ml">Amplifier = ചെറിയ signal-നെ വലുതാക്കുന്ന device. Input signal ചെറുത്, output signal വലുത്. Shape മാറില്ല, strength മാറും.</div>
 
 <div class="formula">
   <div class="formula-label">Voltage Gain</div>
@@ -295,7 +295,7 @@
 
 <h4>Need for Multistage Amplification</h4>
 <p>A single transistor amplifier stage provides limited gain. For high gain requirements (e.g., radio receivers, audio systems), multiple amplifier stages are connected in series. The overall gain of a multistage amplifier equals the product of individual stage gains.</p>
-<div class="ml-hint">ഒരൊറ്റ transistor ആവശ്യമായ gain തരില്ല. അതിനാൽ പല stages (multistage) ഉണ്ടാക്കുന്നു. Total gain = stage 1 gain × stage 2 gain × ...</div>
+<div class="ml-hint" lang="ml">ഒരൊറ്റ transistor ആവശ്യമായ gain തരില്ല. അതിനാൽ പല stages (multistage) ഉണ്ടാക്കുന്നു. Total gain = stage 1 gain × stage 2 gain × ...</div>
 
 <div class="formula">
   <div class="formula-label">Multistage Total Gain</div>
@@ -323,7 +323,7 @@
 
 <h4>RC Coupled Two-Stage Transistor Amplifier</h4>
 <p>The most commonly used coupling method. Capacitors are used to couple stages — they pass AC but block DC. Each stage is independently biased.</p>
-<div class="ml-hint">RC coupling-ൽ capacitor ഉപയോഗിക്കുന്നു. Capacitor AC current-നെ കടത്തിവിടും, DC-നെ block ചെയ്യും. ഇതുകൊണ്ട് ഒരു stage-ന്റെ DC bias next stage-ൽ effect ഉണ്ടാക്കില്ല.</div>
+<div class="ml-hint" lang="ml">RC coupling-ൽ capacitor ഉപയോഗിക്കുന്നു. Capacitor AC current-നെ കടത്തിവിടും, DC-നെ block ചെയ്യും. ഇതുകൊണ്ട് ഒരു stage-ന്റെ DC bias next stage-ൽ effect ഉണ്ടാക്കില്ല.</div>
 
 <div class="diagram-wrap">
   <figcaption>Two-Stage RC Coupled Transistor Amplifier — Block Diagram</figcaption>
@@ -411,7 +411,7 @@
   <tr><td>Heat Dissipation</td><td>High (always ON)</td><td>Moderate</td><td>Low</td></tr>
 </table>
 </div>
-<div class="ml-hint">Class A = full cycle amplify, efficiency കുറവ്. Class B = half cycle, efficiency കൂടുതൽ. Class C = less than half, efficiency ഏറ്റവും കൂടുതൽ. Distortion: A ഏറ്റവും കുറവ്, C ഏറ്റവും കൂടുതൽ.</div>
+<div class="ml-hint" lang="ml">Class A = full cycle amplify, efficiency കുറവ്. Class B = half cycle, efficiency കൂടുതൽ. Class C = less than half, efficiency ഏറ്റവും കൂടുതൽ. Distortion: A ഏറ്റവും കുറവ്, C ഏറ്റവും കൂടുതൽ.</div>
 
 <!-- 1.4 PUSH-PULL -->
 <h3>1.4 Push-Pull Amplifiers</h3>
@@ -425,7 +425,7 @@
   <li>Combined output is a full sine wave</li>
   <li>Efficiency ≈ 78.5%</li>
 </ul>
-<div class="ml-hint">Push-pull-ൽ NPN transistor positive half amplify ചെയ്യുന്നു, PNP transistor negative half ചെയ്യുന്നു. ഇവ ചേരുമ്പോൾ full sine wave കിട്ടുന്നു. Efficiency = 78.5%</div>
+<div class="ml-hint" lang="ml">Push-pull-ൽ NPN transistor positive half amplify ചെയ്യുന്നു, PNP transistor negative half ചെയ്യുന്നു. ഇവ ചേരുമ്പോൾ full sine wave കിട്ടുന്നു. Efficiency = 78.5%</div>
 
 <div class="diagram-wrap">
   <figcaption>Complementary Symmetry Class B Push-Pull Amplifier</figcaption>
@@ -485,7 +485,7 @@
   <li>Improves stability, bandwidth, reduces distortion</li>
   <li><strong>Used in:</strong> Amplifier circuits</li>
 </ul>
-<div class="ml-hint">Positive feedback = output-ന്റെ part input-ൽ add ആകുന്നു → gain കൂടും, oscillation ഉണ്ടാകും. Negative feedback = output-ന്റെ part input-നെ oppose ചെയ്യുന്നു → gain കുറഞ്ഞ് stability കൂടും.</div>
+<div class="ml-hint" lang="ml">Positive feedback = output-ന്റെ part input-ൽ add ആകുന്നു → gain കൂടും, oscillation ഉണ്ടാകും. Negative feedback = output-ന്റെ part input-നെ oppose ചെയ്യുന്നു → gain കുറഞ്ഞ് stability കൂടും.</div>
 
 <h4>Feedback Block Diagram</h4>
 <div class="diagram-wrap">
@@ -548,7 +548,7 @@
   <div class="term">Oscillator</div>
   <p>An electronic circuit that generates a continuous periodic waveform (AC output) without any external AC input signal. It converts DC power from the supply into AC output.</p>
 </div>
-<div class="ml-hint">Oscillator = ഒരു circuit ആണ്, ഇതിന് external AC input ഒന്നും വേണ്ട. DC supply കൊടുത്താൽ അത് AC output ഉണ്ടാക്കും. Radio waves generate ചെയ്യാനും clock signals ഉണ്ടാക്കാനും ഉപയോഗിക്കുന്നു.</div>
+<div class="ml-hint" lang="ml">Oscillator = ഒരു circuit ആണ്, ഇതിന് external AC input ഒന്നും വേണ്ട. DC supply കൊടുത്താൽ അത് AC output ഉണ്ടാക്കും. Radio waves generate ചെയ്യാനും clock signals ഉണ്ടാക്കാനും ഉപയോഗിക്കുന്നു.</div>
 
 <h4>Difference Between Amplifier and Oscillator</h4>
 <table>
@@ -581,7 +581,7 @@
     <li>Total phase shift around the loop must be 0° or 360° (equivalent) for positive feedback.</li>
   </ul>
 </div>
-<div class="ml-hint">Barkhausen criterion: oscillation ഉണ്ടാകണമെങ്കിൽ (1) loop gain = 1 ആയിരിക്കണം, (2) total phase shift = 0° or 360° ആകണം. ഇത് ഉള്ളതുകൊണ്ടാണ് oscillator-ൽ output തനിയെ ഉണ്ടാകുന്നത്.</div>
+<div class="ml-hint" lang="ml">Barkhausen criterion: oscillation ഉണ്ടാകണമെങ്കിൽ (1) loop gain = 1 ആയിരിക്കണം, (2) total phase shift = 0° or 360° ആകണം. ഇത് ഉള്ളതുകൊണ്ടാണ് oscillator-ൽ output തനിയെ ഉണ്ടാകുന്നത്.</div>
 
 <h4>Classification of Oscillators</h4>
 <div class="card">
@@ -619,7 +619,7 @@
   <li>Frequency of oscillation: <span class="chip">f = 1 / (2π√6 RC)</span></li>
   <li>Gain required: Av ≥ 29 (from analysis)</li>
 </ul>
-<div class="ml-hint">RC Phase shift oscillator: 3 RC sections + transistor amplifier. RC network 180° phase shift കൊടുക്കുന്നു. Transistor CE 180° കൊടുക്കുന്നു. Total = 360°. ഇത് Barkhausen condition satisfy ചെയ്യുന്നു.</div>
+<div class="ml-hint" lang="ml">RC Phase shift oscillator: 3 RC sections + transistor amplifier. RC network 180° phase shift കൊടുക്കുന്നു. Transistor CE 180° കൊടുക്കുന്നു. Total = 360°. ഇത് Barkhausen condition satisfy ചെയ്യുന്നു.</div>
 
 <div class="diagram-wrap">
   <figcaption>RC Phase Shift Oscillator — Circuit Diagram</figcaption>
@@ -689,7 +689,7 @@
   <li>Very low frequency drift with temperature</li>
   <li>Used in clocks, computers, communication equipment</li>
 </ul>
-<div class="ml-hint">Crystal oscillator = quartz crystal use ചെയ്യുന്ന oscillator. Frequency വളരെ stable ആണ്. Computer clock, mobile phone, GPS—ഇവയൊക്കെ crystal oscillator use ചെയ്യുന്നു.</div>
+<div class="ml-hint" lang="ml">Crystal oscillator = quartz crystal use ചെയ്യുന്ന oscillator. Frequency വളരെ stable ആണ്. Computer clock, mobile phone, GPS—ഇവയൊക്കെ crystal oscillator use ചെയ്യുന്നു.</div>
 
 <div class="diagram-wrap">
   <figcaption>Crystal Oscillator — Basic Circuit</figcaption>
@@ -752,7 +752,7 @@
   <li>When Q1 is ON → Q2 is OFF, and vice versa</li>
   <li>Frequency determined by RC time constants</li>
 </ul>
-<div class="ml-hint">Astable multivibrator-ന് stable state ഒന്നുമില്ല. ഇത് continuously Q1 ON/Q2 OFF → Q1 OFF/Q2 ON ആഗ് അങ്ങനെ switch ആയിക്കൊണ്ടിരിക്കും. Output = square wave.</div>
+<div class="ml-hint" lang="ml">Astable multivibrator-ന് stable state ഒന്നുമില്ല. ഇത് continuously Q1 ON/Q2 OFF → Q1 OFF/Q2 ON ആഗ് അങ്ങനെ switch ആയിക്കൊണ്ടിരിക്കും. Output = square wave.</div>
 
 <div class="diagram-wrap">
   <figcaption>Astable Multivibrator — Circuit Diagram</figcaption>
@@ -820,7 +820,7 @@
   <li>State 2: Q1 OFF, Q2 ON</li>
   <li>External trigger required to change state</li>
 </ul>
-<div class="ml-hint">Bistable multivibrator = 2 stable states ഉണ്ട്. ഒരു state-ൽ Q1 ON, Q2 OFF. Trigger signal കൊടുക്കുമ്പോൾ Q1 OFF, Q2 ON ആകും. ഇതാണ് flip-flop-ന്റെ അടിസ്ഥാനം.</div>
+<div class="ml-hint" lang="ml">Bistable multivibrator = 2 stable states ഉണ്ട്. ഒരു state-ൽ Q1 ON, Q2 OFF. Trigger signal കൊടുക്കുമ്പോൾ Q1 OFF, Q2 ON ആകും. ഇതാണ് flip-flop-ന്റെ അടിസ്ഥാനം.</div>
 
 <h4>Applications of Oscillators</h4>
 <ul>
@@ -879,7 +879,7 @@
   <div class="term">Operational Amplifier (Op-Amp)</div>
   <p>A high-gain differential amplifier IC used to perform mathematical operations (addition, subtraction, integration, differentiation) on analog signals. The most popular IC op-amp is the <strong>741</strong>.</p>
 </div>
-<div class="ml-hint">Op-amp = ഒരു IC chip ആണ്. ഇത് voltage amplify ചെയ്യും, add ചെയ്യും, subtract ചെയ്യും, integrate ചെയ്യും, differentiate ചെയ്യും. Most popular: IC 741.</div>
+<div class="ml-hint" lang="ml">Op-amp = ഒരു IC chip ആണ്. ഇത് voltage amplify ചെയ്യും, add ചെയ്യും, subtract ചെയ്യും, integrate ചെയ്യും, differentiate ചെയ്യും. Most popular: IC 741.</div>
 
 <h4>Op-Amp Symbol and Terminals</h4>
 <div class="diagram-wrap">
@@ -969,7 +969,7 @@
   <tr><td>Supply voltage range</td><td>Any</td><td>±5V to ±18V</td></tr>
 </table>
 </div>
-<div class="ml-hint">Ideal op-amp = gain, input impedance, bandwidth = infinity. Output impedance = 0. Practical (IC 741) = ഇവ finite values ആണ്. Exam-ൽ both compare ചെയ്യണം.</div>
+<div class="ml-hint" lang="ml">Ideal op-amp = gain, input impedance, bandwidth = infinity. Output impedance = 0. Practical (IC 741) = ഇവ finite values ആണ്. Exam-ൽ both compare ചെയ്യണം.</div>
 
 <h4>Key Parameter Definitions</h4>
 <div class="definition">
@@ -984,7 +984,7 @@
   <div class="term">Virtual Ground</div>
   <p>In an inverting op-amp circuit with negative feedback, the inverting input (V−) is approximately at 0V (ground potential) even though it is not physically connected to ground. This is because the very high gain forces V− ≈ V+ ≈ 0V.</p>
 </div>
-<div class="ml-hint">Virtual ground: inverting input (−) practically 0V ആണ്, physically ground-ൽ connect ആയിട്ടില്ലെങ്കിലും. ഇത് op-amp analysis-ൽ very useful ആണ് — current calculation easy ആകും.</div>
+<div class="ml-hint" lang="ml">Virtual ground: inverting input (−) practically 0V ആണ്, physically ground-ൽ connect ആയിട്ടില്ലെങ്കിലും. ഇത് op-amp analysis-ൽ very useful ആണ് — current calculation easy ആകും.</div>
 
 <!-- 2.3 INVERTING AMPLIFIER -->
 <h3>2.3 Inverting Amplifier</h3>
@@ -1042,7 +1042,7 @@
     </div>
   </div>
 </div>
-<div class="ml-hint">Inverting amplifier output = −(Rf/Rin) × Vin. Negative sign → output ഇൻ phase ആയിരിക്കില്ല (180° shifted). Rf കൂടുതൽ ആണെങ്കിൽ gain കൂടും.</div>
+<div class="ml-hint" lang="ml">Inverting amplifier output = −(Rf/Rin) × Vin. Negative sign → output ഇൻ phase ആയിരിക്കില്ല (180° shifted). Rf കൂടുതൽ ആണെങ്കിൽ gain കൂടും.</div>
 
 <!-- 2.4 NON-INVERTING AMPLIFIER -->
 <h3>2.4 Non-Inverting Amplifier</h3>
@@ -1192,7 +1192,7 @@
   </div>
 </div>
 <p>For a square wave input → integrator output is a <strong>triangular wave</strong>. For a sine wave input → output is cosine (phase shifted).</p>
-<div class="ml-hint">Integrator: capacitor feedback-ൽ. Square wave input → triangular wave output. Vout = −(1/RC)∫Vin dt. RC value time constant control ചെയ്യുന്നു.</div>
+<div class="ml-hint" lang="ml">Integrator: capacitor feedback-ൽ. Square wave input → triangular wave output. Vout = −(1/RC)∫Vin dt. RC value time constant control ചെയ്യുന്നു.</div>
 
 <!-- 2.7 DIFFERENTIATOR -->
 <h3>2.7 Differentiator</h3>
@@ -1240,7 +1240,7 @@
   </div>
 </div>
 <p>For a triangular wave input → differentiator output is a <strong>square wave</strong>. For a sine wave → output is cosine.</p>
-<div class="ml-hint">Differentiator: input-ൽ capacitor. Triangular wave → square wave output. Vout = −RC × dVin/dt. Input change rate ആണ് output determine ചെയ്യുന്നത്.</div>
+<div class="ml-hint" lang="ml">Differentiator: input-ൽ capacitor. Triangular wave → square wave output. Vout = −RC × dVin/dt. Input change rate ആണ് output determine ചെയ്യുന്നത്.</div>
 
 <!-- 2.8 COMPARATORS -->
 <h3>2.8 Comparators</h3>
@@ -1248,7 +1248,7 @@
   <div class="term">Comparator</div>
   <p>An op-amp circuit (usually open-loop) that compares two voltages and produces a binary output — either +Vsat or −Vsat — depending on which input is larger.</p>
 </div>
-<div class="ml-hint">Comparator: 2 voltages compare ചെയ്യുന്ന circuit. V+ > V− ആണെങ്കിൽ output = +Vsat. V+ &lt; V− ആണെങ്കിൽ output = −Vsat. Binary (two-state) output.</div>
+<div class="ml-hint" lang="ml">Comparator: 2 voltages compare ചെയ്യുന്ന circuit. V+ > V− ആണെങ്കിൽ output = +Vsat. V+ &lt; V− ആണെങ്കിൽ output = −Vsat. Binary (two-state) output.</div>
 
 <h4>Positive Voltage Level Detector</h4>
 <ul>
@@ -1274,7 +1274,7 @@
   <li>When Vin &lt; 0 → Vout = +Vsat</li>
   <li>Converts a sine wave to a square wave</li>
 </ul>
-<div class="ml-hint">Zero crossing detector: Input 0V cross ചെയ്യുമ്പോൾ output switch ആകും. Sine wave input → Square wave output. Vref = 0V.</div>
+<div class="ml-hint" lang="ml">Zero crossing detector: Input 0V cross ചെയ്യുമ്പോൾ output switch ആകും. Sine wave input → Square wave output. Vref = 0V.</div>
 
 <div class="diagram-wrap">
   <figcaption>Zero Crossing Detector — Circuit and Waveforms</figcaption>
@@ -1307,7 +1307,7 @@
 <!-- 2.9 PRECISION RECTIFIER -->
 <h3>2.9 Precision Rectifier (Half-Wave)</h3>
 <p>A normal diode has a forward voltage drop of ~0.6–0.7V. For small signals (below 0.7V), a regular diode rectifier fails. A precision rectifier uses an op-amp to eliminate this drop — it can rectify even millivolt signals.</p>
-<div class="ml-hint">Normal diode rectifier-ന് 0.7V forward voltage drop ഉണ്ട്. Small signals rectify ചെയ്യാൻ കഴിയില്ല. Precision rectifier-ൽ op-amp ഉപയോഗിക്കുന്നു — 0.7V drop ഇല്ലാതെ exact rectification ചെയ്യും.</div>
+<div class="ml-hint" lang="ml">Normal diode rectifier-ന് 0.7V forward voltage drop ഉണ്ട്. Small signals rectify ചെയ്യാൻ കഴിയില്ല. Precision rectifier-ൽ op-amp ഉപയോഗിക്കുന്നു — 0.7V drop ഇല്ലാതെ exact rectification ചെയ്യും.</div>
 <ul>
   <li>Diode D1 is in the feedback loop of op-amp</li>
   <li>During positive half: D1 conducts → output = input (no diode drop)</li>
@@ -1405,7 +1405,7 @@
   <div class="term">Number System</div>
   <p>A mathematical notation for representing numbers using a set of digits and a base (radix). Digital electronics uses binary (base-2) as its fundamental language because electronic circuits have two states: ON (1) and OFF (0).</p>
 </div>
-<div class="ml-hint">Digital circuits-ൽ 0 (OFF) ഉം 1 (ON) ഉം മാത്രമേ ഉള്ളൂ. അതിനാൽ binary (base 2) number system use ചെയ്യുന്നു. Decimal (base 10) = നമ്മൾ daily life-ൽ ഉപയോഗിക്കുന്നത്.</div>
+<div class="ml-hint" lang="ml">Digital circuits-ൽ 0 (OFF) ഉം 1 (ON) ഉം മാത്രമേ ഉള്ളൂ. അതിനാൽ binary (base 2) number system use ചെയ്യുന്നു. Decimal (base 10) = നമ്മൾ daily life-ൽ ഉപയോഗിക്കുന്നത്.</div>
 
 <table>
   <tr class="compare-header"><th>System</th><th>Base</th><th>Digits Used</th><th>Example</th></tr>
@@ -1489,7 +1489,7 @@
     <div class="solved-step" style="background:var(--formula-bg);border:1px solid var(--formula-border)">BCD of 29 = <strong style="color:#79c0ff">0010 1001</strong></div>
   </div>
 </div>
-<div class="ml-hint">BCD = ഓരോ decimal digit-ഉം separately 4-bit binary-ൽ represent ചെയ്യുന്നു. 29 = 2 (0010) 9 (1001) = 00101001 in BCD.</div>
+<div class="ml-hint" lang="ml">BCD = ഓരോ decimal digit-ഉം separately 4-bit binary-ൽ represent ചെയ്യുന്നു. 29 = 2 (0010) 9 (1001) = 00101001 in BCD.</div>
 
 <!-- 3.3 BINARY ARITHMETIC -->
 <h3>3.3 Binary Arithmetic</h3>
@@ -1578,7 +1578,7 @@
     <div class="solved-step" style="background:var(--formula-bg);border:1px solid var(--formula-border)">Result = <strong style="color:#79c0ff">0100 = (4)₁₀</strong> ✓ (10−6=4)</div>
   </div>
 </div>
-<div class="ml-hint">Two's complement subtraction: subtrahend-ന്റെ two's complement കണ്ടുപിടിക്കൂ, പിന്നെ add ചെയ്യൂ. Carry discard ചെയ്യൂ. Result = difference.</div>
+<div class="ml-hint" lang="ml">Two's complement subtraction: subtrahend-ന്റെ two's complement കണ്ടുപിടിക്കൂ, പിന്നെ add ചെയ്യൂ. Carry discard ചെയ്യൂ. Result = difference.</div>
 
 <!-- 3.5 LOGIC GATES -->
 <h3>3.5 Logic Gates</h3>
@@ -1730,7 +1730,7 @@
   </div>
 </div>
 </div>
-<div class="ml-hint">XOR gate: inputs different → output 1. Inputs same → output 0. Half adder-ൽ sum calculate ചെയ്യാൻ use ചെയ്യുന്നു. NAND and NOR = universal gates (ഇവ ഒന്ന് മതി, ബാക്കി gates build ചെയ്യാം).</div>
+<div class="ml-hint" lang="ml">XOR gate: inputs different → output 1. Inputs same → output 0. Half adder-ൽ sum calculate ചെയ്യാൻ use ചെയ്യുന്നു. NAND and NOR = universal gates (ഇവ ഒന്ന് മതി, ബാക്കി gates build ചെയ്യാം).</div>
 
 <!-- 3.6 BOOLEAN ALGEBRA -->
 <h3>3.6 Boolean Algebra</h3>
@@ -1758,7 +1758,7 @@
   <div class="formula"><span class="formula-block">(A + B)' = A' · B'</span></div>
   <p style="font-size:.85rem;color:var(--text2)">De Morgan's is used to: break a NAND/NOR expression, simplify complex Boolean expressions, convert between SOP and POS forms.</p>
 </div>
-<div class="ml-hint">De Morgan's: AND-ന്റെ complement = OR of complements. OR-ന്റെ complement = AND of complements. NAND ↔ OR with inverters. NOR ↔ AND with inverters.</div>
+<div class="ml-hint" lang="ml">De Morgan's: AND-ന്റെ complement = OR of complements. OR-ന്റെ complement = AND of complements. NAND ↔ OR with inverters. NOR ↔ AND with inverters.</div>
 
 <!-- 3.7 SOP and POS -->
 <h3>3.7 Standard Forms: SOP and POS</h3>
@@ -1785,7 +1785,7 @@
   <div class="term">K-Map (Karnaugh Map)</div>
   <p>A graphical tool to simplify Boolean expressions without using Boolean algebra. It arranges truth table values in a grid so adjacent cells differ by only one variable (Gray code order). Groups of 1s in the grid represent simplified product terms.</p>
 </div>
-<div class="ml-hint">K-Map = Boolean expression simplify ചെയ്യാനുള്ള chart method. Truth table values grid-ൽ arrange ചെയ്യുന്നു. Adjacent (neighbouring) cells 1-bit മാത്രം differ ചെയ്യും. 1s group ചെയ്ത് simplified expression കണ്ടുപിടിക്കാം.</div>
+<div class="ml-hint" lang="ml">K-Map = Boolean expression simplify ചെയ്യാനുള്ള chart method. Truth table values grid-ൽ arrange ചെയ്യുന്നു. Adjacent (neighbouring) cells 1-bit മാത്രം differ ചെയ്യും. 1s group ചെയ്ത് simplified expression കണ്ടുപിടിക്കാം.</div>
 
 <h4>2-Variable K-Map Layout</h4>
 <div class="card">
@@ -1841,7 +1841,7 @@
     <strong>⚠️ Note:</strong> BC columns follow Gray code order: 00 → 01 → 11 → 10 (NOT 00→01→10→11). This ensures adjacent cells differ by only one bit.
   </div>
 </div>
-<div class="ml-hint">3-variable K-Map: BC column order = 00, 01, 11, 10 (Gray code). ഇതിൽ adjacent cells ഒരൊറ്റ bit മാത്രം change ആകും. ഇതാണ് K-Map-ന്റെ key principle.</div>
+<div class="ml-hint" lang="ml">3-variable K-Map: BC column order = 00, 01, 11, 10 (Gray code). ഇതിൽ adjacent cells ഒരൊറ്റ bit മാത്രം change ആകും. ഇതാണ് K-Map-ന്റെ key principle.</div>
 
 <h4>Grouping Rules in K-Map</h4>
 <div class="card">
@@ -1983,7 +1983,7 @@
   <tr><td>Examples</td><td>Adder, MUX, Decoder</td><td>Flip-flop, Counter, Register</td></tr>
   <tr><td>Clock signal</td><td>Not required</td><td>Usually required</td></tr>
 </table>
-<div class="ml-hint">Combinational circuit: output = only present inputs-നെ depend ചെയ്യുന്നു. Sequential: output = inputs + memory (past state). Flip-flop = sequential circuit-ന്റെ basic building block.</div>
+<div class="ml-hint" lang="ml">Combinational circuit: output = only present inputs-നെ depend ചെയ്യുന്നു. Sequential: output = inputs + memory (past state). Flip-flop = sequential circuit-ന്റെ basic building block.</div>
 
 <!-- 4.2 HALF ADDER -->
 <h3>4.2 Half Adder</h3>
@@ -2111,7 +2111,7 @@
     <text x="356" y="76" text-anchor="middle" fill="#d2a8ff" font-size="9">OR</text>
   </svg>
 </div>
-<div class="ml-hint">Full adder = 2 half adders + 1 OR gate. 3 inputs (A, B, Cin) → Sum + Carry. Multi-bit adder = multiple full adders cascade ചെയ്യുന്നു.</div>
+<div class="ml-hint" lang="ml">Full adder = 2 half adders + 1 OR gate. 3 inputs (A, B, Cin) → Sum + Carry. Multi-bit adder = multiple full adders cascade ചെയ്യുന്നു.</div>
 
 <!-- 4.5 MUX / DEMUX -->
 <h3>4.5 Multiplexer (4×1) and Demultiplexer (1×4)</h3>
@@ -2123,7 +2123,7 @@
   <div class="term">Demultiplexer (DEMUX)</div>
   <p>Opposite of MUX. Routes a single input data line to one of many output lines, based on select signals. Acts like a one-to-many switch.</p>
 </div>
-<div class="ml-hint">MUX = many inputs → 1 output (select ഏത് input output-ആക്കണം). DEMUX = 1 input → many outputs (select ഏത് output-ൽ data വേണം). TV remote channel select പോലെ ആണ് MUX.</div>
+<div class="ml-hint" lang="ml">MUX = many inputs → 1 output (select ഏത് input output-ആക്കണം). DEMUX = 1 input → many outputs (select ഏത് output-ൽ data വേണം). TV remote channel select പോലെ ആണ് MUX.</div>
 
 <div class="card">
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
@@ -2245,7 +2245,7 @@
   </div>
 </div>
 </div>
-<div class="ml-hint">JK flip-flop: SR-ന്റെ improved version. J=K=1 ആകുമ്പോൾ output toggle (complement) ആകുന്നു. Forbidden state ഇല്ല. Counters-ൽ most used flip-flop.</div>
+<div class="ml-hint" lang="ml">JK flip-flop: SR-ന്റെ improved version. J=K=1 ആകുമ്പോൾ output toggle (complement) ആകുന്നു. Forbidden state ഇല്ല. Counters-ൽ most used flip-flop.</div>
 
 <h4>T Flip-Flop</h4>
 <div class="card">
@@ -2297,7 +2297,7 @@
   <tr><td><strong>PIPO</strong></td><td>Parallel In Parallel Out</td><td>Parallel</td><td>Parallel</td></tr>
   <tr><td><strong>PISO</strong></td><td>Parallel In Serial Out</td><td>Parallel</td><td>Serial</td></tr>
 </table>
-<div class="ml-hint">Serial = ഒരൊ bit-ഉം clock-ൽ കൊടുക്കുന്നു/കിട്ടുന്നു. Parallel = ഒരേ സമയം all bits. SIPO = data ഒരൊ bit ആയി enter ആകും, ഒരേ time-ൽ all bits read ചെയ്യാം.</div>
+<div class="ml-hint" lang="ml">Serial = ഒരൊ bit-ഉം clock-ൽ കൊടുക്കുന്നു/കിട്ടുന്നു. Parallel = ഒരേ സമയം all bits. SIPO = data ഒരൊ bit ആയി enter ആകും, ഒരേ time-ൽ all bits read ചെയ്യാം.</div>
 
 <h4>4-bit SISO Shift Register (Negative Edge Triggered D Flip-Flops)</h4>
 <div class="diagram-wrap">
@@ -2375,7 +2375,7 @@
   <tr><td>Complexity</td><td>Simple</td><td>More complex</td></tr>
   <tr><td>Glitch</td><td>More prone to glitches</td><td>Less prone</td></tr>
 </table>
-<div class="ml-hint">Asynchronous = ripple counter. ഓരോ FF-ഉം previous FF-ന്റെ output-ൽ നിന്ന് clock ഉണ്ടാകുന്നു. Synchronous = common clock. Faster, more complex.</div>
+<div class="ml-hint" lang="ml">Asynchronous = ripple counter. ഓരോ FF-ഉം previous FF-ന്റെ output-ൽ നിന്ന് clock ഉണ്ടാകുന്നു. Synchronous = common clock. Faster, more complex.</div>
 
 <h4>MOD-8 Ripple Up Counter (3-bit, using negative edge JK FF)</h4>
 <p>Uses 3 negative-edge-triggered JK flip-flops with J=K=1 (toggle mode). Counts from 000 to 111 (0 to 7), then resets to 000. Total states = 2³ = 8 = MOD-8.</p>
@@ -2444,7 +2444,7 @@
 <div class="highlight">
   <strong>Reset condition for MOD-6:</strong> When QB=1 AND QC=1 (count=6=110), NAND gate resets all FFs to 000. Count cycles 0→1→2→3→4→5→0.
 </div>
-<div class="ml-hint">MOD-N counter: N states ഉണ്ടാകും. MOD-7 → 0 to 6. MOD-6 → 0 to 5. Extra states skip ചെയ്യാൻ NAND gate feedback reset use ചെയ്യുന്നു.</div>
+<div class="ml-hint" lang="ml">MOD-N counter: N states ഉണ്ടാകും. MOD-7 → 0 to 6. MOD-6 → 0 to 5. Extra states skip ചെയ്യാൻ NAND gate feedback reset use ചെയ്യുന്നു.</div>
 
 <!-- 4.9 DAC -->
 <h3>4.9 Data Conversion Circuits</h3>
@@ -2553,7 +2553,7 @@
   </svg>
 </div>
 <p><strong>Advantage:</strong> Only two resistor values (R and 2R) used for any number of bits — easier to fabricate in IC form with high precision.</p>
-<div class="ml-hint">R-2R ladder DAC: R ഉം 2R ഉം മാത്രം use ചെയ്യുന്നു. Binary weighted DAC-ൽ R, 2R, 4R, 8R... ഉണ്ടായിരുന്നു. R-2R-ൽ precision better, manufacturing easy.</div>
+<div class="ml-hint" lang="ml">R-2R ladder DAC: R ഉം 2R ഉം മാത്രം use ചെയ്യുന്നു. Binary weighted DAC-ൽ R, 2R, 4R, 8R... ഉണ്ടായിരുന്നു. R-2R-ൽ precision better, manufacturing easy.</div>
 
 <h4>Ramp Type ADC</h4>
 <p>Converts analog input to digital output using a ramp (staircase) voltage and comparator. Also called staircase ADC or counter-type ADC.</p>
@@ -2604,7 +2604,7 @@
     <text x="512" y="155" text-anchor="middle" fill="#56d364" font-size="10">STOP signal</text>
   </svg>
 </div>
-<div class="ml-hint">Ramp ADC: Counter-ൽ നിന്ന് binary → DAC → ramp voltage. Ramp = Vin ആകുമ്പോൾ comparator counter-നെ stop ചെയ്യുന്നു. Counter value = digital output. Simple but slow.</div>
+<div class="ml-hint" lang="ml">Ramp ADC: Counter-ൽ നിന്ന് binary → DAC → ramp voltage. Ramp = Vin ആകുമ്പോൾ comparator counter-നെ stop ചെയ്യുന്നു. Counter value = digital output. Simple but slow.</div>
 
 <!-- MODULE 4 QUICK CHECK -->
 <h3>Module 4 — Quick Check Questions</h3>
@@ -2856,7 +2856,7 @@
 
 <h3>Purpose of K-Map</h3>
 <p>K-Map (Karnaugh Map) provides a systematic, visual method to minimise Boolean expressions. It avoids lengthy algebraic manipulation. The map uses Gray code ordering to ensure adjacent cells differ by exactly one variable — allowing easy identification of groupings that simplify the expression.</p>
-<div class="ml-hint">K-Map: Boolean expression ഒരു chart-ൽ write ചെയ്ത് visually simplify ചെയ്യുന്ന method. Adjacent cells 1 bit differ → group ചെയ്ത് simplify ചെയ്യാം. Algebra use ചെയ്യേണ്ട.</div>
+<div class="ml-hint" lang="ml">K-Map: Boolean expression ഒരു chart-ൽ write ചെയ്ത് visually simplify ചെയ്യുന്ന method. Adjacent cells 1 bit differ → group ചെയ്ത് simplify ചെയ്യാം. Algebra use ചെയ്യേണ്ട.</div>
 
 <h3>Step-by-Step SOP Simplification Using K-Map</h3>
 <div class="card">

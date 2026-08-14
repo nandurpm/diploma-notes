@@ -46,14 +46,14 @@ int main(void)
     }
     return 0;
 }</code></pre></div>
-<div class="ml">Array size കടക്കുന്നത് undefined behaviour ആണ്. Valid index range <span class="inline-code">0</span> മുതൽ <span class="inline-code">size - 1</span> വരെ മാത്രം.</div>
+<div class="ml" lang="ml">Array size കടക്കുന്നത് undefined behaviour ആണ്. Valid index range <span class="inline-code">0</span> മുതൽ <span class="inline-code">size - 1</span> വരെ മാത്രം.</div>
 </article>
 <article class="card unit">
 <span class="code-id">M2.03</span><span class="hour">1 hour</span>
 <h3>Divide and conquer</h3>
 <p>Divide and conquer splits a problem into smaller subproblems, solves them and combines the results. Binary search and quicksort are important syllabus examples.</p>
 <div class="steps"><div class="step">Divide the input.</div><div class="step">Conquer smaller parts recursively or iteratively.</div><div class="step">Combine or interpret the results.</div></div>
-<div class="ml">വലിയ problem ചെറിയ parts ആയി വിഭജിച്ച് solve ചെയ്യുന്നതാണ് divide and conquer. Binary search sorted array-നെ പകുതികളാക്കുന്നു.</div>
+<div class="ml" lang="ml">വലിയ problem ചെറിയ parts ആയി വിഭജിച്ച് solve ചെയ്യുന്നതാണ് divide and conquer. Binary search sorted array-നെ പകുതികളാക്കുന്നു.</div>
 </article>
 <article class="card unit">
 <span class="code-id">M2.04</span><span class="hour">2 hours</span>
@@ -81,7 +81,7 @@ int main(void)
     }
     return -1;
 }</code></pre></div>
-<div class="ml">Binary search ഉപയോഗിക്കുന്നതിന് മുമ്പ് array sorted ആണെന്ന് ഉറപ്പാക്കണം. Found അല്ലെങ്കിൽ index; not found ആണെങ്കിൽ <span class="inline-code">-1</span> return ചെയ്യാം.</div>
+<div class="ml" lang="ml">Binary search ഉപയോഗിക്കുന്നതിന് മുമ്പ് array sorted ആണെന്ന് ഉറപ്പാക്കണം. Found അല്ലെങ്കിൽ index; not found ആണെങ്കിൽ <span class="inline-code">-1</span> return ചെയ്യാം.</div>
 </article>
 <article class="card unit wide">
 <span class="code-id">M2.04</span><span class="hour">Included</span>
@@ -142,7 +142,7 @@ void quicksort(int a[], int low, int high)
 }</code></pre></div>
 </div>
 </div>
-<div class="ml">Selection sort മനസ്സിലാക്കാൻ എളുപ്പമാണ്, പക്ഷേ large data-ക്ക് slow. Quicksort divide-and-conquer ഉപയോഗിക്കുന്നു; pivot partition ശരിയായി trace ചെയ്യുക.</div>
+<div class="ml" lang="ml">Selection sort മനസ്സിലാക്കാൻ എളുപ്പമാണ്, പക്ഷേ large data-ക്ക് slow. Quicksort divide-and-conquer ഉപയോഗിക്കുന്നു; pivot partition ശരിയായി trace ചെയ്യുക.</div>
 </article>
 <article class="card unit wide">
 <span class="code-id">M2.05–M2.06</span><span class="hour">4 hours</span>
@@ -183,7 +183,7 @@ int main(void)
     return 0;
 }</code></pre></div>
 <div class="call mist"><b>Do not use <span class="inline-code">gets()</span>:</b> it cannot limit input length. Prefer <span class="inline-code">fgets()</span> and remove the trailing newline when needed.</div>
-<div class="ml">String അവസാനിക്കുന്നതായി compiler അറിയുന്നത് null character <span class="inline-code">'\0'</span> കൊണ്ടാണ്. Character array size-ൽ terminator-നുള്ള സ്ഥലം വേണം.</div>
+<div class="ml" lang="ml">String അവസാനിക്കുന്നതായി compiler അറിയുന്നത് null character <span class="inline-code">'\0'</span> കൊണ്ടാണ്. Character array size-ൽ terminator-നുള്ള സ്ഥലം വേണം.</div>
 </article>
 <article class="card unit wide">
 <span class="code-id">M2.07</span><span class="hour">2 hours</span>
@@ -198,7 +198,7 @@ int main(void)
     }
     return size &gt; 0 ? (double)sum / size : 0.0;
 }</code></pre></div>
-<div class="ml">Function array മാറ്റേണ്ടതില്ലെങ്കിൽ parameter-ൽ <span class="inline-code">const</span> ഉപയോഗിക്കുക. Array size വേറെ argument ആയി pass ചെയ്യണം.</div>
+<div class="ml" lang="ml">Function array മാറ്റേണ്ടതില്ലെങ്കിൽ parameter-ൽ <span class="inline-code">const</span> ഉപയോഗിക്കുക. Array size വേറെ argument ആയി pass ചെയ്യണം.</div>
 </article>
 </div>
 <div class="call exam"><b>Series Test I focus:</b> array initialization and traversal, matrix programs, linear/binary search, selection sort, quicksort, string representation and operations, and passing arrays to functions.</div>

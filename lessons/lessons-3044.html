@@ -301,7 +301,7 @@ footer{text-align:center;color:var(--muted);padding:1.4rem .5rem 2.2rem}
  <div class="card"><h3>Place-value chart</h3><div class="table-wrap"><table class="compact"><thead><tr><th>Position</th><th>...</th><th>3</th><th>2</th><th>1</th><th>0</th><th>-1</th><th>-2</th></tr></thead><tbody><tr><td>Weight in base r</td><td>...</td><td>r³</td><td>r²</td><td>r¹</td><td>r⁰</td><td>r⁻¹</td><td>r⁻²</td></tr></tbody></table></div></div>
  <div class="card"><h3>Hexadecimal digit table</h3><div class="table-wrap"><table class="compact"><thead><tr><th>Hex</th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead><tbody><tr><td>Decimal</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td></tr><tr><td>Binary</td><td>1010</td><td>1011</td><td>1100</td><td>1101</td><td>1110</td><td>1111</td></tr></tbody></table></div></div>
 </div>
-<div class="callout remember"><b>Malayalam Support</b><div>Radix എന്നത് base ആണ്. Binary-ൽ ഓരോ position-നും 2ന്റെ power; hexadecimal-ൽ 16ന്റെ power ഉപയോഗിക്കുന്നു.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">Radix എന്നത് base ആണ്. Binary-ൽ ഓരോ position-നും 2ന്റെ power; hexadecimal-ൽ 16ന്റെ power ഉപയോഗിക്കുന്നു.</span></div></div>
 
 <h3>2. Conversion methods</h3>
 <div class="grid">
@@ -328,7 +328,7 @@ footer{text-align:center;color:var(--muted);padding:1.4rem .5rem 2.2rem}
  <div class="card"><h3>Example: 8-bit two’s complement of 14</h3><div class="steps"><div class="step">14 = 00001110</div><div class="step">Invert bits → 11110001</div><div class="step">Add 1 → 11110010</div></div></div>
  <div class="card"><h3>Subtraction: 46 − 14</h3><div class="codebox">46 = 00101110<br>14 = 00001110<br>2’s comp(14) = 11110010<br><br>  00101110<br>+ 11110010<br>-----------<br>1 00100000</div><p>Discard the end carry. Result = 00100000₂ = 32₁₀.</p></div>
 </div>
-<div class="callout remember"><b>Malayalam Support</b><div>Two’s complement subtraction-ൽ subtract ചെയ്യേണ്ട number-ന്റെ bits invert ചെയ്ത് 1 കൂട്ടുക. ശേഷം minuend-നോട് add ചെയ്യുക. End carry ഉണ്ടെങ്കിൽ അത് discard ചെയ്യണം.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">Two’s complement subtraction-ൽ subtract ചെയ്യേണ്ട number-ന്റെ bits invert ചെയ്ത് 1 കൂട്ടുക. ശേഷം minuend-നോട് add ചെയ്യുക. End carry ഉണ്ടെങ്കിൽ അത് discard ചെയ്യണം.</span></div></div>
 <div class="callout mistake"><b>Common mistake</b><div>Use the required bit width before complementing. Do not complement an unpadded number.</div></div>
 
 <h3>5. Logic levels and gates</h3>
@@ -354,7 +354,7 @@ footer{text-align:center;color:var(--muted);padding:1.4rem .5rem 2.2rem}
 <h3>6. Universal gates</h3>
 <p>A universal gate can implement any Boolean function. NAND and NOR are universal because NOT, AND and OR can be created using only one gate type.</p>
 <div class="table-wrap"><table class=""><thead><tr><th>Function using NAND</th><th>Connection</th><th>Result</th></tr></thead><tbody><tr><td>NOT</td><td>Join both NAND inputs to A</td><td>A NAND A = A̅</td></tr><tr><td>AND</td><td>NAND A,B, then invert output with NAND</td><td>[(AB)̅]̅ = AB</td></tr><tr><td>OR</td><td>Invert A and B using NAND, then NAND the results</td><td>(A̅B̅)̅ = A+B</td></tr><tr><td>XOR</td><td>Four-NAND standard network</td><td>A⊕B</td></tr></tbody></table></div>
-<div class="callout remember"><b>Malayalam Support</b><div>Universal gate എന്നത് മറ്റെല്ലാ basic gates-ഉം നിർമ്മിക്കാൻ കഴിയുന്ന gate ആണ്. NAND മാത്രം ഉപയോഗിച്ചും NOR മാത്രം ഉപയോഗിച്ചും മുഴുവൻ digital circuit നിർമ്മിക്കാം.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">Universal gate എന്നത് മറ്റെല്ലാ basic gates-ഉം നിർമ്മിക്കാൻ കഴിയുന്ന gate ആണ്. NAND മാത്രം ഉപയോഗിച്ചും NOR മാത്രം ഉപയോഗിച്ചും മുഴുവൻ digital circuit നിർമ്മിക്കാം.</span></div></div>
 
 <h3>7. Boolean algebra</h3>
 <div class="table-wrap"><table class=""><thead><tr><th>Law</th><th>Expression</th></tr></thead><tbody><tr><td>Identity</td><td>A+0=A; A·1=A</td></tr><tr><td>Null</td><td>A+1=1; A·0=0</td></tr><tr><td>Idempotent</td><td>A+A=A; A·A=A</td></tr><tr><td>Complement</td><td>A+A̅=1; A·A̅=0</td></tr><tr><td>Involution</td><td>(A̅)̅=A</td></tr><tr><td>Commutative</td><td>A+B=B+A; AB=BA</td></tr><tr><td>Associative</td><td>A+(B+C)=(A+B)+C; A(BC)=(AB)C</td></tr><tr><td>Distributive</td><td>A(B+C)=AB+AC; A+BC=(A+B)(A+C)</td></tr><tr><td>Absorption</td><td>A+AB=A; A(A+B)=A</td></tr><tr><td>De Morgan 1</td><td>(A+B)̅=A̅B̅</td></tr><tr><td>De Morgan 2</td><td>(AB)̅=A̅+B̅</td></tr></tbody></table></div>
@@ -406,13 +406,13 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 
 <section class="section module" id="module2">
 <div class="section-head"><span class="eyebrow">Module 2 • M2.02 / M2.04</span><h2>Logic Families and Combinational Logic Circuits</h2><p>This reconstructed chapter covers the logic-family parameters and combinational design problems evidenced in the official model paper.</p></div>
-<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Compare TTL, CMOS and ECL.</li><li>Explain fan-out, delay and power dissipation.</li><li>Design adders, multiplexers and demultiplexers.</li><li>Derive a four-bit binary-to-Gray converter.</li></ul></div><div class="card cyan"><h3>Combinational principle</h3><p>Output depends only on present inputs. There is no stored state and normally no clock.</p><div class="ml">Combinational circuit-ന്റെ output ഇപ്പോഴുള്ള input-നെ മാത്രം ആശ്രയിക്കുന്നു; previous state ഓർക്കില്ല.</div></div></div>
+<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Compare TTL, CMOS and ECL.</li><li>Explain fan-out, delay and power dissipation.</li><li>Design adders, multiplexers and demultiplexers.</li><li>Derive a four-bit binary-to-Gray converter.</li></ul></div><div class="card cyan"><h3>Combinational principle</h3><p>Output depends only on present inputs. There is no stored state and normally no clock.</p><div class="ml" lang="ml">Combinational circuit-ന്റെ output ഇപ്പോഴുള്ള input-നെ മാത്രം ആശ്രയിക്കുന്നു; previous state ഓർക്കില്ല.</div></div></div>
 
 <h3>1. Logic families and parameters</h3>
 <p>A logic family is a group of compatible digital ICs built using a common circuit technology and logic-level convention.</p>
 <div class="table-wrap"><table class=""><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody><tr><td>Fan-in</td><td>Maximum number of inputs a gate is designed to accept</td></tr><tr><td>Fan-out</td><td>Number of standard gate inputs one output can drive reliably</td></tr><tr><td>Propagation delay</td><td>Time between input transition and corresponding output transition</td></tr><tr><td>Power dissipation</td><td>Average power consumed by a gate</td></tr><tr><td>Noise margin</td><td>Maximum unwanted noise voltage tolerated without logic error</td></tr><tr><td>Speed-power product</td><td>Propagation delay × power dissipation; lower is generally better</td></tr></tbody></table></div>
 <div class="table-wrap"><table class=""><thead><tr><th>Feature</th><th>TTL</th><th>CMOS</th><th>ECL</th></tr></thead><tbody><tr><td>Device technology</td><td>Bipolar transistor</td><td>MOSFET</td><td>Bipolar differential switching</td></tr><tr><td>Power dissipation</td><td>Moderate</td><td>Very low in static condition</td><td>High</td></tr><tr><td>Speed</td><td>Moderate / fast</td><td>Modern CMOS can be very fast</td><td>Traditionally fastest</td></tr><tr><td>Noise immunity</td><td>Moderate</td><td>High</td><td>Moderate</td></tr><tr><td>Input impedance</td><td>Moderate</td><td>Very high</td><td>Lower than CMOS</td></tr><tr><td>Model-paper emphasis</td><td>General comparison</td><td>Least power dissipation; CMOS features</td><td>Fastest family; ECL features</td></tr></tbody></table></div>
-<div class="callout remember"><b>Malayalam Support</b><div>Propagation delay എന്നത് input change ചെയ്തതിനു ശേഷം output change കാണാൻ എടുക്കുന്ന ചെറിയ സമയമാണ്. Fan-out ഒരു output എത്ര gate inputs drive ചെയ്യാമെന്ന് പറയുന്നു.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">Propagation delay എന്നത് input change ചെയ്തതിനു ശേഷം output change കാണാൻ എടുക്കുന്ന ചെറിയ സമയമാണ്. Fan-out ഒരു output എത്ര gate inputs drive ചെയ്യാമെന്ന് പറയുന്നു.</span></div></div>
 
 <h3>2. Combinational vs sequential circuits</h3>
 <div class="table-wrap"><table class=""><thead><tr><th>Feature</th><th>Combinational</th><th>Sequential</th></tr></thead><tbody><tr><td>Output depends on</td><td>Present inputs only</td><td>Present inputs and previous state</td></tr><tr><td>Memory</td><td>No</td><td>Yes</td></tr><tr><td>Clock</td><td>Normally not required</td><td>Usually required</td></tr><tr><td>Examples</td><td>Adder, MUX, DEMUX, converter</td><td>Flip-flop, register, counter</td></tr></tbody></table></div>
@@ -439,7 +439,7 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 <div class="table-wrap"><table class="compact"><thead><tr><th>S1</th><th>S0</th><th>Selected input</th></tr></thead><tbody><tr><td>0</td><td>0</td><td>I0</td></tr><tr><td>0</td><td>1</td><td>I1</td></tr><tr><td>1</td><td>0</td><td>I2</td></tr><tr><td>1</td><td>1</td><td>I3</td></tr></tbody></table></div>
 <div class="demo"><h3>Interactive 4:1 MUX</h3><p>Set input bits and select lines. The selected input appears at Y.</p>
 <div class="bitrow" id="muxInputs"></div><div class="demo-controls"><button id="muxS0">Toggle S0</button><button id="muxS1">Toggle S1</button></div><p><b>S1S0:</b> <span id="muxSel">00</span> &nbsp; <b>Y:</b> <span id="muxOut">0</span></p></div>
-<div class="callout remember"><b>Malayalam Support</b><div>Multiplexer പല input lines-ൽ നിന്ന് select lines ഉപയോഗിച്ച് ഒരു input മാത്രം output-ലേക്ക് തിരഞ്ഞെടുക്കുന്ന data selector ആണ്.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">Multiplexer പല input lines-ൽ നിന്ന് select lines ഉപയോഗിച്ച് ഒരു input മാത്രം output-ലേക്ക് തിരഞ്ഞെടുക്കുന്ന data selector ആണ്.</span></div></div>
 
 <h3>6. Demultiplexers</h3>
 <p>A demultiplexer is a data distributor. One input is routed to one of several outputs according to select lines.</p>
@@ -471,7 +471,7 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 
 <section class="section module" id="module3">
 <div class="section-head"><span class="eyebrow">Module 3 • M3.01 / M3.02 / M3.03 / M3.04</span><h2>Flip-Flops, Shift Registers, Ring and Johnson Counters</h2><p>This reconstructed chapter develops the sequential-logic topics repeatedly tested in the official model paper.</p></div>
-<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Distinguish combinational and sequential logic.</li><li>Use SR, JK, D and T flip-flops.</li><li>Convert JK to T and JK to D.</li><li>Trace register, ring and Johnson sequences.</li></ul></div><div class="card cyan"><h3>Sequential principle</h3><p>Output depends on present input and stored state. A clock coordinates state changes.</p><div class="ml">Sequential circuit previous state ഓർക്കുന്നു. Clock edge വന്നപ്പോൾ state update ചെയ്യും.</div></div></div>
+<div class="grid"><div class="card blue"><h3>Learning targets</h3><ul><li>Distinguish combinational and sequential logic.</li><li>Use SR, JK, D and T flip-flops.</li><li>Convert JK to T and JK to D.</li><li>Trace register, ring and Johnson sequences.</li></ul></div><div class="card cyan"><h3>Sequential principle</h3><p>Output depends on present input and stored state. A clock coordinates state changes.</p><div class="ml" lang="ml">Sequential circuit previous state ഓർക്കുന്നു. Clock edge വന്നപ്പോൾ state update ചെയ്യും.</div></div></div>
 
 <h3>1. Clock and state concepts</h3>
 <p>A clock is a periodic digital waveform. Edge-triggered flip-flops respond at a rising edge or falling edge. Present state is the current stored output; next state is the value after the active clock edge.</p>
@@ -488,7 +488,7 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 
 <h3>3. SR flip-flop using NAND gates</h3>
 <p>A cross-coupled NAND latch normally uses active-low inputs S̅ and R̅. Both inputs high hold the state; pulling S̅ low sets Q; pulling R̅ low resets Q. Both low is invalid.</p>
-<div class="callout remember"><b>Malayalam Support</b><div>NAND SR latch-ൽ inputs active-low ആണ്. S̅=0 set, R̅=0 reset. രണ്ടും 0 ആക്കരുത്.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">NAND SR latch-ൽ inputs active-low ആണ്. S̅=0 set, R̅=0 reset. രണ്ടും 0 ആക്കരുത്.</span></div></div>
 
 <h3>4. Flip-flop conversion</h3>
 <p>Conversion means forcing an available flip-flop to behave like a desired flip-flop. Use the desired next state and the available flip-flop excitation table, then simplify input equations.</p>
@@ -496,7 +496,7 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 <div class="card"><h3>JK → T</h3><p>For T=0, hold. For T=1, toggle. A JK flip-flop already toggles for J=K=1.</p><div class="formula">J = T, K = T</div></div>
 <div class="card"><h3>JK → D</h3><p>To make Q(n+1)=D:</p><div class="formula">J = D, K = D̅</div></div>
 </div>
-<div class="callout remember"><b>Malayalam Support</b><div>Flip-flop conversion-ൽ desired flip-flop-ന്റെ next state ആദ്യം എഴുതുക. Available flip-flop ആ state ഉണ്ടാക്കാൻ J,K പോലുള്ള inputs എന്താകണം എന്ന് excitation table ഉപയോഗിച്ച് കണ്ടെത്തുക.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">Flip-flop conversion-ൽ desired flip-flop-ന്റെ next state ആദ്യം എഴുതുക. Available flip-flop ആ state ഉണ്ടാക്കാൻ J,K പോലുള്ള inputs എന്താകണം എന്ന് excitation table ഉപയോഗിച്ച് കണ്ടെത്തുക.</span></div></div>
 
 <h3>5. Shift registers</h3>
 <p>A shift register is a chain of flip-flops that stores and moves binary data one position per clock pulse.</p>
@@ -505,7 +505,7 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 
 <div class="table-wrap"><table class=""><thead><tr><th>Type</th><th>Input</th><th>Output</th><th>Use</th></tr></thead><tbody><tr><td>SISO</td><td>Serial</td><td>Serial</td><td>Delay line</td></tr><tr><td>SIPO</td><td>Serial</td><td>Parallel</td><td>Serial-to-parallel conversion</td></tr><tr><td>PISO</td><td>Parallel</td><td>Serial</td><td>Parallel-to-serial conversion</td></tr><tr><td>PIPO</td><td>Parallel</td><td>Parallel</td><td>Temporary parallel storage</td></tr></tbody></table></div>
 <div class="demo" id="shiftDemo"><h3>Interactive four-bit shift register</h3><p>Choose the next serial input and press Clock.</p><div class="bitrow" id="shiftBits"></div><div class="demo-controls"><button id="shiftInput">Serial input: 1</button><button id="shiftClock">Clock</button><button id="shiftReset">Reset</button></div></div>
-<div class="callout remember"><b>Malayalam Support</b><div>ഓരോ clock pulse-ലും data ഒരു flip-flop-ൽ നിന്ന് അടുത്ത flip-flop-ലേക്ക് shift ചെയ്യും. SISO serial input/serial output; SIPO serial input/parallel output.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">ഓരോ clock pulse-ലും data ഒരു flip-flop-ൽ നിന്ന് അടുത്ത flip-flop-ലേക്ക് shift ചെയ്യും. SISO serial input/serial output; SIPO serial input/parallel output.</span></div></div>
 
 <h3>6. Ring counter</h3>
 <p>A ring counter circulates a single 1 (or single 0) through n flip-flops. It normally provides n valid states and requires initialization.</p>
@@ -541,7 +541,7 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 <div class="card blue"><h3>Diagram guidance</h3><p>Draw the corresponding block or logic diagram with standard labels, signal direction and input/output names. Use the truth table and equations beside this panel to verify the drawing.</p></div>
 
 <div class="formula">Ripple frequency division: f<sub>out</sub> = f<sub>in</sub>/2ⁿ</div>
-<div class="callout remember"><b>Malayalam Support</b><div>Ripple counter-ൽ clock change ഓരോ flip-flop വഴിയും വൈകി പടരുന്നു. Synchronous counter-ൽ എല്ലാ flip-flops-നും ഒരേ clock കിട്ടുന്നതിനാൽ state ഒരേസമയം മാറും.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">Ripple counter-ൽ clock change ഓരോ flip-flop വഴിയും വൈകി പടരുന്നു. Synchronous counter-ൽ എല്ലാ flip-flops-നും ഒരേ clock കിട്ടുന്നതിനാൽ state ഒരേസമയം മാറും.</span></div></div>
 
 <h3>3. Three-bit ripple up and down counters</h3>
 <p>A three-bit ripple up counter counts 000,001,010,011,100,101,110,111. A ripple down counter follows the reverse sequence. Whether Q or Q̅ clocks the next stage depends on flip-flop triggering convention.</p>
@@ -566,7 +566,7 @@ Always show the marked map, groups, reduced terms and final SOP. Do not treat ev
 <p>A semiconductor memory stores binary words at numbered locations. Address lines select a location; data lines transfer a word.</p>
 <div class="formula">Memory capacity = Number of locations × bits per location</div>
 <div class="table-wrap"><table class=""><thead><tr><th>Memory</th><th>Volatile?</th><th>Write method</th><th>Typical use</th></tr></thead><tbody><tr><td>RAM</td><td>Yes</td><td>Electrical, repeated</td><td>Temporary working data</td></tr><tr><td>SRAM</td><td>Yes</td><td>Flip-flop cells; no refresh</td><td>Cache / fast buffers</td></tr><tr><td>DRAM</td><td>Yes</td><td>Capacitor cells; refresh required</td><td>Main memory</td></tr><tr><td>ROM</td><td>No</td><td>Fixed or programmed content</td><td>Permanent firmware</td></tr><tr><td>PROM</td><td>No</td><td>Programmed once</td><td>One-time configuration</td></tr><tr><td>EPROM</td><td>No</td><td>UV erasure, then reprogram</td><td>Older development systems</td></tr><tr><td>EEPROM</td><td>No</td><td>Electrical erase/rewrite</td><td>Settings, calibration, firmware</td></tr></tbody></table></div>
-<div class="callout remember"><b>Malayalam Support</b><div>RAM power off ചെയ്താൽ data നഷ്ടപ്പെടും; working data-ക്കാണ്. ROM family power off ചെയ്താലും data നിലനിൽക്കും. PROM once, EPROM UV erase, EEPROM electrically erase ചെയ്യാം.</div></div>
+<div class="callout remember"><b>Malayalam Support</b><div><span lang="ml">RAM power off ചെയ്താൽ data നഷ്ടപ്പെടും; working data-ക്കാണ്. ROM family power off ചെയ്താലും data നിലനിൽക്കും. PROM once, EPROM UV erase, EEPROM electrically erase ചെയ്യാം.</span></div></div>
 
 <h3>7. RAM vs ROM</h3>
 <div class="table-wrap"><table class=""><thead><tr><th>Point</th><th>RAM</th><th>ROM</th></tr></thead><tbody><tr><td>Nature</td><td>Read/write memory</td><td>Primarily read memory</td></tr><tr><td>Volatility</td><td>Volatile</td><td>Non-volatile</td></tr><tr><td>Speed</td><td>Generally faster for working storage</td><td>Depends on technology</td></tr><tr><td>Purpose</td><td>Temporary data and programs in execution</td><td>Permanent instructions / firmware</td></tr></tbody></table></div>
