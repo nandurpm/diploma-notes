@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-08-13T13:12:18.971Z",
+  "generatedAt": "2026-08-14T04:32:57.204Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
@@ -24,14 +24,15 @@
       "status": {
         "ok": true,
         "version": "2026-08-offline-science1",
-        "generatedAt": "2026-08-13T12:47:01Z",
+        "generatedAt": "2026-08-14T04:32:02Z",
         "counts": {
           "pages": 368,
           "programmes2021": 43,
           "programmes2026": 42,
           "subjectRecords": 4442,
           "lessonRecordsAvailable": 1153,
-          "notesRecordsAvailable": 1153
+          "notesRecordsAvailable": 1153,
+          "syllabusDetailRecords": 1
         }
       }
     },
@@ -44,7 +45,8 @@
         "programmes2026": 42,
         "subjectRecords": 4442,
         "lessonRecordsAvailable": 1153,
-        "notesRecordsAvailable": 1153
+        "notesRecordsAvailable": 1153,
+        "syllabusDetailRecords": 1
       }
     },
     {
@@ -56,7 +58,8 @@
         "programmes2026": 42,
         "subjectRecords": 4442,
         "lessonRecordsAvailable": 1153,
-        "notesRecordsAvailable": 1153
+        "notesRecordsAvailable": 1153,
+        "syllabusDetailRecords": 1
       },
       "expectedProgrammes": 42
     },
@@ -69,7 +72,8 @@
         "programmes2026": 42,
         "subjectRecords": 4442,
         "lessonRecordsAvailable": 1153,
-        "notesRecordsAvailable": 1153
+        "notesRecordsAvailable": 1153,
+        "syllabusDetailRecords": 1
       }
     },
     {
@@ -130,14 +134,15 @@
   "knowledgeStatus": {
     "ok": true,
     "version": "2026-08-offline-science1",
-    "generatedAt": "2026-08-13T12:47:01Z",
+    "generatedAt": "2026-08-14T04:32:02Z",
     "counts": {
       "pages": 368,
       "programmes2021": 43,
       "programmes2026": 42,
       "subjectRecords": 4442,
       "lessonRecordsAvailable": 1153,
-      "notesRecordsAvailable": 1153
+      "notesRecordsAvailable": 1153,
+      "syllabusDetailRecords": 1
     }
   },
   "screenshots": [
