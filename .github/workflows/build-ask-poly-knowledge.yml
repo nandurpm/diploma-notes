@@ -13,6 +13,7 @@ on:
       - "assets/data/revision-2026-programmes.json"
       - "assets/data/revision-2026-subjects.json"
       - "tools/build_ask_poly_knowledge.py"
+      - "assets/data/syllabus-details.json"
       - ".github/workflows/build-ask-poly-knowledge.yml"
 
 permissions:
@@ -62,6 +63,10 @@ jobs:
           assert {"2021", "2026"}.issubset(revisions), revisions
           assert any(page.get("url") == "/revision-2026.html" for page in data.get("pages", []))
           assert any(page.get("url") == "/tools.html" for page in data.get("pages", []))
+          detailed = [row for row in data.get("subjects", []) if row.get("revision") == "2021" and row.get("code") == "4272" and row.get("department") == "Cloud Computing and Big Data" and row.get("semester") == "Semester 4"]
+          assert len(detailed) == 1, detailed
+          assert len(detailed[0].get("syllabusDetails", {}).get("outcomes", [])) == 4, detailed[0]
+          assert sum(len(outcome.get("modules", [])) for outcome in detailed[0]["syllabusDetails"]["outcomes"]) == 26, detailed[0]
           print(json.dumps(counts, indent=2))
           PY
 

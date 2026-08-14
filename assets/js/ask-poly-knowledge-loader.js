@@ -4,7 +4,7 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  const KNOWLEDGE_VERSION = "20260717-architecture-clean1";
+  const KNOWLEDGE_VERSION = "20260814-syllabus-units1";
   const MAX_CONTEXT_CHARS = 9000;
   let knowledgePromise = null;
 
@@ -59,12 +59,24 @@
     return total;
   }
 
+  function subjectSearchText(subject) {
+    const detail = subject.syllabusDetails;
+    const outcomes = Array.isArray(detail?.outcomes) ? detail.outcomes : [];
+    const detailText = outcomes.flatMap(outcome => [
+      outcome.code,
+      outcome.title,
+      outcome.content,
+      ...(Array.isArray(outcome.modules) ? outcome.modules.flatMap(module => [module.code, module.title]) : [])
+    ]).join(" ");
+    return [subject.revision, subject.code, subject.name, subject.department, subject.semester, subject.type, detail?.category, detail?.objectives?.join(" "), detailText].join(" ");
+  }
+
   function subjectScore(query, subject) {
     const revision = detectedRevision(query);
     const semester = detectedSemester(query);
     const codes = detectedCodes(query);
     const code = String(subject.code || "").toUpperCase();
-    let total = textScore(query, [subject.revision, code, subject.name, subject.department, subject.semester, subject.type].join(" "));
+    let total = textScore(query, subjectSearchText(subject));
     if (codes.includes(code)) total += 90;
     if (revision) total += String(subject.revision) === revision ? 28 : -45;
     if (semester) total += normalize(subject.semester) === semester ? 18 : -5;
@@ -110,7 +122,19 @@
       subject.lessonAvailable ? `lesson: ${subject.lessonUrl}` : "lesson: unavailable",
       subject.notesAvailable ? `notes: ${subject.notesUrl}` : "notes: unavailable"
     ].join("; ");
-    return `- ${revision} ${subject.code} — ${subject.name} | ${department} | ${semester} | ${subject.type || "Course"} | department page: ${subject.departmentUrl || "unavailable"} | syllabus: ${subject.syllabusUrl || "unavailable"} | sample paper: ${subject.questionPaperUrl || "unavailable"} | ${availability}`;
+    const detail = subject.syllabusDetails;
+    const detailLines = Array.isArray(detail?.outcomes)
+      ? detail.outcomes.map(outcome => {
+        const modules = Array.isArray(outcome.modules)
+          ? outcome.modules.map(module => `${module.code} ${module.title} (${module.hours}h; ${module.level})`).join("; ")
+          : "";
+        return `${outcome.code} ${outcome.title} (${outcome.hours} hours; ${outcome.level}). Modules: ${modules}. Content: ${outcome.content || "not specified"}`;
+      }).join("\n")
+      : "";
+    const syllabusDetail = detail
+      ? ` | official detail source: ${detail.sourceUrl || subject.syllabusUrl || "unavailable"} | credits: ${detail.credits ?? "not specified"} | periods: ${detail.periodsPerSemester ?? "not specified"}\n  Verified unit-level syllabus:\n  ${detailLines}`
+      : "";
+    return `- ${revision} ${subject.code} — ${subject.name} | ${department} | ${semester} | ${subject.type || "Course"} | department page: ${subject.departmentUrl || "unavailable"} | syllabus: ${subject.syllabusUrl || "unavailable"} | sample paper: ${subject.questionPaperUrl || "unavailable"} | ${availability}${syllabusDetail}`;
   }
 
   function buildContext(data, matches) {

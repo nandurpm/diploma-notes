@@ -17,6 +17,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "assets/data/ask-poly-knowledge.json"
+SYLLABUS_DETAILS = ROOT / "assets/data/syllabus-details.json"
 SITE = "https://polypmna.dpdns.org"
 
 EXCLUDED_DIRS = {
@@ -212,6 +213,23 @@ def load_json(path: Path) -> dict[str, Any]:
         return {}
 
 
+def syllabus_detail_map() -> dict[tuple[str, str, str, str], dict[str, Any]]:
+    data = load_json(SYLLABUS_DETAILS)
+    details: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+    for row in data.get("courses", []):
+        if not isinstance(row, dict):
+            continue
+        key = (
+            compact(row.get("revision"), 20),
+            compact(row.get("code"), 40).upper(),
+            compact(row.get("department"), 260),
+            compact(row.get("semester"), 80),
+        )
+        if all(key):
+            details[key] = row
+    return details
+
+
 def department_page_map(pages: list[dict[str, Any]], revision: str) -> dict[str, str]:
     category = f"revision-{revision}-department"
     result: dict[str, str] = {}
@@ -261,6 +279,7 @@ def subject_record(
     subject_type: str,
     department_url: str,
     syllabus_url: str = "",
+    syllabus_detail: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     code = compact(code, 40).upper()
     revision = compact(revision, 20)
@@ -284,12 +303,14 @@ def subject_record(
         "syllabusUrl": official_syllabus,
         "questionPaperUrl": model_qp,
         **available,
+        **({"syllabusDetails": syllabus_detail} if syllabus_detail else {}),
     }
 
 
 def build_subjects(pages: list[dict[str, Any]]) -> list[dict[str, Any]]:
     rev2021_map = department_page_map(pages, "2021")
     rev2026_map = department_page_map(pages, "2026")
+    details = syllabus_detail_map()
     subjects: list[dict[str, Any]] = []
 
     for row in parse_revision_2021_subjects():
@@ -303,6 +324,12 @@ def build_subjects(pages: list[dict[str, Any]]) -> list[dict[str, Any]]:
             row.get("semester", ""),
             row.get("type", "Course"),
             department_url,
+            syllabus_detail=details.get((
+                "2021",
+                compact(row.get("code", ""), 40).upper(),
+                compact(department, 260),
+                compact(row.get("semester", ""), 80),
+            )),
         ))
 
     data = load_json(ROOT / "assets/data/revision-2026-subjects.json")
@@ -387,6 +414,7 @@ def main() -> int:
         "purpose": "Automatically generated whole-site retrieval index for Ask POLY AI.",
         "rules": [
             "Revision 2026, Revision 2021 and 2015 materials are separate curriculum areas.",
+            "Verified unit-level syllabus details are attached only to exact revision, course code, department and semester matches.",
             "Never reuse or relabel Revision 2021 lesson or notes files as Revision 2026 content.",
             "Use the matched revision, department, semester and subject code when answering curriculum questions.",
             "Do not invent internal pages, lesson availability, notes availability or subject mappings.",
@@ -420,6 +448,7 @@ def main() -> int:
             "subjectRecords": len(subjects),
             "lessonRecordsAvailable": lesson_count,
             "notesRecordsAvailable": notes_count,
+            "syllabusDetailRecords": sum(1 for row in subjects if row.get("syllabusDetails")),
         },
         "programmes": programmes_2021 + programmes_2026,
         "pages": pages,
