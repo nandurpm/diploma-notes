@@ -1,9 +1,13 @@
 #!/usr/bin/env python3
-"""Generate release-ready PDFs from POLY PMNA lesson HTML pages.
+"""Generate validated POLY PMNA PDFs for the canonical PDF repository tree.
 
-The script renders lesson pages through local headless Chromium, validates every
-PDF, and writes manifests that can be committed after release assets are live.
-It can render the complete archive or only paths supplied through --files-from.
+The renderer supports full-archive and changed-lesson runs. Generated files are
+written as ``<revision>/<subject-code>.pdf`` in a staging directory; the CI
+workflow copies them into the PDF repository at:
+
+    notes/<revision>/<subject-code>/v1/<subject-code>.pdf
+
+The manifest URLs point to those visible files on raw.githubusercontent.com.
 """
 
 from __future__ import annotations
@@ -23,6 +27,9 @@ from pathlib import Path
 from urllib.parse import quote
 
 
+DEFAULT_PDF_BASE_URL = "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main"
+
+
 @dataclass
 class RenderResult:
     revision: str
@@ -30,7 +37,6 @@ class RenderResult:
     source: str
     output: str
     pdf_url: str
-    release_tag: str
     status: str
     bytes: int = 0
     sha256: str = ""
@@ -79,8 +85,19 @@ def chromium_binary() -> str:
     raise RuntimeError("No Chromium-compatible browser was found")
 
 
-def render_one(task: tuple[str, Path, Path, str, str, str]) -> RenderResult:
-    revision, source, output, base_url, release_tag, chrome = task
+def canonical_pdf_url(
+    pdf_base_url: str, revision: str, code: str, version: str, source_commit: str
+) -> str:
+    base = pdf_base_url.rstrip("/")
+    encoded_code = quote(code, safe="")
+    encoded_version = quote(version, safe="")
+    return f"{base}/notes/{revision}/{encoded_code}/{encoded_version}/{encoded_code}.pdf"
+
+
+def render_one(
+    task: tuple[str, Path, Path, str, str, str, str, str]
+) -> RenderResult:
+    revision, source, output, base_url, pdf_base_url, pdf_version, source_commit, chrome = task
     code = source.stem.removeprefix("lessons-")
     output.parent.mkdir(parents=True, exist_ok=True)
     source_relative = (
@@ -89,10 +106,7 @@ def render_one(task: tuple[str, Path, Path, str, str, str]) -> RenderResult:
         else f"revision-2026-content/lessons/{source.name}"
     )
     rendered_url = f"{base_url.rstrip('/')}/{quote(source_relative)}?autoPrintNotes=1"
-    pdf_url = (
-        "https://github.com/nandurpm/poly-pmna-pdf-files/releases/download/"
-        f"{release_tag}/{quote(code)}.pdf"
-    )
+    pdf_url = canonical_pdf_url(pdf_base_url, revision, code, pdf_version, source_commit)
     title = lesson_title(source)
 
     profile_dir = Path(tempfile.mkdtemp(prefix="poly-pdf-chrome-"))
@@ -132,7 +146,6 @@ def render_one(task: tuple[str, Path, Path, str, str, str]) -> RenderResult:
             source=source_relative,
             output=str(output),
             pdf_url=pdf_url,
-            release_tag=release_tag,
             status="published",
             bytes=output.stat().st_size,
             sha256=sha256(output),
@@ -148,7 +161,6 @@ def render_one(task: tuple[str, Path, Path, str, str, str]) -> RenderResult:
             source=source_relative,
             output=str(output),
             pdf_url=pdf_url,
-            release_tag=release_tag,
             status="failed",
             title=title,
             error=str(exc),
@@ -206,10 +218,11 @@ def main() -> int:
     parser.add_argument("--source-root", default=".")
     parser.add_argument("--output-root", default="/tmp/poly-pmna-generated-pdfs")
     parser.add_argument("--base-url", default="http://127.0.0.1:9876")
+    parser.add_argument("--pdf-base-url", default=DEFAULT_PDF_BASE_URL)
+    parser.add_argument("--pdf-version", default="v1")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--source-commit", required=True)
     parser.add_argument("--files-from", help="newline-delimited changed lesson paths")
-    parser.add_argument("--release-suffix", default="v1")
     args = parser.parse_args()
 
     source_root = Path(args.source_root).resolve()
@@ -218,12 +231,22 @@ def main() -> int:
     chrome = chromium_binary()
     sources = selected_sources(source_root, args.files_from)
 
-    task_list: list[tuple[str, Path, Path, str, str, str]] = []
+    task_list: list[tuple[str, Path, Path, str, str, str, str, str]] = []
     for revision, source in sources:
-        release_tag = f"notes-{revision}-{args.release_suffix}"
         code = source.stem.removeprefix("lessons-")
         output = output_root / revision / f"{code}.pdf"
-        task_list.append((revision, source, output, args.base_url, release_tag, chrome))
+        task_list.append(
+            (
+                revision,
+                source,
+                output,
+                args.base_url,
+                args.pdf_base_url,
+                args.pdf_version,
+                args.source_commit,
+                chrome,
+            )
+        )
 
     started = time.time()
     results: list[RenderResult] = []
@@ -242,9 +265,8 @@ def main() -> int:
                 "code": item.code,
                 "title": item.title,
                 "revision": item.revision,
-                "version": args.release_suffix,
+                "version": args.pdf_version,
                 "status": item.status,
-                "releaseTag": item.release_tag,
                 "pdfUrl": item.pdf_url,
                 "bytes": item.bytes,
                 "sha256": item.sha256,
@@ -255,11 +277,13 @@ def main() -> int:
             if item.revision == revision and item.status == "published"
         ]
         manifest = {
-            "schemaVersion": 1,
+            "schemaVersion": 2,
+            "storage": "git-tree",
             "revision": revision,
             "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
             "sourceCommit": args.source_commit,
-            "releaseTag": f"notes-{revision}-{args.release_suffix}",
+            "pdfBaseUrl": args.pdf_base_url,
+            "pdfVersion": args.pdf_version,
             "subjects": subjects,
         }
         (output_root / f"notes-{revision}.json").write_text(

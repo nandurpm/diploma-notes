@@ -26,6 +26,8 @@ concurrency:
 
 env:
   PDF_REPO: nandurpm/poly-pmna-pdf-files
+  PDF_BASE_URL: https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main
+  PDF_VERSION: v1
 
 jobs:
   publish:
@@ -93,7 +95,7 @@ jobs:
           chrome-version: 131
           install-dependencies: true
 
-      - name: Verify PDF publisher credential
+      - name: Verify PDF repository credential
         if: steps.changed.outputs.has_changes == 'true'
         env:
           PDF_REPO_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
@@ -128,16 +130,16 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          suffix="run-${GITHUB_RUN_ID}-attempt-${GITHUB_RUN_ATTEMPT}"
           output=/tmp/poly-pmna-generated-pdfs
           rm -rf "$output"
           args=(
             --source-root "$GITHUB_WORKSPACE"
             --output-root "$output"
             --base-url http://127.0.0.1:9876
+            --pdf-base-url "$PDF_BASE_URL"
+            --pdf-version "$PDF_VERSION"
             --workers 4
             --source-commit "$GITHUB_SHA"
-            --release-suffix "$suffix"
           )
           if [[ "$FULL_RUN" != "true" ]]; then
             args+=(--files-from "$GITHUB_WORKSPACE/changed-lesson-files.txt")
@@ -149,47 +151,37 @@ jobs:
             exit 1
           fi
 
-      - name: Create draft releases and upload PDF assets
-        if: steps.changed.outputs.has_changes == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          output=/tmp/poly-pmna-generated-pdfs
-          for revision in 2021 2026; do
-            manifest="$output/notes-${revision}.json"
-            count="$(jq '.subjects | length' "$manifest")"
-            if [[ "$count" == "0" ]]; then
-              continue
-            fi
-            tag="$(jq -r '.releaseTag' "$manifest")"
-            gh release create "$tag" \
-              --repo "$PDF_REPO" \
-              --target main \
-              --draft \
-              --title "POLY PMNA Notes ${revision} update ${GITHUB_RUN_ID}" \
-              --notes "Immutable PDF assets generated from diploma-notes commit ${GITHUB_SHA}."
-            while IFS= read -r -d '' pdf; do
-              gh release upload "$tag" "$pdf" --repo "$PDF_REPO"
-            done < <(find "$output/$revision" -maxdepth 1 -type f -name '*.pdf' -print0 | sort -z)
-            assets="$(gh api "repos/$PDF_REPO/releases/tags/$tag" --jq '.assets | length')"
-            if [[ "$assets" != "$count" ]]; then
-              echo "Asset count mismatch for $tag: expected $count, got $assets"
-              exit 1
-            fi
-            gh release edit "$tag" --repo "$PDF_REPO" --draft=false
-          done
-
-      - name: Update manifests in the PDF repository
+      - name: Check out the canonical PDF repository
         if: steps.changed.outputs.has_changes == 'true'
         env:
           PDF_REPO_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
-        shell: bash
         run: |
           set -euo pipefail
           rm -rf /tmp/poly-pmna-pdf-repo
           git clone --depth=1 "https://x-access-token:${PDF_REPO_TOKEN}@github.com/${PDF_REPO}.git" /tmp/poly-pmna-pdf-repo
+
+      - name: Copy PDFs into canonical notes paths
+        if: steps.changed.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          output=/tmp/poly-pmna-generated-pdfs
+          repo=/tmp/poly-pmna-pdf-repo
+          for revision in 2021 2026; do
+            while IFS= read -r -d '' pdf; do
+              code="$(basename "$pdf" .pdf)"
+              destination="$repo/notes/$revision/$code/$PDF_VERSION/$code.pdf"
+              mkdir -p "$(dirname "$destination")"
+              cp "$pdf" "$destination"
+              test "$(head -c 5 "$destination")" = "%PDF-"
+            done < <(find "$output/$revision" -maxdepth 1 -type f -name '*.pdf' -print0 | sort -z)
+          done
+
+      - name: Merge canonical manifests
+        if: steps.changed.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
           revisions=()
           for revision in 2021 2026; do
             count="$(jq '.subjects | length' "/tmp/poly-pmna-generated-pdfs/notes-${revision}.json")"
@@ -201,16 +193,36 @@ jobs:
             --pdf-repo-root /tmp/poly-pmna-pdf-repo \
             --generated-root /tmp/poly-pmna-generated-pdfs \
             --source-commit "$GITHUB_SHA" \
+            --pdf-base-url "$PDF_BASE_URL" \
+            --pdf-version "$PDF_VERSION" \
             "${revisions[@]}"
+
+      - name: Validate canonical tree and commit changes
+        if: steps.changed.outputs.has_changes == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
           cd /tmp/poly-pmna-pdf-repo
+          for revision in 2021 2026; do
+            manifest="manifests/notes-${revision}.json"
+            if [[ -f "$manifest" ]]; then
+              while IFS=$'\t' read -r code pdf_url; do
+                [[ -z "$code" ]] && continue
+                expected="notes/$revision/$code/$PDF_VERSION/$code.pdf"
+                test -f "$expected"
+                test "$(head -c 5 "$expected")" = "%PDF-"
+                test "$pdf_url" = "$PDF_BASE_URL/$expected"
+              done < <(jq -r '.subjects[] | [.code, .pdfUrl] | @tsv' "$manifest")
+            fi
+          done
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add manifests/notes-2021.json manifests/notes-2026.json
+          git add notes manifests
           if git diff --cached --quiet; then
-            echo "No manifest changes to commit."
+            echo "No canonical PDF changes to commit."
             exit 0
           fi
-          git commit -m "Update lesson PDF manifests for ${GITHUB_SHA::12}"
+          git commit -m "Sync lesson PDFs for ${GITHUB_SHA::12}"
           git push origin main
 
       - name: Upload generation report
