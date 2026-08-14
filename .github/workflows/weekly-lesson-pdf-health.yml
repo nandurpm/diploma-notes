@@ -1,0 +1,77 @@
+name: Weekly lesson and PDF health check
+
+on:
+  schedule:
+    # Sunday 03:30 UTC (09:00 IST) on the default branch.
+    - cron: "30 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: weekly-lesson-pdf-health-main
+  cancel-in-progress: false
+
+env:
+  PDF_REPO: nandurpm/poly-pmna-pdf-files
+  PDF_BASE_URL: https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main
+  PDF_VERSION: v1
+
+jobs:
+  health-check:
+    name: Audit lesson sources and canonical PDF archive
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out lesson repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PDF validation tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils
+
+      - name: Check out canonical PDF archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          git clone --depth=1 "https://github.com/${PDF_REPO}.git" /tmp/poly-pmna-pdf-files
+
+      - name: Run full lesson and PDF health check
+        id: audit
+        shell: bash
+        run: |
+          set -uo pipefail
+          report_dir="$GITHUB_WORKSPACE/lesson-pdf-health-report"
+          rm -rf "$report_dir"
+          python3 tools/audit_lesson_pdf_health.py \
+            --source-root "$GITHUB_WORKSPACE" \
+            --pdf-root /tmp/poly-pmna-pdf-files \
+            --output-dir "$report_dir" \
+            --pdf-base-url "$PDF_BASE_URL" \
+            --pdf-version "$PDF_VERSION"
+          audit_status=$?
+          if [[ -f "$report_dir/lesson-pdf-health.md" ]]; then
+            cat "$report_dir/lesson-pdf-health.md" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          exit "$audit_status"
+
+      - name: Upload health-check report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lesson-pdf-health-${{ github.run_id }}
+          path: lesson-pdf-health-report/
+          if-no-files-found: warn
+          retention-days: 90
