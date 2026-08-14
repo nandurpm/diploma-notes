@@ -137,6 +137,13 @@ jobs:
           wrangler secret bulk ask-poly-secrets.json
           rm -f ask-poly-secrets.json
 
+      - name: Re-deploy secure Worker after credential synchronization
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        working-directory: workers/ask-poly-ai
+        run: wrangler deploy
+
       - name: Smoke-test live Worker and protected mock route
         shell: bash
         run: |
