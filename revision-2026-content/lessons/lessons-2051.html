@@ -1,0 +1,757 @@
+<!doctype html>
+<html class="poly-lesson-page revision-2026-lesson" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Complete Polytechnic lesson for 2051 — Basic Electrical and Electronics Engineering (Automobile Engineering)">
+  <meta name="course-code" content="2051">
+  <meta name="course-title" content="Basic Electrical and Electronics Engineering">
+  <meta name="curriculum" content="REV2026">
+  <title>2051 — Basic Electrical and Electronics Engineering</title>
+
+  <style>
+    :root {
+      --ink: #10233e;
+      --muted: #55697f;
+      --paper: #ffffff;
+      --soft: #f4f8fc;
+      --soft2: #eaf4ff;
+      --line: #d5e1ed;
+      --navy: #071f3f;
+      --blue: #0b5ed7;
+      --cyan: #0891b2;
+      --teal: #0f766e;
+      --green: #15803d;
+      --amber: #b45309;
+      --red: #b42318;
+      --violet: #6d28d9;
+      --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+      --radius: 18px;
+      --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background-color: var(--soft);
+    }
+
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--blue);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s;
+    }
+
+    .lesson-shell {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    main { padding: 2rem; }
+
+    .cover {
+      background: var(--navy);
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+      border-radius: 0 0 var(--radius) var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .cover h1 { font-size: 2.5rem; margin: 0.5rem 0; }
+    .badge-row { display: flex; justify-content: center; gap: 10px; margin-top: 1rem; flex-wrap: wrap; }
+    .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+    .jump-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      background: var(--soft2);
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+    .jump-menu a {
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 8px;
+      text-align: center;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+
+    section { margin-bottom: 4rem; scroll-margin-top: 20px; }
+    h2 { border-left: 5px solid var(--blue); padding-left: 1rem; color: var(--navy); }
+    
+    .module { border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem; }
+    .module-head { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--soft); margin-bottom: 1.5rem; }
+    
+    .ml-note {
+      background: #fff9e6;
+      border-left: 4px solid var(--amber);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: var(--mal);
+      font-size: 0.95rem;
+    }
+    .ml-note strong { display: block; margin-bottom: 5px; color: var(--amber); }
+
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+    th { background: var(--soft2); }
+
+    .worked { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1.5rem; border-radius: 12px; margin: 1rem 0; }
+    .worked strong { color: var(--green); }
+
+    .qa { background: white; border: 1px solid var(--line); border-radius: 8px; margin-bottom: 10px; }
+    .qa summary { padding: 15px; font-weight: 600; cursor: pointer; }
+    .qa-body { padding: 15px; border-top: 1px solid var(--line); background: var(--soft); }
+
+    .diagram { text-align: center; margin: 2rem 0; background: white; padding: 1rem; border-radius: 12px; border: 1px solid var(--line); }
+    .diagram svg { max-width: 100%; height: auto; }
+    figcaption { font-size: 0.9rem; color: var(--muted); margin-top: 10px; }
+
+    .formula-card { background: var(--navy); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; margin: 1rem 0; }
+    .formula-card code { font-size: 1.5rem; display: block; margin-bottom: 10px; color: #60a5fa; }
+
+    .calculator { background: var(--soft2); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .calc-grid input { padding: 8px; border: 1px solid var(--line); border-radius: 4px; }
+    .calc-result { margin-top: 15px; font-weight: bold; color: var(--blue); }
+
+    .roadmap { display: flex; flex-direction: column; gap: 10px; }
+    .roadmap-step { background: white; border: 1px solid var(--line); padding: 15px; border-radius: 8px; position: relative; }
+    .roadmap-step::after { content: '↓'; position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); color: var(--line); font-size: 20px; }
+    .roadmap-step:last-child::after { content: ''; }
+
+    .search-bar { width: 100%; padding: 12px; border: 2px solid var(--line); border-radius: 8px; margin-bottom: 1rem; }
+    
+    [data-notes-link] {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      margin: 1rem 0;
+    }
+
+    @media print {
+      .no-print, .jump-menu, .reading-progress, .search-bar, button { display: none !important; }
+      .lesson-shell { box-shadow: none; max-width: 100%; }
+      details { display: block !important; }
+      details summary { font-weight: bold; border-bottom: 1px solid #000; }
+      .qa-body { display: block !important; }
+    }
+
+    @media (max-width: 640px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .cover h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+  <main id="main-content">
+
+    <section class="cover" id="cover">
+      <div class="eyebrow">Automobile Engineering • Semester II</div>
+      <h1>Basic Electrical and Electronics Engineering</h1>
+      <div class="badge-row">
+        <span class="badge">Course Code: 2051</span>
+        <span class="badge">Credits: 4</span>
+        <span class="badge">Revision: 2026</span>
+        <span class="badge">Theory</span>
+      </div>
+      <p class="lead" style="margin-top:20px; opacity:0.9;">Fundamental principles of DC/AC circuits, electrical machines, automotive power sources, and electronic automation.</p>
+      <a href="?autoPrintNotes=1" data-notes-link data-pdf-code="2051" data-pdf-revision="2026">Download Study Notes (PDF)</a>
+    </section>
+
+    <nav class="jump-menu no-print" aria-label="Lesson sections">
+      <a href="#source">Source</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#module-1">Module 1</a>
+      <a href="#module-2">Module 2</a>
+      <a href="#module-3">Module 3</a>
+      <a href="#module-4">Module 4</a>
+      <a href="#formula-bank">Formulas</a>
+      <a href="#assessment">Assessment</a>
+      <a href="#questions">Q&A</a>
+      <a href="#revision">Revision</a>
+    </nav>
+
+    <section class="section" id="source">
+      <h2>Official Source Declaration</h2>
+      <div class="source-note">
+        <p>This lesson is strictly based on the <strong>SITTTR Kerala Revision 2026 Syllabus</strong> for Course Code <strong>2051</strong> (Basic Electrical and Electronics Engineering). All modules, learning outcomes, instructional hours, and assessment patterns are extracted directly from the official PDF.</p>
+        <ul>
+          <li><strong>Program:</strong> Automobile Engineering</li>
+          <li><strong>Course Type:</strong> Theory (L:4, T:0, P:0, S:0)</li>
+          <li><strong>Total Hours:</strong> 60 Instructional + 90 Self-learning</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="course-dashboard">
+      <h2>Course Dashboard</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>Teaching Scheme</h3>
+          <div class="table-wrap">
+            <table>
+              <tr><th>Component</th><th>Hours/Week</th></tr>
+              <tr><td>Lecture (L)</td><td>4</td></tr>
+              <tr><td>Self-Learning (SS)</td><td>6</td></tr>
+              <tr><td>Total Semester Hours</td><td>60 (Instructional)</td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Prerequisites</h3>
+          <ul>
+            <li>Basic Science - Physics (2002A)</li>
+            <li>Basic Mathematics (1002)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-to-use">
+      <h2>How to Study this Lesson</h2>
+      <p>This course is designed for Automobile Engineering students. Focus on how electrical principles apply to vehicle systems like charging, ignition, and ECUs.</p>
+      <div class="tip">
+        <strong>Study Tip:</strong> Use the interactive Ohm's Law calculator in Module 1 and the Transformer EMF calculator in Module 2 to practice numerical problems.
+      </div>
+    </section>
+
+    <section class="section" id="outcomes">
+      <h2>Course Outcomes (CO)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>CO No.</th>
+              <th>Outcome Description</th>
+              <th>Bloom's Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>CO1</td><td>Explain fundamental principles of DC/AC circuits, electromagnetic induction, and 3-phase systems to solve basic problems.</td><td>Understand</td></tr>
+            <tr><td>CO2</td><td>Describe construction, working principles, and applications of DC motors, AC induction motors, and transformers.</td><td>Understand</td></tr>
+            <tr><td>CO3</td><td>Discuss working of automotive power sources (batteries, generators, alternators) and industrial heating.</td><td>Understand</td></tr>
+            <tr><td>CO4</td><td>Explain electronic switching devices (MOSFET, SCR, Transistors), logic gates, and automotive automation architecture.</td><td>Understand</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="coverage">
+      <h2>Syllabus Coverage</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Module</th>
+              <th>Title</th>
+              <th>Instructional Hours</th>
+              <th>Weightage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>I</td><td>Electrical Circuits</td><td>15</td><td>25%</td></tr>
+            <tr><td>II</td><td>Electric Motors and Transformers</td><td>15</td><td>25%</td></tr>
+            <tr><td>III</td><td>Electrical Sources and Power Utilisation</td><td>15</td><td>25%</td></tr>
+            <tr><td>IV</td><td>Fundamentals of Electronics and Automation</td><td>15</td><td>25%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <h2>Learning Roadmap</h2>
+      <div class="roadmap">
+        <div class="roadmap-step">
+          <strong>Step 1: Fundamentals (Module I)</strong>
+          <p>Master Voltage, Current, and Ohm's Law. Understand how AC and 3-phase power works.</p>
+        </div>
+        <div class="roadmap-step">
+          <strong>Step 2: Conversion (Module II)</strong>
+          <p>Learn how electrical energy is converted to mechanical energy (Motors) and how voltage levels are changed (Transformers).</p>
+        </div>
+        <div class="roadmap-step">
+          <strong>Step 3: Generation & Storage (Module III)</strong>
+          <p>Study how cars generate power (Alternators) and store it (Batteries).</p>
+        </div>
+        <div class="roadmap-step">
+          <strong>Step 4: Control (Module IV)</strong>
+          <p>Understand the electronic "brain" of the vehicle using transistors, logic gates, and sensors.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 1 -->
+    <section class="module" id="module-1">
+      <div class="module-head">
+        <h2>Module I: Electrical Circuits</h2>
+        <span class="badge">15 Hours</span>
+      </div>
+      
+      <details class="topic" open>
+        <summary>1.1 Voltage, Current, Resistance, Power and Energy</summary>
+        <div class="topic-body">
+          <p>These are the building blocks of any electrical system. In an automobile, the battery provides the <strong>Voltage</strong> (Pressure), the wiring carries the <strong>Current</strong> (Flow), and the components like bulbs or motors provide <strong>Resistance</strong>.</p>
+          <ul>
+            <li><strong>Voltage (V):</strong> Electric potential difference. Unit: Volt (V).</li>
+            <li><strong>Current (I):</strong> Rate of flow of charge. Unit: Ampere (A).</li>
+            <li><strong>Resistance (R):</strong> Opposition to current flow. Unit: Ohm (Ω).</li>
+            <li><strong>Power (P):</strong> Rate of doing work. $P = V \times I$. Unit: Watt (W).</li>
+            <li><strong>Energy (E):</strong> Power consumed over time. $E = P \times t$. Unit: Joule (J) or kWh.</li>
+          </ul>
+
+          <div class="ml-note">
+            <strong>Malayalam support:</strong>
+            Voltage എന്നത് ഒരു ഇലക്ട്രിക്കൽ പ്രഷർ പോലെയാണ്. Current എന്നത് ചാർജിന്റെ ഒഴുക്കാണ്. Resistance ഈ ഒഴുക്കിനെ തടയുന്നു. വാഹനങ്ങളിലെ ബാറ്ററി 12V നൽകുന്നു, ഇത് വോൾട്ടേജ് ആണ്.
+          </div>
+
+          <h4>Ohm's Law</h4>
+          <p>At constant temperature, the current through a conductor is directly proportional to the voltage across it. $V = I \times R$.</p>
+
+          <div class="calculator">
+            <h4>Ohm's Law Calculator</h4>
+            <div class="calc-grid">
+              <div>
+                <label>Voltage (V):</label>
+                <input type="number" id="calc-v" placeholder="Enter Volts">
+              </div>
+              <div>
+                <label>Resistance (Ω):</label>
+                <input type="number" id="calc-r" placeholder="Enter Ohms">
+              </div>
+            </div>
+            <button onclick="calculateOhmsLaw()" style="margin-top:10px; padding:8px 15px;">Calculate Current</button>
+            <div id="ohms-result" class="calc-result">Result: -- A</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>1.2 Electromagnetic Induction & AC Circuits</summary>
+        <div class="topic-body">
+          <p><strong>Faraday's Law:</strong> Whenever a conductor cuts magnetic flux, an EMF is induced in it. This is the principle behind vehicle alternators.</p>
+          
+          <figure class="diagram">
+            <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="diag1-t diag1-d">
+              <title id="diag1-t">Simple AC Sine Wave</title>
+              <desc id="diag1-d">Graph showing a sinusoidal wave representing Alternating Current.</desc>
+              <line x1="20" y1="100" x2="380" y2="100" stroke="#ccc" stroke-width="2" />
+              <line x1="40" y1="20" x2="40" y2="180" stroke="#ccc" stroke-width="2" />
+              <path d="M 40 100 Q 120 20 200 100 T 360 100" fill="none" stroke="var(--blue)" stroke-width="3" />
+              <text x="360" y="120" font-size="12">Time</text>
+              <text x="10" y="30" font-size="12">Voltage</text>
+            </svg>
+            <figcaption>Fig 1.1: Sinusoidal AC Waveform</figcaption>
+          </figure>
+
+          <h4>Key AC Terms:</h4>
+          <ul>
+            <li><strong>RMS Value:</strong> The effective value of AC. $V_{rms} = V_{max} / \sqrt{2}$.</li>
+            <li><strong>Frequency (f):</strong> Number of cycles per second. Unit: Hertz (Hz).</li>
+            <li><strong>Power Factor:</strong> Ratio of real power to apparent power.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module" id="module-2">
+      <div class="module-head">
+        <h2>Module II: Electric Motors and Transformers</h2>
+        <span class="badge">15 Hours</span>
+      </div>
+      
+      <details class="topic" open>
+        <summary>2.1 DC Motors</summary>
+        <div class="topic-body">
+          <p>A DC motor converts DC electrical energy into mechanical energy. It works on the principle that a current-carrying conductor placed in a magnetic field experiences a force.</p>
+          <div class="table-wrap">
+            <table>
+              <caption>Types of DC Motors in Automobiles</caption>
+              <tr><th>Type</th><th>Application</th></tr>
+              <tr><td>Series Motor</td><td>Starter Motor (High starting torque)</td></tr>
+              <tr><td>Shunt Motor</td><td>Wiper motors, cooling fans</td></tr>
+              <tr><td>Compound Motor</td><td>Heavy industrial drives</td></tr>
+            </table>
+          </div>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>2.2 Transformers</summary>
+        <div class="topic-body">
+          <p>A static device that transfers electrical energy between circuits through electromagnetic induction, usually changing voltage levels.</p>
+          <div class="formula-card">
+            <strong>EMF Equation:</strong>
+            <code>E = 4.44 × f × Φm × N</code>
+            <small>f = frequency, Φm = max flux, N = number of turns</small>
+          </div>
+          <p><strong>Turns Ratio (K):</strong> $V_2/V_1 = N_2/N_1 = I_1/I_2$.</p>
+          
+          <div class="ml-note">
+            <strong>Malayalam support:</strong>
+            ട്രാൻസ്ഫോർമർ വോൾട്ടേജ് കൂട്ടാനോ (Step-up) കുറയ്ക്കാനോ (Step-down) ഉപയോഗിക്കുന്നു. കാറിലെ ഇഗ്നിഷൻ കോയിൽ (Ignition Coil) ഒരു സ്റ്റെപ്പ്-അപ്പ് ട്രാൻസ്ഫോർമർ ആണ്.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="module-3">
+      <div class="module-head">
+        <h2>Module III: Electrical Sources and Power Utilisation</h2>
+        <span class="badge">15 Hours</span>
+      </div>
+      
+      <details class="topic" open>
+        <summary>3.1 DC Generator & Alternator</summary>
+        <div class="topic-body">
+          <p>In modern cars, the <strong>Alternator</strong> is used to charge the battery and power electrical systems while the engine is running. It produces AC, which is then rectified to DC.</p>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>3.2 Batteries</summary>
+        <div class="topic-body">
+          <p>Automobiles primarily use <strong>Lead-Acid Batteries</strong>. They consist of lead plates in an electrolyte of sulfuric acid.</p>
+          <ul>
+            <li><strong>Lead-Acid:</strong> Reliable, high cold-cranking amps.</li>
+            <li><strong>Alkaline (Nickel-Iron):</strong> Robust, long life, but lower efficiency.</li>
+            <li><strong>VRLA:</strong> Valve Regulated Lead Acid (Maintenance-free).</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>3.3 Electric Heating</summary>
+        <div class="topic-body">
+          <p><strong>Joule's Law:</strong> $H = I^2Rt$. Heat produced is proportional to the square of current, resistance, and time.</p>
+          <ul>
+            <li><strong>Induction Heating:</strong> Used for melting metals (Eddy currents).</li>
+            <li><strong>Dielectric Heating:</strong> Used for non-conductors (plastics, textiles).</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <!-- MODULE 4 -->
+    <section class="module" id="module-4">
+      <div class="module-head">
+        <h2>Module IV: Fundamentals of Electronics and Automation</h2>
+        <span class="badge">15 Hours</span>
+      </div>
+      
+      <details class="topic" open>
+        <summary>4.1 Diodes and Rectifiers</summary>
+        <div class="topic-body">
+          <p>A <strong>PN Junction Diode</strong> allows current in one direction only (Forward Bias). <strong>Rectifiers</strong> convert AC to DC.</p>
+          <figure class="diagram">
+            <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg" role="img">
+              <rect x="40" y="30" width="60" height="40" fill="#3b82f6" />
+              <rect x="100" y="30" width="60" height="40" fill="#ef4444" />
+              <text x="60" y="55" fill="white" font-weight="bold">P</text>
+              <text x="120" y="55" fill="white" font-weight="bold">N</text>
+              <line x1="10" y1="50" x2="40" y2="50" stroke="black" stroke-width="2" />
+              <line x1="160" y1="50" x2="190" y2="50" stroke="black" stroke-width="2" />
+            </svg>
+            <figcaption>Fig 4.1: PN Junction Diode Structure</figcaption>
+          </figure>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>4.2 Transistors and MOSFETs</summary>
+        <div class="topic-body">
+          <p>Transistors act as <strong>switches</strong> or <strong>amplifiers</strong>. In automotive ECUs, Power MOSFETs are used for high-speed switching of fuel injectors and ignition coils.</p>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>4.3 Logic Gates & Automation</summary>
+        <div class="topic-body">
+          <p>Logic gates (AND, OR, NOT, NAND, NOR) form the basis of digital control. <strong>Universal Gates:</strong> NAND and NOR.</p>
+          <p><strong>Automotive Control System:</strong> Sensors → ECU → Actuators.</p>
+          <div class="ml-note">
+            <strong>Malayalam support:</strong>
+            സെൻസറുകൾ (Sensors) വിവരങ്ങൾ ശേഖരിക്കുന്നു, ECU അത് പ്രോസസ്സ് ചെയ്യുന്നു, ആക്ച്വേറ്ററുകൾ (Actuators) പ്രവർത്തിക്കുന്നു. ഉദാഹരണത്തിന്, താപനില അളക്കാൻ Thermistor ഉപയോഗിക്കുന്നു.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="activities">
+      <h2>Suggested Student Activities</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>No</th><th>Activity Description</th></tr>
+          <tr><td>1</td><td>Identify battery, fuse box, and wiring harness in a vehicle.</td></tr>
+          <tr><td>4</td><td>Calculate total resistance and power of headlamp circuits (Series/Parallel).</td></tr>
+          <tr><td>9</td><td>Disassemble a used lead-acid battery cell safely and sketch components.</td></tr>
+          <tr><td>13</td><td>Decode resistor color bands and verify with a multimeter.</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="formula-bank">
+      <h2>Formula Bank</h2>
+      <div class="grid three">
+        <div class="formula-card">
+          <small>Ohm's Law</small>
+          <code>V = I × R</code>
+        </div>
+        <div class="formula-card">
+          <small>Electrical Power</small>
+          <code>P = V × I</code>
+        </div>
+        <div class="formula-card">
+          <small>Transformer Ratio</small>
+          <code>N1/N2 = V1/V2</code>
+        </div>
+        <div class="formula-card">
+          <small>Joule's Heating</small>
+          <code>H = I²Rt</code>
+        </div>
+        <div class="formula-card">
+          <small>AC RMS Voltage</small>
+          <code>Vrms = Vmax / 1.414</code>
+        </div>
+        <div class="formula-card">
+          <small>Induction Motor Slip</small>
+          <code>s = (Ns - Nr) / Ns</code>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visual-library">
+      <h2>Visual Library</h2>
+      <div class="grid two">
+        <div class="card">
+          <h4>Circuit Symbols</h4>
+          <p>Standard symbols for Resistors, Capacitors, Diodes, and Transistors used in automotive schematics.</p>
+        </div>
+        <div class="card">
+          <h4>Motor Construction</h4>
+          <p>Internal views of DC Shunt Motors and Squirrel Cage Induction Motors.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="assessment">
+      <h2>Assessment Methodology</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Assessment</th><th>Marks</th><th>Details</th></tr>
+          <tr><td>CIE (Internal)</td><td>40</td><td>Activities (15), Series Exams (20), Attendance (5)</td></tr>
+          <tr><td>ESE (Semester)</td><td>60</td><td>2.5 Hour Written Exam</td></tr>
+        </table>
+      </div>
+      <h4>ESE Question Paper Pattern</h4>
+      <ul>
+        <li><strong>Part A:</strong> 8 questions (2 per module) × 1 mark = 8 Marks</li>
+        <li><strong>Part B:</strong> 8 questions (2 out of 3 per module) × 3 marks = 24 Marks</li>
+        <li><strong>Part C:</strong> 4 questions (1 set per module with choice) × 7 marks = 28 Marks</li>
+      </ul>
+    </section>
+
+    <section class="section" id="questions">
+      <h2>Module-wise Questions</h2>
+      
+      <h3>Module I</h3>
+      <details class="qa">
+        <summary>State Ohm's Law and its limitations.</summary>
+        <div class="qa-body">
+          Ohm's Law states that the current flowing through a conductor is directly proportional to the potential difference across its ends, provided temperature and other physical conditions remain constant ($V=IR$). Limitations: It does not apply to non-ohmic conductors (like semiconductors) or when temperature varies.
+        </div>
+      </details>
+
+      <h3>Module II</h3>
+      <details class="qa">
+        <summary>Why is a DC series motor used as a starter motor in cars?</summary>
+        <div class="qa-body">
+          A DC series motor provides very high starting torque, which is necessary to overcome the inertia and compression of the internal combustion engine during startup.
+        </div>
+      </details>
+
+      <h3>Module III</h3>
+      <details class="qa">
+        <summary>Explain the purpose of an alternator in a vehicle.</summary>
+        <div class="qa-body">
+          The alternator converts mechanical energy from the engine into AC electrical energy, which is rectified to DC to charge the battery and power the vehicle's electrical components (lights, ECU, etc.) while the engine is running.
+        </div>
+      </details>
+
+      <h3>Module IV</h3>
+      <details class="qa">
+        <summary>What are universal gates? Why are they called so?</summary>
+        <div class="qa-body">
+          NAND and NOR gates are called universal gates because any other logic gate (AND, OR, NOT) can be constructed using only these gates.
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="model-paper">
+      <h2>Practice Model Paper</h2>
+      <div class="warning">
+        <strong>Note:</strong> This is a practice paper based on the official pattern, not an official examination paper.
+      </div>
+      <div class="exam-card">
+        <h4>Part A (1 Mark each)</h4>
+        <ol>
+          <li>Define RMS value of AC.</li>
+          <li>What is the unit of electrical energy?</li>
+          <li>Define slip in an induction motor.</li>
+          <li>Mention one application of a transformer.</li>
+        </ol>
+        <h4>Part B (3 Marks each)</h4>
+        <ol>
+          <li>Compare single-phase and three-phase systems.</li>
+          <li>Explain the working principle of a DC motor.</li>
+          <li>Differentiate between lead-acid and alkaline batteries.</li>
+          <li>Draw the V-I characteristics of a PN junction diode.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="revision">
+      <h2>Quick Revision</h2>
+      <div class="grid two">
+        <div class="card">
+          <h4>Key Points</h4>
+          <ul>
+            <li>$V=IR$, $P=VI$, $E=Pt$.</li>
+            <li>Transformers change voltage, not frequency.</li>
+            <li>Alternators charge the battery in cars.</li>
+            <li>Diodes = Rectifiers; Transistors = Switches.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>Exam Checklist</h4>
+          <ul>
+            <li>[ ] Definitions of V, I, R, P, E.</li>
+            <li>[ ] Faraday's Laws of Induction.</li>
+            <li>[ ] DC Motor types and applications.</li>
+            <li>[ ] Transformer EMF equation.</li>
+            <li>[ ] Logic gate truth tables.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="glossary">
+      <h2>Glossary</h2>
+      <dl>
+        <dt><strong>ECU</strong></dt><dd>Electronic Control Unit - The "computer" in a vehicle.</dd>
+        <dt><strong>Rectifier</strong></dt><dd>A circuit that converts AC to DC.</dd>
+        <dt><strong>Stator</strong></dt><dd>The stationary part of an electric motor/generator.</dd>
+        <dt><strong>Rotor</strong></dt><dd>The rotating part of an electric motor/generator.</dd>
+        <dt><strong>Semiconductor</strong></dt><dd>Material with conductivity between a conductor and insulator (e.g., Silicon).</dd>
+      </dl>
+    </section>
+
+    <section class="section" id="references">
+      <h2>References</h2>
+      <ul>
+        <li>Fundamentals of Electrical Engineering and Electronics - B.L. Theraja (S. Chand)</li>
+        <li>Electronic Devices and Circuits - G.K. Mittal (Khanna Publishers)</li>
+        <li>Automobile Electrical and Electronic Systems - Tom Denton (Routledge)</li>
+        <li><a href="https://nptel.ac.in/courses/108104139">NPTEL: Basic Electrical Technology</a></li>
+      </ul>
+    </section>
+
+    <section class="section no-print" id="handbook-search">
+      <h2>Search Handbook</h2>
+      <input type="text" id="searchInput" class="search-bar" placeholder="Search for topics (e.g., 'Transformer', 'Battery')...">
+      <div id="searchResults"></div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  "use strict";
+
+  // Reading Progress Bar
+  window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.getElementById("readingProgress").style.width = scrolled + "%";
+  };
+
+  // Ohm's Law Calculator
+  function calculateOhmsLaw() {
+    const v = parseFloat(document.getElementById('calc-v').value);
+    const r = parseFloat(document.getElementById('calc-r').value);
+    const resultDiv = document.getElementById('ohms-result');
+    
+    if (isNaN(v) || isNaN(r) || r <= 0) {
+      resultDiv.innerText = "Error: Enter valid V and R (>0)";
+      resultDiv.style.color = "red";
+    } else {
+      const i = v / r;
+      resultDiv.innerText = "Result: " + i.toFixed(3) + " A";
+      resultDiv.style.color = "var(--blue)";
+    }
+  }
+
+  // Simple Search Functionality
+  document.getElementById('searchInput').addEventListener('input', function(e) {
+    const query = e.target.value.toLowerCase();
+    const results = document.getElementById('searchResults');
+    results.innerHTML = '';
+    
+    if (query.length < 3) return;
+
+    const headings = document.querySelectorAll('h2, h3, h4, summary');
+    headings.forEach(h => {
+      if (h.innerText.toLowerCase().includes(query)) {
+        const link = document.createElement('a');
+        link.href = '#';
+        link.style.display = 'block';
+        link.style.padding = '5px';
+        link.innerText = h.innerText;
+        link.onclick = (event) => {
+          event.preventDefault();
+          h.scrollIntoView({ behavior: 'smooth' });
+          // If inside details, open it
+          let parent = h.parentElement;
+          while(parent) {
+            if(parent.tagName === 'DETAILS') { parent.open = true; break; }
+            parent = parent.parentElement;
+          }
+        };
+        results.appendChild(link);
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

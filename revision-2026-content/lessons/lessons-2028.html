@@ -1,0 +1,779 @@
+<!doctype html>
+<html class="poly-lesson-page revision-2026-lesson" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Complete Polytechnic lesson for 2028 — Materials and Measurements Laboratory">
+  <meta name="course-code" content="2028">
+  <meta name="course-title" content="Materials and Measurements Laboratory">
+  <meta name="curriculum" content="REV2026">
+  <title>2028 — Materials and Measurements Laboratory</title>
+
+  <style>
+    :root {
+      --ink: #10233e;
+      --muted: #55697f;
+      --paper: #ffffff;
+      --soft: #f4f8fc;
+      --soft2: #eaf4ff;
+      --line: #d5e1ed;
+      --navy: #071f3f;
+      --blue: #0b5ed7;
+      --cyan: #0891b2;
+      --teal: #0f766e;
+      --green: #15803d;
+      --amber: #b45309;
+      --red: #b42318;
+      --violet: #6d28d9;
+      --shadow: 0 12px 34px rgba(15,43,75,.10);
+      --radius: 18px;
+      --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--soft);
+    }
+
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--blue);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    .lesson-shell {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      min-height: 100vh;
+    }
+
+    main { padding: 2rem; }
+
+    section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+
+    .cover {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: white;
+      border-radius: 0 0 var(--radius) var(--radius);
+      margin: -2rem -2rem 4rem -2rem;
+    }
+
+    .cover h1 { font-size: 2.5rem; margin: 0.5rem 0; }
+    .badge-row { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap; }
+    .badge { background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 50px; font-weight: 600; font-size: 0.9rem; }
+
+    .jump-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.5rem;
+      background: var(--soft2);
+      padding: 1rem;
+      border-radius: var(--radius);
+      margin-bottom: 3rem;
+    }
+    .jump-menu a {
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 0.5rem;
+      border-radius: 8px;
+      background: white;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .jump-menu a:hover { background: var(--blue); color: white; }
+
+    h2 { border-left: 5px solid var(--blue); padding-left: 1rem; color: var(--navy); margin-top: 3rem; }
+    h3 { color: var(--teal); margin-top: 2rem; }
+
+    .table-wrap { overflow-x: auto; margin: 1.5rem 0; border-radius: 12px; border: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { padding: 1rem; border: 1px solid var(--line); text-align: left; }
+    th { background: var(--soft2); color: var(--navy); }
+
+    .module {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 3rem;
+      background: white;
+    }
+    .module-head { border-bottom: 2px solid var(--soft2); margin-bottom: 1.5rem; padding-bottom: 1rem; }
+    .module-meta { display: flex; gap: 1rem; font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+
+    .ml-note {
+      background: #fff8e1;
+      border-left: 4px solid var(--amber);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: 0 8px 8px 0;
+      font-family: var(--mal);
+    }
+    .ml-note strong { font-family: system-ui; display: block; margin-bottom: 0.3rem; color: var(--amber); }
+
+    .worked {
+      background: var(--soft);
+      border: 1px dashed var(--blue);
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 1.5rem 0;
+    }
+    .worked strong { color: var(--blue); }
+
+    .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+    .qa summary { padding: 1rem; background: var(--soft2); cursor: pointer; font-weight: 600; }
+    .qa-body { padding: 1rem; background: white; border-top: 1px solid var(--line); }
+
+    .diagram { text-align: center; margin: 2rem 0; padding: 1rem; background: white; border: 1px solid var(--line); border-radius: 12px; }
+    .diagram svg { max-width: 100%; height: auto; }
+    figcaption { margin-top: 1rem; font-size: 0.9rem; color: var(--muted); font-style: italic; }
+
+    .calculator {
+      background: var(--navy);
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      margin: 2rem 0;
+    }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .calc-grid input { padding: 0.5rem; border-radius: 4px; border: none; }
+    .calc-result { background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: center; font-size: 1.2rem; font-weight: bold; }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: var(--blue);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    .roadmap {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      padding-left: 2rem;
+    }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--line);
+    }
+    .roadmap-step {
+      position: relative;
+      background: white;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .roadmap-step::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 20px;
+      width: 15px;
+      height: 15px;
+      background: var(--blue);
+      border-radius: 50%;
+    }
+
+    .search-bar { width: 100%; padding: 1rem; border: 2px solid var(--line); border-radius: 8px; font-size: 1rem; margin-bottom: 1rem; }
+    .search-results { list-style: none; padding: 0; }
+    .search-results li { padding: 0.5rem; border-bottom: 1px solid var(--line); }
+    .search-results a { text-decoration: none; color: var(--blue); }
+
+    @media print {
+      .no-print, .jump-menu, .reading-progress, .search-bar, button { display: none !important; }
+      .lesson-shell { box-shadow: none; max-width: 100%; }
+      details { display: block !important; }
+      details summary { font-weight: bold; border-bottom: 1px solid #000; margin-bottom: 10px; }
+      .module { break-inside: avoid; border: 1px solid #ccc; }
+      body { background: white; }
+    }
+
+    @media (max-width: 768px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .cover h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body class="revision-2026-lesson">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+  <main id="main-content">
+
+    <section class="cover" id="cover">
+      <div class="eyebrow">Kerala Polytechnic Syllabus Revision 2026</div>
+      <h1>Materials and Measurements Laboratory</h1>
+      <div class="badge-row">
+        <span class="badge">Course Code: 2028</span>
+        <span class="badge">Semester: II</span>
+        <span class="badge">Credits: 1.5</span>
+        <span class="badge">Dept: Mechanical Engineering</span>
+      </div>
+      <p class="lead" style="margin-top: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+        A hands-on practical course focusing on material identification, microstructure analysis, heat treatment, non-destructive testing, and precision metrology.
+      </p>
+      <div style="margin-top: 2rem;">
+        <a href="?autoPrintNotes=1" class="btn" data-notes-link data-pdf-code="2028" data-pdf-revision="2026" style="background: white; color: var(--blue);">Download Study Notes</a>
+      </div>
+    </section>
+
+    <nav class="jump-menu" aria-label="Lesson sections">
+      <a href="#course-dashboard">Dashboard</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#module-1">Module 1</a>
+      <a href="#module-2">Module 2</a>
+      <a href="#module-3">Module 3</a>
+      <a href="#module-4">Module 4</a>
+      <a href="#assessment">Assessment</a>
+      <a href="#questions">Q&amp;A</a>
+      <a href="#revision">Revision</a>
+    </nav>
+
+    <section class="section" id="source">
+      <h2>Official Source Declaration</h2>
+      <div class="source-note">
+        <p>This lesson is architected based on the official <strong>SITTTR Kerala Revision 2026</strong> syllabus for Course Code <strong>2028 (Materials and Measurements Laboratory)</strong>.</p>
+        <ul>
+          <li><strong>Authoritative Source:</strong> SITTTR Syllabus PDF (5 Pages).</li>
+          <li><strong>Curriculum:</strong> Revision 2026.</li>
+          <li><strong>Accuracy:</strong> All module hours, course outcomes, and assessment schemes are extracted directly from the official document.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="course-dashboard">
+      <h2>Course Dashboard</h2>
+      <div class="grid two">
+        <div class="table-wrap">
+          <table>
+            <caption>Teaching Scheme</caption>
+            <tr><th>Component</th><th>Value</th></tr>
+            <tr><td>Practical (P) Hours/Week</td><td>3 Hours</td></tr>
+            <tr><td>Self-Learning (SS) Hours/Week</td><td>1.5 Hours</td></tr>
+            <tr><td>Total Contact Hours/Semester</td><td>45 Hours</td></tr>
+            <tr><td>Total Credits</td><td>1.5</td></tr>
+          </table>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>Examination Scheme</caption>
+            <tr><th>Assessment</th><th>Marks</th></tr>
+            <tr><td>Continuous Internal Evaluation (CIE)</td><td>60</td></tr>
+            <tr><td>End Semester Examination (ESE)</td><td>40</td></tr>
+            <tr><td>Total Marks</td><td>100</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how-to-use">
+      <h2>How to Study this Lab Course</h2>
+      <p>This is a practical-heavy course. To excel:</p>
+      <ol>
+        <li><strong>Pre-Lab:</strong> Read the theory behind each instrument (e.g., Vernier principle) before entering the lab.</li>
+        <li><strong>Precision:</strong> In metrology (Module 3 & 4), accuracy is everything. Always check for zero errors.</li>
+        <li><strong>Observation:</strong> For NDT and Microstructure, develop a keen eye for patterns and defects.</li>
+        <li><strong>Documentation:</strong> Maintain your record book neatly; it carries 4 marks in ESE and significant weight in CIE.</li>
+      </ol>
+    </section>
+
+    <section class="section" id="outcomes">
+      <h2>Course Objectives & Outcomes</h2>
+      <h3>Course Objectives</h3>
+      <ul>
+        <li>Familiarize properties, microstructure, and classification of engineering materials.</li>
+        <li>Understand heat treatment effects and NDT methods.</li>
+        <li>Perform accurate linear and angular measurements.</li>
+        <li>Apply metrology principles for threads and precision components.</li>
+      </ul>
+
+      <h3>Course Outcomes (CO)</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>CO</th><th>Description</th><th>Bloom's Level</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CO1</td><td>Apply material identification techniques to distinguish materials and study microstructure.</td><td>Apply</td></tr>
+            <tr><td>CO2</td><td>Apply non-destructive testing techniques (Visual & Dye Penetrant).</td><td>Apply</td></tr>
+            <tr><td>CO3</td><td>Apply linear measurement techniques (Vernier, Micrometer, Height Gauge, Dial Indicator).</td><td>Apply</td></tr>
+            <tr><td>CO4</td><td>Apply angular and thread measurement techniques for precision applications.</td><td>Apply</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="coverage">
+      <h2>Syllabus Coverage Map</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Module</th><th>Focus Area</th><th>Experiments</th><th>Hours</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Module I</td><td>Material Science Basics</td><td>Expt 1, 2</td><td>3</td></tr>
+            <tr><td>Module II</td><td>Heat Treatment & NDT</td><td>Expt 3, 4, 5, 6</td><td>15 (incl. Series I)</td></tr>
+            <tr><td>Module III</td><td>Linear Metrology</td><td>Expt 7, 8, 9, 10</td><td>12</td></tr>
+            <tr><td>Module IV</td><td>Angular & Thread Metrology</td><td>Expt 11, 12, 13, 14</td><td>15 (incl. Series II)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <h2>Learning Roadmap</h2>
+      <div class="roadmap">
+        <div class="roadmap-step">
+          <strong>Step 1: Material Identity</strong>
+          <p>Learn to distinguish metals by looking at them, filing them, or checking magnetism.</p>
+        </div>
+        <div class="roadmap-step">
+          <strong>Step 2: Internal Structure & Integrity</strong>
+          <p>See how heat changes metals and how to find invisible cracks using NDT.</p>
+        </div>
+        <div class="roadmap-step">
+          <strong>Step 3: Precision Linear Measurement</strong>
+          <p>Master the tools that measure to the nearest 0.02mm or 0.01mm.</p>
+        </div>
+        <div class="roadmap-step">
+          <strong>Step 4: Complex Geometry</strong>
+          <p>Measure angles, tapers, and screw threads for industrial assembly.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULE 1 -->
+    <section class="module" id="module-1">
+      <div class="module-head">
+        <div class="kicker">Module I</div>
+        <h2>Material Identification & Microstructure</h2>
+        <div class="module-meta">
+          <span>Instructional Hours: 3</span>
+          <span>Mapped to: CO1</span>
+        </div>
+      </div>
+
+      <details class="topic" open>
+        <summary>Expt 1: Study and Identification of Engineering Materials</summary>
+        <div class="topic-body">
+          <p>Engineering materials are broadly classified into Ferrous (containing Iron) and Non-Ferrous. Identification is the first step in any workshop.</p>
+          <ul>
+            <li><strong>Appearance:</strong> Color and texture (e.g., Copper is reddish, Cast Iron is dull grey).</li>
+            <li><strong>Magnetism:</strong> Ferrous materials (except some stainless steels) are magnetic.</li>
+            <li><strong>Filing Test:</strong> Resistance to a file indicates hardness.</li>
+            <li><strong>Spark Test:</strong> Touching the metal to a grinding wheel. The color, shape, and length of sparks identify the carbon content.</li>
+          </ul>
+          <div class="ml-note">
+            <strong>Malayalam support:</strong>
+            മെറ്റീരിയലുകളെ അവയുടെ നിറം, കാന്തികത (Magnetism), ഫയൽ ചെയ്യുമ്പോഴുള്ള കാഠിന്യം, ഗ്രൈൻഡിംഗ് വീലിൽ ഉരസുമ്പോഴുണ്ടാകുന്ന തീപ്പൊരി (Spark) എന്നിവ നോക്കി തിരിച്ചറിയാൻ പഠിക്കുന്നു.
+          </div>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>Expt 2: Study of Microstructure</summary>
+        <div class="topic-body">
+          <p>Using a metallurgical microscope to observe the grain structure of metals. Students use standard charts to identify phases like Ferrite, Pearlite, or Cementite.</p>
+          <div class="diagram">
+            <svg viewBox="0 0 200 100" width="300">
+              <circle cx="50" cy="50" r="40" fill="#eee" stroke="#333" />
+              <path d="M30 30 Q 50 20 70 30 T 70 70 T 30 70 Z" fill="#ccc" stroke="#666" />
+              <text x="110" y="55" font-size="10">Microscopic View</text>
+            </svg>
+            <figcaption>Schematic of grain boundaries in a metal specimen.</figcaption>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module" id="module-2">
+      <div class="module-head">
+        <div class="kicker">Module II</div>
+        <h2>Heat Treatment & Non-Destructive Testing</h2>
+        <div class="module-meta">
+          <span>Instructional Hours: 15</span>
+          <span>Mapped to: CO2</span>
+        </div>
+      </div>
+
+      <details class="topic" open>
+        <summary>Expt 3: Heat-Treated Specimens</summary>
+        <div class="topic-body">
+          <p>Comparing specimens that have undergone:</p>
+          <ul>
+            <li><strong>Annealing:</strong> Slow cooling for softness.</li>
+            <li><strong>Normalizing:</strong> Air cooling for grain refinement.</li>
+            <li><strong>Hardening (Quenching):</strong> Rapid cooling for maximum hardness.</li>
+            <li><strong>Tempering:</strong> Reheating to reduce brittleness.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>Expt 4-6: Non-Destructive Testing (NDT)</summary>
+        <div class="topic-body">
+          <p>NDT allows inspecting parts without damaging them.</p>
+          <ul>
+            <li><strong>Visual Inspection (VI):</strong> Using magnifying glasses and mirrors to find surface flaws.</li>
+            <li><strong>Dye Penetrant Test (DPT):</strong> 
+              <ol>
+                <li>Clean surface.</li>
+                <li>Apply red penetrant (wait for dwell time).</li>
+                <li>Remove excess penetrant.</li>
+                <li>Apply white developer. Cracks appear as bright red lines.</li>
+              </ol>
+            </li>
+            <li><strong>Magnetic Particle Test (MPT):</strong> Using magnetic fields to find surface and near-surface cracks in ferrous metals.</li>
+          </ul>
+          <div class="ml-note">
+            <strong>Malayalam support:</strong>
+            മെറ്റീരിയലിന് കേടുപാടുകൾ വരുത്താതെ അതിലെ വിള്ളലുകൾ (Cracks) കണ്ടെത്താനാണ് NDT ഉപയോഗിക്കുന്നത്. Dye Penetrant ടെസ്റ്റിൽ ചുവന്ന നിറത്തിലുള്ള മഷി വിള്ളലുകളിൽ ഇറങ്ങിച്ചെല്ലുകയും ഡെവലപ്പർ ഉപയോഗിക്കുമ്പോൾ അത് പുറത്തേക്ക് വരികയും ചെയ്യുന്നു.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="module-3">
+      <div class="module-head">
+        <div class="kicker">Module III</div>
+        <h2>Linear Measurement</h2>
+        <div class="module-meta">
+          <span>Instructional Hours: 12</span>
+          <span>Mapped to: CO3</span>
+        </div>
+      </div>
+
+      <details class="topic" open>
+        <summary>Precision Instruments (Vernier & Micrometer)</summary>
+        <div class="topic-body">
+          <h3>Vernier Caliper</h3>
+          <p>Least Count (LC) = 1 MSD - 1 VSD. Typically 0.02 mm.</p>
+          
+          <div class="calculator">
+            <h3>Vernier Reading Calculator</h3>
+            <div class="calc-grid">
+              <div>
+                <label>Main Scale Reading (mm):</label>
+                <input type="number" id="msr" value="10" step="1">
+              </div>
+              <div>
+                <label>Vernier Scale Division (VSD):</label>
+                <input type="number" id="vsd" value="5" step="1">
+              </div>
+            </div>
+            <div class="calc-result" id="vernierResult">Total Reading: 10.10 mm</div>
+          </div>
+
+          <h3>Micrometer (Screw Gauge)</h3>
+          <p>Works on the principle of screw and nut. Pitch / No. of divisions on circular scale. Typically 0.01 mm.</p>
+          
+          <div class="ml-note">
+            <strong>Malayalam support:</strong>
+            Vernier Caliper ഉപയോഗിച്ച് പുറം അളവ് (External), ഉൾ അളവ് (Internal), താഴ്ച (Depth) എന്നിവ കൃത്യമായി അളക്കാം. Micrometer കൂടുതൽ കൃത്യതയോടെ (0.01mm) കനം അളക്കാൻ സഹായിക്കുന്നു.
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- MODULE 4 -->
+    <section class="module" id="module-4">
+      <div class="module-head">
+        <div class="kicker">Module IV</div>
+        <h2>Angular & Thread Measurement</h2>
+        <div class="module-meta">
+          <span>Instructional Hours: 15</span>
+          <span>Mapped to: CO4</span>
+        </div>
+      </div>
+
+      <details class="topic" open>
+        <summary>Expt 11-12: Angular & Taper Measurement</summary>
+        <div class="topic-body">
+          <ul>
+            <li><strong>Bevel Protractor:</strong> Measures angles with a vernier scale (Least count 1 minute).</li>
+            <li><strong>Sine Bar:</strong> Used with slip gauges for high-precision angle measurement based on trigonometry (sin θ = h/L).</li>
+          </ul>
+          
+          <div class="worked">
+            <strong>Example: Sine Bar Calculation</strong><br>
+            <strong>Given:</strong> Length of Sine Bar (L) = 100 mm, Height of Slip Gauges (h) = 25.88 mm.<br>
+            <strong>Required:</strong> Taper Angle (θ).<br>
+            <strong>Calculation:</strong> sin θ = h / L = 25.88 / 100 = 0.2588. <br>
+            θ = sin⁻¹(0.2588) ≈ 15°.<br>
+            <strong>Answer:</strong> 15 degrees.
+          </div>
+        </div>
+      </details>
+
+      <details class="topic" open>
+        <summary>Expt 13-14: Threads & Feeler Gauges</summary>
+        <div class="topic-body">
+          <p><strong>Thread Parameters:</strong> Measuring Major diameter, Minor diameter, and Pitch using a screw thread micrometer or wire method.</p>
+          <p><strong>Feeler Gauge:</strong> A set of thin steel blades used to measure clearance or gap between mating parts (e.g., spark plug gap).</p>
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="activities">
+      <h2>Student Activities for Self-Learning</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Week</th><th>Activity Description</th><th>Hours</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1-3</td><td>Watch videos on material classification; Prepare comparison tables.</td><td>4.5</td></tr>
+            <tr><td>4-8</td><td>Review heat treatment basics; Study NDT safety precautions.</td><td>7.5</td></tr>
+            <tr><td>9-12</td><td>Practice reading Vernier/Micrometer from virtual simulators.</td><td>6.0</td></tr>
+            <tr><td>13-15</td><td>Review thread parameters and angular measurement concepts.</td><td>4.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="formula-bank">
+      <h2>Formula Bank</h2>
+      <div class="grid two">
+        <div class="worked">
+          <strong>Vernier Caliper</strong><br>
+          LC = 1 MSD - 1 VSD<br>
+          Total Reading = MSR + (VSD &times; LC)
+        </div>
+        <div class="worked">
+          <strong>Micrometer</strong><br>
+          LC = Pitch / No. of Circular Scale Divisions<br>
+          Total Reading = PSR + (HSR &times; LC)
+        </div>
+        <div class="worked">
+          <strong>Sine Bar</strong><br>
+          sin θ = h / L<br>
+          (h = Height of slip gauges, L = Length of sine bar)
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visual-library">
+      <h2>Visual Library</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 400 150" width="500">
+          <!-- Simple Vernier Scale Representation -->
+          <rect x="10" y="50" width="380" height="40" fill="#ddd" stroke="#333" />
+          <!-- Main Scale -->
+          <line x1="20" y1="50" x2="20" y2="70" stroke="black" />
+          <line x1="40" y1="50" x2="40" y2="65" stroke="black" />
+          <line x1="60" y1="50" x2="60" y2="70" stroke="black" />
+          <text x="18" y="85" font-size="10">0</text>
+          <text x="58" y="85" font-size="10">1cm</text>
+          <!-- Vernier Scale -->
+          <rect x="20" y="95" width="100" height="20" fill="#bbb" stroke="#333" />
+          <line x1="20" y1="95" x2="20" y2="105" stroke="red" />
+          <line x1="39" y1="95" x2="39" y2="105" stroke="red" />
+          <text x="18" y="125" font-size="10" fill="red">0</text>
+        </svg>
+        <figcaption>Simplified Vernier Caliper Scale Principle.</figcaption>
+      </div>
+    </section>
+
+    <section class="section" id="assessment">
+      <h2>Assessment Methodology</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Mode</th><th>Details</th><th>Marks</th></tr>
+          <tr><td>CIE - Attendance</td><td>Regularity in lab</td><td>5</td></tr>
+          <tr><td>CIE - Continuous Evaluation</td><td>Record, Procedure, Setup, Viva</td><td>30</td></tr>
+          <tr><td>CIE - Practical Tests</td><td>CA1 (7th week) & CA2 (14th week)</td><td>15</td></tr>
+          <tr><td>CIE - Open Ended Expt</td><td>Originality & Execution (15th week)</td><td>10</td></tr>
+          <tr><td><strong>Total CIE</strong></td><td></td><td><strong>60</strong></td></tr>
+          <tr><td><strong>ESE (Practical)</strong></td><td>3-hour external exam</td><td><strong>40</strong></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="questions">
+      <h2>Module-wise Questions &amp; Answers</h2>
+      
+      <h3>Module I & II</h3>
+      <details class="qa">
+        <summary>What is the difference between Ferrous and Non-Ferrous materials?</summary>
+        <div class="qa-body">
+          Ferrous materials contain iron as the main constituent (e.g., Mild Steel, Cast Iron) and are usually magnetic. Non-ferrous materials do not contain iron (e.g., Aluminum, Copper, Brass) and are non-magnetic.
+        </div>
+      </details>
+      <details class="qa">
+        <summary>Explain the purpose of the 'Developer' in Dye Penetrant Testing.</summary>
+        <div class="qa-body">
+          The developer is a white powder that acts like a blotter. It pulls the trapped penetrant out of the cracks to the surface, making the defect visible against the white background.
+        </div>
+      </details>
+
+      <h3>Module III & IV</h3>
+      <details class="qa">
+        <summary>Define Least Count of a measuring instrument.</summary>
+        <div class="qa-body">
+          The Least Count is the smallest value that can be measured accurately by a measuring instrument. For a standard Vernier Caliper, it is 0.02 mm.
+        </div>
+      </details>
+      <details class="qa">
+        <summary>Why is a Surface Plate made of Granite?</summary>
+        <div class="qa-body">
+          Granite is used because it is hard, wear-resistant, non-magnetic, and does not rust. It also has high thermal stability, meaning it doesn't expand or contract easily with temperature changes.
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="model-paper">
+      <h2>Practice Model Paper</h2>
+      <p><em>(Not an Official Examination Paper)</em></p>
+      <div class="worked">
+        <strong>Part A: Identification (10 Marks)</strong><br>
+        Identify the given 5 metal specimens using visual and physical tests.
+        <br><br>
+        <strong>Part B: Measurement (20 Marks)</strong><br>
+        1. Measure the internal diameter and depth of the given hollow cylinder using a Vernier Caliper.<br>
+        2. Determine the taper angle of the given wedge using a Sine Bar and Slip Gauges.
+        <br><br>
+        <strong>Part C: Viva Voce (10 Marks)</strong><br>
+        Questions on NDT procedures and least count calculations.
+      </div>
+    </section>
+
+    <section class="section" id="revision">
+      <h2>Quick Revision</h2>
+      <ul>
+        <li><strong>Spark Test:</strong> Long yellow sparks = Low Carbon Steel; Short bushy sparks = High Carbon Steel.</li>
+        <li><strong>DPT Steps:</strong> Clean → Penetrant → Clean → Developer → Inspect.</li>
+        <li><strong>Vernier LC:</strong> 0.02 mm.</li>
+        <li><strong>Micrometer LC:</strong> 0.01 mm.</li>
+        <li><strong>Sine Bar:</strong> Always used on a Surface Plate.</li>
+        <li><strong>Feeler Gauge:</strong> Used for clearances, not for measuring diameters.</li>
+      </ul>
+    </section>
+
+    <section class="section" id="glossary">
+      <h2>Glossary</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><td><strong>Metrology</strong></td><td>The science of measurement.</td></tr>
+          <tr><td><strong>Parallax Error</strong></td><td>Error caused by viewing the scale from an angle.</td></tr>
+          <tr><td><strong>Quenching</strong></td><td>Rapid cooling of a metal in water or oil to harden it.</td></tr>
+          <li><strong>Pitch</strong></td><td>The distance between two consecutive thread crests.</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="references">
+      <h2>References</h2>
+      <ul>
+        <li><em>Material Science and Engineering</em> - V. Raghavan (Prentice Hall).</li>
+        <li><em>Engineering Metrology</em> - Er. R.K. Jain (Khanna Publishers).</li>
+        <li><em>Engineering Metrology and Measurements</em> - Raghavendra and Krishnamurthy (Oxford).</li>
+        <li>NPTEL Course on Metrology: <a href="https://nptel.ac.in/courses/112104250">Link</a></li>
+      </ul>
+    </section>
+
+    <section class="section no-print" id="handbook-search">
+      <h2>Search Handbook</h2>
+      <input type="text" id="searchInput" class="search-bar" placeholder="Search for topics (e.g. Vernier, NDT)...">
+      <ul id="searchResults" class="search-results"></ul>
+    </section>
+
+  </main>
+</div>
+
+<script>
+"use strict";
+
+(function() {
+  // Reading Progress
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById("readingProgress").style.width = scrolled + "%";
+  });
+
+  // Vernier Calculator
+  const msrInput = document.getElementById('msr');
+  const vsdInput = document.getElementById('vsd');
+  const resultDiv = document.getElementById('vernierResult');
+
+  function updateVernier() {
+    const msr = parseFloat(msrInput.value) || 0;
+    const vsd = parseFloat(vsdInput.value) || 0;
+    const lc = 0.02; // Standard for this lab
+    const total = msr + (vsd * lc);
+    resultDiv.innerText = `Total Reading: ${total.toFixed(2)} mm`;
+  }
+
+  msrInput.addEventListener('input', updateVernier);
+  vsdInput.addEventListener('input', updateVernier);
+
+  // Search Functionality
+  const searchInput = document.getElementById('searchInput');
+  const searchResults = document.getElementById('searchResults');
+  const headings = document.querySelectorAll('h2, h3, summary');
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    searchResults.innerHTML = '';
+    if (query.length < 2) return;
+
+    headings.forEach((h, index) => {
+      if (h.innerText.toLowerCase().includes(query)) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        const id = h.closest('section')?.id || h.closest('details')?.id || "";
+        a.href = "#" + id;
+        a.innerText = h.innerText;
+        a.onclick = (e) => {
+          const details = h.closest('details');
+          if (details) details.open = true;
+        };
+        li.appendChild(a);
+        searchResults.appendChild(li);
+      }
+    });
+  });
+
+  // Auto-print logic
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.has('autoPrintNotes')) {
+    window.onload = () => {
+      document.querySelectorAll('details').forEach(d => d.open = true);
+      window.print();
+    };
+  }
+})();
+</script>
+
+</body>
+</html>

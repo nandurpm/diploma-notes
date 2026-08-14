@@ -1,0 +1,679 @@
+<!doctype html>
+<html class="poly-lesson-page revision-2021-lesson" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Complete Polytechnic Lab Lesson for 1259 — Office Automation Software Lab. Covering MS Word, Excel, PowerPoint, and Access.">
+  <meta name="course-code" content="1259">
+  <meta name="course-title" content="Office Automation Software Lab">
+  <meta name="curriculum" content="REV2021">
+  <title>1259 — Office Automation Software Lab | REV2021</title>
+
+  <style>
+    :root {
+      --ink: #1e293b;
+      --muted: #64748b;
+      --paper: #ffffff;
+      --soft: #f8fafc;
+      --soft2: #f1f5f9;
+      --line: #e2e8f0;
+      --navy: #0f172a;
+      --blue: #2563eb;
+      --cyan: #0891b2;
+      --teal: #0d9488;
+      --green: #16a34a;
+      --amber: #d97706;
+      --red: #dc2626;
+      --violet: #7c3aed;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+      --mal: "Noto Sans Malayalam", "Manjari", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--soft2);
+    }
+
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--blue);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s ease;
+    }
+
+    .lesson-shell {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      min-height: 100vh;
+    }
+
+    main { padding: 2rem; }
+
+    .cover {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: white;
+      text-align: center;
+      border-radius: 0 0 var(--radius) var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .cover h1 { font-size: 2.5rem; margin: 0.5rem 0; }
+    .badge-row { display: flex; justify-content: center; gap: 10px; margin-top: 1rem; flex-wrap: wrap; }
+    .badge { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 0.9rem; }
+
+    .jump-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 3rem;
+      padding: 1rem;
+      background: var(--soft);
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+    }
+
+    .jump-menu a {
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 8px;
+      text-align: center;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+
+    .jump-menu a:hover { background: var(--blue); color: white; border-color: var(--blue); }
+
+    .section { margin-bottom: 4rem; scroll-margin-top: 20px; }
+    h2 { border-left: 5px solid var(--blue); padding-left: 1rem; color: var(--navy); margin-bottom: 1.5rem; }
+
+    .module {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+
+    .module-head {
+      background: var(--soft2);
+      padding: 1.5rem;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .module-meta { font-size: 0.9rem; color: var(--muted); display: flex; gap: 20px; }
+
+    .topic {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .topic summary {
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--blue);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topic summary::after { content: '↓'; font-size: 1.2rem; }
+    .topic[open] summary::after { content: '↑'; }
+
+    .ml-note {
+      background: #fffbeb;
+      border-left: 4px solid var(--amber);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: var(--mal);
+      font-size: 0.95rem;
+    }
+
+    .worked {
+      background: #f0fdf4;
+      border: 1px solid var(--green);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+
+    .qa {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .qa summary { padding: 1rem; cursor: pointer; font-weight: 600; }
+    .qa-body { padding: 0 1rem 1rem 1rem; border-top: 1px solid var(--line); background: white; }
+
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+    th { background: var(--soft2); font-weight: 700; }
+
+    .diagram {
+      text-align: center;
+      margin: 2rem 0;
+      padding: 1rem;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .diagram svg { max-width: 100%; height: auto; }
+
+    .calculator {
+      background: var(--navy);
+      color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      margin: 2rem 0;
+    }
+
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .calc-input { width: 100%; padding: 10px; border-radius: 4px; border: none; }
+    .calc-result { margin-top: 20px; font-size: 1.2rem; font-weight: bold; color: var(--cyan); }
+
+    .btn-print {
+      display: inline-block;
+      background: var(--navy);
+      color: white;
+      padding: 12px 24px;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      margin: 2rem 0;
+      cursor: pointer;
+    }
+
+    .search-bar {
+      width: 100%;
+      padding: 15px;
+      border-radius: 30px;
+      border: 2px solid var(--line);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    @media print {
+      .no-print, .reading-progress, .jump-menu, .search-bar, .btn-print { display: none !important; }
+      .lesson-shell { box-shadow: none; width: 100%; max-width: 100%; }
+      details { display: block !important; }
+      details summary::after { content: "" !important; }
+      .module { break-inside: avoid; }
+    }
+
+    @media (max-width: 640px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .cover h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body class="revision-2021-lesson">
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <div class="lesson-shell">
+    <main id="main-content">
+
+      <section class="cover" id="cover">
+        <div class="badge">Revision 2021</div>
+        <h1>Office Automation Software Lab</h1>
+        <div class="badge-row">
+          <span class="badge">Code: 1259</span>
+          <span class="badge">Semester: 1</span>
+          <span class="badge">Credits: 1.5</span>
+          <span class="badge">Core Course</span>
+        </div>
+        <p style="margin-top: 2rem; opacity: 0.9;">Mastering MS Word, Excel, PowerPoint, and Access for Business Professionals.</p>
+        <a href="?autoPrintNotes=1" class="btn-print no-print" data-notes-link data-pdf-code="1259" data-pdf-revision="2021">Download Lab Notes (PDF)</a>
+      </section>
+
+      <nav class="jump-menu" aria-label="Lesson sections">
+        <a href="#source">Official Source</a>
+        <a href="#course-dashboard">Dashboard</a>
+        <a href="#outcomes">Outcomes</a>
+        <a href="#coverage">Coverage</a>
+        <a href="#module-1">MS Word</a>
+        <a href="#module-2">Excel Basic</a>
+        <a href="#module-3">Excel Advanced</a>
+        <a href="#module-4">PPT & Access</a>
+        <a href="#assessment">Assessment</a>
+        <a href="#questions">Q&A</a>
+        <a href="#model-paper">Model Paper</a>
+      </nav>
+
+      <section class="section" id="source">
+        <h2>Official Source Declaration</h2>
+        <div class="ml-note">
+          <strong>Malayalam support:</strong> ഈ പാഠഭാഗം തയ്യാറാക്കിയിരിക്കുന്നത് ഔദ്യോഗിക കേരള പോളിടെക്നിക് സിലബസ് (REV2021) അടിസ്ഥാനമാക്കിയാണ്.
+        </div>
+        <p>This lesson is architected using the official <strong>SITTTR Kerala Syllabus (Revision 2021)</strong> for Course Code <strong>1259</strong>. All modules, contact hours, and learning outcomes are mapped directly from the official document.</p>
+      </section>
+
+      <section class="section" id="course-dashboard">
+        <h2>Course Dashboard</h2>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Program</th><td>Diploma in Computer Application and Business Management</td></tr>
+            <tr><th>Course Category</th><td>Program Core</td></tr>
+            <tr><th>Periods per Week</th><td>3 (Practical)</td></tr>
+            <tr><th>Total Periods</th><td>45</td></tr>
+            <tr><th>Prerequisites</th><td>Basic Computer Knowledge (Secondary School level)</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="how-to-use">
+        <h2>How to Study this Lab Course</h2>
+        <ul>
+          <li><strong>Hands-on Practice:</strong> This is a lab course. Every topic mentioned must be practiced on a computer.</li>
+          <li><strong>Step-by-Step Documentation:</strong> Maintain a lab record for every experiment.</li>
+          <li><strong>Business Context:</strong> Always think how these tools apply to a business office (e.g., creating a salary slip in Excel).</li>
+        </ul>
+      </section>
+
+      <section class="section" id="outcomes">
+        <h2>Course Outcomes (CO) & Mapping</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>CO</th><th>Description</th><th>Hours</th><th>Cognitive Level</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>CO1</td><td>Use Word Processing for documents and reports</td><td>8</td><td>Applying</td></tr>
+              <tr><td>CO2</td><td>Create basic spreadsheets for business</td><td>10</td><td>Applying</td></tr>
+              <tr><td>CO3</td><td>Apply Advanced Excel formulas and manipulation</td><td>12</td><td>Applying</td></tr>
+              <tr><td>CO4</td><td>Build PPT presentations and MS Access databases</td><td>12</td><td>Applying</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <h3>CO-PO Mapping</h3>
+        <p>Strongly mapped (3) to PO1 (Basic Knowledge) and PO4 (Engineering Tools).</p>
+      </section>
+
+      <section class="section" id="coverage">
+        <h2>Syllabus Coverage Map</h2>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Module</th><th>Key Topics</th><th>Weightage</th></tr>
+            <tr><td>1</td><td>Word: Mail Merge, Tables, PDF Export</td><td>18%</td></tr>
+            <tr><td>2</td><td>Excel: Data Referencing, Logical IF, Auto Sum</td><td>22%</td></tr>
+            <tr><td>3</td><td>Advanced Excel: VLOOKUP, Pivot Tables, Dashboards</td><td>27%</td></tr>
+            <tr><td>4</td><td>PPT & Access: Business Slides, Database Queries</td><td>27%</td></tr>
+            <tr><td>Exam</td><td>Lab Exam I & II</td><td>6%</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="roadmap">
+        <h2>Learning Roadmap</h2>
+        <div class="roadmap" style="background: var(--soft); padding: 1.5rem; border-radius: 8px;">
+          <p><strong>Step 1:</strong> Master Document Formatting (Word) &rarr; <strong>Step 2:</strong> Learn Data Calculation (Excel Basic) &rarr; <strong>Step 3:</strong> Professional Data Analysis (Excel Advanced) &rarr; <strong>Step 4:</strong> Data Presentation & Storage (PPT/Access).</p>
+        </div>
+      </section>
+
+      <!-- MODULE 1 -->
+      <section class="module" id="module-1">
+        <div class="module-head">
+          <h2>Module 1: Word Processing Applications (CO1)</h2>
+          <div class="module-meta"><span>Duration: 8 Hours</span><span>Focus: Professional Reporting</span></div>
+        </div>
+
+        <details class="topic" open>
+          <summary>M1.01: Document Creation & Formatting</summary>
+          <div class="topic-body">
+            <p>Creating professional documents involves setting margins, font styles, paragraph spacing, and headers/footers.</p>
+            <div class="ml-note">
+              <strong>Malayalam support:</strong> റിപ്പോർട്ടുകൾ തയ്യാറാക്കുമ്പോൾ ഹെഡർ, ഫൂട്ടർ, പേജ് നമ്പറുകൾ എന്നിവ കൃത്യമായി നൽകാൻ ശ്രദ്ധിക്കുക.
+            </div>
+          </div>
+        </details>
+
+        <details class="topic" open>
+          <summary>M1.02: Mail Merge for Multiple Letters</summary>
+          <div class="topic-body">
+            <p>Mail Merge is used to create personalized letters for hundreds of recipients using a single template and a data source (like an Excel list).</p>
+            <figure class="diagram">
+              <svg width="400" height="150" viewBox="0 0 400 150" role="img" aria-labelledby="mm-title mm-desc">
+                <title id="mm-title">Mail Merge Process</title>
+                <desc id="mm-desc">Flowchart showing Template + Data Source = Personalized Letters</desc>
+                <rect x="10" y="50" width="100" height="50" fill="#2563eb" rx="5"/>
+                <text x="60" y="80" fill="white" text-anchor="middle" font-size="12">Template</text>
+                <text x="135" y="80" font-size="20">+</text>
+                <rect x="160" y="50" width="100" height="50" fill="#16a34a" rx="5"/>
+                <text x="210" y="80" fill="white" text-anchor="middle" font-size="12">Data Source</text>
+                <text x="285" y="80" font-size="20">=</text>
+                <rect x="310" y="40" width="80" height="70" fill="#7c3aed" rx="5"/>
+                <text x="350" y="80" fill="white" text-anchor="middle" font-size="10">Merged Docs</text>
+              </svg>
+              <figcaption>The Mail Merge Workflow</figcaption>
+            </figure>
+          </div>
+        </details>
+
+        <details class="topic">
+          <summary>M1.03: Tables, Hyperlinks & PDF Export</summary>
+          <div class="topic-body">
+            <ul>
+              <li><strong>Tables:</strong> Insert > Table. Adjust borders and shading.</li>
+              <li><strong>Hyperlinks:</strong> Ctrl+K to link text to websites or other document sections.</li>
+              <li><strong>Export:</strong> File > Export > Create PDF/XPS.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- MODULE 2 -->
+      <section class="module" id="module-2">
+        <div class="module-head">
+          <h2>Module 2: Basic Spreadsheets (CO2)</h2>
+          <div class="module-meta"><span>Duration: 10 Hours</span><span>Focus: Business Calculations</span></div>
+        </div>
+
+        <details class="topic" open>
+          <summary>M2.02: Rows, Columns & Referencing</summary>
+          <div class="topic-body">
+            <p>Understanding <strong>Relative</strong> (A1) vs <strong>Absolute</strong> ($A$1) referencing is crucial for copying formulas.</p>
+            <div class="ml-note">
+              <strong>Malayalam support:</strong> ഒരു ഫോർമുല കോപ്പി ചെയ്യുമ്പോൾ സെൽ അഡ്രസ്സ് മാറാതെ നിൽക്കാൻ ഡോളർ ചിഹ്നം ($) ഉപയോഗിക്കുന്നു. ഇതിനെ Absolute Reference എന്ന് വിളിക്കുന്നു.
+            </div>
+          </div>
+        </details>
+
+        <details class="topic" open>
+          <summary>M2.03: Basic Formulae & IF Logic</summary>
+          <div class="topic-body">
+            <div class="worked">
+              <strong>Scenario:</strong> Calculate Pass/Fail based on marks (Pass mark = 40).<br>
+              <strong>Formula:</strong> <code>=IF(B2>=40, "Pass", "Fail")</code><br>
+              <strong>Logic:</strong> If value in B2 is 40 or more, display "Pass", else "Fail".
+            </div>
+            
+            <div class="calculator no-print">
+              <h3>IF Logic Simulator</h3>
+              <div class="calc-grid">
+                <div>
+                  <label>Enter Marks (0-100):</label>
+                  <input type="number" id="markInput" class="calc-input" placeholder="e.g. 45">
+                </div>
+                <div>
+                  <label>Result:</label>
+                  <div id="calcOutput" class="calc-result">Waiting for input...</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- MODULE 3 -->
+      <section class="module" id="module-3">
+        <div class="module-head">
+          <h2>Module 3: Advanced Excel (CO3)</h2>
+          <div class="module-meta"><span>Duration: 12 Hours</span><span>Focus: Data Manipulation</span></div>
+        </div>
+
+        <details class="topic" open>
+          <summary>M3.01: Charts & Lookup Functions</summary>
+          <div class="topic-body">
+            <p><strong>VLOOKUP:</strong> Used to search for a value in the first column of a table and return a value in the same row from another column.</p>
+            <code>=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</code>
+          </div>
+        </details>
+
+        <details class="topic">
+          <summary>M3.03: Pivot Tables & Data Protection</summary>
+          <div class="topic-body">
+            <p><strong>Pivot Tables:</strong> Summarize large datasets instantly (e.g., total sales per region).</p>
+            <p><strong>Protection:</strong> Review > Protect Sheet. Prevents unauthorized editing of formulas.</p>
+          </div>
+        </details>
+
+        <details class="topic">
+          <summary>M3.04: Basic Dashboard Preparation</summary>
+          <div class="topic-body">
+            <p>A dashboard combines charts, slicers, and key metrics into a single screen for business decision-making.</p>
+          </div>
+        </details>
+      </section>
+
+      <!-- MODULE 4 -->
+      <section class="module" id="module-4">
+        <div class="module-head">
+          <h2>Module 4: Presentations & Databases (CO4)</h2>
+          <div class="module-meta"><span>Duration: 12 Hours</span><span>Focus: Presentation & Storage</span></div>
+        </div>
+
+        <details class="topic" open>
+          <summary>M4.01: Professional PowerPoint</summary>
+          <div class="topic-body">
+            <ul>
+              <li>Use <strong>Slide Master</strong> for consistent branding.</li>
+              <li>Insert Charts directly from Excel to keep data linked.</li>
+              <li>Use <strong>SmartArt</strong> for process flows.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="topic" open>
+          <summary>M4.02 & M4.03: MS Access Basics</summary>
+          <div class="topic-body">
+            <p>MS Access is a Relational Database Management System (RDBMS).</p>
+            <div class="table-wrap">
+              <table>
+                <tr><th>Term</th><th>Description</th></tr>
+                <tr><td>Table</td><td>Stores data in rows (records) and columns (fields).</td></tr>
+                <tr><td>Query</td><td>A request to retrieve specific data (e.g., List all students from 'Kochi').</td></tr>
+                <tr><td>Primary Key</td><td>A unique ID for each record (e.g., Admission Number).</td></tr>
+              </table>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section class="section" id="activities">
+        <h2>Official Lab Activities</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Activity</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Resume Preparation</td><td>Create a 2-page professional resume using Word tables and formatting.</td></tr>
+              <tr><td>Salary Sheet</td><td>Create an automated payroll in Excel using IF, SUM, and HRA/DA percentages.</td></tr>
+              <tr><td>Sales Dashboard</td><td>Pivot table analysis of a yearly sales dataset.</td></tr>
+              <tr><td>Student DB</td><td>Create an Access database for student marks and query the top performers.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="formula-bank">
+        <h2>Formula & Procedure Bank</h2>
+        <div class="grid two">
+          <div class="worked">
+            <strong>Excel: SUMIF</strong><br>
+            <code>=SUMIF(Range, Criteria, Sum_Range)</code><br>
+            <em>Use: Sum values based on a condition.</em>
+          </div>
+          <div class="worked">
+            <strong>Excel: CONCATENATE</strong><br>
+            <code>=A2 & " " & B2</code><br>
+            <em>Use: Join First Name and Last Name.</em>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="visual-library">
+        <h2>Visual Revision Library</h2>
+        <div class="grid two">
+          <div class="diagram">
+            <strong>Excel Cell Anatomy</strong><br>
+            [Column Letter][Row Number] &rarr; B15
+          </div>
+          <div class="diagram">
+            <strong>Access Relationship</strong><br>
+            Table A (PK) &infin;---1 Table B (FK)
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="assessment">
+        <h2>Assessment Methodology</h2>
+        <div class="table-wrap">
+          <table>
+            <tr><th>Type</th><th>Details</th><th>Weight</th></tr>
+            <tr><td><strong>Lab Exam I</strong></td><td>Covers Module 1 & 2 (Word & Basic Excel)</td><td>1.5 Hours</td></tr>
+            <tr><td><strong>Lab Exam II</strong></td><td>Covers Module 3 & 4 (Adv Excel, PPT, Access)</td><td>1.5 Hours</td></tr>
+            <tr><td><strong>Open Ended</strong></td><td>Creative project combining multiple tools</td><td>3 Hours</td></tr>
+          </table>
+        </div>
+      </section>
+
+      <section class="section" id="questions">
+        <h2>Module-wise Q&A</h2>
+        <details class="qa">
+          <summary>Q1: What is the main advantage of Mail Merge? (CO1)</summary>
+          <div class="qa-body">It allows the mass production of personalized letters or labels quickly by linking a template to a database, saving time and reducing manual errors.</div>
+        </details>
+        <details class="qa">
+          <summary>Q2: Explain the difference between COUNT and COUNTA in Excel. (CO2)</summary>
+          <div class="qa-body">COUNT only counts cells containing numbers. COUNTA counts all non-empty cells (numbers, text, errors, etc.).</div>
+        </details>
+        <details class="qa">
+          <summary>Q3: What is a 'Slicer' in an Excel Dashboard? (CO3)</summary>
+          <div class="qa-body">A Slicer is a visual filtering tool used with Pivot Tables and Dashboards to filter data with a single click.</div>
+        </details>
+        <details class="qa">
+          <summary>Q4: What is a Primary Key in MS Access? (CO4)</summary>
+          <div class="qa-body">A Primary Key is a field that uniquely identifies each record in a table. It cannot contain null values or duplicate data.</div>
+        </details>
+      </section>
+
+      <section class="section" id="model-paper">
+        <h2>Practice Model Paper</h2>
+        <p><em>(Not an official examination paper)</em></p>
+        <div class="worked">
+          <strong>Part A (Word - 10 Marks):</strong> Create a formal meeting notice. Use Mail Merge to address it to 5 different department heads listed in an Excel sheet.<br><br>
+          <strong>Part B (Excel - 20 Marks):</strong> Create a table with 'Product Name', 'Price', and 'Quantity'. Calculate 'Total'. Use an IF statement to apply a 10% discount if Total > 5000.<br><br>
+          <strong>Part C (Access - 10 Marks):</strong> Create a table 'Employees'. Fields: EmpID (PK), Name, Salary. Insert 5 records. Write a query to show employees with Salary > 25000.
+        </div>
+      </section>
+
+      <section class="section" id="revision">
+        <h2>Quick Revision Checklist</h2>
+        <ul>
+          <li>✅ Can I perform a Mail Merge?</li>
+          <li>✅ Do I know the difference between $A1, A$1, and $A$1?</li>
+          <li>✅ Can I create a VLOOKUP without errors?</li>
+          <li>✅ Can I create a Pivot Table and add a Chart to it?</li>
+          <li>✅ Do I know how to set a Primary Key in Access?</li>
+        </ul>
+      </section>
+
+      <section class="section" id="glossary">
+        <h2>Glossary</h2>
+        <dl>
+          <dt><strong>Ribbon</strong></dt><dd>The tabbed toolbar at the top of Office applications.</dd>
+          <dt><strong>Workbook</strong></dt><dd>An Excel file containing one or more worksheets.</dd>
+          <dt><strong>Query</strong></dt><dd>A specific search or data retrieval command in a database.</dd>
+          <dt><strong>Transition</strong></dt><dd>The visual effect that occurs when moving from one slide to another in PPT.</dd>
+        </dl>
+      </section>
+
+      <section class="section" id="references">
+        <h2>Official References</h2>
+        <ul>
+          <li>R1: Bittu Kumar, Mastering MS Office, V&S Publishers, 2017.</li>
+          <li>R2: Michael Price, Office 2019 in Easy Steps, BPB Publications, 2019.</li>
+          <li>Online: <a href="https://support.office.com">support.office.com</a></li>
+        </ul>
+      </section>
+
+      <section class="section no-print" id="handbook-search">
+        <h2>Search Handbook</h2>
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search for topics (e.g. Mail Merge, VLOOKUP)...">
+        <div id="searchResults"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    "use strict";
+    (function() {
+      // Reading Progress
+      window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("readingProgress").style.width = scrolled + "%";
+      });
+
+      // Simple IF Logic Calculator
+      const markInput = document.getElementById('markInput');
+      const calcOutput = document.getElementById('calcOutput');
+      if(markInput) {
+        markInput.addEventListener('input', (e) => {
+          const val = parseFloat(e.target.value);
+          if(isNaN(val)) {
+            calcOutput.textContent = "Enter a number";
+            calcOutput.style.color = "white";
+          } else if (val >= 40) {
+            calcOutput.textContent = "PASS (>= 40)";
+            calcOutput.style.color = "#16a34a";
+          } else {
+            calcOutput.textContent = "FAIL (< 40)";
+            calcOutput.style.color = "#dc2626";
+          }
+        });
+      }
+
+      // Search Functionality
+      const searchInput = document.getElementById('searchInput');
+      const searchResults = document.getElementById('searchResults');
+      if(searchInput) {
+        searchInput.addEventListener('input', () => {
+          const query = searchInput.value.toLowerCase();
+          searchResults.innerHTML = '';
+          if(query.length < 2) return;
+
+          const headings = document.querySelectorAll('h2, h3, summary');
+          headings.forEach(h => {
+            if(h.textContent.toLowerCase().includes(query)) {
+              const link = document.createElement('a');
+              link.href = '#';
+              link.textContent = h.textContent;
+              link.style.display = 'block';
+              link.style.padding = '5px';
+              link.onclick = (e) => {
+                e.preventDefault();
+                h.scrollIntoView({behavior: 'smooth'});
+                if(h.parentElement.tagName === 'DETAILS') h.parentElement.open = true;
+              };
+              searchResults.appendChild(link);
+            }
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!doctype html>
+<html class="poly-lesson-page revision-2026-lesson" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Complete Polytechnic lesson for 2019 — Basic Surveying Lab. Detailed guide for Civil Engineering students under REV2026 curriculum.">
+  <meta name="course-code" content="2019">
+  <meta name="course-title" content="Basic Surveying Lab">
+  <meta name="curriculum" content="REV2026">
+  <title>2019 — Basic Surveying Lab | Polytechnic Handbook</title>
+
+  <style>
+    :root {
+      --ink: #10233e;
+      --muted: #55697f;
+      --paper: #ffffff;
+      --soft: #f4f8fc;
+      --soft2: #eaf4ff;
+      --line: #d5e1ed;
+      --navy: #071f3f;
+      --blue: #0b5ed7;
+      --cyan: #0891b2;
+      --teal: #0f766e;
+      --green: #15803d;
+      --amber: #b45309;
+      --red: #b42318;
+      --violet: #6d28d9;
+      --shadow: 0 12px 34px rgba(15,43,75,.10);
+      --radius: 18px;
+      --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      color: var(--ink);
+      background-color: var(--soft);
+    }
+
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--blue);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.1s;
+    }
+
+    .lesson-shell {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      min-height: 100vh;
+    }
+
+    main { padding: 2rem; }
+
+    .cover {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: white;
+      border-radius: 0 0 var(--radius) var(--radius);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .cover h1 { font-size: 2.5rem; margin: 0; }
+    .badge-row { display: flex; justify-content: center; gap: 10px; margin-top: 1rem; flex-wrap: wrap; }
+    .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+    .jump-menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-bottom: 2rem;
+      background: var(--soft2);
+      padding: 1rem;
+      border-radius: var(--radius);
+    }
+    .jump-menu a {
+      text-decoration: none;
+      color: var(--navy);
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 8px;
+      border-radius: 8px;
+      background: white;
+      text-align: center;
+      border: 1px solid var(--line);
+    }
+
+    .section { margin-bottom: 3rem; scroll-margin-top: 2rem; }
+    h2 { border-left: 5px solid var(--blue); padding-left: 1rem; color: var(--navy); margin-top: 2rem; }
+    
+    .module {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .module-head {
+      background: var(--soft2);
+      padding: 1.5rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .module-body { padding: 1.5rem; }
+
+    .topic { margin-bottom: 1.5rem; border: 1px solid var(--line); border-radius: 12px; }
+    .topic summary { padding: 1rem; font-weight: bold; cursor: pointer; background: #fafafa; border-radius: 12px; }
+    .topic-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+    .ml-note {
+      background: #fff9e6;
+      border-left: 4px solid var(--amber);
+      padding: 1rem;
+      margin: 1rem 0;
+      font-family: var(--mal);
+      font-size: 0.95rem;
+    }
+    .ml-note strong { font-family: system-ui; }
+
+    .worked {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      padding: 1.5rem;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+
+    .table-wrap { overflow-x: auto; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; background: white; }
+    th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+    th { background: var(--soft2); color: var(--navy); }
+
+    .diagram { text-align: center; margin: 2rem 0; padding: 1rem; background: white; border: 1px solid var(--line); border-radius: 12px; }
+    .diagram svg { max-width: 100%; height: auto; }
+    figcaption { margin-top: 10px; font-size: 0.9rem; color: var(--muted); font-style: italic; }
+
+    .qa { margin-bottom: 1rem; background: var(--soft); border-radius: 8px; }
+    .qa summary { padding: 1rem; cursor: pointer; font-weight: 600; }
+    .qa-body { padding: 1rem; background: white; border-top: 1px solid var(--line); }
+
+    .calculator {
+      background: var(--navy);
+      color: white;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin: 1.5rem 0;
+    }
+    .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 1rem; }
+    .calc-grid input { padding: 8px; border-radius: 4px; border: none; }
+    .calc-result { font-size: 1.2rem; font-weight: bold; color: #4ade80; }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background: var(--blue);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-print { background: var(--teal); }
+
+    .no-print { display: block; }
+    .print-only { display: none; }
+
+    @media print {
+      .no-print, .jump-menu, .reading-progress, .btn, .search-bar { display: none !important; }
+      .print-only { display: block; }
+      .lesson-shell { box-shadow: none; max-width: 100%; }
+      details { display: block !important; }
+      details summary { pointer-events: none; }
+      .module { break-inside: avoid; }
+      body { background: white; }
+    }
+
+    @media (max-width: 640px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .cover h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body class="revision-2026-lesson">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+  <main id="main-content">
+    
+    <section class="cover" id="cover">
+      <div class="kicker">Polytechnic Course Handbook</div>
+      <h1>Basic Surveying Lab</h1>
+      <div class="badge-row">
+        <span class="badge">Code: 2019</span>
+        <span class="badge">Semester: II</span>
+        <span class="badge">Credits: 1.5</span>
+        <span class="badge">Curriculum: REV2026</span>
+      </div>
+      <p class="lead" style="margin-top: 1.5rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+        Hands-on experience with fundamental surveying instruments including theodolites, levels, and compasses for mapping and construction purposes.
+      </p>
+      <div style="margin-top: 2rem;">
+        <a href="?autoPrintNotes=1" class="btn btn-print" data-notes-link data-pdf-code="2019" data-pdf-revision="2026">Download Study Notes (PDF)</a>
+      </div>
+    </section>
+
+    <nav class="jump-menu" aria-label="Lesson sections">
+      <a href="#source">Source</a>
+      <a href="#course-dashboard">Dashboard</a>
+      <a href="#outcomes">Outcomes</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#module-1">Module I</a>
+      <a href="#module-2">Module II</a>
+      <a href="#module-3">Module III</a>
+      <a href="#module-4">Module IV</a>
+      <a href="#formula-bank">Procedures</a>
+      <a href="#assessment">Assessment</a>
+      <a href="#questions">Q&A</a>
+      <a href="#revision">Revision</a>
+    </nav>
+
+    <section class="section" id="source">
+      <h2>Official Source Declaration</h2>
+      <div class="source-note">
+        <p>This content is strictly based on the <strong>Official Syllabus PDF (Course Code: 2019)</strong> provided by SITTTR Kerala for the Revision 2026 curriculum. All modules, experiments, and assessment schemes are extracted directly from the authoritative document.</p>
+        <p><em>Note:</em> The assessment table in the PDF indicates a CIE total of 60 marks, derived from Attendance (5), Continuous Evaluation (30), Practical Tests (15), and Open-Ended Experiment (10).</p>
+      </div>
+    </section>
+
+    <section class="section" id="course-dashboard">
+      <h2>Course Dashboard</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Program</th><td>Civil Engineering and related branches</td></tr>
+          <tr><th>Course Type</th><td>Lab</td></tr>
+          <tr><th>Contact Hours</th><td>45 Hours / Semester</td></tr>
+          <tr><th>Teaching Scheme</th><td>0:0:3:0 (L:T:P:S)</td></tr>
+          <tr><th>CIE / ESE Marks</th><td>60 / 40</td></tr>
+          <tr><th>Pre-requisite</th><td>1002 - Fundamentals of Engineering Mathematics</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="how-to-use">
+      <h2>How to Study This Course</h2>
+      <div class="grid two">
+        <div class="card">
+          <h3>1. Field Practice</h3>
+          <p>Surveying is a practical skill. Focus on handling the instruments (leveling the dumpy level, centering the theodolite) during lab hours.</p>
+        </div>
+        <div class="card">
+          <h3>2. Record Maintenance</h3>
+          <p>Maintain neat sketches and accurate calculations. 4 marks are specifically allocated for the Record in the ESE.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="outcomes">
+      <h2>Course Outcomes (CO)</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>CO No.</th><th>Course Outcome</th><th>Bloom's Level</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>CO1</td><td>Plot land area using principles of chain survey and compass survey</td><td>Apply</td></tr>
+            <tr><td>CO2</td><td>Determine level difference between stations in the field</td><td>Apply</td></tr>
+            <tr><td>CO3</td><td>Prepare longitudinal profiles, cross profiles and contour maps using a leveling instrument</td><td>Apply</td></tr>
+            <tr><td>CO4</td><td>Measure the horizontal angles using theodolite</td><td>Apply</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="coverage">
+      <h2>Syllabus Coverage</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Module</th><th>Key Experiments</th><th>Hours</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>I</td><td>Intro to equipment, Area calculation, Compass survey</td><td>9</td></tr>
+            <tr><td>II</td><td>Simple Leveling, Rise & Fall, HI Method, Series Exam I</td><td>12</td></tr>
+            <tr><td>III</td><td>Profile Leveling, Fly Leveling, Contouring</td><td>9</td></tr>
+            <tr><td>IV</td><td>Repetition, Reiteration, Prolonging lines, Open-Ended Experiment</td><td>15</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="roadmap">
+      <h2>Learning Roadmap</h2>
+      <div class="roadmap">
+        <p>The course begins with <strong>Linear Measurements</strong> (Tape/Chain) and <strong>Angular Measurements</strong> (Compass) in Module I. It then progresses to <strong>Vertical Measurements</strong> (Leveling) in Modules II & III, and finally introduces <strong>Precision Angular Instruments</strong> (Theodolite) in Module IV.</p>
+      </div>
+    </section>
+
+    <!-- MODULE 1 -->
+    <section class="module" id="module-1">
+      <div class="module-head">
+        <h3>Module I: Linear & Compass Surveying</h3>
+        <span class="module-meta">9 Instructional Hours | CO1</span>
+      </div>
+      <div class="module-body">
+        <details class="topic" open>
+          <summary>Expt 1: Introduction to Surveying Equipment</summary>
+          <div class="topic-body">
+            <p>Demonstration of basic equipment: Chain, Cross staff, Plane table, and Compass.</p>
+            <ul>
+              <li><strong>Chain/Tape:</strong> For linear distances.</li>
+              <li><strong>Cross Staff:</strong> To set out perpendicular offsets.</li>
+              <li><strong>Prismatic Compass:</strong> To measure magnetic bearings of lines.</li>
+            </ul>
+            <div class="ml-note">
+              <strong>Malayalam support:</strong>
+              സർവ്വേയിംഗിലെ അടിസ്ഥാന ഉപകരണങ്ങളായ ചെയിൻ, ടേപ്പ്, കോമ്പസ് എന്നിവ പരിചയപ്പെടുക എന്നതാണ് ആദ്യ ഘട്ടം. ദൂരവും ദിശയും അളക്കാൻ ഇവ ഉപയോഗിക്കുന്നു.
+            </div>
+          </div>
+        </details>
+
+        <details class="topic" open>
+          <summary>Expt 2 & 3: Area Calculation & Compass Survey</summary>
+          <div class="topic-body">
+            <p><strong>Area Calculation:</strong> Determining the area of an open field using a tape by dividing the area into triangles.</p>
+            <p><strong>Compass Survey:</strong> Determining inaccessible distances between points using a prismatic compass and tape.</p>
+            <div class="worked">
+              <strong>Example: Inaccessible Distance</strong>
+              <p>To find distance AB where B is across a river: Measure a baseline AC. Measure bearings of AB and CB. Use Sine Rule in triangle ABC.</p>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- MODULE 2 -->
+    <section class="module" id="module-2">
+      <div class="module-head">
+        <h3>Module II: Basic Leveling</h3>
+        <span class="module-meta">12 Instructional Hours | CO2</span>
+      </div>
+      <div class="module-body">
+        <details class="topic" open>
+          <summary>Expt 4, 5 & 6: Leveling Methods</summary>
+          <div class="topic-body">
+            <p>Leveling is used to find the elevation (Reduced Level) of points relative to a datum.</p>
+            <h4>1. Height of Instrument (HI) Method</h4>
+            <p>Formula: $HI = RL_{BM} + BS$ and $RL_{Point} = HI - FS$ (or $IS$)</p>
+            
+            <h4>2. Rise and Fall Method</h4>
+            <p>Calculates the difference between consecutive staff readings. A decrease in reading indicates a 'Rise', an increase indicates a 'Fall'.</p>
+
+            <div class="calculator">
+              <h4>HI Method Quick Calc</h4>
+              <div class="calc-grid">
+                <div>
+                  <label>Benchmark RL (m):</label>
+                  <input type="number" id="bmRl" value="100">
+                </div>
+                <div>
+                  <label>Back Sight (BS) (m):</label>
+                  <input type="number" id="bsVal" value="1.5">
+                </div>
+                <div>
+                  <label>Fore Sight (FS) (m):</label>
+                  <input type="number" id="fsVal" value="2.1">
+                </div>
+              </div>
+              <button class="btn" onclick="calcHI()">Calculate RL</button>
+              <div id="calcResult" class="calc-result" style="margin-top:10px;"></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- MODULE 3 -->
+    <section class="module" id="module-3">
+      <div class="module-head">
+        <h3>Module III: Advanced Leveling & Contouring</h3>
+        <span class="module-meta">9 Instructional Hours | CO3</span>
+      </div>
+      <div class="module-body">
+        <details class="topic" open>
+          <summary>Expt 7 & 8: Profile & Fly Leveling</summary>
+          <div class="topic-body">
+            <p><strong>Profile Leveling:</strong> Taking levels along a central line (Longitudinal) and across it (Cross-section) to determine the ground profile for roads or railways.</p>
+            <p><strong>Fly Leveling:</strong> Conducted to check the accuracy of leveling or to transfer a benchmark to a distant point.</p>
+          </div>
+        </details>
+
+        <details class="topic" open>
+          <summary>Expt 9: Contouring</summary>
+          <div class="topic-body">
+            <p>Preparation of a contour map by taking spot levels. Contours are lines joining points of equal elevation.</p>
+            <figure class="diagram">
+              <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50,150 Q200,50 350,150" fill="none" stroke="#0b5ed7" stroke-width="2"/>
+                <path d="M80,140 Q200,80 320,140" fill="none" stroke="#0b5ed7" stroke-width="2"/>
+                <path d="M120,130 Q200,100 280,130" fill="none" stroke="#0b5ed7" stroke-width="2"/>
+                <text x="180" y="90" font-size="12" fill="#0b5ed7">100m</text>
+                <text x="180" y="115" font-size="12" fill="#0b5ed7">95m</text>
+                <text x="180" y="145" font-size="12" fill="#0b5ed7">90m</text>
+              </svg>
+              <figcaption>Conceptual Contour Lines for a Hill</figcaption>
+            </figure>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- MODULE 4 -->
+    <section class="module" id="module-4">
+      <div class="module-head">
+        <h3>Module IV: Theodolite Surveying</h3>
+        <span class="module-meta">15 Instructional Hours | CO4</span>
+      </div>
+      <div class="module-body">
+        <details class="topic" open>
+          <summary>Expt 10 & 11: Repetition & Reiteration</summary>
+          <div class="topic-body">
+            <p>Methods to measure horizontal angles with high precision using a Transit Theodolite.</p>
+            <ul>
+              <li><strong>Repetition Method:</strong> Measuring the same angle multiple times and taking the average to eliminate errors.</li>
+              <li><strong>Reiteration Method:</strong> Measuring several angles from a single station point.</li>
+            </ul>
+            <div class="ml-note">
+              <strong>Malayalam support:</strong>
+              തിയോഡലൈറ്റ് ഉപയോഗിച്ച് കൃത്യമായ ആംഗിളുകൾ അളക്കുന്ന രീതികളാണ് Repetition, Reiteration എന്നിവ. ഒരേ ആംഗിൾ പലതവണ അളന്ന് ശരാശരി എടുക്കുന്നതിലൂടെ പിഴവുകൾ കുറയ്ക്കാം.
+            </div>
+          </div>
+        </details>
+
+        <details class="topic" open>
+          <summary>Open Ended Experiment</summary>
+          <div class="topic-body">
+            <p>Students must conceive and implement a project. Examples:</p>
+            <ul>
+              <li>Calculate pond capacity from a contour map.</li>
+              <li>Measure area of a site with obstacles (buildings/trees).</li>
+              <li>Sketch and calculate area of own house plot.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="section" id="activities">
+      <h2>Student Activities for Self-Learning</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Week</th><th>Activity Description</th><th>Hours</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1-3</td><td>Study basic techniques, area determination using tape, compass surveying.</td><td>4.5</td></tr>
+            <tr><td>4-7</td><td>Identify Dumpy Level parts, study HI/Rise & Fall methods, Prep for Lab Exam 1.</td><td>6.0</td></tr>
+            <tr><td>8-10</td><td>Study Profile/Fly leveling and contour map preparation.</td><td>4.5</td></tr>
+            <tr><td>11-15</td><td>Theodolite adjustments, Repetition/Reiteration methods, Open-ended project prep.</td><td>7.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="formula-bank">
+      <h2>Procedure & Formula Bank</h2>
+      <div class="grid two">
+        <div class="worked">
+          <h4>HI Method</h4>
+          <p>1. $HI = RL + BS$</p>
+          <p>2. $RL = HI - FS$ (or $IS$)</p>
+          <p><strong>Check:</strong> $\sum BS - \sum FS = Last RL - First RL$</p>
+        </div>
+        <div class="worked">
+          <h4>Rise & Fall Method</h4>
+          <p>1. $Diff = Prev. Reading - Curr. Reading$</p>
+          <p>2. If +ve $\rightarrow$ Rise; If -ve $\rightarrow$ Fall</p>
+          <p><strong>Check:</strong> $\sum BS - \sum FS = \sum Rise - \sum Fall = Last RL - First RL$</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="visual-library">
+      <h2>Visual Library</h2>
+      <div class="grid three">
+        <div class="card">
+          <a href="#module-3">Contour Diagram</a>
+        </div>
+        <div class="card">
+          <p><em>Refer to Lab Manual for:</em></p>
+          <ul>
+            <li>Prismatic Compass Parts</li>
+            <li>Dumpy Level Cross-section</li>
+            <li>Theodolite Vernier Scales</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="assessment">
+      <h2>Assessment Methodology</h2>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Mode</th><th>Details</th><th>Marks</th></tr>
+          <tr><td>Attendance</td><td>End of semester</td><td>5</td></tr>
+          <tr><td>Continuous Evaluation (CE)</td><td>Every lab slot (50 marks scaled)</td><td>30</td></tr>
+          <tr><td>Practical Tests (CA1 & CA2)</td><td>7th & 14th week (40 marks each scaled)</td><td>15</td></tr>
+          <tr><td>Open-ended Experiment (OEE)</td><td>15th week (50 marks scaled)</td><td>10</td></tr>
+          <tr><td><strong>Total CIE</strong></td><td></td><td><strong>60</strong></td></tr>
+          <tr><td><strong>ESE (Practical)</strong></td><td>3-hour external exam</td><td><strong>40</strong></td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="questions">
+      <h2>Module-wise Q&A</h2>
+      <details class="qa">
+        <summary>What is the difference between Back Sight (BS) and Fore Sight (FS)?</summary>
+        <div class="qa-body">
+          <strong>Back Sight (BS):</strong> The first staff reading taken after the instrument is set up on a point of known elevation (Benchmark).
+          <br><strong>Fore Sight (FS):</strong> The last staff reading taken before shifting the instrument to another position.
+        </div>
+      </details>
+      <details class="qa">
+        <summary>Why is the Repetition method used in Theodolite surveying?</summary>
+        <div class="qa-body">
+          It is used to measure horizontal angles with high precision. By measuring the angle multiple times and dividing the total by the number of repetitions, errors due to imperfect graduations and sighting are minimized.
+        </div>
+      </details>
+      <details class="qa">
+        <summary>What is a Contour Interval?</summary>
+        <div class="qa-body">
+          The constant vertical distance between two consecutive contour lines is called the contour interval.
+        </div>
+      </details>
+      <details class="qa">
+        <summary>Explain 'Centering' in Theodolite.</summary>
+        <div class="qa-body">
+          Centering is the process of placing the vertical axis of the theodolite exactly over the station mark using a plumb bob or optical plummet.
+        </div>
+      </details>
+    </section>
+
+    <section class="section" id="model-paper">
+      <h2>Practice Model Paper</h2>
+      <p><em>(Not an official examination paper)</em></p>
+      <div class="card">
+        <h4>ESE Practical Exam (Sample)</h4>
+        <p><strong>Time: 3 Hours | Max Marks: 40</strong></p>
+        <ol>
+          <li>Write the procedure for determining the level difference between two points using the Rise and Fall method. (10 Marks)</li>
+          <li>Perform the experiment in the field and record the readings neatly in the tabular form. (10 Marks)</li>
+          <li>Calculate the Reduced Levels and apply arithmetic checks. (8 Marks)</li>
+          <li>Viva Voce and Record submission. (12 Marks)</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="revision">
+      <h2>Quick Revision</h2>
+      <ul>
+        <li><strong>Chain Surveying:</strong> Based on Triangulation.</li>
+        <li><strong>Compass Surveying:</strong> Based on Traversing.</li>
+        <li><strong>Leveling:</strong> BS is always on a known RL; FS is always the last point.</li>
+        <li><strong>HI Method:</strong> Faster for many Intermediate Sights (IS).</li>
+        <li><strong>Rise & Fall:</strong> More accurate as it provides a check on IS.</li>
+        <li><strong>Theodolite:</strong> Used for both horizontal and vertical angles.</li>
+      </ul>
+      <div class="ml-note">
+        <strong>Exam Tip:</strong> ലെവലിംഗ് ടേബിളിൽ Arithmetic Check ($\sum BS - \sum FS$) ചെയ്യാൻ മറക്കരുത്. ഇത് നിങ്ങളുടെ കണക്കുകൂട്ടൽ ശരിയാണോ എന്ന് ഉറപ്പുവരുത്താൻ സഹായിക്കും.
+      </div>
+    </section>
+
+    <section class="section" id="glossary">
+      <h2>Glossary</h2>
+      <dl>
+        <dt><strong>Benchmark (BM)</strong></dt>
+        <dd>A fixed point of known elevation above a datum.</dd>
+        <dt><strong>Reduced Level (RL)</strong></dt>
+        <dd>The vertical distance of a point above or below the datum.</dd>
+        <dt><strong>Parallax</strong></dt>
+        <dd>An apparent movement of the image relative to the cross-hairs, corrected by focusing.</dd>
+        <dt><strong>Transiting</strong></dt>
+        <dd>The process of turning the theodolite telescope through 180° in a vertical plane.</dd>
+      </dl>
+    </section>
+
+    <section class="section" id="references">
+      <h2>References</h2>
+      <ul>
+        <li><em>Surveying I</em> by Punmia, B.C.; Jain, Ashok Kumar; Jain, Arun Kumar. Laxmi Publications.</li>
+        <li><em>Surveying and Levelling</em> by Basak, N. N. McGraw Hill Education.</li>
+        <li>Web Resource: <a href="http://nptel.ac.in/courses">NPTEL Surveying Course</a></li>
+        <li>Web Resource: <a href="http://www.vlab.co.in">Virtual Labs - Civil Engineering</a></li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  "use strict";
+
+  // Reading Progress Bar
+  window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.getElementById("readingProgress").style.width = scrolled + "%";
+  });
+
+  // Simple HI Calculator
+  function calcHI() {
+    const bm = parseFloat(document.getElementById('bmRl').value);
+    const bs = parseFloat(document.getElementById('bsVal').value);
+    const fs = parseFloat(document.getElementById('fsVal').value);
+    
+    if(isNaN(bm) || isNaN(bs) || isNaN(fs)) {
+      document.getElementById('calcResult').innerText = "Please enter valid numbers.";
+      return;
+    }
+
+    const hi = bm + bs;
+    const rl = hi - fs;
+    
+    document.getElementById('calcResult').innerHTML = `
+      Height of Instrument: ${hi.toFixed(3)} m<br>
+      New Point RL: ${rl.toFixed(3)} m
+    `;
+  }
+
+  // Handle auto-print from URL
+  window.onload = () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('autoPrintNotes') === '1') {
+      // Expand all details for print
+      document.querySelectorAll('details').forEach(d => d.open = true);
+      setTimeout(() => {
+        window.print();
+      }, 500);
+    }
+  };
+</script>
+
+</body>
+</html>
