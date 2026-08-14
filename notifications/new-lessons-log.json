@@ -140,6 +140,27 @@
       "subjectName": "Subject 2071",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2071.html"
+    },
+    "REV2026:2038:revision-2026-content/lessons/lessons-2038.html": {
+      "messageId": "projects/poly-pmna/messages/1221533059510139856",
+      "subjectCode": "2038",
+      "subjectName": "Subject 2038",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2038.html"
+    },
+    "REV2026:2039:revision-2026-content/lessons/lessons-2039.html": {
+      "messageId": "projects/poly-pmna/messages/1889684395680501709",
+      "subjectCode": "2039",
+      "subjectName": "Fundamentals of Electrical Engineering Lab",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2039.html"
+    },
+    "REV2026:2049:revision-2026-content/lessons/lessons-2049.html": {
+      "messageId": "projects/poly-pmna/messages/5139017261593668211",
+      "subjectCode": "2049",
+      "subjectName": "Electronic Devices and Applications Lab",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2049.html"
     }
   }
 }
