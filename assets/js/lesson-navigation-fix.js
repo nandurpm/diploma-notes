@@ -52,6 +52,20 @@
   const sectionSelector = ".view-section,.view,.panel,.tab-panel,.tab-content,.module-panel,.lesson-panel,.content-panel,.content-section,.section-panel,[role='tabpanel']";
   const originalUrl = `${location.pathname}${location.search}${location.hash}`;
 
+  function requestNativePrintFallback() {
+    if (!nativeApp) return false;
+    try {
+      const title = encodeURIComponent(document.title || "POLY PMNA printable notes");
+      // MainActivity handles this trusted app-action URL on the UI thread. It
+      // covers WebViews where the JavaScript interface is not exposed after a
+      // navigation or restored page state.
+      window.location.href = `polytechnic-study-hub://print?title=${title}`;
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   function installNativePrintOverride() {
     if (!nativeApp || window.__polyNativePrintOverride) return;
     const browserPrint = typeof window.print === "function" ? window.print.bind(window) : null;
@@ -64,11 +78,15 @@
           window.__polyNativePrintBusy = true;
           window.setTimeout(() => { window.__polyNativePrintBusy = false; }, 1500);
           bridge.printLesson(document.title || "POLY PMNA printable notes");
+          // MainActivity suppresses the fallback if the direct bridge already
+          // opened PrintManager; otherwise the URL dispatcher rescues the call.
+          window.setTimeout(requestNativePrintFallback, 350);
           return true;
         } catch (_) {
-          // A non-standard bridge may fail; use browser printing only as a fallback.
+          // Try the trusted activity URL dispatcher below.
         }
       }
+      if (nativeApp) return requestNativePrintFallback();
       if (!browserPrint) return false;
       try {
         browserPrint();

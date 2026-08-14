@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.print.PrintAttributes;
 import android.print.PrintManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -69,6 +70,7 @@ public class MainActivity extends ComponentActivity {
     private static final String TRUSTED_HOST = "polypmna.dpdns.org";
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
+    private static final String PRINT_LOG_TAG = "PolyNativePrint";
     private static final Set<String> APPROVED_EXTERNAL_HOSTS = Set.of(
             "sitttrkerala.ac.in",
             "www.sitttrkerala.ac.in",
@@ -109,6 +111,8 @@ public class MainActivity extends ComponentActivity {
 
     private ValueCallback<Uri[]> fileChooserCallback;
     private boolean launchOverlayDismissed;
+    private boolean nativePrintBusy;
+    private String lastTrustedLessonUrl;
     private String lastFailedUrl = HOME_URL;
 
     private final Runnable slowLoadRunnable = () -> {
@@ -888,13 +892,28 @@ public class MainActivity extends ComponentActivity {
     }
 
     private void printCurrentLesson(String requestedTitle) {
-        if (webView == null || !isTrustedLessonUrl(webView.getUrl())) {
+        if (nativePrintBusy) {
+            Log.i(PRINT_LOG_TAG, "Ignoring duplicate print request while the system dialog is opening.");
+            return;
+        }
+        if (webView == null) {
+            Log.w(PRINT_LOG_TAG, "Print request rejected because WebView is unavailable.");
+            Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String currentUrl = webView.getUrl();
+        if (!isTrustedLessonUrl(currentUrl)) {
+            currentUrl = lastTrustedLessonUrl;
+        }
+        if (!isTrustedLessonUrl(currentUrl)) {
+            Log.w(PRINT_LOG_TAG, "Print request rejected for untrusted/non-lesson URL: " + webView.getUrl());
             Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
             return;
         }
         try {
             PrintManager printManager = (PrintManager) getSystemService(Context.PRINT_SERVICE);
             if (printManager == null) {
+                Log.e(PRINT_LOG_TAG, "Android PrintManager is unavailable.");
                 Toast.makeText(this, R.string.print_unavailable, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -902,15 +921,21 @@ public class MainActivity extends ComponentActivity {
             PrintAttributes attributes = new PrintAttributes.Builder()
                     .setColorMode(PrintAttributes.COLOR_MODE_COLOR)
                     .build();
+            nativePrintBusy = true;
+            Log.i(PRINT_LOG_TAG, "Opening native print preview for " + currentUrl + " as " + jobName);
             printManager.print(jobName, webView.createPrintDocumentAdapter(jobName), attributes);
+            mainHandler.postDelayed(() -> nativePrintBusy = false, 4000L);
         } catch (Exception error) {
+            nativePrintBusy = false;
+            Log.e(PRINT_LOG_TAG, "Native PrintManager.print() failed", error);
             Toast.makeText(this, R.string.print_failed, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private final class NativePrintBridge {
+    public final class NativePrintBridge {
         @JavascriptInterface
         public void printLesson(String title) {
+            Log.i(PRINT_LOG_TAG, "JavaScript print bridge invoked.");
             // JavaScript interfaces may be called off the UI thread; the Android
             // print framework and WebView adapter must always run on the main thread.
             mainHandler.post(() -> printCurrentLesson(title));
@@ -953,6 +978,10 @@ public class MainActivity extends ComponentActivity {
             } else if ("open".equalsIgnoreCase(action)) {
                 String path = uri.getQueryParameter("path");
                 webView.loadUrl(buildTrustedUrl(path == null ? "/" : path));
+            } else if ("print".equalsIgnoreCase(action)) {
+                String title = uri.getQueryParameter("title");
+                Log.i(PRINT_LOG_TAG, "Print action received from lesson navigation: " + webView.getUrl());
+                printCurrentLesson(title);
             } else {
                 Toast.makeText(MainActivity.this, R.string.intent_link_blocked, Toast.LENGTH_SHORT).show();
             }
@@ -993,6 +1022,9 @@ public class MainActivity extends ComponentActivity {
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            if (isTrustedLessonUrl(url)) {
+                lastTrustedLessonUrl = url;
+            }
             updateSwipeRefreshForPage(url);
             progressBar.setVisibility(View.VISIBLE);
             progressBar.setIndeterminate(true);
@@ -1003,6 +1035,9 @@ public class MainActivity extends ComponentActivity {
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            if (isTrustedLessonUrl(url)) {
+                lastTrustedLessonUrl = url;
+            }
             progressBar.setIndeterminate(false);
             progressBar.setProgress(100);
             progressBar.setVisibility(View.GONE);

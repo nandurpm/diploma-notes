@@ -6,18 +6,39 @@
   const browserPrint = typeof window.print === 'function' ? window.print.bind(window) : null;
   const nativeApp = /(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/[0-9]+(?:\.[0-9]+)*/i.test(navigator.userAgent || '');
 
+  function requestNativePrintFallback() {
+    if (!nativeApp) return false;
+    try {
+      const title = encodeURIComponent(document.title || 'POLY PMNA printable notes');
+      // This trusted app-action URL is handled by MainActivity. It provides a
+      // second route for WebViews that expose the page but fail to enumerate a
+      // JavaScript interface after navigation or restore-from-cache.
+      window.location.href = `polytechnic-study-hub://print?title=${title}`;
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
   function requestPrint() {
     const bridge = window.PolyNativePrint;
-    if (nativeApp && bridge && typeof bridge.printLesson === 'function') {
-      if (window.__polyNativePrintBusy) return true;
-      try {
-        window.__polyNativePrintBusy = true;
-        window.setTimeout(() => { window.__polyNativePrintBusy = false; }, 1500);
-        bridge.printLesson(document.title || 'POLY PMNA printable notes');
-        return true;
-      } catch (_) {
-        // Fall through to the browser printer when a non-standard WebView bridge fails.
+    if (nativeApp) {
+      if (bridge && typeof bridge.printLesson === 'function') {
+        if (window.__polyNativePrintBusy) return true;
+        try {
+          window.__polyNativePrintBusy = true;
+          window.setTimeout(() => { window.__polyNativePrintBusy = false; }, 1500);
+          bridge.printLesson(document.title || 'POLY PMNA printable notes');
+          // The Java activity suppresses this fallback when the direct bridge
+          // already opened PrintManager, but it rescues older/partially restored
+          // WebViews where the interface call is silently unavailable.
+          window.setTimeout(requestNativePrintFallback, 350);
+          return true;
+        } catch (_) {
+          // Try the activity URL dispatcher below.
+        }
       }
+      return requestNativePrintFallback();
     }
     if (!browserPrint) return false;
     try {
