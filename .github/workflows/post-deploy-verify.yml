@@ -33,7 +33,7 @@ jobs:
           expected = os.environ["EXPECTED_SHA"]
           signatures = {
               "/": ["Revision 2026", "Ask POLY AI", "POLY PMNA"],
-              "/revision-2026.html": ["Choose your department", "38", "Revision 2026"],
+              "/revision-2026.html": ["Choose your department", "programmeResultCount", "Revision 2026"],
               "/ask-poly.html": ["Ask POLY AI", "chatForm", "ask-poly-config.js"],
               "/daily-quiz.html": ["Mock Exams & Daily Quiz", "supabase-url"],
           }
