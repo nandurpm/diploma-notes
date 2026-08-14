@@ -53,7 +53,9 @@ jobs:
           emulator-options: -no-window -no-snapshot-save -noaudio -no-boot-anim -gpu swiftshader_indirect
           disable-animations: true
           script: |
-            set -euo pipefail
+            # reactivecircus executes this block with POSIX /usr/bin/sh (dash),
+            # so use POSIX errexit/nounset rather than the Bash-only pipefail flag.
+            set -eu
             PACKAGE=org.diplomanotes.polytechnicstudyhub
             ACTIVITY=org.diplomanotes.polytechnicstudyhub/.MainActivity
             LESSON_URL='https://polypmna.dpdns.org/lessons/lessons-1001.html?autoPrintNotes=1&androidEmulatorPrintTest=1'
