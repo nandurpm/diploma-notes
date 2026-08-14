@@ -88,6 +88,16 @@ jobs:
       - name: Install Wrangler
         run: npm install -g wrangler@4
 
+      - name: Deploy secure Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        # Wrangler resolves the main entrypoint and any assets relative to the
+        # working directory. Deploy from the Worker directory so the API
+        # handler is uploaded instead of the repository root as an asset bundle.
+        working-directory: workers/ask-poly-ai
+        run: wrangler deploy
+
       - name: Upload runtime credentials
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -122,16 +132,6 @@ jobs:
           PY
           wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
           rm -f ask-poly-secrets.json
-
-      - name: Deploy secure Worker
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        # Wrangler resolves the main entrypoint and any assets relative to the
-        # working directory. Deploy from the Worker directory so the API
-        # handler is uploaded instead of the repository root as an asset bundle.
-        working-directory: workers/ask-poly-ai
-        run: wrangler deploy
 
       - name: Smoke-test live Worker and protected mock route
         shell: bash
