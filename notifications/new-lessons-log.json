@@ -1540,6 +1540,13 @@
       "subjectName": "Electric Vehicle Technology & Design Considerations",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5411.html"
+    },
+    "REV2026:5493D:revision-2026-content/lessons/lessons-5493D.html": {
+      "messageId": "projects/poly-pmna/messages/8027325377490235830",
+      "subjectCode": "5493D",
+      "subjectName": "VLSI Testing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5493D.html"
     }
   }
 }
