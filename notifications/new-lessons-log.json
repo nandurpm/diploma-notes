@@ -1477,6 +1477,13 @@
       "subjectName": "Foundations of Robotics",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2371.html"
+    },
+    "REV2026:2251:revision-2026-content/lessons/lessons-2251.html": {
+      "messageId": "projects/poly-pmna/messages/402427534973288338",
+      "subjectCode": "2251",
+      "subjectName": "AI for Business",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2251.html"
     }
   }
 }
