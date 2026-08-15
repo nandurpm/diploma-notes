@@ -1575,6 +1575,13 @@
       "subjectName": "Shorthand English (Speed & Theory) 120 wpm",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6141.html"
+    },
+    "REV2026:6021A:revision-2026-content/lessons/lessons-6021A.html": {
+      "messageId": "projects/poly-pmna/messages/2403829649076964547",
+      "subjectCode": "6021A",
+      "subjectName": "Mechatronics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6021A.html"
     }
   }
 }
