@@ -4,7 +4,7 @@
   "versionName": "3.12",
   "firebaseMessaging": true,
   "status": "success",
-  "releaseApkBytes": 961693,
-  "releaseSha256": "0e0a2b8e64aacfdceb88cab4269a45ab323cf52f5f238f0ac607909d8db12fb5",
-  "builtAt": "2026-08-14T04:18:55Z"
+  "releaseApkBytes": 961762,
+  "releaseSha256": "6473ef001cfcc3dc65489ef5649acf28ead9b39ebdefdf91defba41f8b46c5d9",
+  "builtAt": "2026-08-15T04:24:17Z"
 }
