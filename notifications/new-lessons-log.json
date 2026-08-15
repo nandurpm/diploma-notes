@@ -168,6 +168,1294 @@
       "subjectName": "Engineering Mechanics Lab",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2029.html"
+    },
+    "REV2026:2052:revision-2026-content/lessons/lessons-2052.html": {
+      "messageId": "projects/poly-pmna/messages/489356722665375196",
+      "subjectCode": "2052",
+      "subjectName": "Fundamentals of Internal Combustion Engines",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2052.html"
+    },
+    "REV2026:2061:revision-2026-content/lessons/lessons-2061.html": {
+      "messageId": "projects/poly-pmna/messages/3198755437888566064",
+      "subjectCode": "2061",
+      "subjectName": "Technology of Manmade Fibres",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2061.html"
+    },
+    "REV2026:2072:revision-2026-content/lessons/lessons-2072.html": {
+      "messageId": "projects/poly-pmna/messages/874879246363200712",
+      "subjectCode": "2072",
+      "subjectName": "Fundamentals of Chemical Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2072.html"
+    },
+    "REV2026:2073:revision-2026-content/lessons/lessons-2073.html": {
+      "messageId": "projects/poly-pmna/messages/9018337028954104889",
+      "subjectCode": "2073",
+      "subjectName": "Industrial Safety",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2073.html"
+    },
+    "REV2026:2081:revision-2026-content/lessons/lessons-2081.html": {
+      "messageId": "projects/poly-pmna/messages/6505232316825561195",
+      "subjectCode": "2081",
+      "subjectName": "Basics of Instrumentation and Transducers",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2081.html"
+    },
+    "REV2026:2091:revision-2026-content/lessons/lessons-2091.html": {
+      "messageId": "projects/poly-pmna/messages/5609860567347981431",
+      "subjectCode": "2091",
+      "subjectName": "Polymer Science",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2091.html"
+    },
+    "REV2026:2101:revision-2026-content/lessons/lessons-2101.html": {
+      "messageId": "projects/poly-pmna/messages/1173891226248099028",
+      "subjectCode": "2101",
+      "subjectName": "Fundamentals of Printing Science",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2101.html"
+    },
+    "REV2026:2111:revision-2026-content/lessons/lessons-2111.html": {
+      "messageId": "projects/poly-pmna/messages/5892510845155975699",
+      "subjectCode": "2111",
+      "subjectName": "Fundamentals of Manufacturing and Tool Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2111.html"
+    },
+    "REV2026:2121:revision-2026-content/lessons/lessons-2121.html": {
+      "messageId": "projects/poly-pmna/messages/1500658969863783332",
+      "subjectCode": "2121",
+      "subjectName": "Botany and Anatomical Structure",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2121.html"
+    },
+    "REV2026:2141:revision-2026-content/lessons/lessons-2141.html": {
+      "messageId": "projects/poly-pmna/messages/8370737128379653932",
+      "subjectCode": "2141",
+      "subjectName": "Business Regulatory Framework",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2141.html"
+    },
+    "REV2026:2143:revision-2026-content/lessons/lessons-2143.html": {
+      "messageId": "projects/poly-pmna/messages/6658213857559921710",
+      "subjectCode": "2143",
+      "subjectName": "Co-operative Theory and Practice",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2143.html"
+    },
+    "REV2026:2144:revision-2026-content/lessons/lessons-2144.html": {
+      "messageId": "projects/poly-pmna/messages/2504664632052137144",
+      "subjectCode": "2144",
+      "subjectName": "Shorthand English Theory II",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2144.html"
+    },
+    "REV2026:2252:revision-2026-content/lessons/lessons-2252.html": {
+      "messageId": "projects/poly-pmna/messages/7253904777084836211",
+      "subjectCode": "2252",
+      "subjectName": "Management Concepts and Organisational Behavior",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2252.html"
+    },
+    "REV2026:2253:revision-2026-content/lessons/lessons-2253.html": {
+      "messageId": "projects/poly-pmna/messages/3917125069966030615",
+      "subjectCode": "2253",
+      "subjectName": "Cost Accounting",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2253.html"
+    },
+    "REV2026:2331:revision-2026-content/lessons/lessons-2331.html": {
+      "messageId": "projects/poly-pmna/messages/4190460899348240488",
+      "subjectCode": "2331",
+      "subjectName": "Foundations of Robotics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2331.html"
+    },
+    "REV2026:2421:revision-2026-content/lessons/lessons-2421.html": {
+      "messageId": "projects/poly-pmna/messages/2047200239586624833",
+      "subjectCode": "2421",
+      "subjectName": "Food Processing Technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2421.html"
+    },
+    "REV2026:2432:revision-2026-content/lessons/lessons-2432.html": {
+      "messageId": "projects/poly-pmna/messages/814997322677005754",
+      "subjectCode": "2432",
+      "subjectName": "Fundamentals of Computer Programming",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2432.html"
+    },
+    "REV2026:2461:revision-2026-content/lessons/lessons-2461.html": {
+      "messageId": "projects/poly-pmna/messages/4409933321808059074",
+      "subjectCode": "2461",
+      "subjectName": "Principles of Safety Management",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2461.html"
+    },
+    "REV2026:2532:revision-2026-content/lessons/lessons-2532.html": {
+      "messageId": "projects/poly-pmna/messages/3612557454072063366",
+      "subjectCode": "2532",
+      "subjectName": "History of Interior Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2532.html"
+    },
+    "REV2026:3052:revision-2026-content/lessons/lessons-3052.html": {
+      "messageId": "projects/poly-pmna/messages/3269435201951829866",
+      "subjectCode": "3052",
+      "subjectName": "Manufacturing Technology for",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3052.html"
+    },
+    "REV2026:3062:revision-2026-content/lessons/lessons-3062.html": {
+      "messageId": "projects/poly-pmna/messages/1693576757057434015",
+      "subjectCode": "3062",
+      "subjectName": "Textile Wet Processing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3062.html"
+    },
+    "REV2026:3071:revision-2026-content/lessons/lessons-3071.html": {
+      "messageId": "projects/poly-pmna/messages/1597832089994231275",
+      "subjectCode": "3071",
+      "subjectName": "Chemical Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3071.html"
+    },
+    "REV2026:3072:revision-2026-content/lessons/lessons-3072.html": {
+      "messageId": "projects/poly-pmna/messages/4649640477721404383",
+      "subjectCode": "3072",
+      "subjectName": "Mechanical Operations",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3072.html"
+    },
+    "REV2026:3081:revision-2026-content/lessons/lessons-3081.html": {
+      "messageId": "projects/poly-pmna/messages/1555900530541444959",
+      "subjectCode": "3081",
+      "subjectName": "Digital Circuits and Systems",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3081.html"
+    },
+    "REV2026:3082:revision-2026-content/lessons/lessons-3082.html": {
+      "messageId": "projects/poly-pmna/messages/7148152548792117759",
+      "subjectCode": "3082",
+      "subjectName": "Sensors and Transducers",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3082.html"
+    },
+    "REV2026:3091:revision-2026-content/lessons/lessons-3091.html": {
+      "messageId": "projects/poly-pmna/messages/8849723407121671462",
+      "subjectCode": "3091",
+      "subjectName": "Natural Rubber Production",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3091.html"
+    },
+    "REV2026:3092:revision-2026-content/lessons/lessons-3092.html": {
+      "messageId": "projects/poly-pmna/messages/8436120009831332598",
+      "subjectCode": "3092",
+      "subjectName": "Polymer Science",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3092.html"
+    },
+    "REV2026:3101:revision-2026-content/lessons/lessons-3101.html": {
+      "messageId": "projects/poly-pmna/messages/5511089150372549702",
+      "subjectCode": "3101",
+      "subjectName": "Print Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3101.html"
+    },
+    "REV2026:3102:revision-2026-content/lessons/lessons-3102.html": {
+      "messageId": "projects/poly-pmna/messages/7548943619611378176",
+      "subjectCode": "3102",
+      "subjectName": "Materials for Printing and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3102.html"
+    },
+    "REV2026:3111:revision-2026-content/lessons/lessons-3111.html": {
+      "messageId": "projects/poly-pmna/messages/1138695046226245160",
+      "subjectCode": "3111",
+      "subjectName": "Moulds & Dies Technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3111.html"
+    },
+    "REV2026:3112:revision-2026-content/lessons/lessons-3112.html": {
+      "messageId": "projects/poly-pmna/messages/1801110608238179284",
+      "subjectCode": "3112",
+      "subjectName": "Production Engineering II",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3112.html"
+    },
+    "REV2026:3113:revision-2026-content/lessons/lessons-3113.html": {
+      "messageId": "projects/poly-pmna/messages/3239016402039798633",
+      "subjectCode": "3113",
+      "subjectName": "Tool Engineering Drawing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3113.html"
+    },
+    "REV2026:3121:revision-2026-content/lessons/lessons-3121.html": {
+      "messageId": "projects/poly-pmna/messages/2682916590893296474",
+      "subjectCode": "3121",
+      "subjectName": "Pulp Technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3121.html"
+    },
+    "REV2026:3122:revision-2026-content/lessons/lessons-3122.html": {
+      "messageId": "projects/poly-pmna/messages/5735168890997496260",
+      "subjectCode": "3122",
+      "subjectName": "Wood Chemistry",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3122.html"
+    },
+    "REV2026:3131:revision-2026-content/lessons/lessons-3131.html": {
+      "messageId": "projects/poly-pmna/messages/5295398719208937495",
+      "subjectCode": "3131",
+      "subjectName": "Computer Organisation",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3131.html"
+    },
+    "REV2026:3141:revision-2026-content/lessons/lessons-3141.html": {
+      "messageId": "projects/poly-pmna/messages/1146870426590809347",
+      "subjectCode": "3141",
+      "subjectName": "Financial Accounting III",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3141.html"
+    },
+    "REV2026:3142:revision-2026-content/lessons/lessons-3142.html": {
+      "messageId": "projects/poly-pmna/messages/786001487558122226",
+      "subjectCode": "3142",
+      "subjectName": "Business Regulatory Framework",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3142.html"
+    },
+    "REV2026:3181:revision-2026-content/lessons/lessons-3181.html": {
+      "messageId": "projects/poly-pmna/messages/505746855842238001",
+      "subjectCode": "3181",
+      "subjectName": "History of Human Settlement",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3181.html"
+    },
+    "REV2026:3182:revision-2026-content/lessons/lessons-3182.html": {
+      "messageId": "projects/poly-pmna/messages/8257305061787033685",
+      "subjectCode": "3182",
+      "subjectName": "Climate responsive architecture",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3182.html"
+    },
+    "REV2026:3188:revision-2026-content/lessons/lessons-3188.html": {
+      "messageId": "projects/poly-pmna/messages/4017699693008104355",
+      "subjectCode": "3188",
+      "subjectName": "Masonry and Services Lab",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3188.html"
+    },
+    "REV2026:3241:revision-2026-content/lessons/lessons-3241.html": {
+      "messageId": "projects/poly-pmna/messages/1400728995988882853",
+      "subjectCode": "3241",
+      "subjectName": "Basic Medical Sciences",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3241.html"
+    },
+    "REV2026:3251:revision-2026-content/lessons/lessons-3251.html": {
+      "messageId": "projects/poly-pmna/messages/143559410961932211",
+      "subjectCode": "3251",
+      "subjectName": "Computer Application in",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3251.html"
+    },
+    "REV2026:3252:revision-2026-content/lessons/lessons-3252.html": {
+      "messageId": "projects/poly-pmna/messages/8812715618747768991",
+      "subjectCode": "3252",
+      "subjectName": "Financial Management",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3252.html"
+    },
+    "REV2026:3261:revision-2026-content/lessons/lessons-3261.html": {
+      "messageId": "projects/poly-pmna/messages/2815657147795660187",
+      "subjectCode": "3261",
+      "subjectName": "Fundamentals of Network",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3261.html"
+    },
+    "REV2026:3281:revision-2026-content/lessons/lessons-3281.html": {
+      "messageId": "projects/poly-pmna/messages/634293105830876842",
+      "subjectCode": "3281",
+      "subjectName": "Fundamentals of Cryptography and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3281.html"
+    },
+    "REV2026:3301:revision-2026-content/lessons/lessons-3301.html": {
+      "messageId": "projects/poly-pmna/messages/2060782403183789154",
+      "subjectCode": "3301",
+      "subjectName": "Problem Solving Using Python",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3301.html"
+    },
+    "REV2026:3331:revision-2026-content/lessons/lessons-3331.html": {
+      "messageId": "projects/poly-pmna/messages/646518067203608861",
+      "subjectCode": "3331",
+      "subjectName": "Analog & Digital Electronics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3331.html"
+    },
+    "REV2026:3332:revision-2026-content/lessons/lessons-3332.html": {
+      "messageId": "projects/poly-pmna/messages/7388533683066559644",
+      "subjectCode": "3332",
+      "subjectName": "Mechanics of Materials",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3332.html"
+    },
+    "REV2026:3341:revision-2026-content/lessons/lessons-3341.html": {
+      "messageId": "projects/poly-pmna/messages/6740163352449252426",
+      "subjectCode": "3341",
+      "subjectName": "Discrete Mathematics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3341.html"
+    },
+    "REV2026:3371:revision-2026-content/lessons/lessons-3371.html": {
+      "messageId": "projects/poly-pmna/messages/7818311026166241656",
+      "subjectCode": "3371",
+      "subjectName": "Introduction to IC Fabrication",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3371.html"
+    },
+    "REV2026:3381:revision-2026-content/lessons/lessons-3381.html": {
+      "messageId": "projects/poly-pmna/messages/8420904073076281515",
+      "subjectCode": "3381",
+      "subjectName": "Ethics in Artificial Intelligence",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3381.html"
+    },
+    "REV2026:3382:revision-2026-content/lessons/lessons-3382.html": {
+      "messageId": "projects/poly-pmna/messages/2161583513007254279",
+      "subjectCode": "3382",
+      "subjectName": "Introduction to Artificial",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3382.html"
+    },
+    "REV2026:3421:revision-2026-content/lessons/lessons-3421.html": {
+      "messageId": "projects/poly-pmna/messages/1978878124049237140",
+      "subjectCode": "3421",
+      "subjectName": "Food Processing Technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3421.html"
+    },
+    "REV2026:3422:revision-2026-content/lessons/lessons-3422.html": {
+      "messageId": "projects/poly-pmna/messages/3198587717544247545",
+      "subjectCode": "3422",
+      "subjectName": "Elements of Food Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3422.html"
+    },
+    "REV2026:3431:revision-2026-content/lessons/lessons-3431.html": {
+      "messageId": "projects/poly-pmna/messages/8177632173093682070",
+      "subjectCode": "3431",
+      "subjectName": "Course",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3431.html"
+    },
+    "REV2026:3461:revision-2026-content/lessons/lessons-3461.html": {
+      "messageId": "projects/poly-pmna/messages/305644138002593169",
+      "subjectCode": "3461",
+      "subjectName": "Industrial Safety Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3461.html"
+    },
+    "REV2026:3462:revision-2026-content/lessons/lessons-3462.html": {
+      "messageId": "projects/poly-pmna/messages/1810209782793287872",
+      "subjectCode": "3462",
+      "subjectName": "Fire Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3462.html"
+    },
+    "REV2026:3501:revision-2026-content/lessons/lessons-3501.html": {
+      "messageId": "projects/poly-pmna/messages/1380135740397557084",
+      "subjectCode": "3501",
+      "subjectName": "Basics of C Programming",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3501.html"
+    },
+    "REV2026:4051:revision-2026-content/lessons/lessons-4051.html": {
+      "messageId": "projects/poly-pmna/messages/4475030042394533340",
+      "subjectCode": "4051",
+      "subjectName": "Heat Power Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4051.html"
+    },
+    "REV2026:4061:revision-2026-content/lessons/lessons-4061.html": {
+      "messageId": "projects/poly-pmna/messages/5800522065089631826",
+      "subjectCode": "4061",
+      "subjectName": "Yarn Manufacture II",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4061.html"
+    },
+    "REV2026:4071:revision-2026-content/lessons/lessons-4071.html": {
+      "messageId": "projects/poly-pmna/messages/7683525203394781470",
+      "subjectCode": "4071",
+      "subjectName": "Process Heat Transfer",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4071.html"
+    },
+    "REV2026:4074:revision-2026-content/lessons/lessons-4074.html": {
+      "messageId": "projects/poly-pmna/messages/4855519074969296625",
+      "subjectCode": "4074",
+      "subjectName": "Sustainable Materials and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4074.html"
+    },
+    "REV2026:4081:revision-2026-content/lessons/lessons-4081.html": {
+      "messageId": "projects/poly-pmna/messages/3341129545000232936",
+      "subjectCode": "4081",
+      "subjectName": "Process Variables Measurement",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4081.html"
+    },
+    "REV2026:4091:revision-2026-content/lessons/lessons-4091.html": {
+      "messageId": "projects/poly-pmna/messages/656842996004604884",
+      "subjectCode": "4091",
+      "subjectName": "Polymer Processing &",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4091.html"
+    },
+    "REV2026:4111:revision-2026-content/lessons/lessons-4111.html": {
+      "messageId": "projects/poly-pmna/messages/3908628421985639837",
+      "subjectCode": "4111",
+      "subjectName": "Fluid Mechanics & Heat Transfer",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4111.html"
+    },
+    "REV2026:4121:revision-2026-content/lessons/lessons-4121.html": {
+      "messageId": "projects/poly-pmna/messages/4556571499140501019",
+      "subjectCode": "4121",
+      "subjectName": "Wood Products I",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4121.html"
+    },
+    "REV2026:4131:revision-2026-content/lessons/lessons-4131.html": {
+      "messageId": "projects/poly-pmna/messages/2026272868300542451",
+      "subjectCode": "4131",
+      "subjectName": "Object Oriented Programming",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4131.html"
+    },
+    "REV2026:4141:revision-2026-content/lessons/lessons-4141.html": {
+      "messageId": "projects/poly-pmna/messages/125482729333908476",
+      "subjectCode": "4141",
+      "subjectName": "Financial Accounting IV",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4141.html"
+    },
+    "REV2026:4148:revision-2026-content/lessons/lessons-4148.html": {
+      "messageId": "projects/poly-pmna/messages/619409889074899282",
+      "subjectCode": "4148",
+      "subjectName": "Typewriting English 45 w.p.m",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4148.html"
+    },
+    "REV2026:4181:revision-2026-content/lessons/lessons-4181.html": {
+      "messageId": "projects/poly-pmna/messages/2734276480345383988",
+      "subjectCode": "4181",
+      "subjectName": "History of Architecture",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4181.html"
+    },
+    "REV2026:4241:revision-2026-content/lessons/lessons-4241.html": {
+      "messageId": "projects/poly-pmna/messages/5308639064474192655",
+      "subjectCode": "4241",
+      "subjectName": "Therapeutic Equipment",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4241.html"
+    },
+    "REV2026:4251:revision-2026-content/lessons/lessons-4251.html": {
+      "messageId": "projects/poly-pmna/messages/5135680339861408172",
+      "subjectCode": "4251",
+      "subjectName": "Business Law",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4251.html"
+    },
+    "REV2026:4261:revision-2026-content/lessons/lessons-4261.html": {
+      "messageId": "projects/poly-pmna/messages/3374157531467580930",
+      "subjectCode": "4261",
+      "subjectName": "Network Switching Technologies",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4261.html"
+    },
+    "REV2026:4281:revision-2026-content/lessons/lessons-4281.html": {
+      "messageId": "projects/poly-pmna/messages/2135847205065600181",
+      "subjectCode": "4281",
+      "subjectName": "Programming in Python",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4281.html"
+    },
+    "REV2026:4301:revision-2026-content/lessons/lessons-4301.html": {
+      "messageId": "projects/poly-pmna/messages/6952764813221931813",
+      "subjectCode": "4301",
+      "subjectName": "Web Scripting Languages",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4301.html"
+    },
+    "REV2026:4331:revision-2026-content/lessons/lessons-4331.html": {
+      "messageId": "projects/poly-pmna/messages/2881139354812607571",
+      "subjectCode": "4331",
+      "subjectName": "Mechanics of Robotics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4331.html"
+    },
+    "REV2026:4341:revision-2026-content/lessons/lessons-4341.html": {
+      "messageId": "projects/poly-pmna/messages/7188379332988488597",
+      "subjectCode": "4341",
+      "subjectName": "Mathematical Foundations for ML",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4341.html"
+    },
+    "REV2026:4371:revision-2026-content/lessons/lessons-4371.html": {
+      "messageId": "projects/poly-pmna/messages/111653629662694677",
+      "subjectCode": "4371",
+      "subjectName": "VLSI Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4371.html"
+    },
+    "REV2026:4421:revision-2026-content/lessons/lessons-4421.html": {
+      "messageId": "projects/poly-pmna/messages/418235393363311547",
+      "subjectCode": "4421",
+      "subjectName": "Food Microbiology II",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4421.html"
+    },
+    "REV2026:4461:revision-2026-content/lessons/lessons-4461.html": {
+      "messageId": "projects/poly-pmna/messages/8382427096253164061",
+      "subjectCode": "4461",
+      "subjectName": "Strength of Materials (FS)",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4461.html"
+    },
+    "REV2026:4491:revision-2026-content/lessons/lessons-4491.html": {
+      "messageId": "projects/poly-pmna/messages/299363370427408669",
+      "subjectCode": "4491",
+      "subjectName": "Networks and Integrated Circuits",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4491.html"
+    },
+    "REV2026:4501:revision-2026-content/lessons/lessons-4501.html": {
+      "messageId": "projects/poly-pmna/messages/2166669598592418011",
+      "subjectCode": "4501",
+      "subjectName": "Fundamentals of Electronic",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4501.html"
+    },
+    "REV2026:4541:revision-2026-content/lessons/lessons-4541.html": {
+      "messageId": "projects/poly-pmna/messages/3815566335133802453",
+      "subjectCode": "4541",
+      "subjectName": "Power Electronics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4541.html"
+    },
+    "REV2026:5052:revision-2026-content/lessons/lessons-5052.html": {
+      "messageId": "projects/poly-pmna/messages/4269697291594545746",
+      "subjectCode": "5052",
+      "subjectName": "Vehicle Diagnostics and Service.",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5052.html"
+    },
+    "REV2026:5053A:revision-2026-content/lessons/lessons-5053A.html": {
+      "messageId": "projects/poly-pmna/messages/4661088198156817772",
+      "subjectCode": "5053A",
+      "subjectName": "Automotive Power Train",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5053A.html"
+    },
+    "REV2026:5053B:revision-2026-content/lessons/lessons-5053B.html": {
+      "messageId": "projects/poly-pmna/messages/7149945506799572759",
+      "subjectCode": "5053B",
+      "subjectName": "Farm Machinery and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5053B.html"
+    },
+    "REV2026:5053C:revision-2026-content/lessons/lessons-5053C.html": {
+      "messageId": "projects/poly-pmna/messages/3723923477943174778",
+      "subjectCode": "5053C",
+      "subjectName": "Two and Three Wheeler",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5053C.html"
+    },
+    "REV2026:5061:revision-2026-content/lessons/lessons-5061.html": {
+      "messageId": "projects/poly-pmna/messages/6373301215279242711",
+      "subjectCode": "5061",
+      "subjectName": "Textile Testing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5061.html"
+    },
+    "REV2026:5062:revision-2026-content/lessons/lessons-5062.html": {
+      "messageId": "projects/poly-pmna/messages/8225615890698350968",
+      "subjectCode": "5062",
+      "subjectName": "Fashion Design & Apparel",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5062.html"
+    },
+    "REV2026:5063A:revision-2026-content/lessons/lessons-5063A.html": {
+      "messageId": "projects/poly-pmna/messages/1470989773756290041",
+      "subjectCode": "5063A",
+      "subjectName": "Non-wovens & Technical Textiles",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5063A.html"
+    },
+    "REV2026:5063B:revision-2026-content/lessons/lessons-5063B.html": {
+      "messageId": "projects/poly-pmna/messages/5558525267519674270",
+      "subjectCode": "5063B",
+      "subjectName": "Textile Machine Maintenance",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5063B.html"
+    },
+    "REV2026:5063C:revision-2026-content/lessons/lessons-5063C.html": {
+      "messageId": "projects/poly-pmna/messages/8879191768383865500",
+      "subjectCode": "5063C",
+      "subjectName": "Long staple spinning Technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5063C.html"
+    },
+    "REV2026:5072:revision-2026-content/lessons/lessons-5072.html": {
+      "messageId": "projects/poly-pmna/messages/8729224850999736628",
+      "subjectCode": "5072",
+      "subjectName": "Process Control & Instrumentation",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5072.html"
+    },
+    "REV2026:5073A:revision-2026-content/lessons/lessons-5073A.html": {
+      "messageId": "projects/poly-pmna/messages/3185277031285016151",
+      "subjectCode": "5073A",
+      "subjectName": "Petroleum Refining &",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5073A.html"
+    },
+    "REV2026:5073B:revision-2026-content/lessons/lessons-5073B.html": {
+      "messageId": "projects/poly-pmna/messages/1522245178628946807",
+      "subjectCode": "5073B",
+      "subjectName": "Modern Separation Techniques",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5073B.html"
+    },
+    "REV2026:5073C:revision-2026-content/lessons/lessons-5073C.html": {
+      "messageId": "projects/poly-pmna/messages/4743111134762504407",
+      "subjectCode": "5073C",
+      "subjectName": "Material Science and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5073C.html"
+    },
+    "REV2026:5081:revision-2026-content/lessons/lessons-5081.html": {
+      "messageId": "projects/poly-pmna/messages/6083368979835443989",
+      "subjectCode": "5081",
+      "subjectName": "Industrial Instrumentation",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5081.html"
+    },
+    "REV2026:5082:revision-2026-content/lessons/lessons-5082.html": {
+      "messageId": "projects/poly-pmna/messages/3181320198653615721",
+      "subjectCode": "5082",
+      "subjectName": "Industrial Automation and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5082.html"
+    },
+    "REV2026:5083A:revision-2026-content/lessons/lessons-5083A.html": {
+      "messageId": "projects/poly-pmna/messages/7129186913564389930",
+      "subjectCode": "5083A",
+      "subjectName": "Industrial Electronics and Drives",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5083A.html"
+    },
+    "REV2026:5083B:revision-2026-content/lessons/lessons-5083B.html": {
+      "messageId": "projects/poly-pmna/messages/8513984550991121740",
+      "subjectCode": "5083B",
+      "subjectName": "Laser and Optical",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5083B.html"
+    },
+    "REV2026:5083C:revision-2026-content/lessons/lessons-5083C.html": {
+      "messageId": "projects/poly-pmna/messages/7440339772306907048",
+      "subjectCode": "5083C",
+      "subjectName": "Robotics and Control",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5083C.html"
+    },
+    "REV2026:5091:revision-2026-content/lessons/lessons-5091.html": {
+      "messageId": "projects/poly-pmna/messages/3829952216317010514",
+      "subjectCode": "5091",
+      "subjectName": "Tyre Technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5091.html"
+    },
+    "REV2026:5092:revision-2026-content/lessons/lessons-5092.html": {
+      "messageId": "projects/poly-pmna/messages/4027319899897705941",
+      "subjectCode": "5092",
+      "subjectName": "Quality Assurance &Testing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5092.html"
+    },
+    "REV2026:5093A:revision-2026-content/lessons/lessons-5093A.html": {
+      "messageId": "projects/poly-pmna/messages/8653304367060206476",
+      "subjectCode": "5093A",
+      "subjectName": "Injection Mould Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5093A.html"
+    },
+    "REV2026:5093B:revision-2026-content/lessons/lessons-5093B.html": {
+      "messageId": "projects/poly-pmna/messages/5182528748888327429",
+      "subjectCode": "5093B",
+      "subjectName": "Speciality Polymers",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5093B.html"
+    },
+    "REV2026:5093C:revision-2026-content/lessons/lessons-5093C.html": {
+      "messageId": "projects/poly-pmna/messages/3398868313496816758",
+      "subjectCode": "5093C",
+      "subjectName": "Chemical Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5093C.html"
+    },
+    "REV2026:5101:revision-2026-content/lessons/lessons-5101.html": {
+      "messageId": "projects/poly-pmna/messages/6617655725070184677",
+      "subjectCode": "5101",
+      "subjectName": "Packaging Techniques",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5101.html"
+    },
+    "REV2026:5102:revision-2026-content/lessons/lessons-5102.html": {
+      "messageId": "projects/poly-pmna/messages/4893875883811499139",
+      "subjectCode": "5102",
+      "subjectName": "Print Marketing Management.",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5102.html"
+    },
+    "REV2026:5103A:revision-2026-content/lessons/lessons-5103A.html": {
+      "messageId": "projects/poly-pmna/messages/6082920796487577671",
+      "subjectCode": "5103A",
+      "subjectName": "Advertising Techniques",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5103A.html"
+    },
+    "REV2026:5103B:revision-2026-content/lessons/lessons-5103B.html": {
+      "messageId": "projects/poly-pmna/messages/2860634241074700214",
+      "subjectCode": "5103B",
+      "subjectName": "Maintenance Engineering &",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5103B.html"
+    },
+    "REV2026:5103C:revision-2026-content/lessons/lessons-5103C.html": {
+      "messageId": "projects/poly-pmna/messages/1079308626868771872",
+      "subjectCode": "5103C",
+      "subjectName": "Screen Printing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5103C.html"
+    },
+    "REV2026:5111:revision-2026-content/lessons/lessons-5111.html": {
+      "messageId": "projects/poly-pmna/messages/3259221821243217466",
+      "subjectCode": "5111",
+      "subjectName": "Tool Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5111.html"
+    },
+    "REV2026:5121:revision-2026-content/lessons/lessons-5121.html": {
+      "messageId": "projects/poly-pmna/messages/3307754989571864278",
+      "subjectCode": "5121",
+      "subjectName": "Adhesive Technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5121.html"
+    },
+    "REV2026:5122:revision-2026-content/lessons/lessons-5122.html": {
+      "messageId": "projects/poly-pmna/messages/3696378894852087298",
+      "subjectCode": "5122",
+      "subjectName": "Wood Products-II",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5122.html"
+    },
+    "REV2026:5123A:revision-2026-content/lessons/lessons-5123A.html": {
+      "messageId": "projects/poly-pmna/messages/3562817649625544690",
+      "subjectCode": "5123A",
+      "subjectName": "Statistical Quality Assurance",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5123A.html"
+    },
+    "REV2026:5123B:revision-2026-content/lessons/lessons-5123B.html": {
+      "messageId": "projects/poly-pmna/messages/5879114045128453069",
+      "subjectCode": "5123B",
+      "subjectName": "Quantity Surveying",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5123B.html"
+    },
+    "REV2026:5123C:revision-2026-content/lessons/lessons-5123C.html": {
+      "messageId": "projects/poly-pmna/messages/1170729941845246051",
+      "subjectCode": "5123C",
+      "subjectName": "Process Control And",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5123C.html"
+    },
+    "REV2026:5132:revision-2026-content/lessons/lessons-5132.html": {
+      "messageId": "projects/poly-pmna/messages/790748051441531409",
+      "subjectCode": "5132",
+      "subjectName": "Operating System",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5132.html"
+    },
+    "REV2026:5141:revision-2026-content/lessons/lessons-5141.html": {
+      "messageId": "projects/poly-pmna/messages/5234434291255758777",
+      "subjectCode": "5141",
+      "subjectName": "Shorthand English Elaboration",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5141.html"
+    },
+    "REV2026:5142:revision-2026-content/lessons/lessons-5142.html": {
+      "messageId": "projects/poly-pmna/messages/2499311596807606084",
+      "subjectCode": "5142",
+      "subjectName": "Shorthand English (Condensation",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5142.html"
+    },
+    "REV2026:5181:revision-2026-content/lessons/lessons-5181.html": {
+      "messageId": "projects/poly-pmna/messages/6708951904492692233",
+      "subjectCode": "5181",
+      "subjectName": "Town Planning",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5181.html"
+    },
+    "REV2026:5201:revision-2026-content/lessons/lessons-5201.html": {
+      "messageId": "projects/poly-pmna/messages/5829866441142697039",
+      "subjectCode": "5201",
+      "subjectName": "Signals and Systems",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5201.html"
+    },
+    "REV2026:5241:revision-2026-content/lessons/lessons-5241.html": {
+      "messageId": "projects/poly-pmna/messages/8605953044490045908",
+      "subjectCode": "5241",
+      "subjectName": "Medical Imaging Techniques",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5241.html"
+    },
+    "REV2026:5243A:revision-2026-content/lessons/lessons-5243A.html": {
+      "messageId": "projects/poly-pmna/messages/9075341162962306760",
+      "subjectCode": "5243A",
+      "subjectName": "Analytical Instruments",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5243A.html"
+    },
+    "REV2026:5243B:revision-2026-content/lessons/lessons-5243B.html": {
+      "messageId": "projects/poly-pmna/messages/6776344717831348355",
+      "subjectCode": "5243B",
+      "subjectName": "Programming in C",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5243B.html"
+    },
+    "REV2026:5251:revision-2026-content/lessons/lessons-5251.html": {
+      "messageId": "projects/poly-pmna/messages/6731583956482959434",
+      "subjectCode": "5251",
+      "subjectName": "Visual Programming",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5251.html"
+    },
+    "REV2026:5252:revision-2026-content/lessons/lessons-5252.html": {
+      "messageId": "projects/poly-pmna/messages/7416809989338291502",
+      "subjectCode": "5252",
+      "subjectName": "E-commerce and Cyber Security",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5252.html"
+    },
+    "REV2026:5253:revision-2026-content/lessons/lessons-5253.html": {
+      "messageId": "projects/poly-pmna/messages/3745836994041710752",
+      "subjectCode": "5253",
+      "subjectName": "Supply Chain & Logistics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5253.html"
+    },
+    "REV2026:5254A:revision-2026-content/lessons/lessons-5254A.html": {
+      "messageId": "projects/poly-pmna/messages/745844422097731764",
+      "subjectCode": "5254A",
+      "subjectName": "Customer Relationship",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5254A.html"
+    },
+    "REV2026:5254B:revision-2026-content/lessons/lessons-5254B.html": {
+      "messageId": "projects/poly-pmna/messages/1011933823890079183",
+      "subjectCode": "5254B",
+      "subjectName": "Digital Marketing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5254B.html"
+    },
+    "REV2026:5254C:revision-2026-content/lessons/lessons-5254C.html": {
+      "messageId": "projects/poly-pmna/messages/5139310385902150948",
+      "subjectCode": "5254C",
+      "subjectName": "Banking and Financial System",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5254C.html"
+    },
+    "REV2026:5261:revision-2026-content/lessons/lessons-5261.html": {
+      "messageId": "projects/poly-pmna/messages/3855929676110457812",
+      "subjectCode": "5261",
+      "subjectName": "Network Routing Technologies",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5261.html"
+    },
+    "REV2026:5262:revision-2026-content/lessons/lessons-5262.html": {
+      "messageId": "projects/poly-pmna/messages/2992688811342159468",
+      "subjectCode": "5262",
+      "subjectName": "Object Oriented Web",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5262.html"
+    },
+    "REV2026:5281:revision-2026-content/lessons/lessons-5281.html": {
+      "messageId": "projects/poly-pmna/messages/7904554462705263072",
+      "subjectCode": "5281",
+      "subjectName": "Object Oriented Programming",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5281.html"
+    },
+    "REV2026:5282:revision-2026-content/lessons/lessons-5282.html": {
+      "messageId": "projects/poly-pmna/messages/3547271930488531599",
+      "subjectCode": "5282",
+      "subjectName": "Network Security",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5282.html"
+    },
+    "REV2026:5283A:revision-2026-content/lessons/lessons-5283A.html": {
+      "messageId": "projects/poly-pmna/messages/595579945686897425",
+      "subjectCode": "5283A",
+      "subjectName": "Data and Application Security",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5283A.html"
+    },
+    "REV2026:5283B:revision-2026-content/lessons/lessons-5283B.html": {
+      "messageId": "projects/poly-pmna/messages/5210446190476956029",
+      "subjectCode": "5283B",
+      "subjectName": "IoT Security",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5283B.html"
+    },
+    "REV2026:5283C:revision-2026-content/lessons/lessons-5283C.html": {
+      "messageId": "projects/poly-pmna/messages/5631411469630691193",
+      "subjectCode": "5283C",
+      "subjectName": "Internet and Web Application",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5283C.html"
+    },
+    "REV2026:5301:revision-2026-content/lessons/lessons-5301.html": {
+      "messageId": "projects/poly-pmna/messages/5903097142213717044",
+      "subjectCode": "5301",
+      "subjectName": "Introduction to Machine Learning",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5301.html"
+    },
+    "REV2026:5302:revision-2026-content/lessons/lessons-5302.html": {
+      "messageId": "projects/poly-pmna/messages/2565866801632665006",
+      "subjectCode": "5302",
+      "subjectName": "Data Mining",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5302.html"
+    },
+    "REV2026:5303A:revision-2026-content/lessons/lessons-5303A.html": {
+      "messageId": "projects/poly-pmna/messages/6341734275082015163",
+      "subjectCode": "5303A",
+      "subjectName": "Fundamentals of Digital Marketing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5303A.html"
+    },
+    "REV2026:5303B:revision-2026-content/lessons/lessons-5303B.html": {
+      "messageId": "projects/poly-pmna/messages/2873985318166091239",
+      "subjectCode": "5303B",
+      "subjectName": "Non-Relational Database",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5303B.html"
+    },
+    "REV2026:5303C:revision-2026-content/lessons/lessons-5303C.html": {
+      "messageId": "projects/poly-pmna/messages/470844941288525054",
+      "subjectCode": "5303C",
+      "subjectName": "Embedded and IOT System Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5303C.html"
+    },
+    "REV2026:5331:revision-2026-content/lessons/lessons-5331.html": {
+      "messageId": "projects/poly-pmna/messages/2904388820647244398",
+      "subjectCode": "5331",
+      "subjectName": "Industrial Automation Control",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5331.html"
+    },
+    "REV2026:5332:revision-2026-content/lessons/lessons-5332.html": {
+      "messageId": "projects/poly-pmna/messages/5238022966384097424",
+      "subjectCode": "5332",
+      "subjectName": "AI for Robotics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5332.html"
+    },
+    "REV2026:5333A:revision-2026-content/lessons/lessons-5333A.html": {
+      "messageId": "projects/poly-pmna/messages/4791876399819742236",
+      "subjectCode": "5333A",
+      "subjectName": "Industrial Robotics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5333A.html"
+    },
+    "REV2026:5333B:revision-2026-content/lessons/lessons-5333B.html": {
+      "messageId": "projects/poly-pmna/messages/4333113996841685712",
+      "subjectCode": "5333B",
+      "subjectName": "Machine Vision",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5333B.html"
+    },
+    "REV2026:5333C:revision-2026-content/lessons/lessons-5333C.html": {
+      "messageId": "projects/poly-pmna/messages/4509561345808766156",
+      "subjectCode": "5333C",
+      "subjectName": "IoT and Applications",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5333C.html"
+    },
+    "REV2026:5341:revision-2026-content/lessons/lessons-5341.html": {
+      "messageId": "projects/poly-pmna/messages/9220063472304299952",
+      "subjectCode": "5341",
+      "subjectName": "Big Data Analytics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5341.html"
+    },
+    "REV2026:5371:revision-2026-content/lessons/lessons-5371.html": {
+      "messageId": "projects/poly-pmna/messages/2010018886027077758",
+      "subjectCode": "5371",
+      "subjectName": "Microcontroller and Embedded",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5371.html"
+    },
+    "REV2026:5381:revision-2026-content/lessons/lessons-5381.html": {
+      "messageId": "projects/poly-pmna/messages/8564711945396114118",
+      "subjectCode": "5381",
+      "subjectName": "Fundamentals of Virtual Reality",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5381.html"
+    },
+    "REV2026:5421:revision-2026-content/lessons/lessons-5421.html": {
+      "messageId": "projects/poly-pmna/messages/8616344634828870404",
+      "subjectCode": "5421",
+      "subjectName": "Unit Operations of Food Industry",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5421.html"
+    },
+    "REV2026:5422:revision-2026-content/lessons/lessons-5422.html": {
+      "messageId": "projects/poly-pmna/messages/2018447104670012517",
+      "subjectCode": "5422",
+      "subjectName": "Food Additives",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5422.html"
+    },
+    "REV2026:5423A:revision-2026-content/lessons/lessons-5423A.html": {
+      "messageId": "projects/poly-pmna/messages/420453899639817911",
+      "subjectCode": "5423A",
+      "subjectName": "Food chemistry II",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5423A.html"
+    },
+    "REV2026:5423B:revision-2026-content/lessons/lessons-5423B.html": {
+      "messageId": "projects/poly-pmna/messages/7373001415786621115",
+      "subjectCode": "5423B",
+      "subjectName": "Spices and Condiments",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5423B.html"
+    },
+    "REV2026:5423C:revision-2026-content/lessons/lessons-5423C.html": {
+      "messageId": "projects/poly-pmna/messages/4896630154124714708",
+      "subjectCode": "5423C",
+      "subjectName": "Beverage Processing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5423C.html"
+    },
+    "REV2026:5431:revision-2026-content/lessons/lessons-5431.html": {
+      "messageId": "projects/poly-pmna/messages/2444715937915211403",
+      "subjectCode": "5431",
+      "subjectName": "Computer Integrated Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5431.html"
+    },
+    "REV2026:5432:revision-2026-content/lessons/lessons-5432.html": {
+      "messageId": "projects/poly-pmna/messages/4925779596586615927",
+      "subjectCode": "5432",
+      "subjectName": "Automation and Control",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5432.html"
+    },
+    "REV2026:5461:revision-2026-content/lessons/lessons-5461.html": {
+      "messageId": "projects/poly-pmna/messages/1755066478683899730",
+      "subjectCode": "5461",
+      "subjectName": "Safety in Process Industries and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5461.html"
+    },
+    "REV2026:5462:revision-2026-content/lessons/lessons-5462.html": {
+      "messageId": "projects/poly-pmna/messages/3071313369537190797",
+      "subjectCode": "5462",
+      "subjectName": "Safety in Oil & Gas Industries",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5462.html"
+    },
+    "REV2026:5463A:revision-2026-content/lessons/lessons-5463A.html": {
+      "messageId": "projects/poly-pmna/messages/434534287481720405",
+      "subjectCode": "5463A",
+      "subjectName": "Safety in Construction and Textile",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5463A.html"
+    },
+    "REV2026:5463B:revision-2026-content/lessons/lessons-5463B.html": {
+      "messageId": "projects/poly-pmna/messages/4006850860662662311",
+      "subjectCode": "5463B",
+      "subjectName": "Safety in Material Handling",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5463B.html"
+    },
+    "REV2026:5463C:revision-2026-content/lessons/lessons-5463C.html": {
+      "messageId": "projects/poly-pmna/messages/1245192343046885770",
+      "subjectCode": "5463C",
+      "subjectName": "Transportation & Mine Safety",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5463C.html"
+    },
+    "REV2026:5491:revision-2026-content/lessons/lessons-5491.html": {
+      "messageId": "projects/poly-pmna/messages/1892851320491662755",
+      "subjectCode": "5491",
+      "subjectName": "Digital System Design",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5491.html"
+    },
+    "REV2026:5492:revision-2026-content/lessons/lessons-5492.html": {
+      "messageId": "projects/poly-pmna/messages/3345488718025291589",
+      "subjectCode": "5492",
+      "subjectName": "Microcontroller and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5492.html"
+    },
+    "REV2026:5493A:revision-2026-content/lessons/lessons-5493A.html": {
+      "messageId": "projects/poly-pmna/messages/3876200383849616798",
+      "subjectCode": "5493A",
+      "subjectName": "Low Power VLSI",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5493A.html"
+    },
+    "REV2026:5493B:revision-2026-content/lessons/lessons-5493B.html": {
+      "messageId": "projects/poly-pmna/messages/110421671753662373",
+      "subjectCode": "5493B",
+      "subjectName": "Digital CMOS VLSI",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5493B.html"
+    },
+    "REV2026:5493C:revision-2026-content/lessons/lessons-5493C.html": {
+      "messageId": "projects/poly-pmna/messages/6543584349724580935",
+      "subjectCode": "5493C",
+      "subjectName": "Programming with VHDL",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5493C.html"
+    },
+    "REV2026:5501:revision-2026-content/lessons/lessons-5501.html": {
+      "messageId": "projects/poly-pmna/messages/492468803267560607",
+      "subjectCode": "5501",
+      "subjectName": "Linear Integrated Circuits",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5501.html"
+    },
+    "REV2026:6142:revision-2026-content/lessons/lessons-6142.html": {
+      "messageId": "projects/poly-pmna/messages/723197155118420277",
+      "subjectCode": "6142",
+      "subjectName": "Shorthand Malayalam (Speed &",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6142.html"
+    },
+    "REV2026:6143A:revision-2026-content/lessons/lessons-6143A.html": {
+      "messageId": "projects/poly-pmna/messages/8323054751108781269",
+      "subjectCode": "6143A",
+      "subjectName": "Economic Policies in India",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6143A.html"
+    },
+    "REV2026:6143B:revision-2026-content/lessons/lessons-6143B.html": {
+      "messageId": "projects/poly-pmna/messages/7464450149732224511",
+      "subjectCode": "6143B",
+      "subjectName": "Project Planning and Development",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6143B.html"
+    },
+    "REV2026:6143C:revision-2026-content/lessons/lessons-6143C.html": {
+      "messageId": "projects/poly-pmna/messages/6463472916263279450",
+      "subjectCode": "6143C",
+      "subjectName": "Engineering Economics &",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6143C.html"
+    },
+    "REV2026:6342A:revision-2026-content/lessons/lessons-6342A.html": {
+      "messageId": "projects/poly-pmna/messages/8527031832473009374",
+      "subjectCode": "6342A",
+      "subjectName": "Introduction to Artificial Intelligence",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6342A.html"
+    },
+    "REV2026:6342B:revision-2026-content/lessons/lessons-6342B.html": {
+      "messageId": "projects/poly-pmna/messages/8102659178452351652",
+      "subjectCode": "6342B",
+      "subjectName": "Fundamentals of Soft Computing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6342B.html"
+    },
+    "REV2026:6342C:revision-2026-content/lessons/lessons-6342C.html": {
+      "messageId": "projects/poly-pmna/messages/3584055556674091979",
+      "subjectCode": "6342C",
+      "subjectName": "Big Data Concepts",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6342C.html"
+    },
+    "REV2026:6351A:revision-2026-content/lessons/lessons-6351A.html": {
+      "messageId": "projects/poly-pmna/messages/2545070554510947125",
+      "subjectCode": "6351A",
+      "subjectName": "Habitat Engineering",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6351A.html"
+    },
+    "REV2026:6351B:revision-2026-content/lessons/lessons-6351B.html": {
+      "messageId": "projects/poly-pmna/messages/308564237554468973",
+      "subjectCode": "6351B",
+      "subjectName": "Solid Waste Management and",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6351B.html"
+    },
+    "REV2026:6361A:revision-2026-content/lessons/lessons-6361A.html": {
+      "messageId": "projects/poly-pmna/messages/5497285101279339216",
+      "subjectCode": "6361A",
+      "subjectName": "Water supply and Sanitation",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6361A.html"
+    },
+    "REV2026:6371A:revision-2026-content/lessons/lessons-6371A.html": {
+      "messageId": "projects/poly-pmna/messages/6415806890462365354",
+      "subjectCode": "6371A",
+      "subjectName": "Networks",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6371A.html"
+    },
+    "REV2026:6371B:revision-2026-content/lessons/lessons-6371B.html": {
+      "messageId": "projects/poly-pmna/messages/919585922181470555",
+      "subjectCode": "6371B",
+      "subjectName": "Sensors and Actuators",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6371B.html"
+    },
+    "REV2026:6492A:revision-2026-content/lessons/lessons-6492A.html": {
+      "messageId": "projects/poly-pmna/messages/2894705633857094668",
+      "subjectCode": "6492A",
+      "subjectName": "Introduction to IoT",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6492A.html"
+    },
+    "REV2026:6492B:revision-2026-content/lessons/lessons-6492B.html": {
+      "messageId": "projects/poly-pmna/messages/9135839177468858091",
+      "subjectCode": "6492B",
+      "subjectName": "Basics of Robotics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6492B.html"
+    },
+    "REV2026:6492C:revision-2026-content/lessons/lessons-6492C.html": {
+      "messageId": "projects/poly-pmna/messages/7959414671796547741",
+      "subjectCode": "6492C",
+      "subjectName": "Entertainment Electronics",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6492C.html"
     }
   }
 }
