@@ -1107,8 +1107,8 @@
                             <h4>🧮 Complex Number Calculator</h4>
                             <p>Enter real and imaginary parts to find modulus, amplitude, and polar form.</p>
                             <div class="calc-grid">
-                                <div><label>Real part (x)</label><input type="number" id="calc-real" value="3" step="any"></div>
-                                <div><label>Imaginary part (y)</label><input type="number" id="calc-imag" value="4" step="any"></div>
+                                <div><label>Real part (x)</label><input type="number" id="calc-real" value="3" step="any" aria-label="Calculator input: calc real"></div>
+                                <div><label>Imaginary part (y)</label><input type="number" id="calc-imag" value="4" step="any" aria-label="Calculator input: calc imag"></div>
                                 <div style="display:flex;align-items:end;"><button id="calc-complex-btn">Calculate</button></div>
                             </div>
                             <div class="result" id="calc-complex-result" aria-live="polite">Result: r = 5, θ = 53.13°, Polar: 5(cos 53.13° + i sin 53.13°)</div>
@@ -1226,12 +1226,12 @@
                     <h4>🧮 Vector Calculator</h4>
                     <p>Compute dot product, cross product, and angle between two vectors (3D).</p>
                     <div class="calc-grid">
-                        <div><label>Vector A: x</label><input type="number" id="vax" value="1" step="any"></div>
-                        <div><label>y</label><input type="number" id="vay" value="2" step="any"></div>
-                        <div><label>z</label><input type="number" id="vaz" value="3" step="any"></div>
-                        <div><label>Vector B: x</label><input type="number" id="vbx" value="2" step="any"></div>
-                        <div><label>y</label><input type="number" id="vby" value="-1" step="any"></div>
-                        <div><label>z</label><input type="number" id="vbz" value="1" step="any"></div>
+                        <div><label>Vector A: x</label><input type="number" id="vax" value="1" step="any" aria-label="Calculator input: vax"></div>
+                        <div><label>y</label><input type="number" id="vay" value="2" step="any" aria-label="Calculator input: vay"></div>
+                        <div><label>z</label><input type="number" id="vaz" value="3" step="any" aria-label="Calculator input: vaz"></div>
+                        <div><label>Vector B: x</label><input type="number" id="vbx" value="2" step="any" aria-label="Calculator input: vbx"></div>
+                        <div><label>y</label><input type="number" id="vby" value="-1" step="any" aria-label="Calculator input: vby"></div>
+                        <div><label>z</label><input type="number" id="vbz" value="1" step="any" aria-label="Calculator input: vbz"></div>
                         <div style="display:flex;align-items:end;"><button id="calc-vector-btn">Calculate</button></div>
                     </div>
                     <div class="result" id="calc-vector-result" aria-live="polite">Dot: 3, Cross: (5, 5, -5), Angle: ~61.9°</div>
@@ -1344,11 +1344,11 @@
                     <h4>🧮 Definite Integral Calculator (Quadratic)</h4>
                     <p>Evaluate ∫<sub>a</sub><sup>b</sup> (<em>p</em>x² + <em>q</em>x + <em>r</em>) dx.</p>
                     <div class="calc-grid">
-                        <div><label>p (x² coeff)</label><input type="number" id="int-p" value="3" step="any"></div>
-                        <div><label>q (x coeff)</label><input type="number" id="int-q" value="2" step="any"></div>
-                        <div><label>r (constant)</label><input type="number" id="int-r" value="0" step="any"></div>
-                        <div><label>Lower limit a</label><input type="number" id="int-a" value="1" step="any"></div>
-                        <div><label>Upper limit b</label><input type="number" id="int-b" value="2" step="any"></div>
+                        <div><label>p (x² coeff)</label><input type="number" id="int-p" value="3" step="any" aria-label="Calculator input: int p"></div>
+                        <div><label>q (x coeff)</label><input type="number" id="int-q" value="2" step="any" aria-label="Calculator input: int q"></div>
+                        <div><label>r (constant)</label><input type="number" id="int-r" value="0" step="any" aria-label="Calculator input: int r"></div>
+                        <div><label>Lower limit a</label><input type="number" id="int-a" value="1" step="any" aria-label="Calculator input: int a"></div>
+                        <div><label>Upper limit b</label><input type="number" id="int-b" value="2" step="any" aria-label="Calculator input: int b"></div>
                         <div style="display:flex;align-items:end;"><button id="calc-integral-btn">Evaluate</button></div>
                     </div>
                     <div class="result" id="calc-integral-result" aria-live="polite">Result: 10</div>
@@ -1461,8 +1461,8 @@
                     <h4>🧮 Statistics Calculator (Grouped Data)</h4>
                     <p>Enter class intervals (e.g., "0-10,10-20,20-30") and frequencies (e.g., "5,8,12").</p>
                     <div class="calc-grid">
-                        <div><label>Class Intervals</label><input type="text" id="stats-classes" value="0-10,10-20,20-30,30-40,40-50"></div>
-                        <div><label>Frequencies</label><input type="text" id="stats-freqs" value="4,8,12,6,2"></div>
+                        <div><label>Class Intervals</label><input type="text" id="stats-classes" value="0-10,10-20,20-30,30-40,40-50" aria-label="Calculator input: stats classes"></div>
+                        <div><label>Frequencies</label><input type="text" id="stats-freqs" value="4,8,12,6,2" aria-label="Calculator input: stats freqs"></div>
                         <div style="display:flex;align-items:end;"><button id="calc-stats-btn">Calculate</button></div>
                     </div>
                     <div class="result" id="calc-stats-result" aria-live="polite">Mean: 25.5, Median: 24.17, Mode: 22.5, SD: 10.27</div>

@@ -49,7 +49,7 @@
 <button id="backtop" type="button" aria-label="Back to top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <!-- MAIN CONTENT -->
-<div class="main-content">
+<main id="main-content" class="main-content">
 
 <!-- ════════════════════════════════ COVER ════════════════════════════════ -->
 <section id="cover">
@@ -3777,7 +3777,7 @@ sections.forEach(s=>observer.observe(s));
 document.querySelectorAll('.checklist input[type=checkbox]').forEach((cb,i)=>{const key='chk_'+i;try{if(sessionStorage.getItem(key)==='1')cb.checked=true;cb.addEventListener('change',()=>{try{sessionStorage.setItem(key,cb.checked?'1':'0')}catch(e){}})}catch(e){}});
 </script>
 
-</div><!-- main-content -->
+</main><!-- main-content -->
   <script src="/assets/js/site-hardening.js?v=20260612-1" defer></script>
 
 

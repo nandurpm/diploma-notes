@@ -1404,9 +1404,9 @@
                         <div class="calculator" id="acc-eq-calc">
                             <h4 style="margin-top:0;font-size:1rem;">🧮 Accounting Equation Calculator</h4>
                             <div class="calc-grid">
-                                <div><label>Assets (₹)</label><input type="number" id="eq-assets" value="150000" step="1000"></div>
-                                <div><label>Liabilities (₹)</label><input type="number" id="eq-liabilities" value="50000" step="1000"></div>
-                                <div><label>Capital (₹)</label><input type="number" id="eq-capital" value="100000" step="1000" readonly style="background:var(--soft2);"></div>
+                                <div><label>Assets (₹)</label><input type="number" id="eq-assets" value="150000" step="1000" aria-label="Calculator input: eq assets"></div>
+                                <div><label>Liabilities (₹)</label><input type="number" id="eq-liabilities" value="50000" step="1000" aria-label="Calculator input: eq liabilities"></div>
+                                <div><label>Capital (₹)</label><input type="number" id="eq-capital" value="100000" step="1000" readonly style="background:var(--soft2);" aria-label="Calculator input: eq capital"></div>
                             </div>
                             <button class="btn light" id="eq-calc-btn" style="margin-top:0.5rem;">Check Equation</button>
                             <div class="result" id="eq-result" aria-live="polite">Assets = Liabilities + Capital (150000 = 50000 + 100000) — Balanced ✓</div>

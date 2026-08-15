@@ -1369,10 +1369,10 @@
                         <div class="calculator" data-calc="ped">
                             <h4>📱 Price Elasticity Calculator</h4>
                             <div class="calc-grid">
-                                <div><label>Initial Price (₹)</label><input type="number" id="pedP1" value="100" step="any"></div>
-                                <div><label>New Price (₹)</label><input type="number" id="pedP2" value="120" step="any"></div>
-                                <div><label>Initial Qty</label><input type="number" id="pedQ1" value="500" step="any"></div>
-                                <div><label>New Qty</label><input type="number" id="pedQ2" value="400" step="any"></div>
+                                <div><label>Initial Price (₹)</label><input type="number" id="pedP1" value="100" step="any" aria-label="Calculator input: ped P 1"></div>
+                                <div><label>New Price (₹)</label><input type="number" id="pedP2" value="120" step="any" aria-label="Calculator input: ped P 2"></div>
+                                <div><label>Initial Qty</label><input type="number" id="pedQ1" value="500" step="any" aria-label="Calculator input: ped Q 1"></div>
+                                <div><label>New Qty</label><input type="number" id="pedQ2" value="400" step="any" aria-label="Calculator input: ped Q 2"></div>
                                 <div style="grid-column:span 1;"><button id="pedCalc">Calculate PED</button></div>
                             </div>
                             <div class="result" id="pedResult" aria-live="polite"></div>
@@ -1513,9 +1513,9 @@
                         <div class="calculator" data-calc="bep">
                             <h4>📱 Break-Even Point Calculator</h4>
                             <div class="calc-grid">
-                                <div><label>Fixed Cost (₹)</label><input type="number" id="bepFC" value="100000" step="any"></div>
-                                <div><label>Selling Price per unit (₹)</label><input type="number" id="bepSP" value="500" step="any"></div>
-                                <div><label>Variable Cost per unit (₹)</label><input type="number" id="bepVC" value="300" step="any"></div>
+                                <div><label>Fixed Cost (₹)</label><input type="number" id="bepFC" value="100000" step="any" aria-label="Calculator input: bep FC"></div>
+                                <div><label>Selling Price per unit (₹)</label><input type="number" id="bepSP" value="500" step="any" aria-label="Calculator input: bep SP"></div>
+                                <div><label>Variable Cost per unit (₹)</label><input type="number" id="bepVC" value="300" step="any" aria-label="Calculator input: bep VC"></div>
                                 <div style="grid-column:span 1;"><button id="bepCalc">Calculate BEP</button></div>
                             </div>
                             <div class="result" id="bepResult" aria-live="polite"></div>
@@ -2170,7 +2170,7 @@
             <section class="section no-print" id="handbook-search">
                 <h2>🔍 Search Handbook</h2>
                 <div style="display:flex;gap:0.6rem;flex-wrap:wrap;margin-bottom:0.6rem;">
-                    <input type="text" id="searchInput" placeholder="Search for topics, terms, or concepts..." style="flex:1;min-width:200px;padding:0.5rem 1rem;border:1px solid var(--line);border-radius:30px;font-size:1rem;">
+                    <input type="text" id="searchInput" placeholder="Search for topics, terms, or concepts..." style="flex:1;min-width:200px;padding:0.5rem 1rem;border:1px solid var(--line);border-radius:30px;font-size:1rem;" aria-label="Search lessons">
                     <button id="searchBtn" style="padding:0.5rem 1.5rem;border:none;border-radius:30px;background:var(--blue);color:#fff;font-weight:600;cursor:pointer;">Search</button>
                     <button id="searchClear" style="padding:0.5rem 1.2rem;border:none;border-radius:30px;background:var(--soft);color:var(--muted);cursor:pointer;">Clear</button>
                 </div>

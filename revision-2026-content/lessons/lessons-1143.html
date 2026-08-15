@@ -1506,10 +1506,10 @@
                         <div class="calculator" id="calcEd">
                             <h4 style="font-size:0.9rem;margin:0 0 0.5rem;">🧮 Price Elasticity of Demand Calculator</h4>
                             <div class="calc-grid">
-                                <div><label>Initial Price (P₁)</label><input type="number" id="edP1" value="100" step="any"></div>
-                                <div><label>New Price (P₂)</label><input type="number" id="edP2" value="80" step="any"></div>
-                                <div><label>Initial Quantity (Q₁)</label><input type="number" id="edQ1" value="50" step="any"></div>
-                                <div><label>New Quantity (Q₂)</label><input type="number" id="edQ2" value="70" step="any"></div>
+                                <div><label>Initial Price (P₁)</label><input type="number" id="edP1" value="100" step="any" aria-label="Calculator input: ed P 1"></div>
+                                <div><label>New Price (P₂)</label><input type="number" id="edP2" value="80" step="any" aria-label="Calculator input: ed P 2"></div>
+                                <div><label>Initial Quantity (Q₁)</label><input type="number" id="edQ1" value="50" step="any" aria-label="Calculator input: ed Q 1"></div>
+                                <div><label>New Quantity (Q₂)</label><input type="number" id="edQ2" value="70" step="any" aria-label="Calculator input: ed Q 2"></div>
                             </div>
                             <button class="calc-btn" onclick="calcElasticity()">Calculate Ed</button>
                             <div class="result" id="edResult" aria-live="polite">Enter values and click Calculate.</div>

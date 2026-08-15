@@ -1353,8 +1353,8 @@
                     <h4>🧮 Complex Number Calculator</h4>
                     <p>Enter real and imaginary parts to compute modulus, argument, and polar form.</p>
                     <div class="calc-grid">
-                        <div><label>Real part (a)</label><input type="number" id="compReal" value="3" step="any"></div>
-                        <div><label>Imaginary part (b)</label><input type="number" id="compImag" value="4" step="any"></div>
+                        <div><label>Real part (a)</label><input type="number" id="compReal" value="3" step="any" aria-label="Calculator input: comp Real"></div>
+                        <div><label>Imaginary part (b)</label><input type="number" id="compImag" value="4" step="any" aria-label="Calculator input: comp Imag"></div>
                     </div>
                     <button class="btn primary" id="compCalcBtn">Compute</button>
                     <div class="result" id="compResult" aria-live="polite">z = 3 + 4i | |z| = 5.00 | arg = 53.13° | Polar: 5(cos 53.13° + i sin 53.13°)</div>
@@ -1456,12 +1456,12 @@
                     <h4>🧮 Vector Calculator</h4>
                     <p>Enter components of two vectors (a, b) and compute dot product, cross product, magnitudes, angle, area, and work (with force and displacement).</p>
                     <div class="calc-grid">
-                        <div><label>a₁</label><input type="number" id="v1x" value="2" step="any"></div>
-                        <div><label>a₂</label><input type="number" id="v1y" value="3" step="any"></div>
-                        <div><label>a₃</label><input type="number" id="v1z" value="0" step="any"></div>
-                        <div><label>b₁</label><input type="number" id="v2x" value="1" step="any"></div>
-                        <div><label>b₂</label><input type="number" id="v2y" value="-2" step="any"></div>
-                        <div><label>b₃</label><input type="number" id="v2z" value="0" step="any"></div>
+                        <div><label>a₁</label><input type="number" id="v1x" value="2" step="any" aria-label="Calculator input: v 1 x"></div>
+                        <div><label>a₂</label><input type="number" id="v1y" value="3" step="any" aria-label="Calculator input: v 1 y"></div>
+                        <div><label>a₃</label><input type="number" id="v1z" value="0" step="any" aria-label="Calculator input: v 1 z"></div>
+                        <div><label>b₁</label><input type="number" id="v2x" value="1" step="any" aria-label="Calculator input: v 2 x"></div>
+                        <div><label>b₂</label><input type="number" id="v2y" value="-2" step="any" aria-label="Calculator input: v 2 y"></div>
+                        <div><label>b₃</label><input type="number" id="v2z" value="0" step="any" aria-label="Calculator input: v 2 z"></div>
                     </div>
                     <button class="btn primary" id="vecCalcBtn">Compute</button>
                     <div class="result" id="vecResult" aria-live="polite">a·b = -4 | a×b = (0,0,-7) | |a| = 3.61 | |b| = 2.24 | θ = 119.74° | Area = 7.00 | Work = -4.00 (if a=force, b=displacement)</div>
@@ -1567,9 +1567,9 @@
                     <h4>🧮 Definite Integral Calculator (polynomial)</h4>
                     <p>Compute ∫ₐᵇ xⁿ dx. Enter a, b, and n.</p>
                     <div class="calc-grid">
-                        <div><label>a (lower limit)</label><input type="number" id="intA" value="0" step="any"></div>
-                        <div><label>b (upper limit)</label><input type="number" id="intB" value="2" step="any"></div>
-                        <div><label>n (exponent)</label><input type="number" id="intN" value="2" step="any"></div>
+                        <div><label>a (lower limit)</label><input type="number" id="intA" value="0" step="any" aria-label="Calculator input: int A"></div>
+                        <div><label>b (upper limit)</label><input type="number" id="intB" value="2" step="any" aria-label="Calculator input: int B"></div>
+                        <div><label>n (exponent)</label><input type="number" id="intN" value="2" step="any" aria-label="Calculator input: int N"></div>
                     </div>
                     <button class="btn primary" id="intCalcBtn">Compute</button>
                     <div class="result" id="intResult" aria-live="polite">∫₀² x² dx = 2.6667</div>
@@ -1688,7 +1688,7 @@
                     <p>Select a function to see its Laplace transform and inverse.</p>
                     <div>
                         <label>Function f(t)</label>
-                        <select id="laplaceSelect">
+                        <select id="laplaceSelect" aria-label="Select laplace Select">
                             <option value="1">1</option>
                             <option value="t">t</option>
                             <option value="t2">t²</option>
@@ -1699,8 +1699,8 @@
                         </select>
                     </div>
                     <div class="calc-grid">
-                        <div><label>a</label><input type="number" id="laplaceA" value="2" step="any"></div>
-                        <div><label>b (if needed)</label><input type="number" id="laplaceB" value="3" step="any"></div>
+                        <div><label>a</label><input type="number" id="laplaceA" value="2" step="any" aria-label="Calculator input: laplace A"></div>
+                        <div><label>b (if needed)</label><input type="number" id="laplaceB" value="3" step="any" aria-label="Calculator input: laplace B"></div>
                     </div>
                     <button class="btn primary" id="laplaceCalcBtn">Compute</button>
                     <div class="result" id="laplaceResult" aria-live="polite">L{sin(2t)} = 2/(s²+4) | L⁻¹ = sin(2t)</div>
