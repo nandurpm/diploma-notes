@@ -1491,6 +1491,13 @@
       "subjectName": "Management Information System",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2254.html"
+    },
+    "REV2026:3134:revision-2026-content/lessons/lessons-3134.html": {
+      "messageId": "projects/poly-pmna/messages/4970620350121474974",
+      "subjectCode": "3134",
+      "subjectName": "Digital Computer Fundamentals",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-3134.html"
     }
   }
 }
