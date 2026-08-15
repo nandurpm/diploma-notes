@@ -22,6 +22,7 @@ jobs:
     timeout-minutes: 12
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_PAGES_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PRODUCTION_DOMAIN: polypmna.dpdns.org
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,17 +67,16 @@ jobs:
           echo 'name=diploma-notes' >> "$GITHUB_OUTPUT"
           echo 'Using Cloudflare Pages project: diploma-notes'
 
-      # NOTE: This Cloudflare Pages mirror is optional. Production is served by
-      # GitHub Pages (deploy-github-pages.yml). The GitHub secret
-      # CLOUDFLARE_API_TOKEN currently lacks Pages scopes, and the old Pages
-      # project was removed from the account, so this step is allowed to fail.
-      # To restore the mirror, create a Cloudflare API token with
-      # Workers + Pages (read/edit) and set CLOUDFLARE_PAGES_TOKEN.
+      # NOTE: This Cloudflare Pages mirror is optional. Production remains
+      # served by GitHub Pages (deploy-github-pages.yml) until the custom-domain
+      # DNS CNAME is authorized and propagated. Use a dedicated Pages-scoped
+      # CLOUDFLARE_PAGES_TOKEN when the mirror is enabled; never broaden the
+      # Worker deployment token just to publish static files.
       - name: Deploy repository main to Cloudflare Pages mirror
         if: ${{ env.CLOUDFLARE_PAGES_TOKEN != '' }}
         continue-on-error: true
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           npx -y wrangler@3.109.2 pages deploy _site \
