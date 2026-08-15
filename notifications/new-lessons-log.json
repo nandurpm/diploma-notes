@@ -1519,6 +1519,13 @@
       "subjectName": "Industry 4.0",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4339.html"
+    },
+    "REV2026:4342:revision-2026-content/lessons/lessons-4342.html": {
+      "messageId": "projects/poly-pmna/messages/3299118268818471285",
+      "subjectCode": "4342",
+      "subjectName": "Machine Learning and Neural Network",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4342.html"
     }
   }
 }
