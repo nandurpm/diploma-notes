@@ -1561,6 +1561,13 @@
       "subjectName": "Plant Utilities",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6071A.html"
+    },
+    "REV2026:6501C:revision-2026-content/lessons/lessons-6501C.html": {
+      "messageId": "projects/poly-pmna/messages/715130895711318032",
+      "subjectCode": "6501C",
+      "subjectName": "Fundamentals of Photovoltaics and solar cell technology",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6501C.html"
     }
   }
 }
