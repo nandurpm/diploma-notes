@@ -40,6 +40,6 @@ This standard governs improvements to existing Revision 2021 and Revision 2026 l
 
 ## Current baseline
 
-The conservative local readiness audit examines **264** existing lesson HTML files: **133** Revision 2021 and **131** Revision 2026. It distinguishes static HTML pages from Revision 2021 shells whose full course handbook is rendered by the shared client-side catalogue. Runtime-rendered lessons require a browser-level and official-source comparison rather than a static character-count judgement. This is a prioritization aid—not a claim that any lesson already covers every syllabus point.
+The conservative local readiness audit examines **264** existing lesson HTML files: **133** Revision 2021 and **131** Revision 2026. It distinguishes static HTML pages from Revision 2021 shells whose full course handbook is rendered by the shared client-side catalogue, and from legacy course-code aliases that redirect to a canonical lesson. Runtime-rendered lessons require a browser-level and official-source comparison, while redirect aliases inherit review from their target; neither can be judged through static character counts. This is a prioritization aid—not a claim that any lesson already covers every syllabus point.
 
 The managed worker currently retains stored official PDF sources for 1,081 Revision 2021 queue records and 56 Revision 2026 queue records. A lesson that maps to a queue row without a stored PDF remains in the `hold` category until the source is restored or verified.

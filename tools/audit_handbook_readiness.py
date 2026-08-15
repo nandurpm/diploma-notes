@@ -54,13 +54,31 @@ def has_any(haystack: str, candidates: tuple[str, ...]) -> bool:
     return any(candidate in haystack for candidate in candidates)
 
 
+def local_fragment_content(soup: BeautifulSoup) -> tuple[str, list[str]]:
+    """Load same-repository lesson fragments referenced by a handbook shell."""
+    parts: list[str] = []
+    paths: list[str] = []
+    for slot in soup.select("[data-fragment]"):
+        source = (slot.get("data-fragment") or "").strip()
+        if not source.startswith("/"):
+            continue
+        candidate = (ROOT / source.lstrip("/")).resolve()
+        if candidate.is_file() and candidate.is_relative_to(ROOT.resolve()):
+            parts.append(candidate.read_text(encoding="utf-8", errors="replace"))
+            paths.append(source)
+    return "\n".join(parts), paths
+
+
 def audit_file(revision: str, path: Path) -> dict:
     raw = path.read_text(encoding="utf-8", errors="replace")
     soup = BeautifulSoup(raw, "html.parser")
-    text = soup.get_text(" ", strip=True)
-    lower = raw.lower()
+    fragments_raw, fragment_paths = local_fragment_content(soup)
+    effective_raw = raw + "\n" + fragments_raw
+    effective_soup = BeautifulSoup(effective_raw, "html.parser")
+    text = effective_soup.get_text(" ", strip=True)
+    lower = effective_raw.lower()
     text_lower = text.lower()
-    headings = [h.get_text(" ", strip=True) for h in soup.select("h1,h2,h3,h4")]
+    headings = [h.get_text(" ", strip=True) for h in effective_soup.select("h1,h2,h3,h4")]
     module_headings = [h for h in headings if re.search(r"\bmodule\s*(?:[-:–—]?\s*[ivxlcdm]+|\d+)\b", h, re.I)]
     section_hits = [key for key, tokens in REQUIRED_SECTIONS.items() if has_any(lower, tokens) or has_any(text_lower, tokens)]
     course_code = re.search(r"lessons-([A-Za-z0-9]+)\.html$", path.name)
@@ -91,6 +109,26 @@ def audit_file(revision: str, path: Path) -> dict:
             "requires_syllabus_grounded_expansion": False,
             "requires_runtime_syllabus_comparison": True,
         }
+
+    redirect_match = re.search(r"(?:url\s*=\s*|location\.replace\(['\"])(lessons-[A-Za-z0-9]+\.html)", raw, re.I)
+    if redirect_match:
+        return {
+            "revision": revision,
+            "course_code": code,
+            "path": str(path.relative_to(ROOT)),
+            "delivery_mode": "redirect_alias",
+            "redirect_target": redirect_match.group(1),
+            "characters": len(raw),
+            "paragraphs": len(soup.select("p")),
+            "list_items": len(soup.select("li")),
+            "module_headings": [],
+            "module_heading_count": 0,
+            "handbook_sections_found": [],
+            "handbook_section_count": 0,
+            "deficiencies": [],
+            "requires_syllabus_grounded_expansion": False,
+            "requires_redirect_target_review": True,
+        }
     deficiencies: list[str] = []
 
     if not soup.html or not soup.html.get("lang"):
@@ -116,10 +154,12 @@ def audit_file(revision: str, path: Path) -> dict:
         "revision": revision,
         "course_code": code,
         "path": str(path.relative_to(ROOT)),
-        "delivery_mode": "static_html",
+        "delivery_mode": "fragment_bundle" if fragment_paths else "static_html",
+        "fragment_paths": fragment_paths,
         "characters": len(raw),
-        "paragraphs": len(soup.select("p")),
-        "list_items": len(soup.select("li")),
+        "rendered_characters": len(effective_raw),
+        "paragraphs": len(effective_soup.select("p")),
+        "list_items": len(effective_soup.select("li")),
         "module_headings": module_headings,
         "module_heading_count": len(module_headings),
         "handbook_sections_found": section_hits,
@@ -143,6 +183,9 @@ def main() -> None:
             "requires_runtime_syllabus_comparison": sum(
                 1 for result in results if result["revision"] == revision and result.get("requires_runtime_syllabus_comparison")
             ),
+            "requires_redirect_target_review": sum(
+                1 for result in results if result["revision"] == revision and result.get("requires_redirect_target_review")
+            ),
         }
         for revision, _ in TARGETS
     }
@@ -152,6 +195,7 @@ def main() -> None:
             "total_lessons": len(results),
             "requires_syllabus_grounded_expansion": sum(1 for result in results if result["requires_syllabus_grounded_expansion"]),
             "requires_runtime_syllabus_comparison": sum(1 for result in results if result.get("requires_runtime_syllabus_comparison")),
+            "requires_redirect_target_review": sum(1 for result in results if result.get("requires_redirect_target_review")),
             "deficiency_counts": dict(sorted(deficits.items())),
             "by_revision": by_revision,
         },
