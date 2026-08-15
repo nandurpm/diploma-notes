@@ -35,6 +35,8 @@ jobs:
           git fetch origin main --depth=1
           git reset --hard origin/main
       - name: Audit live GET responses and release signatures
+        env:
+          POLY_AUDIT_EXPECTED_COMMIT: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
         shell: bash
         run: |
           set -euo pipefail
