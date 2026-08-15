@@ -69,14 +69,14 @@ jobs:
 
       # NOTE: This Cloudflare Pages mirror is optional. Production remains
       # served by GitHub Pages (deploy-github-pages.yml) until the custom-domain
-      # DNS CNAME is authorized and propagated. Use a dedicated Pages-scoped
-      # CLOUDFLARE_PAGES_TOKEN when the mirror is enabled; never broaden the
-      # Worker deployment token just to publish static files.
+      # DNS CNAME is authorized and propagated. Prefer a dedicated Pages-scoped
+      # CLOUDFLARE_PAGES_TOKEN; the existing account token is retained only as
+      # a compatibility fallback for the already-working mirror deployment.
       - name: Deploy repository main to Cloudflare Pages mirror
-        if: ${{ env.CLOUDFLARE_PAGES_TOKEN != '' }}
+        if: ${{ env.CLOUDFLARE_PAGES_TOKEN != '' || env.CLOUDFLARE_API_TOKEN != '' }}
         continue-on-error: true
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
           npx -y wrangler@3.109.2 pages deploy _site \
