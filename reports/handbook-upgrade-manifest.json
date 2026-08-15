@@ -1,0 +1,2102 @@
+{
+  "purpose": "Controlled source-grounded upgrade sequencing; no entry may be rewritten until its official syllabus PDF has been verified.",
+  "batch_size": 5,
+  "candidate_count": 110,
+  "batches": [
+    {
+      "batch_id": "REV2021-HANDBOOK-001",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "5043A",
+          "path": "lessons/lessons-5043A.html",
+          "priority_score": 20,
+          "current_characters": 3277,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "missing_malayalam_learning_support",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2001",
+          "path": "lessons/lessons-2001.html",
+          "priority_score": 19,
+          "current_characters": 18374,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1009",
+          "path": "lessons/lessons-1009.html",
+          "priority_score": 15,
+          "current_characters": 15158,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1143",
+          "path": "lessons/lessons-1143.html",
+          "priority_score": 15,
+          "current_characters": 16000,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1141",
+          "path": "lessons/lessons-1141.html",
+          "priority_score": 15,
+          "current_characters": 16111,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-002",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "1142",
+          "path": "lessons/lessons-1142.html",
+          "priority_score": 15,
+          "current_characters": 16152,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4021",
+          "path": "lessons/lessons-4021.html",
+          "priority_score": 15,
+          "current_characters": 16247,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1144",
+          "path": "lessons/lessons-1144.html",
+          "priority_score": 15,
+          "current_characters": 16268,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1149",
+          "path": "lessons/lessons-1149.html",
+          "priority_score": 15,
+          "current_characters": 17380,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4101",
+          "path": "lessons/lessons-4101.html",
+          "priority_score": 15,
+          "current_characters": 20930,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "missing_malayalam_learning_support",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-003",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "5027",
+          "path": "lessons/lessons-5027.html",
+          "priority_score": 14,
+          "current_characters": 12690,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5023B",
+          "path": "lessons/lessons-5023B.html",
+          "priority_score": 14,
+          "current_characters": 13342,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5023C",
+          "path": "lessons/lessons-5023C.html",
+          "priority_score": 14,
+          "current_characters": 13772,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5023A",
+          "path": "lessons/lessons-5023A.html",
+          "priority_score": 14,
+          "current_characters": 13786,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5021",
+          "path": "lessons/lessons-5021.html",
+          "priority_score": 14,
+          "current_characters": 14030,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-004",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "5022",
+          "path": "lessons/lessons-5022.html",
+          "priority_score": 14,
+          "current_characters": 14576,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5001",
+          "path": "lessons/lessons-5001.html",
+          "priority_score": 14,
+          "current_characters": 15690,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4031",
+          "path": "lessons/lessons-4031.html",
+          "priority_score": 14,
+          "current_characters": 20807,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4041",
+          "path": "lessons/lessons-4041.html",
+          "priority_score": 14,
+          "current_characters": 21198,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3042",
+          "path": "lessons/lessons-3042.html",
+          "priority_score": 14,
+          "current_characters": 21669,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-005",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "3132",
+          "path": "lessons/lessons-3132.html",
+          "priority_score": 14,
+          "current_characters": 22065,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6041A",
+          "path": "lessons/lessons-6041A.html",
+          "priority_score": 14,
+          "current_characters": 24545,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5042",
+          "path": "lessons/lessons-5042.html",
+          "priority_score": 14,
+          "current_characters": 25719,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1008",
+          "path": "lessons/lessons-1008.html",
+          "priority_score": 14,
+          "current_characters": 28370,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1004",
+          "path": "lessons/lessons-1004.html",
+          "priority_score": 14,
+          "current_characters": 107408,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-006",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "6042A",
+          "path": "lessons/lessons-6042A.html",
+          "priority_score": 13,
+          "current_characters": 11284,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3025",
+          "path": "lessons/lessons-3025.html",
+          "priority_score": 12,
+          "current_characters": 18793,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1003",
+          "path": "lessons/lessons-1003.html",
+          "priority_score": 12,
+          "current_characters": 69513,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3021",
+          "path": "lessons/lessons-3021.html",
+          "priority_score": 11,
+          "current_characters": 14380,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6042D",
+          "path": "lessons/lessons-6042D.html",
+          "priority_score": 11,
+          "current_characters": 14715,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-007",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "2006",
+          "path": "lessons/lessons-2006.html",
+          "priority_score": 10,
+          "current_characters": 40238,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1007",
+          "path": "lessons/lessons-1007.html",
+          "priority_score": 9,
+          "current_characters": 41598,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3049",
+          "path": "lessons/lessons-3049.html",
+          "priority_score": 9,
+          "current_characters": 46957,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2039",
+          "path": "lessons/lessons-2039.html",
+          "priority_score": 9,
+          "current_characters": 50651,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3022",
+          "path": "lessons/lessons-3022.html",
+          "priority_score": 8,
+          "current_characters": 14733,
+          "observed_deficiencies": [
+            "below_20k_character_handbook_floor",
+            "missing_explicit_official_source_citation",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-008",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "4102",
+          "path": "lessons/lessons-4102.html",
+          "priority_score": 8,
+          "current_characters": 24229,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4103",
+          "path": "lessons/lessons-4103.html",
+          "priority_score": 8,
+          "current_characters": 26108,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "low_structured_learning_detail"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4024",
+          "path": "lessons/lessons-4024.html",
+          "priority_score": 8,
+          "current_characters": 28443,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2139",
+          "path": "lessons/lessons-2139.html",
+          "priority_score": 8,
+          "current_characters": 30906,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4006",
+          "path": "lessons/lessons-4006.html",
+          "priority_score": 8,
+          "current_characters": 31007,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-009",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "4009",
+          "path": "lessons/lessons-4009.html",
+          "priority_score": 8,
+          "current_characters": 31172,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2131",
+          "path": "lessons/lessons-2131.html",
+          "priority_score": 8,
+          "current_characters": 31185,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5002",
+          "path": "lessons/lessons-5002.html",
+          "priority_score": 8,
+          "current_characters": 31461,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1001",
+          "path": "lessons/lessons-1001.html",
+          "priority_score": 8,
+          "current_characters": 34309,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5031",
+          "path": "lessons/lessons-5031.html",
+          "priority_score": 8,
+          "current_characters": 67409,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-010",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "5032",
+          "path": "lessons/lessons-5032.html",
+          "priority_score": 7,
+          "current_characters": 23562,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6041C",
+          "path": "lessons/lessons-6041C.html",
+          "priority_score": 7,
+          "current_characters": 25770,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6032A",
+          "path": "lessons/lessons-6032A.html",
+          "priority_score": 7,
+          "current_characters": 36218,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1002",
+          "path": "lessons/lessons-1002.html",
+          "priority_score": 7,
+          "current_characters": 36571,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6031D",
+          "path": "lessons/lessons-6031D.html",
+          "priority_score": 7,
+          "current_characters": 37573,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-011",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "6032D",
+          "path": "lessons/lessons-6032D.html",
+          "priority_score": 7,
+          "current_characters": 38268,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6032B",
+          "path": "lessons/lessons-6032B.html",
+          "priority_score": 7,
+          "current_characters": 39224,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6031C",
+          "path": "lessons/lessons-6031C.html",
+          "priority_score": 7,
+          "current_characters": 39415,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6032C",
+          "path": "lessons/lessons-6032C.html",
+          "priority_score": 7,
+          "current_characters": 40681,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4023",
+          "path": "lessons/lessons-4023.html",
+          "priority_score": 6,
+          "current_characters": 38449,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-012",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "6041B",
+          "path": "lessons/lessons-6041B.html",
+          "priority_score": 6,
+          "current_characters": 40950,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3024",
+          "path": "lessons/lessons-3024.html",
+          "priority_score": 6,
+          "current_characters": 43191,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4001",
+          "path": "lessons/lessons-4001.html",
+          "priority_score": 6,
+          "current_characters": 45245,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3048",
+          "path": "lessons/lessons-3048.html",
+          "priority_score": 6,
+          "current_characters": 48478,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6002",
+          "path": "lessons/lessons-6002.html",
+          "priority_score": 6,
+          "current_characters": 53049,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-013",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "3043",
+          "path": "lessons/lessons-3043.html",
+          "priority_score": 6,
+          "current_characters": 61919,
+          "observed_deficiencies": [
+            "missing_handbook_sections",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4042",
+          "path": "lessons/lessons-4042.html",
+          "priority_score": 5,
+          "current_characters": 51298,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5041",
+          "path": "lessons/lessons-5041.html",
+          "priority_score": 5,
+          "current_characters": 51384,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2049",
+          "path": "lessons/lessons-2049.html",
+          "priority_score": 5,
+          "current_characters": 52010,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2021",
+          "path": "lessons/lessons-2021.html",
+          "priority_score": 5,
+          "current_characters": 53495,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-014",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "2022",
+          "path": "lessons/lessons-2022.html",
+          "priority_score": 5,
+          "current_characters": 57482,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3045",
+          "path": "lessons/lessons-3045.html",
+          "priority_score": 5,
+          "current_characters": 69404,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3046",
+          "path": "lessons/lessons-3046.html",
+          "priority_score": 5,
+          "current_characters": 73893,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3047",
+          "path": "lessons/lessons-3047.html",
+          "priority_score": 5,
+          "current_characters": 74958,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1259",
+          "path": "lessons/lessons-1259.html",
+          "priority_score": 3,
+          "current_characters": 28437,
+          "observed_deficiencies": [
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-015",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "4007",
+          "path": "lessons/lessons-4007.html",
+          "priority_score": 3,
+          "current_characters": 30073,
+          "observed_deficiencies": [
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "1006",
+          "path": "lessons/lessons-1006.html",
+          "priority_score": 3,
+          "current_characters": 77205,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4043",
+          "path": "lessons/lessons-4043.html",
+          "priority_score": 2,
+          "current_characters": 28732,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "4022",
+          "path": "lessons/lessons-4022.html",
+          "priority_score": 2,
+          "current_characters": 36384,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6042C",
+          "path": "lessons/lessons-6042C.html",
+          "priority_score": 2,
+          "current_characters": 42072,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-016",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "2028",
+          "path": "lessons/lessons-2028.html",
+          "priority_score": 2,
+          "current_characters": 46517,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "6041",
+          "path": "lessons/lessons-6041.html",
+          "priority_score": 2,
+          "current_characters": 49901,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "5043",
+          "path": "lessons/lessons-5043.html",
+          "priority_score": 2,
+          "current_characters": 52151,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "3023",
+          "path": "lessons/lessons-3023.html",
+          "priority_score": 2,
+          "current_characters": 52462,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2029",
+          "path": "lessons/lessons-2029.html",
+          "priority_score": 2,
+          "current_characters": 53301,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-017",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "1005",
+          "path": "lessons/lessons-1005.html",
+          "priority_score": 2,
+          "current_characters": 55661,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2031",
+          "path": "lessons/lessons-2031.html",
+          "priority_score": 2,
+          "current_characters": 56117,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2032",
+          "path": "lessons/lessons-2032.html",
+          "priority_score": 2,
+          "current_characters": 56470,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2003",
+          "path": "lessons/lessons-2003.html",
+          "priority_score": 2,
+          "current_characters": 58798,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2041",
+          "path": "lessons/lessons-2041.html",
+          "priority_score": 2,
+          "current_characters": 70553,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2021-HANDBOOK-018",
+      "revision": "2021",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2021",
+          "course_code": "2002",
+          "path": "lessons/lessons-2002.html",
+          "priority_score": 2,
+          "current_characters": 83515,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2021",
+          "course_code": "2038",
+          "path": "lessons/lessons-2038.html",
+          "priority_score": 2,
+          "current_characters": 92476,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2026-HANDBOOK-019",
+      "revision": "2026",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2026",
+          "course_code": "5009",
+          "path": "revision-2026-content/lessons/lessons-5009.html",
+          "priority_score": 8,
+          "current_characters": 31006,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "6009",
+          "path": "revision-2026-content/lessons/lessons-6009.html",
+          "priority_score": 8,
+          "current_characters": 31080,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "3009",
+          "path": "revision-2026-content/lessons/lessons-3009.html",
+          "priority_score": 8,
+          "current_characters": 31114,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "5007",
+          "path": "revision-2026-content/lessons/lessons-5007.html",
+          "priority_score": 8,
+          "current_characters": 31156,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "4002",
+          "path": "revision-2026-content/lessons/lessons-4002.html",
+          "priority_score": 8,
+          "current_characters": 31278,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_handbook_sections",
+            "missing_malayalam_learning_support"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2026-HANDBOOK-020",
+      "revision": "2026",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2026",
+          "course_code": "2071",
+          "path": "revision-2026-content/lessons/lessons-2071.html",
+          "priority_score": 6,
+          "current_characters": 30143,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "2028",
+          "path": "revision-2026-content/lessons/lessons-2028.html",
+          "priority_score": 6,
+          "current_characters": 32707,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "low_explanatory_paragraph_density"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1141",
+          "path": "revision-2026-content/lessons/lessons-1141.html",
+          "priority_score": 5,
+          "current_characters": 111648,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "2038",
+          "path": "revision-2026-content/lessons/lessons-2038.html",
+          "priority_score": 3,
+          "current_characters": 32824,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1031",
+          "path": "revision-2026-content/lessons/lessons-1031.html",
+          "priority_score": 3,
+          "current_characters": 36948,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2026-HANDBOOK-021",
+      "revision": "2026",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2026",
+          "course_code": "1009",
+          "path": "revision-2026-content/lessons/lessons-1009.html",
+          "priority_score": 3,
+          "current_characters": 44415,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1091",
+          "path": "revision-2026-content/lessons/lessons-1091.html",
+          "priority_score": 3,
+          "current_characters": 60496,
+          "observed_deficiencies": [
+            "missing_main_landmark",
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1101",
+          "path": "revision-2026-content/lessons/lessons-1101.html",
+          "priority_score": 3,
+          "current_characters": 80672,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1021",
+          "path": "revision-2026-content/lessons/lessons-1021.html",
+          "priority_score": 3,
+          "current_characters": 116167,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1061",
+          "path": "revision-2026-content/lessons/lessons-1061.html",
+          "priority_score": 3,
+          "current_characters": 125871,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2026-HANDBOOK-022",
+      "revision": "2026",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2026",
+          "course_code": "1131",
+          "path": "revision-2026-content/lessons/lessons-1131.html",
+          "priority_score": 3,
+          "current_characters": 131774,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1182",
+          "path": "revision-2026-content/lessons/lessons-1182.html",
+          "priority_score": 3,
+          "current_characters": 153815,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1041",
+          "path": "revision-2026-content/lessons/lessons-1041.html",
+          "priority_score": 3,
+          "current_characters": 597388,
+          "observed_deficiencies": [
+            "insufficient_explicit_module_headings"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "2029",
+          "path": "revision-2026-content/lessons/lessons-2029.html",
+          "priority_score": 2,
+          "current_characters": 26647,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "1259",
+          "path": "revision-2026-content/lessons/lessons-1259.html",
+          "priority_score": 2,
+          "current_characters": 84137,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    },
+    {
+      "batch_id": "REV2026-HANDBOOK-023",
+      "revision": "2026",
+      "status": "awaiting_official_source_check",
+      "entries": [
+        {
+          "revision": "2026",
+          "course_code": "2183",
+          "path": "revision-2026-content/lessons/lessons-2183.html",
+          "priority_score": 2,
+          "current_characters": 90554,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "2132",
+          "path": "revision-2026-content/lessons/lessons-2132.html",
+          "priority_score": 2,
+          "current_characters": 93770,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        },
+        {
+          "revision": "2026",
+          "course_code": "2182",
+          "path": "revision-2026-content/lessons/lessons-2182.html",
+          "priority_score": 2,
+          "current_characters": 95159,
+          "observed_deficiencies": [
+            "missing_explicit_official_source_citation"
+          ],
+          "required_before_rewrite": [
+            "Match revision and course code to the stored official SITTTR PDF.",
+            "Extract every module and syllabus point into a checklist.",
+            "Map every checklist point to a detailed explanation, example or procedure, and practice item.",
+            "Preserve existing valid content and validate the proposed HTML against all handbook, accessibility, and link gates."
+          ]
+        }
+      ]
+    }
+  ]
+}
