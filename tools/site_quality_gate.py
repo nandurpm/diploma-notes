@@ -212,6 +212,7 @@ def main() -> int:
         ("validate_site_structure.py", "Site Structure Validation"),
         ("validate_lesson_fullscreen.py", "Lesson Fullscreen Validation"),
         ("validate_watermark.py", "Lesson Watermark Validation"),
+        ("verify_password_reset_security.py", "Password-reset Security Validation"),
     ]
     for script, name in sub_validations:
         try:

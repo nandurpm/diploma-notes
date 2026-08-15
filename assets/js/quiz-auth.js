@@ -134,6 +134,7 @@ window.PolyQuizAuth = (() => {
   }
 
   async function requestPasswordReset(email) {
+    const genericMessage = "If an account exists for that email, a password reset link will be sent shortly. Check your inbox or spam folder.";
     try {
       const db = getClient();
       email = String(email || "").trim();
@@ -145,9 +146,19 @@ window.PolyQuizAuth = (() => {
 
       const result = await db.auth.resetPasswordForEmail(email, { redirectTo: `${SITE_URL}/reset-password.html` });
       if (result.error) throw result.error;
-      return { message: "Password reset link sent. Check your email inbox or spam folder." };
+      return { message: genericMessage };
     } catch (error) {
-      throw new Error(friendly(error));
+      const text = String(error?.message || error || "").toLowerCase();
+      if (isNetworkOrPausedProjectError(error)) {
+        throw new Error("The online password-reset service is currently unreachable. Please try again later.");
+      }
+      if (text.includes("rate limit") || error?.status === 429) {
+        throw new Error("Too many reset requests were made. Please wait and try again later.");
+      }
+      if (text.includes("enter your registered email") || text.includes("valid email address")) {
+        throw new Error(error.message);
+      }
+      throw new Error(genericMessage);
     }
   }
 
