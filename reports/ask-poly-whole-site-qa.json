@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "success",
-  "generatedAt": "2026-08-14T12:10:41.360Z",
+  "generatedAt": "2026-08-15T04:15:45.734Z",
   "targetFlow": "load whole-site index -> retrieve Revision 2026 subject -> send context to AI -> render response -> mobile layout",
   "checks": [
     {
@@ -24,14 +24,14 @@
       "status": {
         "ok": true,
         "version": "2026-08-offline-science1",
-        "generatedAt": "2026-08-14T09:56:50Z",
+        "generatedAt": "2026-08-15T03:04:58Z",
         "counts": {
-          "pages": 392,
+          "pages": 396,
           "programmes2021": 43,
           "programmes2026": 42,
           "subjectRecords": 4442,
-          "lessonRecordsAvailable": 1460,
-          "notesRecordsAvailable": 1460,
+          "lessonRecordsAvailable": 1472,
+          "notesRecordsAvailable": 1472,
           "syllabusDetailRecords": 1
         }
       }
@@ -40,12 +40,12 @@
       "name": "knowledge contains 42 Revision 2026 programmes",
       "passed": true,
       "counts": {
-        "pages": 392,
+        "pages": 396,
         "programmes2021": 43,
         "programmes2026": 42,
         "subjectRecords": 4442,
-        "lessonRecordsAvailable": 1460,
-        "notesRecordsAvailable": 1460,
+        "lessonRecordsAvailable": 1472,
+        "notesRecordsAvailable": 1472,
         "syllabusDetailRecords": 1
       }
     },
@@ -53,12 +53,12 @@
       "name": "knowledge contains 42 Revision 2026 programmes",
       "passed": true,
       "counts": {
-        "pages": 392,
+        "pages": 396,
         "programmes2021": 43,
         "programmes2026": 42,
         "subjectRecords": 4442,
-        "lessonRecordsAvailable": 1460,
-        "notesRecordsAvailable": 1460,
+        "lessonRecordsAvailable": 1472,
+        "notesRecordsAvailable": 1472,
         "syllabusDetailRecords": 1
       },
       "expectedProgrammes": 42
@@ -67,12 +67,12 @@
       "name": "knowledge contains both curriculum datasets",
       "passed": true,
       "counts": {
-        "pages": 392,
+        "pages": 396,
         "programmes2021": 43,
         "programmes2026": 42,
         "subjectRecords": 4442,
-        "lessonRecordsAvailable": 1460,
-        "notesRecordsAvailable": 1460,
+        "lessonRecordsAvailable": 1472,
+        "notesRecordsAvailable": 1472,
         "syllabusDetailRecords": 1
       }
     },
@@ -134,14 +134,14 @@
   "knowledgeStatus": {
     "ok": true,
     "version": "2026-08-offline-science1",
-    "generatedAt": "2026-08-14T09:56:50Z",
+    "generatedAt": "2026-08-15T03:04:58Z",
     "counts": {
-      "pages": 392,
+      "pages": 396,
       "programmes2021": 43,
       "programmes2026": 42,
       "subjectRecords": 4442,
-      "lessonRecordsAvailable": 1460,
-      "notesRecordsAvailable": 1460,
+      "lessonRecordsAvailable": 1472,
+      "notesRecordsAvailable": 1472,
       "syllabusDetailRecords": 1
     }
   },
