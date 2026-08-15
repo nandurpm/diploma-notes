@@ -1533,6 +1533,13 @@
       "subjectName": "Therapeutic Equipment",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4242.html"
+    },
+    "REV2026:5411:revision-2026-content/lessons/lessons-5411.html": {
+      "messageId": "projects/poly-pmna/messages/3498568958770696534",
+      "subjectCode": "5411",
+      "subjectName": "Electric Vehicle Technology & Design Considerations",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-5411.html"
     }
   }
 }
