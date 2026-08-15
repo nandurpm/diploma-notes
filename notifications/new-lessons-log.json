@@ -1470,6 +1470,13 @@
       "subjectName": "Basic Architectural Drawing",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2181.html"
+    },
+    "REV2021:2371:lessons/lessons-2371.html": {
+      "messageId": "projects/poly-pmna/messages/7079238089099712185",
+      "subjectCode": "2371",
+      "subjectName": "Foundations of Robotics",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2371.html"
     }
   }
 }
