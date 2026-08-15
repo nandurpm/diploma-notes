@@ -106,7 +106,9 @@
      that load the site shell directly without main.js.
      ========================================================= */
   function ensureRevealAssets() {
-    if (isRevealDisabledPage()) return;
+    const path = currentPath();
+    const isHomePage = path === "/" || path.endsWith("/index.html");
+    if (isRevealDisabledPage() || isHomePage) return;
 
     if (!hasAsset('link[rel="stylesheet"]', "/assets/css/reveal.css")) {
       const link = document.createElement("link");
