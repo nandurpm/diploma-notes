@@ -562,22 +562,21 @@ p { color: var(--muted); line-height: 1.68; }
 }
 .quick-pill:hover { transform: translateX(6px); box-shadow: var(--shadow); }
 .quick-pill span { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 15px; color: #fff; background: linear-gradient(135deg, var(--blue), var(--cyan)); }
-
+/* Content must render immediately. A failed or slow script must never leave
+   study materials, subject cards, or controls transparent on mobile devices. */
+[data-reveal],
 .reveal,
 .page-title,
 .choice-card,
 .info-card,
 .subject-card,
 .tool-panel,
-.quick-pill { animation: portalRise .58s cubic-bezier(.2,.8,.2,1) both; }
-.choice-card:nth-child(2n),
-.info-card:nth-child(2n),
-.subject-card:nth-child(2n),
-.quick-pill:nth-child(2n) { animation-delay: .05s; }
-.choice-card:nth-child(3n),
-.info-card:nth-child(3n),
-.subject-card:nth-child(3n),
-.quick-pill:nth-child(3n) { animation-delay: .10s; }
+.quick-pill {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  animation: none !important;
+}
 .brand span { animation: badgeFloat 4.8s ease-in-out infinite; }
 .btn.primary,
 .action.lessons { position: relative; overflow: hidden; }
@@ -592,10 +591,6 @@ p { color: var(--muted); line-height: 1.68; }
   animation: softShine 3.8s ease-in-out infinite;
 }
 
-@keyframes portalRise {
-  from { opacity: 0; transform: translateY(18px) scale(.985); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
 @keyframes badgeFloat {
   0%, 100% { transform: translateY(0) rotate(0deg); box-shadow: 0 14px 30px rgba(29,78,216,.28); }
   50% { transform: translateY(-3px) rotate(-2deg); box-shadow: 0 18px 40px rgba(15,159,186,.30); }

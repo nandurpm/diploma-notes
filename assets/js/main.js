@@ -50,31 +50,22 @@
   }
 
   /* =========================================================
-     GLOBAL REVEAL ASSET LOADER
+     IMMEDIATE CONTENT VISIBILITY
      ---------------------------------------------------------
-     Loads the reusable reveal animation stylesheet and script
-     once per page. The framework remains opt-in: only elements
-     with data-reveal or .reveal are affected.
-     Related: assets/css/reveal.css, assets/js/reveal.js
+     Scroll-reveal effects are disabled across the portal. The previous
+     controller could leave elements with reveal-ready opacity zero when a
+     browser delayed its observer callback. Clear any stale reveal classes so
+     course content remains available as soon as the page is parsed.
      ========================================================= */
-  function ensureRevealAssets() {
-    if (isHomePage || document.body?.dataset.revealDisabled === "true") return;
-
-    if (!assetAlreadyLoaded('link[rel="stylesheet"]', REVEAL_CSS_PATH)) {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = `${REVEAL_CSS_PATH}?v=${REVEAL_VERSION}`;
-      link.dataset.polyRevealCss = "true";
-      document.head.append(link);
-    }
-
-    if (window.PolyReveal || assetAlreadyLoaded("script[src]", REVEAL_JS_PATH)) return;
-
-    const script = document.createElement("script");
-    script.src = `${REVEAL_JS_PATH}?v=${REVEAL_VERSION}`;
-    script.defer = true;
-    script.dataset.polyRevealLoader = "true";
-    document.head.append(script);
+  function ensureImmediateContentVisibility() {
+    document.documentElement.classList.add("reveal-disabled");
+    document.body?.setAttribute("data-reveal-disabled", "true");
+    document.querySelectorAll("[data-reveal], .reveal").forEach((element) => {
+      element.classList.remove("reveal-ready", "reveal-visible", "is-revealed");
+      element.style.removeProperty("opacity");
+      element.style.removeProperty("transform");
+      element.style.removeProperty("filter");
+    });
   }
 
   /* =========================================================
@@ -331,7 +322,7 @@
      If the document is still loading, waits for DOMContentLoaded.
      ========================================================= */
   function init() {
-    ensureRevealAssets();
+    ensureImmediateContentVisibility();
     ensureMaintenanceController();
     updateYears();
     normalizeLegacyInternalLinks();
