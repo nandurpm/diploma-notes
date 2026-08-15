@@ -2,8 +2,6 @@ name: Deploy static site to Cloudflare Pages
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
   issues:
     types: [opened]
 
