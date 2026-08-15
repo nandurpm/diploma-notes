@@ -112,4 +112,7 @@ Text / Reference:
   const wcBtn=document.getElementById('wcBtn'); if(wcBtn)wcBtn.addEventListener('click',()=>{const c=Number(document.getElementById('cementKg').value),w=Number(document.getElementById('waterL').value),out=document.getElementById('wcResult');out.textContent=Number.isFinite(c)&&c>0&&Number.isFinite(w)&&w>=0?`Approximate water–cement ratio = ${(w/c).toFixed(2)}`:'Enter positive cement and non-negative water values.';});
   const timeline=document.getElementById('timelineBtn'); if(timeline)timeline.addEventListener('click',()=>{const n=Number(document.getElementById('timelineYear').value),out=document.getElementById('timelineResult');out.textContent=Number.isFinite(n)?(n<0?'Prehistoric period':n<500?'Ancient/Classical period':'Enter a BCE year as a negative value for this quick check.'):'Enter a year.';});
 })();
-</script></body></html>
+</script>
+  <!-- Shared full-screen lesson standard -->
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
+</body></html>
