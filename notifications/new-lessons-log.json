@@ -1512,6 +1512,13 @@
       "subjectName": "Automobile Chassis",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4411.html"
+    },
+    "REV2026:4339:revision-2026-content/lessons/lessons-4339.html": {
+      "messageId": "projects/poly-pmna/messages/2547192402484133275",
+      "subjectCode": "4339",
+      "subjectName": "Industry 4.0",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-4339.html"
     }
   }
 }
