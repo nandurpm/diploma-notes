@@ -1,0 +1,6 @@
+Revision 2021 materialization diagnostic
+Commit: cd9ed5d87f170b583843e223e6550a0ee3fce6fb
+Run: 31958936139
+
+Normalized 0 legacy Revision 2021 department templates.
+ERROR: Invalid static subject markers in revision-2021/computer-application-and-business-management.html
