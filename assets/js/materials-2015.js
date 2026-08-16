@@ -194,10 +194,10 @@
   function renderDepartmentOverview() {
     const { results } = getDirectoryElements();
     if (!results) return;
-    const query = directory.query.toLocaleLowerCase();
+    const query = directory.query.toLowerCase();
     const programmes = directory.data.programmes.filter(item => {
       if (!query) return true;
-      return `${item.code} ${item.name}`.toLocaleLowerCase().includes(query);
+      return (item._searchText || "").includes(query);
     });
 
     if (!programmes.length) {
@@ -246,12 +246,12 @@
       return;
     }
 
-    const query = directory.query.toLocaleLowerCase();
+    const query = directory.query.toLowerCase();
     const subjects = directory.data.subjects.filter(item => {
       if (item.programmeCode !== programme.code) return false;
       if (directory.semester !== "all" && String(item.semester) !== directory.semester) return false;
       if (!query) return true;
-      return `${item.code} ${item.name}`.toLocaleLowerCase().includes(query);
+      return (item._searchText || "").includes(query);
     });
 
     const departmentSyllabusUrl = `${SYLLABUS_INDEX.replace("&scheme=REV2015", "")}-courses&prog=${encodeURIComponent(programme.code)}`;
@@ -309,9 +309,13 @@
       directory.semester = semester.value;
       renderDirectory();
     });
+    let searchTimer = 0;
     search.addEventListener("input", () => {
       directory.query = search.value.trim();
-      renderDirectory();
+      clearTimeout(searchTimer);
+      // PERFORMANCE OPTIMIZATION: Debounce input filtering (120ms) to prevent synchronous
+      // DOM re-renders on every keystroke during active typing on mobile devices.
+      searchTimer = setTimeout(renderDirectory, 120);
     });
     clear?.addEventListener("click", () => {
       directory.department = "";
@@ -343,6 +347,14 @@
         throw new Error("The subject registry is incomplete.");
       }
       directory.data = data;
+      // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for programmes and subjects
+      // once when data loads, avoiding repeated string joins and lowercase conversions on every keypress.
+      directory.data.programmes.forEach(p => {
+        p._searchText = `${p.code} ${p.name}`.toLowerCase();
+      });
+      directory.data.subjects.forEach(s => {
+        s._searchText = `${s.code} ${s.name}`.toLowerCase();
+      });
       readDirectoryUrl();
       populateDirectoryControls();
       bindDirectoryEvents();
