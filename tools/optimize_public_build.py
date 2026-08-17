@@ -15,6 +15,7 @@ CSS_LINK_RE = re.compile(
     re.I,
 )
 CSS_URL_RE = re.compile(r'url\((?P<quote>["\']?)(?P<url>[^)"\']+)(?P=quote)\)', re.I)
+DEFERRED_HOMEPAGE_CSS = {"assets/css/onam-theme.css", "assets/css/independence-day-theme.css"}
 
 
 def clean_asset_path(value: str) -> str:
@@ -51,11 +52,16 @@ def bundle_home(root: Path) -> str | None:
         return None
 
     pieces: list[str] = []
+    deferred: list[str] = []
     for match in matches:
         href = match.group("href")
-        source = root / clean_asset_path(href)
+        source_path = clean_asset_path(href)
+        source = root / source_path
         if not source.is_file():
             raise FileNotFoundError(f"Homepage stylesheet is missing: {source.relative_to(root)}")
+        if source_path in DEFERRED_HOMEPAGE_CSS:
+            deferred.append(href)
+            continue
         pieces.append(f"/* {href} */\n{rebased_css(source.read_text(encoding='utf-8'), href).strip()}\n")
 
     combined = "\n".join(pieces).encode("utf-8")
@@ -64,12 +70,16 @@ def bundle_home(root: Path) -> str | None:
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_bytes(combined)
     link = f'<link rel="stylesheet" href="/assets/build/{output.name}">\n'
+    deferred_links = "".join(
+        f'<link rel="preload" as="style" href="{href}" data-deferred-stylesheet="true">\n'
+        for href in deferred
+    )
     first_start = matches[0].start()
     without_links = CSS_LINK_RE.sub("", original)
     # Insert the bundle where the first local stylesheet previously appeared.
     removed_before = sum(match.end() - match.start() for match in matches if match.end() <= first_start)
     insertion = first_start - removed_before
-    optimized = without_links[:insertion] + link + without_links[insertion:]
+    optimized = without_links[:insertion] + link + deferred_links + without_links[insertion:]
     page.write_text(optimized, encoding="utf-8")
     return output.relative_to(root).as_posix()
 

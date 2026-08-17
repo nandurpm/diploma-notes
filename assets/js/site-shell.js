@@ -51,6 +51,13 @@
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
   const isRevealDisabledPage = () => document.body?.dataset.revealDisabled === "true";
 
+  function promoteDeferredStyles() {
+    document.querySelectorAll('link[data-deferred-stylesheet="true"][rel="preload"]').forEach(link => {
+      link.rel = "stylesheet";
+      link.removeAttribute("as");
+    });
+  }
+
   function hasAsset(selector, pathname) {
     return [...document.querySelectorAll(selector)].some(node => {
       try {
@@ -373,6 +380,7 @@
      Exposed as window.PolySiteShell.render().
      ========================================================= */
   function render(options = {}) {
+    promoteDeferredStyles();
     ensureFavicon();
     ensureRevealAssets();
     if (isLessonPage()) {
@@ -388,6 +396,7 @@
 
   /* Expose the public API and trigger initial render */
   window.PolySiteShell = Object.freeze({ render, version: VERSION, siteName: SITE_NAME });
+  promoteDeferredStyles();
   ensureFavicon();
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => render({ force: true }), { once: true });
