@@ -32,6 +32,27 @@ window.PolyUtils = (() => {
     flowType: "pkce",
   };
 
+  const PRODUCTION_ORIGIN = "https://polypmna.dpdns.org";
+
+  /**
+   * Returns the origin that Supabase authentication emails may safely use.
+   * Production keeps the current origin; localhost, file previews and unknown
+   * hosts fall back to the public POLY PMNA origin so email links never point
+   * to a server that exists only on the developer's computer.
+   */
+  function getAuthRedirectOrigin() {
+    try {
+      const origin = window.location.origin;
+      const hostname = String(window.location.hostname || "").toLowerCase();
+      if (origin && origin !== "null" && hostname === "polypmna.dpdns.org" && window.location.protocol === "https:") {
+        return origin;
+      }
+    } catch (_) {
+      // Use the production fallback below when location is unavailable.
+    }
+    return PRODUCTION_ORIGIN;
+  }
+
   function createSupabaseBrowserClient(options = {}) {
     if (!window.supabase?.createClient) return null;
 
@@ -85,5 +106,5 @@ window.PolyUtils = (() => {
     return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   }
 
-  return { escapeHtml, getMetaContent, createSupabaseBrowserClient, formatDateKey };
+  return { escapeHtml, getMetaContent, getAuthRedirectOrigin, createSupabaseBrowserClient, formatDateKey };
 })();

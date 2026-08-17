@@ -6,7 +6,7 @@ window.PolyQuizAuth = (() => {
   let user = null;
   let guest = false;
 
-  const SITE_URL = window.location.origin;
+  const SITE_URL = window.PolyUtils?.getAuthRedirectOrigin?.() || "https://polypmna.dpdns.org";
 
   function isNetworkOrPausedProjectError(error) {
     const text = String(error?.message || error || "").toLowerCase();

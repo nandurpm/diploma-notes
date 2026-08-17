@@ -4,7 +4,7 @@
 
   const meta = (name) => document.querySelector(`meta[name="${name}"]`)?.content || "";
   const Q = (window.PolyQuiz = window.PolyQuiz || {});
-  const CONFIRMATION_REDIRECT_URL = `${window.location.origin}/daily-quiz.html`;
+  const CONFIRMATION_REDIRECT_URL = `${window.PolyUtils?.getAuthRedirectOrigin?.() || "https://polypmna.dpdns.org"}/daily-quiz.html`;
 
   Q.config = {
     supabaseUrl: meta("supabase-url"),
