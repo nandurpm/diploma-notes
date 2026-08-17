@@ -81,8 +81,6 @@ public class MainActivity extends ComponentActivity {
             // Existing official/site-specific destinations.
             "sitttrkerala.ac.in",
             "www.sitttrkerala.ac.in",
-            "drive.google.com",
-            "docs.google.com",
             "github.com",
             "raw.githubusercontent.com",
             // The About/Home Instagram CTA is intentionally opened outside the app.
