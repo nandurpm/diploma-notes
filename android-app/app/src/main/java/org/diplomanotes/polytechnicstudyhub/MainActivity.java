@@ -80,7 +80,10 @@ public class MainActivity extends ComponentActivity {
             "drive.google.com",
             "docs.google.com",
             "github.com",
-            "raw.githubusercontent.com"
+            "raw.githubusercontent.com",
+            // The About/Home Instagram CTA is intentionally opened outside the app.
+            "instagram.com",
+            "www.instagram.com"
     );
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
