@@ -345,10 +345,13 @@
     });
   }
 
+  // The loader is placed after the department grid, so initialize immediately.
+  // Keep a DOMContentLoaded fallback for cached/template variants where the grid
+  // may not yet be available. Re-running is safe because all operations are
+  // class/style assignments and the CSS variables are deterministic.
+  initialise();
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initialise, { once: true });
-  } else {
-    initialise();
   }
 })();
   </script>
