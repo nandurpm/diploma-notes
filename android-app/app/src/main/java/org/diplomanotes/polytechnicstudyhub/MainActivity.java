@@ -74,6 +74,22 @@ public class MainActivity extends ComponentActivity {
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
     private static final String PRINT_LOG_TAG = "PolyNativePrint";
+    // In-app developer portfolio pages. The Developer footer link opens these
+    // inside the app's own WebView via the open-external app action. Only the
+    // exact allowlisted URLs below may be loaded — no other destination is
+    // permitted, so the allowlist cannot be widened from the web side.
+    private static final Set<String> DEVELOPER_ALLOWED_PAGES = Set.of(
+            "https://nandakumarm.dpdns.org/about.html",
+            "https://nandakumarm.dpdns.org/about",
+            "https://nandakumarm.dpdns.org/"
+    );
+
+    private static boolean isAllowedDeveloperPage(String target) {
+        if (target == null || target.isEmpty()) {
+            return false;
+        }
+        return DEVELOPER_ALLOWED_PAGES.contains(target.trim());
+    }
     // Conservative external-link policy: only official/public-interest resources and
     // verified educational institutions are allowed to open outside the WebView.
     // Suspected, malformed, HTTP-only, commercial, blog, and mirror links remain blocked.
@@ -1122,6 +1138,18 @@ public class MainActivity extends ComponentActivity {
             } else if ("open".equalsIgnoreCase(action)) {
                 String path = uri.getQueryParameter("path");
                 webView.loadUrl(buildTrustedUrl(path == null ? "/" : path));
+            } else if ("open-external".equalsIgnoreCase(action)) {
+                // Developer footer link: opens the developer's portfolio About page
+                // inside the app's own WebView instead of a system browser. Only an
+                // exact allowlisted set of in-app destinations is permitted — a
+                // mismatched or missing query parameter is rejected.
+                String target = uri.getQueryParameter("path");
+                if (isAllowedDeveloperPage(target)) {
+                    Log.i("PolyAppNav", "Opening allowlisted developer page in-app: " + target);
+                    webView.loadUrl(target);
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.intent_link_blocked, Toast.LENGTH_SHORT).show();
+                }
             } else if ("print".equalsIgnoreCase(action)) {
                 String title = uri.getQueryParameter("title");
                 Log.i(PRINT_LOG_TAG, "Print action received from lesson navigation: " + webView.getUrl());
