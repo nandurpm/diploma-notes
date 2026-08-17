@@ -1,9 +1,9 @@
 {
   "summary": {
     "passed": true,
-    "lesson_files": 448,
-    "revision_2021": 133,
-    "revision_2026": 315,
+    "lesson_files": 526,
+    "revision_2021": 146,
+    "revision_2026": 380,
     "failure_count": 0,
     "runtime": "20260725-watermark1",
     "watermark_css": "assets/css/lesson-watermark.css",
