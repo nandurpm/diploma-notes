@@ -39,7 +39,7 @@
 
   // label: "Home" label: "About" label: "Revision 2026" label: "Revision 2021" label: "Mock Exams" label: "Ask POLY AI" label: "2015 Materials" label: "Tools" label: "Help"
 
-  const VERSION = "20260725-watermark2";
+  const VERSION = "20260818-developer-link1";
   const SITE_NAME = "POLY PMNA";
   const FAVICON_HREF = "/assets/media/poly-pmna-favicon.svg";
   const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
