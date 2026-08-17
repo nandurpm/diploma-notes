@@ -74,7 +74,11 @@ public class MainActivity extends ComponentActivity {
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
     private static final String PRINT_LOG_TAG = "PolyNativePrint";
+    // Conservative external-link policy: only official/public-interest resources and
+    // verified educational institutions are allowed to open outside the WebView.
+    // Suspected, malformed, HTTP-only, commercial, blog, and mirror links remain blocked.
     private static final Set<String> APPROVED_EXTERNAL_HOSTS = Set.of(
+            // Existing official/site-specific destinations.
             "sitttrkerala.ac.in",
             "www.sitttrkerala.ac.in",
             "drive.google.com",
@@ -83,8 +87,75 @@ public class MainActivity extends ComponentActivity {
             "raw.githubusercontent.com",
             // The About/Home Instagram CTA is intentionally opened outside the app.
             "instagram.com",
-            "www.instagram.com"
+            "www.instagram.com",
+            // Wikipedia.
+            "en.wikipedia.org",
+            // Official government and public-sector resources.
+            "afdc.energy.gov",
+            "aud.delhi.gov.in",
+            "beeindia.gov.in",
+            "bharatskills.gov.in",
+            "etenders.kerala.gov.in",
+            "india.gov.in",
+            "www.india.gov.in",
+            "indiabudget.gov.in",
+            "www.indiabudget.gov.in",
+            "indiacode.nic.in",
+            "www.indiacode.nic.in",
+            "ncert.nic.in",
+            "nios.ac.in",
+            "www.nios.ac.in",
+            "panchayat.gov.in",
+            "www.panchayat.gov.in",
+            "rural.nic.in",
+            "sdgs.un.org",
+            "swayam.gov.in",
+            "www.swayam.gov.in",
+            "www.epa.gov",
+            "www.sba.gov",
+            // Official NPTEL, SWAYAM, IIT virtual-lab, and library resources.
+            "archive.nptel.ac.in",
+            "nptel.ac.in",
+            "www.nptel.ac.in",
+            "onlinecourses.nptel.ac.in",
+            "onlinecourses.swayam2.ac.in",
+            "be-iitkgp.vlabs.ac.in",
+            "bes-iitr.vlabs.ac.in",
+            "em-coep.vlabs.ac.in",
+            "vem-iitg.vlabs.ac.in",
+            "vlabs.iitb.ac.in",
+            "ndl.iitkgp.ac.in",
+            // Verified colleges, universities, and institutional domains.
+            "www.amrita.edu",
+            "catalog.tri-c.edu",
+            "catalog.udayton.edu",
+            "www.cl.cam.ac.uk",
+            "ee.cet.ac.in",
+            "files.mlrit.ac.in",
+            "www.ganeshpolytechnic.edu.in",
+            "gpkalahandi.in",
+            "www.gtu.ac.in",
+            "www.gwpctsr.ac.in",
+            "www.iare.ac.in",
+            "ise.rpi.edu",
+            "www.kjei.edu.in",
+            "lit.laxmi.edu.in",
+            "www.mona.uwi.edu",
+            "www.monroeccc.edu",
+            "neurodiversity-engineering.media.uconn.edu",
+            "www.ntc.edu",
+            "pec.ac.in",
+            "sist.sathyabama.ac.in",
+            "stevenscollege.edu",
+            "www.tezu.ernet.in",
+            "www.washington.edu",
+            "web.iit.edu",
+            "wiki.auckland.ac.nz",
+            "ocw.mit.edu",
+            "phet.colorado.edu",
+            "pmc.ncbi.nlm.nih.gov"
     );
+    private static final String TRUSTED_GITHUB_REPOSITORY_PATH = "/nandurpm/diploma-notes";
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
     private final List<TextView> themableTextViews = new ArrayList<>();
@@ -757,10 +828,23 @@ public class MainActivity extends ComponentActivity {
     }
 
     private boolean isApprovedExternalHttps(Uri uri) {
-        return uri != null
-                && "https".equalsIgnoreCase(uri.getScheme())
-                && uri.getHost() != null
-                && APPROVED_EXTERNAL_HOSTS.contains(uri.getHost().toLowerCase(Locale.ROOT));
+        if (uri == null
+                || !"https".equalsIgnoreCase(uri.getScheme())
+                || uri.getHost() == null) {
+            return false;
+        }
+        String host = uri.getHost().toLowerCase(Locale.ROOT);
+        if (!APPROVED_EXTERNAL_HOSTS.contains(host)) {
+            return false;
+        }
+        // The user’s repository is approved, not arbitrary GitHub content.
+        if ("github.com".equals(host) || "raw.githubusercontent.com".equals(host)) {
+            String path = uri.getPath();
+            return path != null
+                    && (path.equals(TRUSTED_GITHUB_REPOSITORY_PATH)
+                    || path.startsWith(TRUSTED_GITHUB_REPOSITORY_PATH + "/"));
+        }
+        return true;
     }
 
     private boolean isTrustedDownload(String url) {
