@@ -113,12 +113,18 @@
     const observer = new MutationObserver(mutations => {
       if (!archiveMap) return;
       mutations.forEach(mutation => {
+        if (mutation.type === 'attributes' && mutation.target.nodeType === Node.ELEMENT_NODE) {
+          const target = mutation.target;
+          if (target.matches(syllabusLinkSelector)) updateLink(target, 'syllabus');
+          else if (target.matches(modelLinkSelector)) updateLink(target, 'model-question-paper');
+          return;
+        }
         mutation.addedNodes.forEach(node => {
           if (node.nodeType === Node.ELEMENT_NODE) applyLinks(node);
         });
       });
     });
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['href'] });
   }
 
   async function loadMap() {
