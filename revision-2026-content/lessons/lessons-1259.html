@@ -1,29 +1,24 @@
 <!DOCTYPE html>
+
 <html class="poly-lesson-page revision-2026-lesson" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Programming — Complete Course | Diploma in Computer Engineering</title>
-    <meta name="description" content="Comprehensive Python Programming course for Diploma students. Covers data types, control flow, data structures, functions, OOP, file handling, and more with interactive examples and Malayalam notes.">
-
-    <!-- Open Graph / Social -->
-    <meta property="og:title" content="Python Programming — Complete Course | Diploma in Computer Engineering">
-    <meta property="og:description" content="Master Python from basics to advanced topics with interactive calculators, visual guides, and bilingual Malayalam-English instruction.">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://example.com/assets/img/python-course-og.jpg">
-    <meta property="og:url" content="https://example.com/lessons/lessons-1259.html">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Python Programming — Complete Course">
-    <meta name="twitter:description" content="Interactive Python course for diploma students with Malayalam support.">
-
-    <!-- Favicon & Manifest -->
-    <!-- External CSS -->
-    <link rel="stylesheet" href="/assets/css/lesson-page-fix.css?v=2026.07.27">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Python Programming — Complete Course | Diploma in Computer Engineering</title>
+<meta content="Comprehensive Python Programming course for Diploma students. Covers data types, control flow, data structures, functions, OOP, file handling, and more with interactive examples and Malayalam notes." name="description"/>
+<!-- Open Graph / Social -->
+<meta content="Python Programming — Complete Course | Diploma in Computer Engineering" property="og:title"/>
+<meta content="Master Python from basics to advanced topics with interactive calculators, visual guides, and bilingual Malayalam-English instruction." property="og:description"/>
+<meta content="website" property="og:type"/>
+<meta content="https://example.com/assets/img/python-course-og.jpg" property="og:image"/>
+<meta content="https://example.com/lessons/lessons-1259.html" property="og:url"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Python Programming — Complete Course" name="twitter:title"/>
+<meta content="Interactive Python course for diploma students with Malayalam support." name="twitter:description"/>
+<!-- Favicon & Manifest -->
+<!-- External CSS -->
+<link href="/assets/css/lesson-page-fix.css?v=2026.07.27" rel="stylesheet"/>
+<style>
         :root {
             --poly-bg: #f8fafc;
             --poly-surface: #ffffff;
@@ -670,230 +665,200 @@
             }
         }
     </style>
-
-    <!-- Schema.org Structured Data -->
-    
-      <link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">
-  <link rel="manifest" href="/site.webmanifest">
-  <meta name="theme-color" content="#1d4ed8">
-<script type="application/ld+json" data-poly-structured-data>
-        {
-            "@context": "https://schema.org",
-            "@type": "LearningResource",
-            "name": "Python Programming — Complete Lesson",
-            "learningResourceType": "Lesson",
-            "educationalAlignment": {
-                "@type": "AlignmentObject",
-                "educationalFramework": "Diploma in Computer Engineering Syllabus",
-                "targetName": "Python Programming Module"
-            }
-        }
-    </script>
-  <link rel="stylesheet" href="/assets/css/print-notes.css?v=20260813-print-notes1">
-<script src="/assets/js/print-notes.js?v=20260814-native-print2" defer></script>
+<!-- Schema.org Structured Data -->
+<link href="/assets/media/poly-pmna-favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="/site.webmanifest" rel="manifest"/>
+<meta content="#1d4ed8" name="theme-color"/>
+<link href="/assets/css/print-notes.css?v=20260813-print-notes1" rel="stylesheet"/>
+<script defer="" src="/assets/js/print-notes.js?v=20260814-native-print2"></script>
 </head>
 <body>
-
-    <!-- Reading Progress Bar -->
-    <div id="reading-progress-bar" style="width: 0%;" aria-hidden="true"></div>
-
-    <!-- Main Lesson Container -->
-    <main class="lesson-container" id="lesson-content">
-
-        <!-- Action Bar: Search + Print + Download -->
-        <div class="action-bar" id="action-bar">
-            <div class="search-container">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="search" id="lesson-search-input" placeholder="Search lessons, topics, code..." aria-label="Search lesson content">
-            </div>
-            <button class="btn-print" id="btn-print" title="Print lesson (expands all sections)" aria-label="Print lesson">
+<!-- Reading Progress Bar -->
+<div aria-hidden="true" id="reading-progress-bar" style="width: 0%;"></div>
+<!-- Main Lesson Container -->
+<main class="lesson-container" id="lesson-content">
+<!-- Action Bar: Search + Print + Download -->
+<div class="action-bar" id="action-bar">
+<div class="search-container">
+<span aria-hidden="true" class="search-icon">🔍</span>
+<input aria-label="Search lesson content" id="lesson-search-input" placeholder="Search lessons, topics, code..." type="search"/>
+</div>
+<button aria-label="Print lesson" class="btn-print" id="btn-print" title="Print lesson (expands all sections)">
                 🖨️ Print
             </button>
-            <button class="btn-download" id="btn-download" title="Open print view and save as PDF" aria-label="Open print view and save as PDF">
+<button aria-label="Open print view and save as PDF" class="btn-download" id="btn-download" title="Open print view and save as PDF">
                 🖨️ Save as PDF
             </button>
-        </div>
-        <div id="search-results-count" aria-live="polite"></div>
-
-        <!-- ==================== SECTION: COVER ==================== -->
-        <section id="cover">
-            <p class="course-code">COURSE CODE: CP-1259</p>
-            <h1>Python Programming</h1>
-            <p class="course-meta">📚 Diploma in Computer Engineering | Semester 2</p>
-            <p class="course-meta">🕐 Total Hours: 75 | Credits: 4 | Weeks: 15</p>
-            <p class="course-meta">📅 Revision Date: 27 July 2026</p>
-            <p style="margin-top:1rem; font-size:0.95rem; font-weight:500;">Interactive Lesson with Malayalam Notes • Calculators • Visual Guides • Practice Problems</p>
-        </section>
-
-        <!-- ==================== SECTION: JUMP MENU ==================== -->
-        <section id="jump-menu">
-            <h2>📑 Quick Navigation</h2>
-            <nav aria-label="Lesson section quick navigation">
-                <ul>
-                    <li><a href="#source">📋 Source Declaration</a></li>
-                    <li><a href="#course-dashboard">📊 Course Dashboard</a></li>
-                    <li><a href="#how-to-use">📖 How to Use</a></li>
-                    <li><a href="#outcomes">🎯 Course Outcomes</a></li>
-                    <li><a href="#coverage">🗺️ Syllabus Coverage</a></li>
-                    <li><a href="#roadmap">🧭 Learning Roadmap</a></li>
-                    <li><a href="#module-1">🔰 Module 1: Python Basics</a></li>
-                    <li><a href="#module-2">📦 Module 2: Data Structures</a></li>
-                    <li><a href="#module-3">⚙️ Module 3: Functions & Modules</a></li>
-                    <li><a href="#module-4">🚀 Module 4: Advanced Topics</a></li>
-                    <li><a href="#formula-bank">📐 Formula & Syntax Bank</a></li>
-                    <li><a href="#visual-library">🖼️ Visual Library</a></li>
-                    <li><a href="#activities">🧪 Interactive Activities</a></li>
-                    <li><a href="#assessment">📝 Assessment</a></li>
-                    <li><a href="#questions">❓ Practice Questions</a></li>
-                    <li><a href="#model-paper">📄 Model Question Paper</a></li>
-                    <li><a href="#revision">🔄 Revision Notes</a></li>
-                    <li><a href="#glossary">📚 Glossary</a></li>
-                    <li><a href="#references">🔗 References</a></li>
-                    <li><a href="#handbook-search">🔎 Handbook Search</a></li>
-                </ul>
-            </nav>
-        </section>
-
-        <!-- ==================== SECTION: SOURCE DECLARATION ==================== -->
-        <section id="source">
-            <h2>📋 Source Declaration</h2>
-            <p>This lesson file consolidates the <strong>Python Programming</strong> syllabus (CP-1259) for Diploma in Computer Engineering. The syllabus data is sourced from the official curriculum document. All four modules are covered with detailed explanations, code examples, and bilingual Malayalam-English notes.</p>
-            <p><strong>Sparse Experiment Details:</strong> Some advanced subtopics (e.g., detailed regex flags, all built-in exceptions, advanced metaclasses) are treated as "sparse" — core concepts are fully explained while exhaustive enumeration is deferred to the <em>References</em> section. The focus is on <em>teachable depth</em> suitable for diploma-level students.</p>
-            <div class="ml-note" lang="ml">
-                <strong>📌 കുറിപ്പ്:</strong> ഈ പാഠഭാഗം ഔദ്യോഗിക സിലബസ് അനുസരിച്ച് തയ്യാറാക്കിയതാണ്. എല്ലാ നാല് മൊഡ്യൂളുകളും പൂർണ്ണമായും ഉൾപ്പെടുത്തിയിട്ടുണ്ട്. സാങ്കേതിക പദങ്ങൾ ഇംഗ്ലീഷിൽ തന്നെ സൂക്ഷിച്ചിരിക്കുന്നു.
+</div>
+<div aria-live="polite" id="search-results-count"></div>
+<!-- ==================== SECTION: COVER ==================== -->
+<section id="cover">
+<p class="course-code">COURSE CODE: CP-1259</p>
+<h1>Python Programming</h1>
+<p class="course-meta">📚 Diploma in Computer Engineering | Semester 2</p>
+<p class="course-meta">🕐 Total Hours: 75 | Credits: 4 | Weeks: 15</p>
+<p class="course-meta">📅 Revision Date: 27 July 2026</p>
+<p style="margin-top:1rem; font-size:0.95rem; font-weight:500;">Interactive Lesson with Malayalam Notes • Calculators • Visual Guides • Practice Problems</p>
+</section>
+<!-- ==================== SECTION: JUMP MENU ==================== -->
+<section id="jump-menu">
+<h2>📑 Quick Navigation</h2>
+<nav aria-label="Lesson section quick navigation">
+<ul>
+<li><a href="#source">📋 Source Declaration</a></li>
+<li><a href="#course-dashboard">📊 Course Dashboard</a></li>
+<li><a href="#how-to-use">📖 How to Use</a></li>
+<li><a href="#outcomes">🎯 Course Outcomes</a></li>
+<li><a href="#coverage">🗺️ Syllabus Coverage</a></li>
+<li><a href="#roadmap">🧭 Learning Roadmap</a></li>
+<li><a href="#module-1">🔰 Module 1: Python Basics</a></li>
+<li><a href="#module-2">📦 Module 2: Data Structures</a></li>
+<li><a href="#module-3">⚙️ Module 3: Functions &amp; Modules</a></li>
+<li><a href="#module-4">🚀 Module 4: Advanced Topics</a></li>
+<li><a href="#formula-bank">📐 Formula &amp; Syntax Bank</a></li>
+<li><a href="#visual-library">🖼️ Visual Library</a></li>
+<li><a href="#activities">🧪 Interactive Activities</a></li>
+<li><a href="#assessment">📝 Assessment</a></li>
+<li><a href="#questions">❓ Practice Questions</a></li>
+<li><a href="#model-paper">📄 Model Question Paper</a></li>
+<li><a href="#revision">🔄 Revision Notes</a></li>
+<li><a href="#glossary">📚 Glossary</a></li>
+<li><a href="#references">🔗 References</a></li>
+<li><a href="#handbook-search">🔎 Handbook Search</a></li>
+</ul>
+</nav>
+</section>
+<!-- ==================== SECTION: SOURCE DECLARATION ==================== -->
+<section id="source">
+<h2>📋 Source Declaration</h2>
+<p>This lesson file consolidates the <strong>Python Programming</strong> syllabus (CP-1259) for Diploma in Computer Engineering. The syllabus data is sourced from the official curriculum document. All four modules are covered with detailed explanations, code examples, and bilingual Malayalam-English notes.</p>
+<p><strong>Sparse Experiment Details:</strong> Some advanced subtopics (e.g., detailed regex flags, all built-in exceptions, advanced metaclasses) are treated as "sparse" — core concepts are fully explained while exhaustive enumeration is deferred to the <em>References</em> section. The focus is on <em>teachable depth</em> suitable for diploma-level students.</p>
+<div class="ml-note" lang="ml">
+<strong>📌 കുറിപ്പ്:</strong> ഈ പാഠഭാഗം ഔദ്യോഗിക സിലബസ് അനുസരിച്ച് തയ്യാറാക്കിയതാണ്. എല്ലാ നാല് മൊഡ്യൂളുകളും പൂർണ്ണമായും ഉൾപ്പെടുത്തിയിട്ടുണ്ട്. സാങ്കേതിക പദങ്ങൾ ഇംഗ്ലീഷിൽ തന്നെ സൂക്ഷിച്ചിരിക്കുന്നു.
             </div>
-        </section>
-
-        <!-- ==================== SECTION: COURSE DASHBOARD ==================== -->
-        <section id="course-dashboard">
-            <h2>📊 Course Dashboard</h2>
-            <table>
-                <thead>
-                    <tr><th>Module</th><th>Topic</th><th>Hours</th><th>Weightage</th><th>Status</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Python Basics — Data Types, Operators, Control Flow, Strings</td><td>18</td><td>25%</td><td>✅ Complete</td></tr>
-                    <tr><td>2</td><td>Data Structures — Lists, Tuples, Dictionaries, Sets</td><td>18</td><td>25%</td><td>✅ Complete</td></tr>
-                    <tr><td>3</td><td>Functions & Modules — Functions, Recursion, File I/O, Modules</td><td>20</td><td>25%</td><td>✅ Complete</td></tr>
-                    <tr><td>4</td><td>Advanced Topics — OOP, Exception Handling, Regex, Debugging</td><td>19</td><td>25%</td><td>✅ Complete</td></tr>
-                    <tr><td colspan="3"><strong>Total</strong></td><td><strong>100%</strong></td><td>✅</td></tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- ==================== SECTION: HOW TO USE ==================== -->
-        <section id="how-to-use">
-            <h2>📖 How to Use This Lesson</h2>
-            <ol>
-                <li><strong>Start with the Roadmap:</strong> Understand the learning path.</li>
-                <li><strong>Read each Module sequentially:</strong> Modules build upon each other.</li>
-                <li><strong>Try the code examples:</strong> Copy-paste into your Python interpreter or IDE.</li>
-                <li><strong>Use the calculators:</strong> Interactive tools to test concepts.</li>
-                <li><strong>Check Malayalam notes (.ml-note boxes):</strong> For conceptual clarity in your native language.</li>
-                <li><strong>Attempt Practice Questions:</strong> At the end of each module and in the dedicated section.</li>
-                <li><strong>Use Search (🔍):</strong> To quickly find any topic, function, or concept.</li>
-                <li><strong>Print or Download:</strong> For offline study.</li>
-            </ol>
-            <div class="ml-note" lang="ml">
-                <strong>📌 ഉപയോഗിക്കുന്ന വിധം:</strong> ഓരോ മൊഡ്യൂളും ക്രമമായി പഠിക്കുക. കോഡ് ഉദാഹരണങ്ങൾ സ്വയം ടൈപ്പ് ചെയ്ത് റൺ ചെയ്യുക. കാൽക്കുലേറ്ററുകൾ ഉപയോഗിച്ച് ആശയങ്ങൾ പരീക്ഷിക്കുക.
+</section>
+<!-- ==================== SECTION: COURSE DASHBOARD ==================== -->
+<section id="course-dashboard">
+<h2>📊 Course Dashboard</h2>
+<table>
+<thead>
+<tr><th>Module</th><th>Topic</th><th>Hours</th><th>Weightage</th><th>Status</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Python Basics — Data Types, Operators, Control Flow, Strings</td><td>18</td><td>25%</td><td>✅ Complete</td></tr>
+<tr><td>2</td><td>Data Structures — Lists, Tuples, Dictionaries, Sets</td><td>18</td><td>25%</td><td>✅ Complete</td></tr>
+<tr><td>3</td><td>Functions &amp; Modules — Functions, Recursion, File I/O, Modules</td><td>20</td><td>25%</td><td>✅ Complete</td></tr>
+<tr><td>4</td><td>Advanced Topics — OOP, Exception Handling, Regex, Debugging</td><td>19</td><td>25%</td><td>✅ Complete</td></tr>
+<tr><td colspan="3"><strong>Total</strong></td><td><strong>100%</strong></td><td>✅</td></tr>
+</tbody>
+</table>
+</section>
+<!-- ==================== SECTION: HOW TO USE ==================== -->
+<section id="how-to-use">
+<h2>📖 How to Use This Lesson</h2>
+<ol>
+<li><strong>Start with the Roadmap:</strong> Understand the learning path.</li>
+<li><strong>Read each Module sequentially:</strong> Modules build upon each other.</li>
+<li><strong>Try the code examples:</strong> Copy-paste into your Python interpreter or IDE.</li>
+<li><strong>Use the calculators:</strong> Interactive tools to test concepts.</li>
+<li><strong>Check Malayalam notes (.ml-note boxes):</strong> For conceptual clarity in your native language.</li>
+<li><strong>Attempt Practice Questions:</strong> At the end of each module and in the dedicated section.</li>
+<li><strong>Use Search (🔍):</strong> To quickly find any topic, function, or concept.</li>
+<li><strong>Print or Download:</strong> For offline study.</li>
+</ol>
+<div class="ml-note" lang="ml">
+<strong>📌 ഉപയോഗിക്കുന്ന വിധം:</strong> ഓരോ മൊഡ്യൂളും ക്രമമായി പഠിക്കുക. കോഡ് ഉദാഹരണങ്ങൾ സ്വയം ടൈപ്പ് ചെയ്ത് റൺ ചെയ്യുക. കാൽക്കുലേറ്ററുകൾ ഉപയോഗിച്ച് ആശയങ്ങൾ പരീക്ഷിക്കുക.
             </div>
-        </section>
-
-        <!-- ==================== SECTION: OUTCOMES ==================== -->
-        <section id="outcomes">
-            <h2>🎯 Course Outcomes (COs)</h2>
-            <p>Upon completion of this course, the student will be able to:</p>
-            <ul class="co-list">
-                <li><strong>CO1:</strong> Write, debug, and execute Python programs using basic syntax, data types, and operators.</li>
-                <li><strong>CO2:</strong> Implement control flow using conditionals and loops, and manipulate strings effectively.</li>
-                <li><strong>CO3:</strong> Utilize Python's built-in data structures — lists, tuples, dictionaries, and sets — to solve problems.</li>
-                <li><strong>CO4:</strong> Design modular programs using functions, recursion, modules, and handle file I/O operations.</li>
-                <li><strong>CO5:</strong> Apply object-oriented programming principles including classes, inheritance, and polymorphism.</li>
-                <li><strong>CO6:</strong> Handle errors using exception handling, use regular expressions, and apply debugging techniques.</li>
-            </ul>
-        </section>
-
-        <!-- ==================== SECTION: COVERAGE ==================== -->
-        <section id="coverage">
-            <h2>🗺️ Syllabus Coverage Map</h2>
-            <table>
-                <thead>
-                    <tr><th>Module</th><th>Topics Covered</th><th>Depth</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Introduction, Identifiers, Data Types, Operators, <code>if-elif-else</code>, <code>for</code>/<code>while</code> loops, <code>break</code>/<code>continue</code>/<code>pass</code>, String methods, String formatting</td><td>Deep</td></tr>
-                    <tr><td>2</td><td>Lists (creation, methods, slicing, comprehensions), Tuples (immutability, packing/unpacking), Dictionaries (keys, values, methods, dict comprehensions), Sets (operations, methods)</td><td>Deep</td></tr>
-                    <tr><td>3</td><td>Function definition, arguments (default, keyword, *args, **kwargs), scope, recursion, lambda, map/filter/reduce, modules (<code>import</code>, <code>math</code>, <code>random</code>, <code>datetime</code>), File I/O (read, write, append, <code>with</code>)</td><td>Deep</td></tr>
-                    <tr><td>4</td><td>OOP (classes, objects, <code>__init__</code>, inheritance, polymorphism, encapsulation), Exception handling (<code>try-except-finally</code>), Regular expressions (<code>re</code> module), Debugging (<code>pdb</code>, logging, assertions)</td><td>Deep (regex & pdb sparse)</td></tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- ==================== SECTION: ROADMAP ==================== -->
-        <section id="roadmap">
-            <h2>🧭 Learning Roadmap</h2>
-            <div class="diagram-container">
-                <svg viewBox="0 0 800 180" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
-                    <defs>
-                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb"/>
-                        </marker>
-                    </defs>
-                    <rect x="10" y="50" width="150" height="60" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-                    <text x="85" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Module 1</text>
-                    <text x="85" y="96" text-anchor="middle" font-size="11" fill="#1d4ed8">Python Basics</text>
-                    <line x1="160" y1="80" x2="210" y2="80" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-                    <rect x="215" y="50" width="150" height="60" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-                    <text x="290" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Module 2</text>
-                    <text x="290" y="96" text-anchor="middle" font-size="11" fill="#1d4ed8">Data Structures</text>
-                    <line x1="365" y1="80" x2="415" y2="80" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-                    <rect x="420" y="50" width="160" height="60" rx="12" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-                    <text x="500" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Module 3</text>
-                    <text x="500" y="96" text-anchor="middle" font-size="11" fill="#1d4ed8">Functions & Modules</text>
-                    <line x1="580" y1="80" x2="630" y2="80" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-                    <rect x="635" y="50" width="155" height="60" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
-                    <text x="712" y="76" text-anchor="middle" font-size="13" font-weight="600" fill="#b45309">Module 4</text>
-                    <text x="712" y="96" text-anchor="middle" font-size="11" fill="#92400e">Advanced Topics</text>
-                </svg>
-                <p class="diagram-caption">Figure: Sequential learning path through the 4 modules of Python Programming.</p>
+</section>
+<!-- ==================== SECTION: OUTCOMES ==================== -->
+<section id="outcomes">
+<h2>🎯 Course Outcomes (COs)</h2>
+<p>Upon completion of this course, the student will be able to:</p>
+<ul class="co-list">
+<li><strong>CO1:</strong> Write, debug, and execute Python programs using basic syntax, data types, and operators.</li>
+<li><strong>CO2:</strong> Implement control flow using conditionals and loops, and manipulate strings effectively.</li>
+<li><strong>CO3:</strong> Utilize Python's built-in data structures — lists, tuples, dictionaries, and sets — to solve problems.</li>
+<li><strong>CO4:</strong> Design modular programs using functions, recursion, modules, and handle file I/O operations.</li>
+<li><strong>CO5:</strong> Apply object-oriented programming principles including classes, inheritance, and polymorphism.</li>
+<li><strong>CO6:</strong> Handle errors using exception handling, use regular expressions, and apply debugging techniques.</li>
+</ul>
+</section>
+<!-- ==================== SECTION: COVERAGE ==================== -->
+<section id="coverage">
+<h2>🗺️ Syllabus Coverage Map</h2>
+<table>
+<thead>
+<tr><th>Module</th><th>Topics Covered</th><th>Depth</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td>Introduction, Identifiers, Data Types, Operators, <code>if-elif-else</code>, <code>for</code>/<code>while</code> loops, <code>break</code>/<code>continue</code>/<code>pass</code>, String methods, String formatting</td><td>Deep</td></tr>
+<tr><td>2</td><td>Lists (creation, methods, slicing, comprehensions), Tuples (immutability, packing/unpacking), Dictionaries (keys, values, methods, dict comprehensions), Sets (operations, methods)</td><td>Deep</td></tr>
+<tr><td>3</td><td>Function definition, arguments (default, keyword, *args, **kwargs), scope, recursion, lambda, map/filter/reduce, modules (<code>import</code>, <code>math</code>, <code>random</code>, <code>datetime</code>), File I/O (read, write, append, <code>with</code>)</td><td>Deep</td></tr>
+<tr><td>4</td><td>OOP (classes, objects, <code>__init__</code>, inheritance, polymorphism, encapsulation), Exception handling (<code>try-except-finally</code>), Regular expressions (<code>re</code> module), Debugging (<code>pdb</code>, logging, assertions)</td><td>Deep (regex &amp; pdb sparse)</td></tr>
+</tbody>
+</table>
+</section>
+<!-- ==================== SECTION: ROADMAP ==================== -->
+<section id="roadmap">
+<h2>🧭 Learning Roadmap</h2>
+<div class="diagram-container">
+<svg style="max-width:100%;height:auto;" viewbox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<marker id="arrowhead" markerheight="7" markerwidth="10" orient="auto" refx="10" refy="3.5">
+<polygon fill="#2563eb" points="0 0, 10 3.5, 0 7"></polygon>
+</marker>
+</defs>
+<rect fill="#dbeafe" height="60" rx="12" stroke="#2563eb" stroke-width="2" width="150" x="10" y="50"></rect>
+<text fill="#1e40af" font-size="13" font-weight="600" text-anchor="middle" x="85" y="76">Module 1</text>
+<text fill="#1d4ed8" font-size="11" text-anchor="middle" x="85" y="96">Python Basics</text>
+<line marker-end="url(#arrowhead)" stroke="#2563eb" stroke-width="2.5" x1="160" x2="210" y1="80" y2="80"></line>
+<rect fill="#dbeafe" height="60" rx="12" stroke="#2563eb" stroke-width="2" width="150" x="215" y="50"></rect>
+<text fill="#1e40af" font-size="13" font-weight="600" text-anchor="middle" x="290" y="76">Module 2</text>
+<text fill="#1d4ed8" font-size="11" text-anchor="middle" x="290" y="96">Data Structures</text>
+<line marker-end="url(#arrowhead)" stroke="#2563eb" stroke-width="2.5" x1="365" x2="415" y1="80" y2="80"></line>
+<rect fill="#dbeafe" height="60" rx="12" stroke="#2563eb" stroke-width="2" width="160" x="420" y="50"></rect>
+<text fill="#1e40af" font-size="13" font-weight="600" text-anchor="middle" x="500" y="76">Module 3</text>
+<text fill="#1d4ed8" font-size="11" text-anchor="middle" x="500" y="96">Functions &amp; Modules</text>
+<line marker-end="url(#arrowhead)" stroke="#2563eb" stroke-width="2.5" x1="580" x2="630" y1="80" y2="80"></line>
+<rect fill="#fef3c7" height="60" rx="12" stroke="#f59e0b" stroke-width="2" width="155" x="635" y="50"></rect>
+<text fill="#b45309" font-size="13" font-weight="600" text-anchor="middle" x="712" y="76">Module 4</text>
+<text fill="#92400e" font-size="11" text-anchor="middle" x="712" y="96">Advanced Topics</text>
+</svg>
+<p class="diagram-caption">Figure: Sequential learning path through the 4 modules of Python Programming.</p>
+</div>
+</section>
+<!-- ==================== MODULE 1 ==================== -->
+<section id="module-1">
+<h2>🔰 Module 1: Python Basics</h2>
+<p><strong>Hours:</strong> 18 | <strong>Topics:</strong> Introduction, Data Types, Operators, Control Flow, Strings</p>
+<h3>1.1 Introduction to Python</h3>
+<p>Python is a high-level, interpreted, dynamically-typed programming language created by <strong>Guido van Rossum</strong> in 1991. It emphasises code readability with its use of significant whitespace (indentation).</p>
+<div class="ml-note" lang="ml">
+<strong>📌 പൈത്തൺ പരിചയം:</strong> വളരെ ലളിതമായി പഠിക്കാവുന്ന ഒരു പ്രോഗ്രാമിംഗ് ഭാഷയാണ് പൈത്തൺ. ഇൻഡന്റേഷൻ വളരെ പ്രധാനമാണ് — ബ്രാക്കറ്റുകൾക്ക് പകരം സ്പേസുകൾ ഉപയോഗിച്ചാണ് കോഡ് ബ്ലോക്കുകൾ നിർവചിക്കുന്നത്.
             </div>
-        </section>
-
-        <!-- ==================== MODULE 1 ==================== -->
-        <section id="module-1">
-            <h2>🔰 Module 1: Python Basics</h2>
-            <p><strong>Hours:</strong> 18 | <strong>Topics:</strong> Introduction, Data Types, Operators, Control Flow, Strings</p>
-
-            <h3>1.1 Introduction to Python</h3>
-            <p>Python is a high-level, interpreted, dynamically-typed programming language created by <strong>Guido van Rossum</strong> in 1991. It emphasises code readability with its use of significant whitespace (indentation).</p>
-            <div class="ml-note" lang="ml">
-                <strong>📌 പൈത്തൺ പരിചയം:</strong> വളരെ ലളിതമായി പഠിക്കാവുന്ന ഒരു പ്രോഗ്രാമിംഗ് ഭാഷയാണ് പൈത്തൺ. ഇൻഡന്റേഷൻ വളരെ പ്രധാനമാണ് — ബ്രാക്കറ്റുകൾക്ക് പകരം സ്പേസുകൾ ഉപയോഗിച്ചാണ് കോഡ് ബ്ലോക്കുകൾ നിർവചിക്കുന്നത്.
-            </div>
-            <pre><code># Your first Python program
+<pre><code># Your first Python program
 print("Hello, World!")  # Output: Hello, World!
 
 # Python is dynamically typed
 x = 42          # integer
 x = "hello"     # now a string — perfectly valid!</code></pre>
-
-            <h3>1.2 Identifiers & Data Types</h3>
-            <p><strong>Identifiers</strong> are names given to variables, functions, classes, etc. Rules: must start with a letter or underscore, can contain letters/digits/underscores, case-sensitive, and cannot be a reserved keyword.</p>
-            <p><strong>Core Data Types:</strong></p>
-            <table>
-                <tr><th>Type</th><th>Example</th><th>Mutable?</th><th>Description</th></tr>
-                <tr><td><code>int</code></td><td><code>42</code></td><td>❌</td><td>Integer (unlimited precision)</td></tr>
-                <tr><td><code>float</code></td><td><code>3.14</code></td><td>❌</td><td>Floating-point number</td></tr>
-                <tr><td><code>str</code></td><td><code>"hello"</code></td><td>❌</td><td>String (sequence of characters)</td></tr>
-                <tr><td><code>bool</code></td><td><code>True</code></td><td>❌</td><td>Boolean (<code>True</code> / <code>False</code>)</td></tr>
-                <tr><td><code>list</code></td><td><code>[1,2,3]</code></td><td>✅</td><td>Ordered, mutable collection</td></tr>
-                <tr><td><code>tuple</code></td><td><code>(1,2,3)</code></td><td>❌</td><td>Ordered, immutable collection</td></tr>
-                <tr><td><code>dict</code></td><td><code>{"a":1}</code></td><td>✅</td><td>Key-value pairs</td></tr>
-                <tr><td><code>set</code></td><td><code>{1,2,3}</code></td><td>✅</td><td>Unordered, unique elements</td></tr>
-            </table>
-
-            <h3>1.3 Operators</h3>
-            <p>Python supports arithmetic (<code>+ - * / // % **</code>), comparison (<code>== != &lt; &gt; &lt;= &gt;=</code>), logical (<code>and or not</code>), assignment (<code>= += -= *= /=</code>), identity (<code>is is not</code>), and membership (<code>in not in</code>) operators.</p>
-            <pre><code>a, b = 10, 3
+<h3>1.2 Identifiers &amp; Data Types</h3>
+<p><strong>Identifiers</strong> are names given to variables, functions, classes, etc. Rules: must start with a letter or underscore, can contain letters/digits/underscores, case-sensitive, and cannot be a reserved keyword.</p>
+<p><strong>Core Data Types:</strong></p>
+<table>
+<tr><th>Type</th><th>Example</th><th>Mutable?</th><th>Description</th></tr>
+<tr><td><code>int</code></td><td><code>42</code></td><td>❌</td><td>Integer (unlimited precision)</td></tr>
+<tr><td><code>float</code></td><td><code>3.14</code></td><td>❌</td><td>Floating-point number</td></tr>
+<tr><td><code>str</code></td><td><code>"hello"</code></td><td>❌</td><td>String (sequence of characters)</td></tr>
+<tr><td><code>bool</code></td><td><code>True</code></td><td>❌</td><td>Boolean (<code>True</code> / <code>False</code>)</td></tr>
+<tr><td><code>list</code></td><td><code>[1,2,3]</code></td><td>✅</td><td>Ordered, mutable collection</td></tr>
+<tr><td><code>tuple</code></td><td><code>(1,2,3)</code></td><td>❌</td><td>Ordered, immutable collection</td></tr>
+<tr><td><code>dict</code></td><td><code>{"a":1}</code></td><td>✅</td><td>Key-value pairs</td></tr>
+<tr><td><code>set</code></td><td><code>{1,2,3}</code></td><td>✅</td><td>Unordered, unique elements</td></tr>
+</table>
+<h3>1.3 Operators</h3>
+<p>Python supports arithmetic (<code>+ - * / // % **</code>), comparison (<code>== != &lt; &gt; &lt;= &gt;=</code>), logical (<code>and or not</code>), assignment (<code>= += -= *= /=</code>), identity (<code>is is not</code>), and membership (<code>in not in</code>) operators.</p>
+<pre><code>a, b = 10, 3
 print(a + b)    # 13
 print(a ** b)   # 1000 (10³)
 print(a / b)    # 3.333...
@@ -901,44 +866,42 @@ print(a // b)   # 3 (floor division)
 print(a % b)    # 1 (modulus)
 
 # Logical operators
-print(a > 5 and b < 5)  # True
+print(a &gt; 5 and b &lt; 5)  # True
 print(not False)         # True
 
 # Membership
 fruits = ["apple", "banana", "mango"]
 print("banana" in fruits)      # True
 print("grape" not in fruits)   # True</code></pre>
-
-            <h3>1.4 Control Flow — Conditionals</h3>
-            <pre><code>score = 85
-if score >= 90:
+<h3>1.4 Control Flow — Conditionals</h3>
+<pre><code>score = 85
+if score &gt;= 90:
     grade = "A"
-elif score >= 80:
+elif score &gt;= 80:
     grade = "B"
-elif score >= 70:
+elif score &gt;= 70:
     grade = "C"
 else:
     grade = "F"
 print(f"Grade: {grade}")  # Grade: B</code></pre>
-            <div class="diagram-container">
-                <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
-                    <rect x="140" y="10" width="120" height="40" rx="20" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-                    <text x="200" y="36" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">Start</text>
-                    <line x1="200" y1="50" x2="200" y2="70" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <polygon points="200,70 280,120 200,170 120,120" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
-                    <text x="200" y="124" text-anchor="middle" font-size="12" font-weight="600" fill="#92400e">score ≥ 90?</text>
-                    <line x1="280" y1="120" x2="340" y2="120" stroke="#10b981" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <text x="310" y="112" font-size="11" fill="#10b981" font-weight="600">Yes→A</text>
-                    <line x1="200" y1="170" x2="200" y2="210" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <text x="210" y="195" font-size="11" fill="#ef4444" font-weight="600">No→next check</text>
-                    <rect x="140" y="215" width="120" height="35" rx="17" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-                    <text x="200" y="238" text-anchor="middle" font-size="13" font-weight="600" fill="#1e40af">End</text>
-                </svg>
-                <p class="diagram-caption">Figure: Flowchart of if-elif-else conditional logic for grade assignment.</p>
-            </div>
-
-            <h3>1.5 Loops — <code>for</code> and <code>while</code></h3>
-            <pre><code># for loop with range
+<div class="diagram-container">
+<svg style="max-width:100%;height:auto;" viewbox="0 0 400 280" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#dbeafe" height="40" rx="20" stroke="#2563eb" stroke-width="2" width="120" x="140" y="10"></rect>
+<text fill="#1e40af" font-size="13" font-weight="600" text-anchor="middle" x="200" y="36">Start</text>
+<line marker-end="url(#arrowhead)" stroke="#2563eb" stroke-width="2" x1="200" x2="200" y1="50" y2="70"></line>
+<polygon fill="#fef3c7" points="200,70 280,120 200,170 120,120" stroke="#f59e0b" stroke-width="2"></polygon>
+<text fill="#92400e" font-size="12" font-weight="600" text-anchor="middle" x="200" y="124">score ≥ 90?</text>
+<line marker-end="url(#arrowhead)" stroke="#10b981" stroke-width="2" x1="280" x2="340" y1="120" y2="120"></line>
+<text fill="#10b981" font-size="11" font-weight="600" x="310" y="112">Yes→A</text>
+<line marker-end="url(#arrowhead)" stroke="#ef4444" stroke-width="2" x1="200" x2="200" y1="170" y2="210"></line>
+<text fill="#ef4444" font-size="11" font-weight="600" x="210" y="195">No→next check</text>
+<rect fill="#dbeafe" height="35" rx="17" stroke="#2563eb" stroke-width="2" width="120" x="140" y="215"></rect>
+<text fill="#1e40af" font-size="13" font-weight="600" text-anchor="middle" x="200" y="238">End</text>
+</svg>
+<p class="diagram-caption">Figure: Flowchart of if-elif-else conditional logic for grade assignment.</p>
+</div>
+<h3>1.5 Loops — <code>for</code> and <code>while</code></h3>
+<pre><code># for loop with range
 for i in range(1, 6):
     print(i, end=" ")  # Output: 1 2 3 4 5
 
@@ -949,7 +912,7 @@ for color in colors:
 
 # while loop
 count = 0
-while count < 5:
+while count &lt; 5:
     print(count, end=" ")
     count += 1
 # Output: 0 1 2 3 4
@@ -962,13 +925,12 @@ for num in range(10):
         break     # stop at 7
     print(num, end=" ")
 # Output: 0 1 2 4 5 6</code></pre>
-            <div class="mistake-box">
-                <strong>⚠️ Common Mistake:</strong> Forgetting to update the loop variable in a <code>while</code> loop leads to an <strong>infinite loop</strong>. Always ensure the condition eventually becomes <code>False</code>.
+<div class="mistake-box">
+<strong>⚠️ Common Mistake:</strong> Forgetting to update the loop variable in a <code>while</code> loop leads to an <strong>infinite loop</strong>. Always ensure the condition eventually becomes <code>False</code>.
             </div>
-
-            <h3>1.6 Strings</h3>
-            <p>Strings are immutable sequences of Unicode characters. Python provides rich string methods.</p>
-            <pre><code>text = "  Hello, Python World!  "
+<h3>1.6 Strings</h3>
+<p>Strings are immutable sequences of Unicode characters. Python provides rich string methods.</p>
+<pre><code>text = "  Hello, Python World!  "
 print(text.strip())           # "Hello, Python World!"
 print(text.lower())           # "  hello, python world!  "
 print(text.upper())           # "  HELLO, PYTHON WORLD!  "
@@ -985,16 +947,14 @@ print(f"My name is {name} and I am {age} years old.")
 s = "Python"
 print(s[0:3])   # "Pyt"
 print(s[::-1])  # "nohtyP" (reversed)</code></pre>
-        </section>
-
-        <!-- ==================== MODULE 2 ==================== -->
-        <section id="module-2">
-            <h2>📦 Module 2: Data Structures</h2>
-            <p><strong>Hours:</strong> 18 | <strong>Topics:</strong> Lists, Tuples, Dictionaries, Sets</p>
-
-            <h3>2.1 Lists</h3>
-            <p>Lists are <strong>ordered, mutable</strong> collections. They are the workhorse data structure in Python.</p>
-            <pre><code># Creating lists
+</section>
+<!-- ==================== MODULE 2 ==================== -->
+<section id="module-2">
+<h2>📦 Module 2: Data Structures</h2>
+<p><strong>Hours:</strong> 18 | <strong>Topics:</strong> Lists, Tuples, Dictionaries, Sets</p>
+<h3>2.1 Lists</h3>
+<p>Lists are <strong>ordered, mutable</strong> collections. They are the workhorse data structure in Python.</p>
+<pre><code># Creating lists
 empty_list = []
 numbers = [1, 2, 3, 4, 5]
 mixed = [1, "hello", 3.14, True]
@@ -1017,31 +977,30 @@ print(squares)             # [1, 4, 9, 16, 25]
 # Nested lists (2D)
 matrix = [[1,2,3], [4,5,6], [7,8,9]]
 print(matrix[1][2])        # 6</code></pre>
-            <div class="diagram-container">
-                <svg viewBox="0 0 500 120" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
-                    <text x="15" y="30" font-size="14" font-weight="600" fill="#1e40af">Memory diagram: numbers = [5, 4, 2, 1, 0]</text>
-                    <rect x="10" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-                    <text x="37" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">5</text>
-                    <text x="37" y="100" text-anchor="middle" font-size="10" fill="#64748b">[0]</text>
-                    <rect x="70" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-                    <text x="97" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">4</text>
-                    <text x="97" y="100" text-anchor="middle" font-size="10" fill="#64748b">[1]</text>
-                    <rect x="130" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-                    <text x="157" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">2</text>
-                    <text x="157" y="100" text-anchor="middle" font-size="10" fill="#64748b">[2]</text>
-                    <rect x="190" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-                    <text x="217" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">1</text>
-                    <text x="217" y="100" text-anchor="middle" font-size="10" fill="#64748b">[3]</text>
-                    <rect x="250" y="45" width="55" height="40" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-                    <text x="277" y="70" text-anchor="middle" font-size="16" font-weight="700" fill="#1d4ed8">0</text>
-                    <text x="277" y="100" text-anchor="middle" font-size="10" fill="#64748b">[4]</text>
-                </svg>
-                <p class="diagram-caption">Figure: Memory layout of a list — each element stored at a contiguous index.</p>
-            </div>
-
-            <h3>2.2 Tuples</h3>
-            <p>Tuples are <strong>ordered, immutable</strong> sequences. Once created, they cannot be modified.</p>
-            <pre><code># Creating tuples
+<div class="diagram-container">
+<svg style="max-width:100%;height:auto;" viewbox="0 0 500 120" xmlns="http://www.w3.org/2000/svg">
+<text fill="#1e40af" font-size="14" font-weight="600" x="15" y="30">Memory diagram: numbers = [5, 4, 2, 1, 0]</text>
+<rect fill="#dbeafe" height="40" rx="5" stroke="#2563eb" stroke-width="1.5" width="55" x="10" y="45"></rect>
+<text fill="#1d4ed8" font-size="16" font-weight="700" text-anchor="middle" x="37" y="70">5</text>
+<text fill="#64748b" font-size="10" text-anchor="middle" x="37" y="100">[0]</text>
+<rect fill="#dbeafe" height="40" rx="5" stroke="#2563eb" stroke-width="1.5" width="55" x="70" y="45"></rect>
+<text fill="#1d4ed8" font-size="16" font-weight="700" text-anchor="middle" x="97" y="70">4</text>
+<text fill="#64748b" font-size="10" text-anchor="middle" x="97" y="100">[1]</text>
+<rect fill="#dbeafe" height="40" rx="5" stroke="#2563eb" stroke-width="1.5" width="55" x="130" y="45"></rect>
+<text fill="#1d4ed8" font-size="16" font-weight="700" text-anchor="middle" x="157" y="70">2</text>
+<text fill="#64748b" font-size="10" text-anchor="middle" x="157" y="100">[2]</text>
+<rect fill="#dbeafe" height="40" rx="5" stroke="#2563eb" stroke-width="1.5" width="55" x="190" y="45"></rect>
+<text fill="#1d4ed8" font-size="16" font-weight="700" text-anchor="middle" x="217" y="70">1</text>
+<text fill="#64748b" font-size="10" text-anchor="middle" x="217" y="100">[3]</text>
+<rect fill="#dbeafe" height="40" rx="5" stroke="#2563eb" stroke-width="1.5" width="55" x="250" y="45"></rect>
+<text fill="#1d4ed8" font-size="16" font-weight="700" text-anchor="middle" x="277" y="70">0</text>
+<text fill="#64748b" font-size="10" text-anchor="middle" x="277" y="100">[4]</text>
+</svg>
+<p class="diagram-caption">Figure: Memory layout of a list — each element stored at a contiguous index.</p>
+</div>
+<h3>2.2 Tuples</h3>
+<p>Tuples are <strong>ordered, immutable</strong> sequences. Once created, they cannot be modified.</p>
+<pre><code># Creating tuples
 point = (3, 4)
 single_item = (42,)     # comma is essential!
 empty = ()
@@ -1058,13 +1017,12 @@ print(coordinates[(1,0)])  # "right"
 my_list = [1, 2, 3]
 my_tuple = tuple(my_list)
 back_to_list = list(my_tuple)</code></pre>
-            <div class="mistake-box">
-                <strong>⚠️ Common Mistake:</strong> <code>t = (42)</code> is NOT a tuple — it's just the integer <code>42</code> in parentheses. Use <code>t = (42,)</code> with a trailing comma for a single-element tuple.
+<div class="mistake-box">
+<strong>⚠️ Common Mistake:</strong> <code>t = (42)</code> is NOT a tuple — it's just the integer <code>42</code> in parentheses. Use <code>t = (42,)</code> with a trailing comma for a single-element tuple.
             </div>
-
-            <h3>2.3 Dictionaries</h3>
-            <p>Dictionaries store <strong>key-value pairs</strong>. Keys must be immutable (strings, numbers, tuples). Values can be anything.</p>
-            <pre><code># Creating dictionaries
+<h3>2.3 Dictionaries</h3>
+<p>Dictionaries store <strong>key-value pairs</strong>. Keys must be immutable (strings, numbers, tuples). Values can be anything.</p>
+<pre><code># Creating dictionaries
 student = {"name": "Aarav", "age": 20, "grade": "A"}
 empty_dict = {}
 using_constructor = dict(name="Priya", age=21)
@@ -1087,26 +1045,25 @@ print(squares_dict)          # {1:1, 2:4, 3:9, 4:16, 5:25}
 # Iterating
 for key, value in student.items():
     print(f"{key} → {value}")</code></pre>
-            <div class="diagram-container">
-                <svg viewBox="0 0 450 160" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
-                    <text x="15" y="25" font-size="13" font-weight="600" fill="#1e40af">Hash Table: student = {"name":"Aarav", "age":21}</text>
-                    <rect x="10" y="40" width="130" height="50" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
-                    <text x="75" y="62" text-anchor="middle" font-size="12" font-weight="600">"name"</text>
-                    <text x="75" y="80" text-anchor="middle" font-size="11" fill="#92400e">hash→ slot 2</text>
-                    <rect x="160" y="40" width="100" height="50" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-                    <text x="210" y="70" text-anchor="middle" font-size="14" font-weight="700">"Aarav"</text>
-                    <rect x="10" y="100" width="130" height="50" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
-                    <text x="75" y="122" text-anchor="middle" font-size="12" font-weight="600">"age"</text>
-                    <text x="75" y="140" text-anchor="middle" font-size="11" fill="#92400e">hash→ slot 5</text>
-                    <rect x="160" y="100" width="100" height="50" rx="6" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
-                    <text x="210" y="130" text-anchor="middle" font-size="14" font-weight="700">21</text>
-                </svg>
-                <p class="diagram-caption">Figure: Dictionary uses a hash table — keys are hashed to determine storage slots for O(1) average lookup.</p>
-            </div>
-
-            <h3>2.4 Sets</h3>
-            <p>Sets are <strong>unordered, mutable</strong> collections of <strong>unique, hashable</strong> elements. Great for membership testing and eliminating duplicates.</p>
-            <pre><code># Creating sets
+<div class="diagram-container">
+<svg style="max-width:100%;height:auto;" viewbox="0 0 450 160" xmlns="http://www.w3.org/2000/svg">
+<text fill="#1e40af" font-size="13" font-weight="600" x="15" y="25">Hash Table: student = {"name":"Aarav", "age":21}</text>
+<rect fill="#fef3c7" height="50" rx="6" stroke="#f59e0b" stroke-width="1.5" width="130" x="10" y="40"></rect>
+<text font-size="12" font-weight="600" text-anchor="middle" x="75" y="62">"name"</text>
+<text fill="#92400e" font-size="11" text-anchor="middle" x="75" y="80">hash→ slot 2</text>
+<rect fill="#dbeafe" height="50" rx="6" stroke="#2563eb" stroke-width="1.5" width="100" x="160" y="40"></rect>
+<text font-size="14" font-weight="700" text-anchor="middle" x="210" y="70">"Aarav"</text>
+<rect fill="#fef3c7" height="50" rx="6" stroke="#f59e0b" stroke-width="1.5" width="130" x="10" y="100"></rect>
+<text font-size="12" font-weight="600" text-anchor="middle" x="75" y="122">"age"</text>
+<text fill="#92400e" font-size="11" text-anchor="middle" x="75" y="140">hash→ slot 5</text>
+<rect fill="#dbeafe" height="50" rx="6" stroke="#2563eb" stroke-width="1.5" width="100" x="160" y="100"></rect>
+<text font-size="14" font-weight="700" text-anchor="middle" x="210" y="130">21</text>
+</svg>
+<p class="diagram-caption">Figure: Dictionary uses a hash table — keys are hashed to determine storage slots for O(1) average lookup.</p>
+</div>
+<h3>2.4 Sets</h3>
+<p>Sets are <strong>unordered, mutable</strong> collections of <strong>unique, hashable</strong> elements. Great for membership testing and eliminating duplicates.</p>
+<pre><code># Creating sets
 fruits = {"apple", "banana", "mango"}
 empty_set = set()  # NOT {} — that creates a dict!
 nums = set([1, 2, 2, 3, 3, 4])
@@ -1116,7 +1073,7 @@ print(nums)  # {1, 2, 3, 4} — duplicates removed!
 a = {1, 2, 3, 4}
 b = {3, 4, 5, 6}
 print(a | b)   # Union: {1,2,3,4,5,6}
-print(a & b)   # Intersection: {3,4}
+print(a &amp; b)   # Intersection: {3,4}
 print(a - b)   # Difference: {1,2}
 print(a ^ b)   # Symmetric difference: {1,2,5,6}
 
@@ -1124,15 +1081,13 @@ print(a ^ b)   # Symmetric difference: {1,2,5,6}
 fruits.add("grape")
 fruits.remove("banana")
 print("mango" in fruits)  # True (fast O(1) lookup)</code></pre>
-        </section>
-
-        <!-- ==================== MODULE 3 ==================== -->
-        <section id="module-3">
-            <h2>⚙️ Module 3: Functions & Modules</h2>
-            <p><strong>Hours:</strong> 20 | <strong>Topics:</strong> Functions, Recursion, Lambda, Modules, File I/O</p>
-
-            <h3>3.1 Defining Functions</h3>
-            <pre><code>def greet(name, greeting="Hello"):
+</section>
+<!-- ==================== MODULE 3 ==================== -->
+<section id="module-3">
+<h2>⚙️ Module 3: Functions &amp; Modules</h2>
+<p><strong>Hours:</strong> 20 | <strong>Topics:</strong> Functions, Recursion, Lambda, Modules, File I/O</p>
+<h3>3.1 Defining Functions</h3>
+<pre><code>def greet(name, greeting="Hello"):
     """Return a greeting string."""  # docstring
     return f"{greeting}, {name}!"
 
@@ -1152,10 +1107,9 @@ def print_info(**kwargs):
         print(f"{key}: {value}")
 
 print_info(name="Aarav", age=20, city="Kochi")</code></pre>
-
-            <h3>3.2 Scope & Lifetime</h3>
-            <p>Python follows the <strong>LEGB</strong> rule: <strong>L</strong>ocal → <strong>E</strong>nclosing → <strong>G</strong>lobal → <strong>B</strong>uilt-in.</p>
-            <pre><code>x = "global"  # global scope
+<h3>3.2 Scope &amp; Lifetime</h3>
+<p>Python follows the <strong>LEGB</strong> rule: <strong>L</strong>ocal → <strong>E</strong>nclosing → <strong>G</strong>lobal → <strong>B</strong>uilt-in.</p>
+<pre><code>x = "global"  # global scope
 
 def outer():
     x = "enclosing"  # enclosing scope
@@ -1171,14 +1125,13 @@ print(f"global: {x}")
 # inner: local
 # outer: enclosing
 # global: global</code></pre>
-            <div class="mistake-box">
-                <strong>⚠️ Common Mistake:</strong> Using a mutable default argument like <code>def f(lst=[]):</code> — the same list object is shared across all calls! Use <code>def f(lst=None): if lst is None: lst = []</code> instead.
+<div class="mistake-box">
+<strong>⚠️ Common Mistake:</strong> Using a mutable default argument like <code>def f(lst=[]):</code> — the same list object is shared across all calls! Use <code>def f(lst=None): if lst is None: lst = []</code> instead.
             </div>
-
-            <h3>3.3 Recursion</h3>
-            <pre><code>def factorial(n):
+<h3>3.3 Recursion</h3>
+<pre><code>def factorial(n):
     """Return n! using recursion."""
-    if n <= 1:
+    if n &lt;= 1:
         return 1  # base case
     return n * factorial(n - 1)  # recursive case
 
@@ -1189,14 +1142,13 @@ print(factorial(5))  # 120
 #   factorial(2) → 2 * factorial(1)
 #     factorial(1) → 1 (base case)
 # Unwinding: 1 → 2*1=2 → 3*2=6</code></pre>
-            <div class="code-output">📤 Output Trace:
+<div class="code-output">📤 Output Trace:
                 factorial(3) = 3 * factorial(2)
                 = 3 * (2 * factorial(1))
                 = 3 * (2 * 1)
                 = 3 * 2 = 6</div>
-
-            <h3>3.4 Lambda & Higher-Order Functions</h3>
-            <pre><code># Lambda: anonymous single-expression function
+<h3>3.4 Lambda &amp; Higher-Order Functions</h3>
+<pre><code># Lambda: anonymous single-expression function
 square = lambda x: x ** 2
 print(square(5))  # 25
 
@@ -1213,9 +1165,8 @@ print(evens)  # [2, 4]
 from functools import reduce
 total = reduce(lambda acc, x: acc + x, nums, 0)
 print(total)  # 15</code></pre>
-
-            <h3>3.5 Modules</h3>
-            <pre><code># Importing standard library modules
+<h3>3.5 Modules</h3>
+<pre><code># Importing standard library modules
 import math
 print(math.sqrt(16))    # 4.0
 print(math.pi)          # 3.141592653589793
@@ -1228,9 +1179,8 @@ import datetime
 now = datetime.datetime.now()
 print(now.strftime("%Y-%m-%d %H:%M:%S"))
 # Output: 2026-07-27 14:30:00 (example)</code></pre>
-
-            <h3>3.6 File I/O</h3>
-            <pre><code># Writing to a file
+<h3>3.6 File I/O</h3>
+<pre><code># Writing to a file
 with open("sample.txt", "w", encoding="utf-8") as f:
     f.write("Hello, Python!\n")
     f.write("Line 2\n")
@@ -1250,18 +1200,16 @@ with open("sample.txt", "a", encoding="utf-8") as f:
     f.write("Appended line\n")
 
 # The 'with' statement auto-closes the file — no need for f.close()</code></pre>
-            <div class="ml-note" lang="ml">
-                <strong>📌 ഫയൽ I/O:</strong> <code>with</code> സ്റ്റേറ്റ്മെന്റ് ഉപയോഗിക്കുന്നതാണ് ഏറ്റവും സുരക്ഷിതം. ഇത് ഫയൽ ഓട്ടോമാറ്റിക്കായി ക്ലോസ് ചെയ്യും — <code>f.close()</code> വിളിക്കാൻ മറന്നാലും പ്രശ്നമില്ല.
+<div class="ml-note" lang="ml">
+<strong>📌 ഫയൽ I/O:</strong> <code>with</code> സ്റ്റേറ്റ്മെന്റ് ഉപയോഗിക്കുന്നതാണ് ഏറ്റവും സുരക്ഷിതം. ഇത് ഫയൽ ഓട്ടോമാറ്റിക്കായി ക്ലോസ് ചെയ്യും — <code>f.close()</code> വിളിക്കാൻ മറന്നാലും പ്രശ്നമില്ല.
             </div>
-        </section>
-
-        <!-- ==================== MODULE 4 ==================== -->
-        <section id="module-4">
-            <h2>🚀 Module 4: Advanced Topics</h2>
-            <p><strong>Hours:</strong> 19 | <strong>Topics:</strong> OOP, Exception Handling, Regex, Debugging</p>
-
-            <h3>4.1 Object-Oriented Programming (OOP)</h3>
-            <pre><code>class Animal:
+</section>
+<!-- ==================== MODULE 4 ==================== -->
+<section id="module-4">
+<h2>🚀 Module 4: Advanced Topics</h2>
+<p><strong>Hours:</strong> 19 | <strong>Topics:</strong> OOP, Exception Handling, Regex, Debugging</p>
+<h3>4.1 Object-Oriented Programming (OOP)</h3>
+<pre><code>class Animal:
     """Base class for all animals."""
     species_count = 0  # class variable
 
@@ -1300,22 +1248,21 @@ for a in animals:
 
 print(Animal.get_count())  # 2
 print(Animal.kingdom())    # Animalia</code></pre>
-            <div class="diagram-container">
-                <svg viewBox="0 0 420 200" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
-                    <rect x="140" y="10" width="140" height="45" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-                    <text x="210" y="30" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">Animal (Base)</text>
-                    <text x="210" y="47" text-anchor="middle" font-size="10" fill="#1d4ed8">+name, +species, +speak()</text>
-                    <line x1="210" y1="55" x2="210" y2="85" stroke="#2563eb" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <rect x="140" y="90" width="140" height="45" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
-                    <text x="210" y="110" text-anchor="middle" font-size="13" font-weight="700" fill="#b45309">Dog (Derived)</text>
-                    <text x="210" y="127" text-anchor="middle" font-size="10" fill="#92400e">+breed, +speak() override</text>
-                    <text x="90" y="160" font-size="10" fill="#64748b">Inheritance ▸</text>
-                </svg>
-                <p class="diagram-caption">Figure: Inheritance hierarchy — Dog inherits from Animal and overrides speak().</p>
-            </div>
-
-            <h3>4.2 Exception Handling</h3>
-            <pre><code>def safe_divide(a, b):
+<div class="diagram-container">
+<svg style="max-width:100%;height:auto;" viewbox="0 0 420 200" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#dbeafe" height="45" rx="8" stroke="#2563eb" stroke-width="2" width="140" x="140" y="10"></rect>
+<text fill="#1e40af" font-size="13" font-weight="700" text-anchor="middle" x="210" y="30">Animal (Base)</text>
+<text fill="#1d4ed8" font-size="10" text-anchor="middle" x="210" y="47">+name, +species, +speak()</text>
+<line marker-end="url(#arrowhead)" stroke="#2563eb" stroke-width="2" x1="210" x2="210" y1="55" y2="85"></line>
+<rect fill="#fef3c7" height="45" rx="8" stroke="#f59e0b" stroke-width="2" width="140" x="140" y="90"></rect>
+<text fill="#b45309" font-size="13" font-weight="700" text-anchor="middle" x="210" y="110">Dog (Derived)</text>
+<text fill="#92400e" font-size="10" text-anchor="middle" x="210" y="127">+breed, +speak() override</text>
+<text fill="#64748b" font-size="10" x="90" y="160">Inheritance ▸</text>
+</svg>
+<p class="diagram-caption">Figure: Inheritance hierarchy — Dog inherits from Animal and overrides speak().</p>
+</div>
+<h3>4.2 Exception Handling</h3>
+<pre><code>def safe_divide(a, b):
     try:
         result = a / b
     except ZeroDivisionError:
@@ -1339,9 +1286,8 @@ print(safe_divide(10, 0))   # None
 # Error: Cannot divide by zero!
 # Cleanup: safe_divide finished.
 # None</code></pre>
-
-            <h3>4.3 Regular Expressions (Sparse)</h3>
-            <pre><code>import re
+<h3>4.3 Regular Expressions (Sparse)</h3>
+<pre><code>import re
 
 text = "Contact: aarav@email.com or priya123@college.edu"
 
@@ -1358,12 +1304,11 @@ print(cleaned)  # Phone: XXX
 phone_pattern = r'^\d{10}$'
 print(re.match(phone_pattern, "9876543210"))  # Match object
 print(re.match(phone_pattern, "12345"))       # None</code></pre>
-            <p><em>Note: Advanced regex flags and lookahead/lookbehind assertions are considered sparse topics — refer to Python <code>re</code> module documentation for exhaustive coverage.</em></p>
-
-            <h3>4.4 Debugging Techniques</h3>
-            <pre><code># Using assertions
+<p><em>Note: Advanced regex flags and lookahead/lookbehind assertions are considered sparse topics — refer to Python <code>re</code> module documentation for exhaustive coverage.</em></p>
+<h3>4.4 Debugging Techniques</h3>
+<pre><code># Using assertions
 def calculate_average(numbers):
-    assert len(numbers) > 0, "List cannot be empty"
+    assert len(numbers) &gt; 0, "List cannot be empty"
     return sum(numbers) / len(numbers)
 
 # Using logging
@@ -1384,232 +1329,208 @@ process_data([1, 2, 3])
 
 # pdb (Python Debugger) — sparse intro
 # import pdb; pdb.set_trace()  # set breakpoint</code></pre>
-            <div class="ml-note" lang="ml">
-                <strong>📌 ഡീബഗ്ഗിംഗ്:</strong> <code>print()</code> ഉപയോഗിച്ച് ഡീബഗ് ചെയ്യുന്നതിനു പകരം <code>logging</code> മൊഡ്യൂൾ ഉപയോഗിക്കുന്നതാണ് നല്ല ശീലം. ഇത് ലെവൽ അനുസരിച്ച് മെസേജുകൾ ഓൺ/ഓഫ് ചെയ്യാൻ സഹായിക്കുന്നു.
+<div class="ml-note" lang="ml">
+<strong>📌 ഡീബഗ്ഗിംഗ്:</strong> <code>print()</code> ഉപയോഗിച്ച് ഡീബഗ് ചെയ്യുന്നതിനു പകരം <code>logging</code> മൊഡ്യൂൾ ഉപയോഗിക്കുന്നതാണ് നല്ല ശീലം. ഇത് ലെവൽ അനുസരിച്ച് മെസേജുകൾ ഓൺ/ഓഫ് ചെയ്യാൻ സഹായിക്കുന്നു.
             </div>
-        </section>
-
-        <!-- ==================== SECTION: FORMULA BANK ==================== -->
-        <section id="formula-bank">
-            <h2>📐 Formula & Syntax Bank</h2>
-            <table>
-                <thead><tr><th>Concept</th><th>Syntax / Formula</th><th>Example</th></tr></thead>
-                <tbody>
-                    <tr><td>List comprehension</td><td><code>[expr for item in iterable if condition]</code></td><td><code>[x**2 for x in range(5) if x%2==0]</code></td></tr>
-                    <tr><td>Dict comprehension</td><td><code>{k: v for k,v in iterable}</code></td><td><code>{x:x**2 for x in range(3)}</code></td></tr>
-                    <tr><td>Lambda</td><td><code>lambda args: expression</code></td><td><code>lambda a,b: a+b</code></td></tr>
-                    <tr><td>Ternary operator</td><td><code>val_if_true if cond else val_if_false</code></td><td><code>"Even" if n%2==0 else "Odd"</code></td></tr>
-                    <tr><td>f-string</td><td><code>f"text {variable}"</code></td><td><code>f"Age: {age}"</code></td></tr>
-                    <tr><td>File open</td><td><code>with open(path, mode) as f:</code></td><td><code>with open("f.txt","r") as f:</code></td></tr>
-                    <tr><td>Exception</td><td><code>try: ... except X as e: ... finally: ...</code></td><td>See Module 4</td></tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- ==================== SECTION: VISUAL LIBRARY ==================== -->
-        <section id="visual-library">
-            <h2>🖼️ Visual Library</h2>
-            <p>All diagrams in this lesson are embedded as inline SVGs for clarity and accessibility.</p>
-            <ul>
-                <li><strong>Figure 1:</strong> Learning Roadmap — sequential module flow (see <a href="#roadmap">Roadmap</a>)</li>
-                <li><strong>Figure 2:</strong> if-elif-else Flowchart (see <a href="#module-1">Module 1.4</a>)</li>
-                <li><strong>Figure 3:</strong> List Memory Layout (see <a href="#module-2">Module 2.1</a>)</li>
-                <li><strong>Figure 4:</strong> Dictionary Hash Table (see <a href="#module-2">Module 2.3</a>)</li>
-                <li><strong>Figure 5:</strong> OOP Inheritance Hierarchy (see <a href="#module-4">Module 4.1</a>)</li>
-            </ul>
-        </section>
-
-        <!-- ==================== SECTION: ACTIVITIES (Calculators) ==================== -->
-        <section id="activities">
-            <h2>🧪 Interactive Activities & Calculators</h2>
-
-            <!-- Calculator 1: Grade Calculator -->
-            <div class="calculator-widget" id="calc-grade">
-                <h4>🎓 Grade Calculator</h4>
-                <p>Enter a score (0–100) to see the grade using if-elif-else logic.</p>
-                <label for="grade-input">Score:</label>
-                <input type="number" id="grade-input" min="0" max="100" placeholder="e.g. 85" aria-label="Enter score">
-                <button onclick="calculateGrade()">Calculate Grade</button>
-                <div class="calc-result" id="grade-result" aria-live="polite">Result will appear here...</div>
+</section>
+<!-- ==================== SECTION: FORMULA BANK ==================== -->
+<section id="formula-bank">
+<h2>📐 Formula &amp; Syntax Bank</h2>
+<table>
+<thead><tr><th>Concept</th><th>Syntax / Formula</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>List comprehension</td><td><code>[expr for item in iterable if condition]</code></td><td><code>[x**2 for x in range(5) if x%2==0]</code></td></tr>
+<tr><td>Dict comprehension</td><td><code>{k: v for k,v in iterable}</code></td><td><code>{x:x**2 for x in range(3)}</code></td></tr>
+<tr><td>Lambda</td><td><code>lambda args: expression</code></td><td><code>lambda a,b: a+b</code></td></tr>
+<tr><td>Ternary operator</td><td><code>val_if_true if cond else val_if_false</code></td><td><code>"Even" if n%2==0 else "Odd"</code></td></tr>
+<tr><td>f-string</td><td><code>f"text {variable}"</code></td><td><code>f"Age: {age}"</code></td></tr>
+<tr><td>File open</td><td><code>with open(path, mode) as f:</code></td><td><code>with open("f.txt","r") as f:</code></td></tr>
+<tr><td>Exception</td><td><code>try: ... except X as e: ... finally: ...</code></td><td>See Module 4</td></tr>
+</tbody>
+</table>
+</section>
+<!-- ==================== SECTION: VISUAL LIBRARY ==================== -->
+<section id="visual-library">
+<h2>🖼️ Visual Library</h2>
+<p>All diagrams in this lesson are embedded as inline SVGs for clarity and accessibility.</p>
+<ul>
+<li><strong>Figure 1:</strong> Learning Roadmap — sequential module flow (see <a href="#roadmap">Roadmap</a>)</li>
+<li><strong>Figure 2:</strong> if-elif-else Flowchart (see <a href="#module-1">Module 1.4</a>)</li>
+<li><strong>Figure 3:</strong> List Memory Layout (see <a href="#module-2">Module 2.1</a>)</li>
+<li><strong>Figure 4:</strong> Dictionary Hash Table (see <a href="#module-2">Module 2.3</a>)</li>
+<li><strong>Figure 5:</strong> OOP Inheritance Hierarchy (see <a href="#module-4">Module 4.1</a>)</li>
+</ul>
+</section>
+<!-- ==================== SECTION: ACTIVITIES (Calculators) ==================== -->
+<section id="activities">
+<h2>🧪 Interactive Activities &amp; Calculators</h2>
+<!-- Calculator 1: Grade Calculator -->
+<div class="calculator-widget" id="calc-grade">
+<h4>🎓 Grade Calculator</h4>
+<p>Enter a score (0–100) to see the grade using if-elif-else logic.</p>
+<label for="grade-input">Score:</label>
+<input aria-label="Enter score" id="grade-input" max="100" min="0" placeholder="e.g. 85" type="number"/>
+<button onclick="calculateGrade()">Calculate Grade</button>
+<div aria-live="polite" class="calc-result" id="grade-result">Result will appear here...</div>
+</div>
+<!-- Calculator 2: Factorial Calculator -->
+<div class="calculator-widget" id="calc-factorial">
+<h4>🔢 Factorial Calculator (Recursive)</h4>
+<p>Enter a non-negative integer to compute its factorial.</p>
+<label for="fact-input">n:</label>
+<input aria-label="Enter number for factorial" id="fact-input" max="20" min="0" placeholder="e.g. 5" type="number"/>
+<button onclick="calculateFactorial()">Compute n!</button>
+<div aria-live="polite" class="calc-result" id="fact-result">Result will appear here...</div>
+</div>
+<!-- Calculator 3: BMI Calculator -->
+<div class="calculator-widget" id="calc-bmi">
+<h4>⚖️ BMI Calculator</h4>
+<p>Enter weight (kg) and height (m) to calculate BMI.</p>
+<label for="weight-input">Weight (kg):</label>
+<input aria-label="Weight in kg" id="weight-input" min="1" placeholder="e.g. 70" step="0.1" type="number"/>
+<label for="height-input">Height (m):</label>
+<input aria-label="Height in meters" id="height-input" min="0.1" placeholder="e.g. 1.75" step="0.01" type="number"/>
+<button onclick="calculateBMI()">Calculate BMI</button>
+<div aria-live="polite" class="calc-result" id="bmi-result">Result will appear here...</div>
+</div>
+</section>
+<!-- ==================== SECTION: ASSESSMENT ==================== -->
+<section id="assessment">
+<h2>📝 Assessment Scheme</h2>
+<table>
+<thead><tr><th>Component</th><th>Weightage</th><th>Type</th></tr></thead>
+<tbody>
+<tr><td>Internal Assessment (IA)</td><td>40%</td><td>Assignments, quizzes, lab work, attendance</td></tr>
+<tr><td>End Semester Exam (ESE)</td><td>60%</td><td>Written theory + programming problems</td></tr>
+<tr><td><strong>Total</strong></td><td><strong>100%</strong></td><td>Minimum pass: 40% overall</td></tr>
+</tbody>
+</table>
+</section>
+<!-- ==================== SECTION: QUESTIONS ==================== -->
+<section id="questions">
+<h2>❓ Practice Questions</h2>
+<h3>Module 1</h3>
+<ol>
+<li>Write a program to check if a given number is prime.</li>
+<li>Explain the difference between <code>break</code>, <code>continue</code>, and <code>pass</code> with examples.</li>
+<li>Write a program to reverse a string without using <code>[::-1]</code>.</li>
+</ol>
+<h3>Module 2</h3>
+<ol>
+<li>Create a list of 10 numbers and write code to find the second largest element.</li>
+<li>Given two dictionaries, merge them into one. If keys overlap, sum their values.</li>
+<li>Demonstrate set operations (union, intersection, difference) with real-world examples.</li>
+</ol>
+<h3>Module 3</h3>
+<ol>
+<li>Write a recursive function to compute the nth Fibonacci number.</li>
+<li>Explain <code>*args</code> and <code>**kwargs</code> with a practical example.</li>
+<li>Write a program to count word frequency in a text file.</li>
+</ol>
+<h3>Module 4</h3>
+<ol>
+<li>Design a <code>BankAccount</code> class with deposit, withdraw, and balance-check methods.</li>
+<li>Write a function that uses exception handling to safely parse an integer from user input.</li>
+<li>Use regex to validate Indian mobile numbers and email addresses.</li>
+</ol>
+</section>
+<!-- ==================== SECTION: MODEL PAPER ==================== -->
+<section id="model-paper">
+<h2>📄 Model Question Paper</h2>
+<p><strong>Duration:</strong> 3 Hours | <strong>Max Marks:</strong> 100</p>
+<table>
+<thead><tr><th>Part</th><th>Questions</th><th>Marks</th></tr></thead>
+<tbody>
+<tr><td>A</td><td>10 short-answer (all compulsory)</td><td>10 × 2 = 20</td></tr>
+<tr><td>B</td><td>5 out of 7 medium-length</td><td>5 × 8 = 40</td></tr>
+<tr><td>C</td><td>2 out of 4 long programming problems</td><td>2 × 20 = 40</td></tr>
+</tbody>
+</table>
+<p><strong>Sample Questions:</strong></p>
+<ul>
+<li><strong>Part A:</strong> Define tuple unpacking. What is the output of <code>print(2**3**2)</code>?</li>
+<li><strong>Part B:</strong> Explain dictionary methods with examples. Write a program using list comprehension to filter even numbers.</li>
+<li><strong>Part C:</strong> Design a complete class hierarchy for a Library Management System. Write a Python program to read a CSV file and generate a summary report.</li>
+</ul>
+</section>
+<!-- ==================== SECTION: REVISION ==================== -->
+<section id="revision">
+<h2>🔄 Revision Notes</h2>
+<details>
+<summary>Module 1 Quick Recap</summary>
+<div class="details-content">
+<ul>
+<li>Python is dynamically typed and uses indentation for blocks.</li>
+<li>Core types: int, float, str, bool, list, tuple, dict, set.</li>
+<li><code>if-elif-else</code> for branching; <code>for</code> and <code>while</code> for loops.</li>
+<li>Strings are immutable; use methods like <code>.strip()</code>, <code>.split()</code>, <code>.join()</code>.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary>Module 2 Quick Recap</summary>
+<div class="details-content">
+<ul>
+<li>Lists: mutable, ordered. Use <code>.append()</code>, slicing, comprehensions.</li>
+<li>Tuples: immutable, ordered. Good for fixed data and dict keys.</li>
+<li>Dicts: key-value pairs. Use <code>.get()</code> for safe access.</li>
+<li>Sets: unique elements. Use <code>|</code>, <code>&amp;</code>, <code>-</code>, <code>^</code> for set operations.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary>Module 3 Quick Recap</summary>
+<div class="details-content">
+<ul>
+<li>Functions: <code>def</code>, default args, <code>*args</code>, <code>**kwargs</code>.</li>
+<li>Scope: LEGB rule (Local→Enclosing→Global→Built-in).</li>
+<li>Recursion needs a base case to terminate.</li>
+<li>File I/O: use <code>with open(...) as f:</code> for auto-closing.</li>
+</ul>
+</div>
+</details>
+<details>
+<summary>Module 4 Quick Recap</summary>
+<div class="details-content">
+<ul>
+<li>OOP: Classes, <code>__init__</code>, inheritance, polymorphism, encapsulation.</li>
+<li>Exceptions: <code>try-except-else-finally</code>.</li>
+<li>Regex: <code>re.findall()</code>, <code>re.sub()</code>, <code>re.match()</code>.</li>
+<li>Debugging: Use <code>logging</code> instead of <code>print()</code>.</li>
+</ul>
+</div>
+</details>
+</section>
+<!-- ==================== SECTION: GLOSSARY ==================== -->
+<section id="glossary">
+<h2>📚 Glossary</h2>
+<p><span class="glossary-term">Argument:</span> <span class="glossary-def">A value passed to a function when it is called.</span></p>
+<p><span class="glossary-term">Class:</span> <span class="glossary-def">A blueprint for creating objects, defining attributes and methods.</span></p>
+<p><span class="glossary-term">Dictionary:</span> <span class="glossary-def">An unordered, mutable collection of key-value pairs with O(1) average lookup.</span></p>
+<p><span class="glossary-term">Exception:</span> <span class="glossary-def">An error that occurs during program execution, which can be caught and handled.</span></p>
+<p><span class="glossary-term">Immutable:</span> <span class="glossary-def">An object whose state cannot be modified after creation (e.g., str, tuple, int).</span></p>
+<p><span class="glossary-term">Lambda:</span> <span class="glossary-def">An anonymous, single-expression function defined with the <code>lambda</code> keyword.</span></p>
+<p><span class="glossary-term">List Comprehension:</span> <span class="glossary-def">A concise way to create lists using a single line of code: <code>[expr for item in iterable]</code>.</span></p>
+<p><span class="glossary-term">Module:</span> <span class="glossary-def">A file containing Python definitions and statements that can be imported.</span></p>
+<p><span class="glossary-term">Mutable:</span> <span class="glossary-def">An object whose state can be modified after creation (e.g., list, dict, set).</span></p>
+<p><span class="glossary-term">Recursion:</span> <span class="glossary-def">A technique where a function calls itself to solve smaller instances of the same problem.</span></p>
+</section>
+<!-- ==================== SECTION: REFERENCES ==================== -->
+<section id="references">
+<h2>🔗 References</h2>
+<ul>
+<li>Python Official Documentation: </li>
+<li>Python Standard Library: </li>
+<li>Real Python Tutorials: </li>
+<li>Ge============ SECTION: HANDBOOK SEARCH ===========    <p>Use the search bar at the top of the page to find any topic, function name, or concept across all modules. The search scans all section headiary", "recursion", "OOP", "list comprehension", "exception", "file I/O"</p>
+<div class="ml-note" lang="ml">
+<strong>📌 തിരയൽ:</strong> പേജിന്റെ മുകളിലുള്ള സെർച്ച് ബോക്സിൽ ഏത് ടോപ്പിക്കും തിരയാം. എല്ലാ മൊഡ്യൂളുകളിലും ഒരേസമയം തിരയുന്നതാണ്.
             </div>
-
-            <!-- Calculator 2: Factorial Calculator -->
-            <div class="calculator-widget" id="calc-factorial">
-                <h4>🔢 Factorial Calculator (Recursive)</h4>
-                <p>Enter a non-negative integer to compute its factorial.</p>
-                <label for="fact-input">n:</label>
-                <input type="number" id="fact-input" min="0" max="20" placeholder="e.g. 5" aria-label="Enter number for factorial">
-                <button onclick="calculateFactorial()">Compute n!</button>
-                <div class="calc-result" id="fact-result" aria-live="polite">Result will appear here...</div>
-            </div>
-
-            <!-- Calculator 3: BMI Calculator -->
-            <div class="calculator-widget" id="calc-bmi">
-                <h4>⚖️ BMI Calculator</h4>
-                <p>Enter weight (kg) and height (m) to calculate BMI.</p>
-                <label for="weight-input">Weight (kg):</label>
-                <input type="number" id="weight-input" min="1" step="0.1" placeholder="e.g. 70" aria-label="Weight in kg">
-                <label for="height-input">Height (m):</label>
-                <input type="number" id="height-input" min="0.1" step="0.01" placeholder="e.g. 1.75" aria-label="Height in meters">
-                <button onclick="calculateBMI()">Calculate BMI</button>
-                <div class="calc-result" id="bmi-result" aria-live="polite">Result will appear here...</div>
-            </div>
-        </section>
-
-        <!-- ==================== SECTION: ASSESSMENT ==================== -->
-        <section id="assessment">
-            <h2>📝 Assessment Scheme</h2>
-            <table>
-                <thead><tr><th>Component</th><th>Weightage</th><th>Type</th></tr></thead>
-                <tbody>
-                    <tr><td>Internal Assessment (IA)</td><td>40%</td><td>Assignments, quizzes, lab work, attendance</td></tr>
-                    <tr><td>End Semester Exam (ESE)</td><td>60%</td><td>Written theory + programming problems</td></tr>
-                    <tr><td><strong>Total</strong></td><td><strong>100%</strong></td><td>Minimum pass: 40% overall</td></tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- ==================== SECTION: QUESTIONS ==================== -->
-        <section id="questions">
-            <h2>❓ Practice Questions</h2>
-            <h3>Module 1</h3>
-            <ol>
-                <li>Write a program to check if a given number is prime.</li>
-                <li>Explain the difference between <code>break</code>, <code>continue</code>, and <code>pass</code> with examples.</li>
-                <li>Write a program to reverse a string without using <code>[::-1]</code>.</li>
-            </ol>
-            <h3>Module 2</h3>
-            <ol>
-                <li>Create a list of 10 numbers and write code to find the second largest element.</li>
-                <li>Given two dictionaries, merge them into one. If keys overlap, sum their values.</li>
-                <li>Demonstrate set operations (union, intersection, difference) with real-world examples.</li>
-            </ol>
-            <h3>Module 3</h3>
-            <ol>
-                <li>Write a recursive function to compute the nth Fibonacci number.</li>
-                <li>Explain <code>*args</code> and <code>**kwargs</code> with a practical example.</li>
-                <li>Write a program to count word frequency in a text file.</li>
-            </ol>
-            <h3>Module 4</h3>
-            <ol>
-                <li>Design a <code>BankAccount</code> class with deposit, withdraw, and balance-check methods.</li>
-                <li>Write a function that uses exception handling to safely parse an integer from user input.</li>
-                <li>Use regex to validate Indian mobile numbers and email addresses.</li>
-            </ol>
-        </section>
-
-        <!-- ==================== SECTION: MODEL PAPER ==================== -->
-        <section id="model-paper">
-            <h2>📄 Model Question Paper</h2>
-            <p><strong>Duration:</strong> 3 Hours | <strong>Max Marks:</strong> 100</p>
-            <table>
-                <thead><tr><th>Part</th><th>Questions</th><th>Marks</th></tr></thead>
-                <tbody>
-                    <tr><td>A</td><td>10 short-answer (all compulsory)</td><td>10 × 2 = 20</td></tr>
-                    <tr><td>B</td><td>5 out of 7 medium-length</td><td>5 × 8 = 40</td></tr>
-                    <tr><td>C</td><td>2 out of 4 long programming problems</td><td>2 × 20 = 40</td></tr>
-                </tbody>
-            </table>
-            <p><strong>Sample Questions:</strong></p>
-            <ul>
-                <li><strong>Part A:</strong> Define tuple unpacking. What is the output of <code>print(2**3**2)</code>?</li>
-                <li><strong>Part B:</strong> Explain dictionary methods with examples. Write a program using list comprehension to filter even numbers.</li>
-                <li><strong>Part C:</strong> Design a complete class hierarchy for a Library Management System. Write a Python program to read a CSV file and generate a summary report.</li>
-            </ul>
-        </section>
-
-        <!-- ==================== SECTION: REVISION ==================== -->
-        <section id="revision">
-            <h2>🔄 Revision Notes</h2>
-            <details>
-                <summary>Module 1 Quick Recap</summary>
-                <div class="details-content">
-                    <ul>
-                        <li>Python is dynamically typed and uses indentation for blocks.</li>
-                        <li>Core types: int, float, str, bool, list, tuple, dict, set.</li>
-                        <li><code>if-elif-else</code> for branching; <code>for</code> and <code>while</code> for loops.</li>
-                        <li>Strings are immutable; use methods like <code>.strip()</code>, <code>.split()</code>, <code>.join()</code>.</li>
-                    </ul>
-                </div>
-            </details>
-            <details>
-                <summary>Module 2 Quick Recap</summary>
-                <div class="details-content">
-                    <ul>
-                        <li>Lists: mutable, ordered. Use <code>.append()</code>, slicing, comprehensions.</li>
-                        <li>Tuples: immutable, ordered. Good for fixed data and dict keys.</li>
-                        <li>Dicts: key-value pairs. Use <code>.get()</code> for safe access.</li>
-                        <li>Sets: unique elements. Use <code>|</code>, <code>&</code>, <code>-</code>, <code>^</code> for set operations.</li>
-                    </ul>
-                </div>
-            </details>
-            <details>
-                <summary>Module 3 Quick Recap</summary>
-                <div class="details-content">
-                    <ul>
-                        <li>Functions: <code>def</code>, default args, <code>*args</code>, <code>**kwargs</code>.</li>
-                        <li>Scope: LEGB rule (Local→Enclosing→Global→Built-in).</li>
-                        <li>Recursion needs a base case to terminate.</li>
-                        <li>File I/O: use <code>with open(...) as f:</code> for auto-closing.</li>
-                    </ul>
-                </div>
-            </details>
-            <details>
-                <summary>Module 4 Quick Recap</summary>
-                <div class="details-content">
-                    <ul>
-                        <li>OOP: Classes, <code>__init__</code>, inheritance, polymorphism, encapsulation.</li>
-                        <li>Exceptions: <code>try-except-else-finally</code>.</li>
-                        <li>Regex: <code>re.findall()</code>, <code>re.sub()</code>, <code>re.match()</code>.</li>
-                        <li>Debugging: Use <code>logging</code> instead of <code>print()</code>.</li>
-                    </ul>
-                </div>
-            </details>
-        </section>
-
-        <!-- ==================== SECTION: GLOSSARY ==================== -->
-        <section id="glossary">
-            <h2>📚 Glossary</h2>
-            <p><span class="glossary-term">Argument:</span> <span class="glossary-def">A value passed to a function when it is called.</span></p>
-            <p><span class="glossary-term">Class:</span> <span class="glossary-def">A blueprint for creating objects, defining attributes and methods.</span></p>
-            <p><span class="glossary-term">Dictionary:</span> <span class="glossary-def">An unordered, mutable collection of key-value pairs with O(1) average lookup.</span></p>
-            <p><span class="glossary-term">Exception:</span> <span class="glossary-def">An error that occurs during program execution, which can be caught and handled.</span></p>
-            <p><span class="glossary-term">Immutable:</span> <span class="glossary-def">An object whose state cannot be modified after creation (e.g., str, tuple, int).</span></p>
-            <p><span class="glossary-term">Lambda:</span> <span class="glossary-def">An anonymous, single-expression function defined with the <code>lambda</code> keyword.</span></p>
-            <p><span class="glossary-term">List Comprehension:</span> <span class="glossary-def">A concise way to create lists using a single line of code: <code>[expr for item in iterable]</code>.</span></p>
-            <p><span class="glossary-term">Module:</span> <span class="glossary-def">A file containing Python definitions and statements that can be imported.</span></p>
-            <p><span class="glossary-term">Mutable:</span> <span class="glossary-def">An object whose state can be modified after creation (e.g., list, dict, set).</span></p>
-            <p><span class="glossary-term">Recursion:</span> <span class="glossary-def">A technique where a function calls itself to solve smaller instances of the same problem.</span></p>
-        </section>
-
-        <!-- ==================== SECTION: REFERENCES ==================== -->
-        <section id="references">
-            <h2>🔗 References</h2>
-            <ul>
-                <li>Python Official Documentation: <a href="https://docs.python.org/3/" target="_blank" rel="noopener">docs.python.org/3/</a></li>
-                <li>Python Standard Library: <a href="https://docs.python.org/3/library/" target="_blank" rel="noopener">docs.python.org/3/library/</a></li>
-                <li>PEP 8 — Style Guide: <a href="https://peps.python.org/pep-0008/" target="_blank" rel="noopener">peps.python.org/pep-0008/</a></li>
-                <li>Real Python Tutorials: <a href="https://realpython.com/" target="_blank" rel="noopener">realpython.com</a></li>
-                <li>W3Schools Python: <a href="https://www.w3schools.com/python/" target="_blank" rel="noopener">w3schools.com/python/</a></li>
-                <li>GeeksforGeeks Python: <a href="https://www.geeksforgeeks.org/python-programming-language/" target="_blank" rel="noopener">geeksforgeeks.org</a></li>
-            </ul>
-        </section>
-
-        <!-- ==================== SECTION: HANDBOOK SEARCH ==================== -->
-        <section id="handbook-search">
-            <h2>🔎 Handbook Search</h2>
-            <p>Use the search bar at the top of the page to find any topic, function name, or concept across all modules. The search scans all section headings and <code>&lt;details&gt;</code> summaries.</p>
-            <p><strong>Try searching for:</strong> "lambda", "dictionary", "recursion", "OOP", "list comprehension", "exception", "file I/O"</p>
-            <div class="ml-note" lang="ml">
-                <strong>📌 തിരയൽ:</strong> പേജിന്റെ മുകളിലുള്ള സെർച്ച് ബോക്സിൽ ഏത് ടോപ്പിക്കും തിരയാം. എല്ലാ മൊഡ്യൂളുകളിലും ഒരേസമയം തിരയുന്നതാണ്.
-            </div>
-        </section>
-
-    </main>
-
-    <!-- External JS -->
-    <script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
-    <script>
+</li></ul></section>
+</main>
+<!-- External JS -->
+<script defer="" src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1"></script>
+<script>
         (function() {
             // ===== READING PROGRESS BAR =====
             const progressBar = document.getElementById('reading-progress-bar');
