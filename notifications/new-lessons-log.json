@@ -1652,6 +1652,13 @@
       "subjectName": "Electric Vehicles and Traction",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6034D.html"
+    },
+    "REV2026:6042:revision-2026-content/lessons/lessons-6042.html": {
+      "messageId": "projects/poly-pmna/messages/6692087262919961550",
+      "subjectCode": "6042",
+      "subjectName": "Robotics and Artificial Intelligence",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6042.html"
     }
   }
 }
