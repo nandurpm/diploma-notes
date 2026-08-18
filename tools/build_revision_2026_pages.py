@@ -123,10 +123,11 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         '<span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>'
     )
     
+    fallback_qp_url = f"https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course={esc(code)}"
     qp_action = (
         f'<a class="action qp" href="{esc(qp_url)}" download="{esc(pdf_filename(qp_url))}" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open Model Question Paper</a>'
         if qp_url else
-        '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
+        f'<a class="action qp" href="{fallback_qp_url}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open Model Question Paper</a>'
     )
 
     search_text = " ".join(

@@ -266,9 +266,10 @@
       ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" target="_blank" rel="noopener noreferrer">Save as PDF</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
       
+    const fallbackQp = `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${esc(code)}`;
     const qpAction = qp 
       ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Open Model Question Paper</a>` 
-      : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
+      : `<a class="action qp" href="${fallbackQp}" target="_blank" rel="noopener noreferrer">Open Model Question Paper</a>`;
       
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
     
