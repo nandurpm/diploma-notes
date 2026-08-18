@@ -254,10 +254,8 @@
     const qp = pdf.modelQuestionPaper ? `${PDF_BASE}${pdf.modelQuestionPaper}` : "";
     const syllabusAction = syllabus ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Download Syllabus</a>` : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
     const qpAction = qp ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>` : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
-    const lesson = `/revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`;
-    const notes = `${lesson}?autoPrintNotes=1`;
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
-    return `<article class="subject-card" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="true" data-notes-available="true"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(notes)}" title="Open the lesson in print mode and save it as a PDF.">Save as PDF</a>${qpAction}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${qpAction}</div></article>`;
   }
 
   function semesterSection(number, subjects, programmeName) {

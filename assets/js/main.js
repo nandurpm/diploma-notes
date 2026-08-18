@@ -33,8 +33,6 @@
   const path = window.location.pathname || "/";
   const isLessonPage = /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(path);
   const isHomePage = path === "/" || /\/index\.html$/i.test(path);
-  const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php";
-  const REV2026_SYLLABUS_ROUTE = "site%2Fdiploma-syllabus-course-contents";
   const REVEAL_CSS_PATH = "/assets/css/reveal.css";
   const REVEAL_JS_PATH = "/assets/js/reveal.js";
   const REVEAL_VERSION = "20260728-global-reveal1";
@@ -161,116 +159,29 @@
     });
   }
 
-  /* =========================================================
-     REVISION 2026 OFFICIAL LINK CONFIGURATION
-     ---------------------------------------------------------
-     Configures individual action links (Syllabus, Model QP)
-     on a single Revision 2026 subject card to point to the
-     official SITTTR Kerala website. Extracts the course code
-     from the card's data attributes and constructs the
-     appropriate external URL.
-     ========================================================= */
-  function configureOfficialLink(link, href, label, title) {
-    if (!link) return;
-    link.href = href;
-    link.textContent = label;
-    link.title = title;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer external";
-    link.removeAttribute("download");
-  }
-
-  function configureUnavailableModelPaper(link, code) {
-    if (!link) return;
-    const message = `Model Question Paper not available for Revision 2026 for course ${code}.`;
-    link.textContent = "Open Model Question Paper";
-    link.title = message;
-    link.setAttribute("aria-label", message);
-    link.setAttribute("aria-disabled", "true");
-    link.dataset.modelPaperUnavailable = "true";
-    link.dataset.modelPaperRevision = "2026";
-    link.dataset.modelPaperCourse = code;
-    link.removeAttribute("href");
-    link.removeAttribute("target");
-    link.removeAttribute("download");
-    link.setAttribute("role", "button");
-    link.tabIndex = 0;
-    if (link.dataset.modelPaperUnavailableBound) return;
-    link.dataset.modelPaperUnavailableBound = "true";
-    const showUnavailable = event => {
-      event.preventDefault();
-      window.alert(message);
-    };
-    link.addEventListener("click", showUnavailable);
-    link.addEventListener("keydown", event => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      showUnavailable(event);
-    });
-  }
+  // Revision 2026 action links are owned by the repository PDF manifest.
 
   /* =========================================================
      REVISION 2026 CARD LINK NORMALIZER
      ---------------------------------------------------------
-     Scans all Revision 2026 subject cards on the page and
-     updates their Syllabus and Model Question Paper action
-     buttons to link to the official SITTTR Kerala website.
-     Extracts the 4-digit course code from each card.
+     Revision 2026 cards are already linked to the repository PDF
+     manifest by their page generator and browser renderer. The
+     legacy official-link rewrite is intentionally disabled.
      ========================================================= */
-  function normalizeRev2026OfficialLinks(scope = document) {
-    const cards = [];
-    const revision2026Selector = '.subject-card[data-revision="2026"], .subject-card[data-revision="REV2026"]';
-    if (scope.nodeType === 1 && scope.matches?.(revision2026Selector)) cards.push(scope);
-    scope.querySelectorAll?.(revision2026Selector).forEach(card => cards.push(card));
-
-    cards.forEach(card => {
-      const code = String(
-        card.dataset.subjectCode || card.querySelector(".subject-top strong")?.textContent || ""
-      ).trim().toUpperCase();
-      if (!/^[0-9]{4}[A-Z]?$/.test(code)) return;
-
-      const encodedCode = encodeURIComponent(code);
-      configureOfficialLink(
-        card.querySelector(".action.syllabus"),
-        `${SITTTR_BASE}?r=${REV2026_SYLLABUS_ROUTE}&course=${encodedCode}&scheme=REV2026`,
-        "Open Syllabus",
-        `Open the official SITTTR syllabus for Revision 2026 course ${code}.`
-      );
-      configureOfficialLink(
-        card.querySelector(".action.qp"),
-        `${SITTTR_BASE}?r=site%2Fdiploma-modelqp-courses-show&course=${encodedCode}&scheme=REV2026`,
-        "Open Model Question Paper",
-        `Open the official SITTTR Revision 2026 model-question-paper page for course ${code}.`
-      );
-    });
+  // Revision 2026 cards are generated from the repository PDF manifest. Do not
+  // rewrite their links to the official SITTTR pages after the page renders.
+  function normalizeRev2026OfficialLinks() {
+    return;
   }
 
   /* =========================================================
      REVISION 2026 CARD WATCHER
      ---------------------------------------------------------
-     Uses a MutationObserver to watch for dynamically added
-     Revision 2026 subject cards (e.g., from AJAX-loaded content
-     or browser-rendered grids) and normalizes their links
-     as they appear. Prevents cards loaded after initial page
-     render from having broken Syllabus/QP links.
+     Retained as a compatibility no-op for older integrations;
+     current Revision 2026 pages own their repository PDF links.
      ========================================================= */
   function watchRev2026Cards() {
-    normalizeRev2026OfficialLinks(document);
-    if (!document.body || isLessonPage) return;
-
-    let timer = 0;
-    new MutationObserver(mutations => {
-      const relevant = mutations.some(mutation =>
-        [...mutation.addedNodes].some(node =>
-          node.nodeType === 1 && (
-            node.matches?.('.subject-card[data-revision="2026"], .subject-card[data-revision="REV2026"]') ||
-            node.querySelector?.('.subject-card[data-revision="2026"], .subject-card[data-revision="REV2026"]')
-          )
-        )
-      );
-      if (!relevant) return;
-      clearTimeout(timer);
-      timer = window.setTimeout(() => normalizeRev2026OfficialLinks(document), 50);
-    }).observe(document.body, { childList: true, subtree: true });
+    return;
   }
 
   /* =========================================================
@@ -328,7 +239,8 @@
     normalizeLegacyInternalLinks();
     ensureSiteShell();
     ensureVisitorPopup();
-    watchRev2026Cards();
+    // Revision 2026 pages own their syllabus/model-paper links through the PDF manifest.
+
     ensureSearchShortcut();
   }
 
