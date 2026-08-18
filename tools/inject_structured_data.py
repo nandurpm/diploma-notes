@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
 EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tools", "workers", "node_modules", "_site"}
-EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html"}
+EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html", "origin_main_1253.html"}
 BLOCK_RE = re.compile(r'<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>[\s\S]*?</script>\s*', re.I)
 HEAD_END_RE = re.compile(r"</head>", re.I)
 DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
