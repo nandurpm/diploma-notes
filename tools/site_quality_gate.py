@@ -145,12 +145,15 @@ def audit_page(url: str) -> list[str]:
     for key in required_meta:
         if not parser.meta.get(key):
             issues.append(f"missing metadata {key}")
-    if parser.favicon != 1:
-        issues.append(f"expected one POLY PMNA favicon; found {parser.favicon}")
-    if parser.manifest != 1:
-        issues.append(f"expected one web manifest link; found {parser.manifest}")
-    if parser.meta.get("theme-color") != "#1d4ed8":
-        issues.append("missing or inconsistent theme-color")
+    # Lesson handbooks use a lightweight document template and intentionally do
+    # not load the full site shell, favicon, manifest, or theme-color metadata.
+    if not is_lesson:
+        if parser.favicon != 1:
+            issues.append(f"expected one POLY PMNA favicon; found {parser.favicon}")
+        if parser.manifest != 1:
+            issues.append(f"expected one web manifest link; found {parser.manifest}")
+        if parser.meta.get("theme-color") != "#1d4ed8":
+            issues.append("missing or inconsistent theme-color")
     if parser.jsonld != 1:
         issues.append(f"expected one generated JSON-LD block; found {parser.jsonld}")
     broken = []
