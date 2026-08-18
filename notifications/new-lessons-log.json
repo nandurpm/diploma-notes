@@ -1687,6 +1687,13 @@
       "subjectName": "Bio-medical Electronics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6044B.html"
+    },
+    "REV2026:6044D:revision-2026-content/lessons/lessons-6044D.html": {
+      "messageId": "projects/poly-pmna/messages/6175883450019923551",
+      "subjectCode": "6044D",
+      "subjectName": "Digital Signal Processing",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6044D.html"
     }
   }
 }
