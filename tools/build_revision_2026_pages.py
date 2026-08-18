@@ -15,11 +15,9 @@ REV2026_CONTENT = Path("revision-2026-content")
 REV2026_LESSONS = REV2026_CONTENT / "lessons"
 SITE = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = SITE + "/assets/media/poly-pmna-study-hub-social-card.png"
-SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026"
-MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 REPORT_JSON = Path("reports/archive/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/archive/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260818-four-button-cards1"
+VERSION = "20260818-pdf-only-final1"
 PDF_MANIFEST = json.loads(Path("assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
 PDF_BASE = PDF_MANIFEST["base"]
 PDF_LINKS = PDF_MANIFEST["links"].get("2026", {})
@@ -105,31 +103,15 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     syllabus_url = pdf_href(programme, row, code, "syllabus")
     qp_url = pdf_href(programme, row, code, "modelQuestionPaper")
     
-    # Check for lesson availability
-    lesson_file = REV2026_LESSONS / f"lessons-{code}.html"
-    handbook_available = lesson_file.exists()
-    lesson_href = f"/revision-2026-content/lessons/lessons-{code}.html"
-    notes_href = f"{lesson_href}?autoPrintNotes=1"
-    
     syllabus_action = (
-        f'<a class="action syllabus" href="{esc(syllabus_url)}" download="{esc(pdf_filename(syllabus_url))}">Open Syllabus</a>'
+        f'<a class="action syllabus" href="{esc(syllabus_url)}" download="{esc(pdf_filename(syllabus_url))}">Download Syllabus</a>'
         if syllabus_url else
-        f'<a class="action syllabus" href="{SYLLABUS_INDEX}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
+        '<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>'
     )
-    
-    study_actions = (
-        f'<a class="action lessons" href="{esc(lesson_href)}">View Lessons</a>'
-        f'<a class="action download" href="{esc(notes_href)}" target="_blank" rel="noopener noreferrer">Save as PDF</a>'
-        if handbook_available else
-        '<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span>'
-        '<span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>'
-    )
-    
-    fallback_qp_url = f"https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course={esc(code)}"
     qp_action = (
-        f'<a class="action qp" href="{esc(qp_url)}" download="{esc(pdf_filename(qp_url))}" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open Model Question Paper</a>'
+        f'<a class="action qp" href="{esc(qp_url)}" download="{esc(pdf_filename(qp_url))}" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Download Model Question Paper</a>'
         if qp_url else
-        f'<a class="action qp" href="{fallback_qp_url}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open Model Question Paper</a>'
+        '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
     )
 
     search_text = " ".join(
@@ -139,16 +121,12 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     return (
         f'<article class="subject-card reveal" data-subject-code="{esc(code)}" '
         f'data-revision="REV2026" data-semester="{esc(semester)}" '
-        f'data-search-text="{esc(search_text)}" '
-        f'data-notes-href="{esc(notes_href)}" data-lesson-href="{esc(lesson_href)}" '
-        f'data-lesson-available="{"true" if handbook_available else "false"}" '
-        f'data-notes-available="{"true" if handbook_available else "false"}">'
+        f'data-search-text="{esc(search_text)}">'
         f'<div class="subject-top"><span>2026</span><strong>{esc(code)}</strong></div>'
         f'<h3>{esc(name)}</h3>'
         f'<p>{esc(programme["name"])} / {esc(semester)} / {esc(subject_type)}</p>'
         f'<div class="action-row">'
         f'{syllabus_action}'
-        f'{study_actions}'
         f'{qp_action}'
         f'</div></article>'
     )

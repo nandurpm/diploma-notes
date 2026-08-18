@@ -23,9 +23,11 @@ def main() -> int:
         text = path.read_text(encoding="utf-8")
         if 'id="subjectGrid"' not in text:
             continue
-        if "<noscript" in text:
-            updated, count = re.subn(r'<noscript><section class="notice">.*?</noscript>', FALLBACK, text, count=1, flags=re.S)
-        else:
+        legacy_pattern = r'<noscript\b[^>]*>.*?sitttrkerala\.ac\.in.*?</noscript>'
+        updated, count = re.subn(legacy_pattern, FALLBACK, text, count=0, flags=re.I | re.S)
+        if count == 0 and "<noscript" in text:
+            updated, count = re.subn(r'<noscript\b[^>]*>.*?</noscript>', FALLBACK, text, count=1, flags=re.I | re.S)
+        elif count == 0:
             updated, count = EMPTY_GRID.subn(lambda match: match.group(1) + "</div>" + FALLBACK, text, count=1)
         if count != 1:
             raise SystemExit(f"Could not normalize {path.relative_to(ROOT)}")

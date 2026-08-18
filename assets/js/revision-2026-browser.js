@@ -29,7 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260818-four-button-cards1";
+  const VERSION = "20260818-pdf-only-final1";
   let PDF_LINKS = {};
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
   const PROGRAMME_ART = {
@@ -253,27 +253,17 @@
     const syllabus = pdf.syllabus ? `${PDF_BASE}${pdf.syllabus}` : "";
     const qp = pdf.modelQuestionPaper ? `${PDF_BASE}${pdf.modelQuestionPaper}` : "";
     
-    // Handbook availability check (using the global set if available)
-    const handbookAvailable = window.REV2026_LESSON_CODES ? window.REV2026_LESSON_CODES.has(code) : false;
-    const lessonHref = `/revision-2026-content/lessons/lessons-${code}.html`;
-    const notesHref = `${lessonHref}?autoPrintNotes=1`;
-    
     const syllabusAction = syllabus 
-      ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Open Syllabus</a>` 
-      : `<a class="action syllabus" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open Syllabus</a>`;
+      ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Download Syllabus</a>`
+      : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
       
-    const studyActions = handbookAvailable
-      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" target="_blank" rel="noopener noreferrer">Save as PDF</a>`
-      : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-      
-    const fallbackQp = `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${esc(code)}`;
     const qpAction = qp 
-      ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Open Model Question Paper</a>` 
-      : `<a class="action qp" href="${fallbackQp}" target="_blank" rel="noopener noreferrer">Open Model Question Paper</a>`;
+      ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>`
+      : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
       
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
     
-    return `<article class="subject-card" data-subject-code="${esc(code)}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${handbookAvailable}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${studyActions}${qpAction}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(code)}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${qpAction}</div></article>`;
   }
 
   function semesterSection(number, subjects, programmeName) {

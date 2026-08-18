@@ -300,6 +300,9 @@ def validate() -> None:
 
 
 def main() -> int:
+    if not (ROOT / "assets/js/lesson-availability-hotfix.js").exists():
+        print("REV2026 legacy lesson hotfix is retired; no repair is required.")
+        return 0
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="Validate without modifying files")
     args = parser.parse_args()
