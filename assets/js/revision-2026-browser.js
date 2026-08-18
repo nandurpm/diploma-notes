@@ -384,7 +384,7 @@
         enhanceStaticDepartment();
         return;
       }
-      grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> ; official Revision 2026 sample papers are not published yet.</div>';
+      grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. Please retry after the subject archive is available; archived syllabus PDFs are served from the POLY PMNA PDF repository.</div>';
     }
   }
 

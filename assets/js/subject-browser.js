@@ -102,36 +102,32 @@
   const revisionYear = revision => revisionTag(revision).replace(/^REV/, "");
   const makeCourseKey = subject => `${revisionTag(subject.revision)}-${norm(subject.code)}`;
   const key = s => `${makeCourseKey(s)}|${s.department}`;
-  const directCourseUrl = (code, revision) => {
-    const tag = revisionTag(revision);
-    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${tag ? `&scheme=${encodeURIComponent(tag)}` : ""}`;
+  let PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
+  let PDF_LINKS = {};
+  const pdfSlug = value => String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const pdfHref = (subject, kind) => {
+    const revision = revisionYear(subject.revision);
+    const code = norm(subject.code);
+    const revisionLinks = PDF_LINKS[revision] || {};
+    const slug = pdfSlug(subject.department);
+    const direct = revisionLinks[`${revision}|${slug}|${code}`]?.[kind];
+    if (direct) return `${PDF_BASE}${direct}`;
+    const suffix = `|${code}`;
+    const fallback = Object.entries(revisionLinks).find(([key, value]) => key.endsWith(suffix) && value?.[kind]);
+    return fallback ? `${PDF_BASE}${fallback[1][kind]}` : "";
   };
-  // SITTTR's public course endpoint does not reliably distinguish the two
-  // revisions for shared course codes. Until a course-specific REV2021 URL is
-  // verified in the data record, do not send a student to a potentially 2026 page.
-  const syllabusUrl = subject => {
-    const tag = revisionTag(subject.revision);
-    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026";
-    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
-  };
-  const syllabusUnavailableMessage = subject =>
-    `Official syllabus link has not been verified for Revision ${esc(revisionYear(subject.revision))} course ${esc(subject.code)}.`;
+  const pdfFileName = href => href.split("/").pop() || "document.pdf";
   const syllabusAction = subject => {
-    const href = syllabusUrl(subject);
-    if (href) return `<a class="action syllabus" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open Syllabus</a>`;
-    const message = syllabusUnavailableMessage(subject);
-    return `<button class="action syllabus" type="button" data-syllabus-unavailable="true" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${message}" title="${message}" onclick="window.alert(this.title)">Open Syllabus</button>`;
+    const href = pdfHref(subject, "syllabus");
+    return href
+      ? `<a class="action syllabus" href="${esc(href)}" download="${esc(pdfFileName(href))}" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Download Syllabus</a>`
+      : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
   };
-  const questionPaperUrl = subject => {
-    const tag = revisionTag(subject.revision);
-    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
-    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
-  };
-  const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
-  const questionPaperAction = (subject, label) => {
-    const href = questionPaperUrl(subject);
-    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
-    return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
+  const questionPaperAction = (subject, label = "Download Model Question Paper") => {
+    const href = pdfHref(subject, "modelQuestionPaper");
+    return href
+      ? `<a class="action qp" href="${esc(href)}" download="${esc(pdfFileName(href))}" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`
+      : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
   };
 
   function unique(list) {
@@ -165,14 +161,17 @@
 
   async function getSubjects() {
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
-    const [subjectText, revision2026Payload] = await Promise.all([
+    const [subjectText, revision2026Payload, manifest] = await Promise.all([
       // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
       revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
       // PERFORMANCE OPTIMIZATION: use the trimmed subject-browser payload (~720 KB vs ~2.0 MB). The full
       // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
       // and heavy scheme/evaluation metadata that browsing pages never render.
-      fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null),
+      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260818-pdf-only`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
+    PDF_BASE = manifest?.base || PDF_BASE;
+    PDF_LINKS = manifest?.links || {};
     if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
     return unique([...revision2021, ...MANUAL, ...revision2026]);
@@ -209,21 +208,9 @@
 
   function card(subject, mode) {
     if (mode === "papers") {
-      // Question-papers page: show only the sample question paper link,
-      // not syllabus/lessons/notes (those belong on syllabus.html / lessons.html).
-      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
+      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject)}</div></article>`;
     }
-    const { lessonHref, notesHref } = assetPaths(subject);
-    const handbookAvailable = hasLesson(subject);
-    // Notes are generated by printing the lesson HTML; no static PDF is
-    // shipped in the Revision 2021/2026 deployment artifact.
-    const notesAvailable = handbookAvailable;
-    const downloadHref = notesHref;
-    const downloadAttributes = ' target="_blank" rel="noopener noreferrer"';
-    const studyActions = handbookAvailable
-      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Save as PDF</a>`
-      : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${questionPaperAction(subject)}</div></article>`;
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never

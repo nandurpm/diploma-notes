@@ -4,8 +4,6 @@
 
   const MAX_INPUT_CHARS = 1200;
   const COMMON_DEPARTMENT = "First Year / Common";
-  const LESSON_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
-  const NOTES_CODES = new Set(["1001", "1002", "1003", "1004", "1005", "1006", "1008", "2001", "2002", "2003", "2031", "2032", "2038", "2041", "3023", "3031", "3032", "3041", "3043", "3044", "3045", "3046", "3047", "3132", "4001", "6002"]);
 
   const SITE_INDEX = [
     { title: "Home / Quick Subject Finder", url: "/", text: "Search Revision 2021 subjects by code, title, department and semester." },
@@ -25,16 +23,13 @@ Website structure:
 - Home has Quick Subject Finder.
 - Revision 2021 opens department cards and the stable department viewer: /revision-2021/department-view.html?dept=SLUG.
 - Department viewer shows Semester 1 to Semester 6 subject cards.
-- Open Syllabus and Sample QP are official SITTTR links.
-- View Lessons appears only when a local /lessons/lessons-CODE.html file exists.
-- Save as PDF appears when the corresponding local lesson HTML exists; it opens that lesson in print mode so the user can save it as a PDF.
+- Subject cards expose only Download Syllabus and Download Model Question Paper when the corresponding PDF exists in the POLY PMNA archive.
 - Mock Exams are at /daily-quiz.html.
 - 2015 Materials are at /materials-2015.html.
 - Tools are at /tools.html.
 - Help and issue reporting are at /contact.html.
 Rules:
-- Never invent local lesson pages, downloadable PDFs, ZIP files, source files, or download URLs.
-- If a lesson or notes button is missing, say the local file is not uploaded yet.
+- Never invent downloadable PDFs, ZIP files, source files, or download URLs; report an unavailable archive PDF clearly.
 - For broken links, ask for page URL, subject code, button/link name, screenshot, and what happened.
 - Keep answers short, clear, practical, and student-friendly.
 `;
@@ -45,6 +40,8 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
 --- END INTERFACE REQUIREMENTS ---`;
 
   let subjectsCache = null;
+  let pdfManifest = null;
+  const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
 
   function currentConfig() {
     const config = globalThis.ASK_POLY_CONFIG || {};
@@ -137,17 +134,29 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
   }
 
   function subjectUrls(subject) {
-    const code = encodeURIComponent(subject.code || "");
-    const urls = [
-      `[Open Syllabus](https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${code})`,
-      `[Sample QP](https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${code})`
-    ];
-    if (LESSON_CODES.has(String(subject.code))) urls.push(`[View Lessons](/lessons/lessons-${code}.html)`);
-    if (LESSON_CODES.has(String(subject.code))) urls.push(`[Save as PDF](/lessons/lessons-${code}.html?autoPrintNotes=1)`);
-    return urls.join(" | ");
+    const revision = String(subject.revision || "2021").replace(/^REV/i, "");
+    const code = String(subject.code || "").trim().toUpperCase();
+    const links = pdfManifest?.links?.[revision] || {};
+    const entry = links[`${revision}|${subjectSlug(subject.department)}|${code}`] || Object.entries(links).find(([key]) => key.endsWith(`|${code}`))?.[1] || {};
+    const urls = [];
+    if (entry.syllabus) urls.push(`[Download Syllabus](${PDF_BASE}${entry.syllabus})`);
+    if (entry.modelQuestionPaper) urls.push(`[Download Model Question Paper](${PDF_BASE}${entry.modelQuestionPaper})`);
+    return urls.length ? urls.join(" | ") : "Syllabus and model paper PDFs are unavailable in the archive for this subject.";
+  }
+
+  async function loadPdfManifest() {
+    if (pdfManifest) return pdfManifest;
+    try {
+      const response = await fetch("/assets/data/sitttr-pdf-links.json?v=20260818-pdf-only");
+      pdfManifest = response.ok ? await response.json() : { links: {} };
+    } catch {
+      pdfManifest = { links: {} };
+    }
+    return pdfManifest;
   }
 
   async function loadSubjects() {
+    await loadPdfManifest();
     if (Array.isArray(subjectsCache)) return subjectsCache;
     if (Array.isArray(globalThis.SUBJECTS) && globalThis.SUBJECTS.length) {
       subjectsCache = globalThis.SUBJECTS;
@@ -208,8 +217,7 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
   function formatSubjectResults(subjects) {
     if (!subjects.length) return "";
     return `I found these matching subject cards:\n\n${subjects.map((subject) => {
-      const availability = `${LESSON_CODES.has(String(subject.code)) ? "Lesson available" : "Lesson not uploaded"}; ${NOTES_CODES.has(String(subject.code)) ? "Notes available" : "Notes not uploaded"}`;
-      return `- **${subject.code} — ${subject.name}**\n  ${subject.department} / ${subject.semester} / ${subject.type}\n  ${availability}\n  ${subjectUrls(subject)}`;
+      return `- **${subject.code} — ${subject.name}**\n  ${subject.department} / ${subject.semester} / ${subject.type}\n  ${subjectUrls(subject)}`;
     }).join("\n")}`;
   }
 
@@ -235,12 +243,12 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
   function localAnswer(message, retrieval = null) {
     const q = String(message || "").toLowerCase();
     if (retrieval?.answer) return retrieval.answer;
-    if (q.includes("lesson") || q.includes("notes") || q.includes("download")) return "Lesson and Notes buttons appear only when the local file is uploaded. If the button is missing, use Open Syllabus or Sample QP for now, or report the missing file on the Help page.";
+    if (q.includes("lesson") || q.includes("notes") || q.includes("download")) return "Subject cards expose only archived PDF actions. If a syllabus or model-paper PDF is unavailable, report the subject code and page URL on the Help page.";
     if (q.includes("revision") || q.includes("department") || q.includes("subject") || q.includes("semester")) return "Open Revision 2021, choose your department, and the department viewer will show Semester 1 to Semester 6 subject cards. You can also use the homepage Quick Subject Finder to search by subject code or title.";
     if (q.includes("mock") || q.includes("quiz") || q.includes("exam")) return "Open Mock Exams from the top menu or go to /daily-quiz.html. It is for quiz and exam practice.";
     if (q.includes("tool") || q.includes("calculator") || q.includes("electrical") || q.includes("electronics")) return "Open /tools.html. For electrical/electronics students, use calculators, converters, academic helpers, and the POLY Website Guide inside Tools.";
     if (q.includes("broken") || q.includes("report") || q.includes("wrong") || q.includes("not working")) return "To report a problem, open /contact.html and send: page URL, subject code, button/link name, screenshot, and what happened.";
-    if (q.includes("sitttr") || q.includes("syllabus") || q.includes("question paper") || q.includes("qp")) return "Use Open Syllabus and Sample QP buttons on each subject card. They point to official SITTTR pages. Local lessons/notes appear only when uploaded.";
+    if (q.includes("sitttr") || q.includes("syllabus") || q.includes("question paper") || q.includes("qp")) return "Use Download Syllabus and Download Model Question Paper on each subject card. They point to the POLY PMNA PDF archive.";
     return "I can help with polypmna.dpdns.org navigation: Revision 2021 subjects, syllabus links, available lessons/notes, mock exams, 2015 materials, tools and issue reporting.";
   }
 
@@ -267,7 +275,7 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
       prompts.push(["Report issue", "Mock exam page is not working. What should I send?"]);
     } else {
       prompts.push(["Find subjects", "Where can I find Revision 2021 subjects?"]);
-      prompts.push(["Missing notes", "Why is the Save as PDF button missing?"]);
+      prompts.push(["Missing notes", "Why is a PDF action missing?"]);
       prompts.push(["Mock exams", "Explain how to use the mock exams page."]);
       prompts.push(["Report issue", "I found a broken link. What details should I send?"]);
     }

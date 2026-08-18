@@ -2,9 +2,8 @@
 (() => {
   "use strict";
 
-  const MODEL_QP_BASE = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses&prog=";
-  const SYLLABUS_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2015";
-  const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2015";
+  const SYLLABUS_INDEX = "";
+  const MODEL_QP_INDEX = "";
   const SUBJECT_DATA_URLS = [
     "/assets/data/revision-2015-subjects.json?v=20260818-rev2015-polish1",
     "/assets/data/revision-2015-subjects.json"
@@ -37,10 +36,7 @@
       { label: "Workshop Materials Archive", url: "https://drive.google.com/drive/folders/18K8CJwFQU-iHH6z8Wc0hiPEba39sKRNl" }
     ],
 
-    questionPapers: [
-      { label: "Official REV2015 Model Question Paper Index", url: MODEL_QP_INDEX },
-      { label: "Official REV2015 Syllabus Index", url: SYLLABUS_INDEX }
-    ],
+    questionPapers: [],
 
     alternativeNotes: [
       { label: "First Year", url: "https://drive.google.com/open?id=1qHCYDCt2yg2VToC5RbU78ZGD_TN3EtUZ" },
@@ -88,12 +84,12 @@
     }
   }
 
-  function safeSitttrUrl(value) {
+  function safeArchivePdfUrl(value) {
     const href = safeExternalUrl(value);
     if (!href) return "";
     try {
-      const host = new URL(href).hostname.replace(/^www\./, "");
-      return host === "sitttrkerala.ac.in" ? href : "";
+      const url = new URL(href);
+      return url.hostname === "github.com" && url.pathname.includes("poly-pmna-pdf-files") ? href : "";
     } catch (_) {
       return "";
     }
@@ -238,14 +234,14 @@
   }
 
   function subjectCard(subject, programme) {
-    const syllabusUrl = safeSitttrUrl(subject.syllabusUrl);
-    const modelUrl = subject.modelAvailable ? safeSitttrUrl(subject.modelQuestionPaperUrl) : "";
+    const syllabusUrl = safeArchivePdfUrl(subject.syllabusUrl);
+    const modelUrl = subject.modelAvailable ? safeArchivePdfUrl(subject.modelQuestionPaperUrl) : "";
     const syllabusAction = syllabusUrl
       ? `<a class="rev2015-action rev2015-action-syllabus" href="${escapeHtml(syllabusUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↓</span> Syllabus</a>`
       : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true">Syllabus unavailable</span>';
     const modelAction = modelUrl
       ? `<a class="rev2015-action rev2015-action-model" href="${escapeHtml(modelUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↓</span> Model Question Paper</a>`
-      : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true" title="SITTTR does not list a model question paper for this subject.">Model QP not listed</span>';
+      : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true" title="This model question paper is not available in the POLY PMNA PDF archive.">Model QP not listed</span>';
 
     return (
       `<article class="rev2015-subject-card" data-subject-code="${escapeHtml(subject.code)}">` +
@@ -274,15 +270,12 @@
       return (item._searchText || "").includes(query);
     });
 
-    const departmentSyllabusUrl = `${SYLLABUS_INDEX.replace("&scheme=REV2015", "")}-courses&prog=${encodeURIComponent(programme.code)}`;
-    const departmentModelUrl = MODEL_QP_BASE + encodeURIComponent(programme.code);
+    const departmentSyllabusUrl = "";
+    const departmentModelUrl = "";
     const intro = (
       `<div class="rev2015-selected-department">` +
         `<div><span>${escapeHtml(programme.code)}</span><h3>${escapeHtml(programme.name)}</h3><p>${Number(programme.subjectCount)} subject entries across Semester 1–6. ${Number(programme.modelPaperCount)} are listed in the official model-paper index.</p></div>` +
-        `<div class="rev2015-department-links">` +
-          `<a href="${escapeHtml(departmentSyllabusUrl)}" target="_blank" rel="noopener noreferrer">Department syllabus index ↗</a>` +
-          `<a href="${escapeHtml(departmentModelUrl)}" target="_blank" rel="noopener noreferrer">Department model-paper index ↗</a>` +
-        `</div>` +
+        `<div class="rev2015-department-links"><span class="rev2015-action-disabled">Revision 2015 PDF files are not in the POLY PMNA GitHub archive.</span></div>` +
       `</div>`
     );
 
@@ -399,9 +392,7 @@
       setResultsBusy(false);
       results.innerHTML = (
         '<div class="rev2015-empty rev2015-load-error"><strong>Subject list could not be loaded.</strong>' +
-        '<span>The archive links above still work. Try refreshing once, or use the official indexes below.</span>' +
-        `<div class="rev2015-error-links"><a href="${escapeHtml(SYLLABUS_INDEX)}" target="_blank" rel="noopener noreferrer">Official REV2015 syllabus index ↗</a>` +
-        `<a href="${escapeHtml(MODEL_QP_INDEX)}" target="_blank" rel="noopener noreferrer">Official REV2015 model-paper index ↗</a></div></div>`
+        '<span>The Drive archive links above remain available. Try refreshing once; Revision 2015 syllabus and model-paper PDFs are not in the POLY PMNA GitHub archive.</span></div>'
       );
     }
   }

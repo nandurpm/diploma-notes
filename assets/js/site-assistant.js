@@ -32,6 +32,9 @@
   "use strict";
 
   const ASSISTANT_VERSION = "3.0";
+  const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
+  let PDF_LINKS = {};
+  fetch("/assets/data/sitttr-pdf-links.json?v=20260818-pdf-only").then((response) => response.ok ? response.json() : null).then((manifest) => { PDF_LINKS = manifest?.links || {}; }).catch(() => {});
   const IS_LESSON_PAGE = /\/lessons\/[^/]+\.html$/i.test(window.location.pathname)
     || Boolean(document.querySelector("main.shell, .lesson-layout, .panel[data-module], .panel[id]"));
   const HISTORY_KEY = `polySiteAssistantHistory:v3:${window.location.pathname}`;
@@ -572,6 +575,18 @@
     }).filter((item) => item.score > 8).sort((a, b) => b.score - a.score).map((item) => item.subject);
   }
 
+  function pdfSlug(value) {
+    return String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  function pdfHref(subject, kind) {
+    const revision = String(subject.revision || "2021").replace(/^REV/i, "");
+    const code = String(subject.code || "").trim().toUpperCase();
+    const links = PDF_LINKS[revision] || {};
+    const entry = links[`${revision}|${pdfSlug(subject.department)}|${code}`] || Object.entries(links).find(([key]) => key.endsWith(`|${code}`))?.[1] || {};
+    return entry[kind] ? `${PDF_BASE}${entry[kind]}` : "";
+  }
+
   function renderSubjectResults(items) {
     messageBody.querySelectorAll(".poly-ai-results").forEach((element) => element.remove());
     const results = createElement("div", { className: "poly-ai-results" });
@@ -579,27 +594,15 @@
       const card = createElement("article", { className: "poly-ai-card" });
       card.append(
         createElement("h3", { text: `${subject.code} — ${subject.name}` }),
-        createElement("p", { text: [subject.revision, subject.department, subject.semester].filter(Boolean).join(" / ") }),
-        createElement("p", { text: subject.lessonAvailable ? "Lesson available." : "Lesson not available yet." })
+        createElement("p", { text: [subject.revision, subject.department, subject.semester].filter(Boolean).join(" / ") })
       );
       const links = createElement("div", { className: "poly-ai-links" });
-      const revision2026 = String(subject.revision || "").includes("2026");
-      const lessonPath = `${revision2026 ? "/revision-2026-content/lessons" : "/lessons"}/lessons-${encodeURIComponent(subject.code)}.html`;
-      if (subject.lessonAvailable) addLink(links, "Open lesson", lessonPath);
-      else addUnavailable(links, "Lesson unavailable");
-      const syllabusUrl = String(subject.revision) === "2021"
-        ? "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021"
-        : `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(subject.code)}`;
-      addLink(links, "Syllabus", syllabusUrl);
-      if (subject.lessonAvailable) {
-        addLink(links, "Download notes", `${lessonPath}?autoPrintNotes=1`, {
-          "data-notes-link": "true",
-          "data-pdf-code": String(subject.code || ""),
-          "data-pdf-revision": revision2026 ? "2026" : "2021"
-        });
-      }
-      else addUnavailable(links, "Notes unavailable");
-      addLink(links, "Model QP", `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=${encodeURIComponent(subject.code)}`);
+      const syllabus = pdfHref(subject, "syllabus");
+      const modelPaper = pdfHref(subject, "modelQuestionPaper");
+      if (syllabus) addLink(links, "Download Syllabus", syllabus);
+      else addUnavailable(links, "Syllabus unavailable");
+      if (modelPaper) addLink(links, "Download Model Question Paper", modelPaper);
+      else addUnavailable(links, "Model paper unavailable");
       card.append(links);
       results.append(card);
     });

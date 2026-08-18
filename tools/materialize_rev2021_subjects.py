@@ -10,6 +10,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+from bs4 import BeautifulSoup
+
 ROOT = Path(__file__).resolve().parents[1]
 COMMON = "First Year / Common"
 PDF_MANIFEST = json.loads((ROOT / "assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
@@ -66,28 +68,52 @@ def subject_key(record: dict[str, str]) -> tuple[str, ...]:
     )
 
 
+def parse_existing_pages() -> list[dict[str, str]]:
+    records: list[dict[str, str]] = []
+    for path in sorted((ROOT / "revision-2021").glob("*.html")):
+        if path.name == "department-view.html":
+            continue
+        soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
+        department = soup.body.get("data-department", "") if soup.body else ""
+        if not department:
+            grid = soup.select_one("#subjectGrid[data-department]")
+            department = grid.get("data-department", "") if grid else ""
+        for article in soup.select('article.subject-card[data-revision="2021"]'):
+            code = article.get("data-subject-code", "").strip()
+            name = article.find("h3").get_text(" ", strip=True) if article.find("h3") else ""
+            meta = article.find("p").get_text(" ", strip=True) if article.find("p") else ""
+            parts = [part.strip() for part in meta.split("/") if part.strip()]
+            if not code or not name or len(parts) < 2:
+                continue
+            semester = next((part for part in parts if re.match(r"^Semester\s+\d+", part, re.I)), "Semester 1")
+            semester_index = parts.index(semester) if semester in parts else max(0, len(parts) - 2)
+            subject_type = parts[semester_index + 1] if semester_index + 1 < len(parts) else "Theory"
+            department_name = " / ".join(parts[:semester_index]) or department or COMMON
+            records.append({
+                "revision": "2021",
+                "code": code,
+                "name": name,
+                "department": department_name,
+                "semester": semester,
+                "type": subject_type,
+                "assetCode": code,
+            })
+    return records
+
+
 def all_records() -> list[dict[str, str]]:
     records = parse_records(ROOT / "assets/js/subjects.js")
     records.extend(parse_records(ROOT / "assets/js/subject-browser.js"))
+    if len(records) < 100:
+        records.extend(parse_existing_pages())
     unique: dict[tuple[str, ...], dict[str, str]] = {}
     for record in records:
         unique.setdefault(subject_key(record), record)
     return list(unique.values())
 
 
-def paths(record: dict[str, str]) -> tuple[str, str, bool]:
-    code = record["assetCode"]
-    lesson_local = Path("lessons") / f"lessons-{code}.html"
-    lesson_href = "/" + lesson_local.as_posix()
-    return lesson_href, lesson_href + "?autoPrintNotes=1", (ROOT / lesson_local).is_file()
-
-
 def card(record: dict[str, str]) -> str:
     code = record["code"]
-    lesson_href, notes_href, lesson_ok = paths(record)
-    # Notes are generated from the lesson HTML in the browser; static PDFs
-    # are excluded from the deployment artifact to stay below the Pages limit.
-    notes_href = lesson_href + "?autoPrintNotes=1"
     syllabus = pdf_href(record["department"], code, "syllabus")
     model_qp = pdf_href(record["department"], code, "modelQuestionPaper")
     syllabus_action = (
@@ -100,29 +126,14 @@ def card(record: dict[str, str]) -> str:
         if model_qp else
         '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
     )
-    if lesson_ok:
-        download_href = notes_href
-        download_attr = ''
-        study = (
-            f'<a class="action lessons" href="{html.escape(lesson_href, quote=True)}">View Lessons</a>'
-            f'<a class="action download" href="{html.escape(download_href, quote=True)}"{download_attr}>Save as PDF</a>'
-        )
-    else:
-        study = (
-            '<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span>'
-            '<span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>'
-        )
     search = " ".join((code, record["name"], record["department"], record["semester"], record["type"])).lower()
     return (
         f'<article class="subject-card reveal" data-subject-code="{html.escape(code.upper(), quote=True)}" '
         f'data-revision="2021" data-semester="{html.escape(record["semester"], quote=True)}" '
-        f'data-search-text="{html.escape(search, quote=True)}" data-notes-href="{html.escape(notes_href, quote=True)}" '
-        f'data-lesson-href="{html.escape(lesson_href, quote=True)}" data-lesson-available="{str(lesson_ok).lower()}" '
-        f'data-notes-available="{str(lesson_ok).lower()}"><div class="subject-top"><span>2021</span>'
+        f'data-search-text="{html.escape(search, quote=True)}"><div class="subject-top"><span>2021</span>'
         f'<strong>{html.escape(code)}</strong></div><h3>{html.escape(record["name"])}</h3>'
         f'<p>{html.escape(record["department"])} / {html.escape(record["semester"])} / {html.escape(record["type"])}</p>'
-        f'<div class="action-row">{syllabus_action}'
-        f'{study}{model_action}</div></article>'
+        f'<div class="action-row">{syllabus_action}{model_action}</div></article>'
     )
 
 

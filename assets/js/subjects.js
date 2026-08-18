@@ -12,15 +12,6 @@
   ]
 };
 
-const SITTTR_SYLLABUS_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=";
-const SITTTR_MODEL_QP_BASE  = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course=";
-
-function syllabusLink(subjectCode, revision) {
-  if (revision === "2021" || revision === "2026") {
-    return `${SITTTR_SYLLABUS_BASE}${encodeURIComponent(subjectCode)}&scheme=REV${encodeURIComponent(revision)}`;
-  }
-  return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
-}
 
 function modelQuestionPaperLink(subjectCode, revision, department, subjectName) {
   const rev = String(revision || "2021").includes("2015") ? "2015" : (String(revision || "").includes("2026") ? "2026" : "2021");
