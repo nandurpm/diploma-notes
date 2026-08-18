@@ -1603,6 +1603,13 @@
       "subjectName": "Energy Conservation and Audit",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6033A.html"
+    },
+    "REV2026:6033B:revision-2026-content/lessons/lessons-6033B.html": {
+      "messageId": "projects/poly-pmna/messages/6980591911128123375",
+      "subjectCode": "6033B",
+      "subjectName": "Embedded System Design with PIC",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6033B.html"
     }
   }
 }
