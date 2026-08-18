@@ -1610,6 +1610,13 @@
       "subjectName": "Embedded System Design with PIC",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6033B.html"
+    },
+    "REV2026:6033C:revision-2026-content/lessons/lessons-6033C.html": {
+      "messageId": "projects/poly-pmna/messages/3928369215624357226",
+      "subjectCode": "6033C",
+      "subjectName": "Industrial Drives and Control",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6033C.html"
     }
   }
 }
