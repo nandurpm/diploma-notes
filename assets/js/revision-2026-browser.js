@@ -260,7 +260,7 @@
     
     const syllabusAction = syllabus 
       ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Open Syllabus</a>` 
-      : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
+      : `<a class="action syllabus" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open Syllabus</a>`;
       
     const studyActions = handbookAvailable
       ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" target="_blank" rel="noopener noreferrer">Save as PDF</a>`

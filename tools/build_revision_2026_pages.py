@@ -15,6 +15,8 @@ REV2026_CONTENT = Path("revision-2026-content")
 REV2026_LESSONS = REV2026_CONTENT / "lessons"
 SITE = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = SITE + "/assets/media/poly-pmna-study-hub-social-card.png"
+SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026"
+MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 REPORT_JSON = Path("reports/archive/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/archive/revision-2026-new-codes-vs-2021.md")
 VERSION = "20260818-four-button-cards1"
@@ -112,7 +114,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     syllabus_action = (
         f'<a class="action syllabus" href="{esc(syllabus_url)}" download="{esc(pdf_filename(syllabus_url))}">Open Syllabus</a>'
         if syllabus_url else
-        '<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>'
+        f'<a class="action syllabus" href="{SYLLABUS_INDEX}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
     )
     
     study_actions = (
