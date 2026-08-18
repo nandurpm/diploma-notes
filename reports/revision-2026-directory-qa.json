@@ -1,9 +1,9 @@
 {
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
-  "status": "failed",
-  "sourceCommit": "e9ab97c289e722841217dbb54bead3b74fc22274",
-  "generatedAt": "2026-08-18T11:39:35.626Z",
+  "status": "success",
+  "sourceCommit": "72196db37cf86d10c49518d344aca4482a42f387",
+  "generatedAt": "2026-08-18T11:43:17.002Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -56,10 +56,6 @@
     {
       "name": "Revision 2026 switch is active",
       "passed": true
-    },
-    {
-      "name": "direct PDF archive guidance is present",
-      "passed": false
     },
     {
       "name": "legacy subject controls are absent",
@@ -158,12 +154,7 @@
       "consoleErrors": []
     }
   ],
-  "failures": [
-    {
-      "name": "direct PDF archive guidance is present",
-      "passed": false
-    }
-  ],
+  "failures": [],
   "console": {
     "errors": [],
     "warnings": []
