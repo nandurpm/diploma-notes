@@ -1,6 +1,9 @@
 Revision 2021 materialization diagnostic
-Commit: cd9ed5d87f170b583843e223e6550a0ee3fce6fb
-Run: 31958936139
+Commit: bcb4f840cfe2fc047246fd09ad663b0ab060cb00
+Run: 32130803493
 
-Normalized 0 legacy Revision 2021 department templates.
-ERROR: Invalid static subject markers in revision-2021/computer-application-and-business-management.html
+Normalized 41 legacy Revision 2021 department templates.
+Traceback (most recent call last):
+  File "/home/runner/work/diploma-notes/diploma-notes/tools/materialize_rev2021_subjects.py", line 13, in <module>
+    from bs4 import BeautifulSoup
+ModuleNotFoundError: No module named 'bs4'
