@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tools", "workers", "node_modules", "_site"}
+EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "lessons", "maintenance", "reports", "revision-2021-content", "revision-2026-content", "supabase", "tools", "workers", "node_modules", "_site"}
 EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html"}
 FAVICON = '<link rel="icon" type="image/svg+xml" href="/assets/media/poly-pmna-favicon.svg">'
 MANIFEST = '<link rel="manifest" href="/site.webmanifest">'
