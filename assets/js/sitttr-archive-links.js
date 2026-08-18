@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const MAP_URL = '/assets/data/sitttr-archive-links.json?v=20260818-sitttr-archive-links3';
+  const MAP_URL = '/assets/data/sitttr-archive-links.json?v=20260818-sitttr-archive-links4';
   const SITTTR_HOSTS = new Set(['sitttrkerala.ac.in', 'www.sitttrkerala.ac.in']);
   const modelLinkSelector = '.action.qp, .rev2015-action-model';
   const syllabusLinkSelector = '.action.syllabus, .rev2015-action-syllabus';
@@ -9,7 +9,10 @@
   let observerStarted = false;
 
   function revisionKey(value) {
-    const match = String(value || '').match(/20(?:15|21|26)/);
+    const text = String(value || '');
+    const explicit = text.match(/rev(?:ision)?\s*[-_ ]?(2015|2021|2026)/i);
+    if (explicit) return explicit[1];
+    const match = text.match(/20(?:15|21|26)/);
     return match ? match[0] : '';
   }
 
