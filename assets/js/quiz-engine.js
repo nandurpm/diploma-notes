@@ -124,6 +124,23 @@
     document.querySelectorAll('#' + container + ' .subject-card').forEach((card) => {
       card.classList.toggle('selected', card.dataset.code === code);
     });
+    if (code) {
+      $('dailySubjectCards').classList.add('hidden');
+      $('quizContainer').classList.remove('hidden');
+      $('quizProgressWrap').style.display = 'block';
+      updateProgress();
+    } else {
+      $('dailySubjectCards').classList.remove('hidden');
+      $('quizContainer').classList.add('hidden');
+      $('quizProgressWrap').style.display = 'none';
+    }
+  }
+
+  function updateProgress() {
+    const answered = current.filter(q => document.querySelector(`input[name="${CSS.escape(q.id)}"]:checked`)).length;
+    const percent = (answered / current.length) * 100;
+    const bar = $('quizProgressBar');
+    if (bar) bar.style.width = percent + '%';
   }
 
   function hideQuizControls() {
@@ -209,9 +226,18 @@
     }).join('');
 
     const finalScore = Number(row?.score ?? row?.best_score ?? 0);
-    $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">Already submitted today. Your answer is locked and cannot be edited.</p><p class="status ok">Saved result: ${finalScore}/10</p>${html}`;
-    $('quizMsg').textContent = A?.guest ? 'Guest result is stored only in this browser.' : 'This result is saved online. Editing is disabled for today.';
+    const feedback = finalScore >= 8 ? "Excellent! You have a great grasp of this subject." : finalScore >= 5 ? "Good job! Keep practicing to improve further." : "Keep studying! Review the correct answers below.";
+    $('quizBox').innerHTML = `
+      <div class="score-summary">
+        <div class="score-circle">${finalScore}/10</div>
+        <h3>${esc(code)} - ${esc(title(code))}</h3>
+        <p>${feedback}</p>
+        <p class="notice" style="margin-top:12px">Already submitted today. Result is locked.</p>
+      </div>
+      ${html}`;
+    $('quizMsg').textContent = A?.guest ? 'Guest result is stored only in this browser.' : 'This result is saved online.';
     $('quizMsg').className = 'status ok';
+    $('quizProgressWrap').style.display = 'none';
   }
 
   async function renderQuiz(code) {
@@ -241,10 +267,11 @@
     $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">One attempt only. After submit, the result saves online and cannot be edited today.</p>` + current.map((q, index) => `
       <div class="question" id="q${esc(q.id)}">
         <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <div class="options">${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(optionText(op))}</span></label>`).join('')}
+        <div class="options">${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}" onchange="PolyQuizEngine.updateProgress()"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(optionText(op))}</span></label>`).join('')}
 </div>
         <div class="answer hidden" id="a${esc(q.id)}"></div>
       </div>`).join('');
+    updateProgress();
   }
 
   async function submit() {
@@ -544,7 +571,10 @@
     $('openMocks').onclick = () => { show('mockView'); renderCurriculumCards('mock'); };
     $('openReview').onclick = () => { show('reviewView'); renderCurriculumCards('review'); };
     $('submitQuiz').onclick = submit;
+    $('backToSubjects').onclick = () => selectCard('dailySubjectCards', null);
     $('retryQuiz')?.remove();
+
+    window.PolyQuizEngine = { updateProgress };
 
     setupFilters();
     renderCurriculumCards('daily');

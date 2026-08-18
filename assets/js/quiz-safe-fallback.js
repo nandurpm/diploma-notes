@@ -112,11 +112,22 @@
       return;
     }
     const existing = storageGet().find((row) => row.date === dateKey() && row.code === code);
-    $("quizBox").classList.remove("hidden");
+    
+    $('dailySubjectCards').classList.add('hidden');
+    $('quizContainer').classList.remove('hidden');
     $("quizControls").classList.remove("hidden");
+    
     if ($("submitQuiz")) $("submitQuiz").disabled = Boolean(existing);
     if (existing) {
-      $("quizBox").innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">Already submitted today in guest/local mode.</p><p class="status ok">Score: ${existing.score}/10</p>`;
+      const finalScore = existing.score;
+      const feedback = finalScore >= 8 ? "Excellent! You have a great grasp of this subject." : finalScore >= 5 ? "Good job! Keep practicing to improve further." : "Keep studying! Review the correct answers below.";
+      $("quizBox").innerHTML = `
+        <div class="score-summary">
+          <div class="score-circle">${finalScore}/10</div>
+          <h3>${esc(code)} - ${esc(title(code))}</h3>
+          <p>${feedback}</p>
+          <p class="notice" style="margin-top:12px">Already submitted today in guest/local mode.</p>
+        </div>`;
       return;
     }
     $("quizBox").dataset.safeCode = code;
@@ -286,6 +297,10 @@
     $("openMocks")?.addEventListener("click", () => { ["dashboardView", "dailyView", "mockView", "reviewView"].forEach((id) => $(id)?.classList.add("hidden")); $("mockView")?.classList.remove("hidden"); });
     $("openReview")?.addEventListener("click", () => { ["dashboardView", "dailyView", "mockView", "reviewView"].forEach((id) => $(id)?.classList.add("hidden")); $("reviewView")?.classList.remove("hidden"); });
     $("submitQuiz")?.addEventListener("click", submitSafeQuiz);
+    $("backToSubjects")?.addEventListener("click", () => {
+      $('dailySubjectCards').classList.remove('hidden');
+      $('quizContainer').classList.add('hidden');
+    });
     resultStats();
   }
 
