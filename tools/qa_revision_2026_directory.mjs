@@ -84,7 +84,9 @@ try {
   });
   record("revision switch is present", await page.locator(".revision-directory-switch a").count() === 2);
   record("Revision 2026 switch is active", await page.locator(".revision-directory-switch a[aria-current='page']").getAttribute("href") === "/revision-2026.html");
-  record("official source actions are present", await page.locator("#rev2026-model-qp-access a").count() === 2);
+  const directoryText = await page.locator("body").innerText();
+  record("direct PDF archive guidance is present", /direct PDF archive links/i.test(directoryText));
+  record("legacy subject controls are absent", !/View Lessons|Download Notes|Save as PDF|Open Syllabus|Open Model Question Paper/i.test(directoryText));
 
   const desktopMetrics = await page.evaluate(() => ({
     viewportWidth: window.innerWidth,
