@@ -5,12 +5,16 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import re
 from collections import defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMON = "First Year / Common"
+PDF_MANIFEST = json.loads((ROOT / "assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
+PDF_BASE = PDF_MANIFEST["base"]
+PDF_LINKS = PDF_MANIFEST["links"].get("2021", {})
 OBJECT_RE = re.compile(r"\{[^{}]*\brevision\s*:\s*[\"']2021[\"'][^{}]*\}", re.S)
 PAIR_RE = re.compile(r"\b(revision|code|name|department|semester|type|assetCode)\s*:\s*[\"']([^\"']*)[\"']")
 GRID_OPEN_RE = re.compile(r'(<div\b[^>]*\bid=["\']subjectGrid["\'][^>]*>)', re.I)
@@ -34,6 +38,20 @@ def parse_records(path: Path) -> list[dict[str, str]]:
 
 def normalized(value: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", html.unescape(value).lower().replace("&", " and ")).strip()
+
+
+def pdf_key(department: str, code: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", html.unescape(department).lower().replace("&", " and ")).strip("-")
+    return f"2021|{slug}|{code.upper()}"
+
+
+def pdf_href(department: str, code: str, kind: str) -> str:
+    path = PDF_LINKS.get(pdf_key(department, code), {}).get(kind)
+    return f"{PDF_BASE}{path}" if path else ""
+
+
+def pdf_filename(href: str) -> str:
+    return href.rsplit("/", 1)[-1] if href else ""
 
 
 def semester_rank(value: str) -> tuple[int, str]:
@@ -70,8 +88,18 @@ def card(record: dict[str, str]) -> str:
     # Notes are generated from the lesson HTML in the browser; static PDFs
     # are excluded from the deployment artifact to stay below the Pages limit.
     notes_href = lesson_href + "?autoPrintNotes=1"
-    syllabus = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&amp;course=" + html.escape(code, quote=True)
-    model_qp = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&amp;course=" + html.escape(code, quote=True)
+    syllabus = pdf_href(record["department"], code, "syllabus")
+    model_qp = pdf_href(record["department"], code, "modelQuestionPaper")
+    syllabus_action = (
+        f'<a class="action syllabus" href="{html.escape(syllabus, quote=True)}" download="{html.escape(pdf_filename(syllabus), quote=True)}">Download Syllabus</a>'
+        if syllabus else
+        '<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>'
+    )
+    model_action = (
+        f'<a class="action qp" href="{html.escape(model_qp, quote=True)}" download="{html.escape(pdf_filename(model_qp), quote=True)}">Download Model Question Paper</a>'
+        if model_qp else
+        '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
+    )
     if lesson_ok:
         download_href = notes_href
         download_attr = ''
@@ -93,8 +121,8 @@ def card(record: dict[str, str]) -> str:
         f'data-notes-available="{str(lesson_ok).lower()}"><div class="subject-top"><span>2021</span>'
         f'<strong>{html.escape(code)}</strong></div><h3>{html.escape(record["name"])}</h3>'
         f'<p>{html.escape(record["department"])} / {html.escape(record["semester"])} / {html.escape(record["type"])}</p>'
-        f'<div class="action-row"><a class="action syllabus" href="{syllabus}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
-        f'{study}<a class="action qp" href="{model_qp}" target="_blank" rel="noopener noreferrer">Sample QP</a></div></article>'
+        f'<div class="action-row">{syllabus_action}'
+        f'{study}{model_action}</div></article>'
     )
 
 

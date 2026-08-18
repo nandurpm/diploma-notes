@@ -19,7 +19,10 @@ SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syll
 MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 REPORT_JSON = Path("reports/archive/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/archive/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260812-revision-tag-normalization1"
+VERSION = "20260818-repository-pdf-links1"
+PDF_MANIFEST = json.loads(Path("assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
+PDF_BASE = PDF_MANIFEST["base"]
+PDF_LINKS = PDF_MANIFEST["links"].get("2026", {})
 
 
 def esc(value: object) -> str:
@@ -46,6 +49,20 @@ def natural_code_key(code: str) -> tuple[int, str]:
 
 def lesson_file(code: str) -> Path:
     return REV2026_LESSONS / f"lessons-{code}.html"
+
+
+def pdf_key(programme: dict[str, object], row: dict[str, object], code: str) -> str:
+    programme_slug = str(row.get("programmeSlug") or programme.get("slug") or "")
+    return f"2026|{programme_slug}|{code.upper()}"
+
+
+def pdf_href(programme: dict[str, object], row: dict[str, object], code: str, kind: str) -> str:
+    path = PDF_LINKS.get(pdf_key(programme, row, code), {}).get(kind)
+    return f"{PDF_BASE}{path}" if path else ""
+
+
+def pdf_filename(href: str) -> str:
+    return href.rsplit("/", 1)[-1] if href else ""
 
 
 
@@ -93,20 +110,17 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     # dialog; static Revision 2026 PDFs are excluded from the deployment.
     notes_url = f"{lesson_url}?autoPrintNotes=1"
     lesson_ok = lesson_file(code).exists()
-    syllabus_unavailable = bool(row.get("syllabusUnavailable"))
-    syllabus_url = "" if syllabus_unavailable else (str(row.get("syllabusUrl", "")).strip() or (
-        "https://www.sitttrkerala.ac.in/index.php?"
-        f"r=site%2Fdiploma-syllabus-course-contents&course={code}&scheme=REV2026"
-    ))
-    syllabus_message = f"Official syllabus is not published for Revision 2026 course {code}."
+    syllabus_url = pdf_href(programme, row, code, "syllabus")
+    qp_url = pdf_href(programme, row, code, "modelQuestionPaper")
     syllabus_action = (
-        f'<a class="action syllabus" href="{esc(syllabus_url)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
+        f'<a class="action syllabus" href="{esc(syllabus_url)}" download="{esc(pdf_filename(syllabus_url))}">Download Syllabus</a>'
         if syllabus_url else
-        f'<button class="action syllabus" type="button" data-syllabus-unavailable="true" aria-label="{esc(syllabus_message)}" title="{esc(syllabus_message)}" onclick="window.alert(this.title)">Open Syllabus</button>'
+        '<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>'
     )
-    qp_url = (
-        "https://sitttrkerala.ac.in/index.php?"
-        f"r=site%2Fdiploma-modelqp-courses-show&course={code}&scheme=REV2026"
+    qp_action = (
+        f'<a class="action qp" href="{esc(qp_url)}" download="{esc(pdf_filename(qp_url))}" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Download Model Question Paper</a>'
+        if qp_url else
+        '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
     )
 
     if lesson_ok:
@@ -133,7 +147,7 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         f'<div class="action-row">'
         f'{syllabus_action}'
         f'{lesson_action}{notes_action}'
-        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open Model Question Paper</a>'
+        f'{qp_action}'
         f'</div></article>'
     )
 
