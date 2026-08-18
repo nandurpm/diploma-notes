@@ -1922,10 +1922,22 @@ function syllabusLink(subjectCode, revision) {
   return SITTTR_SYLLABUS_BASE + encodeURIComponent(subjectCode);
 }
 
-function modelQuestionPaperLink(subjectCode, revision) {
-  if (revision === "2026") return "";
-  return SITTTR_MODEL_QP_BASE + encodeURIComponent(subjectCode);
+function modelQuestionPaperLink(subjectCode, revision, department, subjectName) {
+  const rev = String(revision || "2021").includes("2015") ? "2015" : (String(revision || "").includes("2026") ? "2026" : "2021");
+  const deptSlug = String(department || "architecture")
+    .toLowerCase()
+    .replace(/&/g, " and ")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  const nameSlug = String(subjectName || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  const code = String(subjectCode || "").trim();
+  const fileSlug = nameSlug ?  : ;
+  return ;
 }
+globalThis.modelQuestionPaperLink = modelQuestionPaperLink;
 
 // Compute root prefix from actual path depth; works from any page.
 function lessonLink(subject) {
