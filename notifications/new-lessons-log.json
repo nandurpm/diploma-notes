@@ -1582,6 +1582,13 @@
       "subjectName": "Mechatronics",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6021A.html"
+    },
+    "REV2026:6031T:revision-2026-content/lessons/lessons-6031T.html": {
+      "messageId": "projects/poly-pmna/messages/3667372992446400513",
+      "subjectCode": "6031T",
+      "subjectName": "Microcontroller and PLC",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6031T.html"
     }
   }
 }
