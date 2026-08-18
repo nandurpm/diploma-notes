@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const MAP_URL = '/assets/data/sitttr-archive-links.json?v=20260818-sitttr-archive-links2';
+  const MAP_URL = '/assets/data/sitttr-archive-links.json?v=20260818-sitttr-archive-links3';
   const SITTTR_HOSTS = new Set(['sitttrkerala.ac.in', 'www.sitttrkerala.ac.in']);
   const modelLinkSelector = '.action.qp, .rev2015-action-model';
   const syllabusLinkSelector = '.action.syllabus, .rev2015-action-syllabus';
@@ -54,6 +54,14 @@
       const group = card.closest('.rev2015-semester-group');
       const labelledBy = group?.getAttribute('aria-labelledby') || '';
       const match = labelledBy.match(/-sem-(\d+)$/);
+      semester = match ? `Semester ${match[1]}` : '';
+    }
+    if (!semester) {
+      const searchableText = [
+        card.getAttribute('data-search-text') || '',
+        card.textContent || ''
+      ].join(' ');
+      const match = searchableText.match(/semester\s*[-_ ]?(\d+)/i);
       semester = match ? `Semester ${match[1]}` : '';
     }
     return { revision, department, course, semester };
