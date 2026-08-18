@@ -23,8 +23,13 @@
     sub: $("chatSub"),
     prompts: $("quickPrompts"),
     newChat: $("newChatBtn"),
-    send: $("sendBtn")
+    send: $("sendBtn"),
+    stop: $("stopBtn"),
+    queue: $("queueBtn")
   };
+
+  let abortController = null;
+  let messageQueue = [];
 
   if (!els.form || !els.messages || !els.input) return;
 
@@ -503,8 +508,8 @@
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 45000);
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), Math.max(10000, timeoutMs));
+    abortController = new AbortController();
+    const timer = setTimeout(() => abortController.abort(), Math.max(10000, timeoutMs));
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -513,7 +518,7 @@
           Accept: "text/event-stream, application/json"
         },
         cache: "no-store",
-        signal: controller.signal,
+        signal: abortController.signal,
         body: JSON.stringify({
           message,
           history,
@@ -549,17 +554,26 @@
     }
   }
 
-  async function sendMessage(text) {
-    if (waiting || !text.trim()) return;
+  async function sendMessage(text, isQueued = false) {
+    if (!text.trim()) return;
+    if (waiting && !isQueued) {
+      // If already waiting and not explicitly from queue, do nothing (should use queue button)
+      return;
+    }
+    
     const clean = text.trim();
-    els.input.value = "";
-    autoResize();
+    if (!isQueued) {
+      els.input.value = "";
+      autoResize();
+    }
+    
     await addMessage("user", clean);
     await updateChatTitleFromMessage(activeChatId, clean);
     await renderMessages();
     await renderChats();
     setWaiting(true);
     addTyping();
+    if (els.stop) els.stop.hidden = false;
 
     let retrieval = null;
     let streamBubble = null;
@@ -584,29 +598,54 @@
     } catch (error) {
       removeTyping();
       streamBubble?.div.remove();
-      const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
-      if (offline) {
-        await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {
-          provider: "local-offline-assistant",
-          error: error.message,
-          knowledgeVersion: retrieval?.version || ""
-        });
+      if (error.name === "AbortError") {
+        await addMessage("assistant", "Generation stopped by user.", { provider: "user-stop" });
       } else {
-        const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
-        if (fallback) {
-          await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
-            provider: "local-knowledge-fallback",
+        const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
+        if (offline) {
+          await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {
+            provider: "local-offline-assistant",
             error: error.message,
             knowledgeVersion: retrieval?.version || ""
           });
         } else {
-          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message });
+          const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
+          if (fallback) {
+            await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
+              provider: "local-knowledge-fallback",
+              error: error.message,
+              knowledgeVersion: retrieval?.version || ""
+            });
+          } else {
+            await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message });
+          }
         }
       }
     } finally {
       setWaiting(false);
+      if (els.stop) els.stop.hidden = true;
+      abortController = null;
       await renderAll();
-      els.input.focus();
+      
+      // Check queue
+      if (messageQueue.length > 0) {
+        const nextText = messageQueue.shift();
+        updateQueueStatus();
+        sendMessage(nextText, true);
+      } else {
+        els.input.focus();
+      }
+    }
+  }
+
+  function updateQueueStatus() {
+    if (!els.queue) return;
+    if (messageQueue.length > 0) {
+      els.queue.textContent = `Queued (${messageQueue.length})`;
+      els.queue.classList.add("active");
+    } else {
+      els.queue.textContent = "Queue";
+      els.queue.classList.remove("active");
     }
   }
 
@@ -642,6 +681,25 @@
     els.input.addEventListener("input", autoResize);
     els.search.addEventListener("input", renderChats);
     els.newChat.addEventListener("click", () => createChat());
+    if (els.stop) {
+      els.stop.addEventListener("click", () => {
+        if (abortController) abortController.abort();
+      });
+    }
+    if (els.queue) {
+      els.queue.addEventListener("click", () => {
+        const text = els.input.value.trim();
+        if (!text) return;
+        if (!waiting && messageQueue.length === 0) {
+          sendMessage(text);
+        } else {
+          messageQueue.push(text);
+          els.input.value = "";
+          autoResize();
+          updateQueueStatus();
+        }
+      });
+    }
     await renderAll();
     await updateKnowledgeStatus();
     autoResize();
