@@ -6807,14 +6807,14 @@
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-1/2003a-chemistry-for-engineering-practices.pdf"
       },
       "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|2005": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/computer-science-and-engineering-artificial-intelligence-machine-learning/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/2005-environmental-sustainability-and-ethics.pdf"
       },
       "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|2009B": {
         "syllabus": "sitttr/revision-2026/syllabus/robotic-process-automation/semester-1/2009b-engineering-workshop-practice.pdf"
       },
       "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|2131": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/2131-fundamentals-of-electrical-and-electronics-engineering.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/computer-science-and-engineering-artificial-intelligence-machine-learning/semester-unspecified/2131-fundamentals-of-electrical-and-electronics-engineering.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/2131-fundamentals-of-electrical-and-electronics-engineering.pdf"
       },
       "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|2132": {
@@ -6827,13 +6827,13 @@
         "syllabus": "sitttr/revision-2026/syllabus/robotic-process-automation/semester-2/2139-programming-in-c-lab.pdf"
       },
       "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|3001": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/3001-essence-of-indian-constitution.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/computer-science-and-engineering-artificial-intelligence-machine-learning/semester-unspecified/3001-essence-of-indian-constitution.pdf"
       },
       "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|3009": {
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/3009-digital-101.pdf"
       },
       "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|3131": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/robotic-process-automation/semester-unspecified/3131-database-management-systems.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/computer-science-and-engineering-artificial-intelligence-machine-learning/semester-unspecified/3131-database-management-systems.pdf"
       },
       "2026|computer-science-and-engineering|1001": {
         "syllabus": "sitttr/revision-2026/syllabus/computer-science-engineering/semester-1/1001-english-for-technical-communication.pdf"
@@ -7129,14 +7129,14 @@
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-1/2003a-chemistry-for-engineering-practices.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|2005": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/2005-environmental-sustainability-and-ethics.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|2009A": {
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-1/2009a-general-engineering-workshop.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|2031": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering/semester-unspecified/2031-elementary-concepts-of-electrical-electronics-engineering.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/2031-elementary-concepts-of-electrical-electronics-engineering.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/electrical-engineering/semester-2/2031-elementary-concepts-of-electrical-electronics-engineering.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|2032": {
@@ -7149,25 +7149,25 @@
         "syllabus": "sitttr/revision-2026/syllabus/electrical-engineering/semester-2/2039-fundamentals-of-electrical-engineering-lab.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|3001": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/3001-essence-of-indian-constitution.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/3001-essence-of-indian-constitution.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|3009": {
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/3009-digital-101.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|3031": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering/semester-unspecified/3031-electrical-and-electronic-measuring-instruments.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/3031-electrical-and-electronic-measuring-instruments.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|3032": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering/semester-unspecified/3032-electrical-machines-i.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/3032-electrical-machines-i.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|4031": {
         "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/4031-switch-gear-and-protection.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|5021": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/5021-industrial-management-and-safety.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/5021-industrial-management-and-safety.pdf"
       },
       "2026|electrical-engineering-and-electric-vehicles-technology|5031": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering/semester-unspecified/5031-electrical-machines-ii.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/5031-electrical-machines-ii.pdf"
       },
       "2026|electrical-engineering|1001": {
         "syllabus": "sitttr/revision-2026/syllabus/electrical-engineering/semester-1/1001-english-for-technical-communication.pdf"
@@ -7806,14 +7806,14 @@
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-1/2003a-chemistry-for-engineering-practices.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|2005": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/integrated-circuit-design-fabrication/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/2005-environmental-sustainability-and-ethics.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|2009B": {
         "syllabus": "sitttr/revision-2026/syllabus/robotic-process-automation/semester-1/2009b-engineering-workshop-practice.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|2041": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/micro-electronics/semester-unspecified/2041-elements-of-electrical-electronics-engineering.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/integrated-circuit-design-fabrication/semester-unspecified/2041-elements-of-electrical-electronics-engineering.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/micro-electronics/semester-2/2041-elements-of-electrical-electronics-engineering.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|2042": {
@@ -7826,7 +7826,7 @@
         "syllabus": "sitttr/revision-2026/syllabus/micro-electronics/semester-2/2049-electronic-devices-and-applications-lab.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|3001": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/3001-essence-of-indian-constitution.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/integrated-circuit-design-fabrication/semester-unspecified/3001-essence-of-indian-constitution.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|3009": {
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/3009-digital-101.pdf"
@@ -7835,10 +7835,10 @@
         "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/integrated-circuit-design-fabrication/semester-unspecified/3042-digital-circuits-and-systems.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|5021": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/5021-industrial-management-and-safety.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/integrated-circuit-design-fabrication/semester-unspecified/5021-industrial-management-and-safety.pdf"
       },
       "2026|integrated-circuit-design-and-fabrication|6042": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/micro-electronics/semester-unspecified/6042-robotics-and-artificial-intelligence.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/integrated-circuit-design-fabrication/semester-unspecified/6042-robotics-and-artificial-intelligence.pdf"
       },
       "2026|interior-design|1001": {
         "syllabus": "sitttr/revision-2026/syllabus/interior-design/semester-1/1001-english-for-technical-communication.pdf"
@@ -8488,7 +8488,7 @@
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-1/2003a-chemistry-for-engineering-practices.pdf"
       },
       "2026|tool-and-die-engineering|2005": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/tool-die-engineering/semester-unspecified/2005-environmental-sustainability-and-ethics.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/2005-environmental-sustainability-and-ethics.pdf"
       },
       "2026|tool-and-die-engineering|2009A": {
@@ -8502,14 +8502,14 @@
         "syllabus": "sitttr/revision-2026/syllabus/tool-die-engineering/semester-2/2119-basic-cad-lab.pdf"
       },
       "2026|tool-and-die-engineering|2131": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/2131-fundamentals-of-electrical-and-electronics-engineering.pdf",
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/tool-die-engineering/semester-unspecified/2131-fundamentals-of-electrical-and-electronics-engineering.pdf",
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/2131-fundamentals-of-electrical-and-electronics-engineering.pdf"
       },
       "2026|tool-and-die-engineering|2138": {
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/2138-fundamentals-of-electrical-and-electronics-engineering-lab.pdf"
       },
       "2026|tool-and-die-engineering|3001": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/3001-essence-of-indian-constitution.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/tool-die-engineering/semester-unspecified/3001-essence-of-indian-constitution.pdf"
       },
       "2026|tool-and-die-engineering|3009": {
         "syllabus": "sitttr/revision-2026/syllabus/wood-and-paper-technology/semester-2/3009-digital-101.pdf"
@@ -8524,7 +8524,7 @@
         "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/tool-die-engineering/semester-unspecified/4111-applied-mechanics-and-strength-of-materials.pdf"
       },
       "2026|tool-and-die-engineering|5021": {
-        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/5021-industrial-management-and-safety.pdf"
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/tool-die-engineering/semester-unspecified/5021-industrial-management-and-safety.pdf"
       },
       "2026|tool-and-die-engineering|5111": {
         "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/tool-die-engineering/semester-unspecified/5111-press-tool-and-mould-design.pdf"
@@ -8609,6 +8609,18 @@
       },
       "2026|wood-and-paper-technology|6122": {
         "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/wood-and-paper-technology/semester-unspecified/6122-paper-technology-ii.pdf"
+      },
+      "2026|computer-science-and-engineering-artificial-intelligence-and-machine-learning|4001": {
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/computer-science-and-engineering-artificial-intelligence-machine-learning/semester-unspecified/4001-entrepreneurship-and-startup.pdf"
+      },
+      "2026|electrical-engineering-and-electric-vehicles-technology|4001": {
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/electrical-engineering-electric-vehicles-technology/semester-unspecified/4001-entrepreneurship-and-startup.pdf"
+      },
+      "2026|integrated-circuit-design-and-fabrication|4001": {
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/integrated-circuit-design-fabrication/semester-unspecified/4001-entrepreneurship-and-startup.pdf"
+      },
+      "2026|tool-and-die-engineering|4001": {
+        "modelQuestionPaper": "sitttr/revision-2026/model-question-papers/tool-die-engineering/semester-unspecified/4001-entrepreneurship-and-startup.pdf"
       }
     }
   }

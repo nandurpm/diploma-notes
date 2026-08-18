@@ -29,7 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260818-pdf-only-final1";
+  const VERSION = "20260818-pdf-manifest2";
   let PDF_LINKS = {};
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
   const PROGRAMME_ART = {

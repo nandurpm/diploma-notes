@@ -17,7 +17,7 @@ SITE = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = SITE + "/assets/media/poly-pmna-study-hub-social-card.png"
 REPORT_JSON = Path("reports/archive/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/archive/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260818-pdf-only-final1"
+VERSION = "20260818-pdf-manifest2"
 PDF_MANIFEST = json.loads(Path("assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
 PDF_BASE = PDF_MANIFEST["base"]
 PDF_LINKS = PDF_MANIFEST["links"].get("2026", {})
