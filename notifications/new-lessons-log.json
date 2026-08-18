@@ -1645,6 +1645,13 @@
       "subjectName": "Electrification of Residential Buildings",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6034C.html"
+    },
+    "REV2026:6034D:revision-2026-content/lessons/lessons-6034D.html": {
+      "messageId": "projects/poly-pmna/messages/7756958239446610265",
+      "subjectCode": "6034D",
+      "subjectName": "Electric Vehicles and Traction",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6034D.html"
     }
   }
 }
