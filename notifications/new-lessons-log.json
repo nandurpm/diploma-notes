@@ -1589,6 +1589,13 @@
       "subjectName": "Microcontroller and PLC",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6031T.html"
+    },
+    "REV2026:6032:revision-2026-content/lessons/lessons-6032.html": {
+      "messageId": "projects/poly-pmna/messages/6868151749270875102",
+      "subjectCode": "6032",
+      "subjectName": "Electric Vehicle and Renewable Energy Technologies",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6032.html"
     }
   }
 }
