@@ -5,7 +5,10 @@
   const MODEL_QP_BASE = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses&prog=";
   const SYLLABUS_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2015";
   const MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2015";
-  const SUBJECT_DATA_URL = "/assets/data/revision-2015-subjects.json?v=20260720-rev2015-subjects1";
+  const SUBJECT_DATA_URLS = [
+    "/assets/data/revision-2015-subjects.json?v=20260818-rev2015-polish1",
+    "/assets/data/revision-2015-subjects.json"
+  ];
 
   const MATERIALS_2015 = {
     firstYear: [
@@ -179,6 +182,22 @@
     directory.query = query;
   }
 
+  function primeControlsFromUrl() {
+    const { department, semester, search } = getDirectoryElements();
+    if (!department || !semester || !search) return;
+    const params = new URLSearchParams(location.search);
+    const requestedDepartment = String(params.get("department") || "").toUpperCase();
+    const requestedSemester = String(params.get("semester") || "all");
+    department.value = [...department.options].some(option => option.value === requestedDepartment) ? requestedDepartment : "";
+    semester.value = /^[1-6]$/.test(requestedSemester) ? requestedSemester : "all";
+    search.value = String(params.get("search") || "").trim();
+  }
+
+  function setResultsBusy(isBusy) {
+    const { results } = getDirectoryElements();
+    if (results) results.setAttribute("aria-busy", String(Boolean(isBusy)));
+  }
+
   function populateDirectoryControls() {
     const { department, semester, search } = getDirectoryElements();
     if (!department || !semester || !search) return;
@@ -206,6 +225,7 @@
       return;
     }
 
+    setResultsBusy(false);
     results.innerHTML = `<div class="rev2015-department-grid">${programmes.map(item => (
       `<button class="rev2015-department-card" type="button" data-programme-code="${escapeHtml(item.code)}">` +
         `<span class="rev2015-department-code">${escapeHtml(item.code)}</span>` +
@@ -286,6 +306,7 @@
       `</section>`
     )).join("");
 
+    setResultsBusy(false);
     results.innerHTML = intro + sections;
     setDirectoryStatus(`${subjects.length} subject${subjects.length === 1 ? "" : "s"} shown for ${programme.name}.`);
   }
@@ -338,11 +359,23 @@
   async function initDirectory() {
     const { results } = getDirectoryElements();
     if (!results) return;
-    setDirectoryStatus("Loading the verified REV2015 subject registry…", "loading");
+    primeControlsFromUrl();
+    setDirectoryStatus("Preparing the verified REV2015 subject directory…", "loading");
+    setResultsBusy(true);
     try {
-      const response = await fetch(SUBJECT_DATA_URL, { headers: { Accept: "application/json" } });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      const data = await response.json();
+      let data = null;
+      let lastError = null;
+      for (const source of SUBJECT_DATA_URLS) {
+        try {
+          const response = await fetch(source, { headers: { Accept: "application/json" }, cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          data = await response.json();
+          break;
+        } catch (error) {
+          lastError = error;
+        }
+      }
+      if (!data) throw lastError || new Error("Subject data unavailable.");
       if (!Array.isArray(data.programmes) || !Array.isArray(data.subjects) || data.programmes.length !== 21) {
         throw new Error("The subject registry is incomplete.");
       }
@@ -362,10 +395,11 @@
       document.documentElement.classList.add("rev2015-directory-ready");
     } catch (error) {
       console.error("REV2015 subject registry failed to load:", error);
-      setDirectoryStatus("The subject registry could not be loaded.", "error");
+      setDirectoryStatus("The subject directory is unavailable right now.", "error");
+      setResultsBusy(false);
       results.innerHTML = (
-        '<div class="rev2015-empty rev2015-load-error"><strong>Subject list temporarily unavailable.</strong>' +
-        '<span>Use the official SITTTR indexes below while this page reloads.</span>' +
+        '<div class="rev2015-empty rev2015-load-error"><strong>Subject list could not be loaded.</strong>' +
+        '<span>The archive links above still work. Try refreshing once, or use the official indexes below.</span>' +
         `<div class="rev2015-error-links"><a href="${escapeHtml(SYLLABUS_INDEX)}" target="_blank" rel="noopener noreferrer">Official REV2015 syllabus index ↗</a>` +
         `<a href="${escapeHtml(MODEL_QP_INDEX)}" target="_blank" rel="noopener noreferrer">Official REV2015 model-paper index ↗</a></div></div>`
       );
@@ -374,6 +408,7 @@
 
   function init() {
     renderArchiveGroups();
+    primeControlsFromUrl();
     initDirectory();
     document.documentElement.classList.add("materials-2015-ready");
   }
