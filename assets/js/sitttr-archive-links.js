@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const MAP_URL = '/assets/data/sitttr-archive-links.json?v=20260818-sitttr-archive-links1';
+  const MAP_URL = '/assets/data/sitttr-archive-links.json?v=20260818-sitttr-archive-links2';
   const SITTTR_HOSTS = new Set(['sitttrkerala.ac.in', 'www.sitttrkerala.ac.in']);
   const modelLinkSelector = '.action.qp, .rev2015-action-model';
   const syllabusLinkSelector = '.action.syllabus, .rev2015-action-syllabus';
@@ -35,7 +35,7 @@
   function pageContext(link) {
     const card = link.closest('[data-subject-code], [data-course-code]');
     if (!card) return null;
-    const grid = card.closest('[data-department], [data-programme-name], [data-revision], .subject-grid');
+    const grid = card.closest('.subject-grid') || card.closest('[data-department], [data-programme-name]');
     const revision = revisionKey(card.dataset.revision || grid?.dataset.revision || document.body?.dataset.revision || document.body?.dataset.siteRevision || location.pathname);
     const course = String(card.dataset.subjectCode || card.dataset.courseCode || '').trim();
     if (!revision || !course) return null;
