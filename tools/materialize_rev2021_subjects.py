@@ -10,7 +10,10 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
-from bs4 import BeautifulSoup
+try:
+    from bs4 import BeautifulSoup
+except ImportError:  # GitHub Actions does not install optional parser packages.
+    BeautifulSoup = None
 
 ROOT = Path(__file__).resolve().parents[1]
 COMMON = "First Year / Common"
@@ -68,20 +71,40 @@ def subject_key(record: dict[str, str]) -> tuple[str, ...]:
     )
 
 
+def _text_content(fragment: str) -> str:
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", fragment))).strip()
+
+
 def parse_existing_pages() -> list[dict[str, str]]:
     records: list[dict[str, str]] = []
     for path in sorted((ROOT / "revision-2021").glob("*.html")):
         if path.name == "department-view.html":
             continue
-        soup = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
-        department = soup.body.get("data-department", "") if soup.body else ""
-        if not department:
-            grid = soup.select_one("#subjectGrid[data-department]")
-            department = grid.get("data-department", "") if grid else ""
-        for article in soup.select('article.subject-card[data-revision="2021"]'):
-            code = article.get("data-subject-code", "").strip()
-            name = article.find("h3").get_text(" ", strip=True) if article.find("h3") else ""
-            meta = article.find("p").get_text(" ", strip=True) if article.find("p") else ""
+        text = path.read_text(encoding="utf-8")
+        if BeautifulSoup is not None:
+            soup = BeautifulSoup(text, "html.parser")
+            department = soup.body.get("data-department", "") if soup.body else ""
+            if not department:
+                grid = soup.select_one("#subjectGrid[data-department]")
+                department = grid.get("data-department", "") if grid else ""
+            articles = soup.select('article.subject-card[data-revision="2021"]')
+            rows = [(article.get("data-subject-code", "").strip(),
+                     article.find("h3").get_text(" ", strip=True) if article.find("h3") else "",
+                     article.find("p").get_text(" ", strip=True) if article.find("p") else "")
+                     for article in articles]
+        else:
+            department_match = DEPARTMENT_RE.search(text)
+            department = html.unescape(department_match.group(1)) if department_match else ""
+            article_re = re.compile(r'<article\b(?=[^>]*class=["\'][^"\']*subject-card[^"\']*["\'])(?=[^>]*data-revision=["\']2021["\'])[^>]*>.*?</article>', re.I | re.S)
+            rows = []
+            for article in article_re.findall(text):
+                code_match = re.search(r'data-subject-code=["\']([^"\']+)', article, re.I)
+                name_match = re.search(r'<h3\b[^>]*>(.*?)</h3>', article, re.I | re.S)
+                meta_match = re.search(r'<p\b[^>]*>(.*?)</p>', article, re.I | re.S)
+                rows.append((code_match.group(1).strip() if code_match else "",
+                             _text_content(name_match.group(1)) if name_match else "",
+                             _text_content(meta_match.group(1)) if meta_match else ""))
+        for code, name, meta in rows:
             parts = [part.strip() for part in meta.split("/") if part.strip()]
             if not code or not name or len(parts) < 2:
                 continue
