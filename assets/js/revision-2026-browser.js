@@ -29,7 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260818-repository-pdf-links1";
+  const VERSION = "20260818-four-button-cards1";
   let PDF_LINKS = {};
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
   const PROGRAMME_ART = {
@@ -243,19 +243,36 @@
   function pdfFilename(href) { return href.split("/").pop() || "resource.pdf"; }
 
   function subjectCard(subject, programmeName) {
-    const code = String(subject.code || "").trim();
+    const code = String(subject.code || "").trim().toUpperCase();
     const semester = semesterNumber(subject);
     const semesterText = semester <= 6 ? `Semester ${semester}` : "Other subjects";
     const name = String(subject.name || "Untitled subject").trim();
     const type = String(subject.type || "Course").trim();
     const programmeSlug = String(subject.programmeSlug || slug(programmeName));
-    const pdf = PDF_LINKS[`2026|${programmeSlug}|${code.toUpperCase()}`] || {};
+    const pdf = PDF_LINKS[`2026|${programmeSlug}|${code}`] || {};
     const syllabus = pdf.syllabus ? `${PDF_BASE}${pdf.syllabus}` : "";
     const qp = pdf.modelQuestionPaper ? `${PDF_BASE}${pdf.modelQuestionPaper}` : "";
-    const syllabusAction = syllabus ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Download Syllabus</a>` : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
-    const qpAction = qp ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>` : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
+    
+    // Handbook availability check (using the global set if available)
+    const handbookAvailable = window.REV2026_LESSON_CODES ? window.REV2026_LESSON_CODES.has(code) : false;
+    const lessonHref = `/revision-2026-content/lessons/lessons-${code}.html`;
+    const notesHref = `${lessonHref}?autoPrintNotes=1`;
+    
+    const syllabusAction = syllabus 
+      ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Open Syllabus</a>` 
+      : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
+      
+    const studyActions = handbookAvailable
+      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" target="_blank" rel="noopener noreferrer">Save as PDF</a>`
+      : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
+      
+    const qpAction = qp 
+      ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Open Model Question Paper</a>` 
+      : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
+      
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
-    return `<article class="subject-card" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${qpAction}</div></article>`;
+    
+    return `<article class="subject-card" data-subject-code="${esc(code)}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${handbookAvailable}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${studyActions}${qpAction}</div></article>`;
   }
 
   function semesterSection(number, subjects, programmeName) {
