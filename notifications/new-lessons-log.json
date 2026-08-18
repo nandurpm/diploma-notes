@@ -1617,6 +1617,13 @@
       "subjectName": "Industrial Drives and Control",
       "revision": "REV2026",
       "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6033C.html"
+    },
+    "REV2026:6033D:revision-2026-content/lessons/lessons-6033D.html": {
+      "messageId": "projects/poly-pmna/messages/7927076086884298543",
+      "subjectCode": "6033D",
+      "subjectName": "Power System Economics and Distributed Generation",
+      "revision": "REV2026",
+      "url": "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-6033D.html"
     }
   }
 }
