@@ -58,9 +58,9 @@
             </select>
           </div>
         </div>
-	        <div id="dailySubjectCards" class="subject-grid"></div>
+	        <div id="dailySubjectCards" class="subject-grid" aria-live="polite"></div>
 	        <div id="quizContainer" class="hidden" style="margin-top: 24px;">
-	          <div class="quiz-progress-wrap" id="quizProgressWrap"><div class="quiz-progress-bar" id="quizProgressBar"></div></div>
+	          <div class="quiz-progress-wrap" id="quizProgressWrap" role="progressbar" aria-label="Quiz completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="quiz-progress-bar" id="quizProgressBar"></div></div>
 	          <div id="quizBox"></div>
 	          <div id="quizControls" class="controls hidden">
 	            <button class="btn primary" id="submitQuiz" type="button">Submit Answers</button>
@@ -85,7 +85,7 @@
             </select>
           </div>
         </div>
-        <div id="mockSubjectCards" class="subject-grid"></div></section>
+        <div id="mockSubjectCards" class="subject-grid" aria-live="polite"></div></section>
 
       <section id="reviewView" class="panel hidden"><h2>Previous-Day Review</h2><p class="info">Select a supported subject to review previous answers. Guest review works only for attempts saved in this browser.</p>
         <div class="curriculum-filter-wrap" style="display:flex; gap:16px; flex-wrap:wrap; margin:16px 0; background:rgba(0,0,0,0.15); padding:16px; border-radius:8px;">
@@ -102,7 +102,7 @@
             </select>
           </div>
         </div>
-        <div id="reviewSubjectCards" class="subject-grid"></div><div id="reviewBox" class="review-list"></div></section>
+        <div id="reviewSubjectCards" class="subject-grid" aria-live="polite"></div><div id="reviewBox" class="review-list" aria-live="polite"></div></section>
     </section>
   </main>
   <footer class="footer" data-site-footer><p>&copy; <span data-year></span> POLY PMNA.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/about.html">About</a><a href="/contact.html">Help</a><a href="https://nandakumarm.dpdns.org/" target="_self">Developer</a></nav><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav></footer>

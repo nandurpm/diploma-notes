@@ -7,6 +7,7 @@
   const DB_NAME = "ask-poly-v2-db";
   const DB_VERSION = 1;
   const MAX_HISTORY = Number(window.ASK_POLY_CONFIG?.maxHistory || 12);
+  const MAX_QUEUE = 8;
   let dbPromise = null;
   let activeChatId = null;
   let waiting = false;
@@ -30,6 +31,7 @@
 
   let abortController = null;
   let messageQueue = [];
+  let stopRequested = false;
 
   if (!els.form || !els.messages || !els.input) return;
 
@@ -352,6 +354,10 @@
   }
 
   async function deleteSavedChat(chat) {
+    if (waiting) {
+      els.status.textContent = "Finish or stop the current response before deleting a chat.";
+      return;
+    }
     if (!confirm(`Delete saved chat "${chat.title || "New chat"}"?`)) return;
     await deleteChat(chat.id);
     await chooseChatAfterDelete(chat.id);
@@ -370,13 +376,23 @@
       const btn = document.createElement("button");
       btn.className = `ask-item ${chat.id === activeChatId ? "active" : ""}`;
       btn.type = "button";
+      btn.setAttribute("aria-current", chat.id === activeChatId ? "true" : "false");
+      btn.disabled = waiting;
       btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt))}</small>`;
-      btn.addEventListener("click", async () => { activeChatId = chat.id; await renderAll(); });
+      btn.addEventListener("click", async () => {
+        if (waiting) {
+          els.status.textContent = "Finish or stop the current response before switching chats.";
+          return;
+        }
+        activeChatId = chat.id;
+        await renderAll();
+      });
 
       const del = document.createElement("button");
       del.className = "ask-delete";
       del.type = "button";
       del.setAttribute("aria-label", `Delete ${chat.title || "saved chat"}`);
+      del.disabled = waiting;
       del.textContent = "×";
       del.addEventListener("click", async (event) => { event.stopPropagation(); await deleteSavedChat(chat); });
 
@@ -405,12 +421,27 @@
     ];
   }
 
-  async function renderAll() { await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); }
+  async function renderAll() { await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); updateQueueStatus(); }
+
+  function queueSuffix() {
+    return messageQueue.length ? ` · ${messageQueue.length} queued` : "";
+  }
+
   function setWaiting(value) {
-    waiting = value;
-    els.status.textContent = value ? "Checking website + thinking..." : "Ready";
-    els.input.disabled = value;
-    els.send.disabled = value;
+    waiting = Boolean(value);
+    els.form?.toggleAttribute("data-generating", waiting);
+    /* Keep the textarea available while a response is running so a student
+     * can prepare and queue the next question without interrupting the stream. */
+    els.input.disabled = false;
+    els.send.disabled = waiting;
+    if (els.queue) els.queue.disabled = false;
+    if (els.stop) {
+      els.stop.hidden = !waiting;
+      els.stop.disabled = false;
+      els.stop.textContent = waiting ? "Stop generating" : "Stop";
+    }
+    updateQueueStatus();
+    if (waiting) els.status.textContent = `Checking website + thinking${queueSuffix()}...`;
   }
 
   function addTyping() {
@@ -585,7 +616,7 @@
       removeTyping();
       streamBubble = addStreamingBubble();
       const result = await callAI(clean, history, retrieval?.context || "", (partial) => {
-        els.status.textContent = "POLY is writing...";
+        els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
       });
       streamBubble?.div.remove();
@@ -598,8 +629,8 @@
     } catch (error) {
       removeTyping();
       streamBubble?.div.remove();
-      if (error.name === "AbortError") {
-        await addMessage("assistant", "Generation stopped by user.", { provider: "user-stop" });
+      if (error.name === "AbortError" && stopRequested) {
+        await addMessage("assistant", "Generation stopped by user. You can review the partial response above or ask again.", { provider: "user-stop" });
       } else {
         const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
         if (offline) {
@@ -627,11 +658,11 @@
       abortController = null;
       await renderAll();
       
-      // Check queue
+      stopRequested = false;
       if (messageQueue.length > 0) {
         const nextText = messageQueue.shift();
         updateQueueStatus();
-        sendMessage(nextText, true);
+        await sendMessage(nextText, true);
       } else {
         els.input.focus();
       }
@@ -640,13 +671,17 @@
 
   function updateQueueStatus() {
     if (!els.queue) return;
-    if (messageQueue.length > 0) {
-      els.queue.textContent = `Queued (${messageQueue.length})`;
-      els.queue.classList.add("active");
-    } else {
-      els.queue.textContent = "Queue";
-      els.queue.classList.remove("active");
-    }
+    const count = messageQueue.length;
+    els.queue.textContent = count ? `Queue (${count})` : "Queue message";
+    els.queue.classList.toggle("active", count > 0);
+    els.queue.dataset.count = String(count);
+    els.queue.setAttribute("aria-label", count
+      ? `${count} message${count === 1 ? "" : "s"} queued; current response will continue`
+      : (waiting ? "Add the current message to the queue" : "Send the current message"));
+    els.queue.title = count
+      ? `${count} queued message${count === 1 ? "" : "s"}`
+      : (waiting ? "Add this message to the pending queue" : "Send this message");
+    if (!waiting) els.status.textContent = count ? `${count} message${count === 1 ? "" : "s"} queued` : "Ready";
   }
 
   function autoResize() {
@@ -675,15 +710,26 @@
     els.input.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey && !isMobile()) {
         event.preventDefault();
-        els.send.click();
+        (waiting ? els.queue : els.send).click();
       }
     });
     els.input.addEventListener("input", autoResize);
     els.search.addEventListener("input", renderChats);
-    els.newChat.addEventListener("click", () => createChat());
+    els.newChat.addEventListener("click", async () => {
+      if (waiting) {
+        els.status.textContent = "Finish or stop the current response before starting a new chat.";
+        return;
+      }
+      await createChat();
+    });
     if (els.stop) {
       els.stop.addEventListener("click", () => {
-        if (abortController) abortController.abort();
+        if (!abortController || !waiting) return;
+        stopRequested = true;
+        els.stop.disabled = true;
+        els.stop.textContent = "Stopping...";
+        els.status.textContent = "Stopping generation...";
+        abortController.abort();
       });
     }
     if (els.queue) {
@@ -693,6 +739,10 @@
         if (!waiting && messageQueue.length === 0) {
           sendMessage(text);
         } else {
+          if (messageQueue.length >= MAX_QUEUE) {
+            els.status.textContent = `Queue limit reached (${MAX_QUEUE}). Wait for a response before adding another message.`;
+            return;
+          }
           messageQueue.push(text);
           els.input.value = "";
           autoResize();

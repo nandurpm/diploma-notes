@@ -251,4 +251,17 @@ html.polytechnic-native-app .ask-send{
   .ask-form { grid-template-columns: minmax(0,1fr) auto!important; }
   .ask-actions { grid-column: 1/3; width: 100%; justify-content: flex-end; margin-top: 4px; }
   .ask-send { width: auto!important; padding: 0 20px!important; }
+  .ask-stop,.ask-queue,.ask-send { min-height:44px; }
 }
+
+/* Clear status and focus treatment for generation controls. */
+.ask-stop[hidden]{display:none!important}
+.ask-stop:not([hidden]){box-shadow:0 0 0 3px rgba(185,28,28,.08);font-weight:950}
+.ask-stop:focus-visible,.ask-queue:focus-visible,.ask-send:focus-visible,.ask-new:focus-visible,.ask-delete:focus-visible,.ask-mobile-chats-btn:focus-visible,.ask-mobile-new:focus-visible{outline:3px solid rgba(37,99,235,.36);outline-offset:2px}
+.ask-stop:disabled,.ask-queue:disabled,.ask-send:disabled,.ask-new:disabled,.ask-delete:disabled,.ask-item:disabled{cursor:not-allowed;opacity:.62;transform:none!important}
+.ask-queue.active{background:#dcfce7;border-color:rgba(21,128,61,.35);color:#166534;box-shadow:0 0 0 3px rgba(21,128,61,.10)}
+.ask-form[data-generating="true"] .ask-input{border-color:rgba(37,99,235,.34);background:#fbfdff}
+.ask-list .ask-item:disabled{background:#f8fafc}
+.ask-list .ask-delete:disabled{background:#f8fafc}
+body.ask-chats-open{overflow:hidden}
+@media(prefers-reduced-motion:reduce){.ask-poly-page *,.ask-poly-page *::before,.ask-poly-page *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
