@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T05:57:53Z",
+  "generatedAt": "2026-08-19T11:47:44Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 19 Aug 2026 05:57:53 GMT",
+      "date": "Wed, 19 Aug 2026 11:47:40 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "524",
       "connection": "close",
@@ -22,10 +22,10 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nTOGFdnmRxhaaU%2BN3OccLt2bD0mw6bvTciKecRcxnS7E3bGYB4tIOC6EIaua0%2BN0KthSyjNxklRCWR0Z%2B0QPITLfyjJJQm%2F9AONQ8XdB82fQdARRay1o8hsSRDFL6aOM7XWbZaQtBTyBP6bLUN5N%2Bqw0GYVH%2FJ2cLw%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=jzRl7YILjiw%2Fg4TNImUEVhGBfyIcwNZddNTAOk%2Fg2iuG8XR1yoU6gsyWLZECf1gNHPhkvsEWUuk47HyzV6w081VKPzuF%2Ffmn8GQk662%2FQy8i38jsw1VG5MYGNcPSl9eGCUaBD1RdBGvoHyl8tOzAiaTJUXIs07nzRg%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2d6ec5faa5b5949-IAD",
+      "cf-ray": "a2d8ecc21d561dca-DFW",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"verifiedResultStorage\":false,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":true,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai\",\"cloudflare-workers-ai-rest\",\"openrouter\",\"nvidia\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\",\"dailyQuizGrading\":true}",
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Wed, 19 Aug 2026 05:57:53 GMT",
+      "date": "Wed, 19 Aug 2026 11:47:40 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MwjZO%2FZgZp6Mwjn9QFYAX08BgxFyeYGMvUaEKKYGRzd1Ss0TNbOKyCFLsVPzh5q13OxMUrWtps2DlmGSxqFhqLiaoMwdwKeE2vHp5Phd0Pk3ke6yUbS6v7GFTkBjufuucrCJ%2FzSQvrI6iIH6p7FfRGeS2SrppThjcg%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IUnPRoIZPQyH0GuoXPZB4PmjmLrAVG0Y8XZfgptsM5hY1Ob26Ae%2FlSzznyzcyldeD1GrTf2MCXGHJymXNUEKGYpUY%2BUrtS%2FjeCQp7yIm0gZwdr%2B2J%2BMYfxjTbnQ8L%2B3TToyLH2SbbEZ3BaoIMMgCtMRXsQIWfS3G3w%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2d6ec5fed187ce6-IAD",
+      "cf-ray": "a2d8ecc29cab4774-DFW",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 19 Aug 2026 05:57:53 GMT",
+      "date": "Wed, 19 Aug 2026 11:47:44 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "439",
+      "content-length": "669",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=M%2FGgmDWy2aQlDQJgD5NvoF1pX1lQ4bRKaUntOocCNH7c5uQgvhANamTskvf6snj2Ft9A0BfDIlt8L6oqa4EYPfDwvtsV8sPLtmpKVA6m2Lu%2Btu4L5f1fqtuGjxYkcJ%2BW%2FmmVD4rPucYiQPbArnmW%2BPkGuWuJprcuCA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=KtL%2F3L4Sj%2BCgcR7ZQY5P0HfNejlwLStCATRPk2rUTLXGc1puzQBEoZMT3e4qZmYlBr1Is9Td3n6QbtudlJ%2FJhgYOd7cqp4f2ISYtl9YksmKRUbJoiuwyygpO%2B399EzzK4Z6%2F%2F6LCKpm%2BcXRI8OhXo5KJjgsepw9oIw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2d6ec601b41242d-IAD",
+      "cf-ray": "a2d8ecc33c3ca88e-DFW",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"The browser path for Ask POLY is: \\n\\n1. Open Google Chrome or Mozilla Firefox browser.\\n2. Type 'polytechnic.kerala.gov.in' in the address bar.\\n3. Click on the 'Ask POLY' icon or link.\\n4. Select the topic and ask your question.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-5377e3fd-2dd4-456e-972e-000a683ea73d\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"The Ask POLY browser path is as follows:\\n\\n1. Open Google Chrome or Mozilla Firefox browser.\\n2. Type 'polytechnic diploma assistant' in the search bar and select the Ask POLY website.\\n3. Click on the Ask POLY website to open it.\\n4. Click on the 'Chat with POLY' button to start a conversation with me.\\n5. Type your question or topic in the chat box and press Enter.\\n\\nThat's it! I'm now ready to assist you with your queries. What would you like to know?\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-a61a205f-8222-448d-b739-6a9e1561aea9\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
