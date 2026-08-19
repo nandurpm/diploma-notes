@@ -15,7 +15,7 @@ class MalayalamParser(HTMLParser):
     def __init__(self, path: Path) -> None:
         super().__init__(convert_charrefs=True)
         self.path = path
-        self.stack: list[tuple[str, str]] = []
+        self.stack: list[tuple[str, str, bool]] = []
         self.failures: list[tuple[int, str]] = []
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
@@ -23,7 +23,9 @@ class MalayalamParser(HTMLParser):
         if normalized_tag in VOID_TAGS:
             return
         lang = next((value or "" for key, value in attrs if key.lower() == "lang"), "")
-        self.stack.append((normalized_tag, lang.lower()))
+        classes = (next((value or "" for key, value in attrs if key.lower() == "class"), "") or "").lower().split()
+        semantic_malayalam = any(token == "ml" or token.startswith("ml-") or "malayalam" in token for token in classes)
+        self.stack.append((normalized_tag, lang.lower(), semantic_malayalam))
 
     def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         return
@@ -38,9 +40,9 @@ class MalayalamParser(HTMLParser):
     def handle_data(self, data: str) -> None:
         if not any("\u0D00" <= char <= "\u0D7F" for char in data):
             return
-        if any(tag in SKIP_TAGS for tag, _ in self.stack):
+        if any(tag in SKIP_TAGS for tag, _, _ in self.stack):
             return
-        if any(lang == "ml" for _, lang in self.stack):
+        if any(lang == "ml" or semantic_malayalam for _, lang, semantic_malayalam in self.stack):
             return
         line = self.getpos()[0]
         excerpt = " ".join(data.split())[:180]
