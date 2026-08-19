@@ -60,7 +60,6 @@ body.poly-pre-onam-mode .topbar {
   background: rgba(255, 252, 241, .88) !important;
   border-bottom: 1px solid rgba(216, 169, 40, .28) !important;
   box-shadow: 0 12px 32px rgba(105, 76, 23, .10) !important;
-  backdrop-filter: blur(18px) saturate(1.12);
 }
 
 body.poly-pre-onam-mode .brand {
@@ -337,6 +336,7 @@ body.poly-pre-onam-mode button[type="submit"]:hover {
   inset: 0;
   z-index: 9988;
   overflow: hidden;
+  contain: strict;
   pointer-events: none;
 }
 
@@ -350,7 +350,8 @@ body.poly-pre-onam-mode button[type="submit"]:hover {
   background: var(--pre-color);
   opacity: .55;
   transform: rotate(22deg);
-  filter: drop-shadow(0 3px 3px rgba(105, 76, 23, .13));
+  box-shadow: 0 2px 2px rgba(105, 76, 23, .13);
+  backface-visibility: hidden;
   animation: preOnamPetalFall var(--pre-duration) linear var(--pre-delay) infinite;
 }
 
@@ -446,6 +447,7 @@ body.poly-pre-onam-mode .footer {
   .pre-onam-ribbon__countdown-label { align-self: center; margin-top: 0; }
   .pre-onam-pookalam { position: absolute; right: -32px; top: -17px; width: 92px; height: 92px; opacity: .72; }
   .pre-onam-diya { right: 12px; bottom: 19px; transform: scale(.82); }
+  body.poly-pre-onam-mode .topbar { backdrop-filter: none; }
 }
 
 @media (max-width: 520px) {
@@ -456,6 +458,10 @@ body.poly-pre-onam-mode .footer {
   .pre-onam-petal-layer { opacity: .72; }
   .pre-onam-diya { display: none; }
   body.poly-pre-onam-mode::before { height: 5px; background-size: 44px 5px; }
+}
+
+@supports (backdrop-filter: blur(1px)) and (min-width: 761px) {
+  body.poly-pre-onam-mode .topbar { backdrop-filter: blur(18px) saturate(1.12); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260819-pre-onam-music2";
+  const VERSION = "20260819-pre-onam-perf3";
   const CSS_PATH = "/assets/css/pre-onam-theme.css";
   const AUDIO_PATH = "/assets/media/onam-2026/pre-onam-festive-loop.mp3";
   const START_DATE = "2026-08-19";
@@ -67,6 +67,10 @@
     link.rel = "stylesheet";
     link.href = `${CSS_PATH}?v=${encodeURIComponent(VERSION)}`;
     document.head.append(link);
+  }
+
+  function removeStylesheet() {
+    document.getElementById("poly-pre-onam-theme-css")?.remove();
   }
 
   function removeSeasonalDecorations() {
@@ -197,7 +201,9 @@
     layer.className = "pre-onam-petal-layer";
     layer.setAttribute("aria-hidden", "true");
     const colors = ["#f07828", "#d8a928", "#559b55", "#f2c94c", "#e8a832"];
-    const count = window.matchMedia("(max-width: 700px)").matches ? 8 : 13;
+    const isCompact = window.matchMedia("(max-width: 700px)").matches;
+    const saveData = Boolean(navigator.connection?.saveData);
+    const count = saveData ? 3 : (isCompact ? 6 : 10);
     for (let i = 0; i < count; i += 1) {
       const petal = document.createElement("span");
       petal.className = "pre-onam-petal";
@@ -231,7 +237,7 @@
     button.setAttribute("aria-label", "Play festive Onam background music");
     button.innerHTML = '<span class="pre-onam-music-toggle__icon" aria-hidden="true">♫</span><span class="pre-onam-music-toggle__label">Play festive music</span>';
 
-    const audio = new Audio(AUDIO_PATH);
+    const audio = new Audio();
     audio.loop = true;
     audio.preload = "none";
     audio.volume = 0.22;
@@ -258,6 +264,7 @@
     button.addEventListener("click", async () => {
       if (audio.paused) {
         try {
+          if (!audio.src) audio.src = AUDIO_PATH;
           await audio.play();
         } catch (_) {
           button.setAttribute("aria-label", "Tap again to play festive Onam background music");
@@ -281,18 +288,32 @@
     }, getISTMidnightDelay());
   }
 
+  function scheduleDecorations() {
+    const render = () => {
+      if (getSeasonState() !== "pre-onam") return;
+      createPetals();
+      createDiya();
+    };
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(render, { timeout: 900 });
+    } else {
+      window.setTimeout(render, 120);
+    }
+  }
+
   function applySeason() {
     const season = getSeasonState();
     applyRootState(season);
     if (season === "original") {
       removeMusicToggle();
+      removeStylesheet();
       return;
     }
+    ensureStylesheet();
     createMusicToggle();
     if (season !== "pre-onam") return;
     createRibbon();
-    createPetals();
-    createDiya();
+    scheduleDecorations();
   }
 
   function isHomePage() {
@@ -303,7 +324,6 @@
   function init() {
     if (window.location.pathname.startsWith("/maintenance/")) return;
     if (!isHomePage()) return;
-    ensureStylesheet();
     applySeason();
     scheduleNextISTMidnight();
     state.refreshListener = () => window.setTimeout(applySeason, 0);
