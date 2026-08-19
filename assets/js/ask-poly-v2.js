@@ -191,7 +191,7 @@
   function highlightCode(code, language) {
     const lang = String(language || "").toLowerCase().trim();
     let tokens = [];
-    let remaining = code;
+    let remaining = String(code || "");
     /* Collect string and comment tokens first so their contents are never keyword-colored */
     const stringCommentPattern = /("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|"""[\s\S]*?"""|'''[\s\S]*?'''|#[^\n]*|\/\/[^\n]*|\/\*[\s\S]*?\*\/|<!--[\s\S]*?-->)/g;
     let match;
@@ -209,14 +209,14 @@
     cursor = 0;
     for (const span of spans) {
       out += highlightKeywordsAndNumbers(remaining.slice(cursor, span.start), keywords);
-      out += `<span class="${span.cls}">${remaining.slice(span.start, span.end)}</span>`;
+      out += `<span class="${span.cls}">${escapeHtml(remaining.slice(span.start, span.end))}</span>`;
       cursor = span.end;
     }
     out += highlightKeywordsAndNumbers(remaining.slice(cursor), keywords);
     return out;
   }
   function highlightKeywordsAndNumbers(segment, keywords) {
-    let html = segment.replace(/\b(\d[\d._]*)\b/g, '<span class="hl-number">$1</span>');
+    let html = escapeHtml(segment).replace(/\b(\d[\d._]*)\b/g, '<span class="hl-number">$1</span>');
     if (keywords) {
       const kwPattern = new RegExp(`\\b(${keywords})\\b`, "g");
       /* Apply keywords without touching already-highlighted numbers: split on hl-number spans */
@@ -264,10 +264,25 @@
     const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
     const blocks = [];
     let index = 0;
+    let paragraph = [];
+
+    const flushParagraph = () => {
+      if (!paragraph.length) return;
+      const value = paragraph.join("\n").trim();
+      if (value) blocks.push(`<p>${value.split("\n").map(renderInlineMarkdown).join("<br>")}</p>`);
+      paragraph = [];
+    };
 
     while (index < lines.length) {
       const line = lines[index];
+      if (!line.trim()) {
+        flushParagraph();
+        index += 1;
+        continue;
+      }
+
       if (/^\s*```/.test(line)) {
+        flushParagraph();
         const code = [];
         index += 1;
         while (index < lines.length && !/^\s*```/.test(lines[index])) {
@@ -280,6 +295,7 @@
       }
 
       if (index + 1 < lines.length && line.includes("|") && isMarkdownTableDivider(lines[index + 1])) {
+        flushParagraph();
         const body = [];
         index += 2;
         while (index < lines.length && lines[index].includes("|") && lines[index].trim()) {
@@ -290,21 +306,65 @@
         continue;
       }
 
-      if (/^\s*#{1,3}\s+/.test(line)) {
-        blocks.push(`<strong>${renderInlineMarkdown(line.replace(/^\s*#{1,3}\s+/, ""))}</strong>`);
-      } else {
-        blocks.push(renderInlineMarkdown(line));
+      const heading = /^\s*(#{1,4})\s+(.+)$/.exec(line);
+      if (heading) {
+        flushParagraph();
+        const level = Math.min(4, heading[1].length);
+        blocks.push(`<h${level}>${renderInlineMarkdown(heading[2])}</h${level}>`);
+        index += 1;
+        continue;
       }
+
+      if (/^\s*>\s?/.test(line)) {
+        flushParagraph();
+        const quote = [];
+        while (index < lines.length && /^\s*>\s?/.test(lines[index])) {
+          quote.push(renderInlineMarkdown(lines[index].replace(/^\s*>\s?/, "")));
+          index += 1;
+        }
+        blocks.push(`<blockquote>${quote.join("<br>")}</blockquote>`);
+        continue;
+      }
+
+      const unordered = /^\s*[-*•]\s+(.+)$/.exec(line);
+      const ordered = /^\s*\d+[.)]\s+(.+)$/.exec(line);
+      if (unordered || ordered) {
+        flushParagraph();
+        const items = [];
+        const pattern = unordered ? /^\s*[-*•]\s+(.+)$/ : /^\s*\d+[.)]\s+(.+)$/;
+        while (index < lines.length) {
+          const item = pattern.exec(lines[index]);
+          if (!item) break;
+          items.push(`<li>${renderInlineMarkdown(item[1])}</li>`);
+          index += 1;
+        }
+        blocks.push(`<${unordered ? "ul" : "ol"}>${items.join("")}</${unordered ? "ul" : "ol"}>`);
+        continue;
+      }
+
+      if (/^\s*(---+|___+|\*\s*\*\s*\*)\s*$/.test(line)) {
+        flushParagraph();
+        blocks.push("<hr>");
+        index += 1;
+        continue;
+      }
+
+      paragraph.push(line);
       index += 1;
     }
 
-    return blocks.join("<br>");
+    flushParagraph();
+    return blocks.join("");
   }
 
   function bubble(message) {
     const div = document.createElement("div");
-    div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
-    div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
+    const isUser = message.role === "user";
+    div.className = `ask-bubble ${isUser ? "user" : "ai"}`;
+    const label = `<div class="ask-message-label">${isUser ? "You" : "POLY AI"}</div>`;
+    div.innerHTML = isUser
+      ? `${label}<div class="ask-message-text">${escapeHtml(message.content)}</div>`
+      : `${label}<div class="ask-response-body">${renderText(message.content)}</div>`;
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
@@ -460,7 +520,7 @@
     div.id = "streamingBubble";
     div.className = "ask-bubble ai";
     const content = document.createElement("div");
-    content.className = "ask-stream-content";
+    content.className = "ask-stream-content ask-response-body";
     content.textContent = "";
     div.append(content);
     els.messages.append(div);
