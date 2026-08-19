@@ -227,6 +227,33 @@
   }
 
   /* =========================================================
+     SEASONAL PRE-ONAM THEME
+     ---------------------------------------------------------
+     Loads the date-aware pre-Onam controller globally. The controller
+     is intentionally inert outside 19–24 August 2026 and removes its
+     own classes/decorations after the seasonal window, preserving the
+     original site theme automatically.
+     ========================================================= */
+  function ensurePreOnamTheme() {
+    const themePath = "/assets/js/pre-onam-theme.js";
+    if (window.PolyPreOnamTheme) return;
+    const existing = [...document.scripts].some(script => {
+      try {
+        return new URL(script.src || "", window.location.href).pathname === themePath;
+      } catch (_) {
+        return false;
+      }
+    });
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = `${themePath}?v=20260819-pre-onam-awesome1`;
+    script.defer = true;
+    script.dataset.polyPreOnamTheme = "true";
+    document.head.append(script);
+  }
+
+  /* =========================================================
      INITIALIZATION
      ---------------------------------------------------------
      Runs all initialization steps in order.
@@ -242,6 +269,7 @@
     // Revision 2026 pages own their syllabus/model-paper links through the PDF manifest.
 
     ensureSearchShortcut();
+    ensurePreOnamTheme();
   }
 
   if (document.readyState === "loading") {
