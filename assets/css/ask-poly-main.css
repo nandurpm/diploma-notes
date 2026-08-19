@@ -707,3 +707,11 @@ body.ask-chats-open{overflow:hidden}
     min-width: 68px !important;
   }
 }
+
+/* Mobile simplification: context selectors are desktop-only to preserve chat space. */
+@media (max-width: 900px) {
+  .ask-poly-page .ask-context-bar,
+  html.polytechnic-native-app .ask-poly-page .ask-context-bar {
+    display: none !important;
+  }
+}

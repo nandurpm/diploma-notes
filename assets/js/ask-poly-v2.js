@@ -1197,7 +1197,7 @@
     els.input.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey && !isMobile()) {
         event.preventDefault();
-        (waiting ? els.queue : els.send).click();
+        els.send.click();
       }
     });
     els.input.addEventListener("input", autoResize);
@@ -1217,24 +1217,6 @@
         els.stop.textContent = "Stopping...";
         els.status.textContent = "Stopping generation...";
         abortController.abort();
-      });
-    }
-    if (els.queue) {
-      els.queue.addEventListener("click", () => {
-        const text = els.input.value.trim();
-        if (!text) return;
-        if (!waiting && messageQueue.length === 0) {
-          sendMessage(text);
-        } else {
-          if (messageQueue.length >= MAX_QUEUE) {
-            els.status.textContent = `Queue limit reached (${MAX_QUEUE}). Wait for a response before adding another message.`;
-            return;
-          }
-          messageQueue.push(text);
-          els.input.value = "";
-          autoResize();
-          updateQueueStatus();
-        }
       });
     }
     await renderAll();
