@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-19T12:37:29Z",
+  "generatedAt": "2026-08-19T12:43:53Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askEndpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -35,12 +35,12 @@
     "ok": true,
     "provider": "nvidia",
     "model": "meta/llama-3.1-8b-instruct",
-    "answerPreview": "\u0d06\u0d38\u0d4d\u0d15\u0d4d \u0d2a\u0d4b\u0d33\u0d3f \u0d24\u0d2f\u0d4d\u0d2f\u0d3e\u0d31\u0d3e\u0d23\u0d4d."
+    "answerPreview": "\u0d06\u0d38\u0d4d \u0d2a\u0d4b\u0d33\u0d3f \u0d31\u0d46\u0d21\u0d3f."
   },
   "relevanceTest": {
     "ok": true,
     "provider": "nvidia",
-    "answerPreview": "Kerala \u0d38\u0d02\u0d38\u0d4d\u0d25\u0d3e\u0d28\u0d24\u0d4d\u0d24\u0d4d 14 \u0d1c\u0d3f\u0d32\u0d4d\u0d32\u0d15\u0d33\u0d41\u0d23\u0d4d\u0d1f\u0d4d.",
+    "answerPreview": "Kerala has 14 districts.",
     "forbiddenTermsFound": []
   },
   "lastError": ""
