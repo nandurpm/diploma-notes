@@ -344,7 +344,7 @@ def subject_record(
     revision = compact(revision, 20)
     available = availability(revision, code)
     official_syllabus = pdf_link(revision, department, code, "syllabus")
-    if not official_syllabus and syllabus_url and "sitttrkerala.ac.in" not in syllabus_url:
+    if not official_syllabus and syllabus_url:
         official_syllabus = syllabus_url
     model_qp = pdf_link(revision, department, code, "modelQuestionPaper")
     return {
@@ -547,7 +547,7 @@ def main() -> int:
             },
             {
                 "question": "How do I use the POLY PMNA website?",
-                "answer": "Use Home for announcements, Revision 2026 or Revision 2021 for curriculum pages, Mock Exams for practice, Ask POLY AI for questions, 2015 Materials for the older scheme, Student Tools for calculators and Help to report a problem.",
+                "answer": "Use [Home](/) for announcements, [Revision 2026](/revision-2026.html) or [Revision 2021](/revision-2021.html) for curriculum pages, [Mock Exams](/daily-quiz.html) for practice, [Ask POLY AI](/ask-poly.html) for questions, [2015 Materials](/materials-2015.html) for the older scheme, [Student Tools](/tools.html) for calculators and [Help](/contact.html) to report a problem.",
             },
             {
                 "question": "Where can I download the current Android APK?",

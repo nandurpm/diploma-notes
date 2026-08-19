@@ -118,23 +118,29 @@
     const revision = `REV${subject.revision}`;
     const department = subject.department || "Department not specified";
     const semester = subject.semester || "Semester not specified";
+    
+    const link = (label, url) => (url && url !== "unavailable") ? `[${label}](${url})` : `${label} (unavailable)`;
+    
     const availability = [
-      subject.lessonAvailable ? `lesson: ${subject.lessonUrl}` : "lesson: unavailable",
-      subject.notesAvailable ? `notes: ${subject.notesUrl}` : "notes: unavailable"
-    ].join("; ");
+      subject.lessonAvailable ? `[Lesson](${subject.lessonUrl})` : "Lesson (unavailable)",
+      subject.notesAvailable ? `[Notes](${subject.notesUrl})` : "Notes (unavailable)"
+    ].join(", ");
+
     const detail = subject.syllabusDetails;
     const detailLines = Array.isArray(detail?.outcomes)
       ? detail.outcomes.map(outcome => {
         const modules = Array.isArray(outcome.modules)
-          ? outcome.modules.map(module => `${module.code} ${module.title} (${module.hours}h; ${module.level})`).join("; ")
+          ? outcome.modules.map(module => `${module.code} ${module.title}`).join("; ")
           : "";
-        return `${outcome.code} ${outcome.title} (${outcome.hours} hours; ${outcome.level}). Modules: ${modules}`;
+        return `${outcome.code} ${outcome.title}. Modules: ${modules}`;
       }).join("\n")
       : "";
+
     const syllabusDetail = detail
-      ? ` | official detail source: ${detail.sourceUrl || subject.syllabusUrl || "unavailable"}\n  Verified unit-level syllabus:\n  ${detailLines}`
+      ? `\n  - Official detail source: ${link("Source", detail.sourceUrl || subject.syllabusUrl)}\n  - Verified unit-level syllabus:\n  ${detailLines}`
       : "";
-    return `- ${revision} ${subject.code} — ${subject.name} | ${department} | ${semester} | ${subject.type || "Course"} | department page: ${subject.departmentUrl || "unavailable"} | syllabus: ${subject.syllabusUrl || "unavailable"} | sample paper: ${subject.questionPaperUrl || "unavailable"} | ${availability}${syllabusDetail}`;
+
+    return `- ${revision} ${subject.code} — ${subject.name}\n  - Dept: ${link(department, subject.departmentUrl)}\n  - Sem: ${semester} | ${subject.type || "Course"}\n  - Resources: ${link("Syllabus", subject.syllabusUrl)}, ${link("Sample Paper", subject.questionPaperUrl)}, ${availability}${syllabusDetail}`;
   }
 
   function buildContext(data, matches) {
@@ -154,8 +160,8 @@
     if (Array.isArray(data.rules) && data.rules.length) parts.push(`Website rules:\n${data.rules.map(rule => `- ${rule}`).join("\n")}`);
     if (matches.facts.length) parts.push(`Matched website facts:\n${matches.facts.map(({ item }) => `- ${item.topic}: ${item.fact}`).join("\n")}`);
     if (matches.faq.length) parts.push(`Matched FAQ:\n${matches.faq.map(({ item }) => `- Q: ${item.question}\n  A: ${item.answer}`).join("\n")}`);
-    if (matches.programmes.length) parts.push(`Matched programmes:\n${matches.programmes.map(({ item }) => `- REV${item.revision} ${item.code || ""} ${item.name} — ${item.url}`).join("\n")}`);
-    if (matches.pages.length) parts.push(`Relevant POLY PMNA pages:\n${matches.pages.map(({ item }) => `- ${item.title} — ${item.url} — ${item.summary || ""}`).join("\n")}`);
+    if (matches.programmes.length) parts.push(`Matched programmes:\n${matches.programmes.map(({ item }) => `- [REV${item.revision} ${item.code || ""} ${item.name}](${item.url})`).join("\n")}`);
+    if (matches.pages.length) parts.push(`Relevant POLY PMNA pages:\n${matches.pages.map(({ item }) => `- [${item.title}](${item.url}) — ${item.summary || ""}`).join("\n")}`);
 
     return parts.join("\n\n").slice(0, MAX_CONTEXT_CHARS);
   }
