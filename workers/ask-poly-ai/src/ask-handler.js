@@ -2,10 +2,8 @@
 import { cleanText } from "./http.js";
 import { parsePdfIntent } from "./pdf-intent-parser.js";
 import { searchPdfs } from "./pdf-search.js";
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-const pdfIndex = require("./pdf-index-lite.json");
-const pdfTextIndex = require("./syllabus-text-index.json");
+import pdfIndex from "./pdf-index-lite.json";
+import pdfTextIndex from "./syllabus-text-index.json";
 
 const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const OPENAI_FALLBACK_MODELS = ["gpt-4o-mini"];
