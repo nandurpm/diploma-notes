@@ -1,5 +1,9 @@
 /* Purpose: Ask handler - Descriptive comment added for clarity */
 import { cleanText } from "./http.js";
+import { parsePdfIntent } from "./pdf-intent-parser.js";
+import { searchPdfs } from "./pdf-search.js";
+import pdfIndex from "./pdf-index-lite.json";
+import pdfTextIndex from "./syllabus-text-index.json";
 
 const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const OPENAI_FALLBACK_MODELS = ["gpt-4o-mini"];
@@ -1042,6 +1046,32 @@ function textAnswerStream(answer, provider = "local-offline-assistant", model = 
 export async function askPolyStream(body, env) {
   const message = cleanText(body?.message, 2200);
   if (!message) throw new Error("Please enter a question.");
+
+  // 1. PDF Intent Parsing
+  const pdfIntent = parsePdfIntent(message);
+  if (pdfIntent) {
+    const results = searchPdfs(pdfIntent, pdfIndex);
+    
+    // If it's a RAG request and we have a match
+    if (pdfIntent.isRagRequest && results.length > 0) {
+      const r = results[0];
+      const codeMatch = r.path.match(/(\d{4}[A-Z]?)/);
+      const code = codeMatch ? codeMatch[1].toUpperCase() : "";
+      const key = `${r.revision}|${code}`;
+      const text = pdfTextIndex[key];
+      
+      if (text) {
+        body.pageContext = (body.pageContext || "") + `\n\n[OFFICIAL SYLLABUS CONTENT FOR ${r.title} (${r.revision})]\n${text}\n\nNote: Answer the student's question specifically using the official syllabus content above. If details are missing, mention that you are using the official PDF as the source.`;
+      } else {
+        body.pageContext = (body.pageContext || "") + `\n\n[OFFICIAL PDF CONTEXT]\nFound matching PDF: ${r.title} (${r.revision})\nURL: ${r.url}\nNote: Use official curriculum details for this subject.`;
+      }
+    } else if (!pdfIntent.isRagRequest) {
+      // Pure search request
+      const response = formatPdfResponse(results, pdfIntent);
+      return textAnswerStream(response, "pdf-search-engine", "lite-index-v1");
+    }
+  }
+
   const localMath = localMathAnswer(message);
   if (localMath) return textAnswerStream(localMath.answer || localMath, localMath.provider, localMath.model);
   const input = sanitizeHistory(body.history);
@@ -1088,6 +1118,28 @@ export async function askPoly(body, env) {
   const message = cleanText(body?.message, 2200);
   if (!message) throw new Error("Please enter a question.");
 
+  // 1. PDF Intent Parsing
+  const pdfIntent = parsePdfIntent(message);
+  if (pdfIntent) {
+    const results = searchPdfs(pdfIntent, pdfIndex);
+    if (pdfIntent.isRagRequest && results.length > 0) {
+      const r = results[0];
+      const codeMatch = r.path.match(/(\d{4}[A-Z]?)/);
+      const code = codeMatch ? codeMatch[1].toUpperCase() : "";
+      const key = `${r.revision}|${code}`;
+      const text = pdfTextIndex[key];
+      
+      if (text) {
+        body.pageContext = (body.pageContext || "") + `\n\n[OFFICIAL SYLLABUS CONTENT FOR ${r.title} (${r.revision})]\n${text}`;
+      } else {
+        body.pageContext = (body.pageContext || "") + `\n\n[OFFICIAL PDF CONTEXT]\nFound matching PDF: ${r.title} (${r.revision})\nURL: ${r.url}`;
+      }
+    } else if (!pdfIntent.isRagRequest) {
+      const response = formatPdfResponse(results, pdfIntent);
+      return { answer: response, citations: [], usedWeb: false, provider: "pdf-search-engine", model: "lite-index-v1" };
+    }
+  }
+
   const localMath = localMathAnswer(message);
   if (localMath) return localMath;
 
@@ -1104,6 +1156,41 @@ export async function askPoly(body, env) {
     if (fallbackMath) return fallbackMath;
     throw error;
   }
+}
+
+/**
+ * Formats the PDF search results into a student-friendly response.
+ * Handles single matches, multiple revisions, and no matches.
+ */
+function formatPdfResponse(results, intent) {
+  if (results.length === 0) {
+    let msg = "I couldn't find an official PDF matching your request.";
+    if (intent.department || intent.semester || intent.subject) {
+      const parts = [];
+      if (intent.department) parts.push(intent.department);
+      if (intent.semester) parts.push(intent.semester);
+      if (intent.subject) parts.push(intent.subject);
+      msg = `I couldn't find an official PDF matching: ${parts.join(" → ")}.\n\nPlease check the department, semester, subject, or revision.`;
+    }
+    return msg;
+  }
+
+  // Check for multiple revisions of the same thing
+  const revisions = [...new Set(results.map(r => r.revision))].sort((a, b) => parseInt(b) - parseInt(a));
+  
+  if (revisions.length > 1 && !intent.revision) {
+    const list = revisions.map((rev, i) => `${i + 1}. Revision ${rev}`).join("\n");
+    return `I found multiple revisions for ${results[0].title}:\n\n${list}\n\nWhich revision would you like?`;
+  }
+
+  if (results.length === 1 || (intent.revision && revisions.length === 1)) {
+    const r = results[0];
+    return `Found it:\n\n📄 **${r.title}**\nDepartment: ${r.department}\nSemester: ${r.semester}\nLanguage: English\nRevision: ${r.revision}\n\n[Open PDF](${r.url})`;
+  }
+
+  // Multiple different matches
+  const list = results.slice(0, 5).map((r, i) => `${i + 1}. ${r.title} – ${r.semester} – Revision ${r.revision}\n   [Open PDF](${r.url})`).join("\n\n");
+  return `Found these PDFs:\n\n${list}\n\nPlease tell me which one you need.`;
 }
 
 // Pure helpers exposed for unit testing. Not part of the worker's public API.
