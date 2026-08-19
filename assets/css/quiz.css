@@ -108,3 +108,76 @@ body.has-fixed-site-header .hero {
 .subject-card button:focus-visible,.filter-select:focus-visible,.btn:focus-visible,.auth-tab:focus-visible{outline:3px solid rgba(29,78,216,.35);outline-offset:2px}
 .subject-card button:disabled{cursor:not-allowed;opacity:.82}
 @media(prefers-reduced-motion:reduce){.quiz-page *,.quiz-page *::before,.quiz-page *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* Mobile-safe quiz hero: the shared site stylesheet also defines .hero as a two-column grid. */
+.quiz-page .hero {
+  display: block !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+.quiz-page .hero > * {
+  min-width: 0 !important;
+}
+.quiz-page .hero h1 {
+  margin: 0 0 12px !important;
+  line-height: 1.12 !important;
+  overflow-wrap: anywhere !important;
+}
+.quiz-page .hero p {
+  margin: 0 0 14px !important;
+  line-height: 1.5 !important;
+  overflow-wrap: anywhere !important;
+}
+.quiz-page .stats {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin-top: 16px !important;
+}
+.quiz-page .stat {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 12px !important;
+  overflow: hidden !important;
+}
+.quiz-page .stat span,
+.quiz-page .stat b {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+.quiz-page .stat b {
+  display: block !important;
+  font-size: clamp(18px, 5vw, 25px) !important;
+  line-height: 1.15 !important;
+}
+.quiz-page .modebar {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 10px !important;
+  width: 100% !important;
+  margin-top: 16px !important;
+}
+.quiz-page .modebar .btn {
+  width: 100% !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+}
+@media (max-width: 560px) {
+  .quiz-page .quiz-wrap {
+    padding: 8px 10px 36px !important;
+  }
+  .quiz-page .hero {
+    padding: 18px 16px !important;
+    border-radius: 20px !important;
+  }
+  .quiz-page .hero h1 {
+    font-size: clamp(26px, 8vw, 34px) !important;
+  }
+  .quiz-page .hero p {
+    font-size: 15px !important;
+  }
+  .quiz-page .stats {
+    grid-template-columns: 1fr !important;
+  }
+}
