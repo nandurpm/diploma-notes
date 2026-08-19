@@ -236,7 +236,11 @@ html.poly-lesson-page :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.fact
 <link href="/assets/media/poly-pmna-favicon.svg" rel="icon" type="image/svg+xml"/>
 <link href="/site.webmanifest" rel="manifest"/>
 <meta content="#1d4ed8" name="theme-color"/>
-</head>
+<style data-poly-standard-block-styles="">
+.ml-note{font-family:"Noto Sans Malayalam","Nirmala UI","Manjari",system-ui,sans-serif;background:#f8fafc;border:1px solid #dbe3ec;border-left:5px solid #64748b;border-radius:11px;padding:11px 13px;margin:10px 0}
+.warning{background:#fff7ed;border:1px solid #fed7aa;border-left:5px solid #b45309;border-radius:11px;padding:11px 13px;margin:10px 0;color:#7c2d12}
+.source-note{background:#eff6ff;border:1px solid #bfdbfe;border-left:5px solid #2563eb;border-radius:11px;padding:11px 13px;margin:10px 0;color:#1e3a8a}
+</style></head>
 <body>
 <div aria-hidden="true" class="reading-progress"></div>
 <header class="lesson-header">
@@ -297,7 +301,7 @@ html.poly-lesson-page :is(.cover,.hero,.hero-mini,.hero-card,.hb-hero) :is(.fact
 <button aria-selected="false" data-module="3" id="tab-module-3" type="button">Module III</button>
 <button aria-selected="false" data-module="4" id="tab-module-4" type="button">Module IV</button>
 </nav>
-<section aria-label="Handbook controls" class="control-deck no-print">
+<section class="section" data-poly-standardization="rev2026-standard-v1" id="source"><p class="kicker">Curriculum integrity</p><h2>Official Source Declaration</h2><p>This handbook’s course identity is aligned with the Revision 2026 master subject index for <strong>Course 1041 — Elementary Concepts of Electronics</strong>. Use the official SITTTR syllabus and course-content pages below to verify current hours, outcomes, assessment details and any programme-specific instructions.</p><div class="source-note"><a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&amp;course=1041&amp;scheme=REV2026">Official SITTTR Revision 2026 syllabus reference</a>. This page is a study handbook, not a substitute for the latest official notification or examination instruction.</div><div class="ml-note" data-poly-standardization="rev2026-standard-v1" lang="ml"><strong>Malayalam support:</strong> ഈ പാഠത്തിലെ പ്രധാന ആശയങ്ങൾ ആദ്യം English technical terms-കളോടൊപ്പം വായിക്കുക. ഓരോ ഘട്ടവും സ്വന്തം വാക്കുകളിൽ എഴുതുകയും, formula, diagram, units, definitions എന്നിവ പരിശോധിച്ച് പഠിക്കുകയും ചെയ്യുക.</div></section><section aria-label="Handbook controls" class="control-deck no-print">
 <div class="search-box"><label class="sr-only" for="handbookSearch">Search handbook</label><input autocomplete="off" id="handbookSearch" placeholder="Search theory, formula, component, experiment or question…" type="search"/><button aria-label="Clear search" id="clearSearch" type="button">×</button></div>
 <div class="control-buttons">
 <button id="expandAll" type="button">Expand All</button>
@@ -4053,5 +4057,5 @@ if(params.get("autoPrintNotes")==="1"){
   }
 })();
 </script>
-<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script></body>
+<script defer="" src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1"></script></body>
 </html>
