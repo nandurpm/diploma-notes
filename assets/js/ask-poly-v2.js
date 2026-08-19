@@ -27,7 +27,12 @@
     send: $("sendBtn"),
     stop: $("stopBtn"),
     queue: $("queueBtn"),
-    department: $("departmentContext")
+    department: $("departmentContext"),
+    contextDepartment: $("contextDepartment"),
+    contextSemester: $("contextSemester"),
+    contextRevision: $("contextRevision"),
+    contextMode: $("contextMode"),
+    pageContextNotice: $("pageContextNotice")
   };
 
   let abortController = null;
@@ -35,6 +40,8 @@
   let stopRequested = false;
   let departmentRegistry = null;
   let activeDepartment = null;
+  const DEFAULT_CONTEXT = { department: null, semester: "", revision: "", mode: "explain", page: null };
+  let learningContext = { ...DEFAULT_CONTEXT };
 
   if (!els.form || !els.messages || !els.input) return;
 
@@ -42,6 +49,23 @@
   function id() { return `chat_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`; }
   function fmtTime(value) { return new Date(value || Date.now()).toLocaleString([], { month: "short", day: "2-digit", hour: "2-digit", minute: "2-digit" }); }
   function isMobile() { return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || ""); }
+
+  const MODE_LABELS = {
+    explain: "Explain", exam: "Exam Answer", "short-note": "Short Note", "step-by-step": "Step-by-Step",
+    numerical: "Numerical", viva: "Viva", diagram: "Diagram", revision: "Revision", practice: "Practice"
+  };
+
+  function contextSnapshot() {
+    return {
+      department: learningContext.department ? { code: learningContext.department.code, displayName: learningContext.department.displayName } : null,
+      semester: learningContext.semester || "",
+      revision: learningContext.revision || "",
+      mode: learningContext.mode || "explain",
+      page: learningContext.page || null
+    };
+  }
+
+  function modeLabel(mode) { return MODE_LABELS[mode] || MODE_LABELS.explain; }
 
   function openDB() {
     if (dbPromise) return dbPromise;
@@ -118,7 +142,7 @@
   }
 
   async function createChat(title = "New chat") {
-    const chat = { id: id(), title, createdAt: now(), updatedAt: now(), department: null };
+    const chat = { id: id(), title, createdAt: now(), updatedAt: now(), department: null, semester: "", revision: "", mode: "explain", page: null };
     await putChat(chat);
     activeChatId = chat.id;
     await addMessage("assistant", "Hi. I am Ask POLY AI. I can guide you through Revision 2026, Revision 2021, 2015 materials, subjects, lessons, notes, mock exams, tools and the rest of POLY PMNA. This chat is saved in your browser.");
@@ -128,27 +152,62 @@
   async function persistDepartment(department) {
     if (!department || department.ambiguous || !activeChatId) return;
     activeDepartment = department;
+    learningContext.department = department;
+    await persistLearningContext();
+  }
+
+  async function persistLearningContext() {
+    if (!activeChatId) return;
     const chat = await getChat(activeChatId);
-    if (chat) {
-      chat.department = { code: department.code, displayName: department.displayName, normalizedName: department.normalizedName };
-      chat.updatedAt = now();
-      await putChat(chat);
-    }
+    if (!chat) return;
+    chat.department = learningContext.department ? { code: learningContext.department.code, displayName: learningContext.department.displayName, normalizedName: learningContext.department.normalizedName } : null;
+    chat.semester = learningContext.semester || "";
+    chat.revision = learningContext.revision || "";
+    chat.mode = learningContext.mode || "explain";
+    chat.page = learningContext.page || null;
+    chat.updatedAt = now();
+    await putChat(chat);
+  }
+
+  async function restoreLearningContext(chat) {
+    const stored = chat || await getChat(activeChatId);
+    const storedDepartment = stored?.department?.code && departmentRegistry?.get(stored.department.code)
+      ? { ...departmentRegistry.get(stored.department.code), source: "saved-context" }
+      : null;
+    activeDepartment = storedDepartment;
+    learningContext = {
+      ...DEFAULT_CONTEXT,
+      department: storedDepartment,
+      semester: stored?.semester || "",
+      revision: stored?.revision || "",
+      mode: stored?.mode || "explain",
+      page: stored?.page || null
+    };
+    updateContextUI();
   }
 
   async function updateDepartmentContextFromChat() {
     const chat = await getChat(activeChatId);
     const messages = activeChatId ? await getMessages(activeChatId) : [];
     const stored = chat?.department;
+    if (chat) {
+      learningContext.semester = chat.semester || learningContext.semester || "";
+      learningContext.revision = chat.revision || learningContext.revision || "";
+      learningContext.mode = chat.mode || learningContext.mode || "explain";
+      learningContext.page = chat.page || learningContext.page || null;
+    }
     activeDepartment = stored?.code && departmentRegistry?.get(stored.code)
       ? { ...departmentRegistry.get(stored.code), source: "saved-context" }
       : null;
+    learningContext.department = activeDepartment;
     for (const message of messages.filter((item) => item.role === "user")) {
       const detected = departmentRegistry?.find(message.content, activeDepartment);
       if (detected && !detected.ambiguous && detected.code !== activeDepartment?.code && detected.source !== "saved-context") activeDepartment = detected;
     }
     if (activeDepartment && chat && chat.department?.code !== activeDepartment.code) await persistDepartment(activeDepartment);
+    learningContext.department = activeDepartment;
     updateDepartmentUI();
+    updateContextUI();
     return activeDepartment;
   }
 
@@ -162,6 +221,66 @@
     els.department.hidden = false;
     els.department.textContent = `Department: ${activeDepartment.displayName}`;
     els.department.title = "Saved department context for this chat. Say 'actually, I am studying ...' to change it.";
+  }
+
+  function populateDepartmentSelector() {
+    if (!els.contextDepartment || !departmentRegistry?.choices) return;
+    const current = els.contextDepartment.value;
+    els.contextDepartment.replaceChildren(new Option("Auto Detect", ""));
+    departmentRegistry.choices().forEach((item) => els.contextDepartment.add(new Option(item.displayName, item.code)));
+    els.contextDepartment.value = current || learningContext.department?.code || "";
+  }
+
+  function updateContextUI() {
+    if (els.contextDepartment) els.contextDepartment.value = learningContext.department?.code || "";
+    if (els.contextSemester) els.contextSemester.value = learningContext.semester || "";
+    if (els.contextRevision) els.contextRevision.value = learningContext.revision || "";
+    if (els.contextMode) els.contextMode.value = learningContext.mode || "explain";
+    if (els.pageContextNotice) {
+      const page = learningContext.page;
+      els.pageContextNotice.hidden = !page;
+      els.pageContextNotice.textContent = page ? `Page context: ${page.subject || page.topic || page.title || "Current POLY PMNA page"}${page.semester ? ` · ${page.semester}` : ""}${page.revision ? ` · Revision ${page.revision}` : ""}` : "";
+    }
+  }
+
+  async function setLearningContext(partial = {}, persist = true) {
+    if (Object.prototype.hasOwnProperty.call(partial, "department")) {
+      learningContext.department = partial.department || null;
+      activeDepartment = learningContext.department;
+    }
+    if (Object.prototype.hasOwnProperty.call(partial, "semester")) learningContext.semester = partial.semester || "";
+    if (Object.prototype.hasOwnProperty.call(partial, "revision")) learningContext.revision = partial.revision || "";
+    if (Object.prototype.hasOwnProperty.call(partial, "mode")) learningContext.mode = MODE_LABELS[partial.mode] ? partial.mode : "explain";
+    if (Object.prototype.hasOwnProperty.call(partial, "page")) learningContext.page = partial.page || null;
+    updateDepartmentUI();
+    updateContextUI();
+    if (persist) await persistLearningContext();
+    await renderChats();
+    await renderMessages();
+  }
+
+  async function applyPageContextFromQuery() {
+    const params = new URLSearchParams(location.search);
+    const ask = params.get("ask");
+    const departmentCode = params.get("department") || params.get("departmentCode");
+    const department = departmentCode && departmentRegistry?.get(departmentCode)
+      ? { ...departmentRegistry.get(departmentCode), source: "page-context" }
+      : null;
+    const page = (params.get("pageTitle") || params.get("subject") || params.get("topic") || params.get("page"))
+      ? { title: params.get("pageTitle") || "POLY PMNA page", subject: params.get("subject") || "", topic: params.get("topic") || "", semester: params.get("semester") || "", revision: params.get("revision") || "", url: params.get("pageUrl") || document.referrer || "" }
+      : null;
+    const contextPatch = {};
+    if (departmentCode) contextPatch.department = department;
+    if (params.has("semester")) contextPatch.semester = params.get("semester") || "";
+    if (params.has("revision")) contextPatch.revision = params.get("revision") || "";
+    if (params.has("mode")) contextPatch.mode = params.get("mode") || "explain";
+    if (page) contextPatch.page = page;
+    if (Object.keys(contextPatch).length) await setLearningContext(contextPatch, false);
+    if (ask) {
+      els.input.value = ask;
+      autoResize();
+    }
+    if (department || page || ask) await persistLearningContext();
   }
 
   function departmentClarification(candidateResult) {
@@ -178,7 +297,11 @@
       await putChat(chat);
       return;
     }
-    chat.title = String(text || "New chat").replace(/\s+/g, " ").trim().slice(0, 42) || "New chat";
+    const cleanTitle = String(text || "New chat").replace(/\s+/g, " ").trim();
+    const lowerTitle = cleanTitle.toLowerCase();
+    const topic = cleanTitle.replace(/^(please\s+)?(draw|explain|describe|show|solve|calculate|give|tell me)\s+/i, "").trim();
+    const suffix = /draw|diagram|sketch|waveform|circuit/.test(lowerTitle) ? " — Diagram" : /solve|calculate|numerical|voltage|current|resistance/.test(lowerTitle) ? " — Numerical" : /exam|important questions|mark/.test(lowerTitle) ? " — Exam Prep" : "";
+    chat.title = `${topic || cleanTitle}${suffix}`.slice(0, 64) || "New chat";
     chat.updatedAt = now();
     await putChat(chat);
   }
@@ -421,6 +544,55 @@
     return `<div class="ask-department-choices" aria-label="Choose your department"><strong>Choose your department</strong><div>${items.map((item) => `<button type="button" data-department-choice="${escapeHtml(item.displayName)}">${escapeHtml(item.displayName)}</button>`).join("")}</div></div>`;
   }
 
+  function sourceItems(meta = {}) {
+    const sources = Array.isArray(meta.sources) ? meta.sources : [];
+    return sources.filter((item) => item?.title && item?.url).slice(0, 6);
+  }
+
+  function renderKnowledgeIndicator(meta = {}) {
+    if (meta.error && !meta.websiteKnowledge) return `<div class="ask-knowledge-indicator warning">⚠️ Live AI was unavailable; please verify this answer.</div>`;
+    if (meta.websiteKnowledge) return `<div class="ask-knowledge-indicator grounded">✓ Based on POLY PMNA resources used for this answer</div>`;
+    return `<div class="ask-knowledge-indicator general">ℹ General engineering knowledge; no POLY PMNA source was required</div>`;
+  }
+
+  function renderSources(meta = {}) {
+    const sources = sourceItems(meta);
+    if (!sources.length) return "";
+    return `<section class="ask-sources" aria-label="Sources used"><strong>Sources used</strong><ul>${sources.map((item) => `<li>${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a>` : escapeHtml(item.title)}${item.detail ? ` · ${escapeHtml(item.detail)}` : ""}</li>`).join("")}</ul></section>`;
+  }
+
+  function followUpActions(content = "", meta = {}) {
+    const value = String(content || "").toLowerCase();
+    const actions = [];
+    if (/transformer/.test(value)) actions.push(["Construction", "Explain the construction of the topic above with exam points."] , ["Working", "Explain the working of the topic above step by step."], ["Losses", "Explain the losses and efficiency of the topic above."], ["Draw Diagram", "Draw a clear labelled diagram of the topic above."]);
+    else if (/diode|rectifier|zener/.test(value)) actions.push(["Symbol", "Show the symbol and terminals for the topic above."], ["Working", "Explain the working of the topic above."], ["Applications", "List the applications of the topic above."], ["Draw Circuit", "Draw a labelled circuit for the topic above."]);
+    else if (/beam|stress|concrete|survey|structure/.test(value)) actions.push(["Exam Answer", "Rewrite the answer above as a 5-mark exam answer."], ["Draw Diagram", "Draw a clear labelled engineering diagram for the topic above."], ["Important Formula", "List the important formulas for the topic above."]);
+    else actions.push(["Simpler", "Rewrite the previous answer in simpler student-friendly language."], ["Exam Answer", "Rewrite the previous answer as an exam-ready answer."], ["Malayalam", "Rewrite the previous answer in simple Malayalam, keeping technical terms in English where useful."], ["Convert to Notes", "Convert the previous answer into concise study notes."]);
+    if (meta.diagramIntent) actions.unshift(["Exam Answer", "Write an exam-ready answer for the diagram above."]);
+    return actions.slice(0, 5);
+  }
+
+  function renderResponseActions(message) {
+    const actions = followUpActions(message.content, message.meta || {});
+    if (!actions.length) return "";
+    return `<div class="ask-response-actions" aria-label="Follow-up actions">${actions.map(([label, prompt]) => `<button type="button" data-response-action="${escapeHtml(prompt)}">${escapeHtml(label)}</button>`).join("")}<button type="button" class="ask-report-mistake" data-report-mistake="true">Report mistake</button></div>`;
+  }
+
+  async function reportMistake(message) {
+    const reason = window.prompt("What should POLY AI check? You can leave this blank.", "");
+    if (reason === null) return;
+    const question = (await getMessages(activeChatId)).filter((item) => item.role === "user").slice(-1)[0]?.content || "";
+    const report = [`POLY PMNA Ask POLY mistake report`, `Page: ${location.href}`, `Mode: ${modeLabel(learningContext.mode)}`, `Question: ${question}`, `Answer: ${message.content}`, reason.trim() ? `Student note: ${reason.trim()}` : ""].filter(Boolean).join("\n\n");
+    try { await navigator.clipboard?.writeText(report); } catch (_) { window.prompt("Copy this report into the POLY PMNA Help form:", report); return; }
+    els.status.textContent = "Report details copied. Open Help and paste them into the discussion form.";
+    window.open("/contact.html?from=ask-poly", "_blank", "noopener");
+  }
+
+  function actionPrompt(action, content) {
+    const text = String(action || "");
+    return text.replace(/the previous answer|the answer above|the topic above/gi, "the previous Ask POLY answer");
+  }
+
   function bubble(message) {
     const div = document.createElement("div");
     const isUser = message.role === "user";
@@ -431,20 +603,38 @@
       ? window.AskPolyDiagrams.render(diagramIntent)
       : "";
     const departmentChoices = !isUser ? renderDepartmentChoices(message.meta?.departmentClarification?.candidates || []) : "";
+    const evidence = !isUser && (message.meta?.provider || message.meta?.websiteKnowledge || message.meta?.error || message.meta?.sources?.length);
+    const knowledge = evidence ? renderKnowledgeIndicator(message.meta) : "";
+    const sources = !isUser ? renderSources(message.meta) : "";
+    const actions = !isUser && (String(message.content || "").length > 120 || diagramIntent || message.meta?.websiteKnowledge) ? renderResponseActions(message) : "";
     div.innerHTML = isUser
       ? `${label}<div class="ask-message-text">${escapeHtml(message.content)}</div>`
-      : `${label}<div class="ask-response-body">${diagramHtml}${renderText(message.content, { diagramIntent })}${departmentChoices}</div>`;
+      : `${label}<div class="ask-response-body">${diagramHtml}${knowledge}${renderText(message.content, { diagramIntent })}${departmentChoices}${sources}${actions}</div>`;
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
     time.dateTime = message.createdAt;
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
-    div.addEventListener("click", (event) => {
+    div.addEventListener("click", async (event) => {
       const departmentButton = event.target.closest("[data-department-choice]");
       if (departmentButton) {
         event.preventDefault();
         els.input.value = `I am studying ${departmentButton.dataset.departmentChoice}. `;
+        autoResize();
+        els.input.focus();
+        return;
+      }
+      const reportButton = event.target.closest("[data-report-mistake]");
+      if (reportButton) {
+        event.preventDefault();
+        await reportMistake(message);
+        return;
+      }
+      const responseAction = event.target.closest("[data-response-action]");
+      if (responseAction) {
+        event.preventDefault();
+        els.input.value = actionPrompt(responseAction.dataset.responseAction, message.content);
         autoResize();
         els.input.focus();
         return;
@@ -508,10 +698,52 @@
     await chooseChatAfterDelete(chat.id);
   }
 
+  async function renameChat(chat) {
+    if (!chat || waiting) return;
+    const title = window.prompt("Rename saved chat", chat.title || "New chat");
+    if (title === null) return;
+    const value = title.replace(/\s+/g, " ").trim().slice(0, 80);
+    if (!value) return;
+    chat.title = value;
+    chat.updatedAt = now();
+    await putChat(chat);
+    await renderChats();
+    if (chat.id === activeChatId) await renderMessages();
+  }
+
+  async function togglePinChat(chat) {
+    if (!chat || waiting) return;
+    chat.pinned = !chat.pinned;
+    chat.updatedAt = now();
+    await putChat(chat);
+    await renderChats();
+  }
+
+  async function exportChat(chat) {
+    if (!chat) return;
+    const messages = await getMessages(chat.id);
+    const lines = [`# ${chat.title || "Ask POLY chat"}`, "", `Context: ${chat.department?.displayName || "Auto Detect"} · ${chat.semester || "Any semester"} · ${chat.revision || "Any revision"} · ${modeLabel(chat.mode)}`, ""];
+    messages.forEach((message) => {
+      lines.push(`## ${message.role === "assistant" ? "POLY AI" : "You"}`);
+      lines.push(message.content || "");
+      if (message.meta?.sources?.length) lines.push(`\nSources: ${message.meta.sources.map((source) => `${source.title} (${source.url})`).join("; ")}`);
+      lines.push("");
+    });
+    const blob = new Blob([lines.join("\n")], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${(chat.title || "ask-poly-chat").replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "ask-poly-chat"}.md`;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   async function renderChats() {
     const q = (els.search.value || "").toLowerCase().trim();
     const chats = (await getAll("chats"))
-      .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
+      .sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || new Date(b.updatedAt) - new Date(a.updatedAt))
       .filter((c) => !q || `${c.title} ${c.updatedAt}`.toLowerCase().includes(q));
     els.list.replaceChildren();
     chats.forEach((chat) => {
@@ -524,7 +756,7 @@
       btn.setAttribute("aria-current", chat.id === activeChatId ? "true" : "false");
       btn.disabled = waiting;
       const departmentLabel = chat.department?.displayName ? ` · ${chat.department.displayName}` : "";
-      btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt) + departmentLabel)}</small>`;
+      btn.innerHTML = `<strong>${chat.pinned ? "📌 " : ""}${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt) + departmentLabel + (chat.mode ? ` · ${modeLabel(chat.mode)}` : ""))}</small>`;
       btn.addEventListener("click", async () => {
         if (waiting) {
           els.status.textContent = "Finish or stop the current response before switching chats.";
@@ -534,6 +766,32 @@
         await renderAll();
       });
 
+      const actions = document.createElement("div");
+      actions.className = "ask-item-actions";
+      const rename = document.createElement("button");
+      rename.className = "ask-chat-action";
+      rename.type = "button";
+      rename.setAttribute("aria-label", `Rename ${chat.title || "saved chat"}`);
+      rename.title = "Rename chat";
+      rename.textContent = "✎";
+      rename.disabled = waiting;
+      rename.addEventListener("click", async (event) => { event.stopPropagation(); await renameChat(chat); });
+      const pin = document.createElement("button");
+      pin.className = "ask-chat-action";
+      pin.type = "button";
+      pin.setAttribute("aria-label", `${chat.pinned ? "Unpin" : "Pin"} ${chat.title || "saved chat"}`);
+      pin.title = chat.pinned ? "Unpin chat" : "Pin chat";
+      pin.textContent = chat.pinned ? "📌" : "☆";
+      pin.disabled = waiting;
+      pin.addEventListener("click", async (event) => { event.stopPropagation(); await togglePinChat(chat); });
+      const exportButton = document.createElement("button");
+      exportButton.className = "ask-chat-action";
+      exportButton.type = "button";
+      exportButton.setAttribute("aria-label", `Export ${chat.title || "saved chat"}`);
+      exportButton.title = "Export Markdown";
+      exportButton.textContent = "↓";
+      exportButton.addEventListener("click", async (event) => { event.stopPropagation(); await exportChat(chat); });
+      actions.append(rename, pin, exportButton);
       const del = document.createElement("button");
       del.className = "ask-delete";
       del.type = "button";
@@ -542,7 +800,7 @@
       del.textContent = "×";
       del.addEventListener("click", async (event) => { event.stopPropagation(); await deleteSavedChat(chat); });
 
-      container.append(btn, del);
+      container.append(btn, actions, del);
       els.list.append(container);
     });
   }
@@ -553,21 +811,27 @@
       const b = document.createElement("button");
       b.type = "button";
       b.textContent = label;
+      if (["Explain", "Exam Answer", "Malayalam", "Diagram", "Solve", "Viva", "Revision"].includes(label)) b.classList.add("ask-action-primary");
       b.addEventListener("click", () => { els.input.value = prompt; autoResize(); els.input.focus(); });
       els.prompts.append(b);
     });
   }
 
   function defaultPrompts() {
+    const context = learningContext.department?.displayName ? ` for ${learningContext.department.displayName}` : "";
     return [
-      ["REV2026 subjects", "Show the Revision 2026 Electrical and Electronics Engineering subjects semester-wise."],
-      ["Compare revisions", "How is Revision 2026 different from Revision 2021?"],
-      ["Find subject code", "Find subject code 1008 and tell me which revision, semester and resources are available."],
-      ["Website guide", "Explain all important areas of the POLY PMNA website and where I should go for each task."]
+      ["Explain", `Explain a Polytechnic topic${context} in simple words.`],
+      ["Exam Answer", "Write a 5-mark exam answer for this topic."],
+      ["Short Note", "Convert this topic into a compact exam-ready short note."],
+      ["Malayalam", "Explain this topic in simple Malayalam, keeping useful technical terms in English."],
+      ["Diagram", "Draw a clear labelled diagram for this topic."],
+      ["Solve", "Solve this numerical step by step with formula, substitution and units."],
+      ["Find POLY resource", "Find the relevant POLY PMNA subject, semester, syllabus and available resources."],
+      ["Mock exam", "Open the POLY PMNA mock exams and suggest a practice plan for this topic."]
     ];
   }
 
-  async function renderAll() { await updateDepartmentContextFromChat(); await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); updateQueueStatus(); }
+  async function renderAll() { await updateDepartmentContextFromChat(); populateDepartmentSelector(); updateContextUI(); await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); updateQueueStatus(); }
 
   function queueSuffix() {
     return messageQueue.length ? ` · ${messageQueue.length} queued` : "";
@@ -587,14 +851,14 @@
       els.stop.textContent = waiting ? "Stop generating" : "Stop";
     }
     updateQueueStatus();
-    if (waiting) els.status.textContent = `Checking website + thinking${queueSuffix()}...`;
+    if (waiting) els.status.textContent = `🔎 Checking POLY PMNA${queueSuffix()} · 🧠 thinking...`;
   }
 
   function addTyping() {
     const m = document.createElement("div");
     m.id = "typingBubble";
     m.className = "ask-bubble ai";
-    m.textContent = "POLY is checking the website and thinking...";
+    m.textContent = "🔎 Checking POLY PMNA resources…  🧠 Thinking…  ✍️ Preparing a student-friendly answer…";
     els.messages.append(m);
     els.messages.scrollTop = els.messages.scrollHeight;
   }
@@ -679,6 +943,19 @@
     return null;
   }
 
+  function buildSourceMeta(retrieval) {
+    if (!retrieval?.matches) return [];
+    const sources = [];
+    for (const { item } of retrieval.matches.subjects || []) {
+      const url = item.syllabusUrl || item.lessonUrl || item.departmentUrl || "";
+      if (url) sources.push({ title: `REV${item.revision} ${item.code || ""} — ${item.name}`, url, detail: `${item.department || "Department"} · ${item.semester || "Semester"}` });
+    }
+    for (const { item } of retrieval.matches.programmes || []) if (item.url) sources.push({ title: `REV${item.revision} ${item.name}`, url: item.url, detail: "POLY PMNA programme" });
+    for (const { item } of retrieval.matches.pages || []) if (item.url) sources.push({ title: item.title, url: item.url, detail: item.category || "POLY PMNA page" });
+    const seen = new Set();
+    return sources.filter((item) => { if (seen.has(item.url)) return false; seen.add(item.url); return /^https?:\/\//i.test(item.url) || item.url.startsWith("/"); }).slice(0, 6);
+  }
+
   function shouldSearchWebsite(text) {
     const value = String(text || "").trim();
     if (!value || /^\d{1,3}$/.test(value)) return false;
@@ -708,6 +985,9 @@
           pageTitle: "Ask POLY whole-site knowledge",
           pageContext: localContext || "",
           departmentContext: department ? { code: department.code, displayName: department.displayName } : null,
+          learningContext: contextSnapshot(),
+          answerMode: learningContext.mode || "explain",
+          preferredLanguage: /[\u0D00-\u0D7F]/.test(message) ? "ml" : "en",
           diagramRequest: diagramIntent ? { ...diagramIntent, department: department?.displayName || "" } : null
         })
       });
@@ -767,13 +1047,14 @@
     if (detectedDepartment && !detectedDepartment.ambiguous && detectedDepartment.code !== activeDepartment?.code) await persistDepartment(detectedDepartment);
     const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean, { department: resolvedDepartment }) || null;
     const departmentMeta = resolvedDepartment ? { department: { code: resolvedDepartment.code, displayName: resolvedDepartment.displayName } } : {};
-    const diagramMeta = { ...departmentMeta, ...(diagramIntent ? { diagramIntent } : {}) };
+    const contextMeta = { learningContext: contextSnapshot(), answerMode: learningContext.mode || "explain" };
+    const diagramMeta = { ...departmentMeta, ...contextMeta, ...(diagramIntent ? { diagramIntent } : {}) };
     if (!isQueued) {
       els.input.value = "";
       autoResize();
     }
     
-    await addMessage("user", clean, departmentMeta);
+    await addMessage("user", clean, { ...departmentMeta, ...contextMeta });
     await updateChatTitleFromMessage(activeChatId, clean);
     await renderMessages();
     await renderChats();
@@ -787,10 +1068,13 @@
       const messages = await getMessages(activeChatId);
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
       const history = previousMessages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
-      retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
+      const retrievalQuery = [clean, learningContext.department?.displayName, learningContext.semester, learningContext.revision, learningContext.page?.subject, learningContext.page?.topic].filter(Boolean).join(" ");
+      const useWebsiteKnowledge = shouldSearchWebsite(clean) || Boolean(learningContext.department || learningContext.semester || learningContext.revision || learningContext.page);
+      retrieval = useWebsiteKnowledge ? await knowledgeSearch(retrievalQuery) : null;
       removeTyping();
       streamBubble = addStreamingBubble(diagramIntent);
-      const result = await callAI(clean, history, retrieval?.context || "", (partial) => {
+      const pageContext = learningContext.page ? `Page handoff context: ${JSON.stringify(learningContext.page)}` : "";
+      const result = await callAI(clean, history, [retrieval?.context || "", pageContext].filter(Boolean).join("\n\n"), (partial) => {
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
       }, diagramIntent, resolvedDepartment);
@@ -799,7 +1083,10 @@
         ...diagramMeta,
         provider: result.provider,
         model: result.model,
-        websiteKnowledge: Boolean(retrieval?.context),
+        websiteKnowledge: Boolean(retrieval?.context) && result.provider !== "local-math",
+        sources: result.provider === "local-math" ? [] : buildSourceMeta(retrieval),
+        answerMode: learningContext.mode || "explain",
+        learningContext: contextSnapshot(),
         knowledgeVersion: retrieval?.version || ""
       });
     } catch (error) {
@@ -814,6 +1101,10 @@
             ...diagramMeta,
             provider: "local-offline-assistant",
             error: error.message,
+            sources: buildSourceMeta(retrieval),
+            answerMode: learningContext.mode || "explain",
+            learningContext: contextSnapshot(),
+            websiteKnowledge: Boolean(retrieval?.context),
             knowledgeVersion: retrieval?.version || ""
           });
         } else {
@@ -823,6 +1114,10 @@
               ...diagramMeta,
               provider: "local-knowledge-fallback",
               error: error.message,
+              sources: buildSourceMeta(retrieval),
+              answerMode: learningContext.mode || "explain",
+              learningContext: contextSnapshot(),
+              websiteKnowledge: Boolean(retrieval?.context),
               knowledgeVersion: retrieval?.version || ""
             });
           } else {
@@ -881,10 +1176,23 @@
 
   async function init() {
     departmentRegistry = await window.AskPolyDepartments?.ready || { entries: [], find: (text, current) => current || null, get: () => null, choices: () => [] };
+    populateDepartmentSelector();
     await openDB();
     const chats = (await getAll("chats")).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
     if (chats.length) activeChatId = chats[0].id;
     else await createChat();
+    await applyPageContextFromQuery();
+    const contextControls = [els.contextDepartment, els.contextSemester, els.contextRevision, els.contextMode].filter(Boolean);
+    contextControls.forEach((control) => control.addEventListener("change", async () => {
+      const department = els.contextDepartment?.value ? departmentRegistry?.get(els.contextDepartment.value) : null;
+      await setLearningContext({
+        department: department ? { ...department, source: "manual-context" } : null,
+        semester: els.contextSemester?.value || "",
+        revision: els.contextRevision?.value || "",
+        mode: els.contextMode?.value || "explain"
+      });
+      els.status.textContent = `Context saved · ${modeLabel(learningContext.mode)}`;
+    }));
     els.form.addEventListener("submit", (event) => { event.preventDefault(); sendMessage(els.input.value); });
     els.input.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && !event.shiftKey && !isMobile()) {

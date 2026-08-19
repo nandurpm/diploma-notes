@@ -469,7 +469,7 @@ def inject_shared_runtime(document: str) -> str:
     marker = '/assets/js/lesson-navigation-fix.js'
     if marker in document.lower():
         return document
-    script_tag = '\n<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>'
+    script_tag = '\n<script src="/assets/js/lesson-navigation-fix.js?v=20260819-ask-context1" defer></script>'
     body_end = re.search(r'</body\s*>', document, flags=re.I)
     if body_end:
         document = document[:body_end.start()] + script_tag + '\n' + document[body_end.start():]

@@ -12,7 +12,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
-LESSON_RUNTIME = "20260725-watermark1"
+LESSON_RUNTIME = "20260819-ask-context1"
 REV2026_RUNTIME = "20260718-rev2026-repair4"
 MODEL_RUNTIME = "20260718-model-paper-navigation3"
 SITTTR = "https://sitttrkerala.ac.in/index.php"

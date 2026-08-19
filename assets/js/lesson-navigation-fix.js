@@ -31,6 +31,7 @@
    ========================================================= */
 (() => {
   "use strict";
+  const LESSON_RUNTIME_VERSION = "20260819-ask-context1";
 
   /* =========================================================
      PAGE DETECTION AND CONSTANTS
@@ -423,6 +424,17 @@
     print.textContent = "Print / Save PDF";
     print.addEventListener("click", () => { preparePrintMode(false); setTimeout(() => printWindow(), 80); });
     row.append(print);
+    const ask = document.createElement("a");
+    ask.className = "poly-lesson-action poly-lesson-ask";
+    const askUrl = new URL("/ask-poly.html", location.origin);
+    askUrl.searchParams.set("pageTitle", document.title.replace(/\s*[|–-]\s*POLY PMNA.*$/i, "").trim());
+    askUrl.searchParams.set("subject", courseCode || "");
+    askUrl.searchParams.set("revision", revision2026 ? "2026" : "2021");
+    askUrl.searchParams.set("pageUrl", location.href);
+    ask.href = askUrl.href;
+    ask.textContent = "Ask about this page";
+    ask.title = "Open Ask POLY AI with this lesson as context.";
+    row.append(ask);
     main === document.body ? main.append(actions) : main.after(actions);
   }
 
