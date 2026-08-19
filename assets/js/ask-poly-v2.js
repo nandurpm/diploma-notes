@@ -1017,7 +1017,7 @@
     ];
   }
 
-  async function renderAll() { await updateDepartmentContextFromChat(); populateDepartmentSelector(); updateContextUI(); await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); updateQueueStatus(); }
+  async function renderAll() { await updateDepartmentContextFromChat(); populateDepartmentSelector(); updateContextUI(); await renderChats(); await renderMessages(); updateQueueStatus(); }
 
   function queueSuffix() {
     return messageQueue.length ? ` · ${messageQueue.length} queued` : "";
