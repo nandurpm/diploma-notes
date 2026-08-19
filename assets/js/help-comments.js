@@ -2,6 +2,7 @@
 const FALLBACK_MESSAGE = "Discussion is currently unavailable. Use the protected email support link below.";
 const EMAIL_TOKEN = "5a343b343e3b312f373b2837313e2a371a3d373b333674393537";
 const PAGE_SIZE = 40;
+const DISCUSSION_TIMEOUT_MS = 30000;
 const POST_COOLDOWN_MS = 60000;
 const MAX_LINKS = 2;
 
@@ -42,7 +43,19 @@ function showUnavailable(error) {
   email.href = protectedMailto();
   email.textContent = "Email POLY PMNA";
   email.rel = "nofollow";
-  box.append(text, email);
+
+  const retry = document.createElement("button");
+  retry.type = "button";
+  retry.className = "comment-action";
+  retry.textContent = "Retry discussion";
+  retry.addEventListener("click", () => {
+    retry.disabled = true;
+    if (countBox) countBox.textContent = "Loading…";
+    if (statusBox) statusBox.textContent = "Retrying discussion…";
+    initializeDiscussion().catch(showUnavailable);
+  });
+
+  box.append(text, email, retry);
   list.replaceChildren(box);
 }
 
@@ -53,7 +66,7 @@ if (!form || !nameInput || !messageInput || !submitButton || !statusBox || !list
 }
 
 async function initializeDiscussion() {
-  const timeout = window.setTimeout(() => showUnavailable(new Error("Discussion initialization timed out.")), 10000);
+  const timeout = window.setTimeout(() => showUnavailable(new Error("Discussion initialization timed out.")), DISCUSSION_TIMEOUT_MS);
   const [appModule, authModule, firestoreModule] = await Promise.all([
     import("https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js"),
     import("https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js"),
