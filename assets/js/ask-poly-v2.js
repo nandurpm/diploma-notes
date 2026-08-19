@@ -664,7 +664,7 @@
     div.className = `ask-bubble ${isUser ? "user" : "ai"}`;
     const label = `<div class="ask-message-label">${isUser ? "You" : "POLY AI"}</div>`;
     const diagramIntent = message.meta?.diagramIntent || null;
-    const diagramHtml = !isUser && !dataSaverEnabled && diagramIntent && window.AskPolyDiagrams
+    const diagramHtml = !isUser && diagramIntent && (!dataSaverEnabled || diagramIntent.type === "flowchart") && window.AskPolyDiagrams
       ? window.AskPolyDiagrams.render(diagramIntent)
       : "";
     const departmentChoices = !isUser ? renderDepartmentChoices(message.meta?.departmentClarification?.candidates || []) : "";
@@ -702,7 +702,9 @@
       const examCopyButton = event.target.closest("[data-copy-exam]");
       if (examCopyButton) {
         event.preventDefault();
-        const cleaned = String(message.content || "").replace(/^(sure|certainly|here(?:'s| is)[^\n]*\n)/i, "").trim();
+        const cleanedAnswer = String(message.content || "").replace(/^(sure|certainly|here(?:'s| is)[^\n]*\n)/i, "").trim();
+        const diagramText = message.meta?.diagramIntent && window.AskPolyDiagrams?.textFor ? `\n\n${window.AskPolyDiagrams.textFor(message.meta.diagramIntent)}` : "";
+        const cleaned = `${cleanedAnswer}${diagramText}`.trim();
         try { await navigator.clipboard.writeText(cleaned); examCopyButton.textContent = "Copied"; setTimeout(() => { examCopyButton.textContent = "Copy exam answer"; }, 1100); } catch (_) {}
         return;
       }

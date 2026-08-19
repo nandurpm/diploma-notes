@@ -731,3 +731,15 @@ body.ask-data-saver .ask-generated-image{display:none!important}
     display: none !important;
   }
 }
+
+/* Structured flowchart renderer */
+.ask-diagram-svg .flow-edge{fill:none;stroke:#17324d;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#poly-arrow)}
+.ask-diagram-svg .flow-node{stroke-width:3.5;stroke-linejoin:round}
+.ask-diagram-svg .flow-start{fill:#ecfdf5;stroke:#047857}
+.ask-diagram-svg .flow-input{fill:#eff6ff;stroke:#1d4ed8}
+.ask-diagram-svg .flow-decision{fill:#fff7ed;stroke:#c2410c}
+.ask-diagram-svg .flow-process{fill:#f0fdfa;stroke:#0f766e}
+.ask-diagram-svg .flow-node-label{fill:#172033;font-family:Inter,system-ui,sans-serif;font-size:18px;font-weight:900;text-anchor:middle}
+.ask-diagram-svg .flow-branch-label{fill:#b45309;font-family:Inter,system-ui,sans-serif;font-size:16px;font-weight:950;text-anchor:middle;paint-order:stroke;stroke:#fff7ed;stroke-width:5px;stroke-linejoin:round}
+.ask-diagram-fallback{padding:14px;border:1px solid #bae6fd;border-radius:14px;background:#f0f9ff;color:#164e63}
+.ask-diagram-fallback figcaption{font-weight:900}

@@ -17,12 +17,12 @@
     return `<defs><marker id="poly-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" class="arrow-head"/></marker></defs>`;
   }
 
-  function frame(title, body, width = 840, height = 430, description = "Educational technical diagram") {
+  function frame(title, body, width = 840, height = 430, description = "Educational technical diagram", textFallback = "") {
     const id = `poly-diagram-${++sequence}`;
     const safeTitle = esc(title);
     const svg = `<svg class="ask-diagram-svg" viewBox="0 0 ${width} ${height}" role="img" aria-labelledby="${id}-title ${id}-desc" xmlns="http://www.w3.org/2000/svg">${defs()}<title id="${id}-title">${safeTitle}</title><desc id="${id}-desc">${esc(description)}</desc><rect width="100%" height="100%" rx="18" class="diagram-surface"/>${body}</svg>`;
-    registry.set(id, { svg, title });
-    return `<figure class="ask-diagram" data-diagram-id="${id}"><figcaption><span class="ask-diagram-title"><strong>Diagram</strong><span>${safeTitle}</span></span><span class="ask-diagram-controls"><button type="button" data-diagram-action="zoom-out" aria-label="Zoom out">−</button><button type="button" data-diagram-action="zoom-reset" aria-label="Reset diagram zoom">100%</button><button type="button" data-diagram-action="zoom-in" aria-label="Zoom in">+</button><button type="button" data-diagram-action="download-svg">SVG</button><button type="button" data-diagram-action="download-png">PNG</button><button type="button" data-diagram-action="fullscreen" aria-label="Open diagram fullscreen">Full</button></span></figcaption><div class="ask-diagram-viewport"><div class="ask-diagram-canvas">${svg}</div></div></figure>`;
+    registry.set(id, { svg, title, textFallback: textFallback || description });
+    return `<figure class="ask-diagram" data-diagram-id="${id}" data-diagram-type="${esc(title)}"><figcaption><span class="ask-diagram-title"><strong>Diagram</strong><span>${safeTitle}</span></span><span class="ask-diagram-controls"><button type="button" data-diagram-action="zoom-out" aria-label="Zoom out">−</button><button type="button" data-diagram-action="zoom-reset" aria-label="Reset diagram zoom">100%</button><button type="button" data-diagram-action="zoom-in" aria-label="Zoom in">+</button><button type="button" data-diagram-action="download-svg">SVG</button><button type="button" data-diagram-action="download-png">PNG</button><button type="button" data-diagram-action="fullscreen" aria-label="Open diagram fullscreen">Full</button></span></figcaption><div class="ask-diagram-viewport"><div class="ask-diagram-canvas">${svg}</div></div></figure>`;
   }
 
   function normalize(value) {
@@ -46,7 +46,18 @@
     if (/step[- ]up.*transformer|transformer.*step[- ]up/.test(q)) return withDepartment({ type: "transformer", variant: "step-up", title: "Step-up transformer" });
     if (/step[- ]down.*transformer|transformer.*step[- ]down/.test(q)) return withDepartment({ type: "transformer", variant: "step-down", title: "Step-down transformer" });
     if (/transformer|ട്രാൻസ്ഫോർമർ/.test(q)) return withDepartment({ type: "transformer", title: "Transformer" });
-    if (/flowchart|flow chart|decision process|ഫ്ലോചാർട്ട്/.test(q)) return withDepartment({ type: "flowchart", title: "Flowchart" });
+    if (/flowchart|flow chart|decision process|flow diagram|algorithm flowchart|ഫ്ലോചാർട്ട്/.test(q)) {
+      const flow = (variant, title) => withDepartment({ type: "flowchart", variant, title, language: /[\u0D00-\u0D7F]/.test(q) ? "ml" : "en" });
+      if (/odd|even|parity|ഒറ്റ|ഇരട്ട/.test(q)) return flow("odd_even", "Odd or even number flowchart");
+      if (/largest|greatest|max(?:imum)?|three numbers|three values/.test(q)) return flow("largest_three", "Largest of three numbers flowchart");
+      if (/positive|negative|zero/.test(q)) return flow("positive_negative_zero", "Positive, negative or zero flowchart");
+      if (/simple interest|principal.*rate|rate.*time/.test(q)) return flow("simple_interest", "Simple interest flowchart");
+      if (/factorial|factorial.*loop|loop.*factorial/.test(q)) return flow("factorial", "Factorial flowchart");
+      if (/prime|prime number/.test(q)) return flow("prime", "Prime number flowchart");
+      if (/student result|grade|marks.*result/.test(q)) return flow("student_result", "Student result flowchart");
+      if (/atm|withdrawal|cash/.test(q)) return flow("atm", "ATM withdrawal flowchart");
+      return flow("generic", "Flowchart");
+    }
     if (/block diagram|communication system|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Block diagram" });
     if (/sine|sinusoidal|ac waveform|sine wave/.test(q)) return withDepartment({ type: "sine_wave", title: "AC sine waveform" });
     if (/square wave/.test(q)) return withDepartment({ type: "square_wave", title: "Square waveform" });
@@ -129,8 +140,116 @@
     return `${tx(420, 35, full ? "FULL-WAVE RECTIFIER" : "HALF-WAVE RECTIFIER", "section-label")}${`<circle cx="150" cy="210" r="58" class="component"/>`}${path("M120 210 q15 -30 30 0t30 0", "component")}${tx(150, 130, "AC", "component-label")}${ln(208, 210, 300, 210)}${path("M300 210 h25 l14 -22 28 44 28 -44 28 44 14 -22 h25", "component")}${tx(365, 175, "D1", "component-label")}${ln(462, 210, 560, 210)}${path("M560 210 h-35 l-12 20 24 40 24 -40 24 40 24 -40 12 20 h35", "component")}${tx(595, 175, "RL", "component-label")}${ln(595, 290, 595, 330)}${ln(150, 268, 150, 330)}${ln(150, 330, 595, 330, "component")}${tx(420, 380, "Output across load", "value-label")}${wavePath(full ? "full" : "half", 110, 410, 620, 410)}`;
   }
 
-  function flowchartBody() {
-    return `${tx(420, 35, "FLOWCHART", "section-label")}<ellipse cx="420" cy="85" rx="95" ry="32" class="flow-shape"/>${tx(420, 91, "START", "flow-label")}${arrow(420, 118, 420, 145)}${box(340, 145, 160, 54, "Input number", "flow-shape")}${arrow(420, 199, 420, 230)}<polygon points="420,230 535,285 420,340 305,285" class="flow-shape"/>${tx(420, 290, "Number > 0?", "flow-label")} ${arrow(305, 285, 190, 285)}${tx(250, 275, "NO", "branch-label")} ${box(90, 258, 160, 54, "Negative", "flow-shape")}${arrow(535, 285, 650, 285)}${tx(590, 275, "YES", "branch-label")} ${box(590, 258, 160, 54, "Positive", "flow-shape")}${arrow(170, 312, 170, 370)}${arrow(670, 312, 670, 370)}<ellipse cx="420" cy="390" rx="90" ry="26" class="flow-shape"/>${tx(420, 396, "END", "flow-label")}${path("M170 370 H420 V364", "wire")}${path("M670 370 H420 V364", "wire")}`;
+  function wrapFlowText(value, maxChars = 22) {
+    const words = String(value || "").split(/\s+/).filter(Boolean);
+    const lines = [];
+    let line = "";
+    words.forEach((word) => {
+      if (!line || `${line} ${word}`.length <= maxChars) line = line ? `${line} ${word}` : word;
+      else { lines.push(line); line = word; }
+    });
+    if (line) lines.push(line);
+    return lines.length ? lines : [""];
+  }
+
+  function flowchartData(intent = {}) {
+    const ml = intent.language === "ml";
+    const labels = ml ? { start: "START", input: "നമ്പർ നൽകുക", decision: "N % 2 == 0?", yes: "YES", no: "NO", even: "EVEN", odd: "ODD", end: "END" } : { start: "START", input: "Input N", decision: "N % 2 == 0?", yes: "YES", no: "NO", even: "Print EVEN", odd: "Print ODD", end: "END" };
+    if (intent.variant === "odd_even" || intent.variant === "generic" || !intent.variant) {
+      return {
+        flowchartType: "odd_even",
+        direction: "TB",
+        nodes: [
+          { id: "start", type: "start_end", text: labels.start, rank: 0 },
+          { id: "input", type: "input_output", text: labels.input, rank: 1 },
+          { id: "decision", type: "decision", text: labels.decision, rank: 2 },
+          { id: "even", type: "process", text: labels.even, rank: 3, branch: "left" },
+          { id: "odd", type: "process", text: labels.odd, rank: 3, branch: "right" },
+          { id: "end", type: "start_end", text: labels.end, rank: 4 }
+        ],
+        edges: [
+          { source: "start", target: "input" },
+          { source: "input", target: "decision" },
+          { source: "decision", target: "even", label: labels.yes },
+          { source: "decision", target: "odd", label: labels.no },
+          { source: "even", target: "end" },
+          { source: "odd", target: "end" }
+        ],
+        description: "Flowchart: Start → Input number N → Check whether N is divisible by 2 → If yes, display Even → otherwise display Odd → End.",
+        text: `Flowchart: ${labels.start} → ${labels.input} → ${labels.decision} → ${labels.yes} → ${labels.even} / ${labels.no} → ${labels.odd} → ${labels.end}`
+      };
+    }
+    const templates = {
+      positive_negative_zero: { input: "Input N", decision: "N > 0?", yes: "Positive", no: "N < 0?", extra: "Zero", title: "Positive, negative or zero" },
+      simple_interest: { input: "Input P, R, T", decision: "Calculate SI = PRT/100", yes: "Display SI", no: "Check inputs", title: "Simple interest" },
+      factorial: { input: "Input N", decision: "N > 0?", yes: "Multiply and decrement", no: "Display factorial", title: "Factorial" },
+      prime: { input: "Input N", decision: "Divisor found?", yes: "Not prime", no: "Prime", title: "Prime number" },
+      student_result: { input: "Input marks", decision: "Marks >= pass?", yes: "Display grade", no: "Display Fail", title: "Student result" },
+      atm: { input: "Insert card and PIN", decision: "PIN valid?", yes: "Enter amount", no: "Reject transaction", title: "ATM withdrawal" },
+      largest_three: { input: "Input A, B, C", decision: "Compare values", yes: "Display largest", no: "Continue comparison", title: "Largest of three numbers" }
+    };
+    const template = templates[intent.variant] || templates.positive_negative_zero;
+    const data = flowchartData({ variant: "odd_even", language: intent.language });
+    data.flowchartType = intent.variant;
+    data.description = `Flowchart for ${template.title}: Start → ${template.input} → ${template.decision} → ${template.yes} or ${template.no} → End.`;
+    data.text = `Flowchart: START → ${template.input} → ${template.decision} → ${template.yes} / ${template.no} → END`;
+    data.nodes[1].text = template.input;
+    data.nodes[2].text = template.decision;
+    data.nodes[3].text = template.yes;
+    data.nodes[4].text = template.no;
+    return data;
+  }
+
+  function layoutFlowchart(data, width = 840) {
+    const groups = new Map();
+    data.nodes.forEach((node) => { const rank = Number(node.rank || 0); if (!groups.has(rank)) groups.set(rank, []); groups.get(rank).push(node); });
+    const maxRank = Math.max(...groups.keys(), 0);
+    const rowGap = 126;
+    const top = 72;
+    const positions = new Map();
+    groups.forEach((nodes, rank) => {
+      const branches = nodes.length > 1 ? nodes : [];
+      const gap = Math.min(270, Math.max(210, (width - 180) / Math.max(nodes.length, 1)));
+      const center = width / 2;
+      nodes.forEach((node, index) => {
+        const lines = wrapFlowText(node.text);
+        const w = node.type === "decision" ? Math.max(190, Math.min(260, 150 + lines[0].length * 4)) : Math.max(150, Math.min(250, 96 + Math.max(...lines.map((line) => line.length), 8) * 6));
+        const h = node.type === "decision" ? Math.max(108, 72 + lines.length * 18) : Math.max(56, 26 + lines.length * 20);
+        let x = center;
+        if (branches.length > 1) x = center + (index - (branches.length - 1) / 2) * gap;
+        positions.set(node.id, { ...node, x, y: top + rank * rowGap, w, h, lines });
+      });
+    });
+    const height = Math.max(570, top * 2 + maxRank * rowGap + 80);
+    return { positions, width, height };
+  }
+
+  function flowNodeMarkup(node) {
+    const x = node.x - node.w / 2;
+    const y = node.y - node.h / 2;
+    const text = node.lines.map((line, index) => tx(node.x, node.y - ((node.lines.length - 1) * 9) + index * 18 + 6, line, "flow-node-label"));
+    if (node.type === "start_end") return `<rect x="${x}" y="${y}" width="${node.w}" height="${node.h}" rx="${node.h / 2}" class="flow-node flow-start"/>${text.join("")}`;
+    if (node.type === "input_output") { const skew = 24; return `<polygon points="${x + skew},${y} ${x + node.w},${y} ${x + node.w - skew},${y + node.h} ${x},${y + node.h}" class="flow-node flow-input"/>${text.join("")}`; }
+    if (node.type === "decision") { return `<polygon points="${node.x},${y} ${x + node.w},${node.y} ${node.x},${y + node.h} ${x},${node.y}" class="flow-node flow-decision"/>${text.join("")}`; }
+    return `<rect x="${x}" y="${y}" width="${node.w}" height="${node.h}" rx="10" class="flow-node flow-process"/>${text.join("")}`;
+  }
+
+  function flowEdgeMarkup(edge, positions) {
+    const source = positions.get(edge.source); const target = positions.get(edge.target); if (!source || !target) return "";
+    const sameColumn = Math.abs(source.x - target.x) < 8;
+    let d; let labelX; let labelY;
+    if (sameColumn) { d = `M ${source.x} ${source.y + source.h / 2} L ${target.x} ${target.y - target.h / 2}`; labelX = source.x + 14; labelY = (source.y + target.y) / 2; }
+    else if (target.x < source.x) { const sx = source.x - source.w * .38; const sy = source.y + source.h * .12; const txp = target.x + target.w * .25; const typ = target.y - target.h / 2; d = `M ${sx} ${sy} L ${txp} ${typ}`; labelX = (sx + txp) / 2 - 4; labelY = (sy + typ) / 2 - 8; }
+    else { const sx = source.x + source.w * .38; const sy = source.y + source.h * .12; const txp = target.x - target.w * .25; const typ = target.y - target.h / 2; d = `M ${sx} ${sy} L ${txp} ${typ}`; labelX = (sx + txp) / 2 + 4; labelY = (sy + typ) / 2 - 8; }
+    return `${path(d, "flow-edge")}${edge.label ? tx(labelX, labelY, edge.label, "flow-branch-label") : ""}`;
+  }
+
+  function flowchartBody(intent = {}) {
+    const data = flowchartData(intent);
+    const layout = layoutFlowchart(data);
+    const edges = data.edges.map((edge) => flowEdgeMarkup(edge, layout.positions)).join("");
+    const nodes = data.nodes.map((node) => flowNodeMarkup(layout.positions.get(node.id))).join("");
+    return { body: `${tx(layout.width / 2, 30, "FLOWCHART", "section-label")}${edges}${nodes}`, width: layout.width, height: layout.height, data };
   }
 
   function blockBody() {
@@ -212,7 +331,7 @@
     if (type === "bridge_rectifier") return frame(intent.title, bridgeBody(), 840, 450, "Bridge rectifier with four diode paths, AC input and DC output terminals.");
     if (type === "half_wave_rectifier") return frame(intent.title, halfWaveBody(false), 840, 480, "Half-wave rectifier circuit with AC source, diode and load resistor.");
     if (type === "full_wave_rectifier") return frame(intent.title, halfWaveBody(true), 840, 480, "Full-wave rectifier educational circuit and output reference.");
-    if (type === "flowchart") return frame(intent.title, flowchartBody(), 840, 450, "Flowchart with start, process, decision and end shapes.");
+    if (type === "flowchart") { const chart = flowchartBody(intent); return frame(intent.title, chart.body, chart.width, chart.height, chart.data.description, chart.data.text); }
     if (type === "block_diagram") return frame(intent.title, blockBody(), 840, 430, "Communication system block diagram with directional arrows.");
     if (type === "logic_gate") return frame(intent.title, logicBody(intent.variant), 840, 420, `${intent.variant} logic gate symbol with inputs and output.`);
     if (type === "sine_wave") return frame(intent.title, waveformBody("sine"), 840, 430, "Sine waveform with axes and labels.");
@@ -226,7 +345,17 @@
 
   function render(intent) {
     if (!intent || !intent.type) return "";
-    return svgFor(intent);
+    try { return svgFor(intent); }
+    catch (error) {
+      console.warn("Ask POLY diagram renderer failed", error);
+      const fallback = textFor(intent);
+      return `<figure class="ask-diagram ask-diagram-fallback" role="group" aria-label="${esc(intent.title || "Technical diagram")}"><figcaption><strong>Diagram rendering temporarily unavailable</strong></figcaption><p class="ask-diagram-fallback-note">${esc(fallback)}</p></figure>`;
+    }
+  }
+
+  function textFor(intent) {
+    if (intent?.type === "flowchart") return flowchartData(intent).text;
+    return intent?.title ? `${intent.title} — graphical diagram` : "Graphical diagram";
   }
 
   function getSvg(id) { return registry.get(id)?.svg || ""; }
@@ -263,5 +392,5 @@
     if (reset) reset.textContent = `${Math.round(next * 100)}%`;
   }
 
-  window.AskPolyDiagrams = { detectIntent, render, handle, getSvg };
+  window.AskPolyDiagrams = { detectIntent, render, handle, getSvg, textFor };
 })();
