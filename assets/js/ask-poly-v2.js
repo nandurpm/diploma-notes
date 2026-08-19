@@ -32,7 +32,17 @@
     contextSemester: $("contextSemester"),
     contextRevision: $("contextRevision"),
     contextMode: $("contextMode"),
-    pageContextNotice: $("pageContextNotice")
+    pageContextNotice: $("pageContextNotice"),
+    toolsToggle: $("toolsToggle"),
+    toolsPanel: $("askToolsPanel"),
+    markTarget: $("markTarget"),
+    learningLevel: $("learningLevel"),
+    dataSaver: $("dataSaverToggle"),
+    attachment: $("askAttachment"),
+    attachmentBtn: $("attachmentBtn"),
+    voiceInput: $("voiceInputBtn"),
+    readAloud: $("readAloudBtn"),
+    attachmentStatus: $("attachmentStatus")
   };
 
   let abortController = null;
@@ -40,8 +50,12 @@
   let stopRequested = false;
   let departmentRegistry = null;
   let activeDepartment = null;
-  const DEFAULT_CONTEXT = { department: null, semester: "", revision: "", mode: "explain", page: null };
+  const DEFAULT_CONTEXT = { department: null, semester: "", revision: "", mode: "explain", marks: "", level: "intermediate", page: null };
   let learningContext = { ...DEFAULT_CONTEXT };
+  let activeAttachment = null;
+  let latestAssistantText = "";
+  let speechRecognition = null;
+  let dataSaverEnabled = localStorage.getItem("ask-poly-data-saver") === "1";
 
   if (!els.form || !els.messages || !els.input) return;
 
@@ -52,7 +66,10 @@
 
   const MODE_LABELS = {
     explain: "Explain", exam: "Exam Answer", "short-note": "Short Note", "step-by-step": "Step-by-Step",
-    numerical: "Numerical", viva: "Viva", diagram: "Diagram", revision: "Revision", practice: "Practice"
+    numerical: "Numerical", viva: "Viva", diagram: "Diagram", revision: "Revision", practice: "Practice",
+    teach: "Teach Me", simpler: "I don't understand", "real-world": "Real-world example", mistakes: "Common mistakes",
+    compare: "Compare", "check-answer": "Check My Answer", lab: "Lab Mode", troubleshoot: "Troubleshoot", drawing: "Drawing Assistant",
+    formula: "Formula Sheet", notes: "Study Notes", "study-plan": "Study Plan", "previous-questions": "Previous Questions"
   };
 
   function contextSnapshot() {
@@ -61,6 +78,8 @@
       semester: learningContext.semester || "",
       revision: learningContext.revision || "",
       mode: learningContext.mode || "explain",
+      marks: learningContext.marks || "",
+      level: learningContext.level || "intermediate",
       page: learningContext.page || null
     };
   }
@@ -164,6 +183,8 @@
     chat.semester = learningContext.semester || "";
     chat.revision = learningContext.revision || "";
     chat.mode = learningContext.mode || "explain";
+    chat.marks = learningContext.marks || "";
+    chat.level = learningContext.level || "intermediate";
     chat.page = learningContext.page || null;
     chat.updatedAt = now();
     await putChat(chat);
@@ -181,6 +202,8 @@
       semester: stored?.semester || "",
       revision: stored?.revision || "",
       mode: stored?.mode || "explain",
+      marks: stored?.marks || "",
+      level: stored?.level || "intermediate",
       page: stored?.page || null
     };
     updateContextUI();
@@ -194,6 +217,8 @@
       learningContext.semester = chat.semester || learningContext.semester || "";
       learningContext.revision = chat.revision || learningContext.revision || "";
       learningContext.mode = chat.mode || learningContext.mode || "explain";
+      learningContext.marks = chat.marks || learningContext.marks || "";
+      learningContext.level = chat.level || learningContext.level || "intermediate";
       learningContext.page = chat.page || learningContext.page || null;
     }
     activeDepartment = stored?.code && departmentRegistry?.get(stored.code)
@@ -236,6 +261,10 @@
     if (els.contextSemester) els.contextSemester.value = learningContext.semester || "";
     if (els.contextRevision) els.contextRevision.value = learningContext.revision || "";
     if (els.contextMode) els.contextMode.value = learningContext.mode || "explain";
+    if (els.markTarget) els.markTarget.value = learningContext.marks || "";
+    if (els.learningLevel) els.learningLevel.value = learningContext.level || "intermediate";
+    if (els.dataSaver) els.dataSaver.checked = dataSaverEnabled;
+    document.body.classList.toggle("ask-data-saver", dataSaverEnabled);
     if (els.pageContextNotice) {
       const page = learningContext.page;
       els.pageContextNotice.hidden = !page;
@@ -251,6 +280,8 @@
     if (Object.prototype.hasOwnProperty.call(partial, "semester")) learningContext.semester = partial.semester || "";
     if (Object.prototype.hasOwnProperty.call(partial, "revision")) learningContext.revision = partial.revision || "";
     if (Object.prototype.hasOwnProperty.call(partial, "mode")) learningContext.mode = MODE_LABELS[partial.mode] ? partial.mode : "explain";
+    if (Object.prototype.hasOwnProperty.call(partial, "marks")) learningContext.marks = String(partial.marks || "");
+    if (Object.prototype.hasOwnProperty.call(partial, "level")) learningContext.level = ["beginner", "intermediate", "advanced"].includes(partial.level) ? partial.level : "intermediate";
     if (Object.prototype.hasOwnProperty.call(partial, "page")) learningContext.page = partial.page || null;
     updateDepartmentUI();
     updateContextUI();
@@ -567,15 +598,49 @@
     if (/transformer/.test(value)) actions.push(["Construction", "Explain the construction of the topic above with exam points."] , ["Working", "Explain the working of the topic above step by step."], ["Losses", "Explain the losses and efficiency of the topic above."], ["Draw Diagram", "Draw a clear labelled diagram of the topic above."]);
     else if (/diode|rectifier|zener/.test(value)) actions.push(["Symbol", "Show the symbol and terminals for the topic above."], ["Working", "Explain the working of the topic above."], ["Applications", "List the applications of the topic above."], ["Draw Circuit", "Draw a labelled circuit for the topic above."]);
     else if (/beam|stress|concrete|survey|structure/.test(value)) actions.push(["Exam Answer", "Rewrite the answer above as a 5-mark exam answer."], ["Draw Diagram", "Draw a clear labelled engineering diagram for the topic above."], ["Important Formula", "List the important formulas for the topic above."]);
-    else actions.push(["Simpler", "Rewrite the previous answer in simpler student-friendly language."], ["Exam Answer", "Rewrite the previous answer as an exam-ready answer."], ["Malayalam", "Rewrite the previous answer in simple Malayalam, keeping technical terms in English where useful."], ["Convert to Notes", "Convert the previous answer into concise study notes."]);
+    else actions.push(["I don't understand", "I don't understand the previous answer. Explain it using a different approach, analogy, simple example, and short summary."], ["Real-world example", "Give a relevant real-world example of the previous answer for my department."], ["Common mistakes", "List useful common mistakes and corrections for the previous topic."], ["Exam Answer", "Rewrite the previous answer as an exam-ready answer."], ["Convert to Notes", "Convert the previous answer into concise study notes."]);
     if (meta.diagramIntent) actions.unshift(["Exam Answer", "Write an exam-ready answer for the diagram above."]);
     return actions.slice(0, 5);
   }
 
   function renderResponseActions(message) {
     const actions = followUpActions(message.content, message.meta || {});
-    if (!actions.length) return "";
-    return `<div class="ask-response-actions" aria-label="Follow-up actions">${actions.map(([label, prompt]) => `<button type="button" data-response-action="${escapeHtml(prompt)}">${escapeHtml(label)}</button>`).join("")}<button type="button" class="ask-report-mistake" data-report-mistake="true">Report mistake</button></div>`;
+    if (!actions.length && !message.meta?.error) return "";
+    const retry = message.meta?.error ? `<button type="button" data-retry-message="true">Retry</button>` : "";
+    const examCopy = message.meta?.error ? "" : `<button type="button" data-copy-exam="true">Copy exam answer</button><button type="button" data-save-note="true">Save notes</button><button type="button" data-export-note="true">Export notes</button>`;
+    return `<div class="ask-response-actions" aria-label="Follow-up actions">${actions.map(([label, prompt]) => `<button type="button" data-response-action="${escapeHtml(prompt)}">${escapeHtml(label)}</button>`).join("")}${examCopy}${retry}<button type="button" class="ask-report-mistake" data-report-mistake="true">Report mistake</button></div>`;
+  }
+
+  function downloadMarkdown(filename, text) {
+    const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.append(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function answerTitle(message) {
+    const first = String(message?.content || "").split(/\r?\n/).map((line) => line.replace(/^#+\s*/, "").trim()).find(Boolean) || "POLY AI answer";
+    return first.slice(0, 90);
+  }
+
+  function saveAnswerAsNote(message) {
+    const notes = JSON.parse(localStorage.getItem("ask-poly-saved-notes") || "[]");
+    notes.unshift({ id: id(), title: answerTitle(message), content: String(message.content || ""), savedAt: now(), context: contextSnapshot() });
+    localStorage.setItem("ask-poly-saved-notes", JSON.stringify(notes.slice(0, 40)));
+    setAttachmentStatus("Answer saved locally as a study note.", "ready");
+  }
+
+  function exportAnswerAsNote(message) {
+    const title = answerTitle(message);
+    const sourceText = message.meta?.sources?.length ? `\n\n## Sources\n${message.meta.sources.map((source) => `- [${source.title}](${source.url})`).join("\n")}` : "";
+    const text = `# ${title}\n\n${String(message.content || "").trim()}${sourceText}\n`;
+    downloadMarkdown(`${title.replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "").toLowerCase() || "poly-note"}.md`, text);
+    setAttachmentStatus("Study note exported as Markdown.", "ready");
   }
 
   async function reportMistake(message) {
@@ -599,7 +664,7 @@
     div.className = `ask-bubble ${isUser ? "user" : "ai"}`;
     const label = `<div class="ask-message-label">${isUser ? "You" : "POLY AI"}</div>`;
     const diagramIntent = message.meta?.diagramIntent || null;
-    const diagramHtml = !isUser && diagramIntent && window.AskPolyDiagrams
+    const diagramHtml = !isUser && !dataSaverEnabled && diagramIntent && window.AskPolyDiagrams
       ? window.AskPolyDiagrams.render(diagramIntent)
       : "";
     const departmentChoices = !isUser ? renderDepartmentChoices(message.meta?.departmentClarification?.candidates || []) : "";
@@ -625,6 +690,26 @@
         els.input.focus();
         return;
       }
+      const retryButton = event.target.closest("[data-retry-message]");
+      if (retryButton) {
+        event.preventDefault();
+        const previous = (await getMessages(activeChatId)).filter((item) => item.role === "user").slice(-1)[0]?.content || "";
+        els.input.value = previous;
+        autoResize();
+        els.input.focus();
+        return;
+      }
+      const examCopyButton = event.target.closest("[data-copy-exam]");
+      if (examCopyButton) {
+        event.preventDefault();
+        const cleaned = String(message.content || "").replace(/^(sure|certainly|here(?:'s| is)[^\n]*\n)/i, "").trim();
+        try { await navigator.clipboard.writeText(cleaned); examCopyButton.textContent = "Copied"; setTimeout(() => { examCopyButton.textContent = "Copy exam answer"; }, 1100); } catch (_) {}
+        return;
+      }
+      const saveNoteButton = event.target.closest("[data-save-note]");
+      if (saveNoteButton) { event.preventDefault(); saveAnswerAsNote(message); saveNoteButton.textContent = "Saved"; return; }
+      const exportNoteButton = event.target.closest("[data-export-note]");
+      if (exportNoteButton) { event.preventDefault(); exportAnswerAsNote(message); return; }
       const reportButton = event.target.closest("[data-report-mistake]");
       if (reportButton) {
         event.preventDefault();
@@ -675,6 +760,7 @@
     const messages = await getMessages(activeChatId);
     els.messages.replaceChildren();
     messages.forEach((m) => els.messages.append(bubble(m)));
+    latestAssistantText = messages.filter((m) => m.role === "assistant" && !m.meta?.error).slice(-1)[0]?.content || "";
     els.messages.scrollTop = els.messages.scrollHeight;
     const chat = await getChat(activeChatId);
     els.title.textContent = chat?.title || "Ask POLY Chat";
@@ -722,7 +808,7 @@
   async function exportChat(chat) {
     if (!chat) return;
     const messages = await getMessages(chat.id);
-    const lines = [`# ${chat.title || "Ask POLY chat"}`, "", `Context: ${chat.department?.displayName || "Auto Detect"} · ${chat.semester || "Any semester"} · ${chat.revision || "Any revision"} · ${modeLabel(chat.mode)}`, ""];
+    const lines = [`# ${chat.title || "Ask POLY chat"}`, "", `Context: ${chat.department?.displayName || "Auto Detect"} · ${chat.semester || "Any semester"} · ${chat.revision || "Any revision"} · ${modeLabel(chat.mode)} · ${chat.marks ? `${chat.marks} marks` : "Any marks"} · ${chat.level || "intermediate"}`, ""];
     messages.forEach((message) => {
       lines.push(`## ${message.role === "assistant" ? "POLY AI" : "You"}`);
       lines.push(message.content || "");
@@ -815,6 +901,107 @@
       b.addEventListener("click", () => { els.input.value = prompt; autoResize(); els.input.focus(); });
       els.prompts.append(b);
     });
+  }
+
+  const TOOL_PROMPTS = {
+    teach: "Teach me this topic interactively. Start by asking one diagnostic question about what I already know, then adapt the explanation to my level.",
+    simpler: "I don't understand the previous answer. Explain the same concept using a different approach: simpler language, a real-world analogy, one simple diagram if useful, and a short summary.",
+    "real-world": "Give a relevant real-world example of the previous topic, preferably connected to my department. Explain how the concept appears in practical work or daily life.",
+    mistakes: "List only the useful common mistakes students make in this topic and how to avoid them. Do not force this section if it is not technically relevant.",
+    exam: "What should I write in the exam for this topic? Give a direct exam-ready answer with only relevant sections, no conversational filler.",
+    compare: "Compare the two concepts in my question in a clean table. Include an optional exam-answer version below the table.",
+    "check-answer": "Check my answer below for correctness, missing points, terminology, formulas, structure, and exam suitability. Do not claim an official mark unless a marking scheme is supplied. Then give an improved exam answer.\n\nMy answer:\n",
+    lab: "Use Lab Mode for this experiment or topic. Include only supported sections such as Aim, Apparatus, Theory, Formula, Connection Diagram, Procedure, Observation, Calculation, Result, Precautions, and Viva Questions. Do not invent experiment-specific values or unsafe procedures.",
+    viva: "Start a viva session one question at a time. Ask the first question now. After I answer, evaluate it as Correct, Partially correct, or Incorrect, explain briefly, and continue.",
+    troubleshoot: "Troubleshoot this practical problem with a safe ordered checklist. Include safety precautions and never recommend live high-voltage testing or bypassing protective equipment.",
+    drawing: "Act as the department-aware Technical Drawing Assistant. Produce or select a verified graphical diagram when supported, with labels, orientation, and concise drawing notes. State limitations if the request is ambiguous.",
+    formula: "Create a formula sheet for this topic or subject. Organize formula, variable meanings, units, and a short note. Do not invent formulas; flag what should be verified.",
+    notes: "Convert the previous answer into concise study notes with only relevant sections: Topic, Definition, Principle, Construction, Working, Formula, Applications, Advantages, Disadvantages, and Exam Points.",
+    practice: "Generate practice questions for this topic using the active department, semester, level, and marks context. Group them as Easy, Medium, and Hard. Do not reveal answers unless I ask Show Answer.",
+    "study-plan": "Create a realistic study plan using the number of days, hours per day, subject, exam date, and difficulty given in my message. Link POLY PMNA resources only when actually available.",
+    "previous-questions": "Find actual related previous questions from POLY PMNA resources when available. Show question, exam/year, marks, subject/topic, and source link. Never invent a previous question.",
+    revision: "Create a small optional Daily Revision set for this topic: three to five questions or recall prompts, one key formula or diagram cue, and a short recommended-revision note. Do not claim the student is weak; say they may benefit from reviewing a topic only when conversation evidence supports it."
+  };
+
+  function toolPrompt(tool) {
+    const mark = learningContext.marks ? ` Target answer length and depth: ${learningContext.marks} mark${learningContext.marks === "1" ? "" : "s"}.` : "";
+    const level = learningContext.level ? ` Student level: ${learningContext.level}.` : "";
+    return `${TOOL_PROMPTS[tool] || "Explain this topic for a Polytechnic student."}${mark}${level}`;
+  }
+
+  async function chooseTool(tool) {
+    const mode = Object.prototype.hasOwnProperty.call(MODE_LABELS, tool) ? tool : "explain";
+    await setLearningContext({ mode }, true);
+    const prompt = toolPrompt(tool);
+    els.input.value = prompt;
+    autoResize();
+    els.input.focus();
+    if (els.status) els.status.textContent = `${modeLabel(mode)} ready · add your topic, then Send`;
+  }
+
+  function setAttachmentStatus(text, state = "") {
+    if (!els.attachmentStatus) return;
+    els.attachmentStatus.textContent = text;
+    if (state) els.attachmentStatus.dataset.state = state;
+    else delete els.attachmentStatus.dataset.state;
+  }
+
+  function handleAttachment(file) {
+    if (!file) return;
+    const allowed = file.type === "application/pdf" || file.type.startsWith("image/");
+    if (!allowed) { activeAttachment = null; setAttachmentStatus("Only an image or PDF is supported.", "error"); return; }
+    if (file.size > 1800000) { activeAttachment = null; setAttachmentStatus("File is too large. Choose an image/PDF under 1.8 MB.", "error"); return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      activeAttachment = { name: file.name.slice(0, 120), type: file.type, size: file.size, dataUrl: file.type.startsWith("image/") ? String(reader.result || "").slice(0, 1200000) : "" };
+      setAttachmentStatus(`${file.name} attached. Choose Explain, Solve, Extract Text, Translate, Create Notes, Check Answer, or Check Diagram in your message.`, "ready");
+      els.input.value = els.input.value.trim() || `Explain the uploaded ${file.type === "application/pdf" ? "PDF" : "image"}. State clearly what can and cannot be read.`;
+      autoResize();
+    };
+    reader.onerror = () => { activeAttachment = null; setAttachmentStatus("The file could not be read in this browser.", "error"); };
+    reader.readAsDataURL(file);
+  }
+
+  function chooseAttachmentTool(tool) {
+    if (!activeAttachment) { setAttachmentStatus("Upload an image or PDF first.", "error"); return; }
+    const prompts = {
+      explain: `Explain the uploaded ${activeAttachment.type === "application/pdf" ? "PDF" : "image"} for a Polytechnic student. If the file cannot be inspected, say so clearly and ask me to paste the relevant text.`,
+      extract: "Extract the readable text from the uploaded file. Preserve headings, formulas, units, and labels. If text extraction is unavailable, explain the limitation instead of guessing.",
+      translate: "Translate the readable text in the uploaded file into simple Malayalam-English or English as appropriate. Keep technical terms and units accurate. If the file cannot be inspected, say so clearly.",
+      notes: "Convert the readable content in the uploaded file into concise exam-ready study notes. State clearly if the file content could not be inspected.",
+      "check-answer": "Check the uploaded answer for correctness, missing points, formula and exam suitability. Do not claim official marks without a marking scheme, and state clearly if the file cannot be inspected.",
+      "check-diagram": "Check the uploaded diagram for labels, symbols, direction, units, connections, and common Polytechnic exam mistakes. If the image cannot be inspected, say so clearly instead of guessing."
+    };
+    els.input.value = prompts[tool] || prompts.explain;
+    autoResize();
+    els.input.focus();
+    setAttachmentStatus(`${modeLabel(tool === "check-diagram" ? "drawing" : tool === "check-answer" ? "check-answer" : "explain")} action ready for ${activeAttachment.name}.`, "ready");
+  }
+
+  function startVoiceInput() {
+    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Recognition) { setAttachmentStatus("Voice input is unavailable in this browser. Keyboard input still works.", "error"); return; }
+    if (speechRecognition) { speechRecognition.stop(); speechRecognition = null; return; }
+    speechRecognition = new Recognition();
+    speechRecognition.lang = /[\u0D00-\u0D7F]/.test(els.input.value) ? "ml-IN" : "en-IN";
+    speechRecognition.interimResults = true;
+    speechRecognition.continuous = false;
+    speechRecognition.onstart = () => setAttachmentStatus("Listening… speak your Polytechnic question.", "ready");
+    speechRecognition.onresult = (event) => { els.input.value = Array.from(event.results).map((result) => result[0]?.transcript || "").join(" "); autoResize(); };
+    speechRecognition.onerror = () => setAttachmentStatus("Voice input was not available. You can type the question instead.", "error");
+    speechRecognition.onend = () => { speechRecognition = null; setAttachmentStatus("Voice input ready when you need it."); };
+    speechRecognition.start();
+  }
+
+  function readLatestAnswer() {
+    if (!latestAssistantText) { setAttachmentStatus("There is no assistant answer to read yet.", "error"); return; }
+    if (!window.speechSynthesis) { setAttachmentStatus("Read-aloud is unavailable in this browser.", "error"); return; }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(latestAssistantText.replace(/[#*_`]/g, " "));
+    utterance.lang = /[\u0D00-\u0D7F]/.test(latestAssistantText) ? "ml-IN" : "en-IN";
+    utterance.rate = 0.92;
+    window.speechSynthesis.speak(utterance);
+    setAttachmentStatus("Reading the latest answer aloud.", "ready");
   }
 
   function defaultPrompts() {
@@ -947,8 +1134,8 @@
     if (!retrieval?.matches) return [];
     const sources = [];
     for (const { item } of retrieval.matches.subjects || []) {
-      const url = item.syllabusUrl || item.lessonUrl || item.departmentUrl || "";
-      if (url) sources.push({ title: `REV${item.revision} ${item.code || ""} — ${item.name}`, url, detail: `${item.department || "Department"} · ${item.semester || "Semester"}` });
+      const links = [["Syllabus", item.syllabusUrl], ["Lesson", item.lessonUrl], ["Notes", item.notesUrl], ["Sample paper", item.questionPaperUrl], ["Department", item.departmentUrl]];
+      links.forEach(([kind, url]) => { if (url && url !== "unavailable") sources.push({ title: `REV${item.revision} ${item.code || ""} — ${item.name} · ${kind}`, url, detail: `${item.department || "Department"} · ${item.semester || "Semester"}` }); });
     }
     for (const { item } of retrieval.matches.programmes || []) if (item.url) sources.push({ title: `REV${item.revision} ${item.name}`, url: item.url, detail: "POLY PMNA programme" });
     for (const { item } of retrieval.matches.pages || []) if (item.url) sources.push({ title: item.title, url: item.url, detail: item.category || "POLY PMNA page" });
@@ -960,10 +1147,10 @@
     const value = String(text || "").trim();
     if (!value || /^\d{1,3}$/.test(value)) return false;
     if (/\b[1-6]\d{3,4}[A-Z]?\b/i.test(value)) return true;
-    return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
+    return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|previous|past question|question bank|model paper|sample paper|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
   }
 
-  async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null) {
+  async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null, attachment = null) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 45000);
@@ -988,6 +1175,10 @@
           learningContext: contextSnapshot(),
           answerMode: learningContext.mode || "explain",
           preferredLanguage: /[\u0D00-\u0D7F]/.test(message) ? "ml" : "en",
+          dataSaver: dataSaverEnabled,
+          marks: learningContext.marks || "",
+          learningLevel: learningContext.level || "intermediate",
+          attachment: attachment ? { name: attachment.name, type: attachment.type, size: attachment.size, dataUrl: attachment.dataUrl || "" } : null,
           diagramRequest: diagramIntent ? { ...diagramIntent, department: department?.displayName || "" } : null
         })
       });
@@ -1026,6 +1217,7 @@
     }
     
     const clean = text.trim();
+    const attachment = activeAttachment;
     const detectedDepartment = departmentRegistry?.find(clean, activeDepartment) || null;
     if (detectedDepartment?.ambiguous) {
       if (!isQueued) {
@@ -1054,7 +1246,7 @@
       autoResize();
     }
     
-    await addMessage("user", clean, { ...departmentMeta, ...contextMeta });
+    await addMessage("user", clean, { ...departmentMeta, ...contextMeta, ...(attachment ? { attachment: { name: attachment.name, type: attachment.type, size: attachment.size } } : {}) });
     await updateChatTitleFromMessage(activeChatId, clean);
     await renderMessages();
     await renderChats();
@@ -1077,7 +1269,7 @@
       const result = await callAI(clean, history, [retrieval?.context || "", pageContext].filter(Boolean).join("\n\n"), (partial) => {
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
-      }, diagramIntent, resolvedDepartment);
+      }, diagramIntent, resolvedDepartment, attachment);
       streamBubble?.div.remove();
       await addMessage("assistant", result.answer, {
         ...diagramMeta,
@@ -1087,6 +1279,7 @@
         sources: result.provider === "local-math" ? [] : buildSourceMeta(retrieval),
         answerMode: learningContext.mode || "explain",
         learningContext: contextSnapshot(),
+        ...(attachment ? { attachment: { name: attachment.name, type: attachment.type, size: attachment.size } } : {}),
         knowledgeVersion: retrieval?.version || ""
       });
     } catch (error) {
@@ -1132,6 +1325,9 @@
       await renderAll();
       
       stopRequested = false;
+      activeAttachment = null;
+      if (els.attachment) els.attachment.value = "";
+      setAttachmentStatus("Tools are optional. Choose one only when it helps.");
       if (messageQueue.length > 0) {
         const nextText = messageQueue.shift();
         updateQueueStatus();
@@ -1174,6 +1370,23 @@
     }
   }
 
+  function bindLearningTools() {
+    els.toolsToggle?.addEventListener("click", () => {
+      const open = els.toolsPanel?.hasAttribute("hidden");
+      if (els.toolsPanel) els.toolsPanel.hidden = !open;
+      if (els.toolsToggle) { els.toolsToggle.setAttribute("aria-expanded", String(open)); els.toolsToggle.textContent = open ? "Hide tools" : "Show tools"; }
+    });
+    document.querySelectorAll("[data-poly-tool]").forEach((button) => button.addEventListener("click", () => chooseTool(button.dataset.polyTool)));
+    document.querySelectorAll("[data-attachment-tool]").forEach((button) => button.addEventListener("click", () => chooseAttachmentTool(button.dataset.attachmentTool)));
+    els.markTarget?.addEventListener("change", () => setLearningContext({ marks: els.markTarget.value }));
+    els.learningLevel?.addEventListener("change", () => setLearningContext({ level: els.learningLevel.value }));
+    els.dataSaver?.addEventListener("change", () => { dataSaverEnabled = Boolean(els.dataSaver.checked); localStorage.setItem("ask-poly-data-saver", dataSaverEnabled ? "1" : "0"); updateContextUI(); setAttachmentStatus(dataSaverEnabled ? "Data saver enabled: lighter diagrams and fewer optional effects." : "Data saver disabled.", "ready"); });
+    els.attachmentBtn?.addEventListener("click", () => els.attachment?.click());
+    els.attachment?.addEventListener("change", () => handleAttachment(els.attachment.files?.[0]));
+    els.voiceInput?.addEventListener("click", startVoiceInput);
+    els.readAloud?.addEventListener("click", readLatestAnswer);
+  }
+
   async function init() {
     departmentRegistry = await window.AskPolyDepartments?.ready || { entries: [], find: (text, current) => current || null, get: () => null, choices: () => [] };
     populateDepartmentSelector();
@@ -1182,6 +1395,7 @@
     if (chats.length) activeChatId = chats[0].id;
     else await createChat();
     await applyPageContextFromQuery();
+    bindLearningTools();
     const contextControls = [els.contextDepartment, els.contextSemester, els.contextRevision, els.contextMode].filter(Boolean);
     contextControls.forEach((control) => control.addEventListener("change", async () => {
       const department = els.contextDepartment?.value ? departmentRegistry?.get(els.contextDepartment.value) : null;
@@ -1189,7 +1403,9 @@
         department: department ? { ...department, source: "manual-context" } : null,
         semester: els.contextSemester?.value || "",
         revision: els.contextRevision?.value || "",
-        mode: els.contextMode?.value || "explain"
+        mode: els.contextMode?.value || "explain",
+        marks: els.markTarget?.value || learningContext.marks || "",
+        level: els.learningLevel?.value || learningContext.level || "intermediate"
       });
       els.status.textContent = `Context saved · ${modeLabel(learningContext.mode)}`;
     }));
