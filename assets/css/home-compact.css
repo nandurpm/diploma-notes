@@ -77,6 +77,30 @@
   box-shadow: 0 12px 25px rgba(5, 145, 122, 0.24);
 }
 
+.home-app-actions .app-integrity-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: -2px 0 2px;
+  padding: 4px 8px;
+  color: #164e63;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  opacity: 0.88;
+}
+
+.home-app-actions .app-integrity-link:hover,
+.home-app-actions .app-integrity-link:focus-visible {
+  color: #0f766e;
+  opacity: 1;
+}
+
 .home-app-actions .app-download:hover,
 .home-app-actions .app-download:focus-visible {
   color: #ffffff;
