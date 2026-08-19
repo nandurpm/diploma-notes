@@ -415,3 +415,158 @@ body.ask-chats-open{overflow:hidden}
   .ask-response-body h3 { font-size: 1rem; }
   .ask-bubble.ai .ask-code pre { font-size: 12.5px; }
 }
+
+/* Safe inline SVG engineering diagrams */
+.ask-diagram {
+  width: 100%;
+  margin: 18px 0 20px;
+  overflow: hidden;
+  border: 1px solid rgba(37, 99, 235, .18);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(15, 35, 65, .09);
+}
+
+.ask-diagram > figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(15, 35, 65, .09);
+  background: linear-gradient(135deg, #eff6ff, #f8fbff);
+  color: #0f3b72;
+}
+
+.ask-diagram-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.ask-diagram-title strong {
+  color: #1d4ed8;
+  font-size: 10px;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.ask-diagram-controls {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.ask-diagram-controls button {
+  min-width: 30px;
+  min-height: 28px;
+  padding: 3px 8px;
+  border: 1px solid rgba(37, 99, 235, .18);
+  border-radius: 8px;
+  background: #fff;
+  color: #164e63;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ask-diagram-controls button:hover,
+.ask-diagram-controls button:focus-visible {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.ask-diagram-controls button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .24);
+  outline-offset: 1px;
+}
+
+.ask-diagram-viewport {
+  max-width: 100%;
+  overflow: auto;
+  background: #fff;
+  overscroll-behavior: contain;
+}
+
+.ask-diagram-canvas {
+  min-width: 620px;
+  padding: 12px;
+  transform-origin: top left;
+  transition: transform .18s ease;
+}
+
+.ask-diagram-svg {
+  display: block;
+  width: 100%;
+  min-width: 580px;
+  height: auto;
+  max-height: 620px;
+}
+
+.ask-diagram-svg .diagram-surface { fill: #fbfdff; stroke: #dbeafe; stroke-width: 2; }
+.ask-diagram-svg .wire,
+.ask-diagram-svg .axis { fill: none; stroke: #17324d; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.ask-diagram-svg .axis { stroke: #64748b; stroke-width: 2.5; }
+.ask-diagram-svg .component { fill: #fff; stroke: #0f3b72; stroke-width: 4; stroke-linejoin: round; }
+.ask-diagram-svg .component-fill { fill: #dbeafe; stroke: #0f3b72; stroke-width: 4; stroke-linejoin: round; }
+.ask-diagram-svg .core { fill: #cbd5e1; stroke: #475569; stroke-width: 3; }
+.ask-diagram-svg .coil { fill: none; stroke: #b45309; stroke-width: 7; stroke-linecap: round; }
+.ask-diagram-svg .junction { fill: #0f3b72; }
+.ask-diagram-svg .arrow-head { fill: #2563eb; }
+.ask-diagram-svg .light-arrow { fill: none; stroke: #f59e0b; stroke-width: 4; stroke-linecap: round; marker-end: url(#poly-arrow); }
+.ask-diagram-svg .component-arrow { fill: none; stroke: #16a34a; stroke-width: 4; marker-end: url(#poly-arrow); }
+.ask-diagram-svg .wave { fill: none; stroke: #dc2626; stroke-width: 4; stroke-linecap: round; }
+.ask-diagram-svg .label,
+.ask-diagram-svg .component-label,
+.ask-diagram-svg .section-label,
+.ask-diagram-svg .terminal,
+.ask-diagram-svg .value-label,
+.ask-diagram-svg .polarity,
+.ask-diagram-svg .axis-label,
+.ask-diagram-svg .flow-label,
+.ask-diagram-svg .branch-label { fill: #172033; font-family: Inter, system-ui, sans-serif; }
+.ask-diagram-svg .component-label { font-size: 20px; font-weight: 900; }
+.ask-diagram-svg .section-label { fill: #1d4ed8; font-size: 19px; font-weight: 950; letter-spacing: 2px; }
+.ask-diagram-svg .terminal { fill: #075985; font-size: 18px; font-weight: 900; }
+.ask-diagram-svg .value-label { fill: #b45309; font-size: 20px; font-weight: 900; }
+.ask-diagram-svg .polarity { fill: #b91c1c; font-size: 22px; font-weight: 950; }
+.ask-diagram-svg .axis-label { fill: #64748b; font-size: 18px; font-weight: 800; }
+.ask-diagram-svg .flow-shape { fill: #eff6ff; stroke: #1d4ed8; stroke-width: 3; }
+.ask-diagram-svg .block-shape { fill: #ecfeff; stroke: #0891b2; stroke-width: 3; }
+.ask-diagram-svg .flow-label { fill: #0f3b72; font-size: 18px; font-weight: 900; }
+.ask-diagram-svg .branch-label { fill: #b45309; font-size: 16px; font-weight: 950; }
+
+.ask-diagram-fallback-note {
+  margin: 12px 0 0;
+  padding: 8px 11px;
+  border-left: 3px solid #38bdf8;
+  border-radius: 0 9px 9px 0;
+  background: #f0f9ff;
+  color: #164e63;
+  font-size: 12px;
+}
+
+.ask-diagram:fullscreen {
+  padding: 20px;
+  background: #fff;
+}
+
+.ask-diagram:fullscreen .ask-diagram-viewport,
+.ask-diagram:fullscreen .ask-diagram-canvas { height: calc(100vh - 90px); }
+.ask-diagram:fullscreen .ask-diagram-svg { max-height: none; }
+
+@media (max-width: 700px) {
+  .ask-diagram > figcaption { align-items: flex-start; flex-direction: column; }
+  .ask-diagram-controls { width: 100%; justify-content: flex-start; }
+  .ask-diagram-canvas { min-width: 620px; }
+  .ask-diagram-svg { min-width: 580px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-diagram-canvas { transition: none; }
+}

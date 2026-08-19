@@ -225,13 +225,23 @@
     }
     return html;
   }
-  function renderCodeBlock(codeLines) {
+  function looksLikeAsciiDiagram(code) {
+    const value = String(code || "");
+    return /[┌┐└┘│─━→←↑↓]/.test(value)
+      || /(?:\+[-=]{2,}\+|\|[^\n|]{1,}\|)/.test(value)
+      || /(?:\|[><]+\||\-\-+\s*(?:\||>|<)|(?:VCC|GND|Vin|Vout)\s*(?:\||↓|↑|-->|->))/i.test(value);
+  }
+
+  function renderCodeBlock(codeLines, options = {}) {
     const firstLine = codeLines[0] || "";
     const langMatch = /^\s*([a-z0-9+._#-]+)\s*$/i.exec(firstLine);
     const hasLang = langMatch && codeLines.length > 1;
     const language = hasLang ? langMatch[1] : "";
     const code = (hasLang ? codeLines.slice(1) : codeLines).join("\n").trim();
     if (!code) return "";
+    if (options.diagramIntent && looksLikeAsciiDiagram(code)) {
+      return `<p class="ask-diagram-fallback-note">The graphical diagram above replaces the text sketch.</p>`;
+    }
     const label = language ? `<span class="ask-code-lang">${escapeHtml(language)}</span>` : "";
     const copyBtn = `<button type="button" class="ask-code-copy" aria-label="Copy code">Copy</button>`;
     return `<figure class="ask-code"><figcaption><span class="ask-code-head">${label}Code</span>${copyBtn}</figcaption><pre><code class="hljs">${highlightCode(code, language)}</code></pre></figure>`;
@@ -260,7 +270,7 @@
     return `<div class="ask-table-wrap" role="region" aria-label="Response table" tabindex="0"><table class="ask-table"><thead><tr>${headerHtml}</tr></thead><tbody>${bodyHtml}</tbody></table></div>`;
   }
 
-  function renderText(text) {
+  function renderText(text, options = {}) {
     const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
     const blocks = [];
     let index = 0;
@@ -290,7 +300,7 @@
           index += 1;
         }
         if (index < lines.length) index += 1;
-        blocks.push(renderCodeBlock(code));
+        blocks.push(renderCodeBlock(code, options));
         continue;
       }
 
@@ -362,9 +372,13 @@
     const isUser = message.role === "user";
     div.className = `ask-bubble ${isUser ? "user" : "ai"}`;
     const label = `<div class="ask-message-label">${isUser ? "You" : "POLY AI"}</div>`;
+    const diagramIntent = message.meta?.diagramIntent || null;
+    const diagramHtml = !isUser && diagramIntent && window.AskPolyDiagrams
+      ? window.AskPolyDiagrams.render(diagramIntent)
+      : "";
     div.innerHTML = isUser
       ? `${label}<div class="ask-message-text">${escapeHtml(message.content)}</div>`
-      : `${label}<div class="ask-response-body">${renderText(message.content)}</div>`;
+      : `${label}<div class="ask-response-body">${diagramHtml}${renderText(message.content, { diagramIntent })}</div>`;
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
@@ -372,6 +386,13 @@
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
     div.addEventListener("click", (event) => {
+      const diagramButton = event.target.closest("[data-diagram-action]");
+      if (diagramButton && window.AskPolyDiagrams) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.AskPolyDiagrams.handle(diagramButton.dataset.diagramAction, diagramButton.closest(".ask-diagram"));
+        return;
+      }
       const target = event.target.closest("button.ask-code-copy");
       if (!target) return;
       const code = target.closest(".ask-code")?.querySelector("code");
@@ -515,22 +536,27 @@
   }
   function removeTyping() { $("typingBubble")?.remove(); }
 
-  function addStreamingBubble() {
+  function addStreamingBubble(diagramIntent = null) {
     const div = document.createElement("div");
     div.id = "streamingBubble";
     div.className = "ask-bubble ai";
+    const label = document.createElement("div");
+    label.className = "ask-message-label";
+    label.textContent = "POLY AI";
     const content = document.createElement("div");
     content.className = "ask-stream-content ask-response-body";
     content.textContent = "";
-    div.append(content);
+    div.append(label, content);
+    div.dataset.diagramIntent = diagramIntent ? JSON.stringify(diagramIntent) : "";
     els.messages.append(div);
     els.messages.scrollTop = els.messages.scrollHeight;
-    return { div, content };
+    return { div, content, diagramIntent };
   }
 
   function updateStreamingBubble(streamBubble, text) {
     if (!streamBubble?.content) return;
-    streamBubble.content.innerHTML = renderText(text || "");
+    const diagramIntent = streamBubble.diagramIntent || null;
+    streamBubble.content.innerHTML = renderText(text || "", { diagramIntent });
     els.messages.scrollTop = els.messages.scrollHeight;
   }
 
@@ -596,7 +622,7 @@
     return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
   }
 
-  async function callAI(message, history, localContext, onChunk) {
+  async function callAI(message, history, localContext, onChunk, diagramIntent = null) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 45000);
@@ -616,7 +642,8 @@
           history,
           stream: true,
           pageTitle: "Ask POLY whole-site knowledge",
-          pageContext: localContext || ""
+          pageContext: localContext || "",
+          diagramRequest: diagramIntent || null
         })
       });
       const contentType = response.headers.get("content-type") || "";
@@ -654,6 +681,8 @@
     }
     
     const clean = text.trim();
+    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
+    const diagramMeta = diagramIntent ? { diagramIntent } : {};
     if (!isQueued) {
       els.input.value = "";
       autoResize();
@@ -675,13 +704,14 @@
       const history = previousMessages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
       retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
       removeTyping();
-      streamBubble = addStreamingBubble();
+      streamBubble = addStreamingBubble(diagramIntent);
       const result = await callAI(clean, history, retrieval?.context || "", (partial) => {
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
-      });
+      }, diagramIntent);
       streamBubble?.div.remove();
       await addMessage("assistant", result.answer, {
+        ...diagramMeta,
         provider: result.provider,
         model: result.model,
         websiteKnowledge: Boolean(retrieval?.context),
@@ -691,11 +721,12 @@
       removeTyping();
       streamBubble?.div.remove();
       if (error.name === "AbortError" && stopRequested) {
-        await addMessage("assistant", "Generation stopped by user. You can review the partial response above or ask again.", { provider: "user-stop" });
+        await addMessage("assistant", "Generation stopped by user. You can review the partial response above or ask again.", { ...diagramMeta, provider: "user-stop" });
       } else {
         const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
         if (offline) {
           await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {
+            ...diagramMeta,
             provider: "local-offline-assistant",
             error: error.message,
             knowledgeVersion: retrieval?.version || ""
@@ -704,12 +735,13 @@
           const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
           if (fallback) {
             await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
+              ...diagramMeta,
               provider: "local-knowledge-fallback",
               error: error.message,
               knowledgeVersion: retrieval?.version || ""
             });
           } else {
-            await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message });
+            await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { ...diagramMeta, error: error.message });
           }
         }
       }
