@@ -604,11 +604,8 @@
   }
 
   function renderResponseActions(message) {
-    const actions = followUpActions(message.content, message.meta || {});
-    if (!actions.length && !message.meta?.error) return "";
-    const retry = message.meta?.error ? `<button type="button" data-retry-message="true">Retry</button>` : "";
-    const examCopy = message.meta?.error ? "" : `<button type="button" data-copy-exam="true">Copy exam answer</button><button type="button" data-save-note="true">Save notes</button><button type="button" data-export-note="true">Export notes</button>`;
-    return `<div class="ask-response-actions" aria-label="Follow-up actions">${actions.map(([label, prompt]) => `<button type="button" data-response-action="${escapeHtml(prompt)}">${escapeHtml(label)}</button>`).join("")}${examCopy}${retry}<button type="button" class="ask-report-mistake" data-report-mistake="true">Report mistake</button></div>`;
+    if (!message.meta?.error) return "";
+    return `<div class="ask-response-actions" aria-label="Response actions"><button type="button" data-retry-message="true">Retry</button></div>`;
   }
 
   function downloadMarkdown(filename, text) {
