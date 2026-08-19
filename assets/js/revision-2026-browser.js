@@ -31,6 +31,7 @@
 
   const VERSION = "20260818-pdf-manifest2";
   let PDF_LINKS = {};
+  let LESSON_CODES = new Set();
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
   const PROGRAMME_ART = {
     "architecture": ["#0f5ea8", "#0e7490"],
@@ -242,6 +243,22 @@
 
   function pdfFilename(href) { return href.split("/").pop() || "resource.pdf"; }
 
+  async function loadLessonCodes() {
+    if (LESSON_CODES.size) return;
+    const existing = globalThis.POLY_ASSET_MANIFEST?.lessonCodes;
+    if (Array.isArray(existing)) {
+      LESSON_CODES = new Set(existing.map(code => String(code).toUpperCase()));
+      return;
+    }
+    try {
+      const text = await fetch(`/assets/js/asset-manifest.js?v=${VERSION}`, { cache: "no-store" }).then(response => response.ok ? response.text() : "");
+      const match = text.match(/lessonCodes:\s*Object\.freeze\((\[[\s\S]*?\])\)/);
+      LESSON_CODES = new Set(match ? JSON.parse(match[1]).map(code => String(code).toUpperCase()) : []);
+    } catch (_) {
+      LESSON_CODES = new Set();
+    }
+  }
+
   function subjectCard(subject, programmeName) {
     const code = String(subject.code || "").trim().toUpperCase();
     const semester = semesterNumber(subject);
@@ -252,18 +269,20 @@
     const pdf = PDF_LINKS[`2026|${programmeSlug}|${code}`] || {};
     const syllabus = pdf.syllabus ? `${PDF_BASE}${pdf.syllabus}` : "";
     const qp = pdf.modelQuestionPaper ? `${PDF_BASE}${pdf.modelQuestionPaper}` : "";
-    
-    const syllabusAction = syllabus 
+    const lesson = `/revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`;
+    const notes = `${lesson}?autoPrintNotes=1`;
+    const lessonOk = LESSON_CODES.has(code);
+    const syllabusAction = syllabus
       ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Download Syllabus</a>`
       : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
-      
-    const qpAction = qp 
+    const qpAction = qp
       ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>`
       : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
-      
+    const study = lessonOk
+      ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(notes)}">Download Notes</a>`
+      : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
-    
-    return `<article class="subject-card" data-subject-code="${esc(code)}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${qpAction}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(code)}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="${String(lessonOk)}" data-notes-available="${String(lessonOk)}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${study}${qpAction}</div></article>`;
   }
 
   function semesterSection(number, subjects, programmeName) {
@@ -346,6 +365,7 @@
       return;
     }
     try {
+      await loadLessonCodes();
       const [programmes, data, pdfManifest] = await Promise.all([
         json(`/assets/data/revision-2026-programmes.json?v=${VERSION}`),
         json(`/assets/data/revision-2026-subjects.json?v=${VERSION}`, 20000),

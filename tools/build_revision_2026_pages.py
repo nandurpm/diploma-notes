@@ -46,6 +46,10 @@ def natural_code_key(code: str) -> tuple[int, str]:
 
 
 
+def lesson_file(code: str) -> Path:
+    return REV2026_LESSONS / f"lessons-{code}.html"
+
+
 def pdf_key(programme: dict[str, object], row: dict[str, object], code: str) -> str:
     programme_slug = str(row.get("programmeSlug") or programme.get("slug") or "")
     return f"2026|{programme_slug}|{code.upper()}"
@@ -100,9 +104,11 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     semester = f"Semester {semester_number(row)}"
     name = str(row.get("name", "")).strip()
     subject_type = str(row.get("type", "Course")).strip() or "Course"
+    lesson_url = f"/revision-2026-content/lessons/lessons-{esc(code)}.html"
+    notes_url = f"{lesson_url}?autoPrintNotes=1"
+    lesson_ok = lesson_file(code).exists()
     syllabus_url = pdf_href(programme, row, code, "syllabus")
     qp_url = pdf_href(programme, row, code, "modelQuestionPaper")
-    
     syllabus_action = (
         f'<a class="action syllabus" href="{esc(syllabus_url)}" download="{esc(pdf_filename(syllabus_url))}">Download Syllabus</a>'
         if syllabus_url else
@@ -113,22 +119,27 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
         if qp_url else
         '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
     )
-
-    search_text = " ".join(
-        [code, name, str(programme["name"]), semester, subject_type]
-    ).casefold()
-    
+    if lesson_ok:
+        study = (
+            f'<a class="action lessons" href="{lesson_url}">View Lessons</a>'
+            f'<a class="action download" href="{notes_url}">Download Notes</a>'
+        )
+    else:
+        study = (
+            '<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span>'
+            '<span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>'
+        )
+    search_text = " ".join([code, name, str(programme["name"]), semester, subject_type]).casefold()
     return (
         f'<article class="subject-card reveal" data-subject-code="{esc(code)}" '
         f'data-revision="REV2026" data-semester="{esc(semester)}" '
-        f'data-search-text="{esc(search_text)}">'
+        f'data-search-text="{esc(search_text)}" data-notes-href="{esc(notes_url)}" '
+        f'data-lesson-href="{esc(lesson_url)}" data-lesson-available="{str(lesson_ok).lower()}" '
+        f'data-notes-available="{str(lesson_ok).lower()}">'
         f'<div class="subject-top"><span>2026</span><strong>{esc(code)}</strong></div>'
         f'<h3>{esc(name)}</h3>'
         f'<p>{esc(programme["name"])} / {esc(semester)} / {esc(subject_type)}</p>'
-        f'<div class="action-row">'
-        f'{syllabus_action}'
-        f'{qp_action}'
-        f'</div></article>'
+        f'<div class="action-row">{syllabus_action}{study}{qp_action}</div></article>'
     )
 
 

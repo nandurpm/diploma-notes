@@ -135,8 +135,16 @@ def all_records() -> list[dict[str, str]]:
     return list(unique.values())
 
 
+def paths(record: dict[str, str]) -> tuple[str, str, bool]:
+    code = record.get("assetCode") or record["code"]
+    lesson_local = Path("lessons") / f"lessons-{code}.html"
+    lesson_href = "/" + lesson_local.as_posix()
+    return lesson_href, lesson_href + "?autoPrintNotes=1", (ROOT / lesson_local).is_file()
+
+
 def card(record: dict[str, str]) -> str:
     code = record["code"]
+    lesson_href, notes_href, lesson_ok = paths(record)
     syllabus = pdf_href(record["department"], code, "syllabus")
     model_qp = pdf_href(record["department"], code, "modelQuestionPaper")
     syllabus_action = (
@@ -149,14 +157,26 @@ def card(record: dict[str, str]) -> str:
         if model_qp else
         '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
     )
+    if lesson_ok:
+        study = (
+            f'<a class="action lessons" href="{html.escape(lesson_href, quote=True)}">View Lessons</a>'
+            f'<a class="action download" href="{html.escape(notes_href, quote=True)}">Save as PDF</a>'
+        )
+    else:
+        study = (
+            '<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span>'
+            '<span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>'
+        )
     search = " ".join((code, record["name"], record["department"], record["semester"], record["type"])).lower()
     return (
         f'<article class="subject-card reveal" data-subject-code="{html.escape(code.upper(), quote=True)}" '
         f'data-revision="2021" data-semester="{html.escape(record["semester"], quote=True)}" '
-        f'data-search-text="{html.escape(search, quote=True)}"><div class="subject-top"><span>2021</span>'
+        f'data-search-text="{html.escape(search, quote=True)}" data-notes-href="{html.escape(notes_href, quote=True)}" '
+        f'data-lesson-href="{html.escape(lesson_href, quote=True)}" data-lesson-available="{str(lesson_ok).lower()}" '
+        f'data-notes-available="{str(lesson_ok).lower()}"><div class="subject-top"><span>2021</span>'
         f'<strong>{html.escape(code)}</strong></div><h3>{html.escape(record["name"])}</h3>'
         f'<p>{html.escape(record["department"])} / {html.escape(record["semester"])} / {html.escape(record["type"])}</p>'
-        f'<div class="action-row">{syllabus_action}{model_action}</div></article>'
+        f'<div class="action-row">{syllabus_action}{study}{model_action}</div></article>'
     )
 
 

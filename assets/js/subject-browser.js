@@ -210,7 +210,12 @@
     if (mode === "papers") {
       return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject)}</div></article>`;
     }
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${questionPaperAction(subject)}</div></article>`;
+    const { lessonHref, notesHref } = assetPaths(subject);
+    const handbookAvailable = hasLesson(subject);
+    const studyActions = handbookAvailable
+      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" target="_blank" rel="noopener noreferrer">Save as PDF</a>`
+      : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${handbookAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject)}</div></article>`;
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
