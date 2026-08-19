@@ -220,8 +220,14 @@
     createDiya();
   }
 
+  function isHomePage() {
+    const path = window.location.pathname.replace(/\/+$/, "") || "/";
+    return path === "/" || path === "/index.html";
+  }
+
   function init() {
     if (window.location.pathname.startsWith("/maintenance/")) return;
+    if (!isHomePage()) return;
     ensureStylesheet();
     applySeason();
     scheduleNextISTMidnight();
