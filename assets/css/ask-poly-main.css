@@ -629,3 +629,81 @@ body.ask-chats-open{overflow:hidden}
 .ask-poly-page .action.ask-poly:hover,.poly-lesson-action.poly-lesson-ask:hover{filter:brightness(1.05);transform:translateY(-1px)}
 @media(prefers-reduced-motion:reduce){.ask-poly-page .action.ask-poly:hover,.poly-lesson-action.poly-lesson-ask:hover{transform:none}}
 .ask-response-actions .ask-report-mistake{border-color:rgba(185,28,28,.16);color:#b91c1c;background:#fff7ed}.ask-response-actions .ask-report-mistake:hover,.ask-response-actions .ask-report-mistake:focus-visible{background:#fee2e2;border-color:#ef4444;outline:none}
+
+/* Final mobile composer repair: keep the input and action group together. */
+@media (max-width: 900px) {
+  .ask-poly-page .ask-prompts {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    overflow: hidden !important;
+    max-height: 88px !important;
+    gap: 6px !important;
+    padding: 8px 10px !important;
+  }
+  .ask-poly-page .ask-prompts button {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .ask-poly-page .ask-form,
+  html.polytechnic-native-app .ask-poly-page .ask-form {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-end !important;
+    gap: 7px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px 10px max(8px, env(safe-area-inset-bottom)) !important;
+  }
+  .ask-poly-page .ask-input,
+  html.polytechnic-native-app .ask-poly-page .ask-input {
+    flex: 1 1 auto !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    min-height: 54px !important;
+    height: 54px !important;
+    max-height: 54px !important;
+  }
+  .ask-poly-page .ask-actions,
+  html.polytechnic-native-app .ask-poly-page .ask-actions {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+  .ask-poly-page .ask-queue,
+  .ask-poly-page .ask-send,
+  .ask-poly-page .ask-stop,
+  html.polytechnic-native-app .ask-poly-page .ask-queue,
+  html.polytechnic-native-app .ask-poly-page .ask-send,
+  html.polytechnic-native-app .ask-poly-page .ask-stop {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 54px !important;
+    height: 54px !important;
+    padding: 0 10px !important;
+    border-radius: 18px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+  .ask-poly-page .ask-send,
+  html.polytechnic-native-app .ask-poly-page .ask-send {
+    min-width: 68px !important;
+  }
+  .ask-poly-page .ask-form[data-generating="true"] .ask-send,
+  html.polytechnic-native-app .ask-poly-page .ask-form[data-generating="true"] .ask-send {
+    display: none !important;
+  }
+  .ask-poly-page .ask-form[data-generating="true"] .ask-stop,
+  html.polytechnic-native-app .ask-poly-page .ask-form[data-generating="true"] .ask-stop {
+    display: inline-flex !important;
+    min-width: 68px !important;
+  }
+}
