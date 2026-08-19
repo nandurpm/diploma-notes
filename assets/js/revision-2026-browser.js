@@ -33,6 +33,7 @@
   let PDF_LINKS = {};
   let LESSON_CODES = new Set();
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
+  const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php?";
   const PROGRAMME_ART = {
     "architecture": ["#0f5ea8", "#0e7490"],
     "artificial-intelligence": ["#4f46e5", "#7c3aed"],
@@ -135,7 +136,7 @@
   }
 
   function ensureModelPaperAccess() {
-    document.querySelectorAll("a.action.qp").forEach(link => {
+    document.querySelectorAll("a.action.qp:not(.external-fallback)").forEach(link => {
       link.textContent = "Download Model Question Paper";
       link.removeAttribute("target");
       link.setAttribute("download", link.getAttribute("download") || "");
@@ -147,7 +148,7 @@
     const section = document.createElement("section");
     section.className = "section notice";
     section.id = "rev2026-model-qp-access";
-    section.innerHTML = `<strong>Revision 2026 PDF resources:</strong> Syllabus and available model question papers are downloaded directly from the POLY PMNA PDF repository.`;
+    section.innerHTML = `<strong>Revision 2026 PDF resources:</strong> Syllabus and available model question papers are downloaded directly from the POLY PMNA PDF repository; missing files open the corresponding official SITTTR course page.`;
     title.after(section);
   }
 
@@ -243,6 +244,13 @@
 
   function pdfFilename(href) { return href.split("/").pop() || "resource.pdf"; }
 
+  function sitttrHref(code, kind) {
+    const value = encodeURIComponent(String(code || "").trim().toUpperCase());
+    return kind === "modelQuestionPaper"
+      ? `${SITTTR_BASE}r=site%2Fdiploma-modelqp-courses-show&course=${value}`
+      : `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${value}&scheme=REV2026`;
+  }
+
   async function loadLessonCodes() {
     if (LESSON_CODES.size) return;
     const existing = globalThis.POLY_ASSET_MANIFEST?.lessonCodes;
@@ -274,10 +282,10 @@
     const lessonOk = LESSON_CODES.has(code);
     const syllabusAction = syllabus
       ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Download Syllabus</a>`
-      : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
+      : `<a class="action syllabus external-fallback" href="${esc(sitttrHref(code, "syllabus"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a>`;
     const qpAction = qp
       ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>`
-      : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
+      : `<a class="action qp external-fallback" href="${esc(sitttrHref(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Model Question Paper</a>`;
     const study = lessonOk
       ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(notes)}">Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;

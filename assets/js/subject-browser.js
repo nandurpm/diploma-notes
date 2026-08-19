@@ -104,6 +104,7 @@
   const key = s => `${makeCourseKey(s)}|${s.department}`;
   let PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
   let PDF_LINKS = {};
+  const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php?";
   const pdfSlug = value => String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   const pdfHref = (subject, kind) => {
     const revision = revisionYear(subject.revision);
@@ -117,17 +118,24 @@
     return fallback ? `${PDF_BASE}${fallback[1][kind]}` : "";
   };
   const pdfFileName = href => href.split("/").pop() || "document.pdf";
+  const sitttrHref = (subject, kind) => {
+    const code = encodeURIComponent(norm(subject.code));
+    const revision = encodeURIComponent(revisionYear(subject.revision));
+    return kind === "modelQuestionPaper"
+      ? `${SITTTR_BASE}r=site%2Fdiploma-modelqp-courses-show&course=${code}`
+      : `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${code}&scheme=REV${revision}`;
+  };
   const syllabusAction = subject => {
-    const href = pdfHref(subject, "syllabus");
-    return href
-      ? `<a class="action syllabus" href="${esc(href)}" download="${esc(pdfFileName(href))}" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Download Syllabus</a>`
-      : `<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>`;
+    const direct = pdfHref(subject, "syllabus");
+    if (direct) return `<a class="action syllabus" href="${esc(direct)}" download="${esc(pdfFileName(direct))}" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Download Syllabus</a>`;
+    const fallback = sitttrHref(subject, "syllabus");
+    return `<a class="action syllabus external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open SITTTR Syllabus</a>`;
   };
   const questionPaperAction = (subject, label = "Download Model Question Paper") => {
-    const href = pdfHref(subject, "modelQuestionPaper");
-    return href
-      ? `<a class="action qp" href="${esc(href)}" download="${esc(pdfFileName(href))}" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`
-      : `<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>`;
+    const direct = pdfHref(subject, "modelQuestionPaper");
+    if (direct) return `<a class="action qp" href="${esc(direct)}" download="${esc(pdfFileName(direct))}" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
+    const fallback = sitttrHref(subject, "modelQuestionPaper");
+    return `<a class="action qp external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open SITTTR Model Question Paper</a>`;
   };
 
   function unique(list) {

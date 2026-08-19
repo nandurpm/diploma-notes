@@ -7,6 +7,7 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
+from urllib.parse import quote
 
 DATA = Path("assets/data/revision-2026-subjects.json")
 REGISTRY = Path("assets/data/revision-2026-programmes.json")
@@ -21,6 +22,8 @@ VERSION = "20260818-pdf-manifest2"
 PDF_MANIFEST = json.loads(Path("assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
 PDF_BASE = PDF_MANIFEST["base"]
 PDF_LINKS = PDF_MANIFEST["links"].get("2026", {})
+SITTTR_SYLLABUS_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={}"
+SITTTR_MODEL_QP_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course={}"
 
 
 def esc(value: object) -> str:
@@ -62,6 +65,11 @@ def pdf_href(programme: dict[str, object], row: dict[str, object], code: str, ki
 
 def pdf_filename(href: str) -> str:
     return href.rsplit("/", 1)[-1] if href else ""
+
+
+def sitttr_href(code: str, kind: str) -> str:
+    template = SITTTR_MODEL_QP_URL if kind == "modelQuestionPaper" else SITTTR_SYLLABUS_URL
+    return template.format(quote(code.upper(), safe=""))
 
 
 
@@ -112,12 +120,12 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     syllabus_action = (
         f'<a class="action syllabus" href="{esc(syllabus_url)}" download="{esc(pdf_filename(syllabus_url))}">Download Syllabus</a>'
         if syllabus_url else
-        '<span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span>'
+        f'<a class="action syllabus external-fallback" href="{esc(sitttr_href(code, "syllabus"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a>'
     )
     qp_action = (
         f'<a class="action qp" href="{esc(qp_url)}" download="{esc(pdf_filename(qp_url))}" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Download Model Question Paper</a>'
         if qp_url else
-        '<span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span>'
+        f'<a class="action qp external-fallback" href="{esc(sitttr_href(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open SITTTR Model Question Paper</a>'
     )
     if lesson_ok:
         study = (
