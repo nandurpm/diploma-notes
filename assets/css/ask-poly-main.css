@@ -225,9 +225,10 @@ html.polytechnic-native-app .ask-send{
   html.polytechnic-native-app .ask-status{font-size:11px!important;padding:5px 8px!important}
   html.polytechnic-native-app .ask-chat{grid-template-rows:auto minmax(104px,1fr) auto!important}
   html.polytechnic-native-app .ask-messages{min-height:104px!important;padding:12px!important}
-  html.polytechnic-native-app .ask-form{grid-template-columns:minmax(0,1fr) 72px!important;min-height:70px!important;padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important}
+  html.polytechnic-native-app .ask-form{grid-template-columns:minmax(0,1fr) auto auto!important;min-height:70px!important;padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important}
   html.polytechnic-native-app .ask-input{min-height:54px!important;height:54px!important;max-height:54px!important}
-  html.polytechnic-native-app .ask-send{width:72px!important;min-height:54px!important;height:54px!important}
+  html.polytechnic-native-app .ask-queue{min-height:54px!important;height:54px!important;padding:0 10px!important;font-size:12px!important}
+  html.polytechnic-native-app .ask-send{width:auto!important;min-width:64px!important;min-height:54px!important;height:54px!important;padding:0 10px!important}
 }
 
 /* Stop and Queue actions */
@@ -249,10 +250,27 @@ html.polytechnic-native-app .ask-send{
 .ask-queue:hover { background: #dcfce7; }
 
 @media(max-width:900px) {
-  .ask-form { grid-template-columns: minmax(0,1fr) auto!important; }
-  .ask-actions { grid-column: 1/3; width: 100%; justify-content: flex-end; margin-top: 4px; }
-  .ask-send { width: auto!important; padding: 0 20px!important; }
-  .ask-stop,.ask-queue,.ask-send { min-height:44px; }
+  .ask-form {
+    display: grid!important;
+    grid-template-columns: minmax(0,1fr) auto auto!important;
+    align-items: end!important;
+    gap: 7px!important;
+  }
+  .ask-actions {
+    display: contents!important;
+    width: auto;
+    margin-top: 0;
+  }
+  .ask-stop,.ask-queue,.ask-send {
+    grid-row: 1;
+    min-height: 44px;
+    height: 44px;
+  }
+  .ask-stop { grid-column: 2; }
+  .ask-queue { grid-column: 2; padding: 0 12px; }
+  .ask-send { grid-column: 3; width: auto!important; min-width: 68px; padding: 0 14px!important; }
+  .ask-form[data-generating="true"] .ask-send { display: none!important; }
+  .ask-form[data-generating="true"] .ask-stop { grid-column: 3; min-width: 68px; padding: 0 10px; }
 }
 
 /* Clear status and focus treatment for generation controls. */
