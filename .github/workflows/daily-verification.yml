@@ -17,15 +17,16 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run Site Audit & Link Checker
+      - name: Run Site Audit, Advanced Accessibility & Link Checker
         run: |
           python3 scripts/audit_site_perf_accessibility.py
+          python3 scripts/advanced_audit.py
           python3 scripts/weekly_link_checker.py || true
 
       - name: Commit audit report if changed
         run: |
           git config --global user.name "POLY PMNA Bot"
           git config --global user.email "bot@polypmna.dpdns.org"
-          git add reports/site-audit-report.json
-          git commit -m "chore: daily automated site audit & verification report [skip ci]" || echo "No changes to commit"
+          git add reports/site-audit-report.json reports/advanced-audit-report.json
+          git commit -m "chore: daily automated advanced site audit & verification report [skip ci]" || echo "No changes to commit"
           git push origin main || echo "Push skipped or failed"
