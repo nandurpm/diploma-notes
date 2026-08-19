@@ -18,7 +18,7 @@
   function normalizeLinks() {
     document.querySelectorAll(".navlinks a.active").forEach(link => link.setAttribute("aria-current", "page"));
     document.querySelectorAll('a[target="_blank"]').forEach(link => link.setAttribute("rel", "noopener noreferrer"));
-    document.querySelectorAll('a[href="/about.html#developer"]').forEach(link => {
+    document.querySelectorAll('a[href="https://nandakumarm.dpdns.org/"]').forEach(link => {
       link.setAttribute("target", "_self");
       link.removeAttribute("rel");
     });

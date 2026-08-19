@@ -107,7 +107,7 @@
     }
 
     const script = document.createElement("script");
-    script.src = "/assets/js/site-shell.js?v=20260818-developer-link2";
+    script.src = "/assets/js/site-shell.js?v=20260819-developer-link3";
     script.defer = true;
     script.addEventListener("load", () => window.PolySiteShell?.render(), { once: true });
     document.head.append(script);
