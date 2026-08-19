@@ -247,7 +247,7 @@
     if (existing) return;
 
     const script = document.createElement("script");
-    script.src = `${themePath}?v=23f3d9df3386`;
+    script.src = `${themePath}?v=20260819-onam-music2`;
     script.defer = true;
     script.dataset.polyPreOnamTheme = "true";
     document.head.append(script);

@@ -479,3 +479,109 @@ body.poly-pre-onam-mode .footer {
   .pre-onam-diya { display: none !important; }
   .pre-onam-ribbon { box-shadow: none; }
 }
+
+/* User-controlled festive music toggle. Audio never starts without a click. */
+.pre-onam-music-toggle {
+  position: fixed;
+  right: 18px;
+  bottom: 70px;
+  z-index: 9994;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 13px;
+  border: 1px solid rgba(216, 169, 40, .42);
+  border-radius: 999px;
+  background: rgba(255, 252, 241, .92);
+  color: var(--pre-onam-deep-green);
+  box-shadow: 0 12px 28px rgba(105, 76, 23, .16), inset 0 1px 0 rgba(255, 255, 255, .9);
+  backdrop-filter: blur(14px) saturate(1.12);
+  cursor: pointer;
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .01em;
+  transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.pre-onam-music-toggle:hover,
+.pre-onam-music-toggle:focus-visible {
+  border-color: rgba(240, 120, 40, .62);
+  background: #fff8df;
+  box-shadow: 0 16px 32px rgba(105, 76, 23, .20), 0 0 0 4px rgba(240, 120, 40, .12);
+  transform: translateY(-2px);
+}
+
+.pre-onam-music-toggle:focus-visible {
+  outline: 3px solid rgba(20, 130, 119, .40);
+  outline-offset: 2px;
+}
+
+.pre-onam-music-toggle.is-playing {
+  background: linear-gradient(135deg, #ecf8e9, #fff5d2);
+  color: var(--pre-onam-green);
+}
+
+.pre-onam-music-toggle__icon {
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #17643f, #d8a928, #f07828);
+  color: #fffdf2;
+  font-size: .9rem;
+  line-height: 1;
+}
+
+.pre-onam-music-toggle.is-playing .pre-onam-music-toggle__icon {
+  animation: preOnamMusicPulse 1.8s ease-in-out infinite;
+}
+
+.pre-onam-music-toggle:disabled {
+  cursor: not-allowed;
+  opacity: .58;
+  transform: none;
+}
+
+@keyframes preOnamMusicPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(240, 120, 40, .24); }
+  50% { box-shadow: 0 0 0 7px rgba(240, 120, 40, 0); }
+}
+
+@media (max-width: 520px) {
+  .pre-onam-music-toggle {
+    right: 12px;
+    bottom: 16px;
+    width: 42px;
+    min-height: 42px;
+    padding: 0;
+    justify-content: center;
+    font-size: .72rem;
+  }
+
+  .pre-onam-music-toggle__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pre-onam-music-toggle,
+  .pre-onam-music-toggle.is-playing .pre-onam-music-toggle__icon {
+    transition: none;
+    animation: none !important;
+  }
+}
+
+@media print {
+  .pre-onam-music-toggle { display: none !important; }
+}

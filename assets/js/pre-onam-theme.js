@@ -2,8 +2,9 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260819-pre-onam-awesome1";
+  const VERSION = "20260819-pre-onam-music2";
   const CSS_PATH = "/assets/css/pre-onam-theme.css";
+  const AUDIO_PATH = "/assets/media/onam-2026/pre-onam-festive-loop.mp3";
   const START_DATE = "2026-08-19";
   const END_DATE = "2026-08-24";
   const ONAM_DATES = new Set([
@@ -15,7 +16,9 @@
 
   const state = {
     timeoutId: null,
-    refreshListener: null
+    refreshListener: null,
+    audio: null,
+    musicButton: null
   };
 
   function getISTDate() {
@@ -29,6 +32,12 @@
       return result;
     }, {});
     return `${parts.year}-${parts.month}-${parts.day}`;
+  }
+
+  function hasOnamPreview() {
+    const params = new URLSearchParams(window.location.search || "");
+    if (params.get("onamTheme") || params.get("onam")) return true;
+    return [...params.keys()].some(key => /^onam(?:theme)?([1-4]|random)$/i.test(key));
   }
 
   function getISTMidnightDelay() {
@@ -45,6 +54,7 @@
   }
 
   function getSeasonState(date = getISTDate()) {
+    if (hasOnamPreview()) return "onam";
     if (date >= START_DATE && date <= END_DATE) return "pre-onam";
     if (ONAM_DATES.has(date)) return "onam";
     return "original";
@@ -63,6 +73,14 @@
     document.getElementById("poly-pre-onam-ribbon")?.remove();
     document.querySelector(".pre-onam-petal-layer")?.remove();
     document.querySelector(".pre-onam-diya")?.remove();
+  }
+
+  function removeMusicToggle() {
+    state.audio?.pause();
+    if (state.audio) state.audio.src = "";
+    state.musicButton?.remove();
+    state.audio = null;
+    state.musicButton = null;
   }
 
   function applyRootState(season) {
@@ -203,6 +221,58 @@
     document.body.append(diya);
   }
 
+  function createMusicToggle() {
+    if (!document.body || state.musicButton) return;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "pre-onam-music-toggle";
+    button.setAttribute("aria-pressed", "false");
+    button.setAttribute("aria-label", "Play festive Onam background music");
+    button.innerHTML = '<span class="pre-onam-music-toggle__icon" aria-hidden="true">♫</span><span class="pre-onam-music-toggle__label">Play festive music</span>';
+
+    const audio = new Audio(AUDIO_PATH);
+    audio.loop = true;
+    audio.preload = "none";
+    audio.volume = 0.22;
+
+    const sync = () => {
+      const playing = !audio.paused;
+      button.setAttribute("aria-pressed", String(playing));
+      button.setAttribute("aria-label", playing ? "Pause festive Onam background music" : "Play festive Onam background music");
+      const label = button.querySelector(".pre-onam-music-toggle__label");
+      if (label) label.textContent = playing ? "Pause festive music" : "Play festive music";
+      button.classList.toggle("is-playing", playing);
+    };
+
+    audio.addEventListener("play", sync);
+    audio.addEventListener("pause", sync);
+    audio.addEventListener("ended", sync);
+    audio.addEventListener("error", () => {
+      button.disabled = true;
+      button.setAttribute("aria-label", "Festive music unavailable");
+      const label = button.querySelector(".pre-onam-music-toggle__label");
+      if (label) label.textContent = "Music unavailable";
+    }, { once: true });
+
+    button.addEventListener("click", async () => {
+      if (audio.paused) {
+        try {
+          await audio.play();
+        } catch (_) {
+          button.setAttribute("aria-label", "Tap again to play festive Onam background music");
+        }
+      } else {
+        audio.pause();
+      }
+    });
+
+    state.audio = audio;
+    state.musicButton = button;
+    document.body.append(button);
+    sync();
+  }
+
   function scheduleNextISTMidnight() {
     window.clearTimeout(state.timeoutId);
     state.timeoutId = window.setTimeout(() => {
@@ -214,6 +284,11 @@
   function applySeason() {
     const season = getSeasonState();
     applyRootState(season);
+    if (season === "original") {
+      removeMusicToggle();
+      return;
+    }
+    createMusicToggle();
     if (season !== "pre-onam") return;
     createRibbon();
     createPetals();
