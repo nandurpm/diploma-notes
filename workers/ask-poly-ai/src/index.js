@@ -17,6 +17,8 @@ const allowAsk = createRateLimiter(30);
 const allowExam = createRateLimiter(5);
 const KNOWLEDGE_MODE = "whole-site-revision-aware-v1";
 const DEFAULT_CLOUDFLARE_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8-fast";
+const IMAGE_GEN_MODEL = "@cf/bytedance/stable-diffusion-xl-base-1.0";
+const IMAGE_INTENT_PATTERN = /^\s*(?:create|generate|draw|make|show)\s+(?:an?\s+)?(?:image|picture|photo|drawing|sketch|illustration)\s+(?:of\s+)?(.+)/i;
 const WEBSITE_INTENT_PATTERN = /\b(?:poly\s*pmna|revision|rev\s*20(?:21|26)|sitttr|subject(?:\s+code)?|syllabus|lessons?|notes?|model\s+question(?:\s+paper)?|sample\s+(?:question\s+)?paper|question\s+papers?|mock\s+exams?|department|semester|programme|course|website|web\s*site|page|links?|downloads?|resources?|2015\s+materials?|materials?\s+2015|student\s+tools?)\b/i;
 
 async function readJson(request) {
@@ -318,6 +320,34 @@ export default {
 
     if (!allowAsk(request)) {
       return jsonResponse({ error: "Too many questions. Please wait a few minutes and try again." }, 429, origin, env);
+    }
+
+    const userMessage = cleanText(body?.message, 2200);
+
+    // 1. Image Generation Check
+    const imageMatch = userMessage.match(IMAGE_INTENT_PATTERN);
+    if (imageMatch && hasWorkersAI(env)) {
+      try {
+        const prompt = imageMatch[1].trim();
+        const response = await env.AI.run(IMAGE_GEN_MODEL, { prompt });
+        
+        // The response is a binary stream (Uint8Array)
+        const binaryString = Array.from(new Uint8Array(response))
+          .map(b => String.fromCharCode(b))
+          .join('');
+        const base64Image = btoa(binaryString);
+        const dataUrl = `data:image/png;base64,${base64Image}`;
+
+        return jsonResponse({
+          answer: `I have generated the image of "${prompt}" for you:\n\n![${prompt}](${dataUrl})`,
+          provider: "cloudflare-workers-ai-image",
+          model: IMAGE_GEN_MODEL,
+          knowledgeMode: KNOWLEDGE_MODE
+        }, 200, origin, env);
+      } catch (error) {
+        console.error("Ask POLY Image generation failed", error);
+        // Fall back to normal chat if image generation fails
+      }
     }
 
     // Preloaded FAQ check: runs before any AI provider, so a matched

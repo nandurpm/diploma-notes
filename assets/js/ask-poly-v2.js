@@ -240,6 +240,7 @@
   function renderInlineMarkdown(value) {
     let html = escapeHtml(value);
     html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
+    html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|data:image\/[^;]+;base64,[^\s)]+)\)/g, '<img src="$2" alt="$1" class="ask-generated-image" loading="lazy">');
     html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
     html = html.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
     html = html.replace(/__([^_\n]+)__/g, "<strong>$1</strong>");

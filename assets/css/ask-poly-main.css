@@ -109,6 +109,7 @@ html.polytechnic-native-app .ask-sidebar{top:10px!important;height:min(520px,cal
 .ask-bubble.ai .ask-table tbody tr:nth-child(even){background:#f8fbff}
 .ask-bubble.ai .ask-table tbody tr:last-child td{border-bottom:0}
 .ask-bubble.ai .ask-table code{font-size:.92em}
+.ask-generated-image{display:block;width:100%;max-width:512px;height:auto;margin:12px 0;border-radius:18px;border:1px solid rgba(15,35,65,.12);box-shadow:0 12px 30px rgba(15,35,65,.10);background:#f8fafc}
 @media(max-width:560px){.ask-bubble.ai .ask-table-wrap{margin-left:-2px;margin-right:-2px;width:calc(100% + 4px)}.ask-bubble.ai table.ask-table{min-width:500px;font-size:12px}.ask-bubble.ai .ask-table th,.ask-bubble.ai .ask-table td{padding:8px 10px}}
 
 /* 2026-08 mobile chat repair: use the available viewport instead of a fixed overflowing grid. */
