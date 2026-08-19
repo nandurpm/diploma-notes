@@ -570,3 +570,13 @@ body.ask-chats-open{overflow:hidden}
 @media (prefers-reduced-motion: reduce) {
   .ask-diagram-canvas { transition: none; }
 }
+
+/* Department-aware Ask POLY context */
+.ask-header-status{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+.ask-department-context{display:inline-flex;align-items:center;min-height:30px;padding:6px 10px;border:1px solid rgba(29,78,216,.18);border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:.72rem;font-weight:800;line-height:1.2}
+.ask-department-choices{display:grid;gap:8px;margin-top:16px;padding:12px;border:1px solid rgba(29,78,216,.16);border-radius:14px;background:linear-gradient(135deg,#f8fbff,#eef6ff)}
+.ask-department-choices strong{color:#163d79;font-size:.82rem}
+.ask-department-choices>div{display:flex;flex-wrap:wrap;gap:7px}
+.ask-department-choices button{border:1px solid #bfdbfe;border-radius:999px;padding:7px 10px;background:#fff;color:#1d4ed8;font:inherit;font-size:.75rem;font-weight:750;cursor:pointer}
+.ask-department-choices button:hover,.ask-department-choices button:focus-visible{border-color:#2563eb;background:#dbeafe;outline:none}
+@media(max-width:700px){.ask-header-status{justify-content:flex-start}.ask-department-context{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ask-department-choices>div{display:grid;grid-template-columns:1fr}.ask-department-choices button{text-align:left}}

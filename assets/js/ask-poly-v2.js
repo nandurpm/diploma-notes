@@ -26,12 +26,15 @@
     newChat: $("newChatBtn"),
     send: $("sendBtn"),
     stop: $("stopBtn"),
-    queue: $("queueBtn")
+    queue: $("queueBtn"),
+    department: $("departmentContext")
   };
 
   let abortController = null;
   let messageQueue = [];
   let stopRequested = false;
+  let departmentRegistry = null;
+  let activeDepartment = null;
 
   if (!els.form || !els.messages || !els.input) return;
 
@@ -115,11 +118,56 @@
   }
 
   async function createChat(title = "New chat") {
-    const chat = { id: id(), title, createdAt: now(), updatedAt: now() };
+    const chat = { id: id(), title, createdAt: now(), updatedAt: now(), department: null };
     await putChat(chat);
     activeChatId = chat.id;
     await addMessage("assistant", "Hi. I am Ask POLY AI. I can guide you through Revision 2026, Revision 2021, 2015 materials, subjects, lessons, notes, mock exams, tools and the rest of POLY PMNA. This chat is saved in your browser.");
     await renderAll();
+  }
+
+  async function persistDepartment(department) {
+    if (!department || department.ambiguous || !activeChatId) return;
+    activeDepartment = department;
+    const chat = await getChat(activeChatId);
+    if (chat) {
+      chat.department = { code: department.code, displayName: department.displayName, normalizedName: department.normalizedName };
+      chat.updatedAt = now();
+      await putChat(chat);
+    }
+  }
+
+  async function updateDepartmentContextFromChat() {
+    const chat = await getChat(activeChatId);
+    const messages = activeChatId ? await getMessages(activeChatId) : [];
+    const stored = chat?.department;
+    activeDepartment = stored?.code && departmentRegistry?.get(stored.code)
+      ? { ...departmentRegistry.get(stored.code), source: "saved-context" }
+      : null;
+    for (const message of messages.filter((item) => item.role === "user")) {
+      const detected = departmentRegistry?.find(message.content, activeDepartment);
+      if (detected && !detected.ambiguous && detected.code !== activeDepartment?.code && detected.source !== "saved-context") activeDepartment = detected;
+    }
+    if (activeDepartment && chat && chat.department?.code !== activeDepartment.code) await persistDepartment(activeDepartment);
+    updateDepartmentUI();
+    return activeDepartment;
+  }
+
+  function updateDepartmentUI() {
+    if (!els.department) return;
+    if (!activeDepartment?.displayName) {
+      els.department.hidden = true;
+      els.department.textContent = "";
+      return;
+    }
+    els.department.hidden = false;
+    els.department.textContent = `Department: ${activeDepartment.displayName}`;
+    els.department.title = "Saved department context for this chat. Say 'actually, I am studying ...' to change it.";
+  }
+
+  function departmentClarification(candidateResult) {
+    const names = (candidateResult?.candidates || []).map((item) => item.displayName).filter(Boolean);
+    const list = names.length ? `Possible matches: ${names.join(", ")}.` : "Please choose one of the supported departments.";
+    return `Which department are you studying? I want to keep the explanation specific without assuming the wrong programme. ${list}`;
   }
 
   async function updateChatTitleFromMessage(chatId, text) {
@@ -367,6 +415,12 @@
     return blocks.join("");
   }
 
+  function renderDepartmentChoices(candidates = []) {
+    const items = candidates.filter((item) => item?.displayName).slice(0, 6);
+    if (!items.length) return "";
+    return `<div class="ask-department-choices" aria-label="Choose your department"><strong>Choose your department</strong><div>${items.map((item) => `<button type="button" data-department-choice="${escapeHtml(item.displayName)}">${escapeHtml(item.displayName)}</button>`).join("")}</div></div>`;
+  }
+
   function bubble(message) {
     const div = document.createElement("div");
     const isUser = message.role === "user";
@@ -376,9 +430,10 @@
     const diagramHtml = !isUser && diagramIntent && window.AskPolyDiagrams
       ? window.AskPolyDiagrams.render(diagramIntent)
       : "";
+    const departmentChoices = !isUser ? renderDepartmentChoices(message.meta?.departmentClarification?.candidates || []) : "";
     div.innerHTML = isUser
       ? `${label}<div class="ask-message-text">${escapeHtml(message.content)}</div>`
-      : `${label}<div class="ask-response-body">${diagramHtml}${renderText(message.content, { diagramIntent })}</div>`;
+      : `${label}<div class="ask-response-body">${diagramHtml}${renderText(message.content, { diagramIntent })}${departmentChoices}</div>`;
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
@@ -386,6 +441,14 @@
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
     div.addEventListener("click", (event) => {
+      const departmentButton = event.target.closest("[data-department-choice]");
+      if (departmentButton) {
+        event.preventDefault();
+        els.input.value = `I am studying ${departmentButton.dataset.departmentChoice}. `;
+        autoResize();
+        els.input.focus();
+        return;
+      }
       const diagramButton = event.target.closest("[data-diagram-action]");
       if (diagramButton && window.AskPolyDiagrams) {
         event.preventDefault();
@@ -425,7 +488,7 @@
     els.messages.scrollTop = els.messages.scrollHeight;
     const chat = await getChat(activeChatId);
     els.title.textContent = chat?.title || "Ask POLY Chat";
-    els.sub.textContent = `${messages.length} saved messages · whole-site knowledge`;
+    els.sub.textContent = `${messages.length} saved messages · whole-site knowledge${activeDepartment?.displayName ? ` · ${activeDepartment.displayName}` : ""}`;
   }
 
   async function chooseChatAfterDelete(deletedId) {
@@ -460,7 +523,8 @@
       btn.type = "button";
       btn.setAttribute("aria-current", chat.id === activeChatId ? "true" : "false");
       btn.disabled = waiting;
-      btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt))}</small>`;
+      const departmentLabel = chat.department?.displayName ? ` · ${chat.department.displayName}` : "";
+      btn.innerHTML = `<strong>${escapeHtml(chat.title || "New chat")}</strong><small>${escapeHtml(fmtTime(chat.updatedAt) + departmentLabel)}</small>`;
       btn.addEventListener("click", async () => {
         if (waiting) {
           els.status.textContent = "Finish or stop the current response before switching chats.";
@@ -503,7 +567,7 @@
     ];
   }
 
-  async function renderAll() { await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); updateQueueStatus(); }
+  async function renderAll() { await updateDepartmentContextFromChat(); await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); updateQueueStatus(); }
 
   function queueSuffix() {
     return messageQueue.length ? ` · ${messageQueue.length} queued` : "";
@@ -622,7 +686,7 @@
     return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
   }
 
-  async function callAI(message, history, localContext, onChunk, diagramIntent = null) {
+  async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 45000);
@@ -643,7 +707,8 @@
           stream: true,
           pageTitle: "Ask POLY whole-site knowledge",
           pageContext: localContext || "",
-          diagramRequest: diagramIntent || null
+          departmentContext: department ? { code: department.code, displayName: department.displayName } : null,
+          diagramRequest: diagramIntent ? { ...diagramIntent, department: department?.displayName || "" } : null
         })
       });
       const contentType = response.headers.get("content-type") || "";
@@ -681,14 +746,34 @@
     }
     
     const clean = text.trim();
-    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
-    const diagramMeta = diagramIntent ? { diagramIntent } : {};
+    const detectedDepartment = departmentRegistry?.find(clean, activeDepartment) || null;
+    if (detectedDepartment?.ambiguous) {
+      if (!isQueued) {
+        els.input.value = "";
+        autoResize();
+      }
+      await addMessage("user", clean, { departmentQuery: true });
+      await updateChatTitleFromMessage(activeChatId, clean);
+      await addMessage("assistant", departmentClarification(detectedDepartment), {
+        provider: "department-context",
+        departmentClarification: { candidates: detectedDepartment.candidates || [] }
+      });
+      await renderAll();
+      return;
+    }
+    const resolvedDepartment = detectedDepartment && detectedDepartment.source !== "saved-context"
+      ? detectedDepartment
+      : activeDepartment;
+    if (detectedDepartment && !detectedDepartment.ambiguous && detectedDepartment.code !== activeDepartment?.code) await persistDepartment(detectedDepartment);
+    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean, { department: resolvedDepartment }) || null;
+    const departmentMeta = resolvedDepartment ? { department: { code: resolvedDepartment.code, displayName: resolvedDepartment.displayName } } : {};
+    const diagramMeta = { ...departmentMeta, ...(diagramIntent ? { diagramIntent } : {}) };
     if (!isQueued) {
       els.input.value = "";
       autoResize();
     }
     
-    await addMessage("user", clean);
+    await addMessage("user", clean, departmentMeta);
     await updateChatTitleFromMessage(activeChatId, clean);
     await renderMessages();
     await renderChats();
@@ -708,7 +793,7 @@
       const result = await callAI(clean, history, retrieval?.context || "", (partial) => {
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
-      }, diagramIntent);
+      }, diagramIntent, resolvedDepartment);
       streamBubble?.div.remove();
       await addMessage("assistant", result.answer, {
         ...diagramMeta,
@@ -788,13 +873,14 @@
       if (!status?.ok) return;
       const counts = status.counts || {};
       els.status.title = `Website index ${status.version || ""}; ${counts.pages || 0} pages; ${counts.subjectRecords || 0} subject records`;
-      els.sub.textContent = `Whole-site knowledge · ${counts.pages || 0} pages · ${counts.subjectRecords || 0} subject records`;
+      els.sub.textContent = `Whole-site knowledge · ${counts.pages || 0} pages · ${counts.subjectRecords || 0} subject records${activeDepartment?.displayName ? ` · ${activeDepartment.displayName}` : ""}`;
     } catch (error) {
       console.warn("Ask POLY knowledge status update failed", error);
     }
   }
 
   async function init() {
+    departmentRegistry = await window.AskPolyDepartments?.ready || { entries: [], find: (text, current) => current || null, get: () => null, choices: () => [] };
     await openDB();
     const chats = (await getAll("chats")).sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
     if (chats.length) activeChatId = chats[0].id;

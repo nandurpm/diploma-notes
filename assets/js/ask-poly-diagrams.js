@@ -29,36 +29,42 @@
     return String(value || "").toLowerCase().replace(/[–—]/g, "-").replace(/\s+/g, " ").trim();
   }
 
-  function detectIntent(question) {
+  function detectIntent(question, context = {}) {
     const q = normalize(question);
+    const department = context?.department?.displayName || context?.department || "";
+    const withDepartment = (intent) => department ? { ...intent, department } : intent;
     const visual = /(\bdraw\b|\bsketch\b|\bdiagram\b|\bcircuit\b|\bschematic\b|\bsymbol\b|\bwaveform\b|\bflowchart\b|\bblock diagram\b|\bwiring\b|\bconnection\b|\billustrate\b|\bshow (?:the )?(?:symbol|circuit|connections?)\b|\bconstruct\b|\brepresentation\b|\bplot\b|\bgraph\b|വരയ്ക്ക|കാണിക്ക|ചിത്രം|ഡയഗ്രാം|സിംബൽ|സർക്യൂട്ട്|വേവ്)/i.test(q);
     if (!visual) return null;
-    if (/bridge\s*rectifier|ബ്രിഡ്ജ്.*റെക്ടിഫയർ/.test(q)) return { type: "bridge_rectifier", title: "Bridge rectifier circuit" };
-    if (/half[- ]wave\s*rectifier/.test(q)) return { type: /waveform|output/.test(q) ? "half_wave_waveform" : "half_wave_rectifier", title: /waveform|output/.test(q) ? "Half-wave rectified waveform" : "Half-wave rectifier" };
-    if (/full[- ]wave\s*rectifier|center[- ]tapped/.test(q)) return { type: /waveform|output/.test(q) ? "full_wave_waveform" : "full_wave_rectifier", title: "Full-wave rectifier" };
-    if (/zener.*(?:regulator|circuit)|(?:regulator|circuit).*zener|voltage regulator/.test(q)) return { type: "zener_regulator", title: "Zener diode voltage regulator" };
-    if (/step[- ]up.*transformer|transformer.*step[- ]up/.test(q)) return { type: "transformer", variant: "step-up", title: "Step-up transformer" };
-    if (/step[- ]down.*transformer|transformer.*step[- ]down/.test(q)) return { type: "transformer", variant: "step-down", title: "Step-down transformer" };
-    if (/transformer|ട്രാൻസ്ഫോർമർ/.test(q)) return { type: "transformer", title: "Transformer" };
-    if (/flowchart|flow chart|decision process|ഫ്ലോചാർട്ട്/.test(q)) return { type: "flowchart", title: "Flowchart" };
-    if (/block diagram|communication system|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return { type: "block_diagram", title: "Block diagram" };
-    if (/sine|sinusoidal|ac waveform|sine wave/.test(q)) return { type: "sine_wave", title: "AC sine waveform" };
-    if (/square wave/.test(q)) return { type: "square_wave", title: "Square waveform" };
-    if (/triangular|triangle wave/.test(q)) return { type: "triangle_wave", title: "Triangular waveform" };
-    if (/half[- ]wave.*waveform/.test(q)) return { type: "half_wave_waveform", title: "Half-wave rectified waveform" };
-    if (/full[- ]wave.*waveform/.test(q)) return { type: "full_wave_waveform", title: "Full-wave rectified waveform" };
-    if (/nand gate/.test(q)) return { type: "logic_gate", variant: "NAND", title: "NAND gate" };
-    if (/nor gate/.test(q)) return { type: "logic_gate", variant: "NOR", title: "NOR gate" };
-    if (/and gate/.test(q)) return { type: "logic_gate", variant: "AND", title: "AND gate" };
-    if (/or gate/.test(q)) return { type: "logic_gate", variant: "OR", title: "OR gate" };
-    if (/not gate|inverter/.test(q)) return { type: "logic_gate", variant: "NOT", title: "NOT gate" };
+    if (/four[- ]stroke|four stroke engine|four[- ]stroke engine|engine.*diagram|engine.*sketch/.test(q)) return withDepartment({ type: "four_stroke_engine", title: "Four-stroke engine" });
+    if (/simply supported beam|supported beam|beam.*plan|beam.*diagram|beam.*sketch/.test(q)) return withDepartment({ type: "simply_supported_beam", title: "Simply supported beam" });
+    if (/one[- ]point perspective|perspective drawing|perspective.*diagram|perspective.*sketch/.test(q)) return withDepartment({ type: "one_point_perspective", title: "One-point perspective" });
+    if (/microcontroller.*block|mcu.*block|microcontroller diagram|embedded.*block/.test(q)) return withDepartment({ type: "microcontroller_block", title: "Microcontroller block diagram" });
+    if (/bridge\s*rectifier|ബ്രിഡ്ജ്.*റെക്ടിഫയർ/.test(q)) return withDepartment({ type: "bridge_rectifier", title: "Bridge rectifier circuit" });
+    if (/half[- ]wave\s*rectifier/.test(q)) return withDepartment({ type: /waveform|output/.test(q) ? "half_wave_waveform" : "half_wave_rectifier", title: /waveform|output/.test(q) ? "Half-wave rectified waveform" : "Half-wave rectifier" });
+    if (/full[- ]wave\s*rectifier|center[- ]tapped/.test(q)) return withDepartment({ type: /waveform|output/.test(q) ? "full_wave_waveform" : "full_wave_rectifier", title: "Full-wave rectifier" });
+    if (/zener.*(?:regulator|circuit)|(?:regulator|circuit).*zener|voltage regulator/.test(q)) return withDepartment({ type: "zener_regulator", title: "Zener diode voltage regulator" });
+    if (/step[- ]up.*transformer|transformer.*step[- ]up/.test(q)) return withDepartment({ type: "transformer", variant: "step-up", title: "Step-up transformer" });
+    if (/step[- ]down.*transformer|transformer.*step[- ]down/.test(q)) return withDepartment({ type: "transformer", variant: "step-down", title: "Step-down transformer" });
+    if (/transformer|ട്രാൻസ്ഫോർമർ/.test(q)) return withDepartment({ type: "transformer", title: "Transformer" });
+    if (/flowchart|flow chart|decision process|ഫ്ലോചാർട്ട്/.test(q)) return withDepartment({ type: "flowchart", title: "Flowchart" });
+    if (/block diagram|communication system|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Block diagram" });
+    if (/sine|sinusoidal|ac waveform|sine wave/.test(q)) return withDepartment({ type: "sine_wave", title: "AC sine waveform" });
+    if (/square wave/.test(q)) return withDepartment({ type: "square_wave", title: "Square waveform" });
+    if (/triangular|triangle wave/.test(q)) return withDepartment({ type: "triangle_wave", title: "Triangular waveform" });
+    if (/half[- ]wave.*waveform/.test(q)) return withDepartment({ type: "half_wave_waveform", title: "Half-wave rectified waveform" });
+    if (/full[- ]wave.*waveform/.test(q)) return withDepartment({ type: "full_wave_waveform", title: "Full-wave rectified waveform" });
+    if (/nand gate/.test(q)) return withDepartment({ type: "logic_gate", variant: "NAND", title: "NAND gate" });
+    if (/nor gate/.test(q)) return withDepartment({ type: "logic_gate", variant: "NOR", title: "NOR gate" });
+    if (/and gate/.test(q)) return withDepartment({ type: "logic_gate", variant: "AND", title: "AND gate" });
+    if (/or gate/.test(q)) return withDepartment({ type: "logic_gate", variant: "OR", title: "OR gate" });
+    if (/not gate|inverter/.test(q)) return withDepartment({ type: "logic_gate", variant: "NOT", title: "NOT gate" });
     const symbolMap = [
       ["zener diode", "zener", "Zener diode symbol"], ["photodiode", "photodiode", "Photodiode symbol"], ["schottky", "schottky", "Schottky diode symbol"], ["varactor", "varactor", "Varactor diode symbol"], ["led", "led", "LED symbol"], ["diode", "diode", "Diode symbol"], ["npn transistor", "npn", "NPN transistor symbol"], ["pnp transistor", "pnp", "PNP transistor symbol"], ["mosfet", "mosfet", "MOSFET symbol"], ["jfet", "jfet", "JFET symbol"], ["scr", "scr", "SCR symbol"], ["triac", "triac", "TRIAC symbol"], ["diac", "diac", "DIAC symbol"], ["variable resistor", "variable_resistor", "Variable resistor symbol"], ["potentiometer", "potentiometer", "Potentiometer symbol"], ["polarized capacitor", "polarized_capacitor", "Polarized capacitor symbol"], ["capacitor", "capacitor", "Capacitor symbol"], ["inductor|coil", "inductor", "Inductor symbol"], ["switch", "switch", "Switch symbol"], ["battery", "battery", "Battery symbol"], ["ac source|ac supply", "ac_source", "AC source symbol"], ["dc source|dc supply", "dc_source", "DC source symbol"], ["ground|earth", "ground", "Ground symbol"], ["fuse", "fuse", "Fuse symbol"], ["lamp|bulb", "lamp", "Lamp symbol"], ["resistor", "resistor", "Resistor symbol"]
     ];
-    for (const [pattern, variant, title] of symbolMap) if (new RegExp(pattern).test(q)) return { type: "symbol", variant, title };
-    if (/circuit|schematic|connections?/.test(q)) return { type: "basic_circuit", title: "Basic circuit schematic" };
-    if (/graph|plot/.test(q)) return { type: "sine_wave", title: "Engineering graph" };
-    return { type: "basic_circuit", title: "Technical circuit diagram" };
+    for (const [pattern, variant, title] of symbolMap) if (new RegExp(pattern).test(q)) return withDepartment({ type: "symbol", variant, title });
+    if (/circuit|schematic|connections?/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
+    if (/graph|plot/.test(q)) return withDepartment({ type: "sine_wave", title: "Engineering graph" });
+    return withDepartment({ type: "basic_circuit", title: "Technical circuit diagram" });
   }
 
   function symbolBody(kind) {
@@ -166,8 +172,40 @@
     return tx(420, 45, `${name} GATE`, "section-label") + ln(90, 185, 330, 185) + ln(90, 255, 330, 255) + tx(110, 175, "A", "terminal") + tx(110, 245, "B", "terminal") + body + ln(isNot ? 547 : (name === "NAND" || name === "NOR" ? 562 : 535), 220, 750, 220) + tx(700, 205, "Y", "terminal");
   }
 
+  function fourStrokeBody() {
+    const stages = [[110, "1", "Intake"], [315, "2", "Compression"], [520, "3", "Power"], [725, "4", "Exhaust"]];
+    let out = tx(420, 34, "FOUR-STROKE ENGINE", "section-label");
+    stages.forEach(([x, number, label], index) => {
+      out += `<rect x="${x - 72}" y="82" width="144" height="190" rx="24" class="component"/>`;
+      out += `<rect x="${x - 46}" y="174" width="92" height="40" rx="8" class="component-fill"/>`;
+      out += ln(x, 214, x, 292, "component");
+      out += `<circle cx="${x}" cy="318" r="25" class="component"/>`;
+      out += ln(x, 318, x + 42, 340, "component");
+      out += tx(x, 62, `${number}. ${label}`, "component-label");
+      out += tx(x, 115, index % 2 === 0 ? "valve" : "valves", "value-label");
+      if (index < stages.length - 1) out += arrow(x + 78, 350, x + 125, 350);
+    });
+    return out + tx(420, 410, "Piston movement is converted into crankshaft rotation", "value-label");
+  }
+
+  function beamBody() {
+    return `${tx(420, 36, "SIMPLY SUPPORTED BEAM", "section-label")}${ln(105, 205, 735, 205, "component")}${ln(105, 215, 735, 215, "component")}${path("M105 205 L72 270 H138 Z", "component-fill")}${path("M735 205 L702 270 H768 Z", "component-fill")}${path("M702 270 H768", "component")}${arrow(330, 100, 330, 195)}${arrow(420, 100, 420, 195)}${arrow(510, 100, 510, 195)}${tx(420, 82, "Applied loads", "value-label")}${arrow(105, 315, 105, 225)}${arrow(735, 315, 735, 225)}${tx(105, 345, "RA", "component-label")}${tx(735, 345, "RB", "component-label")}${tx(420, 270, "Span L", "value-label")}${tx(420, 395, "Reactions at supports balance the applied load", "value-label")}`;
+  }
+
+  function perspectiveBody() {
+    return `${tx(420, 35, "ONE-POINT PERSPECTIVE", "section-label")}${ln(70, 185, 770, 185, "axis")}${dot(420, 185)}${tx(420, 165, "Vanishing point", "value-label")}${path("M420 185 L120 90 M420 185 L720 90 M420 185 L120 330 M420 185 L720 330", "wire")}${path("M120 90 H720 V330 H120 Z", "component")}${path("M260 140 H580 V285 H260 Z", "component")}${path("M420 185 L260 140 M420 185 L580 140 M420 185 L260 285 M420 185 L580 285", "wire")}${tx(420, 385, "Parallel lines appear to meet at one vanishing point", "value-label")}`;
+  }
+
+  function microcontrollerBody() {
+    return `${tx(420, 35, "MICROCONTROLLER BLOCK DIAGRAM", "section-label")}${box(45, 170, 150, 76, "Sensors", "block-shape")}${box(250, 130, 220, 156, "Microcontroller", "block-shape")}${box(525, 170, 150, 76, "Actuators", "block-shape")}${arrow(195, 208, 240, 208)}${arrow(480, 208, 515, 208)}${box(315, 55, 90, 48, "Clock", "block-shape")}${arrow(360, 108, 360, 128)}${box(315, 320, 90, 48, "Power", "block-shape")}${arrow(360, 318, 360, 288)}${tx(360, 235, "CPU • memory • I/O", "value-label")}${tx(420, 410, "Embedded controller links inputs, processing and outputs", "value-label")}`;
+  }
+
   function svgFor(intent) {
     const type = intent?.type || "basic_circuit";
+    if (type === "four_stroke_engine") return frame(intent.title, fourStrokeBody(), 840, 440, "Four-stroke engine sequence with intake, compression, power and exhaust stages.");
+    if (type === "simply_supported_beam") return frame(intent.title, beamBody(), 840, 430, "Simply supported beam with applied loads and support reactions.");
+    if (type === "one_point_perspective") return frame(intent.title, perspectiveBody(), 840, 430, "One-point perspective drawing with horizon, vanishing point and receding lines.");
+    if (type === "microcontroller_block") return frame(intent.title, microcontrollerBody(), 840, 440, "Microcontroller block diagram with sensors, processing core, clock, power and actuators.");
     if (type === "symbol") return frame(intent.title || "Electrical symbol", symbolBody(intent.variant), 840, 360, `${intent.title || "Electrical symbol"} with terminals and connection wires.`);
     if (type === "transformer") return frame(intent.title || "Transformer", transformerBody(intent.variant), 840, 430, "Transformer with primary and secondary windings, magnetic core, input and output.");
     if (type === "zener_regulator") return frame(intent.title, zenerRegulatorBody(), 840, 430, "Zener diode shunt voltage regulator with input resistor and load.");
