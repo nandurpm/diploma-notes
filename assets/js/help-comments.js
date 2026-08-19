@@ -5,6 +5,7 @@ const PAGE_SIZE = 40;
 const DISCUSSION_TIMEOUT_MS = 30000;
 const POST_COOLDOWN_MS = 60000;
 const MAX_LINKS = 2;
+const FIRESTORE_REST_URL = "https://firestore.googleapis.com/v1/projects/diploma-notes-comments/databases/(default)/documents/helpComments";
 
 const decodeEmail = encoded => {
   const key = Number.parseInt(encoded.slice(0, 2), 16);
@@ -27,6 +28,52 @@ function protectedMailto(subject = "POLY PMNA Help") {
   return `mailto:${decodeEmail(EMAIL_TOKEN)}?subject=${encodeURIComponent(subject)}`;
 }
 
+const restValue = field => field?.stringValue ?? field?.integerValue ?? field?.timestampValue ?? field?.booleanValue ?? "";
+function restComment(document) {
+  const fields = document.fields || {};
+  return {
+    id: document.name?.split("/").pop() || "",
+    pageId: restValue(fields.pageId),
+    author: restValue(fields.author),
+    message: restValue(fields.message),
+    createdAt: restValue(fields.createdAt),
+    deleted: restValue(fields.deleted) === true || restValue(fields.deleted) === "true"
+  };
+}
+async function loadPublicDiscussionRest() {
+  const response = await fetch(`${FIRESTORE_REST_URL}?pageSize=${PAGE_SIZE}`, { cache: "no-store" });
+  if (!response.ok) throw new Error(`Public discussion REST request failed: ${response.status}`);
+  const comments = (response.ok ? ((await response.json()).documents || []) : [])
+    .map(restComment)
+    .filter(item => item.pageId === "help" && !item.deleted)
+    .sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+  submitButton.disabled = true;
+  form?.setAttribute("aria-disabled", "true");
+  statusBox.textContent = "Posting is temporarily unavailable; public comments remain visible.";
+  countBox.textContent = `${comments.length} loaded ${comments.length === 1 ? "comment" : "comments"}`;
+  list.replaceChildren();
+  if (!comments.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty-comments";
+    empty.textContent = "No public comments yet.";
+    list.append(empty);
+    return;
+  }
+  comments.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "comment-card";
+    const author = document.createElement("strong");
+    author.textContent = item.author || "Student";
+    const time = document.createElement("span");
+    time.className = "comment-time";
+    time.textContent = item.createdAt ? new Date(item.createdAt).toLocaleString("en-IN") : "";
+    const message = document.createElement("p");
+    message.className = "comment-message";
+    message.textContent = item.message || "";
+    card.append(author, time, message);
+    list.append(card);
+  });
+}
 function showUnavailable(error) {
   console.error("Discussion service unavailable.", error);
   if (submitButton) submitButton.disabled = true;
@@ -52,7 +99,7 @@ function showUnavailable(error) {
     retry.disabled = true;
     if (countBox) countBox.textContent = "Loading…";
     if (statusBox) statusBox.textContent = "Retrying discussion…";
-    initializeDiscussion().catch(showUnavailable);
+    initializeDiscussion().catch(() => loadPublicDiscussionRest().catch(showUnavailable));
   });
 
   box.append(text, email, retry);
@@ -62,7 +109,7 @@ function showUnavailable(error) {
 if (!form || !nameInput || !messageInput || !submitButton || !statusBox || !list || !countBox) {
   console.error("Discussion initialization failed: required Help page elements are missing.");
 } else {
-  initializeDiscussion().catch(showUnavailable);
+  initializeDiscussion().catch(() => loadPublicDiscussionRest().catch(showUnavailable));
 }
 
 async function initializeDiscussion() {
