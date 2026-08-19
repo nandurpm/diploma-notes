@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-19T05:59:17Z",
+  "generatedAt": "2026-08-19T11:47:42Z",
   "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askEndpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
