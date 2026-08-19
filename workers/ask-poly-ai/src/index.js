@@ -333,6 +333,16 @@ export default {
     const providerErrors = [];
     const streamRequested = wantsStreaming(body, request);
 
+    if (streamRequested) {
+      try {
+        const result = await askPolyStream(enrichedBody, env);
+        return streamResponse(result.stream, origin, env, result);
+      } catch (error) {
+        providerErrors.push(`external-providers-stream: ${cleanText(error?.message, 240)}`);
+        console.error("Ask POLY external provider streaming failed", error);
+      }
+    }
+
     if (streamRequested && hasWorkersAI(env)) {
       try {
         const result = await askWithWorkersAIStream(enrichedBody, env);
@@ -353,14 +363,12 @@ export default {
       }
     }
 
-    if (streamRequested) {
-      try {
-        const result = await askPolyStream(enrichedBody, env);
-        return streamResponse(result.stream, origin, env, result);
-      } catch (error) {
-        providerErrors.push(`external-providers-stream: ${cleanText(error?.message, 240)}`);
-        console.error("Ask POLY external provider streaming failed", error);
-      }
+    try {
+      const result = await askPoly(enrichedBody, env);
+      return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
+    } catch (error) {
+      providerErrors.push(`external-providers: ${cleanText(error?.message, 240)}`);
+      console.error("Ask POLY external provider failed", error);
     }
 
     if (hasWorkersAI(env)) {
@@ -384,8 +392,8 @@ export default {
     }
 
     try {
-      const result = await askPoly(enrichedBody, env);
-      return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
+      // Final attempt catch-all if somehow nothing returned above
+      throw new Error("No AI provider succeeded.");
     } catch (error) {
       providerErrors.push(`external-providers: ${cleanText(error?.message, 240)}`);
       console.error("Ask POLY AI request failed", error);
@@ -393,7 +401,7 @@ export default {
       return jsonResponse({
         error: missingMessage
           ? "Please enter a question."
-          : "The AI service could not answer right now. Please retry once; your chat is saved.",
+          : "The AI assistant is temporarily unavailable. All backup providers failed; please try again in a few minutes.",
         retryable: !missingMessage,
         detail: env.EXPOSE_ERRORS === "true" ? providerErrors.join(" | ") : undefined
       }, missingMessage ? 400 : 502, origin, env);

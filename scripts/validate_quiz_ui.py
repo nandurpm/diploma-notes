@@ -25,6 +25,9 @@ require("assets/js/quiz-engine.js", r'if \(requestVersion !== quizRequestVersion
 require("assets/js/quiz-engine.js", r'submissionInFlight', "Daily Quiz prevents duplicate submissions")
 require("assets/js/quiz-engine.js", r'Questions for this subject are being prepared', "Daily Quiz exposes a descriptive under-development state")
 require("assets/js/quiz-engine.js", r'function scoreFeedback\(score\)', "Daily Quiz provides score-range feedback")
+require("workers/ask-poly-ai/src/ask-handler.js", r'OPENROUTER_FALLBACK_MODELS', "OpenRouter has internal fallback models defined")
+require("workers/ask-poly-ai/wrangler.toml", r'AI_PROVIDER_ORDER = "openrouter,nvidia"', "Provider order is OpenRouter then NVIDIA")
+require("workers/ask-poly-ai/src/index.js", r'The AI assistant is temporarily unavailable', "User-friendly unavailable message is defined")
 
 failed = [label for ok, label in checks if not ok]
 for ok, label in checks:

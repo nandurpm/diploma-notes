@@ -5,7 +5,8 @@ const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const OPENAI_FALLBACK_MODELS = ["gpt-4o-mini"];
 const DEFAULT_NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
 const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash";
-const DEFAULT_OPENROUTER_MODEL = "openrouter/free";
+const DEFAULT_OPENROUTER_MODEL = "google/gemma-2-9b-it:free";
+const OPENROUTER_FALLBACK_MODELS = ["huggingfaceh4/zephyr-7b-beta:free", "mistralai/mistral-7b-instruct:free"];
 const DEFAULT_FREE_API_MODEL = "";
 
 const SYSTEM_INSTRUCTIONS = `You are Ask POLY, a compact educational assistant for Kerala Polytechnic and diploma students.
@@ -767,34 +768,46 @@ async function askNvidia(input, env) {
 }
 
 async function askOpenRouter(input, env) {
-  const model = cleanText(env.OPENROUTER_MODEL, 180) || DEFAULT_OPENROUTER_MODEL;
-  const { response, data } = await fetchJsonWithTimeout("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
-      "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
-    },
-    body: JSON.stringify({
-      model,
-      messages: messagesFromInput(input),
-      temperature: Number(env.AI_TEMPERATURE || 0.35),
-      top_p: Number(env.AI_TOP_P || 0.9),
-      max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
-      stream: false
-    })
-  }, env, "openrouter");
-  if (!response.ok) {
-    const error = new Error(data?.error?.message || `OpenRouter request failed with HTTP ${response.status}.`);
-    error.status = response.status;
-    error.provider = "openrouter";
-    error.data = data;
-    throw error;
+  let lastError;
+  const models = uniqueModels(env.OPENROUTER_MODEL, [DEFAULT_OPENROUTER_MODEL, ...OPENROUTER_FALLBACK_MODELS]);
+  for (const model of models) {
+    try {
+      const { response, data } = await fetchJsonWithTimeout("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${env.OPENROUTER_API_KEY}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
+          "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
+        },
+        body: JSON.stringify({
+          model,
+          messages: messagesFromInput(input),
+          temperature: Number(env.AI_TEMPERATURE || 0.35),
+          top_p: Number(env.AI_TOP_P || 0.9),
+          max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
+          stream: false
+        })
+      }, env, "openrouter");
+      if (!response.ok) {
+        const detail = data?.error?.message || `OpenRouter request failed with HTTP ${response.status}.`;
+        const error = new Error(detail);
+        error.status = response.status;
+        error.provider = "openrouter";
+        error.data = data;
+        throw error;
+      }
+      const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
+      if (!answer) throw new Error("OpenRouter returned an empty response.");
+      return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "" };
+    } catch (error) {
+      lastError = error;
+      console.error(`Ask POLY OpenRouter model ${model} failed`, error);
+      const isRetryable = error.status !== 400 && error.status !== 401 && error.status !== 403 && error.status !== 404;
+      if (!isRetryable) throw error;
+    }
   }
-  const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
-  if (!answer) throw new Error("OpenRouter returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "" };
+  throw lastError;
 }
 
 async function askFreeApi(input, env) {
@@ -978,11 +991,22 @@ async function askExternalProviderStream(input, env, provider) {
     return askOpenAiCompatibleStream(input, env, provider, "https://integrate.api.nvidia.com/v1/chat/completions", env.NVIDIA_API_KEY, model);
   }
   if (provider === "openrouter") {
-    const model = cleanText(env.OPENROUTER_MODEL, 180) || DEFAULT_OPENROUTER_MODEL;
-    return askOpenAiCompatibleStream(input, env, provider, "https://openrouter.ai/api/v1/chat/completions", env.OPENROUTER_API_KEY, model, {
-      "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
-      "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
-    });
+    let lastError;
+    const models = uniqueModels(env.OPENROUTER_MODEL, [DEFAULT_OPENROUTER_MODEL, ...OPENROUTER_FALLBACK_MODELS]);
+    for (const model of models) {
+      try {
+        return await askOpenAiCompatibleStream(input, env, provider, "https://openrouter.ai/api/v1/chat/completions", env.OPENROUTER_API_KEY, model, {
+          "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
+          "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
+        });
+      } catch (error) {
+        lastError = error;
+        console.error(`Ask POLY OpenRouter streaming model ${model} failed`, error);
+        const isRetryable = error.status !== 400 && error.status !== 401 && error.status !== 403 && error.status !== 404;
+        if (!isRetryable) throw error;
+      }
+    }
+    throw lastError;
   }
   if (provider === "openai") {
     const model = cleanText(env.OPENAI_MODEL, 120) || DEFAULT_OPENAI_MODEL;

@@ -24,11 +24,11 @@ namespace_id = "202602"
 
 [vars]
 ASK_POLY_RELEASE = "2026-07-20-audit-security3"
-AI_PROVIDER_ORDER = "nvidia,openrouter,openai,gemini,google-ai-studio,free-api"
+AI_PROVIDER_ORDER = "openrouter,nvidia"
 PROVIDER_TIMEOUT_MS = "7000"
 OPENAI_MODEL = "gpt-4o-mini"
 NVIDIA_MODEL = "meta/llama-3.1-8b-instruct"
-OPENROUTER_MODEL = "openrouter/free"
+OPENROUTER_MODEL = "google/gemma-2-9b-it:free,huggingfaceh4/zephyr-7b-beta:free,mistralai/mistral-7b-instruct:free"
 OPENROUTER_HTTP_REFERER = "https://polypmna.dpdns.org"
 OPENROUTER_X_TITLE = "POLY PMNA Ask POLY AI"
 FREE_API_URL = ""
