@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-19T05:29:28Z",
+  "generatedAt": "2026-08-19T05:57:53Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,9 +8,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 19 Aug 2026 05:29:27 GMT",
+      "date": "Wed, 19 Aug 2026 05:57:53 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "561",
+      "content-length": "524",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -22,13 +22,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vjluMUKeFIRtUMwkzZQ8CRsRZRWSE7RRvglanthzHK5wIO533YxmYBrh8vT8qZU2b1DPherqA7Lv4ts1VVXpK7hQAg2rM58aaOR858Ka%2BVOW509HCO5hAtR40BYAhvl1I6EnDHsUR5yQyB%2BT8c38sDyc5oosqWmiEw%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=nTOGFdnmRxhaaU%2BN3OccLt2bD0mw6bvTciKecRcxnS7E3bGYB4tIOC6EIaua0%2BN0KthSyjNxklRCWR0Z%2B0QPITLfyjJJQm%2F9AONQ8XdB82fQdARRay1o8hsSRDFL6aOM7XWbZaQtBTyBP6bLUN5N%2Bqw0GYVH%2FJ2cLw%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2d6c2b9cdb6df82-SJC",
+      "cf-ray": "a2d6ec5faa5b5949-IAD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"verifiedResultStorage\":false,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":true,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai\",\"cloudflare-workers-ai-rest\",\"nvidia\",\"openrouter\",\"openai\",\"gemini\",\"google-ai-studio\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\",\"dailyQuizGrading\":true}",
+    "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"verifiedResultStorage\":false,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":true,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai\",\"cloudflare-workers-ai-rest\",\"openrouter\",\"nvidia\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\",\"dailyQuizGrading\":true}",
     "error": ""
   },
   "preflight": {
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Wed, 19 Aug 2026 05:29:27 GMT",
+      "date": "Wed, 19 Aug 2026 05:57:53 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=9cDQhwgVPcXWaHhHsrbx6U7zJaJJTJLGRgBpLxOCPenKAATtE0HdNpbR8Yc62KIZ947gLaIlC4bjTB4H7RJN%2FF3rNtTgC3XcEH8qYoL%2Ba3LGUMAXShhRlIeKRlNG4tZMVnj0fvowYthsiI%2BuesTmtVM4fYibdwvLbA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=MwjZO%2FZgZp6Mwjn9QFYAX08BgxFyeYGMvUaEKKYGRzd1Ss0TNbOKyCFLsVPzh5q13OxMUrWtps2DlmGSxqFhqLiaoMwdwKeE2vHp5Phd0Pk3ke6yUbS6v7GFTkBjufuucrCJ%2FzSQvrI6iIH6p7FfRGeS2SrppThjcg%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2d6c2ba0c9c2734-SJC",
+      "cf-ray": "a2d6ec5fed187ce6-IAD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Wed, 19 Aug 2026 05:29:28 GMT",
+      "date": "Wed, 19 Aug 2026 05:57:53 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "250",
+      "content-length": "439",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Y5ffLUk6YT7KHWpyEsngzxm2PpFNXboryQgwu6e6rRr9%2BfF9qmlp3QnNtIniXKdfyiTMXPQvdERBbFQ31Mpo2jD7EICuGRvl%2Fp7kxuO5vGXHWhStB7EUTgSPLzgz%2BVyHZ40AgvIlk%2BYdv7stzy%2FJrosbdsEe7Ig0DA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=M%2FGgmDWy2aQlDQJgD5NvoF1pX1lQ4bRKaUntOocCNH7c5uQgvhANamTskvf6snj2Ft9A0BfDIlt8L6oqa4EYPfDwvtsV8sPLtmpKVA6m2Lu%2Btu4L5f1fqtuGjxYkcJ%2BW%2FmmVD4rPucYiQPbArnmW%2BPkGuWuJprcuCA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2d6c2ba4df6cf0e-SJC",
+      "cf-ray": "a2d6ec601b41242d-IAD",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"The browser path for Ask POLY is: https://polyai.kerala.gov.in/\",\"citations\":[],\"usedWeb\":false,\"provider\":\"cloudflare-workers-ai\",\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8\",\"responseId\":\"\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"The browser path for Ask POLY is: \\n\\n1. Open Google Chrome or Mozilla Firefox browser.\\n2. Type 'polytechnic.kerala.gov.in' in the address bar.\\n3. Click on the 'Ask POLY' icon or link.\\n4. Select the topic and ask your question.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-5377e3fd-2dd4-456e-972e-000a683ea73d\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
