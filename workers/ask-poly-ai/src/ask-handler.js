@@ -67,6 +67,7 @@ function isMathLike(text) {
   if (/[0-9][\s]*(?:[+\-*/^=()]|%)/.test(q)) return true;
   if (/\b(solve|calculate|evaluate|simplify|factor|differentiate|derivative|integrate|integral|equation|quadratic|percentage|percent|area|perimeter|volume|sin|cos|tan|log|ln|sqrt|root|matrix|determinant)\b/.test(q)) return true;
   if (/\b\d+(?:\.\d+)?\s*%\s*of\s*\d/.test(q)) return true;
+  if (/(?:\bv\b|\bvoltage\b)\s*=?\s*-?\d+(?:\.\d+)?\s*v\b/.test(q) || /(?:\bi\b|\bcurrent\b)\s*=?\s*-?\d+(?:\.\d+)?\s*(?:a|amp|amps)\b/.test(q) || /(?:\br\b|\bresistance\b)\s*=?\s*-?\d+(?:\.\d+)?\s*(?:[ωΩ]|ohms?)/.test(q)) return true;
   return false;
 }
 
