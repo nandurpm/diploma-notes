@@ -74,7 +74,7 @@
 
   async function gradeDailyQuiz(code, date, answers) {
     const configured = String(globalThis.ASK_POLY_CONFIG?.dailyQuizEndpoint || '').trim();
-    const endpoint = configured || 'https://ask-poly-ai.nandakumarkdpm.workers.dev/api/grade-daily-quiz';
+    const endpoint = configured || 'https://api.polypmna.dpdns.org/api/grade-daily-quiz';
     const url = new URL(endpoint, location.href);
     if (url.protocol !== 'https:' && !['localhost', '127.0.0.1'].includes(url.hostname)) {
       throw new Error('The secure quiz grading endpoint is not configured correctly.');

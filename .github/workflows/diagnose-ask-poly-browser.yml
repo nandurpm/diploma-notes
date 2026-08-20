@@ -37,8 +37,8 @@ jobs:
           from pathlib import Path
 
           ORIGIN = "https://polypmna.dpdns.org"
-          HEALTH = "https://ask-poly-ai.nandakumarkdpm.workers.dev/health"
-          ASK = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
+          HEALTH = "https://api.polypmna.dpdns.org/health"
+          ASK = "https://api.polypmna.dpdns.org/api/ask-poly"
 
           def perform(name, request, timeout=45):
               result = {"name": name, "ok": False, "status": None, "headers": {}, "body": "", "error": ""}

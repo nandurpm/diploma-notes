@@ -36,7 +36,7 @@ try {
   });
   page.on("pageerror", (error) => consoleErrors.push({ text: error.message, location: {} }));
 
-  await page.route("https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly", async (route) => {
+  await page.route("https://api.polypmna.dpdns.org/api/ask-poly", async (route) => {
     capturedRequest = route.request().postDataJSON();
     await route.fulfill({
       status: 200,

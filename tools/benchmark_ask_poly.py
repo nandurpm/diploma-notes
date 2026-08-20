@@ -12,7 +12,7 @@ import sys
 import time
 import urllib.request
 
-BASE = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
+BASE = "https://api.polypmna.dpdns.org/api/ask-poly"
 ORIGIN = "https://polypmna.dpdns.org"
 
 # Local-math questions (must be answered deterministically, provider local-math)

@@ -72,7 +72,7 @@
   }
 
   async function gradeSecurely(code, answers) {
-    const response = await fetch('https://ask-poly-ai.nandakumarkdpm.workers.dev/api/grade-daily-quiz', {
+    const response = await fetch('https://api.polypmna.dpdns.org/api/grade-daily-quiz', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-store',
