@@ -68,8 +68,8 @@ jobs:
               'SUPABASE_SERVICE_ROLE_KEY'
           ):
               assert secret_name not in public_config
-          assert 'workers.dev/api/ask-poly' in public_config
-          assert 'workers.dev/api/evaluate-mock-exam' in public_config
+          assert 'api.polypmna.dpdns.org/api/ask-poly' in public_config
+          assert 'api.polypmna.dpdns.org/api/evaluate-mock-exam' in public_config
           assert 'backupEndpoint' not in public_config
 
           worker_config = Path('workers/ask-poly-ai/wrangler.toml').read_text(encoding='utf-8')
