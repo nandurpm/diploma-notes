@@ -22,7 +22,17 @@ namespace_id = "202602"
   limit = 5
   period = 60
 
+[[ratelimits]]
+name = "IMAGE_RATE_LIMITER"
+namespace_id = "202603"
+
+  [ratelimits.simple]
+  limit = 2
+  period = 600
+
 [vars]
+ENVIRONMENT = "production"
+SECURITY_LOGGING = "structured"
 ASK_POLY_RELEASE = "2026-07-20-audit-security3"
 AI_PROVIDER_ORDER = "openrouter,nvidia"
 PROVIDER_TIMEOUT_MS = "7000"

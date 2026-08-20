@@ -1,10 +1,43 @@
 /* Purpose: Mock evaluator - Descriptive comment added for clarity */
 import { MOCK_PAPER, MOCK_INSTRUCTIONS } from "./mock-paper.js";
 import { MOCK_PAPERS } from "./mock-papers.js";
+import { isPlainObject, rejectUnknownKeys, strictJsonObject, strictText } from "./http.js";
 
 const DEFAULT_MODEL = "gpt-4o-mini";
 const DEFAULT_NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
-const clean = (value, maximum) => String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
+const clean = (value, maximum) => String(value || "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, maximum);
+const ID_PATTERN = /^[A-Za-z0-9_-]+$/;
+
+function validateExamBody(value) {
+  const body = strictJsonObject(value, "request");
+  rejectUnknownKeys(body, ["paperId", "subjectCode", "title", "selections", "answers"]);
+  strictText(body.paperId, "paperId", { min: 1, max: 120, pattern: ID_PATTERN });
+  strictText(body.subjectCode, "subjectCode", { min: 4, max: 20, pattern: /^[A-Za-z0-9_-]+$/ });
+  if (body.title !== undefined) strictText(body.title, "title", { max: 240 });
+  if (body.selections === undefined) {
+    body.selections = { partB: [], partC: {} };
+  } else {
+    if (!isPlainObject(body.selections)) throw new TypeError("selections must be an object.");
+    rejectUnknownKeys(body.selections, ["partB", "partC"], "selections");
+    if (!Array.isArray(body.selections.partB) || body.selections.partB.length > 8) throw new TypeError("selections.partB is invalid.");
+    body.selections.partB.forEach((id) => strictText(id, "Part B selection", { min: 1, max: 20, pattern: ID_PATTERN }));
+    if (!isPlainObject(body.selections.partC)) throw new TypeError("selections.partC is invalid.");
+    for (const [pair, id] of Object.entries(body.selections.partC)) {
+      strictText(pair, "Part C pair", { min: 1, max: 20, pattern: ID_PATTERN });
+      strictText(id, "Part C selection", { min: 1, max: 20, pattern: ID_PATTERN });
+    }
+  }
+  if (!Array.isArray(body.answers) || body.answers.length !== 23) throw new TypeError("answers must contain exactly 23 entries.");
+  body.answers = body.answers.map((item) => {
+    if (!isPlainObject(item)) throw new TypeError("answer entries must be objects.");
+    rejectUnknownKeys(item, ["id", "answer", "rubric"], "answer entry");
+    return {
+      id: strictText(item.id, "answer id", { min: 1, max: 20, pattern: ID_PATTERN }),
+      answer: strictText(item.answer, "answer", { min: 1, max: 4000 })
+    };
+  });
+  return body;
+}
 
 function paperFromBody(body) {
   if (body?.paperId === MOCK_PAPER.id && body?.subjectCode === MOCK_PAPER.subjectCode) return MOCK_PAPER;
@@ -238,6 +271,7 @@ function shouldRetryDefaultModel(error, model) {
 }
 
 export async function evaluateMockExam(body, env) {
+  body = validateExamBody(body);
   const paper = paperFromBody(body);
   const questions = selectedQuestionsFrom(body, paper);
   const instructions = instructionsFor(paper);

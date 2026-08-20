@@ -1,0 +1,13 @@
+# Local development template only. Keep real values in `.dev.vars` (ignored)
+# or Cloudflare Worker secrets. Never commit real credentials.
+CLOUDFLARE_AI_API_TOKEN=
+CLOUDFLARE_AI_ACCOUNT_ID=
+OPENAI_API_KEY=
+NVIDIA_API_KEY=
+OPENROUTER_API_KEY=
+GEMINI_API_KEY=
+GOOGLE_AI_STUDIO=
+FREE_API_KEY=
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=

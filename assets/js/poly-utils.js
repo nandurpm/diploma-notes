@@ -25,8 +25,36 @@ window.PolyUtils = (() => {
     return document.querySelector(`meta[name="${name}"]`)?.content || "";
   }
 
+  const memoryStorage = (() => {
+    const values = new Map();
+    return {
+      getItem: (key) => values.get(String(key)) ?? null,
+      setItem: (key, value) => values.set(String(key), String(value)),
+      removeItem: (key) => values.delete(String(key)),
+      clear: () => values.clear(),
+    };
+  })();
+
+  function getSessionStorage() {
+    try {
+      const storage = window.sessionStorage;
+      const probe = "__poly_pmna_session_probe__";
+      storage.setItem(probe, "1");
+      storage.removeItem(probe);
+      return storage;
+    } catch (_) {
+      // Never fall back to localStorage for authentication state. An in-memory
+      // store logs the user out on reload, which is safer than persistence.
+      return memoryStorage;
+    }
+  }
+
   const DEFAULT_AUTH_OPTIONS = {
+    // Keep the Supabase session out of localStorage so a shared browser does not
+    // retain an authentication session indefinitely. The server remains the
+    // authority for JWT expiry and refresh-token revocation.
     persistSession: true,
+    storage: getSessionStorage(),
     autoRefreshToken: true,
     detectSessionInUrl: true,
     flowType: "pkce",

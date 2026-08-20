@@ -1,8 +1,11 @@
 /* Purpose: Secure index - Descriptive comment added for clarity */
 import application from "./index.js";
-import { corsHeaders, isOriginAllowed } from "./http.js";
+import { corsHeaders, createRateLimiter, isOriginAllowed, looksAutomated, requestLogContext, securityLog } from "./http.js";
 import { authenticateStudent, storeMockExamResult } from "./result-store.js";
 import { handleDailyQuizGrading } from "./daily-quiz.js";
+
+const allowImage = createRateLimiter(2, 10 * 60 * 1000);
+const IMAGE_INTENT_PATTERN = /\b(?:create|generate|draw|make|show)\s+(?:an?\s+)?(?:image|picture|photo|drawing|sketch|illustration)\b/i;
 
 function json(data, status, origin, env, inherited) {
   const output = new Headers(inherited || corsHeaders(origin, env));
@@ -39,29 +42,55 @@ export default {
   async fetch(request, env, context) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
+    const logContext = requestLogContext(request);
+
+    if (url.protocol !== "https:" && !["localhost", "127.0.0.1"].includes(url.hostname)) {
+      securityLog("https_violation", { ...logContext, severity: "warning" });
+      return json({ error: "HTTPS is required." }, 400, origin, env);
+    }
 
     /* Fail early on oversized requests to prevent resource/database-query exhaustion and DoS attacks */
     if (request.method === "POST") {
       const isExam = url.pathname === "/api/evaluate-mock-exam";
       const maximumSize = isExam ? 120000 : 40000;
       if (Number(request.headers.get("Content-Length") || 0) > maximumSize) {
+        securityLog("request_oversized", { ...logContext, severity: "warning", maximumSize });
         return json({ error: "The request is too large." }, 413, origin, env);
       }
     }
 
     if (request.method === "POST" && !isOriginAllowed(origin, env)) {
+      securityLog("origin_blocked", { ...logContext, severity: "warning" });
       return json({ error: "This website origin is not allowed." }, 403, origin, env);
+    }
+
+    const requestContentType = request.headers.get("Content-Type") || "";
+    if (request.method === "POST" && requestContentType && !/^application\/json(?:\s*;|$)/i.test(requestContentType)) {
+      securityLog("invalid_content_type", { ...logContext, severity: "warning" });
+      return json({ error: "JSON requests are required." }, 415, origin, env);
+    }
+
+    if (request.method === "POST" && looksAutomated(request)) {
+      securityLog("automated_client_blocked", { ...logContext, severity: "warning" });
+      return json({ error: "Automated clients are not permitted." }, 403, origin, env);
     }
 
     if (request.method === "POST" && (url.pathname === "/" || url.pathname === "/api/ask-poly")) {
       if (!(await allowed(env.ASK_RATE_LIMITER, anonymousKey(request)))) {
+        securityLog("rate_limit_blocked", { ...logContext, route: "ask", severity: "warning" });
         return json({ error: "Too many questions. Please wait a minute and try again." }, 429, origin, env);
+      }
+      const askBody = await request.clone().json().catch(() => null);
+      if (IMAGE_INTENT_PATTERN.test(String(askBody?.message || "")) && (!(await allowed(env.IMAGE_RATE_LIMITER, `image:${anonymousKey(request)}`)) || !allowImage(request))) {
+        securityLog("rate_limit_blocked", { ...logContext, route: "image_generation", severity: "warning" });
+        return json({ error: "Image-generation limit reached. Please try again later." }, 429, origin, env);
       }
       return application.fetch(request, env, context);
     }
 
     if (request.method === "POST" && url.pathname === "/api/grade-daily-quiz") {
       if (!(await allowed(env.EXAM_RATE_LIMITER, `daily:${anonymousKey(request)}`))) {
+        securityLog("rate_limit_blocked", { ...logContext, route: "daily_quiz", severity: "warning" });
         return json({ error: "Too many quiz submissions. Please wait a minute." }, 429, origin, env);
       }
       return handleDailyQuizGrading(request, env, origin);
@@ -75,6 +104,7 @@ export default {
     try {
       student = await authenticateStudent(request, env);
     } catch (error) {
+      securityLog("authentication_failed", { ...logContext, route: "mock_exam", status: Number(error?.status) || 401, severity: "warning" });
       const rawStatus = Number(error?.status);
       const safeStatus = Number.isInteger(rawStatus) && rawStatus >= 100 && rawStatus <= 599 ? rawStatus : 401;
       return json(
@@ -86,6 +116,7 @@ export default {
     }
 
     if (!(await allowed(env.EXAM_RATE_LIMITER, `exam:${student.id}`))) {
+      securityLog("rate_limit_blocked", { ...logContext, route: "mock_exam", userId: student.id, severity: "warning" });
       return json({ error: "Too many mock-exam evaluations. Please wait a minute." }, 429, origin, env);
     }
 
@@ -103,6 +134,7 @@ export default {
       const stored = await storeMockExamResult(student, body, result, env);
       return json({ ...result, ...stored }, evaluationResponse.status, origin, env, evaluationResponse.headers);
     } catch (error) {
+      securityLog("database_write_error", { ...logContext, route: "mock_exam", status: evaluationResponse.status, severity: "error", error: error?.message });
       console.error("Verified mock-exam storage failed", error);
       return json(
         {

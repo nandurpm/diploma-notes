@@ -36,6 +36,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Node dependencies for security gates
+        working-directory: workers/ask-poly-ai
+        run: npm ci
+
+      - name: Run repository security gates
+        run: |
+          python3 tools/secret_scan.py
+          node tools/api_security_probe.mjs
+          cd workers/ask-poly-ai
+          npm audit --audit-level=high --omit=dev
+          npm test -- --runInBand
+
       - name: Validate secure Worker source and public routes
         run: |
           node --check workers/ask-poly-ai/src/index.js
@@ -65,7 +77,12 @@ jobs:
           assert '[ai]' in worker_config and 'binding = "AI"' in worker_config
           assert 'name = "ASK_RATE_LIMITER"' in worker_config
           assert 'name = "EXAM_RATE_LIMITER"' in worker_config
-          print('Secure Worker source, storage route and rate-limit bindings validated.')
+          assert 'name = "IMAGE_RATE_LIMITER"' in worker_config
+          migration = Path('supabase/migrations/20260820_ownership_rls.sql').read_text(encoding='utf-8')
+          for table in ('profiles', 'daily_quiz_results', 'sample_paper_attempts'):
+              assert f'enable row level security' in migration
+              assert f'public.{table}' in migration
+          print('Secure Worker source, ownership migration, storage route and rate-limit bindings validated.')
           PY
 
       - name: Require deployment and verified-storage secrets
@@ -118,6 +135,9 @@ jobs:
         shell: bash
         working-directory: workers/ask-poly-ai
         run: |
+          set -euo pipefail
+          umask 077
+          trap 'rm -f ask-poly-secrets.json' EXIT
           python - <<'PY'
           import json
           import os
@@ -139,8 +159,8 @@ jobs:
           # Keep secret bulk aligned with the module Worker manifest. Running
           # this command from the repository root can create an asset-only
           # version and replace the module version on the canonical hostname.
+          test "$(stat -c '%a' ask-poly-secrets.json)" = "600"
           wrangler secret bulk ask-poly-secrets.json
-          rm -f ask-poly-secrets.json
 
       - name: Re-deploy secure Worker after credential synchronization
         env:
@@ -239,6 +259,23 @@ jobs:
                       if error.code != 401:
                           raise RuntimeError(f"Protected mock route returned HTTP {error.code}, expected 401")
 
+                  malformed_ask = urllib.request.Request(
+                      base + "/api/ask-poly",
+                      data=b"{bad",
+                      method="POST",
+                      headers={
+                          "Content-Type": "application/json",
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Deploy-QA/6.0"
+                      },
+                  )
+                  try:
+                      urllib.request.urlopen(malformed_ask, timeout=20)
+                      raise RuntimeError("Malformed Ask JSON unexpectedly succeeded")
+                  except urllib.error.HTTPError as error:
+                      if error.code != 400:
+                          raise RuntimeError(f"Malformed Ask route returned HTTP {error.code}, expected 400")
+
                   quiz_request = urllib.request.Request(
                       base + "/api/grade-daily-quiz",
                       data=json.dumps({"subject": "1001", "answers": {}}).encode("utf-8"),
@@ -263,6 +300,7 @@ jobs:
                       "provider": answer.get("provider"),
                       "model": answer.get("model"),
                       "mockRoute": "401 without login",
+                      "askMalformedRoute": "400 for malformed JSON",
                       "dailyQuizRoute": "400 for malformed submission"
                   }, indent=2))
                   break

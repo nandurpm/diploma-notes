@@ -9,7 +9,12 @@ import {
   corsHeaders,
   createRateLimiter,
   isOriginAllowed,
+  isPlainObject,
   jsonResponse,
+  rejectUnknownKeys,
+  securityLog,
+  strictJsonObject,
+  strictText,
   streamResponse
 } from "./http.js";
 
@@ -27,6 +32,70 @@ async function readJson(request) {
   } catch (_) {
     return null;
   }
+}
+
+const ASK_KEYS = ["message", "history", "stream", "pageTitle", "pageContext", "selectedText", "departmentContext", "learningContext", "answerMode", "preferredLanguage", "dataSaver", "marks", "learningLevel", "attachment", "diagramRequest", "semester", "revision"];
+const SIMPLE_STRING_FIELDS = {
+  pageTitle: 160,
+  pageContext: 12000,
+  selectedText: 6000,
+  answerMode: 40,
+  preferredLanguage: 20,
+  marks: 12,
+  learningLevel: 30,
+  semester: 30,
+  revision: 30
+};
+
+function validateAskBody(value) {
+  const body = strictJsonObject(value);
+  rejectUnknownKeys(body, ASK_KEYS);
+  strictText(body.message, "message", { min: 1, max: 2200 });
+  for (const [field, max] of Object.entries(SIMPLE_STRING_FIELDS)) {
+    if (body[field] !== undefined && body[field] !== null) strictText(body[field], field, { max });
+  }
+  if (body.stream !== undefined && typeof body.stream !== "boolean") throw new TypeError("stream must be a boolean.");
+  if (body.dataSaver !== undefined && typeof body.dataSaver !== "boolean") throw new TypeError("dataSaver must be a boolean.");
+  if (body.history !== undefined) {
+    if (!Array.isArray(body.history) || body.history.length > 6) throw new TypeError("history has an invalid shape.");
+    body.history = body.history.map((item) => {
+      if (!isPlainObject(item)) throw new TypeError("history entries must be objects.");
+      rejectUnknownKeys(item, ["role", "content", "text"], "history entry");
+      if (item.role !== "user" && item.role !== "assistant") throw new TypeError("history role is invalid.");
+      const content = item.content ?? item.text;
+      return { role: item.role, content: strictText(content, "history content", { max: 1000 }) };
+    });
+  }
+  if (body.departmentContext !== undefined && body.departmentContext !== null) {
+    strictJsonObject(body.departmentContext, "departmentContext");
+    rejectUnknownKeys(body.departmentContext, ["code", "displayName"], "departmentContext");
+    if (body.departmentContext.code !== undefined) strictText(body.departmentContext.code, "department code", { max: 20, pattern: /^[A-Za-z0-9_-]+$/ });
+    if (body.departmentContext.displayName !== undefined) strictText(body.departmentContext.displayName, "department name", { max: 160 });
+  }
+  if (body.learningContext !== undefined && body.learningContext !== null) {
+    strictJsonObject(body.learningContext, "learningContext");
+    rejectUnknownKeys(body.learningContext, ["semester", "revision", "mode", "marks", "level"], "learningContext");
+    for (const [field, max] of Object.entries({ semester: 30, revision: 30, mode: 40, marks: 12, level: 30 })) {
+      if (body.learningContext[field] !== undefined) strictText(body.learningContext[field], `learningContext.${field}`, { max });
+    }
+  }
+  if (body.attachment !== undefined && body.attachment !== null) {
+    strictJsonObject(body.attachment, "attachment");
+    rejectUnknownKeys(body.attachment, ["name", "type", "size", "dataUrl"], "attachment");
+    strictText(body.attachment.name, "attachment.name", { min: 1, max: 120, pattern: /^[^/\\\\]+$/ });
+    strictText(body.attachment.type, "attachment.type", { max: 80, pattern: /^(?:image\/(?:png|jpeg|webp)|application\/pdf)$/i });
+    if (!Number.isInteger(body.attachment.size) || body.attachment.size < 0 || body.attachment.size > 5 * 1024 * 1024) throw new TypeError("attachment.size is invalid.");
+    if (body.attachment.dataUrl) throw new TypeError("Binary uploads are not accepted by this endpoint; paste text instead.");
+    body.attachment = { name: body.attachment.name, type: body.attachment.type, size: body.attachment.size };
+  }
+  if (body.diagramRequest !== undefined && body.diagramRequest !== null) {
+    strictJsonObject(body.diagramRequest, "diagramRequest");
+    rejectUnknownKeys(body.diagramRequest, ["type", "title", "department"], "diagramRequest");
+    if (body.diagramRequest.type !== undefined) strictText(body.diagramRequest.type, "diagramRequest.type", { max: 80, pattern: /^[A-Za-z0-9_-]+$/ });
+    if (body.diagramRequest.title !== undefined) strictText(body.diagramRequest.title, "diagramRequest.title", { max: 120 });
+    if (body.diagramRequest.department !== undefined) strictText(body.diagramRequest.department, "diagramRequest.department", { max: 160 });
+  }
+  return body;
 }
 
 function wantsWebsiteContext(body) {
@@ -296,8 +365,15 @@ export default {
       return jsonResponse({ error: "The request is too large." }, 413, origin, env);
     }
 
-    const body = await readJson(request);
-    if (!body) return jsonResponse({ error: "Invalid JSON request." }, 400, origin, env);
+    const parsedBody = await readJson(request);
+    if (!parsedBody) return jsonResponse({ error: "Invalid JSON request." }, 400, origin, env);
+    let body;
+    try {
+      body = isExam ? strictJsonObject(parsedBody, "request") : validateAskBody(parsedBody);
+    } catch (error) {
+      securityLog("input_validation_failed", { route: isExam ? "mock_exam" : "ask", severity: "warning", error: error?.message });
+      return jsonResponse({ error: "The request contains invalid input." }, 400, origin, env);
+    }
 
     if (isExam) {
       if (!allowExam(request)) {
@@ -379,6 +455,7 @@ export default {
         return streamResponse(result.stream, origin, env, result);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai-stream: ${cleanText(error?.message, 240)}`);
+        securityLog("api_provider_error", { route: "ask_stream", provider: "cloudflare_workers_ai", severity: "error", error: error?.message });
         console.error("Ask POLY Cloudflare Workers AI streaming failed", error);
       }
     }
@@ -389,6 +466,7 @@ export default {
         return streamResponse(result.stream, origin, env, result);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai-rest-stream: ${cleanText(error?.message, 240)}`);
+        securityLog("api_provider_error", { route: "ask_stream", provider: "cloudflare_workers_ai_rest", severity: "error", error: error?.message });
         console.error("Ask POLY Cloudflare Workers AI REST streaming failed", error);
       }
     }
@@ -398,6 +476,7 @@ export default {
       return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
     } catch (error) {
       providerErrors.push(`external-providers: ${cleanText(error?.message, 240)}`);
+      securityLog("api_provider_error", { route: "ask", provider: "external", severity: "error", error: error?.message });
       console.error("Ask POLY external provider failed", error);
     }
 
@@ -407,6 +486,7 @@ export default {
         return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai: ${cleanText(error?.message, 240)}`);
+        securityLog("api_provider_error", { route: "ask", provider: "cloudflare_workers_ai", severity: "error", error: error?.message });
         console.error("Ask POLY Cloudflare Workers AI binding failed", error);
       }
     }
@@ -417,6 +497,7 @@ export default {
         return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai-rest: ${cleanText(error?.message, 240)}`);
+        securityLog("api_provider_error", { route: "ask", provider: "cloudflare_workers_ai_rest", severity: "error", error: error?.message });
         console.error("Ask POLY Cloudflare Workers AI REST failed", error);
       }
     }
@@ -426,8 +507,9 @@ export default {
       throw new Error("No AI provider succeeded.");
     } catch (error) {
       providerErrors.push(`external-providers: ${cleanText(error?.message, 240)}`);
-      console.error("Ask POLY AI request failed", error);
       const missingMessage = String(error?.message || "") === "Please enter a question.";
+      securityLog("api_error", { route: "ask", status: missingMessage ? 400 : 502, severity: missingMessage ? "warning" : "error", error: error?.message });
+      console.error("Ask POLY AI request failed", error);
       return jsonResponse({
         error: missingMessage
           ? "Please enter a question."

@@ -19,7 +19,85 @@ let cachedOriginsSet = null;
 let cachedAllowedOriginsString = null;
 
 export function cleanText(value, maximum = 10000) {
-  return String(value || "").replace(/\u0000/g, "").trim().slice(0, maximum);
+  return String(value || "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "").trim().slice(0, maximum);
+}
+
+export function isPlainObject(value) {
+  return Boolean(value && typeof value === "object" && !Array.isArray(value));
+}
+
+export function strictText(value, field, { min = 0, max = 10000, pattern = null } = {}) {
+  if (typeof value !== "string") throw new TypeError(`${field} must be a string.`);
+  if (value.length < min || value.length > max) throw new TypeError(`${field} has an invalid length.`);
+  if (/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/.test(value)) throw new TypeError(`${field} contains invalid control characters.`);
+  if (pattern && !pattern.test(value)) throw new TypeError(`${field} has an invalid format.`);
+  return cleanText(value, max);
+}
+
+export function strictJsonObject(value, field = "request") {
+  if (!isPlainObject(value)) throw new TypeError(`${field} must be a JSON object.`);
+  return value;
+}
+
+export function rejectUnknownKeys(value, allowed, field = "request") {
+  const unknown = Object.keys(value).filter((key) => !allowed.includes(key));
+  if (unknown.length) throw new TypeError(`${field} contains unsupported fields.`);
+  return value;
+}
+
+function safeLogValue(value, depth = 0) {
+  if (depth > 2 || value === null || value === undefined) return undefined;
+  if (typeof value === "boolean" || typeof value === "number") return value;
+  if (typeof value === "string") return cleanText(value, 240);
+  if (Array.isArray(value)) return value.slice(0, 10).map((item) => safeLogValue(item, depth + 1));
+  if (typeof value === "object") {
+    const output = {};
+    for (const [key, item] of Object.entries(value).slice(0, 30)) {
+      if (/(authorization|token|password|secret|api.?key|cookie|email|body|prompt)/i.test(key)) {
+        output[key] = "[REDACTED]";
+      } else {
+        const safe = safeLogValue(item, depth + 1);
+        if (safe !== undefined) output[key] = safe;
+      }
+    }
+    return output;
+  }
+  return undefined;
+}
+
+/** Structured Cloudflare Workers log event. Never pass credentials or request bodies. */
+export function securityLog(event, fields = {}) {
+  const payload = {
+    type: "poly_pmna_security_event",
+    event: cleanText(event, 100),
+    timestamp: new Date().toISOString(),
+    ...safeLogValue(fields)
+  };
+  console.log(JSON.stringify(payload));
+}
+
+export function requestLogContext(request) {
+  return {
+    method: request?.method || "UNKNOWN",
+    path: request ? new URL(request.url).pathname : "unknown",
+    origin: cleanText(request?.headers?.get("Origin"), 180) || "none",
+    cfRay: cleanText(request?.headers?.get("CF-Ray"), 120) || "none"
+  };
+}
+
+const AUTOMATION_USER_AGENT = /(curl|wget|python-requests|python\/[0-9]|scrapy|httpclient|headless|phantomjs|selenium|playwright|puppeteer|nikto|sqlmap|masscan|nmap)/i;
+
+export function looksAutomated(request) {
+  const userAgent = cleanText(request?.headers?.get("User-Agent"), 300);
+  return Boolean(userAgent && AUTOMATION_USER_AGENT.test(userAgent));
+}
+
+export function abuseKey(request, scope = "api") {
+  const rawIp = request?.headers?.get("CF-Connecting-IP")
+    || request?.headers?.get("X-Forwarded-For")?.split(",")[0]?.trim()
+    || "unknown";
+  const normalized = rawIp.replace(/[^0-9a-fA-F.:%_-]/g, "").slice(0, 45) || "unknown";
+  return `${scope}:${normalized}`;
 }
 
 /**

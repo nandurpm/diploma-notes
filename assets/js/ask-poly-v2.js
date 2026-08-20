@@ -945,11 +945,33 @@
     else delete els.attachmentStatus.dataset.state;
   }
 
-  function handleAttachment(file) {
+  async function hasAllowedSignature(file) {
+    const bytes = new Uint8Array(await file.slice(0, 12).arrayBuffer());
+    const ascii = String.fromCharCode(...bytes);
+    if (file.type === "application/pdf") return ascii.startsWith("%PDF-");
+    if (file.type === "image/png") return bytes.length >= 8 && bytes[0] === 0x89 && ascii.slice(1, 4) === "PNG";
+    if (file.type === "image/jpeg") return bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff;
+    if (file.type === "image/webp") return ascii.slice(0, 4) === "RIFF" && ascii.slice(8, 12) === "WEBP";
+    return false;
+  }
+
+  async function handleAttachment(file) {
     if (!file) return;
-    const allowed = file.type === "application/pdf" || file.type.startsWith("image/");
-    if (!allowed) { activeAttachment = null; setAttachmentStatus("Only an image or PDF is supported.", "error"); return; }
-    if (file.size > 1800000) { activeAttachment = null; setAttachmentStatus("File is too large. Choose an image/PDF under 1.8 MB.", "error"); return; }
+    const allowedTypes = new Set(["application/pdf", "image/png", "image/jpeg", "image/webp"]);
+    const safeName = typeof file.name === "string" && file.name.length > 0 && file.name.length <= 120 && !/[\\/\u0000-\u001F\u007F]/.test(file.name);
+    const extension = String(file.name || "").toLowerCase().split(".").pop();
+    const allowedExtensions = new Set(["pdf", "png", "jpg", "jpeg", "webp"]);
+    if (!safeName || !allowedTypes.has(file.type) || !allowedExtensions.has(extension)) {
+      activeAttachment = null; setAttachmentStatus("Only valid PNG, JPEG, WebP, or PDF files are supported.", "error"); return;
+    }
+    if (!Number.isInteger(file.size) || file.size <= 0 || file.size > 1800000) {
+      activeAttachment = null; setAttachmentStatus("File is too large or empty. Choose a file under 1.8 MB.", "error"); return;
+    }
+    try {
+      if (!(await hasAllowedSignature(file))) throw new Error("File signature mismatch.");
+    } catch (_) {
+      activeAttachment = null; setAttachmentStatus("The file type could not be verified safely.", "error"); return;
+    }
     const reader = new FileReader();
     reader.onload = () => {
       activeAttachment = { name: file.name.slice(0, 120), type: file.type, size: file.size, dataUrl: file.type.startsWith("image/") ? String(reader.result || "").slice(0, 1200000) : "" };
@@ -1177,7 +1199,8 @@
           dataSaver: dataSaverEnabled,
           marks: learningContext.marks || "",
           learningLevel: learningContext.level || "intermediate",
-          attachment: attachment ? { name: attachment.name, type: attachment.type, size: attachment.size, dataUrl: attachment.dataUrl || "" } : null,
+          // The API receives metadata only; raw file/data-URL content never leaves the browser.
+          attachment: attachment ? { name: attachment.name, type: attachment.type, size: attachment.size } : null,
           diagramRequest: diagramIntent ? { ...diagramIntent, department: department?.displayName || "" } : null
         })
       });

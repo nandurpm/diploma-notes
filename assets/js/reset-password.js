@@ -52,8 +52,8 @@
       event.preventDefault();
       const password = $("newPassword")?.value || "";
       const confirm = $("confirmPassword")?.value || "";
-      if (password.length < 6) {
-        msg("Password must be at least 6 characters.");
+      if (password.length < 12) {
+        msg("Password must be at least 12 characters.");
         return;
       }
       if (password !== confirm) {
@@ -65,7 +65,10 @@
       try {
         const { error } = await db.auth.updateUser({ password });
         if (error) throw error;
-        msg("Password changed successfully. You can login with the new password.", true);
+        msg("Password changed successfully. You can login with your new password.", true);
+        // Remove recovery code/hash fragments before leaving the page so the
+        // one-time credential is not retained in browser history or copied URLs.
+        window.history.replaceState({}, document.title, "/reset-password.html");
         setTimeout(() => { location.href = "/daily-quiz.html"; }, 1800);
       } catch (error) {
         const text = String(error?.message || error || "").toLowerCase();

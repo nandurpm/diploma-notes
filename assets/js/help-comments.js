@@ -1,7 +1,8 @@
 /* Purpose: Help comments - REST-based Firebase discussion client */
-const FIREBASE_API_KEY = ["AIzaSyDgdpLgYNZL_", "KQguMmCI5wZH3b11PXpWvk"].join("");
+// Public Firestore reads remain available, but client-side account creation is
+// deliberately disabled. Firebase API keys and auth credentials must not ship
+// in this bundle; writes require a server-side proxy with a secret-held key.
 const FIRESTORE_REST_URL = "https://firestore.googleapis.com/v1/projects/diploma-notes-comments/databases/(default)/documents/helpComments";
-const AUTH_REST_URL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${FIREBASE_API_KEY}`;
 const EMAIL_TOKEN = "5a343b343e3b312f373b2837313e2a371a3d373b333674393537";
 const PAGE_SIZE = 40;
 const POST_COOLDOWN_MS = 60000;
@@ -83,10 +84,7 @@ async function requestJson(url, options = {}) {
   return payload;
 }
 async function ensureAuthenticated() {
-  if (currentUser?.idToken && currentUser.expiresAt > Date.now() + 60000) return currentUser;
-  const payload = await requestJson(AUTH_REST_URL, { method: "POST", body: JSON.stringify({ returnSecureToken: true }) });
-  currentUser = { uid: payload.localId, idToken: payload.idToken, expiresAt: Date.now() + Number(payload.expiresIn || 3600) * 1000 };
-  return currentUser;
+  throw new Error("Comment posting is temporarily unavailable until the protected server endpoint is configured.");
 }
 async function fetchComments() {
   const query = new URLSearchParams({ pageSize: String(PAGE_SIZE), orderBy: "createdAt desc" });
@@ -171,8 +169,11 @@ function showUnavailable(error) {
 }
 async function initializeDiscussion() {
   nameInput.value = savedName(); submitButton.disabled = true; countBox.textContent = "Loading…";
-  try { await fetchComments(); submitButton.disabled = false; form?.removeAttribute("aria-disabled"); setStatus(""); }
-  catch (error) { showUnavailable(error); }
+  try {
+    await fetchComments();
+    setStatus("Comment posting is temporarily unavailable while the protected server endpoint is being configured.", "error");
+    form?.setAttribute("aria-disabled", "true");
+  } catch (error) { showUnavailable(error); }
 }
 form?.addEventListener("submit", async event => {
   event.preventDefault();

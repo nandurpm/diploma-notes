@@ -132,7 +132,11 @@ test("storeMockExamResult returns configured false when env is incomplete", asyn
 
 test("storeMockExamResult submits correct payload on success", async () => {
   const user = { id: "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6" };
-  const body = { selections: { q1: "A" }, answers: ["Option A"] };
+  const body = {
+    user_id: "ffffffff-ffff-ffff-ffff-ffffffffffff",
+    selections: { q1: "A" },
+    answers: ["Option A"]
+  };
   const result = { subjectCode: "1004", paperId: "paper-A", score: 65, totalMarks: 75 };
   const env = {
     SUPABASE_URL: "https://example.supabase.co",
@@ -184,6 +188,13 @@ test("storeMockExamResult submits correct payload on success", async () => {
   } finally {
     globalThis.fetch = originalFetch;
   }
+});
+
+test("storeMockExamResult rejects a resource without a verified owner UUID", async () => {
+  await assert.rejects(
+    () => storeMockExamResult({ id: "not-a-uuid" }, {}, { subjectCode: "1004", paperId: "paper-A" }, {}),
+    (error) => error?.status === 401 && /invalid or expired/i.test(error.message),
+  );
 });
 
 test("storeMockExamResult handles fallback default shapes for body", async () => {

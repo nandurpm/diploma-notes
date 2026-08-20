@@ -15,10 +15,12 @@
   }
 
   function subjectFromPage() {
-    return document.body?.dataset?.mockSubject
+    const candidate = document.body?.dataset?.mockSubject
       || new URLSearchParams(location.search).get("subject")
       || location.pathname.match(/mock-exam-(\d{4})\.html$/)?.[1]
       || "";
+    const subject = String(candidate).trim().toUpperCase();
+    return /^\d{4}[A-Z]?$/.test(subject) ? subject : "";
   }
 
   function applyPaperText(M) {
