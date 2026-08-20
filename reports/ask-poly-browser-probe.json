@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-20T20:19:41Z",
+  "generatedAt": "2026-08-20T20:35:34Z",
   "origin": "https://polypmna.dpdns.org",
   "healthUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/health",
   "askUrl": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
@@ -8,7 +8,7 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 20 Aug 2026 20:19:36 GMT",
+      "date": "Thu, 20 Aug 2026 20:35:32 GMT",
       "content-type": "application/json; charset=utf-8",
       "content-length": "524",
       "connection": "close",
@@ -22,10 +22,10 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=k6J5XTYLKg5Gwcs%2B2v4puzQ40Ctu653TTV313tAx8une%2FMrXXgoihGUrVFHsqZDfiGUCmaoLsRnzOSGXJForj3DKxVJOw4cZgOtFibnaZx0LUgY7xCYU8CLIYB7dFZgujSCp2C%2FbE4386bJkYjp%2FYDo1xUwjeEC3gQ%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=7hv%2FhNd9RTG9Ce8iLhH8W3N8qzibn2p35KipMX48LTtdraq0XT1fFH1fqExndZHcOt8MLL7s8kk8YPAj%2BhE4JQurIAsO9PnSbagLTky60hxRal6gD0PbY0MUwfi1BuSEw41ctevpSywLIufmAsxpaYrbaOoA3xespA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2e4180a9ad60db7-IAD",
+      "cf-ray": "a2e42f5e4c8bdc0f-DTW",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "{\"ok\":true,\"service\":\"Ask POLY AI\",\"configured\":true,\"verifiedResultStorage\":false,\"knowledgeMode\":\"whole-site-revision-aware-v1\",\"revisionAware\":[\"2026\",\"2021\",\"2015\"],\"wholeSiteContext\":true,\"localMathFallback\":true,\"preloadedFaq\":true,\"workersAIFallback\":true,\"workersAIRestFallback\":true,\"providers\":[\"cloudflare-workers-ai\",\"cloudflare-workers-ai-rest\",\"openrouter\",\"nvidia\"],\"model\":\"@cf/meta/llama-3.1-8b-instruct-fp8\",\"mockExamEvaluation\":true,\"mockExamPattern\":\"1004-75-mark-official-model\",\"dailyQuizGrading\":true}",
@@ -36,17 +36,17 @@
     "ok": true,
     "status": 204,
     "headers": {
-      "date": "Thu, 20 Aug 2026 20:19:36 GMT",
+      "date": "Thu, 20 Aug 2026 20:35:32 GMT",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "vary": "Origin",
       "access-control-allow-headers": "Content-Type, Authorization",
       "access-control-allow-methods": "GET, POST, OPTIONS",
       "access-control-max-age": "86400",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=PwyWo9AhCyzbtLC2qRZyFodLtkwZKOBb7wP34K%2Bw9jM5xop0jc%2B4lHeT4orNLfhulS4meDo9mpopWJ6UEey3%2B%2BlMdtjjP3SJx81NAJodfXoM3JMDesZUrrv%2BdelV7dsR8uTrmyPI5xccpQ0UuLxwrn3%2Bpl6TVy6JCA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=T2vdhRGZDFnjwFtub8iLtk9UAe4llppFRS2KxKJcmUvRWK%2BxuAALM6nXoANHVBsWcdPnpo9bRFL16qESk%2Bih2yNAr4n4L3iXkxUjeDtkAiVCvyelk7l%2FIq6nHFc2G%2FncxyLCBFsbxI0cVe2ssdc1W3OJv%2BByFdl%2BOQ%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2e4180afac37112-IAD",
+      "cf-ray": "a2e42f5f3b714d60-STL",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
     "body": "",
@@ -57,9 +57,9 @@
     "ok": true,
     "status": 200,
     "headers": {
-      "date": "Thu, 20 Aug 2026 20:19:41 GMT",
+      "date": "Thu, 20 Aug 2026 20:35:34 GMT",
       "content-type": "application/json; charset=utf-8",
-      "content-length": "1150",
+      "content-length": "954",
       "connection": "close",
       "access-control-allow-origin": "https://polypmna.dpdns.org",
       "cache-control": "no-store",
@@ -71,13 +71,13 @@
       "referrer-policy": "no-referrer",
       "x-content-type-options": "nosniff",
       "x-frame-options": "DENY",
-      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=cQg6NGYWeBkwPfq1SaN5DygFHTfDyfLN2qh8C0zbV6OJy%2BLGR7Ap4KcP7r5Y0SAKqt1LkzSVCArwcVWwXHTUTKCSL%2B%2BEQx%2B6o322jQ4wOLRb9DmpMgIWz4T8zp4HpXMa%2BVZjtg7%2BkhcIulZvT%2FlH4jGeGQNhjZGZPA%3D%3D\"}]}",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=IM33sCyAQSwO66RDZ6jligTKrhduEnMlArZloWk1G2wUJc6idmJ2H5F4JGeQ9dfhxWNB61WNvTxA6iL67oXx3K3G8m5jMKlGDPxfTZRCGBM2R9QX07UXGbOMMOheMCZkroOTsV5VereBGiGdNaX51%2Bn7V37bXrAOEA%3D%3D\"}]}",
       "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
       "server": "cloudflare",
-      "cf-ray": "a2e4180b2e0d1039-IAD",
+      "cf-ray": "a2e42f5fcc06a246-YYZ",
       "alt-svc": "h3=\":443\"; ma=86400"
     },
-    "body": "{\"answer\":\"\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d05\u0d2a\u0d4d\u0d2a\u0d4d\u200c\u0d32\u0d3f\u0d15\u0d4d\u0d15\u0d47\u0d37\u0d7b \u0d2c\u0d4d\u0d30\u0d57\u0d38\u0d7c \u0d2a\u0d3e\u0d24\u0d4d\u200c \u0d07\u0d24\u0d3e\u0d23\u0d4d:\\n\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e Ask POLY \u0d35\u0d46\u0d2c\u0d4d\u200c\u0d38\u0d48\u0d31\u0d4d\u0d31\u0d3f\u0d28\u0d46 \u0d13\u0d2a\u0d4d\u0d2a\u0d7a \u0d1a\u0d46\u0d2f\u0d4d\u0d2f\u0d41\u0d28\u0d4d\u0d28\u0d24\u0d4d \u0d06\u0d30\u0d02\u0d2d\u0d3f\u0d15\u0d4d\u0d15\u0d41\u0d28\u0d4d\u0d28\u0d41.\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d05\u0d15\u0d4d\u0d15\u0d57\u0d23\u0d4d\u0d1f\u0d4d \u0d24\u0d41\u0d1f\u0d19\u0d4d\u0d19\u0d41\u0d28\u0d4d\u0d28\u0d41.\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d05\u0d15\u0d4d\u0d15\u0d57\u0d23\u0d4d\u0d1f\u0d3f\u0d32\u0d47\u0d15\u0d4d\u0d15\u0d4d \u0d32\u0d4b\u0d17\u0d3f\u0d7b \u0d1a\u0d46\u0d2f\u0d4d\u0d2f\u0d41\u0d28\u0d4d\u0d28\u0d41.\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d2a\u0d4d\u0d30\u0d36\u0d4d\u0d28\u0d02 \u0d0e\u0d34\u0d41\u0d24\u0d41\u0d28\u0d4d\u0d28\u0d41.\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d2a\u0d4d\u0d30\u0d36\u0d4d\u0d28\u0d02 \u0d2a\u0d3e\u0d38\u0d4d\u0d35\u0d47\u0d7c\u0d21\u0d3f\u0d28\u0d4a\u0d2a\u0d4d\u0d2a\u0d02 \u0d2a\u0d3e\u0d38\u0d4d\u0d31\u0d4d\u0d31\u0d4d \u0d1a\u0d46\u0d2f\u0d4d\u0d2f\u0d41\u0d28\u0d4d\u0d28\u0d41.\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d2a\u0d4d\u0d30\u0d36\u0d4d\u0d28\u0d02 \u0d05\u0d2f\u0d15\u0d4d\u0d15\u0d41\u0d28\u0d4d\u0d28\u0d41.\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d09\u0d24\u0d4d\u0d24\u0d30\u0d02 \u0d15\u0d3e\u0d23\u0d41\u0d28\u0d4d\u0d28\u0d41.\\n\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d09\u0d24\u0d4d\u0d24\u0d30\u0d02 \u0d35\u0d3e\u0d2f\u0d3f\u0d15\u0d4d\u0d15\u0d41\u0d28\u0d4d\u0d28\u0d41.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-616f0336-1c17-46d0-8855-7056686bba76\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
+    "body": "{\"answer\":\"\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d05\u0d2a\u0d4d\u0d2a\u0d4d\u0d32\u0d3f\u0d15\u0d4d\u0d15\u0d47\u0d37\u0d28\u0d3f\u0d7d \u0d28\u0d3f\u0d28\u0d4d\u0d28\u0d4d \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e\u0d15\u0d4d\u0d15\u0d4d \u0d06\u0d38\u0d4d\u0d15\u0d4d \u0d2a\u0d4b\u0d33\u0d3f \u0d35\u0d46\u0d2c\u0d4d \u0d2c\u0d4d\u0d30\u0d57\u0d38\u0d7c \u0d2a\u0d3e\u0d24\u0d4d \u0d15\u0d3e\u0d23\u0d3e\u0d7b \u0d15\u0d34\u0d3f\u0d2f\u0d41\u0d02. \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d06\u0d2a\u0d4d\u0d2a\u0d3f\u0d32\u0d47\u0d15\u0d4d\u0d15\u0d4d \u0d28\u0d40\u0d19\u0d4d\u0d19\u0d3f\u0d2f\u0d3e\u0d7d, \u0d06\u0d38\u0d4d\u0d15\u0d4d \u0d2a\u0d4b\u0d33\u0d3f \u0d35\u0d46\u0d2c\u0d4d \u0d38\u0d48\u0d31\u0d4d\u0d31\u0d4d \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d21\u0d3f\u0d35\u0d48\u0d38\u0d3f\u0d32\u0d47\u0d15\u0d4d\u0d15\u0d4d \u0d2a\u0d4d\u0d30\u0d35\u0d7c\u0d24\u0d4d\u0d24\u0d3f\u0d15\u0d4d\u0d15\u0d41\u0d02. \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d35\u0d46\u0d2c\u0d4d \u0d2c\u0d4d\u0d30\u0d57\u0d38\u0d31\u0d3f\u0d32\u0d47\u0d15\u0d4d\u0d15\u0d4d \u0d28\u0d40\u0d19\u0d4d\u0d19\u0d3f\u0d2f\u0d3e\u0d7d, \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d06\u0d38\u0d4d\u0d15\u0d4d \u0d2a\u0d4b\u0d33\u0d3f \u0d35\u0d46\u0d2c\u0d4d \u0d38\u0d48\u0d31\u0d4d\u0d31\u0d3f\u0d28\u0d46 \u0d15\u0d3e\u0d23\u0d3e\u0d7b \u0d15\u0d34\u0d3f\u0d2f\u0d41\u0d02.\",\"citations\":[],\"usedWeb\":false,\"provider\":\"nvidia\",\"model\":\"meta/llama-3.1-8b-instruct\",\"responseId\":\"chatcmpl-d489d8cb-b23a-4678-9547-f6178ece1a73\",\"knowledgeMode\":\"whole-site-revision-aware-v1\"}",
     "error": ""
   },
   "browserPathOk": true
