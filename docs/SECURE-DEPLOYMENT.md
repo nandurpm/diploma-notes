@@ -55,7 +55,7 @@ Before release, verify that the site responds with HTTPS and HSTS, HTTP redirect
 
 ## Abuse protection and automated traffic
 
-The Worker now applies layered controls before expensive work. Ask POLY requests use the existing distributed per-client limiter, daily quiz submissions and mock-exam evaluations use the exam limiter, image-generation intents use a dedicated distributed limit of two requests per ten minutes plus a local burst limiter, and obvious automation user agents are rejected at the edge. Blocked events are emitted as structured security logs.
+The Worker now applies layered controls before expensive work. Ask POLY requests use the existing distributed per-client limiter, daily quiz submissions and mock-exam evaluations use the exam limiter, image-generation intents use a dedicated distributed limit of two requests per minute plus a local ten-minute budget and burst limiter, and obvious automation user agents are rejected at the edge. Blocked events are emitted as structured security logs.
 
 The browser authentication module applies five-failure/fifteen-minute login backoff and three-failure/thirty-minute account-creation backoff. These client controls improve abuse resistance but are not authoritative because an attacker can bypass JavaScript. Supabase Auth rate limits, email abuse limits, CAPTCHA or equivalent challenge controls must be enabled in the production project for login, signup, password reset, and verification email flows.
 

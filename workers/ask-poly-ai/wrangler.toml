@@ -28,7 +28,7 @@ namespace_id = "202603"
 
   [ratelimits.simple]
   limit = 2
-  period = 600
+  period = 60
 
 [vars]
 ENVIRONMENT = "production"
