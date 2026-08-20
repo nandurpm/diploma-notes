@@ -4,7 +4,14 @@ import re
 
 print("Starting performance, accessibility, and link audit for POLY PMNA Study Hub...")
 
-lessons_dir = "/home/ubuntu/diploma-notes/revision-2026-content/lessons"
+# Detect base directory (root of the repo)
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+lessons_dir = os.path.join(base_dir, "revision-2026-content", "lessons")
+
+if not os.path.exists(lessons_dir):
+    print(f"Error: Directory not found: {lessons_dir}")
+    exit(1)
+
 files = [f for f in os.listdir(lessons_dir) if f.endswith('.html')]
 
 total_files = len(files)
@@ -39,7 +46,7 @@ for filename in files:
 print("Audit completed successfully.")
 print(json.dumps(audit_results, indent=2))
 
-report_path = "/home/ubuntu/diploma-notes/reports/site-audit-report.json"
+report_path = os.path.join(base_dir, "reports", "site-audit-report.json")
 os.makedirs(os.path.dirname(report_path), exist_ok=True)
 with open(report_path, "w", encoding="utf-8") as f:
     json.dump(audit_results, f, indent=2)

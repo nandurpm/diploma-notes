@@ -4,9 +4,12 @@ import re
 
 print("Starting advanced mobile responsiveness, touch-target, and WCAG 2.1 AA compliance audit...")
 
+# Detect base directory (root of the repo)
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 lessons_dirs = [
-    "/home/ubuntu/diploma-notes/lessons",
-    "/home/ubuntu/diploma-notes/revision-2026-content/lessons"
+    os.path.join(base_dir, "lessons"),
+    os.path.join(base_dir, "revision-2026-content", "lessons")
 ]
 
 all_files = []
@@ -57,7 +60,7 @@ for path in all_files:
 print("Advanced audit completed successfully.")
 print(json.dumps(audit_results, indent=2))
 
-report_path = "/home/ubuntu/diploma-notes/reports/advanced-audit-report.json"
+report_path = os.path.join(base_dir, "reports", "advanced-audit-report.json")
 os.makedirs(os.path.dirname(report_path), exist_ok=True)
 with open(report_path, "w", encoding="utf-8") as f:
     json.dump(audit_results, f, indent=2)

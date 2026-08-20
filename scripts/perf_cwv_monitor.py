@@ -5,6 +5,9 @@ import time
 
 print("Running daily performance and Core Web Vitals health check...")
 
+# Detect base directory (root of the repo)
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Test sample live handbook URLs
 test_urls = [
     "https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2018.html",
@@ -40,7 +43,7 @@ report = {
     "overall_health": all(r.get("status_ok", False) for r in results)
 }
 
-report_path = "/home/ubuntu/diploma-notes/reports/perf-cwv-report.json"
+report_path = os.path.join(base_dir, "reports", "perf-cwv-report.json")
 os.makedirs(os.path.dirname(report_path), exist_ok=True)
 with open(report_path, "w", encoding="utf-8") as f:
     json.dump(report, f, indent=2)
