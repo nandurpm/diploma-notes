@@ -3,16 +3,16 @@
   "versionCode": 22,
   "versionName": "3.13",
   "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.13/POLY_PMNA_v3.13.apk",
-  "sha256": "e77686848aaf4946435db8707d2a3486dc606351483f4a3987b0e6236e00602c",
-  "publishedAt": "2026-08-21T05:57:27Z",
+  "sha256": "9b194c457cbe68d80a83e7143ae393282bff74b9ff8a9f9b080ee76e8b85bd17",
+  "publishedAt": "2026-08-21T14:58:21Z",
   "forceUpdate": true,
   "title": "POLY PMNA Android app 3.13",
-  "message": "Install this signed release update to refresh the WebView security client and keep receiving future app updates from the homepage.",
+  "message": "Install this signed release update to replace older debug builds and keep receiving future app updates from the homepage.",
   "releaseNotes": [
     "Signed public release APK for Android installs and upgrades.",
-    "Refreshes the WebView cache once on APK version change so the current security-hardened website client is loaded.",
     "New lesson push notifications through Firebase Cloud Messaging.",
     "Homepage Download Our App button points to this GitHub Release APK.",
+    "Existing app users see an in-app update button when their installed version is older.",
     "Revision 2026 and Revision 2021 remain separate content destinations."
   ]
 }

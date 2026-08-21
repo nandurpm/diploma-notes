@@ -4,7 +4,7 @@
   "versionName": "3.13",
   "firebaseMessaging": true,
   "status": "success",
-  "releaseApkBytes": 978131,
-  "releaseSha256": "e77686848aaf4946435db8707d2a3486dc606351483f4a3987b0e6236e00602c",
-  "builtAt": "2026-08-21T05:57:27Z"
+  "releaseApkBytes": 979485,
+  "releaseSha256": "9b194c457cbe68d80a83e7143ae393282bff74b9ff8a9f9b080ee76e8b85bd17",
+  "builtAt": "2026-08-21T14:58:21Z"
 }
