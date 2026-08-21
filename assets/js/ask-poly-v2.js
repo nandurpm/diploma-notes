@@ -80,8 +80,7 @@
       revision: learningContext.revision || "",
       mode: learningContext.mode || "explain",
       marks: learningContext.marks || "",
-      level: learningContext.level || "intermediate",
-      page: learningContext.page || null
+      level: learningContext.level || "intermediate"
     };
   }
 
