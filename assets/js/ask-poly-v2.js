@@ -6,7 +6,8 @@
 
   const DB_NAME = "ask-poly-v2-db";
   const DB_VERSION = 1;
-  const MAX_HISTORY = Number(window.ASK_POLY_CONFIG?.maxHistory || 12);
+  // The primary Worker and Supabase relay both validate history at a maximum of six entries.
+  const MAX_HISTORY = Math.min(6, Math.max(0, Number(window.ASK_POLY_CONFIG?.maxHistory || 6)));
   const MAX_QUEUE = 8;
   let dbPromise = null;
   let activeChatId = null;
