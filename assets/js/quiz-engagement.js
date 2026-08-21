@@ -12,13 +12,65 @@
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;",
   })[char]);
 
+  function toFiniteNumber(value) {
+    if (typeof value === "number" && Number.isFinite(value)) return value;
+    if (typeof value === "string") {
+      const fraction = value.match(/^\s*(\d+(?:\.\d+)?)\s*\/\s*\d+(?:\.\d+)?\s*$/);
+      if (fraction) return Number(fraction[1]);
+      const numeric = Number(value);
+      return Number.isFinite(numeric) ? numeric : null;
+    }
+    return null;
+  }
+
+  function normalizeAttempt(item) {
+    if (!item || typeof item !== "object") return null;
+    const nested = item.result && typeof item.result === "object" ? item.result : {};
+    const scoreCandidates = [
+      item.score, item.points, item.correctAnswers, item.correct,
+      nested.score, nested.points, nested.correctAnswers, nested.correct,
+    ];
+    const totalCandidates = [
+      item.total, item.totalQuestions, item.total_questions,
+      nested.total, nested.totalQuestions, nested.total_questions,
+    ];
+    const score = scoreCandidates.map(toFiniteNumber).find((value) => value !== null);
+    const total = totalCandidates.map(toFiniteNumber).find((value) => value !== null);
+    return {
+      ...item,
+      score: score === undefined ? 0 : Math.max(0, score),
+      total: Math.max(1, total === undefined ? 10 : total),
+      hasScore: score !== undefined,
+    };
+  }
+
   function storage() {
     try {
       const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
-      return { attempts: Array.isArray(value.attempts) ? value.attempts : [] };
+      return {
+        attempts: Array.isArray(value.attempts)
+          ? value.attempts.map(normalizeAttempt).filter(Boolean)
+          : [],
+      };
     } catch {
       return { attempts: [] };
     }
+  }
+
+  function scoredAttempts(attempts) {
+    return attempts.filter((item) => item.hasScore !== false);
+  }
+
+  function scoreTotal(attempts) {
+    return attempts.reduce((sum, item) => sum + Number(item.score || 0), 0);
+  }
+
+  function scoreBest(attempts) {
+    return attempts.reduce((max, item) => Math.max(max, Number(item.score || 0)), 0);
+  }
+
+  function scoreDenominator(attempts) {
+    return attempts.reduce((max, item) => Math.max(max, Number(item.total || 0)), 10);
   }
 
   function save(data) {
@@ -125,10 +177,11 @@
 
   function badges(data) {
     const attempts = data.attempts;
+    const scored = scoredAttempts(attempts);
     const output = [];
     if (attempts.length >= 1) output.push(["first-challenge", "First Challenge", "Completed your first weekly challenge.", "★"]);
-    if (attempts.some((item) => Number(item.score) >= Number(item.total))) output.push(["perfect", "Perfect Score", "Scored full marks in a challenge.", "✦"]);
-    if (attempts.some((item) => item.mode === "time-trial" && Number(item.score) >= 8)) output.push(["speed-runner", "Speed Runner", "Scored at least 8/10 in time-trial mode.", "⚡"]);
+    if (scored.some((item) => Number(item.score) >= Number(item.total))) output.push(["perfect", "Perfect Score", "Scored full marks in a challenge.", "✦"]);
+    if (scored.some((item) => item.mode === "time-trial" && Number(item.score) >= 8)) output.push(["speed-runner", "Speed Runner", "Scored at least 8/10 in time-trial mode.", "⚡"]);
     if (new Set(attempts.map((item) => item.weekKey)).size >= 3) output.push(["weekly-warrior", "Weekly Warrior", "Completed challenges in three different weeks.", "◆"]);
     if (dailyStreak() >= 3) output.push(["daily-streak", "Daily Streaker", "Practised on three consecutive days.", "●"]);
     return output;
@@ -139,10 +192,16 @@
     const badgesTarget = $("engagementBadges");
     if (!summary || !badgesTarget) return;
     const data = storage();
-    const total = data.attempts.reduce((sum, item) => sum + Number(item.score || 0), 0);
-    const best = data.attempts.reduce((max, item) => Math.max(max, Number(item.score || 0)), 0);
-    const uniqueWeeks = new Set(data.attempts.map((item) => item.weekKey)).size;
-    summary.innerHTML = `<div class="engagement-metrics"><article><span>Challenges</span><b>${data.attempts.length}</b></article><article><span>Best score</span><b>${best}/10</b></article><article><span>Total points</span><b>${total}</b></article><article><span>Weeks active</span><b>${uniqueWeeks}</b></article></div>`;
+    const scored = scoredAttempts(data.attempts);
+    const total = scoreTotal(scored);
+    const best = scoreBest(scored);
+    const denominator = scoreDenominator(scored);
+    const uniqueWeeks = new Set(data.attempts.map((item) => item.weekKey).filter(Boolean)).size;
+    const legacyCount = data.attempts.length - scored.length;
+    const scoreNote = legacyCount
+      ? `<small class="engagement-note">${legacyCount} older challenge record${legacyCount === 1 ? "" : "s"} did not include a readable score and ${legacyCount === 1 ? "is" : "are"} excluded from score totals.</small>`
+      : "";
+    summary.innerHTML = `<div class="engagement-metrics"><article><span>Challenge attempts</span><b>${data.attempts.length}</b></article><article><span>Best challenge score</span><b>${scored.length ? `${best}/${denominator}` : "—"}</b></article><article><span>Challenge points</span><b>${scored.length ? total : "—"}</b></article><article><span>Weeks active</span><b>${uniqueWeeks}</b></article></div>${scoreNote}`;
     const earned = badges(data);
     badgesTarget.innerHTML = earned.length
       ? earned.map(([id, name, description, icon]) => `<article class="quiz-badge" data-badge="${escapeHtml(id)}"><strong>${escapeHtml(icon)}</strong><div><b>${escapeHtml(name)}</b><small>${escapeHtml(description)}</small></div></article>`).join("")
