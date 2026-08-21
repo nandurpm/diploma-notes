@@ -4,7 +4,9 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  const RETRYABLE_STATUS = new Set([401, 403, 408, 425, 429, 500, 502, 503, 504]);
+  // The protected API can reject a newer request shape with 400 while the
+  // compatible Supabase relay still accepts it, so 400 must fail over too.
+  const RETRYABLE_STATUS = new Set([400, 401, 403, 404, 408, 425, 429, 500, 502, 503, 504]);
   const RETRY_DELAY_MS = 700;
   const originalFetch = window.fetch.bind(window);
   let lastHealth = null;
