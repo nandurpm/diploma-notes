@@ -75,7 +75,6 @@
 
   function contextSnapshot() {
     return {
-      department: learningContext.department ? { code: learningContext.department.code, displayName: learningContext.department.displayName } : null,
       semester: learningContext.semester || "",
       revision: learningContext.revision || "",
       mode: learningContext.mode || "explain",
