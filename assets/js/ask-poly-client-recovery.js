@@ -23,11 +23,15 @@
   }
 
   function endpointCandidates() {
-    return [String(config().endpoint || "").trim()].filter(Boolean);
+    return [...new Set([
+      String(config().endpoint || "").trim(),
+      String(config().fallbackEndpoint || "").trim()
+    ].filter(Boolean))];
   }
 
   function healthCandidates() {
     const configured = String(config().healthEndpoint || "").trim();
+    const fallbackConfigured = String(config().fallbackHealthEndpoint || "").trim();
     const derived = endpointCandidates().map(endpoint => {
       try {
         const url = new URL(endpoint, location.href);
@@ -39,7 +43,7 @@
         return "";
       }
     });
-    return [...new Set([configured, ...derived].filter(Boolean))];
+    return [...new Set([configured, fallbackConfigured, ...derived].filter(Boolean))];
   }
 
   function matchesEndpoint(input) {
