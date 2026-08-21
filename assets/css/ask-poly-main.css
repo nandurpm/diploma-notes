@@ -122,6 +122,13 @@ html.polytechnic-native-app body.portal-page.ask-poly-page{height:100%!important
 html.polytechnic-native-app .ask-shell{display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important}
 html.polytechnic-native-app .ask-app{flex:1 1 auto!important;height:auto!important;min-height:0!important}
 html.polytechnic-native-app .ask-messages{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+
+/* Native Android chat: preserve vertical space for the answer and composer by
+   hiding secondary metadata panels that are useful mainly in browser view. */
+html.polytechnic-native-app .ask-page-context,
+html.polytechnic-native-app .ask-sources {
+  display: none !important;
+}
 @media(max-width:560px){.ask-shell{height:calc(100dvh - 64px)!important}.ask-app{height:auto!important;min-height:0!important}}
 @media(max-width:560px){html.polytechnic-native-app .ask-shell{height:100%!important}.ask-poly-page .ask-form{padding-bottom:max(8px,env(safe-area-inset-bottom))!important}}
 
