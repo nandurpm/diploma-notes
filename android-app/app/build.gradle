@@ -1,4 +1,4 @@
-// POLY PMNA Android app v3.5 — lesson push notifications, offline pages, bookmarks
+// POLY PMNA Android app v3.13 — protected API client cache refresh
 plugins {
     id 'com.android.application'
 }
@@ -23,8 +23,8 @@ android {
         applicationId 'org.diplomanotes.polytechnicstudyhub'
         minSdk 23
         targetSdk 35
-        versionCode 21
-        versionName '3.12'
+        versionCode 22
+        versionName '3.13'
     }
 
     buildFeatures {

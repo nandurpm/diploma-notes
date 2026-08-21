@@ -74,6 +74,7 @@ public class MainActivity extends ComponentActivity {
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
     private static final String PRINT_LOG_TAG = "PolyNativePrint";
+    private static final String WEB_ASSET_SECURITY_VERSION_PREF = "web_asset_security_version";
     // In-app developer portfolio pages. The Developer footer link opens these
     // inside the app's own WebView via the open-external app action. Only the
     // exact allowlisted URLs below may be loaded — no other destination is
@@ -269,6 +270,7 @@ public class MainActivity extends ComponentActivity {
         bookmarks = new BookmarkManager(this);
         prefs = bookmarks.preferences();
         darkMode = false;
+        refreshWebCacheForAppVersion();
 
         configureNativeShell();
         configureBackNavigation();
@@ -288,6 +290,20 @@ public class MainActivity extends ComponentActivity {
 
         offlineCache.preloadEssentialPages(HOME_URL, TRUSTED_HOST);
         mainHandler.postDelayed(slowLoadRunnable, 15000L);
+    }
+
+    private void refreshWebCacheForAppVersion() {
+        String currentVersion = String.valueOf(BuildConfig.VERSION_CODE);
+        String appliedVersion = prefs.getString(WEB_ASSET_SECURITY_VERSION_PREF, "");
+        if (currentVersion.equals(appliedVersion)) {
+            return;
+        }
+        // The website's JavaScript assets are immutable for normal browser caching.
+        // Clear only the WebView HTTP cache once per APK version so upgraded users
+        // receive the current security-hardened client without losing cookies,
+        // Supabase sessions, local storage, or saved app data.
+        webView.clearCache(true);
+        prefs.edit().putString(WEB_ASSET_SECURITY_VERSION_PREF, currentVersion).apply();
     }
 
     @Override
