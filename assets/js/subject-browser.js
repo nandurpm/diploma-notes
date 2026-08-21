@@ -215,6 +215,10 @@
   }
 
   function askPolyAction(subject) {
+    // Revision 2021 cards use the legacy study-card action set; keep Ask POLY
+    // available from the global navigation but do not render a duplicate card button.
+    const revision = String(subject.revision || "").replace(/^REV/i, "");
+    if (revision === "2021") return "";
     const ask = new URL(`${root()}ask-poly.html`, location.origin);
     ask.searchParams.set("ask", `Explain ${subject.name} for a Polytechnic student.`);
     ask.searchParams.set("pageTitle", `${subject.code} — ${subject.name}`);
