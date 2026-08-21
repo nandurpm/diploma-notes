@@ -199,6 +199,7 @@ public class MainActivity extends ComponentActivity {
     private OfflineCacheManager offlineCache;
     private BookmarkManager bookmarks;
     private SharedPreferences prefs;
+    private ForceUpdateGate forceUpdateGate;
     private boolean darkMode;
 
     private ValueCallback<Uri[]> fileChooserCallback;
@@ -282,11 +283,17 @@ public class MainActivity extends ComponentActivity {
 
         applyTheme(darkMode);
 
-        if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
-            loadIncomingIntent(getIntent(), true);
-        } else {
-            hideLaunchOverlay();
-        }
+        forceUpdateGate = new ForceUpdateGate(this);
+        Runnable releaseWebView = () -> {
+            if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
+                loadIncomingIntent(getIntent(), true);
+            } else {
+                hideLaunchOverlay();
+            }
+        };
+        // Do not load or restore WebView content until the native policy check
+        // confirms that this APK is still supported.
+        forceUpdateGate.enforce(releaseWebView);
 
         offlineCache.preloadEssentialPages(HOME_URL, TRUSTED_HOST);
         mainHandler.postDelayed(slowLoadRunnable, 15000L);
@@ -310,7 +317,20 @@ public class MainActivity extends ComponentActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        loadIncomingIntent(intent, false);
+        if (forceUpdateGate != null) {
+            forceUpdateGate.enforce(() -> loadIncomingIntent(intent, false));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (forceUpdateGate != null) {
+            forceUpdateGate.onResume(() -> {
+                // The initial startup callback owns the first WebView load.
+                // Resume checks only release an already-authorized Activity.
+            });
+        }
     }
 
 
@@ -978,6 +998,10 @@ public class MainActivity extends ComponentActivity {
 
     @Override
     protected void onDestroy() {
+        if (forceUpdateGate != null) {
+            forceUpdateGate.destroy();
+            forceUpdateGate = null;
+        }
         mainHandler.removeCallbacksAndMessages(null);
         if (webView != null) {
             webView.stopLoading();

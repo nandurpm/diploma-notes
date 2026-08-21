@@ -28,6 +28,9 @@ https://polypmna.dpdns.org/
 - Improves active drawer highlighting for department and lesson pages.
 - Enables WebView database storage and normal cache mode while preserving the exact-page offline retry screen.
 - Clears the WebView HTTP cache once on an APK version change so security-critical website JavaScript updates are loaded without clearing cookies, sessions, or local storage.
+- Adds a native Kotlin force-update gate before WebView content is loaded: it validates the HTTPS update manifest, compares `versionCode`, blocks outdated APKs with a non-dismissible update screen, downloads only allowlisted HTTPS release assets, verifies the manifest SHA-256, and hands the verified APK to Android’s package installer.
+- The native gate fails closed when the update policy cannot be verified; users can retry or exit, but cannot bypass the gate into the WebView.
+- Because updates are distributed outside Google Play, Android may require the user to enable **Allow from this source** for POLY PMNA before the verified APK can be installed.
 - Opens approved SITTTR, Google Drive and GitHub links through the appropriate external app.
 - Keeps Ask POLY AI, Mock Exams, Tools, Question Papers, 2015 Materials, About and Contact.
 - Re-registers for Firebase lesson-notification topics from the main app activity as well as the notification bootstrap activity.
@@ -74,3 +77,7 @@ A public update must use the existing release signing key. Configure these encry
 - `ANDROID_KEY_PASSWORD`
 
 Never commit the signing keystore or passwords. Replacing the original key prevents Android from installing the new APK as an update over the existing app.
+
+## Force-update rollout
+
+The gate blocks only when the live manifest contains both `forceUpdate: true` and a `versionCode` greater than the installed APK. To require an update from a previously released APK, publish a new signed APK whose native policy includes the desired minimum version or raise the remote policy after the new APK is available. The Android package installer still verifies the APK signature; the manifest SHA-256 is an additional integrity check and is not a replacement for Android signing.

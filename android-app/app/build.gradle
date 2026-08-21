@@ -1,6 +1,7 @@
 // POLY PMNA Android app v3.13 — protected API client cache refresh
 plugins {
     id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
 }
 
 if (file('google-services.json').exists()) {
@@ -101,6 +102,7 @@ tasks.named('preBuild').configure {
 
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.5'
+    implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'androidx.activity:activity:1.10.1'
     implementation 'androidx.fragment:fragment:1.8.9'
     implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
