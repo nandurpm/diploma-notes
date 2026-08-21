@@ -7,7 +7,7 @@
   X-Permitted-Cross-Domain-Policies: none
   Access-Control-Allow-Origin: https://polypmna.dpdns.org
   Vary: Origin
-  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.vercel-insights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self'; connect-src 'self' https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://hwobooljdvynsajtrvnk.supabase.co https://api.polypmna.dpdns.org; frame-src 'self' https://drive.google.com; form-action 'self' mailto:; base-uri 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://www.gstatic.com https://cdn.jsdelivr.net https://cdn.vercel-insights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self'; connect-src 'self' https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://firestore.googleapis.com https://hwobooljdvynsajtrvnk.supabase.co https://api.polypmna.dpdns.org https://ask-poly-ai.nandakumardpm.workers.dev; frame-src 'self' https://drive.google.com; form-action 'self' mailto:; base-uri 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests
 
 /
   Cache-Control: no-cache, max-age=0, must-revalidate
