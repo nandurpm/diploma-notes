@@ -1360,17 +1360,18 @@
   }
 
   function updateQueueStatus() {
-    if (!els.queue) return;
     const count = messageQueue.length;
-    els.queue.textContent = count ? `Queue (${count})` : "Queue message";
-    els.queue.classList.toggle("active", count > 0);
-    els.queue.dataset.count = String(count);
-    els.queue.setAttribute("aria-label", count
-      ? `${count} message${count === 1 ? "" : "s"} queued; current response will continue`
-      : (waiting ? "Add the current message to the queue" : "Send the current message"));
-    els.queue.title = count
-      ? `${count} queued message${count === 1 ? "" : "s"}`
-      : (waiting ? "Add this message to the pending queue" : "Send this message");
+    if (els.queue) {
+      els.queue.textContent = count ? `Queue (${count})` : "Queue message";
+      els.queue.classList.toggle("active", count > 0);
+      els.queue.dataset.count = String(count);
+      els.queue.setAttribute("aria-label", count
+        ? `${count} message${count === 1 ? "" : "s"} queued; current response will continue`
+        : (waiting ? "Add the current message to the queue" : "Send the current message"));
+      els.queue.title = count
+        ? `${count} queued message${count === 1 ? "" : "s"}`
+        : (waiting ? "Add this message to the pending queue" : "Send this message");
+    }
     if (!waiting) els.status.textContent = count ? `${count} message${count === 1 ? "" : "s"} queued` : "Ready";
   }
 
