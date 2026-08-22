@@ -651,6 +651,12 @@ body.ask-chats-open{overflow:hidden}
 .ask-poly-page .action.ask-poly,.poly-lesson-action.poly-lesson-ask{background:linear-gradient(135deg,#1d4ed8,#0891b2);color:#fff;border-color:transparent;box-shadow:0 6px 12px rgba(29,78,216,.16)}
 .ask-poly-page .action.ask-poly:hover,.poly-lesson-action.poly-lesson-ask:hover{filter:brightness(1.05);transform:translateY(-1px)}
 @media(prefers-reduced-motion:reduce){.ask-poly-page .action.ask-poly:hover,.poly-lesson-action.poly-lesson-ask:hover{transform:none}}
+
+/* Android WebView: maximize readable AI answer width and remove unused side gutters. */
+html.polytechnic-native-app .ask-shell{padding-left:0!important;padding-right:0!important}
+html.polytechnic-native-app .ask-messages{padding-left:3px!important;padding-right:3px!important}
+html.polytechnic-native-app .ask-bubble.ai{width:100%!important;max-width:100%!important}
+
 .ask-response-actions .ask-report-mistake{border-color:rgba(185,28,28,.16);color:#b91c1c;background:#fff7ed}.ask-response-actions .ask-report-mistake:hover,.ask-response-actions .ask-report-mistake:focus-visible{background:#fee2e2;border-color:#ef4444;outline:none}
 
 /* Final mobile composer repair: keep the input and action group together. */
