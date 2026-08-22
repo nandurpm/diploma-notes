@@ -337,8 +337,28 @@ body.portal-page .info-card,
 body.portal-page .choice-card,
 body.portal-page .subject-card {
   min-width: 0 !important;
-  height: 100%;
-  overflow: hidden;
+  height: auto;
+  overflow: visible;
+}
+
+/* Model-paper cards contain two actions. Keep them in a predictable vertical
+   stack so Ask POLY is never clipped or hidden below the paper button. */
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+  gap: 9px;
+}
+
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row > *,
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row .action,
+body.portal-page #subjectGrid[data-mode="papers"] .subject-card .action-row .availability-label {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
 }
 
 body.portal-page img,
