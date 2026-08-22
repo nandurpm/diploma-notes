@@ -23,6 +23,11 @@ def main() -> int:
         text = path.read_text(encoding="utf-8")
         if 'id="subjectGrid"' not in text:
             continue
+        # Materialized pages already contain a complete static subject grid and
+        # must be left unchanged. Treat them as normalized so repeated CI runs
+        # remain deterministic after materialize_rev2021_subjects.py has run.
+        if '<!-- STATIC REV2021 SUBJECTS START -->' in text and '<!-- STATIC REV2021 SUBJECTS END -->' in text:
+            continue
         legacy_pattern = r'<noscript\b[^>]*>.*?sitttrkerala\.ac\.in.*?</noscript>'
         updated, count = re.subn(legacy_pattern, FALLBACK, text, count=0, flags=re.I | re.S)
         if count == 0 and "<noscript" in text:
