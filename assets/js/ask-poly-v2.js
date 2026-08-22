@@ -82,7 +82,7 @@
       "```",
       "",
       "This produces the complete ordered list immediately. Ask me for a smaller range if you want the numbers displayed in the chat."
-    ].join("\\n");
+    ].join("\n");
   }
 
   if (!els.form || !els.messages || !els.input) return;
