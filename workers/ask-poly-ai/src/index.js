@@ -346,7 +346,8 @@ export default {
               : (env.OPENAI_MODEL || "gpt-4o-mini"),
         mockExamEvaluation: true,
         mockExamPattern: "1004-75-mark-official-model",
-        dailyQuizGrading: true
+        dailyQuizGrading: true,
+        commentsConfigured: Boolean(env.FIREBASE_SERVICE_ACCOUNT_JSON)
       }, 200, origin, env);
     }
 

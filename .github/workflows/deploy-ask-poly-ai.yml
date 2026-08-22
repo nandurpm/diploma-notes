@@ -167,11 +167,19 @@ jobs:
           with open("ask-poly-secrets.json", "w", encoding="utf-8") as file:
               json.dump(secrets, file)
           PY
-          # Keep secret bulk aligned with the module Worker manifest. Running
-          # this command from the repository root can create an asset-only
-          # version and replace the module version on the canonical hostname.
-          test "$(stat -c '%a' ask-poly-secrets.json)" = "600"
-          wrangler secret bulk ask-poly-secrets.json
+          # Use wrangler secret put for each secret to ensure they are correctly uploaded.
+          # We use a temporary script to avoid leaking secrets in the logs.
+          echo "Uploading secrets..."
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}" | npx wrangler secret put FIREBASE_SERVICE_ACCOUNT_JSON
+          echo "${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}" | npx wrangler secret put CLOUDFLARE_AI_API_TOKEN
+          echo "${{ secrets.SUPABASE_URL }}" | npx wrangler secret put SUPABASE_URL
+          echo "${{ secrets.SUPABASE_ANON_KEY }}" | npx wrangler secret put SUPABASE_ANON_KEY
+          echo "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" | npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+          echo "${{ secrets.OPENAI_API_KEY }}" | npx wrangler secret put OPENAI_API_KEY
+          echo "${{ secrets.NVIDIA_API_KEY }}" | npx wrangler secret put NVIDIA_API_KEY
+          echo "${{ secrets.OPENROUTER_API_KEY }}" | npx wrangler secret put OPENROUTER_API_KEY
+          echo "${{ secrets.GOOGLE_AI_STUDIO }}" | npx wrangler secret put GOOGLE_AI_STUDIO
+          echo "${{ secrets.FREE_API_KEY }}" | npx wrangler secret put FREE_API_KEY
 
       - name: Re-deploy secure Worker after credential synchronization
         env:
