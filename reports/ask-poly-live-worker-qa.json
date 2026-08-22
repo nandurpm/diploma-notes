@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-20T20:45:35Z",
+  "generatedAt": "2026-08-22T02:56:25Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -35,7 +35,7 @@
     "ok": true,
     "provider": "nvidia",
     "model": "meta/llama-3.1-8b-instruct",
-    "answerPreview": "\u0d1e\u0d3e\u0d7b \u0d06\u0d38\u0d4d\u0d15\u0d4d \u0d2a\u0d4b\u0d33\u0d3f \u0d06\u0d2f\u0d3f \u0d24\u0d2f\u0d4d\u0d2f\u0d3e\u0d31\u0d3e\u0d2f\u0d3f."
+    "answerPreview": "\u0d1e\u0d3e\u0d7b Ask POLY \u0d06\u0d2f\u0d3f \u0d24\u0d2f\u0d4d\u0d2f\u0d3e\u0d31\u0d3e\u0d2f\u0d3f."
   },
   "relevanceTest": {
     "ok": true,
