@@ -1,0 +1,223 @@
+/* Homepage polish: balanced hierarchy and responsive spacing. */
+
+body.home-page {
+  --home-max: 1480px;
+}
+
+body.home-page main {
+  width: min(100%, var(--home-max)) !important;
+  margin-inline: auto !important;
+  padding-inline: clamp(14px, 2vw, 30px) !important;
+}
+
+body.home-page .home-compact-hero.page-title {
+  width: 100% !important;
+  min-height: 0 !important;
+  margin: 18px 0 16px !important;
+  padding: clamp(24px, 3vw, 42px) !important;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 390px) !important;
+  gap: clamp(20px, 3vw, 48px) !important;
+  align-items: center !important;
+  grid-template-rows: auto !important;
+  border-radius: 28px !important;
+}
+
+body.home-page .home-hero-copy {
+  min-width: 0;
+}
+
+body.home-page .home-compact-hero h1 {
+  max-width: 760px !important;
+  margin: 7px 0 12px !important;
+  font-size: clamp(2.15rem, 3.5vw, 4rem) !important;
+  line-height: 1.02 !important;
+  text-wrap: balance;
+}
+
+body.home-page .home-compact-hero > .home-hero-copy > p:not(.kicker) {
+  max-width: 720px !important;
+  margin: 0 0 16px !important;
+  font-size: clamp(.96rem, 1.1vw, 1.12rem) !important;
+  line-height: 1.55 !important;
+}
+
+body.home-page .home-app-actions {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 9px !important;
+  margin: 0 !important;
+}
+
+body.home-page .home-app-actions .btn {
+  min-height: 40px !important;
+  padding: 9px 14px !important;
+  white-space: nowrap;
+}
+
+body.home-page .daily-special-card {
+  grid-row: auto !important;
+  width: 100% !important;
+  max-width: 390px !important;
+  justify-self: end !important;
+  align-self: center !important;
+}
+
+/* Keep the seasonal banner as a compact supporting feature, not a blank page-sized block. */
+body.home-page .onam-day-banner-wrap {
+  height: clamp(170px, 15vw, 230px) !important;
+  margin: 0 0 22px !important;
+  border-radius: 24px !important;
+}
+
+body.home-page .academic-hub {
+  margin: 0 0 22px !important;
+  padding: clamp(20px, 2.2vw, 32px) !important;
+  border-radius: 26px !important;
+}
+
+body.home-page .academic-hub__heading {
+  align-items: end !important;
+  gap: 24px !important;
+  margin-bottom: 4px !important;
+}
+
+body.home-page .academic-hub__heading > p {
+  max-width: 560px !important;
+  margin: 0 !important;
+  font-size: .9rem !important;
+  line-height: 1.5 !important;
+}
+
+body.home-page .academic-hub__grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  align-items: start !important;
+  gap: 14px !important;
+  margin-top: 18px !important;
+}
+
+body.home-page .academic-menu {
+  align-self: start !important;
+}
+
+/* Open panels get room instead of creating a tall isolated middle column. */
+@media (min-width: 1101px) {
+  body.home-page .academic-menu[open] {
+    grid-column: span 2;
+  }
+}
+
+body.home-page .selection-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 22px 0 !important;
+  gap: 16px !important;
+}
+
+body.home-page .selection-grid .choice-card {
+  min-height: 168px !important;
+  padding: clamp(20px, 2vw, 28px) !important;
+}
+
+body.home-page .selection-grid .choice-card h2 {
+  font-size: clamp(1.25rem, 1.7vw, 1.7rem) !important;
+}
+
+body.home-page .selection-grid .choice-card p {
+  max-width: 48ch;
+  font-size: .94rem !important;
+  line-height: 1.5 !important;
+}
+
+body.home-page .home-feature {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 22px 0 !important;
+}
+
+body.home-page #subject-browser {
+  margin-top: 24px !important;
+}
+
+@media (max-width: 1100px) {
+  body.home-page .home-compact-hero.page-title {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.home-page .daily-special-card {
+    max-width: none !important;
+    justify-self: stretch !important;
+  }
+
+  body.home-page .academic-hub__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  body.home-page .academic-menu[open] {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 720px) {
+  body.home-page main {
+    padding-inline: 10px !important;
+  }
+
+  body.home-page .home-compact-hero.page-title {
+    margin: 12px 0 !important;
+    padding: 20px 16px !important;
+    border-radius: 22px !important;
+  }
+
+  body.home-page .home-compact-hero h1 {
+    font-size: clamp(1.8rem, 8vw, 2.45rem) !important;
+  }
+
+  body.home-page .home-app-actions .btn {
+    flex: 1 1 190px;
+    white-space: normal;
+  }
+
+  body.home-page .onam-day-banner-wrap {
+    height: clamp(150px, 46vw, 220px) !important;
+    margin-bottom: 16px !important;
+    border-radius: 20px !important;
+  }
+
+  body.home-page .academic-hub {
+    padding: 18px 12px !important;
+    border-radius: 22px !important;
+  }
+
+  body.home-page .academic-hub__heading {
+    display: block !important;
+  }
+
+  body.home-page .academic-hub__heading > p {
+    margin-top: 8px !important;
+  }
+
+  body.home-page .academic-hub__grid {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  body.home-page .academic-menu[open] {
+    grid-column: auto !important;
+  }
+
+  body.home-page .selection-grid {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+    margin: 16px 0 !important;
+  }
+
+  body.home-page .selection-grid .choice-card {
+    min-height: 0 !important;
+  }
+
+  body.home-page .home-feature {
+    margin: 16px 0 !important;
+  }
+}
