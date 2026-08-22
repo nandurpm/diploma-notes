@@ -134,8 +134,10 @@
   const questionPaperAction = (subject, label = "Download Model Question Paper") => {
     const direct = pdfHref(subject, "modelQuestionPaper");
     if (direct) return `<a class="action qp" href="${esc(direct)}" download="${esc(pdfFileName(direct))}" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
-    const fallback = sitttrHref(subject, "modelQuestionPaper");
-    return `<a class="action qp external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open SITTTR Model Question Paper</a>`;
+    // The legacy SITTTR course route currently returns "Requested file not found"
+    // for unavailable records. Do not expose a dead/blocked external link; show a
+    // truthful status instead. Verified direct PDFs above remain clickable.
+    return `<span class="availability-label qp-status" aria-disabled="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model paper unavailable</span>`;
   };
 
   function unique(list) {
