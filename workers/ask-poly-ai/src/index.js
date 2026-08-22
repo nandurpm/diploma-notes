@@ -156,6 +156,11 @@ function cloudflareMessages(body) {
         "Answer only the user's actual question. For simple factual questions, answer directly and stop.",
         "Do not mention POLY PMNA, subjects, syllabus, resources or links unless the user explicitly asks about them.",
         "Use supplied website context only when it directly answers an explicit website or academic-resource question.",
+        body?.preferredLanguage === "ml"
+          ? "Language requirement: Answer in simple Malayalam or mixed Malayalam-English, retaining technical terms in English when useful. Do not switch to English unless the user asks for English."
+          : body?.preferredLanguage === "en"
+            ? "Language requirement: Answer entirely in English. Do not switch to Malayalam or another language because supplied context, saved history, or source records contain Malayalam. Switch language only when the user explicitly asks for it."
+            : "Language requirement: Match the language of the user's latest question; do not let supplied context or previous messages override the latest question's language.",
         SYSTEM_INSTRUCTIONS
       ].join("\n\n")
     },
