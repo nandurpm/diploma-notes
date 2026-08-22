@@ -5,7 +5,7 @@
   const SYLLABUS_INDEX = "";
   const MODEL_QP_INDEX = "";
   const SUBJECT_DATA_URLS = [
-    "/assets/data/revision-2015-subjects.json?v=20260818-rev2015-polish1",
+    "/assets/data/revision-2015-subjects.json?v=20260822-rev2015-sitttr-fallback1",
     "/assets/data/revision-2015-subjects.json"
   ];
 
@@ -89,7 +89,11 @@
     if (!href) return "";
     try {
       const url = new URL(href);
-      return url.hostname === "github.com" && url.pathname.includes("poly-pmna-pdf-files") ? href : "";
+      // Allow POLY PMNA PDF archive links
+      if (url.hostname === "github.com" && url.pathname.includes("poly-pmna-pdf-files")) return href;
+      // Allow official SITTTR links as fallbacks
+      if (url.hostname.includes("sitttrkerala.ac.in")) return href;
+      return "";
     } catch (_) {
       return "";
     }
