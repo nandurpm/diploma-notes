@@ -35,7 +35,7 @@ GITHUB_MODELS_ENDPOINT = os.environ.get(
 GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4.1")
 ASK_POLY_ENDPOINT = os.environ.get(
     "ASK_POLY_ENDPOINT",
-    "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy",
+    "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly",
 )
 
 MIN_HTML_CHARS = int(os.environ.get("REV2026_MIN_HTML_CHARS", "30000"))

@@ -56,7 +56,7 @@ try {
     contentType: "application/json",
     body: JSON.stringify({ ok: true, configured: true, providers: ["qa-stub"], model: "qa-grounding" })
   }));
-  await page.route(/^https:\/\/hwobooljdvynsajtrvnk\.supabase\.co\/functions\/v1\/ask-poly-proxy(?:\/health)?(?:\?.*)?$/, async (route) => {
+  await page.route(/^https:\/\/hwobooljdvynsajtrvnk\.supabase\.co\/functions\/v1\/ask-poly-proxy(?:\/api\/ask-poly|\/health)(?:\?.*)?$/, async (route) => {
     if (route.request().url().includes("/health")) {
       await route.fulfill({
         status: 200,

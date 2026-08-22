@@ -2,7 +2,7 @@
 globalThis.ASK_POLY_CONFIG = Object.freeze({
   endpoint: "https://api.polypmna.dpdns.org/api/ask-poly",
   // Fallback for deployments whose edge CSP still blocks the protected API hostname.
-  fallbackEndpoint: "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy",
+  fallbackEndpoint: "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly",
   healthEndpoint: "https://api.polypmna.dpdns.org/health",
   fallbackHealthEndpoint: "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health",
   mockExamEndpoint: "https://api.polypmna.dpdns.org/api/evaluate-mock-exam",
