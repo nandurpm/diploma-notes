@@ -8,6 +8,8 @@ on:
     paths:
       - "workers/ask-poly-ai/**"
       - "assets/js/ask-poly-config.js"
+      - "wrangler.toml"
+      - "package.json"
       - ".github/workflows/deploy-ask-poly-ai.yml"
 
 permissions:
