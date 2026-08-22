@@ -577,21 +577,10 @@
     return `<div class="ask-department-choices" aria-label="Choose your department"><strong>Choose your department</strong><div>${items.map((item) => `<button type="button" data-department-choice="${escapeHtml(item.displayName)}">${escapeHtml(item.displayName)}</button>`).join("")}</div></div>`;
   }
 
-  function sourceItems(meta = {}) {
-    const sources = Array.isArray(meta.sources) ? meta.sources : [];
-    return sources.filter((item) => item?.title && item?.url).slice(0, 6);
-  }
-
   function renderKnowledgeIndicator(meta = {}) {
     if (meta.error && !meta.websiteKnowledge) return `<div class="ask-knowledge-indicator warning">⚠️ Live AI was unavailable; please verify this answer.</div>`;
     if (meta.websiteKnowledge) return `<div class="ask-knowledge-indicator grounded">✓ Based on POLY PMNA resources used for this answer</div>`;
     return `<div class="ask-knowledge-indicator general">ℹ General engineering knowledge; no POLY PMNA source was required</div>`;
-  }
-
-  function renderSources(meta = {}) {
-    const sources = sourceItems(meta);
-    if (!sources.length) return "";
-    return `<section class="ask-sources" aria-label="Sources used"><strong>Sources used</strong><ul>${sources.map((item) => `<li>${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)}</a>` : escapeHtml(item.title)}${item.detail ? ` · ${escapeHtml(item.detail)}` : ""}</li>`).join("")}</ul></section>`;
   }
 
   function followUpActions(content = "", meta = {}) {
@@ -669,11 +658,10 @@
     const departmentChoices = !isUser ? renderDepartmentChoices(message.meta?.departmentClarification?.candidates || []) : "";
     const evidence = !isUser && (message.meta?.provider || message.meta?.websiteKnowledge || message.meta?.error || message.meta?.sources?.length);
     const knowledge = evidence ? renderKnowledgeIndicator(message.meta) : "";
-    const sources = !isUser ? renderSources(message.meta) : "";
     const actions = !isUser && (String(message.content || "").length > 120 || diagramIntent || message.meta?.websiteKnowledge) ? renderResponseActions(message) : "";
     div.innerHTML = isUser
       ? `${label}<div class="ask-message-text">${escapeHtml(message.content)}</div>`
-      : `${label}<div class="ask-response-body">${diagramHtml}${knowledge}${renderText(message.content, { diagramIntent })}${departmentChoices}${sources}${actions}</div>`;
+      : `${label}<div class="ask-response-body">${diagramHtml}${knowledge}${renderText(message.content, { diagramIntent })}${departmentChoices}${actions}</div>`;
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
