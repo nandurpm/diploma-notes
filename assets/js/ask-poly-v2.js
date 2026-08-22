@@ -1339,7 +1339,14 @@
     try {
       const messages = await getMessages(activeChatId);
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
-      const history = previousMessages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
+      // Keep saved conversations within the Worker validator's per-entry limit.
+      // Long source lists in older answers must not make every later question fail.
+      const history = previousMessages
+        .map((m) => ({
+          role: m.role === "assistant" ? "assistant" : "user",
+          content: String(m.content || "").slice(0, 1000)
+        }))
+        .filter((m) => m.content.trim());
       const retrievalQuery = [clean, learningContext.department?.displayName, learningContext.semester, learningContext.revision, learningContext.page?.subject, learningContext.page?.topic].filter(Boolean).join(" ");
       const useWebsiteKnowledge = shouldSearchWebsite(clean) || Boolean(learningContext.department || learningContext.semester || learningContext.revision || learningContext.page);
       retrieval = useWebsiteKnowledge ? await knowledgeSearch(retrievalQuery) : null;
