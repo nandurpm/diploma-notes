@@ -61,6 +61,30 @@
   // gives a readable ~30 words/second pace while preserving provider latency.
   const STREAM_WORD_DELAY_MS = 32;
 
+  function largeListRequestLimit(text) {
+    const value = String(text || "").trim();
+    if (!/\b(?:write|list|print|show|generate|give|count)\b[\s\S]*\b(?:number|numbers|integers)\b/i.test(value)) return 0;
+    const rangeMatch = value.match(/\b(?:to|up\s+to|until|through)\s*([0-9][0-9,]*)\b/i);
+    const numberMatch = [...value.matchAll(/\b[0-9][0-9,]*\b/g)].at(-1);
+    const raw = rangeMatch?.[1] || numberMatch?.[0] || "0";
+    const limit = Number(String(raw).replaceAll(",", ""));
+    return Number.isSafeInteger(limit) && limit > 1000 ? limit : 0;
+  }
+
+  function largeListAnswer(limit) {
+    const formatted = limit.toLocaleString();
+    return [
+      `Printing ${formatted} numbers directly in this chat would be too large and slow. Use a short generator instead:`,
+      "",
+      "```python",
+      `for number in range(1, ${limit + 1}):`,
+      "    print(number)",
+      "```",
+      "",
+      "This produces the complete ordered list immediately. Ask me for a smaller range if you want the numbers displayed in the chat."
+    ].join("\\n");
+  }
+
   if (!els.form || !els.messages || !els.input) return;
 
   function now() { return new Date().toISOString(); }
@@ -1079,6 +1103,13 @@
     if (!force && !/^\s/.test(token) && !/\s/.test(remainder)) return "";
     return token;
   }
+  function streamWordDelay(streamBubble, token) {
+    if (/^\s+$/.test(token)) return 0;
+    const targetLength = streamBubble?.targetText?.length || 0;
+    if (targetLength >= 4500) return 8;
+    if (targetLength >= 2500) return 16;
+    return STREAM_WORD_DELAY_MS;
+  }
   function pumpStreamingBubble(streamBubble) {
     if (!streamBubble || streamBubble.disposed || streamBubble.forceComplete || streamBubble.timer) return;
     const remainder = streamBubble.targetText.slice(streamBubble.displayedText.length);
@@ -1089,7 +1120,7 @@
     streamBubble.timer = window.setTimeout(() => {
       streamBubble.timer = null;
       pumpStreamingBubble(streamBubble);
-    }, /^\s+$/.test(token) ? 0 : STREAM_WORD_DELAY_MS);
+    }, streamWordDelay(streamBubble, token));
   }
   function addStreamingBubble(diagramIntent = null) {
     const div = document.createElement("div");
@@ -1129,7 +1160,8 @@
       if (!token) break;
       streamBubble.displayedText += token;
       renderStreamingText(streamBubble);
-      if (!/^\s+$/.test(token)) await new Promise((resolve) => window.setTimeout(resolve, STREAM_WORD_DELAY_MS));
+      const delay = streamWordDelay(streamBubble, token);
+      if (delay) await new Promise((resolve) => window.setTimeout(resolve, delay));
     }
     streamBubble.content?.removeAttribute("data-streaming");
     streamBubble.div?.removeAttribute("aria-busy");
@@ -1286,6 +1318,22 @@
     
     const clean = text.trim();
     const attachment = activeAttachment;
+    const largeListLimit = largeListRequestLimit(clean);
+    if (largeListLimit) {
+      if (!isQueued) {
+        els.input.value = "";
+        autoResize();
+      }
+      await addMessage("user", clean, { answerMode: learningContext.mode || "explain", learningContext: contextSnapshot() });
+      await updateChatTitleFromMessage(activeChatId, clean);
+      await addMessage("assistant", largeListAnswer(largeListLimit), {
+        provider: "local-large-list-protection",
+        answerMode: learningContext.mode || "explain",
+        learningContext: contextSnapshot()
+      });
+      await renderAll();
+      return;
+    }
     const detectedDepartment = departmentRegistry?.find(clean, activeDepartment) || null;
     if (detectedDepartment?.ambiguous) {
       if (!isQueued) {
