@@ -33,6 +33,7 @@ jobs:
       SUPABASE_URL_VALUE: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY_VALUE: ${{ secrets.SUPABASE_ANON_KEY }}
       SUPABASE_SERVICE_ROLE_KEY_VALUE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      FIREBASE_SERVICE_ACCOUNT_JSON_VALUE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
     steps:
       - uses: actions/checkout@v4
 
@@ -55,6 +56,7 @@ jobs:
           node --check workers/ask-poly-ai/src/ask-handler.js
           node --check workers/ask-poly-ai/src/mock-evaluator.js
           node --check workers/ask-poly-ai/src/result-store.js
+          node --check workers/ask-poly-ai/src/comments.js
           node --check assets/js/ask-poly-config.js
           node --check assets/js/mock-exam-service.js
           python - <<'PY'
@@ -73,6 +75,7 @@ jobs:
           assert 'backupEndpoint' not in public_config
 
           worker_config = Path('workers/ask-poly-ai/wrangler.toml').read_text(encoding='utf-8')
+          assert 'COMMENT_RATE_LIMITER' in worker_config
           assert 'main = "src/secure-index.js"' in worker_config
           assert '[ai]' in worker_config and 'binding = "AI"' in worker_config
           assert 'name = "ASK_RATE_LIMITER"' in worker_config
@@ -99,6 +102,10 @@ jobs:
           if [ -z "$SUPABASE_URL_VALUE" ] || [ -z "$SUPABASE_ANON_KEY_VALUE" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY_VALUE" ]; then
             echo "Supabase secrets are not present in repository secrets."
             echo "The existing Cloudflare Worker secrets will remain unchanged by the upload step."
+          fi
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON_VALUE" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON is required for the protected public-comments write path."
+            exit 1
           fi
           if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$OPENROUTER_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$FREE_API_KEY_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
             echo "At least one AI provider credential is required."
@@ -132,6 +139,7 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         shell: bash
         working-directory: workers/ask-poly-ai
         run: |
@@ -147,6 +155,7 @@ jobs:
               "CLOUDFLARE_AI_API_TOKEN", "CLOUDFLARE_AI_ACCOUNT_ID",
               "SUPABASE_URL", "SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY",
               "OPENAI_API_KEY", "NVIDIA_API_KEY", "OPENROUTER_API_KEY", "GOOGLE_AI_STUDIO", "FREE_API_KEY",
+              "FIREBASE_SERVICE_ACCOUNT_JSON",
           ):
               value = os.environ.get(key, "")
               if value:
@@ -220,6 +229,18 @@ jobs:
                   )
                   if storage_credentials_supplied and not health.get("verifiedResultStorage"):
                       raise RuntimeError(f"Verified result storage is disabled despite supplied Supabase credentials: {health}")
+
+                  comment_health_request = urllib.request.Request(
+                      base + "/api/help-comments/health",
+                      headers={
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Deploy-QA/6.0"
+                      },
+                  )
+                  with urllib.request.urlopen(comment_health_request, timeout=20) as response:
+                      comment_health = json.loads(response.read().decode("utf-8"))
+                  if not comment_health.get("configured") or comment_health.get("writes") != "enabled":
+                      raise RuntimeError(f"Protected comments route is not configured: {comment_health}")
 
                   ask_payload = json.dumps({
                       "message": "Reply with exactly: Ask POLY is ready",
@@ -301,7 +322,8 @@ jobs:
                       "model": answer.get("model"),
                       "mockRoute": "401 without login",
                       "askMalformedRoute": "400 for malformed JSON",
-                      "dailyQuizRoute": "400 for malformed submission"
+                      "dailyQuizRoute": "400 for malformed submission",
+                      "commentsHealth": "configured"
                   }, indent=2))
                   break
               except Exception as error:

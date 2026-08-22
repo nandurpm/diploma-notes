@@ -3,6 +3,7 @@
 // deliberately disabled. Firebase API keys and auth credentials must not ship
 // in this bundle; writes require a server-side proxy with a secret-held key.
 const FIRESTORE_REST_URL = "https://firestore.googleapis.com/v1/projects/diploma-notes-comments/databases/(default)/documents/helpComments";
+const COMMENTS_PROXY_URL = "https://api.polypmna.dpdns.org/api/help-comments";
 const EMAIL_TOKEN = "5a343b343e3b312f373b2837313e2a371a3d373b333674393537";
 const PAGE_SIZE = 40;
 const POST_COOLDOWN_MS = 60000;
@@ -84,7 +85,9 @@ async function requestJson(url, options = {}) {
   return payload;
 }
 async function ensureAuthenticated() {
-  throw new Error("Comment posting is temporarily unavailable until the protected server endpoint is configured.");
+  const health = await requestJson(`${COMMENTS_PROXY_URL}/health`);
+  if (!health.configured) throw new Error("Comment posting is temporarily unavailable while the protected server endpoint is being configured.");
+  return health;
 }
 async function fetchComments() {
   const query = new URLSearchParams({ pageSize: String(PAGE_SIZE), orderBy: "createdAt desc" });
@@ -93,8 +96,8 @@ async function fetchComments() {
   render();
 }
 async function createComment(values) {
-  const user = await ensureAuthenticated();
-  return requestJson(FIRESTORE_REST_URL, { method: "POST", headers: { Authorization: `Bearer ${user.idToken}` }, body: JSON.stringify({ fields: firestoreFields({ ...values, uid: user.uid, createdAt: new Date() }) }) });
+  await ensureAuthenticated();
+  return requestJson(COMMENTS_PROXY_URL, { method: "POST", body: JSON.stringify(values) });
 }
 async function updateComment(item) {
   const user = await ensureAuthenticated();
@@ -171,8 +174,17 @@ async function initializeDiscussion() {
   nameInput.value = savedName(); submitButton.disabled = true; countBox.textContent = "Loading…";
   try {
     await fetchComments();
-    setStatus("Comment posting is temporarily unavailable while the protected server endpoint is being configured.", "error");
-    form?.setAttribute("aria-disabled", "true");
+    try {
+      await ensureAuthenticated();
+      submitButton.disabled = false;
+      form?.removeAttribute("aria-disabled");
+      setStatus("Comments are open. Please keep posts public and study-related.", "success");
+    } catch (error) {
+      console.warn("Discussion write service unavailable.", error);
+      submitButton.disabled = true;
+      form?.setAttribute("aria-disabled", "true");
+      setStatus("Comment posting is temporarily unavailable. Email support is still available.", "error");
+    }
   } catch (error) { showUnavailable(error); }
 }
 form?.addEventListener("submit", async event => {

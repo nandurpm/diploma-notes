@@ -1,10 +1,12 @@
 /* Purpose: Secure index - Descriptive comment added for clarity */
 import application from "./index.js";
-import { corsHeaders, createRateLimiter, isOriginAllowed, looksAutomated, requestLogContext, securityLog } from "./http.js";
+import { abuseKey, corsHeaders, createRateLimiter, isOriginAllowed, looksAutomated, requestLogContext, securityLog } from "./http.js";
 import { authenticateStudent, storeMockExamResult } from "./result-store.js";
 import { handleDailyQuizGrading } from "./daily-quiz.js";
+import { commentsHealth, handleComments } from "./comments.js";
 
 const allowImage = createRateLimiter(2, 10 * 60 * 1000);
+const allowComment = createRateLimiter(5, 60 * 1000);
 const IMAGE_INTENT_PATTERN = /\b(?:create|generate|draw|make|show)\s+(?:an?\s+)?(?:image|picture|photo|drawing|sketch|illustration)\b/i;
 
 function json(data, status, origin, env, inherited) {
@@ -73,6 +75,22 @@ export default {
     if (request.method === "POST" && looksAutomated(request)) {
       securityLog("automated_client_blocked", { ...logContext, severity: "warning" });
       return json({ error: "Automated clients are not permitted." }, 403, origin, env);
+    }
+
+    if (request.method === "OPTIONS" && (url.pathname === "/api/help-comments" || url.pathname === "/api/help-comments/health")) {
+      return new Response(null, { status: 204, headers: corsHeaders(origin, env) });
+    }
+
+    if (request.method === "GET" && url.pathname === "/api/help-comments/health") {
+      return commentsHealth(env, origin);
+    }
+
+    if (request.method === "POST" && url.pathname === "/api/help-comments") {
+      if (!(await allowed(env.COMMENT_RATE_LIMITER, abuseKey(request, "comments"))) || !allowComment(request)) {
+        securityLog("rate_limit_blocked", { ...logContext, route: "help_comments", severity: "warning" });
+        return json({ error: "Too many comments. Please wait a minute." }, 429, origin, env);
+      }
+      return handleComments(request, env, origin);
     }
 
     if (request.method === "POST" && (url.pathname === "/" || url.pathname === "/api/ask-poly")) {
