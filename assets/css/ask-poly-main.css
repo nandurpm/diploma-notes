@@ -656,6 +656,7 @@ body.ask-chats-open{overflow:hidden}
 html.polytechnic-native-app .ask-shell{padding-left:0!important;padding-right:0!important}
 html.polytechnic-native-app .ask-messages{padding-left:3px!important;padding-right:3px!important}
 html.polytechnic-native-app .ask-bubble.ai{width:100%!important;max-width:100%!important}
+.ask-poly-page .ask-form > .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
 
 .ask-response-actions .ask-report-mistake{border-color:rgba(185,28,28,.16);color:#b91c1c;background:#fff7ed}.ask-response-actions .ask-report-mistake:hover,.ask-response-actions .ask-report-mistake:focus-visible{background:#fee2e2;border-color:#ef4444;outline:none}
 
