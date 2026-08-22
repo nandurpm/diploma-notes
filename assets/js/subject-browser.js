@@ -178,7 +178,7 @@
       // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
       // and heavy scheme/evaluation metadata that browsing pages never render.
       fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260818-pdf-manifest2`).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260822-pdf-fallbacks1`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     PDF_BASE = manifest?.base || PDF_BASE;
     PDF_LINKS = manifest?.links || {};
