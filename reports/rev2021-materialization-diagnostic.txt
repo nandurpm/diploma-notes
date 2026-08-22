@@ -1,9 +1,5 @@
 Revision 2021 materialization diagnostic
-Commit: bcb4f840cfe2fc047246fd09ad663b0ab060cb00
-Run: 32130803493
+Commit: 081d6b46ef1595331c76851a671e4c94d80b22bf
+Run: 32566654411
 
-Normalized 41 legacy Revision 2021 department templates.
-Traceback (most recent call last):
-  File "/home/runner/work/diploma-notes/diploma-notes/tools/materialize_rev2021_subjects.py", line 13, in <module>
-    from bs4 import BeautifulSoup
-ModuleNotFoundError: No module named 'bs4'
+Could not normalize revision-2021/manufacturing-technology.html
