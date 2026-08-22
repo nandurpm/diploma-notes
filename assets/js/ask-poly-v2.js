@@ -57,7 +57,9 @@
   let latestAssistantText = "";
   let speechRecognition = null;
   let dataSaverEnabled = localStorage.getItem("ask-poly-data-saver") === "1";
-  const STREAM_WORD_DELAY_MS = 24;
+  // About 30 words per minute would feel too slow; 32 ms between words
+  // gives a readable ~30 words/second pace while preserving provider latency.
+  const STREAM_WORD_DELAY_MS = 32;
 
   if (!els.form || !els.messages || !els.input) return;
 

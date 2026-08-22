@@ -36,7 +36,10 @@ try {
   });
   page.on("pageerror", (error) => consoleErrors.push({ text: error.message, location: {} }));
 
-  await page.route("https://api.polypmna.dpdns.org/api/ask-poly", async (route) => {
+  // Match the protected API with or without the cache-busting query parameter
+  // added by the client recovery layer. Exact URL matching caused real network
+  // calls in CI, which then produced CORS/ERR_FAILED noise.
+  await page.route(/^https:\/\/api\.polypmna\.dpdns\.org\/api\/ask-poly(?:\?.*)?$/, async (route) => {
     capturedRequest = route.request().postDataJSON();
     await route.fulfill({
       status: 200,
@@ -48,11 +51,31 @@ try {
       })
     });
   });
-  await page.route(/https:\/\/ask-poly-ai\.nandakumarkdpm\.workers\.dev\/health(?:\?.*)?$/, (route) => route.fulfill({
+  await page.route(/^https:\/\/api\.polypmna\.dpdns\.org\/health(?:\?.*)?$/, (route) => route.fulfill({
     status: 200,
     contentType: "application/json",
-    body: JSON.stringify({ ok: true, service: "qa-stub" })
+    body: JSON.stringify({ ok: true, configured: true, providers: ["qa-stub"], model: "qa-grounding" })
   }));
+  await page.route(/^https:\/\/hwobooljdvynsajtrvnk\.supabase\.co\/functions\/v1\/ask-poly-proxy(?:\/health)?(?:\?.*)?$/, async (route) => {
+    if (route.request().url().includes("/health")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ ok: true, configured: true, providers: ["qa-stub"], model: "qa-grounding" })
+      });
+      return;
+    }
+    capturedRequest = route.request().postDataJSON();
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        answer: "QA grounded answer: Revision 2026 subject 1008 was found in the current POLY PMNA website index.",
+        provider: "qa-stub",
+        model: "qa-grounding"
+      })
+    });
+  });
   await page.route(/https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com)\/.*/, (route) => route.fulfill({ status: 204, body: "" }));
 
   const response = await page.goto(`${BASE_URL}/ask-poly.html`, { waitUntil: "networkidle", timeout: 60000 });
