@@ -379,3 +379,29 @@ body.portal-page iframe {
     max-width: 100% !important;
   }
 }
+
+/* Cross-page mobile audit: prevent legacy card internals from widening the document. */
+body.portal-page main,
+body.portal-page .cards,
+body.portal-page .info-card,
+body.portal-page .choice-card {
+  min-width: 0 !important;
+}
+
+body.portal-page main {
+  overflow-x: hidden;
+}
+
+body.portal-page .cards > .info-card,
+body.portal-page .cards > .choice-card {
+  overflow-x: clip;
+}
+
+body.portal-page .cards > .info-card h2,
+body.portal-page .cards > .info-card h3,
+body.portal-page .cards > .choice-card h2,
+body.portal-page .cards > .choice-card h3,
+body.portal-page .cards > .info-card p,
+body.portal-page .cards > .choice-card p {
+  overflow-wrap: anywhere;
+}

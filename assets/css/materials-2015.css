@@ -241,3 +241,24 @@
   .rev2015-department-card,
   .material-resource-link { animation: none; transition: none; }
 }
+
+/* Keep archive cards inside the responsive grid when link labels are long. */
+.materials-archive-section,
+.primary-archive-grid,
+.primary-archive-grid .info-card,
+.primary-archive-grid .link-list {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.primary-archive-grid .info-card {
+  overflow: hidden;
+}
+
+.primary-archive-grid .material-resource-link,
+.primary-archive-grid .material-link-empty {
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
