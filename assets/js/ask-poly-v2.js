@@ -57,6 +57,7 @@
   let latestAssistantText = "";
   let speechRecognition = null;
   let dataSaverEnabled = localStorage.getItem("ask-poly-data-saver") === "1";
+  const STREAM_WORD_DELAY_MS = 24;
 
   if (!els.form || !els.messages || !els.input) return;
 
@@ -1071,29 +1072,85 @@
   }
   function removeTyping() { $("typingBubble")?.remove(); }
 
+    function renderStreamingText(streamBubble) {
+    if (!streamBubble?.content) return;
+    const diagramIntent = streamBubble.diagramIntent || null;
+    streamBubble.content.innerHTML = renderText(streamBubble.displayedText || "", { diagramIntent });
+    els.messages.scrollTop = els.messages.scrollHeight;
+  }
+  function nextStreamToken(remainder, force = false) {
+    if (!remainder) return "";
+    const match = /^(\s+|\S+)/.exec(remainder);
+    if (!match) return "";
+    const token = match[0];
+    // Hold an incomplete trailing word until the provider sends more text. This
+    // keeps the visual effect word-by-word instead of exposing character-sized
+    // provider chunks, while `force` flushes the final word at completion.
+    if (!force && !/^\s/.test(token) && !/\s/.test(remainder)) return "";
+    return token;
+  }
+  function pumpStreamingBubble(streamBubble) {
+    if (!streamBubble || streamBubble.disposed || streamBubble.forceComplete || streamBubble.timer) return;
+    const remainder = streamBubble.targetText.slice(streamBubble.displayedText.length);
+    const token = nextStreamToken(remainder);
+    if (!token) return;
+    streamBubble.displayedText += token;
+    renderStreamingText(streamBubble);
+    streamBubble.timer = window.setTimeout(() => {
+      streamBubble.timer = null;
+      pumpStreamingBubble(streamBubble);
+    }, /^\s+$/.test(token) ? 0 : STREAM_WORD_DELAY_MS);
+  }
   function addStreamingBubble(diagramIntent = null) {
     const div = document.createElement("div");
     div.id = "streamingBubble";
     div.className = "ask-bubble ai";
+    div.setAttribute("aria-busy", "true");
     const label = document.createElement("div");
     label.className = "ask-message-label";
     label.textContent = "POLY AI";
     const content = document.createElement("div");
     content.className = "ask-stream-content ask-response-body";
+    content.dataset.streaming = "true";
     content.textContent = "";
     div.append(label, content);
     div.dataset.diagramIntent = diagramIntent ? JSON.stringify(diagramIntent) : "";
     els.messages.append(div);
     els.messages.scrollTop = els.messages.scrollHeight;
-    return { div, content, diagramIntent };
+    return { div, content, diagramIntent, targetText: "", displayedText: "", timer: null, forceComplete: false, disposed: false };
+  }
+  function updateStreamingBubble(streamBubble, text) {
+    if (!streamBubble?.content || streamBubble.disposed) return;
+    const nextText = String(text || "");
+    if (nextText.startsWith(streamBubble.targetText)) streamBubble.targetText = nextText;
+    else streamBubble.targetText = nextText;
+    pumpStreamingBubble(streamBubble);
+  }
+  async function finishStreamingBubble(streamBubble) {
+    if (!streamBubble || streamBubble.disposed) return;
+    streamBubble.forceComplete = true;
+    if (streamBubble.timer) {
+      window.clearTimeout(streamBubble.timer);
+      streamBubble.timer = null;
+    }
+    while (streamBubble.displayedText.length < streamBubble.targetText.length) {
+      const remainder = streamBubble.targetText.slice(streamBubble.displayedText.length);
+      const token = nextStreamToken(remainder, true);
+      if (!token) break;
+      streamBubble.displayedText += token;
+      renderStreamingText(streamBubble);
+      if (!/^\s+$/.test(token)) await new Promise((resolve) => window.setTimeout(resolve, STREAM_WORD_DELAY_MS));
+    }
+    streamBubble.content?.removeAttribute("data-streaming");
+    streamBubble.div?.removeAttribute("aria-busy");
+  }
+  function disposeStreamingBubble(streamBubble) {
+    if (!streamBubble) return;
+    streamBubble.disposed = true;
+    if (streamBubble.timer) window.clearTimeout(streamBubble.timer);
+    streamBubble.timer = null;
   }
 
-  function updateStreamingBubble(streamBubble, text) {
-    if (!streamBubble?.content) return;
-    const diagramIntent = streamBubble.diagramIntent || null;
-    streamBubble.content.innerHTML = renderText(text || "", { diagramIntent });
-    els.messages.scrollTop = els.messages.scrollHeight;
-  }
 
   function streamChunkFromPayload(payload) {
     if (!payload) return "";
@@ -1291,6 +1348,8 @@
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
       }, diagramIntent, resolvedDepartment, attachment);
+      await finishStreamingBubble(streamBubble);
+      disposeStreamingBubble(streamBubble);
       streamBubble?.div.remove();
       await addMessage("assistant", result.answer, {
         ...diagramMeta,
@@ -1305,6 +1364,7 @@
       });
     } catch (error) {
       removeTyping();
+      disposeStreamingBubble(streamBubble);
       streamBubble?.div.remove();
       if (error.name === "AbortError" && stopRequested) {
         await addMessage("assistant", "Generation stopped by user. You can review the partial response above or ask again.", { ...diagramMeta, provider: "user-stop" });

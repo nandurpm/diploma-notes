@@ -421,6 +421,21 @@ body.ask-chats-open{overflow:hidden}
 .ask-stream-content {
   white-space: normal;
 }
+.ask-stream-content[data-streaming="true"]::after {
+  content: "▋";
+  display: inline-block;
+  margin-left: 3px;
+  color: #2563eb;
+  font-weight: 900;
+  animation: ask-stream-cursor 900ms steps(1, end) infinite;
+}
+@keyframes ask-stream-cursor {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ask-stream-content[data-streaming="true"]::after { animation: none; }
+}
 
 @media (max-width: 900px) {
   .ask-bubble.ai { max-width: 96%; }
