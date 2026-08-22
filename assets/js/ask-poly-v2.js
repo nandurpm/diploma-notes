@@ -1348,6 +1348,10 @@
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
       }, diagramIntent, resolvedDepartment, attachment);
+      // Some providers return JSON after the streaming providers fail. Feed that
+      // complete answer through the same display queue so the UI remains
+      // word-by-word regardless of provider response format.
+      if (!result.streamed && result.answer) updateStreamingBubble(streamBubble, result.answer);
       await finishStreamingBubble(streamBubble);
       disposeStreamingBubble(streamBubble);
       streamBubble?.div.remove();
