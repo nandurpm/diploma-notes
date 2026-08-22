@@ -468,6 +468,8 @@ p { color: var(--muted); line-height: 1.68; }
 .action.lessons { background: linear-gradient(135deg, var(--green), var(--cyan)); }
 .action.qp { background: linear-gradient(135deg, var(--amber), var(--rose)); }
 .action.download { background: linear-gradient(135deg, #047857, #0284c7); }
+.action.ask-poly { color: #fff; background: linear-gradient(135deg, #7c3aed, #db2777); }
+.action.ask-poly:hover { filter: brightness(1.06); }
 
 .link-list { display: grid; gap: 11px; margin-top: 15px; }
 .link-list a {
