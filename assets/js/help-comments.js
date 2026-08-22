@@ -3,7 +3,7 @@
 // deliberately disabled. Firebase API keys and auth credentials must not ship
 // in this bundle; writes require a server-side proxy with a secret-held key.
 const FIRESTORE_REST_URL = "https://firestore.googleapis.com/v1/projects/diploma-notes-comments/databases/(default)/documents/helpComments";
-const COMMENTS_PROXY_URL = "/api/help-comments";
+const COMMENTS_PROXY_URL = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/help-comments";
 const EMAIL_TOKEN = "5a343b343e3b312f373b2837313e2a371a3d373b333674393537";
 const PAGE_SIZE = 40;
 const POST_COOLDOWN_MS = 60000;
@@ -85,8 +85,9 @@ async function requestJson(url, options = {}) {
   return payload;
 }
 async function ensureAuthenticated() {
-  const health = await requestJson("/health/comments");
-  if (!health.configured) throw new Error("Comment posting is temporarily unavailable while the protected server endpoint is being configured.");
+  // Use the .workers.dev health endpoint to bypass custom domain WAF blocks.
+  const health = await requestJson("https://ask-poly-ai.nandakumarkdpm.workers.dev/health");
+  if (!health.commentsConfigured) throw new Error("Comment posting is temporarily unavailable while the protected server endpoint is being configured.");
   return health;
 }
 async function fetchComments() {
