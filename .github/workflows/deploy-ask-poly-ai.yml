@@ -233,7 +233,7 @@ jobs:
                       raise RuntimeError(f"Verified result storage is disabled despite supplied Supabase credentials: {health}")
 
                   comment_health_request = urllib.request.Request(
-                      base + "/api/help-comments/health",
+                      base + "/health/comments",
                       headers={
                           "Origin": "https://polypmna.dpdns.org",
                           "User-Agent": "POLY-PMNA-Deploy-QA/6.0"

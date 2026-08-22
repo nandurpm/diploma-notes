@@ -77,11 +77,11 @@ export default {
       return json({ error: "Automated clients are not permitted." }, 403, origin, env);
     }
 
-    if (request.method === "OPTIONS" && (url.pathname === "/api/help-comments" || url.pathname === "/api/help-comments/health")) {
+    if (request.method === "OPTIONS" && (url.pathname === "/api/help-comments" || url.pathname === "/health/comments")) {
       return new Response(null, { status: 204, headers: corsHeaders(origin, env) });
     }
 
-    if (request.method === "GET" && url.pathname === "/api/help-comments/health") {
+    if (request.method === "GET" && url.pathname === "/health/comments") {
       return commentsHealth(env, origin);
     }
 

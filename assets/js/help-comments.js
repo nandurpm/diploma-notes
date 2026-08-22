@@ -85,7 +85,7 @@ async function requestJson(url, options = {}) {
   return payload;
 }
 async function ensureAuthenticated() {
-  const health = await requestJson(`${COMMENTS_PROXY_URL}/health`);
+  const health = await requestJson("https://api.polypmna.dpdns.org/health/comments");
   if (!health.configured) throw new Error("Comment posting is temporarily unavailable while the protected server endpoint is being configured.");
   return health;
 }

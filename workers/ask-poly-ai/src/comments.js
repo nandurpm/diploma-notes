@@ -123,8 +123,26 @@ async function createFirestoreComment(payload, env) {
 }
 
 export function commentsHealth(env, origin = "") {
-  const configured = Boolean(serviceAccount(env));
-  return jsonResponse({ ok: true, service: "public-help-comments", configured, writes: configured ? "enabled" : "disabled" }, 200, origin, env);
+  const raw = String(env?.FIREBASE_SERVICE_ACCOUNT_JSON || "").trim();
+  const hasSecret = raw.length > 0;
+  let parseError = false;
+  let accountValid = false;
+  if (hasSecret) {
+    try {
+      const account = JSON.parse(raw);
+      accountValid = Boolean(account.project_id && account.client_email && account.private_key);
+    } catch {
+      parseError = true;
+    }
+  }
+  const configured = accountValid;
+  return jsonResponse({
+    ok: true,
+    service: "public-help-comments",
+    configured,
+    writes: configured ? "enabled" : "disabled",
+    diagnostics: { hasSecret, parseError, accountValid, secretLength: raw.length }
+  }, 200, origin, env);
 }
 
 export async function handleComments(request, env, origin = "") {
