@@ -13,7 +13,12 @@ function request(body, method = "POST") {
 test("comments health reports writes disabled without a service credential", async () => {
   const response = commentsHealth({}, "https://polypmna.dpdns.org");
   assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { ok: true, service: "public-help-comments", configured: false, writes: "disabled" });
+  const health = await response.json();
+  assert.strictEqual(health.ok, true);
+  assert.strictEqual(health.service, "public-help-comments");
+  assert.strictEqual(health.configured, false);
+  assert.strictEqual(health.writes, "disabled");
+  assert.ok(health.diagnostics);
   assert.equal(response.headers.get("access-control-allow-origin"), "https://polypmna.dpdns.org");
 });
 
