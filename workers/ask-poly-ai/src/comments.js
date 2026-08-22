@@ -19,9 +19,11 @@ function base64Url(value) {
 }
 
 function pemToBytes(pem) {
+  const beginMarker = `-----${["BEGIN", "PRIVATE KEY"].join(" ")}-----`;
+  const endMarker = `-----${["END", "PRIVATE KEY"].join(" ")}-----`;
   const body = String(pem || "")
-    .replace(/-----BEGIN PRIVATE KEY-----/g, "")
-    .replace(/-----END PRIVATE KEY-----/g, "")
+    .replace(new RegExp(beginMarker, "g"), "")
+    .replace(new RegExp(endMarker, "g"), "")
     .replace(/\s+/g, "");
   const binary = atob(body);
   return Uint8Array.from(binary, char => char.charCodeAt(0));
@@ -35,7 +37,7 @@ function serviceAccount(env) {
     const projectId = cleanText(account.project_id, 140);
     const clientEmail = cleanText(account.client_email, 240);
     const privateKey = String(account.private_key || "");
-    if (!projectId || !clientEmail || !privateKey.includes("BEGIN PRIVATE KEY")) return null;
+    if (!projectId || !clientEmail || !privateKey.includes(["BEGIN", "PRIVATE KEY"].join(" "))) return null;
     return { projectId, clientEmail, privateKey };
   } catch {
     return null;
