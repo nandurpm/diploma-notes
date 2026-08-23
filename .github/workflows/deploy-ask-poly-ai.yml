@@ -218,7 +218,7 @@ jobs:
                   with urllib.request.urlopen(
                       urllib.request.Request(
                           base + f"/health?deploy_attempt={attempt}",
-                          headers={"User-Agent": "POLY-PMNA-Deploy-QA/6.0", "Cache-Control": "no-cache"},
+                          headers={"Origin": "https://polypmna.dpdns.org", "User-Agent": "POLY-PMNA-Deploy-QA/6.0", "Cache-Control": "no-cache"},
                       ),
                       timeout=20,
                   ) as response:
