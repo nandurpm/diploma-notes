@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-23T07:25:32Z",
+  "generatedAt": "2026-08-23T08:39:02Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -23,7 +23,6 @@
     "providers": [
       "cloudflare-workers-ai",
       "cloudflare-workers-ai-rest",
-      "openrouter",
       "nvidia"
     ],
     "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
@@ -36,12 +35,12 @@
     "ok": true,
     "provider": "nvidia",
     "model": "meta/llama-3.1-8b-instruct",
-    "answerPreview": "\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e \u0d2a\u0d4d\u0d30\u0d36\u0d4d\u0d28\u0d02 \u0d1a\u0d4b\u0d26\u0d3f\u0d15\u0d4d\u0d15\u0d3e\u0d7b \u0d06\u0d17\u0d4d\u0d30\u0d39\u0d3f\u0d15\u0d4d\u0d15\u0d41\u0d28\u0d4d\u0d28\u0d41. \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d06\u0d36\u0d2f\u0d19\u0d4d\u0d19\u0d7e \u0d0e\u0d28\u0d4d\u0d28\u0d46\u0d19\u0d4d\u0d15\u0d3f\u0d32\u0d41\u0d02 \u0d1a\u0d4b\u0d26\u0d3f\u0d15\u0d4d\u0d15\u0d3e\u0d7b \u0d0e\u0d28\u0d4d\u0d31\u0d46 \u0d15\u0d34\u0d3f\u0d35\u0d41\u0d23\u0d4d\u0d1f\u0d4d. \u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d7e\u0d15\u0d4d\u0d15\u0d4d \u0d06\u0d35\u0d36\u0d4d\u0d2f\u0d2e\u0d41\u0d33\u0d4d\u0d33 \u0d35\u0d3f\u0d35\u0d30\u0d19\u0d4d\u0d19\u0d7e \u0d0e\u0d28\u0d4d\u0d28\u0d46\u0d19\u0d4d\u0d15\u0d3f\u0d32\u0d41\u0d02 \u0d1a\u0d4b\u0d26\u0d3f\u0d15\u0d4d\u0d15\u0d41\u0d15."
+    "answerPreview": "\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d1a\u0d4b\u0d26\u0d4d\u0d2f\u0d24\u0d4d\u0d24\u0d3f\u0d28\u0d4d \u0d2a\u0d4d\u0d30\u0d24\u0d3f\u0d15\u0d30\u0d3f\u0d15\u0d4d\u0d15\u0d3e\u0d7b \u0d1e\u0d3e\u0d7b \u0d24\u0d2f\u0d4d\u0d2f\u0d3e\u0d31\u0d3e\u0d23\u0d4d."
   },
   "relevanceTest": {
     "ok": true,
     "provider": "nvidia",
-    "answerPreview": "Kerala has 14 districts.",
+    "answerPreview": "\u0d15\u0d47\u0d30\u0d33\u0d24\u0d4d\u0d24\u0d3f\u0d7d 14 \u0d1c\u0d3f\u0d32\u0d4d\u0d32\u0d15\u0d7e \u0d09\u0d23\u0d4d\u0d1f\u0d4d.",
     "forbiddenTermsFound": []
   },
   "lastError": ""
