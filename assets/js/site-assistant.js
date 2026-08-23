@@ -34,7 +34,7 @@
   const ASSISTANT_VERSION = "3.0";
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
   let PDF_LINKS = {};
-  fetch("/assets/data/sitttr-pdf-links.json?v=20260818-pdf-manifest2").then((response) => response.ok ? response.json() : null).then((manifest) => { PDF_LINKS = manifest?.links || {}; }).catch(() => {});
+  fetch("/assets/data/sitttr-pdf-links.json?v=20260823-repo-links1").then((response) => response.ok ? response.json() : null).then((manifest) => { PDF_LINKS = manifest?.links || {}; }).catch(() => {});
   const IS_LESSON_PAGE = /\/lessons\/[^/]+\.html$/i.test(window.location.pathname)
     || Boolean(document.querySelector("main.shell, .lesson-layout, .panel[data-module], .panel[id]"));
   const HISTORY_KEY = `polySiteAssistantHistory:v3:${window.location.pathname}`;

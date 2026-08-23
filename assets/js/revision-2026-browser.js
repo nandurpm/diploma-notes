@@ -29,7 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260818-pdf-manifest2";
+  const VERSION = "20260823-repo-links1";
   let PDF_LINKS = {};
   let LESSON_CODES = new Set();
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
@@ -244,6 +244,43 @@
 
   function pdfFilename(href) { return href.split("/").pop() || "resource.pdf"; }
 
+  function repositoryPdfHref(programmeSlug, code, kind) {
+    const revisionLinks = PDF_LINKS || {};
+    const normalizedSlug = slug(programmeSlug);
+    const normalizedCode = String(code || "").trim().toUpperCase();
+    const direct = revisionLinks[`2026|${normalizedSlug}|${normalizedCode}`]?.[kind];
+    return direct ? `${PDF_BASE}${direct}` : "";
+  }
+
+  async function applyStaticPdfLinks() {
+    const grid = document.getElementById("subjectGrid");
+    if (!grid) return;
+    try {
+      const manifest = await json(`/assets/data/sitttr-pdf-links.json?v=20260823-repo-links1`);
+      PDF_LINKS = manifest?.links?.["2026"] || {};
+    } catch (_) {
+      return;
+    }
+    const programmeSlug = departmentSlug();
+    grid.querySelectorAll(".subject-card").forEach(card => {
+      const code = card.dataset.subjectCode || "";
+      const syllabus = repositoryPdfHref(programmeSlug, code, "syllabus");
+      const model = repositoryPdfHref(programmeSlug, code, "modelQuestionPaper");
+      const update = (selector, href, label) => {
+        const link = card.querySelector(selector);
+        if (!link || !href) return;
+        link.href = href;
+        link.textContent = label;
+        link.classList.remove("external-fallback");
+        link.removeAttribute("target");
+        link.removeAttribute("rel");
+        link.setAttribute("download", pdfFilename(href));
+      };
+      update("a.action.syllabus", syllabus, "Download Syllabus");
+      update("a.action.qp", model, "Download Model Question Paper");
+    });
+  }
+
   function sitttrHref(code, kind) {
     const value = encodeURIComponent(String(code || "").trim().toUpperCase());
     return kind === "modelQuestionPaper"
@@ -370,6 +407,7 @@
     if (grid.dataset.staticRev2026 === "true" && grid.querySelector(".subject-card")) {
       ensureModelPaperAccess();
       enhanceStaticDepartment();
+      applyStaticPdfLinks();
       return;
     }
     try {

@@ -4,6 +4,11 @@
 
   const SYLLABUS_INDEX = "";
   const MODEL_QP_INDEX = "";
+  const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
+  const PDF_LINKS_URLS = [
+    "/assets/data/revision-2015-pdf-links.json?v=20260823-rev2015-repo1",
+    "/assets/data/revision-2015-pdf-links.json"
+  ];
   const SUBJECT_DATA_URLS = [
     "/assets/data/revision-2015-subjects.json?v=20260822-rev2015-sitttr-fallback1",
     "/assets/data/revision-2015-subjects.json"
@@ -99,6 +104,18 @@
     }
   }
 
+  function repositoryPdfUrl(subject, kind) {
+    const code = String(subject?.code || "").trim().toUpperCase();
+    const programme = String(subject?.programmeCode || "").trim().toUpperCase();
+    const entry = directory.pdfLinks?.[`${programme}|${code}`];
+    const path = entry?.[kind];
+    return path ? `${PDF_BASE}${path}` : "";
+  }
+
+  function pdfFilename(href) {
+    return String(href || "").split("/").pop() || "resource.pdf";
+  }
+
   function renderGroup(container) {
     const groupName = container.dataset.linkGroup || "";
     const items = Array.isArray(MATERIALS_2015[groupName]) ? MATERIALS_2015[groupName] : [];
@@ -133,6 +150,7 @@
 
   const directory = {
     data: null,
+    pdfLinks: {},
     department: "",
     semester: "all",
     query: ""
@@ -238,14 +256,20 @@
   }
 
   function subjectCard(subject, programme) {
-    const syllabusUrl = safeArchivePdfUrl(subject.syllabusUrl);
-    const modelUrl = subject.modelAvailable ? safeArchivePdfUrl(subject.modelQuestionPaperUrl) : "";
+    const syllabusUrl = repositoryPdfUrl(subject, "syllabus");
+    const modelUrl = subject.modelAvailable ? repositoryPdfUrl(subject, "modelQuestionPaper") : "";
+    const officialSyllabusUrl = safeExternalUrl(subject.syllabusUrl);
+    const officialModelUrl = subject.modelAvailable ? safeExternalUrl(subject.modelQuestionPaperUrl) : "";
     const syllabusAction = syllabusUrl
-      ? `<a class="rev2015-action rev2015-action-syllabus" href="${escapeHtml(syllabusUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↓</span> Syllabus</a>`
-      : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true">Syllabus unavailable</span>';
+      ? `<a class="rev2015-action rev2015-action-syllabus" href="${escapeHtml(syllabusUrl)}" download="${escapeHtml(pdfFilename(syllabusUrl))}" data-repository-pdf="true"><span aria-hidden="true">↓</span> Download Syllabus</a>`
+      : officialSyllabusUrl
+        ? `<a class="rev2015-action rev2015-action-syllabus external-fallback" href="${escapeHtml(officialSyllabusUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↗</span> Open SITTTR Syllabus</a>`
+        : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true">Syllabus unavailable</span>';
     const modelAction = modelUrl
-      ? `<a class="rev2015-action rev2015-action-model" href="${escapeHtml(modelUrl)}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer"><span aria-hidden="true">↓</span> Model Question Paper</a>`
-      : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true" title="This model question paper is not available in the POLY PMNA PDF archive.">Model QP not listed</span>';
+      ? `<a class="rev2015-action rev2015-action-model" href="${escapeHtml(modelUrl)}" download="${escapeHtml(pdfFilename(modelUrl))}" data-repository-pdf="true"><span aria-hidden="true">↓</span> Download Model Question Paper</a>`
+      : officialModelUrl
+        ? `<a class="rev2015-action rev2015-action-model external-fallback" href="${escapeHtml(officialModelUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> Open SITTTR Model Question Paper</a>`
+        : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true" title="This model question paper is not available in the POLY PMNA PDF archive.">Model QP not listed</span>';
 
     return (
       `<article class="rev2015-subject-card" data-subject-code="${escapeHtml(subject.code)}">` +
@@ -279,7 +303,7 @@
     const intro = (
       `<div class="rev2015-selected-department">` +
         `<div><span>${escapeHtml(programme.code)}</span><h3>${escapeHtml(programme.name)}</h3><p>${Number(programme.subjectCount)} subject entries across Semester 1–6. ${Number(programme.modelPaperCount)} are listed in the official model-paper index.</p></div>` +
-        `<div class="rev2015-department-links"><span class="rev2015-action-disabled">Revision 2015 PDF files are not in the POLY PMNA GitHub archive.</span></div>` +
+        `<div class="rev2015-department-links"><span class="rev2015-action-disabled">Available Revision 2015 PDFs download from the POLY PMNA archive; unavailable files open the official SITTTR page.</span></div>` +
       `</div>`
     );
 
@@ -377,6 +401,18 @@
         throw new Error("The subject registry is incomplete.");
       }
       directory.data = data;
+      let pdfManifest = null;
+      for (const source of PDF_LINKS_URLS) {
+        try {
+          const response = await fetch(source, { headers: { Accept: "application/json" }, cache: "no-store" });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          pdfManifest = await response.json();
+          break;
+        } catch (_) {
+          // The official SITTTR fallback remains usable if the optional archive manifest is unavailable.
+        }
+      }
+      directory.pdfLinks = pdfManifest?.links || {};
       // PERFORMANCE OPTIMIZATION: Pre-compute and cache search text for programmes and subjects
       // once when data loads, avoiding repeated string joins and lowercase conversions on every keypress.
       directory.data.programmes.forEach(p => {
@@ -396,7 +432,7 @@
       setResultsBusy(false);
       results.innerHTML = (
         '<div class="rev2015-empty rev2015-load-error"><strong>Subject list could not be loaded.</strong>' +
-        '<span>The Drive archive links above remain available. Try refreshing once; Revision 2015 syllabus and model-paper PDFs are not in the POLY PMNA GitHub archive.</span></div>'
+        '<span>The Drive archive links above remain available. Try refreshing once; available Revision 2015 syllabus and model-paper PDFs are served directly from the POLY PMNA GitHub archive.</span></div>'
       );
     }
   }
