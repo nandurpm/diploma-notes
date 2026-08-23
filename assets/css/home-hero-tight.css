@@ -109,3 +109,23 @@ body.portal-page .daily-special-card__badge {
     line-height: 1.1 !important;
   }
 }
+
+/* Wide homepage shell: minimize desktop side gutters while preserving responsive padding. */
+body.home-page main {
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  padding-inline: 0 !important;
+}
+
+@media (min-width: 901px) {
+  body.home-page {
+    --home-max: none;
+  }
+}
+
+@media (max-width: 620px) {
+  body.home-page main {
+    padding-inline: 10px !important;
+  }
+}
