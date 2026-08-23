@@ -51,9 +51,7 @@
   function render(){
     const q = ($('#q')?.value || '').toLowerCase().trim();
     const favoriteIds = get(favKey);
-    // PERFORMANCE OPTIMIZATION: Use pre-computed _searchText to avoid string template
-    // creation and lowercasing for all tools on every render cycle.
-    const shown = list.filter(t => (activeCat === 'All' || t.cat === activeCat) && (!onlyFav || favoriteIds.includes(t.id)) && (t._searchText || `${t.title} ${t.desc} ${t.cat}`.toLowerCase()).includes(q));
+    const shown = list.filter(t => (activeCat === 'All' || t.cat === activeCat) && (!onlyFav || favoriteIds.includes(t.id)) && (!q || t._searchText.includes(q)));
     $('#tc') && ($('#tc').textContent = list.length);
     $('#shown') && ($('#shown').textContent = `${shown.length} of ${list.length} tools shown`);
     const emptyMessage = onlyFav && !favoriteIds.length ? 'No favorites saved yet. Use the ☆ Favorite button on a tool card to save it here.' : 'No tools match your current search or category.';
@@ -63,8 +61,8 @@
     if($('#recent')) $('#recent').innerHTML = r.map(card).join('');
     const clearBtn = $('#clear');
     if (clearBtn) { clearBtn.hidden = !r.length; clearBtn.disabled = !r.length; }
-    // PERFORMANCE OPTIMIZATION: Event delegation on container elements (#grid and #recent)
-    // is configured at initialization, eliminating O(N) DOM button queries and click re-binding here.
+    $$('.tool-open').forEach(button => button.onclick = () => openTool(button.dataset.tool, button));
+    $$('.fav2').forEach(b => b.onclick = e => { e.stopPropagation(); const a=get(favKey); set(favKey, a.includes(b.dataset.id) ? a.filter(x=>x!==b.dataset.id) : [...a,b.dataset.id]); render(); });
     const favBtn = $('#fav');
     if (favBtn) { favBtn.setAttribute('aria-pressed', onlyFav ? 'true' : 'false'); favBtn.classList.toggle('primary', onlyFav); favBtn.textContent = `${onlyFav ? '★ Showing favorites' : '☆ Favorites'}${favoriteIds.length ? ` (${favoriteIds.length})` : ''}`; }
     const filterSummary = $('#filterSummary');
@@ -211,26 +209,6 @@
   function lab(){ $('#body').innerHTML=`<label class='sr-only' for='labText'>Lab record format</label><textarea id='labText' rows='14'>Experiment No:\nDate:\nAim:\nApparatus / Software Required:\nTheory:\nProcedure:\nObservation / Drawing Details:\nResult:\nPrecautions:\nViva Questions:</textarea>`; }
   function closeModal(){ const modal=$('#modal'); if(!modal)return; modalCleanup?.(); modalCleanup=null; modal.hidden=true; document.body.style.overflow=''; lastOpener?.focus?.(); lastOpener=null; }
   function openTool(id, opener){ const t=list.find(x=>x.id===id); if(!t)return; modalCleanup?.(); modalCleanup=null; lastOpener=opener||document.activeElement; recent(id); $('#cat').textContent=t.cat; $('#ttl').textContent=t.title; $('#desc').textContent=t.desc; $('#modal').hidden=false; document.body.style.overflow='hidden'; const cleanup=(calc[id]||(()=>{$('#body').innerHTML='<div class="result">Tool not configured.</div>'; return null;}))(); if(typeof cleanup==='function') modalCleanup=cleanup; const firstInput = $('#body input, #body textarea'); if (firstInput) { firstInput.focus(); if (typeof firstInput.select === 'function') firstInput.select(); } else { $('#x')?.focus(); } render(); }
-  function setupContainerDelegation(container) {
-    if (!container || container.dataset.delegated) return;
-    container.dataset.delegated = 'true';
-    container.onclick = e => {
-      const favBtn = e.target.closest('.fav2');
-      if (favBtn) {
-        e.stopPropagation();
-        const id = favBtn.dataset.id;
-        const a = get(favKey);
-        set(favKey, a.includes(id) ? a.filter(x => x !== id) : [...a, id]);
-        render();
-        return;
-      }
-      const openBtn = e.target.closest('.tool-open');
-      if (openBtn) {
-        openTool(openBtn.dataset.tool, openBtn);
-      }
-    };
-  }
-
-  function init(){ const style=document.createElement('style'); style.textContent='.card{cursor:default}.tool-open{display:flex;flex:1;flex-direction:column;gap:10px;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.tool-open:focus-visible{outline:3px solid rgba(36,87,245,.24);outline-offset:4px;border-radius:14px}.tool-icon{font-size:34px}.field input:focus,textarea:focus{outline:3px solid rgba(36,87,245,.18);border-color:#2457f5}.notice{font-size:.92rem}.result{font-size:1rem}.result b{font-size:clamp(26px,4vw,42px)}'; document.head.appendChild(style); $('#chips') && ($('#chips').innerHTML=cats.map(c=>`<button class='chip ${c==='All'?'on':''}' data-cat='${esc(c)}' type='button' aria-pressed='${c==='All'?'true':'false'}'>${esc(c)}</button>`).join('')); $$('.chip').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;$$('.chip').forEach(x=>{const active=x===b;x.classList.toggle('on',active);x.setAttribute('aria-pressed',active?'true':'false');});render();}); setupContainerDelegation($('#grid')); setupContainerDelegation($('#recent')); let searchTimer = null; const searchInput=$('#q'); if(searchInput){ searchInput.oninput=()=>{ clearTimeout(searchTimer); searchTimer=setTimeout(render, 100); }; searchInput.onkeydown=e=>{if(e.key==='Escape'&&searchInput.value){clearTimeout(searchTimer);searchInput.value='';render();searchInput.blur();}};} $('#fav') && ($('#fav').onclick=()=>{onlyFav=!onlyFav;$('#fav').classList.toggle('primary',onlyFav);render();}); $('#clear') && ($('#clear').onclick=()=>{set(recKey,[]);render();}); $('#x') && ($('#x').onclick=closeModal); $('#modal') && ($('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()}); document.addEventListener('keydown',e=>{const modal=$('#modal');if(!modal||modal.hidden)return;if(e.key==='Escape'){closeModal();return}if(e.key==='Tab'){const focusable=[...modal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.disabled&&!node.hidden);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}); document.querySelectorAll('[data-year]').forEach(node=>node.textContent=new Date().getFullYear()); render(); }
+  function init(){ const style=document.createElement('style'); style.textContent='.card{cursor:default}.tool-open{display:flex;flex:1;flex-direction:column;gap:10px;width:100%;padding:0;border:0;background:transparent;color:inherit;text-align:left;cursor:pointer}.tool-open:focus-visible{outline:3px solid rgba(36,87,245,.24);outline-offset:4px;border-radius:14px}.tool-icon{font-size:34px}.field input:focus,textarea:focus{outline:3px solid rgba(36,87,245,.18);border-color:#2457f5}.notice{font-size:.92rem}.result{font-size:1rem}.result b{font-size:clamp(26px,4vw,42px)}'; document.head.appendChild(style); $('#chips') && ($('#chips').innerHTML=cats.map(c=>`<button class='chip ${c==='All'?'on':''}' data-cat='${esc(c)}' type='button' aria-pressed='${c==='All'?'true':'false'}'>${esc(c)}</button>`).join('')); $$('.chip').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;$$('.chip').forEach(x=>{const active=x===b;x.classList.toggle('on',active);x.setAttribute('aria-pressed',active?'true':'false');});render();}); const searchInput=$('#q'); if(searchInput){ searchInput.oninput=render; searchInput.onkeydown=e=>{if(e.key==='Escape'&&searchInput.value){searchInput.value='';render();searchInput.blur();}};} $('#fav') && ($('#fav').onclick=()=>{onlyFav=!onlyFav;$('#fav').classList.toggle('primary',onlyFav);render();}); $('#clear') && ($('#clear').onclick=()=>{set(recKey,[]);render();}); $('#x') && ($('#x').onclick=closeModal); $('#modal') && ($('#modal').onclick=e=>{if(e.target.id==='modal')closeModal()}); document.addEventListener('keydown',e=>{const modal=$('#modal');if(!modal||modal.hidden)return;if(e.key==='Escape'){closeModal();return}if(e.key==='Tab'){const focusable=[...modal.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(node=>!node.disabled&&!node.hidden);if(!focusable.length)return;const first=focusable[0],last=focusable[focusable.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}}); document.querySelectorAll('[data-year]').forEach(node=>node.textContent=new Date().getFullYear()); render(); }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
 })();
