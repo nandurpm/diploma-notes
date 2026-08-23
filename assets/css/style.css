@@ -462,6 +462,9 @@ p { color: var(--muted); line-height: 1.68; }
   font-size: .84rem;
   line-height: 1.15;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   box-shadow: 0 11px 24px rgba(20,45,90,.12);
 }
 .action.syllabus { background: linear-gradient(135deg, var(--blue), var(--sky)); }

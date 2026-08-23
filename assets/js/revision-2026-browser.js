@@ -365,7 +365,7 @@
       : `<a class="action syllabus external-fallback" href="${esc(sitttrHref(code, "syllabus"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a>`;
     const qpAction = qp
       ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>`
-      : `<a class="action qp external-fallback" href="${esc(sitttrHref(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Model Question Paper \u2014 REV2026</a>`;
+      : `<a class="action qp external-fallback" href="${esc(sitttrHref(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer">SITTTR Model Papers \u2014 REV2026</a>`;
     const study = lessonOk
       ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(notes)}">Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
