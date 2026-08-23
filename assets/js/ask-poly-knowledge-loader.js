@@ -4,7 +4,7 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  const KNOWLEDGE_VERSION = "2026-08-whole-site-content1";
+  const KNOWLEDGE_VERSION = "2026-08-whole-site-content2";
   const MAX_CONTEXT_CHARS = 14000;
   const CONTEXT_BUDGETS = Object.freeze({
     lesson: 14000,
