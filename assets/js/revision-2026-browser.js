@@ -29,7 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260823-repo-links1";
+  const VERSION = "20260823-pdf-alias1";
   let PDF_LINKS = {};
   let LESSON_CODES = new Set();
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
@@ -91,6 +91,15 @@
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+  // Page labels use ampersands, while some repository folders omit the
+  // punctuation-derived `and`. Resolve both forms against the manifest.
+  const slugCandidates = value => {
+    const text = String(value || "");
+    return [...new Set([
+      slug(text),
+      text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+    ].filter(Boolean))];
+  };
   const cleanPath = () => location.pathname.replace(/\/+$/, "") || "/";
   const isProgrammeIndex = () => ["/revision-2026.html", "/revision-2026"].includes(cleanPath());
   const normaliseSearch = value => String(value || "")
@@ -246,26 +255,29 @@
 
   function repositoryPdfHref(programmeSlug, code, kind) {
     const revisionLinks = PDF_LINKS || {};
-    const normalizedSlug = slug(programmeSlug);
     const normalizedCode = String(code || "").trim().toUpperCase();
-    const direct = revisionLinks[`2026|${normalizedSlug}|${normalizedCode}`]?.[kind];
-    return direct ? `${PDF_BASE}${direct}` : "";
+    for (const normalizedSlug of slugCandidates(programmeSlug)) {
+      const direct = revisionLinks[`2026|${normalizedSlug}|${normalizedCode}`]?.[kind];
+      if (direct) return `${PDF_BASE}${direct}`;
+    }
+    return "";
   }
 
   async function applyStaticPdfLinks() {
     const grid = document.getElementById("subjectGrid");
     if (!grid) return;
     try {
-      const manifest = await json(`/assets/data/sitttr-pdf-links.json?v=20260823-repo-links1`);
+      const manifest = await json(`/assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias1`);
       PDF_LINKS = manifest?.links?.["2026"] || {};
     } catch (_) {
       return;
     }
     const programmeSlug = departmentSlug();
+    const programmeName = document.body?.dataset?.programmeName || programmeSlug;
     grid.querySelectorAll(".subject-card").forEach(card => {
       const code = card.dataset.subjectCode || "";
-      const syllabus = repositoryPdfHref(programmeSlug, code, "syllabus");
-      const model = repositoryPdfHref(programmeSlug, code, "modelQuestionPaper");
+      const syllabus = repositoryPdfHref(programmeName, code, "syllabus");
+      const model = repositoryPdfHref(programmeName, code, "modelQuestionPaper");
       const update = (selector, href, label, fallbackHref, fallbackLabel) => {
         const link = card.querySelector(selector);
         if (!link) return;
@@ -319,13 +331,15 @@
   }
 
   function subjectCard(subject, programmeName) {
-    const code = String(subject.code || "").trim().toUpperCase();
-    const semester = semesterNumber(subject);
+      const code = String(subject.code || "").trim().toUpperCase();
+      const semester = semesterNumber(subject);
     const semesterText = semester <= 6 ? `Semester ${semester}` : "Other subjects";
     const name = String(subject.name || "Untitled subject").trim();
     const type = String(subject.type || "Course").trim();
     const programmeSlug = String(subject.programmeSlug || slug(programmeName));
-    const pdf = PDF_LINKS[`2026|${programmeSlug}|${code}`] || {};
+    const pdf = slugCandidates(programmeName)
+      .map(candidate => PDF_LINKS[`2026|${candidate}|${code}`])
+      .find(Boolean) || {};
     const syllabus = pdf.syllabus ? `${PDF_BASE}${pdf.syllabus}` : "";
     const qp = pdf.modelQuestionPaper ? `${PDF_BASE}${pdf.modelQuestionPaper}` : "";
     const lesson = `/revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`;

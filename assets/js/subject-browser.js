@@ -106,13 +106,25 @@
   let PDF_LINKS = {};
   const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php?";
   const pdfSlug = value => String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  // Repository department folders omit punctuation-based ampersands (for example,
+  // `civil-environmental-engineering`), while page labels naturally render `&`.
+  // Try both forms, but only accept a candidate that exists in the manifest.
+  const pdfSlugCandidates = value => {
+    const text = String(value || "");
+    const candidates = [
+      pdfSlug(text),
+      text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+    ];
+    return [...new Set(candidates.filter(Boolean))];
+  };
   const pdfHref = (subject, kind) => {
     const revision = revisionYear(subject.revision);
     const code = norm(subject.code);
     const revisionLinks = PDF_LINKS[revision] || {};
-    const slug = pdfSlug(subject.department);
-    const direct = revisionLinks[`${revision}|${slug}|${code}`]?.[kind];
-    if (direct) return `${PDF_BASE}${direct}`;
+    for (const slug of pdfSlugCandidates(subject.department)) {
+      const direct = revisionLinks[`${revision}|${slug}|${code}`]?.[kind];
+      if (direct) return `${PDF_BASE}${direct}`;
+    }
     const suffix = `|${code}`;
     const fallback = Object.entries(revisionLinks).find(([key, value]) => key.endsWith(suffix) && value?.[kind]);
     return fallback ? `${PDF_BASE}${fallback[1][kind]}` : "";
@@ -179,7 +191,7 @@
       // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
       // and heavy scheme/evaluation metadata that browsing pages never render.
       fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260823-repo-links1`).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias1`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     PDF_BASE = manifest?.base || PDF_BASE;
     PDF_LINKS = manifest?.links || {};
