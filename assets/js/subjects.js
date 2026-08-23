@@ -44,5 +44,5 @@ function notesLink(subject) {
 }
 
 // Explicit exports for shared scripts and resilient component initialization.
-globalThis.SUBJECTS = SUBJECTS;
-globalThis.MATERIALS_2015 = MATERIALS_2015;
+if (typeof SUBJECTS !== "undefined") globalThis.SUBJECTS = SUBJECTS;
+if (typeof MATERIALS_2015 !== "undefined") globalThis.MATERIALS_2015 = MATERIALS_2015;

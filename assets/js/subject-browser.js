@@ -187,6 +187,18 @@
     try { return Function(`"use strict";return (${match[1]});`)(); } catch { return []; }
   }
 
+  function normalize2021(subject) {
+    return {
+      revision: "2021",
+      code: String(subject.code || "").trim(),
+      name: String(subject.name || "Untitled subject").trim(),
+      department: String(subject.department || "First Year / Common").trim(),
+      semester: String(subject.semester || "Other subjects").trim(),
+      type: String(subject.type || "Theory").trim(),
+      assetCode: String(subject.assetCode || subject.code || "").trim()
+    };
+  }
+
   function normalize2026(subject) {
     const code = String(subject.code || "").trim();
     const semesterNumber = Number(subject.semesterNumber) || Number(code.match(/^([1-6])/)?.[1]) || semRank(subject.semester);
@@ -207,9 +219,10 @@
 
   async function getSubjects() {
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
-    const [subjectText, revision2026Payload, manifest] = await Promise.all([
+    const [subjectText, revision2021Payload, revision2026Payload, manifest] = await Promise.all([
       // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
       revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
+      fetch(`${root()}assets/data/revision-2021-subjects.json?v=20260823-rev2021-subjects1`).then(response => response.ok ? response.json() : null).catch(() => null),
       // PERFORMANCE OPTIMIZATION: use the trimmed subject-browser payload (~720 KB vs ~2.0 MB). The full
       // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
       // and heavy scheme/evaluation metadata that browsing pages never render.
@@ -218,7 +231,8 @@
     ]);
     PDF_BASE = manifest?.base || PDF_BASE;
     PDF_LINKS = manifest?.links || {};
-    if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
+    const generatedRevision2021 = Array.isArray(revision2021Payload?.subjects) ? revision2021Payload.subjects.map(normalize2021) : [];
+    if (!revision2021.length) revision2021 = generatedRevision2021.length ? generatedRevision2021 : parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
     return unique([...revision2021, ...MANUAL, ...revision2026]);
   }
