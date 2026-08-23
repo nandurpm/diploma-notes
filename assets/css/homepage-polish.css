@@ -1,13 +1,14 @@
 /* Homepage polish: balanced hierarchy and responsive spacing. */
 
 body.home-page {
-  --home-max: 1480px;
+  --home-max: none;
 }
 
 body.home-page main {
-  width: min(100%, var(--home-max)) !important;
-  margin-inline: auto !important;
-  padding-inline: clamp(14px, 2vw, 30px) !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  padding-inline: 0 !important;
 }
 
 body.home-page .home-compact-hero.page-title {
@@ -228,11 +229,14 @@ body.home-page #subject-browser {
    the homepage and above the mobile breakpoints. */
 @media (min-width: 1101px) {
   body.home-page {
-    --home-max: 1680px;
+    --home-max: none;
   }
 
   body.home-page main {
-    padding-inline: clamp(24px, 3vw, 52px) !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
   }
 
   body.home-page .home-compact-hero.page-title {
