@@ -94,7 +94,7 @@ async function requestJson(url, options = {}) {
 async function ensureAuthenticated() {
   // Use the .workers.dev health endpoint to bypass custom domain WAF blocks.
   const health = await requestJson("https://ask-poly-ai.nandakumarkdpm.workers.dev/health");
-  if (!health.commentsConfigured) throw new Error("Comment posting is temporarily unavailable while the protected server endpoint is being configured.");
+  if (!health.configured || health.writes !== "enabled") throw new Error("Comment posting is temporarily unavailable while the protected server endpoint is being configured.");
   return health;
 }
 async function fetchComments() {

@@ -109,6 +109,20 @@ jobs:
             echo "FIREBASE_SERVICE_ACCOUNT_JSON is required for the protected public-comments write path."
             exit 1
           fi
+          python - <<'PY'
+          import json
+          import os
+          raw = os.environ["FIREBASE_SERVICE_ACCOUNT_JSON_VALUE"]
+          try:
+              account = json.loads(raw)
+          except json.JSONDecodeError as error:
+              raise SystemExit(f"FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON: {error.msg}")
+          required = ("project_id", "client_email", "private_key")
+          missing = [key for key in required if not account.get(key)]
+          if missing or "PRIVATE KEY" not in account.get("private_key", ""):
+              raise SystemExit(f"FIREBASE_SERVICE_ACCOUNT_JSON is missing valid fields: {', '.join(missing or ['private_key marker'])}")
+          print("Firebase service-account JSON validated without printing secret contents.")
+          PY
           if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$OPENROUTER_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$FREE_API_KEY_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
             echo "At least one AI provider credential is required."
             exit 1
@@ -170,7 +184,7 @@ jobs:
           # Use wrangler secret put for each secret to ensure they are correctly uploaded.
           # We use a temporary script to avoid leaking secrets in the logs.
           echo "Uploading secrets..."
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}" | npx wrangler secret put FIREBASE_SERVICE_ACCOUNT_JSON
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON_VALUE" | npx wrangler secret put FIREBASE_SERVICE_ACCOUNT_JSON
           echo "${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}" | npx wrangler secret put CLOUDFLARE_AI_API_TOKEN
           echo "${{ secrets.SUPABASE_URL }}" | npx wrangler secret put SUPABASE_URL
           echo "${{ secrets.SUPABASE_ANON_KEY }}" | npx wrangler secret put SUPABASE_ANON_KEY
