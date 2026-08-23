@@ -29,7 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260823-pdf-alias1";
+  const VERSION = "20260823-pdf-alias2";
   let PDF_LINKS = {};
   let LESSON_CODES = new Set();
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
@@ -95,10 +95,19 @@
   // punctuation-derived `and`. Resolve both forms against the manifest.
   const slugCandidates = value => {
     const text = String(value || "");
-    return [...new Set([
+    const queue = [...new Set([
       slug(text),
       text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
     ].filter(Boolean))];
+    const result = [];
+    while (queue.length) {
+      const candidate = queue.shift();
+      if (result.includes(candidate)) continue;
+      result.push(candidate);
+      const index = candidate.indexOf("-and-");
+      if (index >= 0) queue.push(`${candidate.slice(0, index)}-${candidate.slice(index + 5)}`);
+    }
+    return result;
   };
   const cleanPath = () => location.pathname.replace(/\/+$/, "") || "/";
   const isProgrammeIndex = () => ["/revision-2026.html", "/revision-2026"].includes(cleanPath());
@@ -267,7 +276,7 @@
     const grid = document.getElementById("subjectGrid");
     if (!grid) return;
     try {
-      const manifest = await json(`/assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias1`);
+      const manifest = await json(`/assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias2`);
       PDF_LINKS = manifest?.links?.["2026"] || {};
     } catch (_) {
       return;

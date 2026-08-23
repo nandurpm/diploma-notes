@@ -111,11 +111,20 @@
   // Try both forms, but only accept a candidate that exists in the manifest.
   const pdfSlugCandidates = value => {
     const text = String(value || "");
-    const candidates = [
+    const initial = [
       pdfSlug(text),
       text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
-    ];
-    return [...new Set(candidates.filter(Boolean))];
+    ].filter(Boolean);
+    const result = [];
+    const queue = [...new Set(initial)];
+    while (queue.length) {
+      const candidate = queue.shift();
+      if (result.includes(candidate)) continue;
+      result.push(candidate);
+      const index = candidate.indexOf("-and-");
+      if (index >= 0) queue.push(`${candidate.slice(0, index)}-${candidate.slice(index + 5)}`);
+    }
+    return result;
   };
   const pdfHref = (subject, kind) => {
     const revision = revisionYear(subject.revision);
@@ -191,7 +200,7 @@
       // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
       // and heavy scheme/evaluation metadata that browsing pages never render.
       fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias1`).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias2`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     PDF_BASE = manifest?.base || PDF_BASE;
     PDF_LINKS = manifest?.links || {};
