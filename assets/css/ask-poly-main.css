@@ -817,3 +817,54 @@ body.ask-data-saver .ask-generated-image{display:none!important}
     max-width: min(640px, 82%) !important;
   }
 }
+
+
+/* 2026-08 vertical density: keep the Ask POLY workspace close to the header and footer. */
+@media (min-width: 901px) {
+  .ask-poly-page .topbar {
+    margin-bottom: 0 !important;
+  }
+
+  body.portal-page.ask-poly-page.has-fixed-site-header {
+    padding-top: 64px !important;
+  }
+
+  body.portal-page.ask-poly-page > main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ask-shell {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ask-poly-page .site-breadcrumbs {
+    padding-top: 0 !important;
+  }
+
+  .ask-poly-page > footer[data-site-footer] {
+    margin-top: 8px !important;
+    margin-bottom: 0 !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .ask-poly-page .topbar {
+    margin-bottom: 0 !important;
+  }
+
+  .ask-shell {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .ask-shell {
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+  }
+}
