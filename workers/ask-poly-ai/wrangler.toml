@@ -46,7 +46,9 @@ namespace_id = "202604"
 ENVIRONMENT = "production"
 SECURITY_LOGGING = "structured"
 ASK_POLY_RELEASE = "2026-07-20-audit-security3"
-AI_PROVIDER_ORDER = "openrouter,nvidia"
+# Keep the active path on the verified NVIDIA provider; Cloudflare Workers AI is the immediate in-worker fallback.
+# Re-enable OpenRouter only after its configured model IDs are revalidated against the live catalog.
+AI_PROVIDER_ORDER = "nvidia"
 PROVIDER_TIMEOUT_MS = "7000"
 OPENAI_MODEL = "gpt-4o-mini"
 NVIDIA_MODEL = "meta/llama-3.1-8b-instruct"
