@@ -139,14 +139,18 @@
   }
 
   function challengeQuestions() {
-    const pool = questionPool();
+    const keys = window.POLY_QUIZ_ENGAGEMENT_KEYS || {};
+    const pool = questionPool().filter((question) => Number.isInteger(keys[`${question.subjectCode}:${question.id}`]));
     const week = weekKey();
     const rng = random(hash(`weekly:${week}`));
-    return shuffle(pool, rng).slice(0, 10).map((question, index) => ({
-      ...question,
-      challengeId: `${week}-${index + 1}-${question.id}`,
-      options: shuffle(question.options.map((text, optionIndex) => ({ text, correct: optionIndex === question.answer })), random(hash(`${week}:${question.id}`))),
-    }));
+    return shuffle(pool, rng).slice(0, 10).map((question, index) => {
+      const answerIndex = keys[`${question.subjectCode}:${question.id}`];
+      return {
+        ...question,
+        challengeId: `${week}-${index + 1}-${question.id}`,
+        options: shuffle(question.options.map((text, optionIndex) => ({ text, correct: optionIndex === answerIndex })), random(hash(`${week}:${question.id}`))),
+      };
+    });
   }
 
   function formatTime(ms) {
@@ -221,10 +225,19 @@
   function startChallenge() {
     if (active) return;
     const mode = $("challengeMode")?.value === "time-trial" ? "time-trial" : "weekly";
+    const questions = challengeQuestions();
+    if (questions.length < 10) {
+      const target = $("challengeBox");
+      if (target) {
+        target.classList.remove("hidden");
+        target.innerHTML = '<p class="status error">This challenge is temporarily unavailable because its answer key did not load. Please reload the page and try again.</p>';
+      }
+      return;
+    }
     active = {
       mode,
       weekKey: weekKey(),
-      questions: challengeQuestions(),
+      questions,
       startedAt: Date.now(),
       durationMs: mode === "time-trial" ? 90000 : 0,
     };
