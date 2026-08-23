@@ -4,8 +4,8 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  const KNOWLEDGE_VERSION = "20260814-syllabus-units1";
-  const MAX_CONTEXT_CHARS = 9000;
+  const KNOWLEDGE_VERSION = "2026-08-whole-site-content1";
+  const MAX_CONTEXT_CHARS = 14000;
   let knowledgePromise = null;
 
   function updateVisibleStatus(text, title = "") {
@@ -93,8 +93,11 @@
 
   function pageScore(query, page) {
     const revision = detectedRevision(query);
-    let total = textScore(query, `${page.title} ${page.heading || ""} ${page.summary || ""} ${(page.keywords || []).join(" ")} ${page.category || ""} ${page.url}`);
+    const codes = detectedCodes(query);
+    const lessonCode = String(page.lessonCode || "").toUpperCase();
+    let total = textScore(query, `${page.title} ${page.heading || ""} ${page.summary || ""} ${(page.keywords || []).join(" ")} ${page.category || ""} ${page.url} ${page.content || ""}`);
     const category = String(page.category || "");
+    if (codes.includes(lessonCode) && lessonCode) total += 100;
     if (revision && category.includes(revision)) total += 16;
     if (/lesson|notes/.test(normalize(query)) && category.includes("lesson")) total += 8;
     if (/mock|quiz|exam/.test(normalize(query)) && category.includes("mock")) total += 12;
@@ -161,7 +164,10 @@
     if (matches.facts.length) parts.push(`Matched website facts:\n${matches.facts.map(({ item }) => `- ${item.topic}: ${item.fact}`).join("\n")}`);
     if (matches.faq.length) parts.push(`Matched FAQ:\n${matches.faq.map(({ item }) => `- Q: ${item.question}\n  A: ${item.answer}`).join("\n")}`);
     if (matches.programmes.length) parts.push(`Matched programmes:\n${matches.programmes.map(({ item }) => `- [REV${item.revision} ${item.code || ""} ${item.name}](${item.url})`).join("\n")}`);
-    if (matches.pages.length) parts.push(`Relevant POLY PMNA pages:\n${matches.pages.map(({ item }) => `- [${item.title}](${item.url}) — ${item.summary || ""}`).join("\n")}`);
+    if (matches.pages.length) parts.push(`Relevant POLY PMNA pages:\n${matches.pages.map(({ item }) => {
+      const excerpt = item.content ? `\n  Content excerpt: ${item.content}` : "";
+      return `- [${item.title}](${item.url}) — ${item.summary || ""}${excerpt}`;
+    }).join("\n")}`);
 
     return parts.join("\n\n").slice(0, MAX_CONTEXT_CHARS);
   }

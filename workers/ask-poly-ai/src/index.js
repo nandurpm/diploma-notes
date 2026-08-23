@@ -37,7 +37,7 @@ async function readJson(request) {
 const ASK_KEYS = ["message", "history", "stream", "pageTitle", "pageContext", "selectedText", "departmentContext", "learningContext", "answerMode", "preferredLanguage", "dataSaver", "marks", "learningLevel", "attachment", "diagramRequest", "semester", "revision"];
 const SIMPLE_STRING_FIELDS = {
   pageTitle: 160,
-  pageContext: 12000,
+  pageContext: 16000,
   selectedText: 6000,
   answerMode: 40,
   preferredLanguage: 20,
@@ -106,7 +106,7 @@ function wantsWebsiteContext(body) {
 
 function enrichAskBody(body) {
   const useWebsiteContext = wantsWebsiteContext(body);
-  const suppliedContext = useWebsiteContext ? cleanText(body?.pageContext, 12000) : "";
+  const suppliedContext = useWebsiteContext ? cleanText(body?.pageContext, 16000) : "";
   const websiteContext = suppliedContext
     ? `MATCHED RECORDS FROM THE POLY PMNA WEBSITE INDEX:\n${suppliedContext}\n\nUse only records directly relevant to the user's request. Ignore unrelated matches.`
     : "";
@@ -143,7 +143,7 @@ function cloudflareMessages(body) {
       })).filter((item) => item.content)
     : [];
   const question = cleanText(body?.message, 2200);
-  const context = cleanText(body?.pageContext, 7000);
+  const context = cleanText(body?.pageContext, 14000);
   const userContent = context
     ? `${question}\n\n--- RELEVANT POLY PMNA WEBSITE CONTEXT ---\n${context}\n--- END WEBSITE CONTEXT ---`
     : question;

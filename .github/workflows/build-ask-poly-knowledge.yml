@@ -63,6 +63,10 @@ jobs:
           assert {"2021", "2026"}.issubset(revisions), revisions
           assert any(page.get("url") == "/revision-2026.html" for page in data.get("pages", []))
           assert any(page.get("url") == "/tools.html" for page in data.get("pages", []))
+          lesson_pages = [page for page in data.get("pages", []) if page.get("category") == "revision-2026-lesson"]
+          assert len(lesson_pages) >= 1200, len(lesson_pages)
+          assert sum(bool(page.get("content")) for page in lesson_pages) >= 1200
+          assert all(page.get("lessonCode") and len(page.get("content", "")) >= 500 for page in lesson_pages[:20])
           detailed = [row for row in data.get("subjects", []) if row.get("revision") == "2021" and row.get("code") == "4272" and row.get("department") == "Cloud Computing and Big Data" and row.get("semester") == "Semester 4"]
           assert len(detailed) == 1, detailed
           assert len(detailed[0].get("syllabusDetails", {}).get("outcomes", [])) == 4, detailed[0]

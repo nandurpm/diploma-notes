@@ -106,6 +106,57 @@ class PageParser(HTMLParser):
             self.text_parts.append(value)
 
 
+class LessonContentParser(HTMLParser):
+    """Extract readable lesson material while excluding navigation and scripts."""
+
+    CONTENT_TAGS = {"h1", "h2", "h3", "h4", "p", "li", "summary", "dt", "dd", "blockquote", "pre"}
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.parts: list[str] = []
+        self._capture: str | None = None
+        self._buffer: list[str] = []
+        self._skip_depth = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag in {"head", "script", "style", "noscript", "svg", "nav", "footer"}:
+            self._skip_depth += 1
+            return
+        if self._skip_depth:
+            return
+        if tag in self.CONTENT_TAGS:
+            self._capture = tag
+            self._buffer = []
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in {"head", "script", "style", "noscript", "svg", "nav", "footer"} and self._skip_depth:
+            self._skip_depth -= 1
+            return
+        if self._skip_depth or tag != self._capture:
+            return
+        value = compact(" ".join(self._buffer), 1200)
+        if value and (not self.parts or self.parts[-1] != value):
+            self.parts.append(value)
+        self._capture = None
+        self._buffer = []
+
+    def handle_data(self, data: str) -> None:
+        if self._skip_depth or self._capture is None:
+            return
+        value = compact(data, 500)
+        if value:
+            self._buffer.append(value)
+
+
+def lesson_content(path: Path, limit: int = 6000) -> str:
+    try:
+        parser = LessonContentParser()
+        parser.feed(path.read_text(encoding="utf-8", errors="ignore"))
+        return compact(" ".join(parser.parts), limit)
+    except (OSError, ValueError):
+        return ""
+
+
 def public_html_files() -> list[Path]:
     files: list[Path] = []
     for path in ROOT.rglob("*.html"):
@@ -172,7 +223,10 @@ def html_page_record(path: Path) -> dict[str, Any] | None:
     visible = compact(" ".join(parser.text_parts), 900)
     summary = description or visible or h1 or title
     url = "/" if relative.as_posix() == "index.html" else "/" + relative.as_posix()
-    keyword_source = " ".join([title, h1, description, relative.as_posix(), visible])
+    category = page_category(relative)
+    lesson_code_match = re.match(r"lessons-([A-Za-z0-9]+)\.html$", relative.name, re.I) if "lesson" in category else None
+    lesson_text = lesson_content(path) if lesson_code_match else ""
+    keyword_source = " ".join([title, h1, description, relative.as_posix(), visible, lesson_text])
     keywords: list[str] = []
     for token in normalize(keyword_source).split():
         if len(token) < 3 or token in keywords:
@@ -184,10 +238,11 @@ def html_page_record(path: Path) -> dict[str, Any] | None:
         "title": title,
         "url": url,
         "absoluteUrl": site_url(url),
-        "category": page_category(relative),
+        "category": category,
         "heading": h1,
         "summary": summary,
         "keywords": keywords,
+        **({"lessonCode": lesson_code_match.group(1).upper(), "content": lesson_text} if lesson_code_match and lesson_text else {}),
     }
 
 
@@ -462,7 +517,7 @@ def main() -> int:
     lesson_count = sum(1 for row in subjects if row.get("lessonAvailable"))
     notes_count = sum(1 for row in subjects if row.get("notesAvailable"))
     payload = {
-        "version": "2026-08-offline-science1",
+        "version": "2026-08-whole-site-content1",
         "generatedAt": generated_at,
         "site": "POLY PMNA",
         "siteUrl": SITE,

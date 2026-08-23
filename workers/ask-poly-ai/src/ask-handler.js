@@ -627,7 +627,7 @@ function buildUserContent(body) {
   const parts = [];
   const pageTitle = cleanText(body.pageTitle, 160);
   const selectedText = cleanText(body.selectedText, 600);
-  const pageContext = cleanText(body.pageContext, 1200);
+  const pageContext = cleanText(body.pageContext, 14000);
   const departmentContext = body.departmentContext && typeof body.departmentContext === "object" ? body.departmentContext : null;
   const departmentName = cleanText(departmentContext?.displayName, 160);
   const diagramRequest = body.diagramRequest && typeof body.diagramRequest === "object" ? body.diagramRequest : null;
