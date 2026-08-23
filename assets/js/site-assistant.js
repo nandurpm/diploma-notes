@@ -33,6 +33,11 @@
 
   const ASSISTANT_VERSION = "3.0";
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
+  const SITTTR_MODEL_QP_INDEX = {
+    "2015": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2015",
+    "2021": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021",
+    "2026": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
+  };
   let PDF_LINKS = {};
   fetch("/assets/data/sitttr-pdf-links.json?v=20260823-repo-links1").then((response) => response.ok ? response.json() : null).then((manifest) => { PDF_LINKS = manifest?.links || {}; }).catch(() => {});
   const IS_LESSON_PAGE = /\/lessons\/[^/]+\.html$/i.test(window.location.pathname)
@@ -602,7 +607,7 @@
       if (syllabus) addLink(links, "Download Syllabus", syllabus);
       else addUnavailable(links, "Syllabus unavailable");
       if (modelPaper) addLink(links, "Download Model Question Paper", modelPaper);
-      else addUnavailable(links, "Model paper unavailable");
+      else addLink(links, "Open SITTTR Model Question Paper", SITTTR_MODEL_QP_INDEX[String(subject.revision || "2021").replace(/^REV/i, "")] || "");
       card.append(links);
       results.append(card);
     });

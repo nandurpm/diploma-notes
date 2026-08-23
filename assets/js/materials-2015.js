@@ -3,7 +3,7 @@
   "use strict";
 
   const SYLLABUS_INDEX = "";
-  const MODEL_QP_INDEX = "";
+  const MODEL_QP_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2015";
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
   const PDF_LINKS_URLS = [
     "/assets/data/revision-2015-pdf-links.json?v=20260823-rev2015-repo1",
@@ -270,7 +270,7 @@
       ? `<a class="rev2015-action rev2015-action-model" href="${escapeHtml(modelUrl)}" download="${escapeHtml(pdfFilename(modelUrl))}" data-repository-pdf="true"><span aria-hidden="true">↓</span> Download Model Question Paper</a>`
       : officialModelUrl
         ? `<a class="rev2015-action rev2015-action-model external-fallback" href="${escapeHtml(officialModelUrl)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> Open SITTTR Model Question Paper</a>`
-        : '<span class="rev2015-action rev2015-action-disabled" aria-disabled="true" title="This model question paper is not available in the POLY PMNA PDF archive.">Model QP not listed</span>';
+        : `<a class="rev2015-action rev2015-action-model external-fallback" href="${escapeHtml(MODEL_QP_INDEX)}" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">↗</span> Open SITTTR Model Question Paper</a>`;
 
     return (
       `<article class="rev2015-subject-card" data-subject-code="${escapeHtml(subject.code)}">` +
