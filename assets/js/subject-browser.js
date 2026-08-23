@@ -170,7 +170,7 @@
     const fallback = sitttrModelPaperFallback(subject);
     if (fallback) {
       const rev = revisionYear(subject.revision);
-      return `<a class="action qp external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">SITTTR Model Papers \u2014 REV${esc(rev)}</a>`;
+      return `<a class="action qp external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model Question Paper</a>`;
     }
     // Unknown revision: show truthful status only when no fallback is configured.
     return `<span class="availability-label qp-status" aria-disabled="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model paper source not configured</span>`;

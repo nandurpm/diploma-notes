@@ -164,7 +164,7 @@ def card(record: dict[str, str]) -> str:
     model_action = (
         f'<a class="action qp" href="{html.escape(model_qp, quote=True)}" download="{html.escape(pdf_filename(model_qp), quote=True)}">Download Model Question Paper</a>'
         if model_qp else
-        f'<a class="action qp external-fallback" href="{html.escape(sitttr_href(code, "modelQuestionPaper"), quote=True)}" target="_blank" rel="noopener noreferrer">SITTTR Model Papers \u2014 REV2021</a>'
+        f'<a class="action qp external-fallback" href="{html.escape(sitttr_href(code, "modelQuestionPaper"), quote=True)}" target="_blank" rel="noopener noreferrer">Model Question Paper</a>'
     )
     if lesson_ok:
         study = (
