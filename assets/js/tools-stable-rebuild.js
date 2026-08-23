@@ -32,7 +32,7 @@
     ['cgpa','Academic','🎓','CGPA / SGPA Calculator','Weighted grade point calculator.'],['att','Academic','✅','Attendance Percentage Calculator','Attendance percentage and classes needed.'],['internal','Academic','📝','Internal Marks Calculator','Add internal marks components.'],['pass','Academic','🎯','Exam Passing Marks Calculator','Marks needed to pass.'],['plan','Academic','📅','Study Planner','Split topics across days.'],['timer','Academic','⏱️','Daily Revision Timer','Pomodoro style revision timer.'],
     /* Text processing and document helpers */
     ['grammar','Text / Document','✍️','Grammar Checker Frontend Helper','Rule-based spacing, capitalization and common typo helper.'],['words','Text / Document','🔢','Word Counter','Words, characters and reading time.'],['case','Text / Document','Aa','Case Converter','Upper, lower, title and sentence case.'],['clean','Text / Document','🧹','Text Cleaner','Remove extra spaces and blank lines.'],['letter','Text / Document','📄','Application Letter Helper','Editable application letter template.'],['lab','Text / Document','📘','Lab Record Formatting Helper','Aim, apparatus, theory, procedure and result format.']
-  ].map(x => ({id:x[0],cat:x[1],icon:x[2],title:x[3],desc:x[4],_searchText:`${x[3]} ${x[4]} ${x[1]}`.toLowerCase()}));
+  ].map(x => ({id:x[0],cat:x[1],icon:x[2],title:x[3],desc:x[4]}));
   const cats = ['All',...new Set(list.map(t => t.cat))];
   const favKey = 'polyToolsFav2', recKey = 'polyToolsRecent2';
   let activeCat = 'All', onlyFav = false, lastOpener = null, modalCleanup = null;
@@ -51,7 +51,7 @@
   function render(){
     const q = ($('#q')?.value || '').toLowerCase().trim();
     const favoriteIds = get(favKey);
-    const shown = list.filter(t => (activeCat === 'All' || t.cat === activeCat) && (!onlyFav || favoriteIds.includes(t.id)) && (!q || t._searchText.includes(q)));
+    const shown = list.filter(t => (activeCat === 'All' || t.cat === activeCat) && (!onlyFav || favoriteIds.includes(t.id)) && `${t.title} ${t.desc} ${t.cat}`.toLowerCase().includes(q));
     $('#tc') && ($('#tc').textContent = list.length);
     $('#shown') && ($('#shown').textContent = `${shown.length} of ${list.length} tools shown`);
     const emptyMessage = onlyFav && !favoriteIds.length ? 'No favorites saved yet. Use the ☆ Favorite button on a tool card to save it here.' : 'No tools match your current search or category.';
