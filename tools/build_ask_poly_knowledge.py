@@ -148,11 +148,56 @@ class LessonContentParser(HTMLParser):
             self._buffer.append(value)
 
 
+LESSON_DATA_KEYS = {
+    "title", "subtitle", "overview", "objectives", "outcomes", "formulas", "modules",
+    "lessons", "english", "malayalam", "points", "examples", "applications", "tips",
+    "questions", "question", "answer", "a", "q", "name", "intro", "text", "use",
+    "care", "code", "co", "hours", "level", "category", "credits", "periods",
+}
+
+
+def embedded_lesson_data(source: str, limit: int = 9000) -> str:
+    """Flatten trusted embedded lesson JSON used by dynamic handbook pages."""
+    parts: list[str] = []
+    pattern = re.compile(
+        r"<script\b[^>]*type=[\"']application/json[\"'][^>]*>(.*?)</script>",
+        re.I | re.S,
+    )
+    for raw in pattern.findall(source):
+        try:
+            value = json.loads(html.unescape(raw.strip()))
+        except (TypeError, ValueError, json.JSONDecodeError):
+            continue
+
+        def visit(node: Any, key: str = "") -> None:
+            if len(" ".join(parts)) >= limit:
+                return
+            if isinstance(node, dict):
+                for child_key, child in node.items():
+                    normalized_key = str(child_key).casefold()
+                    if normalized_key in {"diagram", "svg", "id"}:
+                        continue
+                    visit(child, str(child_key))
+            elif isinstance(node, list):
+                for child in node:
+                    visit(child, key)
+            elif node not in (None, ""):
+                text = compact(node, 700)
+                if text and (not key or key.casefold() in LESSON_DATA_KEYS):
+                    parts.append(f"{key}: {text}" if key else text)
+
+        visit(value)
+    return compact(" ".join(parts), limit)
+
+
 def lesson_content(path: Path, limit: int = 6000) -> str:
     try:
+        source = path.read_text(encoding="utf-8", errors="ignore")
         parser = LessonContentParser()
-        parser.feed(path.read_text(encoding="utf-8", errors="ignore"))
-        return compact(" ".join(parser.parts), limit)
+        parser.feed(source)
+        static_text = compact(" ".join(parser.parts), limit)
+        embedded_text = embedded_lesson_data(source, limit)
+        return compact(" ".join(part for part in (static_text, embedded_text) if part), limit)
     except (OSError, ValueError):
         return ""
 
@@ -517,7 +562,7 @@ def main() -> int:
     lesson_count = sum(1 for row in subjects if row.get("lessonAvailable"))
     notes_count = sum(1 for row in subjects if row.get("notesAvailable"))
     payload = {
-        "version": "2026-08-whole-site-content1",
+        "version": "2026-08-whole-site-content2",
         "generatedAt": generated_at,
         "site": "POLY PMNA",
         "siteUrl": SITE,
@@ -558,6 +603,7 @@ def main() -> int:
             "subjectRecords": len(subjects),
             "lessonRecordsAvailable": lesson_count,
             "notesRecordsAvailable": notes_count,
+            "lessonContentRecords": sum(1 for row in pages if "lesson" in str(row.get("category", "")) and row.get("content")),
             "syllabusDetailRecords": sum(1 for row in subjects if row.get("syllabusDetails")),
         },
         "programmes": programmes_2021 + programmes_2026,

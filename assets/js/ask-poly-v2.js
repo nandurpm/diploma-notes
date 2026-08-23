@@ -1246,7 +1246,9 @@
     const value = String(text || "").trim();
     if (!value || /^\d{1,3}$/.test(value)) return false;
     if (/\b[1-6]\d{3,4}[A-Z]?\b/i.test(value)) return true;
-    return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|previous|past question|question bank|model paper|sample paper|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
+    if (/subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|previous|past question|question bank|model paper|sample paper|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value)) return true;
+    if (/explain|define|describe|principle|working|construction|procedure|experiment|formula|meaning|difference|advantages?|disadvantages?|application|mechanism|theory|topic|chapter|module|unit|according to|from my lesson/i.test(value)) return true;
+    return /^(what is|what are|how does|how do|why does|why do)\b/i.test(value) && /model|law|theorem|formula|principle|bond|reaction|equation|circuit|algorithm|process|system|structure|mechanism|experiment|effect|method|property|unit|module|chapter|topic|working/i.test(value);
   }
 
   async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null, attachment = null, retrievalMeta = null) {
