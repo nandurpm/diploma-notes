@@ -55,6 +55,13 @@ const rememberPost = message => {
 };
 let currentUser = null;
 let comments = [];
+let writeEnabled = false;
+
+/** All comment write operations must go through the server-side proxy. */
+async function guardedWrite(fn) {
+  if (!writeEnabled) throw new Error("Comment posting is currently unavailable. Please use the email support link instead.");
+  return fn();
+}
 
 function setStatus(message = "", type = "") {
   statusBox.textContent = message;
@@ -98,20 +105,20 @@ async function fetchComments() {
 }
 async function createComment(values) {
   await ensureAuthenticated();
-  return requestJson(COMMENTS_PROXY_URL, { method: "POST", body: JSON.stringify(values) });
+  return guardedWrite(() => requestJson(COMMENTS_PROXY_URL, { method: "POST", body: JSON.stringify(values) }));
 }
 async function updateComment(item) {
-  const user = await ensureAuthenticated();
-  const query = new URLSearchParams();
-  ["author", "message", "deleted"].forEach(field => query.append("updateMask.fieldPaths", field));
-  return requestJson(`${FIRESTORE_REST_URL}/${encodeURIComponent(item.id)}?${query}`, { method: "PATCH", headers: { Authorization: `Bearer ${user.idToken}` }, body: JSON.stringify({ fields: firestoreFields({ author: "Deleted", message: "This comment was deleted.", deleted: true }) }) });
+  // Update/delete operations require the server-side proxy. Route through the proxy
+  // to ensure authentication, rate limiting, and server-held Firebase credentials.
+  await ensureAuthenticated();
+  return guardedWrite(() => requestJson(`${COMMENTS_PROXY_URL}/${encodeURIComponent(item.id)}`, { method: "PATCH", body: JSON.stringify({ author: "Deleted", message: "This comment was deleted.", deleted: true }) }));
 }
 async function deleteComment(item, isReply) {
   if (!window.confirm(isReply ? "Delete this reply?" : "Delete this comment? Existing replies will remain visible.")) return;
   try {
-    const user = await ensureAuthenticated();
-    if (isReply) await requestJson(`${FIRESTORE_REST_URL}/${encodeURIComponent(item.id)}`, { method: "DELETE", headers: { Authorization: `Bearer ${user.idToken}` } });
-    else await updateComment(item);
+    await ensureAuthenticated();
+    // Route through the server-side proxy for authentication and rate limiting.
+    await guardedWrite(() => requestJson(`${COMMENTS_PROXY_URL}/${encodeURIComponent(item.id)}`, { method: "DELETE" }));
     setStatus(isReply ? "Reply deleted." : "Comment deleted.", "success");
     await fetchComments();
   } catch (error) {
@@ -177,6 +184,7 @@ async function initializeDiscussion() {
     await fetchComments();
     try {
       await ensureAuthenticated();
+      writeEnabled = true;
       submitButton.disabled = false;
       form?.removeAttribute("aria-disabled");
       setStatus("Comments are open. Please keep posts public and study-related.", "success");

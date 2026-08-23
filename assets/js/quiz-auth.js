@@ -1,4 +1,10 @@
 /* Purpose: Quiz auth - Descriptive comment added for clarity */
+/* NOTE: The login/signup backoff and user-agent blocking implemented here are
+   client-side defense-in-depth measures. They are intentionally bypassable by
+   disabling JavaScript, calling Supabase directly, or spoofing user agents.
+   Authoritative rate limiting and abuse protection must be configured server-side
+   in Supabase Auth (login/signup rate limits, CAPTCHA) and Cloudflare WAF.
+   See docs/AUTHENTICATION-SECURITY.md for the full security contract. */
 window.PolyQuizAuth = (() => {
   "use strict";
 
