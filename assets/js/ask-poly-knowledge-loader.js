@@ -6,6 +6,16 @@
 
   const KNOWLEDGE_VERSION = "2026-08-whole-site-content1";
   const MAX_CONTEXT_CHARS = 14000;
+  const CONTEXT_BUDGETS = Object.freeze({
+    lesson: 14000,
+    course: 11000,
+    materials: 8000,
+    quiz: 8000,
+    navigation: 5500,
+    tool: 5000,
+    generalWebsite: 7000,
+    general: 3500
+  });
   let knowledgePromise = null;
 
   function updateVisibleStatus(text, title = "") {
@@ -57,6 +67,20 @@
       else total += 2;
     }
     return total;
+  }
+
+  function classifyIntent(query) {
+    const value = normalize(query);
+    if (/lesson|handbook|module|learning outcome|learning outcomes|syllabus detail|topic|chapter|explain.*course/.test(value)) return "lesson";
+    if (/subject|course|semester|credit|contact hour|programme|department|revision|rev 20/.test(value) || detectedCodes(query).length) return "course";
+    if (/syllabus|notes|model question|question paper|sample paper|download|material|pdf/.test(value)) return "materials";
+    if (/mock exam|quiz|previous question|question bank|exam/.test(value)) return "quiz";
+    if (/calculator|converter|tool|website|home page|about page|help page|link|where can i|where is/.test(value)) return /calculator|converter|tool/.test(value) ? "tool" : "navigation";
+    return "generalWebsite";
+  }
+
+  function contextBudget(intent) {
+    return CONTEXT_BUDGETS[intent] || CONTEXT_BUDGETS.generalWebsite;
   }
 
   function subjectSearchText(subject) {
@@ -146,7 +170,7 @@
     return `- ${revision} ${subject.code} — ${subject.name}\n  - Dept: ${link(department, subject.departmentUrl)}\n  - Sem: ${semester} | ${subject.type || "Course"}\n  - Resources: ${link("Syllabus", subject.syllabusUrl)}, ${link("Sample Paper", subject.questionPaperUrl)}, ${availability}${syllabusDetail}`;
   }
 
-  function buildContext(data, matches) {
+  function buildContext(data, matches, intent = "generalWebsite") {
     const detailedSubjects = matches.subjects.filter(({ item }) => item.syllabusDetails);
     const subjectMatches = detailedSubjects.length ? detailedSubjects : matches.subjects;
     const parts = [
@@ -169,7 +193,12 @@
       return `- [${item.title}](${item.url}) — ${item.summary || ""}${excerpt}`;
     }).join("\n")}`);
 
-    return parts.join("\n\n").slice(0, MAX_CONTEXT_CHARS);
+    const budget = Math.min(MAX_CONTEXT_CHARS, contextBudget(intent));
+    const full = parts.join("\n\n");
+    if (full.length <= budget) return full;
+    const exactFirst = [parts[0], parts[1], parts[2], parts[3], parts[4]].filter(Boolean).join("\n\n");
+    const remainderBudget = Math.max(0, budget - exactFirst.length - 2);
+    return `${exactFirst}\n\n${full.slice(exactFirst.length + 2, exactFirst.length + 2 + remainderBudget)}`.slice(0, budget);
   }
 
   function buildFallback(matches) {
@@ -228,7 +257,9 @@
     const matchCount = Object.values(matches).reduce((total, group) => total + group.length, 0);
     if (!matchCount) return null;
 
-    const context = buildContext(data, matches);
+    const intent = classifyIntent(query);
+    const budget = contextBudget(intent);
+    const context = buildContext(data, matches, intent);
     const fallbackAnswer = buildFallback(matches);
     return {
       context,
@@ -237,7 +268,11 @@
       matches,
       version: data.version,
       generatedAt: data.generatedAt,
-      counts: data.counts || {}
+      counts: data.counts || {},
+      intent,
+      contextBudget: budget,
+      contextChars: context.length,
+      matchCounts: Object.fromEntries(Object.entries(matches).map(([key, value]) => [key, value.length]))
     };
   }
 

@@ -801,7 +801,7 @@ async function askOpenAI(input, env) {
       const data = await requestOpenAIWithPayloadFallback(payload, env);
       const result = extractOpenAIAnswer(data);
       if (!result.answer) throw new Error("OpenAI returned an empty response.");
-      return { ...result, provider: "openai", model: data.model || model, responseId: data.id || "" };
+      return { ...result, provider: "openai", model: data.model || model, responseId: data.id || "", usage: data?.usage || undefined };
     } catch (error) {
       lastError = error;
       if (!openAiRetryableModelError(error)) throw error;
@@ -826,7 +826,7 @@ async function askNvidia(input, env) {
   }
   const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
   if (!answer) throw new Error("NVIDIA returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "nvidia", model: data?.model || model, responseId: data?.id || "" };
+  return { answer, citations: [], usedWeb: false, provider: "nvidia", model: data?.model || model, responseId: data?.id || "", usage: data?.usage || undefined, timings: data?.timings || undefined };
 }
 
 async function askOpenRouter(input, env) {
@@ -861,7 +861,7 @@ async function askOpenRouter(input, env) {
       }
       const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
       if (!answer) throw new Error("OpenRouter returned an empty response.");
-      return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "" };
+      return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "", usage: data?.usage || undefined };
     } catch (error) {
       lastError = error;
       console.error(`Ask POLY OpenRouter model ${model} failed`, error);

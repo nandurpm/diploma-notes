@@ -1249,7 +1249,7 @@
     return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|previous|past question|question bank|model paper|sample paper|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
   }
 
-  async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null, attachment = null) {
+  async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null, attachment = null, retrievalMeta = null) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 45000);
@@ -1270,6 +1270,12 @@
           stream: true,
           pageTitle: "Ask POLY whole-site knowledge",
           pageContext: localContext || "",
+          retrievalMeta: retrievalMeta ? {
+            intent: retrievalMeta.intent,
+            contextBudget: retrievalMeta.contextBudget,
+            contextChars: retrievalMeta.contextChars,
+            matchCounts: retrievalMeta.matchCounts
+          } : null,
           departmentContext: department ? { code: department.code, displayName: department.displayName } : null,
           learningContext: contextSnapshot(),
           answerMode: learningContext.mode || "explain",
@@ -1392,7 +1398,12 @@
       const result = await callAI(clean, history, [retrieval?.context || "", pageContext].filter(Boolean).join("\n\n"), (partial) => {
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
-      }, diagramIntent, resolvedDepartment, attachment);
+      }, diagramIntent, resolvedDepartment, attachment, retrieval ? {
+        intent: retrieval.intent,
+        contextBudget: retrieval.contextBudget,
+        contextChars: retrieval.contextChars,
+        matchCounts: retrieval.matchCounts
+      } : null);
       // Some providers return JSON after the streaming providers fail. Feed that
       // complete answer through the same display queue so the UI remains
       // word-by-word regardless of provider response format.
