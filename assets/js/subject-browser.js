@@ -140,12 +140,20 @@
   };
   const pdfFileName = href => href.split("/").pop() || "document.pdf";
   const hasDownloadablePdf = subject => Boolean(pdfHref(subject, "syllabus") || pdfHref(subject, "modelQuestionPaper"));
-  const sitttrHref = (subject, kind) => {
+  const sitttrSyllabusFallback = subject => {
     const code = encodeURIComponent(norm(subject.code));
     const revision = encodeURIComponent(revisionYear(subject.revision));
-    return kind === "modelQuestionPaper"
-      ? `${SITTTR_BASE}r=site%2Fdiploma-modelqp-courses-show&course=${code}`
-      : `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${code}&scheme=REV${revision}`;
+    return `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${code}&scheme=REV${revision}`;
+  };
+  const sitttrModelPaperFallback = subject => {
+    const revision = revisionYear(subject.revision);
+    if (revision === "2021") return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2021`;
+    if (revision === "2026") return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2026`;
+    return "";
+  };
+  const sitttrHref = (subject, kind) => {
+    if (kind === "modelQuestionPaper") return sitttrModelPaperFallback(subject);
+    return sitttrSyllabusFallback(subject);
   };
   const syllabusAction = subject => {
     const direct = pdfHref(subject, "syllabus");
@@ -156,10 +164,16 @@
   const questionPaperAction = (subject, label = "Download Model Question Paper") => {
     const direct = pdfHref(subject, "modelQuestionPaper");
     if (direct) return `<a class="action qp" href="${esc(direct)}" download="${esc(pdfFileName(direct))}" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
-    // The legacy SITTTR course route currently returns "Requested file not found"
-    // for unavailable records. Do not expose a dead/blocked external link; show a
-    // truthful status instead. Verified direct PDFs above remain clickable.
-    return `<span class="availability-label qp-status" aria-disabled="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model paper unavailable</span>`;
+    // Fall back to the revision-specific official SITTTR model-question-paper index
+    // rather than showing a dead disabled label. The SITTTR link opens an external
+    // index page (not a direct PDF), so no download attribute is set.
+    const fallback = sitttrModelPaperFallback(subject);
+    if (fallback) {
+      const rev = revisionYear(subject.revision);
+      return `<a class="action qp external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open SITTTR Model Question Paper \u2014 REV${esc(rev)}</a>`;
+    }
+    // Unknown revision: show truthful status only when no fallback is configured.
+    return `<span class="availability-label qp-status" aria-disabled="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model paper source not configured</span>`;
   };
 
   function unique(list) {

@@ -21,8 +21,8 @@ COMMON = "First Year / Common"
 PDF_MANIFEST = json.loads((ROOT / "assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
 PDF_BASE = PDF_MANIFEST["base"]
 PDF_LINKS = PDF_MANIFEST["links"].get("2021", {})
-SITTTR_SYLLABUS_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={}"
-SITTTR_MODEL_QP_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course={}"
+SITTTR_SYLLABUS_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={}&scheme=REV2021"
+SITTTR_MODEL_QP_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021"
 OBJECT_RE = re.compile(r"\{[^{}]*\brevision\s*:\s*[\"']2021[\"'][^{}]*\}", re.S)
 PAIR_RE = re.compile(r"\b(revision|code|name|department|semester|type|assetCode)\s*:\s*[\"']([^\"']*)[\"']")
 GRID_OPEN_RE = re.compile(r'(<div\b[^>]*\bid=["\']subjectGrid["\'][^>]*>)', re.I)
@@ -63,8 +63,9 @@ def pdf_filename(href: str) -> str:
 
 
 def sitttr_href(code: str, kind: str) -> str:
-    template = SITTTR_MODEL_QP_URL if kind == "modelQuestionPaper" else SITTTR_SYLLABUS_URL
-    return template.format(quote(code.upper(), safe=""))
+    if kind == "modelQuestionPaper":
+        return SITTTR_MODEL_QP_INDEX
+    return SITTTR_SYLLABUS_URL.format(quote(code.upper(), safe=""))
 
 
 def semester_rank(value: str) -> tuple[int, str]:
@@ -163,7 +164,7 @@ def card(record: dict[str, str]) -> str:
     model_action = (
         f'<a class="action qp" href="{html.escape(model_qp, quote=True)}" download="{html.escape(pdf_filename(model_qp), quote=True)}">Download Model Question Paper</a>'
         if model_qp else
-        f'<a class="action qp external-fallback" href="{html.escape(sitttr_href(code, "modelQuestionPaper"), quote=True)}" target="_blank" rel="noopener noreferrer">Open SITTTR Model Question Paper</a>'
+        f'<a class="action qp external-fallback" href="{html.escape(sitttr_href(code, "modelQuestionPaper"), quote=True)}" target="_blank" rel="noopener noreferrer">Open SITTTR Model Question Paper \u2014 REV2021</a>'
     )
     if lesson_ok:
         study = (

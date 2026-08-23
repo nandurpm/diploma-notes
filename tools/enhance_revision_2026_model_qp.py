@@ -15,7 +15,7 @@ SYLLABUS_URL = (
 )
 MODEL_QP_URL = (
     "https://www.sitttrkerala.ac.in/index.php?"
-    "r=site%2Fdiploma-modelqp-courses-show&course={}"
+    "r=site%2Fdiploma-modelqp&scheme=REV2026"
 )
 COURSE_CODE_RE = re.compile(r"^[0-9]{4}[A-Z]?$", re.ASCII)
 ARTICLE_RE = re.compile(
