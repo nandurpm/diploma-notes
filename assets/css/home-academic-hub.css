@@ -264,9 +264,9 @@
     content-visibility: hidden;
     opacity: 0;
     overflow: clip;
-    transition: block-size 220ms cubic-bezier(0.23, 1, 0.32, 1),
-      content-visibility 220ms allow-discrete,
-      opacity 180ms ease-out;
+    transition: block-size 200ms cubic-bezier(0.23, 1, 0.32, 1),
+      content-visibility 200ms allow-discrete,
+      opacity 160ms ease-out;
   }
 
   .academic-menu[open]::details-content {
