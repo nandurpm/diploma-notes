@@ -477,14 +477,30 @@
 
   function renderInlineMarkdown(value) {
     let html = escapeHtml(value);
-    html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
-    html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|data:image\/[^;]+;base64,[^\s)]+)\)/g, '<img src="$2" alt="$1" class="ask-generated-image" loading="lazy">');
-    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    const protectedParts = [];
+    const protect = part => `\u0000${protectedParts.push(part) - 1}\u0000`;
+
+    // Protect already-rendered Markdown constructs so bare-URL detection cannot
+    // create nested anchors or make code samples interactive.
+    html = html.replace(/`([^`]+)`/g, (_, code) => protect(`<code>${code}</code>`));
+    html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|data:image\/[^;]+;base64,[^\s)]+)\)/g, (_, alt, src) => protect(`<img src="${src}" alt="${alt}" class="ask-generated-image" loading="lazy">`));
+    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, (_, label, href) => protect(`<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`));
+
+    // Convert only safe web URLs. Trailing sentence punctuation remains outside
+    // the anchor so clicking a sentence does not include the punctuation.
+    html = html.replace(/(^|[\s(])((?:https?:\/\/|www\.)[^\s<]+)/gi, (_, prefix, candidate) => {
+      const trailingMatch = candidate.match(/[),.;:!?]+$/);
+      const trailing = trailingMatch ? trailingMatch[0] : "";
+      const url = trailing ? candidate.slice(0, -trailing.length) : candidate;
+      const href = /^www\./i.test(url) ? `https://${url}` : url;
+      return `${prefix}${protect(`<a class="ask-auto-link" href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`)}${trailing}`;
+    });
+
     html = html.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
     html = html.replace(/__([^_\n]+)__/g, "<strong>$1</strong>");
     html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
     html = html.replace(/_([^_\n]+)_/g, "<em>$1</em>");
-    return html;
+    return html.replace(/\u0000(\d+)\u0000/g, (_, index) => protectedParts[Number(index)] || "");
   }
 
   function renderMarkdownTable(headerLine, bodyLines) {
