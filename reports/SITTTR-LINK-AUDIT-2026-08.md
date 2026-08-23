@@ -39,6 +39,16 @@
 
 ## Actions taken
 
-- Regenerate REV2021 department pages from `tools/materialize_rev2021_subjects.py` (source of truth), which emits revision-aware syllabus PDFs and the official REV2021 model-QP index fallback.
-- Rewrite the broken `diploma-modelqp-courses-show` occurrences in knowledge base, 2015 subject data, 2015 renderer, and lesson pages to the revision-specific official index.
-- Add a deterministic repair tool so the fix is idempotent and re-verifiable.
+- Regenerate REV2021 department pages from `tools/materialize_rev2021_subjects.py` (source of truth), emitting revision-correct syllabus PDFs and the official REV2021 model-QP index fallback.
+- Rewrite the broken `diploma-modelqp-courses-show` occurrences in 1,272 knowledge-base entries, 638 revision-2015 subject records, 1,792 archive provenance URLs, 4 lesson pages, and both JS renderers, to the revision-specific official index.
+- Add a deterministic repair tool (`tools/repair_modelqp_broken_routes.py`) so the fix is idempotent and re-verifiable.
+- Bump cache-busting versions on affected scripts/manifests (92 pages).
+
+## Post-implementation verification (live, after GitHub Pages deploy)
+
+- commit: `f18b9e8` pushed to `origin/main`; GitHub Pages deploy succeeded.
+- `https://polypmna.dpdns.org/assets/data/revision-2015-subjects.json` → `modelQuestionPaperUrl` = `index.php?r=site%2Fdiploma-modelqp&scheme=REV2015` ✅
+- `https://polypmna.dpdns.org/lessons/lessons-3032.html` and `lessons-3044.html` → `scheme=REV2021` ✅
+- `https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-1021.html` → `scheme=REV2026` ✅
+- `https://polypmna.dpdns.org/revision-2021/architecture.html` → 0 cross-revision `revision-2026/syllabus` links, 0 dead `Model paper unavailable` labels ✅
+- SITTTR official indexes REV2021 / REV2026 / REV2015 → HTTP 200 ✅
