@@ -735,3 +735,14 @@ body.tools-page {
 
 .tools-page .card h3,
 .tools-page .card p { width: 100% !important; }
+
+
+/* 2026-08 full-width desktop toolkit: use the available viewport instead of a centered 1440px canvas. */
+@media (min-width: 901px) {
+  .tools-page .wrap {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+  }
+}
