@@ -21,6 +21,7 @@ body.home-page .home-compact-hero.page-title {
   align-items: center !important;
   grid-template-rows: auto !important;
   border-radius: 28px !important;
+  background: linear-gradient(135deg, #ffffff 0%, #f2f8ff 54%, #eefbf7 100%) !important;
 }
 
 body.home-page .home-hero-copy {
@@ -244,7 +245,7 @@ body.home-page #subject-browser {
     padding: clamp(34px, 3.5vw, 56px) !important;
     grid-template-columns: minmax(0, 1.35fr) minmax(350px, 430px) !important;
     gap: clamp(32px, 4vw, 72px) !important;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.99), rgba(232, 244, 255, 0.98)) !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f2f8ff 54%, #eefbf7 100%) !important;
     border: 1px solid rgba(29, 78, 216, 0.13) !important;
     box-shadow: 0 22px 55px rgba(20, 45, 90, 0.14) !important;
   }
