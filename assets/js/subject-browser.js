@@ -118,6 +118,7 @@
     return fallback ? `${PDF_BASE}${fallback[1][kind]}` : "";
   };
   const pdfFileName = href => href.split("/").pop() || "document.pdf";
+  const hasDownloadablePdf = subject => Boolean(pdfHref(subject, "syllabus") || pdfHref(subject, "modelQuestionPaper"));
   const sitttrHref = (subject, kind) => {
     const code = encodeURIComponent(norm(subject.code));
     const revision = encodeURIComponent(revisionYear(subject.revision));
@@ -325,8 +326,9 @@
     const semester = $("semesterFilter")?.value || "all";
     const chosenDepartment = $("departmentFilter")?.value || ALL_DEPARTMENTS;
     const selectedRevision = fixedRevision || $("revisionFilter")?.value || "all";
+    const pdfAvailability = $("pdfAvailabilityFilter")?.value || "all";
     const requireFilter = grid.dataset.requireFilter === "true";
-    const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS;
+    const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS || pdfAvailability === "downloadable";
     let list = all.filter(subject => selectedRevision === "all" || String(subject.revision) === selectedRevision);
     if (mode === "papers" && requireFilter && !hasUserFilter) list = [];
     if (mode === "department") list = list.filter(subject => sameDept(subject.department, department) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
@@ -335,6 +337,7 @@
       else if (chosenDepartment !== ALL_DEPARTMENTS) list = list.filter(subject => sameDept(subject.department, chosenDepartment) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
     }
     if (mode === "lessons") list = list.filter(hasLesson);
+    if (pdfAvailability === "downloadable") list = list.filter(hasDownloadablePdf);
     if (semester !== "all") list = list.filter(subject => String(subject.semester) === semester);
     if (query) {
       list = list.filter(subject => (subject._searchText || "").includes(query));
@@ -421,7 +424,7 @@
       fillSemester($("semesterFilter"), revisionSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
       rerender();
     });
-    [$("subjectSearch"), $("semesterFilter"), $("departmentFilter")].forEach(control => {
+    [$("subjectSearch"), $("semesterFilter"), $("departmentFilter"), $("pdfAvailabilityFilter")].forEach(control => {
       if (!control) return;
       // PERFORMANCE OPTIMIZATION: passive listeners keep scrolling smooth while the
       // user types in the search field after the (heavy) grid has rendered.

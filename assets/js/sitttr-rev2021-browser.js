@@ -1,7 +1,7 @@
 /* Purpose: Sitttr rev2021 browser - Descriptive comment added for clarity */
 (() => {
   "use strict";
-  const VERSION = "20260706-sitttr-complete1";
+  const VERSION = "20260823-pdf-filter1";
   const COMMON = "First Year / Common";
   const LESSONS = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","2001","2002","2003","2006","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4021","4022","4023","4024","4031","4041","4042","4043","4101","4102","4103","5031","5041","5042","5043","5043A","6001","6002","6007","6009","6041","6041A","6041B","6041C","6042A","6042B","6042C","6042D","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
   // REV2021 course codes with NO matching REV2026 code (see subject-browser.js
@@ -61,8 +61,9 @@
   function applyExact(list, dept) { const dk = keyDept(dept); return list.filter(s => { const set = exact.get(`${dk}::${s.semester}`); return !set || set.has(norm(s.code)); }); }
   function filtered(all, dept) { return applyExact(preferDeptRows(all.filter(s => String(s.revision)==="2021" && (sameDept(s.department,dept) || sameDept(s.department,COMMON))), dept), dept); }
   function render(all, grid, dept) {
-    const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all";
+    const q = String($("subjectSearch")?.value || "").trim().toLowerCase(), sem = $("semesterFilter")?.value || "all", pdfAvailability = $("pdfAvailabilityFilter")?.value || "all";
     let list = filtered(all, dept);
+    if (pdfAvailability === "downloadable") list = list.filter(s => Boolean(pdfHref(s, "syllabus") || pdfHref(s, "modelQuestionPaper")));
     if (sem !== "all") list = list.filter(s=>String(s.semester)===sem);
     if (q) {
       list = list.filter(s => {
@@ -113,6 +114,7 @@
     const rr = () => render(all, grid, dept);
     $("subjectSearch")?.addEventListener("input", rr);
     $("semesterFilter")?.addEventListener("change", rr);
+    $("pdfAvailabilityFilter")?.addEventListener("change", rr);
     rr();
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true}); else init();

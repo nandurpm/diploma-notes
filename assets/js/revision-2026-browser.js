@@ -266,19 +266,33 @@
       const code = card.dataset.subjectCode || "";
       const syllabus = repositoryPdfHref(programmeSlug, code, "syllabus");
       const model = repositoryPdfHref(programmeSlug, code, "modelQuestionPaper");
-      const update = (selector, href, label) => {
+      const update = (selector, href, label, fallbackHref, fallbackLabel) => {
         const link = card.querySelector(selector);
-        if (!link || !href) return;
-        link.href = href;
-        link.textContent = label;
-        link.classList.remove("external-fallback");
-        link.removeAttribute("target");
-        link.removeAttribute("rel");
-        link.setAttribute("download", pdfFilename(href));
+        if (!link) return;
+        if (href) {
+          link.href = href;
+          link.textContent = label;
+          link.classList.remove("external-fallback");
+          link.removeAttribute("target");
+          link.removeAttribute("rel");
+          link.setAttribute("download", pdfFilename(href));
+          return;
+        }
+        // Static HTML can contain a stale direct link from another revision. Never
+        // leave that URL active when the exact Revision 2026 file is unavailable.
+        if (link.href.includes("poly-pmna-pdf-files")) {
+          link.href = fallbackHref;
+          link.textContent = fallbackLabel;
+          link.classList.add("external-fallback");
+          link.removeAttribute("download");
+          link.setAttribute("target", "_blank");
+          link.setAttribute("rel", "noopener noreferrer");
+        }
       };
-      update("a.action.syllabus", syllabus, "Download Syllabus");
-      update("a.action.qp", model, "Download Model Question Paper");
+      update("a.action.syllabus", syllabus, "Download Syllabus", sitttrHref(code, "syllabus"), "Open SITTTR Syllabus");
+      update("a.action.qp", model, "Download Model Question Paper", sitttrHref(code, "modelQuestionPaper"), "Open SITTTR Model Question Paper");
     });
+    document.getElementById("pdfAvailabilityFilter")?.dispatchEvent(new Event("change"));
   }
 
   function sitttrHref(code, kind) {
@@ -353,11 +367,14 @@
     const draw = () => {
       const query = normaliseSearch(search?.value || "");
       const selected = semester?.value || "all";
+      const pdfAvailability = document.getElementById("pdfAvailabilityFilter")?.value || "all";
       let visibleTotal = 0;
       cards.forEach(card => {
         const matchesSemester = selected === "all" || card.dataset.semester === selected;
+        const hasDownloadablePdf = Boolean(card.querySelector("a.action.syllabus:not(.external-fallback), a.action.qp:not(.external-fallback)"));
+        const matchesPdfAvailability = pdfAvailability !== "downloadable" || hasDownloadablePdf;
         const haystack = card._searchText || "";
-        const show = matchesSemester && (!query || haystack.includes(query));
+        const show = matchesSemester && matchesPdfAvailability && (!query || haystack.includes(query));
         card.hidden = !show;
         if (show) visibleTotal += 1;
       });
@@ -388,6 +405,7 @@
     }
     search?.addEventListener("input", draw);
     semester?.addEventListener("change", draw);
+    document.getElementById("pdfAvailabilityFilter")?.addEventListener("change", draw);
     draw();
     return true;
   }

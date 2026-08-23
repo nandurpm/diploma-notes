@@ -160,6 +160,7 @@
     return {
       department: document.getElementById("rev2015Department"),
       semester: document.getElementById("rev2015Semester"),
+      pdfAvailability: document.getElementById("pdfAvailabilityFilter"),
       search: document.getElementById("rev2015Search"),
       clear: document.getElementById("rev2015ClearFilters"),
       status: document.getElementById("rev2015DirectoryStatus"),
@@ -291,12 +292,16 @@
     }
 
     const query = directory.query.toLowerCase();
-    const subjects = directory.data.subjects.filter(item => {
+    const pdfAvailability = getDirectoryElements().pdfAvailability?.value || "all";
+    let subjects = directory.data.subjects.filter(item => {
       if (item.programmeCode !== programme.code) return false;
       if (directory.semester !== "all" && String(item.semester) !== directory.semester) return false;
       if (!query) return true;
       return (item._searchText || "").includes(query);
     });
+    if (pdfAvailability === "downloadable") {
+      subjects = subjects.filter(subject => Boolean(repositoryPdfUrl(subject, "syllabus") || repositoryPdfUrl(subject, "modelQuestionPaper")));
+    }
 
     const departmentSyllabusUrl = "";
     const departmentModelUrl = "";
@@ -359,10 +364,13 @@
       // DOM re-renders on every keystroke during active typing on mobile devices.
       searchTimer = setTimeout(renderDirectory, 120);
     });
+    getDirectoryElements().pdfAvailability?.addEventListener("change", renderDirectory);
     clear?.addEventListener("click", () => {
       directory.department = "";
       directory.semester = "all";
       directory.query = "";
+      const pdfAvailability = getDirectoryElements().pdfAvailability;
+      if (pdfAvailability) pdfAvailability.value = "all";
       populateDirectoryControls();
       renderDirectory();
       department.focus();
