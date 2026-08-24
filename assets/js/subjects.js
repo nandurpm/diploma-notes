@@ -1,3 +1,8 @@
+// Legacy companion config for older materials pages. The file was found
+// truncated in git history (missing its opening declaration), which made every
+// browser throw a SyntaxError on load. Re-declared here with the surviving data.
+const MATERIALS_2015 = {
+  questionPapers: [
     { label: "First Year", url: "https://drive.google.com/open?id=1qHCYDCt2yg2VToC5RbU78ZGD_TN3EtUZ" },
     { label: "Electronics Engineering", url: "https://drive.google.com/drive/folders/1F-RZg7Msl1fNQ43EftNpFj2Iy7K3liPw?usp=sharing" },
     { label: "Electronics & Communication Engineering", url: "https://drive.google.com/open?id=1MOT4kkGx3l6aqdobqkoKHqD1d2Ki6gHx" },
