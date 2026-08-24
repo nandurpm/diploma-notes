@@ -1083,7 +1083,7 @@ const SUBJECTS = [
   { revision: "2021", code: "4006", name: "Minor Project", department: "Electronics and Computer Engineering", semester: "Semester 4", type: "Project" },
   { revision: "2021", code: "5002", name: "Project Management and Software Engineering", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Project" },
   { revision: "2021", code: "5131", name: "Embedded System and Real time Operating System", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
-  { revision: "2021", code: "5501", name: "Linear Integared Ciricuits", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
+  { revision: "2021", code: "5501", name: "Linear Integrated Circuits", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
   { revision: "2021", code: "5043A", name: "Optical Communication and Networking", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
   { revision: "2021", code: "5043B", name: "Microwave Devices and Radar", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
   { revision: "2021", code: "5133B", name: "Ethical Hacking", department: "Electronics and Computer Engineering", semester: "Semester 5", type: "Theory" },
