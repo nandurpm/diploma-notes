@@ -1,8 +1,8 @@
 /*
  * POLY PMNA — Annual Independence Day theme controller
  *
- * The only date decision in the theme lives here. It uses India Standard
- * Time, activates on 15 August every year, and removes every
+ * The only date decision in the theme lives here. It uses the visitor's
+ * local calendar, activates on 15 August every year, and removes every
  * temporary class/node/listener when the date changes or the page is reused.
  */
 (() => {
@@ -14,14 +14,7 @@
   const body = document.body;
   const STYLE_PATH = "/assets/css/independence-day-theme.css";
   const THEME_CLASS = "poly-independence-day";
-  const PARTICLE_COUNT = 30;
-  const THEME_TIME_ZONE = "Asia/Kolkata";
-  const indiaDateFormatter = new Intl.DateTimeFormat("en-IN", {
-    timeZone: THEME_TIME_ZONE,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
+  const PARTICLE_COUNT = 18;
   const originalThemeColor = document.querySelector('meta[name="theme-color"]')?.getAttribute("content") || "";
   const cleanupTasks = [];
   let banner = null;
@@ -32,19 +25,16 @@
   let dismissed = false;
   let lastDateKey = "";
 
-  const indiaDateParts = (date = new Date()) => {
-    const parts = Object.fromEntries(
-      indiaDateFormatter.formatToParts(date)
-        .filter(({ type }) => type === "year" || type === "month" || type === "day")
-        .map(({ type, value }) => [type, Number(value)])
-    );
-    return { year: parts.year, month: parts.month, day: parts.day };
-  };
+  const localDateParts = (date = new Date()) => ({
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
+  });
 
   const getDateKey = (parts) => `${parts.year}-${String(parts.month).padStart(2, "0")}-${String(parts.day).padStart(2, "0")}`;
 
   const isIndependenceDay = (date = new Date()) => {
-    const parts = indiaDateParts(date);
+    const parts = localDateParts(date);
     return parts.month === 8 && parts.day === 15;
   };
 
@@ -57,7 +47,7 @@
     if (existing || document.querySelector(`link[data-poly-independence-day-css="true"]`)) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `${STYLE_PATH}?v=annual-tricolour-circuit-2`;
+    link.href = `${STYLE_PATH}?v=annual-tricolour-circuit-1`;
     link.dataset.polyIndependenceDayCss = "true";
     document.head.append(link);
     cleanupTasks.push(() => link.remove());
@@ -174,7 +164,7 @@
     removeCompetingOnamTheme();
     ensureThemeStylesheet();
     updateThemeColor();
-    const parts = indiaDateParts();
+    const parts = localDateParts();
     addBanner(parts);
     addParticles();
     watchForCompetingTheme();
@@ -202,7 +192,7 @@
   }
 
   function checkDate() {
-    const parts = indiaDateParts();
+    const parts = localDateParts();
     const dateKey = getDateKey(parts);
     if (dateKey === lastDateKey && active) return;
     if (isIndependenceDay()) activate();
@@ -215,7 +205,7 @@
     isIndependenceDay,
     activate,
     deactivate,
-    version: "annual-tricolour-circuit-2",
+    version: "annual-tricolour-circuit-1",
   });
   window.PolyIndependenceDayTheme = api;
 

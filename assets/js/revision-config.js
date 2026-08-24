@@ -9,10 +9,10 @@ const CURRICULUM_REVISIONS = Object.freeze({
     syllabusAvailable: true,
     subjectDataPublished: true,
     modelQuestionPapersAvailable: true,
-    officialModelQuestionPapersUrl: "https://github.com/nandurpm/poly-pmna-pdf-files/tree/main/sitttr/revision-2021/model-question-papers",
+    officialModelQuestionPapersUrl: "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021",
     programmeCount: 43,
     protectExistingHandbooks: true,
-    notice: "Revision 2021 subjects include direct syllabus and model-question-paper PDF downloads from the POLY PMNA archive."
+    notice: "Revision 2021 subjects, handbooks, notes and official model-question-paper links remain available for legacy batches."
   }),
   "2026": Object.freeze({
     id: "2026",
@@ -23,7 +23,7 @@ const CURRICULUM_REVISIONS = Object.freeze({
     subjectDataPublished: true,
     modelQuestionPapersAvailable: true,
     programmeCount: 42,
-    officialSyllabusUrl: "https://github.com/nandurpm/poly-pmna-pdf-files/tree/main/sitttr/revision-2026/syllabus",
+    officialSyllabusUrl: "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026",
     newlyListedProgrammes: Object.freeze([
       "Computer Science and Technology",
       "Interior Design"
@@ -37,7 +37,7 @@ const CURRICULUM_REVISIONS = Object.freeze({
       "Manufacturing Technology",
       "Renewable Energy"
     ]),
-    notice: "The Revision 2026 programme list and semester-wise subjects are published with direct PDF archive links where files are available."
+    notice: "The official Revision 2026 programme list, semester-wise subjects and model question papers are published. Official SITTTR model papers are linked directly where available; dedicated handbooks and downloadable notes are added separately."
   })
 });
 

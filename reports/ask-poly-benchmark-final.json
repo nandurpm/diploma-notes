@@ -1,0 +1,185 @@
+{
+  "generated_at": "2026-08-13T01:34:20Z",
+  "endpoint": "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly",
+  "samples_per_case": 3,
+  "local_math": {
+    "summary": {
+      "case_count": 5,
+      "warm_mean_overall_ms": 3209.4,
+      "warm_median_overall_ms": 3474.0,
+      "warm_min_ms": 2379.3,
+      "warm_max_ms": 3817.6,
+      "cold_start_mean_ms": 4332.4,
+      "providers_seen": [
+        "local-math"
+      ]
+    },
+    "cases": [
+      {
+        "question": "2 + 78 = 80",
+        "provider": "local-math",
+        "cold_start_ms": 5170.1,
+        "warm_times_ms": [
+          1949.3,
+          2809.4
+        ],
+        "warm_mean_ms": 2379.3,
+        "warm_median_ms": 2379.3,
+        "warm_min_ms": 1949.3,
+        "warm_max_ms": 2809.4,
+        "warm_p95_ms": 1949.3,
+        "skipped": 0
+      },
+      {
+        "question": "3^5 = 243",
+        "provider": "local-math",
+        "cold_start_ms": 3549.3,
+        "warm_times_ms": [
+          5166.1,
+          1781.9
+        ],
+        "warm_mean_ms": 3474.0,
+        "warm_median_ms": 3474.0,
+        "warm_min_ms": 1781.9,
+        "warm_max_ms": 5166.1,
+        "warm_p95_ms": 1781.9,
+        "skipped": 0
+      },
+      {
+        "question": "125% of 160 = 200",
+        "provider": "local-math",
+        "cold_start_ms": 5186.2,
+        "warm_times_ms": [
+          2846.3,
+          2898.9
+        ],
+        "warm_mean_ms": 2872.6,
+        "warm_median_ms": 2872.6,
+        "warm_min_ms": 2846.3,
+        "warm_max_ms": 2898.9,
+        "warm_p95_ms": 2846.3,
+        "skipped": 0
+      },
+      {
+        "question": "sqrt(144) = 12",
+        "provider": "local-math",
+        "cold_start_ms": 5252.9,
+        "warm_times_ms": [
+          2768.1,
+          4238.8
+        ],
+        "warm_mean_ms": 3503.4,
+        "warm_median_ms": 3503.4,
+        "warm_min_ms": 2768.1,
+        "warm_max_ms": 4238.8,
+        "warm_p95_ms": 2768.1,
+        "skipped": 0
+      },
+      {
+        "question": "1000/8 = 125",
+        "provider": "local-math",
+        "cold_start_ms": 2503.6,
+        "warm_times_ms": [
+          3770.8,
+          3864.4
+        ],
+        "warm_mean_ms": 3817.6,
+        "warm_median_ms": 3817.6,
+        "warm_min_ms": 3770.8,
+        "warm_max_ms": 3864.4,
+        "warm_p95_ms": 3770.8,
+        "skipped": 0
+      }
+    ]
+  },
+  "ai_fallback": {
+    "summary": {
+      "case_count": 5,
+      "warm_mean_overall_ms": 3012.9,
+      "warm_median_overall_ms": 2866.1,
+      "warm_min_ms": 2437.2,
+      "warm_max_ms": 3633.8,
+      "cold_start_mean_ms": 3814.0,
+      "providers_seen": [
+        "nvidia"
+      ]
+    },
+    "cases": [
+      {
+        "question": "what is the capital of Kerala",
+        "provider": "nvidia",
+        "cold_start_ms": 3367.3,
+        "warm_times_ms": [
+          2336.7,
+          2537.8
+        ],
+        "warm_mean_ms": 2437.2,
+        "warm_median_ms": 2437.2,
+        "warm_min_ms": 2336.7,
+        "warm_max_ms": 2537.8,
+        "warm_p95_ms": 2336.7,
+        "skipped": 0
+      },
+      {
+        "question": "explain Ohm's law briefly",
+        "provider": "nvidia",
+        "cold_start_ms": 2346.9,
+        "warm_times_ms": [
+          2618.3,
+          3048.7
+        ],
+        "warm_mean_ms": 2833.5,
+        "warm_median_ms": 2833.5,
+        "warm_min_ms": 2618.3,
+        "warm_max_ms": 3048.7,
+        "warm_p95_ms": 2618.3,
+        "skipped": 0
+      },
+      {
+        "question": "what is a diode",
+        "provider": "nvidia",
+        "cold_start_ms": 3428.5,
+        "warm_times_ms": [
+          2651.3,
+          3080.8
+        ],
+        "warm_mean_ms": 2866.1,
+        "warm_median_ms": 2866.1,
+        "warm_min_ms": 2651.3,
+        "warm_max_ms": 3080.8,
+        "warm_p95_ms": 2651.3,
+        "skipped": 0
+      },
+      {
+        "question": "how does a transformer work",
+        "provider": "nvidia",
+        "cold_start_ms": 4295.4,
+        "warm_times_ms": [
+          4038.1,
+          3229.5
+        ],
+        "warm_mean_ms": 3633.8,
+        "warm_median_ms": 3633.8,
+        "warm_min_ms": 3229.5,
+        "warm_max_ms": 4038.1,
+        "warm_p95_ms": 3229.5,
+        "skipped": 0
+      },
+      {
+        "question": "what does CPU stand for",
+        "provider": "nvidia",
+        "cold_start_ms": 5632.0,
+        "warm_times_ms": [
+          3541.6,
+          3046.5
+        ],
+        "warm_mean_ms": 3294.1,
+        "warm_median_ms": 3294.1,
+        "warm_min_ms": 3046.5,
+        "warm_max_ms": 3541.6,
+        "warm_p95_ms": 3046.5,
+        "skipped": 0
+      }
+    ]
+  }
+}

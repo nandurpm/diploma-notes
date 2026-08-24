@@ -7,7 +7,7 @@
   const ALL_DEPARTMENTS = "all";
   const HOME_LIMIT = 36;
 
-  // Revision 2021 lessons remain in /lessons; note actions open print mode.
+  // Revision 2021 assets remain in /lessons and /notes.
   const LESSON_CODES = new Set(["1001","1002","1003","1004","1005","1006","1007","1008","1009","1141","1142","1143","1144","1149","1251","1252","1253","1254","1257","1258","1259","1471","1472","1473","1474","1477","1478","1479","2001","2002","2003","2006","2011","2021","2022","2028","2029","2031","2032","2038","2039","2041","2049","2131","2139","2181","2254","2255","2371","3011","3012","3013","3014","3021","3022","3023","3024","3025","3031","3032","3041","3042","3043","3044","3045","3046","3047","3048","3049","3132","4001","4006","4007","4009","4011","4012","4013","4021","4022","4023","4024","4031","4032","4041","4042","4043","4101","4102","4103","5001","5002","5011","5012","5013","5014A","5014B","5014C","5021","5022","5023A","5023B","5023C","5027","5031","5032","5041","5042","5043","5043A","6001","6002","6007","6009","6011A","6011B","6011C","6012A","6012B","6012C","6012D","6031","6031A","6031C","6031D","6032","6032A","6032B","6032C","6032D","6041","6041A","6041B","6041C","6042","6042A","6042B","6042C","6042D","6043","6061A","6061B","6061C","6062A","6062B","6067","6068","6069"]);
   const NOTES_CODES = new Set([]);
 
@@ -102,78 +102,36 @@
   const revisionYear = revision => revisionTag(revision).replace(/^REV/, "");
   const makeCourseKey = subject => `${revisionTag(subject.revision)}-${norm(subject.code)}`;
   const key = s => `${makeCourseKey(s)}|${s.department}`;
-  let PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
-  let PDF_LINKS = {};
-  const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php?";
-  const pdfSlug = value => String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
-  // Repository department folders omit punctuation-based ampersands (for example,
-  // `civil-environmental-engineering`), while page labels naturally render `&`.
-  // Try both forms, but only accept a candidate that exists in the manifest.
-  const pdfSlugCandidates = value => {
-    const text = String(value || "");
-    const initial = [
-      pdfSlug(text),
-      text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
-    ].filter(Boolean);
-    const result = [];
-    const queue = [...new Set(initial)];
-    while (queue.length) {
-      const candidate = queue.shift();
-      if (result.includes(candidate)) continue;
-      result.push(candidate);
-      const index = candidate.indexOf("-and-");
-      if (index >= 0) queue.push(`${candidate.slice(0, index)}-${candidate.slice(index + 5)}`);
-    }
-    return result;
+  const directCourseUrl = (code, revision) => {
+    const tag = revisionTag(revision);
+    return `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}${tag ? `&scheme=${encodeURIComponent(tag)}` : ""}`;
   };
-  const pdfHref = (subject, kind) => {
-    const revision = revisionYear(subject.revision);
-    const code = norm(subject.code);
-    const revisionLinks = PDF_LINKS[revision] || {};
-    for (const slug of pdfSlugCandidates(subject.department)) {
-      const direct = revisionLinks[`${revision}|${slug}|${code}`]?.[kind];
-      if (direct) return `${PDF_BASE}${direct}`;
-    }
-    const suffix = `|${code}`;
-    const fallback = Object.entries(revisionLinks).find(([key, value]) => key.endsWith(suffix) && value?.[kind]);
-    return fallback ? `${PDF_BASE}${fallback[1][kind]}` : "";
+  // SITTTR's public course endpoint does not reliably distinguish the two
+  // revisions for shared course codes. Until a course-specific REV2021 URL is
+  // verified in the data record, do not send a student to a potentially 2026 page.
+  const syllabusUrl = subject => {
+    const tag = revisionTag(subject.revision);
+    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021";
   };
-  const pdfFileName = href => href.split("/").pop() || "document.pdf";
-  const hasDownloadablePdf = subject => Boolean(pdfHref(subject, "syllabus") || pdfHref(subject, "modelQuestionPaper"));
-  const sitttrSyllabusFallback = subject => {
-    const code = encodeURIComponent(norm(subject.code));
-    const revision = encodeURIComponent(revisionYear(subject.revision));
-    return `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${code}&scheme=REV${revision}`;
-  };
-  const sitttrModelPaperFallback = subject => {
-    const revision = revisionYear(subject.revision);
-    if (revision === "2021") return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2021`;
-    if (revision === "2026") return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2026`;
-    return "";
-  };
-  const sitttrHref = (subject, kind) => {
-    if (kind === "modelQuestionPaper") return sitttrModelPaperFallback(subject);
-    return sitttrSyllabusFallback(subject);
-  };
+  const syllabusUnavailableMessage = subject =>
+    `Official syllabus link has not been verified for Revision ${esc(revisionYear(subject.revision))} course ${esc(subject.code)}.`;
   const syllabusAction = subject => {
-    const direct = pdfHref(subject, "syllabus");
-    if (direct) return `<a class="action syllabus" href="${esc(direct)}" download="${esc(pdfFileName(direct))}" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Download Syllabus</a>`;
-    const fallback = sitttrHref(subject, "syllabus");
-    return `<a class="action syllabus external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open SITTTR Syllabus</a>`;
+    const href = syllabusUrl(subject);
+    if (href) return `<a class="action syllabus" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Open Syllabus</a>`;
+    const message = syllabusUnavailableMessage(subject);
+    return `<button class="action syllabus" type="button" data-syllabus-unavailable="true" data-syllabus-revision="${esc(revisionTag(subject.revision))}" data-syllabus-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${message}" title="${message}" onclick="window.alert(this.title)">Open Syllabus</button>`;
   };
-  const questionPaperAction = (subject, label = "Download Model Question Paper") => {
-    const direct = pdfHref(subject, "modelQuestionPaper");
-    if (direct) return `<a class="action qp" href="${esc(direct)}" download="${esc(pdfFileName(direct))}" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
-    // Fall back to the revision-specific official SITTTR model-question-paper index
-    // rather than showing a dead disabled label. The SITTTR link opens an external
-    // index page (not a direct PDF), so no download attribute is set.
-    const fallback = sitttrModelPaperFallback(subject);
-    if (fallback) {
-      const rev = revisionYear(subject.revision);
-      return `<a class="action qp external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model Question Paper</a>`;
-    }
-    // Unknown revision: show truthful status only when no fallback is configured.
-    return `<span class="availability-label qp-status" aria-disabled="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model paper source not configured</span>`;
+  const questionPaperUrl = subject => {
+    const tag = revisionTag(subject.revision);
+    if (tag === "REV2026") return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026";
+    return "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2021";
+  };
+  const modelPaperUnavailableMessage = subject => `Model Question Paper not available for Revision ${esc(revisionYear(subject.revision))} for this course.`;
+  const questionPaperAction = (subject, label) => {
+    const href = questionPaperUrl(subject);
+    if (href) return `<a class="action qp" href="${esc(href)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
+    return `<button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}" aria-label="${modelPaperUnavailableMessage(subject)}" title="${modelPaperUnavailableMessage(subject)}" onclick="window.alert(this.title)">${esc(label)}</button>`;
   };
 
   function unique(list) {
@@ -185,18 +143,6 @@
     const match = String(text || "").match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);
     if (!match) return [];
     try { return Function(`"use strict";return (${match[1]});`)(); } catch { return []; }
-  }
-
-  function normalize2021(subject) {
-    return {
-      revision: "2021",
-      code: String(subject.code || "").trim(),
-      name: String(subject.name || "Untitled subject").trim(),
-      department: String(subject.department || "First Year / Common").trim(),
-      semester: String(subject.semester || "Other subjects").trim(),
-      type: String(subject.type || "Theory").trim(),
-      assetCode: String(subject.assetCode || subject.code || "").trim()
-    };
   }
 
   function normalize2026(subject) {
@@ -219,20 +165,15 @@
 
   async function getSubjects() {
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
-    const [subjectText, revision2021Payload, revision2026Payload, manifest] = await Promise.all([
+    const [subjectText, revision2026Payload] = await Promise.all([
       // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
       revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
-      fetch(`${root()}assets/data/revision-2021-subjects.json?v=20260823-rev2021-subjects1`).then(response => response.ok ? response.json() : null).catch(() => null),
       // PERFORMANCE OPTIMIZATION: use the trimmed subject-browser payload (~720 KB vs ~2.0 MB). The full
       // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
       // and heavy scheme/evaluation metadata that browsing pages never render.
-      fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias2`).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
-    PDF_BASE = manifest?.base || PDF_BASE;
-    PDF_LINKS = manifest?.links || {};
-    const generatedRevision2021 = Array.isArray(revision2021Payload?.subjects) ? revision2021Payload.subjects.map(normalize2021) : [];
-    if (!revision2021.length) revision2021 = generatedRevision2021.length ? generatedRevision2021 : parseSubjectsText(subjectText);
+    if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
     return unique([...revision2021, ...MANUAL, ...revision2026]);
   }
@@ -257,41 +198,30 @@
     if (String(subject.revision) === "2026") {
       return {
         lessonHref: `${relativeRoot}revision-2026-content/lessons/lessons-${code}.html`,
-        notesHref: `${relativeRoot}revision-2026-content/lessons/lessons-${code}.html?autoPrintNotes=1`
+        notesHref: `${relativeRoot}revision-2026-content/notes/downloadable-notes-${code}.pdf`
       };
     }
     return {
       lessonHref: `${relativeRoot}lessons/lessons-${code}.html`,
-      notesHref: `${relativeRoot}lessons/lessons-${code}.html?autoPrintNotes=1`
+      notesHref: `${relativeRoot}notes/downloadable-notes-${code}.pdf`
     };
-  }
-
-  function askPolyAction(subject) {
-    // Revision 2021 cards use the legacy study-card action set; keep Ask POLY
-    // available from the global navigation but do not render a duplicate card button.
-    const revision = String(subject.revision || "").replace(/^REV/i, "");
-    if (revision === "2021") return "";
-    const ask = new URL(`${root()}ask-poly.html`, location.origin);
-    ask.searchParams.set("ask", `Explain ${subject.name} for a Polytechnic student.`);
-    ask.searchParams.set("pageTitle", `${subject.code} — ${subject.name}`);
-    ask.searchParams.set("subject", subject.code || subject.name || "");
-    ask.searchParams.set("topic", subject.name || "");
-    ask.searchParams.set("semester", String(subject.semester || "").replace(/semester\s*/i, "S"));
-    ask.searchParams.set("revision", revisionTag(subject.revision).replace(/REV/i, ""));
-    ask.searchParams.set("pageUrl", location.href);
-    return `<a class="action ask-poly" href="${esc(ask.href)}">Ask POLY</a>`;
   }
 
   function card(subject, mode) {
     if (mode === "papers") {
-      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject)}${askPolyAction(subject)}</div></article>`;
+      // Question-papers page: show only the sample question paper link,
+      // not syllabus/lessons/notes (those belong on syllabus.html / lessons.html).
+      return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${questionPaperAction(subject, "Open Model Question Paper")}</div></article>`;
     }
     const { lessonHref, notesHref } = assetPaths(subject);
     const handbookAvailable = hasLesson(subject);
+    const notesAvailable = hasNotes(subject);
+    const downloadHref = notesAvailable ? notesHref : `${lessonHref}?autoPrintNotes=1`;
+    const downloadAttributes = notesAvailable ? " download" : ' target="_blank" rel="noopener noreferrer"';
     const studyActions = handbookAvailable
-      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(notesHref)}" target="_blank" rel="noopener noreferrer">Save as PDF</a>`
+      ? `<a class="action lessons" href="${esc(lessonHref)}">View Lessons</a><a class="action download" href="${esc(downloadHref)}"${downloadAttributes}>Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
-    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${handbookAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject)}${askPolyAction(subject)}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(norm(subject.code))}" data-revision="${esc(revisionTag(subject.revision))}" data-resource-key="${esc(makeCourseKey(subject))}" data-notes-href="${esc(notesHref)}" data-lesson-href="${esc(lessonHref)}" data-lesson-available="${handbookAvailable}" data-notes-available="${notesAvailable}"><div class="subject-top"><span>${esc(subject.revision)}</span><strong>${esc(subject.code)}</strong></div><h3>${esc(subject.name)}</h3><p>${esc(subject.department)} / ${esc(subject.semester)} / ${esc(subject.type)}</p><div class="action-row">${syllabusAction(subject)}${studyActions}${questionPaperAction(subject, "Sample QP")}</div></article>`;
   }
 
   // PERFORMANCE OPTIMIZATION: per-subject memoized card HTML. Subject data never
@@ -375,9 +305,8 @@
     const semester = $("semesterFilter")?.value || "all";
     const chosenDepartment = $("departmentFilter")?.value || ALL_DEPARTMENTS;
     const selectedRevision = fixedRevision || $("revisionFilter")?.value || "all";
-    const pdfAvailability = $("pdfAvailabilityFilter")?.value || "all";
     const requireFilter = grid.dataset.requireFilter === "true";
-    const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS || pdfAvailability === "downloadable";
+    const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS;
     let list = all.filter(subject => selectedRevision === "all" || String(subject.revision) === selectedRevision);
     if (mode === "papers" && requireFilter && !hasUserFilter) list = [];
     if (mode === "department") list = list.filter(subject => sameDept(subject.department, department) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
@@ -386,7 +315,6 @@
       else if (chosenDepartment !== ALL_DEPARTMENTS) list = list.filter(subject => sameDept(subject.department, chosenDepartment) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
     }
     if (mode === "lessons") list = list.filter(hasLesson);
-    if (pdfAvailability === "downloadable") list = list.filter(hasDownloadablePdf);
     if (semester !== "all") list = list.filter(subject => String(subject.semester) === semester);
     if (query) {
       list = list.filter(subject => (subject._searchText || "").includes(query));
@@ -473,7 +401,7 @@
       fillSemester($("semesterFilter"), revisionSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
       rerender();
     });
-    [$("subjectSearch"), $("semesterFilter"), $("departmentFilter"), $("pdfAvailabilityFilter")].forEach(control => {
+    [$("subjectSearch"), $("semesterFilter"), $("departmentFilter")].forEach(control => {
       if (!control) return;
       // PERFORMANCE OPTIMIZATION: passive listeners keep scrolling smooth while the
       // user types in the search field after the (heavy) grid has rendered.

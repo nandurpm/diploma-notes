@@ -4,9 +4,7 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  // The protected API can reject a newer request shape with 400 while the
-  // compatible Supabase relay still accepts it, so 400 must fail over too.
-  const RETRYABLE_STATUS = new Set([400, 401, 403, 404, 408, 425, 429, 500, 502, 503, 504]);
+  const RETRYABLE_STATUS = new Set([401, 403, 408, 425, 429, 500, 502, 503, 504]);
   const RETRY_DELAY_MS = 700;
   const originalFetch = window.fetch.bind(window);
   let lastHealth = null;
@@ -25,34 +23,23 @@
   }
 
   function endpointCandidates() {
-    return [...new Set([
-      String(config().endpoint || "").trim(),
-      String(config().fallbackEndpoint || "").trim()
-    ].filter(Boolean))];
+    return [String(config().endpoint || "").trim()].filter(Boolean);
   }
 
   function healthCandidates() {
     const configured = String(config().healthEndpoint || "").trim();
-    const fallbackConfigured = String(config().fallbackHealthEndpoint || "").trim();
-    const candidates = [];
-    const add = (url, endpoint) => {
-      if (!url || candidates.some((item) => item.url === url)) return;
-      candidates.push({ url, endpoint: String(endpoint || "").trim() });
-    };
-    add(configured, config().endpoint);
-    add(fallbackConfigured, config().fallbackEndpoint);
-    endpointCandidates().forEach((endpoint) => {
+    const derived = endpointCandidates().map(endpoint => {
       try {
         const url = new URL(endpoint, location.href);
         if (url.hostname.endsWith("workers.dev")) url.pathname = "/health";
         url.search = "";
         url.hash = "";
-        add(url.href, endpoint);
+        return url.href;
       } catch (_) {
-        // Ignore malformed optional candidates.
+        return "";
       }
     });
-    return candidates;
+    return [...new Set([configured, ...derived].filter(Boolean))];
   }
 
   function matchesEndpoint(input) {
@@ -109,7 +96,7 @@
 
   async function fetchAskWithFailover(input, options) {
     rememberQuestion(options);
-    const candidates = [...new Set([activeEndpoint, ...endpointCandidates()].filter(Boolean))];
+    const candidates = endpointCandidates();
     if (!candidates.length) throw new Error("Ask POLY endpoint is missing.");
 
     let lastError = null;
@@ -203,7 +190,6 @@
     }
 
     const candidates = healthCandidates();
-    activeEndpoint = "";
     if (!candidates.length) {
       setStatus("AI configuration error", "Ask POLY endpoint is missing.");
       return null;
@@ -212,8 +198,7 @@
     setStatus("Checking AI routes…");
     let lastError = null;
 
-    for (const candidate of candidates) {
-      const { url, endpoint } = candidate;
+    for (const url of candidates) {
       try {
         const response = await originalFetch(`${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`, {
           method: "GET",
@@ -230,9 +215,9 @@
           throw new Error(payload.error || `Health check failed with HTTP ${response.status}.`);
         }
         lastHealth = payload;
-        activeEndpoint = endpoint || activeEndpoint;
+        activeEndpoint = url;
         const providers = Array.isArray(payload.providers) ? payload.providers.join(", ") : "AI provider";
-        const route = new URL(endpoint || url).hostname.endsWith("supabase.co") ? "Supabase relay" : "Worker direct";
+        const route = new URL(url).hostname.endsWith("supabase.co") ? "Supabase relay" : "Worker direct";
         setStatus("Ready", `${route} · ${providers}${payload.model ? ` · ${payload.model}` : ""}`);
         return payload;
       } catch (error) {
