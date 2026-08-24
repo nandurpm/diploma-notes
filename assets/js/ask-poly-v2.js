@@ -6,7 +6,8 @@
 
   const DB_NAME = "ask-poly-v2-db";
   const DB_VERSION = 1;
-  const MAX_HISTORY = Number(window.ASK_POLY_CONFIG?.maxHistory || 12);
+  // Keep browser history aligned with the Worker and Supabase relay validators.
+  const MAX_HISTORY = Math.min(6, Math.max(0, Number(window.ASK_POLY_CONFIG?.maxHistory || 6)));
   let dbPromise = null;
   let activeChatId = null;
   let waiting = false;
@@ -479,7 +480,14 @@
     try {
       const messages = await getMessages(activeChatId);
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
-      const history = previousMessages.map((m) => ({ role: m.role === "assistant" ? "assistant" : "user", content: m.content }));
+      // Older saved chats may contain long generated source lists. Trim each entry
+      // before sending it so one oversized answer cannot block future questions.
+      const history = previousMessages
+        .map((m) => ({
+          role: m.role === "assistant" ? "assistant" : "user",
+          content: String(m.content || "").slice(0, 1000)
+        }))
+        .filter((m) => m.content.trim());
       retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
       const result = await callAI(clean, history, retrieval?.context || "");
       removeTyping();
