@@ -4,7 +4,7 @@
 
   if (!/\/ask-poly(?:-v2)?\.html$/i.test(location.pathname)) return;
 
-  const RETRYABLE_STATUS = new Set([401, 403, 408, 425, 429, 500, 502, 503, 504]);
+  const RETRYABLE_STATUS = new Set([400, 401, 403, 408, 425, 429, 500, 502, 503, 504]);
   const RETRY_DELAY_MS = 700;
   const originalFetch = window.fetch.bind(window);
   let lastHealth = null;
@@ -23,7 +23,10 @@
   }
 
   function endpointCandidates() {
-    return [String(config().endpoint || "").trim()].filter(Boolean);
+    return [...new Set([
+      String(config().endpoint || "").trim(),
+      String(config().fallbackEndpoint || "").trim()
+    ].filter(Boolean))];
   }
 
   function healthCandidates() {
@@ -39,7 +42,11 @@
         return "";
       }
     });
-    return [...new Set([configured, ...derived].filter(Boolean))];
+    return [...new Set([
+      configured,
+      String(config().fallbackHealthEndpoint || "").trim(),
+      ...derived
+    ].filter(Boolean))];
   }
 
   function matchesEndpoint(input) {
