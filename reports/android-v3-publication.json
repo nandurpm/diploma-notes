@@ -4,7 +4,7 @@
   "versionName": "3.13",
   "firebaseMessaging": true,
   "apkUrl": "https://github.com/nandurpm/diploma-notes/releases/download/android-v3.13/POLY_PMNA_v3.13.apk",
-  "apkBytes": 979485,
-  "sha256": "9b194c457cbe68d80a83e7143ae393282bff74b9ff8a9f9b080ee76e8b85bd17",
-  "publishedAt": "2026-08-21T14:58:21Z"
+  "apkBytes": 979502,
+  "sha256": "543e2d5a7561fe986976a62ea0c3168f74b357fd218ee80d3e05d7098f5bbe71",
+  "publishedAt": "2026-08-24T04:02:17Z"
 }
