@@ -3,6 +3,7 @@ import { askPoly, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
 import { canStoreVerifiedResults } from "./result-store.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
+import { languageInstruction, resolvePreferredLanguage } from "./language-policy.js";
 import { matchFaq } from "./faq-match.js";
 import {
   cleanText,
@@ -84,7 +85,8 @@ function cloudflareMessages(body) {
         "Answer only the user's actual question. For simple factual questions, answer directly and stop.",
         "Do not mention POLY PMNA, subjects, syllabus, resources or links unless the user explicitly asks about them.",
         "Use supplied website context only when it directly answers an explicit website or academic-resource question.",
-        SYSTEM_INSTRUCTIONS
+        SYSTEM_INSTRUCTIONS,
+        languageInstruction(resolvePreferredLanguage(body))
       ].join("\n\n")
     },
     ...history,
