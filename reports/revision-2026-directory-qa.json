@@ -2,8 +2,8 @@
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
   "status": "success",
-  "sourceCommit": "22aee249ece717532491e7b563fb115984b2c605",
-  "generatedAt": "2026-08-24T04:09:57.065Z",
+  "sourceCommit": "28472a9028bf680eb0095e7cc65ca7400c9ead3c",
+  "generatedAt": "2026-08-24T04:24:25.291Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
