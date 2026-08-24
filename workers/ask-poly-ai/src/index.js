@@ -34,10 +34,10 @@ async function readJson(request) {
   }
 }
 
-const ASK_KEYS = ["message", "history", "stream", "pageTitle", "pageContext", "selectedText", "departmentContext", "learningContext", "answerMode", "preferredLanguage", "dataSaver", "marks", "learningLevel", "attachment", "diagramRequest", "semester", "revision"];
+const ASK_KEYS = ["message", "history", "stream", "pageTitle", "pageContext", "selectedText", "departmentContext", "learningContext", "answerMode", "preferredLanguage", "dataSaver", "marks", "learningLevel", "attachment", "diagramRequest", "semester", "revision", "retrievalMeta"];
 const SIMPLE_STRING_FIELDS = {
   pageTitle: 160,
-  pageContext: 12000,
+  pageContext: 16000,
   selectedText: 6000,
   answerMode: 40,
   preferredLanguage: 20,
@@ -56,6 +56,19 @@ function validateAskBody(value) {
   }
   if (body.stream !== undefined && typeof body.stream !== "boolean") throw new TypeError("stream must be a boolean.");
   if (body.dataSaver !== undefined && typeof body.dataSaver !== "boolean") throw new TypeError("dataSaver must be a boolean.");
+  if (body.retrievalMeta !== undefined && body.retrievalMeta !== null) {
+    strictJsonObject(body.retrievalMeta, "retrievalMeta");
+    rejectUnknownKeys(body.retrievalMeta, ["intent", "contextBudget", "contextChars", "matchCounts"], "retrievalMeta");
+    if (body.retrievalMeta.intent !== undefined) strictText(body.retrievalMeta.intent, "retrievalMeta.intent", { max: 40, pattern: /^[A-Za-z]+$/ });
+    for (const field of ["contextBudget", "contextChars"]) {
+      if (body.retrievalMeta[field] !== undefined && (!Number.isInteger(body.retrievalMeta[field]) || body.retrievalMeta[field] < 0 || body.retrievalMeta[field] > 16000)) throw new TypeError(`retrievalMeta.${field} is invalid.`);
+    }
+    if (body.retrievalMeta.matchCounts !== undefined) {
+      strictJsonObject(body.retrievalMeta.matchCounts, "retrievalMeta.matchCounts");
+      rejectUnknownKeys(body.retrievalMeta.matchCounts, ["facts", "faq", "programmes", "subjects", "pages"], "retrievalMeta.matchCounts");
+      for (const value of Object.values(body.retrievalMeta.matchCounts)) if (!Number.isInteger(value) || value < 0 || value > 100) throw new TypeError("retrievalMeta.matchCounts is invalid.");
+    }
+  }
   if (body.history !== undefined) {
     if (!Array.isArray(body.history) || body.history.length > 6) throw new TypeError("history has an invalid shape.");
     body.history = body.history.map((item) => {
@@ -106,7 +119,7 @@ function wantsWebsiteContext(body) {
 
 function enrichAskBody(body) {
   const useWebsiteContext = wantsWebsiteContext(body);
-  const suppliedContext = useWebsiteContext ? cleanText(body?.pageContext, 12000) : "";
+  const suppliedContext = useWebsiteContext ? cleanText(body?.pageContext, 16000) : "";
   const websiteContext = suppliedContext
     ? `MATCHED RECORDS FROM THE POLY PMNA WEBSITE INDEX:\n${suppliedContext}\n\nUse only records directly relevant to the user's request. Ignore unrelated matches.`
     : "";
@@ -143,7 +156,7 @@ function cloudflareMessages(body) {
       })).filter((item) => item.content)
     : [];
   const question = cleanText(body?.message, 2200);
-  const context = cleanText(body?.pageContext, 7000);
+  const context = cleanText(body?.pageContext, 14000);
   const userContent = context
     ? `${question}\n\n--- RELEVANT POLY PMNA WEBSITE CONTEXT ---\n${context}\n--- END WEBSITE CONTEXT ---`
     : question;
@@ -156,6 +169,11 @@ function cloudflareMessages(body) {
         "Answer only the user's actual question. For simple factual questions, answer directly and stop.",
         "Do not mention POLY PMNA, subjects, syllabus, resources or links unless the user explicitly asks about them.",
         "Use supplied website context only when it directly answers an explicit website or academic-resource question.",
+        body?.preferredLanguage === "ml"
+          ? "Language requirement: Answer in simple Malayalam or mixed Malayalam-English, retaining technical terms in English when useful. Do not switch to English unless the user asks for English."
+          : body?.preferredLanguage === "en"
+            ? "Language requirement: Answer entirely in English. Do not switch to Malayalam or another language because supplied context, saved history, or source records contain Malayalam. Switch language only when the user explicitly asks for it."
+            : "Language requirement: Match the language of the user's latest question; do not let supplied context or previous messages override the latest question's language.",
         SYSTEM_INSTRUCTIONS
       ].join("\n\n")
     },
@@ -303,6 +321,54 @@ function wantsStreaming(body, request) {
   return body?.stream === true || /text\/event-stream/i.test(request.headers.get("Accept") || "");
 }
 
+function classifyTelemetryIntent(body) {
+  const supplied = cleanText(body?.retrievalMeta?.intent, 40).toLowerCase();
+  if (/^(lesson|course|materials|quiz|navigation|tool|generalwebsite|general)$/.test(supplied)) return supplied;
+  const message = cleanText(body?.message, 2200).toLowerCase();
+  if (/lesson|handbook|module|learning outcome|topic|chapter/.test(message)) return "lesson";
+  if (/syllabus|notes|model question|question paper|sample paper|download|material|pdf/.test(message)) return "materials";
+  if (/quiz|mock exam|previous question|question bank|exam/.test(message)) return "quiz";
+  if (/calculator|converter|tool/.test(message)) return "tool";
+  if (/subject|course|semester|credit|department|programme|revision|\b[1-6]\d{3,4}[a-z]?\b/i.test(message)) return "course";
+  return "generalWebsite";
+}
+
+function safeCourseCode(body) {
+  return cleanText(body?.message, 2200).toUpperCase().match(/\b[1-6]\d{3,4}[A-Z]?\b/)?.[0] || "none";
+}
+
+function askTelemetry(body, provider, startedAt, details = {}) {
+  const meta = body?.retrievalMeta || {};
+  securityLog("ask_query", {
+    route: "ask",
+    intent: classifyTelemetryIntent(body),
+    revision: cleanText(body?.revision || body?.learningContext?.revision, 30) || "none",
+    courseCode: safeCourseCode(body),
+    contextBudget: Number(meta.contextBudget) || 0,
+    contextChars: Number(meta.contextChars) || cleanText(body?.pageContext, 16000).length,
+    retrievedRecords: Object.values(meta.matchCounts || {}).reduce((sum, value) => sum + (Number(value) || 0), 0),
+    provider: cleanText(provider, 60) || "unknown",
+    latencyMs: Math.max(0, Date.now() - startedAt),
+    ...details
+  });
+}
+
+function instrumentAskStream(stream, body, provider, startedAt) {
+  const decoder = new TextDecoder();
+  let streamChars = 0;
+  const transformer = new TransformStream({
+    transform(chunk, controller) {
+      const text = typeof chunk === "string" ? chunk : decoder.decode(chunk, { stream: true });
+      streamChars += text.length;
+      controller.enqueue(chunk);
+    },
+    flush() {
+      askTelemetry(body, provider, startedAt, { streamChars });
+    }
+  });
+  return stream.pipeThrough(transformer);
+}
+
 function healthProviders(env, externalProviders) {
   return [
     ...(hasWorkersAI(env) ? ["cloudflare-workers-ai"] : []),
@@ -400,6 +466,7 @@ export default {
     }
 
     const userMessage = cleanText(body?.message, 2200);
+    const requestStartedAt = Date.now();
 
     // 1. Image Generation Check
     const imageMatch = userMessage.match(IMAGE_INTENT_PATTERN);
@@ -433,6 +500,7 @@ export default {
     const faqMessage = cleanText(body?.message, 2200);
     const faqMatch = matchFaq(faqMessage);
     if (faqMatch) {
+      askTelemetry(body, "faq", requestStartedAt, { outputChars: cleanText(faqMatch.answer || faqMatch.message, 7000).length });
       return jsonResponse({ ...faqMatch, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
     }
 
@@ -443,7 +511,7 @@ export default {
     if (streamRequested) {
       try {
         const result = await askPolyStream(enrichedBody, env);
-        return streamResponse(result.stream, origin, env, result);
+        return streamResponse(instrumentAskStream(result.stream, enrichedBody, result.provider, requestStartedAt), origin, env, result);
       } catch (error) {
         providerErrors.push(`external-providers-stream: ${cleanText(error?.message, 240)}`);
         console.error("Ask POLY external provider streaming failed", error);
@@ -453,7 +521,7 @@ export default {
     if (streamRequested && hasWorkersAI(env)) {
       try {
         const result = await askWithWorkersAIStream(enrichedBody, env);
-        return streamResponse(result.stream, origin, env, result);
+        return streamResponse(instrumentAskStream(result.stream, enrichedBody, result.provider, requestStartedAt), origin, env, result);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai-stream: ${cleanText(error?.message, 240)}`);
         securityLog("api_provider_error", { route: "ask_stream", provider: "cloudflare_workers_ai", severity: "error", error: error?.message });
@@ -464,7 +532,7 @@ export default {
     if (streamRequested && hasWorkersAIRest(env)) {
       try {
         const result = await askWithWorkersAIRestStream(enrichedBody, env);
-        return streamResponse(result.stream, origin, env, result);
+        return streamResponse(instrumentAskStream(result.stream, enrichedBody, result.provider, requestStartedAt), origin, env, result);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai-rest-stream: ${cleanText(error?.message, 240)}`);
         securityLog("api_provider_error", { route: "ask_stream", provider: "cloudflare_workers_ai_rest", severity: "error", error: error?.message });
@@ -474,6 +542,11 @@ export default {
 
     try {
       const result = await askPoly(enrichedBody, env);
+      askTelemetry(enrichedBody, result.provider, requestStartedAt, {
+        outputChars: cleanText(result.answer, 7000).length,
+        outputTokens: Number(result.usage?.completion_tokens || result.usage?.output_tokens) || 0,
+        inputTokens: Number(result.usage?.prompt_tokens || result.usage?.input_tokens) || 0
+      });
       return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
     } catch (error) {
       providerErrors.push(`external-providers: ${cleanText(error?.message, 240)}`);
@@ -484,6 +557,7 @@ export default {
     if (hasWorkersAI(env)) {
       try {
         const result = await askWithWorkersAI(enrichedBody, env);
+        askTelemetry(enrichedBody, result.provider, requestStartedAt, { outputChars: cleanText(result.answer, 7000).length });
         return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai: ${cleanText(error?.message, 240)}`);
@@ -495,6 +569,7 @@ export default {
     if (hasWorkersAIRest(env)) {
       try {
         const result = await askWithWorkersAIRest(enrichedBody, env);
+        askTelemetry(enrichedBody, result.provider, requestStartedAt, { outputChars: cleanText(result.answer, 7000).length });
         return jsonResponse({ ...result, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
       } catch (error) {
         providerErrors.push(`cloudflare-workers-ai-rest: ${cleanText(error?.message, 240)}`);

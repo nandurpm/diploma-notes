@@ -57,9 +57,9 @@
   let latestAssistantText = "";
   let speechRecognition = null;
   let dataSaverEnabled = localStorage.getItem("ask-poly-data-saver") === "1";
-  // About 30 words per minute would feel too slow; 32 ms between words
-  // gives a readable ~30 words/second pace while preserving provider latency.
-  const STREAM_WORD_DELAY_MS = 32;
+  // Keep a small pacing delay so streaming remains visually stable without
+  // making the UI add several seconds after the provider has already responded.
+  const STREAM_WORD_DELAY_MS = 8;
 
   function largeListRequestLimit(text) {
     const value = String(text || "").trim();
@@ -477,14 +477,30 @@
 
   function renderInlineMarkdown(value) {
     let html = escapeHtml(value);
-    html = html.replace(/`([^`]+)`/g, "<code>$1</code>");
-    html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|data:image\/[^;]+;base64,[^\s)]+)\)/g, '<img src="$2" alt="$1" class="ask-generated-image" loading="lazy">');
-    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    const protectedParts = [];
+    const protect = part => `\u0000${protectedParts.push(part) - 1}\u0000`;
+
+    // Protect already-rendered Markdown constructs so bare-URL detection cannot
+    // create nested anchors or make code samples interactive.
+    html = html.replace(/`([^`]+)`/g, (_, code) => protect(`<code>${code}</code>`));
+    html = html.replace(/!\[([^\]]*)\]\((https?:\/\/[^\s)]+|data:image\/[^;]+;base64,[^\s)]+)\)/g, (_, alt, src) => protect(`<img src="${src}" alt="${alt}" class="ask-generated-image" loading="lazy">`));
+    html = html.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|\/[^\s)]+)\)/g, (_, label, href) => protect(`<a href="${href}" target="_blank" rel="noopener noreferrer">${label}</a>`));
+
+    // Convert only safe web URLs. Trailing sentence punctuation remains outside
+    // the anchor so clicking a sentence does not include the punctuation.
+    html = html.replace(/(^|[\s(])((?:https?:\/\/|www\.)[^\s<]+)/gi, (_, prefix, candidate) => {
+      const trailingMatch = candidate.match(/[),.;:!?]+$/);
+      const trailing = trailingMatch ? trailingMatch[0] : "";
+      const url = trailing ? candidate.slice(0, -trailing.length) : candidate;
+      const href = /^www\./i.test(url) ? `https://${url}` : url;
+      return `${prefix}${protect(`<a class="ask-auto-link" href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`)}${trailing}`;
+    });
+
     html = html.replace(/\*\*([^*\n]+)\*\*/g, "<strong>$1</strong>");
     html = html.replace(/__([^_\n]+)__/g, "<strong>$1</strong>");
     html = html.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
     html = html.replace(/_([^_\n]+)_/g, "<em>$1</em>");
-    return html;
+    return html.replace(/\u0000(\d+)\u0000/g, (_, index) => protectedParts[Number(index)] || "");
   }
 
   function renderMarkdownTable(headerLine, bodyLines) {
@@ -1246,10 +1262,12 @@
     const value = String(text || "").trim();
     if (!value || /^\d{1,3}$/.test(value)) return false;
     if (/\b[1-6]\d{3,4}[A-Z]?\b/i.test(value)) return true;
-    return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|previous|past question|question bank|model paper|sample paper|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
+    if (/subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|previous|past question|question bank|model paper|sample paper|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value)) return true;
+    if (/explain|define|describe|principle|working|construction|procedure|experiment|formula|meaning|difference|advantages?|disadvantages?|application|mechanism|theory|topic|chapter|module|unit|according to|from my lesson/i.test(value)) return true;
+    return /^(what is|what are|how does|how do|why does|why do)\b/i.test(value) && /model|law|theorem|formula|principle|bond|reaction|equation|circuit|algorithm|process|system|structure|mechanism|experiment|effect|method|property|unit|module|chapter|topic|working/i.test(value);
   }
 
-  async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null, attachment = null) {
+  async function callAI(message, history, localContext, onChunk, diagramIntent = null, department = null, attachment = null, retrievalMeta = null) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 45000);
@@ -1270,6 +1288,12 @@
           stream: true,
           pageTitle: "Ask POLY whole-site knowledge",
           pageContext: localContext || "",
+          retrievalMeta: retrievalMeta ? {
+            intent: retrievalMeta.intent,
+            contextBudget: retrievalMeta.contextBudget,
+            contextChars: retrievalMeta.contextChars,
+            matchCounts: retrievalMeta.matchCounts
+          } : null,
           departmentContext: department ? { code: department.code, displayName: department.displayName } : null,
           learningContext: contextSnapshot(),
           answerMode: learningContext.mode || "explain",
@@ -1392,7 +1416,12 @@
       const result = await callAI(clean, history, [retrieval?.context || "", pageContext].filter(Boolean).join("\n\n"), (partial) => {
         els.status.textContent = `POLY is writing${queueSuffix()}...`;
         updateStreamingBubble(streamBubble, partial);
-      }, diagramIntent, resolvedDepartment, attachment);
+      }, diagramIntent, resolvedDepartment, attachment, retrieval ? {
+        intent: retrieval.intent,
+        contextBudget: retrieval.contextBudget,
+        contextChars: retrieval.contextChars,
+        matchCounts: retrieval.matchCounts
+      } : null);
       // Some providers return JSON after the streaming providers fail. Feed that
       // complete answer through the same display queue so the UI remains
       // word-by-word regardless of provider response format.

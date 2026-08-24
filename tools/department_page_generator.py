@@ -244,7 +244,9 @@ DEPARTMENTS = [
 ]
 
 def generate_subject_card(code, name, dept_name):
-    return f'''<article class="subject-card" data-subject-code="{code}" data-revision="2026" data-semester="" data-search-text="{code} {name.lower()} {dept_name.lower()}"><div class="subject-top"><span>2026</span><strong>{code}</strong></div><h3>{name}</h3><p>{dept_name} / Semester / Course</p><div class="action-row"><span class="availability-label syllabus-status" aria-disabled="true">Syllabus unavailable</span><span class="availability-label qp-status" aria-disabled="true">Model paper unavailable</span></div></article>'''
+    syllabus_url = f"https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={code}&scheme=REV2026"
+    model_qp_url = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
+    return f'''<article class="subject-card" data-subject-code="{code}" data-revision="2026" data-semester="" data-search-text="{code} {name.lower()} {dept_name.lower()}"><div class="subject-top"><span>2026</span><strong>{code}</strong></div><h3>{name}</h3><p>{dept_name} / Semester / Course</p><div class="action-row"><a class="action syllabus external-fallback" href="{syllabus_url}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a><span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span><a class="action qp external-fallback" href="{model_qp_url}" target="_blank" rel="noopener noreferrer">Model Question Paper</a></div></article>'''
 
 def generate_semester_section(sem_name, subjects, dept_name):
     cards = "".join([generate_subject_card(code, name, dept_name) for code, name in subjects])

@@ -29,7 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260818-pdf-manifest2";
+  const VERSION = "20260823-pdf-alias2";
   let PDF_LINKS = {};
   let LESSON_CODES = new Set();
   const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
@@ -91,6 +91,24 @@
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
+  // Page labels use ampersands, while some repository folders omit the
+  // punctuation-derived `and`. Resolve both forms against the manifest.
+  const slugCandidates = value => {
+    const text = String(value || "");
+    const queue = [...new Set([
+      slug(text),
+      text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+    ].filter(Boolean))];
+    const result = [];
+    while (queue.length) {
+      const candidate = queue.shift();
+      if (result.includes(candidate)) continue;
+      result.push(candidate);
+      const index = candidate.indexOf("-and-");
+      if (index >= 0) queue.push(`${candidate.slice(0, index)}-${candidate.slice(index + 5)}`);
+    }
+    return result;
+  };
   const cleanPath = () => location.pathname.replace(/\/+$/, "") || "/";
   const isProgrammeIndex = () => ["/revision-2026.html", "/revision-2026"].includes(cleanPath());
   const normaliseSearch = value => String(value || "")
@@ -244,11 +262,71 @@
 
   function pdfFilename(href) { return href.split("/").pop() || "resource.pdf"; }
 
-  function sitttrHref(code, kind) {
+  function repositoryPdfHref(programmeSlug, code, kind) {
+    const revisionLinks = PDF_LINKS || {};
+    const normalizedCode = String(code || "").trim().toUpperCase();
+    for (const normalizedSlug of slugCandidates(programmeSlug)) {
+      const direct = revisionLinks[`2026|${normalizedSlug}|${normalizedCode}`]?.[kind];
+      if (direct) return `${PDF_BASE}${direct}`;
+    }
+    return "";
+  }
+
+  async function applyStaticPdfLinks() {
+    const grid = document.getElementById("subjectGrid");
+    if (!grid) return;
+    try {
+      const manifest = await json(`/assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias2`);
+      PDF_LINKS = manifest?.links?.["2026"] || {};
+    } catch (_) {
+      return;
+    }
+    const programmeSlug = departmentSlug();
+    const programmeName = document.body?.dataset?.programmeName || programmeSlug;
+    grid.querySelectorAll(".subject-card").forEach(card => {
+      const code = card.dataset.subjectCode || "";
+      const syllabus = repositoryPdfHref(programmeName, code, "syllabus");
+      const model = repositoryPdfHref(programmeName, code, "modelQuestionPaper");
+      const update = (selector, href, label, fallbackHref, fallbackLabel) => {
+        const link = card.querySelector(selector);
+        if (!link) return;
+        if (href) {
+          link.href = href;
+          link.textContent = label;
+          link.classList.remove("external-fallback");
+          link.removeAttribute("target");
+          link.removeAttribute("rel");
+          link.setAttribute("download", pdfFilename(href));
+          return;
+        }
+        // Static HTML can contain a stale direct link from another revision. Never
+        // leave that URL active when the exact Revision 2026 file is unavailable.
+        if (link.href.includes("poly-pmna-pdf-files")) {
+          link.href = fallbackHref;
+          link.textContent = fallbackLabel;
+          link.classList.add("external-fallback");
+          link.removeAttribute("download");
+          link.setAttribute("target", "_blank");
+          link.setAttribute("rel", "noopener noreferrer");
+        }
+      };
+      update("a.action.syllabus", syllabus, "Download Syllabus", sitttrHref(code, "syllabus"), "Open SITTTR Syllabus");
+      update("a.action.qp", model, "Download Model Question Paper", sitttrHref(code, "modelQuestionPaper"), "Open SITTTR Model Question Paper");
+    });
+    document.getElementById("pdfAvailabilityFilter")?.dispatchEvent(new Event("change"));
+  }
+
+  function sitttrSyllabusFallback(code) {
     const value = encodeURIComponent(String(code || "").trim().toUpperCase());
+    return `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${value}&scheme=REV2026`;
+  }
+  function sitttrModelPaperFallback() {
+    return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2026`;
+  }
+  function sitttrHref(code, kind) {
     return kind === "modelQuestionPaper"
-      ? `${SITTTR_BASE}r=site%2Fdiploma-modelqp-courses-show&course=${value}`
-      : `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${value}&scheme=REV2026`;
+      ? sitttrModelPaperFallback()
+      : sitttrSyllabusFallback(code);
   }
 
   async function loadLessonCodes() {
@@ -268,13 +346,15 @@
   }
 
   function subjectCard(subject, programmeName) {
-    const code = String(subject.code || "").trim().toUpperCase();
-    const semester = semesterNumber(subject);
+      const code = String(subject.code || "").trim().toUpperCase();
+      const semester = semesterNumber(subject);
     const semesterText = semester <= 6 ? `Semester ${semester}` : "Other subjects";
     const name = String(subject.name || "Untitled subject").trim();
     const type = String(subject.type || "Course").trim();
     const programmeSlug = String(subject.programmeSlug || slug(programmeName));
-    const pdf = PDF_LINKS[`2026|${programmeSlug}|${code}`] || {};
+    const pdf = slugCandidates(programmeName)
+      .map(candidate => PDF_LINKS[`2026|${candidate}|${code}`])
+      .find(Boolean) || {};
     const syllabus = pdf.syllabus ? `${PDF_BASE}${pdf.syllabus}` : "";
     const qp = pdf.modelQuestionPaper ? `${PDF_BASE}${pdf.modelQuestionPaper}` : "";
     const lesson = `/revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`;
@@ -285,7 +365,7 @@
       : `<a class="action syllabus external-fallback" href="${esc(sitttrHref(code, "syllabus"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a>`;
     const qpAction = qp
       ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>`
-      : `<a class="action qp external-fallback" href="${esc(sitttrHref(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Model Question Paper</a>`;
+      : `<a class="action qp external-fallback" href="${esc(sitttrHref(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer">Model Question Paper</a>`;
     const study = lessonOk
       ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(notes)}">Download Notes</a>`
       : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
@@ -316,11 +396,14 @@
     const draw = () => {
       const query = normaliseSearch(search?.value || "");
       const selected = semester?.value || "all";
+      const pdfAvailability = document.getElementById("pdfAvailabilityFilter")?.value || "all";
       let visibleTotal = 0;
       cards.forEach(card => {
         const matchesSemester = selected === "all" || card.dataset.semester === selected;
+        const hasDownloadablePdf = Boolean(card.querySelector("a.action.syllabus:not(.external-fallback), a.action.qp:not(.external-fallback)"));
+        const matchesPdfAvailability = pdfAvailability !== "downloadable" || hasDownloadablePdf;
         const haystack = card._searchText || "";
-        const show = matchesSemester && (!query || haystack.includes(query));
+        const show = matchesSemester && matchesPdfAvailability && (!query || haystack.includes(query));
         card.hidden = !show;
         if (show) visibleTotal += 1;
       });
@@ -351,6 +434,7 @@
     }
     search?.addEventListener("input", draw);
     semester?.addEventListener("change", draw);
+    document.getElementById("pdfAvailabilityFilter")?.addEventListener("change", draw);
     draw();
     return true;
   }
@@ -370,6 +454,7 @@
     if (grid.dataset.staticRev2026 === "true" && grid.querySelector(".subject-card")) {
       ensureModelPaperAccess();
       enhanceStaticDepartment();
+      applyStaticPdfLinks();
       return;
     }
     try {

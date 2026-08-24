@@ -106,24 +106,54 @@
   let PDF_LINKS = {};
   const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php?";
   const pdfSlug = value => String(value || "").toLowerCase().replace(/&/g, " and ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  // Repository department folders omit punctuation-based ampersands (for example,
+  // `civil-environmental-engineering`), while page labels naturally render `&`.
+  // Try both forms, but only accept a candidate that exists in the manifest.
+  const pdfSlugCandidates = value => {
+    const text = String(value || "");
+    const initial = [
+      pdfSlug(text),
+      text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+    ].filter(Boolean);
+    const result = [];
+    const queue = [...new Set(initial)];
+    while (queue.length) {
+      const candidate = queue.shift();
+      if (result.includes(candidate)) continue;
+      result.push(candidate);
+      const index = candidate.indexOf("-and-");
+      if (index >= 0) queue.push(`${candidate.slice(0, index)}-${candidate.slice(index + 5)}`);
+    }
+    return result;
+  };
   const pdfHref = (subject, kind) => {
     const revision = revisionYear(subject.revision);
     const code = norm(subject.code);
     const revisionLinks = PDF_LINKS[revision] || {};
-    const slug = pdfSlug(subject.department);
-    const direct = revisionLinks[`${revision}|${slug}|${code}`]?.[kind];
-    if (direct) return `${PDF_BASE}${direct}`;
+    for (const slug of pdfSlugCandidates(subject.department)) {
+      const direct = revisionLinks[`${revision}|${slug}|${code}`]?.[kind];
+      if (direct) return `${PDF_BASE}${direct}`;
+    }
     const suffix = `|${code}`;
     const fallback = Object.entries(revisionLinks).find(([key, value]) => key.endsWith(suffix) && value?.[kind]);
     return fallback ? `${PDF_BASE}${fallback[1][kind]}` : "";
   };
   const pdfFileName = href => href.split("/").pop() || "document.pdf";
-  const sitttrHref = (subject, kind) => {
+  const hasDownloadablePdf = subject => Boolean(pdfHref(subject, "syllabus") || pdfHref(subject, "modelQuestionPaper"));
+  const sitttrSyllabusFallback = subject => {
     const code = encodeURIComponent(norm(subject.code));
     const revision = encodeURIComponent(revisionYear(subject.revision));
-    return kind === "modelQuestionPaper"
-      ? `${SITTTR_BASE}r=site%2Fdiploma-modelqp-courses-show&course=${code}`
-      : `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${code}&scheme=REV${revision}`;
+    return `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${code}&scheme=REV${revision}`;
+  };
+  const sitttrModelPaperFallback = subject => {
+    const revision = revisionYear(subject.revision);
+    if (revision === "2021") return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2021`;
+    if (revision === "2026") return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2026`;
+    return "";
+  };
+  const sitttrHref = (subject, kind) => {
+    if (kind === "modelQuestionPaper") return sitttrModelPaperFallback(subject);
+    return sitttrSyllabusFallback(subject);
   };
   const syllabusAction = subject => {
     const direct = pdfHref(subject, "syllabus");
@@ -134,10 +164,16 @@
   const questionPaperAction = (subject, label = "Download Model Question Paper") => {
     const direct = pdfHref(subject, "modelQuestionPaper");
     if (direct) return `<a class="action qp" href="${esc(direct)}" download="${esc(pdfFileName(direct))}" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">${esc(label)}</a>`;
-    // The legacy SITTTR course route currently returns "Requested file not found"
-    // for unavailable records. Do not expose a dead/blocked external link; show a
-    // truthful status instead. Verified direct PDFs above remain clickable.
-    return `<span class="availability-label qp-status" aria-disabled="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model paper unavailable</span>`;
+    // Fall back to the revision-specific official SITTTR model-question-paper index
+    // rather than showing a dead disabled label. The SITTTR link opens an external
+    // index page (not a direct PDF), so no download attribute is set.
+    const fallback = sitttrModelPaperFallback(subject);
+    if (fallback) {
+      const rev = revisionYear(subject.revision);
+      return `<a class="action qp external-fallback" href="${esc(fallback)}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model Question Paper</a>`;
+    }
+    // Unknown revision: show truthful status only when no fallback is configured.
+    return `<span class="availability-label qp-status" aria-disabled="true" data-model-paper-revision="${esc(revisionTag(subject.revision))}" data-model-paper-course="${esc(norm(subject.code))}" data-resource-key="${esc(makeCourseKey(subject))}">Model paper source not configured</span>`;
   };
 
   function unique(list) {
@@ -149,6 +185,18 @@
     const match = String(text || "").match(/\b(?:const|let|var)\s+SUBJECTS\s*=\s*(\[[\s\S]*?\]);/m);
     if (!match) return [];
     try { return Function(`"use strict";return (${match[1]});`)(); } catch { return []; }
+  }
+
+  function normalize2021(subject) {
+    return {
+      revision: "2021",
+      code: String(subject.code || "").trim(),
+      name: String(subject.name || "Untitled subject").trim(),
+      department: String(subject.department || "First Year / Common").trim(),
+      semester: String(subject.semester || "Other subjects").trim(),
+      type: String(subject.type || "Theory").trim(),
+      assetCode: String(subject.assetCode || subject.code || "").trim()
+    };
   }
 
   function normalize2026(subject) {
@@ -171,18 +219,20 @@
 
   async function getSubjects() {
     let revision2021 = Array.isArray(globalThis.SUBJECTS) ? globalThis.SUBJECTS : [];
-    const [subjectText, revision2026Payload, manifest] = await Promise.all([
+    const [subjectText, revision2021Payload, revision2026Payload, manifest] = await Promise.all([
       // PERFORMANCE OPTIMIZATION: Omit { cache: "no-store" } to allow browser caching on these version-cache-busted files.
       revision2021.length ? Promise.resolve("") : fetch(`${root()}assets/js/subjects.js?v=20260716-revision-switch`).then(response => response.ok ? response.text() : "").catch(() => ""),
+      fetch(`${root()}assets/data/revision-2021-subjects.json?v=20260823-rev2021-subjects1`).then(response => response.ok ? response.json() : null).catch(() => null),
       // PERFORMANCE OPTIMIZATION: use the trimmed subject-browser payload (~720 KB vs ~2.0 MB). The full
       // payload keeps syllabusUrl (~234 KB per course) which the renderer rebuilds from the code anyway,
       // and heavy scheme/evaluation metadata that browsing pages never render.
       fetch(`${root()}assets/data/revision-2026-subjects-lite.json?v=20260808-qp-hang1`).then(response => response.ok ? response.json() : null).catch(() => null),
-      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260822-pdf-fallbacks1`).then(response => response.ok ? response.json() : null).catch(() => null)
+      fetch(`${root()}assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias2`).then(response => response.ok ? response.json() : null).catch(() => null)
     ]);
     PDF_BASE = manifest?.base || PDF_BASE;
     PDF_LINKS = manifest?.links || {};
-    if (!revision2021.length) revision2021 = parseSubjectsText(subjectText);
+    const generatedRevision2021 = Array.isArray(revision2021Payload?.subjects) ? revision2021Payload.subjects.map(normalize2021) : [];
+    if (!revision2021.length) revision2021 = generatedRevision2021.length ? generatedRevision2021 : parseSubjectsText(subjectText);
     const revision2026 = Array.isArray(revision2026Payload?.subjects) ? revision2026Payload.subjects.map(normalize2026) : [];
     return unique([...revision2021, ...MANUAL, ...revision2026]);
   }
@@ -325,8 +375,9 @@
     const semester = $("semesterFilter")?.value || "all";
     const chosenDepartment = $("departmentFilter")?.value || ALL_DEPARTMENTS;
     const selectedRevision = fixedRevision || $("revisionFilter")?.value || "all";
+    const pdfAvailability = $("pdfAvailabilityFilter")?.value || "all";
     const requireFilter = grid.dataset.requireFilter === "true";
-    const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS;
+    const hasUserFilter = Boolean(query) || semester !== "all" || chosenDepartment !== ALL_DEPARTMENTS || pdfAvailability === "downloadable";
     let list = all.filter(subject => selectedRevision === "all" || String(subject.revision) === selectedRevision);
     if (mode === "papers" && requireFilter && !hasUserFilter) list = [];
     if (mode === "department") list = list.filter(subject => sameDept(subject.department, department) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
@@ -335,6 +386,7 @@
       else if (chosenDepartment !== ALL_DEPARTMENTS) list = list.filter(subject => sameDept(subject.department, chosenDepartment) || (String(subject.revision) === "2021" && sameDept(subject.department, COMMON)));
     }
     if (mode === "lessons") list = list.filter(hasLesson);
+    if (pdfAvailability === "downloadable") list = list.filter(hasDownloadablePdf);
     if (semester !== "all") list = list.filter(subject => String(subject.semester) === semester);
     if (query) {
       list = list.filter(subject => (subject._searchText || "").includes(query));
@@ -421,7 +473,7 @@
       fillSemester($("semesterFilter"), revisionSubjects.map(subject => subject.semester), mode === "home" ? "Semester 1" : "all");
       rerender();
     });
-    [$("subjectSearch"), $("semesterFilter"), $("departmentFilter")].forEach(control => {
+    [$("subjectSearch"), $("semesterFilter"), $("departmentFilter"), $("pdfAvailabilityFilter")].forEach(control => {
       if (!control) return;
       // PERFORMANCE OPTIMIZATION: passive listeners keep scrolling smooth while the
       // user types in the search field after the (heavy) grid has rendered.

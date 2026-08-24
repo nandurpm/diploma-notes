@@ -22,8 +22,8 @@ VERSION = "20260818-pdf-manifest2"
 PDF_MANIFEST = json.loads(Path("assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
 PDF_BASE = PDF_MANIFEST["base"]
 PDF_LINKS = PDF_MANIFEST["links"].get("2026", {})
-SITTTR_SYLLABUS_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={}"
-SITTTR_MODEL_QP_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp-courses-show&course={}"
+SITTTR_SYLLABUS_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={}&scheme=REV2026"
+SITTTR_MODEL_QP_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 
 
 def esc(value: object) -> str:
@@ -68,8 +68,9 @@ def pdf_filename(href: str) -> str:
 
 
 def sitttr_href(code: str, kind: str) -> str:
-    template = SITTTR_MODEL_QP_URL if kind == "modelQuestionPaper" else SITTTR_SYLLABUS_URL
-    return template.format(quote(code.upper(), safe=""))
+    if kind == "modelQuestionPaper":
+        return SITTTR_MODEL_QP_INDEX
+    return SITTTR_SYLLABUS_URL.format(quote(code.upper(), safe=""))
 
 
 

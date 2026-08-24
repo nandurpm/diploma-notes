@@ -139,14 +139,18 @@
   }
 
   function challengeQuestions() {
-    const pool = questionPool();
+    const keys = window.POLY_QUIZ_ENGAGEMENT_KEYS || {};
+    const pool = questionPool().filter((question) => Number.isInteger(keys[`${question.subjectCode}:${question.id}`]));
     const week = weekKey();
     const rng = random(hash(`weekly:${week}`));
-    return shuffle(pool, rng).slice(0, 10).map((question, index) => ({
-      ...question,
-      challengeId: `${week}-${index + 1}-${question.id}`,
-      options: shuffle(question.options.map((text, optionIndex) => ({ text, correct: optionIndex === question.answer })), random(hash(`${week}:${question.id}`))),
-    }));
+    return shuffle(pool, rng).slice(0, 10).map((question, index) => {
+      const answerIndex = keys[`${question.subjectCode}:${question.id}`];
+      return {
+        ...question,
+        challengeId: `${week}-${index + 1}-${question.id}`,
+        options: shuffle(question.options.map((text, optionIndex) => ({ text, correct: optionIndex === answerIndex })), random(hash(`${week}:${question.id}`))),
+      };
+    });
   }
 
   function formatTime(ms) {
@@ -201,7 +205,10 @@
     const scoreNote = legacyCount
       ? `<small class="engagement-note">${legacyCount} older challenge record${legacyCount === 1 ? "" : "s"} did not include a readable score and ${legacyCount === 1 ? "is" : "are"} excluded from score totals.</small>`
       : "";
-    summary.innerHTML = `<div class="engagement-metrics"><article><span>Challenge attempts</span><b>${data.attempts.length}</b></article><article><span>Best challenge score</span><b>${scored.length ? `${best}/${denominator}` : "—"}</b></article><article><span>Challenge points</span><b>${scored.length ? total : "—"}</b></article><article><span>Weeks active</span><b>${uniqueWeeks}</b></article></div>${scoreNote}`;
+    const noScoredHint = !scored.length && data.attempts.length
+      ? '<small class="engagement-note">No scored challenge records yet. Daily Quiz scores are shown in Personal Practice Analysis and Recent Results above.</small>'
+      : "";
+    summary.innerHTML = `<div class="engagement-metrics"><article><span>Challenge attempts</span><b>${data.attempts.length}</b></article><article><span>Best challenge score</span><b>${scored.length ? `${best}/${denominator}` : "—"}</b></article><article><span>Challenge points</span><b>${scored.length ? total : "—"}</b></article><article><span>Weeks active</span><b>${uniqueWeeks}</b></article></div>${scoreNote}${noScoredHint}`;
     const earned = badges(data);
     badgesTarget.innerHTML = earned.length
       ? earned.map(([id, name, description, icon]) => `<article class="quiz-badge" data-badge="${escapeHtml(id)}"><strong>${escapeHtml(icon)}</strong><div><b>${escapeHtml(name)}</b><small>${escapeHtml(description)}</small></div></article>`).join("")
@@ -221,10 +228,19 @@
   function startChallenge() {
     if (active) return;
     const mode = $("challengeMode")?.value === "time-trial" ? "time-trial" : "weekly";
+    const questions = challengeQuestions();
+    if (questions.length < 10) {
+      const target = $("challengeBox");
+      if (target) {
+        target.classList.remove("hidden");
+        target.innerHTML = '<p class="status error">This challenge is temporarily unavailable because its answer key did not load. Please reload the page and try again.</p>';
+      }
+      return;
+    }
     active = {
       mode,
       weekKey: weekKey(),
-      questions: challengeQuestions(),
+      questions,
       startedAt: Date.now(),
       durationMs: mode === "time-trial" ? 90000 : 0,
     };
@@ -339,7 +355,7 @@
     const attempts = data.engagementAttempts;
     const daily = data.dailyResults;
     const average = attempts.length ? Math.round(attempts.reduce((sum, row) => sum + Number(row.score || 0), 0) / attempts.length * 10) / 10 : 0;
-    target.innerHTML = `<div class="analytics-head"><div><p class="eyebrow">Local admin-style view</p><h3>Quiz performance export</h3></div><div class="analytics-actions"><button id="exportQuizCsv" class="btn soft" type="button">Export CSV</button><button id="exportQuizJson" class="btn soft" type="button">Export JSON</button></div></div><p class="notice">This view contains only data available in this browser. It is not a secure multi-student administrator dashboard.</p><div class="engagement-metrics"><article><span>Daily records</span><b>${daily.length}</b></article><article><span>Challenge attempts</span><b>${attempts.length}</b></article><article><span>Challenge average</span><b>${average}/10</b></article><article><span>Badges earned</span><b>${data.badges.length}</b></article></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Type</th><th>Date</th><th>Mode/Subject</th><th>Score</th><th>Time</th></tr></thead><tbody>${[...daily.map((row) => `<tr><td>Daily quiz</td><td>${escapeHtml(row.quiz_date || "—")}</td><td>${escapeHtml(title(row.subject_code))}</td><td>${escapeHtml(row.score)}/${escapeHtml(row.total_questions || 10)}</td><td>—</td></tr>`), ...attempts.map((row) => `<tr><td>Challenge</td><td>${escapeHtml(String(row.createdAt || "").slice(0, 10))}</td><td>${escapeHtml(row.mode)}</td><td>${escapeHtml(row.score)}/${escapeHtml(row.total)}</td><td>${escapeHtml(formatTime(row.elapsedMs))}</td></tr>`)].join("") || '<tr><td colspan="5">No local records yet.</td></tr>'}</tbody></table></div>`;
+    target.innerHTML = `<div class="analytics-head"><div><p class="eyebrow">Local admin-style view</p><h3>Quiz performance export</h3></div><div class="analytics-actions"><button id="exportQuizCsv" class="btn soft" type="button">Export CSV</button><button id="exportQuizJson" class="btn soft" type="button">Export JSON</button></div></div><p class="notice">This view contains only data available in this browser. It is not a secure multi-student administrator dashboard. Daily Quiz and Weekly Challenge records use separate storage; they are shown together here for convenience.</p><div class="engagement-metrics"><article><span>Daily records</span><b>${daily.length}</b></article><article><span>Challenge attempts</span><b>${attempts.length}</b></article><article><span>Challenge average</span><b>${attempts.length ? `${average}/10` : "—"}</b></article><article><span>Badges earned</span><b>${data.badges.length}</b></article></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Type</th><th>Date</th><th>Mode/Subject</th><th>Score</th><th>Time</th></tr></thead><tbody>${[...daily.map((row) => `<tr><td>Daily quiz</td><td>${escapeHtml(row.quiz_date || "—")}</td><td>${escapeHtml(title(row.subject_code))}</td><td>${escapeHtml(row.score ?? "?")}/${escapeHtml(row.total_questions || 10)}</td><td>—</td></tr>`), ...attempts.map((row) => `<tr><td>Challenge</td><td>${escapeHtml(String(row.createdAt || "").slice(0, 10))}</td><td>${escapeHtml(row.mode)}</td><td>${escapeHtml(row.hasScore !== false ? `${row.score}/${row.total}` : "Score not recorded")}</td><td>${escapeHtml(formatTime(row.elapsedMs))}</td></tr>`)].join("") || '<tr><td colspan="5">No local records yet.</td></tr>'}</tbody></table></div>`;
     $("exportQuizCsv").addEventListener("click", exportCsv);
     $("exportQuizJson").addEventListener("click", exportJson);
   }
