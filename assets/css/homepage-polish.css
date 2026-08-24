@@ -327,3 +327,82 @@ body.home-page #subject-browser {
     color: #475569 !important;
   }
 }
+
+
+/* 4K and ultrawide displays: the previous 1680px cap leaves the academic
+   section and feature cards visually stranded in the middle of the monitor. */
+@media (min-width: 1801px) {
+  body.home-page {
+    --home-max: none;
+  }
+
+  body.home-page main {
+    width: min(100%, calc(100vw - 96px)) !important;
+    padding-inline: clamp(32px, 2.6vw, 64px) !important;
+  }
+
+  body.home-page .home-compact-hero.page-title,
+  body.home-page .academic-hub,
+  body.home-page .selection-grid,
+  body.home-page .home-feature,
+  body.home-page #subject-browser {
+    width: 100% !important;
+  }
+
+  body.home-page .home-compact-hero.page-title {
+    grid-template-columns: minmax(0, 1fr) minmax(390px, 520px) !important;
+    gap: clamp(44px, 4vw, 96px) !important;
+  }
+
+  body.home-page .daily-special-card {
+    max-width: 520px !important;
+  }
+
+  body.home-page .academic-hub__grid {
+    gap: 20px !important;
+  }
+
+  body.home-page .academic-menu summary {
+    min-height: 96px !important;
+    padding-inline: 24px !important;
+  }
+
+  body.home-page .selection-grid {
+    gap: 20px !important;
+  }
+
+  body.home-page .selection-grid .choice-card {
+    min-height: 210px !important;
+    padding: 32px !important;
+  }
+}
+
+
+/* 4K balance: full-width sections remain spacious, but their repeated cards
+   keep a readable line length instead of stretching to cinema-screen width. */
+@media (min-width: 1801px) {
+  body.home-page .home-compact-hero.page-title {
+    max-width: 3200px !important;
+    margin-inline: auto !important;
+  }
+
+  body.home-page .academic-hub {
+    max-width: 3000px !important;
+    margin-inline: auto !important;
+  }
+
+  body.home-page .academic-hub__heading,
+  body.home-page .academic-hub__grid {
+    max-width: 2400px !important;
+    margin-inline: auto !important;
+  }
+
+  body.home-page .academic-hub__grid {
+    margin-top: 18px !important;
+  }
+
+  body.home-page .selection-grid {
+    max-width: 2400px !important;
+    margin-inline: auto !important;
+  }
+}
