@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-24T07:18:54Z",
+  "generatedAt": "2026-08-24T11:30:46Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -27,19 +27,17 @@
     ],
     "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
     "mockExamEvaluation": true,
-    "mockExamPattern": "1004-75-mark-official-model",
-    "dailyQuizGrading": true,
-    "commentsConfigured": true
+    "mockExamPattern": "1004-75-mark-official-model"
   },
   "askTest": {
     "ok": true,
-    "provider": "nvidia",
-    "model": "meta/llama-3.1-8b-instruct",
-    "answerPreview": "\u0d28\u0d3f\u0d19\u0d4d\u0d19\u0d33\u0d41\u0d1f\u0d46 \u0d1a\u0d4b\u0d26\u0d4d\u0d2f\u0d24\u0d4d\u0d24\u0d3f\u0d28\u0d4d \u0d2a\u0d4d\u0d30\u0d24\u0d3f\u0d15\u0d30\u0d3f\u0d15\u0d4d\u0d15\u0d3e\u0d7b \u0d1e\u0d3e\u0d7b \u0d24\u0d2f\u0d4d\u0d2f\u0d3e\u0d31\u0d3e\u0d23\u0d4d."
+    "provider": "cloudflare-workers-ai",
+    "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
+    "answerPreview": "Ask POLY is ready"
   },
   "relevanceTest": {
     "ok": true,
-    "provider": "nvidia",
+    "provider": "cloudflare-workers-ai",
     "answerPreview": "Kerala has 14 districts.",
     "forbiddenTermsFound": []
   },
