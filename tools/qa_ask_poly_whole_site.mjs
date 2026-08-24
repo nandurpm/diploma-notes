@@ -52,7 +52,7 @@ try {
   await page.waitForFunction(() => Boolean(window.AskPolyKnowledge?.getStatus), null, { timeout: 30000 });
   const status = await page.evaluate(() => window.AskPolyKnowledge.getStatus());
   check("whole-site knowledge loads", status?.ok === true, { status });
-  check("knowledge contains 38 Revision 2026 programmes", status?.counts?.programmes2026 === 38, { counts: status?.counts });
+  check("knowledge contains 42 Revision 2026 programmes", status?.counts?.programmes2026 === 42, { counts: status?.counts });
   check("knowledge contains both curriculum datasets", status?.counts?.subjectRecords >= 300, { counts: status?.counts });
 
   const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth, body: document.body.scrollWidth }));
