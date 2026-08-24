@@ -433,6 +433,13 @@
     return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
   }
 
+  function preferredResponseLanguage(message) {
+    const text = String(message || "").trim();
+    if (/[\u0D00-\u0D7F]/.test(text)) return "ml";
+    if (/\b(?:in|to)\s+malayalam\b|\bmalayalam\s+(?:please|answer|reply|explanation|translation|meaning)\b|\b(?:reply|answer|respond|explain|translate)\s+(?:this\s+)?(?:in|to)\s+malayalam\b/i.test(text)) return "ml";
+    return "en";
+  }
+
   async function callAI(message, history, localContext) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
@@ -448,6 +455,7 @@
         body: JSON.stringify({
           message,
           history,
+          preferredLanguage: preferredResponseLanguage(message),
           pageTitle: "Ask POLY whole-site knowledge",
           pageContext: localContext || ""
         })

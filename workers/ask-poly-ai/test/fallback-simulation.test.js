@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { askPoly, askPolyStream, configuredProviders } from "../src/ask-handler.js";
+import { resolvePreferredLanguage } from "../src/language-policy.js";
 
 const baseEnv = {
   AI_PROVIDER_ORDER: "openrouter,nvidia,gemini",
@@ -61,6 +62,30 @@ function installFetch({ openrouter = "fail", nvidia = "success", gemini = "succe
 
 test("configured provider order includes OpenRouter, NVIDIA, then Gemini", () => {
   assert.deepEqual(configuredProviders(baseEnv), ["openrouter", "nvidia", "gemini"]);
+});
+
+test("English is the default even when context and history contain Malayalam", async () => {
+  assert.equal(resolvePreferredLanguage({ message: "What are diodes?", preferredLanguage: "" }), "en");
+  const calls = [];
+  installFetch({ openrouter: "success", nvidia: "success", gemini: "success", calls });
+  await askPoly({
+    message: "What are diodes?",
+    history: [{ role: "assistant", content: "മലയാളം കുറിപ്പുകൾ" }],
+    pageContext: "Malayalam concept note: ഡയോഡ് ഒരു അർദ്ധചാലക ഉപകരണമാണ്."
+  }, baseEnv);
+  const payload = JSON.parse(calls[0].body);
+  assert.match(payload.messages[0].content, /Default to English/);
+  assert.match(payload.messages.at(-1).content, /Preferred language: English/);
+});
+
+test("Explicit Malayalam request is honored", async () => {
+  assert.equal(resolvePreferredLanguage({ message: "Explain diodes in Malayalam, please." }), "ml");
+  const calls = [];
+  installFetch({ openrouter: "fail", nvidia: "success", gemini: "success", calls });
+  await askPoly({ message: "Explain diodes in Malayalam, please.", history: [] }, baseEnv);
+  const payload = JSON.parse(calls.at(-1).body);
+  assert.match(payload.messages[0].content, /Default to English/);
+  assert.match(payload.messages.at(-1).content, /Preferred language: Malayalam/);
 });
 
 test("NVIDIA answers when OpenRouter is intentionally unavailable", async () => {
