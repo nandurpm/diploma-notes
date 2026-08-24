@@ -1,16 +1,10 @@
 name: Notify Vercel retry window
 
-on:
+"on":
   schedule:
     # Check the retry window every six hours without using a per-minute poller.
     - cron: "0 */6 * * *"
-  workflow_dispatch:
-    inputs:
-      pull_request:
-        description: "Pull request number to inspect"
-        required: false
-        default: "292"
-        type: string
+  workflow_dispatch: {}
 
 permissions:
   contents: read
@@ -30,7 +24,7 @@ jobs:
       - name: Check Vercel status and notify when retry window is ready
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ inputs.pull_request || '292' }}
+          PR_NUMBER: "292"
           REPOSITORY: ${{ github.repository }}
         shell: bash
         run: |
