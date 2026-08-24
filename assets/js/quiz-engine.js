@@ -6,28 +6,26 @@
   const A = window.PolyQuizAuth;
   const $ = (id) => document.getElementById(id);
   const esc = window.PolyUtils.escapeHtml;
-  const optionText = (option) => typeof option === 'string' ? option : (option?.text || '');
 
   let current = [];
   let subject = '';
-  let quizDate = '';
-  let authViewVersion = 0;
-  let quizRequestVersion = 0;
-  let reviewRequestVersion = 0;
-  let submissionInFlight = false;
-  let authChoiceLocked = false;
-
-  function scoreFeedback(score) {
-    const value = Math.max(0, Math.min(10, Number(score) || 0));
-    if (value >= 9) return { title: 'Outstanding result', text: 'You are ready to move beyond recall. Revisit the explanations once more and practise applying the same ideas to unfamiliar problems.', tone: 'excellent' };
-    if (value >= 7) return { title: 'Strong progress', text: 'Your core understanding is developing well. Review the questions you missed and practise one short problem from each weak topic.', tone: 'good' };
-    if (value >= 5) return { title: 'Steady foundation', text: 'You have a workable starting point. Re-read the related lesson sections, then attempt another mixed quiz after a short revision session.', tone: 'steady' };
-    if (value >= 3) return { title: 'Keep building the basics', text: 'Several concepts need reinforcement. Start with definitions and worked examples in the lesson, then retry similar questions without guessing.', tone: 'developing' };
-    return { title: 'Revision recommended', text: 'Use this result as a study guide rather than a judgement. Review the lesson from the beginning, make brief notes, and return for another attempt on a later day.', tone: 'review' };
-  }
 
   function ensureGeneralKnowledge() {
-    if (B.questions.GK && !B.subjects.GK) B.subjects.GK = 'General Knowledge';
+    if (!B.subjects.GK) B.subjects.GK = 'General Knowledge';
+    if (!Array.isArray(B.questions.GK)) {
+      B.questions.GK = [
+        { id: 'GK-01', topic: 'India', en: 'What is the capital of India?', ml: 'ഇന്ത്യയുടെ തലസ്ഥാനം ഏത്?', options: ['New Delhi', 'Mumbai', 'Kolkata', 'Chennai'], answer: 0 },
+        { id: 'GK-02', topic: 'Kerala', en: 'What is the capital of Kerala?', ml: 'കേരളത്തിന്റെ തലസ്ഥാനം ഏത്?', options: ['Thiruvananthapuram', 'Kochi', 'Kozhikode', 'Thrissur'], answer: 0 },
+        { id: 'GK-03', topic: 'India', en: 'Which document is the supreme law of India?', ml: 'ഇന്ത്യയുടെ പരമോന്നത നിയമം ഏത് രേഖയാണ്?', options: ['The Constitution of India', 'The Union Budget', 'The Census', 'The Penal Code only'], answer: 0 },
+        { id: 'GK-04', topic: 'Kerala', en: 'Kerala was formed as a state on which date?', ml: 'കേരളം സംസ്ഥാനമായി രൂപീകരിച്ചത് ഏത് തീയതി?', options: ['1 November 1956', '15 August 1947', '26 January 1950', '1 May 1960'], answer: 0 },
+        { id: 'GK-05', topic: 'Science', en: 'What is the chemical symbol for oxygen?', ml: 'Oxygen-ന്റെ chemical symbol എന്ത്?', options: ['O', 'Ox', 'Og', 'On'], answer: 0 },
+        { id: 'GK-06', topic: 'Science', en: 'Water freezes at what temperature on the Celsius scale?', ml: 'Celsius scale-ൽ വെള്ളം ഏത് temperature-ൽ തണുത്തുറയും?', options: ['0°C', '100°C', '32°C', '-100°C'], answer: 0 },
+        { id: 'GK-07', topic: 'Technology', en: 'What does CPU stand for?', ml: 'CPU എന്നത് എന്തിന്റെ ചുരുക്കപ്പേരാണ്?', options: ['Central Processing Unit', 'Computer Primary Utility', 'Central Power Unit', 'Control Program User'], answer: 0 },
+        { id: 'GK-08', topic: 'Technology', en: 'Which protocol is normally used for secure web browsing?', ml: 'Secure web browsing-ന് സാധാരണ ഉപയോഗിക്കുന്ന protocol ഏത്?', options: ['HTTPS', 'FTP only', 'SMTP', 'Bluetooth'], answer: 0 },
+        { id: 'GK-09', topic: 'Environment', en: 'Which layer protects Earth from much harmful ultraviolet radiation?', ml: 'ഹാനികരമായ UV radiation-ൽ നിന്ന് ഭൂമിയെ സംരക്ഷിക്കുന്ന layer ഏത്?', options: ['Ozone layer', 'Troposphere only', 'Ocean layer', 'Core'], answer: 0 },
+        { id: 'GK-10', topic: 'Geography', en: 'Which is the largest continent by area?', ml: 'വിസ്തീർണ്ണത്തിൽ ഏറ്റവും വലിയ ഭൂഖണ്ഡം ഏത്?', options: ['Asia', 'Africa', 'Europe', 'Australia'], answer: 0 }
+      ];
+    }
   }
 
   function title(code) {
@@ -66,30 +64,10 @@
   function qset(code, date = R.dateKey()) {
     const random = rng(hash(date + code));
     const picked = shuffle(B.questions[code] || [], random).slice(0, 10);
-    return picked.map((q) => ({
-      ...q,
-      options: shuffle(q.options.map((text) => ({ text })), rng(hash(date + code + q.id + ':single')))
-    }));
-  }
-
-  async function gradeDailyQuiz(code, date, answers) {
-    const configured = String(globalThis.ASK_POLY_CONFIG?.dailyQuizEndpoint || '').trim();
-    const endpoint = configured || 'https://api.polypmna.dpdns.org/api/grade-daily-quiz';
-    const url = new URL(endpoint, location.href);
-    if (url.protocol !== 'https:' && !['localhost', '127.0.0.1'].includes(url.hostname)) {
-      throw new Error('The secure quiz grading endpoint is not configured correctly.');
-    }
-    const response = await fetch(url.toString(), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      cache: 'no-store',
-      body: JSON.stringify({ subject: code, date, mode: 'first', answers })
+    return picked.map((q) => {
+      const options = q.options.map((text, index) => ({ text, ok: index === q.answer }));
+      return { ...q, options: shuffle(options, rng(hash(date + code + q.id + ':single'))) };
     });
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok || !data || !Array.isArray(data.review)) {
-      throw new Error(data.error || 'Secure quiz grading is temporarily unavailable. Your answers were not saved.');
-    }
-    return data;
   }
 
   function show(id) {
@@ -98,14 +76,12 @@
   }
 
   function enter(name) {
-    authViewVersion += 1;
-    const version = authViewVersion;
     $('authView')?.classList.add('hidden');
     $('portalView')?.classList.remove('hidden');
     $('welcomeTitle').textContent = 'Welcome, ' + name;
     show('dashboardView');
-    stats(version);
-    recent(version);
+    stats();
+    recent();
   }
 
   function msg(text, ok = false) {
@@ -140,29 +116,6 @@
     document.querySelectorAll('#' + container + ' .subject-card').forEach((card) => {
       card.classList.toggle('selected', card.dataset.code === code);
     });
-    if (container !== 'dailySubjectCards') return;
-    if (code) {
-      $('dailySubjectCards').classList.add('hidden');
-      $('quizContainer').classList.remove('hidden');
-      $('quizProgressWrap').style.display = 'block';
-      updateProgress();
-    } else {
-      $('dailySubjectCards').classList.remove('hidden');
-      $('quizContainer').classList.add('hidden');
-      $('quizProgressWrap').style.display = 'none';
-    }
-  }
-
-  function updateProgress() {
-    const answered = current.filter(q => document.querySelector(`input[name="${CSS.escape(q.id)}"]:checked`)).length;
-    const percent = current.length ? Math.round((answered / current.length) * 100) : 0;
-    const bar = $('quizProgressBar');
-    const wrap = $('quizProgressWrap');
-    if (bar) bar.style.width = percent + '%';
-    if (wrap) {
-      wrap.setAttribute('aria-valuenow', String(percent));
-      wrap.setAttribute('aria-valuetext', `${answered} of ${current.length} questions answered`);
-    }
   }
 
   function hideQuizControls() {
@@ -223,47 +176,31 @@
 
   function renderReadOnly(code, row, date = R.dateKey()) {
     subject = code;
-    quizDate = date;
     current = qset(code, date);
     selectCard('dailySubjectCards', code);
     $('quizBox').classList.remove('hidden');
     hideQuizControls();
 
     const answers = row?.answers || {};
-    const reviewById = new Map((row?.review || []).map((item) => [String(item.id), item]));
+    let score = 0;
     const html = current.map((q, index) => {
-      const stored = reviewById.get(String(q.id));
-      const userAnswer = answers[q.id] || stored?.userAnswer || 'Not answered';
-      const right = stored?.correctAnswer || '';
-      const known = Boolean(right);
-      const ok = known && userAnswer === right;
-      const status = known ? (ok ? 'Correct' : 'Wrong') : 'Saved';
-      const answerReview = known
-        ? `<div><strong>Correct Answer:</strong> ${esc(right)}</div><div><strong>Status:</strong> ${status}</div>`
-        : '<div class="notice">Correct answer is withheld after reload to protect quiz integrity.</div>';
-      return `<div class="question ${known ? (ok ? 'correct' : 'wrong') : ''}" id="q${esc(q.id)}">
+      const right = q.options.find((option) => option.ok)?.text || '';
+      const userAnswer = answers[q.id] || 'Not answered';
+      const ok = userAnswer === right;
+      if (ok) score += 1;
+      return `<div class="question ${ok ? 'correct' : 'wrong'}" id="q${esc(q.id)}">
         <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <div class="answer review-answer"><div><strong>Your Answer:</strong> ${esc(userAnswer)}</div>${answerReview}</div>
+        <div class="answer review-answer"><div><strong>Your Answer:</strong> ${esc(userAnswer)}</div><div><strong>Correct Answer:</strong> ${esc(right)}</div><div><strong>Status:</strong> ${ok ? 'Correct' : 'Wrong'}</div></div>
       </div>`;
     }).join('');
 
-    const finalScore = Number(row?.score ?? row?.best_score ?? 0);
-    const feedback = scoreFeedback(finalScore);
-    $('quizBox').innerHTML = `
-      <div class="score-summary">
-        <div class="score-circle">${finalScore}/10</div>
-        <h3>${esc(code)} - ${esc(title(code))}</h3>
-        <p class="score-feedback score-feedback--${feedback.tone}"><strong>${esc(feedback.title)}.</strong> ${esc(feedback.text)}</p>
-        <p class="notice" style="margin-top:12px">Already submitted today. Result is locked.</p>
-      </div>
-      ${html}`;
-    $('quizMsg').textContent = A?.guest ? 'Guest result is stored only in this browser.' : 'This result is saved online.';
+    const finalScore = Number(row?.score ?? row?.best_score ?? score);
+    $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">Already submitted today. Your answer is locked and cannot be edited.</p><p class="status ok">Saved result: ${finalScore}/10</p>${html}`;
+    $('quizMsg').textContent = A?.guest ? 'Guest result is stored only in this browser.' : 'This result is saved online. Editing is disabled for today.';
     $('quizMsg').className = 'status ok';
-    $('quizProgressWrap').style.display = 'none';
   }
 
   async function renderQuiz(code) {
-    const requestVersion = ++quizRequestVersion;
     if (!B.questions[code] || B.questions[code].length === 0) {
       alert(`Daily practice questions for Course Code ${code} are currently under development.\n\nPlease try our First-Year Common Quizzes (Math, Physics, Chemistry, English, Environment, Constitution) or General Knowledge in the meantime!`);
       return;
@@ -276,57 +213,36 @@
     hideQuizControls();
 
     const existing = await R.today(code);
-    if (requestVersion !== quizRequestVersion || subject !== code) return;
     if (existing) {
       renderReadOnly(code, existing, R.dateKey());
       return;
     }
 
-    quizDate = R.dateKey();
-    current = qset(code, quizDate);
+    current = qset(code, R.dateKey());
     $('quizControls').classList.remove('hidden');
     $('submitQuiz').disabled = false;
     $('retryQuiz')?.classList.add('hidden');
 
     $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">One attempt only. After submit, the result saves online and cannot be edited today.</p>` + current.map((q, index) => `
-      <article class="question" id="q${esc(q.id)}" aria-labelledby="qt${esc(q.id)}">
-        <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext" id="qt${esc(q.id)}">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <fieldset class="options" aria-labelledby="qt${esc(q.id)}"><legend class="sr-only">Select one answer</legend>${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}" onchange="PolyQuizEngine.updateProgress()"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(optionText(op))}</span></label>`).join('')}</fieldset>
+      <div class="question" id="q${esc(q.id)}">
+        <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
+        <div class="options">${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op.text)}</span></label>`).join('')}</div>
         <div class="answer hidden" id="a${esc(q.id)}"></div>
-      </article>`).join('');
-    updateProgress();
+      </div>`).join('');
   }
 
   async function submit() {
-    if (submissionInFlight || !subject || !current.length) return;
-    submissionInFlight = true;
-    const requestVersion = quizRequestVersion;
-    const submitSubject = subject;
-    const submitDate = quizDate;
-    const questions = current.slice();
-    const existing = await R.today(submitSubject);
-    if (requestVersion !== quizRequestVersion || subject !== submitSubject || quizDate !== submitDate) {
-      submissionInFlight = false;
-      return;
-    }
-    const gradingDate = R.dateKey();
-    if (submitDate && gradingDate !== submitDate) {
-      submissionInFlight = false;
-      $('submitQuiz').disabled = false;
-      $('quizMsg').textContent = 'The daily quiz has rolled over. Reload today’s question set before submitting.';
-      $('quizMsg').className = 'status error';
-      return;
-    }
+    const existing = await R.today(subject);
     if (existing) {
-      submissionInFlight = false;
-      renderReadOnly(submitSubject, existing, R.dateKey());
+      renderReadOnly(subject, existing, R.dateKey());
       return;
     }
 
+    let score = 0;
     const missing = [];
     const answers = {};
 
-    questions.forEach((q, index) => {
+    current.forEach((q, index) => {
       const chosen = document.querySelector(`input[name="${CSS.escape(q.id)}"]:checked`);
       const card = $('q' + q.id);
       card?.classList.remove('wrong', 'correct');
@@ -336,67 +252,53 @@
         return;
       }
       const selected = q.options[Number(chosen.value)];
-      answers[q.id] = optionText(selected);
-      card?.classList.add('answered');
+      answers[q.id] = selected.text;
+      if (selected.ok) {
+        score += 1;
+        card?.classList.add('correct');
+      } else {
+        card?.classList.add('wrong');
+      }
     });
 
     if (missing.length) {
-      submissionInFlight = false;
       $('quizMsg').textContent = 'Answer all 10 questions. Missing: ' + missing.join(', ');
       $('quizMsg').className = 'status error';
       return;
     }
 
     $('submitQuiz').disabled = true;
-    $('quizMsg').textContent = 'Checking answers securely…';
+    $('quizMsg').textContent = 'Saving result online…';
     $('quizMsg').className = 'status';
 
-    let graded;
-    try {
-      graded = await gradeDailyQuiz(submitSubject, submitDate, answers);
-    } catch (error) {
-      submissionInFlight = false;
-      $('submitQuiz').disabled = false;
-      $('quizMsg').textContent = error.message || 'Secure quiz grading is temporarily unavailable. Try again.';
-      $('quizMsg').className = 'status error';
-      return;
-    }
-
-    const score = Number(graded.score || 0);
     const row = {
       quiz_date: R.dateKey(),
       subject_code: subject,
       score,
       best_score: score,
-      review: graded.review,
       total_questions: 10,
       answers,
-      question_ids: questions.map((q) => q.id),
-      question_keys: questions.map((q) => `${submitSubject}:${q.id}`),
+      question_ids: current.map((q) => q.id),
+      question_keys: current.map((q) => `${subject}:${q.id}`),
       attempt_count: 1,
       completed: true,
       submitted_at: new Date().toISOString()
     };
 
     const saved = await R.save(row);
-    submissionInFlight = false;
-    if (!saved.remote && !saved.guest && !saved.fallback) {
+    if (!saved.remote && !saved.guest) {
       $('submitQuiz').disabled = false;
-      $('quizMsg').textContent = 'Cloud save failed. Check internet/login and submit again.';
+      $('quizMsg').textContent = 'Cloud save failed. Check internet/login and submit again. Result is not locked until cloud save succeeds.';
       $('quizMsg').className = 'status error';
       return;
     }
 
-    renderReadOnly(submitSubject, { ...(saved.row || row), review: graded.review }, R.dateKey());
-    if (saved.fallback) {
-      $('quizMsg').textContent = 'Result saved in this browser, but cloud sync failed. It is locked for today; sign in again later to keep future results online.';
-      $('quizMsg').className = 'status error';
-    }
-    stats(authViewVersion);
-    recent(authViewVersion);
+    renderReadOnly(subject, saved.row || row, R.dateKey());
+    stats();
+    recent();
   }
 
-  async function stats(version = authViewVersion) {
+  async function stats() {
     if ($('dateStat')) $('dateStat').innerHTML = '<span class="quiz-spinner"></span>';
     if ($('best')) $('best').innerHTML = '<span class="quiz-spinner"></span>';
     if ($('progress')) $('progress').innerHTML = '<span class="quiz-spinner"></span>';
@@ -404,7 +306,6 @@
 
     try {
       const rows = await R.recent();
-      if (version !== authViewVersion) return;
       const today = rows.filter((row) => row.quiz_date === R.dateKey());
       const bank = Object.values(B.questions).reduce((sum, arr) => sum + arr.length, 0);
       const done = new Set();
@@ -432,19 +333,16 @@
     }
   }
 
-  async function recent(version = authViewVersion) {
+  async function recent() {
     const rows = await R.recent();
-    if (version !== authViewVersion) return;
     $('recentResults').innerHTML = rows.length
       ? '<h3>Recent Results</h3><div class="result-list">' + rows.slice(0, 8).map((row) => `<div class="result-row"><div><strong>${esc(row.subject_code)} - ${esc(title(row.subject_code))}</strong><small>${esc(row.quiz_date)}</small></div><b>${row.score}/${row.total_questions || 10}</b></div>`).join('') + '</div>'
       : 'No saved results yet.';
   }
 
   async function review(code) {
-    const requestVersion = ++reviewRequestVersion;
     selectCard('reviewSubjectCards', code);
     const row = await R.previous(code);
-    if (requestVersion !== reviewRequestVersion) return;
     if (!row) {
       $('reviewBox').innerHTML = `<p class="notice">No previous-day attempt found for ${esc(code)} - ${esc(title(code))}.</p>`;
       return;
@@ -454,13 +352,9 @@
     const qs = qset(code, R.dateKey(d));
     $('reviewBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><div class="review-list">${qs.map((q, index) => {
       const userAnswer = (row.answers || {})[q.id] || 'Not answered';
-      const stored = (row.review || []).find((item) => String(item.id) === String(q.id));
-      const right = stored?.correctAnswer || '';
-      const known = Boolean(right);
-      const ok = known && userAnswer === right;
-      const status = known ? (ok ? 'Correct' : 'Wrong') : 'Saved';
-      const answerReview = known ? `<div class="answerbox"><strong>Correct Answer</strong>${esc(right)}</div>` : '<div class="answerbox"><strong>Review</strong>Correct answer withheld after reload.</div>';
-      return `<article class="review-card ${known ? (ok ? 'ok' : 'bad') : ''}"><span class="badge">Q${index + 1}</span> <span class="badge ${known ? (ok ? 'ok' : 'bad') : ''}">${status}</span><div class="qtext" style="margin-top:8px">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="answers"><div class="answerbox"><strong>Your Answer</strong>${esc(userAnswer)}</div>${answerReview}</div></article>`;
+      const right = q.options.find((o) => o.ok)?.text || '';
+      const ok = userAnswer === right;
+      return `<article class="review-card ${ok ? 'ok' : 'bad'}"><span class="badge">Q${index + 1}</span> <span class="badge ${ok ? 'ok' : 'bad'}">${ok ? 'Correct' : 'Wrong'}</span><div class="qtext" style="margin-top:8px">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="answers"><div class="answerbox"><strong>Your Answer</strong>${esc(userAnswer)}</div><div class="answerbox"><strong>Correct Answer</strong>${esc(right)}</div></div></article>`;
     }).join('')}</div>`;
   }
 
@@ -473,16 +367,17 @@
       ? (kind === 'review' ? 'Open Review' : kind === 'mock' ? 'Start Exam' : 'Start / View Result')
       : 'Under Development';
 
-    const developmentId = `${target}-${code}-development`;
-    el.setAttribute('aria-describedby', developmentId);
     el.innerHTML = `<span class="chip ${isSupported ? 'supported-chip' : 'dev-chip'}" style="background: ${isSupported ? '#059669' : '#475569'}">${esc(code)}</span>
       <h3>${esc(name)}</h3>
-      <p id="${developmentId}" class="subject-card__availability" style="font-size:12px; opacity:0.8; margin-top:4px;">${isSupported ? 'Quiz is fully active.' : 'Questions for this subject are being prepared.'}</p>
-      <p>${isSupported ? (kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.') : 'This subject is listed so you can see the branch curriculum. The question bank is not available yet; choose a supported subject to practise now.'}</p>
-      <button class="btn ${!isSupported ? 'outline' : (kind === 'mock' ? 'primary' : 'soft')}" type="button" ${!isSupported ? 'disabled aria-disabled="true" title="Question bank under development"' : ''} style="width:100%; margin-top:auto;">${label}</button>`;
+      <p style="font-size:12px; opacity:0.8; margin-top:4px;">${isSupported ? 'Quiz is fully active.' : 'Branch curriculum subject. Questions under development.'}</p>
+      <p>${kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.'}</p>
+      <button class="btn ${!isSupported ? 'outline' : (kind === 'mock' ? 'primary' : 'soft')}" type="button" style="width:100%; margin-top:auto;">${label}</button>`;
 
     el.onclick = () => {
-      if (!isSupported) return;
+      if (!isSupported) {
+        alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease choose another supported subject or General Knowledge while more question banks are being prepared.`);
+        return;
+      }
       if (kind === 'daily') renderQuiz(code);
       else if (kind === 'review') review(code);
       else location.href = (code === '1004' ? '/mock-exam-1004.html' : '/mock-exam.html?subject=' + encodeURIComponent(code));
@@ -491,11 +386,6 @@
   }
 
   function renderCurriculumCards(kind) {
-    if (kind === 'daily') {
-      quizRequestVersion += 1;
-      submissionInFlight = false;
-    }
-    if (kind === 'review') reviewRequestVersion += 1;
     const targetId = kind === 'daily' ? 'dailySubjectCards' : kind === 'review' ? 'reviewSubjectCards' : 'mockSubjectCards';
     const container = $(targetId);
     if (!container) return;
@@ -590,7 +480,6 @@
     registerTab?.addEventListener('keydown', handleTabKey);
     $('authForm').onsubmit = async (event) => {
       event.preventDefault();
-      authChoiceLocked = true;
       $('authSubmit').disabled = true;
       msg('Please wait...', true);
       try {
@@ -615,20 +504,14 @@
         if (cp) cp.type = type;
       };
     }
-    $('guestLogin').onclick = () => {
-      authChoiceLocked = true;
-      enter(A.asGuest().name);
-    };
+    $('guestLogin').onclick = () => enter(A.asGuest().name);
     $('logoutBtn').onclick = async () => { await A.logout(); location.reload(); };
-    $('openDash').onclick = () => { show('dashboardView'); stats(authViewVersion); recent(authViewVersion); };
+    $('openDash').onclick = () => { show('dashboardView'); stats(); recent(); };
     $('openDaily').onclick = () => { show('dailyView'); renderCurriculumCards('daily'); };
     $('openMocks').onclick = () => { show('mockView'); renderCurriculumCards('mock'); };
     $('openReview').onclick = () => { show('reviewView'); renderCurriculumCards('review'); };
     $('submitQuiz').onclick = submit;
-    $('backToSubjects').onclick = () => { quizRequestVersion += 1; submissionInFlight = false; selectCard('dailySubjectCards', null); };
     $('retryQuiz')?.remove();
-
-    window.PolyQuizEngine = { updateProgress };
 
     setupFilters();
     renderCurriculumCards('daily');
@@ -638,9 +521,7 @@
     setInterval(tick, 1000);
     tick();
     mode('login');
-    A.restore().then((result) => {
-      if (result && !authChoiceLocked) enter(result.name);
-    });
+    A.restore().then((result) => { if (result) enter(result.name); });
     stats();
   }
 

@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260815-server-only-grading1";
+  const MOCK_EXAM_ASSET_VERSION = "20260813-audit-fix1";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -15,12 +15,10 @@
   }
 
   function subjectFromPage() {
-    const candidate = document.body?.dataset?.mockSubject
+    return document.body?.dataset?.mockSubject
       || new URLSearchParams(location.search).get("subject")
       || location.pathname.match(/mock-exam-(\d{4})\.html$/)?.[1]
       || "";
-    const subject = String(candidate).trim().toUpperCase();
-    return /^\d{4}[A-Z]?$/.test(subject) ? subject : "";
   }
 
   function applyPaperText(M) {
@@ -52,6 +50,7 @@
     })
     .then(() => loadScript("/assets/js/mock-exam-ui.js"))
     .then(() => loadScript("/assets/js/mock-exam-service.js"))
+    .then(() => loadScript("/assets/js/mock-exam-ai-evaluator.js"))
     .then(start)
     .catch((error) => {
       console.error(error);

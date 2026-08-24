@@ -7,23 +7,21 @@ import json
 import re
 from collections import defaultdict
 from pathlib import Path
-from urllib.parse import quote
 
 DATA = Path("assets/data/revision-2026-subjects.json")
 REGISTRY = Path("assets/data/revision-2026-programmes.json")
 OUT = Path("revision-2026")
 REV2026_CONTENT = Path("revision-2026-content")
 REV2026_LESSONS = REV2026_CONTENT / "lessons"
+REV2026_NOTES = REV2026_CONTENT / "notes"
 SITE = "https://polypmna.dpdns.org"
 SOCIAL_IMAGE = SITE + "/assets/media/poly-pmna-study-hub-social-card.png"
-REPORT_JSON = Path("reports/archive/revision-2026-new-codes-vs-2021.json")
-REPORT_MD = Path("reports/archive/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260818-pdf-manifest2"
-PDF_MANIFEST = json.loads(Path("assets/data/sitttr-pdf-links.json").read_text(encoding="utf-8"))
-PDF_BASE = PDF_MANIFEST["base"]
-PDF_LINKS = PDF_MANIFEST["links"].get("2026", {})
-SITTTR_SYLLABUS_URL = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course={}&scheme=REV2026"
-SITTTR_MODEL_QP_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
+SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026"
+MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
+REPORT_JSON = Path("reports/revision-2026-new-codes-vs-2021.json")
+REPORT_MD = Path("reports/revision-2026-new-codes-vs-2021.md")
+VERSION = "20260812-revision-tag-normalization1"
+MIN_VALID_PDF_BYTES = 20000
 
 
 def esc(value: object) -> str:
@@ -48,30 +46,17 @@ def natural_code_key(code: str) -> tuple[int, str]:
     return (int(match.group(1)), match.group(2)) if match else (10**9, code)
 
 
-
 def lesson_file(code: str) -> Path:
     return REV2026_LESSONS / f"lessons-{code}.html"
 
 
-def pdf_key(programme: dict[str, object], row: dict[str, object], code: str) -> str:
-    programme_slug = str(row.get("programmeSlug") or programme.get("slug") or "")
-    return f"2026|{programme_slug}|{code.upper()}"
+def notes_file(code: str) -> Path:
+    return REV2026_NOTES / f"downloadable-notes-{code}.pdf"
 
 
-def pdf_href(programme: dict[str, object], row: dict[str, object], code: str, kind: str) -> str:
-    path = PDF_LINKS.get(pdf_key(programme, row, code), {}).get(kind)
-    return f"{PDF_BASE}{path}" if path else ""
-
-
-def pdf_filename(href: str) -> str:
-    return href.rsplit("/", 1)[-1] if href else ""
-
-
-def sitttr_href(code: str, kind: str) -> str:
-    if kind == "modelQuestionPaper":
-        return SITTTR_MODEL_QP_INDEX
-    return SITTTR_SYLLABUS_URL.format(quote(code.upper(), safe=""))
-
+def valid_notes(code: str) -> bool:
+    path = notes_file(code)
+    return path.exists() and path.stat().st_size >= MIN_VALID_PDF_BYTES
 
 
 def structured_data(title: str, description: str, canonical: str) -> str:
@@ -105,7 +90,7 @@ def navigation() -> str:
 
 
 def footer() -> str:
-    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
+    return f'''<footer class="footer" data-site-footer></footer><script src="/assets/js/main.js?v={VERSION}" defer></script><script src="/assets/js/revision-2026-browser.js?v={VERSION}" defer></script><script src="/assets/js/lesson-availability-hotfix.js?v=20260812-revision-tag-normalization1" defer></script><script src="/assets/js/fixed-site-header.js?v={VERSION}" defer></script>'''
 
 
 def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
@@ -114,41 +99,51 @@ def subject_card(programme: dict[str, object], row: dict[str, object]) -> str:
     name = str(row.get("name", "")).strip()
     subject_type = str(row.get("type", "Course")).strip() or "Course"
     lesson_url = f"/revision-2026-content/lessons/lessons-{esc(code)}.html"
-    notes_url = f"{lesson_url}?autoPrintNotes=1"
+    notes_url = f"/revision-2026-content/notes/downloadable-notes-{esc(code)}.pdf"
     lesson_ok = lesson_file(code).exists()
-    syllabus_url = pdf_href(programme, row, code, "syllabus")
-    qp_url = pdf_href(programme, row, code, "modelQuestionPaper")
+    notes_ok = valid_notes(code)
+    syllabus_unavailable = bool(row.get("syllabusUnavailable"))
+    syllabus_url = "" if syllabus_unavailable else (str(row.get("syllabusUrl", "")).strip() or (
+        "https://www.sitttrkerala.ac.in/index.php?"
+        f"r=site%2Fdiploma-syllabus-course-contents&course={code}&scheme=REV2026"
+    ))
+    syllabus_message = f"Official syllabus is not published for Revision 2026 course {code}."
     syllabus_action = (
-        f'<a class="action syllabus" href="{esc(syllabus_url)}" download="{esc(pdf_filename(syllabus_url))}">Download Syllabus</a>'
+        f'<a class="action syllabus" href="{esc(syllabus_url)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a>'
         if syllabus_url else
-        f'<a class="action syllabus external-fallback" href="{esc(sitttr_href(code, "syllabus"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a>'
+        f'<button class="action syllabus" type="button" data-syllabus-unavailable="true" aria-label="{esc(syllabus_message)}" title="{esc(syllabus_message)}" onclick="window.alert(this.title)">Open Syllabus</button>'
     )
-    qp_action = (
-        f'<a class="action qp" href="{esc(qp_url)}" download="{esc(pdf_filename(qp_url))}" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Download Model Question Paper</a>'
-        if qp_url else
-        f'<a class="action qp external-fallback" href="{esc(sitttr_href(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open SITTTR Model Question Paper</a>'
+    qp_url = (
+        "https://sitttrkerala.ac.in/index.php?"
+        f"r=site%2Fdiploma-modelqp-courses-show&course={code}&scheme=REV2026"
     )
+
     if lesson_ok:
-        study = (
-            f'<a class="action lessons" href="{lesson_url}">View Lessons</a>'
-            f'<a class="action download" href="{notes_url}">Download Notes</a>'
-        )
+        lesson_action = f'<a class="action lessons" href="{lesson_url}">View Lessons</a>'
+        download_href = notes_url if notes_ok else lesson_url + "?autoPrintNotes=1"
+        download_attrs = " download" if notes_ok else ' target="_blank" rel="noopener noreferrer"'
+        notes_action = f'<a class="action download" href="{download_href}"{download_attrs}>Download Notes</a>'
     else:
-        study = (
-            '<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span>'
-            '<span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>'
-        )
-    search_text = " ".join([code, name, str(programme["name"]), semester, subject_type]).casefold()
+        lesson_action = '<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span>'
+        notes_action = '<span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>'
+
+    search_text = " ".join(
+        [code, name, str(programme["name"]), semester, subject_type]
+    ).casefold()
     return (
         f'<article class="subject-card reveal" data-subject-code="{esc(code)}" '
         f'data-revision="REV2026" data-semester="{esc(semester)}" '
-        f'data-search-text="{esc(search_text)}" data-notes-href="{esc(notes_url)}" '
-        f'data-lesson-href="{esc(lesson_url)}" data-lesson-available="{str(lesson_ok).lower()}" '
-        f'data-notes-available="{str(lesson_ok).lower()}">'
+        f'data-search-text="{esc(search_text)}" data-notes-href="{notes_url}" '
+        f'data-lesson-href="{lesson_url}" data-lesson-available="{str(lesson_ok).lower()}" '
+        f'data-notes-available="{str(notes_ok).lower()}">'
         f'<div class="subject-top"><span>2026</span><strong>{esc(code)}</strong></div>'
         f'<h3>{esc(name)}</h3>'
         f'<p>{esc(programme["name"])} / {esc(semester)} / {esc(subject_type)}</p>'
-        f'<div class="action-row">{syllabus_action}{study}{qp_action}</div></article>'
+        f'<div class="action-row">'
+        f'{syllabus_action}'
+        f'{lesson_action}{notes_action}'
+        f'<a class="action qp" href="{esc(qp_url)}" target="_blank" rel="noopener noreferrer external" data-model-paper-revision="REV2026" data-model-paper-course="{esc(code)}">Open Model Question Paper</a>'
+        f'</div></article>'
     )
 
 
@@ -189,8 +184,8 @@ def build_index(programmes: list[dict[str, object]]) -> str:
     cards = "".join(programme_card(programme) for programme in programmes)
     count = len(programmes)
     title = "Revision 2026 Diploma Departments | POLY PMNA"
-    description = "Browse all official Revision 2026 programmes with semester-wise subjects and direct PDF archive links."
-    return head(title, description, SITE + "/revision-2026.html", directory=True) + f'''<body class="portal-page revision-2026-directory-page" data-revision="2026">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Revision 2026</span></li></ol></nav><section class="page-title revision-directory-hero reveal"><div class="revision-directory-hero-copy"><p class="kicker">Revision 2026</p><h1>Choose your department</h1><p>Open the official Semester 1 to Semester 6 subject list for any Revision 2026 diploma programme.</p><nav class="revision-directory-switch" aria-label="Choose curriculum revision"><a href="/revision-2021.html">Revision 2021</a><a class="active" aria-current="page" href="/revision-2026.html">Revision 2026</a></nav></div><div class="revision-directory-summary" aria-label="Revision 2026 summary"><div><strong>{count}</strong><span>Departments</span></div><div><strong>6</strong><span>Semesters</span></div><div><strong>2026</strong><span>Current revision</span></div></div></section><section class="revision-directory-shell" aria-labelledby="revisionDirectoryHeading"><div class="revision-directory-head"><div><p class="kicker">Programme Browser</p><h2 id="revisionDirectoryHeading">Find your department</h2></div><p class="revision-directory-results" id="programmeResultCount" aria-live="polite">{count} departments available</p></div><div class="revision-directory-toolbar" role="search"><label class="revision-directory-search-field" for="programmeSearch"><span aria-hidden="true">⌕</span><span class="sr-only">Search departments</span><input id="programmeSearch" type="search" placeholder="Search department name or code" autocomplete="off" aria-controls="departmentCards" aria-describedby="programmeResultCount"></label><button class="revision-directory-clear" id="programmeSearchClear" type="button" hidden>Clear</button></div><div class="revision-directory-grid" id="departmentCards" role="list">{cards}</div><div class="revision-directory-empty" id="programmeEmptyState" hidden><strong>No department matches that search.</strong><p>Check the spelling or search using the official department code.</p><button class="revision-directory-clear" id="programmeEmptyClear" type="button">Clear search</button></div></section></main>{footer()}</body></html>\n'''
+    description = "Browse all 42 official SITTTR Kerala Revision 2026 programmes with semester-wise subjects, syllabus links, lessons, notes and sample question papers."
+    return head(title, description, SITE + "/revision-2026.html", directory=True) + f'''<body class="portal-page revision-2026-directory-page" data-revision="2026">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><span aria-current="page">Revision 2026</span></li></ol></nav><section class="page-title revision-directory-hero reveal"><div class="revision-directory-hero-copy"><p class="kicker">Revision 2026</p><h1>Choose your department</h1><p>Open the official Semester 1 to Semester 6 subject list for any Revision 2026 diploma programme.</p><nav class="revision-directory-switch" aria-label="Choose curriculum revision"><a href="/revision-2021.html">Revision 2021</a><a class="active" aria-current="page" href="/revision-2026.html">Revision 2026</a></nav></div><div class="revision-directory-summary" aria-label="Revision 2026 summary"><div><strong>{count}</strong><span>Departments</span></div><div><strong>6</strong><span>Semesters</span></div><div><strong>2026</strong><span>Current revision</span></div></div></section><section class="revision-directory-shell" aria-labelledby="revisionDirectoryHeading"><div class="revision-directory-head"><div><p class="kicker">Programme Browser</p><h2 id="revisionDirectoryHeading">Find your department</h2></div><p class="revision-directory-results" id="programmeResultCount" aria-live="polite">{count} departments available</p></div><div class="revision-directory-toolbar" role="search"><label class="revision-directory-search-field" for="programmeSearch"><span aria-hidden="true">⌕</span><span class="sr-only">Search departments</span><input id="programmeSearch" type="search" placeholder="Search department name or code" autocomplete="off" aria-controls="departmentCards" aria-describedby="programmeResultCount"></label><button class="revision-directory-clear" id="programmeSearchClear" type="button" hidden>Clear</button></div><div class="revision-directory-grid" id="departmentCards" role="list">{cards}</div><div class="revision-directory-empty" id="programmeEmptyState" hidden><strong>No department matches that search.</strong><p>Check the spelling or search using the official department code.</p><button class="revision-directory-clear" id="programmeEmptyClear" type="button">Clear search</button></div></section><section class="section notice revision-directory-source" id="rev2026-model-qp-access"><div class="revision-directory-source-copy"><strong>Official SITTTR Revision 2026 sources</strong><p>Use the official syllabus and sample-question-paper pages to verify published curriculum information.</p></div><div class="revision-directory-source-actions"><a class="btn ghost" href="{SYLLABUS_INDEX}" target="_blank" rel="noopener noreferrer">Open official syllabus</a><a class="btn primary" href="{MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open sample papers</a></div></section></main>{footer()}</body></html>\n'''
 
 
 def build_department_page(programme: dict[str, object], rows: list[dict[str, object]]) -> str:
@@ -208,8 +203,8 @@ def build_department_page(programme: dict[str, object], rows: list[dict[str, obj
     name = str(programme["name"])
     slug = str(programme["slug"])
     title = f"{name} Revision 2026 Subjects | POLY PMNA"
-    description = f"Browse {name} Revision 2026 subjects by semester with syllabus and model question-paper links."
-    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards with direct syllabus and model-paper downloads from the POLY PMNA PDF archive.</p></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Use the filters below to browse syllabus and model-question-paper links.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
+    description = f"Browse {name} Revision 2026 subjects by semester with syllabus, dedicated lessons, notes and sample question-paper actions."
+    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards from the SITTTR Revision 2026 scheme data.</p></section><section class="section notice" id="rev2026-model-qp-access"><strong>Official Revision 2026 sample question papers:</strong> <a class="btn ghost" href="{MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open all REV2026 sample papers</a></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Revision 2026 lessons and notes are loaded only from the dedicated 2026 content folders.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
 
 
 def revision_2021_codes() -> set[str]:
@@ -257,7 +252,7 @@ def write_new_code_report(subjects: list[dict[str, object]]) -> dict[str, object
         "newCodeDetails": details,
         "limitation": "The REV2021 repository catalogue is not fully certified for every official programme row.",
     }
-    REPORT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    REPORT_JSON.parent.mkdir(exist_ok=True)
     REPORT_JSON.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     lines = [
         "# Revision 2026 new subject codes compared with Revision 2021",
@@ -299,6 +294,7 @@ def main() -> None:
 
     OUT.mkdir(exist_ok=True)
     REV2026_LESSONS.mkdir(parents=True, exist_ok=True)
+    REV2026_NOTES.mkdir(parents=True, exist_ok=True)
     Path("revision-2026.html").write_text(build_index(programmes), encoding="utf-8")
     counts: dict[str, int] = {}
     semester_counts: dict[str, dict[str, int]] = {}
@@ -332,7 +328,7 @@ def main() -> None:
                 "directoryLayout": "Responsive searchable programme directory",
                 "departmentLayout": "Revision 2021-compatible semester subject cards",
                 "lessonFolder": "revision-2026-content/lessons",
-                "notesDelivery": "lesson-print-mode",
+                "notesFolder": "revision-2026-content/notes",
                 "programmeSubjectCounts": counts,
                 "programmeSemesterCounts": semester_counts,
                 "newCodeCountComparedWithREV2021": comparison["newCodeCount"],

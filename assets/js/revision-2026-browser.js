@@ -29,11 +29,7 @@
 (() => {
   "use strict";
 
-  const VERSION = "20260823-pdf-alias2";
-  let PDF_LINKS = {};
-  let LESSON_CODES = new Set();
-  const PDF_BASE = "https://github.com/nandurpm/poly-pmna-pdf-files/raw/refs/heads/main/";
-  const SITTTR_BASE = "https://www.sitttrkerala.ac.in/index.php?";
+  const VERSION = "20260720-rev2026-exact-titles";
   const PROGRAMME_ART = {
     "architecture": ["#0f5ea8", "#0e7490"],
     "artificial-intelligence": ["#4f46e5", "#7c3aed"],
@@ -91,24 +87,6 @@
     .replace(/&/g, " and ")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
-  // Page labels use ampersands, while some repository folders omit the
-  // punctuation-derived `and`. Resolve both forms against the manifest.
-  const slugCandidates = value => {
-    const text = String(value || "");
-    const queue = [...new Set([
-      slug(text),
-      text.toLowerCase().replace(/&/g, " ").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
-    ].filter(Boolean))];
-    const result = [];
-    while (queue.length) {
-      const candidate = queue.shift();
-      if (result.includes(candidate)) continue;
-      result.push(candidate);
-      const index = candidate.indexOf("-and-");
-      if (index >= 0) queue.push(`${candidate.slice(0, index)}-${candidate.slice(index + 5)}`);
-    }
-    return result;
-  };
   const cleanPath = () => location.pathname.replace(/\/+$/, "") || "/";
   const isProgrammeIndex = () => ["/revision-2026.html", "/revision-2026"].includes(cleanPath());
   const normaliseSearch = value => String(value || "")
@@ -154,11 +132,10 @@
   }
 
   function ensureModelPaperAccess() {
-    document.querySelectorAll("a.action.qp:not(.external-fallback)").forEach(link => {
-      link.textContent = "Download Model Question Paper";
-      link.removeAttribute("target");
-      link.setAttribute("download", link.getAttribute("download") || "");
-      link.removeAttribute("rel");
+    document.querySelectorAll("a.action.qp").forEach(link => {
+      link.textContent = "Sample Question Paper";
+      link.setAttribute("target", "_blank");
+      link.setAttribute("rel", "noopener noreferrer");
     });
     if (document.getElementById("rev2026-model-qp-access")) return;
     const title = document.querySelector("main .page-title");
@@ -166,7 +143,7 @@
     const section = document.createElement("section");
     section.className = "section notice";
     section.id = "rev2026-model-qp-access";
-    section.innerHTML = `<strong>Revision 2026 PDF resources:</strong> Syllabus and available model question papers are downloaded directly from the POLY PMNA PDF repository; missing files open the corresponding official SITTTR course page.`;
+    section.innerHTML = `<strong>Official Revision 2026 sample question papers:</strong> Not available on the official SITTTR model-question-paper pages yet.`;
     title.after(section);
   }
 
@@ -260,117 +237,18 @@
     draw({ persist: false });
   }
 
-  function pdfFilename(href) { return href.split("/").pop() || "resource.pdf"; }
-
-  function repositoryPdfHref(programmeSlug, code, kind) {
-    const revisionLinks = PDF_LINKS || {};
-    const normalizedCode = String(code || "").trim().toUpperCase();
-    for (const normalizedSlug of slugCandidates(programmeSlug)) {
-      const direct = revisionLinks[`2026|${normalizedSlug}|${normalizedCode}`]?.[kind];
-      if (direct) return `${PDF_BASE}${direct}`;
-    }
-    return "";
-  }
-
-  async function applyStaticPdfLinks() {
-    const grid = document.getElementById("subjectGrid");
-    if (!grid) return;
-    try {
-      const manifest = await json(`/assets/data/sitttr-pdf-links.json?v=20260823-pdf-alias2`);
-      PDF_LINKS = manifest?.links?.["2026"] || {};
-    } catch (_) {
-      return;
-    }
-    const programmeSlug = departmentSlug();
-    const programmeName = document.body?.dataset?.programmeName || programmeSlug;
-    grid.querySelectorAll(".subject-card").forEach(card => {
-      const code = card.dataset.subjectCode || "";
-      const syllabus = repositoryPdfHref(programmeName, code, "syllabus");
-      const model = repositoryPdfHref(programmeName, code, "modelQuestionPaper");
-      const update = (selector, href, label, fallbackHref, fallbackLabel) => {
-        const link = card.querySelector(selector);
-        if (!link) return;
-        if (href) {
-          link.href = href;
-          link.textContent = label;
-          link.classList.remove("external-fallback");
-          link.removeAttribute("target");
-          link.removeAttribute("rel");
-          link.setAttribute("download", pdfFilename(href));
-          return;
-        }
-        // Static HTML can contain a stale direct link from another revision. Never
-        // leave that URL active when the exact Revision 2026 file is unavailable.
-        if (link.href.includes("poly-pmna-pdf-files")) {
-          link.href = fallbackHref;
-          link.textContent = fallbackLabel;
-          link.classList.add("external-fallback");
-          link.removeAttribute("download");
-          link.setAttribute("target", "_blank");
-          link.setAttribute("rel", "noopener noreferrer");
-        }
-      };
-      update("a.action.syllabus", syllabus, "Download Syllabus", sitttrHref(code, "syllabus"), "Open SITTTR Syllabus");
-      update("a.action.qp", model, "Download Model Question Paper", sitttrHref(code, "modelQuestionPaper"), "Open SITTTR Model Question Paper");
-    });
-    document.getElementById("pdfAvailabilityFilter")?.dispatchEvent(new Event("change"));
-  }
-
-  function sitttrSyllabusFallback(code) {
-    const value = encodeURIComponent(String(code || "").trim().toUpperCase());
-    return `${SITTTR_BASE}r=site%2Fdiploma-syllabus-course-contents&course=${value}&scheme=REV2026`;
-  }
-  function sitttrModelPaperFallback() {
-    return `${SITTTR_BASE}r=site%2Fdiploma-modelqp&scheme=REV2026`;
-  }
-  function sitttrHref(code, kind) {
-    return kind === "modelQuestionPaper"
-      ? sitttrModelPaperFallback()
-      : sitttrSyllabusFallback(code);
-  }
-
-  async function loadLessonCodes() {
-    if (LESSON_CODES.size) return;
-    const existing = globalThis.POLY_ASSET_MANIFEST?.lessonCodes;
-    if (Array.isArray(existing)) {
-      LESSON_CODES = new Set(existing.map(code => String(code).toUpperCase()));
-      return;
-    }
-    try {
-      const text = await fetch(`/assets/js/asset-manifest.js?v=${VERSION}`, { cache: "no-store" }).then(response => response.ok ? response.text() : "");
-      const match = text.match(/lessonCodes:\s*Object\.freeze\((\[[\s\S]*?\])\)/);
-      LESSON_CODES = new Set(match ? JSON.parse(match[1]).map(code => String(code).toUpperCase()) : []);
-    } catch (_) {
-      LESSON_CODES = new Set();
-    }
-  }
-
   function subjectCard(subject, programmeName) {
-      const code = String(subject.code || "").trim().toUpperCase();
-      const semester = semesterNumber(subject);
+    const code = String(subject.code || "").trim();
+    const semester = semesterNumber(subject);
     const semesterText = semester <= 6 ? `Semester ${semester}` : "Other subjects";
     const name = String(subject.name || "Untitled subject").trim();
     const type = String(subject.type || "Course").trim();
-    const programmeSlug = String(subject.programmeSlug || slug(programmeName));
-    const pdf = slugCandidates(programmeName)
-      .map(candidate => PDF_LINKS[`2026|${candidate}|${code}`])
-      .find(Boolean) || {};
-    const syllabus = pdf.syllabus ? `${PDF_BASE}${pdf.syllabus}` : "";
-    const qp = pdf.modelQuestionPaper ? `${PDF_BASE}${pdf.modelQuestionPaper}` : "";
+    const syllabus = subject.syllabusUrl || `https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=${encodeURIComponent(code)}`;
+    const qpMessage = `Model Question Paper not available for Revision 2026 for course ${code}.`;
     const lesson = `/revision-2026-content/lessons/lessons-${encodeURIComponent(code)}.html`;
-    const notes = `${lesson}?autoPrintNotes=1`;
-    const lessonOk = LESSON_CODES.has(code);
-    const syllabusAction = syllabus
-      ? `<a class="action syllabus" href="${esc(syllabus)}" download="${esc(pdfFilename(syllabus))}">Download Syllabus</a>`
-      : `<a class="action syllabus external-fallback" href="${esc(sitttrHref(code, "syllabus"))}" target="_blank" rel="noopener noreferrer">Open SITTTR Syllabus</a>`;
-    const qpAction = qp
-      ? `<a class="action qp" href="${esc(qp)}" download="${esc(pdfFilename(qp))}">Download Model Question Paper</a>`
-      : `<a class="action qp external-fallback" href="${esc(sitttrHref(code, "modelQuestionPaper"))}" target="_blank" rel="noopener noreferrer">Model Question Paper</a>`;
-    const study = lessonOk
-      ? `<a class="action lessons" href="${esc(lesson)}">View Lessons</a><a class="action download" href="${esc(notes)}">Download Notes</a>`
-      : `<span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span>`;
+    const notes = `/revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
     const meta = [programmeName, semesterText, type].filter(Boolean).join(" / ");
-    return `<article class="subject-card" data-subject-code="${esc(code)}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="${String(lessonOk)}" data-notes-available="${String(lessonOk)}"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row">${syllabusAction}${study}${qpAction}</div></article>`;
+    return `<article class="subject-card" data-subject-code="${esc(code.toUpperCase())}" data-revision="2026" data-semester="${esc(semesterText)}" data-search-text="${esc([code, name, programmeName, semesterText, type].join(" ").toLowerCase())}" data-notes-href="${esc(notes)}" data-lesson-href="${esc(lesson)}" data-lesson-available="false" data-notes-available="false"><div class="subject-top"><span>2026</span><strong>${esc(code)}</strong></div><h3>${esc(name)}</h3><p>${esc(meta)}</p><div class="action-row"><a class="action syllabus" href="${esc(syllabus)}" target="_blank" rel="noopener noreferrer">Open Syllabus</a><span class="availability-label lessons-status" aria-disabled="true">Lessons unavailable</span><span class="availability-label notes-status" aria-disabled="true">Notes unavailable</span><button class="action qp" type="button" data-model-paper-unavailable="true" data-model-paper-revision="2026" data-model-paper-course="${esc(code.toUpperCase())}" aria-label="${esc(qpMessage)}" title="${esc(qpMessage)}" onclick="window.alert(this.title)">Sample Question Paper</button></div></article>`;
   }
 
   function semesterSection(number, subjects, programmeName) {
@@ -396,14 +274,11 @@
     const draw = () => {
       const query = normaliseSearch(search?.value || "");
       const selected = semester?.value || "all";
-      const pdfAvailability = document.getElementById("pdfAvailabilityFilter")?.value || "all";
       let visibleTotal = 0;
       cards.forEach(card => {
         const matchesSemester = selected === "all" || card.dataset.semester === selected;
-        const hasDownloadablePdf = Boolean(card.querySelector("a.action.syllabus:not(.external-fallback), a.action.qp:not(.external-fallback)"));
-        const matchesPdfAvailability = pdfAvailability !== "downloadable" || hasDownloadablePdf;
         const haystack = card._searchText || "";
-        const show = matchesSemester && matchesPdfAvailability && (!query || haystack.includes(query));
+        const show = matchesSemester && (!query || haystack.includes(query));
         card.hidden = !show;
         if (show) visibleTotal += 1;
       });
@@ -434,7 +309,6 @@
     }
     search?.addEventListener("input", draw);
     semester?.addEventListener("change", draw);
-    document.getElementById("pdfAvailabilityFilter")?.addEventListener("change", draw);
     draw();
     return true;
   }
@@ -454,17 +328,13 @@
     if (grid.dataset.staticRev2026 === "true" && grid.querySelector(".subject-card")) {
       ensureModelPaperAccess();
       enhanceStaticDepartment();
-      applyStaticPdfLinks();
       return;
     }
     try {
-      await loadLessonCodes();
-      const [programmes, data, pdfManifest] = await Promise.all([
+      const [programmes, data] = await Promise.all([
         json(`/assets/data/revision-2026-programmes.json?v=${VERSION}`),
-        json(`/assets/data/revision-2026-subjects.json?v=${VERSION}`, 20000),
-        json(`/assets/data/sitttr-pdf-links.json?v=${VERSION}`)
+        json(`/assets/data/revision-2026-subjects.json?v=${VERSION}`, 20000)
       ]);
-      PDF_LINKS = pdfManifest?.links?.["2026"] || {};
       const programme = programmes.programmes.find(item => item.slug === dept);
       const programmeName = programme?.name || document.body.dataset.programmeName || "Revision 2026";
       const rows = (data.subjects || [])
@@ -488,7 +358,7 @@
         enhanceStaticDepartment();
         return;
       }
-      grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. Please retry after the subject archive is available; archived syllabus PDFs are served from the POLY PMNA PDF repository.</div>';
+      grid.innerHTML = '<div class="empty-state">Revision 2026 subjects could not be loaded. <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2026" target="_blank" rel="noopener noreferrer">Open the official SITTTR syllabus</a> ; official Revision 2026 sample papers are not published yet.</div>';
     }
   }
 
