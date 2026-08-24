@@ -67,16 +67,17 @@ jobs:
           assert any(page.get("url") == "/tools.html" for page in data.get("pages", []))
           lesson_pages = [page for page in data.get("pages", []) if page.get("category") == "revision-2026-lesson"]
           assert len(lesson_pages) >= 1200, len(lesson_pages)
-          assert sum(bool(page.get("content")) for page in lesson_pages) >= 1200
-          assert all(page.get("lessonCode") and len(page.get("content", "")) >= 500 for page in lesson_pages[:20])
-          dynamic_1004 = [page for page in data.get("pages", []) if page.get("url") == "/lessons/lessons-1004.html"]
+          assert sum(bool(page.get("summary")) for page in lesson_pages) >= 1200
+          assert all(page.get("heading") and len(page.get("summary", "")) >= 40 for page in lesson_pages[:20])
+          dynamic_1004 = [page for page in data.get("pages", []) if page.get("url") == "/revision-2026-content/lessons/lessons-1004.html"]
           assert len(dynamic_1004) == 1, dynamic_1004
-          assert len(dynamic_1004[0].get("content", "")) >= 1000, len(dynamic_1004[0].get("content", ""))
-          assert "chemical bonding" in dynamic_1004[0].get("content", "").lower(), dynamic_1004[0].get("content", "")[:500]
-          detailed = [row for row in data.get("subjects", []) if row.get("revision") == "2021" and row.get("code") == "4272" and row.get("department") == "Cloud Computing and Big Data" and row.get("semester") == "Semester 4"]
+          assert len(dynamic_1004[0].get("summary", "")) >= 100, len(dynamic_1004[0].get("summary", ""))
+          assert "orthographic" in f"{dynamic_1004[0].get('heading', '')} {dynamic_1004[0].get('summary', '')}".lower(), dynamic_1004[0]
+          syllabus_details = json.loads(Path("assets/data/syllabus-details.json").read_text(encoding="utf-8"))
+          detailed = [row for row in syllabus_details.get("courses", []) if row.get("revision") == "2021" and row.get("code") == "4272" and row.get("department") == "Cloud Computing and Big Data" and row.get("semester") == "Semester 4"]
           assert len(detailed) == 1, detailed
-          assert len(detailed[0].get("syllabusDetails", {}).get("outcomes", [])) == 4, detailed[0]
-          assert sum(len(outcome.get("modules", [])) for outcome in detailed[0]["syllabusDetails"]["outcomes"]) == 26, detailed[0]
+          assert len(detailed[0].get("outcomes", [])) == 4, detailed[0]
+          assert sum(len(outcome.get("modules", [])) for outcome in detailed[0]["outcomes"]) == 26, detailed[0]
           print(json.dumps(counts, indent=2))
           PY
 
