@@ -2,7 +2,7 @@
   "scheme": "REV2021",
   "source": "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&scheme=REV2021",
   "sourceManifestCommit": "nandurpm/poly-pmna-pdf-files@075ba02ed42407779a83894dfd176a62fb041ed0",
-  "subjectCount": 2757,
+  "subjectCount": 2770,
   "subjects": [
     {
       "revision": "2021",
@@ -3067,7 +3067,7 @@
     {
       "revision": "2021",
       "code": "2031",
-      "name": "Fundamentals Of Electrical Electronics Engineering",
+      "name": "Fundamentals of Electrical & Electronics Engineering",
       "department": "Biomedical Engineering",
       "semester": "Semester 2",
       "type": "Theory",
@@ -3076,7 +3076,7 @@
     {
       "revision": "2021",
       "code": "2039",
-      "name": "Fundamentals Of Electrical Electronics Engineering Lab",
+      "name": "Fundamentals of Electrical & Electronics Engineering Lab",
       "department": "Biomedical Engineering",
       "semester": "Semester 2",
       "type": "Lab",
@@ -3097,7 +3097,7 @@
       "name": "Electronics Tinkering Workshop",
       "department": "Biomedical Engineering",
       "semester": "Semester 2",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "2049"
     },
     {
@@ -3166,7 +3166,7 @@
     {
       "revision": "2021",
       "code": "3243",
-      "name": "Electronic Measurements And Instrumentation",
+      "name": "Electronic Measurements and Instrumentation",
       "department": "Biomedical Engineering",
       "semester": "Semester 3",
       "type": "Theory",
@@ -3175,10 +3175,10 @@
     {
       "revision": "2021",
       "code": "3248",
-      "name": "Pcb And Prototyping Workshop",
+      "name": "PCB and Prototyping Workshop",
       "department": "Biomedical Engineering",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "3248"
     },
     {
@@ -3205,13 +3205,13 @@
       "name": "Minor Project",
       "department": "Biomedical Engineering",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
       "revision": "2021",
       "code": "4041",
-      "name": "Microcontroller And Applications",
+      "name": "Microcontroller and Applications",
       "department": "Biomedical Engineering",
       "semester": "Semester 4",
       "type": "Theory",
@@ -3229,7 +3229,7 @@
     {
       "revision": "2021",
       "code": "4046",
-      "name": "Microcontroller And Applications Lab",
+      "name": "Microcontroller and Applications Lab",
       "department": "Biomedical Engineering",
       "semester": "Semester 4",
       "type": "Lab",
@@ -3256,7 +3256,7 @@
     {
       "revision": "2021",
       "code": "4242",
-      "name": "Electric Circuits Networks",
+      "name": "Electric Circuits & Networks",
       "department": "Biomedical Engineering",
       "semester": "Semester 4",
       "type": "Theory",
@@ -3265,7 +3265,7 @@
     {
       "revision": "2021",
       "code": "4249",
-      "name": "Medical Electronics Lab 1",
+      "name": "Medical Electronics Lab",
       "department": "Biomedical Engineering",
       "semester": "Semester 4",
       "type": "Lab",
@@ -3283,7 +3283,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Biomedical Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -3346,7 +3346,7 @@
     {
       "revision": "2021",
       "code": "5243B",
-      "name": "Programming In C",
+      "name": "Programming in C",
       "department": "Biomedical Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -3355,7 +3355,7 @@
     {
       "revision": "2021",
       "code": "5247",
-      "name": "Medical Electronics Lab Ii",
+      "name": "Medical Electronics Lab II",
       "department": "Biomedical Engineering",
       "semester": "Semester 5",
       "type": "Lab",
@@ -3373,7 +3373,7 @@
     {
       "revision": "2021",
       "code": "5249",
-      "name": "Programming In C Lab",
+      "name": "Programming in C Lab",
       "department": "Biomedical Engineering",
       "semester": "Semester 5",
       "type": "Lab",
@@ -3427,7 +3427,7 @@
     {
       "revision": "2021",
       "code": "6047",
-      "name": "Simulation Lab With Numerical Software",
+      "name": "Simulation Lab with Numerical software",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Lab",
@@ -3436,7 +3436,7 @@
     {
       "revision": "2021",
       "code": "6048",
-      "name": "Computer Hardware And Data Communication Lab",
+      "name": "Computer Hardware and Data Communication Lab",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Lab",
@@ -3445,7 +3445,7 @@
     {
       "revision": "2021",
       "code": "6131D",
-      "name": "Introduction To 5G",
+      "name": "Introduction to 5G",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Theory",
@@ -3454,7 +3454,7 @@
     {
       "revision": "2021",
       "code": "6241A",
-      "name": "Advanced Medical Instrumentation And Prosthetics",
+      "name": "Advanced Medical Instrumentation and Prosthetics",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Theory",
@@ -3463,7 +3463,7 @@
     {
       "revision": "2021",
       "code": "6241B",
-      "name": "Signals And Systems",
+      "name": "Signals and Systems",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Theory",
@@ -3472,7 +3472,7 @@
     {
       "revision": "2021",
       "code": "6241C",
-      "name": "Bio Mems",
+      "name": "Bio MEMS",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Theory",
@@ -3508,7 +3508,7 @@
     {
       "revision": "2021",
       "code": "6242D",
-      "name": "Iot In Healthcare",
+      "name": "IoT in Healthcare",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Theory",
@@ -3517,7 +3517,7 @@
     {
       "revision": "2021",
       "code": "6248",
-      "name": "Biomedical Instrumentation Lab Ii",
+      "name": "Biomedical Instrumentation Lab II",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Lab",
@@ -3526,7 +3526,7 @@
     {
       "revision": "2021",
       "code": "6249",
-      "name": "Biomedical Equipment Servicing And Maintenance Lab",
+      "name": "Biomedical Equipment Servicing and Maintenance Lab",
       "department": "Biomedical Engineering",
       "semester": "Semester 6",
       "type": "Lab",
@@ -13183,7 +13183,7 @@
     {
       "revision": "2021",
       "code": "2031",
-      "name": "Fundamentals Of Electrical Electronics Engineering",
+      "name": "Fundamentals of Electrical and Electronics Engineering",
       "department": "Electronics Engineering",
       "semester": "Semester 2",
       "type": "Theory",
@@ -13191,8 +13191,17 @@
     },
     {
       "revision": "2021",
+      "code": "2038",
+      "name": "Engineering Graphics Using CAD Software",
+      "department": "Electronics Engineering",
+      "semester": "Semester 2",
+      "type": "Drawing",
+      "assetCode": "2038"
+    },
+    {
+      "revision": "2021",
       "code": "2039",
-      "name": "Fundamentals Of Electrical Electronics Engineering Lab",
+      "name": "Fundamentals of Electrical and Electronics Engineering Lab",
       "department": "Electronics Engineering",
       "semester": "Semester 2",
       "type": "Lab",
@@ -13213,7 +13222,7 @@
       "name": "Electronics Tinkering Workshop",
       "department": "Electronics Engineering",
       "semester": "Semester 2",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "2049"
     },
     {
@@ -13228,7 +13237,7 @@
     {
       "revision": "2021",
       "code": "3041",
-      "name": "Electric Circuits Networks",
+      "name": "Electric Circuits and Networks",
       "department": "Electronics Engineering",
       "semester": "Semester 3",
       "type": "Theory",
@@ -13237,7 +13246,7 @@
     {
       "revision": "2021",
       "code": "3042",
-      "name": "Principles Of Electronic Communication",
+      "name": "Principles of Electronic Communication",
       "department": "Electronics Engineering",
       "semester": "Semester 3",
       "type": "Theory",
@@ -13246,7 +13255,7 @@
     {
       "revision": "2021",
       "code": "3043",
-      "name": "Electronic Circuits",
+      "name": "Electronic Devices and Circuits",
       "department": "Electronics Engineering",
       "semester": "Semester 3",
       "type": "Theory",
@@ -13291,7 +13300,7 @@
     {
       "revision": "2021",
       "code": "3048",
-      "name": "Digital Electronics Lab",
+      "name": "Electronic Devices Lab",
       "department": "Electronics Engineering",
       "semester": "Semester 3",
       "type": "Lab",
@@ -13300,7 +13309,7 @@
     {
       "revision": "2021",
       "code": "3049",
-      "name": "Fundamentals Of C Programming Lab",
+      "name": "Digital Electronics Lab",
       "department": "Electronics Engineering",
       "semester": "Semester 3",
       "type": "Lab",
@@ -13327,7 +13336,7 @@
     {
       "revision": "2021",
       "code": "4041",
-      "name": "Microcontroller And Applications",
+      "name": "Microcontroller and Applications",
       "department": "Electronics Engineering",
       "semester": "Semester 4",
       "type": "Theory",
@@ -13336,7 +13345,7 @@
     {
       "revision": "2021",
       "code": "4042",
-      "name": "Electronic Measurements And Instrumentation",
+      "name": "Linear Integrated Circuits",
       "department": "Electronics Engineering",
       "semester": "Semester 4",
       "type": "Theory",
@@ -13345,7 +13354,7 @@
     {
       "revision": "2021",
       "code": "4043",
-      "name": "Linear Integrated Circuits",
+      "name": "Consumer Electronics",
       "department": "Electronics Engineering",
       "semester": "Semester 4",
       "type": "Theory",
@@ -13372,16 +13381,16 @@
     {
       "revision": "2021",
       "code": "4048",
-      "name": "Pcb And Prototyping Workshop",
+      "name": "Microcontroller Lab",
       "department": "Electronics Engineering",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Lab",
       "assetCode": "4048"
     },
     {
       "revision": "2021",
       "code": "4049",
-      "name": "Python Programming Lab",
+      "name": "Linear IC Lab",
       "department": "Electronics Engineering",
       "semester": "Semester 4",
       "type": "Lab",
@@ -13426,11 +13435,20 @@
     {
       "revision": "2021",
       "code": "5042",
-      "name": "Industrial Automation",
+      "name": "Communication Engineering",
       "department": "Electronics Engineering",
       "semester": "Semester 5",
       "type": "Theory",
       "assetCode": "5042"
+    },
+    {
+      "revision": "2021",
+      "code": "5043",
+      "name": "Industrial Electronics",
+      "department": "Electronics Engineering",
+      "semester": "Semester 5",
+      "type": "Theory",
+      "assetCode": "5043"
     },
     {
       "revision": "2021",
@@ -13489,11 +13507,20 @@
     {
       "revision": "2021",
       "code": "5048",
-      "name": "Industrial Automation Lab",
+      "name": "Embedded Systems Lab",
       "department": "Electronics Engineering",
       "semester": "Semester 5",
       "type": "Lab",
       "assetCode": "5048"
+    },
+    {
+      "revision": "2021",
+      "code": "5049",
+      "name": "Communication Engineering Lab",
+      "department": "Electronics Engineering",
+      "semester": "Semester 5",
+      "type": "Lab",
+      "assetCode": "5049"
     },
     {
       "revision": "2021",
@@ -13560,6 +13587,15 @@
     },
     {
       "revision": "2021",
+      "code": "6041",
+      "name": "Computer Hardware and Networking",
+      "department": "Electronics Engineering",
+      "semester": "Semester 6",
+      "type": "Theory",
+      "assetCode": "6041"
+    },
+    {
+      "revision": "2021",
       "semester": "Semester 6",
       "code": "6041A",
       "name": "Medical Electronics",
@@ -13584,6 +13620,15 @@
       "semester": "Semester 6",
       "type": "Theory",
       "assetCode": "6041C"
+    },
+    {
+      "revision": "2021",
+      "code": "6042",
+      "name": "Optical Fiber Communication",
+      "department": "Electronics Engineering",
+      "semester": "Semester 6",
+      "type": "Theory",
+      "assetCode": "6042"
     },
     {
       "revision": "2021",
@@ -13623,6 +13668,24 @@
     },
     {
       "revision": "2021",
+      "code": "6043",
+      "name": "VLSI and DSP Fundamentals",
+      "department": "Electronics Engineering",
+      "semester": "Semester 6",
+      "type": "Theory",
+      "assetCode": "6043"
+    },
+    {
+      "revision": "2021",
+      "code": "6046",
+      "name": "Project and Seminar",
+      "department": "Electronics Engineering",
+      "semester": "Semester 6",
+      "type": "Project",
+      "assetCode": "6046"
+    },
+    {
+      "revision": "2021",
       "code": "6047",
       "name": "Simulation Lab With Numerical Software",
       "department": "Electronics Engineering",
@@ -13633,11 +13696,20 @@
     {
       "revision": "2021",
       "code": "6048",
-      "name": "Computer Hardware And Data Communication Lab",
+      "name": "Computer Hardware and Data Communication Lab",
       "department": "Electronics Engineering",
       "semester": "Semester 6",
       "type": "Lab",
       "assetCode": "6048"
+    },
+    {
+      "revision": "2021",
+      "code": "6049",
+      "name": "Advanced Electronics Lab",
+      "department": "Electronics Engineering",
+      "semester": "Semester 6",
+      "type": "Lab",
+      "assetCode": "6049"
     },
     {
       "revision": "2021",
@@ -13786,7 +13858,7 @@
     {
       "revision": "2021",
       "code": "2031",
-      "name": "Fundamentals Of Electrical Electronics Engineering",
+      "name": "Fundamentals of Electrical & Electronics Engineering",
       "department": "Electronics and Communication",
       "semester": "Semester 2",
       "type": "Theory",
@@ -13795,7 +13867,7 @@
     {
       "revision": "2021",
       "code": "2039",
-      "name": "Fundamentals Of Electrical Electronics Engineering Lab",
+      "name": "Fundamentals of Electrical & Electronics Engineering Lab",
       "department": "Electronics and Communication",
       "semester": "Semester 2",
       "type": "Lab",
@@ -13816,7 +13888,7 @@
       "name": "Electronics Tinkering Workshop",
       "department": "Electronics and Communication",
       "semester": "Semester 2",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "2049"
     },
     {
@@ -13831,7 +13903,7 @@
     {
       "revision": "2021",
       "code": "3041",
-      "name": "Electric Circuits Networks",
+      "name": "Electric Circuits & Networks",
       "department": "Electronics and Communication",
       "semester": "Semester 3",
       "type": "Theory",
@@ -13840,7 +13912,7 @@
     {
       "revision": "2021",
       "code": "3042",
-      "name": "Principles Of Electronic Communication",
+      "name": "Principles of Electronic Communication",
       "department": "Electronics and Communication",
       "semester": "Semester 3",
       "type": "Theory",
@@ -13867,7 +13939,7 @@
     {
       "revision": "2021",
       "code": "3045",
-      "name": "Fundamentals Of C Programming",
+      "name": "Fundamentals of C Programming",
       "department": "Electronics and Communication",
       "semester": "Semester 3",
       "type": "Theory",
@@ -13876,7 +13948,7 @@
     {
       "revision": "2021",
       "code": "3046",
-      "name": "Principles Of Electronic Communication Lab",
+      "name": "Principles of Electronic Communication Lab",
       "department": "Electronics and Communication",
       "semester": "Semester 3",
       "type": "Lab",
@@ -13903,7 +13975,7 @@
     {
       "revision": "2021",
       "code": "3049",
-      "name": "Fundamentals Of C Programming Lab",
+      "name": "Fundamentals of C Programming Lab",
       "department": "Electronics and Communication",
       "semester": "Semester 3",
       "type": "Lab",
@@ -13924,13 +13996,13 @@
       "name": "Minor Project",
       "department": "Electronics and Communication",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
       "revision": "2021",
       "code": "4041",
-      "name": "Microcontroller And Applications",
+      "name": "Microcontroller and Applications",
       "department": "Electronics and Communication",
       "semester": "Semester 4",
       "type": "Theory",
@@ -13939,7 +14011,7 @@
     {
       "revision": "2021",
       "code": "4042",
-      "name": "Electronic Measurements And Instrumentation",
+      "name": "Electronic Measurements and Instrumentation",
       "department": "Electronics and Communication",
       "semester": "Semester 4",
       "type": "Theory",
@@ -13957,7 +14029,7 @@
     {
       "revision": "2021",
       "code": "4046",
-      "name": "Microcontroller And Applications Lab",
+      "name": "Microcontroller and Applications Lab",
       "department": "Electronics and Communication",
       "semester": "Semester 4",
       "type": "Lab",
@@ -13975,10 +14047,10 @@
     {
       "revision": "2021",
       "code": "4048",
-      "name": "Pcb And Prototyping Workshop",
+      "name": "PCB and Prototyping Workshop",
       "department": "Electronics and Communication",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4048"
     },
     {
@@ -14002,7 +14074,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Electronics and Communication",
       "semester": "Semester 5",
       "type": "Theory",
@@ -14029,7 +14101,7 @@
     {
       "revision": "2021",
       "code": "5043A",
-      "name": "Optical Communication And Networking",
+      "name": "Optical Communication and Networking",
       "department": "Electronics and Communication",
       "semester": "Semester 5",
       "type": "Theory",
@@ -14038,7 +14110,7 @@
     {
       "revision": "2021",
       "code": "5043B",
-      "name": "Microwave Devices And Radar",
+      "name": "Microwave Devices and Radar",
       "department": "Electronics and Communication",
       "semester": "Semester 5",
       "type": "Theory",
@@ -14101,7 +14173,7 @@
     {
       "revision": "2021",
       "code": "5201",
-      "name": "Signals And Systems",
+      "name": "Signals and Systems",
       "department": "Electronics and Communication",
       "semester": "Semester 5",
       "type": "Theory",
@@ -14110,7 +14182,7 @@
     {
       "revision": "2021",
       "code": "5202",
-      "name": "Mobile And Wireless Communication",
+      "name": "Mobile and Wireless Communication",
       "department": "Electronics and Communication",
       "semester": "Semester 5",
       "type": "Theory",
@@ -14119,7 +14191,7 @@
     {
       "revision": "2021",
       "code": "5209",
-      "name": "Verilog Hdl Pld Lab",
+      "name": "Verilog HDL & PLD Lab",
       "department": "Electronics and Communication",
       "semester": "Semester 5",
       "type": "Lab",
@@ -14163,17 +14235,17 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 6",
       "code": "6041A",
       "name": "Medical Electronics",
       "department": "Electronics and Communication",
-      "type": "Program Elective",
+      "semester": "Semester 6",
+      "type": "Theory",
       "assetCode": "6041A"
     },
     {
       "revision": "2021",
       "code": "6042A",
-      "name": "Concepts Of Iot",
+      "name": "Concepts of IoT",
       "department": "Electronics and Communication",
       "semester": "Semester 6",
       "type": "Theory",
@@ -14191,7 +14263,7 @@
     {
       "revision": "2021",
       "code": "6042C",
-      "name": "Introduction To Hybrid And Electric Vehicles",
+      "name": "Introduction to Hybrid and Electric Vehicles",
       "department": "Electronics and Communication",
       "semester": "Semester 6",
       "type": "Theory",
@@ -14200,7 +14272,7 @@
     {
       "revision": "2021",
       "code": "6042D",
-      "name": "Introduction To Multimedia",
+      "name": "Introduction to Multimedia",
       "department": "Electronics and Communication",
       "semester": "Semester 6",
       "type": "Theory",
@@ -14209,7 +14281,7 @@
     {
       "revision": "2021",
       "code": "6047",
-      "name": "Simulation Lab With Numerical Software",
+      "name": "Simulation Lab with Numerical software",
       "department": "Electronics and Communication",
       "semester": "Semester 6",
       "type": "Lab",
@@ -14218,7 +14290,7 @@
     {
       "revision": "2021",
       "code": "6048",
-      "name": "Computer Hardware And Data Communication Lab",
+      "name": "Computer Hardware and Data Communication Lab",
       "department": "Electronics and Communication",
       "semester": "Semester 6",
       "type": "Lab",
@@ -14236,7 +14308,7 @@
     {
       "revision": "2021",
       "code": "6201A",
-      "name": "Antenna And Wave Propagation",
+      "name": "Antenna and Wave Propagation",
       "department": "Electronics and Communication",
       "semester": "Semester 6",
       "type": "Theory",
@@ -14704,7 +14776,7 @@
     {
       "revision": "2021",
       "code": "5501",
-      "name": "Linear Integared Ciricuits",
+      "name": "Linear Integrated Circuits",
       "department": "Electronics and Computer Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -18654,10 +18726,10 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 2",
       "code": "2028",
       "name": "Basic CAD Lab",
       "department": "Manufacturing Technology",
+      "semester": "Semester 2",
       "type": "Lab",
       "assetCode": "2028"
     },
@@ -18673,7 +18745,7 @@
     {
       "revision": "2021",
       "code": "2701",
-      "name": "Basic Production Process",
+      "name": "Basic Production process",
       "department": "Manufacturing Technology",
       "semester": "Semester 2",
       "type": "Theory",
@@ -18690,20 +18762,20 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 3",
       "code": "3021",
       "name": "Strength of Materials",
       "department": "Manufacturing Technology",
-      "type": "Program Core",
+      "semester": "Semester 3",
+      "type": "Theory",
       "assetCode": "3021"
     },
     {
       "revision": "2021",
-      "semester": "Semester 3",
       "code": "3022",
       "name": "Material Science and Metrology",
       "department": "Manufacturing Technology",
-      "type": "Program Core",
+      "semester": "Semester 3",
+      "type": "Theory",
       "assetCode": "3022"
     },
     {
@@ -18718,7 +18790,7 @@
     {
       "revision": "2021",
       "code": "3024",
-      "name": "Fundamentals Of Electrical Engineering",
+      "name": "Fundamentals of Electrical Engineering",
       "department": "Manufacturing Technology",
       "semester": "Semester 3",
       "type": "Theory",
@@ -18730,13 +18802,13 @@
       "name": "Machine Drawing",
       "department": "Manufacturing Technology",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Drawing",
       "assetCode": "3025"
     },
     {
       "revision": "2021",
       "code": "3026",
-      "name": "Material Testing And Metallography Lab",
+      "name": "Material Testing and Metallography Lab",
       "department": "Manufacturing Technology",
       "semester": "Semester 3",
       "type": "Lab",
@@ -18745,16 +18817,16 @@
     {
       "revision": "2021",
       "code": "3027",
-      "name": "Mechanical Workshop Iii",
+      "name": "Mechanical Workshop III",
       "department": "Manufacturing Technology",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "3027"
     },
     {
       "revision": "2021",
       "code": "3028",
-      "name": "Electrical And Electronics Lab",
+      "name": "Electrical and Electronics Lab",
       "department": "Manufacturing Technology",
       "semester": "Semester 3",
       "type": "Lab",
@@ -18763,7 +18835,7 @@
     {
       "revision": "2021",
       "code": "3029",
-      "name": "Advanced Cadd Lab",
+      "name": "Advanced CADD Lab",
       "department": "Manufacturing Technology",
       "semester": "Semester 3",
       "type": "Lab",
@@ -18784,16 +18856,16 @@
       "name": "Minor Project",
       "department": "Manufacturing Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
       "revision": "2021",
-      "semester": "Semester 4",
       "code": "4022",
-      "name": "Fluid Mechanics & Hydraulic Machinery",
+      "name": "Fluid Mechanics and Hydraulic Machines",
       "department": "Manufacturing Technology",
-      "type": "Program Core",
+      "semester": "Semester 4",
+      "type": "Theory",
       "assetCode": "4022"
     },
     {
@@ -18808,7 +18880,7 @@
     {
       "revision": "2021",
       "code": "4028",
-      "name": "Fluid Mechanics Lab Mechanical",
+      "name": "Fluid Mechanics Lab (Mechanical)",
       "department": "Manufacturing Technology",
       "semester": "Semester 4",
       "type": "Lab",
@@ -18817,10 +18889,10 @@
     {
       "revision": "2021",
       "code": "4029",
-      "name": "Mechanical Workshop Iv",
+      "name": "Mechanical Workshop IV",
       "department": "Manufacturing Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4029"
     },
     {
@@ -18835,7 +18907,7 @@
     {
       "revision": "2021",
       "code": "4702",
-      "name": "Cnc Programming",
+      "name": "CNC Programming",
       "department": "Manufacturing Technology",
       "semester": "Semester 4",
       "type": "Theory",
@@ -18862,7 +18934,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Manufacturing Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -18889,7 +18961,7 @@
     {
       "revision": "2021",
       "code": "5022",
-      "name": "Refrigeration And Air Conditioning",
+      "name": "Refrigeration and Air conditioning",
       "department": "Manufacturing Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -18934,7 +19006,7 @@
     {
       "revision": "2021",
       "code": "5112A",
-      "name": "Jigs Fixtures And Gauges",
+      "name": "Jigs, Fixtures and Gauges",
       "department": "Manufacturing Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -18943,7 +19015,7 @@
     {
       "revision": "2021",
       "code": "5709",
-      "name": "Cnc Programming Lab",
+      "name": "CNC Programming Lab",
       "department": "Manufacturing Technology",
       "semester": "Semester 5",
       "type": "Lab",
@@ -19006,7 +19078,7 @@
     {
       "revision": "2021",
       "code": "6022A",
-      "name": "Computer Aided Design And Manufacturing",
+      "name": "Computer Aided Design and Manufacturing",
       "department": "Manufacturing Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -19051,7 +19123,7 @@
     {
       "revision": "2021",
       "code": "6028",
-      "name": "Refrigeration And Airconditioning Lab",
+      "name": "Refrigeration and Airconditioning Lab",
       "department": "Manufacturing Technology",
       "semester": "Semester 6",
       "type": "Lab",
@@ -19069,7 +19141,7 @@
     {
       "revision": "2021",
       "code": "6701",
-      "name": "Theory Of Power Plants",
+      "name": "Theory of Power Plants",
       "department": "Manufacturing Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -19212,19 +19284,19 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 2",
       "code": "2022",
       "name": "Manufacturing Technology",
       "department": "Mechanical Engineering",
+      "semester": "Semester 2",
       "type": "Theory",
       "assetCode": "2022"
     },
     {
       "revision": "2021",
-      "semester": "Semester 2",
       "code": "2028",
       "name": "Basic CAD Lab",
       "department": "Mechanical Engineering",
+      "semester": "Semester 2",
       "type": "Lab",
       "assetCode": "2028"
     },
@@ -19248,20 +19320,20 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 3",
       "code": "3021",
       "name": "Strength of Materials",
       "department": "Mechanical Engineering",
-      "type": "Program Core",
+      "semester": "Semester 3",
+      "type": "Theory",
       "assetCode": "3021"
     },
     {
       "revision": "2021",
-      "semester": "Semester 3",
       "code": "3022",
       "name": "Material Science and Metrology",
       "department": "Mechanical Engineering",
-      "type": "Program Core",
+      "semester": "Semester 3",
+      "type": "Theory",
       "assetCode": "3022"
     },
     {
@@ -19276,7 +19348,7 @@
     {
       "revision": "2021",
       "code": "3024",
-      "name": "Fundamentals Of Electrical Engineering",
+      "name": "Fundamentals of Electrical Engineering",
       "department": "Mechanical Engineering",
       "semester": "Semester 3",
       "type": "Theory",
@@ -19288,13 +19360,13 @@
       "name": "Machine Drawing",
       "department": "Mechanical Engineering",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Drawing",
       "assetCode": "3025"
     },
     {
       "revision": "2021",
       "code": "3026",
-      "name": "Material Testing And Metallography Lab",
+      "name": "Material Testing and Metallography Lab",
       "department": "Mechanical Engineering",
       "semester": "Semester 3",
       "type": "Lab",
@@ -19303,16 +19375,16 @@
     {
       "revision": "2021",
       "code": "3027",
-      "name": "Mechanical Workshop Iii",
+      "name": "Mechanical Workshop III",
       "department": "Mechanical Engineering",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "3027"
     },
     {
       "revision": "2021",
       "code": "3028",
-      "name": "Electrical And Electronics Lab",
+      "name": "Electrical and Electronics Lab",
       "department": "Mechanical Engineering",
       "semester": "Semester 3",
       "type": "Lab",
@@ -19321,7 +19393,7 @@
     {
       "revision": "2021",
       "code": "3029",
-      "name": "Advanced Cadd Lab",
+      "name": "Advanced CADD Lab",
       "department": "Mechanical Engineering",
       "semester": "Semester 3",
       "type": "Lab",
@@ -19342,25 +19414,25 @@
       "name": "Minor Project",
       "department": "Mechanical Engineering",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
       "revision": "2021",
-      "semester": "Semester 4",
       "code": "4021",
       "name": "Thermal Engineering",
       "department": "Mechanical Engineering",
-      "type": "Program Core",
+      "semester": "Semester 4",
+      "type": "Theory",
       "assetCode": "4021"
     },
     {
       "revision": "2021",
-      "semester": "Semester 4",
       "code": "4022",
-      "name": "Fluid Mechanics & Hydraulic Machinery",
+      "name": "Fluid Mechanics and Hydraulic Machines",
       "department": "Mechanical Engineering",
-      "type": "Program Core",
+      "semester": "Semester 4",
+      "type": "Theory",
       "assetCode": "4022"
     },
     {
@@ -19393,7 +19465,7 @@
     {
       "revision": "2021",
       "code": "4028",
-      "name": "Fluid Mechanics Lab Mechanical",
+      "name": "Fluid Mechanics Lab (Mechanical)",
       "department": "Mechanical Engineering",
       "semester": "Semester 4",
       "type": "Lab",
@@ -19402,10 +19474,10 @@
     {
       "revision": "2021",
       "code": "4029",
-      "name": "Mechanical Workshop Iv",
+      "name": "Mechanical Workshop IV",
       "department": "Mechanical Engineering",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4029"
     },
     {
@@ -19420,7 +19492,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Mechanical Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -19447,7 +19519,7 @@
     {
       "revision": "2021",
       "code": "5022",
-      "name": "Refrigeration And Air Conditioning",
+      "name": "Refrigeration and Air conditioning",
       "department": "Mechanical Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -19564,7 +19636,7 @@
     {
       "revision": "2021",
       "code": "6022A",
-      "name": "Computer Aided Design And Manufacturing",
+      "name": "Computer Aided Design and Manufacturing",
       "department": "Mechanical Engineering",
       "semester": "Semester 6",
       "type": "Theory",
@@ -19609,7 +19681,7 @@
     {
       "revision": "2021",
       "code": "6028",
-      "name": "Refrigeration And Airconditioning Lab",
+      "name": "Refrigeration and Airconditioning Lab",
       "department": "Mechanical Engineering",
       "semester": "Semester 6",
       "type": "Lab",
@@ -19636,7 +19708,7 @@
     {
       "revision": "2021",
       "code": "6051A",
-      "name": "Electric And Hybrid Vehicles",
+      "name": "Electric and Hybrid Vehicles",
       "department": "Mechanical Engineering",
       "semester": "Semester 6",
       "type": "Theory",
@@ -19770,17 +19842,17 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 2",
       "code": "2022",
       "name": "Manufacturing Technology",
       "department": "Mechatronics",
+      "semester": "Semester 2",
       "type": "Theory",
       "assetCode": "2022"
     },
     {
       "revision": "2021",
       "code": "2031",
-      "name": "Fundamentals Of Electrical Electronics Engineering",
+      "name": "Fundamentals of Electrical & Electronics Engineering",
       "department": "Mechatronics",
       "semester": "Semester 2",
       "type": "Theory",
@@ -19789,7 +19861,7 @@
     {
       "revision": "2021",
       "code": "2039",
-      "name": "Fundamentals Of Electrical Electronics Engineering Lab",
+      "name": "Fundamentals of Electrical & Electronics Engineering Lab",
       "department": "Mechatronics",
       "semester": "Semester 2",
       "type": "Lab",
@@ -19801,7 +19873,7 @@
       "name": "Electronics Tinkering Workshop",
       "department": "Mechatronics",
       "semester": "Semester 2",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "2049"
     },
     {
@@ -19816,7 +19888,7 @@
     {
       "revision": "2021",
       "code": "3031",
-      "name": "Analog Digital Circuits",
+      "name": "Analog & Digital Circuits",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Theory",
@@ -19825,7 +19897,7 @@
     {
       "revision": "2021",
       "code": "3045",
-      "name": "Fundamentals Of C Programming",
+      "name": "Fundamentals of C Programming",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Theory",
@@ -19843,7 +19915,7 @@
     {
       "revision": "2021",
       "code": "3049",
-      "name": "Fundamentals Of C Programming Lab",
+      "name": "Fundamentals of C Programming Lab",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Lab",
@@ -19852,7 +19924,7 @@
     {
       "revision": "2021",
       "code": "3082",
-      "name": "Sensors And Transducers",
+      "name": "Sensors and Transducers",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Theory",
@@ -19861,7 +19933,7 @@
     {
       "revision": "2021",
       "code": "3086",
-      "name": "Sensors And Transducers Lab",
+      "name": "Sensors and Transducers Lab",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Lab",
@@ -19870,7 +19942,7 @@
     {
       "revision": "2021",
       "code": "3332",
-      "name": "Mechanics Of Materials",
+      "name": "Mechanics of Materials",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Theory",
@@ -19879,7 +19951,7 @@
     {
       "revision": "2021",
       "code": "3336",
-      "name": "Mechanics Of Materials Lab",
+      "name": "Mechanics of Materials Lab",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Lab",
@@ -19888,7 +19960,7 @@
     {
       "revision": "2021",
       "code": "3431",
-      "name": "Engineering Materials And Metrology",
+      "name": "Engineering Materials and Metrology",
       "department": "Mechatronics",
       "semester": "Semester 3",
       "type": "Theory",
@@ -19909,13 +19981,13 @@
       "name": "Minor Project",
       "department": "Mechatronics",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
       "revision": "2021",
       "code": "4041",
-      "name": "Microcontroller And Applications",
+      "name": "Microcontroller and Applications",
       "department": "Mechatronics",
       "semester": "Semester 4",
       "type": "Theory",
@@ -19924,7 +19996,7 @@
     {
       "revision": "2021",
       "code": "4046",
-      "name": "Microcontroller And Applications Lab",
+      "name": "Microcontroller and Applications Lab",
       "department": "Mechatronics",
       "semester": "Semester 4",
       "type": "Lab",
@@ -19933,7 +20005,7 @@
     {
       "revision": "2021",
       "code": "4331",
-      "name": "Mechanics Of Robotics",
+      "name": "Mechanics of Robotics",
       "department": "Mechatronics",
       "semester": "Semester 4",
       "type": "Theory",
@@ -19942,7 +20014,7 @@
     {
       "revision": "2021",
       "code": "4338",
-      "name": "Mechanics Of Of Robotics Lab",
+      "name": "Mechanics of of Robotics Lab",
       "department": "Mechatronics",
       "semester": "Semester 4",
       "type": "Lab",
@@ -19951,7 +20023,7 @@
     {
       "revision": "2021",
       "code": "4339",
-      "name": "Industry 4 0",
+      "name": "Industry 4.0",
       "department": "Mechatronics",
       "semester": "Semester 4",
       "type": "Theory",
@@ -19987,7 +20059,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Mechatronics",
       "semester": "Semester 5",
       "type": "Theory",
@@ -20050,7 +20122,7 @@
     {
       "revision": "2021",
       "code": "5431",
-      "name": "Computer Integrated Design And Manufacturing",
+      "name": "Computer Integrated Design and Manufacturing",
       "department": "Mechatronics",
       "semester": "Semester 5",
       "type": "Theory",
@@ -20059,7 +20131,7 @@
     {
       "revision": "2021",
       "code": "5432",
-      "name": "Automation And Control",
+      "name": "Automation and Control",
       "department": "Mechatronics",
       "semester": "Semester 5",
       "type": "Theory",
@@ -20068,7 +20140,7 @@
     {
       "revision": "2021",
       "code": "5438",
-      "name": "Computer Integrated Design And Manufacturing Lab",
+      "name": "Computer Integrated Design and Manufacturing Lab",
       "department": "Mechatronics",
       "semester": "Semester 5",
       "type": "Lab",
@@ -20077,7 +20149,7 @@
     {
       "revision": "2021",
       "code": "5439",
-      "name": "Automation And Control Lab",
+      "name": "Automation and Control Lab",
       "department": "Mechatronics",
       "semester": "Semester 5",
       "type": "Lab",
@@ -20166,6 +20238,15 @@
     },
     {
       "revision": "2021",
+      "code": "6029",
+      "name": "Advanced Machine Tools Lab",
+      "department": "Mechatronics",
+      "semester": "Semester 6",
+      "type": "Lab",
+      "assetCode": "6029"
+    },
+    {
+      "revision": "2021",
       "code": "6081C",
       "name": "Aircraft Instruments",
       "department": "Mechatronics",
@@ -20176,7 +20257,7 @@
     {
       "revision": "2021",
       "code": "6131A",
-      "name": "Internet Of Things",
+      "name": "Internet of Things",
       "department": "Mechatronics",
       "semester": "Semester 6",
       "type": "Theory",
@@ -20185,7 +20266,7 @@
     {
       "revision": "2021",
       "code": "6139A",
-      "name": "Internet Of Things Lab",
+      "name": "Internet of Things Lab",
       "department": "Mechatronics",
       "semester": "Semester 6",
       "type": "Lab",
@@ -21508,7 +21589,7 @@
     {
       "revision": "2021",
       "code": "2031",
-      "name": "Fundamentals Of Electrical Electronics Engineering",
+      "name": "Fundamentals of Electrical & Electronics Engineering",
       "department": "Printing Technology",
       "semester": "Semester 2",
       "type": "Theory",
@@ -21517,7 +21598,7 @@
     {
       "revision": "2021",
       "code": "2039",
-      "name": "Fundamentals Of Electrical Electronics Engineering Lab",
+      "name": "Fundamentals of Electrical & Electronics Engineering Lab",
       "department": "Printing Technology",
       "semester": "Semester 2",
       "type": "Lab",
@@ -21526,7 +21607,7 @@
     {
       "revision": "2021",
       "code": "2101",
-      "name": "Basics Of Printing Processes",
+      "name": "Basics of Printing Processes",
       "department": "Printing Technology",
       "semester": "Semester 2",
       "type": "Theory",
@@ -21538,7 +21619,7 @@
       "name": "Office Automation Workshop",
       "department": "Printing Technology",
       "semester": "Semester 2",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "2109"
     },
     {
@@ -21562,7 +21643,7 @@
     {
       "revision": "2021",
       "code": "3102",
-      "name": "Materials For Printing And Packaging",
+      "name": "Materials for Printing and Packaging",
       "department": "Printing Technology",
       "semester": "Semester 3",
       "type": "Theory",
@@ -21571,7 +21652,7 @@
     {
       "revision": "2021",
       "code": "3103",
-      "name": "Mechanism Of Printing Machines I",
+      "name": "Mechanism of Printing Machines-I",
       "department": "Printing Technology",
       "semester": "Semester 3",
       "type": "Theory",
@@ -21580,7 +21661,7 @@
     {
       "revision": "2021",
       "code": "3104",
-      "name": "Fundamentals Of Color Reproduction",
+      "name": "Fundamentals of Color Reproduction",
       "department": "Printing Technology",
       "semester": "Semester 3",
       "type": "Theory",
@@ -21607,10 +21688,10 @@
     {
       "revision": "2021",
       "code": "3107",
-      "name": "Desktop Publishing Workshop I",
+      "name": "Desktop publishing Workshop I",
       "department": "Printing Technology",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "3107"
     },
     {
@@ -21619,7 +21700,7 @@
       "name": "Advanced Printing Machines Workshop I",
       "department": "Printing Technology",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "3108"
     },
     {
@@ -21646,34 +21727,34 @@
       "name": "Minor Project",
       "department": "Printing Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
       "revision": "2021",
-      "semester": "Semester 4",
       "code": "4101",
-      "name": "Mechanism of Printing Machines II",
+      "name": "Mechanism of printing machines II",
       "department": "Printing Technology",
-      "type": "Program Core",
+      "semester": "Semester 4",
+      "type": "Theory",
       "assetCode": "4101"
     },
     {
       "revision": "2021",
-      "semester": "Semester 4",
       "code": "4102",
       "name": "Print Finishing & Conversion Techniques",
       "department": "Printing Technology",
-      "type": "Program Core",
+      "semester": "Semester 4",
+      "type": "Theory",
       "assetCode": "4102"
     },
     {
       "revision": "2021",
-      "semester": "Semester 4",
       "code": "4103",
       "name": "Digital Imaging Techniques",
       "department": "Printing Technology",
-      "type": "Program Core",
+      "semester": "Semester 4",
+      "type": "Theory",
       "assetCode": "4103"
     },
     {
@@ -21682,7 +21763,7 @@
       "name": "Master Preparation Workshop",
       "department": "Printing Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4106"
     },
     {
@@ -21691,25 +21772,25 @@
       "name": "Print Finishing Workshop I",
       "department": "Printing Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4107"
     },
     {
       "revision": "2021",
       "code": "4108",
-      "name": "Advanced Printing Machines Workshop Ii",
+      "name": "Advanced Printing Machines Workshop II",
       "department": "Printing Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4108"
     },
     {
       "revision": "2021",
       "code": "4109",
-      "name": "Desktop Publishing Workshop Ii",
+      "name": "Desktop Publishing Workshop II",
       "department": "Printing Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4109"
     },
     {
@@ -21724,7 +21805,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Printing Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -21769,7 +21850,7 @@
     {
       "revision": "2021",
       "code": "5103B",
-      "name": "Maintenance Engineering Quality Control",
+      "name": "Maintenance Engineering & Quality Control",
       "department": "Printing Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -21796,10 +21877,10 @@
     {
       "revision": "2021",
       "code": "5108",
-      "name": "Advanced Printing Machines Workshop Iii",
+      "name": "Advanced Printing Machines Workshop III",
       "department": "Printing Technology",
       "semester": "Semester 5",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "5108"
     },
     {
@@ -21817,7 +21898,7 @@
       "name": "Troubleshooting Workshop",
       "department": "Printing Technology",
       "semester": "Semester 5",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "5109B"
     },
     {
@@ -21877,7 +21958,7 @@
     {
       "revision": "2021",
       "code": "6101B",
-      "name": "Green Printing And Waste Management",
+      "name": "Green Printing and Waste Management",
       "department": "Printing Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -21895,7 +21976,7 @@
     {
       "revision": "2021",
       "code": "6102A",
-      "name": "News Paper Periodical Publishing Industry",
+      "name": "News Paper & Periodical Publishing Industry",
       "department": "Printing Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -21904,7 +21985,7 @@
     {
       "revision": "2021",
       "code": "6102B",
-      "name": "Advancement In Packaging",
+      "name": "Advancement in Packaging",
       "department": "Printing Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -21922,7 +22003,7 @@
     {
       "revision": "2021",
       "code": "6102D",
-      "name": "Disaster Management Pt",
+      "name": "Disaster Management (PT)",
       "department": "Printing Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -21940,10 +22021,10 @@
     {
       "revision": "2021",
       "code": "6108",
-      "name": "Print Finishing Workshop Ii",
+      "name": "Print finishing workshop II",
       "department": "Printing Technology",
       "semester": "Semester 6",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "6108"
     },
     {
@@ -21958,7 +22039,7 @@
     {
       "revision": "2021",
       "code": "6109B",
-      "name": "Printing And Waste Management Lab",
+      "name": "Printing and Waste Management Lab",
       "department": "Printing Technology",
       "semester": "Semester 6",
       "type": "Lab",
@@ -21967,7 +22048,7 @@
     {
       "revision": "2021",
       "code": "6109C",
-      "name": "Printing And Package Testing Lab",
+      "name": "Printing and Package Testing Lab",
       "department": "Printing Technology",
       "semester": "Semester 6",
       "type": "Lab",
@@ -23811,6 +23892,15 @@
     },
     {
       "revision": "2021",
+      "code": "IP301",
+      "name": "Inplant Training after sixth semester for one year 12 months after 6th semester exam",
+      "department": "Tool & Die Engineering",
+      "semester": "Semester 1",
+      "type": "Theory",
+      "assetCode": "IP301"
+    },
+    {
+      "revision": "2021",
       "code": "2001",
       "name": "Environmental Science",
       "department": "Tool & Die Engineering",
@@ -23856,10 +23946,10 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 2",
       "code": "2028",
       "name": "Basic CAD Lab",
       "department": "Tool & Die Engineering",
+      "semester": "Semester 2",
       "type": "Lab",
       "assetCode": "2028"
     },
@@ -23892,26 +23982,26 @@
     },
     {
       "revision": "2021",
-      "semester": "Semester 3",
       "code": "3021",
       "name": "Strength of Materials",
       "department": "Tool & Die Engineering",
-      "type": "Program Core",
+      "semester": "Semester 3",
+      "type": "Theory",
       "assetCode": "3021"
     },
     {
       "revision": "2021",
-      "semester": "Semester 3",
       "code": "3022",
       "name": "Material Science and Metrology",
       "department": "Tool & Die Engineering",
-      "type": "Program Core",
+      "semester": "Semester 3",
+      "type": "Theory",
       "assetCode": "3022"
     },
     {
       "revision": "2021",
       "code": "3111",
-      "name": "Moulds And Dies Technology",
+      "name": "Moulds and Dies Technology",
       "department": "Tool & Die Engineering",
       "semester": "Semester 3",
       "type": "Theory",
@@ -23920,7 +24010,7 @@
     {
       "revision": "2021",
       "code": "3112",
-      "name": "Production Engineering Ii",
+      "name": "Production Engineering II",
       "department": "Tool & Die Engineering",
       "semester": "Semester 3",
       "type": "Theory",
@@ -23932,7 +24022,7 @@
       "name": "Tool Engineering Drawing",
       "department": "Tool & Die Engineering",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Drawing",
       "assetCode": "3113"
     },
     {
@@ -23986,7 +24076,7 @@
       "name": "Minor Project",
       "department": "Tool & Die Engineering",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
@@ -24001,7 +24091,7 @@
     {
       "revision": "2021",
       "code": "4111",
-      "name": "Fluid Mechanics And Heat Transfer",
+      "name": "Fluid Mechanics and Heat Transfer",
       "department": "Tool & Die Engineering",
       "semester": "Semester 4",
       "type": "Theory",
@@ -24019,7 +24109,7 @@
     {
       "revision": "2021",
       "code": "4113",
-      "name": "Advanced Mould Making",
+      "name": "Advanced Mould making",
       "department": "Tool & Die Engineering",
       "semester": "Semester 4",
       "type": "Theory",
@@ -24028,16 +24118,16 @@
     {
       "revision": "2021",
       "code": "4117",
-      "name": "Computer Aided Moulds And Dies Drawing",
+      "name": "Computer aided Moulds and Dies Drawing",
       "department": "Tool & Die Engineering",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Drawing",
       "assetCode": "4117"
     },
     {
       "revision": "2021",
       "code": "4118",
-      "name": "Moulds And Dies Heat Treatment Lab",
+      "name": "Moulds and Dies - Heat Treatment Lab",
       "department": "Tool & Die Engineering",
       "semester": "Semester 4",
       "type": "Lab",
@@ -24046,7 +24136,7 @@
     {
       "revision": "2021",
       "code": "4119",
-      "name": "Material Testing And Metallography Lab",
+      "name": "Material Testing and Metallography Lab",
       "department": "Tool & Die Engineering",
       "semester": "Semester 4",
       "type": "Lab",
@@ -24064,7 +24154,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Tool & Die Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -24109,7 +24199,7 @@
     {
       "revision": "2021",
       "code": "5112A",
-      "name": "Jigs Fixtures And Gauges",
+      "name": "Jigs, Fixtures and Gauges",
       "department": "Tool & Die Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -24118,7 +24208,7 @@
     {
       "revision": "2021",
       "code": "5112B",
-      "name": "Robotics And Automation",
+      "name": "Robotics and Automation",
       "department": "Tool & Die Engineering",
       "semester": "Semester 5",
       "type": "Theory",
@@ -24130,7 +24220,7 @@
       "name": "Computer Aided Press Tool Drawing",
       "department": "Tool & Die Engineering",
       "semester": "Semester 5",
-      "type": "Theory",
+      "type": "Drawing",
       "assetCode": "5117"
     },
     {
@@ -24145,7 +24235,7 @@
     {
       "revision": "2021",
       "code": "5119",
-      "name": "Advanced Machine Tools Process Planning Lab",
+      "name": "Advanced Machine Tools & Process Planning Lab",
       "department": "Tool & Die Engineering",
       "semester": "Semester 5",
       "type": "Lab",
@@ -24235,16 +24325,16 @@
     {
       "revision": "2021",
       "code": "6111",
-      "name": "Cad Cam",
+      "name": "CAD / CAM",
       "department": "Tool & Die Engineering",
       "semester": "Semester 6",
-      "type": "Theory",
+      "type": "Drawing",
       "assetCode": "6111"
     },
     {
       "revision": "2021",
       "code": "6117",
-      "name": "Cam 3D Printing Lab",
+      "name": "CAM & 3D Printing Lab",
       "department": "Tool & Die Engineering",
       "semester": "Semester 6",
       "type": "Lab",
@@ -24253,7 +24343,7 @@
     {
       "revision": "2021",
       "code": "6118",
-      "name": "Jigs Fixture Lab",
+      "name": "Jigs & Fixture Lab",
       "department": "Tool & Die Engineering",
       "semester": "Semester 6",
       "type": "Lab",
@@ -24267,6 +24357,15 @@
       "semester": "Semester 6",
       "type": "Lab",
       "assetCode": "6119"
+    },
+    {
+      "revision": "2021",
+      "code": "IP301",
+      "name": "Inplant Training after sixth semester for one year 12 months after 6th semester exam",
+      "department": "Tool & Die Engineering",
+      "semester": "Semester",
+      "type": "Theory",
+      "assetCode": "IP301"
     },
     {
       "revision": "2021",
@@ -24415,7 +24514,7 @@
     {
       "revision": "2021",
       "code": "2121",
-      "name": "Botany And Anatomical Structures",
+      "name": "Botany and anatomical structures",
       "department": "Wood and Paper Technology",
       "semester": "Semester 2",
       "type": "Theory",
@@ -24469,7 +24568,7 @@
     {
       "revision": "2021",
       "code": "3124",
-      "name": "Mechanical Electrical Engineering",
+      "name": "Mechanical & Electrical Engineering",
       "department": "Wood and Paper Technology",
       "semester": "Semester 3",
       "type": "Theory",
@@ -24508,13 +24607,13 @@
       "name": "Workshop Practice",
       "department": "Wood and Paper Technology",
       "semester": "Semester 3",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "3128"
     },
     {
       "revision": "2021",
       "code": "3129",
-      "name": "Introduction To Cad Lab",
+      "name": "Introduction to CAD Lab",
       "department": "Wood and Paper Technology",
       "semester": "Semester 3",
       "type": "Lab",
@@ -24544,7 +24643,7 @@
       "name": "Minor Project",
       "department": "Wood and Paper Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "4009"
     },
     {
@@ -24577,7 +24676,7 @@
     {
       "revision": "2021",
       "code": "4124",
-      "name": "Strength Of Materials",
+      "name": "Strength of Materials",
       "department": "Wood and Paper Technology",
       "semester": "Semester 4",
       "type": "Theory",
@@ -24604,10 +24703,10 @@
     {
       "revision": "2021",
       "code": "4129",
-      "name": "Wood Workshop I",
+      "name": "Wood workshop I",
       "department": "Wood and Paper Technology",
       "semester": "Semester 4",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "4129"
     },
     {
@@ -24622,7 +24721,7 @@
     {
       "revision": "2021",
       "code": "5001",
-      "name": "Industrial Management And Safety",
+      "name": "Industrial Management and Safety",
       "department": "Wood and Paper Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -24649,7 +24748,7 @@
     {
       "revision": "2021",
       "code": "5122",
-      "name": "Wood Products Ii",
+      "name": "Wood Products II",
       "department": "Wood and Paper Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -24676,7 +24775,7 @@
     {
       "revision": "2021",
       "code": "5123C",
-      "name": "Process Control Instrumentation Wp",
+      "name": "Process Control & Instrumentation (WP)",
       "department": "Wood and Paper Technology",
       "semester": "Semester 5",
       "type": "Theory",
@@ -24685,7 +24784,7 @@
     {
       "revision": "2021",
       "code": "5127",
-      "name": "Cadd Lab",
+      "name": "CADD Lab",
       "department": "Wood and Paper Technology",
       "semester": "Semester 5",
       "type": "Lab",
@@ -24694,16 +24793,16 @@
     {
       "revision": "2021",
       "code": "5128",
-      "name": "Wood Workshop Ii",
+      "name": "Wood workshop II",
       "department": "Wood and Paper Technology",
       "semester": "Semester 5",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "5128"
     },
     {
       "revision": "2021",
       "code": "5129",
-      "name": "Environmental And Adhesive Technology Lab",
+      "name": "Environmental and Adhesive Technology Lab",
       "department": "Wood and Paper Technology",
       "semester": "Semester 5",
       "type": "Lab",
@@ -24757,7 +24856,7 @@
     {
       "revision": "2021",
       "code": "6121A",
-      "name": "Interior Design Furniture Technology",
+      "name": "Interior Design & Furniture Technology",
       "department": "Wood and Paper Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -24766,7 +24865,7 @@
     {
       "revision": "2021",
       "code": "6121B",
-      "name": "Paper Board Speciality Paper",
+      "name": "Paper board & speciality paper",
       "department": "Wood and Paper Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -24775,7 +24874,7 @@
     {
       "revision": "2021",
       "code": "6121C",
-      "name": "Timber Structures",
+      "name": "Timber structures",
       "department": "Wood and Paper Technology",
       "semester": "Semester 6",
       "type": "Theory",
@@ -24787,13 +24886,31 @@
       "name": "Project Management",
       "department": "Wood and Paper Technology",
       "semester": "Semester 6",
-      "type": "Theory",
+      "type": "Project",
       "assetCode": "6122A"
     },
     {
       "revision": "2021",
+      "code": "6122B",
+      "name": "Coated and Speciality Papers",
+      "department": "Wood and Paper Technology",
+      "semester": "Semester 6",
+      "type": "Theory",
+      "assetCode": "6122B"
+    },
+    {
+      "revision": "2021",
+      "code": "6122C",
+      "name": "Secondary Fibre Processing",
+      "department": "Wood and Paper Technology",
+      "semester": "Semester 6",
+      "type": "Theory",
+      "assetCode": "6122C"
+    },
+    {
+      "revision": "2021",
       "code": "6127",
-      "name": "Cadd Lab Ii",
+      "name": "CADD Lab II",
       "department": "Wood and Paper Technology",
       "semester": "Semester 6",
       "type": "Lab",
@@ -24805,7 +24922,7 @@
       "name": "Advanced Wood Workshop",
       "department": "Wood and Paper Technology",
       "semester": "Semester 6",
-      "type": "Theory",
+      "type": "Workshop",
       "assetCode": "6128"
     },
     {
