@@ -1,0 +1,6 @@
+Site quality gate failed:
+- Password-reset Security Validation failed. Error:
+Password-reset security validation failed:
+- password reset must use the generic anti-enumeration response
+- unexpected reset-service errors must use the generic response
+

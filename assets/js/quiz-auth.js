@@ -1,12 +1,29 @@
 /* Purpose: Quiz auth - Descriptive comment added for clarity */
+/* NOTE: The login/signup backoff and user-agent blocking implemented here are
+   client-side defense-in-depth measures. They are intentionally bypassable by
+   disabling JavaScript, calling Supabase directly, or spoofing user agents.
+   Authoritative rate limiting and abuse protection must be configured server-side
+   in Supabase Auth (login/signup rate limits, CAPTCHA) and Cloudflare WAF.
+   See docs/AUTHENTICATION-SECURITY.md for the full security contract. */
 window.PolyQuizAuth = (() => {
   "use strict";
 
   let client = null;
   let user = null;
   let guest = false;
+  let lastActivityAt = 0;
+  let activityTimer = null;
 
-  const SITE_URL = window.location.origin;
+  const SITE_URL = window.PolyUtils?.getAuthRedirectOrigin?.() || "https://polypmna.dpdns.org";
+  const PASSWORD_MIN_LENGTH = 12;
+  const SESSION_IDLE_LIMIT_MS = 30 * 60 * 1000;
+  const MAX_LOGIN_ATTEMPTS = 5;
+  const LOGIN_BACKOFF_MS = 15 * 60 * 1000;
+  const MAX_SIGNUP_ATTEMPTS = 3;
+  const SIGNUP_BACKOFF_MS = 30 * 60 * 1000;
+  const loginFailures = new Map();
+  const signupFailures = new Map();
+  const GENERIC_LOGIN_ERROR = "Wrong email or password. Check your details or use Forgot password.";
 
   function isNetworkOrPausedProjectError(error) {
     const text = String(error?.message || error || "").toLowerCase();
@@ -62,7 +79,85 @@ window.PolyQuizAuth = (() => {
         },
       },
     });
+    if (client?.auth?.onAuthStateChange) {
+      client.auth.onAuthStateChange((event, session) => {
+        if (event === "SIGNED_OUT" || !session?.user) {
+          user = null;
+          return;
+        }
+        user = session.user;
+        lastActivityAt = Date.now();
+      });
+    }
     return client;
+  }
+
+  function normalizedEmail(email) {
+    return String(email || "").trim().toLowerCase();
+  }
+
+  function touchActivity() {
+    lastActivityAt = Date.now();
+    if (!activityTimer) {
+      activityTimer = window.setInterval(() => {
+        if (user && lastActivityAt && Date.now() - lastActivityAt > SESSION_IDLE_LIMIT_MS) {
+          logout().catch(() => null);
+        }
+      }, 60 * 1000);
+    }
+  }
+
+  function isEmailVerified(currentUser) {
+    return Boolean(currentUser?.email_confirmed_at || currentUser?.confirmed_at);
+  }
+
+  function loginLock(email) {
+    const record = loginFailures.get(email);
+    if (!record) return false;
+    if (Date.now() >= record.lockedUntil) {
+      loginFailures.delete(email);
+      return false;
+    }
+    return record.attempts >= MAX_LOGIN_ATTEMPTS;
+  }
+
+  function recordLoginFailure(email) {
+    const record = loginFailures.get(email) || { attempts: 0, lockedUntil: 0 };
+    record.attempts += 1;
+    if (record.attempts >= MAX_LOGIN_ATTEMPTS) record.lockedUntil = Date.now() + LOGIN_BACKOFF_MS;
+    loginFailures.set(email, record);
+  }
+
+  function clearLoginFailures(email) {
+    loginFailures.delete(email);
+  }
+
+  function signupLock(email) {
+    const record = signupFailures.get(email);
+    if (!record) return false;
+    if (Date.now() >= record.lockedUntil) {
+      signupFailures.delete(email);
+      return false;
+    }
+    return record.attempts >= MAX_SIGNUP_ATTEMPTS;
+  }
+
+  function recordSignupFailure(email) {
+    const record = signupFailures.get(email) || { attempts: 0, lockedUntil: 0 };
+    record.attempts += 1;
+    if (record.attempts >= MAX_SIGNUP_ATTEMPTS) record.lockedUntil = Date.now() + SIGNUP_BACKOFF_MS;
+    signupFailures.set(email, record);
+  }
+
+  function clearSignupFailures(email) {
+    signupFailures.delete(email);
+  }
+
+  async function requireVerifiedUser(currentUser, db) {
+    if (!currentUser || isEmailVerified(currentUser)) return currentUser;
+    await db.auth.signOut().catch(() => null);
+    user = null;
+    throw new Error("Email is not confirmed yet. Check your inbox, confirm the account, then login.");
   }
 
   async function profile(currentUser, name) {
@@ -81,15 +176,23 @@ window.PolyQuizAuth = (() => {
   }
 
   async function login(email, password) {
+    email = normalizedEmail(email);
     try {
+      if (!isValidEmail(email) || !password) throw new Error(GENERIC_LOGIN_ERROR);
+      if (loginLock(email)) throw new Error("Too many login attempts. Please wait 15 minutes and try again.");
       const db = getClient();
       if (!db) throw new Error("Login system did not load. Continue as Guest or check internet.");
 
       const result = await db.auth.signInWithPassword({ email, password });
-      if (result.error) throw result.error;
+      if (result.error) {
+        recordLoginFailure(email);
+        throw new Error(GENERIC_LOGIN_ERROR);
+      }
 
-      user = result.data.user;
+      user = await requireVerifiedUser(result.data.user, db);
+      clearLoginFailures(email);
       guest = false;
+      touchActivity();
       return { user, name: await profile(user) };
     } catch (error) {
       throw new Error(friendly(error));
@@ -104,10 +207,12 @@ window.PolyQuizAuth = (() => {
       if (!isValidEmail(email)) {
         throw new Error("Please enter a valid email address.");
       }
-      if (password.length < 6) {
-        throw new Error("Password must be at least 6 characters.");
+      if (password.length < PASSWORD_MIN_LENGTH) {
+        throw new Error(`Password must be at least ${PASSWORD_MIN_LENGTH} characters.`);
       }
 
+      email = normalizedEmail(email);
+      if (signupLock(email)) throw new Error("Too many account-creation attempts. Please wait 30 minutes and try again.");
       const db = getClient();
       if (!db) throw new Error("Registration system did not load. Continue as Guest or check internet.");
 
@@ -119,11 +224,16 @@ window.PolyQuizAuth = (() => {
           emailRedirectTo: `${SITE_URL}/daily-quiz.html`,
         },
       });
-      if (result.error) throw result.error;
+      if (result.error) {
+        recordSignupFailure(email);
+        throw result.error;
+      }
 
+      clearSignupFailures(email);
       if (result.data?.session?.user) {
-        user = result.data.user;
+        user = await requireVerifiedUser(result.data.user, db);
         guest = false;
+        touchActivity();
         return { user, name: await profile(user, username) };
       }
 
@@ -134,6 +244,7 @@ window.PolyQuizAuth = (() => {
   }
 
   async function requestPasswordReset(email) {
+    const genericMessage = "If an account exists for that email, a password reset link will be sent shortly. Check your inbox or spam folder.";
     try {
       const db = getClient();
       email = String(email || "").trim();
@@ -145,9 +256,19 @@ window.PolyQuizAuth = (() => {
 
       const result = await db.auth.resetPasswordForEmail(email, { redirectTo: `${SITE_URL}/reset-password.html` });
       if (result.error) throw result.error;
-      return { message: "Password reset link sent. Check your email inbox or spam folder." };
+      return { message: genericMessage };
     } catch (error) {
-      throw new Error(friendly(error));
+      const text = String(error?.message || error || "").toLowerCase();
+      if (isNetworkOrPausedProjectError(error)) {
+        throw new Error("The online password-reset service is currently unreachable. Please try again later.");
+      }
+      if (text.includes("rate limit") || error?.status === 429) {
+        throw new Error("Too many reset requests were made. Please wait and try again later.");
+      }
+      if (text.includes("enter your registered email") || text.includes("valid email address")) {
+        throw new Error(error.message);
+      }
+      throw new Error(genericMessage);
     }
   }
 
@@ -155,13 +276,14 @@ window.PolyQuizAuth = (() => {
     try {
       const db = getClient();
       if (!db) throw new Error("Password reset system did not load.");
-      if (!password || password.length < 6) throw new Error("Password must be at least 6 characters.");
+      if (!password || password.length < PASSWORD_MIN_LENGTH) throw new Error(`Password must be at least ${PASSWORD_MIN_LENGTH} characters.`);
       if (password !== confirm) throw new Error("Passwords do not match.");
 
       const result = await db.auth.updateUser({ password });
       if (result.error) throw result.error;
       user = result.data.user || user;
       guest = false;
+      touchActivity();
       return { message: "Password changed successfully. Login with your new password." };
     } catch (error) {
       throw new Error(friendly(error));
@@ -188,8 +310,9 @@ window.PolyQuizAuth = (() => {
     try {
       const { data } = await db.auth.getSession();
       if (data?.session?.user) {
-        user = data.session.user;
+        user = await requireVerifiedUser(data.session.user, db);
         guest = false;
+        touchActivity();
         return { user, name: await profile(user) };
       }
     } catch (error) {

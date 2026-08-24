@@ -1,9 +1,9 @@
 {
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
-  "status": "failed",
-  "sourceCommit": "182bed6b2366f3e82c6602db44442896ee103119",
-  "generatedAt": "2026-08-12T08:46:49.384Z",
+  "status": "success",
+  "sourceCommit": "0a1392e34193b4f585abc40fd72a098e2806c0ce",
+  "generatedAt": "2026-08-24T05:04:48.158Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -45,8 +45,8 @@
       "passed": true
     },
     {
-      "name": "all 38 department cards render",
-      "passed": false,
+      "name": "all 42 department cards render",
+      "passed": true,
       "cardCount": 42
     },
     {
@@ -58,7 +58,7 @@
       "passed": true
     },
     {
-      "name": "official source actions are present",
+      "name": "legacy subject controls are absent",
       "passed": true
     },
     {
@@ -89,7 +89,7 @@
     },
     {
       "name": "search result count updates",
-      "passed": false,
+      "passed": true,
       "resultText": "Showing 3 of 42 departments"
     },
     {
@@ -103,7 +103,7 @@
     },
     {
       "name": "clear control restores all departments",
-      "passed": false,
+      "passed": true,
       "visibleAfterClear": 42,
       "url": "http://127.0.0.1:8000/revision-2026.html"
     },
@@ -113,7 +113,7 @@
     },
     {
       "name": "no-results clear action restores directory",
-      "passed": false
+      "passed": true
     },
     {
       "name": "mobile has no horizontal overflow",
@@ -154,28 +154,7 @@
       "consoleErrors": []
     }
   ],
-  "failures": [
-    {
-      "name": "all 38 department cards render",
-      "passed": false,
-      "cardCount": 42
-    },
-    {
-      "name": "search result count updates",
-      "passed": false,
-      "resultText": "Showing 3 of 42 departments"
-    },
-    {
-      "name": "clear control restores all departments",
-      "passed": false,
-      "visibleAfterClear": 42,
-      "url": "http://127.0.0.1:8000/revision-2026.html"
-    },
-    {
-      "name": "no-results clear action restores directory",
-      "passed": false
-    }
-  ],
+  "failures": [],
   "console": {
     "errors": [],
     "warnings": []
@@ -184,8 +163,8 @@
     {
       "label": "desktop",
       "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 3778968,
-      "sha256": "0169de7b5e98b8362df1a2b4c21a8b8b5fd27d9a51813e425d403437b1c18ffe",
+      "bytes": 3761144,
+      "sha256": "f81ce02f8af344f17d36d4fe06fa2cec31c638cfb3c440b213470ec091f687e9",
       "viewport": {
         "width": 1440,
         "height": 1000
@@ -194,8 +173,8 @@
     {
       "label": "mobile",
       "fileName": "revision-2026-directory-mobile.png",
-      "bytes": 2978003,
-      "sha256": "24db254b85d41c23819b1e727434b8402ee6f235ab9c46c65de94762a86595e4",
+      "bytes": 2978623,
+      "sha256": "959bca85e25e156c05e2513a3639c7120ef7e703c90cde2935313a232a8ae139",
       "viewport": {
         "width": 390,
         "height": 844

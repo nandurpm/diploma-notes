@@ -1,0 +1,88 @@
+name: Daily quiz broad push reminder
+
+on:
+  schedule:
+    # 10:00 AM IST = 04:30 UTC
+    - cron: "30 4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send-quiz-reminder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Install notification sender dependencies
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Send broad quiz reminder through Firebase Cloud Messaging
+        env:
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        shell: python
+        run: |
+          import json
+          import os
+          import sys
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+          import requests
+          from google.auth.transport.requests import Request
+          from google.oauth2 import service_account
+
+          raw = os.environ.get("FIREBASE_SERVICE_ACCOUNT_JSON", "")
+          if not raw.strip():
+              raise SystemExit("FIREBASE_SERVICE_ACCOUNT_JSON is unavailable.")
+          try:
+              account = json.loads(raw)
+          except json.JSONDecodeError as exc:
+              raise SystemExit(f"FIREBASE_SERVICE_ACCOUNT_JSON is invalid JSON: {exc}")
+
+          required = ["project_id", "client_email", "private_key"]
+          missing = [key for key in required if not account.get(key)]
+          if missing:
+              raise SystemExit("Firebase service account is missing: " + ", ".join(missing))
+
+          credentials = service_account.Credentials.from_service_account_info(
+              account,
+              scopes=["https://www.googleapis.com/auth/firebase.messaging"],
+          )
+          credentials.refresh(Request())
+          if not credentials.token:
+              raise SystemExit("Firebase access token was not obtained.")
+
+          now = datetime.now(ZoneInfo("Asia/Kolkata"))
+          date_key = now.date().isoformat()
+          message = {
+              "topic": "all-users",
+              "data": {
+                  "title": "Your POLY PMNA quiz is ready",
+                  "body": "Keep your study routine going: try today’s Daily Quiz or this week’s challenge.",
+                  "url": "https://polypmna.dpdns.org/daily-quiz.html",
+                  "contentType": "daily-quiz-reminder",
+                  "notificationType": "daily-quiz-reminder-10am",
+                  "date": date_key,
+                  "category": "Quiz Reminder",
+              },
+              "android": {
+                  "priority": "high",
+                  "ttl": "86400s",
+                  "collapse_key": "daily-quiz-reminder-10am",
+              },
+          }
+          endpoint = f"https://fcm.googleapis.com/v1/projects/{account['project_id']}/messages:send"
+          response = requests.post(
+              endpoint,
+              headers={
+                  "Authorization": f"Bearer {credentials.token}",
+                  "Content-Type": "application/json; charset=UTF-8",
+              },
+              json={"message": message},
+              timeout=30,
+          )
+          print(f"FCM HTTP status: {response.status_code}")
+          if not response.ok:
+              print(response.text)
+              sys.exit(1)
+          print("Broad daily quiz reminder accepted by FCM.")

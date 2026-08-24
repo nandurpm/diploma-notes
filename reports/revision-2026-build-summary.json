@@ -6,7 +6,7 @@
   "directoryLayout": "Responsive searchable programme directory",
   "departmentLayout": "Revision 2021-compatible semester subject cards",
   "lessonFolder": "revision-2026-content/lessons",
-  "notesFolder": "revision-2026-content/notes",
+  "notesDelivery": "lesson-print-mode",
   "programmeSubjectCounts": {
     "architecture": 56,
     "artificial-intelligence": 67,
@@ -389,5 +389,5 @@
       "Semester 6": 14
     }
   },
-  "newCodeCountComparedWithREV2021": 565
+  "newCodeCountComparedWithREV2021": 1129
 }

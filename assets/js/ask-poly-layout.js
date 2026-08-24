@@ -12,12 +12,23 @@
 
   if (!sidebar) return;
 
+  const isNarrow = () => window.matchMedia("(max-width: 900px)").matches;
   const setOpen = (open) => {
-    sidebar.classList.toggle("open", open);
-    toggle?.setAttribute("aria-expanded", String(open));
+    const next = Boolean(open) && isNarrow();
+    sidebar.classList.toggle("open", next);
+    toggle?.setAttribute("aria-expanded", String(next));
+    toggle?.setAttribute("aria-label", next ? "Close saved chats" : "Open saved chats");
+    if (toggle) toggle.textContent = next ? "× Close chats" : "☰ Saved chats";
+    sidebar.setAttribute("aria-hidden", String(isNarrow() && !next));
+    document.body.classList.toggle("ask-chats-open", next);
   };
 
-  toggle?.addEventListener("click", () => setOpen(!sidebar.classList.contains("open")));
+  setOpen(false);
+  toggle?.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setOpen(!sidebar.classList.contains("open"));
+  });
   mobileNew?.addEventListener("click", () => {
     newChat?.click();
     setOpen(false);
@@ -25,10 +36,17 @@
   chatList?.addEventListener("click", (event) => {
     if (event.target.closest(".ask-item") && !event.target.closest(".ask-delete")) setOpen(false);
   });
+  document.addEventListener("click", (event) => {
+    if (isNarrow() && sidebar.classList.contains("open") && !sidebar.contains(event.target) && !toggle?.contains(event.target)) setOpen(false);
+  });
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") setOpen(false);
+    if (event.key === "Escape" && sidebar.classList.contains("open")) {
+      setOpen(false);
+      toggle?.focus();
+    }
   });
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 900) setOpen(false);
+    if (!isNarrow()) setOpen(false);
+    else sidebar.setAttribute("aria-hidden", String(!sidebar.classList.contains("open")));
   }, { passive: true });
 })();

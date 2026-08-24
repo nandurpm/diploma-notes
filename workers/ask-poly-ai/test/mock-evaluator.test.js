@@ -3,6 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { evaluateMockExam } from "../src/mock-evaluator.js";
 import { MOCK_PAPER } from "../src/mock-paper.js";
+import { MOCK_PAPERS } from "../src/mock-papers.js";
 
 function buildValidAnswers() {
   const answers = [];
@@ -20,6 +21,92 @@ function buildValidAnswers() {
   }
   return answers;
 }
+
+function buildValidAnswersForPaper(paper) {
+  const answers = [];
+  for (const id of paper.partAIds) answers.push({ id, answer: "Placeholder A", rubric: ["forged client rubric"] });
+  for (const id of paper.partBIds.slice(0, 8)) answers.push({ id, answer: "Placeholder B is long enough", rubric: ["forged client rubric"] });
+  for (const pair of paper.pairs) {
+    const question = paper.questions.find((q) => q.pair === pair);
+    if (question) answers.push({ id: question.id, answer: "Placeholder C is long enough", rubric: ["forged client rubric"] });
+  }
+  return answers;
+}
+
+test("generic papers use server-only rubrics and ignore client rubric fields", async () => {
+  const paper = MOCK_PAPERS["1002"];
+  const body = { paperId: paper.id, subjectCode: paper.subjectCode, answers: buildValidAnswersForPaper(paper) };
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, "https://api.openai.com/v1/responses");
+    const request = JSON.parse(options.body);
+    const submitted = JSON.parse(request.input[0].content);
+    assert.equal(submitted.examination.subjectCode, "1002");
+    assert.equal(submitted.questions.length, 23);
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.modelPoints) && question.modelPoints.length > 0));
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.rubric) && question.rubric.length > 0));
+    assert.ok(submitted.questions.every((question) => !JSON.stringify(question).includes("forged client rubric")));
+    const answerIds = body.answers.map((answer) => answer.id);
+    return {
+      ok: true,
+      json: async () => ({
+        id: "resp-generic-1002",
+        model: "gpt-4o-mini",
+        output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify({
+          results: answerIds.map((id) => ({ id, awardedMarks: 1, confidence: 0.9, feedback: "Reviewed", missingPoints: [] })),
+          overallFeedback: "Generic paper evaluated using the private Worker rubric."
+        }) }] }]
+      })
+    };
+  };
+  try {
+    const result = await evaluateMockExam(body, { OPENAI_API_KEY: "test-key" });
+    assert.equal(result.paperId, paper.id);
+    assert.equal(result.subjectCode, "1002");
+    assert.equal(result.status, "published");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("all generic papers resolve from the server-only registry", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, "https://api.openai.com/v1/responses");
+    const request = JSON.parse(options.body);
+    const submitted = JSON.parse(request.input[0].content);
+    const paper = Object.values(MOCK_PAPERS).find((candidate) => candidate.subjectCode === submitted.examination.subjectCode);
+    assert.ok(paper, `Unknown generic subject code ${submitted.examination.subjectCode}`);
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.modelPoints) && question.modelPoints.length > 0));
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.rubric) && question.rubric.length > 0));
+    const answerIds = submitted.questions.map((question) => question.id);
+    return {
+      ok: true,
+      json: async () => ({
+        id: `resp-generic-${paper.subjectCode}`,
+        model: "gpt-4o-mini",
+        output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify({
+          results: answerIds.map((id) => ({ id, awardedMarks: 0, confidence: 0.9, feedback: "Reviewed", missingPoints: [] })),
+          overallFeedback: "Generic paper evaluated using the private Worker rubric."
+        }) }] }]
+      })
+    };
+  };
+  try {
+    for (const paper of Object.values(MOCK_PAPERS)) {
+      const result = await evaluateMockExam({
+        paperId: paper.id,
+        subjectCode: paper.subjectCode,
+        answers: buildValidAnswersForPaper(paper)
+      }, { OPENAI_API_KEY: "test-key" });
+      assert.equal(result.paperId, paper.id);
+      assert.equal(result.subjectCode, paper.subjectCode);
+      assert.equal(result.status, "published");
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
 
 test("evaluateMockExam throws 504 when OpenAI request times out", async () => {
   const body = {
@@ -140,6 +227,158 @@ test("evaluateMockExam throws on bad OpenAI API non-ok response", async () => {
       (err) => {
         assert.equal(err.status, 400);
         assert.match(err.message, /Invalid API Key/i);
+        return true;
+      }
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("evaluateMockExam falls back to NVIDIA when OpenAI key is missing", async () => {
+  const answers = buildValidAnswers();
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers
+  };
+  const env = {
+    NVIDIA_API_KEY: "nvidia-test-key",
+    MOCK_EXAM_TIMEOUT_MS: "5000"
+  };
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, "https://integrate.api.nvidia.com/v1/chat/completions");
+    assert.equal(options.headers.Authorization, "Bearer nvidia-test-key");
+    const payload = JSON.parse(options.body);
+    assert.equal(payload.model, "meta/llama-3.1-8b-instruct");
+    assert.equal(payload.stream, false);
+    assert.equal(payload.messages.length, 2);
+
+    const mockResponseText = JSON.stringify({
+      results: answers.map((a) => ({
+        id: a.id,
+        awardedMarks: 2,
+        confidence: 0.9,
+        feedback: "NVIDIA-evaluated feedback",
+        missingPoints: ["Missing example"]
+      })),
+      overallFeedback: "Solid attempt using the NVIDIA fallback path."
+    });
+
+    return {
+      ok: true,
+      json: async () => ({
+        id: "nv-456",
+        model: "meta/llama-3.1-8b-instruct",
+        choices: [{ message: { content: "```json\n" + mockResponseText + "\n```" } }]
+      })
+    };
+  };
+
+  try {
+    const result = await evaluateMockExam(body, env);
+    assert.equal(result.paperId, MOCK_PAPER.id);
+    assert.equal(result.evaluationMode, "nvidia");
+    assert.equal(result.model, "meta/llama-3.1-8b-instruct");
+    assert.equal(result.overallFeedback, "Solid attempt using the NVIDIA fallback path.");
+    assert.equal(result.status, "published");
+    assert.ok(result.score > 0);
+    assert.equal(result.results.length, answers.length);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("evaluateMockExam prefers OpenAI when both keys are present", async () => {
+  const answers = buildValidAnswers();
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers
+  };
+  const env = {
+    OPENAI_API_KEY: "openai-key",
+    NVIDIA_API_KEY: "nvidia-key",
+    MOCK_EXAM_TIMEOUT_MS: "5000"
+  };
+
+  const originalFetch = globalThis.fetch;
+  let nvidiaCalled = false;
+  globalThis.fetch = async (url) => {
+    if (new URL(url).hostname === "integrate.api.nvidia.com") nvidiaCalled = true;
+    return {
+      ok: true,
+      json: async () => ({
+        output: [
+          {
+            type: "message",
+            content: [
+              {
+                type: "output_text",
+                text: JSON.stringify({
+                  results: answers.map((a) => ({ id: a.id, awardedMarks: 1, confidence: 0.8, feedback: "ok", missingPoints: [] })),
+                  overallFeedback: "OpenAI path used."
+                })
+              }
+            ]
+          }
+        ]
+      })
+    };
+  };
+
+  try {
+    const result = await evaluateMockExam(body, env);
+    assert.equal(nvidiaCalled, false);
+    assert.equal(result.evaluationMode, "openai");
+    assert.equal(result.overallFeedback, "OpenAI path used.");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("evaluateMockExam rejects with configured error when neither key is present", async () => {
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers: buildValidAnswers()
+  };
+
+  await assert.rejects(
+    evaluateMockExam(body, {}),
+    (err) => {
+      assert.match(err.message, /not configured/i);
+      return true;
+    }
+  );
+});
+
+test("evaluateMockExam rejects malformed NVIDIA JSON response", async () => {
+  const body = {
+    paperId: MOCK_PAPER.id,
+    subjectCode: MOCK_PAPER.subjectCode,
+    answers: buildValidAnswers()
+  };
+  const env = {
+    NVIDIA_API_KEY: "nvidia-key",
+    MOCK_EXAM_TIMEOUT_MS: "5000"
+  };
+
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    ok: true,
+    json: async () => ({
+      choices: [{ message: { content: "this is not JSON at all" } }]
+    })
+  });
+
+  try {
+    await assert.rejects(
+      evaluateMockExam(body, env),
+      (err) => {
+        assert.match(err.message, /invalid structured result/i);
         return true;
       }
     );

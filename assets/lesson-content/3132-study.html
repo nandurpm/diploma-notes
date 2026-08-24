@@ -50,7 +50,7 @@ int main(void)
 }</code></pre></div>
 <div class="output">Input: 250
 Energy charge = Rs. 600.00</div>
-<div class="ml"><b>മലയാളം:</b> Slab calculation-ൽ മുഴുവൻ units-നും അവസാന rate multiply ചെയ്യരുത്. ഓരോ slab-ലുള്ള units വേർതിരിച്ചാണ് charge കണക്കാക്കുന്നത്.</div>
+<div class="ml" lang="ml"><b>മലയാളം:</b> Slab calculation-ൽ മുഴുവൻ units-നും അവസാന rate multiply ചെയ്യരുത്. ഓരോ slab-ലുള്ള units വേർതിരിച്ചാണ് charge കണക്കാക്കുന്നത്.</div>
 </article>
 
 <article class="card unit">
@@ -87,7 +87,7 @@ int main(void)
     }
     return 0;
 }</code></pre></div>
-<div class="ml">Discrete operator choices-ന് switch അനുയോജ്യമാണ്. Division case-ൽ divisor zero ആണോ പരിശോധിക്കണം.</div>
+<div class="ml" lang="ml">Discrete operator choices-ന് switch അനുയോജ്യമാണ്. Division case-ൽ divisor zero ആണോ പരിശോധിക്കണം.</div>
 </article>
 
 <article class="card unit">
@@ -156,7 +156,7 @@ int main(void)
     printf("GCD = %d\nLCM = %lld\n", divisor, lcm);
     return 0;
 }</code></pre></div>
-<div class="ml">GCD logic function-ലാക്കിയതിനാൽ അതേ function മറ്റു programs-ലും reuse ചെയ്യാം. LCM multiplication overflow കുറയ്ക്കാൻ division ആദ്യം ചെയ്യുന്നു.</div>
+<div class="ml" lang="ml">GCD logic function-ലാക്കിയതിനാൽ അതേ function മറ്റു programs-ലും reuse ചെയ്യാം. LCM multiplication overflow കുറയ്ക്കാൻ division ആദ്യം ചെയ്യുന്നു.</div>
 </article>
 
 <article class="card unit">
@@ -187,7 +187,7 @@ int main(void)
 = 9 + 2 + digit_sum(57)
 = 9 + 2 + 7 + digit_sum(5)
 = 23</div>
-<div class="ml">Recursive call-ലേക്ക് പോകുമ്പോൾ number / 10 ഉപയോഗിച്ച് problem size കുറയുന്നു. number &lt; 10 base case ആണ്.</div>
+<div class="ml" lang="ml">Recursive call-ലേക്ക് പോകുമ്പോൾ number / 10 ഉപയോഗിച്ച് problem size കുറയുന്നു. number &lt; 10 base case ആണ്.</div>
 </article>
 </div>
 
@@ -223,7 +223,7 @@ int main(void)
     }
     return 0;
 }</code></pre></div>
-<div class="ml">Duplicate maximum value second-largest ആയി എടുക്കാതിരിക്കാൻ <span class="inline-code">values[i] != largest</span> പരിശോധിക്കുന്നു.</div>
+<div class="ml" lang="ml">Duplicate maximum value second-largest ആയി എടുക്കാതിരിക്കാൻ <span class="inline-code">values[i] != largest</span> പരിശോധിക്കുന്നു.</div>
 </article>
 
 <article class="card unit">
@@ -285,7 +285,7 @@ int binary_search(const int a[], int size, int target)
     }
     return -1;
 }</code></pre></div>
-<div class="ml">Linear search unsorted data-ലും പ്രവർത്തിക്കും. Binary search വേഗമാണ്, പക്ഷേ data sorted ആയിരിക്കണം.</div>
+<div class="ml" lang="ml">Linear search unsorted data-ലും പ്രവർത്തിക്കും. Binary search വേഗമാണ്, പക്ഷേ data sorted ആയിരിക്കണം.</div>
 </article>
 
 <article class="card unit wide">
@@ -333,7 +333,7 @@ int main(void)
     printf("%s\n", palindrome ? "Palindrome" : "Not palindrome");
     return 0;
 }</code></pre></div>
-<div class="ml">Left index മുന്നോട്ടും right index പിന്നോട്ടും നീക്കി corresponding characters compare ചെയ്യുന്നു.</div>
+<div class="ml" lang="ml">Left index മുന്നോട്ടും right index പിന്നോട്ടും നീക്കി corresponding characters compare ചെയ്യുന്നു.</div>
 </article>
 </div>
 
@@ -370,7 +370,7 @@ int main(void)
 }
 
 /* For int a[5], call reverse(a, a + 4); */</code></pre></div>
-<div class="ml">Pointers array-ന്റെ രണ്ട് അറ്റങ്ങളിൽ നിന്ന് നടുവിലേക്ക് നീങ്ങുന്നു. Pointer comparison same array-ലുള്ള elements-ക്കിടയിൽ ഉപയോഗിക്കുന്നു.</div>
+<div class="ml" lang="ml">Pointers array-ന്റെ രണ്ട് അറ്റങ്ങളിൽ നിന്ന് നടുവിലേക്ക് നീങ്ങുന്നു. Pointer comparison same array-ലുള്ള elements-ക്കിടയിൽ ഉപയോഗിക്കുന്നു.</div>
 </article>
 
 <article class="card unit wide">
@@ -410,7 +410,7 @@ int main(void)
     free(marks);
     return 0;
 }</code></pre></div>
-<div class="ml">Runtime-ൽ count ലഭിക്കുന്നതിനാൽ dynamic allocation ഉപയോഗിക്കുന്നു. Error path-ലും normal path-ലും memory free ചെയ്യണം.</div>
+<div class="ml" lang="ml">Runtime-ൽ count ലഭിക്കുന്നതിനാൽ dynamic allocation ഉപയോഗിക്കുന്നു. Error path-ലും normal path-ലും memory free ചെയ്യണം.</div>
 </article>
 
 <article class="card unit wide">
@@ -500,7 +500,7 @@ int main(void)
            students[best].name, students[best].mark);
     return 0;
 }</code></pre></div>
-<div class="ml">Structure array-യിൽ ഓരോ element ഒരു complete student record ആണ്. Index മാത്രം return ചെയ്യുന്നതിനാൽ caller-ക്ക് മുഴുവൻ record access ചെയ്യാം.</div>
+<div class="ml" lang="ml">Structure array-യിൽ ഓരോ element ഒരു complete student record ആണ്. Index മാത്രം return ചെയ്യുന്നതിനാൽ caller-ക്ക് മുഴുവൻ record access ചെയ്യാം.</div>
 </article>
 
 <article class="card unit">
@@ -542,7 +542,7 @@ void print_value(const struct DataValue *data)
         printf("%.2f\n", data-&gt;value.real);
     }
 }</code></pre></div>
-<div class="ml">Enum tag ഏത് union member ഇപ്പോൾ valid ആണെന്ന് സൂചിപ്പിക്കുന്നു. Wrong member read ചെയ്യുന്നത് ഒഴിവാക്കാം.</div>
+<div class="ml" lang="ml">Enum tag ഏത് union member ഇപ്പോൾ valid ആണെന്ന് സൂചിപ്പിക്കുന്നു. Wrong member read ചെയ്യുന്നത് ഒഴിവാക്കാം.</div>
 </article>
 
 <article class="card unit wide">
@@ -590,7 +590,7 @@ int main(void)
            characters, words, lines);
     return 0;
 }</code></pre></div>
-<div class="ml">Word തുടങ്ങുന്നത് previous character whitespace ആയിരിക്കുമ്പോൾ current character non-whitespace ആകുന്ന സമയത്താണ്.</div>
+<div class="ml" lang="ml">Word തുടങ്ങുന്നത് previous character whitespace ആയിരിക്കുമ്പോൾ current character non-whitespace ആകുന്ന സമയത്താണ്.</div>
 </article>
 
 <article class="card unit wide">
@@ -642,7 +642,7 @@ int main(int argc, char *argv[])
 }</code></pre></div>
 <div class="output">gcc -std=c11 -Wall -Wextra file_copy.c -o file_copy
 ./file_copy source.txt backup.txt</div>
-<div class="ml">Source, destination filenames command line-ൽ ലഭിക്കുന്നു. രണ്ട് files-നും separate error handling വേണം.</div>
+<div class="ml" lang="ml">Source, destination filenames command line-ൽ ലഭിക്കുന്നു. രണ്ട് files-നും separate error handling വേണം.</div>
 </article>
 </div>
 </section>
@@ -687,7 +687,7 @@ int main(int argc, char *argv[])
 <div class="card quarter yellow"><h3>Module 3</h3><ul><li>Address and dereference</li><li>Pointer arithmetic</li><li>Output parameters</li><li>malloc/calloc</li><li>Safe realloc/free</li><li>Arrays and pointers</li></ul></div>
 <div class="card quarter violet"><h3>Module 4</h3><ul><li>Structures and arrays</li><li>Dot and arrow</li><li>Union and enum</li><li>File modes</li><li>Sequential I/O</li><li>argc/argv</li></ul></div>
 </div>
-<div class="call exam"><b>Malayalam last-day cue:</b> Control flow → Functions → Recursion → Arrays → Search/Sort → Strings → Pointers → Dynamic memory → Structures → Union/Enum → Files → Command line എന്ന ക്രമത്തിൽ revise ചെയ്യുക. ഓരോ topic-നും കുറഞ്ഞത് ഒരു program dry run ചെയ്യുക.</div>
+<div class="call exam"><b>Malayalam last-day cue:</b> <span lang="ml">Control flow → Functions → Recursion → Arrays → Search/Sort → Strings → Pointers → Dynamic memory → Structures → Union/Enum → Files → Command line എന്ന ക്രമത്തിൽ revise ചെയ്യുക. ഓരോ topic-നും കുറഞ്ഞത് ഒരു program dry run ചെയ്യുക.</span></div>
 <div class="grid">
 <div class="card third"><h3>Likely one-mark areas</h3><ul><li>Define recursion.</li><li>Purpose of a function prototype.</li><li>Meaning of static local variable.</li><li>Requirement for binary search.</li><li>String terminator.</li><li>Meaning of NULL.</li><li>Difference between dot and arrow.</li><li>Purpose of free().</li></ul></div>
 <div class="card third"><h3>Likely short answers</h3><ul><li>Storage classes.</li><li>Selection versus repetition.</li><li>Linear versus binary search.</li><li>Selection sort versus quicksort.</li><li>Array–pointer relationship.</li><li>malloc versus calloc.</li><li>Structure versus union.</li><li>File modes.</li></ul></div>

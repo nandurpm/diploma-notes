@@ -18,6 +18,10 @@
   function normalizeLinks() {
     document.querySelectorAll(".navlinks a.active").forEach(link => link.setAttribute("aria-current", "page"));
     document.querySelectorAll('a[target="_blank"]').forEach(link => link.setAttribute("rel", "noopener noreferrer"));
+    document.querySelectorAll('a[href="https://nandakumarm.dpdns.org/"]').forEach(link => {
+      link.setAttribute("target", "_self");
+      link.removeAttribute("rel");
+    });
     document.querySelectorAll('a[href="departments.html"], a[href="/departments.html"]').forEach(link => {
       link.href = link.getAttribute("href")?.startsWith("/") ? "/revision-2021.html" : "revision-2021.html";
       if (/departments/i.test(link.textContent || "")) link.textContent = "Revision 2021";

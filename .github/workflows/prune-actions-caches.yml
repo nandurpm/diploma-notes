@@ -1,0 +1,37 @@
+name: Prune stale Actions caches
+
+on:
+  schedule:
+    # 03:20 UTC daily; keep cache cleanup separate from the midnight audits.
+    - cron: "20 3 * * *"
+  workflow_dispatch:
+    inputs:
+      keep_per_family:
+        description: "Number of newest caches to retain per normalized key family"
+        required: false
+        default: "2"
+        type: string
+
+permissions:
+  actions: write
+
+concurrency:
+  group: actions-cache-prune
+  cancel-in-progress: true
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts/prune_github_actions_caches.py
+          sparse-checkout-cone-mode: false
+
+      - name: Delete stale caches while retaining recent families
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          KEEP_PER_FAMILY: ${{ inputs.keep_per_family || '2' }}
+        run: python scripts/prune_github_actions_caches.py

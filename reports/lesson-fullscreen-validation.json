@@ -1,10 +1,10 @@
 {
   "summary": {
     "passed": true,
-    "lesson_files": 137,
-    "revision_2021": 91,
-    "revision_2026": 46,
-    "runtime": "20260725-watermark1",
+    "lesson_files": 1372,
+    "revision_2021": 150,
+    "revision_2026": 1222,
+    "runtime": "20260819-ask-context1",
     "failure_count": 0
   },
   "failures": []

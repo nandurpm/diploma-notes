@@ -11,9 +11,7 @@ EMPTY_GRID = re.compile(r'(<div\b[^>]*\bid=["\']subjectGrid["\'][^>]*>)\s*</div>
 FALLBACK = (
     '<noscript><section class="notice"><h2>JavaScript is disabled</h2>'
     '<p>The complete subject cards are rendered above. Search and semester filters require JavaScript. '
-    'Official curriculum details remain available from the '
-    '<a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus&amp;scheme=REV2021">'
-    'SITTTR Revision 2021 syllabus page</a>.</p></section></noscript>'
+    'Use the Download Syllabus and Download Model Question Paper controls above to access the archived PDFs.</p></section></noscript>'
 )
 
 
@@ -23,9 +21,19 @@ def main() -> int:
         if path.name == "department-view.html":
             continue
         text = path.read_text(encoding="utf-8")
-        if 'id="subjectGrid"' not in text or "<noscript" in text:
+        if 'id="subjectGrid"' not in text:
             continue
-        updated, count = EMPTY_GRID.subn(lambda match: match.group(1) + "</div>" + FALLBACK, text, count=1)
+        # Materialized pages already contain a complete static subject grid and
+        # must be left unchanged. Treat them as normalized so repeated CI runs
+        # remain deterministic after materialize_rev2021_subjects.py has run.
+        if '<!-- STATIC REV2021 SUBJECTS START -->' in text and '<!-- STATIC REV2021 SUBJECTS END -->' in text:
+            continue
+        legacy_pattern = r'<noscript\b[^>]*>.*?sitttrkerala\.ac\.in.*?</noscript>'
+        updated, count = re.subn(legacy_pattern, FALLBACK, text, count=0, flags=re.I | re.S)
+        if count == 0 and "<noscript" in text:
+            updated, count = re.subn(r'<noscript\b[^>]*>.*?</noscript>', FALLBACK, text, count=1, flags=re.I | re.S)
+        elif count == 0:
+            updated, count = EMPTY_GRID.subn(lambda match: match.group(1) + "</div>" + FALLBACK, text, count=1)
         if count != 1:
             raise SystemExit(f"Could not normalize {path.relative_to(ROOT)}")
         path.write_text(updated, encoding="utf-8")

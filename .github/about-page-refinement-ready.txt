@@ -1,2 +1,0 @@
-ready: true
-trigger-title: [automation] Refine About page UI

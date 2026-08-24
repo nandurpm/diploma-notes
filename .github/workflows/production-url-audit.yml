@@ -13,6 +13,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: production-url-audit
+  cancel-in-progress: true
+
 jobs:
   audit:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
@@ -26,10 +30,29 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Generate current scope
-        run: python tools/generate_sitemap.py
+      - name: Refresh audit source to latest main
+        run: |
+          git fetch origin main --depth=1
+          git reset --hard origin/main
       - name: Audit live GET responses and release signatures
-        run: python tools/production_url_audit.py
+        env:
+          POLY_AUDIT_EXPECTED_COMMIT: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in {1..10}; do
+            git fetch origin main --depth=1
+            git reset --hard origin/main
+            python tools/generate_sitemap.py
+            if python tools/production_url_audit.py; then
+              exit 0
+            fi
+            if [ "$attempt" -lt 10 ]; then
+              echo "Production audit did not converge on attempt $attempt; waiting for deployment propagation."
+              sleep 15
+            fi
+          done
+          exit 1
       - uses: actions/upload-artifact@v4
         if: always()
         with:

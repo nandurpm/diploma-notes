@@ -8,6 +8,8 @@ on:
     paths:
       - "workers/ask-poly-ai/**"
       - "assets/js/ask-poly-config.js"
+      - "wrangler.toml"
+      - "package.json"
       - ".github/workflows/deploy-ask-poly-ai.yml"
 
 permissions:
@@ -27,12 +29,27 @@ jobs:
       CLOUDFLARE_AI_API_TOKEN_VALUE: ${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
       OPENAI_API_KEY_VALUE: ${{ secrets.OPENAI_API_KEY }}
       NVIDIA_API_KEY_VALUE: ${{ secrets.NVIDIA_API_KEY }}
+      OPENROUTER_API_KEY_VALUE: ${{ secrets.OPENROUTER_API_KEY }}
       GOOGLE_AI_STUDIO_VALUE: ${{ secrets.GOOGLE_AI_STUDIO }}
+      FREE_API_KEY_VALUE: ${{ secrets.FREE_API_KEY }}
       SUPABASE_URL_VALUE: ${{ secrets.SUPABASE_URL }}
       SUPABASE_ANON_KEY_VALUE: ${{ secrets.SUPABASE_ANON_KEY }}
       SUPABASE_SERVICE_ROLE_KEY_VALUE: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      FIREBASE_SERVICE_ACCOUNT_JSON_VALUE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install Node dependencies for security gates
+        working-directory: workers/ask-poly-ai
+        run: npm ci
+
+      - name: Run repository security gates
+        run: |
+          python3 tools/secret_scan.py
+          node tools/api_security_probe.mjs
+          cd workers/ask-poly-ai
+          npm audit --audit-level=high --omit=dev
+          npm test -- --runInBand
 
       - name: Validate secure Worker source and public routes
         run: |
@@ -41,6 +58,7 @@ jobs:
           node --check workers/ask-poly-ai/src/ask-handler.js
           node --check workers/ask-poly-ai/src/mock-evaluator.js
           node --check workers/ask-poly-ai/src/result-store.js
+          node --check workers/ask-poly-ai/src/comments.js
           node --check assets/js/ask-poly-config.js
           node --check assets/js/mock-exam-service.js
           python - <<'PY'
@@ -48,21 +66,28 @@ jobs:
 
           public_config = Path('assets/js/ask-poly-config.js').read_text(encoding='utf-8')
           for secret_name in (
-              'OPENAI_API_KEY', 'NVIDIA_API_KEY', 'GOOGLE_AI_STUDIO',
-              'CLOUDFLARE_AI_API_TOKEN', 'CLOUDFLARE_AI_ACCOUNT_ID',
+              'OPENAI_API_KEY', 'NVIDIA_API_KEY', 'OPENROUTER_API_KEY',
+              'GOOGLE_AI_STUDIO', 'FREE_API_KEY', 'CLOUDFLARE_AI_API_TOKEN',
+              'CLOUDFLARE_AI_ACCOUNT_ID',
               'SUPABASE_SERVICE_ROLE_KEY'
           ):
               assert secret_name not in public_config
-          assert 'workers.dev/api/ask-poly' in public_config
-          assert 'workers.dev/api/evaluate-mock-exam' in public_config
+          assert 'api.polypmna.dpdns.org/api/ask-poly' in public_config
+          assert 'api.polypmna.dpdns.org/api/evaluate-mock-exam' in public_config
           assert 'backupEndpoint' not in public_config
 
           worker_config = Path('workers/ask-poly-ai/wrangler.toml').read_text(encoding='utf-8')
+          assert 'COMMENT_RATE_LIMITER' in worker_config
           assert 'main = "src/secure-index.js"' in worker_config
           assert '[ai]' in worker_config and 'binding = "AI"' in worker_config
           assert 'name = "ASK_RATE_LIMITER"' in worker_config
           assert 'name = "EXAM_RATE_LIMITER"' in worker_config
-          print('Secure Worker source, storage route and rate-limit bindings validated.')
+          assert 'name = "IMAGE_RATE_LIMITER"' in worker_config
+          migration = Path('supabase/migrations/20260820_ownership_rls.sql').read_text(encoding='utf-8')
+          for table in ('profiles', 'daily_quiz_results', 'sample_paper_attempts'):
+              assert f'enable row level security' in migration
+              assert f'public.{table}' in migration
+          print('Secure Worker source, ownership migration, storage route and rate-limit bindings validated.')
           PY
 
       - name: Require deployment and verified-storage secrets
@@ -72,20 +97,49 @@ jobs:
           [ -n "$CLOUDFLARE_API_TOKEN_VALUE" ] || missing+=(CLOUDFLARE_API_TOKEN)
           [ -n "$CLOUDFLARE_ACCOUNT_ID_VALUE" ] || missing+=(CLOUDFLARE_ACCOUNT_ID)
           [ -n "$CLOUDFLARE_AI_API_TOKEN_VALUE" ] || missing+=(CLOUDFLARE_AI_API_TOKEN)
-          [ -n "$SUPABASE_URL_VALUE" ] || missing+=(SUPABASE_URL)
-          [ -n "$SUPABASE_ANON_KEY_VALUE" ] || missing+=(SUPABASE_ANON_KEY)
-          [ -n "$SUPABASE_SERVICE_ROLE_KEY_VALUE" ] || missing+=(SUPABASE_SERVICE_ROLE_KEY)
           if [ "${#missing[@]}" -gt 0 ]; then
             printf 'Missing required repository secrets: %s\n' "${missing[*]}"
             exit 1
           fi
-          if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
+          if [ -z "$SUPABASE_URL_VALUE" ] || [ -z "$SUPABASE_ANON_KEY_VALUE" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY_VALUE" ]; then
+            echo "Supabase secrets are not present in repository secrets."
+            echo "The existing Cloudflare Worker secrets will remain unchanged by the upload step."
+          fi
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT_JSON_VALUE" ]; then
+            echo "FIREBASE_SERVICE_ACCOUNT_JSON is required for the protected public-comments write path."
+            exit 1
+          fi
+          python - <<'PY'
+          import json
+          import os
+          raw = os.environ["FIREBASE_SERVICE_ACCOUNT_JSON_VALUE"]
+          try:
+              account = json.loads(raw)
+          except json.JSONDecodeError as error:
+              raise SystemExit(f"FIREBASE_SERVICE_ACCOUNT_JSON is not valid JSON: {error.msg}")
+          required = ("project_id", "client_email", "private_key")
+          missing = [key for key in required if not account.get(key)]
+          if missing or "PRIVATE KEY" not in account.get("private_key", ""):
+              raise SystemExit(f"FIREBASE_SERVICE_ACCOUNT_JSON is missing valid fields: {', '.join(missing or ['private_key marker'])}")
+          print("Firebase service-account JSON validated without printing secret contents.")
+          PY
+          if [ -z "$OPENAI_API_KEY_VALUE" ] && [ -z "$NVIDIA_API_KEY_VALUE" ] && [ -z "$OPENROUTER_API_KEY_VALUE" ] && [ -z "$GOOGLE_AI_STUDIO_VALUE" ] && [ -z "$FREE_API_KEY_VALUE" ] && [ -z "$CLOUDFLARE_AI_API_TOKEN_VALUE" ]; then
             echo "At least one AI provider credential is required."
             exit 1
           fi
 
       - name: Install Wrangler
         run: npm install -g wrangler@4
+
+      - name: Deploy secure Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        # Wrangler resolves the main entrypoint and any assets relative to the
+        # working directory. Deploy from the Worker directory so the API
+        # handler is uploaded instead of the repository root as an asset bundle.
+        working-directory: workers/ask-poly-ai
+        run: wrangler deploy
 
       - name: Upload runtime credentials
         env:
@@ -95,24 +149,30 @@ jobs:
           CLOUDFLARE_AI_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           GOOGLE_AI_STUDIO: ${{ secrets.GOOGLE_AI_STUDIO }}
+          FREE_API_KEY: ${{ secrets.FREE_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
         shell: bash
+        working-directory: workers/ask-poly-ai
         run: |
+          set -euo pipefail
+          umask 077
+          trap 'rm -f ask-poly-secrets.json' EXIT
           python - <<'PY'
           import json
           import os
 
-          secrets = {
-              "CLOUDFLARE_AI_API_TOKEN": os.environ["CLOUDFLARE_AI_API_TOKEN"],
-              "CLOUDFLARE_AI_ACCOUNT_ID": os.environ["CLOUDFLARE_AI_ACCOUNT_ID"],
-              "SUPABASE_URL": os.environ["SUPABASE_URL"],
-              "SUPABASE_ANON_KEY": os.environ["SUPABASE_ANON_KEY"],
-              "SUPABASE_SERVICE_ROLE_KEY": os.environ["SUPABASE_SERVICE_ROLE_KEY"],
-          }
-          for key in ("OPENAI_API_KEY", "NVIDIA_API_KEY", "GOOGLE_AI_STUDIO"):
+          secrets = {}
+          for key in (
+              "CLOUDFLARE_AI_API_TOKEN", "CLOUDFLARE_AI_ACCOUNT_ID",
+              "SUPABASE_URL", "SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY",
+              "OPENAI_API_KEY", "NVIDIA_API_KEY", "OPENROUTER_API_KEY", "GOOGLE_AI_STUDIO", "FREE_API_KEY",
+              "FIREBASE_SERVICE_ACCOUNT_JSON",
+          ):
               value = os.environ.get(key, "")
               if value:
                   secrets[key] = value
@@ -121,14 +181,40 @@ jobs:
           with open("ask-poly-secrets.json", "w", encoding="utf-8") as file:
               json.dump(secrets, file)
           PY
-          wrangler secret bulk ask-poly-secrets.json --config workers/ask-poly-ai/wrangler.toml
-          rm -f ask-poly-secrets.json
+          # Use wrangler secret put for each secret to ensure they are correctly uploaded.
+          # We use a temporary script to avoid leaking secrets in the logs.
+          echo "Uploading secrets..."
+          printf '%s' "$FIREBASE_SERVICE_ACCOUNT_JSON_VALUE" | npx wrangler secret put FIREBASE_SERVICE_ACCOUNT_JSON
+          echo "${{ secrets.CLOUDFLARE_AI_API_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}" | npx wrangler secret put CLOUDFLARE_AI_API_TOKEN
+          echo "${{ secrets.SUPABASE_URL }}" | npx wrangler secret put SUPABASE_URL
+          echo "${{ secrets.SUPABASE_ANON_KEY }}" | npx wrangler secret put SUPABASE_ANON_KEY
+          echo "${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" | npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+          echo "${{ secrets.OPENAI_API_KEY }}" | npx wrangler secret put OPENAI_API_KEY
+          echo "${{ secrets.NVIDIA_API_KEY }}" | npx wrangler secret put NVIDIA_API_KEY
+          echo "${{ secrets.OPENROUTER_API_KEY }}" | npx wrangler secret put OPENROUTER_API_KEY
+          echo "${{ secrets.GOOGLE_AI_STUDIO }}" | npx wrangler secret put GOOGLE_AI_STUDIO
+          echo "${{ secrets.FREE_API_KEY }}" | npx wrangler secret put FREE_API_KEY
 
-      - name: Deploy secure Worker
+      - name: Re-deploy secure Worker after credential synchronization
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: wrangler deploy --config workers/ask-poly-ai/wrangler.toml
+        working-directory: workers/ask-poly-ai
+        shell: bash
+        run: |
+          set -o pipefail
+          wrangler deploy 2>&1 | tee /tmp/ask-poly-final-deploy.log
+          version_id="$(grep 'Current Version ID:' /tmp/ask-poly-final-deploy.log | tail -1 | awk '{print $NF}')"
+          if [[ ! "$version_id" =~ ^[0-9a-f-]{36}$ ]]; then
+            echo "Could not determine the final module version ID: $version_id" >&2
+            exit 1
+          fi
+          curl --fail-with-body --silent --show-error --request POST \
+            "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/workers/scripts/ask-poly-ai/deployments" \
+            --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            --header 'Content-Type: application/json' \
+            --data "{\"strategy\":\"percentage\",\"versions\":[{\"percentage\":100,\"version_id\":\"${version_id}\"}],\"annotations\":{\"workers/message\":\"Promote verified Ask POLY module after credential synchronization\"}}"
+          echo "Promoted module version $version_id to 100% production traffic."
 
       - name: Smoke-test live Worker and protected mock route
         shell: bash
@@ -139,22 +225,46 @@ jobs:
           import urllib.error
           import urllib.request
 
-          base = "https://ask-poly-ai.nandakumarkdpm.workers.dev"
+          base = "https://api.polypmna.dpdns.org"
           last_error = ""
           for attempt in range(1, 19):
               try:
                   with urllib.request.urlopen(
                       urllib.request.Request(
                           base + f"/health?deploy_attempt={attempt}",
-                          headers={"User-Agent": "POLY-PMNA-Deploy-QA/6.0", "Cache-Control": "no-cache"},
+                          headers={"Origin": "https://polypmna.dpdns.org", "User-Agent": "POLY-PMNA-Deploy-QA/6.0", "Cache-Control": "no-cache"},
                       ),
                       timeout=20,
                   ) as response:
                       health = json.loads(response.read().decode("utf-8"))
                   if not health.get("ok") or not health.get("configured"):
                       raise RuntimeError(f"Worker health is not configured: {health}")
-                  if not health.get("verifiedResultStorage"):
-                      raise RuntimeError(f"Verified result storage is disabled: {health}")
+                  if not health.get("dailyQuizGrading"):
+                      raise RuntimeError(f"Daily quiz grading capability is missing: {health}")
+
+                  # Supabase credentials are deliberately optional for deployment:
+                  # an existing Worker may keep them as Cloudflare secrets, while a
+                  # standard Ask POLY deployment may run without verified-result
+                  # storage. Require the feature only when this repository supplied
+                  # all three credentials in the current deployment.
+                  storage_credentials_supplied = all(
+                      __import__("os").environ.get(name)
+                      for name in ("SUPABASE_URL_VALUE", "SUPABASE_ANON_KEY_VALUE", "SUPABASE_SERVICE_ROLE_KEY_VALUE")
+                  )
+                  if storage_credentials_supplied and not health.get("verifiedResultStorage"):
+                      raise RuntimeError(f"Verified result storage is disabled despite supplied Supabase credentials: {health}")
+
+                  comment_health_request = urllib.request.Request(
+                      base + "/health/comments",
+                      headers={
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Deploy-QA/6.0"
+                      },
+                  )
+                  with urllib.request.urlopen(comment_health_request, timeout=20) as response:
+                      comment_health = json.loads(response.read().decode("utf-8"))
+                  if not comment_health.get("configured") or comment_health.get("writes") != "enabled":
+                      raise RuntimeError(f"Protected comments route is not configured: {comment_health}")
 
                   ask_payload = json.dumps({
                       "message": "Reply with exactly: Ask POLY is ready",
@@ -194,12 +304,50 @@ jobs:
                       if error.code != 401:
                           raise RuntimeError(f"Protected mock route returned HTTP {error.code}, expected 401")
 
+                  malformed_ask = urllib.request.Request(
+                      base + "/api/ask-poly",
+                      data=b"{bad",
+                      method="POST",
+                      headers={
+                          "Content-Type": "application/json",
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Deploy-QA/6.0"
+                      },
+                  )
+                  try:
+                      urllib.request.urlopen(malformed_ask, timeout=20)
+                      raise RuntimeError("Malformed Ask JSON unexpectedly succeeded")
+                  except urllib.error.HTTPError as error:
+                      if error.code != 400:
+                          raise RuntimeError(f"Malformed Ask route returned HTTP {error.code}, expected 400")
+
+                  quiz_request = urllib.request.Request(
+                      base + "/api/grade-daily-quiz",
+                      data=json.dumps({"subject": "1001", "answers": {}}).encode("utf-8"),
+                      method="POST",
+                      headers={
+                          "Content-Type": "application/json",
+                          "Origin": "https://polypmna.dpdns.org",
+                          "User-Agent": "POLY-PMNA-Deploy-QA/6.0"
+                      },
+                  )
+                  try:
+                      urllib.request.urlopen(quiz_request, timeout=20)
+                      raise RuntimeError("Malformed daily quiz submission unexpectedly succeeded")
+                  except urllib.error.HTTPError as error:
+                      if error.code != 400:
+                          raise RuntimeError(f"Malformed daily quiz route returned HTTP {error.code}, expected 400")
+
                   print(json.dumps({
                       "providers": health.get("providers"),
                       "verifiedResultStorage": health.get("verifiedResultStorage"),
+                      "storageCredentialsSupplied": storage_credentials_supplied,
                       "provider": answer.get("provider"),
                       "model": answer.get("model"),
-                      "mockRoute": "401 without login"
+                      "mockRoute": "401 without login",
+                      "askMalformedRoute": "400 for malformed JSON",
+                      "dailyQuizRoute": "400 for malformed submission",
+                      "commentsHealth": "configured"
                   }, indent=2))
                   break
               except Exception as error:

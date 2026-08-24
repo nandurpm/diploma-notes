@@ -17,6 +17,11 @@ on:
           - "Auto"
           - "Good Morning"
           - "Special Day"
+      dry_run:
+        description: "Validate and preview the selected notification without sending it"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -36,6 +41,7 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
           NOTIFICATION_MODE: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.notification_mode || 'Auto' }}
           EVENT_SCHEDULE: ${{ github.event.schedule }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run || 'false' }}
         shell: python
         run: |
           import json
@@ -149,6 +155,21 @@ jobs:
 
           if not title or not body:
               raise SystemExit("ERROR: Selected notification has empty title or body.")
+
+          dry_run = os.environ.get("DRY_RUN", "false").strip().lower() == "true"
+          if dry_run:
+              print("DRY RUN: Notification payload validated; no FCM message will be sent.")
+              print(json.dumps({
+                  "topic": "all-users",
+                  "title": title,
+                  "body": body,
+                  "url": target_url,
+                  "notification_type": notification_type,
+                  "category": category,
+                  "date": date_key,
+                  "collapse_key": collapse_key,
+              }, ensure_ascii=False, indent=2))
+              sys.exit(0)
 
           # Authenticate with Google API
           credentials = service_account.Credentials.from_service_account_info(

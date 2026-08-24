@@ -1,0 +1,31 @@
+/* Syllabus page styles previously embedded inline, now external for CSP compliance. */
+.revision-choice-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.revision-choice-grid .subject-card {
+  height: 100%;
+}
+
+body.portal-page .revision-choice-grid,
+body.portal-page .revision-choice-grid .subject-card,
+body.portal-page .revision-choice-grid .action-row,
+body.portal-page .revision-choice-grid .action-row > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+body.portal-page .revision-choice-grid .subject-card {
+  overflow: hidden;
+}
+
+body.portal-page .revision-choice-grid .subject-card h3,
+body.portal-page .revision-choice-grid .subject-card p {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 720px) {
+  .revision-choice-grid {
+    grid-template-columns: 1fr;
+  }
+}

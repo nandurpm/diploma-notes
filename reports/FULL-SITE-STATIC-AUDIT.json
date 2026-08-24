@@ -1,0 +1,15 @@
+{
+  "generated": "static audit",
+  "documents": 1486,
+  "fragments": 18,
+  "utilities": 3,
+  "views": 2,
+  "missingLocalReferences": {},
+  "duplicateIds": {},
+  "metadataIssues": [],
+  "headingIssues": [],
+  "sitttrPolicyViolations": [],
+  "cacheVersionConflicts": {},
+  "externalReferencesCounted": 14314,
+  "queryOnlyRefsAccepted": 13
+}

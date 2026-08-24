@@ -16,8 +16,8 @@
    - Injects the lesson watermark
    - Reveals all hidden/collapsed lesson sections
    - Expands dynamic tabbed module views into a continuous document
-   - Creates end-of-lesson actions (back button, PDF download, print)
-   - Handles auto-print mode for notes PDF generation
+   - Creates end-of-lesson navigation actions (back button, printable notes, print)
+   - Handles auto-print mode for browser-generated PDF notes
    - Supports both Revision 2021 and Revision 2026 lesson paths
    - Detects the Android native app via user agent
 
@@ -31,6 +31,7 @@
    ========================================================= */
 (() => {
   "use strict";
+  const LESSON_RUNTIME_VERSION = "20260819-ask-context1";
 
   /* =========================================================
      PAGE DETECTION AND CONSTANTS
@@ -51,6 +52,55 @@
   const courseCode = decodeURIComponent(location.pathname.match(/lessons-([^/]+)\.html$/i)?.[1] || "");
   const sectionSelector = ".view-section,.view,.panel,.tab-panel,.tab-content,.module-panel,.lesson-panel,.content-panel,.content-section,.section-panel,[role='tabpanel']";
   const originalUrl = `${location.pathname}${location.search}${location.hash}`;
+
+  function requestNativePrintFallback() {
+    if (!nativeApp) return false;
+    try {
+      const title = encodeURIComponent(document.title || "POLY PMNA printable notes");
+      // MainActivity handles this trusted app-action URL on the UI thread. It
+      // covers WebViews where the JavaScript interface is not exposed after a
+      // navigation or restored page state.
+      window.location.href = `polytechnic-study-hub://print?title=${title}`;
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  function installNativePrintOverride() {
+    if (!nativeApp || window.__polyNativePrintOverride) return;
+    const browserPrint = typeof window.print === "function" ? window.print.bind(window) : null;
+    window.__polyNativePrintOverride = true;
+    window.polyRequestLessonPrint = () => {
+      const bridge = window.PolyNativePrint;
+      if (bridge && typeof bridge.printLesson === "function") {
+        if (window.__polyNativePrintBusy) return true;
+        try {
+          window.__polyNativePrintBusy = true;
+          window.setTimeout(() => { window.__polyNativePrintBusy = false; }, 1500);
+          bridge.printLesson(document.title || "POLY PMNA printable notes");
+          // MainActivity suppresses the fallback if the direct bridge already
+          // opened PrintManager; otherwise the URL dispatcher rescues the call.
+          window.setTimeout(requestNativePrintFallback, 350);
+          return true;
+        } catch (_) {
+          // Try the trusted activity URL dispatcher below.
+        }
+      }
+      if (nativeApp) return requestNativePrintFallback();
+      if (!browserPrint) return false;
+      try {
+        browserPrint();
+        return true;
+      } catch (_) {
+        return false;
+      }
+    };
+    // Many older lesson files still invoke window.print() directly from inline controls.
+    window.print = window.polyRequestLessonPrint;
+  }
+
+  installNativePrintOverride();
 
   /* =========================================================
      PAGE MARKING
@@ -353,26 +403,84 @@
     const actions = document.createElement("section");
     actions.id = "polyLessonEndActions";
     actions.className = "poly-lesson-end-actions";
-    actions.innerHTML = `<p class="poly-lesson-identity">${courseCode ? `Course ${courseCode} · ` : ""}${revision2026 ? "Revision 2026" : "Revision 2021"}</p><div class="poly-lesson-action-row"><a class="poly-lesson-action poly-lesson-back" href="${revision2026 ? "/revision-2026.html" : "/revision-2021.html"}">Back to ${revision2026 ? "Revision 2026" : "Revision 2021"}</a></div>`;
-    const row = actions.querySelector(".poly-lesson-action-row");
-    const pdf = [...document.querySelectorAll("a[href]")].find((link) => /\.pdf(?:$|[?#])|autoPrintNotes|downloadNotes/i.test(link.getAttribute("href") || ""));
-    if (pdf) {
-      const download = document.createElement("a");
-      download.className = "poly-lesson-action poly-lesson-download";
-      download.href = pdf.href;
-      download.textContent = "Download PDF";
-      row.append(download);
+    const revisionHref = revision2026 ? "/revision-2026.html" : "/revision-2021.html";
+    const revisionLabel = revision2026 ? "Revision 2026" : "Revision 2021";
+    let referrerHref = "";
+    try {
+      const referrer = document.referrer ? new URL(document.referrer) : null;
+      if (referrer && referrer.origin === location.origin && referrer.href !== location.href) {
+        referrerHref = `${referrer.pathname}${referrer.search}${referrer.hash}`;
+      }
+    } catch (_) {
+      referrerHref = "";
     }
+    const previousHref = referrerHref || revisionHref;
+    const previousLabel = referrerHref && /(?:revision-(?:2021|2026)|department|syllabus|subject)/i.test(referrerHref)
+      ? "Back to department"
+      : referrerHref ? "Back to previous page" : `Browse ${revisionLabel}`;
+    actions.innerHTML = `<p class="poly-lesson-identity">${courseCode ? `Course ${courseCode} · ` : ""}${revisionLabel}</p><nav class="poly-lesson-breadcrumb" aria-label="Lesson navigation"><a href="/">Home</a><span aria-hidden="true">/</span><a href="${revisionHref}">${revisionLabel}</a><span aria-hidden="true">/</span><span aria-current="page">Course ${courseCode || "lesson"}</span></nav><div class="poly-lesson-action-row"><a class="poly-lesson-action poly-lesson-back" href="${previousHref}">${previousLabel}</a><a class="poly-lesson-action poly-lesson-home" href="/">Home</a></div>`;
+    const row = actions.querySelector(".poly-lesson-action-row");
+    const printable = new URL(location.href);
+    printable.search = "?autoPrintNotes=1";
+    printable.hash = "";
+    const download = document.createElement("a");
+    download.className = "poly-lesson-action poly-lesson-download";
+    download.href = printable.href;
+    // Keep this navigation in the current tab. Android WebViews often do not
+    // implement new-window callbacks, while same-tab navigation works reliably.
+    download.removeAttribute("target");
+    download.removeAttribute("rel");
+    download.textContent = "Save as PDF";
+    download.title = "Open the lesson in print mode and save it as a PDF.";
+    row.append(download);
     const print = document.createElement("button");
     print.className = "poly-lesson-action poly-lesson-print";
     print.type = "button";
     print.textContent = "Print / Save PDF";
     print.addEventListener("click", () => { preparePrintMode(false); setTimeout(() => printWindow(), 80); });
     row.append(print);
+    const ask = document.createElement("a");
+    ask.className = "poly-lesson-action poly-lesson-ask";
+    const askUrl = new URL("/ask-poly.html", location.origin);
+    askUrl.searchParams.set("pageTitle", document.title.replace(/\s*[|–-]\s*POLY PMNA.*$/i, "").trim());
+    askUrl.searchParams.set("subject", courseCode || "");
+    askUrl.searchParams.set("revision", revision2026 ? "2026" : "2021");
+    askUrl.searchParams.set("pageUrl", location.href);
+    ask.href = askUrl.href;
+    ask.textContent = "Ask about this page";
+    ask.title = "Open Ask POLY AI with this lesson as context.";
+    row.append(ask);
     main === document.body ? main.append(actions) : main.after(actions);
   }
 
-  function printWindow() { window.print(); }
+  function installPrintOnlyDownloadHandler() {
+    document.addEventListener("click", (event) => {
+      const target = event.target instanceof Element ? event.target.closest("#downloadBtn,.download-btn,[data-download-notes]") : null;
+      if (!target) return;
+      event.preventDefault();
+      preparePrintMode(false);
+      setTimeout(() => printWindow(), 80);
+    }, true);
+  }
+
+  function printWindow() {
+    const print = window.polyRequestLessonPrint || window.print;
+    if (typeof print !== "function") {
+      preparePrintMode(true);
+      return false;
+    }
+    try {
+      const started = print();
+      if (started === false) {
+        preparePrintMode(true);
+        return false;
+      }
+      return true;
+    } catch (_) {
+      preparePrintMode(true);
+      return false;
+    }
+  }
 
   /* =========================================================
      SCROLL PROGRESS
@@ -409,6 +517,7 @@
     if (!revision2026) await expandDynamicModuleViews();
     revealAllLessonSections();
     createEndActions();
+    installPrintOnlyDownloadHandler();
     updateProgress();
     const params = new URLSearchParams(location.search);
     if (params.has("autoPrintNotes") || params.has("downloadNotes")) {

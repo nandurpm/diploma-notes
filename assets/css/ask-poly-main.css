@@ -109,6 +109,7 @@ html.polytechnic-native-app .ask-sidebar{top:10px!important;height:min(520px,cal
 .ask-bubble.ai .ask-table tbody tr:nth-child(even){background:#f8fbff}
 .ask-bubble.ai .ask-table tbody tr:last-child td{border-bottom:0}
 .ask-bubble.ai .ask-table code{font-size:.92em}
+.ask-generated-image{display:block;width:100%;max-width:512px;height:auto;margin:12px 0;border-radius:18px;border:1px solid rgba(15,35,65,.12);box-shadow:0 12px 30px rgba(15,35,65,.10);background:#f8fafc}
 @media(max-width:560px){.ask-bubble.ai .ask-table-wrap{margin-left:-2px;margin-right:-2px;width:calc(100% + 4px)}.ask-bubble.ai table.ask-table{min-width:500px;font-size:12px}.ask-bubble.ai .ask-table th,.ask-bubble.ai .ask-table td{padding:8px 10px}}
 
 /* 2026-08 mobile chat repair: use the available viewport instead of a fixed overflowing grid. */
@@ -121,6 +122,13 @@ html.polytechnic-native-app body.portal-page.ask-poly-page{height:100%!important
 html.polytechnic-native-app .ask-shell{display:flex!important;flex-direction:column!important;height:100%!important;min-height:0!important}
 html.polytechnic-native-app .ask-app{flex:1 1 auto!important;height:auto!important;min-height:0!important}
 html.polytechnic-native-app .ask-messages{overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+
+/* Native Android chat: preserve vertical space for the answer and composer by
+   hiding secondary metadata panels that are useful mainly in browser view. */
+html.polytechnic-native-app .ask-page-context,
+html.polytechnic-native-app .ask-sources {
+  display: none !important;
+}
 @media(max-width:560px){.ask-shell{height:calc(100dvh - 64px)!important}.ask-app{height:auto!important;min-height:0!important}}
 @media(max-width:560px){html.polytechnic-native-app .ask-shell{height:100%!important}.ask-poly-page .ask-form{padding-bottom:max(8px,env(safe-area-inset-bottom))!important}}
 
@@ -224,7 +232,639 @@ html.polytechnic-native-app .ask-send{
   html.polytechnic-native-app .ask-status{font-size:11px!important;padding:5px 8px!important}
   html.polytechnic-native-app .ask-chat{grid-template-rows:auto minmax(104px,1fr) auto!important}
   html.polytechnic-native-app .ask-messages{min-height:104px!important;padding:12px!important}
-  html.polytechnic-native-app .ask-form{grid-template-columns:minmax(0,1fr) 72px!important;min-height:70px!important;padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important}
+  html.polytechnic-native-app .ask-form{grid-template-columns:minmax(0,1fr) auto auto!important;min-height:70px!important;padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important}
   html.polytechnic-native-app .ask-input{min-height:54px!important;height:54px!important;max-height:54px!important}
-  html.polytechnic-native-app .ask-send{width:72px!important;min-height:54px!important;height:54px!important}
+  html.polytechnic-native-app .ask-queue{min-height:54px!important;height:54px!important;padding:0 10px!important;font-size:12px!important}
+  html.polytechnic-native-app .ask-send{width:auto!important;min-width:64px!important;min-height:54px!important;height:54px!important;padding:0 10px!important}
+}
+
+/* Stop and Queue actions */
+.ask-actions { display: flex; gap: 8px; align-items: center; }
+.ask-stop, .ask-queue {
+  border: 0;
+  min-height: 46px;
+  border-radius: 20px;
+  font-weight: 950;
+  cursor: pointer;
+  font-family: inherit;
+  transition: .18s ease;
+  padding: 0 20px;
+  white-space: nowrap;
+}
+.ask-stop { background: #fee2e2; color: #b91c1c; border: 1px solid rgba(185,28,28,.1); }
+.ask-stop:hover { background: #fecaca; }
+.ask-queue { background: #f0fdf4; color: #15803d; border: 1px solid rgba(21,128,61,.1); }
+.ask-queue:hover { background: #dcfce7; }
+
+@media(max-width:900px) {
+  .ask-form {
+    display: grid!important;
+    grid-template-columns: minmax(0,1fr) auto auto!important;
+    align-items: end!important;
+    gap: 7px!important;
+  }
+  .ask-actions {
+    display: contents!important;
+    width: auto;
+    margin-top: 0;
+  }
+  .ask-stop,.ask-queue,.ask-send {
+    grid-row: 1;
+    min-height: 44px;
+    height: 44px;
+  }
+  .ask-stop { grid-column: 2; }
+  .ask-queue { grid-column: 2; padding: 0 12px; }
+  .ask-send { grid-column: 3; width: auto!important; min-width: 68px; padding: 0 14px!important; }
+  .ask-form[data-generating="true"] .ask-send { display: none!important; }
+  .ask-form[data-generating="true"] .ask-stop { grid-column: 3; min-width: 68px; padding: 0 10px; }
+}
+
+/* Clear status and focus treatment for generation controls. */
+.ask-stop[hidden]{display:none!important}
+.ask-stop:not([hidden]){box-shadow:0 0 0 3px rgba(185,28,28,.08);font-weight:950}
+.ask-stop:focus-visible,.ask-queue:focus-visible,.ask-send:focus-visible,.ask-new:focus-visible,.ask-delete:focus-visible,.ask-mobile-chats-btn:focus-visible,.ask-mobile-new:focus-visible{outline:3px solid rgba(37,99,235,.36);outline-offset:2px}
+.ask-stop:disabled,.ask-queue:disabled,.ask-send:disabled,.ask-new:disabled,.ask-delete:disabled,.ask-item:disabled{cursor:not-allowed;opacity:.62;transform:none!important}
+.ask-queue.active{background:#dcfce7;border-color:rgba(21,128,61,.35);color:#166534;box-shadow:0 0 0 3px rgba(21,128,61,.10)}
+.ask-form[data-generating="true"] .ask-input{border-color:rgba(37,99,235,.34);background:#fbfdff}
+.ask-list .ask-item:disabled{background:#f8fafc}
+.ask-list .ask-delete:disabled{background:#f8fafc}
+body.ask-chats-open{overflow:hidden}
+@media(prefers-reduced-motion:reduce){.ask-poly-page *,.ask-poly-page *::before,.ask-poly-page *::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* Structured AI response layout: readable sections instead of one long broken text block. */
+.ask-bubble.ai {
+  max-width: min(980px, 92%);
+  white-space: normal;
+  padding: 16px 18px 13px;
+}
+
+.ask-bubble.user {
+  max-width: min(520px, 72%);
+  white-space: normal;
+}
+
+.ask-message-label {
+  margin: 0 0 9px;
+  color: #64748b;
+  font-size: 10px;
+  font-weight: 950;
+  letter-spacing: .13em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ask-bubble.user .ask-message-label {
+  color: rgba(255, 255, 255, .72);
+  text-align: right;
+}
+
+.ask-message-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.ask-response-body {
+  color: #243247;
+  font-size: 15px;
+  line-height: 1.72;
+  overflow-wrap: anywhere;
+}
+
+.ask-response-body p {
+  margin: 0 0 13px;
+}
+
+.ask-response-body p:last-child,
+.ask-response-body ul:last-child,
+.ask-response-body ol:last-child,
+.ask-response-body blockquote:last-child,
+.ask-response-body .ask-code:last-child,
+.ask-response-body .ask-table-wrap:last-child {
+  margin-bottom: 0;
+}
+
+.ask-response-body h1,
+.ask-response-body h2,
+.ask-response-body h3,
+.ask-response-body h4 {
+  margin: 20px 0 8px;
+  color: #0f2f5f;
+  font-weight: 950;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+}
+
+.ask-response-body h1 { font-size: 1.35rem; }
+.ask-response-body h2 { font-size: 1.2rem; }
+.ask-response-body h3 { font-size: 1.05rem; }
+.ask-response-body h4 { font-size: .96rem; }
+.ask-response-body h1:first-child,
+.ask-response-body h2:first-child,
+.ask-response-body h3:first-child,
+.ask-response-body h4:first-child { margin-top: 0; }
+
+.ask-response-body ul,
+.ask-response-body ol {
+  margin: 8px 0 15px;
+  padding-left: 24px;
+}
+
+.ask-response-body li {
+  margin: 5px 0;
+  padding-left: 3px;
+}
+
+.ask-response-body li::marker {
+  color: #2563eb;
+  font-weight: 900;
+}
+
+.ask-response-body blockquote {
+  margin: 14px 0;
+  padding: 11px 14px;
+  border-left: 4px solid #38bdf8;
+  border-radius: 0 12px 12px 0;
+  background: #f0f9ff;
+  color: #164e63;
+}
+
+.ask-response-body hr {
+  margin: 18px 0;
+  border: 0;
+  border-top: 1px solid rgba(15, 35, 65, .12);
+}
+
+.ask-bubble.ai .ask-code {
+  margin: 15px 0;
+}
+
+.ask-bubble.ai .ask-code pre {
+  white-space: pre;
+  word-wrap: normal;
+  word-break: normal;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 420px;
+  tab-size: 2;
+}
+
+.ask-bubble.ai .ask-code code.hljs {
+  display: block;
+  min-width: max-content;
+}
+
+.ask-bubble.ai .ask-table-wrap {
+  margin: 15px 0;
+}
+
+.ask-stream-content {
+  white-space: normal;
+}
+.ask-stream-content[data-streaming="true"]::after {
+  content: "▌";
+  display: inline-block;
+  width: .58em;
+  margin-left: 3px;
+  color: #2563eb;
+  font-weight: 800;
+  animation: ask-stream-cursor 720ms steps(1, end) infinite;
+}
+@keyframes ask-stream-cursor {
+  0%, 48% { opacity: 1; }
+  49%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ask-stream-content[data-streaming="true"]::after { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .ask-bubble.ai { max-width: 96%; }
+  .ask-bubble.user { max-width: 84%; }
+}
+
+@media (max-width: 560px) {
+  .ask-bubble.ai,
+  .ask-bubble.user {
+    max-width: 100%;
+  }
+
+  .ask-bubble.ai { padding: 13px 14px 11px; }
+  .ask-response-body { font-size: 14px; line-height: 1.65; }
+  .ask-response-body h1 { font-size: 1.18rem; }
+  .ask-response-body h2 { font-size: 1.08rem; }
+  .ask-response-body h3 { font-size: 1rem; }
+  .ask-bubble.ai .ask-code pre { font-size: 12.5px; }
+}
+
+/* Safe inline SVG engineering diagrams */
+.ask-diagram {
+  width: 100%;
+  margin: 18px 0 20px;
+  overflow: hidden;
+  border: 1px solid rgba(37, 99, 235, .18);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(15, 35, 65, .09);
+}
+
+.ask-diagram > figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 12px;
+  border-bottom: 1px solid rgba(15, 35, 65, .09);
+  background: linear-gradient(135deg, #eff6ff, #f8fbff);
+  color: #0f3b72;
+}
+
+.ask-diagram-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.ask-diagram-title strong {
+  color: #1d4ed8;
+  font-size: 10px;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.ask-diagram-controls {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.ask-diagram-controls button {
+  min-width: 30px;
+  min-height: 28px;
+  padding: 3px 8px;
+  border: 1px solid rgba(37, 99, 235, .18);
+  border-radius: 8px;
+  background: #fff;
+  color: #164e63;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.ask-diagram-controls button:hover,
+.ask-diagram-controls button:focus-visible {
+  border-color: #2563eb;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.ask-diagram-controls button:focus-visible {
+  outline: 3px solid rgba(37, 99, 235, .24);
+  outline-offset: 1px;
+}
+
+.ask-diagram-viewport {
+  max-width: 100%;
+  overflow: auto;
+  background: #fff;
+  overscroll-behavior: contain;
+}
+
+.ask-diagram-canvas {
+  min-width: 620px;
+  padding: 12px;
+  transform-origin: top left;
+  transition: transform .18s ease;
+}
+
+.ask-diagram-svg {
+  display: block;
+  width: 100%;
+  min-width: 580px;
+  height: auto;
+  max-height: 620px;
+}
+
+.ask-diagram-svg .diagram-surface { fill: #fbfdff; stroke: #dbeafe; stroke-width: 2; }
+.ask-diagram-svg .wire,
+.ask-diagram-svg .axis { fill: none; stroke: #17324d; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.ask-diagram-svg .axis { stroke: #64748b; stroke-width: 2.5; }
+.ask-diagram-svg .component { fill: #fff; stroke: #0f3b72; stroke-width: 4; stroke-linejoin: round; }
+.ask-diagram-svg .component-fill { fill: #dbeafe; stroke: #0f3b72; stroke-width: 4; stroke-linejoin: round; }
+.ask-diagram-svg .core { fill: #cbd5e1; stroke: #475569; stroke-width: 3; }
+.ask-diagram-svg .coil { fill: none; stroke: #b45309; stroke-width: 7; stroke-linecap: round; }
+.ask-diagram-svg .junction { fill: #0f3b72; }
+.ask-diagram-svg .arrow-head { fill: #2563eb; }
+.ask-diagram-svg .light-arrow { fill: none; stroke: #f59e0b; stroke-width: 4; stroke-linecap: round; marker-end: url(#poly-arrow); }
+.ask-diagram-svg .component-arrow { fill: none; stroke: #16a34a; stroke-width: 4; marker-end: url(#poly-arrow); }
+.ask-diagram-svg .wave { fill: none; stroke: #dc2626; stroke-width: 4; stroke-linecap: round; }
+.ask-diagram-svg .label,
+.ask-diagram-svg .component-label,
+.ask-diagram-svg .section-label,
+.ask-diagram-svg .terminal,
+.ask-diagram-svg .value-label,
+.ask-diagram-svg .polarity,
+.ask-diagram-svg .axis-label,
+.ask-diagram-svg .flow-label,
+.ask-diagram-svg .branch-label { fill: #172033; font-family: Inter, system-ui, sans-serif; }
+.ask-diagram-svg .component-label { font-size: 20px; font-weight: 900; }
+.ask-diagram-svg .section-label { fill: #1d4ed8; font-size: 19px; font-weight: 950; letter-spacing: 2px; }
+.ask-diagram-svg .terminal { fill: #075985; font-size: 18px; font-weight: 900; }
+.ask-diagram-svg .value-label { fill: #b45309; font-size: 20px; font-weight: 900; }
+.ask-diagram-svg .polarity { fill: #b91c1c; font-size: 22px; font-weight: 950; }
+.ask-diagram-svg .axis-label { fill: #64748b; font-size: 18px; font-weight: 800; }
+.ask-diagram-svg .flow-shape { fill: #eff6ff; stroke: #1d4ed8; stroke-width: 3; }
+.ask-diagram-svg .block-shape { fill: #ecfeff; stroke: #0891b2; stroke-width: 3; }
+.ask-diagram-svg .flow-label { fill: #0f3b72; font-size: 18px; font-weight: 900; }
+.ask-diagram-svg .branch-label { fill: #b45309; font-size: 16px; font-weight: 950; }
+
+.ask-diagram-fallback-note {
+  margin: 12px 0 0;
+  padding: 8px 11px;
+  border-left: 3px solid #38bdf8;
+  border-radius: 0 9px 9px 0;
+  background: #f0f9ff;
+  color: #164e63;
+  font-size: 12px;
+}
+
+.ask-diagram:fullscreen {
+  padding: 20px;
+  background: #fff;
+}
+
+.ask-diagram:fullscreen .ask-diagram-viewport,
+.ask-diagram:fullscreen .ask-diagram-canvas { height: calc(100vh - 90px); }
+.ask-diagram:fullscreen .ask-diagram-svg { max-height: none; }
+
+@media (max-width: 700px) {
+  .ask-diagram > figcaption { align-items: flex-start; flex-direction: column; }
+  .ask-diagram-controls { width: 100%; justify-content: flex-start; }
+  .ask-diagram-canvas { min-width: 620px; }
+  .ask-diagram-svg { min-width: 580px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ask-diagram-canvas { transition: none; }
+}
+
+/* Department-aware Ask POLY context */
+.ask-header-status{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+.ask-department-context{display:inline-flex;align-items:center;min-height:30px;padding:6px 10px;border:1px solid rgba(29,78,216,.18);border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:.72rem;font-weight:800;line-height:1.2}
+.ask-department-choices{display:grid;gap:8px;margin-top:16px;padding:12px;border:1px solid rgba(29,78,216,.16);border-radius:14px;background:linear-gradient(135deg,#f8fbff,#eef6ff)}
+.ask-department-choices strong{color:#163d79;font-size:.82rem}
+.ask-department-choices>div{display:flex;flex-wrap:wrap;gap:7px}
+.ask-department-choices button{border:1px solid #bfdbfe;border-radius:999px;padding:7px 10px;background:#fff;color:#1d4ed8;font:inherit;font-size:.75rem;font-weight:750;cursor:pointer}
+.ask-department-choices button:hover,.ask-department-choices button:focus-visible{border-color:#2563eb;background:#dbeafe;outline:none}
+@media(max-width:700px){.ask-header-status{justify-content:flex-start}.ask-department-context{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ask-department-choices>div{display:grid;grid-template-columns:1fr}.ask-department-choices button{text-align:left}}
+
+/* Complete learning-assistant controls and grounded response metadata */
+.ask-context-bar{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(112px,.75fr));gap:8px;padding:10px 16px;border-bottom:1px solid rgba(15,35,65,.08);background:#f8fbff;flex:0 0 auto}
+.ask-context-bar label{display:grid;gap:4px;color:#64748b;font-size:10px;font-weight:900;letter-spacing:.04em;text-transform:uppercase}
+.ask-context-bar select{width:100%;min-height:34px;padding:6px 9px;border:1px solid rgba(29,78,216,.16);border-radius:10px;background:#fff;color:#172033;font:inherit;font-size:12px;font-weight:750;outline:none}
+.ask-context-bar select:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.12)}
+.ask-page-context{margin:8px 16px 0;padding:8px 11px;border:1px solid rgba(8,145,178,.18);border-radius:12px;background:#ecfeff;color:#155e75;font-size:12px;line-height:1.4}
+.ask-knowledge-indicator{display:flex;align-items:center;gap:6px;margin:12px 0 8px;padding:7px 10px;border-radius:10px;background:#f8fafc;color:#475569;font-size:11px;font-weight:850}
+.ask-knowledge-indicator.grounded{background:#ecfdf5;color:#047857}.ask-knowledge-indicator.general{background:#f8fafc;color:#64748b}.ask-knowledge-indicator.warning{background:#fff7ed;color:#9a3412}
+.ask-sources{margin:12px 0 4px;padding:10px 12px;border:1px solid rgba(15,35,65,.10);border-radius:12px;background:linear-gradient(135deg,#fbfdff,#f8fbff)}
+.ask-sources strong{display:block;margin-bottom:6px;color:#334155;font-size:12px}.ask-sources ul{display:grid;gap:4px;margin:0;padding-left:18px;color:#64748b;font-size:12px}.ask-sources a{color:#075985;font-weight:800}
+.ask-response-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}.ask-response-actions button{border:1px solid rgba(29,78,216,.16);border-radius:999px;padding:6px 9px;background:#fff;color:#1d4ed8;font:inherit;font-size:11px;font-weight:850;cursor:pointer}.ask-response-actions button:hover,.ask-response-actions button:focus-visible{background:#dbeafe;border-color:#2563eb;outline:none}
+.ask-prompts button.ask-action-primary{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}.ask-prompts button.ask-action-primary:hover{background:#2563eb;color:#fff}
+@media(max-width:900px){.ask-context-bar{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px 10px}.ask-context-bar label:first-child{grid-column:1/-1}}
+@media(max-width:560px){.ask-context-bar{gap:6px;padding:7px 9px}.ask-context-bar label{font-size:9px}.ask-context-bar select{min-height:32px;font-size:11px}.ask-page-context{margin:6px 10px 0}.ask-response-actions{gap:5px}.ask-response-actions button{font-size:10px;padding:6px 8px}}
+
+/* Saved-chat management actions and contextual study links */
+.ask-item-wrap{padding-right:38px}
+.ask-item{padding-right:13px}
+.ask-item-actions{position:absolute;right:38px;top:7px;display:flex;gap:2px;opacity:.82}
+.ask-chat-action{display:grid;place-items:center;width:25px;height:25px;border:0;border-radius:8px;background:transparent;color:#64748b;cursor:pointer;font:inherit;font-size:13px;font-weight:900;padding:0}
+.ask-chat-action:hover,.ask-chat-action:focus-visible{background:#eff6ff;color:#1d4ed8;outline:none}
+.ask-chat-action:disabled{cursor:not-allowed;opacity:.5}
+.ask-delete{z-index:2}
+.ask-response-body .ask-sources li{overflow-wrap:anywhere}
+@media(max-width:900px){.ask-item-actions{right:39px}.ask-chat-action{width:28px;height:28px}}
+@media(max-width:560px){.ask-item-actions{right:37px}.ask-chat-action{width:26px;height:26px;font-size:12px}}
+.ask-poly-page .action.ask-poly,.poly-lesson-action.poly-lesson-ask{background:linear-gradient(135deg,#1d4ed8,#0891b2);color:#fff;border-color:transparent;box-shadow:0 6px 12px rgba(29,78,216,.16)}
+.ask-poly-page .action.ask-poly:hover,.poly-lesson-action.poly-lesson-ask:hover{filter:brightness(1.05);transform:translateY(-1px)}
+@media(prefers-reduced-motion:reduce){.ask-poly-page .action.ask-poly:hover,.poly-lesson-action.poly-lesson-ask:hover{transform:none}}
+
+/* Android WebView: maximize readable AI answer width and remove unused side gutters. */
+html.polytechnic-native-app .ask-shell{padding-left:0!important;padding-right:0!important}
+html.polytechnic-native-app .ask-messages{padding-left:3px!important;padding-right:3px!important}
+html.polytechnic-native-app .ask-bubble.ai{width:100%!important;max-width:100%!important}
+.ask-poly-page .ask-form > .sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+
+.ask-response-actions .ask-report-mistake{border-color:rgba(185,28,28,.16);color:#b91c1c;background:#fff7ed}.ask-response-actions .ask-report-mistake:hover,.ask-response-actions .ask-report-mistake:focus-visible{background:#fee2e2;border-color:#ef4444;outline:none}
+
+/* Final mobile composer repair: keep the input and action group together. */
+@media (max-width: 900px) {
+  .ask-poly-page .ask-prompts {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    overflow: hidden !important;
+    max-height: 88px !important;
+    gap: 6px !important;
+    padding: 8px 10px !important;
+  }
+  .ask-poly-page .ask-prompts button {
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .ask-poly-page .ask-form,
+  html.polytechnic-native-app .ask-poly-page .ask-form {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-end !important;
+    gap: 7px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 8px 10px max(8px, env(safe-area-inset-bottom)) !important;
+  }
+  .ask-poly-page .ask-input,
+  html.polytechnic-native-app .ask-poly-page .ask-input {
+    flex: 1 1 auto !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    min-height: 54px !important;
+    height: 54px !important;
+    max-height: 54px !important;
+  }
+  .ask-poly-page .ask-actions,
+  html.polytechnic-native-app .ask-poly-page .ask-actions {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    align-items: stretch !important;
+    gap: 6px !important;
+    width: auto !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+  }
+  .ask-poly-page .ask-queue,
+  .ask-poly-page .ask-send,
+  .ask-poly-page .ask-stop,
+  html.polytechnic-native-app .ask-poly-page .ask-queue,
+  html.polytechnic-native-app .ask-poly-page .ask-send,
+  html.polytechnic-native-app .ask-poly-page .ask-stop {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 0 !important;
+    min-height: 54px !important;
+    height: 54px !important;
+    padding: 0 10px !important;
+    border-radius: 18px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+  .ask-poly-page .ask-send,
+  html.polytechnic-native-app .ask-poly-page .ask-send {
+    min-width: 68px !important;
+  }
+  .ask-poly-page .ask-form[data-generating="true"] .ask-send,
+  html.polytechnic-native-app .ask-poly-page .ask-form[data-generating="true"] .ask-send {
+    display: none !important;
+  }
+  .ask-poly-page .ask-form[data-generating="true"] .ask-stop,
+  html.polytechnic-native-app .ask-poly-page .ask-form[data-generating="true"] .ask-stop {
+    display: inline-flex !important;
+    min-width: 68px !important;
+  }
+}
+
+/* Progressive Polytechnic learning tools */
+.ask-tools{flex:0 0 auto;border-top:1px solid rgba(15,35,65,.08);border-bottom:1px solid rgba(15,35,65,.08);background:linear-gradient(135deg,#fbfdff,#f5faff);padding:9px 16px}
+.ask-tools-head{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#0f2f5f;font-size:13px;font-weight:950}
+.ask-tools-toggle,.ask-tool-group button,.ask-tool-media button{min-height:34px;border:1px solid rgba(37,99,235,.16);border-radius:999px;background:#fff;color:#1e3a8a;padding:0 11px;font:inherit;font-size:12px;font-weight:850;cursor:pointer;transition:.16s ease}
+.ask-tools-toggle:hover,.ask-tool-group button:hover,.ask-tool-media button:hover{background:#1d4ed8;color:#fff;border-color:#1d4ed8;transform:translateY(-1px)}
+.ask-tools-panel{padding-top:9px}.ask-tool-group{display:flex;flex-wrap:wrap;gap:7px}.ask-tool-group button{background:#eff6ff}.ask-tool-options,.ask-tool-media{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:9px}.ask-tool-options label{display:inline-flex;align-items:center;gap:6px;color:#475569;font-size:12px;font-weight:850}.ask-tool-options select{min-height:32px;border:1px solid rgba(15,35,65,.14);border-radius:10px;background:#fff;color:#172033;padding:0 8px;font:inherit;font-size:12px}.ask-data-saver{padding:6px 9px;border:1px solid rgba(15,35,65,.1);border-radius:999px;background:#fff}.ask-data-saver input{accent-color:#1d4ed8}.ask-tool-media button{background:#f8fafc;color:#334155}.ask-tool-help{margin:8px 0 0;color:#64748b;font-size:11px;line-height:1.4}.ask-tool-help[data-state="error"]{color:#b91c1c}.ask-tool-help[data-state="ready"]{color:#047857}.ask-response-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px;padding-top:10px;border-top:1px solid rgba(15,35,65,.08)}.ask-response-actions button{min-height:32px;border:1px solid rgba(15,35,65,.12);border-radius:999px;background:#f8fbff;color:#1e3a8a;padding:0 10px;font:inherit;font-size:12px;font-weight:850;cursor:pointer}.ask-response-actions button:hover{background:#1d4ed8;color:#fff}.ask-report-mistake{color:#9f1239!important;background:#fff1f2!important;border-color:rgba(159,18,57,.16)!important}.ask-response-actions button:focus-visible,.ask-tools button:focus-visible,.ask-tools select:focus-visible{outline:3px solid rgba(37,99,235,.26);outline-offset:2px}
+@media(max-width:900px){.ask-tools{padding:8px 10px}.ask-tool-group{max-height:130px;overflow:auto;padding-right:2px}.ask-tools-panel{max-height:260px;overflow:auto}.ask-tool-options,.ask-tool-media{gap:6px}.ask-tool-options label{font-size:11px}.ask-tool-options select{max-width:130px}.ask-tool-media button{flex:1 1 auto}.ask-tool-help{font-size:10px}}
+@media(max-width:560px){.ask-tools-head{font-size:12px}.ask-tool-group button,.ask-tool-media button,.ask-tools-toggle{min-height:32px;font-size:11px;padding:0 9px}.ask-tool-options{display:grid;grid-template-columns:1fr 1fr}.ask-data-saver{grid-column:1/3}.ask-tool-media{display:grid;grid-template-columns:1fr 1fr}.ask-tool-media button:last-child{grid-column:1/3}.ask-tools-panel{max-height:230px}}
+@media(prefers-reduced-motion:reduce){.ask-tools button{transition:none}}
+
+/* AI tables: keep every column inside the answer card instead of creating a horizontal scroller. */
+.ask-bubble.ai .ask-table-wrap{width:100%!important;max-width:100%!important;overflow:visible!important;overflow-x:visible!important}
+.ask-bubble.ai table.ask-table{width:100%!important;max-width:100%!important;min-width:0!important;table-layout:fixed!important;border-collapse:collapse}
+.ask-bubble.ai .ask-table th,
+.ask-bubble.ai .ask-table td{min-width:0!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:break-word!important}
+@media(max-width:900px){
+  .ask-response-body .ask-table-wrap{margin:12px 0}
+  .ask-response-body table.ask-table{font-size:11px;line-height:1.35}
+  .ask-response-body table.ask-table th,
+  .ask-response-body table.ask-table td{padding:6px 5px;vertical-align:top}
+}
+
+
+/* Data Saver keeps the learning content usable while reducing optional visual work. */
+body.ask-data-saver .ask-bubble{animation:none!important;box-shadow:none!important}
+body.ask-data-saver .ask-sidebar,body.ask-data-saver .ask-chat{box-shadow:none!important}
+body.ask-data-saver .ask-poly-page .topbar{backdrop-filter:none!important;box-shadow:none!important}
+body.ask-data-saver .ask-generated-image{display:none!important}
+
+/* Mobile simplification: context selectors are desktop-only to preserve chat space. */
+@media (max-width: 900px) {
+  .ask-poly-page .ask-context-bar,
+  html.polytechnic-native-app .ask-poly-page .ask-context-bar {
+    display: none !important;
+  }
+}
+
+/* Structured flowchart renderer */
+.ask-diagram-svg .flow-edge{fill:none;stroke:#17324d;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;marker-end:url(#poly-arrow)}
+.ask-diagram-svg .flow-node{stroke-width:3.5;stroke-linejoin:round}
+.ask-diagram-svg .flow-start{fill:#ecfdf5;stroke:#047857}
+.ask-diagram-svg .flow-input{fill:#eff6ff;stroke:#1d4ed8}
+.ask-diagram-svg .flow-decision{fill:#fff7ed;stroke:#c2410c}
+.ask-diagram-svg .flow-process{fill:#f0fdfa;stroke:#0f766e}
+.ask-diagram-svg .flow-node-label{fill:#172033;font-family:Inter,system-ui,sans-serif;font-size:18px;font-weight:900;text-anchor:middle}
+.ask-diagram-svg .flow-branch-label{fill:#b45309;font-family:Inter,system-ui,sans-serif;font-size:16px;font-weight:950;text-anchor:middle;paint-order:stroke;stroke:#fff7ed;stroke-width:5px;stroke-linejoin:round}
+.ask-diagram-fallback{padding:14px;border:1px solid #bae6fd;border-radius:14px;background:#f0f9ff;color:#164e63}
+.ask-diagram-fallback figcaption{font-weight:900}
+
+
+/* 2026-08 full-width desktop chat: use the available viewport instead of a centered 1680px canvas. */
+@media (min-width: 901px) {
+  body.portal-page.ask-poly-page > main {
+    padding-inline: 0 !important;
+  }
+
+  .ask-shell {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+  }
+
+  .ask-app {
+    width: 100% !important;
+  }
+
+  .ask-messages {
+    padding-inline: clamp(18px, 2vw, 36px) !important;
+  }
+
+  .ask-bubble.ai {
+    max-width: min(1320px, 96%) !important;
+  }
+
+  .ask-bubble.user {
+    max-width: min(640px, 82%) !important;
+  }
+}
+
+
+/* 2026-08 vertical density: keep the Ask POLY workspace close to the header and footer. */
+@media (min-width: 901px) {
+  .ask-poly-page .topbar {
+    margin-bottom: 0 !important;
+  }
+
+  body.portal-page.ask-poly-page.has-fixed-site-header {
+    padding-top: 64px !important;
+  }
+
+  body.portal-page.ask-poly-page > main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ask-shell {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ask-poly-page .site-breadcrumbs {
+    padding-top: 0 !important;
+  }
+
+  .ask-poly-page > footer[data-site-footer] {
+    margin-top: 8px !important;
+    margin-bottom: 0 !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .ask-poly-page .topbar {
+    margin-bottom: 0 !important;
+  }
+
+  .ask-shell {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .ask-shell {
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+  }
 }

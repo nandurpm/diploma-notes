@@ -1,0 +1,190 @@
+/* Contact page polish: aligned with the homepage and About-page visual system. */
+
+body.portal-page:has(.contact-card) {
+  background:
+    radial-gradient(circle at 92% 8%, rgba(37, 99, 235, 0.11), transparent 34rem),
+    radial-gradient(circle at 4% 46%, rgba(15, 159, 186, 0.08), transparent 30rem),
+    #f7fbff;
+}
+
+body.portal-page:has(.contact-card) > main {
+  width: min(100% - 32px, 1380px);
+  margin-inline: auto;
+}
+
+body.portal-page:has(.contact-card) .site-breadcrumbs {
+  width: 100%;
+  margin-inline: auto;
+}
+
+body.portal-page:has(.contact-card) .page-title {
+  position: relative;
+  overflow: hidden;
+  margin: 18px 0 20px;
+  padding: clamp(28px, 4vw, 46px);
+  border: 1px solid rgba(29, 78, 216, 0.1);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 255, 0.9));
+  box-shadow: 0 16px 40px rgba(15, 35, 65, 0.07);
+}
+
+body.portal-page:has(.contact-card) .page-title::after {
+  content: "";
+  position: absolute;
+  right: -70px;
+  bottom: -100px;
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(15, 159, 186, 0.14);
+  border-radius: 50%;
+  box-shadow: 0 0 0 24px rgba(15, 159, 186, 0.04), 0 0 0 48px rgba(15, 159, 186, 0.025);
+  pointer-events: none;
+}
+
+body.portal-page:has(.contact-card) .page-title > * {
+  position: relative;
+  z-index: 1;
+}
+
+body.portal-page:has(.contact-card) .page-title h1 {
+  max-width: 880px;
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 4.3vw, 3.55rem);
+  letter-spacing: -0.045em;
+}
+
+body.portal-page:has(.contact-card) .page-title > p:not(.kicker) {
+  max-width: 780px;
+  color: #52657b;
+  font-size: clamp(0.98rem, 1.4vw, 1.1rem);
+  line-height: 1.65;
+}
+
+body.portal-page:has(.contact-card) .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+body.portal-page:has(.contact-card) .hero-actions .btn,
+body.portal-page:has(.contact-card) .info-card .btn,
+body.portal-page:has(.contact-card) .comment-submit {
+  min-height: 46px;
+}
+
+body.portal-page:has(.contact-card) .section.cards.three {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  padding: 0;
+}
+
+body.portal-page:has(.contact-card) .info-card {
+  min-width: 0;
+  min-height: 218px;
+  padding: clamp(20px, 2.5vw, 28px);
+  border: 1px solid rgba(15, 35, 65, 0.09);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 12px 30px rgba(15, 35, 65, 0.055);
+}
+
+body.portal-page:has(.contact-card) .info-card:hover {
+  border-color: rgba(29, 78, 216, 0.2);
+  box-shadow: 0 18px 38px rgba(29, 78, 216, 0.09);
+  transform: translateY(-2px);
+}
+
+body.portal-page:has(.contact-card) .info-card > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 28px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #1d4ed8;
+  background: #eff6ff;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+
+body.portal-page:has(.contact-card) .info-card h2 {
+  margin: 12px 0 8px;
+  color: #0f172a;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  letter-spacing: -0.025em;
+}
+
+body.portal-page:has(.contact-card) .info-card p,
+body.portal-page:has(.contact-card) .report-checklist {
+  color: #5f7186;
+  line-height: 1.6;
+}
+
+body.portal-page:has(.contact-card) .info-card .btn {
+  margin-top: 14px;
+}
+
+body.portal-page:has(.contact-card) .notice {
+  margin: 18px 0;
+  padding: clamp(20px, 3vw, 30px);
+  border: 1px solid rgba(13, 148, 136, 0.14);
+  border-left: 4px solid #0d9488;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f0fdfa, #ffffff 68%);
+  box-shadow: 0 10px 26px rgba(15, 35, 65, 0.04);
+}
+
+body.portal-page:has(.contact-card) .notice h2 {
+  margin-top: 0;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+}
+
+body.portal-page:has(.contact-card) .discussion-shell {
+  border-radius: 22px;
+  box-shadow: 0 16px 38px rgba(15, 35, 65, 0.06);
+}
+
+body.portal-page:has(.contact-card) .comment-form input,
+body.portal-page:has(.contact-card) .comment-form textarea {
+  min-height: 46px;
+  border-radius: 11px;
+}
+
+body.portal-page:has(.contact-card) .comment-form textarea {
+  min-height: 128px;
+}
+
+@media (max-width: 900px) {
+  body.portal-page:has(.contact-card) .section.cards.three {
+    grid-template-columns: 1fr;
+  }
+
+  body.portal-page:has(.contact-card) .info-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  body.portal-page:has(.contact-card) > main {
+    width: min(100% - 22px, 640px);
+  }
+
+  body.portal-page:has(.contact-card) .page-title {
+    margin-top: 12px;
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+
+  body.portal-page:has(.contact-card) .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  body.portal-page:has(.contact-card) .hero-actions .btn {
+    width: 100%;
+  }
+}

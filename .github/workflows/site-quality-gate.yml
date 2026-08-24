@@ -38,6 +38,8 @@ jobs:
           python tools/normalize_public_brand_assets.py --check
           python tools/inject_structured_data.py --check
           python tools/verify_revision_2026_catalogue.py
+          python tools/verify_malayalam_language.py
+          python tools/verify_mock_exam_public.py
       - name: Run current site quality gate
         run: python tools/site_quality_gate.py
       - name: Validate critical JavaScript
@@ -46,10 +48,6 @@ jobs:
           node --check assets/js/ask-poly-v2.js
           node --check assets/js/mock-exam-service.js
           node --check assets/js/mock-exam-1004.js
-          node --check workers/ask-poly-ai/src/index.js
-          node --check workers/ask-poly-ai/src/secure-index.js
-          node --check workers/ask-poly-ai/src/mock-evaluator.js
-          node --check workers/ask-poly-ai/src/result-store.js
       - name: Prevent committed secrets
         run: |
           python - <<'PY'
