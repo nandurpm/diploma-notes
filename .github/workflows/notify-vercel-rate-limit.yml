@@ -1,6 +1,6 @@
 name: Notify Vercel retry window
 
-"on":
+on:
   schedule:
     # Check the retry window every six hours without using a per-minute poller.
     - cron: "0 */6 * * *"
@@ -54,7 +54,7 @@ jobs:
             message='<!-- vercel-retry-window:success -->'
             body="${message}
 
-Vercel deployment for PR #${PR_NUMBER} is passing again. The retry-window monitor detected a successful deployment check for commit \\`${head_sha:0:12}\\`."
+          Vercel deployment for PR #${PR_NUMBER} is passing again. The retry-window monitor detected a successful deployment check for commit \\`${head_sha:0:12}\\`."
           elif [[ "$conclusion" == "failure" && "$summary" == *"retry in 24 hours"* ]]; then
             if [[ -z "$completed_at" ]]; then
               echo "Rate-limit failure has no completion timestamp; waiting for the next check."
@@ -70,7 +70,7 @@ Vercel deployment for PR #${PR_NUMBER} is passing again. The retry-window monito
             message='<!-- vercel-retry-window:ready -->'
             body="${message}
 
-The 24-hour Vercel deployment rate-limit window for PR #${PR_NUMBER} appears to have elapsed. Please retry the Vercel deployment now. This monitor does not bypass Vercel authentication, rate limits, or required checks."
+          The 24-hour Vercel deployment rate-limit window for PR #${PR_NUMBER} appears to have elapsed. Please retry the Vercel deployment now. This monitor does not bypass Vercel authentication, rate limits, or required checks."
           else
             echo "Vercel is not in the known rate-limit state; no notification needed."
             exit 0
