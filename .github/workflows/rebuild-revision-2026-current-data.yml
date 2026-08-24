@@ -6,6 +6,7 @@ on:
     paths:
       - 'tools/normalize_revision_2026_legacy_data.py'
       - 'tools/build_revision_2026_pages.py'
+      - 'revision-2026-content/lessons/**'
       - 'tools/bump_subject_card_assets.py'
       - '.github/workflows/rebuild-revision-2026-current-data.yml'
 
@@ -32,6 +33,8 @@ jobs:
         run: python tools/build_revision_2026_pages.py
       - name: Refresh subject-card browser cache versions
         run: python tools/bump_subject_card_assets.py
+      - name: Refresh public structured data after generation
+        run: python tools/inject_structured_data.py
       - name: Commit corrected cards, data and reports
         run: |
           git add -A

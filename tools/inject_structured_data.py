@@ -12,8 +12,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
 EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tools", "workers", "node_modules", "_site"}
-EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html"}
-BLOCK_RE = re.compile(r'<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>[\s\S]*?</script>\s*', re.I)
+EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html", "origin_main_1253.html"}
+STRUCTURED_SCRIPT_RE = r'<script\b(?=[^>]*\btype=["\']application/ld\+json["\'])(?=[^>]*\bdata-poly-structured-data(?:\s*=\s*["\'][^"\']*["\'])?)[^>]*>[\s\S]*?</script>\s*'
+BLOCK_RE = re.compile(STRUCTURED_SCRIPT_RE, re.I)
 HEAD_END_RE = re.compile(r"</head>", re.I)
 DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
 TITLE_RE = re.compile(r"<title>([\s\S]*?)</title>", re.I)
@@ -122,7 +123,7 @@ def updated_text(path: Path) -> str:
 
 
 def validate(text: str, relative: str) -> None:
-    matches = re.findall(r'<script\s+type=["\']application/ld\+json["\']\s+data-poly-structured-data>([\s\S]*?)</script>', text, re.I)
+    matches = re.findall(r'<script\b(?=[^>]*\btype=["\']application/ld\+json["\'])(?=[^>]*\bdata-poly-structured-data(?:\s*=\s*["\'][^"\']*["\'])?)[^>]*>([\s\S]*?)</script>', text, re.I)
     if len(matches) != 1:
         raise ValueError(f"Expected one POLY JSON-LD block in {relative}; found {len(matches)}")
     data = json.loads(matches[0])

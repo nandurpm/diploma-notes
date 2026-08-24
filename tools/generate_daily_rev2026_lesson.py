@@ -35,7 +35,7 @@ GITHUB_MODELS_ENDPOINT = os.environ.get(
 GITHUB_MODELS_MODEL = os.environ.get("GITHUB_MODELS_MODEL", "openai/gpt-4.1")
 ASK_POLY_ENDPOINT = os.environ.get(
     "ASK_POLY_ENDPOINT",
-    "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy",
+    "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly",
 )
 
 MIN_HTML_CHARS = int(os.environ.get("REV2026_MIN_HTML_CHARS", "30000"))
@@ -288,6 +288,7 @@ OUTPUT CONTRACT — NON-NEGOTIABLE
 - Support ?autoPrintNotes=1 and ?downloadNotes=1.
 - Use full-width responsive layout with no duplicate website header, no fixed site header, and no permanent left sidebar.
 - Include substantial Malayalam support for major concepts; keep technical terms, formulas, units, standards and component names in English.
+- Mark every Malayalam-support container with lang="ml" (and use lang="en" for English-only containers); do not leave visible Malayalam prose under an English-only ancestor.
 - Include every official module/topic/outcome/experiment/activity from the source.
 - Disclose official-source inconsistencies instead of silently correcting them.
 - Use semantic HTML, internal CSS, vanilla JavaScript, inline SVG and local/root-relative assets only.
@@ -468,7 +469,7 @@ def inject_shared_runtime(document: str) -> str:
     marker = '/assets/js/lesson-navigation-fix.js'
     if marker in document.lower():
         return document
-    script_tag = '\n<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>'
+    script_tag = '\n<script src="/assets/js/lesson-navigation-fix.js?v=20260819-ask-context1" defer></script>'
     body_end = re.search(r'</body\s*>', document, flags=re.I)
     if body_end:
         document = document[:body_end.start()] + script_tag + '\n' + document[body_end.start():]

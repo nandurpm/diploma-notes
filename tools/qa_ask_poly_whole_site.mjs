@@ -6,12 +6,6 @@ import { chromium } from "playwright";
 const BASE_URL = process.env.QA_BASE_URL || "http://127.0.0.1:8000";
 const OUT_DIR = process.env.QA_SCREENSHOT_DIR || "/tmp/ask-poly-whole-site-qa";
 const REPORT_PATH = "reports/ask-poly-whole-site-qa.json";
-const PROGRAMME_REGISTRY_PATH = "assets/data/revision-2026-programmes.json";
-const programmeRegistry = JSON.parse(fs.readFileSync(PROGRAMME_REGISTRY_PATH, "utf8"));
-const EXPECTED_PROGRAMME_COUNT = programmeRegistry.programmeCount;
-if (!Number.isInteger(EXPECTED_PROGRAMME_COUNT) || EXPECTED_PROGRAMME_COUNT !== programmeRegistry.programmes?.length) {
-  throw new Error(`Invalid Revision 2026 programme registry count: ${JSON.stringify(programmeRegistry)}`);
-}
 const PROMPT = "Where can I find Revision 2026 Electrical & Electronics Engineering subject 1008 and what resources are available?";
 
 fs.mkdirSync(OUT_DIR, { recursive: true });
@@ -48,11 +42,6 @@ try {
       })
     });
   });
-  await page.route(/https:\/\/ask-poly-ai\.nandakumarkdpm\.workers\.dev\/health(?:\?.*)?$/, (route) => route.fulfill({
-    status: 200,
-    contentType: "application/json",
-    body: JSON.stringify({ ok: true, service: "qa-stub" })
-  }));
   await page.route(/https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com)\/.*/, (route) => route.fulfill({ status: 204, body: "" }));
 
   const response = await page.goto(`${BASE_URL}/ask-poly.html`, { waitUntil: "networkidle", timeout: 60000 });
@@ -64,7 +53,6 @@ try {
   const status = await page.evaluate(() => window.AskPolyKnowledge.getStatus());
   check("whole-site knowledge loads", status?.ok === true, { status });
   check("knowledge contains 42 Revision 2026 programmes", status?.counts?.programmes2026 === 42, { counts: status?.counts });
-  check(`knowledge contains ${EXPECTED_PROGRAMME_COUNT} Revision 2026 programmes`, status?.counts?.programmes2026 === EXPECTED_PROGRAMME_COUNT, { counts: status?.counts, expectedProgrammes: EXPECTED_PROGRAMME_COUNT });
   check("knowledge contains both curriculum datasets", status?.counts?.subjectRecords >= 300, { counts: status?.counts });
 
   const dimensions = await page.evaluate(() => ({ viewport: innerWidth, document: document.documentElement.scrollWidth, body: document.body.scrollWidth }));

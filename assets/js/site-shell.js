@@ -39,20 +39,24 @@
 
   // label: "Home" label: "About" label: "Revision 2026" label: "Revision 2021" label: "Mock Exams" label: "Ask POLY AI" label: "2015 Materials" label: "Tools" label: "Help"
 
-  const VERSION = "20260725-watermark2";
+  const VERSION = "20260819-developer-link3";
   const SITE_NAME = "POLY PMNA";
   const FAVICON_HREF = "/assets/media/poly-pmna-favicon.svg";
   const LOGO_HREF = "/assets/media/poly-pmna-logo.png";
   const MOBILE_HEADER_CSS = "/assets/css/mobile-header-hotfix.css?v=20260720-mobile-header-fix3";
   const WATERMARK_CSS = "/assets/css/lesson-watermark.css?v=20260725-watermark1";
-  const REVEAL_CSS = "/assets/css/reveal.css?v=20260728-global-reveal1";
-  const REVEAL_JS = "/assets/js/reveal.js?v=20260728-global-reveal1";
+  const REVEAL_CSS = "/assets/css/reveal.css?v=20260814-audit-remediation1";
+  const REVEAL_JS = "/assets/js/reveal.js?v=20260814-audit-remediation1";
   const currentPath = () => window.location.pathname.replace(/\/+$/, "") || "/";
   const isLessonPage = () => /\/(?:revision-2026-content\/)?lessons\/lessons-[^/]+\.html$/i.test(currentPath());
-  const isRevealDisabledPage = () => {
-    const path = currentPath();
-    return path === "/" || path.endsWith("/index.html") || document.body?.dataset.revealDisabled === "true";
-  };
+  const isRevealDisabledPage = () => document.body?.dataset.revealDisabled === "true";
+
+  function promoteDeferredStyles() {
+    document.querySelectorAll('link[data-deferred-stylesheet="true"][rel="preload"]').forEach(link => {
+      link.rel = "stylesheet";
+      link.removeAttribute("as");
+    });
+  }
 
   function hasAsset(selector, pathname) {
     return [...document.querySelectorAll(selector)].some(node => {
@@ -109,7 +113,9 @@
      that load the site shell directly without main.js.
      ========================================================= */
   function ensureRevealAssets() {
-    if (isRevealDisabledPage()) return;
+    const path = currentPath();
+    const isHomePage = path === "/" || path.endsWith("/index.html");
+    if (isRevealDisabledPage() || isHomePage) return;
 
     if (!hasAsset('link[rel="stylesheet"]', "/assets/css/reveal.css")) {
       const link = document.createElement("link");
@@ -354,7 +360,11 @@
     if (isLessonPage()) return;
     const footer = document.querySelector("[data-site-footer]") || document.querySelector("body.portal-page > footer.footer");
     if (!footer) return;
-    const desired = `<p>&copy; <span data-year>${new Date().getFullYear()}</span> ${SITE_NAME}.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/about.html">About</a><a href="/contact.html">Help</a><a href="https://nandakumarm.dpdns.org/about.html" target="_blank" rel="noopener noreferrer">Developer</a></nav><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>`;
+    const nativeApp = /(?:PolytechnicStudyHubAndroid|PolyPmnaAndroid)\/[0-9]+(?:\.[0-9]+)*/i.test(navigator.userAgent || "");
+    const developerHref = nativeApp
+      ? "polytechnic-study-hub://open-external?path=https%3A%2F%2Fnandakumarm.dpdns.org%2F"
+      : "https://nandakumarm.dpdns.org/";
+    const desired = `<p>&copy; <span data-year>${new Date().getFullYear()}</span> ${SITE_NAME}.</p><nav class="footer-links" aria-label="Footer navigation"><a href="/about.html">About</a><a href="/contact.html">Help</a><a href="${developerHref}" target="_self">Developer</a></nav><nav class="footer-legal" aria-label="Legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/disclaimer.html">Disclaimer</a></nav>`;
     if (force || footer.dataset.siteShellVersion !== VERSION) {
       footer.className = "footer";
       footer.innerHTML = desired;
@@ -374,6 +384,7 @@
      Exposed as window.PolySiteShell.render().
      ========================================================= */
   function render(options = {}) {
+    promoteDeferredStyles();
     ensureFavicon();
     ensureRevealAssets();
     if (isLessonPage()) {
@@ -389,6 +400,7 @@
 
   /* Expose the public API and trigger initial render */
   window.PolySiteShell = Object.freeze({ render, version: VERSION, siteName: SITE_NAME });
+  promoteDeferredStyles();
   ensureFavicon();
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => render({ force: true }), { once: true });

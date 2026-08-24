@@ -5,8 +5,6 @@ const DEFAULT_OPENAI_MODEL = "gpt-4o-mini";
 const OPENAI_FALLBACK_MODELS = ["gpt-4o-mini"];
 const DEFAULT_NVIDIA_MODEL = "meta/llama-3.1-8b-instruct";
 const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash";
-const DEFAULT_OPENROUTER_MODEL = "openrouter/free";
-const DEFAULT_FREE_API_MODEL = "";
 
 const SYSTEM_INSTRUCTIONS = `You are Ask POLY, a compact educational assistant for Kerala Polytechnic and diploma students.
 
@@ -661,19 +659,13 @@ function providerOrder(env) {
   const usable = requested.filter((provider) => {
     if (provider === "openai") return Boolean(env.OPENAI_API_KEY);
     if (provider === "nvidia") return Boolean(env.NVIDIA_API_KEY);
-    if (provider === "openrouter") return Boolean(env.OPENROUTER_API_KEY);
-    if (provider === "gemini") return Boolean(env.GEMINI_API_KEY);
-    if (provider === "google" || provider === "google-ai-studio") return Boolean(env.GOOGLE_AI_STUDIO);
-    if (provider === "free" || provider === "free-api") return Boolean(env.FREE_API_URL);
+    if (provider === "gemini" || provider === "google") return Boolean(env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO);
     return false;
   });
   return usable.length ? usable : [
-    ...(env.NVIDIA_API_KEY ? ["nvidia"] : []),
-    ...(env.OPENROUTER_API_KEY ? ["openrouter"] : []),
     ...(env.OPENAI_API_KEY ? ["openai"] : []),
-    ...(env.GEMINI_API_KEY ? ["gemini"] : []),
-    ...(env.GOOGLE_AI_STUDIO ? ["google-ai-studio"] : []),
-    ...(env.FREE_API_URL ? ["free-api"] : [])
+    ...(env.NVIDIA_API_KEY ? ["nvidia"] : []),
+    ...(env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO ? ["gemini"] : [])
   ];
 }
 
@@ -766,286 +758,33 @@ async function askNvidia(input, env) {
   return { answer, citations: [], usedWeb: false, provider: "nvidia", model: data?.model || model, responseId: data?.id || "" };
 }
 
-async function askOpenRouter(input, env) {
-  const model = cleanText(env.OPENROUTER_MODEL, 180) || DEFAULT_OPENROUTER_MODEL;
-  const { response, data } = await fetchJsonWithTimeout("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${env.OPENROUTER_API_KEY}`,
-      "Content-Type": "application/json",
-      "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
-      "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
-    },
-    body: JSON.stringify({
-      model,
-      messages: messagesFromInput(input),
-      temperature: Number(env.AI_TEMPERATURE || 0.35),
-      top_p: Number(env.AI_TOP_P || 0.9),
-      max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
-      stream: false
-    })
-  }, env, "openrouter");
-  if (!response.ok) {
-    const error = new Error(data?.error?.message || `OpenRouter request failed with HTTP ${response.status}.`);
-    error.status = response.status;
-    error.provider = "openrouter";
-    error.data = data;
-    throw error;
-  }
-  const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
-  if (!answer) throw new Error("OpenRouter returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "" };
-}
-
-async function askFreeApi(input, env) {
-  const url = cleanText(env.FREE_API_URL, 800);
-  if (!url) throw new Error("FREE_API_URL is not configured.");
-  const model = cleanText(env.FREE_API_MODEL, 180) || DEFAULT_FREE_API_MODEL;
-  const headers = { "Content-Type": "application/json" };
-  if (cleanText(env.FREE_API_KEY, 800)) headers.Authorization = `Bearer ${env.FREE_API_KEY}`;
-  const { response, data } = await fetchJsonWithTimeout(url, {
-    method: "POST",
-    headers,
-    body: JSON.stringify({
-      ...(model ? { model } : {}),
-      messages: messagesFromInput(input),
-      temperature: Number(env.AI_TEMPERATURE || 0.35),
-      top_p: Number(env.AI_TOP_P || 0.9),
-      max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
-      stream: false
-    })
-  }, env, "free-api");
-  if (!response.ok) {
-    const error = new Error(data?.error?.message || data?.detail || `Free API request failed with HTTP ${response.status}.`);
-    error.status = response.status;
-    error.provider = "free-api";
-    error.data = data;
-    throw error;
-  }
-  const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || data?.response || data?.output_text || "", 6000);
-  if (!answer) throw new Error("Free API returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "free-api", model: data?.model || model || "configured-free-api", responseId: data?.id || "" };
-}
-
-async function askGemini(input, env, apiKey, provider = "gemini") {
-  const resolvedApiKey = apiKey || env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
+async function askGemini(input, env) {
+  const apiKey = env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
   const model = cleanText(env.GEMINI_MODEL, 120) || DEFAULT_GEMINI_MODEL;
   const { response, data } = await fetchJsonWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`, {
     method: "POST",
-    headers: { "x-goog-api-key": resolvedApiKey, "Content-Type": "application/json" },
+    headers: { "x-goog-api-key": apiKey, "Content-Type": "application/json" },
     body: JSON.stringify({ system_instruction: { parts: [{ text: SYSTEM_INSTRUCTIONS }] }, contents: geminiContentsFromInput(input), generationConfig: { temperature: Number(env.AI_TEMPERATURE || 0.35), maxOutputTokens: Number(env.MAX_OUTPUT_TOKENS || 450) } })
-  }, env, provider);
+  }, env, "gemini");
   if (!response.ok) {
     const error = new Error(data?.error?.message || `Gemini request failed with HTTP ${response.status}.`);
     error.status = response.status;
-    error.provider = provider;
-
+    error.provider = "gemini";
     error.data = data;
     throw error;
   }
   const answer = cleanText((data?.candidates || []).flatMap((candidate) => candidate?.content?.parts || []).map((part) => part?.text || "").filter(Boolean).join("\n\n"), 6000);
   if (!answer) throw new Error("Gemini returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider, model, responseId: data?.responseId || "" };
-}
-
-async function fetchStreamWithTimeout(url, options, env, provider) {
-  const timeoutMs = providerTimeoutMs(env);
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
-  try {
-    const response = await fetch(url, { ...options, signal: controller.signal });
-    clearTimeout(timer);
-    if (!response.ok || !response.body) {
-      const detail = cleanText(await response.text().catch(() => ""), 300);
-      const error = new Error(detail || `${provider} streaming request failed with HTTP ${response.status}.`);
-      error.status = response.status;
-      error.provider = provider;
-      throw error;
-    }
-    return response;
-  } catch (error) {
-    clearTimeout(timer);
-    if (error?.name === "AbortError") {
-      const wrapped = new Error(`${provider} streaming timed out after ${timeoutMs} ms.`);
-      wrapped.status = 504;
-      wrapped.provider = provider;
-      throw wrapped;
-    }
-    throw error;
-  }
-}
-
-function openAiCompatibleStreamPayload(model, input, env) {
-  return {
-    ...(model ? { model } : {}),
-    messages: messagesFromInput(input),
-    temperature: Number(env.AI_TEMPERATURE || 0.35),
-    top_p: Number(env.AI_TOP_P || 0.9),
-    max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450),
-    stream: true
-  };
-}
-
-function normalizeGeminiStream(response, provider, model) {
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  const encoder = new TextEncoder();
-  let buffer = "";
-
-  const extractText = (eventText) => {
-    const data = eventText.split(/\r?\n/)
-      .filter((line) => line.startsWith("data:"))
-      .map((line) => line.slice(5).trimStart())
-      .join("\n")
-      .trim();
-    if (!data || data === "[DONE]") return { done: data === "[DONE]", text: "" };
-    try {
-      const payload = JSON.parse(data);
-      const text = (payload?.candidates || [])
-        .flatMap((candidate) => candidate?.content?.parts || [])
-        .map((part) => part?.text || "")
-        .filter(Boolean)
-        .join("");
-      return { done: false, text };
-    } catch (_) {
-      return { done: false, text: "" };
-    }
-  };
-
-  const stream = new ReadableStream({
-    async pull(controller) {
-      try {
-        const { value, done } = await reader.read();
-        buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
-        const events = buffer.split(/\r?\n\r?\n/);
-        buffer = events.pop() || "";
-        for (const event of events) {
-          const parsed = extractText(event);
-          if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
-          if (parsed.done) {
-            controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-            controller.close();
-            return;
-          }
-        }
-        if (done) {
-          if (buffer.trim()) {
-            const parsed = extractText(buffer);
-            if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
-          }
-          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-          controller.close();
-        }
-      } catch (error) {
-        controller.error(error);
-      }
-    },
-    cancel(reason) {
-      return reader.cancel(reason);
-    }
-  });
-  return { stream, provider, model };
-}
-
-async function askOpenAiCompatibleStream(input, env, provider, url, apiKey, model, extraHeaders = {}) {
-  const response = await fetchStreamWithTimeout(url, {
-    method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json", Accept: "text/event-stream", ...extraHeaders },
-    body: JSON.stringify(openAiCompatibleStreamPayload(model, input, env))
-  }, env, provider);
-  return { stream: response.body, provider, model };
-}
-
-async function askGeminiStream(input, env, apiKey, provider = "gemini") {
-  const resolvedApiKey = apiKey || env.GEMINI_API_KEY || env.GOOGLE_AI_STUDIO;
-  const model = cleanText(env.GEMINI_MODEL, 120) || DEFAULT_GEMINI_MODEL;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:streamGenerateContent?alt=sse`;
-  const response = await fetchStreamWithTimeout(url, {
-    method: "POST",
-    headers: { "x-goog-api-key": resolvedApiKey, "Content-Type": "application/json", Accept: "text/event-stream" },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: SYSTEM_INSTRUCTIONS }] },
-      contents: geminiContentsFromInput(input),
-      generationConfig: { temperature: Number(env.AI_TEMPERATURE || 0.35), maxOutputTokens: Number(env.MAX_OUTPUT_TOKENS || 450) }
-    })
-  }, env, provider);
-  return normalizeGeminiStream(response, provider, model);
-}
-
-async function askExternalProviderStream(input, env, provider) {
-  if (provider === "nvidia") {
-    const model = cleanText(env.NVIDIA_MODEL, 140) || DEFAULT_NVIDIA_MODEL;
-    return askOpenAiCompatibleStream(input, env, provider, "https://integrate.api.nvidia.com/v1/chat/completions", env.NVIDIA_API_KEY, model);
-  }
-  if (provider === "openrouter") {
-    const model = cleanText(env.OPENROUTER_MODEL, 180) || DEFAULT_OPENROUTER_MODEL;
-    return askOpenAiCompatibleStream(input, env, provider, "https://openrouter.ai/api/v1/chat/completions", env.OPENROUTER_API_KEY, model, {
-      "HTTP-Referer": cleanText(env.OPENROUTER_HTTP_REFERER, 500) || "https://polypmna.dpdns.org",
-      "X-Title": cleanText(env.OPENROUTER_X_TITLE, 200) || "POLY PMNA Ask POLY AI"
-    });
-  }
-  if (provider === "openai") {
-    const model = cleanText(env.OPENAI_MODEL, 120) || DEFAULT_OPENAI_MODEL;
-    return askOpenAiCompatibleStream(input, env, provider, "https://api.openai.com/v1/chat/completions", env.OPENAI_API_KEY, model);
-  }
-  if (provider === "gemini") return askGeminiStream(input, env, env.GEMINI_API_KEY, "gemini");
-  if (provider === "google" || provider === "google-ai-studio") return askGeminiStream(input, env, env.GOOGLE_AI_STUDIO, "google-ai-studio");
-  if (provider === "free" || provider === "free-api") {
-    const url = cleanText(env.FREE_API_URL, 800);
-    if (!url) throw new Error("FREE_API_URL is not configured.");
-    const model = cleanText(env.FREE_API_MODEL, 180) || DEFAULT_FREE_API_MODEL;
-    return askOpenAiCompatibleStream(input, env, provider, url, cleanText(env.FREE_API_KEY, 800), model);
-  }
-  throw new Error(`Unsupported streaming provider: ${provider}`);
-}
-
-function textAnswerStream(answer, provider = "local-offline-assistant", model = "") {
-  const encoder = new TextEncoder();
-  const text = String(answer || "");
-  return {
-    stream: new ReadableStream({
-      start(controller) {
-        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: text } })}\n\n`));
-        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-        controller.close();
-      }
-    }),
-    provider,
-    model
-  };
-}
-
-export async function askPolyStream(body, env) {
-  const message = cleanText(body?.message, 2200);
-  if (!message) throw new Error("Please enter a question.");
-  const localMath = localMathAnswer(message);
-  if (localMath) return textAnswerStream(localMath.answer || localMath, localMath.provider, localMath.model);
-  const input = sanitizeHistory(body.history);
-  input.push({ role: "user", content: buildUserContent(body) });
-  const errors = [];
-  for (const provider of providerOrder(env)) {
-    try {
-      return await askExternalProviderStream(input, env, provider);
-    } catch (error) {
-      errors.push(`${provider}: ${error?.status || "error"} ${cleanText(error?.message, 180)}`);
-      console.error(`Ask POLY ${provider} streaming provider failed`, error);
-    }
-  }
-  const finalError = new Error(`All configured AI providers failed. ${errors.join(" | ")}`);
-  finalError.providerErrors = errors;
-  throw finalError;
+  return { answer, citations: [], usedWeb: false, provider: "gemini", model, responseId: data?.responseId || "" };
 }
 
 async function askAnyProvider(input, env) {
   const errors = [];
   for (const provider of providerOrder(env)) {
     try {
-      if (provider === "nvidia") return await askNvidia(input, env);
-      if (provider === "openrouter") return await askOpenRouter(input, env);
       if (provider === "openai") return await askOpenAI(input, env);
-      if (provider === "gemini") return await askGemini(input, env, env.GEMINI_API_KEY, "gemini");
-      if (provider === "google" || provider === "google-ai-studio") return await askGemini(input, env, env.GOOGLE_AI_STUDIO, "google-ai-studio");
-      if (provider === "free" || provider === "free-api") return await askFreeApi(input, env);
+      if (provider === "nvidia") return await askNvidia(input, env);
+      if (provider === "gemini" || provider === "google") return await askGemini(input, env);
     } catch (error) {
       errors.push(`${provider}: ${error?.status || "error"} ${cleanText(error?.message, 180)}`);
       console.error(`Ask POLY ${provider} provider failed`, error);

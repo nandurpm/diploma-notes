@@ -6,7 +6,7 @@
 <h3>C program structure and control flow</h3>
 <p>A C program normally contains preprocessor directives, declarations, <span class="inline-code">main()</span>, statements and user-defined functions. Execution begins at <span class="inline-code">main()</span>.</p>
 <div class="keyword"><span>Sequence</span><span>if / else</span><span>switch</span><span>for</span><span>while</span><span>do-while</span><span>break</span><span>continue</span><span>goto</span><span>return</span></div>
-<div class="ml"><b>മലയാളം:</b> Sequence-ൽ statements ക്രമത്തിൽ നടക്കും. Selection-ൽ condition അനുസരിച്ച് branch തിരഞ്ഞെടുക്കും. Loop-ൽ ഒരു block ആവർത്തിക്കും. <span class="inline-code">break</span> loop/switch അവസാനിപ്പിക്കും; <span class="inline-code">continue</span> അടുത്ത iteration-ലേക്ക് പോകും.</div>
+<div class="ml" lang="ml"><b>മലയാളം:</b> Sequence-ൽ statements ക്രമത്തിൽ നടക്കും. Selection-ൽ condition അനുസരിച്ച് branch തിരഞ്ഞെടുക്കും. Loop-ൽ ഒരു block ആവർത്തിക്കും. <span class="inline-code">break</span> loop/switch അവസാനിപ്പിക്കും; <span class="inline-code">continue</span> അടുത്ത iteration-ലേക്ക് പോകും.</div>
 <div class="codebox"><div class="code-title"><span>Example — largest of three numbers</span><button class="copy-code" type="button">Copy</button></div><pre><code>#include &lt;stdio.h&gt;
 
 int main(void)
@@ -55,7 +55,7 @@ int main(void)
     return 0;
 }</code></pre></div>
 <div class="call mist"><b>Macro caution:</b> Always parenthesize parameters and the complete replacement expression. Even then, avoid arguments with side effects such as <span class="inline-code">SQUARE(i++)</span>.</div>
-<div class="ml">Macro text substitution ആണ്; function പോലെ type checking ഇല്ല. അതിനാൽ parentheses ഉപയോഗിക്കുക.</div>
+<div class="ml" lang="ml">Macro text substitution ആണ്; function പോലെ type checking ഇല്ല. അതിനാൽ parentheses ഉപയോഗിക്കുക.</div>
 </article>
 <article class="card unit">
 <span class="code-id">M1.03–M1.04</span><span class="hour">2 hours</span>
@@ -80,7 +80,7 @@ int gcd(int a, int b)
     }
     return a;
 }</code></pre></div>
-<div class="ml">Function ഒരു പ്രത്യേക task ചെയ്യണം. Meaningful name, ചെറിയ parameter list, clear return value എന്നിവ modularity കൂട്ടും.</div>
+<div class="ml" lang="ml">Function ഒരു പ്രത്യേക task ചെയ്യണം. Meaningful name, ചെറിയ parameter list, clear return value എന്നിവ modularity കൂട്ടും.</div>
 </article>
 <article class="card unit wide">
 <span class="code-id">M1.05–M1.06</span><span class="hour">3 hours</span>
@@ -108,7 +108,7 @@ int main(void)
     visit();
     return 0;
 }</code></pre></div>
-<div class="ml"><b>Scope</b> variable name എവിടെ ഉപയോഗിക്കാമെന്ന് പറയുന്നു. <b>Lifetime</b> memory-ൽ variable എത്രകാലം നിലനിൽക്കും എന്ന് പറയുന്നു. Static local variable function calls ഇടയിലും value സൂക്ഷിക്കും.</div>
+<div class="ml" lang="ml"><b>Scope</b> variable name എവിടെ ഉപയോഗിക്കാമെന്ന് പറയുന്നു. <b>Lifetime</b> memory-ൽ variable എത്രകാലം നിലനിൽക്കും എന്ന് പറയുന്നു. Static local variable function calls ഇടയിലും value സൂക്ഷിക്കും.</div>
 </article>
 <article class="card unit wide">
 <span class="code-id">M1.07–M1.08</span><span class="hour">3 hours</span>
@@ -138,9 +138,9 @@ int main(void)
     return 0;
 }</code></pre></div>
 <div class="grid">
-<div class="card third blue"><h3>Base case</h3><p>Returns without another recursive call.</p><div class="ml">Recursion നിർത്തുന്ന condition.</div></div>
-<div class="card third green"><h3>Progress</h3><p>Each call reduces the problem size.</p><div class="ml">ഓരോ call-ലും base case-ലേക്ക് അടുത്തുവരണം.</div></div>
-<div class="card third yellow"><h3>Stack cost</h3><p>Each call consumes stack memory; deep recursion can overflow.</p><div class="ml">വളരെ deep recursion stack overflow ഉണ്ടാക്കാം.</div></div>
+<div class="card third blue"><h3>Base case</h3><p>Returns without another recursive call.</p><div class="ml" lang="ml">Recursion നിർത്തുന്ന condition.</div></div>
+<div class="card third green"><h3>Progress</h3><p>Each call reduces the problem size.</p><div class="ml" lang="ml">ഓരോ call-ലും base case-ലേക്ക് അടുത്തുവരണം.</div></div>
+<div class="card third yellow"><h3>Stack cost</h3><p>Each call consumes stack memory; deep recursion can overflow.</p><div class="ml" lang="ml">വളരെ deep recursion stack overflow ഉണ്ടാക്കാം.</div></div>
 </div>
 </article>
 </div>

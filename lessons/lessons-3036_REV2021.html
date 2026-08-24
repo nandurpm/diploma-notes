@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Official Kerala Polytechnic Revision 2021 handbook for DC Machines Lab (3036). Construction, performance testing, speed control, and efficiency analysis.">
+<title>DC Machines Lab (3036) | REV2021 Handbook | POLY PMNA</title><link rel="canonical" href="https://polypmna.dpdns.org/lessons/lessons-3036_REV2021.html"><meta name="poly-pmna:curriculum-scheme" content="REV2021">
+<meta name="poly-pmna:programme" content="Electrical & Electronics Engineering">
+<meta name="poly-pmna:subject-code" content="3036">
+<meta name="poly-pmna:source-url" content="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3036">
+<meta name="poly-pmna:source-verified-date" content="2026-08-19">
+<style>
+:root {
+    --primary: #c2410c;
+    --secondary: #9a3412;
+    --bg: #fff7ed;
+    --text: #431407;
+    --muted: #78350f;
+    --border: #fed7aa;
+    --card: #ffffff;
+    --max-width: 1200px;
+}
+
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+header.sticky {
+    position: sticky;
+    top: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(5px);
+    border-bottom: 2px solid var(--border);
+    z-index: 1000;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.hero {
+    background: linear-gradient(135deg, #431407, #c2410c);
+    color: white;
+    padding: 5rem 2rem;
+    border-radius: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.hero h1 { margin: 0; font-size: 3.5rem; }
+.hero p { opacity: 0.9; font-size: 1.3rem; }
+
+.meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.meta-item {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.nav-bar {
+    display: flex;
+    gap: 2rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 3rem;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.nav-bar a:hover { color: var(--primary); }
+
+section {
+    background: var(--card);
+    padding: 3.5rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+}
+
+h2 { border-left: 8px solid var(--primary); padding-left: 1.5rem; margin-top: 0; color: var(--primary); }
+
+.curriculum-map table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.curriculum-map th, .curriculum-map td {
+    border: 1px solid var(--border);
+    padding: 1.25rem;
+    text-align: left;
+}
+
+.curriculum-map th { background: #ffedd5; }
+
+.module-content { margin-top: 2rem; }
+
+.lab-expt {
+    background: #fffaf0;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+}
+
+.lab-expt h3 { margin-top: 0; color: var(--secondary); }
+
+.ml-note {
+    background: #fef3c7;
+    border-left: 6px solid #d97706;
+    padding: 2rem;
+    margin: 2rem 0;
+    border-radius: 0.5rem;
+    font-style: italic;
+}
+
+.diagram {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    margin: 2.5rem 0;
+    text-align: center;
+}
+
+@media print {
+    .sticky, .nav-bar, .controls { display: none; }
+    body { background: white; }
+    section { border: none; padding: 0; margin-bottom: 5rem; }
+    .hero { background: white !important; color: black !important; border: 3px solid black; }
+}
+
+[lang="ml"] { font-family: 'Noto Sans Malayalam', sans-serif; }
+</style>
+<script type="application/ld+json" data-poly-structured-data>{"@context":"https://schema.org","@type":"LearningResource","name":"DC Machines Lab (3036) | REV2021 Handbook | POLY PMNA","url":"https://polypmna.dpdns.org/lessons/lessons-3036_REV2021.html","description":"Official Kerala Polytechnic Revision 2021 handbook for DC Machines Lab (3036). Construction, performance testing, speed control, and efficiency analysis.","isPartOf":{"@type":"WebSite","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"publisher":{"@type":"Organization","name":"POLY PMNA","url":"https://polypmna.dpdns.org/"},"inLanguage":["en","ml"],"learningResourceType":"Course handbook","educationalLevel":"Diploma","audience":{"@type":"EducationalAudience","educationalRole":"student"}}</script>
+</head>
+<body data-curriculum-scheme="REV2021" data-programme="Electrical & Electronics Engineering" data-subject-code="3036" data-source-verified-date="2026-08-19">
+
+<header class="sticky">
+    <strong>POLY PMNA</strong>
+    <div class="controls">
+        <button onclick="window.print()">Print / Save PDF</button>
+        <a href="?autoPrintNotes=1" style="margin-left:1.5rem; text-decoration:none; color:var(--primary); font-weight:bold;">Download Notes</a>
+    </div>
+</header>
+
+<main class="container">
+    <div class="hero">
+        <div style="text-transform: uppercase; font-weight: bold; letter-spacing: 0.2em; margin-bottom: 1.5rem;">Revision 2021</div>
+        <h1>DC Machines Lab</h1>
+        <p>Official SITTTR Practical Handbook</p>
+        <div class="meta-grid">
+            <div class="meta-item"><strong>Code:</strong> 3036</div>
+            <div class="meta-item"><strong>Credits:</strong> 1.5</div>
+            <div class="meta-item"><strong>Semester:</strong> 3</div>
+            <div class="meta-item"><strong>Type:</strong> Practical Core</div>
+        </div>
+    </div>
+
+    <nav class="nav-bar">
+        <a href="#outcomes">Outcomes</a>
+        <a href="#map">Curriculum Map</a>
+        <a href="#m1">Module 1</a>
+        <a href="#m2">Module 2</a>
+        <a href="#m3">Module 3</a>
+        <a href="#m4">Module 4</a>
+        <a href="#practice">Practice</a>
+    </nav>
+
+    <section id="outcomes">
+        <h2>Course Outcomes (CO)</h2>
+        <div class="module-content">
+            <ul>
+                <li><strong>CO1:</strong> Identify the construction of DC machines and develop magnetic curves. (9 Hours)</li>
+                <li><strong>CO2:</strong> Develop the performance characteristics of various types of DC generators. (12 Hours)</li>
+                <li><strong>CO3:</strong> Apply various speed control techniques in dc motors to plot the speed curve and testing of dc machines. (9 Hours)</li>
+                <li><strong>CO4:</strong> Develop the performance characteristics of various types of DC motors. (9 Hours)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="map" class="curriculum-map">
+        <h2>Curriculum Map</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Module</th>
+                    <th>Description</th>
+                    <th>Hours</th>
+                    <th>CO Mapping</th>
+                    <th>Cognitive Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>Construction & OCC</td><td>9</td><td>CO1</td><td>Applying</td></tr>
+                <tr><td>2</td><td>Generator Characteristics</td><td>12</td><td>CO2</td><td>Applying</td></tr>
+                <tr><td>3</td><td>Speed Control & Testing</td><td>9</td><td>CO3</td><td>Applying</td></tr>
+                <tr><td>4</td><td>Motor Characteristics</td><td>9</td><td>CO4</td><td>Applying</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="m1">
+        <h2>Module 1: Construction & OCC</h2>
+        <div class="module-content">
+            <div class="lab-expt">
+                <h3>M1.01: Machine Assembly</h3>
+                <p>Dismantle and reassemble a DC machine and identify parts like Commutator, Brushes, Armature, and Field poles.</p>
+            </div>
+            <div class="lab-expt">
+                <h3>M1.03: OCC Plotting</h3>
+                <p>Run a separately excited and self-excited DC generator at rated conditions and plot Open Circuit Characteristics (OCC).</p>
+            </div>
+            <div class="diagram">
+                <h3>SVG Illustration: DC Machine Cross-section</h3>
+                <svg viewBox="0 0 400 200" width="300" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="200" cy="100" r="80" fill="none" stroke="#431407" stroke-width="2"/>
+                    <circle cx="200" cy="100" r="50" fill="#fed7aa" stroke="#431407"/>
+                    <text x="200" y="105" text-anchor="middle" font-size="12">Armature</text>
+                    <rect x="190" y="10" width="20" height="20" fill="#c2410c"/>
+                    <rect x="190" y="170" width="20" height="20" fill="#c2410c"/>
+                    <text x="200" y="45" text-anchor="middle" font-size="10">N-Pole</text>
+                    <text x="200" y="165" text-anchor="middle" font-size="10">S-Pole</text>
+                </svg>
+            </div>
+            <div class="ml-note" lang="ml">
+                ഡി.സി മെഷീനുകളുടെ ഭാഗങ്ങൾ തിരിച്ചറിയുകയും അവയുടെ കാന്തിക സ്വഭാവങ്ങൾ (OCC) പഠിക്കുകയും ചെയ്യുന്നു.
+            </div>
+        </div>
+    </section>
+
+    <section id="m2">
+        <h2>Module 2: Generator Characteristics</h2>
+        <div class="module-content">
+            <div class="lab-expt">
+                <h3>M2.02: Shunt Generator Characteristics</h3>
+                <p>Develop the internal and external characteristics of a DC shunt generator at constant speed.</p>
+            </div>
+            <div class="lab-expt">
+                <h3>M2.04: Compound Generator</h3>
+                <p>Plot efficiency curves of DC compound generator in Long shunt and Short shunt configurations.</p>
+            </div>
+            <div class="ml-note" lang="ml">
+                വിവിധ തരം ഡി.സി ജനറേറ്ററുകളുടെ പ്രവർത്തനക്ഷമതയും സ്വഭാവങ്ങളും പരീക്ഷണങ്ങളിലൂടെ കണ്ടെത്തുന്നു.
+            </div>
+        </div>
+    </section>
+
+    <section id="m3">
+        <h2>Module 3: Speed Control & Testing</h2>
+        <div class="module-content">
+            <div class="lab-expt">
+                <h3>Speed Control Techniques</h3>
+                <p>Armature control and Field control methods for DC shunt motors.</p>
+            </div>
+            <div class="lab-expt">
+                <h3>Swinburne's Test</h3>
+                <p>Pre-determination of efficiency of a DC machine by Swinburne's test.</p>
+            </div>
+            <div class="ml-note" lang="ml">
+                ഡി.സി മോട്ടോറുകളുടെ വേഗത നിയന്ത്രിക്കാനുള്ള വഴികളും മെഷീനുകളുടെ കാര്യക്ഷമത പരിശോധിക്കാനുള്ള രീതികളും പഠിക്കുന്നു.
+            </div>
+        </div>
+    </section>
+
+    <section id="m4">
+        <h2>Module 4: Motor Characteristics</h2>
+        <div class="module-content">
+            <div class="lab-expt">
+                <h3>Motor Characteristics Test</h3>
+                <p>Perform the motor-characteristics experiment, record observations, plot the required characteristic curve, and interpret the result using safe laboratory procedure.</p>
+                <div class="ml-note">മോട്ടോർ characteristics പരീക്ഷണം സുരക്ഷിതമായി നടത്തി readings രേഖപ്പെടുത്തി ആവശ്യമായ characteristic curve വരയ്ക്കുക.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="practice">
+        <h2>Practice Model Question Paper</h2>
+        <p><em>Practice Model Paper — not an official REV2021 paper</em></p>
+        <div class="lab-expt">
+            <h3>Part A: OCC</h3>
+            <p>Perform the OCC test on a separately excited DC generator and find the critical resistance at 1500 RPM.</p>
+        </div>
+        <div class="lab-expt">
+            <h3>Part B: Speed Control</h3>
+            <p>Plot the speed vs armature voltage characteristic of a DC shunt motor by keeping field current constant.</p>
+        </div>
+    </section>
+
+    <section id="source">
+        <h2>Source Declaration</h2>
+        <p><strong>Curriculum Scheme:</strong> Revision 2021</p>
+        <p><strong>Subject Name:</strong> DC Machines Lab</p>
+        <p><strong>Subject Code:</strong> 3036</p>
+        <p><strong>Official Source URL:</strong> <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=3036">SITTTR Link</a></p>
+        <p><strong>Source Verification Date:</strong> 2026-08-19</p>
+        <blockquote>This handbook was generated only from the identified scheme-specific SITTTR source. Content from other curriculum revisions was not merged.</blockquote>
+    </section>
+</main>
+
+<script>
+// Toggle Theme
+const t = document.createElement('button');
+t.innerHTML = '🌙';
+t.style.cssText = 'position:fixed;bottom:30px;right:30px;padding:15px;border-radius:50%;cursor:pointer;background:var(--primary);color:white;border:none;';
+t.onclick = () => {
+    document.body.style.filter = document.body.style.filter ? '' : 'invert(0.9) hue-rotate(180deg)';
+    t.innerHTML = document.body.style.filter ? '☀️' : '🌙';
+};
+document.body.appendChild(t);
+
+if (window.location.search.includes('autoPrintNotes=1')) {
+    window.print();
+}
+</script>
+
+  <!-- Shared full-screen lesson standard -->
+  <script src="/assets/js/lesson-navigation-fix.js?v=20260819-ask-context1" defer></script>
+</body>
+</html>

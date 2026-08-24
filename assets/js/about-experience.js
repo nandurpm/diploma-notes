@@ -57,7 +57,10 @@
 
     translatable.forEach((node) => {
       const value = node.dataset[currentLanguage];
-      if (typeof value === "string") node.textContent = value;
+      if (typeof value === "string") {
+        node.textContent = value;
+        node.setAttribute("lang", currentLanguage);
+      }
     });
 
     languageButtons.forEach((button) => {

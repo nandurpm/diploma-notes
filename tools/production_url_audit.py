@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import time
 from datetime import datetime, timezone
@@ -48,10 +49,39 @@ def required_signatures() -> dict[str, tuple[str, ...]]:
 
 
 def expected_commit() -> str:
+    """Resolve the deployment commit being audited.
+
+    workflow_run events carry the SHA that actually triggered the deployment,
+    while github.sha in the triggered workflow may already point at a newer
+    default-branch commit. Manual and scheduled runs fall back to the checked
+    out HEAD.
+    """
+    configured = os.environ.get("POLY_AUDIT_EXPECTED_COMMIT", "").strip()
+    if configured:
+        return configured
     try:
         return subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     except Exception:
         return ""
+
+
+def deployed_commit_matches(expected: str, live: str) -> bool:
+    """Accept the exact deployment or a generated descendant of it only."""
+    if not expected or not live:
+        return False
+    if expected == live:
+        return True
+    try:
+        result = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", expected, live],
+            cwd=ROOT,
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        return result.returncode == 0
+    except Exception:
+        return False
 
 
 def get_resource(url: str) -> dict[str, object]:
@@ -132,8 +162,11 @@ def main() -> int:
     live_commit = info.get("body", {}).get("commit", "") if isinstance(info.get("body"), dict) else ""
     if info.get("status") not in (200, 206):
         failures.append(f"build-info.json: HTTP {info.get('status')}")
-    elif expected and live_commit != expected:
-        failures.append(f"production commit {live_commit or 'missing'} does not match {expected}")
+    elif expected and not deployed_commit_matches(expected, live_commit):
+        failures.append(
+            f"production commit {live_commit or 'missing'} is not the expected deployment "
+            f"or a generated descendant of {expected}"
+        )
 
     payload = {
         "schemaVersion": 3,
@@ -153,6 +186,7 @@ def main() -> int:
         f"- Generated: **{payload['generatedAt']}**",
         f"- Expected commit: `{expected or 'unknown'}`",
         f"- Live commit: `{live_commit or 'missing'}`",
+        f"- Deployment lineage valid: **{'yes' if deployed_commit_matches(expected, live_commit) else 'no'}**",
         f"- Resources checked with GET: **{len(resources)}**",
         f"- Failures: **{len(failures)}**", "",
     ]

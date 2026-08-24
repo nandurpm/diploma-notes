@@ -30,7 +30,7 @@ def main() -> int:
         rel = path.relative_to(ROOT).as_posix()
         if "lesson-navigation-fix.js" not in source:
             missing_runtime.append(rel)
-        elif "20260725-watermark1" not in source and 'name="poly-build-id"' not in source:
+        elif "20260819-ask-context1" not in source and 'name="poly-build-id"' not in source:
             stale_runtime.append(rel)
             
     if missing_runtime:
@@ -68,7 +68,7 @@ def main() -> int:
             "revision_2021": len(rev21),
             "revision_2026": len(rev26),
             "failure_count": len(failures),
-            "runtime": "20260725-watermark1",
+            "runtime": "20260819-ask-context1",
             "watermark_css": watermark_css_path.relative_to(ROOT).as_posix(),
             "watermark_image": watermark_image_path.relative_to(ROOT).as_posix(),
         },

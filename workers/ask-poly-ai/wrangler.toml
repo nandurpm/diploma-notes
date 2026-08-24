@@ -3,6 +3,10 @@ main = "src/secure-index.js"
 compatibility_date = "2026-06-18"
 workers_dev = true
 
+[observability]
+enabled = true
+head_sampling_rate = 1
+
 [ai]
 binding = "AI"
 
@@ -22,19 +26,39 @@ namespace_id = "202602"
   limit = 5
   period = 60
 
+[[ratelimits]]
+name = "IMAGE_RATE_LIMITER"
+namespace_id = "202603"
+
+  [ratelimits.simple]
+  limit = 2
+  period = 60
+
+[[ratelimits]]
+name = "COMMENT_RATE_LIMITER"
+namespace_id = "202604"
+
+  [ratelimits.simple]
+  limit = 5
+  period = 60
+
 [vars]
+ENVIRONMENT = "production"
+SECURITY_LOGGING = "structured"
 ASK_POLY_RELEASE = "2026-07-20-audit-security3"
-AI_PROVIDER_ORDER = "nvidia,openrouter,openai,gemini,google-ai-studio,free-api"
+# Keep the active path on the verified NVIDIA provider; Cloudflare Workers AI is the immediate in-worker fallback.
+# Re-enable OpenRouter only after its configured model IDs are revalidated against the live catalog.
+AI_PROVIDER_ORDER = "nvidia"
 PROVIDER_TIMEOUT_MS = "7000"
 OPENAI_MODEL = "gpt-4o-mini"
 NVIDIA_MODEL = "meta/llama-3.1-8b-instruct"
-OPENROUTER_MODEL = "openrouter/free"
+OPENROUTER_MODEL = "google/gemma-2-9b-it:free,huggingfaceh4/zephyr-7b-beta:free,mistralai/mistral-7b-instruct:free"
 OPENROUTER_HTTP_REFERER = "https://polypmna.dpdns.org"
 OPENROUTER_X_TITLE = "POLY PMNA Ask POLY AI"
 FREE_API_URL = ""
 FREE_API_MODEL = ""
 CLOUDFLARE_AI_MODEL = "@cf/meta/llama-3.1-8b-instruct-fp8"
-MAX_OUTPUT_TOKENS = "6000"
+MAX_OUTPUT_TOKENS = "1200"
 MOCK_EXAM_MODEL = "gpt-4o-mini"
 MOCK_EXAM_MAX_OUTPUT_TOKENS = "7500"
 EXPOSE_ERRORS = "false"

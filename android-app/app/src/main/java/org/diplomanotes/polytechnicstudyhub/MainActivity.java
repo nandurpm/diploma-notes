@@ -74,14 +74,103 @@ public class MainActivity extends ComponentActivity {
     private static final String ERROR_PAGE_URL = "file:///android_asset/offline.html";
     private static final String APP_ACTION_SCHEME = "polytechnic-study-hub";
     private static final String PRINT_LOG_TAG = "PolyNativePrint";
+    private static final String WEB_ASSET_SECURITY_VERSION_PREF = "web_asset_security_version";
+    // In-app developer portfolio pages. The Developer footer link opens these
+    // inside the app's own WebView via the open-external app action. Only the
+    // exact allowlisted URLs below may be loaded — no other destination is
+    // permitted, so the allowlist cannot be widened from the web side.
+    private static final Set<String> DEVELOPER_ALLOWED_PAGES = Set.of(
+            "https://nandakumarm.dpdns.org/about.html",
+            "https://nandakumarm.dpdns.org/about",
+            "https://nandakumarm.dpdns.org/"
+    );
+
+    private static boolean isAllowedDeveloperPage(String target) {
+        if (target == null || target.isEmpty()) {
+            return false;
+        }
+        return DEVELOPER_ALLOWED_PAGES.contains(target.trim());
+    }
+    // Conservative external-link policy: only official/public-interest resources and
+    // verified educational institutions are allowed to open outside the WebView.
+    // Suspected, malformed, HTTP-only, commercial, blog, and mirror links remain blocked.
     private static final Set<String> APPROVED_EXTERNAL_HOSTS = Set.of(
+            // Existing official/site-specific destinations.
             "sitttrkerala.ac.in",
             "www.sitttrkerala.ac.in",
-            "drive.google.com",
-            "docs.google.com",
             "github.com",
-            "raw.githubusercontent.com"
+            "raw.githubusercontent.com",
+            // The About/Home Instagram CTA is intentionally opened outside the app.
+            "instagram.com",
+            "www.instagram.com",
+            // Wikipedia.
+            "en.wikipedia.org",
+            // Official government and public-sector resources.
+            "afdc.energy.gov",
+            "aud.delhi.gov.in",
+            "beeindia.gov.in",
+            "bharatskills.gov.in",
+            "etenders.kerala.gov.in",
+            "india.gov.in",
+            "www.india.gov.in",
+            "indiabudget.gov.in",
+            "www.indiabudget.gov.in",
+            "indiacode.nic.in",
+            "www.indiacode.nic.in",
+            "ncert.nic.in",
+            "nios.ac.in",
+            "www.nios.ac.in",
+            "panchayat.gov.in",
+            "www.panchayat.gov.in",
+            "rural.nic.in",
+            "sdgs.un.org",
+            "swayam.gov.in",
+            "www.swayam.gov.in",
+            "www.epa.gov",
+            "www.sba.gov",
+            // Official NPTEL, SWAYAM, IIT virtual-lab, and library resources.
+            "archive.nptel.ac.in",
+            "nptel.ac.in",
+            "www.nptel.ac.in",
+            "onlinecourses.nptel.ac.in",
+            "onlinecourses.swayam2.ac.in",
+            "be-iitkgp.vlabs.ac.in",
+            "bes-iitr.vlabs.ac.in",
+            "em-coep.vlabs.ac.in",
+            "vem-iitg.vlabs.ac.in",
+            "vlabs.iitb.ac.in",
+            "ndl.iitkgp.ac.in",
+            // Verified colleges, universities, and institutional domains.
+            "www.amrita.edu",
+            "catalog.tri-c.edu",
+            "catalog.udayton.edu",
+            "www.cl.cam.ac.uk",
+            "ee.cet.ac.in",
+            "files.mlrit.ac.in",
+            "www.ganeshpolytechnic.edu.in",
+            "gpkalahandi.in",
+            "www.gtu.ac.in",
+            "www.gwpctsr.ac.in",
+            "www.iare.ac.in",
+            "ise.rpi.edu",
+            "www.kjei.edu.in",
+            "lit.laxmi.edu.in",
+            "www.mona.uwi.edu",
+            "www.monroeccc.edu",
+            "neurodiversity-engineering.media.uconn.edu",
+            "www.ntc.edu",
+            "pec.ac.in",
+            "sist.sathyabama.ac.in",
+            "stevenscollege.edu",
+            "www.tezu.ernet.in",
+            "www.washington.edu",
+            "web.iit.edu",
+            "wiki.auckland.ac.nz",
+            "ocw.mit.edu",
+            "phet.colorado.edu",
+            "pmc.ncbi.nlm.nih.gov"
     );
+    private static final String TRUSTED_GITHUB_REPOSITORY_PATH = "/nandurpm/diploma-notes";
 
     private final Map<View, String> navigationItems = new LinkedHashMap<>();
     private final List<TextView> themableTextViews = new ArrayList<>();
@@ -110,6 +199,7 @@ public class MainActivity extends ComponentActivity {
     private OfflineCacheManager offlineCache;
     private BookmarkManager bookmarks;
     private SharedPreferences prefs;
+    private ForceUpdateGate forceUpdateGate;
     private boolean darkMode;
 
     private ValueCallback<Uri[]> fileChooserCallback;
@@ -181,6 +271,7 @@ public class MainActivity extends ComponentActivity {
         bookmarks = new BookmarkManager(this);
         prefs = bookmarks.preferences();
         darkMode = false;
+        refreshWebCacheForAppVersion();
 
         configureNativeShell();
         configureBackNavigation();
@@ -192,21 +283,54 @@ public class MainActivity extends ComponentActivity {
 
         applyTheme(darkMode);
 
-        if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
-            loadIncomingIntent(getIntent(), true);
-        } else {
-            hideLaunchOverlay();
-        }
+        forceUpdateGate = new ForceUpdateGate(this);
+        Runnable releaseWebView = () -> {
+            if (savedInstanceState == null || webView.restoreState(savedInstanceState) == null) {
+                loadIncomingIntent(getIntent(), true);
+            } else {
+                hideLaunchOverlay();
+            }
+        };
+        // Do not load or restore WebView content until the native policy check
+        // confirms that this APK is still supported.
+        forceUpdateGate.enforce(releaseWebView);
 
         offlineCache.preloadEssentialPages(HOME_URL, TRUSTED_HOST);
         mainHandler.postDelayed(slowLoadRunnable, 15000L);
+    }
+
+    private void refreshWebCacheForAppVersion() {
+        String currentVersion = String.valueOf(BuildConfig.VERSION_CODE);
+        String appliedVersion = prefs.getString(WEB_ASSET_SECURITY_VERSION_PREF, "");
+        if (currentVersion.equals(appliedVersion)) {
+            return;
+        }
+        // The website's JavaScript assets are immutable for normal browser caching.
+        // Clear only the WebView HTTP cache once per APK version so upgraded users
+        // receive the current security-hardened client without losing cookies,
+        // Supabase sessions, local storage, or saved app data.
+        webView.clearCache(true);
+        prefs.edit().putString(WEB_ASSET_SECURITY_VERSION_PREF, currentVersion).apply();
     }
 
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-        loadIncomingIntent(intent, false);
+        if (forceUpdateGate != null) {
+            forceUpdateGate.enforce(() -> loadIncomingIntent(intent, false));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (forceUpdateGate != null) {
+            forceUpdateGate.onResume(() -> {
+                // The initial startup callback owns the first WebView load.
+                // Resume checks only release an already-authorized Activity.
+            });
+        }
     }
 
 
@@ -754,10 +878,23 @@ public class MainActivity extends ComponentActivity {
     }
 
     private boolean isApprovedExternalHttps(Uri uri) {
-        return uri != null
-                && "https".equalsIgnoreCase(uri.getScheme())
-                && uri.getHost() != null
-                && APPROVED_EXTERNAL_HOSTS.contains(uri.getHost().toLowerCase(Locale.ROOT));
+        if (uri == null
+                || !"https".equalsIgnoreCase(uri.getScheme())
+                || uri.getHost() == null) {
+            return false;
+        }
+        String host = uri.getHost().toLowerCase(Locale.ROOT);
+        if (!APPROVED_EXTERNAL_HOSTS.contains(host)) {
+            return false;
+        }
+        // The user’s repository is approved, not arbitrary GitHub content.
+        if ("github.com".equals(host) || "raw.githubusercontent.com".equals(host)) {
+            String path = uri.getPath();
+            return path != null
+                    && (path.equals(TRUSTED_GITHUB_REPOSITORY_PATH)
+                    || path.startsWith(TRUSTED_GITHUB_REPOSITORY_PATH + "/"));
+        }
+        return true;
     }
 
     private boolean isTrustedDownload(String url) {
@@ -861,6 +998,10 @@ public class MainActivity extends ComponentActivity {
 
     @Override
     protected void onDestroy() {
+        if (forceUpdateGate != null) {
+            forceUpdateGate.destroy();
+            forceUpdateGate = null;
+        }
         mainHandler.removeCallbacksAndMessages(null);
         if (webView != null) {
             webView.stopLoading();
@@ -1037,6 +1178,18 @@ public class MainActivity extends ComponentActivity {
             } else if ("open".equalsIgnoreCase(action)) {
                 String path = uri.getQueryParameter("path");
                 webView.loadUrl(buildTrustedUrl(path == null ? "/" : path));
+            } else if ("open-external".equalsIgnoreCase(action)) {
+                // Developer footer link: opens the developer's portfolio About page
+                // inside the app's own WebView instead of a system browser. Only an
+                // exact allowlisted set of in-app destinations is permitted — a
+                // mismatched or missing query parameter is rejected.
+                String target = uri.getQueryParameter("path");
+                if (isAllowedDeveloperPage(target)) {
+                    Log.i("PolyAppNav", "Opening allowlisted developer page in-app: " + target);
+                    webView.loadUrl(target);
+                } else {
+                    Toast.makeText(MainActivity.this, R.string.intent_link_blocked, Toast.LENGTH_SHORT).show();
+                }
             } else if ("print".equalsIgnoreCase(action)) {
                 String title = uri.getQueryParameter("title");
                 Log.i(PRINT_LOG_TAG, "Print action received from lesson navigation: " + webView.getUrl());

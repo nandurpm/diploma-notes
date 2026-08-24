@@ -37,8 +37,8 @@ jobs:
           from datetime import datetime, timezone
           from pathlib import Path
 
-          health_url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/health"
-          ask_url = "https://ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly"
+          health_url = "https://api.polypmna.dpdns.org/health"
+          ask_url = "https://api.polypmna.dpdns.org/api/ask-poly"
           last_error = ""
           health = None
           ask_test = None
@@ -162,6 +162,15 @@ jobs:
             echo "Live Worker QA report is already current."
           else
             git commit -m "Record live Ask POLY answer QA [skip ci]"
-            git pull --rebase origin main
-            git push origin HEAD:main
+            for attempt in 1 2 3; do
+              git fetch origin main
+              git rebase origin/main || { git rebase --abort; exit 1; }
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+              echo "Report push raced with another main update; retrying (attempt ${attempt}/3)."
+              sleep $((attempt * 5))
+            done
+            echo "Unable to publish the live Ask POLY QA report after three attempts."
+            exit 1
           fi

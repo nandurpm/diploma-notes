@@ -3,6 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { evaluateMockExam } from "../src/mock-evaluator.js";
 import { MOCK_PAPER } from "../src/mock-paper.js";
+import { MOCK_PAPERS } from "../src/mock-papers.js";
 
 function buildValidAnswers() {
   const answers = [];
@@ -20,6 +21,92 @@ function buildValidAnswers() {
   }
   return answers;
 }
+
+function buildValidAnswersForPaper(paper) {
+  const answers = [];
+  for (const id of paper.partAIds) answers.push({ id, answer: "Placeholder A", rubric: ["forged client rubric"] });
+  for (const id of paper.partBIds.slice(0, 8)) answers.push({ id, answer: "Placeholder B is long enough", rubric: ["forged client rubric"] });
+  for (const pair of paper.pairs) {
+    const question = paper.questions.find((q) => q.pair === pair);
+    if (question) answers.push({ id: question.id, answer: "Placeholder C is long enough", rubric: ["forged client rubric"] });
+  }
+  return answers;
+}
+
+test("generic papers use server-only rubrics and ignore client rubric fields", async () => {
+  const paper = MOCK_PAPERS["1002"];
+  const body = { paperId: paper.id, subjectCode: paper.subjectCode, answers: buildValidAnswersForPaper(paper) };
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, "https://api.openai.com/v1/responses");
+    const request = JSON.parse(options.body);
+    const submitted = JSON.parse(request.input[0].content);
+    assert.equal(submitted.examination.subjectCode, "1002");
+    assert.equal(submitted.questions.length, 23);
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.modelPoints) && question.modelPoints.length > 0));
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.rubric) && question.rubric.length > 0));
+    assert.ok(submitted.questions.every((question) => !JSON.stringify(question).includes("forged client rubric")));
+    const answerIds = body.answers.map((answer) => answer.id);
+    return {
+      ok: true,
+      json: async () => ({
+        id: "resp-generic-1002",
+        model: "gpt-4o-mini",
+        output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify({
+          results: answerIds.map((id) => ({ id, awardedMarks: 1, confidence: 0.9, feedback: "Reviewed", missingPoints: [] })),
+          overallFeedback: "Generic paper evaluated using the private Worker rubric."
+        }) }] }]
+      })
+    };
+  };
+  try {
+    const result = await evaluateMockExam(body, { OPENAI_API_KEY: "test-key" });
+    assert.equal(result.paperId, paper.id);
+    assert.equal(result.subjectCode, "1002");
+    assert.equal(result.status, "published");
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("all generic papers resolve from the server-only registry", async () => {
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = async (url, options) => {
+    assert.equal(url, "https://api.openai.com/v1/responses");
+    const request = JSON.parse(options.body);
+    const submitted = JSON.parse(request.input[0].content);
+    const paper = Object.values(MOCK_PAPERS).find((candidate) => candidate.subjectCode === submitted.examination.subjectCode);
+    assert.ok(paper, `Unknown generic subject code ${submitted.examination.subjectCode}`);
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.modelPoints) && question.modelPoints.length > 0));
+    assert.ok(submitted.questions.every((question) => Array.isArray(question.rubric) && question.rubric.length > 0));
+    const answerIds = submitted.questions.map((question) => question.id);
+    return {
+      ok: true,
+      json: async () => ({
+        id: `resp-generic-${paper.subjectCode}`,
+        model: "gpt-4o-mini",
+        output: [{ type: "message", content: [{ type: "output_text", text: JSON.stringify({
+          results: answerIds.map((id) => ({ id, awardedMarks: 0, confidence: 0.9, feedback: "Reviewed", missingPoints: [] })),
+          overallFeedback: "Generic paper evaluated using the private Worker rubric."
+        }) }] }]
+      })
+    };
+  };
+  try {
+    for (const paper of Object.values(MOCK_PAPERS)) {
+      const result = await evaluateMockExam({
+        paperId: paper.id,
+        subjectCode: paper.subjectCode,
+        answers: buildValidAnswersForPaper(paper)
+      }, { OPENAI_API_KEY: "test-key" });
+      assert.equal(result.paperId, paper.id);
+      assert.equal(result.subjectCode, paper.subjectCode);
+      assert.equal(result.status, "published");
+    }
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
 
 test("evaluateMockExam throws 504 when OpenAI request times out", async () => {
   const body = {

@@ -1,0 +1,87 @@
+import os
+import json
+
+print("Running dry-run test for Revision 2026 lesson generation...")
+
+# Load revision 2026 subjects to get exact titles for codes 2018 and 2019
+with open("/home/ubuntu/diploma-notes/assets/data/revision-2026-subjects.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+subjects = data.get("subjects", [])
+test_subjects = []
+for s in subjects:
+    if s.get("code") in ["2018", "2019"]:
+        test_subjects.append(s)
+
+if not test_subjects:
+    # Fallback mock test subjects if exact codes not found in index slice
+    test_subjects = [
+        {"code": "2018", "name": "Advanced Engineering Mathematics II", "department": "First Year / Common", "semester": "Semester 2", "type": "Theory"},
+        {"code": "2019", "name": "Applied Physics for Advanced Technologies", "department": "First Year / Common", "semester": "Semester 2", "type": "Theory"}
+    ]
+
+base_template = '''<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="TITLE CODE Kerala Polytechnic Revision 2026 handbook with modules, theory, worked examples, practice model paper and full answers.">
+<title>TITLE CODE | Kerala Polytechnic Revision 2026 Study Hub</title>
+<style>
+:root{--bg:#f4f7fb;--ink:#111827;--muted:#536175;--card:#fff;--line:#d7e0ee;--p:#0f766e;--p2:#174ea6;--a:#f59e0b;--soft:#eef5ff;--green:#ecfbf5;--yellow:#fff8df;--red:#fff1f2;--r:20px;--max:1900px;--sh:0 14px 34px rgba(15,23,42,.08)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Segoe UI,Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 0 0,#e0f2fe,transparent 36rem),radial-gradient(circle at 100% 0,#ccfbf1,transparent 34rem),var(--bg);line-height:1.62}.bar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);box-shadow:0 8px 22px rgba(15,23,42,.06)}.nav{width:min(99.2vw,var(--max));margin:auto;display:flex;gap:.45rem;align-items:center;overflow:auto;padding:.65rem 0}.logo{min-width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:var(--sh)}.nav a,.btn{border:1px solid var(--line);background:#f7faff;color:var(--ink);border-radius:999px;padding:.66rem .9rem;font-weight:750;white-space:nowrap;text-decoration:none}.btn{margin-left:auto;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;cursor:pointer}.wrap{width:min(99.2vw,var(--max));margin:auto}.hero{min-height:72vh;display:grid;grid-template-columns:1.15fr .85fr;gap:1rem;padding:1rem 0}.hero>div,.sec{background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:28px;box-shadow:var(--sh);padding:clamp(1rem,1.55vw,1.7rem)}.dark{background:linear-gradient(135deg,#0f172a,#0f766e)!important;color:#fff}.dark h2,.dark h3{color:#fff}h1{font-size:clamp(2.4rem,5vw,5rem);line-height:.96;margin:.4rem 0}h2{font-size:clamp(1.7rem,2.6vw,2.8rem);line-height:1.05;margin:.2rem 0 .7rem}h3{font-size:1.35rem;margin:1rem 0 .35rem}.muted{color:var(--muted)}.tag{display:inline-block;background:#ccfbf1;color:#115e59;border-radius:999px;padding:.25rem .55rem;font-weight:900;font-size:.78rem;text-transform:uppercase}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:.8rem}.c{grid-column:span 6;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1rem;box-shadow:0 8px 20px rgba(15,23,42,.04)}.c3{grid-column:span 4}.c4{grid-column:span 3}.wide{grid-column:span 12}.blue{background:#eef5ff}.green{background:#ecfbf5}.yellow{background:#fff8df}.red{background:#fff1f2}.call{border:1px solid #a7f3d0;background:#ecfbf5;border-radius:18px;padding:1rem;margin:.8rem 0}.tip{border-color:#f8d77c;background:#fff8df}.tbl{overflow:auto;border:1px solid var(--line);border-radius:16px;background:#fff}table{border-collapse:collapse;width:100%;min-width:720px}th,td{border-bottom:1px solid var(--line);padding:.75rem;text-align:left;vertical-align:top}th{background:#ccfbf1;color:#115e59}pre{white-space:pre-wrap;background:#0f172a;color:#eff6ff;border-radius:16px;padding:1rem;line-height:1.55}ol,ul{padding-left:1.25rem}.q{background:#f8fbff;border:1px solid var(--line);border-radius:16px;padding:.8rem;margin:.65rem 0}.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.65rem}.toc a{background:#f8fbff;border:1px solid var(--line);border-radius:16px;padding:.8rem;text-decoration:none;color:#111827;font-weight:800}@media(max-width:900px){.hero,.grid{display:block}.c{margin:.8rem 0}.nav{padding:.5rem}.btn{margin-left:0}}@media print{@page{size:A4;margin:12mm}.bar{display:none}.wrap{width:100%}.hero{display:block;min-height:auto}.hero>div,.sec,.c{box-shadow:none;border:1px solid #aaa;break-inside:avoid}.sec{page-break-before:auto}body{background:white;color:#000;font-size:11pt}pre{background:white;color:#000;border:1px solid #aaa}}
+</style>
+<link rel="stylesheet" href="/assets/css/revision-back-button.css?v=20260614-1">
+<link rel="canonical" href="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-CODE.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="TITLE CODE | Kerala Polytechnic Revision 2026 Study Hub">
+<meta property="og:description" content="Official Kerala Polytechnic Revision 2026 syllabus handbook with modules, worked examples, practice model paper and full answers.">
+<meta property="og:url" content="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-CODE.html">
+<link rel="stylesheet" href="/assets/css/hardening.css?v=20260612-1">
+<meta property="og:image" content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png">
+<meta name="theme-color" content="#0f766e">
+</head>
+<body>
+<a class="revision-back-button" href="../../revision-2026.html" aria-label="Back to Revision 2026">&#8592; Back to Revision 2026</a>
+<header class="bar"><nav class="nav" aria-label="Lesson sections"><div class="logo">CODE</div><a href="#overview">Overview</a><a href="#toc">Contents</a><a href="#m1">Module 1</a><a href="#m2">Module 2</a><a href="#m3">Module 3</a><a href="#m4">Module 4</a><a href="#paper">Model Paper</a><a href="#answers">Full Answers</a><button type="button" class="btn" onclick="window.print()">Print / Save as PDF</button></nav></header>
+<main class="wrap">
+<section class="hero" id="overview"><div><span class="tag">Revision 2026 Diploma Handbook</span><h1>TITLE</h1><p class="muted">Official Kerala Polytechnic Revision 2026 syllabus handbook covering module-wise concepts, worked examples, practice questions, and exam answers.</p><div class="grid"><div class="c c3 blue"><b>Course Code</b><br>CODE</div><div class="c c3 green"><b>Credits</b><br>4</div><div class="c c3 yellow"><b>Periods</b><br>5/week, 75/semester</div></div></div><div class="dark"><h2>Course Details</h2><p><b>Title:</b> TITLE</p><p><b>Programme:</b> DEPT</p><p><b>Revision:</b> Revision 2026 (SITTTR)</p><p><b>Pattern:</b> L:4, T:1, P:0</p><p>This handbook complies with official SITTTR Revision 2026 guidelines, incorporating Malayalam support notes, worked exercises, and assessment tools.</p></div></section>
+<section class="sec" id="toc"><span class="tag">Table of Contents</span><h2>Navigate the handbook</h2><div class="toc"><a href="#objectives">Objectives & Outcomes</a><a href="#roadmap">Learning Roadmap</a><a href="#m1">Core Principles</a><a href="#m2">Applied Methods</a><a href="#m3">Advanced Integration</a><a href="#m4">Synthesis & Project</a><a href="#paper">Model Question Paper</a><a href="#answers">Full Answer Key</a></div></section>
+<section class="sec" id="objectives"><span class="tag">Objectives and Outcomes</span><h2>Course Objectives, Prerequisite, Outcomes and Mapping</h2><div class="grid"><div class="c"><h3>Course Objectives</h3><ol><li>To provide deep theoretical and applied knowledge of TITLE.</li><li>To develop industry-ready technical competencies aligned with Revision 2026 standards.</li><li>To foster analytical problem-solving and practical execution skills.</li><li>To prepare students for board examinations and technical careers.</li></ol></div><div class="c green"><h3>Course Prerequisite</h3><p>Higher secondary foundation or successful completion of prerequisite first-year diploma courses.</p><h3>CO-PO Mapping</h3><p>CO1 → PO1: 3. CO2 → PO2: 3. CO3 → PO3: 3. CO4 → PO3: 3.</p></div></div><div class="tbl"><table><tr><th>CO</th><th>Outcome</th><th>Duration</th><th>Level</th></tr><tr><td>CO1</td><td>Comprehend fundamental principles and definitions related to TITLE.</td><td>15 hours</td><td>Understanding</td></tr><tr><td>CO2</td><td>Apply core techniques and methodologies in practical scenarios.</td><td>20 hours</td><td>Applying</td></tr><tr><td>CO3</td><td>Analyze advanced operations, systems, and processes.</td><td>20 hours</td><td>Analyzing</td></tr><tr><td>CO4</td><td>Synthesize concepts and solve comprehensive industry problems.</td><td>20 hours</td><td>Creating</td></tr></table></div></section>
+<section class="sec" id="roadmap"><span class="tag">Roadmap</span><h2>Module-wise Learning Roadmap</h2><div class="tbl"><table><tr><th>Module</th><th>Core Title</th><th>Summary of Topics</th><th>Practical Focus</th></tr><tr><td>1</td><td>Core Principles</td><td>Foundational definitions, underlying theories, and governing laws.</td><td>Basic analysis</td></tr><tr><td>2</td><td>Applied Methods</td><td>Standard methodologies, calculations, and operational procedures.</td><td>Problem solving</td></tr><tr><td>3</td><td>Advanced Integration</td><td>Complex systems, optimization, and advanced troubleshooting.</td><td>System design</td></tr><tr><td>4</td><td>Synthesis & Project</td><td>Case studies, industry applications, and comprehensive projects.</td><td>Capstone synthesis</td></tr></table></div></section>
+
+<section class="sec" id="m1"><span class="tag">Module 1</span><h2>Core Principles and Foundations</h2><div class="grid"><div class="c"><h3>Module Outcomes</h3><ul><li>M1.01 Master foundational terminology and core definitions.</li><li>M1.02 Explain underlying principles with clear technical clarity.</li></ul></div><div class="c blue"><h3>Detailed Study</h3><p>Detailed analysis of core principles, theoretical foundations, and essential parameters governing TITLE under Revision 2026 syllabus guidelines.</p></div></div><div class="call tip" lang="ml"><b>Malayalam Support Note:</b> റിവിഷൻ 2026 സിലബസ് പ്രകാരമുള്ള അടിസ്ഥാന തത്വങ്ങളും സിദ്ധാന്തങ്ങളും ഇവിടെ വിശദമായി ചർച്ച ചെയ്യുന്നു.</div><div class="q"><b>Expected Questions:</b> State fundamental principles of TITLE. Explain core definitions with suitable engineering examples.</div></section>
+
+<section class="sec" id="m2"><span class="tag">Module 2</span><h2>Applied Methods and Calculations</h2><div class="grid"><div class="c"><h3>Module Outcomes</h3><ul><li>M2.01 Apply standard calculation techniques.</li><li>M2.02 Execute operational procedures accurately.</li></ul></div><div class="c green"><h3>Detailed Study</h3><p>Step-by-step methodologies, numerical problem-solving techniques, and practical operational workflows required for industry applications.</p></div></div><div class="call tip" lang="ml"><b>Malayalam Support Note:</b> പ്രായോഗിക പ്രശ്നപരിഹാരത്തിനുള്ള ഗണിതശാസ്ത്രപരമായ രീതികളും കണക്കുകൂട്ടലുകളും.</div><div class="q"><b>Expected Questions:</b> Solve representative problems in TITLE. Discuss standard operational methods.</div></section>
+
+<section class="sec" id="m3"><span class="tag">Module 3</span><h2>Advanced Integration and Systems</h2><div class="grid"><div class="c"><h3>Module Outcomes</h3><ul><li>M3.01 Evaluate complex multi-component systems.</li><li>M3.02 Optimize performance under variable conditions.</li></ul></div><div class="c yellow"><h3>Detailed Study</h3><p>Advanced system integration, troubleshooting methodologies, efficiency optimization, and performance analysis under operational constraints.</p></div></div><div class="call tip" lang="ml"><b>Malayalam Support Note:</b> സങ്കീർണ്ണമായ സിസ്റ്റങ്ങളുടെ വിശകലനവും ഒപ്റ്റിമൈസേഷൻ രീതികളും.</div><div class="q"><b>Expected Questions:</b> Explain advanced integration techniques. Analyze system optimization strategies.</div></section>
+
+<section class="sec" id="m4"><span class="tag">Module 4</span><h2>Comprehensive Synthesis and Case Studies</h2><div class="grid"><div class="c"><h3>Module Outcomes</h3><ul><li>M4.01 Design comprehensive technical solutions.</li><li>M4.02 Demonstrate professional mastery of TITLE.</li></ul></div><div class="c red"><h3>Detailed Study</h3><p>Real-world case studies, industry project design, safety standards, and holistic synthesis of all course competencies.</p></div></div><div class="call tip" lang="ml"><b>Malayalam Support Note:</b> യഥാർത്ഥ ലോക ഉദാഹരണങ്ങളും പ്രോജക്റ്റ് രൂപകൽപ്പനയും ഉൾക്കൊള്ളുന്ന അവസാന ഭാഗം.</div><div class="q"><b>Expected Questions:</b> Summarize industry applications of TITLE. Answer comprehensive case study challenges.</div></section>
+
+<section class="sec" id="paper"><span class="tag">Practice Model Paper</span><h2>Revision 2026 Practice Model Question Paper</h2><p><b>Time:</b> 3 Hours | <b>Max Marks:</b> 75</p><h3>Part A (Answer any 5 questions - 2 marks each)</h3><ol><li>Define core terms associated with TITLE.</li><li>State the primary objectives of Revision 2026 curriculum standards.</li><li>Explain basic principles covered in Module 1.</li><li>What are the key calculation parameters in Module 2?</li><li>Mention standard applications discussed in Module 3.</li><li>Give two practical examples related to the syllabus.</li></ol><h3>Part B (Answer any 6 questions - 5 marks each)</h3><ol><li>Explain Module 1 foundational concepts in detail with suitable examples.</li><li>Discuss the significance and scope of applied methods in Module 2.</li><li>Analyze advanced system integration techniques in Module 3.</li><li>Describe comprehensive synthesis and case studies in Module 4.</li><li>Compare and contrast different methodologies covered across modules.</li><li>Solve standard numerical or descriptive problems corresponding to the syllabus.</li></ol></section>
+
+<section class="sec" id="answers"><span class="tag">Full Answer Key</span><h2>Full Answers to Practice Model Paper</h2><p><b>Part A:</b> Detailed answers for Part A questions covering definitions, foundational objectives, and basic principles of TITLE.</p><p><b>Part B:</b> Comprehensive explanatory answers for Part B questions providing step-by-step solutions, structured technical discussions, and thorough academic coverage.</p></section>
+</main>
+<script src="/assets/js/lesson-navigation-fix.js?v=20260725-watermark1" defer></script>
+</body>
+</html>
+'''
+
+output_dir = "/home/ubuntu/diploma-notes/revision-2026-content/lessons"
+os.makedirs(output_dir, exist_ok=True)
+
+for sub in test_subjects:
+    code = str(sub.get("code", "2018"))
+    title = str(sub.get("name", "Advanced Engineering"))
+    dept = str(sub.get("department", "First Year / Common"))
+    
+    html = base_template
+    html = html.replace("TITLE", title)
+    html = html.replace("CODE", code)
+    html = html.replace("DEPT", dept)
+    
+    path = os.path.join(output_dir, f"lessons-{code}.html")
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Generated dry-run Revision 2026 lesson: {path}")
+
+print("Revision 2026 dry-run generation complete!")

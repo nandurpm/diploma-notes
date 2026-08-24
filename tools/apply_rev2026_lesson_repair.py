@@ -12,11 +12,11 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parents[1]
-LESSON_RUNTIME = "20260725-watermark1"
+LESSON_RUNTIME = "20260819-ask-context1"
 REV2026_RUNTIME = "20260718-rev2026-repair4"
 MODEL_RUNTIME = "20260718-model-paper-navigation3"
 SITTTR = "https://sitttrkerala.ac.in/index.php"
-COURSE_URL = SITTTR + "?r=site%2Fdiploma-modelqp-courses-show&course={}"
+COURSE_URL = SITTTR + "?r=site%2Fdiploma-modelqp&scheme=REV2026"
 
 LESSON_SCRIPT_RE = re.compile(
     r'<script\b[^>]*src=["\']/assets/js/lesson-navigation-fix\.js\?v=[^"\']+["\'][^>]*>\s*</script>',
@@ -300,6 +300,9 @@ def validate() -> None:
 
 
 def main() -> int:
+    if not (ROOT / "assets/js/lesson-availability-hotfix.js").exists():
+        print("REV2026 legacy lesson hotfix is retired; no repair is required.")
+        return 0
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true", help="Validate without modifying files")
     args = parser.parse_args()

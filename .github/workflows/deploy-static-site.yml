@@ -2,8 +2,6 @@ name: Deploy static site to Cloudflare Pages
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
   issues:
     types: [opened]
 
@@ -22,6 +20,7 @@ jobs:
     timeout-minutes: 12
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_PAGES_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PRODUCTION_DOMAIN: polypmna.dpdns.org
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -51,6 +50,7 @@ jobs:
           python tools/generate_sitemap.py
           python tools/site_quality_gate.py
           python tools/build_public_site.py --target _site
+          python tools/verify_public_build_consistency.py _site --expected-commit "$GITHUB_SHA"
           test -f _site/build-optimization.json
           grep -q 'assets/build/home.' _site/index.html
           grep -q 'Bilingual Kerala Polytechnic Study Portal' _site/about.html
@@ -66,14 +66,13 @@ jobs:
           echo 'name=diploma-notes' >> "$GITHUB_OUTPUT"
           echo 'Using Cloudflare Pages project: diploma-notes'
 
-      # NOTE: This Cloudflare Pages mirror is optional. Production is served by
-      # GitHub Pages (deploy-github-pages.yml). The GitHub secret
-      # CLOUDFLARE_API_TOKEN currently lacks Pages scopes, and the old Pages
-      # project was removed from the account, so this step is allowed to fail.
-      # To restore the mirror, create a Cloudflare API token with
-      # Workers + Pages (read/edit) and set CLOUDFLARE_PAGES_TOKEN.
+      # NOTE: This Cloudflare Pages mirror is optional. Production remains
+      # served by GitHub Pages (deploy-github-pages.yml) until the custom-domain
+      # DNS CNAME is authorized and propagated. Prefer a dedicated Pages-scoped
+      # CLOUDFLARE_PAGES_TOKEN; the existing account token is retained only as
+      # a compatibility fallback for the already-working mirror deployment.
       - name: Deploy repository main to Cloudflare Pages mirror
-        if: ${{ env.CLOUDFLARE_PAGES_TOKEN != '' }}
+        if: ${{ env.CLOUDFLARE_PAGES_TOKEN != '' || env.CLOUDFLARE_API_TOKEN != '' }}
         continue-on-error: true
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}

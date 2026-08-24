@@ -45,7 +45,7 @@ int main(void)
 <tr><td>Pointer member</td><td><span class="inline-code">p-&gt;mark</span></td><td>Equivalent to <span class="inline-code">(*p).mark</span>.</td></tr>
 <tr><td>Array</td><td><span class="inline-code">struct Student class[60];</span></td><td>Stores many records.</td></tr>
 </tbody></table></div>
-<div class="ml">Structure ഓരോ member-നും വേറെ storage നൽകുന്നു. Function-ലേക്ക് വലിയ structure copy ചെയ്യുന്നതിന് പകരം <span class="inline-code">const struct Student *</span> pass ചെയ്യുന്നത് efficient ആണ്.</div>
+<div class="ml" lang="ml">Structure ഓരോ member-നും വേറെ storage നൽകുന്നു. Function-ലേക്ക് വലിയ structure copy ചെയ്യുന്നതിന് പകരം <span class="inline-code">const struct Student *</span> pass ചെയ്യുന്നത് efficient ആണ്.</div>
 </article>
 <article class="card unit">
 <span class="code-id">M4.06</span><span class="hour">1 hour</span>
@@ -60,7 +60,7 @@ struct Value {
         double real;
     } data;
 };</code></pre></div>
-<div class="ml">Union members same memory share ചെയ്യും. ഏത് member valid ആണെന്ന് സൂചിപ്പിക്കാൻ enum tag ഉപയോഗിക്കുന്നത് നല്ല design ആണ്.</div>
+<div class="ml" lang="ml">Union members same memory share ചെയ്യും. ഏത് member valid ആണെന്ന് സൂചിപ്പിക്കാൻ enum tag ഉപയോഗിക്കുന്നത് നല്ല design ആണ്.</div>
 </article>
 <article class="card unit">
 <span class="code-id">M4.06</span><span class="hour">Included</span>
@@ -72,7 +72,7 @@ struct Value {
     DISPLAY,
     EXIT
 };</code></pre></div>
-<div class="ml">Magic numbers-ന് പകരം meaningful names നൽകാൻ enum ഉപയോഗിക്കുക.</div>
+<div class="ml" lang="ml">Magic numbers-ന് പകരം meaningful names നൽകാൻ enum ഉപയോഗിക്കുക.</div>
 </article>
 <article class="card unit wide">
 <span class="code-id">M4.07</span><span class="hour">3 hours</span>
@@ -123,7 +123,7 @@ int main(void)
     return 0;
 }</code></pre></div>
 <div class="call mist"><b>Do not use <span class="inline-code">while (!feof(file))</span> as the input loop:</b> test the return value of the actual input function, as shown above.</div>
-<div class="ml"><span class="inline-code">fopen()</span> NULL ആണോ പരിശോധിക്കുക. Read loop-ൽ <span class="inline-code">fscanf</span>/<span class="inline-code">fgets</span> return value test ചെയ്യണം. അവസാനം <span class="inline-code">fclose()</span> വിളിക്കുക.</div>
+<div class="ml" lang="ml"><span class="inline-code">fopen()</span> NULL ആണോ പരിശോധിക്കുക. Read loop-ൽ <span class="inline-code">fscanf</span>/<span class="inline-code">fgets</span> return value test ചെയ്യണം. അവസാനം <span class="inline-code">fclose()</span> വിളിക്കുക.</div>
 </article>
 <article class="card unit wide">
 <span class="code-id">M4.08</span><span class="hour">1 hour</span>
@@ -161,7 +161,7 @@ int main(int argc, char *argv[])
 <div class="output">Example:
 program 10 20 30
 Total = 60</div>
-<div class="ml"><span class="inline-code">argv[0]</span> program name ആണ്. User arguments <span class="inline-code">argv[1]</span> മുതൽ തുടങ്ങും. Text-to-number conversion validate ചെയ്യണം.</div>
+<div class="ml" lang="ml"><span class="inline-code">argv[0]</span> program name ആണ്. User arguments <span class="inline-code">argv[1]</span> മുതൽ തുടങ്ങും. Text-to-number conversion validate ചെയ്യണം.</div>
 </article>
 </div>
 <div class="call exam"><b>Series Test II focus:</b> structure definition and processing, array of structures, passing structures and structure pointers, union versus structure, enum, file modes and functions, sequential file programs and command-line arguments.</div>

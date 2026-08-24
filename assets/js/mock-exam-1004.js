@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const MOCK_EXAM_ASSET_VERSION = "20260720-audit-security-fix1";
+  const MOCK_EXAM_ASSET_VERSION = "20260815-server-only-grading1";
 
   function loadScript(src) {
     return new Promise((resolve, reject) => {
@@ -67,7 +67,7 @@
           }
         } else {
           result.savedOnline = false;
-          result.saveWarning = "This is a provisional browser-only estimate. It is not an authoritative published score and is not stored online.";
+          result.saveWarning = "The server returned a provisional evaluation response; it was not stored as an authoritative online score.";
         }
         localStorage.setItem(M.service.key("latest-result"), JSON.stringify(result));
         localStorage.removeItem(M.service.key("draft"));

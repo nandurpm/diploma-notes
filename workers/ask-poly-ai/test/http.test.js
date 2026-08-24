@@ -148,3 +148,21 @@ test("secureIndex fetch rejects oversized POST request early", async () => {
   const data = await response.json();
   assert.equal(data.error, "The request is too large.");
 });
+
+test("secureIndex handles auth failure and validates HTTP status code within safe range", async () => {
+  const request = {
+    method: "POST",
+    url: "https://example.com/api/evaluate-mock-exam",
+    headers: {
+      get: (name) => {
+        if (name.toLowerCase() === "origin") return "https://polypmna.dpdns.org";
+        return null;
+      }
+    }
+  };
+  const env = {};
+  const response = await secureIndex.fetch(request, env, {});
+  assert.equal(response.status, 401);
+  const data = await response.json();
+  assert.ok(data.error);
+});

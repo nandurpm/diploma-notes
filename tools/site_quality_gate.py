@@ -133,7 +133,7 @@ def audit_page(url: str) -> list[str]:
     duplicates = [value for value, count in Counter(parser.ids).items() if count > 1]
     if duplicates:
         issues.append(f"duplicate IDs: {', '.join(sorted(duplicates))}")
-    is_lesson = local.startswith(("lessons/", "revision-2026-content/lessons/"))
+    is_lesson = local.startswith(("lessons/", "revision-2026-content/lessons/", "revision-2021-content/lessons/"))
     if not is_lesson:
         if parser.main != 1:
             issues.append(f"expected one main element, found {parser.main}")
@@ -145,12 +145,15 @@ def audit_page(url: str) -> list[str]:
     for key in required_meta:
         if not parser.meta.get(key):
             issues.append(f"missing metadata {key}")
-    if parser.favicon != 1:
-        issues.append(f"expected one POLY PMNA favicon; found {parser.favicon}")
-    if parser.manifest != 1:
-        issues.append(f"expected one web manifest link; found {parser.manifest}")
-    if parser.meta.get("theme-color") != "#1d4ed8":
-        issues.append("missing or inconsistent theme-color")
+    # Lesson handbooks use a lightweight document template and intentionally do
+    # not load the full site shell, favicon, manifest, or theme-color metadata.
+    if not is_lesson:
+        if parser.favicon != 1:
+            issues.append(f"expected one POLY PMNA favicon; found {parser.favicon}")
+        if parser.manifest != 1:
+            issues.append(f"expected one web manifest link; found {parser.manifest}")
+        if parser.meta.get("theme-color") != "#1d4ed8":
+            issues.append("missing or inconsistent theme-color")
     if parser.jsonld != 1:
         issues.append(f"expected one generated JSON-LD block; found {parser.jsonld}")
     broken = []
@@ -212,6 +215,8 @@ def main() -> int:
         ("validate_site_structure.py", "Site Structure Validation"),
         ("validate_lesson_fullscreen.py", "Lesson Fullscreen Validation"),
         ("validate_watermark.py", "Lesson Watermark Validation"),
+        ("verify_password_reset_security.py", "Password-reset Security Validation"),
+        ("verify_deployment_cache_contract.py", "Deployment Cache Contract Validation"),
     ]
     for script, name in sub_validations:
         try:

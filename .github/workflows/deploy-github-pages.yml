@@ -31,8 +31,13 @@ jobs:
           python tools/generate_sitemap.py
           python tools/site_quality_gate.py
           python tools/build_public_site.py --target _site
+          python tools/verify_public_build_consistency.py _site --expected-commit "$GITHUB_SHA"
           test -f _site/build-optimization.json
           grep -q 'assets/build/home.' _site/index.html
+          test ! -s <(grep -o 'id="queueBtn"' _site/ask-poly.html)
+          test ! -s <(grep -o 'class="ask-queue"' _site/ask-poly.html)
+          test ! -s <(grep -o 'id="contextDepartment"' _site/ask-poly.html)
+          test ! -s <(grep -o 'class="ask-context-bar"' _site/ask-poly.html)
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
