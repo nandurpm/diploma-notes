@@ -50,22 +50,22 @@ jobs:
             python tools/normalize_rev2021_noscript.py
             python tools/materialize_rev2021_subjects.py
             python - <<'PY'
-import json
-import re
-from pathlib import Path
+            import json
+            import re
+            from pathlib import Path
 
-dataset = json.loads(Path("assets/data/revision-2021-subjects.json").read_text(encoding="utf-8"))
-assert dataset.get("scheme") == "REV2021", dataset
-assert len(dataset.get("subjects", [])) >= 2500, dataset.get("subjectCount")
-assert len({row.get("department") for row in dataset.get("subjects", [])}) >= 44, "43 programmes plus common subjects"
-pages = [path for path in Path("revision-2021").glob("*.html") if path.name != "department-view.html"]
-assert len(pages) == 43, len(pages)
-for path in pages:
-    text = path.read_text(encoding="utf-8")
-    assert len(re.findall(r"data-semester-section=", text)) == 6, path
-    assert re.search(r"<article\b[^>]*data-revision=[\"']2021[\"']", text), path
-print(f"Validated REV2021 dataset={len(dataset['subjects'])} pages={len(pages)}")
-PY
+            dataset = json.loads(Path("assets/data/revision-2021-subjects.json").read_text(encoding="utf-8"))
+            assert dataset.get("scheme") == "REV2021", dataset
+            assert len(dataset.get("subjects", [])) >= 2500, dataset.get("subjectCount")
+            assert len({row.get("department") for row in dataset.get("subjects", [])}) >= 44, "43 programmes plus common subjects"
+            pages = [path for path in Path("revision-2021").glob("*.html") if path.name != "department-view.html"]
+            assert len(pages) == 43, len(pages)
+            for path in pages:
+                text = path.read_text(encoding="utf-8")
+                assert len(re.findall(r"data-semester-section=", text)) == 6, path
+                assert re.search(r"<article\b[^>]*data-revision=[\"']2021[\"']", text), path
+            print(f"Validated REV2021 dataset={len(dataset['subjects'])} pages={len(pages)}")
+            PY
             python tools/generate_sitemap.py
             python tools/site_quality_gate.py
           } 2>&1 | tee reports/rev2021-materialization-diagnostic.txt
