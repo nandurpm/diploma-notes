@@ -1,0 +1,91 @@
+name: Notify Vercel retry window
+
+on:
+  schedule:
+    # Check the retry window every six hours without using a per-minute poller.
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      pull_request:
+        description: "Pull request number to inspect"
+        required: false
+        default: "292"
+        type: string
+
+permissions:
+  contents: read
+  checks: read
+  pull-requests: read
+  issues: write
+
+concurrency:
+  group: vercel-retry-window
+  cancel-in-progress: true
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check Vercel status and notify when retry window is ready
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pull_request || '292' }}
+          REPOSITORY: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          api="repos/${REPOSITORY}/pulls/${PR_NUMBER}"
+          pr_json="$(gh api "$api")"
+          state="$(jq -r '.state' <<<"$pr_json")"
+          head_sha="$(jq -r '.head.sha' <<<"$pr_json")"
+          if [[ "$state" != "open" ]]; then
+            echo "PR #${PR_NUMBER} is ${state}; no notification needed."
+            exit 0
+          fi
+
+          checks="$(gh api -H 'Accept: application/vnd.github+json' "repos/${REPOSITORY}/commits/${head_sha}/check-runs?per_page=100")"
+          vercel="$(jq -c '[.check_runs[] | select(.name == "Vercel")] | sort_by(.completed_at // .started_at) | last // empty' <<<"$checks")"
+          if [[ -z "$vercel" || "$vercel" == "null" ]]; then
+            echo "No Vercel check found for ${head_sha}."
+            exit 0
+          fi
+
+          conclusion="$(jq -r '.conclusion // ""' <<<"$vercel")"
+          completed_at="$(jq -r '.completed_at // ""' <<<"$vercel")"
+          summary="$(jq -r '.output.summary // .output.title // ""' <<<"$vercel")"
+          echo "Vercel conclusion=${conclusion} completed_at=${completed_at} summary=${summary}"
+
+          if [[ "$conclusion" == "success" ]]; then
+            message='<!-- vercel-retry-window:success -->'
+            body="${message}
+
+Vercel deployment for PR #${PR_NUMBER} is passing again. The retry-window monitor detected a successful deployment check for commit \\`${head_sha:0:12}\\`."
+          elif [[ "$conclusion" == "failure" && "$summary" == *"retry in 24 hours"* ]]; then
+            if [[ -z "$completed_at" ]]; then
+              echo "Rate-limit failure has no completion timestamp; waiting for the next check."
+              exit 0
+            fi
+            completed_epoch="$(date -u -d "$completed_at" +%s)"
+            now_epoch="$(date -u +%s)"
+            age=$((now_epoch - completed_epoch))
+            if (( age < 86400 )); then
+              echo "Vercel retry window has not elapsed; age=${age}s."
+              exit 0
+            fi
+            message='<!-- vercel-retry-window:ready -->'
+            body="${message}
+
+The 24-hour Vercel deployment rate-limit window for PR #${PR_NUMBER} appears to have elapsed. Please retry the Vercel deployment now. This monitor does not bypass Vercel authentication, rate limits, or required checks."
+          else
+            echo "Vercel is not in the known rate-limit state; no notification needed."
+            exit 0
+          fi
+
+          existing="$(gh api "repos/${REPOSITORY}/issues/${PR_NUMBER}/comments?per_page=100" --jq '.[].body' | grep -F "$message" || true)"
+          if [[ -n "$existing" ]]; then
+            echo "Notification already posted; skipping duplicate comment."
+            exit 0
+          fi
+          gh api "repos/${REPOSITORY}/issues/${PR_NUMBER}/comments" -f body="$body" >/dev/null
+          echo "Posted retry-window notification on PR #${PR_NUMBER}."
