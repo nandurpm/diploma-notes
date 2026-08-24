@@ -133,7 +133,7 @@ def audit_page(url: str) -> list[str]:
     duplicates = [value for value, count in Counter(parser.ids).items() if count > 1]
     if duplicates:
         issues.append(f"duplicate IDs: {', '.join(sorted(duplicates))}")
-    is_lesson = local.startswith(("lessons/", "revision-2026-content/lessons/"))
+    is_lesson = local.startswith(("lessons/", "revision-2026-content/lessons/", "revision-2021-content/lessons/"))
     if not is_lesson:
         if parser.main != 1:
             issues.append(f"expected one main element, found {parser.main}")
