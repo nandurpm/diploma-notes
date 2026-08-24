@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "failed",
-  "generatedAt": "2026-08-24T05:50:55.695Z",
+  "generatedAt": "2026-08-24T06:33:51.720Z",
   "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByText('QA grounded answer:') to be visible\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:63:65",
   "checks": [
     {
@@ -83,38 +83,6 @@
       }
     },
     {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787550624883' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
-      "location": {
-        "url": "http://127.0.0.1:8000/ask-poly.html",
-        "lineNumber": 0,
-        "columnNumber": 0
-      }
-    },
-    {
-      "text": "Failed to load resource: net::ERR_FAILED",
-      "location": {
-        "url": "https://api.polypmna.dpdns.org/health?t=1787550624883",
-        "lineNumber": 0,
-        "columnNumber": 0
-      }
-    },
-    {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787550624956' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
-      "location": {
-        "url": "http://127.0.0.1:8000/ask-poly.html",
-        "lineNumber": 0,
-        "columnNumber": 0
-      }
-    },
-    {
-      "text": "Failed to load resource: net::ERR_FAILED",
-      "location": {
-        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787550624956",
-        "lineNumber": 0,
-        "columnNumber": 0
-      }
-    },
-    {
       "text": "TypeError: Cannot read properties of null (reading 'replaceChildren')\n    at setPrompts (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:382:17)\n    at renderAll (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:401:77)\n    at async createChat (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:115:5)\n    at async init (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:541:10)",
       "location": {
         "url": "http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1",
@@ -123,9 +91,9 @@
       }
     },
     {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787550625745' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787553200905' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
       "location": {
-        "url": "http://127.0.0.1:8000/ask-poly.html?",
+        "url": "http://127.0.0.1:8000/ask-poly.html",
         "lineNumber": 0,
         "columnNumber": 0
       }
@@ -133,9 +101,33 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://api.polypmna.dpdns.org/health?t=1787550625745",
+        "url": "https://api.polypmna.dpdns.org/health?t=1787553200905",
         "lineNumber": 0,
         "columnNumber": 0
+      }
+    },
+    {
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787553201002' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "location": {
+        "url": "http://127.0.0.1:8000/ask-poly.html",
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "location": {
+        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787553201002",
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "text": "TypeError: Cannot read properties of null (reading 'replaceChildren')\n    at setPrompts (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:382:17)\n    at renderAll (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:401:77)\n    at async init (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:552:5)",
+      "location": {
+        "url": "http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1",
+        "lineNumber": 558,
+        "columnNumber": 12
       }
     },
     {
@@ -147,7 +139,7 @@
       }
     },
     {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787550625793' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787553201776' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html?",
         "lineNumber": 0,
@@ -157,17 +149,25 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787550625793",
+        "url": "https://api.polypmna.dpdns.org/health?t=1787553201776",
         "lineNumber": 0,
         "columnNumber": 0
       }
     },
     {
-      "text": "TypeError: Cannot read properties of null (reading 'replaceChildren')\n    at setPrompts (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:382:17)\n    at renderAll (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:401:77)\n    at async init (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1:552:5)",
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787553201797' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
       "location": {
-        "url": "http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260823-linkify1",
-        "lineNumber": 558,
-        "columnNumber": 12
+        "url": "http://127.0.0.1:8000/ask-poly.html?",
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "text": "Failed to load resource: net::ERR_FAILED",
+      "location": {
+        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787553201797",
+        "lineNumber": 0,
+        "columnNumber": 0
       }
     }
   ],
