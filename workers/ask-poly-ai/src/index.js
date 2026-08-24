@@ -225,7 +225,8 @@ export default {
               ? (env.GEMINI_MODEL || "gemini-3.5-flash")
               : (env.OPENAI_MODEL || "gpt-4o-mini"),
         mockExamEvaluation: true,
-        mockExamPattern: "1004-75-mark-official-model"
+        mockExamPattern: "1004-75-mark-official-model",
+        dailyQuizGrading: true
       }, 200, origin, env);
     }
 
