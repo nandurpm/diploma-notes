@@ -1,6 +1,6 @@
 /* Purpose: Secure index - Descriptive comment added for clarity */
 import application from "./index.js";
-import { abuseKey, corsHeaders, createRateLimiter, isOriginAllowed, looksAutomated, requestLogContext, securityLog } from "./http.js";
+import { abuseKey, corsHeaders, createRateLimiter, isOriginAllowed, isPlainObject, looksAutomated, rejectUnknownKeys, requestLogContext, securityLog } from "./http.js";
 import { authenticateStudent, storeMockExamResult } from "./result-store.js";
 import { handleDailyQuizGrading } from "./daily-quiz.js";
 import { commentsHealth, handleComments } from "./comments.js";
@@ -8,6 +8,30 @@ import { commentsHealth, handleComments } from "./comments.js";
 const allowImage = createRateLimiter(2, 10 * 60 * 1000);
 const allowComment = createRateLimiter(5, 60 * 1000);
 const IMAGE_INTENT_PATTERN = /\b(?:create|generate|draw|make|show)\s+(?:an?\s+)?(?:image|picture|photo|drawing|sketch|illustration)\b/i;
+const ASK_REQUEST_FIELDS = [
+  "message", "history", "pageTitle", "pageContext", "selectedText", "departmentContext",
+  "diagramRequest", "learningContext", "semester", "revision", "answerMode",
+  "preferredLanguage", "marks", "learningLevel", "attachment", "stream"
+];
+
+function validateAskRequestBody(value) {
+  if (!isPlainObject(value)) return "Ask POLY request must be a JSON object.";
+  try {
+    rejectUnknownKeys(value, ASK_REQUEST_FIELDS, "Ask POLY request");
+  } catch (error) {
+    return error.message;
+  }
+  if (Object.prototype.hasOwnProperty.call(value, "message") && typeof value.message !== "string") {
+    return "message must be a string.";
+  }
+  if (Object.prototype.hasOwnProperty.call(value, "history") && !Array.isArray(value.history)) {
+    return "history must be an array.";
+  }
+  if (isPlainObject(value.attachment) && /^data:/i.test(String(value.attachment.dataUrl || ""))) {
+    return "Inline data URLs are not accepted.";
+  }
+  return "";
+}
 
 function json(data, status, origin, env, inherited) {
   const output = new Headers(inherited || corsHeaders(origin, env));
@@ -99,6 +123,13 @@ export default {
         return json({ error: "Too many questions. Please wait a minute and try again." }, 429, origin, env);
       }
       const askBody = await request.clone().json().catch(() => null);
+      if (askBody !== null) {
+        const validationError = validateAskRequestBody(askBody);
+        if (validationError) {
+          securityLog("invalid_ask_request", { ...logContext, severity: "warning" });
+          return json({ error: validationError }, 400, origin, env);
+        }
+      }
       if (IMAGE_INTENT_PATTERN.test(String(askBody?.message || "")) && (!(await allowed(env.IMAGE_RATE_LIMITER, `image:${anonymousKey(request)}`)) || !allowImage(request))) {
         securityLog("rate_limit_blocked", { ...logContext, route: "image_generation", severity: "warning" });
         return json({ error: "Image-generation limit reached. Please try again later." }, 429, origin, env);
