@@ -87,6 +87,9 @@ export function requestLogContext(request) {
 
 const AUTOMATION_USER_AGENT = /(curl|wget|python-requests|python\/[0-9]|scrapy|httpclient|headless|phantomjs|selenium|playwright|puppeteer|nikto|sqlmap|masscan|nmap)/i;
 
+/** Defense-in-depth: blocks obvious automation user agents.
+ *  This is bypassable by spoofing the User-Agent header. Authoritative
+ *  abuse protection must use Cloudflare WAF/Bot Management or Turnstile. */
 export function looksAutomated(request) {
   const userAgent = cleanText(request?.headers?.get("User-Agent"), 300);
   return Boolean(userAgent && AUTOMATION_USER_AGENT.test(userAgent));

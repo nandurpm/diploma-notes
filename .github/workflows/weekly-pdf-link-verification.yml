@@ -1,0 +1,49 @@
+name: Weekly PDF Link Verification
+
+on:
+  schedule:
+    # Every Monday at 03:00 UTC.
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-pdf-links:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout website repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify all repository PDF URLs
+        id: verify
+        continue-on-error: true
+        run: |
+          python3 scripts/weekly_pdf_url_checker.py \
+            --repo-root . \
+            --output-dir reports/weekly-pdf-link-check \
+            --workers 20 \
+            --timeout 30 \
+            --retries 3
+
+      - name: Upload weekly PDF-link health reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weekly-pdf-link-health-${{ github.run_number }}
+          path: reports/weekly-pdf-link-check/
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Fail if any PDF URL is invalid
+        if: steps.verify.outcome == 'failure'
+        run: |
+          echo 'One or more repository PDF URLs failed validation. Download the weekly-pdf-link-health artifact for the full list.'
+          exit 1

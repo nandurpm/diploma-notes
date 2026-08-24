@@ -116,17 +116,17 @@ POLY PMNA is a static HTML/CSS/JS educational website hosted on Cloudflare Pages
 
 ---
 
-### BUG-007: Daily Quiz / Weekly Engagement Data Model Mismatch (OPEN)
+### BUG-007: Daily Quiz / Weekly Engagement Data Model Mismatch (FIXED)
 
 | Field | Detail |
 |---|---|
 | **Severity** | Low (UX confusion) |
-| **Status** | Open |
+| **Status** | Fixed |
 | **Description** | The daily-quiz page shows "Recent Results" (daily attempts) alongside "Weekly Engagement" (challenge metrics). These use separate data models: `poly-quiz-results-v4-single-submit` for daily results and `poly-quiz-engagement-v1` for engagement. Daily quiz scores do not contribute to the Weekly Engagement summary. The confusing display shows challenge attempts but zero scores when legacy records have missing fields. |
 | **Root Cause** | Two separate data models with different schemas; the engagement summary defaults missing metrics to zero while counting attempts. |
 | **Impact** | Users see inconsistent score displays, which erodes trust in the quiz system. |
-| **Recommendation** | Clarify labels as "challenge-only" for Weekly Engagement. Normalize legacy score/total fields. Prevent malformed records from silently appearing as zero-score attempts. |
-| **Evidence** | `reports/daily-quiz-screenshot-audit.md` — `assets/js/quiz-engagement.js` `storage()` and `refreshSummary()` |
+| **Fix** | 1) Updated engagement panel text in `daily-quiz.html` to explicitly state metrics count "Weekly Challenges and Time Trials only" with bold emphasis, and that Daily Quiz scores are tracked separately. 2) Added `noScoredHint` in `quiz-engagement.js` to show a clear message when no scored challenge records exist yet, directing users to Personal Practice Analysis. 3) Improved Local Analytics table to show "Score not recorded" for legacy challenge records instead of displaying 0/10. 4) Updated analytics notice to clarify that Daily Quiz and Weekly Challenge records use separate storage. |
+| **Evidence** | `assets/js/quiz-engagement.js` `refreshSummary()` and `renderAnalytics()`; `daily-quiz.html` engagement panel |
 
 ---
 
@@ -179,38 +179,41 @@ POLY PMNA is a static HTML/CSS/JS educational website hosted on Cloudflare Pages
 
 ---
 
-### BUG-012: Firebase Comments Write Path Disabled (INTENTIONAL)
+### BUG-012: Firebase Comments Write Path — All Write Operations Routed Through Server Proxy (FIXED)
 
 | Field | Detail |
 |---|---|
 | **Severity** | Low (functional gap) |
-| **Status** | Intentionally disabled |
-| **Description** | Client-side comment posting is disabled because the previous implementation shipped a Firebase API key in the browser and called Identity Toolkit directly. |
-| **Impact** | Users cannot post comments. |
-| **Recommendation** | Implement a server-side comments proxy in the Worker with authentication, rate limiting, and content validation before re-enabling. |
+| **Status** | Fixed — all write operations now guarded and routed through proxy |
+| **Description** | Client-side comment posting was disabled, but `updateComment` and `deleteComment` still used the Firestore REST API directly with client-held `user.idToken`, bypassing the server-side proxy. This was inconsistent with the security model. |
+| **Impact** | Update/delete operations bypassed server-side rate limiting and authentication. |
+| **Fix** | Added `writeEnabled` flag and `guardedWrite()` function to `help-comments.js`. All write operations (create, update, delete) now route through the server-side proxy (`COMMENTS_PROXY_URL`). The `writeEnabled` flag is only set to `true` after `ensureAuthenticated()` confirms the server endpoint is configured. Direct Firestore REST writes are eliminated. |
+| **Evidence** | `assets/js/help-comments.js` — `guardedWrite()`, `writeEnabled` flag, proxy-routed `updateComment()` and `deleteComment()` |
 
 ---
 
-### BUG-013: Bypassable Client-Side Controls (DOCUMENTED RISK)
+### BUG-013: Bypassable Client-Side Controls (DOCUMENTED — CLARIFIED IN CODE)
 
 | Field | Detail |
 |---|---|
 | **Severity** | Medium |
-| **Status** | Documented |
+| **Status** | Clarified in code with documentation comments |
 | **Description** | Login/signup backoff and user-agent blocking are bypassable by disabling JavaScript, calling Supabase directly, or spoofing user agents. |
 | **Impact** | Sophisticated attackers can circumvent client-side protections. |
-| **Recommendation** | Enforce limits in Supabase Auth server-side. Use Cloudflare WAF/Bot Management or Turnstile for distributed control. |
+| **Fix** | Added explicit documentation comments to `assets/js/quiz-auth.js` clarifying that login/signup backoff and user-agent blocking are client-side defense-in-depth measures, intentionally bypassable, and that authoritative rate limiting must be configured server-side. Added documentation comment to `workers/ask-poly-ai/src/http.js` `looksAutomated()` clarifying it is defense-in-depth and bypassable by spoofing. Both comments reference `docs/AUTHENTICATION-SECURITY.md` for the full security contract. |
+| **Evidence** | `assets/js/quiz-auth.js` header comment; `workers/ask-poly-ai/src/http.js` `looksAutomated()` JSDoc |
 
 ---
 
-### BUG-014: Orphan HTML Files and JavaScript Modules (INFO)
+### BUG-014: Orphan HTML Files and JavaScript Modules (CLEANED UP)
 
 | Field | Detail |
 |---|---|
 | **Severity** | Informational |
-| **Status** | Verified — intentional |
-| **Description** | 61 JS files not directly referenced by `<script>` tags in root HTML files; 4 root HTML files not linked from other pages. These are either dynamically loaded or legacy/redirect pages. |
-| **Files** | `first-year-materials.html`, `new-year-theme-preview.html`, `tools-v2-original.html`, `tools-v2.html` |
+| **Status** | Cleaned up — 9 confirmed orphan files removed |
+| **Description** | Many JS files flagged as orphaned are actually dynamically loaded by other JS modules (quiz-core.js, main.js, etc.) or are Worker source/test files. After thorough analysis, 9 files were confirmed as truly unreferenced. |
+| **Removed files** | `first-year-materials.html` (no references), `assets/js/daily-quiz.js` (placeholder comment only), `assets/js/daily-quiz-register.js` (placeholder reference only), `assets/js/daily-quiz-session.js` (placeholder reference only), `assets/js/daily-quiz-ui.js` (placeholder reference only), `assets/js/daily-quiz-utils.js` (placeholder reference only), `assets/js/conditional-pdf-notes.js` (0 references), `assets/js/subjects-data.js` (0 references), `assets/js/subjects-global.js` (0 references) |
+| **Note** | Files like `quiz-core.js`, `quiz-dashboard.js`, `quiz-config.js`, `quiz-play.js`, `quiz-portal.js`, `quiz-guest-bank.js` are dynamically loaded by `daily-quiz.js` → `quiz-core.js` chain and are NOT orphans. Worker source files (`workers/ask-poly-ai/src/*.js`) are loaded by the Worker bundler. |
 
 ---
 
@@ -294,14 +297,14 @@ POLY PMNA is a static HTML/CSS/JS educational website hosted on Cloudflare Pages
 
 ### Short-term (P1)
 4. **Run a two-account staging authorization test** covering all resource operations.
-5. **Normalize legacy quiz engagement records** to fix the daily-quiz / weekly-engagement display inconsistency (BUG-007).
+5. ~~Normalize legacy quiz engagement records~~ ✅ Fixed — BUG-007 resolved with improved labeling and legacy record display.
 6. **Configure Supabase CAPTCHA** (hCaptcha or Turnstile) for login, signup, and password-reset flows.
 7. **Re-assess Cloudflare WAF rate-limit rule** — consider upgrading plan for dedicated API rate limiting.
 
 ### Medium-term (P2)
-8. **Implement server-side comments proxy** before re-enabling comment posting.
+8. **Implement server-side comments proxy** before re-enabling comment posting (write path now properly guarded).
 9. **Add isolated Supabase integration tests** to CI for cross-account RLS behavior.
-10. **Document and archive orphan legacy files** or add explicit redirect rules.
+10. ~~Document and archive orphan legacy files~~ ✅ Fixed — BUG-014 resolved with 9 confirmed orphan files removed.
 
 ---
 

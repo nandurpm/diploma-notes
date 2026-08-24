@@ -1,0 +1,31 @@
+{
+  "telemetry_event_count": 10,
+  "latencies_ms": [
+    3777,
+    3000,
+    3078,
+    2998,
+    1437,
+    1702,
+    1557,
+    1342,
+    1194,
+    1299
+  ],
+  "providers": {
+    "nvidia": 10
+  },
+  "mean_ms": 2138.4,
+  "median_ms": 1629.5,
+  "p95_ms": 3078,
+  "min_ms": 1194,
+  "max_ms": 3777,
+  "historical_6000": {
+    "wall_ms": 7545,
+    "median_ms": 5072,
+    "p95_ms": 7541,
+    "max_ms": 7541
+  },
+  "median_delta_pct_vs_6000": -67.9,
+  "p95_delta_pct_vs_6000": -59.2
+}

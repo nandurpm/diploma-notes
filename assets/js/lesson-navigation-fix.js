@@ -403,7 +403,22 @@
     const actions = document.createElement("section");
     actions.id = "polyLessonEndActions";
     actions.className = "poly-lesson-end-actions";
-    actions.innerHTML = `<p class="poly-lesson-identity">${courseCode ? `Course ${courseCode} · ` : ""}${revision2026 ? "Revision 2026" : "Revision 2021"}</p><div class="poly-lesson-action-row"><a class="poly-lesson-action poly-lesson-back" href="${revision2026 ? "/revision-2026.html" : "/revision-2021.html"}">Back to ${revision2026 ? "Revision 2026" : "Revision 2021"}</a></div>`;
+    const revisionHref = revision2026 ? "/revision-2026.html" : "/revision-2021.html";
+    const revisionLabel = revision2026 ? "Revision 2026" : "Revision 2021";
+    let referrerHref = "";
+    try {
+      const referrer = document.referrer ? new URL(document.referrer) : null;
+      if (referrer && referrer.origin === location.origin && referrer.href !== location.href) {
+        referrerHref = `${referrer.pathname}${referrer.search}${referrer.hash}`;
+      }
+    } catch (_) {
+      referrerHref = "";
+    }
+    const previousHref = referrerHref || revisionHref;
+    const previousLabel = referrerHref && /(?:revision-(?:2021|2026)|department|syllabus|subject)/i.test(referrerHref)
+      ? "Back to department"
+      : referrerHref ? "Back to previous page" : `Browse ${revisionLabel}`;
+    actions.innerHTML = `<p class="poly-lesson-identity">${courseCode ? `Course ${courseCode} · ` : ""}${revisionLabel}</p><nav class="poly-lesson-breadcrumb" aria-label="Lesson navigation"><a href="/">Home</a><span aria-hidden="true">/</span><a href="${revisionHref}">${revisionLabel}</a><span aria-hidden="true">/</span><span aria-current="page">Course ${courseCode || "lesson"}</span></nav><div class="poly-lesson-action-row"><a class="poly-lesson-action poly-lesson-back" href="${previousHref}">${previousLabel}</a><a class="poly-lesson-action poly-lesson-home" href="/">Home</a></div>`;
     const row = actions.querySelector(".poly-lesson-action-row");
     const printable = new URL(location.href);
     printable.search = "?autoPrintNotes=1";

@@ -301,6 +301,26 @@ html.poly-lesson-page .poly-lesson-identity {
   text-transform: uppercase;
 }
 
+html.poly-lesson-page .poly-lesson-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 12px;
+  color: var(--lesson-muted);
+  font-size: .84rem;
+}
+
+html.poly-lesson-page .poly-lesson-breadcrumb a {
+  color: var(--lesson-blue);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+html.poly-lesson-page .poly-lesson-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
 html.poly-lesson-page .poly-lesson-action-row {
   display: flex;
   flex-wrap: wrap;

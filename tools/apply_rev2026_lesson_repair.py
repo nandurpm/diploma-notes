@@ -16,7 +16,7 @@ LESSON_RUNTIME = "20260819-ask-context1"
 REV2026_RUNTIME = "20260718-rev2026-repair4"
 MODEL_RUNTIME = "20260718-model-paper-navigation3"
 SITTTR = "https://sitttrkerala.ac.in/index.php"
-COURSE_URL = SITTTR + "?r=site%2Fdiploma-modelqp-courses-show&course={}"
+COURSE_URL = SITTTR + "?r=site%2Fdiploma-modelqp&scheme=REV2026"
 
 LESSON_SCRIPT_RE = re.compile(
     r'<script\b[^>]*src=["\']/assets/js/lesson-navigation-fix\.js\?v=[^"\']+["\'][^>]*>\s*</script>',

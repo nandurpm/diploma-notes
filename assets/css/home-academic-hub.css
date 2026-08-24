@@ -252,3 +252,32 @@
     transition: none;
   }
 }
+
+/* Smoothly reveal the native details content where supported without changing layout markup. */
+@supports selector(details::details-content) {
+  .academic-menu {
+    interpolate-size: allow-keywords;
+  }
+
+  .academic-menu::details-content {
+    block-size: 0;
+    content-visibility: hidden;
+    opacity: 0;
+    overflow: clip;
+    transition: block-size 200ms cubic-bezier(0.23, 1, 0.32, 1),
+      content-visibility 200ms allow-discrete,
+      opacity 160ms ease-out;
+  }
+
+  .academic-menu[open]::details-content {
+    block-size: auto;
+    content-visibility: visible;
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .academic-menu::details-content {
+    transition: none;
+  }
+}

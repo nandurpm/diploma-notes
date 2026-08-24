@@ -786,3 +786,85 @@ body.ask-data-saver .ask-generated-image{display:none!important}
 .ask-diagram-svg .flow-branch-label{fill:#b45309;font-family:Inter,system-ui,sans-serif;font-size:16px;font-weight:950;text-anchor:middle;paint-order:stroke;stroke:#fff7ed;stroke-width:5px;stroke-linejoin:round}
 .ask-diagram-fallback{padding:14px;border:1px solid #bae6fd;border-radius:14px;background:#f0f9ff;color:#164e63}
 .ask-diagram-fallback figcaption{font-weight:900}
+
+
+/* 2026-08 full-width desktop chat: use the available viewport instead of a centered 1680px canvas. */
+@media (min-width: 901px) {
+  body.portal-page.ask-poly-page > main {
+    padding-inline: 0 !important;
+  }
+
+  .ask-shell {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+  }
+
+  .ask-app {
+    width: 100% !important;
+  }
+
+  .ask-messages {
+    padding-inline: clamp(18px, 2vw, 36px) !important;
+  }
+
+  .ask-bubble.ai {
+    max-width: min(1320px, 96%) !important;
+  }
+
+  .ask-bubble.user {
+    max-width: min(640px, 82%) !important;
+  }
+}
+
+
+/* 2026-08 vertical density: keep the Ask POLY workspace close to the header and footer. */
+@media (min-width: 901px) {
+  .ask-poly-page .topbar {
+    margin-bottom: 0 !important;
+  }
+
+  body.portal-page.ask-poly-page.has-fixed-site-header {
+    padding-top: 64px !important;
+  }
+
+  body.portal-page.ask-poly-page > main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ask-shell {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .ask-poly-page .site-breadcrumbs {
+    padding-top: 0 !important;
+  }
+
+  .ask-poly-page > footer[data-site-footer] {
+    margin-top: 8px !important;
+    margin-bottom: 0 !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .ask-poly-page .topbar {
+    margin-bottom: 0 !important;
+  }
+
+  .ask-shell {
+    padding-top: 4px !important;
+    padding-bottom: 4px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .ask-shell {
+    padding-top: 3px !important;
+    padding-bottom: 3px !important;
+  }
+}

@@ -147,7 +147,7 @@ Use Markdown links only for real, accessible URLs. Never invent a download URL a
   async function loadPdfManifest() {
     if (pdfManifest) return pdfManifest;
     try {
-      const response = await fetch("/assets/data/sitttr-pdf-links.json?v=20260818-pdf-manifest2");
+      const response = await fetch("/assets/data/sitttr-pdf-links.json?v=20260823-repo-links1");
       pdfManifest = response.ok ? await response.json() : { links: {} };
     } catch {
       pdfManifest = { links: {} };

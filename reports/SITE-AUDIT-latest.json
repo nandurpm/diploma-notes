@@ -1,0 +1,3049 @@
+{
+  "htmlPagesScanned": 1508,
+  "missingLinkTargets": {
+    "lessons/lessons-2008.html": [
+      "revision-2021/architecture.html",
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/automation-and-robotics.html",
+      "revision-2021/automobile-engineering.html",
+      "revision-2021/biomedical-engineering.html"
+    ],
+    "lessons/lessons-2009.html": [
+      "revision-2021/architecture.html",
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/automation-and-robotics.html",
+      "revision-2021/automobile-engineering.html",
+      "revision-2021/biomedical-engineering.html"
+    ],
+    "lessons/lessons-3009.html": [
+      "revision-2021/architecture.html",
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/automation-and-robotics.html",
+      "revision-2021/automobile-engineering.html",
+      "revision-2021/biomedical-engineering.html"
+    ],
+    "lessons/lessons-5008.html": [
+      "revision-2021/architecture.html",
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/automation-and-robotics.html",
+      "revision-2021/automobile-engineering.html",
+      "revision-2021/biomedical-engineering.html"
+    ],
+    "lessons/lessons-5009.html": [
+      "revision-2021/architecture.html",
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/automation-and-robotics.html",
+      "revision-2021/automobile-engineering.html",
+      "revision-2021/biomedical-engineering.html"
+    ],
+    "lessons/lessons-6131D.html": [
+      "revision-2021/cloud-computing-and-big-data.html",
+      "revision-2021/communication-and-computer-networking.html",
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5133A.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-5139A.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-2019.html": [
+      "revision-2021/civil-and-environmental-engineering.html",
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html",
+      "revision-2021/civil-public-health-and-environment-engineering.html"
+    ],
+    "lessons/lessons-4132.html": [
+      "revision-2021/cloud-computing-and-big-data.html",
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html",
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-3133.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3136.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6139C.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/information-technology.html",
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3019.html": [
+      "revision-2021/civil-and-environmental-engineering.html",
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-6018.html": [
+      "revision-2021/civil-and-environmental-engineering.html",
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-5133B.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5139B.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6131A.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6131C.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6132D.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6138.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/computer-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6322B.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6158.html": [
+      "revision-2021/artificial-intelligence.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5019.html": [
+      "revision-2021/civil-and-environmental-engineering.html",
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-6017.html": [
+      "revision-2021/civil-and-environmental-engineering.html",
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-5017.html": [
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-5018.html": [
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-3131.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-3134.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-3135.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-3137.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-3138.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-4131.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-4133.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-4136.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-4137.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-4138.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html",
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5132.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-5133C.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5139C.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6132A.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6132C.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6139A.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html",
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3039.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html",
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3341.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-3343.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-3345.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-3346.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-3347.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-3348.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-4341.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-4343.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-4347.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-4348.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-4349.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5342.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5343A.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5343B.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5347.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5349A.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5349B.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6341A.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6341B.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6341C.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6342A.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6342B.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6342C.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6349A.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6349B.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6349C.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html",
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-2072.html": [
+      "revision-2021/chemical-engineering.html",
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-2079.html": [
+      "revision-2021/chemical-engineering.html",
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4018.html": [
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-4019.html": [
+      "revision-2021/civil-and-rural-engineering.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-3015.html": [
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-3016.html": [
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-3017.html": [
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-3018.html": [
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-4016.html": [
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-4017.html": [
+      "revision-2021/civil-engineering-and-planning.html",
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-3271.html": [
+      "revision-2021/cloud-computing-and-big-data.html",
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6143A.html": [
+      "revision-2021/commercial-practice.html",
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6143B.html": [
+      "revision-2021/commercial-practice.html",
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6252A.html": [
+      "revision-2021/computer-application-and-business-management.html",
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3139.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-4139.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-5131.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-5137.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-5138.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6131B.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6132B.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6139B.html": [
+      "revision-2021/computer-engineering.html",
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-3157.html": [
+      "revision-2021/computer-hardware-engineering.html",
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-3036.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-3037.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-3038.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-4036.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-4037.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-4038.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-4039.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5037.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5038.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6037.html": [
+      "revision-2021/electrical-electronics-engineering.html",
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3033.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html",
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3371.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html",
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-3372.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html",
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-3379.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html",
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-4371.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html",
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-4372.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html",
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-4378.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html",
+      "revision-2021/micro-electronics.html"
+    ],
+    "revision-2026-content/lessons/' + anchor + '": [
+      "revision-2026-content/lessons/lessons-1004.html",
+      "revision-2026-content/lessons/lessons-1251.html"
+    ],
+    "revision-2026-content/lessons/' + href + '": [
+      "revision-2026-content/lessons/lessons-1254.html",
+      "revision-2026-content/lessons/lessons-2005.html"
+    ],
+    "lessons/lessons-2182.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3181.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3182.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3183.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3184.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3187.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3188.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3189.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-4181.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-4182.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-4183.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-4184.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-4185.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-4188.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-4189.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-5181.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-5182A.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-5182B.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-5182C.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-5187.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-5188.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-5189.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6181A.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6181B.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6181C.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6182A.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6182B.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6182C.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6182D.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6187.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6188.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-6189.html": [
+      "revision-2021/architecture.html"
+    ],
+    "lessons/lessons-3342.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-3344.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-3349.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-4342.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-4346.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-5341.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-5348.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-6348.html": [
+      "revision-2021/artificial-intelligence-and-machine-learning.html"
+    ],
+    "lessons/lessons-3381.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-3382.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-3389.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-4381.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-4389.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5381.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-5389.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-6389.html": [
+      "revision-2021/artificial-intelligence.html"
+    ],
+    "lessons/lessons-2379.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3331.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3332.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3333.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3334.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3335.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3336.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3337.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3338.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-3339.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-4331.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-4332.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-4333.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-4336.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-4337.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-4338.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-4339.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5331.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5332.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5333A.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5333B.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5333C.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5337.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5338.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5339A.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5339B.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-5339C.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6331A.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6331B.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6331C.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6332A.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6332B.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6332C.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6332D.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6337.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6338.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6339A.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6339B.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-6339C.html": [
+      "revision-2021/automation-and-robotics.html"
+    ],
+    "lessons/lessons-2051.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-2059.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3027.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3051.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3052.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3053.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3054.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3055.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3057.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3058.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-3059.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-4029.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-4051.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-4052.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-4053.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-4057.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-4058.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-4059.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5051.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5052.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5053A.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5053B.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5053C.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5057.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5058.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5059A.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5059B.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-5059C.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6051A.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6051B.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6051C.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6052A.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6052B.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6052C.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6052D.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6057.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6058.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6059A.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6059B.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-6059C.html": [
+      "revision-2021/automobile-engineering.html"
+    ],
+    "lessons/lessons-2071.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-2078.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3071.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3072.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3073.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3074.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3075.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3076.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3077.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3078.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3079.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-4071.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-4072.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-4073.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-4074.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-4077.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-4078.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-4079.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5071.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5072.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5073A.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5073B.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5073C.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5077.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5078.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-5079.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6071A.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6071B.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6071C.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6072A.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6072B.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6072C.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6072D.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6077.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6078.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-6079.html": [
+      "revision-2021/chemical-engineering.html"
+    ],
+    "lessons/lessons-3351.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-3352.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-3356.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-3357.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-3358.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-3359.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-4351.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-4352.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-4353.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-4356.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-4357.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-4358.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-4359.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-5351.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-5352A.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-5352B.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-5352C.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-5358.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-5359.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6351A.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6351B.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6351C.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6352A.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6352B.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6352C.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6352D.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-6359.html": [
+      "revision-2021/civil-and-environmental-engineering.html"
+    ],
+    "lessons/lessons-3361.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-3362.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-3366.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-3367.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-3368.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-3369.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-4368.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-4369.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-6361A.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-6369.html": [
+      "revision-2021/civil-and-rural-engineering.html"
+    ],
+    "lessons/lessons-4391.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-4392.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-4398.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-4399.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-5391.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-5399.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-6391A.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-6391B.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-6398.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-6399.html": [
+      "revision-2021/civil-engineering-and-planning.html"
+    ],
+    "lessons/lessons-6019.html": [
+      "revision-2021/civil-engineering.html"
+    ],
+    "lessons/lessons-3272.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-3273.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-3274.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-3275.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-3276.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-3277.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-3278.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-3279.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-4271.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-4272.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-4276.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-4277.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-4278.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-4279.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5271.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5272.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5273A.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5273B.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5273C.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5277.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5278.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5279A.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5279B.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-5279C.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6271A.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6271B.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6271C.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6272A.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6272B.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6272C.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6272D.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6277.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6278.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6279A.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6279B.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-6279C.html": [
+      "revision-2021/cloud-computing-and-big-data.html"
+    ],
+    "lessons/lessons-2141.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-2142.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-2143.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-2144.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-2148.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-2149.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3141.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3142.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3143.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3146.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3147.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3148.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3149.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-4141.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-4142.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-4143.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-4144.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-4147.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-4148.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-4149.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5141.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5142.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5143A.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5143B.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5143C.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5146.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5147.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5148A.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5148B.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5148C.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-5149.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-6008.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-6141.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-6142.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-6143C.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-6148.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-6149.html": [
+      "revision-2021/commercial-practice.html"
+    ],
+    "lessons/lessons-3321.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3322.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3323.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3324.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3325.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3326.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3327.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3328.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-3329.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-4321.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-4322.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-4323.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-4326.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-4327.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-4328.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-4329.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5321.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5322A.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5322B.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5322C.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5323.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5327.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5328.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5329A.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5329B.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-5329C.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6321A.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6321B.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6321C.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6322A.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6322C.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6322D.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6327.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6328.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6329A.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6329B.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-6329C.html": [
+      "revision-2021/communication-and-computer-networking.html"
+    ],
+    "lessons/lessons-2251.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-2252.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-2253.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-2257.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-2258.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-2259.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3251.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3252.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3253.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3254.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3255.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3256.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3257.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3258.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-3259.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4008.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4251.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4252.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4253.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4254.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4257.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4258.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-4259.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5251.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5252.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5253.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5254A.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5254B.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5254C.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5257.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5258.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5259A.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5259B.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-5259C.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6251A.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6251B.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6251C.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6252B.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6252C.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6252D.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6257.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6258.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6259.html": [
+      "revision-2021/computer-application-and-business-management.html"
+    ],
+    "lessons/lessons-6137.html": [
+      "revision-2021/computer-engineering.html"
+    ],
+    "lessons/lessons-3151.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-3152.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-3158.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-3159.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-4151.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-4152.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-4157.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-4158.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-4159.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5151.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5152A.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5152B.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5157.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5158.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5159A.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5159B.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-6151A.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-6151B.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-6152.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-6157.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-6159A.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-6159B.html": [
+      "revision-2021/computer-hardware-engineering.html"
+    ],
+    "lessons/lessons-5401.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-5402A.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-5408.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-5409A.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6401A.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6407.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6408.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-6409A.html": [
+      "revision-2021/computer-science-and-engineering.html"
+    ],
+    "lessons/lessons-3281.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-3282.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-3288.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-3289.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-4281.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-4282.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-4287.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-4288.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-4289.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5281.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5282.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5283A.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5283B.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5283C.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5287.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5288.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5289A.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5289B.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5289C.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6281A.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6281B.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6281C.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6282A.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6282B.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6282C.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6288.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6289A.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-6289B.html": [
+      "revision-2021/cyber-forensics-and-information-security.html"
+    ],
+    "lessons/lessons-5036.html": [
+      "revision-2021/electrical-electronics-engineering.html"
+    ],
+    "lessons/lessons-5039.html": [
+      "revision-2021/electrical-electronics-engineering.html"
+    ],
+    "lessons/lessons-6036.html": [
+      "revision-2021/electrical-electronics-engineering.html"
+    ],
+    "lessons/lessons-6038.html": [
+      "revision-2021/electrical-electronics-engineering.html"
+    ],
+    "lessons/lessons-6039.html": [
+      "revision-2021/electrical-electronics-engineering.html"
+    ],
+    "lessons/lessons-2411.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-3034.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-3411.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-4033.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-4411.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5033A.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5033B.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5033C.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5039C.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5411.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5418.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-5419A.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6039A.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6039B.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6411A.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6412A.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6417.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6418.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-6419A.html": [
+      "revision-2021/electrical-engineering-and-electric-vehicles-technology.html"
+    ],
+    "lessons/lessons-3501.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-3509.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-4046.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-4048.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-4049.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-4501.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-4509.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-5043B.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-5049A.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-5501.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-5509.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-6047.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-6048.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-6049B.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-6201A.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-6501A.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-6501B.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-6501C.html": [
+      "revision-2021/electronics-and-computer-engineering.html"
+    ],
+    "lessons/lessons-2461.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-2469.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3461.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3462.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3463.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3464.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3465.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3466.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3467.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3468.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-3469.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-4461.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-4462.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-4463.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-4464.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-4467.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-4468.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-4469.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5461.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5462.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5463A.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5463B.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5463C.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5467.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5468.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-5469.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6461A.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6461B.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6461C.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6461D.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6462A.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6462B.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6462C.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6462D.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6467.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6468.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-6469.html": [
+      "revision-2021/fire-technology-and-safety.html"
+    ],
+    "lessons/lessons-2421.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-2429.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3421.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3422.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3423.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3424.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3425.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3426.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3427.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3428.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-3429.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4421.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4422.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4423.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4424.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4427.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4428.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-4429.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5421.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5422.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5423A.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5423B.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5423C.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5427.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5428.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-5429.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6421A.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6421B.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6421C.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6422A.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6422B.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6422C.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6422D.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6427.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6428.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-6429.html": [
+      "revision-2021/food-processing-technology.html"
+    ],
+    "lessons/lessons-2471.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-2472.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-2473.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-2474.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-2475.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-2477.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-2478.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-2479.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3471.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3472.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3473.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3474.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3475.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3476.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3477.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3478.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3479.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-4471.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-4472.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-4473.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-4474.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-4477.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-4478.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-4479.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5471.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5472.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5473.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5474A.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5474B.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5474C.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5477.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5478.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5479A.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5479B.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-5479C.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6471A.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6471B.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6471C.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6477.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6478.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-6479.html": [
+      "revision-2021/hotel-management-and-catering-technology.html"
+    ],
+    "lessons/lessons-3261.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3262.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3263.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3264.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3265.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3266.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3267.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3268.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-3269.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-4261.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-4262.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-4263.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-4266.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-4267.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-4268.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-4269.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5261.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5262.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5263.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5267.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5268.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-5269.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6261.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6262A.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6262B.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6262C.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6267.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6268.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-6269.html": [
+      "revision-2021/information-technology.html"
+    ],
+    "lessons/lessons-2081.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-2089.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3081.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3082.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3083.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3084.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3085.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3086.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3087.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3088.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3089.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-4081.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-4082.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-4083.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-4084.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-4087.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-4088.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-4089.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5081.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5082.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5083A.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5083B.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5083C.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5087.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5088.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5089A.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5089B.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-5089C.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6081A.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6081B.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6081C.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6082A.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6082B.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6082C.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6082D.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6087.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6088.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-6089.html": [
+      "revision-2021/instrumentation-engineering.html"
+    ],
+    "lessons/lessons-3377.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-3378.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-4373.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-4377.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-4379.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5243B.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5249.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5371.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5372A.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5372B.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5378.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5379A.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-5379B.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6021A.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6022C.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6022D.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6371A.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6371B.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6371C.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6377.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6378.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6379A.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-6379B.html": [
+      "revision-2021/integrated-circuit-design-and-fabrication.html"
+    ],
+    "lessons/lessons-3498.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-3499.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-4491.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-4492.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-4498.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-4499.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5491.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5492.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5493A.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5493B.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5493C.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5493D.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5497.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5498.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5499A.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-5499B.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6201B.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6209A.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6491B.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6491C.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6491D.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6492A.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6492B.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6492C.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6492D.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6497.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6498.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-6499B.html": [
+      "revision-2021/micro-electronics.html"
+    ],
+    "lessons/lessons-2091.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-2099.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3091.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3092.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3093.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3094.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3095.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3096.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3097.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3098.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-3099.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-4091.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-4092.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-4093.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-4094.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-4097.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-4098.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-4099.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5091.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5092.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5093A.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5093B.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5093C.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5096.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5097.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-5098.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6091A.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6091B.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6091C.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6092A.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6092B.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6092C.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6092D.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6097.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6098.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-6099.html": [
+      "revision-2021/polymer-technology.html"
+    ],
+    "lessons/lessons-2291.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3035.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3291.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3292.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3293.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3297.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3298.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-3299.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-4291.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-4292.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-4293.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-4296.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-4297.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-4298.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-4299.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5291.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5292.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5293A.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5293B.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5293C.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5297.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5298.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5299A.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5299B.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-5299C.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6291A.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6291B.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6292A.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6292B.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6292C.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6292D.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6298.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6299A.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6299B.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-6299C.html": [
+      "revision-2021/renewable-energy.html"
+    ],
+    "lessons/lessons-2301.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-2339.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3301.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3302.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3303.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3304.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3307.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3308.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-3309.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-4301.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-4302.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-4303.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-4308.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-4309.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5301.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5302.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5303A.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5303B.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5303C.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5307.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5308.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5309A.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5309B.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-5309C.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6301A.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6301B.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6301C.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6302A.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6302B.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6302C.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6302D.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6308.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6309A.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6309B.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-6309C.html": [
+      "revision-2021/robotic-process-automation.html"
+    ],
+    "lessons/lessons-2061.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-2069.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3061.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3062.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3063.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3064.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3065.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3066.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3067.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3068.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-3069.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-4061.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-4062.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-4063.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-4064.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-4067.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-4068.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-4069.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5061.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5062.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5063A.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5063B.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5063C.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5067.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5068.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5069A.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "lessons/lessons-5069B.html": [
+      "revision-2021/textile-technology.html"
+    ],
+    "revision-2026-content/lessons/' + item.link + '": [
+      "revision-2026-content/lessons/lessons-1143.html"
+    ],
+    "revision-2026-content/lessons/' + t.href + '": [
+      "revision-2026-content/lessons/lessons-1144.html"
+    ],
+    "revision-2026-content/lessons/' + item.href + '": [
+      "revision-2026-content/lessons/lessons-1252.html"
+    ],
+    "revision-2026-content/lessons/'+r.href+'": [
+      "revision-2026-content/lessons/lessons-2003B.html"
+    ],
+    "revision-2026-content/lessons/${r.link}": [
+      "revision-2026-content/lessons/lessons-2011.html"
+    ]
+  },
+  "missingTargetCount": 947,
+  "jsFetchMissing": [],
+  "cacheVersionConflicts": {},
+  "crossRevisionRefs": [],
+  "deadDisabledLabels": [],
+  "brokenRoutesInHtml": [],
+  "sitemapEntries": 1165,
+  "sitemapMissingTargets": []
+}

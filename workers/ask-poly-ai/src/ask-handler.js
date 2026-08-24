@@ -627,7 +627,7 @@ function buildUserContent(body) {
   const parts = [];
   const pageTitle = cleanText(body.pageTitle, 160);
   const selectedText = cleanText(body.selectedText, 600);
-  const pageContext = cleanText(body.pageContext, 1200);
+  const pageContext = cleanText(body.pageContext, 14000);
   const departmentContext = body.departmentContext && typeof body.departmentContext === "object" ? body.departmentContext : null;
   const departmentName = cleanText(departmentContext?.displayName, 160);
   const diagramRequest = body.diagramRequest && typeof body.diagramRequest === "object" ? body.diagramRequest : null;
@@ -801,7 +801,7 @@ async function askOpenAI(input, env) {
       const data = await requestOpenAIWithPayloadFallback(payload, env);
       const result = extractOpenAIAnswer(data);
       if (!result.answer) throw new Error("OpenAI returned an empty response.");
-      return { ...result, provider: "openai", model: data.model || model, responseId: data.id || "" };
+      return { ...result, provider: "openai", model: data.model || model, responseId: data.id || "", usage: data?.usage || undefined };
     } catch (error) {
       lastError = error;
       if (!openAiRetryableModelError(error)) throw error;
@@ -826,7 +826,7 @@ async function askNvidia(input, env) {
   }
   const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
   if (!answer) throw new Error("NVIDIA returned an empty response.");
-  return { answer, citations: [], usedWeb: false, provider: "nvidia", model: data?.model || model, responseId: data?.id || "" };
+  return { answer, citations: [], usedWeb: false, provider: "nvidia", model: data?.model || model, responseId: data?.id || "", usage: data?.usage || undefined, timings: data?.timings || undefined };
 }
 
 async function askOpenRouter(input, env) {
@@ -861,7 +861,7 @@ async function askOpenRouter(input, env) {
       }
       const answer = cleanText(data?.choices?.[0]?.message?.content || data?.choices?.[0]?.text || "", 6000);
       if (!answer) throw new Error("OpenRouter returned an empty response.");
-      return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "" };
+      return { answer, citations: [], usedWeb: false, provider: "openrouter", model: data?.model || model, responseId: data?.id || "", usage: data?.usage || undefined };
     } catch (error) {
       lastError = error;
       console.error(`Ask POLY OpenRouter model ${model} failed`, error);
