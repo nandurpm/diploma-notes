@@ -155,10 +155,10 @@
 .rev2015-directory-status[data-state="error"],
 .rev2015-directory-status[data-state="empty"] { color: #9f1239; }
 .rev2015-subject-results { min-height: 160px; }
-.rev2015-loading { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+.rev2015-loading { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 1rem; }
 .rev2015-loading span { display: block; height: 155px; border-radius: 17px; background: linear-gradient(90deg, #e2e8f0 20%, #f8fafc 42%, #e2e8f0 64%); background-size: 300% 100%; animation: rev2015Shimmer 1.35s infinite linear; }
 @keyframes rev2015Shimmer { 0% { background-position: 100% 0; } 100% { background-position: 0 0; } }
-.rev2015-department-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: .85rem; }
+.rev2015-department-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: .85rem; }
 .rev2015-department-card { display: grid; grid-template-columns: auto 1fr; gap: .38rem .7rem; align-items: start; min-height: 145px; padding: 1rem; border: 1px solid rgba(29, 78, 216, .14); border-radius: 17px; background: #fff; color: #0f172a; text-align: left; font: inherit; cursor: pointer; box-shadow: 0 6px 18px rgba(15, 23, 42, .04); transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
 .rev2015-department-card:hover,
 .rev2015-department-card:focus-visible { transform: translateY(-2px); border-color: #60a5fa; box-shadow: 0 12px 28px rgba(29, 78, 216, .12); outline: none; }
@@ -180,7 +180,7 @@
 .rev2015-semester-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 .65rem; padding: .35rem .15rem; }
 .rev2015-semester-heading h3 { margin: 0; font-size: 1.08rem; color: #1e293b; }
 .rev2015-semester-heading span { padding: .24rem .55rem; border-radius: 999px; background: #e2e8f0; color: #475569; font-size: .7rem; font-weight: 800; }
-.rev2015-subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: .85rem; }
+.rev2015-subject-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: .85rem; }
 .rev2015-subject-card { display: flex; flex-direction: column; min-width: 0; min-height: 190px; padding: 1rem; border: 1px solid rgba(148, 163, 184, .25); border-radius: 17px; background: #fff; box-shadow: 0 6px 18px rgba(15, 23, 42, .04); }
 .rev2015-subject-top { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-bottom: .68rem; }
 .rev2015-subject-top span { padding: .22rem .48rem; border-radius: 999px; background: #f1f5f9; color: #475569; font-size: .68rem; font-weight: 800; }
@@ -205,6 +205,11 @@
 .rev2015-noscript p { margin: .35rem 0 0; line-height: 1.6; }
 .rev2015-noscript a { color: #1d4ed8; font-weight: 750; }
 
+@media (max-width: 920px) {
+  /* The four-column filter bar needs ~800px; stack it before it can overflow. */
+  .rev2015-controls { position: static; grid-template-columns: 1fr 1fr; }
+  .rev2015-clear { grid-column: 2; justify-self: start; }
+}
 @media (max-width: 1050px) {
   .primary-archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .rev2015-directory-heading { grid-template-columns: 1fr; }
@@ -260,5 +265,17 @@
 .primary-archive-grid .material-link-empty {
   min-width: 0;
   max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+/* Long archive link labels must wrap instead of stretching their flex row. */
+.material-resource-link span:first-child {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+}
+.rev2015-department-links a,
+.rev2015-error-links a,
+.rev2015-semester-heading span {
   overflow-wrap: anywhere;
 }

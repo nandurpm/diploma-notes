@@ -8,8 +8,7 @@
 <meta content="2039" name="course-code"/>
 <meta content="Fundamentals of Electrical Engineering Lab" name="course-title"/>
 <meta content="REV2026" name="curriculum"/>
-<title>2039 — Fundamentals of Electrical Engineering Lab</title>
-<style>
+<title>2039 — Fundamentals of Electrical Engineering Lab</title><link rel="canonical" href="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2039.html"><style>
     :root {
       --ink: #10233e;
       --muted: #55697f;
@@ -610,7 +609,7 @@
 <ul>
 <li>A Textbook of Electrical Technology- Volume I &amp; II, B. L Theraja, S Chand.</li>
 <li></li>
-<li><a href="https://bes-iitr.vlabs.ac.in/exp/kirchhoff-law/simulation.html">IIT Roorkee Virtual 
+<li><a href="https://bes-iitr.vlabs.ac.in/exp/kirchhoff-law/simulation.html">IIT Roorkee Virtual
       <h2>Search Handbook</h2>
 <input class="search-bar" id="searchInput" onkeyup="searchLesson()" placeholder="Search for topics (e.g. Thevenin, KCL)..." type="text"/>
 <ul class="search-results" id="searchResults"></ul>
@@ -633,7 +632,7 @@
     const v = parseFloat(document.getElementById('calcV').value);
     const r = parseFloat(document.getElementById('calcR').value);
     const resultDiv = document.getElementById('calcResult');
-    
+
     if (isNaN(v) || isNaN(r) || r === 0) {
       resultDiv.innerText = "Error: Enter valid V and R (R > 0)";
       resultDiv.style.color = "var(--red)";
@@ -649,7 +648,7 @@
     let input = document.getElementById('searchInput').value.toLowerCase();
     let results = document.getElementById('searchResults');
     results.innerHTML = "";
-    
+
     if (input.length < 2) return;
 
     let headings = document.querySelectorAll('h2, h3, summary');
