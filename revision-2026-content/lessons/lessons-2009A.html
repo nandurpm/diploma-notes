@@ -9,7 +9,6 @@
 <meta content="Engineering Workshop Practice" name="course-title"/>
 <meta content="REV2026" name="curriculum"/>
 <meta content="REV2026" name="revision"/>
-<link href="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2009A.html" rel="canonical"/>
 <meta content="website" property="og:type"/>
 <meta content="Course 2009A — Engineering Workshop Practice | REV2026" property="og:title"/>
 <meta content="Complete Kerala Diploma Revision 2026 handbook for Course 2009A Engineering Workshop Practice: Safety, Carpentry, Fitting, Welding, Sheet Metal, Electrical wiring, Electronics, and soldering. Includes Malayalam support, interactive calculators, SVG diagrams, and exam preparation materials." property="og:description"/>
@@ -20,8 +19,7 @@
 <meta content="Course 2009A | REV2026 | POLY PMNA" name="twitter:title"/>
 <meta content="Complete Kerala Diploma Revision 2026 handbook for Course 2009A Engineering Workshop Practice." name="twitter:description"/>
 <meta content="https://polypmna.dpdns.org/assets/media/poly-pmna-study-hub-social-card.png" name="twitter:image"/>
-<title>Course 2009A — Engineering Workshop Practice | REV2026 | POLY PMNA</title>
-<link href="/assets/css/lesson-page-fix.css?v=20260718-fullscreen4" id="poly-lesson-page-fix" rel="stylesheet"/>
+<title>Course 2009A — Engineering Workshop Practice | REV2026 | POLY PMNA</title><link rel="canonical" href="https://polypmna.dpdns.org/revision-2026-content/lessons/lessons-2009A.html"><link href="/assets/css/lesson-page-fix.css?v=20260718-fullscreen4" id="poly-lesson-page-fix" rel="stylesheet"/>
 <style>
 :root{
   --ink:#10233e; --muted:#55697f; --paper:#fff; --soft:#f4f8fc; --soft2:#eaf4ff;
@@ -1483,7 +1481,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
 
   document.getElementById('printBtn').addEventListener('click', doPrint);
   document.getElementById('downloadBtn').addEventListener('click', downloadNotes);
-  
+
   // Auto Print trigger
   const urlParams = new URLSearchParams(window.location.search);
   if ((urlParams.has('autoPrintNotes') || urlParams.has('downloadNotes')) && !sessionStorage.getItem('autoPrinted')) {
@@ -1514,7 +1512,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
       resultsContainer.innerHTML = '';
       return;
     }
-    
+
     const targets = document.querySelectorAll('main h2, main h3, main details summary');
     let found = [];
     targets.forEach(el => {
@@ -1552,7 +1550,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
   });
 
   // --- Interactive Calculators ---
-  
+
   // Calculator 1: Ohm's Law / Power Calculator
   const ohmEl = document.getElementById('calc-ohm');
   if(ohmEl) {
@@ -1563,7 +1561,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
       let i = parseFloat(document.getElementById('ohm-i').value);
       let r = parseFloat(document.getElementById('ohm-r').value);
       let p = parseFloat(document.getElementById('ohm-p').value);
-      
+
       // Clear empty ones to avoid stale data
       let known = 0, values = {};
       if(!isNaN(v)) { known++; values.v = v; }
@@ -1607,7 +1605,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
           result.textContent = 'Insufficient data to compute. Need at least 2 variables.';
           return;
         }
-        
+
         result.innerHTML = `
           <strong>Results:</strong><br>
           Voltage (V) = ${res.v.toFixed(2)} V<br>
@@ -1631,7 +1629,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
     const band3 = document.getElementById('res-band3');
     const band4 = document.getElementById('res-band4');
     const resultR = calcResistor.querySelector('.result');
-    
+
     const colorMap = {
       'Black': 0, 'Brown': 1, 'Red': 2, 'Orange': 3, 'Yellow': 4,
       'Green': 5, 'Blue': 6, 'Violet': 7, 'Grey': 8, 'White': 9
@@ -1651,21 +1649,21 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
       const val2 = colorMap[band2.value];
       const mult = multMap[band3.value];
       const tol = tolMap[band4.value];
-      
+
       if(val1 === undefined || val2 === undefined || mult === undefined || tol === undefined) {
         resultR.textContent = 'Invalid color selection.';
         return;
       }
-      
+
       const resistance = (val1 * 10 + val2) * mult;
       let unit = 'Ω';
       let displayVal = resistance;
       if(resistance >= 1000000) { displayVal = resistance/1000000; unit = 'MΩ'; }
       else if(resistance >= 1000) { displayVal = resistance/1000; unit = 'kΩ'; }
-      
+
       resultR.innerHTML = `Resistance: <strong>${displayVal.toFixed(2)} ${unit}</strong> ± ${tol}%`;
     }
-    
+
     [band1, band2, band3, band4].forEach(el => el.addEventListener('change', updateResistor));
   }
 
@@ -1676,17 +1674,17 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
     const hours = document.getElementById('energy-hours');
     const rate = document.getElementById('energy-rate');
     const resultE = calcEnergy.querySelector('.result');
-    
+
     function updateEnergy() {
       const w = parseFloat(watt.value);
       const h = parseFloat(hours.value);
       const r = parseFloat(rate.value) || 6.0; // default rate Rs/kWh
-      
+
       if(isNaN(w) || isNaN(h) || w <= 0 || h <= 0) {
         resultE.textContent = 'Please enter valid positive numbers for Power and Time.';
         return;
       }
-      
+
       const kWh = (w * h) / 1000;
       const cost = kWh * r;
       resultE.innerHTML = `
@@ -1694,7 +1692,7 @@ caption{font-weight:600; font-size:15px; margin-bottom:6px; text-align:left; col
         Total Cost (at ₹${r.toFixed(2)}/kWh): <strong>₹${cost.toFixed(2)}</strong>
       `;
     }
-    
+
     watt.addEventListener('input', updateEnergy);
     hours.addEventListener('input', updateEnergy);
     rate.addEventListener('input', updateEnergy);

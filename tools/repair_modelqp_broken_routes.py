@@ -64,6 +64,30 @@ def fix_lesson_page(path: Path, scheme: str, check: bool = False) -> int:
     return n
 
 
+def infer_scheme(path: Path) -> str:
+    rel = path.relative_to(ROOT).as_posix()
+    if rel.startswith("revision-2026"):
+        return "REV2026"
+    if rel.startswith("revision-2015") or "rev2015" in rel:
+        return "REV2015"
+    return "REV2021"
+
+
+def sweep_html(check: bool) -> int:
+    """Scan every served HTML page for the dead route and repair it."""
+    total = 0
+    dirs = [ROOT / d for d in ("revision-2021", "revision-2026",
+                               "revision-2026-content/lessons", "lessons")]
+    files: list[Path] = list(ROOT.glob("*.html"))
+    for d in dirs:
+        if d.is_dir():
+            files.extend(d.rglob("*.html"))
+    for p in sorted(set(files)):
+        n = fix_lesson_page(p, infer_scheme(p), check)
+        total += n
+    return total
+
+
 def main() -> int:
     check = "--check" in sys.argv
     total = 0
@@ -107,6 +131,10 @@ def main() -> int:
             archive.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"{'CHECK' if check else 'FIX  '} assets/data/sitttr-archive-links.json: {n} provenance URLs replaced")
         total += n
+
+    html_n = sweep_html(check)
+    print(f"{'CHECK' if check else 'FIX  '} served HTML pages: {html_n} dead routes")
+    total += html_n
 
     print(f"\nTotal occurrences: {total} ({'in check mode' if check else 'fixed'}).")
     return 1 if check and total else 0
