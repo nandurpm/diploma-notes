@@ -182,7 +182,8 @@ body.home-page #subject-browser {
   }
 
   body.home-page .onam-day-banner-wrap {
-    height: clamp(150px, 46vw, 220px) !important;
+    height: auto !important;
+    aspect-ratio: 3 / 1 !important;
     margin-bottom: 16px !important;
     border-radius: 20px !important;
   }
@@ -413,12 +414,27 @@ body.home-page #subject-browser {
 body.home-page .onam-day-banner-wrap {
   width: 100% !important;
   max-width: none !important;
+  height: auto !important;
+  aspect-ratio: 3 / 1 !important;
+  min-height: 0 !important;
   margin: 0 0 clamp(16px, 1.6vw, 22px) !important;
   border-radius: 0 0 24px 24px !important;
 }
 
+body.home-page .onam-day-banner-picture,
 body.home-page .onam-day-banner {
-  object-position: center 58% !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.home-page .onam-day-banner {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+}
+
+body.home-page .onam-day-banner-wrap::after {
+  height: 28px !important;
 }
 
 @media (min-width: 721px) {
