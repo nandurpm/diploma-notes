@@ -9,12 +9,12 @@ import json
 import re
 from pathlib import Path
 
+from structured_data_html import find_structured_data_blocks, remove_structured_data_blocks
+
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = "https://polypmna.dpdns.org"
 EXCLUDED_ROOTS = {".github", "android", "android-app", "docs", "maintenance", "reports", "supabase", "tools", "workers", "node_modules", "_site"}
 EXCLUDED_NAMES = {"department-view.html", "tools-v2-original.html", "new-year-theme-preview.html", "404.html", "origin_main_1253.html"}
-STRUCTURED_SCRIPT_RE = r'<script\b(?=[^>]*\btype=["\']application/ld\+json["\'])(?=[^>]*\bdata-poly-structured-data(?:\s*=\s*["\'][^"\']*["\'])?)[^>]*>[\s\S]*?</script>\s*'
-BLOCK_RE = re.compile(STRUCTURED_SCRIPT_RE, re.I)
 HEAD_END_RE = re.compile(r"</head>", re.I)
 DOCUMENT_RE = re.compile(r"<(?:!doctype\s+html|html\b)", re.I)
 TITLE_RE = re.compile(r"<title>([\s\S]*?)</title>", re.I)
@@ -113,7 +113,7 @@ def public_pages() -> list[Path]:
 
 def updated_text(path: Path) -> str:
     relative = path.relative_to(ROOT).as_posix()
-    source = BLOCK_RE.sub("", read_page(path))
+    source = remove_structured_data_blocks(read_page(path))
     data = payload(relative, source)
     block = '<script type="application/ld+json" data-poly-structured-data>' + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + "</script>\n"
     updated, count = HEAD_END_RE.subn(block + "</head>", source, count=1)
@@ -123,10 +123,10 @@ def updated_text(path: Path) -> str:
 
 
 def validate(text: str, relative: str) -> None:
-    matches = re.findall(r'<script\b(?=[^>]*\btype=["\']application/ld\+json["\'])(?=[^>]*\bdata-poly-structured-data(?:\s*=\s*["\'][^"\']*["\'])?)[^>]*>([\s\S]*?)</script>', text, re.I)
-    if len(matches) != 1:
-        raise ValueError(f"Expected one POLY JSON-LD block in {relative}; found {len(matches)}")
-    data = json.loads(matches[0])
+    blocks = find_structured_data_blocks(text)
+    if len(blocks) != 1:
+        raise ValueError(f"Expected one POLY JSON-LD block in {relative}; found {len(blocks)}")
+    data = json.loads(blocks[0].payload)
     for key in ("@context", "@type", "name", "url"):
         if not data.get(key):
             raise ValueError(f"Structured data missing {key} in {relative}")
