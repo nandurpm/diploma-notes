@@ -1,26 +1,26 @@
 #!/usr/bin/env python3
 """Remove identical duplicate POLY structured-data script blocks from generated HTML."""
 from __future__ import annotations
-import re
 from pathlib import Path
 
+from structured_data_html import find_structured_data_blocks
+
 ROOT = Path(__file__).resolve().parents[1]
-BLOCK_RE = re.compile(r'<script\b(?=[^>]*\btype="application/ld\+json")(?=[^>]*\bdata-poly-structured-data(?:="")?)[^>]*>(.*?)</script>', re.DOTALL | re.IGNORECASE)
 
 
 def dedupe(text: str) -> tuple[str, int]:
     seen: set[str] = set()
-    removed = 0
-    def replace(match: re.Match[str]) -> str:
-        nonlocal removed
-        block = match.group(0)
-        payload = match.group(1).strip()
+    duplicates = []
+    for block in find_structured_data_blocks(text):
+        payload = block.payload.strip()
         if payload in seen:
-            removed += 1
-            return ""
-        seen.add(payload)
-        return block
-    return BLOCK_RE.sub(replace, text), removed
+            duplicates.append(block)
+        else:
+            seen.add(payload)
+    result = text
+    for block in reversed(duplicates):
+        result = result[:block.start] + result[block.end:]
+    return result, len(duplicates)
 
 
 def main() -> int:
