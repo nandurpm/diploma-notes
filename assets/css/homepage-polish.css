@@ -446,7 +446,7 @@ body.home-page .onam-day-banner-wrap::after {
 
   body.home-page .onam-day-banner-picture {
     display: block !important;
-    width: min(1400px, calc(100% - 32px)) !important;
+    width: calc(100% - 24px) !important;
     height: auto !important;
     aspect-ratio: 21 / 9 !important;
     margin-inline: auto !important;
