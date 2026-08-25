@@ -406,3 +406,33 @@ body.home-page #subject-browser {
     margin-inline: auto !important;
   }
 }
+
+
+/* 2026 Onam and homepage viewport correction: align the festive banner with the
+   shared page edge and avoid the oversized ultrawide side gutters. */
+body.home-page .onam-day-banner-wrap {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 0 clamp(16px, 1.6vw, 22px) !important;
+  border-radius: 0 0 24px 24px !important;
+}
+
+body.home-page .onam-day-banner {
+  object-position: center 58% !important;
+}
+
+@media (min-width: 721px) {
+  body.home-page main {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    padding-inline: clamp(10px, 1.1vw, 20px) !important;
+  }
+}
+
+@media (min-width: 1801px) {
+  body.home-page main {
+    width: 100% !important;
+    padding-inline: clamp(12px, 1.25vw, 24px) !important;
+  }
+}
