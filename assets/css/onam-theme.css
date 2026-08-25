@@ -245,3 +245,34 @@ body.poly-onam-banner-mode .onam-petal{opacity:.62;filter:drop-shadow(0 3px 3px 
   body.poly-onam-banner-mode::before{display:none}
   body.poly-onam-banner-mode .onam-petal{opacity:.48}
 }
+
+
+/* Full-artwork treatment for every Onam day variant. The source artwork is 3:1;
+   matching that ratio avoids clipping the greeting or the side illustrations. */
+.onam-day-banner-wrap {
+  height: auto !important;
+  aspect-ratio: 3 / 1 !important;
+  min-height: 0 !important;
+}
+
+.onam-day-banner-picture,
+.onam-day-banner {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.onam-day-banner {
+  object-fit: contain !important;
+  object-position: center center !important;
+  transform: none !important;
+}
+
+.onam-day-banner-wrap::after {
+  height: 28px !important;
+}
+
+@media (max-width: 520px) {
+  .onam-day-banner-wrap {
+    aspect-ratio: 3 / 1 !important;
+  }
+}

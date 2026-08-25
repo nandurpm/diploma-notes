@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260813-onam-perf1";
+  const ASSET_VERSION = "20260825-onam-fit2";
   const REV2026_THEME_VERSION = "20260716-rev2026-department-themes1";
 
   const ONAM_DATES = [
