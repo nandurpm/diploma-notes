@@ -409,8 +409,8 @@ body.home-page #subject-browser {
 }
 
 
-/* 2026 Onam and homepage viewport correction: align the festive banner with the
-   shared page edge and avoid the oversized ultrawide side gutters. */
+/* 2026 Onam homepage presentation: keep the full artwork, but prevent it from
+   dominating the first desktop viewport. Compact screens remain full-width. */
 body.home-page .onam-day-banner-wrap {
   width: 100% !important;
   max-width: none !important;
@@ -435,6 +435,28 @@ body.home-page .onam-day-banner {
 
 body.home-page .onam-day-banner-wrap::after {
   height: 28px !important;
+}
+
+@media (min-width: 1024px) {
+  body.home-page .onam-day-banner-wrap {
+    aspect-ratio: auto !important;
+    background: linear-gradient(90deg, #fff8e8 0%, #fff1c9 50%, #fff8e8 100%) !important;
+    display: block !important;
+  }
+
+  body.home-page .onam-day-banner-picture {
+    display: block !important;
+    width: min(960px, 100%) !important;
+    height: auto !important;
+    aspect-ratio: 3 / 1 !important;
+    margin-inline: auto !important;
+  }
+
+  body.home-page .onam-day-banner {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
 }
 
 @media (min-width: 721px) {
