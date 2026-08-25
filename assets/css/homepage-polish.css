@@ -183,7 +183,7 @@ body.home-page #subject-browser {
 
   body.home-page .onam-day-banner-wrap {
     height: auto !important;
-    aspect-ratio: 3 / 1 !important;
+    aspect-ratio: 21 / 9 !important;
     margin-bottom: 16px !important;
     border-radius: 20px !important;
   }
@@ -409,13 +409,13 @@ body.home-page #subject-browser {
 }
 
 
-/* 2026 Onam homepage presentation: keep the full artwork, but prevent it from
-   dominating the first desktop viewport. Compact screens remain full-width. */
+/* 2026 Onam homepage presentation: use the regenerated wide artwork as a broad
+   hero while keeping intentional, modest side framing on large screens. */
 body.home-page .onam-day-banner-wrap {
   width: 100% !important;
   max-width: none !important;
   height: auto !important;
-  aspect-ratio: 3 / 1 !important;
+  aspect-ratio: 21 / 9 !important;
   min-height: 0 !important;
   margin: 0 0 clamp(16px, 1.6vw, 22px) !important;
   border-radius: 0 0 24px 24px !important;
@@ -446,9 +446,9 @@ body.home-page .onam-day-banner-wrap::after {
 
   body.home-page .onam-day-banner-picture {
     display: block !important;
-    width: min(1200px, calc(100% - 32px)) !important;
+    width: min(1400px, calc(100% - 32px)) !important;
     height: auto !important;
-    aspect-ratio: 3 / 1 !important;
+    aspect-ratio: 21 / 9 !important;
     margin-inline: auto !important;
   }
 

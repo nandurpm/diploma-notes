@@ -2,7 +2,7 @@
 (() => {
   "use strict";
 
-  const ASSET_VERSION = "20260825-onam-fit2";
+  const ASSET_VERSION = "20260825-onam-wide1";
   const REV2026_THEME_VERSION = "20260716-rev2026-department-themes1";
 
   const ONAM_DATES = [
@@ -127,21 +127,21 @@
     const mobileWebp = document.createElement("source");
     mobileWebp.media = "(max-width: 520px)";
     mobileWebp.type = "image/webp";
-    mobileWebp.srcset = withVersion(`/assets/media/onam-2026/${config.slug}-banner-768.webp`);
+    mobileWebp.srcset = withVersion(`/assets/media/onam-2026/generated-wide/${config.slug}-banner-wide-768.webp`);
 
     const desktopWebp = document.createElement("source");
     desktopWebp.type = "image/webp";
-    desktopWebp.srcset = withVersion(`/assets/media/onam-2026/${config.slug}-banner-1536.webp`);
+    desktopWebp.srcset = withVersion(`/assets/media/onam-2026/generated-wide/${config.slug}-banner-wide-1536.webp`);
 
     const img = document.createElement("img");
     img.className = "onam-day-banner";
     img.alt = config.alt;
-    img.width = 1536;
-    img.height = 512;
+    img.width = 2688;
+    img.height = 1152;
     img.loading = "eager";
     img.fetchPriority = "high";
     img.decoding = "async";
-    img.src = withVersion(`/assets/media/onam-2026/${config.slug}-banner.png`);
+    img.src = withVersion(`/assets/media/onam-2026/generated-wide/${config.slug}-banner-wide-1536.jpg`);
 
     picture.append(mobileWebp, desktopWebp, img);
     return { picture, img };
