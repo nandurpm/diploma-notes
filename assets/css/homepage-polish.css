@@ -474,3 +474,54 @@ body.home-page .onam-day-banner-wrap::after {
     padding-inline: clamp(12px, 1.25vw, 24px) !important;
   }
 }
+
+
+/* Final compact Onam header strip: keep the banner broad and clean below the
+   navigation without letting it consume the first screen. The generated art
+   stays centered on the greeting and festival scene. */
+body.home-page .onam-day-banner-wrap {
+  width: 100% !important;
+  max-width: none !important;
+  height: clamp(168px, 29vw, 430px) !important;
+  aspect-ratio: auto !important;
+  min-height: 0 !important;
+  margin: 0 0 clamp(12px, 1.2vw, 18px) !important;
+  overflow: hidden !important;
+  border-radius: 0 0 20px 20px !important;
+  background: #fff5d9 !important;
+}
+
+body.home-page .onam-day-banner-picture,
+body.home-page .onam-day-banner {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.home-page .onam-day-banner-picture {
+  aspect-ratio: auto !important;
+}
+
+body.home-page .onam-day-banner {
+  object-fit: cover !important;
+  object-position: center 28% !important;
+  transform: none !important;
+}
+
+body.home-page .onam-day-banner-wrap::after {
+  height: 16px !important;
+  opacity: .78 !important;
+}
+
+@media (min-width: 721px) {
+  body.home-page .onam-day-banner-wrap {
+    height: clamp(260px, 29vw, 430px) !important;
+  }
+}
+
+@media (max-width: 520px) {
+  body.home-page .onam-day-banner-wrap {
+    height: clamp(168px, 43vw, 220px) !important;
+    border-radius: 0 0 14px 14px !important;
+  }
+}
