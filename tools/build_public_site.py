@@ -38,6 +38,8 @@ REQUIRED = {
 
 INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">'
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1"></script>'
+REFERENCE_31ST_CSS_TAG = '<link rel="stylesheet" href="/assets/css/31st-reference-theme.css?v=reference-31st-v1">'
+REFERENCE_31ST_JS_TAG = '<script defer src="/assets/js/31st-reference-theme.js?v=reference-31st-v1"></script>'
 
 
 def inject_independence_assets(relative: str, content: str) -> str:
@@ -56,6 +58,22 @@ def inject_independence_assets(relative: str, content: str) -> str:
         return content
     tags = f"    {INDEPENDENCE_CSS_TAG}\n    {INDEPENDENCE_JS_TAG}\n"
     return content.replace(marker, tags + marker, 1)
+
+
+def inject_reference_31st_assets(relative: str, content: str) -> str:
+    """Load the reversible reference-inspired layer on every public HTML page."""
+    if Path(relative).suffix.lower() != ".html" or "31st-reference-theme.css" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {REFERENCE_31ST_CSS_TAG}\n    {REFERENCE_31ST_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
+def inject_public_runtime_assets(relative: str, content: str) -> str:
+    content = inject_independence_assets(relative, content)
+    return inject_reference_31st_assets(relative, content)
 
 
 # Retrieves a list of all files currently tracked by Git
@@ -85,7 +103,6 @@ def build(target: Path, optimize: bool) -> None:
     if target.exists():
         shutil.rmtree(target)
     target.mkdir(parents=True)
-
     copied = 0
     for relative in tracked_files():
         if not should_copy(relative):
@@ -97,23 +114,20 @@ def build(target: Path, optimize: bool) -> None:
         destination.parent.mkdir(parents=True, exist_ok=True)
         if source.suffix.lower() == ".html":
             html = source.read_text(encoding="utf-8")
-            destination.write_text(inject_independence_assets(relative, html), encoding="utf-8")
+            destination.write_text(inject_public_runtime_assets(relative, html), encoding="utf-8")
         else:
             shutil.copy2(source, destination)
         copied += 1
-
     for relative in EXPLICIT:
         source = ROOT / relative
         if source.is_file():
             destination = target / relative
             destination.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(source, destination)
-
     (target / ".nojekyll").write_text("", encoding="utf-8")
     missing = sorted(relative for relative in REQUIRED if not (target / relative).is_file())
     if missing:
         raise FileNotFoundError("Missing deployment files: " + ", ".join(missing))
-
     if optimize:
         subprocess.check_call(
             ["python", str(ROOT / "tools/optimize_public_build.py"), "--root", str(target)],
