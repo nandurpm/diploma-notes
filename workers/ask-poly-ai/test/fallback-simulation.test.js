@@ -4,7 +4,7 @@ import { askPoly, askPolyStream, configuredProviders } from "../src/ask-handler.
 import { resolvePreferredLanguage } from "../src/language-policy.js";
 
 const baseEnv = {
-  AI_PROVIDER_ORDER: "openrouter,nvidia,gemini",
+  AI_PROVIDER_ORDER: "nvidia,openrouter,gemini",
   OPENROUTER_API_KEY: "test-openrouter-key",
   NVIDIA_API_KEY: "test-nvidia-key",
   GEMINI_API_KEY: "test-gemini-key",
@@ -60,8 +60,8 @@ function installFetch({ openrouter = "fail", nvidia = "success", gemini = "succe
   };
 }
 
-test("configured provider order includes OpenRouter, NVIDIA, then Gemini", () => {
-  assert.deepEqual(configuredProviders(baseEnv), ["openrouter", "nvidia", "gemini"]);
+test("configured provider order includes NVIDIA, OpenRouter, then Gemini", () => {
+  assert.deepEqual(configuredProviders(baseEnv), ["nvidia", "openrouter", "gemini"]);
 });
 
 test("English is the default even when context and history contain Malayalam", async () => {
@@ -88,17 +88,17 @@ test("Explicit Malayalam request is honored", async () => {
   assert.match(payload.messages.at(-1).content, /Preferred language: Malayalam/);
 });
 
-test("NVIDIA answers when OpenRouter is intentionally unavailable", async () => {
+test("OpenRouter answers when NVIDIA is intentionally unavailable", async () => {
   const calls = [];
-  installFetch({ openrouter: "fail", nvidia: "success", gemini: "success", calls });
+  installFetch({ nvidia: "fail", openrouter: "success", gemini: "success", calls });
   const result = await askPoly({ message: "Explain Ohm's law", history: [] }, baseEnv);
-  assert.equal(result.provider, "nvidia");
-  assert.equal(result.answer, "NVIDIA fallback answer");
+  assert.equal(result.provider, "openrouter");
+  assert.equal(result.answer, "OpenRouter answer");
   assert.equal(calls[0].provider, "fail");
   assert.equal(calls.at(-1).provider, "success");
   assert.ok(calls.slice(0, -1).every((call) => call.provider === "fail"));
-  assert.ok(calls.some((call) => /openrouter\.ai/.test(call.url)));
-  assert.match(calls.at(-1).url, /integrate\.api\.nvidia\.com/);
+  assert.match(calls[0].url, /integrate\.api\.nvidia\.com/);
+  assert.match(calls.at(-1).url, /openrouter\.ai/);
 });
 
 test("Gemini answers when both OpenRouter and NVIDIA are unavailable", async () => {
@@ -113,16 +113,17 @@ test("Gemini answers when both OpenRouter and NVIDIA are unavailable", async () 
   assert.match(calls.at(-1).url, /generativelanguage\.googleapis\.com/);
 });
 
-test("streaming fallback reaches NVIDIA after OpenRouter fails", async () => {
+test("streaming fallback reaches OpenRouter after NVIDIA fails", async () => {
   const calls = [];
-  installFetch({ openrouter: "fail", nvidia: "success", gemini: "success", calls });
+  installFetch({ nvidia: "fail", openrouter: "success", gemini: "success", calls });
   const result = await askPolyStream({ message: "Explain voltage", history: [] }, baseEnv);
-  assert.equal(result.provider, "nvidia");
+  assert.equal(result.provider, "openrouter");
   const text = await new Response(result.stream).text();
-  assert.match(text, /NVIDIA fallback answer/);
+  assert.match(text, /OpenRouter answer/);
   assert.equal(calls[0].provider, "fail");
   assert.equal(calls.at(-1).provider, "success");
-  assert.match(calls.at(-1).url, /integrate\.api\.nvidia\.com/);
+  assert.match(calls[0].url, /integrate\.api\.nvidia\.com/);
+  assert.match(calls.at(-1).url, /openrouter\.ai/);
 });
 
 // Keep the imported streaming API exercised while making this test file safe for Node's test runner.

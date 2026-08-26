@@ -83,6 +83,7 @@ jobs:
           assert 'name = "ASK_RATE_LIMITER"' in worker_config
           assert 'name = "EXAM_RATE_LIMITER"' in worker_config
           assert 'name = "IMAGE_RATE_LIMITER"' in worker_config
+          assert 'AI_PROVIDER_ORDER = "nvidia,openrouter"' in worker_config
           migration = Path('supabase/migrations/20260820_ownership_rls.sql').read_text(encoding='utf-8')
           for table in ('profiles', 'daily_quiz_results', 'sample_paper_attempts'):
               assert f'enable row level security' in migration
