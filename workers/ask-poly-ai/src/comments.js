@@ -141,7 +141,7 @@ export function commentsHealth(env, origin = "") {
     service: "public-help-comments",
     configured,
     writes: configured ? "enabled" : "disabled",
-    diagnostics: { hasSecret, parseError, accountValid, secretLength: raw.length }
+    diagnostics: { hasSecret, parseError, accountValid }
   }, 200, origin, env);
 }
 
