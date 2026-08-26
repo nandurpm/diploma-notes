@@ -36,10 +36,14 @@ REQUIRED = {
     "build-info.json", "site.webmanifest",
 }
 
-INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-1">'
-INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-1"></script>'
+INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-2">'
+INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-2"></script>'
 REFERENCE_31ST_CSS_TAG = '<link rel="stylesheet" href="/assets/css/31st-reference-theme.css?v=reference-31st-v1">'
 REFERENCE_31ST_JS_TAG = '<script defer src="/assets/js/31st-reference-theme.js?v=reference-31st-v1"></script>'
+PRE_ONAM_CSS_TAG = '<link rel="stylesheet" href="/assets/css/pre-onam-theme.css?v=20260819-pre-onam-perf3">'
+PRE_ONAM_JS_TAG = '<script defer src="/assets/js/pre-onam-theme.js?v=20260819-pre-onam-perf3"></script>'
+NEW_YEAR_CSS_TAG = '<link rel="stylesheet" href="/assets/css/new-year-theme.css?v=20260819-new-year-v1">'
+NEW_YEAR_JS_TAG = '<script defer src="/assets/js/new-year-theme.js?v=20260819-new-year-v1"></script>'
 
 
 def inject_independence_assets(relative: str, content: str) -> str:
@@ -60,6 +64,28 @@ def inject_independence_assets(relative: str, content: str) -> str:
     return content.replace(marker, tags + marker, 1)
 
 
+def inject_pre_onam_assets(relative: str, content: str) -> str:
+    """Load the date-driven pre-Onam controller in the public artifact."""
+    if Path(relative).suffix.lower() != ".html" or "pre-onam-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {PRE_ONAM_CSS_TAG}\n    {PRE_ONAM_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
+def inject_new_year_assets(relative: str, content: str) -> str:
+    """Load the date-driven New Year controller in the public artifact."""
+    if Path(relative).suffix.lower() != ".html" or "new-year-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {NEW_YEAR_CSS_TAG}\n    {NEW_YEAR_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
 def inject_reference_31st_assets(relative: str, content: str) -> str:
     """Load the reversible reference-inspired layer on every public HTML page."""
     if Path(relative).suffix.lower() != ".html" or "31st-reference-theme.css" in content:
@@ -73,7 +99,9 @@ def inject_reference_31st_assets(relative: str, content: str) -> str:
 
 def inject_public_runtime_assets(relative: str, content: str) -> str:
     content = inject_independence_assets(relative, content)
-    return inject_reference_31st_assets(relative, content)
+    content = inject_reference_31st_assets(relative, content)
+    content = inject_pre_onam_assets(relative, content)
+    return inject_new_year_assets(relative, content)
 
 
 # Retrieves a list of all files currently tracked by Git

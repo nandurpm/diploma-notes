@@ -2,7 +2,7 @@
  * POLY PMNA — Annual Independence Day theme controller
  *
  * The only date decision in the theme lives here. It uses the visitor's
- * local calendar, activates on 15 August every year, and removes every
+ * India Standard Time calendar, activates on 15 August every year, and removes every
  * temporary class/node/listener when the date changes or the page is reused.
  */
 (() => {
@@ -15,6 +15,13 @@
   const STYLE_PATH = "/assets/css/independence-day-theme.css";
   const THEME_CLASS = "poly-independence-day";
   const PARTICLE_COUNT = 18;
+  const TIME_ZONE = "Asia/Kolkata";
+  const dateFormatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
   const originalThemeColor = document.querySelector('meta[name="theme-color"]')?.getAttribute("content") || "";
   const cleanupTasks = [];
   let banner = null;
@@ -25,11 +32,14 @@
   let dismissed = false;
   let lastDateKey = "";
 
-  const localDateParts = (date = new Date()) => ({
-    year: date.getFullYear(),
-    month: date.getMonth() + 1,
-    day: date.getDate(),
-  });
+  const localDateParts = (date = new Date()) => {
+    const parts = Object.fromEntries(
+      dateFormatter.formatToParts(date)
+        .filter((part) => ["year", "month", "day"].includes(part.type))
+        .map((part) => [part.type, Number(part.value)])
+    );
+    return { year: parts.year, month: parts.month, day: parts.day };
+  };
 
   const getDateKey = (parts) => `${parts.year}-${String(parts.month).padStart(2, "0")}-${String(parts.day).padStart(2, "0")}`;
 
@@ -47,7 +57,7 @@
     if (existing || document.querySelector(`link[data-poly-independence-day-css="true"]`)) return;
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `${STYLE_PATH}?v=annual-tricolour-circuit-1`;
+    link.href = `${STYLE_PATH}?v=annual-tricolour-circuit-2`;
     link.dataset.polyIndependenceDayCss = "true";
     document.head.append(link);
     cleanupTasks.push(() => link.remove());
@@ -205,7 +215,8 @@
     isIndependenceDay,
     activate,
     deactivate,
-    version: "annual-tricolour-circuit-1",
+    version: "annual-tricolour-circuit-2",
+    timeZone: TIME_ZONE,
   });
   window.PolyIndependenceDayTheme = api;
 
