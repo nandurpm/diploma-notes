@@ -1,9 +1,9 @@
-/* POLY PMNA — reference-inspired theme controller for the last calendar day of each month. */
+/* POLY PMNA — redirect to the maintained GitHub Pages site on month-end. */
 (() => {
   "use strict";
-  if (window.PolyReference31stTheme) return;
+  if (window.PolyMonthEndRedirect) return;
 
-  const root = document.documentElement;
+  const destination = "https://nandurpm.github.io/polypmna/";
   const timeZone = "Asia/Kolkata";
   const formatter = new Intl.DateTimeFormat("en-IN", {
     timeZone,
@@ -11,12 +11,10 @@
     month: "2-digit",
     day: "2-digit"
   });
-  const meta = document.querySelector('meta[name="theme-color"]');
-  const originalThemeColor = meta?.getAttribute("content") || "";
-  const preview = /(?:[?&]monthEndTheme=1\b|#monthEndTheme\b)/i.test(
+  const preview = /(?:[?&](?:monthEndRedirect|monthEndTheme)=1\b|#(?:monthEndRedirect|monthEndTheme)\b)/i.test(
     location.search + location.hash
   );
-  let active = false;
+  let redirected = false;
   let timer = 0;
 
   const dateParts = () => Object.fromEntries(
@@ -31,17 +29,17 @@
     return day === daysInMonth;
   };
 
+  const isDestination = () => {
+    const current = `${location.origin}${location.pathname}`.replace(/\/+$/, "");
+    return current === "https://nandurpm.github.io/polypmna";
+  };
+
+  const shouldRedirect = () => preview || isLastDayOfMonth();
+
   const sync = () => {
-    const nextActive = preview || isLastDayOfMonth();
-    if (nextActive === active) return;
-    active = nextActive;
-    root.classList.toggle("poly-reference-31st", active);
-    root.dataset.polyTheme = active ? "reference-month-end" : "default";
-    if (meta) {
-      if (active) meta.setAttribute("content", "#0f9fba");
-      else if (originalThemeColor) meta.setAttribute("content", originalThemeColor);
-      else meta.removeAttribute("content");
-    }
+    if (redirected || isDestination() || !shouldRedirect()) return;
+    redirected = true;
+    window.location.replace(destination);
   };
 
   const scheduleNextCheck = () => {
@@ -52,18 +50,19 @@
     }, 60 * 60 * 1000);
   };
 
-  window.PolyReference31stTheme = Object.freeze({
-    isActive: () => active,
+  window.PolyMonthEndRedirect = Object.freeze({
+    destination,
     isPreview: () => preview,
     isLastDayOfMonth,
+    shouldRedirect,
     refresh: sync,
     timeZone
   });
-  window.PolyMonthEndTheme = window.PolyReference31stTheme;
 
   sync();
   scheduleNextCheck();
 })();
 
-/* Preview: append ?monthEndTheme=1 to any public page URL. */
-// Example: https://polypmna.dpdns.org/?monthEndTheme=1
+/* Preview: append ?monthEndRedirect=1 to any public page URL. */
+/* The previous ?monthEndTheme=1 preview flag remains supported as an alias. */
+// Example: https://polypmna.dpdns.org/?monthEndRedirect=1

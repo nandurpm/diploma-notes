@@ -38,8 +38,7 @@ REQUIRED = {
 
 INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-2">'
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-2"></script>'
-REFERENCE_31ST_CSS_TAG = '<link rel="stylesheet" href="/assets/css/31st-reference-theme.css?v=month-end-v2">'
-REFERENCE_31ST_JS_TAG = '<script defer src="/assets/js/31st-reference-theme.js?v=month-end-v2"></script>'
+MONTH_END_REDIRECT_JS_TAG = '<script defer src="/assets/js/31st-reference-theme.js?v=month-end-redirect-v1"></script>'
 PRE_ONAM_CSS_TAG = '<link rel="stylesheet" href="/assets/css/pre-onam-theme.css?v=20260819-pre-onam-perf3">'
 PRE_ONAM_JS_TAG = '<script defer src="/assets/js/pre-onam-theme.js?v=20260819-pre-onam-perf3"></script>'
 NEW_YEAR_CSS_TAG = '<link rel="stylesheet" href="/assets/css/new-year-theme.css?v=20260819-new-year-v1">'
@@ -86,20 +85,20 @@ def inject_new_year_assets(relative: str, content: str) -> str:
     return content.replace(marker, tags + marker, 1)
 
 
-def inject_reference_31st_assets(relative: str, content: str) -> str:
-    """Load the reversible reference-inspired layer on every public HTML page."""
-    if Path(relative).suffix.lower() != ".html" or "31st-reference-theme.css" in content:
+def inject_month_end_redirect_asset(relative: str, content: str) -> str:
+    """Load the IST month-end redirect controller on every public HTML page."""
+    if Path(relative).suffix.lower() != ".html" or "31st-reference-theme.js" in content:
         return content
     marker = "</head>"
     if marker not in content:
         return content
-    tags = f"    {REFERENCE_31ST_CSS_TAG}\n    {REFERENCE_31ST_JS_TAG}\n"
+    tags = f"    {MONTH_END_REDIRECT_JS_TAG}\n"
     return content.replace(marker, tags + marker, 1)
 
 
 def inject_public_runtime_assets(relative: str, content: str) -> str:
     content = inject_independence_assets(relative, content)
-    content = inject_reference_31st_assets(relative, content)
+    content = inject_month_end_redirect_asset(relative, content)
     content = inject_pre_onam_assets(relative, content)
     return inject_new_year_assets(relative, content)
 
