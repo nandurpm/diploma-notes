@@ -38,8 +38,8 @@ REQUIRED = {
 
 INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-day-theme.css?v=annual-tricolour-circuit-2">'
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-2"></script>'
-REFERENCE_31ST_CSS_TAG = '<link rel="stylesheet" href="/assets/css/31st-reference-theme.css?v=reference-31st-v1">'
-REFERENCE_31ST_JS_TAG = '<script defer src="/assets/js/31st-reference-theme.js?v=reference-31st-v1"></script>'
+REFERENCE_31ST_CSS_TAG = '<link rel="stylesheet" href="/assets/css/31st-reference-theme.css?v=month-end-v2">'
+REFERENCE_31ST_JS_TAG = '<script defer src="/assets/js/31st-reference-theme.js?v=month-end-v2"></script>'
 PRE_ONAM_CSS_TAG = '<link rel="stylesheet" href="/assets/css/pre-onam-theme.css?v=20260819-pre-onam-perf3">'
 PRE_ONAM_JS_TAG = '<script defer src="/assets/js/pre-onam-theme.js?v=20260819-pre-onam-perf3"></script>'
 NEW_YEAR_CSS_TAG = '<link rel="stylesheet" href="/assets/css/new-year-theme.css?v=20260819-new-year-v1">'
