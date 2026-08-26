@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-24T11:30:46Z",
+  "generatedAt": "2026-08-26T05:24:29Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -27,7 +27,8 @@
     ],
     "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
     "mockExamEvaluation": true,
-    "mockExamPattern": "1004-75-mark-official-model"
+    "mockExamPattern": "1004-75-mark-official-model",
+    "dailyQuizGrading": true
   },
   "askTest": {
     "ok": true,
