@@ -98,7 +98,7 @@
     const link = document.createElement("link");
     link.id = STYLE_ID;
     link.rel = "stylesheet";
-    link.href = `${STYLE_PATH}?v=20260827-learning-sprint-v1`;
+    link.href = `${STYLE_PATH}?v=20260827-learning-sprint-v2`;
     document.head.append(link);
   }
 
