@@ -99,6 +99,10 @@ def inject_new_year_assets(relative: str, content: str) -> str:
 
 
 def inject_public_runtime_assets(relative: str, content: str) -> str:
+    # Standalone previews own their theme state machines and must not receive
+    # autonomous production seasonal controllers during the public build.
+    if relative.startswith("previews/"):
+        return content
     content = inject_independence_assets(relative, content)
     content = inject_learning_sprint_assets(relative, content)
     content = inject_pre_onam_assets(relative, content)
