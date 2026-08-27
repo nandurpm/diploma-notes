@@ -7,7 +7,6 @@ on:
     paths:
       - "assets/js/subjects.js"
       - "assets/js/subject-browser.js"
-      - "assets/js/document-resolution.js"
       - "assets/data/sitttr-pdf-links.json"
       - "assets/data/revision-2021-subjects.json"
       - "lessons/**"
