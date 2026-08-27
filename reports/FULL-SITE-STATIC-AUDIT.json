@@ -1,15 +1,97 @@
 {
   "generated": "static audit",
-  "documents": 1486,
+  "documents": 1488,
   "fragments": 18,
   "utilities": 3,
   "views": 2,
   "missingLocalReferences": {},
   "duplicateIds": {},
-  "metadataIssues": [],
+  "metadataIssues": [
+    [
+      "404.html",
+      "utility missing robots noindex"
+    ],
+    [
+      "index.html",
+      "canonical count=2"
+    ]
+  ],
   "headingIssues": [],
   "sitttrPolicyViolations": [],
-  "cacheVersionConflicts": {},
-  "externalReferencesCounted": 14314,
+  "cacheVersionConflicts": {
+    "/assets/css/style.css": [
+      "20260818-pdf-manifest2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/responsive.css": [
+      "20260822-mobile-layout3",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/hardening.css": [
+      "20260818-pdf-only2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/site-navigation-a11y.css": [
+      "20260818-pdf-only2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/site-brand.css": [
+      "20260818-pdf-only2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/portal-layout.css": [
+      "20260818-pdf-only2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/fixed-site-header.css": [
+      "20260824-scroll-fix2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/secondary-brand-alignment.css": [
+      "20260822-brand1",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/animations.css": [
+      "20260818-pdf-only2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/home-compact.css": [
+      "20260720-audit-fix2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/home-subject-browser.css": [
+      "20260720-audit-fix2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/daily-important-day.css": [
+      "20260720-audit-fix2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/wide-layout.css": [
+      "20260720-audit-fix2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/home-hero-tight.css": [
+      "20260720-audit-fix2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/home-academic-hub.css": [
+      "20260822-academic1",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/onam-theme.css": [
+      "20260825-onam-wide2",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/homepage-polish.css": [
+      "20260825-onam-compactstrip1",
+      "20260827-footer-consistency1"
+    ],
+    "/assets/css/department-semester-layout.css": [
+      "20260818-pdf-only2",
+      "20260827-footer-consistency1"
+    ]
+  },
+  "externalReferencesCounted": 14444,
   "queryOnlyRefsAccepted": 13
 }

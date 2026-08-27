@@ -22,8 +22,9 @@ Checks:
     (revision-202*/department-view.html); fragments exempt; canonical URLs
     must not carry query strings.
  4. Heading policy: exactly one H1 per genuine document.
- 5. SITTTR policy: no bare diploma-modelqp-courses-show route outside the
-    allowed scraper tool; revision-specific scheme=REV20xx indexes only.
+ 5. SITTTR policy: course-specific diploma-modelqp-courses-show links are
+     accepted only when they carry a revision-specific scheme token; revision
+     indexes must use an allowed scheme=REV20xx token.
  6. Cache-buster consistency: one current ?v= token per asset site-wide.
 
 Exit code 0 = pass. Writes reports/FULL-SITE-STATIC-AUDIT.json.
@@ -196,8 +197,12 @@ for page in iter_html():
     # stylesheet links without version tokens still resolve; nothing to do here
 
     # SITTTR policy on served pages
-    if "diploma-modelqp-courses-show" in raw:
-        broken_sitttr.append((rel, "bare courses-show route"))
+    if "diploma-modelqp-courses-show" in raw and not re.search(
+            r"diploma-modelqp-courses-show[^\"']*(?:&amp;|&)scheme=REV(?:2015|2021|2026)",
+            raw,
+            re.I,
+    ):
+        broken_sitttr.append((rel, "course-specific model-paper route missing revision scheme"))
     for bad in re.findall(r'scheme=REV([0-9]{4})', raw):
         if bad not in {"1997", "2003", "2006", "2010", "2015", "2021", "2026"}:
             broken_sitttr.append((rel, f"scheme token REV{bad}"))

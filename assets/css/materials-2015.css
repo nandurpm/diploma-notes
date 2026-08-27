@@ -1,3 +1,8 @@
+/* POLY_FIX: mutually exclusive JavaScript and no-JavaScript directory states */
+.rev2015-initial-state { display: grid; }
+html:not(.no-js) .rev2015-noscript { display: none; }
+html.no-js .rev2015-initial-state { display: none; }
+html.no-js .rev2015-noscript { display: block; }
 /* Materials 2015 page styling. Keep this page limited to archive links and the subject directory. */
 .materials-archive-note {
   width: 100%;

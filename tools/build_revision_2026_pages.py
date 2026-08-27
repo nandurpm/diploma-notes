@@ -20,7 +20,7 @@ SYLLABUS_INDEX = "https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syll
 MODEL_QP_INDEX = "https://sitttrkerala.ac.in/index.php?r=site%2Fdiploma-modelqp&scheme=REV2026"
 REPORT_JSON = Path("reports/revision-2026-new-codes-vs-2021.json")
 REPORT_MD = Path("reports/revision-2026-new-codes-vs-2021.md")
-VERSION = "20260812-revision-tag-normalization1"
+VERSION = "20260827-footer-consistency1"
 MIN_VALID_PDF_BYTES = 20000
 
 
@@ -174,7 +174,7 @@ def programme_card(programme: dict[str, object]) -> str:
         f'<span class="revision-programme-code">{esc(code)}</span>'
         f'<span class="revision-programme-arrow" aria-hidden="true">→</span>'
         f'</div>'
-        f'<div><h2>{esc(name)}</h2><p>Browse Semester 1 to Semester 6 subjects, syllabus and study resources.</p></div>'
+        f'<div><h2>{esc(name)}</h2><p class="revision-programme-card__subtitle">Official SITTTR code: <strong>{esc(code)}</strong></p><p>Browse Semester 1 to Semester 6 subjects, syllabus and study resources.</p></div>'
         f'<span class="revision-programme-card__meta">Open department</span>'
         f'</a>'
     )
@@ -201,10 +201,11 @@ def build_department_page(programme: dict[str, object], rows: list[dict[str, obj
         groups.append(semester_group(programme, number, semester_rows))
 
     name = str(programme["name"])
+    official_code = str(programme["officialCode"])
     slug = str(programme["slug"])
     title = f"{name} Revision 2026 Subjects | POLY PMNA"
     description = f"Browse {name} Revision 2026 subjects by semester with syllabus, dedicated lessons, notes and sample question-paper actions."
-    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards from the SITTTR Revision 2026 scheme data.</p></section><section class="section notice" id="rev2026-model-qp-access"><strong>Official Revision 2026 sample question papers:</strong> <a class="btn ghost" href="{MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open all REV2026 sample papers</a></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Revision 2026 lessons and notes are loaded only from the dedicated 2026 content folders.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
+    return head(title, description, f"{SITE}/revision-2026/{slug}.html") + f'''<body class="portal-page" data-revision="2026" data-programme-slug="{esc(slug)}" data-programme-name="{esc(name)}">{navigation()}<main id="main-content"><nav class="site-breadcrumbs" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/revision-2026.html">Revision 2026</a></li><li><span aria-current="page">{esc(name)}</span></li></ol></nav><section class="page-title reveal"><p class="kicker">Revision 2026 · Official code {esc(official_code)}</p><h1>{esc(name)}</h1><p>Semester 1 to Semester 6 subject cards from the SITTTR Revision 2026 scheme data. Use the official code <strong>{esc(official_code)}</strong> when two department names look similar.</p></section><section class="section notice" id="rev2026-model-qp-access"><strong>Official Revision 2026 sample question papers:</strong> <a class="btn ghost" href="{MODEL_QP_INDEX}" target="_blank" rel="noopener noreferrer">Open all REV2026 sample papers</a></section><section class="section compact" id="subject-browser"><div class="section-heading inline-heading"><div><p class="kicker">Subject Browser</p><h2>Find the right subject quickly</h2></div><p>Revision 2026 lessons and notes are loaded only from the dedicated 2026 content folders.</p></div><div class="filters department-subject-filters"><label class="sr-only" for="subjectSearch">Search subjects in this department</label><input id="subjectSearch" type="search" placeholder="Search subject code or title" autocomplete="off"><label class="sr-only" for="semesterFilter">Select semester</label><select id="semesterFilter"><option value="all">All semesters</option><option value="Semester 1">Semester 1</option><option value="Semester 2">Semester 2</option><option value="Semester 3">Semester 3</option><option value="Semester 4">Semester 4</option><option value="Semester 5">Semester 5</option><option value="Semester 6">Semester 6</option></select></div><div class="subject-grid" id="subjectGrid" data-mode="department" data-revision="2026" data-static-rev2026="true">{"".join(groups)}</div><div class="empty-state" id="subjectEmptyState" hidden>No subjects found. Try a different search or semester.</div></section></main>{footer()}</body></html>\n'''
 
 
 def revision_2021_codes() -> set[str]:
