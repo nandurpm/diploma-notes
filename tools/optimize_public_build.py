@@ -15,7 +15,7 @@ CSS_LINK_RE = re.compile(
     re.I,
 )
 CSS_URL_RE = re.compile(r'url\((?P<quote>["\']?)(?P<url>[^)"\']+)(?P=quote)\)', re.I)
-DEFERRED_HOMEPAGE_CSS = {"assets/css/onam-theme.css", "assets/css/independence-day-theme.css", "assets/css/31st-reference-theme.css"}
+DEFERRED_HOMEPAGE_CSS = {"assets/css/onam-theme.css", "assets/css/independence-day-theme.css"}
 
 
 def clean_asset_path(value: str) -> str:
