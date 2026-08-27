@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-26T05:24:29Z",
+  "generatedAt": "2026-08-27T04:42:09Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
@@ -23,7 +23,8 @@
     "providers": [
       "cloudflare-workers-ai",
       "cloudflare-workers-ai-rest",
-      "nvidia"
+      "nvidia",
+      "openrouter"
     ],
     "model": "@cf/meta/llama-3.1-8b-instruct-fp8",
     "mockExamEvaluation": true,
