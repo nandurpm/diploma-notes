@@ -6,6 +6,7 @@
 
   const TIME_ZONE = "Asia/Kolkata";
   const THEME_CLASS = "poly-learning-sprint-day";
+  const PREVIEW_CLASS = "poly-learning-sprint-preview";
   const BANNER_ID = "poly-learning-sprint-banner";
   const STYLE_ID = "poly-learning-sprint-theme-css";
   const STYLE_PATH = "/assets/css/learning-sprint-theme.css";
@@ -52,7 +53,36 @@
   }
 
   function shouldBeActive() {
-    return (preview || isTenthDay()) && !hasHigherPriorityTheme();
+    // Forced preview is intentionally isolated from seasonal visuals; the real
+    // 10th-day schedule still yields to higher-priority seasonal themes.
+    return preview || (isTenthDay() && !hasHigherPriorityTheme());
+  }
+
+  function removeSeasonalPreviewLayers() {
+    if (!preview) return;
+    document.querySelectorAll([
+      "#onam-day-banner-wrap",
+      ".onam-petal-layer",
+      ".onam-floating-lamp",
+      "#onam-music-toggle",
+      ".pre-onam-petal-layer",
+      ".pre-onam-diya",
+      "#poly-pre-onam-ribbon",
+      ".pre-onam-music-toggle"
+    ].join(",")).forEach((node) => node.remove());
+
+    const removeSeasonalClasses = (node) => {
+      if (!node) return;
+      node.classList.remove("poly-onam-banner-mode", "poly-pre-onam-mode");
+      [...node.classList]
+        .filter((className) => /^poly-onam-day-\d+$/.test(className))
+        .forEach((className) => node.classList.remove(className));
+    };
+    removeSeasonalClasses(document.documentElement);
+    removeSeasonalClasses(document.body);
+    document.body?.removeAttribute("data-onam-day");
+    document.body?.removeAttribute("data-pre-onam-date");
+    document.getElementById("poly-pre-onam-theme-css")?.remove();
   }
 
   function ensureStylesheet() {
@@ -112,8 +142,11 @@
     if (active || !shouldBeActive() || !document.body) return false;
     active = true;
     document.documentElement.classList.add(THEME_CLASS);
+    if (preview) document.documentElement.classList.add(PREVIEW_CLASS);
     document.documentElement.dataset.polyTheme = "learning-sprint-10th";
     document.body.classList.add(THEME_CLASS);
+    if (preview) document.body.classList.add(PREVIEW_CLASS);
+    removeSeasonalPreviewLayers();
     document.body.dataset.learningSprintDate = getISTDate();
     ensureStylesheet();
     updateThemeColor(true);
@@ -124,9 +157,9 @@
   function deactivate() {
     if (!active) return false;
     active = false;
-    document.documentElement.classList.remove(THEME_CLASS);
+    document.documentElement.classList.remove(THEME_CLASS, PREVIEW_CLASS);
     document.documentElement.removeAttribute("data-poly-theme");
-    document.body?.classList.remove(THEME_CLASS);
+    document.body?.classList.remove(THEME_CLASS, PREVIEW_CLASS);
     document.body?.removeAttribute("data-learning-sprint-date");
     document.getElementById(BANNER_ID)?.remove();
     removeStylesheet();
@@ -163,6 +196,19 @@
     if (document.body) observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
   }
 
+  function observePreviewIsolation() {
+    if (!preview || !window.MutationObserver || !document.documentElement) return;
+    const observer = new MutationObserver(() => {
+      if (active) removeSeasonalPreviewLayers();
+    });
+    observer.observe(document.documentElement, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["class", "data-onam-day", "data-pre-onam-date"]
+    });
+  }
+
   const api = Object.freeze({
     activate,
     checkNow,
@@ -178,10 +224,12 @@
 
   if (!window.location.pathname.startsWith("/maintenance/")) {
     checkNow();
-    observeHigherPriorityThemes();
+    if (preview) observePreviewIsolation();
+    else observeHigherPriorityThemes();
     scheduleNextISTMidnight();
   }
 })();
 
-/* Preview: append ?learningSprint=1 to a public page URL. */
+/* Preview: append ?learningSprint=1 to a public page URL. Preview mode suppresses
+   competing seasonal visual layers without changing their real schedules. */
 // Example: https://polypmna.dpdns.org/?learningSprint=1
