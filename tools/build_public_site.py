@@ -40,6 +40,8 @@ INDEPENDENCE_CSS_TAG = '<link rel="stylesheet" href="/assets/css/independence-da
 INDEPENDENCE_JS_TAG = '<script defer src="/assets/js/independence-day-theme.js?v=annual-tricolour-circuit-2"></script>'
 PRE_ONAM_CSS_TAG = '<link rel="stylesheet" href="/assets/css/pre-onam-theme.css?v=20260819-pre-onam-perf3">'
 PRE_ONAM_JS_TAG = '<script defer src="/assets/js/pre-onam-theme.js?v=20260819-pre-onam-perf3"></script>'
+LEARNING_SPRINT_CSS_TAG = '<link rel="stylesheet" href="/assets/css/learning-sprint-theme.css?v=20260827-learning-sprint-v1">'
+LEARNING_SPRINT_JS_TAG = '<script defer src="/assets/js/learning-sprint-theme.js?v=20260827-learning-sprint-v1"></script>'
 NEW_YEAR_CSS_TAG = '<link rel="stylesheet" href="/assets/css/new-year-theme.css?v=20260819-new-year-v1">'
 NEW_YEAR_JS_TAG = '<script defer src="/assets/js/new-year-theme.js?v=20260819-new-year-v1"></script>'
 
@@ -73,6 +75,17 @@ def inject_pre_onam_assets(relative: str, content: str) -> str:
     return content.replace(marker, tags + marker, 1)
 
 
+def inject_learning_sprint_assets(relative: str, content: str) -> str:
+    """Load the recurring IST 10th-day Learning Sprint theme."""
+    if Path(relative).suffix.lower() != ".html" or "learning-sprint-theme.js" in content:
+        return content
+    marker = "</head>"
+    if marker not in content:
+        return content
+    tags = f"    {LEARNING_SPRINT_CSS_TAG}\n    {LEARNING_SPRINT_JS_TAG}\n"
+    return content.replace(marker, tags + marker, 1)
+
+
 def inject_new_year_assets(relative: str, content: str) -> str:
     """Load the date-driven New Year controller in the public artifact."""
     if Path(relative).suffix.lower() != ".html" or "new-year-theme.js" in content:
@@ -87,6 +100,7 @@ def inject_new_year_assets(relative: str, content: str) -> str:
 
 def inject_public_runtime_assets(relative: str, content: str) -> str:
     content = inject_independence_assets(relative, content)
+    content = inject_learning_sprint_assets(relative, content)
     content = inject_pre_onam_assets(relative, content)
     return inject_new_year_assets(relative, content)
 

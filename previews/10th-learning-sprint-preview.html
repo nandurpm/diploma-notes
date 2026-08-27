@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" class="poly-learning-sprint-day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#00a6a6">
+  <title>POLY PMNA — 10th Learning Sprint Preview</title>
+  <style>
+    :root {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #102a43;
+      background: #f5fbfc;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: #eef6f7; }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image: linear-gradient(rgba(16,42,67,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(16,42,67,.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: .24;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 13px clamp(16px, 4vw, 52px);
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid rgba(16,42,67,.12);
+      box-shadow: 0 8px 22px rgba(16,42,67,.08);
+    }
+    .brand { display: flex; align-items: center; gap: 10px; color: #102a43; font-weight: 950; letter-spacing: -.04em; }
+    .brand-mark { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: #102a43; color: #fff; font-weight: 950; }
+    .topbar nav { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+    .topbar nav a { padding: 7px 10px; border-radius: 9px; color: #526579; font-size: .78rem; font-weight: 800; text-decoration: none; }
+    .topbar nav a:hover { background: #e8f7f4; color: #008f8f; }
+
+    .poly-learning-sprint-banner {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 16px;
+      width: min(1180px, calc(100% - 28px));
+      min-height: 108px;
+      margin: 18px auto;
+      padding: 16px 20px;
+      overflow: hidden;
+      border: 1px solid rgba(0,166,166,.28);
+      border-left: 7px solid #00a6a6;
+      border-radius: 20px;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 16px 42px rgba(16,42,67,.12), inset 0 1px 0 rgba(255,255,255,.9);
+      isolation: isolate;
+    }
+    .poly-learning-sprint-banner::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      z-index: -1;
+      width: 38%;
+      background: linear-gradient(120deg, rgba(0,166,166,.12), transparent 72%);
+    }
+    .poly-learning-sprint-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image: linear-gradient(rgba(0,143,143,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(0,143,143,.07) 1px, transparent 1px);
+      background-size: 22px 22px;
+      mask-image: linear-gradient(90deg, #000, transparent 74%);
+    }
+    .sprint-number { display: grid; place-items: center; width: 76px; height: 76px; border: 2px solid rgba(0,143,143,.28); border-radius: 18px; background: linear-gradient(145deg, #00a6a6, #007b7b); color: #fff; font-size: 3rem; font-weight: 950; letter-spacing: -.1em; line-height: .8; text-indent: -.1em; box-shadow: 0 10px 20px rgba(0,143,143,.24); }
+    .sprint-badge { display: inline-flex; width: fit-content; padding: 4px 9px; border-radius: 999px; background: #f4c95d; color: #102a43; font-size: .68rem; font-weight: 900; letter-spacing: .08em; line-height: 1.2; text-transform: uppercase; }
+    .sprint-copy h1 { margin: 5px 0 2px; font-size: clamp(1.06rem, 2.4vw, 1.45rem); font-weight: 950; letter-spacing: -.035em; line-height: 1.08; }
+    .sprint-copy p { margin: 0; color: #243b53; font-size: .8rem; line-height: 1.4; }
+    .sprint-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .sprint-actions a, .control { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 8px 11px; border: 1px solid rgba(0,143,143,.26); border-radius: 10px; background: #fff; color: #102a43; font-size: .72rem; font-weight: 850; text-decoration: none; cursor: pointer; }
+    .sprint-actions a:hover, .sprint-actions a:focus-visible, .control:hover, .control:focus-visible { border-color: #00a6a6; background: #e8f7f4; }
+
+    .page { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 10px 0 56px; }
+    .hero { display: grid; grid-template-columns: 1.3fr .7fr; gap: 28px; align-items: end; padding: 40px clamp(18px, 4vw, 54px); border-radius: 28px; background: linear-gradient(135deg, #102a43, #176b76 72%, #00a6a6); color: #fff; box-shadow: 0 22px 52px rgba(16,42,67,.22); }
+    .eyebrow { margin: 0 0 10px; color: #b7f4ed; font-size: .74rem; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+    .hero h2 { max-width: 650px; margin: 0; font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.065em; line-height: .98; }
+    .hero p { max-width: 640px; margin: 18px 0 0; color: #d9ffff; line-height: 1.65; }
+    .progress-card { padding: 20px; border: 1px solid rgba(255,255,255,.25); border-radius: 20px; background: rgba(255,255,255,.12); backdrop-filter: blur(10px); }
+    .progress-card strong { display: block; margin-bottom: 8px; font-size: 2.4rem; }
+    .progress-track { height: 10px; overflow: hidden; border-radius: 99px; background: rgba(255,255,255,.2); }
+    .progress-track span { display: block; width: 70%; height: 100%; border-radius: inherit; background: #f4c95d; }
+    .progress-card small { display: block; margin-top: 10px; color: #d9ffff; }
+
+    .section-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; margin: 32px 0 14px; }
+    .section-head h2 { margin: 0; font-size: 1.25rem; letter-spacing: -.03em; }
+    .section-head p { margin: 0; color: #526579; font-size: .85rem; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .study-card { position: relative; padding: 21px; overflow: hidden; border: 1px solid rgba(0,143,143,.18); border-radius: 18px; background: #fff; box-shadow: 0 10px 28px rgba(16,42,67,.09); }
+    .study-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, #00a6a6, #f4c95d); }
+    .study-card .card-index { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: #e8f7f4; color: #008f8f; font-size: .75rem; font-weight: 950; }
+    .study-card h3 { margin: 18px 0 7px; font-size: 1.03rem; }
+    .study-card p { margin: 0; color: #526579; font-size: .86rem; line-height: 1.55; }
+    .study-card a { display: inline-flex; margin-top: 18px; color: #008f8f; font-size: .8rem; font-weight: 900; text-decoration: none; }
+
+    .demo-panel { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 28px; padding: 16px 18px; border: 1px dashed rgba(0,143,143,.4); border-radius: 16px; background: rgba(232,247,244,.8); }
+    .demo-panel p { margin: 0; color: #243b53; font-size: .82rem; line-height: 1.45; }
+    .demo-panel code { padding: 2px 5px; border-radius: 5px; background: rgba(16,42,67,.08); color: #102a43; }
+    .footer { margin-top: 30px; padding: 22px 0; border-top: 1px solid rgba(16,42,67,.12); color: #526579; font-size: .8rem; text-align: center; }
+
+    html:not(.poly-learning-sprint-day) body { background: #f7f9fb; }
+    html:not(.poly-learning-sprint-day) .poly-learning-sprint-banner { display: none; }
+    @media (prefers-reduced-motion: no-preference) { .sprint-number { animation: sprint-pulse 5s ease-in-out infinite; } }
+    @keyframes sprint-pulse { 0%, 100% { box-shadow: 0 10px 20px rgba(0,143,143,.24); } 50% { box-shadow: 0 12px 28px rgba(0,143,143,.38); } }
+    @media (max-width: 760px) {
+      .topbar { align-items: flex-start; flex-direction: column; }
+      .topbar nav { justify-content: flex-start; }
+      .poly-learning-sprint-banner { grid-template-columns: auto minmax(0, 1fr); gap: 12px; padding: 14px; }
+      .sprint-number { width: 62px; height: 62px; border-radius: 15px; font-size: 2.25rem; }
+      .sprint-actions { grid-column: 1 / -1; justify-content: flex-start; }
+      .hero { grid-template-columns: 1fr; }
+      .cards { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 420px) {
+      .poly-learning-sprint-banner { border-left-width: 5px; }
+      .sprint-number { width: 54px; height: 54px; font-size: 1.9rem; }
+      .sprint-badge { font-size: .6rem; }
+      .sprint-copy h1 { font-size: 1rem; }
+      .sprint-copy p { font-size: .74rem; }
+      .sprint-actions a { flex: 1 1 auto; font-size: .68rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">P</span><span>POLY PMNA</span></div>
+    <nav aria-label="Preview navigation"><a href="#notes">Notes</a><a href="#practice">Practice</a><a href="#tools">Tools</a></nav>
+  </header>
+
+  <section class="poly-learning-sprint-banner" aria-labelledby="sprint-title">
+    <div class="sprint-number" aria-hidden="true">10</div>
+    <div class="sprint-copy">
+      <span class="sprint-badge">Monthly study checkpoint</span>
+      <h1 id="sprint-title">10th Learning Sprint</h1>
+      <p>Learn one more concept. Solve one more problem. Build one more skill.</p>
+    </div>
+    <nav class="sprint-actions" aria-label="Learning Sprint actions"><a href="#notes">Review notes</a><a href="#practice">Practice questions</a></nav>
+  </section>
+
+  <main class="page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div>
+        <p class="eyebrow">10th-day academic focus</p>
+        <h2 id="hero-title">Make one strong step forward today.</h2>
+        <p>Use this monthly checkpoint to revisit a difficult subject, test your understanding, and choose the next small learning goal.</p>
+      </div>
+      <aside class="progress-card" aria-label="Monthly sprint progress">
+        <strong>7 / 10</strong>
+        <div class="progress-track" aria-hidden="true"><span></span></div>
+        <small>Suggested sprint progress</small>
+      </aside>
+    </section>
+
+    <div class="section-head" id="notes"><div><h2>Choose your sprint focus</h2><p>Small, clear actions keep the theme useful rather than distracting.</p></div></div>
+    <section class="cards" aria-label="Study sprint focus cards">
+      <article class="study-card"><span class="card-index">01</span><h3>Review one concept</h3><p>Revisit the note or lesson that needs the most attention today.</p><a href="#">Open revision notes →</a></article>
+      <article class="study-card" id="practice"><span class="card-index">02</span><h3>Solve five questions</h3><p>Check your understanding with focused practice instead of passive reading.</p><a href="#">Start practice →</a></article>
+      <article class="study-card" id="tools"><span class="card-index">03</span><h3>Plan the next step</h3><p>Record one follow-up topic and return to it during the next study session.</p><a href="#">Open student tools →</a></article>
+    </section>
+
+    <section class="demo-panel" aria-live="polite">
+      <p><strong>Local preview mode:</strong> the theme is forced on so this file looks active on any date. IST check: <code id="istDate">checking…</code>.</p>
+      <button class="control" id="toggleTheme" type="button">Remove theme</button>
+    </section>
+    <footer class="footer">POLY PMNA · 10th Learning Sprint preview · No automatic audio</footer>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+      const root = document.documentElement;
+      const button = document.getElementById("toggleTheme");
+      const dateOutput = document.getElementById("istDate");
+      const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Kolkata", year: "numeric", month: "2-digit", day: "2-digit" });
+      const getISTDate = (date = new Date()) => formatter.format(date);
+      const isTenthDay = (date = new Date()) => Number(formatter.formatToParts(date).find((part) => part.type === "day")?.value) === 10;
+      const applyLearningSprintTheme = () => {
+        root.classList.add("poly-learning-sprint-day");
+        button.textContent = "Remove theme";
+        dateOutput.textContent = `${getISTDate()} · ${isTenthDay() ? "real 10th-day match" : "forced preview"}`;
+      };
+      const removeLearningSprintTheme = () => {
+        root.classList.remove("poly-learning-sprint-day");
+        button.textContent = "Apply theme";
+        dateOutput.textContent = `${getISTDate()} · theme removed`;
+      };
+      button.addEventListener("click", () => root.classList.contains("poly-learning-sprint-day") ? removeLearningSprintTheme() : applyLearningSprintTheme());
+      window.PolyLearningSprintPreview = Object.freeze({ applyLearningSprintTheme, getISTDate, isTenthDay, removeLearningSprintTheme });
+      applyLearningSprintTheme();
+    })();
+  </script>
+</body>
+</html>
