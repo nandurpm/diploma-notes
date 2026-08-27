@@ -2,8 +2,8 @@
   "page": "/revision-2026.html",
   "targetFlow": "Revision 2026 directory loads → search filters departments → clear restores all results → mobile menu opens",
   "status": "success",
-  "sourceCommit": "4c7fa7f84beab2e5ea25b57fee8de23112517280",
-  "generatedAt": "2026-08-24T05:50:12.501Z",
+  "sourceCommit": "8eef570e48c39f04190d245dd818900405c7ae71",
+  "generatedAt": "2026-08-27T09:50:58.289Z",
   "environment": {
     "browser": "Playwright Chromium",
     "browserPlugin": "not available; regular Playwright used",
@@ -163,8 +163,8 @@
     {
       "label": "desktop",
       "fileName": "revision-2026-directory-desktop.png",
-      "bytes": 3778218,
-      "sha256": "f33929878cd5a96ed641c86e0d80abb909dc01c656c24d37f9848a165d7ba95b",
+      "bytes": 4208137,
+      "sha256": "1303b99619a1156955ad26ceb10e4adc733fe1192e382e5bcd324c00f204e9cb",
       "viewport": {
         "width": 1440,
         "height": 1000
@@ -173,8 +173,8 @@
     {
       "label": "mobile",
       "fileName": "revision-2026-directory-mobile.png",
-      "bytes": 2962815,
-      "sha256": "96a1eec2165bc09f8b1cc66353a58a7c7b547f7726122895c0e6dfd6464ac5be",
+      "bytes": 3206276,
+      "sha256": "351930aed5ac073b14a69fbe400c7bc3f4131ea1ff9623f07943adf3808469f7",
       "viewport": {
         "width": 390,
         "height": 844
