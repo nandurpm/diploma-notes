@@ -154,6 +154,15 @@
     }, getISTMidnightDelay());
   }
 
+  function observeHigherPriorityThemes() {
+    if (!window.MutationObserver || !document.documentElement) return;
+    const observer = new MutationObserver(() => {
+      if (active && hasHigherPriorityTheme()) deactivate();
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    if (document.body) observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+  }
+
   const api = Object.freeze({
     activate,
     checkNow,
@@ -169,6 +178,7 @@
 
   if (!window.location.pathname.startsWith("/maintenance/")) {
     checkNow();
+    observeHigherPriorityThemes();
     scheduleNextISTMidnight();
   }
 })();
