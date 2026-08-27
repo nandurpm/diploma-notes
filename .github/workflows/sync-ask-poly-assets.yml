@@ -7,7 +7,6 @@ on:
     paths:
       - "assets/js/site-assistant-loader.js"
       - "assets/js/ask-poly-rich-renderer.js"
-      - "assets/css/ask-poly-rich-content.css"
       - ".github/workflows/sync-ask-poly-assets.yml"
 
 permissions:
