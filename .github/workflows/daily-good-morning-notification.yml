@@ -2,9 +2,9 @@ name: Daily Good Morning Notification
 
 on:
   schedule:
-    # 05:00 AM IST = 01:30 UTC
+    # 07:00 AM IST = 01:30 UTC (Good Morning)
     - cron: "30 1 * * *"
-    # 07:00 AM IST = 03:30 UTC
+    # 09:00 AM IST = 03:30 UTC (Special Day)
     - cron: "30 3 * * *"
   workflow_dispatch:
     inputs:
@@ -91,6 +91,11 @@ jobs:
 
           mode = os.environ.get("NOTIFICATION_MODE", "Auto")
           schedule_cron = os.environ.get("EVENT_SCHEDULE", "")
+          # GitHub Actions scheduled workflows run in UTC and may be queued well
+          # after the requested minute. Never send a time-of-day greeting after
+          # the intended local morning window just because the cron value matches.
+          good_morning_hours = range(5, 11)  # 05:00–10:59 IST safety window
+          special_day_hours = range(8, 12)   # 08:00–11:59 IST safety window
 
           print(f"Trigger Mode: {mode}")
           print(f"Schedule Cron: {schedule_cron}")
@@ -98,27 +103,30 @@ jobs:
           print(f"Date Key (YYYY-MM-DD): {date_key}")
           print(f"MM-DD Key: {mm_dd_key}")
 
-          # Resolve "Auto" mode to a specific notification type
+          # Resolve "Auto" mode to a specific notification type. The local IST
+          # guard is intentional: GitHub can start a scheduled run hours late.
           if mode == "Auto":
+              ist_hour = today_ist_dt.hour
               if schedule_cron == "30 1 * * *":
+                  if ist_hour not in good_morning_hours:
+                      print(f"SKIP: Good Morning cron was delayed until {today_ist_dt:%H:%M} IST; no evening greeting will be sent.")
+                      sys.exit(0)
                   resolved_mode = "Good Morning"
               elif schedule_cron == "30 3 * * *":
+                  if ist_hour not in special_day_hours:
+                      print(f"SKIP: Special Day cron was delayed until {today_ist_dt:%H:%M} IST; no late notification will be sent.")
+                      sys.exit(0)
                   resolved_mode = "Special Day"
               else:
-                  # Fallback for manual run under "Auto" mode based on local IST hour
-                  ist_hour = today_ist_dt.hour
+                  # Manual Auto runs are also constrained to the same local windows.
                   print(f"Auto mode fallback checking IST hour: {ist_hour}")
-                  if ist_hour in [7, 8]:
+                  if ist_hour in good_morning_hours:
                       resolved_mode = "Good Morning"
-                  elif ist_hour in [9, 10]:
+                  elif ist_hour in special_day_hours:
                       resolved_mode = "Special Day"
                   else:
-                      # If outside typical slots, check if a special day exists today
-                      has_special_day = any(item.get("date") == mm_dd_key for item in special_day_list)
-                      if has_special_day:
-                          resolved_mode = "Special Day"
-                      else:
-                          resolved_mode = "Good Morning"
+                      print(f"SKIP: Auto mode requested outside notification windows at {today_ist_dt:%H:%M} IST.")
+                      sys.exit(0)
           else:
               resolved_mode = mode
 
