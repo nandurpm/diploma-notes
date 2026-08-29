@@ -1,6 +1,6 @@
 {
   "status": "success",
-  "generatedAt": "2026-08-29T09:26:04Z",
+  "generatedAt": "2026-08-29T10:01:09Z",
   "endpoint": "https://api.polypmna.dpdns.org/health",
   "askEndpoint": "https://api.polypmna.dpdns.org/api/ask-poly",
   "expectedKnowledgeMode": "whole-site-revision-aware-v1",
