@@ -296,6 +296,10 @@
     const div = document.createElement("div");
     div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
+    if (message.role === "assistant" && message.meta?.diagramIntent && window.AskPolyDiagrams?.render) {
+      const diagramHtml = window.AskPolyDiagrams.render(message.meta.diagramIntent);
+      if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
+    }
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
@@ -303,6 +307,15 @@
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
     div.addEventListener("click", (event) => {
+      const diagramControl = event.target.closest("[data-diagram-action]");
+      if (diagramControl) {
+        event.stopPropagation();
+        window.AskPolyDiagrams?.handle?.(
+          diagramControl.dataset.diagramAction,
+          diagramControl.closest(".ask-diagram")
+        );
+        return;
+      }
       const target = event.target.closest("button.ask-code-copy");
       if (!target) return;
       const code = target.closest(".ask-code")?.querySelector("code");
@@ -485,6 +498,7 @@
     addTyping();
 
     let retrieval = null;
+    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
     try {
       const messages = await getMessages(activeChatId);
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
@@ -503,7 +517,8 @@
         provider: result.provider,
         model: result.model,
         websiteKnowledge: Boolean(retrieval?.context),
-        knowledgeVersion: retrieval?.version || ""
+        knowledgeVersion: retrieval?.version || "",
+        diagramIntent
       });
     } catch (error) {
       removeTyping();
@@ -512,7 +527,8 @@
         await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {
           provider: "local-offline-assistant",
           error: error.message,
-          knowledgeVersion: retrieval?.version || ""
+          knowledgeVersion: retrieval?.version || "",
+          diagramIntent
         });
       } else {
         const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
@@ -520,10 +536,11 @@
           await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
             provider: "local-knowledge-fallback",
             error: error.message,
-            knowledgeVersion: retrieval?.version || ""
+            knowledgeVersion: retrieval?.version || "",
+            diagramIntent
           });
         } else {
-          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message });
+          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message, diagramIntent });
         }
       }
     } finally {

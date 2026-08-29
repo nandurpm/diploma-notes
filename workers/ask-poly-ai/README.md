@@ -43,6 +43,10 @@ The Worker uses `gpt-5.4-mini` by default for a balance of quality, speed and co
 - HTML, CSS, JavaScript and other computer/programming questions
 - Important days, current affairs and other time-sensitive questions using web search
 - Lesson-aware answers when the current page context is included
+- Interactive SVG flowcharts and engineering diagrams rendered by the browser alongside the AI explanation
+- Copyable formulas that preserve standard Unicode mathematical/scientific symbols, Greek letters, variable labels, and SI units
+
+The browser allows up to 60 seconds for a complete answer, while each configured AI provider has up to 12 seconds before the Worker advances to the next fallback. This gives detailed technical answers more time without disabling the existing provider fallback chain.
 
 ## Security controls
 
