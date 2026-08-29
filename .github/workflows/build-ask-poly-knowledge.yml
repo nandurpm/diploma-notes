@@ -16,6 +16,7 @@ on:
       - "assets/js/ask-poly-knowledge-loader.js"
       - "assets/js/ask-poly-v2.js"
       - "assets/data/syllabus-details.json"
+      - "assets/data/ask-poly-extra-facts.json"
       - ".github/workflows/build-ask-poly-knowledge.yml"
 
 permissions:
