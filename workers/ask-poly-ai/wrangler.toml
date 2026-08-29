@@ -49,7 +49,7 @@ ASK_POLY_RELEASE = "2026-07-20-audit-security3"
 # Try NVIDIA first, then OpenRouter if NVIDIA is unavailable or fails.
 # Credentials are supplied only as encrypted Cloudflare Worker secrets by the deploy workflow.
 AI_PROVIDER_ORDER = "nvidia,openrouter"
-PROVIDER_TIMEOUT_MS = "7000"
+PROVIDER_TIMEOUT_MS = "12000"
 OPENAI_MODEL = "gpt-4o-mini"
 NVIDIA_MODEL = "meta/llama-3.1-8b-instruct"
 OPENROUTER_MODEL = "google/gemma-2-9b-it:free,huggingfaceh4/zephyr-7b-beta:free,mistralai/mistral-7b-instruct:free"

@@ -367,6 +367,10 @@
     const div = document.createElement("div");
     div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
+    if (message.role === "assistant" && message.meta?.diagramIntent && window.AskPolyDiagrams?.render) {
+      const diagramHtml = window.AskPolyDiagrams.render(message.meta.diagramIntent);
+      if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
+    }
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     if (message.role === "assistant" && message.meta?.diagram && window.AskPolyDiagrams?.render) {
       try {
@@ -382,6 +386,13 @@
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
     div.addEventListener("click", (event) => {
+      const diagramControl = event.target.closest("[data-diagram-action]");
+      if (diagramControl) {
+        event.stopPropagation();
+        window.AskPolyDiagrams?.handle?.(
+          diagramControl.dataset.diagramAction,
+          diagramControl.closest(".ask-diagram")
+        );
       const diagramBtn = event.target.closest("[data-diagram-action]");
       if (diagramBtn) {
         event.stopPropagation();
@@ -570,6 +581,7 @@
     addTyping();
 
     let retrieval = null;
+    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
     // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
     // matching SVG figure (assets/js/ask-poly-diagrams.js) renders next to the AI's answer.
     let diagramIntent = null;
@@ -597,6 +609,7 @@
         model: result.model,
         websiteKnowledge: Boolean(retrieval?.context),
         knowledgeVersion: retrieval?.version || "",
+        diagramIntent
         diagram: diagramIntent || undefined
       });
     } catch (error) {
@@ -607,6 +620,7 @@
           provider: "local-offline-assistant",
           error: error.message,
           knowledgeVersion: retrieval?.version || "",
+          diagramIntent
           diagram: diagramIntent || undefined
         });
       } else {
@@ -616,6 +630,10 @@
             provider: "local-knowledge-fallback",
             error: error.message,
             knowledgeVersion: retrieval?.version || "",
+            diagramIntent
+          });
+        } else {
+          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message, diagramIntent });
             diagram: diagramIntent || undefined
           });
         } else {
