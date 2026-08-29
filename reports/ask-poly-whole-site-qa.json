@@ -1,7 +1,7 @@
 {
   "page": "/ask-poly.html",
   "status": "failed",
-  "generatedAt": "2026-08-24T08:43:23.742Z",
+  "generatedAt": "2026-08-29T09:10:46.110Z",
   "error": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByText('QA grounded answer:') to be visible\n\n    at /home/runner/work/diploma-notes/diploma-notes/tools/qa_ask_poly_whole_site.mjs:63:65",
   "checks": [
     {
@@ -23,17 +23,15 @@
       "passed": true,
       "status": {
         "ok": true,
-        "version": "2026-08-whole-site-content2",
-        "generatedAt": "2026-08-24T05:38:05Z",
+        "version": "2026-08-offline-science1",
+        "generatedAt": "2026-08-29T05:43:52Z",
         "counts": {
-          "pages": 1509,
+          "pages": 1511,
           "programmes2021": 43,
           "programmes2026": 42,
-          "subjectRecords": 5417,
-          "lessonRecordsAvailable": 3818,
-          "notesRecordsAvailable": 3818,
-          "lessonContentRecords": 1373,
-          "syllabusDetailRecords": 1
+          "subjectRecords": 4442,
+          "lessonRecordsAvailable": 3099,
+          "notesRecordsAvailable": 1153
         }
       }
     },
@@ -41,28 +39,24 @@
       "name": "knowledge contains 42 Revision 2026 programmes",
       "passed": true,
       "counts": {
-        "pages": 1509,
+        "pages": 1511,
         "programmes2021": 43,
         "programmes2026": 42,
-        "subjectRecords": 5417,
-        "lessonRecordsAvailable": 3818,
-        "notesRecordsAvailable": 3818,
-        "lessonContentRecords": 1373,
-        "syllabusDetailRecords": 1
+        "subjectRecords": 4442,
+        "lessonRecordsAvailable": 3099,
+        "notesRecordsAvailable": 1153
       }
     },
     {
       "name": "knowledge contains both curriculum datasets",
       "passed": true,
       "counts": {
-        "pages": 1509,
+        "pages": 1511,
         "programmes2021": 43,
         "programmes2026": 42,
-        "subjectRecords": 5417,
-        "lessonRecordsAvailable": 3818,
-        "notesRecordsAvailable": 3818,
-        "lessonContentRecords": 1373,
-        "syllabusDetailRecords": 1
+        "subjectRecords": 4442,
+        "lessonRecordsAvailable": 3099,
+        "notesRecordsAvailable": 1153
       }
     },
     {
@@ -83,15 +77,15 @@
       }
     },
     {
-      "text": "TypeError: Cannot read properties of null (reading 'replaceChildren')\n    at setPrompts (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1:383:17)\n    at renderAll (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1:402:77)\n    at async createChat (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1:116:5)\n    at async init (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1:549:10)",
+      "text": "TypeError: Cannot read properties of null (reading 'replaceChildren')\n    at setPrompts (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1:468:17)\n    at renderAll (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1:487:77)\n    at async createChat (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1:116:5)\n    at async init (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1:653:10)",
       "location": {
-        "url": "http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1",
-        "lineNumber": 566,
+        "url": "http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1",
+        "lineNumber": 670,
         "columnNumber": 12
       }
     },
     {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787560972328' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787994615018' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html",
         "lineNumber": 0,
@@ -101,13 +95,13 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://api.polypmna.dpdns.org/health?t=1787560972328",
+        "url": "https://api.polypmna.dpdns.org/health?t=1787994615018",
         "lineNumber": 0,
         "columnNumber": 0
       }
     },
     {
-      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787560972513' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
+      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787994615082' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html",
         "lineNumber": 0,
@@ -117,13 +111,13 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787560972513",
+        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787994615082",
         "lineNumber": 0,
         "columnNumber": 0
       }
     },
     {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787560972808' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787994615320' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html",
         "lineNumber": 0,
@@ -133,13 +127,13 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787560972808",
+        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787994615320",
         "lineNumber": 0,
         "columnNumber": 0
       }
     },
     {
-      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787560972833' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
+      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787994615329' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html",
         "lineNumber": 0,
@@ -149,17 +143,9 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787560972833",
+        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787994615329",
         "lineNumber": 0,
         "columnNumber": 0
-      }
-    },
-    {
-      "text": "TypeError: Cannot read properties of null (reading 'replaceChildren')\n    at setPrompts (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1:383:17)\n    at renderAll (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1:402:77)\n    at async init (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1:560:5)",
-      "location": {
-        "url": "http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-history-contract1",
-        "lineNumber": 566,
-        "columnNumber": 12
       }
     },
     {
@@ -171,7 +157,7 @@
       }
     },
     {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787560973811' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/health?t=1787994616163' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html?",
         "lineNumber": 0,
@@ -181,13 +167,21 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://api.polypmna.dpdns.org/health?t=1787560973811",
+        "url": "https://api.polypmna.dpdns.org/health?t=1787994616163",
         "lineNumber": 0,
         "columnNumber": 0
       }
     },
     {
-      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787560973847' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
+      "text": "TypeError: Cannot read properties of null (reading 'replaceChildren')\n    at setPrompts (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1:468:17)\n    at renderAll (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1:487:77)\n    at async init (http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1:664:5)",
+      "location": {
+        "url": "http://127.0.0.1:8000/assets/js/ask-poly-v2.js?v=20260824-language-en-first1",
+        "lineNumber": 670,
+        "columnNumber": 12
+      }
+    },
+    {
+      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787994616175' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html?",
         "lineNumber": 0,
@@ -197,13 +191,13 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787560973847",
+        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health?t=1787994616175",
         "lineNumber": 0,
         "columnNumber": 0
       }
     },
     {
-      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787560973975' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
+      "text": "Access to fetch at 'https://api.polypmna.dpdns.org/api/ask-poly?t=1787994616297' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html?",
         "lineNumber": 0,
@@ -213,13 +207,13 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787560973975",
+        "url": "https://api.polypmna.dpdns.org/api/ask-poly?t=1787994616297",
         "lineNumber": 0,
         "columnNumber": 0
       }
     },
     {
-      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787560973998' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
+      "text": "Access to fetch at 'https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787994616306' from origin 'http://127.0.0.1:8000' has been blocked by CORS policy: The 'Access-Control-Allow-Origin' header has a value 'https://polypmna.dpdns.org' that is not equal to the supplied origin. Have the server send the header with a valid value.",
       "location": {
         "url": "http://127.0.0.1:8000/ask-poly.html?",
         "lineNumber": 0,
@@ -229,7 +223,7 @@
     {
       "text": "Failed to load resource: net::ERR_FAILED",
       "location": {
-        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787560973998",
+        "url": "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly?t=1787994616306",
         "lineNumber": 0,
         "columnNumber": 0
       }
