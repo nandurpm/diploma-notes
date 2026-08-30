@@ -49,6 +49,9 @@
     if (/flowchart|flow chart|decision process|flow diagram|algorithm flowchart|ഫ്ലോചാർട്ട്/.test(q)) {
       const flow = (variant, title) => withDepartment({ type: "flowchart", variant, title, language: /[\u0D00-\u0D7F]/.test(q) ? "ml" : "en" });
       if (/\bpnp\b.*\bnpn\b|\bnpn\b.*\bpnp\b/.test(q)) return flow("pnp_npn", "PNP and NPN transistor operation flowchart");
+      if (/\bdiodes?\b/.test(q)) return flow("diode_operation", "Diode operating-state flowchart");
+      if (/odd|even|parity|ഒറ്റ|ഇരട്ട/.test(q)) return flow("odd_even", "Odd or even number flowchart");
+      return null;
       if (/odd|even|parity|ഒറ്റ|ഇരട്ട/.test(q)) return flow("odd_even", "Odd or even number flowchart");
       if (/largest|greatest|max(?:imum)?|three numbers|three values/.test(q)) return flow("largest_three", "Largest of three numbers flowchart");
       if (/positive|negative|zero/.test(q)) return flow("positive_negative_zero", "Positive, negative or zero flowchart");
@@ -60,7 +63,7 @@
       if (/current generation|generate electricity|generation of electricity|electric(?:al)? power generation|power generation/.test(q)) return flow("current_generation", "Electrical power generation flowchart");
       return flow("generic", "Flowchart");
     }
-    if (/block diagram|communication system|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Block diagram" });
+    if (/communication system|communication.*block|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Communication system block diagram" });
     if (/sine|sinusoidal|ac waveform|sine wave/.test(q)) return withDepartment({ type: "sine_wave", title: "AC sine waveform" });
     if (/square wave/.test(q)) return withDepartment({ type: "square_wave", title: "Square waveform" });
     if (/triangular|triangle wave/.test(q)) return withDepartment({ type: "triangle_wave", title: "Triangular waveform" });
@@ -75,6 +78,7 @@
       ["zener diode", "zener", "Zener diode symbol"], ["photodiode", "photodiode", "Photodiode symbol"], ["schottky", "schottky", "Schottky diode symbol"], ["varactor", "varactor", "Varactor diode symbol"], ["led", "led", "LED symbol"], ["diode", "diode", "Diode symbol"], ["npn transistor", "npn", "NPN transistor symbol"], ["pnp transistor", "pnp", "PNP transistor symbol"], ["mosfet", "mosfet", "MOSFET symbol"], ["jfet", "jfet", "JFET symbol"], ["scr", "scr", "SCR symbol"], ["triac", "triac", "TRIAC symbol"], ["diac", "diac", "DIAC symbol"], ["variable resistor", "variable_resistor", "Variable resistor symbol"], ["potentiometer", "potentiometer", "Potentiometer symbol"], ["polarized capacitor", "polarized_capacitor", "Polarized capacitor symbol"], ["capacitor", "capacitor", "Capacitor symbol"], ["inductor|coil", "inductor", "Inductor symbol"], ["switch", "switch", "Switch symbol"], ["battery", "battery", "Battery symbol"], ["ac source|ac supply", "ac_source", "AC source symbol"], ["dc source|dc supply", "dc_source", "DC source symbol"], ["ground|earth", "ground", "Ground symbol"], ["fuse", "fuse", "Fuse symbol"], ["lamp|bulb", "lamp", "Lamp symbol"], ["resistor", "resistor", "Resistor symbol"]
     ];
     for (const [pattern, variant, title] of symbolMap) if (new RegExp(pattern).test(q)) return withDepartment({ type: "symbol", variant, title });
+    if (/circuit|schematic|connections?/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
     if (/\bcircuit\b/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
     if (/graph|plot/.test(q)) return withDepartment({ type: "sine_wave", title: "Engineering graph" });
     // Do not invent a circuit for an underspecified request such as
@@ -210,6 +214,8 @@
       };
     }
     const templates = {
+      pnp_npn: { input: "Identify transistor type", decision: "PNP or NPN?", yes: "PNP: base LOW → ON", no: "NPN: base HIGH → ON", title: "PNP and NPN transistor operation" },
+      diode_operation: { input: "Apply voltage across A–K", decision: "Forward biased?", yes: "Conducts after Vᶠ threshold", no: "Blocks; only small Iᴿ", title: "diode operating state" }
       positive_negative_zero: { input: "Input N", decision: "N > 0?", yes: "Positive", no: "N < 0?", extra: "Zero", title: "Positive, negative or zero" },
       simple_interest: { input: "Input P, R, T", decision: "Calculate SI = PRT/100", yes: "Display SI", no: "Check inputs", title: "Simple interest" },
       factorial: { input: "Input N", decision: "N > 0?", yes: "Multiply and decrement", no: "Display factorial", title: "Factorial" },
@@ -376,6 +382,10 @@
 
   function render(intent) {
     if (!intent || !intent.type) return "";
+    if (intent.type === "flowchart") {
+      const supported = new Set(["odd_even", "pnp_npn", "diode_operation"]);
+      if (!supported.has(intent.variant)) return "";
+    }
     try { return svgFor(intent); }
     catch (error) {
       console.warn("Ask POLY diagram renderer failed", error);

@@ -605,6 +605,7 @@
     addTyping();
 
     let retrieval = null;
+    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
     // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
     // matching SVG figure renders next to the AI's answer.
     let diagramIntent = null;
@@ -709,7 +710,7 @@
     else await createChat();
     els.form.addEventListener("submit", (event) => { event.preventDefault(); sendMessage(els.input.value); });
     els.input.addEventListener("keydown", (event) => {
-      if (event.key === "Enter" && !event.shiftKey && !isMobile()) {
+      if (event.key === "Enter" && !event.shiftKey && !event.isComposing) {
         event.preventDefault();
         els.send.click();
       }

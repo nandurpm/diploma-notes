@@ -46,6 +46,8 @@ The Worker uses `gpt-5.4-mini` by default for a balance of quality, speed and co
 - Interactive SVG flowcharts and engineering diagrams rendered by the browser alongside the AI explanation
 - Copyable formulas that preserve standard Unicode mathematical/scientific symbols, Greek letters, variable labels, and SI units
 
+The diagram renderer only displays a visual when the request identifies a supported technical subject. Ambiguous requests such as “create a diagram” or “plot a graph” remain text-only rather than showing an unrelated generic circuit, graph, or sample flowchart. In the chat composer, **Enter** sends and **Shift+Enter** inserts a new line; active IME composition is never submitted prematurely.
+
 The browser allows up to 60 seconds for a complete answer, while each configured AI provider has up to 12 seconds before the Worker advances to the next fallback. This gives detailed technical answers more time without disabling the existing provider fallback chain.
 
 ## Security controls
