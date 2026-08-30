@@ -548,11 +548,14 @@
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const generationRequest = /(?:flowchart|flow chart).*(?:current generation|electric(?:al)? current.*(?:produc|generat))|(?:current generation|electric(?:al)? current.*(?:produc|generat)).*(?:flowchart|flow chart)/i.test(message);
     const inductionRequest = /electromagnetic induction|faraday(?:'s|s)? law|lenz(?:'s|s)? law|induced emf|magnetic flux/i.test(message);
+    const solarRequest = /solar panel|photovoltaic|solar cell|\bPV\b/i.test(message);
     const aiMessage = generationRequest
       ? `${message}\n\nInterpret this as how electrical power is produced, not merely how current flows in a battery circuit. Explain the sequence from an energy source or prime mover to the generator, voltage transformation, transmission, and consumers.`
       : inductionRequest
         ? `${message}\n\nUse scientifically checked units and arithmetic. Magnetic flux Φ is measured in webers (Wb), while magnetic flux density B is measured in tesla (T). Apply Faraday's law ε = −N ΔΦ/Δt and include the time interval. Show the substitution and verify the result. For example, if a 100-turn coil's flux changes from 0 Wb to 5 Wb in 2 s, ΔΦ/Δt = 2.5 Wb/s and the induced EMF magnitude is 250 V; do not write 500 V or label flux in tesla unless flux density and area are provided.`
-        : message;
+        : solarRequest
+          ? `${message}\n\nExplain the photovoltaic effect precisely. Light creates electron–hole pairs in the semiconductor, and the p–n junction's built-in electric field separates the charges. Electrons move toward the n-type side and holes toward the p-type side inside the cell. Distinguish this microscopic electron movement from conventional current: conventional current is defined in the direction positive charge would move, opposite to electron flow in the external circuit. State that a solar cell produces DC, and mention the inverter only when discussing conversion to AC.`
+          : message;
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
     const controller = new AbortController();
     activeController = controller;
