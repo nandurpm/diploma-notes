@@ -9,6 +9,9 @@
 
   let current = [];
   let subject = '';
+  let authChoiceLocked = false;
+  let quizRequestVersion = 0;
+  let submissionInFlight = false;
 
   function ensureGeneralKnowledge() {
     if (!B.subjects.GK) B.subjects.GK = 'General Knowledge';
@@ -79,7 +82,8 @@
     $('authView')?.classList.add('hidden');
     $('portalView')?.classList.remove('hidden');
     $('welcomeTitle').textContent = 'Welcome, ' + name;
-    show('dashboardView');
+    show('dailyView');
+    renderCurriculumCards('daily');
     stats();
     recent();
   }
@@ -201,8 +205,9 @@
   }
 
   async function renderQuiz(code) {
+    const requestVersion = ++quizRequestVersion;
     if (!B.questions[code] || B.questions[code].length === 0) {
-      alert(`Daily practice questions for Course Code ${code} are currently under development.\n\nPlease try our First-Year Common Quizzes (Math, Physics, Chemistry, English, Environment, Constitution) or General Knowledge in the meantime!`);
+      alert(`Questions for this subject are being prepared.\n\nPlease try a supported first-year subject or General Knowledge in the meantime.`);
       return;
     }
     subject = code;
@@ -213,6 +218,7 @@
     hideQuizControls();
 
     const existing = await R.today(code);
+    if (requestVersion !== quizRequestVersion || subject !== code) return;
     if (existing) {
       renderReadOnly(code, existing, R.dateKey());
       return;
@@ -225,13 +231,33 @@
 
     $('quizBox').innerHTML = `<h3>${esc(code)} - ${esc(title(code))}</h3><p class="notice">One attempt only. After submit, the result saves online and cannot be edited today.</p>` + current.map((q, index) => `
       <div class="question" id="q${esc(q.id)}">
-        <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
-        <div class="options">${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op.text)}</span></label>`).join('')}</div>
+        <div class="qhead"><div class="qnum">${index + 1}</div><div><div class="qtext" id="question-label-${esc(q.id)}">${esc(q.en)}</div><div class="qml">${esc(q.ml)}</div><div class="topic">${esc(q.topic)}</div></div></div>
+        <fieldset class="options" aria-labelledby="question-label-${esc(q.id)}"><legend class="sr-only">Choose one answer</legend>${q.options.map((op, j) => `<label><input type="radio" name="${esc(q.id)}" value="${j}"><span><b>${String.fromCharCode(65 + j)}.</b> ${esc(op.text)}</span></label>`).join('')}</fieldset>
         <div class="answer hidden" id="a${esc(q.id)}"></div>
       </div>`).join('');
+    $('quizBox').querySelectorAll('input[type="radio"]').forEach((input) => input.addEventListener('change', updateQuizProgress));
+    updateQuizProgress();
+  }
+
+  function updateQuizProgress() {
+    const answered = current.filter((q) => document.querySelector(`input[name="${CSS.escape(q.id)}"]:checked`)).length;
+    const total = current.length || 10;
+    const percent = Math.round((answered / total) * 100);
+    $('quizProgressWrap')?.style.setProperty('display', 'block');
+    $('quizProgressBar')?.style.setProperty('width', `${percent}%`);
+    $('quizProgressWrap')?.setAttribute('aria-valuenow', String(percent));
+    $('quizProgressWrap')?.setAttribute('aria-valuetext', `${answered} of ${total} questions answered`);
+  }
+
+  function scoreFeedback(score) {
+    if (score >= 9) return 'Excellent work — review any missed answer and continue your streak.';
+    if (score >= 7) return 'Good progress — review the incorrect answers before the next quiz.';
+    if (score >= 5) return 'Developing well — revise the listed topics before tomorrow’s quiz.';
+    return 'Review recommended — use the correct-answer review to focus your next study session.';
   }
 
   async function submit() {
+    if (submissionInFlight) return;
     const existing = await R.today(subject);
     if (existing) {
       renderReadOnly(subject, existing, R.dateKey());
@@ -267,6 +293,7 @@
       return;
     }
 
+    submissionInFlight = true;
     $('submitQuiz').disabled = true;
     $('quizMsg').textContent = 'Saving result online…';
     $('quizMsg').className = 'status';
@@ -287,6 +314,7 @@
 
     const saved = await R.save(row);
     if (!saved.remote && !saved.guest) {
+      submissionInFlight = false;
       $('submitQuiz').disabled = false;
       $('quizMsg').textContent = 'Cloud save failed. Check internet/login and submit again. Result is not locked until cloud save succeeds.';
       $('quizMsg').className = 'status error';
@@ -294,6 +322,8 @@
     }
 
     renderReadOnly(subject, saved.row || row, R.dateKey());
+    $('quizMsg').textContent = `Score: ${score}/10. ${scoreFeedback(score)}`;
+    submissionInFlight = false;
     stats();
     recent();
   }
@@ -373,7 +403,7 @@
       <p>${kind === 'daily' ? 'One cloud-saved attempt per day. Submitted answers are locked.' : kind === 'review' ? 'View previous-day answers.' : 'Official-pattern mock exam with graceful evaluation fallback.'}</p>
       <button class="btn ${!isSupported ? 'outline' : (kind === 'mock' ? 'primary' : 'soft')}" type="button" style="width:100%; margin-top:auto;">${label}</button>`;
 
-    el.onclick = () => {
+    const activate = () => {
       if (!isSupported) {
         alert(`Practice questions for Course Code ${code} (${name}) are currently under development.\n\nPlease choose another supported subject or General Knowledge while more question banks are being prepared.`);
         return;
@@ -382,6 +412,7 @@
       else if (kind === 'review') review(code);
       else location.href = (code === '1004' ? '/mock-exam-1004.html' : '/mock-exam.html?subject=' + encodeURIComponent(code));
     };
+    el.querySelector('button').addEventListener('click', activate);
     $(target).appendChild(el);
   }
 
@@ -480,6 +511,7 @@
     registerTab?.addEventListener('keydown', handleTabKey);
     $('authForm').onsubmit = async (event) => {
       event.preventDefault();
+      authChoiceLocked = true;
       $('authSubmit').disabled = true;
       msg('Please wait...', true);
       try {
@@ -504,7 +536,7 @@
         if (cp) cp.type = type;
       };
     }
-    $('guestLogin').onclick = () => enter(A.asGuest().name);
+    $('guestLogin').onclick = () => { authChoiceLocked = true; enter(A.asGuest().name); };
     $('logoutBtn').onclick = async () => { await A.logout(); location.reload(); };
     $('openDash').onclick = () => { show('dashboardView'); stats(); recent(); };
     $('openDaily').onclick = () => { show('dailyView'); renderCurriculumCards('daily'); };
@@ -521,7 +553,7 @@
     setInterval(tick, 1000);
     tick();
     mode('login');
-    A.restore().then((result) => { if (result) enter(result.name); });
+    A.restore().then((result) => { if (result && !authChoiceLocked) enter(result.name); });
     stats();
   }
 
