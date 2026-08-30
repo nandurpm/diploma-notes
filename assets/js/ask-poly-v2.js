@@ -496,9 +496,9 @@
   }
 
   async function renderAll() { await renderChats(); await renderMessages(); setPrompts(defaultPrompts()); }
-  function setWaiting(value) {
+  function setWaiting(value, mode = "thinking") {
     waiting = value;
-    els.status.textContent = value ? "Checking website + thinking..." : "Ready";
+    els.status.textContent = !value ? "Ready" : mode === "website" ? "Checking POLY website…" : "POLY is thinking…";
     els.input.disabled = false;
     els.send.disabled = false;
     if (els.stop) els.stop.hidden = !value;
@@ -510,11 +510,11 @@
     els.queue.hidden = pendingMessages.length === 0;
   }
 
-  function addTyping() {
+  function addTyping(mode = "thinking") {
     const m = document.createElement("div");
     m.id = "typingBubble";
     m.className = "ask-bubble ai";
-    m.textContent = "POLY is checking the website and thinking...";
+    m.textContent = mode === "website" ? "POLY is checking the website and thinking…" : "POLY is thinking…";
     els.messages.append(m);
     els.messages.scrollTop = els.messages.scrollHeight;
   }
@@ -604,8 +604,9 @@
     await updateChatTitleFromMessage(activeChatId, clean);
     await renderMessages();
     await renderChats();
-    setWaiting(true);
-    addTyping();
+    const usesWebsite = shouldSearchWebsite(clean);
+    setWaiting(true, usesWebsite ? "website" : "thinking");
+    addTyping(usesWebsite ? "website" : "thinking");
 
     let retrieval = null;
     // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
@@ -627,7 +628,7 @@
           content: String(m.content || "").slice(0, 1000)
         }))
         .filter((m) => m.content.trim());
-      retrieval = shouldSearchWebsite(clean) ? await knowledgeSearch(clean) : null;
+      retrieval = usesWebsite ? await knowledgeSearch(clean) : null;
       const result = await callAI(clean, history, retrieval?.context || "");
       removeTyping();
       await addMessage("assistant", result.answer, {
