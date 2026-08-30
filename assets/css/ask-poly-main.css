@@ -868,3 +868,14 @@ body.ask-data-saver .ask-generated-image{display:none!important}
     padding-bottom: 3px !important;
   }
 }
+
+/* Mobile diagram fit: avoid forcing a desktop-width canvas inside the native app. */
+@media (max-width: 700px) {
+  .ask-diagram-viewport { overflow-x: hidden; }
+  .ask-diagram-canvas { min-width: 0; width: 100%; padding: 8px 0; }
+  .ask-diagram-svg { min-width: 0; width: 100%; max-width: 100%; max-height: none; }
+  .ask-diagram > figcaption { gap: 6px; padding: 8px 10px; }
+  .ask-diagram-controls { gap: 5px; flex-wrap: wrap; }
+}
+html.polytechnic-native-app .ask-bubble.ai { font-size: 13px; line-height: 1.48; }
+html.polytechnic-native-app .ask-diagram { margin: 10px 0 2px; }
