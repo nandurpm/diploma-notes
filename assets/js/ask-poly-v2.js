@@ -369,7 +369,8 @@
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const diagramIntent = message.meta?.diagram || message.meta?.diagramIntent;
-    if (message.role === "assistant" && diagramIntent && window.AskPolyDiagrams?.render) {
+    const staleSavedDiagram = diagramIntent?.type === "flowchart" && diagramIntent?.variant === "odd_even" && /current generation/i.test(String(message.content || ""));
+    if (message.role === "assistant" && diagramIntent && !staleSavedDiagram && window.AskPolyDiagrams?.render) {
       try {
         const diagramHtml = window.AskPolyDiagrams.render(diagramIntent);
         if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
