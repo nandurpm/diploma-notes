@@ -225,10 +225,18 @@
     const initialQuery = new URLSearchParams(location.search).get("q") || "";
     if (initialQuery) search.value = initialQuery;
 
-    search.addEventListener("input", () => draw());
+    // PERFORMANCE OPTIMIZATION: Debounce input event handling (100ms) to prevent
+    // redundant DOM visibility updates and layout thrashing on every keystroke
+    // during fast typing on mobile devices.
+    let searchDebounceTimer = 0;
+    search.addEventListener("input", () => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => draw(), 100);
+    });
     search.addEventListener("keydown", event => {
       if (event.key === "Escape" && search.value) {
         event.preventDefault();
+        clearTimeout(searchDebounceTimer);
         clear();
       }
     });
@@ -307,7 +315,13 @@
       search.setAttribute("aria-controls", "subjectGrid");
       search.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
     }
-    search?.addEventListener("input", draw);
+    // PERFORMANCE OPTIMIZATION: Debounce search input listener (100ms) to keep input
+    // and scrolling responsive on lower-end mobile devices when filtering cards.
+    let staticDebounceTimer = 0;
+    search?.addEventListener("input", () => {
+      clearTimeout(staticDebounceTimer);
+      staticDebounceTimer = setTimeout(draw, 100);
+    });
     semester?.addEventListener("change", draw);
     draw();
     return true;
