@@ -550,9 +550,13 @@
   async function callAI(message, history, localContext) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
-    const aiMessage = /(?:flowchart|flow chart).*(?:current generation|electric(?:al)? current.*(?:produc|generat))|(?:current generation|electric(?:al)? current.*(?:produc|generat)).*(?:flowchart|flow chart)/i.test(message)
+    const generationRequest = /(?:flowchart|flow chart).*(?:current generation|electric(?:al)? current.*(?:produc|generat))|(?:current generation|electric(?:al)? current.*(?:produc|generat)).*(?:flowchart|flow chart)/i.test(message);
+    const inductionRequest = /electromagnetic induction|faraday(?:'s|s)? law|lenz(?:'s|s)? law|induced emf|magnetic flux/i.test(message);
+    const aiMessage = generationRequest
       ? `${message}\n\nInterpret this as how electrical power is produced, not merely how current flows in a battery circuit. Explain the sequence from an energy source or prime mover to the generator, voltage transformation, transmission, and consumers.`
-      : message;
+      : inductionRequest
+        ? `${message}\n\nUse scientifically checked units and arithmetic. Magnetic flux Φ is measured in webers (Wb), while magnetic flux density B is measured in tesla (T). Apply Faraday's law ε = −N ΔΦ/Δt and include the time interval. Show the substitution and verify the result. For example, if a 100-turn coil's flux changes from 0 Wb to 5 Wb in 2 s, ΔΦ/Δt = 2.5 Wb/s and the induced EMF magnitude is 250 V; do not write 500 V or label flux in tesla unless flux density and area are provided.`
+        : message;
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
     const controller = new AbortController();
     activeController = controller;
