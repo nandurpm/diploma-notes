@@ -33,7 +33,7 @@
     const q = normalize(question);
     const department = context?.department?.displayName || context?.department || "";
     const withDepartment = (intent) => department ? { ...intent, department } : intent;
-    const visual = /(\bdraw\b|\bsketch\b|\bdiagram\b|\bcircuit\b|\bschematic\b|\bsymbol\b|\bwaveform\b|\bflowchart\b|\bblock diagram\b|\bwiring\b|\bconnection\b|\billustrate\b|\bshow (?:the )?(?:symbol|circuit|connections?)\b|\bconstruct\b|\brepresentation\b|\bplot\b|\bgraph\b|വരയ്ക്ക|കാണിക്ക|ചിത്രം|ഡയഗ്രാം|സിംബൽ|സർക്യൂട്ട്|വേവ്)/i.test(q);
+    const visual = /(\bdraw\b|\bsketch\b|\bdiagram\b|\bcircuit\b|\bschematic\b|\bsymbol\b|\bwaveform\b|\bflow\s*chart\b|\bblock diagram\b|\bwiring\b|\bconnection\b|\billustrate\b|\bshow (?:the )?(?:symbol|circuit|connections?)\b|\bconstruct\b|\brepresentation\b|\bplot\b|\bgraph\b|വരയ്ക്ക|കാണിക്ക|ചിത്രം|ഡയഗ്രാം|സിംബൽ|സർക്യൂട്ട്|വേവ്)/i.test(q);
     if (!visual) return null;
     if (/four[- ]stroke|four stroke engine|four[- ]stroke engine|engine.*diagram|engine.*sketch/.test(q)) return withDepartment({ type: "four_stroke_engine", title: "Four-stroke engine" });
     if (/simply supported beam|supported beam|beam.*plan|beam.*diagram|beam.*sketch/.test(q)) return withDepartment({ type: "simply_supported_beam", title: "Simply supported beam" });
@@ -48,17 +48,12 @@
     if (/transformer|ട്രാൻസ്ഫോർമർ/.test(q)) return withDepartment({ type: "transformer", title: "Transformer" });
     if (/flowchart|flow chart|decision process|flow diagram|algorithm flowchart|ഫ്ലോചാർട്ട്/.test(q)) {
       const flow = (variant, title) => withDepartment({ type: "flowchart", variant, title, language: /[\u0D00-\u0D7F]/.test(q) ? "ml" : "en" });
+      if (/\bpnp\b.*\bnpn\b|\bnpn\b.*\bpnp\b/.test(q)) return flow("pnp_npn", "PNP and NPN transistor operation flowchart");
+      if (/\bdiodes?\b/.test(q)) return flow("diode_operation", "Diode operating-state flowchart");
       if (/odd|even|parity|ഒറ്റ|ഇരട്ട/.test(q)) return flow("odd_even", "Odd or even number flowchart");
-      if (/largest|greatest|max(?:imum)?|three numbers|three values/.test(q)) return flow("largest_three", "Largest of three numbers flowchart");
-      if (/positive|negative|zero/.test(q)) return flow("positive_negative_zero", "Positive, negative or zero flowchart");
-      if (/simple interest|principal.*rate|rate.*time/.test(q)) return flow("simple_interest", "Simple interest flowchart");
-      if (/factorial|factorial.*loop|loop.*factorial/.test(q)) return flow("factorial", "Factorial flowchart");
-      if (/prime|prime number/.test(q)) return flow("prime", "Prime number flowchart");
-      if (/student result|grade|marks.*result/.test(q)) return flow("student_result", "Student result flowchart");
-      if (/atm|withdrawal|cash/.test(q)) return flow("atm", "ATM withdrawal flowchart");
-      return flow("generic", "Flowchart");
+      return null;
     }
-    if (/block diagram|communication system|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Block diagram" });
+    if (/communication system|communication.*block|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Communication system block diagram" });
     if (/sine|sinusoidal|ac waveform|sine wave/.test(q)) return withDepartment({ type: "sine_wave", title: "AC sine waveform" });
     if (/square wave/.test(q)) return withDepartment({ type: "square_wave", title: "Square waveform" });
     if (/triangular|triangle wave/.test(q)) return withDepartment({ type: "triangle_wave", title: "Triangular waveform" });
@@ -74,8 +69,7 @@
     ];
     for (const [pattern, variant, title] of symbolMap) if (new RegExp(pattern).test(q)) return withDepartment({ type: "symbol", variant, title });
     if (/circuit|schematic|connections?/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
-    if (/graph|plot/.test(q)) return withDepartment({ type: "sine_wave", title: "Engineering graph" });
-    return withDepartment({ type: "basic_circuit", title: "Technical circuit diagram" });
+    return null;
   }
 
   function symbolBody(kind) {
@@ -180,13 +174,8 @@
       };
     }
     const templates = {
-      positive_negative_zero: { input: "Input N", decision: "N > 0?", yes: "Positive", no: "N < 0?", extra: "Zero", title: "Positive, negative or zero" },
-      simple_interest: { input: "Input P, R, T", decision: "Calculate SI = PRT/100", yes: "Display SI", no: "Check inputs", title: "Simple interest" },
-      factorial: { input: "Input N", decision: "N > 0?", yes: "Multiply and decrement", no: "Display factorial", title: "Factorial" },
-      prime: { input: "Input N", decision: "Divisor found?", yes: "Not prime", no: "Prime", title: "Prime number" },
-      student_result: { input: "Input marks", decision: "Marks >= pass?", yes: "Display grade", no: "Display Fail", title: "Student result" },
-      atm: { input: "Insert card and PIN", decision: "PIN valid?", yes: "Enter amount", no: "Reject transaction", title: "ATM withdrawal" },
-      largest_three: { input: "Input A, B, C", decision: "Compare values", yes: "Display largest", no: "Continue comparison", title: "Largest of three numbers" }
+      pnp_npn: { input: "Identify transistor type", decision: "PNP or NPN?", yes: "PNP: base LOW → ON", no: "NPN: base HIGH → ON", title: "PNP and NPN transistor operation" },
+      diode_operation: { input: "Apply voltage across A–K", decision: "Forward biased?", yes: "Conducts after Vᶠ threshold", no: "Blocks; only small Iᴿ", title: "diode operating state" }
     };
     const template = templates[intent.variant] || templates.positive_negative_zero;
     const data = flowchartData({ variant: "odd_even", language: intent.language });
@@ -345,6 +334,10 @@
 
   function render(intent) {
     if (!intent || !intent.type) return "";
+    if (intent.type === "flowchart") {
+      const supported = new Set(["odd_even", "pnp_npn", "diode_operation"]);
+      if (!supported.has(intent.variant)) return "";
+    }
     try { return svgFor(intent); }
     catch (error) {
       console.warn("Ask POLY diagram renderer failed", error);

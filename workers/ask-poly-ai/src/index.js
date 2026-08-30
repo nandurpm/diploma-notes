@@ -313,7 +313,7 @@ export default {
       return jsonResponse({
         error: missingMessage
           ? "Please enter a question."
-          : "The AI service could not answer right now. Please retry once; your chat is saved.",
+          : "The AI assistant is temporarily unavailable. Your chat is saved; please retry once.",
         retryable: !missingMessage,
         detail: env.EXPOSE_ERRORS === "true" ? providerErrors.join(" | ") : undefined
       }, missingMessage ? 400 : 502, origin, env);
