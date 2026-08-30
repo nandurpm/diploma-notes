@@ -381,7 +381,7 @@
   function render(intent) {
     if (!intent || !intent.type) return "";
     if (intent.type === "flowchart") {
-      const supported = new Set(["odd_even", "pnp_npn", "diode_operation"]);
+      const supported = new Set(["odd_even", "pnp_npn", "diode_operation", "current_generation"]);
       if (!supported.has(intent.variant)) return "";
     }
     try { return svgFor(intent); }

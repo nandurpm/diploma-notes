@@ -373,10 +373,6 @@
     const div = document.createElement("div");
     div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
-    if (message.role === "assistant" && message.meta?.diagramIntent && window.AskPolyDiagrams?.render) {
-      const diagramHtml = window.AskPolyDiagrams.render(message.meta.diagramIntent);
-      if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
-    }
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const diagramIntent = message.meta?.diagram || message.meta?.diagramIntent;
     const staleSavedDiagram = diagramIntent?.type === "flowchart" && diagramIntent?.variant === "odd_even" && /current generation/i.test(String(message.content || ""));
