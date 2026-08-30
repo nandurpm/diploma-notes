@@ -367,14 +367,11 @@
     const div = document.createElement("div");
     div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
-    if (message.role === "assistant" && message.meta?.diagramIntent && window.AskPolyDiagrams?.render) {
-      const diagramHtml = window.AskPolyDiagrams.render(message.meta.diagramIntent);
-      if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
-    }
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
-    if (message.role === "assistant" && message.meta?.diagram && window.AskPolyDiagrams?.render) {
+    const diagramIntent = message.meta?.diagram || message.meta?.diagramIntent;
+    if (message.role === "assistant" && diagramIntent && window.AskPolyDiagrams?.render) {
       try {
-        const diagramHtml = window.AskPolyDiagrams.render(message.meta.diagram);
+        const diagramHtml = window.AskPolyDiagrams.render(diagramIntent);
         if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
       } catch (error) {
         console.warn("Ask POLY diagram render failed", error);
@@ -535,6 +532,9 @@
   async function callAI(message, history, localContext) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
+    const aiMessage = /(?:flowchart|flow chart).*current generation|current generation.*(?:flowchart|flow chart)/i.test(message)
+      ? `${message}\n\nInterpret “current generation” as electrical power generation, not current flow in a simple battery circuit. Explain the sequence from energy source or prime mover to generator, voltage transformation, transmission, and consumers.`
+      : message;
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), Math.max(5000, timeoutMs));
@@ -545,7 +545,7 @@
         cache: "no-store",
         signal: controller.signal,
         body: JSON.stringify({
-          message,
+          message: aiMessage,
           history,
           preferredLanguage: preferredResponseLanguage(message),
           pageTitle: "Ask POLY whole-site knowledge",
