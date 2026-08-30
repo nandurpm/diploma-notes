@@ -605,7 +605,6 @@
     addTyping();
 
     let retrieval = null;
-    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
     // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
     // matching SVG figure renders next to the AI's answer.
     let diagramIntent = null;
