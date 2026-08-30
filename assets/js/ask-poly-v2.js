@@ -550,8 +550,8 @@
   async function callAI(message, history, localContext) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
-    const aiMessage = /(?:flowchart|flow chart).*current generation|current generation.*(?:flowchart|flow chart)/i.test(message)
-      ? `${message}\n\nInterpret “current generation” as electrical power generation, not current flow in a simple battery circuit. Explain the sequence from energy source or prime mover to generator, voltage transformation, transmission, and consumers.`
+    const aiMessage = /(?:flowchart|flow chart).*(?:current generation|electric(?:al)? current.*(?:produc|generat))|(?:current generation|electric(?:al)? current.*(?:produc|generat)).*(?:flowchart|flow chart)/i.test(message)
+      ? `${message}\n\nInterpret this as how electrical power is produced, not merely how current flows in a battery circuit. Explain the sequence from an energy source or prime mover to the generator, voltage transformation, transmission, and consumers.`
       : message;
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
     const controller = new AbortController();
@@ -605,7 +605,6 @@
     addTyping();
 
     let retrieval = null;
-    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
     // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
     // matching SVG figure renders next to the AI's answer.
     let diagramIntent = null;
@@ -633,7 +632,6 @@
         model: result.model,
         websiteKnowledge: Boolean(retrieval?.context),
         knowledgeVersion: retrieval?.version || "",
-        diagramIntent
         diagramIntent,
         diagram: diagramIntent || undefined
       });
@@ -649,7 +647,6 @@
           provider: "local-offline-assistant",
           error: error.message,
           knowledgeVersion: retrieval?.version || "",
-          diagramIntent
           diagramIntent,
           diagram: diagramIntent || undefined
         });
@@ -660,10 +657,6 @@
             provider: "local-knowledge-fallback",
             error: error.message,
             knowledgeVersion: retrieval?.version || "",
-            diagramIntent
-          });
-        } else {
-          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message, diagramIntent });
             diagramIntent,
             diagram: diagramIntent || undefined
           });
