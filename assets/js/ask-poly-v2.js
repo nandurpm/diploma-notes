@@ -519,6 +519,20 @@
     els.messages.scrollTop = els.messages.scrollHeight;
   }
   function removeTyping() { $("typingBubble")?.remove(); }
+  function updateStreamingAnswer(text) {
+    removeTyping();
+    let bubble = $("streamingAnswerBubble");
+    if (!bubble) {
+      bubble = document.createElement("div");
+      bubble.id = "streamingAnswerBubble";
+      bubble.className = "ask-bubble ai";
+      bubble.innerHTML = '<div class="ask-response-body"></div>';
+      els.messages.append(bubble);
+    }
+    bubble.querySelector(".ask-response-body").textContent = text;
+    els.messages.scrollTop = els.messages.scrollHeight;
+  }
+  function removeStreamingAnswer() { $("streamingAnswerBubble")?.remove(); }
 
   async function knowledgeSearch(message) {
     try {
@@ -543,7 +557,41 @@
     return "en";
   }
 
-  async function callAI(message, history, localContext) {
+  async function readSseAnswer(response, onDelta) {
+    if (!response.body) throw new Error("Streaming response body is missing.");
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    let answer = "";
+    const consume = async (event) => {
+      const data = event.split(/\r?\n/)
+        .filter((line) => line.startsWith("data:"))
+        .map((line) => line.slice(5).trimStart())
+        .join("\n").trim();
+      if (!data || data === "[DONE]") return data === "[DONE]";
+      try {
+        const payload = JSON.parse(data);
+        const delta = payload?.delta?.content || payload?.choices?.[0]?.delta?.content || "";
+        if (delta) { answer += delta; await onDelta(answer); }
+      } catch (_) {
+        // Ignore malformed keep-alive/event fragments.
+      }
+      return false;
+    };
+    while (true) {
+      const { value, done } = await reader.read();
+      buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+      const events = buffer.split(/\r?\n\r?\n/);
+      buffer = events.pop() || "";
+      for (const event of events) if (await consume(event)) return answer;
+      if (done) {
+        if (buffer.trim()) await consume(buffer);
+        return answer;
+      }
+    }
+  }
+
+  async function callAI(message, history, localContext, onDelta = async () => {}) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const generationRequest = /(?:flowchart|flow chart).*(?:current generation|electric(?:al)? current.*(?:produc|generat))|(?:current generation|electric(?:al)? current.*(?:produc|generat)).*(?:flowchart|flow chart)/i.test(message);
@@ -571,16 +619,26 @@
           history,
           preferredLanguage: preferredResponseLanguage(message),
           pageTitle: "Ask POLY whole-site knowledge",
-          pageContext: localContext || ""
+          pageContext: localContext || "",
+          stream: true
         })
       });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
+      }
+      if ((response.headers.get("content-type") || "").includes("text/event-stream")) {
+        const answer = await readSseAnswer(response, onDelta);
+        return {
+          answer: answer || "No answer received.",
+          provider: response.headers.get("X-Ask-Poly-Provider") || "ai",
+          model: response.headers.get("X-Ask-Poly-Model") || ""
+        };
+      }
       const data = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
-      return {
-        answer: data.answer || data.message || data.reply || "No answer received.",
-        provider: data.provider || "ai",
-        model: data.model || ""
-      };
+      const answer = data.answer || data.message || data.reply || "No answer received.";
+      await onDelta(answer);
+      return { answer, provider: data.provider || "ai", model: data.model || "" };
     } finally {
       if (activeController === controller) activeController = null;
       clearTimeout(timer);
@@ -629,8 +687,9 @@
         }))
         .filter((m) => m.content.trim());
       retrieval = usesWebsite ? await knowledgeSearch(clean) : null;
-      const result = await callAI(clean, history, retrieval?.context || "");
+      const result = await callAI(clean, history, retrieval?.context || "", updateStreamingAnswer);
       removeTyping();
+      removeStreamingAnswer();
       await addMessage("assistant", result.answer, {
         provider: result.provider,
         model: result.model,

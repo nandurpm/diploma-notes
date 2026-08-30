@@ -1,5 +1,5 @@
 /* Purpose: Index - Descriptive comment added for clarity */
-import { askPoly, configuredProviders } from "./ask-handler.js";
+import { askPoly, askPolyStream, configuredProviders } from "./ask-handler.js";
 import { evaluateMockExam } from "./mock-evaluator.js";
 import { canStoreVerifiedResults } from "./result-store.js";
 import { SYSTEM_INSTRUCTIONS } from "./site-instructions.js";
@@ -10,7 +10,8 @@ import {
   corsHeaders,
   createRateLimiter,
   isOriginAllowed,
-  jsonResponse
+  jsonResponse,
+  streamResponse
 } from "./http.js";
 
 const allowAsk = createRateLimiter(30);
@@ -276,11 +277,42 @@ export default {
     // Edit workers/ask-poly-ai/src/faq-data.js to add or change entries.
     const faqMessage = cleanText(body?.message, 2200);
     const faqMatch = matchFaq(faqMessage);
-    if (faqMatch) {
+    if (faqMatch && body.stream !== true) {
       return jsonResponse({ ...faqMatch, knowledgeMode: KNOWLEDGE_MODE }, 200, origin, env);
     }
 
     const enrichedBody = enrichAskBody(body);
+    if (body.stream === true) {
+      try {
+        let streamed;
+        if (faqMatch) {
+          const encoder = new TextEncoder();
+          const answer = String(faqMatch.answer || faqMatch.message || "");
+          streamed = {
+            stream: new ReadableStream({
+              start(controller) {
+                controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: answer } })}\\n\\n`));
+                controller.enqueue(encoder.encode("data: [DONE]\\n\\n"));
+                controller.close();
+              }
+            }),
+            provider: "preloaded-faq",
+            model: "faq-v1"
+          };
+        } else {
+          streamed = await askPolyStream(enrichedBody, env);
+        }
+        return streamResponse(streamed.stream, origin, env, { provider: streamed.provider, model: streamed.model });
+      } catch (error) {
+        console.error("Ask POLY streaming request failed", error);
+        return jsonResponse({
+          error: "The AI assistant is temporarily unavailable. Your chat is saved; please retry once.",
+          retryable: true,
+          detail: env.EXPOSE_ERRORS === "true" ? cleanText(error?.message, 500) : undefined
+        }, 502, origin, env);
+      }
+    }
+
     const providerErrors = [];
 
     if (hasWorkersAI(env)) {
