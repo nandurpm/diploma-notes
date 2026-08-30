@@ -57,6 +57,7 @@
       if (/prime|prime number/.test(q)) return flow("prime", "Prime number flowchart");
       if (/student result|grade|marks.*result/.test(q)) return flow("student_result", "Student result flowchart");
       if (/atm|withdrawal|cash/.test(q)) return flow("atm", "ATM withdrawal flowchart");
+      if (/current generation|generate electricity|generation of electricity|electric(?:al)? power generation|power generation/.test(q)) return flow("current_generation", "Electrical power generation flowchart");
       return flow("generic", "Flowchart");
     }
     if (/block diagram|communication system|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Block diagram" });
@@ -74,9 +75,12 @@
       ["zener diode", "zener", "Zener diode symbol"], ["photodiode", "photodiode", "Photodiode symbol"], ["schottky", "schottky", "Schottky diode symbol"], ["varactor", "varactor", "Varactor diode symbol"], ["led", "led", "LED symbol"], ["diode", "diode", "Diode symbol"], ["npn transistor", "npn", "NPN transistor symbol"], ["pnp transistor", "pnp", "PNP transistor symbol"], ["mosfet", "mosfet", "MOSFET symbol"], ["jfet", "jfet", "JFET symbol"], ["scr", "scr", "SCR symbol"], ["triac", "triac", "TRIAC symbol"], ["diac", "diac", "DIAC symbol"], ["variable resistor", "variable_resistor", "Variable resistor symbol"], ["potentiometer", "potentiometer", "Potentiometer symbol"], ["polarized capacitor", "polarized_capacitor", "Polarized capacitor symbol"], ["capacitor", "capacitor", "Capacitor symbol"], ["inductor|coil", "inductor", "Inductor symbol"], ["switch", "switch", "Switch symbol"], ["battery", "battery", "Battery symbol"], ["ac source|ac supply", "ac_source", "AC source symbol"], ["dc source|dc supply", "dc_source", "DC source symbol"], ["ground|earth", "ground", "Ground symbol"], ["fuse", "fuse", "Fuse symbol"], ["lamp|bulb", "lamp", "Lamp symbol"], ["resistor", "resistor", "Resistor symbol"]
     ];
     for (const [pattern, variant, title] of symbolMap) if (new RegExp(pattern).test(q)) return withDepartment({ type: "symbol", variant, title });
-    if (/circuit|schematic|connections?/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
+    if (/\bcircuit\b/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
     if (/graph|plot/.test(q)) return withDepartment({ type: "sine_wave", title: "Engineering graph" });
-    return withDepartment({ type: "basic_circuit", title: "Technical circuit diagram" });
+    // Do not invent a circuit for an underspecified request such as
+    // “Create a diagram of the system”; let the AI answer or ask for the
+    // system/topic instead of showing a misleading technical graphic.
+    return null;
   }
 
   function symbolBody(kind) {
@@ -156,6 +160,31 @@
   function flowchartData(intent = {}) {
     const ml = intent.language === "ml";
     const labels = ml ? { start: "START", input: "നമ്പർ നൽകുക", decision: "N % 2 == 0?", yes: "YES", no: "NO", even: "EVEN", odd: "ODD", end: "END" } : { start: "START", input: "Input N", decision: "N % 2 == 0?", yes: "YES", no: "NO", even: "Print EVEN", odd: "Print ODD", end: "END" };
+    if (intent.variant === "current_generation") {
+      return {
+        flowchartType: "current_generation",
+        direction: "LR",
+        nodes: [
+          { id: "start", type: "start_end", text: "START", rank: 0 },
+          { id: "source", type: "input_output", text: "Energy source\n(water / steam / wind / solar)", rank: 1 },
+          { id: "prime", type: "process", text: "Prime mover\n(turbine / engine)", rank: 2 },
+          { id: "generator", type: "process", text: "Generator converts\nmechanical energy to AC", rank: 3 },
+          { id: "transformer", type: "process", text: "Step-up transformer\nraises voltage", rank: 4 },
+          { id: "grid", type: "process", text: "Transmit through\npower grid", rank: 5 },
+          { id: "end", type: "start_end", text: "Electric power\nto consumers", rank: 6 }
+        ],
+        edges: [
+          { source: "start", target: "source" },
+          { source: "source", target: "prime" },
+          { source: "prime", target: "generator" },
+          { source: "generator", target: "transformer" },
+          { source: "transformer", target: "grid" },
+          { source: "grid", target: "end" }
+        ],
+        description: "Electrical power generation: an energy source drives a prime mover, the generator converts mechanical energy into AC electrical energy, a step-up transformer raises the voltage, and the power is transmitted through the grid to consumers.",
+        text: "Flowchart: START → Energy source → Prime mover → AC generator → Step-up transformer → Power grid → Consumers"
+      };
+    }
     if (intent.variant === "odd_even" || intent.variant === "generic" || !intent.variant) {
       return {
         flowchartType: "odd_even",
