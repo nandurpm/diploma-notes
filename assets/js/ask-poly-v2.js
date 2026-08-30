@@ -8,9 +8,13 @@
   const DB_VERSION = 1;
   // Keep browser history aligned with the Worker and Supabase relay validators.
   const MAX_HISTORY = Math.min(6, Math.max(0, Number(window.ASK_POLY_CONFIG?.maxHistory || 6)));
+  const MAX_QUEUE = 8;
   let dbPromise = null;
   let activeChatId = null;
   let waiting = false;
+  let activeController = null;
+  let stopRequested = false;
+  const pendingMessages = [];
 
   const $ = (id) => document.getElementById(id);
   const els = {
@@ -24,7 +28,9 @@
     sub: $("chatSub"),
     prompts: $("quickPrompts"),
     newChat: $("newChatBtn"),
-    send: $("sendBtn")
+    send: $("sendBtn"),
+    queue: $("queueBtn"),
+    stop: $("stopBtn")
   };
 
   if (!els.form || !els.messages || !els.input) return;
@@ -296,6 +302,10 @@
     const div = document.createElement("div");
     div.className = `ask-bubble ${message.role === "user" ? "user" : "ai"}`;
     div.innerHTML = message.role === "user" ? escapeHtml(message.content) : renderText(message.content);
+    if (message.role === "assistant" && message.meta?.diagramIntent && window.AskPolyDiagrams?.render) {
+      const diagramHtml = window.AskPolyDiagrams.render(message.meta.diagramIntent);
+      if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
+    }
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
     const time = document.createElement("time");
     time.className = "ask-time";
@@ -303,6 +313,15 @@
     time.textContent = fmtTime(message.createdAt);
     div.append(time);
     div.addEventListener("click", (event) => {
+      const diagramControl = event.target.closest("[data-diagram-action]");
+      if (diagramControl) {
+        event.stopPropagation();
+        window.AskPolyDiagrams?.handle?.(
+          diagramControl.dataset.diagramAction,
+          diagramControl.closest(".ask-diagram")
+        );
+        return;
+      }
       const target = event.target.closest("button.ask-code-copy");
       if (!target) return;
       const code = target.closest(".ask-code")?.querySelector("code");
@@ -403,8 +422,15 @@
   function setWaiting(value) {
     waiting = value;
     els.status.textContent = value ? "Checking website + thinking..." : "Ready";
-    els.input.disabled = value;
-    els.send.disabled = value;
+    els.input.disabled = false;
+    els.send.disabled = false;
+    if (els.stop) els.stop.hidden = !value;
+  }
+
+  function updateQueueControl() {
+    if (!els.queue) return;
+    els.queue.textContent = pendingMessages.length ? `Queued (${pendingMessages.length})` : "Queue empty";
+    els.queue.hidden = pendingMessages.length === 0;
   }
 
   function addTyping() {
@@ -445,6 +471,7 @@
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
     const controller = new AbortController();
+    activeController = controller;
     const timer = setTimeout(() => controller.abort(), Math.max(5000, timeoutMs));
     try {
       const response = await fetch(endpoint, {
@@ -468,12 +495,21 @@
         model: data.model || ""
       };
     } finally {
+      if (activeController === controller) activeController = null;
       clearTimeout(timer);
     }
   }
 
-  async function sendMessage(text) {
-    if (waiting || !text.trim()) return;
+  async function sendMessage(text, fromQueue = false) {
+    if (!text.trim()) return;
+    if (waiting && !fromQueue) {
+      if (pendingMessages.length >= MAX_QUEUE) return;
+      pendingMessages.push(text.trim());
+      els.input.value = "";
+      autoResize();
+      updateQueueControl();
+      return;
+    }
     const clean = text.trim();
     els.input.value = "";
     autoResize();
@@ -485,6 +521,7 @@
     addTyping();
 
     let retrieval = null;
+    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
     try {
       const messages = await getMessages(activeChatId);
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
@@ -503,16 +540,22 @@
         provider: result.provider,
         model: result.model,
         websiteKnowledge: Boolean(retrieval?.context),
-        knowledgeVersion: retrieval?.version || ""
+        knowledgeVersion: retrieval?.version || "",
+        diagramIntent
       });
     } catch (error) {
       removeTyping();
+      if (stopRequested) {
+        await addMessage("assistant", "Generation stopped. Your message remains saved.", { stopped: true });
+        return;
+      }
       const offline = window.AskPolyOffline?.answer?.(clean, retrieval);
       if (offline) {
         await addMessage("assistant", `${offline}\n\nThis answer was generated locally because the live AI provider was unavailable.`, {
           provider: "local-offline-assistant",
           error: error.message,
-          knowledgeVersion: retrieval?.version || ""
+          knowledgeVersion: retrieval?.version || "",
+          diagramIntent
         });
       } else {
         const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
@@ -520,16 +563,21 @@
           await addMessage("assistant", `${fallback}\n\nThe live AI service is temporarily unavailable, so this answer is from the current POLY PMNA website index.`, {
             provider: "local-knowledge-fallback",
             error: error.message,
-            knowledgeVersion: retrieval?.version || ""
+            knowledgeVersion: retrieval?.version || "",
+            diagramIntent
           });
         } else {
-          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message });
+          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message, diagramIntent });
         }
       }
     } finally {
       setWaiting(false);
+      stopRequested = false;
       await renderAll();
       els.input.focus();
+      const nextText = pendingMessages.shift();
+      updateQueueControl();
+      if (nextText) await sendMessage(nextText, true);
     }
   }
 
@@ -565,6 +613,14 @@
     els.input.addEventListener("input", autoResize);
     els.search.addEventListener("input", renderChats);
     els.newChat.addEventListener("click", () => createChat());
+    els.stop?.addEventListener("click", () => {
+      stopRequested = true;
+      activeController?.abort();
+    });
+    els.queue?.addEventListener("click", () => {
+      pendingMessages.length = 0;
+      updateQueueControl();
+    });
     await renderAll();
     await updateKnowledgeStatus();
     autoResize();
