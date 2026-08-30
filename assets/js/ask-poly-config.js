@@ -7,7 +7,7 @@ globalThis.ASK_POLY_CONFIG = Object.freeze({
   fallbackHealthEndpoint: "https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/health",
   mockExamEndpoint: "https://api.polypmna.dpdns.org/api/evaluate-mock-exam",
   supabasePublishableKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3b2Jvb2xqZHZ5bnNhanRydm5rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3Mzc1MzAsImV4cCI6MjA5NzMxMzUzMH0.z0AfKVsZ89p4ddJiMcvfFel3WryAdlxp7usAl9nDVzs",
-  timeoutMs: 60000,
+  timeoutMs: 30000,
   mockExamTimeoutMs: 30000,
   maxHistory: 6
 });

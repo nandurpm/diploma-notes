@@ -109,8 +109,11 @@
     let lastError = null;
     let lastResponse = null;
 
-    for (const endpoint of candidates) {
-      for (let attempt = 1; attempt <= 2; attempt += 1) {
+    for (const [endpointIndex, endpoint] of candidates.entries()) {
+      // The primary Worker currently returns a Cloudflare challenge to API POSTs;
+      // retrying that same route only adds delay before the Supabase relay works.
+      const maxAttempts = endpointIndex === 0 ? 1 : 2;
+      for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
         try {
           const response = await originalFetch(endpoint, cloneOptions(options, endpoint));
           if (response.ok) {
@@ -120,13 +123,14 @@
           lastResponse = response;
           if (!RETRYABLE_STATUS.has(response.status)) return response;
           lastError = new Error(`Ask POLY returned HTTP ${response.status}.`);
+          if (response.status === 401 || response.status === 403) break;
         } catch (error) {
           lastError = error;
           if (error?.name === "AbortError") throw error;
         }
 
-        if (attempt === 1) {
-          setStatus("Retrying AI relay…", lastError?.message || "Temporary AI connection failure");
+        if (attempt === 1 && attempt < maxAttempts) {
+          setStatus(endpointIndex === 0 ? "Switching to backup AI…" : "Retrying AI relay…", lastError?.message || "Temporary AI connection failure");
           await delay(RETRY_DELAY_MS);
         }
       }
