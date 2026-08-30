@@ -52,6 +52,16 @@
       if (/\bdiodes?\b/.test(q)) return flow("diode_operation", "Diode operating-state flowchart");
       if (/odd|even|parity|ഒറ്റ|ഇരട്ട/.test(q)) return flow("odd_even", "Odd or even number flowchart");
       return null;
+      if (/odd|even|parity|ഒറ്റ|ഇരട്ട/.test(q)) return flow("odd_even", "Odd or even number flowchart");
+      if (/largest|greatest|max(?:imum)?|three numbers|three values/.test(q)) return flow("largest_three", "Largest of three numbers flowchart");
+      if (/positive|negative|zero/.test(q)) return flow("positive_negative_zero", "Positive, negative or zero flowchart");
+      if (/simple interest|principal.*rate|rate.*time/.test(q)) return flow("simple_interest", "Simple interest flowchart");
+      if (/factorial|factorial.*loop|loop.*factorial/.test(q)) return flow("factorial", "Factorial flowchart");
+      if (/prime|prime number/.test(q)) return flow("prime", "Prime number flowchart");
+      if (/student result|grade|marks.*result/.test(q)) return flow("student_result", "Student result flowchart");
+      if (/atm|withdrawal|cash/.test(q)) return flow("atm", "ATM withdrawal flowchart");
+      if (/current generation|generate electricity|generation of electricity|electric(?:al)? power generation|power generation/.test(q)) return flow("current_generation", "Electrical power generation flowchart");
+      return flow("generic", "Flowchart");
     }
     if (/communication system|communication.*block|ബ്ലോക്ക് ഡയഗ്രാം/.test(q)) return withDepartment({ type: "block_diagram", title: "Communication system block diagram" });
     if (/sine|sinusoidal|ac waveform|sine wave/.test(q)) return withDepartment({ type: "sine_wave", title: "AC sine waveform" });
@@ -69,6 +79,11 @@
     ];
     for (const [pattern, variant, title] of symbolMap) if (new RegExp(pattern).test(q)) return withDepartment({ type: "symbol", variant, title });
     if (/circuit|schematic|connections?/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
+    if (/\bcircuit\b/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
+    if (/graph|plot/.test(q)) return withDepartment({ type: "sine_wave", title: "Engineering graph" });
+    // Do not invent a circuit for an underspecified request such as
+    // “Create a diagram of the system”; let the AI answer or ask for the
+    // system/topic instead of showing a misleading technical graphic.
     return null;
   }
 
@@ -149,6 +164,31 @@
   function flowchartData(intent = {}) {
     const ml = intent.language === "ml";
     const labels = ml ? { start: "START", input: "നമ്പർ നൽകുക", decision: "N % 2 == 0?", yes: "YES", no: "NO", even: "EVEN", odd: "ODD", end: "END" } : { start: "START", input: "Input N", decision: "N % 2 == 0?", yes: "YES", no: "NO", even: "Print EVEN", odd: "Print ODD", end: "END" };
+    if (intent.variant === "current_generation") {
+      return {
+        flowchartType: "current_generation",
+        direction: "LR",
+        nodes: [
+          { id: "start", type: "start_end", text: "START", rank: 0 },
+          { id: "source", type: "input_output", text: "Energy source\n(water / steam / wind / solar)", rank: 1 },
+          { id: "prime", type: "process", text: "Prime mover\n(turbine / engine)", rank: 2 },
+          { id: "generator", type: "process", text: "Generator converts\nmechanical energy to AC", rank: 3 },
+          { id: "transformer", type: "process", text: "Step-up transformer\nraises voltage", rank: 4 },
+          { id: "grid", type: "process", text: "Transmit through\npower grid", rank: 5 },
+          { id: "end", type: "start_end", text: "Electric power\nto consumers", rank: 6 }
+        ],
+        edges: [
+          { source: "start", target: "source" },
+          { source: "source", target: "prime" },
+          { source: "prime", target: "generator" },
+          { source: "generator", target: "transformer" },
+          { source: "transformer", target: "grid" },
+          { source: "grid", target: "end" }
+        ],
+        description: "Electrical power generation: an energy source drives a prime mover, the generator converts mechanical energy into AC electrical energy, a step-up transformer raises the voltage, and the power is transmitted through the grid to consumers.",
+        text: "Flowchart: START → Energy source → Prime mover → AC generator → Step-up transformer → Power grid → Consumers"
+      };
+    }
     if (intent.variant === "odd_even" || intent.variant === "generic" || !intent.variant) {
       return {
         flowchartType: "odd_even",
@@ -176,6 +216,14 @@
     const templates = {
       pnp_npn: { input: "Identify transistor type", decision: "PNP or NPN?", yes: "PNP: base LOW → ON", no: "NPN: base HIGH → ON", title: "PNP and NPN transistor operation" },
       diode_operation: { input: "Apply voltage across A–K", decision: "Forward biased?", yes: "Conducts after Vᶠ threshold", no: "Blocks; only small Iᴿ", title: "diode operating state" }
+      positive_negative_zero: { input: "Input N", decision: "N > 0?", yes: "Positive", no: "N < 0?", extra: "Zero", title: "Positive, negative or zero" },
+      simple_interest: { input: "Input P, R, T", decision: "Calculate SI = PRT/100", yes: "Display SI", no: "Check inputs", title: "Simple interest" },
+      factorial: { input: "Input N", decision: "N > 0?", yes: "Multiply and decrement", no: "Display factorial", title: "Factorial" },
+      prime: { input: "Input N", decision: "Divisor found?", yes: "Not prime", no: "Prime", title: "Prime number" },
+      student_result: { input: "Input marks", decision: "Marks >= pass?", yes: "Display grade", no: "Display Fail", title: "Student result" },
+      atm: { input: "Insert card and PIN", decision: "PIN valid?", yes: "Enter amount", no: "Reject transaction", title: "ATM withdrawal" },
+      largest_three: { input: "Input A, B, C", decision: "Compare values", yes: "Display largest", no: "Continue comparison", title: "Largest of three numbers" },
+      pnp_npn: { input: "Identify transistor type", decision: "PNP or NPN?", yes: "PNP: base LOW → ON", no: "NPN: base HIGH → ON", title: "PNP and NPN transistor operation" }
     };
     const template = templates[intent.variant] || templates.positive_negative_zero;
     const data = flowchartData({ variant: "odd_even", language: intent.language });

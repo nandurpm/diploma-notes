@@ -260,11 +260,28 @@
   function renderText(text) {
     const lines = String(text || "").replace(/\r\n?/g, "\n").split("\n");
     const blocks = [];
-    let index = 0;
+    let paragraphLines = [];
 
+    function flushParagraph() {
+      if (!paragraphLines.length) return;
+      blocks.push(`<p>${paragraphLines.map(renderInlineMarkdown).join("<br>")}</p>`);
+      paragraphLines = [];
+    }
+
+    let index = 0;
     while (index < lines.length) {
       const line = lines[index];
+
+      /* Blank line: paragraph break */
+      if (!line.trim()) {
+        flushParagraph();
+        index += 1;
+        continue;
+      }
+
+      /* Fenced code block */
       if (/^\s*```/.test(line)) {
+        flushParagraph();
         const code = [];
         index += 1;
         while (index < lines.length && !/^\s*```/.test(lines[index])) {
@@ -276,7 +293,9 @@
         continue;
       }
 
+      /* Markdown table */
       if (index + 1 < lines.length && line.includes("|") && isMarkdownTableDivider(lines[index + 1])) {
+        flushParagraph();
         const body = [];
         index += 2;
         while (index < lines.length && lines[index].includes("|") && lines[index].trim()) {
@@ -287,15 +306,67 @@
         continue;
       }
 
-      if (/^\s*#{1,3}\s+/.test(line)) {
-        blocks.push(`<strong>${renderInlineMarkdown(line.replace(/^\s*#{1,3}\s+/, ""))}</strong>`);
-      } else {
-        blocks.push(renderInlineMarkdown(line));
+      /* Horizontal rule: ---, ***, ___ (allow spaces between chars) */
+      if (/^\s*([-*_])\s*(?:\1\s*){2,}$/.test(line)) {
+        flushParagraph();
+        blocks.push("<hr>");
+        index += 1;
+        continue;
       }
+
+      /* Headings: # .. #### */
+      const headingMatch = /^\s*(#{1,4})\s+(.+?)\s*#*\s*$/.exec(line);
+      if (headingMatch) {
+        flushParagraph();
+        const level = Math.min(4, headingMatch[1].length);
+        blocks.push(`<h${level}>${renderInlineMarkdown(headingMatch[2])}</h${level}>`);
+        index += 1;
+        continue;
+      }
+
+      /* Blockquote: consecutive lines starting with > */
+      if (/^\s*>\s?/.test(line)) {
+        flushParagraph();
+        const quoteLines = [];
+        while (index < lines.length && /^\s*>\s?/.test(lines[index])) {
+          quoteLines.push(lines[index].replace(/^\s*>\s?/, ""));
+          index += 1;
+        }
+        blocks.push(`<blockquote><p>${quoteLines.map(renderInlineMarkdown).join("<br>")}</p></blockquote>`);
+        continue;
+      }
+
+      /* Unordered list: consecutive lines starting with -, * or • */
+      if (/^\s*[-*•]\s+/.test(line)) {
+        flushParagraph();
+        const items = [];
+        while (index < lines.length && /^\s*[-*•]\s+/.test(lines[index])) {
+          items.push(`<li>${renderInlineMarkdown(lines[index].replace(/^\s*[-*•]\s+/, ""))}</li>`);
+          index += 1;
+        }
+        blocks.push(`<ul>${items.join("")}</ul>`);
+        continue;
+      }
+
+      /* Ordered list: consecutive lines starting with 1. / 1) */
+      if (/^\s*\d+[.)]\s+/.test(line)) {
+        flushParagraph();
+        const items = [];
+        while (index < lines.length && /^\s*\d+[.)]\s+/.test(lines[index])) {
+          items.push(`<li>${renderInlineMarkdown(lines[index].replace(/^\s*\d+[.)]\s+/, ""))}</li>`);
+          index += 1;
+        }
+        blocks.push(`<ol>${items.join("")}</ol>`);
+        continue;
+      }
+
+      /* Plain text line: accumulate into the current paragraph */
+      paragraphLines.push(line);
       index += 1;
     }
 
-    return blocks.join("<br>");
+    flushParagraph();
+    return `<div class="ask-response-body">${blocks.join("")}</div>`;
   }
 
   function bubble(message) {
@@ -307,6 +378,16 @@
       if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
     }
     if (message.role === "assistant" && Boolean(message.meta?.error)) div.dataset.polyError = "true";
+    const diagramIntent = message.meta?.diagram || message.meta?.diagramIntent;
+    const staleSavedDiagram = diagramIntent?.type === "flowchart" && diagramIntent?.variant === "odd_even" && /current generation/i.test(String(message.content || ""));
+    if (message.role === "assistant" && diagramIntent && !staleSavedDiagram && window.AskPolyDiagrams?.render) {
+      try {
+        const diagramHtml = window.AskPolyDiagrams.render(diagramIntent);
+        if (diagramHtml) div.insertAdjacentHTML("beforeend", diagramHtml);
+      } catch (error) {
+        console.warn("Ask POLY diagram render failed", error);
+      }
+    }
     const time = document.createElement("time");
     time.className = "ask-time";
     time.dateTime = message.createdAt;
@@ -469,6 +550,9 @@
   async function callAI(message, history, localContext) {
     const endpoint = window.ASK_POLY_CONFIG?.endpoint;
     if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
+    const aiMessage = /(?:flowchart|flow chart).*current generation|current generation.*(?:flowchart|flow chart)/i.test(message)
+      ? `${message}\n\nInterpret “current generation” as electrical power generation, not current flow in a simple battery circuit. Explain the sequence from energy source or prime mover to generator, voltage transformation, transmission, and consumers.`
+      : message;
     const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
     const controller = new AbortController();
     activeController = controller;
@@ -480,7 +564,7 @@
         cache: "no-store",
         signal: controller.signal,
         body: JSON.stringify({
-          message,
+          message: aiMessage,
           history,
           preferredLanguage: preferredResponseLanguage(message),
           pageTitle: "Ask POLY whole-site knowledge",
@@ -522,6 +606,14 @@
 
     let retrieval = null;
     const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
+    // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
+    // matching SVG figure renders next to the AI's answer.
+    let diagramIntent = null;
+    try {
+      diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
+    } catch (error) {
+      console.warn("Ask POLY diagram intent detection failed", error);
+    }
     try {
       const messages = await getMessages(activeChatId);
       const previousMessages = messages.slice(0, -1).slice(-MAX_HISTORY);
@@ -542,6 +634,8 @@
         websiteKnowledge: Boolean(retrieval?.context),
         knowledgeVersion: retrieval?.version || "",
         diagramIntent
+        diagramIntent,
+        diagram: diagramIntent || undefined
       });
     } catch (error) {
       removeTyping();
@@ -556,6 +650,8 @@
           error: error.message,
           knowledgeVersion: retrieval?.version || "",
           diagramIntent
+          diagramIntent,
+          diagram: diagramIntent || undefined
         });
       } else {
         const fallback = retrieval?.fallbackAnswer || retrieval?.answer;
@@ -568,6 +664,15 @@
           });
         } else {
           await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message, diagramIntent });
+            diagramIntent,
+            diagram: diagramIntent || undefined
+          });
+        } else {
+          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", {
+            error: error.message,
+            diagramIntent,
+            diagram: diagramIntent || undefined
+          });
         }
       }
     } finally {
