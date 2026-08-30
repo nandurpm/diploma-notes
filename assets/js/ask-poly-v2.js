@@ -393,10 +393,6 @@
           diagramControl.dataset.diagramAction,
           diagramControl.closest(".ask-diagram")
         );
-      const diagramBtn = event.target.closest("[data-diagram-action]");
-      if (diagramBtn) {
-        event.stopPropagation();
-        window.AskPolyDiagrams?.handle?.(diagramBtn.dataset.diagramAction, diagramBtn.closest(".ask-diagram"));
         return;
       }
       const target = event.target.closest("button.ask-code-copy");
@@ -581,9 +577,8 @@
     addTyping();
 
     let retrieval = null;
-    const diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
     // Detect flowchart/circuit/diagram-drawing intent from the question itself so the
-    // matching SVG figure (assets/js/ask-poly-diagrams.js) renders next to the AI's answer.
+    // matching SVG figure renders next to the AI's answer.
     let diagramIntent = null;
     try {
       diagramIntent = window.AskPolyDiagrams?.detectIntent?.(clean) || null;
@@ -609,7 +604,7 @@
         model: result.model,
         websiteKnowledge: Boolean(retrieval?.context),
         knowledgeVersion: retrieval?.version || "",
-        diagramIntent
+        diagramIntent,
         diagram: diagramIntent || undefined
       });
     } catch (error) {
@@ -620,7 +615,7 @@
           provider: "local-offline-assistant",
           error: error.message,
           knowledgeVersion: retrieval?.version || "",
-          diagramIntent
+          diagramIntent,
           diagram: diagramIntent || undefined
         });
       } else {
@@ -630,14 +625,15 @@
             provider: "local-knowledge-fallback",
             error: error.message,
             knowledgeVersion: retrieval?.version || "",
-            diagramIntent
-          });
-        } else {
-          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message, diagramIntent });
+            diagramIntent,
             diagram: diagramIntent || undefined
           });
         } else {
-          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", { error: error.message, diagram: diagramIntent || undefined });
+          await addMessage("assistant", "I could not reach the AI service right now. Your chat is saved. Try a website question, a calculation such as 12*8, a conversion such as 5 km to m, or a formula such as voltage 12, current 2.", {
+            error: error.message,
+            diagramIntent,
+            diagram: diagramIntent || undefined
+          });
         }
       }
     } finally {
