@@ -879,3 +879,24 @@ body.ask-data-saver .ask-generated-image{display:none!important}
 }
 html.polytechnic-native-app .ask-bubble.ai { font-size: 13px; line-height: 1.48; }
 html.polytechnic-native-app .ask-diagram { margin: 10px 0 2px; }
+
+
+/* Progressive AI response cursor: removed when the final formatted answer replaces the stream bubble. */
+#streamingAnswerBubble .ask-response-body::after {
+  content: "";
+  display: inline-block;
+  width: .55em;
+  height: 1.05em;
+  margin-left: .18em;
+  vertical-align: -.16em;
+  border-radius: 2px;
+  background: currentColor;
+  animation: ask-stream-cursor 900ms steps(1, end) infinite;
+}
+@keyframes ask-stream-cursor {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #streamingAnswerBubble .ask-response-body::after { animation: none; opacity: 1; }
+}

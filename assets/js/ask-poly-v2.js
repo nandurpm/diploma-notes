@@ -526,7 +526,7 @@
       bubble = document.createElement("div");
       bubble.id = "streamingAnswerBubble";
       bubble.className = "ask-bubble ai";
-      bubble.innerHTML = '<div class="ask-response-body"></div>';
+      bubble.innerHTML = '<div class="ask-response-body ask-streaming-body"></div>';
       els.messages.append(bubble);
     }
     bubble.querySelector(".ask-response-body").textContent = text;
