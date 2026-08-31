@@ -78,7 +78,6 @@
     ];
     for (const [pattern, variant, title] of symbolMap) if (new RegExp(pattern).test(q)) return withDepartment({ type: "symbol", variant, title });
     if (/\bcircuit\b/.test(q)) return withDepartment({ type: "basic_circuit", title: "Basic circuit schematic" });
-    if (/graph|plot/.test(q)) return withDepartment({ type: "sine_wave", title: "Engineering graph" });
     // Do not invent a circuit for an underspecified request such as
     // “Create a diagram of the system”; let the AI answer or ask for the
     // system/topic instead of showing a misleading technical graphic.
