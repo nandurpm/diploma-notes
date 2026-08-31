@@ -17,6 +17,7 @@ from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE_FILE = ROOT / "automation" / "rev2026-syllabus-queue.txt"
+QUEUE_MANIFEST = ROOT / "assets" / "data" / "revision-2026-subjects-lite.json"
 LESSONS_DIR = ROOT / "revision-2026-content" / "lessons"
 MASTER_PROMPT_CANDIDATES = (
     ROOT / "docs" / "poly-pmna-lesson-html-master-prompt.md",
@@ -70,19 +71,33 @@ def code_sort_key(code: str) -> tuple[int, int, str]:
 
 
 def load_queue() -> list[str]:
-    if not QUEUE_FILE.exists():
-        raise GenerationError(f"Queue file is missing: {QUEUE_FILE.relative_to(ROOT)}")
     codes: list[str] = []
-    for raw in QUEUE_FILE.read_text(encoding="utf-8").splitlines():
-        value = raw.split("#", 1)[0].strip().upper()
-        if not value:
-            continue
-        if not CODE_RE.fullmatch(value):
-            raise GenerationError(f"Invalid subject code in queue: {value!r}")
-        codes.append(value)
-    unique = sorted(set(codes), key=code_sort_key)
+    if QUEUE_FILE.exists():
+        for raw in QUEUE_FILE.read_text(encoding="utf-8").splitlines():
+            value = raw.split("#", 1)[0].strip().upper()
+            if not value:
+                continue
+            if not CODE_RE.fullmatch(value):
+                raise GenerationError(f"Invalid subject code in queue: {value!r}")
+            codes.append(value)
+    else:
+        # The queue is an optional override. When it is absent, derive the
+        # ordered candidates from the maintained subject manifest so the daily
+        # job can still discover any lesson that is genuinely missing.
+        if not QUEUE_MANIFEST.exists():
+            raise GenerationError(
+                f"Queue file is missing and fallback manifest is unavailable: {QUEUE_MANIFEST.relative_to(ROOT)}"
+            )
+        try:
+            manifest = json.loads(QUEUE_MANIFEST.read_text(encoding="utf-8"))
+            codes = [str(item.get("code", "")).strip().upper() for item in manifest.get("subjects", [])]
+        except (OSError, json.JSONDecodeError) as error:
+            raise GenerationError(f"Could not load fallback subject manifest: {error}") from error
+        log(f"Queue override not found; using {QUEUE_MANIFEST.relative_to(ROOT)} as the candidate list.")
+
+    unique = sorted({code for code in codes if CODE_RE.fullmatch(code)}, key=code_sort_key)
     if not unique:
-        raise GenerationError("The REV2026 queue is empty.")
+        raise GenerationError("The REV2026 queue and fallback subject manifest contain no valid subject codes.")
     return unique
 
 
