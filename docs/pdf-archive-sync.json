@@ -1,13 +1,14 @@
 {
   "sourceRepository": "nandurpm/poly-pmna-pdf-files",
   "sourceBranch": "main",
-  "sourceCommit": "9d5451b9049299140f157a353af7d51c0fcfcc98",
-  "updatedAt": "2026-08-31T04:15:06.854754+00:00",
+  "sourceCommit": "manual",
+  "updatedAt": "2026-08-31T04:35:19.627730+00:00",
   "changedFiles": [],
   "manifests": {
     "notes2021": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/manifests/notes-2021.json",
     "notes2026": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/manifests/notes-2026.json"
   },
+  "localManifestDirectory": "docs/pdf-archive/manifests",
   "publishedCounts": {
     "notes2021": 150,
     "notes2026": 1222
