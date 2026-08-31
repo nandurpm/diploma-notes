@@ -1,0 +1,42 @@
+name: Sync PDF archive reference
+
+on:
+  repository_dispatch:
+    types: [pdf-archive-updated]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pdf-archive-reference-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Refresh canonical PDF archive reference
+    runs-on: ubuntu-latest
+    env:
+      PDF_ARCHIVE_SHA: ${{ github.event.client_payload.source_sha || 'manual' }}
+      PDF_CHANGED_FILES: ${{ join(github.event.client_payload.changed_files, '\n') }}
+    steps:
+      - name: Check out consumer repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Refresh archive metadata
+        run: python3 tools/sync_pdf_archive_reference.py
+
+      - name: Commit synchronized reference
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/pdf-archive-sync.json
+          if git diff --cached --quiet; then
+            echo "The PDF archive reference is already current."
+            exit 0
+          fi
+          git commit -m "Sync PDF archive reference [skip ci]"
+          git push origin HEAD:main

@@ -263,3 +263,10 @@ again.
 <p align="center">
 Made with care for Kerala Polytechnic Students
 </p>
+
+
+## Canonical PDF archive integration
+
+The published lesson PDFs and their manifests live in [`nandurpm/poly-pmna-pdf-files`](https://github.com/nandurpm/poly-pmna-pdf-files), which is the single source of truth for downloadable PDF files. This repository generates lesson PDFs and publishes them there; it does not maintain a second binary copy.
+
+The `sync-pdf-archive-reference.yml` workflow listens for the `pdf-archive-updated` event and refreshes [`docs/pdf-archive-sync.json`](pdf-archive-sync.json). The public site continues to use the canonical raw archive URLs, so changes to a published manifest or PDF are reflected without manual copying. Run the workflow manually when checking the integration or recovering a missed dispatch.
