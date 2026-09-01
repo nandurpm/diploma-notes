@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2079 — Engineering Chemistry Lab. Qualitative analysis of inorganic compounds, simple salts, and binary mixtures.">
+    <meta name="course-code" content="2079">
+    <meta name="course-title" content="Engineering Chemistry Lab">
+    <meta name="curriculum" content="REV2021">
+    <title>2079 — Engineering Chemistry Lab</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--soft);
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        header.cover {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        .kicker { text-transform: uppercase; letter-spacing: 2px; font-weight: 700; opacity: 0.8; font-size: 0.9rem; }
+        h1 { font-size: 2.5rem; margin: 1rem 0; }
+        .badge-row { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 1.5rem; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; backdrop-filter: blur(5px); }
+
+        nav.jump-menu {
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            border-bottom: 1px solid var(--line);
+            z-index: 900;
+        }
+
+        nav.jump-menu a {
+            text-decoration: none;
+            color: var(--muted);
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        nav.jump-menu a:hover { background: var(--soft2); color: var(--blue); }
+
+        section { padding: 3rem 2rem; border-bottom: 1px solid var(--line); }
+        h2 { color: var(--navy); font-size: 1.8rem; border-left: 5px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem; }
+        h3 { color: var(--teal); margin-top: 2rem; }
+
+        .grid { display: grid; gap: 1.5rem; margin: 1.5rem 0; }
+        .two { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .card { background: var(--soft); padding: 1.5rem; border-radius: var(--radius); border: 1px solid var(--line); }
+
+        .ml-note {
+            background: #fff9e6;
+            border-left: 5px solid #f59e0b;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .ml-note strong { display: block; margin-bottom: 5px; color: #b45309; }
+
+        .table-wrap { overflow-x: auto; margin: 1.5rem 0; border-radius: 12px; border: 1px solid var(--line); }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--line); }
+        th { background: var(--soft2); color: var(--navy); font-weight: 700; }
+
+        .worked { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .worked strong { color: var(--green); }
+
+        .diagram { text-align: center; margin: 2rem 0; padding: 1rem; background: white; border-radius: 12px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        figcaption { margin-top: 10px; font-size: 0.9rem; color: var(--muted); font-style: italic; }
+
+        details.topic { background: white; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 1rem; }
+        details.topic summary { padding: 1rem; font-weight: 700; cursor: pointer; color: var(--navy); list-style: none; display: flex; justify-content: space-between; align-items: center; }
+        details.topic summary::after { content: '↓'; font-size: 1.2rem; transition: transform 0.3s; }
+        details[open] summary::after { transform: rotate(180deg); }
+        .topic-body { padding: 1rem 1.5rem; border-top: 1px solid var(--line); }
+
+        .qa { margin-bottom: 1rem; border-radius: 8px; overflow: hidden; }
+        .qa summary { background: var(--soft2); padding: 10px 15px; font-weight: 600; cursor: pointer; }
+        .qa-body { padding: 15px; background: white; border: 1px solid var(--soft2); }
+
+        .tip { background: #eef2ff; border-left: 5px solid var(--blue); padding: 1rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
+        .warning { background: #fff1f2; border-left: 5px solid var(--red); padding: 1rem; margin: 1rem 0; border-radius: 0 8px 8px 0; }
+
+        .calculator { background: var(--navy); color: white; padding: 2rem; border-radius: var(--radius); margin: 2rem 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .calc-grid input { padding: 10px; border-radius: 5px; border: none; width: 100%; }
+        .calc-result { background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; text-align: center; font-size: 1.2rem; font-weight: 700; }
+
+        .search-bar { width: 100%; padding: 12px; border: 2px solid var(--line); border-radius: 30px; margin-bottom: 1rem; font-size: 1rem; }
+
+        @media print {
+            .no-print, nav.jump-menu, .reading-progress, .search-bar { display: none; }
+            details { display: block !important; }
+            details summary::after { display: none; }
+            .lesson-shell { box-shadow: none; max-width: 100%; }
+            body { background: white; }
+        }
+
+        @media (max-width: 640px) {
+            .grid.two { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+            .calc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+    <header class="cover">
+        <div class="kicker">Kerala Polytechnic Syllabus • REV2021</div>
+        <h1>Engineering Chemistry Lab</h1>
+        <div class="badge-row">
+            <span class="badge">Course Code: 2079</span>
+            <span class="badge">Semester: 2</span>
+            <span class="badge">Credits: No Credit</span>
+            <span class="badge">Dept: Chemical / Food Tech</span>
+        </div>
+        <a data-notes-link data-pdf-code="2079" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2079" style="color: white; display: inline-block; margin-top: 20px; text-decoration: underline;">Official Syllabus PDF</a>
+    </header>
+
+    <nav class="jump-menu">
+        <a href="#course-dashboard">Overview</a>
+        <a href="#course-outcomes">Outcomes</a>
+        <a href="#module-1">Acid Radicals</a>
+        <a href="#module-2">Basic Radicals</a>
+        <a href="#module-3">Simple Salts</a>
+        <a href="#module-4">Binary Mixtures</a>
+        <a href="#formula-bank">Formulas</a>
+        <a href="#visual-library">Diagrams</a>
+        <a href="#assessment">Q&A</a>
+        <a href="#model-paper">Model Paper</a>
+        <a href="#quick-revision">Revision</a>
+    </nav>
+
+    <main id="main-content">
+        <section id="official-source" class="official-source">
+            <h2>Official Source Declaration</h2>
+            <div class="card">
+                <p>This lesson is architected based on the official <strong>SITTTR Kerala REV2021</strong> syllabus for Course Code <strong>2079 (Engineering Chemistry Lab)</strong>. All modules, radicals, and assessment criteria are derived directly from the authoritative document provided for Diploma in Chemical Engineering and Food Processing Technology.</p>
+                <p><strong>Note:</strong> While the syllabus lists "No Credit", the course involves 45 contact hours and two internal Lab Examinations (Lab Exam I & II) which are critical for semester progression.</p>
+            </div>
+        </section>
+
+        <section id="course-dashboard" class="course-dashboard">
+            <h2>Course Overview</h2>
+            <div class="grid two">
+                <div class="card">
+                    <h3>Teaching Scheme</h3>
+                    <ul>
+                        <li><strong>L:T:P</strong> — 3:0:0 (Practical oriented)</li>
+                        <li><strong>Total Periods</strong> — 45 per semester</li>
+                        <li><strong>Category</strong> — Engineering Science</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Course Objectives</h3>
+                    <p>To provide hands-on experience in the qualitative analysis of Inorganic compounds as simple salts and binary mixtures.</p>
+                </div>
+            </div>
+            <div class="ml-note">
+                <strong>Malayalam support:</strong>
+                ഈ ലാബ് കോഴ്സ് പ്രധാനമായും അജൈവ സംയുക്തങ്ങളുടെ (Inorganic compounds) ഗുണപരമായ വിശകലനത്തിനാണ് (Qualitative Analysis) ഊന്നൽ നൽകുന്നത്. ലളിതമായ ലവണങ്ങളും (Simple Salts) രണ്ട് ലവണങ്ങൾ ചേർന്ന മിശ്രിതങ്ങളും (Binary Mixtures) തിരിച്ചറിയാൻ വിദ്യാർത്ഥികളെ ഇത് പ്രാപ്തരാക്കുന്നു.
+            </div>
+        </section>
+
+        <section id="course-outcomes" class="course-outcomes">
+            <h2>Course Outcomes (CO)</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO No.</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Cognitive Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO1</td>
+                            <td>Analyse acid radicals</td>
+                            <td>9 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO2</td>
+                            <td>Analyse basic radicals</td>
+                            <td>10 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO3</td>
+                            <td>Analyse simple salts</td>
+                            <td>12 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO4</td>
+                            <td>Analyse binary mixtures</td>
+                            <td>14 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="module-1" class="module">
+            <div class="module-head">
+                <h2>Module 1: Analysis of Acid Radicals (Anions)</h2>
+                <div class="badge">9 Hours</div>
+            </div>
+            <p>Acid radicals are the negatively charged ions in an inorganic salt. The analysis involves systematic identification using preliminary and confirmatory tests.</p>
+
+            <details class="topic" open>
+                <summary>Scope of Radicals</summary>
+                <div class="topic-body">
+                    <p>The syllabus requires identification of the following acid radicals:</p>
+                    <div class="grid two">
+                        <ul>
+                            <li>Carbonate (CO₃²⁻)</li>
+                            <li>Sulphide (S²⁻)</li>
+                            <li>Sulphite (SO₃²⁻)</li>
+                            <li>Sulphate (SO₄²⁻)</li>
+                            <li>Thiosulphate (S₂O₃²⁻)</li>
+                            <li>Nitrate (NO₃⁻)</li>
+                            <li>Fluoride (F⁻)</li>
+                            <li>Chloride (Cl⁻)</li>
+                        </ul>
+                        <ul>
+                            <li>Bromide (Br⁻)</li>
+                            <li>Iodide (I⁻)</li>
+                            <li>Acetate (CH₃COO⁻)</li>
+                            <li>Oxalate (C₂O₄²⁻)</li>
+                            <li>Phosphate (PO₄³⁻)</li>
+                            <li>Borate (BO₃³⁻)</li>
+                            <li>Chromate (CrO₄²⁻)</li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic">
+                <summary>Systematic Procedure for Acid Radicals</summary>
+                <div class="topic-body">
+                    <ol>
+                        <li><strong>Action of Dilute HCl:</strong> Carbonate (brisk effervescence), Sulphide (rotten egg smell), Sulphite (burning sulphur smell).</li>
+                        <li><strong>Action of Conc. H₂SO₄:</strong> Chloride (pungent fumes), Nitrate (brown fumes with copper turnings), Acetate (vinegar smell), Oxalate (CO + CO₂ evolution).</li>
+                        <li><strong>Special Tests:</strong> Sulphate (BaCl₂ test), Phosphate (Ammonium molybdate test), Borate (Ethyl borate test).</li>
+                    </ol>
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        ആസിഡ് റാഡിക്കലുകളെ തിരിച്ചറിയാൻ ആദ്യം നേർപ്പിച്ച HCl (Dilute HCl) ഉപയോഗിക്കുന്നു. ഇതിൽ മാറ്റം കണ്ടില്ലെങ്കിൽ ഗാഢ സൾഫ്യൂറിക് ആസിഡ് (Conc. H₂SO₄) ഉപയോഗിച്ച് പരിശോധിക്കുന്നു. സൾഫേറ്റ്, ഫോസ്ഫേറ്റ് എന്നിവയ്ക്ക് പ്രത്യേക ടെസ്റ്റുകൾ ആവശ്യമാണ്.
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section id="module-2" class="module">
+            <div class="module-head">
+                <h2>Module 2: Analysis of Basic Radicals (Cations)</h2>
+                <div class="badge">10 Hours</div>
+            </div>
+            <p>Basic radicals are positively charged ions. They are classified into groups based on their solubility products and identified using group reagents.</p>
+
+            <details class="topic" open>
+                <summary>Group Classification</summary>
+                <div class="topic-body">
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Group</th>
+                                    <th>Radicals</th>
+                                    <th>Group Reagent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Group 0</td>
+                                    <td>Ammonium (NH₄⁺)</td>
+                                    <td>NaOH</td>
+                                </tr>
+                                <tr>
+                                    <td>Group I</td>
+                                    <td>Silver (Ag⁺), Lead (Pb²⁺), Mercury (Hg₂²⁺)</td>
+                                    <td>Dilute HCl</td>
+                                </tr>
+                                <tr>
+                                    <td>Group II</td>
+                                    <td>Copper (Cu²⁺), Cadmium (Cd²⁺), Bismuth (Bi³⁺), Arsenic (As³⁺), Antimony (Sb³⁺), Tin (Sn²⁺/Sn⁴⁺)</td>
+                                    <td>H₂S gas in presence of Dil. HCl</td>
+                                </tr>
+                                <tr>
+                                    <td>Group III</td>
+                                    <td>Iron (Fe³⁺), Aluminium (Al³⁺), Chromium (Cr³⁺)</td>
+                                    <td>NH₄OH in presence of NH₄Cl</td>
+                                </tr>
+                                <tr>
+                                    <td>Group IV</td>
+                                    <td>Zinc (Zn²⁺), Manganese (Mn²⁺), Cobalt (Co²⁺), Nickel (Ni²⁺)</td>
+                                    <td>H₂S gas in presence of NH₄OH</td>
+                                </tr>
+                                <tr>
+                                    <td>Group V</td>
+                                    <td>Barium (Ba²⁺), Strontium (Sr²⁺), Calcium (Ca²⁺)</td>
+                                    <td>(NH₄)₂CO₃ in presence of NH₄Cl & NH₄OH</td>
+                                </tr>
+                                <tr>
+                                    <td>Group VI</td>
+                                    <td>Magnesium (Mg²⁺), Sodium (Na⁺), Potassium (K⁺)</td>
+                                    <td>Specific reagents (e.g., Na₂HPO₄ for Mg)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section id="module-3" class="module">
+            <div class="module-head">
+                <h2>Module 3: Analysis of Simple Salts</h2>
+                <div class="badge">12 Hours</div>
+            </div>
+            <div class="card">
+                <p>A simple salt consists of one acid radical and one basic radical. The analysis must follow a systematic workflow:</p>
+                <ol>
+                    <li>Preliminary Examination (Color, State, Solubility).</li>
+                    <li>Identification of Acid Radical.</li>
+                    <li>Confirmatory test for Acid Radical.</li>
+                    <li>Preparation of Original Solution (OS).</li>
+                    <li>Identification of Basic Radical Group.</li>
+                    <li>Identification of Basic Radical within the group.</li>
+                    <li>Confirmatory test for Basic Radical.</li>
+                </ol>
+                <div class="warning">
+                    <strong>Syllabus Constraint:</strong> The simple salt should be soluble in water, dilute acids, or conc. HCl and should not involve interfering radicals (like Fluoride, Borate, Oxalate, Phosphate) that complicate group separation.
+                </div>
+            </div>
+        </section>
+
+        <section id="module-4" class="module">
+            <div class="module-head">
+                <h2>Module 4: Analysis of Binary Mixtures</h2>
+                <div class="badge">14 Hours</div>
+            </div>
+            <p>Binary mixtures contain two simple salts, meaning two acid radicals and two basic radicals must be identified.</p>
+            <div class="tip">
+                <strong>Strategy:</strong> In binary mixtures, one must check if the presence of one radical interferes with the test for another. For example, in a mixture of Chloride and Bromide, special separation is needed.
+            </div>
+            <h3>Open Ended Experiments (3 Hours)</h3>
+            <p>Students are encouraged to apply their analytical skills to unknown samples or real-world materials like water hardness or soil minerals (qualitative aspect).</p>
+        </section>
+
+        <section id="formula-bank" class="formula-bank">
+            <h2>Formula Bank & Calculations</h2>
+            <div class="grid two">
+                <div class="card">
+                    <h3>Solubility Product (Kₛₚ)</h3>
+                    <p>The principle behind group separation. A precipitate forms when the Ionic Product exceeds Kₛₚ.</p>
+                    <div class="worked">
+                        <strong>Concept:</strong> For a salt AₓBᵧ,<br>
+                        Kₛₚ = [A]ˣ [B]ᵧ
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Common Ion Effect</h3>
+                    <p>Used to suppress the ionization of weak electrolytes. Example: NH₄Cl suppresses NH₄OH ionization to ensure only Group III hydroxides precipitate.</p>
+                </div>
+            </div>
+
+            <div class="calculator">
+                <h3>Molarity Calculator (For Reagent Prep)</h3>
+                <div class="calc-grid">
+                    <div>
+                        <label>Mass of Solute (g)</label>
+                        <input type="number" id="mass" placeholder="e.g. 40">
+                    </div>
+                    <div>
+                        <label>Molar Mass (g/mol)</label>
+                        <input type="number" id="molarMass" placeholder="e.g. 40 for NaOH">
+                    </div>
+                    <div>
+                        <label>Volume of Solution (mL)</label>
+                        <input type="number" id="volume" placeholder="e.g. 1000">
+                    </div>
+                </div>
+                <button onclick="calculateMolarity()" style="padding: 10px 20px; cursor: pointer;">Calculate Molarity</button>
+                <div id="molarityResult" class="calc-result" style="margin-top: 15px;">Result: -- M</div>
+            </div>
+        </section>
+
+        <section id="visual-library" class="visual-library">
+            <h2>Visual Library</h2>
+            <div class="grid two">
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 120" role="img" aria-labelledby="tt-title">
+                        <title id="tt-title">Test Tube Analysis</title>
+                        <path d="M40 20 L40 100 Q40 110 50 110 Q60 110 60 100 L60 20 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <path d="M40 70 L60 70" stroke="currentColor" stroke-dasharray="2"/>
+                        <text x="65" y="75" font-size="5" fill="currentColor">Precipitate</text>
+                        <text x="42" y="50" font-size="5" fill="currentColor">Reagent</text>
+                    </svg>
+                    <figcaption>Basic setup for qualitative precipitation tests.</figcaption>
+                </figure>
+
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 100" role="img" aria-labelledby="sep-title">
+                        <title id="sep-title">Group Separation Flow</title>
+                        <rect x="10" y="10" width="80" height="15" rx="5" fill="var(--soft2)" stroke="var(--blue)"/>
+                        <text x="50" y="20" text-anchor="middle" font-size="6" font-weight="bold">Original Solution (OS)</text>
+                        <line x1="50" y1="25" x2="50" y2="40" stroke="var(--blue)" stroke-width="2"/>
+                        <rect x="10" y="40" width="35" height="15" rx="5" fill="#f0fdf4" stroke="var(--green)"/>
+                        <text x="27" y="50" text-anchor="middle" font-size="5">Group I (Pb²⁺)</text>
+                        <rect x="55" y="40" width="35" height="15" rx="5" fill="#fff1f2" stroke="var(--red)"/>
+                        <text x="72" y="50" text-anchor="middle" font-size="5">Filtrate to Grp II</text>
+                    </svg>
+                    <figcaption>Logic of systematic group separation.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="assessment" class="assessment">
+            <h2>Practice Questions & Answers</h2>
+            
+            <details class="qa">
+                <summary>1. Why is NH₄Cl added before NH₄OH in Group III analysis?</summary>
+                <div class="qa-body">
+                    To suppress the concentration of OH⁻ ions through the <strong>Common Ion Effect</strong>. This ensures that the ionic product of Group IV, V, and VI hydroxides does not exceed their solubility products, preventing them from precipitating along with Group III.
+                </div>
+            </details>
+
+            <details class="qa">
+                <summary>2. How do you identify the presence of Carbonate radical?</summary>
+                <div class="qa-body">
+                    Treat the salt with dilute HCl. Brisk effervescence occurs due to the evolution of CO₂ gas. When this gas is passed through lime water, it turns milky due to the formation of Calcium Carbonate.
+                </div>
+            </details>
+
+            <details class="qa">
+                <summary>3. What is the confirmatory test for Nitrate?</summary>
+                <div class="qa-body">
+                    <strong>Brown Ring Test:</strong> To the salt solution, add freshly prepared Ferrous Sulphate solution. Then, carefully add concentrated H₂SO₄ along the sides of the test tube. A brown ring forms at the junction of the two liquids.
+                </div>
+            </details>
+        </section>
+
+        <section id="model-paper" class="model-paper">
+            <h2>Practice Model Paper</h2>
+            <div class="card">
+                <center><strong>PRACTICE MODEL EXAM — NOT AN OFFICIAL PAPER</strong></center>
+                <p><strong>Time: 3 Hours | Max Marks: 100 (Internal Pattern)</strong></p>
+                <hr>
+                <p><strong>Part A: Preliminary (20 Marks)</strong><br>
+                1. Perform physical examination and solubility test for the given salt mixture.<br>
+                2. Report the color, state, and solubility in different solvents.</p>
+                
+                <p><strong>Part B: Acid Radical Analysis (30 Marks)</strong><br>
+                3. Identify and confirm two acid radicals present in the given binary mixture with systematic steps.</p>
+                
+                <p><strong>Part C: Basic Radical Analysis (40 Marks)</strong><br>
+                4. Identify and confirm two basic radicals present in the given binary mixture using group separation.</p>
+                
+                <p><strong>Part D: Viva & Record (10 Marks)</strong><br>
+                5. Answer questions on group reagents and solubility products.</p>
+            </div>
+        </section>
+
+        <section id="quick-revision" class="quick-revision">
+            <h2>Quick Revision</h2>
+            <div class="grid three">
+                <div class="card">
+                    <h4>Group Reagents</h4>
+                    <ul>
+                        <li>Gr I: Dil. HCl</li>
+                        <li>Gr II: H₂S + HCl</li>
+                        <li>Gr III: NH₄Cl + NH₄OH</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Flame Test Colors</h4>
+                    <ul>
+                        <li>Barium: Apple Green</li>
+                        <li>Strontium: Crimson Red</li>
+                        <li>Calcium: Brick Red</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Common Mistakes</h4>
+                    <ul>
+                        <li>Not using freshly prepared FeSO₄ for Nitrate test.</li>
+                        <li>Adding too much NH₄OH in Group III.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="glossary" class="glossary">
+            <h2>Glossary</h2>
+            <ul>
+                <li><strong>Qualitative Analysis:</strong> Identification of the constituents of a substance.</li>
+                <li><strong>Precipitate:</strong> An insoluble solid that emerges from a liquid solution.</li>
+                <li><strong>Original Solution (OS):</strong> A clear solution of the salt in a suitable solvent (Water/HCl).</li>
+                <li><strong>Radical:</strong> An atom or group of atoms carrying a charge.</li>
+            </ul>
+        </section>
+
+        <section id="references" class="references">
+            <h2>References</h2>
+            <ul>
+                <li>Practical Chemistry for B.Sc Main - A.O. Thomas and Mani.</li>
+                <li>NCERT Laboratory Manual - Chemistry (Class XI & XII).</li>
+                <li>SITTTR Kerala Official Syllabus Revision 2021.</li>
+            </ul>
+        </section>
+
+        <section lang="ml" class="section">
+            <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+            <div class="card">
+                <p>ഈ ലാബ് പരീക്ഷയിൽ പ്രധാനമായും ശ്രദ്ധിക്കേണ്ട കാര്യങ്ങൾ:</p>
+                <ul>
+                    <li><strong>Original Solution (OS):</strong> ഉപ്പ് വെള്ളത്തിലോ ആസിഡിലോ പൂർണ്ണമായി ലയിപ്പിച്ച് വ്യക്തമായ ലായനി ഉണ്ടാക്കുക എന്നതാണ് ആദ്യ ഘട്ടം.</li>
+                    <li><strong>Group Separation:</strong> ഓരോ ഗ്രൂപ്പിലെയും റാഡിക്കലുകളെ ക്രമമായി വേർതിരിക്കണം. ഒരു ഗ്രൂപ്പ് ഒഴിവാക്കി അടുത്തതിലേക്ക് പോകരുത്.</li>
+                    <li><strong>Confirmatory Test:</strong> ഒരു റാഡിക്കൽ ഉണ്ടെന്ന് ഉറപ്പിക്കാൻ സിലബസിൽ പറയുന്ന നിശ്ചിത ടെസ്റ്റുകൾ തന്നെ ചെയ്യണം.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 2rem; color: var(--muted); font-size: 0.8rem;">
+        &copy; 2024 Polytechnic Learning Resource • Generated for Course 2079
+    </footer>
+</div>
+
+<script>
+    "use strict";
+
+    // Reading Progress Bar
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("readingProgress").style.width = scrolled + "%";
+    };
+
+    // Molarity Calculator
+    function calculateMolarity() {
+        const mass = parseFloat(document.getElementById('mass').value);
+        const molarMass = parseFloat(document.getElementById('molarMass').value);
+        const volume = parseFloat(document.getElementById('volume').value);
+        const resultDiv = document.getElementById('molarityResult');
+
+        if (isNaN(mass) || isNaN(molarMass) || isNaN(volume) || volume === 0) {
+            resultDiv.innerText = "Please enter valid numbers";
+            resultDiv.style.color = "var(--red)";
+            return;
+        }
+
+        // Molarity = (mass / molarMass) / (volume / 1000)
+        const molarity = (mass / molarMass) / (volume / 1000);
+        resultDiv.innerText = "Result: " + molarity.toFixed(4) + " M";
+        resultDiv.style.color = "var(--green)";
+    }
+
+    // Print functionality
+    function prepareForPrint() {
+        const details = document.querySelectorAll('details');
+        details.forEach(detail => detail.setAttribute('open', 'true'));
+        window.print();
+    }
+</script>
+
+</body>
+</html>
