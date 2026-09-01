@@ -1,8 +1,8 @@
 {
   "sourceRepository": "nandurpm/poly-pmna-pdf-files",
   "sourceBranch": "main",
-  "sourceCommit": "e3fda4ede7e75bc09857b0683522db6563e52e43",
-  "updatedAt": "2026-09-01T01:49:21.738646+00:00",
+  "sourceCommit": "8782a2bafa8b81e3e08c49a252a3d513bfad3ba8",
+  "updatedAt": "2026-09-01T02:00:36.670684+00:00",
   "changedFiles": [],
   "manifests": {
     "notes2021": "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/manifests/notes-2021.json",
@@ -10,7 +10,7 @@
   },
   "localManifestDirectory": "docs/pdf-archive/manifests",
   "publishedCounts": {
-    "notes2021": 158,
+    "notes2021": 159,
     "notes2026": 1222
   },
   "policy": "PDF files and manifests remain canonical in poly-pmna-pdf-files; consumers use the raw URLs above instead of copying binaries."
