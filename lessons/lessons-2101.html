@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2101 — Basics of Printing Processes">
+    <meta name="course-code" content="2101">
+    <meta name="course-title" content="Basics of Printing Processes">
+    <meta name="curriculum" content="REV2021">
+    <title>2101 — Basics of Printing Processes</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background: var(--soft);
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        main { padding: 2rem; }
+
+        .cover {
+            background: var(--navy);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        .cover h1 { margin: 0; font-size: 2.5rem; }
+        .badge-row { margin-top: 1rem; display: flex; justify-content: center; gap: 1rem; }
+        .badge { background: rgba(255,255,255,0.2); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; }
+
+        .jump-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 2rem 0;
+            background: var(--soft2);
+            padding: 1rem;
+            border-radius: var(--radius);
+        }
+
+        .jump-menu a {
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 600;
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: white;
+        }
+
+        .section { margin-bottom: 3rem; padding-top: 1rem; }
+        .module { border-left: 5px solid var(--blue); padding-left: 1.5rem; margin-bottom: 4rem; }
+        .module-head { color: var(--blue); border-bottom: 2px solid var(--soft2); padding-bottom: 0.5rem; }
+
+        .ml-note {
+            background: #fff9e6;
+            border-left: 4px solid var(--amber);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .topic-card {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .topic-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+
+        .diagram { text-align: center; margin: 2rem 0; background: #fff; padding: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        
+        .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 0.8rem; text-align: left; }
+        th { background: var(--soft2); }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+        .qa summary { padding: 1rem; background: var(--soft); cursor: pointer; font-weight: 600; }
+        .qa-body { padding: 1rem; background: white; }
+
+        .worked { background: #f0fff4; border: 1px solid #c6f6d5; padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        
+        .calculator { background: var(--navy); color: white; padding: 2rem; border-radius: var(--radius); margin: 2rem 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        .calc-grid input { padding: 0.5rem; border-radius: 4px; border: none; }
+        
+        .search-bar { width: 100%; padding: 1rem; border: 2px solid var(--blue); border-radius: 8px; margin-bottom: 1rem; font-size: 1.1rem; }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress, .search-bar { display: none; }
+            details { display: block !important; }
+            details summary { font-weight: bold; border-bottom: 1px solid #000; }
+            .lesson-shell { box-shadow: none; width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .cover h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <a data-notes-link data-pdf-code="2101" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2101" class="no-print" style="display: block; text-align: center; padding: 10px; background: var(--soft2); text-decoration: none; color: var(--blue); font-weight: bold;">Download Official Syllabus PDF</a>
+
+    <div class="lesson-shell">
+        <header class="cover">
+            <h1>Basics of Printing Processes</h1>
+            <div class="badge-row">
+                <span class="badge">Course Code: 2101</span>
+                <span class="badge">Semester: 2</span>
+                <span class="badge">Credits: 3</span>
+                <span class="badge">Rev: 2021</span>
+            </div>
+        </header>
+
+        <nav class="jump-menu no-print">
+            <a href="#course-dashboard">Overview</a>
+            <a href="#module-1">Module 1</a>
+            <a href="#module-2">Module 2</a>
+            <a href="#module-3">Module 3</a>
+            <a href="#module-4">Module 4</a>
+            <a href="#assessment">Q&A</a>
+            <a href="#model-paper">Model Paper</a>
+        </nav>
+
+        <main id="main-content">
+            <section id="course-dashboard" class="course-dashboard">
+                <h2 class="module-head">Course Overview</h2>
+                <div class="grid two">
+                    <div class="topic-card">
+                        <h3>Teaching Scheme</h3>
+                        <ul>
+                            <li>Lecture: 3 Hours/Week</li>
+                            <li>Tutorial: 0 Hours/Week</li>
+                            <li>Practical: 0 Hours/Week</li>
+                            <li>Total Periods: 45</li>
+                        </ul>
+                    </div>
+                    <div class="topic-card">
+                        <h3>Course Objectives</h3>
+                        <ul>
+                            <li>Understand stages of printing process.</li>
+                            <li>Learn working principles of conventional methods.</li>
+                            <li>Identify basic units of printing machines.</li>
+                            <li>Explore digital printing technologies.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes">
+                <h2 class="module-head">Course Outcomes (CO)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CO1</td>
+                                <td>Explain the stages of printing process.</td>
+                                <td>Understanding</td>
+                            </tr>
+                            <tr>
+                                <td>CO2</td>
+                                <td>Interpret basic types of printing processes.</td>
+                                <td>Understanding</td>
+                            </tr>
+                            <tr>
+                                <td>CO3</td>
+                                <td>Describe the workflow of Letterpress, Offset, Flexography and Gravure.</td>
+                                <td>Understanding</td>
+                            </tr>
+                            <tr>
+                                <td>CO4</td>
+                                <td>Describe features of screen-printing and Digital printing process.</td>
+                                <td>Understanding</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- MODULE 1 -->
+            <section id="module-1" class="module">
+                <h2 class="module-head">Module 1: Stages and History of Printing</h2>
+                <div class="module-meta">Duration: 10 Hours | CO1</div>
+                
+                <div class="topic-card">
+                    <h3>1.1 Definition of Printing</h3>
+                    <p>Printing is the process of reproducing text and images, typically with ink on paper using a print press. It is a mass-production industrial process and is an essential part of publishing and transaction printing.</p>
+                    <div class="ml-note">
+                        അക്ഷരങ്ങളും ചിത്രങ്ങളും മഷി ഉപയോഗിച്ച് പേപ്പറിലോ മറ്റ് പ്രതലങ്ങളിലോ പതിപ്പിക്കുന്ന പ്രക്രിയയാണ് പ്രിന്റിംഗ്.
+                    </div>
+                </div>
+
+                <div class="topic-card">
+                    <h3>1.2 History of Printing</h3>
+                    <p>The journey of printing evolved from manual techniques to high-speed digital systems:</p>
+                    <ul>
+                        <li><strong>Early Stone Prints:</strong> Ancient civilizations used seals and stones to stamp images.</li>
+                        <li><strong>Woodblock Printing:</strong> Originating in China, images were carved into wooden blocks.</li>
+                        <li><strong>Movable Type:</strong> Johannes Gutenberg (1440) revolutionized printing with metal movable type.</li>
+                        <li><strong>Industrial Revolution:</strong> Steam-powered presses increased speed significantly.</li>
+                        <li><strong>Modern Era:</strong> Introduction of Offset, Gravure, and Digital printing.</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card">
+                    <h3>1.3 Classification of Print Works</h3>
+                    <p>The printing workflow is divided into three major stages:</p>
+                    <div class="table-wrap">
+                        <table>
+                            <tr>
+                                <th>Stage</th>
+                                <th>Activities</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Prepress</strong></td>
+                                <td>Graphic design, typesetting, image assembly, plate making, color separation.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Press</strong></td>
+                                <td>The actual printing operation where ink is transferred to the substrate.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Postpress</strong></td>
+                                <td>Finishing works like cutting, folding, binding, laminating, and packaging.</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 2 -->
+            <section id="module-2" class="module">
+                <h2 class="module-head">Module 2: Basic Types of Printing Processes</h2>
+                <div class="module-meta">Duration: 11 Hours | CO2</div>
+
+                <div class="topic-card">
+                    <h3>2.1 Impact vs Non-Impact Printing</h3>
+                    <ul>
+                        <li><strong>Impact Printing:</strong> Uses mechanical pressure to transfer ink (e.g., Letterpress, Dot Matrix).</li>
+                        <li><strong>Non-Impact Printing:</strong> No physical contact between the print head and the substrate (e.g., Inkjet, Laser/Digital).</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card">
+                    <h3>2.2 Core Printing Principles</h3>
+                    <div class="grid two">
+                        <div class="topic-card">
+                            <h4>Relief Printing</h4>
+                            <p>The image area is <strong>raised</strong> above the non-image area. Examples: Letterpress, Flexography.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Planographic Printing</h4>
+                            <p>The image and non-image areas are on the <strong>same plane</strong>. Based on the principle that oil and water don't mix. Example: Offset.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Intaglio Printing</h4>
+                            <p>The image area is <strong>recessed</strong> or engraved into the surface. Example: Gravure.</p>
+                        </div>
+                        <div class="topic-card">
+                            <h4>Stencil Printing</h4>
+                            <p>Ink is pushed <strong>through</strong> a mesh or stencil. Example: Screen Printing.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MODULE 3 -->
+            <section id="module-3" class="module">
+                <h2 class="module-head">Module 3: Workflow and Functional Units</h2>
+                <div class="module-meta">Duration: 13 Hours | CO3</div>
+
+                <div class="topic-card">
+                    <h3>3.1 Offset Printing Units</h3>
+                    <p>Offset printing uses three main cylinders:</p>
+                    <ol>
+                        <li><strong>Plate Cylinder:</strong> Holds the printing plate.</li>
+                        <li><strong>Blanket Cylinder:</strong> A rubber cylinder that picks up the image from the plate.</li>
+                        <li><strong>Impression Cylinder:</strong> Presses the paper against the blanket cylinder.</li>
+                    </ol>
+                    <p><strong>Dampening System:</strong> Applies water to the non-image area.</p>
+                    <p><strong>Inking System:</strong> Applies ink to the image area.</p>
+                </div>
+
+                <div class="topic-card">
+                    <h3>3.2 Gravure Printing Units</h3>
+                    <ul>
+                        <li><strong>Gravure Cylinder:</strong> Engraved with tiny cells that hold ink.</li>
+                        <li><strong>Doctor Blade:</strong> Wipes excess ink from the non-image surface of the cylinder.</li>
+                        <li><strong>Impression Roller:</strong> Facilitates ink transfer to the substrate.</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card">
+                    <h3>3.3 Flexography Units</h3>
+                    <ul>
+                        <li><strong>Fountain Roller:</strong> Picks up ink from the reservoir.</li>
+                        <li><strong>Anilox Roller:</strong> A ceramic/metal roller that delivers a controlled amount of ink to the plate.</li>
+                        <li><strong>Plate Cylinder:</strong> Holds the flexible rubber/photopolymer plate.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- MODULE 4 -->
+            <section id="module-4" class="module">
+                <h2 class="module-head">Module 4: Screen and Digital Printing</h2>
+                <div class="module-meta">Duration: 9 Hours | CO4</div>
+
+                <div class="topic-card">
+                    <h3>4.1 Screen Printing Equipment</h3>
+                    <ul>
+                        <li><strong>Frames:</strong> Wooden, metal, or self-stretching frames.</li>
+                        <li><strong>Mesh Materials:</strong> Silk (traditional), Synthetic (nylon/polyester), or Stainless Steel.</li>
+                        <li><strong>Squeegee:</strong> A rubber blade used to force ink through the mesh.</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card">
+                    <h3>4.2 Substrates</h3>
+                    <p>Screen printing is versatile and can print on:</p>
+                    <ul>
+                        <li>Paper and Paperboard</li>
+                        <li>Textiles (T-shirts)</li>
+                        <li>Plastics, Metals, and Wood</li>
+                        <li>Ceramics and Glass</li>
+                    </ul>
+                </div>
+
+                <div class="topic-card">
+                    <h3>4.3 Digital Printing Basics</h3>
+                    <p>Digital printing eliminates the need for plates. Images are sent directly to the printer from digital files (PDF/TIFF). It is ideal for short runs and variable data printing.</p>
+                </div>
+            </section>
+
+            <section id="formula-bank" class="formula-bank">
+                <h2 class="module-head">Technical Calculations</h2>
+                <div class="worked">
+                    <strong>Concept: Resolution and DPI</strong>
+                    <p>In printing, resolution is measured in Dots Per Inch (DPI).</p>
+                    <p><strong>Formula:</strong> Total Pixels = Dimension (inches) × DPI</p>
+                    <hr>
+                    <strong>Example:</strong> Calculate the pixels required for a 4x6 inch photo at 300 DPI.
+                    <br>Width: 4 × 300 = 1200 px
+                    <br>Height: 6 × 300 = 1800 px
+                    <br>Total: 1200 × 1800 pixels.
+                </div>
+                
+                <div class="calculator no-print">
+                    <h3>Print Resolution Calculator</h3>
+                    <div class="calc-grid">
+                        <div>
+                            <label>Width (inches):</label>
+                            <input type="number" id="calcWidth" value="8">
+                        </div>
+                        <div>
+                            <label>DPI:</label>
+                            <input type="number" id="calcDPI" value="300">
+                        </div>
+                    </div>
+                    <p>Result: <span id="calcResult">2400</span> pixels</p>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library">
+                <h2 class="module-head">Process Diagrams</h2>
+                <div class="grid two">
+                    <figure class="diagram">
+                        <svg viewBox="0 0 100 60" role="img" aria-label="Relief Printing Principle">
+                            <rect width="100" height="60" fill="#f0f0f0" />
+                            <rect x="20" y="40" width="60" height="10" fill="#ccc" />
+                            <rect x="30" y="25" width="10" height="15" fill="var(--blue)" />
+                            <rect x="50" y="25" width="10" height="15" fill="var(--blue)" />
+                            <text x="50" y="15" text-anchor="middle" font-size="5">Raised Image Area (Relief)</text>
+                        </svg>
+                        <figcaption>Relief Printing: Raised surface holds ink.</figcaption>
+                    </figure>
+
+                    <figure class="diagram">
+                        <svg viewBox="0 0 100 60" role="img" aria-label="Intaglio Printing Principle">
+                            <rect width="100" height="60" fill="#f0f0f0" />
+                            <rect x="20" y="30" width="60" height="20" fill="#ccc" />
+                            <rect x="35" y="30" width="10" height="10" fill="white" />
+                            <rect x="55" y="30" width="10" height="10" fill="white" />
+                            <path d="M35 30 L35 40 L45 40 L45 30 Z" fill="var(--red)" />
+                            <text x="50" y="15" text-anchor="middle" font-size="5">Recessed Image Area (Intaglio)</text>
+                        </svg>
+                        <figcaption>Intaglio Printing: Recessed cells hold ink.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment">
+                <h2 class="module-head">Practice Questions</h2>
+                
+                <details class="qa">
+                    <summary>1. Define Printing. (2 Marks)</summary>
+                    <div class="qa-body">
+                        Printing is the industrial process for reproducing text and images using a master template or digital file, typically applying ink to paper or other substrates under pressure or via non-impact methods.
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>2. Differentiate between Prepress and Postpress. (5 Marks)</summary>
+                    <div class="qa-body">
+                        <strong>Prepress:</strong> Includes all steps before actual printing, such as design, typesetting, color separation, and plate making.
+                        <br><strong>Postpress:</strong> Includes all finishing steps after printing, such as cutting, folding, gathering, binding, and lamination.
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>3. Explain the principle of Offset printing. (5 Marks)</summary>
+                    <div class="qa-body">
+                        Offset printing is a planographic process based on the chemical principle that oil (ink) and water do not mix. The image and non-image areas are on the same plane. The image is first transferred from the plate to a rubber blanket and then to the paper.
+                    </div>
+                </details>
+            </section>
+
+            <section id="model-paper" class="model-paper">
+                <h2 class="module-head">Practice Model Paper</h2>
+                <div class="topic-card">
+                    <h4>Part A (Short Answer - 2 Marks each)</h4>
+                    <ol>
+                        <li>Name two mesh materials used in screen printing.</li>
+                        <li>What is the function of a Doctor Blade?</li>
+                        <li>Define Impact printing.</li>
+                    </ol>
+                    <h4>Part B (Medium Answer - 5 Marks each)</h4>
+                    <ol>
+                        <li>Explain the working of an Anilox roller in Flexography.</li>
+                        <li>List the advantages of Digital printing over conventional methods.</li>
+                    </ol>
+                    <h4>Part C (Long Answer - 10 Marks each)</h4>
+                    <ol>
+                        <li>Describe the three-cylinder system in an Offset printing machine with a diagram.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="quick-revision" class="quick-revision">
+                <h2 class="module-head">Quick Revision</h2>
+                <ul>
+                    <li><strong>Relief:</strong> Letterpress, Flexo (Raised).</li>
+                    <li><strong>Planography:</strong> Offset (Flat, Oil/Water).</li>
+                    <li><strong>Intaglio:</strong> Gravure (Recessed/Sunken).</li>
+                    <li><strong>Stencil:</strong> Screen (Through mesh).</li>
+                    <li><strong>Gutenberg:</strong> Father of modern printing (Movable type).</li>
+                    <li><strong>Blanket:</strong> Rubber cylinder in offset that makes the process "indirect".</li>
+                </ul>
+            </section>
+
+            <section id="glossary" class="glossary">
+                <h2 class="module-head">Glossary</h2>
+                <dl>
+                    <dt><strong>Substrate</strong></dt>
+                    <dd>The base material being printed on (e.g., paper, plastic).</dd>
+                    <dt><strong>Squeegee</strong></dt>
+                    <dd>Tool used in screen printing to spread ink.</dd>
+                    <dt><strong>Anilox</strong></dt>
+                    <dd>A cylinder used to provide measured ink to a flexo plate.</dd>
+                </dl>
+            </section>
+
+            <section id="official-source" class="official-source">
+                <h2 class="module-head">Official Source Declaration</h2>
+                <p>This content is based on the <strong>SITTTR Kerala Revision 2021</strong> syllabus for the course <strong>Basics of Printing Processes (2101)</strong>. The structure follows the official module distribution and course outcomes provided by the Department of Technical Education, Kerala.</p>
+            </section>
+
+            <section lang="ml" class="section">
+                <h2 class="module-head">മലയാളം പഠനസഹായം</h2>
+                <div class="ml-note">
+                    <strong>പ്രധാനപ്പെട്ട പോയിന്റുകൾ:</strong>
+                    <ul>
+                        <li>റിലീഫ് പ്രിന്റിംഗ്: അച്ചടിക്കേണ്ട ഭാഗം ഉയർന്നു നിൽക്കുന്നു.</li>
+                        <li>ഇന്റാഗ്ലിയോ: അച്ചടിക്കേണ്ട ഭാഗം കുഴിഞ്ഞ് ഇരിക്കുന്നു (ഉദാഹരണത്തിന് ഗ്രാാവൂർ).</li>
+                        <li>ഓഫ്സെറ്റ്: വെള്ളവും എണ്ണയും തമ്മിൽ കലരില്ല എന്ന തത്വത്തിൽ പ്രവർത്തിക്കുന്നു.</li>
+                        <li>സ്ക്രീൻ പ്രിന്റിംഗ്: ഒരു മെഷിലൂടെ മഷി കടത്തിവിട്ട് അച്ചടിക്കുന്നു.</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        "use strict";
+        (function() {
+            // Reading Progress
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Calculator logic
+            const widthInput = document.getElementById('calcWidth');
+            const dpiInput = document.getElementById('calcDPI');
+            const resultSpan = document.getElementById('calcResult');
+
+            function updateCalc() {
+                const w = parseFloat(widthInput.value) || 0;
+                const d = parseFloat(dpiInput.value) || 0;
+                resultSpan.innerText = Math.round(w * d);
+            }
+
+            widthInput.addEventListener('input', updateCalc);
+            dpiInput.addEventListener('input', updateCalc);
+
+            // Print functionality
+            window.onbeforeprint = function() {
+                const details = document.querySelectorAll('details');
+                details.forEach(detail => detail.setAttribute('open', 'true'));
+            };
+        })();
+    </script>
+</body>
+</html>
