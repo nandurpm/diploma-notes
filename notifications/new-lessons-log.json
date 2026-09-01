@@ -7532,6 +7532,13 @@
       "subjectName": "Communication Skills in English",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=1001#subject-1001"
+    },
+    "REV2021:2091:lessons/lessons-2091.html": {
+      "messageId": "projects/poly-pmna/messages/3943778345199226111",
+      "subjectCode": "2091",
+      "subjectName": "Fundamentals Of Polymer Science",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2091#subject-2091"
     }
   }
 }
