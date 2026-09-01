@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2008 — Communication Skills in English Lab">
+    <meta name="course-code" content="2008">
+    <meta name="course-title" content="Communication Skills in English Lab">
+    <meta name="curriculum" content="REV2021">
+    <title>2008 — Communication Skills in English Lab</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background: var(--soft);
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        header.cover {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        .badge-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+
+        section { padding: 3rem 2rem; border-bottom: 1px solid var(--line); }
+        h1, h2, h3 { color: var(--navy); }
+        
+        .module { 
+            margin: 2rem 0;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--paper);
+        }
+        .module-head {
+            background: var(--soft2);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--blue);
+        }
+
+        .ml-note {
+            background: #fff9e6;
+            border-left: 5px solid var(--amber);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked, .formula-card {
+            background: var(--soft);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            margin: 1rem 0;
+        }
+
+        .diagram { text-align: center; margin: 2rem 0; }
+        .diagram svg { max-width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
+
+        .table-wrap { overflow-x: auto; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft2); }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 1rem; font-weight: bold; cursor: pointer; background: var(--soft); }
+        .qa-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+        .search-bar { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 1rem; }
+
+        @media print {
+            .no-print { display: none; }
+            details { display: block !important; }
+            summary { font-weight: bold; }
+            .lesson-shell { box-shadow: none; }
+        }
+
+        .calculator {
+            background: var(--navy);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .calc-grid input { padding: 10px; border-radius: 5px; border: none; }
+        
+        .jump-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 1rem;
+            background: var(--soft2);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+        }
+        .jump-menu a {
+            text-decoration: none;
+            color: var(--blue);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border: 1px solid var(--blue);
+            border-radius: 5px;
+        }
+        .jump-menu a:hover { background: var(--blue); color: white; }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <div class="lesson-shell">
+        <header class="cover">
+            <div class="badge-row">
+                <span class="badge">REV 2021</span>
+                <span class="badge">CODE: 2008</span>
+                <span class="badge">SEM 2</span>
+            </div>
+            <h1>Communication Skills in English Lab</h1>
+            <p class="lead">Mastering Oral Communication, Listening Comprehension, and Professional Discourse for Diploma Engineers.</p>
+            <a data-notes-link data-pdf-code="2008" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2008" style="color: white; text-decoration: underline;">Official Syllabus Source</a>
+        </header>
+
+        <nav class="jump-menu no-print" aria-label="Lesson sections">
+            <a href="#course-dashboard">Overview</a>
+            <a href="#course-outcomes">Outcomes</a>
+            <a href="#module-1">M1: Pronunciation</a>
+            <a href="#module-2">M2: Listening</a>
+            <a href="#module-3">M3: Functions</a>
+            <a href="#module-4">M4: Narratives</a>
+            <a href="#assessment">Assessment</a>
+            <a href="#model-paper">Model Paper</a>
+            <a href="#glossary">Glossary</a>
+        </nav>
+
+        <main id="main-content">
+            <section id="official-source" class="official-source">
+                <h2>Official Source Declaration</h2>
+                <p>This educational resource is architected based on the official <strong>Revision 2021</strong> syllabus provided by the <strong>State Institute of Technical Teachers' Training and Research (SITTTR), Kalamassery</strong>. All course outcomes, module structures, and assessment patterns strictly adhere to the official document for Course Code 2008.</p>
+            </section>
+
+            <section id="course-dashboard" class="course-dashboard">
+                <h2>Course Overview</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Program</th><td>Diploma in Engineering & Technology / Commercial Practice / Management</td></tr>
+                        <tr><th>Course Title</th><td>Communication Skills in English Lab</td></tr>
+                        <tr><th>Course Code</th><td>2008</td></tr>
+                        <tr><th>Semester</th><td>2</td></tr>
+                        <tr><th>Credits</th><td>1.5</td></tr>
+                        <tr><th>Total Periods</th><td>45 (Practical: 3 periods/week)</td></tr>
+                        <tr><th>Prerequisite</th><td>1st Semester Course: "Communication Skills in English"</td></tr>
+                    </table>
+                </div>
+                <h3>Course Objectives</h3>
+                <ul>
+                    <li>Apply elements of grammar and vocabulary in formal and informal situations.</li>
+                    <li>Listen, identify, and comprehend main ideas and supporting details.</li>
+                    <li>Use language functions for technical and casual discourses.</li>
+                    <li>Develop fluent oral communication with correct pronunciation using multimedia tools.</li>
+                </ul>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes">
+                <h2>Course Outcomes (COs)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>CO1</td><td>Use words, phrases and sentences accurately and with correct pronunciation in real life situations</td><td>5 Hrs</td><td>Applying</td></tr>
+                            <tr><td>CO2</td><td>Listens to and comprehends the substance and central idea of simple narratives and descriptions.</td><td>10 Hrs</td><td>Analysing</td></tr>
+                            <tr><td>CO3</td><td>Use apt language functions while making statements, asking questions, giving instructions, and reporting events.</td><td>15 Hrs</td><td>Creating</td></tr>
+                            <tr><td>CO4</td><td>Narrate simple experiences and series of events to convey its essence and intention and present ideas coherently, confidently and with clarity in debates, discussions and interviews.</td><td>15 Hrs</td><td>Creating</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>CO-PO Mapping</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>CO</th><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th></tr>
+                        <tr><td>CO1</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>2</td><td>-</td></tr>
+                        <tr><td>CO2</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>1</td></tr>
+                        <tr><td>CO3</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>3</td><td>-</td></tr>
+                        <tr><td>CO4</td><td>-</td><td>-</td><td>-</td><td>-</td><td>-</td><td>3</td><td>-</td></tr>
+                    </table>
+                </div>
+            </section>
+
+            <section id="module-1" class="module">
+                <div class="module-head">
+                    <h2>Module 1: Pronunciation and Accuracy (CO1)</h2>
+                    <p><strong>Focus:</strong> I am all ears & Let me try</p>
+                </div>
+                <div class="module-body">
+                    <h3>M1.01: Phonetics, Stress, and Accent</h3>
+                    <p>Correct pronunciation is the foundation of effective communication. In this module, students focus on the International Phonetic Alphabet (IPA), word stress, and rhythm.</p>
+                    
+                    <div class="worked">
+                        <strong>Key Concept: Word Stress</strong><br>
+                        In English, one syllable in a word is pronounced more forcefully than others.
+                        <ul>
+                            <li><strong>Nouns (2 syllables):</strong> Stress usually on 1st syllable (e.g., <u>OB</u>ject, <u>PRE</u>sent).</li>
+                            <li><strong>Verbs (2 syllables):</strong> Stress usually on 2nd syllable (e.g., ob<u>JECT</u>, pre<u>SENT</u>).</li>
+                        </ul>
+                    </div>
+
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        ഇംഗ്ലീഷ് വാക്കുകൾ ഉച്ചരിക്കുമ്പോൾ ചില അക്ഷരങ്ങളിൽ (syllables) കൂടുതൽ ഊന്നൽ നൽകേണ്ടതുണ്ട്. ഇതിനെയാണ് 'Stress' എന്ന് പറയുന്നത്. ശരിയായ രീതിയിൽ വാക്കുകൾ ഉച്ചരിക്കാൻ ഇത് അത്യാവശ്യമാണ്.
+                    </div>
+
+                    <h3>M1.02: Real-life Usage</h3>
+                    <p>Applying vocabulary and phrases in daily contexts. This includes greetings, introductions, and polite expressions.</p>
+                    <ul>
+                        <li><strong>Greeting:</strong> "Good morning, how can I help you today?"</li>
+                        <li><strong>Apologizing:</strong> "I sincerely apologize for the delay in the report."</li>
+                        <li><strong>Requesting:</strong> "Could you please clarify the technical specifications?"</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="module-2" class="module">
+                <div class="module-head">
+                    <h2>Module 2: Listening Comprehension (CO2)</h2>
+                    <p><strong>Focus:</strong> Listening to Narratives and Descriptions</p>
+                </div>
+                <div class="module-body">
+                    <h3>M2.01: Active Listening</h3>
+                    <p>Listening is not just hearing; it is understanding the speaker's intent. Students practice listening to:</p>
+                    <ul>
+                        <li>Technical descriptions of machinery.</li>
+                        <li>Narratives of industrial accidents or success stories.</li>
+                        <li>Casual conversations between colleagues.</li>
+                    </ul>
+
+                    <h3>M2.02: Gist and Discourse Conversion</h3>
+                    <p>After listening, the student must be able to extract the "Gist" (the main point) and convert the information into other forms like a written summary or a flow chart.</p>
+                    
+                    <div class="tip">
+                        <strong>Listening Tip:</strong> Look for "Signpost Words" like <em>Firstly, However, In conclusion, Therefore</em>. These words tell you where the speaker is going.
+                    </div>
+                </div>
+            </section>
+
+            <section id="module-3" class="module">
+                <div class="module-head">
+                    <h2>Module 3: Language Functions & Role Play (CO3)</h2>
+                    <p><strong>Focus:</strong> Workplace Situations and Functional English</p>
+                </div>
+                <div class="module-body">
+                    <h3>M3.01: Workplace Role-play</h3>
+                    <p>Students simulate real-world engineering scenarios. Examples include:</p>
+                    <ul>
+                        <li>Explaining a circuit diagram to a supervisor.</li>
+                        <li>Reporting a fault in the production line.</li>
+                        <li>Handling a customer complaint about a faulty device.</li>
+                    </ul>
+
+                    <h3>M3.02: Essential Language Functions</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <tr><th>Function</th><th>Example Phrase</th></tr>
+                            <tr><td>Giving Instructions</td><td>"First, ensure the power is off. Then, connect the red wire..."</td></tr>
+                            <tr><td>Asking Questions</td><td>"Could you explain why the pressure is dropping?"</td></tr>
+                            <tr><td>Reporting Events</td><td>"The incident occurred at 10 AM due to a short circuit."</td></tr>
+                            <tr><td>Making Statements</td><td>"The new design increases efficiency by 15%."</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section id="module-4" class="module">
+                <div class="module-head">
+                    <h2>Module 4: Professional Speaking (CO4)</h2>
+                    <p><strong>Focus:</strong> Debates, Discussions, and Interviews</p>
+                </div>
+                <div class="module-body">
+                    <h3>M4.01: Narrating Experiences</h3>
+                    <p>Sharing personal or professional experiences using correct tense and grammar. 
+                    <em>Example:</em> "During my internship, I encountered a major software bug..."</p>
+
+                    <h3>M4.02: Debates and Interviews</h3>
+                    <p>This is the peak of the course, focusing on confidence and clarity.</p>
+                    <ul>
+                        <li><strong>Group Discussion (GD):</strong> Practicing turn-taking, agreeing/disagreeing politely, and summarizing.</li>
+                        <li><strong>Interviews:</strong> Preparing for technical and HR interviews using the <strong>STAR</strong> method (Situation, Task, Action, Result).</li>
+                    </ul>
+
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        ഇന്റർവ്യൂകളിലും ഗ്രൂപ്പ് ഡിസ്കഷനുകളിലും ആത്മവിശ്വാസത്തോടെ സംസാരിക്കാൻ ഈ ഭാഗം സഹായിക്കുന്നു. കാര്യങ്ങൾ വ്യക്തമായും കൃത്യമായും അവതരിപ്പിക്കാൻ ശീലിക്കുക.
+                    </div>
+                </div>
+            </section>
+
+            <section id="formula-bank" class="formula-bank">
+                <h2>Patterns and Structures Bank</h2>
+                <div class="grid two">
+                    <div class="formula-card">
+                        <h3>The STAR Method (For Interviews)</h3>
+                        <p><strong>S:</strong> Situation (Context)</p>
+                        <p><strong>T:</strong> Task (What needed to be done)</p>
+                        <p><strong>A:</strong> Action (What you specifically did)</p>
+                        <p><strong>R:</strong> Result (The outcome)</p>
+                    </div>
+                    <div class="formula-card">
+                        <h3>Giving Instructions (Imperative)</h3>
+                        <p><strong>Pattern:</strong> [Verb] + [Object] + [Adverbial]</p>
+                        <p><em>Example:</em> "Insert the disc carefully into the slot."</p>
+                    </div>
+                </div>
+
+                <h3>Speaking Rate Calculator</h3>
+                <div class="calculator">
+                    <p>Calculate your words per minute (WPM) to check if you are speaking too fast or too slow (Ideal: 130-160 WPM).</p>
+                    <div class="calc-grid">
+                        <div>
+                            <label>Total Words Spoken:</label><br>
+                            <input type="number" id="wordCount" placeholder="e.g. 300">
+                        </div>
+                        <div>
+                            <label>Time Taken (Seconds):</label><br>
+                            <input type="number" id="timeSeconds" placeholder="e.g. 120">
+                        </div>
+                    </div>
+                    <button onclick="calcWPM()" style="margin-top: 15px; padding: 10px 20px; cursor: pointer;">Calculate WPM</button>
+                    <p id="wpmResult" style="margin-top: 15px; font-weight: bold; font-size: 1.2rem;"></p>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library">
+                <h2>Visual Library</h2>
+                <div class="diagram">
+                    <figure>
+                        <svg viewBox="0 0 400 200" role="img" aria-label="Communication Process Diagram">
+                            <rect x="10" y="70" width="80" height="60" rx="5" fill="var(--soft2)" stroke="var(--navy)" />
+                            <text x="50" y="105" text-anchor="middle" font-size="12">Sender</text>
+                            
+                            <line x1="90" y1="100" x2="310" y2="100" stroke="var(--navy)" stroke-width="2" marker-end="url(#arrow)" />
+                            <text x="200" y="90" text-anchor="middle" font-size="12">Message / Channel</text>
+                            
+                            <rect x="310" y="70" width="80" height="60" rx="5" fill="var(--soft2)" stroke="var(--navy)" />
+                            <text x="350" y="105" text-anchor="middle" font-size="12">Receiver</text>
+                            
+                            <path d="M 350 130 Q 200 180 50 130" fill="none" stroke="var(--blue)" stroke-width="2" stroke-dasharray="5,5" />
+                            <text x="200" y="175" text-anchor="middle" font-size="12" fill="var(--blue)">Feedback Loop</text>
+                            
+                            <defs>
+                                <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                  <path d="M0,0 L0,6 L9,3 z" fill="var(--navy)" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <figcaption>The Communication Cycle: Sender, Message, Receiver, and Feedback.</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment">
+                <h2>Module-wise Practice Questions</h2>
+                
+                <details class="qa">
+                    <summary>CO1: Pronounce the following words with correct stress: 'Conduct' (Noun) vs 'Conduct' (Verb).</summary>
+                    <div class="qa-body">
+                        <strong>Noun:</strong> <u>CON</u>-duct (Stress on first syllable).<br>
+                        <strong>Verb:</strong> con-<u>DUCT</u> (Stress on second syllable).
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>CO2: While listening to a technical lecture, what are three things you should note down?</summary>
+                    <div class="qa-body">
+                        1. The main topic or definition.<br>
+                        2. Key technical specifications or numerical data.<br>
+                        3. Steps in a process or sequence of operation.
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>CO3: Role Play - You are an engineer reporting a machine failure to your manager. What language functions will you use?</summary>
+                    <div class="qa-body">
+                        <strong>Reporting:</strong> "I am reporting that Lathe Machine #4 stopped working at 9 AM."<br>
+                        <strong>Stating Cause:</strong> "The cause appears to be a motor burnout."<br>
+                        <strong>Suggesting:</strong> "I suggest we call the maintenance team immediately."
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>CO4: What is the purpose of a Group Discussion in a professional setting?</summary>
+                    <div class="qa-body">
+                        The purpose is to exchange ideas, solve a problem, or reach a consensus while demonstrating teamwork, leadership, and communication skills.
+                    </div>
+                </details>
+            </section>
+
+            <section id="model-paper" class="model-paper">
+                <h2>Practice Model Paper</h2>
+                <div class="worked">
+                    <h3>Lab Exam Structure (1.5 Hours)</h3>
+                    <p><strong>Part A: Listening (20 Marks)</strong><br>Listen to an audio clip and answer 10 MCQ/Short answer questions.</p>
+                    <p><strong>Part B: Speaking (20 Marks)</strong><br>Role play or individual presentation on a given technical topic.</p>
+                    <p><strong>Part C: Group Activity (10 Marks)</strong><br>Participate in a 5-minute group discussion on a current technical trend.</p>
+                </div>
+            </section>
+
+            <section id="quick-revision" class="quick-revision">
+                <h2>Quick Revision</h2>
+                <ul>
+                    <li><strong>IPA:</strong> International Phonetic Alphabet helps in standardizing pronunciation.</li>
+                    <li><strong>Intonation:</strong> The rise and fall of voice in speaking (Falling for statements, Rising for Yes/No questions).</li>
+                    <li><strong>Active Listening:</strong> Involves paying attention, showing that you are listening, and providing feedback.</li>
+                    <li><strong>Soft Skills:</strong> Eye contact, body language, and tone are as important as words.</li>
+                </ul>
+            </section>
+
+            <section id="glossary" class="glossary">
+                <h2>Glossary</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr><td><strong>Accent</strong></td><td>A distinctive way of pronouncing a language, especially one associated with a particular country or social class.</td></tr>
+                        <tr><td><strong>Gist</strong></td><td>The substance or general meaning of a speech or text.</td></tr>
+                        <tr><td><strong>Discourse</strong></td><td>Written or spoken communication or debate.</td></tr>
+                        <tr><td><strong>Phonetics</strong></td><td>The study and classification of speech sounds.</td></tr>
+                        <tr><td><strong>STAR Method</strong></td><td>A structured manner of responding to a behavioral-based interview question.</td></tr>
+                    </table>
+                </div>
+            </section>
+
+            <section lang="ml" class="ml-note">
+                <h2>മലയാളം പഠനസഹായം</h2>
+                <p>ഈ ലാബ് കോഴ്സ് പ്രധാനമായും നാല് കാര്യങ്ങളിലാണ് ശ്രദ്ധ കേന്ദ്രീകരിക്കുന്നത്:</p>
+                <ol>
+                    <li><strong>ഉച്ചാരണം (Pronunciation):</strong> വാക്കുകൾ ശരിയായ രീതിയിൽ ശബ്ദമുണ്ടാക്കി പറയുക.</li>
+                    <li><strong>ശ്രദ്ധിച്ചു കേൾക്കുക (Listening):</strong> മറ്റൊരാൾ പറയുന്നത് കേട്ട് അതിലെ പ്രധാന കാര്യങ്ങൾ മനസ്സിലാക്കുക.</li>
+                    <li><strong>പ്രയോഗം (Language Functions):</strong> നിർദ്ദേശങ്ങൾ നൽകാനും, ചോദ്യങ്ങൾ ചോദിക്കാനും, കാര്യങ്ങൾ റിപ്പോർട്ട് ചെയ്യാനും പഠിക്കുക.</li>
+                    <li><strong>അവതരണം (Presentation):</strong> ഇന്റർവ്യൂകളിലും ചർച്ചകളിലും ആത്മവിശ്വാസത്തോടെ പങ്കെടുക്കുക.</li>
+                </ol>
+            </section>
+        </main>
+
+        <footer style="padding: 2rem; text-align: center; background: var(--soft2); font-size: 0.9rem;">
+            <p>© 2024 Polytechnic Curriculum Support | Generated for Course 2008 (REV2021)</p>
+            <button onclick="window.print()" class="no-print" style="padding: 10px 20px; background: var(--blue); color: white; border: none; border-radius: 5px; cursor: pointer;">Print Full Lesson</button>
+        </footer>
+    </div>
+
+    <script>
+        "use strict";
+        
+        // Reading Progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        };
+
+        // WPM Calculator
+        function calcWPM() {
+            const words = document.getElementById('wordCount').value;
+            const seconds = document.getElementById('timeSeconds').value;
+            const resultArea = document.getElementById('wpmResult');
+
+            if(words > 0 && seconds > 0) {
+                const wpm = Math.round((words / seconds) * 60);
+                let feedback = "";
+                if(wpm < 130) feedback = " (A bit slow. Try to be more fluent.)";
+                else if(wpm > 170) feedback = " (A bit fast. Ensure clarity.)";
+                else feedback = " (Perfect professional pace!)";
+                
+                resultArea.innerHTML = "Your Speaking Rate: " + wpm + " WPM" + feedback;
+                resultArea.style.color = (wpm >= 130 && wpm <= 170) ? "var(--green)" : "var(--amber)";
+            } else {
+                resultArea.innerHTML = "Please enter valid numbers.";
+                resultArea.style.color = "var(--red)";
+            }
+        }
+
+        // Search Functionality (Basic)
+        console.log("Communication Skills Lab Lesson Loaded.");
+    </script>
+</body>
+</html>
