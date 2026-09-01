@@ -202,7 +202,7 @@
       };
     }
     return {
-      lessonHref: `${relativeRoot}lessons/lessons-${code}.html`,
+      lessonHref: `${relativeRoot}lessons.html?revision=2021&code=${code}#subject-${code}`,
       notesHref: `${relativeRoot}notes/downloadable-notes-${code}.pdf`
     };
   }

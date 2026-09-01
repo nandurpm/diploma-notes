@@ -9,10 +9,16 @@
   <script>
   (() => {
     const path = window.location.pathname;
-    const match = path.match(/^\/(revision-2026-content\/notes|notes)\/downloadable-notes-([A-Za-z0-9_-]+)\.pdf$/i);
-    if (!match) return;
-    const folder = match[1].toLowerCase().startsWith('revision-2026') ? '/revision-2026-content/lessons/' : '/lessons/';
-    const code = match[2].toUpperCase();
+    const lessonMatch = path.match(/^\/lessons\/lessons-([A-Za-z0-9]+)\.html$/i);
+    if (lessonMatch) {
+      const code = lessonMatch[1].toUpperCase();
+      window.location.replace(`/lessons.html?revision=2021&code=${encodeURIComponent(code)}#subject-${encodeURIComponent(code)}`);
+      return;
+    }
+    const notesMatch = path.match(/^\/(revision-2026-content\/notes|notes)\/downloadable-notes-([A-Za-z0-9_-]+)\.pdf$/i);
+    if (!notesMatch) return;
+    const folder = notesMatch[1].toLowerCase().startsWith('revision-2026') ? '/revision-2026-content/lessons/' : '/lessons/';
+    const code = notesMatch[2].toUpperCase();
     window.location.replace(`${folder}lessons-${encodeURIComponent(code)}.html?autoPrintNotes=1`);
   })();
   </script>
