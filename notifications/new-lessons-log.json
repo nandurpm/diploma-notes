@@ -7518,6 +7518,13 @@
       "subjectName": "Electronic Instrumentation",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2081.html"
+    },
+    "REV2021:2089:lessons/lessons-2089.html": {
+      "messageId": "projects/poly-pmna/messages/401334405257398130",
+      "subjectCode": "2089",
+      "subjectName": "Electronic Instrumentation Lab",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2089.html"
     }
   }
 }
