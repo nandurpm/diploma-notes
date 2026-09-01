@@ -45,15 +45,20 @@ export function rejectUnknownKeys(value, allowed, field = "request") {
   return value;
 }
 
-function safeLogValue(value, depth = 0) {
+export function safeLogValue(value, depth = 0) {
   if (depth > 2 || value === null || value === undefined) return undefined;
   if (typeof value === "boolean" || typeof value === "number") return value;
-  if (typeof value === "string") return cleanText(value, 240);
+  if (typeof value === "string") {
+    return cleanText(value, 240)
+      .replace(/Bearer\s+[A-Za-z0-9._~+/-]+=*/gi, "Bearer [REDACTED]")
+      .replace(/(?:sk|sb|pk)_(?:live|test|proj|publishable|service)?_[A-Za-z0-9_-]{10,}/gi, "[REDACTED_KEY]")
+      .replace(/-----BEGIN [A-Z ]+-----[\s\S]*?-----END [A-Z ]+-----/g, "[REDACTED_PEM]");
+  }
   if (Array.isArray(value)) return value.slice(0, 10).map((item) => safeLogValue(item, depth + 1));
   if (typeof value === "object") {
     const output = {};
     for (const [key, item] of Object.entries(value).slice(0, 30)) {
-      if (/(authorization|token|password|secret|api.?key|cookie|email|body|prompt)/i.test(key)) {
+      if (/(authorization|auth|token|jwt|bearer|password|passcode|secret|api.?key|private.?key|credential|cookie|email|body|prompt|session)/i.test(key)) {
         output[key] = "[REDACTED]";
       } else {
         const safe = safeLogValue(item, depth + 1);
