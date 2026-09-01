@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2141 — Business Statistics. Revision 2021.">
+    <meta name="course-code" content="2141">
+    <meta name="course-title" content="Business Statistics">
+    <meta name="curriculum" content="REV2021">
+    <title>2141 — Business Statistics</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--soft);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        main { padding: 2rem; }
+
+        .cover {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        .cover h1 { font-size: 2.5rem; margin: 0; }
+        .cover p { opacity: 0.9; font-size: 1.2rem; }
+
+        .section { margin-bottom: 3rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+        .module { margin-bottom: 4rem; }
+        
+        .module-head {
+            background: var(--soft2);
+            padding: 1.5rem;
+            border-left: 5px solid var(--blue);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .grid { display: grid; gap: 1.5rem; margin: 1.5rem 0; }
+        .two { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+
+        .card {
+            background: var(--paper);
+            padding: 1.5rem;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); }
+
+        .ml-note {
+            font-family: var(--mal);
+            background: #fff9e6;
+            border: 1px solid #ffeeba;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .formula-card {
+            background: var(--navy);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: "Courier New", monospace;
+            font-size: 1.2rem;
+        }
+
+        .worked {
+            background: #f0fdf4;
+            border-left: 4px solid var(--green);
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            border: 1px solid var(--line);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th { background: var(--soft2); }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 1rem; font-weight: bold; cursor: pointer; background: var(--soft); }
+        .qa-body { padding: 1rem; background: white; }
+
+        .diagram { text-align: center; margin: 2rem 0; }
+        .diagram svg { max-width: 100%; height: auto; background: white; border: 1px solid var(--line); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-right: 0.5rem;
+        }
+        .badge-theory { background: var(--blue); color: white; }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--line);
+            border-radius: 30px;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        @media print {
+            .no-print, .reading-progress, .search-bar, .jump-menu { display: none; }
+            details { display: block !important; }
+            details summary { font-weight: bold; border-bottom: 1px solid #000; }
+            .lesson-shell { box-shadow: none; width: 100%; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+    <header class="cover">
+        <div class="badge-row">
+            <span class="badge badge-theory">Foundation Course</span>
+            <span class="badge" style="background:var(--teal); color:white;">REV2021</span>
+        </div>
+        <h1>Business Statistics</h1>
+        <p>Course Code: 2141 | Semester: 2 | Credits: 3</p>
+    </header>
+
+    <a data-notes-link data-pdf-code="2141" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2141" style="display:block; text-align:center; padding: 1rem; color: var(--blue); text-decoration: none; font-weight: bold;">[Download Official Syllabus PDF]</a>
+
+    <main id="main-content">
+        <input type="text" id="lessonSearch" class="search-bar no-print" placeholder="Search for topics, formulas, or questions...">
+
+        <section id="course-dashboard" class="course-dashboard section">
+            <h2>Course Overview</h2>
+            <div class="grid two">
+                <div class="card">
+                    <h3>Teaching Scheme</h3>
+                    <ul>
+                        <li><strong>Lecture (L):</strong> 2 Hours/Week</li>
+                        <li><strong>Tutorial (T):</strong> 0 Hours/Week</li>
+                        <li><strong>Practical (P):</strong> 2 Hours/Week</li>
+                        <li><strong>Total Periods:</strong> 60 per Semester</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Course Objectives</h3>
+                    <ul>
+                        <li>Thorough knowledge in basic concepts of statistics, classification, and tabulation.</li>
+                        <li>Skill in applying statistical tools to interpret business problems.</li>
+                        <li>Understanding graphical representation and data analysis.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="course-outcomes" class="course-outcomes section">
+            <h2>Course Outcomes (COs)</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO No.</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Cognitive Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO1</td>
+                            <td>Explain basic concepts, classification, tabulation, and presentation of data.</td>
+                            <td>13 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO2</td>
+                            <td>Apply measures of central value and dispersion.</td>
+                            <td>19 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO3</td>
+                            <td>Create relationship between variables by means of correlation and regression.</td>
+                            <td>12 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO4</td>
+                            <td>Construct and compare index numbers.</td>
+                            <td>14 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MODULE 1 -->
+        <section class="module" id="module-1">
+            <div class="module-head">
+                <h2>Module 1: Basic Concepts of Statistics</h2>
+                <p>Duration: 13 Hours | CO1</p>
+            </div>
+
+            <details class="topic" open>
+                <summary>1.1 Meaning and Functions of Statistics</summary>
+                <div class="topic-body">
+                    <p>Statistics is the science of collecting, organizing, analyzing, interpreting, and presenting data. In a business context, it provides a numerical basis for decision-making.</p>
+                    <h3>Functions of Statistics:</h3>
+                    <ul>
+                        <li><strong>Simplification:</strong> It simplifies complex data into understandable forms (averages, percentages).</li>
+                        <li><strong>Comparison:</strong> It helps in comparing data across different time periods or regions.</li>
+                        <li><strong>Policy Formulation:</strong> Helps governments and businesses frame policies based on trends.</li>
+                        <li><strong>Forecasting:</strong> Predicting future trends based on past data.</li>
+                    </ul>
+                    <div class="ml-note">
+                        <strong>Malayalam Note:</strong> സ്റ്റാറ്റിസ്റ്റിക്സ് എന്നാൽ വിവരങ്ങൾ ശേഖരിക്കുകയും, അവയെ ക്രമീകരിക്കുകയും, വിശകലനം ചെയ്യുകയും ചെയ്യുന്ന ശാസ്ത്രമാണ്. ബിസിനസ്സ് തീരുമാനങ്ങൾ എടുക്കുന്നതിന് ഇത് സഹായിക്കുന്നു.
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>1.2 Types of Data and Collection Methods</summary>
+                <div class="topic-body">
+                    <div class="grid two">
+                        <div class="card">
+                            <h4>Primary Data</h4>
+                            <p>Data collected for the first time by the investigator for a specific purpose.</p>
+                            <ul>
+                                <li>Direct Personal Interview</li>
+                                <li>Mailed Questionnaires</li>
+                                <li>Telephone Interviews</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>Secondary Data</h4>
+                            <p>Data which has already been collected by someone else and processed.</p>
+                            <ul>
+                                <li>Government Publications (Census)</li>
+                                <li>Journals and Reports</li>
+                                <li>Websites and Newspapers</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>1.3 Classification and Tabulation</summary>
+                <div class="topic-body">
+                    <p><strong>Classification:</strong> The process of arranging data into groups or classes according to common characteristics.</p>
+                    <ul>
+                        <li>Geographical (Area-wise)</li>
+                        <li>Chronological (Time-wise)</li>
+                        <li>Qualitative (Attributes like gender, literacy)</li>
+                        <li>Quantitative (Numerical values like height, weight)</li>
+                    </ul>
+                    <p><strong>Tabulation:</strong> Logical and systematic arrangement of statistical data in columns and rows.</p>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>1.4 Graphical Representation</summary>
+                <div class="topic-body">
+                    <p>Visual representation helps in quick understanding of data distribution.</p>
+                    <ul>
+                        <li><strong>Histogram:</strong> A set of rectangles with bases as class intervals and heights proportional to frequencies.</li>
+                        <li><strong>Frequency Polygon:</strong> Formed by joining the mid-points of the tops of the rectangles in a histogram.</li>
+                        <li><strong>Ogive (Cumulative Frequency Curve):</strong> Used to find the median. There are two types: "Less than" and "More than".</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODULE 2 -->
+        <section class="module" id="module-2">
+            <div class="module-head">
+                <h2>Module 2: Measures of Central Value & Dispersion</h2>
+                <p>Duration: 19 Hours | CO2</p>
+            </div>
+
+            <details class="topic" open>
+                <summary>2.1 Measures of Central Value (Averages)</summary>
+                <div class="topic-body">
+                    <p>An average is a single value that represents the entire set of data.</p>
+                    <div class="grid two">
+                        <div class="card">
+                            <h4>Arithmetic Mean</h4>
+                            <p>Sum of all observations divided by the number of observations.</p>
+                            <div class="formula-card">Mean (x̄) = Σx / n</div>
+                        </div>
+                        <div class="card">
+                            <h4>Median</h4>
+                            <p>The middle value of the data when arranged in ascending or descending order.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Mode</h4>
+                            <p>The value that occurs most frequently in the data set.</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>2.2 Measures of Dispersion</summary>
+                <div class="topic-body">
+                    <p>Dispersion measures the extent to which data items are scattered around the central value.</p>
+                    <h3>Standard Deviation (σ)</h3>
+                    <p>The square root of the arithmetic mean of the squares of deviations from the arithmetic mean.</p>
+                    <div class="formula-card">σ = √[ Σ(x - x̄)² / n ]</div>
+                    
+                    <div class="worked">
+                        <strong>Example:</strong> Calculate Mean and SD for 2, 4, 6.
+                        <br><strong>Mean:</strong> (2+4+6)/3 = 4.
+                        <br><strong>Deviations (x-x̄):</strong> -2, 0, 2.
+                        <br><strong>Squares:</strong> 4, 0, 4. Sum = 8.
+                        <br><strong>SD:</strong> √(8/3) ≈ 1.63.
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODULE 3 -->
+        <section class="module" id="module-3">
+            <div class="module-head">
+                <h2>Module 3: Correlation and Regression Analysis</h2>
+                <p>Duration: 12 Hours | CO3</p>
+            </div>
+
+            <details class="topic" open>
+                <summary>3.1 Correlation Analysis</summary>
+                <div class="topic-body">
+                    <p>Correlation studies the relationship between two variables. If change in one variable results in a change in the other, they are correlated.</p>
+                    <ul>
+                        <li><strong>Positive Correlation:</strong> Both move in the same direction (e.g., Price and Supply).</li>
+                        <li><strong>Negative Correlation:</strong> Move in opposite directions (e.g., Price and Demand).</li>
+                    </ul>
+                    <h4>Karl Pearson’s Coefficient of Correlation (r)</h4>
+                    <div class="formula-card">r = Σxy / √(Σx² * Σy²)</div>
+                    <p>Where x = (X - X̄) and y = (Y - Ȳ).</p>
+                    <div class="ml-note">
+                        <strong>Malayalam Note:</strong> രണ്ട് വേരിയബിളുകൾ തമ്മിലുള്ള ബന്ധത്തെയാണ് കോറിലേഷൻ എന്ന് പറയുന്നത്. 'r' ന്റെ വില -1 നും +1 നും ഇടയിലായിരിക്കും.
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>3.2 Regression Analysis</summary>
+                <div class="topic-body">
+                    <p>Regression is used to estimate the value of one variable (dependent) based on the value of another (independent).</p>
+                    <ul>
+                        <li><strong>Regression Line of Y on X:</strong> Y - Ȳ = b<sub>yx</sub>(X - X̄)</li>
+                        <li><strong>Regression Line of X on Y:</strong> X - X̄ = b<sub>xy</sub>(Y - Ȳ)</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODULE 4 -->
+        <section class="module" id="module-4">
+            <div class="module-head">
+                <h2>Module 4: Index Numbers</h2>
+                <p>Duration: 14 Hours | CO4</p>
+            </div>
+
+            <details class="topic" open>
+                <summary>4.1 Construction of Index Numbers</summary>
+                <div class="topic-body">
+                    <p>Index numbers are specialized averages used to measure changes in a variable (like price) over time.</p>
+                    <div class="grid two">
+                        <div class="card">
+                            <h4>Laspeyres' Index</h4>
+                            <p>Uses base year quantities (q₀) as weights.</p>
+                            <div class="formula-card">P₀₁ = [Σp₁q₀ / Σp₀q₀] × 100</div>
+                        </div>
+                        <div class="card">
+                            <h4>Paasche's Index</h4>
+                            <p>Uses current year quantities (q₁) as weights.</p>
+                            <div class="formula-card">P₀₁ = [Σp₁q₁ / Σp₀q₁] × 100</div>
+                        </div>
+                    </div>
+                    <h4>Fisher's Ideal Index</h4>
+                    <p>Geometric mean of Laspeyres and Paasche index.</p>
+                    <div class="formula-card">Fisher = √(Laspeyres × Paasche)</div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>4.2 Tests of Adequacy</summary>
+                <div class="topic-body">
+                    <ul>
+                        <li><strong>Time Reversal Test:</strong> P₀₁ × P₁₀ = 1</li>
+                        <li><strong>Factor Reversal Test:</strong> P₀₁ × Q₀₁ = Σp₁q₁ / Σp₀q₀</li>
+                    </ul>
+                    <p>Fisher's Index satisfies both tests, hence it is called "Ideal".</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="formula-bank" class="formula-bank section">
+            <h2>Formula Bank</h2>
+            <div class="grid two">
+                <div class="card">
+                    <h4>Central Tendency</h4>
+                    <ul>
+                        <li>Mean: Σx / n</li>
+                        <li>Weighted Mean: Σwx / Σw</li>
+                        <li>Combined Mean: (n₁x̄₁ + n₂x̄₂) / (n₁ + n₂)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4>Dispersion & Correlation</h4>
+                    <ul>
+                        <li>Standard Deviation: √[Σ(x-x̄)² / n]</li>
+                        <li>Karl Pearson r: Σxy / √(Σx² * Σy²)</li>
+                        <li>Spearman's Rank: 1 - [6ΣD² / n(n²-1)]</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="visual-library" class="visual-library section">
+            <h2>Visual Library</h2>
+            <div class="diagram-grid grid two">
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 60" role="img" aria-label="Histogram Diagram">
+                        <rect x="10" y="40" width="15" height="20" fill="var(--blue)" stroke="white"/>
+                        <rect x="25" y="20" width="15" height="40" fill="var(--blue)" stroke="white"/>
+                        <rect x="40" y="10" width="15" height="50" fill="var(--blue)" stroke="white"/>
+                        <rect x="55" y="30" width="15" height="30" fill="var(--blue)" stroke="white"/>
+                        <line x1="5" y1="60" x2="95" y2="60" stroke="black" stroke-width="1"/>
+                        <line x1="5" y1="5" x2="5" y2="60" stroke="black" stroke-width="1"/>
+                    </svg>
+                    <figcaption>Basic Histogram Representation</figcaption>
+                </figure>
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 60" role="img" aria-label="Correlation Scatter Plot">
+                        <circle cx="20" cy="50" r="2" fill="var(--red)"/>
+                        <circle cx="35" cy="40" r="2" fill="var(--red)"/>
+                        <circle cx="50" cy="30" r="2" fill="var(--red)"/>
+                        <circle cx="65" cy="20" r="2" fill="var(--red)"/>
+                        <line x1="15" y1="55" x2="75" y2="15" stroke="var(--muted)" stroke-dasharray="2"/>
+                    </svg>
+                    <figcaption>Positive Correlation Scatter Plot</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="assessment" class="assessment section">
+            <h2>Module-wise Practice Questions</h2>
+            <details class="qa">
+                <summary>Q1: Distinguish between Primary and Secondary data. (5 Marks)</summary>
+                <div class="qa-body">
+                    Primary data is original data collected for the first time, while secondary data is already existing data collected by others. Primary data is more accurate but expensive; secondary data is cheaper but may not fit the specific needs perfectly.
+                </div>
+            </details>
+            <details class="qa">
+                <summary>Q2: What are the requisites of a good average? (3 Marks)</summary>
+                <div class="qa-body">
+                    1. Rigidly defined. 2. Easy to understand and calculate. 3. Based on all observations. 4. Least affected by fluctuations of sampling.
+                </div>
+            </details>
+            <details class="qa">
+                <summary>Q3: Explain the properties of Karl Pearson's coefficient of correlation. (5 Marks)</summary>
+                <div class="qa-body">
+                    1. The value of 'r' lies between -1 and +1. 2. It is independent of change of origin and scale. 3. If r = +1, it is perfect positive correlation. 4. If r = -1, it is perfect negative correlation. 5. If r = 0, there is no linear correlation.
+                </div>
+            </details>
+        </section>
+
+        <section id="model-paper" class="model-paper section">
+            <h2>Practice Model Paper</h2>
+            <div class="card">
+                <h3>Section A (Answer all questions - 2 Marks each)</h3>
+                <ol>
+                    <li>Define Statistics.</li>
+                    <li>What is an Ogive?</li>
+                    <li>State the formula for Weighted Mean.</li>
+                    <li>Define Index Number.</li>
+                </ol>
+                <h3>Section B (Answer any 4 - 5 Marks each)</h3>
+                <ol>
+                    <li>Explain the limitations of Statistics.</li>
+                    <li>Calculate Arithmetic Mean: 10, 20, 30, 40, 50.</li>
+                    <li>Distinguish between Correlation and Regression.</li>
+                    <li>Explain Time Reversal Test.</li>
+                </ol>
+                <h3>Section C (Answer any 2 - 10 Marks each)</h3>
+                <ol>
+                    <li>Explain different methods of collecting primary data.</li>
+                    <li>Calculate Standard Deviation for the following data: 5, 10, 15, 20, 25.</li>
+                    <li>Construct Fisher's Ideal Index from the given price-quantity data.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="quick-revision" class="quick-revision section">
+            <h2>Quick Revision</h2>
+            <ul>
+                <li><strong>Statistics:</strong> Collection, Analysis, Interpretation.</li>
+                <li><strong>Mean:</strong> Average; <strong>Median:</strong> Middle; <strong>Mode:</strong> Most frequent.</li>
+                <li><strong>Standard Deviation:</strong> Best measure of dispersion.</li>
+                <li><strong>Correlation (r):</strong> Relationship strength (-1 to +1).</li>
+                <li><strong>Fisher's Index:</strong> Ideal index (satisfies TRT and FRT).</li>
+            </ul>
+        </section>
+
+        <section id="glossary" class="glossary section">
+            <h2>Glossary</h2>
+            <dl>
+                <dt><strong>Data</strong></dt><dd>Facts or figures from which conclusions can be drawn.</dd>
+                <dt><strong>Variable</strong></dt><dd>A characteristic that varies from one item to another.</dd>
+                <dt><strong>Population</strong></dt><dd>The entire group under study.</dd>
+                <dt><strong>Sample</strong></dt><dd>A part of the population selected for study.</dd>
+            </dl>
+        </section>
+
+        <section id="official-source" class="official-source section">
+            <h2>Official Source Declaration</h2>
+            <p>This lesson is based on the official syllabus for <strong>2141 — Business Statistics (Revision 2021)</strong> provided by the State Institute of Technical Teachers' Training & Research (SITTTR), Kerala.</p>
+            <p>Source URL: <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2141">SITTTR Kerala - Course 2141</a></p>
+        </section>
+
+        <section lang="ml" class="section">
+            <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+            <div class="ml-note">
+                <strong>പ്രധാന ആശയങ്ങൾ:</strong>
+                <ul>
+                    <li><strong>അരിത്മെറ്റിക് മീൻ (Mean):</strong> തന്നിരിക്കുന്ന വിവരങ്ങളുടെ ആകെ തുകയെ എണ്ണം കൊണ്ട് ഹരിക്കുമ്പോൾ കിട്ടുന്ന വില.</li>
+                    <li><strong>മീഡിയൻ (Median):</strong> വിവരങ്ങളെ ക്രമമായി എഴുതിയാൽ നടുവിൽ വരുന്ന വില.</li>
+                    <li><strong>മോഡ് (Mode):</strong> ഏറ്റവും കൂടുതൽ തവണ ആവർത്തിച്ചു വരുന്ന വില.</li>
+                    <li><strong>കോറിലേഷൻ (Correlation):</strong> രണ്ട് കാര്യങ്ങൾ തമ്മിലുള്ള ബന്ധം. ഉദാഹരണത്തിന്, വില കൂടുമ്പോൾ ഡിമാൻഡ് കുറയുന്നത് നെഗറ്റീവ് കോറിലേഷൻ ആണ്.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    "use strict";
+    (function() {
+        // Reading Progress
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('lessonSearch');
+        searchInput.addEventListener('keyup', function() {
+            const filter = searchInput.value.toLowerCase();
+            const topics = document.querySelectorAll('.topic, .qa, .card');
+            
+            topics.forEach(topic => {
+                const text = topic.innerText.toLowerCase();
+                if (text.includes(filter)) {
+                    topic.style.display = "";
+                } else {
+                    topic.style.display = "none";
+                }
+            });
+        });
+
+        // Print Preparation
+        window.onbeforeprint = function() {
+            const details = document.querySelectorAll('details');
+            details.forEach(detail => detail.setAttribute('open', 'true'));
+        };
+    })();
+</script>
+</body>
+</html>
