@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2109 — Office Automation Workshop">
+    <meta name="course-code" content="2109">
+    <meta name="course-title" content="Office Automation Workshop">
+    <meta name="curriculum" content="REV2021">
+    <title>2109 — Office Automation Workshop</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background-color: var(--soft);
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        main { padding: 2rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+
+        .cover {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        .badge-row { display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+        .badge {
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h1 { font-size: 2.5rem; margin: 0.5rem 0; }
+        .lead { font-size: 1.2rem; opacity: 0.9; }
+
+        .jump-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+            background: var(--soft2);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+
+        .jump-menu a {
+            text-decoration: none;
+            color: var(--navy);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: white;
+            transition: 0.2s;
+        }
+
+        .jump-menu a:hover { background: var(--blue); color: white; }
+
+        .module {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .module-head {
+            margin-top: -3.5rem;
+            background: white;
+            display: inline-block;
+            padding: 0 1rem;
+            color: var(--blue);
+        }
+
+        .topic {
+            margin: 1.5rem 0;
+            border: 1px solid var(--soft2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .topic summary {
+            padding: 1rem;
+            background: var(--soft2);
+            cursor: pointer;
+            font-weight: 600;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .topic-body { padding: 1.5rem; }
+
+        .ml-note {
+            background: #fff9e6;
+            border-left: 4px solid #f59e0b;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 0.75rem; text-align: left; }
+        th { background: var(--soft2); }
+
+        .diagram { text-align: center; margin: 2rem 0; padding: 1rem; border: 1px dashed var(--line); }
+        .diagram svg { max-width: 100%; height: auto; }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 0.75rem; cursor: pointer; background: var(--soft); font-weight: 500; }
+        .qa-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+        .calculator {
+            background: var(--navy);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .calc-grid input { padding: 0.5rem; border-radius: 4px; border: none; }
+        .calc-result { font-size: 1.5rem; font-weight: bold; color: var(--cyan); }
+
+        .search-bar { width: 100%; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--line); margin-bottom: 1rem; }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress, .search-bar { display: none; }
+            details { display: block !important; }
+            details summary::after { content: ""; }
+            .lesson-shell { box-shadow: none; width: 100%; max-width: none; }
+            .module { break-inside: avoid; border: 1px solid #000; }
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <div class="lesson-shell">
+        <header class="cover">
+            <div class="badge-row">
+                <span class="badge">REV2021</span>
+                <span class="badge">Semester 2</span>
+                <span class="badge">Printing Tech</span>
+            </div>
+            <h1>Office Automation Workshop</h1>
+            <p class="lead">Course Code: 2109 | Engineering Science</p>
+            <a data-notes-link data-pdf-code="2109" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2109" style="color:white; text-decoration:underline;">Official Syllabus PDF Source</a>
+        </header>
+
+        <nav class="jump-menu" aria-label="Lesson sections">
+            <a href="#course-dashboard">Overview</a>
+            <a href="#course-outcomes">Outcomes</a>
+            <a href="#module-1">Word Processing</a>
+            <a href="#module-2">Spreadsheets</a>
+            <a href="#module-3">Presentations</a>
+            <a href="#formula-bank">Formulas</a>
+            <a href="#assessment">Assessment</a>
+            <a href="#quick-revision">Revision</a>
+        </nav>
+
+        <main id="main-content">
+            <section id="course-dashboard" class="course-dashboard">
+                <h2>Course Overview</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Program</th><td>Diploma in Printing Technology</td></tr>
+                        <tr><th>Course Code</th><td>2109</td></tr>
+                        <tr><th>Course Title</th><td>Office Automation Workshop</td></tr>
+                        <tr><th>Credits</th><td>No Credit</td></tr>
+                        <tr><th>Periods/Week</th><td>3 (L:0, T:0, P:3)</td></tr>
+                        <tr><th>Total Periods</th><td>45</td></tr>
+                    </table>
+                </div>
+                <h3>Course Objectives</h3>
+                <ul>
+                    <li>To provide knowledge of IT tools for professional word documents, spreadsheets, and presentations.</li>
+                    <li>To familiarize students with document preparation using office automation tools.</li>
+                </ul>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes">
+                <h2>Course Outcomes (COs)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>CO No.</th><th>Description</th><th>Hours</th><th>Cognitive Level</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>CO1</td><td>Perform word processing and documentation.</td><td>16</td><td>Applying</td></tr>
+                            <tr><td>CO2</td><td>Perform spreadsheet preparation and accounting operations.</td><td>15</td><td>Applying</td></tr>
+                            <tr><td>CO3</td><td>Develop power point presentation skills.</td><td>10</td><td>Applying</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>CO-PO Mapping</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>CO</th><th>PO1</th><th>PO2</th><th>PO3</th><th>PO4</th><th>PO5</th><th>PO6</th><th>PO7</th></tr>
+                        <tr><td>CO1</td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td><td>-</td><td>-</td></tr>
+                        <tr><td>CO2</td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td><td>-</td><td>-</td></tr>
+                        <tr><td>CO3</td><td>2</td><td>-</td><td>-</td><td>2</td><td>-</td><td>-</td><td>-</td></tr>
+                    </table>
+                </div>
+            </section>
+
+            <section class="module" id="module-1">
+                <h2 class="module-head">Module 1: Word Processing (CO1)</h2>
+                <p><strong>Duration: 16 Hours</strong></p>
+                
+                <details class="topic" open>
+                    <summary>M1.01: MS Word Orientation & Basics</summary>
+                    <div class="topic-body">
+                        <p>Microsoft Word is a graphical word processing program that users can type with. Its purpose is to allow users to type and save documents.</p>
+                        <ul>
+                            <li><strong>Accessing:</strong> Start > All Programs > Microsoft Office > MS Word.</li>
+                            <li><strong>Toolbars:</strong> Quick Access Toolbar, Ribbon (Home, Insert, Page Layout, etc.).</li>
+                            <li><strong>Format Painter:</strong> Used to copy formatting from one item to another. Select text with formatting -> Click Format Painter -> Select target text.</li>
+                            <li><strong>Rulers:</strong> Horizontal and Vertical rulers help in aligning text, setting tabs, and margins.</li>
+                        </ul>
+                        <div class="ml-note">
+                            <strong>Malayalam support:</strong>
+                            MS Word ഒരു ഡോക്യുമെന്റ് തയ്യാറാക്കാൻ ഉപയോഗിക്കുന്ന സോഫ്റ്റ്‌വെയറാണ്. ഇതിലെ Format Painter ഉപയോഗിച്ച് ഒരു ഭാഗത്തെ ഫോർമാറ്റിംഗ് മറ്റൊരു ഭാഗത്തേക്ക് എളുപ്പത്തിൽ പകർത്താം.
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M1.02: Formatting & Project Certificate Creation</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Drop Cap:</strong> A large capital letter at the beginning of a text block that has the depth of two or more lines of regular text.</li>
+                            <li><strong>Character Spacing:</strong> Adjusting the space between characters (Expanded/Condensed).</li>
+                            <li><strong>Header & Footer:</strong> Areas in the top and bottom margins of each page in a document.</li>
+                            <li><strong>Text Effects:</strong> Adding shadows, glows, or reflections to text.</li>
+                        </ul>
+                        <div class="worked">
+                            <strong>Task: Create a Certificate</strong>
+                            1. Set Page Orientation to Landscape.<br>
+                            2. Add a Page Border (Design > Page Borders).<br>
+                            3. Use WordArt for the title "CERTIFICATE".<br>
+                            4. Use Font formatting (Bold, Italic, Center Align).
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M1.03: Tables, Styles & Tracking</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Tables:</strong> Insert > Table. Used for organizing data in rows and columns.</li>
+                            <li><strong>Hyperlinks:</strong> Links to other files or websites (Ctrl + K).</li>
+                            <li><strong>Track Changes:</strong> A tool that records all edits made to a document, useful for collaborative work.</li>
+                            <li><strong>Bullets & Numbering:</strong> Used for creating lists.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M1.04: Newsletters & Layouts</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Newspaper Columns:</strong> Page Layout > Columns. Splits text into vertical blocks.</li>
+                            <li><strong>Table of Contents (TOC):</strong> Automatically generated based on Heading Styles.</li>
+                            <li><strong>WordArt:</strong> Decorative text that can be added to a document.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M1.05: Forms & Mail Merge</summary>
+                    <div class="topic-body">
+                        <p><strong>Mail Merge:</strong> A feature that allows you to create personalized letters or labels for a large number of recipients using a single template and a data source (like an Excel list).</p>
+                        <div class="ml-note">
+                            <strong>Malayalam support:</strong>
+                            Mail Merge ഉപയോഗിച്ച് ഒരേ കത്ത് ഒരേസമയം ഒരുപാട് ആളുകൾക്ക് അവരുടെ പേരും വിലാസവും ഉൾപ്പെടുത്തി അയക്കാൻ സാധിക്കും.
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="module" id="module-2">
+                <h2 class="module-head">Module 2: Spreadsheets (CO2)</h2>
+                <p><strong>Duration: 15 Hours</strong></p>
+                
+                <details class="topic" open>
+                    <summary>M2.01 & M2.02: Excel Orientation & Scheduling</summary>
+                    <div class="topic-body">
+                        <p>Excel is a spreadsheet program used to record and analyze numerical and statistical data.</p>
+                        <ul>
+                            <li><strong>Cell:</strong> The intersection of a row and a column.</li>
+                            <li><strong>Auto Fill:</strong> A feature that allows you to quickly fill a range of cells with a series of data (e.g., days of the week).</li>
+                            <li><strong>Summation:</strong> Using the AutoSum (Σ) button to add values.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M2.03: Calculations & Functions</summary>
+                    <div class="topic-body">
+                        <div class="table-wrap">
+                            <table>
+                                <thead><tr><th>Function</th><th>Syntax</th><th>Description</th></tr></thead>
+                                <tbody>
+                                    <tr><td>AVERAGE</td><td>=AVERAGE(range)</td><td>Calculates the mean of values.</td></tr>
+                                    <tr><td>STDEV</td><td>=STDEV(range)</td><td>Calculates standard deviation.</td></tr>
+                                    <tr><td>VLOOKUP</td><td>=VLOOKUP(value, table, col_index, [range_lookup])</td><td>Searches for a value in the first column of a table.</td></tr>
+                                    <tr><td>COUNT</td><td>=COUNT(range)</td><td>Counts cells containing numbers.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="calculator">
+                            <h3>Excel Logic Demo: Average Calculator</h3>
+                            <div class="calc-grid">
+                                <div>
+                                    <label>Value 1:</label><br>
+                                    <input type="number" id="val1" value="10">
+                                </div>
+                                <div>
+                                    <label>Value 2:</label><br>
+                                    <input type="number" id="val2" value="20">
+                                </div>
+                            </div>
+                            <button onclick="calcAvg()" style="padding:0.5rem 1rem; cursor:pointer;">Calculate Average</button>
+                            <div class="calc-result" id="avgResult">Result: 15</div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M2.04 & M2.05: Performance Analysis & Pivot Tables</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Freeze Panes:</strong> Keeps specific rows or columns visible while scrolling.</li>
+                            <li><strong>Conditional Formatting:</strong> Changes the appearance of cells based on specific conditions (e.g., highlighting marks > 40 in green).</li>
+                            <li><strong>Pivot Tables:</strong> A tool used to summarize, analyze, explore, and present summary data.</li>
+                            <li><strong>Data Validation:</strong> Restricts the type of data or the values that users enter into a cell.</li>
+                        </ul>
+                        <div class="ml-note">
+                            <strong>Malayalam support:</strong>
+                            Pivot Table ഉപയോഗിച്ച് വലിയ ഡാറ്റാസെറ്റുകളെ എളുപ്പത്തിൽ സംഗ്രഹിക്കാനും വിശകലനം ചെയ്യാനും സാധിക്കും. Conditional Formatting വഴി നിശ്ചിത കണ്ടീഷനുകൾക്ക് അനുസരിച്ച് സെല്ലുകൾക്ക് കളർ നൽകാം.
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section class="module" id="module-3">
+                <h2 class="module-head">Module 3: Presentations (CO3)</h2>
+                <p><strong>Duration: 10 Hours</strong></p>
+                
+                <details class="topic" open>
+                    <summary>M3.01 & M3.02: PPT Orientation & Media</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Slide Layouts:</strong> Predefined arrangements for slide content (Title, Content, Two Content).</li>
+                            <li><strong>Auto Shapes:</strong> Ready-made shapes like arrows, stars, and flowcharts.</li>
+                            <li><strong>Inserting Media:</strong> Insert > Audio/Video. Enhances the presentation impact.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M3.03: Master Layouts & Animations</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Slide Master:</strong> The top slide that stores information about the theme and slide layouts. Editing the Slide Master affects all slides.</li>
+                            <li><strong>Slide Transition:</strong> The visual effect that occurs when moving from one slide to the next.</li>
+                            <li><strong>Custom Animation:</strong> Effects applied to individual elements on a slide (Entrance, Emphasis, Exit).</li>
+                            <li><strong>Auto Rehearsing:</strong> Setting slide timings by practicing the presentation.</li>
+                        </ul>
+                        <div class="ml-note">
+                            <strong>Malayalam support:</strong>
+                            Slide Master ഉപയോഗിച്ച് എല്ലാ സ്ലൈഡുകളിലും ഒരേപോലെയുള്ള മാറ്റങ്ങൾ (ഉദാഹരണത്തിന് ലോഗോ ചേർക്കുക) എളുപ്പത്തിൽ വരുത്താം.
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section id="formula-bank" class="formula-bank">
+                <h2>Formula Bank & Shortcuts</h2>
+                <div class="grid two">
+                    <div class="card">
+                        <h3>Excel Formulas</h3>
+                        <ul>
+                            <li><code>=SUM(A1:A10)</code> - Total</li>
+                            <li><code>=IF(A1>40, "Pass", "Fail")</code> - Logical Test</li>
+                            <li><code>=MAX(B1:B20)</code> - Highest Value</li>
+                            <li><code>=MIN(B1:B20)</code> - Lowest Value</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Common Shortcuts</h3>
+                        <ul>
+                            <li><strong>Ctrl + N:</strong> New Document</li>
+                            <li><strong>Ctrl + S:</strong> Save</li>
+                            <li><strong>Ctrl + Z:</strong> Undo</li>
+                            <li><strong>Ctrl + Y:</strong> Redo</li>
+                            <li><strong>F5:</strong> Start Presentation (PPT)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library">
+                <h2>Visual Library</h2>
+                <div class="diagram-grid">
+                    <figure class="diagram">
+                        <svg viewBox="0 0 100 60" role="img" aria-labelledby="diag1-t diag1-d">
+                            <title id="diag1-t">Excel Cell Structure</title>
+                            <desc id="diag1-d">Diagram showing rows, columns and a selected cell</desc>
+                            <rect x="5" y="5" width="90" height="50" fill="none" stroke="var(--navy)" stroke-width="0.5"/>
+                            <line x1="25" y1="5" x2="25" y2="55" stroke="var(--line)" />
+                            <line x1="45" y1="5" x2="45" y2="55" stroke="var(--line)" />
+                            <line x1="5" y1="20" x2="95" y2="20" stroke="var(--line)" />
+                            <line x1="5" y1="35" x2="95" y2="35" stroke="var(--line)" />
+                            <rect x="25" y="20" width="20" height="15" fill="var(--soft2)" stroke="var(--blue)" stroke-width="1"/>
+                            <text x="27" y="30" font-size="4" fill="var(--blue)">Active Cell</text>
+                            <text x="10" y="15" font-size="3">Col A</text>
+                            <text x="30" y="15" font-size="3">Col B</text>
+                            <text x="50" y="15" font-size="3">Col C</text>
+                            <text x="1" y="30" font-size="3">Row 2</text>
+                        </svg>
+                        <figcaption>Basic Spreadsheet Grid Anatomy</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment">
+                <h2>Module-wise Practice Questions</h2>
+                
+                <h3>Module 1: Word</h3>
+                <details class="qa">
+                    <summary>What is Mail Merge? (3 Marks)</summary>
+                    <div class="qa-body">
+                        Mail Merge is a feature in MS Word used to create multiple documents (like letters, envelopes, or labels) at once. It combines a 'Main Document' (template) with a 'Data Source' (list of names/addresses) to produce personalized outputs for each entry in the data source.
+                    </div>
+                </details>
+                <details class="qa">
+                    <summary>Explain the use of 'Format Painter'. (2 Marks)</summary>
+                    <div class="qa-body">
+                        Format Painter is used to copy formatting (font, size, color, etc.) from one piece of text and apply it to another. It saves time when you want consistent styling across a document.
+                    </div>
+                </details>
+
+                <h3>Module 2: Excel</h3>
+                <details class="qa">
+                    <summary>What is VLOOKUP? (5 Marks)</summary>
+                    <div class="qa-body">
+                        VLOOKUP stands for 'Vertical Lookup'. It is a function that searches for a specific value in the first column of a table range and returns a value in the same row from a specified column. 
+                        <br>Syntax: <code>=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])</code>
+                    </div>
+                </details>
+
+                <h3>Module 3: PPT</h3>
+                <details class="qa">
+                    <summary>What is a Slide Master? (3 Marks)</summary>
+                    <div class="qa-body">
+                        Slide Master is the primary slide in a hierarchy of slides that stores information about the theme and slide layouts of a presentation. Changes made to the Slide Master (like adding a logo or changing font) are automatically applied to all slides in the presentation.
+                    </div>
+                </details>
+            </section>
+
+            <section id="model-paper" class="model-paper">
+                <h2>Practice Model Paper</h2>
+                <div class="exam-card">
+                    <p><strong>Time: 2 Hours | Max Marks: 50</strong></p>
+                    <hr>
+                    <p><strong>Part A: Word Processing (20 Marks)</strong></p>
+                    <ol>
+                        <li>Create a professional resume using a table for educational qualifications. (10)</li>
+                        <li>Design a newsletter with 3 columns and a drop cap for the first letter. (10)</li>
+                    </ol>
+                    <p><strong>Part B: Spreadsheets (20 Marks)</strong></p>
+                    <ol>
+                        <li>Create a student mark list for 10 students. Calculate Total, Average, and Result (using IF function). (10)</li>
+                        <li>Generate a Bar Chart based on the mark list data. (10)</li>
+                    </ol>
+                    <p><strong>Part C: Presentation (10 Marks)</strong></p>
+                    <ol>
+                        <li>Create a 5-slide presentation on "Printing Technology". Include transitions and a slide master logo. (10)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="quick-revision" class="quick-revision">
+                <h2>Quick Revision</h2>
+                <div class="grid three">
+                    <div class="card">
+                        <h4>Word</h4>
+                        <ul>
+                            <li>Drop Cap for style</li>
+                            <li>Mail Merge for bulk mail</li>
+                            <li>TOC for navigation</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>Excel</h4>
+                        <ul>
+                            <li>Relative vs Absolute Ref</li>
+                            <li>Pivot Tables for summary</li>
+                            <li>Data Validation for accuracy</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h4>PPT</h4>
+                        <ul>
+                            <li>Slide Master for consistency</li>
+                            <li>Transitions vs Animations</li>
+                            <li>F5 for slideshow</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="glossary" class="glossary">
+                <h2>Glossary</h2>
+                <dl>
+                    <dt><strong>Cell Referencing</strong></dt>
+                    <dd>Identifying a cell by its column letter and row number (e.g., A1).</dd>
+                    <dt><strong>Gutter Margin</strong></dt>
+                    <dd>Extra space added to the side or top margin of a document for binding.</dd>
+                    <dt><strong>Workbook</strong></dt>
+                    <dd>An Excel file that contains one or more worksheets.</dd>
+                </dl>
+            </section>
+
+            <section id="official-source" class="official-source">
+                <h2>Official Source Declaration</h2>
+                <div class="source-note">
+                    This lesson is developed based on the official <strong>REV2021</strong> syllabus for Course Code <strong>2109</strong> (Office Automation Workshop) provided by <strong>SITTTR Kerala</strong>.
+                    <br>Source: <a href="https://www.sitttrkerala.ac.in">www.sitttrkerala.ac.in</a>
+                </div>
+            </section>
+
+            <section lang="ml" class="ml-note">
+                <h2>മലയാളം പഠനസഹായം / Malayalam learning support</h2>
+                <p>ഈ കോഴ്സ് പ്രധാനമായും മൂന്ന് ഭാഗങ്ങളായി തിരിച്ചിരിക്കുന്നു:</p>
+                <ul>
+                    <li><strong>MS Word:</strong> റിപ്പോർട്ടുകളും സർട്ടിഫിക്കറ്റുകളും തയ്യാറാക്കാൻ പഠിക്കുന്നു.</li>
+                    <li><strong>MS Excel:</strong> കണക്കുകൾ കൂട്ടാനും ഗ്രാഫുകൾ തയ്യാറാക്കാനും പഠിക്കുന്നു.</li>
+                    <li><strong>MS PPT:</strong> മനോഹരമായ പ്രസന്റേഷനുകൾ നിർമ്മിക്കാൻ പഠിക്കുന്നു.</li>
+                </ul>
+                <p>പരീക്ഷയ്ക്ക് ഓരോ ടൂളിലും പ്രായോഗികമായ അറിവ് (Practical Knowledge) വളരെ പ്രധാനമാണ്.</p>
+            </section>
+        </main>
+
+        <footer class="no-print" style="text-align:center; padding: 2rem; border-top: 1px solid var(--line);">
+            <button onclick="window.print()" class="btn" style="background:var(--blue); color:white; border:none; padding:0.8rem 2rem; border-radius:8px; cursor:pointer;">Print Lesson</button>
+        </footer>
+    </div>
+
+    <script>
+        "use strict";
+        
+        // Reading Progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        };
+
+        // Calculator Logic
+        function calcAvg() {
+            const v1 = parseFloat(document.getElementById('val1').value);
+            const v2 = parseFloat(document.getElementById('val2').value);
+            if (!isNaN(v1) && !isNaN(v2)) {
+                const avg = (v1 + v2) / 2;
+                document.getElementById('avgResult').innerText = "Result: " + avg;
+            } else {
+                document.getElementById('avgResult').innerText = "Invalid Input";
+            }
+        }
+    </script>
+</body>
+</html>
