@@ -7504,6 +7504,13 @@
       "subjectName": "CAD Lab",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2078.html"
+    },
+    "REV2021:2079:lessons/lessons-2079.html": {
+      "messageId": "projects/poly-pmna/messages/7912600636887245415",
+      "subjectCode": "2079",
+      "subjectName": "Engineering Chemistry Lab",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2079.html"
     }
   }
 }
