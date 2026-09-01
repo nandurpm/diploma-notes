@@ -7560,6 +7560,13 @@
       "subjectName": "Office Automation Workshop",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2109#subject-2109"
+    },
+    "REV2021:2111:lessons/lessons-2111.html": {
+      "messageId": "projects/poly-pmna/messages/6566004583830463447",
+      "subjectCode": "2111",
+      "subjectName": "Production Engineering",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2111#subject-2111"
     }
   }
 }
