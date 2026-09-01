@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2099 — CAD Lab I">
+    <meta name="course-code" content="2099">
+    <meta name="course-title" content="CAD Lab I">
+    <meta name="curriculum" content="REV2021">
+    <title>CAD Lab I</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background-color: var(--soft);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        header.cover {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        .kicker { text-transform: uppercase; letter-spacing: 2px; font-weight: 700; opacity: 0.8; font-size: 0.9rem; }
+        h1 { font-size: 3rem; margin: 0.5rem 0; }
+        
+        nav.jump-menu {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            border-bottom: 1px solid var(--line);
+            z-index: 100;
+        }
+
+        nav.jump-menu a {
+            text-decoration: none;
+            color: var(--muted);
+            font-weight: 600;
+            white-space: nowrap;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.2s;
+        }
+
+        nav.jump-menu a:hover { background: var(--soft2); color: var(--blue); }
+
+        section { padding: 3rem 2rem; border-bottom: 1px solid var(--line); }
+        
+        .module-head { border-left: 8px solid var(--blue); padding-left: 1.5rem; margin-bottom: 2rem; }
+        .module-meta { display: flex; gap: 1rem; margin-top: 0.5rem; color: var(--muted); font-weight: 600; }
+
+        .topic-card {
+            background: var(--soft);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--line);
+        }
+
+        .ml-note {
+            background: #fffbe6;
+            border-right: 5px solid #ffe58f;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked {
+            background: var(--soft2);
+            border-left: 5px solid var(--cyan);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 0.75rem; text-align: left; }
+        th { background: var(--soft2); }
+
+        .diagram { text-align: center; margin: 2rem 0; padding: 1rem; background: white; border-radius: 12px; }
+        .diagram svg { max-width: 100%; height: auto; }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 1rem; font-weight: 600; cursor: pointer; background: var(--soft); }
+        .qa-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+        .formula-card {
+            background: var(--navy);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .calculator {
+            background: #f8fafc;
+            border: 2px solid var(--blue);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+        input { padding: 0.5rem; border: 1px solid var(--line); border-radius: 4px; }
+
+        @media print {
+            .jump-menu, .no-print { display: none; }
+            details { display: block !important; }
+            summary { font-weight: bold; }
+            .lesson-shell { box-shadow: none; width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            section { padding: 2rem 1rem; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="lesson-shell">
+    <header class="cover">
+        <div class="kicker">Kerala Polytechnic | Polymer Technology</div>
+        <h1>CAD Lab I</h1>
+        <div class="badge-row">
+            <span class="badge">Course Code: 2099</span>
+            <span class="badge">Revision: 2021</span>
+            <span class="badge">Semester: 2</span>
+        </div>
+    </header>
+
+    <nav class="jump-menu">
+        <a href="#course-dashboard">Overview</a>
+        <a href="#course-outcomes">Outcomes</a>
+        <a href="#module-1">Module 1</a>
+        <a href="#module-2">Module 2</a>
+        <a href="#module-3">Module 3</a>
+        <a href="#module-4">Module 4</a>
+        <a href="#assessment">Assessment</a>
+        <a href="#quick-revision">Revision</a>
+    </nav>
+
+    <a data-notes-link data-pdf-code="2099" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2099" style="display:block; text-align:center; padding: 1rem; color: var(--blue); font-weight: bold;">Download Official Syllabus PDF</a>
+
+    <main id="main-content">
+
+        <section id="course-dashboard" class="course-dashboard">
+            <div class="module-head">
+                <h2>Course Overview</h2>
+            </div>
+            <div class="grid two" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div class="card">
+                    <h3>Teaching Scheme</h3>
+                    <ul>
+                        <li><strong>L:T:P :</strong> 0:0:3</li>
+                        <li><strong>Periods/Week :</strong> 3</li>
+                        <li><strong>Total Periods :</strong> 45</li>
+                        <li><strong>Credits :</strong> No Credit</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Course Objectives</h3>
+                    <ul>
+                        <li>Hands-on training on 2D drawing using AutoCAD.</li>
+                        <li>Competency in industrial 2D drawing modification.</li>
+                        <li>Platform for mastering AutoCAD 3D.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="topic-card" style="margin-top: 2rem;">
+                <h4>Prerequisites</h4>
+                <p>Basic Mathematics (Mathematics I) and Engineering Graphics (Orthographic Projections).</p>
+            </div>
+        </section>
+
+        <section id="course-outcomes" class="course-outcomes">
+            <div class="module-head">
+                <h2>Course Outcomes (CO)</h2>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO No.</th>
+                            <th>Description</th>
+                            <th>Duration</th>
+                            <th>Cognitive Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO1</td>
+                            <td>Explain computer aided drafting and various commands used in AutoCAD</td>
+                            <td>9 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO2</td>
+                            <td>Draw 2D drawings and sectional views in AutoCAD</td>
+                            <td>17 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO3</td>
+                            <td>Perform dimensioning and plotting in AutoCAD</td>
+                            <td>12 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO4</td>
+                            <td>Develop Isometric drawings of simple objects in AutoCAD</td>
+                            <td>5 Hours</td>
+                            <td>Applying</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MODULE 1 CONTENT -->
+        <section id="module-1" class="module">
+            <div class="module-head">
+                <h2>Module 1: AutoCAD Basics & Commands</h2>
+                <div class="module-meta">
+                    <span>9 Hours</span>
+                    <span>CO1</span>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>1.1 Introduction to CAD</h3>
+                <p>Computer-Aided Drafting (CAD) is the use of computer systems to assist in the creation, modification, analysis, or optimization of a design. It replaces manual drafting with an automated process.</p>
+                
+                <h4>Advantages over Manual Drafting:</h4>
+                <ul>
+                    <li><strong>Speed and Productivity:</strong> Drawings can be created much faster.</li>
+                    <li><strong>Accuracy:</strong> Extremely high precision (up to 14 decimal places).</li>
+                    <li><strong>Ease of Editing:</strong> Modifications like "Undo", "Erase", or "Move" are instantaneous.</li>
+                    <li><strong>Storage and Retrieval:</strong> Digital files take no physical space and are easy to share.</li>
+                    <li><strong>Standardization:</strong> Use of layers and blocks ensures uniformity.</li>
+                </ul>
+
+                <div class="ml-note">
+                    <strong>Malayalam Note:</strong> 
+                    മാനുവൽ ഡ്രാഫ്റ്റിംഗിനെ അപേക്ഷിച്ച് CAD-ന് വേഗതയും കൃത്യതയും കൂടുതലാണ്. തെറ്റുകൾ തിരുത്താനും ഒരേപോലെയുള്ള ഭാഗങ്ങൾ വീണ്ടും ഉപയോഗിക്കാനും (Blocks) ഇത് സഹായിക്കുന്നു.
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>1.2 Coordinate Systems</h3>
+                <p>AutoCAD uses the Cartesian Coordinate System. There are four main ways to enter points:</p>
+                <ol>
+                    <li><strong>Absolute Coordinate System:</strong> Points are measured from the origin (0,0). Format: <code>X,Y</code></li>
+                    <li><strong>Relative Rectangular Coordinate System:</strong> Points are measured from the last point. Format: <code>@X,Y</code></li>
+                    <li><strong>Relative Polar Coordinate System:</strong> Points are defined by distance and angle from the last point. Format: <code>@Distance&lt;Angle</code></li>
+                    <li><strong>Direct Distance Entry:</strong> Move the cursor in a direction and type the distance.</li>
+                </ol>
+
+                <div class="worked">
+                    <strong>Example: Drawing a square of side 50 units using Relative Coordinates</strong><br>
+                    Start Point: 10,10<br>
+                    Next Point (Right): @50,0<br>
+                    Next Point (Up): @0,50<br>
+                    Next Point (Left): @-50,0<br>
+                    Close: @0,-50 or 'C'
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>1.3 Draw Commands</h3>
+                <p>Essential commands for creating geometry:</p>
+                <ul>
+                    <li><strong>LINE:</strong> Creates straight line segments.</li>
+                    <li><strong>CIRCLE:</strong> Options include Center-Radius, Center-Diameter, 2-Point, 3-Point.</li>
+                    <li><strong>ARC:</strong> Creates curved segments.</li>
+                    <li><strong>RECTANGLE:</strong> Creates a closed polyline rectangle.</li>
+                    <li><strong>POLYGON:</strong> Creates equilateral closed polylines (Inscribed/Circumscribed).</li>
+                    <li><strong>HATCH:</strong> Fills enclosed areas with patterns (used for sectional views).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- MODULE 2 CONTENT -->
+        <section id="module-2" class="module">
+            <div class="module-head">
+                <h2>Module 2: 2D Drawings & Sectional Views</h2>
+                <div class="module-meta">
+                    <span>17 Hours</span>
+                    <span>CO2</span>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>2.1 Modify Commands</h3>
+                <p>These commands are used to edit existing objects:</p>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Command</th><th>Function</th></tr>
+                        <tr><td><strong>OFFSET</strong></td><td>Creates concentric circles or parallel lines.</td></tr>
+                        <tr><td><strong>TRIM</strong></td><td>Cuts objects at a cutting edge.</td></tr>
+                        <tr><td><strong>FILLET</strong></td><td>Rounds the edges of two objects.</td></tr>
+                        <tr><td><strong>CHAMFER</strong></td><td>Bevels the edges of two objects.</td></tr>
+                        <tr><td><strong>ARRAY</strong></td><td>Creates multiple copies in a pattern (Rectangular/Polar).</td></tr>
+                        <tr><td><strong>MIRROR</strong></td><td>Creates a reflected copy of objects.</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>2.2 Practical Exercises</h3>
+                <p>Students must perform the following drawings:</p>
+                <ul>
+                    <li><strong>I-Section:</strong> Standard structural beam cross-section.</li>
+                    <li><strong>Stanchion Mount:</strong> A support base for vertical pillars.</li>
+                    <li><strong>Sectional Elevation of Foot Step Bearing:</strong> Showing internal parts like the bush and shaft.</li>
+                    <li><strong>First & Third Angle Projection Symbols:</strong> Essential for engineering drawing standards.</li>
+                </ul>
+            </div>
+
+            <div class="ml-note">
+                <strong>Malayalam Note:</strong> 
+                Sectional views ഉപയോഗിക്കുന്നത് ഒരു വസ്തുവിന്റെ ഉള്ളിലെ ഭാഗങ്ങൾ വ്യക്തമായി കാണിക്കാനാണ്. ഇതിനായി 'Hatch' കമാൻഡ് ഉപയോഗിച്ച് മുറിച്ച ഭാഗങ്ങൾ അടയാളപ്പെടുത്തുന്നു.
+            </div>
+        </section>
+
+        <!-- MODULE 3 CONTENT -->
+        <section id="module-3" class="module">
+            <div class="module-head">
+                <h2>Module 3: Dimensioning & Plotting</h2>
+                <div class="module-meta">
+                    <span>12 Hours</span>
+                    <span>CO3</span>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>3.1 Dimensioning Styles</h3>
+                <p>Dimensioning is critical for manufacturing. In AutoCAD, use <code>DIMSTYLE</code> to manage:</p>
+                <ul>
+                    <li><strong>Lines:</strong> Dimension lines and extension lines.</li>
+                    <li><strong>Symbols and Arrows:</strong> Arrowhead size and type.</li>
+                    <li><strong>Text:</strong> Height, placement, and alignment.</li>
+                    <li><strong>Primary Units:</strong> Precision and decimal separators.</li>
+                </ul>
+            </div>
+
+            <div class="topic-card">
+                <h3>3.2 Polymer Specific Drawings</h3>
+                <p>As this is for Polymer Technology, specific test samples are drawn:</p>
+                <ul>
+                    <li><strong>Dumbbell Tensile Sample:</strong> Standard shape used for testing tensile strength of polymers (ASTM D638).</li>
+                    <li><strong>Angular Tear Sample:</strong> Used for testing tear resistance (ASTM D624).</li>
+                    <li><strong>Factory Layout:</strong> Planning the placement of injection molding machines, extruders, and raw material storage.</li>
+                </ul>
+            </div>
+
+            <div class="topic-card">
+                <h3>3.3 Plotting (Printing)</h3>
+                <p>The process of converting a digital drawing to a physical print or PDF:</p>
+                <ol>
+                    <li>Command: <code>PLOT</code> or <code>CTRL+P</code>.</li>
+                    <li>Select Printer/Plotter (e.g., DWG to PDF).</li>
+                    <li>Select Paper Size (A4, A3, etc.).</li>
+                    <li>Plot Area: Window, Extents, or Display.</li>
+                    <li>Scale: 1:1, Fit to Paper, etc.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- MODULE 4 CONTENT -->
+        <section id="module-4" class="module">
+            <div class="module-head">
+                <h2>Module 4: Isometric Drawings</h2>
+                <div class="module-meta">
+                    <span>5 Hours</span>
+                    <span>CO4</span>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>4.1 Isometric Basics</h3>
+                <p>Isometric drawing is a 2D representation of a 3D object where the three axes are 120° apart. In AutoCAD:</p>
+                <ul>
+                    <li>Enable Isometric Snap: <code>SNAP</code> -> Style -> Isometric.</li>
+                    <li>Switch Planes (Top, Left, Right): Use <code>F5</code> or <code>ISOPLANE</code> command.</li>
+                    <li><strong>ISOCIRCLE:</strong> Use the Ellipse command (Axis-End option) then select 'Isocircle' to draw circles in isometric view.</li>
+                </ul>
+            </div>
+
+            <div class="worked">
+                <strong>Isometric Checklist:</strong>
+                1. Grid/Snap set to Isometric.<br>
+                2. Ortho Mode ON (F8).<br>
+                3. F5 to toggle between planes.<br>
+                4. Never use 'Circle' command; always use 'Ellipse -> Isocircle'.
+            </div>
+        </section>
+
+        <section id="formula-bank" class="formula-bank">
+            <div class="module-head">
+                <h2>Formula Bank & Calculations</h2>
+            </div>
+            <div class="formula-card">
+                Polar Coordinate: @Distance &lt; Angle
+            </div>
+            <div class="worked">
+                <strong>Coordinate Conversion:</strong><br>
+                If you are at (10,10) and want to go to (50,50):<br>
+                - Absolute: 50,50<br>
+                - Relative Rectangular: @40,40<br>
+                - Relative Polar: @56.57&lt;45
+            </div>
+            
+            <div class="calculator">
+                <h3>Scale Calculator</h3>
+                <div class="calc-grid">
+                    <div>
+                        <label>Actual Length (mm):</label><br>
+                        <input type="number" id="actualLen" placeholder="e.g. 1000">
+                    </div>
+                    <div>
+                        <label>Scale (1:X):</label><br>
+                        <input type="number" id="scaleVal" placeholder="e.g. 10">
+                    </div>
+                </div>
+                <button onclick="calcScale()" class="btn" style="padding: 0.5rem 1rem; background: var(--blue); color: white; border: none; border-radius: 4px; cursor: pointer;">Calculate Drawing Length</button>
+                <p id="scaleResult" style="margin-top: 1rem; font-weight: bold; color: var(--teal);"></p>
+            </div>
+            <script>
+                function calcScale() {
+                    const actual = document.getElementById('actualLen').value;
+                    const scale = document.getElementById('scaleVal').value;
+                    if(actual && scale) {
+                        const result = actual / scale;
+                        document.getElementById('scaleResult').innerText = "Drawing Length: " + result + " mm";
+                    }
+                }
+            </script>
+        </section>
+
+        <section id="visual-library" class="visual-library">
+            <div class="module-head">
+                <h2>Visual Library</h2>
+            </div>
+            
+            <div class="diagram-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 60" role="img" aria-label="Coordinate System Diagram">
+                        <line x1="10" y1="50" x2="90" y2="50" stroke="black" stroke-width="1" marker-end="url(#arrow)"/>
+                        <line x1="20" y1="55" x2="20" y2="5" stroke="black" stroke-width="1" marker-end="url(#arrow)"/>
+                        <text x="92" y="52" font-size="4">X</text>
+                        <text x="18" y="4" font-size="4">Y</text>
+                        <circle cx="50" cy="30" r="1" fill="red"/>
+                        <text x="52" y="28" font-size="3">Point (X, Y)</text>
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="black" />
+                            </marker>
+                        </defs>
+                    </svg>
+                    <figcaption>Cartesian Coordinate System in AutoCAD</figcaption>
+                </figure>
+
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 60" role="img" aria-label="Isometric Axes">
+                        <line x1="50" y1="30" x2="50" y2="5" stroke="blue" stroke-width="1"/>
+                        <line x1="50" y1="30" x2="80" y2="47.3" stroke="red" stroke-width="1"/>
+                        <line x1="50" y1="30" x2="20" y2="47.3" stroke="green" stroke-width="1"/>
+                        <text x="52" y="10" font-size="4">90°</text>
+                        <text x="70" y="40" font-size="4">30°</text>
+                        <text x="25" y="40" font-size="4">150°</text>
+                    </svg>
+                    <figcaption>Isometric Axes (30°, 90°, 150°)</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section id="assessment" class="assessment">
+            <div class="module-head">
+                <h2>Module-wise Practice Questions</h2>
+            </div>
+            
+            <details class="qa">
+                <summary>Q1: What is the difference between TRIM and ERASE? (3 Marks)</summary>
+                <div class="qa-body">
+                    <strong>ERASE:</strong> Removes the entire object from the drawing.<br>
+                    <strong>TRIM:</strong> Removes only a part of an object that crosses a cutting edge (boundary).
+                </div>
+            </details>
+
+            <details class="qa">
+                <summary>Q2: Explain the use of Layers in AutoCAD. (5 Marks)</summary>
+                <div class="qa-body">
+                    Layers are like transparent overlays. They allow you to:<br>
+                    1. Organize objects by function (e.g., Hidden lines, Dimensions, Text).<br>
+                    2. Control visibility (Turn On/Off).<br>
+                    3. Lock objects to prevent accidental editing.<br>
+                    4. Assign colors, linetypes, and lineweights globally.
+                </div>
+            </details>
+
+            <details class="qa">
+                <summary>Q3: How do you draw a circle in isometric view? (3 Marks)</summary>
+                <div class="qa-body">
+                    You cannot use the standard CIRCLE command. You must:<br>
+                    1. Set Snap to Isometric.<br>
+                    2. Enter the ELLIPSE command.<br>
+                    3. Choose the 'Isocircle' option.<br>
+                    4. Specify center and radius/diameter.
+                </div>
+            </details>
+        </section>
+
+        <section id="model-paper" class="model-paper">
+            <div class="module-head">
+                <h2>Practice Model Paper</h2>
+                <p><em>Time: 3 Hours | Max Marks: 75 (Internal Lab Exam)</em></p>
+            </div>
+            <div class="topic-card">
+                <h4>Part A: Basic Commands (20 Marks)</h4>
+                <p>1. Draw a rectangle of 100x50 mm using relative coordinates. (10)</p>
+                <p>2. Create a hexagon of side 30mm using the Polygon command. (10)</p>
+                
+                <h4>Part B: 2D Drafting (30 Marks)</h4>
+                <p>3. Draw the orthographic views (Front and Top) of an Index Plate as per the given dimensions. (30)</p>
+                
+                <h4>Part C: Isometric & Sectional (25 Marks)</h4>
+                <p>4. Draw the Isometric view of a V-Block. (25)</p>
+            </div>
+        </section>
+
+        <section id="quick-revision" class="quick-revision">
+            <div class="module-head">
+                <h2>Quick Revision</h2>
+            </div>
+            <ul>
+                <li><strong>F3:</strong> Toggle Object Snap (OSNAP).</li>
+                <li><strong>F5:</strong> Toggle Isoplanes.</li>
+                <li><strong>F7:</strong> Toggle Grid.</li>
+                <li><strong>F8:</strong> Toggle Ortho Mode.</li>
+                <li><strong>Limits:</strong> Defines the drawing area boundary.</li>
+                <li><strong>Units:</strong> Sets decimal/architectural and precision.</li>
+                <li><strong>Explode:</strong> Breaks a polyline or block into individual segments.</li>
+            </ul>
+        </section>
+
+        <section id="glossary" class="glossary">
+            <div class="module-head">
+                <h2>Glossary</h2>
+            </div>
+            <dl>
+                <dt><strong>GUI</strong></dt><dd>Graphical User Interface - the visual part of the software.</dd>
+                <dt><strong>Object Snap</strong></dt><dd>Tool to snap to exact points like Midpoint, Endpoint, or Center.</dd>
+                <dt><strong>Polyline</strong></dt><dd>A single object composed of multiple line/arc segments.</dd>
+                <dt><strong>Template</strong></dt><dd>A file (.dwt) with preset layers, units, and styles.</dd>
+            </dl>
+        </section>
+
+        <section id="official-source" class="official-source">
+            <div class="module-head">
+                <h2>Official Source Declaration</h2>
+            </div>
+            <p>This content is based on the <strong>SITTTR Kerala Revision 2021</strong> syllabus for the course <strong>CAD Lab I (Code: 2099)</strong>. The syllabus is intended for the Diploma in Polymer Technology.</p>
+            <p>Official Source: <a href="https://www.sitttrkerala.ac.in">www.sitttrkerala.ac.in</a></p>
+        </section>
+
+        <section lang="ml" class="ml-note">
+            <h2>മലയാളം പഠനസഹായം (Malayalam Learning Support)</h2>
+            <p><strong>CAD Lab I പ്രധാന ഭാഗങ്ങൾ:</strong></p>
+            <ul>
+                <li><strong>AutoCAD Basics:</strong> കമ്പ്യൂട്ടർ ഉപയോഗിച്ച് എങ്ങനെ കൃത്യമായി ഡ്രോയിംഗുകൾ തയ്യാറാക്കാം എന്ന് പഠിക്കുന്നു.</li>
+                <li><strong>Coordinate Systems:</strong> ഒരു പോയിന്റ് അടയാളപ്പെടുത്താൻ Absolute (@X,Y ഇല്ല), Relative (@X,Y), Polar (@Dist&lt;Angle) എന്നീ രീതികൾ ഉപയോഗിക്കുന്നു.</li>
+                <li><strong>Modify Commands:</strong> വരച്ച ചിത്രങ്ങളിൽ മാറ്റം വരുത്താൻ Offset (സമാന്തരമായി വരയ്ക്കാൻ), Trim (അനാവശ്യ ഭാഗം മുറിക്കാൻ), Fillet (മൂലകൾ ഉരുട്ടാൻ) എന്നിവ ഉപയോഗിക്കുന്നു.</li>
+                <li><strong>Polymer Samples:</strong> പോളിമർ ടെക്നോളജി വിദ്യാർത്ഥികൾക്ക് ആവശ്യമായ Dumbbell tensile sample, Angular tear sample എന്നിവയുടെ ഡ്രോയിംഗുകൾക്ക് മുൻഗണന നൽകുന്നു.</li>
+            </ul>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    "use strict";
+    // Reading progress logic
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        // Optional: Update a progress bar if added
+    };
+
+    // Auto-open details for printing
+    window.onbeforeprint = function() {
+        const details = document.querySelectorAll('details');
+        details.forEach(detail => detail.setAttribute('open', 'true'));
+    };
+</script>
+
+</body>
+</html>
