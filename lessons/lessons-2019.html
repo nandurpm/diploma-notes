@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2019 — Basic Surveying Lab">
+    <meta name="course-code" content="2019">
+    <meta name="course-title" content="Basic Surveying Lab">
+    <meta name="curriculum" content="REV2021">
+    <title>2019 — Basic Surveying Lab</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--soft);
+        }
+
+        .lesson-shell { max-width: 1100px; margin: 0 auto; background: var(--paper); box-shadow: var(--shadow); }
+        
+        header.cover {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .badge-row { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+
+        .jump-menu {
+            display: flex;
+            overflow-x: auto;
+            background: var(--navy);
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            gap: 15px;
+        }
+        .jump-menu a { color: white; text-decoration: none; font-size: 0.9rem; white-space: nowrap; padding: 5px 10px; }
+
+        section { padding: 3rem 2rem; border-bottom: 1px solid var(--line); }
+        h2 { color: var(--navy); border-left: 5px solid var(--blue); padding-left: 15px; margin-bottom: 1.5rem; }
+        
+        .module { background: var(--paper); }
+        .module-head { margin-bottom: 2rem; }
+        .module-meta { display: flex; gap: 20px; color: var(--muted); font-size: 0.9rem; margin-top: 5px; }
+
+        .ml-note {
+            background: var(--soft2);
+            border-left: 4px solid var(--teal);
+            padding: 15px;
+            margin: 20px 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .table-wrap { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft); color: var(--navy); }
+
+        .worked { background: #fff9db; border: 1px solid #ffe066; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .formula-card { background: var(--navy); color: white; padding: 20px; border-radius: 12px; text-align: center; margin: 10px 0; }
+        
+        .diagram { text-align: center; margin: 30px 0; background: #fdfdfd; padding: 20px; border: 1px solid var(--line); border-radius: 8px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        
+        .qa { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+        .qa summary { padding: 15px; background: var(--soft); cursor: pointer; font-weight: bold; }
+        .qa-body { padding: 15px; background: white; }
+
+        .calculator { background: var(--soft2); padding: 20px; border-radius: 15px; border: 1px solid var(--blue); margin: 20px 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .calc-grid input { padding: 8px; border: 1px solid var(--line); border-radius: 5px; }
+        
+        .reading-progress {
+            position: fixed; top: 0; left: 0; height: 5px; background: var(--cyan); width: 0%; z-index: 1000; transition: width 0.1s;
+        }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress { display: none; }
+            details { display: block !important; }
+            details summary { font-size: 1.2rem; border-bottom: 2px solid #000; }
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <a data-notes-link data-pdf-code="2019" data-pdf-revision="2021" href="#main-content" style="display:none;">Download Syllabus PDF</a>
+
+    <div class="lesson-shell">
+        <header class="cover">
+            <div class="badge-row">
+                <span class="badge">REV 2021</span>
+                <span class="badge">SEMESTER 2</span>
+                <span class="badge">CIVIL ENGINEERING</span>
+            </div>
+            <h1>Basic Surveying Lab</h1>
+            <p>Course Code: 2019 | Credits: Nil</p>
+        </header>
+
+        <nav class="jump-menu">
+            <a href="#course-dashboard">Overview</a>
+            <a href="#course-outcomes">Outcomes</a>
+            <a href="#module-1">Chain & Plane Table</a>
+            <a href="#module-2">Compass Survey</a>
+            <a href="#module-3">Levelling</a>
+            <a href="#module-4">Profiling</a>
+            <a href="#assessment">Q&A</a>
+            <a href="#model-paper">Model Paper</a>
+        </nav>
+
+        <main id="main-content">
+            <section id="course-dashboard" class="course-dashboard">
+                <h2>Course Overview</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Category</th>
+                            <td>Engineering Science</td>
+                            <th>Total Hours</th>
+                            <td>45 Periods</td>
+                        </tr>
+                        <tr>
+                            <th>Periods/Week</th>
+                            <td>3 (Practical)</td>
+                            <th>Credits</th>
+                            <td>Nil</td>
+                        </tr>
+                    </table>
+                </div>
+                <p>This course provides hands-on training in fundamental surveying techniques. Students learn to use chains, tapes, cross-staffs, prismatic compasses, and levelling instruments to measure distances, angles, and elevations for engineering projects.</p>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes">
+                <h2>Course Outcomes (CO)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Duration</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CO1</td>
+                                <td>Plot land area using principles of chain survey and plane table survey</td>
+                                <td>10 Hours</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO2</td>
+                                <td>Plot land area by compass survey</td>
+                                <td>12 Hours</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO3</td>
+                                <td>Determine level difference between stations in the field</td>
+                                <td>9 Hours</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO4</td>
+                                <td>Sketch longitudinal and cross profiles</td>
+                                <td>10 Hours</td>
+                                <td>Applying</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- MODULE 1 -->
+            <section class="module" id="module-1">
+                <div class="module-head">
+                    <h2>Module 1: Chain Survey & Plane Table Survey</h2>
+                    <div class="module-meta">
+                        <span>10 Hours</span>
+                        <span>CO1 Coverage</span>
+                    </div>
+                </div>
+
+                <details class="topic" open>
+                    <summary>M1.01: Distance Measurement (Tape)</summary>
+                    <div class="topic-body">
+                        <p>Measuring the distance between two intervisible stations using a tape is the most basic surveying operation. It involves ranging (aligning intermediate points) and chaining.</p>
+                        <div class="ml-note">
+                            <strong>Malayalam Support:</strong> 
+                            രണ്ട് സ്റ്റേഷനുകൾ തമ്മിൽ നേരിട്ട് കാണാൻ സാധിക്കുമ്പോൾ (Intervisible), ടേപ്പ് ഉപയോഗിച്ച് അവ തമ്മിലുള്ള ദൂരം അളക്കുന്ന രീതിയാണിത്. നേർരേഖയിലാണോ അളക്കുന്നത് എന്ന് ഉറപ്പുവരുത്താൻ 'Ranging' ആവശ്യമാണ്.
+                        </div>
+                        <ul>
+                            <li><strong>Direct Ranging:</strong> Used when stations are intervisible.</li>
+                            <li><strong>Indirect Ranging:</strong> Used when high ground or obstacles prevent seeing one station from another.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M1.02: Cross Staff Survey</summary>
+                    <div class="topic-body">
+                        <p>The cross-staff is used to set out perpendicular offsets from a main survey line to boundary points. The area is then calculated by dividing the field into triangles and trapezoids.</p>
+                        <figure class="diagram">
+                            <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="20" y1="60" x2="180" y2="60" stroke="black" stroke-width="2" />
+                                <text x="10" y="65" font-size="10">A</text>
+                                <text x="185" y="65" font-size="10">B</text>
+                                <line x1="60" y1="60" x2="60" y2="20" stroke="blue" stroke-dasharray="4" />
+                                <circle cx="60" cy="20" r="3" fill="red" />
+                                <text x="55" y="15" font-size="8">Offset 1</text>
+                                <line x1="120" y1="60" x2="120" y2="100" stroke="blue" stroke-dasharray="4" />
+                                <circle cx="120" cy="100" r="3" fill="red" />
+                                <text x="115" y="115" font-size="8">Offset 2</text>
+                            </svg>
+                            <figcaption>Figure 1: Setting offsets using Cross Staff along Chain Line AB.</figcaption>
+                        </figure>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M1.03: Plane Table Surveying</summary>
+                    <div class="topic-body">
+                        <p>Plane table surveying is a graphical method where field observations and plotting are done simultaneously.</p>
+                        <ul>
+                            <li><strong>Radiation Method:</strong> Used when all points to be plotted are visible and accessible from a single station.</li>
+                            <li><strong>Intersection Method:</strong> Used for inaccessible points. The point is sighted from two different stations, and the intersection of the rays gives the position.</li>
+                        </ul>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 2 -->
+            <section class="module" id="module-2">
+                <div class="module-head">
+                    <h2>Module 2: Compass Surveying</h2>
+                    <div class="module-meta">
+                        <span>12 Hours</span>
+                        <span>CO2 Coverage</span>
+                    </div>
+                </div>
+
+                <details class="topic" open>
+                    <summary>M2.01 & M2.02: Compass Principles</summary>
+                    <div class="topic-body">
+                        <p>The Prismatic Compass measures the magnetic bearing of lines. The <strong>Whole Circle Bearing (WCB)</strong> system is used, ranging from 0° to 360°.</p>
+                        <div class="ml-note">
+                            <strong>Malayalam Support:</strong> 
+                            പ്രീസ്‌മാറ്റിക് കോമ്പസ് ഉപയോഗിച്ച് കാന്തിക ദിശ (Magnetic Bearing) അളക്കുന്നു. ഇതിൽ 0 മുതൽ 360 ഡിഗ്രി വരെയാണ് അളവുകൾ രേഖപ്പെടുത്തിയിരിക്കുന്നത്.
+                        </div>
+                        <div class="worked">
+                            <strong>Calculation of Included Angles:</strong><br>
+                            Included Angle = Bearing of Next Line - Bearing of Previous Line.<br>
+                            If the result is negative, add 360°.
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M2.03: Closed Traverse</summary>
+                    <div class="topic-body">
+                        <p>A closed traverse starts and ends at the same point (or at points whose positions are known). For a 5-sided traverse, the sum of internal angles should be <code>(2n - 4) * 90°</code>.</p>
+                        <div class="formula-card">
+                            Sum of Interior Angles = (n - 2) × 180°
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 3 -->
+            <section class="module" id="module-3">
+                <div class="module-head">
+                    <h2>Module 3: Levelling</h2>
+                    <div class="module-meta">
+                        <span>9 Hours</span>
+                        <span>CO3 Coverage</span>
+                    </div>
+                </div>
+
+                <details class="topic" open>
+                    <summary>M3.01: Simple Levelling</summary>
+                    <div class="topic-body">
+                        <p>Levelling is the operation to determine the relative heights of points on the earth's surface. <strong>Simple Levelling</strong> is used to find the difference in elevation between two points visible from a single instrument station.</p>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M3.02: Reduction of Levels</summary>
+                    <div class="topic-body">
+                        <p>There are two main methods to calculate Reduced Levels (RL):</p>
+                        <div class="grid two">
+                            <div class="card">
+                                <h3>1. Height of Instrument (HI) Method</h3>
+                                <p>HI = RL of BM + Back Sight (BS)</p>
+                                <p>RL of Point = HI - FS (or IS)</p>
+                            </div>
+                            <div class="card">
+                                <h3>2. Rise and Fall Method</h3>
+                                <p>Difference = Previous Reading - Current Reading</p>
+                                <p>Positive = Rise; Negative = Fall</p>
+                                <p>New RL = Old RL + Rise (or - Fall)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="calculator">
+                            <h3>Quick RL Calculator (HI Method)</h3>
+                            <div class="calc-grid">
+                                <div>
+                                    <label>Benchmark RL (m):</label>
+                                    <input type="number" id="bmRl" value="100.000">
+                                </div>
+                                <div>
+                                    <label>Back Sight (BS) (m):</label>
+                                    <input type="number" id="bsVal" value="1.250">
+                                </div>
+                                <div>
+                                    <label>Fore Sight (FS) (m):</label>
+                                    <input type="number" id="fsVal" value="2.100">
+                                </div>
+                                <div style="grid-column: span 2;">
+                                    <button onclick="calcRL()" style="width:100%; padding:10px; background:var(--blue); color:white; border:none; border-radius:5px; cursor:pointer;">Calculate RL</button>
+                                </div>
+                            </div>
+                            <p id="calcResult" style="margin-top:15px; font-weight:bold; color:var(--navy);"></p>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 4 -->
+            <section class="module" id="module-4">
+                <div class="module-head">
+                    <h2>Module 4: Profiling (L-Section & C-Section)</h2>
+                    <div class="module-meta">
+                        <span>10 Hours</span>
+                        <span>CO4 Coverage</span>
+                    </div>
+                </div>
+
+                <details class="topic" open>
+                    <summary>M4.01: Fly Levelling</summary>
+                    <div class="topic-body">
+                        <p>Fly levelling is performed to determine the RL of a benchmark at a distance from the starting point. It involves only Back Sights and Fore Sights.</p>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M4.02: Longitudinal & Cross Profiles</summary>
+                    <div class="topic-body">
+                        <p>Used extensively in road, rail, and canal projects.</p>
+                        <ul>
+                            <li><strong>Longitudinal Section (L-Section):</strong> Levels taken along the centerline of the proposed alignment to determine the gradient.</li>
+                            <li><strong>Cross Section (C-Section):</strong> Levels taken perpendicular to the centerline to determine the earthwork volume.</li>
+                        </ul>
+                        <div class="ml-note">
+                            <strong>Malayalam Support:</strong> 
+                            റോഡ് നിർമ്മാണത്തിന് L-Section, Cross Section എന്നിവ അത്യാവശ്യമാണ്. റോഡിന്റെ നീളത്തിൽ എടുക്കുന്ന അളവുകളാണ് L-Section. അതിന് ലംബമായി (Perpendicular) എടുക്കുന്നതാണ് Cross Section.
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section id="formula-bank" class="formula-bank">
+                <h2>Formula Bank</h2>
+                <div class="grid two">
+                    <div class="formula-card">
+                        <p>Area of Triangle (Chain Survey)</p>
+                        <h3>Area = ½ × Base × Height</h3>
+                    </div>
+                    <div class="formula-card">
+                        <p>Included Angle (Compass)</p>
+                        <h3>FB of next line - BB of prev line</h3>
+                    </div>
+                    <div class="formula-card">
+                        <p>HI Method Check</p>
+                        <h3>ΣBS - ΣFS = Last RL - First RL</h3>
+                    </div>
+                    <div class="formula-card">
+                        <p>Rise & Fall Check</p>
+                        <h3>ΣRise - ΣFall = Last RL - First RL</h3>
+                    </div>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library">
+                <h2>Visual Library</h2>
+                <div class="diagram">
+                    <svg viewBox="0 0 100 60" role="img" aria-label="Prismatic Compass Diagram">
+                        <rect width="100" height="60" fill="none" stroke="currentColor"/>
+                        <circle cx="50" cy="30" r="20" fill="none" stroke="var(--navy)" stroke-width="1"/>
+                        <line x1="50" y1="10" x2="50" y2="50" stroke="var(--red)" />
+                        <text x="48" y="8" font-size="4">N</text>
+                        <text x="48" y="58" font-size="4">S</text>
+                        <text x="30" y="32" font-size="3">Graduated Ring</text>
+                    </svg>
+                    <figcaption>Simplified Prismatic Compass Schematic</figcaption>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment">
+                <h2>Module-wise Practice Questions</h2>
+                
+                <details class="qa">
+                    <summary>Q1: What is the purpose of 'Ranging' in chain survey? (3 Marks)</summary>
+                    <div class="qa-body">
+                        Ranging is the process of establishing intermediate points on a straight line between two survey stations. It ensures that the distance measured with the tape is along a straight line, which is the shortest distance.
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q2: Differentiate between Radiation and Intersection methods in Plane Table Survey. (5 Marks)</summary>
+                    <div class="qa-body">
+                        <strong>Radiation:</strong> Points are located by drawing rays from a single station. Distances are measured on ground and plotted to scale. Suitable for small, accessible areas.<br>
+                        <strong>Intersection:</strong> Points are located by the intersection of rays drawn from two different stations. No ground distance measurement to the points is needed. Suitable for inaccessible points like a point across a river.
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q3: Define Fore Bearing and Back Bearing. (2 Marks)</summary>
+                    <div class="qa-body">
+                        Fore Bearing (FB) is the bearing of a line in the direction of the progress of the survey. Back Bearing (BB) is the bearing of the line in the direction opposite to the progress of the survey. BB = FB ± 180°.
+                    </div>
+                </details>
+            </section>
+
+            <section id="model-paper" class="model-paper">
+                <h2>Practice Model Practical Paper</h2>
+                <div class="exam-card" style="border: 2px dashed var(--line); padding: 20px;">
+                    <h3 style="text-align:center;">End Semester Practical Examination</h3>
+                    <p><strong>Time: 3 Hours | Max Marks: 100</strong></p>
+                    <hr>
+                    <ol>
+                        <li>Conduct a closed compass traverse for the given 5 stations. Calculate the included angles and check for local attraction. (40 Marks)</li>
+                        <li>Find the difference in level between two given points A and B using a Dumpy Level. Perform the arithmetic check. (30 Marks)</li>
+                        <li>Plot the boundary of the given field using the Cross-Staff survey method. (20 Marks)</li>
+                        <li>Viva Voce and Record. (10 Marks)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="quick-revision" class="quick-revision">
+                <h2>Quick Revision</h2>
+                <ul>
+                    <li><strong>Chain Survey:</strong> Principle is Triangulation.</li>
+                    <li><strong>Compass Survey:</strong> Principle is Traversing.</li>
+                    <li><strong>Plane Table:</strong> Graphical method; no field book required.</li>
+                    <li><strong>Levelling:</strong> BS is the first reading; FS is the last reading before shifting.</li>
+                    <li><strong>Local Attraction:</strong> Disturbance to the compass needle by magnetic objects. Detected if FB ~ BB difference is not 180°.</li>
+                </ul>
+            </section>
+
+            <section id="glossary" class="glossary">
+                <h2>Glossary</h2>
+                <dl>
+                    <dt><strong>Benchmark (BM)</strong></dt>
+                    <dd>A fixed point of known elevation above a datum.</dd>
+                    <dt><strong>Reduced Level (RL)</strong></dt>
+                    <dd>The vertical distance of a point above or below the datum.</dd>
+                    <dt><strong>Offset</strong></dt>
+                    <dd>Lateral distance measured from the main survey line to a feature.</dd>
+                </dl>
+            </section>
+
+            <section id="official-source" class="official-source">
+                <h2>Official Source</h2>
+                <p>This content is based on the official Kerala Polytechnic Revision 2021 syllabus for Course Code 2019 (Basic Surveying Lab) provided by SITTTR Kerala.</p>
+                <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2019" target="_blank">Official SITTTR Source</a>
+            </section>
+
+            <section lang="ml" class="ml-note">
+                <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+                <p>ഈ ലാബ് കോഴ്സ് പ്രധാനമായും നാല് ഭാഗങ്ങളായി തിരിച്ചിരിക്കുന്നു:</p>
+                <ol>
+                    <li><strong>ചെയിൻ & പ്ലെയിൻ ടേബിൾ സർവ്വേ:</strong> ദൂരങ്ങൾ അളക്കാനും ഭൂപടങ്ങൾ തയ്യാറാക്കാനും പഠിക്കുന്നു.</li>
+                    <li><strong>കോമ്പസ് സർവ്വേ:</strong> കാന്തിക ദിശകൾ ഉപയോഗിച്ച് സ്ഥലത്തിന്റെ വിസ്തൃതി കണ്ടെത്തുന്നു.</li>
+                    <li><strong>ലെവലിംഗ്:</strong> ഭൂമിയുടെ ഉയർച്ച താഴ്ചകൾ അളക്കുന്നു.</li>
+                    <li><strong>പ്രൊഫൈലിംഗ്:</strong> റോഡ് നിർമ്മാണത്തിന് ആവശ്യമായ L-Section, Cross Section എന്നിവ തയ്യാറാക്കുന്നു.</li>
+                </ol>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        "use strict";
+        (function() {
+            // Reading progress bar
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // RL Calculator logic
+            window.calcRL = function() {
+                const bm = parseFloat(document.getElementById('bmRl').value);
+                const bs = parseFloat(document.getElementById('bsVal').value);
+                const fs = parseFloat(document.getElementById('fsVal').value);
+                
+                if (isNaN(bm) || isNaN(bs) || isNaN(fs)) {
+                    document.getElementById('calcResult').innerText = "Please enter valid numbers.";
+                    return;
+                }
+
+                const hi = bm + bs;
+                const rl = hi - fs;
+                
+                document.getElementById('calcResult').innerHTML = `
+                    Height of Instrument (HI) = ${hi.toFixed(3)} m <br>
+                    Reduced Level (RL) of point = ${rl.toFixed(3)} m
+                `;
+            };
+        })();
+    </script>
+</body>
+</html>
