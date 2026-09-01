@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2009 — Engineering Workshop Practice">
+    <meta name="course-code" content="2009">
+    <meta name="course-title" content="Engineering Workshop Practice">
+    <meta name="curriculum" content="REV2021">
+    <title>2009 — Engineering Workshop Practice</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 12px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background: var(--soft);
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            padding: 40px;
+        }
+
+        .cover {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            border-radius: var(--radius);
+            margin-bottom: 40px;
+        }
+
+        .cover h1 { font-size: 2.5rem; margin: 0; }
+        .badge-row { margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+        .section { margin-bottom: 60px; scroll-margin-top: 20px; }
+        h2 { border-left: 5px solid var(--blue); padding-left: 15px; color: var(--navy); margin-bottom: 25px; }
+
+        .module {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 40px;
+            background: white;
+        }
+
+        .module-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--soft);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        .ml-note {
+            background: var(--soft2);
+            border-left: 4px solid var(--cyan);
+            padding: 15px;
+            margin: 20px 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .ml-note strong { color: var(--teal); display: block; margin-bottom: 5px; }
+
+        .table-wrap { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft); color: var(--navy); }
+
+        .diagram { text-align: center; margin: 30px 0; padding: 20px; background: #f9f9f9; border-radius: 8px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        figcaption { margin-top: 10px; font-size: 0.9rem; color: var(--muted); font-style: italic; }
+
+        .qa { margin-bottom: 15px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+        .qa summary { padding: 15px; background: var(--soft); cursor: pointer; font-weight: 600; }
+        .qa-body { padding: 20px; background: white; border-top: 1px solid var(--line); }
+
+        .worked { background: #fffbeb; border: 1px solid #fde68a; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .tip { background: #ecfdf5; border-left: 4px solid var(--green); padding: 15px; margin: 20px 0; }
+        .warning { background: #fff1f2; border-left: 4px solid var(--red); padding: 15px; margin: 20px 0; }
+
+        .calculator { background: var(--navy); color: white; padding: 25px; border-radius: var(--radius); margin: 30px 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 15px; }
+        .calc-grid input { padding: 10px; border-radius: 4px; border: none; width: 100%; box-sizing: border-box;}
+        .calc-result { margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 4px; font-weight: bold; text-align: center; }
+
+        .jump-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .jump-menu a {
+            text-decoration: none;
+            background: var(--soft2);
+            color: var(--blue);
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .jump-menu a:hover { background: var(--blue); color: white; }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress, .calculator { display: none; }
+            .lesson-shell { box-shadow: none; padding: 0; max-width: 100%; }
+            details { display: block !important; }
+            details summary { font-weight: bold; border-bottom: 1px solid #ccc; }
+        }
+
+        @media (max-width: 768px) {
+            .lesson-shell { padding: 20px; }
+            .calc-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <div class="lesson-shell">
+        <a data-notes-link data-pdf-code="2009" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2009" class="no-print" style="display: block; margin-bottom: 20px; color: var(--blue); text-decoration: none; font-weight: bold;">← View Official SITTTR Syllabus</a>
+
+        <main id="main-content">
+            <section class="cover" id="cover">
+                <div class="kicker">Revision 2021 • Semester 1 & 2</div>
+                <h1>Engineering Workshop Practice</h1>
+                <div class="badge-row">
+                    <span class="badge">Course Code: 2009</span>
+                    <span class="badge">Credits: 1.5</span>
+                    <span class="badge">Category: Engineering Science</span>
+                    <span class="badge">Total Hours: 90</span>
+                </div>
+            </section>
+
+            <nav class="jump-menu" aria-label="Lesson sections">
+                <a href="#course-dashboard">Overview</a>
+                <a href="#module-1">Carpentry</a>
+                <a href="#module-2">Fitting</a>
+                <a href="#module-3">Welding</a>
+                <a href="#module-4">Sheet Metal</a>
+                <a href="#module-5">Electrical</a>
+                <a href="#assessment">Q&A</a>
+                <a href="#model-paper">Model Paper</a>
+            </nav>
+
+            <section id="course-dashboard" class="course-dashboard section">
+                <h2>Course Overview</h2>
+                <p>Engineering Workshop Practice is a foundational course designed to provide hands-on experience in various engineering trades. The course bridges the gap between theoretical concepts and practical fabrication.</p>
+                
+                <div class="table-wrap">
+                    <table>
+                        <caption>Teaching & Assessment Scheme</caption>
+                        <tr>
+                            <th>Component</th>
+                            <th>Details</th>
+                        </tr>
+                        <tr>
+                            <td>Periods per week</td>
+                            <td>3 Practical (P)</td>
+                        </tr>
+                        <tr>
+                            <td>Total Periods</td>
+                            <td>45 (Sem 1) + 45 (Sem 2) = 90 Hours</td>
+                        </tr>
+                        <tr>
+                            <td>Assessment</td>
+                            <td>Continuous Internal Assessment (CIA) & End Semester Exam (ESE)</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="tip">
+                    <strong>Course Objectives:</strong>
+                    <ul>
+                        <li>Familiarize safety precautions in the workplace.</li>
+                        <li>Prepare drawings and models for fabrication.</li>
+                        <li>Identify measuring, marking, holding, striking, and cutting tools.</li>
+                        <li>Practice electrical wiring, soldering, and motor connections.</li>
+                        <li>Operate machines and power tools safely.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes section">
+                <h2>Course Outcomes (CO)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CO1</td>
+                                <td>Identify safety precautions, tools and devices required to make carpentry joints.</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO2</td>
+                                <td>Make use of various tools, machines, instruments and power tools used in the Fitting shop to make fitting joints.</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO3</td>
+                                <td>Make use of various tools, machines, instruments and power tools used in the Welding shop to make welding joint.</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO4</td>
+                                <td>Utilize different sheet metal tools and measuring instruments to make sheet metal joints.</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO5</td>
+                                <td>Make use of various tools and accessories to practice electrical wiring, motor connection and soldering.</td>
+                                <td>Applying</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- MODULE 1: CARPENTRY -->
+            <section class="module" id="module-1">
+                <div class="module-head">
+                    <h3>Module 1: Carpentry Shop</h3>
+                    <span class="badge">18 Hours</span>
+                </div>
+                <p>Carpentry involves the process of cutting, shaping, and installing building materials during the construction of buildings, ships, timber bridges, etc.</p>
+                
+                <div class="ml-note">
+                    <strong>Malayalam support:</strong>
+                    തടി ഉപയോഗിച്ച് വിവിധ നിർമ്മാണ പ്രവർത്തനങ്ങൾ നടത്തുന്ന വിഭാഗമാണ് കാർപെന്ററി. അളവുകൾ എടുക്കുന്നതിനും, അടയാളപ്പെടുത്തുന്നതിനും, മുറിക്കുന്നതിനും ചെത്തുന്നതിനും ഉള്ള വിവിധ ഉപകരണങ്ങൾ ഇവിടെ പരിചയപ്പെടുന്നു.
+                </div>
+
+                <h4>1.1 Safety Precautions</h4>
+                <ul>
+                    <li><strong>Personal Safety:</strong> Wear tight-fitting clothes, use safety shoes, and avoid loose hair or jewelry.</li>
+                    <li><strong>Machine Safety:</strong> Do not operate power tools without permission. Ensure guards are in place.</li>
+                    <li><strong>Job Safety:</strong> Keep the workbench clean. Use sharp tools only.</li>
+                </ul>
+
+                <h4>1.2 Carpentry Tools</h4>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Category</th>
+                            <th>Tools</th>
+                        </tr>
+                        <tr>
+                            <td>Marking & Measuring</td>
+                            <td>Steel rule, Try square, Bevel square, Marking gauge, Mortise gauge, Wing compass.</td>
+                        </tr>
+                        <tr>
+                            <td>Cutting Tools</td>
+                            <td>Hand saw, Tenon saw, Firmer chisel, Mortise chisel, Jack plane (Wooden/Metal).</td>
+                        </tr>
+                        <tr>
+                            <td>Striking Tools</td>
+                            <td>Mallet, Claw hammer.</td>
+                        </tr>
+                        <tr>
+                            <td>Holding Devices</td>
+                            <td>Carpenters Bench vice, G-clamp, Sash clamp.</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h4>1.3 Practice Exercise: Open Halved Joint</h4>
+                <p>The halved joint is a woodworking joint in which the two members are joined by removing half the thickness of each at the point of intersection.</p>
+                
+                <figure class="diagram">
+                    <svg viewBox="0 0 200 120" role="img" aria-label="Open Halved Joint Diagram">
+                        <!-- Piece 1 -->
+                        <rect x="20" y="40" width="100" height="20" fill="#d2b48c" stroke="#5d4037" />
+                        <rect x="120" y="40" width="40" height="10" fill="#d2b48c" stroke="#5d4037" />
+                        <!-- Piece 2 -->
+                        <rect x="120" y="70" width="40" height="10" fill="#a67c52" stroke="#5d4037" />
+                        <rect x="120" y="80" width="40" height="20" fill="#a67c52" stroke="#5d4037" />
+                    </svg>
+                    <figcaption>Basic representation of a Halved Joint preparation.</figcaption>
+                </figure>
+            </section>
+
+            <!-- MODULE 2: FITTING -->
+            <section class="module" id="module-2">
+                <div class="module-head">
+                    <h3>Module 2: Fitting Shop</h3>
+                    <span class="badge">18 Hours</span>
+                </div>
+                <p>Fitting is the process of assembling various parts manufactured in a machine shop to form a final machine or mechanism.</p>
+
+                <div class="ml-note">
+                    <strong>Malayalam support:</strong>
+                    ലോഹഭാഗങ്ങൾ കൃത്യമായ അളവിൽ മുറിച്ചും ഫയൽ ചെയ്തും യോജിപ്പിക്കുന്ന രീതിയാണിത്. വൈസ്, ഫയലുകൾ, ഹാക്സോ എന്നിവയാണ് പ്രധാന ഉപകരണങ്ങൾ.
+                </div>
+
+                <h4>2.1 Fitting Tools</h4>
+                <ul>
+                    <li><strong>Marking:</strong> Scriber, Centre punch, Prick punch, Surface plate, V-block, Angle plate.</li>
+                    <li><strong>Cutting:</strong> Hack saw (Solid/Adjustable), Chisels (Flat, Cross-cut).</li>
+                    <li><strong>Filing:</strong> Single cut and Double cut files. Types: Flat, Square, Round, Half-round, Triangular.</li>
+                    <li><strong>Measuring:</strong> Vernier height gauge, Outside/Inside calipers, Jenny caliper.</li>
+                </ul>
+
+                <h4>2.2 Practice Exercise: V-Joint / L-Joint</h4>
+                <p>Students practice filing two metal pieces to achieve a perfect fit in 'V' or 'L' shapes. Precision is checked using a Try Square.</p>
+
+                <div class="warning">
+                    <strong>Safety Note:</strong> Never use a file without a handle. Do not blow metal chips with your mouth; use a brush.
+                </div>
+            </section>
+
+            <!-- MODULE 3: WELDING -->
+            <section class="module" id="module-3">
+                <div class="module-head">
+                    <h3>Module 3: Welding Shop</h3>
+                    <span class="badge">18 Hours</span>
+                </div>
+                <p>Welding is a fabrication process that joins materials, usually metals, by using high heat to melt the parts together and allowing them to cool, causing fusion.</p>
+
+                <h4>3.1 Arc Welding Equipment</h4>
+                <ul>
+                    <li><strong>Welding Machine:</strong> AC Transformer or DC Rectifier.</li>
+                    <li><strong>Electrode Holder:</strong> To hold the welding rod.</li>
+                    <li><strong>Earth Clamp:</strong> To complete the electrical circuit.</li>
+                    <li><strong>Protective Gear:</strong> Face shield/Helmet (with dark glass), Leather Apron, Gloves.</li>
+                </ul>
+
+                <div class="ml-note">
+                    <strong>Malayalam support:</strong>
+                    രണ്ട് ലോഹഭാഗങ്ങൾ ചൂടാക്കി ഉരുക്കി യോജിപ്പിക്കുന്ന പ്രക്രിയയാണിത്. ആർക്ക് വെൽഡിങ്ങിൽ ഇലക്ട്രോഡ് ഉപയോഗിച്ചാണ് വെൽഡ് ചെയ്യുന്നത്. കണ്ണിനും ശരീരത്തിനും സുരക്ഷാ മാർഗ്ഗങ്ങൾ നിർബന്ധമാണ്.
+                </div>
+
+                <h4>3.2 Welding Practice</h4>
+                <p><strong>Butt Joint:</strong> The two workpieces are placed in the same plane and joined at their edges.</p>
+                <figure class="diagram">
+                    <svg viewBox="0 0 200 80" role="img" aria-label="Butt Joint Diagram">
+                        <rect x="20" y="30" width="75" height="20" fill="#7f8c8d" stroke="#2c3e50" />
+                        <rect x="105" y="30" width="75" height="20" fill="#7f8c8d" stroke="#2c3e50" />
+                        <path d="M 95 30 L 105 30 L 105 50 L 95 50 Z" fill="#3498db" />
+                        <text x="90" y="25" font-size="8">Weld Bead</text>
+                    </svg>
+                    <figcaption>Square Butt Joint configuration.</figcaption>
+                </figure>
+            </section>
+
+            <!-- MODULE 4: SHEET METAL -->
+            <section class="module" id="module-4">
+                <div class="module-head">
+                    <h3>Module 4: Sheet Metal Shop</h3>
+                    <span class="badge">18 Hours</span>
+                </div>
+                <p>Sheet metal work involves working with thin metal sheets (usually less than 6mm) to create objects like trays, funnels, and ducts.</p>
+
+                <h4>4.1 Tools & Operations</h4>
+                <ul>
+                    <li><strong>Snips:</strong> Straight snips and Bent snips for cutting.</li>
+                    <li><strong>Stakes:</strong> Metal anvils used for bending and forming (e.g., Hatchet stake, Blow-horn stake).</li>
+                    <li><strong>Measuring:</strong> Standard Wire Gauge (SWG) to measure sheet thickness.</li>
+                </ul>
+
+                <div class="ml-note">
+                    <strong>Malayalam support:</strong>
+                    നേർത്ത ലോഹ തകിടുകൾ ഉപയോഗിച്ചുള്ള നിർമ്മാണമാണിത്. അളവുകൾ എടുക്കുന്നതിനും മുറിക്കുന്നതിനും മടക്കുന്നതിനും പ്രത്യേക ഉപകരണങ്ങൾ ഉപയോഗിക്കുന്നു.
+                </div>
+
+                <div class="worked">
+                    <strong>Standard Wire Gauge (SWG):</strong>
+                    Note that as the Gauge Number increases, the actual thickness of the sheet decreases. 
+                    Example: 18 SWG is thicker than 24 SWG.
+                </div>
+            </section>
+
+            <!-- MODULE 5: ELECTRICAL -->
+            <section class="module" id="module-5">
+                <div class="module-head">
+                    <h3>Module 5: Electrical & Soldering</h3>
+                    <span class="badge">18 Hours</span>
+                </div>
+                <p>This module covers basic domestic wiring and industrial motor connections.</p>
+
+                <h4>5.1 Wiring Circuits</h4>
+                <ul>
+                    <li><strong>One Lamp controlled by One Switch:</strong> Basic series connection of a switch and a bulb.</li>
+                    <li><strong>Staircase Wiring:</strong> One lamp controlled by two 2-way switches from different locations.</li>
+                    <li><strong>DOL Starter:</strong> Direct-On-Line starter for starting induction motors safely.</li>
+                </ul>
+
+                <div class="calculator">
+                    <h3>Ohm's Law Calculator</h3>
+                    <div class="calc-grid">
+                        <div>
+                            <label for="calc-v">Voltage (V):</label>
+                            <input type="number" id="calc-v" placeholder="Enter Volts">
+                        </div>
+                        <div>
+                            <label for="calc-r">Resistance (Ω):</label>
+                            <input type="number" id="calc-r" placeholder="Enter Ohms">
+                        </div>
+                    </div>
+                    <div class="calc-result" id="calc-result" aria-live="polite">
+                        Current (I) = V / R
+                    </div>
+                    <button onclick="calculateOhm()" style="margin-top:10px; padding:10px; cursor:pointer; width:100%; border-radius:4px; border:none; background:var(--blue); color:white; font-weight:bold;">Calculate Current</button>
+                </div>
+
+                <h4>5.2 Soldering</h4>
+                <p>Joining electronic components using a filler metal (solder) and a heat source (soldering iron).</p>
+            </section>
+
+            <section id="formula-bank" class="formula-bank section">
+                <h2>Formula Bank</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Concept</th>
+                            <th>Formula</th>
+                            <th>Units</th>
+                        </tr>
+                        <tr>
+                            <td>Ohm's Law</td>
+                            <td>V = I × R</td>
+                            <td>V (Volts), I (Amps), R (Ohms)</td>
+                        </tr>
+                        <tr>
+                            <td>Electrical Power</td>
+                            <td>P = V × I</td>
+                            <td>P (Watts)</td>
+                        </tr>
+                        <tr>
+                            <td>Energy Consumption</td>
+                            <td>E = P × t</td>
+                            <td>E (kWh)</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library section">
+                <h2>Visual Library</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="diagram">
+                        <svg viewBox="0 0 100 60" role="img" aria-label="Try Square">
+                            <rect x="10" y="10" width="10" height="40" fill="#333" />
+                            <rect x="20" y="10" width="60" height="8" fill="#ccc" />
+                            <text x="25" y="35" font-size="6">Try Square (90°)</text>
+                        </svg>
+                        <figcaption>Try Square for checking perpendicularity.</figcaption>
+                    </div>
+                    <div class="diagram">
+                        <svg viewBox="0 0 100 60" role="img" aria-label="Flat File">
+                            <rect x="10" y="25" width="60" height="10" fill="#999" stroke="#333" />
+                            <path d="M 70 25 L 90 30 L 70 35 Z" fill="#5d4037" />
+                            <text x="72" y="45" font-size="6">Handle</text>
+                        </svg>
+                        <figcaption>Standard Flat File.</figcaption>
+                    </div>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment section">
+                <h2>Module-wise Practice Questions</h2>
+                
+                <details class="qa">
+                    <summary>Q1: What is the use of a Marking Gauge in Carpentry? (3 Marks)</summary>
+                    <div class="qa-body">
+                        A marking gauge is used to mark lines parallel to a face or edge of a wooden piece. It consists of a stem, a stock, and a marking pin (spur).
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q2: Differentiate between Prick Punch and Centre Punch. (3 Marks)</summary>
+                    <div class="qa-body">
+                        <ul>
+                            <li><strong>Prick Punch:</strong> Has an angle of 30°. Used for marking small dots to position dividers.</li>
+                            <li><strong>Centre Punch:</strong> Has an angle of 90°. Used to make a deeper indentation to start a drill bit.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q3: List the safety equipment used in Welding. (5 Marks)</summary>
+                    <div class="qa-body">
+                        1. Welding Helmet/Face Shield (protects eyes from UV rays).<br>
+                        2. Leather Apron (protects body from sparks).<br>
+                        3. Leather Gloves (protects hands from heat).<br>
+                        4. Safety Shoes (protects feet from falling hot metal).<br>
+                        5. Leg Guards.
+                    </div>
+                </details>
+            </section>
+
+            <section id="model-paper" class="model-paper section">
+                <h2>Practice Model Paper</h2>
+                <div style="border: 2px dashed var(--line); padding: 20px;">
+                    <center><strong>Practice Model Paper — Not an Official Examination Paper</strong></center>
+                    <p><strong>Course:</strong> Engineering Workshop Practice (2009)</p>
+                    <p><strong>Time:</strong> 3 Hours | <strong>Max Marks:</strong> 75 (Internal/External split varies)</p>
+                    <hr>
+                    <p><strong>Part A: Short Answer Questions (Answer all)</strong></p>
+                    <ol>
+                        <li>Define "Halving" in carpentry.</li>
+                        <li>What is the purpose of a V-block in fitting?</li>
+                        <li>Name two types of welding joints.</li>
+                        <li>What is the function of a Snip in sheet metal work?</li>
+                        <li>Expand DOL in motor starters.</li>
+                    </ol>
+                    <p><strong>Part B: Practical Tasks</strong></p>
+                    <ol>
+                        <li>Prepare an Open Halved Joint from the given wooden piece of size 150x50x25mm.</li>
+                        <li>Fabricate a V-joint in the given MS flat piece to the specified dimensions.</li>
+                        <li>Perform a straight line bead welding on the given MS plate.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="quick-revision" class="quick-revision section">
+                <h2>Quick Revision</h2>
+                <ul>
+                    <li><strong>Carpentry:</strong> Focus on grain direction and sharp chisels.</li>
+                    <li><strong>Fitting:</strong> Precision is key; use the Try Square frequently.</li>
+                    <li><strong>Welding:</strong> Maintain a constant arc length (approx. 3mm).</li>
+                    <li><strong>Sheet Metal:</strong> Use a mallet for bending to avoid surface damage.</li>
+                    <li><strong>Electrical:</strong> Always check for continuity before powering up.</li>
+                </ul>
+            </section>
+
+            <section id="glossary" class="glossary section">
+                <h2>Glossary</h2>
+                <dl>
+                    <dt><strong>Burr</strong></dt>
+                    <dd>A rough edge or ridge left on metal after cutting or drilling.</dd>
+                    <dt><strong>Flux</strong></dt>
+                    <dd>A chemical cleaning agent used in soldering and welding to prevent oxidation.</dd>
+                    <dt><strong>Kerf</strong></dt>
+                    <dd>The width of the cut made by a saw blade.</dd>
+                    <dt><strong>Stake</strong></dt>
+                    <dd>A small anvil used in sheet metal forming.</dd>
+                </dl>
+            </section>
+
+            <section id="official-source" class="official-source section">
+                <h2>Official Source Declaration</h2>
+                <p>This lesson content is architected based on the <strong>Revision 2021 Syllabus</strong> for Course Code <strong>2009 (Engineering Workshop Practice)</strong> issued by the State Institute of Technical Teachers' Training & Research (SITTTR), Kerala.</p>
+                <p>Reference Texts:
+                    <ul>
+                        <li>S.K. Hajara Chaudhary, Workshop Technology, Median Promoters.</li>
+                        <li>J.B. Gupta, Electrical Installation Estimation and Costing, Kataria & Sons.</li>
+                    </ul>
+                </p>
+            </section>
+
+            <section lang="ml" class="section">
+                <h2>മലയാളം പഠനസഹായം / Malayalam learning support</h2>
+                <div class="ml-note">
+                    ഈ വർക്ക്ഷോപ്പ് പ്രാക്ടീസ് കോഴ്സ് വിദ്യാർത്ഥികൾക്ക് വിവിധ നിർമ്മാണ രീതികളിൽ പ്രായോഗിക അറിവ് നൽകുന്നു. 
+                    കാർപെന്ററി, ഫിറ്റിംഗ്, വെൽഡിംഗ്, ഷീറ്റ് മെറ്റൽ, ഇലക്ട്രിക്കൽ വയറിംഗ് എന്നീ അഞ്ച് പ്രധാന വിഭാഗങ്ങളാണ് ഇതിലുള്ളത്. 
+                    ഓരോ വിഭാഗത്തിലും ഉപകരണങ്ങൾ കൈകാര്യം ചെയ്യുമ്പോഴും മെഷീനുകൾ പ്രവർത്തിപ്പിക്കുമ്പോഴും പാലിക്കേണ്ട സുരക്ഷാ മാനദണ്ഡങ്ങൾ അതീവ പ്രധാനമാണ്. 
+                    കൃത്യമായ അളവുകൾ എടുക്കുന്നതിനും (Measuring), അടയാളപ്പെടുത്തുന്നതിനും (Marking) പ്രത്യേക ശ്രദ്ധ നൽകണം.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        "use strict";
+        (function() {
+            // Reading Progress Bar
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Ohm's Law Calculator Function
+            window.calculateOhm = function() {
+                const v = document.getElementById('calc-v').value;
+                const r = document.getElementById('calc-r').value;
+                const resDiv = document.getElementById('calc-result');
+
+                if (v && r && r > 0) {
+                    const i = (v / r).toFixed(2);
+                    resDiv.innerHTML = `Current (I) = ${i} Amperes`;
+                    resDiv.style.color = "#4ade80";
+                } else {
+                    resDiv.innerHTML = "Please enter valid Voltage and Resistance (>0)";
+                    resDiv.style.color = "#f87171";
+                }
+            };
+        })();
+    </script>
+</body>
+</html>
