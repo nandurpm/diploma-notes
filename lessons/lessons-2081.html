@@ -1,0 +1,689 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2081 — Electronic Instrumentation">
+    <meta name="course-code" content="2081">
+    <meta name="course-title" content="Electronic Instrumentation">
+    <meta name="curriculum" content="REV2021">
+    <title>2081 — Electronic Instrumentation</title>
+    <style>
+        :root {
+            --ink:#10233e;
+            --muted:#55697f;
+            --paper:#ffffff;
+            --soft:#f4f8fc;
+            --soft2:#eaf4ff;
+            --line:#d5e1ed;
+            --navy:#071f3f;
+            --blue:#0b5ed7;
+            --cyan:#0891b2;
+            --teal:#0f766e;
+            --green:#15803d;
+            --amber:#b45309;
+            --red:#b42318;
+            --violet:#6d28d9;
+            --shadow:0 12px 34px rgba(15,43,75,.10);
+            --radius:18px;
+            --mal:"Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--soft);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        main { padding: 2rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+
+        .cover {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 0 0 var(--radius) var(--radius);
+            text-align: center;
+        }
+
+        .kicker { text-transform: uppercase; letter-spacing: 2px; font-weight: bold; opacity: 0.8; }
+        h1 { font-size: 3rem; margin: 1rem 0; }
+
+        .module {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: white;
+        }
+
+        .module-head {
+            border-bottom: 3px solid var(--blue);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .ml-note {
+            background: var(--soft2);
+            border-left: 5px solid var(--teal);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .ml-note strong { display: block; margin-bottom: 0.5rem; color: var(--teal); }
+
+        .worked {
+            background: #fffbeb;
+            border: 1px solid var(--amber);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        .formula-card {
+            background: var(--navy);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            font-family: "Courier New", monospace;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+        }
+
+        .diagram svg { max-width: 100%; height: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid var(--line);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th { background: var(--soft); }
+
+        .qa {
+            margin-bottom: 1rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .qa summary {
+            padding: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: var(--soft);
+        }
+
+        .qa-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            background: var(--soft2);
+            color: var(--blue);
+            margin-right: 0.5rem;
+        }
+
+        .jump-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            background: var(--soft);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 10px;
+            z-index: 90;
+        }
+
+        .jump-menu a {
+            text-decoration: none;
+            color: var(--navy);
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            background: white;
+            border-radius: 6px;
+            border: 1px solid var(--line);
+        }
+
+        @media print {
+            .jump-menu, .no-print, .reading-progress { display: none; }
+            .lesson-shell { box-shadow: none; max-width: 100%; }
+            details { display: block !important; }
+            details summary { display: none; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+    <header class="cover">
+        <div class="kicker">Polytechnic Curriculum REV2021</div>
+        <h1>Electronic Instrumentation</h1>
+        <div class="badge-row">
+            <span class="badge">Course Code: 2081</span>
+            <span class="badge">Semester: 2</span>
+            <span class="badge">Credits: 3</span>
+            <span class="badge">Dept: Instrumentation Engineering</span>
+        </div>
+    </header>
+
+    <nav class="jump-menu">
+        <a href="#course-dashboard">Overview</a>
+        <a href="#course-outcomes">Outcomes</a>
+        <a href="#module-1">Module 1</a>
+        <a href="#module-2">Module 2</a>
+        <a href="#module-3">Module 3</a>
+        <a href="#module-4">Module 4</a>
+        <a href="#formula-bank">Formulas</a>
+        <a href="#assessment">Q&A</a>
+        <a href="#official-source">Source</a>
+    </nav>
+
+<a data-notes-link data-pdf-code="2081" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2081" style="display:block; text-align:center; margin: 1rem; color: var(--blue);">[View Official SITTTR Syllabus PDF]</a>
+
+<main id="main-content">
+<section id="course-dashboard" class="course-dashboard">
+    <h2>Course Overview</h2>
+    <div class="grid two">
+        <div class="card">
+            <h3>Objectives</h3>
+            <ul>
+                <li>Introduce performance characteristics of instruments.</li>
+                <li>Learn concepts of PMMC, Moving Iron, and Multimeters.</li>
+                <li>Familiarize with DC and AC bridges.</li>
+                <li>Understand calibration and working of Wattmeters/Energy meters.</li>
+                <li>Study display devices (CRO, DSO, LED, LCD) and recorders.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Teaching Scheme</h3>
+            <table>
+                <tr><td>Lecture</td><td>3 Hours/Week</td></tr>
+                <tr><td>Tutorial</td><td>0 Hours/Week</td></tr>
+                <tr><td>Practical</td><td>0 Hours/Week</td></tr>
+                <tr><td>Total Periods</td><td>45 Periods/Semester</td></tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<section id="course-outcomes" class="course-outcomes">
+    <h2>Course Outcomes (CO)</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>CO No.</th>
+                    <th>Description</th>
+                    <th>Cognitive Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>CO1</td>
+                    <td>Identify the performance characteristics of instruments.</td>
+                    <td>Applying</td>
+                </tr>
+                <tr>
+                    <td>CO2</td>
+                    <td>Utilize moving coil meter as multimeter.</td>
+                    <td>Applying</td>
+                </tr>
+                <tr>
+                    <td>CO3</td>
+                    <td>Explain the construction and working of watt meters, energy meters and AC & DC Bridges.</td>
+                    <td>Understanding</td>
+                </tr>
+                <tr>
+                    <td>CO4</td>
+                    <td>Explain the working of display devices – CRO, DSO, LED & LCD, Strip chart recorders and XY recorders.</td>
+                    <td>Understanding</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- MODULE 1 -->
+<section class="module" id="module-1">
+    <div class="module-head">
+        <h2>Module 1: Introduction to Instrumentation Engineering</h2>
+        <span class="badge">12 Hours</span>
+    </div>
+    
+    <details class="topic" open>
+        <summary>1.1 Generalized Instrumentation System</summary>
+        <div class="topic-body">
+            <p>An instrumentation system is a collection of instruments and auxiliary equipment used to measure, monitor, or control a physical variable. The generalized block diagram consists of:</p>
+            <ol>
+                <li><strong>Primary Sensing Element:</strong> Interacts with the measurand (e.g., Thermocouple).</li>
+                <li><strong>Variable Conversion Element:</strong> Converts the output of the sensor into a more suitable form (e.g., Bridge circuit).</li>
+                <li><strong>Variable Manipulation Element:</strong> Changes the level of the signal (e.g., Amplifier).</li>
+                <li><strong>Data Transmission Element:</strong> Transmits data from one stage to another.</li>
+                <li><strong>Data Presentation Element:</strong> Displays or records the value (e.g., Digital display, Recorder).</li>
+            </ol>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong>
+                ഒരു മെഷർമെന്റ് സിസ്റ്റത്തിന്റെ പ്രധാന ഭാഗങ്ങൾ സെൻസർ, സിഗ്നൽ കണ്ടീഷനിംഗ് (ആംപ്ലിഫയർ പോലെ), ഡിസ്പ്ലേ എന്നിവയാണ്. അളക്കേണ്ട അളവിനെ (Measurand) ഇലക്ട്രിക്കൽ സിഗ്നലായി മാറ്റി നമുക്ക് മനസ്സിലാകുന്ന രീതിയിൽ കാണിച്ചുതരുന്നു.
+            </div>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>1.2 Performance Characteristics</summary>
+        <div class="topic-body">
+            <h3>Static Characteristics</h3>
+            <p>These refer to characteristics of instruments measuring quantities that do not vary with time.</p>
+            <ul>
+                <li><strong>Accuracy:</strong> Closeness to the true value.</li>
+                <li><strong>Precision:</strong> Consistency or repeatability of measurements.</li>
+                <li><strong>Linearity:</strong> The ability of the instrument to provide an output that is directly proportional to the input.</li>
+                <li><strong>Sensitivity:</strong> Ratio of change in output to change in input.</li>
+                <li><strong>Resolution:</strong> The smallest change in input that can be detected.</li>
+                <li><strong>Hysteresis:</strong> Difference in readings when the input is increased vs decreased.</li>
+                <li><strong>Drift:</strong> Gradual shift in the instrument output over time.</li>
+            </ul>
+
+            <h3>Dynamic Characteristics</h3>
+            <p>These describe the instrument's behavior when measuring rapidly changing quantities.</p>
+            <ul>
+                <li><strong>Speed of Response:</strong> How fast the system responds to changes.</li>
+                <li><strong>Fidelity:</strong> The degree to which the system reproduces the input signal without distortion.</li>
+                <li><strong>Lag:</strong> Delay in the response of the instrument.</li>
+                <li><strong>Dynamic Error:</strong> Difference between true value and measured value under dynamic conditions.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>1.3 Types of Errors</summary>
+        <div class="topic-body">
+            <ol>
+                <li><strong>Gross Errors:</strong> Human mistakes (wrong reading, improper recording).</li>
+                <li><strong>Systematic Errors:</strong>
+                    <ul>
+                        <li>Instrumental: Due to friction, aging, or faulty construction.</li>
+                        <li>Environmental: Due to external conditions like temperature, pressure, humidity.</li>
+                        <li>Observational: Parallax error.</li>
+                    </ul>
+                </li>
+                <li><strong>Random Errors:</strong> Unpredictable errors that remain after systematic errors are removed.</li>
+            </ol>
+        </div>
+    </details>
+</section>
+
+<!-- MODULE 2 -->
+<section class="module" id="module-2">
+    <div class="module-head">
+        <h2>Module 2: Moving Coil, Moving Iron & Multimeters</h2>
+        <span class="badge">9 Hours</span>
+    </div>
+
+    <details class="topic" open>
+        <summary>2.1 PMMC Instruments</summary>
+        <div class="topic-body">
+            <p><strong>PMMC (Permanent Magnet Moving Coil):</strong> Works on the principle that a current-carrying conductor placed in a magnetic field experiences a force (Motor principle).</p>
+            <p><strong>Torque Equation:</strong> $T_d = N \cdot B \cdot I \cdot A$</p>
+            <ul>
+                <li>N = Number of turns</li>
+                <li>B = Flux density</li>
+                <li>I = Current</li>
+                <li>A = Area of the coil</li>
+            </ul>
+            <p>PMMC instruments are used for <strong>DC measurements only</strong> because the torque reverses if the current reverses.</p>
+            
+            <div class="ml-note">
+                <strong>Malayalam support:</strong>
+                PMMC ഇൻസ്ട്രുമെന്റുകൾ DC അളക്കാൻ മാത്രമേ ഉപയോഗിക്കൂ. കാന്തിക മണ്ഡലത്തിൽ ഇരിക്കുന്ന കോയിലിലൂടെ കറന്റ് കടന്നുപോകുമ്പോൾ ഉണ്ടാകുന്ന ബലം (Force) ഉപയോഗിച്ചാണ് ഇത് പ്രവർത്തിക്കുന്നത്.
+            </div>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>2.2 PMMC as Ammeter and Voltmeter</summary>
+        <div class="topic-body">
+            <h3>Ammeter (Shunt)</h3>
+            <p>To measure higher currents, a low resistance (Shunt) is connected in parallel with the meter.</p>
+            <div class="formula-card">Rsh = Rm / (m - 1)</div>
+            <p>Where $m = I / Im$ (Multiplying factor).</p>
+
+            <h3>Voltmeter (Multiplier)</h3>
+            <p>To measure higher voltages, a high resistance (Multiplier) is connected in series with the meter.</p>
+            <div class="formula-card">Rs = Rm (m - 1)</div>
+            <p>Where $m = V / Vm$.</p>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>2.3 Digital Multimeter (DMM)</summary>
+        <div class="topic-body">
+            <p>A DMM converts analog signals to digital form for display. Key blocks include:</p>
+            <ul>
+                <li><strong>Input Scaling:</strong> Attenuators for voltage, shunts for current.</li>
+                <li><strong>Rectifier:</strong> Converts AC to DC.</li>
+                <li><strong>Analog to Digital Converter (ADC):</strong> The heart of the DMM.</li>
+                <li><strong>Digital Display:</strong> Usually LCD or LED.</li>
+            </ul>
+        </div>
+    </details>
+</section>
+
+<!-- MODULE 3 -->
+<section class="module" id="module-3">
+    <div class="module-head">
+        <h2>Module 3: Bridges, Wattmeter & Energy Meter</h2>
+        <span class="badge">11 Hours</span>
+    </div>
+
+    <details class="topic" open>
+        <summary>3.1 DC Bridges (Wheatstone Bridge)</summary>
+        <div class="topic-body">
+            <p>Used for measuring medium resistance. At balance, no current flows through the galvanometer.</p>
+            <p><strong>Balance Condition:</strong> $P/Q = R/S$ or $R = (P/Q) \cdot S$</p>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>3.2 AC Bridges</summary>
+        <div class="topic-body">
+            <p>Used to measure Inductance (L) and Capacitance (C). Balance occurs when magnitude and phase are both matched.</p>
+            <ul>
+                <li><strong>Maxwell Bridge:</strong> Measures medium Q-factor inductance.</li>
+                <li><strong>Hay Bridge:</strong> Measures high Q-factor inductance.</li>
+                <li><strong>Schering Bridge:</strong> Measures unknown capacitance and dissipation factor.</li>
+                <li><strong>Wien Bridge:</strong> Measures frequency and capacitance.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>3.3 Wattmeter and Energy Meter</summary>
+        <div class="topic-body">
+            <p><strong>Dynamometer Wattmeter:</strong> Consists of fixed coils (Current Coils) and a moving coil (Pressure Coil). Deflection is proportional to $V \cdot I \cdot \cos(\phi)$.</p>
+            <p><strong>Induction Energy Meter:</strong> Measures total energy consumed over time. Uses a rotating aluminum disc. The speed of the disc is proportional to power, and total revolutions are proportional to energy.</p>
+        </div>
+    </details>
+</section>
+
+<!-- MODULE 4 -->
+<section class="module" id="module-4">
+    <div class="module-head">
+        <h2>Module 4: CRO, DSO, Display Devices & Recorders</h2>
+        <span class="badge">11 Hours</span>
+    </div>
+
+    <details class="topic" open>
+        <summary>4.1 Cathode Ray Oscilloscope (CRO)</summary>
+        <div class="topic-body">
+            <p>Used to visualize waveforms. Components:</p>
+            <ul>
+                <li><strong>CRT (Cathode Ray Tube):</strong> Generates the electron beam.</li>
+                <li><strong>Vertical Amplifier:</strong> Amplifies the input signal.</li>
+                <li><strong>Horizontal Sweep Generator:</strong> Creates the time base (Sawtooth wave).</li>
+                <li><strong>Trigger Circuit:</strong> Synchronizes the sweep with the input signal.</li>
+            </ul>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>4.2 Digital Storage Oscilloscope (DSO)</summary>
+        <div class="topic-body">
+            <p>Unlike CRO, DSO digitizes the input signal using an ADC and stores it in memory. This allows for pre-trigger viewing and permanent storage of waveforms.</p>
+        </div>
+    </details>
+
+    <details class="topic" open>
+        <summary>4.3 Display Devices & Recorders</summary>
+        <div class="topic-body">
+            <ul>
+                <li><strong>LED:</strong> Light Emitting Diode. Used in 7-segment and dot-matrix displays.</li>
+                <li><strong>LCD:</strong> Liquid Crystal Display. Consumes very low power.</li>
+                <li><strong>Strip Chart Recorder:</strong> Records a variable against time on a moving paper strip. Uses a potentiometric system for high accuracy.</li>
+                <li><strong>XY Recorder:</strong> Records one variable against another (e.g., V-I characteristics).</li>
+            </ul>
+        </div>
+    </details>
+</section>
+
+<section id="formula-bank" class="formula-bank">
+    <h2>Formula Bank & Calculations</h2>
+    
+    <div class="worked">
+        <h3>Example 1: Ammeter Shunt</h3>
+        <strong>Given:</strong> Meter resistance $R_m = 100 \Omega$, Full-scale current $I_m = 1 mA$. Goal: Measure $100 mA$.<br>
+        <strong>Calculation:</strong><br>
+        $m = I / I_m = 100 / 1 = 100$<br>
+        $R_{sh} = R_m / (m - 1) = 100 / (100 - 1) = 100 / 99 \approx 1.01 \Omega$.<br>
+        <strong>Answer:</strong> A shunt resistance of $1.01 \Omega$ is required.
+    </div>
+
+    <div class="worked">
+        <h3>Example 2: Voltmeter Multiplier</h3>
+        <strong>Given:</strong> Meter resistance $R_m = 50 \Omega$, Full-scale current $I_m = 2 mA$. Goal: Measure $10 V$.<br>
+        <strong>Calculation:</strong><br>
+        $V_m = I_m \cdot R_m = 0.002 \cdot 50 = 0.1 V$<br>
+        $m = V / V_m = 10 / 0.1 = 100$<br>
+        $R_s = R_m(m - 1) = 50(100 - 1) = 50 \cdot 99 = 4950 \Omega$.<br>
+        <strong>Answer:</strong> A series multiplier of $4950 \Omega$ is required.
+    </div>
+</section>
+
+<section id="visual-library" class="visual-library">
+    <h2>Visual Library</h2>
+    
+    <figure class="diagram">
+        <svg viewBox="0 0 400 200" role="img" aria-label="Generalized Instrumentation System">
+            <rect x="10" y="70" width="60" height="60" fill="var(--soft2)" stroke="var(--navy)"/>
+            <text x="40" y="105" text-anchor="middle" font-size="10">Measurand</text>
+            <line x1="70" y1="100" x2="90" y2="100" stroke="black" marker-end="url(#arrow)"/>
+            
+            <rect x="90" y="70" width="60" height="60" fill="var(--soft2)" stroke="var(--navy)"/>
+            <text x="120" y="100" text-anchor="middle" font-size="8">Primary</text>
+            <text x="120" y="110" text-anchor="middle" font-size="8">Sensor</text>
+            
+            <line x1="150" y1="100" x2="170" y2="100" stroke="black"/>
+            
+            <rect x="170" y="70" width="60" height="60" fill="var(--soft2)" stroke="var(--navy)"/>
+            <text x="200" y="100" text-anchor="middle" font-size="8">Signal</text>
+            <text x="200" y="110" text-anchor="middle" font-size="8">Cond.</text>
+            
+            <line x1="230" y1="100" x2="250" y2="100" stroke="black"/>
+            
+            <rect x="250" y="70" width="60" height="60" fill="var(--soft2)" stroke="var(--navy)"/>
+            <text x="280" y="105" text-anchor="middle" font-size="8">Display</text>
+            
+            <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                </marker>
+            </defs>
+        </svg>
+        <figcaption>Generalized Block Diagram of an Instrumentation System</figcaption>
+    </figure>
+
+    <figure class="diagram">
+        <svg viewBox="0 0 200 150" role="img" aria-label="Wheatstone Bridge">
+            <path d="M100,10 L160,75 L100,140 L40,75 Z" fill="none" stroke="var(--navy)" stroke-width="2"/>
+            <circle cx="100" cy="75" r="15" fill="white" stroke="black"/>
+            <text x="100" y="80" text-anchor="middle" font-weight="bold">G</text>
+            <text x="70" y="40">P</text>
+            <text x="130" y="40">Q</text>
+            <text x="70" y="115">R</text>
+            <text x="130" y="115">S</text>
+        </svg>
+        <figcaption>Wheatstone Bridge Circuit Diagram</figcaption>
+    </figure>
+</section>
+
+<section id="assessment" class="assessment">
+    <h2>Module-wise Practice Questions</h2>
+    
+    <h3>Module 1</h3>
+    <details class="qa">
+        <summary>Define Accuracy and Precision. (3 Marks)</summary>
+        <div class="qa-body">
+            <strong>Accuracy:</strong> The closeness of a measured value to the true value of the quantity.<br>
+            <strong>Precision:</strong> The degree of repeatability or consistency of a set of measurements. A precise instrument gives the same reading for the same input every time.
+        </div>
+    </details>
+
+    <h3>Module 2</h3>
+    <details class="qa">
+        <summary>Why is PMMC not used for AC measurements? (3 Marks)</summary>
+        <div class="qa-body">
+            In AC, the current reverses direction every half cycle. Since the torque in PMMC is proportional to current ($T \propto I$), the torque also reverses direction. Due to the inertia of the moving system, the pointer cannot follow these rapid reversals and stays at zero.
+        </div>
+    </details>
+
+    <h3>Module 3</h3>
+    <details class="qa">
+        <summary>Compare Maxwell and Hay Bridges. (5 Marks)</summary>
+        <div class="qa-body">
+            Maxwell Bridge is used for measuring medium Q-factor coils (1 < Q < 10). Hay Bridge is modified to measure high Q-factor coils (Q > 10). In Hay bridge, the resistance and capacitance are in series, whereas in Maxwell, they are in parallel.
+        </div>
+    </details>
+
+    <h3>Module 4</h3>
+    <details class="qa">
+        <summary>What are the advantages of DSO over CRO? (5 Marks)</summary>
+        <div class="qa-body">
+            1. Waveforms can be stored in memory indefinitely.<br>
+            2. Allows pre-trigger viewing (seeing what happened before the trigger).<br>
+            3. Waveforms can be transferred to a PC for analysis.<br>
+            4. Can capture non-repetitive (transient) signals easily.
+        </div>
+    </details>
+</section>
+
+<section id="model-paper" class="model-paper">
+    <h2>Practice Model Paper</h2>
+    <p><em>(Based on REV2021 Pattern)</em></p>
+    
+    <div class="card">
+        <h4>Part A (Short Answer - 3 Marks each)</h4>
+        <ol>
+            <li>Define Sensitivity and Resolution.</li>
+            <li>List three types of systematic errors.</li>
+            <li>What is the function of a time-base generator in CRO?</li>
+            <li>State the balance condition for a Wheatstone bridge.</li>
+        </ol>
+        
+        <h4>Part B (Medium Answer - 5 Marks each)</h4>
+        <ol>
+            <li>Explain the construction of a PMMC instrument with a diagram.</li>
+            <li>How can a PMMC meter be converted into a multi-range voltmeter?</li>
+            <li>Explain the working of a Strip Chart Recorder.</li>
+        </ol>
+
+        <h4>Part C (Long Answer - 10 Marks each)</h4>
+        <ol>
+            <li>Draw the block diagram of a CRO and explain the function of each block.</li>
+            <li>Explain the construction and working principle of an induction type single-phase energy meter.</li>
+        </ol>
+    </div>
+</section>
+
+<section id="quick-revision" class="quick-revision">
+    <h2>Quick Revision</h2>
+    <ul>
+        <li><strong>Static:</strong> Accuracy, Precision, Sensitivity, Linearity, Hysteresis.</li>
+        <li><strong>Dynamic:</strong> Fidelity, Speed of Response, Lag.</li>
+        <li><strong>Errors:</strong> Gross (Human), Systematic (Instrument/Env), Random.</li>
+        <li><strong>PMMC:</strong> DC only, Linear scale, $T_d = NBIA$.</li>
+        <li><strong>Moving Iron:</strong> AC & DC, Non-linear scale.</li>
+        <li><strong>Bridges:</strong> Wheatstone (R), Maxwell/Hay (L), Schering (C), Wien (f).</li>
+        <li><strong>CRO:</strong> Visualizes waveforms using CRT and time-base.</li>
+        <li><strong>DSO:</strong> Digital storage, memory, ADC.</li>
+    </ul>
+</section>
+
+<section id="glossary" class="glossary">
+    <h2>Glossary</h2>
+    <dl>
+        <dt>Measurand</dt><dd>The physical quantity or variable being measured.</dd>
+        <dt>Calibration</dt><dd>The process of comparing an instrument's reading with a standard to check accuracy.</dd>
+        <dt>Parallax Error</dt><dd>An observational error caused by looking at the pointer from an angle.</dd>
+        <dt>Shunt</dt><dd>A low resistance connected in parallel to increase ammeter range.</dd>
+        <dt>Multiplier</dt><dd>A high resistance connected in series to increase voltmeter range.</dd>
+    </dl>
+</section>
+
+<section id="official-source" class="official-source">
+    <h2>Official Source Declaration</h2>
+    <p>This content is architected based on the <strong>SITTTR Kerala REV2021 Syllabus</strong> for Course Code <strong>2081 (Electronic Instrumentation)</strong>.</p>
+    <p>Source URL: <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2081">SITTTR Diploma Syllabus</a></p>
+</section>
+
+<section lang="ml" class="ml-note">
+    <strong>മലയാളം പഠനസഹായം / Malayalam learning support</strong>
+    <p>ഈ പാഠഭാഗം പ്രധാനമായും ഇലക്ട്രോണിക് അളവുപകരണങ്ങളെക്കുറിച്ചാണ് (Electronic Instruments). ഇതിൽ പ്രധാനമായും പഠിക്കാനുള്ളത്:</p>
+    <ul>
+        <li>ഇൻസ്ട്രുമെന്റുകളുടെ സ്വഭാവങ്ങൾ (Accuracy, Precision).</li>
+        <li>PMMC, Moving Iron മീറ്ററുകൾ - ഇവ എങ്ങനെ കറന്റും വോൾട്ടേജും അളക്കാൻ ഉപയോഗിക്കുന്നു.</li>
+        <li>ബ്രിഡ്ജുകൾ (Bridges) - റെസിസ്റ്റൻസ്, ഇൻഡക്റ്റൻസ്, കപ്പാസിറ്റൻസ് എന്നിവ കൃത്യമായി അളക്കാൻ.</li>
+        <li>CRO & DSO - സിഗ്നലുകൾ സ്ക്രീനിൽ കാണാൻ സഹായിക്കുന്ന ഉപകരണങ്ങൾ.</li>
+    </ul>
+</section>
+</main>
+
+<script>
+    "use strict";
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("readingProgress").style.width = scrolled + "%";
+    };
+</script>
+
+</div>
+</body>
+</html>
