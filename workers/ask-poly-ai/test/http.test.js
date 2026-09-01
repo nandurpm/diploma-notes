@@ -8,7 +8,8 @@ import {
   isOriginAllowed,
   corsHeaders,
   jsonResponse,
-  createRateLimiter
+  createRateLimiter,
+  safeLogValue
 } from "../src/http.js";
 import secureIndex from "../src/secure-index.js";
 
@@ -165,4 +166,27 @@ test("secureIndex handles auth failure and validates HTTP status code within saf
   assert.equal(response.status, 401);
   const data = await response.json();
   assert.ok(data.error);
+});
+
+test("safeLogValue redacts sensitive keys and embedded secret tokens", () => {
+  const sample = {
+    route: "mock_exam",
+    status: 401,
+    private_key: "secret-data",
+    auth: "token-data",
+    jwt: "jwt-data",
+    credential: "cred-data",
+    error: "Failed to authenticate Bearer eyJhbGciOiJIUzI1NiJ9 using sk_live_1234567890abc"
+  };
+  const sanitized = safeLogValue(sample);
+  assert.equal(sanitized.route, "mock_exam");
+  assert.equal(sanitized.status, 401);
+  assert.equal(sanitized.private_key, "[REDACTED]");
+  assert.equal(sanitized.auth, "[REDACTED]");
+  assert.equal(sanitized.jwt, "[REDACTED]");
+  assert.equal(sanitized.credential, "[REDACTED]");
+  assert.equal(
+    sanitized.error,
+    "Failed to authenticate Bearer [REDACTED] using [REDACTED_KEY]"
+  );
 });
