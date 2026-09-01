@@ -7525,6 +7525,13 @@
       "subjectName": "Electronic Instrumentation Lab",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2089.html"
+    },
+    "REV2021:1001:lessons/lessons-1001.html": {
+      "messageId": "projects/poly-pmna/messages/6972006934248940442",
+      "subjectCode": "1001",
+      "subjectName": "Communication Skills in English",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=1001#subject-1001"
     }
   }
 }
