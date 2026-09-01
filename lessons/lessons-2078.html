@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2078 — CAD Lab. Covers 2D drafting, Isometric drawing, and 3D modeling using industry-standard software.">
+    <meta name="course-code" content="2078">
+    <meta name="course-title" content="CAD Lab">
+    <meta name="curriculum" content="REV2021">
+    <title>2078 — CAD Lab</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--soft);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        main { padding: 2rem; }
+
+        .cover {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            border-radius: 0 0 var(--radius) var(--radius);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .cover h1 { font-size: 3rem; margin: 0; }
+        .badge-row { display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; }
+        .badge { background: rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 50px; font-weight: bold; }
+
+        .section { margin-bottom: 3rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+        .module { margin-bottom: 4rem; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+        .module-head { background: var(--soft2); padding: 1.5rem; border-bottom: 1px solid var(--line); }
+        .module-body { padding: 2rem; }
+
+        .topic { margin-bottom: 1.5rem; border: 1px solid var(--line); border-radius: 12px; }
+        .topic summary { padding: 1rem; font-weight: bold; cursor: pointer; background: var(--soft); border-radius: 12px; }
+        .topic-body { padding: 1.5rem; }
+
+        .ml-note {
+            background: #fffbeb;
+            border-left: 5px solid var(--amber);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked { background: var(--soft2); border: 1px dashed var(--blue); padding: 1.5rem; border-radius: 12px; margin: 1rem 0; }
+        .formula-card { background: var(--navy); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; font-family: monospace; font-size: 1.2rem; }
+
+        .diagram { text-align: center; margin: 2rem 0; background: white; padding: 1rem; border-radius: 12px; border: 1px solid var(--line); }
+        .diagram svg { max-width: 100%; height: auto; }
+        figcaption { margin-top: 0.5rem; color: var(--muted); font-style: italic; }
+
+        .table-wrap { overflow-x: auto; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 0.75rem; text-align: left; }
+        th { background: var(--soft2); }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 0.75rem; background: var(--soft); cursor: pointer; font-weight: 500; }
+        .qa-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+        .calculator { background: var(--soft); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--blue); margin: 1rem 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        input { padding: 0.5rem; border: 1px solid var(--line); border-radius: 4px; }
+
+        .jump-menu { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+        .jump-menu a { text-decoration: none; color: var(--blue); padding: 0.4rem 0.8rem; border: 1px solid var(--blue); border-radius: 4px; font-size: 0.9rem; }
+        .jump-menu a:hover { background: var(--blue); color: white; }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress, .calculator { display: none !important; }
+            details { display: block !important; }
+            details summary { display: none; }
+            .lesson-shell { box-shadow: none; max-width: 100%; }
+            body { background: white; }
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .cover h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+
+    <div class="lesson-shell">
+        <header class="cover">
+            <p class="eyebrow">SITTTR KERALA — REVISION 2021</p>
+            <h1>CAD Lab</h1>
+            <div class="badge-row">
+                <span class="badge">Course Code: 2078</span>
+                <span class="badge">Semester: 2</span>
+                <span class="badge">Chemical Engineering</span>
+            </div>
+        </header>
+
+        <a data-notes-link data-pdf-code="2078" data-pdf-revision="2021" href="#official-source" style="display:block; text-align:center; margin: 1rem; color: var(--blue); font-weight: bold;">[Official Syllabus Reference]</a>
+
+        <nav class="jump-menu no-print">
+            <a href="#course-dashboard">Dashboard</a>
+            <a href="#course-outcomes">Outcomes</a>
+            <a href="#module-1">Module 1</a>
+            <a href="#module-2">Module 2</a>
+            <a href="#module-3">Module 3</a>
+            <a href="#module-4">Module 4</a>
+            <a href="#formula-bank">Coordinate Guide</a>
+            <a href="#visual-library">Diagrams</a>
+            <a href="#assessment">Q&A</a>
+            <a href="#model-paper">Model Paper</a>
+            <a href="#quick-revision">Shortcuts</a>
+        </nav>
+
+        <main id="main-content">
+
+            <section id="course-dashboard" class="course-dashboard section">
+                <h2>Course Overview</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Program</th>
+                            <td>Diploma in Chemical Engineering</td>
+                            <th>Credits</th>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <th>Course Category</th>
+                            <td>Engineering Science</td>
+                            <th>Total Hours</th>
+                            <td>45 Periods</td>
+                        </tr>
+                        <tr>
+                            <th>Teaching Scheme</th>
+                            <td>L:0 T:0 P:3</td>
+                            <th>Assessment</th>
+                            <td>CIE & ESE (Internal/External Lab)</td>
+                        </tr>
+                    </table>
+                </div>
+                <p class="lead">The CAD Lab course is designed to provide hands-on experience in Computer Aided Design and Drafting using industry-approved software (AutoCAD). It bridges the gap between manual engineering graphics and modern digital drafting standards.</p>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes section">
+                <h2>Course Outcomes (COs)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CO1</td>
+                                <td>Summarize Computer Aided Design.</td>
+                                <td>Understanding</td>
+                            </tr>
+                            <tr>
+                                <td>CO2</td>
+                                <td>Illustrate the basic commands in AutoCAD.</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO3</td>
+                                <td>Sketch block and Isometric 2D drawing in AutoCAD.</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO4</td>
+                                <td>Illustrate 3D modelling in AutoCAD.</td>
+                                <td>Applying</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="module-1" class="module">
+                <div class="module-head">
+                    <h3>Module 1: Introduction to CAD</h3>
+                    <p>Foundations and Industry Context (3 Hours)</p>
+                </div>
+                <div class="module-body">
+                    <details class="topic" open>
+                        <summary>Introduction to AutoCAD & CAD Advantages</summary>
+                        <div class="topic-body">
+                            <p>CAD (Computer-Aided Design) is the use of computer systems to assist in the creation, modification, analysis, or optimization of a design.</p>
+                            <h4>Advantages of CAD:</h4>
+                            <ul>
+                                <li><strong>Accuracy:</strong> Extremely high precision compared to manual drafting.</li>
+                                <li><strong>Speed:</strong> Faster creation and editing of drawings.</li>
+                                <li><strong>Storage:</strong> Drawings can be stored digitally and easily shared.</li>
+                                <li><strong>Standardization:</strong> Easy to maintain uniform line weights, fonts, and styles.</li>
+                                <li><strong>Reusability:</strong> Components (Blocks) can be reused across multiple projects.</li>
+                            </ul>
+                            <div class="ml-note">
+                                <strong>Malayalam Support:</strong>
+                                CAD എന്നാൽ കമ്പ്യൂട്ടർ ഉപയോഗിച്ച് ഡിസൈനുകൾ തയ്യാറാക്കുന്ന രീതിയാണ്. ഇത് ഡ്രോയിംഗുകൾ കൂടുതൽ കൃത്യതയോടെയും വേഗത്തിലും ചെയ്യാൻ സഹായിക്കുന്നു.
+                            </div>
+                        </div>
+                    </details>
+                    <details class="topic">
+                        <summary>Industry Software & Editor Interface</summary>
+                        <div class="topic-body">
+                            <p>Commonly used CAD software in industry: AutoCAD, SolidWorks, CATIA, MicroStation, Revit.</p>
+                            <h4>AutoCAD Drawing Editor Components:</h4>
+                            <ul>
+                                <li><strong>Ribbon:</strong> Contains toolsets organized by tabs.</li>
+                                <li><strong>Command Line:</strong> The primary interface for entering commands and viewing prompts.</li>
+                                <li><strong>Status Bar:</strong> Controls for drawing aids like Ortho, Snap, and Grid.</li>
+                                <li><strong>Drawing Area:</strong> The canvas where designs are created.</li>
+                                <li><strong>UCS Icon:</strong> Shows the orientation of X and Y axes.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section id="module-2" class="module">
+                <div class="module-head">
+                    <h3>Module 2: Basic Commands & 2D Drafting</h3>
+                    <p>The Core of AutoCAD Operations (21 Hours)</p>
+                </div>
+                <div class="module-body">
+                    <details class="topic" open>
+                        <summary>Initiating a Drawing & Utility Commands</summary>
+                        <div class="topic-body">
+                            <p>Before drawing, the environment must be set up:</p>
+                            <ul>
+                                <li><strong>UNITS:</strong> Sets the measurement system (Architectural, Decimal, Engineering).</li>
+                                <li><strong>LIMITS:</strong> Defines the boundaries of the drawing area.</li>
+                                <li><strong>ZOOM:</strong> Controls the display magnification (Zoom All, Zoom Window).</li>
+                                <li><strong>SNAP & GRID:</strong> Aids for precise positioning.</li>
+                                <li><strong>Function Keys:</strong> F3 (OSNAP), F7 (GRID), F8 (ORTHO).</li>
+                            </ul>
+                            <div class="worked">
+                                <strong>Setup Procedure:</strong><br>
+                                1. Type <code>UNITS</code> &rarr; Set to Decimal, Precision 0.00.<br>
+                                2. Type <code>LIMITS</code> &rarr; Lower Left (0,0), Upper Right (420,297 for A3).<br>
+                                3. Type <code>Z</code> &rarr; <code>A</code> (Zoom All).
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="topic">
+                        <summary>Drawing & Modify Commands</summary>
+                        <div class="topic-body">
+                            <h4>Drawing Commands:</h4>
+                            <ul>
+                                <li><strong>LINE (L):</strong> Creates straight line segments.</li>
+                                <li><strong>CIRCLE (C):</strong> Creates circles using Center/Radius or Diameter.</li>
+                                <li><strong>POLYLINE (PL):</strong> Creates a single object composed of line and arc segments.</li>
+                                <li><strong>HATCH (H):</strong> Fills enclosed areas with patterns (useful for sectional views).</li>
+                            </ul>
+                            <h4>Modify Commands:</h4>
+                            <ul>
+                                <li><strong>OFFSET (O):</strong> Creates concentric circles or parallel lines.</li>
+                                <li><strong>TRIM (TR):</strong> Cuts objects at a cutting edge.</li>
+                                <li><strong>MIRROR (MI):</strong> Creates a reflected copy of objects.</li>
+                                <li><strong>FILLET (F):</strong> Rounds the edges of objects.</li>
+                            </ul>
+                            <div class="ml-note">
+                                <strong>Malayalam Support:</strong>
+                                Modify commands ഉപയോഗിച്ച് നിലവിലുള്ള ഡ്രോയിംഗുകളിൽ മാറ്റങ്ങൾ വരുത്താം. ഉദാഹരണത്തിന്, ആവശ്യമില്ലാത്ത ഭാഗങ്ങൾ കളയാൻ 'Trim' ഉപയോഗിക്കുന്നു.
+                            </div>
+                        </div>
+                    </details>
+
+                    <details class="topic">
+                        <summary>Layers, Text & Dimensioning</summary>
+                        <div class="topic-body">
+                            <p><strong>Layers:</strong> Used to organize drawings by grouping objects (e.g., Hidden lines, Dimensions, Text). You can control color, linetype, and visibility (Freeze/Thaw).</p>
+                            <p><strong>Dimensioning:</strong> Essential for engineering drawings. Commands include DIMLINEAR, DIMANGULAR, and DIMRADIUS.</p>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section id="module-3" class="module">
+                <div class="module-head">
+                    <h3>Module 3: Blocks & Isometric Drawing</h3>
+                    <p>Efficiency and 2D Projections (9 Hours)</p>
+                </div>
+                <div class="module-body">
+                    <details class="topic" open>
+                        <summary>Blocks and Title Blocks</summary>
+                        <div class="topic-body">
+                            <p>A <strong>Block</strong> is a collection of objects that are combined into a single named object. Blocks are used for repetitive symbols (valves, pumps in Chemical Engineering).</p>
+                            <ul>
+                                <li><strong>BLOCK (B):</strong> Creates a block definition.</li>
+                                <li><strong>INSERT (I):</strong> Places a block into the drawing.</li>
+                                <li><strong>WBLOCK:</strong> Saves a block as a separate file for use in other drawings.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="topic">
+                        <summary>Isometric Drawing</summary>
+                        <div class="topic-body">
+                            <p>Isometric drawing is a 2D representation of a 3D object where the axes are at 120° to each other.</p>
+                            <ul>
+                                <li><strong>ISOPLANE:</strong> Switches between Left, Top, and Right planes (F5 key).</li>
+                                <li><strong>ISOCIRCLE:</strong> Used within the ELLIPSE command to draw circles in isometric view.</li>
+                            </ul>
+                            <div class="ml-note">
+                                <strong>Malayalam Support:</strong>
+                                Isometric drawing ഉപയോഗിച്ച് ഒരു 3D വസ്തുവിനെ 2D പ്ലെയിനിൽ കാണിക്കാൻ സാധിക്കും. ഇതിനായി F5 കീ ഉപയോഗിച്ച് പ്ലെയിനുകൾ മാറ്റാം.
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section id="module-4" class="module">
+                <div class="module-head">
+                    <h3>Module 4: 3D Modelling</h3>
+                    <p>Solid Modeling Fundamentals (12 Hours)</p>
+                </div>
+                <div class="module-body">
+                    <details class="topic" open>
+                        <summary>3D Workspace & Setup</summary>
+                        <div class="topic-body">
+                            <p>To start 3D, switch the workspace to "3D Modeling". Use the <strong>ViewCube</strong> or <strong>3DORBIT</strong> to navigate.</p>
+                            <p><strong>Viewport:</strong> Divides the screen into multiple views (Top, Front, Side, Isometric) to work on 3D objects simultaneously.</p>
+                        </div>
+                    </details>
+                    <details class="topic">
+                        <summary>3D Commands (Extrude, Presspull, Revolve)</summary>
+                        <div class="topic-body">
+                            <ul>
+                                <li><strong>EXTRUDE:</strong> Creates a 3D solid from a 2D face by adding height.</li>
+                                <li><strong>PRESSPULL:</strong> Dynamically adds or subtracts volume by selecting an enclosed area.</li>
+                                <li><strong>REVOLVE:</strong> Creates a 3D solid by rotating a 2D profile around an axis (ideal for pipes/tanks).</li>
+                                <li><strong>3D FILLET:</strong> Rounds the edges of a 3D solid.</li>
+                            </ul>
+                            <div class="worked">
+                                <strong>Creating a Cylinder:</strong><br>
+                                1. Draw a Circle in 2D.<br>
+                                2. Type <code>EXTRUDE</code>.<br>
+                                3. Select the circle and specify the height.
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
+            <section id="formula-bank" class="formula-bank section">
+                <h2>Coordinate Entry Guide</h2>
+                <p>AutoCAD uses three main methods for entering coordinates:</p>
+                <div class="grid two">
+                    <div class="formula-card">
+                        Absolute: (X, Y)<br>
+                        <small>Example: 10,20</small>
+                    </div>
+                    <div class="formula-card">
+                        Relative: @X, Y<br>
+                        <small>Example: @50,0</small>
+                    </div>
+                    <div class="formula-card">
+                        Polar: @Distance &lt; Angle<br>
+                        <small>Example: @100&lt;45</small>
+                    </div>
+                </div>
+                
+                <div class="calculator">
+                    <h3>Scale Factor Calculator</h3>
+                    <div class="calc-grid">
+                        <div>
+                            <label>Drawing Length (mm):</label>
+                            <input type="number" id="drawLen" placeholder="e.g. 10">
+                        </div>
+                        <div>
+                            <label>Actual Length (mm):</label>
+                            <input type="number" id="actLen" placeholder="e.g. 100">
+                        </div>
+                    </div>
+                    <button onclick="calcScale()" style="width:100%; padding:0.8rem; background:var(--blue); color:white; border:none; border-radius:8px; cursor:pointer;">Calculate Scale</button>
+                    <p id="scaleResult" style="margin-top:1rem; font-weight:bold; text-align:center;"></p>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library section">
+                <h2>Diagram Library</h2>
+                <div class="diagram">
+                    <svg viewBox="0 0 200 120" role="img" aria-label="Coordinate System">
+                        <line x1="20" y1="100" x2="180" y2="100" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+                        <line x1="20" y1="100" x2="20" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+                        <text x="185" y="105" font-size="12">X</text>
+                        <text x="15" y="15" font-size="12">Y</text>
+                        <circle cx="100" cy="60" r="3" fill="red"/>
+                        <text x="105" y="55" font-size="10">(X, Y)</text>
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="black" />
+                            </marker>
+                        </defs>
+                    </svg>
+                    <figcaption>Figure 1: Cartesian Coordinate System in AutoCAD</figcaption>
+                </div>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 200 120" role="img" aria-label="Isometric Axes">
+                        <line x1="100" y1="100" x2="100" y2="20" stroke="blue" stroke-width="2"/>
+                        <line x1="100" y1="100" x2="170" y2="60" stroke="red" stroke-width="2"/>
+                        <line x1="100" y1="100" x2="30" y2="60" stroke="green" stroke-width="2"/>
+                        <text x="175" y="60" font-size="10">30°</text>
+                        <text x="15" y="60" font-size="10">150°</text>
+                        <text x="105" y="25" font-size="10">90°</text>
+                    </svg>
+                    <figcaption>Figure 2: Isometric Axis Orientation</figcaption>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment section">
+                <h2>Practice Questions & Answers</h2>
+                <div class="qa">
+                    <summary>What is the difference between 'Freeze' and 'Off' in Layers?</summary>
+                    <div class="qa-body">
+                        <strong>Off:</strong> Makes the layer invisible but AutoCAD still calculates the geometry during regenerations.<br>
+                        <strong>Freeze:</strong> Makes the layer invisible and AutoCAD ignores it during regenerations, improving performance in large drawings.
+                    </div>
+                </div>
+                <div class="qa">
+                    <summary>How do you draw a circle in an Isometric plane?</summary>
+                    <div class="qa-body">
+                        1. Ensure <code>ISODRAFT</code> is ON.<br>
+                        2. Type <code>ELLIPSE</code> (EL).<br>
+                        3. Choose the <code>Isocircle</code> option.<br>
+                        4. Specify center and radius.
+                    </div>
+                </div>
+                <div class="qa">
+                    <summary>Explain the 'Presspull' command.</summary>
+                    <div class="qa-body">
+                        Presspull is used to create or modify 3D solids. By clicking inside a bounded 2D area, you can pull it to add volume or push it to create a hole/subtract volume.
+                    </div>
+                </div>
+            </section>
+
+            <section id="model-paper" class="model-paper section">
+                <h2>Practice Model Paper</h2>
+                <div class="worked">
+                    <p><strong>Time: 3 Hours | Max Marks: 100</strong></p>
+                    <ol>
+                        <li><strong>Part A (Basic):</strong> Set up an A4 sheet with decimal units and 0.0 precision. Draw a title block at the bottom right. (20 Marks)</li>
+                        <li><strong>Part B (2D):</strong> Draw the sectional front view of a Flanged Pipe Joint using appropriate layers and hatching. (40 Marks)</li>
+                        <li><strong>Part C (3D):</strong> Create a 3D model of a simple Storage Tank with a conical roof using REVOLVE or EXTRUDE commands. (40 Marks)</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section id="quick-revision" class="quick-revision section">
+                <h2>Quick Revision: Keyboard Shortcuts</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>L</th><td>Line</td><th>CO</th><td>Copy</td></tr>
+                        <tr><th>C</th><td>Circle</td><th>M</th><td>Move</td></tr>
+                        <tr><th>TR</th><td>Trim</td><th>RO</th><td>Rotate</td></tr>
+                        <tr><th>O</th><td>Offset</td><th>SC</th><td>Scale</td></tr>
+                        <tr><th>F</th><td>Fillet</td><th>EX</th><td>Extend</td></tr>
+                        <tr><th>H</th><td>Hatch</td><th>B</th><td>Block</td></tr>
+                    </table>
+                </div>
+            </section>
+
+            <section id="glossary" class="glossary section">
+                <h2>Glossary</h2>
+                <ul>
+                    <li><strong>GUI:</strong> Graphical User Interface.</li>
+                    <li><strong>Ortho Mode:</strong> Restricts cursor movement to horizontal and vertical directions.</li>
+                    <li><strong>OSNAP:</strong> Object Snap (snaps to endpoints, midpoints, etc.).</li>
+                    <li><strong>UCS:</strong> User Coordinate System.</li>
+                    <li><strong>WCS:</strong> World Coordinate System (Fixed).</li>
+                </ul>
+            </section>
+
+            <section id="official-source" class="official-source section">
+                <h2>Official Source Declaration</h2>
+                <p>This lesson is based on the official syllabus for <strong>Course Code 2078 (CAD Lab)</strong> under the <strong>Revision 2021</strong> curriculum provided by <strong>SITTTR Kerala</strong>.</p>
+                <p>Source URL: <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2078" target="_blank">SITTTR Syllabus Portal</a></p>
+            </section>
+
+            <section lang="ml" class="section">
+                <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+                <div class="ml-note">
+                    ഈ ലാബ് കോഴ്സ് പ്രധാനമായും മൂന്ന് ഭാഗങ്ങളായി തിരിച്ചിരിക്കുന്നു:<br>
+                    1. <strong>2D ഡ്രോയിംഗ്:</strong> ലൈൻ, സർക്കിൾ തുടങ്ങിയ കമാൻഡുകൾ ഉപയോഗിച്ച് പ്ലാനുകൾ വരയ്ക്കുക.<br>
+                    2. <strong>ഐസോമെട്രിക്:</strong> ഒരു വസ്തുവിനെ 3D രൂപത്തിൽ 2D-യിൽ കാണിക്കുക.<br>
+                    3. <strong>3D മോഡലിംഗ്:</strong> എക്സ്ട്രൂഡ് (Extrude), റിവോൾവ് (Revolve) തുടങ്ങിയവ ഉപയോഗിച്ച് യഥാർത്ഥ 3D രൂപങ്ങൾ നിർമ്മിക്കുക.<br>
+                    ഓരോ കമാൻഡും ടൈപ്പ് ചെയ്ത ശേഷം 'Enter' അമർത്തേണ്ടതാണ്.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        "use strict";
+        
+        // Reading Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        };
+
+        // Scale Calculator
+        function calcScale() {
+            let d = parseFloat(document.getElementById('drawLen').value);
+            let a = parseFloat(document.getElementById('actLen').value);
+            let res = document.getElementById('scaleResult');
+            
+            if(isNaN(d) || isNaN(a) || a === 0) {
+                res.innerHTML = "Please enter valid numbers.";
+                res.style.color = "red";
+            } else {
+                let ratio = a / d;
+                res.innerHTML = "Scale is 1 : " + ratio.toFixed(2);
+                res.style.color = "var(--green)";
+            }
+        }
+
+        // Print function enhancement
+        window.addEventListener('beforeprint', () => {
+            document.querySelectorAll('details').forEach(d => d.open = true);
+        });
+    </script>
+</body>
+</html>
