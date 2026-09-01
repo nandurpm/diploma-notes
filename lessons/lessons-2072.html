@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2072 — Engineering Chemistry">
+    <meta name="course-code" content="2072">
+    <meta name="course-title" content="Engineering Chemistry">
+    <meta name="curriculum" content="REV2021">
+    <title>2072 — Engineering Chemistry</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 12px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--soft);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            padding: 40px;
+        }
+
+        header.cover {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            border-radius: var(--radius);
+            margin-bottom: 40px;
+        }
+
+        .kicker { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--soft2); }
+        h1 { font-size: 2.5rem; margin: 10px 0; }
+        
+        .module { margin-bottom: 60px; border-top: 4px solid var(--blue); padding-top: 20px; }
+        .module-head { color: var(--navy); border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+
+        .ml-note {
+            background: var(--soft2);
+            padding: 15px;
+            border-left: 4px solid var(--teal);
+            margin: 20px 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked {
+            background: #fffdf5;
+            border: 1px solid var(--amber);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin: 20px 0;
+        }
+
+        .formula-card {
+            background: var(--navy);
+            color: white;
+            padding: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            font-family: "Courier New", monospace;
+            font-size: 1.2rem;
+            margin: 15px 0;
+        }
+
+        .diagram { text-align: center; margin: 30px 0; }
+        .diagram svg { max-width: 100%; height: auto; background: white; border: 1px solid var(--line); }
+
+        .table-wrap { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft); }
+
+        .qa { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 15px; cursor: pointer; font-weight: 600; background: var(--soft); }
+        .qa-body { padding: 15px; border-top: 1px solid var(--line); }
+
+        .calculator {
+            background: var(--soft2);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin: 20px 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0; left: 0; height: 5px;
+            background: var(--cyan);
+            z-index: 1000;
+            width: 0%;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            details { display: block !important; }
+            summary { font-weight: bold; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+    <a data-notes-link data-pdf-code="2072" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2072" class="no-print" style="display:block; margin-bottom:20px; color:var(--blue); text-decoration:none; font-weight:bold;">View Official Syllabus Source</a>
+
+    <header class="cover">
+        <div class="kicker">Revision 2021 | Semester 2</div>
+        <h1>Engineering Chemistry</h1>
+        <div class="badge-row">
+            <span class="badge">Course Code: 2072</span> | 
+            <span class="badge">Credits: 3</span> | 
+            <span class="badge">L:2 T:1 P:0</span>
+        </div>
+    </header>
+
+    <main id="main-content">
+
+        <section id="course-dashboard" class="course-dashboard">
+            <h2 class="module-head">Course Overview</h2>
+            <p>This course is designed for Diploma students in <strong>Chemical Engineering</strong> and <strong>Food Processing Technology</strong>. It bridges the gap between basic scientific principles and industrial applications. The curriculum covers inorganic trends, analytical precision, organic reaction mechanisms, and the physical chemistry of kinetics and equilibrium.</p>
+            
+            <div class="table-wrap">
+                <table>
+                    <caption>Teaching & Assessment Scheme</caption>
+                    <tr><th>Component</th><th>Details</th></tr>
+                    <tr><td>Contact Hours</td><td>45 Periods per semester</td></tr>
+                    <tr><td>Category</td><td>Engineering Science</td></tr>
+                    <tr><td>Prerequisites</td><td>Applied Chemistry (Sem 1), Basic Physics & Maths</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="official-source" class="official-source">
+            <div class="ml-note">
+                <strong>Official Source Declaration:</strong> ഈ പാഠഭാഗങ്ങൾ SITTTR കേരള നൽകിയിട്ടുള്ള 2072 Engineering Chemistry സിലബസ് പ്രകാരമാണ് തയ്യാറാക്കിയിരിക്കുന്നത്.
+            </div>
+        </section>
+
+        <section id="course-outcomes" class="course-outcomes">
+            <h2 class="module-head">Course Outcomes (COs)</h2>
+            <ul>
+                <li><strong>CO1:</strong> Outline the basic concepts of inorganic and analytical chemistry.</li>
+                <li><strong>CO2:</strong> Comprehend fundamental concepts of organic chemistry to solve elementary problems.</li>
+                <li><strong>CO3:</strong> Summarise preparation, properties, and uses of industrially important organic compounds.</li>
+                <li><strong>CO4:</strong> Apply chemical equilibria and kinetics for chemical engineering applications.</li>
+            </ul>
+        </section>
+
+        <!-- MODULE 1 -->
+        <section class="module" id="module-1">
+            <h2 class="module-head">Module 1: Inorganic and Analytical Chemistry</h2>
+            
+            <h3>1.1 Periodicity in Properties</h3>
+            <p><strong>Modern Periodic Law:</strong> The physical and chemical properties of elements are periodic functions of their atomic numbers. This law, proposed by Moseley, led to the development of the Modern Periodic Table.</p>
+            
+            <div class="table-wrap">
+                <table>
+                    <caption>Periodic Trends Down a Group and Along a Period</caption>
+                    <tr>
+                        <th>Property</th>
+                        <th>Along a Period (Left to Right)</th>
+                        <th>Down a Group (Top to Bottom)</th>
+                    </tr>
+                    <tr>
+                        <td>Atomic Radius</td>
+                        <td>Decreases</td>
+                        <td>Increases</td>
+                    </tr>
+                    <tr>
+                        <td>Ionization Energy</td>
+                        <td>Increases</td>
+                        <td>Decreases</td>
+                    </tr>
+                    <tr>
+                        <td>Electron Affinity</td>
+                        <td>Increases</td>
+                        <td>Decreases</td>
+                    </tr>
+                    <tr>
+                        <td>Electronegativity</td>
+                        <td>Increases</td>
+                        <td>Decreases</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="ml-note">
+                <strong>Malayalam Note:</strong> ആറ്റത്തിന്റെ വലിപ്പം (Atomic Radius) പീരിയഡിൽ ഇടത്തുനിന്ന് വലത്തോട്ട് പോകുമ്പോൾ കുറയുന്നു, എന്നാൽ ഗ്രൂപ്പിൽ മുകളിൽ നിന്ന് താഴേക്ക് വരുമ്പോൾ കൂടുന്നു.
+            </div>
+
+            <h3>1.2 Analytical Methods</h3>
+            <p>Analytical chemistry involves qualitative and quantitative analysis. Key concepts include:</p>
+            <ul>
+                <li><strong>Solubility Product (K<sub>sp</sub>):</strong> The product of the molar concentrations of ions in a saturated solution.</li>
+                <li><strong>Common Ion Effect:</strong> The suppression of the degree of dissociation of a weak electrolyte by the addition of a strong electrolyte containing a common ion.</li>
+            </ul>
+
+            <div class="worked">
+                <h4>Calculation: Mean and Standard Deviation</h4>
+                <p>Data: 10.1, 10.2, 10.3</p>
+                <strong>Mean (x̄):</strong> (10.1 + 10.2 + 10.3) / 3 = 10.2<br>
+                <strong>Standard Deviation (s):</strong> √[Σ(x<sub>i</sub> - x̄)² / (n-1)] = 0.1
+            </div>
+
+            <h3>1.3 Chromatography</h3>
+            <p>Chromatography is a technique for separating mixtures. It involves a stationary phase and a mobile phase.</p>
+            <ul>
+                <li><strong>Adsorption Chromatography:</strong> Based on differential adsorption (e.g., Column Chromatography, TLC).</li>
+                <li><strong>Partition Chromatography:</strong> Based on differential partitioning between phases (e.g., Paper Chromatography).</li>
+            </ul>
+        </section>
+
+        <!-- MODULE 2 -->
+        <section class="module" id="module-2">
+            <h2 class="module-head">Module 2: Fundamental Concepts of Organic Chemistry</h2>
+            
+            <h3>2.1 Bonding and Hybridization</h3>
+            <p>Carbon undergoes hybridization to form stable bonds:</p>
+            <ul>
+                <li><strong>sp³:</strong> Tetrahedral (e.g., Methane, Ethane). 109.5° angle.</li>
+                <li><strong>sp²:</strong> Trigonal planar (e.g., Ethene, Benzene). 120° angle.</li>
+                <li><strong>sp:</strong> Linear (e.g., Ethyne). 180° angle.</li>
+            </ul>
+
+            <div class="diagram">
+                <svg viewBox="0 0 200 100" role="img" aria-label="Hybridization Diagram">
+                    <circle cx="50" cy="50" r="5" fill="var(--ink)"/>
+                    <line x1="50" y1="50" x2="80" y2="20" stroke="var(--blue)" stroke-width="2"/>
+                    <line x1="50" y1="50" x2="20" y2="20" stroke="var(--blue)" stroke-width="2"/>
+                    <line x1="50" y1="50" x2="50" y2="85" stroke="var(--blue)" stroke-width="2"/>
+                    <text x="40" y="95" font-size="8">sp3 Tetrahedral</text>
+                    
+                    <circle cx="150" cy="50" r="5" fill="var(--ink)"/>
+                    <line x1="150" y1="50" x2="180" y2="50" stroke="var(--red)" stroke-width="2"/>
+                    <line x1="150" y1="50" x2="120" y2="50" stroke="var(--red)" stroke-width="2"/>
+                    <text x="140" y="65" font-size="8">sp Linear</text>
+                </svg>
+                <figcaption>Simplified geometry of sp3 and sp hybridization.</figcaption>
+            </div>
+
+            <h3>2.2 Qualitative Analysis</h3>
+            <p><strong>Lassaigne's Test:</strong> Used to detect Nitrogen, Sulphur, and Halogens in organic compounds by fusing the compound with Sodium metal.</p>
+            
+            <h3>2.3 Organic Reactions</h3>
+            <ul>
+                <li><strong>Homolytic Fission:</strong> Forms free radicals.</li>
+                <li><strong>Heterolytic Fission:</strong> Forms carbocations (C+) or carbanions (C-).</li>
+                <li><strong>Nucleophiles:</strong> Electron-rich species (e.g., OH⁻).</li>
+                <li><strong>Electrophiles:</strong> Electron-deficient species (e.g., NO₂⁺).</li>
+            </ul>
+        </section>
+
+        <!-- MODULE 3 -->
+        <section class="module" id="module-3">
+            <h2 class="module-head">Module 3: Industrially Important Organic Compounds</h2>
+            
+            <h3>3.1 Hydrocarbons</h3>
+            <p><strong>Wurtz Reaction:</strong> Preparation of higher alkanes from alkyl halides using Sodium in dry ether.</p>
+            <div class="formula-card">2RX + 2Na → R-R + 2NaX</div>
+
+            <p><strong>Markovnikov's Rule:</strong> In the addition of HBr to an unsymmetrical alkene, the negative part (Br-) attaches to the carbon with fewer hydrogen atoms.</p>
+
+            <h3>3.2 Alcohols and Phenols</h3>
+            <ul>
+                <li><strong>Ethanol:</strong> Prepared by fermentation of molasses. Used as a solvent and fuel.</li>
+                <li><strong>Phenol:</strong> Prepared via <strong>Dow's Process</strong> (from chlorobenzene) or <strong>Cumene Process</strong>.</li>
+            </ul>
+
+            <h3>3.3 Glucose Structure</h3>
+            <p>Glucose is an aldohexose. It exists in open-chain and cyclic forms. Reactions include acetylation (proves 5 -OH groups) and osazone formation.</p>
+
+            <h3>3.4 Amino Acids</h3>
+            <p><strong>Zwitterion:</strong> A dipolar ion formed by the internal transfer of a proton from the carboxyl group to the amino group.</p>
+            <div class="ml-note">
+                <strong>Malayalam Note:</strong> അമിനോ ആസിഡുകളിൽ ഒരേ സമയം പോസിറ്റീവ് ചാർജും നെഗറ്റീവ് ചാർജും ഉള്ള അവസ്ഥയെയാണ് Zwitterion എന്ന് വിളിക്കുന്നത്.
+            </div>
+        </section>
+
+        <!-- MODULE 4 -->
+        <section class="module" id="module-4">
+            <h2 class="module-head">Module 4: Chemical Equilibria and Kinetics</h2>
+            
+            <h3>4.1 Chemical Equilibrium</h3>
+            <p><strong>Law of Mass Action:</strong> The rate of a chemical reaction is proportional to the product of the active masses (molar concentrations) of the reactants.</p>
+            <div class="formula-card">K<sub>p</sub> = K<sub>c</sub>(RT)<sup>Δn</sup></div>
+            
+            <p><strong>Le-Chatelier's Principle:</strong> If a system at equilibrium is subjected to a change in concentration, temperature, or pressure, the equilibrium shifts in a direction that tends to undo the effect of the change.</p>
+
+            <h3>4.2 Chemical Kinetics</h3>
+            <p><strong>First Order Reaction:</strong> The rate depends on the concentration of only one reactant.</p>
+            <div class="formula-card">k = (2.303 / t) log(a / (a-x))</div>
+            
+            <div class="calculator">
+                <h4>First-Order Rate Constant Calculator</h4>
+                <div class="calc-grid">
+                    <label>Initial Conc (a): <input type="number" id="initA" value="100"></label><br>
+                    <label>Final Conc (a-x): <input type="number" id="finalA" value="50"></label><br>
+                    <label>Time (t): <input type="number" id="timeT" value="10"></label><br>
+                    <button onclick="calcK()">Calculate k</button>
+                    <p id="kResult" aria-live="polite">Result: --</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="formula-bank" class="formula-bank">
+            <h2 class="module-head">Formula Bank</h2>
+            <div class="grid two">
+                <div class="worked">
+                    <strong>Analytical Errors:</strong><br>
+                    Absolute Error = |True Value - Observed Value|<br>
+                    Relative Error = (Absolute Error / True Value) × 100
+                </div>
+                <div class="worked">
+                    <strong>Kinetics:</strong><br>
+                    Half life (t<sub>1/2</sub>) for 1st order = 0.693 / k<br>
+                    Arrhenius Eq: k = A e<sup>-Ea/RT</sup>
+                </div>
+            </div>
+        </section>
+
+        <section id="visual-library" class="visual-library">
+            <h2 class="module-head">Visual Library</h2>
+            <div class="diagram">
+                <svg viewBox="0 0 100 60" role="img" aria-label="Energy Profile Diagram">
+                    <rect width="100" height="60" fill="none" stroke="currentColor"/>
+                    <path d="M 10 50 Q 50 10 90 40" fill="none" stroke="var(--red)" stroke-width="2"/>
+                    <text x="5" y="55" font-size="5">Reactants</text>
+                    <text x="75" y="45" font-size="5">Products</text>
+                    <text x="40" y="8" font-size="5">Activation Energy (Ea)</text>
+                </svg>
+                <figcaption>Reaction Energy Profile showing Activation Energy.</figcaption>
+            </div>
+        </section>
+
+        <section id="assessment" class="assessment">
+            <h2 class="module-head">Module-wise Practice Questions</h2>
+            <details class="qa">
+                <summary>Q: Define Electronegativity. How does it vary in a period?</summary>
+                <div class="qa-body">A: Electronegativity is the tendency of an atom to attract the shared pair of electrons towards itself. In a period, it increases from left to right due to increase in nuclear charge and decrease in atomic size.</div>
+            </details>
+            <details class="qa">
+                <summary>Q: What is the difference between Order and Molecularity?</summary>
+                <div class="qa-body">A: Order is an experimental quantity (can be zero/fractional), while molecularity is a theoretical concept representing the number of reacting species (always a whole number).</div>
+            </details>
+            <details class="qa">
+                <summary>Q: Explain the application of Le-Chatelier's principle in Haber's process.</summary>
+                <div class="qa-body">A: For N₂ + 3H₂ ⇌ 2NH₃ (Exothermic): High pressure and low temperature (optimum ~450°C) favor the forward reaction to produce more Ammonia.</div>
+            </details>
+        </section>
+
+        <section id="model-paper" class="model-paper">
+            <h2 class="module-head">Practice Model Paper</h2>
+            <div class="worked">
+                <p><strong>Part A (Short Answer - 2 Marks each)</strong></p>
+                <ol>
+                    <li>State Modern Periodic Law.</li>
+                    <li>Define Zwitterion with an example.</li>
+                    <li>What is the unit of rate constant for a first-order reaction?</li>
+                </ol>
+                <p><strong>Part B (Long Answer - 5 Marks each)</strong></p>
+                <ol>
+                    <li>Explain sp3 hybridization in Methane.</li>
+                    <li>Describe the preparation of Phenol by Dow's process.</li>
+                    <li>Derive the relationship between Kp and Kc.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="quick-revision" class="quick-revision">
+            <h2 class="module-head">Quick Revision</h2>
+            <ul>
+                <li><strong>Moseley:</strong> Atomic number is the basis of periodic table.</li>
+                <li><strong>Ksp > Ionic Product:</strong> Solution is unsaturated (no precipitation).</li>
+                <li><strong>Lassaigne's Test:</strong> Na + C + N → NaCN (for Nitrogen detection).</li>
+                <li><strong>Markovnikov:</strong> "Rich get richer" (Hydrogen goes to C with more H).</li>
+                <li><strong>Arrhenius:</strong> Rate increases exponentially with temperature.</li>
+            </ul>
+        </section>
+
+        <section id="glossary" class="glossary">
+            <h2 class="module-head">Glossary</h2>
+            <dl>
+                <dt><strong>Accuracy:</strong></dt><dd>Closeness of a measurement to the true value.</dd>
+                <dt><strong>Precision:</strong></dt><dd>Closeness of agreement between repeated measurements.</dd>
+                <dt><strong>Functional Group:</strong></dt><dd>An atom or group of atoms that determines the chemical properties of an organic compound.</dd>
+            </dl>
+        </section>
+
+        <section lang="ml" class="ml-note">
+            <h2 class="module-head">മലയാളം പഠനസഹായം</h2>
+            <p>ഈ പാഠപുസ്തകത്തിൽ പ്രധാനമായും നാല് ഭാഗങ്ങളാണുള്ളത്:</p>
+            <ul>
+                <li><strong>ഭാഗം 1:</strong> മൂലകങ്ങളുടെ വർഗ്ഗീകരണം, അനലിറ്റിക്കൽ കെമിസ്ട്രിയിലെ കൃത്യത, ക്രോമാറ്റോഗ്രാഫി.</li>
+                <li><strong>ഭാഗം 2:</strong> ഓർഗാനിക് കെമിസ്ട്രിയിലെ ബോണ്ടിംഗ് (Hybridization), റിയാക്ഷൻ തരങ്ങൾ.</li>
+                <li><strong>ഭാഗം 3:</strong> മീഥേൻ, ഈഥേൻ, ആൽക്കഹോൾ, ഗ്ലൂക്കോസ് തുടങ്ങിയവയുടെ നിർമ്മാണവും ഉപയോഗവും.</li>
+                <li><strong>ഭാഗം 4:</strong> കെമിക്കൽ ഇക്വിലിബ്രിയം (Equilibrium), റിയാക്ഷൻ റേറ്റ് (Kinetics).</li>
+            </ul>
+        </section>
+
+    </main>
+
+    <footer style="margin-top:50px; padding:20px; border-top:1px solid var(--line); text-align:center; color:var(--muted);">
+        <button onclick="window.print()" class="no-print" style="padding:10px 20px; cursor:pointer;">Print Lesson / Save as PDF</button>
+        <p>© 2024 Polytechnic Educational Resources | Kerala Syllabus 2072</p>
+    </footer>
+</div>
+
+<script>
+    "use strict";
+    
+    // Reading Progress
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("readingProgress").style.width = scrolled + "%";
+    };
+
+    // Calculator for First Order k
+    function calcK() {
+        const a = parseFloat(document.getElementById('initA').value);
+        const ax = parseFloat(document.getElementById('finalA').value);
+        const t = parseFloat(document.getElementById('timeT').value);
+        
+        if(a > 0 && ax > 0 && t > 0 && a > ax) {
+            const k = (2.303 / t) * Math.log10(a / ax);
+            document.getElementById('kResult').innerText = "Result: k = " + k.toFixed(4) + " time⁻¹";
+        } else {
+            document.getElementById('kResult').innerText = "Invalid Input!";
+        }
+    }
+</script>
+
+</body>
+</html>
