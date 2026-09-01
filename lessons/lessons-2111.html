@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2111 — Production Engineering - I">
+    <meta name="course-code" content="2111">
+    <meta name="course-title" content="Production Engineering - I">
+    <meta name="curriculum" content="REV2021">
+    <title>2111 — Production Engineering - I</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background: var(--soft);
+        }
+
+        .lesson-shell { max-width: 1100px; margin: 0 auto; padding: 20px; background: var(--paper); box-shadow: var(--shadow); }
+        
+        section { padding: 40px 20px; border-bottom: 1px solid var(--line); }
+        h1, h2, h3 { color: var(--navy); }
+        
+        .grid { display: grid; gap: 20px; margin: 20px 0; }
+        .grid.two { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+        .grid.three { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+        
+        .card { background: var(--soft2); padding: 20px; border-radius: var(--radius); border: 1px solid var(--line); }
+        .ml-note { background: #fff9e6; border-left: 5px solid var(--amber); padding: 15px; margin: 15px 0; font-family: var(--mal); font-size: 0.95rem; }
+        .worked { background: #f0fff4; border: 1px solid var(--green); padding: 20px; border-radius: 10px; margin: 15px 0; }
+        .formula { font-family: "Courier New", monospace; font-weight: bold; color: var(--red); background: #fff; padding: 5px 10px; border-radius: 4px; }
+        
+        .diagram { text-align: center; margin: 30px 0; padding: 20px; background: #fff; border: 1px solid var(--line); border-radius: 10px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        
+        .qa { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+        .qa summary { padding: 15px; background: var(--soft2); cursor: pointer; font-weight: bold; }
+        .qa-body { padding: 15px; background: #fff; }
+
+        .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; margin-right: 5px; }
+        .badge-blue { background: var(--blue); color: #fff; }
+        .badge-green { background: var(--green); color: #fff; }
+
+        .table-wrap { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; background: #fff; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--navy); color: #fff; }
+
+        .calculator { background: var(--navy); color: #fff; padding: 25px; border-radius: var(--radius); margin: 20px 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .calculator input { padding: 10px; border-radius: 5px; border: none; width: 100%; }
+        .calc-result { margin-top: 20px; font-size: 1.2rem; font-weight: bold; color: var(--cyan); }
+
+        @media print {
+            .no-print { display: none; }
+            details { display: block !important; }
+            summary { font-size: 1.2rem; border-bottom: 2px solid #000; }
+            .lesson-shell { box-shadow: none; width: 100%; max-width: 100%; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="lesson-shell">
+    <a data-notes-link data-pdf-code="2111" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2111" class="no-print" style="display:block; padding:10px; background:var(--navy); color:#fff; text-decoration:none; text-align:center; border-radius:5px; margin-bottom:20px;">
+        Download Official Syllabus PDF (2111)
+    </a>
+
+    <main id="main-content">
+
+        <!-- COURSE DASHBOARD -->
+        <section id="course-dashboard" class="course-dashboard">
+            <div class="kicker">Revision 2021 • Semester 2</div>
+            <h1>Production Engineering - I</h1>
+            <div class="badge-row">
+                <span class="badge badge-blue">Code: 2111</span>
+                <span class="badge badge-green">Credits: 3</span>
+                <span class="badge badge-blue">Tool & Die Engineering</span>
+            </div>
+            
+            <div class="grid three">
+                <div class="card">
+                    <h3>Teaching Scheme</h3>
+                    <p>L: 3 | T: 0 | P: 0</p>
+                    <p>Total: 45 Hours / Semester</p>
+                </div>
+                <div class="card">
+                    <h3>Assessment</h3>
+                    <p>CIE: 2 Series Tests + Attendance</p>
+                    <p>ESE: End Semester Exam</p>
+                </div>
+                <div class="card">
+                    <h3>Prerequisites</h3>
+                    <p>Engineering Graphics (Sem 1)</p>
+                </div>
+            </div>
+
+            <div class="ml-note">
+                <strong>മലയാളം സംഗ്രഹം:</strong> പ്രൊഡക്ഷൻ എഞ്ചിനീയറിംഗ് - I എന്ന ഈ വിഷയം മെറ്റൽ കട്ടിംഗ്, വെൽഡിംഗ്, ഫോർജിംഗ്, കാസ്റ്റിംഗ്, പൗഡർ മെറ്റലർജി എന്നീ അടിസ്ഥാന നിർമ്മാണ രീതികളെക്കുറിച്ചുള്ള അറിവ് നൽകുന്നു. ടൂൾ ആൻഡ് ഡൈ എഞ്ചിനീയറിംഗ് വിദ്യാർത്ഥികൾക്ക് നിർമ്മാണ മേഖലയിലെ യന്ത്രങ്ങളെയും പ്രക്രിയകളെയും മനസ്സിലാക്കാൻ ഇത് അത്യാവശ്യമാണ്.
+            </div>
+        </section>
+
+        <!-- COURSE OUTCOMES -->
+        <section id="course-outcomes" class="course-outcomes">
+            <h2>Course Outcomes (COs)</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO No.</th>
+                            <th>Description</th>
+                            <th>Hours</th>
+                            <th>Cognitive Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO 1</td>
+                            <td>Demonstrate the principles of mechanics of metal cutting and tool life</td>
+                            <td>13</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO 2</td>
+                            <td>Illustrate types of cutting tool materials, importance of tool geometry and use of cutting fluids</td>
+                            <td>10</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO 3</td>
+                            <td>Demonstrate bench work and fitting, welding and forging</td>
+                            <td>10</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO 4</td>
+                            <td>Describe the types of patterns, moulds, and powder metallurgy</td>
+                            <td>10</td>
+                            <td>Understanding</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MODULE 1: METAL CUTTING & TOOL LIFE -->
+        <section id="module-1" class="module">
+            <div class="module-head">
+                <span class="eyebrow">Module 1</span>
+                <h2>Mechanics of Metal Cutting & Tool Life</h2>
+            </div>
+            
+            <details class="topic" open>
+                <summary>1.1 Mechanics of Metal Cutting</summary>
+                <div class="topic-body">
+                    <p>Metal cutting is the process of removing unwanted material from a workpiece in the form of chips using a wedge-shaped tool. The primary mechanism is <strong>Plastic Deformation</strong> in the shear zone.</p>
+                    
+                    <h4>Types of Metal Cutting Processes:</h4>
+                    <ul>
+                        <li><strong>Orthogonal Cutting:</strong> The cutting edge is perpendicular to the direction of tool travel. It is a 2D cutting process.</li>
+                        <li><strong>Oblique Cutting:</strong> The cutting edge is inclined at an angle to the direction of tool travel. It is a 3D cutting process.</li>
+                    </ul>
+
+                    <h4>Types of Chips:</h4>
+                    <div class="grid three">
+                        <div class="card">
+                            <strong>Continuous Chips:</strong> Formed during cutting of ductile materials at high speeds. Good surface finish.
+                        </div>
+                        <div class="card">
+                            <strong>Discontinuous Chips:</strong> Formed during cutting of brittle materials (like Cast Iron) or ductile materials at very low speeds.
+                        </div>
+                        <div class="card">
+                            <strong>Built-up Edge (BUE):</strong> Formed when high friction at the tool-chip interface causes chip material to weld to the tool tip.
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>1.2 Tool Wear & Tool Life</summary>
+                <div class="topic-body">
+                    <p>Tool wear is the gradual loss of tool material during the cutting process. The two main types are:</p>
+                    <ul>
+                        <li><strong>Flank Wear:</strong> Occurs on the relief face of the tool due to rubbing against the machined surface.</li>
+                        <li><strong>Crater Wear:</strong> Occurs on the rake face of the tool due to the flow of chips.</li>
+                    </ul>
+                    <p><strong>Tool Life:</strong> The duration of actual cutting time between two successive tool grinds.</p>
+                </div>
+            </details>
+
+            <div class="calculator">
+                <h3>Taylor's Tool Life Calculator</h3>
+                <p>Formula: <span class="formula">V * T^n = C</span></p>
+                <div class="calc-grid">
+                    <div>
+                        <label>Cutting Speed (V) in m/min:</label>
+                        <input type="number" id="calc-v" value="100">
+                    </div>
+                    <div>
+                        <label>Exponent (n):</label>
+                        <input type="number" id="calc-n" value="0.125" step="0.001">
+                    </div>
+                    <div>
+                        <label>Constant (C):</label>
+                        <input type="number" id="calc-c" value="200">
+                    </div>
+                </div>
+                <button onclick="calculateToolLife()" style="margin-top:10px; padding:10px 20px; cursor:pointer;">Calculate Tool Life (T)</button>
+                <div id="tool-life-result" class="calc-result">Result: -- minutes</div>
+            </div>
+        </section>
+
+        <!-- MODULE 2: TOOL MATERIALS & GEOMETRY -->
+        <section id="module-2" class="module">
+            <div class="module-head">
+                <span class="eyebrow">Module 2</span>
+                <h2>Tool Materials, Geometry & Cutting Fluids</h2>
+            </div>
+
+            <details class="topic" open>
+                <summary>2.1 Cutting Tool Materials</summary>
+                <div class="topic-body">
+                    <p>A tool material must have High Hardness, Hot Hardness, Toughness, and Wear Resistance.</p>
+                    <div class="table-wrap">
+                        <table>
+                            <tr>
+                                <th>Material</th>
+                                <th>Characteristics</th>
+                                <th>Applications</th>
+                            </tr>
+                            <tr>
+                                <td>High Speed Steel (HSS)</td>
+                                <td>Good toughness, can be resharpened</td>
+                                <td>Drills, Reamers, Milling cutters</td>
+                            </tr>
+                            <tr>
+                                <td>Cemented Carbides</td>
+                                <td>High hot hardness, high speed</td>
+                                <td>Lathe inserts, high-production tools</td>
+                            </tr>
+                            <tr>
+                                <td>Ceramics</td>
+                                <td>Extreme heat resistance, brittle</td>
+                                <td>Finish machining of hard alloys</td>
+                            </tr>
+                            <tr>
+                                <td>Diamond</td>
+                                <td>Hardest known material</td>
+                                <td>Non-ferrous metals, precision finishing</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>2.2 Single Point Tool Geometry</summary>
+                <div class="topic-body">
+                    <p>The performance of a tool depends on its angles:</p>
+                    <ul>
+                        <li><strong>Back Rake Angle:</strong> Controls chip flow and tool strength.</li>
+                        <li><strong>Side Rake Angle:</strong> Directs chips away from the finished surface.</li>
+                        <li><strong>End Relief Angle:</strong> Prevents tool flank from rubbing against the workpiece.</li>
+                        <li><strong>Side Relief Angle:</strong> Prevents side of tool from rubbing.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODULE 3: BENCH WORK, WELDING & FORGING -->
+        <section id="module-3" class="module">
+            <div class="module-head">
+                <span class="eyebrow">Module 3</span>
+                <h2>Bench Work, Welding & Forging</h2>
+            </div>
+
+            <details class="topic" open>
+                <summary>3.1 Fitting & Bench Work</summary>
+                <div class="topic-body">
+                    <p>Bench work involves operations performed by hand at a workbench using tools like files, hacksaws, and chisels.</p>
+                    <ul>
+                        <li><strong>Vices:</strong> Bench vice, Machine vice, Pipe vice.</li>
+                        <li><strong>Files:</strong> Classified by length, shape (Flat, Round, Square), and grade of cut (Bastard, Smooth).</li>
+                        <li><strong>Marking Tools:</strong> Scribers, Punches, V-block, Angle plate.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>3.2 Welding Processes</summary>
+                <div class="topic-body">
+                    <p>Welding is a fabrication process that joins materials, usually metals, by using high heat to melt the parts together.</p>
+                    <div class="grid two">
+                        <div class="card">
+                            <h4>Arc Welding</h4>
+                            <p>Uses an electric arc to create heat. Types: SMAW (Shielded Metal Arc), TIG (Tungsten Inert Gas), MIG (Metal Inert Gas).</p>
+                        </div>
+                        <div class="card">
+                            <h4>Gas Welding</h4>
+                            <p>Uses combustion of oxygen and acetylene. Flames: Neutral, Oxidizing, Carburizing.</p>
+                        </div>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODULE 4: CASTING & POWDER METALLURGY -->
+        <section id="module-4" class="module">
+            <div class="module-head">
+                <span class="eyebrow">Module 4</span>
+                <h2>Patterns, Moulding & Powder Metallurgy</h2>
+            </div>
+
+            <details class="topic" open>
+                <summary>4.1 Patterns & Moulding</summary>
+                <div class="topic-body">
+                    <p>A <strong>Pattern</strong> is a replica of the object to be cast, used to prepare the mould cavity.</p>
+                    <ul>
+                        <li><strong>Pattern Types:</strong> Solid piece, Split piece, Loose piece, Match plate, Sweep pattern.</li>
+                        <li><strong>Moulding Sand Properties:</strong> Porosity, Flowability, Collapsibility, Adhesiveness.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>4.2 Powder Metallurgy</summary>
+                <div class="topic-body">
+                    <p>Powder Metallurgy (PM) is the process of blending fine powdered materials, pressing them into a desired shape (compacting), and then heating the compressed material in a controlled atmosphere to bond the material (sintering).</p>
+                    <ol>
+                        <li>Powder Production (Atomization, Reduction)</li>
+                        <li>Blending/Mixing</li>
+                        <li>Compacting (Pressing)</li>
+                        <li>Sintering (Heating below melting point)</li>
+                        <li>Secondary operations (Sizing, Infiltration)</li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+
+        <!-- FORMULA BANK -->
+        <section id="formula-bank" class="formula-bank">
+            <h2>Formula Bank & Calculations</h2>
+            <div class="grid two">
+                <div class="worked">
+                    <h3>1. Cutting Speed (V)</h3>
+                    <p class="formula">V = (π * D * N) / 1000</p>
+                    <p>Where:<br>D = Diameter of workpiece (mm)<br>N = Spindle speed (RPM)<br>V = Cutting speed (m/min)</p>
+                </div>
+                <div class="worked">
+                    <h3>2. Taylor's Tool Life</h3>
+                    <p class="formula">V * T^n = C</p>
+                    <p>Where:<br>T = Tool life (min)<br>n = Tool life exponent<br>C = Machining constant</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISUAL LIBRARY -->
+        <section id="visual-library" class="visual-library">
+            <h2>Visual Library</h2>
+            <div class="grid two">
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 60" role="img" aria-label="Orthogonal Cutting Diagram">
+                        <rect width="100" height="60" fill="#f9f9f9" stroke="#ccc"/>
+                        <!-- Workpiece -->
+                        <rect x="10" y="30" width="60" height="20" fill="#ddd" stroke="#333" />
+                        <!-- Tool -->
+                        <path d="M70,10 L90,10 L70,30 Z" fill="#555" stroke="#000" />
+                        <!-- Chip -->
+                        <path d="M60,30 Q65,15 50,10 L40,15 Q55,20 60,30" fill="#bbb" stroke="#333" />
+                        <text x="15" y="45" font-size="4">Workpiece</text>
+                        <text x="75" y="15" font-size="4" fill="white">Tool</text>
+                        <text x="45" y="8" font-size="4">Chip</text>
+                    </svg>
+                    <figcaption>Basic Mechanics of Orthogonal Metal Cutting</figcaption>
+                </figure>
+
+                <figure class="diagram">
+                    <svg viewBox="0 0 100 60" role="img" aria-label="Single Point Tool Angles">
+                        <rect width="100" height="60" fill="#f9f9f9" stroke="#ccc"/>
+                        <path d="M20,50 L80,50 L80,20 L60,20 L20,40 Z" fill="#eee" stroke="#333" />
+                        <line x1="60" y1="20" x2="85" y2="15" stroke="red" stroke-dasharray="2" />
+                        <text x="65" y="18" font-size="3" fill="red">Back Rake Angle</text>
+                    </svg>
+                    <figcaption>Single Point Cutting Tool Geometry (Simplified)</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- ASSESSMENT -->
+        <section id="assessment" class="assessment">
+            <h2>Module-wise Practice Questions</h2>
+            
+            <h3>Module 1 & 2</h3>
+            <details class="qa">
+                <summary>Q1: Differentiate between Orthogonal and Oblique cutting. (5 Marks)</summary>
+                <div class="qa-body">
+                    <p><strong>Orthogonal Cutting:</strong> Cutting edge is perpendicular to tool travel. 2D force system. Chip flows over the rake face. Example: Lathe parting off.</p>
+                    <p><strong>Oblique Cutting:</strong> Cutting edge is inclined. 3D force system. Chip flows sideways. Example: Standard turning, milling.</p>
+                </div>
+            </details>
+
+            <h3>Module 3 & 4</h3>
+            <details class="qa">
+                <summary>Q2: Explain the steps in Powder Metallurgy. (5 Marks)</summary>
+                <div class="qa-body">
+                    <ol>
+                        <li><strong>Powder Production:</strong> Creating metal powders via atomization or chemical reduction.</li>
+                        <li><strong>Blending:</strong> Mixing powders with lubricants.</li>
+                        <li><strong>Compacting:</strong> Pressing powder in a die to form a 'green' compact.</li>
+                        <li><strong>Sintering:</strong> Heating in a furnace to bond particles.</li>
+                    </ol>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODEL PAPER -->
+        <section id="model-paper" class="model-paper">
+            <h2>Practice Model Paper</h2>
+            <div class="card">
+                <p><strong>Part A (Short Answer - 2 Marks each)</strong></p>
+                <ul>
+                    <li>Define Machinability.</li>
+                    <li>What is a Built-up Edge?</li>
+                    <li>List two properties of moulding sand.</li>
+                </ul>
+                <p><strong>Part B (Medium Answer - 5 Marks each)</strong></p>
+                <ul>
+                    <li>Explain the functions of cutting fluids.</li>
+                    <li>Describe the different types of welding flames.</li>
+                    <li>Explain the advantages of hot working over cold working.</li>
+                </ul>
+                <p><strong>Part C (Long Answer - 10 Marks each)</strong></p>
+                <ul>
+                    <li>Explain Single Point Tool Geometry with a neat sketch.</li>
+                    <li>Describe various pattern allowances used in casting.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- QUICK REVISION -->
+        <section id="quick-revision" class="quick-revision">
+            <h2>Quick Revision</h2>
+            <div class="grid three">
+                <div class="card">
+                    <h4>Tool Life</h4>
+                    <p>High speed = Low tool life. Taylor's equation is key for exam problems.</p>
+                </div>
+                <div class="card">
+                    <h4>Welding</h4>
+                    <p>TIG uses non-consumable tungsten; MIG uses consumable wire electrode.</p>
+                </div>
+                <div class="card">
+                    <h4>Casting</h4>
+                    <p>Draft allowance is provided to remove the pattern easily from the sand.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- GLOSSARY -->
+        <section id="glossary" class="glossary">
+            <h2>Glossary</h2>
+            <ul>
+                <li><strong>Machinability:</strong> The ease with which a material can be cut.</li>
+                <li><strong>Sintering:</strong> Heating powder compacts to join particles without melting.</li>
+                <li><strong>Rake Angle:</strong> The angle between the tool face and a line perpendicular to the machined surface.</li>
+                <li><strong>Flux:</strong> Material used in welding to prevent oxidation.</li>
+            </ul>
+        </section>
+
+        <!-- OFFICIAL SOURCE -->
+        <section id="official-source" class="official-source">
+            <h2>Official Source Declaration</h2>
+            <p>This content is based on the <strong>SITTTR Kerala Revision 2021 Syllabus</strong> for Course Code <strong>2111 (Production Engineering - I)</strong>. For official updates, visit <a href="https://www.sitttrkerala.ac.in">sitttrkerala.ac.in</a>.</p>
+        </section>
+
+        <!-- MALAYALAM SUPPORT -->
+        <section lang="ml" class="section">
+            <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+            <div class="ml-note">
+                <ul>
+                    <li><strong>മെറ്റൽ കട്ടിംഗ്:</strong> ലോഹങ്ങളെ മുറിച്ചു മാറ്റുന്ന പ്രക്രിയ. ചിപ്പുകൾ (Chips) രൂപപ്പെട്ടാണ് ഇത് നടക്കുന്നത്.</li>
+                    <li><strong>ടൂൾ ലൈഫ്:</strong> ഒരു ടൂൾ തേയ്മാനം വരുന്നത് വരെ എത്ര സമയം ഉപയോഗിക്കാം എന്നതിനെ സൂചിപ്പിക്കുന്നു.</li>
+                    <li><strong>വെൽഡിംഗ്:</strong> രണ്ട് ലോഹഭാഗങ്ങളെ ചൂടാക്കി യോജിപ്പിക്കുന്ന രീതി.</li>
+                    <li><strong>കാസ്റ്റിംഗ്:</strong> ഉരുകിയ ലോഹം ഒരു അച്ചിലേക്ക് (Mould) ഒഴിച്ച് തണുപ്പിച്ച് രൂപപ്പെടുത്തിയെടുക്കുന്ന രീതി.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    function calculateToolLife() {
+        const v = parseFloat(document.getElementById('calc-v').value);
+        const n = parseFloat(document.getElementById('calc-n').value);
+        const c = parseFloat(document.getElementById('calc-c').value);
+        
+        if (v > 0 && n > 0 && c > 0) {
+            // T = (C/V)^(1/n)
+            const t = Math.pow((c / v), (1 / n));
+            document.getElementById('tool-life-result').innerText = "Result: " + t.toFixed(2) + " minutes";
+        } else {
+            document.getElementById('tool-life-result').innerText = "Please enter valid positive numbers.";
+        }
+    }
+</script>
+
+</body>
+</html>
