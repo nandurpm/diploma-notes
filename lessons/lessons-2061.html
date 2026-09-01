@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2061 — Textile Fibres">
+    <meta name="course-code" content="2061">
+    <meta name="course-title" content="Textile Fibres">
+    <meta name="curriculum" content="REV2021">
+    <title>2061 — Textile Fibres</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background: var(--soft);
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        header.cover {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .badge-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        section {
+            padding: 2rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .module-head {
+            border-left: 5px solid var(--blue);
+            padding-left: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .module-meta {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .ml-note {
+            background: var(--soft2);
+            border-left: 4px solid var(--teal);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked {
+            background: #fffbeb;
+            border: 1px solid var(--amber);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 1rem 0;
+        }
+
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+        }
+
+        .diagram svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid var(--line);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--soft);
+        }
+
+        details.topic {
+            background: white;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        details.topic summary {
+            padding: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        details.topic summary::after {
+            content: '+';
+            font-size: 1.2rem;
+        }
+
+        details[open].topic summary::after {
+            content: '−';
+        }
+
+        .topic-body {
+            padding: 1rem;
+            border-top: 1px solid var(--line);
+        }
+
+        .calculator {
+            background: var(--navy);
+            color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .calc-grid input {
+            padding: 8px;
+            border-radius: 4px;
+            border: none;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--cyan);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        .qa {
+            margin-bottom: 1rem;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+        }
+
+        .qa summary {
+            padding: 10px;
+            background: var(--soft);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .qa-body {
+            padding: 15px;
+            background: white;
+        }
+
+        @media print {
+            .no-print, .reading-progress, .jump-menu { display: none; }
+            details { display: block !important; }
+            details summary::after { content: ''; }
+            .lesson-shell { box-shadow: none; width: 100%; max-width: none; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <div class="lesson-shell">
+        <header class="cover">
+            <div class="badge-row">
+                <span class="badge">REV2021</span>
+                <span class="badge">Semester 2</span>
+                <span class="badge">3 Credits</span>
+            </div>
+            <h1>Textile Fibres</h1>
+            <p>Course Code: 2061 | Program Core</p>
+            <a data-notes-link data-pdf-code="2061" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2061" style="color: white; text-decoration: underline;">Official Syllabus Source</a>
+        </header>
+
+        <main id="main-content">
+            <section id="course-dashboard" class="course-dashboard">
+                <h2>Course Overview</h2>
+                <div class="grid two">
+                    <div class="card">
+                        <h3>Teaching Scheme</h3>
+                        <ul>
+                            <li>Lectures: 2 Hours/Week</li>
+                            <li>Tutorials: 1 Hour/Week</li>
+                            <li>Total Periods: 45 Hours</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3>Assessment Scheme</h3>
+                        <ul>
+                            <li>Continuous Internal Evaluation (CIE)</li>
+                            <li>End Semester Examination (ESE)</li>
+                            <li>Two Series Tests</li>
+                        </ul>
+                    </div>
+                </div>
+                <p>This course provides foundational knowledge on natural vegetable, animal, and semi-synthetic fibres. It covers their chemical structure, physical properties, and industrial applications, with a specific focus on cotton, silk, wool, and synthetic polyamides like Nylon 6 and 6,6.</p>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes">
+                <h2>Course Outcomes (COs)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CO1</td>
+                                <td>Identify classification and general properties of textile fibres. Illustrate structure, properties & uses of Cotton.</td>
+                                <td>Understanding</td>
+                            </tr>
+                            <tr>
+                                <td>CO2</td>
+                                <td>Describe structure, properties and uses of Bast fibres (Linen, Jute) & Animal fibres (Silk, Wool).</td>
+                                <td>Understanding</td>
+                            </tr>
+                            <tr>
+                                <td>CO3</td>
+                                <td>Explain manufacturing process, structure, properties and uses of Semi-synthetic fibres.</td>
+                                <td>Understanding</td>
+                            </tr>
+                            <tr>
+                                <td>CO4</td>
+                                <td>Explain types of polymerizations and manufacturing process, properties and uses of Nylon 6.6 & Nylon 6.</td>
+                                <td>Understanding</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- MODULE 1 -->
+            <section class="module" id="module-1">
+                <div class="module-head">
+                    <div class="module-meta">Module 1 | 11 Hours</div>
+                    <h2>Classification & Cotton Fibre</h2>
+                </div>
+
+                <details class="topic" open>
+                    <summary>1.1 Classification of Textile Fibres</summary>
+                    <div class="topic-body">
+                        <p>Textile fibres are the fundamental units of textile structures. They are classified based on their <strong>Origin</strong> and <strong>Chemical Nature</strong>.</p>
+                        
+                        <h3>Classification by Origin</h3>
+                        <ul>
+                            <li><strong>Natural Fibres:</strong>
+                                <ul>
+                                    <li>Vegetable (Cellulosic): Cotton, Linen, Jute, Hemp.</li>
+                                    <li>Animal (Protein): Silk, Wool.</li>
+                                    <li>Mineral: Asbestos.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Man-made Fibres:</strong>
+                                <ul>
+                                    <li>Regenerated (Semi-synthetic): Viscose Rayon, Acetate Rayon.</li>
+                                    <li>Synthetic: Nylon, Polyester, Acrylic.</li>
+                                    <li>Inorganic: Glass, Metallic fibres.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="ml-note">
+                            <strong>Malayalam Note:</strong>
+                            തുണിത്തരങ്ങൾ നിർമ്മിക്കാൻ ഉപയോഗിക്കുന്ന അടിസ്ഥാന ഘടകമാണ് ഫൈബർ (Fibre). ഇവയെ പ്രധാനമായും പ്രകൃതിദത്തമായവ (Natural) എന്നും മനുഷ്യനിർമ്മിതമായവ (Man-made) എന്നും തരംതിരിക്കാം. പരുത്തി (Cotton), പട്ട് (Silk), കമ്പിളി (Wool) എന്നിവ പ്രകൃതിദത്തമാണ്. നൈലോൺ, പോളിസ്റ്റർ എന്നിവ മനുഷ്യനിർമ്മിതമാണ്.
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>1.2 Cotton: Structure & Properties</summary>
+                    <div class="topic-body">
+                        <p>Cotton is a natural vegetable fibre obtained from the seed hair of the <em>Gossypium</em> plant.</p>
+                        
+                        <h3>Structure of Cotton</h3>
+                        <div class="diagram">
+                            <svg viewBox="0 0 400 200" role="img" aria-label="Cotton Fiber Structure">
+                                <!-- Longitudinal View -->
+                                <path d="M50 50 Q 70 40, 90 50 T 130 50 T 170 50 T 210 50" stroke="#888" fill="none" stroke-width="3" />
+                                <text x="50" y="30" font-size="12">Longitudinal View (Convolutions)</text>
+                                
+                                <!-- Cross Section -->
+                                <path d="M300 100 Q 280 80, 300 60 Q 340 60, 320 100 Q 340 140, 300 140 Q 260 140, 300 100" fill="#eaf4ff" stroke="#0b5ed7" stroke-width="2" />
+                                <circle cx="305" cy="100" r="5" fill="white" stroke="#0b5ed7" />
+                                <text x="270" y="160" font-size="12">Cross Section (Kidney shape with Lumen)</text>
+                            </svg>
+                            <p><em>Fig: Longitudinal view showing natural twists (convolutions) and kidney-shaped cross-section.</em></p>
+                        </div>
+
+                        <h3>Physical Properties</h3>
+                        <ul>
+                            <li><strong>Length:</strong> 1.25 cm to 6 cm (Staple fibre).</li>
+                            <li><strong>Strength:</strong> Increases when wet (unique property).</li>
+                            <li><strong>Fineness:</strong> Varies by variety (Sea Island is finest).</li>
+                            <li><strong>Colour:</strong> Usually white to creamy.</li>
+                        </ul>
+
+                        <h3>Chemical Properties</h3>
+                        <ul>
+                            <li><strong>Effect of Acid:</strong> Disintegrated by hot dilute or cold concentrated mineral acids.</li>
+                            <li><strong>Effect of Alkali:</strong> Resistant to alkalis; swelling occurs in strong NaOH (Mercerization).</li>
+                            <li><strong>Microorganisms:</strong> Attacked by mildew and fungi in damp conditions.</li>
+                        </ul>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 2 -->
+            <section class="module" id="module-2">
+                <div class="module-head">
+                    <div class="module-meta">Module 2 | 11 Hours</div>
+                    <h2>Bast & Animal Fibres</h2>
+                </div>
+
+                <details class="topic" open>
+                    <summary>2.1 Bast Fibres: Linen and Jute</summary>
+                    <div class="topic-body">
+                        <p>Bast fibres are obtained from the stem (phloem) of plants.</p>
+                        
+                        <h3>Linen (Flax)</h3>
+                        <p><strong>Extraction:</strong> Processed via <em>Retting</em> (bacterial action in water to loosen fibres from the stem) followed by Scutching and Hackling.</p>
+                        <p><strong>Properties:</strong> Stronger than cotton, high luster, good heat conductor (cool to wear).</p>
+
+                        <h3>Jute</h3>
+                        <p>Known as the "Golden Fibre". It is cheap, strong, but coarse and harsh. Used mainly for packaging (gunny bags) and carpet backing.</p>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>2.2 Animal Fibres: Silk and Wool</summary>
+                    <div class="topic-body">
+                        <h3>Silk (The Queen of Fibres)</h3>
+                        <p><strong>Sericulture:</strong> The commercial rearing of silkworms (<em>Bombyx mori</em>) for the production of silk.</p>
+                        <p><strong>Lifecycle:</strong> Egg &rarr; Larva (Caterpillar) &rarr; Pupa (in Cocoon) &rarr; Moth.</p>
+                        <p><strong>Degumming:</strong> Removing the silk gum (Sericin) using soap and water to reveal the lustrous fibroin filaments.</p>
+
+                        <h3>Wool</h3>
+                        <p><strong>Scouring:</strong> The process of washing raw wool to remove grease (lanolin), dirt, and dried sweat (suint).</p>
+                        <p><strong>Carbonisation:</strong> Treatment with acid to remove vegetable matter (burrs, seeds) from wool.</p>
+                        <p><strong>Felting:</strong> The interlocking of wool scales under heat, moisture, and pressure.</p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 3 -->
+            <section class="module" id="module-3">
+                <div class="module-head">
+                    <div class="module-meta">Module 3 | 10 Hours</div>
+                    <h2>Semi-Synthetic Fibres</h2>
+                </div>
+
+                <details class="topic" open>
+                    <summary>3.1 Viscose Rayon</summary>
+                    <div class="topic-body">
+                        <p>Viscose Rayon is regenerated cellulose. It is made from wood pulp or cotton linters.</p>
+                        
+                        <h3>Manufacturing Flowchart</h3>
+                        <div class="worked">
+                            Wood Pulp &rarr; Steeping (NaOH) &rarr; Shredding (Alkali Cellulose) &rarr; Ageing &rarr; Xanthation (CS<sub>2</sub>) &rarr; Dissolving &rarr; Ripening &rarr; Spinning (Wet Spinning) &rarr; Regeneration.
+                        </div>
+
+                        <h3>Properties</h3>
+                        <ul>
+                            <li>Highly absorbent.</li>
+                            <li>Loses 50% strength when wet.</li>
+                            <li>Good drape and soft feel.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic">
+                    <summary>3.2 Modern Semi-Synthetics</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Lyocell:</strong> Produced using a solvent spinning process (NMMO), more eco-friendly than viscose.</li>
+                            <li><strong>Modal:</strong> A type of rayon that is highly resistant to shrinkage and fading.</li>
+                            <li><strong>Bamboo Fibre:</strong> Regenerated cellulose from bamboo pulp, known for antibacterial properties.</li>
+                        </ul>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 4 -->
+            <section class="module" id="module-4">
+                <div class="module-head">
+                    <div class="module-meta">Module 4 | 11 Hours</div>
+                    <h2>Synthetic Fibres & Polymerization</h2>
+                </div>
+
+                <details class="topic" open>
+                    <summary>4.1 Principles of Polymerization</summary>
+                    <div class="topic-body">
+                        <p><strong>Monomer:</strong> The small repeating unit.</p>
+                        <p><strong>Polymer:</strong> A long chain molecule made of many monomers.</p>
+                        
+                        <h3>Types of Polymerization</h3>
+                        <ol>
+                            <li><strong>Addition Polymerization:</strong> Monomers join without loss of any small molecules (e.g., Polyethylene).</li>
+                            <li><strong>Condensation Polymerization:</strong> Monomers join with the elimination of small molecules like water or ammonia (e.g., Nylon 6,6).</li>
+                        </ol>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>4.2 Polyamides: Nylon 6,6 and Nylon 6</summary>
+                    <div class="topic-body">
+                        <h3>Nylon 6,6</h3>
+                        <p>Made from <strong>Hexamethylene diamine</strong> and <strong>Adipic acid</strong>. Both monomers have 6 carbon atoms, hence the name "6,6".</p>
+                        
+                        <h3>Nylon 6</h3>
+                        <p>Made from a single monomer: <strong>Caprolactam</strong>. It involves ring-opening polymerization.</p>
+
+                        <h3>Spinning Methods</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Method</th>
+                                        <th>Mechanism</th>
+                                        <th>Example</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Melt Spinning</strong></td>
+                                        <td>Polymer is melted and extruded into cold air.</td>
+                                        <td>Nylon, Polyester</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dry Spinning</strong></td>
+                                        <td>Polymer dissolved in solvent; solvent evaporated by hot air.</td>
+                                        <td>Acetate, Acrylic</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Wet Spinning</strong></td>
+                                        <td>Polymer solution extruded into a chemical coagulating bath.</td>
+                                        <td>Viscose Rayon</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <section id="formula-bank" class="formula-bank">
+                <h2>Formula Bank & Calculations</h2>
+                <div class="worked">
+                    <h3>Draw Ratio Calculation</h3>
+                    <p>Drawing is the process of stretching the extruded filament to align polymer chains and increase strength.</p>
+                    <p><strong>Formula:</strong> <code>Draw Ratio = L_final / L_initial</code></p>
+                    <hr>
+                    <strong>Example:</strong> A nylon filament of length 10cm is stretched to 45cm. Calculate the draw ratio.
+                    <br><strong>Given:</strong> L_initial = 10cm, L_final = 45cm
+                    <br><strong>Calculation:</strong> 45 / 10 = 4.5
+                    <br><strong>Answer:</strong> Draw Ratio is 4.5:1.
+                </div>
+
+                <div class="calculator">
+                    <h3>Interactive Draw Ratio Calculator</h3>
+                    <div class="calc-grid">
+                        <div>
+                            <label>Initial Length (m):</label><br>
+                            <input type="number" id="lInitial" placeholder="e.g. 1">
+                        </div>
+                        <div>
+                            <label>Final Length (m):</label><br>
+                            <input type="number" id="lFinal" placeholder="e.g. 4">
+                        </div>
+                    </div>
+                    <button onclick="calcDrawRatio()" style="margin-top:1rem; padding:10px; cursor:pointer;">Calculate Ratio</button>
+                    <p id="calcResult" aria-live="polite" style="font-weight:bold; margin-top:1rem;"></p>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library">
+                <h2>Diagram Library</h2>
+                <div class="diagram-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <figure class="diagram">
+                        <svg viewBox="0 0 100 60" role="img" aria-label="Polymer Chains">
+                            <line x1="10" y1="10" x2="90" y2="10" stroke="#0b5ed7" stroke-width="2" />
+                            <line x1="10" y1="30" x2="90" y2="30" stroke="#0b5ed7" stroke-width="2" />
+                            <line x1="10" y1="50" x2="90" y2="50" stroke="#0b5ed7" stroke-width="2" />
+                            <text x="10" y="25" font-size="5">Linear Polymer (e.g. Nylon)</text>
+                        </svg>
+                        <figcaption>Linear Polymer Structure</figcaption>
+                    </figure>
+                    <figure class="diagram">
+                        <svg viewBox="0 0 100 60" role="img" aria-label="Melt Spinning">
+                            <rect x="40" y="5" width="20" height="20" fill="#ddd" />
+                            <path d="M50 25 L50 55" stroke="red" stroke-dasharray="2" />
+                            <circle cx="50" cy="55" r="3" fill="blue" />
+                            <text x="65" y="15" font-size="5">Melting</text>
+                            <text x="65" y="40" font-size="5">Extrusion</text>
+                        </svg>
+                        <figcaption>Melt Spinning Schematic</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment">
+                <h2>Module-wise Practice Questions</h2>
+                
+                <details class="qa">
+                    <summary>1. Define Textile Fibre. (2 Marks)</summary>
+                    <div class="qa-body">
+                        A textile fibre is a unit of matter characterized by flexibility, fineness, and a high ratio of length to thickness, which renders it capable of being spun into yarn.
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>2. Differentiate between Nylon 6 and Nylon 6,6. (5 Marks)</summary>
+                    <div class="qa-body">
+                        <ul>
+                            <li><strong>Nylon 6:</strong> Produced from Caprolactam; contains 6 carbons in the repeating unit; lower melting point (~215°C).</li>
+                            <li><strong>Nylon 6,6:</strong> Produced from Hexamethylene diamine and Adipic acid; contains two 6-carbon units; higher melting point (~265°C).</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>3. Explain the process of 'Retting' in Linen production. (3 Marks)</summary>
+                    <div class="qa-body">
+                        Retting is the process of using moisture and bacterial action to dissolve the cellular tissues and pectins that bind flax fibres to the stem. Types include Water retting, Dew retting, and Chemical retting.
+                    </div>
+                </details>
+            </section>
+
+            <section id="model-paper" class="model-paper">
+                <h2>Practice Model Paper</h2>
+                <p><em>Time: 3 Hours | Max Marks: 75</em></p>
+                
+                <h3>Part A (Answer all questions - 10 x 2 = 20 Marks)</h3>
+                <ol>
+                    <li>What is a staple fibre?</li>
+                    <li>Define Sericulture.</li>
+                    <li>What is the chemical composition of cotton?</li>
+                    <li>Name two bast fibres.</li>
+                    <li>What is the monomer of Nylon 6?</li>
+                    <li>Define Polymerization.</li>
+                    <li>What is Scouring?</li>
+                    <li>List two uses of Jute.</li>
+                    <li>What is the function of a spinneret?</li>
+                    <li>Name a solvent used in dry spinning.</li>
+                </ol>
+
+                <h3>Part B (Answer any 5 - 5 x 5 = 25 Marks)</h3>
+                <ol>
+                    <li>Explain the classification of fibres with a chart.</li>
+                    <li>Describe the physical properties of Silk.</li>
+                    <li>Explain the manufacturing of Viscose Rayon.</li>
+                    <li>Compare Melt spinning and Wet spinning.</li>
+                    <li>Explain the effect of acids and alkalis on Cotton.</li>
+                </ol>
+
+                <h3>Part C (Answer any 3 - 3 x 10 = 30 Marks)</h3>
+                <ol>
+                    <li>Explain the structure, properties, and uses of Wool in detail.</li>
+                    <li>Describe the manufacturing process of Nylon 6,6 with a flowchart.</li>
+                    <li>Discuss the extraction and properties of Linen.</li>
+                </ol>
+            </section>
+
+            <section id="quick-revision" class="quick-revision">
+                <h2>Quick Revision</h2>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Fibre</th>
+                            <th>Type</th>
+                            <th>Key Feature</th>
+                        </tr>
+                        <tr>
+                            <td>Cotton</td>
+                            <td>Natural Vegetable</td>
+                            <td>Convolutions, Kidney cross-section.</td>
+                        </tr>
+                        <tr>
+                            <td>Silk</td>
+                            <td>Natural Animal</td>
+                            <td>Continuous filament, Sericin gum.</td>
+                        </tr>
+                        <tr>
+                            <td>Wool</td>
+                            <td>Natural Animal</td>
+                            <td>Surface scales, Felting property.</td>
+                        </tr>
+                        <tr>
+                            <td>Viscose</td>
+                            <td>Regenerated Cellulose</td>
+                            <td>High absorbency, low wet strength.</td>
+                        </tr>
+                        <tr>
+                            <td>Nylon</td>
+                            <td>Synthetic Polyamide</td>
+                            <td>High strength, thermoplastic.</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <section id="glossary" class="glossary">
+                <h2>Glossary</h2>
+                <dl>
+                    <dt><strong>Convolution:</strong></dt>
+                    <dd>The natural twist found in cotton fibres.</dd>
+                    <dt><strong>Lumen:</strong></dt>
+                    <dd>The central hollow canal in a cotton fibre.</dd>
+                    <dt><strong>Thermoplastic:</strong></dt>
+                    <dd>A material that softens when heated and hardens when cooled.</dd>
+                    <dt><strong>Spinneret:</strong></dt>
+                    <dd>A metal plate with tiny holes through which polymer dope is extruded to form filaments.</dd>
+                </dl>
+            </section>
+
+            <section id="official-source" class="official-source">
+                <h2>Official Source Declaration</h2>
+                <p>This content is based on the <strong>SITTTR Kerala Revision 2021</strong> syllabus for Course 2061 (Textile Fibres). The structure, module distribution, and learning outcomes are derived directly from the official document.</p>
+                <p><strong>References:</strong></p>
+                <ul>
+                    <li>V.A. Shenai, Textile Fibres - Vol. 1, 2</li>
+                    <li>S.P. Mishra, Fibre Science and Technology</li>
+                    <li>J. Gordon Cook, Handbook of Textile Fibres</li>
+                </ul>
+            </section>
+
+            <section lang="ml" class="ml-note">
+                <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+                <p>ഈ പാഠഭാഗം ടെക്സ്റ്റൈൽ ഫൈബറുകളെക്കുറിച്ചുള്ള അടിസ്ഥാന വിവരങ്ങൾ നൽകുന്നു.</p>
+                <ul>
+                    <li><strong>Module 1:</strong> ഫൈബറുകളുടെ തരംതിരിവും പരുത്തിയുടെ (Cotton) സവിശേഷതകളും.</li>
+                    <li><strong>Module 2:</strong> ലൈനൻ, ചണം (Jute) തുടങ്ങിയ സസ്യനാരുകളും പട്ട്, കമ്പിളി തുടങ്ങിയ ജന്തുനാരുകളും.</li>
+                    <li><strong>Module 3:</strong> വിസ്കോസ് റയോൺ പോലുള്ള അർദ്ധ-കൃത്രിമ നാരുകൾ.</li>
+                    <li><strong>Module 4:</strong> നൈലോൺ പോലുള്ള കൃത്രിമ നാരുകളുടെ നിർമ്മാണ രീതികൾ.</li>
+                </ul>
+                <p>പരീക്ഷയ്ക്കായി ഓരോ ഫൈബറിന്റെയും നിർമ്മാണ രീതി (Manufacturing), ഗുണങ്ങൾ (Properties), ഉപയോഗങ്ങൾ (Uses) എന്നിവ പ്രത്യേകം പഠിക്കുക.</p>
+            </section>
+        </main>
+
+        <footer style="padding: 2rem; text-align: center; background: var(--soft); font-size: 0.8rem;">
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="btn">Back to Top</button>
+            <button onclick="window.print()" class="btn" style="margin-left: 10px;">Print Lesson</button>
+        </footer>
+    </div>
+
+    <script>
+        "use strict";
+        
+        // Reading Progress Bar
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        };
+
+        // Draw Ratio Calculator
+        function calcDrawRatio() {
+            const initial = parseFloat(document.getElementById('lInitial').value);
+            const final = parseFloat(document.getElementById('lFinal').value);
+            const resultArea = document.getElementById('calcResult');
+
+            if (isNaN(initial) || isNaN(final) || initial <= 0) {
+                resultArea.innerText = "Please enter valid positive numbers.";
+                resultArea.style.color = "var(--red)";
+            } else {
+                const ratio = (final / initial).toFixed(2);
+                resultArea.innerText = "Draw Ratio = " + ratio + " : 1";
+                resultArea.style.color = "var(--green)";
+            }
+        }
+    </script>
+</body>
+</html>
