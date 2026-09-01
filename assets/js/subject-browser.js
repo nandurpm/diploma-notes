@@ -381,7 +381,16 @@
 
     fillRevision($("revisionFilter"), all, preferredRevision);
 
+    const params = new URLSearchParams(location.search);
+    const requestedRevision = params.get("revision");
+    const requestedCode = String(params.get("code") || "").trim().toUpperCase();
+    const revisionSelect = $("revisionFilter");
+    if (requestedRevision && revisionSelect && [...revisionSelect.options].some(option => option.value === requestedRevision && !option.disabled)) {
+      revisionSelect.value = requestedRevision;
+    }
+
     const searchInput = $("subjectSearch");
+    if (requestedCode && searchInput) searchInput.value = requestedCode;
     if (searchInput) {
       searchInput.setAttribute("aria-controls", "subjectGrid");
       searchInput.setAttribute("aria-describedby", "subjectBrowserAnnouncer");
@@ -411,7 +420,16 @@
     // PERFORMANCE OPTIMIZATION: render after the loading placeholder paints so the
     // user sees progress immediately instead of a frozen blank page while the
     // (heavy) 2026 data is being filtered and rendered.
-    requestAnimationFrame(() => render(all, grid, mode, fixedRevision, department));
+    requestAnimationFrame(() => {
+      render(all, grid, mode, fixedRevision, department);
+      if (requestedCode) {
+        requestAnimationFrame(() => {
+          const card = [...grid.querySelectorAll("[data-subject-code]")]
+            .find(node => String(node.dataset.subjectCode || "").toUpperCase() === requestedCode);
+          card?.scrollIntoView({ behavior: "smooth", block: "center" });
+        });
+      }
+    });
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });

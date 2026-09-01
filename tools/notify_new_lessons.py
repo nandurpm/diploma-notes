@@ -10,6 +10,7 @@ import re
 import sys
 import time
 from pathlib import Path
+from urllib.parse import urlencode
 from typing import Any
 
 import requests
@@ -47,7 +48,14 @@ def subject_name(path: Path, code: str) -> str:
 def revision_and_url(path: Path) -> tuple[str, str]:
     relative = path.as_posix().lstrip("./")
     revision = "REV2026" if relative.startswith("revision-2026-content/") else "REV2021"
-    return revision, f"{SITE}/{relative}"
+    if revision == "REV2026":
+        return revision, f"{SITE}/{relative}"
+    # The legacy /lessons/ directory is not deployed publicly. Open the verified
+    # lessons browser and pass the revision/code so its client can select the card.
+    match = LESSON_RE.search(path.name)
+    code = match.group(1).upper() if match else ""
+    query = urlencode({"revision": "2021", "code": code})
+    return revision, f"{SITE}/lessons.html?{query}#subject-{code}"
 
 
 def load_log(path: Path) -> dict[str, Any]:
