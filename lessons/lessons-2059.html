@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2059 — Automobile Service Lab - I">
+    <meta name="course-code" content="2059">
+    <meta name="course-title" content="Automobile Service Lab - I">
+    <meta name="curriculum" content="REV2021">
+    <title>2059 — Automobile Service Lab - I</title>
+    <style>
+        :root {
+            --ink:#10233e;
+            --muted:#55697f;
+            --paper:#ffffff;
+            --soft:#f4f8fc;
+            --soft2:#eaf4ff;
+            --line:#d5e1ed;
+            --navy:#071f3f;
+            --blue:#0b5ed7;
+            --cyan:#0891b2;
+            --teal:#0f766e;
+            --green:#15803d;
+            --amber:#b45309;
+            --red:#b42318;
+            --violet:#6d28d9;
+            --shadow:0 12px 34px rgba(15,43,75,.10);
+            --radius:12px;
+            --mal:"Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+        body { font-family: system-ui, -apple-system, sans-serif; color: var(--ink); line-height: 1.6; margin: 0; background: var(--soft); }
+        .lesson-shell { max-width: 1000px; margin: 0 auto; background: var(--paper); box-shadow: var(--shadow); }
+        header.cover { background: var(--navy); color: white; padding: 4rem 2rem; text-align: center; }
+        .badge { background: var(--cyan); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; text-transform: uppercase; font-weight: bold; }
+        section { padding: 2rem; border-bottom: 1px solid var(--line); }
+        h1, h2, h3 { color: var(--navy); }
+        .ml-note { background: var(--soft2); border-left: 4px solid var(--blue); padding: 1rem; margin: 1rem 0; font-family: var(--mal); font-size: 0.95rem; }
+        .table-wrap { overflow-x: auto; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft); }
+        .worked { background: #fffbeb; border: 1px solid #fde68a; padding: 1.5rem; border-radius: var(--radius); margin: 1rem 0; }
+        .diagram { text-align: center; margin: 2rem 0; padding: 1rem; background: #f8fafc; border-radius: 8px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        .topic { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .topic summary { padding: 1rem; font-weight: bold; cursor: pointer; background: var(--soft); }
+        .topic-body { padding: 1rem; }
+        .qa { margin-bottom: 0.5rem; border: 1px solid var(--line); }
+        .qa summary { padding: 0.5rem 1rem; cursor: pointer; background: #f1f5f9; }
+        .qa-body { padding: 1rem; background: white; }
+        .calculator { background: var(--navy); color: white; padding: 2rem; border-radius: var(--radius); margin: 2rem 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .calc-grid input { padding: 8px; border-radius: 4px; border: none; }
+        .btn { background: var(--blue); color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: #084ab2; }
+        .reading-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--cyan); z-index: 1000; transition: width 0.1s; }
+        @media print { .no-print { display: none; } .topic { border: none; } summary { list-style: none; } details { display: block !important; } }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+<div class="reading-progress" id="readingProgress"></div>
+<a data-notes-link data-pdf-code="2059" data-pdf-revision="2021" href="#main-content" style="display:none;">Download Syllabus PDF 2059</a>
+
+<main id="main-content" class="lesson-shell">
+
+    <header class="cover">
+        <span class="badge">Revision 2021</span>
+        <h1>Automobile Service Lab - I</h1>
+        <p>Course Code: 2059 | Semester: 2 | Diploma in Automobile Engineering</p>
+    </header>
+
+    <section id="course-dashboard" class="course-dashboard">
+        <h2>Course Overview</h2>
+        <div class="grid two">
+            <div class="card">
+                <h3>Objectives</h3>
+                <ul>
+                    <li>Hands-on experience with basic automobile hand tools.</li>
+                    <li>Identification of engine components through dismantling.</li>
+                    <li>Understanding basic engine experiments and servicing procedures.</li>
+                    <li>Enhancing practical automotive servicing skills.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Teaching Scheme</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Category</th><td>Engineering Science</td></tr>
+                        <tr><th>Periods/Week</th><td>3 (Practical)</td></tr>
+                        <tr><th>Total Periods</th><td>45</td></tr>
+                        <tr><th>Credits</th><td>No Credit (Audit/Lab focus)</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="official-source" class="official-source">
+        <h3>Official Source Declaration</h3>
+        <p>This lesson is strictly mapped to the <strong>SITTTR Kerala Revision 2021</strong> syllabus for Course Code 2059. All modules, outcomes, and topics are derived from the official curriculum document provided by the State Institute of Technical Teachers' Training and Research.</p>
+    </section>
+
+    <section id="course-outcomes" class="course-outcomes">
+        <h2>Course Outcomes (COs)</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>CO No.</th>
+                        <th>Description</th>
+                        <th>Hours</th>
+                        <th>Cognitive Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>CO1</td><td>Demonstrate the use of different tools used in Automobile workshop</td><td>7</td><td>Applying</td></tr>
+                    <tr><td>CO2</td><td>Identify the application of measuring tools and specific tools in Automobile Garage.</td><td>7</td><td>Applying</td></tr>
+                    <tr><td>CO3</td><td>Identify various engine components in an Automobile after dismantling.</td><td>14</td><td>Applying</td></tr>
+                    <tr><td>CO4</td><td>Apply the procedure of maintenance schedule on two and four-wheeler vehicles.</td><td>14</td><td>Applying</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="module-1" class="module">
+        <h2>Module 1: Automobile Workshop Tools</h2>
+        <div class="module-meta">Duration: 7 Hours | CO1</div>
+        
+        <details class="topic" open>
+            <summary>M1.01: Identification of Hand Tools</summary>
+            <div class="topic-body">
+                <p>Automobile servicing requires a variety of specialized hand tools to ensure fasteners are handled without damage and components are removed safely.</p>
+                <ul>
+                    <li><strong>Spanners:</strong> Open-end, Ring, and Combination spanners. Used for tightening/loosening bolts.</li>
+                    <li><strong>Socket Sets:</strong> Used with ratchets for faster operation in confined spaces.</li>
+                    <li><strong>Wrenches:</strong> Adjustable wrenches, Pipe wrenches, and Torque wrenches.</li>
+                    <li><strong>Pliers:</strong> Combination pliers, Nose pliers, and Circlip pliers (Internal/External).</li>
+                    <li><strong>Hammers:</strong> Ball peen, Cross peen, and Soft-faced (Mallet) hammers.</li>
+                    <li><strong>Screwdrivers:</strong> Flat head, Phillips head, and Torx drivers.</li>
+                </ul>
+                <div class="ml-note">
+                    <strong>മലയാളം കുറിപ്പ്:</strong> 
+                    വർക്ക്ഷോപ്പിലെ അടിസ്ഥാന ടൂളുകളെ പരിചയപ്പെടുക എന്നതാണ് ഈ ഭാഗം കൊണ്ട് ഉദ്ദേശിക്കുന്നത്. സ്പാനറുകൾ, സോക്കറ്റുകൾ, പ്ലെയറുകൾ എന്നിവയുടെ ശരിയായ ഉപയോഗം പഠിക്കേണ്ടതുണ്ട്.
+                </div>
+            </div>
+        </details>
+
+        <details class="topic" open>
+            <summary>M1.02: Special Tools and Competency</summary>
+            <div class="topic-body">
+                <p>Special tools are designed for specific tasks that standard tools cannot perform efficiently.</p>
+                <ul>
+                    <li><strong>Torque Wrench:</strong> Essential for tightening cylinder head bolts to specific manufacturer values to prevent warping.</li>
+                    <li><strong>Feeler Gauge:</strong> Used to measure small gaps, such as valve clearance (tappet setting) or spark plug gaps.</li>
+                    <li><strong>Pullers:</strong> Gear pullers and bearing pullers used to remove components pressed onto shafts.</li>
+                </ul>
+            </div>
+        </details>
+    </section>
+
+    <section id="module-2" class="module">
+        <h2>Module 2: Measuring Tools & Engine Calculations</h2>
+        <div class="module-meta">Duration: 7 Hours | CO2</div>
+
+        <details class="topic" open>
+            <summary>M2.01 & M2.02: Bore and Stroke Measurement</summary>
+            <div class="topic-body">
+                <p>Precision measurement is vital for determining engine wear and calculating displacement.</p>
+                <ul>
+                    <li><strong>Bore Gauge:</strong> A telescopic tool used to measure the internal diameter (Bore) of a cylinder. It helps identify "ovality" and "taper" wear.</li>
+                    <li><strong>Stroke Length:</strong> The distance the piston travels from Top Dead Center (TDC) to Bottom Dead Center (BDC). It is exactly twice the <strong>Crank Radius (r)</strong>.</li>
+                </ul>
+                <div class="formula-card">
+                    <p><strong>Stroke (L) = 2 × Crank Radius (r)</strong></p>
+                </div>
+            </div>
+        </details>
+
+        <details class="topic" open>
+            <summary>M2.03 & M2.04: Swept Volume and Compression Ratio</summary>
+            <div class="topic-body">
+                <p>These calculations define the engine's capacity and thermal efficiency.</p>
+                <div class="worked">
+                    <strong>Swept Volume (V<sub>s</sub>):</strong> The volume displaced by the piston during one stroke.<br>
+                    Formula: <code>V<sub>s</sub> = (π/4) × D² × L</code><br>
+                    Where D = Bore diameter, L = Stroke length.
+                </div>
+                <div class="worked">
+                    <strong>Compression Ratio (CR):</strong> The ratio of total cylinder volume to clearance volume.<br>
+                    Formula: <code>CR = (V<sub>s</sub> + V<sub>c</sub>) / V<sub>c</sub></code><br>
+                    Where V<sub>c</sub> = Clearance Volume (volume above piston at TDC).
+                </div>
+            </div>
+        </details>
+    </section>
+
+    <section id="formula-bank" class="formula-bank">
+        <h2>Formula Bank & Interactive Calculator</h2>
+        <div class="calculator">
+            <h3>Engine Displacement Calculator</h3>
+            <div class="calc-grid">
+                <div>
+                    <label>Bore (D) in mm:</label><br>
+                    <input type="number" id="boreInput" placeholder="e.g. 70">
+                </div>
+                <div>
+                    <label>Stroke (L) in mm:</label><br>
+                    <input type="number" id="strokeInput" placeholder="e.g. 80">
+                </div>
+                <div>
+                    <label>Clearance Vol (Vc) in cc:</label><br>
+                    <input type="number" id="vcInput" placeholder="e.g. 40">
+                </div>
+                <div>
+                    <button class="btn" onclick="calculateEngine()">Calculate</button>
+                </div>
+            </div>
+            <div id="calcResult" style="margin-top:1rem; font-weight:bold; color:#a5f3fc;"></div>
+        </div>
+    </section>
+
+    <section id="visual-library" class="visual-library">
+        <h2>Visual Library</h2>
+        <div class="diagram-grid">
+            <figure class="diagram">
+                <svg viewBox="0 0 100 120" role="img" aria-labelledby="diag1-t">
+                    <title id="diag1-t">Cylinder Geometry</title>
+                    <!-- Cylinder -->
+                    <rect x="30" y="20" width="40" height="80" fill="none" stroke="#071f3f" stroke-width="2"/>
+                    <!-- Piston at TDC -->
+                    <rect x="32" y="30" width="36" height="20" fill="#cbd5e1" stroke="#071f3f"/>
+                    <!-- Stroke Indicator -->
+                    <line x1="75" y1="30" x2="75" y2="90" stroke="red" stroke-width="1"/>
+                    <text x="78" y="65" font-size="5" fill="red">Stroke (L)</text>
+                    <!-- Bore Indicator -->
+                    <line x1="30" y1="15" x2="70" y2="15" stroke="blue" stroke-width="1"/>
+                    <text x="45" y="12" font-size="5" fill="blue">Bore (D)</text>
+                </svg>
+                <figcaption>Figure 1: Basic Engine Cylinder Dimensions (Bore and Stroke)</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section id="module-3" class="module">
+        <h2>Module 3: Engine Components Identification</h2>
+        <div class="module-meta">Duration: 14 Hours | CO3</div>
+        <p>This module involves the actual dismantling of an engine to identify internal parts.</p>
+        
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Function / Key Details</th>
+                </tr>
+                <tr>
+                    <td>Cylinder Block</td>
+                    <td>The main structure of the engine; contains cylinders.</td>
+                </tr>
+                <tr>
+                    <td>Cylinder Liners</td>
+                    <td><strong>Dry Liner:</strong> No direct contact with coolant. <strong>Wet Liner:</strong> Direct contact with coolant.</td>
+                </tr>
+                <tr>
+                    <td>Piston & Rings</td>
+                    <td>Transmits force to con-rod. Includes <strong>Compression rings</strong> (seal gas) and <strong>Oil rings</strong> (scrape oil).</td>
+                </tr>
+                <tr>
+                    <td>Gudgeon Pin</td>
+                    <td>Connects the piston to the small end of the connecting rod.</td>
+                </tr>
+                <tr>
+                    <td>Crankshaft</td>
+                    <td>Converts reciprocating motion of piston into rotary motion.</td>
+                </tr>
+                <tr>
+                    <td>Camshaft</td>
+                    <td>Controls the opening and closing of valves.</td>
+                </tr>
+            </table>
+        </div>
+        <div class="ml-note">
+            <strong>മലയാളം കുറിപ്പ്:</strong> 
+            എഞ്ചിൻ അഴിച്ചു പരിശോധിക്കുമ്പോൾ സിലിണ്ടർ ബ്ലോക്ക്, പിസ്റ്റൺ, കണക്റ്റിംഗ് റോഡ്, ക്രാങ്ക് ഷാഫ്റ്റ് എന്നിവ തിരിച്ചറിയാൻ പഠിക്കണം. വെറ്റ് ലൈനറും ഡ്രൈ ലൈനറും തമ്മിലുള്ള വ്യത്യാസം പ്രത്യേകം ശ്രദ്ധിക്കുക.
+        </div>
+    </section>
+
+    <section id="module-4" class="module">
+        <h2>Module 4: Maintenance & Servicing</h2>
+        <div class="module-meta">Duration: 14 Hours | CO4</div>
+        
+        <details class="topic">
+            <summary>M4.01 - M4.04: Fluids and General Maintenance</summary>
+            <div class="topic-body">
+                <ul>
+                    <li><strong>Engine Oil:</strong> Check level using dipstick. Identify viscosity (e.g., 20W40).</li>
+                    <li><strong>Coolant:</strong> Check reservoir levels. Never open a hot radiator cap.</li>
+                    <li><strong>Jacking:</strong> Use hydraulic or mechanical jacks at designated chassis points for wheel removal.</li>
+                    <li><strong>Greasing:</strong> Applying lubricant to suspension joints, steering linkages, and propeller shaft universal joints.</li>
+                </ul>
+            </div>
+        </details>
+
+        <details class="topic">
+            <summary>M4.05 - M4.07: Spark Plug and Injector Testing</summary>
+            <div class="topic-body">
+                <p><strong>Spark Plug Servicing:</strong></p>
+                <ol>
+                    <li>Remove plug using a spark plug socket.</li>
+                    <li>Clean carbon deposits using a wire brush or plug cleaner.</li>
+                    <li>Check gap using a feeler gauge (typically 0.6mm to 1.0mm).</li>
+                    <li>Adjust gap by bending the side electrode.</li>
+                </ol>
+                <p><strong>Fuel Injector:</strong> Testing injection pressure and spray pattern using an injector tester (nozzle tester).</p>
+            </div>
+        </details>
+    </section>
+
+    <section id="assessment" class="assessment">
+        <h2>Practice Questions & Answers</h2>
+        
+        <details class="qa">
+            <summary>1. What is the difference between a wet liner and a dry liner?</summary>
+            <div class="qa-body">
+                A wet liner comes into direct contact with the engine coolant, requiring seals at the top and bottom. A dry liner is pressed into the cylinder block and does not touch the coolant directly.
+            </div>
+        </details>
+
+        <details class="qa">
+            <summary>2. Define Compression Ratio.</summary>
+            <div class="qa-body">
+                Compression Ratio is the ratio of the total volume of the cylinder (Swept Volume + Clearance Volume) to the Clearance Volume.
+            </div>
+        </details>
+
+        <details class="qa">
+            <summary>3. Why is a torque wrench used for cylinder head bolts?</summary>
+            <div class="qa-body">
+                To ensure all bolts are tightened with equal and specific force as per manufacturer specs, preventing cylinder head warping and gasket failure.
+            </div>
+        </details>
+    </section>
+
+    <section id="model-paper" class="model-paper">
+        <h2>Practice Model Lab Exam</h2>
+        <div class="exam-card" style="border: 2px dashed var(--line); padding: 1.5rem;">
+            <h3>Time: 3 Hours | Max Marks: 100</h3>
+            <p><strong>Part A: Identification (20 Marks)</strong><br>Identify 5 engine components placed on the table and state their functions.</p>
+            <p><strong>Part B: Measurement (30 Marks)</strong><br>Measure the bore and stroke of the given engine. Calculate the swept volume.</p>
+            <p><strong>Part C: Maintenance Task (50 Marks)</strong><br>Perform spark plug cleaning and gap setting <u>OR</u> Demonstrate the procedure for engine oil level check and jacking up a vehicle.</p>
+        </div>
+    </section>
+
+    <section id="quick-revision" class="quick-revision">
+        <h2>Quick Revision</h2>
+        <ul>
+            <li><strong>Stroke = 2 × Crank Radius.</strong></li>
+            <li><strong>Swept Volume</strong> is the capacity of one cylinder.</li>
+            <li><strong>Feeler Gauge</strong> is for gaps; <strong>Bore Gauge</strong> is for internal diameters.</li>
+            <li><strong>Compression Rings</strong> prevent blow-by; <strong>Oil Rings</strong> control lubrication.</li>
+            <li>Always use <strong>Safety Stands</strong> after jacking up a vehicle.</li>
+        </ul>
+    </section>
+
+    <section id="glossary" class="glossary">
+        <h2>Glossary</h2>
+        <div class="table-wrap">
+            <table>
+                <tr><td><strong>TDC</strong></td><td>Top Dead Center (Highest point of piston travel).</td></tr>
+                <tr><td><strong>BDC</strong></td><td>Bottom Dead Center (Lowest point of piston travel).</td></tr>
+                <tr><td><strong>Ovality</strong></td><td>Difference in cylinder diameter measured in two perpendicular directions.</td></tr>
+                <tr><td><strong>Viscosity</strong></td><td>Resistance of oil to flow.</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <section lang="ml">
+        <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+        <div class="ml-note">
+            ഈ ലാബ് കോഴ്സിൽ പ്രധാനമായും നാല് കാര്യങ്ങളാണ് പഠിക്കുന്നത്:<br>
+            1. <strong>ടൂളുകൾ:</strong> വർക്ക്ഷോപ്പിൽ ഉപയോഗിക്കുന്ന സ്പാനറുകൾ, ടോർക്ക് റെഞ്ച് എന്നിവയുടെ ഉപയോഗം.<br>
+            2. <strong>അളവുകൾ:</strong> സിലിണ്ടറിന്റെ വ്യാസം (Bore), പിസ്റ്റൺ സഞ്ചരിക്കുന്ന ദൂരം (Stroke) എന്നിവ അളക്കാനും എഞ്ചിൻ കപ്പാസിറ്റി കണക്കാക്കാനും പഠിക്കുന്നു.<br>
+            3. <strong>ഭാഗങ്ങൾ:</strong> എഞ്ചിൻ അഴിച്ചു മാറ്റി അതിലെ പിസ്റ്റൺ, ക്രാങ്ക് ഷാഫ്റ്റ്, വാൽവുകൾ എന്നിവ തിരിച്ചറിയുന്നു.<br>
+            4. <strong>സർവീസിംഗ്:</strong> ഓയിൽ മാറ്റുക, സ്പാർക്ക് പ്ലഗ് വൃത്തിയാക്കുക, ജാക്കി ഉപയോഗിച്ച് വാഹനം ഉയർത്തുക എന്നിവ പരിശീലിക്കുന്നു.
+        </div>
+    </section>
+
+    <footer style="padding: 2rem; text-align: center; font-size: 0.8rem; color: var(--muted);">
+        <p>Reference: Basic Automobile Engineering - C P Nakra | Practical Automobile Engineering – Malhotra</p>
+        <p>© 2024 Polytechnic Learning Resource - Revision 2021</p>
+    </footer>
+
+</main>
+
+<script>
+    "use strict";
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("readingProgress").style.width = scrolled + "%";
+    };
+
+    function calculateEngine() {
+        let D = parseFloat(document.getElementById('boreInput').value);
+        let L = parseFloat(document.getElementById('strokeInput').value);
+        let Vc = parseFloat(document.getElementById('vcInput').value);
+        
+        if(D > 0 && L > 0) {
+            let Vs = (Math.PI / 4) * Math.pow(D/10, 2) * (L/10); // Result in cc
+            let resText = "Swept Volume (Vs): " + Vs.toFixed(2) + " cc";
+            
+            if(Vc > 0) {
+                let CR = (Vs + Vc) / Vc;
+                resText += " | Compression Ratio: " + CR.toFixed(2) + ":1";
+            }
+            document.getElementById('calcResult').innerText = resText;
+        } else {
+            document.getElementById('calcResult').innerText = "Please enter valid Bore and Stroke values.";
+        }
+    }
+</script>
+</body>
+</html>
