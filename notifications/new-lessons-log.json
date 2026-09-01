@@ -7553,6 +7553,13 @@
       "subjectName": "CAD Lab I",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2099#subject-2099"
+    },
+    "REV2021:2109:lessons/lessons-2109.html": {
+      "messageId": "projects/poly-pmna/messages/8694310003385845446",
+      "subjectCode": "2109",
+      "subjectName": "Office Automation Workshop",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2109#subject-2109"
     }
   }
 }
