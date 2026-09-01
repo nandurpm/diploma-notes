@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2071 — Chemical Process Principles">
+    <meta name="course-code" content="2071">
+    <meta name="course-title" content="Chemical Process Principles">
+    <meta name="curriculum" content="REV2021">
+    <title>2071 — Chemical Process Principles</title>
+    <style>
+        :root {
+            --ink:#10233e;
+            --muted:#55697f;
+            --paper:#ffffff;
+            --soft:#f4f8fc;
+            --soft2:#eaf4ff;
+            --line:#d5e1ed;
+            --navy:#071f3f;
+            --blue:#0b5ed7;
+            --cyan:#0891b2;
+            --teal:#0f766e;
+            --green:#15803d;
+            --amber:#b45309;
+            --red:#b42318;
+            --violet:#6d28d9;
+            --shadow:0 12px 34px rgba(15,43,75,.10);
+            --radius:18px;
+            --mal:"Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background: var(--soft);
+        }
+
+        .lesson-shell { max-width: 1100px; margin: 0 auto; background: var(--paper); box-shadow: var(--shadow); }
+        
+        section { padding: 40px; border-bottom: 1px solid var(--line); }
+        
+        .cover { background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; text-align: center; padding: 80px 40px; }
+        .cover h1 { font-size: 3rem; margin: 0; }
+        .badge { display: inline-block; padding: 5px 15px; background: rgba(255,255,255,0.2); border-radius: 20px; margin: 10px; font-weight: bold; }
+
+        .module-head { border-left: 8px solid var(--blue); padding-left: 20px; margin-bottom: 30px; }
+        .module-meta { font-size: 0.9rem; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .ml-note { 
+            background: var(--soft2); 
+            border-right: 5px solid var(--teal); 
+            padding: 20px; 
+            margin: 20px 0; 
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+        .ml-note strong { color: var(--teal); display: block; margin-bottom: 5px; }
+
+        .worked { background: #fffbeb; border: 1px solid #fde68a; padding: 20px; border-radius: var(--radius); margin: 20px 0; }
+        .worked strong { color: var(--amber); }
+
+        .formula-card { background: var(--navy); color: white; padding: 25px; border-radius: var(--radius); text-align: center; margin: 15px 0; }
+        .formula-card code { font-size: 1.5rem; color: #93c5fd; }
+
+        .table-wrap { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft); }
+
+        .diagram { text-align: center; margin: 30px 0; padding: 20px; background: white; border-radius: var(--radius); border: 1px solid var(--line); }
+        .diagram svg { max-width: 100%; height: auto; }
+
+        .qa { margin-bottom: 15px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+        .qa summary { padding: 15px; background: var(--soft); cursor: pointer; font-weight: bold; }
+        .qa-body { padding: 20px; background: white; }
+
+        .calculator { background: var(--soft2); padding: 25px; border-radius: var(--radius); margin: 20px 0; border: 1px solid var(--blue); }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .calculator input { padding: 10px; border: 1px solid var(--line); border-radius: 5px; width: 100%; }
+        .calc-result { font-weight: bold; color: var(--blue); padding: 10px; background: white; border-radius: 5px; text-align: center; }
+
+        .jump-menu { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; padding: 20px; background: var(--navy); position: sticky; top: 0; z-index: 100; }
+        .jump-menu a { color: white; text-decoration: none; font-size: 0.85rem; padding: 5px 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 5px; }
+        .jump-menu a:hover { background: var(--blue); }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress { display: none !important; }
+            details { display: block !important; }
+            details summary { display: none; }
+            .lesson-shell { box-shadow: none; max-width: 100%; }
+        }
+
+        .reading-progress { position: fixed; top: 0; left: 0; height: 4px; background: var(--cyan); z-index: 1000; width: 0%; transition: width 0.1s; }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<a data-notes-link data-pdf-code="2071" data-pdf-revision="2021" href="#main-content" class="no-print" style="display:block; text-align:center; padding:10px; background:var(--amber); color:white; text-decoration:none; font-weight:bold;">Download Official Syllabus PDF (2071)</a>
+
+<div class="lesson-shell">
+<main id="main-content">
+
+<section class="cover" id="cover">
+    <div class="badge-row">
+        <span class="badge">REV2021</span>
+        <span class="badge">Course Code: 2071</span>
+        <span class="badge">Semester 2</span>
+    </div>
+    <h1>Chemical Process Principles</h1>
+    <p class="lead">The fundamental foundation of Chemical Engineering, covering Stoichiometry, Gas Laws, and Material Balance.</p>
+</section>
+
+<nav class="jump-menu" aria-label="Lesson sections">
+    <a href="#course-dashboard">Overview</a>
+    <a href="#course-outcomes">Outcomes</a>
+    <a href="#module-1">Module 1</a>
+    <a href="#module-2">Module 2</a>
+    <a href="#module-3">Module 3</a>
+    <a href="#module-4">Module 4</a>
+    <a href="#formula-bank">Formulas</a>
+    <a href="#assessment">Assessment</a>
+    <a href="#quick-revision">Revision</a>
+</nav>
+
+<section id="official-source" class="official-source">
+    <div class="source-note">
+        <strong>Official Source Declaration:</strong> This content is architected based on the official <strong>SITTTR Kerala Revision 2021</strong> syllabus for Course Code 2071. All modules, outcomes, and technical topics align with the Department of Technical Education requirements.
+        <br>Source URL: <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2071">SITTTR Kerala 2071 Syllabus</a>
+    </div>
+</section>
+
+<section id="course-dashboard" class="course-dashboard">
+    <div class="module-head">
+        <h2>Course Overview</h2>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <tr><th>Program</th><td>Diploma in Chemical Engineering</td></tr>
+            <tr><th>Course Type</th><td>Engineering Science</td></tr>
+            <tr><th>Credits</th><td>3</td></tr>
+            <tr><th>Total Periods</th><td>45 Hours (3 per week)</td></tr>
+            <tr><th>Assessment</th><td>CIE (50 Marks) + ESE (50 Marks)</td></tr>
+        </table>
+    </div>
+    <p>This course orients students toward the profession of Chemical Engineering. It bridges the gap between basic chemistry and industrial applications by teaching the quantitative aspects of chemical processes.</p>
+</section>
+
+<section id="course-outcomes" class="course-outcomes">
+    <div class="module-head">
+        <h2>Course Outcomes (COs)</h2>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>CO No.</th>
+                    <th>Description</th>
+                    <th>Hours</th>
+                    <th>Cognitive Level</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>CO1</td><td>Interpret the fundamental concepts of chemical engineering.</td><td>10</td><td>Applying</td></tr>
+                <tr><td>CO2</td><td>Apply gas laws to solve gas or vapour handling problems.</td><td>14</td><td>Applying</td></tr>
+                <tr><td>CO3</td><td>Apply material balance without chemical reactions in chemical process calculations.</td><td>12</td><td>Applying</td></tr>
+                <tr><td>CO4</td><td>Apply material balance with chemical reactions in chemical process calculations.</td><td>09</td><td>Applying</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="module" id="module-1">
+    <div class="module-head">
+        <div class="module-meta">Module 1 • 10 Hours</div>
+        <h2>Fundamental Concepts of Chemical Engineering</h2>
+    </div>
+
+    <h3>1.1 History and Professional Roles</h3>
+    <p>Chemical Engineering emerged as a distinct discipline in the late 19th century, evolving from Industrial Chemistry. It focuses on the large-scale production of chemicals, materials, and energy.</p>
+    
+    <div class="table-wrap">
+        <table>
+            <caption>Chemist vs. Chemical Engineer</caption>
+            <tr>
+                <th>Aspect</th>
+                <th>Chemist</th>
+                <th>Chemical Engineer</th>
+            </tr>
+            <tr>
+                <td>Scale</td>
+                <td>Laboratory scale (Grams/Milliliters)</td>
+                <td>Industrial scale (Tons/Kiloliters)</td>
+            </tr>
+            <tr>
+                <td>Focus</td>
+                <td>Discovery of new reactions and molecules.</td>
+                <td>Designing processes, equipment, and economics.</td>
+            </tr>
+            <tr>
+                <td>Environment</td>
+                <td>Lab bench, fume hoods.</td>
+                <td>Process plants, control rooms, design offices.</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="ml-note">
+        <strong>Malayalam Support:</strong>
+        കെമിക്കൽ എൻജിനീയറിങ് എന്നത് കെമിസ്ട്രിയെ വ്യവസായ അടിസ്ഥാനത്തിൽ പ്രായോഗികമാക്കുന്ന ശാഖയാണ്. ഒരു കെമിസ്റ്റ് ലാബിൽ പുതിയ പദാർത്ഥങ്ങൾ കണ്ടെത്തുമ്പോൾ, ഒരു കെമിക്കൽ എൻജിനീയർ അത് വലിയ അളവിൽ ലാഭകരമായും സുരക്ഷിതമായും നിർമ്മിക്കാനുള്ള പ്ലാന്റുകൾ രൂപകൽപ്പന ചെയ്യുന്നു.
+    </div>
+
+    <h3>1.2 Chemical Industries in Kerala</h3>
+    <ul>
+        <li><strong>FACT (Fertilisers and Chemicals Travancore Ltd):</strong> Ammonia, Sulfuric Acid, Ammonium Sulfate.</li>
+        <li><strong>TCC (Travancore Cochin Chemicals):</strong> Caustic Soda, Chlorine, Hydrochloric Acid.</li>
+        <li><strong>KMML (Kerala Minerals and Metals Ltd):</strong> Titanium Dioxide.</li>
+        <li><strong>HOCL (Hindustan Organic Chemicals Ltd):</strong> Phenol, Acetone.</li>
+    </ul>
+
+    <h3>1.3 Unit Operations vs. Unit Processes</h3>
+    <ul>
+        <li><strong>Unit Operation:</strong> Physical changes (e.g., Distillation, Drying, Filtration).</li>
+        <li><strong>Unit Process:</strong> Chemical changes/reactions (e.g., Oxidation, Nitration, Hydrogenation).</li>
+    </ul>
+
+    <h3>1.4 Concentration Expressions</h3>
+    <div class="formula-grid">
+        <div class="formula-card">
+            <p>Molarity (M)</p>
+            <code>M = Moles of Solute / Liters of Solution</code>
+        </div>
+        <div class="formula-card">
+            <p>Normality (N)</p>
+            <code>N = Gram Equivalents / Liters of Solution</code>
+        </div>
+    </div>
+
+    <div class="calculator" id="calc-molarity">
+        <h3>Molarity Calculator</h3>
+        <div class="calc-grid">
+            <div>
+                <label>Mass of Solute (g)</label>
+                <input type="number" id="mass" placeholder="e.g. 40">
+            </div>
+            <div>
+                <label>Molecular Weight (g/mol)</label>
+                <input type="number" id="mw" placeholder="e.g. 40 for NaOH">
+            </div>
+            <div>
+                <label>Volume of Solution (L)</label>
+                <input type="number" id="vol" placeholder="e.g. 1">
+            </div>
+        </div>
+        <button onclick="calculateMolarity()" class="btn" style="padding:10px 20px; background:var(--blue); color:white; border:none; border-radius:5px; cursor:pointer;">Calculate Molarity</button>
+        <div id="molarity-result" class="calc-result" style="margin-top:15px;">Result: -- M</div>
+    </div>
+</section>
+
+<section class="module" id="module-2">
+    <div class="module-head">
+        <div class="module-meta">Module 2 • 14 Hours</div>
+        <h2>Gas Laws and Gas Mixtures</h2>
+    </div>
+
+    <h3>2.1 Basic Gas Laws</h3>
+    <ul>
+        <li><strong>Boyle's Law:</strong> At constant temperature, $P \propto 1/V$ ($P_1V_1 = P_2V_2$).</li>
+        <li><strong>Charles' Law:</strong> At constant pressure, $V \propto T$ ($V_1/T_1 = V_2/T_2$).</li>
+        <li><strong>Ideal Gas Equation:</strong> $PV = nRT$.</li>
+    </ul>
+
+    <div class="worked">
+        <strong>Problem:</strong> Calculate the volume of 2 moles of an ideal gas at 2 atm and 300 K. (R = 0.0821 L.atm/mol.K)
+        <br><br>
+        <strong>Given:</strong> n = 2, P = 2 atm, T = 300 K, R = 0.0821
+        <br><strong>Calculation:</strong> $V = nRT / P = (2 \times 0.0821 \times 300) / 2$
+        <br><strong>Answer:</strong> 24.63 Liters.
+    </div>
+
+    <h3>2.2 Gas Mixtures</h3>
+    <p><strong>Dalton's Law of Partial Pressures:</strong> The total pressure of a mixture of non-reacting gases is equal to the sum of the partial pressures of the individual gases.</p>
+    <div class="formula-card">
+        <code>P_total = p_A + p_B + p_C + ...</code>
+        <br>
+        <code>p_A = y_A \times P_total</code>
+    </div>
+
+    <div class="ml-note">
+        <strong>Malayalam Support:</strong>
+        ഡാൾട്ടന്റെ നിയമം അനുസരിച്ച്, ഒരു ഗ്യാസ് മിശ്രിതത്തിലെ ആകെ മർദ്ദം (Total Pressure) അതിലെ ഓരോ ഗ്യാസിന്റെയും ഭാഗിക മർദ്ദങ്ങളുടെ (Partial Pressure) തുകയ്ക്ക് തുല്യമായിരിക്കും. ഒരു ഗ്യാസിന്റെ Partial Pressure എന്നത് അതിന്റെ Mole Fraction-നെ ആകെ മർദ്ദം കൊണ്ട് ഗുണിക്കുന്നതിന് തുല്യമാണ്.
+    </div>
+
+    <h3>2.3 Average Molecular Weight ($M_{avg}$)</h3>
+    <p>For a mixture of gases:</p>
+    <code>M_{avg} = \sum (y_i \times M_i) = y_1M_1 + y_2M_2 + ...</code>
+    <p>Where $y_i$ is the mole fraction and $M_i$ is the molecular weight of component $i$.</p>
+</section>
+
+<section class="module" id="module-3">
+    <div class="module-head">
+        <div class="module-meta">Module 3 • 12 Hours</div>
+        <h2>Material Balance without Chemical Reaction</h2>
+    </div>
+
+    <h3>3.1 Law of Conservation of Mass</h3>
+    <p>Mass can neither be created nor destroyed. In a steady-state process without reaction:</p>
+    <div class="formula-card">
+        <code>Input = Output</code>
+    </div>
+
+    <h3>3.2 Procedure for Solving MB Problems</h3>
+    <ol>
+        <li>Draw a clear Flowchart of the process.</li>
+        <li>Label all streams (Input, Output) and their compositions.</li>
+        <li>Select a suitable <strong>Basis</strong> (e.g., 100 kg of feed).</li>
+        <li>Write the Overall Material Balance (OMB).</li>
+        <li>Write Component Material Balances (CMB).</li>
+        <li>Solve the equations.</li>
+    </ol>
+
+    <h3>3.3 Unit Operations Overview</h3>
+    <div class="table-wrap">
+        <table>
+            <tr><th>Operation</th><th>Principle</th></tr>
+            <tr><td>Distillation</td><td>Separation based on difference in boiling points (volatility).</td></tr>
+            <tr><td>Evaporation</td><td>Removal of solvent (usually water) by boiling to concentrate a solution.</td></tr>
+            <tr><td>Absorption</td><td>Transfer of a solute from a gas phase to a liquid solvent.</td></tr>
+            <tr><td>Drying</td><td>Removal of small amounts of water/liquid from a solid.</td></tr>
+        </table>
+    </div>
+
+    <div class="diagram">
+        <svg viewBox="0 0 400 200" role="img" aria-label="Simple Distillation Column Material Balance">
+            <rect x="150" y="50" width="100" height="100" fill="none" stroke="black" stroke-width="2"/>
+            <text x="165" y="105" font-family="sans-serif">COLUMN</text>
+            <!-- Feed -->
+            <line x1="50" y1="100" x2="150" y2="100" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="60" y="90" font-size="12">Feed (F)</text>
+            <!-- Distillate -->
+            <line x1="200" y1="50" x2="200" y2="20" stroke="black" stroke-width="2"/>
+            <line x1="200" y1="20" x2="350" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="280" y="15" font-size="12">Distillate (D)</text>
+            <!-- Bottoms -->
+            <line x1="200" y1="150" x2="200" y2="180" stroke="black" stroke-width="2"/>
+            <line x1="200" y1="180" x2="350" y2="180" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="280" y="175" font-size="12">Bottoms (W)</text>
+            
+            <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                  <path d="M0,0 L0,6 L9,3 z" fill="#000" />
+                </marker>
+            </defs>
+        </svg>
+        <figcaption>Figure 1: Material Balance for a Distillation Column (F = D + W)</figcaption>
+    </div>
+</section>
+
+<section class="module" id="module-4">
+    <div class="module-head">
+        <div class="module-meta">Module 4 • 9 Hours</div>
+        <h2>Material Balance with Chemical Reaction</h2>
+    </div>
+
+    <h3>4.1 Stoichiometry Basics</h3>
+    <ul>
+        <li><strong>Stoichiometric Equation:</strong> A balanced chemical equation showing the mole ratios.</li>
+        <li><strong>Limiting Reactant:</strong> The reactant that is completely consumed and limits the amount of product formed.</li>
+        <li><strong>Excess Reactant:</strong> The reactant present in an amount greater than the stoichiometric requirement.</li>
+    </ul>
+
+    <div class="formula-card">
+        <code>\% Excess = \frac{Actual - Stoichiometric}{Stoichiometric} \times 100</code>
+    </div>
+
+    <h3>4.2 Conversion, Yield, and Selectivity</h3>
+    <ul>
+        <li><strong>Conversion:</strong> Fraction of feed reactant converted to products.</li>
+        <li><strong>Yield:</strong> Moles of desired product formed relative to moles of reactant fed.</li>
+        <li><strong>Selectivity:</strong> Ratio of desired product formed to undesired product formed.</li>
+    </ul>
+
+    <h3>4.3 Recycle, Bypass, and Purge</h3>
+    <div class="table-wrap">
+        <table>
+            <tr>
+                <th>Operation</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td><strong>Recycle</strong></td>
+                <td>To return unreacted reactants to the reactor to increase overall conversion.</td>
+            </tr>
+            <tr>
+                <td><strong>Bypass</strong></td>
+                <td>To divert a portion of the feed around a unit to control product properties.</td>
+            </tr>
+            <tr>
+                <td><strong>Purge</strong></td>
+                <td>To remove inert materials that would otherwise accumulate in a recycle loop.</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="ml-note">
+        <strong>Malayalam Support:</strong>
+        ലിമിറ്റിംഗ് റിയാക്ടന്റ് (Limiting Reactant) എന്നാൽ ഒരു കെമിക്കൽ റിയാക്ഷനിൽ ആദ്യം തീർന്നുപോകുന്ന പദാർത്ഥമാണ്. ഇത് എത്ര ഉൽപ്പന്നം (Product) ഉണ്ടാകുമെന്ന് തീരുമാനിക്കുന്നു. റീസൈക്കിൾ (Recycle) ചെയ്യുന്നത് ഉപയോഗിക്കപ്പെടാത്ത പദാർത്ഥങ്ങളെ വീണ്ടും റിയാക്ടറിലേക്ക് എത്തിച്ച് ലാഭം കൂട്ടാനാണ്.
+    </div>
+</section>
+
+<section id="formula-bank" class="formula-bank">
+    <div class="module-head">
+        <h2>Formula Bank</h2>
+    </div>
+    <div class="grid two">
+        <div class="worked">
+            <strong>Concentration</strong>
+            <ul>
+                <li>$M = n / V$ (mol/L)</li>
+                <li>$N = Gram Eq / V$ (eq/L)</li>
+                <li>$Mole \% = Mole Fraction \times 100$</li>
+            </ul>
+        </div>
+        <div class="worked">
+            <strong>Gases</strong>
+            <ul>
+                <li>$PV = nRT$</li>
+                <li>$R = 0.08206 \text{ L.atm/mol.K}$</li>
+                <li>$R = 8.314 \text{ J/mol.K}$</li>
+                <li>$p_i = y_i P$</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="visual-library" class="visual-library">
+    <div class="module-head">
+        <h2>Visual Library</h2>
+    </div>
+    <div class="diagram">
+        <svg viewBox="0 0 500 200" role="img" aria-label="Recycle Loop Diagram">
+            <rect x="200" y="70" width="100" height="60" fill="none" stroke="blue" stroke-width="2"/>
+            <text x="220" y="105" font-family="sans-serif">Reactor</text>
+            
+            <!-- Main Feed -->
+            <line x1="20" y1="100" x2="100" y2="100" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="30" y="90">Fresh Feed</text>
+            
+            <!-- Mixing Point -->
+            <circle cx="120" cy="100" r="5" fill="black"/>
+            <line x1="120" y1="100" x2="200" y2="100" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="130" y="90">Gross Feed</text>
+            
+            <!-- Exit -->
+            <line x1="300" y1="100" x2="480" y2="100" stroke="black" stroke-width="2" marker-end="url(#arrow)"/>
+            
+            <!-- Recycle Line -->
+            <line x1="400" y1="100" x2="400" y2="170" stroke="red" stroke-width="2"/>
+            <line x1="400" y1="170" x2="120" y2="170" stroke="red" stroke-width="2"/>
+            <line x1="120" y1="170" x2="120" y2="105" stroke="red" stroke-width="2" marker-end="url(#arrow)"/>
+            <text x="220" y="185" fill="red">Recycle Stream</text>
+        </svg>
+        <figcaption>Process Flow Diagram showing a Recycle Loop to increase efficiency.</figcaption>
+    </div>
+</section>
+
+<section id="assessment" class="assessment">
+    <div class="module-head">
+        <h2>Module-wise Practice Questions</h2>
+    </div>
+
+    <details class="qa">
+        <summary>Module 1: Define Molarity and Normality. (3 Marks)</summary>
+        <div class="qa-body">
+            <strong>Molarity:</strong> The number of moles of solute dissolved in one liter of solution. Unit: mol/L.
+            <br><strong>Normality:</strong> The number of gram equivalents of solute dissolved in one liter of solution. Unit: eq/L.
+        </div>
+    </details>
+
+    <details class="qa">
+        <summary>Module 2: State Dalton's Law of partial pressures. (2 Marks)</summary>
+        <div class="qa-body">
+            Dalton's Law states that the total pressure exerted by a mixture of non-reacting gases is equal to the sum of the partial pressures of individual component gases.
+        </div>
+    </details>
+
+    <details class="qa">
+        <summary>Module 3: Distinguish between Unit Operation and Unit Process. (5 Marks)</summary>
+        <div class="qa-body">
+            <strong>Unit Operation:</strong> Involves only physical changes like size reduction, separation, or phase change. Examples: Distillation, Filtration, Evaporation.
+            <br><strong>Unit Process:</strong> Involves chemical reactions where new products are formed. Examples: Oxidation, Nitration, Polymerization.
+        </div>
+    </details>
+
+    <details class="qa">
+        <summary>Module 4: Explain Limiting Reactant with an example. (5 Marks)</summary>
+        <div class="qa-body">
+            The limiting reactant is the substance that is totally consumed when the chemical reaction is complete. The amount of product formed is limited by this reactant.
+            <br><em>Example:</em> If 1 mole of $H_2$ reacts with 1 mole of $O_2$ to form water ($2H_2 + O_2 \to 2H_2O$), the stoichiometric requirement is 2 moles of $H_2$ for 1 mole of $O_2$. Here, $H_2$ is the limiting reactant because we only have 1 mole.
+        </div>
+    </details>
+</section>
+
+<section id="model-paper" class="model-paper">
+    <div class="module-head">
+        <h2>Practice Model Paper</h2>
+        <p><em>Based on REV2021 Pattern (Not an official paper)</em></p>
+    </div>
+    
+    <h3>Part A (Short Answer - 2 Marks each)</h3>
+    <ol>
+        <li>Define Gram Atom.</li>
+        <li>State Boyle's Law.</li>
+        <li>What is a Basis in material balance?</li>
+        <li>Define % Excess.</li>
+    </ol>
+
+    <h3>Part B (Medium Answer - 5 Marks each)</h3>
+    <ol>
+        <li>Compare the roles of a Chemist and a Chemical Engineer.</li>
+        <li>Derive the Ideal Gas constant R in SI units.</li>
+        <li>Explain the principle of Distillation with a diagram.</li>
+        <li>Define Yield and Selectivity in chemical reactions.</li>
+    </ol>
+
+    <h3>Part C (Numerical/Long Answer - 10 Marks each)</h3>
+    <ol>
+        <li>A gas mixture contains 20% $O_2$, 70% $N_2$ and 10% $CO_2$ by volume. Calculate the average molecular weight and density at STP.</li>
+        <li>An evaporator is fed with 10,000 kg/h of a solution containing 10% NaCl. It is concentrated to 40% NaCl. Calculate the amount of water evaporated and the thick liquor produced.</li>
+    </ol>
+</section>
+
+<section id="quick-revision" class="quick-revision">
+    <div class="module-head">
+        <h2>Quick Revision</h2>
+    </div>
+    <ul>
+        <li><strong>STP:</strong> 0°C (273.15 K) and 1 atm pressure.</li>
+        <li><strong>Molar Volume:</strong> 22.414 L at STP for 1 mole of ideal gas.</li>
+        <li><strong>OMB:</strong> Total Mass In = Total Mass Out.</li>
+        <li><strong>Recycle:</strong> Used to utilize unreacted feed.</li>
+        <li><strong>Purge:</strong> Used to prevent accumulation of inerts.</li>
+    </ul>
+</section>
+
+<section id="glossary" class="glossary">
+    <div class="module-head">
+        <h2>Glossary</h2>
+    </div>
+    <dl>
+        <dt><strong>Stoichiometry</strong></dt>
+        <dd>The study of quantitative relationships between reactants and products in chemical reactions.</dd>
+        <dt><strong>Mole Fraction</strong></dt>
+        <dd>Ratio of moles of one component to the total moles in a mixture.</dd>
+        <dt><strong>Steady State</strong></dt>
+        <dd>A condition where process variables do not change with time.</dd>
+    </dl>
+</section>
+
+<section lang="ml" class="ml-note">
+    <strong>മലയാളം പഠനസഹായം / Malayalam Learning Support</strong>
+    <p>ഈ പാഠഭാഗം കെമിക്കൽ എൻജിനീയറിംഗിന്റെ അടിസ്ഥാന തത്വങ്ങളെക്കുറിച്ചാണ്. പ്രധാനമായും നാല് ഭാഗങ്ങളാണുള്ളത്:</p>
+    <ol>
+        <li>അടിസ്ഥാന ആശയങ്ങൾ: യൂണിറ്റ് ഓപ്പറേഷൻസ്, കോൺസെൻട്രേഷൻ അളവുകൾ.</li>
+        <li>ഗ്യാസ് നിയമങ്ങൾ: ഐഡിയൽ ഗ്യാസ് ഇക്വേഷൻ, ഡാൾട്ടന്റെ നിയമം.</li>
+        <li>മെറ്റീരിയൽ ബാലൻസ് (റിയാക്ഷൻ ഇല്ലാത്തത്): ഡിസ്റ്റിലേഷൻ, ഇവാപ്പറേഷൻ തുടങ്ങിയവയിലെ കണക്കുകൾ.</li>
+        <li>മെറ്റീരിയൽ ബാലൻസ് (റിയാക്ഷൻ ഉള്ളത്): ലിമിറ്റിംഗ് റിയാക്ടന്റ്, റീസൈക്കിൾ തുടങ്ങിയവ.</li>
+    </ol>
+    <p>പരീക്ഷയ്ക്ക് തയ്യാറെടുക്കുമ്പോൾ യൂണിറ്റ് കൺവെർഷനുകളും (Unit Conversions) ഫോർമുലകളും പ്രത്യേകം ശ്രദ്ധിക്കുക.</p>
+</section>
+
+</main>
+</div>
+
+<script>
+    "use strict";
+    
+    // Reading Progress Bar
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("readingProgress").style.width = scrolled + "%";
+    };
+
+    // Molarity Calculator Logic
+    function calculateMolarity() {
+        const mass = parseFloat(document.getElementById('mass').value);
+        const mw = parseFloat(document.getElementById('mw').value);
+        const vol = parseFloat(document.getElementById('vol').value);
+        
+        if(mass > 0 && mw > 0 && vol > 0) {
+            const molarity = (mass / mw) / vol;
+            document.getElementById('molarity-result').innerText = "Result: " + molarity.toFixed(4) + " M";
+        } else {
+            document.getElementById('molarity-result').innerText = "Please enter valid positive numbers.";
+        }
+    }
+</script>
+
+</body>
+</html>
