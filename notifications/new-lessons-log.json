@@ -7546,6 +7546,13 @@
       "subjectName": "Electronic Instrumentation",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2081#subject-2081"
+    },
+    "REV2021:2099:lessons/lessons-2099.html": {
+      "messageId": "projects/poly-pmna/messages/7975151608854613701",
+      "subjectCode": "2099",
+      "subjectName": "CAD Lab I",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2099#subject-2099"
     }
   }
 }
