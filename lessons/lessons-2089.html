@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="course-code" content="2089">
+    <meta name="course-title" content="Electronic Instrumentation Lab">
+    <meta name="curriculum" content="REV2021">
+    <title>2089 — Electronic Instrumentation Lab</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15,43,75,.10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background-color: var(--soft);
+        }
+
+        .lesson-shell { max-width: 1100px; margin: 0 auto; background: var(--paper); box-shadow: var(--shadow); }
+        main { padding: 2rem; }
+
+        .cover { background: linear-gradient(135deg, var(--navy), var(--blue)); color: white; padding: 4rem 2rem; text-align: center; border-radius: 0 0 var(--radius) var(--radius); }
+        .cover h1 { font-size: 2.5rem; margin: 0; }
+        .badge-row { margin-top: 1rem; display: flex; justify-content: center; gap: 10px; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+        .section { margin-bottom: 3rem; padding: 2rem; border: 1px solid var(--line); border-radius: var(--radius); }
+        .module { margin-bottom: 4rem; border-left: 8px solid var(--blue); padding-left: 2rem; }
+        .module-head { margin-bottom: 1.5rem; }
+        
+        .topic { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+        .topic summary { padding: 1rem; background: var(--soft2); cursor: pointer; font-weight: bold; }
+        .topic-body { padding: 1.5rem; background: white; }
+
+        .ml-note { background: #fffbeb; border-left: 4px solid var(--amber); padding: 1rem; margin: 1rem 0; font-family: var(--mal); font-size: 0.95rem; }
+        .ml-note strong { display: block; margin-bottom: 5px; color: var(--amber); }
+
+        .worked { background: #f0fdf4; border: 1px solid var(--green); padding: 1.5rem; border-radius: 10px; margin: 1rem 0; }
+        .formula-card { background: var(--navy); color: white; padding: 1.5rem; border-radius: 12px; text-align: center; font-size: 1.2rem; margin: 1rem 0; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft2); }
+
+        .diagram { text-align: center; margin: 2rem 0; padding: 1rem; background: white; border: 1px solid var(--line); border-radius: 10px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 0.8rem; background: #f8fafc; cursor: pointer; font-weight: 600; }
+        .qa-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+        .calculator { background: var(--soft2); padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 1rem; }
+        .calc-grid input { padding: 8px; border: 1px solid var(--line); border-radius: 5px; }
+        
+        @media print {
+            .no-print, .jump-menu, .reading-progress { display: none; }
+            details { display: block !important; }
+            details summary { font-size: 1.2rem; border-bottom: 2px solid #000; }
+            .lesson-shell { box-shadow: none; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="lesson-shell">
+    <header class="cover">
+        <div class="eyebrow">Kerala Polytechnic Syllabus</div>
+        <h1>Electronic Instrumentation Lab</h1>
+        <div class="badge-row">
+            <span class="badge">Course Code: 2089</span>
+            <span class="badge">Semester: 2</span>
+            <span class="badge">Revision: 2021</span>
+        </div>
+    </header>
+
+    <a data-notes-link data-pdf-code="2089" data-pdf-revision="2021" href="#main-content" style="display:block; text-align:center; padding:10px; background:var(--soft2); text-decoration:none; color:var(--blue); font-weight:bold;">View Full Course Content Below</a>
+
+    <main id="main-content">
+
+        <section id="course-dashboard" class="course-dashboard">
+            <h2>Course Overview</h2>
+            <div class="grid two">
+                <div class="card">
+                    <p><strong>Program:</strong> Diploma in Instrumentation Engineering</p>
+                    <p><strong>Category:</strong> Engineering Science</p>
+                    <p><strong>Credits:</strong> No Credit (Lab Course)</p>
+                </div>
+                <div class="card">
+                    <p><strong>Total Periods:</strong> 45 Hours</p>
+                    <p><strong>Assessment:</strong> CIE (Continuous Internal Evaluation) & ESE (End Semester Exam)</p>
+                </div>
+            </div>
+            <div class="tip">
+                <strong>Objective:</strong> This lab introduces students to the practical aspects of measuring instruments, including bridge circuits, calibration of meters, and the use of modern diagnostic tools like DSO and Strip Chart Recorders.
+            </div>
+        </section>
+
+        <section id="course-outcomes" class="course-outcomes">
+            <h2>Course Outcomes (CO)</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO No.</th>
+                            <th>Description</th>
+                            <th>Cognitive Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO1</td>
+                            <td>Determine static characteristics of instruments and convert galvanometers to ammeters/voltmeters.</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO2</td>
+                            <td>Determine unknown R, L, C values using appropriate bridges (Wheatstone, Hay's, Schering).</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO3</td>
+                            <td>Calibrate Wattmeter and Energy meter using direct loading.</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO4</td>
+                            <td>Explain and utilize CRO/DSO and recorders for signal measurement.</td>
+                            <td>Understanding</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MODULE 1 -->
+        <section class="module" id="module-1">
+            <div class="module-head">
+                <h2>Module 1: Static Characteristics & Galvanometer Conversion</h2>
+                <span class="badge">12 Hours</span>
+            </div>
+
+            <details class="topic" open>
+                <summary>M1.01: Static Characteristics & Calibration</summary>
+                <div class="topic-body">
+                    <p>Static characteristics are the properties of an instrument when the input is either constant or varying very slowly.</p>
+                    <ul>
+                        <li><strong>Accuracy:</strong> The degree of closeness to the true value.</li>
+                        <li><strong>Precision:</strong> The degree of repeatability of measurements.</li>
+                        <li><strong>Error:</strong> The difference between measured value and true value. ($Error = A_m - A_t$)</li>
+                        <li><strong>Sensitivity:</strong> The ratio of change in output to the change in input.</li>
+                        <li><strong>Hysteresis:</strong> The difference in readings when a value is approached from an increasing direction versus a decreasing direction.</li>
+                    </ul>
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        ഒരു ഉപകരണം (Instrument) എത്രത്തോളം കൃത്യമായി അളക്കുന്നു എന്നതിനെയാണ് Accuracy എന്ന് പറയുന്നത്. ഒരേ അളവ് വീണ്ടും വീണ്ടും അളക്കുമ്പോൾ കിട്ടുന്ന ഒരേപോലെയുള്ള ഫലങ്ങളെ Precision എന്ന് വിളിക്കുന്നു.
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>M1.02: Galvanometer Conversion</summary>
+                <div class="topic-body">
+                    <p>A D'Arsonval galvanometer can be converted into an Ammeter or Voltmeter by adding specific resistances.</p>
+                    
+                    <h3>1. Conversion to Ammeter</h3>
+                    <p>A low resistance called <strong>Shunt ($R_s$)</strong> is connected in parallel with the galvanometer.</p>
+                    <div class="formula-card">
+                        R<sub>s</sub> = R<sub>g</sub> / (n - 1)
+                    </div>
+                    <p>Where $n = I / I_g$ (Multiplying factor), $I$ is the total current to be measured, and $I_g$ is full-scale deflection current.</p>
+
+                    <h3>2. Conversion to Voltmeter</h3>
+                    <p>A high resistance called <strong>Multiplier ($R_m$)</strong> is connected in series with the galvanometer.</p>
+                    <div class="formula-card">
+                        R<sub>m</sub> = R<sub>g</sub> (n - 1)
+                    </div>
+                    <p>Where $n = V / V_g$ (Multiplying factor), $V$ is the total voltage to be measured.</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODULE 2 -->
+        <section class="module" id="module-2">
+            <div class="module-head">
+                <h2>Module 2: Measurement using Bridges</h2>
+                <span class="badge">8 Hours</span>
+            </div>
+
+            <details class="topic" open>
+                <summary>M2.01: Wheatstone’s Bridge (Resistance)</summary>
+                <div class="topic-body">
+                    <p>Used for measuring medium resistances (1Ω to 100kΩ). It consists of four arms, a DC source, and a galvanometer.</p>
+                    <div class="diagram">
+                        <svg viewBox="0 0 200 150" width="300">
+                            <path d="M100 10 L150 60 L100 110 L50 60 Z" fill="none" stroke="black" stroke-width="2"/>
+                            <text x="110" y="35" font-size="12">R1</text>
+                            <text x="135" y="90" font-size="12">R2</text>
+                            <text x="60" y="90" font-size="12">R3</text>
+                            <text x="75" y="35" font-size="12">Rx</text>
+                            <circle cx="100" cy="60" r="15" fill="none" stroke="black"/>
+                            <text x="95" y="65" font-size="14">G</text>
+                        </svg>
+                        <figcaption>Wheatstone Bridge Circuit Diagram</figcaption>
+                    </div>
+                    <p><strong>Balance Condition:</strong> $R_x = (R_2 / R_1) \times R_3$</p>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>M2.02: Hay’s Bridge (Inductance)</summary>
+                <div class="topic-body">
+                    <p>Specifically used for measuring high-Q inductors (Q > 10). It differs from Maxwell's bridge as the capacitor and resistor are in series.</p>
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        High Quality factor (Q) ഉള്ള ഇൻഡക്റ്ററുകൾ അളക്കാനാണ് Hay's Bridge ഉപയോഗിക്കുന്നത്.
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>M2.03: Schering Bridge (Capacitance)</summary>
+                <div class="topic-body">
+                    <p>Used for measuring unknown capacitance, dielectric loss, and power factor. It is one of the most important AC bridges.</p>
+                </div>
+            </details>
+        </section>
+
+        <!-- MODULE 3 -->
+        <section class="module" id="module-3">
+            <div class="module-head">
+                <h2>Module 3: Calibration of Wattmeter & Energy Meter</h2>
+                <span class="badge">8 Hours</span>
+            </div>
+            <div class="topic-body">
+                <h3>Direct Loading Method</h3>
+                <p>In this method, the meter is connected to a real load (like a lamp bank or rheostat). The reading of the meter under test is compared with a standard (calibrated) meter.</p>
+                
+                <div class="worked">
+                    <strong>Percentage Error Calculation:</strong><br>
+                    % Error = [(Measured Value - True Value) / True Value] × 100
+                </div>
+
+                <div class="ml-note">
+                    <strong>Energy Meter Calibration:</strong>
+                    Energy meter കറങ്ങുന്ന ഡിസ്കിന്റെ എണ്ണം (Revolutions) നോക്കിയാണ് സാധാരണയായി കാലിബ്രേറ്റ് ചെയ്യുന്നത്. ഇതിനായി സ്റ്റോപ്പ് വാച്ച് ഉപയോഗിച്ച് സമയം അളക്കുന്നു.
+                </div>
+            </div>
+        </section>
+
+        <!-- MODULE 4 -->
+        <section class="module" id="module-4">
+            <div class="module-head">
+                <h2>Module 4: Oscilloscopes & Recorders</h2>
+                <span class="badge">14 Hours</span>
+            </div>
+
+            <details class="topic" open>
+                <summary>M4.01 - M4.03: CRO and DSO Applications</summary>
+                <div class="topic-body">
+                    <p><strong>CRO (Cathode Ray Oscilloscope)</strong> and <strong>DSO (Digital Storage Oscilloscope)</strong> are used to visualize waveforms.</p>
+                    <ul>
+                        <li><strong>Voltage Measurement:</strong> $V_{p-p} = (\text{Vertical divisions}) \times (\text{Volts/div setting})$</li>
+                        <li><strong>Time Period:</strong> $T = (\text{Horizontal divisions for 1 cycle}) \times (\text{Time/div setting})$</li>
+                        <li><strong>Frequency:</strong> $f = 1/T$</li>
+                    </ul>
+
+                    <h3>Lissajous Patterns</h3>
+                    <p>Used for frequency and phase measurement by applying two different signals to the X and Y plates.</p>
+                    <div class="table-wrap">
+                        <table>
+                            <tr>
+                                <th>Pattern Shape</th>
+                                <th>Phase Difference (φ)</th>
+                            </tr>
+                            <tr><td>Straight Line (Diagonal)</td><td>0° or 360°</td></tr>
+                            <tr><td>Circle</td><td>90° or 270°</td></tr>
+                            <tr><td>Ellipse</td><td>Between 0° and 90°</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>M4.04: Strip Chart Recorder</summary>
+                <div class="topic-body">
+                    <p>A device that records a continuous visual record of a signal on a moving strip of paper.</p>
+                    <ul>
+                        <li><strong>Drive Mechanism:</strong> Moves the paper at a constant speed.</li>
+                        <li><strong>Stylus/Pen:</strong> Moves across the paper proportional to the input signal.</li>
+                    </ul>
+                </div>
+            </details>
+        </section>
+
+        <section id="formula-bank" class="formula-bank">
+            <h2>Formula Bank</h2>
+            <div class="grid two">
+                <div class="formula-card">
+                    <small>Ammeter Shunt</small><br>
+                    Rs = Rg / ( (I/Ig) - 1 )
+                </div>
+                <div class="formula-card">
+                    <small>Voltmeter Multiplier</small><br>
+                    Rm = Rg * ( (V/Vg) - 1 )
+                </div>
+                <div class="formula-card">
+                    <small>Wheatstone Balance</small><br>
+                    Rx = (R2 * R3) / R1
+                </div>
+                <div class="formula-card">
+                    <small>Frequency (CRO)</small><br>
+                    f = 1 / (Div × Time/Div)
+                </div>
+            </div>
+
+            <div class="calculator">
+                <h3>Ammeter Shunt Calculator</h3>
+                <div class="calc-grid">
+                    <div>
+                        <label>Galvanometer Resistance (Rg) Ω:</label>
+                        <input type="number" id="rg-val" value="100">
+                    </div>
+                    <div>
+                        <label>Full Scale Current (Ig) mA:</label>
+                        <input type="number" id="ig-val" value="1">
+                    </div>
+                    <div>
+                        <label>Desired Range (I) A:</label>
+                        <input type="number" id="i-val" value="5">
+                    </div>
+                </div>
+                <button onclick="calcShunt()" class="btn" style="padding:10px 20px; background:var(--blue); color:white; border:none; border-radius:5px; cursor:pointer;">Calculate Shunt (Rs)</button>
+                <p id="shunt-result" style="margin-top:15px; font-weight:bold; color:var(--green);"></p>
+            </div>
+        </section>
+
+        <section id="visual-library" class="visual-library">
+            <h2>Visual Library</h2>
+            <div class="diagram-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:20px;">
+                <div class="diagram">
+                    <svg viewBox="0 0 100 100" width="150">
+                        <circle cx="50" cy="50" r="40" fill="none" stroke="black" stroke-width="2" />
+                        <line x1="50" y1="50" x2="80" y2="20" stroke="red" stroke-width="2" />
+                        <text x="35" y="95" font-size="10">Lissajous 45°</text>
+                    </svg>
+                    <p>Phase Measurement</p>
+                </div>
+                <div class="diagram">
+                    <svg viewBox="0 0 100 60" width="150">
+                        <rect x="10" y="10" width="80" height="40" fill="none" stroke="black" />
+                        <polyline points="10,30 20,10 30,50 40,10 50,50 60,10 70,50 80,10 90,30" fill="none" stroke="blue" />
+                    </svg>
+                    <p>Strip Chart Trace</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="assessment" class="assessment">
+            <h2>Practice Questions</h2>
+            <div class="qa">
+                <summary>1. Define Hysteresis in instruments.</summary>
+                <div class="qa-body">Hysteresis is the maximum difference in output readings for the same input, when the input is approached from opposite directions (increasing and decreasing).</div>
+            </div>
+            <div class="qa">
+                <summary>2. Why is a shunt used in an ammeter?</summary>
+                <div class="qa-body">A shunt is used to bypass the majority of the current around the galvanometer coil, allowing the meter to measure currents much larger than its full-scale deflection current without damaging the coil.</div>
+            </div>
+            <div class="qa">
+                <summary>3. Which bridge is best for measuring high-Q inductance?</summary>
+                <div class="qa-body">Hay's Bridge is preferred for high-Q inductors (Q > 10).</div>
+            </div>
+        </section>
+
+        <section id="model-paper" class="model-paper">
+            <h2>Practice Model Paper</h2>
+            <div class="exam-card" style="border:2px dashed var(--line); padding:2rem;">
+                <center><strong>END SEMESTER EXAMINATION - PRACTICE</strong></center>
+                <p><strong>Course:</strong> Electronic Instrumentation Lab (2089)</p>
+                <hr>
+                <p><strong>Part A: Short Answer (Select any 2)</strong></p>
+                <ol>
+                    <li>Explain the difference between Accuracy and Precision.</li>
+                    <li>State the balance condition for a Wheatstone bridge.</li>
+                    <li>What is a Lissajous pattern?</li>
+                </ol>
+                <p><strong>Part B: Practical/Long Answer</strong></p>
+                <ol>
+                    <li>Describe the procedure to convert a 1mA, 100Ω galvanometer into a 0-10A ammeter. Calculate the shunt resistance.</li>
+                    <li>Explain the calibration of a single-phase energy meter using direct loading method with a neat circuit diagram.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="quick-revision" class="quick-revision">
+            <h2>Quick Revision</h2>
+            <ul>
+                <li><strong>Static Characteristics:</strong> Accuracy, Precision, Sensitivity, Hysteresis, Resolution.</li>
+                <li><strong>Ammeter:</strong> Low resistance shunt in parallel.</li>
+                <li><strong>Voltmeter:</strong> High resistance multiplier in series.</li>
+                <li><strong>Wheatstone Bridge:</strong> Measures medium resistance.</li>
+                <li><strong>Schering Bridge:</strong> Measures capacitance.</li>
+                <li><strong>Hay's Bridge:</strong> Measures high-Q inductance.</li>
+                <li><strong>CRO:</strong> Measures Voltage, Time, Frequency, and Phase.</li>
+            </ul>
+        </section>
+
+        <section id="glossary" class="glossary">
+            <h2>Glossary</h2>
+            <dl>
+                <dt><strong>DSO</strong></dt>
+                <dd>Digital Storage Oscilloscope - An oscilloscope that digitizes and stores the input signal.</dd>
+                <dt><strong>Loading Effect</strong></dt>
+                <dd>The distortion of the signal being measured caused by the act of connecting the measuring instrument.</dd>
+                <dt><strong>Q-Factor</strong></dt>
+                <dd>Quality factor; a dimensionless parameter that describes how underdamped an oscillator or resonator is.</dd>
+            </dl>
+        </section>
+
+        <section id="official-source" class="official-source">
+            <h2>Official Source Declaration</h2>
+            <p>This content is based on the official <strong>Revision 2021</strong> syllabus provided by the <strong>State Institute of Technical Teachers' Training & Research (SITTTR)</strong>, Kerala, for the course <strong>Electronic Instrumentation Lab (Course Code: 2089)</strong>.</p>
+            <p>Source URL: <a href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2089" target="_blank">SITTTR Syllabus Website</a></p>
+        </section>
+
+        <section lang="ml" class="section">
+            <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+            <div class="ml-note">
+                <strong>പ്രധാന ആശയങ്ങൾ:</strong>
+                <ul>
+                    <li><strong>Bridges:</strong> റെസിസ്റ്റൻസ്, ഇൻഡക്റ്റൻസ്, കപ്പാസിറ്റൻസ് എന്നിവ കൃത്യമായി അളക്കാൻ ബ്രിഡ്ജ് സർക്യൂട്ടുകൾ ഉപയോഗിക്കുന്നു.</li>
+                    <li><strong>Calibration:</strong> ഒരു മീറ്റർ കാണിക്കുന്ന അളവ് ശരിയാണോ എന്ന് പരിശോധിക്കുന്നതിനെയാണ് കാലിബ്രേഷൻ എന്ന് വിളിക്കുന്നത്. ഇതിനായി ഒരു സ്റ്റാൻഡേർഡ് മീറ്ററുമായി താരതമ്യം ചെയ്യുന്നു.</li>
+                    <li><strong>CRO/DSO:</strong> ഇലക്ട്രോണിക് സിഗ്നലുകളെ സ്ക്രീനിൽ കാണാൻ സഹായിക്കുന്ന ഉപകരണമാണിത്. വോൾട്ടേജ്, ഫ്രീക്വൻസി എന്നിവ ഇതിലൂടെ അളക്കാം.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        "use strict";
+        
+        function calcShunt() {
+            const rg = parseFloat(document.getElementById('rg-val').value);
+            const ig = parseFloat(document.getElementById('ig-val').value) / 1000; // convert mA to A
+            const i = parseFloat(document.getElementById('i-val').value);
+            
+            if (i <= ig) {
+                document.getElementById('shunt-result').innerText = "Error: Desired range must be greater than Ig.";
+                return;
+            }
+            
+            const n = i / ig;
+            const rs = rg / (n - 1);
+            
+            document.getElementById('shunt-result').innerText = "Required Shunt Resistance (Rs): " + rs.toFixed(4) + " Ω";
+        }
+
+        // Simple Reading Progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            // Optional: update a progress bar if added
+        };
+    </script>
+</div>
+</body>
+</html>
