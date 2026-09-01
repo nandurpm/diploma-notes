@@ -7539,6 +7539,13 @@
       "subjectName": "Fundamentals Of Polymer Science",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2091#subject-2091"
+    },
+    "REV2021:2081:lessons/../lessons/lessons-2081.html": {
+      "messageId": "projects/poly-pmna/messages/859171100859172341",
+      "subjectCode": "2081",
+      "subjectName": "Electronic Instrumentation",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2081#subject-2081"
     }
   }
 }
