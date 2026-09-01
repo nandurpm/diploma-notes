@@ -7581,6 +7581,13 @@
       "subjectName": "Botany Lab",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2129#subject-2129"
+    },
+    "REV2021:2142:lessons/lessons-2142.html": {
+      "messageId": "projects/poly-pmna/messages/259756416916824817",
+      "subjectCode": "2142",
+      "subjectName": "Financial Accounting II",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons.html?revision=2021&code=2142#subject-2142"
     }
   }
 }
