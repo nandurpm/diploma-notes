@@ -557,6 +557,25 @@
     return "en";
   }
 
+  function createSmoothDeltaHandler(onDelta) {
+    let displayed = "";
+    let pending = "";
+    const flush = async () => {
+      if (!pending) return;
+      displayed += pending;
+      pending = "";
+      await onDelta(displayed);
+    };
+    return {
+      push: async (delta) => {
+        pending += delta;
+        if (pending.length >= 28 || /[\\s.!?,;:\n]$/.test(pending)) await flush();
+      },
+      flush,
+      value: () => displayed + pending
+    };
+  }
+
   async function readSseAnswer(response, onDelta) {
     if (!response.body) throw new Error("Streaming response body is missing.");
     const reader = response.body.getReader();
@@ -628,7 +647,9 @@
         throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
       }
       if ((response.headers.get("content-type") || "").includes("text/event-stream")) {
-        const answer = await readSseAnswer(response, onDelta);
+        const smooth = createSmoothDeltaHandler(onDelta);
+        const answer = await readSseAnswer(response, smooth.push);
+        await smooth.flush();
         return {
           answer: answer || "No answer received.",
           provider: response.headers.get("X-Ask-Poly-Provider") || "ai",
