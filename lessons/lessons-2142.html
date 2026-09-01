@@ -1,0 +1,692 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2142 — Financial Accounting II">
+    <meta name="course-code" content="2142">
+    <meta name="course-title" content="Financial Accounting II">
+    <meta name="curriculum" content="REV2021">
+    <title>2142 — Financial Accounting II</title>
+    <style>
+        :root {
+            --ink: #1e293b;
+            --muted: #64748b;
+            --paper: #ffffff;
+            --soft: #f8fafc;
+            --soft2: #f1f5f9;
+            --line: #e2e8f0;
+            --navy: #0f172a;
+            --blue: #2563eb;
+            --cyan: #0891b2;
+            --teal: #0d9488;
+            --green: #16a34a;
+            --amber: #d97706;
+            --red: #dc2626;
+            --violet: #7c3aed;
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --radius: 12px;
+            --mal: "Noto Sans Malayalam", "Manjari", system-ui, sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--ink);
+            background-color: var(--soft);
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        #main-content { padding: 2rem; }
+
+        .cover {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            padding: 4rem 2rem;
+            border-radius: 0 0 var(--radius) var(--radius);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .kicker { text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; opacity: 0.9; }
+        .cover h1 { font-size: 2.5rem; margin: 0.5rem 0; }
+
+        .section { margin-bottom: 3rem; border-bottom: 1px solid var(--line); padding-bottom: 2rem; }
+        .module { 
+            margin-bottom: 4rem; 
+            padding: 2rem; 
+            border-radius: var(--radius);
+            background: var(--paper);
+            border: 1px solid var(--line);
+        }
+
+        .module-head { border-left: 6px solid var(--blue); padding-left: 1rem; margin-bottom: 2rem; }
+        
+        .jump-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            background: var(--soft2);
+            padding: 1rem;
+            border-radius: var(--radius);
+            position: sticky;
+            top: 10px;
+            z-index: 90;
+            margin-bottom: 2rem;
+        }
+
+        .jump-menu a {
+            text-decoration: none;
+            color: var(--navy);
+            padding: 0.5rem 1rem;
+            background: var(--paper);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--line);
+            transition: 0.2s;
+        }
+
+        .jump-menu a:hover { background: var(--blue); color: white; }
+
+        .ml-note {
+            font-family: var(--mal);
+            background: #fffbeb;
+            border-right: 4px solid var(--amber);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .worked {
+            background: var(--soft2);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            border-left: 4px solid var(--green);
+            margin: 1rem 0;
+        }
+
+        .formula-card {
+            background: var(--navy);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        .table-wrap { overflow-x: auto; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 0.75rem; text-align: left; }
+        th { background: var(--soft2); font-weight: 700; }
+
+        .diagram { text-align: center; margin: 2rem 0; background: var(--soft); padding: 1rem; border-radius: var(--radius); }
+        .diagram svg { max-width: 100%; height: auto; }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+        .qa summary { padding: 1rem; background: var(--soft2); cursor: pointer; font-weight: 600; }
+        .qa-body { padding: 1rem; background: white; }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .badge-blue { background: #dbeafe; color: #1e40af; }
+        .badge-green { background: #dcfce7; color: #166534; }
+
+        .calculator {
+            background: #f8fafc;
+            border: 2px solid var(--line);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+        .calc-input { width: 100%; padding: 0.5rem; border: 1px solid var(--line); border-radius: 4px; }
+        
+        @media print {
+            .no-print, .jump-menu, .reading-progress { display: none; }
+            details { display: block !important; }
+            details summary { font-weight: bold; border-bottom: 1px solid #000; }
+            .lesson-shell { box-shadow: none; max-width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .cover h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <div class="lesson-shell">
+        <a data-notes-link data-pdf-code="2142" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2142" class="no-print" style="display:block; padding: 1rem; text-align: center; background: var(--soft2); text-decoration: none; color: var(--blue); font-weight: bold;">
+            View Official Syllabus PDF (2142)
+        </a>
+
+        <main id="main-content">
+            <section class="cover" id="cover">
+                <div class="kicker">Revision 2021 • Semester 2</div>
+                <h1>Financial Accounting II</h1>
+                <div class="badge-row">
+                    <span class="badge badge-blue">Course Code: 2142</span>
+                    <span class="badge badge-green">Credits: 4</span>
+                    <span class="badge badge-blue">Foundation Course</span>
+                </div>
+            </section>
+
+            <nav class="jump-menu" aria-label="Lesson sections">
+                <a href="#course-dashboard">Overview</a>
+                <a href="#course-outcomes">Outcomes</a>
+                <a href="#module-1">Module 1: BRS</a>
+                <a href="#module-2">Module 2: Errors</a>
+                <a href="#module-3">Module 3: Final Accounts</a>
+                <a href="#module-4">Module 4: Bills of Exchange</a>
+                <a href="#formula-bank">Calculations</a>
+                <a href="#assessment">Q&A</a>
+                <a href="#model-paper">Model Paper</a>
+                <a href="#quick-revision">Revision</a>
+            </nav>
+
+            <section id="course-dashboard" class="course-dashboard section">
+                <h2>Course Overview</h2>
+                <p>Financial Accounting II is a core foundation course designed for the Diploma in Commercial Practice. It builds upon the basics of accounting to handle complex practical scenarios encountered in business environments.</p>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>Teaching Scheme</th>
+                            <td>5 Hours/Week (L:3, T:0, P:2)</td>
+                        </tr>
+                        <tr>
+                            <th>Total Periods</th>
+                            <td>75 Periods per Semester</td>
+                        </tr>
+                        <tr>
+                            <th>Prerequisite</th>
+                            <td>Financial Accounting I (2001)</td>
+                        </tr>
+                    </table>
+                </div>
+                <h3>Course Objectives</h3>
+                <ul>
+                    <li>Practical knowledge in Bank Reconciliation Statement (BRS).</li>
+                    <li>Awareness about rectification of accounting errors.</li>
+                    <li>Preparation of final accounts of sole proprietors with adjustments.</li>
+                    <li>Understanding and recording Bills of Exchange.</li>
+                </ul>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes section">
+                <h2>Course Outcomes (COs)</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Hours</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>CO1</td>
+                                <td>Utilize BRS concepts to solve mismatch problems between cash book and pass book.</td>
+                                <td>20</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO2</td>
+                                <td>Identify types of errors and prepare rectification entries.</td>
+                                <td>14</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO3</td>
+                                <td>Prepare final accounts with and without adjustments.</td>
+                                <td>25</td>
+                                <td>Applying</td>
+                            </tr>
+                            <tr>
+                                <td>CO4</td>
+                                <td>Identify Bills of Exchange and prepare accounting entries.</td>
+                                <td>14</td>
+                                <td>Applying</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- MODULE 1 -->
+            <section class="module" id="module-1">
+                <div class="module-head">
+                    <h2>Module 1: Bank Reconciliation Statement (BRS)</h2>
+                    <p><strong>Duration:</strong> 20 Hours</p>
+                </div>
+                
+                <details class="topic" open>
+                    <summary>1.1 Introduction to BRS & Pass Book</summary>
+                    <div class="topic-body">
+                        <p>A <strong>Bank Reconciliation Statement</strong> is a report prepared by a business to reconcile the difference between the bank balance shown in its <em>Cash Book</em> and the balance shown in the bank's <em>Pass Book</em> (or Bank Statement) on a particular date.</p>
+                        
+                        <h4>Key Terms:</h4>
+                        <ul>
+                            <li><strong>Cash Book (Bank Column):</strong> Maintained by the business. Debits represent deposits; Credits represent payments.</li>
+                            <li><strong>Pass Book:</strong> Maintained by the bank. Credits represent deposits; Debits represent withdrawals.</li>
+                            <li><strong>Statement of Account:</strong> A periodic summary provided by the bank showing all transactions.</li>
+                        </ul>
+
+                        <div class="ml-note">
+                            <strong>Malayalam Support:</strong>
+                            ബാങ്ക് റീകൺസിലിയേഷൻ സ്റ്റേറ്റ്‌മെന്റ് (BRS) എന്നത് ഒരു സ്ഥാപനത്തിന്റെ ക്യാഷ് ബുക്കിലെ ബാങ്ക് ബാലൻസും ബാങ്ക് നൽകുന്ന പാസ് ബുക്കിലെ ബാലൻസും തമ്മിലുള്ള വ്യത്യാസം കണ്ടെത്താനും അത് പരിഹരിക്കാനും തയ്യാറാക്കുന്ന പട്ടികയാണ്.
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>1.2 Causes of Difference</summary>
+                    <div class="topic-body">
+                        <p>Differences usually arise due to two reasons: <strong>Timing Differences</strong> and <strong>Errors</strong>.</p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Transaction</th>
+                                        <th>Effect on Cash Book</th>
+                                        <th>Effect on Pass Book</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cheques issued but not presented</td>
+                                        <td>Decreased</td>
+                                        <td>No Change (Higher)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cheques deposited but not cleared</td>
+                                        <td>Increased</td>
+                                        <td>No Change (Lower)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bank Interest credited by bank</td>
+                                        <td>No Change (Lower)</td>
+                                        <td>Increased</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bank Charges debited by bank</td>
+                                        <td>No Change (Higher)</td>
+                                        <td>Decreased</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Direct deposit by customer</td>
+                                        <td>No Change (Lower)</td>
+                                        <td>Increased</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>1.3 Preparation of BRS & Overdraft</summary>
+                    <div class="topic-body">
+                        <p>BRS can be started with either the Cash Book balance or the Pass Book balance. If the balance is negative, it is called a <strong>Bank Overdraft</strong>.</p>
+                        <div class="worked">
+                            <strong>Example:</strong> Prepare BRS as on 31st March.<br>
+                            1. Balance as per Cash Book: ₹10,000<br>
+                            2. Cheque issued but not presented: ₹2,000<br>
+                            3. Bank charges not in Cash Book: ₹100<br><br>
+                            <strong>Solution:</strong><br>
+                            Balance as per Cash Book: 10,000<br>
+                            Add: Cheque issued not presented: +2,000<br>
+                            Less: Bank Charges: -100<br>
+                            <strong>Balance as per Pass Book: ₹11,900</strong>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 2 -->
+            <section class="module" id="module-2">
+                <div class="module-head">
+                    <h2>Module 2: Rectification of Errors</h2>
+                    <p><strong>Duration:</strong> 14 Hours</p>
+                </div>
+                
+                <details class="topic" open>
+                    <summary>2.1 Types of Accounting Errors</summary>
+                    <div class="topic-body">
+                        <p>Errors are classified based on their nature:</p>
+                        <ul>
+                            <li><strong>Error of Omission:</strong> Transaction completely or partially omitted from books.</li>
+                            <li><strong>Error of Commission:</strong> Wrong amount, wrong side, or wrong account (clerical).</li>
+                            <li><strong>Error of Principle:</strong> Violating accounting principles (e.g., treating capital expenditure as revenue).</li>
+                            <li><strong>Compensating Errors:</strong> One error cancels out another.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>2.2 Location and Rectification</summary>
+                    <div class="topic-body">
+                        <p>Errors are either <strong>One-sided</strong> (affecting one account) or <strong>Two-sided</strong> (affecting two or more accounts).</p>
+                        <p><strong>Suspense Account:</strong> If the Trial Balance doesn't agree, the difference is temporarily put into a Suspense Account until errors are located.</p>
+                        
+                        <div class="worked">
+                            <strong>Rectification Entry Example:</strong><br>
+                            <em>Error:</em> Purchase of Furniture for ₹5,000 debited to Purchase Account.<br>
+                            <em>Rectification:</em><br>
+                            Furniture A/c ... Dr 5,000<br>
+                            &nbsp;&nbsp;To Purchase A/c ... 5,000<br>
+                            (Being error of principle rectified)
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 3 -->
+            <section class="module" id="module-3">
+                <div class="module-head">
+                    <h2>Module 3: Final Accounts with Adjustments</h2>
+                    <p><strong>Duration:</strong> 25 Hours</p>
+                </div>
+
+                <details class="topic" open>
+                    <summary>3.1 The Final Accounts Process</summary>
+                    <div class="topic-body">
+                        <p>Final accounts consist of:</p>
+                        <ol>
+                            <li><strong>Trading Account:</strong> To find Gross Profit/Loss.</li>
+                            <li><strong>Profit & Loss Account:</strong> To find Net Profit/Loss.</li>
+                            <li><strong>Balance Sheet:</strong> To show financial position (Assets & Liabilities).</li>
+                        </ol>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>3.2 Common Adjustments</summary>
+                    <div class="topic-body">
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Adjustment</th>
+                                        <th>P&L Treatment</th>
+                                        <th>Balance Sheet Treatment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Outstanding Expenses</td>
+                                        <td>Add to Expense</td>
+                                        <td>Liability</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prepaid Expenses</td>
+                                        <td>Deduct from Expense</td>
+                                        <td>Asset</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Depreciation</td>
+                                        <td>Debit P&L</td>
+                                        <td>Deduct from Asset</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Closing Stock</td>
+                                        <td>Credit Trading A/c</td>
+                                        <td>Asset</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bad Debts Provision</td>
+                                        <td>Debit P&L</td>
+                                        <td>Deduct from Debtors</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="ml-note">
+                            <strong>Malayalam Support:</strong>
+                            അഡ്ജസ്റ്റ്‌മെന്റുകൾ എന്നാൽ ട്രയൽ ബാലൻസ് തയ്യാറാക്കിയ ശേഷം ശ്രദ്ധയിൽപ്പെടുന്ന വിവരങ്ങളാണ്. ഇവ സാധാരണയായി രണ്ട് സ്ഥലങ്ങളിൽ രേഖപ്പെടുത്തണം (ഉദാഹരണത്തിന്: P&L അക്കൗണ്ടിലും ബാലൻസ് ഷീറ്റിലും).
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 4 -->
+            <section class="module" id="module-4">
+                <div class="module-head">
+                    <h2>Module 4: Bills of Exchange</h2>
+                    <p><strong>Duration:</strong> 14 Hours</p>
+                </div>
+
+                <details class="topic" open>
+                    <summary>4.1 Definitions & Parties</summary>
+                    <div class="topic-body">
+                        <p>A <strong>Bill of Exchange</strong> is an unconditional order in writing, signed by the maker, directing a certain person to pay a certain sum of money only to, or to the order of, a certain person or to the bearer of the instrument.</p>
+                        <h4>Parties to a Bill:</h4>
+                        <ul>
+                            <li><strong>Drawer:</strong> The person who makes the bill (Creditor).</li>
+                            <li><strong>Drawee:</strong> The person on whom the bill is drawn (Debtor).</li>
+                            <li><strong>Payee:</strong> The person who receives the money.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>4.2 Important Terms</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Acceptance:</strong> When the drawee signs the bill to show agreement.</li>
+                            <li><strong>Endorsement:</strong> Transferring the bill to another person.</li>
+                            <li><strong>Dishonor:</strong> When the drawee fails to pay on the due date.</li>
+                            <li><strong>Noting & Protesting:</strong> Legal process to record dishonor.</li>
+                            <li><strong>Renewal:</strong> Cancelling the old bill and drawing a new one with interest.</li>
+                            <li><strong>Retiring:</strong> Paying the bill before the due date (usually with a rebate).</li>
+                        </ul>
+                    </div>
+                </details>
+            </section>
+
+            <section id="formula-bank" class="formula-bank section">
+                <h2>Calculations & Formulae</h2>
+                
+                <div class="formula-card">
+                    Due Date = Date of Drawing + Tenure + 3 Days of Grace
+                </div>
+
+                <div class="calculator">
+                    <h3>Simple BRS Helper</h3>
+                    <div class="calc-grid">
+                        <div>
+                            <label>Cash Book Balance (₹):</label>
+                            <input type="number" id="cbBal" class="calc-input" value="10000">
+                        </div>
+                        <div>
+                            <label>Unpresented Cheques (+):</label>
+                            <input type="number" id="unpres" class="calc-input" value="0">
+                        </div>
+                        <div>
+                            <label>Uncleared Deposits (-):</label>
+                            <input type="number" id="unclear" class="calc-input" value="0">
+                        </div>
+                        <div>
+                            <label>Bank Charges (-):</label>
+                            <input type="number" id="bCharges" class="calc-input" value="0">
+                        </div>
+                    </div>
+                    <button onclick="calcBRS()" style="padding: 0.5rem 1rem; background: var(--blue); color: white; border: none; border-radius: 4px; cursor: pointer;">Calculate Pass Book Balance</button>
+                    <p id="brsResult" style="margin-top: 1rem; font-weight: bold; color: var(--teal);"></p>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library section">
+                <h2>Visual Library</h2>
+                <div class="diagram">
+                    <svg viewBox="0 0 400 200" role="img" aria-label="Parties to Bill of Exchange">
+                        <rect x="10" y="70" width="100" height="60" rx="5" fill="#dbeafe" stroke="#1e40af"/>
+                        <text x="60" y="105" text-anchor="middle" font-weight="bold">DRAWER</text>
+                        
+                        <line x1="110" y1="100" x2="280" y2="100" stroke="#1e40af" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="195" y="90" text-anchor="middle" font-size="12">Sends Bill</text>
+                        
+                        <rect x="290" y="70" width="100" height="60" rx="5" fill="#dcfce7" stroke="#166534"/>
+                        <text x="340" y="105" text-anchor="middle" font-weight="bold">DRAWEE</text>
+                        
+                        <path d="M 290 120 Q 200 160 110 120" fill="none" stroke="#166534" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="200" y="170" text-anchor="middle" font-size="12">Accepts & Returns</text>
+                        
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="currentColor" />
+                            </marker>
+                        </defs>
+                    </svg>
+                    <p><em>Figure 1: Relationship between Drawer and Drawee in a Bill of Exchange.</em></p>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment section">
+                <h2>Module-wise Practice Questions</h2>
+                
+                <details class="qa">
+                    <summary>Q1: What is a Suspense Account? (2 Marks)</summary>
+                    <div class="qa-body">
+                        A Suspense Account is a temporary account used to balance the Trial Balance when it does not agree. Once the errors are located and rectified, the Suspense Account is closed.
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q2: Distinguish between Bill of Exchange and Promissory Note. (5 Marks)</summary>
+                    <div class="qa-body">
+                        <ul>
+                            <li><strong>Parties:</strong> BOE has 3 parties (Drawer, Drawee, Payee); Promissory Note has 2 (Maker, Payee).</li>
+                            <li><strong>Order vs Promise:</strong> BOE is an order to pay; Promissory Note is a promise to pay.</li>
+                            <li><strong>Acceptance:</strong> BOE requires acceptance by the drawee; Promissory Note does not.</li>
+                            <li><strong>Liability:</strong> Drawer's liability in BOE is secondary; Maker's liability in Promissory Note is primary.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="qa">
+                    <summary>Q3: Explain the treatment of 'Provision for Bad Debts' in Final Accounts. (5 Marks)</summary>
+                    <div class="qa-body">
+                        Provision for Bad Debts is created to cover expected losses from debtors. 
+                        1. <strong>P&L Account:</strong> Debited with the amount of new provision (or increase in provision).
+                        2. <strong>Balance Sheet:</strong> Deducted from Sundry Debtors on the Assets side.
+                    </div>
+                </details>
+            </section>
+
+            <section id="model-paper" class="model-paper section">
+                <h2>Practice Model Paper</h2>
+                <div style="border: 2px dashed var(--line); padding: 2rem;">
+                    <center><strong>FINANCIAL ACCOUNTING II (2142)</strong></center>
+                    <p><strong>Part A: Short Answer (Answer all)</strong><br>
+                    1. Define Bank Overdraft.<br>
+                    2. What are compensating errors?<br>
+                    3. Define 'Days of Grace'.<br>
+                    4. What is Rebate on Bills?</p>
+                    
+                    <p><strong>Part B: Short Essay (Answer any 4)</strong><br>
+                    5. Explain the causes of difference between Cash Book and Pass Book.<br>
+                    6. How do you rectify an error of principle? Give an example.<br>
+                    7. Explain the importance of making adjustments in Final Accounts.<br>
+                    8. Distinguish between Endorsement and Discounting of a bill.</p>
+                    
+                    <p><strong>Part C: Essay (Answer any 2)</strong><br>
+                    9. Prepare Trading, P&L A/c and Balance Sheet from the given Trial Balance... (Numerical)<br>
+                    10. Journalize the following transactions in the books of Drawer and Drawee regarding BOE... (Numerical)</p>
+                </div>
+            </section>
+
+            <section id="quick-revision" class="quick-revision section">
+                <h2>Quick Revision</h2>
+                <ul>
+                    <li><strong>BRS:</strong> Add cheques issued but not presented; Less cheques deposited but not cleared (starting from Cash Book balance).</li>
+                    <li><strong>Errors:</strong> Principle errors don't affect Trial Balance agreement; Clerical errors often do.</li>
+                    <li><strong>Adjustments:</strong> Every adjustment has a dual effect (Debit and Credit).</li>
+                    <li><strong>BOE:</strong> Always add 3 days of grace to the period to find the maturity date.</li>
+                </ul>
+            </section>
+
+            <section id="glossary" class="glossary section">
+                <h2>Glossary</h2>
+                <dl>
+                    <dt><strong>Amortization:</strong> The systematic reduction in the value of intangible assets.</dt>
+                    <dt><strong>Dishonor:</strong> Non-payment of a bill on its due date.</dt>
+                    <dt><strong>Notary Public:</strong> An official who records the fact of dishonor of a bill.</dt>
+                    <dt><strong>Outstanding Expense:</strong> Expense incurred but not yet paid.</dt>
+                </dl>
+            </section>
+
+            <section id="official-source" class="official-source section">
+                <h2>Official Source Declaration</h2>
+                <p>This content is based on the official <strong>SITTTR Kerala Revision 2021</strong> syllabus for the course <strong>Financial Accounting II (Code: 2142)</strong>. The structure follows the prescribed modules and learning outcomes provided by the Department of Technical Education, Kerala.</p>
+            </section>
+
+            <section lang="ml" class="section">
+                <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+                <div class="ml-note">
+                    ഈ പാഠഭാഗം പ്രധാനമായും നാല് ഭാഗങ്ങളായി തിരിച്ചിരിക്കുന്നു:
+                    1. <strong>BRS:</strong> ബാങ്ക് സ്റ്റേറ്റ്‌മെന്റും ക്യാഷ് ബുക്കും തമ്മിലുള്ള വ്യത്യാസം കണ്ടെത്തൽ.
+                    2. <strong>പിശകുകൾ തിരുത്തൽ:</strong> അക്കൗണ്ടിംഗിൽ സംഭവിക്കുന്ന തെറ്റുകൾ കണ്ടെത്തി ജേണൽ എൻട്രികളിലൂടെ തിരുത്തൽ.
+                    3. <strong>അന്തിമ കണക്കുകൾ:</strong> ഒരു സാമ്പത്തിക വർഷാവസാനം ലാഭനഷ്ട കണക്കും ബാലൻസ് ഷീറ്റും തയ്യാറാക്കൽ.
+                    4. <strong>ബിൽ ഓഫ് എക്സ്ചേഞ്ച്:</strong> കടമായി സാധനങ്ങൾ വാങ്ങുമ്പോഴും വിൽക്കുമ്പോഴും ഉപയോഗിക്കുന്ന നിയമപരമായ രേഖകൾ.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        "use strict";
+        (function() {
+            // Reading Progress
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // BRS Calculator
+            window.calcBRS = function() {
+                const cb = parseFloat(document.getElementById('cbBal').value) || 0;
+                const unpres = parseFloat(document.getElementById('unpres').value) || 0;
+                const unclear = parseFloat(document.getElementById('unclear').value) || 0;
+                const charges = parseFloat(document.getElementById('bCharges').value) || 0;
+                
+                const result = cb + unpres - unclear - charges;
+                document.getElementById('brsResult').innerText = "Pass Book Balance: ₹" + result.toLocaleString();
+            };
+        })();
+    </script>
+</body>
+</html>
