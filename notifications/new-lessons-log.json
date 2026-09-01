@@ -7511,6 +7511,13 @@
       "subjectName": "Engineering Chemistry Lab",
       "revision": "REV2021",
       "url": "https://polypmna.dpdns.org/lessons/lessons-2079.html"
+    },
+    "REV2021:2081:lessons/lessons-2081.html": {
+      "messageId": "projects/poly-pmna/messages/7905163806657632697",
+      "subjectCode": "2081",
+      "subjectName": "Electronic Instrumentation",
+      "revision": "REV2021",
+      "url": "https://polypmna.dpdns.org/lessons/lessons-2081.html"
     }
   }
 }
