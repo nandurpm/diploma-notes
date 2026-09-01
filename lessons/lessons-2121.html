@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2121 — Botany and Anatomical Structures">
+    <meta name="course-code" content="2121">
+    <meta name="course-title" content="Botany and Anatomical Structures">
+    <meta name="curriculum" content="REV2021">
+    <title>2121 — Botany and Anatomical Structures</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            line-height: 1.6;
+            margin: 0;
+            background: var(--paper);
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--green);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .cover {
+            background: linear-gradient(135deg, var(--navy), var(--teal));
+            color: white;
+            padding: 60px 40px;
+            border-radius: var(--radius);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .cover h1 { font-size: 2.5rem; margin: 0; }
+        .badge-row { margin-top: 20px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+        .section { margin-bottom: 50px; padding: 30px; border-radius: var(--radius); background: var(--soft); border: 1px solid var(--line); }
+        .module { margin-bottom: 60px; border-left: 8px solid var(--green); padding-left: 25px; }
+        
+        .topic-card { background: white; padding: 20px; border-radius: 12px; margin-top: 20px; box-shadow: var(--shadow); }
+        
+        .ml-note {
+            background: var(--soft2);
+            border-left: 4px solid var(--blue);
+            padding: 15px;
+            margin: 20px 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked { background: #fffbeb; border: 1px solid #fde68a; padding: 20px; border-radius: 12px; margin: 20px 0; }
+        
+        .diagram { text-align: center; margin: 30px 0; background: white; padding: 20px; border-radius: 12px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        
+        .table-wrap { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft2); }
+
+        .qa { margin-top: 15px; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 15px; cursor: pointer; font-weight: bold; background: white; }
+        .qa-body { padding: 15px; background: var(--soft); border-top: 1px solid var(--line); }
+
+        .jump-menu { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 40px; }
+        .jump-menu a { background: var(--soft2); padding: 10px; text-decoration: none; color: var(--navy); border-radius: 8px; text-align: center; font-size: 0.9rem; font-weight: 600; }
+
+        .calculator { background: var(--navy); color: white; padding: 25px; border-radius: var(--radius); margin: 30px 0; }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .calc-grid input { padding: 10px; border-radius: 5px; border: none; width: 100%; }
+        
+        [lang="ml"] { font-family: var(--mal); line-height: 1.8; }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress { display: none; }
+            details { display: block !important; }
+            summary::after { content: ""; }
+            .module { break-inside: avoid; border-left: 2px solid #ccc; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<div class="lesson-shell">
+    <a data-notes-link data-pdf-code="2121" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2121" class="no-print" style="display:block; margin-bottom:20px; color:var(--blue); text-decoration:none; font-weight:bold;">View Official SITTTR Syllabus PDF</a>
+
+    <main id="main-content">
+        <section class="cover" id="cover">
+            <h1>Botany and Anatomical Structures</h1>
+            <div class="badge-row">
+                <span class="badge">Course Code: 2121</span>
+                <span class="badge">Semester: 2</span>
+                <span class="badge">Credits: 3</span>
+                <span class="badge">Wood and Paper Technology</span>
+            </div>
+            <p style="margin-top:20px; opacity:0.9;">A comprehensive guide to plant diversity, taxonomy, and the internal anatomy of wood-producing plants.</p>
+        </section>
+
+        <nav class="jump-menu" aria-label="Lesson sections">
+            <a href="#course-dashboard">Overview</a>
+            <a href="#module-1">Plant Diversity</a>
+            <a href="#module-2">Taxonomy</a>
+            <a href="#module-3">Anatomy</a>
+            <a href="#module-4">Wood Anatomy</a>
+            <a href="#assessment">Practice Q&A</a>
+            <a href="#model-paper">Model Paper</a>
+        </nav>
+
+        <section id="course-dashboard" class="course-dashboard section">
+            <h2>Course Overview</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr><th>Category</th><td>Engineering Science</td></tr>
+                    <tr><th>Teaching Scheme</th><td>3 Hours Lecture per week (L:3, T:0, P:0)</td></tr>
+                    <tr><th>Total Periods</th><td>45 per semester</td></tr>
+                    <tr><th>Assessment</th><td>CIE (50 Marks) + ESE (50 Marks)</td></tr>
+                </table>
+            </div>
+            <h3>Course Objectives</h3>
+            <ul>
+                <li>Understand plant kingdom classifications.</li>
+                <li>Identify plants with economic and industrial importance.</li>
+                <li>Analyze the internal structure and reproduction mechanisms of plants.</li>
+            </ul>
+        </section>
+
+        <section id="course-outcomes" class="course-outcomes section">
+            <h2>Course Outcomes (COs)</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>CO No.</th><th>Description</th><th>Hours</th><th>Cognitive Level</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>CO1</td><td>Summarize plant diversity</td><td>8</td><td>Understanding</td></tr>
+                        <tr><td>CO2</td><td>Describe plant taxonomy and morphology</td><td>13</td><td>Understanding</td></tr>
+                        <tr><td>CO3</td><td>Illustrate plant anatomy and tissues</td><td>12</td><td>Understanding</td></tr>
+                        <tr><td>CO4</td><td>Discuss plant body structure and wood anatomy</td><td>10</td><td>Understanding</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MODULE 1 -->
+        <section class="module" id="module-1">
+            <div class="module-head">
+                <h2>Module 1: Plant Diversity</h2>
+                <span class="badge">8 Hours</span>
+            </div>
+            
+            <div class="topic-card">
+                <h3>1.1 Classification Systems</h3>
+                <p>Biological classification is the scientific procedure of arranging organisms into groups on the basis of their similarities and relationships.</p>
+                <ul>
+                    <li><strong>Two Kingdom Classification:</strong> Proposed by Carolus Linnaeus (1735). He divided the living world into <em>Kingdom Plantae</em> and <em>Kingdom Animalia</em>.</li>
+                    <li><strong>Phylogenetic Classification:</strong> Proposed by August W. Eichler (1878). This system is based on evolutionary relationships and genetic similarities.</li>
+                </ul>
+                <div class="ml-note">
+                    കാൾ ലിന്നേയസ് ആണ് ജീവജാലങ്ങളെ സസ്യങ്ങൾ എന്നും ജന്തുക്കൾ എന്നും രണ്ട് വിഭാഗങ്ങളായി തിരിച്ചത്. എന്നാൽ ഐക്ലർ പരിണാമപരമായ ബന്ധങ്ങൾ അടിസ്ഥാനമാക്കിയാണ് വർഗ്ഗീകരണം നടത്തിയത്.
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>1.2 Major Plant Groups</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Group</th><th>Salient Features</th><th>Economic Importance</th></tr>
+                        <tr><td><strong>Algae</strong></td><td>Chlorophyll-bearing, simple, thalloid autotrophic organisms. Mostly aquatic.</td><td>Source of Agar, Iodine, and food (Porphyra).</td></tr>
+                        <tr><td><strong>Fungi</strong></td><td>Achlorophyllous, heterotrophic, eukaryotic organisms.</td><td>Decomposition, antibiotics (Penicillin), Yeast in baking.</td></tr>
+                        <tr><td><strong>Bryophytes</strong></td><td>"Amphibians of plant kingdom". Lack true roots/vascular tissues.</td><td>Peat formation (Sphagnum), soil erosion prevention.</td></tr>
+                        <tr><td><strong>Pteridophytes</strong></td><td>First terrestrial plants to possess vascular tissues (Xylem/Phloem).</td><td>Medicinal use, ornamental plants.</td></tr>
+                        <tr><td><strong>Gymnosperms</strong></td><td>Plants with naked seeds (ovules not enclosed by ovary wall).</td><td>Timber (Pine, Cedar), resin, turpentine.</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <h3>1.3 Genetics and Diversity</h3>
+                <p>Diversity arises from changes in the genetic material (DNA). </p>
+                <ul>
+                    <li><strong>Nucleus:</strong> The control center containing genetic material.</li>
+                    <li><strong>DNA & Genes:</strong> DNA is the hereditary material. Genes are segments of DNA that code for specific proteins.</li>
+                    <li><strong>Gene Action:</strong> The process by which a gene's information is used to synthesize a functional gene product (protein).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- MODULE 2 -->
+        <section class="module" id="module-2">
+            <div class="module-head">
+                <h2>Module 2: Plant Taxonomy and Morphology</h2>
+                <span class="badge">13 Hours</span>
+            </div>
+
+            <div class="topic-card">
+                <h3>2.1 Morphology of Flowering Plants</h3>
+                <p>Morphology deals with the external form and structure of plants.</p>
+                <ul>
+                    <li><strong>Root Systems:</strong> 
+                        <ul>
+                            <li>Tap root (Dicot)</li>
+                            <li>Fibrous root (Monocot)</li>
+                            <li>Adventitious root (Roots arising from parts other than radicle)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Leaves:</strong> Parts include Lamina, Petiole, and Stipules. 
+                        <ul>
+                            <li><em>Simple leaf:</em> Single undivided blade.</li>
+                            <li><em>Compound leaf:</em> Blade divided into leaflets.</li>
+                            <li><em>Phyllotaxy:</em> Pattern of arrangement of leaves on stem (Alternate, Opposite, Whorled).</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="topic-card">
+                <h3>2.2 Inflorescence and Flower</h3>
+                <p><strong>Inflorescence:</strong> The arrangement of flowers on the floral axis.</p>
+                <ul>
+                    <li><strong>Racemose:</strong> Main axis continues to grow; flowers in acropetal succession.</li>
+                    <li><strong>Cymose:</strong> Main axis terminates in a flower; flowers in basipetal succession.</li>
+                </ul>
+                <p><strong>Flower Parts:</strong> Calyx (Sepals), Corolla (Petals), Androecium (Stamens), Gynoecium (Carpels).</p>
+            </div>
+
+            <div class="topic-card">
+                <h3>2.3 Angiosperm Taxonomy</h3>
+                <p><strong>Binomial Nomenclature:</strong> Scientific naming using two words (Genus and Species). Example: <em>Tectona grandis</em> (Teak).</p>
+                <h4>Key Families for Wood Technology:</h4>
+                <ol>
+                    <li><strong>Verbenaceae:</strong> Example: <em>Tectona grandis</em> (Teak) - Essential for high-quality timber.</li>
+                    <li><strong>Fabaceae:</strong> Example: <em>Acacia</em> - Used for furniture and tannin.</li>
+                    <li><strong>Myrtaceae:</strong> Example: <em>Eucalyptus</em> - Primary source for paper pulp.</li>
+                    <li><strong>Euphorbiaceae:</strong> Example: <em>Hevea brasiliensis</em> (Rubber).</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- MODULE 3 -->
+        <section class="module" id="module-3">
+            <div class="module-head">
+                <h2>Module 3: Plant Anatomy and Tissues</h2>
+                <span class="badge">12 Hours</span>
+            </div>
+
+            <div class="topic-card">
+                <h3>3.1 Plant Cell Ultrastructure</h3>
+                <p>The cell wall is the most critical part for wood technology. It consists of cellulose, hemicellulose, and lignin.</p>
+                <ul>
+                    <li><strong>Pits:</strong> Thin areas in the cell wall where secondary wall is not deposited, allowing transport.</li>
+                    <li><strong>Plasmodesmata:</strong> Cytoplasmic channels between adjacent cells.</li>
+                </ul>
+            </div>
+
+            <div class="topic-card">
+                <h3>3.2 Plant Tissues</h3>
+                <p><strong>Meristematic Tissues:</strong> Actively dividing cells. Found at Root apex and Shoot apex.</p>
+                <p><strong>Permanent Tissues:</strong>
+                    <ul>
+                        <li><em>Simple:</em> Parenchyma, Collenchyma, Sclerenchyma.</li>
+                        <li><em>Complex:</em> Xylem (water transport) and Phloem (food transport).</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="topic-card">
+                <h3>3.3 Vascular Bundles</h3>
+                <p>Arrangement of Xylem and Phloem.</p>
+                <ul>
+                    <li><strong>Conjoint:</strong> Xylem and Phloem on the same radius.</li>
+                    <li><strong>Collateral:</strong> Phloem outside, Xylem inside.</li>
+                    <li><strong>Open:</strong> Cambium present (allows secondary growth).</li>
+                    <li><strong>Closed:</strong> Cambium absent (no secondary growth).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- MODULE 4 -->
+        <section class="module" id="module-4">
+            <div class="module-head">
+                <h2>Module 4: Wood Anatomy</h2>
+                <span class="badge">10 Hours</span>
+            </div>
+
+            <div class="topic-card">
+                <h3>4.1 Primary and Secondary Structure</h3>
+                <p>Primary growth increases length, while secondary growth increases girth (thickness).</p>
+                <p><strong>Secondary Growth in Dicot Stem:</strong>
+                    1. Formation of Cambial Ring.
+                    2. Activity of Cambium producing Secondary Xylem (Wood) and Secondary Phloem.
+                    3. Formation of Periderm (Cork).
+                </p>
+            </div>
+
+            <div class="topic-card">
+                <h3>4.2 Wood Characteristics</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Feature</th><th>Description</th></tr>
+                        <tr><td><strong>Growth Rings</strong></td><td>Concentric layers of wood produced in one year (Spring wood + Autumn wood).</td></tr>
+                        <tr><td><strong>Heartwood</strong></td><td>Central, dark, non-functional, durable part of wood (contains resins/tannins).</td></tr>
+                        <tr><td><strong>Sapwood</strong></td><td>Outer, light-colored, functional part for water transport.</td></tr>
+                        <tr><td><strong>Tyloses</strong></td><td>Balloon-like outgrowths of parenchyma into xylem vessels; block water flow.</td></tr>
+                    </table>
+                </div>
+                <div class="ml-note">
+                    കാതൽ (Heartwood) മരത്തിന്റെ നടുവിലുള്ള കടുപ്പമേറിയ ഭാഗമാണ്. വെള്ള (Sapwood) പുറംഭാഗത്തുള്ള ജലസഞ്ചാരം നടക്കുന്ന ഭാഗമാണ്.
+                </div>
+            </div>
+        </section>
+
+        <section id="formula-bank" class="formula-bank section">
+            <h2>Formula Bank & Calculations</h2>
+            <div class="worked">
+                <strong>1. Determining Tree Age (Dendrochronology):</strong>
+                <p>Age = Number of Annual Rings (Growth Rings)</p>
+                <p><em>Example:</em> A cross-section of a teak stem shows 45 distinct rings. The estimated age of the tree is 45 years.</p>
+            </div>
+
+            <div class="calculator">
+                <h3>Wood Density Calculator</h3>
+                <div class="calc-grid">
+                    <div>
+                        <label>Mass (kg):</label>
+                        <input type="number" id="mass" placeholder="Enter mass">
+                    </div>
+                    <div>
+                        <label>Volume (m³):</label>
+                        <input type="number" id="vol" placeholder="Enter volume">
+                    </div>
+                </div>
+                <button onclick="calcDensity()" style="margin-top:15px; padding:10px 20px; cursor:pointer;">Calculate Density</button>
+                <p id="densResult" style="margin-top:15px; font-weight:bold;"></p>
+            </div>
+        </section>
+
+        <section id="visual-library" class="visual-library section">
+            <h2>Visual Library</h2>
+            <div class="diagram">
+                <svg viewBox="0 0 200 120" role="img" aria-label="Vascular Bundle Structure">
+                    <circle cx="100" cy="60" r="50" fill="none" stroke="var(--navy)" stroke-width="2"/>
+                    <line x1="100" y1="10" x2="100" y2="110" stroke="var(--line)"/>
+                    <path d="M 60 40 Q 100 20 140 40" fill="var(--green)" opacity="0.5"/>
+                    <text x="75" y="35" font-size="8" fill="var(--green)">Phloem</text>
+                    <path d="M 60 80 Q 100 100 140 80" fill="var(--amber)" opacity="0.5"/>
+                    <text x="75" y="95" font-size="8" fill="var(--amber)">Xylem</text>
+                    <rect x="60" y="55" width="80" height="10" fill="var(--red)" opacity="0.3"/>
+                    <text x="85" y="63" font-size="8" fill="var(--red)">Cambium</text>
+                </svg>
+                <figcaption>Typical Conjoint Collateral Open Vascular Bundle (Dicot Stem)</figcaption>
+            </div>
+        </section>
+
+        <section id="assessment" class="assessment section">
+            <h2>Module-wise Practice Questions</h2>
+            
+            <details class="qa">
+                <summary>Q: Differentiate between Heartwood and Sapwood. (5 Marks)</summary>
+                <div class="qa-body">
+                    <strong>Heartwood:</strong> Central part, dark color, physiologically inactive, highly durable due to deposition of resins/tannins, resistant to pests.
+                    <br><strong>Sapwood:</strong> Peripheral part, light color, physiologically active (transports water), less durable, susceptible to pest attacks.
+                </div>
+            </details>
+
+            <details class="qa">
+                <summary>Q: What are Tyloses and why are they important in wood technology? (3 Marks)</summary>
+                <div class="qa-body">
+                    Tyloses are balloon-like extensions of xylem parenchyma cells into the lumen of vessels. They block the vessels, making the wood impermeable. This is important for making wood resistant to decay and for certain industrial uses like barrel making.
+                </div>
+            </details>
+
+            <details class="qa">
+                <summary>Q: Explain the Binomial Nomenclature with an example. (2 Marks)</summary>
+                <div class="qa-body">
+                    It is the system of providing a scientific name with two components: Genus and Species. Example: <i>Mangifera indica</i> (Mango).
+                </div>
+            </details>
+        </section>
+
+        <section id="model-paper" class="model-paper section">
+            <h2>Practice Model Paper</h2>
+            <p><strong>Time: 3 Hours | Max Marks: 50</strong></p>
+            <hr>
+            <p><strong>Part A (Answer all - 5 x 2 = 10 Marks)</strong></p>
+            <ol>
+                <li>Define Phyllotaxy.</li>
+                <li>Name the two kingdoms in Linnaeus's classification.</li>
+                <li>What is a Meristem?</li>
+                <li>Define Inflorescence.</li>
+                <li>What is the function of Lenticels?</li>
+            </ol>
+            <p><strong>Part B (Answer any five - 5 x 4 = 20 Marks)</strong></p>
+            <ol>
+                <li>Explain the economic importance of Fungi.</li>
+                <li>Describe the parts of a typical flower.</li>
+                <li>Differentiate between Monocot and Dicot stems.</li>
+                <li>Explain the structure of a plant cell wall.</li>
+                <li>Write a note on Herbarium techniques.</li>
+            </ol>
+            <p><strong>Part C (Answer any two - 2 x 10 = 20 Marks)</strong></p>
+            <ol>
+                <li>Explain the process of Secondary Growth in Dicot stems with diagrams.</li>
+                <li>Discuss the salient features and economic importance of Gymnosperms.</li>
+                <li>Describe the vegetative and floral characteristics of the family Verbenaceae.</li>
+            </ol>
+        </section>
+
+        <section id="quick-revision" class="quick-revision section">
+            <h2>Quick Revision</h2>
+            <ul>
+                <li><strong>Linnaeus:</strong> 2 Kingdom classification.</li>
+                <li><strong>Eichler:</strong> Phylogenetic classification.</li>
+                <li><strong>Xylem:</strong> Water transport; <strong>Phloem:</strong> Food transport.</li>
+                <li><strong>Cambium:</strong> Responsible for secondary growth (girth).</li>
+                <li><strong>Tectona grandis:</strong> Teak (Verbenaceae).</li>
+                <li><strong>Growth Rings:</strong> Spring wood + Autumn wood.</li>
+            </ul>
+        </section>
+
+        <section id="glossary" class="glossary section">
+            <h2>Glossary</h2>
+            <dl>
+                <dt><strong>Autotrophic</strong></dt><dd>Organisms that produce their own food.</dd>
+                <dt><strong>Dendrochronology</strong></dt><dd>Science of dating based on tree rings.</dd>
+                <dt><strong>Lignin</strong></dt><dd>Complex organic polymer that makes wood rigid.</dd>
+                <dt><strong>Thallus</strong></dt><dd>Plant body not differentiated into roots, stem, and leaves.</dd>
+            </dl>
+        </section>
+
+        <section id="official-source" class="official-source section">
+            <h2>Official Source Citation</h2>
+            <p>This content is based on the official syllabus for <strong>Course 2121: Botany and Anatomical Structures</strong> (Revision 2021) provided by the <strong>State Institute of Technical Teachers' Training and Research (SITTTR)</strong>, Kerala.</p>
+        </section>
+
+        <section lang="ml" class="section">
+            <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+            <div class="ml-note">
+                ഈ പാഠഭാഗം പ്രധാനമായും സസ്യങ്ങളുടെ വർഗ്ഗീകരണം, പുറമെ കാണുന്ന ഭാഗങ്ങൾ (Morphology), ഉള്ളിലെ ഘടന (Anatomy) എന്നിവയെക്കുറിച്ചാണ്. വുഡ് ആൻഡ് പേപ്പർ ടെക്നോളജി വിദ്യാർത്ഥികൾക്ക് മരത്തിന്റെ തടി എങ്ങനെ ഉണ്ടാകുന്നു എന്നും അതിന്റെ പ്രത്യേകതകൾ എന്തൊക്കെയാണെന്നും മനസ്സിലാക്കാൻ ഇത് സഹായിക്കുന്നു. കാതൽ (Heartwood), വെള്ള (Sapwood), വളർച്ചാ വളയങ്ങൾ (Growth Rings) എന്നിവ പരീക്ഷയ്ക്ക് വളരെ പ്രധാനപ്പെട്ട ഭാഗങ്ങളാണ്.
+            </div>
+        </section>
+    </main>
+</div>
+
+<script>
+    "use strict";
+    (function() {
+        // Reading progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("readingProgress").style.width = scrolled + "%";
+        };
+
+        // Calculator Logic
+        window.calcDensity = function() {
+            const mass = document.getElementById('mass').value;
+            const vol = document.getElementById('vol').value;
+            const res = document.getElementById('densResult');
+            if(mass > 0 && vol > 0) {
+                const density = mass / vol;
+                res.innerText = "Density = " + density.toFixed(2) + " kg/m³";
+                res.style.color = "#4ade80";
+            } else {
+                res.innerText = "Please enter valid positive numbers.";
+                res.style.color = "#f87171";
+            }
+        };
+
+        // Print function
+        window.addEventListener('beforeprint', () => {
+            document.querySelectorAll('details').forEach(d => d.open = true);
+        });
+    })();
+</script>
+
+</body>
+</html>
