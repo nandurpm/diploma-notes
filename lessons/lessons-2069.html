@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2069 — Basic Textile Mechanics Lab">
+    <meta name="course-code" content="2069">
+    <meta name="course-title" content="Basic Textile Mechanics Lab">
+    <meta name="curriculum" content="REV2021">
+    <title>2069 — Basic Textile Mechanics Lab</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 12px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--soft);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            min-height: 100vh;
+        }
+
+        main { padding: 2rem; }
+
+        section { margin-bottom: 4rem; scroll-margin-top: 2rem; }
+
+        .cover {
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        .cover h1 { font-size: 2.5rem; margin: 0; }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin: 0.5rem;
+        }
+
+        .module {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: var(--paper);
+        }
+
+        .module-head {
+            border-left: 5px solid var(--blue);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .topic {
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--soft2);
+            border-radius: 8px;
+        }
+
+        .topic summary {
+            padding: 1rem;
+            background: var(--soft);
+            cursor: pointer;
+            font-weight: bold;
+            list-style: none;
+        }
+
+        .topic-body { padding: 1rem; }
+
+        .ml-note {
+            background: #fff9e6;
+            border-left: 4px solid var(--amber);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .worked {
+            background: var(--soft2);
+            border: 1px solid var(--blue);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .diagram {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: white;
+            border: 1px solid var(--line);
+        }
+
+        .table-wrap { overflow-x: auto; margin: 1rem 0; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid var(--line); padding: 0.75rem; text-align: left; }
+        th { background: var(--soft); }
+
+        .calculator {
+            background: var(--navy);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 4px;
+            border: none;
+        }
+
+        .qa { margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 8px; }
+        .qa summary { padding: 0.75rem; background: var(--soft); cursor: pointer; }
+        .qa-body { padding: 1rem; border-top: 1px solid var(--line); }
+
+        @media print {
+            .no-print, .reading-progress, .jump-menu, .search-bar { display: none; }
+            details { display: block !important; }
+            details summary { font-weight: bold; border-bottom: 1px solid #000; }
+            .lesson-shell { box-shadow: none; max-width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .cover h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+    <div class="reading-progress" id="readingProgress"></div>
+    
+    <div class="lesson-shell">
+        <header class="cover">
+            <div class="badge">Revision 2021</div>
+            <div class="badge">Course Code: 2069</div>
+            <h1>Basic Textile Mechanics Lab</h1>
+            <p>Diploma in Textile Technology | Semester 2</p>
+            <a data-notes-link data-pdf-code="2069" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2069" style="color:white; text-decoration: underline;">Official Syllabus PDF Source</a>
+        </header>
+
+        <main id="main-content">
+            
+            <section id="course-dashboard" class="course-dashboard">
+                <div class="module-head"><h2>Course Overview</h2></div>
+                <div class="table-wrap">
+                    <table>
+                        <tr><th>Category</th><td>Engineering Science</td></tr>
+                        <tr><th>Periods/Week</th><td>3 (Practical)</td></tr>
+                        <tr><th>Total Periods</th><td>45</td></tr>
+                        <tr><th>Credits</th><td>No Credit</td></tr>
+                    </table>
+                </div>
+                <h3>Course Objectives</h3>
+                <ul>
+                    <li>Impart basic knowledge of mechanical elements like shafts, pulleys, axles, keys, couplings, and bearings.</li>
+                    <li>Understand drive transmission concepts and speed calculations.</li>
+                    <li>Study applications of gears, belts, cams, and tappets in textile machinery.</li>
+                </ul>
+            </section>
+
+            <section id="course-outcomes" class="course-outcomes">
+                <div class="module-head"><h2>Course Outcomes (CO)</h2></div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CO No.</th>
+                                <th>Description</th>
+                                <th>Hours</th>
+                                <th>Cognitive Level</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>CO1</td><td>Identify mechanical elements in textile machines and explain functions.</td><td>9</td><td>Understanding</td></tr>
+                            <tr><td>CO2</td><td>Illustrate and compare methods of drive transmission.</td><td>12</td><td>Understanding</td></tr>
+                            <tr><td>CO3</td><td>Explain gear types, applications, and calculate speed from gearing diagrams.</td><td>13</td><td>Applying</td></tr>
+                            <tr><td>CO4</td><td>Discuss basic aspects of cam, tappet, and variable speed drives.</td><td>8</td><td>Understanding</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- MODULE 1 -->
+            <section class="module" id="module-1">
+                <div class="module-head">
+                    <h2>Module 1: Mechanical Elements</h2>
+                    <p>Duration: 9 Hours | CO1</p>
+                </div>
+                
+                <details class="topic" open>
+                    <summary>M1.01 & M1.02: Shaft, Axle, Pulley, Keys, and Coupling</summary>
+                    <div class="topic-body">
+                        <h3>1. Shaft vs. Axle</h3>
+                        <p><strong>Shaft:</strong> A rotating machine element used to transmit power from one place to another. In textile machines, main shafts drive multiple units.</p>
+                        <p><strong>Axle:</strong> A stationary or rotating member that supports rotating wheels, pulleys, or gears but does <em>not</em> transmit torque/power.</p>
+                        
+                        <div class="ml-note">
+                            <strong>Malayalam Note:</strong> 
+                            Shaft പവർ ട്രാൻസ്മിറ്റ് ചെയ്യാൻ ഉപയോഗിക്കുന്നു (ഉദാഹരണത്തിന് മോട്ടോറിൽ നിന്ന് മെഷീനിലേക്ക്). എന്നാൽ Axle ഭാരം താങ്ങാൻ മാത്രമാണ് ഉപയോഗിക്കുന്നത്, അത് കറങ്ങണമെന്നില്ല.
+                        </div>
+
+                        <h3>2. Pulleys</h3>
+                        <p>Pulleys are used to transmit power using belts. Common types in textile mills:</p>
+                        <ul>
+                            <li><strong>Flat Pulley:</strong> Used with flat belts for long-distance transmission.</li>
+                            <li><strong>V-Pulley:</strong> Used for high torque at short distances.</li>
+                            <li><strong>Fast and Loose Pulley:</strong> Used to start or stop a machine without stopping the main drive shaft.</li>
+                        </ul>
+
+                        <h3>3. Keys and Couplings</h3>
+                        <p><strong>Keys:</strong> Temporary fasteners used to connect a shaft to a pulley or gear to prevent relative motion. Types: Sunk key, Woodruff key, Feather key.</p>
+                        <p><strong>Couplings:</strong> Used to connect two shafts together at their ends. 
+                            <ul>
+                                <li><em>Rigid Couplings:</em> Used when shafts are perfectly aligned.</li>
+                                <li><em>Flexible Couplings:</em> Used when there is slight misalignment (e.g., Universal coupling).</li>
+                            </ul>
+                        </p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 2 -->
+            <section class="module" id="module-2">
+                <div class="module-head">
+                    <h2>Module 2: Drive Transmission</h2>
+                    <p>Duration: 12 Hours | CO2</p>
+                </div>
+
+                <details class="topic" open>
+                    <summary>M2.01: Flexible vs. Rigid Drives</summary>
+                    <div class="topic-body">
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>Flexible Drive (Belts/Chains)</th>
+                                        <th>Rigid Drive (Gears)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Distance</td><td>Suitable for long distances.</td><td>Suitable for short distances.</td></tr>
+                                    <tr><td>Shock Absorption</td><td>Absorbs shocks and vibrations.</td><td>Transmits shocks directly.</td></tr>
+                                    <tr><td>Slip</td><td>Possibility of slip (except timing belts).</td><td>No slip (Positive drive).</td></tr>
+                                    <tr><td>Maintenance</td><td>Requires periodic tensioning.</td><td>Requires lubrication.</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M2.02 & M2.03: Belt and Chain Drives</summary>
+                    <div class="topic-body">
+                        <h3>Belt Drives</h3>
+                        <p>In textile machines like the Carding machine or Spinning frame, belts are vital. 
+                        <strong>Open Belt Drive:</strong> Shafts rotate in the same direction.
+                        <strong>Cross Belt Drive:</strong> Shafts rotate in opposite directions.</p>
+                        
+                        <h3>Roller Chain Drive</h3>
+                        <p>Used where a positive drive is needed without slip, but the distance is too large for gears. Commonly seen in the drive to the lattice in blowroom machinery.</p>
+                        <div class="ml-note">
+                            <strong>Malayalam Note:</strong> 
+                            ബെൽറ്റ് ഡ്രൈവിൽ സ്ലിപ്പ് (Slip) ഉണ്ടാകാൻ സാധ്യതയുണ്ട്. എന്നാൽ ചെയിൻ ഡ്രൈവ് ഒരു 'Positive Drive' ആണ്, അതായത് ഇതിൽ സ്ലിപ്പ് ഉണ്ടാകില്ല.
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 3 -->
+            <section class="module" id="module-3">
+                <div class="module-head">
+                    <h2>Module 3: Gears and Calculations</h2>
+                    <p>Duration: 13 Hours | CO3</p>
+                </div>
+
+                <details class="topic" open>
+                    <summary>M3.01 & M3.02: Types of Gears</summary>
+                    <div class="topic-body">
+                        <ul>
+                            <li><strong>Spur Gear:</strong> Teeth are parallel to the axis. Used for parallel shafts.</li>
+                            <li><strong>Bevel Gear:</strong> Used for shafts intersecting at 90 degrees (e.g., Differential motion in Roving frame).</li>
+                            <li><strong>Worm and Worm Wheel:</strong> Used for large speed reduction in a small space. The worm is like a screw.</li>
+                            <li><strong>Pawl and Ratchet:</strong> Allows motion in only one direction. Used in take-up motions of looms.</li>
+                        </ul>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M3.03: Gear Trains and Speed Calculations</summary>
+                    <div class="topic-body">
+                        <p><strong>Simple Gear Train:</strong> Each shaft carries only one gear.</p>
+                        <p><strong>Compound Gear Train:</strong> At least one shaft carries two gears. This is used to achieve high velocity ratios in limited space.</p>
+                        
+                        <div class="worked">
+                            <h4>Velocity Ratio Formula:</h4>
+                            <p>For two gears 1 (Driver) and 2 (Driven):</p>
+                            <code>N₂ / N₁ = T₁ / T₂</code><br>
+                            Where N = Speed in RPM, T = Number of teeth.
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- MODULE 4 -->
+            <section class="module" id="module-4">
+                <div class="module-head">
+                    <h2>Module 4: Cams, Tappets and Variable Speed</h2>
+                    <p>Duration: 8 Hours | CO4</p>
+                </div>
+
+                <details class="topic" open>
+                    <summary>M4.01: Tappets and Cams</summary>
+                    <div class="topic-body">
+                        <p>Cams and Tappets convert <strong>Rotary Motion</strong> into <strong>Reciprocating (up and down) Motion</strong>.</p>
+                        <p><strong>Textile Application:</strong> In a weaving loom, Tappet shedding uses cams to lift and lower heald frames to create the shed for the shuttle to pass through.</p>
+                    </div>
+                </details>
+
+                <details class="topic" open>
+                    <summary>M4.02: Variable Speed Drives</summary>
+                    <div class="topic-body">
+                        <p>Textile processes often require speed changes (e.g., as a bobbin builds up in size).</p>
+                        <ul>
+                            <li><strong>Stepless Cone Pulleys:</strong> Used in the Roving frame to gradually change the speed of the bobbin as its diameter increases.</li>
+                            <li><strong>PIV (Positive Infinitely Variable) Drives:</strong> A chain-based drive that allows precise, continuous adjustment of the output speed.</li>
+                        </ul>
+                    </div>
+                </details>
+            </section>
+
+            <section id="formula-bank" class="formula-bank">
+                <div class="module-head"><h2>Formula Bank</h2></div>
+                <div class="grid two">
+                    <div class="worked">
+                        <strong>1. Belt Drive Speed Ratio</strong>
+                        <p>N₂ / N₁ = D₁ / D₂</p>
+                        <small>N: RPM, D: Diameter</small>
+                    </div>
+                    <div class="worked">
+                        <strong>2. Gear Speed Ratio</strong>
+                        <p>N₂ / N₁ = T₁ / T₂</p>
+                        <small>T: Number of Teeth</small>
+                    </div>
+                    <div class="worked">
+                        <strong>3. Belt Slip Percentage</strong>
+                        <p>% Slip = [(V₁ - V₂) / V₁] × 100</p>
+                        <small>V₁: Surface speed of driver, V₂: Surface speed of driven</small>
+                    </div>
+                </div>
+
+                <h3>Interactive Speed Calculator</h3>
+                <div class="calculator">
+                    <div class="calc-grid">
+                        <div>
+                            <label>Driver Speed (N1) RPM:</label>
+                            <input type="number" id="n1" value="1440">
+                        </div>
+                        <div>
+                            <label>Driver Teeth/Dia (T1):</label>
+                            <input type="number" id="t1" value="40">
+                        </div>
+                        <div>
+                            <label>Driven Teeth/Dia (T2):</label>
+                            <input type="number" id="t2" value="20">
+                        </div>
+                        <div>
+                            <label>Resultant Speed (N2):</label>
+                            <div id="calc-result" style="font-size: 1.5rem; font-weight: bold; margin-top: 0.5rem;">2880 RPM</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="visual-library" class="visual-library">
+                <div class="module-head"><h2>Diagram Library</h2></div>
+                
+                <div class="diagram">
+                    <svg viewBox="0 0 200 100" role="img" aria-label="Simple Belt Drive Diagram">
+                        <!-- Driver Pulley -->
+                        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="50" cy="50" r="5" fill="currentColor"/>
+                        <!-- Driven Pulley -->
+                        <circle cx="150" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="150" cy="50" r="5" fill="currentColor"/>
+                        <!-- Belts -->
+                        <line x1="50" y1="20" x2="150" y2="30" stroke="currentColor" stroke-width="2"/>
+                        <line x1="50" y1="80" x2="150" y2="70" stroke="currentColor" stroke-width="2"/>
+                        <text x="35" y="95" font-size="8">Driver (D1)</text>
+                        <text x="135" y="95" font-size="8">Driven (D2)</text>
+                    </svg>
+                    <figcaption>Figure 1: Simple Open Belt Drive Schematic</figcaption>
+                </div>
+
+                <div class="diagram">
+                    <svg viewBox="0 0 200 100" role="img" aria-label="Cam and Follower Diagram">
+                        <!-- Cam (Pear shaped) -->
+                        <path d="M 100 70 A 20 20 0 1 0 100 30 L 100 20 L 100 30 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <!-- Follower -->
+                        <rect x="98" y="10" width="4" height="30" fill="currentColor"/>
+                        <circle cx="100" cy="40" r="3" fill="none" stroke="currentColor"/>
+                        <text x="110" y="25" font-size="8">Follower</text>
+                        <text x="110" y="60" font-size="8">Cam</text>
+                    </svg>
+                    <figcaption>Figure 2: Basic Cam and Follower Mechanism</figcaption>
+                </div>
+            </section>
+
+            <section id="assessment" class="assessment">
+                <div class="module-head"><h2>Practice Q&A</h2></div>
+                
+                <div class="qa">
+                    <summary>1. What is the main difference between a Shaft and an Axle?</summary>
+                    <div class="qa-body">
+                        A shaft is designed to transmit torque and power (it rotates), whereas an axle primarily supports the weight of rotating components and may or may not rotate.
+                    </div>
+                </div>
+
+                <div class="qa">
+                    <summary>2. Why are V-belts preferred over flat belts for short distances?</summary>
+                    <div class="qa-body">
+                        V-belts provide better grip due to the wedging action in the pulley groove, allowing for higher torque transmission with less slip at short center distances.
+                    </div>
+                </div>
+
+                <div class="qa">
+                    <summary>3. What is a 'Positive Drive'?</summary>
+                    <div class="qa-body">
+                        A drive where there is no possibility of slip between the driver and driven members, ensuring a constant velocity ratio. Examples: Gear drives and Chain drives.
+                    </div>
+                </div>
+
+                <div class="qa">
+                    <summary>4. Define 'Slip' in belt drives.</summary>
+                    <div class="qa-body">
+                        Slip is the relative motion between the belt and the pulley surface, occurring when the frictional grip is insufficient. It reduces the velocity ratio.
+                    </div>
+                </div>
+            </section>
+
+            <section id="model-paper" class="model-paper">
+                <div class="module-head"><h2>Practice Model Lab Exam</h2></div>
+                <p><em>Time: 3 Hours | Max Marks: 75 (Internal/External)</em></p>
+                <ol>
+                    <li>Identify the given mechanical elements (Shaft, Pulley, Key, Bearing) and write their functions. (10 Marks)</li>
+                    <li>Sketch a compound gear train and calculate the final output speed given the driver speed and tooth counts. (20 Marks)</li>
+                    <li>Demonstrate the working of a Tappet shedding mechanism on the allotted loom. (15 Marks)</li>
+                    <li>Calculate the percentage of belt slip for the main motor drive of the carding machine. (15 Marks)</li>
+                    <li>Viva-voce: Explain the application of PIV drives in textile machinery. (15 Marks)</li>
+                </ol>
+            </section>
+
+            <section id="quick-revision" class="quick-revision">
+                <div class="module-head"><h2>Quick Revision</h2></div>
+                <ul>
+                    <li><strong>Mechanical Elements:</strong> Shaft (Power), Axle (Support), Key (Fastener), Coupling (Connection).</li>
+                    <li><strong>Transmission:</strong> Belts (Flexible/Slip), Gears (Rigid/Positive), Chains (Flexible/Positive).</li>
+                    <li><strong>Gears:</strong> Spur (Parallel), Bevel (Intersecting), Worm (High Reduction).</li>
+                    <li><strong>Cams:</strong> Convert Rotary to Reciprocating motion.</li>
+                    <li><strong>Variable Speed:</strong> Cone pulleys and PIV drives are essential for winding processes.</li>
+                </ul>
+            </section>
+
+            <section id="glossary" class="glossary">
+                <div class="module-head"><h2>Glossary</h2></div>
+                <dl>
+                    <dt><strong>Torque</strong></dt><dd>The twisting force that tends to cause rotation.</dd>
+                    <dt><strong>Velocity Ratio</strong></dt><dd>The ratio of the speed of the driver to the speed of the driven member.</dd>
+                    <dt><strong>Shedding</strong></dt><dd>The process of separating warp threads into two layers to form a tunnel (shed).</dd>
+                    <dt><strong>Heald Frame</strong></dt><dd>A component in a loom that holds the heald wires through which warp ends pass.</dd>
+                </dl>
+            </section>
+
+            <section id="official-source" class="official-source">
+                <div class="module-head"><h2>Official Source Declaration</h2></div>
+                <p>This content is strictly based on the <strong>SITTTR Kerala Revision 2021</strong> syllabus for <strong>Course Code 2069: Basic Textile Mechanics Lab</strong>. All modules, outcomes, and technical topics align with the official curriculum provided by the State Institute of Technical Teachers' Training & Research.</p>
+            </section>
+
+            <section lang="ml" class="ml-note">
+                <h2>മലയാളം പഠനസഹായം (Malayalam Support)</h2>
+                <p>ഈ ലാബ് കോഴ്സ് പ്രധാനമായും ടെക്സ്റ്റൈൽ മെഷീനുകളിലെ വിവിധ മെക്കാനിക്കൽ ഭാഗങ്ങളെ പരിചയപ്പെടാനാണ് ഉദ്ദേശിക്കുന്നത്.</p>
+                <ul>
+                    <li><strong>Shaft:</strong> പവർ കൈമാറാൻ ഉപയോഗിക്കുന്നു.</li>
+                    <li><strong>Gears:</strong> സ്ലിപ്പ് ഇല്ലാതെ കൃത്യമായ വേഗതയിൽ പവർ കൈമാറാൻ ഗിയറുകൾ സഹായിക്കുന്നു.</li>
+                    <li><strong>Cams & Tappets:</strong> കറങ്ങുന്ന ചലനത്തെ (Rotary motion) മുകളിലേക്കും താഴേക്കുമുള്ള ചലനമാക്കി (Reciprocating motion) മാറ്റുന്നു. തുണി നെയ്യുമ്പോൾ നൂലുകൾ ഉയർത്താനും താഴ്ത്താനും ഇത് അത്യാവശ്യമാണ്.</li>
+                    <li><strong>Calculations:</strong> ഡ്രൈവർ ഗിയറിന്റെയും ഡ്രിവൺ ഗിയറിന്റെയും പല്ലുകളുടെ എണ്ണം (Teeth) അറിഞ്ഞാൽ ഔട്ട്പുട്ട് സ്പീഡ് കണക്കാക്കാം.</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        "use strict";
+        (function() {
+            // Reading Progress
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById("readingProgress").style.width = scrolled + "%";
+            });
+
+            // Calculator Logic
+            const n1Input = document.getElementById('n1');
+            const t1Input = document.getElementById('t1');
+            const t2Input = document.getElementById('t2');
+            const resultDiv = document.getElementById('calc-result');
+
+            function calculateSpeed() {
+                const n1 = parseFloat(n1Input.value);
+                const t1 = parseFloat(t1Input.value);
+                const t2 = parseFloat(t2Input.value);
+                
+                if(t2 > 0) {
+                    const n2 = (n1 * t1) / t2;
+                    resultDiv.innerText = n2.toFixed(2) + " RPM";
+                } else {
+                    resultDiv.innerText = "Error";
+                }
+            }
+
+            [n1Input, t1Input, t2Input].forEach(el => el.addEventListener('input', calculateSpeed));
+        })();
+    </script>
+</body>
+</html>
