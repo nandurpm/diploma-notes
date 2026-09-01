@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en" class="revision-2021-lesson">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Complete Polytechnic lesson for 2051 — Basic Automobile Engineering">
+    <meta name="course-code" content="2051">
+    <meta name="course-title" content="Basic Automobile Engineering">
+    <meta name="curriculum" content="REV2021">
+    <title>2051 — Basic Automobile Engineering</title>
+    <style>
+        :root {
+            --ink: #10233e;
+            --muted: #55697f;
+            --paper: #ffffff;
+            --soft: #f4f8fc;
+            --soft2: #eaf4ff;
+            --line: #d5e1ed;
+            --navy: #071f3f;
+            --blue: #0b5ed7;
+            --cyan: #0891b2;
+            --teal: #0f766e;
+            --green: #15803d;
+            --amber: #b45309;
+            --red: #b42318;
+            --violet: #6d28d9;
+            --shadow: 0 12px 34px rgba(15, 43, 75, .10);
+            --radius: 18px;
+            --mal: "Noto Sans Malayalam", "Nirmala UI", "Manjari", system-ui, sans-serif;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            color: var(--ink);
+            background: var(--soft);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--blue);
+            z-index: 1000;
+            width: 0%;
+            transition: width 0.1s;
+        }
+
+        .lesson-shell {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .cover {
+            text-align: center;
+            padding: 4rem 1rem;
+            background: linear-gradient(135deg, var(--navy), var(--blue));
+            color: white;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+        }
+
+        .cover h1 { font-size: 2.5rem; margin: 0; }
+        .badge-row { display: flex; justify-content: center; gap: 10px; margin-top: 1rem; }
+        .badge { background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+
+        .jump-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 10px;
+            z-index: 900;
+        }
+
+        .jump-menu a {
+            background: var(--soft2);
+            text-decoration: none;
+            color: var(--navy);
+            padding: 10px;
+            text-align: center;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid var(--line);
+        }
+
+        .section, .module {
+            margin-bottom: 3rem;
+            scroll-margin-top: 80px;
+        }
+
+        h2 { border-left: 5px solid var(--blue); padding-left: 15px; color: var(--navy); }
+
+        .ml-note {
+            background: #fff9e6;
+            border-left: 4px solid var(--amber);
+            padding: 15px;
+            margin: 15px 0;
+            font-family: var(--mal);
+            font-size: 0.95rem;
+        }
+
+        .ml-note strong { display: block; margin-bottom: 5px; color: var(--amber); }
+
+        .table-wrap { overflow-x: auto; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid var(--line); padding: 12px; text-align: left; }
+        th { background: var(--soft2); color: var(--navy); }
+
+        .worked {
+            background: #f0fff4;
+            border: 1px solid #c6f6d5;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .formula-card {
+            background: var(--navy);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-family: monospace;
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .diagram { text-align: center; margin: 30px 0; padding: 20px; background: white; border: 1px solid var(--line); border-radius: 12px; }
+        .diagram svg { max-width: 100%; height: auto; }
+        figcaption { margin-top: 10px; font-style: italic; color: var(--muted); }
+
+        .qa { margin-bottom: 10px; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+        .qa summary { padding: 15px; background: var(--soft); cursor: pointer; font-weight: 600; }
+        .qa-body { padding: 15px; background: white; border-top: 1px solid var(--line); }
+
+        .calculator {
+            background: var(--soft2);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--blue);
+            margin: 20px 0;
+        }
+        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: center; }
+        .calc-grid input { padding: 8px; border: 1px solid var(--line); border-radius: 4px; }
+        .calc-result { margin-top: 15px; font-weight: bold; color: var(--blue); font-size: 1.1rem; }
+
+        .search-bar { width: 100%; padding: 12px; border: 2px solid var(--line); border-radius: 8px; margin-bottom: 10px; }
+
+        @media print {
+            .no-print, .jump-menu, .reading-progress, .search-bar { display: none; }
+            .lesson-shell { box-shadow: none; padding: 0; }
+            details { display: block !important; }
+            details summary { font-weight: bold; border-bottom: 1px solid black; }
+        }
+
+        @media (max-width: 640px) {
+            .calc-grid { grid-template-columns: 1fr; }
+            .cover h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body class="revision-2021-lesson">
+
+<div class="reading-progress" id="readingProgress"></div>
+
+<a data-notes-link data-pdf-code="2051" data-pdf-revision="2021" href="https://www.sitttrkerala.ac.in/index.php?r=site%2Fdiploma-syllabus-course-contents&course=2051" class="no-print" style="display: block; text-align: center; padding: 10px; background: var(--amber); color: white; text-decoration: none; font-weight: bold;">Download Official Syllabus PDF</a>
+
+<div class="lesson-shell">
+    <main id="main-content">
+        
+        <section class="cover" id="cover">
+            <div class="kicker">Department of Automobile Engineering</div>
+            <h1>Basic Automobile Engineering</h1>
+            <div class="badge-row">
+                <span class="badge">Course Code: 2051</span>
+                <span class="badge">Semester: 2</span>
+                <span class="badge">Revision: 2021</span>
+                <span class="badge">Credits: 3</span>
+            </div>
+            <p class="lead" style="margin-top: 20px; opacity: 0.9;">A comprehensive guide to the fundamentals of vehicle classification, engine working, and constructional details.</p>
+        </section>
+
+        <nav class="jump-menu no-print" aria-label="Lesson sections">
+            <a href="#course-dashboard">Overview</a>
+            <a href="#course-outcomes">Outcomes</a>
+            <a href="#module-1">M1: History & Class</a>
+            <a href="#module-2">M2: Engines</a>
+            <a href="#module-3">M3: Construction I</a>
+            <a href="#module-4">M4: Construction II</a>
+            <a href="#formula-bank">Formulas</a>
+            <a href="#assessment">QA</a>
+            <a href="#model-paper">Model Paper</a>
+            <a href="#quick-revision">Revision</a>
+        </nav>
+
+        <section id="course-dashboard" class="course-dashboard">
+            <h2>Course Overview</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <td>Engineering Science</td>
+                        <th>Periods/Week</th>
+                        <td>3 (L:3, T:0, P:0)</td>
+                    </tr>
+                    <tr>
+                        <th>Total Periods</th>
+                        <td>45 per semester</td>
+                        <th>Assessment</th>
+                        <td>CIE (50) & ESE (50)</td>
+                    </tr>
+                </table>
+            </div>
+            <h3>Course Objectives</h3>
+            <ul>
+                <li>To know the history and classification of automobiles.</li>
+                <li>To understand various Vehicle Chassis Terminology.</li>
+                <li>To appreciate the working and construction of different engines/components.</li>
+                <li>To classify different classes of vehicles based on usage, axle weight, and power plant type.</li>
+            </ul>
+        </section>
+
+        <section id="course-outcomes" class="course-outcomes">
+            <h2>Course Outcomes (COs)</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CO No.</th>
+                            <th>Description</th>
+                            <th>Hours</th>
+                            <th>Cognitive Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>CO1</td>
+                            <td>Summarize different classification of vehicles and terminology of Chassis specification.</td>
+                            <td>10</td>
+                            <td>Understanding</td>
+                        </tr>
+                        <tr>
+                            <td>CO2</td>
+                            <td>Make use of Petrol and Diesel Engines.</td>
+                            <td>11</td>
+                            <td>Applying</td>
+                        </tr>
+                        <tr>
+                            <td>CO3</td>
+                            <td>Illustrate the working and constructional details of various engine components.</td>
+                            <td>11</td>
+                            <td>Understanding</td>
+                        </tr>
+                        <tr>
+                            <td>CO4</td>
+                            <td>Outline the constructional details of camshaft, valves and valve operating mechanism.</td>
+                            <td>11</td>
+                            <td>Understanding</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="module" id="module-1">
+            <div class="module-head">
+                <h2>Module 1: History and Classification</h2>
+                <div class="module-meta">Duration: 10 Hours | CO1</div>
+            </div>
+            
+            <details class="topic" open>
+                <summary>1.1 History and Development</summary>
+                <div class="topic-body">
+                    <p>The automobile has evolved from steam-powered "road locomotives" to modern electric and autonomous vehicles. Key milestones include:</p>
+                    <ul>
+                        <li><strong>Abroad:</strong> Nicholas Cugnot (1769 steam carriage), Karl Benz (1886 - first practical petrol car), Henry Ford (Mass production via Model T).</li>
+                        <li><strong>India:</strong> Pre-independence saw imports. Post-independence (1947) led to the establishment of Hindustan Motors (Ambassador) and Premier Automobiles (Padmini). The 1980s revolution started with Maruti Suzuki.</li>
+                    </ul>
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        ഓട്ടോമൊബൈലിന്റെ ചരിത്രം ആരംഭിക്കുന്നത് 1769-ൽ നിക്കോളാസ് കുഗ്നോട്ട് നിർമ്മിച്ച സ്റ്റീം വണ്ടിയിൽ നിന്നാണ്. ഇന്ത്യയിൽ സ്വാതന്ത്ര്യത്തിന് ശേഷം ഹിന്ദുസ്ഥാൻ മോട്ടോഴ്സ്, പ്രീമിയർ ഓട്ടോമൊബൈൽസ് എന്നിവ പ്രധാന പങ്കുവഹിച്ചു.
+                    </div>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>1.2 Classification of Vehicles</summary>
+                <div class="topic-body">
+                    <p>Automobiles are classified based on several criteria:</p>
+                    <ol>
+                        <li><strong>Purpose:</strong> Passenger (Car, Bus), Goods (Truck, Lorry).</li>
+                        <li><strong>Capacity:</strong> LMV (Light Motor Vehicle), HTV (Heavy Transport Vehicle).</li>
+                        <li><strong>Fuel:</strong> Petrol, Diesel, CNG, Electric, Hybrid.</li>
+                        <li><strong>Axles:</strong> Two-wheeler, Three-wheeler, Four-wheeler, Multi-axle.</li>
+                        <li><strong>Drive:</strong> Left-hand drive, Right-hand drive.</li>
+                    </ol>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>1.3 Chassis Terminology & Layouts</summary>
+                <div class="topic-body">
+                    <p>The <strong>Chassis</strong> is the skeleton of the vehicle, carrying all major systems like the engine, transmission, and suspension.</p>
+                    <div class="table-wrap">
+                        <table>
+                            <caption>Key Specifications</caption>
+                            <tr><th>Term</th><th>Definition</th></tr>
+                            <tr><td>Wheel Base</td><td>Distance between the centers of front and rear wheels.</td></tr>
+                            <tr><td>Wheel Track</td><td>Distance between the centers of the left and right wheels on the same axle.</td></tr>
+                            <tr><td>Ground Clearance</td><td>Distance between the lowest point of the vehicle and the ground.</td></tr>
+                            <tr><td>Kerb Weight</td><td>Weight of the vehicle with full fuel and equipment, but without passengers/load.</td></tr>
+                            <tr><td>Gross Weight</td><td>Maximum allowable weight (Kerb weight + Payload).</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section class="module" id="module-2">
+            <div class="module-head">
+                <h2>Module 2: Engine Terminology & Working</h2>
+                <div class="module-meta">Duration: 11 Hours | CO2</div>
+            </div>
+
+            <details class="topic" open>
+                <summary>2.1 Heat Engines: IC vs EC</summary>
+                <div class="topic-body">
+                    <p>A Heat Engine converts thermal energy into mechanical work.</p>
+                    <ul>
+                        <li><strong>External Combustion (EC):</strong> Fuel burns outside the cylinder (e.g., Steam Engine).</li>
+                        <li><strong>Internal Combustion (IC):</strong> Fuel burns inside the cylinder (e.g., Petrol/Diesel Engine).</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>2.2 Engine Terminology</summary>
+                <div class="topic-body">
+                    <ul>
+                        <li><strong>Bore:</strong> Inner diameter of the cylinder.</li>
+                        <li><strong>Stroke:</strong> Distance traveled by the piston from TDC to BDC.</li>
+                        <li><strong>TDC (Top Dead Center):</strong> Highest point the piston reaches.</li>
+                        <li><strong>BDC (Bottom Dead Center):</strong> Lowest point the piston reaches.</li>
+                        <li><strong>Swept Volume ($V_s$):</strong> Volume displaced by the piston in one stroke.</li>
+                        <li><strong>Clearance Volume ($V_c$):</strong> Volume above the piston at TDC.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>2.3 4-Stroke vs 2-Stroke Engines</summary>
+                <div class="topic-body">
+                    <p>In a <strong>4-stroke engine</strong>, one power stroke occurs every two revolutions of the crankshaft (Suction, Compression, Power, Exhaust). In a <strong>2-stroke engine</strong>, one power stroke occurs every single revolution.</p>
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        4-സ്ട്രോക്ക് എഞ്ചിനിൽ നാല് ഘട്ടങ്ങളിലായി (Suction, Compression, Power, Exhaust) ഒരു പവർ സ്ട്രോക്ക് നടക്കുന്നു. 2-സ്ട്രോക്കിൽ ഇത് രണ്ട് ഘട്ടങ്ങളിലായി നടക്കുന്നു.
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section id="formula-bank" class="formula-bank">
+            <h2>Formula Bank & Calculations</h2>
+            
+            <div class="formula-card">
+                Compression Ratio (CR) = (V<sub>s</sub> + V<sub>c</sub>) / V<sub>c</sub>
+            </div>
+            
+            <div class="worked">
+                <strong>Example Calculation:</strong><br>
+                Given: Swept Volume (V<sub>s</sub>) = 450cc, Clearance Volume (V<sub>c</sub>) = 50cc.<br>
+                <strong>Calculation:</strong> CR = (450 + 50) / 50 = 500 / 50 = 10.<br>
+                <strong>Answer:</strong> The Compression Ratio is 10:1.
+            </div>
+
+            <div class="calculator">
+                <h3>Compression Ratio Calculator</h3>
+                <div class="calc-grid">
+                    <label for="vs">Swept Volume (cc):</label>
+                    <input type="number" id="vs" placeholder="e.g. 150">
+                    <label for="vc">Clearance Volume (cc):</label>
+                    <input type="number" id="vc" placeholder="e.g. 15">
+                </div>
+                <button onclick="calcCR()" class="btn" style="margin-top:10px; padding:10px; background:var(--blue); color:white; border:none; border-radius:5px; cursor:pointer;">Calculate CR</button>
+                <div id="cr-result" class="calc-result" aria-live="polite"></div>
+            </div>
+
+            <div class="formula-card">
+                Mechanical Efficiency (η<sub>m</sub>) = (Brake Power / Indicated Power) × 100
+            </div>
+        </section>
+
+        <section id="visual-library" class="visual-library">
+            <h2>Visual Library</h2>
+            <div class="diagram">
+                <svg viewBox="0 0 200 120" role="img" aria-label="Engine Cylinder Terminology">
+                    <rect x="50" y="10" width="100" height="100" fill="none" stroke="var(--navy)" stroke-width="2"/>
+                    <line x1="50" y1="30" x2="150" y2="30" stroke="var(--red)" stroke-dasharray="4"/>
+                    <text x="155" y="35" font-size="10" fill="var(--red)">TDC</text>
+                    <line x1="50" y1="90" x2="150" y2="90" stroke="var(--blue)" stroke-dasharray="4"/>
+                    <text x="155" y="95" font-size="10" fill="var(--blue)">BDC</text>
+                    <line x1="40" y1="30" x2="40" y2="90" stroke="black" stroke-width="1"/>
+                    <text x="10" y="65" font-size="10">Stroke</text>
+                    <text x="80" y="115" font-size="10">Bore (D)</text>
+                </svg>
+                <figcaption>Figure 1: Basic Engine Cylinder Terminology (Bore, Stroke, TDC, BDC)</figcaption>
+            </div>
+        </section>
+
+        <section class="module" id="module-3">
+            <h2>Module 3: Engine Construction Details - I</h2>
+            <div class="module-meta">Duration: 11 Hours | CO3</div>
+            
+            <details class="topic" open>
+                <summary>3.1 Cylinder Block and Head</summary>
+                <div class="topic-body">
+                    <p><strong>Cylinder Block:</strong> The main body of the engine. Usually made of Cast Iron or Aluminum Alloy. It contains the cylinders and water jackets for cooling.</p>
+                    <p><strong>Cylinder Head:</strong> Closes the top of the cylinder. Houses valves, spark plugs (SI), or injectors (CI).</p>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>3.2 Cylinder Liners</summary>
+                <div class="topic-body">
+                    <p>Liners are sleeves inserted into the block to provide a wear-resistant surface.</p>
+                    <ul>
+                        <li><strong>Dry Liner:</strong> Not in direct contact with coolant. Easy to replace but poor heat transfer.</li>
+                        <li><strong>Wet Liner:</strong> Direct contact with coolant. Better cooling but requires sealing to prevent leaks.</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>3.3 Piston and Rings</summary>
+                <div class="topic-body">
+                    <p>The piston transmits the force of combustion to the connecting rod. Made of Aluminum alloy for lightness.</p>
+                    <p><strong>Piston Rings:</strong>
+                        1. Compression Rings (Seal the combustion chamber).
+                        2. Oil Control Rings (Scrape excess oil from cylinder walls).
+                    </p>
+                </div>
+            </details>
+        </section>
+
+        <section class="module" id="module-4">
+            <h2>Module 4: Engine Construction Details - II</h2>
+            <div class="module-meta">Duration: 11 Hours | CO4</div>
+
+            <details class="topic" open>
+                <summary>4.1 Firing Order</summary>
+                <div class="topic-body">
+                    <p>The sequence in which power strokes occur in different cylinders. It ensures engine balance and smooth torque.</p>
+                    <ul>
+                        <li>3-Cylinder: 1-2-3 or 1-3-2</li>
+                        <li>4-Cylinder: 1-3-4-2 or 1-2-4-3</li>
+                        <li>6-Cylinder: 1-5-3-6-2-4</li>
+                    </ul>
+                </div>
+            </details>
+
+            <details class="topic" open>
+                <summary>4.2 Valve Operating Mechanism</summary>
+                <div class="topic-body">
+                    <p>Valves control the flow of air/fuel and exhaust. Most modern engines use <strong>Poppet Valves</strong>.</p>
+                    <ul>
+                        <li><strong>SOHC (Single Overhead Camshaft):</strong> One cam operates both intake and exhaust valves.</li>
+                        <li><strong>DOHC (Double Overhead Camshaft):</strong> Separate cams for intake and exhaust, allowing better performance at high RPM.</li>
+                    </ul>
+                    <div class="ml-note">
+                        <strong>Malayalam support:</strong>
+                        വാൽവുകൾ പ്രവർത്തിപ്പിക്കാൻ കാംഷാഫ്റ്റ് (Camshaft) ഉപയോഗിക്കുന്നു. SOHC-ൽ ഒരു കാംഷാഫ്റ്റും DOHC-ൽ രണ്ട് കാംഷാഫ്റ്റുകളും ഉണ്ടാകും.
+                    </div>
+                </div>
+            </details>
+        </section>
+
+        <section id="assessment" class="assessment">
+            <h2>Module-wise Practice Questions</h2>
+            
+            <details class="qa">
+                <summary>Q1: Define Wheelbase. (1 Mark)</summary>
+                <div class="qa-body">Wheelbase is the distance between the centers of the front and rear wheels of a vehicle.</div>
+            </details>
+
+            <details class="qa">
+                <summary>Q2: Differentiate between Petrol and Diesel engines. (5 Marks)</summary>
+                <div class="qa-body">
+                    <div class="table-wrap">
+                        <table>
+                            <tr><th>Feature</th><th>Petrol Engine (SI)</th><th>Diesel Engine (CI)</th></tr>
+                            <tr><td>Fuel</td><td>Petrol</td><td>Diesel</td></tr>
+                            <tr><td>Ignition</td><td>Spark Plug</td><td>Compression Heat</td></tr>
+                            <tr><td>Compression Ratio</td><td>Lower (6-10)</td><td>Higher (14-22)</td></tr>
+                            <tr><td>Efficiency</td><td>Lower</td><td>Higher</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </details>
+
+            <details class="qa">
+                <summary>Q3: Explain the function of Piston Rings. (3 Marks)</summary>
+                <div class="qa-body">Piston rings serve three main purposes: sealing the combustion chamber to prevent gas leakage, transferring heat from the piston to the cylinder wall, and controlling the oil film on the cylinder wall.</div>
+            </details>
+        </section>
+
+        <section id="model-paper" class="model-paper">
+            <h2>Practice Model Paper</h2>
+            <p><em>(Based on REV2021 Pattern - Not an official paper)</em></p>
+            <div class="exam-card" style="border: 1px solid var(--line); padding: 20px; border-radius: 12px;">
+                <h3>Part A (Short Answer - 2 Marks each)</h3>
+                <ol>
+                    <li>Define Kerb Weight.</li>
+                    <li>What is TDC and BDC?</li>
+                    <li>List two materials used for cylinder blocks.</li>
+                </ol>
+                <h3>Part B (Medium Answer - 5 Marks each)</h3>
+                <ol>
+                    <li>Explain the classification of vehicles based on drive.</li>
+                    <li>Compare 2-stroke and 4-stroke engines.</li>
+                    <li>Explain the need for firing order in multi-cylinder engines.</li>
+                </ol>
+                <h3>Part C (Long Answer - 10 Marks each)</h3>
+                <ol>
+                    <li>With a neat sketch, explain the working of a 4-stroke petrol engine.</li>
+                    <li>Describe the constructional details of a piston and explain expansion control methods.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="quick-revision" class="quick-revision">
+            <h2>Quick Revision</h2>
+            <ul>
+                <li><strong>Chassis:</strong> The backbone of the vehicle.</li>
+                <li><strong>IC Engine:</strong> Combustion happens inside (Petrol/Diesel).</li>
+                <li><strong>CR:</strong> Ratio of total volume to clearance volume.</li>
+                <li><strong>Liners:</strong> Dry (no water contact) vs Wet (water contact).</li>
+                <li><strong>DOHC:</strong> Better for high-speed performance.</li>
+            </ul>
+        </section>
+
+        <section id="glossary" class="glossary">
+            <h2>Glossary</h2>
+            <dl>
+                <dt><strong>Bore</strong></dt><dd>Diameter of the engine cylinder.</dd>
+                <dt><strong>Stroke</strong></dt><dd>Distance moved by piston between TDC and BDC.</dd>
+                <dt><strong>Payload</strong></dt><dd>The weight of passengers and cargo a vehicle can carry.</dd>
+                <dt><strong>Gasket</strong></dt><dd>A seal used between two surfaces (like block and head) to prevent leaks.</dd>
+            </dl>
+        </section>
+
+        <section id="official-source" class="official-source">
+            <h2>Official Source Declaration</h2>
+            <p>This content is based on the <strong>SITTTR Kerala REV2021 Syllabus</strong> for Course Code <strong>2051 (Basic Automobile Engineering)</strong>. The primary source is the official curriculum document provided by the State Institute of Technical Teachers' Training and Research, Kerala.</p>
+            <p>Reference Books listed in syllabus: Kirpal Singh (Vol II), R.B. Gupta, William H. Crouse.</p>
+        </section>
+
+        <section lang="ml" class="ml-note">
+            <strong>മലയാളം പഠനസഹായം / Malayalam learning support</strong>
+            <p>ഈ പാഠഭാഗം ഓട്ടോമൊബൈൽ എഞ്ചിനീയറിംഗിന്റെ അടിസ്ഥാന തത്വങ്ങളെക്കുറിച്ചാണ്. വാഹനങ്ങളുടെ വർഗ്ഗീകരണം, എഞ്ചിൻ ഭാഗങ്ങൾ, അവയുടെ പ്രവർത്തനം എന്നിവ ഇതിൽ ഉൾപ്പെടുന്നു. പ്രധാനപ്പെട്ട സാങ്കേതിക പദങ്ങൾ ഇംഗ്ലീഷിൽ തന്നെ പഠിക്കാൻ ശ്രദ്ധിക്കുക, കാരണം പരീക്ഷയ്ക്ക് അവയാണ് ഉപയോഗിക്കേണ്ടത്.</p>
+        </section>
+
+    </main>
+</div>
+
+<script>
+    "use strict";
+    
+    // Reading Progress
+    window.onscroll = function() {
+        let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let scrolled = (winScroll / height) * 100;
+        document.getElementById("readingProgress").style.width = scrolled + "%";
+    };
+
+    // CR Calculator
+    function calcCR() {
+        let vs = parseFloat(document.getElementById('vs').value);
+        let vc = parseFloat(document.getElementById('vc').value);
+        let resultDiv = document.getElementById('cr-result');
+        
+        if(isNaN(vs) || isNaN(vc) || vc <= 0) {
+            resultDiv.innerText = "Please enter valid positive numbers.";
+            return;
+        }
+        
+        let cr = (vs + vc) / vc;
+        resultDiv.innerText = "Compression Ratio: " + cr.toFixed(2) + " : 1";
+    }
+
+    // Print functionality
+    function preparePrint() {
+        const details = document.querySelectorAll('details');
+        details.forEach(detail => detail.setAttribute('open', 'true'));
+        window.print();
+    }
+</script>
+
+</body>
+</html>
