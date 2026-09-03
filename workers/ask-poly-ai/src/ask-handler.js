@@ -1076,6 +1076,12 @@ function textAnswerStream(answer, provider = "local-offline-assistant", model = 
   };
 }
 
+function preserveStreamText(value, maximum = 6000) {
+  return String(value || "")
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "")
+    .slice(0, maximum);
+}
+
 function workersAiStream(stream) {
   const reader = stream.getReader();
   const decoder = new TextDecoder();
@@ -1091,7 +1097,7 @@ function workersAiStream(stream) {
     if (!data || data === "[DONE]") return { done: data === "[DONE]", text: "" };
     try {
       const payload = JSON.parse(data);
-      return { done: false, text: cleanText(payload?.response || payload?.text || "", 6000) };
+      return { done: false, text: preserveStreamText(payload?.response || payload?.text || "", 6000) };
     } catch (_) {
       return { done: false, text: "" };
     }

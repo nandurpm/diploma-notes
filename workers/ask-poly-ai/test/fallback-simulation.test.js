@@ -124,7 +124,12 @@ test("streaming prefers Workers AI binding and normalizes native response SSE", 
       run: async (model, input) => {
         runModel = model;
         runInput = input;
-        const body = `data: ${JSON.stringify({ response: "Workers AI answer" })}\n\ndata: [DONE]\n\n`;
+        const body = [
+          JSON.stringify({ response: "Workers" }),
+          JSON.stringify({ response: " AI" }),
+          JSON.stringify({ response: " answer" }),
+          "[DONE]"
+        ].map((chunk) => `data: ${chunk}`).join("\n\n") + "\n\n";
         return new Response(body, { headers: { "Content-Type": "text/event-stream" } });
       }
     }
@@ -135,7 +140,9 @@ test("streaming prefers Workers AI binding and normalizes native response SSE", 
   assert.equal(runModel, "@cf/meta/llama-3.1-8b-instruct-fp8");
   assert.equal(runInput.stream, true);
   const text = await new Response(result.stream).text();
-  assert.match(text, /Workers AI answer/);
+  assert.match(text, /"content":"Workers"/);
+  assert.match(text, /"content":" AI"/);
+  assert.match(text, /"content":" answer"/);
   assert.match(text, /delta/);
   assert.equal(calls.length, 0);
 });
