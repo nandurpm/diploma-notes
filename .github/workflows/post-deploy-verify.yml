@@ -18,6 +18,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Verify production commit and page signatures
         env:

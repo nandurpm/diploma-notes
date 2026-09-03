@@ -29,6 +29,7 @@ jobs:
           sparse-checkout: scripts/prune_github_actions_caches.py
           sparse-checkout-cone-mode: false
 
+          persist-credentials: false
       - name: Delete stale caches while retaining recent families
         env:
           GH_TOKEN: ${{ github.token }}

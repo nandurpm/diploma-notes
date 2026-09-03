@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # Directories that should not be included in the public build
 EXCLUDED_ROOTS = {
     ".git", ".github", "android", "android-app", "docs", "reports", "supabase",
-    "tools", "workers", "node_modules", "_site",
+    "tools", "workers", "node_modules", "_site", "previews",
 }
 
 # File extensions considered source code and excluded by default
@@ -131,7 +131,7 @@ def should_copy(relative: str) -> bool:
 
 def build(target: Path, optimize: bool) -> None:
     target = target.resolve()
-    if target == ROOT or ROOT in target.parents and target.name not in {"_site", "public-build"}:
+    if target == ROOT or ROOT in target.parents and target.name not in {"_site", "_site_test", "public-build"}:
         raise ValueError(f"Refusing unsafe target directory: {target}")
     if target.exists():
         shutil.rmtree(target)
