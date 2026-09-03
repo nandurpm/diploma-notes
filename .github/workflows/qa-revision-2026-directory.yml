@@ -60,7 +60,7 @@ jobs:
 
       - name: Upload rendered QA evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: revision-2026-directory-rendered-qa
           path: |
