@@ -35,15 +35,19 @@ jobs:
       - name: Find newly added lesson files
         id: lessons
         shell: bash
+        env:
+          LESSON_PATH: ${{ inputs.lesson_path }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_AFTER: ${{ github.sha }}
         run: |
           set -euo pipefail
           : > /tmp/new-lessons.txt
 
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "${{ inputs.lesson_path }}" ]; then
-            printf '%s\n' "${{ inputs.lesson_path }}" >> /tmp/new-lessons.txt
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ -n "$LESSON_PATH" ]; then
+            printf '%s\n' "$LESSON_PATH" >> /tmp/new-lessons.txt
           else
-            BEFORE="${{ github.event.before }}"
-            AFTER="${{ github.sha }}"
+            BEFORE="$EVENT_BEFORE"
+            AFTER="$EVENT_AFTER"
             if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
               BEFORE="$(git rev-list --max-parents=0 HEAD | tail -n 1)"
             fi
