@@ -98,7 +98,7 @@ jobs:
       - name: Set up Chromium
         if: steps.changed.outputs.has_changes == 'true'
         id: chrome
-        uses: browser-actions/setup-chrome@v1
+        uses: browser-actions/setup-chrome@a30a9c7b4cf895299f6f8e9e22cec327b60f3fe3 # v1
         with:
           chrome-version: 131
           install-dependencies: true
