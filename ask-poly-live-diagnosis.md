@@ -1,0 +1,13 @@
+# Ask POLY live diagnosis
+
+Date: 2026-09-03
+
+The live page is `https://polypmna.dpdns.org/ask-poly.html`. Its public client config uses `https://api.polypmna.dpdns.org/api/ask-poly` as the primary endpoint and `https://hwobooljdvynsajtrvnk.supabase.co/functions/v1/ask-poly-proxy/api/ask-poly` as fallback. Both routes currently return HTTP 502 for a fresh streaming question. The live health endpoint returns HTTP 200 and reports configured providers `cloudflare-workers-ai`, `cloudflare-workers-ai-rest`, `nvidia`, and `openrouter`, but health only confirms configuration, not a successful inference.
+
+Cloudflare Workers Observability was queried read-only for the last 20 minutes. Recent `POST /api/ask-poly` events show the deployed Worker version returning 502. The error chain is `Ask POLY streaming request failed` after NVIDIA streaming failed and all OpenRouter streaming models failed. The Worker logs do not include provider response bodies because the public error detail is disabled. This confirms the current streaming path reaches external providers but does not use the configured Cloudflare Workers AI binding.
+
+Repository source: `https://github.com/nandurpm/diploma-notes`. `workers/ask-poly-ai/src/index.js` already uses `env.AI.run(...)` for non-streaming requests through `askWithWorkersAI` and reports `workersAIFallback: true` in health. However, `askPolyStream` currently calls only `askExternalProviderStream(...)` in its provider loop, so a streaming request can fail even when the configured Workers AI binding is available.
+
+Official Cloudflare sources confirm the intended fix. `https://developers.cloudflare.com/workers-ai/models/llama-3.1-8b-instruct-fp8/` documents `env.AI.run("@cf/meta/llama-3.1-8b-instruct-fp8", { messages, stream: true })` returning a text/event-stream. `https://blog.cloudflare.com/workers-ai-streaming/` documents native Workers AI SSE chunks as `data: {"response":"..."}` followed by `data: [DONE]`. Therefore the backend should try `env.AI.run(model, { ...cloudflareInput(body, env), stream: true })` before third-party streaming providers and fall back to a buffered Workers AI response if a stream is unavailable. The browser parser must accept the native `response` field in addition to OpenAI-compatible `delta.content`.
+
+Prior repository investigation in `ask-poly-repair-findings.md` also established a client-side failover issue: HTTP 400 was initially excluded from the retryable status set, and the current repository includes that fix. The remaining current live failure is backend provider availability/streaming-path coverage, not CORS or browser reachability.

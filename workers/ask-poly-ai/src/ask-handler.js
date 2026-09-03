@@ -1076,6 +1076,77 @@ function textAnswerStream(answer, provider = "local-offline-assistant", model = 
   };
 }
 
+function workersAiStream(stream) {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  let buffer = "";
+
+  const parseEvent = (eventText) => {
+    const data = eventText.split(/\r?\n/)
+      .filter((line) => line.startsWith("data:"))
+      .map((line) => line.slice(5).trimStart())
+      .join("\n")
+      .trim();
+    if (!data || data === "[DONE]") return { done: data === "[DONE]", text: "" };
+    try {
+      const payload = JSON.parse(data);
+      return { done: false, text: cleanText(payload?.response || payload?.text || "", 6000) };
+    } catch (_) {
+      return { done: false, text: "" };
+    }
+  };
+
+  return new ReadableStream({
+    async pull(controller) {
+      try {
+        const { value, done } = await reader.read();
+        buffer += decoder.decode(value || new Uint8Array(), { stream: !done });
+        const events = buffer.split(/\r?\n\r?\n/);
+        buffer = events.pop() || "";
+        for (const event of events) {
+          const parsed = parseEvent(event);
+          if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
+          if (parsed.done) {
+            controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+            controller.close();
+            return;
+          }
+        }
+        if (done) {
+          if (buffer.trim()) {
+            const parsed = parseEvent(buffer);
+            if (parsed.text) controller.enqueue(encoder.encode(`data: ${JSON.stringify({ delta: { content: parsed.text } })}\n\n`));
+          }
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+        }
+      } catch (error) {
+        controller.error(error);
+      }
+    },
+    cancel(reason) {
+      return reader.cancel(reason);
+    }
+  });
+}
+
+async function askWorkersAiStream(body, env) {
+  if (!env?.AI || typeof env.AI.run !== "function") throw new Error("Cloudflare Workers AI binding is unavailable.");
+  const model = cleanText(env.WORKERS_AI_MODEL, 160) || "@cf/meta/llama-3.1-8b-instruct-fp8";
+  const result = await env.AI.run(model, {
+    messages: sanitizeHistory(body.history).concat([{ role: "user", content: buildUserContent(body) }]),
+    stream: true,
+    temperature: Number(env.AI_TEMPERATURE || 0.35),
+    max_tokens: Number(env.MAX_OUTPUT_TOKENS || 450)
+  });
+  const stream = result && typeof result.getReader === "function"
+    ? result
+    : result?.body && typeof result.body.getReader === "function" ? result.body : null;
+  if (!stream) throw new Error("Cloudflare Workers AI did not return a readable stream.");
+  return { stream: workersAiStream(stream), provider: "cloudflare-workers-ai", model };
+}
+
 export async function askPolyStream(body, env) {
   const message = cleanText(body?.message, 2200);
   if (!message) throw new Error("Please enter a question.");
@@ -1110,6 +1181,19 @@ export async function askPolyStream(body, env) {
   const input = sanitizeHistory(body.history);
   input.push({ role: "user", content: buildUserContent(body) });
   const errors = [];
+
+  // Use the configured Cloudflare Workers AI binding first for streaming. This
+  // path does not depend on third-party API quotas and its native response is
+  // normalized to the OpenAI-compatible SSE format expected by the browser.
+  if (env?.AI && typeof env.AI.run === "function") {
+    try {
+      return await askWorkersAiStream(body, env);
+    } catch (error) {
+      errors.push(`cloudflare-workers-ai: ${error?.status || "error"} ${cleanText(error?.message, 180)}`);
+      console.error("Ask POLY Cloudflare Workers AI streaming provider failed", error);
+    }
+  }
+
   for (const provider of providerOrder(env)) {
     try {
       return await askExternalProviderStream(input, env, provider);

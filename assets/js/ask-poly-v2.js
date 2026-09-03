@@ -590,7 +590,11 @@
       if (!data || data === "[DONE]") return data === "[DONE]";
       try {
         const payload = JSON.parse(data);
-        const delta = payload?.delta?.content || payload?.choices?.[0]?.delta?.content || "";
+        const delta = payload?.delta?.content
+          || payload?.choices?.[0]?.delta?.content
+          || payload?.response
+          || payload?.text
+          || "";
         if (delta) { answer += delta; await onDelta(answer); }
       } catch (_) {
         // Ignore malformed keep-alive/event fragments.

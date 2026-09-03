@@ -113,6 +113,33 @@ test("Gemini answers when both OpenRouter and NVIDIA are unavailable", async () 
   assert.match(calls.at(-1).url, /generativelanguage\.googleapis\.com/);
 });
 
+test("streaming prefers Workers AI binding and normalizes native response SSE", async () => {
+  const calls = [];
+  let runModel = "";
+  let runInput = null;
+  const env = {
+    ...baseEnv,
+    AI_PROVIDER_ORDER: "nvidia,openrouter",
+    AI: {
+      run: async (model, input) => {
+        runModel = model;
+        runInput = input;
+        const body = `data: ${JSON.stringify({ response: "Workers AI answer" })}\n\ndata: [DONE]\n\n`;
+        return new Response(body, { headers: { "Content-Type": "text/event-stream" } });
+      }
+    }
+  };
+  installFetch({ nvidia: "fail", openrouter: "fail", calls });
+  const result = await askPolyStream({ message: "Explain voltage", history: [] }, env);
+  assert.equal(result.provider, "cloudflare-workers-ai");
+  assert.equal(runModel, "@cf/meta/llama-3.1-8b-instruct-fp8");
+  assert.equal(runInput.stream, true);
+  const text = await new Response(result.stream).text();
+  assert.match(text, /Workers AI answer/);
+  assert.match(text, /delta/);
+  assert.equal(calls.length, 0);
+});
+
 test("streaming fallback reaches OpenRouter after NVIDIA fails", async () => {
   const calls = [];
   installFetch({ nvidia: "fail", openrouter: "success", gemini: "success", calls });
