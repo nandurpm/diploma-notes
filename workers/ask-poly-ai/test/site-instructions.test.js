@@ -11,7 +11,7 @@ test("system instructions preserve website grounding and revision boundaries", (
 });
 
 test("system instructions preserve offline, privacy, and rendering contracts", () => {
-  assert.match(SYSTEM_INSTRUCTIONS, /API FALLBACK HIERARCHY/);
+  assert.match(SYSTEM_INSTRUCTIONS, /API FAILURE FALLBACK HIERARCHY/);
   assert.match(SYSTEM_INSTRUCTIONS, /advanced AI service is temporarily unavailable/);
   assert.match(SYSTEM_INSTRUCTIONS, /Never disclose API keys/);
   assert.match(SYSTEM_INSTRUCTIONS, /Markdown table/);
