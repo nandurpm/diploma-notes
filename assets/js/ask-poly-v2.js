@@ -476,6 +476,7 @@
   }
 
   function setPrompts(items) {
+    if (!els.prompts) return;
     els.prompts.replaceChildren();
     items.forEach(([label, prompt]) => {
       const b = document.createElement("button");
