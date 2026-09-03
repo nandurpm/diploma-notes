@@ -21,7 +21,7 @@ jobs:
       PDF_CHANGED_FILES: ${{ join(github.event.client_payload.changed_files, '\n') }}
     steps:
       - name: Check out consumer repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
 

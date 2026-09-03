@@ -35,7 +35,7 @@ jobs:
     timeout-minutes: 60
     steps:
       - name: Check out main repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
           fetch-depth: 0
