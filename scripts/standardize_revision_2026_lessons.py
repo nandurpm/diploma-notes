@@ -13,6 +13,7 @@ It produces a machine-readable report suitable for review and reruns safely.
 from __future__ import annotations
 
 import json
+import os
 import re
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
@@ -345,6 +346,10 @@ def process_file(path: Path, master: dict[str, dict], breakdown: dict[str, set[s
 
     changed = bool(actions)
     if changed:
+        base_real = os.path.realpath(LESSONS_DIR)
+        target_real = os.path.realpath(path)
+        if os.path.commonpath([base_real, target_real]) != base_real:
+            raise Exception("Invalid file path")
         path.write_text(str(soup), encoding="utf-8")
     return {
         "code": code,
