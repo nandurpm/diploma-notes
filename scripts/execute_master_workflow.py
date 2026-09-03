@@ -166,7 +166,12 @@ def validate_and_save(html_code, code, revision):
     target_dir = REV2021_DIR if revision == '2021' else REV2026_DIR
     target_path = target_dir / filename
     
-    target_path.write_text(html_code, encoding='utf-8')
+    base_real = os.path.realpath(target_dir)
+    target_real = os.path.realpath(target_path)
+    if os.path.commonpath([base_real, target_real]) != base_real:
+        raise Exception("Invalid file path")
+    
+    Path(target_real).write_text(html_code, encoding='utf-8')
     log(f"Successfully saved {target_path}")
     return True
 

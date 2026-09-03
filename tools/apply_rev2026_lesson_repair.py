@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import html
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -39,7 +40,11 @@ def write(path: Path, text: str, check: bool) -> bool:
         return False
     if check:
         raise RuntimeError(f"stale generated/source file: {path.relative_to(ROOT)}")
-    path.write_text(text, encoding="utf-8")
+    base_real = os.path.realpath(ROOT)
+    target_real = os.path.realpath(path)
+    if os.path.commonpath([base_real, target_real]) != base_real:
+        raise RuntimeError("Invalid file path")
+    Path(target_real).write_text(text, encoding="utf-8")
     return True
 
 

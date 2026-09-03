@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
@@ -111,6 +112,10 @@ def read_manifest(pdf_root: Path, revision: str) -> tuple[dict, dict[str, dict],
 
 
 def write_markdown(result: dict, path: Path) -> None:
+    base_real = os.path.realpath(path.parent)
+    target_real = os.path.realpath(path)
+    if os.path.commonpath([base_real, target_real]) != base_real:
+        raise Exception("Invalid file path")
     counts = result["lessonCountByRevision"]
     lines = [
         "# Weekly Lesson and PDF Health Check",
@@ -145,7 +150,8 @@ def write_markdown(result: dict, path: Path) -> None:
             "",
             "All lesson-source, manifest, canonical-path, PDF-signature, byte-size, SHA-256, and page-count checks passed.",
         ]
-    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    target_real_path = Path(target_real)
+    target_real_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
 def main() -> int:

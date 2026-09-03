@@ -10,6 +10,7 @@ and whitespace outside the exact opening tags it repairs.
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -179,7 +180,11 @@ def repair_page(path: Path, check: bool) -> bool:
         return False
     if check:
         raise ValueError(f"Accessibility repair required: {relative}")
-    path.write_text(updated, encoding="utf-8")
+    base_real = os.path.realpath(ROOT)
+    target_real = os.path.realpath(path)
+    if os.path.commonpath([base_real, target_real]) != base_real:
+        raise ValueError("Invalid file path")
+    Path(target_real).write_text(updated, encoding="utf-8")
     return True
 
 
