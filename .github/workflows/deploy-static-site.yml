@@ -15,7 +15,10 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.event_name != 'issues' || github.event.issue.title == '[automation] Deploy static site to production'
+    if: >-
+      github.event_name != 'issues' ||
+      (github.event.issue.title == '[automation] Deploy static site to production' &&
+       contains(fromJSON('["OWNER","MEMBER","COLLABORATOR"]'), github.event.issue.author_association))
     runs-on: ubuntu-latest
     timeout-minutes: 12
     env:
@@ -29,6 +32,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

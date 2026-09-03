@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -44,7 +46,7 @@ jobs:
           echo "${{ steps.app.outputs.apk_sha }}  emulator-artifacts/POLY_PMNA.apk" | sha256sum --check --strict
 
       - name: Install APK and verify native print dialog in emulator
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: reactivecircus/android-emulator-runner@d2f3dfb75ea5ebf50d31b594ff5f42ed1cce9c1b # v2
         with:
           api-level: 34
           target: google_apis
