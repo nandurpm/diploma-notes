@@ -37,7 +37,7 @@ jobs:
 
       - name: Upload weekly PDF-link health reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: weekly-pdf-link-health-${{ github.run_number }}
           path: reports/weekly-pdf-link-check/
