@@ -611,8 +611,11 @@
   }
 
   async function callAI(message, history, localContext, onDelta = async () => {}) {
-    const endpoint = window.ASK_POLY_CONFIG?.endpoint;
-    if (!endpoint) throw new Error("Ask POLY endpoint is missing.");
+    const config = window.ASK_POLY_CONFIG || {};
+    const endpoints = [...new Set([config.endpoint, config.fallbackEndpoint]
+      .map((endpoint) => String(endpoint || "").trim())
+      .filter(Boolean))];
+    if (!endpoints.length) throw new Error("Ask POLY endpoint is missing.");
     const generationRequest = /(?:flowchart|flow chart).*(?:current generation|electric(?:al)? current.*(?:produc|generat))|(?:current generation|electric(?:al)? current.*(?:produc|generat)).*(?:flowchart|flow chart)/i.test(message);
     const inductionRequest = /electromagnetic induction|faraday(?:'s|s)? law|lenz(?:'s|s)? law|induced emf|magnetic flux/i.test(message);
     const solarRequest = /solar panel|photovoltaic|solar cell|\bPV\b/i.test(message);
@@ -623,43 +626,62 @@
         : solarRequest
           ? `${message}\n\nExplain the photovoltaic effect precisely. Light creates electron–hole pairs in the semiconductor, and the p–n junction's built-in electric field separates the charges. Electrons move toward the n-type side and holes toward the p-type side inside the cell. Distinguish this microscopic electron movement from conventional current: conventional current is defined in the direction positive charge would move, opposite to electron flow in the external circuit. State that a solar cell produces DC, and mention the inverter only when discussing conversion to AC.`
           : message;
-    const timeoutMs = Number(window.ASK_POLY_CONFIG?.timeoutMs || 30000);
+    const timeoutMs = Number(config.timeoutMs || 30000);
     const controller = new AbortController();
     activeController = controller;
     const timer = setTimeout(() => controller.abort(), Math.max(5000, timeoutMs));
+    const requestBody = JSON.stringify({
+      message: aiMessage,
+      history,
+      preferredLanguage: preferredResponseLanguage(message),
+      pageTitle: "Ask POLY whole-site knowledge",
+      pageContext: localContext || "",
+      stream: true
+    });
+    let lastError;
     try {
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        cache: "no-store",
-        signal: controller.signal,
-        body: JSON.stringify({
-          message: aiMessage,
-          history,
-          preferredLanguage: preferredResponseLanguage(message),
-          pageTitle: "Ask POLY whole-site knowledge",
-          pageContext: localContext || "",
-          stream: true
-        })
-      });
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
+      for (const endpoint of endpoints) {
+        const headers = { "Content-Type": "application/json", Accept: "text/event-stream" };
+        if (new URL(endpoint, location.href).hostname.endsWith("supabase.co")) {
+          const key = String(config.supabasePublishableKey || "").trim();
+          if (key) {
+            headers.apikey = key;
+            headers.Authorization = `Bearer ${key}`;
+            headers["X-Client-Info"] = "poly-pmna-ask-web/3";
+          }
+        }
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers,
+            cache: "no-store",
+            signal: controller.signal,
+            body: requestBody
+          });
+          if (!response.ok) {
+            const data = await response.json().catch(() => ({}));
+            throw new Error(data.detail || data.error || `AI failed with HTTP ${response.status}`);
+          }
+          if ((response.headers.get("content-type") || "").includes("text/event-stream")) {
+            const smooth = createSmoothDeltaHandler(onDelta);
+            const answer = await readSseAnswer(response, smooth.push);
+            await smooth.flush();
+            return {
+              answer: answer || "No answer received.",
+              provider: response.headers.get("X-Ask-Poly-Provider") || "ai",
+              model: response.headers.get("X-Ask-Poly-Model") || ""
+            };
+          }
+          const data = await response.json().catch(() => ({}));
+          const answer = data.answer || data.message || data.reply || "No answer received.";
+          await onDelta(answer);
+          return { answer, provider: data.provider || "ai", model: data.model || "" };
+        } catch (error) {
+          if (error?.name === "AbortError") throw error;
+          lastError = error;
+        }
       }
-      if ((response.headers.get("content-type") || "").includes("text/event-stream")) {
-        const smooth = createSmoothDeltaHandler(onDelta);
-        const answer = await readSseAnswer(response, smooth.push);
-        await smooth.flush();
-        return {
-          answer: answer || "No answer received.",
-          provider: response.headers.get("X-Ask-Poly-Provider") || "ai",
-          model: response.headers.get("X-Ask-Poly-Model") || ""
-        };
-      }
-      const data = await response.json().catch(() => ({}));
-      const answer = data.answer || data.message || data.reply || "No answer received.";
-      await onDelta(answer);
-      return { answer, provider: data.provider || "ai", model: data.model || "" };
+      throw lastError || new Error("Ask POLY AI could not be reached.");
     } finally {
       if (activeController === controller) activeController = null;
       clearTimeout(timer);
