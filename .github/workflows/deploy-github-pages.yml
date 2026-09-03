@@ -40,7 +40,7 @@ jobs:
           test ! -s <(grep -o 'id="contextDepartment"' _site/ask-poly.html)
           test ! -s <(grep -o 'class="ask-context-bar"' _site/ask-poly.html)
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: _site
 
