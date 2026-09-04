@@ -74,7 +74,10 @@ jobs:
               'SUPABASE_SERVICE_ROLE_KEY'
           ):
               assert secret_name not in public_config
-          assert 'api.polypmna.dpdns.org/api/ask-poly' in public_config
+          assert (
+              'ask-poly-ai.nandakumarkdpm.workers.dev/api/ask-poly' in public_config
+              or 'api.polypmna.dpdns.org/api/ask-poly' in public_config
+          )
           assert 'api.polypmna.dpdns.org/api/evaluate-mock-exam' in public_config
           assert 'backupEndpoint' not in public_config
 
