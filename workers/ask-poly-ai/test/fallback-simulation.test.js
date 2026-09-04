@@ -147,6 +147,27 @@ test("streaming prefers Workers AI binding and normalizes native response SSE", 
   assert.equal(calls.length, 0);
 });
 
+test("cumulative Workers AI snapshots become suffix deltas", async () => {
+  const env = {
+    ...baseEnv,
+    AI: {
+      run: async () => {
+        const body = ["It", "It seems", "It seems like"]
+          .map((chunk) => `data: ${JSON.stringify({ response: chunk })}`)
+          .concat("data: [DONE]")
+          .join("\n\n") + "\n\n";
+        return new Response(body, { headers: { "Content-Type": "text/event-stream" } });
+      }
+    }
+  };
+  const result = await askPolyStream({ message: "why", history: [] }, env);
+  const text = await new Response(result.stream).text();
+  assert.match(text, /"content":"It"/);
+  assert.match(text, /"content":" seems"/);
+  assert.match(text, /"content":" like"/);
+  assert.doesNotMatch(text, /"content":"It seems"/);
+  assert.doesNotMatch(text, /"content":"It seems like"/);
+});
 test("streaming fallback reaches OpenRouter after NVIDIA fails", async () => {
   const calls = [];
   installFetch({ nvidia: "fail", openrouter: "success", gemini: "success", calls });

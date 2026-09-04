@@ -1087,8 +1087,38 @@ function workersAiStream(stream) {
   const decoder = new TextDecoder();
   const encoder = new TextEncoder();
   let buffer = "";
-
+  let previousText = "";
+  let streamShape = null;
+  const toDelta = (text) => {
+    if (!text) return "";
+    if (streamShape === "cumulative") {
+      if (text.startsWith(previousText)) {
+        const delta = text.slice(previousText.length);
+        previousText = text;
+        return delta;
+      }
+      streamShape = "delta";
+      previousText += text;
+      return text;
+    }
+    if (streamShape === null) {
+      if (!previousText) {
+        previousText = text;
+        return text;
+      }
+      if (text.startsWith(previousText) && text.length >= previousText.length) {
+        streamShape = "cumulative";
+        const delta = text.slice(previousText.length);
+        previousText = text;
+        return delta;
+      }
+      streamShape = "delta";
+    }
+    previousText += text;
+    return text;
+  };
   const parseEvent = (eventText) => {
+
     const data = eventText.split(/\r?\n/)
       .filter((line) => line.startsWith("data:"))
       .map((line) => line.slice(5).trimStart())
@@ -1097,7 +1127,7 @@ function workersAiStream(stream) {
     if (!data || data === "[DONE]") return { done: data === "[DONE]", text: "" };
     try {
       const payload = JSON.parse(data);
-      return { done: false, text: preserveStreamText(payload?.response || payload?.text || "", 6000) };
+      return { done: false, text: toDelta(preserveStreamText(payload?.response || payload?.text || "", 6000)) };
     } catch (_) {
       return { done: false, text: "" };
     }
