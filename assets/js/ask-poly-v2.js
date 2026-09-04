@@ -596,7 +596,7 @@
           || payload?.response
           || payload?.text
           || "";
-        if (delta) { answer += delta; await onDelta(answer); }
+        if (delta) { answer += delta; await onDelta(delta); }
       } catch (_) {
         // Ignore malformed keep-alive/event fragments.
       }
