@@ -64,6 +64,18 @@ test("configured provider order includes NVIDIA, OpenRouter, then Gemini", () =>
   assert.deepEqual(configuredProviders(baseEnv), ["nvidia", "openrouter", "gemini"]);
 });
 
+test("greetings and vague one-word prompts use concise deterministic replies", async () => {
+  const calls = [];
+  installFetch({ openrouter: "success", nvidia: "success", gemini: "success", calls });
+  const greeting = await askPolyStream({ message: "hi", history: [] }, baseEnv);
+  const greetingText = await new Response(greeting.stream).text();
+  assert.match(greetingText, /Hello! How can I help you/);
+  const vague = await askPolyStream({ message: "why", history: [] }, baseEnv);
+  const vagueText = await new Response(vague.stream).text();
+  assert.match(vagueText, /What would you like to know about/);
+  assert.equal(calls.length, 0);
+});
+
 test("English is the default even when context and history contain Malayalam", async () => {
   assert.equal(resolvePreferredLanguage({ message: "What are diodes?", preferredLanguage: "" }), "en");
   const calls = [];
@@ -160,7 +172,7 @@ test("cumulative Workers AI snapshots become suffix deltas", async () => {
       }
     }
   };
-  const result = await askPolyStream({ message: "why", history: [] }, env);
+  const result = await askPolyStream({ message: "Explain voltage", history: [] }, env);
   const text = await new Response(result.stream).text();
   assert.match(text, /"content":"It"/);
   assert.match(text, /"content":" seems"/);

@@ -294,7 +294,7 @@ body.ask-chats-open{overflow:hidden}
 
 /* Structured AI response layout: readable sections instead of one long broken text block. */
 .ask-bubble.ai {
-  max-width: min(980px, 92%);
+  max-width: min(760px, 78%);
   white-space: normal;
   padding: 16px 18px 13px;
 }
