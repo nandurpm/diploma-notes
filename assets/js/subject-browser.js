@@ -2,6 +2,15 @@
 (() => {
   "use strict";
 
+  // Every subject browser uses the same canonical manifest resolver.
+  if (!document.querySelector('script[data-canonical-pdf-resolver]')) {
+    const resolver = document.createElement("script");
+    resolver.dataset.canonicalPdfResolver = "true";
+    resolver.src = new URL("lesson-availability-hotfix.js?v=20260905-canonical-pdf-manifests", document.currentScript.src).href;
+    document.head.append(resolver);
+  }
+
+
   const COMMON = "First Year / Common";
   const COMMON_VALUE = "__common__";
   const ALL_DEPARTMENTS = "all";
@@ -435,3 +444,4 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, { once: true });
   else init();
 })();
+

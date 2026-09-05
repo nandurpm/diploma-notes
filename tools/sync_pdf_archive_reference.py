@@ -1,5 +1,6 @@
 import json
 import os
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
@@ -12,6 +13,7 @@ MANIFEST_NAMES = (
     "notes-2021.json",
     "notes-2026.json",
     "notes-template.json",
+    "archive-index.json",
     "sitttr-2015.json",
     "sitttr-2021.json",
     "sitttr-2026.json",
@@ -20,8 +22,24 @@ MANIFEST_NAMES = (
 )
 
 
+def source_commit() -> str:
+    value = os.environ.get("PDF_ARCHIVE_SHA", "manual")
+    if value == "manual":
+        request = Request("https://api.github.com/repos/nandurpm/poly-pmna-pdf-files/commits/main",
+                          headers={"User-Agent": "POLY-PMNA-archive-sync"})
+        with urlopen(request, timeout=30) as response:
+            value = json.load(response)["sha"]
+    if not re.fullmatch(r"[0-9a-f]{40}", value):
+        raise ValueError("Expected a full archive commit SHA")
+    return value
+
+
+SOURCE_SHA = source_commit()
+SNAPSHOT_BASE = BASE.rsplit("/", 1)[0] + "/" + SOURCE_SHA
+
+
 def load_manifest(name: str) -> dict:
-    request = Request(f"{BASE}/manifests/{name}", headers={"User-Agent": "POLY-PMNA-archive-sync"})
+    request = Request(f"{SNAPSHOT_BASE}/manifests/{name}", headers={"User-Agent": "POLY-PMNA-archive-sync"})
     with urlopen(request, timeout=30) as response:
         return json.load(response)
 
@@ -39,7 +57,7 @@ for name, manifest in manifests.items():
 payload = {
     "sourceRepository": "nandurpm/poly-pmna-pdf-files",
     "sourceBranch": "main",
-    "sourceCommit": os.environ.get("PDF_ARCHIVE_SHA", "manual"),
+    "sourceCommit": SOURCE_SHA,
     "updatedAt": datetime.now(timezone.utc).isoformat(),
     "changedFiles": [item for item in os.environ.get("PDF_CHANGED_FILES", "").splitlines() if item],
     "manifests": {
@@ -56,3 +74,4 @@ payload = {
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 OUTPUT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 print(f"Wrote {OUTPUT}")
+
