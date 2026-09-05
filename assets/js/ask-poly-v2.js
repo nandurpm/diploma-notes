@@ -548,7 +548,7 @@
     const value = String(text || "").trim();
     if (!value || /^\d{1,3}$/.test(value)) return false;
     if (/\b[1-6]\d{3,4}[A-Z]?\b/i.test(value)) return true;
-    return /subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available/i.test(value);
+    return /\b(?:subject|syllabus|notes|lesson|department|programme|course|semester|revision|rev\s*202[16]|sitttr|qp|question paper|mock|quiz|exam|tool|calculator|converter|materials|2015|2021|2026|broken|report|website|page|link|find|search|home|about|help|download|available)\b/i.test(value);
   }
 
   function preferredResponseLanguage(message) {
