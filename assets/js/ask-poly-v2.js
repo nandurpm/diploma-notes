@@ -530,7 +530,7 @@
       bubble.innerHTML = '<div class="ask-response-body ask-streaming-body"></div>';
       els.messages.append(bubble);
     }
-    bubble.querySelector(".ask-response-body").textContent = text;
+    bubble.innerHTML = renderText(text);
     els.messages.scrollTop = els.messages.scrollHeight;
   }
   function removeStreamingAnswer() { $("streamingAnswerBubble")?.remove(); }
@@ -570,7 +570,7 @@
     return {
       push: async (delta) => {
         pending += delta;
-        if (pending.length >= 28 || /[\\s.!?,;:\n]$/.test(pending)) await flush();
+        if (pending.length >= 34 || /[\s.!?,;:\n]$/.test(pending)) await flush();
       },
       flush,
       value: () => displayed + pending
