@@ -900,3 +900,15 @@ html.polytechnic-native-app .ask-diagram { margin: 10px 0 2px; }
 @media (prefers-reduced-motion: reduce) {
   #streamingAnswerBubble .ask-response-body::after { animation: none; opacity: 1; }
 }
+
+.ask-empty-state{display:grid;gap:6px;max-width:min(620px,78%);margin:18px auto;padding:18px 20px;border:1px solid #dbe7f2;border-radius:18px;background:linear-gradient(135deg,#f8fbff,#f0fdfa);color:#475569;line-height:1.55;box-shadow:0 8px 24px rgba(15,23,42,.05)}
+.ask-empty-state strong{color:#0f3b66;font-size:1rem}
+.ask-empty-state span{font-size:.9rem}
+@media(max-width:700px){.ask-empty-state{max-width:94%;margin:10px auto;padding:14px 15px}}
+
+.ask-bubble.ai ol,.ask-bubble.ai ul{margin:10px 0 14px;padding-left:1.65rem}
+.ask-bubble.ai li{margin:6px 0;padding-left:3px;line-height:1.55}
+.ask-bubble.ai ol li::marker{font-weight:700;color:#1d4ed8}
+.ask-bubble.ai ul li::marker{color:#0f766e}
+.ask-bubble.ai p + ol,.ask-bubble.ai p + ul{margin-top:12px}
+.ask-bubble.ai ol + p,.ask-bubble.ai ul + p{margin-top:14px}

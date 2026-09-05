@@ -118,7 +118,6 @@
     const chat = { id: id(), title, createdAt: now(), updatedAt: now() };
     await putChat(chat);
     activeChatId = chat.id;
-    await addMessage("assistant", "Hi. I am Ask POLY AI. I can guide you through Revision 2026, Revision 2021, 2015 materials, subjects, lessons, notes, mock exams, tools and the rest of POLY PMNA. This chat is saved in your browser.");
     await renderAll();
   }
 
@@ -340,7 +339,12 @@
       if (/^\s*[-*•]\s+/.test(line)) {
         flushParagraph();
         const items = [];
-        while (index < lines.length && /^\s*[-*•]\s+/.test(lines[index])) {
+        while (index < lines.length) {
+          if (!lines[index].trim() && /^\s*[-*•]\s+/.test(lines[index + 1] || "")) {
+            index += 1;
+            continue;
+          }
+          if (!/^\s*[-*•]\s+/.test(lines[index])) break;
           items.push(`<li>${renderInlineMarkdown(lines[index].replace(/^\s*[-*•]\s+/, ""))}</li>`);
           index += 1;
         }
@@ -352,7 +356,12 @@
       if (/^\s*\d+[.)]\s+/.test(line)) {
         flushParagraph();
         const items = [];
-        while (index < lines.length && /^\s*\d+[.)]\s+/.test(lines[index])) {
+        while (index < lines.length) {
+          if (!lines[index].trim() && /^\s*\d+[.)]\s+/.test(lines[index + 1] || "")) {
+            index += 1;
+            continue;
+          }
+          if (!/^\s*\d+[.)]\s+/.test(lines[index])) break;
           items.push(`<li>${renderInlineMarkdown(lines[index].replace(/^\s*\d+[.)]\s+/, ""))}</li>`);
           index += 1;
         }
@@ -427,6 +436,12 @@
   async function renderMessages() {
     const messages = await getMessages(activeChatId);
     els.messages.replaceChildren();
+    if (!messages.length) {
+      const empty = document.createElement("div");
+      empty.className = "ask-empty-state";
+      empty.innerHTML = '<strong>Ask POLY is ready.</strong><span>Ask about subjects, syllabus, notes, exams, engineering topics, or any POLY PMNA page.</span>';
+      els.messages.append(empty);
+    }
     messages.forEach((m) => els.messages.append(bubble(m)));
     els.messages.scrollTop = els.messages.scrollHeight;
     const chat = await getChat(activeChatId);
