@@ -1,0 +1,1666 @@
+{
+  "sourceCommit": "2cba10718deaf179717ee52b1247df2b4146bbe3",
+  "documents": [
+    {
+      "sourcePath": "notes/downloadable-notes-1001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1001.pdf",
+      "gitBlob": "1a99b3561ad2749c23c5d9bcca9f04db9c4abf91",
+      "sha256": "1a4cc429c175e5c91fb35a960c0b94310a591e477383d791e740c61e26eea3ff",
+      "bytes": 245860
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1002.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1002.pdf",
+      "gitBlob": "e43bb46621da1db72ac1666acab08c7219c5e74d",
+      "sha256": "7c7b36663996555f9c1f88735d7c1f12dc240f25dfc1b131b8f1bcf55f0d214a",
+      "bytes": 590622
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1003.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1003.pdf",
+      "gitBlob": "b66a3bc750ce04733762e0fd1c5ede1e1553d02e",
+      "sha256": "00dde5b5a4d44ea6476c3a254faa4cd66e9ebf60089481496be52d39c4bcb0ef",
+      "bytes": 2873943
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1004.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1004.pdf",
+      "gitBlob": "f8b7b772166657398ed1091054bac7a2fb63c9a5",
+      "sha256": "e83c6ca448ce05ed00c7f11f170b12857bd2ed67f7cd79e8a9b094e57639cf57",
+      "bytes": 354946
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1005.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1005.pdf",
+      "gitBlob": "b44675be5662680e493844cf8d2d8d249c08e644",
+      "sha256": "54958cccd0b781893f97acb328c70dc4c21659f2286d64adc127287173da6f4d",
+      "bytes": 327468
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1006.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1006.pdf",
+      "gitBlob": "ff36761b4ab06045f868318ff14cdad1d9e4f8fe",
+      "sha256": "c736f07631c3be819bc57f577f7c1290a4457fca9fcb225f34b7ecb928088cb5",
+      "bytes": 655793
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1007.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1007.pdf",
+      "gitBlob": "7df77d966a63f30a84365fc07ce3b9e303ac97a2",
+      "sha256": "6169c7791084782d477be20fb0c50e9f933b632f073359786e274f839f8853af",
+      "bytes": 827361
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1008.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1008.pdf",
+      "gitBlob": "2614be0254ca4f0484484da8104a54282f5cceb0",
+      "sha256": "117d4b18d63fde3be0cfb8f7323449485b905bbf6dcc199a77fd77e3591a260a",
+      "bytes": 947046
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1009.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1009.pdf",
+      "gitBlob": "cb27bc8489638be496e02f1bdc5c38311a6c95f8",
+      "sha256": "6aed917d25bb10bfd77deae2b85d3e2fc971fc190d121bca951eb5c5cd490054",
+      "bytes": 4013611
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1141.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1141.pdf",
+      "gitBlob": "77e618ca568757af854fcbc30097362343650f60",
+      "sha256": "d656ca51ba3e58d1440a0937617acf8b91298e14c6fb1c0d33b0d29dc4e132c1",
+      "bytes": 4733955
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1142.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1142.pdf",
+      "gitBlob": "730e78b5d2accd30ce54ad7bb429325e36fe5747",
+      "sha256": "804d70a114a5d4dd5886abd40bf3938f70c8b98e19f877795b1ca3ce2776db95",
+      "bytes": 4015724
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1143.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1143.pdf",
+      "gitBlob": "dd843b4cfab2d86ee057b4e08d980a1a868dfcb5",
+      "sha256": "8dbb664ed889c3ad57093a1829ab1dac23bf50cb7d7c8cec51c6a9a177127e06",
+      "bytes": 4014077
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1144.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1144.pdf",
+      "gitBlob": "90678d96f594a088569d48e1275b165bca3bc23b",
+      "sha256": "9ce77baa692593e252c75ba5227ba7b3f8ada4bc4fc71a8c7ece3e4b2d023d22",
+      "bytes": 4016490
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-1149.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-1149.pdf",
+      "gitBlob": "b543d75e52edb489ab87acfc142d7ce3e609ff84",
+      "sha256": "86b2a63c4769b32739b1e7868e06577880b6ed3856e336bf9d06cbc1fd968b81",
+      "bytes": 4726507
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2001.pdf",
+      "gitBlob": "325b1f2818682baf94ffaa9505b0bee2e361a06c",
+      "sha256": "184d914d40c65b89e754d1f4f7342dbf7d7c94caff600901206e8c76b7361cfb",
+      "bytes": 615859
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2002.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2002.pdf",
+      "gitBlob": "a210a350e0c0b18617e2be77882254b50c42daf2",
+      "sha256": "2b089bdbb1d3da4b2695cf8d69dced55143389672997eb58c872589a9f1c3898",
+      "bytes": 726657
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2003.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2003.pdf",
+      "gitBlob": "38a3a8bfdb327de6010ad84c5876120cc19aff2a",
+      "sha256": "f5844a47550a77ba0e57ae4ba1b47e95b6272bcc3b05a0169d65698031e3ac7b",
+      "bytes": 328743
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2006.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2006.pdf",
+      "gitBlob": "73342442e4815085d98261b7f0baff38fcb1fbb2",
+      "sha256": "9c55722c882574d45dc6249582ac3cf35e3a62be791d56f454555736fcbd7e5e",
+      "bytes": 312556
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2011.pdf",
+      "gitBlob": "8afa999987e6ab1787fa968d293a9fcea5d1e6b2",
+      "sha256": "4447df4ee6db8f18c3901a30bf21d7974d315a1e314cb7dfac9a1f198f1ca879",
+      "bytes": 47508854
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2021.pdf",
+      "gitBlob": "e370096eee05441c71d3e9e4e2cf631ed13f74d2",
+      "sha256": "cc0d8247dd90cd587603fde91092588bf59586310635c468c2b4cb4010cb2308",
+      "bytes": 440278
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2022.pdf",
+      "gitBlob": "45bad68449479570ac8cd40592c196325dafaca0",
+      "sha256": "bb35b3925b80e29382f152f40fdc01a9e9b4b845c8d234421e9ecfa55f4395c5",
+      "bytes": 269581
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2028.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2028.pdf",
+      "gitBlob": "60fa0074092c3f31288aa2714e4c9595755f5cca",
+      "sha256": "8a1fa0e813bd20808a67b91221f2f4b9e8573e99d414ba6b6c1386193560e2ba",
+      "bytes": 278168
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2029.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2029.pdf",
+      "gitBlob": "05c366cfff97c4f47d278a53f8ac0a1ef40b4f06",
+      "sha256": "8cbebc703939aae6eefb431baed852da1e049a3897ce2b064fff205b699b2a3f",
+      "bytes": 643348
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2031.pdf",
+      "gitBlob": "0ebda0e2d1d869b07641d3d3c9005967f812ab87",
+      "sha256": "555f635438e95b34b2b50f5a702570fc6a5333386237e9abccb75327630bfeb1",
+      "bytes": 306719
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2032.pdf",
+      "gitBlob": "cc23e65bb8b426f2727c6661fe79353386a38f73",
+      "sha256": "631139fd2348c1996883cfebc2201e74df3005f1757f6517c2c75dafb6a52b75",
+      "bytes": 442871
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2038.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2038.pdf",
+      "gitBlob": "aa86691052945b8633d75d7dbc6d65b467642f17",
+      "sha256": "b6192328f56525737a542217ecac5fefd79b21cab6feb0c1bff1b47acaa49135",
+      "bytes": 617736
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2039.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2039.pdf",
+      "gitBlob": "fc3b339653c20500cc7020f926efeed8b01bf667",
+      "sha256": "4443b869816eabea3cbfa83b0ec0a6faf669f149d40f0245f5fc188b4e335aed",
+      "bytes": 811653
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2041.pdf",
+      "gitBlob": "e7cc2a48441c86c46bcba5927826f935b6178718",
+      "sha256": "fe3b6c4f004d6950a59b22bb7ba9390499c9460b4c01a8a6f6aae2aacc43c56d",
+      "bytes": 379969
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-2049.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-2049.pdf",
+      "gitBlob": "0056bbecd8335338ef63c46f0e863b99f76ef4d8",
+      "sha256": "b298ff0ce69208bda367779c4bf9693004eb8e6200fbad5d9e6d596ed9686b83",
+      "bytes": 381697
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3011.pdf",
+      "gitBlob": "d90fde41d00fa9bc4eb8987821ce35d38524416e",
+      "sha256": "f94e06ebd608515be08ad4923c896d8e5dda3d9e9a433dda7990fcabad2c9da9",
+      "bytes": 47509652
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3012.pdf",
+      "gitBlob": "66bc6a37efab55d9ba9712aaaa54934fda06148e",
+      "sha256": "cc2a7aa5cdf285e374e4deed74dfb13c1305e2e779e1e908e8174a7d189a35ea",
+      "bytes": 47509065
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3013.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3013.pdf",
+      "gitBlob": "592ea0801b4d5b7358edff61750ca5786b202c6b",
+      "sha256": "a034f3143af8bc5051dd802d0930a0e8b4f46983f57baddd4ca71ae8d5b7df8f",
+      "bytes": 47507958
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3014.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3014.pdf",
+      "gitBlob": "40240dbf2715b6e8093cf8cfec86c1ebea7d3d5f",
+      "sha256": "338d28259f07b22e7dd3500b76e1fafb12532956e909c9dfe41a9be81c19e239",
+      "bytes": 47509211
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3021.pdf",
+      "gitBlob": "8c13deb6521d775bd9afb2add2768adb5cc59919",
+      "sha256": "a5c8765193ff1693282b8eab2ba292134c7016c93c397e9884221eb7bd7a2f21",
+      "bytes": 208751
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3022.pdf",
+      "gitBlob": "0301815bd2737b110840958ebd6965c82c532d40",
+      "sha256": "17d085a42e842aff2ef1164ea87a9299f5e110e82ac92a7db3f1de40fc2d4a00",
+      "bytes": 72362
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3023.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3023.pdf",
+      "gitBlob": "62b1573d08086fa597929e735fa5daa68aac1f7a",
+      "sha256": "71c76399e4338d6fea03e4dc5ac82cb574e73476b5f05b0cb10025dba6fcadb9",
+      "bytes": 286264
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3024.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3024.pdf",
+      "gitBlob": "3794ff0c1797faab71ea2ef07fcb44a0c4f026c9",
+      "sha256": "e01dcef371796f2af7449d9feca5c1dd5a20f016dc619ef8a2c31b44d24fb2e8",
+      "bytes": 306598
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3025.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3025.pdf",
+      "gitBlob": "99adb01135d965a71e980f7e146c42eee2db4820",
+      "sha256": "e710f9f20d94d9ed37c0554f6a10933c4f749613b9835bc49961ea2cf45ad33f",
+      "bytes": 128513
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3031.pdf",
+      "gitBlob": "fd4f8b4ae8a5f61fea11b99333f45c0a59e7d86e",
+      "sha256": "b7af895935e8559d9d85804fbd459f28637d493251d4d4e4d3669bf1c9881953",
+      "bytes": 4484670
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3032.pdf",
+      "gitBlob": "9d8d5c17541aa91a0d40cd21f838f4655f7b6641",
+      "sha256": "80db6aa14bd5e0a324581dbd6383beb2f11bb5b23e3287493b61549ae94790bd",
+      "bytes": 1289336
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3041.pdf",
+      "gitBlob": "cfdc07690c76a4bc0d84ac6d1fd520400a7e7f39",
+      "sha256": "8ed8adb751636f5163f3cde51592bb2cc22fe2b65718951c275a4f0c468e4929",
+      "bytes": 3586719
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3042.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3042.pdf",
+      "gitBlob": "09f217aa7ccda0102d24e9aa30fe5b07eb0f3313",
+      "sha256": "fab0b7eef84f739c2bd799c47aefef57f56a528ae88f94433ae5e4c91a8fa1d7",
+      "bytes": 354170
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3043.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3043.pdf",
+      "gitBlob": "43351bf5205ea1d9d7e02c21dbdc0b7f29d34e7d",
+      "sha256": "13c90054881a56a3d9d104f5fcb30d198a02a555d34c73f33e352e18522a9147",
+      "bytes": 440086
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3044.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3044.pdf",
+      "gitBlob": "ee9ce1738afef13a2bfcc3c0c6d85d47c48837ed",
+      "sha256": "c7644091e21a75dd19b6e985620789190472083623b9859098e2451992a269e3",
+      "bytes": 563688
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3045.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3045.pdf",
+      "gitBlob": "1d5e362af7d6d895ce2385dba6dd4c6ddd3e12ea",
+      "sha256": "28890c2d68e48a02d391f3af494d2ad9aec9f268025979b8c489ae1332b06e89",
+      "bytes": 490389
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3046.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3046.pdf",
+      "gitBlob": "4373dbf6e8e137702fa4fe89721579ab929aa35d",
+      "sha256": "ffa8445a915a7a2662a8d235cae7c26bc37083ce3eb2726eddd6f6930b17abc2",
+      "bytes": 454938
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3047.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3047.pdf",
+      "gitBlob": "1fcb3d921375f2608925832fe9f598f0b62b87be",
+      "sha256": "048c8816df870990280960cd320eb2d6f5a89636f1c8e4db780b0dd9ec22500e",
+      "bytes": 452163
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3048.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3048.pdf",
+      "gitBlob": "a1f032d648eebb068eec53d4ca99b1e0b407c5a1",
+      "sha256": "a4b901e132a5f703da3445fde2721f4d865cb1a28e4b7211a10a3597c3091324",
+      "bytes": 2285030
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3049.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3049.pdf",
+      "gitBlob": "b5f59fcacf8ccef8958fffbd36b58af448a77473",
+      "sha256": "a148b11e2d3471898c6bdd40d4018f63818c8b989f9967d2ad9467d1f49be928",
+      "bytes": 2448540
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-3132.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-3132.pdf",
+      "gitBlob": "703790376b90afe0fd73d3253fd4a5bb74e8e582",
+      "sha256": "fe2df8736d10803709913bb517aec926d86d0296ca05a4dff6529e9efbecbc90",
+      "bytes": 879223
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4001.pdf",
+      "gitBlob": "fc172d10726ef6e88c4c5c47eef6f11d2ba7b4fc",
+      "sha256": "0de578681638c60944136fc6f9efa030bb1ea9ca8d93464b62b8d6f700da649b",
+      "bytes": 369928
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4011.pdf",
+      "gitBlob": "25889e77986252680890bcc535d2896d017db364",
+      "sha256": "962ca396034a822a0d8b97f6971e06e40b0774e844a047fb55e306b2853debd7",
+      "bytes": 47509709
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4012.pdf",
+      "gitBlob": "27f6b3205c0b004b49ef37e8c6e3c7cb9de94257",
+      "sha256": "e199f1e3d0d049eb146485594a2a4215ab7d0722937a9c9353341303710344a3",
+      "bytes": 47509858
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4013.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4013.pdf",
+      "gitBlob": "ce8cd90a4065be5680a0548adcc4a98a6bf1c3ab",
+      "sha256": "11f171644f7c8d9aac267ec64b97408c742336f7c3cd192b5043c0dc88d8a2c9",
+      "bytes": 47509882
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4021.pdf",
+      "gitBlob": "564df8a88f4bc482ad1f39ed5fab03cdb4a2b26d",
+      "sha256": "8b97fed35609d0465a2a1dc7422a9717f464922464a60c072273c7a05baa446c",
+      "bytes": 242645
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4022.pdf",
+      "gitBlob": "0290e2fa64922c3a7a689dc6872686ac77e0f117",
+      "sha256": "e6c30dfd5b96428e8b88f726160da606158ba4baf31e7708799d4479be37cddc",
+      "bytes": 212978
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4023.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4023.pdf",
+      "gitBlob": "96639c50fdd6e857a47cedc2da8eb3d223357292",
+      "sha256": "dd6104477f35f73f6a81278cdf23b843de5d237221e3cb46cedcf40f6238b638",
+      "bytes": 241973
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4024.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4024.pdf",
+      "gitBlob": "aba3c5862e9e00f20e150c6fd1cf2dededb9b72b",
+      "sha256": "4c20e25e50243ec1c21797927466b833a3166ae2ba34c56630f330e1b9494b60",
+      "bytes": 254719
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4031.pdf",
+      "gitBlob": "9a811251ae5c566ad1b8ccef6c22f37719878cb1",
+      "sha256": "064ea8d997890527a0062c8488fa5cbacf985c16f485fe6f5214a6ed120aa20e",
+      "bytes": 342785
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4032.pdf",
+      "gitBlob": "4bc4a5b03c7fe68068f4f3496d5174664f1b02da",
+      "sha256": "73c1acd099513c16ad9d5f8b17729fc1c2c400d18b36e4e68d546d94bc36cfa3",
+      "bytes": 47507976
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4041.pdf",
+      "gitBlob": "af84ea4513e011a3f6af020928d0b74386e9c7db",
+      "sha256": "89118e0950d8d8df62cd126e66abf7fff81ccb544c3d213a0660521248557332",
+      "bytes": 367130
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4042.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4042.pdf",
+      "gitBlob": "664c40edec35d1c3acfedc147dc721d91b882b24",
+      "sha256": "3d16a94dc566f01db2fd7b4d49126993c3b55f8de70e87be15c34c0ed59180b1",
+      "bytes": 358027
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4043.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4043.pdf",
+      "gitBlob": "a6ec6d05af840a031bff72bc18c6a598f99ec39d",
+      "sha256": "eb5822587b7716c3bee9cac1d905d5faadfb63e8f413121662bee865bd7e541b",
+      "bytes": 238230
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4101.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4101.pdf",
+      "gitBlob": "250fcd652ce6e5c1f59dc711568cc7c1decddf6a",
+      "sha256": "3152204588bfa1178532898a04856af0719bb07b5fc8840595d8ef0a4ed8c59b",
+      "bytes": 324996
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4102.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4102.pdf",
+      "gitBlob": "69bda299f19b88d4b26c6e7225943b5d120f6761",
+      "sha256": "dd4ec7cd2c6c035ec2a324650fac43da48b70619d79cb441bc408e91c68f86a2",
+      "bytes": 182476
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-4103.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-4103.pdf",
+      "gitBlob": "feab89ca5bab8c0ef298f8369577721e72c15050",
+      "sha256": "f04d43a06acf5235db5f1d20f28b02abad5a3fbb9fb41a19296dbf711a925675",
+      "bytes": 193570
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5001.pdf",
+      "gitBlob": "b971ceaeadfefc50e16d986af4834bf56c2ed902",
+      "sha256": "b1284a0aac6a7cee0f647b798da2d9b75dee24db1b64a8c89e241aa942887851",
+      "bytes": 119405
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5011.pdf",
+      "gitBlob": "76e1b5d2a70c58feb767f42df9d8c556f0989d6a",
+      "sha256": "c681d048d86c66b147c653f2674b2f1a9101b50b313f153fb01a564e847ae6b9",
+      "bytes": 47509179
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5012.pdf",
+      "gitBlob": "b2eb53b04912a72b3381f820d67f9fe3af7a5163",
+      "sha256": "197c0cdd73fc8754efc7d9879307f10eea58d449881c72d9679ff6a149c8b35a",
+      "bytes": 47509887
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5013.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5013.pdf",
+      "gitBlob": "46c4310c8c0ca55acc931902f6d3dcc32015476f",
+      "sha256": "06fa8a4c001dcdbd3f2773ec853f74a0e69415a62ac1fd1841330cea79426f26",
+      "bytes": 47509352
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5014A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5014A.pdf",
+      "gitBlob": "aded153526e50995cfb85a2e2ff9dbce4f0f3984",
+      "sha256": "fd897f2ecb6019a0602326797c4017e107dc80175f9571428947390507157a7b",
+      "bytes": 47509727
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5014B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5014B.pdf",
+      "gitBlob": "8c4d7fa76ae790ad186cbea88b8cdfc9ac2d9399",
+      "sha256": "2843682a23d103ca120c343d05a71dd7325a003e4068a05a9962f9db928835d3",
+      "bytes": 47509631
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5014C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5014C.pdf",
+      "gitBlob": "84bec6054a7000e40647ef2dc44ae9a3524c2ed9",
+      "sha256": "d0919b85c0586858af20578a0799e94b26f62891d4b15688531ddec1fd2f8986",
+      "bytes": 47509717
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5021.pdf",
+      "gitBlob": "57de8a70fcb7cde488e499ea353d2c4a97f04f9b",
+      "sha256": "a24d8f5b274d19455165503ba6b80648d44469247df19c2a041ae134766f93d9",
+      "bytes": 113078
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5022.pdf",
+      "gitBlob": "4eae63dbdb7c57a3b6b0bb5c66a3bfac3001e32c",
+      "sha256": "b4d6f636691af1b4767bbe3b77474e40156ff7da7545066330c085ad90532bad",
+      "bytes": 117635
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5023A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5023A.pdf",
+      "gitBlob": "139363b8b12ef81fad288a9d4b5416b199b01744",
+      "sha256": "c5c79d6da0c7dc6594a83b821ce88c710c668e04166aeaf82c853e005540019e",
+      "bytes": 101330
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5023B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5023B.pdf",
+      "gitBlob": "9cbecea8d5c410376eaf65b500c3615e8120236c",
+      "sha256": "b63e24e96254a1915448ece26b410e7076efb1fe4cb76d2ee40268ca18d316f2",
+      "bytes": 102616
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5023C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5023C.pdf",
+      "gitBlob": "dfa14aee8831c42b95419c6a60110498ce4de8bd",
+      "sha256": "9f5c884623bffcdb15e3c67b5c208fc381890f537cd71cc444dd3bc750e82148",
+      "bytes": 103522
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5027.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5027.pdf",
+      "gitBlob": "61896f81412403da30b0d82840d7919a8dc511c2",
+      "sha256": "390757af3cfaf58d84f92f461f41289a6264b8f74fb0ced235e7368553cf985e",
+      "bytes": 103395
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5031.pdf",
+      "gitBlob": "5c0b474bb1246545db11387bf47201b985676ca8",
+      "sha256": "5c1bccd894d83ba9ae7cdb2e8bed3c244e3bd937475e84186b3d12f1e42988c9",
+      "bytes": 484475
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5032.pdf",
+      "gitBlob": "cbac660532eeccc87ab6434f1160bdf135c3f91a",
+      "sha256": "553c27fe599c696268243d901192497e4d27a066e751ec06752fdb756100c1bb",
+      "bytes": 195154
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5041.pdf",
+      "gitBlob": "86ce521e2df277151e1434dcd3a12686b84f5ad3",
+      "sha256": "83b8e8e4c424d713e1df1322158095ba847ac42aeba41d2d3292f7c1bacf6d96",
+      "bytes": 330954
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5042.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5042.pdf",
+      "gitBlob": "83f8570b53771cbd637b11d0c89bdba500d2624e",
+      "sha256": "c20bb0e05ded3cf45ad02947a5a6071ab4247e9c0cb92f2b5053502cac4c8c20",
+      "bytes": 362757
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5043.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5043.pdf",
+      "gitBlob": "2334f647272ea28139c1f62113aeed1a7334c940",
+      "sha256": "d0a3636f9f369c73e34efa78357a9402300457b65c03ea3f28ccdf3634833c47",
+      "bytes": 355634
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-5043A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-5043A.pdf",
+      "gitBlob": "20408291c76b73242c2d97f77d434e8e02c01cce",
+      "sha256": "d943dfdec9f51355d4d44df5a5e9eed87adb3cefa64e091af75abec80139d375",
+      "bytes": 355685
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6001.pdf",
+      "gitBlob": "5fc9f083c4965de526718f43bf493b82196219a3",
+      "sha256": "a75cc6563a91214158793264ad44f6d8bcfe95d5243bc6913d34881eadd3a4dd",
+      "bytes": 222985
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6002.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6002.pdf",
+      "gitBlob": "e439dc5cd74c2d77764bf6d79e9b044d533379aa",
+      "sha256": "3a72fc019652404f1615ed48d75ae7a20351af5fbdd843e371aadedba4d6d50b",
+      "bytes": 375187
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6007.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6007.pdf",
+      "gitBlob": "2b673d2801f5c9e516c88f97c5f90fea5ec8ddeb",
+      "sha256": "f032adac073f17769a8e1a7a3b97d7c9b89e68411a0e306b4bc255994844aed3",
+      "bytes": 220229
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6009.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6009.pdf",
+      "gitBlob": "b8a3d0640121c559e68bf3e4b0b6870f17947a41",
+      "sha256": "1d5468f3f895f7c750ef9df843a4d83a4c2badd4a1275abb8a09f56ebccbd141",
+      "bytes": 222417
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6011A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6011A.pdf",
+      "gitBlob": "9fade2f8126256cdd45d20116a1cb17c6d046a94",
+      "sha256": "4e7faf59bb8cdfdc42331f805338c51d8fcdaf260ee0bcb3490f66bbdbba10f6",
+      "bytes": 47510045
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6011B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6011B.pdf",
+      "gitBlob": "30f94912e76232529d9525ee2ad6a22e5e5fe0c6",
+      "sha256": "aa4f9c81924f0a3dc20c9209a1b27e495a7455fe040ffd36220a7c12510b8774",
+      "bytes": 47509917
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6011C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6011C.pdf",
+      "gitBlob": "44b093f9c02484b1c706efc56a198a193d23323d",
+      "sha256": "5b2043756af55a500848bb6075679ba8487c88ce13ded00053bbd582b6aae007",
+      "bytes": 47510003
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6012A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6012A.pdf",
+      "gitBlob": "1144cbc3a4e72dbdce37b1ef72b27e952a0c7d75",
+      "sha256": "64717947f7b6f6f6970ac494db11e8a259c0e6ed224ac2a7422782b6f5afeed0",
+      "bytes": 47509622
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6012B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6012B.pdf",
+      "gitBlob": "c33310f643d7e3546c510e755ec6e3d6c8357a74",
+      "sha256": "59f5f681824b0d5671c60613ed0a4a4019d7f67feb13ac902ffaee12ebf55792",
+      "bytes": 47509377
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6012C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6012C.pdf",
+      "gitBlob": "9f1c21f5059e55e0d432d9378e421cedbb3fd5d5",
+      "sha256": "44313028351350f23413fb9246501b8d744ec1932cf733961795b21e7079cb85",
+      "bytes": 47509679
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6012D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6012D.pdf",
+      "gitBlob": "9c2394383f1d4a8cb7c8c41b76e994b7ebd04f33",
+      "sha256": "21233454f26aba2d49feef512267fc3dbc1cbeadfe0baa23ac531e52058ae3fc",
+      "bytes": 47509407
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6031.pdf",
+      "gitBlob": "5219a5223ae86978b627bfe2130e3d54993c8c59",
+      "sha256": "d4f6f35d00b522ba3f4dccc177972c56a97871b958028c1c7631b8eb862f5b56",
+      "bytes": 47509398
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6031A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6031A.pdf",
+      "gitBlob": "79e2956aed62d426d708fdc39392e454bc9ec248",
+      "sha256": "f7345eabfb8b448857f3a93059f4d6a88d94cab4e132ab1f477fe84bfefd6106",
+      "bytes": 31072
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6031C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6031C.pdf",
+      "gitBlob": "eae229be841178b6cfe64207bd59ea8aa46b17c3",
+      "sha256": "e3f00c9b93c9819496243e16e8be46e40fcb840cfd78d1f017196e1e55f76862",
+      "bytes": 369786
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6031D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6031D.pdf",
+      "gitBlob": "6f4f04a22f7d1411ad1ceb293687c4f14cde6988",
+      "sha256": "68f68b33c62f28a40deb2227dc8907e28efc0582d7190abc18671a8b100f5f8f",
+      "bytes": 3911540
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6032.pdf",
+      "gitBlob": "39b325942104460d9bf7c942b53015d4815329af",
+      "sha256": "d3b112b6fefb5ed328ee5ae5df2741d94df5205764fd8febc5c342c82b732a4b",
+      "bytes": 47509212
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6032A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6032A.pdf",
+      "gitBlob": "befcd12f051d2bbd556ca50a3329ba34230566e1",
+      "sha256": "39a229473988f59f01170acee06d8851cb185150c51983262de87d6dfd904558",
+      "bytes": 3912216
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6032B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6032B.pdf",
+      "gitBlob": "54a9158aac389aedecb798f5975b698d1c0b2b49",
+      "sha256": "f8f2fd9d3069d84acdc87fea67ab141f8ffd946e6ff58439206b1115592727aa",
+      "bytes": 4485726
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6032C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6032C.pdf",
+      "gitBlob": "8877752df08a9f88d0c03ae7c20b74baeecc5985",
+      "sha256": "d9c396f67698480cb6a281cef2d739b80f2c42b08c0877a21a4b9b31cf0b1eae",
+      "bytes": 4090449
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6032D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6032D.pdf",
+      "gitBlob": "c83ce927c3c07c883159cf4b40cc5a696437dedd",
+      "sha256": "5dee5befd8efb8ba2f4b798866099c313d08df471543b0ef97afeb4a9e163bff",
+      "bytes": 4160629
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6041.pdf",
+      "gitBlob": "b1f35ce01c16a26aa55cedac7065617378d4370f",
+      "sha256": "ec17358ae194a227581acc943578af7371e9500061ce4128562301c6398b7c83",
+      "bytes": 321054
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6041A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6041A.pdf",
+      "gitBlob": "04c16d2c41bd62a2d470c2f81b53a07f02e19423",
+      "sha256": "021d97def95626bffae14dbb52564baeca062d1da0499b46a5ede6204cfbc8f6",
+      "bytes": 229372
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6041B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6041B.pdf",
+      "gitBlob": "5dd55df26635eb25be0decf0ab033789f00fa690",
+      "sha256": "dec35f999887c90833e5b93bb87a66c210749dbca704a50126e032faf54d5c2a",
+      "bytes": 318717
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6041C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6041C.pdf",
+      "gitBlob": "5f7ab9be6b7f52718aa37b124a25766049b3c33c",
+      "sha256": "11984290cd3d63635f181000a8992d4c42950bfd3344785daa033ef81a61e22a",
+      "bytes": 24492
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6042.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6042.pdf",
+      "gitBlob": "c5ddcb728a840310646af7700deb9340fe57ee11",
+      "sha256": "01de1a768f31541cb9c38dde2a195d1b0a46de121e698a03eb92ee9d36cd2e99",
+      "bytes": 47509216
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6042A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6042A.pdf",
+      "gitBlob": "a715f5bcda8c6f78ea7f7bef904c1f6f7339d404",
+      "sha256": "60ddd907d9d95dacf0d3b36418aadfb0bba61fdf85d9ad91f2ce2999a65513e4",
+      "bytes": 54662
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6042B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6042B.pdf",
+      "gitBlob": "f9963f586dedf06b0cde5af8288764434a80f7cc",
+      "sha256": "0e2bbe1032388f569becbdb91c95773d906ab180b72b356d40a760b8db7e1158",
+      "bytes": 324920
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6042C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6042C.pdf",
+      "gitBlob": "8d8b6066fac33f2dfa83adee0d085f30e9f8faad",
+      "sha256": "619ab423f5e51ffb6e113dea7fa7f2eb68d8baf9e3d05f34d0589fee4bb642ff",
+      "bytes": 287236
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6042D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6042D.pdf",
+      "gitBlob": "6a52a326190443a55df1f1c67adf879788d76ac3",
+      "sha256": "e0ea8b5c568a3cefdbf339d9fae76ecb6f09638a89107c867994fed07bf93ad8",
+      "bytes": 95407
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6043.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6043.pdf",
+      "gitBlob": "4f36830f494fc57bcf1912e156c832f50a660c79",
+      "sha256": "d1572790e7241a19d1695cdc15d9d1ac6b18e2351e01fbfba536ecb066e79248",
+      "bytes": 47509282
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6061A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6061A.pdf",
+      "gitBlob": "898f5161bd5b827d805699898a9afcdc259e8856",
+      "sha256": "05af0274a2ed2e9eb2b4f83b26a5886d56299dbaab6f2f4af6ffc63ff65c31ed",
+      "bytes": 224173
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6061B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6061B.pdf",
+      "gitBlob": "0ef685997d0e83309f4e20ef280e114ee3df6cda",
+      "sha256": "caf26080c0101ec979dce4195a828d4991f073307042265f5f69d7f4ac70abf1",
+      "bytes": 226395
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6061C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6061C.pdf",
+      "gitBlob": "81ca3e62e987611f06e896ffb29e4363da6254ce",
+      "sha256": "587823d69bfb066362144c0e479e839a1dd3514df5efd52958a85199df096b00",
+      "bytes": 221955
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6062A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6062A.pdf",
+      "gitBlob": "83dc4498a0fdfdc6fd338a3c641e2c33f12af3f0",
+      "sha256": "22ead1c0a70bdcecbef8a60d69ef704e5cad1c0ba744af7e58b56721ec950717",
+      "bytes": 226624
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6062B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6062B.pdf",
+      "gitBlob": "29649056ceaf33fa198216ef8c052c64ba629f66",
+      "sha256": "a575af631c4b9a0bd6947522c4104b24bb8249204cadce34998664e5625ac786",
+      "bytes": 224728
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6067.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6067.pdf",
+      "gitBlob": "8cdf1f83077d3bbac3fbd3873a4c65d9d7c638ef",
+      "sha256": "d77fe25a428b2d48ffeb10ae71b9df78a0ff49afb4fae3f688f43c4e31fc96be",
+      "bytes": 223433
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6068.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6068.pdf",
+      "gitBlob": "6ed86640d79400767f52377be2d9822416a194f2",
+      "sha256": "55648521052da6617863e8691b15156dc3179889d2d8cdb6771945d3c36b53c4",
+      "bytes": 225676
+    },
+    {
+      "sourcePath": "notes/downloadable-notes-6069.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/notes/downloadable-notes-6069.pdf",
+      "gitBlob": "8820f8b5d449a9b7b1aaef16e5f259b886cafdfa",
+      "sha256": "d88bb8901ec36f68aa94bd94f486ad5f7d52c96b261b78f3d396970764805303",
+      "bytes": 225799
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1001.pdf",
+      "gitBlob": "93e16c1ec3e96675a5d813e6938ce743bcb94ae7",
+      "sha256": "6e3cec484bf3b6b0a4e57b788bb7dfa557a8ebdfced18e565b12981000b3ad4c",
+      "bytes": 855413
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1002.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1002.pdf",
+      "gitBlob": "b1831468c72f33f2d4bbc48c7f6bad0c2a97414f",
+      "sha256": "197a784e651346e24c6e16c30fa971abd87a93547632c1d10701f0c3ddbcbb03",
+      "bytes": 3303180
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1003.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1003.pdf",
+      "gitBlob": "48b704cbfedb6da5888ae82976d13e22e9666f15",
+      "sha256": "2c113af51d90b0726f642b1c1345b3c4b0c86efffb746acce4c2d3071510fa25",
+      "bytes": 971538
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1004.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1004.pdf",
+      "gitBlob": "49e247bcb7f4ee40471ece355d5e7a52dc70cb31",
+      "sha256": "2c06033a20246b6a3df1094af78bc01bbe67c5d0111a9bb57e791d84d1ac0b87",
+      "bytes": 735040
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1008.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1008.pdf",
+      "gitBlob": "fbea82a224844e57886e1a32c06266caabbaf2bc",
+      "sha256": "17f2f2421ca4f9089c4f94d6d16a26658da995cb0c9beebe6c2647ab7e9090c7",
+      "bytes": 719175
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1009.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1009.pdf",
+      "gitBlob": "e85bab21011564c034830d414dec295fd8e0f609",
+      "sha256": "e5f02cbd12b1eb684d688b026e3b69a230f79ef3d48798bb3e5be655ac80fadb",
+      "bytes": 447965
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1011.pdf",
+      "gitBlob": "9184338f7c042728afd16d35e31afea881879f0b",
+      "sha256": "fc03b145b5f95973e25de8554495e56385c12a4f2a80e047129d8df6d11f0dad",
+      "bytes": 370983
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1021.pdf",
+      "gitBlob": "0d5b62fed5a5a3e2b77f369a87795770c0c99886",
+      "sha256": "a6a9fc0596ebcd7f14f0dc8a0382d9e939cd7925c6c4feec972084ce82b63660",
+      "bytes": 2104058
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1031.pdf",
+      "gitBlob": "dd93d03fb4eb84b7ef5801951094cb84670b5fa7",
+      "sha256": "1afae8718236dc1b5f54ed37fbacb7fd1573572a3ef26b677b678677caba429c",
+      "bytes": 278357
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1041.pdf",
+      "gitBlob": "2105013922c8d1af201e251415adb8a4f2976460",
+      "sha256": "5cda5acc1b9d8129e8875f917743eee4073505484fe60f9871c289cb2845987d",
+      "bytes": 4372241
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1051.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1051.pdf",
+      "gitBlob": "9588bde98cfe5e059efe202387e591543d6eff6b",
+      "sha256": "2477cc5f9867ddb99cca22a069fd7d8263454840d2413b91be08339c9e88f165",
+      "bytes": 240686
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1061.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1061.pdf",
+      "gitBlob": "a4f18901c2d69ee5417763645ab47a877183924c",
+      "sha256": "833b013e4ea0ddb58ab830e864796b3ad5247cce451ee135f71fe16976cbd618",
+      "bytes": 1298851
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1091.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1091.pdf",
+      "gitBlob": "2cecdd2e92cef0d7fa4a6cc8d9710e7c549a36e6",
+      "sha256": "405482842dbf7fa5c878d1920110c4884ec8b812b6343ebc5b6eecd3ac2648c0",
+      "bytes": 5109320
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1101.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1101.pdf",
+      "gitBlob": "7ddd4c1c8dd6b5df6f1d56fce14d1339debf316a",
+      "sha256": "271920719a0ed4d750f4cccc8f4b39c2d83c1ea42fa28da1f5141e1e6ff8f026",
+      "bytes": 628208
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1131.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1131.pdf",
+      "gitBlob": "f37310e753e7b988bd4cc3a4aeafd1d0e1daf350",
+      "sha256": "d2e6f3f1167dc96e8992d30ed7a595882cc5e2442c79b323dce20c7d76447d63",
+      "bytes": 1090456
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1141.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1141.pdf",
+      "gitBlob": "378563defe99e2007c88301809673d1fecb71a1f",
+      "sha256": "b2d8d234cf4a48274d6608eff38bf7832552c9bf8e8eb5cdc1513382494d5393",
+      "bytes": 848783
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1142.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1142.pdf",
+      "gitBlob": "0c3689ae3b63eb9a6c6b3702e425e34d626af898",
+      "sha256": "a02a5fb3bcebd08073554361b4d078f3e1172baf7bedf1afce076b66904ba403",
+      "bytes": 839148
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1143.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1143.pdf",
+      "gitBlob": "b838320c579416ddcc06136d3c8f0c990a1f9c80",
+      "sha256": "c8cb13cd9777507510ba99f1ba5ea70ab860ac988b15626034b1cf904bcb03ad",
+      "bytes": 1021048
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1144.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1144.pdf",
+      "gitBlob": "9f8bd5a36e700df9031629bd3a30933972ff94d9",
+      "sha256": "c048374c6daa8904e13e1b1d39da3412b30b55ed528dc8d9a7d731b0fb69feb1",
+      "bytes": 845517
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1149.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1149.pdf",
+      "gitBlob": "8aa266739f940d59c131822d840f322e9e3f86b9",
+      "sha256": "1f76083d9ec927a33bc482078e42014e1bee568d45ccbab88e851bbe5d9aa14d",
+      "bytes": 789763
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1181.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1181.pdf",
+      "gitBlob": "0e4343a5eb3840ff3bf0b8ec4cd251e6ff35948b",
+      "sha256": "b8350f738d6d773c87676fa97165402e7dc4a7de69605210a7d4d6cad082de5b",
+      "bytes": 406076
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1182.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1182.pdf",
+      "gitBlob": "1ab0220639bcbafbaf42afa1a7607de54cd3ca4b",
+      "sha256": "159c84e4770946d8e2ead1970d029535144d6a06bb447d7a51e13c7c97e61bb0",
+      "bytes": 1177949
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1251.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1251.pdf",
+      "gitBlob": "6c5bc3b269a71934ec528454eb15966c83be8383",
+      "sha256": "6b4ae5747177fdae8d3c69aba5712fe63f3c5033f0cc1ac12fdc0fef833f4bc9",
+      "bytes": 757108
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1252.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1252.pdf",
+      "gitBlob": "92c19452248c500d8afa1ec7fc7fe39c2cb03505",
+      "sha256": "6a94e155f68940c402c56eaf5db5d6829e8481f5c87f08cc3948bd871edae554",
+      "bytes": 951877
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1253.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1253.pdf",
+      "gitBlob": "04f1c8b63bdaaa6a61930d42431ad1e8c5a9c95a",
+      "sha256": "7420a2436797c7a57aa6caa3dd33c7e7f6473aa5989c95c92e1e0932ab77e07e",
+      "bytes": 807875
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1254.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1254.pdf",
+      "gitBlob": "265d1c13e3f7c0e99639736c227c5873736688aa",
+      "sha256": "b77ebd47036797f14bdb48efed72df0d530c603d8f047d1b57634b7c7b712623",
+      "bytes": 1120427
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1259.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1259.pdf",
+      "gitBlob": "8a67a89a42c1b7e12d6320ccec0d842bcc6469cc",
+      "sha256": "e444884d7a352f2f0720e68d84eff8d470001f82b41f5a68b149c997c31c100e",
+      "bytes": 2786320
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-1421.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-1421.pdf",
+      "gitBlob": "cfbc554b66636f755c4450fd4546210244857750",
+      "sha256": "deef733846350afe0f425708fcdd00b69365ed742286697c63c274b040e852fc",
+      "bytes": 948207
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2001A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2001A.pdf",
+      "gitBlob": "25c8505305214ea304e22b3c7fe545ca53a7dec2",
+      "sha256": "c977d9fa9d8ebbf6a53abad198d2c1d3b33cb645d5b7d86006d227311ba68b18",
+      "bytes": 834030
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2001B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2001B.pdf",
+      "gitBlob": "59fabbe274be9209fa119165c9c3aa12fabc6958",
+      "sha256": "b3af60be118111425479e742b8f32ba30108d77a5f8c15907a55d4373400d6b1",
+      "bytes": 831879
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2001C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2001C.pdf",
+      "gitBlob": "25a3a93f225d35242e81a695717ab27f7d8ad3e5",
+      "sha256": "4139eb66281a90a2b1cb9498629ec9ca577c39abdc1a0d511f3b50a692bc7e66",
+      "bytes": 13198931
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2001D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2001D.pdf",
+      "gitBlob": "932be1df5fcfa3e38a8ff346026cb0ad0f4d8d90",
+      "sha256": "d5fd0284abac5e9cb30f8c20b9d8b6a587818e572491c2aedb4bafcca726e553",
+      "bytes": 20031823
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2001E.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2001E.pdf",
+      "gitBlob": "1a80baf8cfae264d4b71a043ea01b4eb53fa8338",
+      "sha256": "c921b5350c0a91c10a52839392b58b1451414da05c196e71db0ea0fdf2f26864",
+      "bytes": 34279007
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2002A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2002A.pdf",
+      "gitBlob": "c5996ef9178017511becb534660bc44070f80ce9",
+      "sha256": "2a690b1d697a962fc92a9948e0161163755ece17ee2f9fa14d7dc385906f4dad",
+      "bytes": 27579372
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2002B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2002B.pdf",
+      "gitBlob": "06543dcbd5407137abe7c79280f6163677183309",
+      "sha256": "6cf020137d6cef61d21149b9d4e0ad64d1de2fc34a6ae2dc0f4eaae471c74b9f",
+      "bytes": 568778
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2003A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2003A.pdf",
+      "gitBlob": "f564f0da3e8be007c3f7cd9d5801ac57c7f3ad2f",
+      "sha256": "805f7c292ae6e76d3f33c0ce5fdf6e1182eda406c977685ccd4bac384530377c",
+      "bytes": 2927534
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2003B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2003B.pdf",
+      "gitBlob": "a3ef8276265680f27bdebc479c1a2ca7c9b7f921",
+      "sha256": "71fc761a0fd8e4f2ae22afa334dbc89dd1300684c9490325d34f4cda6eaab6ac",
+      "bytes": 18566530
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2005.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2005.pdf",
+      "gitBlob": "2b8ba5100b607a1d8d77f7a81f62fa62849129a3",
+      "sha256": "c8357abeca540b709176fca7344d6cddb40eb4e25339dca4b6b66f43a7e9a46d",
+      "bytes": 37377169
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2009A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2009A.pdf",
+      "gitBlob": "4ae4d1e5fa019c690828a6fa5a9496b2cccccaa7",
+      "sha256": "b91e25c3109b32b2e7d13f23dadb8bd997a3ed4813063fb4b8465431ed128b54",
+      "bytes": 34111696
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2009B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2009B.pdf",
+      "gitBlob": "c9dd400c3a9810aa238a84452c446dd12cb1e2f4",
+      "sha256": "9b5a505fa443bee7ab79883ece45db60d43434658049591f84cc5447aa1aa383",
+      "bytes": 26799992
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2011.pdf",
+      "gitBlob": "b7bb55de3c62ea7d8909aa620232ad1c4c6c1c02",
+      "sha256": "586e72bee97a6b03b0bb21140dcf49df4405fcc79e980202b4ed38e66ce2f557",
+      "bytes": 17747662
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2012.pdf",
+      "gitBlob": "8e4c6f83ed09b996f7c1de09e592a4596ba9f9c8",
+      "sha256": "d3cfea1822f882b821ca548d588ca4dc2fda13b2c767008d095784556e88e128",
+      "bytes": 14855922
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2021.pdf",
+      "gitBlob": "92df72b28086a00ec1280d16f917c44c2a65266a",
+      "sha256": "91c6fb570c694e88c3e8ad5a69e3ff421e6fb4ffe5a79e1b686b2b1f22b76000",
+      "bytes": 25309176
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2022.pdf",
+      "gitBlob": "d50008be61c122cc1f7d21d954578bd68b0f3d4b",
+      "sha256": "03e13908e8d2778a0dad750d8209bc3064bba29fa32502b56809bea821346565",
+      "bytes": 28518170
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2031.pdf",
+      "gitBlob": "39e3ac704e2cb38d0f70867955d9614aaaf95d83",
+      "sha256": "812ffe412f9872f7f2cdcd817a33284681ce1ab87991efa1d6538d58d1e7c0dc",
+      "bytes": 303866
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2032.pdf",
+      "gitBlob": "b10545d39460dc209cc34f494a558d5eaa8fe222",
+      "sha256": "be167b118e0cba1cbf421d3d18520f432f5609b68c63c04ceb017c278f30fd42",
+      "bytes": 301958
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2041.pdf",
+      "gitBlob": "37c84052490dcb7117054dc12679c3fd392fb443",
+      "sha256": "7490c060ecc06bab173e52455ceca9eebf5f1b68d0a8bbabe21b728692cfc32c",
+      "bytes": 885082
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2042.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2042.pdf",
+      "gitBlob": "351468ee20fa7880d6d22d6d7f095905b805a4cf",
+      "sha256": "ca1ac0c33226c048c06719322b1df58d5cca4d9dd484cb25e00f2e18dfb299ed",
+      "bytes": 25299863
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2048.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2048.pdf",
+      "gitBlob": "e0c73c04bb85f38fd3fffcf7e10a4de59c0ab635",
+      "sha256": "74b40d75bee7507dadcadd08d52286ab30b8b850adb3d7e31dbdf4bc450faadf",
+      "bytes": 25310305
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-2131.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-2131.pdf",
+      "gitBlob": "91dc8909f7f76b20557af056001f58a1a9519d85",
+      "sha256": "08b5aba18ccadc85ffcac49482cfe19d5639d0dee4e91cc4bf216cd7a621c4b6",
+      "bytes": 841615
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3001.pdf",
+      "gitBlob": "5910ee8fc115466ce751b6159cc989c6a7c97534",
+      "sha256": "a9004e44258f20dd0c503e4ece8c4651b9ea6a18c0e1f3cbf9de3f27b09ee305",
+      "bytes": 24563330
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3011.pdf",
+      "gitBlob": "07df7798d8742df62208e2fcfe64750d5e30c6ce",
+      "sha256": "abf994efe874a92fdaa26ece4d77bce9376216cf530ecfd129b9f1a769630d05",
+      "bytes": 25316333
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3012.pdf",
+      "gitBlob": "fd4f38865225aa71a19613548606d44537c359d3",
+      "sha256": "7e57130be27282ed84a2862c4ad5364c734e2588b6d81f1cfdf2e1499d020524",
+      "bytes": 24564387
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3021.pdf",
+      "gitBlob": "3a350e87df4fcd3efa3a1867e534173c59bf05d9",
+      "sha256": "9628ef42f53782760a205dcaa66dd7e7e3da560c5769e3c4f9bee55644e91583",
+      "bytes": 26061107
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3022.pdf",
+      "gitBlob": "b95ea17464e6deb57651074578c12b595bc9df31",
+      "sha256": "2dccd2c6e2d1635670b84fa023667f2ea1d22d10a0e5c72bfa99084aa6d8a2f4",
+      "bytes": 25316178
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3031.pdf",
+      "gitBlob": "700a389b0a0eb95ec18744f16915eb6cf52dee4a",
+      "sha256": "e3b4dcef2aa43b675428f3a2a8e51e107a780435ac463fe0bf81066438202600",
+      "bytes": 25310757
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3032.pdf",
+      "gitBlob": "55c921612fd4d4a10ebadbffe2a5d13ba25e7fb3",
+      "sha256": "9a479b38376c7a17d2fc91902938ce9769a8fe890f88a6e99808040b44264e6a",
+      "bytes": 24562126
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3041.pdf",
+      "gitBlob": "38ee1fb5fab081b183e382a1ff8291f1bf55d944",
+      "sha256": "b7aeded8d16ff96c994250e2e290aefd5fc5965a3096cef942aaca4f5a26ed5d",
+      "bytes": 25307717
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3042.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3042.pdf",
+      "gitBlob": "fe1be1100161b9e6d19f1552dc02e31ae7ba1e78",
+      "sha256": "a2587d2788d0f3d7902730c608edfc9fd642f9f4ac3c667c684aefbd9aa7a886",
+      "bytes": 24563758
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3051.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3051.pdf",
+      "gitBlob": "185e317e8829083c942a8676a0f1e9eb0b9222ce",
+      "sha256": "9c3c752f4608ade10cc16a5c8abeb29e16a12ce4196cbd1c9e1ff025889ffc78",
+      "bytes": 23817322
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-3061.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-3061.pdf",
+      "gitBlob": "7e2cd56be88ebadecc0ab51404ba655c8a0ccb88",
+      "sha256": "cc29e5c40f687155c642dbdd891db26fef1f53ffae91d38d9f3616daa82d5d2e",
+      "bytes": 25304499
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-4001.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-4001.pdf",
+      "gitBlob": "88ecbac93dec7045db4d4b7ac56c6714f8160d01",
+      "sha256": "8e48bada180899873d868fc437df026894603f8125954ff079da5b9adea9419e",
+      "bytes": 24566830
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-4011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-4011.pdf",
+      "gitBlob": "29c43b0c5d0d37cdf27190d9558b2d8d1401bb3f",
+      "sha256": "4e3c42ec149dbe10344e722bedd3fffd5411473751a4efe84923a063a49690d3",
+      "bytes": 25307897
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-4012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-4012.pdf",
+      "gitBlob": "bd8b7024086384504975b114da09fc3a8f37fdc3",
+      "sha256": "a45c5fb8d4324888eaa87fb9cff8e11d7d23dd0ed3684e9bc26028cda959886b",
+      "bytes": 24561726
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-4022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-4022.pdf",
+      "gitBlob": "af01cdf8e388347819a8f46fd627dde2a7840997",
+      "sha256": "ad3694bb2f06fc4bacaf161ae42ce7b8adf45c55bdaa48ba03e33c1ef2ec8767",
+      "bytes": 24565538
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-4023.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-4023.pdf",
+      "gitBlob": "59be8c9e7b429e690fb9ce551ec8506402caee82",
+      "sha256": "4f33f25d39612e157e5aae8e2a07e755386cfc7a623e4d91974ef7dcdbcd5625",
+      "bytes": 24565854
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-4031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-4031.pdf",
+      "gitBlob": "3d9bff12b2affd131b1acfbc8b86ee25ab558099",
+      "sha256": "0ffb6bc35d5fa9f4554cba3f0300aaaaaca220f3858d18fd22fa5da39d338ab1",
+      "bytes": 24563160
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-4041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-4041.pdf",
+      "gitBlob": "97816bee398128d877fa4d74462c1845e3ebbada",
+      "sha256": "2814e6c604a46d6ba0027ac71dc080f07f0a77b8e962312f715236bf96ca5b96",
+      "bytes": 25307320
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5011.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5011.pdf",
+      "gitBlob": "8f567cd6e386bd1fbe1fb3664903ef029a09f66f",
+      "sha256": "840caad643432d8cce22d84f4710e6bdd1d4e6a01700b0349180bfc132eb662d",
+      "bytes": 24566369
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5012.pdf",
+      "gitBlob": "6acb52e29cbd4e1b20b7f3fe5d522df347b51af7",
+      "sha256": "26a62a277fb9f8e5747b428b44b2aa827fbff37f34ba2a2f808a6aa1b4b99517",
+      "bytes": 24560477
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5013.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5013.pdf",
+      "gitBlob": "24a0b0fac8f6114d09111b91804d52fc3b64b344",
+      "sha256": "d1426fb30f286a4baa11d28c9bbc302a7c80c3cb05309b5114c178f06cfe395b",
+      "bytes": 24562767
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5014A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5014A.pdf",
+      "gitBlob": "d6b829b48c205b67b6fa5c1abbde24616e72b541",
+      "sha256": "35b630261b86f049c667c55b6e5b1130bb63de0127b93aba299f094d98b1f397",
+      "bytes": 23051740
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5014B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5014B.pdf",
+      "gitBlob": "c19622a32c232bdb1a92976f4f162c69d538ad41",
+      "sha256": "8bf574a30c127ff35439297c712251e08057180c61c6e3de76122f644c1d243a",
+      "bytes": 20821301
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5014C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5014C.pdf",
+      "gitBlob": "420ef3c116883d555ca57965b56fa2e1982e0fda",
+      "sha256": "b0f7eddc7446abbf8be51ba21002b7684ac344b2312ff0c32215e0b795cffb30",
+      "bytes": 21561839
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5014D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5014D.pdf",
+      "gitBlob": "3866609a6fa4509de9f1360be1b696371cd0491d",
+      "sha256": "11d993b67b2d9475b4ae882ffbd9727ffb192890602fd7a7c99f39fc01bc7a1b",
+      "bytes": 20819009
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5021.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5021.pdf",
+      "gitBlob": "bb9500f0d466f176ef95c6e18b92c6f3b7e57cdd",
+      "sha256": "739a1ee8f114ff2242e9ac9cdefe94d78dfebfaac540ce66d493c5803ef82ec7",
+      "bytes": 25305392
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5022.pdf",
+      "gitBlob": "83a1db03b203372116a40332acbfbb37546c71b7",
+      "sha256": "59b6de0d92eedd395f27168a64d91a6bd1ff4ea77ccfd3470e8d0d1a5347e9f0",
+      "bytes": 23815553
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5024A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5024A.pdf",
+      "gitBlob": "13202a5f0a7aecb4df0f16f5b7815a83a18dcc3b",
+      "sha256": "4bb32b3653e3e7c8bb79e586474cb1d0c839c4c73611582fb45e7110a4b14681",
+      "bytes": 20068017
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5024B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5024B.pdf",
+      "gitBlob": "bab5fb4074694a30d1ad4d34a457e7898bb1dfcf",
+      "sha256": "46de92e8e912e5b961801a49ac22dda6fa1449d7d15981767caa92bc572572a7",
+      "bytes": 20071399
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5024C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5024C.pdf",
+      "gitBlob": "7aa80d344d0ae92eb6fc48db7872b1d97b2a91df",
+      "sha256": "0bae2e97f65c78105911e70987419b24b7725e2a20d34dceb5a602b1f6f33505",
+      "bytes": 21567310
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5024D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5024D.pdf",
+      "gitBlob": "ecb18dd01122d85f75734fc8eb82be082a37d4c3",
+      "sha256": "6cce56cb8d85232898dc2c5716a1dbc11af083e8c14a9769b5616a6d647a7cf9",
+      "bytes": 21566815
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5031.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5031.pdf",
+      "gitBlob": "d91a1d6888dd43335baad72bf46b7143a0cc0f5c",
+      "sha256": "45fe87f1e8591eeb557c1e983e594943b3ced19a18cbff3dac0d3be79b56d0e7",
+      "bytes": 20818739
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5032.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5032.pdf",
+      "gitBlob": "1197ba76cf42ebf895f0483e3ab1a99c2b7aa3c7",
+      "sha256": "7564e5f1ef3526eb215f7fefb26be9dc0d39ce9571a19468901b444a2df9db89",
+      "bytes": 21566529
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5033A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5033A.pdf",
+      "gitBlob": "9fd48884b29beb621f0b912422c3a451aea8179f",
+      "sha256": "d2bc7b11e89c347cfb394ce62b4e347a04fa7b721abe60ca32aad5ec62355faa",
+      "bytes": 21562548
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5033B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5033B.pdf",
+      "gitBlob": "0d8d825e6d475da7ddf02516adc79a83b3ff5a87",
+      "sha256": "fd4dfa63b0d721bd6d27a46893e9434dcfc3b1e1f539419bb78e72e7c67070a0",
+      "bytes": 21559057
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5033C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5033C.pdf",
+      "gitBlob": "a7d46c600d531bcf05f7510e36a8e323317d9ea3",
+      "sha256": "22858c8212fbff931e21175a631a6e6087c43ec7bd829a4a4fb0c0abf151cd30",
+      "bytes": 21564047
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5033D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5033D.pdf",
+      "gitBlob": "17b152717fe212447b0caf08264579e242201752",
+      "sha256": "d3107063ae20348a2b8b0ac61830cd39ba59246f9cd6cc3b205eb1cc77cc6681",
+      "bytes": 21562836
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5041.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5041.pdf",
+      "gitBlob": "465de71e41d0b4920675abe2e3f7cb3bd0eba50d",
+      "sha256": "baca7c48a4988b44d9476bb4ab81cc8f3cf4ca479cf85e5c405a6f60e63416ed",
+      "bytes": 21560741
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5042.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5042.pdf",
+      "gitBlob": "1e75b0ba05b13819326b372e8c2afbead753cfc6",
+      "sha256": "285b6fa8b8e1e07414196cfb11bf2fb9b87f0a7a7e5bf2948b43e7e94f010792",
+      "bytes": 21562059
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5043A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5043A.pdf",
+      "gitBlob": "8c71fc23f0730cde426f2acc0faabf8e2eaa7e70",
+      "sha256": "21b7eaa2c2680f376f1364334a673037b40ca607c308fb5be310ddf5d547b9c5",
+      "bytes": 20820806
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5043B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5043B.pdf",
+      "gitBlob": "43fecab2ea2746d93f98b5c78932d4528f16a717",
+      "sha256": "df7014ba58cb5c1b0ec9113930d63af5eaf592720da68264b77e112dda57baff",
+      "bytes": 20821986
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5043C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5043C.pdf",
+      "gitBlob": "84ba522ed9121bc8a6ee4c487d1ede8f251fa7f3",
+      "sha256": "98e0cc97f1d1d560b4dea46e0cccc6a2cad108fe5537bc191e98d493a2b269b7",
+      "bytes": 21563969
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5043D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5043D.pdf",
+      "gitBlob": "d8c1107ffaeb7109ea4276cc9d4aef3b27c75b6f",
+      "sha256": "cd695dd8db96dd46a33c56cdbc5ed29e588ce04ea9d8fbc1d1b032952771ebed",
+      "bytes": 20819663
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-5051.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-5051.pdf",
+      "gitBlob": "5d026f688e870ab22a5d30a1c28d5b687093bb2b",
+      "sha256": "a7750196c198052edb2a4888a8a4883eb45d1328bc31add44bd37c307a8a614b",
+      "bytes": 21562407
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6011T.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6011T.pdf",
+      "gitBlob": "e3de253191c481b9e06ad4a86dad00c3bc1adccc",
+      "sha256": "e170b44efbed054da173c96986bc33674a443cd9a95db5af3d70b77e8d6ba093",
+      "bytes": 20819445
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6012.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6012.pdf",
+      "gitBlob": "070fabda8683d22d3b47fb42be3d1ede33e52f9a",
+      "sha256": "20ef00748c0983d84fc639639a16bc25a790289418df01dc8369ecfe56e7207a",
+      "bytes": 21559116
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6013A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6013A.pdf",
+      "gitBlob": "c0e15936c2a8a1752980a0f925a4a6ade905e183",
+      "sha256": "dc991482d0615e7461b114feb53f5b075e4390d767132940e49e072b8c2a751c",
+      "bytes": 20822093
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6013B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6013B.pdf",
+      "gitBlob": "ee13b1dacddbfad9c04c9b65853b2f790de822e2",
+      "sha256": "0de2e552805bb9ab07f6a5a64a37a002bd6e7e080bec252670d327cf04c82601",
+      "bytes": 20822629
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6013C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6013C.pdf",
+      "gitBlob": "a08344c56921d086b3b416a0f838c6d910faa9d9",
+      "sha256": "0d4fb63189bf0e7c3f37661e2678242cbf231730f6f1e25c78329e1394e04954",
+      "bytes": 20822838
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6013D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6013D.pdf",
+      "gitBlob": "7596aa8b7605c23c8659b3750b3bb59b844291e7",
+      "sha256": "cb9a71c18b67bc040693d45c3e13102d48b7ede86fb4b2cef642e60f72d99f67",
+      "bytes": 21562009
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6014A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6014A.pdf",
+      "gitBlob": "794c874487d51e0c5bbda612c92c723017796650",
+      "sha256": "7fd01574195c0747b85b0455482c647f9035faafc62cdef56043c3decc58e08d",
+      "bytes": 20818244
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6014B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6014B.pdf",
+      "gitBlob": "65be1ce8e99fb86d136fa29a5f4f340dd513cfc8",
+      "sha256": "a280348d12262c366965f26fba92d3a3abe839470801d497f7def032eacc3a2b",
+      "bytes": 21562072
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6014C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6014C.pdf",
+      "gitBlob": "8ecd9fe3f5ead8e5ffb735bd82d83efd3c3e8b17",
+      "sha256": "6a3265e49130e10e516a74e9c8c5e0b10d6df0909e79e82b9b876569bc7d2d17",
+      "bytes": 21573400
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6014D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6014D.pdf",
+      "gitBlob": "f57ed9cd1d453b6cf065de5c87d59d8ce6a1f461",
+      "sha256": "d033ea2f3a4dc090d37bbc01628852bcfc5de22875dbe41c876bbfee79a69cd2",
+      "bytes": 21568851
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6021T.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6021T.pdf",
+      "gitBlob": "02b27168665155fde26fb867dbb6712cf5d26755",
+      "sha256": "642e3d8fea09f24296c3cf8f266509017069f2f57b7d790f04d308235781e67f",
+      "bytes": 21567956
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6022.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6022.pdf",
+      "gitBlob": "805322f609f00836c7b1a5e9c14fd82863242369",
+      "sha256": "1d4a9ad9b190e55d89c99da41372a1a24254ec93f6fa0fa74b62cba96c630400",
+      "bytes": 21565660
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6023A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6023A.pdf",
+      "gitBlob": "4575908eda4569421a8335c79a7ae23b2adf2897",
+      "sha256": "461ab0668423f403d3f2a9d4670e1e8ae0e36ee1d78942096eef09bb7dce1704",
+      "bytes": 21570585
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6023B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6023B.pdf",
+      "gitBlob": "7f82b3c2ad3cde30bff2fd79033aef679d941383",
+      "sha256": "89586839086c137083d37a229d6efe0ccb8906d536ed806325061494408e16e2",
+      "bytes": 21570148
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6023C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6023C.pdf",
+      "gitBlob": "4418972d11a5a064e4d16c0482973508bf550624",
+      "sha256": "ab0581de4fd72d8ac71e0f1d3c70b3044753af6fa91b354a5b45cb224f51ad49",
+      "bytes": 21566206
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6023D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6023D.pdf",
+      "gitBlob": "92558da73bd14196a2fdbde9b3762783c32a070d",
+      "sha256": "22fcddb7c65e681ffe92727b3f2db2c006491ecea7b8b975df254be84d9afd0a",
+      "bytes": 21567942
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6024A.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6024A.pdf",
+      "gitBlob": "6eec0b626abcd083334312dac14e6817bb759504",
+      "sha256": "f9f9cdd0f13b25020d6634b656cd383f09dfc8fec3cce9028a1da9f07a8898fe",
+      "bytes": 21570425
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6024B.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6024B.pdf",
+      "gitBlob": "3faf89549348265a0d1fdea723e261fada79c150",
+      "sha256": "3e741476610ba1e81a6f635025859b233c5d55f0e1eae8abb29a02b5fff1b59f",
+      "bytes": 21563460
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6024C.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6024C.pdf",
+      "gitBlob": "ee043d1fdf56cd509ee84d3e4d56d0fbfc0cced1",
+      "sha256": "04dcdac592dc526c9860cc21da08e2fb8156b6e961993f902474a6a7346ef680",
+      "bytes": 20815107
+    },
+    {
+      "sourcePath": "revision-2026-content/notes/downloadable-notes-6024D.pdf",
+      "archivePath": "legacy/diploma-notes/2cba10718deaf179717ee52b1247df2b4146bbe3/revision-2026-content/notes/downloadable-notes-6024D.pdf",
+      "gitBlob": "42ff62fbe0eef677978e263b5be31a5f12b07d4d",
+      "sha256": "1ad9e6d804b838ae8748017e8ec441f98a2416126a0ee80231f7c355e85d5996",
+      "bytes": 21562373
+    }
+  ],
+  "archiveRepository": "nandurpm/poly-pmna-pdf-files",
+  "archiveCommit": "87f874824608bbe4687e4c53a2fb57e83f846aa7"
+}
