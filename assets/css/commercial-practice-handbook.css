@@ -1,0 +1,143 @@
+:root{
+  --ink:#10233e; --muted:#55697f; --paper:#fff; --soft:#f4f8fc; --soft2:#eaf4ff;
+  --line:#d5e1ed; --navy:#071f3f; --blue:#0b5ed7; --cyan:#0891b2; --teal:#0f766e;
+  --green:#15803d; --amber:#b45309; --red:#b42318; --violet:#6d28d9;
+  --shadow:0 12px 34px rgba(15,43,75,.10); --radius:18px;
+  --mal:"Noto Sans Malayalam","Nirmala UI","Manjari",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Inter",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--soft);font-size:16px;line-height:1.6}
+.lesson-shell{max-width:1080px;margin:0 auto;padding:0 18px 60px}
+.reading-progress{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--cyan));width:0;z-index:999;transition:width .1s linear}
+.cover{background:linear-gradient(135deg,var(--navy),var(--blue) 70%);color:#fff;border-radius:0 0 28px 28px;padding:48px 28px 34px;margin-bottom:26px}
+.eyebrow{text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;color:#bcd6ff;font-weight:700}
+.cover h1{font-size:2rem;margin:.4rem 0 .6rem;line-height:1.2}
+.cover .subtitle{color:#dce9ff;max-width:720px;font-size:1.02rem}
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.badge{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);padding:5px 12px;border-radius:999px;font-size:.82rem}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
+.btn{border:none;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer;font-size:.92rem;text-decoration:none;display:inline-block}
+.btn.primary{background:#fff;color:var(--navy)}
+.btn.light{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4)}
+.btn.ghost{background:transparent;color:var(--blue);border:1px solid var(--line)}
+.cover-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:16px 18px;margin-top:14px}
+.cover-card dl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0}
+.cover-card dt{font-size:.72rem;color:#bcd6ff;text-transform:uppercase}
+.cover-card dd{margin:2px 0 0;font-weight:700;font-size:.95rem}
+.jump-menu{display:flex;flex-wrap:wrap;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:24px;position:sticky;top:8px;z-index:50;box-shadow:var(--shadow)}
+.jump-menu a{font-size:.82rem;color:var(--blue);text-decoration:none;background:var(--soft2);padding:6px 10px;border-radius:8px;font-weight:600}
+.jump-menu a:hover{background:var(--blue);color:#fff}
+.section{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.kicker{text-transform:uppercase;font-size:.75rem;letter-spacing:.08em;color:var(--blue);font-weight:800}
+h2{font-size:1.5rem;margin:.3rem 0 .8rem}
+h3{font-size:1.15rem;margin:1.2rem 0 .5rem;color:var(--navy)}
+.lead{color:var(--muted);max-width:760px}
+.grid{display:grid;gap:16px}
+.grid.two{grid-template-columns:repeat(2,1fr)}
+.grid.three{grid-template-columns:repeat(3,1fr)}
+.grid.four{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h4{margin:0 0 6px;font-size:.98rem;color:var(--navy)}
+.stat{text-align:center;background:var(--soft2);border-radius:14px;padding:14px}
+.stat .n{font-size:1.5rem;font-weight:800;color:var(--navy)}
+.stat .l{font-size:.78rem;color:var(--muted);text-transform:uppercase}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--soft2);font-weight:700}
+.table-wrap{overflow-x:auto;margin:10px 0}
+caption{caption-side:top;text-align:left;font-weight:700;color:var(--navy);padding-bottom:6px}
+.module{border-radius:var(--radius);border:1px solid var(--line);background:var(--paper);padding:0;margin-bottom:26px;box-shadow:var(--shadow);border-top:6px solid var(--module-color,var(--blue));overflow:hidden}
+.module-head{padding:24px 28px 10px}
+.module-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.module-meta .chip{background:var(--soft2);border-radius:999px;padding:4px 10px;font-size:.78rem;font-weight:700;color:var(--navy)}
+.module .grid.three, .module .topic{padding-left:28px;padding-right:28px}
+.module .intro-grid{padding:0 28px 20px}
+details.topic{border:1px solid var(--line);border-radius:12px;margin:0 28px 14px;background:var(--soft)}
+details.topic>summary{cursor:pointer;padding:14px 18px;font-weight:700;color:var(--navy);list-style:none}
+details.topic>summary::-webkit-details-marker{display:none}
+details.topic>summary::before{content:"▸ ";color:var(--blue)}
+details.topic[open]>summary::before{content:"▾ "}
+.topic-body{padding:0 18px 18px}
+.ml-note{background:#fff7e6;border:1px solid #f3d9a4;border-radius:10px;padding:12px 14px;margin:12px 0;font-family:var(--mal);font-size:.95rem}
+.tip,.warning,.safety,.source-note{border-radius:10px;padding:12px 14px;margin:12px 0;border:1px solid var(--line)}
+.tip{background:#eaf7ee;border-color:#bfe6c9}
+.warning{background:#fff3e0;border-color:#f3d19a}
+.safety{background:#fde8e8;border-color:#f3b7b7}
+.source-note{background:#eef3fb;border-color:#c9d9ef}
+.worked{background:#f1f8ff;border:1px dashed var(--blue);border-radius:10px;padding:12px 14px;margin:10px 0;font-size:.93rem}
+.formula{background:var(--soft2);border-radius:10px;padding:12px;font-weight:700;text-align:center;margin:8px 0}
+.formula-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.formula-card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px}
+.diagram{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0;text-align:center}
+.diagram figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+.diagram-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.svg-wire{stroke:#334155;stroke-width:2;fill:none}
+.svg-component{fill:#eaf4ff;stroke:#0b5ed7;stroke-width:1.6}
+.svg-accent{fill:#0891b2}
+.svg-label{font-size:11px;fill:#10233e;font-family:inherit}
+.svg-small{font-size:9px;fill:#55697f}
+.qa{border:1px solid var(--line);border-radius:10px;margin:10px 0;background:var(--soft)}
+.qa>summary{padding:12px 16px;font-weight:600;cursor:pointer;list-style:none}
+.qa>summary::-webkit-details-marker{display:none}
+.qa>summary::before{content:"Q. "}
+.qa-body.answer{padding:0 16px 14px;color:var(--ink)}
+.roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:stretch}
+.roadmap .rcard{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;position:relative}
+.roadmap .rcard:not(:last-child)::after{content:"→";position:absolute;right:-18px;top:50%;transform:translateY(-50%);color:var(--blue);font-weight:900}
+.activity-card,.exam-card,.procedure-card{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+.calculator{background:#f1f8ff;border:1px solid var(--blue);border-radius:12px;padding:16px;margin:14px 0}
+.calc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;align-items:end}
+.calculator label{display:block;font-size:.82rem;font-weight:700;margin-bottom:4px}
+.calculator input,.calculator select{width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;font-size:.92rem}
+.calculator .result{margin-top:12px;font-weight:800;background:#fff;border-radius:8px;padding:10px;border:1px solid var(--line)}
+.search-bar input{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:1rem}
+.search-results a{display:block;padding:8px 0;border-bottom:1px solid var(--line);color:var(--blue);text-decoration:none}
+footer.note{text-align:center;color:var(--muted);font-size:.8rem;margin:30px 0}
+@media(max-width:900px){
+  .cover-card dl{grid-template-columns:repeat(2,1fr)}
+  .grid.four,.grid.three,.formula-grid{grid-template-columns:repeat(2,1fr)}
+  .roadmap{grid-template-columns:repeat(2,1fr)}
+  .roadmap .rcard::after{display:none}
+  .diagram-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:640px){
+  .grid,.grid.two,.grid.three,.grid.four,.formula-grid,.roadmap,.diagram-grid{grid-template-columns:1fr}
+  .cover h1{font-size:1.5rem}
+  .actions .btn{width:100%;text-align:center}
+  .cover-card dl{grid-template-columns:repeat(2,1fr)}
+}
+@media print{
+  .no-print,.actions,.jump-menu,.controls,.reading-progress,.search-bar,.search-results{display:none!important}
+  details{display:block!important}
+  details>summary{display:block!important}
+  .section,.module,.diagram,.table-wrap,.worked,.formula,.qa,.activity-card,.procedure-card{break-inside:avoid;box-shadow:none;border-radius:0}
+  body{background:#fff;font-size:10pt}
+  table{font-size:8.3pt}
+  .cover{page-break-after:always;border-radius:0;background:#fff!important;color:#000!important}
+  .cover *{color:#000!important}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Shared handbook components and narrow-screen layouts. */
+.grid > *, .roadmap > *, .cover-card dl > * {min-width:0}
+.stat .num{display:block;font-size:1.5rem;font-weight:800;color:var(--navy)}
+.stat .label{display:block;font-size:.78rem;color:var(--muted)}
+.topic-card,.roadmap .step{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:16px}
+.module-body{padding:0 24px 24px}
+.module-body .topic{margin-left:0;margin-right:0}
+.module-meta .badge{background:var(--soft2);color:var(--navy);border-color:var(--line)}
+.diagram svg{display:block;width:100%;height:auto;max-width:100%;margin:auto}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.calc-btn{background:var(--blue);color:white;border:0;border-radius:8px;padding:10px 16px;font:inherit;cursor:pointer}
+@media(max-width:640px){
+ .section,.cover{padding:20px 16px}
+ .module-head{padding:20px 16px 10px}
+ .module-body{padding:0 12px 16px}
+ .module .grid.three,.module .topic{padding-left:0;padding-right:0}
+ .module .intro-grid{padding:0 12px 16px}
+ details.topic{margin-left:12px;margin-right:12px}
+ .topic-body{padding:0 12px 16px}
+ .diagram{padding:8px;margin:12px 0}
+}
