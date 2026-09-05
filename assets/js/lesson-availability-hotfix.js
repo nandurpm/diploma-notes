@@ -1,11 +1,13 @@
 /* Purpose: Lesson availability hotfix - Descriptive comment added for clarity */
 (() => {
   "use strict";
+  if (window.__polyCanonicalPdfResolver) return;
+  window.__polyCanonicalPdfResolver = true;
 
   const cache = new Map();
   const checking = new WeakSet();
   const SITTTR_BASE = "https://sitttrkerala.ac.in/index.php";
-  const VALIDATION_VERSION = "20260812-revision-tag-normalization1";
+  const VALIDATION_VERSION = "20260905-canonical-pdf-manifests";
 
   const root = () => {
     const depth = location.pathname.replace(/\/[^/]*$/, "").split("/").filter(Boolean).length;
@@ -21,9 +23,24 @@
     return value;
   };
 
-  const notesUrlFor = (code, revision) => revision === "REV2026"
-    ? `${root()}revision-2026-content/notes/downloadable-notes-${encodeURIComponent(code)}.pdf`
-    : `${root()}notes/downloadable-notes-${encodeURIComponent(code)}.pdf`;
+  const PDF_BASE = "https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/main/";
+  const manifests = new Map();
+  async function notesUrlFor(code, revision) {
+    const year = revision.replace(/^REV/, "");
+    if (!["2021", "2026"].includes(year)) return "";
+    if (!manifests.has(year)) {
+      manifests.set(year, fetch(`${PDF_BASE}manifests/notes-${year}.json`, { cache: "no-store" })
+        .then(response => {
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          return response.json();
+        })
+        .then(data => new Map((data.subjects || [])
+          .filter(item => item.status === "published" && typeof item.pdfUrl === "string" && item.pdfUrl.startsWith(PDF_BASE))
+          .map(item => [norm(item.code), item.pdfUrl])))
+        .catch(() => new Map()));
+    }
+    return (await manifests.get(year)).get(code) || "";
+  }
 
   const lessonUrlFor = (code, revision, printMode = false) => {
     const href = revision === "REV2026"
@@ -197,7 +214,7 @@
     try {
       const qp = normalizeQuestionPaperLink(card, row, code, revision);
       const lessonHref = lessonUrlFor(code, revision);
-      const notesHref = notesUrlFor(code, revision);
+      const notesHref = await notesUrlFor(code, revision);
       const printHref = lessonUrlFor(code, revision, true);
       const declaredLesson = declaredAvailability(card, "lessonAvailable");
       const lessonAvailable = declaredLesson === null
@@ -207,8 +224,18 @@
 
       if (!lessonAvailable) {
         card.dataset.lessonAvailable = "false";
-        card.dataset.notesAvailable = "false";
+        card.dataset.notesAvailable = String(Boolean(notesHref));
         ensureUnavailable(row, qp);
+        if (notesHref) {
+          const download = document.createElement("a");
+          download.className = "action download";
+          download.href = notesHref;
+          download.textContent = "Download Notes";
+          download.target = "_blank";
+          download.rel = "noopener noreferrer";
+          row.querySelector(".notes-status")?.replaceWith(download);
+          card.dataset.notesHref = notesHref;
+        }
         return;
       }
 
@@ -216,10 +243,8 @@
       card.dataset.lessonHref = lessonHref;
       card.dataset.notesHref = notesHref;
 
-      const declaredNotes = declaredAvailability(card, "notesAvailable");
-      const notesAvailable = declaredNotes === null
-        ? await pdfExists(notesHref)
-        : declaredNotes;
+      // Published manifest entries supersede stale generated card flags.
+      const notesAvailable = Boolean(notesHref);
       if (!card.isConnected) return;
       ensureAvailable(row, qp, lessonHref, notesHref, printHref, notesAvailable);
       card.dataset.notesAvailable = String(notesAvailable);
@@ -255,3 +280,4 @@
     if (hasRelevantChange) run();
   }).observe(document.body, { childList: true, subtree: true });
 })();
+
