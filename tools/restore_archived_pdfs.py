@@ -39,7 +39,12 @@ def restore(root, target, should_copy, fetch=None):
         if not should_copy(relative):
             return 0
         url = 'https://raw.githubusercontent.com/nandurpm/poly-pmna-pdf-files/' + commit + '/' + urllib.parse.quote(record['archivePath'], safe='/')
-        if fetch:
+        cached = root / relative
+        if fetch is None and cached.is_file() and not cached.is_symlink():
+            content = cached.read_bytes()
+            if not verified(content, record):
+                raise ValueError(f'Cached PDF differs from archived original: {relative}')
+        elif fetch:
             content = fetch(url)
         else:
             with urllib.request.urlopen(url, timeout=120) as response:

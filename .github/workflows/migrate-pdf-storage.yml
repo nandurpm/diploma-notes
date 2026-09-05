@@ -1,11 +1,5 @@
 name: Preserve public URLs and move PDF source storage
 on:
-  push:
-    branches: [codex/pdf-storage-only-20260905]
-    paths:
-      - .github/workflows/migrate-pdf-storage.yml
-      - tools/move_pdfs_to_archive.py
-      - tools/restore_archived_pdfs.py
   workflow_dispatch:
 permissions:
   contents: write
