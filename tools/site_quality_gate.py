@@ -208,6 +208,9 @@ def write_failure_report(lines: list[str]) -> None:
 
 
 def main() -> int:
+    from restore_archived_pdfs import restore
+    # Materialize verified, untracked PDFs for existing source-level link checks.
+    restore(ROOT, ROOT, lambda relative: True)
     failures: list[str] = []
 
     # Run high-risk sub-validations before general page auditing
@@ -250,3 +253,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

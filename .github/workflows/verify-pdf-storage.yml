@@ -1,0 +1,40 @@
+name: Verify PDF archive storage and public build
+on:
+  pull_request:
+    paths:
+      - docs/pdf-storage-map.json
+      - tools/restore_archived_pdfs.py
+      - tools/build_public_site.py
+      - tools/site_quality_gate.py
+      - .github/workflows/verify-pdf-storage.yml
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require archive map and no tracked PDFs
+        run: |
+          test -f docs/pdf-storage-map.json
+          python - <<'PY'
+          import subprocess
+          paths = subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0')
+          assert not [p for p in paths if p.lower().endswith('.pdf')], 'PDFs must be stored in the archive repository'
+          PY
+      - name: Test restoration safeguards
+        run: python -m unittest discover -s tests -p test_restore_archived_pdfs.py -v
+      - name: Run normal production build and validation
+        run: |
+          python tools/write_build_info.py
+          python tools/generate_sitemap.py
+          python tools/site_quality_gate.py
+          python tools/build_public_site.py --target _site
+          python tools/verify_public_build_consistency.py _site --expected-commit "$GITHUB_SHA"

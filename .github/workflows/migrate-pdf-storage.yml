@@ -1,0 +1,82 @@
+name: Preserve public URLs and move PDF source storage
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pdf-storage-migration
+  cancel-in-progress: false
+jobs:
+  migrate:
+    if: github.ref == 'refs/heads/codex/pdf-storage-only-20260905'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: source
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Require existing archive write credential
+        env:
+          ARCHIVE_TOKEN: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
+        run: test -n "$ARCHIVE_TOKEN"
+      - uses: actions/checkout@v7
+        with:
+          repository: nandurpm/poly-pmna-pdf-files
+          ref: main
+          token: ${{ secrets.PDF_ARCHIVE_REPO_TOKEN }}
+          path: archive
+          fetch-depth: 1
+      - name: Configure migration commits
+        run: |
+          git -C source config user.name 'github-actions[bot]'
+          git -C source config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git -C archive config user.name 'github-actions[bot]'
+          git -C archive config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+      - name: Verify source and build baseline
+        working-directory: source
+        run: |
+          python tools/write_build_info.py
+          python tools/build_public_site.py --target /tmp/pdf-before --no-optimize
+      - name: Publish verified archive branch then stage source removal
+        run: python source/tools/move_pdfs_to_archive.py source archive codex/pdf-storage-only-20260905
+      - name: Build using immutable archive copies and compare every public byte
+        working-directory: source
+        run: |
+          python tools/build_public_site.py --target /tmp/pdf-after --no-optimize
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          def inventory(root):
+              result = {}
+              for p in root.rglob('*'):
+                  if p.is_file():
+                      with p.open('rb') as stream:
+                          result[p.relative_to(root).as_posix()] = hashlib.file_digest(stream, 'sha256').hexdigest()
+              return result
+          before = inventory(Path('/tmp/pdf-before'))
+          after = inventory(Path('/tmp/pdf-after'))
+          changed = sorted(p for p in before.keys() | after.keys() if before.get(p) != after.get(p))
+          report = {'publicFiles': len(before), 'changedPublicFiles': changed, 'identical': not changed}
+          Path('/tmp/pdf-migration-verification.json').write_text(json.dumps(report, indent=2))
+          assert not changed, f'Public bytes changed: {changed[:20]}'
+          print(f'All {len(before)} public files are byte-for-byte unchanged')
+          PY
+      - name: Commit source removal only after public comparison passes
+        working-directory: source
+        run: |
+          test -z "$(git ls-files '*.pdf' '*.PDF')"
+          git commit -m 'Store PDFs only in archive; retain identical public download URLs'
+          git push origin HEAD:refs/heads/codex/pdf-storage-only-20260905
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pdf-storage-migration-verification
+          path: |
+            /tmp/pdf-migration-verification.json
+            source/docs/pdf-storage-map.json
+          if-no-files-found: ignore

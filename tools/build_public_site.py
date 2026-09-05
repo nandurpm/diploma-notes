@@ -151,6 +151,8 @@ def build(target: Path, optimize: bool) -> None:
         else:
             shutil.copy2(source, destination)
         copied += 1
+    from restore_archived_pdfs import restore
+    copied += restore(ROOT, target, should_copy)
     for relative in EXPLICIT:
         source = ROOT / relative
         if source.is_file():
@@ -180,3 +182,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
