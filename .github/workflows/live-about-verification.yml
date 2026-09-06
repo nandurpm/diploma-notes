@@ -26,7 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: main
+          ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-python@v7
@@ -37,7 +37,7 @@ jobs:
         continue-on-error: true
         run: python tools/verify_live_about.py --expected-commit "$GITHUB_SHA" --attempts 10 --delay 6 --report /tmp/live-about-verification.md
       - name: Publish verification result
-        if: always()
+        if: ${{ !cancelled() && steps.verify.outcome != 'cancelled' }}
         shell: bash
         run: |
           status="failed"
@@ -46,5 +46,6 @@ jobs:
             echo
             echo "Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           } >> /tmp/live-about-verification.md
-          gh issue create --repo "$GITHUB_REPOSITORY" --title "[live About verification] ${status} ${GITHUB_SHA:0:7}" --body-file /tmp/live-about-verification.md
+          cat /tmp/live-about-verification.md >> "$GITHUB_STEP_SUMMARY"
+          python tools/report_diagnostic_issue.py --status "$status" --title "[live About verification] failed" --report /tmp/live-about-verification.md
           test "$status" = "passed"
