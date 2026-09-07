@@ -1,11 +1,6 @@
 name: GitHub Pages production diagnostic
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/github-pages-production-trigger.txt"
-      - ".github/workflows/github-pages-production-diagnostic.yml"
   workflow_dispatch:
 
 permissions:
@@ -15,17 +10,18 @@ permissions:
   issues: write
 
 concurrency:
-  group: github-pages-production-diagnostic
-  cancel-in-progress: true
+  group: github-pages-production
+  cancel-in-progress: false
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: main
+          ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-python@v7
@@ -59,12 +55,15 @@ jobs:
         uses: actions/deploy-pages@v5
 
   report:
-    if: always()
+    if: ${{ !cancelled() && needs.build.result != 'skipped' && needs.build.result != 'cancelled' && needs.deploy.result != 'cancelled' }}
     runs-on: ubuntu-latest
     needs: [build, deploy]
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - name: Publish Pages deployment result
         shell: bash
         run: |
@@ -82,5 +81,6 @@ jobs:
             echo
             echo "Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           } > /tmp/pages-result.md
-          gh issue create --repo "$GITHUB_REPOSITORY" --title "[GitHub Pages deployment] ${status} ${GITHUB_SHA:0:7}" --body-file /tmp/pages-result.md
+          cat /tmp/pages-result.md >> "$GITHUB_STEP_SUMMARY"
+          python tools/report_diagnostic_issue.py --status "$status" --title "[GitHub Pages deployment] failed" --report /tmp/pages-result.md
           test "$status" = "passed"

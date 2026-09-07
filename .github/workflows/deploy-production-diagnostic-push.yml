@@ -1,12 +1,6 @@
-name: Production deployment diagnostic push
+name: Cloudflare Pages mirror diagnostic
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/deploy-production-trigger.txt"
-      - "tools/deploy_production_diagnostic.py"
-      - ".github/workflows/deploy-production-diagnostic-push.yml"
   workflow_dispatch:
 
 permissions:
@@ -19,18 +13,20 @@ concurrency:
 
 jobs:
   diagnose:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_PAGES_TOKEN || secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      PRODUCTION_DOMAIN: polypmna.dpdns.org
+      PRODUCTION_DOMAIN: diploma-notes.pages.dev
+      CLOUDFLARE_PAGES_PROJECT: diploma-notes
       DEPLOY_DIAGNOSTIC_REPORT: /tmp/deploy-diagnostic.md
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: main
+          ref: ${{ github.sha }}
           fetch-depth: 0
           persist-credentials: false
       - uses: actions/setup-python@v7
@@ -46,12 +42,12 @@ jobs:
         run: python tools/deploy_production_diagnostic.py
 
       - name: Publish result as GitHub issue
-        if: always()
+        if: ${{ !cancelled() && steps.diagnostic.outcome != 'cancelled' }}
         shell: bash
         run: |
           status="failed"
           [ "${{ steps.diagnostic.outcome }}" = "success" ] && status="passed"
-          title="[production deployment] ${status} ${GITHUB_SHA:0:7}"
+          title="[Cloudflare Pages mirror] failed"
           if [ ! -f "$DEPLOY_DIAGNOSTIC_REPORT" ]; then
             printf '# Production deployment diagnostic: failed\n\nNo diagnostic report was produced.\n' > "$DEPLOY_DIAGNOSTIC_REPORT"
           fi
@@ -59,8 +55,9 @@ jobs:
             echo
             echo "Workflow: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
           } >> "$DEPLOY_DIAGNOSTIC_REPORT"
-          gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file "$DEPLOY_DIAGNOSTIC_REPORT"
+          cat "$DEPLOY_DIAGNOSTIC_REPORT" >> "$GITHUB_STEP_SUMMARY"
+          python tools/report_diagnostic_issue.py --status "$status" --title "$title" --report "$DEPLOY_DIAGNOSTIC_REPORT"
 
       - name: Fail job when deployment diagnostic failed
-        if: always()
+        if: ${{ !cancelled() && steps.diagnostic.outcome != 'cancelled' }}
         run: test "${{ steps.diagnostic.outcome }}" = "success"
