@@ -35,6 +35,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Test notification delivery windows
+        run: python -m unittest discover -s tests -p test_notification_window.py
+
       - name: Install FCM sender dependencies
         run: python -m pip install --disable-pip-version-check google-auth requests
 
@@ -93,44 +96,24 @@ jobs:
 
           mode = os.environ.get("NOTIFICATION_MODE", "Auto")
           schedule_cron = os.environ.get("EVENT_SCHEDULE", "")
-          # GitHub Actions scheduled workflows run in UTC and may be queued well
-          # after the requested minute. Never send a time-of-day greeting after
-          # the intended local morning window just because the cron value matches.
-          good_morning_hours = range(5, 11)  # 05:00–10:59 IST safety window
-          special_day_hours = range(8, 12)   # 08:00–11:59 IST safety window
+          # Queued runs have recently started around 11:50 and 13:33 IST.
+          # Accept a morning greeting until noon and an observance until 18:00.
+          # Keep these cutoffs on manual runs too, and bound FCM expiry to them.
+          sys.path.insert(0, os.getcwd())
+          from scripts.notification_window import resolve_mode
+          resolved_mode, ttl_seconds = resolve_mode(mode, schedule_cron, today_ist_dt)
 
-          print(f"Trigger Mode: {mode}")
-          print(f"Schedule Cron: {schedule_cron}")
+          def report_delivery(message, warning=False):
+              print(("::warning::" if warning else "") + message)
+              summary = os.environ.get("GITHUB_STEP_SUMMARY")
+              if summary:
+                  with open(summary, "a", encoding="utf-8") as output:
+                      output.write(message + "\n")
+
           print(f"Current IST Date & Time: {today_ist_dt}")
-          print(f"Date Key (YYYY-MM-DD): {date_key}")
-          print(f"MM-DD Key: {mm_dd_key}")
-
-          # Resolve "Auto" mode to a specific notification type. The local IST
-          # guard is intentional: GitHub can start a scheduled run hours late.
-          if mode == "Auto":
-              ist_hour = today_ist_dt.hour
-              if schedule_cron == "30 1 * * *":
-                  if ist_hour not in good_morning_hours:
-                      print(f"SKIP: Good Morning cron was delayed until {today_ist_dt:%H:%M} IST; no evening greeting will be sent.")
-                      sys.exit(0)
-                  resolved_mode = "Good Morning"
-              elif schedule_cron == "30 3 * * *":
-                  if ist_hour not in special_day_hours:
-                      print(f"SKIP: Special Day cron was delayed until {today_ist_dt:%H:%M} IST; no late notification will be sent.")
-                      sys.exit(0)
-                  resolved_mode = "Special Day"
-              else:
-                  # Manual Auto runs are also constrained to the same local windows.
-                  print(f"Auto mode fallback checking IST hour: {ist_hour}")
-                  if ist_hour in good_morning_hours:
-                      resolved_mode = "Good Morning"
-                  elif ist_hour in special_day_hours:
-                      resolved_mode = "Special Day"
-                  else:
-                      print(f"SKIP: Auto mode requested outside notification windows at {today_ist_dt:%H:%M} IST.")
-                      sys.exit(0)
-          else:
-              resolved_mode = mode
+          if ttl_seconds <= 0:
+              report_delivery(f"Not sent: {resolved_mode} job started outside its delivery window at {today_ist_dt:%H:%M} IST.", warning=True)
+              sys.exit(0)
 
           print(f"Resolved Mode: {resolved_mode}")
 
@@ -150,7 +133,7 @@ jobs:
           elif resolved_mode == "Special Day":
               matched_events = [item for item in special_day_list if item.get("date") == mm_dd_key]
               if not matched_events:
-                  print(f"No special event found for date: {mm_dd_key}. Skipping notification.")
+                  report_delivery(f"Not sent: no special event in the calendar for {mm_dd_key}.")
                   sys.exit(0)
               selected = matched_events[0]
               title = selected.get("title")
@@ -204,7 +187,7 @@ jobs:
               },
               "android": {
                   "priority": "high",
-                  "ttl": "86400s",
+                  "ttl": f"{ttl_seconds}s",
                   "collapse_key": collapse_key,
               },
           }
@@ -227,5 +210,5 @@ jobs:
               print(response.text)
               sys.exit(1)
 
-          print("SUCCESS: Notification accepted by FCM.")
+          report_delivery(f"Sent: {resolved_mode} for {date_key}; accepted by FCM (device delivery is not confirmed).")
           print(response.text)
